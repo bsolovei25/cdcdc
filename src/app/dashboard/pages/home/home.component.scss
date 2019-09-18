@@ -1,0 +1,21 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 20px;
+  box-sizing: border-box;
+
+  &__indicator-selector {
+    height: 100%;
+  }
+
+  &__period-selector {
+    margin-left: 0;
+    justify-self: flex-end;
+  }
+}
+
+
+
+
