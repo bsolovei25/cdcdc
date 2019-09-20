@@ -7,6 +7,7 @@ import { PeriodSelectorComponent } from './components/period-selector/period-sel
 import { IndicatorSelectorComponent } from './components/indicator-selector/indicator-selector.component';
 import { LineChartComponent } from './widgets/line-chart/line-chart.component';
 import {DndModule} from "ngx-drag-drop";
+import {DashboardComponent} from "./pages/dashboard.component";
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import {DndModule} from "ngx-drag-drop";
     HomeComponent,
     PeriodSelectorComponent,
     IndicatorSelectorComponent,
-    LineChartComponent
+    LineChartComponent,
+    DashboardComponent
   ],
   exports: [
     HomeComponent

@@ -2,8 +2,7 @@ import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'evj-dashboard',
-  template: `
-    <router-outlet></router-outlet>`,
+  template: ``,
 })
 export class DashboardComponent implements OnInit {
 
