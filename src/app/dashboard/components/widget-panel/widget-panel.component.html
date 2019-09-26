@@ -1,0 +1,18 @@
+<div class="widgets-panel" [class.widgets-panel_active]="active">
+  <div class="widgets-panel__toggle"
+       (click)="onToggleClick()">
+    <svg-icon class="widgets-panel__icon"
+              src="./assets/icons/settings.svg" [svgStyle]="{ 'width.px':20, 'height.px':20 }"></svg-icon>
+  </div>
+
+  <h4 class="widgets-panel__heading">
+    Доступные виджеты
+  </h4>
+
+  <div class="widgets-panel__list">
+    <ng-container *ngFor="let w of widgets | async">
+      <evj-line-chart *ngIf="w" [options]="w" class="widgets-panel__widget"></evj-line-chart>
+    </ng-container>
+  </div>
+
+</div>

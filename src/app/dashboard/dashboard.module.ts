@@ -8,6 +8,8 @@ import { IndicatorSelectorComponent } from './components/indicator-selector/indi
 import { LineChartComponent } from './widgets/line-chart/line-chart.component';
 import {DndModule} from "ngx-drag-drop";
 import {DashboardComponent} from "./pages/dashboard.component";
+import { WidgetPanelComponent } from './components/widget-panel/widget-panel.component';
+import {HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
@@ -16,7 +18,8 @@ import {DashboardComponent} from "./pages/dashboard.component";
     PeriodSelectorComponent,
     IndicatorSelectorComponent,
     LineChartComponent,
-    DashboardComponent
+    DashboardComponent,
+    WidgetPanelComponent,
   ],
   exports: [
     HomeComponent
@@ -25,7 +28,8 @@ import {DashboardComponent} from "./pages/dashboard.component";
     CommonModule,
     SharedModule,
     AngularSvgIconModule,
-    DndModule
+    DndModule,
+    HttpClientModule
   ],
   bootstrap: []
 })

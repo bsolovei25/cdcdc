@@ -3,7 +3,8 @@
   <evj-period-selector class="header__period-selector"></evj-period-selector>
 </evj-header>
 
-<evj-content>
+<evj-content class="content">
+
   <div class="grid">
     <div class="grid__widget"
          *ngFor="let w of widgets"
@@ -20,6 +21,7 @@
 
     </div>
   </div>
+  <evj-widget-panel></evj-widget-panel>
 </evj-content>
 
 
