@@ -11,7 +11,10 @@
 
   <div class="widgets-panel__list">
     <ng-container *ngFor="let w of widgets | async">
-      <evj-line-chart *ngIf="w" [options]="w" class="widgets-panel__widget"></evj-line-chart>
+      <evj-line-chart *ngIf="w"
+                      [options]="w"
+                      [dndDraggable]="{widget: w}"
+                      class="widgets-panel__widget"></evj-line-chart>
     </ng-container>
   </div>
 

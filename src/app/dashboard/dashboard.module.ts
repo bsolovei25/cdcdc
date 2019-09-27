@@ -10,6 +10,7 @@ import {DndModule} from "ngx-drag-drop";
 import {DashboardComponent} from "./pages/dashboard.component";
 import { WidgetPanelComponent } from './components/widget-panel/widget-panel.component';
 import {HttpClientModule} from "@angular/common/http";
+import { WidgetsGridComponent } from './components/widgets-grid/widgets-grid.component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import {HttpClientModule} from "@angular/common/http";
     LineChartComponent,
     DashboardComponent,
     WidgetPanelComponent,
+    WidgetsGridComponent,
   ],
   exports: [
     HomeComponent

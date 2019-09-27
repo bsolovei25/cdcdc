@@ -4,23 +4,7 @@
 </evj-header>
 
 <evj-content class="content">
-
-  <div class="grid">
-    <div class="grid__widget"
-         *ngFor="let w of widgets"
-         [dndDraggable]="w">
-
-      <evj-line-chart *ngIf="w.options" [options]="w.options"></evj-line-chart>
-
-      <div class="dropzone grid__dropzone"
-           dndDropzone
-           *ngIf="!w.options"
-           (dndDrop)="onDrop($event, w)">
-        <h3>Переместите сюда</h3>
-      </div>
-
-    </div>
-  </div>
+  <evj-widgets-grid></evj-widgets-grid>
   <evj-widget-panel></evj-widget-panel>
 </evj-content>
 

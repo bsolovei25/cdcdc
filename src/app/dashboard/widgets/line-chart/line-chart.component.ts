@@ -8,6 +8,7 @@ import {LineChartOptions} from "../../models/line-chart-options";
 })
 export class LineChartComponent implements OnInit {
   @Input() options: LineChartOptions;
+  @Input() size?: string;
 
   constructor() {
   }
