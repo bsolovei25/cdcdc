@@ -8,9 +8,9 @@ import { IndicatorSelectorComponent } from './components/indicator-selector/indi
 import { LineChartComponent } from './widgets/line-chart/line-chart.component';
 import {DndModule} from "ngx-drag-drop";
 import {DashboardComponent} from "./pages/dashboard.component";
-import { WidgetPanelComponent } from './components/widget-panel/widget-panel.component';
 import {HttpClientModule} from "@angular/common/http";
 import { WidgetsGridComponent } from './components/widgets-grid/widgets-grid.component';
+import { WidgetsPanelComponent } from './components/widgets-panel/widgets-panel.component';
 
 
 @NgModule({
@@ -20,8 +20,8 @@ import { WidgetsGridComponent } from './components/widgets-grid/widgets-grid.com
     IndicatorSelectorComponent,
     LineChartComponent,
     DashboardComponent,
-    WidgetPanelComponent,
     WidgetsGridComponent,
+    WidgetsPanelComponent,
   ],
   exports: [
     HomeComponent
