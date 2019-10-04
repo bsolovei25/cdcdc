@@ -21,7 +21,12 @@ export class WidgetsGridComponent implements OnInit {
     },
     {
       position: 'bb2',
-      widget: null
+      widget: {
+        name: "Виджет 10",
+        code: "C-2",
+        units: "кг/м3",
+        type: ""
+      }
     },
     {
       position: 'bs1',
@@ -43,6 +48,14 @@ export class WidgetsGridComponent implements OnInit {
     },
     {
       position: 'ss2',
+
+    },
+    {
+      position: 'ss3',
+      widget: null
+    },
+    {
+      position: 'ss4',
       widget: {
         name: "Виджет 3",
         code: "C-2",
@@ -51,16 +64,13 @@ export class WidgetsGridComponent implements OnInit {
       }
     },
     {
-      position: 'ss3',
-      widget: null
-    },
-    {
-      position: 'ss4',
-      widget: null
-    },
-    {
       position: 'ss5',
-      widget: null
+      widget: {
+        name: "Виджет 3",
+        code: "C-2",
+        units: "кг/м3",
+        type: ""
+      }
     },
     {
       position: 'ss6',
