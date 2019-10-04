@@ -41,30 +41,15 @@ export class WidgetsGridComponent implements OnInit {
     },
     {
       position: 'ss4',
-      widget: {
-        name: "Уровень в кубе колонны К-8 (12LISAННL-1055)",
-        code: "C-2",
-        units: "кг/м3",
-        type: ""
-      }
+      widget: null
     },
     {
       position: 'ss5',
-      widget: {
-        name: "Уровень в кубе колонны К-8 (12LISAННL-1055)",
-        code: "C-1",
-        units: "кг/м3",
-        type: ""
-      }
+      widget: null
     },
     {
       position: 'ss6',
-      widget: {
-        name: "Уровень в кубе колонны К-8 (12LISAННL-1055)",
-        code: "C-1",
-        units: "кг/м3",
-        type: ""
-      }
+      widget: null
     }
   ];
 

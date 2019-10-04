@@ -1,5 +1,214 @@
 :host {
+  position: relative;
   display: block;
-  height: 230.49px;
-  width: 459.15px;
+  height: 100%;
+  width: 100%;
 }
+
+.d3-chart {
+  width: calc(100% - 50px);
+  height: calc(100% - 100px);
+}
+
+::ng-deep  .domain {
+  display: none;
+}
+
+::ng-deep  .tick .line {
+  display: none;
+}
+
+::ng-deep .line {
+  fill: transparent;
+}
+
+::ng-deep .tick {
+  color: var(--color-text-sub-heading);
+}
+
+::ng-deep .x-axis {
+  font-size: 0.6875rem;
+}
+
+::ng-deep .y-axis {
+  font-size: 0.625rem;
+}
+
+.chart-header {
+  position: relative;
+  height: 30px;
+  width: 430px;
+  box-sizing: border-box;
+
+  background-color: var(--color-bg-additional);
+
+  &__content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  &__code {
+    display: flex;
+    align-items: center;
+
+    min-width: 44px;
+    height: 100%;
+    background-color: var(--color-bg-sub);
+    padding: 2px 10px;
+    margin-right: 10px;
+    box-sizing: border-box;
+
+    font-weight: bold;
+  }
+
+  &__name {
+    font-size: 0.875rem;
+  }
+
+  &__units {
+    margin: auto;
+    margin-right: 10px;
+
+    justify-self: flex-end;
+    font-size: 0.75rem;
+    color: var(--color-text-sub)
+  }
+
+  &:before {
+    z-index: 1;
+    content: "";
+    position: absolute;
+
+    top: -4px;
+    left: -1px;
+
+    height: 9px;
+    width: 9px;
+    box-sizing: border-box;
+
+    transform-origin: 43% 0;
+    transform: rotate(45deg);
+
+    background: var(--color-bg-main);
+  }
+
+  &:after {
+    z-index: 1;
+    content: "";
+    position: absolute;
+    top: -2px;
+    right: -1px;
+
+    height: 7px;
+    width: 7px;
+    box-sizing: border-box;
+    transform-origin: 43% 0;
+    transform: rotate(-45deg);
+
+    background: var(--color-bg-main);
+  }
+
+}
+
+.frame {
+  width: 100%;
+  height: 28px;
+  min-width: 430px;
+
+  border: 0.5px solid var(--color-border-main-transparrent);
+  border-bottom: transparent;
+  position: relative;
+
+  &__circle {
+    width: 4px;
+    height: 4px;
+    border: 0.5px solid var(--color-border-main-transparrent);
+    background-color: black;
+    border-radius: 50%;
+    position: absolute;
+    top: 100%;
+    box-sizing: border-box;
+
+    &__left {
+      left: -2.5px;
+    }
+
+    &__right {
+      right: -2.5px;
+    }
+  }
+
+  &_top {
+    &:after {
+      z-index: 1;
+      content: "";
+      position: absolute;
+      top: -3px;
+      right: -1px;
+
+      height: 7px;
+      width: 7px;
+      box-sizing: border-box;
+      transform-origin: 43% 0;
+      transform: rotate(-45deg);
+
+      border-left: 0.5px solid var(--color-border-main-transparrent);
+
+      background: var(--color-bg-main);
+
+    }
+  }
+
+  &_bottom {
+    border-bottom: 0.5px solid var(--color-border-main-transparrent);
+    border-top: transparent;
+
+    &:after {
+      z-index: 1;
+      content: "";
+      position: absolute;
+
+      bottom: -5px;
+      right: -1px;
+
+      height: 7px;
+      width: 7px;
+
+      box-sizing: border-box;
+      transform-origin: 43% 0;
+      transform: rotate(-45deg);
+
+      border-top: 0.5px solid var(--color-border-main-transparrent);
+      background: var(--color-bg-main);
+
+    }
+
+    &:before {
+      z-index: 1;
+      content: "";
+      position: absolute;
+
+      bottom: -3px;
+      left: -1px;
+
+      height: 6px;
+      width: 6px;
+
+      box-sizing: border-box;
+      transform-origin: 43% 0;
+      transform: rotate(45deg);
+
+      border-top: 0.5px solid var(--color-border-main-transparrent);
+      background: var(--color-bg-main);
+
+    }
+
+  }
+
+  &_bottom &__circle {
+    top: 0;
+  }
+}
+
