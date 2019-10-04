@@ -25,15 +25,30 @@ export class WidgetsGridComponent implements OnInit {
     },
     {
       position: 'bs1',
-      widget: null
+      widget: {
+        name: "Виджет 2",
+        code: "C-2",
+        units: "кг/м3",
+        type: ""
+      }
     },
     {
       position: 'ss1',
-      widget: null
+      widget: {
+        name: "Виджет 2",
+        code: "C-2",
+        units: "кг/м3",
+        type: ""
+      }
     },
     {
       position: 'ss2',
-      widget: null
+      widget: {
+        name: "Виджет 3",
+        code: "C-2",
+        units: "кг/м3",
+        type: ""
+      }
     },
     {
       position: 'ss3',
