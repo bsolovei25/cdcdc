@@ -5,10 +5,10 @@
   padding: 10px;
   box-sizing: border-box;
 
-  grid-template-rows: repeat(4, 212px);
+  grid-template-rows: repeat(4, 210px);
   grid-template-columns: repeat(4, 455px);
-  grid-column-gap: 20px;
-  grid-row-gap: 20px;
+  grid-column-gap: 15px;
+  grid-row-gap: 15px;
 
   grid-template-areas: "bb1 bb1 bs1 ss3" "bb1 bb1 bs1 ss4" "bb2 bb2 ss1 ss5" "bb2 bb2 ss2 ss6";
 
@@ -35,10 +35,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px dashed var(--color-border-main);
+  //border: 1px solid var(--color-border-main);
   border-radius: 10px;
   color: var(--color-text-sub);
-  //pointer-events: none;
+  background-color: var(--color-bg-sub);
   z-index: -1;
 
 
