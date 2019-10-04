@@ -16,7 +16,7 @@ export class WidgetsPanelComponent implements OnInit {
 
 
   constructor(private widgetsService: WidgetsService, private eref: ElementRef) {
-    // this.widgets = this.widgetsService.getAvailableWidgets();
+    this.widgets = this.widgetsService.getAvailableWidgets();
   }
 
   onDocumentClick(event) {

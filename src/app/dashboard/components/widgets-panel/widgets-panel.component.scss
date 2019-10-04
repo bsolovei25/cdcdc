@@ -14,11 +14,12 @@
 
   background-color: var(--color-bg-main);
   border: 1px solid transparent;
+  border-radius: 10px 0 0;
 
   transition: width .5s, padding .5s, box-shadow .5s;
 
   &_active {
-    width: 530px;
+    width: 480px;
     padding: 20px;
     box-shadow: -4px 20px 13px 4px rgba(0, 0, 0, 0.5);
     border-color: var(--color-border-active);
@@ -29,7 +30,7 @@
   &__widget {
     display: block;
     margin-bottom: 20px;
-    width: 400px;
+    width: 380px;
     height: 200px;
   }
 
