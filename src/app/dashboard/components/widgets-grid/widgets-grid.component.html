@@ -1,0 +1,27 @@
+<div class="grid">
+
+
+  <div class="grid__cell"
+       *ngFor="let c of cells"
+       [style.grid-area]="c.position"
+       dndDropzone
+       (dndDrop)="onDrop($event, c)">
+
+
+    <div class="dropzone grid__dropzone" *ngIf="draggingMode || !c.widget">
+      <h3>Переместите сюда</h3>
+    </div>
+
+    <evj-line-chart class="grid__widget"
+                    *ngIf="c.widget"
+                    [dndDraggable]="c"
+                    [size]="c.position[0] + c.position[1]"
+                    (dndStart)="onDragStart($event)"
+                    (dndEnd)="onDragEnd($event)"
+                    [options]="c.widget"></evj-line-chart>
+
+
+  </div>
+
+
+</div>
