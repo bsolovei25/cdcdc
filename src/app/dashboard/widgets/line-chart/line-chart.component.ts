@@ -110,18 +110,9 @@ export class LineChartComponent implements OnInit, OnChanges {
       this.drawGridLines();
       this.drawDeviationAreas(this.data.find(d => d.id === 'plan'), this.data.find(d => d.id === 'fact'));
       this.drawPath();
+      this.drawLinesBtwPoints(this.data.find(d => d.id === 'plan'), this.data.find(d => d.id === 'fact'));
       this.drawPoints();
     }, 0);
-
-    // setInterval(() => {
-    //
-    //   this.data[0].values.forEach(v => v.value = 40 + Math.random() * 40);
-    //
-    //   const rand = 60 + Math.random() * 20;
-    //   this.data[1].values.forEach(v => v.value = rand);
-    //   this.update();
-    // }, 5000);
-
 
   }
 
@@ -129,9 +120,6 @@ export class LineChartComponent implements OnInit, OnChanges {
 
   }
 
-  fillDeviationPoints() {
-
-  }
 
   update() {
 
@@ -199,12 +187,12 @@ export class LineChartComponent implements OnInit, OnChanges {
   }
 
 
-  makeXGridLines() {
+  private makeXGridLines() {
     return d3Axis.axisBottom(this.x)
       .ticks(5)
   }
 
-  makeYGridLines() {
+  private makeYGridLines() {
     return d3Axis.axisLeft(this.y)
       .ticks(3)
   }
@@ -271,6 +259,39 @@ export class LineChartComponent implements OnInit, OnChanges {
 
   }
 
+  private drawLinesBtwPoints(planData, factData) {
+    const pointsLines = planData.values.map((d, i) => {
+      return [
+        {
+          date: d.date,
+          value: d.value
+        },
+        {
+          date: d.date,
+          value: factData.values[i].value
+        }
+      ]
+    });
+
+
+    const line = d3Shape.line()
+      .curve(d3Shape.curveMonotoneX)
+      .x((d: any) => this.x(d.date))
+      .y((d: any) => this.y(d.value));
+
+
+    let lines = this.g.selectAll('.line-btw-point')
+      .data(pointsLines)
+      .enter()
+      .append('g')
+      .attr('class', 'trend');
+
+    lines.append('path')
+      .attr('class', 'line-btw-point')
+      .attr('d', (d) => line(d))
+
+  }
+
   private drawPoints() {
 
     let points = this.g.selectAll('.points')
@@ -316,10 +337,8 @@ export class LineChartComponent implements OnInit, OnChanges {
       .attr('id', 'clipPathArea')
       .append("path")
       .attr("d", function (d) {
-        console.log(d);
         return clipPathArea(d.values);
       });
-
 
 
     let deviationArea = d3Shape.area()
@@ -337,7 +356,6 @@ export class LineChartComponent implements OnInit, OnChanges {
 
     source2.append("path")
       .attr("d", function (d) {
-        console.log(d);
         return deviationArea(d.values);
       })
       .attr('class', 'deviation-area')
@@ -345,8 +363,6 @@ export class LineChartComponent implements OnInit, OnChanges {
 
 
   }
-
-
 
 
 }
