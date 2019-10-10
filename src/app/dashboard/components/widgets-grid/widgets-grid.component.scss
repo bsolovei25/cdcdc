@@ -10,7 +10,11 @@
   grid-column-gap: 15px;
   grid-row-gap: 15px;
 
-  grid-template-areas: "bb1 bb1 bs1 ss3" "bb1 bb1 bs1 ss4" "bb2 bb2 ss1 ss5" "bb2 bb2 ss2 ss6";
+  grid-template-areas:
+  "bb1 bb1 bs1 ss3"
+  "bb1 bb1 bs1 ss4"
+  "bb2 bb2 ss1 ss5"
+  "bb2 bb2 ss2 ss6";
 
   &__cell {
     position: relative;

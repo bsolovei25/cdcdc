@@ -5,33 +5,9 @@
   width: 100%;
 }
 
-.d3-chart {
+.line-chart {
   width: calc(100% - 50px);
   height: calc(100% - 100px);
-}
-
-::ng-deep  .domain {
-  display: none;
-}
-
-::ng-deep  .tick .line {
-  display: none;
-}
-
-::ng-deep .line {
-  fill: transparent;
-}
-
-::ng-deep .tick {
-  color: var(--color-text-sub-heading);
-}
-
-::ng-deep .x-axis {
-  font-size: 0.6875rem;
-}
-
-::ng-deep .y-axis {
-  font-size: 0.625rem;
 }
 
 .chart-header {

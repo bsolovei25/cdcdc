@@ -1,0 +1,23 @@
+.domain {
+  display: none;
+}
+
+.tick .line {
+  display: none;
+}
+
+.line {
+  fill: transparent;
+}
+
+.tick {
+  color: var(--color-text-sub-heading);
+}
+
+.x-axis {
+  font-size: 0.6875rem;
+}
+
+.y-axis {
+  font-size: 0.625rem;
+}

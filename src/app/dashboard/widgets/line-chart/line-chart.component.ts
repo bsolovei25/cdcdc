@@ -63,14 +63,14 @@ export class LineChartComponent implements OnInit, OnChanges {
       this.drawPath();
     }, 0);
 
-    setInterval(() => {
-
-      this.data[0].values.forEach(v => v.value = 40 + Math.random() * 40);
-
-      const rand = 60 + Math.random() * 20;
-      this.data[1].values.forEach(v => v.value = rand);
-      this.update();
-    }, 5000);
+    // setInterval(() => {
+    //
+    //   this.data[0].values.forEach(v => v.value = 40 + Math.random() * 40);
+    //
+    //   const rand = 60 + Math.random() * 20;
+    //   this.data[1].values.forEach(v => v.value = rand);
+    //   this.update();
+    // }, 5000);
 
 
   }
