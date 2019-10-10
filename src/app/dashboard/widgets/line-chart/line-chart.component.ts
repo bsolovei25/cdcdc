@@ -348,18 +348,34 @@ export class LineChartComponent implements OnInit, OnChanges {
       .y1(d => this.y(d.value));
 
 
-    let source2 = this.g.selectAll(".deviationArea")
+    let deviationSource = this.g.selectAll(".deviationArea")
       .data([planData])
       .enter()
       .append("g");
 
 
-    source2.append("path")
+    deviationSource.append("path")
       .attr("d", function (d) {
         return deviationArea(d.values);
       })
       .attr('class', 'deviation-area')
       .attr("clip-path", 'url(#clipPathArea)')
+      .attr("fill", 'url(#deviation-gradient)');
+
+
+    const gradient = deviationSource
+      .append("g")
+      .append('linearGradient')
+      .attr('id', 'deviation-gradient')
+      .attr('y2', "100%");
+
+    gradient.append('stop')
+      .attr('offset', "30%")
+      .attr('stop-color', "rgba(244, 163, 33, 0.4)");
+
+    gradient.append('stop')
+      .attr('offset', "50%")
+      .attr('stop-color', "rgba(244, 163, 33, 0.1)");
 
 
   }
