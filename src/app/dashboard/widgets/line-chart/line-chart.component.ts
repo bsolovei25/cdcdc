@@ -67,12 +67,36 @@ export class LineChartComponent implements OnInit, OnChanges {
         heightOffset: -4,
         class: 'point_fact'
       }
+    },
+    deviation: {
+      point: {
+        iconUrl: './assets/icons/widgets/line-chart/point-deviation.svg',
+        width: 9.2,
+        height: 8,
+        widthOffset: -4.6,
+        heightOffset: -5,
+        class: 'point_deviation'
+      }
     }
   };
-
+  deviationPoints: any;
 
   constructor() {
     this.data = Mock;
+
+    const plan = this.data.find(d => d.id === 'plan').values;
+    const fact = this.data.find(d => d.id === 'fact').values;
+
+    this.deviationPoints = {
+      id: 'deviation',
+      values: fact.reduce((acc, d, i) => {
+        if (plan[i].value < d.value) {
+          acc.push(d);
+        }
+        return acc;
+      }, [])
+    };
+
     this.transition = d3Transition.transition();
   }
 
@@ -84,7 +108,9 @@ export class LineChartComponent implements OnInit, OnChanges {
       this.refreshLine();
       this.drawAxis();
       this.drawGridLines();
+      this.drawDeviationAreas(this.data.find(d => d.id === 'plan'), this.data.find(d => d.id === 'fact'));
       this.drawPath();
+      this.drawPoints();
     }, 0);
 
     // setInterval(() => {
@@ -100,6 +126,10 @@ export class LineChartComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
+
+  }
+
+  fillDeviationPoints() {
 
   }
 
@@ -224,7 +254,6 @@ export class LineChartComponent implements OnInit, OnChanges {
 
   }
 
-
   private drawPath() {
     let trend = this.g.selectAll('.trend')
       .data(this.data)
@@ -240,21 +269,23 @@ export class LineChartComponent implements OnInit, OnChanges {
         return d.color;
       });
 
-    this.drawPoints(trend);
-
-
   }
 
-  private drawPoints(trend) {
+  private drawPoints() {
 
-    trend.selectAll(".point")
-      .data(function (d) {
+    let points = this.g.selectAll('.points')
+      .data([...this.data, this.deviationPoints])
+      .enter()
+      .append('g')
+      .attr('class', 'trend');
 
-        return d.values.map(i => {
+
+    points.selectAll(".point")
+      .data(d => d.values.map(i => {
           i.type = d.id;
           return i
         })
-      })
+      )
       .enter()
       .append("svg:image")
       .attr('width', d => this.trendsStyle[d.type].point.width)
@@ -266,6 +297,56 @@ export class LineChartComponent implements OnInit, OnChanges {
       .attr("class", d => this.trendsStyle[d.type].point.class)
 
   }
+
+  private drawDeviationAreas(planData, factData) {
+    let clipPathArea = d3Shape.area()
+      .curve(d3Shape.curveMonotoneX)
+      .x(d => this.x(d.date))
+      .y0(d => this.y(this.height))
+      .y1(d => this.y(d.value));
+
+
+    let clipPathSource = this.g.selectAll(".area")
+      .data([planData])
+      .enter()
+      .append("g");
+
+
+    clipPathSource.append("clipPath")
+      .attr('id', 'clipPathArea')
+      .append("path")
+      .attr("d", function (d) {
+        console.log(d);
+        return clipPathArea(d.values);
+      });
+
+
+
+    let deviationArea = d3Shape.area()
+      .curve(d3Shape.curveMonotoneX)
+      .x(d => this.x(d.date))
+      .y0(d => this.y(factData.values.find(v => v.date.toJSON() === d.date.toJSON()).value))
+      .y1(d => this.y(d.value));
+
+
+    let source2 = this.g.selectAll(".deviationArea")
+      .data([planData])
+      .enter()
+      .append("g");
+
+
+    source2.append("path")
+      .attr("d", function (d) {
+        console.log(d);
+        return deviationArea(d.values);
+      })
+      .attr('class', 'deviation-area')
+      .attr("clip-path", 'url(#clipPathArea)')
+
+
+  }
+
+
 
 
 }
