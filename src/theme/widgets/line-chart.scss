@@ -1,23 +1,27 @@
-.domain {
-  display: none;
-}
+.line-chart {
 
-.tick .line {
-  display: none;
-}
+  .domain {
+    display: none;
+  }
 
-.line {
-  fill: transparent;
-}
+  .tick .line {
+    display: none;
+  }
 
-.tick {
-  color: var(--color-text-sub-heading);
-}
+  .line {
+    fill: transparent;
+  }
 
-.x-axis {
-  font-size: 0.6875rem;
-}
+  .tick {
+    color: var(--color-text-sub-heading);
+  }
 
-.y-axis {
-  font-size: 0.625rem;
+  .x-axis {
+    font-size: 0.6875rem;
+  }
+
+  .y-axis {
+    font-size: 0.625rem;
+  }
+
 }
