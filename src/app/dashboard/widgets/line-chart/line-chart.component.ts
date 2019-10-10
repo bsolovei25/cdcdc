@@ -367,15 +367,18 @@ export class LineChartComponent implements OnInit, OnChanges {
       .append("g")
       .append('linearGradient')
       .attr('id', 'deviation-gradient')
+      .attr('x1', "0%")
+      .attr('x2', "0%")
+      .attr('y1', "0%")
       .attr('y2', "100%");
 
     gradient.append('stop')
-      .attr('offset', "30%")
-      .attr('stop-color', "rgba(244, 163, 33, 0.4)");
+      .attr('offset', "0")
+      .attr('stop-color', "rgba(244, 163, 33, 0.2)");
 
     gradient.append('stop')
       .attr('offset', "50%")
-      .attr('stop-color', "rgba(244, 163, 33, 0.1)");
+      .attr('stop-color', "transparent");
 
 
   }
