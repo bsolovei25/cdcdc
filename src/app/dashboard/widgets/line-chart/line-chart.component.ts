@@ -47,6 +47,30 @@ export class LineChartComponent implements OnInit, OnChanges {
   transition: any;
 
 
+  readonly trendsStyle: any = {
+    plan: {
+      point: {
+        iconUrl: './assets/icons/widgets/line-chart/point-plan.svg',
+        width: 6,
+        height: 6,
+        widthOffset: -3,
+        heightOffset: -3,
+        class: 'point_plan'
+      }
+    },
+    fact: {
+      point: {
+        iconUrl: './assets/icons/widgets/line-chart/point-fact.svg',
+        width: 8,
+        height: 8,
+        widthOffset: -4,
+        heightOffset: -4,
+        class: 'point_fact'
+      }
+    }
+  };
+
+
   constructor() {
     this.data = Mock;
     this.transition = d3Transition.transition();
@@ -122,7 +146,7 @@ export class LineChartComponent implements OnInit, OnChanges {
 
   private refreshLine() {
     this.line = d3Shape.line()
-      .curve(d3Shape.curveBasis)
+      .curve(d3Shape.curveMonotoneX)
       .x((d: any) => this.x(d.date))
       .y((d: any) => this.y(d.value));
 
@@ -201,10 +225,11 @@ export class LineChartComponent implements OnInit, OnChanges {
   }
 
 
-  private drawPath(): void {
+  private drawPath() {
     let trend = this.g.selectAll('.trend')
       .data(this.data)
-      .enter().append('g')
+      .enter()
+      .append('g')
       .attr('class', 'trend');
 
     trend.append('path')
@@ -214,6 +239,31 @@ export class LineChartComponent implements OnInit, OnChanges {
       .style('stroke', (d) => {
         return d.color;
       });
+
+    this.drawPoints(trend);
+
+
+  }
+
+  private drawPoints(trend) {
+
+    trend.selectAll(".point")
+      .data(function (d) {
+
+        return d.values.map(i => {
+          i.type = d.id;
+          return i
+        })
+      })
+      .enter()
+      .append("svg:image")
+      .attr('width', d => this.trendsStyle[d.type].point.width)
+      .attr('height', d => this.trendsStyle[d.type].point.height)
+      .attr("x", d => this.x(d.date) + this.trendsStyle[d.type].point.widthOffset)
+      .attr("y", d => this.y(d.value) + this.trendsStyle[d.type].point.heightOffset)
+      .attr("xlink:href", d => this.trendsStyle[d.type].point.iconUrl)
+      .attr('class', 'point')
+      .attr("class", d => this.trendsStyle[d.type].point.class)
 
   }
 
