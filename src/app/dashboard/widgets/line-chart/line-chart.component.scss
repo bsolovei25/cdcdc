@@ -5,9 +5,48 @@
   width: 100%;
 }
 
-.line-chart {
-  width: calc(100% - 50px);
+.content {
+  display: flex;
+  justify-content: space-around;
+
   height: calc(100% - 100px);
+}
+
+.line-chart {
+  width: calc(100% - 75px);
+  height: 100%;
+}
+
+.totals {
+  width: 75px;
+  margin-top: -15px;
+
+  &__item {
+    margin-bottom: 15px;
+
+    &_plan {
+      color: var(--color-plan);
+    }
+
+    &_fact {
+      color: var(--color-fact);
+    }
+
+    &_deviation {
+      color: var(--color-deviation);
+    }
+  }
+
+  &__heading {
+    font-size: 0.75rem;
+    margin: 0;
+    margin-bottom: 2.5px;
+  }
+
+  &__count {
+    font-size: 1.125rem;
+    margin: 0;
+  }
 }
 
 .chart-header {

@@ -33,7 +33,7 @@ export class LineChartComponent implements OnInit, OnChanges {
   @ViewChild('chart', {static: true}) private chartContainer: ElementRef;
 
   data: any;
-  margin = {top: 10, right: 0, bottom: 20, left: 50};
+  margin = {top: 10, right: -30, bottom: 20, left: 50};
 
   svg;
   any;
