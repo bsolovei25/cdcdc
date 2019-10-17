@@ -57,6 +57,9 @@ export class LineChartComponent implements OnInit, OnChanges {
         widthOffset: -3,
         heightOffset: -3,
         class: 'point point_plan'
+      },
+      trend: {
+        class: 'line line_plan'
       }
     },
     fact: {
@@ -67,6 +70,9 @@ export class LineChartComponent implements OnInit, OnChanges {
         widthOffset: -4,
         heightOffset: -4,
         class: 'point point_fact'
+      },
+      trend: {
+        class: 'line line_fact'
       }
     },
     deviation: {
@@ -77,6 +83,32 @@ export class LineChartComponent implements OnInit, OnChanges {
         widthOffset: -4.6,
         heightOffset: -5,
         class: 'point point_deviation'
+      }
+    },
+    lower_limit: {
+      point: {
+        iconUrl: './assets/icons/widgets/line-chart/point-deviation.svg',
+        width: 9.2,
+        height: 8,
+        widthOffset: -4.6,
+        heightOffset: -5,
+        class: 'point point_deviation'
+      },
+      trend: {
+        class: 'line line_limit'
+      }
+    },
+    upper_limit: {
+      point: {
+        iconUrl: './assets/icons/widgets/line-chart/point-deviation.svg',
+        width: 9.2,
+        height: 8,
+        widthOffset: -4.6,
+        heightOffset: -5,
+        class: 'point point_deviation'
+      },
+      trend: {
+        class: 'line line_limit'
       }
     }
   };
@@ -103,6 +135,7 @@ export class LineChartComponent implements OnInit, OnChanges {
       this.drawPath();
       this.drawLinesBtwPoints(this.data.find(d => d.id === 'plan'), this.data.find(d => d.id === 'fact'));
       this.drawPoints();
+      this.drawLimitsAreas(this.data.find(d => d.id === 'upper_limit'), this.data.find(d => d.id === 'lower_limit'));
     }, 0);
 
 
@@ -112,7 +145,18 @@ export class LineChartComponent implements OnInit, OnChanges {
 
       const rand = 60 + Math.random() * 20;
       this.data[1].values.forEach(v => v.value = rand);
+
+
+      const rand2 = 100 + Math.random() * 20;
+      this.data[2].values.forEach(v => v.value = rand2);
+
+      const rand3 = 0 + Math.random() * 10;
+      this.data[3].values.forEach(v => v.value = rand3);
+
+
       this.update();
+
+
     }, 5000);
 
   }
@@ -130,7 +174,7 @@ export class LineChartComponent implements OnInit, OnChanges {
 
 
     this.g.select('.y-axis')
-      .transition()
+      // .transition()
       .call(d3Axis.axisLeft(this.y));
 
 
@@ -144,8 +188,8 @@ export class LineChartComponent implements OnInit, OnChanges {
 
 
     this.g.selectAll('.trend .line')
-      .transition()
-      .duration(750)
+      // .transition()
+      // .duration(750)
       .attr('d', (d) => this.line(d.values));
 
 
@@ -155,6 +199,13 @@ export class LineChartComponent implements OnInit, OnChanges {
 
     this.g.selectAll(".point").remove();
     this.drawPoints();
+
+
+    this.g.selectAll(".gradient").remove();
+    this.g.selectAll(".limit-area").remove();
+    this.g.selectAll(".lower-limit-area").remove();
+    this.g.selectAll(".upper-limit-area").remove();
+    this.drawLimitsAreas(this.data.find(d => d.id === 'upper_limit'), this.data.find(d => d.id === 'lower_limit'));
 
 
   }
@@ -179,18 +230,13 @@ export class LineChartComponent implements OnInit, OnChanges {
     this.y = d3Scale.scaleLinear().range([this.height, 0]);
 
     this.x.domain(d3Array.extent(this.data.map((v) => v.values.map((v) => v.date))[0], (d: Date) => d));
-    this.y.domain([
-      d3Array.min(this.data, function (c) {
-        return d3Array.min(c.values, function (d) {
-          return d.value;
-        });
-      }),
-      d3Array.max(this.data, function (c) {
-        return d3Array.max(c.values, function (d) {
-          return d.value;
-        });
-      })
-    ]).nice();
+
+
+    const yMin = d3Array.min(this.data, c => d3Array.min(c.values, d => d.value));
+    const yMax = d3Array.max(this.data, c => d3Array.max(c.values, d => d.value));
+    const offset = (yMax - yMin) * 0.15;
+
+    this.y.domain([yMin - offset, yMax + offset]).nice();
   }
 
   private refreshLine() {
@@ -279,12 +325,8 @@ export class LineChartComponent implements OnInit, OnChanges {
       .attr('class', 'trend');
 
     trend.append('path')
-      .attr('class', 'line')
       .attr('d', (d) => this.line(d.values))
-      .style('fill', 'transparent')
-      .style('stroke', (d) => {
-        return d.color;
-      });
+      .attr('class', (d) => this.trendsStyle[d.id].trend.class);
 
   }
 
@@ -324,7 +366,7 @@ export class LineChartComponent implements OnInit, OnChanges {
   private drawPoints() {
 
     let points = this.g.selectAll('.point')
-      .data([...this.data, this.deviationPoints])
+      .data([...this.data.filter(d => d.id === 'fact' || d.id === 'plan'), this.deviationPoints])
       .enter()
       .append('g');
 
@@ -412,5 +454,82 @@ export class LineChartComponent implements OnInit, OnChanges {
 
   }
 
+
+  private drawLimitsAreas(upperLimit, lowerLimit) {
+    const upperLimitArea = d3Shape.area()
+      .curve(d3Shape.curveMonotoneX)
+      .x(d => this.x(d.date))
+      .y0(d => 0)
+      .y1(d => this.y(d.value));
+
+    const upperLimitSource = this.g.selectAll(".limit-area")
+      .data([upperLimit])
+      .enter()
+      .append("g");
+
+    upperLimitSource.append("path")
+      .attr("d", function (d) {
+        return upperLimitArea(d.values);
+      })
+      .attr('class', 'upper-limit-area')
+      .attr("fill", 'url(#upper-limit-gradient-' + this.position + ')');
+
+
+    const upperLimitGradient = upperLimitSource
+      .append("g")
+      .append('linearGradient')
+      .attr('class', 'gradient')
+      .attr('id', 'upper-limit-gradient-' + this.position)
+      .attr('x1', "0%")
+      .attr('x2', "0%")
+      .attr('y1', "0%")
+      .attr('y2', "100%");
+
+    upperLimitGradient.append('stop')
+      .attr('offset', "0%")
+      .attr('stop-color', "transparent");
+
+    upperLimitGradient.append('stop')
+      .attr('offset', "50%")
+      .attr('stop-color', "rgba(255,255,255,0.015");
+
+
+    const lowerLimitArea = d3Shape.area()
+      .curve(d3Shape.curveMonotoneX)
+      .x(d => this.x(d.date))
+      .y0(d => this.height)
+      .y1(d => this.y(d.value));
+
+    const lowerLimitSource = this.g.selectAll(".limit-area")
+      .data([lowerLimit])
+      .enter()
+      .append("g");
+
+    lowerLimitSource.append("path")
+      .attr("d", function (d) {
+        return lowerLimitArea(d.values);
+      })
+      .attr('class', 'lower-limit-area')
+      .attr("fill", 'url(#lower-limit-gradient-' + this.position + ')');
+
+
+    const lowerLimitGradient = lowerLimitSource
+      .append("g")
+      .append('linearGradient')
+      .attr('id', 'lower-limit-gradient-' + this.position)
+      .attr('x1', "0%")
+      .attr('x2', "0%")
+      .attr('y1', "0%")
+      .attr('y2', "100%");
+
+    lowerLimitGradient.append('stop')
+      .attr('offset', "50%")
+      .attr('stop-color', "rgba(255,255,255,0.015");
+
+    lowerLimitGradient.append('stop')
+      .attr('offset', "100%")
+      .attr('stop-color', "transparent");
+
+  }
 
 }

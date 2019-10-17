@@ -10,6 +10,20 @@
 
   .line {
     fill: transparent;
+
+    &_plan {
+      stroke: #A2E2FF;
+    }
+
+    &_fact {
+      stroke: #fff;
+
+    }
+
+    &_limit {
+      stroke: #494B52;
+      stroke-dasharray: 5,5;
+    }
   }
 
   .tick {

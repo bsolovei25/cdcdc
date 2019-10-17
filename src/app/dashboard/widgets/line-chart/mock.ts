@@ -1,7 +1,6 @@
 export const Mock = [
   {
     'id': 'fact',
-    'color': '#fff',
     'values': [
       {'date': new Date('2011-10-01'), 'value': 63.4},
       {'date': new Date('2011-10-02'), 'value': 58.0},
@@ -38,7 +37,6 @@ export const Mock = [
   },
   {
     'id': 'plan',
-    'color': '#A2E2FF',
     'values': [
       {'date': new Date('2011-10-01'), 'value': 70.0},
       {'date': new Date('2011-10-02'), 'value': 70.0},
@@ -71,6 +69,80 @@ export const Mock = [
       {'date': new Date('2011-10-29'), 'value': 70.0},
       {'date': new Date('2011-10-30'), 'value': 70.0},
       {'date': new Date('2011-10-31'), 'value': 70.0},
+    ]
+  },
+
+  {
+    'id': 'upper_limit',
+    'values': [
+      {'date': new Date('2011-10-01'), 'value': 100},
+      {'date': new Date('2011-10-02'), 'value': 100},
+      {'date': new Date('2011-10-03'), 'value': 100},
+      {'date': new Date('2011-10-04'), 'value': 100},
+      {'date': new Date('2011-10-05'), 'value': 100},
+      {'date': new Date('2011-10-06'), 'value': 100},
+      {'date': new Date('2011-10-07'), 'value': 100},
+      {'date': new Date('2011-10-08'), 'value': 100},
+      {'date': new Date('2011-10-09'), 'value': 100},
+      {'date': new Date('2011-10-10'), 'value': 100},
+      {'date': new Date('2011-10-11'), 'value': 100},
+      {'date': new Date('2011-10-12'), 'value': 100},
+      {'date': new Date('2011-10-13'), 'value': 100},
+      {'date': new Date('2011-10-14'), 'value': 100},
+      {'date': new Date('2011-10-15'), 'value': 100},
+      {'date': new Date('2011-10-16'), 'value': 100},
+      {'date': new Date('2011-10-17'), 'value': 100},
+      {'date': new Date('2011-10-18'), 'value': 100},
+      {'date': new Date('2011-10-19'), 'value': 100},
+      {'date': new Date('2011-10-20'), 'value': 100},
+      {'date': new Date('2011-10-21'), 'value': 90},
+      {'date': new Date('2011-10-22'), 'value': 90},
+      {'date': new Date('2011-10-23'), 'value': 90},
+      {'date': new Date('2011-10-24'), 'value': 90},
+      {'date': new Date('2011-10-25'), 'value': 90},
+      {'date': new Date('2011-10-26'), 'value': 90},
+      {'date': new Date('2011-10-27'), 'value': 90},
+      {'date': new Date('2011-10-28'), 'value': 90},
+      {'date': new Date('2011-10-29'), 'value': 90},
+      {'date': new Date('2011-10-30'), 'value': 90},
+      {'date': new Date('2011-10-31'), 'value': 90},
+    ]
+  },
+
+  {
+    'id': 'lower_limit',
+    'values': [
+      {'date': new Date('2011-10-01'), 'value': 10},
+      {'date': new Date('2011-10-02'), 'value': 10},
+      {'date': new Date('2011-10-03'), 'value': 10},
+      {'date': new Date('2011-10-04'), 'value': 10},
+      {'date': new Date('2011-10-05'), 'value': 10},
+      {'date': new Date('2011-10-06'), 'value': 10},
+      {'date': new Date('2011-10-07'), 'value': 10},
+      {'date': new Date('2011-10-08'), 'value': 10},
+      {'date': new Date('2011-10-09'), 'value': 25},
+      {'date': new Date('2011-10-10'), 'value': 10},
+      {'date': new Date('2011-10-11'), 'value': 10},
+      {'date': new Date('2011-10-12'), 'value': 10},
+      {'date': new Date('2011-10-13'), 'value': 10},
+      {'date': new Date('2011-10-14'), 'value': 10},
+      {'date': new Date('2011-10-15'), 'value': 10},
+      {'date': new Date('2011-10-16'), 'value': 10},
+      {'date': new Date('2011-10-17'), 'value': 10},
+      {'date': new Date('2011-10-18'), 'value': 10},
+      {'date': new Date('2011-10-19'), 'value': 10},
+      {'date': new Date('2011-10-20'), 'value': 10},
+      {'date': new Date('2011-10-21'), 'value': 10},
+      {'date': new Date('2011-10-22'), 'value': 10},
+      {'date': new Date('2011-10-23'), 'value': 10},
+      {'date': new Date('2011-10-24'), 'value': 10},
+      {'date': new Date('2011-10-25'), 'value': 10},
+      {'date': new Date('2011-10-26'), 'value': 10},
+      {'date': new Date('2011-10-27'), 'value': 50},
+      {'date': new Date('2011-10-28'), 'value': 10},
+      {'date': new Date('2011-10-29'), 'value': 10},
+      {'date': new Date('2011-10-30'), 'value': 50},
+      {'date': new Date('2011-10-31'), 'value': 10},
     ]
   }
 ];
