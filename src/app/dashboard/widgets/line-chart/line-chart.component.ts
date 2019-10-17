@@ -29,6 +29,7 @@ import {Mock} from 'src/app/dashboard/widgets/line-chart/mock';
 export class LineChartComponent implements OnInit, OnChanges {
   @Input() options: LineChartOptions;
   @Input() size?: string;
+  @Input() position?: string = 'default';
 
   @ViewChild('chart', {static: true}) private chartContainer: ElementRef;
 
@@ -55,7 +56,7 @@ export class LineChartComponent implements OnInit, OnChanges {
         height: 6,
         widthOffset: -3,
         heightOffset: -3,
-        class: 'point_plan'
+        class: 'point point_plan'
       }
     },
     fact: {
@@ -65,7 +66,7 @@ export class LineChartComponent implements OnInit, OnChanges {
         height: 8,
         widthOffset: -4,
         heightOffset: -4,
-        class: 'point_fact'
+        class: 'point point_fact'
       }
     },
     deviation: {
@@ -75,7 +76,7 @@ export class LineChartComponent implements OnInit, OnChanges {
         height: 8,
         widthOffset: -4.6,
         heightOffset: -5,
-        class: 'point_deviation'
+        class: 'point point_deviation'
       }
     }
   };
@@ -83,21 +84,11 @@ export class LineChartComponent implements OnInit, OnChanges {
 
   constructor() {
     this.data = Mock;
-
-    const plan = this.data.find(d => d.id === 'plan').values;
-    const fact = this.data.find(d => d.id === 'fact').values;
-
-    this.deviationPoints = {
-      id: 'deviation',
-      values: fact.reduce((acc, d, i) => {
-        if (plan[i].value < d.value) {
-          acc.push(d);
-        }
-        return acc;
-      }, [])
-    };
+    this.refreshDeviations();
 
     this.transition = d3Transition.transition();
+
+
   }
 
   ngOnInit() {
@@ -114,6 +105,16 @@ export class LineChartComponent implements OnInit, OnChanges {
       this.drawPoints();
     }, 0);
 
+
+    setInterval(() => {
+
+      this.data[0].values.forEach(v => v.value = 40 + Math.random() * 40);
+
+      const rand = 60 + Math.random() * 20;
+      this.data[1].values.forEach(v => v.value = rand);
+      this.update();
+    }, 5000);
+
   }
 
   ngOnChanges() {
@@ -123,24 +124,54 @@ export class LineChartComponent implements OnInit, OnChanges {
 
   update() {
 
-
+    this.refreshDeviations();
     this.refreshDomains();
     this.refreshLine();
+
 
     this.g.select('.y-axis')
       .transition()
       .call(d3Axis.axisLeft(this.y));
 
+
+    this.g.selectAll('.grid').remove();
+    this.drawGridLines();
+
+
+    this.g.selectAll('.deviation-area').remove();
+    this.g.selectAll(".area").remove();
+    this.drawDeviationAreas(this.data.find(d => d.id === 'plan'), this.data.find(d => d.id === 'fact'));
+
+
     this.g.selectAll('.trend .line')
       .transition()
       .duration(750)
-      .attr('d', (d) => this.line(d.values))
-      .style('fill', 'transparent')
-      .style('stroke', (d) => {
-        return d.color;
-      });
+      .attr('d', (d) => this.line(d.values));
 
 
+    this.g.selectAll(".line-btw-point").remove();
+    this.drawLinesBtwPoints(this.data.find(d => d.id === 'plan'), this.data.find(d => d.id === 'fact'));
+
+
+    this.g.selectAll(".point").remove();
+    this.drawPoints();
+
+
+  }
+
+  private refreshDeviations() {
+    const plan = this.data.find(d => d.id === 'plan').values;
+    const fact = this.data.find(d => d.id === 'fact').values;
+
+    this.deviationPoints = {
+      id: 'deviation',
+      values: fact.reduce((acc, d, i) => {
+        if (plan[i].value < d.value) {
+          acc.push(d);
+        }
+        return acc;
+      }, [])
+    };
   }
 
   private refreshDomains() {
@@ -186,7 +217,6 @@ export class LineChartComponent implements OnInit, OnChanges {
 
   }
 
-
   private makeXGridLines() {
     return d3Axis.axisBottom(this.x)
       .ticks(5)
@@ -196,7 +226,6 @@ export class LineChartComponent implements OnInit, OnChanges {
     return d3Axis.axisLeft(this.y)
       .ticks(3)
   }
-
 
   private drawAxis(): void {
     this.g.append('g')
@@ -216,7 +245,7 @@ export class LineChartComponent implements OnInit, OnChanges {
 
   private drawGridLines() {
 
-    this.g.append("g")
+    this.g.append("g").selectAll('grid')
       .attr("class", "grid")
       .attr("transform", "translate(0," + this.height + ")")
       .call(this.makeXGridLines()
@@ -294,11 +323,10 @@ export class LineChartComponent implements OnInit, OnChanges {
 
   private drawPoints() {
 
-    let points = this.g.selectAll('.points')
+    let points = this.g.selectAll('.point')
       .data([...this.data, this.deviationPoints])
       .enter()
-      .append('g')
-      .attr('class', 'trend');
+      .append('g');
 
 
     points.selectAll(".point")
@@ -334,21 +362,22 @@ export class LineChartComponent implements OnInit, OnChanges {
 
 
     clipPathSource.append("clipPath")
-      .attr('id', 'clipPathArea')
+      .attr('id', 'clipPathArea-' + this.position)
+      .attr('class', 'area')
       .append("path")
       .attr("d", function (d) {
         return clipPathArea(d.values);
       });
 
 
-    let deviationArea = d3Shape.area()
+    const deviationArea = d3Shape.area()
       .curve(d3Shape.curveMonotoneX)
       .x(d => this.x(d.date))
       .y0(d => this.y(factData.values.find(v => v.date.toJSON() === d.date.toJSON()).value))
       .y1(d => this.y(d.value));
 
 
-    let deviationSource = this.g.selectAll(".deviationArea")
+    const deviationSource = this.g.selectAll(".deviation-area")
       .data([planData])
       .enter()
       .append("g");
@@ -359,7 +388,7 @@ export class LineChartComponent implements OnInit, OnChanges {
         return deviationArea(d.values);
       })
       .attr('class', 'deviation-area')
-      .attr("clip-path", 'url(#clipPathArea)')
+      .attr("clip-path", 'url(#clipPathArea-' + this.position + ')')
       .attr("fill", 'url(#deviation-gradient)');
 
 
