@@ -117,10 +117,7 @@ export class LineChartComponent implements OnInit, OnChanges {
   constructor() {
     this.data = Mock;
     this.refreshDeviations();
-
     this.transition = d3Transition.transition();
-
-
   }
 
   ngOnInit() {
@@ -167,46 +164,64 @@ export class LineChartComponent implements OnInit, OnChanges {
 
 
   update() {
-
+    this.svg.remove();
     this.refreshDeviations();
+
+
+    this.initChart();
     this.refreshDomains();
     this.refreshLine();
-
-
-    this.g.select('.y-axis')
-      // .transition()
-      .call(d3Axis.axisLeft(this.y));
-
-
-    this.g.selectAll('.grid').remove();
+    this.drawAxis();
     this.drawGridLines();
-
-
-    this.g.selectAll('.deviation-area').remove();
-    this.g.selectAll(".area").remove();
     this.drawDeviationAreas(this.data.find(d => d.id === 'plan'), this.data.find(d => d.id === 'fact'));
-
-
-    this.g.selectAll('.trend .line')
-      // .transition()
-      // .duration(750)
-      .attr('d', (d) => this.line(d.values));
-
-
-    this.g.selectAll(".line-btw-point").remove();
+    this.drawPath();
     this.drawLinesBtwPoints(this.data.find(d => d.id === 'plan'), this.data.find(d => d.id === 'fact'));
-
-
-    this.g.selectAll(".point").remove();
     this.drawPoints();
-
-
-    this.g.selectAll(".gradient").remove();
-    this.g.selectAll(".limit-area").remove();
-    this.g.selectAll(".lower-limit-area").remove();
-    this.g.selectAll(".upper-limit-area").remove();
     this.drawLimitsAreas(this.data.find(d => d.id === 'upper_limit'), this.data.find(d => d.id === 'lower_limit'));
 
+
+
+
+
+    // this.refreshDeviations();
+    // this.refreshDomains();
+    // this.refreshLine();
+    //
+    //
+    // this.g.select('.y-axis')
+    //   // .transition()
+    //   .call(d3Axis.axisLeft(this.y));
+    //
+    //
+    // this.g.selectAll('.grid').remove();
+    // this.drawGridLines();
+    //
+    //
+    // this.g.selectAll('.deviation-area').remove();
+    // this.g.selectAll(".area").remove();
+    // this.drawDeviationAreas(this.data.find(d => d.id === 'plan'), this.data.find(d => d.id === 'fact'));
+    //
+    //
+    // this.g.selectAll('.trend .line')
+    //   // .transition()
+    //   // .duration(750)
+    //   .attr('d', (d) => this.line(d.values));
+    //
+    //
+    // this.g.selectAll(".line-btw-point").remove();
+    // this.drawLinesBtwPoints(this.data.find(d => d.id === 'plan'), this.data.find(d => d.id === 'fact'));
+    //
+    //
+    // this.g.selectAll(".point").remove();
+    // this.drawPoints();
+    //
+    //
+    // this.g.selectAll(".gradient").remove();
+    // this.g.selectAll(".limit-area").remove();
+    // this.g.selectAll(".lower-limit-area").remove();
+    // this.g.selectAll(".upper-limit-area").remove();
+    // this.drawLimitsAreas(this.data.find(d => d.id === 'upper_limit'), this.data.find(d => d.id === 'lower_limit'));
+    //
 
   }
 
@@ -283,7 +298,7 @@ export class LineChartComponent implements OnInit, OnChanges {
       .attr("class", "axis y-axis")
       .call(d3Axis.axisLeft(this.y)
         .ticks(7)
-        .tickFormat(function (d) {
+        .tickFormat((d) => {
           return d3Format.format(".1f")(d);
         }))
 
@@ -407,7 +422,7 @@ export class LineChartComponent implements OnInit, OnChanges {
       .attr('id', 'clipPathArea-' + this.position)
       .attr('class', 'area')
       .append("path")
-      .attr("d", function (d) {
+      .attr("d", d =>  {
         return clipPathArea(d.values);
       });
 
@@ -426,7 +441,7 @@ export class LineChartComponent implements OnInit, OnChanges {
 
 
     deviationSource.append("path")
-      .attr("d", function (d) {
+      .attr("d", d => {
         return deviationArea(d.values);
       })
       .attr('class', 'deviation-area')
@@ -468,7 +483,7 @@ export class LineChartComponent implements OnInit, OnChanges {
       .append("g");
 
     upperLimitSource.append("path")
-      .attr("d", function (d) {
+      .attr("d", d => {
         return upperLimitArea(d.values);
       })
       .attr('class', 'upper-limit-area')
@@ -506,7 +521,7 @@ export class LineChartComponent implements OnInit, OnChanges {
       .append("g");
 
     lowerLimitSource.append("path")
-      .attr("d", function (d) {
+      .attr("d", d => {
         return lowerLimitArea(d.values);
       })
       .attr('class', 'lower-limit-area')
