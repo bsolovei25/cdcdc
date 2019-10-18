@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DndDropEvent} from "ngx-drag-drop";
+import {WidgetsService} from "../../services/widgets.service";
 
 @Component({
   selector: 'evj-widgets-grid',
@@ -12,39 +13,19 @@ export class WidgetsGridComponent implements OnInit {
   cells = [
     {
       position: 'bb1',
-      widget: {
-        name: "Уровень в кубе колонны К-8 (12LISAННL-1055)",
-        code: "C-1",
-        units: "кг/м3",
-        type: ""
-      }
+      widget: null,
     },
     {
       position: 'bb2',
-      widget: {
-        name: "Виджет 10",
-        code: "C-2",
-        units: "кг/м3",
-        type: ""
-      }
+      widget: null
     },
     {
       position: 'bs1',
-      widget: {
-        name: "Виджет 2",
-        code: "C-2",
-        units: "кг/м3",
-        type: ""
-      }
+      widget: null
     },
     {
       position: 'ss1',
-      widget: {
-        name: "Виджет 2",
-        code: "C-2",
-        units: "кг/м3",
-        type: ""
-      }
+      widget: null
     },
     {
       position: 'ss2',
@@ -56,21 +37,11 @@ export class WidgetsGridComponent implements OnInit {
     },
     {
       position: 'ss4',
-      widget: {
-        name: "Виджет 3",
-        code: "C-2",
-        units: "кг/м3",
-        type: ""
-      }
+      widget: null
     },
     {
       position: 'ss5',
-      widget: {
-        name: "Виджет 3",
-        code: "C-2",
-        units: "кг/м3",
-        type: ""
-      }
+      widget: null
     },
     {
       position: 'ss6',
@@ -79,7 +50,22 @@ export class WidgetsGridComponent implements OnInit {
   ];
 
 
-  constructor() {
+  constructor(private widgetsService: WidgetsService) {
+    this.widgetsService.getUserGrid().subscribe(ref => {
+      this.cells = ref;
+
+      this.cells.forEach(c => {
+        if (c.widget) {
+          this.widgetsService.getWidgetLiveData(c.widget.id).subscribe(ref => {
+            c.data = ref;
+          });
+        } else {
+          c.data = null;
+        }
+      });
+
+
+    });
   }
 
   ngOnInit() {
@@ -100,6 +86,14 @@ export class WidgetsGridComponent implements OnInit {
     }
 
     cell.widget = event.data.widget;
+
+    if (cell.widget) {
+      this.widgetsService.getWidgetLiveData(cell.widget.id).subscribe(ref => {
+        cell.data = ref;
+      });
+    } else {
+      cell.data = null;
+    }
 
     this.draggingMode = false;
 

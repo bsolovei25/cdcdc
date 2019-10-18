@@ -1,0 +1,28 @@
+[
+  {
+    "id": 1,
+    "name": "Виджет 1",
+    "code": "В-1",
+    "units": "кг/м3",
+    "widgetType": "line-chart",
+    "widgetOptions": {
+      "planLineType": "curveMonotoneX",
+      "factLineType": "curveMonotoneX",
+      "lowerLimitLineType": "curveMonotoneX",
+      "upperLimitLineType": "curveMonotoneX"
+    }
+  },
+  {
+    "id": 2,
+    "name": "Виджет 2",
+    "code": "В-2",
+    "units": "кг/м3",
+    "widgetType": "line-chart",
+    "widgetOptions": {
+      "planLineType": "curveStepAfter",
+      "factLineType": "curveStepAfter",
+      "lowerLimitLineType": "curveMonotoneX",
+      "upperLimitLineType": "curveLinear"
+    }
+  }
+]

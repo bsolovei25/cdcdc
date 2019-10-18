@@ -8,7 +8,6 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import {LineChartOptions} from "../../models/line-chart-options";
 
 import * as d3 from 'd3-selection';
 import * as d3Scale from 'd3-scale';
@@ -20,6 +19,7 @@ import * as d3Time from 'd3-time-format';
 import * as d3Format from 'd3-format';
 import * as d3Transition from 'd3-transition';
 import {Mock} from 'src/app/dashboard/widgets/line-chart/mock';
+import {LineChartOptions} from "../../models/widget";
 
 @Component({
   selector: 'evj-line-chart',
@@ -27,9 +27,15 @@ import {Mock} from 'src/app/dashboard/widgets/line-chart/mock';
   styleUrls: ['./line-chart.component.scss']
 })
 export class LineChartComponent implements OnInit, OnChanges {
+
+  @Input() code: string;
+  @Input() name: string;
+  @Input() units: string;
   @Input() options: LineChartOptions;
-  @Input() size?: string;
   @Input() position?: string = 'default';
+
+  @Input() data?: string;
+
 
   @ViewChild('chart', {static: true}) private chartContainer: ElementRef;
 
@@ -44,8 +50,11 @@ export class LineChartComponent implements OnInit, OnChanges {
   x;
   y;
   z;
+
   line;
   transition: any;
+
+  lines: any;
 
 
   readonly trendsStyle: any = {
@@ -85,7 +94,7 @@ export class LineChartComponent implements OnInit, OnChanges {
         class: 'point point_deviation'
       }
     },
-    lower_limit: {
+    lowerLimit: {
       point: {
         iconUrl: './assets/icons/widgets/line-chart/point-deviation.svg',
         width: 9.2,
@@ -98,7 +107,7 @@ export class LineChartComponent implements OnInit, OnChanges {
         class: 'line line_limit'
       }
     },
-    upper_limit: {
+    upperLimit: {
       point: {
         iconUrl: './assets/icons/widgets/line-chart/point-deviation.svg',
         width: 9.2,
@@ -115,122 +124,56 @@ export class LineChartComponent implements OnInit, OnChanges {
   deviationPoints: any;
 
   constructor() {
-    this.data = Mock;
-    this.refreshDeviations();
-    this.transition = d3Transition.transition();
+
   }
 
   ngOnInit() {
 
+    this.data = this.data || Mock;
+    this.refreshDeviations();
+    this.transition = d3Transition.transition();
+
+
     setTimeout(() => {
-      this.initChart();
-      this.refreshDomains();
-      this.refreshLine();
-      this.drawAxis();
-      this.drawGridLines();
-      this.drawDeviationAreas(this.data.find(d => d.id === 'plan'), this.data.find(d => d.id === 'fact'));
-      this.drawPath();
-      this.drawLinesBtwPoints(this.data.find(d => d.id === 'plan'), this.data.find(d => d.id === 'fact'));
-      this.drawPoints();
-      this.drawLimitsAreas(this.data.find(d => d.id === 'upper_limit'), this.data.find(d => d.id === 'lower_limit'));
+      this.startChart();
+
     }, 0);
 
-
-    setInterval(() => {
-
-      this.data[0].values.forEach(v => v.value = 40 + Math.random() * 40);
-
-      const rand = 60 + Math.random() * 20;
-      this.data[1].values.forEach(v => v.value = rand);
-
-
-      const rand2 = 100 + Math.random() * 20;
-      this.data[2].values.forEach(v => v.value = rand2);
-
-      const rand3 = 0 + Math.random() * 10;
-      this.data[3].values.forEach(v => v.value = rand3);
-
-
-      this.update();
-
-
-    }, 5000);
 
   }
 
   ngOnChanges() {
 
+    if (this.svg) {
+      this.svg.remove();
+      this.data = this.data || Mock;
+      this.refreshDeviations();
+      this.startChart();
+    }
+
+
   }
 
-
-  update() {
-    this.svg.remove();
-    this.refreshDeviations();
-
-
+  private startChart() {
     this.initChart();
     this.refreshDomains();
-    this.refreshLine();
+    this.refreshLines();
     this.drawAxis();
     this.drawGridLines();
-    this.drawDeviationAreas(this.data.find(d => d.id === 'plan'), this.data.find(d => d.id === 'fact'));
+    this.drawDeviationAreas(this.data.graphs.find(d => d.graphType === 'plan'), this.data.graphs.find(d => d.graphType === 'fact'));
     this.drawPath();
-    this.drawLinesBtwPoints(this.data.find(d => d.id === 'plan'), this.data.find(d => d.id === 'fact'));
+    this.drawLinesBtwPoints(this.data.graphs.find(d => d.graphType === 'plan'), this.data.graphs.find(d => d.graphType === 'fact'));
     this.drawPoints();
-    this.drawLimitsAreas(this.data.find(d => d.id === 'upper_limit'), this.data.find(d => d.id === 'lower_limit'));
-
-
-
-
-
-    // this.refreshDeviations();
-    // this.refreshDomains();
-    // this.refreshLine();
-    //
-    //
-    // this.g.select('.y-axis')
-    //   // .transition()
-    //   .call(d3Axis.axisLeft(this.y));
-    //
-    //
-    // this.g.selectAll('.grid').remove();
-    // this.drawGridLines();
-    //
-    //
-    // this.g.selectAll('.deviation-area').remove();
-    // this.g.selectAll(".area").remove();
-    // this.drawDeviationAreas(this.data.find(d => d.id === 'plan'), this.data.find(d => d.id === 'fact'));
-    //
-    //
-    // this.g.selectAll('.trend .line')
-    //   // .transition()
-    //   // .duration(750)
-    //   .attr('d', (d) => this.line(d.values));
-    //
-    //
-    // this.g.selectAll(".line-btw-point").remove();
-    // this.drawLinesBtwPoints(this.data.find(d => d.id === 'plan'), this.data.find(d => d.id === 'fact'));
-    //
-    //
-    // this.g.selectAll(".point").remove();
-    // this.drawPoints();
-    //
-    //
-    // this.g.selectAll(".gradient").remove();
-    // this.g.selectAll(".limit-area").remove();
-    // this.g.selectAll(".lower-limit-area").remove();
-    // this.g.selectAll(".upper-limit-area").remove();
-    // this.drawLimitsAreas(this.data.find(d => d.id === 'upper_limit'), this.data.find(d => d.id === 'lower_limit'));
-    //
-
+    this.drawLimitsAreas(this.data.graphs.find(d => d.graphType === 'upperLimit'), this.data.graphs.find(d => d.graphType === 'lowerLimit'));
   }
 
+
   private refreshDeviations() {
-    const plan = this.data.find(d => d.id === 'plan').values;
-    const fact = this.data.find(d => d.id === 'fact').values;
+    const plan = this.data.graphs.find(d => d.graphType === 'plan').values;
+    const fact = this.data.graphs.find(d => d.graphType === 'fact').values;
 
     this.deviationPoints = {
-      id: 'deviation',
+      graphType: 'deviation',
       values: fact.reduce((acc, d, i) => {
         if (plan[i].value < d.value) {
           acc.push(d);
@@ -244,19 +187,39 @@ export class LineChartComponent implements OnInit, OnChanges {
     this.x = d3Scale.scaleTime().range([0, this.width]);
     this.y = d3Scale.scaleLinear().range([this.height, 0]);
 
-    this.x.domain(d3Array.extent(this.data.map((v) => v.values.map((v) => v.date))[0], (d: Date) => d));
+    this.x.domain(d3Array.extent(this.data.graphs.map((v) => v.values.map((v) => v.date))[0], (d: Date) => d));
 
 
-    const yMin = d3Array.min(this.data, c => d3Array.min(c.values, d => d.value));
-    const yMax = d3Array.max(this.data, c => d3Array.max(c.values, d => d.value));
+    const yMin = d3Array.min(this.data.graphs, c => d3Array.min(c.values, d => d.value));
+    const yMax = d3Array.max(this.data.graphs, c => d3Array.max(c.values, d => d.value));
     const offset = (yMax - yMin) * 0.15;
 
     this.y.domain([yMin - offset, yMax + offset]).nice();
   }
 
-  private refreshLine() {
+  private refreshLines() {
+    this.lines = {
+      plan: d3Shape.line()
+        .curve(d3Shape[this.options.planLineType])
+        .x((d: any) => this.x(d.date))
+        .y((d: any) => this.y(d.value)),
+      fact: d3Shape.line()
+        .curve(d3Shape[this.options.factLineType])
+        .x((d: any) => this.x(d.date))
+        .y((d: any) => this.y(d.value)),
+      upperLimit: d3Shape.line()
+        .curve(d3Shape[this.options.lowerLimitLineType])
+        .x((d: any) => this.x(d.date))
+        .y((d: any) => this.y(d.value)),
+      lowerLimit: d3Shape.line()
+        .curve(d3Shape[this.options.upperLimitLineType])
+        .x((d: any) => this.x(d.date))
+        .y((d: any) => this.y(d.value))
+    };
+
+
     this.line = d3Shape.line()
-      .curve(d3Shape.curveMonotoneX)
+      .curve(d3Shape['curveMonotoneX'])
       .x((d: any) => this.x(d.date))
       .y((d: any) => this.y(d.value));
 
@@ -334,14 +297,14 @@ export class LineChartComponent implements OnInit, OnChanges {
 
   private drawPath() {
     let trend = this.g.selectAll('.trend')
-      .data(this.data)
+      .data(this.data.graphs)
       .enter()
       .append('g')
       .attr('class', 'trend');
 
     trend.append('path')
-      .attr('d', (d) => this.line(d.values))
-      .attr('class', (d) => this.trendsStyle[d.id].trend.class);
+      .attr('d', (d) => this.lines[d.graphType](d.values))
+      .attr('class', (d) => this.trendsStyle[d.graphType].trend.class);
 
   }
 
@@ -381,14 +344,14 @@ export class LineChartComponent implements OnInit, OnChanges {
   private drawPoints() {
 
     let points = this.g.selectAll('.point')
-      .data([...this.data.filter(d => d.id === 'fact' || d.id === 'plan'), this.deviationPoints])
+      .data([...this.data.graphs.filter(d => d.graphType === 'fact' || d.graphType === 'plan'), this.deviationPoints])
       .enter()
       .append('g');
 
 
     points.selectAll(".point")
       .data(d => d.values.map(i => {
-          i.type = d.id;
+          i.type = d.graphType;
           return i
         })
       )
@@ -406,7 +369,7 @@ export class LineChartComponent implements OnInit, OnChanges {
 
   private drawDeviationAreas(planData, factData) {
     let clipPathArea = d3Shape.area()
-      .curve(d3Shape.curveMonotoneX)
+      .curve(d3Shape[this.options['factLineType']])
       .x(d => this.x(d.date))
       .y0(d => this.y(this.height))
       .y1(d => this.y(d.value));
@@ -422,13 +385,13 @@ export class LineChartComponent implements OnInit, OnChanges {
       .attr('id', 'clipPathArea-' + this.position)
       .attr('class', 'area')
       .append("path")
-      .attr("d", d =>  {
+      .attr("d", d => {
         return clipPathArea(d.values);
       });
 
 
     const deviationArea = d3Shape.area()
-      .curve(d3Shape.curveMonotoneX)
+      .curve(d3Shape[this.options['factLineType']])
       .x(d => this.x(d.date))
       .y0(d => this.y(factData.values.find(v => v.date.toJSON() === d.date.toJSON()).value))
       .y1(d => this.y(d.value));
@@ -469,10 +432,9 @@ export class LineChartComponent implements OnInit, OnChanges {
 
   }
 
-
   private drawLimitsAreas(upperLimit, lowerLimit) {
     const upperLimitArea = d3Shape.area()
-      .curve(d3Shape.curveMonotoneX)
+      .curve(d3Shape[this.options['upperLimitLineType']])
       .x(d => this.x(d.date))
       .y0(d => 0)
       .y1(d => this.y(d.value));
@@ -510,7 +472,7 @@ export class LineChartComponent implements OnInit, OnChanges {
 
 
     const lowerLimitArea = d3Shape.area()
-      .curve(d3Shape.curveMonotoneX)
+      .curve(d3Shape[this.options['lowerLimitLineType']])
       .x(d => this.x(d.date))
       .y0(d => this.height)
       .y1(d => this.y(d.value));
@@ -547,4 +509,12 @@ export class LineChartComponent implements OnInit, OnChanges {
 
   }
 
+  private getLine(lineType) {
+    const k = this.options[lineType + 'LineType'];
+
+    return d3Shape.line()
+      .curve(d3Shape[k])
+      .x((d: any) => this.x(d.date))
+      .y((d: any) => this.y(d.value));
+  }
 }
