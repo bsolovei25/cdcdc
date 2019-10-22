@@ -19,7 +19,7 @@ import * as d3Time from 'd3-time-format';
 import * as d3Format from 'd3-format';
 import * as d3Transition from 'd3-transition';
 import {Mock} from 'src/app/dashboard/widgets/line-chart/mock';
-import {LineChartOptions} from "../../models/widget";
+import {LineChartData, LineChartOptions} from "../../models/widget";
 
 @Component({
   selector: 'evj-line-chart',
@@ -34,12 +34,11 @@ export class LineChartComponent implements OnInit, OnChanges {
   @Input() options: LineChartOptions;
   @Input() position?: string = 'default';
 
-  @Input() data?: string;
+  @Input() data?: LineChartData;
 
 
   @ViewChild('chart', {static: true}) private chartContainer: ElementRef;
 
-  data: any;
   margin = {top: 10, right: -30, bottom: 20, left: 50};
 
   svg;

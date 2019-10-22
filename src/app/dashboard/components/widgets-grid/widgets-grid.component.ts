@@ -14,38 +14,49 @@ export class WidgetsGridComponent implements OnInit {
     {
       position: 'bb1',
       widget: null,
+      data: null
     },
     {
       position: 'bb2',
-      widget: null
+      widget: null,
+      data: null
     },
     {
       position: 'bs1',
-      widget: null
+      widget: null,
+      data: null
     },
     {
       position: 'ss1',
-      widget: null
+      widget: null,
+      data: null
     },
     {
       position: 'ss2',
+      widget: null,
+      data: null
 
     },
     {
       position: 'ss3',
-      widget: null
+      widget: null,
+      data: null
     },
     {
       position: 'ss4',
-      widget: null
+      widget: null,
+      data: null
+
     },
     {
       position: 'ss5',
-      widget: null
+      widget: null,
+      data: null
     },
     {
       position: 'ss6',
-      widget: null
+      widget: null,
+      data: null
     }
   ];
 
