@@ -1,0 +1,52 @@
+.line-chart {
+
+  .domain {
+    display: none;
+  }
+
+  .tick .line {
+    display: none;
+  }
+
+  .line {
+    fill: transparent;
+
+    &_plan {
+      stroke: #A2E2FF;
+    }
+
+    &_fact {
+      stroke: #fff;
+
+    }
+
+    &_limit {
+      stroke: #494B52;
+      stroke-dasharray: 5,5;
+    }
+  }
+
+  .tick {
+    color: var(--color-text-sub-heading);
+  }
+
+  .x-axis {
+    font-size: 0.6875rem;
+  }
+
+  .y-axis {
+    font-size: 0.625rem;
+  }
+
+  .point {
+  }
+
+  .deviation-area {
+  }
+
+  .line-btw-point {
+    stroke-width: 0.25px;
+    stroke: white;
+  }
+
+}

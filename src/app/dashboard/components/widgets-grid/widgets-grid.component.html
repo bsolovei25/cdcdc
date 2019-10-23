@@ -15,11 +15,14 @@
     <evj-line-chart class="grid__widget"
                     *ngIf="c.widget"
                     [dndDraggable]="c"
-                    [size]="c.position[0] + c.position[1]"
                     (dndStart)="onDragStart($event)"
                     (dndEnd)="onDragEnd($event)"
-                    [options]="c.widget"></evj-line-chart>
-
+                    [position]="c.position"
+                    [code]="c.widget.code"
+                    [name]="c.widget.name"
+                    [data]="c.data"
+                    [units]="c.widget.units"
+                    [options]="c.widget.widgetOptions"></evj-line-chart>
 
   </div>
 

@@ -8,7 +8,6 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import {LineChartOptions} from "../../models/line-chart-options";
 
 import * as d3 from 'd3-selection';
 import * as d3Scale from 'd3-scale';
@@ -20,6 +19,7 @@ import * as d3Time from 'd3-time-format';
 import * as d3Format from 'd3-format';
 import * as d3Transition from 'd3-transition';
 import {Mock} from 'src/app/dashboard/widgets/line-chart/mock';
+import {LineChartData, LineChartOptions} from "../../models/widget";
 
 @Component({
   selector: 'evj-line-chart',
@@ -27,13 +27,19 @@ import {Mock} from 'src/app/dashboard/widgets/line-chart/mock';
   styleUrls: ['./line-chart.component.scss']
 })
 export class LineChartComponent implements OnInit, OnChanges {
+
+  @Input() code: string;
+  @Input() name: string;
+  @Input() units: string;
   @Input() options: LineChartOptions;
-  @Input() size?: string;
+  @Input() position?: string = 'default';
+
+  @Input() data?: LineChartData;
+
 
   @ViewChild('chart', {static: true}) private chartContainer: ElementRef;
 
-  data: any;
-  margin = {top: 10, right: 0, bottom: 20, left: 50};
+  margin = {top: 10, right: -30, bottom: 20, left: 50};
 
   svg;
   any;
@@ -43,86 +49,176 @@ export class LineChartComponent implements OnInit, OnChanges {
   x;
   y;
   z;
+
   line;
   transition: any;
 
+  lines: any;
+
+
+  readonly trendsStyle: any = {
+    plan: {
+      point: {
+        iconUrl: './assets/icons/widgets/line-chart/point-plan.svg',
+        width: 6,
+        height: 6,
+        widthOffset: -3,
+        heightOffset: -3,
+        class: 'point point_plan'
+      },
+      trend: {
+        class: 'line line_plan'
+      }
+    },
+    fact: {
+      point: {
+        iconUrl: './assets/icons/widgets/line-chart/point-fact.svg',
+        width: 8,
+        height: 8,
+        widthOffset: -4,
+        heightOffset: -4,
+        class: 'point point_fact'
+      },
+      trend: {
+        class: 'line line_fact'
+      }
+    },
+    deviation: {
+      point: {
+        iconUrl: './assets/icons/widgets/line-chart/point-deviation.svg',
+        width: 9.2,
+        height: 8,
+        widthOffset: -4.6,
+        heightOffset: -5,
+        class: 'point point_deviation'
+      }
+    },
+    lowerLimit: {
+      point: {
+        iconUrl: './assets/icons/widgets/line-chart/point-deviation.svg',
+        width: 9.2,
+        height: 8,
+        widthOffset: -4.6,
+        heightOffset: -5,
+        class: 'point point_deviation'
+      },
+      trend: {
+        class: 'line line_limit'
+      }
+    },
+    upperLimit: {
+      point: {
+        iconUrl: './assets/icons/widgets/line-chart/point-deviation.svg',
+        width: 9.2,
+        height: 8,
+        widthOffset: -4.6,
+        heightOffset: -5,
+        class: 'point point_deviation'
+      },
+      trend: {
+        class: 'line line_limit'
+      }
+    }
+  };
+  deviationPoints: any;
 
   constructor() {
-    this.data = Mock;
-    this.transition = d3Transition.transition();
+
   }
 
   ngOnInit() {
 
+    this.data = this.data || Mock;
+    this.refreshDeviations();
+    this.transition = d3Transition.transition();
+
+
     setTimeout(() => {
-      this.initChart();
-      this.refreshDomains();
-      this.refreshLine();
-      this.drawAxis();
-      this.drawGridLines();
-      this.drawPath();
+      this.startChart();
+
     }, 0);
-
-    setInterval(() => {
-
-      this.data[0].values.forEach(v => v.value = 40 + Math.random() * 40);
-
-      const rand = 60 + Math.random() * 20;
-      this.data[1].values.forEach(v => v.value = rand);
-      this.update();
-    }, 5000);
 
 
   }
 
   ngOnChanges() {
 
+    if (this.svg) {
+      this.svg.remove();
+      this.data = this.data || Mock;
+      this.refreshDeviations();
+      this.startChart();
+    }
+
+
   }
 
-  update() {
-
-
+  private startChart() {
+    this.initChart();
     this.refreshDomains();
-    this.refreshLine();
-
-    this.g.select('.y-axis')
-      .transition()
-      .call(d3Axis.axisLeft(this.y));
-
-    this.g.selectAll('.trend .line')
-      .transition()
-      .duration(750)
-      .attr('d', (d) => this.line(d.values))
-      .style('fill', 'transparent')
-      .style('stroke', (d) => {
-        return d.color;
-      });
+    this.refreshLines();
+    this.drawAxis();
+    this.drawGridLines();
+    this.drawDeviationAreas(this.data.graphs.find(d => d.graphType === 'plan'), this.data.graphs.find(d => d.graphType === 'fact'));
+    this.drawPath();
+    this.drawLinesBtwPoints(this.data.graphs.find(d => d.graphType === 'plan'), this.data.graphs.find(d => d.graphType === 'fact'));
+    this.drawPoints();
+    this.drawLimitsAreas(this.data.graphs.find(d => d.graphType === 'upperLimit'), this.data.graphs.find(d => d.graphType === 'lowerLimit'));
+  }
 
 
+  private refreshDeviations() {
+    const plan = this.data.graphs.find(d => d.graphType === 'plan').values;
+    const fact = this.data.graphs.find(d => d.graphType === 'fact').values;
+
+    this.deviationPoints = {
+      graphType: 'deviation',
+      values: fact.reduce((acc, d, i) => {
+        if (plan[i].value < d.value) {
+          acc.push(d);
+        }
+        return acc;
+      }, [])
+    };
   }
 
   private refreshDomains() {
     this.x = d3Scale.scaleTime().range([0, this.width]);
     this.y = d3Scale.scaleLinear().range([this.height, 0]);
 
-    this.x.domain(d3Array.extent(this.data.map((v) => v.values.map((v) => v.date))[0], (d: Date) => d));
-    this.y.domain([
-      d3Array.min(this.data, function (c) {
-        return d3Array.min(c.values, function (d) {
-          return d.value;
-        });
-      }),
-      d3Array.max(this.data, function (c) {
-        return d3Array.max(c.values, function (d) {
-          return d.value;
-        });
-      })
-    ]).nice();
+    this.x.domain(d3Array.extent(this.data.graphs.map((v) => v.values.map((v) => v.date))[0], (d: Date) => d));
+
+
+    const yMin = d3Array.min(this.data.graphs, c => d3Array.min(c.values, d => d.value));
+    const yMax = d3Array.max(this.data.graphs, c => d3Array.max(c.values, d => d.value));
+    const offset = (yMax - yMin) * 0.15;
+
+    this.y.domain([yMin - offset, yMax + offset]).nice();
   }
 
-  private refreshLine() {
+  private refreshLines() {
+    this.lines = {
+      plan: d3Shape.line()
+        .curve(d3Shape[this.options.planLineType])
+        .x((d: any) => this.x(d.date))
+        .y((d: any) => this.y(d.value)),
+      fact: d3Shape.line()
+        .curve(d3Shape[this.options.factLineType])
+        .x((d: any) => this.x(d.date))
+        .y((d: any) => this.y(d.value)),
+      upperLimit: d3Shape.line()
+        .curve(d3Shape[this.options.lowerLimitLineType])
+        .x((d: any) => this.x(d.date))
+        .y((d: any) => this.y(d.value)),
+      lowerLimit: d3Shape.line()
+        .curve(d3Shape[this.options.upperLimitLineType])
+        .x((d: any) => this.x(d.date))
+        .y((d: any) => this.y(d.value))
+    };
+
+
     this.line = d3Shape.line()
-      .curve(d3Shape.curveBasis)
+      .curve(d3Shape['curveMonotoneX'])
       .x((d: any) => this.x(d.date))
       .y((d: any) => this.y(d.value));
 
@@ -144,17 +240,15 @@ export class LineChartComponent implements OnInit, OnChanges {
 
   }
 
-
-  makeXGridLines() {
+  private makeXGridLines() {
     return d3Axis.axisBottom(this.x)
       .ticks(5)
   }
 
-  makeYGridLines() {
+  private makeYGridLines() {
     return d3Axis.axisLeft(this.y)
       .ticks(3)
   }
-
 
   private drawAxis(): void {
     this.g.append('g')
@@ -166,7 +260,7 @@ export class LineChartComponent implements OnInit, OnChanges {
       .attr("class", "axis y-axis")
       .call(d3Axis.axisLeft(this.y)
         .ticks(7)
-        .tickFormat(function (d) {
+        .tickFormat((d) => {
           return d3Format.format(".1f")(d);
         }))
 
@@ -174,7 +268,7 @@ export class LineChartComponent implements OnInit, OnChanges {
 
   private drawGridLines() {
 
-    this.g.append("g")
+    this.g.append("g").selectAll('grid')
       .attr("class", "grid")
       .attr("transform", "translate(0," + this.height + ")")
       .call(this.makeXGridLines()
@@ -200,22 +294,226 @@ export class LineChartComponent implements OnInit, OnChanges {
 
   }
 
-
-  private drawPath(): void {
+  private drawPath() {
     let trend = this.g.selectAll('.trend')
-      .data(this.data)
-      .enter().append('g')
+      .data(this.data.graphs)
+      .enter()
+      .append('g')
       .attr('class', 'trend');
 
     trend.append('path')
-      .attr('class', 'line')
-      .attr('d', (d) => this.line(d.values))
-      .style('fill', 'transparent')
-      .style('stroke', (d) => {
-        return d.color;
-      });
+      .attr('d', (d) => this.lines[d.graphType](d.values))
+      .attr('class', (d) => this.trendsStyle[d.graphType].trend.class);
 
   }
 
+  private drawLinesBtwPoints(planData, factData) {
+    const pointsLines = planData.values.map((d, i) => {
+      return [
+        {
+          date: d.date,
+          value: d.value
+        },
+        {
+          date: d.date,
+          value: factData.values[i].value
+        }
+      ]
+    });
 
+
+    const line = d3Shape.line()
+      .curve(d3Shape.curveMonotoneX)
+      .x((d: any) => this.x(d.date))
+      .y((d: any) => this.y(d.value));
+
+
+    let lines = this.g.selectAll('.line-btw-point')
+      .data(pointsLines)
+      .enter()
+      .append('g')
+      .attr('class', 'trend');
+
+    lines.append('path')
+      .attr('class', 'line-btw-point')
+      .attr('d', (d) => line(d))
+
+  }
+
+  private drawPoints() {
+
+    let points = this.g.selectAll('.point')
+      .data([...this.data.graphs.filter(d => d.graphType === 'fact' || d.graphType === 'plan'), this.deviationPoints])
+      .enter()
+      .append('g');
+
+
+    points.selectAll(".point")
+      .data(d => d.values.map(i => {
+          i.type = d.graphType;
+          return i
+        })
+      )
+      .enter()
+      .append("svg:image")
+      .attr('width', d => this.trendsStyle[d.type].point.width)
+      .attr('height', d => this.trendsStyle[d.type].point.height)
+      .attr("x", d => this.x(d.date) + this.trendsStyle[d.type].point.widthOffset)
+      .attr("y", d => this.y(d.value) + this.trendsStyle[d.type].point.heightOffset)
+      .attr("xlink:href", d => this.trendsStyle[d.type].point.iconUrl)
+      .attr('class', 'point')
+      .attr("class", d => this.trendsStyle[d.type].point.class)
+
+  }
+
+  private drawDeviationAreas(planData, factData) {
+    let clipPathArea = d3Shape.area()
+      .curve(d3Shape[this.options['factLineType']])
+      .x(d => this.x(d.date))
+      .y0(d => this.y(this.height))
+      .y1(d => this.y(d.value));
+
+
+    let clipPathSource = this.g.selectAll(".area")
+      .data([planData])
+      .enter()
+      .append("g");
+
+
+    clipPathSource.append("clipPath")
+      .attr('id', 'clipPathArea-' + this.position)
+      .attr('class', 'area')
+      .append("path")
+      .attr("d", d => {
+        return clipPathArea(d.values);
+      });
+
+
+    const deviationArea = d3Shape.area()
+      .curve(d3Shape[this.options['factLineType']])
+      .x(d => this.x(d.date))
+      .y0(d => this.y(factData.values.find(v => v.date.toJSON() === d.date.toJSON()).value))
+      .y1(d => this.y(d.value));
+
+
+    const deviationSource = this.g.selectAll(".deviation-area")
+      .data([planData])
+      .enter()
+      .append("g");
+
+
+    deviationSource.append("path")
+      .attr("d", d => {
+        return deviationArea(d.values);
+      })
+      .attr('class', 'deviation-area')
+      .attr("clip-path", 'url(#clipPathArea-' + this.position + ')')
+      .attr("fill", 'url(#deviation-gradient)');
+
+
+    const gradient = deviationSource
+      .append("g")
+      .append('linearGradient')
+      .attr('id', 'deviation-gradient')
+      .attr('x1', "0%")
+      .attr('x2', "0%")
+      .attr('y1', "0%")
+      .attr('y2', "100%");
+
+    gradient.append('stop')
+      .attr('offset', "0")
+      .attr('stop-color', "rgba(244, 163, 33, 0.2)");
+
+    gradient.append('stop')
+      .attr('offset', "50%")
+      .attr('stop-color', "transparent");
+
+
+  }
+
+  private drawLimitsAreas(upperLimit, lowerLimit) {
+    const upperLimitArea = d3Shape.area()
+      .curve(d3Shape[this.options['upperLimitLineType']])
+      .x(d => this.x(d.date))
+      .y0(d => 0)
+      .y1(d => this.y(d.value));
+
+    const upperLimitSource = this.g.selectAll(".limit-area")
+      .data([upperLimit])
+      .enter()
+      .append("g");
+
+    upperLimitSource.append("path")
+      .attr("d", d => {
+        return upperLimitArea(d.values);
+      })
+      .attr('class', 'upper-limit-area')
+      .attr("fill", 'url(#upper-limit-gradient-' + this.position + ')');
+
+
+    const upperLimitGradient = upperLimitSource
+      .append("g")
+      .append('linearGradient')
+      .attr('class', 'gradient')
+      .attr('id', 'upper-limit-gradient-' + this.position)
+      .attr('x1', "0%")
+      .attr('x2', "0%")
+      .attr('y1', "0%")
+      .attr('y2', "100%");
+
+    upperLimitGradient.append('stop')
+      .attr('offset', "0%")
+      .attr('stop-color', "transparent");
+
+    upperLimitGradient.append('stop')
+      .attr('offset', "50%")
+      .attr('stop-color', "rgba(255,255,255,0.015");
+
+
+    const lowerLimitArea = d3Shape.area()
+      .curve(d3Shape[this.options['lowerLimitLineType']])
+      .x(d => this.x(d.date))
+      .y0(d => this.height)
+      .y1(d => this.y(d.value));
+
+    const lowerLimitSource = this.g.selectAll(".limit-area")
+      .data([lowerLimit])
+      .enter()
+      .append("g");
+
+    lowerLimitSource.append("path")
+      .attr("d", d => {
+        return lowerLimitArea(d.values);
+      })
+      .attr('class', 'lower-limit-area')
+      .attr("fill", 'url(#lower-limit-gradient-' + this.position + ')');
+
+
+    const lowerLimitGradient = lowerLimitSource
+      .append("g")
+      .append('linearGradient')
+      .attr('id', 'lower-limit-gradient-' + this.position)
+      .attr('x1', "0%")
+      .attr('x2', "0%")
+      .attr('y1', "0%")
+      .attr('y2', "100%");
+
+    lowerLimitGradient.append('stop')
+      .attr('offset', "50%")
+      .attr('stop-color', "rgba(255,255,255,0.015");
+
+    lowerLimitGradient.append('stop')
+      .attr('offset', "100%")
+      .attr('stop-color', "transparent");
+
+  }
+
+  private getLine(lineType) {
+    const k = this.options[lineType + 'LineType'];
+
+    return d3Shape.line()
+      .curve(d3Shape[k])
+      .x((d: any) => this.x(d.date))
+      .y((d: any) => this.y(d.value));
+  }
 }
