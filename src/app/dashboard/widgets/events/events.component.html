@@ -23,16 +23,20 @@
       </div>
     </div>
 
-    <div class="category categories__item" *ngFor="let c of categories">
+    <div class="category categories__item"
+         *ngFor="let c of categories"
+         (click)="onCategoryClick(c)"
+         [class.category_active]="c.isActive">
 
       <div class="category__row category__row_top">
         <svg-icon class="category__icon"
+                  [applyCss]="true"
                   [src]="c.iconUrl"></svg-icon>
 
         <div class="counts category__counts">
-          <span class="counts__count">{{c.closedCount}}</span>
+          <span class="counts__count">{{c.counters?.closed}}</span>
           <span class="counts__count">/</span>
-          <span class="counts__count">{{c.allCount}}</span>
+          <span class="counts__count">{{c.counters?.all}}</span>
         </div>
       </div>
 
@@ -55,7 +59,8 @@
       <div class="notification notifications__item" *ngFor="let n of notifications">
 
         <div class="notification__header">
-      <span class="notification__number">
+      <span class="notification__number"
+            [ngClass]="{'notification__number_danger': n.priority === 'danger', 'notification__number_warning': n.priority === 'warning'}">
         {{n.serialNumber}}
       </span>
           <span class="notification__name">
@@ -76,10 +81,12 @@
       </span>
 
           <div class="notification__extra">
-        <span class="notification__status">
-          {{n.status}}
+        <span class="notification__status"
+              [ngClass]="{'notification__number_danger': n.priority === 'danger', 'notification__number_warning': n.priority === 'warning'}">
+          {{n.status.name}}
         </span>
-            <svg-icon class="notification__icon" [src]="n.iconUrl"></svg-icon>
+            <svg-icon class="notification__icon" [applyCss]="true" [src]="n.iconUrl"
+                      [ngClass]="{'notification__icon_danger': n.priority === 'danger', 'notification__icon_warning': n.priority === 'warning', 'notification__icon_standart': n.priority === 'standart'}"></svg-icon>
           </div>
 
         </div>
@@ -101,12 +108,15 @@
       </div>
     </div>
 
-    <div class="filter filters__item" *ngFor="let f of filters">
+    <div class="filter filters__item"
+         *ngFor="let f of filters"
+         (click)="onFilterClick(f)"
+         [class.filter_active]="f.isActive">
       <span class="filter__name">
         {{f.name}}
       </span>
       <span class="filter__count">
-        {{f.count}}
+        {{f.counter}}
       </span>
     </div>
 

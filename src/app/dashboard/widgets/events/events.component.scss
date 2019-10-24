@@ -259,10 +259,11 @@
 .category {
   display: flex;
   flex-flow: column;
+  cursor: pointer;
 
-  width: 161px;
+  width: 163px;
   height: 78px;
-  padding: 6px 0;
+  padding: 5px 0;
   box-sizing: border-box;
 
   color: var(--color-text-sub-heading);
@@ -292,6 +293,19 @@
     font-size: 0.75rem;
     text-align: center;
   }
+
+  &_active {
+    color: white;
+    background: url('../../../../assets/icons/widgets/events/category-bg_active.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+
+  }
+  &_active &__icon {
+    stroke: var(--color-border-active);
+  }
+
 }
 
 .counts {
@@ -333,7 +347,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: var(--color-text-sub-heading);
+    color: var(--color-text-main);
     //width: 100%;
 
   }
@@ -343,11 +357,20 @@
     font-size: 0.75rem;
     font-weight: bold;
     margin-right: 6px;
+
+    &_danger {
+      color: var(--color-danger);
+    }
+
+    &_warning {
+      color: var(--color-warning);
+    }
   }
 
   &__name {
     flex: 0 55px;
     font-size: 0.625rem;
+    color: var(--color-text-sub);
   }
 
   &__line {
@@ -388,6 +411,28 @@
   &__status {
     margin-left: 10px;
     font-size: 0.75rem;
+
+    &_danger {
+      color: var(--color-danger);
+    }
+
+    &_warning {
+      color: var(--color-warning);
+    }
+  }
+
+  &__icon {
+    &_danger {
+      stroke: var(--color-danger);
+    }
+
+    &_warning {
+      stroke: var(--color-warning);
+    }
+
+    &_standart {
+      stroke: var(--color-text-main);
+    }
   }
 
 }
@@ -398,6 +443,8 @@
 
   &__circle {
     @extend %circle;
+    top: auto;
+    bottom: -2.5px;
 
     &__left {
       left: -6.5px;
@@ -446,11 +493,11 @@
     top: -2px;
 
     &_left {
-      left: -2.015px;
+      left: -2.25px;
     }
 
     &_right {
-      right: -2.5px;
+      right: -2.25px;
     }
   }
 
@@ -463,6 +510,13 @@
 
   padding: 12px 18px 10px 12px;
   border-bottom: 2px solid var(--color-border-main-transparrent);
+  cursor: pointer;
+  color: var(--color-text-sub);
+
+  &_active {
+    border-color: var(--color-border-active);
+    color: var(--color-text-main);
+  }
 
   &__name {
     font-size: 0.75rem;
@@ -472,4 +526,5 @@
   &__count {
     font-size: 0.875rem;
   }
+
 }

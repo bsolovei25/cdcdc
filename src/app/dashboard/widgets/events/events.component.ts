@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {EventsCategory} from "../../models/events-category";
+import {EventsFilter} from "../../models/events-filter";
 
 @Component({
   selector: 'evj-events',
@@ -6,36 +8,53 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./events.component.scss']
 })
 export class EventsComponent implements OnInit {
+
   categories = [
     {
       iconUrl: './assets/icons/widgets/events/status.svg',
-      closedCount: 5,
-      allCount: 10,
-      name: "Состояние оборудования отказы"
+      counters: {
+        closed: 5,
+        all: 10,
+      },
+      name: "Состояние оборудования отказы",
+      isActive: false
     },
     {
       iconUrl: './assets/icons/widgets/events/safety.svg',
-      closedCount: 5,
-      allCount: 10,
-      name: "Безопасноть"
+      counters: {
+        closed: 5,
+        all: 10,
+      },
+      name: "Безопасноть",
+      isActive: false
     },
     {
       iconUrl: './assets/icons/widgets/events/tasks.svg',
-      closedCount: 5,
-      allCount: 10,
-      name: "Производственные задания и разпоряжения"
+      counters: {
+        closed: 5,
+        all: 10,
+      },
+      name: "Производственные задания и разпоряжения",
+      isActive: false
     },
     {
       iconUrl: './assets/icons/widgets/events/review.svg',
-      closedCount: 5,
-      allCount: 10,
-      name: "Смотр"
+      counters: {
+        closed: 5,
+        all: 10,
+      },
+      name: "Смотр",
+      isActive: false
     },
     {
+      id: "5",
       iconUrl: './assets/icons/widgets/events/fire.svg',
-      closedCount: 5,
-      allCount: 10,
-      name: "Сброс на факел"
+      counters: {
+        closed: 5,
+        all: 10,
+      },
+      name: "Сброс на факел",
+      isActive: false
     }
   ];
 
@@ -43,64 +62,80 @@ export class EventsComponent implements OnInit {
     {
       id: 1,
       serialNumber: 123,
-      priority: "critical",
+      priority: "danger",
       dateTime: new Date("2013-10-21T13:28:06"),
       iconUrl: "./assets/icons/widgets/events/review.svg",
-      status: "new",
+      status: {code: "new", name: "Новое"},
       heading: "Отклонение",
       body: "Превышение уровня в колонне К-8 (КИП поз. 12LISAННL-1055) в 11:20"
     },
     {
       id: 2,
       serialNumber: 1243,
-      priority: "critical",
+      priority: "warning",
       dateTime: new Date("2013-10-21T13:28:06"),
       iconUrl: "./assets/icons/widgets/events/review.svg",
-      status: "new",
+      status: {code: "new", name: "Новое"},
       heading: "Отклонение",
       body: "Превышение уровня в колонне К-8 (КИП поз. 12LISAННL-1055) в 11:20"
     },
     {
       id: 3,
       serialNumber: 123,
-      priority: "critical",
+      priority: "standart",
       dateTime: new Date("2013-10-21T13:28:06"),
       iconUrl: "./assets/icons/widgets/events/review.svg",
-      status: "new",
+      status: {code: "new", name: "Новое"},
       heading: "Отклонение в два",
       body: "Превышение уровня в колонне К-8 (КИП поз. 12LISAННL-1055) в 11:20"
     },
     {
       id: 3,
       serialNumber: 123,
-      priority: "critical",
+      priority: "danger",
       dateTime: new Date("2013-10-21T13:28:06"),
       iconUrl: "./assets/icons/widgets/events/review.svg",
-      status: "new",
+      status: {code: "new", name: "Новое"},
       heading: "Отклонение в два",
       body: "Превышение уровня в колонне К-8 (КИП поз. 12LISAННL-1055) в 11:20"
     }
   ];
 
-  filters: any[] = [
+
+  filters: EventsFilter[] = [
     {
-      name: "all",
-      count: 11
+      code: "all",
+      name: "Все",
+      counter: 11,
+      isActive: true
     },
     {
-      name: "closed",
-      count: 11
+      code: "closed",
+      name: "Отработано",
+      counter: 11,
+      isActive: false
     },
     {
-      name: "open",
-      count: 11
-    }
+      code: "in-work",
+      name: "В работе",
+      counter: 10,
+      isActive: false
+    },
   ];
 
   constructor() {
   }
 
   ngOnInit() {
+  }
+
+  onCategoryClick(category) {
+    category.isActive = !category.isActive;
+  }
+
+  onFilterClick(filter) {
+    this.filters.forEach(f => f.isActive = false);
+    filter.isActive = true;
   }
 
 
