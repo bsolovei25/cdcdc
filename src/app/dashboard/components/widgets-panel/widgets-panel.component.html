@@ -9,7 +9,7 @@
     Доступные виджеты
   </h4>
 
-  <div class="widgets-panel__list">
+  <div class="widgets-panel__list scroll-bar">
     <ng-container *ngFor="let w of widgets | async">
       <evj-line-chart *ngIf="w"
                       [code]="w.code"

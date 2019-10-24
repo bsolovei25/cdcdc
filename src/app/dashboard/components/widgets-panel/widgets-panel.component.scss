@@ -19,7 +19,7 @@
   transition: width .5s, padding .5s, box-shadow .5s;
 
   &_active {
-    width: 480px;
+    width: 490px;
     padding: 20px;
     box-shadow: -4px 20px 13px 4px rgba(0, 0, 0, 0.5);
     border-color: var(--color-border-active);
