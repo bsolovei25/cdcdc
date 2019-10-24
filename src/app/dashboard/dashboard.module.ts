@@ -11,6 +11,7 @@ import {DashboardComponent} from "./pages/dashboard.component";
 import {HttpClientModule} from "@angular/common/http";
 import { WidgetsGridComponent } from './components/widgets-grid/widgets-grid.component';
 import { WidgetsPanelComponent } from './components/widgets-panel/widgets-panel.component';
+import {EventsComponent} from "./widgets/events/events.component";
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { WidgetsPanelComponent } from './components/widgets-panel/widgets-panel.
     DashboardComponent,
     WidgetsGridComponent,
     WidgetsPanelComponent,
+    EventsComponent
   ],
   exports: [
     HomeComponent
