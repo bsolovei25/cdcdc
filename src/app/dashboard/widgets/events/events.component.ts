@@ -82,6 +82,21 @@ export class EventsComponent implements OnInit {
     }
   ];
 
+  filters: any[] = [
+    {
+      name: "all",
+      count: 11
+    },
+    {
+      name: "closed",
+      count: 11
+    },
+    {
+      name: "open",
+      count: 11
+    }
+  ];
+
   constructor() {
   }
 
