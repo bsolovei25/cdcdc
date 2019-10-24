@@ -12,17 +12,18 @@
       <h3>Переместите сюда</h3>
     </div>
 
-    <evj-line-chart class="grid__widget"
-                    *ngIf="c.widget"
-                    [dndDraggable]="c"
-                    (dndStart)="onDragStart($event)"
-                    (dndEnd)="onDragEnd($event)"
-                    [position]="c.position"
-                    [code]="c.widget.code"
-                    [name]="c.widget.name"
-                    [data]="c.data"
-                    [units]="c.widget.units"
-                    [options]="c.widget.widgetOptions"></evj-line-chart>
+    <evj-events></evj-events>
+    <!--<evj-line-chart class="grid__widget"-->
+                    <!--*ngIf="c.widget"-->
+                    <!--[dndDraggable]="c"-->
+                    <!--(dndStart)="onDragStart($event)"-->
+                    <!--(dndEnd)="onDragEnd($event)"-->
+                    <!--[position]="c.position"-->
+                    <!--[code]="c.widget.code"-->
+                    <!--[name]="c.widget.name"-->
+                    <!--[data]="c.data"-->
+                    <!--[units]="c.widget.units"-->
+                    <!--[options]="c.widget.widgetOptions"></evj-line-chart>-->
 
   </div>
 

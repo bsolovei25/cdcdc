@@ -39,6 +39,49 @@ export class EventsComponent implements OnInit {
     }
   ];
 
+  notifications: any[] = [
+    {
+      id: 1,
+      serialNumber: 123,
+      priority: "critical",
+      dateTime: new Date("2013-10-21T13:28:06"),
+      iconUrl: "./assets/icons/widgets/events/review.svg",
+      status: "new",
+      heading: "Отклонение",
+      body: "Превышение уровня в колонне К-8 (КИП поз. 12LISAННL-1055) в 11:20"
+    },
+    {
+      id: 2,
+      serialNumber: 1243,
+      priority: "critical",
+      dateTime: new Date("2013-10-21T13:28:06"),
+      iconUrl: "./assets/icons/widgets/events/review.svg",
+      status: "new",
+      heading: "Отклонение",
+      body: "Превышение уровня в колонне К-8 (КИП поз. 12LISAННL-1055) в 11:20"
+    },
+    {
+      id: 3,
+      serialNumber: 123,
+      priority: "critical",
+      dateTime: new Date("2013-10-21T13:28:06"),
+      iconUrl: "./assets/icons/widgets/events/review.svg",
+      status: "new",
+      heading: "Отклонение в два",
+      body: "Превышение уровня в колонне К-8 (КИП поз. 12LISAННL-1055) в 11:20"
+    },
+    {
+      id: 3,
+      serialNumber: 123,
+      priority: "critical",
+      dateTime: new Date("2013-10-21T13:28:06"),
+      iconUrl: "./assets/icons/widgets/events/review.svg",
+      status: "new",
+      heading: "Отклонение в два",
+      body: "Превышение уровня в колонне К-8 (КИП поз. 12LISAННL-1055) в 11:20"
+    }
+  ];
+
   constructor() {
   }
 

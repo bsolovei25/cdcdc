@@ -1,3 +1,4 @@
+
 .header {
   position: relative;
   height: 30px;
@@ -198,7 +199,7 @@
   padding: 6px 0;
   box-sizing: border-box;
 
-  color: var(--color-border-main-transparrent);
+  color: var(--color-text-sub-heading);
   background: url('../../../../assets/icons/widgets/events/category-bg.svg');
   background-repeat: no-repeat;
   background-position: center;
@@ -229,4 +230,108 @@
 
 .counts {
   font-size: 1.75rem;
+}
+
+.notifications {
+  overflow-y: scroll;
+  height: 50%;
+
+  &__item {
+    margin-bottom: 15px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+  }
+
+}
+
+.notification {
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--color-text-sub-heading);
+    //width: 100%;
+
+  }
+
+  &__number {
+    flex: 0 23px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-right: 6px;
+  }
+
+  &__name {
+    flex: 0 55px;
+    font-size: 0.625rem;
+  }
+
+  &__line {
+    flex: 1 130px;
+    margin: 0 16px;
+    border-bottom: 1px dashed var(--color-border-main-transparrent);
+  }
+
+  &__date-time {
+    flex: 0 98px;
+    font-size: 0.75rem;
+  }
+
+  &__body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px 10px;
+
+  }
+
+  &__description {
+    flex: 2 750px;
+    color: var(--color-text-sub);
+    font-size: 0.875rem;
+  }
+
+  &__extra {
+    flex: 1 98px;
+    max-width: 98px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__status {
+    margin-left: 10px;
+    font-size: 0.75rem;
+  }
+
+}
+
+.line {
+  position: relative;
+  height: 4px;
+
+  &__circle {
+    width: 4px;
+    height: 4px;
+    border: 0.5px solid var(--color-border-main-transparrent);
+    background-color: black;
+    border-radius: 50%;
+    position: absolute;
+    top: 2.5px;
+    box-sizing: border-box;
+
+    &__left {
+      left: -6.5px;
+    }
+
+    &__right {
+      right: -6.5px;
+    }
+  }
 }
