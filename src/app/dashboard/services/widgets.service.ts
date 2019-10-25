@@ -73,4 +73,5 @@ export class WidgetsService {
     return this.http.get('./assets/mock/user_grid.json');
   }
 
+
 }

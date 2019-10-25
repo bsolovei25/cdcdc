@@ -1,3 +1,35 @@
+%circle {
+  width: 4px;
+  height: 4px;
+  border: 0.5px solid var(--color-border-main-transparrent);
+  background-color: black;
+  border-radius: 50%;
+  position: absolute;
+  top: 100%;
+  box-sizing: border-box;
+
+}
+
+:host {
+  position: relative;
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.events {
+  --categories-min-height: 118px;
+  --filters-min-height: 40px;
+  --margin-vertical: 30px;
+  --line-border: 0.5px dashed var(--color-border-main-transparrent);
+
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: calc(100% - var(--margin-vertical));
+  top: var(--margin-vertical);
+}
+
 .header {
   position: relative;
   height: 30px;
@@ -86,15 +118,7 @@
   position: relative;
 
   &__circle {
-    width: 4px;
-    height: 4px;
-    border: 0.5px solid var(--color-border-main-transparrent);
-    background-color: black;
-    border-radius: 50%;
-    position: absolute;
-    top: 100%;
-    box-sizing: border-box;
-
+    @extend %circle;
     &__left {
       left: -2.5px;
     }
@@ -126,6 +150,8 @@
   }
 
   &_bottom {
+    position: absolute;
+    bottom: 0;
     border-bottom: 0.5px solid var(--color-border-main-transparrent);
     border-top: transparent;
 
@@ -177,8 +203,12 @@
 }
 
 .categories {
+  --padding: 20px;
+  position: relative;
   display: flex;
-  padding: 20px 0;
+  padding: var(--padding);
+  min-height: var(--categories-min-height);
+  box-sizing: border-box;
 
   &__item {
     margin-right: 20px;
@@ -187,18 +217,56 @@
       margin-right: 0;
     }
   }
+
+  &__line {
+    --line-offset: 20px;
+
+    position: absolute;
+    top: calc(var(--padding) + var(--line-offset) - 5px);
+
+    width: 1px;
+    height: calc(var(--categories-min-height) - var(--padding) - var(--line-offset) - 4px);
+
+    box-sizing: border-box;
+
+    &_left {
+      left: 0;
+      border-left: var(--line-border);
+    }
+
+    &_right {
+      right: -1px;
+      border-right: var(--line-border);
+    }
+  }
+
+  &__circle {
+    @extend %circle;
+    position: absolute;
+    top: auto;
+    bottom: -7px;
+
+    &_left {
+      left: -2.015px;
+    }
+
+    &_right {
+      right: -2.5px;
+    }
+  }
 }
 
 .category {
   display: flex;
   flex-flow: column;
+  cursor: pointer;
 
-  width: 161px;
+  width: 163px;
   height: 78px;
-  padding: 6px 0;
+  padding: 5px 0;
   box-sizing: border-box;
 
-  color: var(--color-border-main-transparrent);
+  color: var(--color-text-sub-heading);
   background: url('../../../../assets/icons/widgets/events/category-bg.svg');
   background-repeat: no-repeat;
   background-position: center;
@@ -225,8 +293,239 @@
     font-size: 0.75rem;
     text-align: center;
   }
+
+  &_active {
+    color: white;
+    background: url('../../../../assets/icons/widgets/events/category-bg_active.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+
+  }
+  &_active &__icon {
+    stroke: var(--color-border-active);
+  }
+
 }
 
 .counts {
   font-size: 1.75rem;
 }
+
+.notifications {
+  --padding: 20px;
+
+  position: relative;
+  height: calc(100% - var(--filters-min-height) - var(--categories-min-height) - var(--padding));
+  padding: var(--padding);
+  box-sizing: border-box;
+
+  background-color: var(--color-bg-main-dark);
+  border: 0.5px solid var(--color-border-main);
+  border-radius: 5px;
+
+  &__list {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+  }
+
+  &__item {
+    margin-bottom: 15px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+  }
+
+}
+
+.notification {
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--color-text-main);
+    //width: 100%;
+
+  }
+
+  &__number {
+    flex: 0 23px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-right: 6px;
+
+    &_danger {
+      color: var(--color-danger);
+    }
+
+    &_warning {
+      color: var(--color-warning);
+    }
+  }
+
+  &__name {
+    flex: 0 55px;
+    font-size: 0.625rem;
+    color: var(--color-text-sub);
+  }
+
+  &__line {
+    flex: 1 130px;
+    margin: 0 16px;
+    border-bottom: 1px dashed var(--color-border-main-transparrent);
+  }
+
+  &__date-time {
+    flex: 0 98px;
+    font-size: 0.75rem;
+  }
+
+  &__body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px 10px;
+
+  }
+
+  &__description {
+    flex: 2 750px;
+    color: var(--color-text-sub);
+    font-size: 0.875rem;
+  }
+
+  &__extra {
+    flex: 1 98px;
+    max-width: 98px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__status {
+    margin-left: 10px;
+    font-size: 0.75rem;
+
+    &_danger {
+      color: var(--color-danger);
+    }
+
+    &_warning {
+      color: var(--color-warning);
+    }
+  }
+
+  &__icon {
+    &_danger {
+      stroke: var(--color-danger);
+    }
+
+    &_warning {
+      stroke: var(--color-warning);
+    }
+
+    &_standart {
+      stroke: var(--color-text-main);
+    }
+  }
+
+}
+
+.line {
+  position: relative;
+  height: 4px;
+
+  &__circle {
+    @extend %circle;
+    top: auto;
+    bottom: -2.5px;
+
+    &__left {
+      left: -6.5px;
+    }
+
+    &__right {
+      right: -6.5px;
+    }
+  }
+}
+
+.filters {
+  position: relative;
+
+  display: flex;
+  justify-content: space-between;
+  min-height: var(--filters-min-height);
+
+  &__item {
+    flex: 1 192px;
+    margin: 0 16px;
+  }
+
+  &__line {
+    position: absolute;
+    top: 2px;
+    width: 1px;
+    height: calc(100% - 12px);
+
+    box-sizing: border-box;
+
+    &_left {
+      left: 0;
+      border-left: var(--line-border);
+    }
+
+    &_right {
+      right: -1px;
+      border-right: var(--line-border);
+    }
+  }
+
+  &__circle {
+    @extend %circle;
+    position: absolute;
+    top: -2px;
+
+    &_left {
+      left: -2.25px;
+    }
+
+    &_right {
+      right: -2.25px;
+    }
+  }
+
+}
+
+.filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 12px 18px 10px 12px;
+  border-bottom: 2px solid var(--color-border-main-transparrent);
+  cursor: pointer;
+  color: var(--color-text-sub);
+
+  &_active {
+    border-color: var(--color-border-active);
+    color: var(--color-text-main);
+  }
+
+  &__name {
+    font-size: 0.75rem;
+
+  }
+
+  &__count {
+    font-size: 0.875rem;
+  }
+
+}
+

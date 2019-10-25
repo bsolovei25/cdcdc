@@ -15,27 +15,124 @@
   <div class="frame__circle frame__circle__right"></div>
 </div>
 
+<div class="events">
 
-<div class="categories">
-
-  <div class="category categories__item" *ngFor="let c of categories">
-
-    <div class="category__row category__row_top">
-      <svg-icon class="category__icon"
-                [src]="c.iconUrl"></svg-icon>
-
-      <div class="counts category__counts">
-        <span class="counts__count">{{c.closedCount}}</span>
-        <span class="counts__count">/</span>
-        <span class="counts__count">{{c.allCount}}</span>
+  <div class="categories">
+    <div class="categories__line categories__line_left">
+      <div class="categories__circle categories__circle_left">
       </div>
     </div>
 
-    <div class="category__row category__row_bottom">
-      <span class="category__name">{{c.name}}</span>
+    <div class="category categories__item"
+         *ngFor="let c of categories"
+         (click)="onCategoryClick(c)"
+         [class.category_active]="c.isActive">
+
+      <div class="category__row category__row_top">
+        <svg-icon class="category__icon"
+                  [applyCss]="true"
+                  [src]="c.iconUrl"></svg-icon>
+
+        <div class="counts category__counts">
+          <span class="counts__count">{{c.counters?.closed}}</span>
+          <span class="counts__count">/</span>
+          <span class="counts__count">{{c.counters?.all}}</span>
+        </div>
+      </div>
+
+      <div class="category__row category__row_bottom">
+        <span class="category__name">{{c.name}}</span>
+      </div>
+
+    </div>
+
+    <div class="categories__line categories__line_right">
+      <div class="categories__circle categories__circle_right">
+      </div>
     </div>
 
   </div>
 
+
+  <div class="notifications">
+    <div class="notifications__list scroll-bar">
+      <div class="notification notifications__item" *ngFor="let n of notifications">
+
+        <div class="notification__header">
+      <span class="notification__number"
+            [ngClass]="{'notification__number_danger': n.priority === 'danger', 'notification__number_warning': n.priority === 'warning'}">
+        {{n.serialNumber}}
+      </span>
+          <span class="notification__name">
+        {{n.heading}}
+      </span>
+          <div class="line notification__line">
+            <div class="line__circle line__circle__left"></div>
+            <div class="line__circle line__circle__right"></div>
+          </div>
+          <span class="notification__date-time">
+        {{n.dateTime | date: 'dd.MM.yyyy HH:mm'}}
+      </span>
+        </div>
+
+        <div class="notification__body">
+      <span class="notification__description">
+        {{n.body}}
+      </span>
+
+          <div class="notification__extra">
+        <span class="notification__status"
+              [ngClass]="{'notification__number_danger': n.priority === 'danger', 'notification__number_warning': n.priority === 'warning'}">
+          {{n.status.name}}
+        </span>
+            <svg-icon class="notification__icon" [applyCss]="true" [src]="n.iconUrl"
+                      [ngClass]="{'notification__icon_danger': n.priority === 'danger', 'notification__icon_warning': n.priority === 'warning', 'notification__icon_standart': n.priority === 'standart'}"></svg-icon>
+          </div>
+
+        </div>
+
+        <div class="line notification__line">
+          <div class="line__circle line__circle__left"></div>
+          <div class="line__circle line__circle__right"></div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="filters">
+    <div class="filters__line filters__line_left">
+      <div class="filters__circle filters__circle_left">
+      </div>
+    </div>
+
+    <div class="filter filters__item"
+         *ngFor="let f of filters"
+         (click)="onFilterClick(f)"
+         [class.filter_active]="f.isActive">
+      <span class="filter__name">
+        {{f.name}}
+      </span>
+      <span class="filter__count">
+        {{f.counter}}
+      </span>
+    </div>
+
+    <div class="filters__line filters__line_right">
+      <div class="filters__circle filters__circle_right">
+      </div>
+    </div>
+  </div>
+
 </div>
+
+
+<div class="frame frame_bottom">
+  <div class="frame__circle frame__circle__left"></div>
+  <div class="frame__circle frame__circle__right"></div>
+</div>
+
+
 

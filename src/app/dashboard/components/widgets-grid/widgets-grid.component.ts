@@ -11,11 +11,12 @@ export class WidgetsGridComponent implements OnInit {
   draggingMode = false;
 
   cells = [
-    {
-      position: 'bb1',
-      widget: null,
-      data: null
-    },
+    //uncomment to unblock position bb1
+    // {
+    //   position: 'bb1',
+    //   widget: null,
+    //   data: null
+    // },
     {
       position: 'bb2',
       widget: null,
