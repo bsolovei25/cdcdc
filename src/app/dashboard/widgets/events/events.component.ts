@@ -82,7 +82,7 @@ export class EventsComponent implements OnInit {
     {
       id: 3,
       serialNumber: 123,
-      priority: "standart",
+      priority: "standard",
       dateTime: new Date("2013-10-21T13:28:06"),
       iconUrl: "./assets/icons/widgets/events/review.svg",
       status: {code: "new", name: "Новое"},
