@@ -82,11 +82,17 @@
 
           <div class="notification__extra">
         <span class="notification__status"
-              [ngClass]="{'notification__number_danger': n.priority === 'danger', 'notification__number_warning': n.priority === 'warning'}">
-          {{n.status.name}}
+              [ngClass]="{
+              'notification__number_danger': n.isDanger,
+              'notification__number_warning': n.isWarning
+              }">
+          {{n.statusName}}
         </span>
             <svg-icon class="notification__icon" [applyCss]="true" [src]="n.iconUrl"
-                      [ngClass]="{'notification__icon_danger': n.priority === 'danger', 'notification__icon_warning': n.priority === 'warning', 'notification__icon_standard': n.priority === 'standard'}"></svg-icon>
+                      [ngClass]="{
+                      'notification__icon_danger': n.isDanger,
+                      'notification__icon_warning': n.isWarning,
+                      'notification__icon_standard': n.isStandard}"></svg-icon>
           </div>
 
         </div>

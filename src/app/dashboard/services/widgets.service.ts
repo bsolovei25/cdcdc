@@ -1,8 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {BehaviorSubject, Observable} from "rxjs/index";
+import {BehaviorSubject, Observable, Subscription} from "rxjs/index";
 import {LineChartData} from "../models/widget";
-import {map, switchMap} from "rxjs/internal/operators";
+import {filter, map, switchMap} from "rxjs/internal/operators";
+import {webSocket} from "rxjs/internal/observable/dom/webSocket";
+import {WebSocketSubject} from "rxjs/internal/observable/dom/WebSocketSubject";
+import {EventsNotification} from "../models/events-notification";
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +14,13 @@ export class WidgetsService {
   lineChartLiveData: Observable<LineChartData>;
   newData: BehaviorSubject<true> = new BehaviorSubject<true>(true);
 
+  private ws: WebSocketSubject<any> = webSocket('wss://localhost:5001');
+  private wsSubscribtion: Subscription;
+
   constructor(public http: HttpClient) {
 
     this.initLineChartLiveData();
+    this.initWS();
 
   }
 
@@ -52,13 +59,36 @@ export class WidgetsService {
 
   }
 
+  initWS() {
+    this.wsSubscribtion = this.ws.asObservable()
+      .subscribe((dataFromServer) => {
+        console.log('dataFromServer');
+        console.log(dataFromServer);
+      });
+  }
+
+  getWidgetLiveDataFromWS(widgetId, widgetType) {
+    this.ws.next({
+      "ActionType": "Subscribe",
+      "ChannelId": widgetId
+    });
+
+    return this.ws.asObservable().pipe(
+      filter(ref => ref.channelId === widgetId),
+      map(ref => {
+        return this.mapWidgetData(ref.data, widgetType);
+      })
+    );
+  }
+
   getAvailableWidgets(): Observable<any> {
     return this.http.get('./assets/mock/available_widgets.json');
   }
 
-  getWidgetLiveData(widgetId) {
+  getWidgetLiveData(widgetId, widgetType?) {
     return this.lineChartLiveData;
   }
+
 
   getWidgetData(widgetId): Observable<LineChartData> {
     return this.http.get<LineChartData>('./assets/mock/widget_data.json').pipe(
@@ -71,6 +101,28 @@ export class WidgetsService {
 
   getUserGrid(): Observable<any> {
     return this.http.get('./assets/mock/user_grid.json');
+  }
+
+  mapWidgetData(data, widgetType) {
+    switch (widgetType) {
+      case 'events':
+        return this.mapNotification(data);
+    }
+  }
+
+  mapNotification(notification): EventsNotification {
+    const
+      id = notification.Id,
+      serialNumber = notification.SerialNumber,
+      priority = notification.Priority,
+      dateTime = new Date(notification.DateTime),
+      iconUrl = '',
+      statusCode = notification.StatusCode,
+      heading = notification.Heading,
+      body = notification.Body,
+      categoryId = notification.CategoryId;
+
+    return {id, serialNumber, priority, dateTime, iconUrl, statusCode, heading, body, categoryId};
   }
 
 
