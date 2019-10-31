@@ -114,18 +114,8 @@ export class WidgetsService {
   }
 
   mapNotification(notification): EventsNotification {
-    const
-      id = notification.Id,
-      serialNumber = notification.SerialNumber,
-      priority = notification.Priority,
-      dateTime = new Date(notification.DateTime),
-      iconUrl = '',
-      statusCode = notification.StatusCode,
-      heading = notification.Heading,
-      body = notification.Body,
-      categoryId = notification.CategoryId;
-
-    return {id, serialNumber, priority, dateTime, iconUrl, statusCode, heading, body, categoryId};
+    notification.dateTime = new Date(notification.dateTime);
+    return notification;
   }
 
 
