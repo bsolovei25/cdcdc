@@ -1,6 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {EventsCategory} from "../../models/events-category";
 import {EventsFilter} from "../../models/events-filter";
+import {WidgetsService} from "../../services/widgets.service";
+import {
+  EventsNotification,
+  EventsNotificationPriority,
+  EventsNotificationStatus
+} from "../../models/events-notification";
 
 @Component({
   selector: 'evj-events',
@@ -58,49 +64,7 @@ export class EventsComponent implements OnInit {
     }
   ];
 
-  notifications: any[] = [
-    {
-      id: 1,
-      serialNumber: 123,
-      priority: "danger",
-      dateTime: new Date("2013-10-21T13:28:06"),
-      iconUrl: "./assets/icons/widgets/events/review.svg",
-      status: {code: "new", name: "Новое"},
-      heading: "Отклонение",
-      body: "Превышение уровня в колонне К-8 (КИП поз. 12LISAННL-1055) в 11:20"
-    },
-    {
-      id: 2,
-      serialNumber: 1243,
-      priority: "warning",
-      dateTime: new Date("2013-10-21T13:28:06"),
-      iconUrl: "./assets/icons/widgets/events/review.svg",
-      status: {code: "new", name: "Новое"},
-      heading: "Отклонение",
-      body: "Превышение уровня в колонне К-8 (КИП поз. 12LISAННL-1055) в 11:20"
-    },
-    {
-      id: 3,
-      serialNumber: 123,
-      priority: "standart",
-      dateTime: new Date("2013-10-21T13:28:06"),
-      iconUrl: "./assets/icons/widgets/events/review.svg",
-      status: {code: "new", name: "Новое"},
-      heading: "Отклонение в два",
-      body: "Превышение уровня в колонне К-8 (КИП поз. 12LISAННL-1055) в 11:20"
-    },
-    {
-      id: 3,
-      serialNumber: 123,
-      priority: "danger",
-      dateTime: new Date("2013-10-21T13:28:06"),
-      iconUrl: "./assets/icons/widgets/events/review.svg",
-      status: {code: "new", name: "Новое"},
-      heading: "Отклонение в два",
-      body: "Превышение уровня в колонне К-8 (КИП поз. 12LISAННL-1055) в 11:20"
-    }
-  ];
-
+  notifications: EventsNotification[] = [];
 
   filters: EventsFilter[] = [
     {
@@ -122,8 +86,46 @@ export class EventsComponent implements OnInit {
       isActive: false
     },
   ];
+  statuses: any = {};
 
-  constructor() {
+  constructor(private widgetsService: WidgetsService) {
+
+    this.statuses[EventsNotificationStatus.NEW] = 'Новое';
+    this.statuses[EventsNotificationStatus.IN_WORK] = 'В работе';
+    this.statuses[EventsNotificationStatus.CLOSED] = 'Закрыто';
+
+
+    this.widgetsService.getWidgetLiveDataFromWS('NotificationsChannel', 'events')
+      .subscribe((ref) => {
+
+
+          switch (ref.priority) {
+
+            case EventsNotificationPriority.DANGER:
+              ref.isDanger = true;
+              break;
+
+            case EventsNotificationPriority.WARNING:
+              ref.isWarning = true;
+              break;
+
+            case EventsNotificationPriority.STANDARD:
+              ref.isStandard = true;
+              break;
+          }
+
+          ref.statusName = this.statuses[ref.statusCode];
+          ref.iconUrl = './assets/icons/widgets/events/review.svg';
+
+          this.notifications.unshift(ref);
+
+          if (this.notifications.length > 5) {
+            this.notifications.pop();
+          }
+
+
+        }
+      );
   }
 
   ngOnInit() {
