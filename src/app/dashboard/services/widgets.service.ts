@@ -6,15 +6,18 @@ import {filter, map, switchMap} from "rxjs/internal/operators";
 import {webSocket} from "rxjs/internal/observable/dom/webSocket";
 import {WebSocketSubject} from "rxjs/internal/observable/dom/WebSocketSubject";
 import {EventsNotification} from "../models/events-notification";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class WidgetsService {
+
   lineChartLiveData: Observable<LineChartData>;
   newData: BehaviorSubject<true> = new BehaviorSubject<true>(true);
 
-  private ws: WebSocketSubject<any> = webSocket('wss://localhost:5001');
+  private readonly wsUrl = environment.wsUrl;
+  private ws: WebSocketSubject<any> = null;
   private wsSubscribtion: Subscription;
 
   constructor(public http: HttpClient) {
@@ -60,10 +63,10 @@ export class WidgetsService {
   }
 
   initWS() {
+    this.ws = webSocket(this.wsUrl);
+
     this.wsSubscribtion = this.ws.asObservable()
       .subscribe((dataFromServer) => {
-        console.log('dataFromServer');
-        console.log(dataFromServer);
       });
   }
 
