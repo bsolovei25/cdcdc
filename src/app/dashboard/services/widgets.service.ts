@@ -66,7 +66,9 @@ export class WidgetsService {
     this.ws = webSocket(this.wsUrl);
 
     this.wsSubscribtion = this.ws.asObservable()
-      .subscribe((dataFromServer) => {
+        .subscribe((dataFromServer) => {
+        // TODO remove after development complete
+        console.log(dataFromServer)
       });
   }
 

@@ -86,14 +86,13 @@ export class EventsComponent implements OnInit {
       isActive: false
     },
   ];
-  statuses: any = {};
+  statuses: { [id in EventsNotificationStatus] : string; } = {
+    "new": 'Новое',
+    "inWork": 'В работе',
+    "closed": 'Закрыто'
+  };
 
   constructor(private widgetsService: WidgetsService) {
-
-    this.statuses[EventsNotificationStatus.NEW] = 'Новое';
-    this.statuses[EventsNotificationStatus.IN_WORK] = 'В работе';
-    this.statuses[EventsNotificationStatus.CLOSED] = 'Закрыто';
-
 
     this.widgetsService.getWidgetLiveDataFromWS('NotificationsChannel', 'events')
       .subscribe((ref) => {
@@ -101,15 +100,15 @@ export class EventsComponent implements OnInit {
 
           switch (ref.priority) {
 
-            case EventsNotificationPriority.DANGER:
+            case 'danger':
               ref.isDanger = true;
               break;
 
-            case EventsNotificationPriority.WARNING:
+            case 'warning':
               ref.isWarning = true;
               break;
 
-            case EventsNotificationPriority.STANDARD:
+            case 'standard':
               ref.isStandard = true;
               break;
           }
