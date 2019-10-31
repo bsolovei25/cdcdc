@@ -66,7 +66,9 @@ export class WidgetsService {
     this.ws = webSocket(this.wsUrl);
 
     this.wsSubscribtion = this.ws.asObservable()
-      .subscribe((dataFromServer) => {
+        .subscribe((dataFromServer) => {
+        // TODO remove after development complete
+        console.log(dataFromServer)
       });
   }
 
@@ -114,18 +116,8 @@ export class WidgetsService {
   }
 
   mapNotification(notification): EventsNotification {
-    const
-      id = notification.Id,
-      serialNumber = notification.SerialNumber,
-      priority = notification.Priority,
-      dateTime = new Date(notification.DateTime),
-      iconUrl = '',
-      statusCode = notification.StatusCode,
-      heading = notification.Heading,
-      body = notification.Body,
-      categoryId = notification.CategoryId;
-
-    return {id, serialNumber, priority, dateTime, iconUrl, statusCode, heading, body, categoryId};
+    notification.dateTime = new Date(notification.dateTime);
+    return notification;
   }
 
 

@@ -1,10 +1,10 @@
 export interface EventsNotification {
   id: number;
   serialNumber: number;
-  priority: number;
+  priority: EventsNotificationPriority;
   dateTime: Date;
   iconUrl: string;
-  statusCode: number;
+  statusCode: EventsNotificationStatus;
   heading: string;
   body: string;
   categoryId: string;
@@ -16,14 +16,6 @@ export interface EventsNotification {
 }
 
 
-export enum EventsNotificationPriority {
-  DANGER = 0,
-  WARNING = 1,
-  STANDARD = 2
-}
+export type EventsNotificationPriority = 'danger' | 'warning' | 'standard'
 
-export enum EventsNotificationStatus {
-  NEW = 0,
-  IN_WORK = 1,
-  CLOSED = 2
-}
+export type EventsNotificationStatus = 'new' | 'inWork' | 'closed'
