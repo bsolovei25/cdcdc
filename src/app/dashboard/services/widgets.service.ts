@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, Observable, Subscription} from "rxjs/index";
-import {LineChartData} from "../models/widget";
 import {filter, map, switchMap} from "rxjs/internal/operators";
 import {webSocket} from "rxjs/internal/observable/dom/webSocket";
 import {WebSocketSubject} from "rxjs/internal/observable/dom/WebSocketSubject";
 import {EventsNotification} from "../models/events-notification";
 import {environment} from "../../../environments/environment";
+import {LineChartData} from "../models/line-chart";
 
 @Injectable({
   providedIn: 'root'
@@ -66,13 +66,13 @@ export class WidgetsService {
     this.ws = webSocket(this.wsUrl);
 
     this.wsSubscribtion = this.ws.asObservable()
-        .subscribe((dataFromServer) => {
+      .subscribe((dataFromServer) => {
         // TODO remove after development complete
         console.log(dataFromServer)
       });
   }
 
-  getWidgetLiveDataFromWS(widgetId, widgetType) {
+  getWidgetLiveDataFromWS(widgetId, widgetType): any {
     this.ws.next({
       "ActionType": "Subscribe",
       "ChannelId": widgetId
@@ -111,13 +111,24 @@ export class WidgetsService {
   mapWidgetData(data, widgetType) {
     switch (widgetType) {
       case 'events':
-        return this.mapNotification(data);
+        return this.mapNotificationData(data);
+
+      case 'line-chart':
+        return this.mapLineChartData(data);
+
     }
   }
 
-  mapNotification(notification): EventsNotification {
+  mapNotificationData(notification): EventsNotification {
     notification.dateTime = new Date(notification.dateTime);
     return notification;
+  }
+
+  mapLineChartData(data): LineChartData {
+    data.graphs.forEach(g => {
+      g.values.forEach(v => v.date = new Date(v.date))
+    });
+    return data;
   }
 
 
