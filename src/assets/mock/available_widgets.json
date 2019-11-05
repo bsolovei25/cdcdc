@@ -1,6 +1,6 @@
 [
   {
-    "id": 1,
+    "id": "ChartChannel1",
     "name": "Виджет 1",
     "code": "В-1",
     "units": "кг/м3",
@@ -13,7 +13,7 @@
     }
   },
   {
-    "id": 2,
+    "id": "ChartChannel2",
     "name": "Виджет 2",
     "code": "В-2",
     "units": "кг/м3",

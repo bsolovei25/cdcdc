@@ -22,10 +22,11 @@
                     (dndStart)="onDragStart($event)"
                     (dndEnd)="onDragEnd($event)"
                     [position]="c.position"
+                    [id]="c.widget.id"
                     [code]="c.widget.code"
                     [name]="c.widget.name"
-                    [data]="c.data"
                     [units]="c.widget.units"
+                    [showMock]="false"
                     [options]="c.widget.widgetOptions"></evj-line-chart>
 
   </div>

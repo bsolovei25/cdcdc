@@ -3,7 +3,7 @@ import {
   Component,
   ElementRef,
   Input,
-  OnChanges,
+  OnChanges, OnDestroy,
   OnInit,
   ViewChild,
   ViewEncapsulation
@@ -19,30 +19,32 @@ import * as d3Time from 'd3-time-format';
 import * as d3Format from 'd3-format';
 import * as d3Transition from 'd3-transition';
 import {Mock} from 'src/app/dashboard/widgets/line-chart/mock';
-import {LineChartData, LineChartOptions} from "../../models/widget";
+import {WidgetsService} from "../../services/widgets.service";
+import {Subscription} from "rxjs/index";
+import {LineChartData, LineChartOptions} from "../../models/line-chart";
 
 @Component({
   selector: 'evj-line-chart',
   templateUrl: './line-chart.component.html',
   styleUrls: ['./line-chart.component.scss']
 })
-export class LineChartComponent implements OnInit, OnChanges {
+export class LineChartComponent implements OnInit, OnDestroy {
 
+  @Input() id: string;
   @Input() code: string;
   @Input() name: string;
   @Input() units: string;
   @Input() options: LineChartOptions;
   @Input() position?: string = 'default';
 
-  @Input() data?: LineChartData;
+  data: LineChartData;
 
 
   @ViewChild('chart', {static: true}) private chartContainer: ElementRef;
 
-  margin = {top: 10, right: -30, bottom: 20, left: 50};
+  margin = {top: 10, right: -50, bottom: 20, left: 50};
 
   svg;
-  any;
   g: any;
   width: number;
   height: number;
@@ -52,9 +54,7 @@ export class LineChartComponent implements OnInit, OnChanges {
 
   line;
   transition: any;
-
   lines: any;
-
 
   readonly trendsStyle: any = {
     plan: {
@@ -122,48 +122,94 @@ export class LineChartComponent implements OnInit, OnChanges {
   };
   deviationPoints: any;
 
-  constructor() {
+  private _showMock = true;
+  private subscribtion: Subscription;
 
+  constructor(private widgetsService: WidgetsService) {
   }
 
   ngOnInit() {
 
-    this.data = this.data || Mock;
-    this.refreshDeviations();
-    this.transition = d3Transition.transition();
-
-
     setTimeout(() => {
-      this.startChart();
-
+      this.initChart();
     }, 0);
 
+    this.transition = d3Transition.transition();
+
+    if (this._showMock) {
+      this.disableLiveData()
+    } else {
+      this.enableLiveData();
+    }
 
   }
 
-  ngOnChanges() {
 
-    if (this.svg) {
-      this.svg.remove();
-      this.data = this.data || Mock;
-      this.refreshDeviations();
-      this.startChart();
+  ngOnDestroy() {
+    if (this.subscribtion) {
+      this.subscribtion.unsubscribe();
+    }
+  }
+
+  @Input()
+  set showMock(show) {
+    this._showMock = show;
+
+    if (this._showMock) {
+      this.disableLiveData();
+    } else {
+      this.enableLiveData();
     }
 
+  }
+
+
+  private enableLiveData() {
+    this.subscribtion = this.widgetsService.getWidgetLiveDataFromWS(this.id, 'line-chart')
+      .subscribe((ref) => {
+          this.draw(ref);
+          this.subscribtion.unsubscribe();
+        }
+      );
+  }
+
+  private disableLiveData() {
+
+    if (this.subscribtion) {
+      this.subscribtion.unsubscribe();
+    }
+
+    this.draw(Mock);
+  }
+
+
+  private draw(data) {
+    if (this.svg) {
+      this.svg.remove();
+    }
+
+    this.data = data;
+    this.refreshDeviations();
+    this.startChart();
 
   }
 
   private startChart() {
+    const plan = this.data.graphs.find(d => d.graphType === 'plan');
+    const fact = this.data.graphs.find(d => d.graphType === 'fact');
+    const upperLimit = this.data.graphs.find(d => d.graphType === 'upperLimit');
+    const lowerLimit = this.data.graphs.find(d => d.graphType === 'lowerLimit');
+
     this.initChart();
     this.refreshDomains();
     this.refreshLines();
     this.drawAxis();
     this.drawGridLines();
-    this.drawDeviationAreas(this.data.graphs.find(d => d.graphType === 'plan'), this.data.graphs.find(d => d.graphType === 'fact'));
+    this.drawDeviationAreas(plan, fact);
     this.drawPath();
-    this.drawLinesBtwPoints(this.data.graphs.find(d => d.graphType === 'plan'), this.data.graphs.find(d => d.graphType === 'fact'));
+    this.drawLinesBtwPoints(plan, fact);
     this.drawPoints();
-    this.drawLimitsAreas(this.data.graphs.find(d => d.graphType === 'upperLimit'), this.data.graphs.find(d => d.graphType === 'lowerLimit'));
+    this.drawLimitsAreas(upperLimit, lowerLimit);
   }
 
 
@@ -174,7 +220,8 @@ export class LineChartComponent implements OnInit, OnChanges {
     this.deviationPoints = {
       graphType: 'deviation',
       values: fact.reduce((acc, d, i) => {
-        if (plan[i].value < d.value) {
+        // TODO find nearest if not exist
+        if (plan[i] && plan[i].value < d.value) {
           acc.push(d);
         }
         return acc;
@@ -254,7 +301,9 @@ export class LineChartComponent implements OnInit, OnChanges {
     this.g.append('g')
       .attr("class", "axis x-axis")
       .attr('transform', 'translate(0,' + this.height + ')')
-      .call(d3Axis.axisBottom(this.x).tickFormat(d3Time.timeFormat("%d")))
+      .call(d3Axis.axisBottom(this.x)
+        .ticks(7)
+      );
 
     this.g.append('g')
       .attr("class", "axis y-axis")
@@ -309,16 +358,13 @@ export class LineChartComponent implements OnInit, OnChanges {
 
   private drawLinesBtwPoints(planData, factData) {
     const pointsLines = planData.values.map((d, i) => {
-      return [
-        {
-          date: d.date,
-          value: d.value
-        },
-        {
-          date: d.date,
-          value: factData.values[i].value
-        }
-      ]
+      // TODO if not exist handling
+      if (factData.values[i]) {
+        return [{date: d.date, value: d.value}, {date: d.date, value: factData.values[i].value}];
+      }
+
+      return [{date: d.date, value: d.value}, {date: d.date, value: d.value}];
+
     });
 
 
@@ -392,7 +438,16 @@ export class LineChartComponent implements OnInit, OnChanges {
     const deviationArea = d3Shape.area()
       .curve(d3Shape[this.options['factLineType']])
       .x(d => this.x(d.date))
-      .y0(d => this.y(factData.values.find(v => v.date.toJSON() === d.date.toJSON()).value))
+      .y0(d => {
+
+        const v = factData.values.find(v => v.date.getTime() === d.date.getTime());
+        if (v) {
+          return this.y(v.value);
+        }
+        //TODO find nearest?
+        return this.y(this.height);
+
+      })
       .y1(d => this.y(d.value));
 
 
@@ -508,12 +563,4 @@ export class LineChartComponent implements OnInit, OnChanges {
 
   }
 
-  private getLine(lineType) {
-    const k = this.options[lineType + 'LineType'];
-
-    return d3Shape.line()
-      .curve(d3Shape[k])
-      .x((d: any) => this.x(d.date))
-      .y((d: any) => this.y(d.value));
-  }
 }

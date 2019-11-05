@@ -12,6 +12,7 @@
   <div class="widgets-panel__list scroll-bar">
     <ng-container *ngFor="let w of widgets | async">
       <evj-line-chart *ngIf="w"
+                      [id]="w.id"
                       [code]="w.code"
                       [name]="w.name"
                       [units]="w.units"
