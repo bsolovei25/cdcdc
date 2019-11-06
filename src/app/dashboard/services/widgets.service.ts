@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {BehaviorSubject, Observable, Subscription} from "rxjs/index";
-import {filter, map, switchMap} from "rxjs/internal/operators";
-import {webSocket} from "rxjs/internal/observable/dom/webSocket";
-import {WebSocketSubject} from "rxjs/internal/observable/dom/WebSocketSubject";
-import {EventsNotification} from "../models/events-notification";
-import {environment} from "../../../environments/environment";
-import {LineChartData} from "../models/line-chart";
+import {HttpClient} from '@angular/common/http';
+import {BehaviorSubject, Observable, Subscription} from 'rxjs/index';
+import {filter, map, switchMap} from 'rxjs/internal/operators';
+import {webSocket} from 'rxjs/internal/observable/dom/webSocket';
+import {WebSocketSubject} from 'rxjs/internal/observable/dom/WebSocketSubject';
+import {EventsNotification} from '../models/events-notification';
+import {environment} from '../../../environments/environment';
+import {LineChartData} from '../models/line-chart';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +39,7 @@ export class WidgetsService {
 
 
               ref.graphs.forEach(g => g.values.forEach(v => {
-                v.date = new Date(v.date)
+                v.date = new Date(v.date);
               }));
 
               ref.graphs[0].values.forEach(v => {
@@ -50,7 +50,7 @@ export class WidgetsService {
               });
               return ref;
             })
-          )
+          );
         }
       )
     );
@@ -58,7 +58,7 @@ export class WidgetsService {
 
     setInterval(() => {
       this.newData.next(true);
-    }, 7000)
+    }, 7000);
 
   }
 
@@ -68,14 +68,14 @@ export class WidgetsService {
     this.wsSubscribtion = this.ws.asObservable()
       .subscribe((dataFromServer) => {
         // TODO remove after development complete
-        console.log(dataFromServer)
+        console.log(dataFromServer);
       });
   }
 
   getWidgetLiveDataFromWS(widgetId, widgetType): any {
     this.ws.next({
-      "ActionType": "Subscribe",
-      "ChannelId": widgetId
+      ActionType: 'Subscribe',
+      ChannelId: widgetId
     });
 
     return this.ws.asObservable().pipe(
@@ -101,7 +101,7 @@ export class WidgetsService {
         ref.graphs.forEach(g => g.values.forEach(v => v.date = new Date(v.date)));
         return ref;
       })
-    )
+    );
   }
 
   getUserGrid(): Observable<any> {
@@ -116,6 +116,9 @@ export class WidgetsService {
       case 'line-chart':
         return this.mapLineChartData(data);
 
+      // TODO
+      case 'manual-input':
+        return null;
     }
   }
 
@@ -126,7 +129,7 @@ export class WidgetsService {
 
   mapLineChartData(data): LineChartData {
     data.graphs.forEach(g => {
-      g.values.forEach(v => v.date = new Date(v.date))
+      g.values.forEach(v => v.date = new Date(v.date));
     });
     return data;
   }

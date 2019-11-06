@@ -3,11 +3,11 @@ import {NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {CoreModule} from "./core/core.module";
-import {DashboardModule} from "./dashboard/dashboard.module";
-import {SharedModule} from "./shared/shared.module";
-import {HttpClientModule} from "@angular/common/http";
-import {AngularSvgIconModule} from "angular-svg-icon";
+import {CoreModule} from './core/core.module';
+import {DashboardModule} from './dashboard/dashboard.module';
+import {SharedModule} from './shared/shared.module';
+import {HttpClientModule} from '@angular/common/http';
+import {AngularSvgIconModule} from 'angular-svg-icon';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,8 @@ import {AngularSvgIconModule} from "angular-svg-icon";
     CoreModule,
     DashboardModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
+    AngularSvgIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

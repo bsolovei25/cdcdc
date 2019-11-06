@@ -1,0 +1,26 @@
+.container {
+  width: calc(100% - 40px);
+  height: 600px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 20px;
+  box-sizing: border-box;
+
+  &__indicator-selector {
+    height: 100%;
+  }
+
+  &__period-selector {
+    margin-left: 0;
+    justify-self: flex-end;
+  }
+}
+
+
