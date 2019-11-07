@@ -17,12 +17,12 @@ export class EventsComponent implements OnInit {
 
   categories = [
     {
-      iconUrl: './assets/icons/widgets/events/status.svg',
+      iconUrl: './assets/icons/widgets/events/smotr.svg',
       counters: {
         closed: 5,
         all: 10,
       },
-      name: "Состояние оборудования отказы",
+      name: "СМОТР",
       isActive: false
     },
     {
@@ -40,31 +40,74 @@ export class EventsComponent implements OnInit {
         closed: 5,
         all: 10,
       },
-      name: "Производственные задания и разпоряжения",
+      name: "Производственные задания и распоряжения",
       isActive: false
     },
     {
-      iconUrl: './assets/icons/widgets/events/review.svg',
+      iconUrl: './assets/icons/widgets/events/status.svg',
       counters: {
         closed: 5,
         all: 10,
       },
-      name: "Смотр",
+      name: "Состояния оборудования",
       isActive: false
     },
     {
-      id: "5",
-      iconUrl: './assets/icons/widgets/events/fire.svg',
+      iconUrl: './assets/icons/widgets/events/drops.svg',
       counters: {
         closed: 5,
         all: 10,
       },
-      name: "Сброс на факел",
+      name: "Сбросы",
       isActive: false
+    },
+  ];
+
+  // notifications: EventsNotification[] = [];
+
+  notifications: any[] = [
+    {
+      id: 1,
+      serialNumber: 123,
+      priority: "danger",
+      dateTime: new Date("2013-10-21T13:28:06"),
+      iconUrl: "./assets/icons/widgets/events/review.svg",
+      status: {code: "new", name: "Новое"},
+      heading: "Отклонение",
+      body: "Превышение уровня в колонне К-8 (КИП поз. 12LISAННL-1055) в 11:20"
+    },
+    {
+      id: 2,
+      serialNumber: 1243,
+      priority: "warning",
+      dateTime: new Date("2013-10-21T13:28:06"),
+      iconUrl: "./assets/icons/widgets/events/review.svg",
+      status: {code: "new", name: "Новое"},
+      heading: "Отклонение",
+      body: "Превышение уровня в колонне К-8 (КИП поз. 12LISAННL-1055) в 11:20"
+    },
+    {
+      id: 3,
+      serialNumber: 123,
+      priority: "standart",
+      dateTime: new Date("2013-10-21T13:28:06"),
+      iconUrl: "./assets/icons/widgets/events/review.svg",
+      status: {code: "new", name: "Новое"},
+      heading: "Отклонение в два",
+      body: "Превышение уровня в колонне К-8 (КИП поз. 12LISAННL-1055) в 11:20"
+    },
+    {
+      id: 3,
+      serialNumber: 123,
+      priority: "danger",
+      dateTime: new Date("2013-10-21T13:28:06"),
+      iconUrl: "./assets/icons/widgets/events/review.svg",
+      status: {code: "new", name: "Новое"},
+      heading: "Отклонение в два",
+      body: "Превышение уровня в колонне К-8 (КИП поз. 12LISAННL-1055) в 11:20"
     }
   ];
 
-  notifications: EventsNotification[] = [];
 
   filters: EventsFilter[] = [
     {
