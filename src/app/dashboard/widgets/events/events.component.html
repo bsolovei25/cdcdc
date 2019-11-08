@@ -18,7 +18,7 @@
 
         <div class="notification__header">
       <span class="notification__number"
-            [ngClass]="{'notification__number_danger': n.priority === 'danger', 'notification__number_warning': n.priority === 'warning'}">
+            [ngClass]="'notification__number_' + n.priority">
         {{n.serialNumber}}
       </span>
           <span class="notification__name">
@@ -40,17 +40,11 @@
 
           <div class="notification__extra">
         <span class="notification__status"
-              [ngClass]="{
-              'notification__number_danger': n.isDanger,
-              'notification__number_warning': n.isWarning
-              }">
+              [ngClass]="'notification__status_' + n.priority">
           {{n.statusName}}
         </span>
             <svg-icon class="notification__icon" [applyCss]="true" [src]="n.iconUrl"
-                      [ngClass]="{
-                      'notification__icon_danger': n.isDanger,
-                      'notification__icon_warning': n.isWarning,
-                      'notification__icon_standard': n.isStandard}"></svg-icon>
+                      [ngClass]="'notification__icon_' + n.priority"></svg-icon>
           </div>
 
         </div>
@@ -80,7 +74,7 @@
         {{f.name}}
       </span>
         <span class="filter__count">
-        {{f.counter}}
+        {{f.notificationsCount}}
       </span>
       </div>
     </div>
@@ -111,9 +105,9 @@
                     [src]="c.iconUrl"></svg-icon>
 
           <div class="counts category__counts">
-            <span class="counts__count">{{c.counters?.closed}}</span>
+            <span class="counts__count">{{c.notificationsCounts?.closed}}</span>
             <span class="counts__count">/</span>
-            <span class="counts__count">{{c.counters?.all}}</span>
+            <span class="counts__count">{{c.notificationsCounts?.all}}</span>
           </div>
         </div>
 

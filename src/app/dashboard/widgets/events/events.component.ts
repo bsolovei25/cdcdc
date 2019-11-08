@@ -1,12 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {EventsCategory} from "../../models/events-category";
-import {EventsFilter} from "../../models/events-filter";
+import {EventsWidgetCategory, EventsWidgetOptions} from "../../models/events-widget";
+import {EventsWidgetFilter} from "../../models/events-widget";
 import {WidgetsService} from "../../services/widgets.service";
 import {
-  EventsNotification,
-  EventsNotificationPriority,
-  EventsNotificationStatus
-} from "../../models/events-notification";
+  EventsWidgetNotification,
+  EventsWidgetNotificationStatus
+} from "../../models/events-widget";
 
 @Component({
   selector: 'evj-events',
@@ -15,19 +14,21 @@ import {
 })
 export class EventsComponent implements OnInit {
 
-  categories = [
+  categories: EventsWidgetCategory[] = [
     {
+      code: 'smotr',
       iconUrl: './assets/icons/widgets/events/smotr.svg',
-      counters: {
+      notificationsCounts: {
         closed: 5,
         all: 10,
       },
-      name: "СМОТР",
+      name: 'СМОТР',
       isActive: false
     },
     {
+      code: 'safety',
       iconUrl: './assets/icons/widgets/events/safety.svg',
-      counters: {
+      notificationsCounts: {
         closed: 5,
         all: 10,
       },
@@ -35,83 +36,71 @@ export class EventsComponent implements OnInit {
       isActive: false
     },
     {
+      code: 'tasks',
       iconUrl: './assets/icons/widgets/events/tasks.svg',
-      counters: {
+      notificationsCounts: {
         closed: 5,
         all: 10,
       },
-      name: "Производственные задания и распоряжения",
+      name: 'Производственные задания и распоряжения',
       isActive: false
     },
     {
+      code: 'equipmentStatus',
       iconUrl: './assets/icons/widgets/events/status.svg',
-      counters: {
+      notificationsCounts: {
         closed: 5,
         all: 10,
       },
-      name: "Состояния оборудования",
+      name: 'Состояния оборудования',
       isActive: false
     },
     {
+      code: 'drops',
       iconUrl: './assets/icons/widgets/events/drops.svg',
-      counters: {
+      notificationsCounts: {
         closed: 5,
         all: 10,
       },
-      name: "Сбросы",
+      name: 'Сбросы',
       isActive: false
     },
   ];
 
-  notifications: EventsNotification[] = [];
+  notifications: EventsWidgetNotification[] = [];
 
-  filters: EventsFilter[] = [
+  filters: EventsWidgetFilter[] = [
     {
       code: "all",
       name: "Все",
-      counter: 11,
+      notificationsCount: 11,
       isActive: true
     },
     {
       code: "closed",
       name: "Отработано",
-      counter: 11,
+      notificationsCount: 11,
       isActive: false
     },
     {
-      code: "in-work",
+      code: "inWork",
       name: "В работе",
-      counter: 10,
+      notificationsCount: 10,
       isActive: false
     },
   ];
 
-  statuses: { [id in EventsNotificationStatus] : string; } = {
+  statuses: { [id in EventsWidgetNotificationStatus]: string; } = {
     "new": 'Новое',
     "inWork": 'В работе',
     "closed": 'Закрыто'
   };
 
+
   constructor(private widgetsService: WidgetsService) {
 
     this.widgetsService.getWidgetLiveDataFromWS('NotificationsChannel', 'events')
       .subscribe((ref) => {
-
-
-          switch (ref.priority) {
-
-            case 'danger':
-              ref.isDanger = true;
-              break;
-
-            case 'warning':
-              ref.isWarning = true;
-              break;
-
-            case 'standard':
-              ref.isStandard = true;
-              break;
-          }
 
           ref.statusName = this.statuses[ref.statusCode];
           ref.iconUrl = './assets/icons/widgets/events/review.svg';
@@ -130,13 +119,32 @@ export class EventsComponent implements OnInit {
   ngOnInit() {
   }
 
+
   onCategoryClick(category) {
     category.isActive = !category.isActive;
+    this.appendOptions();
   }
 
   onFilterClick(filter) {
     this.filters.forEach(f => f.isActive = false);
     filter.isActive = true;
+
+    this.appendOptions();
+  }
+
+  private clearNotifications() {
+    this.notifications = [];
+  }
+
+  private appendOptions() {
+    this.clearNotifications();
+
+    const options: EventsWidgetOptions = {
+      categories: this.categories.filter(c => c.isActive).map(c => c.code),
+      filter: this.filters.find(f => f.isActive).code
+    };
+    // TODO send to server
+    console.log(options);
   }
 
 
