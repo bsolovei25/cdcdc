@@ -4,7 +4,7 @@ import {BehaviorSubject, Observable, Subscription} from 'rxjs/index';
 import {filter, map, switchMap} from 'rxjs/internal/operators';
 import {webSocket} from 'rxjs/internal/observable/dom/webSocket';
 import {WebSocketSubject} from 'rxjs/internal/observable/dom/WebSocketSubject';
-import {EventsWidgetNotification} from '../models/events-notification';
+import {EventsWidgetNotification} from '../models/events-widget';
 import {environment} from '../../../environments/environment';
 import {LineChartData} from '../models/line-chart';
 import {Machine_MI} from '../models/manual-input.model';

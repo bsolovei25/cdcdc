@@ -105,8 +105,9 @@ export class ManualInputService {
     this.PostData(data);
   }
 
+  // TODO
   PostData(Params: MI_DataSend) {
-    this.http.post('http://192.168.0.4:5025/api/values/post', Params)
+    this.http.post('http://192.168.0.4:5555/manualinput/post', Params)
       .subscribe(
         (data: MI_DataGet) => {
           console.log(data);
