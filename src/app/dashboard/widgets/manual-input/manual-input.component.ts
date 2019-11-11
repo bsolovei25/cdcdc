@@ -17,7 +17,7 @@ export class ManualInputComponent implements OnInit {
   public isLoading: boolean;
 
   ngOnInit() {
-    this.http.get('http://192.168.0.4:5555/api/mi_init')
+    this.http.get('http://192.168.0.4:5555/api/mi/Load')
       .subscribe((ref: Machine_MI[]) => {
         console.log(ref);
         this.manualInputService.LoadData(ref);
