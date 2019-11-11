@@ -1,0 +1,83 @@
+<div class="header">
+  <div class="header__content">
+    <div class="header__icon-wrapper">
+      <div class="header__icon"
+           src="./assets/icons/widgets/events/letter.svg"></div>
+    </div>
+    <span class="header__name">
+          Режимный лист дневной
+      </span>
+  </div>
+</div>
+
+<div class="frame frame_top">
+  <div class="frame__circle frame__circle__left"></div>
+  <div class="frame__circle frame__circle__right"></div>
+</div>
+
+<div class="button-bar">
+  <div class="buttons">
+    <div class="button buttons__item" (click)="onButtonSave()">Сохранить значение</div>
+  </div>
+</div>
+
+<div class="table-container">
+  <div class="table">
+    <div class="table-header">
+      <div class="d-table">
+        <div class="d-tr_header">
+          <div class="d-td d-td_header__col-1">Параметры</div>
+          <div class="d-td d-td_header__col-2">Ед.Изм.</div>
+          <div class="d-td d-td_header__col-3">Предыдущее значение</div>
+          <div class="d-td d-td_header__col-4">Текущее значение</div>
+          <div class="d-td d-td_header__col-5">Мин. граница</div>
+          <div class="d-td d-td_header__col-6">Макс. граница</div>
+          <div class="d-td d-td_header__col-7">Комментарии</div>
+        </div>
+      </div>
+    </div>
+    <div class="line-horizontal"></div>
+
+    <div class="table-body scroll-bar">
+      <div class="table-container-1" *ngFor="let machine of manualInputService.Data">
+        <div class="table-header-1">{{ machine.name }}</div>
+        <div class="vertical-line-1"></div>
+          <div class="table-container-2" *ngFor="let group of machine.groups">
+            <div class="table-header-2">{{ group.name }}</div>
+            <div class="vertical-line-2"></div>
+            <div class="d-table">
+              <div class="d-tr" *ngFor="let param of group.params">
+                <div class="table-container-3"></div>
+                <div class="d-td d-td_content__col-1"></div>
+                <div class="d-td d-td_content__col-2">{{ param.name }}</div>
+                <div class="d-td d-td_content__col-3">{{ param.unit }}</div>
+                <div class="d-td d-td_content__col-4">{{ param.lastValue }}</div>
+                <div class="d-td d-td_content__col-5">{{ param.lastTime | date: 'dd.MM.yyyy HH:mm:ss' }}</div>
+                <div class="d-td d-td_content__col-6">
+                  <input class="data" type="text" placeholder="--------" [(ngModel)]="param.curValue"
+                         [class.data_active]="param.isActive"
+                         [class.data_active__saving]="param.isActive && param.isSave"
+                         [class.data_active__warning]="param.isWarning && !param.isSave && param.isActive"
+                         [class.data_active__error]="param.isError && !param.isSave"
+                         (change)="onChangeValue(param.id)"
+                         (focusout)="onUnfocusValue(param.id)">
+                </div>
+                <div class="d-td d-td_content__col-7">{{ param.curTime | date: 'dd.MM.yyyy HH:mm:ss' }}</div>
+                <div class="d-td d-td_content__col-8">{{ param.minValue }}</div>
+                <div class="d-td d-td_content__col-9">{{ param.maxValue }}</div>
+                <div class="d-td d-td_content__col-10">
+                  <input class="data" type="text" placeholder="--------" [(ngModel)]="param.comment">
+                </div>
+                <div class="d-td d-td_content__col-11"></div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="frame frame_bottom">
+  <div class="frame__circle frame__circle__left"></div>
+  <div class="frame__circle frame__circle__right"></div>
+</div>

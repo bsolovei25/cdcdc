@@ -11,15 +11,22 @@
 
   <div class="widgets-panel__list scroll-bar">
     <ng-container *ngFor="let w of widgets | async">
-      <evj-line-chart *ngIf="w"
-                      [id]="w.id"
-                      [code]="w.code"
-                      [name]="w.name"
-                      [units]="w.units"
-                      [options]="w.widgetOptions"
-                      [position]="w.id"
-                      [dndDraggable]="{widget: w}"
-                      class="widgets-panel__widget"></evj-line-chart>
+      <ng-container *ngIf="w.widgetType === 'manual-input'">
+        {{w.name}}
+        <evj-manual-input></evj-manual-input>
+      </ng-container>
+      <ng-container *ngIf="w.widgetType === 'line-chart'">
+        {{w.name}}
+        <evj-line-chart *ngIf="w"
+                        [id]="w.id"
+                        [code]="w.code"
+                        [name]="w.name"
+                        [units]="w.units"
+                        [options]="w.widgetOptions"
+                        [position]="w.id"
+                        [dndDraggable]="{widget: w}"
+                        class="widgets-panel__widget"></evj-line-chart>
+      </ng-container>
     </ng-container>
   </div>
 
