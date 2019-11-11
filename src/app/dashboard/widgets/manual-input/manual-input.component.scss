@@ -413,11 +413,16 @@
   width: 100%;
 }
 
+.d-tr_header {
+  display: table-row;
+  width: 100%;
+}
+
 .d-tr{
   display: table-row;
   width: 100%;
 }
-.d-tr:nth-child(even) {
+.d-tr:nth-child(odd) {
   background: var(--color-bg-main-dark);
 }
 .d-td {

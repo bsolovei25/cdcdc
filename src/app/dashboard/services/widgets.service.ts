@@ -7,6 +7,7 @@ import {WebSocketSubject} from 'rxjs/internal/observable/dom/WebSocketSubject';
 import {EventsNotification} from '../models/events-notification';
 import {environment} from '../../../environments/environment';
 import {LineChartData} from '../models/line-chart';
+import {Machine_MI} from '../models/manual-input.model';
 
 @Injectable({
   providedIn: 'root'
@@ -79,6 +80,7 @@ export class WidgetsService {
     });
 
     return this.ws.asObservable().pipe(
+      // console.log(),
       filter(ref => ref.channelId === widgetId),
       map(ref => {
         return this.mapWidgetData(ref.data, widgetType);
@@ -116,9 +118,8 @@ export class WidgetsService {
       case 'line-chart':
         return this.mapLineChartData(data);
 
-      // TODO
       case 'manual-input':
-        return null;
+        return data;
     }
   }
 
@@ -131,6 +132,10 @@ export class WidgetsService {
     data.graphs.forEach(g => {
       g.values.forEach(v => v.date = new Date(v.date));
     });
+    return data;
+  }
+
+  mapManualInput(data): Machine_MI[] {
     return data;
   }
 

@@ -24,5 +24,11 @@
       "lowerLimitLineType": "curveMonotoneX",
       "upperLimitLineType": "curveLinear"
     }
+  },
+  {
+    "id": "ManualInput",
+    "name": "Виджет 3",
+    "code": "В-3",
+    "widgetType": "manual-input"
   }
 ]

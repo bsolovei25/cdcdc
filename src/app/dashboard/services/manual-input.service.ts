@@ -1,74 +1,153 @@
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {MachineParam, RestDataGet, RestDataSend} from '../models/manual-input.model';
+import {Machine_MI, MI_DataGet, MI_DataSend, MI_ParamSend, MI_TempValues, Param_MI, TestPostClass} from '../models/manual-input.model';
 import {Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
+import {WidgetsService} from './widgets.service';
 
 @Injectable({providedIn: 'root'})
 export class ManualInputService {
 
-  constructor(public http: HttpClient) {
-    this.Timer();
+  constructor(private http: HttpClient, private manualInputService: ManualInputService, private widgetsService: WidgetsService) {
+
+    this.widgetsService.getWidgetLiveDataFromWS('ManualInputChannel/Init', 'manual-input')
+      .subscribe((ref) => {
+          this.LoadData((ref));
+          console.log("init");
+        }
+      );
   }
 
-  public RestAnswer: RestDataGet;
+  private isLoad: boolean = false;
 
-  public warningTime = 5;
+  public Data: Machine_MI[] = [];
 
-  SetStatusTimeOut(id: string) {
-    const el = this.GetElementById(id);
-    el.isActiveTimeOut = true;
+  ChangeField(id: string) {
+    const param = this.GetElementById(id);
+    param.isSave = false;
   }
 
-  SetValueRefresh(id: string, time: Date) {
-    const el = this.GetElementById(id);
-    if (el.CurValue !== '') {
-      el.TimeCodeLast = el.TimeCodeCur;
-      el.LastValue = el.CurValue;
+  CheckLastValue(id: string) {
+    const param = this.GetElementById(id);
+    if (param.curValue === '' && param.saveValue !== '') {
+      param.curValue = param.saveValue;
+      param.isSave = true;
+      param.isError = false;
     }
-    el.Comment = '';
-    el.CurValue = '';
-    el.TimeCodeCur = time;
   }
 
-  SetAll(data: RestDataGet) {
-    this.RestAnswer = data;
-  }
-
-  GetData(): Observable<any> {
-    const body = {username: 'test'};
-    return this.http.get<RestDataGet>('http://localhost:5000/api/values/mock')
-      .pipe(tap(ans => this.RestAnswer = ans));
-  }
-
-  SendData() {
-    console.log(new Date(Date.now()).toUTCString());
-
-    const data: RestDataSend[] = [];
-    for (let i = 0; i < this.RestAnswer.Areas.length; i++) {
-      for (let j = 0; j < this.RestAnswer.Areas[i].Machines.length; j++) {
-        for (let k = 0; k < this.RestAnswer.Areas[i].Machines[j].MachineParams.length; k++) {
-          const param = this.RestAnswer.Areas[i].Machines[j].MachineParams[k];
-          const el: RestDataSend = new class implements RestDataSend {
-            Comment: string = param.Comment;
-            Id: string = param.Id;
-            TimeCode: string = param.TimeCodeCur.toUTCString();
-            Value: string = param.CurValue;
-            isEdit = false;
-          };
-          data.push(el);
+  LoadData(data: Machine_MI[]) {
+    const tempData = this.GetFlatData(this.Data);
+    this.Data = data;
+    const newData = this.GetFlatData(this.Data);
+    if (tempData.length === 0) {
+      for (const i in newData) {
+        if (newData[i].curValue !== '') {
+          newData[i].isSave = true;
+          newData[i].isEdit = true;
+          newData[i].saveValue = newData[i].curValue;
         }
       }
     }
-    console.log(JSON.stringify(data));
+    for (const i in tempData) {
+      const el = this.GetElementById(tempData[i].id);
+      el.isError = tempData[i].isError;
+      el.comment = tempData[i].comment;
+      if (el.curValue !== '') {
+        el.isEdit = true;
+        el.saveValue = el.curValue;
+      }
+      if (tempData[i].curValue !== '' && tempData[i].isSave === false) {
+        el.curValue = tempData[i].curValue;
+      } else {
+        if (el.curValue !== '') {
+          el.isSave = true;
+          el.isError = false;
+        }
+      }
+    }
   }
 
-  GetElementById(id: string): MachineParam {
-    for (const i in this.RestAnswer.Areas) {
-      for (const j in this.RestAnswer.Areas[i].Machines) {
-        for (const k in this.RestAnswer.Areas[i].Machines[j].MachineParams) {
-          const param = this.RestAnswer.Areas[i].Machines[j].MachineParams[k];
-          if (param.Id === id) {
+  BtnSaveValues() {
+    let elsToSave: Param_MI[] = [];
+    for (const i in this.Data) {
+      for (const j in this.Data[i].groups) {
+        for (const k in this.Data[i].groups[j].params) {
+          const param = this.Data[i].groups[j].params[k];
+          if ((param.curValue !== null && param.curValue !== '') && param.isActive) {
+            elsToSave.push(param);
+          }
+        }
+      }
+    }
+    this.SendData(elsToSave);
+  }
+
+  SendData(elsToSave: Param_MI[]) {
+    const params: MI_ParamSend[] = [];
+    for (let i in elsToSave) {
+      let param = elsToSave[i];
+      let el: MI_ParamSend = new class implements MI_ParamSend {
+        Id = param.id;
+        Value = param.curValue;
+        TimeCode = param.curTime;
+        Comment = param.comment;
+        isEdit = param.isEdit;
+      };
+      params.push(el);
+    }
+    let data = new class implements MI_DataSend {
+      Id = '23912391203983884';
+      User = 'Username';
+      Params = params;
+    };
+    console.log(JSON.stringify(data));
+    this.PostData(data);
+  }
+
+  PostData(Params: MI_DataSend) {
+    this.http.post('http://192.168.0.4:5025/api/values/post', Params)
+      .subscribe(
+        (data: MI_DataGet) => {
+          console.log(data);
+          this.SaveValues(data);
+        },
+        error => console.log(error)
+      );
+  }
+
+  SaveValues(ids: MI_DataGet) {
+    for (const i in ids.trueValues) {
+      let el = this.GetElementById(ids.trueValues[i]);
+      el.isEdit = true;
+      el.isSave = true;
+      el.saveValue = el.curValue;
+    }
+    for (const i in ids.falseValues) {
+      let el = this.GetElementById(ids.falseValues[i]);
+      el.isError = true;
+    }
+  }
+
+  GetFlatData(root: Machine_MI[]): Param_MI[] {
+    const ans: Param_MI[] = [];
+    for (const i in root) {
+      for (const j in root[i].groups) {
+        for (const k in root[i].groups[j].params) {
+          const param = Object.assign(root[i].groups[j].params[k]);
+          ans.push(param);
+        }
+      }
+    }
+    return ans;
+  }
+
+  GetElementById(id: string): Param_MI {
+    for (const i in this.Data) {
+      for (const j in this.Data[i].groups) {
+        for (const k in this.Data[i].groups[j].params) {
+          const param = this.Data[i].groups[j].params[k];
+          if (param.id === id) {
             return param;
           }
         }
@@ -77,102 +156,24 @@ export class ManualInputService {
     return null;
   }
 
-  testInit() {
+  GetElementIdxById(id: string): string[] {
+    for (const i in this.Data) {
+      for (const j in this.Data[i].groups) {
+        for (const k in this.Data[i].groups[j].params) {
+          const param = this.Data[i].groups[j].params[k];
+          if (param.id === id) {
+            let idx: string[] = [];
+            idx.push(i);
+            idx.push(j);
+            idx.push(k);
 
-    const timeFromDayStart = Math.floor((Date.now() - Math.floor(Date.now() / 1000 / 60 / 60 / 24) * 24 * 60 * 60 * 1000) / 1000 + 3 * 3600);
-    console.log(timeFromDayStart);
-    const testdiv = 30 - timeFromDayStart % 30;
-    console.log(testdiv);
-
-    for (const i in this.RestAnswer.Areas) {
-      for (const j in this.RestAnswer.Areas[i].Machines) {
-        for (const k in this.RestAnswer.Areas[i].Machines[j].MachineParams) {
-          const param = this.RestAnswer.Areas[i].Machines[j].MachineParams[k];
-          param.isActiveTime = true;
-          param.isSave = false;
-          param.isActiveTimeOut = false;
-          param.saveCount = 0;
-          param.PeriodTime = 20; // temp
-          param.InputTime = 15; // temp
-          param.Time = param.PeriodTime - timeFromDayStart % param.PeriodTime;
-          param.TimeCodeCur = new Date(param.Time * 1000 + Math.floor(Date.now() / 1000) * 1000);
-          console.log(param.TimeCodeCur);
-          param.saveValue = '';
-        }
-      }
-    }
-    this.Update();
-  }
-
-  ChangeField(id: string) {
-    const param = this.GetElementById(id);
-    param.isSave = false;
-  }
-
-  SaveValues() {
-    for (let i = 0; i < this.RestAnswer.Areas.length; i++) {
-      for (let j = 0; j < this.RestAnswer.Areas[i].Machines.length; j++) {
-        for (let k = 0; k < this.RestAnswer.Areas[i].Machines[j].MachineParams.length; k++) {
-          const param = this.RestAnswer.Areas[i].Machines[j].MachineParams[k];
-          if (param.CurValue !== '') {
-            param.isSave = true;
-            param.saveCount++;
-            param.saveValue = param.CurValue;
+            return idx;
           }
         }
       }
     }
-    this.SendData();
+    return null;
   }
-
-  CheckLastValue(id: string) {
-    const param = this.GetElementById(id);
-    if (param.CurValue === '' && param.saveValue !== '') {
-      param.CurValue = param.saveValue;
-      param.isSave = true;
-    }
-  }
-
-  RefreshData(param: MachineParam) {
-    param.CurValue = '';
-    param.isActiveTime = true;
-    param.isSave = false;
-    param.isActiveTimeOut = false;
-    param.saveCount = 0;
-    param.Time = param.PeriodTime;
-    param.saveValue = '';
-    param.TimeCodeLast = param.TimeCodeCur;
-    param.TimeCodeCur = new Date(param.TimeCodeCur.valueOf() + param.Time * 1000);
-  }
-
-  Timer() {
-    setInterval(() => {
-      this.Update();
-    }, 1000);
-  }
-
-  Update() {
-    for (const i in this.RestAnswer.Areas) {
-      for (const j in this.RestAnswer.Areas[i].Machines) {
-        for (const k in this.RestAnswer.Areas[i].Machines[j].MachineParams) {
-          const param = this.RestAnswer.Areas[i].Machines[j].MachineParams[k];
-          if (param.Time < param.PeriodTime - param.InputTime) {
-            param.isActiveTime = false;
-          }
-          if (param.Time < param.PeriodTime - param.InputTime + this.warningTime) {
-            param.isActiveTimeOut = true;
-          }
-          if (param.Time > 0) {
-            param.Time--;
-            console.log(param.Time);
-          } else {
-            this.RefreshData(param);
-          }
-        }
-      }
-    }
-  }
-
 }
 
 

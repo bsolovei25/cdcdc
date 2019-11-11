@@ -1,50 +1,60 @@
-export interface MachineParam {
-  Id: string;
-  Name: string;
-  LastValue: string;
-  CurValue?: string;
-  TimeCodeLast?: Date;
-  TimeCodeCur?: Date;
-  MinValue: string;
-  MaxValue: string;
-  Unit: string;
-  PeriodTime: number;
-  InputTime: number;
-  Comment?: string;
-
-  isActiveTime?: boolean;
-  isActiveTimeOut?: boolean;
-  isSave?: boolean;
-  isError?: boolean;
-
-  saveCount: number;
-  saveValue?: string;
-  Time?: number;
+export interface MI_TempValues {
+  id: string;
+  value: string;
 }
 
-export interface Machine {
-  Name: string;
-  MachineParams: MachineParam[];
+export interface MI_DataGet {
+  trueValues: string[];
+  falseValues: string[];
 }
 
-export interface Area {
-  Name: string;
-  Machines: Machine[];
+export interface MI_DataSend {
+  Id:string;
+  User: string;
+  Params: MI_ParamSend[];
 }
 
-export interface RestDataGet {
-  Areas: Area[];
-}
-
-export interface RestDataSend {
+export interface MI_ParamSend {
   Id: string;
   Value: string;
-  TimeCode: string;
+  TimeCode: Date;
   Comment: string;
   isEdit: boolean;
 }
 
-export interface RestCheckGet {
-  StatusCode: number;
-  Ids: string[];
+export interface Param_MI {
+  id: string;
+  name: string;
+  group: string;
+  machine: string;
+  unit: string;
+  lastValue: string;
+  curValue?: string;
+  lastTime: Date;
+  curTime: Date;
+  minValue: string;
+  maxValue: string;
+  comment?: string;
+  isCommentRequired: boolean;
+  isActive: boolean;
+  isWarning: boolean;
+  isSave?: boolean;
+  isError?: boolean;
+  isEdit?: boolean;
+  saveValue?: string;
+}
+
+export interface Group_MI {
+  name: string;
+  params: Param_MI[];
+}
+
+export interface Machine_MI {
+  name: string;
+  groups: Group_MI[];
+}
+
+export interface TestPostClass {
+  id: number;
+  msg: string;
 }

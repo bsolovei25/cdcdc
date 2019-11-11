@@ -121,8 +121,6 @@ export class EventsComponent implements OnInit {
           if (this.notifications.length > 5) {
             this.notifications.pop();
           }
-
-
         }
       );
   }
