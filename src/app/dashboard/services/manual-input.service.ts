@@ -29,7 +29,7 @@ export class ManualInputService {
 
   CheckLastValue(id: string) {
     const param = this.GetElementById(id);
-    if (param.curValue === '' && param.saveValue !== '') {
+    if (param.curValue === '' && (param.saveValue !== '' || param.saveValue === null)) {
       param.curValue = param.saveValue;
       param.isSave = true;
       param.isError = false;
