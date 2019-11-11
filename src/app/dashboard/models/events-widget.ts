@@ -51,5 +51,5 @@ export interface EventsWidgetData {
 
 export interface EventsWidgetOptions {
   categories: EventsWidgetCategoryCode[];
-  filter: EventsWidgetFilterCode
+  filter: EventsWidgetFilterCode;
 }

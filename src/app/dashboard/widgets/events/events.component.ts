@@ -69,6 +69,7 @@ export class EventsComponent implements OnInit {
 
   notifications: EventsWidgetNotification[] = [];
 
+
   filters: EventsWidgetFilter[] = [
     {
       code: "all",
