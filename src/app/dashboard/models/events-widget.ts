@@ -43,9 +43,9 @@ export interface EventsWidgetNotificationsCounter {
 }
 
 export interface EventsWidgetData {
-  notification: EventsWidgetNotification[];
+  notifications: EventsWidgetNotification[];
   categories: EventsWidgetCategory[];
-  filters: EventsWidgetFilter;
+  filters: EventsWidgetFilter[];
 }
 
 

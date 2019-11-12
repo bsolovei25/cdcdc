@@ -1,26 +1,33 @@
-import {Component, OnInit} from '@angular/core';
-import {EventsWidgetCategory, EventsWidgetOptions} from "../../models/events-widget";
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {
+  EventsWidgetCategory,
+  EventsWidgetCategoryCode,
+  EventsWidgetData,
+  EventsWidgetOptions
+} from "../../models/events-widget";
 import {EventsWidgetFilter} from "../../models/events-widget";
 import {WidgetsService} from "../../services/widgets.service";
 import {
   EventsWidgetNotification,
   EventsWidgetNotificationStatus
 } from "../../models/events-widget";
+import {Subscription} from "rxjs/index";
 
 @Component({
   selector: 'evj-events',
   templateUrl: './events.component.html',
   styleUrls: ['./events.component.scss']
 })
-export class EventsComponent implements OnInit {
+export class EventsComponent implements OnInit, OnDestroy {
+  @Input() id? = 'NotificationsChannel';
 
   categories: EventsWidgetCategory[] = [
     {
       code: 'smotr',
       iconUrl: './assets/icons/widgets/events/smotr.svg',
       notificationsCounts: {
-        closed: 5,
-        all: 10,
+        closed: null,
+        all: null,
       },
       name: 'СМОТР',
       isActive: false
@@ -29,8 +36,8 @@ export class EventsComponent implements OnInit {
       code: 'safety',
       iconUrl: './assets/icons/widgets/events/safety.svg',
       notificationsCounts: {
-        closed: 5,
-        all: 10,
+        closed: null,
+        all: null,
       },
       name: "Безопасноть",
       isActive: false
@@ -39,8 +46,8 @@ export class EventsComponent implements OnInit {
       code: 'tasks',
       iconUrl: './assets/icons/widgets/events/tasks.svg',
       notificationsCounts: {
-        closed: 5,
-        all: 10,
+        closed: null,
+        all: null,
       },
       name: 'Производственные задания и распоряжения',
       isActive: false
@@ -49,8 +56,8 @@ export class EventsComponent implements OnInit {
       code: 'equipmentStatus',
       iconUrl: './assets/icons/widgets/events/status.svg',
       notificationsCounts: {
-        closed: 5,
-        all: 10,
+        closed: null,
+        all: null,
       },
       name: 'Состояния оборудования',
       isActive: false
@@ -59,8 +66,8 @@ export class EventsComponent implements OnInit {
       code: 'drops',
       iconUrl: './assets/icons/widgets/events/drops.svg',
       notificationsCounts: {
-        closed: 5,
-        all: 10,
+        closed: null,
+        all: null,
       },
       name: 'Сбросы',
       isActive: false
@@ -68,7 +75,6 @@ export class EventsComponent implements OnInit {
   ];
 
   notifications: EventsWidgetNotification[] = [];
-
 
   filters: EventsWidgetFilter[] = [
     {
@@ -97,27 +103,31 @@ export class EventsComponent implements OnInit {
     "closed": 'Закрыто'
   };
 
+  private readonly notificationsMaxCount = 5;
+  private readonly defaultIconPath = './assets/icons/widgets/events/smotr.svg';
+
+  private liveSubscription: Subscription;
+
 
   constructor(private widgetsService: WidgetsService) {
+  }
 
-    this.widgetsService.getWidgetLiveDataFromWS('NotificationsChannel', 'events')
-      .subscribe((ref) => {
-
-          ref.statusName = this.statuses[ref.statusCode];
-          ref.iconUrl = './assets/icons/widgets/events/review.svg';
-
-          this.notifications.unshift(ref);
-
-          if (this.notifications.length > 5) {
-            this.notifications.pop();
-          }
+  ngOnInit() {
+    const options = this.getCurrentOptions();
+    this.liveSubscription = this.widgetsService.getWidgetLiveDataFromWS(this.id, 'events', options)
+      .subscribe((ref: EventsWidgetData) => {
+          this.appendNotifications(ref.notifications);
+          this.appendFilterCounters(ref.filters);
+          this.appendCategoriesCounters(ref.categories);
         }
       );
   }
 
-  ngOnInit() {
+  ngOnDestroy() {
+    if (this.liveSubscription) {
+      this.liveSubscription.unsubscribe();
+    }
   }
-
 
   onCategoryClick(category) {
     category.isActive = !category.isActive;
@@ -135,15 +145,62 @@ export class EventsComponent implements OnInit {
     this.notifications = [];
   }
 
-  private appendOptions() {
-    this.clearNotifications();
-
+  private getCurrentOptions() {
     const options: EventsWidgetOptions = {
       categories: this.categories.filter(c => c.isActive).map(c => c.code),
       filter: this.filters.find(f => f.isActive).code
     };
-    // TODO send to server
-    console.log(options);
+    return options;
+  }
+
+  private appendOptions() {
+    this.clearNotifications();
+
+    const options = this.getCurrentOptions();
+    this.widgetsService.appendWidgetLiveOptions(this.id, options);
+  }
+
+  private appendNotifications(remoteNotifications: EventsWidgetNotification[]) {
+    const notifications = remoteNotifications.map(n => {
+      const iconUrl = this.getNotificationIcon(n.categoryId);
+      const statusName = this.statuses[n.statusCode];
+      return {...n, iconUrl, statusName};
+    });
+
+    this.notifications.unshift(...notifications.reverse());
+    if (this.notifications.length > this.notificationsMaxCount) {
+      this.notifications = this.notifications.slice(0, this.notificationsMaxCount);
+    }
+  }
+
+  private appendFilterCounters(remoteFilters: EventsWidgetFilter[]) {
+    this.filters.forEach(f => {
+        const rf = remoteFilters.find(rf => rf.code === f.code);
+        if (rf) {
+          f.notificationsCount = rf.notificationsCount;
+        }
+      }
+    );
+  }
+
+  private appendCategoriesCounters(remoteCategories: EventsWidgetCategory[]) {
+    this.categories.forEach(c => {
+        const rc = remoteCategories.find(rf => rf.code === c.code);
+        if (rc) {
+          c.notificationsCounts = rc.notificationsCounts;
+        }
+      }
+    );
+  }
+
+  private getNotificationIcon(categoryId: EventsWidgetCategoryCode) {
+    const category = this.categories.find(c => c.code === categoryId);
+    if (category) {
+      return category.iconUrl;
+    }
+
+    return this.defaultIconPath;
+
   }
 
 
