@@ -1,10 +1,15 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject, Observable, Subscription} from 'rxjs/index';
+import {BehaviorSubject, Observable, of, Subscription} from 'rxjs/index';
 import {filter, map, switchMap} from 'rxjs/internal/operators';
 import {webSocket} from 'rxjs/internal/observable/dom/webSocket';
 import {WebSocketSubject} from 'rxjs/internal/observable/dom/WebSocketSubject';
-import {EventsWidgetNotification} from '../models/events-widget';
+import {
+  EventsWidgetCategoryCode,
+  EventsWidgetData, EventsWidgetFilter, EventsWidgetFilterCode,
+  EventsWidgetNotification,
+  EventsWidgetNotificationsCounter
+} from '../models/events-widget';
 import {environment} from '../../../environments/environment';
 import {LineChartData} from '../models/line-chart';
 import {Machine_MI} from '../models/manual-input.model';
@@ -75,19 +80,27 @@ export class WidgetsService {
       });
   }
 
-  getWidgetLiveDataFromWS(widgetId, widgetType): any {
+  getWidgetLiveDataFromWS(widgetId, widgetType, options?): any {
     this.ws.next({
       ActionType: 'Subscribe',
-      ChannelId: widgetId
+      ChannelId: widgetId,
+      ...(options) && {Options: options}
     });
 
     return this.ws.asObservable().pipe(
-      // console.log(),
       filter(ref => ref.channelId === widgetId),
       map(ref => {
         return this.mapWidgetData(ref.data, widgetType);
       })
     );
+  }
+
+  appendWidgetLiveOptions(widgetId, options) {
+    this.ws.next({
+      ActionType: 'AppendOptions',
+      ChannelId: widgetId,
+      Options: options
+    });
   }
 
   getAvailableWidgets(): Observable<any> {
@@ -115,7 +128,7 @@ export class WidgetsService {
   mapWidgetData(data, widgetType) {
     switch (widgetType) {
       case 'events':
-        return this.mapNotificationData(data);
+        return this.mapEventsWidgetData(data);
 
       case 'line-chart':
         return this.mapLineChartData(data);
@@ -128,9 +141,9 @@ export class WidgetsService {
     }
   }
 
-  mapNotificationData(notification): EventsWidgetNotification {
-    notification.dateTime = new Date(notification.dateTime);
-    return notification;
+  mapEventsWidgetData(data): EventsWidgetData {
+    data.notifications.forEach(n => n.dateTime = new Date(n.dateTime));
+    return data;
   }
 
   mapLineChartData(data): LineChartData {
