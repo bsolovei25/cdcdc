@@ -1,0 +1,14 @@
+<div class="container" [class.active]="!data.pos && !data.neg">
+    <div class="item-a">
+            <div class="name_circle">{{data.name}}</div>
+    </div>
+    <div #myCircle class="item-b">
+    </div>
+    <div class="item-c">
+            <div class="positive">Не критичные</div>
+            <div class="positive">{{data.pos}}</div>
+            <div class="negative">Критичные</div>
+            <div class="negative">{{data.neg}}</div>
+    </div>
+</div>
+

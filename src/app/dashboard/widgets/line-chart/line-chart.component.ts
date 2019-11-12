@@ -20,7 +20,7 @@ import * as d3Format from 'd3-format';
 import * as d3Transition from 'd3-transition';
 import {Mock} from 'src/app/dashboard/widgets/line-chart/mock';
 import {WidgetsService} from "../../services/widgets.service";
-import {Subscription} from "rxjs/index";
+import {Subscription} from "rxjs";
 import {LineChartData, LineChartOptions} from "../../models/line-chart";
 
 @Component({
@@ -167,7 +167,9 @@ export class LineChartComponent implements OnInit, OnDestroy {
   private enableLiveData() {
     this.subscribtion = this.widgetsService.getWidgetLiveDataFromWS(this.id, 'line-chart')
       .subscribe((ref) => {
+        
           this.draw(ref);
+          
           this.subscribtion.unsubscribe();
         }
       );

@@ -27,6 +27,16 @@
                         [dndDraggable]="{widget: w}"
                         class="widgets-panel__widget"></evj-line-chart>
       </ng-container>
+      <ng-container *ngIf="w.widgetType === 'pie-chart'">
+        {{w.name}}
+        <evj-widgets-pie *ngIf="w"
+                        [id]="w.id"
+                        [code]="w.code"
+                        [name]="w.name"
+                        [position]="w.id"
+                        [dndDraggable]="{widget: w}"
+                        class="widgets-panel__widget"></evj-widgets-pie>
+      </ng-container>
     </ng-container>
   </div>
 
