@@ -16,18 +16,32 @@
       <h3>Переместите сюда</h3>
     </div>
 
-    <evj-line-chart class="grid__widget"
-                    *ngIf="c.widget"
-                    [dndDraggable]="c"
-                    (dndStart)="onDragStart($event)"
-                    (dndEnd)="onDragEnd($event)"
-                    [position]="c.position"
-                    [id]="c.widget.id"
-                    [code]="c.widget.code"
-                    [name]="c.widget.name"
-                    [units]="c.widget.units"
-                    [showMock]="false"
-                    [options]="c.widget.widgetOptions"></evj-line-chart>
+<!--    <ng-container *ngIf="c.widget" class="grid__widget"></ng-container>-->
+<!--    <div class="grid__widget"></div>-->
+
+    <ng-container *ngIf="c.widget">
+      <evj-line-chart class="grid__widget"
+                      *ngIf="c.widget.widgetType === 'line-chart'"
+                      [dndDraggable]="c"
+                      (dndStart)="onDragStart($event)"
+                      (dndEnd)="onDragEnd($event)"
+                      [position]="c.position"
+                      [id]="c.widget.id"
+                      [code]="c.widget.code"
+                      [name]="c.widget.name"
+                      [showMock]="false"
+                      [units]="c.widget.units"
+                      [options]="c.widget.widgetOptions">
+      </evj-line-chart>
+
+      <evj-manual-input class="grid__widget"
+                        *ngIf="c.widget.widgetType === 'manual-input'"
+                        [dndDraggable]="c"
+                        [id]="c.widget.id"
+                        [showMock]="false" >
+      </evj-manual-input>
+    </ng-container>
+
 
   </div>
 

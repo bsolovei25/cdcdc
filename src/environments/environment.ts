@@ -4,9 +4,10 @@
 
 export const environment = {
     production: false,
-    wsUrl: 'ws://192.168.0.4:5555'
+    wsUrl: 'ws://192.168.0.4:5555',
+    restUrl: 'http://192.168.0.4:5555'
   };
-  
+
   /*
    * For easier debugging in development mode, you can import the following file
    * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

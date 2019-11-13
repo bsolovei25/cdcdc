@@ -18,10 +18,10 @@ export class WidgetsPieComponent implements OnInit {
   private subscribtion: Subscription;
 
   public datas = [
-    {id:1, name:"Статическое Оборудование",pos:5, neg:2},
-    {id:2, name:"Динамическое оборудование", pos:2, neg:5},
-    {id:3,name:"КИПиА", pos:1, neg:1},
-    {id:4,name:"Электро - оборудование", pos:0, neg:0}
+    {id:1, name:"Статическое Оборудование", uncritical:5, critical:2 },
+    {id:2, name:"Динамическое оборудование", uncritical:2, critical:5},
+    {id:3, name:"КИПиА", uncritical:1, critical:1},
+    {id:4, name:"Электро - оборудование", uncritical:0, critical:0}
   ];
 
 

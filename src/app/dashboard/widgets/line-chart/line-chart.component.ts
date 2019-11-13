@@ -165,6 +165,8 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
 
   private enableLiveData() {
+    // TODO добавить получение типа графика
+
     this.subscribtion = this.widgetsService.getWidgetLiveDataFromWS(this.id, 'line-chart')
       .subscribe((ref) => {
         
@@ -180,7 +182,6 @@ export class LineChartComponent implements OnInit, OnDestroy {
     if (this.subscribtion) {
       this.subscribtion.unsubscribe();
     }
-
     this.draw(Mock);
   }
 

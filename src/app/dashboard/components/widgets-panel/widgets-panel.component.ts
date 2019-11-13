@@ -30,5 +30,4 @@ export class WidgetsPanelComponent implements OnInit {
   onToggleClick() {
     this.active = !this.active;
   }
-
 }

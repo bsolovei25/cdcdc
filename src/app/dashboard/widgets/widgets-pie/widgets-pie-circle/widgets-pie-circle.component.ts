@@ -27,16 +27,16 @@ export class WidgetsPieCircleComponent implements OnInit {
 
   public d3Circle() {
 
-    this.summ = this.data.pos + this.data.neg;
+    this.summ = this.data.uncritical + this.data.critical;
 
-    if ((this.data.pos == 0) && (this.data.neg == 0)) {
+    if ((this.data.uncritical == 0) && (this.data.critical == 0)) {
       this.color = d3.scaleOrdinal().range(["gray"]);
     }
     else {
       this.color = d3.scaleOrdinal().range(["white", "orange"]);
     }
 
-    const mass = [this.data.pos, this.data.neg]; 
+    const mass = [this.data.uncritical, this.data.critical]; 
 
     this.canvas = d3.select(this.myCircle.nativeElement).append("svg")
       .attr("width", "150px")
@@ -59,7 +59,7 @@ export class WidgetsPieCircleComponent implements OnInit {
       .attr("d", this.arc)
       .attr("stroke", "black")
       .attr("fill", (d) => {
-        debugger
+    
         return this.color(d.index);
 
       });
@@ -67,7 +67,7 @@ export class WidgetsPieCircleComponent implements OnInit {
     this.group = this.group.append("text")
       .attr("text-anchor", "middle")
       .attr("font-size", "2em")
-      .attr("fill", !this.data.pos && !this.data.neg ? 'gray' : "white")
+      .attr("fill", !this.data.uncritical && !this.data.critical ? 'gray' : "white")
       .attr("dominant-baseline", "middle")
       .text(this.summ);
   }

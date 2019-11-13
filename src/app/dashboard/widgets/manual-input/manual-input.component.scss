@@ -186,7 +186,7 @@
 
   &_bottom {
     position: absolute;
-    bottom: -15px;
+    bottom: 0px;
     border-bottom: 0.5px solid var(--color-border-main-transparrent);
     border-top: transparent;
 
@@ -260,7 +260,7 @@
 }
 
 .button {
-  z-index: 100;
+  z-index: 0.5;
   cursor: pointer;
   border: none;
   width: 180px;
@@ -293,7 +293,10 @@
 }
 
 .table-container {
-  position: relative;
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: calc(100% - 80px);
   &:before {
     content: '';
     position: absolute;
@@ -308,41 +311,56 @@
 
 .table {
   position:relative;
+  height: 100%;
   padding-top: 50px;
   width: 100%;
+  display: block;
+  overflow-x: hidden;
 }
 
 .table-header {
   padding: 0;
   padding-left: 20px;
   padding-right: 30px;
-  margin-right: 5px;
+  margin-right: 2em;
   color: var(--color-text-sub-heading);
   font-size: 10px;
+  height: 40px;
+  width: calc(100% - 30px);
+  display: block;
 }
 
 .table-body {
+  height: 100%;
   padding: 20px;
-  position: relative;
-  height: 400px;
-  overflow-y: scroll;
+  width: calc(100% - 30px);
+  display: block;
+
+  &_list {
+    position: relative;
+    left: 5px;
+    width: calc(100% - 5px);
+    height: calc(100% - 110px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
 }
 
 .table-container-1 {
+  margin-top: 15px;
   position: relative;
   color: var(--color-text-sub-heading);
   font-size: 10px;
-  margin-bottom: 15px;
 }
 
 .table-container-2 {
   position: relative;
-  margin-top: 10px;
+  margin-top: 15px;
   &:before {
     content: '';
     width: calc(var(--tree-width-2) + var(--tree-width-1));
     height: calc(0.5em + 1.5px);
-    left: 0;
+    left: 1px;
     border-bottom: var(--border-style-dashed);
     position: absolute;
   }
@@ -379,13 +397,13 @@
   position: relative;
   font-size: 11px;
   color: var(--color-text-main);
-  padding-left: var(--tree-width-1);
+  padding-left: calc(var(--tree-width-1) + 3px);
   &:before {
     content: '';
     @extend %circle;
     position: absolute;
     top: calc(0.5em);
-    left: calc(-3px);
+    left: calc(0px);
   }
 }
 
@@ -393,7 +411,8 @@
   position: relative;
   color: var(--color-text-sub-heading);
   font-size: 10.5px;
-  padding-left: calc(var(--tree-width-1) + var(--tree-width-2) + 10px);
+  padding-left: calc(var(--tree-width-1) + var(--tree-width-2) + 13px);
+  margin-bottom: 10px;
   &:before {
     content: '';
     @extend %circle;
@@ -554,7 +573,7 @@
 
 .vertical-line-1 {
   position: absolute;
-  left: -1.5px;
+  left: 1px;
   bottom: 0;
   right: 0;
   top: calc(0.5em + 4px);
