@@ -30,8 +30,10 @@ export class WidgetsService {
 
     this.initLineChartLiveData();
     this.initWS();
-
+    this.restUrl = environment.restUrl;
   }
+
+  private restUrl: string;
 
   initLineChartLiveData() {
     this.lineChartLiveData = this.newData.pipe(
@@ -102,7 +104,8 @@ export class WidgetsService {
   }
 
   getAvailableWidgets(): Observable<any> {
-    return this.http.get('./assets/mock/available_widgets.json');
+    // TODO check
+    return this.http.get('http://192.168.0.4:5555/af/GetAvailableWidgets');
   }
 
   getWidgetLiveData(widgetId, widgetType?) {
@@ -132,7 +135,7 @@ export class WidgetsService {
         return this.mapLineChartData(data);
 
       case 'manual-input':
-        return data;
+        return this.mapManualInput(data);
     }
   }
 
