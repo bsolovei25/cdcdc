@@ -16,6 +16,7 @@
           [id]="w.id"
           [showMock]="true"
           [dndDraggable]="{widget: w}"
+          (dndDrag)="this.active = false"
           class="widgets-panel__widget widgets-panel__widget___mi">
         </evj-manual-input>
       </ng-container>
@@ -28,6 +29,7 @@
                         [options]="w.widgetOptions"
                         [position]="w.id"
                         [dndDraggable]="{widget: w}"
+                        (dndDrag)="this.active = false"
                         class="widgets-panel__widget"></evj-line-chart>
       </ng-container>
     </ng-container>
