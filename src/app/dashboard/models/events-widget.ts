@@ -1,15 +1,30 @@
 export interface EventsWidgetNotification {
   id: number;
-  serialNumber: number;
-  priority: EventsWidgetNotificationPriority;
-  dateTime: Date;
+  itemNumber: number;
+  organization: string;
+  branch: string;
+  place: { id: number, name: string };
+  responsibleOperator: User;
+  fixedBy: User;
+  eventDateTime: Date;
   iconUrl: string;
-  statusCode: EventsWidgetNotificationStatus;
-  heading: string;
-  body: string;
-  categoryId: EventsWidgetCategoryCode;
-
+  status: { id: number, name: EventsWidgetNotificationStatus, code: number };
+  priority: { id: number, name: EventsWidgetNotificationPriority, code: number };
+  
+  deviationReason: string; // Причина отклонения
+  establishedFacts: string; // Установленные факты
+  eventType: string; // Тип происшествия
+  directReasons: string; // Непосредственные/прямые причины
+  description: string; // Описание
+  comment: string; // Комментарий оператора
+  category: { id: number, name: EventsWidgetCategoryCode, code: number };
   statusName?: string;
+}
+
+export interface User {
+    id: number;
+    firstName: string;
+    lastName: string;
 }
 
 export type EventsWidgetNotificationPriority = 'danger' | 'warning' | 'standard'

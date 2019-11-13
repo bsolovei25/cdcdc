@@ -19,23 +19,23 @@
         <div class="notification__header">
       <span class="notification__number"
             [ngClass]="'notification__number_' + n.priority">
-        {{n.serialNumber}}
+        {{n.itemNumber}}
       </span>
           <span class="notification__name">
-        {{n.heading}}
+        {{n.eventType}}
       </span>
           <div class="line notification__line notification__line_top">
             <div class="line__circle line__circle__left"></div>
             <div class="line__circle line__circle__right"></div>
           </div>
           <span class="notification__date-time">
-        {{n.dateTime | date: 'dd.MM.yyyy HH:mm'}}
+        {{n.eventDateTime | date: 'dd.MM.yyyy HH:mm'}}
       </span>
         </div>
 
         <div class="notification__body">
       <span class="notification__description">
-        {{n.body}}
+        {{n.description}}
       </span>
 
           <div class="notification__extra">
