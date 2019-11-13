@@ -1,23 +1,16 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Machine_MI, MI_DataGet, MI_DataSend, MI_ParamSend, MI_TempValues, Param_MI, TestPostClass} from '../models/manual-input.model';
-import {Observable} from 'rxjs';
-import {tap} from 'rxjs/operators';
-import {WidgetsService} from './widgets.service';
+import {Machine_MI, MI_DataGet, MI_DataSend, MI_ParamSend, Param_MI} from '../models/manual-input.model';
 import {environment} from '../../../environments/environment';
 
 @Injectable({providedIn: 'root'})
 export class ManualInputService {
 
-  constructor(private http: HttpClient, private manualInputService: ManualInputService, private widgetsService: WidgetsService) {
+  constructor(private http: HttpClient) {
     this.restUrl = environment.restUrl;
   }
 
   private restUrl: string;
-
-  private isLoad: boolean = false;
-
-  public Data: Machine_MI[] = [];
 
   ChangeField(id: string, data: Machine_MI[]) {
     const param = this.GetElementById(id, data);
@@ -36,10 +29,6 @@ export class ManualInputService {
   LoadData(data: Machine_MI[], newData: Machine_MI[]): Machine_MI[] {
     const tempData = this.GetFlatData(data);
     const newFlatData = this.GetFlatData(newData);
-    // console.log('data');
-    // console.log(data);
-    // console.log('new_data');
-    // console.log(newData);
     if (tempData.length === 0) {
       console.log('tempData0');
       for (const i in newFlatData) {
@@ -74,10 +63,10 @@ export class ManualInputService {
 
   BtnSaveValues(data: Machine_MI[]) {
     let elsToSave: Param_MI[] = [];
-    for (const i in this.Data) {
-      for (const j in this.Data[i].groups) {
-        for (const k in this.Data[i].groups[j].params) {
-          const param = this.Data[i].groups[j].params[k];
+    for (const i in data) {
+      for (const j in data[i].groups) {
+        for (const k in data[i].groups[j].params) {
+          const param = data[i].groups[j].params[k];
           if ((param.curValue !== null && param.curValue !== '') && param.isActive) {
             elsToSave.push(param);
           }
@@ -153,25 +142,6 @@ export class ManualInputService {
           const param = data[i].groups[j].params[k];
           if (param.id === id) {
             return param;
-          }
-        }
-      }
-    }
-    return null;
-  }
-
-  GetElementIdxById(id: string): string[] {
-    for (const i in this.Data) {
-      for (const j in this.Data[i].groups) {
-        for (const k in this.Data[i].groups[j].params) {
-          const param = this.Data[i].groups[j].params[k];
-          if (param.id === id) {
-            let idx: string[] = [];
-            idx.push(i);
-            idx.push(j);
-            idx.push(k);
-
-            return idx;
           }
         }
       }
