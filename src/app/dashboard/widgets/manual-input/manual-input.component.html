@@ -15,6 +15,8 @@
   <div class="frame__circle frame__circle__right"></div>
 </div>
 
+<ng-container *ngIf="this.isMock === false">
+
 <div class="button-bar">
   <div class="buttons">
     <div class="button buttons__item" (click)="onButtonSave()">Сохранить значение</div>
@@ -39,43 +41,45 @@
     <div class="line-horizontal"></div>
 
     <div class="table-body scroll-bar">
-      <div class="table-container-1" *ngFor="let machine of manualInputService.Data">
+      <div class="table-container-1" *ngFor="let machine of this.Data">
         <div class="table-header-1">{{ machine.name }}</div>
         <div class="vertical-line-1"></div>
-          <div class="table-container-2" *ngFor="let group of machine.groups">
-            <div class="table-header-2">{{ group.name }}</div>
-            <div class="vertical-line-2"></div>
-            <div class="d-table">
-              <div class="d-tr" *ngFor="let param of group.params">
-                <div class="table-container-3"></div>
-                <div class="d-td d-td_content__col-1"></div>
-                <div class="d-td d-td_content__col-2">{{ param.name }} {{ param.saveValue }}</div>
-                <div class="d-td d-td_content__col-3">{{ param.unit }}</div>
-                <div class="d-td d-td_content__col-4">{{ param.lastValue }}</div>
-                <div class="d-td d-td_content__col-5">{{ param.lastTime | date: 'dd.MM.yyyy HH:mm:ss' }}</div>
-                <div class="d-td d-td_content__col-6">
-                  <input class="data" type="text" placeholder="--------" [(ngModel)]="param.curValue"
-                         [class.data_active]="param.isActive"
-                         [class.data_active__saving]="param.isActive && param.isSave"
-                         [class.data_active__warning]="param.isWarning && !param.isSave && param.isActive"
-                         [class.data_active__error]="param.isError && !param.isSave"
-                         (change)="onChangeValue(param.id)"
-                         (focusout)="onUnfocusValue(param.id)">
-                </div>
-                <div class="d-td d-td_content__col-7">{{ param.curTime | date: 'dd.MM.yyyy HH:mm:ss' }}</div>
-                <div class="d-td d-td_content__col-8">{{ param.minValue }}</div>
-                <div class="d-td d-td_content__col-9">{{ param.maxValue }}</div>
-                <div class="d-td d-td_content__col-10">
-                  <input class="data" type="text" placeholder="--------" [(ngModel)]="param.comment">
-                </div>
-                <div class="d-td d-td_content__col-11"></div>
+        <div class="table-container-2" *ngFor="let group of machine.groups">
+          <div class="table-header-2">{{ group.name }}</div>
+          <div class="vertical-line-2"></div>
+          <div class="d-table">
+            <div class="d-tr" *ngFor="let param of group.params">
+              <div class="table-container-3"></div>
+              <div class="d-td d-td_content__col-1"></div>
+              <div class="d-td d-td_content__col-2">{{ param.name }} {{ param.saveValue }}</div>
+              <div class="d-td d-td_content__col-3">{{ param.unit }}</div>
+              <div class="d-td d-td_content__col-4">{{ param.lastValue }}</div>
+              <div class="d-td d-td_content__col-5">{{ param.lastTime | date: 'dd.MM.yyyy HH:mm:ss' }}</div>
+              <div class="d-td d-td_content__col-6">
+                <input class="data" type="text" placeholder="--------" [(ngModel)]="param.curValue"
+                       [class.data_active]="param.isActive"
+                       [class.data_active__saving]="param.isActive && param.isSave"
+                       [class.data_active__warning]="param.isWarning && !param.isSave && param.isActive && !param.isError"
+                       [class.data_active__error]="param.isError && !param.isSave"
+                       (change)="onChangeValue(param.id)"
+                       (focusout)="onUnfocusValue(param.id)">
               </div>
+              <div class="d-td d-td_content__col-7">{{ param.curTime | date: 'dd.MM.yyyy HH:mm:ss' }}</div>
+              <div class="d-td d-td_content__col-8">{{ param.minValue }}</div>
+              <div class="d-td d-td_content__col-9">{{ param.maxValue }}</div>
+              <div class="d-td d-td_content__col-10">
+                <input class="data" type="text" placeholder="--------" [(ngModel)]="param.comment">
+              </div>
+              <div class="d-td d-td_content__col-11"></div>
             </div>
           </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+</ng-container>
 
 <div class="frame frame_bottom">
   <div class="frame__circle frame__circle__left"></div>

@@ -1,8 +1,10 @@
-import { Component,  OnInit, OnDestroy } from '@angular/core';
+import {Component, OnInit, OnDestroy, Input} from '@angular/core';
 import {ManualInputService} from '../../services/manual-input.service';
 import {WidgetsService} from '../../services/widgets.service';
 import {HttpClient} from '@angular/common/http';
 import {Machine_MI} from '../../models/manual-input.model';
+import {environment} from '../../../../environments/environment';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'evj-manual-input',
@@ -12,28 +14,79 @@ import {Machine_MI} from '../../models/manual-input.model';
 export class ManualInputComponent implements OnInit {
 
   constructor(private manualInputService: ManualInputService, private widgetsService: WidgetsService, private http: HttpClient) {
+    this.restUrl = environment.restUrl;
+    this.id = '742c88e4-048b-11ea-98c3-380025fb9022';
+    this.isLoading = true;
+    this.isMock = true;
   }
 
   public isLoading: boolean;
 
+  @Input() public isMock: boolean;
+
+  private restUrl: string;
+
+  @Input() public id: string;
+
+  private Data: Machine_MI[] = [];
+
+  private subscribtion: Subscription;
+
   ngOnInit() {
-    this.http.get('http://192.168.0.4:5555/api/mi/Load')
+    console.log("init mi");
+  }
+
+  setInitData() {
+    console.log(this.restUrl + '/api/mi/load/' + this.id);
+    this.http.get(this.restUrl + '/api/mi/load/' + this.id)
       .subscribe((ref: Machine_MI[]) => {
         console.log(ref);
-        this.manualInputService.LoadData(ref);
+        this.Data = this.manualInputService.LoadData(this.Data, ref);
       });
   }
 
   onButtonSave() {
-    this.manualInputService.BtnSaveValues();
+    this.manualInputService.BtnSaveValues(this.Data);
     console.log('buttonClick');
   }
 
   onChangeValue(id: string) {
-    this.manualInputService.ChangeField(id);
+    this.manualInputService.ChangeField(id, this.Data);
   }
 
   onUnfocusValue(id: string) {
-    this.manualInputService.CheckLastValue(id);
+    this.manualInputService.CheckLastValue(id, this.Data);
+  }
+
+  wsConnect() {
+    this.widgetsService.getWidgetLiveDataFromWS(this.id, 'manual-input')
+      .subscribe((ref) => {
+          this.manualInputService.LoadData(this.Data, ref);
+          console.log("init");
+        }
+      );
+  }
+  wsDisconnect() {
+    if (!this.subscribtion) {
+      return;
+    }
+    this.subscribtion = this.widgetsService.getWidgetLiveDataFromWS(this.id, 'manual-input')
+      .subscribe((ref) => {
+          this.manualInputService.LoadData(this.Data, ref);
+          console.log("init");
+        }
+      );
+  }
+
+
+  @Input()
+  set showMock(show) {
+    this.isMock = show;
+    if (this.isMock) {
+      this.wsDisconnect();
+    } else {
+      this.setInitData();
+      this.wsConnect();
+    }
   }
 }
