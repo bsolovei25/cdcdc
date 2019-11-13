@@ -16,9 +16,6 @@
       <h3>Переместите сюда</h3>
     </div>
 
-<!--    <ng-container *ngIf="c.widget" class="grid__widget"></ng-container>-->
-<!--    <div class="grid__widget"></div>-->
-
     <ng-container *ngIf="c.widget">
       <evj-line-chart class="grid__widget"
                       *ngIf="c.widget.widgetType === 'line-chart'"
@@ -28,7 +25,7 @@
                       [position]="c.position"
                       [id]="c.widget.id"
                       [code]="c.widget.code"
-                      [name]="c.widget.name"
+                      [name]="c.widget.title"
                       [showMock]="false"
                       [units]="c.widget.units"
                       [options]="c.widget.widgetOptions">
@@ -36,6 +33,7 @@
 
       <evj-manual-input class="grid__widget"
                         *ngIf="c.widget.widgetType === 'manual-input'"
+                        [name] = c.widget.title
                         [dndDraggable]="c"
                         [id]="c.widget.id"
                         [showMock]="false" >

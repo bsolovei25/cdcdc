@@ -16,17 +16,20 @@ export class ManualInputComponent implements OnInit {
   constructor(public manualInputService: ManualInputService, private widgetsService: WidgetsService, private http: HttpClient) {
     this.restUrl = environment.restUrl;
     this.id = '742c88e4-048b-11ea-98c3-380025fb9022';
+    this.name = 'Режимный лист дневной';
     this.isLoading = true;
     this.isMock = true;
   }
 
   public isLoading: boolean;
 
-  @Input() public isMock: boolean;
-
   private restUrl: string;
 
+  @Input() public isMock: boolean;
+
   @Input() public id: string;
+
+  @Input() public name: string;
 
   private Data: Machine_MI[] = [];
 

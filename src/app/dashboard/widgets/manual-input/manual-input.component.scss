@@ -32,9 +32,9 @@
   --border-style-solid: solid 1px var(--color-border-main);
   --space-top: 50px;
 
-  --tree-width-1: 10px;
-  --tree-width-2: 10px;
-  --tree-width-3: 10px;
+  --tree-width-1: 1%;
+  --tree-width-2: 1%;
+  --tree-width-3: 1%;
 }
 
 @font-face {
@@ -83,6 +83,7 @@
 
 .header {
   position: relative;
+  left: 3px;
   height: 30px;
   width: 430px;
   box-sizing: border-box;
@@ -117,7 +118,7 @@
     color: var(--color-text-sub)
   }
   &:before {
-    z-index: 1;
+    z-index: 0.1;
     content: "";
     position: absolute;
     top: -4px;
@@ -130,7 +131,7 @@
     background: var(--color-bg-main);
   }
   &:after {
-    z-index: 1;
+    z-index: 0.1;
     content: "";
     position: absolute;
     top: -2px;
@@ -145,7 +146,8 @@
 }
 
 .frame {
-  width: calc(100% - 1px);
+  width: calc(100% - 5px);
+  left: 3px;
   height: 28px;
   min-width: 430px;
 
@@ -165,7 +167,7 @@
   }
   &_top {
     &:after {
-      z-index: 1;
+      z-index: 0.1;
       content: "";
       position: absolute;
       top: -2px;
@@ -191,7 +193,7 @@
     border-top: transparent;
 
     &:after {
-      z-index: 1;
+      z-index: 0.1;
       content: "";
       position: absolute;
 
@@ -260,7 +262,7 @@
 }
 
 .button {
-  z-index: 0.5;
+  z-index: 1;
   cursor: pointer;
   border: none;
   width: 180px;
@@ -294,16 +296,18 @@
 
 .table-container {
   position: absolute;
-  display: block;
-  width: 100%;
+  //display: block;
+  right: -1px;
+  width: calc(100% + 1px);
   height: calc(100% - 80px);
   &:before {
     content: '';
     position: absolute;
-    left: -0.25px;
+    left: 3px;
+    right: -3px;
     top: 4px;
     height: 100%;
-    width: calc(100% - 1px);
+    width: calc(100% - 6px);
     border-left: var(--border-style-dashed);
     border-right: var(--border-style-dashed);
   }
@@ -314,8 +318,7 @@
   height: 100%;
   padding-top: 50px;
   width: 100%;
-  display: block;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .table-header {
@@ -377,19 +380,20 @@
 
 .table-container-3 {
   position: relative;
+  height: 100%;
   &:before {
     content: '';
-    width: calc(var(--tree-width-3));
-    height: calc(16px / 2 + 10px);
-    left: calc(var(--tree-width-1) + var(--tree-width-2) + 3px);
+    width: 50%;
+    height: calc(100% / 2);
+    right: -40%;
     border-bottom: var(--border-style-dashed);
     position: absolute;
   }
   &:after {
     content: '';
     @extend %circle;
-    left: calc(var(--tree-width-1) + var(--tree-width-2) + var(--tree-width-3) + 4px);
-    top:calc(16px / 2 + 10px - 1.5px);
+    right: calc(-50% + 1.5px);
+    top:calc(100% / 2 - 1.5px);
   }
 }
 
@@ -440,50 +444,71 @@
 .d-tr{
   display: table-row;
   width: 100%;
+  position: relative;
+  //&:last-child {
+  //  //color: red;
+  //  &_line-block {
+  //    color: red;
+  //    position: absolute;
+  //    left: 0px;
+  //    bottom: 50%;
+  //    height: 50%;
+  //    width: 10px;
+  //    background: red;
+  //  }
+  //}
 }
-.d-tr:nth-child(odd) {
-  background: var(--color-bg-main-dark);
-}
+
+
 .d-td {
   display: table-cell;
   text-align: left;
   border: none;
   vertical-align: middle;
   width:100%;
-  padding: 10px;
+  padding: 8px;
+  padding-left: 10px;
+  background-color: var(--color-bg-sub);
 
   &_header {
     &__col-1 {
+      background-color: var(--color-bg-main);
       color: var(--color-text-sub-heading);
       font-size: 10px;
       width: 25%;
     }
     &__col-2 {
+      background-color: var(--color-bg-main);
       color: var(--color-text-sub-heading);
       font-size: 10px;
       width: 5%;
     }
     &__col-3 {
+      background-color: var(--color-bg-main);
       color: var(--color-text-sub-heading);
       font-size: 10px;
       width: 18%;
     }
     &__col-4 {
+      background-color: var(--color-bg-main);
       color: var(--color-text-sub-heading);
       font-size: 10px;
       width: 21%;
     }
     &__col-5 {
+      background-color: var(--color-bg-main);
       color: var(--color-text-sub-heading);
       font-size: 10px;
       width: 7%;
     }
     &__col-6 {
+      background-color: var(--color-bg-main);
       color: var(--color-text-sub-heading);
       font-size: 10px;
       width: 7%;
     }
     &__col-7 {
+      background-color: var(--color-bg-main);
       color: var(--color-text-sub-heading);
       font-size: 10px;
       width: 17%;
@@ -496,8 +521,10 @@
       color: var(--color-text-sub-heading);
       font-size: 10px;
       width: 3%;
+      display: compact;
     }
     &__col-2 {
+      border-radius: 7px 0 0 7px;
       color: var(--color-text-sub);
       font-size: 10px;
       width: 22%;
@@ -553,21 +580,24 @@
 
 .line-horizontal {
   position: relative;
-  width: 100%;
+  width: calc(100% - 4px);
   height: 0;
+  left: 2px;
   border-bottom: var(--border-style-solid);
 
   &:before {
     content: '';
     @extend %circle;
     top: -2px;
-    left: -1.5px;
+    left: -0.5px;
+    z-index: 1;
   }
   &:after {
     content: '';
     @extend %circle;
     top: -2px;
-    right: -2.5px;
+    right: -2px;
+    z-index: 1;
   }
 }
 
@@ -585,7 +615,7 @@
   position: absolute;
   left: calc(var(--tree-width-1) + var(--tree-width-2) + 2px);
   top: calc(0.5em + 4px);
-  height: calc(100% - 16px / 2 - 22px);
+  height: calc(100% - 35px);
   border-left: var(--border-style-dashed);
 }
 
@@ -593,10 +623,14 @@ input.data {
   font-size: 10px;
   width: 100%;
   height: 16px;
-  background: transparent;
+  background: var(--color-bg-main);;
   border: solid 1px transparent;
   color: var(--color-text-sub);
   pointer-events:none;
+
+  &_comment {
+    pointer-events:all;
+  }
 
   &_val {
 
@@ -609,7 +643,7 @@ input.data {
   &_active {
     pointer-events:all;
     border-radius: 3px;
-    border: solid 1px var(--color-border-active);
+    border: solid 0.5px var(--color-border-active);
 
     &__saving {
       border-color: transparent;
@@ -632,3 +666,7 @@ input.data {
   }
 }
 
+.space {
+  height: 7px;
+  width: 100%;
+}
