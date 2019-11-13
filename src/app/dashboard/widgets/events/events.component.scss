@@ -331,6 +331,8 @@
 }
 
 .notification {
+  cursor: pointer;
+  margin-right: 10px;
 
   &__header {
     display: flex;
@@ -363,11 +365,28 @@
   &__line {
     flex: 1 130px;
     margin: 0 16px;
+
+    &_top {
+      margin: 0 16px;
+    }
+
+    &_bottom {
+      margin: -4px 6.5px 0 6.5px;
+    }
+  }
+
+  &:hover &__line {
+    border-color: var(--color-border-active);
+  }
+
+  &:hover .line__circle {
+    border-color: var(--color-border-active);
   }
 
   &__date-time {
     flex: 0 98px;
     font-size: 0.75rem;
+    color: var(--color-text-sub);
   }
 
   &__body {
@@ -376,7 +395,11 @@
     align-items: center;
 
     padding: 15px 10px;
+  }
 
+  &:hover &__body {
+    background: var(--color-bg-active-bright);
+    background: linear-gradient(0deg, rgba(63, 169, 245, .1) 0%, var(--color-bg-main) 100%);
   }
 
   &__description {
@@ -408,6 +431,13 @@
   }
 
   &__icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 26px;
+    height: 26px;
+
     &_danger {
       stroke: var(--color-danger);
     }

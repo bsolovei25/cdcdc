@@ -13,7 +13,7 @@ import {Subscription} from 'rxjs';
 })
 export class ManualInputComponent implements OnInit {
 
-  constructor(private manualInputService: ManualInputService, private widgetsService: WidgetsService, private http: HttpClient) {
+  constructor(public manualInputService: ManualInputService, private widgetsService: WidgetsService, private http: HttpClient) {
     this.restUrl = environment.restUrl;
     this.id = '742c88e4-048b-11ea-98c3-380025fb9022';
     this.isLoading = true;

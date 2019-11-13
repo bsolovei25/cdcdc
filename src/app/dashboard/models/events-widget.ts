@@ -43,13 +43,13 @@ export interface EventsWidgetNotificationsCounter {
 }
 
 export interface EventsWidgetData {
-  notification: EventsWidgetNotification[];
+  notifications: EventsWidgetNotification[];
   categories: EventsWidgetCategory[];
-  filters: EventsWidgetFilter;
+  filters: EventsWidgetFilter[];
 }
 
 
 export interface EventsWidgetOptions {
   categories: EventsWidgetCategoryCode[];
-  filter: EventsWidgetFilterCode
+  filter: EventsWidgetFilterCode;
 }
