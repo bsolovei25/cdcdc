@@ -4,8 +4,8 @@
 
 export const environment = {
     production: false,
-    wsUrl: 'wss://localhost:5001', //'ws://192.168.0.4:5555',
-    restUrl: 'https://localhost:5001'//'http://192.168.0.4:5555'
+    wsUrl: 'ws://192.168.0.4:5555',
+    restUrl: 'http://192.168.0.4:5555'
   };
 
   /*
