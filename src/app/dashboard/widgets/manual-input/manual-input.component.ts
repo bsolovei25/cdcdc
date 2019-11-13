@@ -11,7 +11,7 @@ import {Machine_MI} from '../../models/manual-input.model';
 })
 export class ManualInputComponent implements OnInit {
 
-  constructor(private manualInputService: ManualInputService, private widgetsService: WidgetsService, private http: HttpClient) {
+  constructor(public manualInputService: ManualInputService, private widgetsService: WidgetsService, private http: HttpClient) {
   }
 
   public isLoading: boolean;
