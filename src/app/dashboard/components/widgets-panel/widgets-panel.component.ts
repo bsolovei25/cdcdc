@@ -10,6 +10,7 @@ import {WidgetsService} from "../../services/widgets.service";
     '(document:click)': 'onDocumentClick($event)',
   }
 })
+
 export class WidgetsPanelComponent implements OnInit {
   active = false;
   widgets: any[];

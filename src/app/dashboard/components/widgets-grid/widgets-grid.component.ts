@@ -8,6 +8,7 @@ import {UserSettingsService} from '../../services/user-settings.service';
   templateUrl: './widgets-grid.component.html',
   styleUrls: ['./widgets-grid.component.scss']
 })
+
 export class WidgetsGridComponent implements OnInit {
   draggingMode = false;
 
