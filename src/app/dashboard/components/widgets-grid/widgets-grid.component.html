@@ -1,9 +1,9 @@
 <div class="grid">
 
-  <div class="grid__cell"
-       [style.grid-area]="'bb1'">
-    <evj-events></evj-events>
-  </div>
+<!--  <div class="grid__cell"-->
+<!--       [style.grid-area]="'bb1'">-->
+<!--    <evj-events></evj-events>-->
+<!--  </div>-->
 
   <div class="grid__cell"
        *ngFor="let c of cells"
@@ -38,8 +38,14 @@
                         [id]="c.widget.id"
                         [showMock]="false" >
       </evj-manual-input>
-    </ng-container>
 
+      <evj-events class="grid__widget"
+                        *ngIf="c.widget.widgetType === 'notifications-widget'"
+                        [dndDraggable]="c"
+                        [id]="c.widget.id">
+      </evj-events>
+
+    </ng-container>
 
   </div>
 

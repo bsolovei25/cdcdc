@@ -105,7 +105,7 @@ export class WidgetsService {
 
   getAvailableWidgets(): Observable<any> {
     // TODO check
-    return this.http.get('http://192.168.0.4:5555/af/GetAvailableWidgets');
+    return this.http.get(this.restUrl + '/af/GetAvailableWidgets');
   }
 
   getWidgetLiveData(widgetId, widgetType?) {

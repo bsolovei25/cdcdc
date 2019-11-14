@@ -11,12 +11,11 @@ export class WidgetsGridComponent implements OnInit {
   draggingMode = false;
 
   cells = [
-    //uncomment to unblock position bb1
-    // {
-    //   position: 'bb1',
-    //   widget: null,
-    //   data: null
-    // },
+    {
+      position: 'bb1',
+      widget: null,
+      data: null
+    },
     {
       position: 'bb2',
       widget: null,
@@ -64,6 +63,15 @@ export class WidgetsGridComponent implements OnInit {
 
   constructor(private widgetsService: WidgetsService) {
     this.widgetsService.getUserGrid().subscribe(ref => {
+
+      for (const i in ref) {
+        for (const j in this.cells) {
+          if (this.cells[j].position === ref[i].position) {
+            this.cells[j] = ref[i];
+          }
+        }
+      }
+
       this.cells = ref;
 
       this.cells.forEach(c => {
@@ -75,8 +83,6 @@ export class WidgetsGridComponent implements OnInit {
           c.data = null;
         }
       });
-
-
     });
   }
 
@@ -109,6 +115,17 @@ export class WidgetsGridComponent implements OnInit {
 
     this.draggingMode = false;
 
+    // TODO
+    console.log(this.cells);
+  }
+
+  compareCells(cel): boolean {
+    for (const i in this.cells) {
+      if (this.cells[i].position === cel.position) {
+        return true;
+      }
+    }
+    return false;
   }
 
 }
