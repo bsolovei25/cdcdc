@@ -214,6 +214,7 @@ export class EventsComponent implements OnInit, OnDestroy {
   set showMock(show) {
     this.isMock = show;
     if (this.isMock) {
+      this.wsConnect();
     } else {
     }
   }
