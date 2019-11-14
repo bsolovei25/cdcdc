@@ -199,13 +199,14 @@ ng
 
   }
 
-  private wsConnect() {
+  public wsConnect() {
     const options = this.getCurrentOptions();
     this.liveSubscription = this.widgetsService.getWidgetLiveDataFromWS(this.id, 'events', options)
       .subscribe((ref: EventsWidgetData) => {
           this.appendNotifications(ref.notifications);
           this.appendFilterCounters(ref.filters);
           this.appendCategoriesCounters(ref.categories);
+          console.log('get_ws_events');
         }
       );
   }
