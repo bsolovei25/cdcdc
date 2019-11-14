@@ -137,14 +137,8 @@ export class WidgetsService {
         return this.mapLineChartData(data);
 
       case 'manual-input':
-<<<<<<< HEAD
-        return data;
-      
-      case 'pie-chart':
-        return data;
-=======
+
         return this.mapManualInput(data);
->>>>>>> a1288cee18aefbb7076f0e0eb12f9b60e7ebbab8
     }
   }
 

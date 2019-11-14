@@ -1,8 +1,6 @@
 html,body {
     width: 100%;
     height: 100%;
-    margin: 0 !important; // override user agent stylesheet
-    padding: 0 !important; // override user agent stylesheet
   }
 
 .point{
@@ -15,16 +13,17 @@ html,body {
 
 .container{
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  height: 220px;
-  width: 300px;
+  height: auto;
+  width: 100vh;
   background-color: rgb(27, 30, 39);
   color: white;
   display: grid;
-  grid-template-columns: 160px 100px;
-  grid-template-rows: 50px;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 40px;
   grid-template-areas: 
   "circle_name circle_name"
   "circle circle_info";
+
 }
 .item-a {
   grid-column: 1;
@@ -40,14 +39,14 @@ html,body {
 .item-b ::ng-deep svg{
   background-image: url(/assets/pic/acir.svg);
   background-repeat: no-repeat;
-  background-size: 145px;
+  background-size: auto;
 }
 
 
 .item-c {
   grid-column: 2;
   grid-row: 2/2;
-  padding-top:51%;
+  padding-top:20%;
 }
 
 .name_circle{
@@ -64,15 +63,43 @@ html,body {
   font-size: 15px;
 }
 
-.positive{
-  
+@media screen and(max-height: 300px){
+  .positive{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 9px;
+  }
+  .negative{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 9px;
+    color: orange;
+  }
+  .name_circle{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: rgb(228, 228, 228);
+    font-size: 9px;
+  }
+  .positive__show{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 8px;
+  }
+  .negative__show{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 8px;
+    
+  }
 }
 
+.name_circle{
+  margin-top: 20px;
+}
 .negative{
-
   color: orange;
 }
 
+.blocks{
+  display: inline-flex;
+  height: 100%;
+}
 .container.active ::ng-deep div{
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: rgb(139, 139, 139);
@@ -81,4 +108,219 @@ html,body {
 .container.active ::ng-deep svg{
   background-image: url(/assets/pic/ncir.svg);
   background-repeat: no-repeat;
+}
+
+.content_block{
+  display: flex;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  height: 100%;
+  border: 2px dashed  rgb(47, 52, 68);
+  border-style: none dotted none dotted;
+}
+
+::-webkit-scrollbar { width: 1px; height: 5px;}
+
+::-webkit-scrollbar-track {  background-color: #999;}
+::-webkit-scrollbar-track-piece { background-color: #ffffff;}
+::-webkit-scrollbar-thumb { height: 50px; background-color: #666; border-radius: 1px;}
+::-webkit-scrollbar-corner { background-color: #999;}
+::-webkit-resizer { background-color: #666;}
+
+
+.block {
+}
+
+.chart-header {
+  position: relative;
+  height: 30px;
+  width: 500px;
+  box-sizing: border-box;
+
+  background-color: var(--color-bg-additional);
+
+  &__content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  &__code {
+    display: flex;
+    align-items: center;
+
+    min-width: 44px;
+    height: 100%;
+    background-color: var(--color-bg-sub);
+    padding: 2px 10px;
+    margin-right: 10px;
+    box-sizing: border-box;
+
+    font-weight: bold;
+  }
+
+  &__name {
+    font-size: 0.875rem;
+  }
+
+  &__units {
+    margin: auto;
+    margin-right: 10px;
+
+    justify-self: flex-end;
+    font-size: 0.75rem;
+    color: var(--color-text-sub)
+  }
+
+  &:before {
+    z-index: 1;
+    content: "";
+    position: absolute;
+
+    top: -4px;
+    left: -1px;
+
+    height: 9px;
+    width: 9px;
+    box-sizing: border-box;
+
+    transform-origin: 43% 0;
+    transform: rotate(45deg);
+
+    background: var(--color-bg-main);
+  }
+
+  &:after {
+    z-index: 1;
+    content: "";
+    position: absolute;
+    top: -2px;
+    right: -1px;
+
+    height: 7px;
+    width: 7px;
+    box-sizing: border-box;
+    transform-origin: 43% 0;
+    transform: rotate(-45deg);
+
+    background: var(--color-bg-main);
+  }
+
+}
+
+.frame {
+  width: 100%;
+  height: 10px;
+  min-width: 430px;
+
+  border: 0.5px solid var(--color-border-main-transparrent);
+  border-bottom: transparent;
+  position: relative;
+
+  &__circle {
+    width: 4px;
+    height: 4px;
+    border: 0.5px solid var(--color-border-main-transparrent);
+    background-color: black;
+    border-radius: 50%;
+    position: absolute;
+    top: 100%;
+    box-sizing: border-box;
+
+    &__left {
+      left: -2.5px;
+    }
+
+    &__right {
+      right: -2.5px;
+    }
+  }
+
+  &_top {
+    &:after {
+      z-index: 1;
+      content: "";
+      position: absolute;
+      top: -3px;
+      right: -1px;
+
+      height: 7px;
+      width: 7px;
+      box-sizing: border-box;
+      transform-origin: 43% 0;
+      transform: rotate(-45deg);
+
+      border-left: 0.5px solid var(--color-border-main-transparrent);
+
+      background: var(--color-bg-main);
+
+    }
+  }
+
+  &_bottom {
+    border-bottom: 0.5px solid var(--color-border-main-transparrent);
+    border-top: transparent;
+
+    &:after {
+      z-index: 1;
+      content: "";
+      position: absolute;
+
+      bottom: -5px;
+      right: -1px;
+
+      height: 7px;
+      width: 7px;
+
+      box-sizing: border-box;
+      transform-origin: 43% 0;
+      transform: rotate(-45deg);
+
+      border-top: 0.5px solid var(--color-border-main-transparrent);
+      background: var(--color-bg-main);
+
+    }
+
+    &:before {
+      z-index: 1;
+      content: "";
+      position: absolute;
+
+      bottom: -3px;
+      left: -1px;
+
+      height: 6px;
+      width: 6px;
+
+      box-sizing: border-box;
+      transform-origin: 43% 0;
+      transform: rotate(45deg);
+
+      border-top: 0.5px solid var(--color-border-main-transparrent);
+      background: var(--color-bg-main);
+
+    }
+
+  }
+
+  &_bottom &__circle {
+    top: 0;
+  }
+}
+
+.blocks__show{
+  margin: 0 auto;
+}
+
+.positive__show{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.negative__show{
+  margin-top: 10px;
+  color: orange;
+}
+
+.contant_show{
+  -ms-overflow-style: none; 
 }

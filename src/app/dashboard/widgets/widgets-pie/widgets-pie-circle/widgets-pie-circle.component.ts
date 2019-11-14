@@ -1,4 +1,5 @@
-import { Component, OnInit, ElementRef, ViewChild, ViewChildren, QueryList, Input } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, ViewChildren, QueryList, Input, AfterViewInit } from '@angular/core';
+import { element } from 'protractor';
 
 declare var d3: any;
 
@@ -7,75 +8,115 @@ declare var d3: any;
   templateUrl: './widgets-pie-circle.component.html',
   styleUrls: ['./widgets-pie-circle.component.scss']
 })
-export class WidgetsPieCircleComponent implements OnInit {
+export class WidgetsPieCircleComponent implements AfterViewInit {
+  public readonly RADIUS = 51;
 
-  @Input() data: any;
-
+  code = 4;
+  name = "Отклонение в работе технологического оборудования";
+  units = "шт.";
   
-  @ViewChild('myCircle', {static: true}) myCircle: ElementRef;
+  isMock = true;
 
+  @ViewChildren('myCircle') myCircle: QueryList<any>;
 
-  public r = 51;
-  public canvas;
-  public group;
-  public arc;
-  public pie;
-  public arcs;
-  public summ;
-  public color;
-
-
-  public d3Circle() {
-
-    this.summ = this.data.uncritical + this.data.critical;
-
-    if ((this.data.uncritical == 0) && (this.data.critical == 0)) {
-      this.color = d3.scaleOrdinal().range(["gray"]);
-    }
-    else {
-      this.color = d3.scaleOrdinal().range(["white", "orange"]);
-    }
-
-    const mass = [this.data.uncritical, this.data.critical]; 
-
-    this.canvas = d3.select(this.myCircle.nativeElement).append("svg")
-      .attr("width", "150px")
-      .attr("height", "200px")
-      .attr("viewBox", "30 -5 150 200")
-
-    this.group = this.canvas.append("g")
-      .attr("transform", "translate(100 ,100)");
-
-    this.arc = d3.arc().innerRadius(43).outerRadius(this.r);
-
-    this.pie = d3.pie().value((d) => {
-      return d;
-    });
-    this.pie = this.pie.sort(() => null);
-
-    this.arcs = this.group.selectAll(".arc").data(this.pie(mass)).enter().append("g").attr("class", "arc");
-  
-    this.arcs.append("path")
-      .attr("d", this.arc)
-      .attr("stroke", "black")
-      .attr("fill", (d) => {
-    
-        return this.color(d.index);
-
-      });
-
-    this.group = this.group.append("text")
-      .attr("text-anchor", "middle")
-      .attr("font-size", "2em")
-      .attr("fill", !this.data.uncritical && !this.data.critical ? 'gray' : "white")
-      .attr("dominant-baseline", "middle")
-      .text(this.summ);
-  }
+  public datas = [
+    {id:1, name:"Статическое Оборудование", pos:5, neg:2},
+    {id:2, name:"Динамическое оборудование", pos:2, neg:5},
+    {id:3, name:"КИПиА", pos:1, neg:1},
+    {id:4, name:"КИПиА", pos:1, neg:1},
+    {id:4, name:"КИПиА", pos:1, neg:1},
+    {id:5, name:"КИПиА", pos:1, neg:1},
+    {id:6, name:"Электро - оборудование", pos:0, neg:0}
+  ];
 
   constructor() { }
+/*
+  @Input()
+  set showMock(show) {
+    this._showMock = show;
 
-  ngOnInit() {
-    this.d3Circle();
+    if (this._showMock) {
+      this.disableLiveData();
+    } else {
+      this.enableLiveData();
+    }
+
   }
+
+
+  private enableLiveData() {
+    // TODO добавить получение типа графика
+
+    this.subscribtion = this.widgetsService.getWidgetLiveDataFromWS(this.id, 'line-chart')
+      .subscribe((ref) => {
+        
+          this.draw(ref);
+          
+          this.subscribtion.unsubscribe();
+        }
+      );
+  }
+
+  private disableLiveData() {
+
+    if (this.subscribtion) {
+      this.subscribtion.unsubscribe();
+    }
+    this.draw(Mock);
+  }
+*/
+
+  ngAfterViewInit() {  
+    this.datas.forEach((item, index) => {
+      this.d3Circle(item, this.myCircle.toArray()[index].nativeElement);
+    });
+  }
+
+  public dataById(index, item): number {
+    return item.id;
+  }
+
+  private d3Circle(data, el): void {
+    const summ = data.neg + data.pos;
+    const mass = [data.pos, data.neg]; 
+    let color: any;
+
+    if ((data.pos === 0) && (data.neg === 0)) {
+      color = d3.scaleOrdinal().range(["gray"]);
+    } else {
+      color = d3.scaleOrdinal().range(["white", "orange"]);
+    }
+
+
+    const canvas = d3.select(el).append("svg")
+      .attr("min-width", "150px")
+      .attr("max-width", "500px")
+      .attr("viewBox", "32 -2 150 200")
+
+    let group = canvas.append("g")
+      .attr("transform", "translate(100 ,100)");
+
+    const arc = d3.arc().innerRadius(43).outerRadius(this.RADIUS);
+
+    const pie = d3.pie().value((d) => {
+      return d;
+    }).sort(() => null);
+
+    const arcs = group.selectAll(".arc").data(pie(mass)).enter().append("g").attr("class", "arc");
+  
+    arcs.append("path")
+      .attr("d", arc)
+      .attr("stroke", "black")
+      .attr("fill", (d) => color(d.index));
+
+    group = group.append("text")
+      .attr("text-anchor", "middle")
+      .attr("font-size", "2em")
+      .attr("fill", (!data.pos && !data.neg) ? 'gray' : "white")
+      .attr("dominant-baseline", "middle")
+      .text(summ);
+  }
+
+
 
 }
