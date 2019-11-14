@@ -10,7 +10,7 @@
   </h4>
 
   <div class="widgets-panel__list scroll-bar">
-    <ng-container *ngFor="let w of widgets | async">
+    <ng-container *ngFor="let w of widgets">
 
       <ng-container *ngIf="w.widgetType === 'manual-input'">
         <evj-manual-input

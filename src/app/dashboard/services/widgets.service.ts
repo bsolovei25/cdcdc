@@ -103,9 +103,9 @@ export class WidgetsService {
     });
   }
 
-  getAvailableWidgets(): Observable<any> {
+  async getAvailableWidgets(): Promise<any> {
     // TODO check
-    return this.http.get(this.restUrl + '/af/GetAvailableWidgets');
+    return this.http.get(this.restUrl + '/af/GetAvailableWidgets').toPromise();
   }
 
   getWidgetLiveData(widgetId, widgetType?) {

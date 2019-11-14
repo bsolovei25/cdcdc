@@ -68,11 +68,9 @@ export class UserSettingsService {
 
   private async getUserData() {
 
-    await this.widgetsService.getAvailableWidgets().subscribe( ref => {
-      this.availableWidgets = ref;
-    });
+    this.availableWidgets = await this.widgetsService.getAvailableWidgets();
 
-    await this.http.get('./assets/mock/user_grid.json').subscribe(ref => {
+    this.http.get('./assets/mock/user_grid.json').subscribe(ref => {
       for (const i in ref) {
         for (const j in this.cells) {
           if (this.cells[j].position === ref[i].position) {

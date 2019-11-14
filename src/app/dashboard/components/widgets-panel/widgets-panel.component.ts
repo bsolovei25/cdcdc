@@ -12,11 +12,11 @@ import {WidgetsService} from "../../services/widgets.service";
 })
 export class WidgetsPanelComponent implements OnInit {
   active = false;
-  widgets: Observable<any[]>;
+  widgets: any[];
 
 
   constructor(private widgetsService: WidgetsService, private eref: ElementRef) {
-    this.widgets = this.widgetsService.getAvailableWidgets();
+    this.widgetsService.getAvailableWidgets().then(x => this.widgets = x);
   }
 
   onDocumentClick(event) {
