@@ -142,8 +142,8 @@ export class WidgetsService {
     }
   }
 
-  mapEventsWidgetData(data): EventsWidgetData {
-    data.notifications.forEach(n => n.dateTime = new Date(n.dateTime));
+  mapEventsWidgetData(data: EventsWidgetData): EventsWidgetData {
+    data.notifications.forEach(n => n.eventDateTime = new Date(n.eventDateTime));
     return data;
   }
 
