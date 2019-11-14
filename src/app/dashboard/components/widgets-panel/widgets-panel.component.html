@@ -23,12 +23,14 @@
         </evj-manual-input>
       </ng-container>
 
-      <ng-container *ngIf="w.widgetType === 'notifications-widget'">
+      <ng-container *ngIf="w.widgetType === 'events'">
         <evj-events
           [id]="w.id"
+          [name]="w.title"
+          [showMock]="true"
           [dndDraggable]="{widget: w}"
           (dndDrag)="this.active = false"
-          class="widgets-panel__widget">
+          class="widgets-panel__widget widgets-panel__widget___mi">
         </evj-events>
       </ng-container>
 

@@ -36,7 +36,7 @@ export class ManualInputComponent implements OnInit {
   private subscribtion: Subscription;
 
   ngOnInit() {
-    console.log("init mi");
+
   }
 
   setInitData() {
@@ -80,7 +80,6 @@ export class ManualInputComponent implements OnInit {
         }
       );
   }
-
 
   @Input()
   set showMock(show) {

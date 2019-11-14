@@ -122,10 +122,6 @@ export class WidgetsService {
     );
   }
 
-  getUserGrid(): Observable<any> {
-    return this.http.get('./assets/mock/user_grid.json');
-  }
-
   mapWidgetData(data, widgetType) {
     switch (widgetType) {
       case 'events':

@@ -6,7 +6,7 @@
 <!--  </div>-->
 
   <div class="grid__cell"
-       *ngFor="let c of cells"
+       *ngFor="let c of this.userService.cells"
        [style.grid-area]="c.position"
        dndDropzone
        (dndDrop)="onDrop($event, c)">
@@ -40,9 +40,10 @@
       </evj-manual-input>
 
       <evj-events class="grid__widget"
-                        *ngIf="c.widget.widgetType === 'notifications-widget'"
+                        *ngIf="c.widget.widgetType === 'events'"
                         [dndDraggable]="c"
-                        [id]="c.widget.id">
+                        [id]="c.widget.id"
+                        [showMock]="false" >
       </evj-events>
 
     </ng-container>

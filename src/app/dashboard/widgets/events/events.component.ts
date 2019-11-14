@@ -20,6 +20,9 @@ import {Subscription} from "rxjs/index";
 })
 export class EventsComponent implements OnInit, OnDestroy {
   @Input() id? = 'NotificationsChannel';
+  @Input() name = '';
+
+  private isMock = true;
 
   categories: EventsWidgetCategory[] = [
     {
@@ -113,14 +116,7 @@ export class EventsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    const options = this.getCurrentOptions();
-    this.liveSubscription = this.widgetsService.getWidgetLiveDataFromWS(this.id, 'events', options)
-      .subscribe((ref: EventsWidgetData) => {
-          this.appendNotifications(ref.notifications);
-          this.appendFilterCounters(ref.filters);
-          this.appendCategoriesCounters(ref.categories);
-        }
-      );
+
   }
 
   ngOnDestroy() {
@@ -203,5 +199,23 @@ export class EventsComponent implements OnInit, OnDestroy {
 
   }
 
+  private wsConnect() {
+    const options = this.getCurrentOptions();
+    this.liveSubscription = this.widgetsService.getWidgetLiveDataFromWS(this.id, 'events', options)
+      .subscribe((ref: EventsWidgetData) => {
+          this.appendNotifications(ref.notifications);
+          this.appendFilterCounters(ref.filters);
+          this.appendCategoriesCounters(ref.categories);
+        }
+      );
+  }
+
+  @Input()
+  set showMock(show) {
+    this.isMock = show;
+    if (this.isMock) {
+    } else {
+    }
+  }
 
 }
