@@ -82,11 +82,11 @@ export class WidgetsService {
       });
   }
 
-  getWidgetLiveDataFromWS(widgetId, widgetType, options?): any {
+  getWidgetLiveDataFromWS(widgetId, widgetType): any {
     this.ws.next({
       ActionType: 'Subscribe',
-      ChannelId: widgetId,
-      ...(options) && {Options: options}
+      ChannelId: widgetId
+      // ...(options) && {Options: options}
     });
 
     return this.ws.asObservable().pipe(
@@ -97,6 +97,7 @@ export class WidgetsService {
     );
   }
 
+  // to be used later
   appendWidgetLiveOptions(widgetId, options) {
     this.ws.next({
       ActionType: 'AppendOptions',

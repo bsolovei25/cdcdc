@@ -170,21 +170,22 @@ ng
     if (filterOptions.categories && filterOptions.categories.length > 0)
       notifications = notifications.filter(x => filterOptions.categories.some(c => c == x.category.name));
 
+    if (notifications.length > this.notificationsMaxCount) {
+      notifications = notifications.slice(0, this.notificationsMaxCount);
+    }
+
     return notifications;
   }
 
   private appendNotifications(remoteNotifications: EventsWidgetNotification[]) {
-    this.allNotifications = remoteNotifications;
     const notifications = remoteNotifications.map(n => {
       const iconUrl = this.getNotificationIcon(n.category.name);
       const statusName = this.statuses[n.status.name]; // TODO check
       return {...n, iconUrl, statusName};
     });
 
-    this.notifications.unshift(...notifications.reverse());
-    if (this.notifications.length > this.notificationsMaxCount) {
-      this.notifications = this.notifications.slice(0, this.notificationsMaxCount);
-    }
+    this.allNotifications = notifications.reverse();
+    this.notifications = this.applyFilter(this.allNotifications, this.getCurrentOptions());
   }
 
   private appendFilterCounters(remoteFilters: EventsWidgetFilter[]) {
@@ -216,8 +217,7 @@ ng
   }
 
   private wsConnect() {
-    const options = this.getCurrentOptions();
-    this.liveSubscription = this.widgetsService.getWidgetLiveDataFromWS(this.id, 'events', options)
+    this.liveSubscription = this.widgetsService.getWidgetLiveDataFromWS(this.id, 'events')
       .subscribe((ref: EventsWidgetData) => {
           this.appendNotifications(ref.notifications);
           this.appendFilterCounters(ref.filters);
@@ -231,6 +231,7 @@ ng
   set showMock(show) {
     this.isMock = show;
     if (this.isMock) {
+      // do nothing
     } else {
       this.wsConnect();
     }
