@@ -113,6 +113,7 @@ ng
 
 
   constructor(private widgetsService: WidgetsService) {
+
   }
 
   ngOnInit() {
@@ -194,9 +195,7 @@ ng
     if (category) {
       return category.iconUrl;
     }
-
     return this.defaultIconPath;
-
   }
 
   public wsConnect() {
@@ -215,8 +214,8 @@ ng
   set showMock(show) {
     this.isMock = show;
     if (this.isMock) {
-      this.wsConnect();
     } else {
+      this.wsConnect();
     }
   }
 
