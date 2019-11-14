@@ -15,6 +15,7 @@ import {EventsComponent} from './widgets/events/events.component';
 import {ManualInputComponent} from './widgets/manual-input/manual-input.component';
 import {FormsModule} from '@angular/forms';
 import {ManualinputPageComponent} from './pages/manualinput-page/manualinput-page.component';
+import { LineDiagramComponent } from './widgets/line-diagram/line-diagram.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import {ManualinputPageComponent} from './pages/manualinput-page/manualinput-pag
     WidgetsPanelComponent,
     EventsComponent,
     ManualInputComponent,
-    ManualinputPageComponent
+    ManualinputPageComponent,
+    LineDiagramComponent
   ],
   exports: [
     HomeComponent,
