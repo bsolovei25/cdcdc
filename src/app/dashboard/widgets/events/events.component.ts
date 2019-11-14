@@ -162,8 +162,8 @@ export class EventsComponent implements OnInit, OnDestroy {
 
   private appendNotifications(remoteNotifications: EventsWidgetNotification[]) {
     const notifications = remoteNotifications.map(n => {
-      const iconUrl = this.getNotificationIcon(n.categoryId);
-      const statusName = this.statuses[n.statusCode];
+      const iconUrl = this.getNotificationIcon(n.category.name);
+      const statusName = this.statuses[n.status.name]; // TODO check
       return {...n, iconUrl, statusName};
     });
 
