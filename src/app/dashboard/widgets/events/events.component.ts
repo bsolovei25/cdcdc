@@ -19,7 +19,7 @@ import {Subscription} from "rxjs/index";
   styleUrls: ['./events.component.scss']
 })
 export class EventsComponent implements OnInit, OnDestroy {
-  @Input() id? = 'NotificationsChannel';
+  @Input() id;
   @Input() name = '';
 
   private isMock = true;
