@@ -21,7 +21,7 @@ import {Subscription} from "rxjs/index";
 export class EventsComponent implements OnInit, OnDestroy {
   @Input() id;
   @Input() name = '';
-
+ng
   private isMock = true;
 
   categories: EventsWidgetCategory[] = [
