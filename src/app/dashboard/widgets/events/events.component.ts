@@ -77,6 +77,7 @@ ng
     },
   ];
 
+  allNotifications: EventsWidgetNotification[] = [];
   notifications: EventsWidgetNotification[] = [];
 
   filters: EventsWidgetFilter[] = [
@@ -142,7 +143,7 @@ ng
     this.notifications = [];
   }
 
-  private getCurrentOptions() {
+  private getCurrentOptions(): EventsWidgetOptions {
     const options: EventsWidgetOptions = {
       categories: this.categories.filter(c => c.isActive).map(c => c.code),
       filter: this.filters.find(f => f.isActive).code
@@ -154,10 +155,26 @@ ng
     this.clearNotifications();
 
     const options = this.getCurrentOptions();
-    this.widgetsService.appendWidgetLiveOptions(this.id, options);
+    this.notifications = this.applyFilter(this.allNotifications, options);
+
+    // filtering only at front-end
+    // this.widgetsService.appendWidgetLiveOptions(this.id, options);
+  }
+
+  private applyFilter(allNotifications: EventsWidgetNotification[], filterOptions: EventsWidgetOptions): EventsWidgetNotification[] {
+    var notifications = allNotifications;
+
+    if (filterOptions.filter && filterOptions.filter != 'all')
+      notifications = notifications.filter(x => x.status.name == filterOptions.filter);
+
+    if (filterOptions.categories && filterOptions.categories.length > 0)
+      notifications = notifications.filter(x => filterOptions.categories.some(c => c == x.category.name));
+
+    return notifications;
   }
 
   private appendNotifications(remoteNotifications: EventsWidgetNotification[]) {
+    this.allNotifications = remoteNotifications;
     const notifications = remoteNotifications.map(n => {
       const iconUrl = this.getNotificationIcon(n.category.name);
       const statusName = this.statuses[n.status.name]; // TODO check
@@ -198,7 +215,7 @@ ng
     return this.defaultIconPath;
   }
 
-  public wsConnect() {
+  private wsConnect() {
     const options = this.getCurrentOptions();
     this.liveSubscription = this.widgetsService.getWidgetLiveDataFromWS(this.id, 'events', options)
       .subscribe((ref: EventsWidgetData) => {

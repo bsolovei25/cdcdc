@@ -61,7 +61,7 @@ export class ManualInputComponent implements OnInit {
     this.manualInputService.CheckLastValue(id, this.Data);
   }
 
-  wsConnect() {
+  private wsConnect() {
     this.widgetsService.getWidgetLiveDataFromWS(this.id, 'manual-input')
       .subscribe((ref) => {
           this.manualInputService.LoadData(this.Data, ref);
