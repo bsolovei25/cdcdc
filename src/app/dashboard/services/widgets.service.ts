@@ -17,6 +17,8 @@ import {Machine_MI} from '../models/manual-input.model';
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class WidgetsService {
 
   lineChartLiveData: Observable<LineChartData>;
@@ -135,6 +137,7 @@ export class WidgetsService {
         return this.mapLineChartData(data);
 
       case 'manual-input':
+
         return this.mapManualInput(data);
     }
   }

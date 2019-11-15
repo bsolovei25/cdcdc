@@ -30,7 +30,9 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/d3/dist/d3.js"
+            ]
           },
           "configurations": {
             "production": {

@@ -30,5 +30,11 @@
     "name": "Виджет 3",
     "code": "В-3",
     "widgetType": "manual-input"
+  },
+  {
+    "id": "PieWidget",
+    "name": "Виджет 4",
+    "code": "В-4",
+    "widgetType": "pie-chart"
   }
 ]
