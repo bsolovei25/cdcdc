@@ -31,7 +31,7 @@ import { WidgetsPieCircleComponent } from './widgets/widgets-pie/widgets-pie-cir
     EventsComponent,
     ManualInputComponent,
     ManualinputPageComponent,
-    LineDiagramComponent
+    LineDiagramComponent,
     WidgetsPieCircleComponent
   ],
   exports: [
