@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: "evj-line-diagram",
@@ -39,6 +39,8 @@ export class LineDiagramComponent implements OnInit {
     }
   ];
   fillGraphs = "#3FA9F5";
+
+  @Input() public id: string;
 
   constructor() {}
 

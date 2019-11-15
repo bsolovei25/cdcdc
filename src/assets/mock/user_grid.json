@@ -1,34 +1,11 @@
-[
-  {
-    "position": "bb2",
-    "widget": null
-  },
-  {
-    "position": "bs1",
-    "widget": null
-  },
-  {
-    "position": "ss1",
-    "widget": null
-  },
-  {
-    "position": "ss2",
-    "widget": null
-  },
-  {
-    "position": "ss3",
-    "widget": null
-  },
-  {
-    "position": "ss4",
-    "widget": null
-  },
-  {
-    "position": "ss5",
-    "widget": null
-  },
-  {
-    "position": "ss6",
-    "widget": null
-  }
-]
+{
+  "userId": 1,
+  "screenId": 1,
+  "userGrid": [
+    {
+      "position": "bb1",
+      "widgetId": "fdf9c372-06ce-11ea-98c5-d8d09033e35e"
+    }
+  ]
+}
+

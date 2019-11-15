@@ -82,11 +82,11 @@ export class WidgetsService {
       });
   }
 
-  getWidgetLiveDataFromWS(widgetId, widgetType, options?): any {
+  getWidgetLiveDataFromWS(widgetId, widgetType): any {
     this.ws.next({
       ActionType: 'Subscribe',
-      ChannelId: widgetId,
-      ...(options) && {Options: options}
+      ChannelId: widgetId
+      // ...(options) && {Options: options}
     });
 
     return this.ws.asObservable().pipe(
@@ -97,6 +97,7 @@ export class WidgetsService {
     );
   }
 
+  // to be used later
   appendWidgetLiveOptions(widgetId, options) {
     this.ws.next({
       ActionType: 'AppendOptions',
@@ -105,9 +106,9 @@ export class WidgetsService {
     });
   }
 
-  getAvailableWidgets(): Observable<any> {
+  async getAvailableWidgets(): Promise<any> {
     // TODO check
-    return this.http.get('http://192.168.0.4:5555/af/GetAvailableWidgets');
+    return this.http.get(this.restUrl + '/af/GetAvailableWidgets').toPromise();
   }
 
   getWidgetLiveData(widgetId, widgetType?) {
@@ -122,10 +123,6 @@ export class WidgetsService {
         return ref;
       })
     );
-  }
-
-  getUserGrid(): Observable<any> {
-    return this.http.get('./assets/mock/user_grid.json');
   }
 
   mapWidgetData(data, widgetType) {

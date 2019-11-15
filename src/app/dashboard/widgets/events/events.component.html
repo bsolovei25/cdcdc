@@ -5,11 +5,16 @@
                 src="./assets/icons/widgets/events/letter.svg"></svg-icon>
     </div>
     <span class="header__name">
-      События
+      {{ name }}
     </span>
   </div>
 </div>
 
+<ng-container *ngIf="isMock === true">
+
+</ng-container>
+
+<ng-container *ngIf="isMock === false">
 <div class="events">
 
   <div class="notifications">
@@ -125,10 +130,8 @@
       </div>
     </div>
   </div>
-
-
 </div>
-
+</ng-container>
 
 <div class="frame frame_bottom">
   <div class="frame__circle frame__circle__left"></div>

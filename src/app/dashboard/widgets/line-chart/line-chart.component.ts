@@ -188,10 +188,25 @@ export class LineChartComponent implements OnInit, OnDestroy {
       this.svg.remove();
     }
 
-    this.data = data;
+    this.data = this.buildData(data);
     this.deviationMode = this.refreshDeviations();
     this.startChart();
+  }
 
+
+  private buildData(data) {
+    const xMax = d3Array.max(data.graphs, c => d3Array.max(c.values, d => d.date));
+
+    data.graphs.forEach(g => this.fillToXMAx(g.values, xMax));
+    return data;
+  }
+
+  private fillToXMAx(values, xMax) {
+    const latest = values.slice().reverse()[0];
+
+    if (latest && latest.date.getTime() !== xMax.getTime()) {
+      return values.push({value: latest.value, date: xMax});
+    }
   }
 
   private startChart() {
@@ -426,7 +441,6 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
   }
 
-
   private drawDeviationAreas(planData, factData) {
     let clipPathArea = d3Shape.area()
       .curve(d3Shape[this.options['planLineType']])
@@ -496,7 +510,6 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
 
   }
-
 
   private drawLimitsAreas(upperLimit, lowerLimit) {
     const upperLimitArea = d3Shape.area()

@@ -10,6 +10,8 @@
   grid-column-gap: 15px;
   grid-row-gap: 15px;
 
+  overflow: hidden;
+
   grid-template-areas:
   "bb1 bb1 bs1 ss3"
   "bb1 bb1 bs1 ss4"

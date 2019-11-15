@@ -1,6 +1,8 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
 import {Observable} from "rxjs/index";
+import {DndDropEvent} from "ngx-drag-drop";
 import {WidgetsService} from "../../services/widgets.service";
+import {UserSettingsService} from '../../services/user-settings.service';
 
 @Component({
   selector: 'evj-widgets-panel',
@@ -13,11 +15,11 @@ import {WidgetsService} from "../../services/widgets.service";
 
 export class WidgetsPanelComponent implements OnInit {
   active = false;
-  widgets: Observable<any[]>;
+  widgets: any[];
 
 
-  constructor(private widgetsService: WidgetsService, private eref: ElementRef) {
-    this.widgets = this.widgetsService.getAvailableWidgets();
+  constructor(private userSettingsService: UserSettingsService,  private widgetsService: WidgetsService, private eref: ElementRef) {
+    this.widgetsService.getAvailableWidgets().then(x => this.widgets = x);
   }
 
   onDocumentClick(event) {
@@ -29,5 +31,10 @@ export class WidgetsPanelComponent implements OnInit {
 
   onToggleClick() {
     this.active = !this.active;
+  }
+
+  onDrop(event: DndDropEvent) {
+    console.log(event);
+    this.userSettingsService.deleteCellByPosition(event.data.position);
   }
 }
