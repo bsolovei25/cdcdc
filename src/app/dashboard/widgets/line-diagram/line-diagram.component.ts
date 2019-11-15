@@ -11,7 +11,7 @@ export class LineDiagramComponent implements OnInit {
       name: "Очищенный газ висбрекинга",
       count: "85",
       units: "%",
-      critical: false
+      critical: true
     },
     {
       name: "Сероводородный газ",
@@ -29,7 +29,7 @@ export class LineDiagramComponent implements OnInit {
       name: "Пропан",
       count: "73",
       units: "%",
-      critical: false
+      critical: true
     },
     {
       name: "Изобутан",
@@ -44,7 +44,13 @@ export class LineDiagramComponent implements OnInit {
 
   ngOnInit() {}
 
-  drawGraph(count) {
-    return (count * 150) / 100;
+  drawGraph(count: number): string {
+    return count.toString() + "%";
+  }
+
+  fillGraph(flag: boolean): string {
+    const normalFill = "#3FA9F5";
+    const criticalFill = "#F4A321";
+    return flag ? criticalFill : normalFill;
   }
 }
