@@ -111,12 +111,13 @@
 }
 
 .content_block{
-  display: flex;
+  position: relative;
+  //display: flex;
   overflow-x: scroll;
   overflow-y: hidden;
-  height: 100%;
-  border: 2px dashed  rgb(47, 52, 68);
-  border-style: none dotted none dotted;
+  height: calc(100% - 40px);
+  border: 1px dashed  rgb(47, 52, 68);
+  border-style: none dashed none dashed;
 }
 
 ::-webkit-scrollbar { width: 1px; height: 5px;}
@@ -129,6 +130,7 @@
 
 
 .block {
+  position: relative;
   height: calc(100%);
   width:100%;
 }
@@ -312,6 +314,7 @@
 }
 
 .blocks__show{
+  height: calc(100% - 50px);
   margin: 0 auto;
 }
 
