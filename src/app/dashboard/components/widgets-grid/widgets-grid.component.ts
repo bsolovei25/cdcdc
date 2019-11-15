@@ -33,6 +33,8 @@ export class WidgetsGridComponent implements OnInit {
       this.userService.cells.find(c => c.position === event.data.position).widget = null && cell.widget;
     }
 
+    cell.widget = null;
+
     cell.widget = event.data.widget;
 
     if (cell.widget) {

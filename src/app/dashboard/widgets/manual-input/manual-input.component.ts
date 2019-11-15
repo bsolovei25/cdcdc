@@ -86,6 +86,7 @@ export class ManualInputComponent implements OnInit {
     this.isMock = show;
     if (this.isMock) {
       this.wsDisconnect();
+      this.Data = [];
     } else {
       this.setInitData();
       this.wsConnect();
