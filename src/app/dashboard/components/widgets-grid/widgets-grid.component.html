@@ -43,8 +43,15 @@
 
       <evj-line-diagram class="grid__widget"
                         *ngIf="c.widget.widgetType === 'line-diagram'"
+                        [dndDraggable]="c"
                         [id]="c.widget.id">
       </evj-line-diagram>
+<!--      <evj-widgets-pie-circle class="grid__widget"-->
+<!--                              *ngIf="c.widget.widgetType === 'pie-diagram'"-->
+<!--                              [id]="c.widget.id"-->
+<!--                              [name]="c.widget.title"-->
+<!--                              [showMock]="false">-->
+<!--      </evj-widgets-pie-circle>-->
 
     </ng-container>
 

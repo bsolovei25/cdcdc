@@ -12,7 +12,7 @@ export class WidgetsPieCircleComponent implements AfterViewInit {
   public readonly RADIUS = 51;
 
   code = 4;
-  name = "Отклонение в работе технологического оборудования";
+  @Input() public name = "Отклонение в работе технологического оборудования";
   units = "шт.";
 
   isMock = true;
