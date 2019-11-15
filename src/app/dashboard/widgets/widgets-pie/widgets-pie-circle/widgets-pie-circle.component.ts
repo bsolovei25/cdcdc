@@ -14,7 +14,7 @@ export class WidgetsPieCircleComponent implements AfterViewInit {
   code = 4;
   name = "Отклонение в работе технологического оборудования";
   units = "шт.";
-  
+
   isMock = true;
 
   @ViewChildren('myCircle') myCircle: QueryList<any>;
@@ -30,43 +30,39 @@ export class WidgetsPieCircleComponent implements AfterViewInit {
   ];
 
   constructor() { }
-/*
+
   @Input()
   set showMock(show) {
-    this._showMock = show;
-
-    if (this._showMock) {
-      this.disableLiveData();
+    this.isMock = show;
+    if (this.showMock) {
     } else {
-      this.enableLiveData();
+    }
+  }
+  /*
+
+    private enableLiveData() {
+      // TODO добавить получение типа графика
+
+      this.subscribtion = this.widgetsService.getWidgetLiveDataFromWS(this.id, 'line-chart')
+        .subscribe((ref) => {
+
+            this.draw(ref);
+
+            this.subscribtion.unsubscribe();
+          }
+        );
     }
 
-  }
+    private disableLiveData() {
 
-
-  private enableLiveData() {
-    // TODO добавить получение типа графика
-
-    this.subscribtion = this.widgetsService.getWidgetLiveDataFromWS(this.id, 'line-chart')
-      .subscribe((ref) => {
-        
-          this.draw(ref);
-          
-          this.subscribtion.unsubscribe();
-        }
-      );
-  }
-
-  private disableLiveData() {
-
-    if (this.subscribtion) {
-      this.subscribtion.unsubscribe();
+      if (this.subscribtion) {
+        this.subscribtion.unsubscribe();
+      }
+      this.draw(Mock);
     }
-    this.draw(Mock);
-  }
-*/
+  */
 
-  ngAfterViewInit() {  
+  ngAfterViewInit() {
     this.datas.forEach((item, index) => {
       this.d3Circle(item, this.myCircle.toArray()[index].nativeElement);
     });
@@ -78,7 +74,7 @@ export class WidgetsPieCircleComponent implements AfterViewInit {
 
   private d3Circle(data, el): void {
     const summ = data.neg + data.pos;
-    const mass = [data.pos, data.neg]; 
+    const mass = [data.pos, data.neg];
     let color: any;
 
     if ((data.pos === 0) && (data.neg === 0)) {
@@ -103,7 +99,7 @@ export class WidgetsPieCircleComponent implements AfterViewInit {
     }).sort(() => null);
 
     const arcs = group.selectAll(".arc").data(pie(mass)).enter().append("g").attr("class", "arc");
-  
+
     arcs.append("path")
       .attr("d", arc)
       .attr("stroke", "black")

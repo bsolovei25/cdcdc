@@ -1,6 +1,8 @@
 <div class="widgets-panel" [class.widgets-panel_active]="active">
   <div class="widgets-panel__toggle"
-       (click)="onToggleClick()">
+       (click)="onToggleClick()"
+       [dndDropzone]
+       (dndDrop)="onDrop($event)">
     <svg-icon class="widgets-panel__icon"
               src="./assets/icons/settings.svg" [svgStyle]="{ 'width.px':20, 'height.px':20 }"></svg-icon>
   </div>
@@ -10,6 +12,7 @@
   </h4>
 
   <div class="widgets-panel__list scroll-bar">
+
     <ng-container *ngFor="let w of widgets">
 
       <ng-container *ngIf="w.widgetType === 'manual-input'">
@@ -45,6 +48,15 @@
                         [dndDraggable]="{widget: w}"
                         (dndDrag)="this.active = false"
                         class="widgets-panel__widget"></evj-line-chart>
+      </ng-container>
+
+      <ng-container *ngIf="w.widgetType === 'line-diagram'">
+        <evj-line-diagram *ngIf="w"
+          [id]="w.id"
+          [dndDraggable]="{widget: w}"
+          (dndDrag)="this.active = false"
+          class="widgets-panel__widget">
+        </evj-line-diagram>
       </ng-container>
 
     </ng-container>

@@ -28,26 +28,7 @@ export class WidgetsGridComponent implements OnInit {
   }
 
   onDrop(event: DndDropEvent, cell) {
-
-    if (event.data.position) {
-      this.userService.cells.find(c => c.position === event.data.position).widget = null && cell.widget;
-    }
-
-    cell.widget = null;
-
-    cell.widget = event.data.widget;
-
-    if (cell.widget) {
-      this.widgetsService.getWidgetLiveData(cell.widget.id).subscribe(ref => {
-        cell.data = ref;
-      });
-    } else {
-      cell.data = null;
-    }
-
+    this.userService.addCellByPosition(event.data.position, event.data.widget, cell);
     this.draggingMode = false;
-
-    // TODO
-    console.log(this.userService.cells);
   }
 }
