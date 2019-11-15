@@ -11,13 +11,10 @@ import {
 
 import * as d3 from 'd3-selection';
 import * as d3Scale from 'd3-scale';
-import * as d3ScaleChromatic from 'd3-scale-chromatic';
 import * as d3Shape from 'd3-shape';
 import * as d3Array from 'd3-array';
 import * as d3Axis from 'd3-axis';
-import * as d3Time from 'd3-time-format';
 import * as d3Format from 'd3-format';
-import * as d3Transition from 'd3-transition';
 import {Mock} from 'src/app/dashboard/widgets/line-chart/mock';
 import {WidgetsService} from "../../services/widgets.service";
 import {Subscription} from "rxjs";
@@ -48,15 +45,16 @@ export class LineChartComponent implements OnInit, OnDestroy {
   g: any;
   width: number;
   height: number;
+  heightNoMargins: number; // use it for to build deviation area
   x;
   y;
-  z;
 
   line;
-  transition: any;
   lines: any;
 
-  readonly trendsStyle: any = {
+  deviationMode = 'planFact';
+
+  private readonly trendsStyle: any = {
     plan: {
       point: {
         iconUrl: './assets/icons/widgets/line-chart/point-plan.svg',
@@ -123,7 +121,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
   deviationPoints: any;
 
   private _showMock = true;
-  private subscribtion: Subscription;
+  private subscription: Subscription;
 
   constructor(private widgetsService: WidgetsService) {
   }
@@ -134,7 +132,6 @@ export class LineChartComponent implements OnInit, OnDestroy {
       this.initChart();
     }, 0);
 
-    this.transition = d3Transition.transition();
 
     if (this._showMock) {
       this.disableLiveData()
@@ -146,8 +143,8 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
 
   ngOnDestroy() {
-    if (this.subscribtion) {
-      this.subscribtion.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
     }
   }
 
@@ -167,20 +164,20 @@ export class LineChartComponent implements OnInit, OnDestroy {
   private enableLiveData() {
     // TODO добавить получение типа графика
 
-    this.subscribtion = this.widgetsService.getWidgetLiveDataFromWS(this.id, 'line-chart')
+    this.subscription = this.widgetsService.getWidgetLiveDataFromWS(this.id, 'line-chart')
       .subscribe((ref) => {
-        
+
           this.draw(ref);
-          
-          this.subscribtion.unsubscribe();
+
+          this.subscription.unsubscribe();
         }
       );
   }
 
   private disableLiveData() {
 
-    if (this.subscribtion) {
-      this.subscribtion.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
     }
     this.draw(Mock);
   }
@@ -192,7 +189,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
     }
 
     this.data = data;
-    this.refreshDeviations();
+    this.deviationMode = this.refreshDeviations();
     this.startChart();
 
   }
@@ -208,28 +205,71 @@ export class LineChartComponent implements OnInit, OnDestroy {
     this.refreshLines();
     this.drawAxis();
     this.drawGridLines();
-    this.drawDeviationAreas(plan, fact);
-    this.drawPath();
-    this.drawLinesBtwPoints(plan, fact);
-    this.drawPoints();
-    this.drawLimitsAreas(upperLimit, lowerLimit);
-  }
 
+    if (this.deviationMode === 'limits') {
+      this.drawLimitsAreas(upperLimit, lowerLimit);
+      this.drawLimitsDeviationAreas(upperLimit, lowerLimit, fact);
+    } else {
+      this.deleteLimitsData();
+      this.drawDeviationAreas(plan, fact);
+    }
+
+    this.drawPath();
+    this.drawPoints();
+  }
 
   private refreshDeviations() {
     const plan = this.data.graphs.find(d => d.graphType === 'plan').values;
     const fact = this.data.graphs.find(d => d.graphType === 'fact').values;
+    const lowerLimit = this.data.graphs.find(d => d.graphType === 'lowerLimit').values;
+    const upperLimit = this.data.graphs.find(d => d.graphType === 'upperLimit').values;
+
+    let deviationMode = 'planFact';
+    if (plan.findIndex(p => lowerLimit.findIndex(ll => ll.value !== p.value) !== -1 || upperLimit.findIndex(ll => ll.value !== p.value) !== -1) !== -1) {
+      deviationMode = 'limits';
+    }
 
     this.deviationPoints = {
       graphType: 'deviation',
       values: fact.reduce((acc, d, i) => {
-        // TODO find nearest if not exist
-        if (plan[i] && plan[i].value < d.value) {
-          acc.push(d);
+
+        switch (deviationMode) {
+          case 'planFact':
+            const planvalue = plan.slice().reverse().find(p => p.date.getTime() <= d.date.getTime());
+            if (planvalue && planvalue.value < d.value) {
+              acc.values.push(d);
+            }
+            break;
+          case 'limits':
+            const ul = upperLimit.slice().reverse().find(p => p.date.getTime() <= d.date.getTime());
+            if (ul && ul.value < d.value) {
+              acc.values.push(d);
+            }
+
+            const li = lowerLimit.slice().reverse().find(p => p.date.getTime() <= d.date.getTime());
+            if (li && li.value > d.value) {
+              acc.values.push(d);
+            }
+            break;
+
         }
+
         return acc;
-      }, [])
+
+      }, {values: []}).values
     };
+    return deviationMode;
+  }
+
+  private deleteLimitsData() {
+    let ulIndex = this.data.graphs.findIndex(d => d.graphType === 'upperLimit');
+    if (ulIndex !== -1) {
+      this.data.graphs.splice(ulIndex, 1)
+    }
+    let llIndex = this.data.graphs.findIndex(d => d.graphType === 'lowerLimit');
+    if (llIndex !== -1) {
+      this.data.graphs.splice(llIndex, 1)
+    }
   }
 
   private refreshDomains() {
@@ -279,6 +319,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
     const element = this.chartContainer.nativeElement;
     this.width = element.offsetWidth - this.margin.left - this.margin.right;
     this.height = element.offsetHeight - this.margin.top - this.margin.bottom;
+    this.heightNoMargins = element.offsetHeight;
 
 
     this.svg = d3.select(element).append('svg')
@@ -359,36 +400,6 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
   }
 
-  private drawLinesBtwPoints(planData, factData) {
-    const pointsLines = planData.values.map((d, i) => {
-      // TODO if not exist handling
-      if (factData.values[i]) {
-        return [{date: d.date, value: d.value}, {date: d.date, value: factData.values[i].value}];
-      }
-
-      return [{date: d.date, value: d.value}, {date: d.date, value: d.value}];
-
-    });
-
-
-    const line = d3Shape.line()
-      .curve(d3Shape.curveMonotoneX)
-      .x((d: any) => this.x(d.date))
-      .y((d: any) => this.y(d.value));
-
-
-    let lines = this.g.selectAll('.line-btw-point')
-      .data(pointsLines)
-      .enter()
-      .append('g')
-      .attr('class', 'trend');
-
-    lines.append('path')
-      .attr('class', 'line-btw-point')
-      .attr('d', (d) => line(d))
-
-  }
-
   private drawPoints() {
 
     let points = this.g.selectAll('.point')
@@ -415,11 +426,14 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
   }
 
+
   private drawDeviationAreas(planData, factData) {
     let clipPathArea = d3Shape.area()
-      .curve(d3Shape[this.options['factLineType']])
+      .curve(d3Shape[this.options['planLineType']])
       .x(d => this.x(d.date))
-      .y0(d => this.y(this.height))
+      .y0(d => {
+        return this.y(this.heightNoMargins);
+      })
       .y1(d => this.y(d.value));
 
 
@@ -429,7 +443,8 @@ export class LineChartComponent implements OnInit, OnDestroy {
       .append("g");
 
 
-    clipPathSource.append("clipPath")
+    clipPathSource
+      .append("clipPath")
       .attr('id', 'clipPathArea-' + this.position)
       .attr('class', 'area')
       .append("path")
@@ -442,20 +457,13 @@ export class LineChartComponent implements OnInit, OnDestroy {
       .curve(d3Shape[this.options['factLineType']])
       .x(d => this.x(d.date))
       .y0(d => {
-
-        const v = factData.values.find(v => v.date.getTime() === d.date.getTime());
-        if (v) {
-          return this.y(v.value);
-        }
-        //TODO find nearest?
-        return this.y(this.height);
-
+        return this.y(0);
       })
       .y1(d => this.y(d.value));
 
 
     const deviationSource = this.g.selectAll(".deviation-area")
-      .data([planData])
+      .data([factData])
       .enter()
       .append("g");
 
@@ -466,7 +474,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
       })
       .attr('class', 'deviation-area')
       .attr("clip-path", 'url(#clipPathArea-' + this.position + ')')
-      .attr("fill", 'url(#deviation-gradient)');
+      .attr("fill", 'url(#deviation-gradient)')
 
 
     const gradient = deviationSource
@@ -488,6 +496,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
 
   }
+
 
   private drawLimitsAreas(upperLimit, lowerLimit) {
     const upperLimitArea = d3Shape.area()
@@ -566,4 +575,138 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
   }
 
+  private drawLimitsDeviationAreas(upperLimit, lowerLimit, fact) {
+
+    const upperLimitClipPathArea = d3Shape.area()
+      .curve(d3Shape[this.options['upperLimitLineType']])
+      .x(d => this.x(d.date))
+      .y0(d => {
+        return this.y(this.heightNoMargins);
+      })
+      .y1(d => this.y(d.value));
+
+
+    const upperLimitClipPathSoruce = this.g.selectAll(".area")
+      .data([upperLimit])
+      .enter()
+      .append("g");
+
+    upperLimitClipPathSoruce
+      .append("clipPath")
+      .attr('id', 'upperLimitClipPathArea-' + this.position)
+      .attr('class', 'area')
+      .append("path")
+      .attr("d", d => {
+        return upperLimitClipPathArea(d.values);
+      });
+
+    const upperLimitArea = d3Shape.area()
+      .curve(d3Shape[this.options['factLineType']])
+      .x(d => this.x(d.date))
+      .y0(d => {
+        return this.y(0);
+      })
+      .y1(d => this.y(d.value));
+
+
+    const upperLimitSource = this.g.selectAll(".limit-area")
+      .data([fact])
+      .enter()
+      .append("g");
+
+
+    upperLimitSource.append("path")
+      .attr("d", d => {
+        return upperLimitArea(d.values);
+      })
+      .attr('class', 'upper-limit-area')
+
+      .attr("fill", 'url(#upper-limit-deviation-gradient-' + this.position + ')')
+      .attr("clip-path", 'url(#upperLimitClipPathArea-' + this.position + ')');
+
+
+    const upperLimitGradient = upperLimitSource
+      .append("g")
+      .append('linearGradient')
+      .attr('class', 'gradient')
+      .attr('id', 'upper-limit-deviation-gradient-' + this.position)
+      .attr('x1', "0%")
+      .attr('x2', "0%")
+      .attr('y1', "0%")
+      .attr('y2', "100%");
+
+    upperLimitGradient.append('stop')
+      .attr('offset', "0")
+      .attr('stop-color', "rgba(244, 163, 33, 0.2)");
+
+    upperLimitGradient.append('stop')
+      .attr('offset', "50%")
+      .attr('stop-color', "transparent");
+
+
+    const lowerLimitClipPathArea = d3Shape.area()
+      .curve(d3Shape[this.options['lowerLimitLineType']])
+      .x(d => this.x(d.date))
+      .y0(d => {
+        return this.y(0);
+      })
+      .y1(d => this.y(d.value));
+
+
+    const lowerLimitClipPathSoruce = this.g.selectAll(".l-area")
+      .data([lowerLimit])
+      .enter()
+      .append("g");
+
+    lowerLimitClipPathSoruce
+      .append("clipPath")
+      .attr('id', 'lowerLimitClipPathArea-' + this.position)
+      .attr('class', 'area')
+      .append("path")
+      .attr("d", d => {
+        return lowerLimitClipPathArea(d.values);
+      });
+
+
+    const lowerLimitArea = d3Shape.area()
+      .curve(d3Shape[this.options['factLineType']])
+      .x(d => this.x(d.date))
+      .y0(d => 0)
+      .y1(d => this.y(d.value));
+
+    const lowerLimitSource = this.g.selectAll(".limit-area")
+      .data([fact])
+      .enter()
+      .append("g");
+
+    lowerLimitSource.append("path")
+      .attr("d", d => {
+        return lowerLimitArea(d.values);
+      })
+      .attr('class', 'lower-limit-area')
+      .attr("clip-path", 'url(#lowerLimitClipPathArea-' + this.position + ')')
+      .attr("fill", 'url(#lower-limit-deviation-gradient-' + this.position + ')');
+
+
+    const lowerLimitGradient = lowerLimitSource
+      .append("g")
+      .append('linearGradient')
+      .attr('id', 'lower-limit-deviation-gradient-' + this.position)
+      .attr('x1', "0%")
+      .attr('x2', "0%")
+      .attr('y1', "0%")
+      .attr('y2', "100%");
+
+    lowerLimitGradient.append('stop')
+      .attr('offset', "50%")
+      .attr('stop-color', "transparent");
+
+    lowerLimitGradient.append('stop')
+      .attr('offset', "100%")
+      .attr('stop-color', "rgba(244, 163, 33, 0.2)");
+
+  }
+
+
 }
+
