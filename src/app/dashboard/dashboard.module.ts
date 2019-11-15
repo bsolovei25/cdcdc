@@ -16,6 +16,7 @@ import {ManualInputComponent} from './widgets/manual-input/manual-input.componen
 import {FormsModule} from '@angular/forms';
 import {ManualinputPageComponent} from './pages/manualinput-page/manualinput-page.component';
 import { WidgetsPieCircleComponent } from './widgets/widgets-pie/widgets-pie-circle/widgets-pie-circle.component';
+import { ChangeShiftComponent } from './widgets/change-shift/change-shift.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { WidgetsPieCircleComponent } from './widgets/widgets-pie/widgets-pie-cir
     EventsComponent,
     ManualInputComponent,
     ManualinputPageComponent,
-    WidgetsPieCircleComponent
+    WidgetsPieCircleComponent,
+    ChangeShiftComponent
   ],
   exports: [
     HomeComponent,
