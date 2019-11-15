@@ -1,16 +1,10 @@
 <div class="grid">
 
-<!--  <div class="grid__cell"-->
-<!--       [style.grid-area]="'bb1'">-->
-<!--    <evj-events></evj-events>-->
-<!--  </div>-->
-
   <div class="grid__cell"
        *ngFor="let c of this.userService.cells"
        [style.grid-area]="c.position"
-       dndDropzone
+       [dndDropzone]
        (dndDrop)="onDrop($event, c)">
-
 
     <div class="dropzone grid__dropzone" *ngIf="draggingMode || !c.widget">
       <h3>Переместите сюда</h3>
@@ -46,6 +40,20 @@
                         [name]="c.widget.title"
                         [showMock]="false">
       </evj-events>
+
+      <evj-line-diagram class="grid__widget"
+                        *ngIf="c.widget.widgetType === 'line-diagram'"
+                        [dndDraggable]="c"
+                        [id]="c.widget.id">
+      </evj-line-diagram>
+
+<!--      <evj-widgets-pie-circle class="grid__widget"-->
+<!--                              *ngIf="c.widget.widgetType === 'pie-diagram'"-->
+<!--                              [id]="c.widget.id"-->
+<!--                              [name]="c.widget.title"-->
+<!--                              [dndDraggable]="c"-->
+<!--                              [showMock]="true">-->
+<!--      </evj-widgets-pie-circle>-->
 
     </ng-container>
 

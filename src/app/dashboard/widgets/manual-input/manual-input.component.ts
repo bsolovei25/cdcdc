@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, Input} from '@angular/core';
+import {Component, OnDestroy, OnInit, Input, Output} from '@angular/core';
 import {ManualInputService} from '../../services/manual-input.service';
 import {WidgetsService} from '../../services/widgets.service';
 import {HttpClient} from '@angular/common/http';
@@ -11,7 +11,8 @@ import {Subscription} from 'rxjs';
   templateUrl: './manual-input.component.html',
   styleUrls: ['./manual-input.component.scss']
 })
-export class ManualInputComponent implements OnInit {
+
+export class ManualInputComponent implements OnInit, OnDestroy {
 
   constructor(public manualInputService: ManualInputService, private widgetsService: WidgetsService, private http: HttpClient) {
     this.restUrl = environment.restUrl;
@@ -36,7 +37,15 @@ export class ManualInputComponent implements OnInit {
   private subscribtion: Subscription;
 
   ngOnInit() {
+  }
 
+  ngOnDestroy() {
+
+  }
+
+  @Output()
+  refresh() {
+    this.Data = [];
   }
 
   setInitData() {
@@ -86,7 +95,6 @@ export class ManualInputComponent implements OnInit {
     this.isMock = show;
     if (this.isMock) {
       this.wsDisconnect();
-      this.Data = [];
     } else {
       this.setInitData();
       this.wsConnect();
