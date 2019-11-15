@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {DndDropEvent} from "ngx-drag-drop";
 import {WidgetsService} from "../../services/widgets.service";
+import {UserSettingsService} from '../../services/user-settings.service';
 
 @Component({
   selector: 'evj-widgets-grid',
@@ -11,74 +12,8 @@ import {WidgetsService} from "../../services/widgets.service";
 export class WidgetsGridComponent implements OnInit {
   draggingMode = false;
 
-  cells = [
-    //uncomment to unblock position bb1
-    // {
-    //   position: 'bb1',
-    //   widget: null,
-    //   data: null
-    // },
-    {
-      position: 'bb2',
-      widget: null,
-      data: null
-    },
-    {
-      position: 'bs1',
-      widget: null,
-      data: null
-    },
-    {
-      position: 'ss1',
-      widget: null,
-      data: null
-    },
-    {
-      position: 'ss2',
-      widget: null,
-      data: null
+  constructor(private widgetsService: WidgetsService, private userService: UserSettingsService) {
 
-    },
-    {
-      position: 'ss3',
-      widget: null,
-      data: null
-    },
-    {
-      position: 'ss4',
-      widget: null,
-      data: null
-
-    },
-    {
-      position: 'ss5',
-      widget: null,
-      data: null
-    },
-    {
-      position: 'ss6',
-      widget: null,
-      data: null
-    }
-  ];
-
-
-  constructor(private widgetsService: WidgetsService) {
-    this.widgetsService.getUserGrid().subscribe(ref => {
-      this.cells = ref;
-
-      this.cells.forEach(c => {
-        if (c.widget) {
-          this.widgetsService.getWidgetLiveData(c.widget.id).subscribe(ref => {
-            c.data = ref;
-          });
-        } else {
-          c.data = null;
-        }
-      });
-
-
-    });
   }
 
   ngOnInit() {
@@ -95,8 +30,10 @@ export class WidgetsGridComponent implements OnInit {
   onDrop(event: DndDropEvent, cell) {
 
     if (event.data.position) {
-      this.cells.find(c => c.position === event.data.position).widget = null && cell.widget;
+      this.userService.cells.find(c => c.position === event.data.position).widget = null && cell.widget;
     }
+
+    cell.widget = null;
 
     cell.widget = event.data.widget;
 
@@ -110,6 +47,7 @@ export class WidgetsGridComponent implements OnInit {
 
     this.draggingMode = false;
 
+    // TODO
+    console.log(this.userService.cells);
   }
-
 }

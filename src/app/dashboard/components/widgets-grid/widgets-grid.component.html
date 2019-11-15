@@ -1,12 +1,12 @@
 <div class="grid">
 
-  <div class="grid__cell"
-       [style.grid-area]="'bb1'">
-    <evj-events></evj-events>
-  </div>
+<!--  <div class="grid__cell"-->
+<!--       [style.grid-area]="'bb1'">-->
+<!--    <evj-events></evj-events>-->
+<!--  </div>-->
 
   <div class="grid__cell"
-       *ngFor="let c of cells"
+       *ngFor="let c of this.userService.cells"
        [style.grid-area]="c.position"
        dndDropzone
        (dndDrop)="onDrop($event, c)">
@@ -15,9 +15,6 @@
     <div class="dropzone grid__dropzone" *ngIf="draggingMode || !c.widget">
       <h3>Переместите сюда</h3>
     </div>
-
-<!--    <ng-container *ngIf="c.widget" class="grid__widget"></ng-container>-->
-<!--    <div class="grid__widget"></div>-->
 
     <ng-container *ngIf="c.widget">
       <evj-line-chart class="grid__widget"
@@ -28,7 +25,7 @@
                       [position]="c.position"
                       [id]="c.widget.id"
                       [code]="c.widget.code"
-                      [name]="c.widget.name"
+                      [name]="c.widget.title"
                       [showMock]="false"
                       [units]="c.widget.units"
                       [options]="c.widget.widgetOptions">
@@ -36,12 +33,21 @@
 
       <evj-manual-input class="grid__widget"
                         *ngIf="c.widget.widgetType === 'manual-input'"
+                        [name] = c.widget.title
                         [dndDraggable]="c"
                         [id]="c.widget.id"
                         [showMock]="false" >
       </evj-manual-input>
-    </ng-container>
 
+      <evj-events class="grid__widget"
+                        *ngIf="c.widget.widgetType === 'events'"
+                        [dndDraggable]="c"
+                        [id]="c.widget.id"
+                        [name]="c.widget.title"
+                        [showMock]="false">
+      </evj-events>
+
+    </ng-container>
 
   </div>
 

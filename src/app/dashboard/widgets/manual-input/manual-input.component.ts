@@ -16,24 +16,27 @@ export class ManualInputComponent implements OnInit {
   constructor(public manualInputService: ManualInputService, private widgetsService: WidgetsService, private http: HttpClient) {
     this.restUrl = environment.restUrl;
     this.id = '742c88e4-048b-11ea-98c3-380025fb9022';
+    this.name = 'Режимный лист дневной';
     this.isLoading = true;
     this.isMock = true;
   }
 
   public isLoading: boolean;
 
-  @Input() public isMock: boolean;
-
   private restUrl: string;
 
+  @Input() public isMock: boolean;
+
   @Input() public id: string;
+
+  @Input() public name: string;
 
   private Data: Machine_MI[] = [];
 
   private subscribtion: Subscription;
 
   ngOnInit() {
-    console.log("init mi");
+
   }
 
   setInitData() {
@@ -58,7 +61,7 @@ export class ManualInputComponent implements OnInit {
     this.manualInputService.CheckLastValue(id, this.Data);
   }
 
-  wsConnect() {
+  private wsConnect() {
     this.widgetsService.getWidgetLiveDataFromWS(this.id, 'manual-input')
       .subscribe((ref) => {
           this.manualInputService.LoadData(this.Data, ref);
@@ -78,12 +81,12 @@ export class ManualInputComponent implements OnInit {
       );
   }
 
-
   @Input()
   set showMock(show) {
     this.isMock = show;
     if (this.isMock) {
       this.wsDisconnect();
+      this.Data = [];
     } else {
       this.setInitData();
       this.wsConnect();

@@ -19,7 +19,10 @@ import {Subscription} from "rxjs/index";
   styleUrls: ['./events.component.scss']
 })
 export class EventsComponent implements OnInit, OnDestroy {
-  @Input() id? = 'NotificationsChannel';
+  @Input() id;
+  @Input() name = '';
+ng
+  private isMock = true;
 
   categories: EventsWidgetCategory[] = [
     {
@@ -74,6 +77,7 @@ export class EventsComponent implements OnInit, OnDestroy {
     },
   ];
 
+  allNotifications: EventsWidgetNotification[] = [];
   notifications: EventsWidgetNotification[] = [];
 
   filters: EventsWidgetFilter[] = [
@@ -110,17 +114,11 @@ export class EventsComponent implements OnInit, OnDestroy {
 
 
   constructor(private widgetsService: WidgetsService) {
+
   }
 
   ngOnInit() {
-    const options = this.getCurrentOptions();
-    this.liveSubscription = this.widgetsService.getWidgetLiveDataFromWS(this.id, 'events', options)
-      .subscribe((ref: EventsWidgetData) => {
-          this.appendNotifications(ref.notifications);
-          this.appendFilterCounters(ref.filters);
-          this.appendCategoriesCounters(ref.categories);
-        }
-      );
+
   }
 
   ngOnDestroy() {
@@ -145,7 +143,7 @@ export class EventsComponent implements OnInit, OnDestroy {
     this.notifications = [];
   }
 
-  private getCurrentOptions() {
+  private getCurrentOptions(): EventsWidgetOptions {
     const options: EventsWidgetOptions = {
       categories: this.categories.filter(c => c.isActive).map(c => c.code),
       filter: this.filters.find(f => f.isActive).code
@@ -157,7 +155,26 @@ export class EventsComponent implements OnInit, OnDestroy {
     this.clearNotifications();
 
     const options = this.getCurrentOptions();
-    this.widgetsService.appendWidgetLiveOptions(this.id, options);
+    this.notifications = this.applyFilter(this.allNotifications, options);
+
+    // filtering only at front-end
+    // this.widgetsService.appendWidgetLiveOptions(this.id, options);
+  }
+
+  private applyFilter(allNotifications: EventsWidgetNotification[], filterOptions: EventsWidgetOptions): EventsWidgetNotification[] {
+    var notifications = allNotifications;
+
+    if (filterOptions.filter && filterOptions.filter != 'all')
+      notifications = notifications.filter(x => x.status.name == filterOptions.filter);
+
+    if (filterOptions.categories && filterOptions.categories.length > 0)
+      notifications = notifications.filter(x => filterOptions.categories.some(c => c == x.category.name));
+
+    if (notifications.length > this.notificationsMaxCount) {
+      notifications = notifications.slice(0, this.notificationsMaxCount);
+    }
+
+    return notifications;
   }
 
   private appendNotifications(remoteNotifications: EventsWidgetNotification[]) {
@@ -167,10 +184,8 @@ export class EventsComponent implements OnInit, OnDestroy {
       return {...n, iconUrl, statusName};
     });
 
-    this.notifications.unshift(...notifications.reverse());
-    if (this.notifications.length > this.notificationsMaxCount) {
-      this.notifications = this.notifications.slice(0, this.notificationsMaxCount);
-    }
+    this.allNotifications = notifications.reverse();
+    this.notifications = this.applyFilter(this.allNotifications, this.getCurrentOptions());
   }
 
   private appendFilterCounters(remoteFilters: EventsWidgetFilter[]) {
@@ -198,10 +213,28 @@ export class EventsComponent implements OnInit, OnDestroy {
     if (category) {
       return category.iconUrl;
     }
-
     return this.defaultIconPath;
-
   }
 
+  private wsConnect() {
+    this.liveSubscription = this.widgetsService.getWidgetLiveDataFromWS(this.id, 'events')
+      .subscribe((ref: EventsWidgetData) => {
+          this.appendNotifications(ref.notifications);
+          this.appendFilterCounters(ref.filters);
+          this.appendCategoriesCounters(ref.categories);
+          console.log('get_ws_events');
+        }
+      );
+  }
+
+  @Input()
+  set showMock(show) {
+    this.isMock = show;
+    if (this.isMock) {
+      // do nothing
+    } else {
+      this.wsConnect();
+    }
+  }
 
 }
