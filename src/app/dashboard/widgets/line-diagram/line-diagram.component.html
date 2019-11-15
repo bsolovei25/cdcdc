@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="header">
+    <div class="header__content">
+      <div class="header__icon-wrapper">
+        <svg-icon
+          class="header__icon"
+          src="./assets/icons/widgets/events/letter.svg"
+        ></svg-icon>
+      </div>
+      <span class="header__name">
+        Продукты
+      </span>
+      <span class="header__units">{{data[0].units}}</span>
+    </div>
+  </div>
+
+  <div class="frame frame_top">
+    <div class="frame__circle frame__circle__left"></div>
+    <div class="frame__circle frame__circle__right"></div>
+  </div>
+
+  <div class="line-diagram">
+    <div class="line-diagram__scroll scroll-bar">
+      <div class="line-diagram__body">
+        <table>
+          <tbody>
+            <tr class="line-diagram__item" *ngFor="let item of data">
+              <td class="item__name">{{ item.name }}</td>
+              <td class="item__count">{{ item.count }}{{ item.units }}</td>
+              <td class="item__graph">
+                <svg width="100%" height="4">
+                  <rect
+                    x="0"
+                    y="0"
+                    [attr.width]="drawGraph(item.count)"
+                    height="4"
+                    rx="4"
+                    ry="4"
+                    [attr.fill]="fillGraph(item.critical)"
+                  />
+                </svg>
+                <div class="item__max-graph">100%</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="frame frame_bottom">
+    <div class="frame__circle frame__circle__left"></div>
+    <div class="frame__circle frame__circle__right"></div>
+  </div>
+</div>
