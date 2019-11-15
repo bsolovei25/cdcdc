@@ -73,7 +73,7 @@ export class UserSettingsService {
 
     this.availableWidgets = await this.widgetsService.getAvailableWidgets();
 
-    this.http.get('http://192.168.0.4:5999/api/getscreen/1/1').subscribe((ref: UserSettings) => {
+    this.http.get(this.restUrl + '/user-management/getscreen/1/1').subscribe((ref: UserSettings) => {
       console.log(ref);
       for (const i in ref.userGrid) {
         for (const j in this.cells) {
@@ -139,7 +139,7 @@ export class UserSettingsService {
     }
     console.log(userSettings);
 
-    this.http.post('http://192.168.0.4:5999/api/setscreen/', userSettings)
+    this.http.post(this.restUrl + '/user-management/setscreen/', userSettings)
       .subscribe(
         ans => {
           console.log(ans);
