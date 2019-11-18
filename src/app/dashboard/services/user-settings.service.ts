@@ -14,6 +14,7 @@ export class UserSettingsService {
   public UserId = 1;
   public ScreenId = 1;
 
+  // temp
   public cells = [
     {
       position: 'bb1',
