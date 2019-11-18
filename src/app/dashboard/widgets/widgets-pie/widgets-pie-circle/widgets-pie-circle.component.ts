@@ -13,6 +13,9 @@ declare var d3: any;
   styleUrls: ['./widgets-pie-circle.component.scss']
 })
 export class WidgetsPieCircleComponent implements AfterViewInit {
+
+  @Input() public id: string;
+
   public readonly RADIUS = 51;
 
   code = 4;
