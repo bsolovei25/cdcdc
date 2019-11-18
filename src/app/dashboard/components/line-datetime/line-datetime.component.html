@@ -1,0 +1,16 @@
+<div class="block">
+  <ng-container *ngFor="let data of dates">
+    <div class="calendar-column">
+      <div class="calendar-column_date"
+           [class.calendar-column_date__last]="data.isLast"
+           [class.calendar-column_date__current]="data.isActive"
+           [class.calendar-column_date__future]="data.isFuture">
+        {{data.day}}
+      </div>
+      <div *ngIf="data.isActive === true"
+           class="calendar-column_time">
+            {{this.currentData | date:'HH:mm'}}
+      </div>
+    </div>
+  </ng-container>
+</div>

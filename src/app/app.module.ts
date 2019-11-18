@@ -11,7 +11,7 @@ import {AngularSvgIconModule} from 'angular-svg-icon';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
