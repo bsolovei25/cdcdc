@@ -59,16 +59,16 @@
         </evj-line-diagram>
       </ng-container>
 
-<!--      <ng-container *ngIf="w.widgetType === 'pie-diagram'">-->
-<!--        <evj-widgets-pie-circle *ngIf="w"-->
-<!--                          [id]="w.id"-->
-<!--                          [name]="w.title"-->
-<!--                          [showMock]="false"-->
-<!--                          [dndDraggable]="{widget: w}"-->
-<!--                          (dndDrag)="this.active = false"-->
-<!--                          class="widgets-panel__widget widgets-panel__widget___pie">-->
-<!--        </evj-widgets-pie-circle>-->
-<!--      </ng-container>-->
+      <ng-container *ngIf="w.widgetType === 'pie-diagram'">
+        <evj-widgets-pie-circle *ngIf="w"
+                          [id]="w.id"
+                          [name]="w.title"
+                          [showMock]="true"
+                          [dndDraggable]="{widget: w}"
+                          (dndDrag)="this.active = false"
+                          class="widgets-panel__widget widgets-panel__widget___pie">
+        </evj-widgets-pie-circle>
+      </ng-container>
 
     </ng-container>
   </div>

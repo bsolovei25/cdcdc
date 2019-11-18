@@ -63,6 +63,24 @@ export class UserSettingsService {
     }
   ];
 
+  public screens = [
+    {
+      id: 1,
+      name: 'Экран 1',
+      isActive: true
+    },
+    {
+      id: 2,
+      name: 'Экран 2',
+      isActive: false
+    },
+    {
+      id: 3,
+      name: 'Экран 3',
+      isActive: false
+    }
+  ];
+
   public availableWidgets;
 
   constructor(private http: HttpClient, private widgetsService: WidgetsService) {
