@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {UserSettingsService} from '../../services/user-settings.service';
 
 @Component({
   selector: 'evj-indicator-selector',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IndicatorSelectorComponent implements OnInit {
 
-  constructor() { }
+  constructor(userSettingsService: UserSettingsService) { }
 
   ngOnInit() {
   }

@@ -14,6 +14,7 @@ export class UserSettingsService {
   public UserId = 1;
   public ScreenId = 1;
 
+  // temp
   public cells = [
     {
       position: 'bb1',
@@ -59,6 +60,24 @@ export class UserSettingsService {
       position: 'ss6',
       widget: null,
       data: null
+    }
+  ];
+
+  public screens = [
+    {
+      id: 1,
+      name: 'Экран 1',
+      isActive: true
+    },
+    {
+      id: 2,
+      name: 'Экран 2',
+      isActive: false
+    },
+    {
+      id: 3,
+      name: 'Экран 3',
+      isActive: false
     }
   ];
 

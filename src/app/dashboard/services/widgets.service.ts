@@ -134,7 +134,6 @@ export class WidgetsService {
         return this.mapLineChartData(data);
 
       case 'manual-input':
-
         return this.mapManualInput(data);
     }
   }
