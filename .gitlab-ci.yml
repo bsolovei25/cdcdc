@@ -33,7 +33,7 @@ testing website:
     tags:
         - basher
     script:
-        - echo "Doing some tests..."
+        - echo "Doing some tests... Someone should add unit tests or whatever here"
         - ls
         - pwd
         - docker run --rm --name ${CI_PROJECT_NAME} -p 8000:4200 -d ${CI_PROJECT_NAME}
