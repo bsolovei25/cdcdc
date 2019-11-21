@@ -133,8 +133,14 @@ export class WidgetsService {
       case 'line-chart':
         return this.mapLineChartData(data);
 
+      case 'line-diagram':
+        return data;
+
       case 'manual-input':
         return this.mapManualInput(data);
+
+      case 'pie-diagram':
+        return data;
     }
   }
 

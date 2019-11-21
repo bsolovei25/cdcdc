@@ -82,12 +82,6 @@ export class ManualInputComponent implements OnInit, OnDestroy {
     if (!this.subscribtion) {
       return;
     }
-    this.subscribtion = this.widgetsService.getWidgetLiveDataFromWS(this.id, 'manual-input')
-      .subscribe((ref) => {
-          this.manualInputService.LoadData(this.Data, ref);
-          console.log("init");
-        }
-      );
   }
 
   @Input()

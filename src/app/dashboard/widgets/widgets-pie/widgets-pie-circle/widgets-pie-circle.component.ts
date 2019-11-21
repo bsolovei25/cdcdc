@@ -1,7 +1,8 @@
 import { Component, OnInit, ElementRef, ViewChild, ViewChildren, QueryList, Input, AfterViewInit, Injectable, Inject } from '@angular/core';
 import { element } from 'protractor';
-//import { WidgetGridsterSettings, WidgetModel } from 'src/app/dashboard/models/widget.model';
+// import { WidgetGridsterSettings, WidgetModel } from 'src/app/dashboard/models/widget.model';
 import { runInDebugContext } from 'vm';
+import {WidgetsService} from "../../../services/widgets.service";
 
 declare var d3: any;
 
@@ -25,36 +26,43 @@ export class WidgetsPieCircleComponent implements AfterViewInit {
   static itemCols = 34;
   static itemRows = 10;
 
-  isMock = true;
+  private isMock = true;
 
   @ViewChildren('myCircle') myCircle: QueryList<any>;
 
   public datas = [
-    {id:1, name:"Статическое Оборудование", pos:5, neg:2},
-    {id:2, name:"Динамическое оборудование", pos:2, neg:5},
-    {id:3, name:"КИПиА", pos:1, neg:1},
-    {id:4, name:"КИПиА", pos:1, neg:1},
-    {id:4, name:"КИПиА", pos:1, neg:1},
-    {id:5, name:"КИПиА", pos:1, neg:1},
-    {id:6, name:"Электро - оборудование", pos:0, neg:0}
+    {name: "Статическое Оборудование", critical: 5, nonCritical: 2},
+    {name: "Статическое Оборудование", critical: 5, nonCritical: 2},
   ];
 
 
   @Input()
   set showMock(show) {
     this.isMock = show;
-    if (this.showMock) {
+    if (this.isMock) {
+      this.wsDisconnect();
     } else {
+      this.wsConnect();
     }
   }
 
-  constructor(
-    //@Inject('isMock') public isMock: boolean
-  ) { }
+  constructor(private widgetsService: WidgetsService) {
+  }
+
 
   ngAfterViewInit() {
+    this.showWidget();
+  }
+
+  showWidget() {
+    console.log('show widget!');
     this.datas.forEach((item, index) => {
-      this.d3Circle(item, this.myCircle.toArray()[index].nativeElement);
+      try {
+        this.d3Circle(item, this.myCircle.toArray()[index].nativeElement);
+      }
+      catch {
+        console.log('no such element');
+      }
     });
   }
 
@@ -63,16 +71,19 @@ export class WidgetsPieCircleComponent implements AfterViewInit {
   }
 
   private d3Circle(data, el): void {
-    const summ = data.neg + data.pos;
-    const mass = [data.pos, data.neg];
+    const summ = data.critical + data.nonCritical;
+    const mass = [data.nonCritical, data.critical];
     let color: any;
 
-    if ((data.pos === 0) && (data.neg === 0)) {
+    if (summ === 0) {
       color = d3.scaleOrdinal().range(["gray"]);
     } else {
       color = d3.scaleOrdinal().range(["white", "orange"]);
     }
 
+
+    // d3.select(el).clear();
+    console.log(d3.select(el));
 
     const canvas = d3.select(el).append("svg")
       .attr("min-width", "250px")
@@ -98,7 +109,7 @@ export class WidgetsPieCircleComponent implements AfterViewInit {
     group = group.append("text")
       .attr("text-anchor", "middle")
       .attr("font-size", "2em")
-      .attr("fill", (!data.pos && !data.neg) ? 'gray' : "white")
+      .attr("fill", (!data.nonCritical && !data.critical) ? 'gray' : "white")
       .attr("dominant-baseline", "middle")
       .text(summ);
 
@@ -114,36 +125,47 @@ export class WidgetsPieCircleComponent implements AfterViewInit {
       .attr("font-size", "16px")
       .attr("x","170")
       .attr("y","70")
-      .attr("fill", (!data.pos && !data.neg) ? 'gray' : "white")
-      .text("Не критичные", data.pos);
+      .attr("fill", (!data.nonCritical && !data.critical) ? 'gray' : "white")
+      .text("Не критичные", data.nonCriticall);
 
     let positive_num = canvas.append("text")
       .attr("font-size", "16px")
       .attr("x","170")
       .attr("y","95")
-      .attr("fill", (!data.pos && !data.neg) ? 'gray' : "white")
-      .text(data.pos);
+      .attr("fill", (!data.nonCritical && !data.critical) ? 'gray' : "white")
+      .text(data.nonCritical);
 
     let negative = canvas.append("text")
       .attr("font-size", "16px")
       .attr("x","170")
       .attr("y","120")
-      .attr("fill", (!data.pos && !data.neg) ? 'gray' : "orange")
-      .text("Критичные", data.neg);
+      .attr("fill", (!data.nonCritical && !data.critical) ? 'gray' : "orange")
+      .text("Критичные", data.critical);
 
     let negative_num = canvas.append("text")
       .attr("font-size", "16px")
       .attr("x","170")
       .attr("y","145")
-      .attr("fill", (!data.pos && !data.neg) ? 'gray' : "orange")
-      .text(data.neg);
+      .attr("fill", (!data.nonCritical && !data.critical) ? 'gray' : "orange")
+      .text(data.critical);
 
     let pie_back = canvas.append("image")
-      .attr("xlink:href",(!data.pos && !data.neg) ? '/assets/pic/ncir.svg' : "/assets/pic/acir.svg")
+      .attr("xlink:href",(!data.nonCritical && !data.critical) ? '/assets/pic/ncir.svg' : "/assets/pic/acir.svg")
       .attr("height", "200px")
       .attr("width", "200px")
       .attr("x","3")
       .attr("y","-3");
 
+  }
+
+  private wsConnect() {
+    this.widgetsService.getWidgetLiveDataFromWS(this.id, 'pie-diagram')
+      .subscribe((ref) => {
+          this.datas = ref;
+          this.showWidget();
+        }
+      );
+  }
+  private wsDisconnect() {
   }
 }

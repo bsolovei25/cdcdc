@@ -16,12 +16,29 @@
 
   &__period-selector {
     margin-left: 0;
-    justify-self: flex-end;
+  }
+
+  &__user-info {
+    margin-left: 0;
+    height: 100%;
+    width: auto;
+    //justify-self: flex-end;
   }
 }
 
 .content {
   //position: relative;
   z-index: 0;
+}
+
+.logo-gpn {
+  //display: flex;
+  margin: 7px 15px 7px 5px;
+  min-width: 240px;
+  height: calc(100% - 15px);
+  background: url('../../../../assets/icons/gpn-logo.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
 

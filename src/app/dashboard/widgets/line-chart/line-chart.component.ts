@@ -131,14 +131,11 @@ export class LineChartComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.initChart();
     }, 0);
-
-
-    if (this._showMock) {
-      this.disableLiveData()
-    } else {
-      this.enableLiveData();
-    }
-
+    // if (this._showMock) {
+    //   this.disableLiveData();
+    // } else {
+    //   this.enableLiveData();
+    // }
   }
 
 
@@ -163,7 +160,6 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
   private enableLiveData() {
     // TODO добавить получение типа графика
-
     this.subscription = this.widgetsService.getWidgetLiveDataFromWS(this.id, 'line-chart')
       .subscribe((ref) => {
 
