@@ -1,6 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Subscription} from "rxjs";
+import {Component, Input, OnInit, Inject} from '@angular/core';
+import { NewWidgetService } from '../../services/new-widget.service';
+import { Subscription } from 'rxjs';
 import {WidgetsService} from "../../services/widgets.service";
+import { inject } from '@angular/core/testing';
 
 @Component({
   selector: "evj-line-diagram",
@@ -8,6 +10,12 @@ import {WidgetsService} from "../../services/widgets.service";
   styleUrls: ["./line-diagram.component.scss"]
 })
 export class LineDiagramComponent implements OnInit {
+
+  static itemCols = 15;
+  static itemRows = 7;
+
+  private subscription: Subscription;
+
   data = [
     {
       name: "Сухой газ",
@@ -28,15 +36,26 @@ export class LineDiagramComponent implements OnInit {
   ];
   fillGraphs = "#3FA9F5";
 
-  private subscription: Subscription;
+  name;
 
-  private isMock = true;
-
-  @Input() public id: string;
-
-  constructor(private widgetsService: WidgetsService) {}
+  constructor(
+    public widgetService: NewWidgetService,
+    public widgetsService: WidgetsService,
+    @Inject('isMock') public isMock: boolean,
+    @Inject('widgetId') public id: string
+  ) {
+    this.subscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
+      this.name = data.name
+    });
+  }
 
   ngOnInit() {}
+
+  ngOnDestroy(){
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
 
   drawGraph(count: number): string {
     return count.toString() + "%";

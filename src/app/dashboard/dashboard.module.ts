@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {HomeComponent} from './pages/home/home.component';
-import {SharedModule} from '../shared/shared.module';
+import {SharedModule} from '../@shared/shared.module';
 import {AngularSvgIconModule} from 'angular-svg-icon';
 import { PeriodSelectorComponent } from './components/period-selector/period-selector.component';
 import { IndicatorSelectorComponent } from './components/indicator-selector/indicator-selector.component';
@@ -18,6 +18,9 @@ import {ManualinputPageComponent} from './pages/manualinput-page/manualinput-pag
 import { LineDiagramComponent } from './widgets/line-diagram/line-diagram.component';
 import { WidgetsPieCircleComponent } from './widgets/widgets-pie/widgets-pie-circle/widgets-pie-circle.component';
 import {LineDatetimeComponent} from './components/line-datetime/line-datetime.component';
+import { NewWidgetsPanelComponent } from './components/new-widgets-panel/new-widgets-panel.component';
+import { NewWidgetsGridComponent } from './components/new-widgets-grid/new-widgets-grid.component';
+import { GridsterModule } from 'angular-gridster2';
 import {UserInfoComponent} from './components/user-info/user-info.component';
 
 
@@ -36,7 +39,18 @@ import {UserInfoComponent} from './components/user-info/user-info.component';
     ManualinputPageComponent,
     LineDiagramComponent,
     WidgetsPieCircleComponent,
+    NewWidgetsPanelComponent,
+    NewWidgetsGridComponent,
     UserInfoComponent
+  ],
+  entryComponents:[
+    WidgetsPieCircleComponent,
+    LineChartComponent,
+    EventsComponent,
+    LineChartComponent,
+    ManualInputComponent,
+    LineDiagramComponent,
+  //  UserInfoComponent
   ],
   exports: [
     HomeComponent,
@@ -48,7 +62,8 @@ import {UserInfoComponent} from './components/user-info/user-info.component';
     AngularSvgIconModule,
     DndModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    GridsterModule
   ],
   bootstrap: []
 })

@@ -1,8 +1,10 @@
 import { Component, OnInit, ElementRef, ViewChild, ViewChildren, QueryList, Input, AfterViewInit, Injectable, Inject } from '@angular/core';
 import { element } from 'protractor';
-// import { WidgetGridsterSettings, WidgetModel } from 'src/app/dashboard/models/widget.model';
+import { WidgetGridsterSettings, WidgetModel } from 'src/app/dashboard/models/widget.model';
 import { runInDebugContext } from 'vm';
-import {WidgetsService} from "../../../services/widgets.service";
+import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
+import { Subscription } from 'rxjs';
+import { WidgetsService } from 'src/app/dashboard/services/widgets.service';
 
 declare var d3: any;
 
@@ -14,19 +16,17 @@ declare var d3: any;
   styleUrls: ['./widgets-pie-circle.component.scss']
 })
 export class WidgetsPieCircleComponent implements AfterViewInit {
-
-  @Input() public id: string;
-
   public readonly RADIUS = 51;
 
-  code = 4;
-  @Input() name = "Отклонение в работе технологического оборудования";
-  units = "шт.";
-
+  code;
+  name;
+  units;
+  
   static itemCols = 34;
   static itemRows = 10;
 
-  private isMock = true;
+  private subscription: Subscription;
+
 
   @ViewChildren('myCircle') myCircle: QueryList<any>;
 
@@ -36,22 +36,20 @@ export class WidgetsPieCircleComponent implements AfterViewInit {
   ];
 
 
-  @Input()
-  set showMock(show) {
-    this.isMock = show;
-    if (this.isMock) {
-      this.wsDisconnect();
-    } else {
-      this.wsConnect();
-    }
-  }
 
-  constructor(private widgetsService: WidgetsService) {
+
+  constructor(
+    private widgetsService: WidgetsService,
+    public widgetServece: NewWidgetService,
+    @Inject('isMock') public isMock: boolean,
+    @Inject('widgetId') public id: string
+    ) {
   }
 
 
   ngAfterViewInit() {
     this.showWidget();
+    this.showMock(this.isMock);
   }
 
   showWidget() {
@@ -64,6 +62,21 @@ export class WidgetsPieCircleComponent implements AfterViewInit {
         console.log('no such element');
       }
     });
+  }
+
+  showMock(show) {
+    this.isMock = show;
+    if (this.isMock) {
+      this.wsDisconnect();
+    } else {
+      this.wsConnect();
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   public dataById(index, item): number {
@@ -85,6 +98,8 @@ export class WidgetsPieCircleComponent implements AfterViewInit {
     // d3.select(el).clear();
     console.log(d3.select(el));
 
+    
+
     const canvas = d3.select(el).append("svg")
       .attr("min-width", "250px")
       .attr("max-width", "500px")
@@ -100,7 +115,7 @@ export class WidgetsPieCircleComponent implements AfterViewInit {
     }).sort(() => null);
 
     const arcs = group.selectAll(".arc").data(pie(mass)).enter().append("g").attr("class", "arc");
-
+  
     arcs.append("path")
       .attr("d", arc)
       .attr("stroke", "black")
@@ -113,36 +128,36 @@ export class WidgetsPieCircleComponent implements AfterViewInit {
       .attr("dominant-baseline", "middle")
       .text(summ);
 
-    let text = canvas.append("text")
-      .attr("fill","white")
-      .attr("font-size", "14px")
-      .attr("x","42")
-      .attr("font-family","'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-      .attr("y","9")
-      .text(data.name);
+      let text = canvas.append("text")
+        .attr("fill","white")
+        .attr("font-size", "14px")
+        .attr("x","42")
+        .attr("font-family","'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+        .attr("y","9")
+        .text(data.name);
 
-    let positive = canvas.append("text")
+      let positive = canvas.append("text")
       .attr("font-size", "16px")
       .attr("x","170")
       .attr("y","70")
       .attr("fill", (!data.nonCritical && !data.critical) ? 'gray' : "white")
       .text("Не критичные", data.nonCriticall);
 
-    let positive_num = canvas.append("text")
+      let positive_num = canvas.append("text")
       .attr("font-size", "16px")
       .attr("x","170")
       .attr("y","95")
       .attr("fill", (!data.nonCritical && !data.critical) ? 'gray' : "white")
       .text(data.nonCritical);
 
-    let negative = canvas.append("text")
+      let negative = canvas.append("text")
       .attr("font-size", "16px")
       .attr("x","170")
       .attr("y","120")
       .attr("fill", (!data.nonCritical && !data.critical) ? 'gray' : "orange")
       .text("Критичные", data.critical);
 
-    let negative_num = canvas.append("text")
+      let negative_num = canvas.append("text")
       .attr("font-size", "16px")
       .attr("x","170")
       .attr("y","145")

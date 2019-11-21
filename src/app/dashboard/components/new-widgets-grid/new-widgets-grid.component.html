@@ -1,0 +1,8 @@
+<evj-new-widgets-panel></evj-new-widgets-panel>
+
+<gridster [options]="options">
+  <gridster-item [item]="item" *ngFor="let item of widgetService.dashboard; let i = index"  (dragstart)="dragStart($event, item)" (dragstop)="dragStop($event, item)" style="height: 1600px;">
+        <ng-container *ngComponentOutlet="WIDGETS[item.nameWidget]; injector: (item.id | fn:getInjector);"></ng-container>
+  </gridster-item> 
+</gridster>
+  

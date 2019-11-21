@@ -3,6 +3,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {HomeComponent} from './dashboard/pages/home/home.component';
 import {ManualinputPageComponent} from './dashboard/pages/manualinput-page/manualinput-page.component';
 import { WidgetsPieCircleComponent } from './dashboard/widgets/widgets-pie/widgets-pie-circle/widgets-pie-circle.component';
+import { NewWidgetsGridComponent } from './dashboard/components/new-widgets-grid/new-widgets-grid.component';
 
 
 
@@ -14,7 +15,7 @@ const routes: Routes = [
   },
   {path: 'dashboard', component: HomeComponent},
   {path: 'manual-input', component: ManualinputPageComponent},
-  {path: 'widget-pie', component: WidgetsPieCircleComponent, pathMatch: 'full'}
+  {path: 'test', component: NewWidgetsGridComponent, pathMatch: 'full'}
 ];
 
 @NgModule({
