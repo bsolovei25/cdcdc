@@ -1,10 +1,11 @@
-import {Component, OnDestroy, OnInit, Input, Output} from '@angular/core';
+import {Component, OnDestroy, OnInit, Input, Output, Inject, Injector} from '@angular/core';
 import {ManualInputService} from '../../services/manual-input.service';
 import {WidgetsService} from '../../services/widgets.service';
 import {HttpClient} from '@angular/common/http';
 import {Machine_MI} from '../../models/manual-input.model';
 import {environment} from '../../../../environments/environment';
 import {Subscription} from 'rxjs';
+import { NewWidgetService } from '../../services/new-widget.service';
 
 @Component({
   selector: 'evj-manual-input',
@@ -14,33 +15,48 @@ import {Subscription} from 'rxjs';
 
 export class ManualInputComponent implements OnInit, OnDestroy {
 
-  constructor(public manualInputService: ManualInputService, private widgetsService: WidgetsService, private http: HttpClient) {
+  static itemCols = 30;
+  static itemRows = 20;
+
+  private subscription: Subscription;
+
+  private subscribtion2: Subscription;
+
+  name;
+
+  constructor(
+    public manualInputService: ManualInputService, 
+    private oldWidgetsService: WidgetsService, 
+    public widgetService:NewWidgetService,
+    private http: HttpClient,  
+    @Inject('isMock') public isMock: boolean,
+    @Inject('widgetId') public id: string
+    ) {
     this.restUrl = environment.restUrl;
-    this.id = '742c88e4-048b-11ea-98c3-380025fb9022';
-    this.name = 'Режимный лист дневной';
     this.isLoading = true;
-    this.isMock = true;
+    debugger
+    this.subscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
+      this.name = data.name  
+    });
   }
 
   public isLoading: boolean;
 
   private restUrl: string;
 
-  @Input() public isMock: boolean;
-
-  @Input() public id: string;
-
-  @Input() public name: string;
-
   private Data: Machine_MI[] = [];
 
-  private subscribtion: Subscription;
+  private flag: boolean = true;
+
 
   ngOnInit() {
+    this.showMock(this.isMock);
   }
 
   ngOnDestroy() {
-
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   @Output()
@@ -53,6 +69,8 @@ export class ManualInputComponent implements OnInit, OnDestroy {
     this.http.get(this.restUrl + '/api/mi/load/' + this.id)
       .subscribe((ref: Machine_MI[]) => {
         console.log(ref);
+        console.log("init_rest");
+        debugger
         this.Data = this.manualInputService.LoadData(this.Data, ref);
       });
   }
@@ -71,27 +89,34 @@ export class ManualInputComponent implements OnInit, OnDestroy {
   }
 
   private wsConnect() {
-    this.widgetsService.getWidgetLiveDataFromWS(this.id, 'manual-input')
+    debugger
+    this.oldWidgetsService.getWidgetLiveDataFromWS(this.id, 'manual-input')
       .subscribe((ref) => {
+        debugger
           this.manualInputService.LoadData(this.Data, ref);
           console.log("init");
         }
       );
   }
   wsDisconnect() {
-    if (!this.subscribtion) {
+    if (!this.subscribtion2) {
       return;
     }
+  
+    this.subscribtion2 = this.oldWidgetsService.getWidgetLiveDataFromWS(this.id, 'manual-input')
+      .subscribe((ref) => {
+          this.manualInputService.LoadData(this.Data, ref);
+          console.log("init");
+        }
+      );
   }
 
-  @Input()
-  set showMock(show) {
-    this.isMock = show;
-    if (this.isMock) {
-      this.wsDisconnect();
-    } else {
-      this.setInitData();
-      this.wsConnect();
-    }
+  showMock(show) {
+      if (show){
+        this.wsDisconnect();
+      } else {
+        this.setInitData();
+        this.wsConnect();
+      }
   }
 }
