@@ -19,7 +19,7 @@ export class ManualInputService {
 
   CheckLastValue(id: string, data: Machine_MI[]) {
     const param = this.GetElementById(id, data);
-    if (param.curValue === '' && (param.saveValue !== '' || param.saveValue !== null)) {
+    if (param.curValue === '' && (param.saveValue && param.saveValue !== '')) {
       param.curValue = param.saveValue;
       param.isSave = true;
       param.isError = false;
