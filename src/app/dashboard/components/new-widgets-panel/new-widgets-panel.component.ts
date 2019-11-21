@@ -1,0 +1,176 @@
+import { Component, OnInit, Injector, ChangeDetectionStrategy } from '@angular/core';
+import { GridsterItem, GridsterConfig, GridType } from 'angular-gridster2';
+import { NewWidgetService } from '../../services/new-widget.service';
+import { Observable, Subscription } from 'rxjs';
+import {WIDGETS} from '../new-widgets-grid/widget-map';
+import { WidgetModel } from '../../models/widget.model';
+import { Widget } from '../../models/widget';
+import { tick } from '@angular/core/testing';
+
+@Component({
+  selector: 'evj-new-widgets-panel',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './new-widgets-panel.component.html',
+  styleUrls: ['./new-widgets-panel.component.scss']
+})
+export class NewWidgetsPanelComponent implements OnInit {
+
+  private subscription: Subscription;
+ 
+  public event;
+  public item;
+
+  active = false;
+
+  public readonly WIDGETS = WIDGETS;
+
+  public options:GridsterConfig;
+
+  dataW: Widget;
+
+  widgets: Widget[];
+
+  model:WidgetModel;
+
+  _injector: Injector;
+
+
+
+
+  public test = [];
+  constructor(public widgetService: NewWidgetService, public injector: Injector) {
+   // this.widgetService.getAvailableWidgets().then(x => this.widgets = x);
+    this.subscription = this.widgetService.getAvailableWidgets().subscribe(dataW => {
+      this.widgets = dataW;
+      debugger
+    console.log("12", this.widgets);
+  
+    });
+   }
+
+  ngOnInit() {
+
+ //   console.log("widg",  this.widgetService.getAvailableWidgets().then(x => this.widgets = x));
+    
+  
+    this._injector = Injector.create({
+      providers: [
+        { provide: 'isMock', useValue: true},
+        { provide: 'widgetId', useValue: "fdf9c372-06ce-11ea-98c5-d8d09033e35e"},
+    ],
+      parent: this.injector
+    });
+    
+
+    this.options = {
+      gridType: GridType.Fit,
+      displayGrid: 'none',
+      enableEmptyCellClick: false,
+      enableEmptyCellContextMenu: false,
+      enableEmptyCellDrop: true,
+      enableEmptyCellDrag: false,
+      enableOccupiedCellDrop: false,
+      emptyCellClickCallback: this.emptyCellClick.bind(this),
+      emptyCellContextMenuCallback: this.emptyCellMenuClick.bind(this),
+      emptyCellDragCallback: this.emptyCellDragClick.bind(this),
+      emptyCellDropCallback: this.emptyCellDropClick.bind(this),
+      emptyCellDragMaxCols: 5000,
+      emptyCellDragMaxRows: 1000,
+   
+      pushItems: true,
+      draggable: {
+        enabled: true
+      },
+      resizable: {
+        enabled: true
+      }
+    };
+  //  this.widgetService.emptyCellClick(this.event, this.widgetService.panelboard);
+  }
+
+  ngOnDestroy() {
+    debugger
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
+
+  onToggleClick() {
+    this.active = !this.active;
+  }
+
+  dragStartHandler(ev, item) {
+    debugger
+
+    ev.dataTransfer.setData('text/plain', item);
+   
+    ev.dataTransfer.dropEffect = 'copy';
+  
+  }
+
+  public dataById(index, item): string {
+    return item.id;
+  }
+
+  changedOptions() {
+    if (this.options.api && this.options.api.optionsChanged) {
+      this.options.api.optionsChanged();
+    }
+  }
+
+  emptyCellClick(event: MouseEvent, item: GridsterItem) {
+    console.info('empty cell click', event, item);
+  //  this.widgetService.dashboard.push(item);
+  }
+
+
+  emptyCellMenuClick(){
+   console.log('emptyCellMenuClick');
+  }
+
+  emptyCellDragClick(){
+   console.log('this.emptyCellDragClick');
+  }
+
+  emptyCellDropClick(event: DragEvent, item: GridsterItem){
+   console.log('this.emptyCellDropClick', event);
+   // this.widgetService.dashboard.push(item);
+  }
+
+  isLeavePanel(e){
+   // console.log('leave', e);
+    this.widgetService.isOver = false;
+  }
+  isOverPanel(e) {
+   console.log('over', e);
+    if(e){
+      this.widgetService.isOver = true;
+    
+      
+    this.removeItem();
+    }
+  }
+
+  public getInjector = (idWidget: string): Injector => {
+    return Injector.create({
+      providers: [
+        { provide: 'widgetId', useValue: idWidget},
+        { provide: 'isMock', useValue: true},
+      ],
+      parent: this.injector
+    });
+  }
+
+  removeItem(){
+    
+    if((this.widgetService.draggingItem) && (this.widgetService.isOver === true)){
+     this.widgetService.dashboard.splice(this.widgetService.dashboard.indexOf(this.widgetService.draggingItem), 1);
+     this.widgetService.draggingItem = null;
+     this.widgetService.isOver = false;
+     debugger
+    }
+    else{
+      this.widgetService.isOver = false;
+    }
+  } 
+}

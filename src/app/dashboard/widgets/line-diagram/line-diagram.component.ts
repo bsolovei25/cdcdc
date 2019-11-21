@@ -1,4 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Inject} from '@angular/core';
+import { NewWidgetService } from '../../services/new-widget.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: "evj-line-diagram",
@@ -6,6 +8,12 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ["./line-diagram.component.scss"]
 })
 export class LineDiagramComponent implements OnInit {
+
+  static itemCols = 15;
+  static itemRows = 7;
+
+  private subscription: Subscription;
+
   data = [
     {
       name: "Очищенный газ висбрекинга",
@@ -40,11 +48,26 @@ export class LineDiagramComponent implements OnInit {
   ];
   fillGraphs = "#3FA9F5";
 
-  @Input() public id: string;
+  name;
 
-  constructor() {}
+
+
+  constructor(
+    public widgetService: NewWidgetService,
+    @Inject('widgetId') public id: string
+  ) {
+    this.subscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
+      this.name = data.name
+    });
+  }
 
   ngOnInit() {}
+
+  ngOnDestroy(){
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
 
   drawGraph(count: number): string {
     return count.toString() + "%";

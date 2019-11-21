@@ -6,7 +6,8 @@ import {
   OnChanges, OnDestroy,
   OnInit,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
+  Inject
 } from '@angular/core';
 
 import * as d3 from 'd3-selection';
@@ -19,6 +20,7 @@ import {Mock} from 'src/app/dashboard/widgets/line-chart/mock';
 import {WidgetsService} from "../../services/widgets.service";
 import {Subscription} from "rxjs";
 import {LineChartData, LineChartOptions} from "../../models/line-chart";
+import { NewWidgetService } from '../../services/new-widget.service';
 
 @Component({
   selector: 'evj-line-chart',
@@ -27,14 +29,20 @@ import {LineChartData, LineChartOptions} from "../../models/line-chart";
 })
 export class LineChartComponent implements OnInit, OnDestroy {
 
-  @Input() id: string;
-  @Input() code: string;
-  @Input() name: string;
-  @Input() units: string;
-  @Input() options: LineChartOptions;
-  @Input() position?: string = 'default';
+
+ // options: LineChartOptions;
+ // position?: string = 'default';
+
+  code;
+  name;
+  units;
+  options;
+  position?: string = 'default';
 
   data: LineChartData;
+
+  static itemCols = 30;
+  static itemRows = 12;
 
 
   @ViewChild('chart', {static: true}) private chartContainer: ElementRef;
@@ -120,26 +128,44 @@ export class LineChartComponent implements OnInit, OnDestroy {
   };
   deviationPoints: any;
 
-  private _showMock = true;
+ // private _showMock = true;
   private subscription: Subscription;
 
-  constructor(private widgetsService: WidgetsService) {
+  private subscription2: Subscription;
+
+
+  constructor(
+    private oldWidgetsService: WidgetsService,
+    public widgetService: NewWidgetService, 
+    @Inject('isMock') public isMock: boolean,
+    @Inject('widgetId') public id: string
+    ){
+     this.subscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
+        this.code = data.code,
+        this.name = data.name,
+        this.units = data.units,
+        this.options = data.widgetOptions
+      //  this.position = data.
+      });
   }
 
   ngOnInit() {
-
+/*
     setTimeout(() => {
       this.initChart();
     }, 0);
 
 
-    if (this._showMock) {
+    if (this.isMock) {
+      debugger
       this.disableLiveData()
     } else {
       this.enableLiveData();
     }
-
+*/
+    this.showMock(this.isMock);
   }
+  
 
 
   ngOnDestroy() {
@@ -148,7 +174,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
     }
   }
 
-  @Input()
+ /* @Input()
   set showMock(show) {
     this._showMock = show;
 
@@ -158,26 +184,33 @@ export class LineChartComponent implements OnInit, OnDestroy {
       this.enableLiveData();
     }
 
-  }
+  }*/
 
+  showMock(show) {
+    if (show) {
+      this.disableLiveData();
+    } else {
+      this.enableLiveData();
+    }
+  }
 
   private enableLiveData() {
     // TODO добавить получение типа графика
 
-    this.subscription = this.widgetsService.getWidgetLiveDataFromWS(this.id, 'line-chart')
+    this.subscription2 = this.oldWidgetsService.getWidgetLiveDataFromWS(this.id, 'line-chart')
       .subscribe((ref) => {
 
           this.draw(ref);
 
-          this.subscription.unsubscribe();
+          this.subscription2.unsubscribe();
         }
       );
   }
 
   private disableLiveData() {
 
-    if (this.subscription) {
-      this.subscription.unsubscribe();
+    if (this.subscription2) {
+      this.subscription2.unsubscribe();
     }
     this.draw(Mock);
   }
@@ -344,6 +377,10 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
     this.g = this.svg.append('g').attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
 
+  }
+
+  private onChangeDispay(){
+    
   }
 
   private makeXGridLines() {

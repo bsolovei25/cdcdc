@@ -1,7 +1,9 @@
 import { Component, OnInit, ElementRef, ViewChild, ViewChildren, QueryList, Input, AfterViewInit, Injectable, Inject } from '@angular/core';
 import { element } from 'protractor';
-//import { WidgetGridsterSettings, WidgetModel } from 'src/app/dashboard/models/widget.model';
+import { WidgetGridsterSettings, WidgetModel } from 'src/app/dashboard/models/widget.model';
 import { runInDebugContext } from 'vm';
+import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
+import { Subscription } from 'rxjs';
 
 declare var d3: any;
 
@@ -13,19 +15,17 @@ declare var d3: any;
   styleUrls: ['./widgets-pie-circle.component.scss']
 })
 export class WidgetsPieCircleComponent implements AfterViewInit {
-
-  @Input() public id: string;
-
   public readonly RADIUS = 51;
 
-  code = 4;
-  @Input() name = "Отклонение в работе технологического оборудования";
-  units = "шт.";
-
+  code;
+  name;
+  units;
+  
   static itemCols = 34;
   static itemRows = 10;
 
-  isMock = true;
+  private subscription: Subscription;
+
 
   @ViewChildren('myCircle') myCircle: QueryList<any>;
 
@@ -39,23 +39,28 @@ export class WidgetsPieCircleComponent implements AfterViewInit {
     {id:6, name:"Электро - оборудование", pos:0, neg:0}
   ];
 
-
-  @Input()
-  set showMock(show) {
-    this.isMock = show;
-    if (this.showMock) {
-    } else {
-    }
-  }
-
   constructor(
-    //@Inject('isMock') public isMock: boolean
-  ) { }
+    @Inject('isMock') public isMock: boolean,
+    public widgetService: NewWidgetService,
+    @Inject('widgetId') public id: string
+  ) {
+    this.subscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
+      this.code = data.code,
+      this.name = data.name,
+      this.units = data.units
+    });
+   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit() {  
     this.datas.forEach((item, index) => {
       this.d3Circle(item, this.myCircle.toArray()[index].nativeElement);
     });
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   public dataById(index, item): number {
@@ -64,7 +69,7 @@ export class WidgetsPieCircleComponent implements AfterViewInit {
 
   private d3Circle(data, el): void {
     const summ = data.neg + data.pos;
-    const mass = [data.pos, data.neg];
+    const mass = [data.pos, data.neg]; 
     let color: any;
 
     if ((data.pos === 0) && (data.neg === 0)) {
@@ -89,7 +94,7 @@ export class WidgetsPieCircleComponent implements AfterViewInit {
     }).sort(() => null);
 
     const arcs = group.selectAll(".arc").data(pie(mass)).enter().append("g").attr("class", "arc");
-
+  
     arcs.append("path")
       .attr("d", arc)
       .attr("stroke", "black")
@@ -102,48 +107,50 @@ export class WidgetsPieCircleComponent implements AfterViewInit {
       .attr("dominant-baseline", "middle")
       .text(summ);
 
-    let text = canvas.append("text")
-      .attr("fill","white")
-      .attr("font-size", "14px")
-      .attr("x","42")
-      .attr("font-family","'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-      .attr("y","9")
-      .text(data.name);
+      let text = canvas.append("text")
+        .attr("fill","white")
+        .attr("font-size", "14px")
+        .attr("x","42")
+        .attr("font-family","'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+        .attr("y","9")
+        .text(data.name);
 
-    let positive = canvas.append("text")
+      let positive = canvas.append("text")
       .attr("font-size", "16px")
       .attr("x","170")
       .attr("y","70")
       .attr("fill", (!data.pos && !data.neg) ? 'gray' : "white")
       .text("Не критичные", data.pos);
 
-    let positive_num = canvas.append("text")
+      let positive_num = canvas.append("text")
       .attr("font-size", "16px")
       .attr("x","170")
       .attr("y","95")
       .attr("fill", (!data.pos && !data.neg) ? 'gray' : "white")
       .text(data.pos);
 
-    let negative = canvas.append("text")
+      let negative = canvas.append("text")
       .attr("font-size", "16px")
       .attr("x","170")
       .attr("y","120")
       .attr("fill", (!data.pos && !data.neg) ? 'gray' : "orange")
       .text("Критичные", data.neg);
 
-    let negative_num = canvas.append("text")
+      let negative_num = canvas.append("text")
       .attr("font-size", "16px")
       .attr("x","170")
       .attr("y","145")
       .attr("fill", (!data.pos && !data.neg) ? 'gray' : "orange")
       .text(data.neg);
 
-    let pie_back = canvas.append("image")
-      .attr("xlink:href",(!data.pos && !data.neg) ? '/assets/pic/ncir.svg' : "/assets/pic/acir.svg")
-      .attr("height", "200px")
-      .attr("width", "200px")
-      .attr("x","3")
-      .attr("y","-3");
-
+      let pie_back = canvas.append("image")
+        .attr("xlink:href",(!data.pos && !data.neg) ? '/assets/pic/ncir.svg' : "/assets/pic/acir.svg")
+        .attr("height", "200px")
+        .attr("width", "200px")
+        .attr("x","3")
+        .attr("y","-3");
+     
   }
+
+
 }
