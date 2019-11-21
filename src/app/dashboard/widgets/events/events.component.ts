@@ -1,17 +1,17 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   EventsWidgetCategory,
   EventsWidgetCategoryCode,
   EventsWidgetData,
   EventsWidgetOptions
 } from "../../models/events-widget";
-import {EventsWidgetFilter} from "../../models/events-widget";
-import {WidgetsService} from "../../services/widgets.service";
+import { EventsWidgetFilter } from "../../models/events-widget";
+import { WidgetsService } from "../../services/widgets.service";
 import {
   EventsWidgetNotification,
   EventsWidgetNotificationStatus
 } from "../../models/events-widget";
-import {Subscription} from "rxjs/index";
+import { Subscription } from "rxjs/index";
 
 @Component({
   selector: 'evj-events',
@@ -21,7 +21,7 @@ import {Subscription} from "rxjs/index";
 export class EventsComponent implements OnInit, OnDestroy {
   @Input() id;
   @Input() name = '';
-ng
+  ng
   private isMock = true;
 
   categories: EventsWidgetCategory[] = [
@@ -109,13 +109,11 @@ ng
 
   private readonly notificationsMaxCount = 5;
   private readonly defaultIconPath = './assets/icons/widgets/events/smotr.svg';
+  defaultIcons = './assets/icons/widgets/process/in-work.svg';  // TODO изменить иконки
 
   private liveSubscription: Subscription;
 
-
-  constructor(private widgetsService: WidgetsService) {
-
-  }
+  constructor(private widgetsService: WidgetsService) { }
 
   ngOnInit() {
 
@@ -156,7 +154,6 @@ ng
 
     const options = this.getCurrentOptions();
     this.notifications = this.applyFilter(this.allNotifications, options);
-
     // filtering only at front-end
     // this.widgetsService.appendWidgetLiveOptions(this.id, options);
   }
@@ -181,7 +178,9 @@ ng
     const notifications = remoteNotifications.map(n => {
       const iconUrl = this.getNotificationIcon(n.category.name);
       const statusName = this.statuses[n.status.name]; // TODO check
-      return {...n, iconUrl, statusName};
+      console.log(n);
+      
+      return { ...n, iconUrl, statusName };
     });
 
     this.allNotifications = notifications.reverse();
@@ -190,21 +189,21 @@ ng
 
   private appendFilterCounters(remoteFilters: EventsWidgetFilter[]) {
     this.filters.forEach(f => {
-        const rf = remoteFilters.find(rf => rf.code === f.code);
-        if (rf) {
-          f.notificationsCount = rf.notificationsCount;
-        }
+      const rf = remoteFilters.find(rf => rf.code === f.code);
+      if (rf) {
+        f.notificationsCount = rf.notificationsCount;
       }
+    }
     );
   }
 
   private appendCategoriesCounters(remoteCategories: EventsWidgetCategory[]) {
     this.categories.forEach(c => {
-        const rc = remoteCategories.find(rf => rf.code === c.code);
-        if (rc) {
-          c.notificationsCounts = rc.notificationsCounts;
-        }
+      const rc = remoteCategories.find(rf => rf.code === c.code);
+      if (rc) {
+        c.notificationsCounts = rc.notificationsCounts;
       }
+    }
     );
   }
 
@@ -219,11 +218,11 @@ ng
   private wsConnect() {
     this.liveSubscription = this.widgetsService.getWidgetLiveDataFromWS(this.id, 'events')
       .subscribe((ref: EventsWidgetData) => {
-          this.appendNotifications(ref.notifications);
-          this.appendFilterCounters(ref.filters);
-          this.appendCategoriesCounters(ref.categories);
-          console.log('get_ws_events');
-        }
+        this.appendNotifications(ref.notifications);
+        this.appendFilterCounters(ref.filters);
+        this.appendCategoriesCounters(ref.categories);
+        console.log('get_ws_events');
+      }
       );
   }
 
