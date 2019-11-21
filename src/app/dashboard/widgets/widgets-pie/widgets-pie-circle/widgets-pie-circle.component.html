@@ -25,10 +25,9 @@
   <ng-container *ngIf="this.isMock === true">
     <div class="content_block">
       <div class="blocks">
-        <div *ngFor="let data of datas | slice:1:2; trackBy: dataById" class="block">
-          <!--  <div class="container" [class.active]="!data.pos && !data.neg"> -->
+        <div *ngFor="let data of datas | slice:0:1; trackBy: dataById" class="block">
           <div  class="cb">
-            <div #myCircle class="item-b" [class.active]="!data.pos && !data.neg">
+            <div #myCircle class="item-b" [class.active]="!this.data.nonCritical && !this.data.critical">
             </div>
           </div>
         </div>
@@ -40,9 +39,8 @@
     <div class="content_block">
       <div class="blocks">
         <div *ngFor="let data of datas; trackBy: dataById" class="block">
-          <!--  <div class="container" [class.active]="!data.pos && !data.neg"> -->
           <div  class="cb">
-            <div #myCircle class="item-b" [class.active]="!data.pos && !data.neg">
+            <div #myCircle class="item-b" [class.active]="!data.nonCritical && !data.critical">
             </div>
           </div>
         </div>

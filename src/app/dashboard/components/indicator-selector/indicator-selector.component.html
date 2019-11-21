@@ -1,15 +1,26 @@
 <div class="indicator-selector">
   <svg-icon class="indicator-selector__icon"
-            src="./assets/icons/flask.svg"></svg-icon>
+            src="./assets/icons/screen.svg"></svg-icon>
 
   <span class="indicator-selector__name">
-        Качество сырья
+        {{ this.getActiveScreen() }}
   </span>
 
   <div class="dropdown-content">
-    <div class="dropdown-component">Экран 1</div>
-    <div class="dropdown-component">Экран 2</div>
-    <div class="dropdown-component">Экран 3</div>
+    <ng-container *ngFor="let screen of this.screens">
+      <div *ngIf="screen.isActive === false"
+           (click)="this.setActiveScreen(screen)"
+           class="dropdown-component">{{ screen.name }}</div>
+    </ng-container>
+    <div class="dropdown-component">
+      <input class="dropdown-component_input"
+             [(ngModel)]="this.tempScreen"
+             (ngModelChange)="onChangeAdder()">
+      <div class="dropdown-component_adder"
+           (click)="this.addScreen()"
+           [class.dropdown-component_adder__non-active]="!this.isReadyAdd"
+           [class.dropdown-component_adder__active]="this.isReadyAdd"></div>
+    </div>
   </div>
 
   <svg-icon class="indicator-selector__collapse"

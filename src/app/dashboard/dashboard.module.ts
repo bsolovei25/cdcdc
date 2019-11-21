@@ -18,6 +18,7 @@ import {ManualinputPageComponent} from './pages/manualinput-page/manualinput-pag
 import { LineDiagramComponent } from './widgets/line-diagram/line-diagram.component';
 import { WidgetsPieCircleComponent } from './widgets/widgets-pie/widgets-pie-circle/widgets-pie-circle.component';
 import {LineDatetimeComponent} from './components/line-datetime/line-datetime.component';
+import {UserInfoComponent} from './components/user-info/user-info.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import {LineDatetimeComponent} from './components/line-datetime/line-datetime.co
     ManualInputComponent,
     ManualinputPageComponent,
     LineDiagramComponent,
-    WidgetsPieCircleComponent
+    WidgetsPieCircleComponent,
+    UserInfoComponent
   ],
   exports: [
     HomeComponent,
