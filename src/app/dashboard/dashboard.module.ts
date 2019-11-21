@@ -21,6 +21,8 @@ import {LineDatetimeComponent} from './components/line-datetime/line-datetime.co
 import { NewWidgetsPanelComponent } from './components/new-widgets-panel/new-widgets-panel.component';
 import { NewWidgetsGridComponent } from './components/new-widgets-grid/new-widgets-grid.component';
 import { GridsterModule } from 'angular-gridster2';
+import {UserInfoComponent} from './components/user-info/user-info.component';
+
 
 @NgModule({
   declarations: [
@@ -38,7 +40,8 @@ import { GridsterModule } from 'angular-gridster2';
     LineDiagramComponent,
     WidgetsPieCircleComponent,
     NewWidgetsPanelComponent,
-    NewWidgetsGridComponent
+    NewWidgetsGridComponent,
+    UserInfoComponent
   ],
   entryComponents:[
     WidgetsPieCircleComponent,
@@ -46,7 +49,8 @@ import { GridsterModule } from 'angular-gridster2';
     EventsComponent,
     LineChartComponent,
     ManualInputComponent,
-    LineDiagramComponent
+    LineDiagramComponent,
+  //  UserInfoComponent
   ],
   exports: [
     HomeComponent,

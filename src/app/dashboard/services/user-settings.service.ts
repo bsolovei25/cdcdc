@@ -128,9 +128,9 @@ export class UserSettingsService {
     }
     cell.widget = widget;
     if (cell.widget) {
-      this.widgetsService.getWidgetLiveData(cell.widget.id).subscribe(ref => {
-        cell.data = ref;
-      });
+      // this.widgetsService.getWidgetLiveData(cell.widget.id).subscribe(ref => {
+      //   cell.data = ref;
+      // });
     } else {
       cell.data = null;
     }
