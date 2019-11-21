@@ -19,6 +19,7 @@ import { ManualinputPageComponent } from "./pages/manualinput-page/manualinput-p
 import { LineDiagramComponent } from "./widgets/line-diagram/line-diagram.component";
 import { WidgetsPieCircleComponent } from "./widgets/widgets-pie/widgets-pie-circle/widgets-pie-circle.component";
 import { LineDatetimeComponent } from "./components/line-datetime/line-datetime.component";
+import { ShiftPersonComponent } from './widgets/change-shift/shift-person/shift-person.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { LineDatetimeComponent } from "./components/line-datetime/line-datetime.
     ManualinputPageComponent,
     ChangeShiftComponent,
     LineDiagramComponent,
-    WidgetsPieCircleComponent
+    WidgetsPieCircleComponent,
+    ShiftPersonComponent,
   ],
   exports: [HomeComponent, ManualinputPageComponent],
   imports: [

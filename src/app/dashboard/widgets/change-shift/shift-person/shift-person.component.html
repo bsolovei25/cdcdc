@@ -1,0 +1,25 @@
+<div class="onShift__person" (click)="showMenu()">
+  <div class="circle circle__left circle__left-top"></div>
+  <div class="circle circle__right circle__right-top"></div>
+  <div class="person__avatar">
+    <div class="circle circle__left circle__left-bottom"></div>
+    <div class="person__img"></div>
+  </div>
+  <div class="person__info">
+    <div class="person__name">{{ person.name }}</div>
+    <div class="person__position">{{ person.position }}</div>
+    <div class="person__place">{{ person.place }}</div>
+    <div class="person__status">
+      <div class="circle circle__right circle__right-top"></div>
+      <div class="status__name">{{ person.status }}</div>
+      <div class="status__icon"></div>
+    </div>
+  </div>
+  <div class="dropdown disable" *ngIf="!person.main" #dropdown>
+    <div class="dropdown__item" (click)="menuCheck($event)">Готов</div>
+    <div class="dropdown__item" (click)="menuCheck($event)">Отсутствует</div>
+    <div class="dropdown__item" (click)="menuCheck($event)">
+      Сделать главным
+    </div>
+  </div>
+</div>
