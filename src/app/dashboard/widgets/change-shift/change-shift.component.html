@@ -139,49 +139,90 @@
     <div class="change-shift__absent">
       <div class="absent__label">Отсутствуют</div>
       <div class="absent__people scroll-bar">
-            <div class="absent__person">
-              <div class="circle circle__left circle__left-top"></div>
+        <div class="absent__person">
+          <div class="circle circle__left circle__left-top"></div>
+          <div class="circle circle__right circle__right-top"></div>
+          <div class="person__avatar">
+            <div class="circle circle__left circle__left-bottom"></div>
+            <div class="person__img"></div>
+          </div>
+          <div class="person__info">
+            <div class="person__name">Гребенщиков В.М.</div>
+            <div class="person__position">Старший оператор</div>
+            <div class="person__place">Блок очистки</div>
+            <div class="person__status">
               <div class="circle circle__right circle__right-top"></div>
-              <div class="person__avatar">
-                <div class="circle circle__left circle__left-bottom"></div>
-                <div class="person__img"></div>
-              </div>
-              <div class="person__info">
-                <div class="person__name">Гребенщиков В.М.</div>
-                <div class="person__position">Старший оператор</div>
-                <div class="person__place">Блок очистки</div>
-                <div class="person__status">
-                  <div class="circle circle__right circle__right-top"></div>
-                  <div class="status__name">Больничный</div>
-                  <div class="status__icon"></div>
-                </div>
-              </div>
-            </div>
-            <div class="absent__person">
-              <div class="circle circle__left circle__left-top"></div>
-              <div class="circle circle__right circle__right-top"></div>
-              <div class="person__avatar">
-                <div class="circle circle__left circle__left-bottom"></div>
-                <div class="person__img"></div>
-              </div>
-              <div class="person__info">
-                <div class="person__name">Гребенщиков В.М.</div>
-                <div class="person__position">Старший оператор</div>
-                <div class="person__place">Блок очистки</div>
-                <div class="person__status">
-                  <div class="circle circle__right circle__right-top"></div>
-                  <div class="status__name">Сдал смену</div>
-                  <div class="status__icon"></div>
-                </div>
-              </div>
+              <div class="status__name">Больничный</div>
+              <div class="status__icon"></div>
             </div>
           </div>
+        </div>
+        <div class="absent__person">
+          <div class="circle circle__left circle__left-top"></div>
+          <div class="circle circle__right circle__right-top"></div>
+          <div class="person__avatar">
+            <div class="circle circle__left circle__left-bottom"></div>
+            <div class="person__img"></div>
+          </div>
+          <div class="person__info">
+            <div class="person__name">Гребенщиков В.М.</div>
+            <div class="person__position">Старший оператор</div>
+            <div class="person__place">Блок очистки</div>
+            <div class="person__status">
+              <div class="circle circle__right circle__right-top"></div>
+              <div class="status__name">Сдал смену</div>
+              <div class="status__icon"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="change-shift__comment"></div>
+    <div
+      class="change-shift__comment"
+      style="height: 500px; min-height: 200px;"
+    >
+      <div class="comment__title">
+        Комментарий оператора
+      </div>
+      <div class="comment__body">
+        <div class="comment__display">
+          <div class="messages scroll-bar" #scroll>
+            <div class="message" *ngFor="let comment of comments">
+              {{ comment }}
+            </div>
+          </div>
+        </div>
+        <div class="comment__new">
+          <input
+            type="text"
+            class="comment__text"
+            placeholder="Напишите свой комментарий..."
+            (keypress)="onEnterPush($event)"
+            #input
+          />
+          <button type="submit" class="button comment__file">
+            <svg-icon
+              class="header__icon"
+              src="./assets/icons/widgets/events/letter.svg"
+            ></svg-icon>
+          </button>
+          <button
+            type="submit"
+            class="button comment__submit"
+            (click)="onSendMessage($event)"
+          >
+            <svg-icon
+              class="header__icon"
+              src="./assets/icons/widgets/events/letter.svg"
+            ></svg-icon>
+          </button>
+        </div>
+      </div>
+    </div>
     <div class="change-shift__submit">
-        <div class="submit__frame submit__frame-left"></div>
-        <div class="submit__frame submit__frame-right"></div>
-        <button type="submit">Передать смену</button>
+      <div class="submit__frame submit__frame-left"></div>
+      <div class="submit__frame submit__frame-right"></div>
+      <button type="submit">Передать смену</button>
     </div>
   </div>
 

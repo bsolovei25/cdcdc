@@ -206,6 +206,9 @@
   box-sizing: border-box;
   border-right: 0.5px dashed var(--color-border-main-transparrent);
   border-left: 0.5px dashed var(--color-border-main-transparrent);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   &__mainWorker {
     width: 100%;
@@ -216,7 +219,7 @@
     box-sizing: border-box;
     padding-top: 10px;
     position: relative;
-    height: 25%;
+    height: 150px;
     margin-bottom: 25px;
 
     .mainWorker {
@@ -618,6 +621,179 @@
             }
           }
         }
+      }
+    }
+  }
+
+  &__comment {
+    margin-top: 25px;
+    margin-bottom: 50px;
+    flex: 1;
+    .comment {
+      &__title {
+        background-color: var(--color-bg-main);
+        margin: 0 0 10px 10px;
+      }
+
+      &__body {
+        position: relative;
+        border: 0.5px solid var(--color-border-main-transparrent);
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        box-sizing: border-box;
+        padding: 0 10px;
+
+        &:after {
+          z-index: 1;
+          content: "";
+          position: absolute;
+
+          top: -4px;
+          right: -9px;
+
+          height: 10px;
+          width: 10px;
+
+          box-sizing: border-box;
+          transform-origin: 43% 0;
+          transform: rotate(45deg);
+
+          border-bottom: 0.5px solid var(--color-border-main-transparrent);
+          background: var(--color-bg-main);
+        }
+
+        &:before {
+          z-index: 1;
+          content: "";
+          position: absolute;
+
+          top: -3px;
+          left: -8px;
+
+          height: 10px;
+          width: 10px;
+
+          box-sizing: border-box;
+          transform-origin: 43% 0;
+          transform: rotate(-45deg);
+
+          border-bottom: 0.5px solid var(--color-border-main-transparrent);
+          background: var(--color-bg-main);
+        }
+      }
+
+      &__display {
+        min-height: 60px;
+        flex: 1;
+        border-bottom: 0.5px solid var(--color-border-main-transparrent);
+        margin-bottom: 5px;
+        height: 100%;
+        display: flex;
+        flex-direction: column-reverse;
+        .messages {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          overflow: scroll;
+          box-sizing: border-box;
+          padding-right: 5px;
+          margin: 5px 0;
+        }
+        .message {
+          box-sizing: border-box;
+          padding: 10px 15px;
+          color: var(--color-text-sub);
+          background: var(--color-bg-sub);
+          margin: 7px 0;
+          border-radius: 8px;
+        }
+      }
+
+      &__new {
+        display: inline-flex;
+        justify-content: space-between;
+        align-items: center;
+        box-sizing: border-box;
+        padding: 0 0 10px;
+        position: relative;
+
+        .button {
+          height: 40px;
+          width: 50px;
+          outline: none;
+          box-sizing: border-box;
+          margin: 3px;
+          border-radius: 25px;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+
+        &:after {
+          z-index: 1;
+          content: "";
+          position: absolute;
+
+          bottom: -7px;
+          right: -12px;
+
+          height: 10px;
+          width: 10px;
+
+          box-sizing: border-box;
+          transform-origin: 43% 0;
+          transform: rotate(-45deg);
+
+          border-top: 0.5px solid var(--color-border-main-transparrent);
+          background: var(--color-bg-main);
+        }
+
+        &:before {
+          z-index: 1;
+          content: "";
+          position: absolute;
+
+          bottom: -6px;
+          left: -11px;
+
+          height: 10px;
+          width: 10px;
+
+          box-sizing: border-box;
+          transform-origin: 43% 0;
+          transform: rotate(45deg);
+
+          border-top: 0.5px solid var(--color-border-main-transparrent);
+          background: var(--color-bg-main);
+        }
+      }
+
+      &__text {
+        height: 40px;
+        width: 100%;
+        background: var(--color-bg-main);
+        border: none;
+        outline: none;
+        color: var(--color-text-sub);
+        &::placeholder {
+          color: var(--color-text-sub);
+        }
+      }
+
+      &__file {
+        border: 0.5px solid var(--color-border-main);
+        background: transparent;
+      }
+
+      &__submit {
+        background: var(--color-bg-active);
+        border: none;
       }
     }
   }
