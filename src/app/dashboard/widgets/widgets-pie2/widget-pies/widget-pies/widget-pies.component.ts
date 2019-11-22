@@ -17,7 +17,7 @@ export class WidgetPiesComponent implements OnInit {
   public units = "434";
 
   public id = "4ae3a671-0792-11ea-98c7-380025fb9022";
-  public isMock = true;
+  public isMock = false;
   
   public datas = [
     {title: "Статическое Оборудование", critical: 5, nonCritical: 2},
@@ -41,6 +41,7 @@ export class WidgetPiesComponent implements OnInit {
 
 
   ngOnInit() {
+    debugger
     this.showMock(this.isMock);
   }
 
@@ -63,9 +64,12 @@ export class WidgetPiesComponent implements OnInit {
   }
 
   showMock(show) {
+   
     if (show){
+      debugger
       this.wsDisconnect();
     } else {
+      debugger
       this.wsConnect();
     }
 }
