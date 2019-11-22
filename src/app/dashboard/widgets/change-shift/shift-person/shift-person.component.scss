@@ -38,7 +38,6 @@
       justify-content: center;
       align-items: left;
       box-sizing: border-box;
-      border-bottom: 0.5px dashed var(--color-border-main-transparrent);
       position: relative;
 
       &:before {
@@ -127,6 +126,34 @@
   }
 }
 
+.isOnShift {
+  .person {
+    &__avatar {
+      border-bottom: 0.5px dashed var(--color-border-main-transparrent);
+    }
+    &__info {
+      justify-content: space-between;
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.allPeople {
+  border-bottom: 0.5px dashed var(--color-border-main-transparrent);
+  .person {
+    &__info {
+      justify-content: space-around;
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 .dropdown {
   position: absolute;
   width: 100px;
@@ -150,9 +177,9 @@
     justify-content: center;
     align-items: center;
 
-    &:hover{
-        cursor: pointer;
-        background: var(--color-bg-active);
+    &:hover {
+      cursor: pointer;
+      background: var(--color-bg-active);
     }
   }
 }

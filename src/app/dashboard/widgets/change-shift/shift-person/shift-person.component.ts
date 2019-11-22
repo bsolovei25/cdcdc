@@ -7,6 +7,7 @@ import { Component, OnInit, Input, ViewChild, ElementRef } from "@angular/core";
 })
 export class ShiftPersonComponent implements OnInit {
   @Input() person: any;
+  @Input() onShift: boolean;
 
   @ViewChild("dropdown", { static: false }) ddMenu: ElementRef;
 
@@ -32,7 +33,9 @@ export class ShiftPersonComponent implements OnInit {
       case "Сделать главным":
         break;
     }
+  }
 
-    // this.person.status = event.target.innerText;
+  addToShift(event: any) {
+    console.log(event);
   }
 }

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container pointer-event">
   <div class="header">
     <div class="header__content">
       <div class="header__icon-wrapper">
@@ -46,12 +46,14 @@
       <div class="onShift__add" (click)="showPeople($event)">+</div>
       <div class="onShift__people scroll-bar">
         <div *ngFor="let person of peopleOnShift()">
-          <evj-shift-person [person]="person"></evj-shift-person>
+          <evj-shift-person [person]="person"  [onShift]="true"></evj-shift-person>
         </div>
       </div>
       <div class="onShift__allPeople" #allPeople>
-        <div *ngFor="let person of people">
-          <evj-shift-person [person]="person"></evj-shift-person>
+        <div class="allPeople__scroll scroll-bar">
+          <div *ngFor="let person of allWorkers">
+            <evj-shift-person [person]="person" [onShift]="false"></evj-shift-person>
+          </div>
         </div>
       </div>
     </div>
@@ -103,8 +105,8 @@
           />
           <button type="submit" class="button comment__file">
             <svg-icon
-              class="header__icon"
-              src="./assets/icons/widgets/events/letter.svg"
+              class="button__icon"
+              src="./assets/icons/widgets/change-shift/add_file.svg"
             ></svg-icon>
           </button>
           <button
@@ -113,8 +115,8 @@
             (click)="onSendMessage($event)"
           >
             <svg-icon
-              class="header__icon"
-              src="./assets/icons/widgets/events/letter.svg"
+              class="button__icon"
+              src="./assets/icons/widgets/change-shift/send.svg"
             ></svg-icon>
           </button>
         </div>

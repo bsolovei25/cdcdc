@@ -19,11 +19,104 @@ export class ChangeShiftComponent implements OnInit {
       place: "Блок очистки",
       status: "Сдал смену",
       onShift: true,
+      main: false
+    },
+    {
+      id: 2,
+      name: "Сергей Сергеев",
+      position: "Старший оператор",
+      place: "Блок очистки",
+      status: "Сдал смену",
+      onShift: true,
+      main: false
+    },
+    {
+      id: 3,
+      name: "Илья Ильин",
+      position: "Старший оператор",
+      place: "Блок очистки",
+      status: "Сдал смену",
+      onShift: true,
+      main: false
+    },
+    {
+      id: 1,
+      name: "Борис Гребенщиков 123",
+      position: "Старший оператор",
+      place: "Блок очистки",
+      status: "Сдал смену",
+      onShift: true,
+      main: false
+    },
+    {
+      id: 2,
+      name: "Сергей Сергеев 123",
+      position: "Старший оператор",
+      place: "Блок очистки",
+      status: "Сдал смену",
+      onShift: true,
+      main: false
+    },
+    {
+      id: 3,
+      name: "Илья Ильин 132",
+      position: "Старший оператор",
+      place: "Блок очистки",
+      status: "Сдал смену",
+      onShift: true,
+      main: true
+    }
+  ];
+
+  allWorkers = [
+    {
+      id: 1,
+      name: "Борис Гребенщиков 1",
+      position: "Старший оператор",
+      place: "Блок очистки",
+      status: "Сдал смену",
+      onShift: true,
+      main: false
+    },
+    {
+      id: 2,
+      name: "Сергей Сергеев 1",
+      position: "Старший оператор",
+      place: "Блок очистки",
+      status: "Сдал смену",
+      onShift: true,
+      main: false
+    },
+    {
+      id: 3,
+      name: "Илья Ильин 1",
+      position: "Старший оператор",
+      place: "Блок очистки",
+      status: "Сдал смену",
+      onShift: true,
+      main: false
+    },
+    {
+      id: 4,
+      name: "Петр Петров 1",
+      position: "Оператор",
+      place: "Блок очистки",
+      status: "Сдал смену",
+      onShift: false,
+      main: false
+    },
+    {
+      id: 5,
+      name: "Иван Иванов 1",
+      position: "Оператор",
+      place: "Блок очистки",
+      status: "Сдал смену",
+      onShift: true,
       main: true
     },
     {
       id: 2,
-      name: "Сергей Сергеев",
+      name: "Сергей Сергеев 2",
       position: "Старший оператор",
       place: "Блок очистки",
       status: "Сдал смену",
@@ -32,7 +125,7 @@ export class ChangeShiftComponent implements OnInit {
     },
     {
       id: 3,
-      name: "Илья Ильин",
+      name: "Илья Ильин 2",
       position: "Старший оператор",
       place: "Блок очистки",
       status: "Сдал смену",
@@ -41,7 +134,7 @@ export class ChangeShiftComponent implements OnInit {
     },
     {
       id: 4,
-      name: "Петр Петров",
+      name: "Петр Петров 2",
       position: "Оператор",
       place: "Блок очистки",
       status: "Сдал смену",
@@ -50,7 +143,52 @@ export class ChangeShiftComponent implements OnInit {
     },
     {
       id: 5,
-      name: "Иван Иванов",
+      name: "Иван Иванов 2",
+      position: "Оператор",
+      place: "Блок очистки",
+      status: "Сдал смену",
+      onShift: true,
+      main: false
+    },
+    {
+      id: 1,
+      name: "Борис Гребенщиков 1",
+      position: "Старший оператор",
+      place: "Блок очистки",
+      status: "Сдал смену",
+      onShift: true,
+      main: true
+    },
+    {
+      id: 2,
+      name: "Сергей Сергеев 1",
+      position: "Старший оператор",
+      place: "Блок очистки",
+      status: "Сдал смену",
+      onShift: true,
+      main: false
+    },
+    {
+      id: 3,
+      name: "Илья Ильин 1",
+      position: "Старший оператор",
+      place: "Блок очистки",
+      status: "Сдал смену",
+      onShift: true,
+      main: false
+    },
+    {
+      id: 4,
+      name: "Петр Петров 1",
+      position: "Оператор",
+      place: "Блок очистки",
+      status: "Сдал смену",
+      onShift: false,
+      main: false
+    },
+    {
+      id: 5,
+      name: "Иван Иванов 1",
       position: "Оператор",
       place: "Блок очистки",
       status: "Сдал смену",
@@ -59,7 +197,7 @@ export class ChangeShiftComponent implements OnInit {
     },
     {
       id: 2,
-      name: "Сергей Сергеев",
+      name: "Сергей Сергеев 2",
       position: "Старший оператор",
       place: "Блок очистки",
       status: "Сдал смену",
@@ -68,7 +206,7 @@ export class ChangeShiftComponent implements OnInit {
     },
     {
       id: 3,
-      name: "Илья Ильин",
+      name: "Илья Ильин 2",
       position: "Старший оператор",
       place: "Блок очистки",
       status: "Сдал смену",
@@ -77,7 +215,7 @@ export class ChangeShiftComponent implements OnInit {
     },
     {
       id: 4,
-      name: "Петр Петров",
+      name: "Петр Петров 2",
       position: "Оператор",
       place: "Блок очистки",
       status: "Сдал смену",
@@ -86,7 +224,7 @@ export class ChangeShiftComponent implements OnInit {
     },
     {
       id: 5,
-      name: "Иван Иванов",
+      name: "Иван Иванов 2",
       position: "Оператор",
       place: "Блок очистки",
       status: "Сдал смену",
@@ -154,5 +292,31 @@ export class ChangeShiftComponent implements OnInit {
       classes.add("onShift__add-active");
       this.allPeople.nativeElement.classList.add("onShift__allPeople-active");
     }
+  }
+
+  addPeopleToShift() {
+    //
+  }
+
+  findMainAndSort() {
+    let sortedArray = [];
+    const indexOfMain = this.people.findIndex(item => item.main);
+
+    if (indexOfMain !== 0 && indexOfMain !== this.people.length - 1) {
+      sortedArray = this.people
+        .slice(indexOfMain, indexOfMain + 1)
+        .concat(
+          this.people.slice(0, indexOfMain),
+          this.people.slice(indexOfMain + 1, this.people.length)
+        );
+    } else if (indexOfMain === this.people.length - 1) {
+      sortedArray = this.people
+        .slice(indexOfMain, indexOfMain + 1)
+        .concat(this.people.slice(0, indexOfMain));
+    } else {
+      sortedArray = this.people.map(item => item);
+    }
+
+    return sortedArray;
   }
 }
