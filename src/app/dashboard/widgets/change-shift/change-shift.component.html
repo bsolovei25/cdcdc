@@ -113,7 +113,7 @@
           <div class="comment__new">
             <input
               type="text"
-              class="comment__text"
+              class="comment__text gridster-item-content"
               placeholder="Напишите свой комментарий..."
               (keypress)="onEnterPush($event)"
               #input
@@ -126,7 +126,7 @@
             </button>
             <button
               type="submit"
-              class="button comment__submit"
+              class="button comment__submit  pointer-event"
               (click)="onSendMessage($event)"
             >
               <svg-icon
