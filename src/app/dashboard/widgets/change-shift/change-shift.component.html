@@ -1,0 +1,136 @@
+<div class="container pointer-event">
+  <div class="header">
+    <div class="header__content">
+      <div class="header__icon-wrapper">
+        <svg-icon
+          class="header__icon"
+          src="./assets/icons/widgets/events/letter.svg"
+        ></svg-icon>
+      </div>
+      <span class="header__name">
+        Бригада передающая смену
+      </span>
+    </div>
+  </div>
+
+  <div class="frame frame_top">
+    <div class="frame__circle frame__circle__left"></div>
+    <div class="frame__circle frame__circle__right"></div>
+  </div>
+
+  <div class="change-shift">
+    <div class="change-shift__mainWorker">
+      <div class="circle circle__left circle__left-top"></div>
+      <div class="circle circle__right circle__right-top"></div>
+      <div class="mainWorker__avatar">
+        <div class="mainWorker__img"></div>
+        <div class="circle circle__left circle__left-bottom"></div>
+      </div>
+      <div class="mainWorker__info">
+        <div class="mainWorker__row">
+          <div class="mainWorker__row_colInfo">
+            <div class="mainWorker__name">{{ getMain().name }}</div>
+            <div class="mainWorker__position">{{ getMain().position }}</div>
+          </div>
+          <div class="mainWorker__row_colIcon"></div>
+        </div>
+        <div class="mainWorker__row">
+          <div class="circle circle__right circle__right-top"></div>
+          <div class="mainWorker__squad">Бригада</div>
+          <div class="mainWorker__number">3</div>
+        </div>
+      </div>
+    </div>
+    <div class="change-shift__onShift">
+      <div class="onShift__label">На смене</div>
+      <div class="onShift__add" (click)="showPeople($event)">+</div>
+      <div class="onShift__people scroll-bar">
+        <div *ngFor="let person of peopleOnShift()">
+          <evj-shift-person [person]="person"  [onShift]="true"></evj-shift-person>
+        </div>
+      </div>
+      <div class="onShift__allPeople" #allPeople>
+        <div class="allPeople__scroll scroll-bar">
+          <div *ngFor="let person of allWorkers">
+            <evj-shift-person [person]="person" [onShift]="false"></evj-shift-person>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="change-shift__absent">
+      <div class="absent__label">Отсутствуют</div>
+      <div class="absent__people scroll-bar">
+        <div class="absent__person" *ngFor="let person of peopleAbsent()">
+          <div class="circle circle__left circle__left-top"></div>
+          <div class="circle circle__right circle__right-top"></div>
+          <div class="person__avatar">
+            <div class="circle circle__left circle__left-bottom"></div>
+            <div class="person__img"></div>
+          </div>
+          <div class="person__info">
+            <div class="person__name">{{ person.name }}</div>
+            <div class="person__position">{{ person.position }}</div>
+            <div class="person__place">{{ person.place }}</div>
+            <div class="person__status">
+              <div class="circle circle__right circle__right-top"></div>
+              <div class="status__name">{{ person.status }}</div>
+              <div class="status__icon"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="change-shift__comment"
+      style="height: 500px; min-height: 200px;"
+    >
+      <div class="comment__title">
+        Комментарий оператора
+      </div>
+      <div class="comment__body">
+        <div class="comment__display">
+          <div class="messages scroll-bar" #scroll>
+            <div class="message" *ngFor="let comment of comments">
+              {{ comment }}
+            </div>
+          </div>
+        </div>
+        <div class="comment__new">
+          <input
+            type="text"
+            class="comment__text"
+            placeholder="Напишите свой комментарий..."
+            (keypress)="onEnterPush($event)"
+            #input
+          />
+          <button type="submit" class="button comment__file">
+            <svg-icon
+              class="button__icon"
+              src="./assets/icons/widgets/change-shift/add_file.svg"
+            ></svg-icon>
+          </button>
+          <button
+            type="submit"
+            class="button comment__submit"
+            (click)="onSendMessage($event)"
+          >
+            <svg-icon
+              class="button__icon"
+              src="./assets/icons/widgets/change-shift/send.svg"
+            ></svg-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="change-shift__submit">
+      <div class="submit__frame submit__frame-left"></div>
+      <div class="submit__frame submit__frame-right"></div>
+      <button type="submit">Передать смену</button>
+    </div>
+  </div>
+
+  <div class="frame frame_bottom">
+    <div class="frame__circle frame__circle__left"></div>
+    <div class="frame__circle frame__circle__right"></div>
+  </div>
+</div>

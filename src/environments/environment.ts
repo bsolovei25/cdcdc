@@ -4,6 +4,8 @@
 
 export const environment = {
     production: false,
+    // wsUrl: '',
+    // restUrl: ''
     wsUrl: 'ws://deploy.funcoff.club:5555',
     restUrl: 'http://deploy.funcoff.club:5555'
   };

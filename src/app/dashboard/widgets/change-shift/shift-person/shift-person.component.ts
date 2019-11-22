@@ -1,0 +1,41 @@
+import { Component, OnInit, Input, ViewChild, ElementRef } from "@angular/core";
+
+@Component({
+  selector: "evj-shift-person",
+  templateUrl: "./shift-person.component.html",
+  styleUrls: ["./shift-person.component.scss"]
+})
+export class ShiftPersonComponent implements OnInit {
+  @Input() person: any;
+  @Input() onShift: boolean;
+
+  @ViewChild("dropdown", { static: false }) ddMenu: ElementRef;
+
+  constructor() {}
+
+  ngOnInit() {}
+
+  showMenu() {
+    const classes: DOMTokenList = this.ddMenu.nativeElement.classList;
+    if (classes.contains("disable")) {
+      classes.remove("disable");
+    } else {
+      classes.add("disable");
+    }
+  }
+
+  menuCheck(event: any) {
+    switch (event.target.innerText) {
+      case "Готов":
+        break;
+      case "Отсутствует":
+        break;
+      case "Сделать главным":
+        break;
+    }
+  }
+
+  addToShift(event: any) {
+    console.log(event);
+  }
+}
