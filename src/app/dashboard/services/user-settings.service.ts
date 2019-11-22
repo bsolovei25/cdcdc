@@ -1,10 +1,10 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {environment} from '../../../environments/environment';
 import {Observable} from 'rxjs';
 import {WidgetsService} from './widgets.service';
 import {Machine_MI, MI_DataGet, MI_DataSend, MI_ParamSend} from '../models/manual-input.model';
 import {UserGrid, UserSettings} from '../models/user-settings.model';
+import {AppConfigService} from 'src/app/services/appConfigService';
 
 @Injectable({providedIn: 'root'})
 export class UserSettingsService {
@@ -83,8 +83,8 @@ export class UserSettingsService {
 
   public availableWidgets;
 
-  constructor(private http: HttpClient, private widgetsService: WidgetsService) {
-    this.restUrl = environment.restUrl;
+  constructor(private http: HttpClient, private widgetsService: WidgetsService, configService: AppConfigService) {
+    this.restUrl = configService.restUrl;
     this.getUserData();
   }
 
