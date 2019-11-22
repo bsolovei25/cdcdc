@@ -262,6 +262,7 @@
 }
 
 .button {
+  pointer-events: fill !important;
   z-index: 1;
   cursor: pointer;
   border: none;
