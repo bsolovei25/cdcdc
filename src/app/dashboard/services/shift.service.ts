@@ -10,19 +10,46 @@ export class ShiftService {
 
   public shiftPass: ShiftPass;
 
-  private restUrl: string = 'http://192.168.0.4:5888';
+  private restUrl: string;
 
   constructor(private http: HttpClient) {
-
+    this.restUrl = environment.restUrl;
   }
 
   private async getShiftPassAsync(): Promise<any>  {
-    return this.http.get(this.restUrl + '/api/Shift').toPromise();
+    return this.http.get(this.restUrl + '/api/shift').toPromise();
+  }
+
+  private async changePositionAsync(position, id): Promise<any>  {
+    switch (position) {
+      case '':
+        return this.http.post(this.restUrl + '/api/Employees/' + id.toString() + '/ChangePosition/Responsible', null).toPromise();
+      case '':
+        return this.http.post(this.restUrl + '/api/Employees/' + id.toString() + '/ChangePosition/Responsible', null).toPromise();
+    }
+  }
+
+  private async changeStatusAsync(status, id): Promise<any>  {
+    switch (status) {
+      case '':
+        return this.http.post(this.restUrl + '/api/Employees/' + id.toString() + '/ChangePosition/Responsible', null).toPromise();
+      case '':
+        return this.http.post(this.restUrl + '/api/Employees/' + id.toString() + '/ChangePosition/Responsible', null).toPromise();
+      case '':
+        return this.http.post(this.restUrl + '/api/Employees/' + id.toString() + '/ChangePosition/Responsible', null).toPromise();
+      case '':
+        return this.http.post(this.restUrl + '/api/Employees/' + id.toString() + '/ChangePosition/Responsible', null).toPromise();
+    }
   }
 
 
   public async getShiftPass() {
     this.shiftPass = await this.getShiftPassAsync();
     console.log(this.shiftPass);
+  }
+
+  public async changePosition(position, id) {
+    await this.changePositionAsync(position, id);
+    this.getShiftPass();
   }
 }
