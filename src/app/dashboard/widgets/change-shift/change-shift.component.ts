@@ -25,7 +25,7 @@ export class ChangeShiftComponent implements OnInit {
   @ViewChild("scroll", { static: false }) scroll: ElementRef;
   @ViewChild("allPeople", { static: false }) allPeople: ElementRef;
 
-  comments: string[] = ["qwerewqrewr", "weqrqweqr", "xcvxvcv"];
+  comments: string[] = [];
   people = [
     {
       id: 1,

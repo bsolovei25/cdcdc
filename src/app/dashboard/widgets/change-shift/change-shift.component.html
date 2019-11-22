@@ -118,7 +118,10 @@
               (keypress)="onEnterPush($event)"
               #input
             />
-            <button type="submit" class="button comment__file">
+            <button
+              type="submit"
+              class="button comment__file   gridster-item-content"
+            >
               <svg-icon
                 class="button__icon"
                 src="./assets/icons/widgets/change-shift/add_file.svg"
@@ -126,7 +129,7 @@
             </button>
             <button
               type="submit"
-              class="button comment__submit  pointer-event"
+              class="button comment__submit  gridster-item-content"
               (click)="onSendMessage($event)"
             >
               <svg-icon
@@ -137,10 +140,16 @@
           </div>
         </div>
       </div>
-      <div class="change-shift__submit">
+      <div class="change-shift__submit" *ngIf="aboutWidget.title">
         <div class="submit__frame submit__frame-left"></div>
         <div class="submit__frame submit__frame-right"></div>
-        <button type="submit">Передать смену</button>
+        <button type="submit gridster-item-content">
+          {{
+            aboutWidget.title === "Бригада, передающая смену"
+              ? "Передать смену"
+              : "Принять смену"
+          }}
+        </button>
       </div>
     </div>
   </ng-container>
