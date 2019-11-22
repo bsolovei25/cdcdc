@@ -13,5 +13,5 @@ export const WIDGETS = {
     "manual-input": ManualInputComponent,
     "events": EventsComponent,
     "shift-pass": ChangeShiftComponent,
-    "shift-access": ChangeShiftComponent
+    "shift-accept": ChangeShiftComponent
 }
