@@ -1,58 +1,40 @@
-<div style="height: 100%; width: 100%; position: relative">
+<div style="height: 100%; width: 100%;" >
   <div class="chart-header">
-    <div class="chart-header__content">
-      <div class="chart-header__code">
-                                <span>
-                                        {{code}}
-                                </span>
-      </div>
-      <span class="chart-header__name">
-                                        {{name}}
-                                </span>
-      <span class="chart-header__units">
-                                        {{units}}
-                                </span>
-    </div>
+          <div class="chart-header__content">
+                  <div class="chart-header__code">
+                          <span>
+                                  {{code}}
+                          </span>
+                  </div>
+                          <span class="chart-header__name">
+                                  {{title}}
+                          </span>
+                          <span class="chart-header__units">
+                                  {{units}}
+                          </span>
+          </div>
   </div>
   <div class="frame frame_top">
-    <div class="frame__circle frame__circle__left"></div>
-    <div class="frame__circle frame__circle__right"></div>
+                  <div class="frame__circle frame__circle__left"></div>
+                  <div class="frame__circle frame__circle__right"></div>
   </div>
-
-
-
-
-  <ng-container *ngIf="this.isMock === true">
-    <div class="content_block">
-      <div class="blocks">
-        <div *ngFor="let data of datas | slice:1:2; trackBy: dataById" class="block">
-          <!--  <div class="container" [class.active]="!data.pos && !data.neg"> -->
-          <div  class="cb">
-            <div #myCircle class="item-b" [class.active]="!data.pos && !data.neg">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </ng-container>
-
-  <ng-container *ngIf="this.isMock === false">
-    <div class="content_block">
-      <div class="blocks">
-        <div *ngFor="let data of datas; trackBy: dataById" class="block">
-          <!--  <div class="container" [class.active]="!data.pos && !data.neg"> -->
-          <div  class="cb">
-            <div #myCircle class="item-b" [class.active]="!data.pos && !data.neg">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  
+  <ng-container>
+                <div class="content_block">
+                        <div class="blocks">
+                                <div *ngFor="let data of (isMock ? (datas  | slice:0:1 ) : datas); trackBy: dataById" class="block" >
+                                        <div  class="cb">
+                                                <div #myCircle class="item-b" [class.active]="!data.pos && !data.neg">
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
   </ng-container>
 
 
   <div class="frame frame_bottom">
-    <div class="frame__circle frame__circle__left"></div>
-    <div class="frame__circle frame__circle__right"></div>
+                  <div class="frame__circle frame__circle__left"></div>
+                  <div class="frame__circle frame__circle__right"></div>
   </div>
 </div>

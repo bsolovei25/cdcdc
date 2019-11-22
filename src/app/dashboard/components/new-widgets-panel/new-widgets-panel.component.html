@@ -1,0 +1,20 @@
+<div class="widgets-panel" [class.widgets-panel_active]="active" (mouseover)="isOverPanel($event)" (mouseleave)="isLeavePanel($event)">
+    <div class="widgets-panel__toggle"
+         (click)="onToggleClick()">
+     <svg-icon class="widgets-panel__icon"
+                src="./assets/icons/settings.svg" [svgStyle]="{ 'width.px':20, 'height.px':20 }"></svg-icon>
+    </div>
+  
+    <h4 class="widgets-panel__heading">
+      Доступные виджеты
+    </h4>
+          <div class="widgets-panel__list scroll-bar">
+            <div class="options-header">
+                <div *ngFor="let item of widgets; trackBy: dataById" draggable="true" (dragstart)="dragStartHandler($event, item.id)" class="widget">
+                        <ng-container *ngComponentOutlet="WIDGETS[item.widgetType]; injector: (item.id | fn:getInjector);" >
+                        </ng-container>
+                </div>
+              </div>
+            </div>
+    
+  </div>

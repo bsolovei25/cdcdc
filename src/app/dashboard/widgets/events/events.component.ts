@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, Inject} from '@angular/core';
 import {
   EventsWidgetCategory,
   EventsWidgetCategoryCode,
@@ -11,7 +11,8 @@ import {
   EventsWidgetNotification,
   EventsWidgetNotificationStatus
 } from "../../models/events-widget";
-import { Subscription } from "rxjs/index";
+import {Subscription} from "rxjs/index";
+import { NewWidgetService } from '../../services/new-widget.service';
 
 @Component({
   selector: 'evj-events',
@@ -19,11 +20,14 @@ import { Subscription } from "rxjs/index";
   styleUrls: ['./events.component.scss']
 })
 export class EventsComponent implements OnInit, OnDestroy {
-  @Input() id;
   @Input() name = '';
   ng
-  private isMock = true;
   isList = true;
+  
+  title;
+
+  static itemCols = 30;
+  static itemRows = 20;
 
   categories: EventsWidgetCategory[] = [
     {
@@ -128,10 +132,20 @@ export class EventsComponent implements OnInit, OnDestroy {
 
   private liveSubscription: Subscription;
 
-  constructor(private widgetsService: WidgetsService) { }
+
+  constructor(
+    private oldWidgetsService: WidgetsService,   
+    @Inject('isMock') public isMock: boolean,
+    public widgetService: NewWidgetService,
+    @Inject('widgetId') public id: string
+    ){
+      this.liveSubscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
+        this.title = data.title
+      });
+  }
 
   ngOnInit() {
-
+    this.showMock(this.isMock);
   }
 
   ngOnDestroy() {
@@ -253,7 +267,7 @@ export class EventsComponent implements OnInit, OnDestroy {
   }
 
   private wsConnect() {
-    this.liveSubscription = this.widgetsService.getWidgetLiveDataFromWS(this.id, 'events')
+    this.liveSubscription = this.oldWidgetsService.getWidgetLiveDataFromWS(this.id, 'events')
       .subscribe((ref: EventsWidgetData) => {
         this.appendNotifications(ref.notifications);
         // this.appendFilterCounters(ref.filters);
@@ -263,7 +277,7 @@ export class EventsComponent implements OnInit, OnDestroy {
       );
   }
 
-  @Input()
+  /*@Input()
   set showMock(show) {
     this.isMock = show;
     if (this.isMock) {
@@ -272,5 +286,12 @@ export class EventsComponent implements OnInit, OnDestroy {
       this.wsConnect();
     }
   }
-
+  */
+  showMock(show) {
+    if (this.isMock) {
+      // do nothing
+    } else {
+      this.wsConnect();
+    }
+  }
 }

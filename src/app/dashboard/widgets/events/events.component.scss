@@ -681,6 +681,7 @@
 }
 
 .controls {
+  pointer-events: fill !important;
   position: relative;
   box-sizing: border-box;
   height: calc(var(--categories-min-height) + var(--filters-min-height));

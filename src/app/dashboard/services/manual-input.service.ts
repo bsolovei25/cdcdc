@@ -1,13 +1,13 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Machine_MI, MI_DataGet, MI_DataSend, MI_ParamSend, Param_MI} from '../models/manual-input.model';
-import {environment} from '../../../environments/environment';
+import {AppConfigService} from 'src/app/services/appConfigService';
 
 @Injectable({providedIn: 'root'})
 export class ManualInputService {
 
-  constructor(private http: HttpClient) {
-    this.restUrl = environment.restUrl;
+  constructor(private http: HttpClient, configService: AppConfigService) {
+    this.restUrl = configService.restUrl;
   }
 
   private restUrl: string;

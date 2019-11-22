@@ -8,7 +8,7 @@
         ></svg-icon>
       </div>
       <span class="header__name">
-        Продукты
+        {{title}}
       </span>
       <span class="header__units">{{data[0].units}}</span>
     </div>
@@ -26,7 +26,7 @@
           <tbody>
             <tr class="line-diagram__item" *ngFor="let item of data">
               <td class="item__name">{{ item.name }}</td>
-              <td class="item__count">{{ item.count }}{{ item.units }}</td>
+              <td class="item__count">{{ item.curValue }}</td>
               <td class="item__graph">
                 <svg width="100%" height="4">
                   <rect
@@ -39,7 +39,7 @@
                     [attr.fill]="fillGraph(item.critical)"
                   />
                 </svg>
-                <div class="item__max-graph">100%</div>
+                <div class="item__max-graph">{{ item.planValue }}</div>
               </td>
             </tr>
           </tbody>
