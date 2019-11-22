@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {ShiftService} from "../../services/shift.service";
 
 @Component({
   selector: 'evj-home',
@@ -7,10 +8,12 @@ import {Component, OnInit} from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() {
+  constructor(shiftService: ShiftService) {
+    shiftService.test();
   }
 
   ngOnInit() {
+
   }
 
 }
