@@ -44,12 +44,14 @@ export class LineDiagramComponent implements OnInit {
     @Inject('isMock') public isMock: boolean,
     @Inject('widgetId') public id: string
   ) {
-    this.subscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
-      this.title = data.title
+      this.subscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
+        this.title = data.title;
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.showMock(this.isMock);
+  }
 
   ngOnDestroy(){
     if (this.subscription) {
@@ -67,11 +69,8 @@ export class LineDiagramComponent implements OnInit {
     return flag ? criticalFill : normalFill;
   }
 
-  @Input()
-  set showMock(show) {
-    this.isMock = show;
-
-    if (this.isMock) {
+   showMock(show) {
+    if (show) {
       this.wsDisconnect();
     } else {
       this.wsConnect();
