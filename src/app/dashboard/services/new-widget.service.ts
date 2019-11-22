@@ -50,7 +50,7 @@ export class NewWidgetService {
 
     
     // TODO check
-    return this.http.get('http://192.168.0.4:5555/af/GetAvailableWidgets').pipe(
+    return this.http.get(this.restUrl + '/af/GetAvailableWidgets').pipe(
       map(data => {
         const _data = this.mapData(data);
         this.mass = this.mapData(data);
