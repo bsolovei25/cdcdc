@@ -21,3 +21,9 @@ export interface Widgets{
   widgetOptions: LineChartOptions;
   widgetType: string;
 }  
+
+export interface PieWidget{
+  name: string;
+  critical: number;
+  nonCritical: number;
+}
