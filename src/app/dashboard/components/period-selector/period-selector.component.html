@@ -1,28 +1,45 @@
 <div class="period-selector">
 
   <div class="type-selector">
-    <div class="type type_active">
+    <div class="type"
+         [class.type_active]="isCurrent"
+         (click)="isCurrentChange(true)">
       <span class="type__name">Сутки</span>
     </div>
-    <div class="type">
+    <div class="type"
+         [class.type_active]="!isCurrent"
+         (click)="isCurrentChange(false)">
       <span class="type__name">Период</span>
     </div>
   </div>
 
-  <div class="dates-selector">
+  <div class="dates-selector"
+          [class.dates-selector_active]="!isCurrent">
 
     <div class="dates-selector__body">
-      <span class="dates-selector__heading">
-      Период планирования
-      </span>
+
       <div class="dates-selector__dates">
-        <span class="dates-selector__date">
-          01.08.2019
-        </span>
-        <svg-icon class="dates-selector__separator" src="./assets/icons/separator.svg"></svg-icon>
-        <span class="dates-selector__date">
-          31.08.2019
-        </span>
+        <span class="dates-selector__label">c</span>
+        <input type="datetime-local"
+               class="dates-selector__date-input"
+               [class.dates-selector__date-input___disabled]="isCurrent"
+               [ngModel]="fromDate | date:'yyyy-MM-ddTHH:mm'"
+               (ngModelChange)="setDefaultTime($event, 0)">
+      </div>
+
+      <div class="dates-selector__dates">
+<!--        <input type="date"-->
+<!--               class="dates-selector__date-input"-->
+<!--               [class.dates-selector__date-input___disabled]="isCurrent"-->
+<!--               [ngModel]="fromDate | date:'yyyy-MM-dd'"-->
+<!--               (ngModelChange)="toDate = $event">-->
+<!--        <svg-icon class="dates-selector__separator" src="./assets/icons/separator.svg"></svg-icon>-->
+        <span class="dates-selector__label">по</span>
+        <input type="datetime-local"
+               class="dates-selector__date-input"
+               [class.dates-selector__date-input___disabled]="isCurrent"
+               [ngModel]="toDate | date:'yyyy-MM-ddTHH:mm'"
+               (ngModelChange)="setDefaultTime($event, 1)">
       </div>
     </div>
 

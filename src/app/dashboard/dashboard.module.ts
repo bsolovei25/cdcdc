@@ -20,6 +20,14 @@ import { LineDiagramComponent } from "./widgets/line-diagram/line-diagram.compon
 import { WidgetsPieCircleComponent } from "./widgets/widgets-pie/widgets-pie-circle/widgets-pie-circle.component";
 import { LineDatetimeComponent } from "./components/line-datetime/line-datetime.component";
 import { ShiftPersonComponent } from './widgets/change-shift/shift-person/shift-person.component';
+import { NewWidgetsPanelComponent } from './components/new-widgets-panel/new-widgets-panel.component';
+import { NewWidgetsGridComponent } from './components/new-widgets-grid/new-widgets-grid.component';
+import { GridsterModule } from 'angular-gridster2';
+import {UserInfoComponent} from './components/user-info/user-info.component';
+import { WidgetPiesComponent } from './widgets/widgets-pie2/widget-pies/widget-pies/widget-pies.component';
+import { WidgetsPieComponent } from './widgets/widgets-pie2/widget-pie-circle/widget-pie/widget-pie.component';
+
+
 
 @NgModule({
   declarations: [
@@ -38,6 +46,24 @@ import { ShiftPersonComponent } from './widgets/change-shift/shift-person/shift-
     LineDiagramComponent,
     WidgetsPieCircleComponent,
     ShiftPersonComponent,
+    NewWidgetsPanelComponent,
+    NewWidgetsGridComponent,
+    UserInfoComponent,
+    WidgetPiesComponent,
+    WidgetsPieComponent
+  ],
+  entryComponents:[
+    WidgetsPieCircleComponent,
+    LineChartComponent,
+    EventsComponent,
+    LineChartComponent,
+    ManualInputComponent,
+    LineDiagramComponent,
+  //  UserInfoComponent
+  ],
+  exports: [
+    HomeComponent,
+    ManualinputPageComponent
   ],
   exports: [HomeComponent, ManualinputPageComponent],
   imports: [
@@ -46,7 +72,8 @@ import { ShiftPersonComponent } from './widgets/change-shift/shift-person/shift-
     AngularSvgIconModule,
     DndModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    GridsterModule
   ],
   bootstrap: []
 })
