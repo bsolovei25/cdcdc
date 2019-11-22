@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {ShiftPass} from '../models/shift.model';
 import {environment} from '../../../environments/environment';
 import {HttpClient} from "@angular/common/http";
+import {AppConfigService} from "../../services/appConfigService";
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,8 @@ export class ShiftService {
 
   private restUrl: string;
 
-  constructor(private http: HttpClient) {
-    this.restUrl = environment.restUrl;
+  constructor(private http: HttpClient, configService: AppConfigService) {
+    this.restUrl = configService.restUrl;
   }
 
   private async getShiftPassAsync(): Promise<any>  {
