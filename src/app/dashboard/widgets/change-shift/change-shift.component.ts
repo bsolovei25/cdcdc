@@ -271,7 +271,7 @@ export class ChangeShiftComponent implements OnInit {
       this.passingShift = this.shiftService.shiftPass.passingShift;
       this.currentShift = this.shiftService.shiftPass.acceptingShift;
       const index = this.currentShift.shiftMembers.findIndex(
-        item => item.employee.position === "Common"
+        item => item.employee.position === "Responsible"
       );
       this.currentShift.shiftMembers[index].employee.main = true;
     }
