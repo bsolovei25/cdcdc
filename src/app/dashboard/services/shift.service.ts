@@ -20,36 +20,30 @@ export class ShiftService {
     return this.http.get(this.restUrl + '/api/shift').toPromise();
   }
 
-  private async changePositionAsync(position, id): Promise<any>  {
-    switch (position) {
-      case '':
-        return this.http.post(this.restUrl + '/api/Employees/' + id.toString() + '/ChangePosition/Responsible', null).toPromise();
-      case '':
-        return this.http.post(this.restUrl + '/api/Employees/' + id.toString() + '/ChangePosition/Responsible', null).toPromise();
-    }
+  private async changePositionAsync(id): Promise<any>  {
+    return this.http.post(this.restUrl + '/api/Employees' + id.toString() + '/setResponsible', null).toPromise();
   }
 
-  private async changeStatusAsync(status, id): Promise<any>  {
+  private async changeStatusAsync(status, id, idShift): Promise<any>  {
     switch (status) {
       case '':
-        return this.http.post(this.restUrl + '/api/Employees/' + id.toString() + '/ChangePosition/Responsible', null).toPromise();
+        return this.http.post(this.restUrl + 'api/shift' + idShift + '/Employee' + id + '/ChangeStatus/InProgress', null).toPromise();
       case '':
-        return this.http.post(this.restUrl + '/api/Employees/' + id.toString() + '/ChangePosition/Responsible', null).toPromise();
+        return this.http.post(this.restUrl + 'api/shift' + idShift + '/Employee' + id + '/ChangeStatus/Accepted', null).toPromise();
       case '':
-        return this.http.post(this.restUrl + '/api/Employees/' + id.toString() + '/ChangePosition/Responsible', null).toPromise();
+        return this.http.post(this.restUrl + 'api/shift' + idShift + '/Employee' + id + '/ChangeStatus/Passed', null).toPromise();
       case '':
-        return this.http.post(this.restUrl + '/api/Employees/' + id.toString() + '/ChangePosition/Responsible', null).toPromise();
+        return this.http.post(this.restUrl + 'api/shift' + idShift + '/Employee' + id + '/ChangeStatus/Absent', null).toPromise();
     }
   }
-
 
   public async getShiftPass() {
     this.shiftPass = await this.getShiftPassAsync();
     console.log(this.shiftPass);
   }
 
-  public async changePosition(position, id) {
-    await this.changePositionAsync(position, id);
+  public async changePosition(id) {
+    await this.changePositionAsync(id);
     this.getShiftPass();
   }
 }
