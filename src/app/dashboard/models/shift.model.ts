@@ -9,6 +9,7 @@ export interface Employee {
   lastName: string;
   brigade: Brigade;
   position: string;
+  main?: boolean;
 }
 
 export interface ShiftMember {
@@ -27,4 +28,3 @@ export interface ShiftPass {
   passingShift: Shift;
   acceptingShift: Shift;
 }
-

@@ -6,6 +6,9 @@ import {
   Inject
 } from "@angular/core";
 import { ShiftService } from "../../services/shift.service";
+import { Subscription } from "rxjs";
+import { NewWidgetService } from "../../services/new-widget.service";
+import { ShiftPass, Shift } from "../../models/shift.model";
 
 @Component({
   selector: "evj-change-shift",
@@ -240,13 +243,36 @@ export class ChangeShiftComponent implements OnInit {
     }
   ];
 
+  title: string;
+  id: number;
+  acceptingShift: Shift;
+  passingShift: Shift;
+  currentShift: Shift;
+
+  subscription: Subscription;
+
   static itemCols = 25;
   static itemRows = 45;
 
   constructor(
+    private widgetService: NewWidgetService,
     private shiftService: ShiftService,
     @Inject("isMock") public isMock: boolean
-  ) {}
+  ) {
+    this.id = this.shiftService.shiftPass.id;
+    this.acceptingShift = this.shiftService.shiftPass.acceptingShift;
+    this.passingShift = this.shiftService.shiftPass.passingShift;
+    this.currentShift = this.shiftService.shiftPass.acceptingShift;
+    this.currentShift.shiftMembers
+    console.log("shift: ", this.acceptingShift);
+    console.log("shift: ", this.passingShift);
+    // this.subscription = this.widgetService
+    //   .getWidgetChannel(this.id)
+    //   .subscribe(data => {
+    //     console.log("title ", data);
+
+    //   });
+  }
 
   ngOnInit() {}
 
