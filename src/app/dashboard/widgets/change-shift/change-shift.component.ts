@@ -269,21 +269,20 @@ export class ChangeShiftComponent implements OnInit {
       this.id = this.shiftService.shiftPass.id;
       this.acceptingShift = this.shiftService.shiftPass.acceptingShift;
       this.passingShift = this.shiftService.shiftPass.passingShift;
-      this.currentShift = this.shiftService.shiftPass.acceptingShift;
-      const index = this.currentShift.shiftMembers.findIndex(
-        item => item.employee.position === "Responsible"
-      );
-      this.currentShift.shiftMembers[index].employee.main = true;
     }
     this.subscription = this.widgetService
       .getWidgetChannel(this.widgetId)
       .subscribe(data => {
         this.aboutWidget = data;
-        if (this.aboutWidget.title === "Передача смены") {
+        if (this.aboutWidget.title === "Бригада, передающая смену") {
           this.currentShift = this.passingShift;
         } else {
           this.currentShift = this.acceptingShift;
         }
+        const index = this.currentShift.shiftMembers.findIndex(
+          item => item.employee.position === "Responsible"
+        );
+        this.currentShift.shiftMembers[index].employee.main = true;
       });
   }
 
