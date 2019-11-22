@@ -10,9 +10,9 @@ import {
   EventsWidgetNotification,
   EventsWidgetNotificationsCounter
 } from '../models/events-widget';
-import {environment} from '../../../environments/environment';
 import {LineChartData} from '../models/line-chart';
 import {Machine_MI} from '../models/manual-input.model';
+import {AppConfigService} from 'src/app/services/appConfigService';
 
 @Injectable({
   providedIn: 'root'
@@ -24,18 +24,20 @@ export class WidgetsService {
   lineChartLiveData: Observable<LineChartData>;
   newData: BehaviorSubject<true> = new BehaviorSubject<true>(true);
 
-  private readonly wsUrl = environment.wsUrl;
+  private readonly wsUrl: string;
+  private readonly restUrl: string;
+
   private ws: WebSocketSubject<any> = null;
   private wsSubscribtion: Subscription;
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, configService: AppConfigService) {
+    this.restUrl = configService.restUrl;
+    this.wsUrl = configService.wsUrl;
 
     this.initLineChartLiveData();
     this.initWS();
-    this.restUrl = environment.restUrl;
   }
 
-  private restUrl: string;
 
   initLineChartLiveData() {
     this.lineChartLiveData = this.newData.pipe(
@@ -133,14 +135,14 @@ export class WidgetsService {
       case 'line-chart':
         return this.mapLineChartData(data);
 
-      case 'line-diagram':
-        return data;
-
-      case 'manual-input':
-        return this.mapManualInput(data);
-
-      case 'pie-diagram':
-        return data;
+        case 'line-diagram':
+          return data;
+  
+        case 'manual-input':
+          return this.mapManualInput(data);
+  
+        case 'pie-diagram':
+          return data;
     }
   }
 

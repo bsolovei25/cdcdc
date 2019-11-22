@@ -24,7 +24,7 @@
                         <div class="blocks">
                                 <div *ngFor="let data of (isMock ? (datas  | slice:0:1 ) : datas); trackBy: dataById" class="block" >
                                         <div  class="cb">
-                                                <div #myCircle class="item-b" [class.active]="!data.pos && !data.neg">
+                                                <div #myCircle class="item-b" [class.active]="!data.nonCritical && !data.critical">
                                                 </div>
                                         </div>
                                 </div>
