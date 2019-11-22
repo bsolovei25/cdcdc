@@ -39,20 +39,13 @@ export class NewWidgetsPanelComponent implements OnInit {
 
   public test = [];
   constructor(public widgetService: NewWidgetService, public injector: Injector) {
-   // this.widgetService.getAvailableWidgets().then(x => this.widgets = x);
     this.subscription = this.widgetService.getAvailableWidgets().subscribe(dataW => {
       this.widgets = dataW;
-      debugger
-    console.log("12", this.widgets);
-  
     });
    }
 
   ngOnInit() {
 
- //   console.log("widg",  this.widgetService.getAvailableWidgets().then(x => this.widgets = x));
-    
-  
     this._injector = Injector.create({
       providers: [
         { provide: 'isMock', useValue: true},
@@ -85,7 +78,6 @@ export class NewWidgetsPanelComponent implements OnInit {
         enabled: true
       }
     };
-  //  this.widgetService.emptyCellClick(this.event, this.widgetService.panelboard);
   }
 
   ngOnDestroy() {
@@ -100,12 +92,9 @@ export class NewWidgetsPanelComponent implements OnInit {
   }
 
   dragStartHandler(ev, item) {
-    debugger
-
     ev.dataTransfer.setData('text/plain', item);
    
     ev.dataTransfer.dropEffect = 'copy';
-  
   }
 
   public dataById(index, item): string {
@@ -120,7 +109,6 @@ export class NewWidgetsPanelComponent implements OnInit {
 
   emptyCellClick(event: MouseEvent, item: GridsterItem) {
     console.info('empty cell click', event, item);
-  //  this.widgetService.dashboard.push(item);
   }
 
 
@@ -134,11 +122,9 @@ export class NewWidgetsPanelComponent implements OnInit {
 
   emptyCellDropClick(event: DragEvent, item: GridsterItem){
    console.log('this.emptyCellDropClick', event);
-   // this.widgetService.dashboard.push(item);
   }
 
   isLeavePanel(e){
-   // console.log('leave', e);
     this.widgetService.isOver = false;
   }
   isOverPanel(e) {
@@ -167,7 +153,6 @@ export class NewWidgetsPanelComponent implements OnInit {
      this.widgetService.dashboard.splice(this.widgetService.dashboard.indexOf(this.widgetService.draggingItem), 1);
      this.widgetService.draggingItem = null;
      this.widgetService.isOver = false;
-     debugger
     }
     else{
       this.widgetService.isOver = false;

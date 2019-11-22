@@ -22,7 +22,7 @@ export class ManualInputComponent implements OnInit, OnDestroy {
 
   private subscribtion2: Subscription;
 
-  name;
+  title;
 
   constructor(
     public manualInputService: ManualInputService, 
@@ -34,9 +34,8 @@ export class ManualInputComponent implements OnInit, OnDestroy {
     ) {
     this.restUrl = environment.restUrl;
     this.isLoading = true;
-    debugger
     this.subscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
-      this.name = data.name  
+      this.title = data.title
     });
   }
 
@@ -70,7 +69,7 @@ export class ManualInputComponent implements OnInit, OnDestroy {
       .subscribe((ref: Machine_MI[]) => {
         console.log(ref);
         console.log("init_rest");
-        debugger
+     
         this.Data = this.manualInputService.LoadData(this.Data, ref);
       });
   }
@@ -89,10 +88,10 @@ export class ManualInputComponent implements OnInit, OnDestroy {
   }
 
   private wsConnect() {
-    debugger
+ 
     this.oldWidgetsService.getWidgetLiveDataFromWS(this.id, 'manual-input')
       .subscribe((ref) => {
-        debugger
+  
           this.manualInputService.LoadData(this.Data, ref);
           console.log("init");
         }

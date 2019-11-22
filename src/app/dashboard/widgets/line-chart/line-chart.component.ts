@@ -34,7 +34,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
  // position?: string = 'default';
 
   code;
-  name;
+  public title;
   units;
   options;
   position?: string = 'default';
@@ -59,6 +59,9 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
   line;
   lines: any;
+
+  public minHeight;
+  public elem2;
 
   deviationMode = 'planFact';
 
@@ -128,7 +131,6 @@ export class LineChartComponent implements OnInit, OnDestroy {
   };
   deviationPoints: any;
 
- // private _showMock = true;
   private subscription: Subscription;
 
   private subscription2: Subscription;
@@ -142,7 +144,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
     ){
      this.subscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
         this.code = data.code,
-        this.name = data.name,
+        this.title = data.title,
         this.units = data.units,
         this.options = data.widgetOptions
       //  this.position = data.
@@ -150,41 +152,14 @@ export class LineChartComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-/*
-    setTimeout(() => {
-      this.initChart();
-    }, 0);
-
-
-    if (this.isMock) {
-      debugger
-      this.disableLiveData()
-    } else {
-      this.enableLiveData();
-    }
-*/
     this.showMock(this.isMock);
   }
   
-
-
   ngOnDestroy() {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
   }
-
- /* @Input()
-  set showMock(show) {
-    this._showMock = show;
-
-    if (this._showMock) {
-      this.disableLiveData();
-    } else {
-      this.enableLiveData();
-    }
-
-  }*/
 
   showMock(show) {
     if (show) {
@@ -367,8 +342,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
     const element = this.chartContainer.nativeElement;
     this.width = element.offsetWidth - this.margin.left - this.margin.right;
     this.height = element.offsetHeight - this.margin.top - this.margin.bottom;
-    this.heightNoMargins = element.offsetHeight;
-
+     this.heightNoMargins = element.offsetHeight;
 
     this.svg = d3.select(element).append('svg')
       .attr('width', this.width)
