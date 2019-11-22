@@ -8,7 +8,7 @@
         ></svg-icon>
       </div>
       <span class="header__name">
-        Бригада передающая смену
+        {{title}}
       </span>
     </div>
   </div>
@@ -39,7 +39,7 @@
           <div class="mainWorker__row">
             <div class="circle circle__right circle__right-top"></div>
             <div class="mainWorker__squad">Бригада</div>
-            <div class="mainWorker__number">3</div>
+            <div class="mainWorker__number">{{currentShift.brigade.number}}</div>
           </div>
         </div>
       </div>
@@ -47,7 +47,7 @@
         <div class="onShift__label">На смене</div>
         <div class="onShift__add" (click)="showPeople($event)">+</div>
         <div class="onShift__people scroll-bar">
-          <div *ngFor="let person of peopleOnShift()">
+          <div *ngFor="let person of currentShift.shiftMembers">
             <evj-shift-person
               [person]="person"
               [onShift]="true"

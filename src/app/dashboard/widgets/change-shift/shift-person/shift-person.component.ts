@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from "@angular/core";
+import { ShiftMember } from 'src/app/dashboard/models/shift.model';
 
 @Component({
   selector: "evj-shift-person",
@@ -6,7 +7,7 @@ import { Component, OnInit, Input, ViewChild, ElementRef } from "@angular/core";
   styleUrls: ["./shift-person.component.scss"]
 })
 export class ShiftPersonComponent implements OnInit {
-  @Input() person: any;
+  @Input() person: ShiftMember;
   @Input() onShift: boolean;
 
   @ViewChild("dropdown", { static: false }) ddMenu: ElementRef;
