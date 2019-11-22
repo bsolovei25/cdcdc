@@ -240,6 +240,9 @@ export class ChangeShiftComponent implements OnInit {
     }
   ];
 
+  static itemCols = 25;
+  static itemRows = 45;
+
   constructor(
     private shiftService: ShiftService,
     @Inject("isMock") public isMock: boolean
