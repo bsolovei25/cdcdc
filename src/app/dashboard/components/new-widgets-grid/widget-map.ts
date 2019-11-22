@@ -3,6 +3,7 @@ import { LineChartComponent } from '../../widgets/line-chart/line-chart.componen
 import { EventsComponent } from '../../widgets/events/events.component';
 import { LineDiagramComponent } from '../../widgets/line-diagram/line-diagram.component';
 import { ManualInputComponent } from '../../widgets/manual-input/manual-input.component';
+import {ChangeShiftComponent} from "../../widgets/change-shift/change-shift.component";
 
 
 export const WIDGETS = {
@@ -11,4 +12,6 @@ export const WIDGETS = {
     "line-diagram": LineDiagramComponent,
     "manual-input": ManualInputComponent,
     "events": EventsComponent,
-}   
+    "shift-pass": ChangeShiftComponent,
+    "shift-access": ChangeShiftComponent
+}

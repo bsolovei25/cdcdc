@@ -50,7 +50,7 @@ import { WidgetsPieComponent } from './widgets/widgets-pie2/widget-pie-circle/wi
     NewWidgetsGridComponent,
     UserInfoComponent,
     WidgetPiesComponent,
-    WidgetsPieComponent
+    WidgetsPieComponent,
   ],
   entryComponents:[
     WidgetsPieCircleComponent,
@@ -59,6 +59,7 @@ import { WidgetsPieComponent } from './widgets/widgets-pie2/widget-pie-circle/wi
     LineChartComponent,
     ManualInputComponent,
     LineDiagramComponent,
+    ChangeShiftComponent
   //  UserInfoComponent
   ],
   exports: [
