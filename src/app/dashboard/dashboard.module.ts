@@ -65,7 +65,6 @@ import { WidgetsPieComponent } from './widgets/widgets-pie2/widget-pie-circle/wi
     HomeComponent,
     ManualinputPageComponent
   ],
-  exports: [HomeComponent, ManualinputPageComponent],
   imports: [
     CommonModule,
     SharedModule,
