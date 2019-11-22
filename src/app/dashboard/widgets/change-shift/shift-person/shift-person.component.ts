@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from "@angular/core";
-import { ShiftMember } from 'src/app/dashboard/models/shift.model';
+import { ShiftMember } from "src/app/dashboard/models/shift.model";
 
 @Component({
   selector: "evj-shift-person",
@@ -14,14 +14,18 @@ export class ShiftPersonComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.person);
+  }
 
   showMenu() {
-    const classes: DOMTokenList = this.ddMenu.nativeElement.classList;
-    if (classes.contains("disable")) {
-      classes.remove("disable");
-    } else {
-      classes.add("disable");
+    if (!this.person.employee.main) {
+      const classes: DOMTokenList = this.ddMenu.nativeElement.classList;
+      if (classes.contains("disable")) {
+        classes.remove("disable");
+      } else {
+        classes.add("disable");
+      }
     }
   }
 
