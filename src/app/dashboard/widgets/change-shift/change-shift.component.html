@@ -7,8 +7,8 @@
           src="./assets/icons/widgets/events/letter.svg"
         ></svg-icon>
       </div>
-      <span class="header__name">
-        {{title}}
+      <span class="header__name" *ngIf="aboutWidget">
+        {{ aboutWidget.title }}
       </span>
     </div>
   </div>
@@ -30,16 +30,23 @@
         </div>
         <div class="mainWorker__info">
           <div class="mainWorker__row">
-            <div class="mainWorker__row_colInfo">
-              <div class="mainWorker__name">{{ getMain().name }}</div>
-              <div class="mainWorker__position">{{ getMain().position }}</div>
+            <div class="mainWorker__row_colInfo" *ngIf="getMain()">
+              <div class="mainWorker__name">
+                {{ getMain().employee.firstName }}
+                {{ getMain().employee.lastName }}
+              </div>
+              <div class="mainWorker__position">
+                {{ getMain().employee.position }}
+              </div>
             </div>
             <div class="mainWorker__row_colIcon"></div>
           </div>
           <div class="mainWorker__row">
             <div class="circle circle__right circle__right-top"></div>
             <div class="mainWorker__squad">Бригада</div>
-            <div class="mainWorker__number">{{currentShift.brigade.number}}</div>
+            <div class="mainWorker__number" *ngIf="currentShift.brigade">
+              {{ currentShift.brigade.number }}
+            </div>
           </div>
         </div>
       </div>

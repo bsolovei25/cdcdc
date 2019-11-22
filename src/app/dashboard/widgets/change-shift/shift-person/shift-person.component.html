@@ -5,9 +5,9 @@
     <div class="circle circle__left circle__left-bottom"></div>
     <div class="person__img"></div>
   </div>
-  <div class="person__info">
-    <div class="person__name">{{ person.employee.firstName}} {{person.employee.lastName}}</div>
-    <div class="person__position">{{ person.employee.position }}</div>
+  <div class="person__info" *ngIf="person">
+    <div class="person__name" *ngIf="person.employee">{{ person.employee.firstName}} {{person.employee.lastName}}</div>
+    <div class="person__position" *ngIf="person.employee">{{ person.employee.position }}</div>
     <div class="person__place">Блок очистки</div>
     <div class="person__status" *ngIf="onShift">
       <div class="circle circle__right circle__right-top"></div>

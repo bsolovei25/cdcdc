@@ -8,7 +8,12 @@ import {
 import { ShiftService } from "../../services/shift.service";
 import { Subscription } from "rxjs";
 import { NewWidgetService } from "../../services/new-widget.service";
-import { ShiftPass, Shift } from "../../models/shift.model";
+import {
+  ShiftPass,
+  Shift,
+  Employee,
+  ShiftMember
+} from "../../models/shift.model";
 
 @Component({
   selector: "evj-change-shift",
@@ -243,7 +248,7 @@ export class ChangeShiftComponent implements OnInit {
     }
   ];
 
-  title: string;
+  aboutWidget;
   id: number;
   acceptingShift: Shift;
   passingShift: Shift;
@@ -257,21 +262,29 @@ export class ChangeShiftComponent implements OnInit {
   constructor(
     private widgetService: NewWidgetService,
     private shiftService: ShiftService,
-    @Inject("isMock") public isMock: boolean
+    @Inject("isMock") public isMock: boolean,
+    @Inject("widgetId") public widgetId: string
   ) {
-    this.id = this.shiftService.shiftPass.id;
-    this.acceptingShift = this.shiftService.shiftPass.acceptingShift;
-    this.passingShift = this.shiftService.shiftPass.passingShift;
-    this.currentShift = this.shiftService.shiftPass.acceptingShift;
-    this.currentShift.shiftMembers
-    console.log("shift: ", this.acceptingShift);
-    console.log("shift: ", this.passingShift);
-    // this.subscription = this.widgetService
-    //   .getWidgetChannel(this.id)
-    //   .subscribe(data => {
-    //     console.log("title ", data);
-
-    //   });
+    if (this.shiftService.shiftPass) {
+      this.id = this.shiftService.shiftPass.id;
+      this.acceptingShift = this.shiftService.shiftPass.acceptingShift;
+      this.passingShift = this.shiftService.shiftPass.passingShift;
+      this.currentShift = this.shiftService.shiftPass.acceptingShift;
+      const index = this.currentShift.shiftMembers.findIndex(
+        item => item.employee.position === "Common"
+      );
+      this.currentShift.shiftMembers[index].employee.main = true;
+    }
+    this.subscription = this.widgetService
+      .getWidgetChannel(this.widgetId)
+      .subscribe(data => {
+        this.aboutWidget = data;
+        if (this.aboutWidget.title === "Передача смены") {
+          this.currentShift = this.passingShift;
+        } else {
+          this.currentShift = this.acceptingShift;
+        }
+      });
   }
 
   ngOnInit() {}
@@ -316,8 +329,8 @@ export class ChangeShiftComponent implements OnInit {
     return array;
   }
 
-  getMain() {
-    return this.people.find(item => item.main);
+  getMain(): ShiftMember {
+    return this.currentShift.shiftMembers.find(item => item.employee.main);
   }
 
   showPeople(event: any) {
