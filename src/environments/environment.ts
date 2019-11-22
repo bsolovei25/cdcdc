@@ -3,9 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-    production: false,
-    wsUrl: 'ws://deploy.funcoff.club:5555',
-    restUrl: 'http://deploy.funcoff.club:5555'
+    production: false
   };
 
   /*
