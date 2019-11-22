@@ -43,9 +43,7 @@ export class WidgetsPieCircleComponent implements AfterViewInit {
     public widgetService: NewWidgetService,
     @Inject('isMock') public isMock: boolean,
     @Inject('widgetId') public id: string
-    ) {
-
-  }
+    ) {}
 
 
   ngAfterViewInit() {

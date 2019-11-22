@@ -77,6 +77,8 @@
                            [class.data_active__saving]="param.isActive && param.isSave"
                            [class.data_active__warning]="param.isWarning && !param.isSave && param.isActive && !param.isError"
                            [class.data_active__error]="param.isError && !param.isSave"
+                           (change)="onChangeValue(param.id)"
+                           (focusout)="onUnfocusValue(param.id)"
                            >
                   </div>
                   <div class="d-td d-td_content__col-7">{{ param.curTime | date: 'dd.MM.yyyy HH:mm' }}</div>
