@@ -1,4 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  Inject
+} from "@angular/core";
+import { ShiftService } from "../../services/shift.service";
 
 @Component({
   selector: "evj-change-shift",
@@ -233,7 +240,10 @@ export class ChangeShiftComponent implements OnInit {
     }
   ];
 
-  constructor() {}
+  constructor(
+    private shiftService: ShiftService,
+    @Inject("isMock") public isMock: boolean
+  ) {}
 
   ngOnInit() {}
 
