@@ -18,8 +18,8 @@
     <div class="frame__circle frame__circle__right"></div>
   </div>
 
-  <ng-container *ngIf="isMock; else falseMock"></ng-container>
-  <ng-container #falseMock>
+  <ng-container *ngIf="isMock"></ng-container>
+  <ng-container *ngIf="!isMock">
     <div class="change-shift">
       <div class="change-shift__mainWorker">
         <div class="circle circle__left circle__left-top"></div>
