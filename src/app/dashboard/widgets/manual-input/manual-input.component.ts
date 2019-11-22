@@ -3,9 +3,9 @@ import {ManualInputService} from '../../services/manual-input.service';
 import {WidgetsService} from '../../services/widgets.service';
 import {HttpClient} from '@angular/common/http';
 import {Machine_MI} from '../../models/manual-input.model';
-import {environment} from '../../../../environments/environment';
 import {Subscription} from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
+import {AppConfigService} from 'src/app/services/appConfigService';
 
 @Component({
   selector: 'evj-manual-input',
@@ -25,18 +25,19 @@ export class ManualInputComponent implements OnInit, OnDestroy {
   title;
 
   constructor(
-    public manualInputService: ManualInputService, 
+    public manualInputService: ManualInputService,
     private oldWidgetsService: WidgetsService, 
     public widgetService:NewWidgetService,
-    private http: HttpClient,  
+    private http: HttpClient,
+    configService: AppConfigService,
     @Inject('isMock') public isMock: boolean,
     @Inject('widgetId') public id: string
     ) {
-    this.restUrl = environment.restUrl;
-    this.isLoading = true;
-    this.subscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
-      this.title = data.title
-    });
+      this.restUrl = configService.restUrl;
+      this.isLoading = true;
+      this.subscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
+        this.title = data.title
+      });
   }
 
   public isLoading: boolean;
@@ -46,8 +47,8 @@ export class ManualInputComponent implements OnInit, OnDestroy {
   private Data: Machine_MI[] = [];
 
   private flag: boolean = true;
-
-
+  
+  
   ngOnInit() {
     this.showMock(this.isMock);
   }
@@ -69,7 +70,7 @@ export class ManualInputComponent implements OnInit, OnDestroy {
       .subscribe((ref: Machine_MI[]) => {
         console.log(ref);
         console.log("init_rest");
-     
+
         this.Data = this.manualInputService.LoadData(this.Data, ref);
       });
   }
@@ -88,10 +89,10 @@ export class ManualInputComponent implements OnInit, OnDestroy {
   }
 
   private wsConnect() {
- 
+
     this.oldWidgetsService.getWidgetLiveDataFromWS(this.id, 'manual-input')
       .subscribe((ref) => {
-  
+
           this.manualInputService.LoadData(this.Data, ref);
           console.log("init");
         }
@@ -101,7 +102,7 @@ export class ManualInputComponent implements OnInit, OnDestroy {
     if (!this.subscribtion2) {
       return;
     }
-  
+
     this.subscribtion2 = this.oldWidgetsService.getWidgetLiveDataFromWS(this.id, 'manual-input')
       .subscribe((ref) => {
           this.manualInputService.LoadData(this.Data, ref);
@@ -111,11 +112,11 @@ export class ManualInputComponent implements OnInit, OnDestroy {
   }
 
   showMock(show) {
-      if (show){
-        this.wsDisconnect();
-      } else {
-        this.setInitData();
-        this.wsConnect();
-      }
+    if (show){
+      this.wsDisconnect();
+    } else {
+      this.setInitData();
+      this.wsConnect();
+    }
   }
 }
