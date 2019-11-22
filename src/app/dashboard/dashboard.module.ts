@@ -2,7 +2,7 @@ import { ChangeShiftComponent } from "./widgets/change-shift/change-shift.compon
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { HomeComponent } from "./pages/home/home.component";
-import { SharedModule } from "../shared/shared.module";
+import { SharedModule } from "../@shared/shared.module";
 import { AngularSvgIconModule } from "angular-svg-icon";
 import { PeriodSelectorComponent } from "./components/period-selector/period-selector.component";
 import { IndicatorSelectorComponent } from "./components/indicator-selector/indicator-selector.component";
@@ -65,7 +65,6 @@ import { WidgetsPieComponent } from './widgets/widgets-pie2/widget-pie-circle/wi
     HomeComponent,
     ManualinputPageComponent
   ],
-  exports: [HomeComponent, ManualinputPageComponent],
   imports: [
     CommonModule,
     SharedModule,
