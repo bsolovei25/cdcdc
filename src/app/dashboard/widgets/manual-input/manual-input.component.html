@@ -37,7 +37,7 @@
 
 
 <div class="table-container">
-  
+
   <div class="table">
     <div class="table-header">
       <div class="d-table">
@@ -53,12 +53,12 @@
       </div>
     </div>
     <div class="line-horizontal"></div>
-    
+
     <div class="table-body">
       <div class="table-body_list scroll-bar">
         <div class="table-container-1" *ngFor="let machine of this.Data">
           <div class="table-header-1">{{ machine.name }}</div>
-          
+
           <div class="vertical-line-1"></div>
           <div class="table-container-2" *ngFor="let group of machine.groups">
             <div class="table-header-2">{{ group.name }}</div>
@@ -100,6 +100,7 @@
 </div>
 
 </ng-container>
+
 
 <div class="frame frame_bottom">
   <div class="frame__circle frame__circle__left"></div>
