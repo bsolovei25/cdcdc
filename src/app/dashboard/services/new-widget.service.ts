@@ -3,26 +3,27 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { GridsterItem, GridsterConfig, GridType } from 'angular-gridster2';
-import {environment} from '../../../environments/environment';
 import { Widgets } from '../models/widget.model';
+import { AppConfigService } from 'src/app/services/appConfigService';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NewWidgetService {
 
-  private readonly wsUrl = environment.wsUrl;
+  private readonly wsUrl: string;
+  private readonly restUrl: string;
 
   public draggingItem: GridsterItem;
   public isOver:boolean = false;
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, configService: AppConfigService) {
+    this.restUrl = configService.restUrl;
+    this.wsUrl = configService.wsUrl;
+    
     this.getAvailableWidgets().subscribe(data => this._widgets$.next(data));
-
-    this.restUrl = environment.restUrl;
    }
 
-  private restUrl: string;
   
   public dashboard: GridsterItem[] = [];
 

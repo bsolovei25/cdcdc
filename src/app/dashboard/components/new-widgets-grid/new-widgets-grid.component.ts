@@ -132,16 +132,16 @@ export class NewWidgetsGridComponent implements OnInit {
   }
 
   emptyCellClick(event: MouseEvent, item: GridsterItem) {
-    console.info('empty cell click', event, item);
+   // console.info('empty cell click', event, item);
     this.widgetService.dashboard.push(item);
   }
 
   emptyCellMenuClick(){
-    console.log('emptyCellMenuClick');
+  //  console.log('emptyCellMenuClick');
   }
 
   emptyCellDragClick(){
-    console.log('this.emptyCellDragClick');
+   // console.log('this.emptyCellDragClick');
   }
 
   emptyCellDropClick(event: DragEvent, param){

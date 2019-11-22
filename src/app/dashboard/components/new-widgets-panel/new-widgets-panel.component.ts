@@ -46,15 +46,6 @@ export class NewWidgetsPanelComponent implements OnInit {
 
   ngOnInit() {
 
-    this._injector = Injector.create({
-      providers: [
-        { provide: 'isMock', useValue: true},
-        { provide: 'widgetId', useValue: "fdf9c372-06ce-11ea-98c5-d8d09033e35e"},
-    ],
-      parent: this.injector
-    });
-    
-
     this.options = {
       gridType: GridType.Fit,
       displayGrid: 'none',
@@ -108,27 +99,27 @@ export class NewWidgetsPanelComponent implements OnInit {
   }
 
   emptyCellClick(event: MouseEvent, item: GridsterItem) {
-    console.info('empty cell click', event, item);
+   // console.info('empty cell click', event, item);
   }
 
 
   emptyCellMenuClick(){
-   console.log('emptyCellMenuClick');
+  // console.log('emptyCellMenuClick');
   }
 
   emptyCellDragClick(){
-   console.log('this.emptyCellDragClick');
+  // console.log('this.emptyCellDragClick');
   }
 
   emptyCellDropClick(event: DragEvent, item: GridsterItem){
-   console.log('this.emptyCellDropClick', event);
+ //  console.log('this.emptyCellDropClick', event);
   }
 
   isLeavePanel(e){
     this.widgetService.isOver = false;
   }
   isOverPanel(e) {
-   console.log('over', e);
+  // console.log('over', e);
     if(e){
       this.widgetService.isOver = true;
     

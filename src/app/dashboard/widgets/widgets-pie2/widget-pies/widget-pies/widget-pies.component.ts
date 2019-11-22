@@ -10,38 +10,43 @@ import { Subscription } from 'rxjs';
 })
 export class WidgetPiesComponent implements OnInit {
 
+    
+  static itemCols = 16;
+  static itemRows = 10;
+
   private subscription: Subscription;
 
-  public title = "ttt";
-  public code = "434";
-  public units = "434";
+  public title ="Статическое Оборудование";
+  public code;
+  public units;
+  public name;
 
-  public id = "4ae3a671-0792-11ea-98c7-380025fb9022";
-  public isMock = false;
+  //public id = "4ae3a671-0792-11ea-98c7-380025fb9022";
+ // public isMock = false;
   
   public datas = [
-    {title: "Статическое Оборудование", critical: 5, nonCritical: 2},
-    {title: "Статическое Оборудование", critical: 5, nonCritical: 2},
+    {name: "Статическое Оборудование", critical: 5, nonCritical: 2},
   ];
 
   constructor(
     private widgetsService: WidgetsService,
     public widgetService: NewWidgetService,
-    //@Inject('isMock') public isMock: boolean,
-   // @Inject('widgetId') public id: string
+    @Inject('isMock') public isMock: boolean,
+    @Inject('widgetId') public id: string
 
     ) {
-/*
+
       this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe(data => {
         this.title = data.title;
         this.code = data.code;
         this.units = data.units;
-      }); */
+        this.name = data.name;
+      }); 
   }
 
 
   ngOnInit() {
-    debugger
+
     this.showMock(this.isMock);
   }
 
@@ -56,7 +61,7 @@ export class WidgetPiesComponent implements OnInit {
     this.widgetsService.getWidgetLiveDataFromWS(this.id, 'pie-diagram')
       .subscribe((ref) => {
           this.datas = ref;
-          debugger
+         
         }
       );
   }
@@ -66,10 +71,10 @@ export class WidgetPiesComponent implements OnInit {
   showMock(show) {
    
     if (show){
-      debugger
+   
       this.wsDisconnect();
     } else {
-      debugger
+   
       this.wsConnect();
     }
 }

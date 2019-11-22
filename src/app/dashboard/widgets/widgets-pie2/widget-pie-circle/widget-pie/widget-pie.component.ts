@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild, ViewChildren, QueryList, Input, AfterViewInit, Injectable, Inject } from '@angular/core';
 import { element } from 'protractor';
-import { WidgetGridsterSettings, WidgetModel } from 'src/app/dashboard/models/widget.model';
+import { WidgetGridsterSettings, WidgetModel, PieWidget } from 'src/app/dashboard/models/widget.model';
 import { runInDebugContext } from 'vm';
 import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
 import { Subscription } from 'rxjs';
@@ -19,33 +19,17 @@ declare var d3: any;
 export class WidgetsPieComponent implements OnInit {
   public readonly RADIUS = 51;
 
-  code;
-  name;
-  units;
-  
-  public id;
-  static itemCols = 34;
-  static itemRows = 10;
-
-  private subscription: Subscription;
-
-  @Input() data:any;
+  @Input() public data: PieWidget;
 
   @ViewChild('myCircle', {static:true}) myCircle: ElementRef;
-
-
   
   constructor() {}
 
   ngOnInit(){
-    debugger
-     this.d3Circle(this.data);
+    this.d3Circle(this.data, this.myCircle.nativeElement);
   }
 
-
-  private d3Circle(data): void {
-
-    debugger
+  public d3Circle(data, el): void {
     const summ = data.critical + data.nonCritical;
     const mass = [data.nonCritical, data.critical];
     let color: any;
@@ -56,10 +40,10 @@ export class WidgetsPieComponent implements OnInit {
       color = d3.scaleOrdinal().range(["white", "orange"]);
     }
 
-    const canvas = d3.select().append("svg")
-      .attr("min-width", "250px")
-      .attr("max-width", "500px")
-      .attr("viewBox", "32 -10 250 200")
+    const canvas = d3.select(el).append("svg")
+      .attr("min-width", "280px")
+      .attr("max-width", "710px")
+      .attr("viewBox", "0 -10 280 200")
 
     let group = canvas.append("g")
       .attr("transform", "translate(100 ,100)");
