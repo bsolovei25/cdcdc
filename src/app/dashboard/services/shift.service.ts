@@ -20,6 +20,7 @@ export class ShiftService {
     return this.http.get(this.restUrl + '/api/Shift').toPromise();
   }
 
+
   public async getShiftPass() {
     this.shiftPass = await this.getShiftPassAsync();
     console.log(this.shiftPass);
