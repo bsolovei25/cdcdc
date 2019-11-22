@@ -262,7 +262,6 @@
 }
 
 .button {
-  pointer-events: fill !important;
   z-index: 1;
   cursor: pointer;
   border: none;
@@ -621,10 +620,6 @@
   border-left: var(--border-style-dashed);
 }
 
-input:focus{
-  background-color: yellow;
-}
-
 input.data {
   font-size: 10px;
   width: 100%;
@@ -632,11 +627,10 @@ input.data {
   background: var(--color-bg-main);;
   border: solid 1px transparent;
   color: var(--color-text-sub);
-  pointer-events:none !important;
-
+  pointer-events:none;
 
   &_comment {
-    pointer-events:fill !important;
+    pointer-events:all;
   }
 
   &_val {
@@ -647,9 +641,8 @@ input.data {
 
   }
 
-
   &_active {
-    pointer-events:fill !important;
+    pointer-events:all;
     border-radius: 3px;
     border: solid 0.5px var(--color-border-active);
 
