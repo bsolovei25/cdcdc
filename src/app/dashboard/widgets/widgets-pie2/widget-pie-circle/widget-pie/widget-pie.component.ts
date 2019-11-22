@@ -11,78 +11,35 @@ declare var d3: any;
 @Injectable()
 
 @Component({
-  selector: 'evj-widgets-pie-circle',
-  templateUrl: './widgets-pie-circle.component.html',
-  styleUrls: ['./widgets-pie-circle.component.scss']
+  selector: 'evj-widget-pie',
+  templateUrl: './widget-pie.component.html',
+  styleUrls: ['./widget-pie.component.scss']
 })
-export class WidgetsPieCircleComponent implements AfterViewInit {
+export class WidgetsPieComponent implements OnInit {
   public readonly RADIUS = 51;
 
   code;
-  title = "Статическое Оборудование";
+  name;
   units;
   
+  public id;
   static itemCols = 34;
   static itemRows = 10;
 
   private subscription: Subscription;
 
+  @Input() data:any;
 
-  @ViewChildren('myCircle') myCircle: QueryList<any>;
-
-  public datas = [
-    {title: "Статическое Оборудование", critical: 5, nonCritical: 2},
-    {title: "Статическое Оборудование", critical: 5, nonCritical: 2},
-  ];
+  @ViewChild('myCircle', {static:true}) myCircle: ElementRef;
 
 
+  constructor() {}
 
-
-  constructor(
-    private widgetsService: WidgetsService,
-    public widgetService: NewWidgetService,
-    @Inject('isMock') public isMock: boolean,
-    @Inject('widgetId') public id: string
-    ) {
-
+  ngOnInit(){
+   
+ //  this.myCircle.forEach((item, index, array) => {this.d3Circle(item.nativeElement, index);});
   }
 
-
-  ngAfterViewInit() {
-    this.showWidget();
-    this.showMock(this.isMock);
-  }
-
-  showWidget() {
-    console.log('show widget!');
-    this.datas.forEach((item, index) => {
-      try {
-        this.d3Circle(item, this.myCircle.toArray()[index].nativeElement);
-      }
-      catch {
-        console.log('no such element');
-      }
-    });
-  }
-
-  showMock(show) {
-    this.isMock = show;
-    if (this.isMock) {
-      this.wsDisconnect();
-    } else {
-      this.wsConnect();
-    }
-  }
-
-  ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
-  }
-
-  public dataById(index, item): number {
-    return item.id;
-  }
 
   private d3Circle(data, el): void {
     const summ = data.critical + data.nonCritical;
@@ -94,12 +51,6 @@ export class WidgetsPieCircleComponent implements AfterViewInit {
     } else {
       color = d3.scaleOrdinal().range(["white", "orange"]);
     }
-
-
-    // d3.select(el).clear();
-    console.log(d3.select(el));
-
-    
 
     const canvas = d3.select(el).append("svg")
       .attr("min-width", "250px")
@@ -172,16 +123,5 @@ export class WidgetsPieCircleComponent implements AfterViewInit {
       .attr("x","3")
       .attr("y","-3");
 
-  }
-
-  private wsConnect() {
-    this.widgetsService.getWidgetLiveDataFromWS(this.id, 'pie-diagram')
-      .subscribe((ref) => {
-          this.datas = ref;
-          this.showWidget();
-        }
-      );
-  }
-  private wsDisconnect() {
   }
 }

@@ -5,3 +5,8 @@
   height: calc(100vh - 60px);
   box-sizing: border-box;
 }
+
+
+::ng-deep .content{
+  padding-left: 10px;
+}

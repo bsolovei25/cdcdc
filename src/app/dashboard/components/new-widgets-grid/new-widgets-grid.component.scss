@@ -104,8 +104,8 @@ gridster-item {
 
 .fixed{
 //  position: absolute !important;
-  padding: 0px !important;
-  height: 100vh!important;
+  padding: 10px !important;
+  height: calc(100vh - 60px) !important;
  // min-height: 790px;
   width: 100% !important;
  //overflow-y: scroll !important;
@@ -123,13 +123,13 @@ gridster-item {
 
 
 .gridster-item-moving{
-  z-index: 999 !important;
+  z-index: 100 !important;
   position: absolute;
   pointer-events: none;
 }
 
 
 
-gridster-preview {
-  background: rgb(27, 30, 39) !important;
+::ng-deep gridster-preview {
+  background: rgb(27, 30, 39, .15) !important;
 }

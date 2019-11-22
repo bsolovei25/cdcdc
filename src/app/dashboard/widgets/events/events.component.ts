@@ -21,7 +21,7 @@ import { NewWidgetService } from '../../services/new-widget.service';
 })
 export class EventsComponent implements OnInit, OnDestroy {
   
-  name;
+  title;
 
   static itemCols = 30;
   static itemRows = 20;
@@ -122,7 +122,7 @@ export class EventsComponent implements OnInit, OnDestroy {
     @Inject('widgetId') public id: string
     ){
       this.liveSubscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
-        this.name = data.name
+        this.title = data.title
       });
   }
 
