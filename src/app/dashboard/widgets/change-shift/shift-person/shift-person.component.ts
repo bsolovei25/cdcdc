@@ -15,7 +15,6 @@ export class ShiftPersonComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    console.log(this.person);
   }
 
   showMenu() {
@@ -41,6 +40,6 @@ export class ShiftPersonComponent implements OnInit {
   }
 
   addToShift(event: any) {
-    console.log(event);
+    //
   }
 }
