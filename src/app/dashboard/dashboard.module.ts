@@ -22,6 +22,9 @@ import { NewWidgetsPanelComponent } from './components/new-widgets-panel/new-wid
 import { NewWidgetsGridComponent } from './components/new-widgets-grid/new-widgets-grid.component';
 import { GridsterModule } from 'angular-gridster2';
 import {UserInfoComponent} from './components/user-info/user-info.component';
+import { WidgetPiesComponent } from './widgets/widgets-pie2/widget-pies/widget-pies/widget-pies.component';
+import { WidgetsPieComponent } from './widgets/widgets-pie2/widget-pie-circle/widget-pie/widget-pie.component';
+
 
 
 @NgModule({
@@ -41,7 +44,9 @@ import {UserInfoComponent} from './components/user-info/user-info.component';
     WidgetsPieCircleComponent,
     NewWidgetsPanelComponent,
     NewWidgetsGridComponent,
-    UserInfoComponent
+    UserInfoComponent,
+    WidgetPiesComponent,
+    WidgetsPieComponent
   ],
   entryComponents:[
     WidgetsPieCircleComponent,

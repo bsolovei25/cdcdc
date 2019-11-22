@@ -1,0 +1,35 @@
+<div style="height: 100%; width: 100%;" >
+    <div class="chart-header">
+            <div class="chart-header__content">
+                    <div class="chart-header__code">
+                            <span>
+                                    {{code}}
+                            </span>
+                    </div>
+                            <span class="chart-header__name">
+                                    {{title}}
+                            </span>
+                            <span class="chart-header__units">
+                                    {{units}}
+                            </span>
+            </div>
+    </div>
+    <div class="frame frame_top">
+                    <div class="frame__circle frame__circle__left"></div>
+                    <div class="frame__circle frame__circle__right"></div>
+    </div>
+    
+    <ng-container>
+                  <div class="content_block">
+                    <div *ngFor="let data of (isMock ? datas : datas);" class="block" >
+                        <evj-widget-pie [data]="data" ></evj-widget-pie>
+                    </div>
+                  </div>
+    </ng-container>
+  
+  
+    <div class="frame frame_bottom">
+                    <div class="frame__circle frame__circle__left"></div>
+                    <div class="frame__circle frame__circle__right"></div>
+    </div>
+  </div>
