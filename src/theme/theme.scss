@@ -29,3 +29,7 @@ body {
   background: var(--color-bg-main);
   border-radius: 5px;
 }
+
+.pointer-events {
+  pointer-events: fill !important;
+}
