@@ -13,8 +13,7 @@ export class ShiftService {
   private restUrl: string = 'http://192.168.0.4:5888';
 
   constructor(private http: HttpClient) {
-    // this.restUrl = environment.restUrl;
-    this.getShiftPass();
+
   }
 
   private async getShiftPassAsync(): Promise<any>  {
@@ -25,9 +24,4 @@ export class ShiftService {
     this.shiftPass = await this.getShiftPassAsync();
     console.log(this.shiftPass);
   }
-
-  public test() {
-    console.log('test');
-  }
-
 }

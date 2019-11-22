@@ -9,7 +9,7 @@ import {ShiftService} from "../../services/shift.service";
 export class HomeComponent implements OnInit {
 
   constructor(shiftService: ShiftService) {
-    shiftService.test();
+    shiftService.getShiftPass();
   }
 
   ngOnInit() {
