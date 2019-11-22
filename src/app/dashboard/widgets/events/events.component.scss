@@ -38,7 +38,7 @@
   background-color: var(--color-bg-additional);
 
   &__icon {
-    fill: var(--color-text-sub);
+      fill: var(--color-text-sub);
   }
 
   &__content {
@@ -253,6 +253,7 @@
   &__icon {
     width: 14px;
     height: 14px;
+    fill: var(--color-text-sub);
   }
 
   &__line {
