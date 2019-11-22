@@ -5,8 +5,8 @@ import {
   EventsWidgetData,
   EventsWidgetOptions
 } from "../../models/events-widget";
-import {EventsWidgetFilter} from "../../models/events-widget";
-import {WidgetsService} from "../../services/widgets.service";
+import { EventsWidgetFilter } from "../../models/events-widget";
+import { WidgetsService } from "../../services/widgets.service";
 import {
   EventsWidgetNotification,
   EventsWidgetNotificationStatus
@@ -20,6 +20,9 @@ import { NewWidgetService } from '../../services/new-widget.service';
   styleUrls: ['./events.component.scss']
 })
 export class EventsComponent implements OnInit, OnDestroy {
+  @Input() name = '';
+  ng
+  isList = true;
   
   title;
 
@@ -86,31 +89,46 @@ export class EventsComponent implements OnInit, OnDestroy {
     {
       code: "all",
       name: "Все",
-      notificationsCount: 11,
+      notificationsCount: 0,
       isActive: true
     },
     {
       code: "closed",
       name: "Отработано",
-      notificationsCount: 11,
+      notificationsCount: 0,
       isActive: false
     },
     {
       code: "inWork",
       name: "В работе",
-      notificationsCount: 10,
+      notificationsCount: 0,
       isActive: false
     },
   ];
 
+  iconStatus = [
+    {
+      name: 'inWork',
+      iconUrl: './assets/icons/widgets/process/in-work.svg'
+    },
+    {
+      name: 'closed',
+      iconUrl: './assets/icons/widgets/process/closed.svg'
+    },
+    {
+      name: 'new',
+      iconUrl: './assets/icons/widgets/process/in-work.svg'
+    }
+  ]
+
   statuses: { [id in EventsWidgetNotificationStatus]: string; } = {
     "new": 'Новое',
     "inWork": 'В работе',
-    "closed": 'Закрыто'
+    "closed": 'Завершено'
   };
 
-  private readonly notificationsMaxCount = 5;
   private readonly defaultIconPath = './assets/icons/widgets/events/smotr.svg';
+  defaultIcons = './assets/icons/widgets/process/in-work.svg';  // TODO изменить иконки
 
   private liveSubscription: Subscription;
 
@@ -141,11 +159,12 @@ export class EventsComponent implements OnInit, OnDestroy {
     this.appendOptions();
   }
 
-  onFilterClick(filter) {
+  onFilterClick(filter: EventsWidgetFilter) {
     this.filters.forEach(f => f.isActive = false);
     filter.isActive = true;
 
     this.appendOptions();
+    filter.notificationsCount = this.notifications.length;
   }
 
   private clearNotifications() {
@@ -165,11 +184,13 @@ export class EventsComponent implements OnInit, OnDestroy {
 
     const options = this.getCurrentOptions();
     this.notifications = this.applyFilter(this.allNotifications, options);
+    console.log(this.notifications);
 
     // filtering only at front-end
     // this.widgetsService.appendWidgetLiveOptions(this.id, options);
   }
 
+  // Фильтрация
   private applyFilter(allNotifications: EventsWidgetNotification[], filterOptions: EventsWidgetOptions): EventsWidgetNotification[] {
     var notifications = allNotifications;
 
@@ -179,41 +200,61 @@ export class EventsComponent implements OnInit, OnDestroy {
     if (filterOptions.categories && filterOptions.categories.length > 0)
       notifications = notifications.filter(x => filterOptions.categories.some(c => c == x.category.name));
 
-    if (notifications.length > this.notificationsMaxCount) {
-      notifications = notifications.slice(0, this.notificationsMaxCount);
-    }
+    // if (notifications.length > this.notificationsMaxCount) {
+    // notifications = notifications.slice(0, this.notificationsMaxCount);
+    // }
 
     return notifications;
+  }
+
+  private getStatusIcon(name) {
+    const idx = this.iconStatus.findIndex(s => s.name === name);
+    console.log(name);
+    
+    if (idx !== -1) {
+      console.log(idx);
+
+      return this.iconStatus[idx].iconUrl;
+    }
   }
 
   private appendNotifications(remoteNotifications: EventsWidgetNotification[]) {
     const notifications = remoteNotifications.map(n => {
       const iconUrl = this.getNotificationIcon(n.category.name);
+      const iconUrlStatus = this.getStatusIcon(n.status.name);
       const statusName = this.statuses[n.status.name]; // TODO check
-      return {...n, iconUrl, statusName};
+      return { ...n, iconUrl, statusName, iconUrlStatus };
     });
 
     this.allNotifications = notifications.reverse();
+
     this.notifications = this.applyFilter(this.allNotifications, this.getCurrentOptions());
+    this.filters.map(f => {
+      const options: EventsWidgetOptions = {
+        categories: this.categories.filter(c => c.isActive).map(c => c.code),
+        filter: f.code
+      };
+      f.notificationsCount = this.applyFilter(this.allNotifications, options).length;
+    })
   }
 
-  private appendFilterCounters(remoteFilters: EventsWidgetFilter[]) {
-    this.filters.forEach(f => {
-        const rf = remoteFilters.find(rf => rf.code === f.code);
-        if (rf) {
-          f.notificationsCount = rf.notificationsCount;
-        }
-      }
-    );
-  }
+  // private appendFilterCounters(remoteFilters: EventsWidgetFilter[]) {
+  //   this.filters.forEach(f => {
+  //     const rf = remoteFilters.find(rf => rf.code === f.code);
+  //     if (rf) {
+  //       f.notificationsCount = rf.notificationsCount;
+  //     }
+  //   }
+  //   );
+  // }
 
   private appendCategoriesCounters(remoteCategories: EventsWidgetCategory[]) {
     this.categories.forEach(c => {
-        const rc = remoteCategories.find(rf => rf.code === c.code);
-        if (rc) {
-          c.notificationsCounts = rc.notificationsCounts;
-        }
+      const rc = remoteCategories.find(rf => rf.code === c.code);
+      if (rc) {
+        c.notificationsCounts = rc.notificationsCounts;
       }
+    }
     );
   }
 
@@ -228,11 +269,11 @@ export class EventsComponent implements OnInit, OnDestroy {
   private wsConnect() {
     this.liveSubscription = this.oldWidgetsService.getWidgetLiveDataFromWS(this.id, 'events')
       .subscribe((ref: EventsWidgetData) => {
-          this.appendNotifications(ref.notifications);
-          this.appendFilterCounters(ref.filters);
-          this.appendCategoriesCounters(ref.categories);
-          console.log('get_ws_events');
-        }
+        this.appendNotifications(ref.notifications);
+        // this.appendFilterCounters(ref.filters);
+        this.appendCategoriesCounters(ref.categories);
+        console.log('get_ws_events');
+      }
       );
   }
 

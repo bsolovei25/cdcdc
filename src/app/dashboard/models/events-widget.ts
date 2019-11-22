@@ -8,6 +8,7 @@ export interface EventsWidgetNotification {
   fixedBy: User;
   eventDateTime: Date;
   iconUrl: string;
+  iconUrlStatus: string;
   status: { id: number, name: EventsWidgetNotificationStatus, code: number };
   priority: { id: number, name: EventsWidgetNotificationPriority, code: number };
   
