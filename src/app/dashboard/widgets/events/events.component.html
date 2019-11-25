@@ -4,10 +4,10 @@
       <div *ngIf="this.isMock === false" class="header__icon-wrapper">
         <svg-icon class="header__icon" src="./assets/icons/widgets/events/letter.svg"></svg-icon>
       </div>
-      <div *ngIf="this.isMock === false" class="header__icon-wrapper" (click)="listView(true)">
+      <div *ngIf="this.isMock === false" class="header__icon-wrapper" (click)="listView(false)">
         <svg-icon class="header__icon" src="./assets/pic/list.svg"></svg-icon>
       </div>
-      <div *ngIf="this.isMock === false" class="header__icon-wrapper" (click)="listView(false)">
+      <div *ngIf="this.isMock === false" class="header__icon-wrapper" (click)="listView(true)">
         <svg-icon class="header__icon" src="./assets/pic/blocks.svg"></svg-icon>
       </div>
       <span class="header__name">
