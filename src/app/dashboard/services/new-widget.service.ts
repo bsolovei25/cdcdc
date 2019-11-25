@@ -20,17 +20,17 @@ export class NewWidgetService {
   constructor(public http: HttpClient, configService: AppConfigService) {
     this.restUrl = configService.restUrl;
     this.wsUrl = configService.wsUrl;
-    
+
     this.getAvailableWidgets().subscribe(data => this._widgets$.next(data));
    }
 
-  
+
   public dashboard: GridsterItem[] = [];
 
   public mass = [];
-  
+
   private _widgets$: BehaviorSubject<Widgets[]> = new BehaviorSubject(null);
-  
+
   public widgets$: Observable<Widgets[]> = this._widgets$.asObservable().pipe(
     filter(item => item !== null)
   );
@@ -48,7 +48,7 @@ export class NewWidgetService {
 
   public getAvailableWidgets(): Observable<Widgets[]> {
 
-    
+
     // TODO check
     return this.http.get(this.restUrl + '/af/GetAvailableWidgets').pipe(
       map(data => {
@@ -58,7 +58,7 @@ export class NewWidgetService {
       })
     )
   }
-  
+
   mapData(data){
       return data.map((item) => {
           return {
@@ -70,7 +70,7 @@ export class NewWidgetService {
           widgetOptions: item.widgetOptions,
           widgetType: item.widgetType,
           }
-    });  
+    });
   }
 
   getName(idWidg){
@@ -79,7 +79,7 @@ export class NewWidgetService {
       widgetNames = "";
     }else{
       return widgetNames.widgetType;
-    } 
+    }
   }
 
   getWidgetChannel(idWidg){
