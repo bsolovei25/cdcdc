@@ -278,9 +278,6 @@ export class ChangeShiftComponent implements OnInit {
     @Inject("isMock") public isMock: boolean,
     @Inject("widgetId") public widgetId: string
   ) {
-    // this.shiftService.getShiftPassService.subscribe(data => {
-    //   data
-    // })
     if (this.shiftService.shiftPass) {
       this.id = this.shiftService.shiftPass.id;
       this.acceptingShift = this.shiftService.shiftPass.acceptingShift;
@@ -306,7 +303,9 @@ export class ChangeShiftComponent implements OnInit {
   ngOnInit() {}
 
   getDisplayPosition(code): string {
-    return this.mapPosition.find(el => el.code === code).name;
+    if (code) {
+      return this.mapPosition.find(el => el.code === code).name;
+    }
   }
 
   onSendMessage() {
@@ -350,7 +349,9 @@ export class ChangeShiftComponent implements OnInit {
   }
 
   getMain(): ShiftMember {
-    return this.currentShift.shiftMembers.find(item => item.employee.main);
+    if (this.currentShift) {
+      return this.currentShift.shiftMembers.find(item => item.employee.main);
+    }
   }
 
   showPeople(event: any) {
