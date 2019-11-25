@@ -79,10 +79,22 @@ export class NewWidgetsGridComponent implements OnInit {
         enabled: true,
         stop: this.eventStop.bind(this),
         start: this.eventStart.bind(this)
-        
       },
       resizable: {
-        enabled: true
+        delayStart: 0,
+        enabled: true,
+        start: this.eventStart.bind(this),
+        stop: this.eventStop.bind(this),
+        handles: {
+          s: true,
+          e: true,
+          n: true,
+          w: true,
+          se: true,
+          ne: true,
+          sw: true,
+          nw: true
+        }
       }
     };
   }
