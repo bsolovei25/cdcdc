@@ -1,6 +1,8 @@
-<div class="widgets-panel" [class.widgets-panel_active]="active" (mouseover)="isOverPanel($event)" (mouseleave)="isLeavePanel($event)">
+<div class="widgets-panel" [class.widgets-panel_active]="active">
     <div class="widgets-panel__toggle"
-         (click)="onToggleClick()">
+         (click)="onToggleClick()"
+         (mouseover)="isOverPanel($event)"
+        (mouseleave)="isLeavePanel($event)">
      <svg-icon class="widgets-panel__icon"
                 src="./assets/icons/settings.svg" [svgStyle]="{ 'width.px':20, 'height.px':20 }"></svg-icon>
     </div>
