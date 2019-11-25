@@ -202,6 +202,7 @@
 
 .categories {
   display: flex;
+  justify-content: space-between;
   min-height: var(--categories-min-height);
   box-sizing: border-box;
   padding: 0 20px 16px 20px;

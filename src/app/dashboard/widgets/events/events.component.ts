@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit, Inject} from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, Inject } from '@angular/core';
 import {
   EventsWidgetCategory,
   EventsWidgetCategoryCode,
@@ -11,7 +11,7 @@ import {
   EventsWidgetNotification,
   EventsWidgetNotificationStatus
 } from "../../models/events-widget";
-import {Subscription} from "rxjs/index";
+import { Subscription } from "rxjs/index";
 import { NewWidgetService } from '../../services/new-widget.service';
 
 @Component({
@@ -23,7 +23,7 @@ export class EventsComponent implements OnInit, OnDestroy {
   @Input() name = '';
   ng
   isList = true;
-  
+
   title;
 
   static itemCols = 30;
@@ -134,14 +134,14 @@ export class EventsComponent implements OnInit, OnDestroy {
 
 
   constructor(
-    private oldWidgetsService: WidgetsService,   
+    private oldWidgetsService: WidgetsService,
     @Inject('isMock') public isMock: boolean,
     public widgetService: NewWidgetService,
     @Inject('widgetId') public id: string
-    ){
-      this.liveSubscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
-        this.title = data.title
-      });
+  ) {
+    this.liveSubscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
+      this.title = data.title
+    });
   }
 
   ngOnInit() {
@@ -209,11 +209,7 @@ export class EventsComponent implements OnInit, OnDestroy {
 
   private getStatusIcon(name) {
     const idx = this.iconStatus.findIndex(s => s.name === name);
-    console.log(name);
-    
     if (idx !== -1) {
-      console.log(idx);
-
       return this.iconStatus[idx].iconUrl;
     }
   }
@@ -294,4 +290,10 @@ export class EventsComponent implements OnInit, OnDestroy {
       this.wsConnect();
     }
   }
+
+  listView(list: boolean): void {
+    list ? this.isList = true : this.isList = false;
+  }
+
 }
+
