@@ -83,9 +83,12 @@ export class NewWidgetsPanelComponent implements OnInit {
   }
 
   dragStartHandler(ev, item) {
+
     ev.dataTransfer.setData('text/plain', item);
    
     ev.dataTransfer.dropEffect = 'copy';
+
+    this.onToggleClick();
   }
 
   public dataById(index, item): string {

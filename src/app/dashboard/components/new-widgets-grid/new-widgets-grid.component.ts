@@ -4,6 +4,7 @@ import { NewWidgetService } from '../../services/new-widget.service';
 import { WidgetModel } from '../../models/widget.model';
 import { GridsterConfig, GridType, GridsterItem, GridsterItemComponentInterface } from 'angular-gridster2';
 import { Subscription } from 'rxjs';
+import { NewUserSettingsService } from '../../services/new-user-settings.service';
 
 @Component({
   selector: 'evj-new-widgets-grid',
@@ -29,6 +30,7 @@ export class NewWidgetsGridComponent implements OnInit {
   constructor(
     public widgetService: NewWidgetService, 
     public injector: Injector,
+    public userSettings: NewUserSettingsService
    // @Inject('widgetId') public id: string
     ){
   //    this.subscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
@@ -37,16 +39,17 @@ export class NewWidgetsGridComponent implements OnInit {
   }
 
   ngOnInit() {  
-   
     
-    this._injector = Injector.create({
+     this.userSettings.getUserData();
+     debugger
+  /*  this._injector = Injector.create({
       providers: [
         { provide: 'isMock', useValue: false},
         { provide: 'widgetId', useValue: "fdf9c372-06ce-11ea-98c5-d8d09033e35e"},
       ],
       parent: this.injector
     });
-
+*/
     this.options = {
       gridType: GridType.Fixed,
       displayGrid: 'none',
@@ -61,8 +64,8 @@ export class NewWidgetsGridComponent implements OnInit {
       emptyCellDropCallback: this.emptyCellDropClick.bind(this),
       emptyCellDragMaxCols: 100000,
       emptyCellDragMaxRows: 100000,
-      fixedColWidth: 10,
-      fixedRowHeight: 10,
+      fixedColWidth: 20,
+      fixedRowHeight: 20,
       maxItemCols:10000,
       maxItemRows:10000,
      // minRows:50,
@@ -76,10 +79,22 @@ export class NewWidgetsGridComponent implements OnInit {
         enabled: true,
         stop: this.eventStop.bind(this),
         start: this.eventStart.bind(this)
-        
       },
       resizable: {
-        enabled: true
+        delayStart: 0,
+        enabled: true,
+        start: this.eventStart.bind(this),
+        stop: this.eventStop.bind(this),
+        handles: {
+          s: true,
+          e: true,
+          n: true,
+          w: true,
+          se: true,
+          ne: true,
+          sw: true,
+          nw: true
+        }
       }
     };
   }
@@ -112,12 +127,14 @@ export class NewWidgetsGridComponent implements OnInit {
 
   public eventStop(item: GridsterItem, itemComponent: GridsterItemComponentInterface, e: MouseEvent) {
     if (!e) return;
-
+    console.log(e);
     const dataTrasfer = new DataTransfer();
     e.currentTarget.dispatchEvent(new DragEvent('dragstop', { dataTransfer: dataTrasfer }));
-
     this.widgetService.draggingItem = null;
+    this.userSettings.updateByPosition(item);
+    
   }
+
 
   dragStartHandler(ev, i) {
     
@@ -150,8 +167,19 @@ export class NewWidgetsGridComponent implements OnInit {
    
     this.nameWidget = this.widgetService.getName(idWidget);
 
-    this.widgetService.dashboard.push({x: param.x, y: param.y, cols: WIDGETS[this.nameWidget].itemCols, rows: WIDGETS[this.nameWidget].itemRows, id: idWidget, nameWidget: this.nameWidget });
-    
-  }
+/*
+    this.widgetService.dashboard.push({
+      x: param.x, 
+      y: param.y, 
+      cols: WIDGETS[this.nameWidget].itemCols, 
+      rows: WIDGETS[this.nameWidget].itemRows, 
+      id: idWidget, 
+      nameWidget: this.nameWidget 
+    });
+*/
 
+this.userSettings.addCellByPosition(idWidget, this.nameWidget, param);
+    
+console.log('dash', this.widgetService.dashboard);
+  }
 }

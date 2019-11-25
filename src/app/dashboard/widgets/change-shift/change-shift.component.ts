@@ -25,62 +25,73 @@ export class ChangeShiftComponent implements OnInit {
   @ViewChild("scroll", { static: false }) scroll: ElementRef;
   @ViewChild("allPeople", { static: false }) allPeople: ElementRef;
 
+  mapPosition = [
+    {
+      code: 'Responsible',
+      name: 'Старший оператор'
+    },
+    {
+      code: 'Common',
+      name: 'Оператор'
+    }
+  ];
+
   comments: string[] = [];
   people = [
-    {
-      id: 1,
-      name: "Борис Гребенщиков",
-      position: "Старший оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: true,
-      main: false
-    },
-    {
-      id: 2,
-      name: "Сергей Сергеев",
-      position: "Старший оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: true,
-      main: false
-    },
-    {
-      id: 3,
-      name: "Илья Ильин",
-      position: "Старший оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: true,
-      main: false
-    },
-    {
-      id: 1,
-      name: "Борис Гребенщиков 123",
-      position: "Старший оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: true,
-      main: false
-    },
-    {
-      id: 2,
-      name: "Сергей Сергеев 123",
-      position: "Старший оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: true,
-      main: false
-    },
-    {
-      id: 3,
-      name: "Илья Ильин 132",
-      position: "Старший оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: true,
-      main: true
-    }
+  //   {
+  //     id: 1,
+  //     name: "Борис Гребенщиков",
+  //     position: "Старший оператор",
+  //     place: "Блок очистки",
+  //     status: "Сдал смену",
+  //     onShift: true,
+  //     main: false
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Сергей Сергеев",
+  //     position: "Старший оператор",
+  //     place: "Блок очистки",
+  //     status: "Сдал смену",
+  //     onShift: true,
+  //     main: false
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Илья Ильин",
+  //     position: "Старший оператор",
+  //     place: "Блок очистки",
+  //     status: "Сдал смену",
+  //     onShift: true,
+  //     main: false
+  //   },
+  //   {
+  //     id: 1,
+  //     name: "Борис Гребенщиков 123",
+  //     position: "Старший оператор",
+  //     place: "Блок очистки",
+  //     status: "Сдал смену",
+  //     onShift: true,
+  //     main: false
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Сергей Сергеев 123",
+  //     position: "Старший оператор",
+  //     place: "Блок очистки",
+  //     status: "Сдал смену",
+  //     onShift: true,
+  //     main: false
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Илья Ильин 132",
+  //     position: "Старший оператор",
+  //     place: "Блок очистки",
+  //     status: "Сдал смену",
+  //     onShift: true,
+  //     main: true
+  //   }
   ];
 
   allWorkers = [
@@ -256,6 +267,8 @@ export class ChangeShiftComponent implements OnInit {
 
   subscription: Subscription;
 
+
+
   static itemCols = 25;
   static itemRows = 45;
 
@@ -265,6 +278,9 @@ export class ChangeShiftComponent implements OnInit {
     @Inject("isMock") public isMock: boolean,
     @Inject("widgetId") public widgetId: string
   ) {
+    // this.shiftService.getShiftPassService.subscribe(data => {
+    //   data
+    // })
     if (this.shiftService.shiftPass) {
       this.id = this.shiftService.shiftPass.id;
       this.acceptingShift = this.shiftService.shiftPass.acceptingShift;
@@ -274,7 +290,8 @@ export class ChangeShiftComponent implements OnInit {
       .getWidgetChannel(this.widgetId)
       .subscribe(data => {
         this.aboutWidget = data;
-        if (this.aboutWidget.title === "Бригада, передающая смену") {
+        console.log(this.aboutWidget.widgetType);
+        if (this.aboutWidget.widgetType === 'shift-pass') {
           this.currentShift = this.passingShift;
         } else {
           this.currentShift = this.acceptingShift;
@@ -287,6 +304,10 @@ export class ChangeShiftComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  getDisplayPosition(code): string {
+    return this.mapPosition.find(el => el.code === code).name;
+  }
 
   onSendMessage() {
     if (this.input.nativeElement.value) {

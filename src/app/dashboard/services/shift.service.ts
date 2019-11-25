@@ -22,18 +22,19 @@ export class ShiftService {
   }
 
   private async changePositionAsync(id): Promise<any>  {
-    return this.http.post(this.restUrl + '/api/Employees' + id.toString() + '/setResponsible', null).toPromise();
+    return this.http.post(this.restUrl + '/api/employees/' + id.toString() + '/SetResponsible', null).toPromise();
   }
 
   private async changeStatusAsync(status, id, idShift): Promise<any>  {
+    return this.http.post(this.restUrl + 'api/shift' + idShift + '/Employee' + id + '/ChangeStatus/InProgress', null).toPromise();
     switch (status) {
       case '':
-        return this.http.post(this.restUrl + 'api/shift' + idShift + '/Employee' + id + '/ChangeStatus/InProgress', null).toPromise();
+    return this.http.post(this.restUrl + 'api/shift' + idShift + '/Employee' + id + '/ChangeStatus/InProgress', null).toPromise();
       case '':
         return this.http.post(this.restUrl + 'api/shift' + idShift + '/Employee' + id + '/ChangeStatus/Accepted', null).toPromise();
       case '':
         return this.http.post(this.restUrl + 'api/shift' + idShift + '/Employee' + id + '/ChangeStatus/Passed', null).toPromise();
-      case '':
+      case 'Absent':
         return this.http.post(this.restUrl + 'api/shift' + idShift + '/Employee' + id + '/ChangeStatus/Absent', null).toPromise();
     }
   }
@@ -46,5 +47,9 @@ export class ShiftService {
   public async changePosition(id) {
     await this.changePositionAsync(id);
     this.getShiftPass();
+  }
+
+  public getShiftPassService() {
+    return this.shiftPass;
   }
 }

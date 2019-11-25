@@ -38,7 +38,7 @@
                 {{ getMain().employee.lastName }}
               </div>
               <div class="mainWorker__position">
-                {{ getMain().employee.position }}
+                {{ this.getDisplayPosition(getMain().employee.position) }}
               </div>
             </div>
             <div class="mainWorker__row_colIcon"></div>
@@ -54,11 +54,13 @@
       </div>
       <div class="change-shift__onShift">
         <div class="onShift__label">На смене</div>
-        <div class="onShift__add" (click)="showPeople($event)">+</div>
+        <div class="onShift__add gridster-item-content" (click)="showPeople($event)">+</div>
         <div class="onShift__people scroll-bar">
           <div *ngFor="let person of currentShift.shiftMembers">
             <evj-shift-person
               [person]="person"
+              [shiftType]="this.aboutWidget.widgetType"
+              [shiftId]="currentShift.id"
               [onShift]="true"
             ></evj-shift-person>
           </div>
@@ -99,7 +101,7 @@
       </div>
       <div
         class="change-shift__comment"
-        style="height: 500px; min-height: 200px;"
+        style="height: 200px; min-height: 200px;"
       >
         <div class="comment__title">
           Комментарий оператора
@@ -147,7 +149,7 @@
         <div class="submit__frame submit__frame-right"></div>
         <button type="submit gridster-item-content">
           {{
-            aboutWidget.title === "Бригада, передающая смену"
+            this.aboutWidget.widgetType === 'shift-pass'
               ? "Передать смену"
               : "Принять смену"
           }}
