@@ -131,7 +131,11 @@ export class NewWidgetsGridComponent implements OnInit {
     const dataTrasfer = new DataTransfer();
     e.currentTarget.dispatchEvent(new DragEvent('dragstop', { dataTransfer: dataTrasfer }));
     this.widgetService.draggingItem = null;
-    this.userSettings.updateByPosition(item);
+    debugger
+    console.log("old item", item);
+    console.log("new item", itemComponent.$item);
+    this.userSettings.updateByPosition(item, itemComponent.$item);
+    
     
   }
 
