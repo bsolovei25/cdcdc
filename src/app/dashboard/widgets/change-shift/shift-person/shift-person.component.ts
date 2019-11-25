@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from "@angular/core";
 import { ShiftMember } from "src/app/dashboard/models/shift.model";
+import {ShiftService} from "../../../services/shift.service";
 
 @Component({
   selector: "evj-shift-person",
@@ -8,14 +9,53 @@ import { ShiftMember } from "src/app/dashboard/models/shift.model";
 })
 export class ShiftPersonComponent implements OnInit {
   @Input() person: ShiftMember;
+  @Input() shiftType: string;
+  @Input() shiftId: number;
   @Input() onShift: boolean;
 
   @ViewChild("dropdown", { static: false }) ddMenu: ElementRef;
 
-  constructor() {}
+  mapPosition = [
+    {
+      code: 'Responsible',
+      name: 'Старший оператор'
+    },
+    {
+      code: 'Common',
+      name: 'Оператор'
+    }
+  ];
+
+  mapStatus = [
+    {
+      code: 'Accepted',
+      name: 'Принял смену'
+    },
+    {
+      code: 'Passed',
+      name: 'Сдал смену'
+    },
+    {
+      code: 'InProgress',
+      name: 'В процессе'
+    },
+    {
+      code: 'Absent',
+      name: 'Отсутствует'
+    }
+  ];
+
+  constructor(private shiftService: ShiftService) {}
 
   ngOnInit() {
-    console.log(this.person);
+  }
+
+  getDisplayStatus(code): string {
+    return this.mapStatus.find(el => el.code === code).name;
+  }
+
+  getDisplayPosition(code): string {
+    return this.mapPosition.find(el => el.code === code).name;
   }
 
   showMenu() {
@@ -29,18 +69,21 @@ export class ShiftPersonComponent implements OnInit {
     }
   }
 
-  menuCheck(event: any) {
+  menuCheck(event: any, id) {
     switch (event.target.innerText) {
-      case "Готов":
+      case "Принять смену":
+        break;
+      case "Передать смену":
         break;
       case "Отсутствует":
         break;
       case "Сделать главным":
+        this.shiftService.changePosition(id);
         break;
     }
   }
 
   addToShift(event: any) {
-    console.log(event);
+    //
   }
 }

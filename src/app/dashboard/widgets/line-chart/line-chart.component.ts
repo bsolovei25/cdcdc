@@ -16,10 +16,10 @@ import * as d3Shape from 'd3-shape';
 import * as d3Array from 'd3-array';
 import * as d3Axis from 'd3-axis';
 import * as d3Format from 'd3-format';
-import {Mock} from 'src/app/dashboard/widgets/line-chart/mock';
-import {WidgetsService} from "../../services/widgets.service";
-import {Subscription} from "rxjs";
-import {LineChartData, LineChartOptions} from "../../models/line-chart";
+import { Mock } from 'src/app/dashboard/widgets/line-chart/mock';
+import { WidgetsService } from "../../services/widgets.service";
+import { Subscription } from "rxjs";
+import { LineChartData } from "../../models/line-chart";
 import { NewWidgetService } from '../../services/new-widget.service';
 
 @Component({
@@ -30,8 +30,8 @@ import { NewWidgetService } from '../../services/new-widget.service';
 export class LineChartComponent implements OnInit, OnDestroy {
 
 
- // options: LineChartOptions;
- // position?: string = 'default';
+  // options: LineChartOptions;
+  // position?: string = 'default';
 
   code;
   public title;
@@ -45,9 +45,9 @@ export class LineChartComponent implements OnInit, OnDestroy {
   static itemRows = 12;
 
 
-  @ViewChild('chart', {static: true}) private chartContainer: ElementRef;
+  @ViewChild('chart', { static: true }) private chartContainer: ElementRef;
 
-  margin = {top: 10, right: -50, bottom: 20, left: 50};
+  margin = { top: 10, right: -50, bottom: 20, left: 50 };
 
   svg;
   g: any;
@@ -59,6 +59,8 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
   line;
   lines: any;
+
+  dataLine;
 
   public minHeight;
   public elem2;
@@ -138,23 +140,29 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
   constructor(
     private oldWidgetsService: WidgetsService,
-    public widgetService: NewWidgetService, 
+    public widgetService: NewWidgetService,
     @Inject('isMock') public isMock: boolean,
     @Inject('widgetId') public id: string
-    ){
-     this.subscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
-        this.code = data.code,
+  ) {
+    this.subscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
+      this.code = data.code,
         this.title = data.title,
         this.units = data.units,
         this.options = data.widgetOptions
       //  this.position = data.
-      });
+    });
   }
 
   ngOnInit() {
     this.showMock(this.isMock);
+    if (!this.isMock) {
+      setInterval(() => {
+        this.draw(this.dataLine);
+      }, 100);
+    }
+
   }
-  
+
   ngOnDestroy() {
     if (this.subscription) {
       this.subscription.unsubscribe();
@@ -174,11 +182,11 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
     this.subscription2 = this.oldWidgetsService.getWidgetLiveDataFromWS(this.id, 'line-chart')
       .subscribe((ref) => {
+        this.dataLine = ref;
+        this.draw(ref);
 
-          this.draw(ref);
-
-          this.subscription2.unsubscribe();
-        }
+        this.subscription2.unsubscribe();
+      }
       );
   }
 
@@ -213,7 +221,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
     const latest = values.slice().reverse()[0];
 
     if (latest && latest.date.getTime() !== xMax.getTime()) {
-      return values.push({value: latest.value, date: xMax});
+      return values.push({ value: latest.value, date: xMax });
     }
   }
 
@@ -279,7 +287,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
         return acc;
 
-      }, {values: []}).values
+      }, { values: [] }).values
     };
     return deviationMode;
   }
@@ -342,7 +350,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
     const element = this.chartContainer.nativeElement;
     this.width = element.offsetWidth - this.margin.left - this.margin.right;
     this.height = element.offsetHeight - this.margin.top - this.margin.bottom;
-     this.heightNoMargins = element.offsetHeight;
+    this.heightNoMargins = element.offsetHeight;
 
     this.svg = d3.select(element).append('svg')
       .attr('width', this.width)
@@ -353,8 +361,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
   }
 
-  private onChangeDispay(){
-    
+  private onChangeDispay() {
   }
 
   private makeXGridLines() {
@@ -436,9 +443,9 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
     points.selectAll(".point")
       .data(d => d.values.map(i => {
-          i.type = d.graphType;
-          return i
-        })
+        i.type = d.graphType;
+        return i
+      })
       )
       .enter()
       .append("svg:image")

@@ -26,8 +26,8 @@ export class ManualInputComponent implements OnInit, OnDestroy {
 
   constructor(
     public manualInputService: ManualInputService,
-    private oldWidgetsService: WidgetsService, 
-    public widgetService:NewWidgetService,
+    private oldWidgetsService: WidgetsService,
+    public widgetService: NewWidgetService,
     private http: HttpClient,
     configService: AppConfigService,
     @Inject('isMock') public isMock: boolean,
@@ -36,7 +36,7 @@ export class ManualInputComponent implements OnInit, OnDestroy {
       this.restUrl = configService.restUrl;
       this.isLoading = true;
       this.subscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
-        this.title = data.title
+        this.title = data.title;
       });
   }
 
@@ -47,8 +47,8 @@ export class ManualInputComponent implements OnInit, OnDestroy {
   private Data: Machine_MI[] = [];
 
   private flag: boolean = true;
-  
-  
+
+
   ngOnInit() {
     this.showMock(this.isMock);
   }
