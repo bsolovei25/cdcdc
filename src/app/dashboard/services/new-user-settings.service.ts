@@ -5,7 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {WIDGETS} from '../components/new-widgets-grid/widget-map'
 import { WidgetsService } from './widgets.service';
 import { AppConfigService } from 'src/app/services/appConfigService';
-import { GridsterItem } from 'angular-gridster2';
+import { GridsterItem, GridsterItemComponentInterface } from 'angular-gridster2';
 
 
 @Injectable({
@@ -42,16 +42,38 @@ export class NewUserSettingsService {
      this.screenSave();
   }
 
-  public updateByPosition(obj){
+  public updateByPosition(oldItem, newItem){
     debugger
       for(let item of this.widgetService.dashboard){
-          if(item.id === obj.id){
-            item = obj; 
+        
+          if( ( (item.x === newItem.x) && (item.y === newItem.y) ) || ( (item.rows === newItem.rows) && (item.cols === newItem.cols) ) ){
+            item.x = newItem.x;
+            item.y = newItem.y;
+            item.rows = newItem.rows;
+            item.cols = newItem.cols;
+            console.log("update", item)
           }
+          
+
+          /*
+         if(item.id === oldItem.id){   
+          this.widgetService.dashboard.splice(this.widgetService.dashboard.indexOf(item), 1 ,{
+            x: newItem.x,
+            y: newItem.y, 
+            cols: newItem.cols, 
+            rows: newItem.rows, 
+            id: oldItem.id, 
+            widgetType: oldItem.widgetType
+          });
+         } 
+         */
       }
-     console.log("update");
      this.screenSave();
      debugger
+  }
+
+  public removeItem(){
+    this.screenSave();
   }
 
   private screenSave() {

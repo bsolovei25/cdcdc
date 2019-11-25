@@ -6,6 +6,7 @@ import {WIDGETS} from '../new-widgets-grid/widget-map';
 import { WidgetModel } from '../../models/widget.model';
 import { Widget } from '../../models/widget';
 import { tick } from '@angular/core/testing';
+import { NewUserSettingsService } from '../../services/new-user-settings.service';
 
 @Component({
   selector: 'evj-new-widgets-panel',
@@ -38,7 +39,11 @@ export class NewWidgetsPanelComponent implements OnInit {
 
 
   public test = [];
-  constructor(public widgetService: NewWidgetService, public injector: Injector) {
+  constructor(
+    public widgetService: NewWidgetService, 
+    public injector: Injector,
+    public userSettings: NewUserSettingsService
+    ) {
     this.subscription = this.widgetService.getAvailableWidgets().subscribe(dataW => {
       this.widgets = dataW;
     });
@@ -147,6 +152,7 @@ export class NewWidgetsPanelComponent implements OnInit {
      this.widgetService.dashboard.splice(this.widgetService.dashboard.indexOf(this.widgetService.draggingItem), 1);
      this.widgetService.draggingItem = null;
      this.widgetService.isOver = false;
+     this.userSettings.removeItem();
     }
     else{
       this.widgetService.isOver = false;
