@@ -23,7 +23,7 @@ import { NewUserSettingsService } from '../../services/new-user-settings.service
 export class EventsComponent implements OnInit, OnDestroy {
   @Input() name = '';
   ng
-  isList = true;
+  isList = false;
 
   title;
 

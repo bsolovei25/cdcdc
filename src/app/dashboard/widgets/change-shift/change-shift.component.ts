@@ -211,8 +211,8 @@ export class ChangeShiftComponent implements OnInit {
 
   subscription: Subscription;
 
-  static itemCols = 25;
-  static itemRows = 45;
+  static itemCols = 16;
+  static itemRows = 30;
 
   constructor(
     private widgetService: NewWidgetService,
