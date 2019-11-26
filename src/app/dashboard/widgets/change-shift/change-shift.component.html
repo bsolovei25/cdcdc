@@ -1,8 +1,8 @@
 <div class="container pointer-event">
-  <evj-widget-header [title]="title" [units]="units" [code]="code" [id]="id"></evj-widget-header>
+  <evj-widget-header *ngIf="this.aboutWidget" [title]="this.aboutWidget.title" [units]="units" [code]="code" [id]="id"></evj-widget-header>
 
-  <div class="frame frame_top" (mousedown)="$event.stopPropagation()" 
-  (touchstart)="$event.stopPropagation()"> 
+  <div class="frame frame_top" (mousedown)="$event.stopPropagation()"
+  (touchstart)="$event.stopPropagation()">
     <div class="frame__circle frame__circle__left"></div>
     <div class="frame__circle frame__circle__right"></div>
   </div>
@@ -11,7 +11,7 @@
     <div class="mock"></div>
   </ng-container>
   <ng-container *ngIf="!isMock">
-    <div class="change-shift" (mousedown)="$event.stopPropagation()" 
+    <div class="change-shift" (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()">
       <div class="change-shift__mainWorker">
         <div class="circle circle__left circle__left-top"></div>
@@ -160,7 +160,7 @@
     </div>
   </ng-container>
 
-  <div class="frame frame_bottom" (mousedown)="$event.stopPropagation()" 
+  <div class="frame frame_bottom" (mousedown)="$event.stopPropagation()"
   (touchstart)="$event.stopPropagation()">
     <div class="frame__circle frame__circle__left"></div>
     <div class="frame__circle frame__circle__right"></div>
