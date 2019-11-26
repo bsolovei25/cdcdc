@@ -71,7 +71,7 @@ deploy review:
         - pwd
         - ssh root@${DEPLOY_DOMAIN} rm -rf /var/www/angular-dynamic.local/public
         - scp -r ./public root@${DEPLOY_DOMAIN}:/var/www/angular-dynamic.local
-        - ssh root@${DEPLOY_DOMAIN} ln -s /etc/nginx/sites-available/angular-dynamic.local /etc/nginx/sites-enabled/angular-dynamic.local
+        - ssh root@${DEPLOY_DOMAIN} "ln -s /etc/nginx/sites-available/angular-dynamic.local /etc/nginx/sites-enabled/angular-dynamic.local || unlink /etc/nginx/sites-enabled/angular-dynamic.local ; ln -s /etc/nginx/sites-available/angular-dynamic.local /etc/nginx/sites-enabled/angular-dynamic.local"
         - ssh root@${DEPLOY_DOMAIN} nginx -s reload
 
 stop-review:
@@ -83,8 +83,8 @@ stop-review:
     only:
         - merge_requests
     script:
-        - ssh root@${DEPLOY_DOMAIN} unlink /etc/nginx/sites-enabled/angular-dynamic.local 
-        - ssh root@${DEPLOY_DOMAIN} rm -rf /var/www/angular-dynamic.local/public
+        - ssh root@${DEPLOY_DOMAIN} "unlink /etc/nginx/sites-enabled/angular-dynamic.local || sleep 0.1"
+        - ssh root@${DEPLOY_DOMAIN} "rm -rf /var/www/angular-dynamic.local/public || sleep 0.1"
         - ssh root@${DEPLOY_DOMAIN} nginx -s reload
     when: manual
     environment:
