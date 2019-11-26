@@ -1,5 +1,6 @@
 <div class="container pointer-event">
-  <div class="header">
+  <evj-widget-header [title]="title" [id]="id"></evj-widget-header>
+  <!-- <div class="header">
     <div class="header__content">
       <div class="header__icon-wrapper">
         <svg-icon class="header__icon" src="./assets/icons/widgets/workspace/events-list.svg"></svg-icon>
@@ -8,7 +9,7 @@
         Рабочая область
       </span>
     </div>
-  </div>
+  </div> -->
 
   <div class="frame frame_top">
     <div class="frame__circle frame__circle__left"></div>
@@ -16,7 +17,7 @@
   </div>
 
   <ng-container *ngIf="isMock">
-    <div class="mock">WORKSPACE</div>
+    <div class="mock"></div>
   </ng-container>
   <ng-container *ngIf="!isMock">
 
@@ -219,13 +220,13 @@
                 <img src="./assets/img/1.png" alt="1" width="100" height="70">
               </div>
               <div class="media__item">
-                  <img src="./assets/img/2.png" alt="1" width="100" height="70">
+                <img src="./assets/img/2.png" alt="1" width="100" height="70">
               </div>
               <div class="media__item">
-                  <img src="./assets/img/1.png" alt="1" width="100" height="70">
+                <img src="./assets/img/1.png" alt="1" width="100" height="70">
               </div>
               <div class="media__item">
-                  <img src="./assets/img/2.png" alt="1" width="100" height="70">
+                <img src="./assets/img/2.png" alt="1" width="100" height="70">
               </div>
             </div>
           </div>

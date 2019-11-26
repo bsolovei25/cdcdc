@@ -25,6 +25,8 @@ export class EventsWorkSpaceComponent implements OnInit {
 
   subscription: Subscription;
 
+  public title = "Рабочая область";
+
   static itemCols = 25;
   static itemRows = 45;
 
@@ -32,16 +34,16 @@ export class EventsWorkSpaceComponent implements OnInit {
     private widgetService: NewWidgetService,
     private shiftService: ShiftService,
     @Inject("isMock") public isMock: boolean,
-    @Inject("widgetId") public widgetId: string
+    @Inject("widgetId") public id: string
   ) {
   }
 
   ngOnInit() {
 
-    
+
   }
 
 
-  
+
 
 }
