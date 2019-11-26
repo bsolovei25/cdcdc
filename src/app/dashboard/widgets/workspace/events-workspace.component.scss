@@ -30,6 +30,7 @@
   flex-direction: column;
   justify-content: flex-start;
   line-height: 24px;
+  height: 100%;
 }
 
 .mock {
@@ -221,6 +222,7 @@
   justify-content: space-between;
   position: relative;
   overflow: hidden;
+  height: 100%;
 
   &__mainWorker {
     width: 100%;
@@ -1119,6 +1121,7 @@
     box-sizing: border-box;
     padding: 10px 10px 0;
     color: var(--color-text-main);
+        height: 100%;
 
     &:after {
       z-index: 1;
@@ -1166,6 +1169,7 @@
     box-sizing: border-box;
     padding: 3px 0 20px;
     position: relative;
+    height: 100%;
 
     .button {
       height: 40px;
