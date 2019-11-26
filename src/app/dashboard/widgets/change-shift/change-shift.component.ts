@@ -37,62 +37,7 @@ export class ChangeShiftComponent implements OnInit {
   ];
 
   comments: string[] = [];
-  people = [
-  //   {
-  //     id: 1,
-  //     name: "Борис Гребенщиков",
-  //     position: "Старший оператор",
-  //     place: "Блок очистки",
-  //     status: "Сдал смену",
-  //     onShift: true,
-  //     main: false
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Сергей Сергеев",
-  //     position: "Старший оператор",
-  //     place: "Блок очистки",
-  //     status: "Сдал смену",
-  //     onShift: true,
-  //     main: false
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Илья Ильин",
-  //     position: "Старший оператор",
-  //     place: "Блок очистки",
-  //     status: "Сдал смену",
-  //     onShift: true,
-  //     main: false
-  //   },
-  //   {
-  //     id: 1,
-  //     name: "Борис Гребенщиков 123",
-  //     position: "Старший оператор",
-  //     place: "Блок очистки",
-  //     status: "Сдал смену",
-  //     onShift: true,
-  //     main: false
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Сергей Сергеев 123",
-  //     position: "Старший оператор",
-  //     place: "Блок очистки",
-  //     status: "Сдал смену",
-  //     onShift: true,
-  //     main: false
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Илья Ильин 132",
-  //     position: "Старший оператор",
-  //     place: "Блок очистки",
-  //     status: "Сдал смену",
-  //     onShift: true,
-  //     main: true
-  //   }
-  ];
+  people = [];
 
   allWorkers = [
     {
@@ -261,8 +206,6 @@ export class ChangeShiftComponent implements OnInit {
 
   aboutWidget;
   id: number;
-  acceptingShift: Shift;
-  passingShift: Shift;
   currentShift: Shift;
 
   subscription: Subscription;
@@ -278,29 +221,39 @@ export class ChangeShiftComponent implements OnInit {
     @Inject("isMock") public isMock: boolean,
     @Inject("widgetId") public widgetId: string
   ) {
-    if (this.shiftService.shiftPass) {
-      this.id = this.shiftService.shiftPass.id;
-      this.acceptingShift = this.shiftService.shiftPass.acceptingShift;
-      this.passingShift = this.shiftService.shiftPass.passingShift;
-    }
+    this.shiftService.shiftPass.subscribe(data => {
+      if(this.aboutWidget) {
+        this.setRealtimeData(this.aboutWidget.widgetType, data);
+      }
+      console.log(data);
+    });
+
     this.subscription = this.widgetService
       .getWidgetChannel(this.widgetId)
       .subscribe(data => {
         this.aboutWidget = data;
-        console.log(this.aboutWidget.widgetType);
-        if (this.aboutWidget.widgetType === 'shift-pass') {
-          this.currentShift = this.passingShift;
-        } else {
-          this.currentShift = this.acceptingShift;
-        }
-        const index = this.currentShift.shiftMembers.findIndex(
-          item => item.employee.position === "Responsible"
-        );
-        this.currentShift.shiftMembers[index].employee.main = true;
+        this.setRealtimeData(this.aboutWidget.widgetType, this.shiftService.shiftPass.getValue());
       });
   }
 
   ngOnInit() {}
+
+  private setRealtimeData(widgetType, data) {
+    if (!widgetType || !data) {
+      return;
+    }
+    if (widgetType === 'shift-pass') {
+      this.currentShift = data.acceptingShift;
+    } else {
+      this.currentShift = data.passingShift;
+    }
+    if (this.currentShift.shiftMembers) {
+      const index = this.currentShift.shiftMembers.findIndex(
+        item => item.employee.position === "Responsible"
+      );
+      this.currentShift.shiftMembers[index].employee.main = true;
+    }
+  }
 
   getDisplayPosition(code): string {
     if (code) {

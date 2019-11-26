@@ -33,11 +33,11 @@
         <div class="mainWorker__info">
           <div class="mainWorker__row">
             <div class="mainWorker__row_colInfo" *ngIf="getMain()">
-              <div class="mainWorker__name">
+              <div class="mainWorker__name" >
                 {{ getMain().employee.firstName }}
                 {{ getMain().employee.lastName }}
               </div>
-              <div class="mainWorker__position">
+              <div class="mainWorker__position" *ngIf="currentShift">
                 {{ this.getDisplayPosition(getMain().employee.position) }}
               </div>
             </div>
@@ -46,7 +46,7 @@
           <div class="mainWorker__row">
             <div class="circle circle__right circle__right-top"></div>
             <div class="mainWorker__squad">Бригада</div>
-            <div class="mainWorker__number" *ngIf="currentShift.brigade">
+            <div class="mainWorker__number" *ngIf="currentShift">
               {{ currentShift.brigade.number }}
             </div>
           </div>
@@ -54,27 +54,29 @@
       </div>
       <div class="change-shift__onShift">
         <div class="onShift__label">На смене</div>
-        <div class="onShift__add gridster-item-content" (click)="showPeople($event)">+</div>
-        <div class="onShift__people scroll-bar">
-          <div *ngFor="let person of currentShift.shiftMembers">
-            <evj-shift-person
-              [person]="person"
-              [shiftType]="this.aboutWidget.widgetType"
-              [shiftId]="currentShift.id"
-              [onShift]="true"
-            ></evj-shift-person>
-          </div>
-        </div>
-        <div class="onShift__allPeople" #allPeople>
-          <div class="allPeople__scroll scroll-bar">
-            <div *ngFor="let person of allWorkers">
+        <ng-container *ngIf="currentShift">
+          <div class="onShift__add gridster-item-content" (click)="showPeople($event)">+</div>
+          <div class="onShift__people scroll-bar">
+            <div *ngFor="let person of currentShift.shiftMembers">
               <evj-shift-person
                 [person]="person"
-                [onShift]="false"
+                [shiftType]="this.aboutWidget.widgetType"
+                [shiftId]="currentShift.id"
+                [onShift]="true"
               ></evj-shift-person>
             </div>
           </div>
-        </div>
+          <div class="onShift__allPeople" #allPeople>
+            <div class="allPeople__scroll scroll-bar">
+              <div *ngFor="let person of allWorkers">
+                <evj-shift-person
+                  [person]="person"
+                  [onShift]="false"
+                ></evj-shift-person>
+              </div>
+            </div>
+          </div>
+        </ng-container>
       </div>
       <div class="change-shift__absent">
         <div class="absent__label">Отсутствуют</div>
@@ -144,7 +146,7 @@
           </div>
         </div>
       </div>
-      <div class="change-shift__submit" *ngIf="aboutWidget.title">
+      <div class="change-shift__submit" *ngIf="aboutWidget">
         <div class="submit__frame submit__frame-left"></div>
         <div class="submit__frame submit__frame-right"></div>
         <button type="submit gridster-item-content">
