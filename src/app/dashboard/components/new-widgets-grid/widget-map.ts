@@ -5,6 +5,7 @@ import { LineDiagramComponent } from '../../widgets/line-diagram/line-diagram.co
 import { ManualInputComponent } from '../../widgets/manual-input/manual-input.component';
 import {ChangeShiftComponent} from "../../widgets/change-shift/change-shift.component";
 import { WidgetPiesComponent } from '../../widgets/widgets-pie2/widget-pies/widget-pies/widget-pies.component';
+import { EventsWorkSpaceComponent } from '../../widgets/workspace/events-workspace.component';
 
 
 export const WIDGETS = {
@@ -14,5 +15,6 @@ export const WIDGETS = {
     "manual-input": ManualInputComponent,
     "events": EventsComponent,
     "shift-pass": ChangeShiftComponent,
-    "shift-accept": ChangeShiftComponent
+    "shift-accept": ChangeShiftComponent,
+    "events-workspace": EventsWorkSpaceComponent
 }
