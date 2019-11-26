@@ -26,8 +26,7 @@ import { GridsterModule } from 'angular-gridster2';
 import {UserInfoComponent} from './components/user-info/user-info.component';
 import { WidgetPiesComponent } from './widgets/widgets-pie2/widget-pies/widget-pies/widget-pies.component';
 import { WidgetsPieComponent } from './widgets/widgets-pie2/widget-pie-circle/widget-pie/widget-pie.component';
-
-
+import { EventsWorkSpaceComponent } from './widgets/workspace/events-workspace.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +50,7 @@ import { WidgetsPieComponent } from './widgets/widgets-pie2/widget-pie-circle/wi
     UserInfoComponent,
     WidgetPiesComponent,
     WidgetsPieComponent,
+    EventsWorkSpaceComponent
   ],
   entryComponents:[
     WidgetsPieCircleComponent,
@@ -59,7 +59,8 @@ import { WidgetsPieComponent } from './widgets/widgets-pie2/widget-pie-circle/wi
     LineChartComponent,
     ManualInputComponent,
     LineDiagramComponent,
-    ChangeShiftComponent
+    ChangeShiftComponent,
+    EventsWorkSpaceComponent
   //  UserInfoComponent
   ],
   exports: [

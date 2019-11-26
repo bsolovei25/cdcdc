@@ -57,7 +57,7 @@ export class EventsComponent implements OnInit, OnDestroy {
         closed: null,
         all: null,
       },
-      name: 'Производственные задания и распоряжения',
+      name: 'Производственные задания',
       isActive: false
     },
     {
