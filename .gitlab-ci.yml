@@ -119,6 +119,7 @@ deploy:
         - pwd
         - ssh root@${DEPLOY_DOMAIN} rm -rf /var/www/angular.local/public
         - scp -r ./public root@${DEPLOY_DOMAIN}:/var/www/angular.local
+        - sed -i -E "s/:5555/:6555/g" /var/www/angular-staging.local/public/assets/config.json
         - ssh root@${DEPLOY_DOMAIN} nginx -s reload
     when: manual
     only:
