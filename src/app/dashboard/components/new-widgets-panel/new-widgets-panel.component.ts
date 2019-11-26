@@ -77,7 +77,7 @@ export class NewWidgetsPanelComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    debugger
+   
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
@@ -147,7 +147,7 @@ export class NewWidgetsPanelComponent implements OnInit {
   }
 
   removeItem(){
-    
+    /*
     if((this.widgetService.draggingItem) && (this.widgetService.isOver === true)){
      this.widgetService.dashboard.splice(this.widgetService.dashboard.indexOf(this.widgetService.draggingItem), 1);
      this.widgetService.draggingItem = null;
@@ -157,5 +157,10 @@ export class NewWidgetsPanelComponent implements OnInit {
     else{
       this.widgetService.isOver = false;
     }
+    */
+
+   // this.widgetService.removeItemService();
+    this.userSettings.removeItem();
+
   } 
 }

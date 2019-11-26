@@ -221,7 +221,7 @@ export class ChangeShiftComponent implements OnInit {
     @Inject("widgetId") public id: string
   ) {
     this.shiftService.shiftPass.subscribe(data => {
-      if(this.aboutWidget) {
+      if (this.aboutWidget) {
         this.setRealtimeData(this.aboutWidget.widgetType, data);
       }
       console.log(data);

@@ -1,6 +1,6 @@
 <div class="container">
-  <div class="header">
-    <div class="header__content">
+  <!--<div class="header">
+    <div class="header__content drag handle">
       <div class="header__icon-wrapper">
         <svg-icon
           class="header__icon"
@@ -12,14 +12,18 @@
       </span>
       <span class="header__units">{{data[0].units}}</span>
     </div>
-  </div>
+  </div> -->
+   <!--<evj-widget-header></evj-widget-header>--> 
+   <evj-widget-header [title]="title" [units]="units" [code]="code" [id]="id"></evj-widget-header>
 
-  <div class="frame frame_top">
+  <div class="frame frame_top" (mousedown)="$event.stopPropagation()" 
+  (touchstart)="$event.stopPropagation()">
     <div class="frame__circle frame__circle__left"></div>
     <div class="frame__circle frame__circle__right"></div>
   </div>
 
-  <div class="line-diagram">
+  <div class="line-diagram" (mousedown)="$event.stopPropagation()" 
+  (touchstart)="$event.stopPropagation()">
     <div class="line-diagram__scroll scroll-bar">
       <div class="line-diagram__body">
         <table>
@@ -48,7 +52,8 @@
     </div>
   </div>
 
-  <div class="frame frame_bottom">
+  <div class="frame frame_bottom" (mousedown)="$event.stopPropagation()" 
+  (touchstart)="$event.stopPropagation()">
     <div class="frame__circle frame__circle__left"></div>
     <div class="frame__circle frame__circle__right"></div>
   </div>

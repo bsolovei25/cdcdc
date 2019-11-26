@@ -17,7 +17,7 @@ declare var d3: any;
   styleUrls: ['./widget-pie.component.scss']
 })
 export class WidgetsPieComponent implements OnInit {
-  public readonly RADIUS = 51;
+  public readonly RADIUS = 48;
 
   @Input() public data: PieWidget;
 

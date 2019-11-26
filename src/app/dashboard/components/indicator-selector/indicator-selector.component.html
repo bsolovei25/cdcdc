@@ -2,7 +2,7 @@
   <svg-icon class="indicator-selector__icon"
             src="./assets/icons/screen.svg"></svg-icon>
 
-  <span class="indicator-selector__name">
+  <span class="indicator-selector__name" >
         {{ this.getActiveScreen() }}
   </span>
 
@@ -10,6 +10,7 @@
     <ng-container *ngFor="let screen of this.screens">
       <div *ngIf="screen.isActive === false"
            (click)="this.setActiveScreen(screen)"
+           (click)="LoadScreen(idScreen)"
            class="dropdown-component">{{ screen.name }}</div>
     </ng-container>
     <div class="dropdown-component">
