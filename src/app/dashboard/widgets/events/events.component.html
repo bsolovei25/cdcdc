@@ -1,7 +1,7 @@
 <div class="header">
   <div class="pointer-events">
-    <div class="header__content">
-      <div *ngIf="this.isMock === false" class="header__icon-wrapper">
+    <div class="header__content drag handle">
+      <div class="header__icon-wrapper">
         <svg-icon class="header__icon" src="./assets/icons/widgets/events/letter.svg"></svg-icon>
       </div>
       <div *ngIf="this.isMock === false" class="header__icon-wrapper" (click)="listView(false)">
@@ -13,11 +13,16 @@
       <span class="header__name">
         {{ title }}
       </span>
+      <div  class="delete_widget" (click)="onRemoveButton()" (mousedown)="$event.stopPropagation()" 
+        (touchstart)="$event.stopPropagation()">
+            <svg-icon style="height: 100%; width: 100%; fill: #8C99B2"
+            src="./assets/icons/close_bad.svg"
+          ></svg-icon>
     </div>
   </div>
 </div>
 
-<ng-container *ngIf="this.isMock === true">
+<ng-container *ngIf="this.isMock === true" >
   <div class="frame frame_top">
     <div class="frame__circle frame__circle__left"></div>
     <div class="frame__circle frame__circle__right"></div>
@@ -32,7 +37,8 @@
 <ng-container *ngIf="this.isMock === false">
 
   <ng-container *ngIf="isList">
-    <div class="pointer-events">
+    <div class="pointer-events" (mousedown)="$event.stopPropagation()" 
+    (touchstart)="$event.stopPropagation()">
       <div class="events">
         <div class="notifications">
           <div class="notifications__block__list scroll-bar">
@@ -153,7 +159,8 @@
 
   <!-- <ng-container *ngIf="isMock === false">  -->
   <ng-container *ngIf="!isList">
-    <div class="pointer-events">
+    <div class="pointer-events" (mousedown)="$event.stopPropagation()" 
+    (touchstart)="$event.stopPropagation()">
       <div class="events">
 
         <div class="notifications">
@@ -264,7 +271,8 @@
     </div>
   </ng-container>
 
-  <div class="frame frame_bottom">
+  <div class="frame frame_bottom" (mousedown)="$event.stopPropagation()" 
+  (touchstart)="$event.stopPropagation()">
     <div class="frame__circle frame__circle__left"></div>
     <div class="frame__circle frame__circle__right"></div>
   </div>

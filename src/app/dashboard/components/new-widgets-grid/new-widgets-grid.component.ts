@@ -41,7 +41,7 @@ export class NewWidgetsGridComponent implements OnInit {
   ngOnInit() {  
     
      this.userSettings.getUserData();
-     debugger
+ 
   /*  this._injector = Injector.create({
       providers: [
         { provide: 'isMock', useValue: false},
@@ -131,7 +131,7 @@ export class NewWidgetsGridComponent implements OnInit {
     const dataTrasfer = new DataTransfer();
     e.currentTarget.dispatchEvent(new DragEvent('dragstop', { dataTransfer: dataTrasfer }));
     this.widgetService.draggingItem = null;
-    debugger
+  
     console.log("old item", item);
     console.log("new item", itemComponent.$item);
     this.userSettings.updateByPosition(item, itemComponent.$item);

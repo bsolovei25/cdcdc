@@ -260,7 +260,7 @@ export class ChangeShiftComponent implements OnInit {
   ];
 
   aboutWidget;
-  id: number;
+  wid: number;
   acceptingShift: Shift;
   passingShift: Shift;
   currentShift: Shift;
@@ -275,19 +275,19 @@ export class ChangeShiftComponent implements OnInit {
   constructor(
     private widgetService: NewWidgetService,
     private shiftService: ShiftService,
-    @Inject("isMock") public isMock: boolean,
-    @Inject("widgetId") public widgetId: string
+    @Inject("isMock") public isMock: boolean = false,
+    @Inject("widgetId") public id: string
   ) {
     // this.shiftService.getShiftPassService.subscribe(data => {
     //   data
     // })
     if (this.shiftService.shiftPass) {
-      this.id = this.shiftService.shiftPass.id;
+      this.wid = this.shiftService.shiftPass.id;
       this.acceptingShift = this.shiftService.shiftPass.acceptingShift;
       this.passingShift = this.shiftService.shiftPass.passingShift;
     }
     this.subscription = this.widgetService
-      .getWidgetChannel(this.widgetId)
+      .getWidgetChannel(this.id)
       .subscribe(data => {
         this.aboutWidget = data;
         console.log(this.aboutWidget.widgetType);
