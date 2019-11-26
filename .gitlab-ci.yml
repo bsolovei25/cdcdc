@@ -104,7 +104,11 @@ staging:
         - pwd
         - ssh root@${DEPLOY_DOMAIN} rm -rf /var/www/angular-staging.local/public
         - scp -r ./public root@${DEPLOY_DOMAIN}:/var/www/angular-staging.local
+<<<<<<< HEAD
         - ssh root@${DEPLOY_DOMAIN} "sed -i  's/:5555/:6555/g' /var/www/angular-staging.local/public/assets/config.jsoni || sleep 0.1"
+=======
+        - ssh root@{DEPLOY_DOMAIN} "sed -i  's/:5555/:6555/g' /var/www/angular-staging.local/public/assets/config.jsoni || sleep 0.1"
+>>>>>>> 76094c5b2277c97755ad237d86ca0f30818beebe
         - ssh root@${DEPLOY_DOMAIN} nginx -s reload
     only:
         - master
