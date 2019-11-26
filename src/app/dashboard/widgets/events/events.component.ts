@@ -13,6 +13,7 @@ import {
 } from "../../models/events-widget";
 import { Subscription } from "rxjs/index";
 import { NewWidgetService } from '../../services/new-widget.service';
+import { NewUserSettingsService } from '../../services/new-user-settings.service';
 
 @Component({
   selector: 'evj-events',
@@ -135,6 +136,7 @@ export class EventsComponent implements OnInit, OnDestroy {
 
   constructor(
     private oldWidgetsService: WidgetsService,
+    public userSettings: NewUserSettingsService,
     @Inject('isMock') public isMock: boolean,
     public widgetService: NewWidgetService,
     @Inject('widgetId') public id: string
@@ -293,6 +295,11 @@ export class EventsComponent implements OnInit, OnDestroy {
 
   listView(list: boolean): void {
     list ? this.isList = true : this.isList = false;
+  }
+
+  onRemoveButton(){
+    this.widgetService.removeItemService(this.id);
+    this.userSettings.removeItem();
   }
 
 }

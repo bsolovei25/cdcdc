@@ -82,6 +82,26 @@ export class NewWidgetService {
     }
   }
 
+  removeItemService(id){
+    /*
+    if((this.draggingItem) && (this.isOver === true)){
+      this.dashboard.splice(this.dashboard.indexOf(this.draggingItem), 1);
+      this.draggingItem = null;
+      this.isOver = false;
+     }
+     else{
+       this.isOver = false;
+     }
+     */
+    for(let item of this.dashboard){
+      if(item.id === id){
+        this.dashboard.splice(this.dashboard.indexOf(item), 1);
+      }
+    }
+    
+   } 
+  
+
   getWidgetChannel(idWidg){
     return this.widgets$.pipe(map((i) => i.find((x)=> x.id === idWidg)));
   }

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { NewWidgetService } from './new-widget.service';
-import { NewUserSettings, NewUserGrid } from '../models/user-settings.model';
+import { NewUserSettings, NewUserGrid, ScreenSettings } from '../models/user-settings.model';
 import {HttpClient} from '@angular/common/http';
 import {WIDGETS} from '../components/new-widgets-grid/widget-map'
 import { WidgetsService } from './widgets.service';
 import { AppConfigService } from 'src/app/services/appConfigService';
-import { GridsterItem } from 'angular-gridster2';
+import { GridsterItem, GridsterItemComponentInterface } from 'angular-gridster2';
 
 
 @Injectable({
@@ -14,6 +14,8 @@ import { GridsterItem } from 'angular-gridster2';
 export class NewUserSettingsService {
 
   public readonly WIDGETS = WIDGETS;
+
+  
 
   constructor(
     private widgetService: NewWidgetService,
@@ -28,6 +30,9 @@ export class NewUserSettingsService {
   
   public UserId = 1;
   public ScreenId = 1;
+  public ScreenName;
+
+  public dataScreen= [];
 
   public addCellByPosition(idWidget, nameWidget, param) {
     console.log("addcell");
@@ -42,20 +47,40 @@ export class NewUserSettingsService {
      this.screenSave();
   }
 
-  public updateByPosition(obj){
-    debugger
+  public updateByPosition(oldItem, newItem){
+    
       for(let item of this.widgetService.dashboard){
-          if(item.id === obj.id){
-            item = obj; 
+        
+          if( ( (item.x === newItem.x) && (item.y === newItem.y) ) || ( (item.rows === newItem.rows) && (item.cols === newItem.cols) ) ){
+            item.x = newItem.x;
+            item.y = newItem.y;
+            item.rows = newItem.rows;
+            item.cols = newItem.cols;
+            console.log("update", item)
           }
+          /*
+         if(item.id === oldItem.id){   
+          this.widgetService.dashboard.splice(this.widgetService.dashboard.indexOf(item), 1 ,{
+            x: newItem.x,
+            y: newItem.y, 
+            cols: newItem.cols, 
+            rows: newItem.rows, 
+            id: oldItem.id, 
+            widgetType: oldItem.widgetType
+          });
+         } 
+         */
       }
-     console.log("update");
      this.screenSave();
-     debugger
+     
+  }
+
+  public removeItem(){
+    this.screenSave();
   }
 
   private screenSave() {
-    debugger
+    
     console.log("save_info",this.widgetService.dashboard);
     const UserId = this.UserId;
     const ScreenId = this.ScreenId;
@@ -85,19 +110,55 @@ export class NewUserSettingsService {
     this.http.post(this.restUrl + '/user-management/setscreen/', userSettings)
       .subscribe(
         ans => {
-          debugger
+          
           console.log(ans);
         },
         error => console.log(error)
       );
-  } 
+  }
+
+  public GetScreen(){
+      return this.http.get(this.restUrl + '/user-management/user/1/screens').subscribe((ref: ScreenSettings[]) => {
+        console.log(ref);
+    });
+  }
+  
+  public LoadScreen(id){
+    this.http.get(this.restUrl + '/user-management/user/1/screens').subscribe((ref: ScreenSettings[]) => {
+      
+      console.log(ref);
+      for(let item of ref){
+        if(id === item.id){
+          this.ScreenId = item.id;
+          this.ScreenName = item.screenName;
+          this.getUserData();
+         
+          }
+      }
+    });
+  }
+
+  public PushScreen(nameWidget){
+    let userScreen: ScreenSettings = new class implements ScreenSettings {
+      user;
+      id;
+     screenName = nameWidget;
+    };
+    this.http.post(this.restUrl + '/user-management/setscreen/', userScreen)
+    .subscribe(
+      ans => {
+     
+        console.log(ans);
+      },
+      error => console.log(error)
+    );
+  }
 
   public getUserData(){
-    debugger
-    this.http.get(this.restUrl + '/user-management/getscreen/1/1').subscribe((ref: NewUserSettings) => {
-      debugger
+    this.widgetService.dashboard = [];
+    this.http.get(this.restUrl + '/user-management/getscreen/1/' + this.ScreenId.toString()).subscribe((ref: NewUserSettings) => {
       console.log(ref);
-
+ 
       for(let item of ref.userGrid){
        this.widgetService.dashboard.push({
         x: item.posX,
@@ -107,7 +168,6 @@ export class NewUserSettingsService {
         id: item.widgetId, 
         widgetType: item.widgetType 
        });
-       debugger
       }
     });
   }

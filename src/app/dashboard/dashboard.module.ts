@@ -26,7 +26,10 @@ import { GridsterModule } from 'angular-gridster2';
 import {UserInfoComponent} from './components/user-info/user-info.component';
 import { WidgetPiesComponent } from './widgets/widgets-pie2/widget-pies/widget-pies/widget-pies.component';
 import { WidgetsPieComponent } from './widgets/widgets-pie2/widget-pie-circle/widget-pie/widget-pie.component';
+import { WidgetHeaderComponent } from './components/widget-header/widget-header.component';
 import { EventsWorkSpaceComponent } from './widgets/workspace/events-workspace.component';
+
+
 
 @NgModule({
   declarations: [
@@ -50,6 +53,7 @@ import { EventsWorkSpaceComponent } from './widgets/workspace/events-workspace.c
     UserInfoComponent,
     WidgetPiesComponent,
     WidgetsPieComponent,
+    WidgetHeaderComponent,
     EventsWorkSpaceComponent
   ],
   entryComponents:[
