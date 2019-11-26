@@ -205,12 +205,11 @@ export class ChangeShiftComponent implements OnInit {
   ];
 
   aboutWidget;
-  id: number;
-  currentShift: Shift;
+  currentShift: Shift = null;
+  presentMembers = null;
+  absentMembers = null;
 
   subscription: Subscription;
-
-
 
   static itemCols = 25;
   static itemRows = 45;
@@ -219,7 +218,7 @@ export class ChangeShiftComponent implements OnInit {
     private widgetService: NewWidgetService,
     private shiftService: ShiftService,
     @Inject("isMock") public isMock: boolean,
-    @Inject("widgetId") public widgetId: string
+    @Inject("widgetId") public id: string
   ) {
     this.shiftService.shiftPass.subscribe(data => {
       if(this.aboutWidget) {
@@ -229,7 +228,7 @@ export class ChangeShiftComponent implements OnInit {
     });
 
     this.subscription = this.widgetService
-      .getWidgetChannel(this.widgetId)
+      .getWidgetChannel(this.id)
       .subscribe(data => {
         this.aboutWidget = data;
         this.setRealtimeData(this.aboutWidget.widgetType, this.shiftService.shiftPass.getValue());
@@ -247,6 +246,8 @@ export class ChangeShiftComponent implements OnInit {
     } else {
       this.currentShift = data.passingShift;
     }
+    this.absentMembers = this.currentShift.shiftMembers.filter(el => el.status === 'Absent');
+    this.presentMembers = this.currentShift.shiftMembers.filter(el => el.status !== 'Absent');
     if (this.currentShift.shiftMembers) {
       const index = this.currentShift.shiftMembers.findIndex(
         item => item.employee.position === "Responsible"

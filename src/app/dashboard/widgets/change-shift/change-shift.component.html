@@ -37,7 +37,7 @@
                 {{ getMain().employee.firstName }}
                 {{ getMain().employee.lastName }}
               </div>
-              <div class="mainWorker__position" *ngIf="currentShift">
+              <div class="mainWorker__position" *ngIf="currentShift != null">
                 {{ this.getDisplayPosition(getMain().employee.position) }}
               </div>
             </div>
@@ -46,7 +46,7 @@
           <div class="mainWorker__row">
             <div class="circle circle__right circle__right-top"></div>
             <div class="mainWorker__squad">Бригада</div>
-            <div class="mainWorker__number" *ngIf="currentShift">
+            <div class="mainWorker__number" *ngIf="currentShift != null">
               {{ currentShift.brigade.number }}
             </div>
           </div>
@@ -54,15 +54,16 @@
       </div>
       <div class="change-shift__onShift">
         <div class="onShift__label">На смене</div>
-        <ng-container *ngIf="currentShift">
+        <ng-container *ngIf="currentShift != null">
           <div class="onShift__add gridster-item-content" (click)="showPeople($event)">+</div>
           <div class="onShift__people scroll-bar">
-            <div *ngFor="let person of currentShift.shiftMembers">
+            <div *ngFor="let person of this.presentMembers">
               <evj-shift-person
                 [person]="person"
                 [shiftType]="this.aboutWidget.widgetType"
                 [shiftId]="currentShift.id"
                 [onShift]="true"
+                [isPresent]="true"
               ></evj-shift-person>
             </div>
           </div>
@@ -80,26 +81,35 @@
       </div>
       <div class="change-shift__absent">
         <div class="absent__label">Отсутствуют</div>
-        <div class="absent__people scroll-bar">
-          <div class="absent__person" *ngFor="let person of peopleAbsent()">
-            <div class="circle circle__left circle__left-top"></div>
-            <div class="circle circle__right circle__right-top"></div>
-            <div class="person__avatar">
-              <div class="circle circle__left circle__left-bottom"></div>
-              <div class="person__img"></div>
-            </div>
-            <div class="person__info">
-              <div class="person__name">{{ person.name }}</div>
-              <div class="person__position">{{ person.position }}</div>
-              <div class="person__place">{{ person.place }}</div>
-              <div class="person__status">
-                <div class="circle circle__right circle__right-top"></div>
-                <div class="status__name">{{ person.status }}</div>
-                <div class="status__icon"></div>
-              </div>
+        <ng-container *ngIf="currentShift != null">
+          <div class="absent__people scroll-bar">
+            <div class="absent__person" *ngFor="let person of absentMembers">
+              <evj-shift-person
+                [person]="person"
+                [shiftType]="this.aboutWidget.widgetType"
+                [shiftId]="currentShift.id"
+                [onShift]="true"
+                [isPresent]="false"
+              ></evj-shift-person>
+              <!--            <div class="circle circle__left circle__left-top"></div>-->
+              <!--            <div class="circle circle__right circle__right-top"></div>-->
+              <!--            <div class="person__avatar">-->
+              <!--              <div class="circle circle__left circle__left-bottom"></div>-->
+              <!--              <div class="person__img"></div>-->
+              <!--            </div>-->
+              <!--            <div class="person__info">-->
+              <!--              <div class="person__name">{{ person.name }}</div>-->
+              <!--              <div class="person__position">{{ person.position }}</div>-->
+              <!--              <div class="person__place">{{ person.place }}</div>-->
+              <!--              <div class="person__status">-->
+              <!--                <div class="circle circle__right circle__right-top"></div>-->
+              <!--                <div class="status__name">{{ person.status }}</div>-->
+              <!--                <div class="status__icon"></div>-->
+              <!--              </div>-->
+              <!--            </div>-->
             </div>
           </div>
-        </div>
+        </ng-container>
       </div>
       <div
         class="change-shift__comment"
