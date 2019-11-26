@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UserSettingsService} from '../../services/user-settings.service';
+import { NewUserSettingsService } from '../../services/new-user-settings.service';
 
 @Component({
   selector: 'evj-indicator-selector',
@@ -26,16 +27,26 @@ export class IndicatorSelectorComponent implements OnInit {
     }
   ];
 
+  public dataScreen: any = [];
+
   private isReadyAdd: boolean = false;
 
   private tempScreen: string = '';
 
-  constructor(userSettingsService: UserSettingsService) { }
+  constructor(
+    private userSettingsService: UserSettingsService,
+    private userSettings: NewUserSettingsService
+    ) { }
 
   ngOnInit() {
-
+    this.dataScreen = this.userSettings.GetScreen();
   }
 
+  public LoadScreen(id){
+    this.userSettings.LoadScreen(id);
+  }
+
+  public idScreen;
   getActiveScreen(): string {
     const activeScreen = this.screens.find(el => el.isActive === true);
     return activeScreen.name;
@@ -44,8 +55,10 @@ export class IndicatorSelectorComponent implements OnInit {
   setActiveScreen(screen) {
     for (const i in this.screens) {
       this.screens[i].isActive = false;
+     // this.idScreen = this.screens[i].id;
     }
     screen.isActive = true;
+    this.idScreen = screen.id;
   }
 
   onChangeAdder() {

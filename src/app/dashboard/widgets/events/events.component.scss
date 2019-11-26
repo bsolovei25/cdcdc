@@ -16,10 +16,23 @@
   width: 100%;
 }
 
+.delete_widget{
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  min-width: 44px;
+  height: 100%;
+  background-color: var(--color-bg-sub);
+  padding: 9px 15px;
+  box-sizing: border-box;
+  font-weight: bold;
+  pointer-events: fill !important;
+}
+
 .events {
   --categories-min-height: 104px;
   --filters-min-height: 40px;
-  --margin-vertical: 30px;
+  --margin-vertical: 38px;
   --line-border: 0.5px dashed var(--color-border-main-transparrent);
 
   position: absolute;
@@ -30,15 +43,15 @@
 }
 
 .header {
-  position: relative;
-  height: 30px;
+ // position: relative;
+  height: 38px;
   width: 430px;
   box-sizing: border-box;
 
   background-color: var(--color-bg-additional);
 
   &__icon {
-      fill: var(--color-text-sub);
+      fill: #8C99B2;
   }
 
   &__content {
@@ -62,6 +75,7 @@
   }
 
   &__name {
+    width: 100%;
     font-size: 0.875rem;
     margin-left: 10px;
   }

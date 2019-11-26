@@ -16,6 +16,21 @@ export interface NewUserSettings {
   userGrid: NewUserGrid[];
 }
 
+export interface User{
+  id: number;
+  firstName: string;
+  lastName: string;
+  middleName: string;
+  email: string;
+  phone: string;
+}
+
+export interface ScreenSettings {
+  id: number;
+  user: User[];
+  screenName: string;
+}
+
 
 export interface NewUserGrid{
   posX: number;

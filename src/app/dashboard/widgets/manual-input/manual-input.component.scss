@@ -630,7 +630,7 @@ input.data {
   pointer-events:none;
 
   &_comment {
-    pointer-events:all;
+    pointer-events:fill;
   }
 
   &_val {
@@ -642,7 +642,7 @@ input.data {
   }
 
   &_active {
-    pointer-events:all;
+    pointer-events:fill;
     border-radius: 3px;
     border: solid 0.5px var(--color-border-active);
 
