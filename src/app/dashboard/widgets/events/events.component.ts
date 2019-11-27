@@ -24,7 +24,7 @@ import { EventService } from '../../services/event.service';
 export class EventsComponent implements OnInit, OnDestroy {
   @Input() name = '';
   ng
-  isList = true;
+  isList = false;
 
   title;
 

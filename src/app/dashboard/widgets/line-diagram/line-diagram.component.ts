@@ -70,9 +70,7 @@ export class LineDiagramComponent implements OnInit {
   }
 
    showMock(show) {
-    if (show) {
-      this.wsDisconnect();
-    } else {
+    if (!show) {
       this.wsConnect();
     }
   }

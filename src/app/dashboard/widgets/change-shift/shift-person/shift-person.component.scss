@@ -60,7 +60,9 @@
       width: 50px;
       height: 50px;
       border-radius: 50%;
-      background-color: var(--color-bg-active); //temp
+      background: url('../../../../../assets/pic/avatar_temp.jpg');
+      background-repeat: no-repeat;
+      background-size: contain;
     }
 
     &__info {
@@ -73,15 +75,17 @@
 
     &__name {
       color: var(--color-text-main);
-      font-size: 9px;
+      font-size: 10px;
     }
 
     &__position {
       color: var(--color-text-sub);
+      font-size: 8.5px;
     }
 
     &__place {
       color: var(--color-text-sub-heading);
+      font-size: 8.5px;
     }
 
     &__status {

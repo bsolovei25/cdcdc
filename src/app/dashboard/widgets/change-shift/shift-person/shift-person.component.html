@@ -17,14 +17,15 @@
   </div>
   <div *ngIf="onShift">
     <div class="dropdown disable" *ngIf="!person.main" #dropdown>
-      <div class="dropdown__item" (click)="menuCheck($event, person.employee.id)">{{
+      <div class="dropdown__item" *ngIf="isPresent" (click)="menuCheck($event, person.employee.id)">{{
           shiftType === 'shift-pass'
           ? "Передать смену"
           : "Принять смену"
         }}
       </div>
-      <div class="dropdown__item" (click)="menuCheck($event, person.employee.id)">Отсутствует</div>
-      <div class="dropdown__item" (click)="menuCheck($event, person.employee.id)">Сделать главным</div>
+      <div class="dropdown__item" *ngIf="isPresent" (click)="menuCheck($event, person.employee.id)">Отсутствует</div>
+      <div class="dropdown__item" *ngIf="!isPresent" (click)="menuCheck($event, person.employee.id)">На месте</div>
+      <div class="dropdown__item" *ngIf="isPresent" (click)="menuCheck($event, person.employee.id)">Сделать главным</div>
     </div>
   </div>
 </div>

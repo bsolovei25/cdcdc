@@ -31,8 +31,8 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy {
 
   public title = "Рабочая область";
 
-  static itemCols = 25;
-  static itemRows = 45;
+  static itemCols = 33;
+  static itemRows = 32;
 
   constructor(
     private widgetService: NewWidgetService,
