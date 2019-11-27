@@ -1,1 +1,60 @@
-<p>point-diagram works!</p>
+<div class="container pointer-event">
+  <evj-widget-header
+    *ngIf="true"
+    [title]="'Фактическое содержание веществ в точке контроля'"
+    [units]=""
+    [code]=""
+    [id]=""
+  ></evj-widget-header>
+
+  <div
+    class="frame frame_top"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="frame__circle frame__circle__left"></div>
+    <div class="frame__circle frame__circle__right"></div>
+  </div>
+
+  <ng-container *ngIf="false">
+    <div class="mock"></div>
+  </ng-container>
+  <ng-container *ngIf="true">
+    <div class="point-diagram">
+      <div class="title">
+        <div class="title__name">Норматив, мг/м^3</div>
+        <div class="title__percent">ПДК 100%</div>
+      </div>
+      <div class="row">
+        <div class="item">0.1</div>
+        <div class="item">0.005</div>
+        <div class="item">0.42</div>
+      </div>
+      <div class="diagrams">
+        <div class="circle circle__left circle__left-top"></div>
+        <div class="circle circle__right circle__right-top"></div>
+        <div class="diagram">
+          <div class="graph"></div>
+          <div class="label">NO</div>
+        </div>
+        <div class="diagram">
+          <div class="graph"></div>
+          <div class="label">NO</div>
+        </div>
+        <div class="diagram">
+          <div class="graph"></div>
+          <div class="label">NO</div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <div
+    class="frame frame_bottom"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="frame__circle frame__circle__left"></div>
+    <div class="frame__circle frame__circle__right"></div>
+  </div>
+</div>
