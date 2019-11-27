@@ -27,6 +27,8 @@ docker build:
         - env
           #- echo "${CI_COMMIT_SHA}" | xargs -I {} sed -i 's/%%BUILD_NUMBER%%/{}/' ./src/pages/index.js
         - docker build -t ${CI_PROJECT_NAME} .
+    only:
+        - merge_requests
 
 testing website:
     stage: test
@@ -38,6 +40,8 @@ testing website:
         - pwd
         - docker run --rm --name ${CI_PROJECT_NAME} -p 8000:4200 -d ${CI_PROJECT_NAME}
         - ./init-docker.sh
+    only:
+        - merge_requests
  
 build artifact:
     stage: build
@@ -104,7 +108,7 @@ staging:
         - pwd
         - ssh root@${DEPLOY_DOMAIN} rm -rf /var/www/angular-staging.local/public
         - scp -r ./public root@${DEPLOY_DOMAIN}:/var/www/angular-staging.local
-        - ssh root@${DEPLOY_DOMAIN} "sed -i  's/:5555/:6555/g' /var/www/angular-staging.local/public/assets/config.jsoni || sleep 0.1"
+        - ssh root@${DEPLOY_DOMAIN} "sed -i  's/:5555/:6555/g' /var/www/angular-staging.local/public/assets/config.json || sleep 0.1"
         - ssh root@${DEPLOY_DOMAIN} nginx -s reload
     only:
         - master
