@@ -42,7 +42,7 @@
       <div class="events">
         <div class="notifications">
           <div class="notifications__block__list scroll-bar">
-            <div class="notification__block notifications__block__item" *ngFor="let n of notifications">
+            <div class="notification__block notifications__block__item" *ngFor="let n of notifications" (click)="eventClick(n.id)">
 
               <div class="notification__block__header">
                 <span class="notification__block__number" [ngClass]="'notification__number_' + n.priority">

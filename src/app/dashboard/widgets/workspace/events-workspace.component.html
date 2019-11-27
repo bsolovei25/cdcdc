@@ -42,7 +42,7 @@
               Организация:
             </div>
             <div class="workspace__block__body">
-              АО «Газпромнефть МНПЗ»
+              {{event.organization}}
             </div>
           </div>
 
@@ -141,8 +141,7 @@
             Тип происшествия:
           </div>
           <div class="block-border__body">
-            Остановка насоса Н-17А по блокировке поз. FISAL1043
-            на установке ГФУ-2 с БОР производства №1.
+           {{ event.eventType }}
             <div class="block-border__footer">
             </div>
           </div>
@@ -169,36 +168,36 @@
           <div class="block-border__title">
             Корректирующие мероприятия
           </div>
-          <div class="block-border__body events">
-            <div class="event">
-              <div class="event__header">
-                <span> 1. <span class="event__sub">Ответственный</span> Нач. уст-ки ГФУ-2 с БОР Лебедев В.Д. </span>
-                <span class="event__sub-right">В работе</span>
-              </div>
-              <div class="event__body">
-                Сформировать и утвердить график промывки приемного
-                трубопровода Н-17/А,В. Дренирование отстойной зоны Е-17.
-                Выполнять промывку согласно графика.
-              </div>
-              <div class="event__footer">
-                <span class="event__sub">Срок исполнения</span> <span class="event__date">22.11.2019 16:30:13</span>
-              </div>
-            </div>
-
-            <div class="event">
-              <div class="event__header">
-                <span> 1. <span class="event__sub">Ответственный</span> Нач. уст-ки ГФУ-2 с БОР Лебедев В.Д. </span>
-                <span class="event__sub-right">В работе</span>
-              </div>
-              <div class="event__body">
-                Сформировать и утвердить график промывки приемного
-                трубопровода Н-17/А,В. Дренирование отстойной зоны Е-17.
-                Выполнять промывку согласно графика.
-              </div>
-              <div class="event__footer">
-                <span class="event__sub">Срок исполнения</span> <span class="event__date">22.11.2019 16:30:13</span>
-              </div>
-            </div>
+          <div class="block-border__body">
+            <ul class="events">
+              <li class="event">
+                <div class="event__header">
+                  <span> 1. <span class="event__sub">Ответственный</span> Нач. уст-ки ГФУ-2 с БОР Лебедев В.Д. </span>
+                  <span class="event__sub-right">В работе</span>
+                </div>
+                <div class="event__body">
+                  Сформировать и утвердить график промывки приемного
+                  трубопровода Н-17/А,В. Дренирование отстойной зоны Е-17.
+                  Выполнять промывку согласно графика.
+                </div>
+                <div class="event__footer">
+                  <span class="event__sub">Срок исполнения</span> <span class="event__date">22.11.2019 16:30:13</span>
+                </div>
+              </li>
+              <li class="event">
+                <div class="event__header">
+                  <span> 2. <span class="event__sub">Ответственный</span> Нач. уст-ки ГФУ-2 с БОР Лебедев В.Д. </span>
+                  <span class="event__sub-right">В работе</span>
+                </div>
+                <div class="event__body">
+                  Довести под роспись результат расследования до
+                  технологического персонала установки ГФУ-2 с БОР.
+                </div>
+                <div class="event__footer">
+                  <span class="event__sub">Срок исполнения</span> <span class="event__date">22.11.2019 16:30:13</span>
+                </div>
+              </li>
+            </ul>
 
             <div class="block-border__footer">
             </div>

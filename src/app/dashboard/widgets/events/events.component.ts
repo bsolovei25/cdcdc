@@ -14,6 +14,7 @@ import {
 import { Subscription } from "rxjs/index";
 import { NewWidgetService } from '../../services/new-widget.service';
 import { NewUserSettingsService } from '../../services/new-user-settings.service';
+import { EventService } from '../../services/event.service';
 
 @Component({
   selector: 'evj-events',
@@ -136,6 +137,7 @@ export class EventsComponent implements OnInit, OnDestroy {
 
   constructor(
     private oldWidgetsService: WidgetsService,
+    private eventService: EventService,
     public userSettings: NewUserSettingsService,
     @Inject('isMock') public isMock: boolean,
     public widgetService: NewWidgetService,
@@ -297,9 +299,15 @@ export class EventsComponent implements OnInit, OnDestroy {
     list ? this.isList = true : this.isList = false;
   }
 
-  onRemoveButton(){
+  onRemoveButton() {
     this.widgetService.removeItemService(this.id);
     this.userSettings.removeItem();
+  }
+
+
+  async eventClick(eventId: number) {
+     const event = await this.eventService.getAvailableWidgets(eventId);
+     this.eventService.event$.next(event);
   }
 
 }
