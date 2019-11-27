@@ -12,6 +12,7 @@ export class ShiftPersonComponent implements OnInit {
   @Input() shiftType: string;
   @Input() shiftId: number;
   @Input() onShift: boolean;
+  @Input() isPresent: boolean;
 
   @ViewChild("dropdown", { static: false }) ddMenu: ElementRef;
 
@@ -76,6 +77,10 @@ export class ShiftPersonComponent implements OnInit {
       case "Передать смену":
         break;
       case "Отсутствует":
+        this.shiftService.changeStatus('Absent', id, this.shiftId);
+        break;
+      case "На месте":
+        this.shiftService.changeStatus('InProgress', id, this.shiftId);
         break;
       case "Сделать главным":
         this.shiftService.changePosition(id);
