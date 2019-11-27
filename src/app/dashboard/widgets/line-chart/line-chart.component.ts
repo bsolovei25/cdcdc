@@ -157,8 +157,13 @@ export class LineChartComponent implements OnInit, OnDestroy {
     this.showMock(this.isMock);
     if (!this.isMock) {
       setInterval(() => {
-        this.draw(this.dataLine);
-      }, 100);
+        if (this.dataLine) {
+          this.draw(this.dataLine);
+        }
+        try {
+
+        } catch {};
+      }, 500);
     }
 
   }
@@ -239,7 +244,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
     if (this.deviationMode === 'limits') {
       this.drawLimitsAreas(upperLimit, lowerLimit);
-      this.drawLimitsDeviationAreas(upperLimit, lowerLimit, fact);
+      // this.drawLimitsDeviationAreas(upperLimit, lowerLimit, fact);
     } else {
       this.deleteLimitsData();
       this.drawDeviationAreas(plan, fact);

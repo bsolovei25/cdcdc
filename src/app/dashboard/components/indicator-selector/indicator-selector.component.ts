@@ -24,6 +24,11 @@ export class IndicatorSelectorComponent implements OnInit {
       id: 3,
       name: 'Экран 3',
       isActive: false
+    },
+    {
+      id: 4,
+      name: 'Экран 4',
+      isActive: false
     }
   ];
 
