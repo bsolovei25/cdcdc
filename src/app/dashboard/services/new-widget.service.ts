@@ -47,8 +47,6 @@ export class NewWidgetService {
 
 
   public getAvailableWidgets(): Observable<Widgets[]> {
-
-
     // TODO check
     return this.http.get(this.restUrl + '/af/GetAvailableWidgets').pipe(
       map(data => {
