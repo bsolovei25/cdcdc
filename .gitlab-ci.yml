@@ -27,6 +27,8 @@ docker build:
         - env
           #- echo "${CI_COMMIT_SHA}" | xargs -I {} sed -i 's/%%BUILD_NUMBER%%/{}/' ./src/pages/index.js
         - docker build -t ${CI_PROJECT_NAME} .
+    only:
+        - merge_requests
 
 testing website:
     stage: test
@@ -38,6 +40,8 @@ testing website:
         - pwd
         - docker run --rm --name ${CI_PROJECT_NAME} -p 8000:4200 -d ${CI_PROJECT_NAME}
         - ./init-docker.sh
+    only:
+        - merge_requests
  
 build artifact:
     stage: build
@@ -46,7 +50,7 @@ build artifact:
     script:
         - ls
         - pwd
-        - docker exec ${CI_PROJECT_NAME} ng build
+        - docker exec ${CI_PROJECT_NAME} ng build || docker run --rm --name ${CI_PROJECT_NAME} -p 8000:4200 -d ${CI_PROJECT_NAME} ; docker exec ${CI_PROJECT_NAME} ng build
         - docker cp ${CI_PROJECT_NAME}:/app/dist/evj ./public
         - docker container stop ${CI_PROJECT_NAME}
     only:
@@ -71,7 +75,8 @@ deploy review:
         - pwd
         - ssh root@${DEPLOY_DOMAIN} rm -rf /var/www/angular-dynamic.local/public
         - scp -r ./public root@${DEPLOY_DOMAIN}:/var/www/angular-dynamic.local
-        - ssh root@${DEPLOY_DOMAIN} ln -s /etc/nginx/sites-available/angular-dynamic.local /etc/nginx/sites-enabled/angular-dynamic.local
+        - ssh root@${DEPLOY_DOMAIN} "unlink /etc/nginx/sites-enabled/angular-dynamic.local || sleep 0.1"
+        - ssh root@${DEPLOY_DOMAIN} "ln -s /etc/nginx/sites-available/angular-dynamic.local /etc/nginx/sites-enabled/angular-dynamic.local"
         - ssh root@${DEPLOY_DOMAIN} nginx -s reload
 
 stop-review:
@@ -83,8 +88,8 @@ stop-review:
     only:
         - merge_requests
     script:
-        - ssh root@${DEPLOY_DOMAIN} unlink /etc/nginx/sites-enabled/angular-dynamic.local 
-        - ssh root@${DEPLOY_DOMAIN} rm -rf /var/www/angular-dynamic.local/public
+        - ssh root@${DEPLOY_DOMAIN} "unlink /etc/nginx/sites-enabled/angular-dynamic.local || sleep 0.1"
+        - ssh root@${DEPLOY_DOMAIN} "rm -rf /var/www/angular-dynamic.local/public || sleep 0.1"
         - ssh root@${DEPLOY_DOMAIN} nginx -s reload
     when: manual
     environment:
@@ -103,11 +108,12 @@ staging:
         - pwd
         - ssh root@${DEPLOY_DOMAIN} rm -rf /var/www/angular-staging.local/public
         - scp -r ./public root@${DEPLOY_DOMAIN}:/var/www/angular-staging.local
+        - ssh root@${DEPLOY_DOMAIN} "sed -i  's/:5555/:6555/g' /var/www/angular-staging.local/public/assets/config.json || sleep 0.1"
         - ssh root@${DEPLOY_DOMAIN} nginx -s reload
     only:
         - master
 
-deploy:
+prod:
     stage: deploy
     environment:
         name: prod
@@ -119,7 +125,6 @@ deploy:
         - pwd
         - ssh root@${DEPLOY_DOMAIN} rm -rf /var/www/angular.local/public
         - scp -r ./public root@${DEPLOY_DOMAIN}:/var/www/angular.local
-        - sed -i -E "s/:5555/:6555/g" /var/www/angular-staging.local/public/assets/config.json
         - ssh root@${DEPLOY_DOMAIN} nginx -s reload
     when: manual
     only:
@@ -132,4 +137,3 @@ clean on failure:
     script:
         - docker container stop ${CI_PROJECT_NAME}
     when: on_failure
-
