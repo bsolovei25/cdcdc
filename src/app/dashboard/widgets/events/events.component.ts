@@ -28,6 +28,8 @@ export class EventsComponent implements OnInit, OnDestroy {
 
   title;
 
+  selectedId: number = 0;
+
   static itemCols = 30;
   static itemRows = 20;
 
@@ -306,8 +308,9 @@ export class EventsComponent implements OnInit, OnDestroy {
 
 
   async eventClick(eventId: number) {
-     const event = await this.eventService.getAvailableWidgets(eventId);
-     this.eventService.event$.next(event);
+    this.selectedId= eventId;
+    const event = await this.eventService.getAvailableWidgets(eventId);
+    this.eventService.event$.next(event);
   }
 
 }

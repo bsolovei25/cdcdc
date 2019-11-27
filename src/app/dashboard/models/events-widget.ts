@@ -11,7 +11,7 @@ export interface EventsWidgetNotification {
   iconUrlStatus: string;
   status: { id: number, name: EventsWidgetNotificationStatus, code: number };
   priority: { id: number, name: EventsWidgetNotificationPriority, code: number };
-  
+
   deviationReason: string; // Причина отклонения
   establishedFacts: string; // Установленные факты
   eventType: string; // Тип происшествия
@@ -20,12 +20,16 @@ export interface EventsWidgetNotification {
   comment: string; // Комментарий оператора
   category: { id: number, name: EventsWidgetCategoryCode, code: number };
   statusName?: string;
+  severity: string;
+  retrievalEvents: any;
 }
 
 export interface User {
-    id: number;
-    firstName: string;
-    lastName: string;
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
 }
 
 export type EventsWidgetNotificationPriority = 'danger' | 'warning' | 'standard'

@@ -47,6 +47,38 @@ export class EventService {
         }
     }
 
+    async postAvailableWidgets(): Promise<any> {
+        // TODO check
+        try {
+            return this.http.post(this.restUrl + '/notifications', {
+                branch: "Производство",
+                category: { id: 1004, name: "equipmentStatus", code: 3 },
+                comment: "Комментарий, комментарий комментарий",
+                description: "Описание описание описание...",
+                deviationReason: "Причина отклонения...",
+                directReasons: "Прямые причины",
+                establishedFacts: "Факты установлены...",
+                eventDateTime: new Date,
+                eventType: "Предупреждение",
+                fixedBy: { id: 4002, firstName: "Петр", lastName: "Петров", email: "test@test", phone: "00123456789" },
+                id: 6006,
+                place: { id: 5, name: "number" },
+                itemNumber: 321128,
+                organization: "АО Газпромнефть",
+                priority: { id: 2002, name: "warning", code: 1 },
+                responsibleOperator: { id: 4001, firstName: "Иван", lastName: "Иванов", email: "1@2", phone: "00123456789" },
+                retrievalEvents: [],
+                severity: "Critical",
+                status: { id: 3001, name: "new", code: 0 },
+                iconUrl: "number",
+                iconUrlStatus: "number",
+                statusName: '',
+            }).toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
 
 
 

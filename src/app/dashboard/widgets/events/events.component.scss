@@ -16,6 +16,24 @@
   width: 100%;
 }
 
+.selected-block {
+  border: 1px solid var(--color-border-active);
+  background: linear-gradient(0deg, rgba(63, 169, 245, 0.1) 0%, var(--color-bg-main) 100%);
+}
+
+.selected {
+  .line {
+    border-color: var(--color-border-active);
+  }
+  .line__circle  {
+    border-color: var(--color-border-active);
+
+  }
+  border-color: var(--color-border-active);
+  background: linear-gradient(0deg, rgba(63, 169, 245, 0.1) 0%, var(--color-bg-main) 100%);
+}
+
+
 .delete_widget{
   cursor: pointer;
   display: flex;
