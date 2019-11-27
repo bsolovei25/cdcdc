@@ -22,7 +22,6 @@ export class ChangeShiftComponent implements OnInit {
   @ViewChild("input", { static: false }) input: ElementRef;
   @ViewChild("scroll", { static: false }) scroll: ElementRef;
   @ViewChild("allPeople", { static: false }) allPeople: ElementRef;
-  @ViewChild("clickCatcher", { static: false }) clickCatcher:ElementRef;
 
   mapPosition = [
     {
