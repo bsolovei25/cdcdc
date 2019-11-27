@@ -9,9 +9,7 @@ import { ShiftService } from "../../services/shift.service";
 import { Subscription } from "rxjs";
 import { NewWidgetService } from "../../services/new-widget.service";
 import {
-  ShiftPass,
   Shift,
-  Employee,
   ShiftMember
 } from "../../models/shift.model";
 
@@ -24,6 +22,7 @@ export class ChangeShiftComponent implements OnInit {
   @ViewChild("input", { static: false }) input: ElementRef;
   @ViewChild("scroll", { static: false }) scroll: ElementRef;
   @ViewChild("allPeople", { static: false }) allPeople: ElementRef;
+  @ViewChild("clickCatcher", { static: false }) clickCatcher:ElementRef;
 
   mapPosition = [
     {
@@ -235,7 +234,8 @@ export class ChangeShiftComponent implements OnInit {
       });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   private setRealtimeData(widgetType, data) {
     if (!widgetType || !data) {
@@ -319,10 +319,6 @@ export class ChangeShiftComponent implements OnInit {
       classes.add("onShift__add-active");
       this.allPeople.nativeElement.classList.add("onShift__allPeople-active");
     }
-  }
-
-  addPeopleToShift() {
-    //
   }
 
   findMainAndSort() {

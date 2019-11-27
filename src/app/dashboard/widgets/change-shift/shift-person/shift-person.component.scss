@@ -161,20 +161,21 @@
 .dropdown {
   position: absolute;
   width: 100px;
-  height: 50px;
+  min-height: 20px;
   background: var(--color-bg-main);
   z-index: 1;
   display: flex;
+  display: block;
   flex-direction: column;
   box-sizing: border-box;
 
-  top: 70px;
+  bottom: 0px;
   right: 0px;
 
   &__item {
     border: 0.5px dashed var(--color-border-main-transparrent);
     border-top: none;
-    flex: 1;
+    height: 20px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;

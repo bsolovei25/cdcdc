@@ -22,6 +22,7 @@
     "angular-gridster2": "^8.2.0",
     "angular-svg-icon": "^8.0.0",
     "d3": "^5.12.0",
+    "ng-click-outside": "^5.1.1",
     "ngx-drag-drop": "^2.0.0",
     "normalize.css": "^8.0.1",
     "rxjs": "~6.4.0",
