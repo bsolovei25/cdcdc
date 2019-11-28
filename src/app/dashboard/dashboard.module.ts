@@ -67,7 +67,8 @@ import { OneColumnComponent } from './widgets/point-diagram/one-column/one-colum
     ManualInputComponent,
     LineDiagramComponent,
     ChangeShiftComponent,
-    EventsWorkSpaceComponent
+    EventsWorkSpaceComponent,
+    PointDiagramComponent,
   ],
   exports: [
     HomeComponent,
