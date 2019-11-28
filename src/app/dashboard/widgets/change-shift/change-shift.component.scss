@@ -29,6 +29,8 @@
 
 .mock {
   display: block;
+  border-left: dashed 0.5px var(--color-border-main);
+  border-right: dashed 0.5px var(--color-border-main);
   height: 200px;
 }
 
