@@ -79,6 +79,18 @@ export class ChangeShiftComponent implements OnInit {
     } else {
       this.currentShift = data.acceptingShift;
     }
+
+    if (this.currentShift.shiftMembers) {
+      const index = this.currentShift.shiftMembers.findIndex(
+        item => item.position === 'Responsible'
+      );
+      console.log(index);
+      this.currentShift.shiftMembers[index].employee.main = true;
+      const tempMember = this.currentShift.shiftMembers[0];
+      this.currentShift.shiftMembers[0] = this.currentShift.shiftMembers[index];
+      this.currentShift.shiftMembers[index] = tempMember;
+    }
+
     this.absentMembers = this.currentShift.shiftMembers.filter(el => el.status === 'Absent');
     this.presentMembers = this.currentShift.shiftMembers.filter(el => el.status !== 'Absent');
 
@@ -88,19 +100,10 @@ export class ChangeShiftComponent implements OnInit {
         employee = null;
         shiftType = null;
         status = null;
+        position = 'Common';
       };
       addingShiftMember.employee = tempShiftMembers[i];
       this.addingShiftMembers.push(addingShiftMember);
-    }
-
-    if (this.currentShift.shiftMembers) {
-      const index = this.currentShift.shiftMembers.findIndex(
-        item => item.employee.position === 'Responsible'
-      );
-      this.currentShift.shiftMembers[index].employee.main = true;
-      const tempMember = this.currentShift.shiftMembers[0];
-      this.currentShift.shiftMembers[0] = this.currentShift.shiftMembers[index];
-      this.currentShift.shiftMembers[index] = tempMember;
     }
   }
 

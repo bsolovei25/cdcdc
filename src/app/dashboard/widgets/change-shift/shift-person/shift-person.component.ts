@@ -109,7 +109,7 @@ export class ShiftPersonComponent implements OnInit {
         this.shiftService.changeStatus('InProgress', person.employee.id, this.shiftId);
         break;
       case 'Сделать главным':
-        this.shiftService.changePosition(person.employee.id);
+        this.shiftService.changePosition(person.employee.id, this.shiftId);
         break;
     }
   }

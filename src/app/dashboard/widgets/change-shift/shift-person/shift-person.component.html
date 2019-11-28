@@ -11,7 +11,7 @@
   </div>
   <div class="person__info" *ngIf="person">
     <div class="person__name" *ngIf="person.employee">{{person.employee.lastName}} {{ person.employee.firstName.charAt(0).toUpperCase() }}.</div>
-    <div class="person__position" *ngIf="person.employee">{{ this.getDisplayPosition(person.employee.position) }}</div>
+    <div class="person__position" *ngIf="person.employee">{{ this.getDisplayPosition(person.position) }}</div>
     <div class="person__place">{{ person.employee.positionDescription }}</div>
     <div class="person__status" *ngIf="onShift">
       <div class="circle circle__right circle__right-top"></div>

@@ -16,6 +16,7 @@ export interface Employee {
 export interface ShiftMember {
   employee: Employee;
   status: string;
+  position: string;
   shiftType?: string;
 }
 

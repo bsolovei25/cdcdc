@@ -28,8 +28,8 @@ export class ShiftService {
     return this.http.get(this.restUrl + '/api/employees').toPromise();
   }
 
-  private async changePositionAsync(id): Promise<any>  {
-    return this.http.post(this.restUrl + '/api/employees/' + id.toString() + '/SetResponsible', null).toPromise();
+  private async changePositionAsync(id, idShift): Promise<any>  {
+    return this.http.post(this.restUrl + '/api/shift/' + idShift + '/employee/' + id.toString() + '/setresponsible', null).toPromise();
   }
 
   private async changeStatusAsync(status, id, idShift): Promise<any>  {
@@ -61,8 +61,8 @@ export class ShiftService {
     this.getShiftInfo();
   }
 
-  public async changePosition(id) {
-    await this.changePositionAsync(id);
+  public async changePosition(id, idShift) {
+    await this.changePositionAsync(id, idShift);
     this.getShiftInfo();
   }
 

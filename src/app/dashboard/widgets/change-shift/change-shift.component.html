@@ -39,7 +39,7 @@
                 {{ getMain().employee.lastName }} {{  getMain().employee.firstName.charAt(0).toUpperCase() }}.
               </div>
               <div class="mainWorker__position" *ngIf="currentShift != null">
-                {{ this.getDisplayPosition(getMain().employee.position) }}
+                {{ this.getDisplayPosition(getMain().position) }}
               </div>
             </div>
             <div class="mainWorker__row_colIcon" *ngIf="getMain()"
