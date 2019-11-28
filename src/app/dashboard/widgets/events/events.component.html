@@ -13,25 +13,26 @@
       <span class="header__name">
         {{ title }}
       </span>
-      <div  class="delete_widget" (click)="onRemoveButton()" (mousedown)="$event.stopPropagation()" 
+      <div  class="delete_widget" (click)="onRemoveButton()" (mousedown)="$event.stopPropagation()"
         (touchstart)="$event.stopPropagation()">
             <svg-icon style="height: 100%; width: 100%; fill: #8C99B2"
             src="./assets/icons/close_bad.svg"
           ></svg-icon>
+      </div>
     </div>
   </div>
 </div>
 
-<ng-container *ngIf="this.isMock === true" >
+<div class="mock-container" *ngIf="this.isMock === true" >
   <evj-frame-top></evj-frame-top>
-
+  <div class="mock-container_content">events</div>
   <evj-frame-bottom></evj-frame-bottom>
-</ng-container>
+</div>
 
 <ng-container *ngIf="this.isMock === false">
 
   <ng-container *ngIf="isList">
-    <div class="pointer-events" (mousedown)="$event.stopPropagation()" 
+    <div class="pointer-events" (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()">
       <div class="events">
         <div class="notifications">
@@ -153,7 +154,7 @@
 
   <!-- <ng-container *ngIf="isMock === false">  -->
   <ng-container *ngIf="!isList">
-    <div class="pointer-events" (mousedown)="$event.stopPropagation()" 
+    <div class="pointer-events" (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()">
       <div class="events">
 
@@ -265,7 +266,7 @@
     </div>
   </ng-container>
 
-  <div class="frame frame_bottom" (mousedown)="$event.stopPropagation()" 
+  <div class="frame frame_bottom" (mousedown)="$event.stopPropagation()"
   (touchstart)="$event.stopPropagation()">
     <div class="frame__circle frame__circle__left"></div>
     <div class="frame__circle frame__circle__right"></div>

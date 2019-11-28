@@ -21,7 +21,7 @@
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  padding: 5px;
+  //padding: 5px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -29,6 +29,8 @@
 
 .mock {
   display: block;
+  border-left: dashed 0.5px var(--color-border-main);
+  border-right: dashed 0.5px var(--color-border-main);
   height: 200px;
 }
 

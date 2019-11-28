@@ -11,29 +11,6 @@ import { ScreenSettings } from '../../models/user-settings.model';
 })
 export class IndicatorSelectorComponent implements OnInit {
 
-  public screens = [
-    {
-      id: 1,
-      name: 'Экран 1',
-      isActive: true
-    },
-    {
-      id: 2,
-      name: 'Экран 2',
-      isActive: false
-    },
-    {
-      id: 3,
-      name: 'Экран 3',
-      isActive: false
-    },
-    {
-      id: 4,
-      name: 'Экран 4',
-      isActive: false
-    }
-  ];
-
   public dataScreen: ScreenSettings[] = [];
 
   private isReadyAdd: boolean = false;
@@ -47,32 +24,32 @@ export class IndicatorSelectorComponent implements OnInit {
   public idScreen = 1;
 
   public nameScreen;
-  
+
   constructor(
     private userSettings: NewUserSettingsService
     ) { }
 
   ngOnInit() {
-   
+
     this.subscription = this.userSettings.screens$.subscribe(dataW => {
       this.dataScreen = dataW;
       for(let item of this.dataScreen){
         item.updateScreen = false;
       }
-      
+
     });
-  
+
     this.getActiveScreen();
   }
 
   public LoadScreen(id){
     this.userSettings.LoadScreen(id);
-  
+
   }
-  
-  getActiveScreen(){
-    for(let item of this.dataScreen){
-      if(this.idScreen === item.id){
+
+  getActiveScreen() {
+    for (let item of this.dataScreen){
+      if (this.idScreen === item.id){
         return this.nameScreen = item.screenName;
       }
     }
@@ -81,8 +58,7 @@ export class IndicatorSelectorComponent implements OnInit {
   setActiveScreen(screen) {
     this.nameScreen = this.dataScreen[0].id;
     screen.isActive = true;
-    this.idScreen = screen.id; 
-  
+    this.idScreen = screen.id;
   }
 
   onChangeAdder() {
@@ -95,14 +71,13 @@ export class IndicatorSelectorComponent implements OnInit {
 
   public deleteScreen(id){
     this.userSettings.deleteScreen(id);
-    for(let item of this.dataScreen){
-      if(item.id === id){
+    for (let item of this.dataScreen) {
+      if (item.id === id){
         this.dataScreen.splice(this.dataScreen.indexOf(item), 1);
         this.nameScreen = this.dataScreen[0].screenName;
         this.idScreen = this.dataScreen[0].id;
       }
     }
- 
   }
 
   public updateScreen(id, newName){
@@ -124,10 +99,10 @@ export class IndicatorSelectorComponent implements OnInit {
     this.tempScreen = '';
   }
 
-  onUpdateForm(id){
-    for(let item of this.dataScreen){
-      if(item.id === id){
-        item.updateScreen = true; 
+  onUpdateForm(id) {
+    for (let item of this.dataScreen){
+      if (item.id === id) {
+        item.updateScreen = true;
         this.newNameScreen = item.screenName;
       }
     }

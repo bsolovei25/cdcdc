@@ -18,10 +18,10 @@
 
 .container {
   position: relative;
-  min-width: 970px;
+  //min-width: 970px;
   box-sizing: border-box;
-  padding: 5px;
-  padding-right: 7px;
+  //padding: 5px;
+  //padding-right: 7px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -31,7 +31,10 @@
 
 .mock {
   display: block;
-  height: 90px;
+  height: 200px;
+  width: 100%;
+  border-left: dashed 0.5px var(--color-border-main);
+  border-right: dashed 0.5px var(--color-border-main);
 }
 
 .header {
@@ -245,7 +248,7 @@
         height: 104.62px;
         border-radius: 50%;
         margin: 0 auto;
-        background-color: var(--color-bg-active); 
+        background-color: var(--color-bg-active);
       }
 
       &__info {
@@ -264,7 +267,7 @@
           width: 35px;
           height: 35px;
           border-radius: 50%;
-          background-color: var(--color-bg-active); 
+          background-color: var(--color-bg-active);
         }
 
         &:last-child {
