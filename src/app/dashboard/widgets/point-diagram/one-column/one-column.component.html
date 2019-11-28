@@ -16,10 +16,20 @@
         {{ item.percent }}%
       </div>
     </div>
-    <div class="label" [ngClass]=getColor(item.percent,item.isCritical,false)>{{ item.label }}</div>
+    <div
+      class="label"
+      [ngClass]="getColor(item.percent, item.isCritical, false)"
+    >
+      {{ item.label }}
+    </div>
   </div>
 </ng-container>
 
 <ng-container *ngIf="!isDiagram">
-  <div class="item" [ngClass]="(item.percent!==0)?'item__active':'item__disable'">{{ item.count }}</div>
+  <div
+    class="item"
+    [ngClass]="item.percent !== 0 ? 'item__active' : 'item__disable'"
+  >
+    {{ item.count }}
+  </div>
 </ng-container>

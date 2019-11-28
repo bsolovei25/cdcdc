@@ -25,12 +25,31 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  min-width: 500px;
+  // min-width: 500px;
 }
 
 .mock {
   display: block;
   height: 200px;
+  .diagrams {
+    position: relative;
+    height: 100%;
+    flex: 1;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    box-sizing: border-box;
+    padding: 0 10px;
+
+    border-right: 0.5px dashed var(--color-border-main-transparrent);
+    border-left: 0.5px dashed var(--color-border-main-transparrent);
+
+    &__item {
+      margin: 0 5px;
+    }
+  }
 }
 
 .frame {
@@ -166,7 +185,7 @@
     width: 100%;
     height: 5px;
     top: 97px;
-    left:0px;
+    left: 0px;
     border-top: 0.5px dashed var(--color-border-main-transparrent);
   }
   .title {

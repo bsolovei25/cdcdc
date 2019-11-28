@@ -1,10 +1,10 @@
 <div class="container pointer-event">
   <evj-widget-header
     *ngIf="true"
-    [title]="'Фактическое содержание веществ в точке контроля'"
+    [title]="aboutWidget.title"
     [units]=""
     [code]=""
-    [id]=""
+    [id]="id"
   ></evj-widget-header>
 
   <div
@@ -16,10 +16,21 @@
     <div class="frame__circle frame__circle__right"></div>
   </div>
 
-  <ng-container *ngIf="false">
-    <div class="mock"></div>
+  <ng-container *ngIf="isMock">
+    <div class="mock">
+      <div class="diagrams scroll-bar">
+        <div class="diagrams__item" *ngFor="let item of array; let i = index">
+          <evj-one-column
+            [item]="item"
+            [isDiagram]="true"
+            [isMock]="true"
+            *ngIf="i < 4"
+          ></evj-one-column>
+        </div>
+      </div>
+    </div>
   </ng-container>
-  <ng-container *ngIf="true">
+  <ng-container *ngIf="!isMock">
     <div class="point-diagram" #widget>
       <div class="title">
         <div class="title__name">Норматив, мг/м^3</div>

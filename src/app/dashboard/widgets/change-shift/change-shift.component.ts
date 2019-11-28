@@ -8,10 +8,7 @@ import {
 import { ShiftService } from "../../services/shift.service";
 import { Subscription } from "rxjs";
 import { NewWidgetService } from "../../services/new-widget.service";
-import {
-  Shift,
-  ShiftMember
-} from "../../models/shift.model";
+import { Shift, ShiftMember } from "../../models/shift.model";
 
 @Component({
   selector: "evj-change-shift",
@@ -25,12 +22,12 @@ export class ChangeShiftComponent implements OnInit {
 
   mapPosition = [
     {
-      code: 'Responsible',
-      name: 'Старший оператор'
+      code: "Responsible",
+      name: "Старший оператор"
     },
     {
-      code: 'Common',
-      name: 'Оператор'
+      code: "Common",
+      name: "Оператор"
     }
   ];
 
@@ -63,18 +60,20 @@ export class ChangeShiftComponent implements OnInit {
       .getWidgetChannel(this.id)
       .subscribe(data => {
         this.aboutWidget = data;
-        this.setRealtimeData(this.aboutWidget.widgetType, this.shiftService.shiftPass.getValue());
+        this.setRealtimeData(
+          this.aboutWidget.widgetType,
+          this.shiftService.shiftPass.getValue()
+        );
       });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   private setRealtimeData(widgetType, data) {
     if (!widgetType || !data) {
       return;
     }
-    if (widgetType === 'shift-pass') {
+    if (widgetType === "shift-pass") {
       this.currentShift = data.passingShift;
     } else {
       this.currentShift = data.acceptingShift;
@@ -82,7 +81,7 @@ export class ChangeShiftComponent implements OnInit {
 
     if (this.currentShift.shiftMembers) {
       const index = this.currentShift.shiftMembers.findIndex(
-        item => item.position === 'Responsible'
+        item => item.position === "Responsible"
       );
       console.log(index);
       this.currentShift.shiftMembers[index].employee.main = true;
@@ -91,17 +90,23 @@ export class ChangeShiftComponent implements OnInit {
       this.currentShift.shiftMembers[index] = tempMember;
     }
 
-    this.absentMembers = this.currentShift.shiftMembers.filter(el => el.status === 'Absent');
-    this.presentMembers = this.currentShift.shiftMembers.filter(el => el.status !== 'Absent');
+    this.absentMembers = this.currentShift.shiftMembers.filter(
+      el => el.status === "Absent"
+    );
+    this.presentMembers = this.currentShift.shiftMembers.filter(
+      el => el.status !== "Absent"
+    );
 
-    const tempShiftMembers = this.shiftService.allMembers.filter(el => !this.currentShift.shiftMembers.some(em => em.employee.id === el.id));
+    const tempShiftMembers = this.shiftService.allMembers.filter(
+      el => !this.currentShift.shiftMembers.some(em => em.employee.id === el.id)
+    );
     for (const i in tempShiftMembers) {
-      const addingShiftMember: ShiftMember = new class implements ShiftMember {
+      const addingShiftMember: ShiftMember = new (class implements ShiftMember {
         employee = null;
         shiftType = null;
         status = null;
-        position = 'Common';
-      };
+        position = "Common";
+      })();
       addingShiftMember.employee = tempShiftMembers[i];
       this.addingShiftMembers.push(addingShiftMember);
     }
@@ -153,12 +158,12 @@ export class ChangeShiftComponent implements OnInit {
   }
 
   shiftApply() {
-    if (this.aboutWidget.widgetType === 'shift-pass') {
-      this.shiftService.applyShift(this.currentShift.id, 'pass');
-      console.log('Сдал');
+    if (this.aboutWidget.widgetType === "shift-pass") {
+      this.shiftService.applyShift(this.currentShift.id, "pass");
+      console.log("Сдал");
     } else {
-      console.log('Принял');
-      this.shiftService.applyShift(this.currentShift.id, 'accept');
+      console.log("Принял");
+      this.shiftService.applyShift(this.currentShift.id, "accept");
     }
   }
 }

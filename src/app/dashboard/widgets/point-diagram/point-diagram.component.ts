@@ -1,4 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Inject } from "@angular/core";
+import { NewWidgetService } from "../../services/new-widget.service";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: "evj-point-diagram",
@@ -87,7 +89,25 @@ export class PointDiagramComponent implements OnInit {
     }
   ];
 
-  constructor() {}
+  aboutWidget;
+
+  subscription: Subscription;
+
+  constructor(
+    private widgetService: NewWidgetService,
+    @Inject("isMock") public isMock: boolean,
+    @Inject("widgetId") public id: string
+  ) {
+    this.subscription = this.widgetService
+      .getWidgetChannel(this.id)
+      .subscribe(data => {
+        this.aboutWidget = data;
+      });
+  }
 
   ngOnInit() {}
+
+  ngOnDestroy(){
+    this.subscription.unsubscribe()
+  }
 }
