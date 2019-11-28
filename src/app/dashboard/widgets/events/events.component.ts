@@ -137,7 +137,7 @@ export class EventsComponent implements OnInit, OnDestroy {
 
 
   constructor(
-    private oldWidgetsService: WidgetsService,
+    // private oldWidgetsService: WidgetsService,
     private eventService: EventService,
     public userSettings: NewUserSettingsService,
     @Inject('isMock') public isMock: boolean,

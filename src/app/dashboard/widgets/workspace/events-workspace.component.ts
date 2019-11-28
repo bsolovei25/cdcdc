@@ -180,7 +180,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy {
       place: { id: 5001, name: "ГФУ-2 с БОР" },
       itemNumber: 321128,
       organization: "АО Газпромнефть",
-      priority: { id: 2002, name: "warning", code: '1' },
+      priority: { id: 2003, name: "standard", code: '2' },
       responsibleOperator: { id: 4001, firstName: "Иван", lastName: "Иванов", email: "1@2", phone: "00123456789" },
       retrievalEvents: [],
       severity: "Critical",
