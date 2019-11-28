@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {ShiftPass} from '../models/shift.model';
+import {Employee, ShiftMember, ShiftPass} from '../models/shift.model';
 import {environment} from '../../../environments/environment';
 import {HttpClient} from "@angular/common/http";
 import {AppConfigService} from "../../services/appConfigService";
@@ -11,16 +11,21 @@ import {BehaviorSubject} from "rxjs";
 export class ShiftService {
 
   public shiftPass: BehaviorSubject<ShiftPass> = new BehaviorSubject<ShiftPass>(null);
+  public allMembers: Employee[] = null;
 
   private restUrl: string;
 
   constructor(private http: HttpClient, configService: AppConfigService) {
     this.restUrl = configService.restUrl;
-    this.getShiftPass();
+    this.getShiftInfo();
   }
 
   private async getShiftPassAsync(): Promise<any>  {
     return this.http.get(this.restUrl + '/api/shift').toPromise();
+  }
+
+  private async getAllMembersAsync(): Promise<any>  {
+    return this.http.get(this.restUrl + '/api/employees').toPromise();
   }
 
   private async changePositionAsync(id): Promise<any>  {
@@ -28,23 +33,42 @@ export class ShiftService {
   }
 
   private async changeStatusAsync(status, id, idShift): Promise<any>  {
-    console.log(this.restUrl + '/api/shift/' + idShift + '/Employee/' + id + '/ChangeStatus/' + status);
     return this.http.post(this.restUrl + '/api/shift/' + idShift + '/Employee/' + id + '/ChangeStatus/' + status, null).toPromise();
   }
 
-  public async getShiftPass() {
+  private async addMemberAsync(id, idShift): Promise<any>  {
+    return this.http.post(this.restUrl + '/api/shift/' + idShift + '/Employee/' + id, null).toPromise();
+  }
+
+  private async delMemberAsync(id, idShift): Promise<any>  {
+    return this.http.delete(this.restUrl + '/api/shift/' + idShift + '/Employee/' + id).toPromise();
+  }
+
+  public async getShiftInfo() {
     const tempData = await this.getShiftPassAsync();
+    this.allMembers = await this.getAllMembersAsync();
     this.shiftPass.next(tempData);
     console.log(this.shiftPass);
+    console.log(this.allMembers);
   }
 
   public async changePosition(id) {
     await this.changePositionAsync(id);
-    this.getShiftPass();
+    this.getShiftInfo();
   }
 
   public async changeStatus(status, id, idShift) {
     await this.changeStatusAsync(status, id, idShift);
-    this.getShiftPass();
+    this.getShiftInfo();
+  }
+
+  public async addMember(id, idShift) {
+    await this.addMemberAsync(id, idShift);
+    this.getShiftInfo();
+  }
+
+  public async delMember(id, idShift) {
+    await this.delMemberAsync(id, idShift);
+    this.getShiftInfo();
   }
 }

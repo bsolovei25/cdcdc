@@ -16,6 +16,10 @@
   width: 100%;
 }
 
+.disable-person {
+  opacity: 0.7;
+}
+
 .onShift__person {
   width: 130px;
   height: 70px;
@@ -57,6 +61,9 @@
     }
 
     &__img {
+      position: absolute;
+      top: 3px;
+      left: -4px;
       width: 50px;
       height: 50px;
       border-radius: 50%;

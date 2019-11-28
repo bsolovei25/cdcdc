@@ -43,7 +43,9 @@
                 {{ this.getDisplayPosition(getMain().employee.position) }}
               </div>
             </div>
-            <div class="mainWorker__row_colIcon"></div>
+<!--            <div class="mainWorker__row_colIcon"-->
+<!--                  [class.mainWorker__row_colIcon-InProgress]="getMain().status === 'Passed' || getMain().status === 'Accepted'">-->
+<!--            </div>-->
           </div>
           <div class="mainWorker__row">
             <div class="circle circle__right circle__right-top"></div>
@@ -69,6 +71,7 @@
                 [person]="person"
                 [shiftType]="this.aboutWidget.widgetType"
                 [shiftId]="currentShift.id"
+                [currentBrigade]="currentShift.brigade.id"
                 [onShift]="true"
                 [isPresent]="true"
                 [isMain]="i === 0"
@@ -77,9 +80,10 @@
           </div>
           <div class="onShift__allPeople" #allPeople>
             <div class="allPeople__scroll scroll-bar">
-              <div *ngFor="let person of allWorkers">
+              <div *ngFor="let person of this.addingShiftMembers">
                 <evj-shift-person
                   [person]="person"
+                  [shiftId]="currentShift.id"
                   [onShift]="false"
                 ></evj-shift-person>
               </div>
@@ -99,22 +103,6 @@
                 [onShift]="true"
                 [isPresent]="false"
               ></evj-shift-person>
-              <!--            <div class="circle circle__left circle__left-top"></div>-->
-              <!--            <div class="circle circle__right circle__right-top"></div>-->
-              <!--            <div class="person__avatar">-->
-              <!--              <div class="circle circle__left circle__left-bottom"></div>-->
-              <!--              <div class="person__img"></div>-->
-              <!--            </div>-->
-              <!--            <div class="person__info">-->
-              <!--              <div class="person__name">{{ person.name }}</div>-->
-              <!--              <div class="person__position">{{ person.position }}</div>-->
-              <!--              <div class="person__place">{{ person.place }}</div>-->
-              <!--              <div class="person__status">-->
-              <!--                <div class="circle circle__right circle__right-top"></div>-->
-              <!--                <div class="status__name">{{ person.status }}</div>-->
-              <!--                <div class="status__icon"></div>-->
-              <!--              </div>-->
-              <!--            </div>-->
             </div>
           </div>
         </ng-container>

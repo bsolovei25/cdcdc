@@ -9,6 +9,7 @@ import { ShiftService } from "../../../services/shift.service";
 })
 export class ShiftPersonComponent implements OnInit {
   @Input() person: ShiftMember;
+  @Input() currentBrigade: number;
   @Input() shiftType: string;
   @Input() shiftId: number;
   @Input() onShift: boolean;
@@ -85,25 +86,30 @@ export class ShiftPersonComponent implements OnInit {
     }
   }
 
-  menuCheck(event: any, id) {
+  menuCheck(event: any, person) {
     switch (event.target.innerText) {
       case "Принять смену":
         break;
       case "Передать смену":
         break;
       case "Отсутствует":
-        this.shiftService.changeStatus("Absent", id, this.shiftId);
+        console.log(person);
+        if (person.employee.brigade) {
+          this.shiftService.changeStatus("Absent", person.employee.id, this.shiftId);
+        } else {
+          this.shiftService.delMember(person.employee.id, this.shiftId);
+        }
         break;
       case "На месте":
-        this.shiftService.changeStatus("InProgress", id, this.shiftId);
+        this.shiftService.changeStatus("InProgress", person.employee.id, this.shiftId);
         break;
       case "Сделать главным":
-        this.shiftService.changePosition(id);
+        this.shiftService.changePosition(person.employee.id);
         break;
     }
   }
 
-  addToShift(event: any) {
-    console.log("addToShift");
+  addToShift(id) {
+    this.shiftService.addMember(id, this.shiftId);
   }
 }

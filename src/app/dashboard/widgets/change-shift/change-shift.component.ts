@@ -206,6 +206,7 @@ export class ChangeShiftComponent implements OnInit {
   currentShift: Shift = null;
   presentMembers = null;
   absentMembers = null;
+  addingShiftMembers = [];
 
   subscription: Subscription;
 
@@ -247,6 +248,20 @@ export class ChangeShiftComponent implements OnInit {
     }
     this.absentMembers = this.currentShift.shiftMembers.filter(el => el.status === 'Absent');
     this.presentMembers = this.currentShift.shiftMembers.filter(el => el.status !== 'Absent');
+
+    const tempShiftMembers = this.shiftService.allMembers.filter(el => !this.currentShift.shiftMembers.some(em => em.employee.id === el.id));
+    for (const i in tempShiftMembers) {
+      const addingShiftMember: ShiftMember = new class implements ShiftMember {
+        employee = null;
+        shiftType = null;
+        status = null;
+      };
+      addingShiftMember.employee = tempShiftMembers[i];
+      this.addingShiftMembers.push(addingShiftMember);
+    }
+    console.log('display');
+    console.log(this.addingShiftMembers);
+
     if (this.currentShift.shiftMembers) {
       const index = this.currentShift.shiftMembers.findIndex(
         item => item.employee.position === "Responsible"
