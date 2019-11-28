@@ -65,11 +65,11 @@ export class ManualInputComponent implements OnInit, OnDestroy {
   }
 
   setInitData() {
-    console.log(this.restUrl + '/api/mi/load/' + this.id);
+    // console.log(this.restUrl + '/api/mi/load/' + this.id);
     this.http.get(this.restUrl + '/api/mi/load/' + this.id)
       .subscribe((ref: Machine_MI[]) => {
-        console.log(ref);
-        console.log("init_rest");
+        // console.log(ref);
+        // console.log("init_rest");
 
         this.Data = this.manualInputService.LoadData(this.Data, ref);
       });
@@ -77,7 +77,7 @@ export class ManualInputComponent implements OnInit, OnDestroy {
 
   onButtonSave() {
     this.manualInputService.BtnSaveValues(this.Data);
-    console.log('buttonClick');
+    // console.log('buttonClick');
   }
 
   onChangeValue(id: string) {
@@ -94,7 +94,7 @@ export class ManualInputComponent implements OnInit, OnDestroy {
       .subscribe((ref) => {
 
           this.manualInputService.LoadData(this.Data, ref);
-          console.log("init");
+          // console.log("init");
         }
       );
   }
@@ -106,7 +106,7 @@ export class ManualInputComponent implements OnInit, OnDestroy {
     this.subscribtion2 = this.oldWidgetsService.getWidgetLiveDataFromWS(this.id, 'manual-input')
       .subscribe((ref) => {
           this.manualInputService.LoadData(this.Data, ref);
-          console.log("init");
+          // console.log("init");
         }
       );
   }

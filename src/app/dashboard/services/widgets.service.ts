@@ -80,7 +80,7 @@ export class WidgetsService {
     this.wsSubscribtion = this.ws.asObservable()
       .subscribe((dataFromServer) => {
         // TODO remove after development complete
-        console.log(dataFromServer);
+        // console.log(dataFromServer);
       });
   }
 

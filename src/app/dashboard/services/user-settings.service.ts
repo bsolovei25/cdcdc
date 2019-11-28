@@ -93,7 +93,7 @@ export class UserSettingsService {
     this.availableWidgets = await this.widgetsService.getAvailableWidgets();
 
     this.http.get(this.restUrl + '/user-management/getscreen/1/1').subscribe((ref: UserSettings) => {
-      console.log(ref);
+      // console.log(ref);
       for (const i in ref.userGrid) {
         for (const j in this.cells) {
           if (this.cells[j].position === ref.userGrid[i].position) {
@@ -122,7 +122,7 @@ export class UserSettingsService {
   }
 
   public addCellByPosition(position, widget, cell) {
-    console.log("addcell");
+    // console.log("addcell");
     if (position) {
       this.cells.find(c => c.position === position).widget = null && cell.widget;
     }
@@ -138,7 +138,7 @@ export class UserSettingsService {
   }
 
   private screenSave() {
-    console.log(this.cells);
+    // console.log(this.cells);
     const UserId = this.UserId;
     const ScreenId = this.ScreenId;
     let userSettings: UserSettings = new class implements UserSettings {
@@ -156,12 +156,12 @@ export class UserSettingsService {
         userSettings.userGrid.push(cellSetting);
       }
     }
-    console.log(userSettings);
+    // console.log(userSettings);
 
     this.http.post(this.restUrl + '/user-management/setscreen/', userSettings)
       .subscribe(
         ans => {
-          console.log(ans);
+          // console.log(ans);
         },
         error => console.log(error)
       );

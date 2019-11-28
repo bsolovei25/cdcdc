@@ -5,10 +5,11 @@
         <svg-icon class="header__icon" src="./assets/icons/widgets/events/letter.svg"></svg-icon>
       </div>
       <div *ngIf="this.isMock === false" class="header__icon-wrapper" (click)="listView(false)">
-        <svg-icon class="header__icon" src="./assets/pic/list.svg"></svg-icon>
+        <svg-icon [ngClass]="{'list': !isList}" class="header__icon" src="./assets/pic/list.svg">
+        </svg-icon>
       </div>
       <div *ngIf="this.isMock === false" class="header__icon-wrapper" (click)="listView(true)">
-        <svg-icon class="header__icon" src="./assets/pic/blocks.svg"></svg-icon>
+        <svg-icon [ngClass]="{'blocks': isList}" class="header__icon" src="./assets/pic/blocks.svg"></svg-icon>
       </div>
       <span class="header__name">
         {{ title }}
@@ -57,6 +58,13 @@
                       <svg-icon [applyCss]="true" [src]="n.iconUrlStatus"
                         [ngClass]="'notification__block__icon_' + n.priority.name"
                         [svgStyle]="{'fill':'rgb(63, 168, 243)'}">
+                      </svg-icon>
+                    </span>
+
+                    <span class="notification__block__status">
+                      <svg-icon style="fill: rgb(99, 132, 192)" class="notification__icon" [applyCss]="true"
+                        src="./assets/garbage_bad_pic.svg" (click)="deleteEvent(n.id)"
+                        (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
                       </svg-icon>
                     </span>
 
@@ -186,12 +194,17 @@
                     {{n.description}}
                   </span>
 
-                  <div class="notification__extra">
+                  <div class="notification__extra" (mousedown)="$event.stopPropagation()"
+                    (touchstart)="$event.stopPropagation()">
                     <span class="notification__status" [ngClass]="'notification__status_' + n.priority.name">
                       {{n.statusName}}
                     </span>
                     <svg-icon class="notification__icon" [applyCss]="true" [src]="n.iconUrl"
                       [ngClass]="'notification__icon_' + n.priority.name"></svg-icon>
+                    <svg-icon style="fill: rgb(99, 132, 192)" class="notification__icon" [applyCss]="true"
+                      src="./assets/garbage_bad_pic.svg" (click)="deleteEvent(n.id)"
+                      (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+                    </svg-icon>
                   </div>
 
                 </div>

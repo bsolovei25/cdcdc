@@ -76,7 +76,7 @@ export class LineDiagramComponent implements OnInit {
   }
 
   wsConnect() {
-    console.log('start ld ws')
+    // console.log('start ld ws')
     this.subscription = this.widgetsService.getWidgetLiveDataFromWS(this.id, 'line-diagram')
       .subscribe((ref) => {
           this.data = [];
@@ -91,7 +91,7 @@ export class LineDiagramComponent implements OnInit {
             }
             this.data.push(newEl);
           }
-          console.log(this.data);
+          // console.log(this.data);
         }
       );
   }

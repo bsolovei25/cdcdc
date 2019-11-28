@@ -1,6 +1,6 @@
-<evj-widget-header [title]="title" [id]="id"></evj-widget-header>
-
 <div class="container pointer-event">
+
+  <evj-widget-header [title]="title" [id]="id"></evj-widget-header>
   <!-- <div class="header">
     <div class="header__content">
       <div class="header__icon-wrapper">
@@ -28,7 +28,7 @@
 
       <div class="workspace__header__block">
 
-        <section class="workspace__blocks">
+        <section class="workspace__blocks" style="margin-right: 10px;">
 
           <div class="workspace__block">
             <div class="workspace__block__title">
@@ -74,6 +74,7 @@
               Место:
             </div>
             <div class="workspace__block__body">
+              <!-- {{ event.place.name }} -->
               ГФУ-2 с БОР
             </div>
           </div>
@@ -82,8 +83,12 @@
             <div class="workspace__block__title">
               Зафиксировал:
             </div>
-            <div class="workspace__block__body">
-              {{ event.fixedBy.lastName }} {{ event.fixedBy.firstName }}
+            <div class="workspace__block__body" style="max-width: 120px;">
+              <div class="dropdown dropdown-dark">
+                <select name="contactMethod" class="dropdown-select" [(ngModel)]="event.fixedBy.id">
+                  <option *ngFor="let p of user" [value]="p.id">{{ p.lastName }} {{ p.firstName }}</option>
+                </select>
+              </div>
             </div>
           </div>
 
@@ -105,7 +110,11 @@
               Статус:
             </div>
             <div class="workspace__block__body">
-              {{ event.status.name }}
+              <div class="dropdown dropdown-dark">
+                <select name="contactMethod" class="dropdown-select" [(ngModel)]="event.status.id">
+                  <option *ngFor="let p of status" [value]="p.id">{{ statuses[p.name] }}</option>
+                </select>
+              </div>
             </div>
           </div>
 
@@ -114,7 +123,11 @@
               Приоритет:
             </div>
             <div class="workspace__block__body">
-              {{ event.status.name }}
+              <div class="dropdown dropdown-dark">
+                <select name="contactMethod" class="dropdown-select" [(ngModel)]="event.priority.id">
+                  <option *ngFor="let p of priority" [value]="p.id">{{ priorities[p.name] }}</option>
+                </select>
+              </div>
             </div>
           </div>
 
@@ -125,12 +138,8 @@
               Краткое описание причины
             </div>
             <div class="block-border__body">
-              <textarea class="gridster-item-content" minlength="6">Остановка насоса Н-17А по блокировке поз. FISAL1043 на установке ГФУ-2 с БОР производства №1." 
+              <textarea class="gridster-item-content" minlength="3" disabled [(ngModel)]="event.establishedFacts">
               </textarea>
-              <!-- <input type="text" class="comment__text gridster-item-content" placeholder="Напишите свой комментарий..."
-                #input value="Остановка насоса Н-17А по блокировке поз. FISAL1043
-                на установке ГФУ-2 с БОР производства №1." /> -->
-
               <div class="block-border__footer">
               </div>
             </div>
@@ -144,8 +153,9 @@
           Установленные факты:
         </div>
         <div class="block-border__body">
-          <textarea class="gridster-item-content" minlength="6">Остановка насоса Н-17А по блокировке поз. FISAL1043 на установке ГФУ-2 с БОР производства №1." 
-              </textarea>
+          <textarea class="gridster-item-content" placeholder="Введите значение..." minlength="6"
+            [(ngModel)]="event.establishedFacts">
+          </textarea>
           <div class="block-border__footer">
           </div>
         </div>
@@ -158,9 +168,9 @@
             Тип происшествия:
           </div>
           <div class="block-border__body">
-            <textarea class="gridster-item-content" minlength="6">{{ event.eventType }}
+            <textarea class="gridster-item-content" placeholder="Введите значение..." minlength="6"
+              [(ngModel)]="event.eventType">
             </textarea>
-
             <div class="block-border__footer">
             </div>
           </div>
@@ -171,7 +181,8 @@
             Непосредственные / прямые причины:
           </div>
           <div class="block-border__body">
-            <textarea class="gridster-item-content" minlength="6"> {{ event.directReasons }}
+            <textarea class="gridster-item-content" placeholder="Введите значение..." minlength="6"
+              [(ngModel)]="event.directReasons">
             </textarea>
             <div class="block-border__footer">
             </div>
@@ -191,22 +202,29 @@
               <li class="event" *ngFor="let retrieval of event.retrievalEvents; let i = index">
                 <div class="event__header">
                   <span> {{ i + 1 }} <span class="event__sub">Ответственный</span>
-                    {{ retrieval.responsibleUser.lastName  }} {{ retrieval.responsibleUser.firstName  }} </span>
-                  <span class="event__sub-right">{{ retrieval.status.name }}</span>
+                  </span>
+                  <span *ngIf="retrieval.status" class="event__sub-right">{{ statuses[retrieval.status.name] }}</span>
                 </div>
                 <div class="event__body">
-                  {{ retrieval.description }}
+                  <input *ngIf="retrieval.isNew" type="text" class="comment__text gridster-item-content"
+                    placeholder="Напишите..." #input [(ngModel)]="retrieval.description" />
+                  <span *ngIf="!retrieval.isNew">{{ retrieval.description }}</span>
                 </div>
                 <div class="event__footer">
-                  <span class="event__sub">Срок исполнения</span> <span
-                    class="event__date">{{ retrieval.deadline | date }}</span>
+
+                  <span class="event__sub">Срок исполнения</span> <span class="event__date">
+                    <div *ngIf="retrieval.isNew" class="dates-selector__dates">
+                      <input type="datetime-local" class="dates-selector__date-input"
+                        [ngModel]="retrieval.deadline | date:'yyyy-MM-ddTHH:mm'">
+                    </div> <span *ngIf="!retrieval.isNew">{{ retrieval.deadline | date }}</span>
+                  </span>
                 </div>
               </li>
             </ul>
             <div class="workspace__submit events__btn">
               <div class="submit__frame submit__frame-left"></div>
               <div class="submit__frame submit__frame-right"></div>
-              <button type="submit gridster-item-content">
+              <button type="submit gridster-item-content" (click)="addRetrieval()">
                 Добавить мероприятие
               </button>
             </div>
@@ -278,7 +296,7 @@
         <div class="workspace__submit">
           <div class="submit__frame submit__frame-left"></div>
           <div class="submit__frame submit__frame-right"></div>
-          <button type="submit gridster-item-content">
+          <button type="submit gridster-item-content" (click)="saveItem()">
             Сохранить
           </button>
         </div>

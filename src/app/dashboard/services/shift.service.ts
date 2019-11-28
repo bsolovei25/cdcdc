@@ -28,14 +28,14 @@ export class ShiftService {
   }
 
   private async changeStatusAsync(status, id, idShift): Promise<any>  {
-    console.log(this.restUrl + '/api/shift/' + idShift + '/Employee/' + id + '/ChangeStatus/' + status);
+    // console.log(this.restUrl + '/api/shift/' + idShift + '/Employee/' + id + '/ChangeStatus/' + status);
     return this.http.post(this.restUrl + '/api/shift/' + idShift + '/Employee/' + id + '/ChangeStatus/' + status, null).toPromise();
   }
 
   public async getShiftPass() {
     const tempData = await this.getShiftPassAsync();
     this.shiftPass.next(tempData);
-    console.log(this.shiftPass);
+    // console.log(this.shiftPass);
   }
 
   public async changePosition(id) {

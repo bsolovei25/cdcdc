@@ -52,13 +52,13 @@ export class WidgetsPieCircleComponent implements AfterViewInit {
   }
 
   showWidget() {
-    console.log('show widget!');
+    // console.log('show widget!');
     this.datas.forEach((item, index) => {
       try {
         this.d3Circle(item, this.myCircle.toArray()[index].nativeElement);
       }
       catch {
-        console.log('no such element');
+        // console.log('no such element');
       }
     });
   }
@@ -95,7 +95,7 @@ export class WidgetsPieCircleComponent implements AfterViewInit {
 
 
     // d3.select(el).clear();
-    console.log(d3.select(el));
+    // console.log(d3.select(el));
 
     
 

@@ -34,7 +34,6 @@ export class WidgetsPanelComponent implements OnInit {
   }
 
   onDrop(event: DndDropEvent) {
-    console.log(event);
     this.userSettingsService.deleteCellByPosition(event.data.position);
   }
 }

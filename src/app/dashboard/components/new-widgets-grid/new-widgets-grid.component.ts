@@ -118,7 +118,6 @@ export class NewWidgetsGridComponent implements OnInit {
   }
 
   public dragStart(e: DragEvent, item: GridsterItem): void {
-   // console.log(e);
     
     e.dataTransfer.setData('text/plain', item.toString());
     e.dataTransfer.dropEffect = 'copy';
@@ -127,13 +126,10 @@ export class NewWidgetsGridComponent implements OnInit {
 
   public eventStop(item: GridsterItem, itemComponent: GridsterItemComponentInterface, e: MouseEvent) {
     if (!e) return;
-    console.log(e);
     const dataTrasfer = new DataTransfer();
     e.currentTarget.dispatchEvent(new DragEvent('dragstop', { dataTransfer: dataTrasfer }));
     this.widgetService.draggingItem = null;
   
-    console.log("old item", item);
-    console.log("new item", itemComponent.$item);
     this.userSettings.updateByPosition(item, itemComponent.$item);
     
     

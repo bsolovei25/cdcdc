@@ -35,7 +35,7 @@ export class NewUserSettingsService {
   public dataScreen= [];
 
   public addCellByPosition(idWidget, nameWidget, param) {
-    console.log("addcell");
+    // console.log("addcell");
     this.widgetService.dashboard.push({
         x: param.x,
         y: param.y, 
@@ -56,7 +56,7 @@ export class NewUserSettingsService {
             item.y = newItem.y;
             item.rows = newItem.rows;
             item.cols = newItem.cols;
-            console.log("update", item)
+            // console.log("update", item)
           }
           /*
          if(item.id === oldItem.id){   
@@ -81,7 +81,7 @@ export class NewUserSettingsService {
 
   private screenSave() {
     
-    console.log("save_info",this.widgetService.dashboard);
+    // console.log("save_info",this.widgetService.dashboard);
     const UserId = this.UserId;
     const ScreenId = this.ScreenId;
     let userSettings: NewUserSettings = new class implements NewUserSettings {
@@ -105,13 +105,13 @@ export class NewUserSettingsService {
         
       }
     }
-    console.log(userSettings);
+    // console.log(userSettings);
 
     this.http.post(this.restUrl + '/user-management/setscreen/', userSettings)
       .subscribe(
         ans => {
           
-          console.log(ans);
+          // console.log(ans);
         },
         error => console.log(error)
       );
@@ -119,14 +119,14 @@ export class NewUserSettingsService {
 
   public GetScreen(){
       return this.http.get(this.restUrl + '/user-management/user/1/screens').subscribe((ref: ScreenSettings[]) => {
-        console.log(ref);
+        // console.log(ref);
     });
   }
   
   public LoadScreen(id){
     this.http.get(this.restUrl + '/user-management/user/1/screens').subscribe((ref: ScreenSettings[]) => {
       
-      console.log(ref);
+      // console.log(ref);
       for(let item of ref){
         if(id === item.id){
           this.ScreenId = item.id;
@@ -148,7 +148,7 @@ export class NewUserSettingsService {
     .subscribe(
       ans => {
      
-        console.log(ans);
+        // console.log(ans);
       },
       error => console.log(error)
     );
@@ -157,7 +157,7 @@ export class NewUserSettingsService {
   public getUserData(){
     this.widgetService.dashboard = [];
     this.http.get(this.restUrl + '/user-management/getscreen/1/' + this.ScreenId.toString()).subscribe((ref: NewUserSettings) => {
-      console.log(ref);
+      // console.log(ref);
  
       for(let item of ref.userGrid){
        this.widgetService.dashboard.push({
