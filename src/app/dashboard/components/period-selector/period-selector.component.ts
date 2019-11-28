@@ -47,7 +47,7 @@ export class PeriodSelectorComponent implements OnInit {
 
   isCurrentChange(value: boolean) {
     this.isCurrent = value;
-    console.log('change');
+   // console.log('change');
   }
 
 }

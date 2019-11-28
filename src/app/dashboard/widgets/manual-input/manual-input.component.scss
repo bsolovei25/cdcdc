@@ -296,7 +296,6 @@
 
 .table-container {
   position: absolute;
-  //display: block;
   right: -1px;
   width: calc(100% - 1px);
   height: calc(100% - 80px);
@@ -446,18 +445,6 @@
   display: table-row;
   width: 100%;
   position: relative;
-  //&:last-child {
-  //  //color: red;
-  //  &_line-block {
-  //    color: red;
-  //    position: absolute;
-  //    left: 0px;
-  //    bottom: 50%;
-  //    height: 50%;
-  //    width: 10px;
-  //    background: red;
-  //  }
-  //}
 }
 
 

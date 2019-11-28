@@ -4,7 +4,6 @@ import { WidgetGridsterSettings, WidgetModel, PieWidget } from 'src/app/dashboar
 import { runInDebugContext } from 'vm';
 import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
 import { Subscription } from 'rxjs';
-import { WidgetsService } from 'src/app/dashboard/services/widgets.service';
 import { ThrowStmt } from '@angular/compiler';
 
 declare var d3: any;
@@ -17,7 +16,7 @@ declare var d3: any;
   styleUrls: ['./widget-pie.component.scss']
 })
 export class WidgetsPieComponent implements OnInit {
-  public readonly RADIUS = 48;
+  public readonly RADIUS = 40;
 
   @Input() public data: PieWidget;
 
@@ -26,7 +25,7 @@ export class WidgetsPieComponent implements OnInit {
   constructor() {}
 
   ngOnInit(){
-    this.d3Circle(this.data, this.myCircle.nativeElement);
+      this.d3Circle(this.data, this.myCircle.nativeElement); 
   }
 
   public d3Circle(data, el): void {
@@ -41,12 +40,12 @@ export class WidgetsPieComponent implements OnInit {
     }
 
     const canvas = d3.select(el).append("svg")
-      .attr("min-width", "280px")
-      .attr("max-width", "710px")
-      .attr("viewBox", "0 -10 280 200")
+      .attr("min-width", "200px")
+      .attr("viewBox", "0 -10 200 200");
 
     let group = canvas.append("g")
-      .attr("transform", "translate(100 ,100)");
+      .attr("transform", "translate(102 ,88)");
+     // .attr("viewBox", "0 20 280 200");
 
     const arc = d3.arc().innerRadius(43).outerRadius(this.RADIUS);
 
@@ -69,44 +68,44 @@ export class WidgetsPieComponent implements OnInit {
       .text(summ);
 
       let text = canvas.append("text")
-        .attr("fill","white")
-        .attr("font-size", "14px")
-        .attr("x","42")
+        .attr("fill","rgb(140,153,178)")
+        .attr("font-size", "11px")
+        .attr("x","46")
         .attr("font-family","'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-        .attr("y","9")
+        .attr("y","0")
         .text(data.name);
 
       let positive = canvas.append("text")
-      .attr("font-size", "16px")
-      .attr("x","170")
-      .attr("y","70")
-      .attr("fill", (!data.nonCritical && !data.critical) ? 'gray' : "white")
+      .attr("font-size", "8px")
+      .attr("x","100")
+      .attr("y","155")
+      .attr("fill","rgb(97,101,128)")
       .text("Не критичные", data.nonCriticall);
 
       let positive_num = canvas.append("text")
-      .attr("font-size", "16px")
-      .attr("x","170")
-      .attr("y","95")
+      .attr("font-size", "12px")
+      .attr("x","125")
+      .attr("y","172")
       .attr("fill", (!data.nonCritical && !data.critical) ? 'gray' : "white")
       .text(data.nonCritical);
 
       let negative = canvas.append("text")
-      .attr("font-size", "16px")
-      .attr("x","170")
-      .attr("y","120")
-      .attr("fill", (!data.nonCritical && !data.critical) ? 'gray' : "orange")
-      .text("Критичные", data.critical);
+      .attr("font-size", "8px")
+      .attr("x","50")
+      .attr("y","155")
+      .attr("fill", "rgb(97,101,128)")
+      .text("Критичные /", data.critical);
 
       let negative_num = canvas.append("text")
-      .attr("font-size", "16px")
-      .attr("x","170")
-      .attr("y","145")
+      .attr("font-size", "12px")
+      .attr("x","70")
+      .attr("y","172")
       .attr("fill", (!data.nonCritical && !data.critical) ? 'gray' : "orange")
       .text(data.critical);
 
     let pie_back = canvas.append("image")
       .attr("xlink:href",(!data.nonCritical && !data.critical) ? '/assets/pic/ncir.svg' : "/assets/pic/acir.svg")
-      .attr("height", "200px")
+      .attr("height", "185px")
       .attr("width", "200px")
       .attr("x","3")
       .attr("y","-3");

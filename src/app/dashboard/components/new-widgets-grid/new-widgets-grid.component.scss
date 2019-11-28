@@ -91,11 +91,8 @@ app-root {
 gridster-item {
   min-width: 200px !important;
   min-height: 200px !important;
- // overflow: scroll;
   background-color: rgb(27, 30, 39);
   z-index: 0 !important;
-  //max-height: 5000px !important;
- // max-width: 5000px !important;
 }
 
 
@@ -105,13 +102,9 @@ gridster-item {
 }
 
 .fixed{
-//  position: absolute !important;
   padding: 10px !important;
   height: calc(100vh - 60px) !important;
- // min-height: 790px;
   width: 100% !important;
- //overflow-y: scroll !important;
- // background-color: rgb(34, 38, 49) !important;
   background-color: rgb(27, 30, 39);
 }
 

@@ -18,11 +18,7 @@
 
 .container {
   position: relative;
-  // width: 100%;
-  // height: 100%;
-  // width: 100%;
   min-width: 970px;
-  // height: 1000px;
   box-sizing: border-box;
   padding: 5px;
   padding-right: 7px;
@@ -156,7 +152,6 @@
   }
 
   &_bottom {
-    // position: absolute;
     bottom: 0;
     border-bottom: 0.5px solid var(--color-border-main-transparrent);
     border-top: transparent;
@@ -211,7 +206,6 @@
   font-weight: 100;
   color: var(--color-text-sub);
   width: 100%;
-  // height: 100%;
   padding: 0 25px;
   margin: 5px 0 2px;
   box-sizing: border-box;
@@ -251,7 +245,7 @@
         height: 104.62px;
         border-radius: 50%;
         margin: 0 auto;
-        background-color: var(--color-bg-active); //temp
+        background-color: var(--color-bg-active); 
       }
 
       &__info {
@@ -270,7 +264,7 @@
           width: 35px;
           height: 35px;
           border-radius: 50%;
-          background-color: var(--color-bg-active); //temp
+          background-color: var(--color-bg-active); 
         }
 
         &:last-child {
@@ -612,7 +606,6 @@
 
   &__comment {
     margin-top: 25px;
-    // margin-bottom: 50px;
     min-height: 100px;
     flex: 1;
     .comment {
@@ -625,7 +618,6 @@
         position: relative;
         border: 0.5px solid var(--color-border-main-transparrent);
         width: 100%;
-        // height: 100%;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -922,9 +914,8 @@
 
 .blocks-bottom {
   display: flex;
-  // margin-bottom: 20px;
 
-  .block-bottom {
+.block-bottom {
     min-width: 400px;
     width: 50%;
   }
@@ -1114,7 +1105,6 @@
     position: relative;
     border: 0.5px solid var(--color-border-main-transparrent);
     width: 100%;
-    // height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -1234,7 +1224,6 @@
     position: relative;
     border: 0.5px solid var(--color-border-main-transparrent);
     width: 100%;
-    // height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

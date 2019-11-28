@@ -2,19 +2,12 @@
 
         <evj-widget-header [title]="title" [units]="units" [code]="code" [id]="id"></evj-widget-header>
 
-        <div class="frame frame_top" (mousedown)="$event.stopPropagation()" 
-        (touchstart)="$event.stopPropagation()">
-                <div class="frame__circle frame__circle__left"></div>
-                <div class="frame__circle frame__circle__right"></div>
-        </div>
+        <evj-frame-top></evj-frame-top>
         
         <ng-container>
                 <div class="content_block" (mousedown)="$event.stopPropagation()" 
                 (touchstart)="$event.stopPropagation()">
                         <div class="blocks">
-                                                <!--<div *ngFor="let data of (isMock ? (datas | slice:0:1) : datas);" class="block" >
-                                                <evj-widget-pie [data]="data" ></evj-widget-pie>
-                                                </div> -->
                                 <div *ngIf="isMock === true"  style="width: 100%; height: 100%;">
                                         <div *ngFor="let data of datas | slice:0:1;" class="block" >
                                                 <evj-widget-pie [data]="data" ></evj-widget-pie>
@@ -28,11 +21,6 @@
                          </div>
                 </div>
         </ng-container>
-  
-  
-        <div class="frame frame_bottom" (mousedown)="$event.stopPropagation()" 
-        (touchstart)="$event.stopPropagation()">
-                <div class="frame__circle frame__circle__left"></div>
-                <div class="frame__circle frame__circle__right"></div>
-        </div>
+        
+        <evj-frame-bottom></evj-frame-bottom>
   </div>
