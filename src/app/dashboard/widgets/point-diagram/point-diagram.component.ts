@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from "@angular/core";
 import { NewWidgetService } from "../../services/new-widget.service";
-import { Subscription } from 'rxjs';
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "evj-point-diagram",
@@ -107,7 +107,13 @@ export class PointDiagramComponent implements OnInit {
 
   ngOnInit() {}
 
-  ngOnDestroy(){
-    this.subscription.unsubscribe()
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  containerIsMock(): string {
+    
+        return this.isMock ? "430px" : "100%";
+      
   }
 }

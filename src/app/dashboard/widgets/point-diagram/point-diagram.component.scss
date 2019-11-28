@@ -18,14 +18,13 @@
 
 .container {
   position: relative;
-  width: 100%;
   height: 100%;
   box-sizing: border-box;
-  padding: 5px;
+  padding: 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  // min-width: 500px;
+  min-width: 430px;
 }
 
 .mock {
@@ -180,6 +179,7 @@
   flex-direction: column;
   justify-content: space-between;
 
+
   .line {
     position: absolute;
     width: 100%;
@@ -206,6 +206,7 @@
     justify-content: space-between;
 
     overflow-x: scroll;
+    overflow-y: hidden;
     .row {
       margin: 15px 0;
       display: flex;
