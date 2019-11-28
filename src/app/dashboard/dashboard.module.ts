@@ -30,6 +30,7 @@ import { FrameBottomComponent } from './components/frame-bottom/frame-bottom.com
 import { ClickOutsideModule } from 'ng-click-outside';
 import { PointDiagramComponent } from './widgets/point-diagram/point-diagram.component';
 import { OneColumnComponent } from './widgets/point-diagram/one-column/one-column.component';
+import { ProductionPyramidComponent } from './widgets/production-pyramid/production-pyramid.component';
 
 
 
@@ -57,7 +58,8 @@ import { OneColumnComponent } from './widgets/point-diagram/one-column/one-colum
     PointDiagramComponent,
     OneColumnComponent,
     FrameTopComponent,
-    FrameBottomComponent
+    FrameBottomComponent,
+    ProductionPyramidComponent
   ],
   entryComponents:[
     LineChartComponent,

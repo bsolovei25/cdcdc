@@ -5,7 +5,6 @@
   }"
 >
   <evj-widget-header
-    *ngIf="true"
     [title]="aboutWidget.title"
     [units]=""
     [code]=""
@@ -29,7 +28,7 @@
     </div>
   </ng-container>
   <ng-container *ngIf="!isMock">
-    <div class="point-diagram" #widget>
+    <div class="point-diagram">
       <div class="title">
         <div class="title__name">Норматив, мг/м^3</div>
         <div class="title__percent">ПДК 100%</div>
@@ -38,7 +37,7 @@
         <div class="circle circle__left circle__left-top"></div>
         <div class="circle circle__right circle__right-top"></div>
       </div>
-      <div class="body scroll-bar" #graphs>
+      <div class="body scroll-bar">
         <div class="row">
           <div class="row__items" *ngFor="let item of array">
             <evj-one-column [item]="item" [isDiagram]="false"></evj-one-column>
