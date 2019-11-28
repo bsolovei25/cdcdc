@@ -183,6 +183,7 @@
     bottom: 0;
     border-bottom: 0.5px solid var(--color-border-main-transparrent);
     border-top: transparent;
+    width: calc(100% - 1px);
 
     &:after {
       z-index: 1;
@@ -657,7 +658,7 @@
     }
 
     &__right {
-      right: -6.5px;
+      right: 1px;
     }
   }
 }
@@ -730,7 +731,7 @@
     }
 
     &_right {
-      right: -1px;
+      right: 0;
       border-right: var(--line-border);
     }
   }
