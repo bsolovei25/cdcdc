@@ -21,12 +21,12 @@ export class OneColumnComponent implements OnInit {
     return 30 + ((70 - 30) / 100) * percent;
   }
 
-  getColor(percent: number, isCritical: boolean): string {
+  getColor(percent: number, isCritical: boolean, isPoint:boolean): string {
     if (percent === 0) {
-      return "point__disable";
+      return isPoint?"point__disable":"label__disable";
     } else if (!isCritical) {
-      return "point__normal";
+      return isPoint?"point__normal":"label__normal";
     }
-    return "point__critical";
+    return isPoint?"point__critical":"label__critical";
   }
 }

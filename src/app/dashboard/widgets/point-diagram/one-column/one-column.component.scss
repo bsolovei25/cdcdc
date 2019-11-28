@@ -59,6 +59,16 @@
     align-items: center;
 
     font-size: 14px;
+
+    &__disable {
+      color: var(--color-border-main);
+    }
+    &__normal {
+      color: var(--color-border-active);
+    }
+    &__critical {
+      color: var(--color-warning);
+    }
   }
 }
 
@@ -77,4 +87,13 @@
   justify-content: center;
   align-items: center;
   background: var(--color-bg-additional);
+
+  font-size: 14px;
+
+  &__active {
+    color: var(--color-text-main);
+  }
+  &__disable {
+    color: var(--color-border-main);
+  }
 }
