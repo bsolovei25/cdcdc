@@ -28,6 +28,8 @@ import { EventsWorkSpaceComponent } from './widgets/workspace/events-workspace.c
 import { FrameTopComponent } from './components/frame-top/frame-top.component';
 import { FrameBottomComponent } from './components/frame-bottom/frame-bottom.component';
 import { ClickOutsideModule } from 'ng-click-outside';
+import { PointDiagramComponent } from './widgets/point-diagram/point-diagram.component';
+import { OneColumnComponent } from './widgets/point-diagram/one-column/one-column.component';
 
 
 
@@ -52,6 +54,8 @@ import { ClickOutsideModule } from 'ng-click-outside';
     WidgetsPieComponent,
     WidgetHeaderComponent,
     EventsWorkSpaceComponent,
+    PointDiagramComponent,
+    OneColumnComponent,
     FrameTopComponent,
     FrameBottomComponent
   ],
@@ -63,7 +67,8 @@ import { ClickOutsideModule } from 'ng-click-outside';
     ManualInputComponent,
     LineDiagramComponent,
     ChangeShiftComponent,
-    EventsWorkSpaceComponent
+    EventsWorkSpaceComponent,
+    PointDiagramComponent,
   ],
   exports: [
     HomeComponent,
