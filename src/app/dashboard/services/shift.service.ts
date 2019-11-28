@@ -44,12 +44,21 @@ export class ShiftService {
     return this.http.delete(this.restUrl + '/api/shift/' + idShift + '/Employee/' + id).toPromise();
   }
 
+  private async applyShiftAsync(idShift, type) {
+    return this.http.post(this.restUrl + '/api/shift/' + idShift + '/' + type, null).toPromise();
+  }
+
   public async getShiftInfo() {
     const tempData = await this.getShiftPassAsync();
     this.allMembers = await this.getAllMembersAsync();
     this.shiftPass.next(tempData);
     console.log(this.shiftPass);
     console.log(this.allMembers);
+  }
+
+  public async applyShift(idShift, type) {
+    await this.applyShiftAsync(idShift, type);
+    this.getShiftInfo();
   }
 
   public async changePosition(id) {

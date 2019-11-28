@@ -36,16 +36,16 @@
           <div class="mainWorker__row">
             <div class="mainWorker__row_colInfo" *ngIf="getMain()">
               <div class="mainWorker__name">
-                {{ getMain().employee.firstName }}
-                {{ getMain().employee.lastName }}
+                {{ getMain().employee.lastName }} {{  getMain().employee.firstName.charAt(0).toUpperCase() }}.
               </div>
               <div class="mainWorker__position" *ngIf="currentShift != null">
                 {{ this.getDisplayPosition(getMain().employee.position) }}
               </div>
             </div>
-<!--            <div class="mainWorker__row_colIcon"-->
-<!--                  [class.mainWorker__row_colIcon-InProgress]="getMain().status === 'Passed' || getMain().status === 'Accepted'">-->
-<!--            </div>-->
+            <div class="mainWorker__row_colIcon" *ngIf="getMain()"
+                  [class.mainWorker__row_colIcon__InProgress]="!(getMain().status === 'Passed' || getMain().status === 'Accepted')"
+                  [class.mainWorker__row_colIcon__Ready]="getMain().status === 'Passed' || getMain().status === 'Accepted'">
+            </div>
           </div>
           <div class="mainWorker__row">
             <div class="circle circle__right circle__right-top"></div>
@@ -74,7 +74,6 @@
                 [currentBrigade]="currentShift.brigade.id"
                 [onShift]="true"
                 [isPresent]="true"
-                [isMain]="i === 0"
               ></evj-shift-person>
             </div>
           </div>
@@ -155,7 +154,8 @@
       <div class="change-shift__submit" *ngIf="aboutWidget">
         <div class="submit__frame submit__frame-left"></div>
         <div class="submit__frame submit__frame-right"></div>
-        <button type="submit gridster-item-content">
+        <button type="submit"
+          (click)="shiftApply()">
           {{
             this.aboutWidget.widgetType === "shift-pass"
               ? "Передать смену"

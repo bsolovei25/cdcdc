@@ -88,22 +88,27 @@ export class ShiftPersonComponent implements OnInit {
 
   menuCheck(event: any, person) {
     switch (event.target.innerText) {
-      case "Принять смену":
+      case 'Принять смену':
+        this.shiftService.changeStatus('Accepted', person.employee.id, this.shiftId);
         break;
-      case "Передать смену":
+      case 'Передать смену':
+        this.shiftService.changeStatus('Passed', person.employee.id, this.shiftId);
         break;
-      case "Отсутствует":
+      case 'Отсутствует':
         console.log(person);
         if (person.employee.brigade) {
-          this.shiftService.changeStatus("Absent", person.employee.id, this.shiftId);
+          this.shiftService.changeStatus('Absent', person.employee.id, this.shiftId);
         } else {
           this.shiftService.delMember(person.employee.id, this.shiftId);
         }
         break;
-      case "На месте":
-        this.shiftService.changeStatus("InProgress", person.employee.id, this.shiftId);
+      case 'На месте':
+        this.shiftService.changeStatus('InProgress', person.employee.id, this.shiftId);
         break;
-      case "Сделать главным":
+      case 'Отменить':
+        this.shiftService.changeStatus('InProgress', person.employee.id, this.shiftId);
+        break;
+      case 'Сделать главным':
         this.shiftService.changePosition(person.employee.id);
         break;
     }

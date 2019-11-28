@@ -52,7 +52,7 @@
         bottom: -2px;
         right: 0px;
 
-        height: 2px;
+        height: 3px;
         width: 13px;
 
         box-sizing: border-box;
@@ -130,7 +130,17 @@
           width: 10px;
           height: 10px;
           border-radius: 50%;
-          background-color: var(--color-bg-active); //temp
+
+          &__ready {
+            background-color: var(--color-text-main);
+            mask: url('../../../../../assets/icons/widgets/process/closed.svg') no-repeat center;
+            mask-size: contain;
+          }
+          &__progress {
+            background-color: var(--color-border-main);
+            mask: url('../../../../../assets/icons/widgets/process/in-work.svg') no-repeat center;
+            mask-size: contain;
+          }
         }
       }
     }
@@ -175,7 +185,6 @@
   display: block;
   flex-direction: column;
   box-sizing: border-box;
-
   bottom: 0px;
   right: 0px;
 

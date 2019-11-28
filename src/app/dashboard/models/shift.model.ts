@@ -9,6 +9,7 @@ export interface Employee {
   lastName: string;
   brigade: Brigade;
   position: string;
+  positionDescription: string;
   main?: boolean;
 }
 

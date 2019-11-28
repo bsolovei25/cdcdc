@@ -217,7 +217,6 @@
   position: relative;
   overflow: hidden;
 
-
   &__mainWorker {
     width: 100%;
     display: inline-flex;
@@ -268,9 +267,17 @@
           height: 35px;
           border-radius: 50%;
           background-size: auto;
-          background-color: var(--color-border-main);
-          mask: url('../../../../assets/icons/widgets/process/in-work.svg') no-repeat center;
-          mask-size: contain;
+
+          &__InProgress {
+            background-color: var(--color-border-main);
+            mask: url('../../../../assets/icons/widgets/process/in-work.svg') no-repeat center;
+            mask-size: contain;
+          }
+          &__Ready {
+            background-color: var(--color-text-main);
+            mask: url('../../../../assets/icons/widgets/process/closed.svg') no-repeat center;
+            mask-size: contain;
+          }
         }
 
         &:last-child {
@@ -816,6 +823,11 @@
 
       &:hover {
         cursor: pointer;
+        background-color: var(--color-bg-additional);
+      }
+      &:active {
+        cursor: pointer;
+        background-color: var(--color-bg-active);
       }
     }
 
@@ -825,7 +837,7 @@
         z-index: 1;
         height: 100%;
         width: 20px;
-        border: 2px solid var(--color-border-active);
+        border: 2px solid var(--color-border-unactive);
         box-sizing: border-box;
         background: transparent;
         &-left {
@@ -848,7 +860,7 @@
             transform-origin: 43% 0;
             transform: rotate(-45deg);
 
-            border-bottom: 2px solid var(--color-border-active);
+            border-bottom: 2px solid var(--color-border-unactive);
             background: var(--color-bg-main);
           }
 
@@ -867,7 +879,7 @@
             transform-origin: 43% 0;
             transform: rotate(45deg);
 
-            border-top: 2px solid var(--color-border-active);
+            border-top: 2px solid var(--color-border-unactive);
             background: var(--color-bg-main);
           }
         }
@@ -891,7 +903,7 @@
             transform-origin: 43% 0;
             transform: rotate(45deg);
 
-            border-bottom: 2px solid var(--color-border-active);
+            border-bottom: 2px solid var(--color-border-unactive);
             background: var(--color-bg-main);
           }
 
@@ -910,7 +922,7 @@
             transform-origin: 43% 0;
             transform: rotate(-45deg);
 
-            border-top: 2px solid var(--color-border-active);
+            border-top: 2px solid var(--color-border-unactive);
             background: var(--color-bg-main);
           }
         }
