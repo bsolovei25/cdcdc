@@ -36,8 +36,6 @@ export class NewWidgetsPanelComponent implements OnInit {
   _injector: Injector;
 
 
-
-
   public test = [];
   constructor(
     public widgetService: NewWidgetService, 

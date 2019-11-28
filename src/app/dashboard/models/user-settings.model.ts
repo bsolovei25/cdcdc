@@ -29,6 +29,7 @@ export interface ScreenSettings {
   id: number;
   user: User[];
   screenName: string;
+  updateScreen: boolean;
 }
 
 
