@@ -1,8 +1,9 @@
 <div class="onShift__person  gridster-item-content"
-     (click)="(onShift)?showMenu($event): addToShift(person.employee.id)"
-     (clickOutside)="onClickOutside()"
      [class.disable-person]="!isPresent && onShift"
-     [ngClass]="(onShift)?'isOnShift':'allPeople'">
+     [ngClass]="(onShift)?'isOnShift':'allPeople'"
+     #insideElement
+     (mouseover)="onMouseOver()"
+     (mouseout)="onMouseOut()">
   <div class="circle circle__left circle__left-top"></div>
   <div class="circle circle__right circle__right-top"></div>
   <div class="person__avatar">
