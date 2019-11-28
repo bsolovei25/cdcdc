@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {UserSettingsService} from '../../services/user-settings.service';
 import { NewUserSettingsService } from '../../services/new-user-settings.service';
 import { Subscription } from 'rxjs';
 import { timingSafeEqual } from 'crypto';
@@ -27,6 +26,11 @@ export class IndicatorSelectorComponent implements OnInit {
       id: 3,
       name: 'Экран 3',
       isActive: false
+    },
+    {
+      id: 4,
+      name: 'Экран 4',
+      isActive: false
     }
   ];
 
@@ -45,16 +49,8 @@ export class IndicatorSelectorComponent implements OnInit {
   public nameScreen;
   
   constructor(
-    private userSettingsService: UserSettingsService,
     private userSettings: NewUserSettingsService
-    ) {
-      /*
-      this.subscription = this.userSettings.GetScreen().subscribe(dataW => {
-        this.dataScreen = dataW;
-        debugger
-      });
-      */
-     }
+    ) { }
 
   ngOnInit() {
    
@@ -62,7 +58,6 @@ export class IndicatorSelectorComponent implements OnInit {
       this.dataScreen = dataW;
       for(let item of this.dataScreen){
         item.updateScreen = false;
-      //  this.idScreen = item.id;
       }
       
     });
@@ -97,20 +92,7 @@ export class IndicatorSelectorComponent implements OnInit {
       this.isReadyAdd = false;
     }
   }
-/*
-  async addScreen() {
-    const newScreen = {
-      id: 0,
-      name: this.tempScreen,
-      isActive: false
-    }
-    const newscreen = await this.userSettings.PushScreen(this.tempScreen);
-    this.dataScreen.push(newscreen);
-    debugger
-    //this.screens.push(newScreen);
-    this.tempScreen = '';
-  }
-*/
+
   public deleteScreen(id){
     this.userSettings.deleteScreen(id);
     for(let item of this.dataScreen){
@@ -127,11 +109,9 @@ export class IndicatorSelectorComponent implements OnInit {
     for(let item of this.dataScreen){
       if(item.id === id){
         item.updateScreen = false; 
-      //  item.screenName = newName;
       }
     }
     this.userSettings.updateScreen(id, newName);
-   // this.getActiveScreen();
   }
 
   public addScreen() {
@@ -141,8 +121,6 @@ export class IndicatorSelectorComponent implements OnInit {
       isActive: false
     }
     this.userSettings.PushScreen(this.tempScreen);
- 
-    //this.screens.push(newScreen);
     this.tempScreen = '';
   }
 
@@ -151,20 +129,14 @@ export class IndicatorSelectorComponent implements OnInit {
       if(item.id === id){
         item.updateScreen = true; 
         this.newNameScreen = item.screenName;
-       // this.getActiveScreen(); 
       }
     }
-    //this.newNameScreen = '';
   }
 
   isLeaveScreen(e){
     for(let item of this.dataScreen){
       item.updateScreen = false;
     }
-    // console.log('leave', e);
   }
-  isOverScreen(e) {
-    // console.log('over', e);  
-  }
-
+  isOverScreen(e) { }
 }

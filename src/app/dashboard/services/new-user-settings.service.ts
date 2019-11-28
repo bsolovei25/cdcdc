@@ -3,7 +3,6 @@ import { NewWidgetService } from './new-widget.service';
 import { NewUserSettings, NewUserGrid, ScreenSettings } from '../models/user-settings.model';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {WIDGETS} from '../components/new-widgets-grid/widget-map'
-import { WidgetsService } from './widgets.service';
 import { AppConfigService } from 'src/app/services/appConfigService';
 import { GridsterItem, GridsterItemComponentInterface } from 'angular-gridster2';
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -25,7 +24,6 @@ export class NewUserSettingsService {
 
   constructor(
     private widgetService: NewWidgetService,
-    private oldWidgetService: WidgetsService,
     private http: HttpClient,
     configService: AppConfigService
   ) {
@@ -65,18 +63,6 @@ export class NewUserSettingsService {
             item.cols = newItem.cols;
             console.log("update", item)
           }
-          /*
-         if(item.id === oldItem.id){   
-          this.widgetService.dashboard.splice(this.widgetService.dashboard.indexOf(item), 1 ,{
-            x: newItem.x,
-            y: newItem.y, 
-            cols: newItem.cols, 
-            rows: newItem.rows, 
-            id: oldItem.id, 
-            widgetType: oldItem.widgetType
-          });
-         } 
-         */
       }
      this.screenSave();
      
@@ -123,30 +109,8 @@ export class NewUserSettingsService {
         error => console.log(error)
       );
   }
-/*
-  public GetScreen(): Observable<any>{
-      return this.http.get(this.restUrl + '/user-management/user/1/screens').pipe(
-        map(data => {
-           return data;
-           }))
-  }
-*/ 
-
-/*
-public GetScreen(): Observable<any>{
-  debugger
-  return this.http.get(this.restUrl + '/user-management/user/1/screens').pipe(
-    map(data => {
-        this._screens$.next(data);
-       return data;
-       })
-    );
-}
-*/
 
   public GetScreen(){
-    //this.screens$.subscribe(dataW => {
-    //  this.dataScreen = dataW;
     this.http.get<ScreenSettings[]>(this.restUrl + '/user-management/user/1/screens').subscribe(data => this._screens$.next(data));
   }
 
@@ -160,24 +124,7 @@ public GetScreen(): Observable<any>{
         this.getUserData();
       });
   }
-/*
-  public PushScreen(nameWidget): Promise<any> {
-    let userScreen: ScreenSettings = new class implements ScreenSettings {
-      id;
-      screenName = nameWidget;
-      user;
-    };
-    // debugger
-    return this.http.post(this.restUrl + '/user-management/user/1/screen', userScreen).toPromise();
-    // .subscribe(
-    //   ans => {
-     
-    //     console.log(ans);
-    //   },
-    //   error => console.log(error)
-    // );
-  }
-*/
+
 public PushScreen(nameWidget){
   let userScreen: ScreenSettings = new class implements ScreenSettings {
     id;
@@ -214,7 +161,6 @@ public updateScreen(id, name){
     user;
     updateScreen;
   };
-  debugger
   return this.http.put(this.restUrl + '/user-management/user/1/screen/' +id, userScreen ).subscribe(
     ans => {
       this.GetScreen();

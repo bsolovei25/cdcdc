@@ -23,7 +23,6 @@ export class WidgetHeaderComponent implements OnInit {
   }
 
   onRemoveButton(){
-    debugger
     this.widgetService.removeItemService(this.id);
     this.userSettings.removeItem();
 

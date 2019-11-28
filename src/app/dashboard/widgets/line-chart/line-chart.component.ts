@@ -17,7 +17,6 @@ import * as d3Array from 'd3-array';
 import * as d3Axis from 'd3-axis';
 import * as d3Format from 'd3-format';
 import { Mock } from 'src/app/dashboard/widgets/line-chart/mock';
-import { WidgetsService } from "../../services/widgets.service";
 import { Subscription } from "rxjs";
 import { LineChartData } from "../../models/line-chart";
 import { NewWidgetService } from '../../services/new-widget.service';
@@ -28,10 +27,6 @@ import { NewWidgetService } from '../../services/new-widget.service';
   styleUrls: ['./line-chart.component.scss']
 })
 export class LineChartComponent implements OnInit, OnDestroy {
-
-
-  // options: LineChartOptions;
-  // position?: string = 'default';
 
   code;
   public title;
@@ -139,7 +134,6 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
 
   constructor(
-    private oldWidgetsService: WidgetsService,
     public widgetService: NewWidgetService,
     @Inject('isMock') public isMock: boolean,
     @Inject('widgetId') public id: string
@@ -149,7 +143,6 @@ export class LineChartComponent implements OnInit, OnDestroy {
         this.title = data.title,
         this.units = data.units,
         this.options = data.widgetOptions
-      //  this.position = data.
     });
   }
 
@@ -157,8 +150,13 @@ export class LineChartComponent implements OnInit, OnDestroy {
     this.showMock(this.isMock);
     if (!this.isMock) {
       setInterval(() => {
-        this.draw(this.dataLine);
-      }, 100);
+        if (this.dataLine) {
+          this.draw(this.dataLine);
+        }
+        try {
+
+        } catch {};
+      }, 500);
     }
 
   }
@@ -180,7 +178,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
   private enableLiveData() {
     // TODO добавить получение типа графика
 
-    this.subscription2 = this.oldWidgetsService.getWidgetLiveDataFromWS(this.id, 'line-chart')
+    this.subscription2 = this.widgetService.getWidgetLiveDataFromWS(this.id, 'line-chart')
       .subscribe((ref) => {
         this.dataLine = ref;
         this.draw(ref);
@@ -239,7 +237,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
     if (this.deviationMode === 'limits') {
       this.drawLimitsAreas(upperLimit, lowerLimit);
-      this.drawLimitsDeviationAreas(upperLimit, lowerLimit, fact);
+      // this.drawLimitsDeviationAreas(upperLimit, lowerLimit, fact);
     } else {
       this.deleteLimitsData();
       this.drawDeviationAreas(plan, fact);

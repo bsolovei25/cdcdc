@@ -14,13 +14,9 @@
     </div>
   </div> -->
    <!--<evj-widget-header></evj-widget-header>--> 
-   <evj-widget-header [title]="title" [units]="units" [code]="code" [id]="id"></evj-widget-header>
+   <evj-widget-header [title]="title" [id]="id"></evj-widget-header>
 
-  <div class="frame frame_top" (mousedown)="$event.stopPropagation()" 
-  (touchstart)="$event.stopPropagation()">
-    <div class="frame__circle frame__circle__left"></div>
-    <div class="frame__circle frame__circle__right"></div>
-  </div>
+   <evj-frame-top></evj-frame-top>
 
   <div class="line-diagram" (mousedown)="$event.stopPropagation()" 
   (touchstart)="$event.stopPropagation()">
@@ -52,9 +48,7 @@
     </div>
   </div>
 
-  <div class="frame frame_bottom" (mousedown)="$event.stopPropagation()" 
-  (touchstart)="$event.stopPropagation()">
-    <div class="frame__circle frame__circle__left"></div>
-    <div class="frame__circle frame__circle__right"></div>
-  </div>
+   <evj-frame-bottom></evj-frame-bottom>
+
+   
 </div>

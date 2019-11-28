@@ -6,7 +6,6 @@ import {
   EventsWidgetOptions
 } from "../../models/events-widget";
 import { EventsWidgetFilter } from "../../models/events-widget";
-import { WidgetsService } from "../../services/widgets.service";
 import {
   EventsWidgetNotification,
   EventsWidgetNotificationStatus
@@ -23,7 +22,7 @@ import { NewUserSettingsService } from '../../services/new-user-settings.service
 export class EventsComponent implements OnInit, OnDestroy {
   @Input() name = '';
   ng
-  isList = true;
+  isList = false;
 
   title;
 
@@ -58,7 +57,7 @@ export class EventsComponent implements OnInit, OnDestroy {
         closed: null,
         all: null,
       },
-      name: 'Производственные задания и распоряжения',
+      name: 'Производственные задания',
       isActive: false
     },
     {
@@ -135,7 +134,6 @@ export class EventsComponent implements OnInit, OnDestroy {
 
 
   constructor(
-    private oldWidgetsService: WidgetsService,
     public userSettings: NewUserSettingsService,
     @Inject('isMock') public isMock: boolean,
     public widgetService: NewWidgetService,
@@ -186,10 +184,9 @@ export class EventsComponent implements OnInit, OnDestroy {
 
     const options = this.getCurrentOptions();
     this.notifications = this.applyFilter(this.allNotifications, options);
-    console.log(this.notifications);
+   // console.log(this.notifications);
 
     // filtering only at front-end
-    // this.widgetsService.appendWidgetLiveOptions(this.id, options);
   }
 
   // Фильтрация
@@ -265,26 +262,16 @@ export class EventsComponent implements OnInit, OnDestroy {
   }
 
   private wsConnect() {
-    this.liveSubscription = this.oldWidgetsService.getWidgetLiveDataFromWS(this.id, 'events')
+    this.liveSubscription = this.widgetService.getWidgetLiveDataFromWS(this.id, 'events')
       .subscribe((ref: EventsWidgetData) => {
         this.appendNotifications(ref.notifications);
         // this.appendFilterCounters(ref.filters);
         this.appendCategoriesCounters(ref.categories);
-        console.log('get_ws_events');
+      //  console.log('get_ws_events');
       }
       );
   }
 
-  /*@Input()
-  set showMock(show) {
-    this.isMock = show;
-    if (this.isMock) {
-      // do nothing
-    } else {
-      this.wsConnect();
-    }
-  }
-  */
   showMock(show) {
     if (this.isMock) {
       // do nothing

@@ -47,7 +47,7 @@ export class LineDatetimeComponent implements OnInit {
       };
       this.dates.push(el);
     }
-    console.log(this.dates);
+   // console.log(this.dates);
   }
 
 }
