@@ -30,6 +30,7 @@ import { WidgetHeaderComponent } from './components/widget-header/widget-header.
 import { EventsWorkSpaceComponent } from './widgets/workspace/events-workspace.component';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { PointDiagramComponent } from './widgets/point-diagram/point-diagram.component';
+import { OneColumnComponent } from './widgets/point-diagram/one-column/one-column.component';
 
 
 
@@ -57,7 +58,8 @@ import { PointDiagramComponent } from './widgets/point-diagram/point-diagram.com
     WidgetsPieComponent,
     WidgetHeaderComponent,
     EventsWorkSpaceComponent,
-    PointDiagramComponent
+    PointDiagramComponent,
+    OneColumnComponent
   ],
   entryComponents:[
     WidgetsPieCircleComponent,
