@@ -18,15 +18,19 @@
 
 .container {
   position: relative;
-  //min-width: 970px;
+  width: 100%;
+  // height: 100%;
+  // min-width: 970px;
+  height: 100%;
   box-sizing: border-box;
-  //padding: 5px;
-  //padding-right: 7px;
+  // padding: 5px;
+  margin-bottom: 20px;
+  padding-right: 7px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   line-height: 24px;
-  height: 100%;
+  // height: 100%;
 }
 
 .mock {
@@ -209,17 +213,17 @@
   font-weight: 100;
   color: var(--color-text-sub);
   width: 100%;
-  padding: 0 25px;
+  height: 100%;
+  padding: 0 20px;
   margin: 5px 0 2px;
   box-sizing: border-box;
   border-right: 0.5px dashed var(--color-border-main-transparrent);
   border-left: 0.5px dashed var(--color-border-main-transparrent);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   position: relative;
   overflow: hidden;
-  height: 100%;
 
   &__mainWorker {
     width: 100%;
@@ -908,7 +912,6 @@
 
 .incidents {
   display: flex;
-  margin-bottom: 20px;
 
   &__item {
     width: 50%;
@@ -917,18 +920,21 @@
 
 .blocks-bottom {
   display: flex;
+  height: 100%;
+  // margin-bottom: 20px;
 
-.block-bottom {
-    min-width: 400px;
+  .block-bottom {
+    min-width: 200px;
     width: 50%;
   }
 }
-@media screen and (max-width: 910px) {
-  .blocks-bottom {
-    flex-direction: column;
-    flex-wrap: wrap;
-  }
-}
+
+// @media screen and (max-width: 910px) {
+//   .blocks-bottom {
+//     flex-direction: column;
+//     flex-wrap: wrap;
+//   }
+// }
 
 .workspace {
   &__header {
@@ -947,15 +953,19 @@
   &__blocks {
     display: flex;
     flex-wrap: wrap;
-    align-content: flex-start;
+    justify-content: space-between;
     width: 100%;
     min-width: 320px;
   }
 
   &__block {
     min-height: 40px;
-    min-width: 200px;
+    min-width: 160px;
     margin-bottom: 10px;
+
+    &__right {
+      min-width: 130px;
+    }
 
     &__title {
       background-color: var(--color-bg-main);
@@ -969,7 +979,8 @@
   }
 
   &__block-border {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
+    width: 100%;
   }
 
   &__save {
@@ -1114,7 +1125,6 @@
     box-sizing: border-box;
     padding: 10px 10px 0;
     color: var(--color-text-main);
-        height: 100%;
 
     &:after {
       z-index: 1;
@@ -1160,9 +1170,9 @@
     justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
-    padding: 3px 0 20px;
+    padding: 3px 0 5px;
     position: relative;
-    height: 100%;
+    // height: 100%;
 
     .button {
       height: 40px;
@@ -1218,6 +1228,56 @@
 }
 
 .comment {
+  min-width: 300px;
+  min-height: 100px;
+
+  .button {
+    height: 40px;
+    width: 50px;
+    outline: none;
+    box-sizing: border-box;
+    margin: 3px;
+    border-radius: 25px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__text {
+    height: 40px;
+    width: 100%;
+    padding-left: 10px;
+    background: var(--color-bg-main);
+    border: none;
+    outline: none;
+    color: var(--color-text-sub);
+    &::placeholder {
+      color: var(--color-text-sub);
+    }
+  }
+
+  &__file {
+    border: 0.5px solid var(--color-border-main);
+    background: transparent;
+
+    &:hover {
+      transition: 0.2s;
+      border: 0.5px solid var(--color-border-active);
+    }
+  }
+
+  &__submit {
+    background: var(--color-bg-active);
+    border: none;
+
+    &:hover {
+      transition: 0.2s;
+      opacity: 0.8;
+      box-shadow: 0px 0px 2px var(--color-border-active);
+    }
+  }
+
   &__title {
     background-color: var(--color-bg-main);
     margin: 0 0 10px 10px;
@@ -1280,6 +1340,8 @@
     height: 100%;
     display: flex;
     flex-direction: column-reverse;
+    min-height: 100px;
+
     .messages {
       position: relative;
       width: 100%;
@@ -1302,65 +1364,15 @@
   }
 }
 
-.comment {
-  min-width: 400px;
-
-  .button {
-    height: 40px;
-    width: 50px;
-    outline: none;
-    box-sizing: border-box;
-    margin: 3px;
-    border-radius: 25px;
-
-    &:hover {
-      cursor: pointer;
-    }
-  }
-
-  &__text {
-    height: 40px;
-    width: 100%;
-    background: var(--color-bg-main);
-    border: none;
-    outline: none;
-    color: var(--color-text-sub);
-    &::placeholder {
-      color: var(--color-text-sub);
-    }
-  }
-
-  &__file {
-    border: 0.5px solid var(--color-border-main);
-    background: transparent;
-
-    &:hover {
-      transition: 0.2s;
-      border: 0.5px solid var(--color-border-active);
-    }
-  }
-
-  &__submit {
-    background: var(--color-bg-active);
-    border: none;
-
-    &:hover {
-      transition: 0.2s;
-      opacity: 0.8;
-      box-shadow: 0px 0px 2px var(--color-border-active);
-    }
-  }
-}
-
 .media {
-  min-width: 430px;
-  max-height: 90px;
+  // min-width: 430px;
+  // max-height: 90px;
 
   &__items {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    max-height: 70px;
+    // max-height: 70px;
   }
 
   &__item {
@@ -1372,7 +1384,21 @@
 }
 
 .events {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  // padding: 5px 10px 0;
+
+  &__btn {
+    margin: 0;
+    margin-top: 10px;
+  }
+
   .event {
+    border-bottom: 0.5px solid var(--color-border-main-transparrent);
+    padding-top: 10px;
+    padding-bottom: 10px;
+
     &__header {
       display: flex;
       justify-content: space-between;
@@ -1397,5 +1423,319 @@
       display: flex;
       justify-content: space-between;
     }
+
+    &:first-child {
+      padding-top: 0;
+    }
+    &:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
   }
+}
+
+textarea {
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  outline: none;
+  resize: none;
+
+  overflow: hidden;
+  // padding: 10px;
+  line-height: 1.5;
+  border-radius: 5px;
+  // border: 1px solid #ccc;
+}
+
+::placeholder {
+  color: var(--color-text-sub);
+}
+
+.dates-selector {
+  color: var(--color-text-sub-heading);
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  height: 43px;
+  padding: 6px 10px 7.8px 7.5px;
+  font-size: 0.625rem;
+  background-color: var(--color-bg-disable);
+  border: 0.5px solid transparent;
+
+  box-sizing: border-box;
+
+  &__body {
+    margin-right: 17px;
+  }
+
+  &__heading {
+    margin-bottom: 6.6px;
+    color: var(--color-text-sub-heading);
+  }
+
+  &__dates {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__date {
+    color: var(--color-text-sub);
+  }
+
+  &__date-input {
+    margin-top: 5px;
+    color: var(--color-text-main);
+    border: none;
+    background: transparent;
+    width: 160px;
+    pointer-events: all;
+    &___disabled {
+      pointer-events: none;
+      color: var(--color-text-sub-heading);
+    }
+  }
+
+  &__label {
+    margin-top: 6px;
+    margin-right: 5px;
+  }
+
+  &__separator {
+    margin: 7px 10px 0px 5px;
+  }
+
+  &:before {
+    z-index: 1;
+    content: "";
+    position: absolute;
+    right: -1px;
+    top: -1px;
+
+    height: 7px;
+    width: 7px;
+
+    box-sizing: border-box;
+    transform-origin: 43% 0;
+    transform: rotate(-45deg);
+
+    background: var(--color-bg-sub);
+    border-color: var(--color-bg-sub);
+  }
+
+  &:after {
+    z-index: 1;
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    right: 0px;
+
+    height: 7px;
+    width: 7px;
+    box-sizing: border-box;
+    transform-origin: 43% 0;
+    transform: rotate(-45deg);
+
+    background: var(--color-bg-sub);
+    border-color: var(--color-bg-sub);
+  }
+
+  &_active {
+    border: 0.5px solid var(--color-border-active);
+    color: var(--color-text-sub);
+    &:before {
+      border-left: 0.5px solid var(--color-border-active);
+    }
+    &:after {
+      border-top: 0.5px solid var(--color-border-active);
+    }
+  }
+}
+
+::-webkit-inner-spin-button {
+  display: none;
+}
+::-webkit-clear-button {
+  display: none;
+}
+::-webkit-calendar-picker-indicator {
+  color: var(--color-text-sub);
+  padding: 0;
+  padding-left: 3px;
+  &:hover {
+    background: transparent;
+  }
+}
+
+select {
+  outline: none;
+}
+
+.dropdown {
+  outline: none;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  height: 28px;
+  width: 150px;
+  background: #f2f2f2;
+  border: 1px solid;
+  border-color: white #f7f7f7 whitesmoke;
+  border-radius: 3px;
+  background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
+  background-image: -moz-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
+  background-image: -o-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
+  background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.06));
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+}
+
+.dropdown:before,
+.dropdown:after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: 9px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 4px dashed;
+  border-color: var(--color-border-main-transparrent) transparent;
+  pointer-events: none;
+}
+
+.dropdown:before {
+  border-bottom-style: solid;
+  border-top: none;
+}
+
+.dropdown:after {
+  margin-top: 7px;
+  border-top-style: solid;
+  border-bottom: none;
+}
+
+.dropdown-select {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 6px 8px 6px 10px;
+  height: 28px;
+  line-height: 14px;
+  font-size: 12px;
+  color: var(--color-text-main);
+  text-shadow: 0 1px white;
+  background: #f2f2f2; /* Fallback for IE 8 */
+  background: rgba(0, 0, 0, 0) !important; /* "transparent" doesn't work with Opera */
+  border: 0;
+  border-radius: 0;
+  -webkit-appearance: none;
+}
+
+.dropdown-select:focus {
+  z-index: 3;
+  width: 100%;
+  // color: #394349;
+  // outline: 2px solid #49aff2;
+  outline: 2px solid -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+.dropdown-select > option {
+  margin: 3px;
+  padding: 6px 8px;
+  text-shadow: none;
+  // background: #f2f2f2;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+/* Fix for IE 8 putting the arrows behind the select element. */
+
+.lt-ie9 .dropdown {
+  z-index: 1;
+}
+
+.lt-ie9 .dropdown-select {
+  z-index: -1;
+}
+
+.lt-ie9 .dropdown-select:focus {
+  z-index: 3;
+}
+
+/* Dirty fix for Firefox adding padding where it shouldn't. */
+
+@-moz-document url-prefix() {
+  .dropdown-select {
+    padding-left: 6px;
+  }
+}
+
+.dropdown-dark {
+  background: inherit;
+  border-color: var(--color-border-main);
+  outline: none;
+  width: 100%;
+  margin-top: 5px;
+  // background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.4));
+  // background-image: -moz-linear-gradient(top, transparent, rgba(0, 0, 0, 0.4));
+  // background-image: -o-linear-gradient(top, transparent, rgba(0, 0, 0, 0.4));
+  // background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.4));
+  // -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.1), 0 1px 1px rgba(0, 0, 0, 0.2);
+  // box-shadow: inset 0 1px rgba(255, 255, 255, 0.1), 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-dark:before {
+  // border-bottom-color: #aaa;
+}
+
+.dropdown-dark:after {
+  // border-top-color: #aaa;
+}
+
+.dropdown-dark .dropdown-select {
+  color: var(--color-text-main);
+  text-shadow: 0 1px black;
+  background: inherit; /* Fallback for IE 8 */
+  outline: none;
+}
+
+.dropdown-dark .dropdown-select:focus {
+  color: var(--color-text-main);
+}
+
+.dropdown-dark .dropdown-select > option {
+  background: var(--color-bg-main);
+  text-shadow: 0 1px rgba(0, 0, 0, 0.4);
+}
+
+
+
+
+
+
+.scroll-bar {
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  right: 5px;
+}
+
+.scroll-bar::-webkit-scrollbar {
+  position: relative;
+  width: 7px;
+}
+
+.scroll-bar::-webkit-scrollbar-thumb {
+  background: var(--color-bg-sub);
+  border-radius: 5px;
+}
+
+.scroll-bar::-webkit-scrollbar-track {
+  background: var(--color-bg-main-dark);
+  border-radius: 5px;
 }
