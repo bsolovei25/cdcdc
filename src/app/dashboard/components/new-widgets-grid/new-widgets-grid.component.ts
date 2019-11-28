@@ -31,25 +31,11 @@ export class NewWidgetsGridComponent implements OnInit {
     public widgetService: NewWidgetService, 
     public injector: Injector,
     public userSettings: NewUserSettingsService
-   // @Inject('widgetId') public id: string
-    ){
-  //    this.subscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
-  //      this.nameWidget = data.widgetType;
-   //   }); 
-  }
+    ){ }
 
   ngOnInit() {  
-    
-     this.userSettings.getUserData();
- 
-  /*  this._injector = Injector.create({
-      providers: [
-        { provide: 'isMock', useValue: false},
-        { provide: 'widgetId', useValue: "fdf9c372-06ce-11ea-98c5-d8d09033e35e"},
-      ],
-      parent: this.injector
-    });
-*/
+    this.userSettings.getUserData();
+
     this.options = {
       gridType: GridType.Fixed,
       displayGrid: 'none',
@@ -68,10 +54,6 @@ export class NewWidgetsGridComponent implements OnInit {
       fixedRowHeight: 20,
       maxItemCols:10000,
       maxItemRows:10000,
-     // minRows:50,
-    //  minCols:50,
-   //   minItemRows: 2,
-   //   minItemCols: 2,
       maxRows: 100000,
       maxCols: 100000,
       pushItems: true,
@@ -111,10 +93,8 @@ export class NewWidgetsGridComponent implements OnInit {
 
   public eventStart(item: GridsterItem, itemComponent: GridsterItemComponentInterface, e: MouseEvent) {
     if (!e) return;
-
     const dataTrasfer = new DataTransfer();
     e.currentTarget.dispatchEvent(new DragEvent('dragstart', { dataTransfer: dataTrasfer }));
- //   console.info('eventStart', item, itemComponent, event);
   }
 
   public dragStart(e: DragEvent, item: GridsterItem): void {
@@ -131,13 +111,10 @@ export class NewWidgetsGridComponent implements OnInit {
     this.widgetService.draggingItem = null;
   
     this.userSettings.updateByPosition(item, itemComponent.$item);
-    
-    
   }
 
 
   dragStartHandler(ev, i) {
-    
     ev.dataTransfer.setData('text/plain', i);
     ev.dataTransfer.dropEffect = 'move';
   }
@@ -149,16 +126,13 @@ export class NewWidgetsGridComponent implements OnInit {
   }
 
   emptyCellClick(event: MouseEvent, item: GridsterItem) {
-   // console.info('empty cell click', event, item);
     this.widgetService.dashboard.push(item);
   }
 
   emptyCellMenuClick(){
-  //  console.log('emptyCellMenuClick');
   }
 
   emptyCellDragClick(){
-   // console.log('this.emptyCellDragClick');
   }
 
   emptyCellDropClick(event: DragEvent, param){
@@ -167,19 +141,7 @@ export class NewWidgetsGridComponent implements OnInit {
    
     this.nameWidget = this.widgetService.getName(idWidget);
 
-/*
-    this.widgetService.dashboard.push({
-      x: param.x, 
-      y: param.y, 
-      cols: WIDGETS[this.nameWidget].itemCols, 
-      rows: WIDGETS[this.nameWidget].itemRows, 
-      id: idWidget, 
-      nameWidget: this.nameWidget 
-    });
-*/
+    this.userSettings.addCellByPosition(idWidget, this.nameWidget, param);
 
-this.userSettings.addCellByPosition(idWidget, this.nameWidget, param);
-    
-console.log('dash', this.widgetService.dashboard);
   }
 }

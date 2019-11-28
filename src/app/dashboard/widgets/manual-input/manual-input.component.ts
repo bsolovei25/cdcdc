@@ -1,6 +1,5 @@
 import {Component, OnDestroy, OnInit, Input, Output, Inject, Injector} from '@angular/core';
 import {ManualInputService} from '../../services/manual-input.service';
-import {WidgetsService} from '../../services/widgets.service';
 import {HttpClient} from '@angular/common/http';
 import {Machine_MI} from '../../models/manual-input.model';
 import {Subscription} from 'rxjs';
@@ -26,7 +25,6 @@ export class ManualInputComponent implements OnInit, OnDestroy {
 
   constructor(
     public manualInputService: ManualInputService,
-    private oldWidgetsService: WidgetsService,
     public widgetService: NewWidgetService,
     private http: HttpClient,
     configService: AppConfigService,
@@ -68,8 +66,8 @@ export class ManualInputComponent implements OnInit, OnDestroy {
     // console.log(this.restUrl + '/api/mi/load/' + this.id);
     this.http.get(this.restUrl + '/api/mi/load/' + this.id)
       .subscribe((ref: Machine_MI[]) => {
-        // console.log(ref);
-        // console.log("init_rest");
+      //  console.log(ref);
+      //  console.log("init_rest");
 
         this.Data = this.manualInputService.LoadData(this.Data, ref);
       });
@@ -77,7 +75,7 @@ export class ManualInputComponent implements OnInit, OnDestroy {
 
   onButtonSave() {
     this.manualInputService.BtnSaveValues(this.Data);
-    // console.log('buttonClick');
+   // console.log('buttonClick');
   }
 
   onChangeValue(id: string) {
@@ -90,11 +88,11 @@ export class ManualInputComponent implements OnInit, OnDestroy {
 
   private wsConnect() {
 
-    this.oldWidgetsService.getWidgetLiveDataFromWS(this.id, 'manual-input')
+    this.widgetService.getWidgetLiveDataFromWS(this.id, 'manual-input')
       .subscribe((ref) => {
 
           this.manualInputService.LoadData(this.Data, ref);
-          // console.log("init");
+          //console.log("init");
         }
       );
   }
@@ -103,10 +101,10 @@ export class ManualInputComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.subscribtion2 = this.oldWidgetsService.getWidgetLiveDataFromWS(this.id, 'manual-input')
+    this.subscribtion2 = this.widgetService.getWidgetLiveDataFromWS(this.id, 'manual-input')
       .subscribe((ref) => {
           this.manualInputService.LoadData(this.Data, ref);
-          // console.log("init");
+          //console.log("init");
         }
       );
   }

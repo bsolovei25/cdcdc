@@ -4,7 +4,7 @@ import { NewWidgetService } from '../../services/new-widget.service';
 import { Observable, Subscription } from 'rxjs';
 import {WIDGETS} from '../new-widgets-grid/widget-map';
 import { WidgetModel } from '../../models/widget.model';
-import { Widget } from '../../models/widget';
+import { Widgets } from '../../models/widget.model';
 import { tick } from '@angular/core/testing';
 import { NewUserSettingsService } from '../../services/new-user-settings.service';
 
@@ -27,15 +27,13 @@ export class NewWidgetsPanelComponent implements OnInit {
 
   public options:GridsterConfig;
 
-  dataW: Widget;
+  dataW: Widgets;
 
-  widgets: Widget[];
+  widgets: Widgets[];
 
   model:WidgetModel;
 
   _injector: Injector;
-
-
 
 
   public test = [];
@@ -50,7 +48,6 @@ export class NewWidgetsPanelComponent implements OnInit {
    }
 
   ngOnInit() {
-
     this.options = {
       gridType: GridType.Fit,
       displayGrid: 'none',
@@ -77,7 +74,6 @@ export class NewWidgetsPanelComponent implements OnInit {
   }
 
   ngOnDestroy() {
-   
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
@@ -106,33 +102,21 @@ export class NewWidgetsPanelComponent implements OnInit {
     }
   }
 
-  emptyCellClick(event: MouseEvent, item: GridsterItem) {
-   // console.info('empty cell click', event, item);
-  }
+  emptyCellClick(event: MouseEvent, item: GridsterItem) {}
 
+  emptyCellMenuClick(){ }
 
-  emptyCellMenuClick(){
-  // console.log('emptyCellMenuClick');
-  }
+  emptyCellDragClick(){ }
 
-  emptyCellDragClick(){
-  // console.log('this.emptyCellDragClick');
-  }
-
-  emptyCellDropClick(event: DragEvent, item: GridsterItem){
- //  console.log('this.emptyCellDropClick', event);
-  }
+  emptyCellDropClick(event: DragEvent, item: GridsterItem){ }
 
   isLeavePanel(e){
     this.widgetService.isOver = false;
   }
   isOverPanel(e) {
-  // console.log('over', e);
     if(e){
       this.widgetService.isOver = true;
-    
-      
-    this.removeItem();
+      this.removeItem();
     }
   }
 
@@ -147,20 +131,6 @@ export class NewWidgetsPanelComponent implements OnInit {
   }
 
   removeItem(){
-    /*
-    if((this.widgetService.draggingItem) && (this.widgetService.isOver === true)){
-     this.widgetService.dashboard.splice(this.widgetService.dashboard.indexOf(this.widgetService.draggingItem), 1);
-     this.widgetService.draggingItem = null;
-     this.widgetService.isOver = false;
-     this.userSettings.removeItem();
-    }
-    else{
-      this.widgetService.isOver = false;
-    }
-    */
-
-   // this.widgetService.removeItemService();
     this.userSettings.removeItem();
-
   } 
 }

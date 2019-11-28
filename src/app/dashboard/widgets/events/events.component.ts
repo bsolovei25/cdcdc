@@ -6,7 +6,6 @@ import {
   EventsWidgetOptions
 } from "../../models/events-widget";
 import { EventsWidgetFilter } from "../../models/events-widget";
-import { WidgetsService } from "../../services/widgets.service";
 import {
   EventsWidgetNotification,
   EventsWidgetNotificationStatus
@@ -193,7 +192,6 @@ export class EventsComponent implements OnInit, OnDestroy {
     // console.log(this.notifications);
 
     // filtering only at front-end
-    // this.widgetsService.appendWidgetLiveOptions(this.id, options);
   }
 
   // Фильтрация
@@ -271,7 +269,7 @@ export class EventsComponent implements OnInit, OnDestroy {
   }
 
   private wsConnect() {
-    this.liveSubscription = this.oldWidgetsService.getWidgetLiveDataFromWS(this.id, 'events')
+    this.liveSubscription = this.widgetService.getWidgetLiveDataFromWS(this.id, 'events')
       .subscribe((ref: EventsWidgetData) => {
         this.appendNotifications(ref.notifications);
         // this.appendFilterCounters(ref.filters);
@@ -281,16 +279,6 @@ export class EventsComponent implements OnInit, OnDestroy {
       );
   }
 
-  /*@Input()
-  set showMock(show) {
-    this.isMock = show;
-    if (this.isMock) {
-      // do nothing
-    } else {
-      this.wsConnect();
-    }
-  }
-  */
   showMock(show) {
     if (this.isMock) {
       // do nothing

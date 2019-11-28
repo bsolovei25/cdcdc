@@ -7,11 +7,49 @@
   </span>
 
   <div class="dropdown-content">
-    <ng-container *ngFor="let screen of this.screens">
-      <div *ngIf="screen.isActive === false"
+    <ng-container *ngFor="let screen of dataScreen">
+      <div
            (click)="this.setActiveScreen(screen)"
            (click)="LoadScreen(idScreen)"
-           class="dropdown-component">{{ screen.name }}</div>
+           class="dropdown-component"
+           (mouseover)="isOverScreen($event)"
+           (mouseleave)="isLeaveScreen($event)">
+           <div class="screen_block">
+               <div class="screen_blocks">
+                  <div *ngIf="screen.updateScreen === false">
+                      <div class="screen_name">
+                          {{ screen.screenName }}
+                      </div>
+                  </div>
+                  <div *ngIf="screen.updateScreen === true">
+                          <input class="update_input"
+                              [(ngModel)]="this.newNameScreen">
+                  </div>
+                  <div class="hover-button" *ngIf="screen.updateScreen === false">
+                      <div class="update_screen" (click)="onUpdateForm(screen.id)">
+                          <svg-icon class="indicator-selector__collapse"
+                              src="./assets/icons/edit.svg"></svg-icon>
+                        </div>
+                        <div class="delete_screen" (click)="deleteScreen(screen.id)">
+                          <svg-icon class="indicator-selector__collapse"
+                              src="./assets/icons/garbage_bad_pic.svg"></svg-icon>
+                        </div>
+                  </div>
+                  <div class="hover-button" *ngIf="screen.updateScreen === true">
+                          <div class="update_screen2"
+                              (click)="updateScreen(screen.id, this.newNameScreen)">
+                              <svg-icon class="indicator-selector__collapse"
+                              src="./assets/icons/checkmark.svg"></svg-icon>
+                          </div>
+                          <div class="delete_screen2" (click)="deleteScreen(screen.id)">
+                            <svg-icon class="indicator-selector__collapse"
+                                src="./assets/icons/garbage_bad_pic.svg"></svg-icon>
+                          </div>
+                  </div>
+
+                </div>
+           </div>
+        </div>
     </ng-container>
     <div class="dropdown-component">
       <input class="dropdown-component_input"

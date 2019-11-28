@@ -103,7 +103,7 @@ export class ManualInputService {
           // console.log(ans);
           this.SaveValues(ans, data);
         },
-        error => console.log(error)
+      //  error => console.log(error)
       );
   }
 

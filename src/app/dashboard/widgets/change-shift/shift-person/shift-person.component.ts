@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from "@angular/core";
 import { ShiftMember } from "src/app/dashboard/models/shift.model";
-import {ShiftService} from "../../../services/shift.service";
+import { ShiftService } from "../../../services/shift.service";
 
 @Component({
   selector: "evj-shift-person",
@@ -9,47 +9,50 @@ import {ShiftService} from "../../../services/shift.service";
 })
 export class ShiftPersonComponent implements OnInit {
   @Input() person: ShiftMember;
+  @Input() currentBrigade: number;
   @Input() shiftType: string;
   @Input() shiftId: number;
   @Input() onShift: boolean;
   @Input() isPresent: boolean;
+  @Input() isMain: boolean;
+
+  isDropdownActive: boolean = false;
 
   @ViewChild("dropdown", { static: false }) ddMenu: ElementRef;
 
   mapPosition = [
     {
-      code: 'Responsible',
-      name: 'Старший оператор'
+      code: "Responsible",
+      name: "Старший оператор"
     },
     {
-      code: 'Common',
-      name: 'Оператор'
+      code: "Common",
+      name: "Оператор"
     }
   ];
 
   mapStatus = [
     {
-      code: 'Accepted',
-      name: 'Принял смену'
+      code: "Accepted",
+      name: "Принял смену"
     },
     {
-      code: 'Passed',
-      name: 'Сдал смену'
+      code: "Passed",
+      name: "Сдал смену"
     },
     {
-      code: 'InProgress',
-      name: 'В процессе'
+      code: "InProgress",
+      name: "В процессе"
     },
     {
-      code: 'Absent',
-      name: 'Отсутствует'
+      code: "Absent",
+      name: "Отсутствует"
     }
   ];
 
   constructor(private shiftService: ShiftService) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   getDisplayStatus(code): string {
     return this.mapStatus.find(el => el.code === code).name;
@@ -60,35 +63,58 @@ export class ShiftPersonComponent implements OnInit {
   }
 
   showMenu() {
-    if (!this.person.employee.main) {
+    if (this.ddMenu) {
+      if (!this.person.employee.main) {
+        const classes: DOMTokenList = this.ddMenu.nativeElement.classList;
+        if (classes.contains("disable")) {
+          classes.remove("disable");
+          this.isDropdownActive = true;
+        } else {
+          classes.add("disable");
+          this.isDropdownActive = false;
+        }
+      }
+    }
+  }
+
+  onClickOutside() {
+    if (this.ddMenu) {
       const classes: DOMTokenList = this.ddMenu.nativeElement.classList;
-      if (classes.contains("disable")) {
-        classes.remove("disable");
-      } else {
+      if (!classes.contains("disable")) {
         classes.add("disable");
       }
     }
   }
 
-  menuCheck(event: any, id) {
+  menuCheck(event: any, person) {
     switch (event.target.innerText) {
-      case "Принять смену":
+      case 'Принять смену':
+        this.shiftService.changeStatus('Accepted', person.employee.id, this.shiftId);
         break;
-      case "Передать смену":
+      case 'Передать смену':
+        this.shiftService.changeStatus('Passed', person.employee.id, this.shiftId);
         break;
-      case "Отсутствует":
-        this.shiftService.changeStatus('Absent', id, this.shiftId);
+      case 'Отсутствует':
+        console.log(person);
+        if (person.employee.brigade) {
+          this.shiftService.changeStatus('Absent', person.employee.id, this.shiftId);
+        } else {
+          this.shiftService.delMember(person.employee.id, this.shiftId);
+        }
         break;
-      case "На месте":
-        this.shiftService.changeStatus('InProgress', id, this.shiftId);
+      case 'На месте':
+        this.shiftService.changeStatus('InProgress', person.employee.id, this.shiftId);
         break;
-      case "Сделать главным":
-        this.shiftService.changePosition(id);
+      case 'Отменить':
+        this.shiftService.changeStatus('InProgress', person.employee.id, this.shiftId);
+        break;
+      case 'Сделать главным':
+        this.shiftService.changePosition(person.employee.id, this.shiftId);
         break;
     }
   }
 
-  addToShift(event: any) {
-    //
+  addToShift(id) {
+    this.shiftService.addMember(id, this.shiftId);
   }
 }
