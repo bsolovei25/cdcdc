@@ -28,6 +28,7 @@ import { WidgetPiesComponent } from './widgets/widgets-pie2/widget-pies/widget-p
 import { WidgetsPieComponent } from './widgets/widgets-pie2/widget-pie-circle/widget-pie/widget-pie.component';
 import { WidgetHeaderComponent } from './components/widget-header/widget-header.component';
 import { EventsWorkSpaceComponent } from './widgets/workspace/events-workspace.component';
+import { ClickOutsideModule } from 'ng-click-outside';
 
 
 
@@ -78,7 +79,8 @@ import { EventsWorkSpaceComponent } from './widgets/workspace/events-workspace.c
     DndModule,
     HttpClientModule,
     FormsModule,
-    GridsterModule
+    GridsterModule,
+    ClickOutsideModule,
   ],
   bootstrap: []
 })
