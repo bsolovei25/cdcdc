@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WidgetsGridComponent } from './widgets-grid.component';
+import { FrameTopComponent } from './frame-top.component';
 
-describe('WidgetsGridComponent', () => {
-  let component: WidgetsGridComponent;
-  let fixture: ComponentFixture<WidgetsGridComponent>;
+describe('FrameTopComponent', () => {
+  let component: FrameTopComponent;
+  let fixture: ComponentFixture<FrameTopComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WidgetsGridComponent ]
+      declarations: [ FrameTopComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WidgetsGridComponent);
+    fixture = TestBed.createComponent(FrameTopComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -56,7 +56,7 @@ export class ChangeShiftComponent implements OnInit {
       if (this.aboutWidget) {
         this.setRealtimeData(this.aboutWidget.widgetType, data);
       }
-      console.log(data);
+      // console.log(data);
     });
 
     this.subscription = this.widgetService
