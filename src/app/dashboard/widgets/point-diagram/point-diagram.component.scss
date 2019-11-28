@@ -156,8 +156,6 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  overflow-x: hidden;
-  overflow-y: scroll;
   .title {
     width: 100%;
     display: flex;
@@ -167,62 +165,125 @@
     box-sizing: border-box;
     padding: 0 15px;
   }
-  .row {
-    margin: 15px 0;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    height: 50px;
-
-    box-sizing: border-box;
-    padding: 0 15px;
-    .item {
-      width: 90px;
-      height: 50px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background: var(--color-bg-additional);
-    }
-  }
-  .diagrams {
+  .body {
     position: relative;
-    min-height: 250px;
-    flex:1;
-    border-top: 0.5px dashed var(--color-border-main);
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    height: 100%;
+    width: 200px;
 
-    box-sizing: border-box;
-    padding: 0 15px 10px;
-    .diagram {
-      height: 100%;
-      width: 90px;
-      background: linear-gradient(0deg, var(--color-bg-additional), transparent);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .row {
+      margin: 15px 0;
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      .graph {
-        flex: 1;
-      }
-      .label {
-        box-sizing: border-box;
-        width: 100%;
-        height: 30px;
+      flex-direction: row;
+      justify-content: flex-start;
+      height: 50px;
+      overflow-x: scroll;
+
+      box-sizing: border-box;
+      padding: 0 15px;
+      .item {
+        width: 90px;
+        height: 50px;
+
+        margin-left: 15px;
+
+        &:first-child {
+          margin-left: 0;
+        }
+
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        background: var(--color-bg-additional);
+      }
+    }
+    .diagrams {
+      position: relative;
+      min-height: 250px;
+      // width: 500px;
+      flex: 1;
+      border-top: 0.5px dashed var(--color-border-main);
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      overflow-x: scroll;
+
+      box-sizing: border-box;
+      padding: 0 15px 10px;
+      .diagram {
+        height: 100%;
+        width: 90px;
+        margin-left: 15px;
+
+        &:first-child {
+          margin-left: 0;
+        }
+
+        background: linear-gradient(
+          0deg,
+          var(--color-bg-additional),
+          transparent
+        );
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+
+        .graph {
+          width: 100%;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: center;
+          .pusher {
+            width: 100%;
+          }
+          .point {
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            &__disable {
+              background: var(--color-disable-transparent);
+              border: 1px solid var(--color-border-main);
+              color: var(--color-border-main);
+            }
+            &__normal {
+              background: var(--color-active-transparent);
+              border: 1px solid var(--color-border-active);
+              color: var(--color-border-active);
+            }
+            &__critical {
+              background: var(--color-warning-transparent);
+              border: 1px solid var(--color-warning);
+              color: var(--color-warning);
+            }
+          }
+        }
+        .label {
+          margin: 10px 0;
+          box-sizing: border-box;
+          width: 100%;
+          height: 30px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
       }
     }
   }
 }
 
-.point{
-    border:1px solid yellow;
-    background: yellow;
-    opacity: 0.7;
-}
+// .point{
+//     border:1px solid yellow;
+//     background: yellow;
+//     opacity: 0.7;
+// }

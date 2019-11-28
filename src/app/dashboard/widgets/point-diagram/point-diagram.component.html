@@ -25,45 +25,32 @@
         <div class="title__name">Норматив, мг/м^3</div>
         <div class="title__percent">ПДК 100%</div>
       </div>
-      <div class="row">
-        <div class="item">0.1</div>
-        <div class="item">0.005</div>
-        <div class="item">0.42</div>
-        <div class="item">0.1</div>
-        <div class="item">0.005</div>
-        <div class="item">0.42</div>
-      </div>
-
-      <div class="diagrams">
-        <div class="circle circle__left circle__left-top"></div>
-        <div class="circle circle__right circle__right-top"></div>
-        <div class="diagram">
-          <div class="graph">
-            <svg width="100%" height="100%" #graph>
-              <circle class="point" cx="50%" [attr.cy]="" [attr.r]="'10%'" />
-            </svg>
+      <div class="body">
+        <div class="row">
+          <div class="item" *ngFor="let item of array">{{ item.count }}</div>
+        </div>
+        <div class="diagrams">
+          <div class="circle circle__left circle__left-top"></div>
+          <div class="circle circle__right circle__right-top"></div>
+          <div class="diagram" *ngFor="let item of array">
+            <div class="graph">
+              <div
+                class="pusher"
+                [ngStyle]="{ height: getGraphHeight(item.percent) }"
+              ></div>
+              <div
+                class="point"
+                [ngStyle]="{
+                  'height.px': getDiameter(item.percent),
+                  'width.px': getDiameter(item.percent)
+                }"
+                [ngClass]="getColor(item.percent, item.isCritical)"
+              >
+                {{ item.percent }}%
+              </div>
+            </div>
+            <div class="label">{{ item.label }}</div>
           </div>
-          <div class="label">NO</div>
-        </div>
-        <div class="diagram">
-          <div class="graph"></div>
-          <div class="label">NO</div>
-        </div>
-        <div class="diagram">
-          <div class="graph"></div>
-          <div class="label">NO</div>
-        </div>
-        <div class="diagram">
-          <div class="graph"></div>
-          <div class="label">NO</div>
-        </div>
-        <div class="diagram">
-          <div class="graph"></div>
-          <div class="label">NO</div>
-        </div>
-        <div class="diagram">
-          <div class="graph"></div>
-          <div class="label">NO</div>
         </div>
       </div>
     </div>
