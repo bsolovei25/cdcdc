@@ -9,12 +9,14 @@ export interface Employee {
   lastName: string;
   brigade: Brigade;
   position: string;
+  positionDescription: string;
   main?: boolean;
 }
 
 export interface ShiftMember {
   employee: Employee;
   status: string;
+  position: string;
   shiftType?: string;
 }
 
