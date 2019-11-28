@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { WidgetsService } from 'src/app/dashboard/services/widgets.service';
 import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
 import { Subscription } from 'rxjs';
+import { WebSocketSubject } from 'rxjs/internal/observable/dom/WebSocketSubject';
 
 @Component({
   selector: 'evj-widget-pies',
@@ -21,15 +21,13 @@ export class WidgetPiesComponent implements OnInit {
   public units;
   public name;
 
-  //public id = "4ae3a671-0792-11ea-98c7-380025fb9022";
- // public isMock = false;
+
   
   public datas = [
     {name: "Статическое Оборудование", critical: 5, nonCritical: 2},
   ];
 
   constructor(
-    private widgetsService: WidgetsService,
     public widgetService: NewWidgetService,
     @Inject('isMock') public isMock: boolean,
     @Inject('widgetId') public id: string
@@ -46,7 +44,6 @@ export class WidgetPiesComponent implements OnInit {
 
 
   ngOnInit() {
-
     this.showMock(this.isMock);
   }
 
@@ -58,7 +55,7 @@ export class WidgetPiesComponent implements OnInit {
 
 
   private wsConnect() {
-    this.widgetsService.getWidgetLiveDataFromWS(this.id, 'pie-diagram')
+    this.widgetService.getWidgetLiveDataFromWS(this.id, 'pie-diagram')
       .subscribe((ref) => {
           this.datas = ref;
          

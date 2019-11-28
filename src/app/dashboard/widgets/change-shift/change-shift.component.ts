@@ -22,7 +22,6 @@ export class ChangeShiftComponent implements OnInit {
   @ViewChild("input", { static: false }) input: ElementRef;
   @ViewChild("scroll", { static: false }) scroll: ElementRef;
   @ViewChild("allPeople", { static: false }) allPeople: ElementRef;
-  @ViewChild("clickCatcher", { static: false }) clickCatcher:ElementRef;
 
   mapPosition = [
     {
@@ -36,177 +35,11 @@ export class ChangeShiftComponent implements OnInit {
   ];
 
   comments: string[] = [];
-  people = [];
-
-  allWorkers = [
-    {
-      id: 1,
-      name: "Борис Гребенщиков 1",
-      position: "Старший оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: true,
-      main: false
-    },
-    {
-      id: 2,
-      name: "Сергей Сергеев 1",
-      position: "Старший оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: true,
-      main: false
-    },
-    {
-      id: 3,
-      name: "Илья Ильин 1",
-      position: "Старший оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: true,
-      main: false
-    },
-    {
-      id: 4,
-      name: "Петр Петров 1",
-      position: "Оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: false,
-      main: false
-    },
-    {
-      id: 5,
-      name: "Иван Иванов 1",
-      position: "Оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: true,
-      main: true
-    },
-    {
-      id: 2,
-      name: "Сергей Сергеев 2",
-      position: "Старший оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: true,
-      main: false
-    },
-    {
-      id: 3,
-      name: "Илья Ильин 2",
-      position: "Старший оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: true,
-      main: false
-    },
-    {
-      id: 4,
-      name: "Петр Петров 2",
-      position: "Оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: false,
-      main: false
-    },
-    {
-      id: 5,
-      name: "Иван Иванов 2",
-      position: "Оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: true,
-      main: false
-    },
-    {
-      id: 1,
-      name: "Борис Гребенщиков 1",
-      position: "Старший оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: true,
-      main: true
-    },
-    {
-      id: 2,
-      name: "Сергей Сергеев 1",
-      position: "Старший оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: true,
-      main: false
-    },
-    {
-      id: 3,
-      name: "Илья Ильин 1",
-      position: "Старший оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: true,
-      main: false
-    },
-    {
-      id: 4,
-      name: "Петр Петров 1",
-      position: "Оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: false,
-      main: false
-    },
-    {
-      id: 5,
-      name: "Иван Иванов 1",
-      position: "Оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: true,
-      main: false
-    },
-    {
-      id: 2,
-      name: "Сергей Сергеев 2",
-      position: "Старший оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: true,
-      main: false
-    },
-    {
-      id: 3,
-      name: "Илья Ильин 2",
-      position: "Старший оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: true,
-      main: false
-    },
-    {
-      id: 4,
-      name: "Петр Петров 2",
-      position: "Оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: false,
-      main: false
-    },
-    {
-      id: 5,
-      name: "Иван Иванов 2",
-      position: "Оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: true,
-      main: false
-    }
-  ];
-
   aboutWidget;
   currentShift: Shift = null;
   presentMembers = null;
   absentMembers = null;
+  addingShiftMembers = [];
 
   subscription: Subscription;
 
@@ -223,7 +56,7 @@ export class ChangeShiftComponent implements OnInit {
       if (this.aboutWidget) {
         this.setRealtimeData(this.aboutWidget.widgetType, data);
       }
-      console.log(data);
+      // console.log(data);
     });
 
     this.subscription = this.widgetService
@@ -242,17 +75,35 @@ export class ChangeShiftComponent implements OnInit {
       return;
     }
     if (widgetType === 'shift-pass') {
-      this.currentShift = data.acceptingShift;
-    } else {
       this.currentShift = data.passingShift;
+    } else {
+      this.currentShift = data.acceptingShift;
     }
-    this.absentMembers = this.currentShift.shiftMembers.filter(el => el.status === 'Absent');
-    this.presentMembers = this.currentShift.shiftMembers.filter(el => el.status !== 'Absent');
+
     if (this.currentShift.shiftMembers) {
       const index = this.currentShift.shiftMembers.findIndex(
-        item => item.employee.position === "Responsible"
+        item => item.position === 'Responsible'
       );
+      console.log(index);
       this.currentShift.shiftMembers[index].employee.main = true;
+      const tempMember = this.currentShift.shiftMembers[0];
+      this.currentShift.shiftMembers[0] = this.currentShift.shiftMembers[index];
+      this.currentShift.shiftMembers[index] = tempMember;
+    }
+
+    this.absentMembers = this.currentShift.shiftMembers.filter(el => el.status === 'Absent');
+    this.presentMembers = this.currentShift.shiftMembers.filter(el => el.status !== 'Absent');
+
+    const tempShiftMembers = this.shiftService.allMembers.filter(el => !this.currentShift.shiftMembers.some(em => em.employee.id === el.id));
+    for (const i in tempShiftMembers) {
+      const addingShiftMember: ShiftMember = new class implements ShiftMember {
+        employee = null;
+        shiftType = null;
+        status = null;
+        position = 'Common';
+      };
+      addingShiftMember.employee = tempShiftMembers[i];
+      this.addingShiftMembers.push(addingShiftMember);
     }
   }
 
@@ -282,26 +133,6 @@ export class ChangeShiftComponent implements OnInit {
     this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
   }
 
-  peopleOnShift() {
-    const array = [];
-    for (let person of this.people) {
-      if (person.onShift) {
-        array.push(person);
-      }
-    }
-    return array;
-  }
-
-  peopleAbsent() {
-    const array = [];
-    for (let person of this.people) {
-      if (!person.onShift) {
-        array.push(person);
-      }
-    }
-    return array;
-  }
-
   getMain(): ShiftMember {
     if (this.currentShift) {
       return this.currentShift.shiftMembers.find(item => item.employee.main);
@@ -321,25 +152,13 @@ export class ChangeShiftComponent implements OnInit {
     }
   }
 
-  findMainAndSort() {
-    let sortedArray = [];
-    const indexOfMain = this.people.findIndex(item => item.main);
-
-    if (indexOfMain !== 0 && indexOfMain !== this.people.length - 1) {
-      sortedArray = this.people
-        .slice(indexOfMain, indexOfMain + 1)
-        .concat(
-          this.people.slice(0, indexOfMain),
-          this.people.slice(indexOfMain + 1, this.people.length)
-        );
-    } else if (indexOfMain === this.people.length - 1) {
-      sortedArray = this.people
-        .slice(indexOfMain, indexOfMain + 1)
-        .concat(this.people.slice(0, indexOfMain));
+  shiftApply() {
+    if (this.aboutWidget.widgetType === 'shift-pass') {
+      this.shiftService.applyShift(this.currentShift.id, 'pass');
+      console.log('Сдал');
     } else {
-      sortedArray = this.people.map(item => item);
+      console.log('Принял');
+      this.shiftService.applyShift(this.currentShift.id, 'accept');
     }
-
-    return sortedArray;
   }
 }

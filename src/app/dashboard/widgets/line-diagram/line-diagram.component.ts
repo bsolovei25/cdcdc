@@ -1,7 +1,6 @@
 import {Component, Input, OnInit, Inject} from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { Subscription } from 'rxjs';
-import {WidgetsService} from "../../services/widgets.service";
 import { inject } from '@angular/core/testing';
 
 @Component({
@@ -40,7 +39,6 @@ export class LineDiagramComponent implements OnInit {
 
   constructor(
     public widgetService: NewWidgetService,
-    public widgetsService: WidgetsService,
     @Inject('isMock') public isMock: boolean,
     @Inject('widgetId') public id: string
   ) {
@@ -76,8 +74,8 @@ export class LineDiagramComponent implements OnInit {
   }
 
   wsConnect() {
-    console.log('start ld ws')
-    this.subscription = this.widgetsService.getWidgetLiveDataFromWS(this.id, 'line-diagram')
+   // console.log('start ld ws')
+    this.subscription = this.widgetService.getWidgetLiveDataFromWS(this.id, 'line-diagram')
       .subscribe((ref) => {
           this.data = [];
           for (let el in ref) {
@@ -91,7 +89,7 @@ export class LineDiagramComponent implements OnInit {
             }
             this.data.push(newEl);
           }
-          console.log(this.data);
+      //    console.log(this.data);
         }
       );
   }

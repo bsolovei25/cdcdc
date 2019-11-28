@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WidgetsPanelComponent } from './widgets-panel.component';
+import { FrameBottomComponent } from './frame-bottom.component';
 
-describe('WidgetsPanelComponent', () => {
-  let component: WidgetsPanelComponent;
-  let fixture: ComponentFixture<WidgetsPanelComponent>;
+describe('FrameBottomComponent', () => {
+  let component: FrameBottomComponent;
+  let fixture: ComponentFixture<FrameBottomComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WidgetsPanelComponent ]
+      declarations: [ FrameBottomComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WidgetsPanelComponent);
+    fixture = TestBed.createComponent(FrameBottomComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
