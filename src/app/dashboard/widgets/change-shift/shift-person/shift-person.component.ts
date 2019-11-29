@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Input,
+  ViewChild,
+  ElementRef,
+  HostListener
+} from "@angular/core";
 import { ShiftMember } from "src/app/dashboard/models/shift.model";
 import { ShiftService } from "../../../services/shift.service";
 
@@ -19,6 +26,17 @@ export class ShiftPersonComponent implements OnInit {
   isDropdownActive: boolean = false;
 
   @ViewChild("dropdown", { static: false }) ddMenu: ElementRef;
+  @ViewChild("insideElement", { static: false }) insideElement: ElementRef;
+
+  // @HostListener("document:click", ["$event.target"])
+  // public onClick(targetElement) {
+  //   const clickedInside = this.insideElement.nativeElement.contains(
+  //     targetElement
+  //   );
+  //   if (!clickedInside) {
+  //     console.log("outside clicked");
+  //   }
+  // }
 
   mapPosition = [
     {
@@ -62,14 +80,23 @@ export class ShiftPersonComponent implements OnInit {
     return this.mapPosition.find(el => el.code === code).name;
   }
 
-  showMenu() {
+  onMouseOver() {
     if (this.ddMenu) {
       if (!this.person.employee.main) {
         const classes: DOMTokenList = this.ddMenu.nativeElement.classList;
         if (classes.contains("disable")) {
           classes.remove("disable");
           this.isDropdownActive = true;
-        } else {
+        }
+      }
+    }
+  }
+
+  onMouseOut(){
+    if (this.ddMenu) {
+      if (!this.person.employee.main) {
+        const classes: DOMTokenList = this.ddMenu.nativeElement.classList;
+        if (!classes.contains("disable"))  {
           classes.add("disable");
           this.isDropdownActive = false;
         }
@@ -77,38 +104,73 @@ export class ShiftPersonComponent implements OnInit {
     }
   }
 
-  onClickOutside() {
-    if (this.ddMenu) {
-      const classes: DOMTokenList = this.ddMenu.nativeElement.classList;
-      if (!classes.contains("disable")) {
-        classes.add("disable");
-      }
-    }
-  }
+  // showMenu() {
+  //   if (this.ddMenu) {
+  //     if (!this.person.employee.main) {
+  //       const classes: DOMTokenList = this.ddMenu.nativeElement.classList;
+  //       if (classes.contains("disable")) {
+  //         classes.remove("disable");
+  //         this.isDropdownActive = true;
+  //       } else {
+  //         classes.add("disable");
+  //         this.isDropdownActive = false;
+  //       }
+  //     }
+  //   }
+  // }
+
+  // onClickOutside() {
+  //   if (this.ddMenu) {
+  //     const classes: DOMTokenList = this.ddMenu.nativeElement.classList;
+  //     if (!classes.contains("disable")) {
+  //       classes.add("disable");
+  //     }
+  //   }
+  // }
 
   menuCheck(event: any, person) {
     switch (event.target.innerText) {
-      case 'Принять смену':
-        this.shiftService.changeStatus('Accepted', person.employee.id, this.shiftId);
+      case "Принять смену":
+        this.shiftService.changeStatus(
+          "Accepted",
+          person.employee.id,
+          this.shiftId
+        );
         break;
-      case 'Передать смену':
-        this.shiftService.changeStatus('Passed', person.employee.id, this.shiftId);
+      case "Передать смену":
+        this.shiftService.changeStatus(
+          "Passed",
+          person.employee.id,
+          this.shiftId
+        );
         break;
-      case 'Отсутствует':
+      case "Отсутствует":
         console.log(person);
         if (person.employee.brigade) {
-          this.shiftService.changeStatus('Absent', person.employee.id, this.shiftId);
+          this.shiftService.changeStatus(
+            "Absent",
+            person.employee.id,
+            this.shiftId
+          );
         } else {
           this.shiftService.delMember(person.employee.id, this.shiftId);
         }
         break;
-      case 'На месте':
-        this.shiftService.changeStatus('InProgress', person.employee.id, this.shiftId);
+      case "На месте":
+        this.shiftService.changeStatus(
+          "InProgress",
+          person.employee.id,
+          this.shiftId
+        );
         break;
-      case 'Отменить':
-        this.shiftService.changeStatus('InProgress', person.employee.id, this.shiftId);
+      case "Отменить":
+        this.shiftService.changeStatus(
+          "InProgress",
+          person.employee.id,
+          this.shiftId
+        );
         break;
-      case 'Сделать главным':
+      case "Сделать главным":
         this.shiftService.changePosition(person.employee.id, this.shiftId);
         break;
     }

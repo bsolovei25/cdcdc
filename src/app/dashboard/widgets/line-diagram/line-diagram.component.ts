@@ -44,6 +44,7 @@ export class LineDiagramComponent implements OnInit {
   ) {
       this.subscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
         this.title = data.title;
+        console.log('my: ', data)
     });
   }
 

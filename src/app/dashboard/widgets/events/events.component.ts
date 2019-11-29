@@ -13,6 +13,7 @@ import {
 import { Subscription } from "rxjs/index";
 import { NewWidgetService } from '../../services/new-widget.service';
 import { NewUserSettingsService } from '../../services/new-user-settings.service';
+import { EventService } from '../../services/event.service';
 
 @Component({
   selector: 'evj-events',
@@ -25,6 +26,8 @@ export class EventsComponent implements OnInit, OnDestroy {
   isList = false;
 
   title;
+
+  selectedId: number = 0;
 
   static itemCols = 30;
   static itemRows = 20;
@@ -134,6 +137,8 @@ export class EventsComponent implements OnInit, OnDestroy {
 
 
   constructor(
+    // private oldWidgetsService: WidgetsService,
+    private eventService: EventService,
     public userSettings: NewUserSettingsService,
     @Inject('isMock') public isMock: boolean,
     public widgetService: NewWidgetService,
@@ -184,7 +189,7 @@ export class EventsComponent implements OnInit, OnDestroy {
 
     const options = this.getCurrentOptions();
     this.notifications = this.applyFilter(this.allNotifications, options);
-   // console.log(this.notifications);
+    // console.log(this.notifications);
 
     // filtering only at front-end
   }
@@ -215,10 +220,12 @@ export class EventsComponent implements OnInit, OnDestroy {
 
   private appendNotifications(remoteNotifications: EventsWidgetNotification[]) {
     const notifications = remoteNotifications.map(n => {
-      const iconUrl = this.getNotificationIcon(n.category.name);
-      const iconUrlStatus = this.getStatusIcon(n.status.name);
-      const statusName = this.statuses[n.status.name]; // TODO check
-      return { ...n, iconUrl, statusName, iconUrlStatus };
+      if (n.category && n.category.name) {
+        const iconUrl = this.getNotificationIcon(n.category.name);
+        const iconUrlStatus = this.getStatusIcon(n.status.name);
+        const statusName = this.statuses[n.status.name]; // TODO check
+        return { ...n, iconUrl, statusName, iconUrlStatus };
+      }
     });
 
     this.allNotifications = notifications.reverse();
@@ -267,7 +274,7 @@ export class EventsComponent implements OnInit, OnDestroy {
         this.appendNotifications(ref.notifications);
         // this.appendFilterCounters(ref.filters);
         this.appendCategoriesCounters(ref.categories);
-      //  console.log('get_ws_events');
+        // console.log('get_ws_events');
       }
       );
   }
@@ -284,9 +291,25 @@ export class EventsComponent implements OnInit, OnDestroy {
     list ? this.isList = true : this.isList = false;
   }
 
-  onRemoveButton(){
+  onRemoveButton() {
     this.widgetService.removeItemService(this.id);
     this.userSettings.removeItem();
+  }
+
+
+  async eventClick(eventId: number) {
+    this.selectedId = eventId;
+    const event = await this.eventService.getEvent(eventId);
+    this.eventService.event$.next(event);
+  }
+
+  async deleteEvent(id: number) {
+    const event = await this.eventService.deleteEvent(id);
+    console.log(event);
+    const idx = this.notifications.findIndex(n => n.id === id);
+    if (id !== -1) {
+      this.notifications.splice(idx, 1);
+    }
   }
 
 }

@@ -1,4 +1,5 @@
 <div class="container pointer-event">
+
   <evj-widget-header [title]="title" [id]="id"></evj-widget-header>
   <!-- <div class="header">
     <div class="header__content">
@@ -16,21 +17,25 @@
   <ng-container *ngIf="isMock">
     <div class="mock"></div>
   </ng-container>
-  <ng-container *ngIf="!isMock">
 
-    <div class="change-shift">
 
+  <ng-container *ngIf="!isMock && event">
+
+    <div class="change-shift" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
 
       <div class="workspace__header__block">
 
-        <section class="workspace__blocks">
+        <section class="workspace__blocks" style="margin-right: 10px;">
 
           <div class="workspace__block">
             <div class="workspace__block__title">
               Дата / время:
             </div>
             <div class="workspace__block__body">
-              22.11.2019 06:30:13
+              <div class="dates-selector__dates">
+                <input type="datetime-local" class="dates-selector__date-input"
+                  [ngModel]="event.eventDateTime | date:'yyyy-MM-ddTHH:mm'">
+              </div>
             </div>
           </div>
 
@@ -39,7 +44,7 @@
               Организация:
             </div>
             <div class="workspace__block__body">
-              АО «Газпромнефть МНПЗ»
+              {{event.organization}}
             </div>
           </div>
 
@@ -54,41 +59,10 @@
 
           <div class="workspace__block">
             <div class="workspace__block__title">
-              Старший оператор:
-            </div>
-            <div class="workspace__block__body">
-              Гребенщиков В.М.
-            </div>
-          </div>
-
-          <div class="workspace__block">
-            <div class="workspace__block__title">
-              Зафиксировал:
-            </div>
-            <div class="workspace__block__body">
-              Никонов С.Е.
-            </div>
-          </div>
-
-          <div class="workspace__block">
-            <div class="workspace__block__title">
-              Статус:
-            </div>
-            <div class="workspace__block__body">
-              В работе
-            </div>
-          </div>
-
-        </section>
-
-        <section class="workspace__blocks">
-
-          <div class="workspace__block">
-            <div class="workspace__block__title">
               Подразделение:
             </div>
             <div class="workspace__block__body">
-              Производство 1
+              {{ event.branch }}
             </div>
           </div>
 
@@ -97,17 +71,72 @@
               Место:
             </div>
             <div class="workspace__block__body">
+              <!-- {{ event.place.name }} -->
               ГФУ-2 с БОР
             </div>
           </div>
+
+          <div class="workspace__block">
+            <div class="workspace__block__title">
+              Зафиксировал:
+            </div>
+            <div class="workspace__block__body" style="max-width: 120px;">
+              <div class="dropdown dropdown-dark">
+                <select name="contactMethod" class="dropdown-select" [(ngModel)]="event.fixedBy.id">
+                  <option *ngFor="let p of user" [value]="p.id">{{ p.lastName }} {{ p.firstName }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <section class="workspace__blocks">
+
+          <div class="workspace__block__right">
+            <div class="workspace__block__title">
+              Старший оператор:
+            </div>
+            <div class="workspace__block__body">
+              {{ event.responsibleOperator.lastName }} {{ event.responsibleOperator.firstName }}
+            </div>
+          </div>
+
+          <div class="workspace__block__right">
+            <div class="workspace__block__title">
+              Статус:
+            </div>
+            <div class="workspace__block__body">
+              <div class="dropdown dropdown-dark">
+                <select name="contactMethod" class="dropdown-select" [(ngModel)]="event.status.id">
+                  <option *ngFor="let p of status" [value]="p.id">{{ statuses[p.name] }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="workspace__block__right">
+            <div class="workspace__block__title">
+              Приоритет:
+            </div>
+            <div class="workspace__block__body">
+              <div class="dropdown dropdown-dark">
+                <select name="contactMethod" class="dropdown-select" [(ngModel)]="event.priority.id">
+                  <option *ngFor="let p of priority" [value]="p.id">{{ priorities[p.name] }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+
 
           <div class="workspace__block-border">
             <div class="block-border__title">
               Краткое описание причины
             </div>
             <div class="block-border__body">
-              Остановка насоса Н-17А по блокировке поз. FISAL1043
-              на установке ГФУ-2 с БОР производства №1.
+              <textarea class="gridster-item-content" minlength="3" disabled [(ngModel)]="event.establishedFacts">
+              </textarea>
               <div class="block-border__footer">
               </div>
             </div>
@@ -121,11 +150,9 @@
           Установленные факты:
         </div>
         <div class="block-border__body">
-          22.11.2019г. на установке ГФУ-2 с БОР было зафиксировано снижение расхода промывочной воды от Н-17А в К-3 и
-          срабатывание
-          блокировки поз. FISAL1043 при расходе менее 20 кг/ч. Снижение расхода промывочной воды от Н-17А в К-3
-          произошло
-          из-за забивания приемного трубопровода от емкости Е-17 к насосам Н-17/А,В.
+          <textarea class="gridster-item-content" placeholder="Введите значение..." minlength="6"
+            [(ngModel)]="event.establishedFacts">
+          </textarea>
           <div class="block-border__footer">
           </div>
         </div>
@@ -138,8 +165,9 @@
             Тип происшествия:
           </div>
           <div class="block-border__body">
-            Остановка насоса Н-17А по блокировке поз. FISAL1043
-            на установке ГФУ-2 с БОР производства №1.
+            <textarea class="gridster-item-content" placeholder="Введите значение..." minlength="6"
+              [(ngModel)]="event.eventType">
+            </textarea>
             <div class="block-border__footer">
             </div>
           </div>
@@ -150,9 +178,9 @@
             Непосредственные / прямые причины:
           </div>
           <div class="block-border__body">
-            Понижение расхода промывочной воды от Н-17А ниже
-            20 кг/ч вследствие забивания приемного трубопровода
-            от емкости Е-17 к Н-17/А,В
+            <textarea class="gridster-item-content" placeholder="Введите значение..." minlength="6"
+              [(ngModel)]="event.directReasons">
+            </textarea>
             <div class="block-border__footer">
             </div>
           </div>
@@ -166,50 +194,47 @@
           <div class="block-border__title">
             Корректирующие мероприятия
           </div>
-          <div class="block-border__body events">
-            <div class="event">
-              <div class="event__header">
-                <span> 1. <span class="event__sub">Ответственный</span> Нач. уст-ки ГФУ-2 с БОР Лебедев В.Д. </span>
-                <span class="event__sub-right">В работе</span>
-              </div>
-              <div class="event__body">
-                Сформировать и утвердить график промывки приемного
-                трубопровода Н-17/А,В. Дренирование отстойной зоны Е-17.
-                Выполнять промывку согласно графика.
-              </div>
-              <div class="event__footer">
-                <span class="event__sub">Срок исполнения</span> <span class="event__date">22.11.2019 16:30:13</span>
-              </div>
-            </div>
+          <div class="block-border__body">
+            <ul class="events">
+              <li class="event" *ngFor="let retrieval of event.retrievalEvents; let i = index">
+                <div class="event__header">
+                  <span> {{ i + 1 }} <span class="event__sub">Ответственный</span>
+                  </span>
+                  <span *ngIf="retrieval.status" class="event__sub-right">{{ statuses[retrieval.status.name] }}</span>
+                </div>
+                <div class="event__body">
+                  <input *ngIf="retrieval.isNew" type="text" class="comment__text gridster-item-content"
+                    placeholder="Напишите..." #input [(ngModel)]="retrieval.description" />
+                  <span *ngIf="!retrieval.isNew">{{ retrieval.description }}</span>
+                </div>
+                <div class="event__footer">
 
-            <div class="event">
-              <div class="event__header">
-                <span> 1. <span class="event__sub">Ответственный</span> Нач. уст-ки ГФУ-2 с БОР Лебедев В.Д. </span>
-                <span class="event__sub-right">В работе</span>
-              </div>
-              <div class="event__body">
-                Сформировать и утвердить график промывки приемного
-                трубопровода Н-17/А,В. Дренирование отстойной зоны Е-17.
-                Выполнять промывку согласно графика.
-              </div>
-              <div class="event__footer">
-                <span class="event__sub">Срок исполнения</span> <span class="event__date">22.11.2019 16:30:13</span>
-              </div>
+                  <span class="event__sub">Срок исполнения</span> <span class="event__date">
+                    <div *ngIf="retrieval.isNew" class="dates-selector__dates">
+                      <input type="datetime-local" class="dates-selector__date-input"
+                        [ngModel]="retrieval.deadline | date:'yyyy-MM-ddTHH:mm'">
+                    </div> <span *ngIf="!retrieval.isNew">{{ retrieval.deadline | date }}</span>
+                  </span>
+                </div>
+              </li>
+            </ul>
+            <div class="workspace__submit events__btn">
+              <div class="submit__frame submit__frame-left"></div>
+              <div class="submit__frame submit__frame-right"></div>
+              <button type="submit gridster-item-content" (click)="addRetrieval()">
+                Добавить мероприятие
+              </button>
             </div>
-
             <div class="block-border__footer">
             </div>
           </div>
         </div>
 
-
-
-
         <div class="block-bottom" style="margin-left: 10px;">
 
           <div class="workspace__block-border media">
             <div class="block-border__title">
-              Комментарий оператора
+              Видео контент
             </div>
             <div class="media__items">
 
@@ -235,16 +260,19 @@
             <div class="block-border__body">
               <div class="comment__display">
                 <div class="messages scroll-bar" #scroll>
-
+                  <div class="message" *ngFor="let comment of comments">
+                    {{ comment }}
+                  </div>
                 </div>
               </div>
               <div class="block-border__footer">
                 <input type="text" class="comment__text gridster-item-content"
-                  placeholder="Напишите свой комментарий..." #input />
+                  placeholder="Напишите свой комментарий..." (keypress)="onEnterPush($event)" #input />
                 <button type="submit" class="button comment__file   gridster-item-content">
                   <svg-icon class="button__icon" src="./assets/icons/widgets/change-shift/add_file.svg"></svg-icon>
                 </button>
-                <button type="submit" class="button comment__submit  gridster-item-content">
+                <button type="submit" class="button comment__submit  gridster-item-content"
+                  (click)="onSendMessage($event)">
                   <svg-icon class="button__icon" src="./assets/icons/widgets/change-shift/send.svg"></svg-icon>
                 </button>
               </div>
@@ -258,14 +286,14 @@
         <div class="workspace__submit">
           <div class="submit__frame submit__frame-left"></div>
           <div class="submit__frame submit__frame-right"></div>
-          <button type="submit gridster-item-content">
-            Добавить мероприятие
+          <button type="submit gridster-item-content" (click)="createEvent()">
+            Создать событие
           </button>
         </div>
         <div class="workspace__submit">
           <div class="submit__frame submit__frame-left"></div>
           <div class="submit__frame submit__frame-right"></div>
-          <button type="submit gridster-item-content">
+          <button type="submit gridster-item-content" (click)="saveItem()">
             Сохранить
           </button>
         </div>
@@ -273,7 +301,27 @@
       </div>
 
     </div>
+
   </ng-container>
 
-  <evj-frame-bottom></evj-frame-bottom>
+
+  <ng-container *ngIf="!isMock && !event">
+    <div class="workspace__save" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+      <div class="workspace__submit">
+        <div class="submit__frame submit__frame-left"></div>
+        <div class="submit__frame submit__frame-right"></div>
+        <button type="submit gridster-item-content" (click)="createEvent()">
+          Создать событие
+        </button>
+      </div>
+    </div>
+  </ng-container>
+
+
+
+  <div class="frame frame_bottom">
+    <div class="frame__circle frame__circle__left"></div>
+    <div class="frame__circle frame__circle__right"></div>
+  </div>
+
 </div>
