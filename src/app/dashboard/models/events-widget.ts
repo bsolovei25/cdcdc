@@ -9,8 +9,8 @@ export interface EventsWidgetNotification {
   eventDateTime: Date;
   iconUrl: string;
   iconUrlStatus: string;
-  status: { id: number, name: EventsWidgetNotificationStatus, code: string };
-  priority: { id: number, name: EventsWidgetNotificationPriority, code: string };
+  status: IStatus;
+  priority: IPriority;
   deviationReason: string; // Причина отклонения
   establishedFacts: string; // Установленные факты
   eventType: string; // Тип происшествия
@@ -39,6 +39,18 @@ export type EventsWidgetNotificationStatus = 'new' | 'inWork' | 'closed'
 export type EventsWidgetFilterCode = 'all' | 'inWork' | 'closed'
 
 export type EventsWidgetCategoryCode = 'smotr' | 'safety' | 'tasks' | 'equipmentStatus' | 'drops'
+
+export interface IStatus {
+  id: number,
+  name: EventsWidgetNotificationStatus,
+  code: string
+}
+
+export interface IPriority {
+  id: number,
+  name: EventsWidgetNotificationPriority,
+  code: string
+};
 
 export interface RetrievalEvents {
   deadline: Date,
