@@ -6,6 +6,7 @@ import {ChangeShiftComponent} from "../../widgets/change-shift/change-shift.comp
 import { WidgetPiesComponent } from '../../widgets/widgets-pie/widget-pies/widget-pies/widget-pies.component';
 import { EventsWorkSpaceComponent } from '../../widgets/workspace/events-workspace.component';
 import { PointDiagramComponent } from '../../widgets/point-diagram/point-diagram.component';
+import { ProductionPyramidComponent } from '../../widgets/production-pyramid/production-pyramid.component';
 
 
 export const WIDGETS = {
@@ -18,4 +19,5 @@ export const WIDGETS = {
     "shift-accept": ChangeShiftComponent,
     "events-workspace": EventsWorkSpaceComponent,
     "point-diagram": PointDiagramComponent,
+    "industrial-pyramid":ProductionPyramidComponent,
 }

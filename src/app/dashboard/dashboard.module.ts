@@ -71,6 +71,7 @@ import { ProductionPyramidComponent } from './widgets/production-pyramid/product
     ChangeShiftComponent,
     EventsWorkSpaceComponent,
     PointDiagramComponent,
+    ProductionPyramidComponent
   ],
   exports: [
     HomeComponent,
