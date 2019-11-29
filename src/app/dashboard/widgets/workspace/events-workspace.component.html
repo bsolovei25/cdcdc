@@ -209,13 +209,12 @@
             <ul class="events">
               <li class="event" *ngFor="let retrieval of event.retrievalEvents; let i = index">
                 <div class="event__header">
-                  <span> {{ i + 1 }} <span class="event__sub">Ответственный</span>
+                  <span> {{ i }} <span class="event__sub">Ответственный</span>
                   </span>
                   <span *ngIf="retrieval.status" class="event__sub-right">{{ statuses[retrieval.status.name] }}
-                    <svg-icon class="event__delete" [applyCss]="true"
-                      src="./assets/garbage_bad_pic.svg" (click)="deleteEvent(n.id)"
-                      (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()"></svg-icon></span>
-
+                    <svg-icon class="event__delete" [applyCss]="true" src="./assets/garbage_bad_pic.svg"
+                      (click)="deleteRetrieval(event.id, retrieval.id)" (mousedown)="$event.stopPropagation()"
+                      (touchstart)="$event.stopPropagation()"></svg-icon></span>
                 </div>
                 <div class="event__body">
                   <input *ngIf="retrieval.isNew" type="text" class="comment__text gridster-item-content"
@@ -236,7 +235,7 @@
             <div class="workspace__submit events__btn">
               <div class="submit__frame submit__frame-left"></div>
               <div class="submit__frame submit__frame-right"></div>
-              <button type="submit gridster-item-content" (click)="addRetrieval()">
+              <button type="submit gridster-item-content" (click)="addRetrieval(event.id)">
                 Добавить мероприятие
               </button>
             </div>

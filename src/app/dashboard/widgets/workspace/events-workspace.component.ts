@@ -244,7 +244,23 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy {
       isNew: true
     }
     this.event.retrievalEvents.push(retrieval);
+  }
 
+  addRetrievalEvents(idEvent) {
+    const retrieval: RetrievalEvents = {
+      deadline: new Date,
+      description: '',
+      responsibleUser: null,
+      status: { id: 3001, name: 'new', code: '0' },
+      isNew: true
+    }
+    const post = this.eventService.addRetrievalEvents(idEvent, retrieval);
+    console.log(post);
+  }
+
+  deleteRetrieval(idEvent: number, idRetr: number): void {
+    const del = this.eventService.deleteRetrievalEvents(idEvent, idRetr);
+    console.log(del);
 
   }
 

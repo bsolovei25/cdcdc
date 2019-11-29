@@ -290,7 +290,6 @@ export class EventsComponent implements OnInit, OnDestroy {
         this.appendNotifications(ref.notifications);
         // this.appendFilterCounters(ref.filters);
         this.appendCategoriesCounters();
-        console.log(this.categories);
         // console.log('get_ws_events');
       }
       );

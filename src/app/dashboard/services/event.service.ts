@@ -122,10 +122,17 @@ export class EventService {
         }
     }
 
+    async addRetrievalEvents(idEvent: number, body) {
+        try {
+            return this.http.post<any>(this.restUrl + `/api/notification-retrieval/${idEvent}/retrievalevents`, body).toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     async deleteRetrievalEvents(idEvent: number, idRetr: number) {
         try {
-            return this.http.get<any>(this.restUrl + `/api/notification-retrieval/${idEvent}/retrievalevents/${idRetr}`).toPromise();
+            return this.http.delete<any>(this.restUrl + `/api/notification-retrieval/${idEvent}/retrievalevents/${idRetr}`).toPromise();
         } catch (error) {
             console.error(error);
         }
