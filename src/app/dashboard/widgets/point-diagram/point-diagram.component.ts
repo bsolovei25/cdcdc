@@ -51,43 +51,46 @@ export class PointDiagramComponent implements OnInit {
       label: "H2S",
       isCritical: false
     },
-    {
-      count: 0.2,
-      percent: 0,
-      label: "C6H4(CH3)2",
-      isCritical: false
-    },
-    {
-      count: 0.6,
-      percent: 0,
-      label: "C6H5CH3",
-      isCritical: false
-    },
-    {
-      count: 0.5,
-      percent: 0,
-      label: "пыль",
-      isCritical: false
-    },
-    {
-      count: 0.5,
-      percent: 2,
-      label: "SO2",
-      isCritical: false
-    },
-    {
-      count: 5,
-      percent: 0,
-      label: "CO",
-      isCritical: false
-    },
-    {
-      count: 0.02,
-      percent: 0,
-      label: "C8H20",
-      isCritical: false
-    }
+    // {
+    //   count: 0.2,
+    //   percent: 0,
+    //   label: "C6H4(CH3)2",
+    //   isCritical: false
+    // },
+    // {
+    //   count: 0.6,
+    //   percent: 0,
+    //   label: "C6H5CH3",
+    //   isCritical: false
+    // },
+    // {
+    //   count: 0.5,
+    //   percent: 0,
+    //   label: "пыль",
+    //   isCritical: false
+    // },
+    // {
+    //   count: 0.5,
+    //   percent: 2,
+    //   label: "SO2",
+    //   isCritical: false
+    // },
+    // {
+    //   count: 5,
+    //   percent: 0,
+    //   label: "CO",
+    //   isCritical: false
+    // },
+    // {
+    //   count: 0.02,
+    //   percent: 0,
+    //   label: "C8H20",
+    //   isCritical: false
+    // }
   ];
+
+  static itemCols = 23;
+  static itemRows = 15;
 
   aboutWidget;
 
@@ -112,8 +115,8 @@ export class PointDiagramComponent implements OnInit {
   }
 
   containerIsMock(): string {
-    
+
         return this.isMock ? "430px" : "100%";
-      
+
   }
 }
