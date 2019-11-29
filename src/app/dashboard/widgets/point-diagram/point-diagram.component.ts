@@ -51,12 +51,12 @@ export class PointDiagramComponent implements OnInit {
       label: "H2S",
       isCritical: false
     },
-    {
-      count: 0.2,
-      percent: 0,
-      label: "C6H4(CH3)2",
-      isCritical: false
-    },
+    // {
+    //   count: 0.2,
+    //   percent: 0,
+    //   label: "C6H4(CH3)2",
+    //   isCritical: false
+    // },
     // {
     //   count: 0.6,
     //   percent: 0,
@@ -115,8 +115,8 @@ export class PointDiagramComponent implements OnInit {
   }
 
   containerIsMock(): string {
-    
+
         return this.isMock ? "430px" : "100%";
-      
+
   }
 }
