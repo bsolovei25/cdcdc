@@ -8,7 +8,8 @@ import {
     EventsWidgetCategoryCode,
     EventsWidgetData, EventsWidgetFilter, EventsWidgetFilterCode,
     EventsWidgetNotification,
-    EventsWidgetNotificationsCounter
+    EventsWidgetNotificationsCounter,
+    IStatus
 } from '../models/events-widget';
 import { LineChartData } from '../models/line-chart';
 import { Machine_MI } from '../models/manual-input.model';
@@ -31,6 +32,7 @@ export class EventService {
     private wsSubscribtion: Subscription;
 
     event$: BehaviorSubject<any | null> = new BehaviorSubject<any | null>(null);
+    updateEvent$: BehaviorSubject<any | null> = new BehaviorSubject<any | null>(null);
 
 
     constructor(public http: HttpClient, configService: AppConfigService) {
@@ -75,10 +77,10 @@ export class EventService {
     }
 
 
-    async getStatus(): Promise<EventsWidgetFilterCode> {
+    async getStatus(): Promise<IStatus[]> {
         // TODO check
         try {
-            return this.http.get<EventsWidgetFilterCode>(this.restUrl + '/api/notification-reference/status').toPromise();
+            return this.http.get<IStatus[]>(this.restUrl + '/api/notification-reference/status').toPromise();
         } catch (error) {
             console.error(error);
         }

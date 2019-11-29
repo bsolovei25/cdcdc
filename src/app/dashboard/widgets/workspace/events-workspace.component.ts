@@ -4,21 +4,11 @@ import {
   ViewChild,
   ElementRef,
   Inject,
-  Input,
   OnDestroy,
-  OnChanges
 } from "@angular/core";
-import { ShiftService } from "../../services/shift.service";
 import { Subscription } from "rxjs";
-import { NewWidgetService } from "../../services/new-widget.service";
-import {
-  ShiftPass,
-  Shift,
-  Employee,
-  ShiftMember
-} from "../../models/shift.model";
 import { EventService } from '../../services/event.service';
-import { EventsWidgetNotification, EventsWidgetNotificationStatus, EventsWidgetNotificationPriority, RetrievalEvents } from '../../models/events-widget';
+import { EventsWidgetNotification, EventsWidgetNotificationStatus, EventsWidgetNotificationPriority, RetrievalEvents, IStatus, IPriority } from '../../models/events-widget';
 
 @Component({
   selector: "evj-events-workspace",
@@ -29,13 +19,14 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
   event: EventsWidgetNotification = null;
+  isLoading: boolean = false;
 
   public title = "Рабочая область";
   comments: string[] = [];
   isNew: boolean = true;
 
-  priority;
-  status;
+  priority: IPriority[];
+  status: IStatus[];
   user;
   code;
   category;
@@ -60,8 +51,6 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy {
   @ViewChild("scroll", { static: false }) scroll: ElementRef;
 
   constructor(
-    private widgetService: NewWidgetService,
-    private shiftService: ShiftService,
     private eventService: EventService,
     @Inject("isMock") public isMock: boolean,
     @Inject("widgetId") public id: string
@@ -72,11 +61,13 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy {
     if (!this.isMock) {
       this.subscription = this.eventService.event$.subscribe((value) => {
         if (value) {
+          this.isLoading = true;
           this.isNew = false;
           this.event = value;
           console.log(value);
 
           this.loadItem();
+          this.isLoading = false;
         }
       })
     }
@@ -169,7 +160,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy {
       branch: "Производство",
       category: { id: 1004, name: "drops", code: '4' },
       comment: "Новое событие",
-      description: "1 описание описание...",
+      description: "",
       deviationReason: "Причина отклонения...",
       directReasons: "",
       establishedFacts: "",
@@ -198,17 +189,41 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy {
 
   }
 
-  saveItem(): void {
+  async saveItem(): Promise<void> {
+    const idxStatus = this.status.findIndex(f => f.id === Number(this.event.status.id));
+    if (idxStatus !== -1) {
+      this.event.status = { code: this.status[idxStatus].code, id: +this.status[idxStatus].id, name: this.status[idxStatus].name }
+    }
+    const idxPriority = this.priority.findIndex(f => f.id === Number(this.event.priority.id));
+    if (idxStatus !== -1) {
+      this.event.priority = { code: this.priority[idxPriority].code, id: +this.priority[idxPriority].id, name: this.priority[idxPriority].name }
+    }
+    const idxUser = this.user.findIndex(f => f.id === Number(this.event.fixedBy.id));
+    if (idxUser !== -1) {
+      this.event.fixedBy = {
+        firstName: this.user[idxUser].firstName,
+        id: +this.user[idxUser].id,
+        lastName: this.user[idxUser].lastName,
+        email: this.user[idxUser].email,
+        phone: this.user[idxUser].phone
+      }
+    }
     if (this.isNew) {
-      const ev = this.eventService.postEvent(this.event);
-      console.log(ev);
-
-    } else {
       console.log(this.event);
 
-      const ev = this.eventService.putEvent(this.event);
+      const ev = await this.eventService.postEvent(this.event);
+      console.log(ev);
+    } else {
+      this.isLoading = true;
+      console.log(this.event);
+
+
+      const ev = await this.eventService.putEvent(this.event);
+      this.isLoading = false;
       console.log(ev);
     }
+
+    this.eventService.updateEvent$.next(true);
   }
 
 
