@@ -30,14 +30,14 @@
 .mock {
   display: block;
   height: 200px;
-  &-container{
+  &-container {
     height: 100%;
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: center;
   }
-  img{
+  img {
     width: 80%;
     height: 100%;
   }
@@ -176,7 +176,7 @@
     &__title {
       width: 100%;
       text-align: center;
-      color:var(--color-border-unactive);
+      color: var(--color-border-unactive);
     }
     &__body {
       height: 100%;
@@ -197,7 +197,7 @@
       justify-content: space-between;
       align-items: center;
 
-      color:var(--color-border-unactive);
+      color: var(--color-border-unactive);
     }
     &__labels {
       margin-left: 30px;
@@ -324,31 +324,35 @@
         }
 
         &__line {
-          height: 100px;
-          background: var(---color-border-unactive);
+
+          height: 1px;
+          width: 100px;
+          border-bottom: 0.5px solid var(--color-border-unactive);
+          background: var(--color-bg-main);
 
           position: absolute;
+          left: -30px;
 
-          z-index: 3;
+          z-index: 2;
 
           &-top {
-            left: -15px;
-            width: 100px;
+            left: -198px;
+            width: 185px;
           }
 
           &-pretop {
-            left: -15px;
-            width: 145px;
+            left: -153px;
+            width: 140px;
           }
 
           &-prebottom {
-            left: -15px;
-            width: 190px;
+            left: -108px;
+            width: 95px;
           }
 
           &-bottom {
-            left: -15px;
-            width: 235px;
+            left: -63px;
+            width: 50px;
           }
         }
       }
