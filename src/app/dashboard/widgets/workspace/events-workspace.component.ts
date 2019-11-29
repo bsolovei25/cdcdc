@@ -158,7 +158,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy {
     this.isNew = true;
     this.event = {
       branch: "Производство",
-      category: { id: 1004, name: "drops", code: '4' },
+      category: { id: 1004, name: "equipmentStatus", code: '4' },
       comment: "Новое событие",
       description: "",
       deviationReason: "Причина отклонения...",
@@ -224,6 +224,13 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy {
     }
 
     this.eventService.updateEvent$.next(true);
+    let x = document.getElementById("snackbar");
+
+    // Add the "show" class to DIV
+    x.className = "show";
+
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
   }
 
 

@@ -3,7 +3,8 @@ import {
   EventsWidgetCategory,
   EventsWidgetCategoryCode,
   EventsWidgetData,
-  EventsWidgetOptions
+  EventsWidgetOptions,
+  ICategory
 } from "../../models/events-widget";
 import { EventsWidgetFilter } from "../../models/events-widget";
 import {
@@ -32,13 +33,21 @@ export class EventsComponent implements OnInit, OnDestroy {
   static itemCols = 30;
   static itemRows = 20;
 
+  category: ICategory[] = [
+    { id: 1001, name: "smotr", code: "0" },
+    { id: 1002, name: "safety", code: "1" },
+    { id: 1003, name: "tasks", code: "2" },
+    { id: 1004, name: "equipmentStatus", code: "3" },
+    { id: 1005, name: "drops", code: "4" },
+  ];
+
   categories: EventsWidgetCategory[] = [
     {
       code: 'smotr',
       iconUrl: './assets/icons/widgets/events/smotr.svg',
       notificationsCounts: {
-        closed: null,
-        all: null,
+        closed: 0,
+        all: 0,
       },
       name: 'СМОТР',
       isActive: false
@@ -47,8 +56,8 @@ export class EventsComponent implements OnInit, OnDestroy {
       code: 'safety',
       iconUrl: './assets/icons/widgets/events/safety.svg',
       notificationsCounts: {
-        closed: null,
-        all: null,
+        closed: 0,
+        all: 0,
       },
       name: "Безопасноть",
       isActive: false
@@ -57,8 +66,8 @@ export class EventsComponent implements OnInit, OnDestroy {
       code: 'tasks',
       iconUrl: './assets/icons/widgets/events/tasks.svg',
       notificationsCounts: {
-        closed: null,
-        all: null,
+        closed: 0,
+        all: 0,
       },
       name: 'Производственные задания',
       isActive: false
@@ -67,8 +76,8 @@ export class EventsComponent implements OnInit, OnDestroy {
       code: 'equipmentStatus',
       iconUrl: './assets/icons/widgets/events/status.svg',
       notificationsCounts: {
-        closed: null,
-        all: null,
+        closed: 0,
+        all: 0,
       },
       name: 'Состояния оборудования',
       isActive: false
@@ -77,8 +86,8 @@ export class EventsComponent implements OnInit, OnDestroy {
       code: 'drops',
       iconUrl: './assets/icons/widgets/events/drops.svg',
       notificationsCounts: {
-        closed: null,
-        all: null,
+        closed: 0,
+        all: 0,
       },
       name: 'Сбросы',
       isActive: false
@@ -135,7 +144,6 @@ export class EventsComponent implements OnInit, OnDestroy {
 
   private liveSubscription: Subscription;
   private updateSubscription: Subscription;
-
 
   constructor(
     // private oldWidgetsService: WidgetsService,
@@ -260,12 +268,10 @@ export class EventsComponent implements OnInit, OnDestroy {
   //   );
   // }
 
-  private appendCategoriesCounters(remoteCategories: EventsWidgetCategory[]) {
-    this.categories.forEach(c => {
-      const rc = remoteCategories.find(rf => rf.code === c.code);
-      if (rc) {
-        c.notificationsCounts = rc.notificationsCounts;
-      }
+  private appendCategoriesCounters() {
+    this.categories.map(c => {
+      c.notificationsCounts.all = this.allNotifications.filter(v => v.category.name === c.code).length;
+      c.notificationsCounts.closed = this.allNotifications.filter(v => v.category.name === c.code && v.status.code === '2').length;
     }
     );
   }
@@ -283,7 +289,8 @@ export class EventsComponent implements OnInit, OnDestroy {
       .subscribe((ref: EventsWidgetData) => {
         this.appendNotifications(ref.notifications);
         // this.appendFilterCounters(ref.filters);
-        this.appendCategoriesCounters(ref.categories);
+        this.appendCategoriesCounters();
+        console.log(this.categories);
         // console.log('get_ws_events');
       }
       );

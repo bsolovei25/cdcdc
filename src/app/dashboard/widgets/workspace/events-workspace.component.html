@@ -1,3 +1,6 @@
+<!-- <div id="snackbar">Сохранено</div> -->
+
+
 <div class="container pointer-event">
   <!-- loading data -->
   <!-- <div class="loading-shade" *ngIf="isLoading">
@@ -208,7 +211,11 @@
                 <div class="event__header">
                   <span> {{ i + 1 }} <span class="event__sub">Ответственный</span>
                   </span>
-                  <span *ngIf="retrieval.status" class="event__sub-right">{{ statuses[retrieval.status.name] }}</span>
+                  <span *ngIf="retrieval.status" class="event__sub-right">{{ statuses[retrieval.status.name] }}
+                    <svg-icon class="event__delete" [applyCss]="true"
+                      src="./assets/garbage_bad_pic.svg" (click)="deleteEvent(n.id)"
+                      (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()"></svg-icon></span>
+
                 </div>
                 <div class="event__body">
                   <input *ngIf="retrieval.isNew" type="text" class="comment__text gridster-item-content"
@@ -238,7 +245,7 @@
           </div>
         </div>
 
-        <div class="block-bottom" style="margin-left: 10px;">
+        <div class="block-bottom" style="margin-left: 10px">
 
           <div class="workspace__block-border media">
             <div class="block-border__title">

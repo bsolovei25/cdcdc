@@ -17,7 +17,7 @@ export interface EventsWidgetNotification {
   directReasons: string; // Непосредственные/прямые причины
   description: string; // Описание
   comment: string; // Комментарий оператора
-  category: { id: number, name: EventsWidgetCategoryCode, code: string };
+  category: ICategory;
   statusName?: string;
   severity: string;
   retrievalEvents: RetrievalEvents[];
@@ -40,6 +40,12 @@ export type EventsWidgetFilterCode = 'all' | 'inWork' | 'closed'
 
 export type EventsWidgetCategoryCode = 'smotr' | 'safety' | 'tasks' | 'equipmentStatus' | 'drops'
 
+export interface ICategory {
+  id: number,
+  name: EventsWidgetCategoryCode,
+  code: string
+}
+
 export interface IStatus {
   id: number,
   name: EventsWidgetNotificationStatus,
@@ -53,11 +59,11 @@ export interface IPriority {
 };
 
 export interface RetrievalEvents {
-  deadline: Date,
-  description: string,
-  id?: number,
-  responsibleUser: User | null,
-  status: { id: number, name: EventsWidgetNotificationStatus, code: string },
+  deadline: Date;
+  description: string;
+  id?: number;
+  responsibleUser: User | null;
+  status: IStatus,
   isNew: boolean
 }
 
