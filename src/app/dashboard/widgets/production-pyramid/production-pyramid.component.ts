@@ -8,6 +8,10 @@ import { Subscription } from 'rxjs';
   styleUrls: ["./production-pyramid.component.scss"]
 })
 export class ProductionPyramidComponent implements OnInit {
+
+  static itemCols = 25;
+  static itemRows = 15;
+
   aboutWidget;
 
   subscription:Subscription;
