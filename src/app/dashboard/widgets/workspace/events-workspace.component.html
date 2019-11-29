@@ -1,5 +1,12 @@
 <div class="container pointer-event">
-
+  <!-- loading data -->
+  <!-- <div class="loading-shade" *ngIf="isLoading">
+    <div class="item loading-6">
+      <svg viewBox="25 25 50 50">
+        <circle cx="50" cy="50" r="20"></circle>
+      </svg>
+    </div>
+  </div> -->
   <evj-widget-header [title]="title" [id]="id"></evj-widget-header>
   <!-- <div class="header">
     <div class="header__content">
@@ -135,7 +142,8 @@
               Краткое описание причины
             </div>
             <div class="block-border__body">
-              <textarea class="gridster-item-content" minlength="3" disabled [(ngModel)]="event.establishedFacts">
+              <textarea class="gridster-item-content" placeholder="Введите значение..." minlength="3"
+                [(ngModel)]="event.description">
               </textarea>
               <div class="block-border__footer">
               </div>
@@ -151,7 +159,7 @@
         </div>
         <div class="block-border__body">
           <textarea class="gridster-item-content" placeholder="Введите значение..." minlength="6"
-            [(ngModel)]="event.establishedFacts">
+            [(ngModel)]="event.eventType">
           </textarea>
           <div class="block-border__footer">
           </div>
@@ -166,7 +174,7 @@
           </div>
           <div class="block-border__body">
             <textarea class="gridster-item-content" placeholder="Введите значение..." minlength="6"
-              [(ngModel)]="event.eventType">
+              [(ngModel)]="event.establishedFacts">
             </textarea>
             <div class="block-border__footer">
             </div>

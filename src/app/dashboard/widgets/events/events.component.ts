@@ -134,6 +134,7 @@ export class EventsComponent implements OnInit, OnDestroy {
   defaultIcons = './assets/icons/widgets/process/in-work.svg';  // TODO изменить иконки
 
   private liveSubscription: Subscription;
+  private updateSubscription: Subscription;
 
 
   constructor(
@@ -147,6 +148,12 @@ export class EventsComponent implements OnInit, OnDestroy {
     this.liveSubscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
       this.title = data.title
     });
+    this.updateSubscription = this.eventService.updateEvent$.subscribe((value) => {
+      if (value) {
+        this.wsConnect();
+      }
+    })
+
   }
 
   ngOnInit() {
@@ -156,6 +163,9 @@ export class EventsComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.liveSubscription) {
       this.liveSubscription.unsubscribe();
+    }
+    if (this.updateSubscription) {
+      this.updateSubscription.unsubscribe();
     }
   }
 
