@@ -5,6 +5,7 @@ import {
   ElementRef,
   Inject,
   OnDestroy,
+  AfterViewInit,
 } from "@angular/core";
 import { Subscription } from "rxjs";
 import { EventService } from '../../services/event.service';
@@ -15,11 +16,11 @@ import { EventsWidgetNotification, EventsWidgetNotificationStatus, EventsWidgetN
   templateUrl: "./events-workspace.component.html",
   styleUrls: ["./events-workspace.component.scss"]
 })
-export class EventsWorkSpaceComponent implements OnInit, OnDestroy {
+export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewInit {
 
   subscription: Subscription;
   event: EventsWidgetNotification = null;
-  isLoading: boolean = false;
+  isLoading: boolean = true;
 
   public title = "Рабочая область";
   comments: string[] = [];
@@ -31,6 +32,8 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy {
   code;
   category;
   place;
+
+  isNewRetrieval: boolean = false;
 
   statuses: { [id in EventsWidgetNotificationStatus]: string; } = {
     "new": 'Новое',
@@ -49,6 +52,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy {
 
   @ViewChild("input", { static: false }) input: ElementRef;
   @ViewChild("scroll", { static: false }) scroll: ElementRef;
+  @ViewChild("scroll2", { static: false }) scroll2: ElementRef;
 
   constructor(
     private eventService: EventService,
@@ -58,19 +62,22 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    // this.isLoading = true;
     if (!this.isMock) {
       this.subscription = this.eventService.event$.subscribe((value) => {
         if (value) {
           this.isLoading = true;
-          this.isNew = false;
+          this.resetComponent();
           this.event = value;
-          console.log(value);
-
           this.loadItem();
-          this.isLoading = false;
         }
       })
     }
+    this.isLoading = false;
+  }
+
+  ngAfterViewInit(): void {
+    // this.isLoading = false;
   }
 
   ngOnDestroy() {
@@ -78,7 +85,14 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy {
   }
 
 
+  resetComponent() {
+    this.isNew = false;
+    this.isNewRetrieval = false
+  }
+
+
   async loadItem() {
+    this.isLoading = true;
     // create data load queue
     const dataLoadQueue: Promise<void>[] = [];
 
@@ -128,6 +142,9 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy {
         console.error(err);
       }
     }
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 500);
   }
 
 
@@ -190,6 +207,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy {
   }
 
   async saveItem(): Promise<void> {
+    this.isLoading = true;
     const idxStatus = this.status.findIndex(f => f.id === Number(this.event.status.id));
     if (idxStatus !== -1) {
       this.event.status = { code: this.status[idxStatus].code, id: +this.status[idxStatus].id, name: this.status[idxStatus].name }
@@ -208,58 +226,133 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy {
         phone: this.user[idxUser].phone
       }
     }
+
+    let snackBar = document.getElementById("snackbar");
+
     if (this.isNew) {
-      console.log(this.event);
-
-      const ev = await this.eventService.postEvent(this.event);
-      console.log(ev);
+      this.event.retrievalEvents.map(ret => {
+        const idxUser = this.user.findIndex(f => f.id === Number(ret.responsibleUser.id));
+        if (idxUser !== -1) {
+          ret.responsibleUser = {
+            firstName: this.user[idxUser].firstName,
+            id: +this.user[idxUser].id,
+            lastName: this.user[idxUser].lastName,
+            email: this.user[idxUser].email,
+            phone: this.user[idxUser].phone
+          }
+        }
+      })
+      try {
+        const ev = await this.eventService.postEvent(this.event);
+        console.log(ev);
+        snackBar.className = "show";
+        snackBar.innerText = "Сохранено"
+        setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, 3000);
+      } catch (error) {
+        snackBar.className = "show";
+        snackBar.innerText = "Ошибка"
+        setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, 3000);
+        this.isLoading = false;
+      }
     } else {
-      this.isLoading = true;
-      console.log(this.event);
-
-
-      const ev = await this.eventService.putEvent(this.event);
-      this.isLoading = false;
-      console.log(ev);
+      try {
+        const ev = await this.eventService.putEvent(this.event);
+        console.log(ev);
+        snackBar.className = "show";
+        snackBar.innerText = "Сохранено"
+        setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, 3000);
+      } catch (error) {
+        snackBar.className = "show";
+        snackBar.innerText = "Ошибка"
+        setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, 3000);
+        this.isLoading = false;
+      }
     }
 
     this.eventService.updateEvent$.next(true);
-    let x = document.getElementById("snackbar");
-
-    // Add the "show" class to DIV
-    x.className = "show";
-
-    // After 3 seconds, remove the show class from DIV
-    setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+    this.isLoading = false;
   }
 
 
 
   addRetrieval(): void {
+    this.isNewRetrieval = true;
     const retrieval: RetrievalEvents = {
       deadline: new Date,
       description: '',
-      responsibleUser: null,
+      responsibleUser: {
+        id: 0,
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: ''
+      },
       status: { id: 3001, name: 'new', code: '0' },
       isNew: true
     }
     this.event.retrievalEvents.push(retrieval);
   }
 
-  addRetrievalEvents(idEvent) {
-    const retrieval: RetrievalEvents = {
-      deadline: new Date,
-      description: '',
-      responsibleUser: null,
-      status: { id: 3001, name: 'new', code: '0' },
-      isNew: true
-    }
-    const post = this.eventService.addRetrievalEvents(idEvent, retrieval);
-    console.log(post);
+  saveRetrieval(idEvent: number): void {
+
+    // const retrieval: RetrievalEvents = {
+    //   deadline: new Date,
+    //   description: '',
+    //   responsibleUser: null,
+    //   status: { id: 3001, name: 'new', code: '0' },
+    //   isNew: true
+    // }
+    // this.event.retrievalEvents.push(retrieval);
+
+    this.addRetrievalEvents(idEvent);
   }
 
-  deleteRetrieval(idEvent: number, idRetr: number): void {
-    const del = this.eventService.deleteRetrievalEvents(idEvent, idRetr);
+  cancelRetrieval(): void {
+    this.event.retrievalEvents.pop();
+    this.isNewRetrieval = false;
+  }
+
+  async addRetrievalEvents(idEvent: number): Promise<void> {
+    let retrieval = this.event.retrievalEvents[this.event.retrievalEvents.length - 1];
+
+    const idxUser = this.user.findIndex(f => f.id === Number(retrieval.responsibleUser.id));
+    if (idxUser !== -1) {
+      retrieval.responsibleUser = {
+        firstName: this.user[idxUser].firstName,
+        id: +this.user[idxUser].id,
+        lastName: this.user[idxUser].lastName,
+        email: this.user[idxUser].email,
+        phone: this.user[idxUser].phone
+      }
+    }
+    let snackBar = document.getElementById("snackbar");
+
+    try {
+      const post = await this.eventService.addRetrievalEvents(idEvent, retrieval);
+      this.event.retrievalEvents[this.event.retrievalEvents.length - 1] = post;
+      snackBar.className = "show";
+      snackBar.innerText = "Сохранено"
+      setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, 3000);
+    } catch (error) {
+      snackBar.className = "show";
+      snackBar.innerText = "Ошибка"
+      setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, 3000);
+      this.isLoading = false;
+
+    }
+    this.isNewRetrieval = false;
+  }
+
+  editRetrieval(retrieval: RetrievalEvents) {
+    retrieval.isNew = true;
+  }
+
+  async  deleteRetrieval(idEvent: number, idRetr: number): Promise<void> {
+    const del = await this.eventService.deleteRetrievalEvents(idEvent, idRetr);
+    const idx = this.event.retrievalEvents.findIndex(i => i.id === idRetr);
+    if (idx !== -1) {
+      this.event.retrievalEvents.splice(idx, 1);
+    }
     console.log(del);
 
   }

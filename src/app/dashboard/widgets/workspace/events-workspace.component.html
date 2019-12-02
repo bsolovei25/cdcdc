@@ -1,15 +1,15 @@
-<!-- <div id="snackbar">Сохранено</div> -->
+<div id="snackbar"></div>
 
 
 <div class="container pointer-event">
   <!-- loading data -->
-  <!-- <div class="loading-shade" *ngIf="isLoading">
+  <div class="loading-shade" *ngIf="isLoading">
     <div class="item loading-6">
       <svg viewBox="25 25 50 50">
         <circle cx="50" cy="50" r="20"></circle>
       </svg>
     </div>
-  </div> -->
+  </div>
   <evj-widget-header [title]="title" [id]="id"></evj-widget-header>
   <!-- <div class="header">
     <div class="header__content">
@@ -201,12 +201,86 @@
 
       <div class="blocks-bottom">
 
-        <div class="workspace__block-border block-bottom">
-          <div class="block-border__title">
-            Корректирующие мероприятия
+        <div class="block-bottom">
+
+          <div class="change-shift__comment" style="height: 120px; min-height: 120px;">
+            <div class="comment__title">
+              Корректирующие мероприятия
+            </div>
+            <div class="comment__body">
+              <div class="comment__display">
+
+                <ul class="messages scroll-bar events" #scroll2>
+                  <li class="message event" *ngFor="let retrieval of event.retrievalEvents; let i = index">
+                    <div class="event__header">
+                      <span> {{ i + 1 }}. <span class="event__sub">Ответственный</span>
+                        <span *ngIf="!retrieval.isNew" style="padding-left:10px;">
+                          {{retrieval.responsibleUser.lastName}}
+                          {{ retrieval.responsibleUser.firstName }}</span>
+                      </span>
+                      <div *ngIf="retrieval.isNew" class="dropdown dropdown-event">
+                        <select name="contactMethod" class="dropdown-select" [(ngModel)]="retrieval.responsibleUser.id">
+                          <option *ngFor="let p of user" [value]="p.id">{{ p.lastName }} {{ p.firstName }}</option>
+                        </select>
+                      </div>
+                      <span *ngIf="retrieval.status" class="event__sub-right">{{ statuses[retrieval.status.name] }}
+                        <svg-icon *ngIf="!retrieval.isNew" class="event__delete" [applyCss]="true"
+                          src="./assets/garbage_bad_pic.svg" (click)="deleteRetrieval(event.id, retrieval.id)"
+                          (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()"></svg-icon>
+                        <svg-icon *ngIf="!retrieval.isNew" class="event__delete" [applyCss]="true"
+                          src="./assets/edit.svg" (click)="editRetrieval(retrieval)"
+                          (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()"></svg-icon>
+                      </span>
+                    </div>
+                    <div class="event__body">
+                      <input *ngIf="retrieval.isNew" type="text" class="event__input gridster-item-content"
+                        placeholder="Напишите..." #input [(ngModel)]="retrieval.description" />
+                      <span *ngIf="!retrieval.isNew">{{ retrieval.description }}</span>
+                    </div>
+                    <div class="event__footer">
+
+                      <span class="event__sub">Срок исполнения</span> <span class="event__date">
+                        <div *ngIf="retrieval.isNew" class="dates-selector__dates">
+                          <input type="datetime-local" class="dates-selector__date-input"
+                            [ngModel]="retrieval.deadline | date:'yyyy-MM-ddTHH:mm'">
+                        </div> <span *ngIf="!retrieval.isNew">{{ retrieval.deadline | date }}</span>
+                      </span>
+                    </div>
+                  </li>
+                </ul>
+
+              </div>
+              <div class="comment__new">
+                <div *ngIf="!isNewRetrieval" class="workspace__submit">
+                  <div class="submit__frame submit__frame-left"></div>
+                  <div class="submit__frame submit__frame-right"></div>
+                  <button type="submit gridster-item-content" (click)="addRetrieval(event.id)">
+                    Добавить мероприятие
+                  </button>
+                </div>
+                <div *ngIf="isNewRetrieval" class="workspace__submit">
+                  <div class="submit__frame submit__frame-left"></div>
+                  <div class="submit__frame submit__frame-right"></div>
+                  <button type="submit gridster-item-content" (click)="saveRetrieval(event.id)">
+                    Сохранить
+                  </button>
+                </div>
+                <div *ngIf="isNewRetrieval" class="workspace__submit">
+                  <div class="submit__frame submit__frame-left"></div>
+                  <div class="submit__frame submit__frame-right"></div>
+                  <button type="submit gridster-item-content" (click)="cancelRetrieval()">
+                    Отменить
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="block-border__body">
-            <ul class="events">
+
+        </div>
+
+
+        <!-- <div class="block-border__body ">
+            <ul class="events scroll-bar">
               <li class="event" *ngFor="let retrieval of event.retrievalEvents; let i = index">
                 <div class="event__header">
                   <span> {{ i }} <span class="event__sub">Ответственный</span>
@@ -241,8 +315,8 @@
             </div>
             <div class="block-border__footer">
             </div>
-          </div>
-        </div>
+          </div> -->
+
 
         <div class="block-bottom" style="margin-left: 10px">
 
@@ -267,7 +341,34 @@
             </div>
           </div>
 
-          <div class="workspace__block-border comment">
+
+          <div class="change-shift__comment" style="height: 120px; min-height: 120px;">
+            <div class="comment__title">
+              Комментарий оператора
+            </div>
+            <div class="comment__body">
+              <div class="comment__display">
+                <div class="messages scroll-bar" #scroll>
+                  <div class="message" *ngFor="let comment of comments">
+                    {{ comment }}
+                  </div>
+                </div>
+              </div>
+              <div class="comment__new">
+                <input type="text" class="comment__text gridster-item-content"
+                  placeholder="Напишите свой комментарий..." (keypress)="onEnterPush($event)" #input />
+                <button type="submit" class="button comment__file   gridster-item-content">
+                  <svg-icon class="button__icon" src="./assets/icons/widgets/change-shift/add_file.svg"></svg-icon>
+                </button>
+                <button type="submit" class="button comment__submit  gridster-item-content"
+                  (click)="onSendMessage($event)">
+                  <svg-icon class="button__icon" src="./assets/icons/widgets/change-shift/send.svg"></svg-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="workspace__block-border comment">
             <div class="block-border__title">
               Комментарий оператора
             </div>
@@ -291,7 +392,7 @@
                 </button>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
 
       </div>
@@ -300,14 +401,14 @@
         <div class="workspace__submit">
           <div class="submit__frame submit__frame-left"></div>
           <div class="submit__frame submit__frame-right"></div>
-          <button type="submit gridster-item-content" (click)="createEvent()">
+          <button type="submit gridster-item-content" (click)="createEvent()" [disabled]="isLoading">
             Создать событие
           </button>
         </div>
         <div class="workspace__submit">
           <div class="submit__frame submit__frame-left"></div>
           <div class="submit__frame submit__frame-right"></div>
-          <button type="submit gridster-item-content" (click)="saveItem()">
+          <button type="submit gridster-item-content" (click)="saveItem()" [disabled]="isLoading">
             Сохранить
           </button>
         </div>
@@ -318,9 +419,8 @@
 
   </ng-container>
 
-
   <ng-container *ngIf="!isMock && !event">
-    <div class="workspace__save" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+    <div class="workspace__mock" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
       <div class="workspace__submit">
         <div class="submit__frame submit__frame-left"></div>
         <div class="submit__frame submit__frame-right"></div>
@@ -330,8 +430,6 @@
       </div>
     </div>
   </ng-container>
-
-
 
   <div class="frame frame_bottom">
     <div class="frame__circle frame__circle__left"></div>
