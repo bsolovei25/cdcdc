@@ -8,9 +8,9 @@
 .content {
   display: flex;
   justify-content: space-around;
-  border: 1px dashed  rgb(47, 52, 68);
+  border: 0.5px dashed  var(--color-border-main);
   border-style: none dashed none dashed;
-  height: calc(100% - 60px);
+  height: calc(100% - 51px);
 }
 
 .line-chart {
@@ -148,7 +148,7 @@
     top: 100%;
     box-sizing: border-box;
 */
-  
+
     &__topright{
       z-index: 2;
       top: -2px;

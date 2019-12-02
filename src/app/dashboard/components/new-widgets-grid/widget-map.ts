@@ -7,6 +7,8 @@ import { WidgetPiesComponent } from '../../widgets/widgets-pie/widget-pies/widge
 import { EventsWorkSpaceComponent } from '../../widgets/workspace/events-workspace.component';
 import { TruncatedPieSFirstComponent } from '../../widgets/truncated-pie-first/truncated-pie-s-first/truncated-pie-s-first.component';
 import { TruncatedPieSIconComponent } from '../../widgets/truncated-pie-icon/truncated-pie-s-icon/truncated-pie-s-icon.component';
+import { PointDiagramComponent } from '../../widgets/point-diagram/point-diagram.component';
+import { ProductionPyramidComponent } from '../../widgets/production-pyramid/production-pyramid.component';
 
 
 export const WIDGETS = {
@@ -19,6 +21,7 @@ export const WIDGETS = {
     "shift-accept": ChangeShiftComponent,
     "events-workspace": EventsWorkSpaceComponent,
     "truncated-diagram-percentage": TruncatedPieSFirstComponent,
-    "truncated-diagram-counter": TruncatedPieSIconComponent
-
+    "truncated-diagram-counter": TruncatedPieSIconComponent,
+    "point-diagram": PointDiagramComponent,
+    "industrial-pyramid":ProductionPyramidComponent,
 }

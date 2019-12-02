@@ -31,6 +31,9 @@ import { TruncatedPieFirstComponent } from './widgets/truncated-pie-first/trunca
 import { TruncatedPieSFirstComponent } from './widgets/truncated-pie-first/truncated-pie-s-first/truncated-pie-s-first.component';
 import { TruncatedPieSIconComponent } from './widgets/truncated-pie-icon/truncated-pie-s-icon/truncated-pie-s-icon.component';
 import { TruncatedPieIconComponent } from './widgets/truncated-pie-icon/truncated-pie-icon/truncated-pie-icon.component';
+import { PointDiagramComponent } from './widgets/point-diagram/point-diagram.component';
+import { OneColumnComponent } from './widgets/point-diagram/one-column/one-column.component';
+import { ProductionPyramidComponent } from './widgets/production-pyramid/production-pyramid.component';
 
 
 
@@ -54,12 +57,15 @@ import { TruncatedPieIconComponent } from './widgets/truncated-pie-icon/truncate
     WidgetsPieComponent,
     WidgetHeaderComponent,
     EventsWorkSpaceComponent,
+    PointDiagramComponent,
+    OneColumnComponent,
     FrameTopComponent,
     FrameBottomComponent,
     TruncatedPieFirstComponent,
     TruncatedPieSFirstComponent,
     TruncatedPieSIconComponent,
-    TruncatedPieIconComponent
+    TruncatedPieIconComponent,
+    ProductionPyramidComponent
   ],
   entryComponents:[
     LineChartComponent,
@@ -71,7 +77,9 @@ import { TruncatedPieIconComponent } from './widgets/truncated-pie-icon/truncate
     ChangeShiftComponent,
     EventsWorkSpaceComponent,
     TruncatedPieSFirstComponent,
-    TruncatedPieSIconComponent
+    TruncatedPieSIconComponent,
+    PointDiagramComponent,
+    ProductionPyramidComponent
   ],
   exports: [
     HomeComponent,

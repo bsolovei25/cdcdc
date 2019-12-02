@@ -1,0 +1,56 @@
+<div
+  class="container pointer-event"
+  [ngStyle]="{
+    width: containerIsMock()
+  }"
+>
+  <evj-widget-header
+    [title]="aboutWidget.title"
+    [units]=""
+    [code]=""
+    [id]="id"
+  ></evj-widget-header>
+
+  <evj-frame-top></evj-frame-top>
+
+  <ng-container *ngIf="isMock">
+    <div class="mock">
+      <div class="diagrams scroll-bar">
+        <div class="diagrams__item" *ngFor="let item of array; let i = index">
+          <evj-one-column
+            [item]="item"
+            [isDiagram]="true"
+            [isMock]="true"
+            *ngIf="i < 4"
+          ></evj-one-column>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!isMock">
+    <div class="point-diagram">
+      <div class="title">
+        <div class="title__name">Норматив, мг/м^3</div>
+        <div class="title__percent">ПДК 100%</div>
+      </div>
+      <div class="line">
+        <div class="circle circle__left circle__left-top"></div>
+        <div class="circle circle__right circle__right-top"></div>
+      </div>
+      <div class="body scroll-bar">
+        <div class="row">
+          <div class="row__items" *ngFor="let item of array">
+            <evj-one-column [item]="item" [isDiagram]="false"></evj-one-column>
+          </div>
+        </div>
+        <div class="diagrams scroll-bar">
+          <div class="diagrams__item" *ngFor="let item of array">
+            <evj-one-column [item]="item" [isDiagram]="true"></evj-one-column>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <evj-frame-bottom></evj-frame-bottom>
+</div>

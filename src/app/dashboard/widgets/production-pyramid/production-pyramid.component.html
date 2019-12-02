@@ -1,0 +1,73 @@
+<div class="container pointer-event">
+  <evj-widget-header
+    [title]="aboutWidget.title"
+    [units]=""
+    [code]=""
+    [id]="id"
+  ></evj-widget-header>
+
+  <evj-frame-top></evj-frame-top>
+
+  <ng-container *ngIf="isMock">
+    <div class="mock">
+      <div class="mock-container">
+        <img src="../../../../assets/img/pyramid.png" alt="" />
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="!isMock">
+    <div class="production">
+      <div class="pyramid">
+        <div class="pyramid__title">
+          Пирамида проишествий в соответствии с КТ-055
+        </div>
+        <div class="pyramid__body">
+          <div class="pyramid__graphs">
+            <div class="row pyramid__graph">
+              <div class="graph graph__top graph__left">0 / 0</div>
+              <div class="graph graph__top graph__right">0 / 0</div>
+            </div>
+            <div class="row pyramid__graph">
+              <div class="graph graph__pretop graph__left">25 / 24</div>
+              <div class="graph graph__pretop graph__right">5 / 4</div>
+            </div>
+            <div class="row pyramid__graph">
+              <div class="graph graph__prebottom graph__left">596 / 531</div>
+              <div class="graph graph__prebottom graph__right">196 / 131</div>
+            </div>
+            <div class="row pyramid__graph">
+              <div class="graph graph__bottom graph__left">1256 / 1256</div>
+              <div class="graph graph__bottom graph__right">256 / 256</div>
+            </div>
+          </div>
+          <div class="pyramid__labels">
+            <div class="row pyramid__label">
+              <div class="label__circle"></div>
+              <div class="label__line label__line-top"></div>
+              Крупные
+            </div>
+            <div class="row pyramid__label">
+              <div class="label__circle"></div>
+              <div class="label__line label__line-pretop"></div>
+              Значительные
+            </div>
+            <div class="row pyramid__label">
+              <div class="label__circle"></div>
+              <div class="label__line label__line-prebottom"></div>
+              Случайные
+            </div>
+            <div class="row pyramid__label">
+              <div class="label__circle"></div>
+              <div class="label__line label__line-bottom"></div>
+              Незначительные
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="daysCounter"></div>
+    </div>
+  </ng-container>
+
+  <evj-frame-bottom></evj-frame-bottom>
+</div>

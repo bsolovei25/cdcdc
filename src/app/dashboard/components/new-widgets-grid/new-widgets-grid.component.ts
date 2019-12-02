@@ -97,7 +97,8 @@ export class NewWidgetsGridComponent implements OnInit {
     e.currentTarget.dispatchEvent(new DragEvent('dragstart', { dataTransfer: dataTrasfer }));
   }
 
-  public dragStart(e: DragEvent, item: GridsterItem): void { 
+  public dragStart(e: DragEvent, item: GridsterItem): void {
+    
     e.dataTransfer.setData('text/plain', item.toString());
     e.dataTransfer.dropEffect = 'copy';
     this.widgetService.draggingItem  = item;
@@ -108,6 +109,7 @@ export class NewWidgetsGridComponent implements OnInit {
     const dataTrasfer = new DataTransfer();
     e.currentTarget.dispatchEvent(new DragEvent('dragstop', { dataTransfer: dataTrasfer }));
     this.widgetService.draggingItem = null;
+  
     this.userSettings.updateByPosition(item, itemComponent.$item);
   }
 
