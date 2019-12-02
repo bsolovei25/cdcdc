@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ManualinputPageComponent } from './manualinput-page.component';
+import { TruncatedPieSIconComponent } from './truncated-pie-s-icon.component';
 
-describe('ManualinputPageComponent', () => {
-  let component: ManualinputPageComponent;
-  let fixture: ComponentFixture<ManualinputPageComponent>;
+describe('TruncatedPieSIconComponent', () => {
+  let component: TruncatedPieSIconComponent;
+  let fixture: ComponentFixture<TruncatedPieSIconComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ManualinputPageComponent ]
+      declarations: [ TruncatedPieSIconComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ManualinputPageComponent);
+    fixture = TestBed.createComponent(TruncatedPieSIconComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

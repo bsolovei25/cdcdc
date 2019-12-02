@@ -33,7 +33,6 @@ export class ShiftService {
   }
 
   private async changeStatusAsync(status, id, idShift): Promise<any>  {
-    // console.log(this.restUrl + '/api/shift/' + idShift + '/Employee/' + id + '/ChangeStatus/' + status);
     return this.http.post(this.restUrl + '/api/shift/' + idShift + '/Employee/' + id + '/ChangeStatus/' + status, null).toPromise();
   }
 
