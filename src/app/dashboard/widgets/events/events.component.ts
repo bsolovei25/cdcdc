@@ -15,6 +15,7 @@ import { NewWidgetService } from '../../services/new-widget.service';
 import { NewUserSettingsService } from '../../services/new-user-settings.service';
 import { EventService } from '../../services/event.service';
 
+
 @Component({
   selector: 'evj-events',
   templateUrl: './events.component.html',

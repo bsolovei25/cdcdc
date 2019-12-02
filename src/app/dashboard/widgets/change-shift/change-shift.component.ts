@@ -67,7 +67,8 @@ export class ChangeShiftComponent implements OnInit {
       });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   private setRealtimeData(widgetType, data) {
     if (!widgetType || !data) {

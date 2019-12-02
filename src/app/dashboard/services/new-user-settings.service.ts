@@ -90,8 +90,8 @@ export class NewUserSettingsService {
           posX = cell.x;
           posY = cell.y;
           widgetType = cell.widgetType;
-          sizeX = cell.rows;
-          sizeY = cell.cols;
+          sizeX = cell.cols;
+          sizeY = cell.rows;
         };
         userSettings.userGrid.push(cellSetting);
       }else{
@@ -180,8 +180,8 @@ public getUserData(){
        this.widgetService.dashboard.push({
         x: item.posX,
         y: item.posY,
-        cols: item.sizeY,
-        rows: item.sizeX,
+        cols: item.sizeX,
+        rows: item.sizeY,
         id: item.widgetId, 
         widgetType: item.widgetType 
        });

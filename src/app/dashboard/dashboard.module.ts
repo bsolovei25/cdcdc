@@ -13,7 +13,6 @@ import { HttpClientModule } from "@angular/common/http";
 import { EventsComponent } from "./widgets/events/events.component";
 import { ManualInputComponent } from "./widgets/manual-input/manual-input.component";
 import { FormsModule } from "@angular/forms";
-import { ManualinputPageComponent } from "./pages/manualinput-page/manualinput-page.component";
 import { LineDiagramComponent } from "./widgets/line-diagram/line-diagram.component";
 import { LineDatetimeComponent } from "./components/line-datetime/line-datetime.component";
 import { ShiftPersonComponent } from './widgets/change-shift/shift-person/shift-person.component';
@@ -28,6 +27,10 @@ import { EventsWorkSpaceComponent } from './widgets/workspace/events-workspace.c
 import { FrameTopComponent } from './components/frame-top/frame-top.component';
 import { FrameBottomComponent } from './components/frame-bottom/frame-bottom.component';
 import { ClickOutsideModule } from 'ng-click-outside';
+import { TruncatedPieFirstComponent } from './widgets/truncated-pie-first/truncated-pie-first/truncated-pie-first.component';
+import { TruncatedPieSFirstComponent } from './widgets/truncated-pie-first/truncated-pie-s-first/truncated-pie-s-first.component';
+import { TruncatedPieSIconComponent } from './widgets/truncated-pie-icon/truncated-pie-s-icon/truncated-pie-s-icon.component';
+import { TruncatedPieIconComponent } from './widgets/truncated-pie-icon/truncated-pie-icon/truncated-pie-icon.component';
 import { PointDiagramComponent } from './widgets/point-diagram/point-diagram.component';
 import { OneColumnComponent } from './widgets/point-diagram/one-column/one-column.component';
 import { ProductionPyramidComponent } from './widgets/production-pyramid/production-pyramid.component';
@@ -44,7 +47,6 @@ import { ProductionPyramidComponent } from './widgets/production-pyramid/product
     DashboardComponent,
     EventsComponent,
     ManualInputComponent,
-    ManualinputPageComponent,
     ChangeShiftComponent,
     LineDiagramComponent,
     ShiftPersonComponent,
@@ -59,6 +61,10 @@ import { ProductionPyramidComponent } from './widgets/production-pyramid/product
     OneColumnComponent,
     FrameTopComponent,
     FrameBottomComponent,
+    TruncatedPieFirstComponent,
+    TruncatedPieSFirstComponent,
+    TruncatedPieSIconComponent,
+    TruncatedPieIconComponent,
     ProductionPyramidComponent
   ],
   entryComponents:[
@@ -70,12 +76,13 @@ import { ProductionPyramidComponent } from './widgets/production-pyramid/product
     LineDiagramComponent,
     ChangeShiftComponent,
     EventsWorkSpaceComponent,
+    TruncatedPieSFirstComponent,
+    TruncatedPieSIconComponent,
     PointDiagramComponent,
     ProductionPyramidComponent
   ],
   exports: [
     HomeComponent,
-    ManualinputPageComponent
   ],
   imports: [
     CommonModule,

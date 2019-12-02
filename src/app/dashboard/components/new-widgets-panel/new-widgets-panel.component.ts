@@ -35,6 +35,8 @@ export class NewWidgetsPanelComponent implements OnInit {
 
   _injector: Injector;
 
+  massWidg = [WIDGETS];
+
 
   public test = [];
   constructor(
