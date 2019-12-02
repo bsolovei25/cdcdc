@@ -27,6 +27,7 @@ import { WidgetHeaderComponent } from './components/widget-header/widget-header.
 import { EventsWorkSpaceComponent } from './widgets/workspace/events-workspace.component';
 import { FrameTopComponent } from './components/frame-top/frame-top.component';
 import { FrameBottomComponent } from './components/frame-bottom/frame-bottom.component';
+import { ClickOutsideModule } from 'ng-click-outside';
 
 
 
@@ -75,7 +76,8 @@ import { FrameBottomComponent } from './components/frame-bottom/frame-bottom.com
     DndModule,
     HttpClientModule,
     FormsModule,
-    GridsterModule
+    GridsterModule,
+    ClickOutsideModule,
   ],
   bootstrap: []
 })

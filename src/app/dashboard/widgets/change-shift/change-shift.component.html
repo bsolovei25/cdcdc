@@ -1,5 +1,11 @@
 <div class="container pointer-event">
-  <evj-widget-header *ngIf="this.aboutWidget" [title]="this.aboutWidget.title" [units]="units" [code]="code" [id]="id"></evj-widget-header>
+  <evj-widget-header
+    *ngIf="this.aboutWidget"
+    [title]="this.aboutWidget.title"
+    [units]=""
+    [code]=""
+    [id]="id"
+  ></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
 
@@ -7,8 +13,11 @@
     <div class="mock"></div>
   </ng-container>
   <ng-container *ngIf="!isMock">
-    <div class="change-shift" (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()">
+    <div
+      class="change-shift"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
       <div class="change-shift__mainWorker">
         <div class="circle circle__left circle__left-top"></div>
         <div class="circle circle__right circle__right-top"></div>
@@ -19,15 +28,17 @@
         <div class="mainWorker__info">
           <div class="mainWorker__row">
             <div class="mainWorker__row_colInfo" *ngIf="getMain()">
-              <div class="mainWorker__name" >
-                {{ getMain().employee.firstName }}
-                {{ getMain().employee.lastName }}
+              <div class="mainWorker__name">
+                {{ getMain().employee.lastName }} {{  getMain().employee.firstName.charAt(0).toUpperCase() }}.
               </div>
               <div class="mainWorker__position" *ngIf="currentShift != null">
-                {{ this.getDisplayPosition(getMain().employee.position) }}
+                {{ this.getDisplayPosition(getMain().position) }}
               </div>
             </div>
-            <div class="mainWorker__row_colIcon"></div>
+            <div class="mainWorker__row_colIcon" *ngIf="getMain()"
+                  [class.mainWorker__row_colIcon__InProgress]="!(getMain().status === 'Passed' || getMain().status === 'Accepted')"
+                  [class.mainWorker__row_colIcon__Ready]="getMain().status === 'Passed' || getMain().status === 'Accepted'">
+            </div>
           </div>
           <div class="mainWorker__row">
             <div class="circle circle__right circle__right-top"></div>
@@ -41,13 +52,19 @@
       <div class="change-shift__onShift">
         <div class="onShift__label">На смене</div>
         <ng-container *ngIf="currentShift != null">
-          <div class="onShift__add gridster-item-content" (click)="showPeople($event)">+</div>
+          <div
+            class="onShift__add gridster-item-content"
+            (click)="showPeople($event)"
+          >
+            +
+          </div>
           <div class="onShift__people scroll-bar">
-            <div *ngFor="let person of this.presentMembers">
+            <div *ngFor="let person of this.presentMembers; let i = index">
               <evj-shift-person
                 [person]="person"
                 [shiftType]="this.aboutWidget.widgetType"
                 [shiftId]="currentShift.id"
+                [currentBrigade]="currentShift.brigade.id"
                 [onShift]="true"
                 [isPresent]="true"
               ></evj-shift-person>
@@ -55,9 +72,10 @@
           </div>
           <div class="onShift__allPeople" #allPeople>
             <div class="allPeople__scroll scroll-bar">
-              <div *ngFor="let person of allWorkers">
+              <div *ngFor="let person of this.addingShiftMembers">
                 <evj-shift-person
                   [person]="person"
+                  [shiftId]="currentShift.id"
                   [onShift]="false"
                 ></evj-shift-person>
               </div>
@@ -77,29 +95,13 @@
                 [onShift]="true"
                 [isPresent]="false"
               ></evj-shift-person>
-              <!--            <div class="circle circle__left circle__left-top"></div>-->
-              <!--            <div class="circle circle__right circle__right-top"></div>-->
-              <!--            <div class="person__avatar">-->
-              <!--              <div class="circle circle__left circle__left-bottom"></div>-->
-              <!--              <div class="person__img"></div>-->
-              <!--            </div>-->
-              <!--            <div class="person__info">-->
-              <!--              <div class="person__name">{{ person.name }}</div>-->
-              <!--              <div class="person__position">{{ person.position }}</div>-->
-              <!--              <div class="person__place">{{ person.place }}</div>-->
-              <!--              <div class="person__status">-->
-              <!--                <div class="circle circle__right circle__right-top"></div>-->
-              <!--                <div class="status__name">{{ person.status }}</div>-->
-              <!--                <div class="status__icon"></div>-->
-              <!--              </div>-->
-              <!--            </div>-->
             </div>
           </div>
         </ng-container>
       </div>
       <div
         class="change-shift__comment"
-        style="height: 200px; min-height: 200px;"
+        style="height: 120px; min-height: 120px;"
       >
         <div class="comment__title">
           Комментарий оператора
@@ -145,9 +147,10 @@
       <div class="change-shift__submit" *ngIf="aboutWidget">
         <div class="submit__frame submit__frame-left"></div>
         <div class="submit__frame submit__frame-right"></div>
-        <button type="submit gridster-item-content">
+        <button type="submit"
+          (click)="shiftApply()">
           {{
-            this.aboutWidget.widgetType === 'shift-pass'
+            this.aboutWidget.widgetType === "shift-pass"
               ? "Передать смену"
               : "Принять смену"
           }}
