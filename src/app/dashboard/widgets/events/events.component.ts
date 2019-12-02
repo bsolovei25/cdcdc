@@ -14,6 +14,7 @@ import { Subscription } from "rxjs/index";
 import { NewWidgetService } from '../../services/new-widget.service';
 import { NewUserSettingsService } from '../../services/new-user-settings.service';
 
+
 @Component({
   selector: 'evj-events',
   templateUrl: './events.component.html',

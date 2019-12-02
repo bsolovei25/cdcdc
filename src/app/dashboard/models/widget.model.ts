@@ -27,3 +27,12 @@ export interface PieWidget{
   critical: number;
   nonCritical: number;
 }
+
+export interface TruncPieWidget{
+  name: string;
+  count: number;
+  critical: number;
+  image: string;
+}
+
+

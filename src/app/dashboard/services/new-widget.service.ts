@@ -88,6 +88,7 @@ export class NewWidgetService {
         this.dashboard.splice(this.dashboard.indexOf(item), 1);
       }
     }
+   
    } 
   
 
@@ -127,6 +128,12 @@ export class NewWidgetService {
   
         case 'pie-diagram':
           return data;
+
+        case 'truncated-diagram-counter':
+          return data;
+
+        case 'truncated-diagram-percentage':
+            return data;
     }
   }
 
