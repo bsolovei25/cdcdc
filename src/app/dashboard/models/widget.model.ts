@@ -27,3 +27,19 @@ export interface PieWidget{
   critical: number;
   nonCritical: number;
 }
+
+export interface BarWidget{
+  name: string;
+  good: number;
+  bad: number;
+  total: number;
+}
+
+export interface TruncPieWidget{
+  name: string;
+  count: number;
+  critical: number;
+  image: string;
+}
+
+

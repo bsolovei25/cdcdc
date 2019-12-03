@@ -24,7 +24,8 @@ export class ProductionPyramidComponent implements OnInit {
     this.subscription = this.widgetService
       .getWidgetChannel(this.id)
       .subscribe(data => {
-        this.aboutWidget = data;
+        this.aboutWidget = data.title;
+        
       });
   }
 

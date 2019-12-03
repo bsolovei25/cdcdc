@@ -20,17 +20,12 @@
       </div>
     </div>
   </div>
+</div>
 
   <ng-container *ngIf="this.isMock === true">
-    <div class="frame frame_top">
-      <div class="frame__circle frame__circle__left"></div>
-      <div class="frame__circle frame__circle__right"></div>
-    </div>
-
-    <div class="frame frame_bottom">
-      <div class="frame__circle frame__circle__left"></div>
-      <div class="frame__circle frame__circle__right"></div>
-    </div>
+    <evj-frame-top></evj-frame-top>
+    <div class="mock-container_content">events</div>
+    <evj-frame-bottom></evj-frame-bottom>
   </ng-container>
 
   <ng-container *ngIf="this.isMock === false">
@@ -282,10 +277,10 @@
         </div>
       </div>
     </ng-container>
-
-    <div class="frame frame_bottom" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
-      <div class="frame__circle frame__circle__left"></div>
-      <div class="frame__circle frame__circle__right"></div>
-    </div>
+    <evj-frame-bottom class="frame-bottom"></evj-frame-bottom>
+<!--    <div class="frame frame_bottom" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">-->
+<!--      <div class="frame__circle frame__circle__left"></div>-->
+<!--      <div class="frame__circle frame__circle__right"></div>-->
+<!--    </div>-->
 
   </ng-container>
