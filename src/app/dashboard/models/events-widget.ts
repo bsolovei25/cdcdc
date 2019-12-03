@@ -62,9 +62,17 @@ export interface RetrievalEvents {
   deadline: Date;
   description: string;
   id?: number;
+  responsibleOperator: User | null;
   responsibleUser: User | null;
   status: IStatus,
-  isNew: boolean
+  isNew: boolean,
+  priority: IPriority,
+  fixedBy: User,
+  branch: string,
+  organization: string,
+  eventDateTime: Date,
+  establishedFacts: string,
+  directReasons: ''
 }
 
 export interface EventsWidgetFilter {

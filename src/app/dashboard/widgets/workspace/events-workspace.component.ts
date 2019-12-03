@@ -33,7 +33,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
   category;
   place;
 
-  isNewRetrieval: boolean = false;
+  isNewRetrieval: RetrievalEvents = null;
 
   statuses: { [id in EventsWidgetNotificationStatus]: string; } = {
     "new": 'Новое',
@@ -87,7 +87,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
   resetComponent() {
     this.isNew = false;
-    this.isNewRetrieval = false
+    this.isNewRetrieval = null;
   }
 
 
@@ -177,7 +177,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
       branch: "Производство",
       category: { id: 1004, name: "equipmentStatus", code: '4' },
       comment: "Новое событие",
-      description: "",
+      description: undefined,
       deviationReason: "Причина отклонения...",
       directReasons: "",
       establishedFacts: "",
@@ -276,25 +276,39 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
 
   addRetrieval(): void {
-    this.isNewRetrieval = true;
-    const retrieval: RetrievalEvents = {
+    document.getElementById("overlay-retrieval").style.display = "block";
+
+    this.isNewRetrieval = {
       deadline: new Date,
       description: '',
+      responsibleOperator: { id: 4001, firstName: "Иван", lastName: "Иванов", email: "1@2", phone: "00123456789" },
+      branch: "Производство",
+      eventDateTime: new Date,
+      fixedBy: { id: 4002, firstName: "Петр", lastName: "Петров", email: "test@test", phone: "00123456789" },
+      organization: "АО Газпромнефть",
+      priority: { id: 2003, name: "standard", code: '2' },
+      status: { id: 3001, name: 'new', code: '0' },
+      establishedFacts: '',
+      directReasons: '',
+      isNew: true,
       responsibleUser: {
         id: 0,
         firstName: '',
         lastName: '',
         email: '',
-        phone: ''
+        phone: '',
       },
-      status: { id: 3001, name: 'new', code: '0' },
-      isNew: true
     }
-    this.event.retrievalEvents.push(retrieval);
+  }
+
+  overlayClose() {
+    document.getElementById("overlay-retrieval").style.display = "none";
+    this.isNewRetrieval = null;
+    console.log('close');
   }
 
   saveRetrieval(idEvent: number): void {
-
+    this.event.retrievalEvents.push(this.isNewRetrieval);
     // const retrieval: RetrievalEvents = {
     //   deadline: new Date,
     //   description: '',
@@ -309,27 +323,30 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
   cancelRetrieval(): void {
     this.event.retrievalEvents.pop();
-    this.isNewRetrieval = false;
   }
 
   async addRetrievalEvents(idEvent: number): Promise<void> {
     let retrieval = this.event.retrievalEvents[this.event.retrievalEvents.length - 1];
 
-    const idxUser = this.user.findIndex(f => f.id === Number(retrieval.responsibleUser.id));
-    if (idxUser !== -1) {
-      retrieval.responsibleUser = {
-        firstName: this.user[idxUser].firstName,
-        id: +this.user[idxUser].id,
-        lastName: this.user[idxUser].lastName,
-        email: this.user[idxUser].email,
-        phone: this.user[idxUser].phone
-      }
+    const idxUser = 0;
+
+    this.isNewRetrieval.responsibleUser = {
+      firstName: this.user[idxUser].firstName,
+      id: +this.user[idxUser].id,
+      lastName: this.user[idxUser].lastName,
+      email: this.user[idxUser].email,
+      phone: this.user[idxUser].phone
     }
+
+
     let snackBar = document.getElementById("snackbar");
 
     try {
-      const post = await this.eventService.addRetrievalEvents(idEvent, retrieval);
+      console.log(idEvent);
+
+      const post = await this.eventService.addRetrievalEvents(idEvent, this.isNewRetrieval);
       this.event.retrievalEvents[this.event.retrievalEvents.length - 1] = post;
+      this.overlayClose();
       snackBar.className = "show";
       snackBar.innerText = "Сохранено"
       setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, 3000);
@@ -338,16 +355,15 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
       snackBar.innerText = "Ошибка"
       setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, 3000);
       this.isLoading = false;
-
     }
-    this.isNewRetrieval = false;
   }
 
   editRetrieval(retrieval: RetrievalEvents) {
-    retrieval.isNew = true;
+    this.isNewRetrieval = retrieval;
+    document.getElementById("overlay-retrieval").style.display = "block";
   }
 
-  async  deleteRetrieval(idEvent: number, idRetr: number): Promise<void> {
+  async deleteRetrieval(idEvent: number, idRetr: number): Promise<void> {
     const del = await this.eventService.deleteRetrievalEvents(idEvent, idRetr);
     const idx = this.event.retrievalEvents.findIndex(i => i.id === idRetr);
     if (idx !== -1) {
