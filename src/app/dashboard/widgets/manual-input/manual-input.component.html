@@ -1,9 +1,6 @@
 <evj-widget-header [title]="title" [units]="units" [code]="code" [id]="id"></evj-widget-header>
 
-<div class="frame frame_top">
-  <div class="frame__circle frame__circle__left"></div>
-  <div class="frame__circle frame__circle__right"></div>
-</div>
+<evj-frame-top></evj-frame-top>
 
 <ng-container *ngIf="this.isMock === true">
   <table class="table-mock">
@@ -19,7 +16,7 @@
 
 <ng-container *ngIf="this.isMock === false">
 
-<div class="button-bar" (mousedown)="$event.stopPropagation()" 
+<div class="button-bar" (mousedown)="$event.stopPropagation()"
 (touchstart)="$event.stopPropagation()">
   <div class="buttons">
     <div class="button buttons__item  gridster-item-content" (click)="onButtonSave()">Сохранить значение</div>
@@ -27,8 +24,9 @@
 </div>
 
 
-<div class="table-container" (mousedown)="$event.stopPropagation()" 
-(touchstart)="$event.stopPropagation()">
+<div class="table-container"
+     (mousedown)="$event.stopPropagation()"
+     (touchstart)="$event.stopPropagation()">
   <div class="table">
     <div class="table-header">
       <div class="d-table">
@@ -92,10 +90,6 @@
 
 </ng-container>
 
-
-<div class="frame frame_bottom" (mousedown)="$event.stopPropagation()" 
-(touchstart)="$event.stopPropagation()">
-  <div class="frame__circle frame__circle__left"></div>
-  <div class="frame__circle frame__circle__right"></div>
-  
-</div>
+<evj-frame-bottom class="frame-bottom"
+                  (mousedown)="$event.stopPropagation()"
+                  (touchstart)="$event.stopPropagation()">></evj-frame-bottom>

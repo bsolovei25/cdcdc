@@ -17,7 +17,8 @@
   </ng-container>
 
   <ng-container *ngIf="!isMock">
-    <div class="production">
+    <div class="production" (mousedown)="$event.stopPropagation()"
+         (touchstart)="$event.stopPropagation()">
       <div class="pyramid">
         <div class="pyramid__title">
           Пирамида проишествий в соответствии с КТ-055
