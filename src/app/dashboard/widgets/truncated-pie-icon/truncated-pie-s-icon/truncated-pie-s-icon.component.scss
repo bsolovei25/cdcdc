@@ -112,10 +112,9 @@
   
   .content_block{
     position: relative;
-
     overflow-x: scroll;
     overflow-y: hidden;
-    height: calc(100% - 55px);
+    height: calc(100% - 56px);
     border: 1px dashed  rgb(47, 52, 68);
     border-style: none dashed none dashed;
     pointer-events: fill;
@@ -223,24 +222,13 @@
   
   }
   
-  
-  .blocks__show{
-    height: calc(100%);
+
+  .imgblock{
+    width: 310px;
     margin: 0 auto;
-  }
-  
-  .positive__show{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  .negative__show{
-    margin-top: 10px;
-    color: orange;
-  }
-  
-  .contant_show{
-    -ms-overflow-style: none;
-  }
-  
-  evj-widget-pie{
-    margin: 0 auto;
-  }
+ }
+ 
+ .imgblock img{
+   height: 140px;
+ }
+ 

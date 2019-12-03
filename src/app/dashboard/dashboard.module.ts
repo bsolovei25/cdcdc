@@ -34,6 +34,8 @@ import { TruncatedPieIconComponent } from './widgets/truncated-pie-icon/truncate
 import { PointDiagramComponent } from './widgets/point-diagram/point-diagram.component';
 import { OneColumnComponent } from './widgets/point-diagram/one-column/one-column.component';
 import { ProductionPyramidComponent } from './widgets/production-pyramid/production-pyramid.component';
+import { BarChartsComponent } from './widgets/bar-chart/bar-charts/bar-charts.component';
+import { BarChartComponent } from './widgets/bar-chart/bar-chart/bar-chart.component';
 
 
 
@@ -65,7 +67,9 @@ import { ProductionPyramidComponent } from './widgets/production-pyramid/product
     TruncatedPieSFirstComponent,
     TruncatedPieSIconComponent,
     TruncatedPieIconComponent,
-    ProductionPyramidComponent
+    ProductionPyramidComponent,
+    BarChartsComponent,
+    BarChartComponent
   ],
   entryComponents:[
     LineChartComponent,
@@ -79,7 +83,8 @@ import { ProductionPyramidComponent } from './widgets/production-pyramid/product
     TruncatedPieSFirstComponent,
     TruncatedPieSIconComponent,
     PointDiagramComponent,
-    ProductionPyramidComponent
+    ProductionPyramidComponent,
+    BarChartsComponent,
   ],
   exports: [
     HomeComponent,

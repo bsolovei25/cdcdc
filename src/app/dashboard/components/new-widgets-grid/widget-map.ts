@@ -9,6 +9,7 @@ import { TruncatedPieSFirstComponent } from '../../widgets/truncated-pie-first/t
 import { TruncatedPieSIconComponent } from '../../widgets/truncated-pie-icon/truncated-pie-s-icon/truncated-pie-s-icon.component';
 import { PointDiagramComponent } from '../../widgets/point-diagram/point-diagram.component';
 import { ProductionPyramidComponent } from '../../widgets/production-pyramid/production-pyramid.component';
+import { BarChartsComponent } from '../../widgets/bar-chart/bar-charts/bar-charts.component';
 
 
 export const WIDGETS = {
@@ -24,4 +25,5 @@ export const WIDGETS = {
     "truncated-diagram-counter": TruncatedPieSIconComponent,
     "point-diagram": PointDiagramComponent,
     "industrial-pyramid":ProductionPyramidComponent,
+    "bar-chart":BarChartsComponent,
 }
