@@ -134,6 +134,9 @@ export class NewWidgetService {
 
         case 'truncated-diagram-percentage':
             return data;
+
+        case 'bar-chart':
+            return data;
     }
   }
 
