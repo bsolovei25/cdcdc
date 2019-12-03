@@ -128,6 +128,8 @@ export class LineChartComponent implements OnInit, OnDestroy {
   };
   deviationPoints: any;
 
+  private subscriptions: Subscription[] = [];
+
   private subscription: Subscription;
 
   private subscription2: Subscription;
@@ -138,12 +140,12 @@ export class LineChartComponent implements OnInit, OnDestroy {
     @Inject('isMock') public isMock: boolean,
     @Inject('widgetId') public id: string
   ) {
-    this.subscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
+    this.subscriptions.push(this.widgetService.getWidgetChannel(id).subscribe(data => {
       this.code = data.code,
         this.title = data.title,
         this.units = data.units,
-        this.options = data.widgetOptions
-    });
+        this.options = data.widgetOptions;
+    }));
   }
 
   ngOnInit() {
@@ -153,12 +155,8 @@ export class LineChartComponent implements OnInit, OnDestroy {
         if (this.dataLine) {
           this.draw(this.dataLine);
         }
-        try {
-
-        } catch {};
       }, 500);
     }
-
   }
 
   ngOnDestroy() {
@@ -177,22 +175,15 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
   private enableLiveData() {
     // TODO добавить получение типа графика
-
-    this.subscription2 = this.widgetService.getWidgetLiveDataFromWS(this.id, 'line-chart')
+    this.subscriptions.push(this.widgetService.getWidgetLiveDataFromWS(this.id, 'line-chart')
       .subscribe((ref) => {
         this.dataLine = ref;
-        this.draw(ref);
-
-        this.subscription2.unsubscribe();
-      }
-      );
+        this.draw(this.dataLine);
+        console.log('update-line-chat');
+      }));
   }
 
   private disableLiveData() {
-
-    if (this.subscription2) {
-      this.subscription2.unsubscribe();
-    }
     this.draw(Mock);
   }
 
