@@ -42,14 +42,14 @@ export class IndicatorSelectorComponent implements OnInit {
     this.getActiveScreen();
   }
 
-  public LoadScreen(id){
+  public LoadScreen(id) {
     this.userSettings.LoadScreen(id);
 
   }
 
   getActiveScreen() {
-    for (let item of this.dataScreen){
-      if (this.idScreen === item.id){
+    for (const item of this.dataScreen) {
+      if (this.idScreen === item.id) {
         return this.nameScreen = item.screenName;
       }
     }
@@ -83,7 +83,7 @@ export class IndicatorSelectorComponent implements OnInit {
   public updateScreen(id, newName){
     for(let item of this.dataScreen){
       if(item.id === id){
-        item.updateScreen = false; 
+        item.updateScreen = false;
       }
     }
     this.userSettings.updateScreen(id, newName);

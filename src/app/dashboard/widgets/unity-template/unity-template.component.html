@@ -1,0 +1,10 @@
+<evj-widget-header [title]="title" [units]="units" [code]="code" [id]="id"></evj-widget-header>
+<evj-frame-top></evj-frame-top>
+<div class="body-container"
+     (mousedown)="$event.stopPropagation()"
+     (touchstart)="$event.stopPropagation()">
+  <div class="loader" *ngIf="!isStart"></div>
+  <div id="unityContainer_unity-template" *ngIf="!isMock"></div>
+</div>
+<evj-frame-bottom></evj-frame-bottom>
+
