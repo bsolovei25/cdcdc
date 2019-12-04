@@ -36,8 +36,7 @@ import { OneColumnComponent } from './widgets/point-diagram/one-column/one-colum
 import { ProductionPyramidComponent } from './widgets/production-pyramid/production-pyramid.component';
 import { BarChartsComponent } from './widgets/bar-chart/bar-charts/bar-charts.component';
 import { BarChartComponent } from './widgets/bar-chart/bar-chart/bar-chart.component';
-
-
+import { UnityTemplateComponent } from './widgets/unity-template/unity-template.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +68,8 @@ import { BarChartComponent } from './widgets/bar-chart/bar-chart/bar-chart.compo
     TruncatedPieIconComponent,
     ProductionPyramidComponent,
     BarChartsComponent,
-    BarChartComponent
+    BarChartComponent,
+    UnityTemplateComponent
   ],
   entryComponents:[
     LineChartComponent,
@@ -85,6 +85,7 @@ import { BarChartComponent } from './widgets/bar-chart/bar-chart/bar-chart.compo
     PointDiagramComponent,
     ProductionPyramidComponent,
     BarChartsComponent,
+    UnityTemplateComponent,
   ],
   exports: [
     HomeComponent,

@@ -10,6 +10,7 @@ import { TruncatedPieSIconComponent } from '../../widgets/truncated-pie-icon/tru
 import { PointDiagramComponent } from '../../widgets/point-diagram/point-diagram.component';
 import { ProductionPyramidComponent } from '../../widgets/production-pyramid/production-pyramid.component';
 import { BarChartsComponent } from '../../widgets/bar-chart/bar-charts/bar-charts.component';
+import {UnityTemplateComponent} from '../../widgets/unity-template/unity-template.component';
 
 
 export const WIDGETS = {
@@ -24,6 +25,7 @@ export const WIDGETS = {
     "truncated-diagram-percentage": TruncatedPieSFirstComponent,
     "truncated-diagram-counter": TruncatedPieSIconComponent,
     "point-diagram": PointDiagramComponent,
-    "industrial-pyramid":ProductionPyramidComponent,
-    "bar-chart":BarChartsComponent,
+    "industrial-pyramid": ProductionPyramidComponent,
+    "bar-chart": BarChartsComponent,
+    "unity-template": UnityTemplateComponent
 }

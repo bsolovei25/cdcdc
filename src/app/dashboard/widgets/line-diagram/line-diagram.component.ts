@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Inject} from '@angular/core';
+import {Component, Input, OnInit, OnDestroy, Inject} from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { Subscription } from 'rxjs';
 import { inject } from '@angular/core/testing';
@@ -44,7 +44,6 @@ export class LineDiagramComponent implements OnInit {
   ) {
       this.subscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
         this.title = data.title;
-        console.log('my: ', data)
     });
   }
 
@@ -52,7 +51,7 @@ export class LineDiagramComponent implements OnInit {
     this.showMock(this.isMock);
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
@@ -75,7 +74,6 @@ export class LineDiagramComponent implements OnInit {
   }
 
   wsConnect() {
-   // console.log('start ld ws')
     this.subscription = this.widgetService.getWidgetLiveDataFromWS(this.id, 'line-diagram')
       .subscribe((ref) => {
           this.data = [];
