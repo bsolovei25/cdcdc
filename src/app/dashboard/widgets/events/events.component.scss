@@ -16,7 +16,23 @@
   width: 100%;
 }
 
-.delete_widget{
+.selected-block {
+  border: 1px solid var(--color-border-active);
+  background: linear-gradient(0deg, rgba(63, 169, 245, 0.1) 0%, var(--color-bg-main) 100%);
+}
+
+.selected {
+  .line {
+    border-color: var(--color-border-active);
+  }
+  .line__circle {
+    border-color: var(--color-border-active);
+  }
+  border-color: var(--color-border-active);
+  background: linear-gradient(0deg, rgba(63, 169, 245, 0.1) 0%, var(--color-bg-main) 100%);
+}
+
+.delete_widget {
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -27,6 +43,20 @@
   box-sizing: border-box;
   font-weight: bold;
   pointer-events: fill !important;
+}
+
+.mock-container {
+  &_content {
+    width: calc(100% - 1px);
+    height: 140px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 140px;
+    font-size: 25px;
+    color: var(--color-text-sub);
+    border-left: dashed 0.5px var(--color-border-main);
+    border-right: dashed 0.5px var(--color-border-main);
+  }
 }
 
 .events {
@@ -43,7 +73,7 @@
 }
 
 .header {
- // position: relative;
+  // position: relative;
   height: 38px;
   width: 430px;
   box-sizing: border-box;
@@ -51,7 +81,7 @@
   background-color: var(--color-bg-additional);
 
   &__icon {
-      fill: #8C99B2;
+    fill: #8c99b2;
   }
 
   &__content {
@@ -124,94 +154,10 @@
   }
 }
 
-.frame {
+.frame-bottom {
+  position: absolute;
+  bottom: 0;
   width: 100%;
-  height: 28px;
-  min-width: 430px;
-
-  border: 0.5px solid var(--color-border-main-transparrent);
-  border-bottom: transparent;
-  position: relative;
-
-  &__circle {
-    @extend %circle;
-    &__left {
-      left: -2.5px;
-    }
-
-    &__right {
-      right: -2.5px;
-    }
-  }
-
-  &_top {
-    &:after {
-      z-index: 1;
-      content: "";
-      position: absolute;
-      top: -3px;
-      right: -1px;
-
-      height: 7px;
-      width: 7px;
-      box-sizing: border-box;
-      transform-origin: 43% 0;
-      transform: rotate(-45deg);
-
-      border-left: 0.5px solid var(--color-border-main-transparrent);
-
-      background: var(--color-bg-main);
-    }
-  }
-
-  &_bottom {
-    position: absolute;
-    bottom: 0;
-    border-bottom: 0.5px solid var(--color-border-main-transparrent);
-    border-top: transparent;
-
-    &:after {
-      z-index: 1;
-      content: "";
-      position: absolute;
-
-      bottom: -5px;
-      right: -1px;
-
-      height: 7px;
-      width: 7px;
-
-      box-sizing: border-box;
-      transform-origin: 43% 0;
-      transform: rotate(-45deg);
-
-      border-top: 0.5px solid var(--color-border-main-transparrent);
-      background: var(--color-bg-main);
-    }
-
-    &:before {
-      z-index: 1;
-      content: "";
-      position: absolute;
-
-      bottom: -3px;
-      left: -1px;
-
-      height: 6px;
-      width: 6px;
-
-      box-sizing: border-box;
-      transform-origin: 43% 0;
-      transform: rotate(45deg);
-
-      border-top: 0.5px solid var(--color-border-main-transparrent);
-      background: var(--color-bg-main);
-    }
-  }
-
-  &_bottom &__circle {
-    top: 0;
-  }
 }
 
 .categories {
@@ -348,7 +294,7 @@
       margin-bottom: 15px;
       height: 160px;
 
-      width: 400px;
+      width: 340px;
       &:last-child {
         margin-bottom: 0;
       }
@@ -442,7 +388,7 @@
   }
 
   &__extra {
-    flex: 1 98px;
+    flex: 1 150px;
     max-width: 98px;
 
     display: flex;
@@ -451,7 +397,7 @@
   }
 
   &__status {
-    margin-left: 10px;
+    // margin-left: 10px;
     font-size: 0.75rem;
     color: var(--color-text-sub);
 
@@ -572,7 +518,7 @@
 
   &__extra {
     flex: 1 98px;
-    max-width: 150px;
+    max-width: 160px;
 
     display: flex;
     justify-content: flex-end;
@@ -643,7 +589,7 @@
     }
 
     &__right {
-      right: -6.5px;
+      right: 1px;
     }
   }
 }
@@ -706,7 +652,7 @@
     position: absolute;
     top: 2px;
     width: 1px;
-    height: calc(100% - 12px);
+    height: calc(100%);
 
     box-sizing: border-box;
 
@@ -716,7 +662,7 @@
     }
 
     &_right {
-      right: -1px;
+      right: 0;
       border-right: var(--line-border);
     }
   }
@@ -734,4 +680,12 @@
       right: -2.25px;
     }
   }
+}
+
+.list {
+  fill: var(--color-border-active);
+}
+
+.blocks {
+  fill: var(--color-border-active);
 }

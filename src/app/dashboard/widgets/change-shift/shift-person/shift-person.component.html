@@ -1,4 +1,9 @@
-<div class="onShift__person  gridster-item-content" (click)="showMenu()" [ngClass]="(onShift)?'isOnShift':'allPeople'">
+<div class="onShift__person  gridster-item-content"
+     [class.disable-person]="!isPresent && onShift"
+     [ngClass]="(onShift)?'isOnShift':'allPeople'"
+     #insideElement
+     (mouseover)="onMouseOver()"
+     (mouseout)="onMouseOut()">
   <div class="circle circle__left circle__left-top"></div>
   <div class="circle circle__right circle__right-top"></div>
   <div class="person__avatar">
@@ -6,25 +11,35 @@
     <div class="person__img"></div>
   </div>
   <div class="person__info" *ngIf="person">
-    <div class="person__name" *ngIf="person.employee">{{ person.employee.firstName}} {{person.employee.lastName}}</div>
-    <div class="person__position" *ngIf="person.employee">{{ this.getDisplayPosition(person.employee.position) }}</div>
-    <div class="person__place">Блок очистки</div>
+    <div class="person__name" *ngIf="person.employee">{{person.employee.lastName}} {{ person.employee.firstName.charAt(0).toUpperCase() }}.</div>
+    <div class="person__position" *ngIf="person.employee">{{ this.getDisplayPosition(person.position) }}</div>
+    <div class="person__place">{{ person.employee.positionDescription }}</div>
     <div class="person__status" *ngIf="onShift">
       <div class="circle circle__right circle__right-top"></div>
       <div class="status__name">{{ this.getDisplayStatus(person.status) }}</div>
-      <div class="status__icon"></div>
+      <div class="status__icon"
+          [class.status__icon__ready]="(person.status === 'Passed' || person.status === 'Accepted')"
+          [class.status__icon__progress]="!(person.status === 'Passed' || person.status === 'Accepted')"></div>
     </div>
   </div>
   <div *ngIf="onShift">
-    <div class="dropdown disable" *ngIf="!person.main" #dropdown>
-      <div class="dropdown__item" (click)="menuCheck($event, person.employee.id)">{{
+    <div class="dropdown disable" *ngIf="!isMain" #dropdown>
+      <div class="dropdown__item"
+           *ngIf="isPresent && (person.status === 'Passed' || person.status === 'Accepted')"
+           (click)="menuCheck($event, person)">
+        Отменить
+      </div>
+      <div class="dropdown__item"
+           *ngIf="isPresent && !(person.status === 'Passed' || person.status === 'Accepted')"
+           (click)="menuCheck($event, person)">{{
           shiftType === 'shift-pass'
           ? "Передать смену"
           : "Принять смену"
         }}
       </div>
-      <div class="dropdown__item" (click)="menuCheck($event, person.employee.id)">Отсутствует</div>
-      <div class="dropdown__item" (click)="menuCheck($event, person.employee.id)">Сделать главным</div>
+      <div class="dropdown__item" *ngIf="isPresent" (click)="menuCheck($event, person)">Отсутствует</div>
+      <div class="dropdown__item" *ngIf="!isPresent" (click)="menuCheck($event, person)">На месте</div>
+      <div class="dropdown__item" *ngIf="isPresent" (click)="menuCheck($event, person)">Сделать главным</div>
     </div>
   </div>
 </div>

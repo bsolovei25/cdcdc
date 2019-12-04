@@ -21,7 +21,7 @@
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  padding: 5px;
+  //padding: 5px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -29,6 +29,8 @@
 
 .mock {
   display: block;
+  border-left: dashed 0.5px var(--color-border-main);
+  border-right: dashed 0.5px var(--color-border-main);
   height: 200px;
 }
 
@@ -217,7 +219,6 @@
   position: relative;
   overflow: hidden;
 
-
   &__mainWorker {
     width: 100%;
     display: inline-flex;
@@ -244,8 +245,11 @@
         width: 104.62px;
         height: 104.62px;
         border-radius: 50%;
-        margin: 0 auto;
-        background-color: var(--color-bg-active); //temp
+        margin-left: 20px;
+        margin-top: 15px;
+        background: url('../../../../assets/pic/avatar_temp.jpg');
+        background-repeat: no-repeat;
+        background-size: contain;
       }
 
       &__info {
@@ -264,7 +268,18 @@
           width: 35px;
           height: 35px;
           border-radius: 50%;
-          background-color: var(--color-bg-active); //temp
+          background-size: auto;
+
+          &__InProgress {
+            background-color: var(--color-border-main);
+            mask: url('../../../../assets/icons/widgets/process/in-work.svg') no-repeat center;
+            mask-size: contain;
+          }
+          &__Ready {
+            background-color: var(--color-text-main);
+            mask: url('../../../../assets/icons/widgets/process/closed.svg') no-repeat center;
+            mask-size: contain;
+          }
         }
 
         &:last-child {
@@ -348,7 +363,7 @@
     box-sizing: border-box;
     padding-top: 15px;
     margin-bottom: 10px;
-    min-height: 140px;
+    min-height: 200px;
 
     .onShift {
       &__label {
@@ -393,7 +408,7 @@
 
       &__people {
         width: 100%;
-        height: 180px;
+        height: 200px;
         display: inline-flex;
         flex-wrap: wrap;
         justify-content: flex-start;
@@ -468,7 +483,7 @@
     box-sizing: border-box;
     padding-top: 15px;
     margin-bottom: 10px;
-    min-height: 70px;
+    min-height: 120px;
 
     .absent {
       &__label {
@@ -487,7 +502,7 @@
         overflow: auto;
         box-sizing: border-box;
         padding: 3px 0 0;
-        height: 90px;
+        height: 100px;
         margin-bottom: 10px;
       }
 
@@ -497,10 +512,10 @@
         margin-top: 20px;
         display: inline-flex;
         position: relative;
-        border-top: 0.5px dashed var(--color-border-main-transparrent);
+        //border-top: 0.5px dashed var(--color-border-main-transparrent);
         font-size: 7px;
         box-sizing: border-box;
-        padding-top: 5px;
+        //padding-top: 5px;
         margin: 0 7px 20px;
 
         .person {
@@ -810,6 +825,11 @@
 
       &:hover {
         cursor: pointer;
+        background-color: var(--color-bg-additional);
+      }
+      &:active {
+        cursor: pointer;
+        background-color: var(--color-bg-active);
       }
     }
 
@@ -819,7 +839,7 @@
         z-index: 1;
         height: 100%;
         width: 20px;
-        border: 2px solid var(--color-border-active);
+        border: 2px solid var(--color-border-unactive);
         box-sizing: border-box;
         background: transparent;
         &-left {
@@ -842,7 +862,7 @@
             transform-origin: 43% 0;
             transform: rotate(-45deg);
 
-            border-bottom: 2px solid var(--color-border-active);
+            border-bottom: 2px solid var(--color-border-unactive);
             background: var(--color-bg-main);
           }
 
@@ -861,7 +881,7 @@
             transform-origin: 43% 0;
             transform: rotate(45deg);
 
-            border-top: 2px solid var(--color-border-active);
+            border-top: 2px solid var(--color-border-unactive);
             background: var(--color-bg-main);
           }
         }
@@ -885,7 +905,7 @@
             transform-origin: 43% 0;
             transform: rotate(45deg);
 
-            border-bottom: 2px solid var(--color-border-active);
+            border-bottom: 2px solid var(--color-border-unactive);
             background: var(--color-bg-main);
           }
 
@@ -904,7 +924,7 @@
             transform-origin: 43% 0;
             transform: rotate(-45deg);
 
-            border-top: 2px solid var(--color-border-active);
+            border-top: 2px solid var(--color-border-unactive);
             background: var(--color-bg-main);
           }
         }

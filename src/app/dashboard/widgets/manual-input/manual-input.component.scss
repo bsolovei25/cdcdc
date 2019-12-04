@@ -4,30 +4,6 @@
   height: 100%;
   width: 100%;
 
-  --color-bg-main: #1B1E27;
-  --color-bg-main-dark: #181B23;
-  --color-bg-sub: #272B35;
-  --color-bg-additional: #21272e;
-  --color-bg-disable: rgba(13, 16, 20, 0.2);
-  --color-bg-active: rgba(63, 169, 245, 0.11);
-
-  --color-border-main: #5B607D;
-  --color-border-main-transparrent: rgba(91, 96, 125, 0.9);
-  --color-border-active: #3FA9F5;
-
-  --color-text-main: #e8e8e8;
-  --color-text-sub: #8C99B2;
-  --color-text-sub-heading: #5B607D;
-
-  --color-plan: #A2E2FF;
-  --color-fact: #fff;
-  --color-deviation: #F4A321;
-
-  --color-danger: #EA1F1F;
-  --color-warning: #F4A321;
-
-  font-family: Tahoma, Geneva, sans-serif;
-
   --border-style-dashed: dashed 1px var(--color-border-main);
   --border-style-solid: solid 1px var(--color-border-main);
   --space-top: 50px;
@@ -35,17 +11,6 @@
   --tree-width-1: 1%;
   --tree-width-2: 1%;
   --tree-width-3: 1%;
-}
-
-@font-face {
-  font-family: 'Tahoma';
-  src: url('../../../../assets/fonts/Tahoma/Tahoma.eot');
-  src: url('../../../../assets/fonts/Tahoma/Tahoma.eot?#iefix') format('embedded-opentype'),
-  url('../../../../assets/fonts/Tahoma/Tahoma.woff2') format('woff2'),
-  url('../../../../assets/fonts/Tahoma/Tahoma.woff') format('woff'),
-  url('../../../../assets/fonts/Tahoma/Tahoma.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
 }
 
 %circle {
@@ -145,96 +110,10 @@
   }
 }
 
-.frame {
-  width: calc(100% - 5px);
-  left: 3px;
-  height: 28px;
-  min-width: 430px;
-
-  border: 1px solid var(--color-border-main-transparrent);
-  border-bottom: transparent;
-  position: relative;
-
-  &__circle {
-    @extend %circle;
-    &__left {
-      left: -2.5px;
-    }
-
-    &__right {
-      right: -2.5px;
-    }
-  }
-  &_top {
-    &:after {
-      z-index: 0.1;
-      content: "";
-      position: absolute;
-      top: -2px;
-      right: -1px;
-
-      height: 6px;
-      width: 6px;
-      box-sizing: border-box;
-      transform-origin: 43% 0;
-      transform: rotate(-45deg);
-
-      border-left: 0.5px solid var(--color-border-main-transparrent);
-
-      background: var(--color-bg-main);
-
-    }
-  }
-
-  &_bottom {
-    position: absolute;
-    bottom: 0px;
-    border-bottom: 0.5px solid var(--color-border-main-transparrent);
-    border-top: transparent;
-
-    &:after {
-      z-index: 0.1;
-      content: "";
-      position: absolute;
-
-      bottom: -5px;
-      right: -1px;
-
-      height: 6px;
-      width: 6px;
-
-      box-sizing: border-box;
-      transform-origin: 43% 0;
-      transform: rotate(-45deg);
-
-      border-top: 0.5px solid var(--color-border-main-transparrent);
-      background: var(--color-bg-main);
-
-    }
-
-    &:before {
-      z-index: 1;
-      content: "";
-      position: absolute;
-
-      bottom: -4px;
-      left: -1px;
-
-      height: 6px;
-      width: 6px;
-
-      box-sizing: border-box;
-      transform-origin: 43% 0;
-      transform: rotate(45deg);
-
-      border-top: 0.5px solid var(--color-border-main-transparrent);
-      background: var(--color-bg-main);
-    }
-  }
-
-  &_bottom &__circle {
-    top: 0;
-  }
+.frame-bottom {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
 }
 
 .button-bar {
@@ -296,18 +175,17 @@
 
 .table-container {
   position: absolute;
-  //display: block;
   right: -1px;
   width: calc(100% - 1px);
-  height: calc(100% - 80px);
+  height: calc(100% - 70px);
   &:before {
     content: '';
     position: absolute;
-    left: 1px;
+    left: -2px;
     right: -5px;
-    top: 4px;
+    top: 0px;
     height: 100%;
-    width: calc(100% - 4.5px);
+    width: calc(100% - 2px);
     border-left: var(--border-style-dashed);
     border-right: var(--border-style-dashed);
   }
@@ -446,20 +324,7 @@
   display: table-row;
   width: 100%;
   position: relative;
-  //&:last-child {
-  //  //color: red;
-  //  &_line-block {
-  //    color: red;
-  //    position: absolute;
-  //    left: 0px;
-  //    bottom: 50%;
-  //    height: 50%;
-  //    width: 10px;
-  //    background: red;
-  //  }
-  //}
 }
-
 
 .d-td {
   display: table-cell;
@@ -674,8 +539,11 @@ input.data {
 
 table {
   width:100%;
+  height: calc(100% - 60px);
   text-align: center;
   color: var(--color-text-sub);
+  border-left: var(--border-style-dashed);
+  border-right: var(--border-style-dashed);
 }
 tr {
   height: 20%;

@@ -17,7 +17,6 @@ import * as d3Array from 'd3-array';
 import * as d3Axis from 'd3-axis';
 import * as d3Format from 'd3-format';
 import { Mock } from 'src/app/dashboard/widgets/line-chart/mock';
-import { WidgetsService } from "../../services/widgets.service";
 import { Subscription } from "rxjs";
 import { LineChartData } from "../../models/line-chart";
 import { NewWidgetService } from '../../services/new-widget.service';
@@ -28,10 +27,6 @@ import { NewWidgetService } from '../../services/new-widget.service';
   styleUrls: ['./line-chart.component.scss']
 })
 export class LineChartComponent implements OnInit, OnDestroy {
-
-
-  // options: LineChartOptions;
-  // position?: string = 'default';
 
   code;
   public title;
@@ -133,34 +128,35 @@ export class LineChartComponent implements OnInit, OnDestroy {
   };
   deviationPoints: any;
 
+  private subscriptions: Subscription[] = [];
+
   private subscription: Subscription;
 
   private subscription2: Subscription;
 
 
   constructor(
-    private oldWidgetsService: WidgetsService,
     public widgetService: NewWidgetService,
     @Inject('isMock') public isMock: boolean,
     @Inject('widgetId') public id: string
   ) {
-    this.subscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
+    this.subscriptions.push(this.widgetService.getWidgetChannel(id).subscribe(data => {
       this.code = data.code,
         this.title = data.title,
         this.units = data.units,
-        this.options = data.widgetOptions
-      //  this.position = data.
-    });
+        this.options = data.widgetOptions;
+    }));
   }
 
   ngOnInit() {
     this.showMock(this.isMock);
     if (!this.isMock) {
       setInterval(() => {
-        this.draw(this.dataLine);
-      }, 100);
+        if (this.dataLine) {
+          this.draw(this.dataLine);
+        }
+      }, 500);
     }
-
   }
 
   ngOnDestroy() {
@@ -179,22 +175,15 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
   private enableLiveData() {
     // TODO добавить получение типа графика
-
-    this.subscription2 = this.oldWidgetsService.getWidgetLiveDataFromWS(this.id, 'line-chart')
+    this.subscriptions.push(this.widgetService.getWidgetLiveDataFromWS(this.id, 'line-chart')
       .subscribe((ref) => {
         this.dataLine = ref;
-        this.draw(ref);
-
-        this.subscription2.unsubscribe();
-      }
-      );
+        this.draw(this.dataLine);
+        console.log('update-line-chat');
+      }));
   }
 
   private disableLiveData() {
-
-    if (this.subscription2) {
-      this.subscription2.unsubscribe();
-    }
     this.draw(Mock);
   }
 
@@ -239,7 +228,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
     if (this.deviationMode === 'limits') {
       this.drawLimitsAreas(upperLimit, lowerLimit);
-      this.drawLimitsDeviationAreas(upperLimit, lowerLimit, fact);
+      // this.drawLimitsDeviationAreas(upperLimit, lowerLimit, fact);
     } else {
       this.deleteLimitsData();
       this.drawDeviationAreas(plan, fact);

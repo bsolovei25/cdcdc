@@ -8,12 +8,7 @@ import {
 import { ShiftService } from "../../services/shift.service";
 import { Subscription } from "rxjs";
 import { NewWidgetService } from "../../services/new-widget.service";
-import {
-  ShiftPass,
-  Shift,
-  Employee,
-  ShiftMember
-} from "../../models/shift.model";
+import { Shift, ShiftMember } from "../../models/shift.model";
 
 @Component({
   selector: "evj-change-shift",
@@ -27,286 +22,101 @@ export class ChangeShiftComponent implements OnInit {
 
   mapPosition = [
     {
-      code: 'Responsible',
-      name: 'Старший оператор'
+      code: "Responsible",
+      name: "Старший оператор"
     },
     {
-      code: 'Common',
-      name: 'Оператор'
+      code: "Common",
+      name: "Оператор"
     }
   ];
 
   comments: string[] = [];
-  people = [
-  //   {
-  //     id: 1,
-  //     name: "Борис Гребенщиков",
-  //     position: "Старший оператор",
-  //     place: "Блок очистки",
-  //     status: "Сдал смену",
-  //     onShift: true,
-  //     main: false
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Сергей Сергеев",
-  //     position: "Старший оператор",
-  //     place: "Блок очистки",
-  //     status: "Сдал смену",
-  //     onShift: true,
-  //     main: false
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Илья Ильин",
-  //     position: "Старший оператор",
-  //     place: "Блок очистки",
-  //     status: "Сдал смену",
-  //     onShift: true,
-  //     main: false
-  //   },
-  //   {
-  //     id: 1,
-  //     name: "Борис Гребенщиков 123",
-  //     position: "Старший оператор",
-  //     place: "Блок очистки",
-  //     status: "Сдал смену",
-  //     onShift: true,
-  //     main: false
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Сергей Сергеев 123",
-  //     position: "Старший оператор",
-  //     place: "Блок очистки",
-  //     status: "Сдал смену",
-  //     onShift: true,
-  //     main: false
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Илья Ильин 132",
-  //     position: "Старший оператор",
-  //     place: "Блок очистки",
-  //     status: "Сдал смену",
-  //     onShift: true,
-  //     main: true
-  //   }
-  ];
-
-  allWorkers = [
-    {
-      id: 1,
-      name: "Борис Гребенщиков 1",
-      position: "Старший оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: true,
-      main: false
-    },
-    {
-      id: 2,
-      name: "Сергей Сергеев 1",
-      position: "Старший оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: true,
-      main: false
-    },
-    {
-      id: 3,
-      name: "Илья Ильин 1",
-      position: "Старший оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: true,
-      main: false
-    },
-    {
-      id: 4,
-      name: "Петр Петров 1",
-      position: "Оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: false,
-      main: false
-    },
-    {
-      id: 5,
-      name: "Иван Иванов 1",
-      position: "Оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: true,
-      main: true
-    },
-    {
-      id: 2,
-      name: "Сергей Сергеев 2",
-      position: "Старший оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: true,
-      main: false
-    },
-    {
-      id: 3,
-      name: "Илья Ильин 2",
-      position: "Старший оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: true,
-      main: false
-    },
-    {
-      id: 4,
-      name: "Петр Петров 2",
-      position: "Оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: false,
-      main: false
-    },
-    {
-      id: 5,
-      name: "Иван Иванов 2",
-      position: "Оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: true,
-      main: false
-    },
-    {
-      id: 1,
-      name: "Борис Гребенщиков 1",
-      position: "Старший оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: true,
-      main: true
-    },
-    {
-      id: 2,
-      name: "Сергей Сергеев 1",
-      position: "Старший оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: true,
-      main: false
-    },
-    {
-      id: 3,
-      name: "Илья Ильин 1",
-      position: "Старший оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: true,
-      main: false
-    },
-    {
-      id: 4,
-      name: "Петр Петров 1",
-      position: "Оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: false,
-      main: false
-    },
-    {
-      id: 5,
-      name: "Иван Иванов 1",
-      position: "Оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: true,
-      main: false
-    },
-    {
-      id: 2,
-      name: "Сергей Сергеев 2",
-      position: "Старший оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: true,
-      main: false
-    },
-    {
-      id: 3,
-      name: "Илья Ильин 2",
-      position: "Старший оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: true,
-      main: false
-    },
-    {
-      id: 4,
-      name: "Петр Петров 2",
-      position: "Оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: false,
-      main: false
-    },
-    {
-      id: 5,
-      name: "Иван Иванов 2",
-      position: "Оператор",
-      place: "Блок очистки",
-      status: "Сдал смену",
-      onShift: true,
-      main: false
-    }
-  ];
-
   aboutWidget;
-  wid: number;
-  acceptingShift: Shift;
-  passingShift: Shift;
-  currentShift: Shift;
+  currentShift: Shift = null;
+  presentMembers = null;
+  absentMembers = null;
+  addingShiftMembers = [];
 
   subscription: Subscription;
 
-
-
-  static itemCols = 25;
-  static itemRows = 45;
+  static itemCols = 16;
+  static itemRows = 30;
 
   constructor(
     private widgetService: NewWidgetService,
     private shiftService: ShiftService,
-    @Inject("isMock") public isMock: boolean = false,
+    @Inject("isMock") public isMock: boolean,
     @Inject("widgetId") public id: string
   ) {
-    // this.shiftService.getShiftPassService.subscribe(data => {
-    //   data
-    // })
-    if (this.shiftService.shiftPass) {
-      this.wid = this.shiftService.shiftPass.id;
-      this.acceptingShift = this.shiftService.shiftPass.acceptingShift;
-      this.passingShift = this.shiftService.shiftPass.passingShift;
-    }
+    this.shiftService.shiftPass.subscribe(data => {
+      if (this.aboutWidget) {
+        this.setRealtimeData(this.aboutWidget.widgetType, data);
+      }
+      // console.log(data);
+    });
+
     this.subscription = this.widgetService
       .getWidgetChannel(this.id)
       .subscribe(data => {
         this.aboutWidget = data;
-        console.log(this.aboutWidget.widgetType);
-        if (this.aboutWidget.widgetType === 'shift-pass') {
-          this.currentShift = this.passingShift;
-        } else {
-          this.currentShift = this.acceptingShift;
-        }
-        const index = this.currentShift.shiftMembers.findIndex(
-          item => item.employee.position === "Responsible"
+        this.setRealtimeData(
+          this.aboutWidget.widgetType,
+          this.shiftService.shiftPass.getValue()
         );
-        this.currentShift.shiftMembers[index].employee.main = true;
       });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
+
+  private setRealtimeData(widgetType, data) {
+    if (!widgetType || !data) {
+      return;
+    }
+    if (widgetType === "shift-pass") {
+      this.currentShift = data.passingShift;
+    } else {
+      this.currentShift = data.acceptingShift;
+    }
+
+    if (this.currentShift.shiftMembers) {
+      const index = this.currentShift.shiftMembers.findIndex(
+        item => item.position === "Responsible"
+      );
+      console.log(index);
+      this.currentShift.shiftMembers[index].employee.main = true;
+      const tempMember = this.currentShift.shiftMembers[0];
+      this.currentShift.shiftMembers[0] = this.currentShift.shiftMembers[index];
+      this.currentShift.shiftMembers[index] = tempMember;
+    }
+
+    this.absentMembers = this.currentShift.shiftMembers.filter(
+      el => el.status === "Absent"
+    );
+    this.presentMembers = this.currentShift.shiftMembers.filter(
+      el => el.status !== "Absent"
+    );
+
+    const tempShiftMembers = this.shiftService.allMembers.filter(
+      el => !this.currentShift.shiftMembers.some(em => em.employee.id === el.id)
+    );
+    for (const i in tempShiftMembers) {
+      const addingShiftMember: ShiftMember = new (class implements ShiftMember {
+        employee = null;
+        shiftType = null;
+        status = null;
+        position = "Common";
+      })();
+      addingShiftMember.employee = tempShiftMembers[i];
+      this.addingShiftMembers.push(addingShiftMember);
+    }
+  }
 
   getDisplayPosition(code): string {
-    return this.mapPosition.find(el => el.code === code).name;
+    if (code) {
+      return this.mapPosition.find(el => el.code === code).name;
+    }
   }
 
   onSendMessage() {
@@ -329,28 +139,10 @@ export class ChangeShiftComponent implements OnInit {
     this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
   }
 
-  peopleOnShift() {
-    const array = [];
-    for (let person of this.people) {
-      if (person.onShift) {
-        array.push(person);
-      }
-    }
-    return array;
-  }
-
-  peopleAbsent() {
-    const array = [];
-    for (let person of this.people) {
-      if (!person.onShift) {
-        array.push(person);
-      }
-    }
-    return array;
-  }
-
   getMain(): ShiftMember {
-    return this.currentShift.shiftMembers.find(item => item.employee.main);
+    if (this.currentShift) {
+      return this.currentShift.shiftMembers.find(item => item.employee.main);
+    }
   }
 
   showPeople(event: any) {
@@ -366,29 +158,13 @@ export class ChangeShiftComponent implements OnInit {
     }
   }
 
-  addPeopleToShift() {
-    //
-  }
-
-  findMainAndSort() {
-    let sortedArray = [];
-    const indexOfMain = this.people.findIndex(item => item.main);
-
-    if (indexOfMain !== 0 && indexOfMain !== this.people.length - 1) {
-      sortedArray = this.people
-        .slice(indexOfMain, indexOfMain + 1)
-        .concat(
-          this.people.slice(0, indexOfMain),
-          this.people.slice(indexOfMain + 1, this.people.length)
-        );
-    } else if (indexOfMain === this.people.length - 1) {
-      sortedArray = this.people
-        .slice(indexOfMain, indexOfMain + 1)
-        .concat(this.people.slice(0, indexOfMain));
+  shiftApply() {
+    if (this.aboutWidget.widgetType === "shift-pass") {
+      this.shiftService.applyShift(this.currentShift.id, "pass");
+      console.log("Сдал");
     } else {
-      sortedArray = this.people.map(item => item);
+      console.log("Принял");
+      this.shiftService.applyShift(this.currentShift.id, "accept");
     }
-
-    return sortedArray;
   }
 }

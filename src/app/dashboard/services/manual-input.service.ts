@@ -30,7 +30,6 @@ export class ManualInputService {
     const tempData = this.GetFlatData(data);
     const newFlatData = this.GetFlatData(newData);
     if (tempData.length === 0) {
-      console.log('tempData0');
       for (const i in newFlatData) {
         if (newFlatData[i].curValue !== '') {
           newFlatData[i].isSave = true;
@@ -38,7 +37,6 @@ export class ManualInputService {
           newFlatData[i].saveValue = newFlatData[i].curValue;
         }
       }
-      //console.log(newData);
       return newData;
     }
     for (const i in tempData) {
@@ -94,7 +92,7 @@ export class ManualInputService {
       User = 'Username';
       Params = params;
     };
-    console.log(JSON.stringify(req));
+    // console.log(JSON.stringify(req));
     this.PostData(req, data);
   }
 
@@ -102,10 +100,10 @@ export class ManualInputService {
     this.http.post(this.restUrl + '/manualinput/post', Params)
       .subscribe(
         (ans: MI_DataGet) => {
-          console.log(ans);
+          // console.log(ans);
           this.SaveValues(ans, data);
         },
-        error => console.log(error)
+      //  error => console.log(error)
       );
   }
 
