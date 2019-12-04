@@ -19,7 +19,7 @@ import { ShiftPersonComponent } from './widgets/change-shift/shift-person/shift-
 import { NewWidgetsPanelComponent } from './components/new-widgets-panel/new-widgets-panel.component';
 import { NewWidgetsGridComponent } from './components/new-widgets-grid/new-widgets-grid.component';
 import { GridsterModule } from 'angular-gridster2';
-import {UserInfoComponent} from './components/user-info/user-info.component';
+import { UserInfoComponent } from './components/user-info/user-info.component';
 import { WidgetPiesComponent } from './widgets/widgets-pie/widget-pies/widget-pies/widget-pies.component';
 import { WidgetsPieComponent } from './widgets/widgets-pie/widget-pie-circle/widget-pie/widget-pie.component';
 import { WidgetHeaderComponent } from './components/widget-header/widget-header.component';
@@ -36,6 +36,7 @@ import { OneColumnComponent } from './widgets/point-diagram/one-column/one-colum
 import { ProductionPyramidComponent } from './widgets/production-pyramid/production-pyramid.component';
 import { BarChartsComponent } from './widgets/bar-chart/bar-charts/bar-charts.component';
 import { BarChartComponent } from './widgets/bar-chart/bar-chart/bar-chart.component';
+import { CircleDiagramComponent } from './widgets/circle-diagram/circle-diagram.component';
 
 
 
@@ -69,9 +70,10 @@ import { BarChartComponent } from './widgets/bar-chart/bar-chart/bar-chart.compo
     TruncatedPieIconComponent,
     ProductionPyramidComponent,
     BarChartsComponent,
-    BarChartComponent
+    BarChartComponent,
+    CircleDiagramComponent
   ],
-  entryComponents:[
+  entryComponents: [
     LineChartComponent,
     WidgetPiesComponent,
     EventsComponent,
@@ -85,6 +87,7 @@ import { BarChartComponent } from './widgets/bar-chart/bar-chart/bar-chart.compo
     PointDiagramComponent,
     ProductionPyramidComponent,
     BarChartsComponent,
+    CircleDiagramComponent
   ],
   exports: [
     HomeComponent,
@@ -101,4 +104,4 @@ import { BarChartComponent } from './widgets/bar-chart/bar-chart/bar-chart.compo
   ],
   bootstrap: []
 })
-export class DashboardModule {}
+export class DashboardModule { }

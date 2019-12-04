@@ -1,0 +1,27 @@
+<div class="container pointer-event">
+
+    <evj-widget-header [title]="title" [id]="id"></evj-widget-header>
+
+    <evj-frame-top></evj-frame-top>
+
+    <ng-container *ngIf="isMock">
+        <div class="mock"></div>
+    </ng-container>
+
+    <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+
+        <!-- <svg-icon style="fill: aqua;" src="./assets/pic/circle-diagram.svg"></svg-icon> -->
+
+        <div class="cb">
+            <div #myCircle class="item-b">
+            </div>
+        </div>
+    </div>
+
+
+
+    <evj-frame-bottom></evj-frame-bottom>
+
+
+
+</div>
