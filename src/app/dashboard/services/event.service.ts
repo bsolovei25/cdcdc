@@ -116,7 +116,7 @@ export class EventService {
     async getUser(): Promise<any> {
         // TODO check
         try {
-            return this.http.get<any>(this.restUrl + '/api/notification-reference/user').toPromise();
+            return this.http.get<any>(this.restUrl + '/api/user-management/users').toPromise();
         } catch (error) {
             console.error(error);
         }

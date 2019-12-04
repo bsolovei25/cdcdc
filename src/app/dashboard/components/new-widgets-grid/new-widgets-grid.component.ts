@@ -34,7 +34,7 @@ export class NewWidgetsGridComponent implements OnInit {
     ){ }
 
   ngOnInit() {  
-    this.userSettings.getUserData();
+    this.userSettings.GetScreen();
 
     this.options = {
       gridType: GridType.Fixed,
