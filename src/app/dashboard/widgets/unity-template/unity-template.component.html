@@ -3,8 +3,10 @@
 <div class="body-container"
      (mousedown)="$event.stopPropagation()"
      (touchstart)="$event.stopPropagation()">
-  <div class="loader" *ngIf="!isStart"></div>
-  <div id="unityContainer_unity-template" *ngIf="!isMock"></div>
+  <div class="unity-body-container">
+    <div class="loader" *ngIf="!isStart"></div>
+    <div id="unityContainer_unity-template" *ngIf="!isMock"></div>
+  </div>
 </div>
 <evj-frame-bottom></evj-frame-bottom>
 
