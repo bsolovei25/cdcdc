@@ -20,6 +20,7 @@ export interface ScreenSettings {
   user: User[];
   screenName: string;
   updateScreen: boolean;
+  widgets: NewUserGrid[];
 }
 
 
