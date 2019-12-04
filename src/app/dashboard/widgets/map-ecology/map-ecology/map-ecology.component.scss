@@ -1,0 +1,104 @@
+.content_block{
+    position: relative;
+    height: calc(100% - 56px);
+    border: 1px dashed var(--color-border-main);
+    border-style: none dashed none dashed;
+    pointer-events: fill;
+}
+
+.blocks{
+    width: 100%;
+    min-width: 100px;
+    height: calc(100%);
+}
+
+.imgblock{
+    width: 310px;
+    margin: 0 auto;
+}
+ 
+.imgblock img{
+   height: 140px;
+ }
+
+.container_map{
+    height: 100%;
+    display: flex;
+ //   align-items: center;
+}
+
+.map{   
+    height: 100%;
+    width: 100%;
+
+}
+
+.map2{
+    height: 100%;
+    margin-left: -100px;
+}
+
+.table_map{
+    width: 450px;
+}
+
+.info_block{
+    text-align: center;
+    font-size: 12px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.value_block{
+    text-align: center;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.indicators{
+    width: 150px;
+}
+
+.indicators_value{
+    width: 150px;
+}
+
+.change_point{
+    font-size: 12px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 150px;
+    display: flex;
+    justify-content: space-between;
+}
+.button_left{
+    width: 20px;
+    height: 10px;
+   background-color: blue;
+}
+
+.name_point{
+    
+}
+
+.button_right{
+    height: 10px;
+    background-color: red;
+   width: 20px; 
+}
+
+.value_name{
+    width: 150px;
+}
+
+.value{
+    width: 150px;
+}
+
+.value_point{
+    width: 150px;
+}
