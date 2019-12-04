@@ -1,17 +1,27 @@
 <div class="container pointer-event">
   <evj-widget-header [title]="title" [id]="id"></evj-widget-header>
 
-
   <evj-frame-top></evj-frame-top>
 
   <ng-container *ngIf="isMock">
-    <div class="mock"></div>
+    <div class="mock">
+      <div class="line">---------------------</div>
+      <div class="line">---------------------</div>
+      <div class="line">---------------------</div>
+      <div class="line">---------------------</div>
+      <div class="line">---------------------</div>
+      <div class="line">---------------------</div>
+      <div class="line">---------------------</div>
+      <div class="line">---------------------</div>
+      <div class="line">---------------------</div>
+    </div>
+
   </ng-container>
 
   <ng-container *ngIf="!isMock">
 
 
-    <section class="table">
+    <section class="table" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
       <div class="table__header">
         <table>
           <thead>
@@ -26,6 +36,11 @@
             </tr>
           </thead>
         </table>
+      </div>
+
+      <div class="frame frame_top">
+        <div class="frame__circle frame__circle__topleft"></div>
+        <div class="frame__circle frame__circle__topright"></div>
       </div>
       <div class="table__body scroll-bar">
         <table>
@@ -42,13 +57,10 @@
           </tbody>
         </table>
       </div>
+
     </section>
 
-
-
   </ng-container>
-
-
 
   <evj-frame-bottom></evj-frame-bottom>
 

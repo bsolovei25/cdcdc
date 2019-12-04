@@ -28,9 +28,45 @@ export class SuspenseMachineComponent implements OnInit, OnDestroy {
     subscription: Subscription;
     isLoading: boolean = false;
 
-    public title = 'Простой Установки';
+    public title = 'Простой установки';
 
     data: ISuspenseMachine[] = [
+        {
+            date: new Date('2019-11-01T12:01:05'),
+            production: "№2 - ПГНПАКУ",
+            equipment: 'КПА-200',
+            suspenseBreakpoint: '10',
+            suspenseDuration: 0.2,
+            suspenseCause: 'КИП',
+            suspenseRelated: 'Технологическая'
+        },
+        {
+            date: new Date('2019-11-01T12:01:05'),
+            production: "№2 - ПГНПАКУ",
+            equipment: 'КПА-200',
+            suspenseBreakpoint: '10',
+            suspenseDuration: 0.2,
+            suspenseCause: 'КИП',
+            suspenseRelated: 'Технологическая'
+        },
+        {
+            date: new Date('2019-11-01T12:01:05'),
+            production: "№2 - ПГНПАКУ",
+            equipment: 'КПА-200',
+            suspenseBreakpoint: '10',
+            suspenseDuration: 0.2,
+            suspenseCause: 'КИП',
+            suspenseRelated: 'Технологическая'
+        },
+        {
+            date: new Date('2019-11-01T12:01:05'),
+            production: "№2 - ПГНПАКУ",
+            equipment: 'КПА-200',
+            suspenseBreakpoint: '10',
+            suspenseDuration: 0.2,
+            suspenseCause: 'КИП',
+            suspenseRelated: 'Технологическая'
+        },
         {
             date: new Date('2019-11-01T12:01:05'),
             production: "№2 - ПГНПАКУ",
