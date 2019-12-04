@@ -21,9 +21,9 @@ export class IndicatorSelectorComponent implements OnInit {
 
   private subscription: Subscription;
 
-  public idScreen = 1;
+  public idScreen: number;
 
-  public nameScreen;
+  public nameScreen: string;
 
   constructor(
     private userSettings: NewUserSettingsService
@@ -39,26 +39,27 @@ export class IndicatorSelectorComponent implements OnInit {
 
     });
 
-    this.getActiveScreen();
+    this.nameScreen = this.getActiveScreen();
   }
 
   public LoadScreen(id){
     this.userSettings.LoadScreen(id);
-
   }
 
-  getActiveScreen() {
-    for (let item of this.dataScreen){
-      if (this.idScreen === item.id){
-        return this.nameScreen = item.screenName;
-      }
+  getActiveScreen(): string {
+    if (this.idScreen) {
+      const currentScreen = this.dataScreen.find(x => x.id === this.idScreen);
+      if (currentScreen)
+        return currentScreen.screenName
     }
+    if (this.dataScreen[0])
+      return this.dataScreen[0].screenName;
   }
 
   setActiveScreen(screen) {
-    this.nameScreen = this.dataScreen[0].id;
-    screen.isActive = true;
+    this.nameScreen = screen.screenName;
     this.idScreen = screen.id;
+    screen.isActive = true;
   }
 
   onChangeAdder() {
@@ -74,9 +75,12 @@ export class IndicatorSelectorComponent implements OnInit {
     for (let item of this.dataScreen) {
       if (item.id === id){
         this.dataScreen.splice(this.dataScreen.indexOf(item), 1);
-        this.nameScreen = this.dataScreen[0].screenName;
-        this.idScreen = this.dataScreen[0].id;
       }
+    }
+
+    if (this.idScreen === id) {
+      this.nameScreen = this.dataScreen[0].screenName;
+      this.idScreen = this.dataScreen[0].id;
     }
   }
 
