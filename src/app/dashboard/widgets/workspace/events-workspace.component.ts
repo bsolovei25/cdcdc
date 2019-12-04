@@ -226,8 +226,6 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy {
     this.eventService.updateEvent$.next(true);
   }
 
-
-
   addRetrieval(): void {
     const retrieval: RetrievalEvents = {
       deadline: new Date,
@@ -237,8 +235,10 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy {
       isNew: true
     }
     this.event.retrievalEvents.push(retrieval);
+  }
 
-
+  getIndex(i: number) {
+    return Number(i + 1).toString();
   }
 
 }

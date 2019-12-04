@@ -206,7 +206,7 @@
             <ul class="events">
               <li class="event" *ngFor="let retrieval of event.retrievalEvents; let i = index">
                 <div class="event__header">
-                  <span> {{ i + 1 }} <span class="event__sub">Ответственный</span>
+                  <span> {{ getIndex(i) }}. <span class="event__sub">Ответственный</span>
                   </span>
                   <span *ngIf="retrieval.status" class="event__sub-right">{{ statuses[retrieval.status.name] }}</span>
                 </div>
@@ -326,10 +326,10 @@
   </ng-container>
 
 
-<evj-frame-bottom></evj-frame-bottom>
-<!--  <div class="frame frame_bottom">-->
-<!--    <div class="frame__circle frame__circle__left"></div>-->
-<!--    <div class="frame__circle frame__circle__right"></div>-->
-<!--  </div>-->
+  <evj-frame-bottom></evj-frame-bottom>
+  <!--  <div class="frame frame_bottom">-->
+  <!--    <div class="frame__circle frame__circle__left"></div>-->
+  <!--    <div class="frame__circle frame__circle__right"></div>-->
+  <!--  </div>-->
 
 </div>
