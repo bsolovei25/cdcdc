@@ -23,8 +23,8 @@ export class ProductionPyramidComponent implements OnInit {
     }
   ];
 
-  static itemCols = 25;
-  static itemRows = 26;
+  static itemCols = 20;
+  static itemRows = 16;
 
   aboutWidget;
 

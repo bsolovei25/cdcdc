@@ -171,8 +171,10 @@
   border-left: 0.5px dashed var(--color-border-main-transparrent);
   padding: 0 15px;
 
+  font-size: 14px;
+
   .pyramid {
-    height: 400px;
+    height: 210px;
     width: 100%;
 
     &__title {
@@ -194,8 +196,8 @@
             top: 7px;
           }
           &__line {
-            width: 90px;
-            left: -105px;
+            width: 24px;
+            left: -36px;
             top: 9px;
 
             &::after {
@@ -206,7 +208,7 @@
               top: 0px;
               left: 1px;
 
-              height: 15px;
+              height: 12px;
               width: 2px;
 
               box-sizing: border-box;
@@ -231,8 +233,8 @@
     }
     &__graphs,
     &__labels {
-      height: 300px;
-      width: 500px;
+      height: 175px;
+      width: 320px;
 
       display: flex;
       flex-direction: column;
@@ -241,14 +243,16 @@
 
       color: var(--color-border-unactive);
     }
+
     &__labels {
       margin-left: 30px;
-      height: 300px;
+      height: 175px;
       width: 100px;
     }
+
     .row {
       width: 100%;
-      height: 65px;
+      height: 34px;
       background: transparent;
 
       display: flex;
@@ -265,19 +269,19 @@
         border: 0.5px solid var(--color-border-unactive);
 
         &__top {
-          width: 100px;
+          width: 70px;
         }
 
         &__pretop {
-          width: 145px;
+          width: 99px;
         }
 
         &__prebottom {
-          width: 190px;
+          width: 128px;
         }
 
         &__bottom {
-          width: 235px;
+          width: 157px;
         }
 
         &__left {
@@ -299,10 +303,10 @@
             content: "";
             position: absolute;
 
-            top: -11px;
-            left: 1px;
+            top: -12px;
+            left: -18px;
 
-            height: 75px;
+            height: 39px;
             width: 40px;
 
             box-sizing: border-box;
@@ -334,9 +338,9 @@
             position: absolute;
 
             top: -9px;
-            right: 0px;
+            right: -17px;
 
-            height: 75px;
+            height: 39px;
             width: 40px;
 
             box-sizing: border-box;
@@ -353,7 +357,7 @@
     &__point {
       position: absolute;
       top: -20px;
-      left: 25px;
+      left: 4px;
       z-index: 4;
 
       height: 16px;
@@ -384,11 +388,11 @@
       flex-direction: row;
       justify-content: center;
       align-items: center;
-      margin-top: -30px;
+      // margin-top: -30px;
 
       .footer {
         &__row {
-          width: 500px;
+          width: 400px;
           display: flex;
           flex-direction: row;
         }
@@ -410,10 +414,10 @@
 
     &__line {
       &-horizontal {
-        width: 70px;
+        width: 46px;
 
         top: -24px;
-        left: -48px;
+        left: -42px;
 
         &::after {
           z-index: 4;
@@ -436,10 +440,10 @@
       }
 
       &-vertical {
-        width: 170px;
+        width: 78px;
 
-        top: -120px;
-        left: -143px;
+        top: -72px;
+        left: -89px;
 
         transform: rotate(90deg);
 
@@ -448,10 +452,10 @@
           content: "";
           position: absolute;
 
-          top: -10px;
-          right: -12px;
+          top: -7px;
+          right: -10px;
 
-          height: 15px;
+          height: 13px;
           width: 2px;
 
           box-sizing: border-box;
@@ -467,12 +471,13 @@
 
   .daysCounter {
     position: relative;
+    min-width: 200px;
     width: 100%;
     height: 200px;
     margin-top: 60px;
     border-top: 0.5px dashed var(--color-border-main-transparrent);
     color: var(--color-text-sub-heading);
-    font-size: 14px;
+    font-size: 12px;
     &__title {
       width: 100%;
       display: flex;
@@ -502,24 +507,31 @@
       align-items: center;
 
       .counter {
-        width: 170px;
-        height: 220px;
+        width: 117px;
+        height: 125px;
 
         position: relative;
+
+        img {
+          width: 100%;
+          height: 100%;
+          min-width: 117px;
+          min-height: 125px;
+        }
 
         &__title {
           position: absolute;
           top: -7px;
-          left: 15px;
+          left: 19px;
           width: 200px;
         }
 
         &__days {
           position: absolute;
-          top: 50%;
-          left: 63px;
+          top: 45%;
+          left: 42px;
           font-family: Tahoma, sans-serif;
-          font-size: 20px;
+          font-size: 16px;
           font-weight: normal;
           color: var(--color-text-main);
         }
@@ -555,22 +567,38 @@
 
     &-top {
       left: -198px;
-      width: 185px;
+      width: 117px;
+      &-right {
+        left: auto;
+        right: -17px;
+      }
     }
 
     &-pretop {
       left: -153px;
-      width: 140px;
+      width: 88px;
+      &-right {
+        left: auto;
+        right: -17px;
+      }
     }
 
     &-prebottom {
       left: -108px;
-      width: 95px;
+      width: 59px;
+      &-right {
+        left: auto;
+        right: -17px;
+      }
     }
 
     &-bottom {
       left: -63px;
-      width: 50px;
+      width: 30px;
+      &-right {
+        left: auto;
+        right: -17px;
+      }
     }
   }
 }
