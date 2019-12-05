@@ -24,8 +24,8 @@ export class CircleDiagramComponent implements OnInit, OnDestroy {
     private x: number = 175;
     private y: number = 40;
 
-    static itemCols = 30;
-    static itemRows = 12;
+    static itemCols = 18;
+    static itemRows = 14;
 
     @Input() public data = {
         name: 'Hello',
@@ -49,7 +49,12 @@ export class CircleDiagramComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.d3Circle(this.data, this.myCircle.nativeElement);
+        if (!this.isMock) {
+            console.log(this.isMock, "----------------------------");
+
+            this.d3Circle(this.data, this.myCircle.nativeElement);
+        }
+
     }
 
     ngOnDestroy() {
