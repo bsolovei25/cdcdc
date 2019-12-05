@@ -18,7 +18,7 @@ import * as d3Axis from 'd3-axis';
 import * as d3Format from 'd3-format';
 import { Mock } from 'src/app/dashboard/widgets/line-chart/mock';
 import { Subscription } from "rxjs";
-import { LineChartData } from "../../models/line-chart";
+import { LineChartData, LineChartGraph, LineChartGraphValue } from "../../models/line-chart";
 import { NewWidgetService } from '../../services/new-widget.service';
 
 @Component({
@@ -238,11 +238,16 @@ export class LineChartComponent implements OnInit, OnDestroy {
     this.drawPoints();
   }
 
+  private extractByName(graphs: LineChartGraph[], graphTypeName: string): LineChartGraphValue[] {
+    var found = graphs.find(d => d.graphType === graphTypeName);
+    return found != null ? found.values : [];
+  }
+
   private refreshDeviations() {
-    const plan = this.data.graphs.find(d => d.graphType === 'plan').values;
-    const fact = this.data.graphs.find(d => d.graphType === 'fact').values;
-    const lowerLimit = this.data.graphs.find(d => d.graphType === 'lowerLimit').values;
-    const upperLimit = this.data.graphs.find(d => d.graphType === 'upperLimit').values;
+    const plan = this.extractByName(this.data.graphs, 'plan');
+    const fact = this.extractByName(this.data.graphs, 'fact');
+    const lowerLimit = this.extractByName(this.data.graphs, 'lowerLimit');
+    const upperLimit = this.extractByName(this.data.graphs, 'upperLimit');
 
     let deviationMode = 'planFact';
     if (plan.findIndex(p => lowerLimit.findIndex(ll => ll.value !== p.value) !== -1 || upperLimit.findIndex(ll => ll.value !== p.value) !== -1) !== -1) {
