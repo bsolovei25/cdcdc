@@ -20,7 +20,7 @@ export interface EventsWidgetNotification {
   category: ICategory;
   statusName?: string;
   severity: string;
-  retrievalEvents: RetrievalEvents[];
+  retrievalEvents: EventsWidgetNotification[];
   equipmentCategory: { id: number, name: string, code: string };
 }
 
@@ -58,22 +58,6 @@ export interface IPriority {
   code: string
 };
 
-export interface RetrievalEvents {
-  deadline: Date;
-  description: string;
-  id?: number;
-  responsibleOperator: User | null;
-  responsibleUser: User | null;
-  status: IStatus,
-  isNew: boolean,
-  priority: IPriority,
-  fixedBy: User,
-  branch: string,
-  organization: string,
-  eventDateTime: Date,
-  establishedFacts: string,
-  directReasons: ''
-}
 
 export interface EventsWidgetFilter {
   code: EventsWidgetFilterCode;

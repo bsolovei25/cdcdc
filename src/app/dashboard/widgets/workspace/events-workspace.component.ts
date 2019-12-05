@@ -9,7 +9,7 @@ import {
 } from "@angular/core";
 import { Subscription } from "rxjs";
 import { EventService } from '../../services/event.service';
-import { EventsWidgetNotification, EventsWidgetNotificationStatus, EventsWidgetNotificationPriority, RetrievalEvents, IStatus, IPriority } from '../../models/events-widget';
+import { EventsWidgetNotification, EventsWidgetNotificationStatus, EventsWidgetNotificationPriority, IStatus, IPriority } from '../../models/events-widget';
 
 @Component({
   selector: "evj-events-workspace",
@@ -33,7 +33,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
   category;
   place;
 
-  isNewRetrieval: RetrievalEvents = null;
+  isNewRetrieval: EventsWidgetNotification = null;
 
   statuses: { [id in EventsWidgetNotificationStatus]: string; } = {
     "new": 'Новое',
@@ -183,13 +183,13 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
       establishedFacts: "",
       eventDateTime: new Date,
       eventType: "",
-      fixedBy: { id: 4002, firstName: "Петр", lastName: "Петров", email: "test@test", phone: "00123456789" },
+      fixedBy: { id: 2, firstName: "Петр", lastName: "Петров", email: "test@test", phone: "00123456789" },
       // id: null,
       place: { id: 5001, name: "ГФУ-2 с БОР" },
       itemNumber: 321128,
       organization: "АО Газпромнефть",
       priority: { id: 2003, name: "standard", code: '2' },
-      responsibleOperator: { id: 4001, firstName: "Иван", lastName: "Иванов", email: "1@2", phone: "00123456789" },
+      responsibleOperator: { id: 1, firstName: "Иван", lastName: "Иванов", email: "1@2", phone: "00123456789" },
       retrievalEvents: [],
       severity: "Critical",
       status: { id: 3001, name: "new", code: '0' },
@@ -231,9 +231,9 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
     if (this.isNew) {
       this.event.retrievalEvents.map(ret => {
-        const idxUser = this.user.findIndex(f => f.id === Number(ret.responsibleUser.id));
+        const idxUser = this.user.findIndex(f => f.id === Number(ret.responsibleOperator.id));
         if (idxUser !== -1) {
-          ret.responsibleUser = {
+          ret.responsibleOperator = {
             firstName: this.user[idxUser].firstName,
             id: +this.user[idxUser].id,
             lastName: this.user[idxUser].lastName,
@@ -278,26 +278,17 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
   addRetrieval(): void {
     document.getElementById("overlay-retrieval").style.display = "block";
 
-    this.isNewRetrieval = {
-      deadline: new Date,
+    this.isNewRetrieval = <EventsWidgetNotification>{
       description: '',
-      responsibleOperator: { id: 4001, firstName: "Иван", lastName: "Иванов", email: "1@2", phone: "00123456789" },
+      responsibleOperator: { id: 1, firstName: "Иван", lastName: "Иванов", email: "1@2", phone: "00123456789" },
       branch: "Производство",
       eventDateTime: new Date,
-      fixedBy: { id: 4002, firstName: "Петр", lastName: "Петров", email: "test@test", phone: "00123456789" },
+      fixedBy: { id: 2, firstName: "Петр", lastName: "Петров", email: "test@test", phone: "00123456789" },
       organization: "АО Газпромнефть",
       priority: { id: 2003, name: "standard", code: '2' },
       status: { id: 3001, name: 'new', code: '0' },
       establishedFacts: '',
       directReasons: '',
-      isNew: true,
-      responsibleUser: {
-        id: 0,
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-      },
     }
   }
 
@@ -330,7 +321,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
     const idxUser = 0;
 
-    this.isNewRetrieval.responsibleUser = {
+    this.isNewRetrieval.responsibleOperator = {
       firstName: this.user[idxUser].firstName,
       id: +this.user[idxUser].id,
       lastName: this.user[idxUser].lastName,
@@ -358,7 +349,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     }
   }
 
-  editRetrieval(retrieval: RetrievalEvents) {
+  editRetrieval(retrieval: EventsWidgetNotification) {
     this.isNewRetrieval = retrieval;
     document.getElementById("overlay-retrieval").style.display = "block";
   }
