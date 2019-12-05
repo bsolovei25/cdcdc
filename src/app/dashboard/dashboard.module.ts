@@ -13,7 +13,6 @@ import { HttpClientModule } from "@angular/common/http";
 import { EventsComponent } from "./widgets/events/events.component";
 import { ManualInputComponent } from "./widgets/manual-input/manual-input.component";
 import { FormsModule } from "@angular/forms";
-import { ManualinputPageComponent } from "./pages/manualinput-page/manualinput-page.component";
 import { LineDiagramComponent } from "./widgets/line-diagram/line-diagram.component";
 import { LineDatetimeComponent } from "./components/line-datetime/line-datetime.component";
 import { ShiftPersonComponent } from './widgets/change-shift/shift-person/shift-person.component';
@@ -28,11 +27,16 @@ import { EventsWorkSpaceComponent } from './widgets/workspace/events-workspace.c
 import { FrameTopComponent } from './components/frame-top/frame-top.component';
 import { FrameBottomComponent } from './components/frame-bottom/frame-bottom.component';
 import { ClickOutsideModule } from 'ng-click-outside';
+import { TruncatedPieFirstComponent } from './widgets/truncated-pie-first/truncated-pie-first/truncated-pie-first.component';
+import { TruncatedPieSFirstComponent } from './widgets/truncated-pie-first/truncated-pie-s-first/truncated-pie-s-first.component';
+import { TruncatedPieSIconComponent } from './widgets/truncated-pie-icon/truncated-pie-s-icon/truncated-pie-s-icon.component';
+import { TruncatedPieIconComponent } from './widgets/truncated-pie-icon/truncated-pie-icon/truncated-pie-icon.component';
 import { PointDiagramComponent } from './widgets/point-diagram/point-diagram.component';
 import { OneColumnComponent } from './widgets/point-diagram/one-column/one-column.component';
 import { ProductionPyramidComponent } from './widgets/production-pyramid/production-pyramid.component';
-
-
+import { BarChartsComponent } from './widgets/bar-chart/bar-charts/bar-charts.component';
+import { BarChartComponent } from './widgets/bar-chart/bar-chart/bar-chart.component';
+import { UnityTemplateComponent } from './widgets/unity-template/unity-template.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +48,6 @@ import { ProductionPyramidComponent } from './widgets/production-pyramid/product
     DashboardComponent,
     EventsComponent,
     ManualInputComponent,
-    ManualinputPageComponent,
     ChangeShiftComponent,
     LineDiagramComponent,
     ShiftPersonComponent,
@@ -59,7 +62,14 @@ import { ProductionPyramidComponent } from './widgets/production-pyramid/product
     OneColumnComponent,
     FrameTopComponent,
     FrameBottomComponent,
-    ProductionPyramidComponent
+    TruncatedPieFirstComponent,
+    TruncatedPieSFirstComponent,
+    TruncatedPieSIconComponent,
+    TruncatedPieIconComponent,
+    ProductionPyramidComponent,
+    BarChartsComponent,
+    BarChartComponent,
+    UnityTemplateComponent
   ],
   entryComponents:[
     LineChartComponent,
@@ -70,12 +80,15 @@ import { ProductionPyramidComponent } from './widgets/production-pyramid/product
     LineDiagramComponent,
     ChangeShiftComponent,
     EventsWorkSpaceComponent,
+    TruncatedPieSFirstComponent,
+    TruncatedPieSIconComponent,
     PointDiagramComponent,
-    ProductionPyramidComponent
+    ProductionPyramidComponent,
+    BarChartsComponent,
+    UnityTemplateComponent,
   ],
   exports: [
     HomeComponent,
-    ManualinputPageComponent
   ],
   imports: [
     CommonModule,

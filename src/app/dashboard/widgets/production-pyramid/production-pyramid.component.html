@@ -1,6 +1,6 @@
 <div class="container pointer-event">
   <evj-widget-header
-    [title]="aboutWidget.title"
+    [title]="aboutWidget"
     [units]=""
     [code]=""
     [id]="id"
@@ -17,7 +17,8 @@
   </ng-container>
 
   <ng-container *ngIf="!isMock">
-    <div class="production">
+    <div class="production" (mousedown)="$event.stopPropagation()"
+         (touchstart)="$event.stopPropagation()">
       <div class="pyramid">
         <div class="pyramid__title">
           <div class="title">

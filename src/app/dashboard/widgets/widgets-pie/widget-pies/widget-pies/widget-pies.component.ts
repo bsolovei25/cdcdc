@@ -66,7 +66,6 @@ export class WidgetPiesComponent implements OnInit {
   }
 
   showMock(show) {
-   
     if (show){
    
       this.wsDisconnect();
@@ -74,6 +73,6 @@ export class WidgetPiesComponent implements OnInit {
    
       this.wsConnect();
     }
-}
+  }
 
 }

@@ -30,7 +30,9 @@
 .mock {
   display: block;
   height: 200px;
-  &-container {
+  border-left: dashed 0.5px var(--color-border-main);
+  border-right: dashed 0.5px var(--color-border-main);
+  &-container{
     height: 100%;
     width: 100%;
     display: flex;

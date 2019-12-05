@@ -34,8 +34,8 @@ export class NewUserSettingsService {
   private restUrl: string;
   
   public UserId = 1;
-  public ScreenId = 1;
-  public ScreenName;
+  public ScreenId: number;
+  public ScreenName: string;
 
   public dataScreen= [];
 
@@ -90,8 +90,8 @@ export class NewUserSettingsService {
           posX = cell.x;
           posY = cell.y;
           widgetType = cell.widgetType;
-          sizeX = cell.rows;
-          sizeY = cell.cols;
+          sizeX = cell.cols;
+          sizeY = cell.rows;
         };
         userSettings.userGrid.push(cellSetting);
       }else{
@@ -111,7 +111,27 @@ export class NewUserSettingsService {
   }
 
   public GetScreen(){
-    this.http.get<ScreenSettings[]>(this.restUrl + '/user-management/user/1/screens').subscribe(data => this._screens$.next(data));
+    this.http.get<ScreenSettings[]>(this.restUrl + '/user-management/user/1/screens')
+      .subscribe(data => {
+        this._screens$.next(data);
+        if (!this.ScreenId && data[0])
+        {
+          this.ScreenId = data[0].id;
+        }
+        const currentScreen = data.find(x => x.id == this.ScreenId);
+        if (!currentScreen)
+          return;
+
+        this.widgetService.dashboard = currentScreen.widgets.map(item =>
+          ({
+            x: item.posX,
+            y: item.posY,
+            cols: item.sizeX,
+            rows: item.sizeY,
+            id: item.widgetId, 
+            widgetType: item.widgetType 
+          }));
+      });
   }
 
 
@@ -121,7 +141,15 @@ export class NewUserSettingsService {
         console.log(item);
         this.ScreenId = item.id;
         this.ScreenName = item.screenName;
-        this.getUserData();
+        this.widgetService.dashboard = item.widgets.map(x =>
+          ({
+            x: x.posX,
+            y: x.posY,
+            cols: x.sizeX,
+            rows: x.sizeY,
+            id: x.widgetId, 
+            widgetType: x.widgetType 
+          }));
       });
   }
 
@@ -131,6 +159,7 @@ public PushScreen(nameWidget){
     screenName = nameWidget;
     user;
     updateScreen;
+    widgets;
   };
   return this.http.post(this.restUrl + '/user-management/user/1/screen', userScreen).subscribe(
        ans => {
@@ -146,8 +175,9 @@ public deleteScreen(id: number){
   return this.http.delete(this.restUrl + '/user-management/screen/' + id)
   .subscribe(
     ans => {
+      if (this.ScreenId === id)
+        this.ScreenId = undefined;
       this.GetScreen();
-      this.LoadScreen(1);
       console.log(ans);
     },
     error => console.log(error)
@@ -160,8 +190,9 @@ public updateScreen(id, name){
     screenName = name;
     user;
     updateScreen;
+    widgets;
   };
-  return this.http.put(this.restUrl + '/user-management/user/1/screen/' +id, userScreen ).subscribe(
+  return this.http.put(this.restUrl + '/user-management/user/1/screen/' + id, userScreen ).subscribe(
     ans => {
       this.GetScreen();
       console.log(ans);
@@ -170,23 +201,4 @@ public updateScreen(id, name){
   );
 
 }
-
-public getUserData(){
-    this.widgetService.dashboard = [];
-    this.http.get(this.restUrl + '/user-management/getscreen/1/' + this.ScreenId.toString()).subscribe((ref: NewUserSettings) => {
-      // console.log(ref);
- 
-      for(let item of ref.userGrid){
-       this.widgetService.dashboard.push({
-        x: item.posX,
-        y: item.posY,
-        cols: item.sizeY,
-        rows: item.sizeX,
-        id: item.widgetId, 
-        widgetType: item.widgetType 
-       });
-      }
-    });
-  }
-  
 }

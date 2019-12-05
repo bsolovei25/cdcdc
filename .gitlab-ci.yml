@@ -25,7 +25,6 @@ docker build:
         - ls
         - pwd
         - env
-          #- echo "${CI_COMMIT_SHA}" | xargs -I {} sed -i 's/%%BUILD_NUMBER%%/{}/' ./src/pages/index.js
         - docker build -t ${CI_PROJECT_NAME} .
     only:
         - merge_requests
@@ -125,6 +124,7 @@ prod:
         - pwd
         - ssh root@${DEPLOY_DOMAIN} rm -rf /var/www/angular.local/public
         - scp -r ./public root@${DEPLOY_DOMAIN}:/var/www/angular.local
+        - ssh root@${DEPLOY_DOMAIN} "sed -i  's/:6555/:5555/g' /var/www/angular.local/public/assets/config.json || sleep 0.1"
         - ssh root@${DEPLOY_DOMAIN} nginx -s reload
     when: manual
     only:

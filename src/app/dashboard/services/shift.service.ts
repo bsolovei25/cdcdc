@@ -25,7 +25,7 @@ export class ShiftService {
   }
 
   private async getAllMembersAsync(): Promise<any>  {
-    return this.http.get(this.restUrl + '/api/employees').toPromise();
+    return this.http.get(this.restUrl + '/api/user-management/users').toPromise();
   }
 
   private async changePositionAsync(id, idShift): Promise<any>  {
@@ -33,7 +33,6 @@ export class ShiftService {
   }
 
   private async changeStatusAsync(status, id, idShift): Promise<any>  {
-    // console.log(this.restUrl + '/api/shift/' + idShift + '/Employee/' + id + '/ChangeStatus/' + status);
     return this.http.post(this.restUrl + '/api/shift/' + idShift + '/Employee/' + id + '/ChangeStatus/' + status, null).toPromise();
   }
 
