@@ -54,7 +54,6 @@ build artifact:
         - docker container stop ${CI_PROJECT_NAME}
     only:
         - master
-        - merge_requests
     artifacts:
         paths:
             - ./public
