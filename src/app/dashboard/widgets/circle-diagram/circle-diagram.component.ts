@@ -21,13 +21,18 @@ export class CircleDiagramComponent implements OnInit, OnDestroy {
 
     public title = "Круговая Диаграмма";
 
+    private x: number = 175;
+    private y: number = 40;
+
     static itemCols = 30;
     static itemRows = 12;
 
     @Input() public data = {
         name: 'Hello',
-        critical: 213,
-        nonCritical: 100,
+        nonCritical: 0,
+        critical: 100,
+        diagnostics: 100,
+        prognosis: 0
     };
 
     public readonly RADIUS = 40;
@@ -52,8 +57,8 @@ export class CircleDiagramComponent implements OnInit, OnDestroy {
     }
 
     public d3Circle(data, el): void {
-        const summ = data.critical + data.nonCritical + 50 + 70;
-        const mass = [data.nonCritical, data.critical, 50, 70];
+        const summ = data.critical + data.nonCritical + data.diagnostics + data.critical;
+        const mass = [data.nonCritical, data.critical, data.diagnostics, data.prognosis];
         let color: any;
 
         if (summ === 0) {
@@ -64,11 +69,10 @@ export class CircleDiagramComponent implements OnInit, OnDestroy {
 
         const canvas = d3.select(el).append("svg")
             .attr("min-width", "200px")
-            .attr("viewBox", "0 -10 200 200");
+            .attr("viewBox", "35 0 230 150");
 
         let group = canvas.append("g")
             .attr("transform", "translate(102 ,88)");
-        // .attr("viewBox", "0 20 280 200");
 
         const arc = d3.arc().innerRadius(43).outerRadius(this.RADIUS);
 
@@ -90,39 +94,66 @@ export class CircleDiagramComponent implements OnInit, OnDestroy {
             .attr("dominant-baseline", "middle")
             .text(summ);
 
-        let positive = canvas.append("text")
+        let nonCriticall = canvas.append("text")
             .attr("font-size", "8px")
-            .attr("x", "100")
-            .attr("y", "155")
-            .attr("fill", "rgb(97,101,128)")
-            .text("Не критичные", data.nonCriticall);
+            .attr("x", this.x)
+            .attr("y", this.y)
+            .attr("fill", "orange")
+            .text("Не квитировано", data.nonCriticall);
 
-        let positive_num = canvas.append("text")
-            .attr("font-size", "12px")
-            .attr("x", "125")
-            .attr("y", "172")
-            .attr("fill", (!data.nonCritical && !data.critical) ? 'gray' : "white")
+        let nonCriticall_num = canvas.append("text")
+            .attr("font-size", "10px")
+            .attr("x", this.x)
+            .attr("y", this.y + 14)
+            .attr("fill", (!data.nonCritical) ? 'gray' : "orange")
             .text(data.nonCritical);
 
-        let negative = canvas.append("text")
+        let сritical = canvas.append("text")
             .attr("font-size", "8px")
-            .attr("x", "50")
-            .attr("y", "155")
-            .attr("fill", "rgb(97,101,128)")
-            .text("Критичные /", data.critical);
+            .attr("x", this.x)
+            .attr("y", this.y + 14 * 2)
+            .attr("fill", "white")
+            .text("Квитировано", data.сritical);
 
-        let negative_num = canvas.append("text")
-            .attr("font-size", "12px")
-            .attr("x", "70")
-            .attr("y", "172")
-            .attr("fill", (!data.nonCritical && !data.critical) ? 'gray' : "orange")
+        let сritical_num = canvas.append("text")
+            .attr("font-size", "10px")
+            .attr("x", this.x)
+            .attr("y", this.y + 14 * 3)
+            .attr("fill", (!data.critical) ? 'gray' : "white")
             .text(data.critical);
 
+        let diagnostic = canvas.append("text")
+            .attr("font-size", "8px")
+            .attr("x", this.x)
+            .attr("y", this.y + 14 * 4)
+            .attr("fill", "var(--color-border-active)")
+            .text("Диагностика", data.сritical);
+
+        let diagnostic_num = canvas.append("text")
+            .attr("font-size", "10px")
+            .attr("x", this.x)
+            .attr("y", this.y + 14 * 5)
+            .attr("fill", (!data.diagnostics) ? 'gray' : "var(--color-border-active)")
+            .text(data.diagnostics);
+
+        let prognosis = canvas.append("text")
+            .attr("font-size", "8px")
+            .attr("x", this.x)
+            .attr("y", this.y + 14 * 6)
+            .attr("fill", "var(--color-circle)")
+            .text("Прогноз", data.prognosis);
+
+        let prognosis_num = canvas.append("text")
+            .attr("font-size", "10px")
+            .attr("x", this.x)
+            .attr("y", this.y + 14 * 7)
+            .attr("fill", (!data.prognosis) ? 'gray' : "var(--color-circle)")
+            .text(data.prognosis);
+
         let pie_back = canvas.append("image")
-            .attr("xlink:href", "./assets/pic/circle-diagram.svg")
+            .attr("xlink:href", !data.nonCritical ? "./assets/pic/circle-diagram-grey.svg" : "./assets/pic/circle-diagram-orange.svg")
             .attr("height", "189px")
             .attr("width", "110px")
-            .attr("fill", "white")
             .attr("x", "47")
             .attr("y", "-7");
 
