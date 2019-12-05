@@ -179,6 +179,7 @@
   flex-direction: column;
   justify-content: space-between;
 
+  color: var(--color-text-diagram);
 
   .line {
     position: absolute;
@@ -186,7 +187,11 @@
     height: 5px;
     top: 97px;
     left: 0px;
-    border-top: 0.5px dashed var(--color-border-main-transparrent);
+    border-top: 0.5px dashed var(--color-text-diagram);
+
+    &__circle {
+      border: 0.5px solid var(--color-text-diagram);
+    }
   }
   .title {
     width: 100%;
@@ -196,6 +201,11 @@
 
     box-sizing: border-box;
     padding: 0 15px;
+
+    &__name,
+    &__percent {
+      font-size: 19px;
+    }
   }
   .body {
     position: relative;
@@ -228,7 +238,6 @@
       justify-content: flex-start;
 
       box-sizing: border-box;
-      padding-bottom: 10px;
 
       &__item {
         margin: 0 5px;
