@@ -137,6 +137,9 @@ export class NewWidgetService {
 
         case 'bar-chart':
             return data;
+            
+        case 'map-ecology':
+              return data;
     }
   }
 

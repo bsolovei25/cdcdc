@@ -33,7 +33,7 @@ export class WidgetPiesComponent implements OnInit {
     @Inject('widgetId') public id: string
 
     ) {
-
+      
       this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe(data => {
         this.title = data.title;
         this.code = data.code;
@@ -58,7 +58,7 @@ export class WidgetPiesComponent implements OnInit {
     this.widgetService.getWidgetLiveDataFromWS(this.id, 'pie-diagram')
       .subscribe((ref) => {
           this.datas = ref;
-         
+          debugger
         }
       );
   }

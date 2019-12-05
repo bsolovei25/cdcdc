@@ -41,22 +41,36 @@ export class NewUserSettingsService {
 
   public addCellByPosition(idWidget, nameWidget, param) {
     // console.log("addcell");
+    let uniqId = this.create_UUID(); 
     this.widgetService.dashboard.push({
         x: param.x,
         y: param.y, 
         cols: WIDGETS[nameWidget].itemCols, 
         rows: WIDGETS[nameWidget].itemRows, 
         id: idWidget, 
+        uniqid: uniqId,
         widgetType: nameWidget
       });
+
+      debugger
      this.screenSave();
   }
 
-  public updateByPosition(oldItem, newItem){
-    
+  public create_UUID(){
+    var dt = new Date().getTime();
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = (dt + Math.random()*16)%16 | 0;
+        dt = Math.floor(dt/16);
+        return (c=='x' ? r :(r&0x3|0x8)).toString(16);
+    });
+    return uuid;
+}
+
+  public updateByPosition(newItem){
+  
       for(let item of this.widgetService.dashboard){
         
-          if( ( (item.x === newItem.x) && (item.y === newItem.y) ) || ( (item.rows === newItem.rows) && (item.cols === newItem.cols) ) ){
+          if( item.uniqid == newItem.uniqid){
             item.x = newItem.x;
             item.y = newItem.y;
             item.rows = newItem.rows;
@@ -64,6 +78,7 @@ export class NewUserSettingsService {
             // console.log("update", item)
           }
       }
+      
      this.screenSave();
      
   }
@@ -73,7 +88,7 @@ export class NewUserSettingsService {
   }
 
   private screenSave() {
-    
+   
     // console.log("save_info",this.widgetService.dashboard);
     const UserId = this.UserId;
     const ScreenId = this.ScreenId;
@@ -92,6 +107,7 @@ export class NewUserSettingsService {
           widgetType = cell.widgetType;
           sizeX = cell.cols;
           sizeY = cell.rows;
+          uniqueId = cell.uniqid;
         };
         userSettings.userGrid.push(cellSetting);
       }else{
@@ -111,6 +127,7 @@ export class NewUserSettingsService {
   }
 
   public GetScreen(){
+    
     this.http.get<ScreenSettings[]>(this.restUrl + '/user-management/user/1/screens')
       .subscribe(data => {
         this._screens$.next(data);
@@ -129,7 +146,8 @@ export class NewUserSettingsService {
             cols: item.sizeX,
             rows: item.sizeY,
             id: item.widgetId, 
-            widgetType: item.widgetType 
+            widgetType: item.widgetType,
+            uniqid: item.uniqueId 
           }));
       });
   }
@@ -148,7 +166,8 @@ export class NewUserSettingsService {
             cols: x.sizeX,
             rows: x.sizeY,
             id: x.widgetId, 
-            widgetType: x.widgetType 
+            widgetType: x.widgetType,
+            uniqid: x.uniqueId 
           }));
       });
   }
