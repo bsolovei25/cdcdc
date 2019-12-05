@@ -25,7 +25,7 @@ export class ShiftService {
   }
 
   private async getAllMembersAsync(): Promise<any>  {
-    return this.http.get(this.restUrl + '/api/employees').toPromise();
+    return this.http.get(this.restUrl + '/api/user-management/users').toPromise();
   }
 
   private async changePositionAsync(id, idShift): Promise<any>  {
