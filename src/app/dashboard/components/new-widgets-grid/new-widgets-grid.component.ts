@@ -35,6 +35,7 @@ export class NewWidgetsGridComponent implements OnInit {
 
   ngOnInit() {  
     this.userSettings.GetScreen();
+    
 
     this.options = {
       gridType: GridType.Fixed,
@@ -102,6 +103,7 @@ export class NewWidgetsGridComponent implements OnInit {
     e.dataTransfer.setData('text/plain', item.toString());
     e.dataTransfer.dropEffect = 'copy';
     this.widgetService.draggingItem  = item;
+    debugger
   }
 
   public eventStop(item: GridsterItem, itemComponent: GridsterItemComponentInterface, e: MouseEvent) {
@@ -109,8 +111,8 @@ export class NewWidgetsGridComponent implements OnInit {
     const dataTrasfer = new DataTransfer();
     e.currentTarget.dispatchEvent(new DragEvent('dragstop', { dataTransfer: dataTrasfer }));
     this.widgetService.draggingItem = null;
-  
-    this.userSettings.updateByPosition(item, itemComponent.$item);
+    //this.userSettings.updateByPosition(item, itemComponent.$item);
+    this.userSettings.updateByPosition(item);
   }
 
 
