@@ -17,8 +17,11 @@
   </ng-container>
 
   <ng-container *ngIf="!isMock">
-    <div class="production" (mousedown)="$event.stopPropagation()"
-         (touchstart)="$event.stopPropagation()">
+    <div
+      class="production"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
       <div class="pyramid">
         <div class="pyramid__title">
           <div class="title">
@@ -39,6 +42,8 @@
             </div>
             <div class="row pyramid__graph">
               <div class="graph graph__prebottom graph__left">
+                <div class="label__line pyramid__line-horizontal"></div>
+                <div class="label__line pyramid__line-vertical"></div>
                 <div class="pyramid__point">
                   <div class="pyramid__dot"></div>
                 </div>
@@ -82,7 +87,22 @@
           <div class="footer__empty"></div>
         </div>
       </div>
-      <div class="daysCounter"></div>
+      <div class="daysCounter">
+        <div class="circle circle__left circle__left-top"></div>
+        <div class="circle circle__right circle__right-top"></div>
+        <div class="daysCounter__title">
+          <div class="text">
+            Количество дней
+          </div>
+        </div>
+        <div class="daysCounter__counters">
+          <div class="counter" *ngFor="let count of array">
+            <img src="../../../../assets/pic/ncir1.svg" alt="" />
+            <div class="counter__title">{{count.cardTitle}}</div>
+            <div class="counter__days">{{count.daysCounter}}</div>
+          </div>
+        </div>
+      </div>
     </div>
   </ng-container>
 
