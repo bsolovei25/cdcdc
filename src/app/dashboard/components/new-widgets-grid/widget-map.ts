@@ -11,6 +11,7 @@ import { PointDiagramComponent } from '../../widgets/point-diagram/point-diagram
 import { ProductionPyramidComponent } from '../../widgets/production-pyramid/production-pyramid.component';
 import { BarChartsComponent } from '../../widgets/bar-chart/bar-charts/bar-charts.component';
 import { CircleDiagramComponent } from '../../widgets/circle-diagram/circle-diagram.component';
+import {UnityTemplateComponent} from '../../widgets/unity-template/unity-template.component';
 
 
 export const WIDGETS = {
@@ -27,5 +28,6 @@ export const WIDGETS = {
     "point-diagram": PointDiagramComponent,
     "industrial-pyramid": ProductionPyramidComponent,
     "bar-chart": BarChartsComponent,
-    "circle-diagram": CircleDiagramComponent
+    "circle-diagram": CircleDiagramComponent,
+    "unity-template": UnityTemplateComponent
 }

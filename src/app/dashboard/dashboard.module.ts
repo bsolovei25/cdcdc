@@ -37,8 +37,7 @@ import { ProductionPyramidComponent } from './widgets/production-pyramid/product
 import { BarChartsComponent } from './widgets/bar-chart/bar-charts/bar-charts.component';
 import { BarChartComponent } from './widgets/bar-chart/bar-chart/bar-chart.component';
 import { CircleDiagramComponent } from './widgets/circle-diagram/circle-diagram.component';
-
-
+import { UnityTemplateComponent } from './widgets/unity-template/unity-template.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +70,8 @@ import { CircleDiagramComponent } from './widgets/circle-diagram/circle-diagram.
     ProductionPyramidComponent,
     BarChartsComponent,
     BarChartComponent,
-    CircleDiagramComponent
+    CircleDiagramComponent,
+    UnityTemplateComponent
   ],
   entryComponents: [
     LineChartComponent,
@@ -87,7 +87,8 @@ import { CircleDiagramComponent } from './widgets/circle-diagram/circle-diagram.
     PointDiagramComponent,
     ProductionPyramidComponent,
     BarChartsComponent,
-    CircleDiagramComponent
+    CircleDiagramComponent,
+    UnityTemplateComponent,
   ],
   exports: [
     HomeComponent,
