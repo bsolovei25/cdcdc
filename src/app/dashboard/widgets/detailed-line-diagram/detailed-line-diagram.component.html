@@ -1,0 +1,81 @@
+<div class="dl-dia">
+  <div class="dl-dia__graph">
+    <div class="graph__title">План 1 105.38</div>
+    <div class="graph__line">
+      <svg width="100%" height="100%">
+        <rect
+          [attr.x]="0"
+          y="2px"
+          [attr.width]="
+            drawGraph(data.curValue + (data.deviation * data.plan) / 10)
+          "
+          height="8px"
+          rx="3px"
+          ry="3px"
+          [attr.fill]="'blue'"
+        />
+        <rect
+          [attr.x]="0"
+          y="4px"
+          [attr.width]="
+            drawGraph(data.curValue + (data.increase * data.plan) / 10)
+          "
+          height="4px"
+          rx="3px"
+          ry="3px"
+          [attr.fill]="'yellow'"
+        />
+        <rect
+          x="0"
+          y="2px"
+          [attr.width]="drawGraph(data.curValue)"
+          height="8px"
+          rx="3px"
+          ry="3px"
+          [attr.fill]="'red'"
+        />
+      </svg>
+    </div>
+  </div>
+  <div class="dl-dia__deviation">
+    <div class="deviation__worse">Отклонение -2.1 ^</div>
+    <div class="deviation__better">Отклонение +1.3 ^</div>
+  </div>
+</div>
+
+<!-- <div
+    class="line-diagram"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="line-diagram__scroll scroll-bar">
+      <div class="line-diagram__body">
+        <table>
+          <tbody>
+            <tr class="line-diagram__item" *ngFor="let item of data">
+              <td class="item__name">{{ item.name }}</td>
+              <td class="item__count">
+                {{ item.curValue | number: "1.0-0" }}{{ item.units }}
+              </td>
+              <td class="item__graph">
+                <svg width="100%" height="4">
+                  <rect
+                    x="0"
+                    y="0"
+                    [attr.width]="drawGraph(item.count)"
+                    height="4"
+                    rx="4"
+                    ry="4"
+                    [attr.fill]="fillGraph(item.critical)"
+                  />
+                </svg>
+                <div class="item__max-graph">
+                  {{ item.planValue }}{{ item.units }}
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div> -->

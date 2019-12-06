@@ -38,6 +38,7 @@ import { BarChartsComponent } from './widgets/bar-chart/bar-charts/bar-charts.co
 import { BarChartComponent } from './widgets/bar-chart/bar-chart/bar-chart.component';
 import { MapEcologyComponent } from './widgets/map-ecology/map-ecology/map-ecology.component';
 import { UnityTemplateComponent } from './widgets/unity-template/unity-template.component';
+import { DetailedLineDiagramComponent } from './widgets/detailed-line-diagram/detailed-line-diagram.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { UnityTemplateComponent } from './widgets/unity-template/unity-template.
     BarChartsComponent,
     BarChartComponent,
     MapEcologyComponent,
-    UnityTemplateComponent
+    UnityTemplateComponent,
+    DetailedLineDiagramComponent
   ],
   entryComponents:[
     LineChartComponent,
