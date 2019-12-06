@@ -1,6 +1,5 @@
 <div id="snackbar"></div>
 
-
 <div class="container pointer-event">
   <!-- loading data -->
   <div class="loading-shade" *ngIf="isLoading">
@@ -24,7 +23,6 @@
     <div class="change-shift" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
 
       <div class="workspace__header__block">
-
         <section class="workspace__blocks" style="margin-right: 10px;">
 
           <div class="workspace__block">
@@ -79,8 +77,9 @@
             </div>
             <div class="workspace__block__body" style="max-width: 120px;">
               <div class="dropdown dropdown-dark">
-                <select name="contactMethod" class="dropdown-select" [(ngModel)]="event.fixedBy.id">
-                  <option *ngFor="let p of user" [value]="p.id">{{ p.lastName }} {{ p.firstName }}</option>
+                <select name="contactMethod" class="dropdown-select" [(ngModel)]="event.fixedBy"
+                  [compareWith]="compareFn">
+                  <option *ngFor="let p of user" [value]="p">{{ p.lastName }} {{ p.firstName }}</option>
                 </select>
               </div>
             </div>
@@ -105,8 +104,9 @@
             </div>
             <div class="workspace__block__body">
               <div class="dropdown dropdown-dark">
-                <select name="contactMethod" class="dropdown-select" [(ngModel)]="event.status.id">
-                  <option *ngFor="let p of status" [value]="p.id">{{ statuses[p.name] }}</option>
+                <select name="contactMethod" class="dropdown-select" [(ngModel)]="event.status"
+                  [compareWith]="compareFn">
+                  <option *ngFor="let p of status" [value]="p">{{ statuses[p.name] }}</option>
                 </select>
               </div>
             </div>
@@ -118,8 +118,9 @@
             </div>
             <div class="workspace__block__body">
               <div class="dropdown dropdown-dark">
-                <select name="contactMethod" class="dropdown-select" [(ngModel)]="event.priority.id">
-                  <option *ngFor="let p of priority" [value]="p.id">{{ priorities[p.name] }}</option>
+                <select name="contactMethod" class="dropdown-select" [(ngModel)]="event.priority"
+                  [compareWith]="compareFn">
+                  <option *ngFor="let p of priority" [value]="p">{{ priorities[p.name] }}</option>
                 </select>
               </div>
             </div>
@@ -380,8 +381,9 @@
               </div>
               <div class="overlay-retrieval__block__body">
                 <div class="dropdown dropdown-dark">
-                  <select name="contactMethod" class="dropdown-select" [(ngModel)]="isNewRetrieval.fixedBy.id">
-                    <option *ngFor="let p of user" [value]="p.id">{{ p.lastName }} {{ p.firstName }}</option>
+                  <select name="contactMethod" class="dropdown-select" [(ngModel)]="isNewRetrieval.fixedBy"
+                    [compareWith]="compareFn">
+                    <option *ngFor="let p of user" [value]="p">{{ p.lastName }} {{ p.firstName }}</option>
                   </select>
                 </div>
               </div>
@@ -402,8 +404,9 @@
               </div>
               <div class="overlay-retrieval__block__body">
                 <div class="dropdown dropdown-dark">
-                  <select name="contactMethod" class="dropdown-select" [(ngModel)]="isNewRetrieval.status.id">
-                    <option *ngFor="let p of status" [value]="p.id">{{ statuses[p.name] }}</option>
+                  <select name="contactMethod" class="dropdown-select" [(ngModel)]="isNewRetrieval.status"
+                    [compareWith]="compareFn">
+                    <option *ngFor="let p of status" [ngValue]="p">{{ statuses[p.name] }}</option>
                   </select>
                 </div>
               </div>
@@ -415,8 +418,9 @@
               </div>
               <div class="overlay-retrieval__block__body">
                 <div class="dropdown dropdown-dark">
-                  <select name="contactMethod" class="dropdown-select" [(ngModel)]="isNewRetrieval.priority.id">
-                    <option *ngFor="let p of priority" [value]="p.id">{{ priorities[p.name] }}</option>
+                  <select name="contactMethod" class="dropdown-select" [(ngModel)]="isNewRetrieval.priority"
+                    [compareWith]="compareFn">
+                    <option *ngFor="let p of priority" [value]="p">{{ priorities[p.name] }}</option>
                   </select>
                 </div>
               </div>
@@ -427,8 +431,9 @@
               </div>
               <div class="overlay-retrieval__block__body">
                 <div class="dropdown dropdown-dark">
-                  <select name="contactMethod" class="dropdown-select">
-                    <option *ngFor="let p of priority" [value]="p.id">{{ priorities[p.name] }}</option>
+                  <select name="contactMethod" class="dropdown-select" [(ngModel)]="isNewRetrieval.priority"
+                    [compareWith]="compareFn">
+                    <option *ngFor="let p of priority" [value]="p">{{ priorities[p.name] }}</option>
                   </select>
                 </div>
               </div>
@@ -487,15 +492,19 @@
 
         </div>
 
-
         <div class="overlay-retrieval__footer">
           <div class="workspace__submit">
             <div class="submit__frame submit__frame-left"></div>
             <div class="submit__frame submit__frame-right"></div>
-            <button type="submit gridster-item-content" (click)="saveRetrieval(event.id)">
+            <button *ngIf="isEdit" type="submit gridster-item-content" (click)="editRetrieval(event.id)">
+              Сохранить
+            </button>
+            <button *ngIf="!isEdit" type="submit gridster-item-content" (click)="editSaveRetrieval()">
               Сохранить
             </button>
           </div>
+
+
           <div class="workspace__submit">
             <div class="submit__frame submit__frame-left"></div>
             <div class="submit__frame submit__frame-right"></div>
@@ -522,11 +531,6 @@
     </div>
   </ng-container>
 
-
   <evj-frame-bottom></evj-frame-bottom>
-  <!--  <div class="frame frame_bottom">-->
-  <!--    <div class="frame__circle frame__circle__left"></div>-->
-  <!--    <div class="frame__circle frame__circle__right"></div>-->
-  <!--  </div>-->
 
 </div>

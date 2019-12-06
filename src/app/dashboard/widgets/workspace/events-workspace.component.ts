@@ -9,7 +9,7 @@ import {
 } from "@angular/core";
 import { Subscription } from "rxjs";
 import { EventService } from '../../services/event.service';
-import { EventsWidgetNotification, EventsWidgetNotificationStatus, EventsWidgetNotificationPriority, IStatus, IPriority } from '../../models/events-widget';
+import { EventsWidgetNotification, EventsWidgetNotificationStatus, EventsWidgetNotificationPriority, IStatus, IPriority, User, ICategory } from '../../models/events-widget';
 
 @Component({
   selector: "evj-events-workspace",
@@ -26,11 +26,13 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
   comments: string[] = [];
   isNew: boolean = true;
 
+  isEdit: boolean = false;
+
   priority: IPriority[];
   status: IStatus[];
-  user;
+  user: User[];
   code;
-  category;
+  category: ICategory[];
   place;
   equipmentCategory;
 
@@ -63,7 +65,6 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   ngOnInit() {
-    // this.isLoading = true;
     if (!this.isMock) {
       this.subscription = this.eventService.event$.subscribe((value) => {
         if (value) {
@@ -87,9 +88,6 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
 
   resetComponent() {
-    // if (document.getElementById("overlay-retrieval").style.display = "block") {
-    //   this.overlayClose();
-    // }
     this.isNew = false;
     this.isNewRetrieval = null;
   }
@@ -219,39 +217,39 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
   async saveItem(): Promise<void> {
     this.isLoading = true;
-    const idxStatus = this.status.findIndex(f => f.id === Number(this.event.status.id));
-    if (idxStatus !== -1) {
-      this.event.status = { code: this.status[idxStatus].code, id: +this.status[idxStatus].id, name: this.status[idxStatus].name }
-    }
-    const idxPriority = this.priority.findIndex(f => f.id === Number(this.event.priority.id));
-    if (idxStatus !== -1) {
-      this.event.priority = { code: this.priority[idxPriority].code, id: +this.priority[idxPriority].id, name: this.priority[idxPriority].name }
-    }
-    const idxUser = this.user.findIndex(f => f.id === Number(this.event.fixedBy.id));
-    if (idxUser !== -1) {
-      this.event.fixedBy = {
-        firstName: this.user[idxUser].firstName,
-        id: +this.user[idxUser].id,
-        lastName: this.user[idxUser].lastName,
-        email: this.user[idxUser].email,
-        phone: this.user[idxUser].phone
-      }
-    }
+    // const idxStatus = this.status.findIndex(f => f.id === Number(this.event.status.id));
+    // if (idxStatus !== -1) {
+    //   this.event.status = { code: this.status[idxStatus].code, id: +this.status[idxStatus].id, name: this.status[idxStatus].name }
+    // }
+    // const idxPriority = this.priority.findIndex(f => f.id === Number(this.event.priority.id));
+    // if (idxStatus !== -1) {
+    //   this.event.priority = { code: this.priority[idxPriority].code, id: +this.priority[idxPriority].id, name: this.priority[idxPriority].name }
+    // }
+    // const idxUser = this.user.findIndex(f => f.id === Number(this.event.fixedBy.id));
+    // if (idxUser !== -1) {
+    //   this.event.fixedBy = {
+    //     firstName: this.user[idxUser].firstName,
+    //     id: +this.user[idxUser].id,
+    //     lastName: this.user[idxUser].lastName,
+    //     email: this.user[idxUser].email,
+    //     phone: this.user[idxUser].phone
+    //   }
+    // }
 
     let snackBar = document.getElementById("snackbar");
 
     if (this.isNew) {
       this.event.retrievalEvents.map(ret => {
-        const idxUser = this.user.findIndex(f => f.id === Number(ret.responsibleOperator.id));
-        if (idxUser !== -1) {
-          ret.responsibleOperator = {
-            firstName: this.user[idxUser].firstName,
-            id: +this.user[idxUser].id,
-            lastName: this.user[idxUser].lastName,
-            email: this.user[idxUser].email,
-            phone: this.user[idxUser].phone
-          }
-        }
+        // const idxUser = this.user.findIndex(f => f.id === Number(ret.responsibleOperator.id));
+        // if (idxUser !== -1) {
+        //   ret.responsibleOperator = {
+        //     firstName: this.user[idxUser].firstName,
+        //     id: +this.user[idxUser].id,
+        //     lastName: this.user[idxUser].lastName,
+        //     email: this.user[idxUser].email,
+        //     phone: this.user[idxUser].phone
+        //   }
+        // }
       })
       try {
         const ev = await this.eventService.postEvent(this.event);
@@ -353,14 +351,9 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
     if (this.event.id) {
       try {
-        if (this.isNewRetrieval.id) {
-          const put = await this.eventService.editRetrievalEvents(this.event.id, this.isNewRetrieval);
-          console.log(put);
-        } else {
-          const post = await this.eventService.addRetrievalEvents(idEvent, this.isNewRetrieval);
-          this.event.retrievalEvents[this.event.retrievalEvents.length - 1] = post;
-          this.event.retrievalEvents.push(post);
-        }
+        const post = await this.eventService.addRetrievalEvents(idEvent, this.isNewRetrieval);
+        this.event.retrievalEvents[this.event.retrievalEvents.length - 1] = post;
+        this.event.retrievalEvents.push(post);
         this.overlayClose();
         this.eventService.updateEvent$.next(true);
         snackBar.className = "show";
@@ -379,8 +372,34 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   editRetrieval(retrieval: EventsWidgetNotification) {
+    this.isEdit = true;
     this.isNewRetrieval = retrieval;
     document.getElementById("overlay-retrieval").style.display = "block";
+  }
+
+  async editSaveRetrieval() {
+    let snackBar = document.getElementById("snackbar");
+    try {
+      this.isLoading = true;
+      const put = await this.eventService.editRetrievalEvents(this.event.id, this.isNewRetrieval);
+      console.log(put);
+      this.eventService.updateEvent$.next(true);
+      snackBar.className = "show";
+      snackBar.innerText = "Сохранено"
+      this.overlayClose();
+      setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, 3000);
+      this.isLoading = false;
+    } catch (error) {
+      snackBar.className = "show";
+      snackBar.innerText = "Ошибка"
+      setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, 3000);
+      this.isLoading = false;
+    }
+
+    // this.event.retrievalEvents.push(this.isNewRetrieval);
+    this.overlayClose();
+
+    this.isEdit = false;
   }
 
   async deleteRetrieval(idEvent: number, idRetr: number): Promise<void> {
@@ -394,6 +413,11 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
   getIndex(i: number): string {
     return Number(i + 1).toString();
+  }
+
+  compareFn(a, b) {
+    // console.log(a, b, a && b && a.num == b.num);
+    return a && b && a.id == b.id;
   }
 
 }
