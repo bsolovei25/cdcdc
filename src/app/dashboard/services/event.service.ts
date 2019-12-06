@@ -122,17 +122,39 @@ export class EventService {
         }
     }
 
-
-    async deleteRetrievalEvents(idEvent: number, idRetr: number) {
+    async getEquipmentCategory(): Promise<any> {
+        // TODO check
         try {
-            return this.http.get<any>(this.restUrl + `/api/notification-retrieval/${idEvent}/retrievalevents/${idRetr}`).toPromise();
+            return this.http.get<any>(this.restUrl + '/api/notification-reference/equipmentcategory').toPromise();
         } catch (error) {
             console.error(error);
         }
     }
 
 
+    async editRetrievalEvents(eventId: number, retrievalEvents: EventsWidgetNotification): Promise<any> {
+        // TODO check
+        try {
+            return this.http.put(this.restUrl + `/api/notification-retrieval/${eventId}/retrievalevents/${retrievalEvents.id}`, retrievalEvents).toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
+    async addRetrievalEvents(idEvent: number, body) {
+        try {
+            return this.http.post<any>(this.restUrl + `/api/notification-retrieval/${idEvent}/retrievalevents`, body).toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
+    async deleteRetrievalEvents(idEvent: number, idRetr: number) {
+        try {
+            return this.http.delete<any>(this.restUrl + `/api/notification-retrieval/${idEvent}/retrievalevents/${idRetr}`).toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
 }
