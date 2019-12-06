@@ -7,8 +7,8 @@ export interface EventsWidgetNotification {
   responsibleOperator: User;
   fixedBy: User;
   eventDateTime: Date;
-  iconUrl?: string;
-  iconUrlStatus?: string;
+  iconUrl: string;
+  iconUrlStatus: string;
   status: IStatus;
   priority: IPriority;
   deviationReason: string; // Причина отклонения
@@ -17,12 +17,11 @@ export interface EventsWidgetNotification {
   directReasons: string; // Непосредственные/прямые причины
   description: string; // Описание
   comment: string; // Комментарий оператора
-  category: ICategory;
+  category: { id: number, name: EventsWidgetCategoryCode, code: string };
   statusName?: string;
   severity: string;
-  retrievalEvents: EventsWidgetNotification[];
+  retrievalEvents: RetrievalEvents[];
   equipmentCategory: { id: number, name: string, code: string };
-  deadline?: Date;
 }
 
 export interface User {
@@ -41,12 +40,6 @@ export type EventsWidgetFilterCode = 'all' | 'inWork' | 'closed'
 
 export type EventsWidgetCategoryCode = 'smotr' | 'safety' | 'tasks' | 'equipmentStatus' | 'drops'
 
-export interface ICategory {
-  id: number,
-  name: EventsWidgetCategoryCode,
-  code: string
-}
-
 export interface IStatus {
   id: number,
   name: EventsWidgetNotificationStatus,
@@ -59,6 +52,14 @@ export interface IPriority {
   code: string
 };
 
+export interface RetrievalEvents {
+  deadline: Date,
+  description: string,
+  id?: number,
+  responsibleUser: User | null,
+  status: { id: number, name: EventsWidgetNotificationStatus, code: string },
+  isNew: boolean
+}
 
 export interface EventsWidgetFilter {
   code: EventsWidgetFilterCode;
@@ -84,6 +85,8 @@ export interface EventsWidgetNotificationsCounter {
 
 export interface EventsWidgetData {
   notifications: EventsWidgetNotification[];
+  categories: EventsWidgetCategory[];
+  filters: EventsWidgetFilter[];
 }
 
 
