@@ -139,14 +139,41 @@
 
   font-size: 14px;
 
+  span {
+    font-size: 14px;
+    margin-left: 5px;
+  }
+
   &__deviation {
     width: 135px;
     height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    margin-top: 10px;
+
+    .deviation {
+      &__worse {
+        color: var(--color-warning);
+      }
+      &__better {
+        color: var(--color-text-main);
+      }
+
+      &__worse,
+      &__better {
+        font-size: 12px;
+      }
+    }
   }
 
   &__graph {
     min-width: 270px;
     height: 100%;
+
+    color: var(--color-text-diagram);
 
     display: flex;
     flex-direction: column;
@@ -159,15 +186,63 @@
       }
 
       &__line {
+        position: relative;
+
         width: 100%;
         height: 12px;
 
         svg {
-          background: black;
+          background: var(--color-bg-line-diagram);
           border-radius: 12px;
 
           box-sizing: border-box;
           padding: 0 2px;
+        }
+
+        .line {
+          position: absolute;
+
+          width: 2px;
+
+          background: transparent;
+          border-left: 1px solid var(--color-text-diagram);
+
+          &__marking {
+            height: 5px;
+
+            bottom: -7px;
+
+            &-0 {
+              left: 3px;
+            }
+
+            &-50 {
+              left: 100px;
+            }
+          }
+
+          &__limit {
+            height: 20px;
+            right: 40px;
+            top: -3px;
+
+            &-lower {
+              right: 90px;
+            }
+
+            &-higher {
+              right: 50px;
+            }
+          }
+
+          .label {
+            &__limit {
+              font-size: 12px;
+              position: absolute;
+              top: -20px;
+              right: -15px;
+            }
+          }
         }
       }
     }

@@ -1,41 +1,39 @@
 :root {
-  --color-bg-main: #1B1E27;
-  --color-bg-main-dark: #181B23;
-  --color-bg-sub: #272B35;
+  --color-bg-main: #1b1e27;
+  --color-bg-main-dark: #181b23;
+  --color-bg-sub: #272b35;
   --color-bg-additional: #21272e;
   --color-bg-disable: rgba(13, 16, 20, 0.2);
   --color-bg-active: rgba(63, 169, 245, 0.11);
-  --color-bg-active-bright: #3FA9F5;
+  --color-bg-active-bright: #3fa9f5;
   --color-bg-diagram: rgba(34, 37, 46, 0.34);
+  --color-bg-line-diagram: #0d1014;
 
-  --color-border-main: #5B607D;
+  --color-border-main: #5b607d;
   --color-border-main-transparrent: rgba(91, 96, 125, 0.9);
-  --color-border-active: #3FA9F5;
-  --color-border-unactive: #8C99B2;
+  --color-border-active: #3fa9f5;
+  --color-border-unactive: #8c99b2;
 
   // Переделать под прозрачность
-  --color-border-active-hover: #1E2B3A;
+  --color-border-active-hover: #1e2b3a;
 
-  --color-text-main: #FFFFFF;
-  --color-text-main-transparent: rgb(100%, 100%, 100%, 0.2);;
-  --color-text-sub: #8C99B2;
-  --color-text-sub-heading: #5B607D;
-  --color-text-diagram: #A2E2FF;
-  --color-text-diagram-half-transparent: rgb(64%, 89%, 100%, 0.5);;
-  --color-text-diagram-transparent: rgb(64%, 89%, 100%, 0.2);;
+  --color-text-main: #ffffff;
+  --color-text-main-transparent: rgb(100%, 100%, 100%, 0.2);
+  --color-text-sub: #8c99b2;
+  --color-text-sub-heading: #5b607d;
+  --color-text-diagram: #a2e2ff;
+  --color-text-diagram-half-transparent: rgb(64%, 89%, 100%, 0.5);
+  --color-text-diagram-transparent: rgb(64%, 89%, 100%, 0.2);
 
+  --color-plan: #a2e2ff;
+  --color-fact: #ffffff;
+  --color-deviation: #f4a321;
 
-  --color-plan: #A2E2FF;
-  --color-fact: #fff;
-  --color-deviation: #F4A321;
-
-  --color-danger: #EA1F1F;
-  --color-warning: #F4A321;
+  --color-danger: #ea1f1f;
+  --color-warning: #f4a321;
 
   --color-danger-transparent: rgba(234, 31, 31, 0.2);
   --color-warning-transparent: rgba(244, 163, 33, 0.2);
   --color-disable-transparent: rgba(91, 96, 125, 0.2);
   --color-active-transparent: rgba(63, 169, 245, 0.2);
 }
-
-
