@@ -14,7 +14,7 @@ export class TruncatedPieSIconComponent implements OnInit {
 
   private subscription: Subscription;
 
-  public title ="Срабатывание критических параметров";
+  public title;
   public code;
   public units;
   public name;

@@ -10,7 +10,7 @@
                     <div class="blocks">
                             <div *ngIf="isMock === true"  style="width: 100%; height: 100%;">
                                             <div class="imgblock" >
-                                                            <img src='../../../../../assets/img/pie.png'>
+                                                            <img src='../../../../../assets/img/mapEcology.png'>
                                             </div>
                             </div>
                             <div *ngIf="isMock === false" class="container_map">
@@ -36,9 +36,9 @@
                                                 <ng-container *ngFor="let data of datas">
                                                     <ng-container *ngIf="data.name === this.namePoint">
                                                             <div class="value_block" *ngFor="let item of data.attributes">
-                                                                    <div class="value_name">{{item.name}}</div>
-                                                                    <div class="value">{{item.pdk}}</div>
-                                                                    <div class="value_point">{{item.value}}</div>
+                                                                    <div class="value_name" [class.notActive]="item.value === 0" [innerHTML]="item.name"></div>
+                                                                    <div class="value" [class.notActive]="item.value === 0">{{item.pdk ? item.value: '----'}}</div>
+                                                                    <div class="value_point" [class.notActive]="item.value === 0">{{item.value ? item.value: 'не обнаружен' }}</div>
                                                                 </div>
                                                     </ng-container>
                                                 </ng-container>
