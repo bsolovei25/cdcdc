@@ -46,7 +46,7 @@
     border-left: 0.5px dashed var(--color-border-main-transparrent);
 
     &__item {
-      margin: 0 5px;
+      margin: 0 5px 0 0;
     }
   }
 }
@@ -227,7 +227,7 @@
 
       box-sizing: border-box;
       &__items {
-        margin: 0 5px;
+        margin: 0 5px 0 0;
       }
     }
     .diagrams {
@@ -241,7 +241,7 @@
       box-sizing: border-box;
 
       &__item {
-        margin: 0 5px;
+        margin: 0 5px 0 0;
       }
     }
   }
