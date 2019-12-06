@@ -10,7 +10,7 @@ import { NewUserSettingsService } from 'src/app/dashboard/services/new-user-sett
 })
 export class BarChartsComponent implements OnInit {
 
-  static itemCols = 20;
+  static itemCols = 24;
   static itemRows = 10;
 
   private subscription: Subscription;
