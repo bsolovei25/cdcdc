@@ -107,6 +107,7 @@ export class MapEcologyComponent implements AfterViewInit, OnInit {
   }
 
   public drawMap(el,data){
+    debugger
     const svg = d3.select(el).append("svg")
       .attr("min-width", "200px")
       .attr("height", "100%")
@@ -231,12 +232,13 @@ export class MapEcologyComponent implements AfterViewInit, OnInit {
           index++;
           this.indexS = index;
           this.namePoint = this.datas[this.indexS].name;
+          this.clearMap();
+          this.drawMap(this.myCircle.nativeElement, this.datas);
         }
+       
       }
-    } catch (error) {
-      
+    } catch (error) { 
     }
-    
   }
 
   public backPoint(name){
@@ -245,13 +247,14 @@ export class MapEcologyComponent implements AfterViewInit, OnInit {
         if(name === item.name){
           index--;
           this.indexS = index;
-          this.namePoint = this.datas[this.indexS].name;
+          this.namePoint = this.datas[this.indexS].name; 
+          this.clearMap();
+          this.drawMap(this.myCircle.nativeElement, this.datas);
         }
       }
     } catch (error) {
       
     }
-
   }
 
 }
