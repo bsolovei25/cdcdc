@@ -52,7 +52,6 @@ export class NewUserSettingsService {
         widgetType: nameWidget
       });
 
-      debugger
      this.screenSave();
   }
 
@@ -66,11 +65,10 @@ export class NewUserSettingsService {
     return uuid;
 }
 
-  public updateByPosition(newItem){
-  
+  public updateByPosition(oldItem,newItem){
       for(let item of this.widgetService.dashboard){
         
-          if( item.uniqid == newItem.uniqid){
+          if( item.uniqid == oldItem.uniqid){
             item.x = newItem.x;
             item.y = newItem.y;
             item.rows = newItem.rows;
@@ -126,8 +124,7 @@ export class NewUserSettingsService {
       );
   }
 
-  public GetScreen(){
-    
+  public GetScreen(){  
     this.http.get<ScreenSettings[]>(this.restUrl + '/user-management/user/1/screens')
       .subscribe(data => {
         this._screens$.next(data);
