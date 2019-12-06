@@ -32,6 +32,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
   code;
   category;
   place;
+  equipmentCategory;
 
   isNewRetrieval: EventsWidgetNotification = null;
 
@@ -86,7 +87,9 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
 
   resetComponent() {
-    this.overlayClose();
+    // if (document.getElementById("overlay-retrieval").style.display = "block") {
+    //   this.overlayClose();
+    // }
     this.isNew = false;
     this.isNewRetrieval = null;
   }
@@ -130,6 +133,13 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
       this.eventService.getPlace().then(
         (data) => {
           this.place = data;
+        }
+      )
+    );
+    dataLoadQueue.push(
+      this.eventService.getEquipmentCategory().then(
+        (data) => {
+          this.equipmentCategory = data;
         }
       )
     );
@@ -201,7 +211,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         id: 8001,
         name: "Статическое Оборудование",
         code: "0"
-      },
+      }
     }
 
 
@@ -289,17 +299,17 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
       eventDateTime: new Date,
       eventType: "",
       fixedBy: { id: 2, firstName: "Петр", lastName: "Петров", email: "test@test", phone: "00123456789" },
-      id: 10,
-      itemNumber: 321127,
+      itemNumber: 321131,
       organization: "АО Газпромнефть",
       place: { id: 5001, name: "ГФУ-1" },
       priority: { id: 2003, name: "standard", code: "2" },
       responsibleOperator: { id: 1, firstName: "Иван", lastName: "Иванов", email: "1@2", phone: "00123456789" },
       status: { id: 3001, name: "new", code: "0" },
       description: '',
-      equipmentCategory: { id: 1004, name: "equipmentStatus", code: "3" },
+      equipmentCategory: { id: 8001, name: "equipmentStatus", code: "3" },
       retrievalEvents: [],
       severity: 'Critical',
+      deadline: new Date
     }
   }
 
@@ -309,7 +319,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   saveRetrieval(idEvent: number): void {
-    this.event.retrievalEvents.push(this.isNewRetrieval);
+
     // const retrieval: RetrievalEvents = {
     //   deadline: new Date,
     //   description: '',
@@ -327,35 +337,44 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   async addRetrievalEvents(idEvent: number): Promise<void> {
-    let retrieval = this.event.retrievalEvents[this.event.retrievalEvents.length - 1];
+    // let retrieval = this.event.retrievalEvents[this.event.retrievalEvents.length - 1];
 
     const idxUser = 0;
 
-    this.isNewRetrieval.responsibleOperator = {
-      firstName: this.user[idxUser].firstName,
-      id: +this.user[idxUser].id,
-      lastName: this.user[idxUser].lastName,
-      email: this.user[idxUser].email,
-      phone: this.user[idxUser].phone
-    }
-
+    // this.isNewRetrieval.responsibleOperator = {
+    //   firstName: this.user[idxUser].firstName,
+    //   id: +this.user[idxUser].id,
+    //   lastName: this.user[idxUser].lastName,
+    //   email: this.user[idxUser].email,
+    //   phone: this.user[idxUser].phone
+    // }
 
     let snackBar = document.getElementById("snackbar");
 
-    try {
-      console.log(this.isNewRetrieval);
-
-      const post = await this.eventService.addRetrievalEvents(idEvent, this.isNewRetrieval);
-      this.event.retrievalEvents[this.event.retrievalEvents.length - 1] = post;
+    if (this.event.id) {
+      try {
+        if (this.isNewRetrieval.id) {
+          const put = await this.eventService.editRetrievalEvents(this.event.id, this.isNewRetrieval);
+          console.log(put);
+        } else {
+          const post = await this.eventService.addRetrievalEvents(idEvent, this.isNewRetrieval);
+          this.event.retrievalEvents[this.event.retrievalEvents.length - 1] = post;
+          this.event.retrievalEvents.push(post);
+        }
+        this.overlayClose();
+        this.eventService.updateEvent$.next(true);
+        snackBar.className = "show";
+        snackBar.innerText = "Сохранено"
+        setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, 3000);
+      } catch (error) {
+        snackBar.className = "show";
+        snackBar.innerText = "Ошибка"
+        setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, 3000);
+        this.isLoading = false;
+      }
+    } else {
+      this.event.retrievalEvents.push(this.isNewRetrieval);
       this.overlayClose();
-      snackBar.className = "show";
-      snackBar.innerText = "Сохранено"
-      setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, 3000);
-    } catch (error) {
-      snackBar.className = "show";
-      snackBar.innerText = "Ошибка"
-      setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, 3000);
-      this.isLoading = false;
     }
   }
 
@@ -366,12 +385,15 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
   async deleteRetrieval(idEvent: number, idRetr: number): Promise<void> {
     const del = await this.eventService.deleteRetrievalEvents(idEvent, idRetr);
+    this.eventService.updateEvent$.next(true);
     const idx = this.event.retrievalEvents.findIndex(i => i.id === idRetr);
     if (idx !== -1) {
       this.event.retrievalEvents.splice(idx, 1);
     }
-    console.log(del);
+  }
 
+  getIndex(i: number): string {
+    return Number(i + 1).toString();
   }
 
 }

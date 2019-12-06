@@ -11,16 +11,6 @@
     </div>
   </div>
   <evj-widget-header [title]="title" [id]="id"></evj-widget-header>
-  <!-- <div class="header">
-    <div class="header__content">
-      <div class="header__icon-wrapper">
-        <svg-icon class="header__icon" src="./assets/icons/widgets/workspace/events-list.svg"></svg-icon>
-      </div>
-      <span class="header__name">
-        Рабочая область
-      </span>
-    </div>
-  </div> -->
 
   <evj-frame-top></evj-frame-top>
 
@@ -208,12 +198,12 @@
                 <ul class="messages scroll-bar events" #scroll2>
                   <li class="message event" *ngFor="let retrieval of event.retrievalEvents; let i = index">
                     <div class="event__header">
-                      <span> {{ i + 1 }}. <span class="event__sub">Ответственный</span>
+                      <span> {{ getIndex(i) }}. <span class="event__sub">Ответственный</span>
                         <span style="padding-left:10px;">
                           {{ retrieval.responsibleOperator.lastName}}
                           {{ retrieval.responsibleOperator.firstName }}</span>
                       </span>
-                      <span *ngIf="retrieval.status" class="event__sub-right">{{ statuses[retrieval.status.name] }}
+                      <span class="event__sub-right">
                         <svg-icon class="event__delete" [applyCss]="true" src="./assets/edit.svg"
                           (click)="editRetrieval(retrieval)" (mousedown)="$event.stopPropagation()"
                           (touchstart)="$event.stopPropagation()"></svg-icon>
@@ -227,8 +217,8 @@
                     </div>
                     <div class="event__footer">
                       <span class="event__sub">Срок исполнения</span> <span class="event__date">
-                        <!-- <span>{{ retrieval | date }} !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span> -->
-                        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                        <span>{{ retrieval.eventDateTime | date }}</span>
+
                       </span>
                     </div>
                   </li>

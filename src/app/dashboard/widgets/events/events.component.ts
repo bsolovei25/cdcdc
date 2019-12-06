@@ -322,10 +322,12 @@ export class EventsComponent implements OnInit, OnDestroy {
 
   async deleteEvent(id: number) {
     const event = await this.eventService.deleteEvent(id);
-    console.log(event);
+    console.log(event, 1);
     const idx = this.notifications.findIndex(n => n.id === id);
     if (id !== -1) {
       this.notifications.splice(idx, 1);
+      console.log(this.notifications, id);
+
     }
   }
 

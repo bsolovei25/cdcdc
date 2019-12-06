@@ -22,6 +22,7 @@ export interface EventsWidgetNotification {
   severity: string;
   retrievalEvents: EventsWidgetNotification[];
   equipmentCategory: { id: number, name: string, code: string };
+  deadline?: Date;
 }
 
 export interface User {

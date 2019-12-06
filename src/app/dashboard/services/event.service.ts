@@ -122,6 +122,25 @@ export class EventService {
         }
     }
 
+    async getEquipmentCategory(): Promise<any> {
+        // TODO check
+        try {
+            return this.http.get<any>(this.restUrl + '/api/notification-reference/equipmentcategory').toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+
+    async editRetrievalEvents(eventId: number, retrievalEvents: EventsWidgetNotification): Promise<any> {
+        // TODO check
+        try {
+            return this.http.put(this.restUrl + `/api/notification-retrieval/${eventId}/retrievalevents/${retrievalEvents.id}`, retrievalEvents).toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     async addRetrievalEvents(idEvent: number, body) {
         try {
             return this.http.post<any>(this.restUrl + `/api/notification-retrieval/${idEvent}/retrievalevents`, body).toPromise();
@@ -137,9 +156,5 @@ export class EventService {
             console.error(error);
         }
     }
-
-
-
-
 
 }
