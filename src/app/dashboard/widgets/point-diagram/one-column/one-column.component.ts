@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from "@angular/core";
-import {PowIndexPipe} from "src/app/dashboard/pipes/pow-index.pipe";
 
 @Component({
   selector: "evj-one-column",

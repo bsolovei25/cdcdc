@@ -12,10 +12,9 @@ export class PowIndexPipe implements PipeTransform {
       } else if (+value[i]) {
         finalString = finalString + "<sub>" + value[i] + "</sub>";
       } else {
-        finalString += value[i];
+        finalString += value[i] !== "^" ? value[i] : "";
       }
     }
-    console.log(finalString)
     return finalString;
   }
 }
