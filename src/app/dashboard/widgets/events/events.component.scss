@@ -376,27 +376,9 @@
     padding: 15px 10px;
   }
 
-  &__icon_delete {
-    display: none;
-  }
-
-  &__icon_delete__mock {
-    display: block;
-    width: 25px;
-  }
-
   &:hover &__body {
     background: var(--color-bg-active-bright);
     background: linear-gradient(0deg, rgba(63, 169, 245, 0.1) 0%, var(--color-bg-main) 100%);
-
-    .notification__icon_delete {
-      display: inline;
-      margin-left: 10px;
-    }
-
-    .notification__icon_delete__mock {
-      display: none;
-    }
   }
 
   &__description {
@@ -407,10 +389,10 @@
 
   &__extra {
     flex: 1 150px;
-    max-width: 150px;
+    max-width: 98px;
 
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
   }
 
@@ -427,7 +409,7 @@
       color: var(--color-warning);
     }
 
-    &_standart {
+    &standart {
       color: var(--color-text-main);
     }
   }
@@ -437,7 +419,6 @@
     justify-content: center;
     align-items: center;
     color: var(--color-text-sub);
-    margin-left: 10px;
 
     width: 26px;
     height: 26px;
@@ -452,14 +433,6 @@
 
     &_standard {
       stroke: var(--color-text-sub);
-    }
-
-    &_delete {
-      fill: var(--color-border-unactive);
-
-      &:hover {
-        fill: var(--color-border-active);
-      }
     }
   }
 }
@@ -545,7 +518,7 @@
 
   &__extra {
     flex: 1 98px;
-    max-width: 200px;
+    max-width: 160px;
 
     display: flex;
     justify-content: flex-end;
@@ -574,14 +547,11 @@
     justify-content: center;
     align-items: center;
 
+    margin-top: 7px;
+    margin-left: 7px;
+
     width: 26px;
     height: 26px;
-
-    &__right {
-      margin-top: 11px;
-      margin-left: 13px;
-      display: block;
-    }
 
     &_danger {
       stroke: var(--color-danger);
@@ -593,13 +563,6 @@
 
     &_standard {
       stroke: var(--color-text-main);
-    }
-    &_delete {
-      fill: var(--color-border-unactive);
-
-      &:hover {
-        fill: var(--color-border-active);
-      }
     }
   }
 

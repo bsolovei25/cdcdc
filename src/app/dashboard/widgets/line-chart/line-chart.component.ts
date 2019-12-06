@@ -179,7 +179,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
       .subscribe((ref) => {
         this.dataLine = ref;
         this.draw(this.dataLine);
-        // console.log('update-line-chat');
+        console.log('update-line-chat');
       }));
   }
 
