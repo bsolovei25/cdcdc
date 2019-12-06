@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
 import { Subscription } from 'rxjs';
+import { NewUserSettingsService } from 'src/app/dashboard/services/new-user-settings.service';
 
 @Component({
   selector: 'evj-bar-charts',
@@ -23,6 +24,7 @@ export class BarChartsComponent implements OnInit {
 
   constructor(
     public widgetService: NewWidgetService,
+    public userSettings: NewUserSettingsService,
     @Inject('isMock') public isMock: boolean,
     @Inject('widgetId') public id: string
     ) {
@@ -62,6 +64,11 @@ export class BarChartsComponent implements OnInit {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+  }
+
+  onRemoveButton(){
+    this.widgetService.removeItemService(this.id);
+    this.userSettings.removeItem();
   }
   
 }
