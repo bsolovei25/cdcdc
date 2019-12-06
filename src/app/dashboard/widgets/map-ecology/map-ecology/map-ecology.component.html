@@ -36,7 +36,7 @@
                                                 <ng-container *ngFor="let data of datas">
                                                     <ng-container *ngIf="data.name === this.namePoint">
                                                             <div class="value_block" *ngFor="let item of data.attributes">
-                                                                    <div class="value_name" [class.notActive]="item.value === 0">{{item.name}}</div>
+                                                                    <div class="value_name" [class.notActive]="item.value === 0" [innerHTML]="item.name"></div>
                                                                     <div class="value" [class.notActive]="item.value === 0">{{item.pdk ? item.value: '----'}}</div>
                                                                     <div class="value_point" [class.notActive]="item.value === 0">{{item.value ? item.value: 'не обнаружен' }}</div>
                                                                 </div>
