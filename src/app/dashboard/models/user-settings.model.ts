@@ -31,6 +31,7 @@ export interface NewUserGrid{
   sizeY: number;
   widgetId: string;
   widgetType: string;
+  uniqueId: string;
 }
 
 
