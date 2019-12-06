@@ -74,12 +74,13 @@ export class MapEcologyComponent implements AfterViewInit, OnInit {
       .subscribe((ref) => {
           if(this.datas == null){
             this.datas = ref.points;
-            this.tableParam(this.datas);
+            this.regexText(this.datas);
             this.drawMap(this.myCircle.nativeElement, this.datas);
             this.namePoint = this.datas[0].name;
           }else{
             this.clearMap();
             this.datas = ref.points;
+            this.regexText(this.datas);
             this.drawMap(this.myCircle.nativeElement, this.datas);
           }
         }
@@ -207,6 +208,17 @@ export class MapEcologyComponent implements AfterViewInit, OnInit {
     } 
   }
 
+  public regexText(data){
+    debugger
+    for(let dat of data){
+      for(let item of dat.attributes){
+        let regex = /\d+/gi;
+        let newText = item.name.replace(regex, '<sub>$&</sub>');
+        item.name = newText;
+      } 
+    }
+  }
+
   public infoPoint(name){
     this.namePoint = name;
     console.log("good");
@@ -242,15 +254,4 @@ export class MapEcologyComponent implements AfterViewInit, OnInit {
 
   }
 
-  public tableParam(data){
-    for(let dat of data){
-      for(let item of dat.attributes){
-        if(item.value === 0) {
-         // let nClass = document.getElementById('div').className = "value_block"; // querySelector(".value_block");
-          //nClass = "value_block_none";
-          //document.write(nClass);
-        }
-      }
-    }
-  }
 }
