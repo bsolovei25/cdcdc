@@ -40,6 +40,7 @@ import { MapEcologyComponent } from "./widgets/map-ecology/map-ecology/map-ecolo
 import { UnityTemplateComponent } from "./widgets/unity-template/unity-template.component";
 import { DetailedLineDiagramComponent } from "./components/detailed-line-diagram/detailed-line-diagram.component";
 import { PowIndexPipe } from "./pipes/pow-index.pipe";
+import { OperationEfficiencyComponent } from './widgets/operation-efficiency/operation-efficiency.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { PowIndexPipe } from "./pipes/pow-index.pipe";
     PowIndexPipe,
     MapEcologyComponent,
     UnityTemplateComponent,
-    DetailedLineDiagramComponent
+    DetailedLineDiagramComponent,
+    OperationEfficiencyComponent
   ],
   entryComponents: [
     LineChartComponent,

@@ -1,0 +1,167 @@
+%circle {
+  width: 4px;
+  height: 4px;
+  border: 0.5px solid var(--color-border-main-transparrent);
+  background-color: black;
+  border-radius: 50%;
+  position: absolute;
+  top: 100%;
+  box-sizing: border-box;
+}
+
+:host {
+  position: relative;
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.container {
+  position: relative;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-width: 444px;
+}
+
+.mock {
+  position: relative;
+  display: block;
+  height: 200px;
+  .diagrams {
+    position: relative;
+    height: 100%;
+    flex: 1;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    box-sizing: border-box;
+    padding: 0 10px;
+
+    border-right: 0.5px dashed var(--color-border-main-transparrent);
+    border-left: 0.5px dashed var(--color-border-main-transparrent);
+
+    &__item {
+      margin: 0 5px 0 0;
+    }
+  }
+}
+
+.frame {
+  width: 100%;
+  height: 28px;
+  min-width: 430px;
+
+  border: 0.5px solid var(--color-border-main-transparrent);
+  border-bottom: transparent;
+  position: relative;
+
+  &__circle {
+    @extend %circle;
+    &__left {
+      left: -2.5px;
+    }
+
+    &__right {
+      right: -2.5px;
+    }
+  }
+
+  &_top {
+    &:after {
+      z-index: 1;
+      content: "";
+      position: absolute;
+      top: -3px;
+      right: -1px;
+
+      height: 7px;
+      width: 7px;
+      box-sizing: border-box;
+      transform-origin: 43% 0;
+      transform: rotate(-45deg);
+
+      border-left: 0.5px solid var(--color-border-main-transparrent);
+
+      background: var(--color-bg-main);
+    }
+  }
+
+  &_bottom {
+    bottom: 0;
+    border-bottom: 0.5px solid var(--color-border-main-transparrent);
+    border-top: transparent;
+
+    &:after {
+      z-index: 1;
+      content: "";
+      position: absolute;
+
+      bottom: -5px;
+      right: -1px;
+
+      height: 7px;
+      width: 7px;
+
+      box-sizing: border-box;
+      transform-origin: 43% 0;
+      transform: rotate(-45deg);
+
+      border-top: 0.5px solid var(--color-border-main-transparrent);
+      background: var(--color-bg-main);
+    }
+
+    &:before {
+      z-index: 1;
+      content: "";
+      position: absolute;
+
+      bottom: -3px;
+      left: -1px;
+
+      height: 6px;
+      width: 6px;
+
+      box-sizing: border-box;
+      transform-origin: 43% 0;
+      transform: rotate(45deg);
+
+      border-top: 0.5px solid var(--color-border-main-transparrent);
+      background: var(--color-bg-main);
+    }
+  }
+
+  &_bottom &__circle {
+    top: 0;
+  }
+}
+
+.circle {
+  @extend %circle;
+  &__left {
+    left: -2.5px;
+
+    &-top {
+      top: -2.5px;
+    }
+    &-bottom {
+      bottom: 0px;
+    }
+  }
+
+  &__right {
+    right: -2.5px;
+
+    &-top {
+      top: -2.5px;
+    }
+    &-bottom {
+      bottom: 5px;
+    }
+  }
+}
