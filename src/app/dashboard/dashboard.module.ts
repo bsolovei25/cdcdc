@@ -36,6 +36,7 @@ import { OneColumnComponent } from './widgets/point-diagram/one-column/one-colum
 import { ProductionPyramidComponent } from './widgets/production-pyramid/production-pyramid.component';
 import { BarChartsComponent } from './widgets/bar-chart/bar-charts/bar-charts.component';
 import { BarChartComponent } from './widgets/bar-chart/bar-chart/bar-chart.component';
+import { MapEcologyComponent } from './widgets/map-ecology/map-ecology/map-ecology.component';
 import { UnityTemplateComponent } from './widgets/unity-template/unity-template.component';
 
 @NgModule({
@@ -69,6 +70,7 @@ import { UnityTemplateComponent } from './widgets/unity-template/unity-template.
     ProductionPyramidComponent,
     BarChartsComponent,
     BarChartComponent,
+    MapEcologyComponent,
     UnityTemplateComponent
   ],
   entryComponents:[
@@ -85,6 +87,7 @@ import { UnityTemplateComponent } from './widgets/unity-template/unity-template.
     PointDiagramComponent,
     ProductionPyramidComponent,
     BarChartsComponent,
+    MapEcologyComponent,
     UnityTemplateComponent,
   ],
   exports: [
