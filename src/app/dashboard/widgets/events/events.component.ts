@@ -208,8 +208,6 @@ export class EventsComponent implements OnInit, OnDestroy {
 
     const options = this.getCurrentOptions();
     this.notifications = this.applyFilter(this.allNotifications, options);
-    // console.log(this.notifications);
-
     // filtering only at front-end
   }
 
@@ -226,6 +224,7 @@ export class EventsComponent implements OnInit, OnDestroy {
     // if (notifications.length > this.notificationsMaxCount) {
     // notifications = notifications.slice(0, this.notificationsMaxCount);
     // }
+
 
     return notifications;
   }
@@ -288,6 +287,7 @@ export class EventsComponent implements OnInit, OnDestroy {
   private wsConnect() {
     this.liveSubscription = this.widgetService.getWidgetLiveDataFromWS(this.id, 'events')
       .subscribe((ref: EventsWidgetData) => {
+        console.log(ref);
         this.appendNotifications(ref.notifications);
         // this.appendFilterCounters(ref.filters);
         this.appendCategoriesCounters();

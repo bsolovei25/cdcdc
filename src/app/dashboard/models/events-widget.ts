@@ -7,8 +7,8 @@ export interface EventsWidgetNotification {
   responsibleOperator: User;
   fixedBy: User;
   eventDateTime: Date;
-  iconUrl: string;
-  iconUrlStatus: string;
+  iconUrl?: string;
+  iconUrlStatus?: string;
   status: IStatus;
   priority: IPriority;
   deviationReason: string; // Причина отклонения
@@ -83,8 +83,6 @@ export interface EventsWidgetNotificationsCounter {
 
 export interface EventsWidgetData {
   notifications: EventsWidgetNotification[];
-  categories: EventsWidgetCategory[];
-  filters: EventsWidgetFilter[];
 }
 
 

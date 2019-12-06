@@ -86,6 +86,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
 
   resetComponent() {
+    this.overlayClose();
     this.isNew = false;
     this.isNewRetrieval = null;
   }
@@ -278,24 +279,33 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
   addRetrieval(): void {
     document.getElementById("overlay-retrieval").style.display = "block";
 
-    this.isNewRetrieval = <EventsWidgetNotification>{
-      description: '',
-      responsibleOperator: { id: 1, firstName: "Иван", lastName: "Иванов", email: "1@2", phone: "00123456789" },
+    this.isNewRetrieval = {
       branch: "Производство",
+      category: { id: 1004, name: "equipmentStatus", code: "3" },
+      comment: "Новое событие",
+      deviationReason: "Причина отклонения...",
+      directReasons: "",
+      establishedFacts: "",
       eventDateTime: new Date,
+      eventType: "",
       fixedBy: { id: 2, firstName: "Петр", lastName: "Петров", email: "test@test", phone: "00123456789" },
+      id: 10,
+      itemNumber: 321127,
       organization: "АО Газпромнефть",
-      priority: { id: 2003, name: "standard", code: '2' },
-      status: { id: 3001, name: 'new', code: '0' },
-      establishedFacts: '',
-      directReasons: '',
+      place: { id: 5001, name: "ГФУ-1" },
+      priority: { id: 2003, name: "standard", code: "2" },
+      responsibleOperator: { id: 1, firstName: "Иван", lastName: "Иванов", email: "1@2", phone: "00123456789" },
+      status: { id: 3001, name: "new", code: "0" },
+      description: '',
+      equipmentCategory: { id: 1004, name: "equipmentStatus", code: "3" },
+      retrievalEvents: [],
+      severity: 'Critical',
     }
   }
 
   overlayClose() {
     document.getElementById("overlay-retrieval").style.display = "none";
     this.isNewRetrieval = null;
-    console.log('close');
   }
 
   saveRetrieval(idEvent: number): void {
@@ -333,7 +343,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     let snackBar = document.getElementById("snackbar");
 
     try {
-      console.log(idEvent);
+      console.log(this.isNewRetrieval);
 
       const post = await this.eventService.addRetrievalEvents(idEvent, this.isNewRetrieval);
       this.event.retrievalEvents[this.event.retrievalEvents.length - 1] = post;

@@ -209,17 +209,17 @@
                   <li class="message event" *ngFor="let retrieval of event.retrievalEvents; let i = index">
                     <div class="event__header">
                       <span> {{ i + 1 }}. <span class="event__sub">Ответственный</span>
-                        <span *ngIf="!retrieval.isNew" style="padding-left:10px;">
-                          {{ retrieval.responsibleUser.lastName}}
-                          {{ retrieval.responsibleUser.firstName }}</span>
+                        <span style="padding-left:10px;">
+                          {{ retrieval.responsibleOperator.lastName}}
+                          {{ retrieval.responsibleOperator.firstName }}</span>
                       </span>
                       <span *ngIf="retrieval.status" class="event__sub-right">{{ statuses[retrieval.status.name] }}
-                        <svg-icon *ngIf="!retrieval.isNew" class="event__delete" [applyCss]="true"
-                          src="./assets/edit.svg" (click)="editRetrieval(retrieval)"
-                          (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()"></svg-icon>
-                        <svg-icon *ngIf="!retrieval.isNew" class="event__delete" [applyCss]="true"
-                          src="./assets/garbage_bad_pic.svg" (click)="deleteRetrieval(event.id, retrieval.id)"
-                          (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()"></svg-icon>
+                        <svg-icon class="event__delete" [applyCss]="true" src="./assets/edit.svg"
+                          (click)="editRetrieval(retrieval)" (mousedown)="$event.stopPropagation()"
+                          (touchstart)="$event.stopPropagation()"></svg-icon>
+                        <svg-icon class="event__delete" [applyCss]="true" src="./assets/garbage_bad_pic.svg"
+                          (click)="deleteRetrieval(event.id, retrieval.id)" (mousedown)="$event.stopPropagation()"
+                          (touchstart)="$event.stopPropagation()"></svg-icon>
                       </span>
                     </div>
                     <div class="event__body">
@@ -227,7 +227,8 @@
                     </div>
                     <div class="event__footer">
                       <span class="event__sub">Срок исполнения</span> <span class="event__date">
-                        <span *ngIf="!retrieval.isNew">{{ retrieval.deadline | date }}</span>
+                        <!-- <span>{{ retrieval | date }} !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span> -->
+                        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                       </span>
                     </div>
                   </li>
@@ -532,10 +533,10 @@
   </ng-container>
 
 
-<evj-frame-bottom></evj-frame-bottom>
-<!--  <div class="frame frame_bottom">-->
-<!--    <div class="frame__circle frame__circle__left"></div>-->
-<!--    <div class="frame__circle frame__circle__right"></div>-->
-<!--  </div>-->
+  <evj-frame-bottom></evj-frame-bottom>
+  <!--  <div class="frame frame_bottom">-->
+  <!--    <div class="frame__circle frame__circle__left"></div>-->
+  <!--    <div class="frame__circle frame__circle__right"></div>-->
+  <!--  </div>-->
 
 </div>
