@@ -94,7 +94,8 @@ import { OperationEfficiencyComponent } from './widgets/operation-efficiency/ope
     ProductionPyramidComponent,
     BarChartsComponent,
     MapEcologyComponent,
-    UnityTemplateComponent
+    UnityTemplateComponent,
+    OperationEfficiencyComponent
   ],
   exports: [HomeComponent],
   imports: [
