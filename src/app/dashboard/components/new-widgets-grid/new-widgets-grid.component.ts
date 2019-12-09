@@ -40,8 +40,8 @@ export class NewWidgetsGridComponent implements OnInit {
     this.options = {
       gridType: GridType.Fixed,
       displayGrid: 'none',
-      swap: true,
-      swapWhileDragging: false,
+      //swap: true,
+      //swapWhileDragging: false,
       itemChangeCallback: this.itemChange.bind(this),
       enableEmptyCellClick: false,
       enableEmptyCellContextMenu: false,
@@ -60,7 +60,7 @@ export class NewWidgetsGridComponent implements OnInit {
       maxItemRows:10000,
       maxRows: 100000,
       maxCols: 100000,
-      pushItems: false,
+      pushItems: true,
       draggable: {
         enabled: true,
         stop: this.eventStop.bind(this),
@@ -86,9 +86,8 @@ export class NewWidgetsGridComponent implements OnInit {
   }
 
   public itemChange(item: GridsterItem, itemComponent: GridsterItemComponentInterface) {
-  
    this.userSettings.updateByPosition(item, itemComponent.$item);
-   // this.userSettings.screenSave();
+
   // console.info('itemChanged', this.widgetService.dashboard);
   }
 
@@ -96,11 +95,12 @@ export class NewWidgetsGridComponent implements OnInit {
 
   public onSwap(swap:any){
     swap === true?this.options.swap=true:this.options.swap=false;
+    swap === true?this.options.pushItems=true:this.options.pushItems=false;
     this.changedOptions();
   }
 
   public onGrid(grid:any){
-    grid === true?this.options.displayGrid='none':this.options.displayGrid=DisplayGrid.Always;
+   grid === true?this.options.displayGrid='none':this.options.displayGrid=DisplayGrid.Always;
     this.changedOptions();
   }
 
