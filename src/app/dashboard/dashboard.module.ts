@@ -40,7 +40,7 @@ import { MapEcologyComponent } from './widgets/map-ecology/map-ecology/map-ecolo
 import { UnityTemplateComponent } from './widgets/unity-template/unity-template.component';
 import { PowIndexPipe } from './pipes/pow-index.pipe';
 import { RingFactoryDiagramComponent } from './widgets/ring-factory-diagram/ring-factory-diagram.component';
-import {MatCheckboxModule} from "@angular/material/checkbox";
+
 
 @NgModule({
   declarations: [
@@ -108,7 +108,6 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     FormsModule,
     GridsterModule,
     ClickOutsideModule,
-    MatCheckboxModule
   ],
   bootstrap: []
 })
