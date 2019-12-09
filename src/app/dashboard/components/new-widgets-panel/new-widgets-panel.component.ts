@@ -1,4 +1,4 @@
-import { Component, OnInit, Injector, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Injector, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import { GridsterItem, GridsterConfig, GridType } from 'angular-gridster2';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { Observable, Subscription } from 'rxjs';
@@ -7,6 +7,7 @@ import { WidgetModel } from '../../models/widget.model';
 import { Widgets } from '../../models/widget.model';
 import { tick } from '@angular/core/testing';
 import { NewUserSettingsService } from '../../services/new-user-settings.service';
+
 
 @Component({
   selector: 'evj-new-widgets-panel',
@@ -35,6 +36,8 @@ export class NewWidgetsPanelComponent implements OnInit {
 
   _injector: Injector;
 
+  public swapWidget = true;
+
   massWidg = [WIDGETS];
 
 
@@ -48,7 +51,7 @@ export class NewWidgetsPanelComponent implements OnInit {
       this.widgets = dataW;
     });
    }
-
+  
   ngOnInit() {
     this.options = {
       gridType: GridType.Fit,
@@ -74,6 +77,19 @@ export class NewWidgetsPanelComponent implements OnInit {
       }
     };
   }
+
+  @Output() onSwap = new EventEmitter<boolean>();
+
+  changeSwap(){
+    let check = <HTMLInputElement> document.getElementById('checkBox');
+    if(check.checked){
+      this.swapWidget = false;
+      this.onSwap.emit(this.swapWidget);
+    }else{
+      this.swapWidget = true;
+      this.onSwap.emit(this.swapWidget);
+    }
+  } 
 
   ngOnDestroy() {
     if (this.subscription) {

@@ -40,6 +40,9 @@ export class NewWidgetsGridComponent implements OnInit {
     this.options = {
       gridType: GridType.Fixed,
       displayGrid: 'none',
+      swap: true,
+      swapWhileDragging: false,
+      itemChangeCallback: this.itemChange.bind(this),
       enableEmptyCellClick: false,
       enableEmptyCellContextMenu: false,
       enableEmptyCellDrop: true,
@@ -57,7 +60,7 @@ export class NewWidgetsGridComponent implements OnInit {
       maxItemRows:10000,
       maxRows: 100000,
       maxCols: 100000,
-      pushItems: true,
+      pushItems: false,
       draggable: {
         enabled: true,
         stop: this.eventStop.bind(this),
@@ -82,6 +85,20 @@ export class NewWidgetsGridComponent implements OnInit {
     };
   }
 
+  public itemChange(item: GridsterItem, itemComponent: GridsterItemComponentInterface) {
+  
+   this.userSettings.updateByPosition(item, itemComponent.$item);
+   // this.userSettings.screenSave();
+  // console.info('itemChanged', this.widgetService.dashboard);
+  }
+
+  
+
+  public onSwap(swap:any){
+    swap === true?this.options.swap=true:this.options.swap=false;
+    this.changedOptions();
+  }
+
   public getInjector = (idWidget: string): Injector => {
     return Injector.create({
       providers: [
@@ -96,6 +113,7 @@ export class NewWidgetsGridComponent implements OnInit {
     if (!e) return;
     const dataTrasfer = new DataTransfer();
     e.currentTarget.dispatchEvent(new DragEvent('dragstart', { dataTransfer: dataTrasfer }));
+    console.log("start", this.widgetService.dashboard);
   }
 
   public dragStart(e: DragEvent, item: GridsterItem): void {
@@ -111,8 +129,8 @@ export class NewWidgetsGridComponent implements OnInit {
     const dataTrasfer = new DataTransfer();
     e.currentTarget.dispatchEvent(new DragEvent('dragstop', { dataTransfer: dataTrasfer }));
     this.widgetService.draggingItem = null;
-    //this.userSettings.updateByPosition(item, itemComponent.$item);
-    this.userSettings.updateByPosition(item, itemComponent.$item);
+ //   this.userSettings.updateByPosition(item, itemComponent.$item);
+  //  console.log("stop", this.widgetService.dashboard);
   }
 
 
