@@ -98,7 +98,7 @@ export class NewUserSettingsService {
   public updateWidgetApi(uniqId){
     this.save(uniqId);
     let updateWidget = this.widgetInfo;
-    debugger
+  
     this.http.put(this.restUrl + '/user-management/widget/'+uniqId, updateWidget)
       .subscribe(
         ans => {
@@ -118,7 +118,7 @@ export class NewUserSettingsService {
             // console.log("update", item)
           }
       }   
-    debugger
+
      this.updateWidgetApi(oldItem.uniqid);
 
   }
