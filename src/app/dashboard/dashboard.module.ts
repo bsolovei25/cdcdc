@@ -39,6 +39,7 @@ import { BarChartComponent } from './widgets/bar-chart/bar-chart/bar-chart.compo
 import { MapEcologyComponent } from './widgets/map-ecology/map-ecology/map-ecology.component';
 import { UnityTemplateComponent } from './widgets/unity-template/unity-template.component';
 import { PowIndexPipe } from './pipes/pow-index.pipe';
+import { LineChartWorkspaceComponent } from './widgets/workspace/line-chart-workspace/line-chart-workspace.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { PowIndexPipe } from './pipes/pow-index.pipe';
     BarChartComponent,
     PowIndexPipe,
     MapEcologyComponent,
-    UnityTemplateComponent
+    UnityTemplateComponent,
+    LineChartWorkspaceComponent
   ],
   entryComponents:[
     LineChartComponent,
@@ -91,6 +93,7 @@ import { PowIndexPipe } from './pipes/pow-index.pipe';
     BarChartsComponent,
     MapEcologyComponent,
     UnityTemplateComponent,
+    LineChartWorkspaceComponent
   ],
   exports: [
     HomeComponent,

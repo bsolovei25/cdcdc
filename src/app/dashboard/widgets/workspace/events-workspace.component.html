@@ -30,7 +30,7 @@
               Дата / время:
             </div>
             <div class="workspace__block__body">
-              {{ event.eventDateTime | date:'yyyy-MM-dd HH:mm' }}
+              {{ event.eventDateTime | date:'dd-MM-yyyy HH:mm' }}
             </div>
           </div>
 
@@ -76,12 +76,15 @@
               Зафиксировал:
             </div>
             <div class="workspace__block__body" style="max-width: 120px;">
+
+
               <div class="dropdown dropdown-dark">
                 <select name="contactMethod" class="dropdown-select" [(ngModel)]="event.fixedBy"
                   [compareWith]="compareFn">
-                  <option *ngFor="let p of user" [value]="p">{{ p.lastName }} {{ p.firstName }}</option>
+                  <option *ngFor="let p of user" [ngValue]="p">{{ p.lastName }} {{ p.firstName }}</option>
                 </select>
               </div>
+
             </div>
           </div>
 
@@ -106,7 +109,7 @@
               <div class="dropdown dropdown-dark">
                 <select name="contactMethod" class="dropdown-select" [(ngModel)]="event.status"
                   [compareWith]="compareFn">
-                  <option *ngFor="let p of status" [value]="p">{{ statuses[p.name] }}</option>
+                  <option *ngFor="let p of status" [ngValue]="p">{{ statuses[p.name] }}</option>
                 </select>
               </div>
             </div>
@@ -120,7 +123,31 @@
               <div class="dropdown dropdown-dark">
                 <select name="contactMethod" class="dropdown-select" [(ngModel)]="event.priority"
                   [compareWith]="compareFn">
-                  <option *ngFor="let p of priority" [value]="p">{{ priorities[p.name] }}</option>
+                  <option *ngFor="let p of priority" [ngValue]="p">{{ priorities[p.name] }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="workspace__block__right">
+            <div class="workspace__block__title">
+              Ответственный:
+            </div>
+            <div class="workspace__block__body">
+              {{ user[idUser].lastName }} {{ user[idUser].firstName }}
+            </div>
+          </div>
+
+          <div class="workspace__block__right">
+            <div class="workspace__block__title">
+              Система источник:
+            </div>
+            <div class="workspace__block__body">
+              <div class="dropdown dropdown-dark">
+                <select name="contactMethod" class="dropdown-select" [(ngModel)]="event.equipmentCategory"
+                  [compareWith]="compareFn" (change)="changeCategory()">
+                  <option *ngFor="let p of equipmentCategory" [ngValue]="p">{{ p.name }}
+                  </option>
                 </select>
               </div>
             </div>
@@ -204,7 +231,8 @@
                           {{ retrieval.responsibleOperator.lastName}}
                           {{ retrieval.responsibleOperator.firstName }}</span>
                       </span>
-                      <span class="event__sub-right">
+
+                      <span *ngIf="retrieval.status" class="event__sub-right">{{ statuses[retrieval.status.name] }}
                         <svg-icon class="event__delete" [applyCss]="true" src="./assets/edit.svg"
                           (click)="editRetrieval(retrieval)" (mousedown)="$event.stopPropagation()"
                           (touchstart)="$event.stopPropagation()"></svg-icon>
@@ -218,7 +246,7 @@
                     </div>
                     <div class="event__footer">
                       <span class="event__sub">Срок исполнения</span> <span class="event__date">
-                        <span>{{ retrieval.eventDateTime | date }}</span>
+                        <span>{{ retrieval.eventDateTime | date:'dd-MM-yyyy HH:mm' }}</span>
 
                       </span>
                     </div>
@@ -262,9 +290,13 @@
               Медиа контент
             </div>
             <div class="media__items">
-
+              <div class="media__item" (click)="openLineChart()">
+                <svg-icon class="button__icon" src="./assets/line-chart.svg">
+                </svg-icon>
+              </div>
               <div class="media__item">
-                <svg-icon style="fill: rgb(231, 231, 231);" class="button__icon" src="./assets/img/1.svg"></svg-icon>
+                <svg-icon class="button__icon" src="./assets/round-add-button.svg">
+                </svg-icon>
               </div>
             </div>
           </div>
@@ -334,7 +366,7 @@
                 Дата / время:
               </div>
               <div class="overlay-retrieval__block__body">
-                {{ isNewRetrieval.eventDateTime | date:'yyyy-MM-dd HH:mm' }}
+                {{ isNewRetrieval.eventDateTime | date:'dd-MM-yyyy HH:mm' }}
               </div>
             </div>
 
@@ -383,7 +415,7 @@
                 <div class="dropdown dropdown-dark">
                   <select name="contactMethod" class="dropdown-select" [(ngModel)]="isNewRetrieval.fixedBy"
                     [compareWith]="compareFn">
-                    <option *ngFor="let p of user" [value]="p">{{ p.lastName }} {{ p.firstName }}</option>
+                    <option *ngFor="let p of user" [ngValue]="p">{{ p.lastName }} {{ p.firstName }}</option>
                   </select>
                 </div>
               </div>
@@ -420,24 +452,12 @@
                 <div class="dropdown dropdown-dark">
                   <select name="contactMethod" class="dropdown-select" [(ngModel)]="isNewRetrieval.priority"
                     [compareWith]="compareFn">
-                    <option *ngFor="let p of priority" [value]="p">{{ priorities[p.name] }}</option>
+                    <option *ngFor="let p of priority" [ngValue]="p">{{ priorities[p.name] }}</option>
                   </select>
                 </div>
               </div>
             </div>
-            <div class="overlay-retrieval__block">
-              <div class="overlay-retrieval__block__title">
-                Система источник:
-              </div>
-              <div class="overlay-retrieval__block__body">
-                <div class="dropdown dropdown-dark">
-                  <select name="contactMethod" class="dropdown-select" [(ngModel)]="isNewRetrieval.priority"
-                    [compareWith]="compareFn">
-                    <option *ngFor="let p of priority" [value]="p">{{ priorities[p.name] }}</option>
-                  </select>
-                </div>
-              </div>
-            </div>
+
 
             <div class="overlay-retrieval__block">
               <div class="overlay-retrieval__block__title">
@@ -445,7 +465,32 @@
               </div>
               <div class="overlay-retrieval__block__body">
                 <input type="datetime-local" class="dates-selector__date-input"
-                  [ngModel]="isNewRetrieval.deadline | date:'yyyy-MM-ddTHH:mm'">
+                  [ngModel]=" isNewRetrieval.eventDateTime | date:'yyyy-MM-ddTHH:mm'">
+              </div>
+            </div>
+
+            <div class="overlay-retrieval__block">
+              <div class="overlay-retrieval__block__title">
+                Ответственный:
+              </div>
+              <div class="overlay-retrieval__block__body">
+                {{ user[idUser].lastName }} {{ user[idUser].firstName }}
+              </div>
+            </div>
+
+
+            <div class="overlay-retrieval__block">
+              <div class="overlay-retrieval__block__title">
+                Система источник:
+              </div>
+              <div class="overlay-retrieval__block__body">
+                <div class="dropdown dropdown-dark">
+                  <select name="contactMethod" class="dropdown-select" [(ngModel)]="isNewRetrieval.equipmentCategory"
+                    [compareWith]="compareFn" (change)="changeCategory()">
+                    <option *ngFor="let p of equipmentCategory" [ngValue]="p">{{ p.name }}
+                    </option>
+                  </select>
+                </div>
               </div>
             </div>
 
@@ -496,10 +541,10 @@
           <div class="workspace__submit">
             <div class="submit__frame submit__frame-left"></div>
             <div class="submit__frame submit__frame-right"></div>
-            <button *ngIf="isEdit" type="submit gridster-item-content" (click)="editRetrieval(event.id)">
+            <button *ngIf="!isEdit" type="submit gridster-item-content" (click)="saveRetrieval(event.id)">
               Сохранить
             </button>
-            <button *ngIf="!isEdit" type="submit gridster-item-content" (click)="editSaveRetrieval()">
+            <button *ngIf="isEdit" type="submit gridster-item-content" (click)="editSaveRetrieval()">
               Сохранить
             </button>
           </div>
@@ -514,6 +559,14 @@
           </div>
         </div>
 
+      </div>
+    </div>
+
+
+    <div (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()" id="overlay-chart"
+      (click)="overlayChartClose()">
+      <div class="overlay-chart__body" (click)="$event.stopPropagation()">
+        <evj-line-chart-workspace></evj-line-chart-workspace>
       </div>
     </div>
 
