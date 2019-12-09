@@ -60,7 +60,7 @@ export class TruncatedPieIconComponent implements OnInit {
     const canvas = d3.select(el).append("svg")
       .attr("min-width", "200px")
       .attr("max-width", "500px")
-      .attr("viewBox", "32 20 140 180")
+      .attr("viewBox", "32 20 160 180")
 
     let group = canvas.append("g")
       .attr("transform", "translate(100 ,100)");

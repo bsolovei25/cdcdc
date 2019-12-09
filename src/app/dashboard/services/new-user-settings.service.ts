@@ -41,76 +41,93 @@ export class NewUserSettingsService {
 
   public addCellByPosition(idWidget, nameWidget, param) {
     // console.log("addcell");
+    let uniqId = this.create_UUID(); 
     this.widgetService.dashboard.push({
         x: param.x,
         y: param.y, 
         cols: WIDGETS[nameWidget].itemCols, 
         rows: WIDGETS[nameWidget].itemRows, 
         id: idWidget, 
+        uniqid: uniqId,
         widgetType: nameWidget
       });
+
      this.screenSave();
   }
 
-  public updateByPosition(oldItem, newItem){
-    
+  public create_UUID(){
+    var dt = new Date().getTime();
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = (dt + Math.random()*16)%16 | 0;
+        dt = Math.floor(dt/16);
+        return (c=='x' ? r :(r&0x3|0x8)).toString(16);
+    });
+    return uuid;
+}
+
+  public countP = 0;
+  public updateByPosition(oldItem,newItem){
+   this.countP++;
       for(let item of this.widgetService.dashboard){
         
-          if( ( (item.x === newItem.x) && (item.y === newItem.y) ) || ( (item.rows === newItem.rows) && (item.cols === newItem.cols) ) ){
+          if( item.uniqid == oldItem.uniqid){
             item.x = newItem.x;
             item.y = newItem.y;
             item.rows = newItem.rows;
             item.cols = newItem.cols;
             // console.log("update", item)
           }
-      }
-     this.screenSave();
-     
+      }   
+    
+     this.screenSave(); 
+
   }
 
   public removeItem(){
     this.screenSave();
   }
 
-  private screenSave() {
-    
-    // console.log("save_info",this.widgetService.dashboard);
-    const UserId = this.UserId;
-    const ScreenId = this.ScreenId;
-    let userSettings: NewUserSettings = new class implements NewUserSettings {
-      userId = UserId;
-      screenId = ScreenId;
-      userGrid: NewUserGrid[] = [];
-    };
-    for (const i in this.widgetService.dashboard) {
-      let cell = this.widgetService.dashboard[i];
-      if (cell != null) {
-        let cellSetting: NewUserGrid = new class implements NewUserGrid {
-          widgetId = cell.id;
-          posX = cell.x;
-          posY = cell.y;
-          widgetType = cell.widgetType;
-          sizeX = cell.cols;
-          sizeY = cell.rows;
-        };
-        userSettings.userGrid.push(cellSetting);
-      }else{
-        
-      }
+
+ public screenSave() {
+  // console.log("save_info",this.widgetService.dashboard);
+  const UserId = this.UserId;
+  const ScreenId = this.ScreenId;
+  let userSettings: NewUserSettings = new class implements NewUserSettings {
+    userId = UserId;
+    screenId = ScreenId;
+    userGrid: NewUserGrid[] = [];
+  };
+  for (const i in this.widgetService.dashboard) {
+    let cell = this.widgetService.dashboard[i];
+    if (cell != null) {
+      let cellSetting: NewUserGrid = new class implements NewUserGrid {
+        widgetId = cell.id;
+        posX = cell.x;
+        posY = cell.y;
+        widgetType = cell.widgetType;
+        sizeX = cell.cols;
+        sizeY = cell.rows;
+        uniqueId = cell.uniqid;
+      };
+      userSettings.userGrid.push(cellSetting);
+    }else{
+      
     }
-    // console.log(userSettings);
-
-    this.http.post(this.restUrl + '/user-management/setscreen/', userSettings)
-      .subscribe(
-        ans => {
-          
-          // console.log(ans);
-        },
-        error => console.log(error)
-      );
   }
+  // console.log(userSettings);
 
-  public GetScreen(){
+  this.http.post(this.restUrl + '/user-management/setscreen/', userSettings)
+    .subscribe(
+      ans => {
+        
+        // console.log(ans);
+      },
+      error => console.log(error)
+    );
+}
+
+
+  public GetScreen(){  
     this.http.get<ScreenSettings[]>(this.restUrl + '/user-management/user/1/screens')
       .subscribe(data => {
         this._screens$.next(data);
@@ -129,11 +146,20 @@ export class NewUserSettingsService {
             cols: item.sizeX,
             rows: item.sizeY,
             id: item.widgetId, 
-            widgetType: item.widgetType 
+            widgetType: item.widgetType,
+            uniqid: item.uniqueId 
           }));
       });
   }
 
+  public getUniqId(id){
+    for(let item of this.widgetService.dashboard)
+    { 
+      if(id === item.id){
+        return item.uniqid;
+      }
+    }
+  }
 
   public LoadScreen(id){
     this.http.get(this.restUrl + '/user-management/screen/' + id)
@@ -148,7 +174,8 @@ export class NewUserSettingsService {
             cols: x.sizeX,
             rows: x.sizeY,
             id: x.widgetId, 
-            widgetType: x.widgetType 
+            widgetType: x.widgetType,
+            uniqid: x.uniqueId 
           }));
       });
   }

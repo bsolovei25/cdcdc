@@ -1,0 +1,24 @@
+<div style="height: 100%; width: 100%;" >
+
+    <evj-widget-header [title]="title" [units]="units" [code]="code" [id]="id"></evj-widget-header>
+
+    <evj-frame-top></evj-frame-top>
+    
+    <ng-container>
+            <div class="content_block" (mousedown)="$event.stopPropagation()" 
+            (touchstart)="$event.stopPropagation()">
+                    <div class="blocks">
+                            <div *ngIf="isMock === true"  class="contant">
+                                    <div class="imgblock" >
+                                      <img src='../../../../../assets/img/criticOtk.png'>
+                                    </div>
+                            </div>
+                            <div *ngIf="isMock === false" class="contant">
+                                          <div class="map"><img src='/src/assets/pic/temp.svg'></div>
+                            </div>
+                     </div>
+            </div>
+    </ng-container>
+    
+    <evj-frame-bottom></evj-frame-bottom>
+</div>
