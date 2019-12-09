@@ -80,7 +80,7 @@ export class NewUserSettingsService {
       }   
     
      this.screenSave(); 
-     console.log("count", this.countP);
+
   }
 
   public removeItem(){
@@ -88,7 +88,7 @@ export class NewUserSettingsService {
   }
 
 
-private screenSave() {
+ public screenSave() {
   // console.log("save_info",this.widgetService.dashboard);
   const UserId = this.UserId;
   const ScreenId = this.ScreenId;
@@ -126,6 +126,7 @@ private screenSave() {
     );
 }
 
+
   public GetScreen(){  
     this.http.get<ScreenSettings[]>(this.restUrl + '/user-management/user/1/screens')
       .subscribe(data => {
@@ -151,6 +152,14 @@ private screenSave() {
       });
   }
 
+  public getUniqId(id){
+    for(let item of this.widgetService.dashboard)
+    { 
+      if(id === item.id){
+        return item.uniqid;
+      }
+    }
+  }
 
   public LoadScreen(id){
     this.http.get(this.restUrl + '/user-management/screen/' + id)

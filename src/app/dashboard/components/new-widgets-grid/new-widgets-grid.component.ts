@@ -86,8 +86,10 @@ export class NewWidgetsGridComponent implements OnInit {
   }
 
   public itemChange(item: GridsterItem, itemComponent: GridsterItemComponentInterface) {
-    console.info('itemChanged', itemComponent);
-    this.userSettings.updateByPosition(item, itemComponent.$item);
+  
+   this.userSettings.updateByPosition(item, itemComponent.$item);
+   // this.userSettings.screenSave();
+  // console.info('itemChanged', this.widgetService.dashboard);
   }
 
   
@@ -111,6 +113,7 @@ export class NewWidgetsGridComponent implements OnInit {
     if (!e) return;
     const dataTrasfer = new DataTransfer();
     e.currentTarget.dispatchEvent(new DragEvent('dragstart', { dataTransfer: dataTrasfer }));
+    console.log("start", this.widgetService.dashboard);
   }
 
   public dragStart(e: DragEvent, item: GridsterItem): void {
@@ -126,7 +129,8 @@ export class NewWidgetsGridComponent implements OnInit {
     const dataTrasfer = new DataTransfer();
     e.currentTarget.dispatchEvent(new DragEvent('dragstop', { dataTransfer: dataTrasfer }));
     this.widgetService.draggingItem = null;
-  // this.userSettings.updateByPosition(item, itemComponent.$item);
+ //   this.userSettings.updateByPosition(item, itemComponent.$item);
+  //  console.log("stop", this.widgetService.dashboard);
   }
 
 
