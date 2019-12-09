@@ -131,11 +131,13 @@ gridster-item {
 
 
 .display-grid ::ng-deep .gridster-column{
-  border-left: 1px solid var(--color-border-main) !important;
+ // border-left: 1px solid var(--color-border-main) !important;
+ border-left: none !important;
   border-right: 1px solid var(--color-border-main) !important;
 }
 
 .display-grid ::ng-deep .gridster-row{
-  border-top: 1px solid var(--color-border-main) !important;
+ // border-top: 1px solid var(--color-border-main) !important;
+ border-top: none !important;
   border-bottom: 1px solid var(--color-border-main) !important;
 }
