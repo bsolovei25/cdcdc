@@ -31,5 +31,5 @@ export const WIDGETS = {
     "bar-chart":BarChartsComponent,
     "map-ecology":MapEcologyComponent,
     "unity-template": UnityTemplateComponent,
-    "ring-factory-diagram": RingFactoryDiagramComponent
+  
 }
