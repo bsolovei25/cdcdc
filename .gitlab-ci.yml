@@ -78,6 +78,7 @@ deploy review:
         - scp -r ./public root@${DEPLOY_DOMAIN}:/var/www/angular-dynamic.local
         - ssh root@${DEPLOY_DOMAIN} "unlink /etc/nginx/sites-enabled/angular-dynamic.local || sleep 0.1"
         - ssh root@${DEPLOY_DOMAIN} "ln -s /etc/nginx/sites-available/angular-dynamic.local /etc/nginx/sites-enabled/angular-dynamic.local"
+        - ssh root@${DEPLOY_DOMAIN} $CMD_REPLACE
         - ssh root@${DEPLOY_DOMAIN} nginx -s reload
 
 stop-review:
