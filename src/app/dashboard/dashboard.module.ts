@@ -41,6 +41,7 @@ import { UnityTemplateComponent } from './widgets/unity-template/unity-template.
 import { PowIndexPipe } from './pipes/pow-index.pipe';
 import { RingFactoryDiagramComponent } from './widgets/ring-factory-diagram/ring-factory-diagram.component';
 
+import { LineChartWorkspaceComponent } from './widgets/workspace/line-chart-workspace/line-chart-workspace.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { RingFactoryDiagramComponent } from './widgets/ring-factory-diagram/ring
     PowIndexPipe,
     MapEcologyComponent,
     UnityTemplateComponent,
-    RingFactoryDiagramComponent
+    RingFactoryDiagramComponent,
+    LineChartWorkspaceComponent
   ],
   entryComponents:[
     LineChartComponent,
@@ -95,6 +97,7 @@ import { RingFactoryDiagramComponent } from './widgets/ring-factory-diagram/ring
     MapEcologyComponent,
     UnityTemplateComponent,
     RingFactoryDiagramComponent,
+    LineChartWorkspaceComponent
   ],
   exports: [
     HomeComponent,
