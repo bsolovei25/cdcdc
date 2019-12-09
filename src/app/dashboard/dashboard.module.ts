@@ -38,6 +38,10 @@ import { BarChartsComponent } from './widgets/bar-chart/bar-charts/bar-charts.co
 import { BarChartComponent } from './widgets/bar-chart/bar-chart/bar-chart.component';
 import { MapEcologyComponent } from './widgets/map-ecology/map-ecology/map-ecology.component';
 import { UnityTemplateComponent } from './widgets/unity-template/unity-template.component';
+import { PowIndexPipe } from './pipes/pow-index.pipe';
+import { RingFactoryDiagramComponent } from './widgets/ring-factory-diagram/ring-factory-diagram.component';
+
+import { LineChartWorkspaceComponent } from './widgets/workspace/line-chart-workspace/line-chart-workspace.component';
 
 @NgModule({
   declarations: [
@@ -70,8 +74,11 @@ import { UnityTemplateComponent } from './widgets/unity-template/unity-template.
     ProductionPyramidComponent,
     BarChartsComponent,
     BarChartComponent,
+    PowIndexPipe,
     MapEcologyComponent,
-    UnityTemplateComponent
+    UnityTemplateComponent,
+    RingFactoryDiagramComponent,
+    LineChartWorkspaceComponent
   ],
   entryComponents:[
     LineChartComponent,
@@ -89,6 +96,8 @@ import { UnityTemplateComponent } from './widgets/unity-template/unity-template.
     BarChartsComponent,
     MapEcologyComponent,
     UnityTemplateComponent,
+    RingFactoryDiagramComponent,
+    LineChartWorkspaceComponent
   ],
   exports: [
     HomeComponent,

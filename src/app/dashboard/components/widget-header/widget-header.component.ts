@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Inject } from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { NewUserSettingsService } from '../../services/new-user-settings.service';
 
@@ -13,6 +13,7 @@ export class WidgetHeaderComponent implements OnInit {
   @Input() units: string;
   @Input() code: string;
   @Input() id: string;
+  public uniqid:string;
 
   constructor(
     public widgetService: NewWidgetService,

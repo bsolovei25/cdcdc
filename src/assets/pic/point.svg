@@ -4,12 +4,12 @@
 	 viewBox="0 0 595.3 841.9" style="enable-background:new 0 0 595.3 841.9;" xml:space="preserve">
 <style type="text/css">
 	.st0{fill:#A7DCF8;}
-	.st1{opacity:0.2;fill:#A7DCF8;}
-	.st2{opacity:0.5;fill:none;stroke:#A7DCF8;stroke-miterlimit:10;}
+	.st1{display:none;opacity:0.2;fill:#A7DCF8;enable-background:new    ;}
+	.st2{display:none;opacity:0.5;fill:none;stroke:#A7DCF8;stroke-miterlimit:10;enable-background:new    ;}
 </style>
 <g id="XMLID_5_">
-	<circle id="XMLID_3_" class="st0" cx="297.6" cy="420.9" r="143.8"/>
-	<circle id="XMLID_2_" class="st1" cx="297.6" cy="420.9" r="359.6"/>
-	<circle id="XMLID_1_" class="st2" cx="297.6" cy="420.9" r="359.6"/>
+	<circle id="XMLID_3_" class="st0" cx="297.7" cy="297" r="283.9"/>
+	<circle id="XMLID_2_" class="st1" cx="297.7" cy="290.9" r="359.6"/>
+	<circle id="XMLID_1_" class="st2" cx="297.7" cy="290.9" r="359.6"/>
 </g>
 </svg>

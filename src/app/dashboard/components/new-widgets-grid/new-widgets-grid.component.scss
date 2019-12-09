@@ -128,3 +128,14 @@ gridster-item {
 ::ng-deep gridster-preview {
   background: rgb(27, 30, 39, .15) !important;
 }
+
+
+.display-grid ::ng-deep .gridster-column{
+  border-left: 1px solid var(--color-border-main) !important;
+  border-right: 1px solid var(--color-border-main) !important;
+}
+
+.display-grid ::ng-deep .gridster-row{
+  border-top: 1px solid var(--color-border-main) !important;
+  border-bottom: 1px solid var(--color-border-main) !important;
+}

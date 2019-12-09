@@ -12,6 +12,7 @@ import { ProductionPyramidComponent } from '../../widgets/production-pyramid/pro
 import { BarChartsComponent } from '../../widgets/bar-chart/bar-charts/bar-charts.component';
 import { MapEcologyComponent } from '../../widgets/map-ecology/map-ecology/map-ecology.component';
 import {UnityTemplateComponent} from '../../widgets/unity-template/unity-template.component';
+import { RingFactoryDiagramComponent } from '../../widgets/ring-factory-diagram/ring-factory-diagram.component';
 
 
 export const WIDGETS = {
@@ -29,5 +30,6 @@ export const WIDGETS = {
     "industrial-pyramid":ProductionPyramidComponent,
     "bar-chart":BarChartsComponent,
     "map-ecology":MapEcologyComponent,
-    "unity-template": UnityTemplateComponent
+    "unity-template": UnityTemplateComponent,
+    "ring-factory-diagram": RingFactoryDiagramComponent
 }
