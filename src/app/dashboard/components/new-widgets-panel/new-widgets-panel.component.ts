@@ -79,9 +79,10 @@ export class NewWidgetsPanelComponent implements OnInit {
   }
 
   @Output() onSwap = new EventEmitter<boolean>();
+  @Output() onGrid = new EventEmitter<boolean>();
 
   changeSwap(){
-    let check = <HTMLInputElement> document.getElementById('checkBox');
+    let check = <HTMLInputElement> document.getElementById('checkBoxFix');
     if(check.checked){
       this.swapWidget = false;
       this.onSwap.emit(this.swapWidget);
@@ -90,6 +91,17 @@ export class NewWidgetsPanelComponent implements OnInit {
       this.onSwap.emit(this.swapWidget);
     }
   } 
+
+  getGridView(){
+    let check = <HTMLInputElement> document.getElementById('checkBoxGrid');
+    if(check.checked){
+      this.swapWidget = false;
+      this.onGrid.emit(this.swapWidget);
+    }else{
+      this.swapWidget = true;
+      this.onGrid.emit(this.swapWidget);
+    }
+  }
 
   ngOnDestroy() {
     if (this.subscription) {
