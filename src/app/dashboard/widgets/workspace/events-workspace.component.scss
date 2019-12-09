@@ -1580,6 +1580,12 @@ select {
   z-index: 2;
   cursor: pointer;
 
+  .dropdown-dark .dropdown-select {
+    color: var(--color-text-main);
+    text-shadow: 0 1px black;
+    background: inherit; /* Fallback for IE 8 */
+    outline: none;
+  }
   .overlay-retrieval {
     &__header {
       &__block {
