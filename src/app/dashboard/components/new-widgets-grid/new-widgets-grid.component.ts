@@ -2,7 +2,7 @@ import { Component, OnInit, Injector, Inject } from '@angular/core';
 import {WIDGETS} from '../new-widgets-grid/widget-map';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { WidgetModel } from '../../models/widget.model';
-import { GridsterConfig, GridType, GridsterItem, GridsterItemComponentInterface } from 'angular-gridster2';
+import { GridsterConfig, GridType, GridsterItem, GridsterItemComponentInterface, DisplayGrid } from 'angular-gridster2';
 import { Subscription } from 'rxjs';
 import { NewUserSettingsService } from '../../services/new-user-settings.service';
 
@@ -98,6 +98,12 @@ export class NewWidgetsGridComponent implements OnInit {
     swap === true?this.options.swap=true:this.options.swap=false;
     this.changedOptions();
   }
+
+  public onGrid(grid:any){
+    grid === true?this.options.displayGrid='none':this.options.displayGrid=DisplayGrid.Always;
+    this.changedOptions();
+  }
+
 
   public getInjector = (idWidget: string): Injector => {
     return Injector.create({
