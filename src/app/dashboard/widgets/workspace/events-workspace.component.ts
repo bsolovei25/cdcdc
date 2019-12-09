@@ -10,6 +10,7 @@ import {
 import { Subscription } from "rxjs";
 import { EventService } from '../../services/event.service';
 import { EventsWidgetNotification, EventsWidgetNotificationStatus, EventsWidgetNotificationPriority, IStatus, IPriority, User, ICategory } from '../../models/events-widget';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: "evj-events-workspace",
@@ -59,6 +60,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
   constructor(
     private eventService: EventService,
+    // private formBuilder: FormBuilder,
     @Inject("isMock") public isMock: boolean,
     @Inject("widgetId") public id: string
   ) {
@@ -419,5 +421,85 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     // console.log(a, b, a && b && a.num == b.num);
     return a && b && a.id == b.id;
   }
+
+
+
+
+
+
+
+
+
+
+
+  // mainFormGroup: FormGroup;
+
+
+  // resetComponent2() {
+  //   this.mainFormGroup = this.formBuilder.group({
+  //     branch: "Производство",
+  //     category: { id: 1004, name: "equipmentStatus", code: '4' },
+  //     comment: "Новое событие",
+  //     description: ['', [
+  //       Validators.required
+  //     ]],
+  //     deviationReason: "Причина отклонения...",
+  //     directReasons: "",
+  //     establishedFacts: "",
+  //     eventDateTime: new Date,
+  //     eventType: "",
+  //     fixedBy: { id: 2, firstName: "Петр", lastName: "Петров", email: "test@test", phone: "00123456789" },
+  //     id: null,
+  //     place: { id: 5001, name: "ГФУ-2 с БОР" },
+  //     itemNumber: 321128,
+  //     organization: "АО Газпромнефть",
+  //     priority: { id: 2003, name: "standard", code: '2' },
+  //     responsibleOperator: { id: 1, firstName: "Иван", lastName: "Иванов", email: "1@2", phone: "00123456789" },
+  //     retrievalEvents: [],
+  //     severity: "Critical",
+  //     status: { id: 3001, name: "new", code: '0' },
+  //     iconUrl: "number",
+  //     iconUrlStatus: "number",
+  //     statusName: '',
+  //     equipmentCategory: ''
+  //   })
+
+  // }
+
+
+  // dataToForm() {
+
+  //   this.mainFormGroup.setValue({
+  //     branch: "Производство",
+  //     category: { id: 1004, name: "equipmentStatus", code: '4' },
+  //     comment: "Новое событие",
+  //     description: undefined,
+  //     deviationReason: "Причина отклонения...",
+  //     directReasons: "",
+  //     establishedFacts: "",
+  //     eventDateTime: new Date,
+  //     eventType: "",
+  //     fixedBy: { id: 2, firstName: "Петр", lastName: "Петров", email: "test@test", phone: "00123456789" },
+  //     id: null,
+  //     place: { id: 5001, name: "ГФУ-2 с БОР" },
+  //     itemNumber: 321128,
+  //     organization: "АО Газпромнефть",
+  //     priority: { id: 2003, name: "standard", code: '2' },
+  //     responsibleOperator: { id: 1, firstName: "Иван", lastName: "Иванов", email: "1@2", phone: "00123456789" },
+  //     retrievalEvents: [],
+  //     severity: "Critical",
+  //     status: { id: 3001, name: "new", code: '0' },
+  //     iconUrl: "number",
+  //     iconUrlStatus: "number",
+  //     statusName: '',
+  //     equipmentCategory: ''
+  //   })
+
+  // }
+
+
+  // formToData() {
+
+  // }
 
 }
