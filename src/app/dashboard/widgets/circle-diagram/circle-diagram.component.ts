@@ -29,7 +29,7 @@ export class CircleDiagramComponent implements OnInit, OnDestroy {
 
     @Input() public data = {
         name: 'Hello',
-        nonCritical: 0,
+        nonCritical: 40,
         critical: 100,
         diagnostics: 100,
         prognosis: 0
@@ -73,8 +73,8 @@ export class CircleDiagramComponent implements OnInit, OnDestroy {
         }
 
         const canvas = d3.select(el).append("svg")
-            .attr("min-width", "200px")
-            .attr("viewBox", "35 0 230 150");
+            .attr("min-width", "100px")
+            .attr("viewBox", "40 25 250 120");
 
         let group = canvas.append("g")
             .attr("transform", "translate(102 ,88)");
