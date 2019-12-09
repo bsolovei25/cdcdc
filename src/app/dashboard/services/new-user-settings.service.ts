@@ -39,8 +39,10 @@ export class NewUserSettingsService {
 
   public dataScreen= [];
 
+  public widgetInfo: NewUserGrid;
+
+  
   public addCellByPosition(idWidget, nameWidget, param) {
-    // console.log("addcell");
     let uniqId = this.create_UUID(); 
     this.widgetService.dashboard.push({
         x: param.x,
@@ -51,8 +53,7 @@ export class NewUserSettingsService {
         uniqid: uniqId,
         widgetType: nameWidget
       });
-
-     this.screenSave();
+    this.addWidgetApi(uniqId);
   }
 
   public create_UUID(){
@@ -65,9 +66,48 @@ export class NewUserSettingsService {
     return uuid;
 }
 
-  public countP = 0;
+  public addWidgetApi(uniqId){
+    this.save(uniqId);
+    let updateWidget = this.widgetInfo;
+    this.http.post(this.restUrl + '/user-management/widget/'+this.ScreenId, updateWidget)
+      .subscribe(
+        ans => {
+        },
+        error => console.log(error)
+      );
+  }
+
+  public save(uniqId){
+    for (let item of this.widgetService.dashboard) {
+      if (item.uniqid == uniqId) {
+        let cellSetting: NewUserGrid = new class implements NewUserGrid {
+          widgetId = item.id;
+          posX = item.x;
+          posY = item.y;
+          widgetType = item.widgetType;
+          sizeX = item.cols;
+          sizeY = item.rows;
+          uniqueId = item.uniqid;
+        };
+        this.widgetInfo = cellSetting;
+      }else{
+      }
+    }
+  }
+
+  public updateWidgetApi(uniqId){
+    this.save(uniqId);
+    let updateWidget = this.widgetInfo;
+    debugger
+    this.http.put(this.restUrl + '/user-management/widget/'+uniqId, updateWidget)
+      .subscribe(
+        ans => {
+        },
+        error => console.log(error)
+      );
+  }
+
   public updateByPosition(oldItem,newItem){
-   this.countP++;
       for(let item of this.widgetService.dashboard){
         
           if( item.uniqid == oldItem.uniqid){
@@ -78,8 +118,8 @@ export class NewUserSettingsService {
             // console.log("update", item)
           }
       }   
-    
-     this.screenSave(); 
+    debugger
+     this.updateWidgetApi(oldItem.uniqid);
 
   }
 
@@ -195,7 +235,6 @@ public PushScreen(nameWidget){
        },
        error => console.log(error)
      );
-  
 }
 
 public deleteScreen(id: number){
