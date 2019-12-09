@@ -1,4 +1,6 @@
-<div class="indicator-selector">
+<div class="indicator-selector"
+     (mouseover)="ScreenActive($event)"
+     (mouseleave)="ScreenDisable($event)">
   <svg-icon class="indicator-selector__icon"
             src="./assets/icons/screen.svg"></svg-icon>
 
@@ -6,7 +8,8 @@
         {{ this.getActiveScreen() }}
   </span>
 
-  <div class="dropdown-content">
+  <div class="dropdown-content"
+    [class.dropdown-content_active]="this.isShowScreens">
     <ng-container *ngFor="let screen of dataScreen">
       <div
            (click)="this.setActiveScreen(screen)"
