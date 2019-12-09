@@ -2,7 +2,7 @@ import { Component, OnInit, Injector, Inject } from '@angular/core';
 import {WIDGETS} from '../new-widgets-grid/widget-map';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { WidgetModel } from '../../models/widget.model';
-import { GridsterConfig, GridType, GridsterItem, GridsterItemComponentInterface } from 'angular-gridster2';
+import { GridsterConfig, GridType, GridsterItem, GridsterItemComponentInterface, DisplayGrid } from 'angular-gridster2';
 import { Subscription } from 'rxjs';
 import { NewUserSettingsService } from '../../services/new-user-settings.service';
 
@@ -41,6 +41,9 @@ export class NewWidgetsGridComponent implements OnInit {
 
       gridType: GridType.Fixed,
       displayGrid: 'none',
+      swap: true,
+      swapWhileDragging: false,
+      itemChangeCallback: this.itemChange.bind(this),
       enableEmptyCellClick: false,
       enableEmptyCellContextMenu: false,
       enableEmptyCellDrop: true,
@@ -59,7 +62,7 @@ export class NewWidgetsGridComponent implements OnInit {
       maxItemRows:10000,
       maxRows: 100000,
       maxCols: 100000,
-      pushItems: true,
+      pushItems: false,
       draggable: {
         enabled: true,
         stop: this.eventStop.bind(this),
@@ -93,6 +96,26 @@ export class NewWidgetsGridComponent implements OnInit {
     document.dispatchEvent(event);
   }
 
+  public itemChange(item: GridsterItem, itemComponent: GridsterItemComponentInterface) {
+  
+   this.userSettings.updateByPosition(item, itemComponent.$item);
+   // this.userSettings.screenSave();
+  // console.info('itemChanged', this.widgetService.dashboard);
+  }
+
+  
+
+  public onSwap(swap:any){
+    swap === true?this.options.swap=true:this.options.swap=false;
+    this.changedOptions();
+  }
+
+  public onGrid(grid:any){
+    grid === true?this.options.displayGrid='none':this.options.displayGrid=DisplayGrid.Always;
+    this.changedOptions();
+  }
+
+
   public getInjector = (idWidget: string): Injector => {
     return Injector.create({
       providers: [
@@ -107,6 +130,7 @@ export class NewWidgetsGridComponent implements OnInit {
     if (!e) return;
     const dataTrasfer = new DataTransfer();
     e.currentTarget.dispatchEvent(new DragEvent('dragstart', { dataTransfer: dataTrasfer }));
+    console.log("start", this.widgetService.dashboard);
   }
 
   public dragStart(e: DragEvent, item: GridsterItem): void {
@@ -122,8 +146,8 @@ export class NewWidgetsGridComponent implements OnInit {
     const dataTrasfer = new DataTransfer();
     e.currentTarget.dispatchEvent(new DragEvent('dragstop', { dataTransfer: dataTrasfer }));
     this.widgetService.draggingItem = null;
-    //this.userSettings.updateByPosition(item, itemComponent.$item);
-    this.userSettings.updateByPosition(item, itemComponent.$item);
+ //   this.userSettings.updateByPosition(item, itemComponent.$item);
+  //  console.log("stop", this.widgetService.dashboard);
   }
 
 

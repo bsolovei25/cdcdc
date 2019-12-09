@@ -1,18 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, of, Subscription } from 'rxjs/index';
-import { filter, map, switchMap } from 'rxjs/internal/operators';
-import { webSocket } from 'rxjs/internal/observable/dom/webSocket';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs/index';
 import { WebSocketSubject } from 'rxjs/internal/observable/dom/WebSocketSubject';
 import {
-    EventsWidgetCategoryCode,
-    EventsWidgetData, EventsWidgetFilter, EventsWidgetFilterCode,
     EventsWidgetNotification,
-    EventsWidgetNotificationsCounter,
-    IStatus
+    IStatus,
+    ICategory
 } from '../models/events-widget';
 import { LineChartData } from '../models/line-chart';
-import { Machine_MI } from '../models/manual-input.model';
 import { AppConfigService } from 'src/app/services/appConfigService';
 
 @Injectable({
@@ -95,10 +90,10 @@ export class EventService {
         }
     }
 
-    async getCategory(): Promise<EventsWidgetCategoryCode> {
+    async getCategory(): Promise<ICategory[]> {
         // TODO check
         try {
-            return this.http.get<EventsWidgetCategoryCode>(this.restUrl + '/api/notification-reference/category').toPromise();
+            return this.http.get<ICategory[]>(this.restUrl + '/api/notification-reference/category').toPromise();
         } catch (error) {
             console.error(error);
         }
