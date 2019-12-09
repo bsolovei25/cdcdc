@@ -10,6 +10,14 @@
     <h4 class="widgets-panel__heading">
       Доступные виджеты
     </h4>
+    <div class="widget_menu">
+      <label class="mycheckbox">
+        <input type="checkbox" id="checkBox" value="Swap Items" class="checkbox" (click)="changeSwap()">
+        <div class="mycheckbox__new"></div>
+        <div class="mycheckbox__descr">Чекбокс</div>
+    </label>
+    </div>
+  
           <div class="widgets-panel__list scroll-bar">
             <div class="options-header">
                 <ng-container *ngFor="let item of widgets; trackBy: dataById">

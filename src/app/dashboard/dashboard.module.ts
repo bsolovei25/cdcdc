@@ -39,6 +39,8 @@ import { BarChartComponent } from './widgets/bar-chart/bar-chart/bar-chart.compo
 import { MapEcologyComponent } from './widgets/map-ecology/map-ecology/map-ecology.component';
 import { UnityTemplateComponent } from './widgets/unity-template/unity-template.component';
 import { PowIndexPipe } from './pipes/pow-index.pipe';
+import { RingFactoryDiagramComponent } from './widgets/ring-factory-diagram/ring-factory-diagram.component';
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 @NgModule({
   declarations: [
@@ -73,7 +75,8 @@ import { PowIndexPipe } from './pipes/pow-index.pipe';
     BarChartComponent,
     PowIndexPipe,
     MapEcologyComponent,
-    UnityTemplateComponent
+    UnityTemplateComponent,
+    RingFactoryDiagramComponent
   ],
   entryComponents:[
     LineChartComponent,
@@ -91,6 +94,7 @@ import { PowIndexPipe } from './pipes/pow-index.pipe';
     BarChartsComponent,
     MapEcologyComponent,
     UnityTemplateComponent,
+    RingFactoryDiagramComponent,
   ],
   exports: [
     HomeComponent,
@@ -104,6 +108,7 @@ import { PowIndexPipe } from './pipes/pow-index.pipe';
     FormsModule,
     GridsterModule,
     ClickOutsideModule,
+    MatCheckboxModule
   ],
   bootstrap: []
 })
