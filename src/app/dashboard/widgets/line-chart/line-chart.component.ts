@@ -144,6 +144,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    // this.draw(Mock);
     this.showMock(this.isMock);
     if (!this.isMock) {
       if (this.dataLine) {

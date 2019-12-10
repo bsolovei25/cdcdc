@@ -10,7 +10,8 @@ import { LineChartData } from '../models/line-chart';
 import { Machine_MI } from '../models/manual-input.model';
 import { WebSocketSubject } from 'rxjs/internal/observable/dom/WebSocketSubject';
 import { webSocket } from 'rxjs/internal/observable/dom/webSocket';
-// import { webSocket } from 'rxjs/webSocket';
+import {clearInterval} from 'timers';
+import Timer = NodeJS.Timer;
 
 @Injectable({
   providedIn: 'root'
@@ -19,36 +20,25 @@ export class NewWidgetService {
 
   private readonly wsUrl: string;
   private readonly restUrl: string;
-  private ws;//: WebSocketSubject<any> = null;
-
+  private ws: WebSocketSubject<any> = null;
   public draggingItem: GridsterItem;
   public isOver: boolean = false;
-
-  //private wsSubscribtion: Subscription;
-
   public dashboard: GridsterItem[] = [];
-
   public mass = [];
-
-  // lineChartLiveData: Observable<LineChartData>;
-  //
-  // newData: BehaviorSubject<true> = new BehaviorSubject<true>(true);
-
   private _widgets$: BehaviorSubject<Widgets[]> = new BehaviorSubject(null);
+  private reconnectTimer: Timer = null;
 
-  public widgets$: Observable<Widgets[]> = this._widgets$.asObservable().pipe(
-    filter(item => item !== null)
-  );
 
   constructor(public http: HttpClient, configService: AppConfigService) {
     this.restUrl = configService.restUrl;
     this.wsUrl = configService.wsUrl;
-
     this.getAvailableWidgets().subscribe(data => this._widgets$.next(data));
-
-    //this.initLineChartLiveData();
     this.initWS();
    }
+
+  public widgets$: Observable<Widgets[]> = this._widgets$.asObservable().pipe(
+    filter(item => item !== null)
+  );
 
   public getAvailableWidgets(): Observable<Widgets[]> {
     return this.http.get(this.restUrl + '/af/GetAvailableWidgets').pipe(
@@ -63,14 +53,14 @@ export class NewWidgetService {
   mapData(data) {
       return data.map((item) => {
           return {
-          code: item.code,
-          id: item.id,
-          name: item.name,
-          title: item.title,
-          units: item.units,
-          widgetOptions: item.widgetOptions,
-          widgetType: item.widgetType,
-          }
+            code: item.code,
+            id: item.id,
+            name: item.name,
+            title: item.title,
+            units: item.units,
+            widgetOptions: item.widgetOptions,
+            widgetType: item.widgetType,
+          };
     });
   }
 
@@ -85,7 +75,7 @@ export class NewWidgetService {
   }
 
   removeItemService(id) {
-    for (let item of this.dashboard) {
+    for (const item of this.dashboard) {
       if (item.id === id) {
         this.dashboard.splice(this.dashboard.indexOf(item), 1);
       }
@@ -160,9 +150,13 @@ export class NewWidgetService {
   initWS() {
     this.ws = webSocket(this.wsUrl);
     this.ws.subscribe(
-      (msg) => console.log('message received: ' + msg),
+      (msg) => {
+        console.log('message received: ' + msg);
+        if (this.reconnectTimer) {
+          clearInterval(this.reconnectTimer);
+        }},
       (err) => {
-        console.log(err);
+        console.log('Error: ' + err);
         this.reconnectWs(); },
       () => {
         console.log('complete');
@@ -171,7 +165,7 @@ export class NewWidgetService {
   }
 
   reconnectWs() {
-    setInterval(() => {
+    this.reconnectTimer = setInterval(() => {
       try {
         this.ws.subscribe();
       } catch (error) {
