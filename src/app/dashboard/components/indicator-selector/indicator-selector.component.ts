@@ -25,6 +25,10 @@ export class IndicatorSelectorComponent implements OnInit {
 
   public nameScreen: string;
 
+  private timerOff = null;
+
+  private isShowScreens: boolean = false;
+
   constructor(
     private userSettings: NewUserSettingsService
     ) { }
@@ -33,7 +37,7 @@ export class IndicatorSelectorComponent implements OnInit {
 
     this.subscription = this.userSettings.screens$.subscribe(dataW => {
       this.dataScreen = dataW;
-      for(let item of this.dataScreen){
+      for (const item of this.dataScreen) {
         item.updateScreen = false;
       }
 
@@ -44,6 +48,19 @@ export class IndicatorSelectorComponent implements OnInit {
 
   public LoadScreen(id) {
     this.userSettings.LoadScreen(id);
+  }
+
+  private ScreenActive(e) {
+    if (this.timerOff) {
+      clearTimeout(this.timerOff);
+    }
+    this.isShowScreens = true;
+  }
+
+  private ScreenDisable(e) {
+    this.timerOff = setTimeout(() => {
+      this.isShowScreens = false;
+    }, 700);
   }
 
   getActiveScreen(): string {
