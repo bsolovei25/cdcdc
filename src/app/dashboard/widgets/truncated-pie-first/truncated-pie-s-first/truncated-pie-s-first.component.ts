@@ -14,9 +14,9 @@ export class TruncatedPieSFirstComponent implements OnInit {
 
   private subscription: Subscription;
 
-  public title ="Отклонения по качеству";
+  public title;
   public code;
-  public units;
+  public units = "%";
   public name;
 
   
@@ -35,7 +35,7 @@ export class TruncatedPieSFirstComponent implements OnInit {
       this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe(data => {
         this.title = data.title;
         this.code = data.code;
-        this.units = data.units;
+      //  this.units = data.units;
         this.name = data.name;
       }); 
     } 

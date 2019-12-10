@@ -29,7 +29,7 @@ export class CircleDiagramComponent implements OnInit, OnDestroy {
 
     code;
     public title;
-    units;
+    units = "шт.";
     options;
 
     @Input() public data = {
@@ -53,7 +53,7 @@ export class CircleDiagramComponent implements OnInit, OnDestroy {
         this.subscriptions.push(this.widgetService.getWidgetChannel(id).subscribe(data => {
             this.code = data.code,
             this.title = data.title,
-            this.units = data.units,
+       //    this.units = data.units,
             this.options = data.widgetOptions;
           }));
     }
