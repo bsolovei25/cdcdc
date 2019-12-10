@@ -33,9 +33,9 @@ export class LineChartWorkspaceComponent implements OnInit {
     units;
     options = {
         "factLineType": "curveLinear",
-    "lowerLimitLineType": "curveMonotoneX",
-    "planLineType": "curveLinear",
-    "upperLimitLineType": "curveMonotoneX"
+        "lowerLimitLineType": "curveMonotoneX",
+        "planLineType": "curveLinear",
+        "upperLimitLineType": "curveMonotoneX"
     }
     position?: string = 'default';
 
@@ -48,7 +48,7 @@ export class LineChartWorkspaceComponent implements OnInit {
     @Input() set dataChartAttribute(value) {
         if (value)
             value.graphs.map(x => x.values.map(z => z.date = new Date(z.date)));
-            this.dataChart = value;
+        this.dataChart = value;
     }
 
     @ViewChild('chart', { static: true }) private chartContainer: ElementRef;
@@ -435,7 +435,10 @@ export class LineChartWorkspaceComponent implements OnInit {
             .attr('class', 'area')
             .append("path")
             .attr("d", d => {
-                return clipPathArea(d.values);
+                if (d) {
+                    return clipPathArea(d.values);
+                }
+
             });
 
 

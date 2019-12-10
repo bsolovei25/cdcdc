@@ -87,7 +87,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
           this.event = value;
           this.loadItem();
           console.log(value);
-          
+
         }
       })
     }
@@ -206,7 +206,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
     this.event = {
       branch: "Производство",
-      category: { id: 1004, name: "equipmentStatus", code: '4' },
+      category: this.category ? this.category[0] : null,
       comment: "Новое событие",
       description: '',
       deviationReason: "Причина отклонения...",
@@ -244,9 +244,9 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
   addRetrieval(): void {
     document.getElementById("overlay-retrieval").style.display = "block";
 
-    this.isNewRetrieval = <EventsWidgetNotification> {
+    this.isNewRetrieval = <EventsWidgetNotification>{
       branch: "Производство",
-      category: { id: 1004, name: "equipmentStatus", code: "3" },
+      category: this.category ? this.category[0] : null,
       comment: "Новое событие",
       deviationReason: "Причина отклонения...",
       directReasons: "",
