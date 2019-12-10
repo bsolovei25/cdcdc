@@ -2,7 +2,7 @@ import { LineChartComponent } from '../../widgets/line-chart/line-chart.componen
 import { EventsComponent } from '../../widgets/events/events.component';
 import { LineDiagramComponent } from '../../widgets/line-diagram/line-diagram.component';
 import { ManualInputComponent } from '../../widgets/manual-input/manual-input.component';
-import {ChangeShiftComponent} from "../../widgets/change-shift/change-shift.component";
+import { ChangeShiftComponent } from "../../widgets/change-shift/change-shift.component";
 import { WidgetPiesComponent } from '../../widgets/widgets-pie/widget-pies/widget-pies/widget-pies.component';
 import { EventsWorkSpaceComponent } from '../../widgets/workspace/events-workspace.component';
 import { TruncatedPieSFirstComponent } from '../../widgets/truncated-pie-first/truncated-pie-s-first/truncated-pie-s-first.component';
@@ -10,11 +10,12 @@ import { TruncatedPieSIconComponent } from '../../widgets/truncated-pie-icon/tru
 import { PointDiagramComponent } from '../../widgets/point-diagram/point-diagram.component';
 import { ProductionPyramidComponent } from '../../widgets/production-pyramid/production-pyramid.component';
 import { BarChartsComponent } from '../../widgets/bar-chart/bar-charts/bar-charts.component';
-import {UnityTemplateComponent} from '../../widgets/unity-template/unity-template.component';
+import { UnityTemplateComponent } from '../../widgets/unity-template/unity-template.component';
+import { EnterpriseMapComponent } from '../../widgets/map-enterprise/enterprise-map.component';
 
 
 export const WIDGETS = {
-    "pie-diagram":  WidgetPiesComponent,
+    "pie-diagram": WidgetPiesComponent,
     "line-chart": LineChartComponent,
     "line-diagram": LineDiagramComponent,
     "manual-input": ManualInputComponent,
@@ -27,5 +28,6 @@ export const WIDGETS = {
     "point-diagram": PointDiagramComponent,
     "industrial-pyramid": ProductionPyramidComponent,
     "bar-chart": BarChartsComponent,
-    "unity-template": UnityTemplateComponent
+    "unity-template": UnityTemplateComponent,
+    "enterprise-map": EnterpriseMapComponent
 }

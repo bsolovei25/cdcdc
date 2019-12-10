@@ -37,6 +37,7 @@ import { ProductionPyramidComponent } from './widgets/production-pyramid/product
 import { BarChartsComponent } from './widgets/bar-chart/bar-charts/bar-charts.component';
 import { BarChartComponent } from './widgets/bar-chart/bar-chart/bar-chart.component';
 import { UnityTemplateComponent } from './widgets/unity-template/unity-template.component';
+import { EnterpriseMapComponent } from './widgets/map-enterprise/enterprise-map.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { UnityTemplateComponent } from './widgets/unity-template/unity-template.
     ProductionPyramidComponent,
     BarChartsComponent,
     BarChartComponent,
-    UnityTemplateComponent
+    UnityTemplateComponent,
+    EnterpriseMapComponent
   ],
   entryComponents:[
     LineChartComponent,
@@ -86,6 +88,7 @@ import { UnityTemplateComponent } from './widgets/unity-template/unity-template.
     ProductionPyramidComponent,
     BarChartsComponent,
     UnityTemplateComponent,
+    EnterpriseMapComponent
   ],
   exports: [
     HomeComponent,
