@@ -118,9 +118,9 @@
             </div>
             <div class="workspace__block__body__drop-down">
               <div class="dropdown dropdown-dark">
-                <select name="contactMethod" class="dropdown-select" [(ngModel)]="event.equipmentCategory"
+                <select name="contactMethod" class="dropdown-select" [(ngModel)]="event.category"
                   [compareWith]="compareFn" (change)="changeCategory()">
-                  <option *ngFor="let p of equipmentCategory" [ngValue]="p">{{ p.name }}
+                  <option *ngFor="let p of category" [ngValue]="p">{{ categories[p.name] }}
                   </option>
                 </select>
               </div>
@@ -163,6 +163,21 @@
             </div>
             <div class="workspace__block__body">
               {{ user[idUser].lastName }} {{ user[idUser].firstName }}
+            </div>
+          </div>
+
+          <div class="workspace__block__right">
+            <div class="workspace__block__title">
+              Тип оборудования:
+            </div>
+            <div class="workspace__block__body__drop-down">
+              <div class="dropdown dropdown-dark">
+                <select name="contactMethod" class="dropdown-select" [(ngModel)]="event.equipmentCategory"
+                  [compareWith]="compareFn" (change)="changeCategory()">
+                  <option *ngFor="let p of equipmentCategory" [ngValue]="p">{{ p.name }}
+                  </option>
+                </select>
+              </div>
             </div>
           </div>
 
