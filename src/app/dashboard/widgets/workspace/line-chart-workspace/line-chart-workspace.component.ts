@@ -26,12 +26,17 @@ import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service'
     templateUrl: './line-chart-workspace.component.html',
     styleUrls: ['./line-chart-workspace.component.scss']
 })
-export class LineChartWorkspaceComponent implements OnInit, OnDestroy {
+export class LineChartWorkspaceComponent implements OnInit {
 
     code;
     public title;
     units;
-    options;
+    options = {
+        "factLineType": "curveLinear",
+    "lowerLimitLineType": "curveMonotoneX",
+    "planLineType": "curveLinear",
+    "upperLimitLineType": "curveMonotoneX"
+    }
     position?: string = 'default';
 
     data: LineChartData;
@@ -39,6 +44,12 @@ export class LineChartWorkspaceComponent implements OnInit, OnDestroy {
     static itemCols = 30;
     static itemRows = 12;
 
+    private dataChart;
+    @Input() set dataChartAttribute(value) {
+        if (value)
+            value.graphs.map(x => x.values.map(z => z.date = new Date(z.date)));
+            this.dataChart = value;
+    }
 
     @ViewChild('chart', { static: true }) private chartContainer: ElementRef;
 
@@ -128,64 +139,12 @@ export class LineChartWorkspaceComponent implements OnInit, OnDestroy {
     };
     deviationPoints: any;
 
-    private subscriptions: Subscription[] = [];
-
-    private subscription: Subscription;
-
-    private subscription2: Subscription;
-
-
-    constructor(
-        public widgetService: NewWidgetService,
-        @Inject('isMock') public isMock: boolean,
-        @Inject('widgetId') public id: string
-    ) {
-        this.subscriptions.push(this.widgetService.getWidgetChannel("0047cc53-0f5d-11ea-b8d8-000c297dc3bf").subscribe(data => {
-            console.log(data);
-            this.code = data.code,
-                this.title = data.title,
-                this.units = data.units,
-                this.options = data.widgetOptions;
-        }));
-    }
-
     ngOnInit() {
-        this.showMock(this.isMock);
-        if (!this.isMock) {
-            setInterval(() => {
-                if (this.dataLine) {
-                    this.draw(this.dataLine);
-                }
-            }, 500);
-        }
-    }
-
-    ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
-    }
-
-    showMock(show) {
-        if (show) {
-            this.disableLiveData();
-        } else {
-            this.enableLiveData();
-        }
-    }
-
-    private enableLiveData() {
-        // TODO добавить получение типа графика
-        this.subscriptions.push(this.widgetService.getWidgetLiveDataFromWS("0047cc53-0f5d-11ea-b8d8-000c297dc3bf", 'line-chart')
-            .subscribe((ref) => {
-                this.dataLine = ref;
-                this.draw(this.dataLine);
-                // console.log('update-line-chat');
-            }));
-    }
-
-    private disableLiveData() {
-        this.draw(Mock);
+        setInterval(() => {
+            if (this.dataChart) {
+                this.draw(this.dataChart);
+            }
+        }, 500);
     }
 
 
@@ -209,8 +168,8 @@ export class LineChartWorkspaceComponent implements OnInit, OnDestroy {
 
     private fillToXMAx(values, xMax) {
         const latest = values.slice().reverse()[0];
-
-        if (latest && latest.date.getTime() !== xMax.getTime()) {
+        const xMaxDate = new Date(xMax);
+        if (latest && new Date(latest.date).getTime() !== xMaxDate.getTime()) {
             return values.push({ value: latest.value, date: xMax });
         }
     }
@@ -261,18 +220,18 @@ export class LineChartWorkspaceComponent implements OnInit, OnDestroy {
 
                 switch (deviationMode) {
                     case 'planFact':
-                        const planvalue = plan.slice().reverse().find(p => p.date.getTime() <= d.date.getTime());
+                        const planvalue = plan.slice().reverse().find(p => new Date(p.date).getTime() <= new Date(d.date).getTime());
                         if (planvalue && planvalue.value < d.value) {
                             acc.values.push(d);
                         }
                         break;
                     case 'limits':
-                        const ul = upperLimit.slice().reverse().find(p => p.date.getTime() <= d.date.getTime());
+                        const ul = upperLimit.slice().reverse().find(p => new Date(p.date).getTime() <= new Date(d.date).getTime());
                         if (ul && ul.value < d.value) {
                             acc.values.push(d);
                         }
 
-                        const li = lowerLimit.slice().reverse().find(p => p.date.getTime() <= d.date.getTime());
+                        const li = lowerLimit.slice().reverse().find(p => new Date(p.date).getTime() <= new Date(d.date).getTime());
                         if (li && li.value > d.value) {
                             acc.values.push(d);
                         }

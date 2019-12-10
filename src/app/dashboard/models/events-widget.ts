@@ -1,3 +1,5 @@
+import { LineChartData } from './line-chart'
+
 export interface EventsWidgetNotification {
   id?: number;
   itemNumber: number;
@@ -13,7 +15,7 @@ export interface EventsWidgetNotification {
   priority: IPriority;
   deviationReason: string; // Причина отклонения
   establishedFacts: string; // Установленные факты
-  eventType: string; // Тип происшествия
+  eventType: { id: number, name: string }; // Тип происшествия
   directReasons: string; // Непосредственные/прямые причины
   description: string; // Описание
   comment: string; // Комментарий оператора
@@ -23,6 +25,7 @@ export interface EventsWidgetNotification {
   retrievalEvents: EventsWidgetNotification[];
   equipmentCategory: { id: number, name: string, code: string };
   deadline?: Date;
+  graphValues: LineChartData;
 }
 
 export interface User {
