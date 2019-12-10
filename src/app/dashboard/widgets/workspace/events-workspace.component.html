@@ -80,12 +80,9 @@
             </div>
           </div>
 
-
         </section>
 
         <section class="workspace__blocks">
-
-
 
           <div class="workspace__block__right">
             <div class="workspace__block__title">
@@ -168,8 +165,6 @@
               {{ user[idUser].lastName }} {{ user[idUser].firstName }}
             </div>
           </div>
-
-
 
         </section>
       </div>
@@ -280,7 +275,7 @@
               Медиа контент
             </div>
             <div class="media__items">
-              <div class="media__item" (click)="openLineChart()">
+              <div *ngIf="event.graphValues" class="media__item" (click)="openLineChart()">
                 <svg-icon class="button__icon" src="./assets/line-chart.svg">
                 </svg-icon>
               </div>
@@ -531,7 +526,7 @@
     <div (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()" id="overlay-chart"
       (click)="overlayChartClose()">
       <div class="overlay-chart__body" (click)="$event.stopPropagation()">
-        <evj-line-chart-workspace></evj-line-chart-workspace>
+        <evj-line-chart-workspace [dataChartAttribute]="event.graphValues"></evj-line-chart-workspace>
       </div>
     </div>
 
