@@ -235,7 +235,8 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
       iconUrlStatus: "number",
       statusName: '',
       equipmentCategory: this.equipmentCategory ? this.equipmentCategory[0] : null,
-      deadline: new Date
+      deadline: new Date,
+      graphValues: null
     }
 
   }
@@ -243,7 +244,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
   addRetrieval(): void {
     document.getElementById("overlay-retrieval").style.display = "block";
 
-    this.isNewRetrieval = {
+    this.isNewRetrieval = <EventsWidgetNotification> {
       branch: "Производство",
       category: { id: 1004, name: "equipmentStatus", code: "3" },
       comment: "Новое событие",

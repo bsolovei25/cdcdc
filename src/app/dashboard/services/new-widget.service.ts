@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, Subscription } from 'rxjs';
-import { filter, map, take, switchMap } from 'rxjs/operators';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { GridsterItem, GridsterConfig, GridType } from 'angular-gridster2';
+import { GridsterItem } from 'angular-gridster2';
 import { Widgets } from '../models/widget.model';
 import { AppConfigService } from 'src/app/services/appConfigService';
 import { EventsWidgetData } from '../models/events-widget';
@@ -10,8 +10,6 @@ import { LineChartData } from '../models/line-chart';
 import { Machine_MI } from '../models/manual-input.model';
 import { WebSocketSubject } from 'rxjs/internal/observable/dom/WebSocketSubject';
 import { webSocket } from 'rxjs/internal/observable/dom/webSocket';
-import {clearInterval} from 'timers';
-import Timer = NodeJS.Timer;
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +24,7 @@ export class NewWidgetService {
   public dashboard: GridsterItem[] = [];
   public mass = [];
   private _widgets$: BehaviorSubject<Widgets[]> = new BehaviorSubject(null);
-  private reconnectTimer: Timer = null;
+  private reconnectTimer: any;
 
 
   constructor(public http: HttpClient, configService: AppConfigService) {

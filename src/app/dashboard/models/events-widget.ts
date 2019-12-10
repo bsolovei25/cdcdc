@@ -1,3 +1,5 @@
+import { LineChartData } from './line-chart'
+
 export interface EventsWidgetNotification {
   id?: number;
   itemNumber: number;
@@ -23,6 +25,7 @@ export interface EventsWidgetNotification {
   retrievalEvents: EventsWidgetNotification[];
   equipmentCategory: { id: number, name: string, code: string };
   deadline?: Date;
+  graphValues: LineChartData;
 }
 
 export interface User {
