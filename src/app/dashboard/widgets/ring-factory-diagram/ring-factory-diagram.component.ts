@@ -10,6 +10,20 @@ import { Subscription } from 'rxjs';
 })
 export class RingFactoryDiagramComponent implements OnInit {
 
+  public data = {
+    id_0: { status: 'service'   },
+    id_1: { status: 'available' },
+    id_2: { status: 'reserved'  },
+    id_3: { status: 'available' },
+    id_4: { status: 'available' },
+    id_5: { status: 'reserved'  },
+    messages: {
+        'available': 'Доступно для аренды',
+        'reserved':  'Зарезервировано',
+        'service':   'Доступно через 1-2 дня'
+    }
+};
+
   static itemCols = 16;
   static itemRows = 10;
 
@@ -36,7 +50,21 @@ export class RingFactoryDiagramComponent implements OnInit {
       }); 
   }
 
-  ngOnInit() {
+  ngOnInit() {  
+  //  this.draw();
+  }
+
+  public draw(){
+    const map = document.getElementById('my-map');
+    const buildings:any = map.querySelectorAll('.st0');
+  
+  
+    for (let item of buildings) {
+        const id = item.getAttribute('data-item-id');
+        const status = this.data[`id_${id}`].status;
+    
+        item.classList.add(`-${status}`);
+    }
   }
 
   ngOnDestroy() {

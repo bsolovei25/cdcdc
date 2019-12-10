@@ -237,11 +237,12 @@
 
   &__units {
     margin: auto;
-    margin-right: 10px;
-
+    padding-right: 10px;
+    height: 100%;
+    line-height: 2.5;
     justify-self: flex-end;
     font-size: 0.75rem;
-    color: var(--color-text-sub);
+    background-color: var(--color-bg-additional);
   }
 
   &:before {

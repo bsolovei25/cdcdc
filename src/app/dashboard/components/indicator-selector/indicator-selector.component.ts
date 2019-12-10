@@ -21,28 +21,31 @@ export class IndicatorSelectorComponent implements OnInit {
 
   private subscription: Subscription;
 
+
   public idScreen: number;
 
   public nameScreen: string;
+  
+  public localSaved = Number(localStorage.getItem('screenid'));
+
 
   constructor(
     private userSettings: NewUserSettingsService
     ) { }
 
   ngOnInit() {
-
+   
     this.subscription = this.userSettings.screens$.subscribe(dataW => {
       this.dataScreen = dataW;
       for(let item of this.dataScreen){
         item.updateScreen = false;
       }
-
-    });
-
+    }); 
     this.nameScreen = this.getActiveScreen();
+    
   }
 
-  public LoadScreen(id) {
+  public LoadScreen(id){
     this.userSettings.LoadScreen(id);
   }
 
@@ -52,6 +55,14 @@ export class IndicatorSelectorComponent implements OnInit {
       if (currentScreen)
         return currentScreen.screenName;
     }
+
+    if (this.localSaved) {
+      const found = this.dataScreen.find(x => x.id === this.localSaved);
+        if (found){
+          return found.screenName;
+        }
+      this.LoadScreen(this.localSaved);
+    }
     if (this.dataScreen[0])
       return this.dataScreen[0].screenName;
   }
@@ -59,7 +70,7 @@ export class IndicatorSelectorComponent implements OnInit {
   setActiveScreen(screen) {
     this.nameScreen = screen.screenName;
     this.idScreen = screen.id;
-    screen.isActive = true;
+    screen.isActive = true; 
   }
 
   onChangeAdder() {
