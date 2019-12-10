@@ -28,20 +28,21 @@ export class NewWidgetsGridComponent implements OnInit {
   private subscription: Subscription;
 
   constructor(
-    public widgetService: NewWidgetService, 
+    public widgetService: NewWidgetService,
     public injector: Injector,
     public userSettings: NewUserSettingsService
     ){ }
 
-  ngOnInit() {  
+  ngOnInit() {
     this.userSettings.GetScreen();
-    
+
 
     this.options = {
+
       gridType: GridType.Fixed,
       displayGrid: 'none',
-      swap: true,
-      swapWhileDragging: false,
+      //swap: true,
+      //swapWhileDragging: false,
       itemChangeCallback: this.itemChange.bind(this),
       enableEmptyCellClick: false,
       enableEmptyCellContextMenu: false,
@@ -54,13 +55,14 @@ export class NewWidgetsGridComponent implements OnInit {
       emptyCellDropCallback: this.emptyCellDropClick.bind(this),
       emptyCellDragMaxCols: 100000,
       emptyCellDragMaxRows: 100000,
+      itemResizeCallback: this.resizeGridsterElement.bind(this),
       fixedColWidth: 20,
       fixedRowHeight: 20,
       maxItemCols:10000,
       maxItemRows:10000,
       maxRows: 100000,
       maxCols: 100000,
-      pushItems: false,
+      pushItems: true,
       draggable: {
         enabled: true,
         stop: this.eventStop.bind(this),
@@ -85,10 +87,18 @@ export class NewWidgetsGridComponent implements OnInit {
     };
   }
 
+  public resizeGridsterElement() {
+    console.log("resize");
+
+    const event = new CustomEvent(
+      'resize'
+    );
+    document.dispatchEvent(event);
+  }
+
   public itemChange(item: GridsterItem, itemComponent: GridsterItemComponentInterface) {
-  
    this.userSettings.updateByPosition(item, itemComponent.$item);
-   // this.userSettings.screenSave();
+
   // console.info('itemChanged', this.widgetService.dashboard);
   }
 
@@ -96,11 +106,12 @@ export class NewWidgetsGridComponent implements OnInit {
 
   public onSwap(swap:any){
     swap === true?this.options.swap=true:this.options.swap=false;
+    swap === true?this.options.pushItems=true:this.options.pushItems=false;
     this.changedOptions();
   }
 
   public onGrid(grid:any){
-    grid === true?this.options.displayGrid='none':this.options.displayGrid=DisplayGrid.Always;
+   grid === true?this.options.displayGrid='none':this.options.displayGrid=DisplayGrid.Always;
     this.changedOptions();
   }
 
@@ -123,11 +134,11 @@ export class NewWidgetsGridComponent implements OnInit {
   }
 
   public dragStart(e: DragEvent, item: GridsterItem): void {
-    
+
     e.dataTransfer.setData('text/plain', item.toString());
     e.dataTransfer.dropEffect = 'copy';
     this.widgetService.draggingItem  = item;
- 
+
   }
 
   public eventStop(item: GridsterItem, itemComponent: GridsterItemComponentInterface, e: MouseEvent) {
@@ -155,16 +166,16 @@ export class NewWidgetsGridComponent implements OnInit {
     this.widgetService.dashboard.push(item);
   }
 
-  emptyCellMenuClick(){
+  emptyCellMenuClick() {
   }
 
-  emptyCellDragClick(){
+  emptyCellDragClick() {
   }
 
-  emptyCellDropClick(event: DragEvent, param){
+  emptyCellDropClick(event: DragEvent, param) {
 
-    let idWidget = event.dataTransfer.getData("text");
-   
+    const idWidget = event.dataTransfer.getData("text");
+
     this.nameWidget = this.widgetService.getName(idWidget);
 
     this.userSettings.addCellByPosition(idWidget, this.nameWidget, param);

@@ -69,6 +69,8 @@ deploy review:
         name: review/${CI_COMMIT_REF_NAME}
         url: http://${DEPLOY_DOMAIN}:9001
         on_stop: stop-review
+    variables:
+        CMD_REPLACE: sed -i -E "s/(<title>Evj)(<\/title>)/\1 | ${CI_COMMIT_SHORT_SHA} \2/g" /var/www/angular-dynamic.local/public/index.html
     script:
         - ls
         - pwd
@@ -76,6 +78,7 @@ deploy review:
         - scp -r ./public root@${DEPLOY_DOMAIN}:/var/www/angular-dynamic.local
         - ssh root@${DEPLOY_DOMAIN} "unlink /etc/nginx/sites-enabled/angular-dynamic.local || sleep 0.1"
         - ssh root@${DEPLOY_DOMAIN} "ln -s /etc/nginx/sites-available/angular-dynamic.local /etc/nginx/sites-enabled/angular-dynamic.local"
+        - ssh root@${DEPLOY_DOMAIN} $CMD_REPLACE
         - ssh root@${DEPLOY_DOMAIN} nginx -s reload
 
 stop-review:
@@ -102,11 +105,14 @@ staging:
     environment:
         name: staging
         url: http://${DEPLOY_DOMAIN}:88
+    variables:
+        CMD_REPLACE: sed -i -E "s/(<title>Evj)(<\/title>)/\1 | ${CI_COMMIT_SHORT_SHA} \2/g" /var/www/angular-staging.local/public/index.html
     script:
         - ls
         - pwd
         - ssh root@${DEPLOY_DOMAIN} rm -rf /var/www/angular-staging.local/public
         - scp -r ./public root@${DEPLOY_DOMAIN}:/var/www/angular-staging.local
+        - ssh root@${DEPLOY_DOMAIN} $CMD_REPLACE
         - ssh root@${DEPLOY_DOMAIN} "sed -i  's/:5555/:6555/g' /var/www/angular-staging.local/public/assets/config.json || sleep 0.1"
         - ssh root@${DEPLOY_DOMAIN} nginx -s reload
     only:
@@ -119,11 +125,14 @@ prod:
         url: http://${DEPLOY_DOMAIN}:80
     tags:
         - basher
+    variables:
+        CMD_REPLACE: sed -i -E "s/(<title>Evj)(<\/title>)/\1 | ${CI_COMMIT_SHORT_SHA} \2/g" /var/www/angular.local/public/index.html
     script:
         - ls
         - pwd
         - ssh root@${DEPLOY_DOMAIN} rm -rf /var/www/angular.local/public
         - scp -r ./public root@${DEPLOY_DOMAIN}:/var/www/angular.local
+        - ssh root@${DEPLOY_DOMAIN} $CMD_REPLACE
         - ssh root@${DEPLOY_DOMAIN} "sed -i  's/:6555/:5555/g' /var/www/angular.local/public/assets/config.json || sleep 0.1"
         - ssh root@${DEPLOY_DOMAIN} nginx -s reload
     when: manual

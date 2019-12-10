@@ -7,7 +7,7 @@ import {
   OnInit,
   ViewChild,
   ViewEncapsulation,
-  Inject
+  Inject, HostListener
 } from '@angular/core';
 
 import * as d3 from 'd3-selection';
@@ -36,7 +36,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
   data: LineChartData;
 
-  static itemCols = 30;
+  static itemCols = 20;
   static itemRows = 12;
 
 
@@ -151,11 +151,9 @@ export class LineChartComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.showMock(this.isMock);
     if (!this.isMock) {
-      setInterval(() => {
-        if (this.dataLine) {
-          this.draw(this.dataLine);
-        }
-      }, 500);
+      if (this.dataLine) {
+        this.draw(this.dataLine);
+      }
     }
   }
 
@@ -173,13 +171,19 @@ export class LineChartComponent implements OnInit, OnDestroy {
     }
   }
 
+  @HostListener('document:resize', ['$event'])
+  private OnResize(event) {
+    if (this.dataLine) {
+      this.draw(this.dataLine);
+    }
+  }
+
   private enableLiveData() {
     // TODO добавить получение типа графика
     this.subscriptions.push(this.widgetService.getWidgetLiveDataFromWS(this.id, 'line-chart')
       .subscribe((ref) => {
         this.dataLine = ref;
         this.draw(this.dataLine);
-        // console.log('update-line-chat');
       }));
   }
 
@@ -228,7 +232,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
     if (this.deviationMode === 'limits') {
       this.drawLimitsAreas(upperLimit, lowerLimit);
-      // this.drawLimitsDeviationAreas(upperLimit, lowerLimit, fact);
+      this.drawLimitsDeviationAreas(upperLimit, lowerLimit, fact);
     } else {
       this.deleteLimitsData();
       this.drawDeviationAreas(plan, fact);
