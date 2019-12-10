@@ -148,5 +148,4 @@ export class EventService {
             console.error(error);
         }
     }
-
 }
