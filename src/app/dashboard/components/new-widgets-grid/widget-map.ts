@@ -33,5 +33,5 @@ export const WIDGETS = {
     "circle-diagram": CircleDiagramComponent,
     "unity-template": UnityTemplateComponent,
     "map-ecology":MapEcologyComponent,
-
+  //  "ring-factory-diagram": RingFactoryDiagramComponent
 }

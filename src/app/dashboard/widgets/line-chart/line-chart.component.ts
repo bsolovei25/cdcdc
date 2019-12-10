@@ -30,7 +30,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
   code;
   public title;
-  units;
+  units = "кПа";
   options;
   position?: string = 'default';
 
@@ -143,7 +143,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.widgetService.getWidgetChannel(id).subscribe(data => {
       this.code = data.code,
         this.title = data.title,
-        this.units = data.units,
+       // this.units = data.units,
         this.options = data.widgetOptions;
     }));
   }

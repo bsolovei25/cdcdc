@@ -16,7 +16,7 @@ export class TruncatedPieSIconComponent implements OnInit {
 
   public title;
   public code;
-  public units;
+  public units = "шт.";
   public name;
 
   
@@ -38,7 +38,7 @@ export class TruncatedPieSIconComponent implements OnInit {
       this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe(data => {
         this.title = data.title;
         this.code = data.code;
-        this.units = data.units;
+      //  this.units = data.units;
         this.name = data.name;
       }); 
     } 

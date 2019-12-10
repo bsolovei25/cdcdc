@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 
 import { NewWidgetService } from '../../services/new-widget.service';
+import { Subscription } from 'rxjs';
 
 declare var d3: any;
 
@@ -19,13 +20,17 @@ declare var d3: any;
 })
 export class CircleDiagramComponent implements OnInit, OnDestroy {
 
-    public title = "Круговая Диаграмма";
-
+    
     private x: number = 175;
     private y: number = 40;
 
     static itemCols = 18;
     static itemRows = 14;
+
+    code;
+    public title;
+    units = "шт.";
+    options;
 
     @Input() public data = {
         name: 'Hello',
@@ -36,7 +41,7 @@ export class CircleDiagramComponent implements OnInit, OnDestroy {
     };
 
     public readonly RADIUS = 40;
-
+    private subscriptions: Subscription[] = [];
 
     @ViewChild('myCircle', { static: true }) myCircle: ElementRef;
 
@@ -45,13 +50,16 @@ export class CircleDiagramComponent implements OnInit, OnDestroy {
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string
     ) {
-
+        this.subscriptions.push(this.widgetService.getWidgetChannel(id).subscribe(data => {
+            this.code = data.code,
+            this.title = data.title,
+       //    this.units = data.units,
+            this.options = data.widgetOptions;
+          }));
     }
 
     ngOnInit() {
         if (!this.isMock) {
-            console.log(this.isMock, "----------------------------");
-
             this.d3Circle(this.data, this.myCircle.nativeElement);
         }
 
