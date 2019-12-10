@@ -16,6 +16,7 @@ export class NewUserSettingsService {
 
   public readonly WIDGETS = WIDGETS;
 
+
   private _screens$: BehaviorSubject<ScreenSettings[]> = new BehaviorSubject(null);
 
   public screens$: Observable<ScreenSettings[]> = this._screens$.asObservable().pipe(
@@ -28,6 +29,7 @@ export class NewUserSettingsService {
     configService: AppConfigService
   ) {
     this.restUrl = configService.restUrl;
+    localStorage.getItem('screen');
     this.GetScreen();
    }
 
@@ -40,6 +42,9 @@ export class NewUserSettingsService {
   public dataScreen= [];
 
   public widgetInfo: NewUserGrid;
+
+  
+ 
 
   
   public addCellByPosition(idWidget, nameWidget, param) {
@@ -127,7 +132,6 @@ export class NewUserSettingsService {
     this.screenSave();
   }
 
-
  public screenSave() {
   // console.log("save_info",this.widgetService.dashboard);
   const UserId = this.UserId;
@@ -167,7 +171,7 @@ export class NewUserSettingsService {
 }
 
 
-  public GetScreen(){  
+public GetScreen(){  
     this.http.get<ScreenSettings[]>(this.restUrl + '/user-management/user/1/screens')
       .subscribe(data => {
         this._screens$.next(data);
@@ -190,18 +194,19 @@ export class NewUserSettingsService {
             uniqid: item.uniqueId 
           }));
       });
-  }
+}
 
-  public getUniqId(id){
+public getUniqId(id){
     for(let item of this.widgetService.dashboard)
     { 
       if(id === item.id){
         return item.uniqid;
       }
     }
-  }
+}
 
-  public LoadScreen(id){
+public LoadScreen(id){
+    localStorage.setItem('screenid', id);
     this.http.get(this.restUrl + '/user-management/screen/' + id)
       .subscribe((item: ScreenSettings) => {
         console.log(item);
@@ -218,7 +223,8 @@ export class NewUserSettingsService {
             uniqid: x.uniqueId 
           }));
       });
-  }
+      
+}
 
 public PushScreen(nameWidget){
   let userScreen: ScreenSettings = new class implements ScreenSettings {

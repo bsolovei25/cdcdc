@@ -268,3 +268,25 @@
 .imgblock img{
   height: 140px;
 }
+
+
+.circle {
+  transition: opacity .3s ease-in-out;
+}
+
+.circle:hover {
+  cursor: pointer;
+  opacity: .8 !important;
+}
+
+.circle.-available {
+  fill: #0f0 !important;
+}
+
+.circle.-reserved {
+  fill: #f00 !important;
+}
+
+.circle.-service {
+  fill: #fff !important;
+}
