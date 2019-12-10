@@ -17,8 +17,8 @@ import { AppConfigService } from 'src/app/services/appConfigService';
 
 export class EventService {
 
-    // lineChartLiveData: Observable<LineChartData>;
-    // newData: BehaviorSubject<true> = new BehaviorSubject<true>(true);
+    lineChartLiveData: Observable<LineChartData>;
+    newData: BehaviorSubject<true> = new BehaviorSubject<true>(true);
 
     private readonly wsUrl: string;
     private readonly restUrl: string;
@@ -151,4 +151,5 @@ export class EventService {
             console.error(error);
         }
     }
+
 }
