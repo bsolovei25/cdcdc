@@ -1,38 +1,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs/index';
-import { WebSocketSubject } from 'rxjs/internal/observable/dom/WebSocketSubject';
+import { BehaviorSubject } from 'rxjs/index';
 import {
     EventsWidgetNotification,
     IStatus,
     ICategory
 } from '../models/events-widget';
-import { LineChartData } from '../models/line-chart';
 import { AppConfigService } from 'src/app/services/appConfigService';
 
 @Injectable({
     providedIn: 'root'
 })
 
-
 export class EventService {
 
-    lineChartLiveData: Observable<LineChartData>;
-    newData: BehaviorSubject<true> = new BehaviorSubject<true>(true);
-
-    private readonly wsUrl: string;
     private readonly restUrl: string;
-
-    private ws: WebSocketSubject<any> = null;
-    private wsSubscribtion: Subscription;
 
     event$: BehaviorSubject<any | null> = new BehaviorSubject<any | null>(null);
     updateEvent$: BehaviorSubject<any | null> = new BehaviorSubject<any | null>(null);
 
-
     constructor(public http: HttpClient, configService: AppConfigService) {
         this.restUrl = configService.restUrl;
-        this.wsUrl = configService.wsUrl;
     }
 
     async getEvent(id: number): Promise<EventsWidgetNotification> {
@@ -94,6 +82,15 @@ export class EventService {
         // TODO check
         try {
             return this.http.get<ICategory[]>(this.restUrl + '/api/notification-reference/category').toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async getEventType(): Promise<ICategory[]> {
+        // TODO check
+        try {
+            return this.http.get<ICategory[]>(this.restUrl + '/api/notification-reference/eventtype').toPromise();
         } catch (error) {
             console.error(error);
         }

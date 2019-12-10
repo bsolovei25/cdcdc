@@ -170,29 +170,29 @@
 
               <div class="notification__header">
                 <span class="notification__number" [ngClass]="'notification__number_' + n.priority">
-                  {{n.itemNumber}}
+                  {{ n.itemNumber }}
                 </span>
-                <span class="notification__name">
-                  {{n.eventType}}
+                <span class="notification__name" *ngIf="n.eventType">
+                  {{ n.eventType.name | slice : 0 : 9 }}
                 </span>
                 <div class="line notification__line notification__line_top">
                   <div class="line__circle line__circle__left"></div>
                   <div class="line__circle line__circle__right"></div>
                 </div>
                 <span class="notification__date-time">
-                  {{n.eventDateTime | date: 'dd.MM.yyyy HH:mm'}}
+                  {{ n.eventDateTime | date: 'dd.MM.yyyy HH:mm' }}
                 </span>
               </div>
 
               <div class="notification__body">
                 <span class="notification__description">
-                  {{n.description}}
+                  {{ n.description }}
                 </span>
 
                 <div class="notification__extra" (mousedown)="$event.stopPropagation()"
                   (touchstart)="$event.stopPropagation()">
                   <span class="notification__status" [ngClass]="'notification__status_' + n.priority.name">
-                    {{n.statusName}}
+                    {{ n.statusName }}
                   </span>
                   <svg-icon class="notification__icon" [applyCss]="true" [src]="n.iconUrl"
                     [ngClass]="'notification__icon_' + n.priority.name"></svg-icon>
@@ -224,10 +224,10 @@
             <div class="filter filters__item" *ngFor="let f of filters" (click)="onFilterClick(f)"
               [class.filter_active]="f.isActive">
               <span class="filter__name">
-                {{f.name}}
+                {{ f.name }}
               </span>
               <span class="filter__count">
-                {{f.notificationsCount}}
+                {{ f.notificationsCount }}
               </span>
             </div>
           </div>

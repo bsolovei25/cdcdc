@@ -13,7 +13,7 @@ export interface EventsWidgetNotification {
   priority: IPriority;
   deviationReason: string; // Причина отклонения
   establishedFacts: string; // Установленные факты
-  eventType: string; // Тип происшествия
+  eventType: { id: number, name: string }; // Тип происшествия
   directReasons: string; // Непосредственные/прямые причины
   description: string; // Описание
   comment: string; // Комментарий оператора
