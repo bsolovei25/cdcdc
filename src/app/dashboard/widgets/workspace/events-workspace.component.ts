@@ -5,32 +5,40 @@ import {
   ElementRef,
   Inject,
   OnDestroy,
+  AfterViewInit,
 } from "@angular/core";
 import { Subscription } from "rxjs";
 import { EventService } from '../../services/event.service';
-import { EventsWidgetNotification, EventsWidgetNotificationStatus, EventsWidgetNotificationPriority, RetrievalEvents, IStatus, IPriority } from '../../models/events-widget';
+import { EventsWidgetNotification, EventsWidgetNotificationStatus, EventsWidgetNotificationPriority, IStatus, IPriority, User, ICategory, EventsWidgetCategory, EventsWidgetCategoryCode } from '../../models/events-widget';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: "evj-events-workspace",
   templateUrl: "./events-workspace.component.html",
   styleUrls: ["./events-workspace.component.scss"]
 })
-export class EventsWorkSpaceComponent implements OnInit, OnDestroy {
+export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewInit {
 
   subscription: Subscription;
-  event: EventsWidgetNotification = null;
-  isLoading: boolean = false;
+  event: EventsWidgetNotification;
+  isLoading: boolean = true;
 
   public title = "Рабочая область";
   comments: string[] = [];
   isNew: boolean = true;
 
+  isEdit: boolean = false;
+
   priority: IPriority[];
   status: IStatus[];
-  user;
+  user: User[];
   code;
-  category;
+  category: ICategory[];
   place;
+  equipmentCategory;
+  eventTypes;
+
+  isNewRetrieval: EventsWidgetNotification = null;
 
   statuses: { [id in EventsWidgetNotificationStatus]: string; } = {
     "new": 'Новое',
@@ -44,14 +52,26 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy {
     "standard": 'Стандартный'
   };
 
+  categories: { [id in EventsWidgetCategoryCode]: string; } = {
+    "smotr": 'СМОТР',
+    "safety": 'Безопасноть',
+    "tasks": 'Производственные задания',
+    "equipmentStatus": 'Состояния оборудования',
+    "drops": 'Сбросы'
+  };
+
+  idUser: number = 0;
+
   static itemCols = 20;
   static itemRows = 5;
 
   @ViewChild("input", { static: false }) input: ElementRef;
   @ViewChild("scroll", { static: false }) scroll: ElementRef;
+  @ViewChild("scroll2", { static: false }) scroll2: ElementRef;
 
   constructor(
     private eventService: EventService,
+    // private formBuilder: FormBuilder,
     @Inject("isMock") public isMock: boolean,
     @Inject("widgetId") public id: string
   ) {
@@ -62,15 +82,20 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy {
       this.subscription = this.eventService.event$.subscribe((value) => {
         if (value) {
           this.isLoading = true;
+          this.resetComponent();
           this.isNew = false;
           this.event = value;
+          this.loadItem();
           console.log(value);
 
-          this.loadItem();
-          this.isLoading = false;
         }
       })
     }
+    this.isLoading = false;
+  }
+
+  ngAfterViewInit(): void {
+    // this.isLoading = false;
   }
 
   ngOnDestroy() {
@@ -78,15 +103,27 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy {
   }
 
 
+  resetComponent() {
+    this.isNew = false;
+    this.isNewRetrieval = null;
+  }
+
+
   async loadItem() {
-    // create data load queue
+    this.isLoading = true;
     const dataLoadQueue: Promise<void>[] = [];
 
-    // permission
     dataLoadQueue.push(
       this.eventService.getCategory().then(
         (data) => {
           this.category = data;
+        }
+      )
+    );
+    dataLoadQueue.push(
+      this.eventService.getUser().then(
+        (data) => {
+          this.user = data;
         }
       )
     );
@@ -104,17 +141,25 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy {
         }
       )
     );
-    dataLoadQueue.push(
-      this.eventService.getUser().then(
-        (data) => {
-          this.user = data;
-        }
-      )
-    );
+
     dataLoadQueue.push(
       this.eventService.getPlace().then(
         (data) => {
           this.place = data;
+        }
+      )
+    );
+    dataLoadQueue.push(
+      this.eventService.getEquipmentCategory().then(
+        (data) => {
+          this.equipmentCategory = data;
+        }
+      )
+    );
+    dataLoadQueue.push(
+      this.eventService.getEventType().then(
+        (data) => {
+          this.eventTypes = data;
         }
       )
     );
@@ -128,6 +173,9 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy {
         console.error(err);
       }
     }
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 500);
   }
 
 
@@ -151,94 +199,303 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy {
     }
   }
 
-  createEvent() {
+  async createEvent() {
 
-    this.loadItem();
-
+    await this.loadItem();
     this.isNew = true;
+
     this.event = {
       branch: "Производство",
-      category: { id: 1004, name: "drops", code: '4' },
+      category: this.category ? this.category[0] : null,
       comment: "Новое событие",
-      description: "",
+      description: '',
       deviationReason: "Причина отклонения...",
       directReasons: "",
       establishedFacts: "",
       eventDateTime: new Date,
-      eventType: "",
-      fixedBy: { id: 4002, firstName: "Петр", lastName: "Петров", email: "test@test", phone: "00123456789" },
+      eventType: this.eventTypes ? this.eventTypes[0] : null,
+      fixedBy:
+      {
+        email: "test@test",
+        firstName: "",
+        id: 1,
+        lastName: "",
+        phone: "00123456789",
+      },
       // id: null,
       place: { id: 5001, name: "ГФУ-2 с БОР" },
       itemNumber: 321128,
       organization: "АО Газпромнефть",
-      priority: { id: 2003, name: "standard", code: '2' },
-      responsibleOperator: { id: 4001, firstName: "Иван", lastName: "Иванов", email: "1@2", phone: "00123456789" },
+      priority: this.priority ? this.priority[2] ? this.priority[2] : this.priority[0] : null,
+      responsibleOperator: this.user ? this.user[0] : null,
       retrievalEvents: [],
       severity: "Critical",
-      status: { id: 3001, name: "new", code: '0' },
+      status: this.status ? this.status[0] : null,
       iconUrl: "number",
       iconUrlStatus: "number",
       statusName: '',
-      equipmentCategory: {
-        id: 8001,
-        name: "Статическое Оборудование",
-        code: "0"
-      },
+      equipmentCategory: this.equipmentCategory ? this.equipmentCategory[0] : null,
+      deadline: new Date,
+      graphValues: null
     }
 
+  }
 
+  addRetrieval(): void {
+    document.getElementById("overlay-retrieval").style.display = "block";
+
+    this.isNewRetrieval = <EventsWidgetNotification>{
+      branch: "Производство",
+      category: this.category ? this.category[0] : null,
+      comment: "Новое событие",
+      deviationReason: "Причина отклонения...",
+      directReasons: "",
+      establishedFacts: "",
+      eventDateTime: new Date,
+      eventType: { id: 1, name: 'Отклонение от норм ТР' },
+      fixedBy: { id: 2, firstName: "Петр", lastName: "Петров", email: "test@test", phone: "00123456789" },
+      itemNumber: 321131,
+      organization: "АО Газпромнефть",
+      place: { id: 5001, name: "ГФУ-1" },
+      priority: { id: 2003, name: "standard", code: "2" },
+      responsibleOperator: { id: 1, firstName: "Иван", lastName: "Иванов", email: "1@2", phone: "00123456789" },
+      status: this.status ? this.status[0] : null,
+      description: '',
+      equipmentCategory: this.equipmentCategory ? this.equipmentCategory[0] : null,
+      retrievalEvents: [],
+      severity: 'Critical',
+      deadline: new Date
+    }
   }
 
   async saveItem(): Promise<void> {
-    const idxStatus = this.status.findIndex(f => f.id === Number(this.event.status.id));
-    if (idxStatus !== -1) {
-      this.event.status = { code: this.status[idxStatus].code, id: +this.status[idxStatus].id, name: this.status[idxStatus].name }
-    }
-    const idxPriority = this.priority.findIndex(f => f.id === Number(this.event.priority.id));
-    if (idxStatus !== -1) {
-      this.event.priority = { code: this.priority[idxPriority].code, id: +this.priority[idxPriority].id, name: this.priority[idxPriority].name }
-    }
-    const idxUser = this.user.findIndex(f => f.id === Number(this.event.fixedBy.id));
-    if (idxUser !== -1) {
-      this.event.fixedBy = {
-        firstName: this.user[idxUser].firstName,
-        id: +this.user[idxUser].id,
-        lastName: this.user[idxUser].lastName,
-        email: this.user[idxUser].email,
-        phone: this.user[idxUser].phone
-      }
-    }
+    this.isLoading = true;
+    let snackBar = document.getElementById("snackbar");
+
     if (this.isNew) {
-      console.log(this.event);
-
-      const ev = await this.eventService.postEvent(this.event);
-      console.log(ev);
+      try {
+        console.log(this.event);
+        const ev = await this.eventService.postEvent(this.event);
+        this.event = ev;
+        snackBar.className = "show";
+        snackBar.innerText = "Сохранено"
+        this.isNew = false;
+        setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, 3000);
+      } catch (error) {
+        snackBar.className = "show";
+        snackBar.innerText = "Ошибка"
+        setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, 3000);
+        this.isLoading = false;
+      }
     } else {
-      this.isLoading = true;
-      console.log(this.event);
-
-
-      const ev = await this.eventService.putEvent(this.event);
-      this.isLoading = false;
-      console.log(ev);
+      try {
+        console.log(this.event);
+        const ev = await this.eventService.putEvent(this.event);
+        console.log(ev);
+        snackBar.className = "show";
+        snackBar.innerText = "Сохранено"
+        setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, 3000);
+      } catch (error) {
+        snackBar.className = "show";
+        snackBar.innerText = "Ошибка"
+        setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, 3000);
+        this.isLoading = false;
+      }
     }
 
     this.eventService.updateEvent$.next(true);
+    this.isLoading = false;
   }
 
 
 
-  addRetrieval(): void {
-    const retrieval: RetrievalEvents = {
-      deadline: new Date,
-      description: '',
-      responsibleUser: null,
-      status: { id: 3001, name: 'new', code: '0' },
-      isNew: true
+
+
+  overlayClose() {
+    document.getElementById("overlay-retrieval").style.display = "none";
+    this.isNewRetrieval = null;
+  }
+
+  cancelRetrieval(): void {
+    this.event.retrievalEvents.pop();
+  }
+
+  async saveRetrieval(idEvent: number): Promise<void> {
+    let snackBar = document.getElementById("snackbar");
+
+    // Если не новый event, отсылаем
+    if (!this.isNew) {
+      try {
+        const post = await this.eventService.addRetrievalEvents(idEvent, this.isNewRetrieval);
+        this.event.retrievalEvents.push(post);
+        this.overlayClose();
+        this.eventService.updateEvent$.next(true);
+        snackBar.className = "show";
+        snackBar.innerText = "Сохранено"
+        setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, 3000);
+
+      } catch (error) {
+        snackBar.className = "show";
+        snackBar.innerText = "Ошибка"
+        setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, 3000);
+        this.isLoading = false;
+      }
+    } else {
+      // Если новый event то добавляем в массив
+      this.event.retrievalEvents.push(this.isNewRetrieval);
+      this.overlayClose();
     }
-    this.event.retrievalEvents.push(retrieval);
+  }
 
+  editRetrieval(retrieval: EventsWidgetNotification) {
+    this.isEdit = true;
+    this.isNewRetrieval = retrieval;
+    document.getElementById("overlay-retrieval").style.display = "block";
+  }
+
+  async editSaveRetrieval() {
+    let snackBar = document.getElementById("snackbar");
+    this.isEdit = true;
+    if (this.isNew) {
+      const idx = this.event.retrievalEvents.findIndex(i => i.id === this.isNewRetrieval.id);
+      if (idx !== -1) {
+        this.event.retrievalEvents[idx] = this.isNewRetrieval;
+      }
+      this.isNewRetrieval = null;
+      this.isEdit = false;
+      this.overlayClose();
+    } else {
+      try {
+        this.isLoading = true;
+        const put = await this.eventService.editRetrievalEvents(this.event.id, this.isNewRetrieval);
+        const idx = this.event.retrievalEvents.findIndex(i => i.id === this.isNewRetrieval.id);
+        if (idx !== -1) {
+          this.event.retrievalEvents[idx] = this.isNewRetrieval;
+        }
+        this.eventService.updateEvent$.next(true);
+        snackBar.className = "show";
+        snackBar.innerText = "Сохранено"
+        this.overlayClose();
+        setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, 3000);
+        this.isLoading = false;
+      } catch (error) {
+        snackBar.className = "show";
+        snackBar.innerText = "Ошибка"
+        setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, 3000);
+        this.isLoading = false;
+      }
+      this.isEdit = false;
+    }
 
   }
+
+  async deleteRetrieval(idEvent: number, idRetr: number): Promise<void> {
+    const del = await this.eventService.deleteRetrievalEvents(idEvent, idRetr);
+    this.eventService.updateEvent$.next(true);
+    const idx = this.event.retrievalEvents.findIndex(i => i.id === idRetr);
+    if (idx !== -1) {
+      this.event.retrievalEvents.splice(idx, 1);
+    }
+  }
+
+  getIndex(i: number): string {
+    return Number(i + 1).toString();
+  }
+
+  compareFn(a, b) {
+    // console.log(a, b, a && b && a.id == b.id);
+    return a && b && a.id == b.id;
+  }
+
+  getRandomInt(max: number): number {
+    return Math.floor(Math.random() * Math.floor(max));
+  }
+
+  changeCategory() {
+    this.idUser = this.getRandomInt(7);
+  }
+
+
+  openLineChart() {
+    document.getElementById("overlay-chart").style.display = "block";
+
+  }
+
+  overlayChartClose() {
+    document.getElementById("overlay-chart").style.display = "none";
+  }
+
+
+
+
+  // mainFormGroup: FormGroup;
+
+
+  // resetComponent2() {
+  //   this.mainFormGroup = this.formBuilder.group({
+  //     branch: "Производство",
+  //     category: { id: 1004, name: "equipmentStatus", code: '4' },
+  //     comment: "Новое событие",
+  //     description: ['', [
+  //       Validators.required
+  //     ]],
+  //     deviationReason: "Причина отклонения...",
+  //     directReasons: "",
+  //     establishedFacts: "",
+  //     eventDateTime: new Date,
+  //     eventType: "",
+  //     fixedBy: { id: 2, firstName: "Петр", lastName: "Петров", email: "test@test", phone: "00123456789" },
+  //     id: null,
+  //     place: { id: 5001, name: "ГФУ-2 с БОР" },
+  //     itemNumber: 321128,
+  //     organization: "АО Газпромнефть",
+  //     priority: { id: 2003, name: "standard", code: '2' },
+  //     responsibleOperator: { id: 1, firstName: "Иван", lastName: "Иванов", email: "1@2", phone: "00123456789" },
+  //     retrievalEvents: [],
+  //     severity: "Critical",
+  //     status: { id: 3001, name: "new", code: '0' },
+  //     iconUrl: "number",
+  //     iconUrlStatus: "number",
+  //     statusName: '',
+  //     equipmentCategory: ''
+  //   })
+
+  // }
+
+
+  // dataToForm() {
+
+  //   this.mainFormGroup.setValue({
+  //     branch: "Производство",
+  //     category: { id: 1004, name: "equipmentStatus", code: '4' },
+  //     comment: "Новое событие",
+  //     description: undefined,
+  //     deviationReason: "Причина отклонения...",
+  //     directReasons: "",
+  //     establishedFacts: "",
+  //     eventDateTime: new Date,
+  //     eventType: "",
+  //     fixedBy: { id: 2, firstName: "Петр", lastName: "Петров", email: "test@test", phone: "00123456789" },
+  //     id: null,
+  //     place: { id: 5001, name: "ГФУ-2 с БОР" },
+  //     itemNumber: 321128,
+  //     organization: "АО Газпромнефть",
+  //     priority: { id: 2003, name: "standard", code: '2' },
+  //     responsibleOperator: { id: 1, firstName: "Иван", lastName: "Иванов", email: "1@2", phone: "00123456789" },
+  //     retrievalEvents: [],
+  //     severity: "Critical",
+  //     status: { id: 3001, name: "new", code: '0' },
+  //     iconUrl: "number",
+  //     iconUrlStatus: "number",
+  //     statusName: '',
+  //     equipmentCategory: ''
+  //   })
+
+  // }
+
+
+  // formToData() {
+
+  // }
 
 }

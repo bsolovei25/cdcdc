@@ -7,7 +7,7 @@ import {
   OnInit,
   ViewChild,
   ViewEncapsulation,
-  Inject
+  Inject, HostListener
 } from '@angular/core';
 
 import * as d3 from 'd3-selection';
@@ -30,13 +30,13 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
   code;
   public title;
-  units;
+  units = "кПа";
   options;
   position?: string = 'default';
 
   data: LineChartData;
 
-  static itemCols = 30;
+  static itemCols = 20;
   static itemRows = 12;
 
 
@@ -130,11 +130,6 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
-  private subscription: Subscription;
-
-  private subscription2: Subscription;
-
-
   constructor(
     public widgetService: NewWidgetService,
     @Inject('isMock') public isMock: boolean,
@@ -143,25 +138,24 @@ export class LineChartComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.widgetService.getWidgetChannel(id).subscribe(data => {
       this.code = data.code,
         this.title = data.title,
-        this.units = data.units,
+       // this.units = data.units,
         this.options = data.widgetOptions;
     }));
   }
 
   ngOnInit() {
+    // this.draw(Mock);
     this.showMock(this.isMock);
     if (!this.isMock) {
-      setInterval(() => {
-        if (this.dataLine) {
-          this.draw(this.dataLine);
-        }
-      }, 500);
+      if (this.dataLine) {
+        this.draw(this.dataLine);
+      }
     }
   }
 
   ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
+    for (const i in this.subscriptions) {
+      this.subscriptions[i].unsubscribe();
     }
   }
 
@@ -173,13 +167,19 @@ export class LineChartComponent implements OnInit, OnDestroy {
     }
   }
 
+  @HostListener('document:resize', ['$event'])
+  private OnResize(event) {
+    if (this.dataLine) {
+      this.draw(this.dataLine);
+    }
+  }
+
   private enableLiveData() {
     // TODO добавить получение типа графика
     this.subscriptions.push(this.widgetService.getWidgetLiveDataFromWS(this.id, 'line-chart')
       .subscribe((ref) => {
         this.dataLine = ref;
         this.draw(this.dataLine);
-        console.log('update-line-chat');
       }));
   }
 
@@ -201,14 +201,12 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
   private buildData(data) {
     const xMax = d3Array.max(data.graphs, c => d3Array.max(c.values, d => d.date));
-
     data.graphs.forEach(g => this.fillToXMAx(g.values, xMax));
     return data;
   }
 
   private fillToXMAx(values, xMax) {
     const latest = values.slice().reverse()[0];
-
     if (latest && latest.date.getTime() !== xMax.getTime()) {
       return values.push({ value: latest.value, date: xMax });
     }
@@ -228,7 +226,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
     if (this.deviationMode === 'limits') {
       this.drawLimitsAreas(upperLimit, lowerLimit);
-      // this.drawLimitsDeviationAreas(upperLimit, lowerLimit, fact);
+      this.drawLimitsDeviationAreas(upperLimit, lowerLimit, fact);
     } else {
       this.deleteLimitsData();
       this.drawDeviationAreas(plan, fact);
@@ -239,7 +237,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
   }
 
   private extractByName(graphs: LineChartGraph[], graphTypeName: string): LineChartGraphValue[] {
-    var found = graphs.find(d => d.graphType === graphTypeName);
+    const found = graphs.find(d => d.graphType === graphTypeName);
     return found != null ? found.values : [];
   }
 
@@ -276,7 +274,6 @@ export class LineChartComponent implements OnInit, OnDestroy {
               acc.values.push(d);
             }
             break;
-
         }
 
         return acc;
@@ -287,11 +284,11 @@ export class LineChartComponent implements OnInit, OnDestroy {
   }
 
   private deleteLimitsData() {
-    let ulIndex = this.data.graphs.findIndex(d => d.graphType === 'upperLimit');
+    const ulIndex = this.data.graphs.findIndex(d => d.graphType === 'upperLimit');
     if (ulIndex !== -1) {
       this.data.graphs.splice(ulIndex, 1)
     }
-    let llIndex = this.data.graphs.findIndex(d => d.graphType === 'lowerLimit');
+    const llIndex = this.data.graphs.findIndex(d => d.graphType === 'lowerLimit');
     if (llIndex !== -1) {
       this.data.graphs.splice(llIndex, 1)
     }
@@ -331,41 +328,38 @@ export class LineChartComponent implements OnInit, OnDestroy {
         .y((d: any) => this.y(d.value))
     };
 
-
     this.line = d3Shape.line()
       .curve(d3Shape['curveMonotoneX'])
       .x((d: any) => this.x(d.date))
       .y((d: any) => this.y(d.value));
-
   }
 
   private initChart() {
-
     const element = this.chartContainer.nativeElement;
+    const minWidth = 350;
     this.width = element.offsetWidth - this.margin.left - this.margin.right;
     this.height = element.offsetHeight - this.margin.top - this.margin.bottom;
     this.heightNoMargins = element.offsetHeight;
+
+    if (this.width < minWidth) {
+      this.width = minWidth;
+    }
 
     this.svg = d3.select(element).append('svg')
       .attr('width', this.width)
       .attr('height', element.offsetHeight);
 
-
     this.g = this.svg.append('g').attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
-
-  }
-
-  private onChangeDispay() {
   }
 
   private makeXGridLines() {
     return d3Axis.axisBottom(this.x)
-      .ticks(5)
+      .ticks(5);
   }
 
   private makeYGridLines() {
     return d3Axis.axisLeft(this.y)
-      .ticks(3)
+      .ticks(3);
   }
 
   private drawAxis(): void {
@@ -382,12 +376,10 @@ export class LineChartComponent implements OnInit, OnDestroy {
         .ticks(7)
         .tickFormat((d) => {
           return d3Format.format(".1f")(d);
-        }))
-
+        }));
   }
 
   private drawGridLines() {
-
     this.g.append("g").selectAll('grid')
       .attr("class", "grid")
       .attr("transform", "translate(0," + this.height + ")")
@@ -449,7 +441,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
       .attr("y", d => this.y(d.value) + this.trendsStyle[d.type].point.heightOffset)
       .attr("xlink:href", d => this.trendsStyle[d.type].point.iconUrl)
       .attr('class', 'point')
-      .attr("class", d => this.trendsStyle[d.type].point.class)
+      .attr("class", d => this.trendsStyle[d.type].point.class);
 
   }
 

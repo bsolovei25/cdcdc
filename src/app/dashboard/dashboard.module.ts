@@ -19,7 +19,7 @@ import { ShiftPersonComponent } from './widgets/change-shift/shift-person/shift-
 import { NewWidgetsPanelComponent } from './components/new-widgets-panel/new-widgets-panel.component';
 import { NewWidgetsGridComponent } from './components/new-widgets-grid/new-widgets-grid.component';
 import { GridsterModule } from 'angular-gridster2';
-import {UserInfoComponent} from './components/user-info/user-info.component';
+import { UserInfoComponent } from './components/user-info/user-info.component';
 import { WidgetPiesComponent } from './widgets/widgets-pie/widget-pies/widget-pies/widget-pies.component';
 import { WidgetsPieComponent } from './widgets/widgets-pie/widget-pie-circle/widget-pie/widget-pie.component';
 import { WidgetHeaderComponent } from './components/widget-header/widget-header.component';
@@ -36,8 +36,14 @@ import { OneColumnComponent } from './widgets/point-diagram/one-column/one-colum
 import { ProductionPyramidComponent } from './widgets/production-pyramid/production-pyramid.component';
 import { BarChartsComponent } from './widgets/bar-chart/bar-charts/bar-charts.component';
 import { BarChartComponent } from './widgets/bar-chart/bar-chart/bar-chart.component';
+import { CircleDiagramComponent } from './widgets/circle-diagram/circle-diagram.component';
+import { MapEcologyComponent } from './widgets/map-ecology/map-ecology/map-ecology.component';
 import { UnityTemplateComponent } from './widgets/unity-template/unity-template.component';
 import { EnterpriseMapComponent } from './widgets/map-enterprise/enterprise-map.component';
+import { PowIndexPipe } from './pipes/pow-index.pipe';
+import { RingFactoryDiagramComponent } from './widgets/ring-factory-diagram/ring-factory-diagram.component';
+
+import { LineChartWorkspaceComponent } from './widgets/workspace/line-chart-workspace/line-chart-workspace.component';
 
 @NgModule({
   declarations: [
@@ -71,9 +77,14 @@ import { EnterpriseMapComponent } from './widgets/map-enterprise/enterprise-map.
     BarChartsComponent,
     BarChartComponent,
     UnityTemplateComponent,
-    EnterpriseMapComponent
+    EnterpriseMapComponent,
+    CircleDiagramComponent,
+    PowIndexPipe,
+    MapEcologyComponent,
+    RingFactoryDiagramComponent,
+    LineChartWorkspaceComponent
   ],
-  entryComponents:[
+  entryComponents: [
     LineChartComponent,
     WidgetPiesComponent,
     EventsComponent,
@@ -87,8 +98,12 @@ import { EnterpriseMapComponent } from './widgets/map-enterprise/enterprise-map.
     PointDiagramComponent,
     ProductionPyramidComponent,
     BarChartsComponent,
+    CircleDiagramComponent,
+    MapEcologyComponent,
     UnityTemplateComponent,
-    EnterpriseMapComponent
+    EnterpriseMapComponent,
+    RingFactoryDiagramComponent,
+    LineChartWorkspaceComponent
   ],
   exports: [
     HomeComponent,
@@ -105,4 +120,4 @@ import { EnterpriseMapComponent } from './widgets/map-enterprise/enterprise-map.
   ],
   bootstrap: []
 })
-export class DashboardModule {}
+export class DashboardModule { }

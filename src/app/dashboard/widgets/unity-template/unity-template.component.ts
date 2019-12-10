@@ -10,6 +10,7 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./unity-template.component.scss']
 })
 export class UnityTemplateComponent implements OnInit {
+
   private baseUrl: string;
   private unityInstance: any;
   private isStart: boolean;
@@ -44,9 +45,7 @@ export class UnityTemplateComponent implements OnInit {
     for (const i in this.subscriptions) {
       this.subscriptions[i].unsubscribe();
     }
-    this.unityInstance.quit(() => {
-      console.log("done!");
-    });
+    this.unityInstance.Quit(() => console.log('destroy'));
   }
 
   ngAfterViewInit() {
@@ -58,6 +57,11 @@ export class UnityTemplateComponent implements OnInit {
     if (!show) {
       this.InitUnity();
     }
+  }
+
+  @HostListener('document:resize', ['$event'])
+  private OnResize(event) {
+    this.resize();
   }
 
   @HostListener('document:UnityTemplate_Start', ['$event', '$event.detail.param1'])
@@ -79,10 +83,7 @@ export class UnityTemplateComponent implements OnInit {
 
   private InitUnity() {
     window['UnityLoader'] = UnityLoader;
-    this.loadProject(`${this.baseUrl}assets/unity/webgl_template_3d/webgl_template_3d.json`);
-    setInterval(() => {
-      this.resize();
-    }, 500);
+    this.loadProject(`${this.baseUrl}assets/unity/webgl_template_3d/webgl_template_3d_new.json`);
   }
 
   private CallUnityScript(funName, ...args) {

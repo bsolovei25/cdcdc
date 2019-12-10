@@ -19,9 +19,8 @@
     <div
       class="label"
       [ngClass]="getColor(item.percent, item.isCritical, false)"
-    >
-      {{ item.label }}
-    </div>
+      [innerHTML]="item.label | powIndex"
+    ></div>
   </div>
 </ng-container>
 
