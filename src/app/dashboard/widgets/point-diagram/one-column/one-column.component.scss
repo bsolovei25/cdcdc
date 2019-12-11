@@ -34,7 +34,7 @@
       &__disable {
         background: var(--color-text-diagram-transparent);
         border: 1px solid var(--color-text-diagram-half-transparent);
-        color: var(--color-text-diagram);
+        color: var(--color-plan);
       }
       &__normal {
         background: var(--color-text-main-transparent);
@@ -65,7 +65,7 @@
     }
 
     &__disable {
-      color: var(--color-text-diagram-half-transparent);
+      color: var(--color-text-sub-heading);
     }
     &__normal {
       color: var(--color-text-main);
@@ -95,9 +95,9 @@
   font-size: 14px;
 
   &__active {
-    color: var(--color-text-main);
+    color: var(--color-plan);
   }
   &__disable {
-    color: var(--color-text-diagram-half-transparent);
+    color: var(--color-text-sub-heading);
   }
 }
