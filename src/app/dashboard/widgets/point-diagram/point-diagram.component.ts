@@ -90,7 +90,7 @@ export class PointDiagramComponent implements OnInit {
   ];
 
   static itemCols = 23;
-  static itemRows = 15;
+  static itemRows = 16;
 
   public units = "%";
 
