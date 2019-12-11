@@ -8,7 +8,7 @@ import { Component, OnInit } from "@angular/core";
 export class EcologySafetyComponent implements OnInit {
   data = {
     plan: 100,
-    curValue: 99,
+    curValue: 100,
     maxValue: 150,
   };
 
