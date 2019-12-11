@@ -1,6 +1,4 @@
-<div
-  class="container pointer-event"
->
+<div class="container pointer-event">
   <evj-widget-header
     [title]="'Операционная эффективность'"
     [units]="'млн.руб.'"
@@ -12,7 +10,9 @@
 
   <ng-container *ngIf="false"></ng-container>
   <ng-container *ngIf="true">
-    <evj-detailed-line-diagram></evj-detailed-line-diagram>
+    <div class="op-ef">
+      <evj-detailed-line-diagram class="dld"></evj-detailed-line-diagram>
+    </div>
   </ng-container>
 
   <evj-frame-bottom></evj-frame-bottom>

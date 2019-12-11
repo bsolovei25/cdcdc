@@ -1,0 +1,49 @@
+<div class="container pointer-event">
+  <evj-widget-header
+    [title]="'Календарный план'"
+    [units]="'млн.руб.'"
+    [code]=""
+    [id]=""
+  ></evj-widget-header>
+
+  <evj-frame-top></evj-frame-top>
+
+  <ng-container *ngIf="false"></ng-container>
+  <ng-container *ngIf="true">
+    <div class="cal-plan">
+      <evj-detailed-line-diagram class="dld"></evj-detailed-line-diagram>
+      <div class="cards">
+        <div
+          class="card"
+          *ngFor="let item of array"
+          [ngClass]="{ 'card-active': !item.isBetter }"
+        >
+          <div class="card__border card__border-left "></div>
+          <div class="card__border card__border-right"></div>
+          <div class="card__title">{{ item.name }}</div>
+          <div class="card__change" [ngClass]="{ danger: !item.isBetter }">
+            <img
+              src="../../../../assets/icons/widgets/calendar-plan/deviat_danger.svg"
+              alt=""
+              *ngIf="!item.isBetter"
+              [ngClass]="{ rotate: item.deviation > 0 }"
+            />
+            <img
+              src="../../../../assets/icons/widgets/calendar-plan/deviat.svg"
+              alt=""
+              *ngIf="item.isBetter"
+              [ngClass]="{ rotate: item.deviation < 0 }"
+            />
+            {{
+              item.deviation > 0
+                ? "+ " + item.deviation
+                : "- " + -item.deviation
+            }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <evj-frame-bottom></evj-frame-bottom>
+</div>

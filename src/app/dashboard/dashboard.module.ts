@@ -45,6 +45,7 @@ import { PowIndexPipe } from './pipes/pow-index.pipe';
 import { RingFactoryDiagramComponent } from './widgets/ring-factory-diagram/ring-factory-diagram.component';
 
 import { LineChartWorkspaceComponent } from './widgets/workspace/line-chart-workspace/line-chart-workspace.component';
+import { CalendarPlanComponent } from './widgets/calendar-plan/calendar-plan.component';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import { LineChartWorkspaceComponent } from './widgets/workspace/line-chart-work
     DetailedLineDiagramComponent,
     OperationEfficiencyComponent,
     RingFactoryDiagramComponent,
-    LineChartWorkspaceComponent
+    LineChartWorkspaceComponent,
+    CalendarPlanComponent
   ],
   entryComponents: [
     LineChartComponent,
