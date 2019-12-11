@@ -205,6 +205,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     this.isNew = true;
 
     this.event = {
+      itemNumber: 0,
       branch: "Производство",
       category: this.category ? this.category[0] : null,
       comment: "Новое событие",
@@ -222,9 +223,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         lastName: "",
         phone: "00123456789",
       },
-      // id: null,
       place: { id: 5001, name: "ГФУ-2 с БОР" },
-      itemNumber: 321128,
       organization: "АО Газпромнефть",
       priority: this.priority ? this.priority[2] ? this.priority[2] : this.priority[0] : null,
       responsibleOperator: this.user ? this.user[0] : null,
@@ -244,7 +243,8 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
   addRetrieval(): void {
     document.getElementById("overlay-retrieval").style.display = "block";
 
-    this.isNewRetrieval = <EventsWidgetNotification>{
+    this.isNewRetrieval = {
+      itemNumber: 0,
       branch: "Производство",
       category: this.category ? this.category[0] : null,
       comment: "Новое событие",
@@ -254,7 +254,6 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
       eventDateTime: new Date,
       eventType: { id: 1, name: 'Отклонение от норм ТР' },
       fixedBy: { id: 2, firstName: "Петр", lastName: "Петров", email: "test@test", phone: "00123456789" },
-      itemNumber: 321131,
       organization: "АО Газпромнефть",
       place: { id: 5001, name: "ГФУ-1" },
       priority: { id: 2003, name: "standard", code: "2" },
@@ -264,7 +263,8 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
       equipmentCategory: this.equipmentCategory ? this.equipmentCategory[0] : null,
       retrievalEvents: [],
       severity: 'Critical',
-      deadline: new Date
+      deadline: new Date,
+      graphValues: null
     }
   }
 
@@ -429,78 +429,4 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
   overlayChartClose() {
     document.getElementById("overlay-chart").style.display = "none";
   }
-
-
-
-
-  // mainFormGroup: FormGroup;
-
-
-  // resetComponent2() {
-  //   this.mainFormGroup = this.formBuilder.group({
-  //     branch: "Производство",
-  //     category: { id: 1004, name: "equipmentStatus", code: '4' },
-  //     comment: "Новое событие",
-  //     description: ['', [
-  //       Validators.required
-  //     ]],
-  //     deviationReason: "Причина отклонения...",
-  //     directReasons: "",
-  //     establishedFacts: "",
-  //     eventDateTime: new Date,
-  //     eventType: "",
-  //     fixedBy: { id: 2, firstName: "Петр", lastName: "Петров", email: "test@test", phone: "00123456789" },
-  //     id: null,
-  //     place: { id: 5001, name: "ГФУ-2 с БОР" },
-  //     itemNumber: 321128,
-  //     organization: "АО Газпромнефть",
-  //     priority: { id: 2003, name: "standard", code: '2' },
-  //     responsibleOperator: { id: 1, firstName: "Иван", lastName: "Иванов", email: "1@2", phone: "00123456789" },
-  //     retrievalEvents: [],
-  //     severity: "Critical",
-  //     status: { id: 3001, name: "new", code: '0' },
-  //     iconUrl: "number",
-  //     iconUrlStatus: "number",
-  //     statusName: '',
-  //     equipmentCategory: ''
-  //   })
-
-  // }
-
-
-  // dataToForm() {
-
-  //   this.mainFormGroup.setValue({
-  //     branch: "Производство",
-  //     category: { id: 1004, name: "equipmentStatus", code: '4' },
-  //     comment: "Новое событие",
-  //     description: undefined,
-  //     deviationReason: "Причина отклонения...",
-  //     directReasons: "",
-  //     establishedFacts: "",
-  //     eventDateTime: new Date,
-  //     eventType: "",
-  //     fixedBy: { id: 2, firstName: "Петр", lastName: "Петров", email: "test@test", phone: "00123456789" },
-  //     id: null,
-  //     place: { id: 5001, name: "ГФУ-2 с БОР" },
-  //     itemNumber: 321128,
-  //     organization: "АО Газпромнефть",
-  //     priority: { id: 2003, name: "standard", code: '2' },
-  //     responsibleOperator: { id: 1, firstName: "Иван", lastName: "Иванов", email: "1@2", phone: "00123456789" },
-  //     retrievalEvents: [],
-  //     severity: "Critical",
-  //     status: { id: 3001, name: "new", code: '0' },
-  //     iconUrl: "number",
-  //     iconUrlStatus: "number",
-  //     statusName: '',
-  //     equipmentCategory: ''
-  //   })
-
-  // }
-
-
-  // formToData() {
-
-  // }
-
 }
