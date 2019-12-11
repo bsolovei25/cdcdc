@@ -182,6 +182,10 @@ export class EventsComponent implements OnInit, OnDestroy {
   onCategoryClick(category) {
     category.isActive = !category.isActive;
     this.appendOptions();
+    const idx = this.filters.findIndex(i => i.isActive === true);
+    if (idx !== -1) {
+      this.onFilterClick(this.filters[idx]);
+    }
   }
 
   onFilterClick(filter: EventsWidgetFilter) {
@@ -212,9 +216,17 @@ export class EventsComponent implements OnInit, OnDestroy {
     // filtering only at front-end
   }
 
+  sortByPriority() {
+    const danger = this.notifications.filter(n => n.priority.code === '0');
+    const warning = this.notifications.filter(n => n.priority.code === '1');
+    const standard = this.notifications.filter(n => n.priority.code === '2');
+    this.notifications = [...danger, ...warning, ...standard];
+  }
+
+
   // Фильтрация
   private applyFilter(allNotifications: EventsWidgetNotification[], filterOptions: EventsWidgetOptions): EventsWidgetNotification[] {
-    var notifications = allNotifications;
+    let notifications = allNotifications;
 
     if (filterOptions.filter && filterOptions.filter != 'all')
       notifications = notifications.filter(x => x.status.name == filterOptions.filter);
@@ -225,6 +237,7 @@ export class EventsComponent implements OnInit, OnDestroy {
     // if (notifications.length > this.notificationsMaxCount) {
     // notifications = notifications.slice(0, this.notificationsMaxCount);
     // }
+
 
     return notifications;
   }
@@ -256,6 +269,7 @@ export class EventsComponent implements OnInit, OnDestroy {
       };
       f.notificationsCount = this.applyFilter(this.allNotifications, options).length;
     })
+    this.sortByPriority();
   }
 
   private appendCategoriesCounters() {
