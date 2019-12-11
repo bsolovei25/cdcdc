@@ -1,6 +1,5 @@
 <div id="snackbar"></div>
 
-
 <div class="container pointer-event">
   <!-- loading data -->
   <div class="loading-shade" *ngIf="isLoading">
@@ -21,10 +20,10 @@
 
   <ng-container *ngIf="!isMock && event">
 
-    <div class="change-shift" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+    <div *ngIf="event" class="change-shift" (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()">
 
       <div class="workspace__header__block">
-
         <section class="workspace__blocks" style="margin-right: 10px;">
 
           <div class="workspace__block">
@@ -32,7 +31,7 @@
               Дата / время:
             </div>
             <div class="workspace__block__body">
-              {{ event.eventDateTime | date:'yyyy-MM-dd HH:mm' }}
+              {{ event.eventDateTime | date:'dd-MM-yyyy HH:mm' }}
             </div>
           </div>
 
@@ -68,21 +67,16 @@
               Место:
             </div>
             <div class="workspace__block__body">
-              <!-- {{ event.place.name }} -->
               ГФУ-2 с БОР
             </div>
           </div>
 
           <div class="workspace__block">
             <div class="workspace__block__title">
-              Зафиксировал:
+              Старший оператор:
             </div>
-            <div class="workspace__block__body" style="max-width: 120px;">
-              <div class="dropdown dropdown-dark">
-                <select name="contactMethod" class="dropdown-select" [(ngModel)]="event.fixedBy.id">
-                  <option *ngFor="let p of user" [value]="p.id">{{ p.lastName }} {{ p.firstName }}</option>
-                </select>
-              </div>
+            <div class="workspace__block__body" *ngIf="event.responsibleOperator">
+              {{ event.responsibleOperator.lastName }} {{ event.responsibleOperator.firstName }}
             </div>
           </div>
 
@@ -92,21 +86,13 @@
 
           <div class="workspace__block__right">
             <div class="workspace__block__title">
-              Старший оператор:
-            </div>
-            <div class="workspace__block__body">
-              {{ event.responsibleOperator.lastName }} {{ event.responsibleOperator.firstName }}
-            </div>
-          </div>
-
-          <div class="workspace__block__right">
-            <div class="workspace__block__title">
               Статус:
             </div>
-            <div class="workspace__block__body">
+            <div class="workspace__block__body__drop-down">
               <div class="dropdown dropdown-dark">
-                <select name="contactMethod" class="dropdown-select" [(ngModel)]="event.status.id">
-                  <option *ngFor="let p of status" [value]="p.id">{{ statuses[p.name] }}</option>
+                <select name="contactMethod" class="dropdown-select" [(ngModel)]="event.status"
+                  [compareWith]="compareFn">
+                  <option *ngFor="let p of status" [ngValue]="p">{{ statuses[p.name] }}</option>
                 </select>
               </div>
             </div>
@@ -116,24 +102,81 @@
             <div class="workspace__block__title">
               Приоритет:
             </div>
-            <div class="workspace__block__body">
+            <div class="workspace__block__body__drop-down">
               <div class="dropdown dropdown-dark">
-                <select name="contactMethod" class="dropdown-select" [(ngModel)]="event.priority.id">
-                  <option *ngFor="let p of priority" [value]="p.id">{{ priorities[p.name] }}</option>
+                <select name="contactMethod" class="dropdown-select" [(ngModel)]="event.priority"
+                  [compareWith]="compareFn">
+                  <option *ngFor="let p of priority" [ngValue]="p">{{ priorities[p.name] }}</option>
                 </select>
               </div>
             </div>
           </div>
 
-          <div class="workspace__block-border">
-            <div class="block-border__title">
-              Краткое описание причины
+          <div class="workspace__block__right">
+            <div class="workspace__block__title">
+              Система источник:
             </div>
-            <div class="block-border__body">
-              <textarea required class="gridster-item-content" placeholder="Введите значение..." minlength="3"
-                [(ngModel)]="event.description">
-              </textarea>
-              <div class="block-border__footer">
+            <div class="workspace__block__body__drop-down">
+              <div class="dropdown dropdown-dark">
+                <select name="contactMethod" class="dropdown-select" [(ngModel)]="event.category"
+                  [compareWith]="compareFn" (change)="changeCategory()">
+                  <option *ngFor="let p of category" [ngValue]="p">{{ categories[p.name] }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="workspace__block__right">
+            <div class="workspace__block__title">
+              Зафиксировал:
+            </div>
+            <div class="workspace__block__body__drop-down" style="max-width: 120px;">
+              <div class="dropdown dropdown-dark">
+                <select name="contactMethod" class="dropdown-select" [(ngModel)]="event.fixedBy"
+                  [compareWith]="compareFn">
+                  <option *ngFor="let p of user" [ngValue]="p">{{ p.lastName }} {{ p.firstName }}</option>
+                </select>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="workspace__block__right">
+            <div class="workspace__block__title">
+              Тип происшествия:
+            </div>
+            <div class="workspace__block__body__drop-down">
+              <div class="dropdown dropdown-dark">
+                <select name="contactMethod" class="dropdown-select" [(ngModel)]="event.eventType"
+                  [compareWith]="compareFn" (change)="changeCategory()">
+                  <option *ngFor="let p of eventTypes" [ngValue]="p">{{ p.name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="workspace__block__right" *ngIf="user">
+            <div class="workspace__block__title">
+              Ответственный:
+            </div>
+            <div class="workspace__block__body">
+              {{ user[idUser].lastName }} {{ user[idUser].firstName }}
+            </div>
+          </div>
+
+          <div class="workspace__block__right">
+            <div class="workspace__block__title">
+              Тип оборудования:
+            </div>
+            <div class="workspace__block__body__drop-down">
+              <div class="dropdown dropdown-dark">
+                <select name="contactMethod" class="dropdown-select" [(ngModel)]="event.equipmentCategory"
+                  [compareWith]="compareFn" (change)="changeCategory()">
+                  <option *ngFor="let p of equipmentCategory" [ngValue]="p">{{ p.name }}
+                  </option>
+                </select>
               </div>
             </div>
           </div>
@@ -141,48 +184,34 @@
         </section>
       </div>
 
-      <div class="workspace__block-border">
-        <div class="block-border__title">
-          Установленные факты:
-        </div>
-        <div class="block-border__body">
-          <textarea class="gridster-item-content" placeholder="Введите значение..." minlength="6"
-            [(ngModel)]="event.eventType">
-          </textarea>
-          <div class="block-border__footer">
-          </div>
-        </div>
-      </div>
-
-
       <div class="incidents">
-        <div class="workspace__block-border incidents__item">
+        <div class="workspace__block-border">
           <div class="block-border__title">
-            Тип происшествия:
+            Установленные факты:
           </div>
           <div class="block-border__body">
             <textarea class="gridster-item-content" placeholder="Введите значение..." minlength="6"
               [(ngModel)]="event.establishedFacts">
-            </textarea>
+                </textarea>
             <div class="block-border__footer">
             </div>
           </div>
         </div>
-
-        <div class="workspace__block-border incidents__item" style="margin-left: 10px;">
+        <div class="workspace__block-border" style="margin-left: 10px;">
           <div class="block-border__title">
-            Непосредственные / прямые причины:
+            Краткое описание причины
           </div>
           <div class="block-border__body">
-            <textarea class="gridster-item-content" placeholder="Введите значение..." minlength="6"
-              [(ngModel)]="event.directReasons">
-            </textarea>
+            <textarea required class="gridster-item-content" placeholder="Введите значение..." minlength="3"
+              [(ngModel)]="event.description">
+                  </textarea>
             <div class="block-border__footer">
             </div>
           </div>
         </div>
-
       </div>
+
+
 
       <div class="blocks-bottom">
 
@@ -199,11 +228,12 @@
                   <li class="message event" *ngFor="let retrieval of event.retrievalEvents; let i = index">
                     <div class="event__header">
                       <span> {{ getIndex(i) }}. <span class="event__sub">Ответственный</span>
-                        <span style="padding-left:10px;">
+                        <span style="padding-left:10px;" *ngIf="retrieval.responsibleOperator">
                           {{ retrieval.responsibleOperator.lastName}}
                           {{ retrieval.responsibleOperator.firstName }}</span>
                       </span>
-                      <span class="event__sub-right">
+
+                      <span *ngIf="retrieval.status" class="event__sub-right">{{ statuses[retrieval.status.name] }}
                         <svg-icon class="event__delete" [applyCss]="true" src="./assets/edit.svg"
                           (click)="editRetrieval(retrieval)" (mousedown)="$event.stopPropagation()"
                           (touchstart)="$event.stopPropagation()"></svg-icon>
@@ -217,8 +247,7 @@
                     </div>
                     <div class="event__footer">
                       <span class="event__sub">Срок исполнения</span> <span class="event__date">
-                        <span>{{ retrieval.eventDateTime | date }}</span>
-
+                        <span>{{ retrieval.deadline | date:'dd-MM-yyyy HH:mm' }}</span>
                       </span>
                     </div>
                   </li>
@@ -261,15 +290,19 @@
               Медиа контент
             </div>
             <div class="media__items">
-
+              <div *ngIf="event.graphValues" class="media__item" (click)="openLineChart()">
+                <svg-icon class="button__icon" src="./assets/line-chart.svg">
+                </svg-icon>
+              </div>
               <div class="media__item">
-                <svg-icon style="fill: rgb(231, 231, 231);" class="button__icon" src="./assets/img/1.svg"></svg-icon>
+                <svg-icon class="button__icon" src="./assets/round-add-button.svg">
+                </svg-icon>
               </div>
             </div>
           </div>
 
 
-          <div class="change-shift__comment" style="height: 120px; min-height: 120px;">
+          <div class="change-shift__comment" style="height: 100px; min-height: 100px;">
             <div class="comment__title">
               Комментарий оператора
             </div>
@@ -333,7 +366,7 @@
                 Дата / время:
               </div>
               <div class="overlay-retrieval__block__body">
-                {{ isNewRetrieval.eventDateTime | date:'yyyy-MM-dd HH:mm' }}
+                {{ isNewRetrieval.eventDateTime | date:'dd-MM-yyyy HH:mm' }}
               </div>
             </div>
 
@@ -376,12 +409,22 @@
 
             <div class="overlay-retrieval__block">
               <div class="overlay-retrieval__block__title">
+                Старший оператор:
+              </div>
+              <div class="overlay-retrieval__block__body" *ngIf="isNewRetrieval.responsibleOperator">
+                {{ isNewRetrieval.responsibleOperator.lastName }} {{ isNewRetrieval.responsibleOperator.firstName }}
+              </div>
+            </div>
+
+            <div class="overlay-retrieval__block">
+              <div class="overlay-retrieval__block__title">
                 Зафиксировал:
               </div>
-              <div class="overlay-retrieval__block__body">
+              <div class="overlay-retrieval__block__body select">
                 <div class="dropdown dropdown-dark">
-                  <select name="contactMethod" class="dropdown-select" [(ngModel)]="isNewRetrieval.fixedBy.id">
-                    <option *ngFor="let p of user" [value]="p.id">{{ p.lastName }} {{ p.firstName }}</option>
+                  <select name="contactMethod" class="dropdown-select" [(ngModel)]="isNewRetrieval.fixedBy"
+                    [compareWith]="compareFn">
+                    <option *ngFor="let p of user" [ngValue]="p">{{ p.lastName }} {{ p.firstName }}</option>
                   </select>
                 </div>
               </div>
@@ -389,21 +432,13 @@
 
             <div class="overlay-retrieval__block">
               <div class="overlay-retrieval__block__title">
-                Старший оператор:
-              </div>
-              <div class="overlay-retrieval__block__body">
-                {{ isNewRetrieval.responsibleOperator.lastName }} {{ isNewRetrieval.responsibleOperator.firstName }}
-              </div>
-            </div>
-
-            <div class="overlay-retrieval__block">
-              <div class="overlay-retrieval__block__title">
                 Статус:
               </div>
-              <div class="overlay-retrieval__block__body">
+              <div class="overlay-retrieval__block__body select">
                 <div class="dropdown dropdown-dark">
-                  <select name="contactMethod" class="dropdown-select" [(ngModel)]="isNewRetrieval.status.id">
-                    <option *ngFor="let p of status" [value]="p.id">{{ statuses[p.name] }}</option>
+                  <select name="contactMethod" class="dropdown-select" [(ngModel)]="isNewRetrieval.status"
+                    [compareWith]="compareFn">
+                    <option *ngFor="let p of status" [ngValue]="p">{{ statuses[p.name] }}</option>
                   </select>
                 </div>
               </div>
@@ -413,22 +448,26 @@
               <div class="overlay-retrieval__block__title">
                 Приоритет:
               </div>
-              <div class="overlay-retrieval__block__body">
+              <div class="overlay-retrieval__block__body select">
                 <div class="dropdown dropdown-dark">
-                  <select name="contactMethod" class="dropdown-select" [(ngModel)]="isNewRetrieval.priority.id">
-                    <option *ngFor="let p of priority" [value]="p.id">{{ priorities[p.name] }}</option>
+                  <select name="contactMethod" class="dropdown-select" [(ngModel)]="isNewRetrieval.priority"
+                    [compareWith]="compareFn">
+                    <option *ngFor="let p of priority" [ngValue]="p">{{ priorities[p.name] }}</option>
                   </select>
                 </div>
               </div>
             </div>
+
             <div class="overlay-retrieval__block">
               <div class="overlay-retrieval__block__title">
                 Система источник:
               </div>
-              <div class="overlay-retrieval__block__body">
+              <div class="overlay-retrieval__block__body select">
                 <div class="dropdown dropdown-dark">
-                  <select name="contactMethod" class="dropdown-select">
-                    <option *ngFor="let p of priority" [value]="p.id">{{ priorities[p.name] }}</option>
+                  <select name="contactMethod" class="dropdown-select" [(ngModel)]="isNewRetrieval.equipmentCategory"
+                    [compareWith]="compareFn" (change)="changeCategory()">
+                    <option *ngFor="let p of equipmentCategory" [ngValue]="p">{{ p.name }}
+                    </option>
                   </select>
                 </div>
               </div>
@@ -440,7 +479,8 @@
               </div>
               <div class="overlay-retrieval__block__body">
                 <input type="datetime-local" class="dates-selector__date-input"
-                  [ngModel]="isNewRetrieval.deadline | date:'yyyy-MM-ddTHH:mm'">
+                  [ngModel]="isNewRetrieval.deadline | date:'yyyy-MM-ddTHH:mm'"
+                  (ngModelChange)="isNewRetrieval.deadline=$event" />
               </div>
             </div>
 
@@ -451,19 +491,6 @@
               <div class="block-border__body">
                 <textarea class="gridster-item-content" placeholder="Введите значение..." minlength="3"
                   [(ngModel)]="isNewRetrieval.description">
-                  </textarea>
-                <div class="block-border__footer">
-                </div>
-              </div>
-            </div>
-
-            <div class="overlay-retrieval__block-border overlay-retrieval__block-border">
-              <div class="block-border__title">
-                Тип происшествия:
-              </div>
-              <div class="block-border__body">
-                <textarea class="gridster-item-content" placeholder="Введите значение..." minlength="6"
-                  [(ngModel)]="isNewRetrieval.establishedFacts">
                   </textarea>
                 <div class="block-border__footer">
                 </div>
@@ -487,15 +514,7 @@
 
         </div>
 
-
         <div class="overlay-retrieval__footer">
-          <div class="workspace__submit">
-            <div class="submit__frame submit__frame-left"></div>
-            <div class="submit__frame submit__frame-right"></div>
-            <button type="submit gridster-item-content" (click)="saveRetrieval(event.id)">
-              Сохранить
-            </button>
-          </div>
           <div class="workspace__submit">
             <div class="submit__frame submit__frame-left"></div>
             <div class="submit__frame submit__frame-right"></div>
@@ -503,8 +522,26 @@
               Отменить
             </button>
           </div>
+          <div class="workspace__submit">
+            <div class="submit__frame submit__frame-left"></div>
+            <div class="submit__frame submit__frame-right"></div>
+            <button *ngIf="!isEdit" type="submit gridster-item-content" (click)="saveRetrieval(event.id)">
+              Сохранить
+            </button>
+            <button *ngIf="isEdit" type="submit gridster-item-content" (click)="editSaveRetrieval()">
+              Сохранить
+            </button>
+          </div>
         </div>
 
+      </div>
+    </div>
+
+
+    <div (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()" id="overlay-chart"
+      (click)="overlayChartClose()">
+      <div class="overlay-chart__body" (click)="$event.stopPropagation()">
+        <evj-line-chart-workspace [dataChartAttribute]="event.graphValues"></evj-line-chart-workspace>
       </div>
     </div>
 
@@ -522,11 +559,6 @@
     </div>
   </ng-container>
 
-
   <evj-frame-bottom></evj-frame-bottom>
-  <!--  <div class="frame frame_bottom">-->
-  <!--    <div class="frame__circle frame__circle__left"></div>-->
-  <!--    <div class="frame__circle frame__circle__right"></div>-->
-  <!--  </div>-->
 
 </div>

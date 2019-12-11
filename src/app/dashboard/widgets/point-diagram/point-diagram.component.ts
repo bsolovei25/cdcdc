@@ -92,6 +92,8 @@ export class PointDiagramComponent implements OnInit {
   static itemCols = 23;
   static itemRows = 15;
 
+  public units = "%";
+
   aboutWidget;
 
   subscription: Subscription;
@@ -105,6 +107,7 @@ export class PointDiagramComponent implements OnInit {
       .getWidgetChannel(this.id)
       .subscribe(data => {
         this.aboutWidget = data;
+      //  this.units = data.units;
       });
   }
 

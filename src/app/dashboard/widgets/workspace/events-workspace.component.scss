@@ -267,12 +267,12 @@
       display: flex;
       flex-direction: row;
     }
-    @media screen and (max-width: 910px) {
-      &__block {
-        flex-direction: column;
-        flex-wrap: wrap;
-      }
-    }
+    // @media screen and (max-width: 910px) {
+    //   &__block {
+    //     flex-direction: column;
+    //     flex-wrap: wrap;
+    //   }
+    // }
   }
 
   &__blocks {
@@ -299,6 +299,11 @@
 
     &__body {
       margin: 0 0 0 10px;
+      color: var(--color-text-main);
+    }
+
+    &__body__drop-down {
+      // margin: 0 0 0 10px;
       color: var(--color-text-main);
     }
   }
@@ -675,7 +680,8 @@
   &__items {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    text-align: center;
+    justify-content: flex-start;
     margin-top: 10px;
     // max-height: 70px;
   }
@@ -684,8 +690,13 @@
     margin: 3px 3px;
     // min-height: 60px;
     padding-left: 10px;
-    min-width: 100px;
+    min-width: 70px;
     border-radius: 7px;
+    fill: var(--color-text-main);
+    &:hover {
+      fill: var(--color-border-active);
+      cursor: pointer;
+    }
   }
 }
 
@@ -758,9 +769,6 @@
       justify-content: space-between;
     }
 
-    &:first-child {
-      // padding-top: 0;
-    }
     &:last-child {
       // padding-bottom: 0;
       border-bottom: none;
@@ -970,7 +978,7 @@ select {
 
 .dropdown-select {
   position: relative;
-  width: 100%;
+  width: 90%;
   margin: 0;
   padding: 6px 8px 6px 10px;
   height: 28px;
@@ -987,7 +995,7 @@ select {
 
 .dropdown-select:focus {
   z-index: 3;
-  width: 100%;
+  width: 90%;
   // color: #394349;
   // outline: 2px solid #49aff2;
   outline: 2px solid -webkit-focus-ring-color;
@@ -1029,14 +1037,8 @@ select {
   background: inherit;
   border-color: var(--color-border-main);
   outline: none;
-  width: 100%;
-  margin-top: 5px;
-  // background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.4));
-  // background-image: -moz-linear-gradient(top, transparent, rgba(0, 0, 0, 0.4));
-  // background-image: -o-linear-gradient(top, transparent, rgba(0, 0, 0, 0.4));
-  // background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.4));
-  // -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.1), 0 1px 1px rgba(0, 0, 0, 0.2);
-  // box-shadow: inset 0 1px rgba(255, 255, 255, 0.1), 0 1px 1px rgba(0, 0, 0, 0.2);
+  max-width: 130px;
+  margin-top: 2px;
 }
 
 .dropdown-event {
@@ -1063,13 +1065,13 @@ select {
   text-shadow: 0 1px rgba(0, 0, 0, 0.4);
 }
 
-.dropdown-dark:before {
-  // border-bottom-color: #aaa;
-}
+// .dropdown-dark:before {
+//   // border-bottom-color: #aaa;
+// }
 
-.dropdown-dark:after {
-  // border-top-color: #aaa;
-}
+// .dropdown-dark:after {
+//   // border-top-color: #aaa;
+// }
 
 .dropdown-dark .dropdown-select {
   color: var(--color-text-main);
@@ -1249,6 +1251,7 @@ select {
   justify-content: space-between;
   position: relative;
   overflow: hidden;
+  // overflow-y: scroll;
 
   &__onShift {
     width: 100%;
@@ -1574,6 +1577,12 @@ select {
   z-index: 2;
   cursor: pointer;
 
+  .dropdown-dark .dropdown-select {
+    color: var(--color-text-main);
+    text-shadow: 0 1px black;
+    background: inherit; /* Fallback for IE 8 */
+    outline: none;
+  }
   .overlay-retrieval {
     &__header {
       &__block {
@@ -1599,7 +1608,7 @@ select {
       max-width: 90%;
       // display: flex;
       margin: 0 auto;
-      margin-top: 20%;
+      margin-top: 10%;
       cursor: default;
 
       border-radius: 5px;
@@ -1643,12 +1652,51 @@ select {
         margin: 0 0 0 10px;
         color: var(--color-text-main);
       }
+      &__body.select { 
+        margin: 0;
+      }
+  
 
       &-border {
         min-width: 320px;
         margin-bottom: 10px;
         width: 100%;
       }
+    }
+  }
+}
+
+#overlay-chart {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  cursor: pointer;
+
+  .overlay-chart {
+    &__body {
+      font-family: Tahoma, sans-serif;
+      font-size: 12px;
+      font-weight: 100;
+      color: var(--color-text-sub);
+
+      background-color: var(--color-bg-main);
+      min-height: 300px;
+      max-width: 90%;
+      // display: flex;
+      margin: 0 auto;
+      margin-top: 20%;
+      cursor: default;
+
+      border-radius: 5px;
+      border: 1px solid var(--color-border-main);
+      padding: 10px;
     }
   }
 }

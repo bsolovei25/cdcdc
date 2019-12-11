@@ -16,6 +16,7 @@ export class NewUserSettingsService {
 
   public readonly WIDGETS = WIDGETS;
 
+
   private _screens$: BehaviorSubject<ScreenSettings[]> = new BehaviorSubject(null);
 
   public screens$: Observable<ScreenSettings[]> = this._screens$.asObservable().pipe(
@@ -28,6 +29,7 @@ export class NewUserSettingsService {
     configService: AppConfigService
   ) {
     this.restUrl = configService.restUrl;
+    localStorage.getItem('screen');
     this.GetScreen();
    }
 
@@ -39,8 +41,13 @@ export class NewUserSettingsService {
 
   public dataScreen= [];
 
+  public widgetInfo: NewUserGrid;
+
+  
+ 
+
+  
   public addCellByPosition(idWidget, nameWidget, param) {
-    // console.log("addcell");
     let uniqId = this.create_UUID(); 
     this.widgetService.dashboard.push({
         x: param.x,
@@ -51,8 +58,7 @@ export class NewUserSettingsService {
         uniqid: uniqId,
         widgetType: nameWidget
       });
-
-     this.screenSave();
+    this.addWidgetApi(uniqId);
   }
 
   public create_UUID(){
@@ -65,6 +71,47 @@ export class NewUserSettingsService {
     return uuid;
 }
 
+  public addWidgetApi(uniqId){
+    this.save(uniqId);
+    let updateWidget = this.widgetInfo;
+    this.http.post(this.restUrl + '/user-management/widget/'+this.ScreenId, updateWidget)
+      .subscribe(
+        ans => {
+        },
+        error => console.log(error)
+      );
+  }
+
+  public save(uniqId){
+    for (let item of this.widgetService.dashboard) {
+      if (item.uniqid == uniqId) {
+        let cellSetting: NewUserGrid = new class implements NewUserGrid {
+          widgetId = item.id;
+          posX = item.x;
+          posY = item.y;
+          widgetType = item.widgetType;
+          sizeX = item.cols;
+          sizeY = item.rows;
+          uniqueId = item.uniqid;
+        };
+        this.widgetInfo = cellSetting;
+      }else{
+      }
+    }
+  }
+
+  public updateWidgetApi(uniqId){
+    this.save(uniqId);
+    let updateWidget = this.widgetInfo;
+  
+    this.http.put(this.restUrl + '/user-management/widget/'+uniqId, updateWidget)
+      .subscribe(
+        ans => {
+        },
+        error => console.log(error)
+      );
+  }
+
   public updateByPosition(oldItem,newItem){
       for(let item of this.widgetService.dashboard){
         
@@ -75,56 +122,56 @@ export class NewUserSettingsService {
             item.cols = newItem.cols;
             // console.log("update", item)
           }
-      }
-      
-     this.screenSave();
-     
+      }   
+
+     this.updateWidgetApi(oldItem.uniqid);
+
   }
 
   public removeItem(){
     this.screenSave();
   }
 
-  private screenSave() {
-   
-    // console.log("save_info",this.widgetService.dashboard);
-    const UserId = this.UserId;
-    const ScreenId = this.ScreenId;
-    let userSettings: NewUserSettings = new class implements NewUserSettings {
-      userId = UserId;
-      screenId = ScreenId;
-      userGrid: NewUserGrid[] = [];
-    };
-    for (const i in this.widgetService.dashboard) {
-      let cell = this.widgetService.dashboard[i];
-      if (cell != null) {
-        let cellSetting: NewUserGrid = new class implements NewUserGrid {
-          widgetId = cell.id;
-          posX = cell.x;
-          posY = cell.y;
-          widgetType = cell.widgetType;
-          sizeX = cell.cols;
-          sizeY = cell.rows;
-          uniqueId = cell.uniqid;
-        };
-        userSettings.userGrid.push(cellSetting);
-      }else{
-        
-      }
+ public screenSave() {
+  // console.log("save_info",this.widgetService.dashboard);
+  const UserId = this.UserId;
+  const ScreenId = this.ScreenId;
+  let userSettings: NewUserSettings = new class implements NewUserSettings {
+    userId = UserId;
+    screenId = ScreenId;
+    userGrid: NewUserGrid[] = [];
+  };
+  for (const i in this.widgetService.dashboard) {
+    let cell = this.widgetService.dashboard[i];
+    if (cell != null) {
+      let cellSetting: NewUserGrid = new class implements NewUserGrid {
+        widgetId = cell.id;
+        posX = cell.x;
+        posY = cell.y;
+        widgetType = cell.widgetType;
+        sizeX = cell.cols;
+        sizeY = cell.rows;
+        uniqueId = cell.uniqid;
+      };
+      userSettings.userGrid.push(cellSetting);
+    }else{
+      
     }
-    // console.log(userSettings);
-
-    this.http.post(this.restUrl + '/user-management/setscreen/', userSettings)
-      .subscribe(
-        ans => {
-          
-          // console.log(ans);
-        },
-        error => console.log(error)
-      );
   }
+  // console.log(userSettings);
 
-  public GetScreen(){  
+  this.http.post(this.restUrl + '/user-management/setscreen/', userSettings)
+    .subscribe(
+      ans => {
+        
+        // console.log(ans);
+      },
+      error => console.log(error)
+    );
+}
+
+
+public GetScreen(){  
     this.http.get<ScreenSettings[]>(this.restUrl + '/user-management/user/1/screens')
       .subscribe(data => {
         this._screens$.next(data);
@@ -147,10 +194,19 @@ export class NewUserSettingsService {
             uniqid: item.uniqueId 
           }));
       });
-  }
+}
 
+public getUniqId(id){
+    for(let item of this.widgetService.dashboard)
+    { 
+      if(id === item.id){
+        return item.uniqid;
+      }
+    }
+}
 
-  public LoadScreen(id){
+public LoadScreen(id){
+    localStorage.setItem('screenid', id);
     this.http.get(this.restUrl + '/user-management/screen/' + id)
       .subscribe((item: ScreenSettings) => {
         console.log(item);
@@ -167,7 +223,8 @@ export class NewUserSettingsService {
             uniqid: x.uniqueId 
           }));
       });
-  }
+      
+}
 
 public PushScreen(nameWidget){
   let userScreen: ScreenSettings = new class implements ScreenSettings {
@@ -184,7 +241,6 @@ public PushScreen(nameWidget){
        },
        error => console.log(error)
      );
-  
 }
 
 public deleteScreen(id: number){

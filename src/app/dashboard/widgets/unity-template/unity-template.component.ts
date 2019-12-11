@@ -59,6 +59,11 @@ export class UnityTemplateComponent implements OnInit {
     }
   }
 
+  @HostListener('document:resize', ['$event'])
+  private OnResize(event) {
+    this.resize();
+  }
+
   @HostListener('document:UnityTemplate_Start', ['$event', '$event.detail.param1'])
   private OnUnityStart(event, param1) {
     this.isStart = true;
@@ -79,9 +84,6 @@ export class UnityTemplateComponent implements OnInit {
   private InitUnity() {
     window['UnityLoader'] = UnityLoader;
     this.loadProject(`${this.baseUrl}assets/unity/webgl_template_3d/webgl_template_3d_new.json`);
-    setInterval(() => {
-      this.resize();
-    }, 500);
   }
 
   private CallUnityScript(funName, ...args) {

@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
 import { Subscription } from 'rxjs';
 import { WebSocketSubject } from 'rxjs/internal/observable/dom/WebSocketSubject';
+import { NewUserSettingsService } from 'src/app/dashboard/services/new-user-settings.service';
 
 @Component({
   selector: 'evj-widget-pies',
@@ -18,10 +19,10 @@ export class WidgetPiesComponent implements OnInit {
 
   public title ="Статическое Оборудование";
   public code;
-  public units;
+  public units ="шт.";
   public name;
 
-
+ public uniqal;
   
   public datas = [
     {name: "Статическое Оборудование", critical: 5, nonCritical: 2},
@@ -29,16 +30,20 @@ export class WidgetPiesComponent implements OnInit {
 
   constructor(
     public widgetService: NewWidgetService,
+    public serice: NewUserSettingsService,
     @Inject('isMock') public isMock: boolean,
     @Inject('widgetId') public id: string
 
     ) {
+   
+      this.uniqal = this.serice.getUniqId(this.id);
       
       this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe(data => {
         this.title = data.title;
         this.code = data.code;
-        this.units = data.units;
+      //  this.units = data.units;
         this.name = data.name;
+
       }); 
   }
 
@@ -58,7 +63,6 @@ export class WidgetPiesComponent implements OnInit {
     this.widgetService.getWidgetLiveDataFromWS(this.id, 'pie-diagram')
       .subscribe((ref) => {
           this.datas = ref;
-
         }
       );
   }

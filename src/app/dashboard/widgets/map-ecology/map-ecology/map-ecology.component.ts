@@ -107,7 +107,7 @@ export class MapEcologyComponent implements AfterViewInit, OnInit {
   }
 
   public drawMap(el,data){
-    debugger
+
     const svg = d3.select(el).append("svg")
       .attr("min-width", "200px")
       .attr("height", "100%")
@@ -210,7 +210,6 @@ export class MapEcologyComponent implements AfterViewInit, OnInit {
   }
 
   public regexText(data){
-    debugger
     for(let dat of data){
       for(let item of dat.attributes){
         let regex = /\d+/gi;

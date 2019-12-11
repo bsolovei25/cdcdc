@@ -1,43 +1,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, of, Subscription } from 'rxjs/index';
-import { filter, map, switchMap } from 'rxjs/internal/operators';
-import { webSocket } from 'rxjs/internal/observable/dom/webSocket';
-import { WebSocketSubject } from 'rxjs/internal/observable/dom/WebSocketSubject';
+import { BehaviorSubject } from 'rxjs/index';
 import {
-    EventsWidgetCategoryCode,
-    EventsWidgetData, EventsWidgetFilter, EventsWidgetFilterCode,
     EventsWidgetNotification,
-    EventsWidgetNotificationsCounter,
-    IStatus
+    IStatus,
+    ICategory
 } from '../models/events-widget';
-import { LineChartData } from '../models/line-chart';
-import { Machine_MI } from '../models/manual-input.model';
 import { AppConfigService } from 'src/app/services/appConfigService';
 
 @Injectable({
     providedIn: 'root'
 })
 
-
 export class EventService {
 
-    lineChartLiveData: Observable<LineChartData>;
-    newData: BehaviorSubject<true> = new BehaviorSubject<true>(true);
-
-    private readonly wsUrl: string;
     private readonly restUrl: string;
-
-    private ws: WebSocketSubject<any> = null;
-    private wsSubscribtion: Subscription;
 
     event$: BehaviorSubject<any | null> = new BehaviorSubject<any | null>(null);
     updateEvent$: BehaviorSubject<any | null> = new BehaviorSubject<any | null>(null);
 
-
     constructor(public http: HttpClient, configService: AppConfigService) {
         this.restUrl = configService.restUrl;
-        this.wsUrl = configService.wsUrl;
     }
 
     async getEvent(id: number): Promise<EventsWidgetNotification> {
@@ -95,10 +78,19 @@ export class EventService {
         }
     }
 
-    async getCategory(): Promise<EventsWidgetCategoryCode> {
+    async getCategory(): Promise<ICategory[]> {
         // TODO check
         try {
-            return this.http.get<EventsWidgetCategoryCode>(this.restUrl + '/api/notification-reference/category').toPromise();
+            return this.http.get<ICategory[]>(this.restUrl + '/api/notification-reference/category').toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async getEventType(): Promise<ICategory[]> {
+        // TODO check
+        try {
+            return this.http.get<ICategory[]>(this.restUrl + '/api/notification-reference/eventtype').toPromise();
         } catch (error) {
             console.error(error);
         }
@@ -156,5 +148,4 @@ export class EventService {
             console.error(error);
         }
     }
-
 }
