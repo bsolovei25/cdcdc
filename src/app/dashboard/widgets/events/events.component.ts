@@ -47,7 +47,7 @@ export class EventsComponent implements OnInit, OnDestroy {
       code: 'smotr',
       iconUrl: './assets/icons/widgets/events/smotr.svg',
       notificationsCounts: {
-        closed: 0,
+        open: 0,
         all: 0,
       },
       name: 'СМОТР',
@@ -57,7 +57,7 @@ export class EventsComponent implements OnInit, OnDestroy {
       code: 'safety',
       iconUrl: './assets/icons/widgets/events/safety.svg',
       notificationsCounts: {
-        closed: 0,
+        open: 0,
         all: 0,
       },
       name: "Безопасноть",
@@ -67,7 +67,7 @@ export class EventsComponent implements OnInit, OnDestroy {
       code: 'tasks',
       iconUrl: './assets/icons/widgets/events/tasks.svg',
       notificationsCounts: {
-        closed: 0,
+        open: 0,
         all: 0,
       },
       name: 'Производственные задания',
@@ -77,7 +77,7 @@ export class EventsComponent implements OnInit, OnDestroy {
       code: 'equipmentStatus',
       iconUrl: './assets/icons/widgets/events/status.svg',
       notificationsCounts: {
-        closed: 0,
+        open: 0,
         all: 0,
       },
       name: 'Состояния оборудования',
@@ -87,7 +87,7 @@ export class EventsComponent implements OnInit, OnDestroy {
       code: 'drops',
       iconUrl: './assets/icons/widgets/events/drops.svg',
       notificationsCounts: {
-        closed: 0,
+        open: 0,
         all: 0,
       },
       name: 'Сбросы',
@@ -258,20 +258,10 @@ export class EventsComponent implements OnInit, OnDestroy {
     })
   }
 
-  // private appendFilterCounters(remoteFilters: EventsWidgetFilter[]) {
-  //   this.filters.forEach(f => {
-  //     const rf = remoteFilters.find(rf => rf.code === f.code);
-  //     if (rf) {
-  //       f.notificationsCount = rf.notificationsCount;
-  //     }
-  //   }
-  //   );
-  // }
-
   private appendCategoriesCounters() {
     this.categories.map(c => {
       c.notificationsCounts.all = this.allNotifications.filter(v => v.category.name === c.code).length;
-      c.notificationsCounts.closed = this.allNotifications.filter(v => v.category.name === c.code && v.status.code === '2').length;
+      c.notificationsCounts.open = this.allNotifications.filter(v => v.category.name === c.code && (v.status.code === '0' || v.status.code === '1')).length;
     }
     );
   }
@@ -313,17 +303,18 @@ export class EventsComponent implements OnInit, OnDestroy {
   }
 
 
-  async eventClick(eventId: number) {
-    this.selectedId = eventId;
-    const event = await this.eventService.getEvent(eventId);
-    this.eventService.event$.next(event);
-  }
-
-  async deleteEvent(id: number) {
-    const event = await this.eventService.deleteEvent(id);
-    const idx = this.notifications.findIndex(n => n.id === id);
-    if (id !== -1) {
-      this.notifications.splice(idx, 1);
+  async eventClick(deleteItem: boolean, eventId: number, event: Event) {
+    event.stopPropagation();
+    if (deleteItem) {
+      const event = await this.eventService.deleteEvent(eventId);
+      const idx = this.notifications.findIndex(n => n.id === eventId);
+      if (eventId !== -1) {
+        this.notifications.splice(idx, 1);
+      }
+    } else {
+      this.selectedId = eventId;
+      const event = await this.eventService.getEvent(eventId);
+      this.eventService.event$.next(event);
     }
   }
 

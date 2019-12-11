@@ -80,6 +80,15 @@
             </div>
           </div>
 
+          <div class="workspace__block" *ngIf="user">
+            <div class="workspace__block__title">
+              Ответственный:
+            </div>
+            <div class="workspace__block__body">
+              {{ user[idUser].lastName }} {{ user[idUser].firstName }}
+            </div>
+          </div>
+
         </section>
 
         <section class="workspace__blocks">
@@ -138,7 +147,6 @@
                   <option *ngFor="let p of user" [ngValue]="p">{{ p.lastName }} {{ p.firstName }}</option>
                 </select>
               </div>
-
             </div>
           </div>
 
@@ -154,15 +162,6 @@
                   </option>
                 </select>
               </div>
-            </div>
-          </div>
-
-          <div class="workspace__block__right" *ngIf="user">
-            <div class="workspace__block__title">
-              Ответственный:
-            </div>
-            <div class="workspace__block__body">
-              {{ user[idUser].lastName }} {{ user[idUser].firstName }}
             </div>
           </div>
 
@@ -464,12 +463,51 @@
               </div>
               <div class="overlay-retrieval__block__body select">
                 <div class="dropdown dropdown-dark">
-                  <select name="contactMethod" class="dropdown-select" [(ngModel)]="isNewRetrieval.equipmentCategory"
+                  <select name="contactMethod" class="dropdown-select" [(ngModel)]="event.category"
+                    [compareWith]="compareFn" (change)="changeCategory()">
+                    <option *ngFor="let p of category" [ngValue]="p">{{ categories[p.name] }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="overlay-retrieval__block">
+              <div class="overlay-retrieval__block__title">
+                Тип происшествия:
+              </div>
+              <div class="overlay-retrieval__block__body select">
+                <div class="dropdown dropdown-dark">
+                  <select name="contactMethod" class="dropdown-select" [(ngModel)]="event.eventType"
+                    [compareWith]="compareFn" (change)="changeCategory()">
+                    <option *ngFor="let p of eventTypes" [ngValue]="p">{{ p.name }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="overlay-retrievale__block">
+              <div class="overlay-retrieval__block__title">
+                Тип оборудования:
+              </div>
+              <div class="overlay-retrieval__block__body select">
+                <div class="dropdown dropdown-dark">
+                  <select name="contactMethod" class="dropdown-select" [(ngModel)]="event.equipmentCategory"
                     [compareWith]="compareFn" (change)="changeCategory()">
                     <option *ngFor="let p of equipmentCategory" [ngValue]="p">{{ p.name }}
                     </option>
                   </select>
                 </div>
+              </div>
+            </div>
+
+            <div class="workspace__block__right" *ngIf="user">
+              <div class="workspace__block__title">
+                Ответственный:
+              </div>
+              <div class="workspace__block__body">
+                {{ user[idUser].lastName }} {{ user[idUser].firstName }}
               </div>
             </div>
 
@@ -540,7 +578,7 @@
 
     <div (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()" id="overlay-chart"
       (click)="overlayChartClose()">
-      <div class="overlay-chart__body" (click)="$event.stopPropagation()">
+      <div class="overlay-chart__body" (click)="$event.stopPropagation()" *ngIf="event.graphValues">
         <evj-line-chart-workspace [dataChartAttribute]="event.graphValues"></evj-line-chart-workspace>
       </div>
     </div>
