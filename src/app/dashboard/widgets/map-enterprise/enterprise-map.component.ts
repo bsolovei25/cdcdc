@@ -4,6 +4,16 @@ import { NewWidgetService } from '../../services/new-widget.service';
 import { NewUserSettingsService } from '../../services/new-user-settings.service';
 
 
+export interface IEnterpriseMap {
+    id: number,
+    name: string,
+    options: {
+        nonCritical: number,
+        diagnostics: number,
+        prognosis: number
+    }
+}
+
 @Component({
     selector: 'evj-enterprise-map',
     templateUrl: './enterprise-map.component.html',
@@ -12,6 +22,16 @@ import { NewUserSettingsService } from '../../services/new-user-settings.service
 export class EnterpriseMapComponent implements OnInit, AfterViewInit {
 
     title: string = "Интегрированный экран критических показателей";
+
+
+    data: IEnterpriseMap[] = [
+        { id: 1, name: 'УУГ', options: { nonCritical: 2, diagnostics: 6, prognosis: 2 } },
+        { id: 2, name: 'Станция смешения', options: { nonCritical: 0, diagnostics: 40, prognosis: 100 } },
+        { id: 3, name: 'ДТ', options: { nonCritical: 2, diagnostics: 100, prognosis: 999 } },
+        { id: 4, name: 'Бензин', options: { nonCritical: 444, diagnostics: 8, prognosis: 99 } },
+    ]
+
+    svgData: any[] = [];
 
     static itemCols = 30;
     static itemRows = 20;
@@ -26,6 +46,8 @@ export class EnterpriseMapComponent implements OnInit, AfterViewInit {
     ) { }
 
     ngOnInit() {
+
+
     }
 
     ngAfterViewInit() {
@@ -36,7 +58,6 @@ export class EnterpriseMapComponent implements OnInit, AfterViewInit {
     }
 
     draw() {
-
         const data = {
             id_0: { price: '3000', status: 'service' },
             id_1: { price: '3000', status: 'available' },
@@ -51,7 +72,6 @@ export class EnterpriseMapComponent implements OnInit, AfterViewInit {
             }
         };
 
-
         // --------------------------------------------------------------------
         //  Используемые элементы на странице
         // --------------------------------------------------------------------
@@ -62,6 +82,18 @@ export class EnterpriseMapComponent implements OnInit, AfterViewInit {
         const buildings = map.querySelectorAll('.build');
         // const info = map.querySelector('.builds');
         console.log(buildings);
+
+        buildings.forEach(b => {
+            const id = b.getAttribute('data-id');
+            b.classList.add(`status-prognosis`);
+            if (id) {
+                const idx = this.data.findIndex(d => d.id === Number(id));
+                if (idx !== -1) {
+                    this.svgData.push()
+                }
+            }
+
+        })
 
 
         const idRect = document.getElementById('polygon3921');

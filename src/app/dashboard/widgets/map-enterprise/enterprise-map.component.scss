@@ -1,0 +1,10 @@
+.map {
+
+    .build {
+        &.status {
+            &-prognosis {
+                fill: red;
+            }
+        }
+    }
+}
