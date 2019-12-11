@@ -40,30 +40,30 @@ export class ShiftPersonComponent implements OnInit {
 
   mapPosition = [
     {
-      code: "Responsible",
+      code: "responsible",
       name: "Старший оператор"
     },
     {
-      code: "Common",
+      code: "common",
       name: "Оператор"
     }
   ];
 
   mapStatus = [
     {
-      code: "Accepted",
+      code: "accepted",
       name: "Принял смену"
     },
     {
-      code: "Passed",
+      code: "passed",
       name: "Сдал смену"
     },
     {
-      code: "InProgress",
+      code: "inProgress",
       name: "В процессе"
     },
     {
-      code: "Absent",
+      code: "absent",
       name: "Отсутствует"
     }
   ];
@@ -132,14 +132,14 @@ export class ShiftPersonComponent implements OnInit {
     switch (event.target.innerText) {
       case "Принять смену":
         this.shiftService.changeStatus(
-          "Accepted",
+          "accepted",
           person.employee.id,
           this.shiftId
         );
         break;
       case "Передать смену":
         this.shiftService.changeStatus(
-          "Passed",
+          "passed",
           person.employee.id,
           this.shiftId
         );
@@ -148,7 +148,7 @@ export class ShiftPersonComponent implements OnInit {
         console.log(person);
         if (person.employee.brigade) {
           this.shiftService.changeStatus(
-            "Absent",
+            "absent",
             person.employee.id,
             this.shiftId
           );
@@ -158,14 +158,14 @@ export class ShiftPersonComponent implements OnInit {
         break;
       case "На месте":
         this.shiftService.changeStatus(
-          "InProgress",
+          "inProgress",
           person.employee.id,
           this.shiftId
         );
         break;
       case "Отменить":
         this.shiftService.changeStatus(
-          "InProgress",
+          "inProgress",
           person.employee.id,
           this.shiftId
         );
@@ -177,6 +177,7 @@ export class ShiftPersonComponent implements OnInit {
   }
 
   addToShift(id) {
-    this.shiftService.addMember(id, this.shiftId);
+    if (!this.onShift)
+      this.shiftService.addMember(id, this.shiftId);
   }
 }

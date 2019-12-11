@@ -23,6 +23,7 @@ import { EventService } from '../../services/event.service';
   styleUrls: ['./events.component.scss']
 })
 export class EventsComponent implements OnInit, OnDestroy {
+
   @Input() name = '';
   ng
   isList = false;
@@ -47,7 +48,7 @@ export class EventsComponent implements OnInit, OnDestroy {
       code: 'smotr',
       iconUrl: './assets/icons/widgets/events/smotr.svg',
       notificationsCounts: {
-        closed: 0,
+        open: 0,
         all: 0,
       },
       name: 'СМОТР',
@@ -57,7 +58,7 @@ export class EventsComponent implements OnInit, OnDestroy {
       code: 'safety',
       iconUrl: './assets/icons/widgets/events/safety.svg',
       notificationsCounts: {
-        closed: 0,
+        open: 0,
         all: 0,
       },
       name: "Безопасноть",
@@ -67,7 +68,7 @@ export class EventsComponent implements OnInit, OnDestroy {
       code: 'tasks',
       iconUrl: './assets/icons/widgets/events/tasks.svg',
       notificationsCounts: {
-        closed: 0,
+        open: 0,
         all: 0,
       },
       name: 'Производственные задания',
@@ -77,7 +78,7 @@ export class EventsComponent implements OnInit, OnDestroy {
       code: 'equipmentStatus',
       iconUrl: './assets/icons/widgets/events/status.svg',
       notificationsCounts: {
-        closed: 0,
+        open: 0,
         all: 0,
       },
       name: 'Состояния оборудования',
@@ -87,7 +88,7 @@ export class EventsComponent implements OnInit, OnDestroy {
       code: 'drops',
       iconUrl: './assets/icons/widgets/events/drops.svg',
       notificationsCounts: {
-        closed: 0,
+        open: 0,
         all: 0,
       },
       name: 'Сбросы',
@@ -181,6 +182,10 @@ export class EventsComponent implements OnInit, OnDestroy {
   onCategoryClick(category) {
     category.isActive = !category.isActive;
     this.appendOptions();
+    const idx = this.filters.findIndex(i => i.isActive === true);
+    if (idx !== -1) {
+      this.onFilterClick(this.filters[idx]);
+    }
   }
 
   onFilterClick(filter: EventsWidgetFilter) {
@@ -211,9 +216,17 @@ export class EventsComponent implements OnInit, OnDestroy {
     // filtering only at front-end
   }
 
+  sortByPriority() {
+    const danger = this.notifications.filter(n => n.priority.code === '0');
+    const warning = this.notifications.filter(n => n.priority.code === '1');
+    const standard = this.notifications.filter(n => n.priority.code === '2');
+    this.notifications = [...danger, ...warning, ...standard];
+  }
+
+
   // Фильтрация
   private applyFilter(allNotifications: EventsWidgetNotification[], filterOptions: EventsWidgetOptions): EventsWidgetNotification[] {
-    var notifications = allNotifications;
+    let notifications = allNotifications;
 
     if (filterOptions.filter && filterOptions.filter != 'all')
       notifications = notifications.filter(x => x.status.name == filterOptions.filter);
@@ -256,22 +269,13 @@ export class EventsComponent implements OnInit, OnDestroy {
       };
       f.notificationsCount = this.applyFilter(this.allNotifications, options).length;
     })
+    this.sortByPriority();
   }
-
-  // private appendFilterCounters(remoteFilters: EventsWidgetFilter[]) {
-  //   this.filters.forEach(f => {
-  //     const rf = remoteFilters.find(rf => rf.code === f.code);
-  //     if (rf) {
-  //       f.notificationsCount = rf.notificationsCount;
-  //     }
-  //   }
-  //   );
-  // }
 
   private appendCategoriesCounters() {
     this.categories.map(c => {
       c.notificationsCounts.all = this.allNotifications.filter(v => v.category.name === c.code).length;
-      c.notificationsCounts.closed = this.allNotifications.filter(v => v.category.name === c.code && v.status.code === '2').length;
+      c.notificationsCounts.open = this.allNotifications.filter(v => v.category.name === c.code && (v.status.code === '0' || v.status.code === '1')).length;
     }
     );
   }
@@ -285,6 +289,9 @@ export class EventsComponent implements OnInit, OnDestroy {
   }
 
   private wsConnect() {
+    if (this.liveSubscription) {
+      this.liveSubscription.unsubscribe();
+    }
     this.liveSubscription = this.widgetService.getWidgetLiveDataFromWS(this.id, 'events')
       .subscribe((ref: EventsWidgetData) => {
         this.appendNotifications(ref.notifications);
@@ -293,6 +300,14 @@ export class EventsComponent implements OnInit, OnDestroy {
         // console.log('get_ws_events');
       }
       );
+  }
+
+  snackBar(text: string = 'Выполнено', status: string = 'complete', durection: number = 3000) {
+    let snackBar = document.getElementById("snackbar");
+    snackBar.className = "show";
+    // snackBar.className = status;
+    snackBar.innerText = text;
+    setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, durection);
   }
 
   showMock(show) {
@@ -313,17 +328,20 @@ export class EventsComponent implements OnInit, OnDestroy {
   }
 
 
-  async eventClick(eventId: number) {
-    this.selectedId = eventId;
-    const event = await this.eventService.getEvent(eventId);
-    this.eventService.event$.next(event);
-  }
-
-  async deleteEvent(id: number) {
-    const event = await this.eventService.deleteEvent(id);
-    const idx = this.notifications.findIndex(n => n.id === id);
-    if (id !== -1) {
-      this.notifications.splice(idx, 1);
+  async eventClick(deleteItem: boolean, eventId: number, event: Event) {
+    event.stopPropagation();
+    if (deleteItem) {
+      try {
+        const event = await this.eventService.deleteEvent(eventId);
+        this.wsConnect();
+        this.snackBar('Событие удалено');
+      } catch (error) {
+        this.snackBar('Ошибка', 'error');
+      }
+    } else {
+      this.selectedId = eventId;
+      const event = await this.eventService.getEvent(eventId);
+      this.eventService.event$.next(event);
     }
   }
 

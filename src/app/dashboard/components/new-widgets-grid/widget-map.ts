@@ -15,6 +15,9 @@ import { EnterpriseMapComponent } from '../../widgets/map-enterprise/enterprise-
 import { CircleDiagramComponent } from '../../widgets/circle-diagram/circle-diagram.component';
 import { MapEcologyComponent } from '../../widgets/map-ecology/map-ecology/map-ecology.component';
 import { RingFactoryDiagramComponent } from '../../widgets/ring-factory-diagram/ring-factory-diagram.component';
+import { OperationEfficiencyComponent } from '../../widgets/operation-efficiency/operation-efficiency.component';
+import { EcologySafetyComponent } from '../../widgets/ecology-safety/ecology-safety.component';
+import { CalendarPlanComponent } from '../../widgets/calendar-plan/calendar-plan.component';
 
 
 export const WIDGETS = {
@@ -35,5 +38,8 @@ export const WIDGETS = {
     "circle-diagram": CircleDiagramComponent,
     "unity-template": UnityTemplateComponent,
     "map-ecology":MapEcologyComponent,
+    "operation-efficiency": OperationEfficiencyComponent,
+    "ecology-safety":EcologySafetyComponent,
+    "calendar-plan":CalendarPlanComponent
   //  "ring-factory-diagram": RingFactoryDiagramComponent
 }

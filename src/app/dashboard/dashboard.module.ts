@@ -42,8 +42,11 @@ import { UnityTemplateComponent } from './widgets/unity-template/unity-template.
 import { EnterpriseMapComponent } from './widgets/map-enterprise/enterprise-map.component';
 import { PowIndexPipe } from './pipes/pow-index.pipe';
 import { RingFactoryDiagramComponent } from './widgets/ring-factory-diagram/ring-factory-diagram.component';
-
-import { LineChartWorkspaceComponent } from './widgets/workspace/line-chart-workspace/line-chart-workspace.component';
+import { DetailedLineDiagramComponent } from "./components/detailed-line-diagram/detailed-line-diagram.component";
+import { OperationEfficiencyComponent } from "./widgets/operation-efficiency/operation-efficiency.component";
+import { LineChartWorkspaceComponent } from "./widgets/workspace/line-chart-workspace/line-chart-workspace.component";
+import { CalendarPlanComponent } from "./widgets/calendar-plan/calendar-plan.component";
+import { EcologySafetyComponent } from "./widgets/ecology-safety/ecology-safety.component";
 
 @NgModule({
   declarations: [
@@ -81,8 +84,13 @@ import { LineChartWorkspaceComponent } from './widgets/workspace/line-chart-work
     CircleDiagramComponent,
     PowIndexPipe,
     MapEcologyComponent,
+    UnityTemplateComponent,
+    DetailedLineDiagramComponent,
+    OperationEfficiencyComponent,
     RingFactoryDiagramComponent,
-    LineChartWorkspaceComponent
+    LineChartWorkspaceComponent,
+    CalendarPlanComponent,
+    EcologySafetyComponent
   ],
   entryComponents: [
     LineChartComponent,
@@ -102,12 +110,13 @@ import { LineChartWorkspaceComponent } from './widgets/workspace/line-chart-work
     MapEcologyComponent,
     UnityTemplateComponent,
     EnterpriseMapComponent,
+    OperationEfficiencyComponent,
+    CalendarPlanComponent,
+    EcologySafetyComponent,
     RingFactoryDiagramComponent,
     LineChartWorkspaceComponent
   ],
-  exports: [
-    HomeComponent,
-  ],
+  exports: [HomeComponent],
   imports: [
     CommonModule,
     SharedModule,
@@ -116,8 +125,8 @@ import { LineChartWorkspaceComponent } from './widgets/workspace/line-chart-work
     HttpClientModule,
     FormsModule,
     GridsterModule,
-    ClickOutsideModule,
+    ClickOutsideModule
   ],
   bootstrap: []
 })
-export class DashboardModule { }
+export class DashboardModule {}

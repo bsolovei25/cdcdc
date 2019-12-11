@@ -1,4 +1,5 @@
 <div class="onShift__person  gridster-item-content"
+     (click)="addToShift(person.employee.id)"
      [class.disable-person]="!isPresent && onShift"
      [ngClass]="(onShift)?'isOnShift':'allPeople'"
      #insideElement
@@ -18,19 +19,19 @@
       <div class="circle circle__right circle__right-top"></div>
       <div class="status__name">{{ this.getDisplayStatus(person.status) }}</div>
       <div class="status__icon"
-          [class.status__icon__ready]="(person.status === 'Passed' || person.status === 'Accepted')"
-          [class.status__icon__progress]="!(person.status === 'Passed' || person.status === 'Accepted')"></div>
+          [class.status__icon__ready]="(person.status === 'passed' || person.status === 'accepted')"
+          [class.status__icon__progress]="!(person.status === 'passed' || person.status === 'accepted')"></div>
     </div>
   </div>
   <div *ngIf="onShift">
     <div class="dropdown disable" *ngIf="!isMain" #dropdown>
       <div class="dropdown__item"
-           *ngIf="isPresent && (person.status === 'Passed' || person.status === 'Accepted')"
+           *ngIf="isPresent && (person.status === 'passed' || person.status === 'accepted')"
            (click)="menuCheck($event, person)">
         Отменить
       </div>
       <div class="dropdown__item"
-           *ngIf="isPresent && !(person.status === 'Passed' || person.status === 'Accepted')"
+           *ngIf="isPresent && !(person.status === 'passed' || person.status === 'accepted')"
            (click)="menuCheck($event, person)">{{
           shiftType === 'shift-pass'
           ? "Передать смену"

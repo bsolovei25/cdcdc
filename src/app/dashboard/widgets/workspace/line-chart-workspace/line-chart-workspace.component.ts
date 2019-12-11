@@ -1,13 +1,14 @@
 import {
-    AfterContentInit,
-    Component,
-    ElementRef,
-    Input,
-    OnChanges, OnDestroy,
-    OnInit,
-    ViewChild,
-    ViewEncapsulation,
-    Inject
+  AfterContentInit,
+  Component,
+  ElementRef,
+  Input,
+  OnChanges, OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation,
+  Inject,
+  AfterViewInit, HostListener
 } from '@angular/core';
 
 import * as d3 from 'd3-selection';
@@ -49,6 +50,7 @@ export class LineChartWorkspaceComponent implements OnInit {
         if (value)
             value.graphs.map(x => x.values.map(z => z.date = new Date(z.date)));
         this.dataChart = value;
+        this.draw(this.dataChart);
     }
 
     @ViewChild('chart', { static: true }) private chartContainer: ElementRef;
@@ -65,11 +67,6 @@ export class LineChartWorkspaceComponent implements OnInit {
 
     line;
     lines: any;
-
-    dataLine;
-
-    public minHeight;
-    public elem2;
 
     deviationMode = 'planFact';
 
@@ -140,13 +137,15 @@ export class LineChartWorkspaceComponent implements OnInit {
     deviationPoints: any;
 
     ngOnInit() {
-        setInterval(() => {
-            if (this.dataChart) {
-                this.draw(this.dataChart);
-            }
-        }, 500);
+
     }
 
+    @HostListener('document:resize', ['$event'])
+    private OnResize(event) {
+      if (this.dataChart) {
+        this.draw(this.dataChart);
+      }
+    }
 
     private draw(data) {
         if (this.svg) {
@@ -161,8 +160,9 @@ export class LineChartWorkspaceComponent implements OnInit {
 
     private buildData(data) {
         const xMax = d3Array.max(data.graphs, c => d3Array.max(c.values, d => d.date));
-
-        data.graphs.forEach(g => this.fillToXMAx(g.values, xMax));
+        data.graphs
+          .filter(x => x.graphType !== "fact")
+          .forEach(g => this.fillToXMAx(g.values, xMax));
         return data;
     }
 
@@ -188,7 +188,7 @@ export class LineChartWorkspaceComponent implements OnInit {
 
         if (this.deviationMode === 'limits') {
             this.drawLimitsAreas(upperLimit, lowerLimit);
-            // this.drawLimitsDeviationAreas(upperLimit, lowerLimit, fact);
+            this.drawLimitsDeviationAreas(upperLimit, lowerLimit, fact);
         } else {
             this.deleteLimitsData();
             this.drawDeviationAreas(plan, fact);
@@ -258,10 +258,10 @@ export class LineChartWorkspaceComponent implements OnInit {
     }
 
     private refreshDomains() {
-        this.x = d3Scale.scaleTime().range([0, this.width]);
+        this.x = d3Scale.scaleTime().range([0, this.width * 0.85]);
         this.y = d3Scale.scaleLinear().range([this.height, 0]);
 
-        this.x.domain(d3Array.extent(this.data.graphs.map((v) => v.values.map((v) => v.date))[0], (d: Date) => d));
+        this.x.domain(d3Array.extent(this.data.graphs.map((v) => v.values.map((v) => v.date))[0], (d: Date) => d)).nice();
 
 
         const yMin = d3Array.min(this.data.graphs, c => d3Array.min(c.values, d => d.value));
