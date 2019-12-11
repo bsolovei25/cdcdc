@@ -1,1 +1,19 @@
-<p>ecology-safety works!</p>
+<div class="container pointer-event">
+        <evj-widget-header
+          [title]="'Экология / безопасность'"
+          [units]="'млн.руб.'"
+          [code]=""
+          [id]=""
+        ></evj-widget-header>
+      
+        <evj-frame-top></evj-frame-top>
+      
+        <ng-container *ngIf="false"></ng-container>
+        <ng-container *ngIf="true">
+          <div class="cal-plan">
+            <evj-detailed-line-diagram class="dld"></evj-detailed-line-diagram>
+          </div>
+        </ng-container>
+      
+        <evj-frame-bottom></evj-frame-bottom>
+      </div>
