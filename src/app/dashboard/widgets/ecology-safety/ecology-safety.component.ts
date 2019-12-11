@@ -1,15 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'evj-ecology-safety',
-  templateUrl: './ecology-safety.component.html',
-  styleUrls: ['./ecology-safety.component.scss']
+  selector: "evj-ecology-safety",
+  templateUrl: "./ecology-safety.component.html",
+  styleUrls: ["./ecology-safety.component.scss"]
 })
 export class EcologySafetyComponent implements OnInit {
+  data = {
+    plan: 100,
+    curValue: 99,
+    maxValue: 150,
+  };
 
-  constructor() { }
+  colorNormal = "#FFFFFF";
+  colorDeviation = "#F4A321";
 
-  ngOnInit() {
+  constructor() {}
+
+  ngOnInit() {}
+
+  drawGraph(count: number): string {
+    return count.toString() + "%";
   }
 
+  fillGraph(flag: boolean): string {
+    return flag ? this.colorNormal : this.colorDeviation;
+  }
 }
