@@ -1,0 +1,56 @@
+<div class="container pointer-event">
+  <evj-widget-header
+    [title]="aboutWidget"
+    [units]="'млн.руб.'"
+    [code]=""
+    [id]="id"
+  ></evj-widget-header>
+
+  <evj-frame-top></evj-frame-top>
+
+  <ng-container *ngIf="isMock">
+    <div class="mock"></div>
+  </ng-container>
+
+  <ng-container *ngIf="!isMock">
+    <div
+      class="cal-plan"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
+      <evj-detailed-line-diagram class="dld"></evj-detailed-line-diagram>
+      <div class="cards">
+        <div
+          class="card"
+          *ngFor="let item of array"
+          [ngClass]="{ 'card-active': !item.isBetter }"
+        >
+          <div class="card__border card__border-left "></div>
+          <div class="card__border card__border-right"></div>
+          <div class="card__title">{{ item.name }}</div>
+          <div class="card__change" [ngClass]="{ danger: !item.isBetter }">
+            <img
+              src="../../../../assets/icons/widgets/calendar-plan/deviat_danger.svg"
+              alt=""
+              *ngIf="!item.isBetter"
+              [ngClass]="{ rotate: item.deviation > 0 }"
+            />
+            <img
+              src="../../../../assets/icons/widgets/calendar-plan/deviat.svg"
+              alt=""
+              *ngIf="item.isBetter"
+              [ngClass]="{ rotate: item.deviation < 0 }"
+            />
+            {{
+              item.deviation > 0
+                ? "+ " + item.deviation
+                : "- " + -item.deviation
+            }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <evj-frame-bottom></evj-frame-bottom>
+</div>
