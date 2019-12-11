@@ -23,6 +23,7 @@ import { EventService } from '../../services/event.service';
   styleUrls: ['./events.component.scss']
 })
 export class EventsComponent implements OnInit, OnDestroy {
+
   @Input() name = '';
   ng
   isList = false;
@@ -225,7 +226,6 @@ export class EventsComponent implements OnInit, OnDestroy {
     // notifications = notifications.slice(0, this.notificationsMaxCount);
     // }
 
-
     return notifications;
   }
 
@@ -275,6 +275,9 @@ export class EventsComponent implements OnInit, OnDestroy {
   }
 
   private wsConnect() {
+    if (this.liveSubscription) {
+      this.liveSubscription.unsubscribe();
+    }
     this.liveSubscription = this.widgetService.getWidgetLiveDataFromWS(this.id, 'events')
       .subscribe((ref: EventsWidgetData) => {
         this.appendNotifications(ref.notifications);
@@ -283,6 +286,14 @@ export class EventsComponent implements OnInit, OnDestroy {
         // console.log('get_ws_events');
       }
       );
+  }
+
+  snackBar(text: string = 'Выполнено', status: string = 'complete', durection: number = 3000) {
+    let snackBar = document.getElementById("snackbar");
+    snackBar.className = "show";
+    // snackBar.className = status;
+    snackBar.innerText = text;
+    setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, durection);
   }
 
   showMock(show) {
@@ -306,10 +317,12 @@ export class EventsComponent implements OnInit, OnDestroy {
   async eventClick(deleteItem: boolean, eventId: number, event: Event) {
     event.stopPropagation();
     if (deleteItem) {
-      const event = await this.eventService.deleteEvent(eventId);
-      const idx = this.notifications.findIndex(n => n.id === eventId);
-      if (eventId !== -1) {
-        this.notifications.splice(idx, 1);
+      try {
+        const event = await this.eventService.deleteEvent(eventId);
+        this.wsConnect();
+        this.snackBar('Событие удалено');
+      } catch (error) {
+        this.snackBar('Ошибка', 'error');
       }
     } else {
       this.selectedId = eventId;
