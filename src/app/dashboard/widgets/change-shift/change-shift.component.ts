@@ -22,11 +22,11 @@ export class ChangeShiftComponent implements OnInit {
 
   mapPosition = [
     {
-      code: "Responsible",
+      code: "responsible",
       name: "Старший оператор"
     },
     {
-      code: "Common",
+      code: "common",
       name: "Оператор"
     }
   ];
@@ -53,7 +53,6 @@ export class ChangeShiftComponent implements OnInit {
       if (this.aboutWidget) {
         this.setRealtimeData(this.aboutWidget.widgetType, data);
       }
-      // console.log(data);
     });
 
     this.subscription = this.widgetService
@@ -81,10 +80,14 @@ export class ChangeShiftComponent implements OnInit {
     }
 
     if (this.currentShift.shiftMembers) {
-      const index = this.currentShift.shiftMembers.findIndex(
-        item => item.position === "Responsible"
+      let index = this.currentShift.shiftMembers.findIndex(
+        item => item.position === "responsible"
       );
-      console.log(index);
+      if(index === -1) {
+        console.warn("No responsible found in shift: " + JSON.stringify(this.currentShift));
+        index = 0;
+      }
+
       this.currentShift.shiftMembers[index].employee.main = true;
       const tempMember = this.currentShift.shiftMembers[0];
       this.currentShift.shiftMembers[0] = this.currentShift.shiftMembers[index];
@@ -92,10 +95,10 @@ export class ChangeShiftComponent implements OnInit {
     }
 
     this.absentMembers = this.currentShift.shiftMembers.filter(
-      el => el.status === "Absent"
+      el => el.status === "absent"
     );
     this.presentMembers = this.currentShift.shiftMembers.filter(
-      el => el.status !== "Absent"
+      el => el.status !== "absent"
     );
 
     const tempShiftMembers = this.shiftService.allMembers.filter(
@@ -106,7 +109,7 @@ export class ChangeShiftComponent implements OnInit {
         employee = null;
         shiftType = null;
         status = null;
-        position = "Common";
+        position = "common";
       })();
       addingShiftMember.employee = tempShiftMembers[i];
       this.addingShiftMembers.push(addingShiftMember);
