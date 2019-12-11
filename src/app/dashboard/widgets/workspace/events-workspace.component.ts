@@ -418,7 +418,10 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
   openLineChart() {
     document.getElementById("overlay-chart").style.display = "block";
-
+    const event = new CustomEvent(
+      'resize'
+    );
+    document.dispatchEvent(event);
   }
 
   overlayChartClose() {

@@ -1,13 +1,14 @@
 import {
-    AfterContentInit,
-    Component,
-    ElementRef,
-    Input,
-    OnChanges, OnDestroy,
-    OnInit,
-    ViewChild,
-    ViewEncapsulation,
-    Inject
+  AfterContentInit,
+  Component,
+  ElementRef,
+  Input,
+  OnChanges, OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation,
+  Inject,
+  AfterViewInit, HostListener
 } from '@angular/core';
 
 import * as d3 from 'd3-selection';
@@ -49,6 +50,7 @@ export class LineChartWorkspaceComponent implements OnInit {
         if (value)
             value.graphs.map(x => x.values.map(z => z.date = new Date(z.date)));
         this.dataChart = value;
+        this.draw(this.dataChart);
     }
 
     @ViewChild('chart', { static: true }) private chartContainer: ElementRef;
@@ -65,11 +67,6 @@ export class LineChartWorkspaceComponent implements OnInit {
 
     line;
     lines: any;
-
-    dataLine;
-
-    public minHeight;
-    public elem2;
 
     deviationMode = 'planFact';
 
@@ -140,13 +137,15 @@ export class LineChartWorkspaceComponent implements OnInit {
     deviationPoints: any;
 
     ngOnInit() {
-        setInterval(() => {
-            if (this.dataChart) {
-                this.draw(this.dataChart);
-            }
-        }, 500);
+
     }
 
+    @HostListener('document:resize', ['$event'])
+    private OnResize(event) {
+      if (this.dataChart) {
+        this.draw(this.dataChart);
+      }
+    }
 
     private draw(data) {
         if (this.svg) {
@@ -161,7 +160,6 @@ export class LineChartWorkspaceComponent implements OnInit {
 
     private buildData(data) {
         const xMax = d3Array.max(data.graphs, c => d3Array.max(c.values, d => d.date));
-
         data.graphs.forEach(g => this.fillToXMAx(g.values, xMax));
         return data;
     }

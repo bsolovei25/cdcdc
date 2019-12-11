@@ -144,7 +144,6 @@ export class LineChartComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // this.draw(Mock);
     this.showMock(this.isMock);
     if (!this.isMock) {
       if (this.dataLine) {
@@ -192,7 +191,6 @@ export class LineChartComponent implements OnInit, OnDestroy {
     if (this.svg) {
       this.svg.remove();
     }
-
     this.data = this.buildData(data);
     this.deviationMode = this.refreshDeviations();
     this.startChart();
