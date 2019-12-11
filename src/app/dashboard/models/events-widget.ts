@@ -81,7 +81,7 @@ export interface EventsWidgetCategory {
 }
 
 export interface EventsWidgetNotificationsCounter {
-  closed: number;
+  open: number;
   all: number;
 }
 

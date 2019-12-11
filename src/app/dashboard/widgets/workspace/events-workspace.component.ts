@@ -353,8 +353,14 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     document.getElementById("overlay-retrieval").style.display = "block";
   }
 
-  async editSaveRetrieval() {
+  snackBar(text: string = 'Выполнено', durection: number = 3000) {
     let snackBar = document.getElementById("snackbar");
+    snackBar.className = "show";
+    snackBar.innerText = text;
+    setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, durection);
+  }
+
+  async editSaveRetrieval() {
     this.isEdit = true;
     if (this.isNew) {
       const idx = this.event.retrievalEvents.findIndex(i => i.id === this.isNewRetrieval.id);
@@ -373,16 +379,12 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
           this.event.retrievalEvents[idx] = this.isNewRetrieval;
         }
         this.eventService.updateEvent$.next(true);
-        snackBar.className = "show";
-        snackBar.innerText = "Сохранено"
         this.overlayClose();
-        setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, 3000);
         this.isLoading = false;
+        this.snackBar('Сохранено');
       } catch (error) {
-        snackBar.className = "show";
-        snackBar.innerText = "Ошибка"
-        setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, 3000);
         this.isLoading = false;
+        this.snackBar('Ошибка');
       }
       this.isEdit = false;
     }
@@ -418,7 +420,10 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
   openLineChart() {
     document.getElementById("overlay-chart").style.display = "block";
-
+    const event = new CustomEvent(
+      'resize'
+    );
+    document.dispatchEvent(event);
   }
 
   overlayChartClose() {

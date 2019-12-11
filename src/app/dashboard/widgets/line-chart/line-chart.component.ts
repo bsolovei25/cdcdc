@@ -144,7 +144,6 @@ export class LineChartComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // this.draw(Mock);
     this.showMock(this.isMock);
     if (!this.isMock) {
       if (this.dataLine) {
@@ -192,7 +191,6 @@ export class LineChartComponent implements OnInit, OnDestroy {
     if (this.svg) {
       this.svg.remove();
     }
-
     this.data = this.buildData(data);
     this.deviationMode = this.refreshDeviations();
     this.startChart();
@@ -248,8 +246,11 @@ export class LineChartComponent implements OnInit, OnDestroy {
     const upperLimit = this.extractByName(this.data.graphs, 'upperLimit');
 
     let deviationMode = 'planFact';
-    if (plan.findIndex(p => lowerLimit.findIndex(ll => ll.value !== p.value) !== -1 || upperLimit.findIndex(ll => ll.value !== p.value) !== -1) !== -1) {
-      deviationMode = 'limits';
+    if (plan.findIndex(p =>
+          lowerLimit.findIndex(ll => ll.value !== p.value) !== -1
+        || upperLimit.findIndex(ul => ul.value !== p.value) !== -1
+      ) !== -1) {
+        deviationMode = 'limits';
     }
 
     this.deviationPoints = {
@@ -264,12 +265,12 @@ export class LineChartComponent implements OnInit, OnDestroy {
             }
             break;
           case 'limits':
-            const ul = upperLimit.slice().reverse().find(p => p.date.getTime() <= d.date.getTime());
+            const ul = upperLimit.slice().reverse().find(u => u.date.getTime() <= d.date.getTime());
             if (ul && ul.value < d.value) {
               acc.values.push(d);
             }
 
-            const li = lowerLimit.slice().reverse().find(p => p.date.getTime() <= d.date.getTime());
+            const li = lowerLimit.slice().reverse().find(l => l.date.getTime() <= d.date.getTime());
             if (li && li.value > d.value) {
               acc.values.push(d);
             }
