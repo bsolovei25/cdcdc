@@ -177,6 +177,7 @@ export class ShiftPersonComponent implements OnInit {
   }
 
   addToShift(id) {
-    this.shiftService.addMember(id, this.shiftId);
+    if (!this.onShift)
+      this.shiftService.addMember(id, this.shiftId);
   }
 }
