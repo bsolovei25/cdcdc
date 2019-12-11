@@ -1,16 +1,23 @@
 <div class="container pointer-event">
   <evj-widget-header
-    [title]="'Календарный план'"
+    [title]="aboutWidget"
     [units]="'млн.руб.'"
     [code]=""
-    [id]=""
+    [id]="id"
   ></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
 
-  <ng-container *ngIf="false"></ng-container>
-  <ng-container *ngIf="true">
-    <div class="cal-plan">
+  <ng-container *ngIf="isMock">
+    <div class="mock"></div>
+  </ng-container>
+
+  <ng-container *ngIf="!isMock">
+    <div
+      class="cal-plan"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
       <evj-detailed-line-diagram class="dld"></evj-detailed-line-diagram>
       <div class="cards">
         <div

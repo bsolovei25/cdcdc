@@ -1,16 +1,22 @@
 <div class="container pointer-event">
   <evj-widget-header
-    [title]="'Экология / безопасность'"
+    [title]="aboutWidget"
     [units]="'млн.руб.'"
     [code]=""
-    [id]=""
+    [id]="id"
   ></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
 
-  <ng-container *ngIf="false"></ng-container>
-  <ng-container *ngIf="true">
-    <div class="eco-dia">
+  <ng-container *ngIf="isMock">
+    <div class="mock"></div>
+  </ng-container>
+  <ng-container *ngIf="!isMock">
+    <div
+      class="eco-dia"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
       <div class="dl-dia">
         <div class="dl-dia__graph">
           <div class="graph__line">

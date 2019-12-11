@@ -1,16 +1,22 @@
 <div class="container pointer-event">
   <evj-widget-header
-    [title]="'Операционная эффективность'"
+    [title]="aboutWidget"
     [units]="'млн.руб.'"
     [code]=""
-    [id]=""
+    [id]="id"
   ></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
 
-  <ng-container *ngIf="false"></ng-container>
-  <ng-container *ngIf="true">
-    <div class="op-ef">
+  <ng-container *ngIf="isMock">
+    <div class="mock"></div>
+  </ng-container>
+  <ng-container *ngIf="!isMock">
+    <div
+      class="op-ef"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
       <evj-detailed-line-diagram class="dld"></evj-detailed-line-diagram>
     </div>
   </ng-container>
