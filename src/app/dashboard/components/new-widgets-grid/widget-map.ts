@@ -13,7 +13,8 @@ import { BarChartsComponent } from '../../widgets/bar-chart/bar-charts/bar-chart
 import { CircleDiagramComponent } from '../../widgets/circle-diagram/circle-diagram.component';
 import { MapEcologyComponent } from '../../widgets/map-ecology/map-ecology/map-ecology.component';
 import {UnityTemplateComponent} from '../../widgets/unity-template/unity-template.component';
-import { RingFactoryDiagramComponent } from '../../widgets/ring-factory-diagram/ring-factory-diagram.component';
+import { RingSFactoryDiagramComponent } from '../../widgets/ring-factory-diagrams/ring-s-factory-diagram/ring-s-factory-diagram.component';
+
 
 
 export const WIDGETS = {
@@ -33,5 +34,5 @@ export const WIDGETS = {
     "circle-diagram": CircleDiagramComponent,
     "unity-template": UnityTemplateComponent,
     "map-ecology":MapEcologyComponent,
-  //  "ring-factory-diagram": RingFactoryDiagramComponent
+    "ring-factory-diagram": RingSFactoryDiagramComponent
 }
