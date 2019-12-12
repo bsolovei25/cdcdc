@@ -79,6 +79,46 @@
     flex-basis: 50%;
   }
 
+  &__round {
+    position: relative;
+    height: 220px;
+    width: 220px;
+    img {
+      height: 100px;
+      width: 100px;
+    }
+
+    .round {
+      &__container {
+        position: absolute;
+        height: 220px;
+        width: 220px;
+        margin: auto;
+        z-index: 10;
+
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+
+      &__termo {
+        width: 220px;
+        height: 220px;
+      }
+
+      &__electro {
+        width: 190px;
+        height: 190px;
+      }
+
+      &__fuel {
+        width: 160px;
+        height: 160px;
+      }
+    }
+  }
+
   &__cards {
     box-sizing: border-box;
     padding: 5px;
@@ -256,7 +296,7 @@
       position: relative;
 
       width: 100%;
-      height: 12px;
+      height: 8px;
 
       svg {
         background: var(--color-bg-line-diagram);
@@ -275,11 +315,11 @@
         border-left: 1px solid var(--color-text-diagram);
 
         &__marking {
-          height: 5px;
+          height: 3px;
 
           border-color: var(--color-marker-diagram);
 
-          bottom: -9px;
+          bottom: -11px;
 
           &-0 {
             left: 3px;
@@ -297,7 +337,7 @@
         &__limit {
           height: 15px;
           right: 40px;
-          top: 1px;
+          top: 4px;
 
           &-higher {
             right: 15%;

@@ -23,7 +23,99 @@
       <div class="energetics__container">
         <evj-detailed-line-diagram class="dld"></evj-detailed-line-diagram>
         <div class="energetics__energy">
-          <div class="energetics__round"></div>
+          <div class="energetics__round">
+            <svg width="100%" height="100%" viewBox="0 0 50 50" class="donut">
+              <circle
+                class="donut-hole"
+                [attr.cx]="termo.cx"
+                [attr.cy]="termo.cy"
+                [attr.r]="termo.r"
+                [attr.fill]="termo.colMain"
+              ></circle>
+              <circle
+                class="donut-ring"
+                [attr.cx]="termo.cx"
+                [attr.cy]="termo.cy"
+                [attr.r]="termo.r"
+                fill="transparent"
+                [attr.stroke]="termo.colBg"
+                stroke-width="2"
+                [attr.stroke-dasharray]="diaCounter(termo.r)"
+                stroke-dashoffset="0"
+              ></circle>
+              <circle
+                class="donut-ring"
+                [attr.cx]="termo.cx"
+                [attr.cy]="termo.cy"
+                [attr.r]="termo.r"
+                fill="transparent"
+                [attr.stroke]="termo.colNormal"
+                stroke-width="0.7"
+                [attr.stroke-dasharray]="diaLine(termo.r, 85)"
+                [attr.stroke-dashoffset]="diaOffset(termo.r, 85)"
+              ></circle>
+
+              <circle
+                class="donut-hole"
+                [attr.cx]="electro.cx"
+                [attr.cy]="electro.cy"
+                [attr.r]="electro.r"
+                [attr.fill]="electro.colMain"
+              ></circle>
+              <circle
+                class="donut-ring"
+                [attr.cx]="electro.cx"
+                [attr.cy]="electro.cy"
+                [attr.r]="electro.r"
+                fill="transparent"
+                [attr.stroke]="electro.colBg"
+                stroke-width="2"
+                [attr.stroke-dasharray]="diaCounter(electro.r)"
+                stroke-dashoffset="0"
+              ></circle>
+              <circle
+                class="donut-ring"
+                [attr.cx]="electro.cx"
+                [attr.cy]="electro.cy"
+                [attr.r]="electro.r"
+                fill="transparent"
+                [attr.stroke]="electro.colNormal"
+                stroke-width="0.7"
+                [attr.stroke-dasharray]="diaLine(electro.r, 125)"
+                [attr.stroke-dashoffset]="diaOffset(electro.r, 125)"
+              ></circle>
+
+              <circle
+                class="donut-hole"
+                [attr.cx]="fuel.cx"
+                [attr.cy]="fuel.cy"
+                [attr.r]="fuel.r"
+                [attr.fill]="fuel.colMain"
+              ></circle>
+              <circle
+                class="donut-ring"
+                [attr.cx]="fuel.cx"
+                [attr.cy]="fuel.cy"
+                [attr.r]="fuel.r"
+                fill="transparent"
+                [attr.stroke]="fuel.colBg"
+                stroke-width="2"
+                [attr.stroke-dasharray]="diaCounter(fuel.r)"
+                stroke-dashoffset="0"
+              ></circle>
+              <circle
+                class="donut-ring"
+                [attr.cx]="fuel.cx"
+                [attr.cy]="fuel.cy"
+                [attr.r]="fuel.r"
+                fill="transparent"
+                [attr.stroke]="fuel.colNormal"
+                stroke-width="0.7"
+                [attr.stroke-dasharray]="diaLine(fuel.r, 55)"
+                [attr.stroke-dashoffset]="diaOffset(fuel.r, 55)"
+              ></circle>
+            </svg>
+          </div>
           <div class="energetics__cards">
             <div class="card">
               <div class="card__border"></div>
@@ -85,34 +177,10 @@
                   <div class="line line__limit line__limit-higher"></div>
                   <svg width="100%" height="100%">
                     <rect
-                      [attr.x]="0"
-                      y="3px"
-                      [attr.width]="
-                        drawGraph(
-                          data.curValue + (data.deviation * data.plan) / 10
-                        )
-                      "
-                      height="6px"
-                      rx="3px"
-                      ry="3px"
-                      [attr.fill]="fillGraph(false)"
-                      *ngIf="false"
-                    />
-                    <rect
                       x="0"
-                      y="3px"
+                      y="2px"
                       [attr.width]="drawGraph(data.curValue)"
-                      height="6px"
-                      rx="3px"
-                      ry="3px"
-                      [attr.fill]="fillGraph(true)"
-                      *ngIf="false"
-                    />
-                    <rect
-                      x="0"
-                      y="3px"
-                      [attr.width]="drawGraph(data.curValue)"
-                      height="6px"
+                      height="4px"
                       rx="3px"
                       ry="3px"
                       [attr.fill]="'#A2E2FF'"
@@ -182,34 +250,10 @@
                   <div class="line line__limit line__limit-higher"></div>
                   <svg width="100%" height="100%">
                     <rect
-                      [attr.x]="0"
-                      y="3px"
-                      [attr.width]="
-                        drawGraph(
-                          data.curValue + (data.deviation * data.plan) / 10
-                        )
-                      "
-                      height="6px"
-                      rx="3px"
-                      ry="3px"
-                      [attr.fill]="fillGraph(false)"
-                      *ngIf="false"
-                    />
-                    <rect
                       x="0"
-                      y="3px"
+                      y="2px"
                       [attr.width]="drawGraph(data.curValue)"
-                      height="6px"
-                      rx="3px"
-                      ry="3px"
-                      [attr.fill]="fillGraph(true)"
-                      *ngIf="false"
-                    />
-                    <rect
-                      x="0"
-                      y="3px"
-                      [attr.width]="drawGraph(data.curValue)"
-                      height="6px"
+                      height="4px"
                       rx="3px"
                       ry="3px"
                       [attr.fill]="'#A2E2FF'"
@@ -279,34 +323,10 @@
                   <div class="line line__limit line__limit-higher"></div>
                   <svg width="100%" height="100%">
                     <rect
-                      [attr.x]="0"
-                      y="3px"
-                      [attr.width]="
-                        drawGraph(
-                          data.curValue + (data.deviation * data.plan) / 10
-                        )
-                      "
-                      height="6px"
-                      rx="3px"
-                      ry="3px"
-                      [attr.fill]="fillGraph(false)"
-                      *ngIf="false"
-                    />
-                    <rect
                       x="0"
-                      y="3px"
+                      y="2px"
                       [attr.width]="drawGraph(data.curValue)"
-                      height="6px"
-                      rx="3px"
-                      ry="3px"
-                      [attr.fill]="fillGraph(true)"
-                      *ngIf="false"
-                    />
-                    <rect
-                      x="0"
-                      y="3px"
-                      [attr.width]="drawGraph(data.curValue)"
-                      height="6px"
+                      height="4px"
                       rx="3px"
                       ry="3px"
                       [attr.fill]="'#A2E2FF'"
