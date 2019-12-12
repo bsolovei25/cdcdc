@@ -20,7 +20,26 @@ export interface Widgets{
   units: string;
   widgetOptions: LineChartOptions;
   widgetType: string;
-}  
+} 
+
+export interface RingFactoryWidget{
+  title: string;
+  typeFabric: number;
+  value: RingValue[];
+  buttons: RingButton[];
+}
+
+export interface RingValue{
+  name: string;
+  valueOne: number;
+  valueTwo: number;
+}
+
+export interface RingButton{
+  typeButton: string;
+  critical: number;
+  notcritical: number;
+}
 
 export interface PieWidget{
   name: string;
