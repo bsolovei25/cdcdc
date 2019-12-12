@@ -23,143 +23,146 @@
       <div class="energetics__container">
         <evj-detailed-line-diagram class="dld"></evj-detailed-line-diagram>
         <div class="energetics__energy">
-          <div class="energetics__round">
-            <div class="icons">
-              <div class="icon">
-                <img
-                  src="../../../../assets/icons/widgets/energetics/termo.svg"
-                  alt=""
-                  *ngIf="true"
-                />
-                <img
-                  src="../../../../assets/icons/widgets/energetics/termo_danger.svg"
-                  alt=""
-                  *ngIf="false"
-                />
-                Тепловая
+          <div class="energetics__graphic">
+            <div class="energetics__round">
+              <div class="icons">
+                <div class="icon">
+                  <img
+                    src="../../../../assets/icons/widgets/energetics/termo.svg"
+                    alt=""
+                    *ngIf="true"
+                  />
+                  <img
+                    src="../../../../assets/icons/widgets/energetics/termo_danger.svg"
+                    alt=""
+                    *ngIf="false"
+                  />
+                  Тепловая
+                </div>
+                <div class="icon">
+                  <img
+                    src="../../../../assets/icons/widgets/energetics/electro.svg"
+                    alt=""
+                    *ngIf="true"
+                  />
+                  <img
+                    src="../../../../assets/icons/widgets/energetics/electro_danger.svg"
+                    alt=""
+                    *ngIf="false"
+                  />
+                  Электро
+                </div>
+                <div class="icon">
+                  <img
+                    src="../../../../assets/icons/widgets/energetics/fuel.svg"
+                    alt=""
+                    *ngIf="false"
+                  />
+                  <img
+                    src="../../../../assets/icons/widgets/energetics/fuel_danger.svg"
+                    alt=""
+                    *ngIf="true"
+                  />
+                  Топливо
+                </div>
               </div>
-              <div class="icon">
-                <img
-                  src="../../../../assets/icons/widgets/energetics/electro.svg"
-                  alt=""
-                  *ngIf="true"
+              <svg width="100%" height="100%" viewBox="0 0 50 50">
+                <!-- termo dia -->
+                <circle
+                  [attr.cx]="termo.cx"
+                  [attr.cy]="termo.cy"
+                  [attr.r]="termo.r"
+                  [attr.fill]="termo.colMain"
+                ></circle>
+                <circle
+                  [attr.cx]="termo.cx"
+                  [attr.cy]="termo.cy"
+                  [attr.r]="termo.r"
+                  fill="transparent"
+                  [attr.stroke]="termo.colBg"
+                  stroke-width="2"
+                  [attr.stroke-dasharray]="diaCounter(termo.r)"
+                  stroke-dashoffset="0"
+                ></circle>
+                <circle
+                  [attr.cx]="termo.cx"
+                  [attr.cy]="termo.cy"
+                  [attr.r]="termo.r"
+                  fill="transparent"
+                  [attr.stroke]="termo.colNormal"
+                  stroke-width="0.7"
+                  [attr.stroke-dasharray]="diaLine(termo.r, 85)"
+                  [attr.stroke-dashoffset]="diaOffset(termo.r, 85)"
+                ></circle>
+
+                <!-- electro dia -->
+                <circle
+                  [attr.cx]="electro.cx"
+                  [attr.cy]="electro.cy"
+                  [attr.r]="electro.r"
+                  [attr.fill]="electro.colMain"
+                ></circle>
+                <circle
+                  [attr.cx]="electro.cx"
+                  [attr.cy]="electro.cy"
+                  [attr.r]="electro.r"
+                  fill="transparent"
+                  [attr.stroke]="electro.colBg"
+                  stroke-width="2"
+                  [attr.stroke-dasharray]="diaCounter(electro.r)"
+                  stroke-dashoffset="0"
+                ></circle>
+                <circle
+                  [attr.cx]="electro.cx"
+                  [attr.cy]="electro.cy"
+                  [attr.r]="electro.r"
+                  fill="transparent"
+                  [attr.stroke]="electro.colNormal"
+                  stroke-width="0.7"
+                  [attr.stroke-dasharray]="diaLine(electro.r, 125)"
+                  [attr.stroke-dashoffset]="diaOffset(electro.r, 125)"
+                ></circle>
+
+                <!-- fuel dia -->
+                <circle
+                  [attr.cx]="fuel.cx"
+                  [attr.cy]="fuel.cy"
+                  [attr.r]="fuel.r"
+                  [attr.fill]="fuel.colMain"
+                ></circle>
+                <circle
+                  [attr.cx]="fuel.cx"
+                  [attr.cy]="fuel.cy"
+                  [attr.r]="fuel.r"
+                  fill="transparent"
+                  [attr.stroke]="fuel.colBg"
+                  stroke-width="2"
+                  [attr.stroke-dasharray]="diaCounter(fuel.r)"
+                  stroke-dashoffset="0"
+                ></circle>
+                <circle
+                  [attr.cx]="fuel.cx"
+                  [attr.cy]="fuel.cy"
+                  [attr.r]="fuel.r"
+                  fill="transparent"
+                  [attr.stroke]="fuel.colNormal"
+                  stroke-width="0.7"
+                  [attr.stroke-dasharray]="diaLine(fuel.r, 55)"
+                  [attr.stroke-dashoffset]="diaOffset(fuel.r, 55)"
+                ></circle>
+
+                <!-- logo dia -->
+                <image
+                  x="15"
+                  y="15"
+                  width="20"
+                  height="20"
+                  xlink:href="../../../../assets/icons/widgets/energetics/dia_logo.svg"
                 />
-                <img
-                  src="../../../../assets/icons/widgets/energetics/electro_danger.svg"
-                  alt=""
-                  *ngIf="false"
-                />
-                Электро
-              </div>
-              <div class="icon">
-                <img
-                  src="../../../../assets/icons/widgets/energetics/fuel.svg"
-                  alt=""
-                  *ngIf="false"
-                />
-                <img
-                  src="../../../../assets/icons/widgets/energetics/fuel_danger.svg"
-                  alt=""
-                  *ngIf="true"
-                />
-                Топливо
-              </div>
+              </svg>
             </div>
-            <svg width="100%" height="100%" viewBox="0 0 50 50">
-              <!-- termo dia -->
-              <circle
-                [attr.cx]="termo.cx"
-                [attr.cy]="termo.cy"
-                [attr.r]="termo.r"
-                [attr.fill]="termo.colMain"
-              ></circle>
-              <circle
-                [attr.cx]="termo.cx"
-                [attr.cy]="termo.cy"
-                [attr.r]="termo.r"
-                fill="transparent"
-                [attr.stroke]="termo.colBg"
-                stroke-width="2"
-                [attr.stroke-dasharray]="diaCounter(termo.r)"
-                stroke-dashoffset="0"
-              ></circle>
-              <circle
-                [attr.cx]="termo.cx"
-                [attr.cy]="termo.cy"
-                [attr.r]="termo.r"
-                fill="transparent"
-                [attr.stroke]="termo.colNormal"
-                stroke-width="0.7"
-                [attr.stroke-dasharray]="diaLine(termo.r, 85)"
-                [attr.stroke-dashoffset]="diaOffset(termo.r, 85)"
-              ></circle>
-
-              <!-- electro dia -->
-              <circle
-                [attr.cx]="electro.cx"
-                [attr.cy]="electro.cy"
-                [attr.r]="electro.r"
-                [attr.fill]="electro.colMain"
-              ></circle>
-              <circle
-                [attr.cx]="electro.cx"
-                [attr.cy]="electro.cy"
-                [attr.r]="electro.r"
-                fill="transparent"
-                [attr.stroke]="electro.colBg"
-                stroke-width="2"
-                [attr.stroke-dasharray]="diaCounter(electro.r)"
-                stroke-dashoffset="0"
-              ></circle>
-              <circle
-                [attr.cx]="electro.cx"
-                [attr.cy]="electro.cy"
-                [attr.r]="electro.r"
-                fill="transparent"
-                [attr.stroke]="electro.colNormal"
-                stroke-width="0.7"
-                [attr.stroke-dasharray]="diaLine(electro.r, 125)"
-                [attr.stroke-dashoffset]="diaOffset(electro.r, 125)"
-              ></circle>
-
-              <!-- fuel dia -->
-              <circle
-                [attr.cx]="fuel.cx"
-                [attr.cy]="fuel.cy"
-                [attr.r]="fuel.r"
-                [attr.fill]="fuel.colMain"
-              ></circle>
-              <circle
-                [attr.cx]="fuel.cx"
-                [attr.cy]="fuel.cy"
-                [attr.r]="fuel.r"
-                fill="transparent"
-                [attr.stroke]="fuel.colBg"
-                stroke-width="2"
-                [attr.stroke-dasharray]="diaCounter(fuel.r)"
-                stroke-dashoffset="0"
-              ></circle>
-              <circle
-                [attr.cx]="fuel.cx"
-                [attr.cy]="fuel.cy"
-                [attr.r]="fuel.r"
-                fill="transparent"
-                [attr.stroke]="fuel.colNormal"
-                stroke-width="0.7"
-                [attr.stroke-dasharray]="diaLine(fuel.r, 55)"
-                [attr.stroke-dashoffset]="diaOffset(fuel.r, 55)"
-              ></circle>
-
-              <!-- logo dia -->
-              <image
-                x="15"
-                y="15"
-                width="20"
-                height="20"
-                xlink:href="../../../../assets/icons/widgets/energetics/dia_logo.svg"
-              />
-            </svg>
           </div>
+
           <div class="energetics__cards">
             <div class="card">
               <div class="card__border"></div>

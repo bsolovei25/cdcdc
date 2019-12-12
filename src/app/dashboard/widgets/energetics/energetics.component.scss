@@ -73,16 +73,26 @@
     align-items: center;
   }
 
-  &__round,
+  &__graphic,
   &__cards {
     height: 100%;
     flex-basis: 50%;
+  }
+
+  &__graphic {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   &__round {
     position: relative;
     min-height: 260px;
     min-width: 250px;
+
+    max-height: 260px;
+    max-width: 250px;
 
     .icons {
       position: absolute;
@@ -104,7 +114,6 @@
         color: var(--color-text-sub);
 
         margin-bottom: 3px;
-
 
         img {
           height: 13px;
