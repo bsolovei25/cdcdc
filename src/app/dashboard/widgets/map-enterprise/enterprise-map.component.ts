@@ -24,6 +24,9 @@ export class EnterpriseMapComponent implements OnInit, AfterViewInit {
     title: string = "Интегрированный экран критических показателей";
 
 
+    texts: any[] = [];
+
+
     data: IEnterpriseMap[] = [
         { id: 1, name: 'УУГ', options: { nonCritical: 2, diagnostics: 6, prognosis: 2 } },
         { id: 2, name: 'Станция смешения', options: { nonCritical: 0, diagnostics: 40, prognosis: 100 } },
@@ -76,146 +79,81 @@ export class EnterpriseMapComponent implements OnInit, AfterViewInit {
         //  Используемые элементы на странице
         // --------------------------------------------------------------------
 
-        const map = document.getElementById('my-map');
+        const map: HTMLElement = document.getElementById('svg5866');
         // const svg = document.querySelector('svg');
         // const buildingsLayer = map.querySelector('.buildings_layer');
         const buildings = map.querySelectorAll('.build');
+        const textArray = map.querySelectorAll('.text');
         // const info = map.querySelector('.builds');
-        console.log(buildings);
 
+        let i = 0;
         buildings.forEach(b => {
+
+            const value: string = '5';
+
+            if (b.tagName === 'polygon') {
+                const id = b.getAttribute('data-id');
+                const dataPolygon = [
+                    { id: 1, x: '184', y: '102' },
+                    { id: 7, x: '626', y: '190' },
+                    { id: 8, x: '184', y: '129' },
+                    { id: 17, x: '104', y: '193' },
+                    { id: 34, x: '854', y: '354' },
+                    { id: 36, x: '227', y: '424' },
+                    { id: 42, x: '830', y: '425' }
+                ];
+                const idx = dataPolygon.findIndex(i => i.id === +id);
+                if (idx !== -1) {
+                    this.texts.push({ x: dataPolygon[idx].x, y: dataPolygon[idx].y, class: 'number', value })
+                }
+
+            }
+
+            i++;
             const id = b.getAttribute('data-id');
-            b.classList.add(`status-prognosis`);
+            const xBuild = b.getAttribute('x');
+            const yBuild = b.getAttribute('y');
+            const widthBuild = b.getAttribute('width');
+            const heightBuild = b.getAttribute('height');
+
+
+            const widthNumber: number = value.length;
+
+            const x = +xBuild + +widthBuild - (widthNumber * 6 + 5);
+
+            const y = +yBuild + 14;
+            const width = b.getAttribute('width');
+            const height = b.getAttribute('height');
+
+            this.texts.push({ x, y, width, height, class: 'number', value });
+
+            b.classList.add(`status-standard`);
+            if (i > 10 && i < 13) {
+                b.classList.remove('status-standard');
+                b.classList.add('status-prognosis');
+            }
+            if (i > 20 && i < 25) {
+                b.classList.remove('status-standard');
+                b.classList.add('status-diagnostics');
+            }
+
+            if (i > 25 && i < 30) {
+                b.classList.remove('status-standard');
+                b.classList.add('status-nonCritical');
+            }
+
             if (id) {
                 const idx = this.data.findIndex(d => d.id === Number(id));
                 if (idx !== -1) {
-                    this.svgData.push()
                 }
             }
-
         })
 
 
         const idRect = document.getElementById('polygon3921');
         const id = idRect.getAttribute('data-id');
 
-        console.log(id);
 
-
-        // console.log(map);
-
-
-        // --------------------------------------------------------------------
-        //  Шаг №1: Инициализируем здания и линии от leader-line.js
-        // --------------------------------------------------------------------
-
-        // const lines = [];
-
-        // for (let building of buildings) {
-        //     const id = building.getAttribute('data-building-id');
-
-        //     const status = data[`id_${id}`].status;
-        //     const price = data[`id_${id}`].price;
-
-        //     building.classList.add(`-${status}`);
-
-
-        //     building.addEventListener('click', () => {
-        //         console.log(id);
-        //     });
-
-        // }
-
-
-        // --------------------------------------------------------------------
-        //  Шаг №2: Добавляем Hammer.js и перемещение карты
-        // --------------------------------------------------------------------
-
-        // const hammertime = new Hammer(buildingsLayer);
-
-        // hammertime.get('pan').set({
-        //     direction: Hammer.DIRECTION_ALL
-        // });
-
-        // hammertime.get('swipe').set({ enable: false });
-
-
-        // let translateX = 0;
-        // let translateY = 0;
-
-
-        // hammertime.on('pan', (e) => {
-        //     const layer = buildingsLayer.getBoundingClientRect();
-        //     const parent = svg.getBoundingClientRect();
-
-        //     const offsets = {
-        //         top: layer.top - parent.top,
-        //         bottom: layer.bottom - parent.bottom,
-        //         right: layer.right - parent.right,
-        //         left: layer.left - parent.left,
-        //     };
-
-        //     const speedX = e.velocityX * 20;
-        //     const speedY = e.velocityY * 20;
-
-        //     if (speedX > 0 && offsets.left < 0) {
-        //         if (speedX < -offsets.left) {
-        //             translateX += speedX;
-        //         } else {
-        //             translateX += -offsets.left * speedX / 100;
-        //         }
-        //     } else if (speedX < 0 && offsets.right > 0) {
-        //         if (speedX > -offsets.right) {
-        //             translateX += speedX;
-        //         } else {
-        //             translateX += offsets.right * speedX / 100;
-        //         }
-        //     }
-
-        //     if (speedY > 0 && offsets.top < 0) {
-        //         if (speedY < -offsets.top) {
-        //             translateY += speedY;
-        //         } else {
-        //             translateY += -offsets.top * speedY / 100;
-        //         }
-        //     } else if (speedY < 0 && offsets.bottom > 0) {
-        //         if (speedY > -offsets.bottom) {
-        //             translateY += speedY;
-        //         } else {
-        //             translateY += offsets.bottom * speedY / 100;
-        //         }
-        //     }
-
-        //     buildingsLayer.setAttribute('transform', `translate(${translateX} ${translateY})`);
-        // });
-
-
-        // hammertime.on('panstart', (e) => {
-        //     lines.forEach((line) => {
-        //         line.hide();
-        //     });
-        // });
-
-
-        // hammertime.on('panend', (e) => {
-        //     lines.forEach((line) => {
-        //         line.position();
-        //     });
-        // });
-
-
-
-        // --------------------------------------------------------------------
-        //  Не забываем сбрасывать все при изменении размера окна
-        // --------------------------------------------------------------------
-
-
-        // window.addEventListener('resize', () => {
-        //    const translateX = 0;
-        //    const translateY = 0;
-
-        //     buildingsLayer.setAttribute('transform', `translate(${translateX} ${translateY})`);
-        // });
 
 
     }
