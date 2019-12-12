@@ -1,0 +1,326 @@
+<div class="container pointer-event">
+  <evj-widget-header
+    [title]="'Энергетика'"
+    [units]="'гДж'"
+    [code]=""
+    [id]=""
+  ></evj-widget-header>
+
+  <evj-frame-top></evj-frame-top>
+
+  <ng-container *ngIf="false">
+    <div class="mock">
+      <img src="../../../../assets/pic/mock2.PNG" alt="" />
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="true">
+    <div
+      class="energetics"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
+      <div class="energetics__container">
+        <evj-detailed-line-diagram class="dld"></evj-detailed-line-diagram>
+        <div class="energetics__energy">
+          <div class="energetics__round"></div>
+          <div class="energetics__cards">
+            <div class="card">
+              <div class="card__border"></div>
+              <div class="card__logo">
+                <img
+                  src="../../../../assets/icons/widgets/energetics/termo.svg"
+                  alt=""
+                  *ngIf="true"
+                />
+                <img
+                  src="../../../../assets/icons/widgets/energetics/termo_danger.svg"
+                  alt=""
+                  *ngIf="false"
+                />
+              </div>
+              <div class="card__counters">
+                <div class="card__counter">
+                  <img
+                    class="rotate"
+                    src="../../../../assets/icons/widgets/calendar-plan/deviat.svg"
+                    alt=""
+                    *ngIf="true"
+                  />
+                  <img
+                    class="rotate"
+                    src="../../../../assets/icons/widgets/calendar-plan/deviat_danger.svg"
+                    alt=""
+                    *ngIf="false"
+                  />
+                  <div class="number">
+                    0.100
+                    <div class="units">Гкал/тонн</div>
+                  </div>
+                </div>
+                <div class="card__counter">
+                  <img
+                    class="rotate"
+                    src="../../../../assets/icons/widgets/calendar-plan/deviat.svg"
+                    alt=""
+                    *ngIf="true"
+                  />
+                  <img
+                    class="rotate"
+                    src="../../../../assets/icons/widgets/calendar-plan/deviat_danger.svg"
+                    alt=""
+                    *ngIf="false"
+                  />
+                  <div class="number">
+                    142.8
+                    <div class="units">тыс. Гкал</div>
+                  </div>
+                </div>
+              </div>
+              <div class="card__dia">
+                <div class="graph__line">
+                  <div class="line line__marking line__marking-0"></div>
+                  <div class="line line__marking line__marking-50"></div>
+                  <div class="line line__marking line__marking-100"></div>
+                  <div class="line line__limit line__limit-higher"></div>
+                  <svg width="100%" height="100%">
+                    <rect
+                      [attr.x]="0"
+                      y="3px"
+                      [attr.width]="
+                        drawGraph(
+                          data.curValue + (data.deviation * data.plan) / 10
+                        )
+                      "
+                      height="6px"
+                      rx="3px"
+                      ry="3px"
+                      [attr.fill]="fillGraph(false)"
+                      *ngIf="false"
+                    />
+                    <rect
+                      x="0"
+                      y="3px"
+                      [attr.width]="drawGraph(data.curValue)"
+                      height="6px"
+                      rx="3px"
+                      ry="3px"
+                      [attr.fill]="fillGraph(true)"
+                      *ngIf="false"
+                    />
+                    <rect
+                      x="0"
+                      y="3px"
+                      [attr.width]="drawGraph(data.curValue)"
+                      height="6px"
+                      rx="3px"
+                      ry="3px"
+                      [attr.fill]="'#A2E2FF'"
+                      *ngIf="true"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card__border"></div>
+              <div class="card__logo">
+                <img
+                  src="../../../../assets/icons/widgets/energetics/electro.svg"
+                  alt=""
+                  *ngIf="true"
+                />
+                <img
+                  src="../../../../assets/icons/widgets/energetics/electro_danger.svg"
+                  alt=""
+                  *ngIf="false"
+                />
+              </div>
+              <div class="card__counters">
+                <div class="card__counter">
+                  <img
+                    class="rotate"
+                    src="../../../../assets/icons/widgets/calendar-plan/deviat.svg"
+                    alt=""
+                    *ngIf="true"
+                  />
+                  <img
+                    class="rotate"
+                    src="../../../../assets/icons/widgets/calendar-plan/deviat_danger.svg"
+                    alt=""
+                    *ngIf="false"
+                  />
+                  <div class="number">
+                    0.100
+                    <div class="units">Гкал/тонн</div>
+                  </div>
+                </div>
+                <div class="card__counter">
+                  <img
+                    class="rotate"
+                    src="../../../../assets/icons/widgets/calendar-plan/deviat.svg"
+                    alt=""
+                    *ngIf="true"
+                  />
+                  <img
+                    class="rotate"
+                    src="../../../../assets/icons/widgets/calendar-plan/deviat_danger.svg"
+                    alt=""
+                    *ngIf="false"
+                  />
+                  <div class="number">
+                    142.8
+                    <div class="units">тыс. Гкал</div>
+                  </div>
+                </div>
+              </div>
+              <div class="card__dia">
+                <div class="graph__line">
+                  <div class="line line__marking line__marking-0"></div>
+                  <div class="line line__marking line__marking-50"></div>
+                  <div class="line line__marking line__marking-100"></div>
+                  <div class="line line__limit line__limit-higher"></div>
+                  <svg width="100%" height="100%">
+                    <rect
+                      [attr.x]="0"
+                      y="3px"
+                      [attr.width]="
+                        drawGraph(
+                          data.curValue + (data.deviation * data.plan) / 10
+                        )
+                      "
+                      height="6px"
+                      rx="3px"
+                      ry="3px"
+                      [attr.fill]="fillGraph(false)"
+                      *ngIf="false"
+                    />
+                    <rect
+                      x="0"
+                      y="3px"
+                      [attr.width]="drawGraph(data.curValue)"
+                      height="6px"
+                      rx="3px"
+                      ry="3px"
+                      [attr.fill]="fillGraph(true)"
+                      *ngIf="false"
+                    />
+                    <rect
+                      x="0"
+                      y="3px"
+                      [attr.width]="drawGraph(data.curValue)"
+                      height="6px"
+                      rx="3px"
+                      ry="3px"
+                      [attr.fill]="'#A2E2FF'"
+                      *ngIf="true"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="card danger">
+              <div class="card__border"></div>
+              <div class="card__logo">
+                <img
+                  src="../../../../assets/icons/widgets/energetics/fuel.svg"
+                  alt=""
+                  *ngIf="false"
+                />
+                <img
+                  src="../../../../assets/icons/widgets/energetics/fuel_danger.svg"
+                  alt=""
+                  *ngIf="true"
+                />
+              </div>
+              <div class="card__counters">
+                <div class="card__counter">
+                  <img
+                    class="rotate"
+                    src="../../../../assets/icons/widgets/calendar-plan/deviat.svg"
+                    alt=""
+                    *ngIf="false"
+                  />
+                  <img
+                    class="rotate"
+                    src="../../../../assets/icons/widgets/calendar-plan/deviat_danger.svg"
+                    alt=""
+                    *ngIf="true"
+                  />
+                  <div class="number">
+                    0.100
+                    <div class="units">Гкал/тонн</div>
+                  </div>
+                </div>
+                <div class="card__counter">
+                  <img
+                    class="rotate"
+                    src="../../../../assets/icons/widgets/calendar-plan/deviat.svg"
+                    alt=""
+                    *ngIf="false"
+                  />
+                  <img
+                    class="rotate"
+                    src="../../../../assets/icons/widgets/calendar-plan/deviat_danger.svg"
+                    alt=""
+                    *ngIf="true"
+                  />
+                  <div class="number">
+                    142.8
+                    <div class="units">тыс. Гкал</div>
+                  </div>
+                </div>
+              </div>
+              <div class="card__dia">
+                <div class="graph__line">
+                  <div class="line line__marking line__marking-0"></div>
+                  <div class="line line__marking line__marking-50"></div>
+                  <div class="line line__marking line__marking-100"></div>
+                  <div class="line line__limit line__limit-higher"></div>
+                  <svg width="100%" height="100%">
+                    <rect
+                      [attr.x]="0"
+                      y="3px"
+                      [attr.width]="
+                        drawGraph(
+                          data.curValue + (data.deviation * data.plan) / 10
+                        )
+                      "
+                      height="6px"
+                      rx="3px"
+                      ry="3px"
+                      [attr.fill]="fillGraph(false)"
+                      *ngIf="false"
+                    />
+                    <rect
+                      x="0"
+                      y="3px"
+                      [attr.width]="drawGraph(data.curValue)"
+                      height="6px"
+                      rx="3px"
+                      ry="3px"
+                      [attr.fill]="fillGraph(true)"
+                      *ngIf="false"
+                    />
+                    <rect
+                      x="0"
+                      y="3px"
+                      [attr.width]="drawGraph(data.curValue)"
+                      height="6px"
+                      rx="3px"
+                      ry="3px"
+                      [attr.fill]="'#A2E2FF'"
+                      *ngIf="true"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <evj-frame-bottom></evj-frame-bottom>
+</div>
