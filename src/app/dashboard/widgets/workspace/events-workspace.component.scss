@@ -301,6 +301,11 @@
       margin: 0 0 0 10px;
       color: var(--color-text-main);
     }
+
+    &__body__drop-down {
+      // margin: 0 0 0 10px;
+      color: var(--color-text-main);
+    }
   }
 
   &__block-border {
@@ -764,9 +769,6 @@
       justify-content: space-between;
     }
 
-    &:first-child {
-      // padding-top: 0;
-    }
     &:last-child {
       // padding-bottom: 0;
       border-bottom: none;
@@ -976,7 +978,7 @@ select {
 
 .dropdown-select {
   position: relative;
-  width: 100%;
+  width: 90%;
   margin: 0;
   padding: 6px 8px 6px 10px;
   height: 28px;
@@ -993,7 +995,7 @@ select {
 
 .dropdown-select:focus {
   z-index: 3;
-  width: 100%;
+  width: 90%;
   // color: #394349;
   // outline: 2px solid #49aff2;
   outline: 2px solid -webkit-focus-ring-color;
@@ -1035,14 +1037,8 @@ select {
   background: inherit;
   border-color: var(--color-border-main);
   outline: none;
-  width: 100%;
-  margin-top: 5px;
-  // background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.4));
-  // background-image: -moz-linear-gradient(top, transparent, rgba(0, 0, 0, 0.4));
-  // background-image: -o-linear-gradient(top, transparent, rgba(0, 0, 0, 0.4));
-  // background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.4));
-  // -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.1), 0 1px 1px rgba(0, 0, 0, 0.2);
-  // box-shadow: inset 0 1px rgba(255, 255, 255, 0.1), 0 1px 1px rgba(0, 0, 0, 0.2);
+  max-width: 130px;
+  margin-top: 2px;
 }
 
 .dropdown-event {
@@ -1069,13 +1065,13 @@ select {
   text-shadow: 0 1px rgba(0, 0, 0, 0.4);
 }
 
-.dropdown-dark:before {
-  // border-bottom-color: #aaa;
-}
+// .dropdown-dark:before {
+//   // border-bottom-color: #aaa;
+// }
 
-.dropdown-dark:after {
-  // border-top-color: #aaa;
-}
+// .dropdown-dark:after {
+//   // border-top-color: #aaa;
+// }
 
 .dropdown-dark .dropdown-select {
   color: var(--color-text-main);
@@ -1255,6 +1251,7 @@ select {
   justify-content: space-between;
   position: relative;
   overflow: hidden;
+  // overflow-y: scroll;
 
   &__onShift {
     width: 100%;
@@ -1611,7 +1608,7 @@ select {
       max-width: 90%;
       // display: flex;
       margin: 0 auto;
-      margin-top: 20%;
+      margin-top: 10%;
       cursor: default;
 
       border-radius: 5px;
@@ -1655,6 +1652,10 @@ select {
         margin: 0 0 0 10px;
         color: var(--color-text-main);
       }
+      &__body.select { 
+        margin: 0;
+      }
+  
 
       &-border {
         min-width: 320px;

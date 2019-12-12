@@ -1,3 +1,5 @@
+<div id="snackbar"></div>
+
 <div class="header">
   <div class="pointer-events">
     <div class="header__content drag handle">
@@ -36,7 +38,7 @@
         <div class="notifications">
           <div class="notifications__block__list scroll-bar">
             <div class="notification__block notifications__block__item" *ngFor="let n of notifications"
-              (click)="eventClick(n.id)" [ngClass]="{'selected-block': selectedId === n.id}">
+              (click)="eventClick(false, n.id, $event)" [ngClass]="{'selected-block': selectedId === n.id}">
 
               <div class="notification__block__header">
                 <span class="notification__block__number" [ngClass]="'notification__number_' + n.priority">
@@ -58,7 +60,7 @@
 
                   <span class="notification__block__status">
                     <svg-icon class="notification__block__icon notification__block__icon_delete" [applyCss]="true"
-                      src="./assets/garbage_bad_pic.svg" (click)="deleteEvent(n.id)"
+                      src="./assets/garbage_bad_pic.svg" (click)="eventClick(true, n.id, $event)"
                       (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
                     </svg-icon>
                   </span>
@@ -134,7 +136,7 @@
                 <svg-icon class="category__icon" [applyCss]="true" [src]="c.iconUrl"></svg-icon>
 
                 <div class="counts category__counts">
-                  <span class="counts__count">{{c.notificationsCounts?.closed}}</span>
+                  <span class="counts__count">{{c.notificationsCounts?.open}}</span>
                   <span class="counts__count">/</span>
                   <span class="counts__count">{{c.notificationsCounts?.all}}</span>
                 </div>
@@ -165,39 +167,41 @@
 
         <div class="notifications">
           <div class="notifications__list scroll-bar">
-            <div class="notification notifications__item" *ngFor="let n of notifications" (click)="eventClick(n.id)"
-              [ngClass]="{'selected': selectedId === n.id}">
+            <div class="notification notifications__item" *ngFor="let n of notifications"
+              (click)="eventClick(false, n.id, $event)" [ngClass]="{'selected': selectedId === n.id}">
 
               <div class="notification__header">
                 <span class="notification__number" [ngClass]="'notification__number_' + n.priority">
-                  {{n.itemNumber}}
+                  {{ n.itemNumber }}
                 </span>
-                <span class="notification__name">
-                  {{n.eventType}}
+                <span class="notification__name" *ngIf="n.eventType">
+                  <!-- {{ n.eventType.name  }} -->
+                  {{ n.eventType.name | slice : 0 : 25 }}
+
                 </span>
                 <div class="line notification__line notification__line_top">
                   <div class="line__circle line__circle__left"></div>
                   <div class="line__circle line__circle__right"></div>
                 </div>
                 <span class="notification__date-time">
-                  {{n.eventDateTime | date: 'dd.MM.yyyy HH:mm'}}
+                  {{ n.eventDateTime | date: 'dd.MM.yyyy HH:mm' }}
                 </span>
               </div>
 
               <div class="notification__body">
                 <span class="notification__description">
-                  {{n.description}}
+                  {{ n.description }}
                 </span>
 
                 <div class="notification__extra" (mousedown)="$event.stopPropagation()"
                   (touchstart)="$event.stopPropagation()">
                   <span class="notification__status" [ngClass]="'notification__status_' + n.priority.name">
-                    {{n.statusName}}
+                    {{ n.statusName }}
                   </span>
                   <svg-icon class="notification__icon" [applyCss]="true" [src]="n.iconUrl"
                     [ngClass]="'notification__icon_' + n.priority.name"></svg-icon>
                   <svg-icon class="notification__icon_delete" [applyCss]="true" src="./assets/garbage_bad_pic.svg"
-                    (click)="deleteEvent(n.id)" (mousedown)="$event.stopPropagation()"
+                    (click)="eventClick(true, n.id, $event)" (mousedown)="$event.stopPropagation()"
                     (touchstart)="$event.stopPropagation()">
                   </svg-icon>
                   <span class="notification__icon_delete__mock"></span>
@@ -224,10 +228,10 @@
             <div class="filter filters__item" *ngFor="let f of filters" (click)="onFilterClick(f)"
               [class.filter_active]="f.isActive">
               <span class="filter__name">
-                {{f.name}}
+                {{ f.name }}
               </span>
               <span class="filter__count">
-                {{f.notificationsCount}}
+                {{ f.notificationsCount }}
               </span>
             </div>
           </div>
@@ -254,7 +258,7 @@
                 <svg-icon class="category__icon" [applyCss]="true" [src]="c.iconUrl"></svg-icon>
 
                 <div class="counts category__counts">
-                  <span class="counts__count">{{c.notificationsCounts?.closed}}</span>
+                  <span class="counts__count">{{c.notificationsCounts?.open}}</span>
                   <span class="counts__count">/</span>
                   <span class="counts__count">{{c.notificationsCounts?.all}}</span>
                 </div>

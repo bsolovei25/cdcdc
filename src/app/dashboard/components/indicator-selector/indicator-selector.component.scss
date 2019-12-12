@@ -41,6 +41,10 @@
   z-index: 1;
   top: 60px;
   left: 0px;
+
+  &_active {
+    display: block;
+  }
 }
 
 .dropdown-component {
@@ -87,11 +91,6 @@
     }
   }
 }
-
-.indicator-selector:hover .dropdown-content {
-  display: block;
-}
-
 
 .screen_name{
  text-align: left;
@@ -175,9 +174,8 @@
   display:none;
 }
 
-.screen_blocks:hover .hover-button{
+.screen_blocks:hover .hover-button {
+  transition: all 0.3s ease;
   display: block;
-}
-.screen_blocks:hover{
   text-align: center;
 }

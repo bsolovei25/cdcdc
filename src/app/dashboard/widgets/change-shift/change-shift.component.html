@@ -36,8 +36,8 @@
               </div>
             </div>
             <div class="mainWorker__row_colIcon" *ngIf="getMain()"
-                  [class.mainWorker__row_colIcon__InProgress]="!(getMain().status === 'Passed' || getMain().status === 'Accepted')"
-                  [class.mainWorker__row_colIcon__Ready]="getMain().status === 'Passed' || getMain().status === 'Accepted'">
+                  [class.mainWorker__row_colIcon__InProgress]="!(getMain().status === 'passed' || getMain().status === 'accepted')"
+                  [class.mainWorker__row_colIcon__Ready]="getMain().status === 'passed' || getMain().status === 'accepted'">
             </div>
           </div>
           <div class="mainWorker__row">

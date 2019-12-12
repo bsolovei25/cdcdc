@@ -28,16 +28,17 @@ export class NewWidgetsGridComponent implements OnInit {
   private subscription: Subscription;
 
   constructor(
-    public widgetService: NewWidgetService, 
+    public widgetService: NewWidgetService,
     public injector: Injector,
     public userSettings: NewUserSettingsService
     ){ }
 
-  ngOnInit() {  
+  ngOnInit() {
     this.userSettings.GetScreen();
-    
+
 
     this.options = {
+
       gridType: GridType.Fixed,
       displayGrid: 'none',
       //swap: true,
@@ -54,6 +55,7 @@ export class NewWidgetsGridComponent implements OnInit {
       emptyCellDropCallback: this.emptyCellDropClick.bind(this),
       emptyCellDragMaxCols: 100000,
       emptyCellDragMaxRows: 100000,
+      itemResizeCallback: this.resizeGridsterElement.bind(this),
       fixedColWidth: 20,
       fixedRowHeight: 20,
       maxItemCols:10000,
@@ -83,6 +85,15 @@ export class NewWidgetsGridComponent implements OnInit {
         }
       }
     };
+  }
+
+  public resizeGridsterElement() {
+    console.log("resize");
+
+    const event = new CustomEvent(
+      'resize'
+    );
+    document.dispatchEvent(event);
   }
 
   public itemChange(item: GridsterItem, itemComponent: GridsterItemComponentInterface) {
@@ -123,11 +134,11 @@ export class NewWidgetsGridComponent implements OnInit {
   }
 
   public dragStart(e: DragEvent, item: GridsterItem): void {
-    
+
     e.dataTransfer.setData('text/plain', item.toString());
     e.dataTransfer.dropEffect = 'copy';
     this.widgetService.draggingItem  = item;
- 
+
   }
 
   public eventStop(item: GridsterItem, itemComponent: GridsterItemComponentInterface, e: MouseEvent) {
@@ -155,16 +166,16 @@ export class NewWidgetsGridComponent implements OnInit {
     this.widgetService.dashboard.push(item);
   }
 
-  emptyCellMenuClick(){
+  emptyCellMenuClick() {
   }
 
-  emptyCellDragClick(){
+  emptyCellDragClick() {
   }
 
-  emptyCellDropClick(event: DragEvent, param){
+  emptyCellDropClick(event: DragEvent, param) {
 
-    let idWidget = event.dataTransfer.getData("text");
-   
+    const idWidget = event.dataTransfer.getData("text");
+
     this.nameWidget = this.widgetService.getName(idWidget);
 
     this.userSettings.addCellByPosition(idWidget, this.nameWidget, param);

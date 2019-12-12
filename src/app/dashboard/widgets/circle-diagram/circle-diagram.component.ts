@@ -82,7 +82,7 @@ export class CircleDiagramComponent implements OnInit, OnDestroy {
 
         const canvas = d3.select(el).append("svg")
             .attr("min-width", "100px")
-            .attr("viewBox", "40 25 250 120");
+            .attr("viewBox", "40 25 208 120");
 
         let group = canvas.append("g")
             .attr("transform", "translate(102 ,88)");

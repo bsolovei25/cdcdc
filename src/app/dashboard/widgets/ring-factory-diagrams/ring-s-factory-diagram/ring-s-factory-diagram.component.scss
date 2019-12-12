@@ -117,12 +117,14 @@
     position: relative;
     overflow-y: scroll;
     height: calc(100% - 56px);
+    //width: calc(100% - 8px);
     border: 1px dashed var(--color-border-main);
+    //border-right: none;
     border-style: none dashed none dashed;
     pointer-events: fill;
   }
 
-  ::-webkit-scrollbar { width: 3px; height: 5px;}
+  ::-webkit-scrollbar { width: 5px; height: 5px;}
   
   ::-webkit-scrollbar-track {  background-color: #999;}
   ::-webkit-scrollbar-track-piece { background-color:  rgb(27, 30, 39);}

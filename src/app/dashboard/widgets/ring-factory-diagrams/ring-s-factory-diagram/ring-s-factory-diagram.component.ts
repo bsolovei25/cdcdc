@@ -13,7 +13,7 @@ import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service'
 export class RingSFactoryDiagramComponent implements OnInit {
 
   static itemCols = 34;
-  static itemRows = 14;
+  static itemRows = 16;
 
   datas = [
     { 

@@ -20,7 +20,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewInit {
 
   subscription: Subscription;
-  event: EventsWidgetNotification = null;
+  event: EventsWidgetNotification;
   isLoading: boolean = true;
 
   public title = "Рабочая область";
@@ -36,6 +36,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
   category: ICategory[];
   place;
   equipmentCategory;
+  eventTypes;
 
   isNewRetrieval: EventsWidgetNotification = null;
 
@@ -85,6 +86,8 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
           this.isNew = false;
           this.event = value;
           this.loadItem();
+          console.log(value);
+
         }
       })
     }
@@ -108,10 +111,8 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
   async loadItem() {
     this.isLoading = true;
-    // create data load queue
     const dataLoadQueue: Promise<void>[] = [];
 
-    // permission
     dataLoadQueue.push(
       this.eventService.getCategory().then(
         (data) => {
@@ -155,6 +156,13 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         }
       )
     );
+    dataLoadQueue.push(
+      this.eventService.getEventType().then(
+        (data) => {
+          this.eventTypes = data;
+        }
+      )
+    );
     if (dataLoadQueue.length > 0) {
       try {
         // wait untill all data will be loaded (with parralel requests)
@@ -193,19 +201,20 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
   async createEvent() {
 
-    const id = await this.loadItem();
-    console.log('загрузил');
+    await this.loadItem();
+    this.isNew = true;
 
     this.event = {
+      itemNumber: 0,
       branch: "Производство",
-      category: { id: 1004, name: "equipmentStatus", code: '4' },
+      category: this.category ? this.category[0] : null,
       comment: "Новое событие",
-      description: undefined,
+      description: '',
       deviationReason: "Причина отклонения...",
       directReasons: "",
       establishedFacts: "",
       eventDateTime: new Date,
-      eventType: "",
+      eventType: this.eventTypes ? this.eventTypes[0] : null,
       fixedBy:
       {
         email: "test@test",
@@ -214,28 +223,49 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         lastName: "",
         phone: "00123456789",
       },
-      // id: null,
       place: { id: 5001, name: "ГФУ-2 с БОР" },
-      itemNumber: 321128,
       organization: "АО Газпромнефть",
-      priority: { id: 2003, name: "standard", code: '2' },
-      responsibleOperator: { id: 1, firstName: "Иван", lastName: "Иванов", email: "1@2", phone: "00123456789" },
+      priority: this.priority ? this.priority[2] ? this.priority[2] : this.priority[0] : null,
+      responsibleOperator: this.user ? this.user[0] : null,
       retrievalEvents: [],
       severity: "Critical",
-      status: { id: 3001, name: "new", code: '0' },
+      status: this.status ? this.status[0] : null,
       iconUrl: "number",
       iconUrlStatus: "number",
       statusName: '',
-      equipmentCategory: {
-        id: 8001,
-        name: "Статическое Оборудование",
-        code: "0"
-      }
+      equipmentCategory: this.equipmentCategory ? this.equipmentCategory[0] : null,
+      deadline: new Date,
+      graphValues: null
     }
-    console.log('создал');
 
-    this.isNew = true;
+  }
 
+  addRetrieval(): void {
+    document.getElementById("overlay-retrieval").style.display = "block";
+
+    this.isNewRetrieval = {
+      itemNumber: 0,
+      branch: "Производство",
+      category: this.category ? this.category[0] : null,
+      comment: "Новое событие",
+      deviationReason: "Причина отклонения...",
+      directReasons: "",
+      establishedFacts: "",
+      eventDateTime: new Date,
+      eventType: { id: 1, name: 'Отклонение от норм ТР' },
+      fixedBy: { id: 2, firstName: "Петр", lastName: "Петров", email: "test@test", phone: "00123456789" },
+      organization: "АО Газпромнефть",
+      place: { id: 5001, name: "ГФУ-1" },
+      priority: { id: 2003, name: "standard", code: "2" },
+      responsibleOperator: { id: 1, firstName: "Иван", lastName: "Иванов", email: "1@2", phone: "00123456789" },
+      status: this.status ? this.status[0] : null,
+      description: '',
+      equipmentCategory: this.equipmentCategory ? this.equipmentCategory[0] : null,
+      retrievalEvents: [],
+      severity: 'Critical',
+      deadline: new Date,
+      graphValues: null
+    }
   }
 
   async saveItem(): Promise<void> {
@@ -245,7 +275,6 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     if (this.isNew) {
       try {
         console.log(this.event);
-
         const ev = await this.eventService.postEvent(this.event);
         this.event = ev;
         snackBar.className = "show";
@@ -280,32 +309,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
 
 
-  addRetrieval(): void {
-    document.getElementById("overlay-retrieval").style.display = "block";
 
-    this.isNewRetrieval = {
-      branch: "Производство",
-      category: { id: 1004, name: "equipmentStatus", code: "3" },
-      comment: "Новое событие",
-      deviationReason: "Причина отклонения...",
-      directReasons: "",
-      establishedFacts: "",
-      eventDateTime: new Date,
-      eventType: "",
-      fixedBy: { id: 2, firstName: "Петр", lastName: "Петров", email: "test@test", phone: "00123456789" },
-      itemNumber: 321131,
-      organization: "АО Газпромнефть",
-      place: { id: 5001, name: "ГФУ-1" },
-      priority: { id: 2003, name: "standard", code: "2" },
-      responsibleOperator: { id: 1, firstName: "Иван", lastName: "Иванов", email: "1@2", phone: "00123456789" },
-      status: { id: 3001, name: "new", code: "0" },
-      description: '',
-      equipmentCategory: { id: 8001, name: "equipmentStatus", code: "3" },
-      retrievalEvents: [],
-      severity: 'Critical',
-      deadline: new Date
-    }
-  }
 
   overlayClose() {
     document.getElementById("overlay-retrieval").style.display = "none";
@@ -323,7 +327,6 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     if (!this.isNew) {
       try {
         const post = await this.eventService.addRetrievalEvents(idEvent, this.isNewRetrieval);
-        this.event.retrievalEvents[this.event.retrievalEvents.length - 1] = post;
         this.event.retrievalEvents.push(post);
         this.overlayClose();
         this.eventService.updateEvent$.next(true);
@@ -350,8 +353,15 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     document.getElementById("overlay-retrieval").style.display = "block";
   }
 
-  async editSaveRetrieval() {
+  snackBar(text: string = 'Выполнено', durection: number = 3000) {
     let snackBar = document.getElementById("snackbar");
+    snackBar.className = "show";
+    snackBar.innerText = text;
+    setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, durection);
+  }
+
+  async editSaveRetrieval() {
+    this.isEdit = true;
     if (this.isNew) {
       const idx = this.event.retrievalEvents.findIndex(i => i.id === this.isNewRetrieval.id);
       if (idx !== -1) {
@@ -369,17 +379,14 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
           this.event.retrievalEvents[idx] = this.isNewRetrieval;
         }
         this.eventService.updateEvent$.next(true);
-        snackBar.className = "show";
-        snackBar.innerText = "Сохранено"
         this.overlayClose();
-        setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, 3000);
         this.isLoading = false;
+        this.snackBar('Сохранено');
       } catch (error) {
-        snackBar.className = "show";
-        snackBar.innerText = "Ошибка"
-        setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, 3000);
         this.isLoading = false;
+        this.snackBar('Ошибка');
       }
+      this.isEdit = false;
     }
 
   }
@@ -407,90 +414,19 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   changeCategory() {
-    this.idUser = this.getRandomInt(10);
+    this.idUser = this.getRandomInt(7);
   }
 
 
   openLineChart() {
     document.getElementById("overlay-chart").style.display = "block";
-
+    const event = new CustomEvent(
+      'resize'
+    );
+    document.dispatchEvent(event);
   }
 
   overlayChartClose() {
     document.getElementById("overlay-chart").style.display = "none";
   }
-
-
-
-
-  // mainFormGroup: FormGroup;
-
-
-  // resetComponent2() {
-  //   this.mainFormGroup = this.formBuilder.group({
-  //     branch: "Производство",
-  //     category: { id: 1004, name: "equipmentStatus", code: '4' },
-  //     comment: "Новое событие",
-  //     description: ['', [
-  //       Validators.required
-  //     ]],
-  //     deviationReason: "Причина отклонения...",
-  //     directReasons: "",
-  //     establishedFacts: "",
-  //     eventDateTime: new Date,
-  //     eventType: "",
-  //     fixedBy: { id: 2, firstName: "Петр", lastName: "Петров", email: "test@test", phone: "00123456789" },
-  //     id: null,
-  //     place: { id: 5001, name: "ГФУ-2 с БОР" },
-  //     itemNumber: 321128,
-  //     organization: "АО Газпромнефть",
-  //     priority: { id: 2003, name: "standard", code: '2' },
-  //     responsibleOperator: { id: 1, firstName: "Иван", lastName: "Иванов", email: "1@2", phone: "00123456789" },
-  //     retrievalEvents: [],
-  //     severity: "Critical",
-  //     status: { id: 3001, name: "new", code: '0' },
-  //     iconUrl: "number",
-  //     iconUrlStatus: "number",
-  //     statusName: '',
-  //     equipmentCategory: ''
-  //   })
-
-  // }
-
-
-  // dataToForm() {
-
-  //   this.mainFormGroup.setValue({
-  //     branch: "Производство",
-  //     category: { id: 1004, name: "equipmentStatus", code: '4' },
-  //     comment: "Новое событие",
-  //     description: undefined,
-  //     deviationReason: "Причина отклонения...",
-  //     directReasons: "",
-  //     establishedFacts: "",
-  //     eventDateTime: new Date,
-  //     eventType: "",
-  //     fixedBy: { id: 2, firstName: "Петр", lastName: "Петров", email: "test@test", phone: "00123456789" },
-  //     id: null,
-  //     place: { id: 5001, name: "ГФУ-2 с БОР" },
-  //     itemNumber: 321128,
-  //     organization: "АО Газпромнефть",
-  //     priority: { id: 2003, name: "standard", code: '2' },
-  //     responsibleOperator: { id: 1, firstName: "Иван", lastName: "Иванов", email: "1@2", phone: "00123456789" },
-  //     retrievalEvents: [],
-  //     severity: "Critical",
-  //     status: { id: 3001, name: "new", code: '0' },
-  //     iconUrl: "number",
-  //     iconUrlStatus: "number",
-  //     statusName: '',
-  //     equipmentCategory: ''
-  //   })
-
-  // }
-
-
-  // formToData() {
-
-  // }
-
 }
