@@ -114,7 +114,8 @@ import { EnergeticsComponent } from './widgets/energetics/energetics.component';
     CalendarPlanComponent,
     EcologySafetyComponent,
     RingFactoryDiagramComponent,
-    LineChartWorkspaceComponent
+    LineChartWorkspaceComponent,
+    EnergeticsComponent
   ],
   exports: [HomeComponent],
   imports: [

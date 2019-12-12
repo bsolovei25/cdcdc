@@ -1,20 +1,20 @@
 <div class="container pointer-event">
   <evj-widget-header
-    [title]="'Энергетика'"
+    [title]="aboutWidget"
     [units]="'гДж'"
     [code]=""
-    [id]=""
+    [id]="id"
   ></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
 
-  <ng-container *ngIf="false">
+  <ng-container *ngIf="isMock">
     <div class="mock">
-      <img src="../../../../assets/pic/mock2.PNG" alt="" />
+      <img src="../../../../assets/img/energetics.PNG" alt="" />
     </div>
   </ng-container>
 
-  <ng-container *ngIf="true">
+  <ng-container *ngIf="!isMock">
     <div
       class="energetics"
       (mousedown)="$event.stopPropagation()"

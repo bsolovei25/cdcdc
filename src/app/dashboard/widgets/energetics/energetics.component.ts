@@ -1,4 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Inject } from "@angular/core";
+import { Subscription } from "rxjs";
+import { NewWidgetService } from "../../services/new-widget.service";
 
 @Component({
   selector: "evj-energetics",
@@ -6,6 +8,13 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./energetics.component.scss"]
 })
 export class EnergeticsComponent implements OnInit {
+  aboutWidget;
+
+  static itemCols = 18;
+  static itemRows = 13;
+
+  subscription: Subscription;
+
   data = {
     plan: 100,
     curValue: 63,
@@ -48,7 +57,17 @@ export class EnergeticsComponent implements OnInit {
   colorNormal = "#FFFFFF";
   colorDeviation = "#F4A321";
 
-  constructor() {}
+  constructor(
+    private widgetService: NewWidgetService,
+    @Inject("isMock") public isMock: boolean,
+    @Inject("widgetId") public id: string
+  ) {
+    this.subscription = this.widgetService
+      .getWidgetChannel(this.id)
+      .subscribe(data => {
+        this.aboutWidget = data.title;
+      });
+  }
 
   ngOnInit() {}
 
