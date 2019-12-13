@@ -62,7 +62,7 @@ export class WidgetPiesComponent implements OnInit {
   private wsConnect() {
     this.widgetService.getWidgetLiveDataFromWS(this.id, 'pie-diagram')
       .subscribe((ref) => {
-          this.datas = ref;
+          this.datas = ref.items;
         }
       );
   }
