@@ -47,6 +47,7 @@ import { LineChartWorkspaceComponent } from './widgets/workspace/line-chart-work
 import { RingSFactoryDiagramComponent } from './widgets/ring-factory-diagrams/ring-s-factory-diagram/ring-s-factory-diagram.component';
 import { CalendarPlanComponent } from "./widgets/calendar-plan/calendar-plan.component";
 import { EcologySafetyComponent } from "./widgets/ecology-safety/ecology-safety.component";
+import { DispatcherScreenComponent } from "./widgets/dispatcher-screen/dispatcher-screen.component";
 
 @NgModule({
   declarations: [
@@ -90,7 +91,8 @@ import { EcologySafetyComponent } from "./widgets/ecology-safety/ecology-safety.
     RingSFactoryDiagramComponent,
     LineChartWorkspaceComponent,
     CalendarPlanComponent,
-    EcologySafetyComponent
+    EcologySafetyComponent,
+    DispatcherScreenComponent
   ],
   entryComponents: [
     LineChartComponent,
@@ -113,7 +115,8 @@ import { EcologySafetyComponent } from "./widgets/ecology-safety/ecology-safety.
     CalendarPlanComponent,
     EcologySafetyComponent,
     RingSFactoryDiagramComponent,
-    LineChartWorkspaceComponent
+    LineChartWorkspaceComponent,
+    DispatcherScreenComponent
   ],
   exports: [HomeComponent],
   imports: [
