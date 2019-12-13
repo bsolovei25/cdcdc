@@ -234,21 +234,21 @@
         align-items: center;
 
         img {
-          width: 10px;
-          height: 10px;
+          width: 15px;
+          height: 15px;
           margin-right: 5px;
           margin-top: 5px;
         }
 
         .number {
           position: relative;
-          font-size: 14px;
+          font-size: 16px;
           color: var(--color-text-sub);
 
           .units {
             width: 100px;
 
-            font-size: 8px;
+            font-size: 10px;
             color: var(--color-text-sub-heading);
 
             position: absolute;
