@@ -42,9 +42,9 @@ import { CircleDiagramComponent } from "./widgets/circle-diagram/circle-diagram.
 import { MapEcologyComponent } from "./widgets/map-ecology/map-ecology/map-ecology.component";
 import { UnityTemplateComponent } from "./widgets/unity-template/unity-template.component";
 import { PowIndexPipe } from "./pipes/pow-index.pipe";
-import { RingFactoryDiagramComponent } from "./widgets/ring-factory-diagram/ring-factory-diagram.component";
-
-import { LineChartWorkspaceComponent } from "./widgets/workspace/line-chart-workspace/line-chart-workspace.component";
+import { RingFactoryDiagramComponent } from './widgets/ring-factory-diagrams/ring-factory-diagram/ring-factory-diagram.component';
+import { LineChartWorkspaceComponent } from './widgets/workspace/line-chart-workspace/line-chart-workspace.component';
+import { RingSFactoryDiagramComponent } from './widgets/ring-factory-diagrams/ring-s-factory-diagram/ring-s-factory-diagram.component';
 import { CalendarPlanComponent } from "./widgets/calendar-plan/calendar-plan.component";
 import { EcologySafetyComponent } from "./widgets/ecology-safety/ecology-safety.component";
 
@@ -87,6 +87,7 @@ import { EcologySafetyComponent } from "./widgets/ecology-safety/ecology-safety.
     DetailedLineDiagramComponent,
     OperationEfficiencyComponent,
     RingFactoryDiagramComponent,
+    RingSFactoryDiagramComponent,
     LineChartWorkspaceComponent,
     CalendarPlanComponent,
     EcologySafetyComponent
@@ -111,7 +112,7 @@ import { EcologySafetyComponent } from "./widgets/ecology-safety/ecology-safety.
     OperationEfficiencyComponent,
     CalendarPlanComponent,
     EcologySafetyComponent,
-    RingFactoryDiagramComponent,
+    RingSFactoryDiagramComponent,
     LineChartWorkspaceComponent
   ],
   exports: [HomeComponent],
