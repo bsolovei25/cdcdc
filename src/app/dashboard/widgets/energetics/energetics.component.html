@@ -21,7 +21,7 @@
       (touchstart)="$event.stopPropagation()"
     >
       <div class="energetics__container">
-        <evj-detailed-line-diagram class="dld"></evj-detailed-line-diagram>
+        <evj-detailed-line-diagram class="dld" [data]="data"></evj-detailed-line-diagram>
         <div class="energetics__energy">
           <div class="energetics__graphic">
             <div class="energetics__round">
@@ -50,8 +50,8 @@
                   fill="transparent"
                   [attr.stroke]="termo.colNormal"
                   stroke-width="0.7"
-                  [attr.stroke-dasharray]="diaLine(termo.r, 85)"
-                  [attr.stroke-dashoffset]="diaOffset(termo.r, 85)"
+                  [attr.stroke-dasharray]="diaLine(termo.r, 63)"
+                  [attr.stroke-dashoffset]="diaOffset(termo.r, 63)"
                 ></circle>
 
                 <!-- electro dia -->
@@ -78,8 +78,8 @@
                   fill="transparent"
                   [attr.stroke]="electro.colNormal"
                   stroke-width="0.7"
-                  [attr.stroke-dasharray]="diaLine(electro.r, 125)"
-                  [attr.stroke-dashoffset]="diaOffset(electro.r, 125)"
+                  [attr.stroke-dasharray]="diaLine(electro.r, 100)"
+                  [attr.stroke-dashoffset]="diaOffset(electro.r, 100)"
                 ></circle>
 
                 <!-- fuel dia -->
@@ -106,9 +106,28 @@
                   fill="transparent"
                   [attr.stroke]="fuel.colNormal"
                   stroke-width="0.7"
-                  [attr.stroke-dasharray]="diaLine(fuel.r, 55)"
-                  [attr.stroke-dashoffset]="diaOffset(fuel.r, 55)"
+                  [attr.stroke-dasharray]="diaLine(fuel.r, 72)"
+                  [attr.stroke-dashoffset]="diaOffset(fuel.r, 72)"
                 ></circle>
+
+                <line
+                  x1="48%"
+                  y1="76%"
+                  x2="45%"
+                  y2="98%"
+                  stroke="#A2E2FF"
+                  stroke-width="0.2"
+                  stroke-dasharray="1 1"
+                />
+                <line
+                  x1="52%"
+                  y1="76%"
+                  x2="55%"
+                  y2="98%"
+                  stroke="#A2E2FF"
+                  stroke-width="0.2"
+                  stroke-dasharray="1 1"
+                />
 
                 <!-- logo dia -->
                 <image
@@ -121,6 +140,7 @@
 
                 <!-- labels dia -->
 
+                <!-- termo -->
                 <image
                   x="53%"
                   y="1.2"
@@ -139,6 +159,7 @@
                 />
                 <text x="61%" y="3.6" class="svg__txt">Тепловая</text>
 
+                <!-- electro -->
                 <image
                   x="53%"
                   y="4.5"
@@ -157,6 +178,7 @@
                 />
                 <text x="61%" y="6.6" class="svg__txt">Электро</text>
 
+                <!-- fuel -->
                 <image
                   x="53%"
                   y="7.7"
@@ -241,12 +263,28 @@
                     <rect
                       x="0"
                       y="2px"
-                      [attr.width]="drawGraph(data.curValue)"
+                      [attr.width]="drawGraph(termoCard)"
                       height="4px"
                       rx="3px"
                       ry="3px"
-                      [attr.fill]="'#A2E2FF'"
-                      *ngIf="true"
+                      [attr.fill]="colorDeviation"
+                    />
+                    <rect
+                      x="0"
+                      y="2px"
+                      [attr.width]="
+                        termoCard.plan - termoCard.curValue > 0
+                          ? drawGraph(termoCard)
+                          : '80%'
+                      "
+                      height="4px"
+                      rx="3px"
+                      ry="3px"
+                      [attr.fill]="
+                        termoCard.plan - termoCard.curValue > 0
+                          ? colorNormal
+                          : colorFull
+                      "
                     />
                   </svg>
                 </div>
@@ -281,8 +319,8 @@
                     *ngIf="false"
                   />
                   <div class="number">
-                    0.100
-                    <div class="units">Гкал/тонн</div>
+                    17.7
+                    <div class="units">млн. кВТ/ч</div>
                   </div>
                 </div>
                 <div class="card__counter">
@@ -299,8 +337,8 @@
                     *ngIf="false"
                   />
                   <div class="number">
-                    142.8
-                    <div class="units">тыс. Гкал</div>
+                    49.9
+                    <div class="units">кВТ*ч/тонн</div>
                   </div>
                 </div>
               </div>
@@ -314,12 +352,28 @@
                     <rect
                       x="0"
                       y="2px"
-                      [attr.width]="drawGraph(data.curValue)"
+                      [attr.width]="drawGraph(electroCard)"
                       height="4px"
                       rx="3px"
                       ry="3px"
-                      [attr.fill]="'#A2E2FF'"
-                      *ngIf="true"
+                      [attr.fill]="colorDeviation"
+                    />
+                    <rect
+                      x="0"
+                      y="2px"
+                      [attr.width]="
+                        electroCard.plan - electroCard.curValue > 0
+                          ? drawGraph(electroCard)
+                          : '80%'
+                      "
+                      height="4px"
+                      rx="3px"
+                      ry="3px"
+                      [attr.fill]="
+                        electroCard.plan - electroCard.curValue > 0
+                          ? colorNormal
+                          : colorFull
+                      "
                     />
                   </svg>
                 </div>
@@ -354,8 +408,8 @@
                     *ngIf="true"
                   />
                   <div class="number">
-                    0.100
-                    <div class="units">Гкал/тонн</div>
+                    85.3
+                    <div class="units">тыс.т.у.т.</div>
                   </div>
                 </div>
                 <div class="card__counter">
@@ -372,8 +426,8 @@
                     *ngIf="true"
                   />
                   <div class="number">
-                    142.8
-                    <div class="units">тыс. Гкал</div>
+                    59.9
+                    <div class="units">кг.у.т/тонн</div>
                   </div>
                 </div>
               </div>
@@ -387,12 +441,28 @@
                     <rect
                       x="0"
                       y="2px"
-                      [attr.width]="drawGraph(data.curValue)"
+                      [attr.width]="drawGraph(fuelCard)"
                       height="4px"
                       rx="3px"
                       ry="3px"
-                      [attr.fill]="'#A2E2FF'"
-                      *ngIf="true"
+                      [attr.fill]="colorDeviation"
+                    />
+                    <rect
+                      x="0"
+                      y="2px"
+                      [attr.width]="
+                        fuelCard.plan - fuelCard.curValue > 0
+                          ? drawGraph(fuelCard)
+                          : '80%'
+                      "
+                      height="4px"
+                      rx="3px"
+                      ry="3px"
+                      [attr.fill]="
+                        fuelCard.plan - fuelCard.curValue > 0
+                          ? colorNormal
+                          : colorFull
+                      "
                     />
                   </svg>
                 </div>

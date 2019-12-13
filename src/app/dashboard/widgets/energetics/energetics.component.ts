@@ -15,11 +15,47 @@ export class EnergeticsComponent implements OnInit {
 
   subscription: Subscription;
 
+  /* Приблизительная структура, получаемая с бека */
+
   data = {
-    plan: 100,
-    curValue: 63,
-    maxValue: 150
+    plan: 1000,
+    lowerBorder: 0.03,
+    higherBorder: 0.1,
+    curValue: 1070,
+    maxValue: 1500,
+
+    /* Вычислить при получении данных */
+    // lowerValue = this.data.plan * (1 - this.data.lowerBorder);
+    // higherValue = this.data.plan * (1 + this.data.higherBorder);
+
+    lowerValue: 1000 * (1 - 0.03),
+    higherValue: 1000 * (1 + 0.1)
   };
+
+  /* Данные с сервера для карточек */
+
+  termoCard = {
+    plan: 1000,
+    curValue: 623,
+    deviation1: 142.8,
+    deviation2: 0.1
+  };
+
+  electroCard = {
+    plan: 1500,
+    curValue: 1230,
+    deviation1: 17.7,
+    deviation2: 49.9
+  };
+
+  fuelCard = {
+    plan: 2500,
+    curValue: 2690,
+    deviation1: 85.3,
+    deviation2: 59.9
+  };
+
+  /* Параметры для круговых диаграмм */
 
   termo = {
     cx: "50%",
@@ -54,7 +90,12 @@ export class EnergeticsComponent implements OnInit {
     colDanger: "#f4a321"
   };
 
-  colorNormal = "#FFFFFF";
+  /* Переменные цветов */
+
+  colorMain = "#1b1e27";
+  colorBg = "#0d1014";
+  colorNormal = "#a2e2ff";
+  colorFull = "#FFFFFF";
   colorDeviation = "#F4A321";
 
   constructor(
@@ -71,13 +112,17 @@ export class EnergeticsComponent implements OnInit {
 
   ngOnInit() {}
 
-  drawGraph(count: number): string {
-    return count.toString() + "%";
+  /* Отрисовка линейных графиков в карточках */
+
+  drawGraph(obj): string {
+    return ((obj.curValue / obj.plan) * 100 * 0.8).toString() + "%";
   }
 
-  fillGraph(flag: boolean): string {
-    return flag ? this.colorNormal : this.colorDeviation;
+  fillGraph(obj): string {
+    return obj.plan - obj.curValue > 0 ? this.colorNormal : this.colorDeviation;
   }
+
+  /* Отрисовка дуговых диаграмм */
 
   diaCounter(r: string): string {
     const c: number = 2 * Math.PI * +r;

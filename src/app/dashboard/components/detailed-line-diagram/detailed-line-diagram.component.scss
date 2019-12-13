@@ -133,16 +133,7 @@
 
           &__limit {
             height: 20px;
-            right: 40px;
             top: -3px;
-
-            &-lower {
-              right: 25%;
-            }
-
-            &-higher {
-              right: 15%;
-            }
           }
 
           .label {
@@ -164,4 +155,8 @@
       }
     }
   }
+}
+
+.rotate {
+  transform: rotate(180deg);
 }
