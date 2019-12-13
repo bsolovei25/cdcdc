@@ -39,8 +39,8 @@
   }
 
   img {
-    width: 10px;
-    height: 10px;
+    width: 15px;
+    height: 15px;
   }
 
   &__deviation {
@@ -58,9 +58,15 @@
     .deviation {
       &__worse {
         color: var(--color-warning);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
       }
       &__better {
         color: var(--color-text-main);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
       }
 
       &__worse,
@@ -112,6 +118,8 @@
           &__marking {
             height: 5px;
 
+            border-color: var(--color-marker-diagram);
+
             bottom: -7px;
 
             &-0 {
@@ -125,16 +133,7 @@
 
           &__limit {
             height: 20px;
-            right: 40px;
             top: -3px;
-
-            &-lower {
-              right: 25%;
-            }
-
-            &-higher {
-              right: 15%;
-            }
           }
 
           .label {
@@ -156,4 +155,8 @@
       }
     }
   }
+}
+
+.rotate {
+  transform: rotate(180deg);
 }

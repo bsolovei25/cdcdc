@@ -15,6 +15,23 @@ export class OperationEfficiencyComponent implements OnInit {
 
   subscription: Subscription;
 
+  /* Приблизительная структура, получаемая с бека */
+
+  data = {
+    plan: 1000,
+    lowerBorder: 0.03,
+    higherBorder: 0.1,
+    curValue: 1200,
+    maxValue: 1500,
+
+    /* Вычислить при получении данных */
+    // lowerValue = this.data.plan * (1 - this.data.lowerBorder);
+    // higherValue = this.data.plan * (1 + this.data.higherBorder);
+
+    lowerValue: 1000 * (1 - 0.03),
+    higherValue: 1000 * (1 + 0.1)
+  };
+
   constructor(
     private widgetService: NewWidgetService,
     @Inject("isMock") public isMock: boolean,
