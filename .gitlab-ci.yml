@@ -71,10 +71,8 @@ deploy review:
         name: review/${CI_COMMIT_REF_NAME}
         url: http://build.funcoff.club:8000
         on_stop: stop-review
-    variables:
-        CMD_REPLACE: sed -i -E "s/(<title>Evj)(<\/title>)/\1 | ${CI_COMMIT_SHORT_SHA} \2/g" ./src/index.html
     script:
-        - $CMD_REPLACE
+        - sed -i -E "s/(<title>Evj)(<\/title>)/\1  |  ${CI_COMMIT_SHORT_SHA}\2/g" ./src/index.html
 
 stop-review:
     <<: *init
