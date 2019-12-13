@@ -60,53 +60,73 @@ export class EnterpriseMapComponent implements OnInit, AfterViewInit {
 
     }
 
-    draw() {
-        const data = {
-            id_0: { price: '3000', status: 'service' },
-            id_1: { price: '3000', status: 'available' },
-            id_2: { price: '2000', status: 'reserved' },
-            id_3: { price: '5000', status: 'available' },
-            id_4: { price: '2500', status: 'available' },
-            id_5: { price: '2500', status: 'reserved' },
-            messages: {
-                'available': 'Доступно для аренды',
-                'reserved': 'Зарезервировано',
-                'service': 'Доступно через 1-2 дня'
-            }
-        };
+    settingsСompass() {
+        const data = { value: 350 }
+        const compass: HTMLElement = document.getElementById('compass');
+        const line = compass.querySelector('.compass-line');
+        const value = compass.querySelector('.compass__value');
+        line.setAttribute('style', `transform: translate(834.21px, 486.66px) rotate(${data.value}deg);transform-origin: 84px 84px 0`);
 
-        // --------------------------------------------------------------------
-        //  Используемые элементы на странице
-        // --------------------------------------------------------------------
+        let atr = '';
+        if (data.value >= 0 && data.value <= 90) {
+            if (data.value === 0) {
+                atr = 'N';
+            } else if (data.value === 90) {
+                atr = 'E';
+            } else {
+                atr = 'NE';
+            }
+        }
+        if (data.value >= 91 && data.value <= 180) {
+            if (data.value === 180) {
+                atr = 'S';
+            } else {
+                atr = 'ES';
+            }
+        }
+        if (data.value >= 181 && data.value <= 270) {
+            if (data.value === 270) {
+                atr = 'W';
+            } else {
+                atr = 'SW';
+            }
+        }
+        if (data.value >= 271 && data.value <= 359) {
+            atr = 'WN';
+        }
+        value.append(atr);
+        value.setAttribute('x', `${982 - (atr.length * 2 + 5)}`);
+    }
+
+    draw() {
 
         const map: HTMLElement = document.getElementById('svg5866');
-        // const svg = document.querySelector('svg');
-        // const buildingsLayer = map.querySelector('.buildings_layer');
         const buildings = map.querySelectorAll('.build');
         const textArray = map.querySelectorAll('.text');
+        this.settingsСompass();
         // const info = map.querySelector('.builds');
 
         let i = 0;
         buildings.forEach(b => {
 
-            const value: string = '5';
+            const value: string = '500';
+            const widthNumber: number = value.length;
 
             if (b.tagName === 'polygon') {
                 const id = b.getAttribute('data-id');
                 const dataPolygon = [
-                    { id: 1, x: '184', y: '102' },
-                    { id: 7, x: '626', y: '190' },
-                    { id: 8, x: '184', y: '129' },
-                    { id: 17, x: '104', y: '193' },
+                    { id: 1, x: `${196 - (widthNumber * 6 + 5)}`, y: '102' },
+                    { id: 7, x: '626', y: '192' },
+                    { id: 8, x: `${196 - (widthNumber * 6 + 5)}`, y: '129' },
+                    { id: 17, x: `${116 - (widthNumber * 6 + 5)}`, y: '193' },
                     { id: 34, x: '854', y: '354' },
-                    { id: 36, x: '227', y: '424' },
-                    { id: 42, x: '830', y: '425' }
+                    { id: 36, x: `${239 - (widthNumber * 6 + 5)}`, y: '424' },
+                    { id: 42, x: `${838 - (widthNumber * 6 + 5)}`, y: '424' }
                 ];
                 const idx = dataPolygon.findIndex(i => i.id === +id);
                 if (idx !== -1) {
                     this.texts.push({ x: dataPolygon[idx].x, y: dataPolygon[idx].y, class: 'number', value })
                 }
-
             }
 
             i++;
@@ -114,10 +134,7 @@ export class EnterpriseMapComponent implements OnInit, AfterViewInit {
             const xBuild = b.getAttribute('x');
             const yBuild = b.getAttribute('y');
             const widthBuild = b.getAttribute('width');
-            const heightBuild = b.getAttribute('height');
 
-
-            const widthNumber: number = value.length;
 
             const x = +xBuild + +widthBuild - (widthNumber * 6 + 5);
 
@@ -149,12 +166,8 @@ export class EnterpriseMapComponent implements OnInit, AfterViewInit {
             }
         })
 
-
         const idRect = document.getElementById('polygon3921');
         const id = idRect.getAttribute('data-id');
-
-
-
 
     }
 
