@@ -25,47 +25,6 @@
         <div class="energetics__energy">
           <div class="energetics__graphic">
             <div class="energetics__round">
-              <div class="icons">
-                <div class="icon">
-                  <img
-                    src="../../../../assets/icons/widgets/energetics/termo.svg"
-                    alt=""
-                    *ngIf="true"
-                  />
-                  <img
-                    src="../../../../assets/icons/widgets/energetics/termo_danger.svg"
-                    alt=""
-                    *ngIf="false"
-                  />
-                  Тепловая
-                </div>
-                <div class="icon">
-                  <img
-                    src="../../../../assets/icons/widgets/energetics/electro.svg"
-                    alt=""
-                    *ngIf="true"
-                  />
-                  <img
-                    src="../../../../assets/icons/widgets/energetics/electro_danger.svg"
-                    alt=""
-                    *ngIf="false"
-                  />
-                  Электро
-                </div>
-                <div class="icon">
-                  <img
-                    src="../../../../assets/icons/widgets/energetics/fuel.svg"
-                    alt=""
-                    *ngIf="false"
-                  />
-                  <img
-                    src="../../../../assets/icons/widgets/energetics/fuel_danger.svg"
-                    alt=""
-                    *ngIf="true"
-                  />
-                  Топливо
-                </div>
-              </div>
               <svg width="100%" height="100%" viewBox="0 0 50 50">
                 <!-- termo dia -->
                 <circle
@@ -159,6 +118,62 @@
                   height="20"
                   xlink:href="../../../../assets/icons/widgets/energetics/dia_logo.svg"
                 />
+
+                <!-- labels dia -->
+
+                <image
+                  x="53%"
+                  y="1.2"
+                  width="2.7"
+                  height="2.7"
+                  xlink:href="../../../../assets/icons/widgets/energetics/termo.svg"
+                  *ngIf="true"
+                />
+                <image
+                  x="53%"
+                  y="1.2"
+                  width="2.7"
+                  height="2.7"
+                  xlink:href="../../../../assets/icons/widgets/energetics/termo_danger.svg"
+                  *ngIf="false"
+                />
+                <text x="61%" y="3.6" class="svg__txt">Тепловая</text>
+
+                <image
+                  x="53%"
+                  y="4.5"
+                  width="2.7"
+                  height="2.7"
+                  xlink:href="../../../../assets/icons/widgets/energetics/electro.svg"
+                  *ngIf="true"
+                />
+                <image
+                  x="53%"
+                  y="4.5"
+                  width="2.7"
+                  height="2.7"
+                  xlink:href="../../../../assets/icons/widgets/energetics/electro_danger.svg"
+                  *ngIf="false"
+                />
+                <text x="61%" y="6.6" class="svg__txt">Электро</text>
+
+                <image
+                  x="53%"
+                  y="7.7"
+                  width="2.7"
+                  height="2.7"
+                  xlink:href="../../../../assets/icons/widgets/energetics/fuel.svg"
+                  *ngIf="false"
+                />
+                <image
+                  x="53%"
+                  y="7.7"
+                  width="2.7"
+                  height="2.7"
+                  xlink:href="../../../../assets/icons/widgets/energetics/fuel_danger.svg"
+                  *ngIf="true"
+                />
+                <text x="61%" y="9.8" class="svg__txt">Топливо</text>
               </svg>
             </div>
           </div>
@@ -167,16 +182,18 @@
             <div class="card">
               <div class="card__border"></div>
               <div class="card__logo">
-                <img
-                  src="../../../../assets/icons/widgets/energetics/termo.svg"
-                  alt=""
-                  *ngIf="true"
-                />
-                <img
-                  src="../../../../assets/icons/widgets/energetics/termo_danger.svg"
-                  alt=""
-                  *ngIf="false"
-                />
+                <div class="icon__container">
+                  <img
+                    src="../../../../assets/icons/widgets/energetics/termo.svg"
+                    alt=""
+                    *ngIf="true"
+                  />
+                  <img
+                    src="../../../../assets/icons/widgets/energetics/termo_danger.svg"
+                    alt=""
+                    *ngIf="false"
+                  />
+                </div>
               </div>
               <div class="card__counters">
                 <div class="card__counter">
