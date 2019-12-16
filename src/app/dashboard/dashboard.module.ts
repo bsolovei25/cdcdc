@@ -37,6 +37,7 @@ import { ProductionPyramidComponent } from './widgets/production-pyramid/product
 import { BarChartsComponent } from './widgets/bar-chart/bar-charts/bar-charts.component';
 import { BarChartComponent } from './widgets/bar-chart/bar-chart/bar-chart.component';
 import { SuspenseMachineComponent } from './widgets/suspense-machine/suspense-machine.component';
+import { EnterpriseMapComponent } from './widgets/map-enterprise/enterprise-map.component';
 import { DetailedLineDiagramComponent } from "./components/detailed-line-diagram/detailed-line-diagram.component";
 import { OperationEfficiencyComponent } from "./widgets/operation-efficiency/operation-efficiency.component";
 import { MapEcologyComponent } from "./widgets/map-ecology/map-ecology/map-ecology.component";
@@ -85,6 +86,8 @@ import { CircleDiagramComponent } from './widgets/circle-diagram/circle-diagram.
     SuspenseMachineComponent,
     CircleDiagramComponent,
     UnityTemplateComponent,
+    EnterpriseMapComponent,
+    CircleDiagramComponent,
     PowIndexPipe,
     MapEcologyComponent,
     DetailedLineDiagramComponent,
@@ -115,6 +118,7 @@ import { CircleDiagramComponent } from './widgets/circle-diagram/circle-diagram.
     CircleDiagramComponent,
     MapEcologyComponent,
     UnityTemplateComponent,
+    EnterpriseMapComponent,
     OperationEfficiencyComponent,
     CalendarPlanComponent,
     EcologySafetyComponent,

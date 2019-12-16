@@ -12,6 +12,7 @@ import { PointDiagramComponent } from '../../widgets/point-diagram/point-diagram
 import { ProductionPyramidComponent } from '../../widgets/production-pyramid/production-pyramid.component';
 import { BarChartsComponent } from '../../widgets/bar-chart/bar-charts/bar-charts.component';
 import { SuspenseMachineComponent } from '../../widgets/suspense-machine/suspense-machine.component';
+import { EnterpriseMapComponent } from '../../widgets/map-enterprise/enterprise-map.component';
 import { CircleDiagramComponent } from '../../widgets/circle-diagram/circle-diagram.component';
 import { MapEcologyComponent } from '../../widgets/map-ecology/map-ecology/map-ecology.component';
 import { UnityTemplateComponent } from '../../widgets/unity-template/unity-template.component';
@@ -28,22 +29,23 @@ export const WIDGETS = {
     'line-diagram': LineDiagramComponent,
     'manual-input': ManualInputComponent,
     "events": EventsComponent,
-    'shift-pass': ChangeShiftComponent,
-    'shift-accept': ChangeShiftComponent,
-    'events-workspace': EventsWorkSpaceComponent,
-    'truncated-diagram-percentage': TruncatedPieSFirstComponent,
-    'truncated-diagram-counter': TruncatedPieSIconComponent,
-    'point-diagram': PointDiagramComponent,
-    'industrial-pyramid': ProductionPyramidComponent,
-    'bar-chart': BarChartsComponent,
-    'circle-diagram': CircleDiagramComponent,
-    'unity-template': UnityTemplateComponent,
-    'map-ecology': MapEcologyComponent,
-    'operation-efficiency': OperationEfficiencyComponent,
-    'ecology-safety': EcologySafetyComponent,
-    'calendar-plan': CalendarPlanComponent,
-    'ring-factory-diagram': RingSFactoryDiagramComponent,
+    "shift-pass": ChangeShiftComponent,
+    "shift-accept": ChangeShiftComponent,
+    "events-workspace": EventsWorkSpaceComponent,
+    "truncated-diagram-percentage": TruncatedPieSFirstComponent,
+    "truncated-diagram-counter": TruncatedPieSIconComponent,
+    "point-diagram": PointDiagramComponent,
+    "industrial-pyramid": ProductionPyramidComponent,
+    "bar-chart": BarChartsComponent,
+    "enterprise-map": EnterpriseMapComponent,
+    "circle-diagram": CircleDiagramComponent,
+    "unity-template": UnityTemplateComponent,
+    "map-ecology":MapEcologyComponent,
+    "operation-efficiency": OperationEfficiencyComponent,
+    "ecology-safety":EcologySafetyComponent,
+    "calendar-plan":CalendarPlanComponent,
+    "ring-factory-diagram": RingSFactoryDiagramComponent,
+    "energetics": EnergeticsComponent,
     'dispatcher-screen': DispatcherScreenComponent,
-    'energetics': EnergeticsComponent,
     "suspense-machine": SuspenseMachineComponent
 };
