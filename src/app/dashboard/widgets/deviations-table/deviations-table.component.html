@@ -1,0 +1,107 @@
+<div class="container pointer-event">
+  <evj-widget-header [title]="title" [id]="id"></evj-widget-header>
+
+  <evj-frame-top></evj-frame-top>
+
+  <ng-container *ngIf="isMock">
+    <div class="mock">
+      <div class="line">---------------------</div>
+      <div class="line">---------------------</div>
+      <div class="line">---------------------</div>
+      <div class="line">---------------------</div>
+      <div class="line">---------------------</div>
+      <div class="line">---------------------</div>
+      <div class="line">---------------------</div>
+      <div class="line">---------------------</div>
+      <div class="line">---------------------</div>
+    </div>
+
+  </ng-container>
+
+  <ng-container *ngIf="!isMock">
+
+
+    <section class="table" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+      <div class="table__header">
+        <table>
+          <thead>
+            <tr class="header__items">
+              <th class="header header__icon">
+                <svg-icon class="icon" src="./assets/icons/widgets/deviations-table/1.svg">
+                </svg-icon>
+              </th>
+              <th class="header header__icon">
+                <svg-icon class="icon_svg" src="./assets/icons/widgets/deviations-table/10.svg">
+                </svg-icon>
+              </th>
+              <th class="header header__icon">
+                <svg-icon class="icon_svg" src="./assets/icons/widgets/deviations-table/11.svg">
+                </svg-icon>
+              </th>
+              <th class="header header__icon">
+                <svg-icon class="icon_svg" src="./assets/icons/widgets/deviations-table/12.svg">
+                </svg-icon>
+              </th>
+            </tr>
+            <tr class="header__items">
+              <th class="header header__equipment">
+                Установки
+              </th>
+              <th class="header header__energy">
+                гКал
+              </th>
+              <th class="header header__energy_procent">
+                %
+              </th>
+              <th class="header header__consumption">
+                вВт/ч
+              </th>
+              <th class="header header__consumption_procent">
+                %
+              </th>
+              <th class="header header__fuel">
+                т.у.т
+              </th>
+              <th class="header header__fuel_procent">
+                %
+              </th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+      <div class="table__body scroll-bar">
+        <table>
+          <tbody>
+            <tr *ngFor="let item of data" class="table__item">
+              <td class="item item__equipment">{{ item.equipment }}</td>
+              <td class="item item__energy">
+                {{ item.energy }}
+              </td>
+              <td class="item item__energy_procent">
+                0
+              </td>
+              <td class="item item__consumption">
+                {{ item.consumption }}
+              </td>
+              <td class="item item__consumption_procent">
+                0
+              </td>
+              <td class="item item__fuel">
+                {{ item.fuel }}
+              </td>
+              <td class="item item__fuel_procent">
+                0
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </section>
+
+  </ng-container>
+
+  <evj-frame-bottom></evj-frame-bottom>
+
+
+</div>
