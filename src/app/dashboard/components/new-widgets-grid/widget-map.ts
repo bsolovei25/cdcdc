@@ -13,33 +13,35 @@ import { ProductionPyramidComponent } from '../../widgets/production-pyramid/pro
 import { BarChartsComponent } from '../../widgets/bar-chart/bar-charts/bar-charts.component';
 import { CircleDiagramComponent } from '../../widgets/circle-diagram/circle-diagram.component';
 import { MapEcologyComponent } from '../../widgets/map-ecology/map-ecology/map-ecology.component';
-import {UnityTemplateComponent} from '../../widgets/unity-template/unity-template.component';
+import { UnityTemplateComponent } from '../../widgets/unity-template/unity-template.component';
 import { RingSFactoryDiagramComponent } from '../../widgets/ring-factory-diagrams/ring-s-factory-diagram/ring-s-factory-diagram.component';
 import { OperationEfficiencyComponent } from '../../widgets/operation-efficiency/operation-efficiency.component';
 import { EcologySafetyComponent } from '../../widgets/ecology-safety/ecology-safety.component';
 import { CalendarPlanComponent } from '../../widgets/calendar-plan/calendar-plan.component';
+import { DispatcherScreenComponent } from '../../widgets/dispatcher-screen/dispatcher-screen.component';
 
 
 export const WIDGETS = {
-    "pie-diagram": WidgetPiesComponent,
-    "line-chart": LineChartComponent,
-    "line-diagram": LineDiagramComponent,
-    "manual-input": ManualInputComponent,
+    'pie-diagram': WidgetPiesComponent,
+    'line-chart': LineChartComponent,
+    'line-diagram': LineDiagramComponent,
+    'manual-input': ManualInputComponent,
     "events": EventsComponent,
-    "shift-pass": ChangeShiftComponent,
-    "shift-accept": ChangeShiftComponent,
-    "events-workspace": EventsWorkSpaceComponent,
-    "truncated-diagram-percentage": TruncatedPieSFirstComponent,
-    "truncated-diagram-counter": TruncatedPieSIconComponent,
-    "point-diagram": PointDiagramComponent,
-    "industrial-pyramid": ProductionPyramidComponent,
-    "bar-chart": BarChartsComponent,
-    "circle-diagram": CircleDiagramComponent,
-    "unity-template": UnityTemplateComponent,
-    "map-ecology":MapEcologyComponent,
-    "operation-efficiency": OperationEfficiencyComponent,
-    "ecology-safety":EcologySafetyComponent,
-    "calendar-plan":CalendarPlanComponent,
-    "ring-factory-diagram": RingSFactoryDiagramComponent,
-    "energetics": EnergeticsComponent
-}
+    'shift-pass': ChangeShiftComponent,
+    'shift-accept': ChangeShiftComponent,
+    'events-workspace': EventsWorkSpaceComponent,
+    'truncated-diagram-percentage': TruncatedPieSFirstComponent,
+    'truncated-diagram-counter': TruncatedPieSIconComponent,
+    'point-diagram': PointDiagramComponent,
+    'industrial-pyramid': ProductionPyramidComponent,
+    'bar-chart': BarChartsComponent,
+    'circle-diagram': CircleDiagramComponent,
+    'unity-template': UnityTemplateComponent,
+    'map-ecology': MapEcologyComponent,
+    'operation-efficiency': OperationEfficiencyComponent,
+    'ecology-safety': EcologySafetyComponent,
+    'calendar-plan': CalendarPlanComponent,
+    'ring-factory-diagram': RingSFactoryDiagramComponent,
+    'dispatcher-screen': DispatcherScreenComponent,
+    'energetics': EnergeticsComponent
+};
