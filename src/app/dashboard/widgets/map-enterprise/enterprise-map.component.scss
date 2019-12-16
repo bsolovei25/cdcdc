@@ -1,0 +1,123 @@
+.container {
+  position: relative;
+  width: 100%;
+  // height: 100%;
+  // min-width: 970px;
+  height: 100%;
+  box-sizing: border-box;
+  // padding: 5px;
+  margin-bottom: 20px;
+  //padding-right: 7px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  line-height: 24px;
+  // height: 100%;
+}
+
+.mock {
+  display: block;
+  height: 200px;
+  width: 100%;
+  border-left: dashed 0.5px var(--color-border-main);
+  border-right: dashed 0.5px var(--color-border-main);
+  margin: 0 auto;
+}
+
+.content {
+  height: 100%;
+  border-left: dashed 0.5px var(--color-border-main);
+  border-right: dashed 0.5px var(--color-border-main);
+}
+
+.map {
+  margin-left: 10px;
+  width: 100%;
+  height: 99%;
+
+  .build {
+    &.status {
+      &-standard {
+        fill: var(--color-plan);
+        fill-opacity: 0.05;
+        stroke: var(--color-plan);
+        stroke-miterlimit: 10;
+        stroke-opacity: 0.5;
+        stroke-width: 0.983050227165222px;
+        opacity: 0.8;
+      }
+      &-prognosis {
+        fill: aqua;
+        fill-opacity: 0.15;
+        stroke: aqua;
+        color: aqua;
+        stroke-miterlimit: 10;
+        stroke-width: 0.721062326578037px;
+      }
+
+      &-diagnostics {
+        fill: var(--color-border-active);
+        fill-opacity: 0.05;
+        stroke: var(--color-border-active);
+        stroke-miterlimit: 10;
+        stroke-opacity: 0.5;
+        stroke-width: 0.983050227165222px;
+      }
+
+      &-nonCritical {
+        fill: #f4a321;
+        fill-opacity: 0.15;
+        stroke: #f4a321;
+        color: #f4a321;
+        stroke-miterlimit: 10;
+        stroke-width: 0.721062326578037px;
+      }
+    }
+  }
+
+  .text {
+    font-size: 12px;
+    fill: var(--color-plan);
+
+    &-standard {
+      fill: var(--color-plan);
+    }
+    &-prognosis {
+      fill: var(aqua);
+    }
+
+    &-diagnostics {
+      fill: var(--color-border-active);
+    }
+
+    &-nonCritical {
+      fill: #f4a321;
+    }
+
+    &__right-block {
+      font-size: 12px;
+      fill: var(--color-text-sub);
+
+      &-value {
+        font-size: 14px;
+        fill: var(--color-text-main);
+      }
+      &-sub {
+        font-size: 10px;
+        fill: var(--color-text-sub-heading);
+      }
+    }
+  }
+
+  .number {
+    font-size: 10px;
+    fill: var(--color-text-main);
+  }
+
+  .compass {
+    &__value {
+      font-size: 10px;
+      fill: var(--color-text-main);
+    }
+  }
+}

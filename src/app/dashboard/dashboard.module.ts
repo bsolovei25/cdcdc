@@ -15,6 +15,7 @@ import { ManualInputComponent } from "./widgets/manual-input/manual-input.compon
 import { FormsModule } from "@angular/forms";
 import { LineDiagramComponent } from "./widgets/line-diagram/line-diagram.component";
 import { LineDatetimeComponent } from "./components/line-datetime/line-datetime.component";
+import { EnterpriseMapComponent } from './widgets/map-enterprise/enterprise-map.component';
 import { DetailedLineDiagramComponent } from "./components/detailed-line-diagram/detailed-line-diagram.component";
 import { OperationEfficiencyComponent } from "./widgets/operation-efficiency/operation-efficiency.component";
 import { ShiftPersonComponent } from "./widgets/change-shift/shift-person/shift-person.component";
@@ -81,8 +82,9 @@ import { EnergeticsComponent } from './widgets/energetics/energetics.component';
     ProductionPyramidComponent,
     BarChartsComponent,
     BarChartComponent,
-    CircleDiagramComponent,
     UnityTemplateComponent,
+    EnterpriseMapComponent,
+    CircleDiagramComponent,
     PowIndexPipe,
     MapEcologyComponent,
     UnityTemplateComponent,
@@ -113,6 +115,7 @@ import { EnergeticsComponent } from './widgets/energetics/energetics.component';
     CircleDiagramComponent,
     MapEcologyComponent,
     UnityTemplateComponent,
+    EnterpriseMapComponent,
     OperationEfficiencyComponent,
     CalendarPlanComponent,
     EcologySafetyComponent,
