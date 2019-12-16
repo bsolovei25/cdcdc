@@ -76,22 +76,19 @@ export class LineDiagramComponent implements OnInit {
   }
 
   wsConnect() {
-    this.subscription = this.widgetService.getWidgetLiveDataFromWS(this.id, 'line-diagram')
-      .subscribe((ref) => {
-          this.data = [];
-          for (let el in ref) {
-            let newEl = {
-              name: ref[el].name,
-              count: ref[el].percentage,
-              curValue: ref[el].value,
-              planValue: ref[el].upperBound,
-              units: ref[el].units,
-              critical: ref[el].isCritical
-            }
-            this.data.push(newEl);
+    this.subscription = this.widgetService
+      .getWidgetLiveDataFromWS(this.id, 'line-diagram')
+      .subscribe((data) => {
+          this.data = data.items.map(el =>
+            ({
+              name: el.name,
+              count: el.percentage,
+              curValue: el.value,
+              planValue: el.upperBound,
+              units: el.units,
+              critical: el.isCritical
+            }));
           }
-      //    console.log(this.data);
-        }
       );
   }
 

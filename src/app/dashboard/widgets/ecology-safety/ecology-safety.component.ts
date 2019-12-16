@@ -15,10 +15,12 @@ export class EcologySafetyComponent implements OnInit {
 
   subscription: Subscription;
 
+  /* Приблизительная структура, получаемая с бека */
+
   data = {
     plan: 100,
-    curValue: 100,
-    maxValue: 150
+    curValue: 80,
+    maxValue: 120
   };
 
   colorNormal = "#FFFFFF";

@@ -30,13 +30,13 @@ export class WidgetPiesComponent implements OnInit {
 
   constructor(
     public widgetService: NewWidgetService,
-    public serice: NewUserSettingsService,
+    //public serice: NewUserSettingsService,
     @Inject('isMock') public isMock: boolean,
     @Inject('widgetId') public id: string
 
     ) {
    
-      this.uniqal = this.serice.getUniqId(this.id);
+      //this.uniqal = this.serice.getUniqId(this.id);
       
       this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe(data => {
         this.title = data.title;
@@ -62,7 +62,7 @@ export class WidgetPiesComponent implements OnInit {
   private wsConnect() {
     this.widgetService.getWidgetLiveDataFromWS(this.id, 'pie-diagram')
       .subscribe((ref) => {
-          this.datas = ref;
+          this.datas = ref.items;
         }
       );
   }

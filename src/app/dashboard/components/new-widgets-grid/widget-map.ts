@@ -1,8 +1,9 @@
-import { LineChartComponent } from '../../widgets/line-chart/line-chart.component';
-import { EventsComponent } from '../../widgets/events/events.component';
-import { LineDiagramComponent } from '../../widgets/line-diagram/line-diagram.component';
-import { ManualInputComponent } from '../../widgets/manual-input/manual-input.component';
+import { LineChartComponent } from "../../widgets/line-chart/line-chart.component";
+import { EventsComponent } from "../../widgets/events/events.component";
+import { LineDiagramComponent } from "../../widgets/line-diagram/line-diagram.component";
+import { ManualInputComponent } from "../../widgets/manual-input/manual-input.component";
 import { ChangeShiftComponent } from "../../widgets/change-shift/change-shift.component";
+import { EnergeticsComponent } from "../../widgets/energetics/energetics.component";
 import { WidgetPiesComponent } from '../../widgets/widgets-pie/widget-pies/widget-pies/widget-pies.component';
 import { EventsWorkSpaceComponent } from '../../widgets/workspace/events-workspace.component';
 import { TruncatedPieSFirstComponent } from '../../widgets/truncated-pie-first/truncated-pie-s-first/truncated-pie-s-first.component';
@@ -14,7 +15,7 @@ import { UnityTemplateComponent } from '../../widgets/unity-template/unity-templ
 import { EnterpriseMapComponent } from '../../widgets/map-enterprise/enterprise-map.component';
 import { CircleDiagramComponent } from '../../widgets/circle-diagram/circle-diagram.component';
 import { MapEcologyComponent } from '../../widgets/map-ecology/map-ecology/map-ecology.component';
-import { RingFactoryDiagramComponent } from '../../widgets/ring-factory-diagram/ring-factory-diagram.component';
+import { RingSFactoryDiagramComponent } from '../../widgets/ring-factory-diagrams/ring-s-factory-diagram/ring-s-factory-diagram.component';
 import { OperationEfficiencyComponent } from '../../widgets/operation-efficiency/operation-efficiency.component';
 import { EcologySafetyComponent } from '../../widgets/ecology-safety/ecology-safety.component';
 import { CalendarPlanComponent } from '../../widgets/calendar-plan/calendar-plan.component';
@@ -40,6 +41,7 @@ export const WIDGETS = {
     "map-ecology":MapEcologyComponent,
     "operation-efficiency": OperationEfficiencyComponent,
     "ecology-safety":EcologySafetyComponent,
-    "calendar-plan":CalendarPlanComponent
-  //  "ring-factory-diagram": RingFactoryDiagramComponent
+    "calendar-plan":CalendarPlanComponent,
+    "ring-factory-diagram": RingSFactoryDiagramComponent,
+    "energetics": EnergeticsComponent
 }

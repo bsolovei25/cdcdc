@@ -231,10 +231,10 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
     if (this.deviationMode === 'limits') {
       this.drawLimitsAreas(upperLimit, lowerLimit);
-      this.drawLimitsDeviationAreas(upperLimit, lowerLimit, fact);
+      // this.drawLimitsDeviationAreas(upperLimit, lowerLimit, fact);
     } else {
       this.deleteLimitsData();
-      this.drawDeviationAreas(plan, fact);
+      // this.drawDeviationAreas(plan, fact);
     }
 
     this.drawPath();
@@ -301,7 +301,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
   }
 
   private refreshDomains() {
-    this.x = d3Scale.scaleTime().range([0, this.width * 0.8]);
+    this.x = d3Scale.scaleTime().range([0, this.width * 0.85]);
     this.y = d3Scale.scaleLinear().range([this.height, 0]);
 
     this.x.domain(d3Array.extent(this.data.graphs.map((v) => v.values.map((v) => v.date))[0], (d: Date) => d)).nice();
