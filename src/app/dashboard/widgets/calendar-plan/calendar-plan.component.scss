@@ -87,6 +87,10 @@
       border-bottom: 0.5px solid var(--color-text-sub);
 
       &-active {
+        .card__title{
+          color: var(--color-text-main);
+        }
+
         border-color: var(--color-bg-active-bright);
         * {
           border-color: var(--color-bg-active-bright);
@@ -196,6 +200,7 @@
 
       &__title {
         font-size: 14px;
+        color: var(--color-plan);
       }
 
       &__change {

@@ -48,6 +48,7 @@ import { RingSFactoryDiagramComponent } from './widgets/ring-factory-diagrams/ri
 import { CalendarPlanComponent } from "./widgets/calendar-plan/calendar-plan.component";
 import { EcologySafetyComponent } from "./widgets/ecology-safety/ecology-safety.component";
 import { DispatcherScreenComponent } from "./widgets/dispatcher-screen/dispatcher-screen.component";
+import { EnergeticsComponent } from './widgets/energetics/energetics.component';
 
 @NgModule({
   declarations: [
@@ -93,6 +94,7 @@ import { DispatcherScreenComponent } from "./widgets/dispatcher-screen/dispatche
     CalendarPlanComponent,
     EcologySafetyComponent,
     DispatcherScreenComponent
+    EnergeticsComponent
   ],
   entryComponents: [
     LineChartComponent,
@@ -114,6 +116,9 @@ import { DispatcherScreenComponent } from "./widgets/dispatcher-screen/dispatche
     OperationEfficiencyComponent,
     CalendarPlanComponent,
     EcologySafetyComponent,
+    RingFactoryDiagramComponent,
+    LineChartWorkspaceComponent,
+    EnergeticsComponent,
     RingSFactoryDiagramComponent,
     LineChartWorkspaceComponent,
     DispatcherScreenComponent
