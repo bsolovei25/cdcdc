@@ -1,18 +1,18 @@
 import { LineChartOptions } from './line-chart';
 
 export interface WidgetGridsterSettings {
-    itemRows: string;
-    itemCols: string;
-    
-  }
-  
-  
-export class WidgetModel{
-    isMock: boolean;
-    id: number;
-  }
-  
-export interface Widgets{
+  itemRows: string;
+  itemCols: string;
+
+}
+
+
+export class WidgetModel {
+  isMock: boolean;
+  id: number;
+}
+
+export interface Widgets {
   code: string;
   id: string;
   name: string;
@@ -41,20 +41,20 @@ export interface RingButton{
   notcritical: number;
 }
 
-export interface PieWidget{
+export interface PieWidget {
   name: string;
   critical: number;
   nonCritical: number;
 }
 
-export interface BarWidget{
+export interface BarWidget {
   name: string;
   good: number;
   bad: number;
   total: number;
 }
 
-export interface TruncPieWidget{
+export interface TruncPieWidget {
   name: string;
   count: number;
   critical: number;
