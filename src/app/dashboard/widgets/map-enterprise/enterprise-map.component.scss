@@ -21,6 +21,7 @@
   width: 100%;
   border-left: dashed 0.5px var(--color-border-main);
   border-right: dashed 0.5px var(--color-border-main);
+  margin: 0 auto;
 }
 
 .content {
@@ -49,6 +50,7 @@
         fill: aqua;
         fill-opacity: 0.15;
         stroke: aqua;
+        color: aqua;
         stroke-miterlimit: 10;
         stroke-width: 0.721062326578037px;
       }
@@ -66,6 +68,7 @@
         fill: #f4a321;
         fill-opacity: 0.15;
         stroke: #f4a321;
+        color: #f4a321;
         stroke-miterlimit: 10;
         stroke-width: 0.721062326578037px;
       }
@@ -76,17 +79,32 @@
     font-size: 12px;
     fill: var(--color-plan);
 
+    &-standard {
+      fill: var(--color-plan);
+    }
+    &-prognosis {
+      fill: var(aqua);
+    }
+
+    &-diagnostics {
+      fill: var(--color-border-active);
+    }
+
+    &-nonCritical {
+      fill: #f4a321;
+    }
+
     &__right-block {
       font-size: 12px;
       fill: var(--color-text-sub);
 
       &-value {
-          font-size: 14px;
-          fill: var(--color-text-main);
+        font-size: 14px;
+        fill: var(--color-text-main);
       }
       &-sub {
-          font-size: 10px;
-          fill: var(--color-text-sub-heading);
+        font-size: 10px;
+        fill: var(--color-text-sub-heading);
       }
     }
   }
@@ -97,14 +115,9 @@
   }
 
   .compass {
-      &__value {
-          font-size: 10px;
-          fill: var(--color-text-main);
-      }
+    &__value {
+      font-size: 10px;
+      fill: var(--color-text-main);
+    }
   }
-}
-
-.img-animate {
-  transform: translate(834.21px, 486.66px) rotate(0deg);
-  transform-origin: 84px 84px 0;
 }
