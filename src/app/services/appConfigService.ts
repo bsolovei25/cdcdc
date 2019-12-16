@@ -21,11 +21,18 @@ export class AppConfigService {
         }
         return this.appConfig.wsUrl;
     }
-    
+
     get restUrl(): string {
         if (!this.appConfig) {
             throw Error('Config file not loaded!');
         }
         return this.appConfig.restUrl;
     }
+
+  get reconnectInterval(): string {
+    if (!this.appConfig) {
+      throw Error('Config file not loaded!');
+    }
+    return this.appConfig.reconnectInterval;
+  }
 }

@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit, Input, Output, Inject, Injector} from '@angular/core';
 import {ManualInputService} from '../../services/manual-input.service';
 import {HttpClient} from '@angular/common/http';
-import {Machine_MI} from '../../models/manual-input.model';
+import {Machine_MI, ManualInputData} from '../../models/manual-input.model';
 import {Subscription} from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
 import {AppConfigService} from 'src/app/services/appConfigService';
@@ -63,19 +63,14 @@ export class ManualInputComponent implements OnInit, OnDestroy {
   }
 
   setInitData() {
-    // console.log(this.restUrl + '/api/mi/load/' + this.id);
     this.http.get(this.restUrl + '/api/mi/load/' + this.id)
-      .subscribe((ref: Machine_MI[]) => {
-      //  console.log(ref);
-      //  console.log("init_rest");
-
-        this.Data = this.manualInputService.LoadData(this.Data, ref);
+      .subscribe((ref: ManualInputData) => {
+        this.Data = this.manualInputService.LoadData(this.Data, ref.items);
       });
   }
 
   onButtonSave() {
     this.manualInputService.BtnSaveValues(this.Data);
-   // console.log('buttonClick');
   }
 
   onChangeValue(id: string) {
@@ -90,9 +85,7 @@ export class ManualInputComponent implements OnInit, OnDestroy {
 
     this.widgetService.getWidgetLiveDataFromWS(this.id, 'manual-input')
       .subscribe((ref) => {
-
           this.manualInputService.LoadData(this.Data, ref);
-          //console.log("init");
         }
       );
   }
@@ -100,17 +93,15 @@ export class ManualInputComponent implements OnInit, OnDestroy {
     if (!this.subscribtion2) {
       return;
     }
-
-    this.subscribtion2 = this.widgetService.getWidgetLiveDataFromWS(this.id, 'manual-input')
-      .subscribe((ref) => {
-          this.manualInputService.LoadData(this.Data, ref);
-          //console.log("init");
-        }
-      );
+    // this.subscribtion2 = this.widgetService.getWidgetLiveDataFromWS(this.id, 'manual-input')
+    //   .subscribe((ref) => {
+    //       this.manualInputService.LoadData(this.Data, ref);
+    //     }
+    //   );
   }
 
   showMock(show) {
-    if (show){
+    if (show) {
       this.wsDisconnect();
     } else {
       this.setInitData();

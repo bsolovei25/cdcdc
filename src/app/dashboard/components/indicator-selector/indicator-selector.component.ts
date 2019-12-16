@@ -21,36 +21,64 @@ export class IndicatorSelectorComponent implements OnInit {
 
   private subscription: Subscription;
 
+
   public idScreen: number;
 
   public nameScreen: string;
+  
+  public localSaved = Number(localStorage.getItem('screenid'));
+
+
+  private timerOff = null;
+
+  private isShowScreens: boolean = false;
 
   constructor(
     private userSettings: NewUserSettingsService
     ) { }
 
   ngOnInit() {
-
+   
     this.subscription = this.userSettings.screens$.subscribe(dataW => {
       this.dataScreen = dataW;
-      for(let item of this.dataScreen){
+      for (const item of this.dataScreen) {
         item.updateScreen = false;
       }
-
-    });
-
+    }); 
     this.nameScreen = this.getActiveScreen();
+    
   }
 
   public LoadScreen(id){
     this.userSettings.LoadScreen(id);
   }
 
+  private ScreenActive(e) {
+    if (this.timerOff) {
+      clearTimeout(this.timerOff);
+    }
+    this.isShowScreens = true;
+  }
+
+  private ScreenDisable(e) {
+    this.timerOff = setTimeout(() => {
+      this.isShowScreens = false;
+    }, 700);
+  }
+
   getActiveScreen(): string {
     if (this.idScreen) {
       const currentScreen = this.dataScreen.find(x => x.id === this.idScreen);
       if (currentScreen)
-        return currentScreen.screenName
+        return currentScreen.screenName;
+    }
+
+    if (this.localSaved) {
+      const found = this.dataScreen.find(x => x.id === this.localSaved);
+        if (found){
+          return found.screenName;
+        }
+      this.LoadScreen(this.localSaved);
     }
     if (this.dataScreen[0])
       return this.dataScreen[0].screenName;
@@ -59,7 +87,7 @@ export class IndicatorSelectorComponent implements OnInit {
   setActiveScreen(screen) {
     this.nameScreen = screen.screenName;
     this.idScreen = screen.id;
-    screen.isActive = true;
+    screen.isActive = true; 
   }
 
   onChangeAdder() {
@@ -87,7 +115,7 @@ export class IndicatorSelectorComponent implements OnInit {
   public updateScreen(id, newName){
     for(let item of this.dataScreen){
       if(item.id === id){
-        item.updateScreen = false; 
+        item.updateScreen = false;
       }
     }
     this.userSettings.updateScreen(id, newName);

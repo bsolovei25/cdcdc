@@ -37,8 +37,19 @@ import { ProductionPyramidComponent } from './widgets/production-pyramid/product
 import { BarChartsComponent } from './widgets/bar-chart/bar-charts/bar-charts.component';
 import { BarChartComponent } from './widgets/bar-chart/bar-chart/bar-chart.component';
 import { SuspenseMachineComponent } from './widgets/suspense-machine/suspense-machine.component';
-
-
+import { DetailedLineDiagramComponent } from "./components/detailed-line-diagram/detailed-line-diagram.component";
+import { OperationEfficiencyComponent } from "./widgets/operation-efficiency/operation-efficiency.component";
+import { MapEcologyComponent } from "./widgets/map-ecology/map-ecology/map-ecology.component";
+import { UnityTemplateComponent } from "./widgets/unity-template/unity-template.component";
+import { PowIndexPipe } from "./pipes/pow-index.pipe";
+import { RingFactoryDiagramComponent } from './widgets/ring-factory-diagrams/ring-factory-diagram/ring-factory-diagram.component';
+import { LineChartWorkspaceComponent } from './widgets/workspace/line-chart-workspace/line-chart-workspace.component';
+import { RingSFactoryDiagramComponent } from './widgets/ring-factory-diagrams/ring-s-factory-diagram/ring-s-factory-diagram.component';
+import { CalendarPlanComponent } from "./widgets/calendar-plan/calendar-plan.component";
+import { EcologySafetyComponent } from "./widgets/ecology-safety/ecology-safety.component";
+import { DispatcherScreenComponent } from "./widgets/dispatcher-screen/dispatcher-screen.component";
+import { EnergeticsComponent } from './widgets/energetics/energetics.component';
+import { CircleDiagramComponent } from './widgets/circle-diagram/circle-diagram.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +82,20 @@ import { SuspenseMachineComponent } from './widgets/suspense-machine/suspense-ma
     ProductionPyramidComponent,
     BarChartsComponent,
     BarChartComponent,
-    SuspenseMachineComponent
+    SuspenseMachineComponent,
+    CircleDiagramComponent,
+    UnityTemplateComponent,
+    PowIndexPipe,
+    MapEcologyComponent,
+    DetailedLineDiagramComponent,
+    OperationEfficiencyComponent,
+    RingFactoryDiagramComponent,
+    RingSFactoryDiagramComponent,
+    LineChartWorkspaceComponent,
+    CalendarPlanComponent,
+    EcologySafetyComponent,
+    DispatcherScreenComponent,
+    EnergeticsComponent,
   ],
   entryComponents: [
     LineChartComponent,
@@ -87,11 +111,21 @@ import { SuspenseMachineComponent } from './widgets/suspense-machine/suspense-ma
     PointDiagramComponent,
     ProductionPyramidComponent,
     BarChartsComponent,
-    SuspenseMachineComponent
+    SuspenseMachineComponent,
+    CircleDiagramComponent,
+    MapEcologyComponent,
+    UnityTemplateComponent,
+    OperationEfficiencyComponent,
+    CalendarPlanComponent,
+    EcologySafetyComponent,
+    RingFactoryDiagramComponent,
+    LineChartWorkspaceComponent,
+    EnergeticsComponent,
+    RingSFactoryDiagramComponent,
+    LineChartWorkspaceComponent,
+    DispatcherScreenComponent
   ],
-  exports: [
-    HomeComponent,
-  ],
+  exports: [HomeComponent],
   imports: [
     CommonModule,
     SharedModule,
@@ -100,7 +134,7 @@ import { SuspenseMachineComponent } from './widgets/suspense-machine/suspense-ma
     HttpClientModule,
     FormsModule,
     GridsterModule,
-    ClickOutsideModule,
+    ClickOutsideModule
   ],
   bootstrap: []
 })

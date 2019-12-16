@@ -1,0 +1,69 @@
+<div class="dl-dia" *ngIf="data">
+  <div class="dl-dia__graph">
+    <div class="graph__title">
+      План <span>{{ data.plan }}</span>
+    </div>
+    <div class="graph__line">
+      <div class="line line__marking line__marking-0"></div>
+      <div class="line line__marking line__marking-50"></div>
+      <div
+        class="line line__limit"
+        [ngStyle]="{ left: limitsGraph(data, 'l') }"
+      >
+        <div class="label label__limit label__limit-lower">
+          {{ (data.lowerValue / data.plan) * 100 | number: "1.0-0" }}%
+        </div>
+      </div>
+      <div
+        class="line line__limit"
+        [ngStyle]="{ left: limitsGraph(data, 'r') }"
+      >
+        <div class="label label__limit label__limit-higher">
+          {{ (data.higherValue / data.plan) * 100 | number: "1.0-2" }}%
+        </div>
+      </div>
+      <svg width="100%" height="100%">
+        <rect
+          [attr.x]="0"
+          y="2px"
+          [attr.width]="drawGraph(data)"
+          height="8px"
+          rx="3px"
+          ry="3px"
+          [attr.fill]="colorDeviation"
+        />
+        <rect
+          x="0"
+          y="2px"
+          [attr.width]="
+            data.curValue < data.higherValue
+              ? drawGraph(data)
+              : (data.higherValue / data.maxValue) * 100 + '%'
+          "
+          height="8px"
+          rx="3px"
+          ry="3px"
+          [attr.fill]="data.curValue < data.plan ? colorNormal : colorFull"
+          *ngIf="data.curValue > data.lowerValue"
+        />
+      </svg>
+    </div>
+  </div>
+  <div class="dl-dia__deviation">
+    <div class="deviation__worse">
+      Отклонение <span>{{ deviationCounter(data, true) }}</span>
+      <img
+        [ngClass]="{ rotate: isPositive(data) }"
+        src="../../../../assets/icons/widgets/calendar-plan/deviat_danger.svg"
+        alt=""
+      />
+    </div>
+    <div class="deviation__better">
+      Улучшение <span>{{ deviationCounter(data, false) }}</span>
+      <img
+        src="../../../../assets/icons/widgets/calendar-plan/deviat.svg"
+        alt=""
+      />
+    </div>
+  </div>
+</div>

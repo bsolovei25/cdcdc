@@ -7,7 +7,7 @@ import {
   OnInit,
   ViewChild,
   ViewEncapsulation,
-  Inject
+  Inject, HostListener
 } from '@angular/core';
 
 import * as d3 from 'd3-selection';
@@ -18,7 +18,7 @@ import * as d3Axis from 'd3-axis';
 import * as d3Format from 'd3-format';
 import { Mock } from 'src/app/dashboard/widgets/line-chart/mock';
 import { Subscription } from "rxjs";
-import { LineChartData } from "../../models/line-chart";
+import { LineChartData, LineChartGraph, LineChartGraphValue } from "../../models/line-chart";
 import { NewWidgetService } from '../../services/new-widget.service';
 
 @Component({
@@ -30,13 +30,13 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
   code;
   public title;
-  units;
+  units = "";
   options;
   position?: string = 'default';
 
   data: LineChartData;
 
-  static itemCols = 30;
+  static itemCols = 20;
   static itemRows = 12;
 
 
@@ -130,11 +130,6 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
-  private subscription: Subscription;
-
-  private subscription2: Subscription;
-
-
   constructor(
     public widgetService: NewWidgetService,
     @Inject('isMock') public isMock: boolean,
@@ -143,7 +138,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.widgetService.getWidgetChannel(id).subscribe(data => {
       this.code = data.code,
         this.title = data.title,
-        this.units = data.units,
+       // this.units = data.units,
         this.options = data.widgetOptions;
     }));
   }
@@ -151,42 +146,46 @@ export class LineChartComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.showMock(this.isMock);
     if (!this.isMock) {
-      setInterval(() => {
-        if (this.dataLine) {
-          this.draw(this.dataLine);
-        }
-      }, 500);
+      if (this.dataLine) {
+        this.draw(this.dataLine);
+      }
     }
   }
 
-  ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
+  ngOnDestroy(): void {
+    for (const subscribe of this.subscriptions) {
+      subscribe.unsubscribe();
     }
   }
 
   showMock(show) {
-    if (show) {
-      this.disableLiveData();
-    } else {
-      this.enableLiveData();
+      if (show) {
+        this.disableLiveData();
+      } else {
+        this.enableLiveData();
+      }
     }
-  }
 
-  private enableLiveData() {
-    // TODO добавить получение типа графика
-    this.subscriptions.push(this.widgetService.getWidgetLiveDataFromWS(this.id, 'line-chart')
-      .subscribe((ref) => {
-        this.dataLine = ref;
+    @HostListener('document:resize', ['$event'])
+    private OnResize(event) {
+      if (this.dataLine) {
         this.draw(this.dataLine);
-        console.log('update-line-chat');
-      }));
-  }
+      }
+    }
 
-  private disableLiveData() {
-    this.draw(Mock);
-  }
+    private enableLiveData() {
+      // TODO добавить получение типа графика
+      this.subscriptions.push(this.widgetService.getWidgetLiveDataFromWS(this.id, 'line-chart')
+        .subscribe((ref) => {
+          this.dataLine = ref;
+          this.dataLine.graphs.map(x => x.values.map(z => z.date = new Date(z.date)));
+          this.draw(this.dataLine);
+        }));
+    }
 
+    private disableLiveData() {
+      this.draw(Mock);
+    }
 
   private draw(data) {
     if (this.svg) {
@@ -201,15 +200,19 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
   private buildData(data) {
     const xMax = d3Array.max(data.graphs, c => d3Array.max(c.values, d => d.date));
-
-    data.graphs.forEach(g => this.fillToXMAx(g.values, xMax));
+    data.graphs
+      .filter(x => x.graphType !== "fact")
+      .forEach(g => {
+        this.fillToXMAx(g.values, xMax);
+      });
+    // debugger;
     return data;
   }
 
   private fillToXMAx(values, xMax) {
     const latest = values.slice().reverse()[0];
-
-    if (latest && latest.date.getTime() !== xMax.getTime()) {
+    const xMaxDate = new Date(xMax);
+    if (latest && new Date(latest.date).getTime() !== xMaxDate.getTime()) {
       return values.push({ value: latest.value, date: xMax });
     }
   }
@@ -231,18 +234,23 @@ export class LineChartComponent implements OnInit, OnDestroy {
       // this.drawLimitsDeviationAreas(upperLimit, lowerLimit, fact);
     } else {
       this.deleteLimitsData();
-      this.drawDeviationAreas(plan, fact);
+      // this.drawDeviationAreas(plan, fact);
     }
 
     this.drawPath();
     this.drawPoints();
   }
 
+  private extractByName(graphs: LineChartGraph[], graphTypeName: string): LineChartGraphValue[] {
+    var found = graphs.find(d => d.graphType === graphTypeName);
+    return found != null ? found.values : [];
+  }
+
   private refreshDeviations() {
-    const plan = this.data.graphs.find(d => d.graphType === 'plan').values;
-    const fact = this.data.graphs.find(d => d.graphType === 'fact').values;
-    const lowerLimit = this.data.graphs.find(d => d.graphType === 'lowerLimit').values;
-    const upperLimit = this.data.graphs.find(d => d.graphType === 'upperLimit').values;
+    const plan = this.extractByName(this.data.graphs, 'plan');
+    const fact = this.extractByName(this.data.graphs, 'fact');
+    const lowerLimit = this.extractByName(this.data.graphs, 'lowerLimit');
+    const upperLimit = this.extractByName(this.data.graphs, 'upperLimit');
 
     let deviationMode = 'planFact';
     if (plan.findIndex(p => lowerLimit.findIndex(ll => ll.value !== p.value) !== -1 || upperLimit.findIndex(ll => ll.value !== p.value) !== -1) !== -1) {
@@ -255,18 +263,18 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
         switch (deviationMode) {
           case 'planFact':
-            const planvalue = plan.slice().reverse().find(p => p.date.getTime() <= d.date.getTime());
+            const planvalue = plan.slice().reverse().find(p => new Date(p.date).getTime() <= new Date(d.date).getTime());
             if (planvalue && planvalue.value < d.value) {
               acc.values.push(d);
             }
             break;
           case 'limits':
-            const ul = upperLimit.slice().reverse().find(p => p.date.getTime() <= d.date.getTime());
+            const ul = upperLimit.slice().reverse().find(p => new Date(p.date).getTime() <= new Date(d.date).getTime());
             if (ul && ul.value < d.value) {
               acc.values.push(d);
             }
 
-            const li = lowerLimit.slice().reverse().find(p => p.date.getTime() <= d.date.getTime());
+            const li = lowerLimit.slice().reverse().find(p => new Date(p.date).getTime() <= new Date(d.date).getTime());
             if (li && li.value > d.value) {
               acc.values.push(d);
             }
@@ -293,10 +301,10 @@ export class LineChartComponent implements OnInit, OnDestroy {
   }
 
   private refreshDomains() {
-    this.x = d3Scale.scaleTime().range([0, this.width]);
+    this.x = d3Scale.scaleTime().range([0, this.width * 0.85]);
     this.y = d3Scale.scaleLinear().range([this.height, 0]);
 
-    this.x.domain(d3Array.extent(this.data.graphs.map((v) => v.values.map((v) => v.date))[0], (d: Date) => d));
+    this.x.domain(d3Array.extent(this.data.graphs.map((v) => v.values.map((v) => v.date))[0], (d: Date) => d)).nice();
 
 
     const yMin = d3Array.min(this.data.graphs, c => d3Array.min(c.values, d => d.value));
@@ -340,6 +348,11 @@ export class LineChartComponent implements OnInit, OnDestroy {
     this.width = element.offsetWidth - this.margin.left - this.margin.right;
     this.height = element.offsetHeight - this.margin.top - this.margin.bottom;
     this.heightNoMargins = element.offsetHeight;
+
+    const minWidth = 350;
+    if (minWidth > this.width) {
+      this.width = minWidth;
+    }
 
     this.svg = d3.select(element).append('svg')
       .attr('width', this.width)
@@ -432,9 +445,9 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
     points.selectAll(".point")
       .data(d => d.values.map(i => {
-        i.type = d.graphType;
-        return i
-      })
+          i.type = d.graphType;
+          return i
+        })
       )
       .enter()
       .append("svg:image")
@@ -470,7 +483,10 @@ export class LineChartComponent implements OnInit, OnDestroy {
       .attr('class', 'area')
       .append("path")
       .attr("d", d => {
-        return clipPathArea(d.values);
+        if (d) {
+          return clipPathArea(d.values);
+        }
+
       });
 
 

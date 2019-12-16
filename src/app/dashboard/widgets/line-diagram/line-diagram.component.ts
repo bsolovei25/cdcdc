@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Inject} from '@angular/core';
+import {Component, Input, OnInit, OnDestroy, Inject} from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { Subscription } from 'rxjs';
 import { inject } from '@angular/core/testing';
@@ -35,7 +35,8 @@ export class LineDiagramComponent implements OnInit {
   ];
   fillGraphs = "#3FA9F5";
 
-  public title
+  public title;
+  public unitsA;
 
   constructor(
     public widgetService: NewWidgetService,
@@ -44,7 +45,7 @@ export class LineDiagramComponent implements OnInit {
   ) {
       this.subscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
         this.title = data.title;
-        console.log('my: ', data)
+        this.unitsA = data.units;
     });
   }
 
@@ -52,7 +53,7 @@ export class LineDiagramComponent implements OnInit {
     this.showMock(this.isMock);
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
@@ -75,23 +76,19 @@ export class LineDiagramComponent implements OnInit {
   }
 
   wsConnect() {
-   // console.log('start ld ws')
-    this.subscription = this.widgetService.getWidgetLiveDataFromWS(this.id, 'line-diagram')
-      .subscribe((ref) => {
-          this.data = [];
-          for (let el in ref) {
-            let newEl = {
-              name: ref[el].name,
-              count: ref[el].percentage,
-              curValue: ref[el].value,
-              planValue: ref[el].upperBound,
-              units: ref[el].units,
-              critical: ref[el].isCritical
-            }
-            this.data.push(newEl);
+    this.subscription = this.widgetService
+      .getWidgetLiveDataFromWS(this.id, 'line-diagram')
+      .subscribe((data) => {
+          this.data = data.items.map(el =>
+            ({
+              name: el.name,
+              count: el.percentage,
+              curValue: el.value,
+              planValue: el.upperBound,
+              units: el.units,
+              critical: el.isCritical
+            }));
           }
-      //    console.log(this.data);
-        }
       );
   }
 

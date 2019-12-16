@@ -1,6 +1,34 @@
 <div style="height: 100%; width: 100%;" >
 
-    <evj-widget-header [title]="title" [units]="units" [code]="code" [id]="id"></evj-widget-header>
+        <div class="header">
+                <div class="header__content drag handle">
+                  <div class="header__icon-wrapper">
+                    <svg-icon
+                      class="header__icon" style="fill: #8C99B2"
+                      src="./assets/icons/widgets/events/letter.svg"
+                    ></svg-icon>
+                  </div>
+                  <div class="header__name">
+                    {{title}}
+                  </div>
+                  <div class="header__units">
+                    {{units}}
+                  </div>
+                  <div class="delete_widget" (click)="onRemoveButton()" (mousedown)="$event.stopPropagation()"
+                  (touchstart)="$event.stopPropagation()">
+                      <svg-icon style="width: 100%; height: 100%; fill: #8C99B2"
+                      src="./assets/icons/close_bad.svg"
+                    ></svg-icon>
+                  </div>
+                </div>
+                <div class="bar_legend">
+                        <span style="color:rgb(158,215,245)">Всего</span>
+                        <span>В работе</span>
+                        <span style="color:orange">С отклонением</span>
+                </div>
+              </div>
+
+ <!--   <evj-widget-header [title]="title" [units]="units" [code]="code" [id]="id"></evj-widget-header> -->
 
     <evj-frame-top></evj-frame-top>
     
