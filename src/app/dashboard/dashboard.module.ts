@@ -94,7 +94,7 @@ import { EnergeticsComponent } from './widgets/energetics/energetics.component';
     CalendarPlanComponent,
     EcologySafetyComponent,
     DispatcherScreenComponent,
-    EnergeticsComponent
+    EnergeticsComponent,
   ],
   entryComponents: [
     LineChartComponent,
