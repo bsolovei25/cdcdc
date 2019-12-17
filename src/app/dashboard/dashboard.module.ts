@@ -52,6 +52,7 @@ import { DispatcherScreenComponent } from "./widgets/dispatcher-screen/dispatche
 import { EnergeticsComponent } from './widgets/energetics/energetics.component';
 import { CircleDiagramComponent } from './widgets/circle-diagram/circle-diagram.component';
 import { DeviationsTableComponent } from './widgets/deviations-table/deviations-table.component';
+import { TriggeringCriticalParametersComponent } from './widgets/triggering-critical-parameters/triggering-critical-parameters.component';
 
 @NgModule({
   declarations: [
@@ -100,7 +101,8 @@ import { DeviationsTableComponent } from './widgets/deviations-table/deviations-
     EcologySafetyComponent,
     DispatcherScreenComponent,
     EnergeticsComponent,
-    DeviationsTableComponent
+    DeviationsTableComponent,
+    TriggeringCriticalParametersComponent,
   ],
   entryComponents: [
     LineChartComponent,
@@ -130,7 +132,8 @@ import { DeviationsTableComponent } from './widgets/deviations-table/deviations-
     RingSFactoryDiagramComponent,
     LineChartWorkspaceComponent,
     DispatcherScreenComponent,
-    DeviationsTableComponent
+    DeviationsTableComponent,
+    TriggeringCriticalParametersComponent,
   ],
   exports: [HomeComponent],
   imports: [

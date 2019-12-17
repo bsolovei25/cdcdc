@@ -53,8 +53,7 @@ table {
   height: 100%;
   width: 100%;
   padding: 10px;
-  padding-bottom: 50px;
-  padding-top: 0;
+  padding-bottom: 30px;
   box-sizing: border-box;
 
   background-color: inherit;
@@ -63,9 +62,9 @@ table {
 
   &__header {
     border-bottom: 1px solid var(--color-bg-sub);
-    padding-bottom: 10px;
+    padding-bottom: 5px;
     .mb {
-      margin-bottom: 3px;
+      margin-bottom: 5px;
     }
   }
 
@@ -85,50 +84,27 @@ table {
     font-weight: 100;
     display: flex;
     flex-grow: 1;
-
-    min-width: 35px;
+    flex: 1;
 
     &__items {
       display: flex;
     }
 
     &__equipment {
-      min-width: 105px;
-    }
+      min-width: 120px;
+      position: relative;
+      align-items: flex-end;
 
-    &__energy {
-      &_procent {
-        min-width: 35px;
-      }
-    }
-
-    &__consumption {
-      &_procent {
-        min-width: 35px;
-      }
-    }
-
-    &__fuel {
-      &_procent {
-        min-width: 20px;
+      .icon-equipment {
+        top: -10px;
+        left: 20px;
+        position: absolute;
       }
     }
 
     &__icon {
-      margin-left: 20px;
-      min-width: 40px;
-    }
-
-    .procent {
-      margin-left: 30px;
-    }
-
-    .icon {
-      display: block;
-    }
-
-    .icon_svg {
-      margin-left: 20px;
+      // margin-left: 20px;
+      min-width: 20px;
     }
   }
 
@@ -152,30 +128,14 @@ table {
     padding-bottom: 10px;
     display: flex;
     flex-grow: 1;
+    flex: 1;
 
     &__equipment {
-      min-width: 110px;
-    }
-
-    &__energy {
-      min-width: 40px;
-      &_procent {
-        min-width: 40px;
-      }
-    }
-
-    &__consumption {
-      min-width: 40px;
-      &_procent {
-        min-width: 40px;
-      }
+      min-width: 120px;
     }
 
     &__fuel {
-      min-width: 40px;
-      &_procent {
-        min-width: 20px;
-      }
+      min-width: 20px;
     }
   }
 }

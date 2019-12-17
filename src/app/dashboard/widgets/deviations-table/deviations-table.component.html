@@ -25,7 +25,7 @@
       <div class="table__header">
         <table>
           <thead>
-            <tr class="header__items">
+            <tr class="header__items mb">
               <th class="header header__icon">
                 <svg-icon class="icon" src="./assets/icons/widgets/deviations-table/1.svg">
                 </svg-icon>
@@ -72,24 +72,24 @@
       <div class="table__body scroll-bar">
         <table>
           <tbody>
-            <tr *ngFor="let item of data" class="table__item">
+            <tr *ngFor="let item of data" class="table__item" [ngClass]="{'open': item.nonCritical}">
               <td class="item item__equipment">{{ item.equipment }}</td>
               <td class="item item__energy">
                 {{ item.energy }}
               </td>
-              <td class="item item__energy_procent">
-                0
+              <td class="item item__energy_procent" [ngClass]="{'open-procent': item.nonCritical}">
+                -3.9
               </td>
               <td class="item item__consumption">
                 {{ item.consumption }}
               </td>
-              <td class="item item__consumption_procent">
+              <td class="item item__consumption_procent" [ngClass]="{'open-procent': item.nonCritical}">
                 0
               </td>
               <td class="item item__fuel">
                 {{ item.fuel }}
               </td>
-              <td class="item item__fuel_procent">
+              <td class="item item__fuel_procent" [ngClass]="{'open-procent': item.nonCritical}">
                 0
               </td>
             </tr>

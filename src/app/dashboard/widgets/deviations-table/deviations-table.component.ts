@@ -116,8 +116,8 @@ export class DeviationsTableComponent implements OnInit, OnDestroy {
         },
     ]
 
-    static itemCols = 20;
-    static itemRows = 5;
+    static itemCols = 15;
+    static itemRows = 18;
 
     constructor(
         private eventService: EventService,

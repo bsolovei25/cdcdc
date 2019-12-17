@@ -22,6 +22,7 @@ import { EcologySafetyComponent } from '../../widgets/ecology-safety/ecology-saf
 import { CalendarPlanComponent } from '../../widgets/calendar-plan/calendar-plan.component';
 import { DispatcherScreenComponent } from '../../widgets/dispatcher-screen/dispatcher-screen.component';
 import { DeviationsTableComponent } from '../../widgets/deviations-table/deviations-table.component';
+import { TriggeringCriticalParametersComponent } from '../../widgets/triggering-critical-parameters/triggering-critical-parameters.component';
 
 
 export const WIDGETS = {
@@ -50,4 +51,5 @@ export const WIDGETS = {
     'dispatcher-screen': DispatcherScreenComponent,
     'suspense-machine': SuspenseMachineComponent,
     'deviations-table': DeviationsTableComponent,
+    'triggering-critical-parameters': TriggeringCriticalParametersComponent,
 };
