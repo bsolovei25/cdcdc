@@ -188,6 +188,9 @@ export class LineChartComponent implements OnInit, OnDestroy {
     }
 
   private draw(data) {
+    if (!this.options)
+      return;
+
     if (this.svg) {
       this.svg.remove();
     }
@@ -315,6 +318,9 @@ export class LineChartComponent implements OnInit, OnDestroy {
   }
 
   private refreshLines() {
+    if (!this.options)
+      return;
+
     this.lines = {
       plan: d3Shape.line()
         .curve(d3Shape[this.options.planLineType])

@@ -1,13 +1,15 @@
 import { LineChartOptions } from './line-chart';
 
 export interface WidgetGridsterSettings {
-    itemRows: string;
-    itemCols: string;
+  itemRows: string;
+  itemCols: string;
+
 }
 
+
 export class WidgetModel {
-    isMock: boolean;
-    id: number;
+  isMock: boolean;
+  id: number;
 }
 
 export interface Widgets {

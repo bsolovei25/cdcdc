@@ -11,6 +11,8 @@ import { TruncatedPieSIconComponent } from '../../widgets/truncated-pie-icon/tru
 import { PointDiagramComponent } from '../../widgets/point-diagram/point-diagram.component';
 import { ProductionPyramidComponent } from '../../widgets/production-pyramid/production-pyramid.component';
 import { BarChartsComponent } from '../../widgets/bar-chart/bar-charts/bar-charts.component';
+import { SuspenseMachineComponent } from '../../widgets/suspense-machine/suspense-machine.component';
+import { EnterpriseMapComponent } from '../../widgets/map-enterprise/enterprise-map.component';
 import { CircleDiagramComponent } from '../../widgets/circle-diagram/circle-diagram.component';
 import { MapEcologyComponent } from '../../widgets/map-ecology/map-ecology/map-ecology.component';
 import { UnityTemplateComponent } from '../../widgets/unity-template/unity-template.component';
@@ -19,6 +21,8 @@ import { OperationEfficiencyComponent } from '../../widgets/operation-efficiency
 import { EcologySafetyComponent } from '../../widgets/ecology-safety/ecology-safety.component';
 import { CalendarPlanComponent } from '../../widgets/calendar-plan/calendar-plan.component';
 import { DispatcherScreenComponent } from '../../widgets/dispatcher-screen/dispatcher-screen.component';
+import { DeviationsTableComponent } from '../../widgets/deviations-table/deviations-table.component';
+import { TriggeringCriticalParametersComponent } from '../../widgets/triggering-critical-parameters/triggering-critical-parameters.component';
 
 
 export const WIDGETS = {
@@ -27,21 +31,25 @@ export const WIDGETS = {
     'line-diagram': LineDiagramComponent,
     'manual-input': ManualInputComponent,
     "events": EventsComponent,
-    'shift-pass': ChangeShiftComponent,
-    'shift-accept': ChangeShiftComponent,
-    'events-workspace': EventsWorkSpaceComponent,
-    'truncated-diagram-percentage': TruncatedPieSFirstComponent,
-    'truncated-diagram-counter': TruncatedPieSIconComponent,
-    'point-diagram': PointDiagramComponent,
-    'industrial-pyramid': ProductionPyramidComponent,
-    'bar-chart': BarChartsComponent,
-    'circle-diagram': CircleDiagramComponent,
-    'unity-template': UnityTemplateComponent,
-    'map-ecology': MapEcologyComponent,
-    'operation-efficiency': OperationEfficiencyComponent,
-    'ecology-safety': EcologySafetyComponent,
-    'calendar-plan': CalendarPlanComponent,
-    'ring-factory-diagram': RingSFactoryDiagramComponent,
+    "shift-pass": ChangeShiftComponent,
+    "shift-accept": ChangeShiftComponent,
+    "events-workspace": EventsWorkSpaceComponent,
+    "truncated-diagram-percentage": TruncatedPieSFirstComponent,
+    "truncated-diagram-counter": TruncatedPieSIconComponent,
+    "point-diagram": PointDiagramComponent,
+    "industrial-pyramid": ProductionPyramidComponent,
+    "bar-chart": BarChartsComponent,
+    "enterprise-map": EnterpriseMapComponent,
+    "circle-diagram": CircleDiagramComponent,
+    "unity-template": UnityTemplateComponent,
+    "map-ecology":MapEcologyComponent,
+    "operation-efficiency": OperationEfficiencyComponent,
+    "ecology-safety":EcologySafetyComponent,
+    "calendar-plan":CalendarPlanComponent,
+    "ring-factory-diagram": RingSFactoryDiagramComponent,
+    "energetics": EnergeticsComponent,
     'dispatcher-screen': DispatcherScreenComponent,
-    'energetics': EnergeticsComponent
+    'suspense-machine': SuspenseMachineComponent,
+    'deviations-table': DeviationsTableComponent,
+    'triggering-critical-parameters': TriggeringCriticalParametersComponent,
 };
