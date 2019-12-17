@@ -21,6 +21,8 @@ import { OperationEfficiencyComponent } from '../../widgets/operation-efficiency
 import { EcologySafetyComponent } from '../../widgets/ecology-safety/ecology-safety.component';
 import { CalendarPlanComponent } from '../../widgets/calendar-plan/calendar-plan.component';
 import { DispatcherScreenComponent } from '../../widgets/dispatcher-screen/dispatcher-screen.component';
+import { DeviationsTableComponent } from '../../widgets/deviations-table/deviations-table.component';
+import { TriggeringCriticalParametersComponent } from '../../widgets/triggering-critical-parameters/triggering-critical-parameters.component';
 
 
 export const WIDGETS = {
@@ -47,5 +49,7 @@ export const WIDGETS = {
     "ring-factory-diagram": RingSFactoryDiagramComponent,
     "energetics": EnergeticsComponent,
     'dispatcher-screen': DispatcherScreenComponent,
-    "suspense-machine": SuspenseMachineComponent
+    'suspense-machine': SuspenseMachineComponent,
+    'deviations-table': DeviationsTableComponent,
+    'triggering-critical-parameters': TriggeringCriticalParametersComponent,
 };

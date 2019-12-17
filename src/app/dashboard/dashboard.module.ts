@@ -51,6 +51,8 @@ import { EcologySafetyComponent } from "./widgets/ecology-safety/ecology-safety.
 import { DispatcherScreenComponent } from "./widgets/dispatcher-screen/dispatcher-screen.component";
 import { EnergeticsComponent } from './widgets/energetics/energetics.component';
 import { CircleDiagramComponent } from './widgets/circle-diagram/circle-diagram.component';
+import { DeviationsTableComponent } from './widgets/deviations-table/deviations-table.component';
+import { TriggeringCriticalParametersComponent } from './widgets/triggering-critical-parameters/triggering-critical-parameters.component';
 
 @NgModule({
   declarations: [
@@ -99,6 +101,8 @@ import { CircleDiagramComponent } from './widgets/circle-diagram/circle-diagram.
     EcologySafetyComponent,
     DispatcherScreenComponent,
     EnergeticsComponent,
+    DeviationsTableComponent,
+    TriggeringCriticalParametersComponent,
   ],
   entryComponents: [
     LineChartComponent,
@@ -127,7 +131,9 @@ import { CircleDiagramComponent } from './widgets/circle-diagram/circle-diagram.
     EnergeticsComponent,
     RingSFactoryDiagramComponent,
     LineChartWorkspaceComponent,
-    DispatcherScreenComponent
+    DispatcherScreenComponent,
+    DeviationsTableComponent,
+    TriggeringCriticalParametersComponent,
   ],
   exports: [HomeComponent],
   imports: [

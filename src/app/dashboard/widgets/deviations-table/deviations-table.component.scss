@@ -1,0 +1,209 @@
+.container {
+  position: relative;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-width: 430px;
+}
+
+.mock {
+  display: block;
+  height: 200px;
+  border-left: dashed 0.5px var(--color-border-main);
+  border-right: dashed 0.5px var(--color-border-main);
+  .line {
+    color: var(--color-text-sub-heading);
+    margin: 0 auto;
+    padding-left: 160px;
+  }
+  &-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  img {
+    width: 80%;
+    height: 100%;
+  }
+}
+
+table {
+  border-spacing: 0;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+  thead {
+    padding-left: 10px;
+  }
+}
+
+.table {
+  font-family: Tahoma, sans-serif;
+  font-size: 12px;
+  font-weight: 100;
+  color: var(--color-text-sub);
+
+  position: relative;
+  height: 100%;
+  width: 100%;
+  padding: 10px;
+  padding-bottom: 50px;
+  padding-top: 0;
+  box-sizing: border-box;
+
+  background-color: inherit;
+  border-left: dashed 0.5px var(--color-border-main);
+  border-right: dashed 0.5px var(--color-border-main);
+
+  &__header {
+    border-bottom: 1px solid var(--color-bg-sub);
+    padding-bottom: 10px;
+    .mb {
+      margin-bottom: 3px;
+    }
+  }
+
+  &__body {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 100%;
+    width: 100%;
+  }
+
+  .header {
+    position: relative;
+
+    text-align: left;
+    font-size: 12px;
+    color: var(--color-text-sub);
+    font-weight: 100;
+    display: flex;
+    flex-grow: 1;
+
+    min-width: 35px;
+
+    &__items {
+      display: flex;
+    }
+
+    &__equipment {
+      min-width: 105px;
+    }
+
+    &__energy {
+      &_procent {
+        min-width: 35px;
+      }
+    }
+
+    &__consumption {
+      &_procent {
+        min-width: 35px;
+      }
+    }
+
+    &__fuel {
+      &_procent {
+        min-width: 20px;
+      }
+    }
+
+    &__icon {
+      margin-left: 20px;
+      min-width: 40px;
+    }
+
+    .procent {
+      margin-left: 30px;
+    }
+
+    .icon {
+      display: block;
+    }
+
+    .icon_svg {
+      margin-left: 20px;
+    }
+  }
+
+  &__body {
+    tbody {
+      padding-left: 10px;
+    }
+  }
+
+  &__item {
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .item {
+    text-align: left;
+    font-size: 12px;
+    font-weight: 100;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    flex-grow: 1;
+
+    &__equipment {
+      min-width: 110px;
+    }
+
+    &__energy {
+      min-width: 40px;
+      &_procent {
+        min-width: 40px;
+      }
+    }
+
+    &__consumption {
+      min-width: 40px;
+      &_procent {
+        min-width: 40px;
+      }
+    }
+
+    &__fuel {
+      min-width: 40px;
+      &_procent {
+        min-width: 20px;
+      }
+    }
+  }
+}
+
+.open {
+  color: var(--color-text-main);
+
+  &-procent {
+    color: var(--color-warning);
+  }
+}
+
+tr {
+  td:last-child {
+    min-width: 10px;
+  }
+}
+
+table {
+  width: 100%;
+  display: table;
+  height: calc(100% - 60px);
+  text-align: center;
+  color: var(--color-text-sub);
+  border-left: var(--border-style-dashed);
+  border-right: var(--border-style-dashed);
+}
+
+tr {
+  height: 20%;
+}
