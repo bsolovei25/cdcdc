@@ -1,0 +1,56 @@
+<svg xmlns='http://www.w3.org/2000/svg' version='1.1' width='2400' height='1600' preserveAspectRatio='xMinYMin slice' viewBox='0 0 2400 1600'>
+   <defs id="defs3933" />
+   <polygon points="0.36 557.07 0.36 224.08 182.59 0.36 645.59 0.36 746.43 196.68 746.43 293.68 934.87 293.68 934.87 374.8 680.88 660.8 226.29 660.8 226.29 557.07 0.36 557.07" style="fill:#0d1014;fill-opacity:0.1;stroke:#616580;stroke-miterlimit:10;stroke-width:0.721062326578037px" id="polygon3827" />
+   <g class="builds">
+      <polygon class="build" points="115.91,109.77 195.79,109.77 195.79,12.08 192.99,12.08 " id="polygon3829" data-id="1" />
+      <polygon class="build" points="113.36 115.02 64.54 174.2 195.79 174.2 195.79 115.02 113.36 115.02" id="polygon3831" />
+      <rect class="build" x="202.14" y="12.08" width="89.120003" height="186.67999" id="rect3833" data-id="2" />
+      <rect class="build" x="202.14" y="205.31" width="89.12" height="62.39" id="rect3835" />
+      <rect class="build" x="122.14" y="179.69" width="73.66" height="88.01" id="rect3837" />
+      <rect class="build" x="122.14" y="275.23" width="73.66" height="129.24" id="rect3839" />
+      <rect class="build" x="202.14" y="275.23" width="36.83" height="129.24" id="rect3841" />
+      <rect class="build" x="245.98" y="275.23" width="77.96" height="129.24" id="rect3843" />
+      <rect class="build" x="14.68" y="275.31" width="100.11" height="129.16" id="rect3845" />
+      <rect class="build" x="298.11" y="205.31" width="69.97" height="62.39" id="rect3847" />
+      <rect class="build" x="374.92" y="205.31" width="119.58" height="62.39" id="rect3849" />
+      <rect class="build" x="498.87" y="205.31" width="95.18" height="62.39" id="rect3851" />
+      <rect class="build" x="598.11" y="205.31" width="130.31" height="62.39" id="rect3853" />
+      <rect class="build" x="298.11" y="12.08" width="69.97" height="88.5" id="rect3855" />
+      <rect class="build" x="374.92" y="12.08" width="75.16" height="88.5" id="rect3857" />
+      <rect class="build" x="456.93" y="12.08" width="75.16" height="88.5" id="rect3859" />
+      <rect class="build" x="538.93" y="12.08" width="75.16" height="88.5" id="rect3861" />
+      <rect class="build" x="298.11" y="105.42" width="69.97" height="44.25" id="rect3863" />
+      <rect class="build" x="374.92" y="105.42" width="75.16" height="44.25" id="rect3865" />
+      <rect class="build" x="456.93" y="105.42" width="75.16" height="44.25" id="rect3867" />
+      <rect class="build" x="538.93" y="105.42" width="75.16" height="44.25" id="rect3869" />
+      <rect class="build" x="298.11" y="154.51" width="69.97" height="44.25" id="rect3871" />
+      <rect class="build" x="374.92" y="154.51" width="75.16" height="44.25" id="rect3873" />
+      <rect class="build" x="456.93" y="154.51" width="75.16" height="44.25" id="rect3875" />
+      <rect class="build" x="538.93" y="154.51" width="75.16" height="44.25" id="rect3877" />
+      <polygon class="build" points="837.9 457.05 743.79 565.3 733.16 565.3 733.16 410.42 837.9 410.42 837.9 457.05" id="polygon3879" />
+      <rect class="build" x="146.25" y="489.06" width="92.72" height="52.81" id="rect3881" />
+      <rect class="build" x="245.95" y="410.42" width="77.99" height="74.08" id="rect3883" />
+      <rect class="build" x="246.09" y="489.06" width="77.989998" height="67.739998" id="rect3885" />
+      <rect class="build" x="329.22" y="489.06" width="59.939999" height="67.739998" id="rect3887" />
+      <rect class="build" x="392.13" y="489.06" width="101.26" height="33.87" id="rect3889" />
+      <rect class="build" x="498.87" y="489.06" width="95.18" height="108.16" id="rect3891" />
+      <rect class="build" x="501.01" y="602.24" width="171.97" height="41.53" id="rect3893" />
+      <rect class="build" x="598.11" y="489.06" width="130.31" height="108.16" id="rect3895" />
+      <rect class="build" x="392.13" y="526.77" width="101.26" height="29.6" id="rect3897" />
+      <rect class="build" x="292.31" y="560.21" width="201.08" height="82.95" id="rect3899" />
+      <rect class="build" x="329.08" y="410.42" width="165.42" height="74.08" id="rect3901" />
+      <rect class="build" x="498.87" y="410.42" width="95.18" height="74.08" id="rect3903" />
+      <rect class="build" x="600.25" y="410.42" width="130.31" height="74.08" id="rect3905" />
+      <rect class="build" x="329.08" y="293.32" width="38.99" height="111.15" id="rect3907" />
+      <rect class="build" x="375.09" y="293.32" width="119.41" height="111.15" id="rect3909" />
+      <rect class="build" x="498.87" y="293.32" width="95.18" height="111.15" id="rect3911" />
+      <rect class="build" x="598.11" y="293.32" width="130.31" height="60.54" id="rect3913" />
+      <rect class="build" x="598.11" y="359.95" width="130.31" height="44.52" id="rect3915" />
+      <rect class="build" x="733.16" y="359.95" width="104.73" height="44.52" id="rect3917" />
+      <rect class="build" x="14.29" y="410.42" width="100.5" height="131.46" id="rect3919" />
+      <polygon class="build" points="142.63 541.88 122.14 541.88 122.14 410.42 238.97 410.42 238.97 484.8 142.63 484.8 142.63 541.88" id="polygon3921" data-id="2" style="fill: red" />
+      <polygon class="build" points="728.41 198.29 620.93 198.29 620.93 12.08 635.48 12.08 728.41 198.29" id="polygon3923" />
+      <polygon class="build" points="114.79 179.69 60.5 179.69 14.29 233.6 14.29 269.85 114.79 269.85 114.79 179.69" id="polygon3925" />
+      <polygon class="build" points="918.44 370.34 854.6 441.03 847.39 441.03 847.39 339.16 918.44 339.16 918.44 370.34" id="polygon3927" />
+   </g>
+</svg>

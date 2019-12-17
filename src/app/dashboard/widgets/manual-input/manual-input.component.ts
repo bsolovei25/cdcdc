@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit, Input, Output, Inject, Injector} from '@angular/core';
 import {ManualInputService} from '../../services/manual-input.service';
 import {HttpClient} from '@angular/common/http';
-import {Machine_MI} from '../../models/manual-input.model';
+import {Machine_MI, ManualInputData} from '../../models/manual-input.model';
 import {Subscription} from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
 import {AppConfigService} from 'src/app/services/appConfigService';
@@ -63,7 +63,7 @@ export class ManualInputComponent implements OnInit, OnDestroy {
   }
 
   setInitData() {
-    this.http.get(this.restUrl + '/api/mi/load/' + this.id)
+    this.http.get(this.restUrl + '/api/manualinput/ManualInputData/' + this.id)
       .subscribe((ref: Machine_MI[]) => {
         this.Data = this.manualInputService.LoadData(this.Data, ref);
       });

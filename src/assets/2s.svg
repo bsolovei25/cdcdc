@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   id="svg5866"
+   viewBox="0 0 2400 1600"
+   preserveAspectRatio="xMinYMin slice"
+   height="1600"
+   width="2400"
+   version="1.1">
+  <metadata
+     id="metadata5870">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs3933" />
+  <polygon
+     id="polygon3827"
+     style="fill:#0d1014;fill-opacity:0.1;stroke:#616580;stroke-miterlimit:10;stroke-width:0.721062326578037px"
+     points="0.36 557.07 0.36 224.08 182.59 0.36 645.59 0.36 746.43 196.68 746.43 293.68 934.87 293.68 934.87 374.8 680.88 660.8 226.29 660.8 226.29 557.07 0.36 557.07" />
+  <!-- <g class="builds"> -->
+  <polygon
+     data-id="1"
+     id="polygon3829"
+     points="115.91,109.77 195.79,109.77 195.79,12.08 192.99,12.08 "
+     class="build" />
+  <polygon
+     data-id="8"
+     id="polygon3831"
+     points="64.54,174.2 195.79,174.2 195.79,115.02 113.36,115.02 "
+     class="build" />
+  <rect
+     data-id="2"
+     id="rect3833"
+     height="186.67999"
+     width="89.120003"
+     y="12.08"
+     x="202.14"
+     class="build" />
+  <rect
+     data-id="19"
+     id="rect3835"
+     height="62.389999"
+     width="89.120003"
+     y="205.31"
+     x="202.14"
+     class="build" />
+  <rect
+     data-id="18"
+     id="rect3837"
+     height="88.010002"
+     width="73.660004"
+     y="179.69"
+     x="122.14"
+     class="build" />
+  <rect
+     data-id="25"
+     id="rect3839"
+     height="129.24001"
+     width="73.660004"
+     y="275.23001"
+     x="122.14"
+     class="build" />
+  <rect
+     id="rect3841"
+     height="129.24"
+     width="36.83"
+     y="275.23"
+     x="202.14"
+     class="build" />
+  <rect
+     data-id="27"
+     id="rect3843"
+     height="129.24001"
+     width="77.959999"
+     y="275.23001"
+     x="245.98"
+     class="build" />
+  <rect
+     data-id="24"
+     id="rect3845"
+     height="129.16"
+     width="100.11"
+     y="275.31"
+     x="14.68"
+     class="build" />
+  <rect
+     data-id="20"
+     id="rect3847"
+     height="62.389999"
+     width="69.970001"
+     y="205.31"
+     x="298.10999"
+     class="build" />
+  <rect
+     data-id="21"
+     id="rect3849"
+     height="62.389999"
+     width="119.58"
+     y="205.31"
+     x="374.92001"
+     class="build" />
+  <rect
+     data-id="22"
+     id="rect3851"
+     height="62.389999"
+     width="95.18"
+     y="205.31"
+     x="498.87"
+     class="build" />
+  <rect
+     data-id="23"
+     id="rect3853"
+     height="62.389999"
+     width="130.31"
+     y="205.31"
+     x="598.10999"
+     class="build" />
+  <rect
+     data-id="3"
+     id="rect3855"
+     height="88.5"
+     width="69.970001"
+     y="12.08"
+     x="298.10999"
+     class="build" />
+  <rect
+     data-id="4"
+     id="rect3857"
+     height="88.5"
+     width="75.160004"
+     y="12.08"
+     x="374.92001"
+     class="build" />
+  <rect
+     data-id="5"
+     id="rect3859"
+     height="88.5"
+     width="75.160004"
+     y="12.08"
+     x="456.92999"
+     class="build" />
+  <rect
+     data-id="6"
+     id="rect3861"
+     height="88.5"
+     width="75.160004"
+     y="12.08"
+     x="538.92999"
+     class="build" />
+  <rect
+     data-id="9"
+     id="rect3863"
+     height="44.25"
+     width="69.970001"
+     y="105.42"
+     x="298.10999"
+     class="build" />
+  <rect
+     data-id="10"
+     id="rect3865"
+     height="44.25"
+     width="75.160004"
+     y="105.42"
+     x="374.92001"
+     class="build" />
+  <rect
+     data-id="11"
+     id="rect3867"
+     height="44.25"
+     width="75.160004"
+     y="105.42"
+     x="456.92999"
+     class="build" />
+  <rect
+     data-id="12"
+     id="rect3869"
+     height="44.25"
+     width="75.160004"
+     y="105.42"
+     x="538.92999"
+     class="build" />
+  <rect
+     data-id="13"
+     id="rect3871"
+     height="44.25"
+     width="69.970001"
+     y="154.50999"
+     x="298.10999"
+     class="build" />
+  <rect
+     data-id="14"
+     id="rect3873"
+     height="44.25"
+     width="75.160004"
+     y="154.50999"
+     x="374.92001"
+     class="build" />
+  <rect
+     data-id="15"
+     id="rect3875"
+     height="44.25"
+     width="75.160004"
+     y="154.50999"
+     x="456.92999"
+     class="build" />
+  <rect
+     data-id="16"
+     id="rect3877"
+     height="44.25"
+     width="75.160004"
+     y="154.50999"
+     x="538.92999"
+     class="build" />
+  <polygon
+     data-id="42"
+     id="polygon3879"
+     points="743.79,565.3 733.16,565.3 733.16,410.42 837.9,410.42 837.9,457.05 "
+     class="build" />
+  <rect
+     data-id="37"
+     id="rect3881"
+     height="52.810001"
+     width="92.720001"
+     y="489.06"
+     x="146.25"
+     class="build" />
+  <rect
+     data-id="38"
+     id="rect3883"
+     height="74.080002"
+     width="77.989998"
+     y="410.42001"
+     x="245.95"
+     class="build" />
+  <rect
+     data-id="43"
+     id="rect3885"
+     height="67.739998"
+     width="77.989998"
+     y="489.06"
+     x="246.09"
+     class="build" />
+  <rect
+     data-id="44"
+     id="rect3887"
+     height="67.739998"
+     width="59.939999"
+     y="489.06"
+     x="329.22"
+     class="build" />
+  <rect
+     data-id="45"
+     id="rect3889"
+     height="33.869999"
+     width="101.26"
+     y="489.06"
+     x="392.13"
+     class="build" />
+  <rect
+     data-id="47"
+     id="rect3891"
+     height="108.16"
+     width="95.18"
+     y="489.06"
+     x="498.87"
+     class="build" />
+  <rect
+     data-id="50"
+     id="rect3893"
+     height="41.529999"
+     width="171.97"
+     y="602.23999"
+     x="501.01001"
+     class="build" />
+  <rect
+     data-id="48"
+     id="rect3895"
+     height="108.16"
+     width="130.31"
+     y="489.06"
+     x="598.10999"
+     class="build" />
+  <rect
+     data-id="46"
+     id="rect3897"
+     height="29.6"
+     width="101.26"
+     y="526.77002"
+     x="392.13"
+     class="build" />
+  <rect
+     data-id="49"
+     id="rect3899"
+     height="82.949997"
+     width="201.08"
+     y="560.21002"
+     x="292.31"
+     class="build" />
+  <rect
+     data-id="39"
+     id="rect3901"
+     height="74.080002"
+     width="165.42"
+     y="410.42001"
+     x="329.07999"
+     class="build" />
+  <rect
+     data-id="40"
+     id="rect3903"
+     height="74.080002"
+     width="95.18"
+     y="410.42001"
+     x="498.87"
+     class="build" />
+  <rect
+     data-id="41"
+     id="rect3905"
+     height="74.080002"
+     width="130.31"
+     y="410.42001"
+     x="600.25"
+     class="build" />
+  <rect
+     data-id="28"
+     id="rect3907"
+     height="111.15"
+     width="38.990002"
+     y="293.32001"
+     x="329.07999"
+     class="build" />
+  <rect
+     data-id="29"
+     id="rect3909"
+     height="111.15"
+     width="119.41"
+     y="293.32001"
+     x="375.09"
+     class="build" />
+  <rect
+     data-id="30"
+     id="rect3911"
+     height="111.15"
+     width="95.18"
+     y="293.32001"
+     x="498.87"
+     class="build" />
+  <rect
+     data-id="31"
+     id="rect3913"
+     height="60.540001"
+     width="130.31"
+     y="293.32001"
+     x="598.10999"
+     class="build" />
+  <rect
+     data-id="32"
+     id="rect3915"
+     height="44.52"
+     width="130.31"
+     y="359.95001"
+     x="598.10999"
+     class="build" />
+  <rect
+     data-id="33"
+     id="rect3917"
+     height="44.52"
+     width="104.73"
+     y="359.95001"
+     x="733.15997"
+     class="build" />
+  <rect
+     id="rect3919"
+     height="131.46"
+     width="100.5"
+     y="410.42"
+     x="14.29"
+     class="build" />
+  <polygon
+     style="fill:#ff0000"
+     data-id="36"
+     id="polygon3921"
+     points="122.14,541.88 122.14,410.42 238.97,410.42 238.97,484.8 142.63,484.8 142.63,541.88 "
+     class="build" />
+  <polygon
+     data-id="7"
+     id="polygon3923"
+     points="620.93,198.29 620.93,12.08 635.48,12.08 728.41,198.29 "
+     class="build" />
+  <polygon
+     data-id="17"
+     id="polygon3925"
+     points="60.5,179.69 14.29,233.6 14.29,269.85 114.79,269.85 114.79,179.69 "
+     class="build" />
+  <polygon
+     data-id="34"
+     id="polygon3927"
+     points="854.6,441.03 847.39,441.03 847.39,339.16 918.44,339.16 918.44,370.34 "
+     class="build" />
+  <!-- </g> -->
+</svg>

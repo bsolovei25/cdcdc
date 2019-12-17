@@ -1,6 +1,12 @@
 ---
 before_script:
 - echo $CI_JOB_STAGE
+- date
+- ls
+- pwd
+
+after_script:
+- date
 
 variables:
     GIT_SSL_NO_VERIFY: "1"
@@ -15,15 +21,17 @@ stages:
     - deploy
     - clean-on-failure
 
-docker build:
-    stage: prebuild
+
+.init_template: &init
     tags:
         - basher
+
+docker build:
+    <<: *init
+    stage: prebuild
     script:
         - echo "Prebuild checking... Getting docker container rdy."
         - docker container stop ${CI_PROJECT_NAME} || sleep 0.1
-        - ls
-        - pwd
         - env
         - docker build -t ${CI_PROJECT_NAME} .
     only:
@@ -31,84 +39,64 @@ docker build:
         - merge_requests
 
 testing website:
+    <<: *init
     stage: test
-    tags:
-        - basher
     script:
         - echo "Doing some tests... Someone should add unit tests or whatever here"
-        - ls
-        - pwd
         - docker run --rm --name ${CI_PROJECT_NAME} -p 8000:4200 -d ${CI_PROJECT_NAME}
         - ./init-docker.sh
     only:
         - merge_requests
  
 build artifact:
+    <<: *init
     stage: build
-    tags:
-        - basher
     script:
         - docker exec ${CI_PROJECT_NAME} ng build || docker run --rm --name ${CI_PROJECT_NAME} -p 8000:4200 -d ${CI_PROJECT_NAME} ; docker exec ${CI_PROJECT_NAME} ng build
         - docker cp ${CI_PROJECT_NAME}:/app/dist/evj ./public
         - docker container stop ${CI_PROJECT_NAME}
     only:
         - master
-        - merge_requests
+          #- merge_requests
     artifacts:
         paths:
             - ./public
 
 deploy review:
+    <<: *init
     stage: deploy-review
-    tags:
-        - basher
     only:
         - merge_requests
     environment:
         name: review/${CI_COMMIT_REF_NAME}
-        url: http://${DEPLOY_DOMAIN}:9001
+        url: http://build.funcoff.club:8000
         on_stop: stop-review
-    variables:
-        CMD_REPLACE: sed -i -E "s/(<title>Evj)(<\/title>)/\1 | ${CI_COMMIT_SHORT_SHA} \2/g" /var/www/angular-dynamic.local/public/index.html
     script:
-        - ls
-        - pwd
-        - ssh root@${DEPLOY_DOMAIN} rm -rf /var/www/angular-dynamic.local/public
-        - scp -r ./public root@${DEPLOY_DOMAIN}:/var/www/angular-dynamic.local
-        - ssh root@${DEPLOY_DOMAIN} "unlink /etc/nginx/sites-enabled/angular-dynamic.local || sleep 0.1"
-        - ssh root@${DEPLOY_DOMAIN} "ln -s /etc/nginx/sites-available/angular-dynamic.local /etc/nginx/sites-enabled/angular-dynamic.local"
-        - ssh root@${DEPLOY_DOMAIN} $CMD_REPLACE
-        - ssh root@${DEPLOY_DOMAIN} nginx -s reload
+        - sed -i -E "s/(<title>Evj)(<\/title>)/\1  |  ${CI_COMMIT_SHORT_SHA}\2/g" ./src/index.html
 
 stop-review:
-    tags:
-        - basher
+    <<: *init
     variables:
         GIT_STRATEGY: none
     stage: deploy-review
     only:
         - merge_requests
     script:
-        - ssh root@${DEPLOY_DOMAIN} "unlink /etc/nginx/sites-enabled/angular-dynamic.local || sleep 0.1"
-        - ssh root@${DEPLOY_DOMAIN} "rm -rf /var/www/angular-dynamic.local/public || sleep 0.1"
-        - ssh root@${DEPLOY_DOMAIN} nginx -s reload
+        - docker container stop ${CI_PROJECT_NAME}
     when: manual
     environment:
         name: review/${CI_COMMIT_REF_NAME}
         action: stop
 
 staging:
+    <<: *init
     stage: staging
-    tags:
-        - basher
     environment:
         name: staging
         url: http://${DEPLOY_DOMAIN}:88
     variables:
         CMD_REPLACE: sed -i -E "s/(<title>Evj)(<\/title>)/\1 | ${CI_COMMIT_SHORT_SHA} \2/g" /var/www/angular-staging.local/public/index.html
     script:
-        - ls
-        - pwd
         - ssh root@${DEPLOY_DOMAIN} rm -rf /var/www/angular-staging.local/public
         - scp -r ./public root@${DEPLOY_DOMAIN}:/var/www/angular-staging.local
         - ssh root@${DEPLOY_DOMAIN} $CMD_REPLACE
@@ -118,17 +106,14 @@ staging:
         - master
 
 prod:
+    <<: *init
     stage: deploy
     environment:
         name: prod
         url: http://${DEPLOY_DOMAIN}:80
-    tags:
-        - basher
     variables:
         CMD_REPLACE: sed -i -E "s/(<title>Evj)(<\/title>)/\1 | ${CI_COMMIT_SHORT_SHA} \2/g" /var/www/angular.local/public/index.html
     script:
-        - ls
-        - pwd
         - ssh root@${DEPLOY_DOMAIN} rm -rf /var/www/angular.local/public
         - scp -r ./public root@${DEPLOY_DOMAIN}:/var/www/angular.local
         - ssh root@${DEPLOY_DOMAIN} $CMD_REPLACE
@@ -139,9 +124,8 @@ prod:
         - master
 
 clean on failure:
+    <<: *init
     stage: clean-on-failure
-    tags:
-        - basher
     script:
         - docker container stop ${CI_PROJECT_NAME}
     when: on_failure

@@ -49,6 +49,10 @@ export interface Group_MI {
   params: Param_MI[];
 }
 
+export interface ManualInputData {
+  items: Machine_MI[];
+}
+
 export interface Machine_MI {
   name: string;
   groups: Group_MI[];
