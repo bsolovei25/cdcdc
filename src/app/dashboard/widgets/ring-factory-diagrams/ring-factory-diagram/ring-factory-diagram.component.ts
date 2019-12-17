@@ -33,7 +33,7 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.stateRing = this.data.buttons.length;
   }
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.draw(this.ringFactory.nativeElement);
   }
 
@@ -105,7 +105,7 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
                 .attr("x","200")
                 .attr("y","280")
                 .attr("fill", "white")
-                .text("+" + dat.notcritical);
+                .text("+" + dat.notCritical);
 
             } else if (id === "2"){
               svg.append("image")
@@ -137,7 +137,7 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
                 .attr("x","470")
                 .attr("y","280")
                 .attr("fill", "white")
-                .text("+" + dat.notcritical);
+                .text("+" + dat.notCritical);
 
             } else if (id === "3"){
               svg.append("image")
@@ -177,7 +177,7 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
                 .attr("x","470")
                 .attr("y","620")
                 .attr("fill", "white")
-                .text("+" + dat.notcritical);
+                .text("+" + dat.notCritical);
 
             } else if (id === "5"){
               svg.append("image")
@@ -209,7 +209,7 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
                 .attr("x","200")
                 .attr("y","620")
                 .attr("fill", "white")
-                .text("+" + dat.notcritical);
+                .text("+" + dat.notCritical);
             }
           } else {
             const status = this.dataStyle['id_1'].status;

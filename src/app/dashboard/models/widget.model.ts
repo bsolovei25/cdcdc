@@ -39,7 +39,7 @@ export interface RingValue {
 export interface RingButton {
   typeButton: number;
   critical: number;
-  notcritical: number;
+  notCritical: number;
 }
 
 export interface PieWidget {

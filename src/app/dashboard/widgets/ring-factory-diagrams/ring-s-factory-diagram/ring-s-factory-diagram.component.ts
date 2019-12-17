@@ -35,8 +35,8 @@ export class RingSFactoryDiagramComponent implements OnInit {
         { name: 'Л-22/4', plan: 100, fact: 100 },
       ],
       buttons: [
-        {typeButton: 1, critical: 1, notcritical: 2},
-        {typeButton: 4, critical: 3, notcritical: 7},
+        {typeButton: 1, critical: 1, notCritical: 2},
+        {typeButton: 4, critical: 3, notCritical: 7},
       ]
     },
     {
@@ -49,10 +49,10 @@ export class RingSFactoryDiagramComponent implements OnInit {
         { name: 'Л-22/4', plan: 100, fact: 100 },
       ],
       buttons: [
-        {typeButton: 1, critical:2, notcritical: 2},
-        {typeButton: 2, critical:2, notcritical: 2},
-        {typeButton: 4, critical:3, notcritical: 7},
-        {typeButton: 5, critical:3, notcritical: 7},
+        {typeButton: 1, critical:2, notCritical: 2},
+        {typeButton: 2, critical:2, notCritical: 2},
+        {typeButton: 4, critical:3, notCritical: 7},
+        {typeButton: 5, critical:3, notCritical: 7},
        ]
     },
     {
@@ -85,13 +85,13 @@ export class RingSFactoryDiagramComponent implements OnInit {
         { name: 'Л-22/4', plan: 100, fact: 100 },
       ],
       buttons: [
-        {typeButton: 1, critical: 2, notcritical: 2},
-        {typeButton: 5, critical: 3, notcritical: 7},
+        {typeButton: 1, critical: 2, notCritical: 2},
+        {typeButton: 5, critical: 3, notCritical: 7},
        ]
     },
   ];
 
-  private subscriptions: Subscription[];
+  private subscriptions: Subscription[] = [];
 
   public title = 'test';
   public code;
@@ -100,22 +100,23 @@ export class RingSFactoryDiagramComponent implements OnInit {
 
   constructor(
     public widgetService: NewWidgetService,
-    public serice: NewUserSettingsService,
+    public service: NewUserSettingsService,
     @Inject('isMock') public isMock: boolean,
-    @Inject('widgetId') public id: string) { }
-
-  ngOnInit() {
-    this.subscriptions.push(this.widgetService.getWidgetChannel(this.id).subscribe(data => {
+    @Inject('widgetId') public id: string) {
+      this.subscriptions.push(this.widgetService.getWidgetChannel(this.id).subscribe(data => {
       this.title = data.title;
       this.code = data.code;
       this.units = data.units;
       this.name = data.name;
     }));
+  }
 
+  ngOnInit() {
     if (!this.isMock) {
-      this.subscriptions.push(this.widgetService.getWidgetLiveDataFromWS(this.id, 'line-chart')
+      this.subscriptions.push(this.widgetService.getWidgetLiveDataFromWS(this.id, 'ring-factory-diagram')
         .subscribe((ref) => {
-          console.log(ref);
+          console.log(ref.items);
+          this.datas = ref.items;
         }));
     }
   }
