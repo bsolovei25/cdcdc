@@ -188,6 +188,9 @@ export class LineChartComponent implements OnInit, OnDestroy {
     }
 
   private draw(data) {
+    if (!this.options)
+      return;
+
     if (this.svg) {
       this.svg.remove();
     }
