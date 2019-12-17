@@ -1,5 +1,5 @@
 {
-    "wsUrl": "ws://deploy.funcoff.club:6555",
-    "restUrl": "http://deploy.funcoff.club:6555",
+    "wsUrl": "ws://deploy.funcoff.club:5555",
+    "restUrl": "http://deploy.funcoff.club:5555",
     "reconnectInterval": 5
 }
