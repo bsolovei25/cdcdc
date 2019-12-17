@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { NewUserSettingsService } from '../../services/new-user-settings.service';
 import { Subscription } from 'rxjs';
 import { timingSafeEqual } from 'crypto';
@@ -9,7 +9,7 @@ import { ScreenSettings } from '../../models/user-settings.model';
   templateUrl: './indicator-selector.component.html',
   styleUrls: ['./indicator-selector.component.scss']
 })
-export class IndicatorSelectorComponent implements OnInit {
+export class IndicatorSelectorComponent implements OnInit, AfterViewInit {
 
   public dataScreen: ScreenSettings[] = [];
 
@@ -26,7 +26,7 @@ export class IndicatorSelectorComponent implements OnInit {
 
   public nameScreen: string;
   
-  public localSaved = Number(localStorage.getItem('screenid'));
+  public localSaved;
 
 
   private timerOff = null;
@@ -35,21 +35,27 @@ export class IndicatorSelectorComponent implements OnInit {
 
   constructor(
     private userSettings: NewUserSettingsService
-    ) { }
+    ) {
+      this.subscription = this.userSettings.screens$.subscribe(dataW => {
+        this.dataScreen = dataW;
+        this.nameScreen = this.getActiveScreen();
+        for (const item of this.dataScreen) {
+          item.updateScreen = false;
+        }
+      }); 
+      
+     }
 
-  ngOnInit() {
-   
-    this.subscription = this.userSettings.screens$.subscribe(dataW => {
-      this.dataScreen = dataW;
-      for (const item of this.dataScreen) {
-        item.updateScreen = false;
-      }
-    }); 
+  ngOnInit(){
+    this.localSaved= Number(localStorage.getItem('screenid'));
+  }
+  
+  ngAfterViewInit() {
     this.nameScreen = this.getActiveScreen();
-    
   }
 
   public LoadScreen(id){
+   
     this.userSettings.LoadScreen(id);
   }
 
@@ -66,7 +72,7 @@ export class IndicatorSelectorComponent implements OnInit {
     }, 700);
   }
 
-  getActiveScreen(): string {
+  public getActiveScreen = (): string => {
     if (this.idScreen) {
       const currentScreen = this.dataScreen.find(x => x.id === this.idScreen);
       if (currentScreen)
@@ -79,9 +85,12 @@ export class IndicatorSelectorComponent implements OnInit {
           return found.screenName;
         }
       this.LoadScreen(this.localSaved);
+
     }
+
     if (this.dataScreen[0])
       return this.dataScreen[0].screenName;
+ 
   }
 
   setActiveScreen(screen) {
@@ -99,16 +108,20 @@ export class IndicatorSelectorComponent implements OnInit {
   }
 
   public deleteScreen(id){
+    console.log(event);
     this.userSettings.deleteScreen(id);
     for (let item of this.dataScreen) {
       if (item.id === id){
         this.dataScreen.splice(this.dataScreen.indexOf(item), 1);
+        
       }
     }
 
     if (this.idScreen === id) {
+      debugger
       this.nameScreen = this.dataScreen[0].screenName;
-      this.idScreen = this.dataScreen[0].id;
+      this.idScreen = this.dataScreen[0].id; 
+      this.LoadScreen(this.idScreen);
     }
   }
 

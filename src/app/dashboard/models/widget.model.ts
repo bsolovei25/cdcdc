@@ -41,7 +41,22 @@ export interface RingButton{
   notcritical: number;
 }
 
-export interface PieWidget {
+export interface ChainMap{
+  line: ChainLine[];
+  circle: ChainCircle[];
+}
+
+export interface ChainLine{
+ idLine: string;
+ status: number;
+}
+
+export interface ChainCircle{
+  idCircle:string;
+  status: number;
+}
+
+export interface PieWidget{
   name: string;
   critical: number;
   nonCritical: number;
