@@ -504,6 +504,7 @@ svg #layer1{
   border-bottom: 2px solid var(--color-border-main);
   transform: rotate(-45deg);
   width: 20px;
+  z-index: 0;
   position: absolute;
   margin-left: -17px;
   transform-origin: 43% 0;
@@ -546,6 +547,7 @@ svg #layer1{
 
 .top_ring_2{
   position: absolute;
+  z-index: 100;
   border-radius: 10px;
   height: 8px;
   width: 8px;
