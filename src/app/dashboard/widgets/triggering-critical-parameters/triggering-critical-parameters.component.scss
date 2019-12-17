@@ -153,3 +153,17 @@ tr {
     min-width: 10px;
   }
 }
+
+table {
+  width: 100%;
+  display: table;
+  height: calc(100% - 60px);
+  text-align: center;
+  color: var(--color-text-sub);
+  border-left: var(--border-style-dashed);
+  border-right: var(--border-style-dashed);
+}
+
+tr {
+  height: 20%;
+}
