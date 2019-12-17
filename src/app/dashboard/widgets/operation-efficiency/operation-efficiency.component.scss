@@ -20,24 +20,15 @@
   position: relative;
   display: block;
   height: 200px;
-  .diagrams {
-    position: relative;
-    height: 100%;
-    flex: 1;
 
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  box-sizing: border-box;
+  border-left: 0.5px dashed var(--color-border-main-transparrent);
+  border-right: 0.5px dashed var(--color-border-main-transparrent);
 
-    box-sizing: border-box;
-    padding: 0 10px;
-
-    border-right: 0.5px dashed var(--color-border-main-transparrent);
-    border-left: 0.5px dashed var(--color-border-main-transparrent);
-
-    &__item {
-      margin: 0 5px 0 0;
-    }
+  img {
+    margin-top: 40px;
+    width: 99%;
+    height: 60px;
   }
 }
 

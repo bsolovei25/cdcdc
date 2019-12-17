@@ -9,7 +9,9 @@
   <evj-frame-top></evj-frame-top>
 
   <ng-container *ngIf="isMock">
-    <div class="mock"></div>
+    <div class="mock">
+      <img src="../../../../assets/img/calendar-plan.PNG" alt="">
+    </div>
   </ng-container>
 
   <ng-container *ngIf="!isMock">
@@ -18,7 +20,7 @@
       (mousedown)="$event.stopPropagation()"
       (touchstart)="$event.stopPropagation()"
     >
-      <evj-detailed-line-diagram class="dld"></evj-detailed-line-diagram>
+      <evj-detailed-line-diagram class="dld" [data]="data"></evj-detailed-line-diagram>
       <div class="cards">
         <div
           class="card"

@@ -18,9 +18,6 @@ export interface Widgets {
   units: string;
   widgetOptions: LineChartOptions;
   widgetType: string;
-<<<<<<< Updated upstream
-}  
-=======
 }
 
 export interface RingFactoryWidget {
@@ -42,7 +39,6 @@ export interface RingButton {
   critical: number;
   notcritical: number;
 }
->>>>>>> Stashed changes
 
 export interface PieWidget {
   name: string;
