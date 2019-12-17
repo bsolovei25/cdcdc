@@ -3,16 +3,14 @@ import { LineChartOptions } from './line-chart';
 export interface WidgetGridsterSettings {
     itemRows: string;
     itemCols: string;
-    
-  }
-  
-  
-export class WidgetModel{
+}
+
+export class WidgetModel {
     isMock: boolean;
     id: number;
-  }
-  
-export interface Widgets{
+}
+
+export interface Widgets {
   code: string;
   id: string;
   name: string;
@@ -20,26 +18,48 @@ export interface Widgets{
   units: string;
   widgetOptions: LineChartOptions;
   widgetType: string;
+<<<<<<< Updated upstream
 }  
+=======
+}
 
-export interface PieWidget{
+export interface RingFactoryWidget {
+  id: string;
+  title: string;
+  typeFabric: number;
+  values: RingValue[];
+  buttons: RingButton[];
+}
+
+export interface RingValue {
+  name: string;
+  plan: number;
+  fact: number;
+}
+
+export interface RingButton {
+  typeButton: number;
+  critical: number;
+  notcritical: number;
+}
+>>>>>>> Stashed changes
+
+export interface PieWidget {
   name: string;
   critical: number;
   nonCritical: number;
 }
 
-export interface BarWidget{
+export interface BarWidget {
   name: string;
   good: number;
   bad: number;
   total: number;
 }
 
-export interface TruncPieWidget{
+export interface TruncPieWidget {
   name: string;
   count: number;
   critical: number;
   image: string;
 }
-
-
