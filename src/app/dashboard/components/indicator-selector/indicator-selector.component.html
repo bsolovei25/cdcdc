@@ -5,7 +5,8 @@
             src="./assets/icons/screen.svg"></svg-icon>
 
   <span class="indicator-selector__name" >
-        {{ this.getActiveScreen() }}
+     <!--  {{ null | fn:getActiveScreen }} --> 
+        {{ this.nameScreen }}
   </span>
 
   <div class="dropdown-content"
