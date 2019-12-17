@@ -19,7 +19,7 @@
     margin: 0 auto;
     padding-left: 160px;
   }
- 
+
   img {
     width: 80%;
     height: 100%;
@@ -98,7 +98,7 @@ table {
 
     &__icon {
       // margin-left: 20px;
-      min-width: 20px;
+      min-width: 40px;
     }
   }
 
@@ -129,7 +129,7 @@ table {
     }
 
     &__fuel {
-      min-width: 20px;
+      min-width: 40px;
     }
   }
 }
@@ -145,6 +145,11 @@ table {
 tr {
   td:last-child {
     min-width: 10px;
+    max-width: 80px;
+  }
+  th:last-child {
+    min-width: 20px;
+   
   }
 }
 
