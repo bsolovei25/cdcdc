@@ -205,7 +205,6 @@ export class LineChartComponent implements OnInit, OnDestroy {
       .forEach(g => {
         this.fillToXMAx(g.values, xMax);
       });
-    // debugger;
     return data;
   }
 

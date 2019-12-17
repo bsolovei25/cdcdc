@@ -17,6 +17,7 @@ import { RingSFactoryDiagramComponent } from '../../widgets/ring-factory-diagram
 import { OperationEfficiencyComponent } from '../../widgets/operation-efficiency/operation-efficiency.component';
 import { EcologySafetyComponent } from '../../widgets/ecology-safety/ecology-safety.component';
 import { CalendarPlanComponent } from '../../widgets/calendar-plan/calendar-plan.component';
+import { ChainMapComponent } from '../../widgets/chain-map/chain-map.component';
 
 
 export const WIDGETS = {
@@ -39,5 +40,6 @@ export const WIDGETS = {
     "operation-efficiency": OperationEfficiencyComponent,
     "ecology-safety":EcologySafetyComponent,
     "calendar-plan":CalendarPlanComponent,
-    "ring-factory-diagram": RingSFactoryDiagramComponent
+    "ring-factory-diagram": RingSFactoryDiagramComponent,
+    "chain-map": ChainMapComponent,
 }

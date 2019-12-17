@@ -79,7 +79,7 @@ export class RingSFactoryDiagramComponent implements OnInit {
           { name:'Л-22/4', valueOne: 100, valueTwo: 100 },
         ],
         buttons: [
-          {typeButton:1, critical:2, notcritical:2},
+          {typeButton:0, critical:2, notcritical:2},
           {typeButton:5, critical:3, notcritical:7},
          ]
 },
