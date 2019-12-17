@@ -5,11 +5,51 @@
 
   <ng-container *ngIf="isMock">
     <table class="mock">
-      <tr><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
-      <tr><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
-      <tr><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
-      <tr><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
-      <tr><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+      <tr>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
     </table>
   </ng-container>
 
@@ -50,7 +90,7 @@
                 <svg-icon class="icon_svg" src="./assets/icons/widgets/deviations-table/7.svg">
                 </svg-icon>
               </th>
-              <th class="header header__icon">
+              <th class="header header__icon" style="max-width: 80px;">
                 <svg-icon class="icon_svg" src="./assets/icons/widgets/deviations-table/8.svg">
                 </svg-icon>
               </th>
@@ -69,7 +109,8 @@
               <td class="item item__fuel">{{ item.lockAndAlarm }}</td>
               <td class="item item__fuel">{{ item.PIDControllers }}</td>
               <td class="item item__fuel">{{ item.vibrodiagnosticSystems }}</td>
-              <td class="item item__fuel">{{ item.electricalHeatingSystems }}</td>
+              <td class="item item__fuel" style="max-width: 73px;"> <span>{{ item.electricalHeatingSystems }}</span>
+              </td>
             </tr>
           </tbody>
         </table>

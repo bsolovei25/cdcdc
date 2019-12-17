@@ -20,6 +20,7 @@ import { RingSFactoryDiagramComponent } from '../../widgets/ring-factory-diagram
 import { OperationEfficiencyComponent } from '../../widgets/operation-efficiency/operation-efficiency.component';
 import { EcologySafetyComponent } from '../../widgets/ecology-safety/ecology-safety.component';
 import { CalendarPlanComponent } from '../../widgets/calendar-plan/calendar-plan.component';
+import { ChainMapComponent } from '../../widgets/chain-map/chain-map.component';
 import { DispatcherScreenComponent } from '../../widgets/dispatcher-screen/dispatcher-screen.component';
 import { DeviationsTableComponent } from '../../widgets/deviations-table/deviations-table.component';
 import { TriggeringCriticalParametersComponent } from '../../widgets/triggering-critical-parameters/triggering-critical-parameters.component';
@@ -47,6 +48,7 @@ export const WIDGETS = {
     "ecology-safety":EcologySafetyComponent,
     "calendar-plan":CalendarPlanComponent,
     "ring-factory-diagram": RingSFactoryDiagramComponent,
+    "chain-map": ChainMapComponent,
     "energetics": EnergeticsComponent,
     'dispatcher-screen': DispatcherScreenComponent,
     'suspense-machine': SuspenseMachineComponent,

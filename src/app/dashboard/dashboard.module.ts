@@ -48,6 +48,7 @@ import { LineChartWorkspaceComponent } from './widgets/workspace/line-chart-work
 import { RingSFactoryDiagramComponent } from './widgets/ring-factory-diagrams/ring-s-factory-diagram/ring-s-factory-diagram.component';
 import { CalendarPlanComponent } from "./widgets/calendar-plan/calendar-plan.component";
 import { EcologySafetyComponent } from "./widgets/ecology-safety/ecology-safety.component";
+import { ChainMapComponent } from './widgets/chain-map/chain-map.component';
 import { DispatcherScreenComponent } from "./widgets/dispatcher-screen/dispatcher-screen.component";
 import { EnergeticsComponent } from './widgets/energetics/energetics.component';
 import { CircleDiagramComponent } from './widgets/circle-diagram/circle-diagram.component';
@@ -89,7 +90,6 @@ import { TriggeringCriticalParametersComponent } from './widgets/triggering-crit
     CircleDiagramComponent,
     UnityTemplateComponent,
     EnterpriseMapComponent,
-    CircleDiagramComponent,
     PowIndexPipe,
     MapEcologyComponent,
     DetailedLineDiagramComponent,
@@ -99,6 +99,7 @@ import { TriggeringCriticalParametersComponent } from './widgets/triggering-crit
     LineChartWorkspaceComponent,
     CalendarPlanComponent,
     EcologySafetyComponent,
+    ChainMapComponent,
     DispatcherScreenComponent,
     EnergeticsComponent,
     DeviationsTableComponent,
@@ -131,6 +132,7 @@ import { TriggeringCriticalParametersComponent } from './widgets/triggering-crit
     EnergeticsComponent,
     RingSFactoryDiagramComponent,
     LineChartWorkspaceComponent,
+    ChainMapComponent,
     DispatcherScreenComponent,
     DeviationsTableComponent,
     TriggeringCriticalParametersComponent,

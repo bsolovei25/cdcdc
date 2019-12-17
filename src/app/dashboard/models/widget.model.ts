@@ -20,28 +20,44 @@ export interface Widgets {
   units: string;
   widgetOptions: LineChartOptions;
   widgetType: string;
-} 
+}
 
-export interface RingFactoryWidget{
+export interface RingFactoryWidget {
+  id: string;
   title: string;
   typeFabric: number;
-  value: RingValue[];
+  values: RingValue[];
   buttons: RingButton[];
 }
 
-export interface RingValue{
+export interface RingValue {
   name: string;
-  valueOne: number;
-  valueTwo: number;
+  plan: number;
+  fact: number;
 }
 
-export interface RingButton{
-  typeButton: string;
+export interface RingButton {
+  typeButton: number;
   critical: number;
-  notcritical: number;
+  notCritical: number;
 }
 
-export interface PieWidget {
+export interface ChainMap{
+  line: ChainLine[];
+  circle: ChainCircle[];
+}
+
+export interface ChainLine{
+ idLine: string;
+ status: number;
+}
+
+export interface ChainCircle{
+  idCircle:string;
+  status: number;
+}
+
+export interface PieWidget{
   name: string;
   critical: number;
   nonCritical: number;
@@ -60,5 +76,3 @@ export interface TruncPieWidget {
   critical: number;
   image: string;
 }
-
-
