@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { format } from 'url';
+import {Subscription} from "rxjs";
 declare var d3: any;
 
 @Component({
@@ -15,7 +16,7 @@ export class ChainMapComponent implements AfterViewInit {
   static itemCols = 30;
   static itemRows = 20;
 
-  
+
 
   public dataStyle = {
     id_0: { status: 'pipeActive' },
@@ -108,7 +109,7 @@ export class ChainMapComponent implements AfterViewInit {
           {idLine: "47", status: true},
           {idLine: "48", status: true},
         ],
-  
+
         mapCircle:[
           {idCircle: "0", status: 1},
           {idCircle: "1", status: 1},
@@ -140,7 +141,7 @@ export class ChainMapComponent implements AfterViewInit {
           {idCircle: "27", status: 1},
           {idCircle: "28", status: 1},
           {idCircle: "29", status: 1},
-        ] 
+        ]
       },
     {
       mapLine:[
@@ -215,7 +216,7 @@ export class ChainMapComponent implements AfterViewInit {
             {idLine: "47", status: true},
             {idLine: "48", status: true},
           ],
-    
+
           mapCircle:[
             {idCircle: "0", status: 1},
             {idCircle: "1", status: 1},
@@ -247,12 +248,12 @@ export class ChainMapComponent implements AfterViewInit {
             {idCircle: "27", status: 0},
             {idCircle: "28", status: 1},
             {idCircle: "29", status: 1},
-          ] 
+          ]
     },
   ]
-    
 
-  public title = "chain map";
+
+  public title;
   public code;
   public units;
   public name;
@@ -261,11 +262,19 @@ export class ChainMapComponent implements AfterViewInit {
   public mass2;
   public check = true;
 
+  private subscriptions: Subscription[] = [];
+
   constructor(
     public widgetService: NewWidgetService,
     @Inject('isMock') public isMock: boolean,
-    @Inject('widgetId') public id: string 
-    ) { }
+    @Inject('widgetId') public id: string
+    ) {
+        this.subscriptions.push(this.widgetService.getWidgetChannel(this.id).subscribe(data => {
+          this.title = data.title;
+          this.code = data.code;
+          this.name = data.name;
+        }));
+      }
 
   ngAfterViewInit() {
     this.mass1 = this.data[0];
@@ -294,7 +303,7 @@ export class ChainMapComponent implements AfterViewInit {
     const arrow:any = el.querySelectorAll('.st5');
 
     const activePoint:any = el.querySelectorAll('.st37');
-    
+
       for(let dat of mass.mapLine){
         let datLine = dat.idLine;
         let datStatus = dat.status;
@@ -349,7 +358,7 @@ export class ChainMapComponent implements AfterViewInit {
           }
         }
       }
-    
+
   }
 
   public changeCircle(el, mass){
@@ -377,7 +386,7 @@ export class ChainMapComponent implements AfterViewInit {
           }else if(datLine === id && datStatus == 2){
             item.removeAttribute("href");
             item.setAttributeNS('http://www.w3.org/1999/xlink', 'href', '../../../../assets/pic/critical_chain.png');
-            
+
           }
         }
 
@@ -396,7 +405,7 @@ export class ChainMapComponent implements AfterViewInit {
             let badstatus2 = this.dataStyle['id_10'].status;
             let status = this.dataStyle['id_7'].status;
             item.classList.remove(`-${badstatus1}`);
-            item.classList.remove(`-${badstatus2}`); 
+            item.classList.remove(`-${badstatus2}`);
             item.classList.add(`-${status}`);
           }
           else if(datLine === id && datStatus === 2){
@@ -424,7 +433,7 @@ export class ChainMapComponent implements AfterViewInit {
             let badstatus2 = this.dataStyle['id_13'].status;
             let status = this.dataStyle['id_12'].status;
             item.classList.remove(`-${badstatus1}`);
-            item.classList.remove(`-${badstatus2}`); 
+            item.classList.remove(`-${badstatus2}`);
             item.classList.add(`-${status}`);
           }
           else if(datLine === id && datStatus === 2){
@@ -459,6 +468,6 @@ export class ChainMapComponent implements AfterViewInit {
           }
         }
       }
-    
+
   }
 }

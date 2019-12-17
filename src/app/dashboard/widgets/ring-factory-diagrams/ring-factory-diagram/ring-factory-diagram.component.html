@@ -6,39 +6,39 @@
                               <div class="out_corner_1" [class.out_corner_1_bad]="this.stateRing !== 0"></div>
                               <div class="top_ring_1" [class.top_ring_1_bad]="this.stateRing !== 0"></div>
                               <div class="top_ring_2"[class.top_ring_2_bad]="this.stateRing !== 0"></div>
-                                        <div class="block1" *ngIf="data.value['0']">
+                                        <div class="block1" *ngIf="data.values['0']">
                                              <div class="corner1"></div>
-                                             <div class="corner2"></div> 
-                                             <div class="corner3"></div> 
+                                             <div class="corner2"></div>
+                                             <div class="corner3"></div>
                                              <div class="corner4"></div>
-                                             <div class="info_block" [class.criticalBlock]="data.value['0'].valueOne !== 100">
+                                             <div class="info_block" [class.criticalBlock]="data.values['0'].plan !== 100">
                                                   <div class="name_info_block">
-                                                       <div class="name_value" [class.nameValueCritical]="data.value['0'].valueOne !== 100">{{data.value["0"].name}}</div>
+                                                       <div class="name_value" [class.nameValueCritical]="data.values['0'].plan !== 100">{{data.values["0"].name}}</div>
                                                   </div>
                                                   <div class="item_info_block">
-                                                       <span style="color: white" [class.criticalValue]="data.value['0'].valueOne !== 100">{{data.value["0"].valueOne}}</span>
+                                                       <span style="color: white" [class.criticalValue]="data.values['0'].plan !== 100">{{data.values["0"].plan}}</span>
                                                        <span class="gran"> | </span>
-                                                       <span style="color:#a7dcf8">{{data.value["0"].valueTwo}}</span>
+                                                       <span style="color:#a7dcf8">{{data.values["0"].fact}}</span>
                                                   </div>
-                                             </div>    
+                                             </div>
                                         </div>
-                                        <div class="block3" *ngIf="data.value['2']">
+                                        <div class="block3" *ngIf="data.values['2']">
                                                   <div class="corner1"></div>
-                                                  <div class="corner2"></div> 
-                                                  <div class="corner3"></div> 
+                                                  <div class="corner2"></div>
+                                                  <div class="corner3"></div>
                                                   <div class="corner4"></div>
-                                                  <div class="info_block" [class.criticalBlock]="data.value['2'].valueOne !== 100">
+                                                  <div class="info_block" [class.criticalBlock]="data.values['2'].plan !== 100">
                                                        <div class="name_info_block">
-                                                            <div class="name_value" [class.nameValueCritical]="data.value['2'].valueOne !== 100">{{data.value["2"].name}}</div>
+                                                            <div class="name_value" [class.nameValueCritical]="data.values['2'].plan !== 100">{{data.values["2"].name}}</div>
                                                        </div>
                                                        <div class="item_info_block">
-                                                            <span style="color: white" [class.criticalValue]="data.value['2'].valueOne !== 100">{{data.value["2"].valueOne}}</span>
+                                                            <span style="color: white" [class.criticalValue]="data.values['2'].plan !== 100">{{data.values["2"].valueOne}}</span>
                                                             <span class="gran"> | </span>
-                                                            <span style="color:#a7dcf8">{{data.value["2"].valueTwo}}</span>
+                                                            <span style="color:#a7dcf8">{{data.values["2"].fact}}</span>
                                                        </div>
-                                                  </div>    
+                                                  </div>
                                              </div>
-                                  
+
                     </div>
                     <div class="map" id="my-map" *ngIf="this.stateRing === 0;else unset">
                               <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  heigth="100px" width="100px" viewBox="-5 250 600 300">
@@ -203,8 +203,8 @@
                                                   inkscape:connector-curvature="0"
                                                   style="clip-rule:evenodd;fill:#a7dcf8;fill-rule:evenodd" />
                               </g>
-                              </svg>  
-                           
+                              </svg>
+
                     </div>
                     <ng-template #unset>
                               <div class="map" id="my-map">
@@ -370,47 +370,47 @@
                                                             inkscape:connector-curvature="0"
                                                             style="clip-rule:evenodd;fill:#a7dcf8;fill-rule:evenodd" />
                                         </g>
-                                        </svg>  
-                                  
+                                        </svg>
+
                               </div>
-                             
-                    </ng-template>          
+
+                    </ng-template>
                     <div class="bottom_container">
                               <div class="cont_corner_2" [class.cont_corner_2_bad]="this.stateRing !== 0"></div>
                               <div class="out_corner_2" [class.out_corner_2_bad]="this.stateRing !== 0"></div>
                               <div class="top_ring_1" [class.top_ring_1_bad]="this.stateRing !== 0"></div>
                               <div class="top_ring_2" [class.top_ring_2_bad]="this.stateRing !== 0"></div>
-                                        <div class="block2" *ngIf="data.value['1']">
+                                        <div class="block2" *ngIf="data.values['1']">
                                              <div class="corner1"></div>
-                                             <div class="corner2"></div> 
-                                             <div class="corner3"></div> 
+                                             <div class="corner2"></div>
+                                             <div class="corner3"></div>
                                              <div class="corner4"></div>
-                                             <div class="info_block" [class.criticalBlock]="data.value['1'].valueOne !== 100">
+                                             <div class="info_block" [class.criticalBlock]="data.values['1'].plan !== 100">
                                                   <div class="name_info_block">
-                                                       <div class="name_value" [class.nameValueCritical]="data.value['1'].valueOne !== 100">{{data.value["1"].name}}</div>
+                                                       <div class="name_value" [class.nameValueCritical]="data.values['1'].plan !== 100">{{data.values["1"].name}}</div>
                                                   </div>
                                                   <div class="item_info_block" >
-                                                       <span style="color: white" [class.criticalValue]="data.value['1'].valueOne !== 100">{{data.value["1"].valueOne}}</span>
+                                                       <span style="color: white" [class.criticalValue]="data.values['1'].plan !== 100">{{data.values["1"].plan}}</span>
                                                        <span class="gran"> | </span>
-                                                       <span style="color:#a7dcf8">{{data.value["1"].valueTwo}}</span>
+                                                       <span style="color:#a7dcf8">{{data.values["1"].fact}}</span>
                                                   </div>
-                                             </div>    
+                                             </div>
                                         </div>
-                                        <div class="block4" *ngIf="data.value['3']">
+                                        <div class="block4" *ngIf="data.values['3']">
                                                   <div class="corner1"></div>
-                                                  <div class="corner2"></div> 
-                                                  <div class="corner3"></div> 
+                                                  <div class="corner2"></div>
+                                                  <div class="corner3"></div>
                                                   <div class="corner4"></div>
-                                                  <div class="info_block" [class.criticalBlock]="data.value['3'].valueOne !== 100">
+                                                  <div class="info_block" [class.criticalBlock]="data.values['3'].plan !== 100">
                                                        <div class="name_info_block">
-                                                            <div class="name_value" [class.nameValueCritical]="data.value['3'].valueOne !== 100">{{data.value["3"].name}}</div>
+                                                            <div class="name_value" [class.nameValueCritical]="data.values['3'].plan !== 100">{{data.values["3"].name}}</div>
                                                        </div>
                                                        <div class="item_info_block">
-                                                            <span style="color: white" [class.criticalValue]="data.value['3'].valueOne !== 100">{{data.value["3"].valueOne}}</span>
+                                                            <span style="color: white" [class.criticalValue]="data.values['3'].plan !== 100">{{data.values["3"].plan}}</span>
                                                             <span class="gran"> | </span>
-                                                            <span style="color:#a7dcf8">{{data.value["3"].valueTwo}}</span>
+                                                            <span style="color:#a7dcf8">{{data.values["3"].fact}}</span>
                                                        </div>
-                                                  </div>    
+                                                  </div>
                                         </div>
                     </div>
           </div>
@@ -419,5 +419,4 @@
 
 
 
- 
-                    
+
