@@ -10,7 +10,7 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./dispatcher-screen.component.scss']
 })
 export class DispatcherScreenComponent implements OnInit {
-  
+
   private baseUrl: string;
   private unityInstance: any;
   private isStart: boolean;
@@ -40,22 +40,25 @@ export class DispatcherScreenComponent implements OnInit {
 
   }
 
-  ngOnDestroy() {
-    console.log('destroy_unity');
-    for (const i in this.subscriptions) {
-      this.subscriptions[i].unsubscribe();
-    }
-    this.unityInstance.Quit(() => console.log('destroy'));
-  }
-
   ngAfterViewInit() {
     this.showMock(this.isMock);
     console.log('isMock' + this.isMock);
   }
 
+  ngOnDestroy() {
+    console.log('destroy_unity');
+    for (const i in this.subscriptions) {
+      this.subscriptions[i].unsubscribe();
+    }
+    if (this.unityInstance) {
+      this.unityInstance.Quit(() => console.log('destroy'));
+    }
+  }
+
   private showMock(show) {
     if (!show) {
       this.InitUnity();
+      console.log('init_u');
     }
   }
 
