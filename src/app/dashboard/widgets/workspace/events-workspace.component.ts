@@ -102,12 +102,74 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     this.subscription.unsubscribe();
   }
 
-
   resetComponent() {
+    if (document.getElementById("overlay-retrieval") && document.getElementById("overlay-retrieval").style.display === "block") {
+      document.getElementById("overlay-retrieval").style.display = "none";
+    }
+    if (document.getElementById("overlay-chart") && document.getElementById("overlay-chart").style.display === "block") {
+      document.getElementById("overlay-chart").style.display = "none";
+    }
     this.isNew = false;
     this.isNewRetrieval = null;
   }
 
+  onSendMessage() {
+    if (this.input.nativeElement.value) {
+      this.comments.push(this.input.nativeElement.value);
+      this.input.nativeElement.value = "";
+    }
+    setTimeout(() => {
+      this.scrollBottom();
+    }, 50);
+  }
+
+  scrollBottom() {
+    this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
+  }
+
+  onEnterPush(event?: any) {
+    if (event.keyCode === 13) {
+      this.onSendMessage();
+    }
+  }
+
+  async createEvent() {
+
+    await this.loadItem();
+    this.isNew = true;
+
+    this.event = {
+      itemNumber: 0,
+      branch: "Производство",
+      category: this.category ? this.category[0] : null,
+      comment: "Новое событие",
+      description: '',
+      deviationReason: "Причина отклонения...",
+      directReasons: "",
+      establishedFacts: "",
+      eventDateTime: new Date,
+      eventType: this.eventTypes ? this.eventTypes[0] : null,
+      fixedBy: { email: "test@test", firstName: "", id: 1, lastName: "", phone: "00123456789" },
+      place: { id: 5001, name: "ГФУ-2 с БОР" },
+      organization: "АО Газпромнефть",
+      priority: this.priority ? this.priority[2] ? this.priority[2] : this.priority[0] : null,
+      responsibleOperator: this.user ? this.user[0] : null,
+      retrievalEvents: [],
+      severity: "Critical",
+      status: this.status ? this.status[0] : null,
+      iconUrl: "number",
+      iconUrlStatus: "number",
+      statusName: '',
+      equipmentCategory: this.equipmentCategory ? this.equipmentCategory[0] : null,
+      deadline: new Date,
+      graphValues: null
+    }
+
+  }
+
+
+
+  // #region DATA API
 
   async loadItem() {
     this.isLoading = true;
@@ -179,95 +241,6 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
 
-  onSendMessage() {
-    if (this.input.nativeElement.value) {
-      this.comments.push(this.input.nativeElement.value);
-      this.input.nativeElement.value = "";
-    }
-    setTimeout(() => {
-      this.scrollBottom();
-    }, 50);
-  }
-
-  scrollBottom() {
-    this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
-  }
-
-  onEnterPush(event?: any) {
-    if (event.keyCode === 13) {
-      this.onSendMessage();
-    }
-  }
-
-  async createEvent() {
-
-    await this.loadItem();
-    this.isNew = true;
-
-    this.event = {
-      itemNumber: 0,
-      branch: "Производство",
-      category: this.category ? this.category[0] : null,
-      comment: "Новое событие",
-      description: '',
-      deviationReason: "Причина отклонения...",
-      directReasons: "",
-      establishedFacts: "",
-      eventDateTime: new Date,
-      eventType: this.eventTypes ? this.eventTypes[0] : null,
-      fixedBy:
-      {
-        email: "test@test",
-        firstName: "",
-        id: 1,
-        lastName: "",
-        phone: "00123456789",
-      },
-      place: { id: 5001, name: "ГФУ-2 с БОР" },
-      organization: "АО Газпромнефть",
-      priority: this.priority ? this.priority[2] ? this.priority[2] : this.priority[0] : null,
-      responsibleOperator: this.user ? this.user[0] : null,
-      retrievalEvents: [],
-      severity: "Critical",
-      status: this.status ? this.status[0] : null,
-      iconUrl: "number",
-      iconUrlStatus: "number",
-      statusName: '',
-      equipmentCategory: this.equipmentCategory ? this.equipmentCategory[0] : null,
-      deadline: new Date,
-      graphValues: null
-    }
-
-  }
-
-  addRetrieval(): void {
-    document.getElementById("overlay-retrieval").style.display = "block";
-
-    this.isNewRetrieval = {
-      itemNumber: 0,
-      branch: "Производство",
-      category: this.category ? this.category[0] : null,
-      comment: "Новое событие",
-      deviationReason: "Причина отклонения...",
-      directReasons: "",
-      establishedFacts: "",
-      eventDateTime: new Date,
-      eventType: { id: 1, name: 'Отклонение от норм ТР' },
-      fixedBy: { id: 2, firstName: "Петр", lastName: "Петров", email: "test@test", phone: "00123456789" },
-      organization: "АО Газпромнефть",
-      place: { id: 5001, name: "ГФУ-1" },
-      priority: { id: 2003, name: "standard", code: "2" },
-      responsibleOperator: { id: 1, firstName: "Иван", lastName: "Иванов", email: "1@2", phone: "00123456789" },
-      status: this.status ? this.status[0] : null,
-      description: '',
-      equipmentCategory: this.equipmentCategory ? this.equipmentCategory[0] : null,
-      retrievalEvents: [],
-      severity: 'Critical',
-      deadline: new Date,
-      graphValues: null
-    }
-  }
-
   async saveItem(): Promise<void> {
     this.isLoading = true;
     let snackBar = document.getElementById("snackbar");
@@ -307,18 +280,9 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     this.isLoading = false;
   }
 
+  // #endregion
 
-
-
-
-  overlayClose() {
-    document.getElementById("overlay-retrieval").style.display = "none";
-    this.isNewRetrieval = null;
-  }
-
-  cancelRetrieval(): void {
-    this.event.retrievalEvents.pop();
-  }
+  // #region Retrieval Event
 
   async saveRetrieval(idEvent: number): Promise<void> {
     let snackBar = document.getElementById("snackbar");
@@ -337,6 +301,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
       } catch (error) {
         snackBar.className = "show";
         snackBar.innerText = "Ошибка"
+        this.overlayClose();
         setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, 3000);
         this.isLoading = false;
       }
@@ -347,17 +312,47 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     }
   }
 
-  editRetrieval(retrieval: EventsWidgetNotification) {
+  addRetrieval(): void {
+    document.getElementById("overlay-retrieval").style.display = "block";
+
+    this.isNewRetrieval = {
+      itemNumber: 0,
+      branch: "Производство",
+      category: this.category ? this.category[0] : null,
+      comment: "Новое событие",
+      deviationReason: "Причина отклонения...",
+      directReasons: "",
+      establishedFacts: "",
+      eventDateTime: new Date,
+      eventType: this.eventTypes ? this.eventTypes[0] : null,
+      fixedBy: { id: 2, firstName: "Петр", lastName: "Петров", email: "test@test", phone: "00123456789" },
+      organization: "АО Газпромнефть",
+      place: { id: 5001, name: "ГФУ-1" },
+      priority: { id: 2003, name: "standard", code: "2" },
+      responsibleOperator: this.user ? this.user[0] : null,
+      status: this.status ? this.status[0] : null,
+      description: '',
+      equipmentCategory: this.equipmentCategory ? this.equipmentCategory[0] : null,
+      retrievalEvents: [],
+      severity: 'Critical',
+      deadline: new Date,
+      graphValues: null
+    }
+  }
+
+  overlayClose() {
+    document.getElementById("overlay-retrieval").style.display = "none";
+    this.isNewRetrieval = null;
+  }
+
+  cancelRetrieval(): void {
+    this.event.retrievalEvents.pop();
+  }
+
+  onEditRetrieval(retrieval: EventsWidgetNotification) {
     this.isEdit = true;
     this.isNewRetrieval = retrieval;
     document.getElementById("overlay-retrieval").style.display = "block";
-  }
-
-  snackBar(text: string = 'Выполнено', durection: number = 3000) {
-    let snackBar = document.getElementById("snackbar");
-    snackBar.className = "show";
-    snackBar.innerText = text;
-    setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, durection);
   }
 
   async editSaveRetrieval() {
@@ -388,7 +383,6 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
       }
       this.isEdit = false;
     }
-
   }
 
   async deleteRetrieval(idEvent: number, idRetr: number): Promise<void> {
@@ -398,6 +392,15 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     if (idx !== -1) {
       this.event.retrievalEvents.splice(idx, 1);
     }
+  }
+
+  // #endregion
+
+  snackBar(text: string = 'Выполнено', durection: number = 3000) {
+    let snackBar = document.getElementById("snackbar");
+    snackBar.className = "show";
+    snackBar.innerText = text;
+    setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, durection);
   }
 
   getIndex(i: number): string {
@@ -417,7 +420,6 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     this.idUser = this.getRandomInt(7);
   }
 
-
   openLineChart() {
     document.getElementById("overlay-chart").style.display = "block";
     const event = new CustomEvent(
@@ -429,4 +431,5 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
   overlayChartClose() {
     document.getElementById("overlay-chart").style.display = "none";
   }
+
 }

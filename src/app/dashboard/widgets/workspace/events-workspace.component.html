@@ -234,7 +234,7 @@
 
                       <span *ngIf="retrieval.status" class="event__sub-right">{{ statuses[retrieval.status.name] }}
                         <svg-icon class="event__delete" [applyCss]="true" src="./assets/edit.svg"
-                          (click)="editRetrieval(retrieval)" (mousedown)="$event.stopPropagation()"
+                          (click)="onEditRetrieval(retrieval)" (mousedown)="$event.stopPropagation()"
                           (touchstart)="$event.stopPropagation()"></svg-icon>
                         <svg-icon class="event__delete" [applyCss]="true" src="./assets/garbage_bad_pic.svg"
                           (click)="deleteRetrieval(event.id, retrieval.id)" (mousedown)="$event.stopPropagation()"
@@ -463,7 +463,7 @@
               </div>
               <div class="overlay-retrieval__block__body select">
                 <div class="dropdown dropdown-dark">
-                  <select name="contactMethod" class="dropdown-select" [(ngModel)]="event.category"
+                  <select name="contactMethod" class="dropdown-select" [(ngModel)]="isNewRetrieval.category"
                     [compareWith]="compareFn" (change)="changeCategory()">
                     <option *ngFor="let p of category" [ngValue]="p">{{ categories[p.name] }}
                     </option>
@@ -478,7 +478,7 @@
               </div>
               <div class="overlay-retrieval__block__body select">
                 <div class="dropdown dropdown-dark">
-                  <select name="contactMethod" class="dropdown-select" [(ngModel)]="event.eventType"
+                  <select name="contactMethod" class="dropdown-select" [(ngModel)]="isNewRetrieval.eventType"
                     [compareWith]="compareFn" (change)="changeCategory()">
                     <option *ngFor="let p of eventTypes" [ngValue]="p">{{ p.name }}
                     </option>
@@ -487,13 +487,13 @@
               </div>
             </div>
 
-            <div class="overlay-retrievale__block">
+            <div class="overlay-retrieval__block">
               <div class="overlay-retrieval__block__title">
                 Тип оборудования:
               </div>
               <div class="overlay-retrieval__block__body select">
                 <div class="dropdown dropdown-dark">
-                  <select name="contactMethod" class="dropdown-select" [(ngModel)]="event.equipmentCategory"
+                  <select name="contactMethod" class="dropdown-select" [(ngModel)]="isNewRetrieval.equipmentCategory"
                     [compareWith]="compareFn" (change)="changeCategory()">
                     <option *ngFor="let p of equipmentCategory" [ngValue]="p">{{ p.name }}
                     </option>
@@ -502,11 +502,11 @@
               </div>
             </div>
 
-            <div class="workspace__block__right" *ngIf="user">
-              <div class="workspace__block__title">
+            <div *ngIf="user" class="overlay-retrieval__block">
+              <div class="overlay-retrieval__block__title">
                 Ответственный:
               </div>
-              <div class="workspace__block__body">
+              <div class="overlay-retrieval__block__body">
                 {{ user[idUser].lastName }} {{ user[idUser].firstName }}
               </div>
             </div>
@@ -567,7 +567,7 @@
               Сохранить
             </button>
             <button *ngIf="isEdit" type="submit gridster-item-content" (click)="editSaveRetrieval()">
-              Сохранить
+              Изменить и сохранить 
             </button>
           </div>
         </div>
