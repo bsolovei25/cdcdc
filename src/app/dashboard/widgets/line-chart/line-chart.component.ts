@@ -5,6 +5,7 @@ import {
   Input,
   OnChanges, OnDestroy,
   OnInit,
+  AfterViewInit,
   ViewChild,
   ViewEncapsulation,
   Inject, HostListener
@@ -38,7 +39,6 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
   static itemCols = 20;
   static itemRows = 12;
-
 
   @ViewChild('chart', { static: true }) private chartContainer: ElementRef;
 
@@ -144,8 +144,13 @@ export class LineChartComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
+  }
+
+  ngAfterViewInit() {
     this.showMock(this.isMock);
     if (!this.isMock) {
+      console.log('init_lch')
       if (this.dataLine) {
         this.draw(this.dataLine);
       }
@@ -162,30 +167,31 @@ export class LineChartComponent implements OnInit, OnDestroy {
       if (show) {
         this.disableLiveData();
       } else {
+        // this.disableLiveData();
         this.enableLiveData();
       }
     }
 
-    @HostListener('document:resize', ['$event'])
-    private OnResize(event) {
-      if (this.dataLine) {
+  @HostListener('document:resize', ['$event'])
+  private OnResize(event) {
+    if (this.dataLine) {
+      this.draw(this.dataLine);
+    }
+  }
+
+  private enableLiveData() {
+    // TODO добавить получение типа графика
+    this.subscriptions.push(this.widgetService.getWidgetLiveDataFromWS(this.id, 'line-chart')
+      .subscribe((ref) => {
+        this.dataLine = ref;
+        this.dataLine.graphs.map(x => x.values.map(z => z.date = new Date(z.date)));
         this.draw(this.dataLine);
-      }
-    }
+      }));
+  }
 
-    private enableLiveData() {
-      // TODO добавить получение типа графика
-      this.subscriptions.push(this.widgetService.getWidgetLiveDataFromWS(this.id, 'line-chart')
-        .subscribe((ref) => {
-          this.dataLine = ref;
-          this.dataLine.graphs.map(x => x.values.map(z => z.date = new Date(z.date)));
-          this.draw(this.dataLine);
-        }));
-    }
-
-    private disableLiveData() {
-      this.draw(Mock);
-    }
+  private disableLiveData() {
+    this.draw(Mock);
+  }
 
   private draw(data) {
     if (!this.options)
@@ -199,7 +205,6 @@ export class LineChartComponent implements OnInit, OnDestroy {
     this.deviationMode = this.refreshDeviations();
     this.startChart();
   }
-
 
   private buildData(data) {
     const xMax = d3Array.max(data.graphs, c => d3Array.max(c.values, d => d.date));
@@ -220,8 +225,8 @@ export class LineChartComponent implements OnInit, OnDestroy {
   }
 
   private startChart() {
-    const plan = this.data.graphs.find(d => d.graphType === 'plan');
-    const fact = this.data.graphs.find(d => d.graphType === 'fact');
+    // const plan = this.data.graphs.find(d => d.graphType === 'plan');
+    // const fact = this.data.graphs.find(d => d.graphType === 'fact');
     const upperLimit = this.data.graphs.find(d => d.graphType === 'upperLimit');
     const lowerLimit = this.data.graphs.find(d => d.graphType === 'lowerLimit');
 
@@ -281,33 +286,33 @@ export class LineChartComponent implements OnInit, OnDestroy {
               acc.values.push(d);
             }
             break;
-
         }
-
         return acc;
-
       }, { values: [] }).values
     };
     return deviationMode;
   }
 
   private deleteLimitsData() {
-    let ulIndex = this.data.graphs.findIndex(d => d.graphType === 'upperLimit');
+    const ulIndex = this.data.graphs.findIndex(d => d.graphType === 'upperLimit');
     if (ulIndex !== -1) {
-      this.data.graphs.splice(ulIndex, 1)
+      this.data.graphs.splice(ulIndex, 1);
     }
-    let llIndex = this.data.graphs.findIndex(d => d.graphType === 'lowerLimit');
+    const llIndex = this.data.graphs.findIndex(d => d.graphType === 'lowerLimit');
     if (llIndex !== -1) {
-      this.data.graphs.splice(llIndex, 1)
+      this.data.graphs.splice(llIndex, 1);
     }
   }
 
   private refreshDomains() {
-    this.x = d3Scale.scaleTime().range([0, this.width * 0.85]);
+    this.x = d3Scale.scaleTime().range([0, this.width - 60]);
     this.y = d3Scale.scaleLinear().range([this.height, 0]);
 
-    this.x.domain(d3Array.extent(this.data.graphs.map((v) => v.values.map((v) => v.date))[0], (d: Date) => d)).nice();
-
+    if(this.data.graphs.find(d => d.graphType === 'plan')) {
+      this.x.domain(d3Array.extent(this.data.graphs.map((v) => v.values.map((v) => v.date))[1], (d: Date) => d));
+    } else {
+      this.x.domain(d3Array.extent(this.data.graphs.map((v) => v.values.map((v) => v.date))[0], (d: Date) => d));
+    }
 
     const yMin = d3Array.min(this.data.graphs, c => d3Array.min(c.values, d => d.value));
     const yMax = d3Array.max(this.data.graphs, c => d3Array.max(c.values, d => d.value));
@@ -340,10 +345,10 @@ export class LineChartComponent implements OnInit, OnDestroy {
     };
 
 
-    this.line = d3Shape.line()
-      .curve(d3Shape['curveMonotoneX'])
-      .x((d: any) => this.x(d.date))
-      .y((d: any) => this.y(d.value));
+    // this.line = d3Shape.line()
+    //   .curve(d3Shape['curveMonotoneX'])
+    //   .x((d: any) => this.x(d.date))
+    //   .y((d: any) => this.y(d.value));
 
   }
 
@@ -362,23 +367,17 @@ export class LineChartComponent implements OnInit, OnDestroy {
     this.svg = d3.select(element).append('svg')
       .attr('width', this.width)
       .attr('height', element.offsetHeight);
-
-
     this.g = this.svg.append('g').attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
-
-  }
-
-  private onChangeDispay() {
   }
 
   private makeXGridLines() {
     return d3Axis.axisBottom(this.x)
-      .ticks(5)
+      .ticks(5);
   }
 
   private makeYGridLines() {
     return d3Axis.axisLeft(this.y)
-      .ticks(3)
+      .ticks(3);
   }
 
   private drawAxis(): void {
@@ -395,7 +394,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
         .ticks(7)
         .tickFormat((d) => {
           return d3Format.format(".1f")(d);
-        }))
+        }));
 
   }
 
@@ -428,7 +427,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
   }
 
   private drawPath() {
-    let trend = this.g.selectAll('.trend')
+    const trend = this.g.selectAll('.trend')
       .data(this.data.graphs)
       .enter()
       .append('g')
@@ -441,17 +440,14 @@ export class LineChartComponent implements OnInit, OnDestroy {
   }
 
   private drawPoints() {
-
-    let points = this.g.selectAll('.point')
-      .data([...this.data.graphs.filter(d => d.graphType === 'fact' || d.graphType === 'plan'), this.deviationPoints])
+    const points = this.g.selectAll('.point')
+      .data([...this.data.graphs.filter(d => d.graphType === 'plan' || d.graphType === 'fact'), this.deviationPoints])
       .enter()
       .append('g');
-
-
     points.selectAll(".point")
       .data(d => d.values.map(i => {
           i.type = d.graphType;
-          return i
+          return i;
         })
       )
       .enter()
@@ -463,80 +459,6 @@ export class LineChartComponent implements OnInit, OnDestroy {
       .attr("xlink:href", d => this.trendsStyle[d.type].point.iconUrl)
       .attr('class', 'point')
       .attr("class", d => this.trendsStyle[d.type].point.class)
-
-  }
-
-  private drawDeviationAreas(planData, factData) {
-    let clipPathArea = d3Shape.area()
-      .curve(d3Shape[this.options['planLineType']])
-      .x(d => this.x(d.date))
-      .y0(d => {
-        return this.y(this.heightNoMargins);
-      })
-      .y1(d => this.y(d.value));
-
-
-    let clipPathSource = this.g.selectAll(".area")
-      .data([planData])
-      .enter()
-      .append("g");
-
-
-    clipPathSource
-      .append("clipPath")
-      .attr('id', 'clipPathArea-' + this.position)
-      .attr('class', 'area')
-      .append("path")
-      .attr("d", d => {
-        if (d) {
-          return clipPathArea(d.values);
-        }
-
-      });
-
-
-    const deviationArea = d3Shape.area()
-      .curve(d3Shape[this.options['factLineType']])
-      .x(d => this.x(d.date))
-      .y0(d => {
-        return this.y(0);
-      })
-      .y1(d => this.y(d.value));
-
-
-    const deviationSource = this.g.selectAll(".deviation-area")
-      .data([factData])
-      .enter()
-      .append("g");
-
-
-    deviationSource.append("path")
-      .attr("d", d => {
-        return deviationArea(d.values);
-      })
-      .attr('class', 'deviation-area')
-      .attr("clip-path", 'url(#clipPathArea-' + this.position + ')')
-      .attr("fill", 'url(#deviation-gradient)')
-
-
-    const gradient = deviationSource
-      .append("g")
-      .append('linearGradient')
-      .attr('id', 'deviation-gradient')
-      .attr('x1', "0%")
-      .attr('x2', "0%")
-      .attr('y1', "0%")
-      .attr('y2', "100%");
-
-    gradient.append('stop')
-      .attr('offset', "0")
-      .attr('stop-color', "rgba(244, 163, 33, 0.2)");
-
-    gradient.append('stop')
-      .attr('offset', "50%")
-      .attr('stop-color', "transparent");
-
-
   }
 
   private drawLimitsAreas(upperLimit, lowerLimit) {
@@ -558,7 +480,6 @@ export class LineChartComponent implements OnInit, OnDestroy {
       .attr('class', 'upper-limit-area')
       .attr("fill", 'url(#upper-limit-gradient-' + this.position + ')');
 
-
     const upperLimitGradient = upperLimitSource
       .append("g")
       .append('linearGradient')
@@ -576,7 +497,6 @@ export class LineChartComponent implements OnInit, OnDestroy {
     upperLimitGradient.append('stop')
       .attr('offset', "50%")
       .attr('stop-color', "rgba(255,255,255,0.015");
-
 
     const lowerLimitArea = d3Shape.area()
       .curve(d3Shape[this.options['lowerLimitLineType']])
@@ -596,7 +516,6 @@ export class LineChartComponent implements OnInit, OnDestroy {
       .attr('class', 'lower-limit-area')
       .attr("fill", 'url(#lower-limit-gradient-' + this.position + ')');
 
-
     const lowerLimitGradient = lowerLimitSource
       .append("g")
       .append('linearGradient')
@@ -613,141 +532,342 @@ export class LineChartComponent implements OnInit, OnDestroy {
     lowerLimitGradient.append('stop')
       .attr('offset', "100%")
       .attr('stop-color', "transparent");
-
   }
 
-  private drawLimitsDeviationAreas(upperLimit, lowerLimit, fact) {
+  // private drawLimitsDeviationAreas(upperLimit, lowerLimit, fact) {
+  //
+  //   const upperLimitClipPathArea = d3Shape.area()
+  //     .curve(d3Shape[this.options['upperLimitLineType']])
+  //     .x(d => this.x(d.date))
+  //     .y0(d => {
+  //       return this.y(this.heightNoMargins);
+  //     })
+  //     .y1(d => this.y(d.value));
+  //
+  //
+  //   const upperLimitClipPathSoruce = this.g.selectAll(".area")
+  //     .data([upperLimit])
+  //     .enter()
+  //     .append("g");
+  //
+  //   upperLimitClipPathSoruce
+  //     .append("clipPath")
+  //     .attr('id', 'upperLimitClipPathArea-' + this.position)
+  //     .attr('class', 'area')
+  //     .append("path")
+  //     .attr("d", d => {
+  //       return upperLimitClipPathArea(d.values);
+  //     });
+  //
+  //   const upperLimitArea = d3Shape.area()
+  //     .curve(d3Shape[this.options['factLineType']])
+  //     .x(d => this.x(d.date))
+  //     .y0(d => {
+  //       return this.y(0);
+  //     })
+  //     .y1(d => this.y(d.value));
+  //
+  //
+  //   const upperLimitSource = this.g.selectAll(".limit-area")
+  //     .data([fact])
+  //     .enter()
+  //     .append("g");
+  //
+  //
+  //   upperLimitSource.append("path")
+  //     .attr("d", d => {
+  //       return upperLimitArea(d.values);
+  //     })
+  //     .attr('class', 'upper-limit-area')
+  //
+  //     .attr("fill", 'url(#upper-limit-deviation-gradient-' + this.position + ')')
+  //     .attr("clip-path", 'url(#upperLimitClipPathArea-' + this.position + ')');
+  //
+  //
+  //   const upperLimitGradient = upperLimitSource
+  //     .append("g")
+  //     .append('linearGradient')
+  //     .attr('class', 'gradient')
+  //     .attr('id', 'upper-limit-deviation-gradient-' + this.position)
+  //     .attr('x1', "0%")
+  //     .attr('x2', "0%")
+  //     .attr('y1', "0%")
+  //     .attr('y2', "100%");
+  //
+  //   upperLimitGradient.append('stop')
+  //     .attr('offset', "0")
+  //     .attr('stop-color', "rgba(244, 163, 33, 0.2)");
+  //
+  //   upperLimitGradient.append('stop')
+  //     .attr('offset', "50%")
+  //     .attr('stop-color', "transparent");
+  //
+  //
+  //   const lowerLimitClipPathArea = d3Shape.area()
+  //     .curve(d3Shape[this.options['lowerLimitLineType']])
+  //     .x(d => this.x(d.date))
+  //     .y0(d => {
+  //       return this.y(0);
+  //     })
+  //     .y1(d => this.y(d.value));
+  //
+  //
+  //   const lowerLimitClipPathSoruce = this.g.selectAll(".l-area")
+  //     .data([lowerLimit])
+  //     .enter()
+  //     .append("g");
+  //
+  //   lowerLimitClipPathSoruce
+  //     .append("clipPath")
+  //     .attr('id', 'lowerLimitClipPathArea-' + this.position)
+  //     .attr('class', 'area')
+  //     .append("path")
+  //     .attr("d", d => {
+  //       return lowerLimitClipPathArea(d.values);
+  //     });
+  //
+  //
+  //   const lowerLimitArea = d3Shape.area()
+  //     .curve(d3Shape[this.options['factLineType']])
+  //     .x(d => this.x(d.date))
+  //     .y0(d => 0)
+  //     .y1(d => this.y(d.value));
+  //
+  //   const lowerLimitSource = this.g.selectAll(".limit-area")
+  //     .data([fact])
+  //     .enter()
+  //     .append("g");
+  //
+  //   lowerLimitSource.append("path")
+  //     .attr("d", d => {
+  //       return lowerLimitArea(d.values);
+  //     })
+  //     .attr('class', 'lower-limit-area')
+  //     .attr("clip-path", 'url(#lowerLimitClipPathArea-' + this.position + ')')
+  //     .attr("fill", 'url(#lower-limit-deviation-gradient-' + this.position + ')');
+  //
+  //
+  //   const lowerLimitGradient = lowerLimitSource
+  //     .append("g")
+  //     .append('linearGradient')
+  //     .attr('id', 'lower-limit-deviation-gradient-' + this.position)
+  //     .attr('x1', "0%")
+  //     .attr('x2', "0%")
+  //     .attr('y1', "0%")
+  //     .attr('y2', "100%");
+  //
+  //   lowerLimitGradient.append('stop')
+  //     .attr('offset', "50%")
+  //     .attr('stop-color', "transparent");
+  //
+  //   lowerLimitGradient.append('stop')
+  //     .attr('offset', "100%")
+  //     .attr('stop-color', "rgba(244, 163, 33, 0.2)");
+  //
+  // }
+  // private drawLimitsDeviationAreas(upperLimit, lowerLimit, fact) {
+  //
+  //   const upperLimitClipPathArea = d3Shape.area()
+  //     .curve(d3Shape[this.options['upperLimitLineType']])
+  //     .x(d => this.x(d.date))
+  //     .y0(d => {
+  //       return this.y(this.heightNoMargins);
+  //     })
+  //     .y1(d => this.y(d.value));
+  //
+  //
+  //   const upperLimitClipPathSoruce = this.g.selectAll(".area")
+  //     .data([upperLimit])
+  //     .enter()
+  //     .append("g");
+  //
+  //   upperLimitClipPathSoruce
+  //     .append("clipPath")
+  //     .attr('id', 'upperLimitClipPathArea-' + this.position)
+  //     .attr('class', 'area')
+  //     .append("path")
+  //     .attr("d", d => {
+  //       return upperLimitClipPathArea(d.values);
+  //     });
+  //
+  //   const upperLimitArea = d3Shape.area()
+  //     .curve(d3Shape[this.options['factLineType']])
+  //     .x(d => this.x(d.date))
+  //     .y0(d => {
+  //       return this.y(0);
+  //     })
+  //     .y1(d => this.y(d.value));
+  //
+  //
+  //   const upperLimitSource = this.g.selectAll(".limit-area")
+  //     .data([fact])
+  //     .enter()
+  //     .append("g");
+  //
+  //
+  //   upperLimitSource.append("path")
+  //     .attr("d", d => {
+  //       return upperLimitArea(d.values);
+  //     })
+  //     .attr('class', 'upper-limit-area')
+  //
+  //     .attr("fill", 'url(#upper-limit-deviation-gradient-' + this.position + ')')
+  //     .attr("clip-path", 'url(#upperLimitClipPathArea-' + this.position + ')');
+  //
+  //
+  //   const upperLimitGradient = upperLimitSource
+  //     .append("g")
+  //     .append('linearGradient')
+  //     .attr('class', 'gradient')
+  //     .attr('id', 'upper-limit-deviation-gradient-' + this.position)
+  //     .attr('x1', "0%")
+  //     .attr('x2', "0%")
+  //     .attr('y1', "0%")
+  //     .attr('y2', "100%");
+  //
+  //   upperLimitGradient.append('stop')
+  //     .attr('offset', "0")
+  //     .attr('stop-color', "rgba(244, 163, 33, 0.2)");
+  //
+  //   upperLimitGradient.append('stop')
+  //     .attr('offset', "50%")
+  //     .attr('stop-color', "transparent");
+  //
+  //
+  //   const lowerLimitClipPathArea = d3Shape.area()
+  //     .curve(d3Shape[this.options['lowerLimitLineType']])
+  //     .x(d => this.x(d.date))
+  //     .y0(d => {
+  //       return this.y(0);
+  //     })
+  //     .y1(d => this.y(d.value));
+  //
+  //
+  //   const lowerLimitClipPathSoruce = this.g.selectAll(".l-area")
+  //     .data([lowerLimit])
+  //     .enter()
+  //     .append("g");
+  //
+  //   lowerLimitClipPathSoruce
+  //     .append("clipPath")
+  //     .attr('id', 'lowerLimitClipPathArea-' + this.position)
+  //     .attr('class', 'area')
+  //     .append("path")
+  //     .attr("d", d => {
+  //       return lowerLimitClipPathArea(d.values);
+  //     });
+  //
+  //
+  //   const lowerLimitArea = d3Shape.area()
+  //     .curve(d3Shape[this.options['factLineType']])
+  //     .x(d => this.x(d.date))
+  //     .y0(d => 0)
+  //     .y1(d => this.y(d.value));
+  //
+  //   const lowerLimitSource = this.g.selectAll(".limit-area")
+  //     .data([fact])
+  //     .enter()
+  //     .append("g");
+  //
+  //   lowerLimitSource.append("path")
+  //     .attr("d", d => {
+  //       return lowerLimitArea(d.values);
+  //     })
+  //     .attr('class', 'lower-limit-area')
+  //     .attr("clip-path", 'url(#lowerLimitClipPathArea-' + this.position + ')')
+  //     .attr("fill", 'url(#lower-limit-deviation-gradient-' + this.position + ')');
+  //
+  //
+  //   const lowerLimitGradient = lowerLimitSource
+  //     .append("g")
+  //     .append('linearGradient')
+  //     .attr('id', 'lower-limit-deviation-gradient-' + this.position)
+  //     .attr('x1', "0%")
+  //     .attr('x2', "0%")
+  //     .attr('y1', "0%")
+  //     .attr('y2', "100%");
+  //
+  //   lowerLimitGradient.append('stop')
+  //     .attr('offset', "50%")
+  //     .attr('stop-color', "transparent");
+  //
+  //   lowerLimitGradient.append('stop')
+  //     .attr('offset', "100%")
+  //     .attr('stop-color', "rgba(244, 163, 33, 0.2)");
+  //
+  // }
 
-    const upperLimitClipPathArea = d3Shape.area()
-      .curve(d3Shape[this.options['upperLimitLineType']])
-      .x(d => this.x(d.date))
-      .y0(d => {
-        return this.y(this.heightNoMargins);
-      })
-      .y1(d => this.y(d.value));
-
-
-    const upperLimitClipPathSoruce = this.g.selectAll(".area")
-      .data([upperLimit])
-      .enter()
-      .append("g");
-
-    upperLimitClipPathSoruce
-      .append("clipPath")
-      .attr('id', 'upperLimitClipPathArea-' + this.position)
-      .attr('class', 'area')
-      .append("path")
-      .attr("d", d => {
-        return upperLimitClipPathArea(d.values);
-      });
-
-    const upperLimitArea = d3Shape.area()
-      .curve(d3Shape[this.options['factLineType']])
-      .x(d => this.x(d.date))
-      .y0(d => {
-        return this.y(0);
-      })
-      .y1(d => this.y(d.value));
-
-
-    const upperLimitSource = this.g.selectAll(".limit-area")
-      .data([fact])
-      .enter()
-      .append("g");
-
-
-    upperLimitSource.append("path")
-      .attr("d", d => {
-        return upperLimitArea(d.values);
-      })
-      .attr('class', 'upper-limit-area')
-
-      .attr("fill", 'url(#upper-limit-deviation-gradient-' + this.position + ')')
-      .attr("clip-path", 'url(#upperLimitClipPathArea-' + this.position + ')');
-
-
-    const upperLimitGradient = upperLimitSource
-      .append("g")
-      .append('linearGradient')
-      .attr('class', 'gradient')
-      .attr('id', 'upper-limit-deviation-gradient-' + this.position)
-      .attr('x1', "0%")
-      .attr('x2', "0%")
-      .attr('y1', "0%")
-      .attr('y2', "100%");
-
-    upperLimitGradient.append('stop')
-      .attr('offset', "0")
-      .attr('stop-color', "rgba(244, 163, 33, 0.2)");
-
-    upperLimitGradient.append('stop')
-      .attr('offset', "50%")
-      .attr('stop-color', "transparent");
-
-
-    const lowerLimitClipPathArea = d3Shape.area()
-      .curve(d3Shape[this.options['lowerLimitLineType']])
-      .x(d => this.x(d.date))
-      .y0(d => {
-        return this.y(0);
-      })
-      .y1(d => this.y(d.value));
-
-
-    const lowerLimitClipPathSoruce = this.g.selectAll(".l-area")
-      .data([lowerLimit])
-      .enter()
-      .append("g");
-
-    lowerLimitClipPathSoruce
-      .append("clipPath")
-      .attr('id', 'lowerLimitClipPathArea-' + this.position)
-      .attr('class', 'area')
-      .append("path")
-      .attr("d", d => {
-        return lowerLimitClipPathArea(d.values);
-      });
-
-
-    const lowerLimitArea = d3Shape.area()
-      .curve(d3Shape[this.options['factLineType']])
-      .x(d => this.x(d.date))
-      .y0(d => 0)
-      .y1(d => this.y(d.value));
-
-    const lowerLimitSource = this.g.selectAll(".limit-area")
-      .data([fact])
-      .enter()
-      .append("g");
-
-    lowerLimitSource.append("path")
-      .attr("d", d => {
-        return lowerLimitArea(d.values);
-      })
-      .attr('class', 'lower-limit-area')
-      .attr("clip-path", 'url(#lowerLimitClipPathArea-' + this.position + ')')
-      .attr("fill", 'url(#lower-limit-deviation-gradient-' + this.position + ')');
-
-
-    const lowerLimitGradient = lowerLimitSource
-      .append("g")
-      .append('linearGradient')
-      .attr('id', 'lower-limit-deviation-gradient-' + this.position)
-      .attr('x1', "0%")
-      .attr('x2', "0%")
-      .attr('y1', "0%")
-      .attr('y2', "100%");
-
-    lowerLimitGradient.append('stop')
-      .attr('offset', "50%")
-      .attr('stop-color', "transparent");
-
-    lowerLimitGradient.append('stop')
-      .attr('offset', "100%")
-      .attr('stop-color', "rgba(244, 163, 33, 0.2)");
-
-  }
-
-
+  // private drawDeviationAreas(planData, factData) {
+  //   let clipPathArea = d3Shape.area()
+  //     .curve(d3Shape[this.options['planLineType']])
+  //     .x(d => this.x(d.date))
+  //     .y0(d => {
+  //       return this.y(this.heightNoMargins);
+  //     })
+  //     .y1(d => this.y(d.value));
+  //
+  //
+  //   let clipPathSource = this.g.selectAll(".area")
+  //     .data([planData])
+  //     .enter()
+  //     .append("g");
+  //
+  //
+  //   clipPathSource
+  //     .append("clipPath")
+  //     .attr('id', 'clipPathArea-' + this.position)
+  //     .attr('class', 'area')
+  //     .append("path")
+  //     .attr("d", d => {
+  //       if (d) {
+  //         return clipPathArea(d.values);
+  //       }
+  //
+  //     });
+  //
+  //
+  //   const deviationArea = d3Shape.area()
+  //     .curve(d3Shape[this.options['factLineType']])
+  //     .x(d => this.x(d.date))
+  //     .y0(d => {
+  //       return this.y(0);
+  //     })
+  //     .y1(d => this.y(d.value));
+  //
+  //
+  //   const deviationSource = this.g.selectAll(".deviation-area")
+  //     .data([factData])
+  //     .enter()
+  //     .append("g");
+  //
+  //
+  //   deviationSource.append("path")
+  //     .attr("d", d => {
+  //       return deviationArea(d.values);
+  //     })
+  //     .attr('class', 'deviation-area')
+  //     .attr("clip-path", 'url(#clipPathArea-' + this.position + ')')
+  //     .attr("fill", 'url(#deviation-gradient)')
+  //
+  //
+  //   const gradient = deviationSource
+  //     .append("g")
+  //     .append('linearGradient')
+  //     .attr('id', 'deviation-gradient')
+  //     .attr('x1', "0%")
+  //     .attr('x2', "0%")
+  //     .attr('y1', "0%")
+  //     .attr('y2', "100%");
+  //
+  //   gradient.append('stop')
+  //     .attr('offset', "0")
+  //     .attr('stop-color', "rgba(244, 163, 33, 0.2)");
+  //
+  //   gradient.append('stop')
+  //     .attr('offset', "50%")
+  //     .attr('stop-color', "transparent");
+  //
+  //
+  // }
 }
 
