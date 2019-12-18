@@ -126,6 +126,9 @@ export class NewWidgetService {
 
         case 'map-ecology':
           return data;
+
+      case 'ring-factory-diagram':
+        return data;
     }
   }
 
