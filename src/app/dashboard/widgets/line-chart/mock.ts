@@ -76,6 +76,7 @@ export const Mock =
           {'date': new Date('2011-10-29'), 'value': 70.0},
           {'date': new Date('2011-10-30'), 'value': 70.0},
           {'date': new Date('2011-10-31'), 'value': 70.0},
+          {'date': new Date('2011-11-5'), 'value': 70.0},
         ]
       },
       {
