@@ -101,7 +101,7 @@ export class NewWidgetsGridComponent implements OnInit {
   // console.info('itemChanged', this.widgetService.dashboard);
   }
 
-  
+
 
   public onSwap(swap:any){
     swap === true?this.options.swap=true:this.options.swap=false;
