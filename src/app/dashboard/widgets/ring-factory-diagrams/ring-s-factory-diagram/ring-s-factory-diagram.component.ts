@@ -93,7 +93,7 @@ export class RingSFactoryDiagramComponent implements OnInit {
 
   private subscriptions: Subscription[] = [];
 
-  public title = 'test';
+  public title;
   public code;
   public units;
   public name;
