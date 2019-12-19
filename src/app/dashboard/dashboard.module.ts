@@ -56,6 +56,7 @@ import { DeviationsTableComponent } from './widgets/deviations-table/deviations-
 import { TriggeringCriticalParametersComponent } from './widgets/triggering-critical-parameters/triggering-critical-parameters.component';
 import { CircleFactoryDiagramComponent } from './widgets/circle-factory-diagram/circle-factory-diagram.component';
 import { ProductStocksComponent } from './widgets/product-stocks/product-stocks.component';
+import { PolarChartComponent } from './widgets/polar-chart/polar-chart.component';
 
 @NgModule({
   declarations: [
@@ -108,6 +109,7 @@ import { ProductStocksComponent } from './widgets/product-stocks/product-stocks.
     TriggeringCriticalParametersComponent,
     CircleFactoryDiagramComponent,
     ProductStocksComponent,
+    PolarChartComponent,
   ],
   entryComponents: [
     LineChartComponent,
@@ -142,6 +144,7 @@ import { ProductStocksComponent } from './widgets/product-stocks/product-stocks.
     TriggeringCriticalParametersComponent,
     CircleFactoryDiagramComponent,
     ProductStocksComponent,
+    PolarChartComponent
   ],
   exports: [HomeComponent],
   imports: [

@@ -11,16 +11,16 @@ export class EcologySafetyComponent implements OnInit {
   aboutWidget;
 
   static itemCols = 18;
-  static itemRows = 8;
+  static itemRows = 6;
 
   subscription: Subscription;
 
   /* Приблизительная структура, получаемая с бека */
 
   data = {
-    plan: 100,
-    curValue: 80,
-    maxValue: 120
+    plan: 100, // план
+    curValue: 80, // текущее значение
+    maxValue: 120 // максимальное значение
   };
 
   colorNormal = "#FFFFFF";

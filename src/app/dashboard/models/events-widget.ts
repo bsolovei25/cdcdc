@@ -26,6 +26,7 @@ export interface EventsWidgetNotification {
   equipmentCategory: { id: number, name: string, code: string };
   deadline?: Date;
   graphValues: LineChartData;
+  source?: any;
 }
 
 export interface User {
