@@ -64,8 +64,8 @@ export class PolarChartComponent implements AfterViewInit {
     {
     line: 1,
     value: 180,
-    forecast: 94,
-    plan: 95,
+    forecast: 34,
+    plan: 15,
     title: 100,
     valueType: "procent"
    },
@@ -73,14 +73,14 @@ export class PolarChartComponent implements AfterViewInit {
     line: 2,
     value: 12,
     forecast: 94,
-    plan: 95,
+    plan: 55,
     title: 100,
     valueType: "procent"
    },
    {
     line: 3,
     value: 40,
-    forecast: 94,
+    forecast: 34,
     plan: 95,
     title: 100,
     valueType: "procent"
@@ -88,8 +88,8 @@ export class PolarChartComponent implements AfterViewInit {
    {
     line: 4,
     value: 130,
-    forecast: 94,
-    plan: 95,
+    forecast: 24,
+    plan: 25,
     title: 100,
     valueType: "procent"
    },
@@ -105,7 +105,7 @@ export class PolarChartComponent implements AfterViewInit {
     line: 6,
     value: 130,
     forecast: 94,
-    plan: 95,
+    plan: 100,
     title: 100,
     valueType: "procent"
    },
@@ -252,6 +252,22 @@ export class PolarChartComponent implements AfterViewInit {
       .attr("fill", "#a2e2ff")
       .text("План");
 
+      let planTextData1 = canvas.append("text")
+      .attr("font-family","'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+      .attr("font-size", "2.4px")
+      .attr("x", "64")
+      .attr("y", "11")
+      .attr("fill","white")
+      .text(data[0].forecast + " %");
+
+      let forecastTextData1 = canvas.append("text")
+      .attr("font-family","'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+      .attr("font-size", "2.4px")
+      .attr("x", "82")
+      .attr("y", "11")
+      .attr("fill", "#a2e2ff")
+      .text(data[0].plan + " %");
+
 
       let titleText2 = canvas.append("text")
       .attr("font-family","'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
@@ -277,6 +293,22 @@ export class PolarChartComponent implements AfterViewInit {
       .attr("y", "30")
       .attr("fill", "#a2e2ff")
       .text("План");
+
+      let planTextData2 = canvas.append("text")
+      .attr("font-family","'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+      .attr("font-size", "2.4px")
+      .attr("x", "104")
+      .attr("y", "28")
+      .attr("fill","white")
+      .text(data[1].forecast + " %");
+
+      let forecastTextData2 = canvas.append("text")
+      .attr("font-family","'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+      .attr("font-size", "2.4px")
+      .attr("x", "122")
+      .attr("y", "28")
+      .attr("fill", "#a2e2ff")
+      .text(data[1].plan + " %");
 
 
       let titleText3 = canvas.append("text")
@@ -304,6 +336,22 @@ export class PolarChartComponent implements AfterViewInit {
       .attr("fill", "#a2e2ff")
       .text("План");
 
+      let planTextData3 = canvas.append("text")
+      .attr("font-family","'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+      .attr("font-size", "2.4px")
+      .attr("x", "104")
+      .attr("y", "84")
+      .attr("fill","white")
+      .text(data[2].forecast + " %");
+
+      let forecastTextData3 = canvas.append("text")
+      .attr("font-family","'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+      .attr("font-size", "2.4px")
+      .attr("x", "122")
+      .attr("y", "84")
+      .attr("fill", "#a2e2ff")
+      .text(data[2].plan + " %");
+
       let titleText4 = canvas.append("text")
       .attr("font-family","'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr("font-size", "1.9px")
@@ -329,6 +377,22 @@ export class PolarChartComponent implements AfterViewInit {
       .attr("fill", "#a2e2ff")
       .text("План");
 
+      let planTextData4 = canvas.append("text")
+      .attr("font-family","'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+      .attr("font-size", "2.4px")
+      .attr("x", "64")
+      .attr("y", "102")
+      .attr("fill","white")
+      .text(data[3].forecast + " %");
+
+      let forecastTextData4 = canvas.append("text")
+      .attr("font-family","'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+      .attr("font-size", "2.4px")
+      .attr("x", "82")
+      .attr("y", "102")
+      .attr("fill", "#a2e2ff")
+      .text(data[3].plan + " %");
+
       let titleText5 = canvas.append("text")
       .attr("font-family","'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr("font-size", "1.9px")
@@ -353,6 +417,22 @@ export class PolarChartComponent implements AfterViewInit {
       .attr("y", "86")
       .attr("fill", "#a2e2ff")
       .text("План");
+      
+      let planTextData5 = canvas.append("text")
+      .attr("font-family","'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+      .attr("font-size", "2.4px")
+      .attr("x", "24")
+      .attr("y", "84")
+      .attr("fill","white")
+      .text(data[4].forecast + " %");
+
+      let forecastTextData5 = canvas.append("text")
+      .attr("font-family","'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+      .attr("font-size", "2.4px")
+      .attr("x", "41")
+      .attr("y", "84")
+      .attr("fill", "#a2e2ff")
+      .text(data[4].plan + " %");
 
       let titleText6 = canvas.append("text")
       .attr("font-family","'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
@@ -373,11 +453,11 @@ export class PolarChartComponent implements AfterViewInit {
 
       let planTextData6 = canvas.append("text")
       .attr("font-family","'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-      .attr("font-size", "1.4px")
+      .attr("font-size", "2.4px")
       .attr("x", "24")
       .attr("y", "28")
       .attr("fill","white")
-      .text(data[5].forecast);
+      .text(data[5].forecast + " %");
 
       let forecastText6 = canvas.append("text")
       .attr("font-family","'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
@@ -389,11 +469,11 @@ export class PolarChartComponent implements AfterViewInit {
 
       let forecastTextData6 = canvas.append("text")
       .attr("font-family","'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-      .attr("font-size", "1.4px")
-      .attr("x", "42")
+      .attr("font-size", "2.4px")
+      .attr("x", "41")
       .attr("y", "28")
       .attr("fill", "#a2e2ff")
-      .text(data[5].plan);
+      .text(data[5].plan + " %");
 
 
 
