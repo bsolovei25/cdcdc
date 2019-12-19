@@ -34,25 +34,28 @@ export class EnergeticsComponent implements OnInit {
 
   /* Данные с сервера для карточек */
 
+  // термо-карточка
   termoCard = {
-    plan: 1000,
-    curValue: 623,
-    deviation1: 142.8,
-    deviation2: 0.1
+    plan: 1000, // план
+    curValue: 623, // текущее значение
+    deviation1: 142.8, // значение отклонения [тыс. Гкал]
+    deviation2: 0.1 // значение отклонения [Гкал/тонн]
   };
 
+  // электро-карточка
   electroCard = {
-    plan: 1500,
-    curValue: 1230,
-    deviation1: 17.7,
-    deviation2: 49.9
+    plan: 1500, // план
+    curValue: 1230, // текущее значение
+    deviation1: 17.7, // значение отклонения [млн. кВт/ч]
+    deviation2: 49.9 // значение отклонения [кВт*ч/тонн]
   };
 
+  // топливная-карточка
   fuelCard = {
-    plan: 2500,
-    curValue: 2690,
-    deviation1: 85.3,
-    deviation2: 59.9
+    plan: 2500, // план
+    curValue: 2690, // текущее значение
+    deviation1: 85.3, // значение отклонения [тыс.т.у.т]
+    deviation2: 59.9 // значение отклонения [кг.у.т/тонн]
   };
 
   /* Параметры для круговых диаграмм */
