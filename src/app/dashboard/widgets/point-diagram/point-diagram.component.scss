@@ -30,7 +30,7 @@
 .mock {
   position: relative;
   display: block;
-  height: 200px;
+  height: 144px;
   .diagrams {
     position: relative;
     height: 100%;
@@ -168,7 +168,7 @@
 
 .point-diagram {
   position: relative;
-  height: 100%;
+  height: calc(100% - 60px);
   width: 100%;
 
   box-sizing: border-box;

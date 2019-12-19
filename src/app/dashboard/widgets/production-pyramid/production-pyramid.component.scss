@@ -29,7 +29,7 @@
 
 .mock {
   display: block;
-  height: 200px;
+  height: 144px;
   border-left: dashed 0.5px var(--color-border-main);
   border-right: dashed 0.5px var(--color-border-main);
   &-container {
@@ -40,8 +40,8 @@
     justify-content: center;
   }
   img {
-    width: 80%;
-    height: 100%;
+    width: 65%;
+    height: 144px;
   }
 }
 
