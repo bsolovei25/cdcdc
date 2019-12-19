@@ -29,10 +29,10 @@ export class AppConfigService {
         return this.appConfig.restUrl;
     }
 
-  get reconnectInterval(): string {
-    if (!this.appConfig) {
-      throw Error('Config file not loaded!');
+    get reconnectInterval(): number {
+        if (!this.appConfig) {
+          throw Error('Config file not loaded!');
+        }
+        return this.appConfig.reconnectInterval;
     }
-    return this.appConfig.reconnectInterval;
-  }
 }

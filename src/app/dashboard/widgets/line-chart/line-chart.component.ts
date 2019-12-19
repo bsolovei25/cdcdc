@@ -150,7 +150,6 @@ export class LineChartComponent implements OnInit, OnDestroy {
   ngAfterViewInit() {
     this.showMock(this.isMock);
     if (!this.isMock) {
-      console.log('init_lch')
       if (this.dataLine) {
         this.draw(this.dataLine);
       }
@@ -164,13 +163,12 @@ export class LineChartComponent implements OnInit, OnDestroy {
   }
 
   showMock(show) {
-      if (show) {
-        this.disableLiveData();
-      } else {
-        // this.disableLiveData();
-        this.enableLiveData();
-      }
+    if (show) {
+      this.disableLiveData();
+    } else {
+      this.enableLiveData();
     }
+  }
 
   @HostListener('document:resize', ['$event'])
   private OnResize(event) {
