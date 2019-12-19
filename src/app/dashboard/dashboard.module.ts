@@ -55,6 +55,7 @@ import { CircleDiagramComponent } from './widgets/circle-diagram/circle-diagram.
 import { DeviationsTableComponent } from './widgets/deviations-table/deviations-table.component';
 import { TriggeringCriticalParametersComponent } from './widgets/triggering-critical-parameters/triggering-critical-parameters.component';
 import { CircleFactoryDiagramComponent } from './widgets/circle-factory-diagram/circle-factory-diagram.component';
+import { SemicircleEnergyComponent } from './widgets/semicircle-energy/semicircle-energy.component';
 
 @NgModule({
   declarations: [
@@ -106,6 +107,7 @@ import { CircleFactoryDiagramComponent } from './widgets/circle-factory-diagram/
     DeviationsTableComponent,
     TriggeringCriticalParametersComponent,
     CircleFactoryDiagramComponent,
+    SemicircleEnergyComponent,
   ],
   entryComponents: [
     LineChartComponent,
