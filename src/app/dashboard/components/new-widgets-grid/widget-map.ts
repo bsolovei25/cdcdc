@@ -25,6 +25,8 @@ import { DispatcherScreenComponent } from '../../widgets/dispatcher-screen/dispa
 import { DeviationsTableComponent } from '../../widgets/deviations-table/deviations-table.component';
 import { TriggeringCriticalParametersComponent } from '../../widgets/triggering-critical-parameters/triggering-critical-parameters.component';
 import { CircleFactoryDiagramComponent } from '../../widgets/circle-factory-diagram/circle-factory-diagram.component';
+import { ProductStocksComponent } from '../../widgets/product-stocks/product-stocks.component';
+import { PolarChartComponent } from '../../widgets/polar-chart/polar-chart.component';
 
 
 export const WIDGETS = {
@@ -44,10 +46,10 @@ export const WIDGETS = {
     "enterprise-map": EnterpriseMapComponent,
     "circle-diagram": CircleDiagramComponent,
     "unity-template": UnityTemplateComponent,
-    "map-ecology":MapEcologyComponent,
+    "map-ecology": MapEcologyComponent,
     "operation-efficiency": OperationEfficiencyComponent,
-    "ecology-safety":EcologySafetyComponent,
-    "calendar-plan":CalendarPlanComponent,
+    "ecology-safety": EcologySafetyComponent,
+    "calendar-plan": CalendarPlanComponent,
     "ring-factory-diagram": RingSFactoryDiagramComponent,
     "chain-map": ChainMapComponent,
     "energetics": EnergeticsComponent,
@@ -55,5 +57,7 @@ export const WIDGETS = {
     'suspense-machine': SuspenseMachineComponent,
     'deviations-table': DeviationsTableComponent,
     'triggering-critical-parameters': TriggeringCriticalParametersComponent,
-    "circle-factory-diagram":CircleFactoryDiagramComponent,
+    'circle-factory-diagram': CircleFactoryDiagramComponent,
+    'product-stocks': ProductStocksComponent,
+    "polar-chart": PolarChartComponent,
 };

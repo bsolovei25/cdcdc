@@ -43,14 +43,31 @@ export class CircleFactoryDiagramComponent implements AfterViewInit {
     ]
   }
 
+  private subscriptions: Subscription[] = [];
+
   constructor(
     public widgetService: NewWidgetService,
     @Inject('isMock') public isMock: boolean,
     @Inject('widgetId') public id: string
-  ) { }
+  ) { 
+    this.subscriptions.push(this.widgetService.getWidgetChannel(this.id).subscribe(data => {
+      this.title = data.title;
+      this.code = data.code;
+      this.units = data.units;
+      this.name = data.name;
+    }));
+  }
 
   ngAfterViewInit() {
+    if(!this.isMock){
       this.d3Circle(this.data, this.CircleFactory.nativeElement); 
+    }
+  }
+
+  ngOnDestroy() {
+    for (const subscription of this.subscriptions) {
+      subscription.unsubscribe();
+    }
   }
 
   public onChangeBackground(){

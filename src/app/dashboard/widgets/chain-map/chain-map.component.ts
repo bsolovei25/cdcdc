@@ -277,6 +277,12 @@ export class ChainMapComponent implements AfterViewInit {
       }
 
   ngAfterViewInit() {
+    if(!this.isMock){
+      this.drowChain();
+    }
+  }
+
+  public drowChain(){
     this.mass1 = this.data[0];
     this.mass2 = this.data[1];
     this.changeLine(this.chain.nativeElement, this.mass1);
@@ -292,10 +298,7 @@ export class ChainMapComponent implements AfterViewInit {
         this.check = true;
       }
     }, 3000);
-   // this.changeLine(this.chain.nativeElement);
-  //  this.changeCircle(this.chain.nativeElement);
   }
-
 
   public changeLine(el, mass){
     const activeLine:any = el.querySelectorAll('.st3');

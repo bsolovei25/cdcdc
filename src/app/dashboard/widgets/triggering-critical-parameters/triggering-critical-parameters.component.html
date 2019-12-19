@@ -103,13 +103,29 @@
           <tbody>
             <tr *ngFor="let item of data" class="table__item" [ngClass]="{'open': item.nonCritical}">
               <td class="item item__equipment">{{ item.equipment }}</td>
-              <td class="item item__fuel">{{ item.gasContamination }}</td>
-              <td class="item item__fuel">{{ item.deLockKeys }}</td>
-              <td class="item item__fuel">{{ item.fireAlarm }}</td>
-              <td class="item item__fuel">{{ item.lockAndAlarm }}</td>
-              <td class="item item__fuel">{{ item.PIDControllers }}</td>
-              <td class="item item__fuel">{{ item.vibrodiagnosticSystems }}</td>
-              <td class="item item__fuel" style="max-width: 73px;"> <span>{{ item.electricalHeatingSystems }}</span>
+              <td class="item item__fuel">
+                <span *ngIf="item.gasContamination !== 0">{{ item.gasContamination }}</span>
+                <span class="item__sub" *ngIf="item.gasContamination === 0">-</span>
+              </td>
+              <td class="item item__fuel">
+                <span *ngIf="item.deLockKeys !== 0">{{ item.deLockKeys }}</span>
+                <span class="item__sub" *ngIf="item.deLockKeys === 0">-</span></td>
+              <td class="item item__fuel">
+                <span *ngIf="item.fireAlarm !== 0">{{ item.fireAlarm }}</span>
+                <span class="item__sub" *ngIf="item.fireAlarm === 0">-</span></td>
+              <td class="item item__fuel">
+                <span *ngIf="item.lockAndAlarm !== 0">{{ item.lockAndAlarm }}</span>
+                <span class="item__sub" *ngIf="item.lockAndAlarm === 0">-</span></td>
+              <td class="item item__fuel">
+                <span *ngIf="item.PIDControllers !== 0">{{ item.PIDControllers }}</span>
+                <span class="item__sub" *ngIf="item.PIDControllers === 0">-</span></td>
+              <td class="item item__fuel">
+                <span *ngIf="item.vibrodiagnosticSystems !== 0">{{ item.vibrodiagnosticSystems }}</span>
+                <span class="item__sub" *ngIf="item.vibrodiagnosticSystems === 0">-</span>
+              </td>
+              <td class="item item__fuel" style="max-width: 73px;">
+                <span *ngIf="item.electricalHeatingSystems !== 0">{{ item.electricalHeatingSystems }}</span>
+                <span class="item__sub" *ngIf="item.electricalHeatingSystems === 0">-</span>
               </td>
             </tr>
           </tbody>
