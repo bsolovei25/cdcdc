@@ -1,18 +1,18 @@
 import { LineChartOptions } from './line-chart';
 
 export interface WidgetGridsterSettings {
-    itemRows: string;
-    itemCols: string;
-    
-  }
-  
-  
-export class WidgetModel{
-    isMock: boolean;
-    id: number;
-  }
-  
-export interface Widgets{
+  itemRows: string;
+  itemCols: string;
+
+}
+
+
+export class WidgetModel {
+  isMock: boolean;
+  id: number;
+}
+
+export interface Widgets {
   code: string;
   id: string;
   name: string;
@@ -20,25 +20,41 @@ export interface Widgets{
   units: string;
   widgetOptions: LineChartOptions;
   widgetType: string;
-} 
+}
 
-export interface RingFactoryWidget{
+export interface RingFactoryWidget {
+  id: string;
   title: string;
   typeFabric: number;
-  value: RingValue[];
+  values: RingValue[];
   buttons: RingButton[];
 }
 
-export interface RingValue{
+export interface RingValue {
   name: string;
-  valueOne: number;
-  valueTwo: number;
+  plan: number;
+  fact: number;
 }
 
-export interface RingButton{
-  typeButton: string;
+export interface RingButton {
+  typeButton: number;
   critical: number;
-  notcritical: number;
+  notCritical: number;
+}
+
+export interface ChainMap{
+  line: ChainLine[];
+  circle: ChainCircle[];
+}
+
+export interface ChainLine{
+ idLine: string;
+ status: number;
+}
+
+export interface ChainCircle{
+  idCircle:string;
+  status: number;
 }
 
 export interface PieWidget{
@@ -47,18 +63,16 @@ export interface PieWidget{
   nonCritical: number;
 }
 
-export interface BarWidget{
+export interface BarWidget {
   name: string;
   good: number;
   bad: number;
   total: number;
 }
 
-export interface TruncPieWidget{
+export interface TruncPieWidget {
   name: string;
   count: number;
   critical: number;
   image: string;
 }
-
-

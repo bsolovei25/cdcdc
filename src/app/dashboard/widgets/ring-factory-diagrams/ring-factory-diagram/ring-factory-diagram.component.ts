@@ -20,23 +20,20 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
   @ViewChild('test2', {static:false}) test2: ElementRef;
 
   @Input() public data: RingFactoryWidget;
-   
+
   public stateRing;
-  
+
   public dataStyle = {
     id_0: { status: 'critical' },
     id_1: { status: 'notCritical' },
   };
 
-  constructor(@Inject(DOCUMENT) private document, private renderer: Renderer2) { 
-    
-  }
-  
-  ngOnInit(){
+  constructor(@Inject(DOCUMENT) private document, private renderer: Renderer2) {}
+
+  ngOnInit() {
     this.stateRing = this.data.buttons.length;
   }
-  ngAfterViewInit(){
-    //new LeaderLine(this.test1.nativeElement, this.test2.nativeElement);
+  ngAfterViewInit() {
     this.draw(this.ringFactory.nativeElement);
   }
 
@@ -45,7 +42,7 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
   }
 
   public draw(el){
-    const svg = d3.select(el) 
+    const svg = d3.select(el)
     svg.append("image")
         .attr("xlink:href","/assets/pic/Icons3D/"+this.data.typeFabric+".png")
         .attr("height", "250px")
@@ -53,18 +50,18 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
         .attr("width", "250px")
         .attr("x","170")
         .attr("y","270");
-    
-    if(this.data.buttons.length){
-      const pie:any = el.querySelectorAll('.st0');
-      const iconpie:any = el.querySelectorAll('.st1');
-      for(let dat of this.data.buttons){
-        let datButton = dat.typeButton.toString();
-        for (let item of pie){
-          let id = item.getAttribute('data-item-id');
-          if(datButton === id){
-            let status = this.dataStyle['id_0'].status;
+
+    if(this.data.buttons.length) {
+      const pie: any = el.querySelectorAll('.st0');
+      const iconpie: any = el.querySelectorAll('.st1');
+      for (const dat of this.data.buttons) {
+        const datButton = dat.typeButton.toString();
+        for (const item of pie) {
+          const id = item.getAttribute('data-item-id');
+          if (datButton === id) {
+            const status = this.dataStyle['id_0'].status;
             item.classList.add(`-${status}`);
-            if(id === "0"){
+            if (id === "0"){
               svg.append("image")
                 .attr("xlink:href","/assets/pic/borderimg.png")
                 .attr("height", "250px")
@@ -78,8 +75,8 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
                 .attr("y","400")
                 .attr("fill", "rgb(97,101,128)")
                 .text("Критичные /", dat.critical);
-              
-            }else if(id === "1"){
+
+            } else if (id === "1"){
               svg.append("image")
                 .attr("xlink:href","/assets/pic/borderimg.png")
                 .attr("height", "250px")
@@ -102,15 +99,15 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
                 .attr("y","280")
                 .attr("fill", "gray")
                 .text("%");
-              
+
               svg.append("text")
                 .attr("font-size", "36px")
                 .attr("x","200")
                 .attr("y","280")
                 .attr("fill", "white")
-                .text("+" + dat.notcritical);
+                .text("+" + dat.notCritical);
 
-            }else if(id === "2"){
+            } else if (id === "2"){
               svg.append("image")
                 .attr("xlink:href","/assets/pic/borderimg.png")
                 .attr("height", "250px")
@@ -134,15 +131,15 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
                 .attr("y","280")
                 .attr("fill", "gray")
                 .text("%");
-              
+
               svg.append("text")
                 .attr("font-size", "36px")
                 .attr("x","470")
                 .attr("y","280")
                 .attr("fill", "white")
-                .text("+" + dat.notcritical);
+                .text("+" + dat.notCritical);
 
-            }else if(id === "3"){
+            } else if (id === "3"){
               svg.append("image")
                 .attr("xlink:href","/assets/pic/borderimg.png")
                 .attr("height", "250px")
@@ -150,7 +147,7 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
                 .attr("x","366")
                 .attr("y","300");
 
-            }else if(id === "4"){
+            } else if (id === "4"){
               svg.append("image")
                 .attr("xlink:href","/assets/pic/borderimg.png")
                 .attr("height", "250px")
@@ -159,7 +156,7 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
                 .attr("y","-680")
                 .attr("transform","scale(-1)");
 
-                svg.append("text")
+              svg.append("text")
                 .attr("font-family"," font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                 .attr("font-size", "36px")
                 .attr("x","330")
@@ -174,15 +171,15 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
                 .attr("y","620")
                 .attr("fill", "gray")
                 .text("%");
-              
+
               svg.append("text")
                 .attr("font-size", "36px")
                 .attr("x","470")
                 .attr("y","620")
                 .attr("fill", "white")
-                .text("+" + dat.notcritical);
+                .text("+" + dat.notCritical);
 
-            }else if(id === "5"){
+            } else if (id === "5"){
               svg.append("image")
                 .attr("xlink:href","/assets/pic/borderimg.png")
                 .attr("height", "250px")
@@ -191,7 +188,7 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
                 .attr("y","-680")
                 .attr("transform","scale(1,-1)");
 
-                svg.append("text")
+              svg.append("text")
                 .attr("font-family"," font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                 .attr("font-size", "36px")
                 .attr("x","70")
@@ -206,35 +203,31 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
                 .attr("y","620")
                 .attr("fill", "gray")
                 .text("%");
-              
+
               svg.append("text")
                 .attr("font-size", "36px")
                 .attr("x","200")
                 .attr("y","620")
                 .attr("fill", "white")
-                .text("+" + dat.notcritical);
-
+                .text("+" + dat.notCritical);
             }
-          }else{
-            let status = this.dataStyle['id_1'].status;
+          } else {
+            const status = this.dataStyle['id_1'].status;
             item.classList.add(`-${status}`);
           }
-       
-       //   const line = new LeaderLine(info, item);
+
         }
-        for (let item of iconpie){
-          let id = item.getAttribute('data-item-id');
-          if(datButton === id){
-            let status = this.dataStyle['id_0'].status;
+        for (const item of iconpie) {
+          const id = item.getAttribute('data-item-id');
+          if (datButton === id) {
+            const status = this.dataStyle['id_0'].status;
             item.classList.add(`-${status}`);
-          }else{
-            let status = this.dataStyle['id_1'].status;
+          } else {
+            const status = this.dataStyle['id_1'].status;
             item.classList.add(`-${status}`);
           }
         }
       }
-    }else{
-     
-    }
+    } else { }
   }
 }

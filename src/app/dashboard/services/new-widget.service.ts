@@ -110,7 +110,7 @@ export class NewWidgetService {
           return data;
 
         case 'manual-input':
-          return this.mapManualInput(data);
+          return this.mapManualInput(data.items);
 
         case 'pie-diagram':
           return data;
@@ -126,6 +126,9 @@ export class NewWidgetService {
 
         case 'map-ecology':
           return data;
+
+      case 'ring-factory-diagram':
+        return data;
     }
   }
 

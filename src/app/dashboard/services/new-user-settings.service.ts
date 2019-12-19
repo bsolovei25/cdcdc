@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { NewWidgetService } from './new-widget.service';
 import { NewUserSettings, NewUserGrid, ScreenSettings } from '../models/user-settings.model';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpParams, HttpRequest, HttpErrorResponse} from '@angular/common/http';
 import {WIDGETS} from '../components/new-widgets-grid/widget-map'
 import { AppConfigService } from 'src/app/services/appConfigService';
 import { GridsterItem, GridsterItemComponentInterface } from 'angular-gridster2';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { filter, map, take } from 'rxjs/operators';
+import { Observable, BehaviorSubject, throwError, Subscription, of } from 'rxjs';
+import { filter, map, take, catchError } from 'rxjs/operators';
+import { EWOULDBLOCK } from 'constants';
 
 
 @Injectable({
@@ -30,31 +31,27 @@ export class NewUserSettingsService {
   ) {
     this.restUrl = configService.restUrl;
     localStorage.getItem('screen');
-    this.GetScreen();
    }
 
   private restUrl: string;
-  
+
   public UserId = 1;
   public ScreenId: number;
   public ScreenName: string;
 
-  public dataScreen= [];
+  public dataScreen = [];
 
   public widgetInfo: NewUserGrid;
 
-  
- 
 
-  
   public addCellByPosition(idWidget, nameWidget, param) {
-    let uniqId = this.create_UUID(); 
+    let uniqId = this.create_UUID();
     this.widgetService.dashboard.push({
         x: param.x,
-        y: param.y, 
-        cols: WIDGETS[nameWidget].itemCols, 
-        rows: WIDGETS[nameWidget].itemRows, 
-        id: idWidget, 
+        y: param.y,
+        cols: WIDGETS[nameWidget].itemCols,
+        rows: WIDGETS[nameWidget].itemRows,
+        id: idWidget,
         uniqid: uniqId,
         widgetType: nameWidget
       });
@@ -103,7 +100,7 @@ export class NewUserSettingsService {
   public updateWidgetApi(uniqId){
     this.save(uniqId);
     let updateWidget = this.widgetInfo;
-  
+
     this.http.put(this.restUrl + '/user-management/widget/'+uniqId, updateWidget)
       .subscribe(
         ans => {
@@ -114,15 +111,13 @@ export class NewUserSettingsService {
 
   public updateByPosition(oldItem,newItem){
       for(let item of this.widgetService.dashboard){
-        
           if( item.uniqid == oldItem.uniqid){
             item.x = newItem.x;
             item.y = newItem.y;
             item.rows = newItem.rows;
             item.cols = newItem.cols;
-            // console.log("update", item)
           }
-      }   
+      }
 
      this.updateWidgetApi(oldItem.uniqid);
 
@@ -133,7 +128,6 @@ export class NewUserSettingsService {
   }
 
  public screenSave() {
-  // console.log("save_info",this.widgetService.dashboard);
   const UserId = this.UserId;
   const ScreenId = this.ScreenId;
   let userSettings: NewUserSettings = new class implements NewUserSettings {
@@ -155,7 +149,7 @@ export class NewUserSettingsService {
       };
       userSettings.userGrid.push(cellSetting);
     }else{
-      
+
     }
   }
   // console.log(userSettings);
@@ -163,7 +157,7 @@ export class NewUserSettingsService {
   this.http.post(this.restUrl + '/user-management/setscreen/', userSettings)
     .subscribe(
       ans => {
-        
+
         // console.log(ans);
       },
       error => console.log(error)
@@ -171,59 +165,57 @@ export class NewUserSettingsService {
 }
 
 
-public GetScreen(){  
+public GetScreen() {
+  try {
     this.http.get<ScreenSettings[]>(this.restUrl + '/user-management/user/1/screens')
       .subscribe(data => {
         this._screens$.next(data);
-        if (!this.ScreenId && data[0])
-        {
+        if (!this.ScreenId && data[0]) {
           this.ScreenId = data[0].id;
         }
-        const currentScreen = data.find(x => x.id == this.ScreenId);
-        if (!currentScreen)
-          return;
-
-        this.widgetService.dashboard = currentScreen.widgets.map(item =>
-          ({
-            x: item.posX,
-            y: item.posY,
-            cols: item.sizeX,
-            rows: item.sizeY,
-            id: item.widgetId, 
-            widgetType: item.widgetType,
-            uniqid: item.uniqueId 
-          }));
       });
+  } catch (e) {
+    console.log('Error: couldn`t get screen!');
+  }
 }
 
-public getUniqId(id){
-    for(let item of this.widgetService.dashboard)
-    { 
-      if(id === item.id){
-        return item.uniqid;
-      }
+public getUniqId(id) {
+  for (const item of this.widgetService.dashboard) {
+    if (id === item.id) {
+      return item.uniqid;
     }
+  }
+}
+
+private _LoadScreen(id: any, loadDefault: boolean):Observable<any>{
+  return this.http.get(this.restUrl + '/user-management/screen/' + id)
+  .pipe(catchError(err => {
+        this.dataScreen = this._screens$.getValue();
+      if(err.status === 404 && loadDefault && this.dataScreen && this.dataScreen.length){
+        return this._LoadScreen(this.dataScreen[0].id, false);
+      }
+      return throwError(err);
+  }))
 }
 
 public LoadScreen(id){
     localStorage.setItem('screenid', id);
-    this.http.get(this.restUrl + '/user-management/screen/' + id)
-      .subscribe((item: ScreenSettings) => {
-        console.log(item);
-        this.ScreenId = item.id;
-        this.ScreenName = item.screenName;
-        this.widgetService.dashboard = item.widgets.map(x =>
-          ({
-            x: x.posX,
-            y: x.posY,
-            cols: x.sizeX,
-            rows: x.sizeY,
-            id: x.widgetId, 
-            widgetType: x.widgetType,
-            uniqid: x.uniqueId 
-          }));
-      });
-      
+    return this._LoadScreen(id, true).subscribe(
+        (item: ScreenSettings) => {
+          this.ScreenId = item.id;
+          this.ScreenName = item.screenName;
+          this.widgetService.dashboard = item.widgets.map(x =>
+            ({
+              x: x.posX,
+              y: x.posY,
+              cols: x.sizeX,
+              rows: x.sizeY,
+              id: x.widgetId,
+              widgetType: x.widgetType,
+              uniqid: x.uniqueId
+            }));
+        }
+        );
 }
 
 public PushScreen(nameWidget){

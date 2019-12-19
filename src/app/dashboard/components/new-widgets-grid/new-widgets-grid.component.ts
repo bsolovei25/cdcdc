@@ -88,7 +88,6 @@ export class NewWidgetsGridComponent implements OnInit {
   }
 
   public resizeGridsterElement() {
-    console.log("resize");
 
     const event = new CustomEvent(
       'resize'
@@ -102,7 +101,7 @@ export class NewWidgetsGridComponent implements OnInit {
   // console.info('itemChanged', this.widgetService.dashboard);
   }
 
-  
+
 
   public onSwap(swap:any){
     swap === true?this.options.swap=true:this.options.swap=false;
@@ -130,7 +129,6 @@ export class NewWidgetsGridComponent implements OnInit {
     if (!e) return;
     const dataTrasfer = new DataTransfer();
     e.currentTarget.dispatchEvent(new DragEvent('dragstart', { dataTransfer: dataTrasfer }));
-    console.log("start", this.widgetService.dashboard);
   }
 
   public dragStart(e: DragEvent, item: GridsterItem): void {
