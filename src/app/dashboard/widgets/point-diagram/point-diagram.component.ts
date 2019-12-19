@@ -50,7 +50,7 @@ export class PointDiagramComponent implements OnInit {
       percent: 0,
       label: "H2S",
       isCritical: false
-    },
+    }
     // {
     //   count: 0.2,
     //   percent: 0,
@@ -93,6 +93,7 @@ export class PointDiagramComponent implements OnInit {
   static itemRows = 16;
 
   public units = "%";
+  public title;
 
   aboutWidget;
 
@@ -106,8 +107,10 @@ export class PointDiagramComponent implements OnInit {
     this.subscription = this.widgetService
       .getWidgetChannel(this.id)
       .subscribe(data => {
-        this.aboutWidget = data;
-      //  this.units = data.units;
+        this.title = data.title;
+        // this.code = data.code;
+        this.units = data.units;
+        // this.name = data.name;
       });
   }
 
@@ -118,8 +121,6 @@ export class PointDiagramComponent implements OnInit {
   }
 
   containerIsMock(): string {
-
-        return this.isMock ? "430px" : "100%";
-
+    return this.isMock ? "430px" : "100%";
   }
 }

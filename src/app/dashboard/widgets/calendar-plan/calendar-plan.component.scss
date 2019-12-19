@@ -19,7 +19,7 @@
 .mock {
   position: relative;
   display: block;
-  height: 200px;
+  height: 144px;
 
   box-sizing: border-box;
   border-left: 0.5px dashed var(--color-border-main-transparrent);
@@ -27,7 +27,7 @@
 
   img {
     width: 70%;
-    height: 100%;
+    height: 144px;
     margin-left: 60px;
   }
 }

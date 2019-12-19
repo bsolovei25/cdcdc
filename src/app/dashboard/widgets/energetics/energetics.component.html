@@ -1,6 +1,6 @@
 <div class="container pointer-event">
   <evj-widget-header
-    [title]="aboutWidget"
+    [title]="title"
     [units]="'гДж'"
     [code]=""
     [id]="id"
@@ -21,110 +21,178 @@
       (touchstart)="$event.stopPropagation()"
     >
       <div class="energetics__container">
-        <evj-detailed-line-diagram class="dld" [data]="data"></evj-detailed-line-diagram>
+        <evj-detailed-line-diagram
+          class="dld"
+          [data]="data"
+        ></evj-detailed-line-diagram>
         <div class="energetics__energy">
           <div class="energetics__graphic">
             <div class="energetics__round">
               <svg width="100%" height="100%" viewBox="0 0 50 50">
                 <!-- termo dia -->
                 <circle
-                  [attr.cx]="termo.cx"
-                  [attr.cy]="termo.cy"
-                  [attr.r]="termo.r"
-                  [attr.fill]="termo.colMain"
+                  [attr.cx]="centerX"
+                  [attr.cy]="centerY"
+                  [attr.r]="termoRadius"
+                  [attr.fill]="colorMain"
                 ></circle>
                 <circle
-                  [attr.cx]="termo.cx"
-                  [attr.cy]="termo.cy"
-                  [attr.r]="termo.r"
+                  [attr.cx]="centerX"
+                  [attr.cy]="centerY"
+                  [attr.r]="termoRadius"
                   fill="transparent"
-                  [attr.stroke]="termo.colBg"
+                  [attr.stroke]="colorBg"
                   stroke-width="2"
-                  [attr.stroke-dasharray]="diaCounter(termo.r)"
+                  [attr.stroke-dasharray]="diaCounter(termoRadius)"
                   stroke-dashoffset="0"
                 ></circle>
                 <circle
-                  [attr.cx]="termo.cx"
-                  [attr.cy]="termo.cy"
-                  [attr.r]="termo.r"
+                  [attr.cx]="centerX"
+                  [attr.cy]="centerY"
+                  [attr.r]="termoRadius"
                   fill="transparent"
-                  [attr.stroke]="termo.colNormal"
+                  [attr.stroke]="diaFill(energyCircleDiagram.termo)"
                   stroke-width="0.7"
-                  [attr.stroke-dasharray]="diaLine(termo.r, 63)"
-                  [attr.stroke-dashoffset]="diaOffset(termo.r, 63)"
+                  [attr.stroke-dasharray]="
+                    diaLine(termoRadius, energyCircleDiagram.termo)
+                  "
+                  [attr.stroke-dashoffset]="
+                    diaOffset(termoRadius, energyCircleDiagram.termo)
+                  "
+                ></circle>
+                <circle
+                  *ngIf="
+                    energyCircleDiagram.termo > energyCircleDiagram.higherLimit
+                  "
+                  [attr.cx]="centerX"
+                  [attr.cy]="centerY"
+                  [attr.r]="termoRadius"
+                  fill="transparent"
+                  [attr.stroke]="diaFill(energyCircleDiagram.higherLimit)"
+                  stroke-width="0.7"
+                  [attr.stroke-dasharray]="
+                    diaLine(termoRadius, energyCircleDiagram.higherLimit)
+                  "
+                  [attr.stroke-dashoffset]="
+                    diaOffset(termoRadius, energyCircleDiagram.higherLimit)
+                  "
                 ></circle>
 
                 <!-- electro dia -->
                 <circle
-                  [attr.cx]="electro.cx"
-                  [attr.cy]="electro.cy"
-                  [attr.r]="electro.r"
-                  [attr.fill]="electro.colMain"
+                  [attr.cx]="centerX"
+                  [attr.cy]="centerY"
+                  [attr.r]="electroRadius"
+                  [attr.fill]="colorMain"
                 ></circle>
                 <circle
-                  [attr.cx]="electro.cx"
-                  [attr.cy]="electro.cy"
-                  [attr.r]="electro.r"
+                  [attr.cx]="centerX"
+                  [attr.cy]="centerY"
+                  [attr.r]="electroRadius"
                   fill="transparent"
-                  [attr.stroke]="electro.colBg"
+                  [attr.stroke]="colorBg"
                   stroke-width="2"
-                  [attr.stroke-dasharray]="diaCounter(electro.r)"
+                  [attr.stroke-dasharray]="diaCounter(electroRadius)"
                   stroke-dashoffset="0"
                 ></circle>
                 <circle
-                  [attr.cx]="electro.cx"
-                  [attr.cy]="electro.cy"
-                  [attr.r]="electro.r"
+                  [attr.cx]="centerX"
+                  [attr.cy]="centerY"
+                  [attr.r]="electroRadius"
                   fill="transparent"
-                  [attr.stroke]="electro.colNormal"
+                  [attr.stroke]="diaFill(energyCircleDiagram.electro)"
                   stroke-width="0.7"
-                  [attr.stroke-dasharray]="diaLine(electro.r, 100)"
-                  [attr.stroke-dashoffset]="diaOffset(electro.r, 100)"
+                  [attr.stroke-dasharray]="
+                    diaLine(electroRadius, energyCircleDiagram.electro)
+                  "
+                  [attr.stroke-dashoffset]="
+                    diaOffset(electroRadius, energyCircleDiagram.electro)
+                  "
+                ></circle>
+                <circle
+                  *ngIf="
+                    energyCircleDiagram.electro >
+                    energyCircleDiagram.higherLimit
+                  "
+                  [attr.cx]="centerX"
+                  [attr.cy]="centerY"
+                  [attr.r]="electroRadius"
+                  fill="transparent"
+                  [attr.stroke]="diaFill(energyCircleDiagram.higherLimit)"
+                  stroke-width="0.7"
+                  [attr.stroke-dasharray]="
+                    diaLine(electroRadius, energyCircleDiagram.higherLimit)
+                  "
+                  [attr.stroke-dashoffset]="
+                    diaOffset(electroRadius, energyCircleDiagram.higherLimit)
+                  "
                 ></circle>
 
                 <!-- fuel dia -->
                 <circle
-                  [attr.cx]="fuel.cx"
-                  [attr.cy]="fuel.cy"
-                  [attr.r]="fuel.r"
-                  [attr.fill]="fuel.colMain"
+                  [attr.cx]="centerX"
+                  [attr.cy]="centerY"
+                  [attr.r]="fuelRadius"
+                  [attr.fill]="colorMain"
                 ></circle>
                 <circle
-                  [attr.cx]="fuel.cx"
-                  [attr.cy]="fuel.cy"
-                  [attr.r]="fuel.r"
+                  [attr.cx]="centerX"
+                  [attr.cy]="centerY"
+                  [attr.r]="fuelRadius"
                   fill="transparent"
-                  [attr.stroke]="fuel.colBg"
+                  [attr.stroke]="colorBg"
                   stroke-width="2"
-                  [attr.stroke-dasharray]="diaCounter(fuel.r)"
+                  [attr.stroke-dasharray]="diaCounter(fuelRadius)"
                   stroke-dashoffset="0"
                 ></circle>
                 <circle
-                  [attr.cx]="fuel.cx"
-                  [attr.cy]="fuel.cy"
-                  [attr.r]="fuel.r"
+                  [attr.cx]="centerX"
+                  [attr.cy]="centerY"
+                  [attr.r]="fuelRadius"
                   fill="transparent"
-                  [attr.stroke]="fuel.colNormal"
+                  [attr.stroke]="diaFill(energyCircleDiagram.fuel)"
                   stroke-width="0.7"
-                  [attr.stroke-dasharray]="diaLine(fuel.r, 72)"
-                  [attr.stroke-dashoffset]="diaOffset(fuel.r, 72)"
+                  [attr.stroke-dasharray]="
+                    diaLine(fuelRadius, energyCircleDiagram.fuel)
+                  "
+                  [attr.stroke-dashoffset]="
+                    diaOffset(fuelRadius, energyCircleDiagram.fuel)
+                  "
                 ></circle>
+                <circle
+                *ngIf="
+                  energyCircleDiagram.fuel >
+                  energyCircleDiagram.higherLimit
+                "
+                [attr.cx]="centerX"
+                [attr.cy]="centerY"
+                [attr.r]="fuelRadius"
+                fill="transparent"
+                [attr.stroke]="diaFill(energyCircleDiagram.higherLimit)"
+                stroke-width="0.7"
+                [attr.stroke-dasharray]="
+                  diaLine(fuelRadius, energyCircleDiagram.higherLimit)
+                "
+                [attr.stroke-dashoffset]="
+                  diaOffset(fuelRadius, energyCircleDiagram.higherLimit)
+                "
+              ></circle>
 
                 <line
-                  x1="48%"
-                  y1="76%"
-                  x2="45%"
-                  y2="98%"
-                  stroke="#A2E2FF"
+                  [attr.x1]="diaLimits(energyCircleDiagram.lowerLimit).x1"
+                  [attr.y1]="diaLimits(energyCircleDiagram.lowerLimit).y1"
+                  [attr.x2]="diaLimits(energyCircleDiagram.lowerLimit).x2"
+                  [attr.y2]="diaLimits(energyCircleDiagram.lowerLimit).y2"
+                  [attr.stroke]="colorNormal"
                   stroke-width="0.2"
                   stroke-dasharray="1 1"
                 />
                 <line
-                  x1="52%"
-                  y1="76%"
-                  x2="55%"
-                  y2="98%"
-                  stroke="#A2E2FF"
+                  [attr.x1]="diaLimits(energyCircleDiagram.higherLimit).x1"
+                  [attr.y1]="diaLimits(energyCircleDiagram.higherLimit).y1"
+                  [attr.x2]="diaLimits(energyCircleDiagram.higherLimit).x2"
+                  [attr.y2]="diaLimits(energyCircleDiagram.higherLimit).y2"
+                  [attr.stroke]="colorNormal"
                   stroke-width="0.2"
                   stroke-dasharray="1 1"
                 />
@@ -147,7 +215,7 @@
                   width="2.7"
                   height="2.7"
                   xlink:href="../../../../assets/icons/widgets/energetics/termo.svg"
-                  *ngIf="true"
+                  *ngIf="!(energyCircleDiagram.termo>energyCircleDiagram.higherLimit||energyCircleDiagram.termo<energyCircleDiagram.lowerLimit)"
                 />
                 <image
                   x="53%"
@@ -155,7 +223,7 @@
                   width="2.7"
                   height="2.7"
                   xlink:href="../../../../assets/icons/widgets/energetics/termo_danger.svg"
-                  *ngIf="false"
+                  *ngIf="(energyCircleDiagram.termo>energyCircleDiagram.higherLimit||energyCircleDiagram.termo<energyCircleDiagram.lowerLimit)"
                 />
                 <text x="61%" y="3.6" class="svg__txt">Тепловая</text>
 
@@ -166,7 +234,7 @@
                   width="2.7"
                   height="2.7"
                   xlink:href="../../../../assets/icons/widgets/energetics/electro.svg"
-                  *ngIf="true"
+                  *ngIf="!(energyCircleDiagram.electro>energyCircleDiagram.higherLimit||energyCircleDiagram.electro<energyCircleDiagram.lowerLimit)"
                 />
                 <image
                   x="53%"
@@ -174,7 +242,7 @@
                   width="2.7"
                   height="2.7"
                   xlink:href="../../../../assets/icons/widgets/energetics/electro_danger.svg"
-                  *ngIf="false"
+                  *ngIf="(energyCircleDiagram.electro>energyCircleDiagram.higherLimit||energyCircleDiagram.electro<energyCircleDiagram.lowerLimit)"
                 />
                 <text x="61%" y="6.6" class="svg__txt">Электро</text>
 
@@ -185,7 +253,7 @@
                   width="2.7"
                   height="2.7"
                   xlink:href="../../../../assets/icons/widgets/energetics/fuel.svg"
-                  *ngIf="false"
+                  *ngIf="!(energyCircleDiagram.fuel>energyCircleDiagram.higherLimit||energyCircleDiagram.fuel<energyCircleDiagram.lowerLimit)"
                 />
                 <image
                   x="53%"
@@ -193,7 +261,7 @@
                   width="2.7"
                   height="2.7"
                   xlink:href="../../../../assets/icons/widgets/energetics/fuel_danger.svg"
-                  *ngIf="true"
+                  *ngIf="(energyCircleDiagram.fuel>energyCircleDiagram.higherLimit||energyCircleDiagram.fuel<energyCircleDiagram.lowerLimit)"
                 />
                 <text x="61%" y="9.8" class="svg__txt">Топливо</text>
               </svg>

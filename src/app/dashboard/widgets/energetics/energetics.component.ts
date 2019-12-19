@@ -18,11 +18,11 @@ export class EnergeticsComponent implements OnInit {
   /* Приблизительная структура, получаемая с бека */
 
   data = {
-    plan: 1000,
-    lowerBorder: 0.03,
-    higherBorder: 0.1,
-    curValue: 1070,
-    maxValue: 1500,
+    plan: 1000, // план
+    lowerBorder: 0.03, // нижняя граница (отклонение в процентах от плана)
+    higherBorder: 0.1, // верхняя граница (отклонение в процентах от плана)
+    curValue: 1070, // текущее значение
+    maxValue: 1500, // максимальное значение (для отрисовки графика)
 
     /* Вычислить при получении данных */
     // lowerValue = this.data.plan * (1 - this.data.lowerBorder);
@@ -34,69 +34,60 @@ export class EnergeticsComponent implements OnInit {
 
   /* Данные с сервера для карточек */
 
+  // термо-карточка
   termoCard = {
-    plan: 1000,
-    curValue: 623,
-    deviation1: 142.8,
-    deviation2: 0.1
+    plan: 1000, // план
+    curValue: 623, // текущее значение
+    deviation1: 142.8, // значение отклонения [тыс. Гкал]
+    deviation2: 0.1 // значение отклонения [Гкал/тонн]
   };
 
+  // электро-карточка
   electroCard = {
-    plan: 1500,
-    curValue: 1230,
-    deviation1: 17.7,
-    deviation2: 49.9
+    plan: 1500, // план
+    curValue: 1230, // текущее значение
+    deviation1: 17.7, // значение отклонения [млн. кВт/ч]
+    deviation2: 49.9 // значение отклонения [кВт*ч/тонн]
   };
 
+  // топливная-карточка
   fuelCard = {
-    plan: 2500,
-    curValue: 2690,
-    deviation1: 85.3,
-    deviation2: 59.9
+    plan: 2500, // план
+    curValue: 2690, // текущее значение
+    deviation1: 85.3, // значение отклонения [тыс.т.у.т]
+    deviation2: 59.9 // значение отклонения [кг.у.т/тонн]
   };
 
   /* Параметры для круговых диаграмм */
 
-  termo = {
-    cx: "50%",
-    cy: "50%",
-    r: (15.91549430918954 + 6).toString(),
-    colMain: "#1b1e27",
-    colBg: "#0d1014",
-    colNormal: "#a2e2ff",
-    colFull: "#ffffff",
-    colDanger: "#f4a321"
+  energyCircleDiagram = {
+    lowerLimit: 85, // нижний предел на диаграмме в %
+    higherLimit: 115, // верхний предел на диаграмме в %
+    termo: 102, // процентная доля тепловой энергии
+    electro: 87, // процентная доля электро энергии
+    fuel: 125 // процентная доля топлива
   };
 
-  electro = {
-    cx: "50%",
-    cy: "50%",
-    r: (15.91549430918954 + 3).toString(),
-    colMain: "#1b1e27",
-    colBg: "#0d1014",
-    colNormal: "#a2e2ff",
-    colFull: "#ffffff",
-    colDanger: "#f4a321"
-  };
-
-  fuel = {
-    cx: "50%",
-    cy: "50%",
-    r: (15.91549430918954).toString(),
-    colMain: "#1b1e27",
-    colBg: "#0d1014",
-    colNormal: "#a2e2ff",
-    colFull: "#ffffff",
-    colDanger: "#f4a321"
-  };
-
-  /* Переменные цветов */
+  /* Цвета для диаграмм */
 
   colorMain = "#1b1e27";
   colorBg = "#0d1014";
   colorNormal = "#a2e2ff";
   colorFull = "#FFFFFF";
   colorDeviation = "#F4A321";
+
+  /* Координаты центров окружностей */
+
+  centerX = "25";
+  centerY = "25";
+
+  /* Радиусы диаграмм */
+
+  fuelRadius = (15.91549430918954).toString();
+  electroRadius = (15.91549430918954 + 3).toString();
+  termoRadius = (15.91549430918954 + 6).toString();
+
+  public title;
 
   constructor(
     private widgetService: NewWidgetService,
@@ -106,7 +97,10 @@ export class EnergeticsComponent implements OnInit {
     this.subscription = this.widgetService
       .getWidgetChannel(this.id)
       .subscribe(data => {
-        this.aboutWidget = data.title;
+        this.title = data.title;
+        // this.code = data.code;
+        // this.units = data.units;
+        // this.name = data.name;
       });
   }
 
@@ -139,5 +133,32 @@ export class EnergeticsComponent implements OnInit {
     const c: number = 2 * Math.PI * +r;
     const per_cent = line / 100;
     return (-0.75 * c + per_cent * 0.5 * c).toString();
+  }
+
+  diaLimits(line: number) {
+    const newLine = 100 - line; // отсчет угла от 100%
+    const t = (Math.PI * newLine) / 100 + Math.PI / 2;
+    const rMin = 13;
+    const rMax = 25;
+    const limitLine = {
+      x1: (rMin * Math.cos(t) + +this.centerX).toString(),
+      y1: (rMin * Math.sin(t) + +this.centerY).toString(),
+      x2: (rMax * Math.cos(t) + +this.centerX).toString(),
+      y2: (rMax * Math.sin(t) + +this.centerY).toString()
+    };
+    return limitLine;
+  }
+
+  diaFill(percent: number) {
+    if (percent < this.energyCircleDiagram.lowerLimit)
+      return this.colorDeviation;
+    if (
+      percent >= this.energyCircleDiagram.lowerLimit &&
+      percent < this.energyCircleDiagram.higherLimit
+    )
+      return this.colorNormal;
+    if (percent === this.energyCircleDiagram.higherLimit) return this.colorFull;
+    if (percent > this.energyCircleDiagram.higherLimit)
+      return this.colorDeviation;
   }
 }
