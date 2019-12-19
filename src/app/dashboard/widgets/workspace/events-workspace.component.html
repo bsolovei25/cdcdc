@@ -1,4 +1,4 @@
-<div id="snackbar"></div>
+<div id="snackbar-workspace"></div>
 
 <div class="container pointer-event">
   <!-- loading data -->
@@ -232,13 +232,13 @@
                           {{ retrieval.responsibleOperator.firstName }}</span>
                       </span>
 
-                      <span *ngIf="retrieval.status" class="event__sub-right">{{ statuses[retrieval.status.name] }}
-                        <svg-icon class="event__delete" [applyCss]="true" src="./assets/edit.svg"
-                          (click)="onEditRetrieval(retrieval)" (mousedown)="$event.stopPropagation()"
-                          (touchstart)="$event.stopPropagation()"></svg-icon>
-                        <svg-icon class="event__delete" [applyCss]="true" src="./assets/garbage_bad_pic.svg"
-                          (click)="deleteRetrieval(event.id, retrieval.id)" (mousedown)="$event.stopPropagation()"
-                          (touchstart)="$event.stopPropagation()"></svg-icon>
+                      <span class="event__sub-right">
+                        <span *ngIf="retrieval.status">{{ statuses[retrieval.status.name] }}</span>
+                        <svg-icon *ngIf="!retrieval.source" class="event__delete" [applyCss]="true"
+                          src="./assets/edit.svg" (click)="onEditRetrieval(retrieval)"
+                          (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()"></svg-icon>
+                        <svg-icon *ngIf="!retrieval.source" class="event__delete" [applyCss]="true"
+                          src="./assets/garbage_bad_pic.svg" (click)="overlayConfirmationOpen()"></svg-icon>
                       </span>
                     </div>
                     <div class="event__body">
@@ -248,6 +248,29 @@
                       <span class="event__sub">Срок исполнения</span> <span class="event__date">
                         <span>{{ retrieval.deadline | date:'dd-MM-yyyy HH:mm' }}</span>
                       </span>
+                    </div>
+                    <div (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()"
+                      id="overlay-confirmation">
+                      <div class="overlay-confirmation__body" (click)="$event.stopPropagation()">
+                        <span>Вы действительно хотите удалить выбранное Мероприятие?</span>
+                        <div style="display: flex;">
+                          <div class="workspace__submit">
+                            <div class="submit__frame submit__frame-left"></div>
+                            <div class="submit__frame submit__frame-right"></div>
+                            <button type="submit gridster-item-content"
+                              (click)="deleteRetrieval(event.id, retrieval.id)">
+                              Удалить
+                            </button>
+                          </div>
+                          <div class="workspace__submit">
+                            <div class="submit__frame submit__frame-left"></div>
+                            <div class="submit__frame submit__frame-right"></div>
+                            <button type="submit gridster-item-content" (click)="overlayConfirmationClose()">
+                              Отменить
+                            </button>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </li>
                 </ul>
@@ -261,26 +284,11 @@
                     Добавить мероприятие
                   </button>
                 </div>
-                <!-- <div *ngIf="isNewRetrieval" class="workspace__submit">
-                  <div class="submit__frame submit__frame-left"></div>
-                  <div class="submit__frame submit__frame-right"></div>
-                  <button type="submit gridster-item-content" (click)="saveRetrieval(event.id)">
-                    Сохранить
-                  </button>
-                </div>
-                <div *ngIf="isNewRetrieval" class="workspace__submit">
-                  <div class="submit__frame submit__frame-left"></div>
-                  <div class="submit__frame submit__frame-right"></div>
-                  <button type="submit gridster-item-content" (click)="cancelRetrieval()">
-                    Отменить
-                  </button>
-                </div> -->
               </div>
             </div>
           </div>
 
         </div>
-
 
         <div class="block-bottom" style="margin-left: 10px">
 
@@ -299,7 +307,6 @@
               </div>
             </div>
           </div>
-
 
           <div class="change-shift__comment" style="height: 100px; min-height: 100px;">
             <div class="comment__title">

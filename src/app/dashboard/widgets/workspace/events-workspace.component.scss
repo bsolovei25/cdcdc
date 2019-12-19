@@ -267,12 +267,6 @@
       display: flex;
       flex-direction: row;
     }
-    // @media screen and (max-width: 910px) {
-    //   &__block {
-    //     flex-direction: column;
-    //     flex-wrap: wrap;
-    //   }
-    // }
   }
 
   &__blocks {
@@ -1164,7 +1158,7 @@ select {
 }
 
 /* The snackbar - position it at the bottom and in the middle of the screen */
-#snackbar {
+#snackbar-workspace {
   visibility: hidden; /* Hidden by default. Visible on click */
   min-width: 250px; /* Set a default minimum width */
   margin-left: -125px; /* Divide value of min-width by 2 */
@@ -1181,7 +1175,7 @@ select {
 }
 
 /* Show the snackbar when clicking on a button (class added with JavaScript) */
-#snackbar.show {
+#snackbar-workspace.show {
   visibility: visible; /* Show the snackbar */
   /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
   However, delay the fade out process for 2.5 seconds */
@@ -1697,6 +1691,49 @@ select {
       border-radius: 5px;
       border: 1px solid var(--color-border-main);
       padding: 10px;
+    }
+  }
+}
+
+#overlay-confirmation {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  cursor: pointer;
+
+  .overlay-confirmation {
+    &__body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+
+      font-family: Tahoma, sans-serif;
+      font-size: 12px;
+      font-weight: 100;
+      color: var(--color-text-sub);
+
+      background-color: var(--color-bg-main);
+      min-height: 140px;
+      max-width: 50%;
+      margin: 0 auto;
+      margin-top: 30%;
+      cursor: default;
+
+      border-radius: 5px;
+      border: 1px solid var(--color-border-main);
+      padding: 10px;
+
+      span {
+        font-size: 16px;
+        text-align: center;
+      }
     }
   }
 }
