@@ -57,46 +57,34 @@ export class EnergeticsComponent implements OnInit {
 
   /* Параметры для круговых диаграмм */
 
-  termo = {
-    cx: "50%",
-    cy: "50%",
-    r: (15.91549430918954 + 6).toString(),
-    colMain: "#1b1e27",
-    colBg: "#0d1014",
-    colNormal: "#a2e2ff",
-    colFull: "#ffffff",
-    colDanger: "#f4a321"
+  energyCircleDiagram = {
+    lowerLimit: 85, // нижний предел на диаграмме в %
+    higherLimit: 115, // верхний предел на диаграмме в %
+    termo: 102, // процентная доля тепловой энергии
+    electro: 87, // процентная доля электро энергии
+    fuel: 125 // процентная доля топлива
   };
 
-  electro = {
-    cx: "50%",
-    cy: "50%",
-    r: (15.91549430918954 + 3).toString(),
-    colMain: "#1b1e27",
-    colBg: "#0d1014",
-    colNormal: "#a2e2ff",
-    colFull: "#ffffff",
-    colDanger: "#f4a321"
-  };
-
-  fuel = {
-    cx: "50%",
-    cy: "50%",
-    r: (15.91549430918954).toString(),
-    colMain: "#1b1e27",
-    colBg: "#0d1014",
-    colNormal: "#a2e2ff",
-    colFull: "#ffffff",
-    colDanger: "#f4a321"
-  };
-
-  /* Переменные цветов */
+  /* Цвета для диаграмм */
 
   colorMain = "#1b1e27";
   colorBg = "#0d1014";
   colorNormal = "#a2e2ff";
   colorFull = "#FFFFFF";
   colorDeviation = "#F4A321";
+
+  /* Координаты центров окружностей */
+
+  centerX = "25";
+  centerY = "25";
+
+  /* Радиусы диаграмм */
+
+  fuelRadius = (15.91549430918954).toString();
+  electroRadius = (15.91549430918954 + 3).toString();
+  termoRadius = (15.91549430918954 + 6).toString();
+
+  public title;
 
   constructor(
     private widgetService: NewWidgetService,
@@ -106,7 +94,10 @@ export class EnergeticsComponent implements OnInit {
     this.subscription = this.widgetService
       .getWidgetChannel(this.id)
       .subscribe(data => {
-        this.aboutWidget = data.title;
+        this.title = data.title;
+        // this.code = data.code;
+        // this.units = data.units;
+        // this.name = data.name;
       });
   }
 
@@ -139,5 +130,32 @@ export class EnergeticsComponent implements OnInit {
     const c: number = 2 * Math.PI * +r;
     const per_cent = line / 100;
     return (-0.75 * c + per_cent * 0.5 * c).toString();
+  }
+
+  diaLimits(line: number) {
+    const newLine = 100 - line; // отсчет угла от 100%
+    const t = (Math.PI * newLine) / 100 + Math.PI / 2;
+    const rMin = 13;
+    const rMax = 25;
+    const limitLine = {
+      x1: (rMin * Math.cos(t) + +this.centerX).toString(),
+      y1: (rMin * Math.sin(t) + +this.centerY).toString(),
+      x2: (rMax * Math.cos(t) + +this.centerX).toString(),
+      y2: (rMax * Math.sin(t) + +this.centerY).toString()
+    };
+    return limitLine;
+  }
+
+  diaFill(percent: number) {
+    if (percent < this.energyCircleDiagram.lowerLimit)
+      return this.colorDeviation;
+    if (
+      percent >= this.energyCircleDiagram.lowerLimit &&
+      percent < this.energyCircleDiagram.higherLimit
+    )
+      return this.colorNormal;
+    if (percent === this.energyCircleDiagram.higherLimit) return this.colorFull;
+    if (percent > this.energyCircleDiagram.higherLimit)
+      return this.colorDeviation;
   }
 }
