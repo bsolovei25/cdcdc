@@ -64,48 +64,48 @@ export class PolarChartComponent implements AfterViewInit {
     {
     line: 1,
     value: 180,
-    improvement: 94,
-    deviation: 95,
+    forecast: 94,
+    plan: 95,
     title: 100,
     valueType: "procent"
    },
    {
     line: 2,
     value: 12,
-    improvement: 94,
-    deviation: 95,
+    forecast: 94,
+    plan: 95,
     title: 100,
     valueType: "procent"
    },
    {
     line: 3,
     value: 40,
-    improvement: 94,
-    deviation: 95,
+    forecast: 94,
+    plan: 95,
     title: 100,
     valueType: "procent"
    },
    {
     line: 4,
     value: 130,
-    improvement: 94,
-    deviation: 95,
+    forecast: 94,
+    plan: 95,
     title: 100,
     valueType: "procent"
    },
    {
     line: 5,
     value: 100,
-    improvement: 94,
-    deviation: 95,
+    forecast: 94,
+    plan: 95,
     title: 100,
     valueType: "procent"
    },
    {
     line: 6,
     value: 130,
-    improvement: 94,
-    deviation: 95,
+    forecast: 94,
+    plan: 95,
     title: 100,
     valueType: "procent"
    },
@@ -371,6 +371,14 @@ export class PolarChartComponent implements AfterViewInit {
       .attr("fill","white")
       .text("Прогноз");
 
+      let planTextData6 = canvas.append("text")
+      .attr("font-family","'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+      .attr("font-size", "1.4px")
+      .attr("x", "24")
+      .attr("y", "28")
+      .attr("fill","white")
+      .text(data[5].forecast);
+
       let forecastText6 = canvas.append("text")
       .attr("font-family","'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr("font-size", "1.4px")
@@ -378,6 +386,17 @@ export class PolarChartComponent implements AfterViewInit {
       .attr("y", "30")
       .attr("fill", "#a2e2ff")
       .text("План");
+
+      let forecastTextData6 = canvas.append("text")
+      .attr("font-family","'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+      .attr("font-size", "1.4px")
+      .attr("x", "42")
+      .attr("y", "28")
+      .attr("fill", "#a2e2ff")
+      .text(data[5].plan);
+
+
+
      
   } 
 
