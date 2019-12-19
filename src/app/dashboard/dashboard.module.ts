@@ -54,6 +54,8 @@ import { EnergeticsComponent } from './widgets/energetics/energetics.component';
 import { CircleDiagramComponent } from './widgets/circle-diagram/circle-diagram.component';
 import { DeviationsTableComponent } from './widgets/deviations-table/deviations-table.component';
 import { TriggeringCriticalParametersComponent } from './widgets/triggering-critical-parameters/triggering-critical-parameters.component';
+import { CircleFactoryDiagramComponent } from './widgets/circle-factory-diagram/circle-factory-diagram.component';
+import { PolarChartComponent } from './widgets/polar-chart/polar-chart.component';
 
 @NgModule({
   declarations: [
@@ -104,6 +106,8 @@ import { TriggeringCriticalParametersComponent } from './widgets/triggering-crit
     EnergeticsComponent,
     DeviationsTableComponent,
     TriggeringCriticalParametersComponent,
+    CircleFactoryDiagramComponent,
+    PolarChartComponent,
   ],
   entryComponents: [
     LineChartComponent,
@@ -136,6 +140,8 @@ import { TriggeringCriticalParametersComponent } from './widgets/triggering-crit
     DispatcherScreenComponent,
     DeviationsTableComponent,
     TriggeringCriticalParametersComponent,
+    CircleFactoryDiagramComponent,
+    PolarChartComponent
   ],
   exports: [HomeComponent],
   imports: [

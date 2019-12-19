@@ -24,6 +24,8 @@ import { ChainMapComponent } from '../../widgets/chain-map/chain-map.component';
 import { DispatcherScreenComponent } from '../../widgets/dispatcher-screen/dispatcher-screen.component';
 import { DeviationsTableComponent } from '../../widgets/deviations-table/deviations-table.component';
 import { TriggeringCriticalParametersComponent } from '../../widgets/triggering-critical-parameters/triggering-critical-parameters.component';
+import { CircleFactoryDiagramComponent } from '../../widgets/circle-factory-diagram/circle-factory-diagram.component';
+import { PolarChartComponent } from '../../widgets/polar-chart/polar-chart.component';
 
 
 export const WIDGETS = {
@@ -54,4 +56,6 @@ export const WIDGETS = {
     'suspense-machine': SuspenseMachineComponent,
     'deviations-table': DeviationsTableComponent,
     'triggering-critical-parameters': TriggeringCriticalParametersComponent,
+    "circle-factory-diagram":CircleFactoryDiagramComponent,
+    "polar-chart": PolarChartComponent,
 };
