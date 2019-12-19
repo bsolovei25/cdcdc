@@ -51,8 +51,8 @@
 
   .diagram {
     position: relative;
-    min-height: 260px;
-    min-width: 250px;
+    min-height: 200px;
+    min-width: 200px;
 
     height: 100%;
     width: 100%;
@@ -67,6 +67,83 @@
         font-size: 2.5px;
         fill: var(--color-plan);
       }
+    }
+  }
+
+  .table {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    flex-basis: 30%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: -100px;
+    box-sizing: border-box;
+    padding-right: 20px;
+
+    .col {
+      width: 65px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+
+      margin-left: 15px;
+
+      &-name {
+        box-sizing: border-box;
+        border-bottom: 2px solid var(--color-plan);
+
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+
+        margin-bottom: 10px;
+        padding-bottom: 5px;
+      }
+
+      .row {
+        width: 100%;
+        height: 30px;
+
+        &-name {
+          text-align: center;
+        }
+      }
+    }
+
+    .col,
+    .row {
+      &-name {
+        font-size: 12px;
+        color: var(--color-plan);
+
+        &-warning {
+          color: var(--color-fact);
+          border-color: var(--color-deviation);
+        }
+      }
+    }
+
+    .numbers {
+      font-size: 18px;
+      color: var(--color-plan);
+
+      &-fact {
+        color: var(--color-fact);
+      }
+
+      &-warning {
+        color: var(--color-deviation);
+      }
+    }
+
+    .empty {
+      margin-bottom: 17px;
     }
   }
 }
