@@ -18,11 +18,11 @@ export class EnergeticsComponent implements OnInit {
   /* Приблизительная структура, получаемая с бека */
 
   data = {
-    plan: 1000,
-    lowerBorder: 0.03,
-    higherBorder: 0.1,
-    curValue: 1070,
-    maxValue: 1500,
+    plan: 1000, // план
+    lowerBorder: 0.03, // нижняя граница (отклонение в процентах от плана)
+    higherBorder: 0.1, // верхняя граница (отклонение в процентах от плана)
+    curValue: 1070, // текущее значение
+    maxValue: 1500, // максимальное значение (для отрисовки графика)
 
     /* Вычислить при получении данных */
     // lowerValue = this.data.plan * (1 - this.data.lowerBorder);

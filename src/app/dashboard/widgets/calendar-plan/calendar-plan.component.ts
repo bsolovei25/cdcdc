@@ -34,34 +34,34 @@ export class CalendarPlanComponent implements OnInit {
 
   array = [
     {
-      name: "Бензины",
-      deviation: -0.4,
-      isBetter: false
+      name: "Бензины", // название
+      deviation: -0.4, // отклонение
+      isBetter: false // флаг улучшение
     },
     {
-      name: "Керосины",
-      deviation: +11,
-      isBetter: true
+      name: "Керосины", // название
+      deviation: +11, // отклонение
+      isBetter: true // флаг улучшение
     },
     {
-      name: "Дизели",
-      deviation: +6,
-      isBetter: true
+      name: "Дизели", // название
+      deviation: +6, // отклонение
+      isBetter: true // флаг улучшение
     },
     {
-      name: "Судовое топливо",
-      deviation: -0.4,
-      isBetter: true
+      name: "Судовое топливо", // название
+      deviation: -0.4, // отклонение
+      isBetter: true // флаг улучшение
     },
     {
-      name: "Битумы",
-      deviation: -0.4,
-      isBetter: true
+      name: "Битумы", // название
+      deviation: -0.4, // отклонение
+      isBetter: true // флаг улучшение
     },
     {
-      name: "Мазуты",
-      deviation: -0.4,
-      isBetter: true
+      name: "Мазуты", // название
+      deviation: -0.4, // отклонение
+      isBetter: true // флаг улучшение
     }
   ];
 

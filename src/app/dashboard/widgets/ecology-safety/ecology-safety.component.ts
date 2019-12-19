@@ -18,9 +18,9 @@ export class EcologySafetyComponent implements OnInit {
   /* Приблизительная структура, получаемая с бека */
 
   data = {
-    plan: 100,
-    curValue: 80,
-    maxValue: 120
+    plan: 100, // план
+    curValue: 80, // текущее значение
+    maxValue: 120 // максимальное значение
   };
 
   colorNormal = "#FFFFFF";
