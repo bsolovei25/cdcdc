@@ -112,13 +112,13 @@
     </ng-container>
 
     <ng-container *ngIf="!isMock">
-        <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+        <div class="content scroll-bar" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
             <div class='map' id='my-map'>
 
                 <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#"
                     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg"
                     xmlns="http://www.w3.org/2000/svg" id="svg5866" viewBox="0 0 1050 800"
-                    preserveAspectRatio="xMinYMin slice" height="100%" width="100%" version="1.1"  #maps>
+                    preserveAspectRatio="xMinYMin slice" height="100%" width="100%" version="1.1" #maps>
                     // logo
                     <g>
                         <svg xmlns="http://www.w3.org/2000/svg" width="935.23" height="661.16"
