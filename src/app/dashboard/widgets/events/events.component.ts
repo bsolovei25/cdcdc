@@ -29,6 +29,7 @@ export class EventsComponent implements OnInit, OnDestroy {
   isList = false;
 
   title;
+  isDeleteRetrieval: boolean = false;
 
   selectedId: number = 0;
 
@@ -234,11 +235,6 @@ export class EventsComponent implements OnInit, OnDestroy {
     if (filterOptions.categories && filterOptions.categories.length > 0)
       notifications = notifications.filter(x => filterOptions.categories.some(c => c == x.category.name));
 
-    // if (notifications.length > this.notificationsMaxCount) {
-    // notifications = notifications.slice(0, this.notificationsMaxCount);
-    // }
-
-
     return notifications;
   }
 
@@ -327,7 +323,6 @@ export class EventsComponent implements OnInit, OnDestroy {
     this.userSettings.removeItem();
   }
 
-
   async eventClick(deleteItem: boolean, eventId: number, event: Event) {
     event.stopPropagation();
     if (deleteItem) {
@@ -343,6 +338,16 @@ export class EventsComponent implements OnInit, OnDestroy {
       const event = await this.eventService.getEvent(eventId);
       this.eventService.event$.next(event);
     }
+  }
+
+  overlayConfirmationOpen(n: EventsWidgetNotification) {
+    event.stopPropagation();
+    n.retrievalEvents.length ? this.isDeleteRetrieval = true : this.isDeleteRetrieval = false;
+    document.getElementById("overlay-confirmation-event").style.display = "block";
+  }
+
+  overlayConfirmationClose() {
+    document.getElementById("overlay-confirmation-event").style.display = "none";
   }
 
 }

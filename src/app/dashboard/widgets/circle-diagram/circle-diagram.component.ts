@@ -20,7 +20,7 @@ declare var d3: any;
 })
 export class CircleDiagramComponent implements OnInit, OnDestroy {
 
-    
+
     private x: number = 175;
     private y: number = 40;
 
@@ -61,8 +61,8 @@ export class CircleDiagramComponent implements OnInit, OnDestroy {
     ngOnInit() {
         if (!this.isMock) {
             this.d3Circle(this.data, this.myCircle.nativeElement);
+            console.log('asdad');
         }
-
     }
 
     ngOnDestroy() {

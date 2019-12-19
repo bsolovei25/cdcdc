@@ -5,6 +5,7 @@ import {
   Input,
   OnChanges, OnDestroy,
   OnInit,
+  AfterViewInit,
   ViewChild,
   ViewEncapsulation,
   Inject, HostListener
@@ -143,8 +144,13 @@ export class LineChartComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
+  }
+
+  ngAfterViewInit() {
     this.showMock(this.isMock);
     if (!this.isMock) {
+      console.log('init_lch')
       if (this.dataLine) {
         this.draw(this.dataLine);
       }
