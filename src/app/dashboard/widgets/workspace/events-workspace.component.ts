@@ -86,8 +86,6 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
           this.isNew = false;
           this.event = value;
           this.loadItem();
-          console.log(value);
-
         }
       })
     }
@@ -247,32 +245,21 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
     if (this.isNew) {
       try {
-        console.log(this.event);
         const ev = await this.eventService.postEvent(this.event);
         this.event = ev;
-        snackBar.className = "show";
-        snackBar.innerText = "Сохранено"
         this.isNew = false;
-        setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, 3000);
+        this.snackBar('Сохранено');
       } catch (error) {
-        snackBar.className = "show";
-        snackBar.innerText = "Ошибка"
-        setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, 3000);
         this.isLoading = false;
+        this.snackBar('Ошибка');
       }
     } else {
       try {
-        console.log(this.event);
         const ev = await this.eventService.putEvent(this.event);
-        console.log(ev);
-        snackBar.className = "show";
-        snackBar.innerText = "Сохранено"
-        setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, 3000);
+        this.snackBar('Сохранено');
       } catch (error) {
-        snackBar.className = "show";
-        snackBar.innerText = "Ошибка"
-        setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, 3000);
         this.isLoading = false;
+        this.snackBar('Ошибка');
       }
     }
 
@@ -294,16 +281,11 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         this.event.retrievalEvents.push(post);
         this.overlayClose();
         this.eventService.updateEvent$.next(true);
-        snackBar.className = "show";
-        snackBar.innerText = "Сохранено"
-        setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, 3000);
-
+        this.snackBar('Сохранено');
       } catch (error) {
-        snackBar.className = "show";
-        snackBar.innerText = "Ошибка"
         this.overlayClose();
-        setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, 3000);
         this.isLoading = false;
+        this.snackBar('Ошибка');
       }
     } else {
       // Если новый event то добавляем в массив
@@ -396,8 +378,20 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
   // #endregion
 
+  // #region Overlay Сonfirmation
+
+  overlayConfirmationOpen() {
+    document.getElementById("overlay-confirmation").style.display = "block";
+  }
+
+  overlayConfirmationClose() {
+    document.getElementById("overlay-confirmation").style.display = "none";
+  }
+
+  // #endregion
+
   snackBar(text: string = 'Выполнено', durection: number = 3000) {
-    let snackBar = document.getElementById("snackbar");
+    let snackBar = document.getElementById("snackbar-workspace");
     snackBar.className = "show";
     snackBar.innerText = text;
     setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, durection);
@@ -408,7 +402,6 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   compareFn(a, b) {
-    // console.log(a, b, a && b && a.id == b.id);
     return a && b && a.id == b.id;
   }
 
