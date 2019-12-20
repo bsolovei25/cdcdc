@@ -11,7 +11,7 @@ export class EnergeticsComponent implements OnInit {
   aboutWidget;
 
   static itemCols = 18;
-  static itemRows = 13;
+  static itemRows = 14;
 
   subscription: Subscription;
 
