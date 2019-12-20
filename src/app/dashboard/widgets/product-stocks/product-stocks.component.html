@@ -61,23 +61,23 @@
 
     <div class="contents">
 
-      <div class="card card-active">
+      <div class="card card-active" (click)="onActive()">
         <div class="card__border card__border-left "></div>
         <div class="card__border card__border-right"></div>
         <div class="card-blocks">
           <div class="block__left">
-            <div class="block__left_first">
+            <div class="block__left_first" #svgContainers>
               <svg-icon class="block__left__img" src="./assets/icons/widgets/product-stocks/1.svg">
               </svg-icon>
               <svg class="block__left__img-2" xmlns="http://www.w3.org/2000/svg" width="44.87" height="37.88"
-                viewBox="0 0 44.87 37.88">
+                viewBox="0 0 44.87 37.88" #svgContainer>
                 <line x1="0.06" y1="3.45" x2="42.86" y2="3.45"
                   style="fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:0.313729147049955px" />
-                <rect x="1.24" y="7.1" width="42.4" height="25.52" style="fill:#a2e2ff;opacity:0.1" />
+                <!-- <rect width="42.4" height="29" x="1.24" y="7.1" style="fill:#f4a321;opacity:0.8" /> -->
+                <!-- <rect width="42.4" height="29" x="1.24" y="7.1" style="fill:#a2e2ff;opacity:0.8" /> -->
+                <rect x="1.24" y="7.1" width="42.4" height="29" style="fill:#a2e2ff;opacity:0.1" />
                 <path d="M44.17,37.82H.7l-.64-.63V.7L.7.06H44.17L44.8.7V37.19Z"
                   style="fill:none;stroke:#61647d;stroke-miterlimit:10;stroke-width:0.126453577802817px" />
-                <path d="M1.24,32.62V37l.86.21H42.77l.86-.21V32.62Z" style="fill:#a2e2ff;opacity:0.8" />
-                <path d="M1.24,28.11v4.38l.86.21H42.77l.86-.21V28.11Z" style="fill:#f4a321;opacity:0.8" />
               </svg>
               <span class="block__left__text-header">АИ-92-К5</span>
             </div>
@@ -93,15 +93,19 @@
               <svg-icon class="block__right__img-1 block__right__img-1-warning"
                 src="./assets/icons/widgets/product-stocks/3.svg">
               </svg-icon>
-              <svg-icon class="block__right__img-2" src="./assets/icons/widgets/product-stocks/5.svg">
+              <svg-icon *ngIf="data.typeShipment === 'pipe'" class="block__right__img-2"
+                src="./assets/icons/widgets/product-stocks/4.svg">
+              </svg-icon>
+              <svg-icon *ngIf="data.typeShipment === 'railway'" class="block__right__img-2"
+                src="./assets/icons/widgets/product-stocks/5.svg">
               </svg-icon>
               <span class="block__right__text block__right__text-active">Паспортизация</span>
               <span class="block__right__text">Отгрузка</span>
             </div>
             <div class="block__right_second">
               <span class="block__right__text-sub">т.</span>
-              <span class="block__right__text-value block__right__text-value-warning">7.6</span>
-              <span class="block__right__text-value">7.4</span>
+              <span class="block__right__text-value block__right__text-value-warning">{{ data.passportization }}</span>
+              <span class="block__right__text-value">{{ data.shipment }}</span>
             </div>
 
           </div>
