@@ -61,8 +61,8 @@ export class EnergeticsComponent implements OnInit {
   /* Параметры для круговых диаграмм */
 
   energyCircleDiagram = {
-    lowerLimit: 85, // нижний предел на диаграмме в %
-    higherLimit: 115, // верхний предел на диаграмме в %
+    lowerLimit: 97, // нижний предел на диаграмме в %
+    upperLimit: 103, // верхний предел на диаграмме в %
     termo: 102, // процентная доля тепловой энергии
     electro: 87, // процентная доля электро энергии
     fuel: 125 // процентная доля топлива
@@ -149,16 +149,33 @@ export class EnergeticsComponent implements OnInit {
     return limitLine;
   }
 
+  diaLimitsLabels(line: number, isLowerLimit: boolean = false) {
+    const coords = this.diaLimits(line);
+    let returnedCoords;
+    if (isLowerLimit) {
+      returnedCoords = {
+        x: (+coords.x2 - 5).toString(),
+        y: (+coords.y2 + 2).toString()
+      };
+    } else {
+      returnedCoords = {
+        x: coords.x2,
+        y: (+coords.y2 + 2).toString()
+      };
+    }
+    return returnedCoords;
+  }
+
   diaFill(percent: number) {
     if (percent < this.energyCircleDiagram.lowerLimit)
       return this.colorDeviation;
     if (
       percent >= this.energyCircleDiagram.lowerLimit &&
-      percent < this.energyCircleDiagram.higherLimit
+      percent < this.energyCircleDiagram.upperLimit
     )
       return this.colorNormal;
-    if (percent === this.energyCircleDiagram.higherLimit) return this.colorFull;
-    if (percent > this.energyCircleDiagram.higherLimit)
+    if (percent === this.energyCircleDiagram.upperLimit) return this.colorFull;
+    if (percent > this.energyCircleDiagram.upperLimit)
       return this.colorDeviation;
   }
 }
