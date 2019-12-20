@@ -331,6 +331,7 @@ export class EventsComponent implements OnInit, OnDestroy {
         if (this.eventOverlayId >= 0) {
           const event = await this.eventService.deleteEvent(this.eventOverlayId);
           this.wsConnect();
+          this.eventService.event$.next(null);
         }
         this.overlayConfirmationClose();
         this.snackBar('Событие удалено');
