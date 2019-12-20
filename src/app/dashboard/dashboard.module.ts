@@ -149,7 +149,8 @@ import { DeviationCircleDiagramComponent } from './widgets/deviation-circle-diag
     CircleFactoryDiagramComponent,
     ProductStocksComponent,
     PolarChartComponent,
-    SemicircleEnergyComponent
+    SemicircleEnergyComponent,
+    DeviationCircleDiagramComponent
   ],
   exports: [HomeComponent],
   imports: [
