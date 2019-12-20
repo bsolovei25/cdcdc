@@ -18,9 +18,14 @@ export class NewWidgetService {
 
   private readonly wsUrl: string;
   private readonly restUrl: string;
+  private readonly  reconnectInterval: number;
+
+  private widgetsSocketObservable: BehaviorSubject<any> = new BehaviorSubject(null);
   private ws: WebSocketSubject<any> = null;
+  private connectedWidgetsId: string[] = [];
+
   public draggingItem: GridsterItem;
-  public isOver: boolean = false;
+  public isOver = false;
   public dashboard: GridsterItem[] = [];
   public mass = [];
   private _widgets$: BehaviorSubject<Widgets[]> = new BehaviorSubject(null);
@@ -30,6 +35,8 @@ export class NewWidgetService {
   constructor(public http: HttpClient, configService: AppConfigService) {
     this.restUrl = configService.restUrl;
     this.wsUrl = configService.wsUrl;
+    this.reconnectInterval = configService.reconnectInterval * 1000;
+
     this.getAvailableWidgets().subscribe(data => this._widgets$.next(data));
     this.initWS();
    }
@@ -78,27 +85,37 @@ export class NewWidgetService {
         this.dashboard.splice(this.dashboard.indexOf(item), 1);
       }
     }
-   }
+  }
 
   getWidgetChannel(idWidg) {
     return this.widgets$.pipe(map((i) => i.find((x) => x.id === idWidg)));
   }
 
   getWidgetLiveDataFromWS(widgetId, widgetType): any {
-    this.ws.next({
-      ActionType: 'Subscribe',
-      ChannelId: widgetId
-    });
-
-    return this.ws.asObservable().pipe(
-      filter(ref => ref.channelId === widgetId),
+    this.connectedWidgetsId.push(widgetId);
+    this.wsConnect(widgetId);
+    return this.widgetsSocketObservable.pipe(
+      filter(ref => (ref && ref.channelId === widgetId)),
       map(ref => {
         return this.mapWidgetData(ref.data, widgetType);
       })
     );
   }
 
-  mapWidgetData(data, widgetType) {
+  // TODO добавить метод ко всем виджетам
+  removeWidgetConnection(widgetId: string) {
+    this.connectedWidgetsId.splice(this.connectedWidgetsId.indexOf(this.connectedWidgetsId.find(el => el === widgetId)), 1);
+    // this.connectedWidgetsId = this.connectedWidgetsId.filter(el => el !== widgetId);
+  }
+
+  private wsConnect(widgetId: string) {
+    this.ws.next({
+      ActionType: 'Subscribe',
+      ChannelId: widgetId
+    });
+  }
+
+  private mapWidgetData(data, widgetType) {
     switch (widgetType) {
       case 'events':
         return this.mapEventsWidgetData(data);
@@ -106,49 +123,49 @@ export class NewWidgetService {
       case 'line-chart':
         return this.mapLineChartData(data);
 
-        case 'line-diagram':
-          return data;
+      case 'line-diagram':
+        return data;
 
-        case 'manual-input':
-          return this.mapManualInput(data.items);
+      case 'manual-input':
+        return this.mapManualInput(data.items);
 
-        case 'pie-diagram':
-          return data;
+      case 'pie-diagram':
+        return data;
 
-        case 'truncated-diagram-counter':
-          return data;
+      case 'truncated-diagram-counter':
+        return data;
 
-        case 'truncated-diagram-percentage':
-          return data;
+      case 'truncated-diagram-percentage':
+        return data;
 
-        case 'bar-chart':
-          return data;
+      case 'bar-chart':
+        return data;
 
-        case 'map-ecology':
-          return data;
+      case 'map-ecology':
+        return data;
 
       case 'ring-factory-diagram':
         return data;
     }
   }
 
-  mapEventsWidgetData(data: EventsWidgetData): EventsWidgetData {
+  private mapEventsWidgetData(data: EventsWidgetData): EventsWidgetData {
     data.notifications.forEach(n => n.eventDateTime = new Date(n.eventDateTime));
     return data;
   }
 
-  mapLineChartData(data): LineChartData {
+  private mapLineChartData(data): LineChartData {
     data.graphs.forEach(g => {
       g.values.forEach(v => v.date = new Date(v.date));
     });
     return data;
   }
 
-  mapManualInput(data): Machine_MI[] {
+  private mapManualInput(data): Machine_MI[] {
     return data;
   }
 
-  initWS() {
+  private initWS() {
     this.ws = webSocket(this.wsUrl);
     this.ws.subscribe(
       (msg) => {
@@ -157,22 +174,29 @@ export class NewWidgetService {
           clearInterval(this.reconnectTimer);
         }},
       (err) => {
-        console.log('Error: ' + err);
+        console.log('Error ws: ' + err);
         this.reconnectWs(); },
       () => {
         console.log('complete');
         this.reconnectWs(); }
     );
+    this.ws.asObservable().subscribe(data => {
+      this.widgetsSocketObservable.next(data);
+    });
   }
 
-  reconnectWs() {
+  private reconnectWs() {
+    if (this.reconnectTimer) {
+      console.log('reconnect уже создан');
+      return;
+    }
+
     this.reconnectTimer = setInterval(() => {
-      try {
-        this.ws.subscribe();
-      } catch (error) {
-        console.log('retry connect ws failed: ' + error);
+      this.initWS();
+      for (const connectedWidget of this.connectedWidgetsId) {
+        this.wsConnect(connectedWidget);
       }
-    }, 5000);
+    }, this.reconnectInterval);
   }
 }
 

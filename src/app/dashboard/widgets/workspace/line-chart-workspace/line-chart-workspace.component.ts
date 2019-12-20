@@ -159,10 +159,12 @@ export class LineChartWorkspaceComponent implements OnInit {
 
   private buildData(data) {
     const xMax = d3Array.max(data.graphs, c => d3Array.max(c.values, d => d.date));
+    const xMin = d3Array.min(data.graphs, c => d3Array.min(c.values, d => d.date));
     data.graphs
       .filter(x => x.graphType !== "fact")
       .forEach(g => {
         this.fillToXMAx(g.values, xMax);
+        this.fillToXMin(g.values, xMin);
       });
     return data;
   }
@@ -172,6 +174,14 @@ export class LineChartWorkspaceComponent implements OnInit {
     const xMaxDate = new Date(xMax);
     if (latest && new Date(latest.date).getTime() !== xMaxDate.getTime()) {
       return values.push({ value: latest.value, date: xMax });
+    }
+  }
+
+  private fillToXMin(values, xMin) {
+    const earliest = values.slice()[0];
+    const xMinDate = new Date(xMin);
+    if (earliest && new Date(earliest.date).getTime() !== xMinDate.getTime()) {
+      return values.unshift({ value: earliest.value, date: xMin });
     }
   }
 
