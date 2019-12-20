@@ -9,8 +9,8 @@ export class DeviationCircleDiagramComponent implements OnInit {
   isMock = false;
 
   deviationCircleDiagram = {
-    deviation: 30,
-    improvement: 25
+    deviation: 30, // отклонение в %
+    improvement: 25 // улучшение в %
   };
 
   /* Цвета для диаграмм */
@@ -34,11 +34,6 @@ export class DeviationCircleDiagramComponent implements OnInit {
 
   /* Отрисовка дуговых диаграмм */
 
-  diaCounter(r: string): string {
-    const c: number = 2 * Math.PI * +r;
-    return 0.75 * c + " " + 0.25 * c;
-  }
-
   diaLine(r: string, line: number): string {
     const c: number = 2 * Math.PI * +r;
     const per_cent = line / 100;
@@ -49,36 +44,5 @@ export class DeviationCircleDiagramComponent implements OnInit {
     const c: number = 2 * Math.PI * +r;
     const per_cent = line / 100;
     return (-0.75 * c).toString();
-  }
-
-  diaLimits(line: number) {
-    const newLine = 100 - line; // отсчет угла от 100%
-    const t = (Math.PI * newLine) / 100 + Math.PI / 2;
-    const rMin = 13;
-    const rMax = 25;
-    const limitLine = {
-      x1: (rMin * Math.cos(t) + +this.centerX).toString(),
-      y1: (rMin * Math.sin(t) + +this.centerY).toString(),
-      x2: (rMax * Math.cos(t) + +this.centerX).toString(),
-      y2: (rMax * Math.sin(t) + +this.centerY).toString()
-    };
-    return limitLine;
-  }
-
-  diaLimitsLabels(line: number, isLowerLimit: boolean = false) {
-    const coords = this.diaLimits(line);
-    let returnedCoords;
-    if (isLowerLimit) {
-      returnedCoords = {
-        x: (+coords.x2 - 5).toString(),
-        y: (+coords.y2 + 2).toString()
-      };
-    } else {
-      returnedCoords = {
-        x: coords.x2,
-        y: (+coords.y2 + 2).toString()
-      };
-    }
-    return returnedCoords;
   }
 }
