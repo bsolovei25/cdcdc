@@ -27,6 +27,7 @@ import { TriggeringCriticalParametersComponent } from '../../widgets/triggering-
 import { CircleFactoryDiagramComponent } from '../../widgets/circle-factory-diagram/circle-factory-diagram.component';
 import { ProductStocksComponent } from '../../widgets/product-stocks/product-stocks.component';
 import { PolarChartComponent } from '../../widgets/polar-chart/polar-chart.component';
+import { SemicircleEnergyComponent } from '../../widgets/semicircle-energy/semicircle-energy.component';
 
 
 export const WIDGETS = {
@@ -60,4 +61,5 @@ export const WIDGETS = {
     'circle-factory-diagram': CircleFactoryDiagramComponent,
     'product-stocks': ProductStocksComponent,
     "polar-chart": PolarChartComponent,
+    "semicircle-energy": SemicircleEnergyComponent
 };

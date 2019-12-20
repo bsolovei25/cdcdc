@@ -146,7 +146,8 @@ import { PolarChartComponent } from './widgets/polar-chart/polar-chart.component
     TriggeringCriticalParametersComponent,
     CircleFactoryDiagramComponent,
     ProductStocksComponent,
-    PolarChartComponent
+    PolarChartComponent,
+    SemicircleEnergyComponent
   ],
   exports: [HomeComponent],
   imports: [

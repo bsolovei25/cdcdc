@@ -1,18 +1,18 @@
 <div class="container pointer-event">
   <evj-widget-header
-    [title]="'Тепловая энергия'"
-    [units]="'кг/м^3'"
+    [title]="title"
+    [units]="units"
     [code]=""
-    [id]=""
+    [id]="id"
   ></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
 
-  <ng-container *ngIf="false">
+  <ng-container *ngIf="isMock">
     <div class="mock"></div>
   </ng-container>
 
-  <ng-container *ngIf="true">
+  <ng-container *ngIf="!isMock">
     <div class="semicircle">
       <div class="diagram">
         <svg width="100%" height="100%" viewBox="0 0 50 50">
@@ -238,7 +238,7 @@
             y="20"
             width="7"
             height="7"
-            xlink:href="../../../../assets/icons/widgets/energetics/termo.svg"
+            [attr.xlink:href]="diagramLogo"
           />
           <image
             *ngIf="isWarning"
@@ -246,7 +246,7 @@
             y="20"
             width="7"
             height="7"
-            xlink:href="../../../../assets/icons/widgets/energetics/termo_danger.svg"
+            [attr.xlink:href]="diagramLogoDanger"
           />
 
           <text
