@@ -14,7 +14,7 @@ export class SemicircleEnergyComponent implements OnInit {
 
   energyCircleDiagram = {
     lowerLimit: 80, // нижний предел на диаграмме в %
-    higherLimit: 110, // верхний предел на диаграмме в %
+    upperLimit: 100, // верхний предел на диаграмме в %
     production1: 102, // процентная доля Пр-во1
     production2: 79, // процентная доля Пр-во2
     production3: 97, // процентная доля Товарное
@@ -115,13 +115,13 @@ export class SemicircleEnergyComponent implements OnInit {
     }
     if (
       this.energyCircleDiagram.production1 >
-        this.energyCircleDiagram.higherLimit ||
+        this.energyCircleDiagram.upperLimit ||
       this.energyCircleDiagram.production2 >
-        this.energyCircleDiagram.higherLimit ||
+        this.energyCircleDiagram.upperLimit ||
       this.energyCircleDiagram.production3 >
-        this.energyCircleDiagram.higherLimit ||
+        this.energyCircleDiagram.upperLimit ||
       this.energyCircleDiagram.production4 >
-        this.energyCircleDiagram.higherLimit
+        this.energyCircleDiagram.upperLimit
     ) {
       this.isWarning = true;
       return;
@@ -167,11 +167,11 @@ export class SemicircleEnergyComponent implements OnInit {
       return this.colorDeviation;
     if (
       percent >= this.energyCircleDiagram.lowerLimit &&
-      percent < this.energyCircleDiagram.higherLimit
+      percent < this.energyCircleDiagram.upperLimit
     )
       return this.colorNormal;
-    if (percent === this.energyCircleDiagram.higherLimit) return this.colorFull;
-    if (percent > this.energyCircleDiagram.higherLimit)
+    if (percent === this.energyCircleDiagram.upperLimit) return this.colorFull;
+    if (percent > this.energyCircleDiagram.upperLimit)
       return this.colorDeviation;
   }
 }

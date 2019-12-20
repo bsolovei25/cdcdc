@@ -49,19 +49,19 @@
           ></circle>
           <circle
             *ngIf="
-              energyCircleDiagram.production1 > energyCircleDiagram.higherLimit
+              energyCircleDiagram.production1 > energyCircleDiagram.upperLimit
             "
             [attr.cx]="centerX"
             [attr.cy]="centerY"
             [attr.r]="radProd1"
             fill="transparent"
-            [attr.stroke]="diaFill(energyCircleDiagram.higherLimit)"
+            [attr.stroke]="diaFill(energyCircleDiagram.upperLimit)"
             stroke-width="0.7"
             [attr.stroke-dasharray]="
-              diaLine(radProd1, energyCircleDiagram.higherLimit)
+              diaLine(radProd1, energyCircleDiagram.upperLimit)
             "
             [attr.stroke-dashoffset]="
-              diaOffset(radProd1, energyCircleDiagram.higherLimit)
+              diaOffset(radProd1, energyCircleDiagram.upperLimit)
             "
           ></circle>
 
@@ -98,19 +98,19 @@
           ></circle>
           <circle
             *ngIf="
-              energyCircleDiagram.production2 > energyCircleDiagram.higherLimit
+              energyCircleDiagram.production2 > energyCircleDiagram.upperLimit
             "
             [attr.cx]="centerX"
             [attr.cy]="centerY"
             [attr.r]="radProd2"
             fill="transparent"
-            [attr.stroke]="diaFill(energyCircleDiagram.higherLimit)"
+            [attr.stroke]="diaFill(energyCircleDiagram.upperLimit)"
             stroke-width="0.7"
             [attr.stroke-dasharray]="
-              diaLine(radProd2, energyCircleDiagram.higherLimit)
+              diaLine(radProd2, energyCircleDiagram.upperLimit)
             "
             [attr.stroke-dashoffset]="
-              diaOffset(radProd2, energyCircleDiagram.higherLimit)
+              diaOffset(radProd2, energyCircleDiagram.upperLimit)
             "
           ></circle>
 
@@ -147,19 +147,19 @@
           ></circle>
           <circle
             *ngIf="
-              energyCircleDiagram.production3 > energyCircleDiagram.higherLimit
+              energyCircleDiagram.production3 > energyCircleDiagram.upperLimit
             "
             [attr.cx]="centerX"
             [attr.cy]="centerY"
             [attr.r]="radProd3"
             fill="transparent"
-            [attr.stroke]="diaFill(energyCircleDiagram.higherLimit)"
+            [attr.stroke]="diaFill(energyCircleDiagram.upperLimit)"
             stroke-width="0.7"
             [attr.stroke-dasharray]="
-              diaLine(radProd3, energyCircleDiagram.higherLimit)
+              diaLine(radProd3, energyCircleDiagram.upperLimit)
             "
             [attr.stroke-dashoffset]="
-              diaOffset(radProd3, energyCircleDiagram.higherLimit)
+              diaOffset(radProd3, energyCircleDiagram.upperLimit)
             "
           ></circle>
 
@@ -196,19 +196,19 @@
           ></circle>
           <circle
             *ngIf="
-              energyCircleDiagram.production4 > energyCircleDiagram.higherLimit
+              energyCircleDiagram.production4 > energyCircleDiagram.upperLimit
             "
             [attr.cx]="centerX"
             [attr.cy]="centerY"
             [attr.r]="radProd4"
             fill="transparent"
-            [attr.stroke]="diaFill(energyCircleDiagram.higherLimit)"
+            [attr.stroke]="diaFill(energyCircleDiagram.upperLimit)"
             stroke-width="0.7"
             [attr.stroke-dasharray]="
-              diaLine(radProd4, energyCircleDiagram.higherLimit)
+              diaLine(radProd4, energyCircleDiagram.upperLimit)
             "
             [attr.stroke-dashoffset]="
-              diaOffset(radProd4, energyCircleDiagram.higherLimit)
+              diaOffset(radProd4, energyCircleDiagram.upperLimit)
             "
           ></circle>
 
@@ -222,10 +222,10 @@
             stroke-dasharray="1 1"
           />
           <line
-            [attr.x1]="diaLimits(energyCircleDiagram.higherLimit).x1"
-            [attr.y1]="diaLimits(energyCircleDiagram.higherLimit).y1"
-            [attr.x2]="diaLimits(energyCircleDiagram.higherLimit).x2"
-            [attr.y2]="diaLimits(energyCircleDiagram.higherLimit).y2"
+            [attr.x1]="diaLimits(energyCircleDiagram.upperLimit).x1"
+            [attr.y1]="diaLimits(energyCircleDiagram.upperLimit).y1"
+            [attr.x2]="diaLimits(energyCircleDiagram.upperLimit).x2"
+            [attr.y2]="diaLimits(energyCircleDiagram.upperLimit).y2"
             [attr.stroke]="colorNormal"
             stroke-width="0.2"
             stroke-dasharray="1 1"
@@ -256,10 +256,10 @@
             {{ energyCircleDiagram.lowerLimit }}%
           </text>
           <text
-            [attr.x]="diaLimits(energyCircleDiagram.higherLimit).x2"
-            [attr.y]="diaLimits(energyCircleDiagram.higherLimit).y2"
+            [attr.x]="diaLimits(energyCircleDiagram.upperLimit).x2"
+            [attr.y]="diaLimits(energyCircleDiagram.upperLimit).y2"
           >
-            {{ energyCircleDiagram.higherLimit }}%
+            {{ energyCircleDiagram.upperLimit }}%
           </text>
         </svg>
       </div>
