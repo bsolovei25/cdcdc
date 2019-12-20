@@ -62,19 +62,19 @@
                 ></circle>
                 <circle
                   *ngIf="
-                    energyCircleDiagram.termo > energyCircleDiagram.higherLimit
+                    energyCircleDiagram.termo > energyCircleDiagram.upperLimit
                   "
                   [attr.cx]="centerX"
                   [attr.cy]="centerY"
                   [attr.r]="termoRadius"
                   fill="transparent"
-                  [attr.stroke]="diaFill(energyCircleDiagram.higherLimit)"
+                  [attr.stroke]="diaFill(energyCircleDiagram.upperLimit)"
                   stroke-width="0.7"
                   [attr.stroke-dasharray]="
-                    diaLine(termoRadius, energyCircleDiagram.higherLimit)
+                    diaLine(termoRadius, energyCircleDiagram.upperLimit)
                   "
                   [attr.stroke-dashoffset]="
-                    diaOffset(termoRadius, energyCircleDiagram.higherLimit)
+                    diaOffset(termoRadius, energyCircleDiagram.upperLimit)
                   "
                 ></circle>
 
@@ -111,20 +111,19 @@
                 ></circle>
                 <circle
                   *ngIf="
-                    energyCircleDiagram.electro >
-                    energyCircleDiagram.higherLimit
+                    energyCircleDiagram.electro > energyCircleDiagram.upperLimit
                   "
                   [attr.cx]="centerX"
                   [attr.cy]="centerY"
                   [attr.r]="electroRadius"
                   fill="transparent"
-                  [attr.stroke]="diaFill(energyCircleDiagram.higherLimit)"
+                  [attr.stroke]="diaFill(energyCircleDiagram.upperLimit)"
                   stroke-width="0.7"
                   [attr.stroke-dasharray]="
-                    diaLine(electroRadius, energyCircleDiagram.higherLimit)
+                    diaLine(electroRadius, energyCircleDiagram.upperLimit)
                   "
                   [attr.stroke-dashoffset]="
-                    diaOffset(electroRadius, energyCircleDiagram.higherLimit)
+                    diaOffset(electroRadius, energyCircleDiagram.upperLimit)
                   "
                 ></circle>
 
@@ -160,23 +159,22 @@
                   "
                 ></circle>
                 <circle
-                *ngIf="
-                  energyCircleDiagram.fuel >
-                  energyCircleDiagram.higherLimit
-                "
-                [attr.cx]="centerX"
-                [attr.cy]="centerY"
-                [attr.r]="fuelRadius"
-                fill="transparent"
-                [attr.stroke]="diaFill(energyCircleDiagram.higherLimit)"
-                stroke-width="0.7"
-                [attr.stroke-dasharray]="
-                  diaLine(fuelRadius, energyCircleDiagram.higherLimit)
-                "
-                [attr.stroke-dashoffset]="
-                  diaOffset(fuelRadius, energyCircleDiagram.higherLimit)
-                "
-              ></circle>
+                  *ngIf="
+                    energyCircleDiagram.fuel > energyCircleDiagram.upperLimit
+                  "
+                  [attr.cx]="centerX"
+                  [attr.cy]="centerY"
+                  [attr.r]="fuelRadius"
+                  fill="transparent"
+                  [attr.stroke]="diaFill(energyCircleDiagram.upperLimit)"
+                  stroke-width="0.7"
+                  [attr.stroke-dasharray]="
+                    diaLine(fuelRadius, energyCircleDiagram.upperLimit)
+                  "
+                  [attr.stroke-dashoffset]="
+                    diaOffset(fuelRadius, energyCircleDiagram.upperLimit)
+                  "
+                ></circle>
 
                 <line
                   [attr.x1]="diaLimits(energyCircleDiagram.lowerLimit).x1"
@@ -188,10 +186,10 @@
                   stroke-dasharray="1 1"
                 />
                 <line
-                  [attr.x1]="diaLimits(energyCircleDiagram.higherLimit).x1"
-                  [attr.y1]="diaLimits(energyCircleDiagram.higherLimit).y1"
-                  [attr.x2]="diaLimits(energyCircleDiagram.higherLimit).x2"
-                  [attr.y2]="diaLimits(energyCircleDiagram.higherLimit).y2"
+                  [attr.x1]="diaLimits(energyCircleDiagram.upperLimit).x1"
+                  [attr.y1]="diaLimits(energyCircleDiagram.upperLimit).y1"
+                  [attr.x2]="diaLimits(energyCircleDiagram.upperLimit).x2"
+                  [attr.y2]="diaLimits(energyCircleDiagram.upperLimit).y2"
                   [attr.stroke]="colorNormal"
                   stroke-width="0.2"
                   stroke-dasharray="1 1"
@@ -215,7 +213,13 @@
                   width="2.7"
                   height="2.7"
                   xlink:href="../../../../assets/icons/widgets/energetics/termo.svg"
-                  *ngIf="!(energyCircleDiagram.termo>energyCircleDiagram.higherLimit||energyCircleDiagram.termo<energyCircleDiagram.lowerLimit)"
+                  *ngIf="
+                    !(
+                      energyCircleDiagram.termo >
+                        energyCircleDiagram.upperLimit ||
+                      energyCircleDiagram.termo < energyCircleDiagram.lowerLimit
+                    )
+                  "
                 />
                 <image
                   x="53%"
@@ -223,7 +227,11 @@
                   width="2.7"
                   height="2.7"
                   xlink:href="../../../../assets/icons/widgets/energetics/termo_danger.svg"
-                  *ngIf="(energyCircleDiagram.termo>energyCircleDiagram.higherLimit||energyCircleDiagram.termo<energyCircleDiagram.lowerLimit)"
+                  *ngIf="
+                    energyCircleDiagram.termo >
+                      energyCircleDiagram.upperLimit ||
+                    energyCircleDiagram.termo < energyCircleDiagram.lowerLimit
+                  "
                 />
                 <text x="61%" y="3.6" class="svg__txt">Тепловая</text>
 
@@ -234,7 +242,14 @@
                   width="2.7"
                   height="2.7"
                   xlink:href="../../../../assets/icons/widgets/energetics/electro.svg"
-                  *ngIf="!(energyCircleDiagram.electro>energyCircleDiagram.higherLimit||energyCircleDiagram.electro<energyCircleDiagram.lowerLimit)"
+                  *ngIf="
+                    !(
+                      energyCircleDiagram.electro >
+                        energyCircleDiagram.upperLimit ||
+                      energyCircleDiagram.electro <
+                        energyCircleDiagram.lowerLimit
+                    )
+                  "
                 />
                 <image
                   x="53%"
@@ -242,7 +257,11 @@
                   width="2.7"
                   height="2.7"
                   xlink:href="../../../../assets/icons/widgets/energetics/electro_danger.svg"
-                  *ngIf="(energyCircleDiagram.electro>energyCircleDiagram.higherLimit||energyCircleDiagram.electro<energyCircleDiagram.lowerLimit)"
+                  *ngIf="
+                    energyCircleDiagram.electro >
+                      energyCircleDiagram.upperLimit ||
+                    energyCircleDiagram.electro < energyCircleDiagram.lowerLimit
+                  "
                 />
                 <text x="61%" y="6.6" class="svg__txt">Электро</text>
 
@@ -253,7 +272,13 @@
                   width="2.7"
                   height="2.7"
                   xlink:href="../../../../assets/icons/widgets/energetics/fuel.svg"
-                  *ngIf="!(energyCircleDiagram.fuel>energyCircleDiagram.higherLimit||energyCircleDiagram.fuel<energyCircleDiagram.lowerLimit)"
+                  *ngIf="
+                    !(
+                      energyCircleDiagram.fuel >
+                        energyCircleDiagram.upperLimit ||
+                      energyCircleDiagram.fuel < energyCircleDiagram.lowerLimit
+                    )
+                  "
                 />
                 <image
                   x="53%"
@@ -261,8 +286,30 @@
                   width="2.7"
                   height="2.7"
                   xlink:href="../../../../assets/icons/widgets/energetics/fuel_danger.svg"
-                  *ngIf="(energyCircleDiagram.fuel>energyCircleDiagram.higherLimit||energyCircleDiagram.fuel<energyCircleDiagram.lowerLimit)"
+                  *ngIf="
+                    energyCircleDiagram.fuel > energyCircleDiagram.upperLimit ||
+                    energyCircleDiagram.fuel < energyCircleDiagram.lowerLimit
+                  "
                 />
+
+                <text
+                  class="limitLabel"
+                  [attr.x]="
+                    diaLimitsLabels(energyCircleDiagram.lowerLimit, true).x
+                  "
+                  [attr.y]="
+                    diaLimitsLabels(energyCircleDiagram.lowerLimit, true).y
+                  "
+                >
+                  {{ energyCircleDiagram.lowerLimit }}%
+                </text>
+                <text
+                  class="limitLabel"
+                  [attr.x]="diaLimitsLabels(energyCircleDiagram.upperLimit).x"
+                  [attr.y]="diaLimitsLabels(energyCircleDiagram.upperLimit).y"
+                >
+                  {{ energyCircleDiagram.upperLimit }}%
+                </text>
                 <text x="61%" y="9.8" class="svg__txt">Топливо</text>
               </svg>
             </div>
