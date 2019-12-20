@@ -86,6 +86,8 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
           this.isNew = false;
           this.event = value;
           this.loadItem();
+        } else {
+          this.event = value;
         }
       })
     }
