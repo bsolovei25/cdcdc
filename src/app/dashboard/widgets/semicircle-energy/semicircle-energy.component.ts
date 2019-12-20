@@ -13,15 +13,39 @@ export class SemicircleEnergyComponent implements OnInit {
   /* Параметры для круговых диаграмм */
 
   energyCircleDiagram = {
-    lowerLimit: 80, // нижний предел на диаграмме в %
-    upperLimit: 100, // верхний предел на диаграмме в %
-    production1: 102, // процентная доля Пр-во1
-    production2: 79, // процентная доля Пр-во2
-    production3: 97, // процентная доля Товарное
-    production4: 125 // процентная доля ОЗХ
+    lowerLimit: 0, // нижний предел на диаграмме в %
+    upperLimit: 0, // верхний предел на диаграмме в %
+    production1: 0, // процентная доля Пр-во1
+    production2: 0, // процентная доля Пр-во2
+    production3: 0, // процентная доля Товарное
+    production4: 0 // процентная доля ОЗХ
   };
 
-  isWarning = false;
+  lowerLimit = 97;
+  upperLimit = 103;
+
+  productionList = [
+    {
+      name: "Пр-во 1",
+      plan: 0.0215,
+      fact: 0.0213
+    },
+    {
+      name: "Пр-во 2",
+      plan: 0.1408,
+      fact: 0.15
+    },
+    {
+      name: "Товарное",
+      plan: 17.4545,
+      fact: 17.5091
+    },
+    {
+      name: "ОЗХ",
+      plan: 0.0761,
+      fact: 0.0711
+    }
+  ];
 
   /* Цвета для диаграмм */
 
@@ -47,6 +71,7 @@ export class SemicircleEnergyComponent implements OnInit {
     "../../../../assets/icons/widgets/energetics/termo.svg";
   public diagramLogoDanger: string =
     "../../../../assets/icons/widgets/energetics/termo_danger.svg";
+  isWarning = false;
 
   public title;
   public units = "кг/м^3";
@@ -75,6 +100,20 @@ export class SemicircleEnergyComponent implements OnInit {
     // setInterval(() => {
     //   this.warningControl();
     // }, 5000);
+    this.drawDiagram();
+  }
+
+  drawDiagram() {
+    this.energyCircleDiagram.production1 =
+      (this.productionList[0].fact / this.productionList[0].plan) * 100;
+    this.energyCircleDiagram.production2 =
+      (this.productionList[1].fact / this.productionList[1].plan) * 100;
+    this.energyCircleDiagram.production3 =
+      (this.productionList[2].fact / this.productionList[2].plan) * 100;
+    this.energyCircleDiagram.production4 =
+      (this.productionList[3].fact / this.productionList[3].plan) * 100;
+    this.energyCircleDiagram.lowerLimit = this.lowerLimit;
+    this.energyCircleDiagram.upperLimit = this.upperLimit;
   }
 
   logoType(flag: number) {
@@ -120,8 +159,7 @@ export class SemicircleEnergyComponent implements OnInit {
         this.energyCircleDiagram.upperLimit ||
       this.energyCircleDiagram.production3 >
         this.energyCircleDiagram.upperLimit ||
-      this.energyCircleDiagram.production4 >
-        this.energyCircleDiagram.upperLimit
+      this.energyCircleDiagram.production4 > this.energyCircleDiagram.upperLimit
     ) {
       this.isWarning = true;
       return;

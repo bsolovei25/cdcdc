@@ -269,7 +269,31 @@
           <div class="row row-name">План</div>
           <div class="row row-name row-name-warning">Факт</div>
         </div>
-        <div class="col">
+        <div class="col" *ngFor="let production of productionList">
+          <div
+            class="row col-name"
+            [ngClass]="{
+              'col-name-warning':
+                (production.fact / production.plan) * 100 < lowerLimit ||
+                (production.fact / production.plan) * 100 > upperLimit
+            }"
+          >
+            {{ production.name }}
+          </div>
+          <div class="row numbers">{{ production.plan | number:'1.4-4'}}</div>
+          <div
+            class="row numbers numbers-fact"
+            [ngClass]="{
+              'numbers-warning':
+                (production.fact / production.plan) * 100 < lowerLimit ||
+                (production.fact / production.plan) * 100 > upperLimit
+            }"
+          >
+            {{ production.fact | number:'1.4-4' }}
+          </div>
+        </div>
+
+        <!-- <div class="col">
           <div class="row col-name">Пр-во 1</div>
           <div class="row numbers">0.0215</div>
           <div class="row numbers numbers-fact">0.0213</div>
@@ -288,7 +312,7 @@
           <div class="row col-name">ОЗХ</div>
           <div class="row numbers">0.0760</div>
           <div class="row numbers numbers-fact">0.0753</div>
-        </div>
+        </div> -->
       </div>
     </div>
   </ng-container>
