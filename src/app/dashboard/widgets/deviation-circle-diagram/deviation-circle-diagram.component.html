@@ -1,0 +1,119 @@
+<div class="container pointer-event">
+  <evj-widget-header
+    [title]="'Надежность'"
+    [units]="'%'"
+    [code]=""
+    [id]=""
+  ></evj-widget-header>
+
+  <evj-frame-top></evj-frame-top>
+
+  <ng-container *ngIf="isMock">
+    <div class="mock"></div>
+  </ng-container>
+
+  <ng-container *ngIf="!isMock">
+    <div class="devi-circle">
+      <div class="diagram">
+          <div class="diagram__title">50%</div>
+        <svg width="100%" height="100%" viewBox="0 0 50 50">
+
+
+          <!-- logo dia -->
+          <image
+            x="0"
+            y="0"
+            width="50"
+            height="50"
+            xlink:href="../../../../assets/icons/widgets/deviation-circle-diagram/outer_contour.svg"
+          />
+
+          <!-- termo dia -->
+          <circle
+            [attr.cx]="centerX"
+            [attr.cy]="centerY"
+            [attr.r]="radius"
+            [attr.fill]="colorMain"
+          ></circle>
+          <circle
+            [attr.cx]="centerX"
+            [attr.cy]="centerY"
+            [attr.r]="radius"
+            fill="transparent"
+            [attr.stroke]="colorBg"
+            stroke-width="3"
+          ></circle>
+          <circle
+            [attr.cx]="centerX"
+            [attr.cy]="centerY"
+            [attr.r]="radius"
+            fill="transparent"
+            [attr.stroke]="colorDeviation"
+            stroke-width="2"
+            [attr.stroke-dasharray]="
+              diaLine(radius, deviationCircleDiagram.deviation)
+            "
+            [attr.stroke-dashoffset]="
+              diaOffset(radius, deviationCircleDiagram.deviation)
+            "
+          ></circle>
+          <circle
+            [attr.cx]="centerX"
+            [attr.cy]="centerY"
+            [attr.r]="radius"
+            fill="transparent"
+            [attr.stroke]="colorNormal"
+            stroke-width="2"
+            [attr.stroke-dasharray]="
+              diaLine(radius, deviationCircleDiagram.improvement)
+            "
+            [attr.stroke-dashoffset]="
+              diaOffset(radius, deviationCircleDiagram.improvement)
+            "
+          ></circle>
+          <!-- <circle
+            *ngIf="energyCircleDiagram.termo > energyCircleDiagram.upperLimit"
+            [attr.cx]="centerX"
+            [attr.cy]="centerY"
+            [attr.r]="radius"
+            fill="transparent"
+            [attr.stroke]="diaFill(energyCircleDiagram.upperLimit)"
+            stroke-width="0.7"
+            [attr.stroke-dasharray]="
+              diaLine(radius, energyCircleDiagram.upperLimit)
+            "
+            [attr.stroke-dashoffset]="
+              diaOffset(radius, energyCircleDiagram.upperLimit)
+            "
+          ></circle> -->
+        </svg>
+      </div>
+      <div class="counters">
+        <div class="counter counter-deviation">
+          <div class="counter__title">Отклонение</div>
+          <div class="counter__number">
+            + 30
+            <img
+              class="rotate"
+              src="../../../../assets/icons/widgets/calendar-plan/deviat_danger.svg"
+              alt=""
+            />
+          </div>
+        </div>
+        <div class="counter">
+          <div class="counter__title">Улучшение</div>
+          <div class="counter__number">
+            - 25
+            <img
+              class="rotate"
+              src="../../../../assets/icons/widgets/calendar-plan/deviat.svg"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <evj-frame-bottom></evj-frame-bottom>
+</div>
