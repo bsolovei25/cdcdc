@@ -8,8 +8,6 @@ import { Subscription } from "rxjs";
   styleUrls: ["./semicircle-energy.component.scss"]
 })
 export class SemicircleEnergyComponent implements OnInit {
-  testLogo = 2;
-
   /* Параметры для круговых диаграмм */
 
   energyCircleDiagram = {
@@ -23,6 +21,8 @@ export class SemicircleEnergyComponent implements OnInit {
 
   lowerLimit = 97;
   upperLimit = 103;
+
+  icontype = 1;
 
   productionList = [
     {

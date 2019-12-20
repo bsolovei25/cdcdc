@@ -9,7 +9,11 @@
   <evj-frame-top></evj-frame-top>
 
   <ng-container *ngIf="isMock">
-    <div class="mock"></div>
+    <div class="mock">
+      <img *ngIf="icontype===0" src="../../../../assets/img/termo_preview.PNG" alt="">
+      <img *ngIf="icontype===1" src="../../../../assets/img/electro_preview.PNG" alt="">
+      <img *ngIf="icontype===2" src="../../../../assets/img/fuel_preview.PNG" alt="">
+    </div>
   </ng-container>
 
   <ng-container *ngIf="!isMock">
