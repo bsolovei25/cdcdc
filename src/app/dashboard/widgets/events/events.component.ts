@@ -32,6 +32,7 @@ export class EventsComponent implements OnInit, OnDestroy {
   isDeleteRetrieval: boolean = false;
 
   selectedId: number = 0;
+  eventOverlayId: number;
 
   static itemCols = 30;
   static itemRows = 20;
@@ -323,14 +324,18 @@ export class EventsComponent implements OnInit, OnDestroy {
     this.userSettings.removeItem();
   }
 
-  async eventClick(deleteItem: boolean, eventId: number, event: Event) {
+  async eventClick(deleteItem: boolean, eventId?: number, event?: Event) {
     event.stopPropagation();
     if (deleteItem) {
       try {
-        const event = await this.eventService.deleteEvent(eventId);
-        this.wsConnect();
+        if (this.eventOverlayId >= 0) {
+          const event = await this.eventService.deleteEvent(this.eventOverlayId);
+          this.wsConnect();
+        }
+        this.overlayConfirmationClose();
         this.snackBar('Событие удалено');
       } catch (error) {
+        this.overlayConfirmationClose();
         this.snackBar('Ошибка', 'error');
       }
     } else {
@@ -338,16 +343,19 @@ export class EventsComponent implements OnInit, OnDestroy {
       const event = await this.eventService.getEvent(eventId);
       this.eventService.event$.next(event);
     }
+    this.eventOverlayId = undefined;
   }
 
   overlayConfirmationOpen(n: EventsWidgetNotification) {
     event.stopPropagation();
+    this.eventOverlayId = n.id;
     n.retrievalEvents.length ? this.isDeleteRetrieval = true : this.isDeleteRetrieval = false;
     document.getElementById("overlay-confirmation-event").style.display = "block";
   }
 
   overlayConfirmationClose() {
     document.getElementById("overlay-confirmation-event").style.display = "none";
+    this.eventOverlayId = undefined;
   }
 
 }
