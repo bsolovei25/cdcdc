@@ -13,6 +13,11 @@ export class DeviationCircleDiagramComponent implements OnInit {
     improvement: 25 // улучшение в %
   };
 
+  isMockData = {
+    deviation: 60, // отклонение в %
+    improvement: 45 // улучшение в %
+  };
+
   /* Цвета для диаграмм */
 
   colorMain = "#1b1e27";

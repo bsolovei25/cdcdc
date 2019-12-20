@@ -25,12 +25,12 @@
   border-left: 0.5px dashed var(--color-border-main-transparrent);
   border-right: 0.5px dashed var(--color-border-main-transparrent);
 
-  img {
+  .devi-circle{
     width: 70%;
-    height: 144px;
-
-    margin-left: 60px;
+    border: none;
+    margin: 0 auto;
   }
+
 }
 
 .devi-circle {
@@ -88,7 +88,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
 
     .counter {
       width: 70px;
