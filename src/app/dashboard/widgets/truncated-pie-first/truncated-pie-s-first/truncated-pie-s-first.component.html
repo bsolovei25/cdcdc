@@ -8,12 +8,12 @@
                 <div class="content_block" (mousedown)="$event.stopPropagation()" 
                 (touchstart)="$event.stopPropagation()">
                         <div class="blocks">
-                                <div *ngIf="isMock === true"  class="contant">
+                                <div *ngIf="isMock"  class="contant">
                                         <div class="imgblock" >
                                           <img src='../../../../../assets/img/criticOtk.png'>
                                         </div>
                                 </div>
-                                <div *ngIf="isMock === false" class="contant">
+                                <div *ngIf="!isMock" class="contant">
                                         <div *ngFor="let data of datas;" class="block" >
                                                 <evj-truncated-pie-first [data]="data" ></evj-truncated-pie-first>
                                         </div>

@@ -31,6 +31,13 @@ export class DeviationsTableComponent implements OnInit, OnDestroy {
 
     data: IDeviationsTable[] = [
         {
+            equipment: 'ЭЛОУ-АВТ-6',
+            energy: 0,
+            consumption: -150,
+            fuel: 0,
+            nonCritical: true
+        },
+        {
             equipment: 'ЭЛОУ-2',
             energy: 0,
             consumption: -150,
@@ -73,42 +80,161 @@ export class DeviationsTableComponent implements OnInit, OnDestroy {
             nonCritical: false
         },
         {
-            equipment: 'ЭЛОУ-2',
+            equipment: 'Изомеризация',
             energy: 0,
             consumption: -150,
             fuel: 0,
             nonCritical: true
         },
         {
-            equipment: 'С.100 ЭЛОУ-АВТ-6',
+            equipment: 'Л-22/4',
             energy: 0,
             consumption: -150,
             fuel: 0,
             nonCritical: true
         },
         {
-            equipment: 'Блок ВТ (АТВБ)',
+            equipment: 'Л-22-2000',
             energy: 0,
             consumption: -150,
             fuel: 0,
             nonCritical: false
         },
         {
-            equipment: 'Блок ВТ (АТВБ)',
+            equipment: 'Л-22/5',
             energy: 0,
             consumption: -150,
             fuel: 0,
             nonCritical: false
         },
         {
-            equipment: 'УПВ',
+            equipment: 'Реагентное хоз-во',
             energy: 0,
             consumption: -150,
             fuel: 0,
             nonCritical: false
         },
         {
-            equipment: 'АВТ-3',
+            equipment: 'ЛЧ-35-11-300М',
+            energy: 0,
+            consumption: -150,
+            fuel: 0,
+            nonCritical: true
+        },
+        {
+            equipment: 'УПБ',
+            energy: 0,
+            consumption: -150,
+            fuel: 0,
+            nonCritical: true
+        },
+        {
+            equipment: 'С-200 КУПН СТО',
+            energy: 0,
+            consumption: -150,
+            fuel: 0,
+            nonCritical: true
+        },
+        {
+            equipment: 'УПС',
+            energy: 0,
+            consumption: -150,
+            fuel: 0,
+            nonCritical: true
+        },
+        {
+            equipment: 'С-400 КУПН ГФУ',
+            energy: 0,
+            consumption: -150,
+            fuel: 0,
+            nonCritical: true
+        },
+        {
+            equipment: 'КЦА',
+            energy: 0,
+            consumption: -150,
+            fuel: 0,
+            nonCritical: true
+        },
+        {
+            equipment: 'ЛЧ-35-11-1000',
+            energy: 0,
+            consumption: -150,
+            fuel: 0,
+            nonCritical: true
+        },
+        {
+            equipment: 'МТБЭ',
+            energy: 0,
+            consumption: -150,
+            fuel: 0,
+            nonCritical: true
+        },
+        {
+            equipment: 'С-300 КУПН',
+            energy: 0,
+            consumption: -150,
+            fuel: 0,
+            nonCritical: true
+        },
+        {
+            equipment: 'ГФУ-2',
+            energy: 0,
+            consumption: -150,
+            fuel: 0,
+            nonCritical: true
+        },
+        {
+            equipment: 'АССБ и КТ',
+            energy: 0,
+            consumption: -150,
+            fuel: 0,
+            nonCritical: true
+        },
+        {
+            equipment: 'Парк Б,Р и ДТ',
+            energy: 0,
+            consumption: -150,
+            fuel: 0,
+            nonCritical: true
+        },
+        {
+            equipment: 'ТАМЭ',
+            energy: 0,
+            consumption: -150,
+            fuel: 0,
+            nonCritical: true
+        },
+        {
+            equipment: 'Т-д транснефть',
+            energy: 0,
+            consumption: -150,
+            fuel: 0,
+            nonCritical: true
+        },
+        {
+            equipment: 'Г-43-107',
+            energy: 0,
+            consumption: -150,
+            fuel: 0,
+            nonCritical: true
+        },
+        {
+            equipment: 'ГОБКК',
+            energy: 0,
+            consumption: -150,
+            fuel: 0,
+            nonCritical: true
+        },
+        {
+            equipment: 'ЖД эстакажы',
+            energy: 0,
+            consumption: -150,
+            fuel: 0,
+            nonCritical: true
+        },
+        {
+            equipment: 'АВТО эстакажы',
             energy: 0,
             consumption: -150,
             fuel: 0,
