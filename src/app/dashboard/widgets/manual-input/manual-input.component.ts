@@ -47,6 +47,7 @@ export class ManualInputComponent implements OnInit, OnDestroy {
   private flag: boolean = true;
 
 
+
   ngOnInit() {
     this.showMock(this.isMock);
   }
@@ -54,6 +55,20 @@ export class ManualInputComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.subscription) {
       this.subscription.unsubscribe();
+    }
+  }
+
+  public onActiveBlock(name, event){
+    if(!this.isMock){
+      for(let item of this.Data){
+        if(item.name === name && event.currentTarget.parentElement.lastElementChild.className === "table-container-2-none"){
+          event.currentTarget.parentElement.lastElementChild.classList.remove("table-container-2-none");
+          event.currentTarget.parentElement.lastElementChild.classList.add("table-container-2");
+        }else if(item.name === name && event.currentTarget.parentElement.lastElementChild.className === "table-container-2"){
+          event.currentTarget.parentElement.lastElementChild.classList.remove("table-container-2");
+          event.currentTarget.parentElement.lastElementChild.classList.add("table-container-2-none");
+        }
+      }
     }
   }
 
