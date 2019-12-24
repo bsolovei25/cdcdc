@@ -1,19 +1,23 @@
-import {NgModule, Optional, SkipSelf} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {Error} from 'tslint/lib/error';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { LoginComponent } from './pages/login/login.component';
+import { CoreRoutingModule } from './core-routing.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ErrorInterceptor } from './interceptors/error.interceptor';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    LoginComponent,
+  ],
   imports: [
-    CommonModule
+    CommonModule,
+    CoreRoutingModule,
+    FormsModule
+  ],
+  providers: [
+   
   ]
 })
-export class CoreModule {
-  constructor(@Optional() @SkipSelf() core: CoreModule) {
-    if (core) {
-      throw new Error('You should import core module only in the root module');
-    }
-  }
-
-}
+export class CoreModule { }

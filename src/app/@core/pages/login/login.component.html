@@ -1,0 +1,22 @@
+<form class="login-form">
+    <p class="login-text">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-lock fa-stack-1x"></i>
+        </span>
+    </p>
+    <div class="logo-gpn"></div>
+    <input [(ngModel)]="username" name="username" type="login" class="login-username" autofocus="true" required="true"
+        placeholder="Логин" />
+    <input [(ngModel)]="password" name="password" type="password" class="login-password" required="true"
+        placeholder="Пароль" />
+    <!-- <input type="submit" name="Login" value="Войти" class="login-submit" (click)="onSubmit()" /> -->
+    <div class="login__submit">
+        <div class="submit__frame submit__frame-left"></div>
+        <div class="submit__frame submit__frame-right"></div>
+        <button type="submit gridster-item-content" name="Login" value="Войти" class="login-submit"
+            (click)="onSubmit()">
+            Войти
+        </button>
+    </div>
+</form>

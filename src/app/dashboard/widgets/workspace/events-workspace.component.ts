@@ -10,7 +10,6 @@ import {
 import { Subscription } from "rxjs";
 import { EventService } from '../../services/event.service';
 import { EventsWidgetNotification, EventsWidgetNotificationStatus, EventsWidgetNotificationPriority, IStatus, IPriority, User, ICategory, EventsWidgetCategory, EventsWidgetCategoryCode } from '../../models/events-widget';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: "evj-events-workspace",

@@ -1,27 +1,29 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule, APP_INITIALIZER} from '@angular/core';
 
-import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {CoreModule} from './@core/core.module';
 import {DashboardModule} from './dashboard/dashboard.module';
 import {SharedModule} from './@shared/shared.module';
-import {HttpClientModule} from '@angular/common/http';
 import {AngularSvgIconModule} from 'angular-svg-icon';
 import {AppConfigService} from './services/appConfigService';
+import { RouterModule } from '@angular/router';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ErrorInterceptor } from '@core/interceptors/error.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     CoreModule,
-    DashboardModule,
+    RouterModule,
+    AngularSvgIconModule,
     SharedModule,
     HttpClientModule,
-    AngularSvgIconModule
+    BrowserAnimationsModule
+  ],
+  declarations: [
+    AppComponent,
   ],
   providers: [
     {
@@ -33,9 +35,9 @@ import {AppConfigService} from './services/appConfigService';
           return appConfigService.loadAppConfig();
         };
       }
-    }
+    },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule { }

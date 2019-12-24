@@ -55,7 +55,6 @@ export class IndicatorSelectorComponent implements OnInit, AfterViewInit {
   }
 
   public LoadScreen(id){
-
     this.userSettings.LoadScreen(id);
   }
 
