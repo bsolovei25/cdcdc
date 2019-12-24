@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import { Component, OnInit, Inject, OnDestroy } from "@angular/core";
 import { NewWidgetService } from "../../services/new-widget.service";
 import { Subscription } from "rxjs";
 
@@ -7,7 +7,7 @@ import { Subscription } from "rxjs";
   templateUrl: "./semicircle-energy.component.html",
   styleUrls: ["./semicircle-energy.component.scss"]
 })
-export class SemicircleEnergyComponent implements OnInit {
+export class SemicircleEnergyComponent implements OnInit, OnDestroy {
   /* Параметры для круговых диаграмм */
 
   energyCircleDiagram = {
@@ -22,13 +22,13 @@ export class SemicircleEnergyComponent implements OnInit {
   lowerLimit = 97;
   upperLimit = 103;
 
-  icontype = 1;
+  public iconType;
 
   productionList = [
     {
       name: "Пр-во 1",
       plan: 0.0215,
-      fact: 0.0213
+      fact: 0.0214
     },
     {
       name: "Пр-во 2",
@@ -66,69 +66,95 @@ export class SemicircleEnergyComponent implements OnInit {
   radProd3 = (15.91549430918954 + 3).toString();
   radProd2 = (15.91549430918954 + 6).toString();
   radProd1 = (15.91549430918954 + 9).toString();
+  radPoint = "0.8";
 
-  public diagramLogo: string =
-    "../../../../assets/icons/widgets/energetics/termo.svg";
-  public diagramLogoDanger: string =
-    "../../../../assets/icons/widgets/energetics/termo_danger.svg";
+  public diagramLogo: string;
+  public diagramLogoDanger: string;
   isWarning = false;
 
   public title;
   public units = "кг/м^3";
+  public widgetType = "semicircle-energy";
 
-  subscription: Subscription;
+  subscriptions: Subscription[] = [];
 
   static itemCols = 14;
   static itemRows = 11;
+
+  public test;
 
   constructor(
     private widgetService: NewWidgetService,
     @Inject("isMock") public isMock: boolean,
     @Inject("widgetId") public id: string
   ) {
-    this.subscription = this.widgetService
-      .getWidgetChannel(this.id)
-      .subscribe(data => {
+    this.subscriptions.push(
+      this.widgetService.getWidgetChannel(this.id).subscribe(data => {
         this.title = data.title;
         // this.code = data.code;
         // this.units = data.units;
         // this.name = data.name;
-      });
+      })
+    );
   }
 
   ngOnInit() {
-    // setInterval(() => {
-    //   this.warningControl();
-    // }, 5000);
-    this.drawDiagram();
+    if (!this.isMock) {
+      this.subscriptions.push(
+        this.widgetService
+          .getWidgetLiveDataFromWS(this.id, this.widgetType)
+          .subscribe(data => {
+            this.iconType = data.iconType;
+            this.lowerLimit = data.lowerLimit;
+            this.upperLimit = data.upperLimit;
+            this.productionList = data.items.slice();
+            this.logoType();
+            this.warningControl();
+            this.drawDiagram();
+          })
+      );
+    }
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   drawDiagram() {
-    this.energyCircleDiagram.production1 =
-      (this.productionList[0].fact / this.productionList[0].plan) * 100;
-    this.energyCircleDiagram.production2 =
-      (this.productionList[1].fact / this.productionList[1].plan) * 100;
-    this.energyCircleDiagram.production3 =
-      (this.productionList[2].fact / this.productionList[2].plan) * 100;
-    this.energyCircleDiagram.production4 =
-      (this.productionList[3].fact / this.productionList[3].plan) * 100;
-    this.energyCircleDiagram.lowerLimit = this.lowerLimit;
-    this.energyCircleDiagram.upperLimit = this.upperLimit;
+    this.energyCircleDiagram.production1 = this.productionList[0]
+      ? (this.productionList[0].fact / this.productionList[0].plan) * 100
+      : 0;
+
+    this.energyCircleDiagram.production2 = this.productionList[1]
+      ? (this.productionList[1].fact / this.productionList[1].plan) * 100
+      : 0;
+    this.energyCircleDiagram.production3 = this.productionList[2]
+      ? (this.productionList[2].fact / this.productionList[2].plan) * 100
+      : 0;
+    this.energyCircleDiagram.production4 = this.productionList[3]
+      ? (this.productionList[3].fact / this.productionList[3].plan) * 100
+      : 0;
+    this.energyCircleDiagram.lowerLimit = this.lowerLimit
+      ? this.lowerLimit
+      : 97;
+    this.energyCircleDiagram.upperLimit = this.upperLimit
+      ? this.upperLimit
+      : 103;
   }
 
-  logoType(flag: number) {
-    switch (flag) {
+  logoType() {
+    switch (this.iconType) {
       case 0:
-        this.diagramLogo =
-          "../../../../assets/icons/widgets/energetics/termo.svg";
-        this.diagramLogoDanger =
-          "../../../../assets/icons/widgets/energetics/termo_danger.svg";
-        return;
-      case 1:
         this.diagramLogo =
           "../../../../assets/icons/widgets/energetics/electro.svg";
         this.diagramLogoDanger =
           "../../../../assets/icons/widgets/energetics/electro_danger.svg";
+        return;
+      case 1:
+        this.diagramLogo =
+          "../../../../assets/icons/widgets/energetics/termo.svg";
+        this.diagramLogoDanger =
+          "../../../../assets/icons/widgets/energetics/termo_danger.svg";
         return;
       case 2:
         this.diagramLogo =
@@ -211,5 +237,16 @@ export class SemicircleEnergyComponent implements OnInit {
     if (percent === this.energyCircleDiagram.upperLimit) return this.colorFull;
     if (percent > this.energyCircleDiagram.upperLimit)
       return this.colorDeviation;
+  }
+
+  diaEndsLine(line: number, rad: string) {
+    const newLine = 100 - line + +this.radPoint; // отсчет угла от 100%
+    const t = (((1.5 * Math.PI) / 2) * newLine) / 100 + (2.5 * Math.PI) / 2;
+    const r = +rad;
+    const centerOfTheEnd = {
+      xCen: (-r * Math.cos(t) + +this.centerX).toString(),
+      yCen: (r * Math.sin(t) + +this.centerY).toString()
+    };
+    return centerOfTheEnd;
   }
 }
