@@ -70,7 +70,7 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
 
   public diagramLogo: string;
   public diagramLogoDanger: string;
-  isWarning = false;
+  public isWarning = false;
 
   public title;
   public units = "кг/м^3";
