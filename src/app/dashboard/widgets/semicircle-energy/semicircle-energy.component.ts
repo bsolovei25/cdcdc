@@ -19,8 +19,8 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
     production4: 0 // процентная доля ОЗХ
   };
 
-  lowerLimit = 97;
-  upperLimit = 103;
+  public lowerLimit = 97;
+  public upperLimit = 103;
 
   public iconType;
 
@@ -167,25 +167,19 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
 
   warningControl(): void {
     if (
-      this.energyCircleDiagram.production1 <
-        this.energyCircleDiagram.lowerLimit ||
-      this.energyCircleDiagram.production2 <
-        this.energyCircleDiagram.lowerLimit ||
-      this.energyCircleDiagram.production3 <
-        this.energyCircleDiagram.lowerLimit ||
-      this.energyCircleDiagram.production4 < this.energyCircleDiagram.lowerLimit
+      this.energyCircleDiagram.production1 < this.lowerLimit ||
+      this.energyCircleDiagram.production2 < this.lowerLimit ||
+      this.energyCircleDiagram.production3 < this.lowerLimit ||
+      this.energyCircleDiagram.production4 < this.lowerLimit
     ) {
       this.isWarning = true;
       return;
     }
     if (
-      this.energyCircleDiagram.production1 >
-        this.energyCircleDiagram.upperLimit ||
-      this.energyCircleDiagram.production2 >
-        this.energyCircleDiagram.upperLimit ||
-      this.energyCircleDiagram.production3 >
-        this.energyCircleDiagram.upperLimit ||
-      this.energyCircleDiagram.production4 > this.energyCircleDiagram.upperLimit
+      this.energyCircleDiagram.production1 > this.upperLimit ||
+      this.energyCircleDiagram.production2 > this.upperLimit ||
+      this.energyCircleDiagram.production3 > this.upperLimit ||
+      this.energyCircleDiagram.production4 > this.upperLimit
     ) {
       this.isWarning = true;
       return;
