@@ -24,7 +24,7 @@ stages:
 
 .init_template: &init
     tags:
-        - evj-dev
+        - evj-front
 
 docker build:
     <<: *init
