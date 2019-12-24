@@ -11,7 +11,7 @@ export class EcologySafetyComponent implements OnInit {
   aboutWidget;
 
   static itemCols = 18;
-  static itemRows = 6;
+  static itemRows = 2;
 
   subscription: Subscription;
 

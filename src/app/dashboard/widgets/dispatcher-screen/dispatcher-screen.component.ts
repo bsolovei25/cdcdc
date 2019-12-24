@@ -9,7 +9,7 @@ import {Subscription} from 'rxjs';
   templateUrl: './dispatcher-screen.component.html',
   styleUrls: ['./dispatcher-screen.component.scss']
 })
-export class DispatcherScreenComponent implements OnInit {
+export class DispatcherScreenComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private baseUrl: string;
   private unityInstance: any;
@@ -29,11 +29,11 @@ export class DispatcherScreenComponent implements OnInit {
     @Inject('widgetId') public id: string,
     platformLocation: PlatformLocation
   ) {
-    const location = (platformLocation as any).location;
-    this.baseUrl = location.origin + location.pathname.replace('dashboard', '');
-    this.subscriptions.push(this.widgetService.getWidgetChannel(id).subscribe(data => {
-      this.title = data.title;
-    }));
+      const location = (platformLocation as any).location;
+      this.baseUrl = location.origin + location.pathname.replace('dashboard', '');
+      this.subscriptions.push(this.widgetService.getWidgetChannel(id).subscribe(data => {
+        this.title = data.title;
+      }));
   }
 
   ngOnInit() {
@@ -67,13 +67,13 @@ export class DispatcherScreenComponent implements OnInit {
     this.resize();
   }
 
-  @HostListener('document:UnityTemplate_Start', ['$event', '$event.detail.param1'])
+  @HostListener('document:UnityDispatcherScreen_Start', ['$event', '$event.detail.param1'])
   private OnUnityStart(event, param1) {
     this.isStart = true;
     if (!this.unityInstance) {
       return;
     }
-    this.CallUnityScript('Scripts', 'FromAngular');
+    this.wsConnect();
   }
 
   @HostListener('document:UnityTemplate_Click', ['$event'])
@@ -84,19 +84,27 @@ export class DispatcherScreenComponent implements OnInit {
     console.log('click');
   }
 
+  private wsConnect() {
+    this.widgetService.getWidgetLiveDataFromWS(this.id, 'dispatcher-screen')
+      .subscribe((ref) => {
+          this.CallUnityScript('Scripts', 'RefreshValues', JSON.stringify(ref));
+        }
+      );
+  }
+
   private InitUnity() {
     window['UnityLoader'] = UnityLoader;
     this.loadProject(`${this.baseUrl}assets/unity/dispatcher-screen/web_build.json`);
   }
 
-  private CallUnityScript(funName, ...args) {
+  private CallUnityScript(objName, funName, ...args) {
     if (this.isStart && this.unityInstance) {
-      this.unityInstance.SendMessage(funName, ...args);
+      this.unityInstance.SendMessage(objName, funName, ...args);
     }
   }
 
   private loadProject(path) {
-    this.unityInstance = UnityLoader.instantiate('unityContainer_unity-template', path);
+    this.unityInstance = UnityLoader.instantiate('unityContainer_unity-dispatcher-screen', path);
   }
 
   private resize() {

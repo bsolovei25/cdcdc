@@ -10,12 +10,14 @@ import { NewWidgetService } from "../../services/new-widget.service";
 export class DeviationCircleDiagramComponent implements OnInit {
   deviationCircleDiagram = {
     deviation: 30, // отклонение в %
-    improvement: 25 // улучшение в %
+    improvement: 25, // улучшение в %
+    maxValue: 100
   };
 
   isMockData = {
     deviation: 60, // отклонение в %
-    improvement: 45 // улучшение в %
+    improvement: 45, // улучшение в %
+    maxValue: 80
   };
 
   /* Цвета для диаграмм */

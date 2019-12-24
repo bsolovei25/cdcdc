@@ -59,7 +59,11 @@ export class ManualInputService {
     return data;
   }
 
+  public statusLoading;
+
   BtnSaveValues(data: Machine_MI[]) {
+    this.saveBar('Сохранение', true);
+    this.statusLoading = true;
     let elsToSave: Param_MI[] = [];
     for (const i in data) {
       for (const j in data[i].groups) {
@@ -100,7 +104,7 @@ export class ManualInputService {
     this.http.post(this.restUrl + '/manualinput/post', Params)
       .subscribe(
         (ans: MI_DataGet) => {
-          // console.log(ans);
+          console.log(ans);
           this.SaveValues(ans, data);
         },
       //  error => console.log(error)
@@ -113,10 +117,12 @@ export class ManualInputService {
       el.isEdit = true;
       el.isSave = true;
       el.saveValue = el.curValue;
+      this.saveBar('Сохранено', false);
     }
     for (const i in ids.falseValues) {
       let el = this.GetElementById(ids.falseValues[i], data);
       el.isError = true;
+      this.saveBar('Ошибка', false);
     }
   }
 
@@ -145,5 +151,32 @@ export class ManualInputService {
       }
     }
     return null;
+  }
+
+
+  saveBar(text: string,  statusLoad:boolean , durection: number = 2000) {
+    
+    debugger
+    let snackBar = document.getElementById("saveBar");
+    let snackBarBlock = document.getElementById("saveBarBlock");
+   // snackBar.className = "show";
+   // snackBarBlock.className = "show";
+  //  snackBar.innerText = text;
+    if(statusLoad){
+      snackBar.className = "show";
+      snackBarBlock.className = "show";
+      snackBar.innerText = text;
+    }else{
+      snackBar.innerText = text;
+      setTimeout(function () {
+       snackBar.className = snackBar.className.replace("show", "");
+      }, durection);
+       snackBarBlock.className = snackBarBlock.className.replace("show", "");
+    }
+    /*
+    setTimeout(function () {
+       snackBar.className = snackBar.className.replace("show", "");
+       snackBarBlock.className = snackBarBlock.className.replace("show", "");
+    }, durection); */
   }
 }

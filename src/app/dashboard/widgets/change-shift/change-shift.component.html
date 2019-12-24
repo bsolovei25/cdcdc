@@ -53,7 +53,7 @@
         <div class="onShift__label">На смене</div>
         <ng-container *ngIf="currentShift != null">
           <div
-            class="onShift__add gridster-item-content"
+            class="onShift__add" #addShift
             (click)="showPeople($event)"
           >
             +
@@ -142,5 +142,5 @@
   </ng-container>
 
   <evj-frame-bottom></evj-frame-bottom>
-  
+
 </div>

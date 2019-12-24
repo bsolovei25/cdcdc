@@ -3,23 +3,23 @@
     <div class="graph">
       <div
         class="pusher"
-        [ngStyle]="{ height: getGraphHeight(item.percent) }"
+        [ngStyle]="{ height: getGraphHeight(item.percentageValue) }"
       ></div>
       <div
         class="point"
         [ngStyle]="{
-          'height.px': getDiameter(item.percent),
-          'width.px': getDiameter(item.percent)
+          'height.px': getDiameter(item.percentageValue),
+          'width.px': getDiameter(item.percentageValue)
         }"
-        [ngClass]="getColor(item.percent, item.isCritical, true)"
+        [ngClass]="getColor(item.percentageValue, item.isCritical, true)"
       >
-        {{ item.percent }}%
+        {{ item.percentageValue }}%
       </div>
     </div>
     <div
       class="label"
-      [ngClass]="getColor(item.percent, item.isCritical, false)"
-      [innerHTML]="item.label | powIndex"
+      [ngClass]="getColor(item.percentageValue, item.isCritical, false)"
+      [innerHTML]="item.title | powIndex"
     ></div>
   </div>
 </ng-container>
@@ -27,8 +27,8 @@
 <ng-container *ngIf="!isDiagram">
   <div
     class="item"
-    [ngClass]="item.percent !== 0 ? 'item__active' : 'item__disable'"
+    [ngClass]="item.percentageValue !== 0 ? 'item__active' : 'item__disable'"
   >
-    {{ item.count }}
+    {{ item.percentageValue }}
   </div>
 </ng-container>

@@ -146,6 +146,15 @@ export class NewWidgetService {
 
       case 'ring-factory-diagram':
         return data;
+
+      case "semicircle-energy":
+        return data;
+
+      case 'dispatcher-screen':
+        return data;
+
+      case 'point-diagram':
+        return data;
     }
   }
 
@@ -199,5 +208,3 @@ export class NewWidgetService {
     }, this.reconnectInterval);
   }
 }
-
-

@@ -1,92 +1,63 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import {Component, OnInit, Inject, OnDestroy} from "@angular/core";
 import { NewWidgetService } from "../../services/new-widget.service";
 import { Subscription } from "rxjs";
+
+export interface PointDiagramElement {
+  norm: number;
+  percentageValue: number;
+  title: string;
+  isCritical: boolean;
+}
 
 @Component({
   selector: "evj-point-diagram",
   templateUrl: "./point-diagram.component.html",
   styleUrls: ["./point-diagram.component.scss"]
 })
-export class PointDiagramComponent implements OnInit {
-  array = [
+export class PointDiagramComponent implements OnInit, OnDestroy {
+  pointDiagramElements: PointDiagramElement[] = [
     {
-      count: 0.2,
-      percent: 30.6,
-      label: "NO2",
+      norm: 0.2,
+      percentageValue: 30.6,
+      title: "NO2",
       isCritical: false
     },
     {
-      count: 0.4,
-      percent: 6.6,
-      label: "NO",
+      norm: 0.4,
+      percentageValue: 6.6,
+      title: "NO",
       isCritical: false
     },
     {
-      count: 0.2,
-      percent: 80,
-      label: "NH3",
+      norm: 0.2,
+      percentageValue: 80,
+      title: "NH3",
       isCritical: true
     },
     {
-      count: 0.3,
-      percent: 0,
-      label: "C6H6",
+      norm: 0.3,
+      percentageValue: 0,
+      title: "C6H6",
       isCritical: false
     },
     {
-      count: 0.01,
-      percent: 0,
-      label: "C6H5OH",
+      norm: 0.01,
+      percentageValue: 0,
+      title: "C6H5OH",
       isCritical: false
     },
     {
-      count: 0.4,
-      percent: 62.6,
-      label: "NO",
+      norm: 0.4,
+      percentageValue: 62.6,
+      title: "NO",
       isCritical: false
     },
     {
-      count: 0.008,
-      percent: 0,
-      label: "H2S",
+      norm: 0.008,
+      percentageValue: 0,
+      title: "H2S",
       isCritical: false
     }
-    // {
-    //   count: 0.2,
-    //   percent: 0,
-    //   label: "C6H4(CH3)2",
-    //   isCritical: false
-    // },
-    // {
-    //   count: 0.6,
-    //   percent: 0,
-    //   label: "C6H5CH3",
-    //   isCritical: false
-    // },
-    // {
-    //   count: 0.5,
-    //   percent: 0,
-    //   label: "пыль",
-    //   isCritical: false
-    // },
-    // {
-    //   count: 0.5,
-    //   percent: 2,
-    //   label: "SO2",
-    //   isCritical: false
-    // },
-    // {
-    //   count: 5,
-    //   percent: 0,
-    //   label: "CO",
-    //   isCritical: false
-    // },
-    // {
-    //   count: 0.02,
-    //   percent: 0,
-    //   label: "C8H20",
-    //   isCritical: false
-    // }
   ];
 
   static itemCols = 23;
@@ -97,27 +68,42 @@ export class PointDiagramComponent implements OnInit {
 
   aboutWidget;
 
-  subscription: Subscription;
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private widgetService: NewWidgetService,
-    @Inject("isMock") public isMock: boolean,
-    @Inject("widgetId") public id: string
+    @Inject('isMock') public isMock: boolean,
+    @Inject('widgetId') public id: string
   ) {
-    this.subscription = this.widgetService
+    this.subscriptions.push(this.widgetService
       .getWidgetChannel(this.id)
       .subscribe(data => {
         this.title = data.title;
         // this.code = data.code;
         this.units = data.units;
         // this.name = data.name;
-      });
+      }));
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (!this.isMock) {
+      this.wsConnect();
+    }
+  }
+
+  private wsConnect() {
+    this.subscriptions.push(this.widgetService.getWidgetLiveDataFromWS(this.id, 'point-diagram')
+      .subscribe((ref) => {
+          this.pointDiagramElements = ref.chartItems;
+          console.log(this.pointDiagramElements);
+        }
+      ));
+  }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    for (const subscription of this.subscriptions) {
+      subscription.unsubscribe();
+    }
   }
 
   containerIsMock(): string {
