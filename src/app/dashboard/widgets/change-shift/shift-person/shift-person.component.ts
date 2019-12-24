@@ -28,16 +28,6 @@ export class ShiftPersonComponent implements OnInit {
   @ViewChild("dropdown", { static: false }) ddMenu: ElementRef;
   @ViewChild("insideElement", { static: false }) insideElement: ElementRef;
 
-  // @HostListener("document:click", ["$event.target"])
-  // public onClick(targetElement) {
-  //   const clickedInside = this.insideElement.nativeElement.contains(
-  //     targetElement
-  //   );
-  //   if (!clickedInside) {
-  //     console.log("outside clicked");
-  //   }
-  // }
-
   mapPosition = [
     {
       code: "responsible",
@@ -146,7 +136,7 @@ export class ShiftPersonComponent implements OnInit {
         break;
       case "Отсутствует":
         console.log(person);
-        if (person.employee.brigade) {
+        if (person.employee.brigade.id === this.currentBrigade) {
           this.shiftService.changeStatus(
             "absent",
             person.employee.id,
@@ -177,7 +167,12 @@ export class ShiftPersonComponent implements OnInit {
   }
 
   addToShift(id) {
-    if (!this.onShift)
+    if (!this.onShift) {
       this.shiftService.addMember(id, this.shiftId);
+      const event = new CustomEvent(
+        'changeShift_clickAddBtn',
+      );
+      document.dispatchEvent(event);
+    }
   }
 }

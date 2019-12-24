@@ -3,12 +3,17 @@ import {
   OnInit,
   ViewChild,
   ElementRef,
-  Inject
+  Inject, HostListener
 } from "@angular/core";
 import { ShiftService } from "../../services/shift.service";
 import { Subscription } from "rxjs";
 import { NewWidgetService } from "../../services/new-widget.service";
 import { Shift, ShiftMember } from "../../models/shift.model";
+
+interface CommentModel {
+  id: number;
+
+}
 
 @Component({
   selector: "evj-change-shift",
@@ -19,6 +24,7 @@ export class ChangeShiftComponent implements OnInit {
   @ViewChild("input", { static: false }) input: ElementRef;
   @ViewChild("scroll", { static: false }) scroll: ElementRef;
   @ViewChild("allPeople", { static: false }) allPeople: ElementRef;
+  @ViewChild("addShift", { static: false }) addShift: ElementRef;
 
   mapPosition = [
     {
@@ -49,24 +55,26 @@ export class ChangeShiftComponent implements OnInit {
     @Inject("isMock") public isMock: boolean,
     @Inject("widgetId") public id: string
   ) {
-    this.shiftService.shiftPass.subscribe(data => {
-      if (this.aboutWidget) {
-        this.setRealtimeData(this.aboutWidget.widgetType, data);
-      }
-    });
-
-    this.subscription = this.widgetService
-      .getWidgetChannel(this.id)
-      .subscribe(data => {
-        this.aboutWidget = data;
-        this.setRealtimeData(
-          this.aboutWidget.widgetType,
-          this.shiftService.shiftPass.getValue()
-        );
+      this.subscription = this.widgetService
+        .getWidgetChannel(this.id)
+        .subscribe(data => {
+          this.aboutWidget = data;
+          try {
+            this.setRealtimeData(
+              this.aboutWidget.widgetType,
+              this.shiftService.shiftPass.getValue()
+            );
+          } catch { }
+        });
+      this.shiftService.shiftPass.subscribe(data => {
+        if (this.aboutWidget) {
+          this.setRealtimeData(this.aboutWidget.widgetType, data);
+        }
       });
   }
 
   ngOnInit() {
+
   }
 
   private setRealtimeData(widgetType, data) {
@@ -83,7 +91,7 @@ export class ChangeShiftComponent implements OnInit {
       let index = this.currentShift.shiftMembers.findIndex(
         item => item.position === "responsible"
       );
-      if(index === -1) {
+      if (index === -1) {
         console.warn("No responsible found in shift: " + JSON.stringify(this.currentShift));
         index = 0;
       }
@@ -100,20 +108,6 @@ export class ChangeShiftComponent implements OnInit {
     this.presentMembers = this.currentShift.shiftMembers.filter(
       el => el.status !== "absent"
     );
-
-    const tempShiftMembers = this.shiftService.allMembers.filter(
-      el => !this.currentShift.shiftMembers.some(em => em.employee.id === el.id)
-    );
-    for (const i in tempShiftMembers) {
-      const addingShiftMember: ShiftMember = new (class implements ShiftMember {
-        employee = null;
-        shiftType = null;
-        status = null;
-        position = "common";
-      })();
-      addingShiftMember.employee = tempShiftMembers[i];
-      this.addingShiftMembers.push(addingShiftMember);
-    }
   }
 
   getDisplayPosition(code): string {
@@ -122,14 +116,23 @@ export class ChangeShiftComponent implements OnInit {
     }
   }
 
-  onSendMessage() {
+  async onSendMessage() {
     if (this.input.nativeElement.value) {
-      this.comments.push(this.input.nativeElement.value);
-      this.input.nativeElement.value = "";
+      const comment = await this.shiftService.sendComment(
+        this.currentShift.shiftMembers.find(el => el.position === 'responsible').employee.id,
+        this.currentShift.id,
+        this.input.nativeElement.value,
+        this.aboutWidget.widgetType);
+      this.setMessage(comment);
     }
     setTimeout(() => {
       this.scrollBottom();
     }, 50);
+  }
+
+  private setMessage(comment: string): void {
+    this.comments.push(comment);
+    this.input.nativeElement.value = "";
   }
 
   onEnterPush(event?: any) {
@@ -148,16 +151,43 @@ export class ChangeShiftComponent implements OnInit {
     }
   }
 
-  showPeople(event: any) {
-    const classes: DOMTokenList = event.target.classList;
+  showPeople() {
+    const classes: DOMTokenList = this.addShift.nativeElement.classList;
     if (classes.contains("onShift__add-active")) {
       classes.remove("onShift__add-active");
       this.allPeople.nativeElement.classList.remove(
         "onShift__allPeople-active"
       );
     } else {
+      this.showFreeShiftMembers();
       classes.add("onShift__add-active");
       this.allPeople.nativeElement.classList.add("onShift__allPeople-active");
+    }
+  }
+
+  @HostListener('document:changeShift_clickAddBtn', ['$event'])
+  removeAddPeople() {
+    const classes: DOMTokenList = this.addShift.nativeElement.classList;
+    if (classes.contains("onShift__add-active")) {
+      classes.remove("onShift__add-active");
+      this.allPeople.nativeElement.classList.remove(
+        "onShift__allPeople-active"
+      );
+    }
+  }
+
+  async showFreeShiftMembers() {
+    const tempShiftMembers = await this.shiftService.getFreeShiftMembers(this.currentShift.id);
+    this.addingShiftMembers.splice(0, this.addingShiftMembers.length);
+    for (const i in tempShiftMembers) {
+      const addingShiftMember: ShiftMember = new (class implements ShiftMember {
+        employee = null;
+        shiftType = null;
+        status = null;
+        position = "common";
+      })();
+      addingShiftMember.employee = tempShiftMembers[i];
+      this.addingShiftMembers.push(addingShiftMember);
     }
   }
 
