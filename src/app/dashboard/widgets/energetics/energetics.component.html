@@ -176,6 +176,44 @@
                   "
                 ></circle>
 
+                <!-- Точки на концах линий -->
+                <circle
+                  [attr.cx]="
+                    diaEndsLine(energyCircleDiagram.termo, termoRadius).xCen
+                  "
+                  [attr.cy]="
+                    diaEndsLine(energyCircleDiagram.termo, termoRadius).yCen
+                  "
+                  [attr.r]="radPoint"
+                  fill="colorBg"
+                  [attr.stroke]="diaFill(energyCircleDiagram.termo)"
+                  stroke-width="0.3"
+                ></circle>
+                <circle
+                  [attr.cx]="
+                    diaEndsLine(energyCircleDiagram.electro, electroRadius).xCen
+                  "
+                  [attr.cy]="
+                    diaEndsLine(energyCircleDiagram.electro, electroRadius).yCen
+                  "
+                  [attr.r]="radPoint"
+                  fill="colorBg"
+                  [attr.stroke]="diaFill(energyCircleDiagram.electro)"
+                  stroke-width="0.3"
+                ></circle>
+                <circle
+                  [attr.cx]="
+                    diaEndsLine(energyCircleDiagram.fuel, fuelRadius).xCen
+                  "
+                  [attr.cy]="
+                    diaEndsLine(energyCircleDiagram.fuel, fuelRadius).yCen
+                  "
+                  [attr.r]="radPoint"
+                  fill="colorBg"
+                  [attr.stroke]="diaFill(energyCircleDiagram.fuel)"
+                  stroke-width="0.3"
+                ></circle>
+
                 <line
                   [attr.x1]="diaLimits(energyCircleDiagram.lowerLimit).x1"
                   [attr.y1]="diaLimits(energyCircleDiagram.lowerLimit).y1"
