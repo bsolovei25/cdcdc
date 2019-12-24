@@ -16,7 +16,7 @@
   <ng-container *ngIf="isMock">
     <div class="mock">
       <div class="diagrams scroll-bar">
-        <div class="diagrams__item" *ngFor="let item of array; let i = index">
+        <div class="diagrams__item" *ngFor="let item of pointDiagramElements; let i = index">
           <evj-one-column
             [item]="item"
             [isDiagram]="true"
@@ -46,12 +46,12 @@
       </div>
       <div class="body scroll-bar">
         <div class="row">
-          <div class="row__items" *ngFor="let item of array">
+          <div class="row__items" *ngFor="let item of pointDiagramElements">
             <evj-one-column [item]="item" [isDiagram]="false"></evj-one-column>
           </div>
         </div>
         <div class="diagrams scroll-bar">
-          <div class="diagrams__item" *ngFor="let item of array">
+          <div class="diagrams__item" *ngFor="let item of pointDiagramElements">
             <evj-one-column [item]="item" [isDiagram]="true"></evj-one-column>
           </div>
         </div>
