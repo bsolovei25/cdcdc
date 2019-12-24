@@ -127,3 +127,24 @@
 .imgblock img{
  height: 140px;
 }
+
+svg:hover {
+  stroke: white !important;
+  fill: white !important;
+}
+
+.test{
+  height: 200px;
+  x: 200;
+  width: 200px;
+  position: absolute;
+  fill: red;
+}
+
+.test ::ng-deep .st2{
+  fill: red;
+}
+
+object #document svg {
+  stroke: red !important;
+}

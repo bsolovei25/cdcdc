@@ -60,6 +60,8 @@ export class NewWidgetsGridComponent implements OnInit {
       fixedRowHeight: 20,
       maxItemCols:10000,
       maxItemRows:10000,
+      minItemCols:1,
+      minItemRows:1,
       maxRows: 100000,
       maxCols: 100000,
       pushItems: true,

@@ -55,7 +55,10 @@ import { CircleDiagramComponent } from './widgets/circle-diagram/circle-diagram.
 import { DeviationsTableComponent } from './widgets/deviations-table/deviations-table.component';
 import { TriggeringCriticalParametersComponent } from './widgets/triggering-critical-parameters/triggering-critical-parameters.component';
 import { CircleFactoryDiagramComponent } from './widgets/circle-factory-diagram/circle-factory-diagram.component';
+import { SemicircleEnergyComponent } from './widgets/semicircle-energy/semicircle-energy.component';
+import { ProductStocksComponent } from './widgets/product-stocks/product-stocks.component';
 import { PolarChartComponent } from './widgets/polar-chart/polar-chart.component';
+import { DeviationCircleDiagramComponent } from './widgets/deviation-circle-diagram/deviation-circle-diagram.component';
 
 @NgModule({
   declarations: [
@@ -107,7 +110,10 @@ import { PolarChartComponent } from './widgets/polar-chart/polar-chart.component
     DeviationsTableComponent,
     TriggeringCriticalParametersComponent,
     CircleFactoryDiagramComponent,
+    SemicircleEnergyComponent,
+    ProductStocksComponent,
     PolarChartComponent,
+    DeviationCircleDiagramComponent,
   ],
   entryComponents: [
     LineChartComponent,
@@ -141,7 +147,10 @@ import { PolarChartComponent } from './widgets/polar-chart/polar-chart.component
     DeviationsTableComponent,
     TriggeringCriticalParametersComponent,
     CircleFactoryDiagramComponent,
-    PolarChartComponent
+    ProductStocksComponent,
+    PolarChartComponent,
+    SemicircleEnergyComponent,
+    DeviationCircleDiagramComponent
   ],
   exports: [HomeComponent],
   imports: [
