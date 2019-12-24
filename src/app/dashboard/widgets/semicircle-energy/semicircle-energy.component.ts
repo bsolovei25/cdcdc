@@ -28,7 +28,7 @@ export class SemicircleEnergyComponent implements OnInit {
     {
       name: "Пр-во 1",
       plan: 0.0215,
-      fact: 0.0213
+      fact: 0.0214
     },
     {
       name: "Пр-во 2",
@@ -66,6 +66,7 @@ export class SemicircleEnergyComponent implements OnInit {
   radProd3 = (15.91549430918954 + 3).toString();
   radProd2 = (15.91549430918954 + 6).toString();
   radProd1 = (15.91549430918954 + 9).toString();
+  radPoint = "0.8";
 
   public diagramLogo: string =
     "../../../../assets/icons/widgets/energetics/termo.svg";
@@ -94,6 +95,9 @@ export class SemicircleEnergyComponent implements OnInit {
         // this.units = data.units;
         // this.name = data.name;
       });
+    this.widgetService
+      .getWidgetLiveDataFromWS(this.id, "semicircle-energy")
+      .subscribe(data => data);
   }
 
   ngOnInit() {
@@ -211,5 +215,16 @@ export class SemicircleEnergyComponent implements OnInit {
     if (percent === this.energyCircleDiagram.upperLimit) return this.colorFull;
     if (percent > this.energyCircleDiagram.upperLimit)
       return this.colorDeviation;
+  }
+
+  diaEndsLine(line: number, rad: string) {
+    const newLine = 100 - line + +this.radPoint; // отсчет угла от 100%
+    const t = (((1.5 * Math.PI) / 2) * newLine) / 100 + (2.5 * Math.PI) / 2;
+    const r = +rad;
+    const centerOfTheEnd = {
+      xCen: (-r * Math.cos(t) + +this.centerX).toString(),
+      yCen: (r * Math.sin(t) + +this.centerY).toString()
+    };
+    return centerOfTheEnd;
   }
 }

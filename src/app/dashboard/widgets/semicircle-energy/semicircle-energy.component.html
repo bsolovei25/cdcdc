@@ -10,9 +10,21 @@
 
   <ng-container *ngIf="isMock">
     <div class="mock">
-      <img *ngIf="icontype===0" src="../../../../assets/img/termo_preview.PNG" alt="">
-      <img *ngIf="icontype===1" src="../../../../assets/img/electro_preview.PNG" alt="">
-      <img *ngIf="icontype===2" src="../../../../assets/img/fuel_preview.PNG" alt="">
+      <img
+        *ngIf="icontype === 0"
+        src="../../../../assets/img/termo_preview.PNG"
+        alt=""
+      />
+      <img
+        *ngIf="icontype === 1"
+        src="../../../../assets/img/electro_preview.PNG"
+        alt=""
+      />
+      <img
+        *ngIf="icontype === 2"
+        src="../../../../assets/img/fuel_preview.PNG"
+        alt=""
+      />
     </div>
   </ng-container>
 
@@ -69,7 +81,7 @@
             "
           ></circle>
 
-          <!-- termo dia -->
+          <!-- production2 dia -->
           <circle
             [attr.cx]="centerX"
             [attr.cy]="centerY"
@@ -118,7 +130,7 @@
             "
           ></circle>
 
-          <!-- electro dia -->
+          <!-- production3 dia -->
           <circle
             [attr.cx]="centerX"
             [attr.cy]="centerY"
@@ -167,7 +179,7 @@
             "
           ></circle>
 
-          <!-- fuel dia -->
+          <!-- production4 dia -->
           <circle
             [attr.cx]="centerX"
             [attr.cy]="centerY"
@@ -214,6 +226,56 @@
             [attr.stroke-dashoffset]="
               diaOffset(radProd4, energyCircleDiagram.upperLimit)
             "
+          ></circle>
+
+          <!-- Точки на концах линий -->
+          <circle
+            [attr.cx]="
+              diaEndsLine(energyCircleDiagram.production1, radProd1).xCen
+            "
+            [attr.cy]="
+              diaEndsLine(energyCircleDiagram.production1, radProd1).yCen
+            "
+            [attr.r]="radPoint"
+            fill="colorBg"
+            [attr.stroke]="diaFill(energyCircleDiagram.production1)"
+            stroke-width="0.3"
+          ></circle>
+          <circle
+            [attr.cx]="
+              diaEndsLine(energyCircleDiagram.production2, radProd2).xCen
+            "
+            [attr.cy]="
+              diaEndsLine(energyCircleDiagram.production2, radProd2).yCen
+            "
+            [attr.r]="radPoint"
+            fill="colorBg"
+            [attr.stroke]="diaFill(energyCircleDiagram.production2)"
+            stroke-width="0.3"
+          ></circle>
+          <circle
+            [attr.cx]="
+              diaEndsLine(energyCircleDiagram.production3, radProd3).xCen
+            "
+            [attr.cy]="
+              diaEndsLine(energyCircleDiagram.production3, radProd3).yCen
+            "
+            [attr.r]="radPoint"
+            fill="colorBg"
+            [attr.stroke]="diaFill(energyCircleDiagram.production3)"
+            stroke-width="0.3"
+          ></circle>
+          <circle
+            [attr.cx]="
+              diaEndsLine(energyCircleDiagram.production4, radProd4).xCen
+            "
+            [attr.cy]="
+              diaEndsLine(energyCircleDiagram.production4, radProd4).yCen
+            "
+            [attr.r]="radPoint"
+            fill="colorBg"
+            [attr.stroke]="diaFill(energyCircleDiagram.production4)"
+            stroke-width="0.3"
           ></circle>
 
           <line
@@ -284,7 +346,7 @@
           >
             {{ production.name }}
           </div>
-          <div class="row numbers">{{ production.plan | number:'1.4-4'}}</div>
+          <div class="row numbers">{{ production.plan | number: "1.4-4" }}</div>
           <div
             class="row numbers numbers-fact"
             [ngClass]="{
@@ -293,7 +355,7 @@
                 (production.fact / production.plan) * 100 > upperLimit
             }"
           >
-            {{ production.fact | number:'1.4-4' }}
+            {{ production.fact | number: "1.4-4" }}
           </div>
         </div>
 
