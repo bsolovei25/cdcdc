@@ -11,17 +11,17 @@
   <ng-container *ngIf="isMock">
     <div class="mock">
       <img
-        *ngIf="icontype === 0"
-        src="../../../../assets/img/termo_preview.PNG"
-        alt=""
-      />
-      <img
-        *ngIf="icontype === 1"
+        *ngIf="title==='Электрическая энергия'"
         src="../../../../assets/img/electro_preview.PNG"
         alt=""
       />
       <img
-        *ngIf="icontype === 2"
+        *ngIf="title==='Тепловая энергия'"
+        src="../../../../assets/img/termo_preview.PNG"
+        alt=""
+      />
+      <img
+        *ngIf="title==='Топливная энергия'"
         src="../../../../assets/img/fuel_preview.PNG"
         alt=""
       />

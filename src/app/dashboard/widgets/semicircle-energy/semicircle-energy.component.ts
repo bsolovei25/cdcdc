@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import { Component, OnInit, Inject, OnDestroy } from "@angular/core";
 import { NewWidgetService } from "../../services/new-widget.service";
 import { Subscription } from "rxjs";
 
@@ -7,7 +7,7 @@ import { Subscription } from "rxjs";
   templateUrl: "./semicircle-energy.component.html",
   styleUrls: ["./semicircle-energy.component.scss"]
 })
-export class SemicircleEnergyComponent implements OnInit {
+export class SemicircleEnergyComponent implements OnInit, OnDestroy {
   /* Параметры для круговых диаграмм */
 
   energyCircleDiagram = {
@@ -22,7 +22,7 @@ export class SemicircleEnergyComponent implements OnInit {
   lowerLimit = 97;
   upperLimit = 103;
 
-  icontype = 1;
+  public iconType;
 
   productionList = [
     {
@@ -68,43 +68,55 @@ export class SemicircleEnergyComponent implements OnInit {
   radProd1 = (15.91549430918954 + 9).toString();
   radPoint = "0.8";
 
-  public diagramLogo: string =
-    "../../../../assets/icons/widgets/energetics/termo.svg";
-  public diagramLogoDanger: string =
-    "../../../../assets/icons/widgets/energetics/termo_danger.svg";
+  public diagramLogo: string;
+  public diagramLogoDanger: string;
   isWarning = false;
 
   public title;
   public units = "кг/м^3";
+  public widgetType = "semicircle-energy";
 
-  subscription: Subscription;
+  subscriptions: Subscription[] = [];
 
   static itemCols = 14;
   static itemRows = 11;
+
+  public test;
 
   constructor(
     private widgetService: NewWidgetService,
     @Inject("isMock") public isMock: boolean,
     @Inject("widgetId") public id: string
   ) {
-    this.subscription = this.widgetService
-      .getWidgetChannel(this.id)
-      .subscribe(data => {
+    this.subscriptions.push(
+      this.widgetService.getWidgetChannel(this.id).subscribe(data => {
+        console.log(data);
         this.title = data.title;
         // this.code = data.code;
         // this.units = data.units;
         // this.name = data.name;
-      });
-    this.widgetService
-      .getWidgetLiveDataFromWS(this.id, "semicircle-energy")
-      .subscribe(data => data);
+      })
+    );
   }
 
   ngOnInit() {
-    // setInterval(() => {
-    //   this.warningControl();
-    // }, 5000);
-    this.drawDiagram();
+    if (!this.isMock) {
+      this.subscriptions.push(
+        this.widgetService
+          .getWidgetLiveDataFromWS(this.id, this.widgetType)
+          .subscribe(data => {
+            console.log(data);
+            this.iconType = data.iconType;
+            this.logoType();
+            this.warningControl();
+          })
+      );
+      this.drawDiagram();
+    }
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   drawDiagram() {
@@ -120,19 +132,19 @@ export class SemicircleEnergyComponent implements OnInit {
     this.energyCircleDiagram.upperLimit = this.upperLimit;
   }
 
-  logoType(flag: number) {
-    switch (flag) {
+  logoType() {
+    switch (this.iconType) {
       case 0:
-        this.diagramLogo =
-          "../../../../assets/icons/widgets/energetics/termo.svg";
-        this.diagramLogoDanger =
-          "../../../../assets/icons/widgets/energetics/termo_danger.svg";
-        return;
-      case 1:
         this.diagramLogo =
           "../../../../assets/icons/widgets/energetics/electro.svg";
         this.diagramLogoDanger =
           "../../../../assets/icons/widgets/energetics/electro_danger.svg";
+        return;
+      case 1:
+        this.diagramLogo =
+          "../../../../assets/icons/widgets/energetics/termo.svg";
+        this.diagramLogoDanger =
+          "../../../../assets/icons/widgets/energetics/termo_danger.svg";
         return;
       case 2:
         this.diagramLogo =
