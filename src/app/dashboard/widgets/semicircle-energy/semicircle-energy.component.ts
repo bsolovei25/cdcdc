@@ -90,7 +90,6 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
   ) {
     this.subscriptions.push(
       this.widgetService.getWidgetChannel(this.id).subscribe(data => {
-        console.log(data);
         this.title = data.title;
         // this.code = data.code;
         // this.units = data.units;
@@ -105,13 +104,15 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
         this.widgetService
           .getWidgetLiveDataFromWS(this.id, this.widgetType)
           .subscribe(data => {
-            console.log(data);
             this.iconType = data.iconType;
+            this.lowerLimit = data.lowerLimit;
+            this.upperLimit = data.upperLimit;
+            this.productionList = data.items.slice();
             this.logoType();
             this.warningControl();
+            this.drawDiagram();
           })
       );
-      this.drawDiagram();
     }
   }
 
@@ -120,16 +121,25 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
   }
 
   drawDiagram() {
-    this.energyCircleDiagram.production1 =
-      (this.productionList[0].fact / this.productionList[0].plan) * 100;
-    this.energyCircleDiagram.production2 =
-      (this.productionList[1].fact / this.productionList[1].plan) * 100;
-    this.energyCircleDiagram.production3 =
-      (this.productionList[2].fact / this.productionList[2].plan) * 100;
-    this.energyCircleDiagram.production4 =
-      (this.productionList[3].fact / this.productionList[3].plan) * 100;
-    this.energyCircleDiagram.lowerLimit = this.lowerLimit;
-    this.energyCircleDiagram.upperLimit = this.upperLimit;
+    this.energyCircleDiagram.production1 = this.productionList[0]
+      ? (this.productionList[0].fact / this.productionList[0].plan) * 100
+      : 0;
+
+    this.energyCircleDiagram.production2 = this.productionList[1]
+      ? (this.productionList[1].fact / this.productionList[1].plan) * 100
+      : 0;
+    this.energyCircleDiagram.production3 = this.productionList[2]
+      ? (this.productionList[2].fact / this.productionList[2].plan) * 100
+      : 0;
+    this.energyCircleDiagram.production4 = this.productionList[3]
+      ? (this.productionList[3].fact / this.productionList[3].plan) * 100
+      : 0;
+    this.energyCircleDiagram.lowerLimit = this.lowerLimit
+      ? this.lowerLimit
+      : 97;
+    this.energyCircleDiagram.upperLimit = this.upperLimit
+      ? this.upperLimit
+      : 103;
   }
 
   logoType() {

@@ -11,17 +11,17 @@
   <ng-container *ngIf="isMock">
     <div class="mock">
       <img
-        *ngIf="title==='Электрическая энергия'"
+        *ngIf="title === 'Электрическая энергия'"
         src="../../../../assets/img/electro_preview.PNG"
         alt=""
       />
       <img
-        *ngIf="title==='Тепловая энергия'"
+        *ngIf="title === 'Тепловая энергия'"
         src="../../../../assets/img/termo_preview.PNG"
         alt=""
       />
       <img
-        *ngIf="title==='Топливная энергия'"
+        *ngIf="title === 'Топливная энергия'"
         src="../../../../assets/img/fuel_preview.PNG"
         alt=""
       />
@@ -230,6 +230,7 @@
 
           <!-- Точки на концах линий -->
           <circle
+            *ngIf="energyCircleDiagram.production1"
             [attr.cx]="
               diaEndsLine(energyCircleDiagram.production1, radProd1).xCen
             "
@@ -242,6 +243,7 @@
             stroke-width="0.3"
           ></circle>
           <circle
+            *ngIf="energyCircleDiagram.production2"
             [attr.cx]="
               diaEndsLine(energyCircleDiagram.production2, radProd2).xCen
             "
@@ -254,6 +256,7 @@
             stroke-width="0.3"
           ></circle>
           <circle
+            *ngIf="energyCircleDiagram.production3"
             [attr.cx]="
               diaEndsLine(energyCircleDiagram.production3, radProd3).xCen
             "
@@ -266,6 +269,7 @@
             stroke-width="0.3"
           ></circle>
           <circle
+            *ngIf="energyCircleDiagram.production4"
             [attr.cx]="
               diaEndsLine(energyCircleDiagram.production4, radProd4).xCen
             "
