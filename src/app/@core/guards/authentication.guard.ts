@@ -14,28 +14,30 @@ export class AuthenticationGuard implements CanLoad, CanActivate, CanActivateChi
     private router: Router,
   ) { }
 
-  private async authenticationAndPermissionCheck(route: Route | ActivatedRouteSnapshot, backAddress?: string, allow403?: boolean): Promise<boolean> {
-    console.log('зашел');
-    
-   
-    return true;
+  private async authenticationCheck(route: Route | ActivatedRouteSnapshot, backAddress?: string, allow403?: boolean): Promise<boolean> {
+    try {
+      const auth = await this.authService.getUserAuth();
+      if (auth) {
+        return true
+      }
+    } catch (error) {
+      return false;
+    }
   }
 
   async canLoad(route: Route, segments: UrlSegment[]): Promise<boolean> {
-    console.log('CanLoad');
-    
     // console.log(`%cAuthenticateAndPermissionGuard.canLoad: ${route.loadChildren}`, 'background-color: #dfffd6; color: #000000;');
-    return this.authenticationAndPermissionCheck(route, segments.join('/'), true);
+    return this.authenticationCheck(route, segments.join('/'), true);
   }
 
   async canActivate(route: ActivatedRouteSnapshot, routerState: RouterStateSnapshot): Promise<boolean | UrlTree> {
     // console.log(`%cAuthenticateAndPermissionGuard.canActivate: ${routerState.url}`, 'background-color: #dfffd6; color: #000000;');
-    return this.authenticationAndPermissionCheck(route, routerState.url);
+    return this.authenticationCheck(route, routerState.url);
   }
 
   async canActivateChild(route: ActivatedRouteSnapshot, routerState: RouterStateSnapshot): Promise<boolean | UrlTree> {
     // console.log(`%cAuthenticateAndPermissionGuard.canActivateChild: ${route.component ? (route.component as any).name : undefined} ${routerState.url}`, 'background-color: #dfffd6; color: #000000;');
-    return this.authenticationAndPermissionCheck(route, routerState.url);
+    return this.authenticationCheck(route, routerState.url);
   }
 
 }

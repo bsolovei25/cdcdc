@@ -14,8 +14,8 @@ import { AuthService } from '@core/service/auth.service';
 
 export class LoginComponent implements OnInit {
 
-    login: string = '';
-    password: string = '';
+    username: string = 'Ivanov';
+    password: string = 'secret';
     isLoadingData: boolean = false;
     savePassword: boolean = false;
 
@@ -31,23 +31,25 @@ export class LoginComponent implements OnInit {
 
 
     async onSubmit(): Promise<void> {
-        this.router.navigate(['dashboard']);
-        // this.isLoadingData = true;
-        // if (!this.login || !this.password) {
+        // this.router.navigate(['dashboard']);
+        this.isLoadingData = true;
+        if (!this.username || !this.password) {
+            return;
+        }
+        // extract return path
+        const backUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 
-        //     return;
-        // }
-        // // extract return path
-        // const backUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-        // // authentication
-        // try {
-        //     await this.authService.authenticate(this.login, this.password);
-        //     this.router.navigate([backUrl]);
+        // authentication
+        try {
+            await this.authService.authenticate(this.username, this.password);
+            // this.router.navigate([backUrl]);
 
-        // } catch (err) {
+            this.router.navigate(['dashboard']);
 
-        //     this.isLoadingData = false;
-        // }
+        } catch (err) {
+
+            this.isLoadingData = false;
+        }
     }
 
 }

@@ -31,7 +31,7 @@ export class AppConfigService {
 
     get reconnectInterval(): number {
         if (!this.appConfig) {
-          throw Error('Config file not loaded!');
+            throw Error('Config file not loaded!');
         }
         return this.appConfig.reconnectInterval;
     }

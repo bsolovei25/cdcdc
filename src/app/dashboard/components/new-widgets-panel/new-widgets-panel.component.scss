@@ -176,6 +176,7 @@ gridster-item {
 
   &__heading {
     margin: 0 0 20px 0;
+    min-width: 469px;
     text-align: center;
     overflow: hidden;
   }
@@ -192,6 +193,7 @@ gridster-item {
   display: flex;
   height: 30px;
   width: 100%;
+  min-width: 469px;
   background-color: var(--color-bg-sub);
   border-radius: 8px;
   line-height: 30px;

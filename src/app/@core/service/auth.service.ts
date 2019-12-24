@@ -14,14 +14,14 @@ import { AppConfigService } from 'src/app/services/appConfigService';
 })
 export class AuthService {
 
-    private readonly restUrl: string;
+    private appConfig: any;
 
     private savePassword: boolean;
 
     user$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
     get userIsAuthenticated(): boolean {
-        return
+        return false
     }
 
     constructor(
@@ -29,29 +29,44 @@ export class AuthService {
         private http: HttpClient,
         private configService: AppConfigService
     ) {
-        this.restUrl = configService.restUrl;
+        this.loadAppConfig();
+
     }
 
-    authenticate(login: string, password: string): Promise<any> {
+    public async loadAppConfig() {
+        const data = await this.http.get('/assets/config.json').toPromise();
+        this.appConfig = data;
+    }
+
+    get restUrl(): string {
+        if (!this.appConfig) {
+            throw Error('Config file not loaded!');
+        }
+        return this.appConfig.restUrl;
+    }
+
+    async authenticate(username: string, password: string): Promise<any> {
         try {
-            return this.http.post<any>(this.restUrl + `/authenticate`, { login, password }).toPromise();
+            return await this.http.post<any>(this.restUrl + `/api/user-management/auth`, { username, password }).toPromise();
         } catch (error) {
             console.error(error);
         }
     }
 
-    async getUser(): Promise<any> {
-        // TODO check
+    async getUserAuth(): Promise<any[]> {
         try {
-            return this.http.get<any>(this.restUrl + '/api/user-management/users').toPromise();
+            return await this.http.get<any[]>(this.restUrl + '/api/user-management/current').toPromise();
         } catch (error) {
             console.error(error);
         }
     }
 
-
-    async logout(navigateToLoginComponent: boolean = true): Promise<void> {
-
+    async logOut(): Promise<any> {
+        try {
+            return await this.http.post<any>(this.restUrl + `/api/user-management/logout`, ({})).toPromise();
+        } catch (error) {
+            console.error(error);
+        }
     }
 
 }

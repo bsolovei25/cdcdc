@@ -8,7 +8,9 @@ import {SharedModule} from './@shared/shared.module';
 import {AngularSvgIconModule} from 'angular-svg-icon';
 import {AppConfigService} from './services/appConfigService';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ErrorInterceptor } from '@core/interceptors/error.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
@@ -17,7 +19,8 @@ import { HttpClientModule } from '@angular/common/http';
     RouterModule,
     AngularSvgIconModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   declarations: [
     AppComponent,
@@ -32,7 +35,8 @@ import { HttpClientModule } from '@angular/common/http';
           return appConfigService.loadAppConfig();
         };
       }
-    }
+    },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

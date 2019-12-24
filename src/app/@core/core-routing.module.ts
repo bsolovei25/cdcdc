@@ -2,13 +2,13 @@
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthenticationGuard } from './guards/authentication.guard';
+import { HomeComponent } from '../dashboard/pages/home/home.component';
 // Local modules 
 
 const routes: Routes = [
   {
     path: '',
     children: [
-      { path: 'login', component: LoginComponent },
       {
         path: 'dashboard',
         loadChildren: () => import('../dashboard/dashboard.module').then((m) => m.DashboardModule),
@@ -16,7 +16,8 @@ const routes: Routes = [
         canActivate: [AuthenticationGuard],
         canActivateChild: [AuthenticationGuard]
       },
-      { path: '**', redirectTo: 'login', pathMatch: 'full' }
+      { path: 'login', component: LoginComponent },
+      { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },
 ];
