@@ -59,6 +59,7 @@ import { SemicircleEnergyComponent } from './widgets/semicircle-energy/semicircl
 import { ProductStocksComponent } from './widgets/product-stocks/product-stocks.component';
 import { PolarChartComponent } from './widgets/polar-chart/polar-chart.component';
 import { DeviationCircleDiagramComponent } from './widgets/deviation-circle-diagram/deviation-circle-diagram.component';
+import { DashboardRoutingModule } from './dashboard-routing.module';
 
 @NgModule({
   declarations: [
@@ -161,7 +162,8 @@ import { DeviationCircleDiagramComponent } from './widgets/deviation-circle-diag
     HttpClientModule,
     FormsModule,
     GridsterModule,
-    ClickOutsideModule
+    ClickOutsideModule,
+    DashboardRoutingModule
   ],
   bootstrap: []
 })
