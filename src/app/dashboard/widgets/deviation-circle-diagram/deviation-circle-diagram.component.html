@@ -12,7 +12,6 @@
     <div class="mock">
       <div class="devi-circle">
         <div class="diagram">
-          <div class="diagram__title">{{ isMockData.maxValue }}%</div>
           <svg width="100%" height="100%" viewBox="0 0 50 50">
             <!-- outer contour dia -->
             <image
@@ -107,6 +106,10 @@
               [attr.stroke]="colorDeviation"
               stroke-width="0.5"
             ></circle>
+
+            <text [attr.x]="17" [attr.y]="27" class="svg__txt">
+              {{ isMockData.maxValue }}%
+            </text>
           </svg>
         </div>
         <div class="counters">
@@ -140,7 +143,6 @@
   <ng-container *ngIf="!isMock">
     <div class="devi-circle">
       <div class="diagram">
-        <div class="diagram__title">{{ deviationCircleDiagram.maxValue }}%</div>
         <svg width="100%" height="100%" viewBox="0 0 50 50">
           <!-- outer contour dia -->
           <image
@@ -249,6 +251,10 @@
             [attr.stroke]="colorDeviation"
             stroke-width="0.5"
           ></circle>
+
+          <text [attr.x]="17" [attr.y]="27" class="svg__txt">
+            {{ deviationCircleDiagram.maxValue }}%
+          </text>
         </svg>
       </div>
       <div class="counters">
