@@ -10,9 +10,8 @@ import { Subscription } from "rxjs";
 export class CircleBlockDiagramComponent implements OnInit {
   blockDiagram = {
     improvement: 98.2, // улучшение в %
-    disabled: 1.4,
-    noReason: 1.2,
-
+    disabled: 1.4, // отключенные блокировки в %
+    noReason: 1.2 // не указана причина снятия блокировок в %
   };
 
   isMockData = {
