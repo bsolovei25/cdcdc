@@ -60,6 +60,7 @@ import { ProductStocksComponent } from './widgets/product-stocks/product-stocks.
 import { PolarChartComponent } from './widgets/polar-chart/polar-chart.component';
 import { DeviationCircleDiagramComponent } from './widgets/deviation-circle-diagram/deviation-circle-diagram.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
+import { CircleBlockDiagramComponent } from './widgets/circle-block-diagram/circle-block-diagram.component';
 
 @NgModule({
   declarations: [
@@ -115,6 +116,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
     ProductStocksComponent,
     PolarChartComponent,
     DeviationCircleDiagramComponent,
+    CircleBlockDiagramComponent,
   ],
   entryComponents: [
     LineChartComponent,
