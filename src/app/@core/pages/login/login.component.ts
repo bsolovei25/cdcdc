@@ -1,6 +1,6 @@
 
 // Angular 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '@core/service/auth.service';
 // Angular material
@@ -12,12 +12,15 @@ import { AuthService } from '@core/service/auth.service';
     templateUrl: './login.component.html'
 })
 
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit {
 
     username: string = 'Ivanov';
     password: string = 'secret';
     isLoadingData: boolean = false;
     savePassword: boolean = false;
+
+    isLoading: boolean = true;
+    isHidden: boolean = false;
 
     constructor(
         public authService: AuthService,
@@ -26,9 +29,14 @@ export class LoginComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-
+        this.isLoading = true;
     }
 
+    ngAfterViewInit() {
+        setTimeout(() => {
+            this.isLoading = false;
+        }, 1000);
+    }
 
     async onSubmit(): Promise<void> {
         // this.router.navigate(['dashboard']);

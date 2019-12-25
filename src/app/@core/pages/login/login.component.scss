@@ -40,7 +40,7 @@ input {
   //box-shadow: 0 0 1rem rgba(0,0,0,0.3);
   min-height: 10rem;
   margin: auto;
-  max-width: 40%;
+  max-width: 400px;
   height: 100vh;
   align-items: center;
   display: flex;
@@ -71,8 +71,10 @@ input {
   transition: 250ms background ease-in;
   width: calc(100% - 3rem);
   &:focus {
-    background: white;
-    color: black;
+    border-bottom: 1px solid var(--color-border-active);
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    background: var(--color-text-diagram-transparent);
     transition: 250ms background ease-in;
   }
 }
@@ -330,9 +332,70 @@ input {
 
 .logo-gpn {
   min-width: 240px;
-  height: 60px;
-  background: url("../../../../assets/icons/gpn-logo.svg");
+  height: 90px;
+  background: url("../../../../assets/img/logo.svg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+}
+
+@-webkit-keyframes swing {
+  15% {
+    -webkit-transform: translateX(9px);
+    transform: translateX(9px);
+  }
+  30% {
+    -webkit-transform: translateX(-9px);
+    transform: translateX(-9px);
+  }
+  40% {
+    -webkit-transform: translateX(6px);
+    transform: translateX(6px);
+  }
+  50% {
+    -webkit-transform: translateX(-6px);
+    transform: translateX(-6px);
+  }
+  65% {
+    -webkit-transform: translateX(3px);
+    transform: translateX(3px);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+
+@keyframes swing {
+  15% {
+    -webkit-transform: translateX(9px);
+    transform: translateX(9px);
+  }
+  30% {
+    -webkit-transform: translateX(-9px);
+    transform: translateX(-9px);
+  }
+  40% {
+    -webkit-transform: translateX(6px);
+    transform: translateX(6px);
+  }
+  50% {
+    -webkit-transform: translateX(-6px);
+    transform: translateX(-6px);
+  }
+  65% {
+    -webkit-transform: translateX(3px);
+    transform: translateX(3px);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+
+.swing:hover {
+  -webkit-animation: swing 0.6s ease;
+  animation: swing 0.6s ease;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
 }
