@@ -9,8 +9,8 @@ import { NewWidgetService } from "../../services/new-widget.service";
 })
 export class DeviationCircleDiagramComponent implements OnInit {
   deviationCircleDiagram = {
-    deviation: 30, // отклонение в %
-    improvement: 25, // улучшение в %
+    deviation: 55, // отклонение в %
+    improvement: 40, // улучшение в %
     maxValue: 100
   };
 
@@ -76,8 +76,9 @@ export class DeviationCircleDiagramComponent implements OnInit {
   }
 
   diaLinePoint(line: number, isOuter: boolean) {
-    const newLine =line; // отсчет угла от 100%
-    const t = (2* Math.PI * newLine) / 100 - Math.PI / 2;
+    const per_cent = line / 100;
+    const t =
+      per_cent < 1 ? 2 * Math.PI * per_cent - Math.PI / 2 : (3 / 2) * Math.PI;
     const r = isOuter ? +this.radius + 3 : +this.radius - 3;
     const centerOfPoint = {
       xCen: (r * Math.cos(t) + +this.centerX).toString(),
