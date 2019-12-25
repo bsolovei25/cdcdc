@@ -1,4 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Inject } from "@angular/core";
+import { NewWidgetService } from "../../services/new-widget.service";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "evj-circle-block-diagram",
@@ -6,12 +8,7 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./circle-block-diagram.component.scss"]
 })
 export class CircleBlockDiagramComponent implements OnInit {
-  isMock = false;
-  title = "Отключенных блокировок";
-  units = "%";
-
-  deviationCircleDiagram = {
-    // отклонение в %
+  blockDiagram = {
     improvement: 98.2 // улучшение в %
   };
 
@@ -36,7 +33,28 @@ export class CircleBlockDiagramComponent implements OnInit {
 
   radius = "12";
 
-  constructor() {}
+  subscription: Subscription;
+
+  public title;
+  public units = "%";
+
+  static itemCols = 10;
+  static itemRows = 8;
+
+  constructor(
+    private widgetService: NewWidgetService,
+    @Inject("isMock") public isMock: boolean,
+    @Inject("widgetId") public id: string
+  ) {
+    this.subscription = this.widgetService
+      .getWidgetChannel(this.id)
+      .subscribe(data => {
+        this.title = data.title;
+        // this.code = data.code;
+        // this.units = data.units;
+        // this.name = data.name;
+      });
+  }
 
   ngOnInit() {}
 

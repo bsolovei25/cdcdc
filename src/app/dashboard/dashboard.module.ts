@@ -153,7 +153,8 @@ import { CircleBlockDiagramComponent } from './widgets/circle-block-diagram/circ
     ProductStocksComponent,
     PolarChartComponent,
     SemicircleEnergyComponent,
-    DeviationCircleDiagramComponent
+    DeviationCircleDiagramComponent,
+    CircleBlockDiagramComponent
   ],
   exports: [HomeComponent],
   imports: [
