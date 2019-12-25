@@ -34,6 +34,7 @@ export class DeviationCircleDiagramComponent implements OnInit {
   centerY = "25";
 
   radius = "19";
+  radPoint = "0.8";
 
   public title;
   public units = "%";
@@ -72,5 +73,16 @@ export class DeviationCircleDiagramComponent implements OnInit {
     const c: number = 2 * Math.PI * +r;
     const per_cent = line / 100;
     return (-0.75 * c).toString();
+  }
+
+  diaLinePoint(line: number, isOuter: boolean) {
+    const newLine =line; // отсчет угла от 100%
+    const t = (2* Math.PI * newLine) / 100 - Math.PI / 2;
+    const r = isOuter ? +this.radius + 3 : +this.radius - 3;
+    const centerOfPoint = {
+      xCen: (r * Math.cos(t) + +this.centerX).toString(),
+      yCen: (r * Math.sin(t) + +this.centerY).toString()
+    };
+    return centerOfPoint;
   }
 }

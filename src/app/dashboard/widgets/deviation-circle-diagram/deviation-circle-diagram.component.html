@@ -64,6 +64,7 @@
               "
             ></circle>
 
+            <!-- start dia -->
             <line
               [attr.x1]="centerX"
               [attr.y1]="3"
@@ -72,6 +73,40 @@
               [attr.stroke]="colorFull"
               stroke-width="0.5"
             />
+            <circle
+              [attr.cx]="centerX"
+              [attr.cy]="3"
+              [attr.r]="radPoint"
+              fill="colorMain"
+              [attr.stroke]="colorFull"
+              stroke-width="0.5"
+            ></circle>
+            <circle
+              [attr.cx]="centerX"
+              [attr.cy]="9"
+              [attr.r]="radPoint"
+              fill="colorMain"
+              [attr.stroke]="colorFull"
+              stroke-width="0.5"
+            ></circle>
+
+            <!-- dynamic points -->
+            <circle
+              [attr.cx]="diaLinePoint(isMockData.improvement, true).xCen"
+              [attr.cy]="diaLinePoint(isMockData.improvement, true).yCen"
+              [attr.r]="radPoint"
+              fill="colorMain"
+              [attr.stroke]="colorFull"
+              stroke-width="0.5"
+            ></circle>
+            <circle
+              [attr.cx]="diaLinePoint(isMockData.deviation, false).xCen"
+              [attr.cy]="diaLinePoint(isMockData.deviation, false).yCen"
+              [attr.r]="radPoint"
+              fill="colorMain"
+              [attr.stroke]="colorDeviation"
+              stroke-width="0.5"
+            ></circle>
           </svg>
         </div>
         <div class="counters">
@@ -163,6 +198,7 @@
             "
           ></circle>
 
+          <!-- start dia -->
           <line
             [attr.x1]="centerX"
             [attr.y1]="3"
@@ -171,6 +207,48 @@
             [attr.stroke]="colorFull"
             stroke-width="0.5"
           />
+          <circle
+            [attr.cx]="centerX"
+            [attr.cy]="3"
+            [attr.r]="radPoint"
+            fill="colorMain"
+            [attr.stroke]="colorFull"
+            stroke-width="0.5"
+          ></circle>
+          <circle
+            [attr.cx]="centerX"
+            [attr.cy]="9"
+            [attr.r]="radPoint"
+            fill="colorMain"
+            [attr.stroke]="colorFull"
+            stroke-width="0.5"
+          ></circle>
+
+          <!-- dynamic points -->
+          <circle
+            [attr.cx]="
+              diaLinePoint(deviationCircleDiagram.improvement, true).xCen
+            "
+            [attr.cy]="
+              diaLinePoint(deviationCircleDiagram.improvement, true).yCen
+            "
+            [attr.r]="radPoint"
+            fill="colorMain"
+            [attr.stroke]="colorFull"
+            stroke-width="0.5"
+          ></circle>
+          <circle
+            [attr.cx]="
+              diaLinePoint(deviationCircleDiagram.deviation, false).xCen
+            "
+            [attr.cy]="
+              diaLinePoint(deviationCircleDiagram.deviation, false).yCen
+            "
+            [attr.r]="radPoint"
+            fill="colorMain"
+            [attr.stroke]="colorDeviation"
+            stroke-width="0.5"
+          ></circle>
         </svg>
       </div>
       <div class="counters">
