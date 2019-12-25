@@ -106,7 +106,6 @@ staging:
         - ssh root@${DEPLOY_DOMAIN} "sed -i  's/:5555/:6555/g' /var/www/angular-staging.local/public/assets/config.json || sleep 0.1"
         - ssh root@${DEPLOY_DOMAIN} nginx -s reload
     only:
-        - master
         - develop
 
 prod:
