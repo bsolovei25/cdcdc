@@ -38,8 +38,8 @@ export class CircleBlockDiagramComponent implements OnInit {
   public title;
   public units = "%";
 
-  static itemCols = 10;
-  static itemRows = 8;
+  static itemCols = 15;
+  static itemRows = 17;
 
   constructor(
     private widgetService: NewWidgetService,

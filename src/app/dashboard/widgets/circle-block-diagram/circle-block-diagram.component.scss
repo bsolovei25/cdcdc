@@ -46,7 +46,7 @@
   box-sizing: border-box;
   border-left: 0.5px dashed var(--color-border-main-transparrent);
   border-right: 0.5px dashed var(--color-border-main-transparrent);
-  padding: 20px;
+  padding: 0 20px;
 
   overflow: hidden;
 
@@ -96,8 +96,4 @@
       }
     }
   }
-}
-
-.rotate {
-  transform: rotate(180deg);
 }
