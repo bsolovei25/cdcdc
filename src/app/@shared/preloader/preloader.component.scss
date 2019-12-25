@@ -10,7 +10,7 @@
   z-index: 9999;
 
   &.is-hidden {
-    animation: ends 1s ease 2s forwards;
+    animation: ends ease 500ms forwards;
   }
 
   .is-loading {

@@ -8,7 +8,19 @@ import { Component, OnInit, Input } from "@angular/core";
 export class PreLoaderComponent implements OnInit {
 
     @Input() isHidden: boolean = false;
-    @Input() isLoading: boolean = false;
+    isLoad: boolean = false;
+
+    @Input() set isLoading(data) {
+        if (data) {
+            this.isLoad = data;
+        } else {
+            this.isHidden = true;
+            setTimeout(() => {
+                this.isLoad = data;
+            }, 3000);
+        }
+    }
+
 
     constructor() { }
 
