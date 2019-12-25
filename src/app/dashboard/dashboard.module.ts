@@ -61,6 +61,7 @@ import { PolarChartComponent } from './widgets/polar-chart/polar-chart.component
 import { DeviationCircleDiagramComponent } from './widgets/deviation-circle-diagram/deviation-circle-diagram.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { CircleBlockDiagramComponent } from './widgets/circle-block-diagram/circle-block-diagram.component';
+import { ColumnChartStackedComponent } from './widgets/column-chart-stacked/column-chart-stacked.component';
 
 @NgModule({
   declarations: [
@@ -117,6 +118,7 @@ import { CircleBlockDiagramComponent } from './widgets/circle-block-diagram/circ
     PolarChartComponent,
     DeviationCircleDiagramComponent,
     CircleBlockDiagramComponent,
+    ColumnChartStackedComponent,
   ],
   entryComponents: [
     LineChartComponent,
