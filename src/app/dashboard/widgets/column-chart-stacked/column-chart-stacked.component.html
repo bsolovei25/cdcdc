@@ -1,1 +1,20 @@
-<p>column-chart-stacked works!</p>
+<div class="container pointer-event">
+  <evj-widget-header
+    [title]="title"
+    [units]="units"
+    [code]=""
+    [id]=""
+  ></evj-widget-header>
+
+  <evj-frame-top></evj-frame-top>
+
+  <ng-container *ngIf="isMock">
+    <div class="mock"></div>
+  </ng-container>
+
+  <ng-container *ngIf="!isMock">
+      <div class="col-chart"></div>
+  </ng-container>
+
+  <evj-frame-bottom></evj-frame-bottom>
+</div>

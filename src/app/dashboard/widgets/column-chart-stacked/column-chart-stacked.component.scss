@@ -1,0 +1,51 @@
+:host {
+  position: relative;
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.container {
+  position: relative;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+.mock {
+  position: relative;
+  display: block;
+  height: 144px;
+
+  box-sizing: border-box;
+  border-left: 0.5px dashed var(--color-border-main-transparrent);
+  border-right: 0.5px dashed var(--color-border-main-transparrent);
+
+  img {
+    width: 63%;
+    height: 144px;
+    margin-left: 85px;
+  }
+}
+
+.col-chart {
+    position: relative;
+
+    width: 100%;
+    height: calc(100% - 60px);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    box-sizing: border-box;
+    border-left: 0.5px dashed var(--color-border-main-transparrent);
+    border-right: 0.5px dashed var(--color-border-main-transparrent);
+
+    overflow: hidden;
+}
