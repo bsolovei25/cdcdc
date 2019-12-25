@@ -61,6 +61,7 @@
     .svg {
       &__txt {
         font-size: 7px;
+        fill: var(--color-plan);
       }
     }
   }
@@ -77,12 +78,12 @@
     justify-content: center;
     align-items: center;
 
-    .svg{
-      &__name{
+    .svg {
+      &__name {
         font-size: 8px;
       }
 
-      &__numbers{
+      &__numbers {
         font-size: 11px;
       }
     }
