@@ -78,21 +78,20 @@
       color: var(--color-plan);
     }
 
-    .svg{
-      &__title{
+    .svg {
+      &__title {
         font-size: 5px;
         fill: var(--color-fact);
         font-weight: bold;
       }
 
-      &__txt{
+      &__txt {
         font-size: 2px;
         fill: var(--color-text-sub-heading);
       }
 
-      &__number{
+      &__number {
         font-size: 4px;
-
       }
     }
   }

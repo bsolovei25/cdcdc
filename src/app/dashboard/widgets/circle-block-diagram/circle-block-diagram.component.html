@@ -289,6 +289,7 @@
             [attr.stroke-dashoffset]="
               diaOffset(radius, blockDiagram.improvement)
             "
+            style="transition: 0.5s;"
           ></circle>
 
           <!-- верхняя линия -->
@@ -427,8 +428,8 @@
             stroke-width="0.2"
           ></circle>
 
-          <text [attr.x]="20" [attr.y]="27" class="svg__title">
-            {{ blockDiagram.improvement }}
+          <text [attr.x]="centerX" [attr.y]="27" text-anchor="middle" class="svg__title">
+            {{ blockDiagram.improvement }}%
           </text>
           <text [attr.x]="3" [attr.y]="3.5" class="svg__txt">
             Блокировки и усовершенствованное управление

@@ -58,7 +58,13 @@ export class CircleBlockDiagramComponent implements OnInit {
       });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    setInterval(()=>{
+      this.blockDiagram.improvement = Math.floor(10 + Math.random()*(90));
+      this.blockDiagram.noReason = Math.floor(Math.random()*(15));
+      this.blockDiagram.disabled = Math.floor(Math.random()*(15));
+    },7000)
+  }
 
   /* Отрисовка дуговых диаграмм */
 
