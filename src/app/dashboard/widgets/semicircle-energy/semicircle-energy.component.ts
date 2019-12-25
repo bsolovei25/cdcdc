@@ -121,19 +121,13 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
   }
 
   drawDiagram() {
-    this.energyCircleDiagram.production1 = this.productionList[0]
-      ? (this.productionList[0].fact / this.productionList[0].plan) * 100
-      : 0;
-
-    this.energyCircleDiagram.production2 = this.productionList[1]
-      ? (this.productionList[1].fact / this.productionList[1].plan) * 100
-      : 0;
-    this.energyCircleDiagram.production3 = this.productionList[2]
-      ? (this.productionList[2].fact / this.productionList[2].plan) * 100
-      : 0;
-    this.energyCircleDiagram.production4 = this.productionList[3]
-      ? (this.productionList[3].fact / this.productionList[3].plan) * 100
-      : 0;
+    let key: string;
+    for (let i = 0; i < 4; i++) {
+      key = "production" + (i + 1);
+      this.energyCircleDiagram[key] = this.productionList[i]
+        ? (this.productionList[i].fact / this.productionList[i].plan) * 100
+        : undefined;
+    }
     this.energyCircleDiagram.lowerLimit = this.lowerLimit
       ? this.lowerLimit
       : 97;
@@ -166,25 +160,19 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
   }
 
   warningControl(): void {
-    if (
-      this.energyCircleDiagram.production1 < this.lowerLimit ||
-      this.energyCircleDiagram.production2 < this.lowerLimit ||
-      this.energyCircleDiagram.production3 < this.lowerLimit ||
-      this.energyCircleDiagram.production4 < this.lowerLimit
-    ) {
-      this.isWarning = true;
-      return;
+    let key: string;
+    for (let i = 0; i < 4; i++) {
+      key = "production" + (i + 1);
+      if (
+        this.energyCircleDiagram[key] &&
+        (this.energyCircleDiagram[key] < this.lowerLimit ||
+          this.energyCircleDiagram[key] > this.upperLimit)
+      ) {
+        this.isWarning = true;
+        return;
+      }
+      this.isWarning = false;
     }
-    if (
-      this.energyCircleDiagram.production1 > this.upperLimit ||
-      this.energyCircleDiagram.production2 > this.upperLimit ||
-      this.energyCircleDiagram.production3 > this.upperLimit ||
-      this.energyCircleDiagram.production4 > this.upperLimit
-    ) {
-      this.isWarning = true;
-      return;
-    }
-    this.isWarning = false;
   }
 
   /* Отрисовка дуговых диаграмм */
@@ -202,7 +190,6 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
 
   diaOffset(r: string, line: number): string {
     const c: number = 2 * Math.PI * +r;
-    const per_cent = line / 100;
     return (0.5 * c).toString();
   }
 
