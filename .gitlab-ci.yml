@@ -24,7 +24,8 @@ stages:
 
 .init_template: &init
     tags:
-        - basher
+        - evj-front
+
 
 docker build:
     <<: *init
@@ -36,6 +37,7 @@ docker build:
         - docker build -t ${CI_PROJECT_NAME} .
     only:
         - master
+        - develop
         - merge_requests
 
 testing website:
@@ -57,6 +59,7 @@ build artifact:
         - docker container stop ${CI_PROJECT_NAME}
     only:
         - master
+        - develop
           #- merge_requests
     artifacts:
         paths:
@@ -104,6 +107,7 @@ staging:
         - ssh root@${DEPLOY_DOMAIN} nginx -s reload
     only:
         - master
+        - develop
 
 prod:
     <<: *init
