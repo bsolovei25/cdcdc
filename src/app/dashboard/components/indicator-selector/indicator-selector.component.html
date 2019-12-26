@@ -10,7 +10,7 @@
   </span>
 
   <div class="dropdown-content"
-    [class.dropdown-content_active]="this.isShowScreens">
+    [class.dropdown-content_active]="isShowScreens">
     <ng-container *ngFor="let screen of dataScreen">
       <div
            (click)="this.setActiveScreen(screen)"
@@ -27,7 +27,7 @@
                   </div>
                   <div *ngIf="screen.updateScreen === true">
                           <input class="update_input"
-                              [(ngModel)]="this.newNameScreen">
+                              [(ngModel)]="newNameScreen">
                   </div>
                   <div class="hover-button" *ngIf="screen.updateScreen === false">
                       <div class="update_screen" (click)="onUpdateForm(screen.id)">
@@ -57,12 +57,12 @@
     </ng-container>
     <div class="dropdown-component">
       <input class="dropdown-component_input"
-             [(ngModel)]="this.tempScreen"
+             [(ngModel)]="tempScreen"
              (ngModelChange)="onChangeAdder()">
       <div class="dropdown-component_adder"
            (click)="this.addScreen()"
-           [class.dropdown-component_adder__non-active]="!this.isReadyAdd"
-           [class.dropdown-component_adder__active]="this.isReadyAdd"></div>
+           [class.dropdown-component_adder__non-active]="!isReadyAdd"
+           [class.dropdown-component_adder__active]="isReadyAdd"></div>
     </div>
   </div>
 

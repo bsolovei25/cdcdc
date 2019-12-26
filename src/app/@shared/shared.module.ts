@@ -4,6 +4,7 @@ import { HeaderComponent } from './layout/header/header.component';
 import { ContentComponent } from './layout/content/content.component';
 import { FnPipe } from './pipes/fn_pipe';
 import { PreLoaderComponent } from './preloader/preloader.component';
+import { UiElementsComponent } from './layout/ui-elements.component';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { PreLoaderComponent } from './preloader/preloader.component';
     HeaderComponent, 
     ContentComponent, 
     FnPipe,
-    PreLoaderComponent
+    PreLoaderComponent,
+    UiElementsComponent
   ],
   exports: [
     HeaderComponent,

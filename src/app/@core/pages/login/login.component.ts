@@ -3,6 +3,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '@core/service/auth.service';
+import { environment } from 'src/environments/environment';
 // Angular material
 // Local modules  
 
@@ -14,8 +15,8 @@ import { AuthService } from '@core/service/auth.service';
 
 export class LoginComponent implements OnInit, AfterViewInit {
 
-    username: string = 'Ivanov';
-    password: string = 'secret';
+    username: string = environment.username;
+    password: string = environment.password;
     isLoadingData: boolean = false;
     savePassword: boolean = false;
 
