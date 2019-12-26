@@ -14,10 +14,7 @@ export class CcsOneColumnComponent implements OnInit, AfterViewInit {
   colorFact = "#ffffff";
   colorNormal = "#A2E2FF";
 
-  pusherHeight = "100%";
-
   defaultIconPath = "../../../../../assets/icons/widgets/column-chart-stacked/";
-  public iconPath = "";
 
   constructor() {}
 
@@ -27,25 +24,23 @@ export class CcsOneColumnComponent implements OnInit, AfterViewInit {
     this.graphIcon()
   }
 
-  graphIcon(): void {
+  graphIcon(): string {
     if (this.data.iconId) {
-      this.iconPath = this.defaultIconPath + this.data.iconId + ".svg";
-      return;
+      return this.defaultIconPath + this.data.iconId + ".svg";
     }
-    this.iconPath = "";
-    return;
+    return '';
   }
 
   graphValues() {
     const maxValue: number = this.data.max + 7;
-    const plan = (this.data.plan / maxValue) * 100;
-    let fact = this.data.plan ? (this.data.fact / this.data.plan) * 100 : 0;
+    const plan = Math.round((this.data.plan / maxValue) * 100);
+    let fact = this.data.plan ? Math.round((this.data.fact / this.data.plan) * 100) : 0;
     if (this.data.fact > this.data.plan) fact = plan;
     const values = {
       plan: plan + "%",
-      fact: fact + "%"
+      fact: fact + "%",
+      pusher: (100 - plan) + "%"
     };
-    this.pusherHeight = 100 - plan + "%";
 
     return values;
   }
