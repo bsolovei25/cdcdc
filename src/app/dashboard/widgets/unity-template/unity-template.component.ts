@@ -27,6 +27,7 @@ export class UnityTemplateComponent implements OnInit {
     public widgetService: NewWidgetService,
     @Inject('isMock') public isMock: boolean,
     @Inject('widgetId') public id: string,
+    @Inject('uniqId') public uniqId: string,
     platformLocation: PlatformLocation
   ) {
     const location = (platformLocation as any).location;
