@@ -13,9 +13,10 @@ const routes: Routes = [
         loadChildren: () => import('../dashboard/dashboard.module').then((m) => m.DashboardModule),
         canLoad: [AuthenticationGuard],
         canActivate: [AuthenticationGuard],
-        canActivateChild: [AuthenticationGuard]
+        canActivateChild: [AuthenticationGuard],
+        data: { animation: 'dashboard' }
       },
-      { path: 'login', component: LoginComponent },
+      { path: 'login', component: LoginComponent, data: { animation: 'login' } },
       { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },
