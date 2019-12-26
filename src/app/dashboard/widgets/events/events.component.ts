@@ -175,6 +175,10 @@ export class EventsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.showMock(this.isMock);
+    setTimeout(() => {
+      this.overlayConfirmationOpen();
+      
+    }, 1000);
   }
 
   ngOnDestroy() {
@@ -352,10 +356,10 @@ export class EventsComponent implements OnInit, OnDestroy {
     this.eventOverlayId = undefined;
   }
 
-  overlayConfirmationOpen(n: EventsWidgetNotification) {
-    event.stopPropagation();
-    this.eventOverlayId = n.id;
-    n.retrievalEvents.length ? this.isDeleteRetrieval = true : this.isDeleteRetrieval = false;
+  overlayConfirmationOpen() {
+    // event.stopPropagation();
+    // this.eventOverlayId = n.id;
+    // n.retrievalEvents.length ? this.isDeleteRetrieval = true : this.isDeleteRetrieval = false;
     document.getElementById("overlay-confirmation-event").style.display = "block";
   }
 

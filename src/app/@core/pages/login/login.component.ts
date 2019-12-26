@@ -37,11 +37,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
     ngAfterViewInit() {
         setTimeout(() => {
             this.isLoading = false;
-        }, 1000);
+        }, 500);
     }
 
     async onSubmit(): Promise<void> {
-        // this.router.navigate(['dashboard']);
+        this.swing = false;
         this.isLoadingData = true;
         if (!this.username || !this.password) {
             return;
@@ -51,13 +51,14 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
         // authentication
         try {
-            await this.authService.authenticate(this.username, this.password);
-            // this.router.navigate([backUrl]);
-
-            this.router.navigate(['dashboard']);
+            const auth = await this.authService.authenticate(this.username, this.password);
+            if (auth) {
+                this.router.navigate(['dashboard']);
+            } else {
+                this.swing = true;
+            }
 
         } catch (err) {
-            this.swing = true;
             this.isLoadingData = false;
         }
     }

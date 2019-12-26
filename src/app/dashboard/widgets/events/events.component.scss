@@ -63,8 +63,6 @@
   box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
 }
 
-
-
 /* Show the snackbar when clicking on a button (class added with JavaScript) */
 #snackbar.show {
   visibility: visible; /* Show the snackbar */
@@ -277,7 +275,8 @@
   cursor: pointer;
   justify-content: space-between;
 
-  width: 163px;
+  width: 100%;
+  min-width: 120px;
   height: 72px;
   box-sizing: border-box;
 
@@ -1144,6 +1143,291 @@
       background-color: var(--color-bg-main);
       color: var(--color-text-sub-heading);
       font-size: 14px;
+      outline: none;
+    }
+  }
+}
+
+.event-confirm {
+  &__header {
+    &__block {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+
+  &__blocks {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+    min-width: 320px;
+  }
+
+  &__block {
+    min-height: 40px;
+    min-width: 160px;
+    margin-bottom: 10px;
+
+    &__right {
+      min-width: 130px;
+    }
+
+    &__title {
+      background-color: var(--color-bg-main);
+      margin: 0 0 0 10px;
+    }
+
+    &__body {
+      margin: 0 0 0 10px;
+      color: var(--color-text-main);
+    }
+
+    &__body__drop-down {
+      // margin: 0 0 0 10px;
+      color: var(--color-text-main);
+    }
+  }
+
+  &__block-border {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
+  &__save {
+    display: flex;
+  }
+
+  &__mock {
+    display: flex;
+    flex: 1;
+    border-right: 0.5px dashed var(--color-border-main-transparrent);
+    border-left: 0.5px dashed var(--color-border-main-transparrent);
+
+    .workspace__submit {
+      margin: auto;
+      width: 500px;
+    }
+  }
+
+  &__submit {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    min-height: 50px;
+    margin: 0 10px;
+
+    .submit {
+      &__frame {
+        position: absolute;
+        z-index: 1;
+        height: 100%;
+        width: 20px;
+        border: 2px solid var(--color-border-unactive);
+        box-sizing: border-box;
+        background: transparent;
+        &-left {
+          left: 0px;
+          top: 0px;
+          border-right: none;
+
+          &:before {
+            z-index: 1;
+            content: "";
+            position: absolute;
+
+            top: -2px;
+            left: -7px;
+
+            height: 7px;
+            width: 10px;
+
+            box-sizing: border-box;
+            transform-origin: 43% 0;
+            transform: rotate(-45deg);
+
+            border-bottom: 2px solid var(--color-border-unactive);
+            background: var(--color-bg-main);
+          }
+
+          &:after {
+            z-index: 1;
+            content: "";
+            position: absolute;
+
+            bottom: -4px;
+            left: -2px;
+
+            height: 7px;
+            width: 10px;
+
+            box-sizing: border-box;
+            transform-origin: 43% 0;
+            transform: rotate(45deg);
+
+            border-top: 2px solid var(--color-border-unactive);
+            background: var(--color-bg-main);
+          }
+        }
+        &-right {
+          right: 0px;
+          top: 0px;
+          border-left: none;
+
+          &:before {
+            z-index: 1;
+            content: "";
+            position: absolute;
+
+            top: -3px;
+            right: -7px;
+
+            height: 7px;
+            width: 10px;
+
+            box-sizing: border-box;
+            transform-origin: 43% 0;
+            transform: rotate(45deg);
+
+            border-bottom: 2px solid var(--color-border-unactive);
+            background: var(--color-bg-main);
+          }
+
+          &:after {
+            z-index: 1;
+            content: "";
+            position: absolute;
+
+            bottom: -8px;
+            right: -2px;
+
+            height: 10px;
+            width: 10px;
+
+            box-sizing: border-box;
+            transform-origin: 43% 0;
+            transform: rotate(-45deg);
+
+            border-top: 2px solid var(--color-border-unactive);
+            background: var(--color-bg-main);
+          }
+        }
+      }
+    }
+
+    &:hover {
+      // border: 0.5px solid var(--color-border-active);
+      button {
+        border: 0.5px solid var(--color-border-active);
+        background-color: var(--color-border-active-hover);
+        cursor: pointer;
+      }
+
+      .submit {
+        &__frame {
+          position: absolute;
+          z-index: 1;
+          height: 100%;
+          width: 20px;
+          border: 2px solid var(--color-border-active);
+          box-sizing: border-box;
+          background: transparent;
+          &-left {
+            left: 0px;
+            top: 0px;
+            border-right: none;
+
+            &:before {
+              z-index: 1;
+              content: "";
+              position: absolute;
+
+              top: -2px;
+              left: -7px;
+
+              height: 7px;
+              width: 10px;
+
+              box-sizing: border-box;
+              transform-origin: 43% 0;
+              transform: rotate(-45deg);
+
+              border-bottom: 2px solid var(--color-border-active);
+              background: var(--color-bg-main);
+            }
+
+            &:after {
+              z-index: 1;
+              content: "";
+              position: absolute;
+
+              bottom: -4px;
+              left: -2px;
+
+              height: 7px;
+              width: 10px;
+
+              box-sizing: border-box;
+              transform-origin: 43% 0;
+              transform: rotate(45deg);
+
+              border-top: 2px solid var(--color-border-active);
+              background: var(--color-bg-main);
+            }
+          }
+          &-right {
+            right: 0px;
+            top: 0px;
+            border-left: none;
+
+            &:before {
+              z-index: 1;
+              content: "";
+              position: absolute;
+
+              top: -3px;
+              right: -7px;
+
+              height: 7px;
+              width: 10px;
+
+              box-sizing: border-box;
+              transform-origin: 43% 0;
+              transform: rotate(45deg);
+
+              border-bottom: 2px solid var(--color-border-active);
+              background: var(--color-bg-main);
+            }
+
+            &:after {
+              z-index: 1;
+              content: "";
+              position: absolute;
+
+              bottom: -8px;
+              right: -2px;
+
+              height: 10px;
+              width: 10px;
+
+              box-sizing: border-box;
+              transform-origin: 43% 0;
+              transform: rotate(-45deg);
+
+              border-top: 2px solid var(--color-border-active);
+              background: var(--color-bg-main);
+            }
+          }
+        }
+      }
+    }
+    button {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      border: 0.5px solid var(--color-border-main-transparrent);
+      background-color: var(--color-bg-main);
+      color: var(--color-text-main);
       outline: none;
     }
   }

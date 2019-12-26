@@ -138,7 +138,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.widgetService.getWidgetChannel(id).subscribe(data => {
       this.code = data.code,
         this.title = data.title,
-       // this.units = data.units,
+        // this.units = data.units,
         this.options = data.widgetOptions;
     }));
   }
@@ -157,8 +157,10 @@ export class LineChartComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    for (const subscribe of this.subscriptions) {
-      subscribe.unsubscribe();
+    if (this.subscriptions) {
+      for (const subscribe of this.subscriptions) {
+        subscribe.unsubscribe();
+      }
     }
   }
 
@@ -306,7 +308,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
     this.x = d3Scale.scaleTime().range([0, this.width - 60]);
     this.y = d3Scale.scaleLinear().range([this.height, 0]);
 
-    if(this.data.graphs.find(d => d.graphType === 'plan')) {
+    if (this.data.graphs.find(d => d.graphType === 'plan')) {
       this.x.domain(d3Array.extent(this.data.graphs.map((v) => v.values.map((v) => v.date))[1], (d: Date) => d));
     } else {
       this.x.domain(d3Array.extent(this.data.graphs.map((v) => v.values.map((v) => v.date))[0], (d: Date) => d));
@@ -444,9 +446,9 @@ export class LineChartComponent implements OnInit, OnDestroy {
       .append('g');
     points.selectAll(".point")
       .data(d => d.values.map(i => {
-          i.type = d.graphType;
-          return i;
-        })
+        i.type = d.graphType;
+        return i;
+      })
       )
       .enter()
       .append("svg:image")

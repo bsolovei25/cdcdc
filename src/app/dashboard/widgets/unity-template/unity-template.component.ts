@@ -1,8 +1,8 @@
-import {Component, HostListener, Inject, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, HostListener, Inject, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { UnityLoader } from './UnityLoader.js';
 import { PlatformLocation } from '@angular/common';
-import {NewWidgetService} from '../../services/new-widget.service';
-import {Subscription} from 'rxjs';
+import { NewWidgetService } from '../../services/new-widget.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'evj-unity-template',
@@ -42,10 +42,14 @@ export class UnityTemplateComponent implements OnInit {
 
   ngOnDestroy() {
     console.log('destroy_unity');
-    for (const i in this.subscriptions) {
-      this.subscriptions[i].unsubscribe();
+    if (this.subscriptions) {
+      for (const i in this.subscriptions) {
+        this.subscriptions[i].unsubscribe();
+      }
     }
-    this.unityInstance.Quit(() => console.log('destroy'));
+    if (this.unityInstance) {
+      this.unityInstance.Quit(() => console.log('destroy'));
+    }
   }
 
   ngAfterViewInit() {

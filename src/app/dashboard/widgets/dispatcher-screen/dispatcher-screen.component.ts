@@ -1,8 +1,8 @@
-import {Component, HostListener, Inject, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, HostListener, Inject, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { UnityLoader } from './UnityLoader.js';
 import { PlatformLocation } from '@angular/common';
-import {NewWidgetService} from '../../services/new-widget.service';
-import {Subscription} from 'rxjs';
+import { NewWidgetService } from '../../services/new-widget.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'evj-dispatcher-screen',
@@ -29,11 +29,11 @@ export class DispatcherScreenComponent implements OnInit, AfterViewInit, OnDestr
     @Inject('widgetId') public id: string,
     platformLocation: PlatformLocation
   ) {
-      const location = (platformLocation as any).location;
-      this.baseUrl = location.origin + location.pathname.replace('dashboard', '');
-      this.subscriptions.push(this.widgetService.getWidgetChannel(id).subscribe(data => {
-        this.title = data.title;
-      }));
+    const location = (platformLocation as any).location;
+    this.baseUrl = location.origin + location.pathname.replace('dashboard', '');
+    this.subscriptions.push(this.widgetService.getWidgetChannel(id).subscribe(data => {
+      this.title = data.title;
+    }));
   }
 
   ngOnInit() {
@@ -47,8 +47,10 @@ export class DispatcherScreenComponent implements OnInit, AfterViewInit, OnDestr
 
   ngOnDestroy() {
     console.log('destroy_unity');
-    for (const i in this.subscriptions) {
-      this.subscriptions[i].unsubscribe();
+    if (this.subscriptions) {
+      for (const i in this.subscriptions) {
+        this.subscriptions[i].unsubscribe();
+      }
     }
     if (this.unityInstance) {
       this.unityInstance.Quit(() => console.log('destroy'));
@@ -87,8 +89,8 @@ export class DispatcherScreenComponent implements OnInit, AfterViewInit, OnDestr
   private wsConnect() {
     this.widgetService.getWidgetLiveDataFromWS(this.id, 'dispatcher-screen')
       .subscribe((ref) => {
-          this.CallUnityScript('Scripts', 'RefreshValues', JSON.stringify(ref));
-        }
+        this.CallUnityScript('Scripts', 'RefreshValues', JSON.stringify(ref));
+      }
       );
   }
 

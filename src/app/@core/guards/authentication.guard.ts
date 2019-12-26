@@ -15,15 +15,15 @@ export class AuthenticationGuard implements CanLoad, CanActivate, CanActivateChi
   ) { }
 
   private async authenticationCheck(route: Route | ActivatedRouteSnapshot, backAddress?: string, allow403?: boolean): Promise<boolean> {
-    // try {
-    //   const auth = await this.authService.getUserAuth();
-    //   if (auth) {
-    //     return true
-    //   }
-    // } catch (error) {
-    //   return false;
-    // }
-    return true
+    try {
+      const auth = await this.authService.getUserAuth();
+      if (auth) {
+        return true
+      }
+    } catch (error) {
+      return false;
+    }
+    // return true
   }
 
   async canLoad(route: Route, segments: UrlSegment[]): Promise<boolean> {
