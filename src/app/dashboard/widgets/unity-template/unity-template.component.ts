@@ -13,9 +13,9 @@ export class UnityTemplateComponent implements OnInit {
 
   private baseUrl: string;
   private unityInstance: any;
-  private isStart: boolean;
+  isStart: boolean;
 
-  private title: string;
+  title: string;
   private subscriptions: Subscription[] = [];
 
   private canvas: HTMLCanvasElement;
@@ -65,12 +65,12 @@ export class UnityTemplateComponent implements OnInit {
   }
 
   @HostListener('document:resize', ['$event'])
-  private OnResize(event) {
+  OnResize(event) {
     this.resize();
   }
 
   @HostListener('document:UnityTemplate_Start', ['$event', '$event.detail.param1'])
-  private OnUnityStart(event, param1) {
+  OnUnityStart(event, param1) {
     this.isStart = true;
     if (!this.unityInstance) {
       return;
@@ -79,7 +79,7 @@ export class UnityTemplateComponent implements OnInit {
   }
 
   @HostListener('document:UnityTemplate_Click', ['$event'])
-  private OnUnityClick(event) {
+  OnUnityClick(event) {
     if (!this.unityInstance) {
       return;
     }
