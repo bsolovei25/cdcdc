@@ -8,9 +8,6 @@ import { Subscription } from "rxjs";
   styleUrls: ["./column-chart-stacked.component.scss"]
 })
 export class ColumnChartStackedComponent implements OnInit {
-  public title = "Динамика отклонений";
-  public units = "шт";
-
   cols = [
     {
       plan: 7,
@@ -78,6 +75,9 @@ export class ColumnChartStackedComponent implements OnInit {
       max: 0
     }
   ];
+
+  public title;
+  public units = "шт";
 
   subscription: Subscription;
 
