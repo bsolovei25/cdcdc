@@ -33,19 +33,143 @@
 }
 
 .col-chart {
+  position: relative;
+
+  width: 100%;
+  height: calc(100% - 60px);
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  box-sizing: border-box;
+  border-left: 0.5px dashed var(--color-border-main-transparrent);
+  border-right: 0.5px dashed var(--color-border-main-transparrent);
+  padding: 0 10px 0 50px;
+
+  overflow: hidden;
+
+  .axis {
+    &-name {
+      position: absolute;
+      display: none;
+    }
+
+    &-y {
+      position: absolute;
+      height: calc(100% - 100px);
+      width: 1px;
+      box-sizing: border-box;
+      border-left: 0.5px solid var(--color-axis);
+      z-index: 2;
+      left: 0px;
+
+      &__arrow {
+        position: absolute;
+        height: 10px;
+        width: 10px;
+        background: var(--color-axis);
+        z-index: 3;
+        left: -5px;
+        top: 45px;
+        transform: rotate(-90deg);
+
+        &:before {
+          content: "";
+          position: absolute;
+          width: 13px;
+          height: 10px;
+          background: var(--color-bg-main);
+          z-index: 4;
+          transform: rotate(15deg);
+          top: -6px;
+          left: 0px;
+        }
+
+        &:after {
+          content: "";
+          position: absolute;
+          width: 13px;
+          height: 10px;
+          background: var(--color-bg-main);
+          z-index: 4;
+          transform: rotate(-15deg);
+          bottom: -6px;
+          left: 0px;
+        }
+      }
+    }
+
+    &-x {
+      position: absolute;
+      width: 99%;
+      height: 1px;
+      box-sizing: border-box;
+      border-bottom: 0.5px solid var(--color-axis);
+      z-index: 2;
+      bottom: 50px;
+      left: 0px;
+
+      &__arrow {
+        position: absolute;
+        height: 10px;
+        width: 10px;
+        background: var(--color-axis);
+        z-index: 3;
+        right: 5px;
+        bottom: 45px;
+
+        &:before {
+          content: "";
+          position: absolute;
+          width: 13px;
+          height: 10px;
+          background: var(--color-bg-main);
+          z-index: 4;
+          transform: rotate(15deg);
+          top: -6px;
+          left: 0px;
+        }
+
+        &:after {
+          content: "";
+          position: absolute;
+          width: 13px;
+          height: 10px;
+          background: var(--color-bg-main);
+          z-index: 4;
+          transform: rotate(-15deg);
+          bottom: -6px;
+          left: 0px;
+        }
+      }
+    }
+  }
+
+  .graph {
     position: relative;
-
     width: 100%;
-    height: calc(100% - 60px);
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+    height: 100%;
 
     box-sizing: border-box;
-    border-left: 0.5px dashed var(--color-border-main-transparrent);
-    border-right: 0.5px dashed var(--color-border-main-transparrent);
+    overflow-x: auto;
+    overflow-y: hidden;
 
-    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    &__cols {
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+    }
+  }
 }

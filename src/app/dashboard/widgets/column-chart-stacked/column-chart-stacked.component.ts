@@ -10,6 +10,8 @@ export class ColumnChartStackedComponent implements OnInit {
   public title = "Динамика отклонений";
   public units = "шт";
 
+  cols=['',''];
+
   constructor() {}
 
   ngOnInit() {}
