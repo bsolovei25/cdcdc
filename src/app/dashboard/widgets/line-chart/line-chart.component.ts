@@ -174,7 +174,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
   }
 
   @HostListener('document:resize', ['$event'])
-  private OnResize(event) {
+  OnResize(event) {
     if (this.dataLine) {
       this.draw(this.dataLine);
     }

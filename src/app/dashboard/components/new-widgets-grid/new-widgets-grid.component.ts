@@ -1,5 +1,5 @@
 import { Component, OnInit, Injector, Inject } from '@angular/core';
-import {WIDGETS} from '../new-widgets-grid/widget-map';
+import { WIDGETS } from '../new-widgets-grid/widget-map';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { WidgetModel } from '../../models/widget.model';
 import { GridsterConfig, GridType, GridsterItem, GridsterItemComponentInterface, DisplayGrid } from 'angular-gridster2';
@@ -15,9 +15,9 @@ export class NewWidgetsGridComponent implements OnInit {
 
   public readonly WIDGETS = WIDGETS;
 
-  public options:GridsterConfig;
+  public options: GridsterConfig;
 
-  model:WidgetModel;
+  model: WidgetModel;
 
   public indexWidget;
 
@@ -31,7 +31,7 @@ export class NewWidgetsGridComponent implements OnInit {
     public widgetService: NewWidgetService,
     public injector: Injector,
     public userSettings: NewUserSettingsService
-    ){ }
+  ) { }
 
   ngOnInit() {
     this.userSettings.GetScreen();
@@ -58,23 +58,23 @@ export class NewWidgetsGridComponent implements OnInit {
       itemResizeCallback: this.resizeGridsterElement.bind(this),
       fixedColWidth: 20,
       fixedRowHeight: 20,
-      maxItemCols:10000,
-      maxItemRows:10000,
-      minItemCols:1,
-      minItemRows:1,
+      maxItemCols: 10000,
+      maxItemRows: 10000,
+      minItemCols: 1,
+      minItemRows: 1,
       maxRows: 100000,
       maxCols: 100000,
       pushItems: true,
       draggable: {
         enabled: true,
-        stop: this.eventStop.bind(this),
+        stop: this.dragStop.bind(this),
         start: this.eventStart.bind(this)
       },
       resizable: {
         delayStart: 0,
         enabled: true,
         start: this.eventStart.bind(this),
-        stop: this.eventStop.bind(this),
+        stop: this.dragStop.bind(this),
         handles: {
           s: true,
           e: true,
@@ -98,21 +98,21 @@ export class NewWidgetsGridComponent implements OnInit {
   }
 
   public itemChange(item: GridsterItem, itemComponent: GridsterItemComponentInterface) {
-   this.userSettings.updateByPosition(item, itemComponent.$item);
+    this.userSettings.updateByPosition(item, itemComponent.$item);
 
-  // console.info('itemChanged', this.widgetService.dashboard);
+    // console.info('itemChanged', this.widgetService.dashboard);
   }
 
 
 
-  public onSwap(swap:any){
-    swap === true?this.options.swap=true:this.options.swap=false;
-    swap === true?this.options.pushItems=true:this.options.pushItems=false;
+  public onSwap(swap: any) {
+    swap === true ? this.options.swap = true : this.options.swap = false;
+    swap === true ? this.options.pushItems = true : this.options.pushItems = false;
     this.changedOptions();
   }
 
-  public onGrid(grid:any){
-   grid === true?this.options.displayGrid='none':this.options.displayGrid=DisplayGrid.Always;
+  public onGrid(grid: any) {
+    grid === true ? this.options.displayGrid = 'none' : this.options.displayGrid = DisplayGrid.Always;
     this.changedOptions();
   }
 
@@ -120,9 +120,9 @@ export class NewWidgetsGridComponent implements OnInit {
   public getInjector = (idWidget: string, uniqId: string): Injector => {
     return Injector.create({
       providers: [
-        { provide: 'widgetId', useValue: idWidget},
-        { provide: 'uniqId', useValue: uniqId},
-        { provide: 'isMock', useValue: false},
+        { provide: 'widgetId', useValue: idWidget },
+        { provide: 'uniqId', useValue: uniqId },
+        { provide: 'isMock', useValue: false },
       ],
       parent: this.injector
     });
@@ -138,17 +138,17 @@ export class NewWidgetsGridComponent implements OnInit {
 
     e.dataTransfer.setData('text/plain', item.toString());
     e.dataTransfer.dropEffect = 'copy';
-    this.widgetService.draggingItem  = item;
+    this.widgetService.draggingItem = item;
 
   }
 
-  public eventStop(item: GridsterItem, itemComponent: GridsterItemComponentInterface, e: MouseEvent) {
+  public dragStop(item: GridsterItem, itemComponent: GridsterItemComponentInterface, e?: MouseEvent) {
     if (!e) return;
     const dataTrasfer = new DataTransfer();
     e.currentTarget.dispatchEvent(new DragEvent('dragstop', { dataTransfer: dataTrasfer }));
     this.widgetService.draggingItem = null;
- //   this.userSettings.updateByPosition(item, itemComponent.$item);
-  //  console.log("stop", this.widgetService.dashboard);
+    //   this.userSettings.updateByPosition(item, itemComponent.$item);
+    //  console.log("stop", this.widgetService.dashboard);
   }
 
 
