@@ -22,6 +22,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
     isLoading: boolean = true;
     isHidden: boolean = false;
 
+    swing: boolean = false;
+
     constructor(
         public authService: AuthService,
         private router: Router,
@@ -55,7 +57,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
             this.router.navigate(['dashboard']);
 
         } catch (err) {
-
+            this.swing = true;
             this.isLoadingData = false;
         }
     }

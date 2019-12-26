@@ -32,7 +32,7 @@ export class UserInfoComponent implements OnInit {
 
   async loadData() {
     const data: any[] = await this.authService.getUserAuth();
-    if (data[0]) {
+    if (data && data[0]) {
       this.data = data[0];
     }
   }
