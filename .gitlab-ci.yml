@@ -54,7 +54,7 @@ build artifact:
     <<: *init
     stage: build
     script:
-        - docker exec ${CI_PROJECT_NAME} ng build --prod || docker run --rm --name ${CI_PROJECT_NAME} -p 8000:4200 -d ${CI_PROJECT_NAME} ; docker exec ${CI_PROJECT_NAME} ng build --prod
+        - docker exec ${CI_PROJECT_NAME} ng build || docker run --rm --name ${CI_PROJECT_NAME} -p 8000:4200 -d ${CI_PROJECT_NAME} ; docker exec ${CI_PROJECT_NAME} ng build
         - docker cp ${CI_PROJECT_NAME}:/app/dist/evj ./public
         - docker container stop ${CI_PROJECT_NAME}
     only:
