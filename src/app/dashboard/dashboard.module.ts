@@ -158,7 +158,8 @@ import { CcsOneColumnComponent } from './widgets/column-chart-stacked/ccs-one-co
     PolarChartComponent,
     SemicircleEnergyComponent,
     DeviationCircleDiagramComponent,
-    CircleBlockDiagramComponent
+    CircleBlockDiagramComponent,
+    ColumnChartStackedComponent
   ],
   exports: [HomeComponent],
   imports: [
