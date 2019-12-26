@@ -15,39 +15,69 @@ export class ColumnChartStackedComponent implements OnInit {
     {
       plan: 7,
       fact: 4,
-      max: 26
+      iconId: 1,
+      max: 0
     },
     {
       plan: 15,
       fact: 13,
-      max: 26
+      iconId: 2,
+      max: 0
     },
     {
       plan: 25,
       fact: 12,
-      max: 26
+      iconId: 3,
+      max: 0
     },
     {
       plan: 4,
       fact: 2,
-      max: 26
+      iconId: 4,
+      max: 0
     },
     {
-      plan: 26,
+      plan: 32,
       fact: 23,
-      max: 26
+      max: 0
     },
     {
       plan: 18,
       fact: 18,
-      max: 26
+      iconId: 5,
+      max: 0
     },
     {
       plan: 0,
       fact: 0,
-      max: 26
+      iconId: 6,
+      max: 0
     },
-];
+    {
+      plan: 13,
+      fact: 6,
+      iconId: 7,
+      max: 0
+    },
+    {
+      plan: 1,
+      fact: 0,
+      iconId: 8,
+      max: 0
+    },
+    {
+      plan: 7,
+      fact: 7,
+      iconId: 9,
+      max: 0
+    },
+    {
+      plan: 19,
+      fact: 16,
+      iconId: 10,
+      max: 0
+    }
+  ];
 
   subscription: Subscription;
 
@@ -69,5 +99,15 @@ export class ColumnChartStackedComponent implements OnInit {
       });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.findMax();
+  }
+
+  findMax() {
+    let max = 0;
+    for (let col of this.cols) {
+      max = col.plan > max ? col.plan : max;
+    }
+    this.cols.forEach(item => (item.max = max));
+  }
 }

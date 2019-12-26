@@ -1,11 +1,11 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, AfterViewInit } from "@angular/core";
 
 @Component({
   selector: "evj-ccs-one-column",
   templateUrl: "./ccs-one-column.component.html",
   styleUrls: ["./ccs-one-column.component.scss"]
 })
-export class CcsOneColumnComponent implements OnInit {
+export class CcsOneColumnComponent implements OnInit, AfterViewInit {
   @Input() data: any;
 
   colorActive = "#8c99b2";
@@ -16,14 +16,31 @@ export class CcsOneColumnComponent implements OnInit {
 
   pusherHeight = "100%";
 
+  defaultIconPath = "../../../../../assets/icons/widgets/column-chart-stacked/";
+  public iconPath = "";
+
   constructor() {}
 
   ngOnInit() {}
 
+  ngAfterViewInit() {
+    this.graphIcon()
+  }
+
+  graphIcon(): void {
+    if (this.data.iconId) {
+      this.iconPath = this.defaultIconPath + this.data.iconId + ".svg";
+      return;
+    }
+    this.iconPath = "";
+    return;
+  }
+
   graphValues() {
     const maxValue: number = this.data.max + 7;
     const plan = (this.data.plan / maxValue) * 100;
-    const fact = this.data.plan ? (this.data.fact / this.data.plan) * 100 : 0;
+    let fact = this.data.plan ? (this.data.fact / this.data.plan) * 100 : 0;
+    if (this.data.fact > this.data.plan) fact = plan;
     const values = {
       plan: plan + "%",
       fact: fact + "%"
@@ -40,7 +57,14 @@ export class CcsOneColumnComponent implements OnInit {
 
   fontColor(isOnGraph: boolean = false): string {
     if (this.data.plan === 0) return this.colorDisable;
+    if (isOnGraph && this.data.plan === this.data.fact) return this.colorNormal;
     if (isOnGraph) return this.colorFact;
+    return this.colorActive;
+  }
+
+  iconColor(): string {
+    if (this.data.plan === 0) return this.colorDisable;
+    if (this.data.plan === this.data.fact) return this.colorNormal;
     return this.colorActive;
   }
 }

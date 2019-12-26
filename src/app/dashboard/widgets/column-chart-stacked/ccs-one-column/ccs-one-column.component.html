@@ -1,4 +1,4 @@
-<div class="col">
+<div class="col" *ngIf="data">
   <div class="col__plan" [ngStyle]="{ color: fontColor() }">
     {{ data.plan }}
   </div>
@@ -20,9 +20,10 @@
     </div>
   </div>
   <div class="col__icon">
-    <img
+    <svg-icon
       class="icon"
-      src="../../../../../assets/icons/widgets/change-shift/send.svg"
-    />
+      [src]="iconPath"
+      [ngStyle]="{ fill: iconColor() }"
+    ></svg-icon>
   </div>
 </div>
