@@ -118,7 +118,9 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    if (this.subscriptions) {
+      this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    }
   }
 
   drawDiagram() {

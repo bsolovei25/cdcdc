@@ -2,7 +2,6 @@
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthenticationGuard } from './guards/authentication.guard';
-import { HomeComponent } from '../dashboard/pages/home/home.component';
 // Local modules 
 
 const routes: Routes = [

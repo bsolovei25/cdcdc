@@ -234,14 +234,14 @@
                 <span *ngIf="isDeleteRetrieval">Вы действительно хотите удалить выбранное
                   Событие и связанные Мероприятия?</span>
                 <div style="display: flex;">
-                  <div class="workspace__submit">
+                  <div class="event-confirm__submit">
                     <div class="submit__frame submit__frame-left"></div>
                     <div class="submit__frame submit__frame-right"></div>
                     <button type="submit gridster-item-content" (click)="eventClick(true, undefined, $event)">
                       Удалить
                     </button>
                   </div>
-                  <div class="workspace__submit">
+                  <div class="event-confirm__submit">
                     <div class="submit__frame submit__frame-left"></div>
                     <div class="submit__frame submit__frame-right"></div>
                     <button type="submit gridster-item-content" (click)="overlayConfirmationClose()">

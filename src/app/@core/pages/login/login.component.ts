@@ -1,6 +1,6 @@
 
 // Angular 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '@core/service/auth.service';
 // Angular material
@@ -12,12 +12,17 @@ import { AuthService } from '@core/service/auth.service';
     templateUrl: './login.component.html'
 })
 
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit {
 
     username: string = 'Ivanov';
     password: string = 'secret';
     isLoadingData: boolean = false;
     savePassword: boolean = false;
+
+    isLoading: boolean = true;
+    isHidden: boolean = false;
+
+    swing: boolean = false;
 
     constructor(
         public authService: AuthService,
@@ -26,12 +31,17 @@ export class LoginComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-
+        this.isLoading = true;
     }
 
+    ngAfterViewInit() {
+        setTimeout(() => {
+            this.isLoading = false;
+        }, 500);
+    }
 
     async onSubmit(): Promise<void> {
-        // this.router.navigate(['dashboard']);
+        this.swing = false;
         this.isLoadingData = true;
         if (!this.username || !this.password) {
             return;
@@ -41,13 +51,14 @@ export class LoginComponent implements OnInit {
 
         // authentication
         try {
-            await this.authService.authenticate(this.username, this.password);
-            // this.router.navigate([backUrl]);
-
-            this.router.navigate(['dashboard']);
+            const auth = await this.authService.authenticate(this.username, this.password);
+            if (auth) {
+                this.router.navigate(['dashboard']);
+            } else {
+                this.swing = true;
+            }
 
         } catch (err) {
-
             this.isLoadingData = false;
         }
     }
