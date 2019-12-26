@@ -26,7 +26,8 @@ export class BarChartsComponent implements OnInit {
     public widgetService: NewWidgetService,
     public userSettings: NewUserSettingsService,
     @Inject('isMock') public isMock: boolean,
-    @Inject('widgetId') public id: string
+    @Inject('widgetId') public id: string,
+    @Inject('uniqId') public uniqId: string
     ) {
       this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe(data => {
         this.title = data.title;
@@ -67,8 +68,8 @@ export class BarChartsComponent implements OnInit {
   }
 
   onRemoveButton(){
-    this.widgetService.removeItemService(this.id);
-    this.userSettings.removeItem();
+    this.widgetService.removeItemService(this.uniqId);
+    this.userSettings.removeItem(this.uniqId);
   }
   
 }

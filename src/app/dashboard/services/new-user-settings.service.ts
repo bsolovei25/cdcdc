@@ -12,7 +12,6 @@ import { filter, catchError } from 'rxjs/operators';
 })
 
 export class NewUserSettingsService {
-  // public readonly WIDGETS = WIDGETS;
   private _screens$: BehaviorSubject<ScreenSettings[]> = new BehaviorSubject(null);
 
   public screens$: Observable<ScreenSettings[]> = this._screens$.asObservable().pipe(
@@ -53,7 +52,7 @@ export class NewUserSettingsService {
     this.addWidgetApi(uniqId);
   }
 
-  public create_UUID() {
+  public create_UUID(): string {
     var dt = new Date().getTime();
     var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
       var r = (dt + Math.random() * 16) % 16 | 0;
@@ -63,7 +62,7 @@ export class NewUserSettingsService {
     return uuid;
   }
 
-  public addWidgetApi(uniqId) {
+  private addWidgetApi(uniqId: string) {
     this.save(uniqId);
     const updateWidget = this.widgetInfo;
     this.http.post(this.restUrl + '/user-management/widget/' + this.ScreenId, updateWidget)
@@ -74,7 +73,7 @@ export class NewUserSettingsService {
       );
   }
 
-  public save(uniqId) {
+  private save(uniqId: string) {
     for (const item of this.widgetService.dashboard) {
       if (item.uniqid === uniqId) {
         const cellSetting: NewUserGrid = new class implements NewUserGrid {
@@ -91,7 +90,7 @@ export class NewUserSettingsService {
     }
   }
 
-  public updateWidgetApi(uniqId) {
+  private updateWidgetApi(uniqId) {
     this.save(uniqId);
     const updateWidget = this.widgetInfo;
     this.http.put(this.restUrl + '/user-management/widget/' + uniqId, updateWidget)
@@ -114,41 +113,14 @@ export class NewUserSettingsService {
     this.updateWidgetApi(oldItem.uniqid);
   }
 
-  public removeItem() {
-    this.screenSave();
-  }
-
-  public screenSave() {
-    const UserId = this.UserId;
-    const ScreenId = this.ScreenId;
-    const userSettings: NewUserSettings = new class implements NewUserSettings {
-      userId = UserId;
-      screenId = ScreenId;
-      userGrid: NewUserGrid[] = [];
-    };
-    for (const i in this.widgetService.dashboard) {
-      const cell = this.widgetService.dashboard[i];
-      if (cell != null) {
-        const cellSetting: NewUserGrid = new class implements NewUserGrid {
-          widgetId = cell.id;
-          posX = cell.x;
-          posY = cell.y;
-          widgetType = cell.widgetType;
-          sizeX = cell.cols;
-          sizeY = cell.rows;
-          uniqueId = cell.uniqid;
-        };
-        userSettings.userGrid.push(cellSetting);
-      } else { }
-    }
-    this.http.post(this.restUrl + '/user-management/setscreen/', userSettings)
+  public removeItem(widgetId: string) {
+    this.http.delete(this.restUrl + '/user-management/widget/' + widgetId)
       .subscribe(
         ans => {
         },
         error => console.log(error)
       );
   }
-
 
   public GetScreen() {
     try {
@@ -161,14 +133,6 @@ export class NewUserSettingsService {
         });
     } catch (e) {
       console.log('Error: couldn`t get screen!');
-    }
-  }
-
-  public getUniqId(id) {
-    for (const item of this.widgetService.dashboard) {
-      if (id === item.id) {
-        return item.uniqid;
-      }
     }
   }
 
