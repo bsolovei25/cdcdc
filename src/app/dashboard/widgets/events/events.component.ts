@@ -28,7 +28,7 @@ export class EventsComponent implements OnInit, OnDestroy {
   ng
   isList = false;
 
-  title;
+  title: string = '';
   isDeleteRetrieval: boolean = false;
 
   selectedId: number = 0;
@@ -164,7 +164,9 @@ export class EventsComponent implements OnInit, OnDestroy {
     @Inject('uniqId') public uniqId: string
   ) {
     this.liveSubscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
-      this.title = data.title
+      if (data) {
+        this.title = data.title
+      }
     });
     this.updateSubscription = this.eventService.updateEvent$.subscribe((value) => {
       if (value) {

@@ -6,6 +6,7 @@ import {
     IStatus,
     ICategory
 } from '../models/events-widget';
+import { AppConfigService } from 'src/app/services/appConfigService';
 
 @Injectable({
     providedIn: 'root'
@@ -18,7 +19,9 @@ export class EventService {
     event$: BehaviorSubject<any | null> = new BehaviorSubject<any | null>(null);
     updateEvent$: BehaviorSubject<any | null> = new BehaviorSubject<any | null>(null);
 
-    constructor(public http: HttpClient) { }
+    constructor(public http: HttpClient, configService: AppConfigService) {
+        this.restUrl = configService.restUrl;
+    }
 
     async getEvent(id: number): Promise<EventsWidgetNotification> {
         // TODO check
