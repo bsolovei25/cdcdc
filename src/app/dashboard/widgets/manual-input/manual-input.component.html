@@ -46,7 +46,7 @@
     <div id="saveBar"></div>
     <div class="table-body">
       <div class="table-body_list scroll-bar">
-        <div class="table-container-1" *ngFor="let machine of this.Data">
+        <div class="table-container-1" *ngFor="let machine of Data">
           <div class="table-header-1" (click)="onActiveBlock(machine.name, $event)" >{{ machine.name }}</div>
 
           <div class="vertical-line-1"></div>
