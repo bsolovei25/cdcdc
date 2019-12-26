@@ -160,7 +160,8 @@ export class EventsComponent implements OnInit, OnDestroy {
     public userSettings: NewUserSettingsService,
     @Inject('isMock') public isMock: boolean,
     public widgetService: NewWidgetService,
-    @Inject('widgetId') public id: string
+    @Inject('widgetId') public id: string,
+    @Inject('uniqId') public uniqId: string
   ) {
     this.liveSubscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
       this.title = data.title
@@ -329,8 +330,8 @@ export class EventsComponent implements OnInit, OnDestroy {
   }
 
   onRemoveButton() {
-    this.widgetService.removeItemService(this.id);
-    this.userSettings.removeItem();
+    this.widgetService.removeItemService(this.uniqId);
+    this.userSettings.removeItem(this.uniqId);
   }
 
   async eventClick(deleteItem: boolean, eventId?: number, event?: Event) {

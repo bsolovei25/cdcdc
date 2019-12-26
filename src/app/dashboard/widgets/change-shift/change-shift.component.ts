@@ -53,7 +53,8 @@ export class ChangeShiftComponent implements OnInit {
     private widgetService: NewWidgetService,
     private shiftService: ShiftService,
     @Inject("isMock") public isMock: boolean,
-    @Inject("widgetId") public id: string
+    @Inject("widgetId") public id: string,
+    @Inject("uniqId") public uniqId: string
   ) {
       this.subscription = this.widgetService
         .getWidgetChannel(this.id)

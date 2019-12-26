@@ -102,8 +102,10 @@ export class RingSFactoryDiagramComponent implements OnInit {
     public widgetService: NewWidgetService,
     public service: NewUserSettingsService,
     @Inject('isMock') public isMock: boolean,
-    @Inject('widgetId') public id: string) {
-    this.subscriptions.push(this.widgetService.getWidgetChannel(this.id).subscribe(data => {
+    @Inject('widgetId') public id: string,
+    @Inject('uniqId') public uniqId: string
+    ) {
+      this.subscriptions.push(this.widgetService.getWidgetChannel(this.id).subscribe(data => {
       this.title = data.title;
       this.code = data.code;
       this.units = data.units;

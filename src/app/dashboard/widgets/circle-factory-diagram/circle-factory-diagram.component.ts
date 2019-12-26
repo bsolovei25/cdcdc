@@ -48,8 +48,9 @@ export class CircleFactoryDiagramComponent implements AfterViewInit {
   constructor(
     public widgetService: NewWidgetService,
     @Inject('isMock') public isMock: boolean,
-    @Inject('widgetId') public id: string
-  ) {
+    @Inject('widgetId') public id: string,
+    @Inject('uniqId') public uniqId: string
+  ) { 
     this.subscriptions.push(this.widgetService.getWidgetChannel(this.id).subscribe(data => {
       this.title = data.title;
       this.code = data.code;
