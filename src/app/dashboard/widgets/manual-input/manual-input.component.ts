@@ -29,7 +29,8 @@ export class ManualInputComponent implements OnInit, OnDestroy {
     private http: HttpClient,
     configService: AppConfigService,
     @Inject('isMock') public isMock: boolean,
-    @Inject('widgetId') public id: string
+    @Inject('widgetId') public id: string,
+    @Inject('uniqId') public uniqId: string
     ) {
       this.restUrl = configService.restUrl;
       this.isLoading = true;

@@ -54,7 +54,8 @@ export class EventsComponent implements OnInit, OnDestroy {
         all: 0,
       },
       name: 'СМОТР',
-      isActive: false
+      isActive: false,
+      url: 'https://spb25-cce-mo1.gazprom-neft.local/BLPS_MO/ru_RU/'
     },
     {
       code: 'safety',
@@ -64,7 +65,8 @@ export class EventsComponent implements OnInit, OnDestroy {
         all: 0,
       },
       name: "Безопасноть",
-      isActive: false
+      isActive: false,
+      url: '#'
     },
     {
       code: 'tasks',
@@ -74,7 +76,8 @@ export class EventsComponent implements OnInit, OnDestroy {
         all: 0,
       },
       name: 'Производственные задания',
-      isActive: false
+      isActive: false,
+      url: '#'
     },
     {
       code: 'equipmentStatus',
@@ -84,7 +87,8 @@ export class EventsComponent implements OnInit, OnDestroy {
         all: 0,
       },
       name: 'Состояния оборудования',
-      isActive: false
+      isActive: false,
+      url: 'http://spb99-t-merap01/meridium'
     },
     {
       code: 'drops',
@@ -94,7 +98,8 @@ export class EventsComponent implements OnInit, OnDestroy {
         all: 0,
       },
       name: 'Сбросы',
-      isActive: false
+      isActive: false,
+      url: '#'
     },
   ];
 
@@ -155,7 +160,8 @@ export class EventsComponent implements OnInit, OnDestroy {
     public userSettings: NewUserSettingsService,
     @Inject('isMock') public isMock: boolean,
     public widgetService: NewWidgetService,
-    @Inject('widgetId') public id: string
+    @Inject('widgetId') public id: string,
+    @Inject('uniqId') public uniqId: string
   ) {
     this.liveSubscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
       this.title = data.title
@@ -320,8 +326,8 @@ export class EventsComponent implements OnInit, OnDestroy {
   }
 
   onRemoveButton() {
-    this.widgetService.removeItemService(this.id);
-    this.userSettings.removeItem();
+    this.widgetService.removeItemService(this.uniqId);
+    this.userSettings.removeItem(this.uniqId);
   }
 
   async eventClick(deleteItem: boolean, eventId?: number, event?: Event) {
@@ -357,6 +363,11 @@ export class EventsComponent implements OnInit, OnDestroy {
   overlayConfirmationClose() {
     document.getElementById("overlay-confirmation-event").style.display = "none";
     this.eventOverlayId = undefined;
+  }
+
+  onClick(e: Event, url: string) {
+    e.stopPropagation();
+    window.open(url);
   }
 
 }

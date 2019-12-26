@@ -140,27 +140,18 @@ export class NewWidgetsPanelComponent implements OnInit {
 
   emptyCellDropClick(event: DragEvent, item: GridsterItem){ }
 
-  isLeavePanel(e){
-    this.widgetService.isOver = false;
-  }
-  isOverPanel(e) {
-    if(e){
-      this.widgetService.isOver = true;
-      this.removeItem();
-    }
-  }
-
   public getInjector = (idWidget: string): Injector => {
     return Injector.create({
       providers: [
         { provide: 'widgetId', useValue: idWidget},
+        { provide: 'uniqId', useValue: null}, // uniqId is null when isMock
         { provide: 'isMock', useValue: true},
       ],
       parent: this.injector
     });
   }
 
-  removeItem(){
-    this.userSettings.removeItem();
+  removeItem(widgetId: string){
+    this.userSettings.removeItem(widgetId);
   } 
 }

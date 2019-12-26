@@ -35,7 +35,8 @@ export class OperationEfficiencyComponent implements OnInit {
   constructor(
     private widgetService: NewWidgetService,
     @Inject("isMock") public isMock: boolean,
-    @Inject("widgetId") public id: string
+    @Inject("widgetId") public id: string,
+    @Inject("uniqId") public uniqId: string
   ) {
     this.subscription = this.widgetService
       .getWidgetChannel(this.id)

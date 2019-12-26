@@ -41,7 +41,8 @@ export class ProductStocksComponent implements OnInit, OnDestroy, AfterViewInit 
     public widgetService: NewWidgetService,
     private renderer: Renderer2,
     @Inject('isMock') public isMock: boolean,
-    @Inject('widgetId') public id: string
+    @Inject('widgetId') public id: string,
+    @Inject('uniqId') public uniqId: string
   ) {
     this.liveSubscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
       this.title = data.title

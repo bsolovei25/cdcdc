@@ -117,10 +117,11 @@ export class NewWidgetsGridComponent implements OnInit {
   }
 
 
-  public getInjector = (idWidget: string): Injector => {
+  public getInjector = (idWidget: string, uniqId: string): Injector => {
     return Injector.create({
       providers: [
         { provide: 'widgetId', useValue: idWidget},
+        { provide: 'uniqId', useValue: uniqId},
         { provide: 'isMock', useValue: false},
       ],
       parent: this.injector
