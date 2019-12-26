@@ -46,7 +46,7 @@
   box-sizing: border-box;
   border-left: 0.5px dashed var(--color-border-main-transparrent);
   border-right: 0.5px dashed var(--color-border-main-transparrent);
-  padding: 0 10px 0 50px;
+  padding: 0 10px 0 35px;
 
   .graphic {
     width: 100%;
@@ -82,36 +82,16 @@
 
       &__arrow {
         position: absolute;
-        height: 10px;
+        height: 15px;
         width: 10px;
-        background: var(--color-axis);
         z-index: 3;
-        left: -5px;
+        left: -4px;
         top: 40px;
-        transform: rotate(-90deg);
 
-        &:before {
-          content: "";
-          position: absolute;
-          width: 13px;
-          height: 10px;
-          background: var(--color-bg-main);
-          z-index: 4;
-          transform: rotate(15deg);
-          top: -6px;
-          left: 0px;
-        }
-
-        &:after {
-          content: "";
-          position: absolute;
-          width: 13px;
-          height: 10px;
-          background: var(--color-bg-main);
-          z-index: 4;
-          transform: rotate(-15deg);
-          bottom: -6px;
-          left: 0px;
+        svg-icon {
+          fill: var(--color-axis);
+          height: 100%;
+          width: 100%;
         }
       }
     }
@@ -128,35 +108,17 @@
 
       &__arrow {
         position: absolute;
-        height: 10px;
+        height: 15px;
         width: 10px;
-        background: var(--color-axis);
         z-index: 3;
-        right: 5px;
-        bottom: 45px;
+        right: 4px;
+        bottom: 43px;
+        transform: rotate(90deg);
 
-        &:before {
-          content: "";
-          position: absolute;
-          width: 13px;
-          height: 10px;
-          background: var(--color-bg-main);
-          z-index: 4;
-          transform: rotate(15deg);
-          top: -6px;
-          left: 0px;
-        }
-
-        &:after {
-          content: "";
-          position: absolute;
-          width: 13px;
-          height: 10px;
-          background: var(--color-bg-main);
-          z-index: 4;
-          transform: rotate(-15deg);
-          bottom: -6px;
-          left: 0px;
+        svg-icon {
+          fill: var(--color-axis);
+          height: 100%;
+          width: 100%;
         }
       }
     }

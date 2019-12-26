@@ -22,15 +22,26 @@
         <div class="axis">
           <div class="axis-name">{{ "количество отклонений" | lowercase }}</div>
 
-          <div class="axis-y__arrow"></div>
+          <div class="axis-y__arrow">
+            <svg-icon
+              src="../../../../assets/icons/widgets/column-chart-stacked/arrow.svg"
+            ></svg-icon>
+          </div>
         </div>
         <div class="graph scroll-bar">
           <div class="axis-y"></div>
-          <div class="axis-x__arrow"></div>
+          <div class="axis-x__arrow">
+            <svg-icon
+              src="../../../../assets/icons/widgets/column-chart-stacked/arrow.svg"
+            ></svg-icon>
+          </div>
           <div class="axis-x"></div>
           <div class="graph__cols">
             <ng-container *ngFor="let col of cols">
-              <evj-ccs-one-column [data]="col" style="height: 100%;"></evj-ccs-one-column>
+              <evj-ccs-one-column
+                [data]="col"
+                style="height: 100%;"
+              ></evj-ccs-one-column>
             </ng-container>
           </div>
         </div>
