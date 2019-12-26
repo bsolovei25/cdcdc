@@ -28,7 +28,7 @@ export class EventsComponent implements OnInit, OnDestroy {
   ng
   isList = false;
 
-  title;
+  title: string = '';
   isDeleteRetrieval: boolean = false;
 
   selectedId: number = 0;
