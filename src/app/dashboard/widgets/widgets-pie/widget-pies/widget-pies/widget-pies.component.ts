@@ -30,21 +30,15 @@ export class WidgetPiesComponent implements OnInit {
 
   constructor(
     public widgetService: NewWidgetService,
-    //public serice: NewUserSettingsService,
     @Inject('isMock') public isMock: boolean,
-    @Inject('widgetId') public id: string
-
+    @Inject('widgetId') public id: string,
+    @Inject('uniqId') public uniqId: string
     ) {
-   
-      //this.uniqal = this.serice.getUniqId(this.id);
-      
       this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe(data => {
         this.title = data.title;
         this.code = data.code;
-      //  this.units = data.units;
         this.name = data.name;
-
-      }); 
+      });
   }
 
 

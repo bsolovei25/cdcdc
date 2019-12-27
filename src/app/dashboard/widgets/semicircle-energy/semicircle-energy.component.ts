@@ -86,7 +86,8 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
   constructor(
     private widgetService: NewWidgetService,
     @Inject("isMock") public isMock: boolean,
-    @Inject("widgetId") public id: string
+    @Inject("widgetId") public id: string,
+    @Inject("uniqId") public uniqId: string
   ) {
     this.subscriptions.push(
       this.widgetService.getWidgetChannel(this.id).subscribe(data => {
@@ -117,7 +118,9 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    if (this.subscriptions) {
+      this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    }
   }
 
   drawDiagram() {

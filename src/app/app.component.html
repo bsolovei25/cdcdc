@@ -1,1 +1,4 @@
-<router-outlet></router-outlet>
+<evj-preloader></evj-preloader>
+<div [@routeAnimations]="prepareRoute(outlet)">
+    <router-outlet #outlet="outlet"></router-outlet>
+</div>

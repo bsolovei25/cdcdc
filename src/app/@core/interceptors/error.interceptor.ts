@@ -21,7 +21,7 @@ export class ErrorInterceptor implements HttpInterceptor {
   ) { }
 
   /** Intercept request with custom error handling */
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(req: HttpRequest<any>, next: HttpHandler): any {
     // pass source request
     // return next.handle(req);
     // console.log('interceprtor', req, next);
@@ -30,8 +30,10 @@ export class ErrorInterceptor implements HttpInterceptor {
       catchError((err) => {
         switch (err.status) {
           case 401:
-            console.log('401');
             this.router.navigate(['login']);
+          case 403:
+           console.error(err);
+            break;
           default:
             break;
         }

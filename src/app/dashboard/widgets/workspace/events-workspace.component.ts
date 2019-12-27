@@ -72,7 +72,8 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     private eventService: EventService,
     // private formBuilder: FormBuilder,
     @Inject("isMock") public isMock: boolean,
-    @Inject("widgetId") public id: string
+    @Inject("widgetId") public id: string,
+    @Inject("uniqId") public uniqId: string
   ) {
   }
 
@@ -98,7 +99,9 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   resetComponent() {

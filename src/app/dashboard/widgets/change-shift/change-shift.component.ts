@@ -12,7 +12,6 @@ import { Shift, ShiftMember } from "../../models/shift.model";
 
 interface CommentModel {
   id: number;
-
 }
 
 @Component({
@@ -53,24 +52,25 @@ export class ChangeShiftComponent implements OnInit {
     private widgetService: NewWidgetService,
     private shiftService: ShiftService,
     @Inject("isMock") public isMock: boolean,
-    @Inject("widgetId") public id: string
+    @Inject("widgetId") public id: string,
+    @Inject("uniqId") public uniqId: string
   ) {
-      this.subscription = this.widgetService
-        .getWidgetChannel(this.id)
-        .subscribe(data => {
-          this.aboutWidget = data;
-          try {
-            this.setRealtimeData(
-              this.aboutWidget.widgetType,
-              this.shiftService.shiftPass.getValue()
-            );
-          } catch { }
-        });
-      this.shiftService.shiftPass.subscribe(data => {
-        if (this.aboutWidget) {
-          this.setRealtimeData(this.aboutWidget.widgetType, data);
-        }
+    this.subscription = this.widgetService
+      .getWidgetChannel(this.id)
+      .subscribe(data => {
+        this.aboutWidget = data;
+        try {
+          this.setRealtimeData(
+            this.aboutWidget.widgetType,
+            this.shiftService.shiftPass.getValue()
+          );
+        } catch { }
       });
+    this.shiftService.shiftPass.subscribe(data => {
+      if (this.aboutWidget) {
+        this.setRealtimeData(this.aboutWidget.widgetType, data);
+      }
+    });
   }
 
   ngOnInit() {
@@ -166,7 +166,7 @@ export class ChangeShiftComponent implements OnInit {
   }
 
   @HostListener('document:changeShift_clickAddBtn', ['$event'])
-  removeAddPeople() {
+  removeAddPeople(event) {
     const classes: DOMTokenList = this.addShift.nativeElement.classList;
     if (classes.contains("onShift__add-active")) {
       classes.remove("onShift__add-active");

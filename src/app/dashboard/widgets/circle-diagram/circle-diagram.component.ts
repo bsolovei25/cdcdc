@@ -47,7 +47,8 @@ export class CircleDiagramComponent implements OnInit, OnDestroy {
     constructor(
         public widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,
-        @Inject('widgetId') public id: string
+        @Inject('widgetId') public id: string,
+        @Inject('uniqId') public uniqId: string
     ) {
         this.subscriptions.push(this.widgetService.getWidgetChannel(id).subscribe(data => {
             this.code = data.code,

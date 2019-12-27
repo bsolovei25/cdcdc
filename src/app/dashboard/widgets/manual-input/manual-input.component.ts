@@ -1,10 +1,10 @@
-import {Component, OnDestroy, OnInit, Input, Output, Inject, Injector} from '@angular/core';
-import {ManualInputService} from '../../services/manual-input.service';
-import {HttpClient} from '@angular/common/http';
-import {Machine_MI, ManualInputData} from '../../models/manual-input.model';
-import {Subscription} from 'rxjs';
+import { Component, OnDestroy, OnInit, Input, Output, Inject, Injector } from '@angular/core';
+import { ManualInputService } from '../../services/manual-input.service';
+import { HttpClient } from '@angular/common/http';
+import { Machine_MI, ManualInputData } from '../../models/manual-input.model';
+import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
-import {AppConfigService} from 'src/app/services/appConfigService';
+import { AppConfigService } from 'src/app/services/appConfigService';
 
 @Component({
   selector: 'evj-manual-input',
@@ -29,20 +29,21 @@ export class ManualInputComponent implements OnInit, OnDestroy {
     private http: HttpClient,
     configService: AppConfigService,
     @Inject('isMock') public isMock: boolean,
-    @Inject('widgetId') public id: string
-    ) {
-      this.restUrl = configService.restUrl;
-      this.isLoading = true;
-      this.subscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
-        this.title = data.title;
-      });
+    @Inject('widgetId') public id: string,
+    @Inject('uniqId') public uniqId: string
+  ) {
+    this.restUrl = configService.restUrl;
+    this.isLoading = true;
+    this.subscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
+      this.title = data.title;
+    });
   }
 
   public isLoading: boolean;
 
   private restUrl: string;
 
-  private Data: Machine_MI[] = [];
+  Data: Machine_MI[] = [];
 
   private flag: boolean = true;
 
@@ -58,13 +59,13 @@ export class ManualInputComponent implements OnInit, OnDestroy {
     }
   }
 
-  public onActiveBlock(name, event){
-    if(!this.isMock){
-      for(let item of this.Data){
-        if(item.name === name && event.currentTarget.parentElement.lastElementChild.className === "table-container-2-none"){
+  public onActiveBlock(name, event) {
+    if (!this.isMock) {
+      for (let item of this.Data) {
+        if (item.name === name && event.currentTarget.parentElement.lastElementChild.className === "table-container-2-none") {
           event.currentTarget.parentElement.lastElementChild.classList.remove("table-container-2-none");
           event.currentTarget.parentElement.lastElementChild.classList.add("table-container-2");
-        }else if(item.name === name && event.currentTarget.parentElement.lastElementChild.className === "table-container-2"){
+        } else if (item.name === name && event.currentTarget.parentElement.lastElementChild.className === "table-container-2") {
           event.currentTarget.parentElement.lastElementChild.classList.remove("table-container-2");
           event.currentTarget.parentElement.lastElementChild.classList.add("table-container-2-none");
         }
@@ -100,8 +101,8 @@ export class ManualInputComponent implements OnInit, OnDestroy {
 
     this.widgetService.getWidgetLiveDataFromWS(this.id, 'manual-input')
       .subscribe((ref) => {
-          this.manualInputService.LoadData(this.Data, ref);
-        }
+        this.manualInputService.LoadData(this.Data, ref);
+      }
       );
   }
   wsDisconnect() {

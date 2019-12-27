@@ -30,6 +30,7 @@ import { PolarChartComponent } from "../../widgets/polar-chart/polar-chart.compo
 import { SemicircleEnergyComponent } from "../../widgets/semicircle-energy/semicircle-energy.component";
 import { DeviationCircleDiagramComponent } from "../../widgets/deviation-circle-diagram/deviation-circle-diagram.component";
 import { CircleBlockDiagramComponent } from "../../widgets/circle-block-diagram/circle-block-diagram.component";
+import { ColumnChartStackedComponent } from "../../widgets/column-chart-stacked/column-chart-stacked.component";
 
 export const WIDGETS = {
   "pie-diagram": WidgetPiesComponent,
@@ -64,5 +65,6 @@ export const WIDGETS = {
   "polar-chart": PolarChartComponent,
   "semicircle-energy": SemicircleEnergyComponent,
   "deviation-circle-diagram": DeviationCircleDiagramComponent,
-  "circle-block-diagram": CircleBlockDiagramComponent
+  "circle-block-diagram": CircleBlockDiagramComponent,
+  "column-chart-stacked": ColumnChartStackedComponent
 };
