@@ -155,7 +155,14 @@ export class NewWidgetService {
 
       case 'point-diagram':
         return data;
+
+      case 'circle-diagram':
+        return data;
+
+      case 'polar-chart':
+        return data;
     }
+    console.warn(`unknown widget type ${widgetType}`);
   }
 
   private mapEventsWidgetData(data: EventsWidgetData): EventsWidgetData {

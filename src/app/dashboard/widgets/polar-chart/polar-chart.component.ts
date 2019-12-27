@@ -17,6 +17,8 @@ export class PolarChartComponent implements AfterViewInit {
   static itemCols = 12;
   static itemRows = 12;
 
+  private canvas: any;
+
   public title;
   public code;
   public units;
@@ -139,13 +141,13 @@ export class PolarChartComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     if (!this.isMock) {
-      this.longLines(this.pointTop, this.pointBottom);
-      this.shortLines(this.points, this.pointBottom);
-      this.valueLines(this.data, this.longLine, this.shortLine);
-      this.drawNewLine(this.data);
-      this.drawPolar(this.data, this.Polar.nativeElement);
+      this.subscriptions.push(this.widgetService.getWidgetLiveDataFromWS(this.id, 'polar-chart')
+        .subscribe((ref) => {
+          console.log(ref);
+          this.data = ref.items;
+          this.draw();
+        }));
     }
-
   }
 
   ngOnDestroy() {
@@ -157,22 +159,33 @@ export class PolarChartComponent implements AfterViewInit {
 
   }
 
+  private draw() {
+    if (this.canvas) {
+      this.canvas.remove();
+    }
+    this.longLines(this.pointTop, this.pointBottom);
+    this.shortLines(this.points, this.pointBottom);
+    this.valueLines(this.data, this.longLine, this.shortLine);
+    this.drawNewLine(this.data);
+    this.drawPolar(this.data, this.Polar.nativeElement);
+  }
+
   public drawPolar(data, el) {
     let indexBorder = 0;
     let indexLine = 0;
 
-    let canvas = d3.select(el).append("svg")
+    this.canvas = d3.select(el).append("svg")
       .attr("min-width", "100px")
       .attr("viewBox", "10 0 150 120");
 
-    let imageFrame = canvas.append("image")
+    let imageFrame = this.canvas.append("image")
       .attr("xlink:href", "./assets/pic/PolarWidget/polar_frame.png")
       .attr("height", "50px")
       .attr("width", "50px")
       .attr("x", "50")
       .attr("y", "30");
 
-    let imageLogo = canvas.append("image")
+    let imageLogo = this.canvas.append("image")
       .attr("xlink:href", "./assets/pic/PolarWidget/polar_logo.png")
       .attr("height", "10px")
       .attr("width", "10px")
@@ -182,7 +195,7 @@ export class PolarChartComponent implements AfterViewInit {
     for (let item of this.points) {
       if (item.point === 6) {
         this.index = 0;
-        canvas.append("line")
+        this.canvas.append("line")
           .attr("x1", item.x)
           .attr("y1", item.y)
           .attr("x2", this.points[this.index].x)
@@ -192,7 +205,7 @@ export class PolarChartComponent implements AfterViewInit {
           .attr("stroke-width", "0.3");
       } else {
         this.index++;
-        canvas.append("line")
+        this.canvas.append("line")
           .attr("x1", item.x)
           .attr("y1", item.y)
           .attr("x2", this.points[this.index].x)
@@ -207,7 +220,7 @@ export class PolarChartComponent implements AfterViewInit {
       for (let itemBottom of this.pointBottom) {
         if (itemBottom.line === itemTop.line) {
           if (itemBottom.line === 1 || itemBottom.line === 4) {
-            canvas.append("line")
+            this.canvas.append("line")
               .attr("x1", itemTop.x)
               .attr("y1", itemTop.y)
               .attr("x2", itemBottom.x)
@@ -218,7 +231,7 @@ export class PolarChartComponent implements AfterViewInit {
               .attr("stroke-width", "0.2");
             indexLine++;
           } else {
-            canvas.append("line")
+            this.canvas.append("line")
               .attr("x1", itemTop.x)
               .attr("y1", itemTop.y)
               .attr("x2", itemBottom.x)
@@ -236,7 +249,7 @@ export class PolarChartComponent implements AfterViewInit {
 
 
     for (let border of this.imageBorder) {
-      canvas.append("svg:image")
+      this.canvas.append("svg:image")
         .attr("xlink:href", (data[indexBorder].state === "default") ? "./assets/pic/PolarWidget/polar_border2.svg" : (data[indexBorder].state === "normal") ?
           "./assets/pic/PolarWidget/polar_border1.svg" : "./assets/pic/PolarWidget/polar_border3.svg")
         .attr("height", "80px")
@@ -247,7 +260,7 @@ export class PolarChartComponent implements AfterViewInit {
     }
 
 
-    let titleText1 = canvas.append("text")
+    let titleText1 = this.canvas.append("text")
       .attr("font-family", "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr("font-size", "1.9px")
       .attr("x", "75")
@@ -257,7 +270,7 @@ export class PolarChartComponent implements AfterViewInit {
       .text(data[0].title);
 
 
-    let forecastText1 = canvas.append("text")
+    let forecastText1 = this.canvas.append("text")
       .attr("font-family", "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr("font-size", "1.4px")
       .attr("x", "64")
@@ -265,7 +278,7 @@ export class PolarChartComponent implements AfterViewInit {
       .attr("fill", "white")
       .text("Прогноз");
 
-    let planText1 = canvas.append("text")
+    let planText1 = this.canvas.append("text")
       .attr("font-family", "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr("font-size", "1.4px")
       .attr("x", "82")
@@ -273,7 +286,7 @@ export class PolarChartComponent implements AfterViewInit {
       .attr("fill", "#a2e2ff")
       .text("План");
 
-    let forecastTextData1 = canvas.append("text")
+    let forecastTextData1 = this.canvas.append("text")
       .attr("font-family", "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr("font-size", "2.4px")
       .attr("x", "67")
@@ -282,7 +295,7 @@ export class PolarChartComponent implements AfterViewInit {
       .attr("fill", (data[0].state === "critical") ? "orange" : "white")
       .text((data[0].valueType === "procent") ? data[0].forecast + " %" : (data[0].valueType === "mln") ? data[0].forecast + " млн.т" : data[0].forecast + " EII");
 
-    let planTextData1 = canvas.append("text")
+    let planTextData1 = this.canvas.append("text")
       .attr("font-family", "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr("font-size", "2.4px")
       .attr("x", "84")
@@ -292,7 +305,7 @@ export class PolarChartComponent implements AfterViewInit {
       .text((data[0].valueType === "procent") ? data[0].plan + " %" : (data[0].valueType === "mln") ? data[0].plan + " млн.т" : data[0].plan + " EII");
 
 
-    let titleText2 = canvas.append("text")
+    let titleText2 = this.canvas.append("text")
       .attr("font-family", "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr("font-size", "1.9px")
       .attr("x", "115")
@@ -302,7 +315,7 @@ export class PolarChartComponent implements AfterViewInit {
       .text(data[1].title);
 
 
-    let forecastText2 = canvas.append("text")
+    let forecastText2 = this.canvas.append("text")
       .attr("font-family", "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr("font-size", "1.4px")
       .attr("x", "104")
@@ -310,7 +323,7 @@ export class PolarChartComponent implements AfterViewInit {
       .attr("fill", "white")
       .text("Прогноз");
 
-    let planText2 = canvas.append("text")
+    let planText2 = this.canvas.append("text")
       .attr("font-family", "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr("font-size", "1.4px")
       .attr("x", "122")
@@ -318,7 +331,7 @@ export class PolarChartComponent implements AfterViewInit {
       .attr("fill", "#a2e2ff")
       .text("План");
 
-    let forecastTextData2 = canvas.append("text")
+    let forecastTextData2 = this.canvas.append("text")
       .attr("font-family", "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr("font-size", "2.4px")
       .attr("x", "107")
@@ -327,7 +340,7 @@ export class PolarChartComponent implements AfterViewInit {
       .attr("fill", (data[1].state === "critical") ? "orange" : "white")
       .text((data[1].valueType === "procent") ? data[1].forecast + " %" : (data[1].valueType === "mln") ? data[1].forecast + " млн.т" : data[1].forecast + " EII");
 
-    let planTextData2 = canvas.append("text")
+    let planTextData2 = this.canvas.append("text")
       .attr("font-family", "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr("font-size", "2.4px")
       .attr("x", "124")
@@ -337,7 +350,7 @@ export class PolarChartComponent implements AfterViewInit {
       .text((data[1].valueType === "procent") ? data[1].plan + " %" : (data[1].valueType === "mln") ? data[1].plan + " млн.т" : data[1].plan + " EII");
 
 
-    let titleText3 = canvas.append("text")
+    let titleText3 = this.canvas.append("text")
       .attr("font-family", "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr("font-size", "1.9px")
       .attr("x", "115")
@@ -347,7 +360,7 @@ export class PolarChartComponent implements AfterViewInit {
       .text(data[2].title);
 
 
-    let forecastText3 = canvas.append("text")
+    let forecastText3 = this.canvas.append("text")
       .attr("font-family", "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr("font-size", "1.4px")
       .attr("x", "104")
@@ -355,7 +368,7 @@ export class PolarChartComponent implements AfterViewInit {
       .attr("fill", "white")
       .text("Прогноз");
 
-    let planText3 = canvas.append("text")
+    let planText3 = this.canvas.append("text")
       .attr("font-family", "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr("font-size", "1.4px")
       .attr("x", "122")
@@ -363,7 +376,7 @@ export class PolarChartComponent implements AfterViewInit {
       .attr("fill", "#a2e2ff")
       .text("План");
 
-    let forecastTextData3 = canvas.append("text")
+    let forecastTextData3 = this.canvas.append("text")
       .attr("font-family", "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr("font-size", "2.4px")
       .attr("x", "107")
@@ -372,7 +385,7 @@ export class PolarChartComponent implements AfterViewInit {
       .attr("fill", (data[2].state === "critical") ? "orange" : "white")
       .text((data[2].valueType === "procent") ? data[2].forecast + " %" : (data[2].valueType === "mln") ? data[2].forecast + " млн.т" : data[2].forecast + " EII");
 
-    let planTextData3 = canvas.append("text")
+    let planTextData3 = this.canvas.append("text")
       .attr("font-family", "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr("font-size", "2.4px")
       .attr("x", "124")
@@ -381,7 +394,7 @@ export class PolarChartComponent implements AfterViewInit {
       .attr("fill", "#a2e2ff")
       .text((data[2].valueType === "procent") ? data[2].plan + " %" : (data[2].valueType === "mln") ? data[2].plan + " млн.т" : data[2].plan + " EII");
 
-    let titleText4 = canvas.append("text")
+    let titleText4 = this.canvas.append("text")
       .attr("font-family", "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr("font-size", "1.9px")
       .attr("x", "75")
@@ -391,7 +404,7 @@ export class PolarChartComponent implements AfterViewInit {
       .text(data[3].title);
 
 
-    let forecastText4 = canvas.append("text")
+    let forecastText4 = this.canvas.append("text")
       .attr("font-family", "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr("font-size", "1.4px")
       .attr("x", "64")
@@ -399,7 +412,7 @@ export class PolarChartComponent implements AfterViewInit {
       .attr("fill", "white")
       .text("Прогноз");
 
-    let planText4 = canvas.append("text")
+    let planText4 = this.canvas.append("text")
       .attr("font-family", "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr("font-size", "1.4px")
       .attr("x", "82")
@@ -407,7 +420,7 @@ export class PolarChartComponent implements AfterViewInit {
       .attr("fill", "#a2e2ff")
       .text("План");
 
-    let forecastTextData4 = canvas.append("text")
+    let forecastTextData4 = this.canvas.append("text")
       .attr("font-family", "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr("font-size", "2.4px")
       .attr("x", "67")
@@ -416,7 +429,7 @@ export class PolarChartComponent implements AfterViewInit {
       .attr("fill", (data[3].state === "critical") ? "orange" : "white")
       .text((data[3].valueType === "procent") ? data[3].forecast + " %" : (data[3].valueType === "mln") ? data[3].forecast + " млн.т" : data[3].forecast + " EII");
 
-    let planTextData4 = canvas.append("text")
+    let planTextData4 = this.canvas.append("text")
       .attr("font-family", "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr("font-size", "2.4px")
       .attr("x", "84")
@@ -425,7 +438,7 @@ export class PolarChartComponent implements AfterViewInit {
       .attr("fill", "#a2e2ff")
       .text((data[3].valueType === "procent") ? data[3].plan + " %" : (data[3].valueType === "mln") ? data[3].plan + " млн.т" : data[3].plan + " EII");
 
-    let titleText5 = canvas.append("text")
+    let titleText5 = this.canvas.append("text")
       .attr("font-family", "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr("font-size", "1.9px")
       .attr("x", "35")
@@ -435,7 +448,7 @@ export class PolarChartComponent implements AfterViewInit {
       .text(data[4].title);
 
 
-    let forecastText5 = canvas.append("text")
+    let forecastText5 = this.canvas.append("text")
       .attr("font-family", "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr("font-size", "1.4px")
       .attr("x", "24")
@@ -443,7 +456,7 @@ export class PolarChartComponent implements AfterViewInit {
       .attr("fill", "white")
       .text("Прогноз");
 
-    let planText5 = canvas.append("text")
+    let planText5 = this.canvas.append("text")
       .attr("font-family", "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr("font-size", "1.4px")
       .attr("x", "42")
@@ -451,7 +464,7 @@ export class PolarChartComponent implements AfterViewInit {
       .attr("fill", "#a2e2ff")
       .text("План");
 
-    let forecastTextData5 = canvas.append("text")
+    let forecastTextData5 = this.canvas.append("text")
       .attr("font-family", "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr("font-size", "2.4px")
       .attr("x", "27")
@@ -460,7 +473,7 @@ export class PolarChartComponent implements AfterViewInit {
       .attr("fill", (data[4].state === "critical") ? "orange" : "white")
       .text((data[4].valueType === "procent") ? data[4].forecast + " %" : (data[4].valueType === "mln") ? data[4].forecast + " млн.т" : data[4].forecast + " EII");
 
-    let planTextData5 = canvas.append("text")
+    let planTextData5 = this.canvas.append("text")
       .attr("font-family", "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr("font-size", "2.4px")
       .attr("x", "43")
@@ -469,7 +482,7 @@ export class PolarChartComponent implements AfterViewInit {
       .attr("fill", "#a2e2ff")
       .text((data[4].valueType === "procent") ? data[4].plan + " %" : (data[4].valueType === "mln") ? data[4].plan + " млн.т" : data[4].plan + " EII");
 
-    let titleText6 = canvas.append("text")
+    let titleText6 = this.canvas.append("text")
       .attr("font-family", "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr("font-size", "1.9px")
       .attr("x", "35")
@@ -480,7 +493,7 @@ export class PolarChartComponent implements AfterViewInit {
       .text(data[5].title);
 
 
-    let forecastText6 = canvas.append("text")
+    let forecastText6 = this.canvas.append("text")
       .attr("font-family", "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr("font-size", "1.4px")
       .attr("x", "24")
@@ -488,7 +501,7 @@ export class PolarChartComponent implements AfterViewInit {
       .attr("fill", "white")
       .text("Прогноз");
 
-    let forecastTextData6 = canvas.append("text")
+    let forecastTextData6 = this.canvas.append("text")
       .attr("font-family", "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr("font-size", "2.4px")
       .attr("x", "27")
@@ -497,7 +510,7 @@ export class PolarChartComponent implements AfterViewInit {
       .attr("fill", (data[5].state === "critical") ? "orange" : "white")
       .text((data[5].valueType === "procent") ? data[5].forecast + " %" : (data[5].valueType === "mln") ? data[5].forecast + " млн.т" : data[5].forecast + " EII");
 
-    let planText6 = canvas.append("text")
+    let planText6 = this.canvas.append("text")
       .attr("font-family", "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr("font-size", "1.4px")
       .attr("x", "42")
@@ -505,7 +518,7 @@ export class PolarChartComponent implements AfterViewInit {
       .attr("fill", "#a2e2ff")
       .text("План");
 
-    let planTextData6 = canvas.append("text")
+    let planTextData6 = this.canvas.append("text")
       .attr("font-family", "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr("font-size", "2.4px")
       .attr("x", "43")
