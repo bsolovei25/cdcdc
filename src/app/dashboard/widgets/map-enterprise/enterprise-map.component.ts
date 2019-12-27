@@ -48,7 +48,7 @@ export class EnterpriseMapComponent implements OnInit, OnDestroy, AfterViewInit 
                 { id: 36, name: 'ДТ', options: { nonCritical: 0, diagnostics: 29, prognosis: 20 } },
                 { id: 38, name: 'ДТ', options: { nonCritical: 1, diagnostics: 0, prognosis: 20 } },
                 { id: 41, name: 'Бензин', options: { nonCritical: 25, diagnostics: 6, prognosis: 2 } }],
-            weather: { temperature: 15, direction: 190, wind: 5.1, pressure: 741 }
+            weather: { temperature: 15, direction: 320, wind: 5.1, pressure: 741 }
         };
 
     svgData: any[] = [];
