@@ -158,6 +158,9 @@ export class NewWidgetService {
 
       case 'circle-diagram':
         return data;
+
+      case 'polar-chart':
+        return data;
     }
   }
 
