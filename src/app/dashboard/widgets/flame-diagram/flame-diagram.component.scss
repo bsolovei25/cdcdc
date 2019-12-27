@@ -1,0 +1,19 @@
+.flame-container {
+  margin-left: 5px;
+  margin-right: 5px;
+  width: calc(100% - 10px);
+  height: calc(100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.body-container {
+  z-index: 999;
+  position: relative;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: calc(100%);
+  height: calc(100% - 80px);
+  border-left: dashed 0.5px var(--color-border-main);
+  border-right: dashed 0.5px var(--color-border-main);
+}
