@@ -27,13 +27,12 @@ export class CircleDiagramComponent implements OnInit, OnDestroy {
     static itemCols = 18;
     static itemRows = 14;
 
-    code;
-    public title;
-    units = "шт.";
+    public code: string;
+    public title: string;
+    public units: string = "шт.";
     options;
 
     @Input() public data = {
-        name: 'Hello',
         nonCritical: 40,
         critical: 100,
         diagnostics: 100,
@@ -60,8 +59,11 @@ export class CircleDiagramComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         if (!this.isMock) {
-            this.d3Circle(this.data, this.myCircle.nativeElement);
-            console.log('asdad');
+            this.subscriptions.push(this.widgetService.getWidgetLiveDataFromWS(this.id, 'circle-diagram')
+              .subscribe((ref) => {
+                console.log(ref);
+                this.d3Circle(this.data, this.myCircle.nativeElement);
+              }));
         }
     }
 
