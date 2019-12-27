@@ -63,6 +63,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { CircleBlockDiagramComponent } from './widgets/circle-block-diagram/circle-block-diagram.component';
 import { ColumnChartStackedComponent } from './widgets/column-chart-stacked/column-chart-stacked.component';
 import { CcsOneColumnComponent } from './widgets/column-chart-stacked/ccs-one-column/ccs-one-column.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -171,7 +172,8 @@ import { CcsOneColumnComponent } from './widgets/column-chart-stacked/ccs-one-co
     FormsModule,
     GridsterModule,
     ClickOutsideModule,
-    DashboardRoutingModule
+    DashboardRoutingModule,
+    MatSnackBarModule
   ],
   bootstrap: []
 })
