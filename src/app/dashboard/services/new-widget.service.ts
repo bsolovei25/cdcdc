@@ -162,6 +162,7 @@ export class NewWidgetService {
       case 'polar-chart':
         return data;
     }
+    console.warn(`unknown widget type ${widgetType}`);
   }
 
   private mapEventsWidgetData(data: EventsWidgetData): EventsWidgetData {
