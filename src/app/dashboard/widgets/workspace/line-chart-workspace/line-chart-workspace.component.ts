@@ -23,139 +23,140 @@ import { LineChartData, LineChartGraph, LineChartGraphValue } from 'src/app/dash
 import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
 
 @Component({
-    selector: 'evj-line-chart-workspace',
-    templateUrl: './line-chart-workspace.component.html',
-    styleUrls: ['./line-chart-workspace.component.scss']
+  selector: 'evj-line-chart-workspace',
+  templateUrl: './line-chart-workspace.component.html',
+  styleUrls: ['./line-chart-workspace.component.scss']
 })
 export class LineChartWorkspaceComponent implements OnInit {
 
-    code;
-    public title;
-    units;
-    options = {
-        "factLineType": "curveLinear",
-        "lowerLimitLineType": "curveMonotoneX",
-        "planLineType": "curveLinear",
-        "upperLimitLineType": "curveMonotoneX"
-    }
-    position?: string = 'default';
+  code;
+  public title;
+  units;
+  options = {
+    "factLineType": "curveLinear",
+    "lowerLimitLineType": "curveMonotoneX",
+    "planLineType": "curveLinear",
+    "upperLimitLineType": "curveMonotoneX"
+  }
+  position?: string = 'default';
 
-    data: LineChartData;
+  data: LineChartData;
 
-    static itemCols = 30;
-    static itemRows = 12;
+  static itemCols = 30;
+  static itemRows = 12;
 
-    private dataChart;
-    @Input() set dataChartAttribute(value) {
-        if (value)
-            value.graphs.map(x => x.values.map(z => z.date = new Date(z.date)));
-        this.dataChart = value;
-        this.draw(this.dataChart);
-    }
+  private dataChart;
 
-    @ViewChild('chart', { static: true }) private chartContainer: ElementRef;
+  @Input() set dataChartAttribute(value) {
+    if (value)
+      value.graphs.map(x => x.values.map(z => z.date = new Date(z.date)));
+    this.dataChart = value;
+    this.draw(this.dataChart);
+  }
 
-    margin = { top: 10, right: -50, bottom: 20, left: 50 };
+  @ViewChild('chart', { static: true }) private chartContainer: ElementRef;
 
-    svg;
-    g: any;
-    width: number;
-    height: number;
-    heightNoMargins: number; // use it for to build deviation area
-    x;
-    y;
+  margin = { top: 10, right: -50, bottom: 20, left: 50 };
 
-    line;
-    lines: any;
+  svg;
+  g: any;
+  width: number;
+  height: number;
+  heightNoMargins: number; // use it for to build deviation area
+  x;
+  y;
 
-    deviationMode = 'planFact';
+  line;
+  lines: any;
 
-    private readonly trendsStyle: any = {
-        plan: {
-            point: {
-                iconUrl: './assets/icons/widgets/line-chart/point-plan.svg',
-                width: 6,
-                height: 6,
-                widthOffset: -3,
-                heightOffset: -3,
-                class: 'point point_plan'
-            },
-            trend: {
-                class: 'line line_plan'
-            }
-        },
-        fact: {
-            point: {
-                iconUrl: './assets/icons/widgets/line-chart/point-fact.svg',
-                width: 8,
-                height: 8,
-                widthOffset: -4,
-                heightOffset: -4,
-                class: 'point point_fact'
-            },
-            trend: {
-                class: 'line line_fact'
-            }
-        },
-        deviation: {
-            point: {
-                iconUrl: './assets/icons/widgets/line-chart/point-deviation.svg',
-                width: 9.2,
-                height: 8,
-                widthOffset: -4.6,
-                heightOffset: -5,
-                class: 'point point_deviation'
-            }
-        },
-        lowerLimit: {
-            point: {
-                iconUrl: './assets/icons/widgets/line-chart/point-deviation.svg',
-                width: 9.2,
-                height: 8,
-                widthOffset: -4.6,
-                heightOffset: -5,
-                class: 'point point_deviation'
-            },
-            trend: {
-                class: 'line line_limit'
-            }
-        },
-        upperLimit: {
-            point: {
-                iconUrl: './assets/icons/widgets/line-chart/point-deviation.svg',
-                width: 9.2,
-                height: 8,
-                widthOffset: -4.6,
-                heightOffset: -5,
-                class: 'point point_deviation'
-            },
-            trend: {
-                class: 'line line_limit'
-            }
-        }
-    };
-    deviationPoints: any;
+  deviationMode = 'planFact';
 
-    ngOnInit() {
-
-    }
-
-    @HostListener('document:resize', ['$event'])
-    private OnResize(event) {
-      if (this.dataChart) {
-        this.draw(this.dataChart);
+  private readonly trendsStyle: any = {
+    plan: {
+      point: {
+        iconUrl: './assets/icons/widgets/line-chart/point-plan.svg',
+        width: 6,
+        height: 6,
+        widthOffset: -3,
+        heightOffset: -3,
+        class: 'point point_plan'
+      },
+      trend: {
+        class: 'line line_plan'
+      }
+    },
+    fact: {
+      point: {
+        iconUrl: './assets/icons/widgets/line-chart/point-fact.svg',
+        width: 8,
+        height: 8,
+        widthOffset: -4,
+        heightOffset: -4,
+        class: 'point point_fact'
+      },
+      trend: {
+        class: 'line line_fact'
+      }
+    },
+    deviation: {
+      point: {
+        iconUrl: './assets/icons/widgets/line-chart/point-deviation.svg',
+        width: 9.2,
+        height: 8,
+        widthOffset: -4.6,
+        heightOffset: -5,
+        class: 'point point_deviation'
+      }
+    },
+    lowerLimit: {
+      point: {
+        iconUrl: './assets/icons/widgets/line-chart/point-deviation.svg',
+        width: 9.2,
+        height: 8,
+        widthOffset: -4.6,
+        heightOffset: -5,
+        class: 'point point_deviation'
+      },
+      trend: {
+        class: 'line line_limit'
+      }
+    },
+    upperLimit: {
+      point: {
+        iconUrl: './assets/icons/widgets/line-chart/point-deviation.svg',
+        width: 9.2,
+        height: 8,
+        widthOffset: -4.6,
+        heightOffset: -5,
+        class: 'point point_deviation'
+      },
+      trend: {
+        class: 'line line_limit'
       }
     }
+  };
+  deviationPoints: any;
 
-    private draw(data) {
-        if (this.svg) {
-            this.svg.remove();
-        }
+  ngOnInit() {
 
-        this.data = this.buildData(data);
-        this.deviationMode = this.refreshDeviations();
-        this.startChart();
+  }
+
+  @HostListener('document:resize', ['$event'])
+  OnResize(event) {
+    if (this.dataChart) {
+      this.draw(this.dataChart);
     }
+  }
+
+  private draw(data) {
+    if (this.svg) {
+      this.svg.remove();
+    }
+
+    this.data = this.buildData(data);
+    this.deviationMode = this.refreshDeviations();
+    this.startChart();
+  }
 
   private buildData(data) {
     const xMax = d3Array.max(data.graphs, c => d3Array.max(c.values, d => d.date));
@@ -269,7 +270,7 @@ export class LineChartWorkspaceComponent implements OnInit {
     this.x = d3Scale.scaleTime().range([0, this.width - 60]);
     this.y = d3Scale.scaleLinear().range([this.height, 0]);
 
-    if(this.data.graphs.find(d => d.graphType === 'plan')) {
+    if (this.data.graphs.find(d => d.graphType === 'plan')) {
       this.x.domain(d3Array.extent(this.data.graphs.map((v) => v.values.map((v) => v.date))[1], (d: Date) => d));
     } else {
       this.x.domain(d3Array.extent(this.data.graphs.map((v) => v.values.map((v) => v.date))[0], (d: Date) => d));
@@ -407,9 +408,9 @@ export class LineChartWorkspaceComponent implements OnInit {
       .append('g');
     points.selectAll(".point")
       .data(d => d.values.map(i => {
-          i.type = d.graphType;
-          return i;
-        })
+        i.type = d.graphType;
+        return i;
+      })
       )
       .enter()
       .append("svg:image")

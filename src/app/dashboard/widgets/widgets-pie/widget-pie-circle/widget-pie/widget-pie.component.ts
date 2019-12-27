@@ -20,12 +20,12 @@ export class WidgetsPieComponent implements OnInit {
 
   @Input() public data: PieWidget;
 
-  @ViewChild('myCircle', {static:true}) myCircle: ElementRef;
-  
+  @ViewChild('myCircle', {static: true}) myCircle: ElementRef;
+
   constructor() {}
 
-  ngOnInit(){
-      this.d3Circle(this.data, this.myCircle.nativeElement); 
+  ngOnInit() {
+      this.d3Circle(this.data, this.myCircle.nativeElement);
   }
 
   public d3Circle(data, el): void {
@@ -54,7 +54,7 @@ export class WidgetsPieComponent implements OnInit {
     }).sort(() => null);
 
     const arcs = group.selectAll(".arc").data(pie(mass)).enter().append("g").attr("class", "arc");
-  
+
     arcs.append("path")
       .attr("d", arc)
       .attr("stroke", "black")

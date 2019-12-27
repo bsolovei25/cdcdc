@@ -16,6 +16,8 @@ export class AuthService {
 
     private appConfig: any;
 
+    private restUrl: string;
+
     private savePassword: boolean;
 
     user$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
@@ -29,20 +31,11 @@ export class AuthService {
         private http: HttpClient,
         private configService: AppConfigService
     ) {
-        this.loadAppConfig();
-
-    }
-
-    public async loadAppConfig() {
-        const data = await this.http.get('/assets/config.json').toPromise();
-        this.appConfig = data;
-    }
-
-    get restUrl(): string {
-        if (!this.appConfig) {
-            throw Error('Config file not loaded!');
-        }
-        return this.appConfig.restUrl;
+        // this.restUrl = configService.restUrl;
+        this.configService.restUrl$.subscribe(a => {
+            console.log(a);
+            this.restUrl = a
+        });
     }
 
     async authenticate(username: string, password: string): Promise<any> {
@@ -55,7 +48,9 @@ export class AuthService {
 
     async getUserAuth(): Promise<any[]> {
         try {
-            return await this.http.get<any[]>(this.restUrl + '/api/user-management/current').toPromise();
+            if (this.restUrl) {
+                return await this.http.get<any[]>(this.restUrl + '/api/user-management/current').toPromise();
+            }
         } catch (error) {
             console.error(error);
         }

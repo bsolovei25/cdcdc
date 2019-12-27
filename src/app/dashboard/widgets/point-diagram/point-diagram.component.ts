@@ -73,7 +73,8 @@ export class PointDiagramComponent implements OnInit, OnDestroy {
   constructor(
     private widgetService: NewWidgetService,
     @Inject('isMock') public isMock: boolean,
-    @Inject('widgetId') public id: string
+    @Inject('widgetId') public id: string,
+    @Inject('uniqId') public uniqId: string
   ) {
     this.subscriptions.push(this.widgetService
       .getWidgetChannel(this.id)
@@ -101,9 +102,12 @@ export class PointDiagramComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    for (const subscription of this.subscriptions) {
-      subscription.unsubscribe();
+    if (this.subscriptions) {
+      for (const subscription of this.subscriptions) {
+        subscription.unsubscribe();
+      }
     }
+    
   }
 
   containerIsMock(): string {

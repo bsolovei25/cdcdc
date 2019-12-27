@@ -60,6 +60,10 @@ import { ProductStocksComponent } from './widgets/product-stocks/product-stocks.
 import { PolarChartComponent } from './widgets/polar-chart/polar-chart.component';
 import { DeviationCircleDiagramComponent } from './widgets/deviation-circle-diagram/deviation-circle-diagram.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
+import { CircleBlockDiagramComponent } from './widgets/circle-block-diagram/circle-block-diagram.component';
+import { ColumnChartStackedComponent } from './widgets/column-chart-stacked/column-chart-stacked.component';
+import { CcsOneColumnComponent } from './widgets/column-chart-stacked/ccs-one-column/ccs-one-column.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -115,6 +119,9 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
     ProductStocksComponent,
     PolarChartComponent,
     DeviationCircleDiagramComponent,
+    CircleBlockDiagramComponent,
+    ColumnChartStackedComponent,
+    CcsOneColumnComponent,
   ],
   entryComponents: [
     LineChartComponent,
@@ -151,7 +158,9 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
     ProductStocksComponent,
     PolarChartComponent,
     SemicircleEnergyComponent,
-    DeviationCircleDiagramComponent
+    DeviationCircleDiagramComponent,
+    CircleBlockDiagramComponent,
+    ColumnChartStackedComponent
   ],
   exports: [HomeComponent],
   imports: [
@@ -163,7 +172,8 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
     FormsModule,
     GridsterModule,
     ClickOutsideModule,
-    DashboardRoutingModule
+    DashboardRoutingModule,
+    MatSnackBarModule
   ],
   bootstrap: []
 })

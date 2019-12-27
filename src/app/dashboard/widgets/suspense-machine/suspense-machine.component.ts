@@ -138,7 +138,8 @@ export class SuspenseMachineComponent implements OnInit, OnDestroy {
     constructor(
         private eventService: EventService,
         @Inject("isMock") public isMock: boolean,
-        @Inject("widgetId") public id: string
+        @Inject("widgetId") public id: string,
+        @Inject("uniqId") public uniqId: string
     ) {
     }
 
@@ -156,7 +157,9 @@ export class SuspenseMachineComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.subscription.unsubscribe();
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 
 

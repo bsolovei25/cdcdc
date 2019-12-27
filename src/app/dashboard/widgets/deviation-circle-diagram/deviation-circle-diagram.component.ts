@@ -9,8 +9,8 @@ import { NewWidgetService } from "../../services/new-widget.service";
 })
 export class DeviationCircleDiagramComponent implements OnInit {
   deviationCircleDiagram = {
-    deviation: 30, // отклонение в %
-    improvement: 25, // улучшение в %
+    deviation: 55, // отклонение в %
+    improvement: 40, // улучшение в %
     maxValue: 100
   };
 
@@ -34,6 +34,7 @@ export class DeviationCircleDiagramComponent implements OnInit {
   centerY = "25";
 
   radius = "19";
+  radPoint = "0.8";
 
   public title;
   public units = "%";
@@ -46,7 +47,8 @@ export class DeviationCircleDiagramComponent implements OnInit {
   constructor(
     private widgetService: NewWidgetService,
     @Inject("isMock") public isMock: boolean,
-    @Inject("widgetId") public id: string
+    @Inject("widgetId") public id: string,
+    @Inject("uniqId") public uniqId: string
   ) {
     this.subscription = this.widgetService
       .getWidgetChannel(this.id)
@@ -72,5 +74,17 @@ export class DeviationCircleDiagramComponent implements OnInit {
     const c: number = 2 * Math.PI * +r;
     const per_cent = line / 100;
     return (-0.75 * c).toString();
+  }
+
+  diaLinePoint(line: number, isOuter: boolean) {
+    const per_cent = line / 100;
+    const t =
+      per_cent < 1 ? 2 * Math.PI * per_cent - Math.PI / 2 : (3 / 2) * Math.PI;
+    const r = isOuter ? +this.radius + 3 : +this.radius - 3;
+    const centerOfPoint = {
+      xCen: (r * Math.cos(t) + +this.centerX).toString(),
+      yCen: (r * Math.sin(t) + +this.centerY).toString()
+    };
+    return centerOfPoint;
   }
 }

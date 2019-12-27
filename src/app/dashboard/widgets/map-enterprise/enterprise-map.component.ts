@@ -48,7 +48,7 @@ export class EnterpriseMapComponent implements OnInit, OnDestroy, AfterViewInit 
                 { id: 36, name: 'ДТ', options: { nonCritical: 0, diagnostics: 29, prognosis: 20 } },
                 { id: 38, name: 'ДТ', options: { nonCritical: 1, diagnostics: 0, prognosis: 20 } },
                 { id: 41, name: 'Бензин', options: { nonCritical: 25, diagnostics: 6, prognosis: 2 } }],
-            weather: { temperature: 15, direction: 20, wind: 5.1, pressure: 741 }
+            weather: { temperature: 15, direction: 320, wind: 5.1, pressure: 741 }
         };
 
     svgData: any[] = [];
@@ -63,7 +63,8 @@ export class EnterpriseMapComponent implements OnInit, OnDestroy, AfterViewInit 
         public userSettings: NewUserSettingsService,
         public widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,
-        @Inject('widgetId') public id: string
+        @Inject('widgetId') public id: string,
+        @Inject('uniqId') public uniqId: string
     ) {
         this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe(data => {
             this.title = data.title;
@@ -74,7 +75,9 @@ export class EnterpriseMapComponent implements OnInit, OnDestroy, AfterViewInit 
     }
 
     ngOnDestroy() {
-        this.subscription.unsubscribe();
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 
     ngAfterViewInit() {
@@ -120,7 +123,7 @@ export class EnterpriseMapComponent implements OnInit, OnDestroy, AfterViewInit 
         }
         values.forEach(value => {
             value.append(atr);
-            value.setAttribute('x', `${982 - (atr.length * 2 + 5)}`);
+            value.setAttribute('x', `${922 - (atr.length * 2 + 5)}`);
         })
 
     }

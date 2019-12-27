@@ -32,7 +32,7 @@ export class UserInfoComponent implements OnInit {
 
   async loadData() {
     const data: any[] = await this.authService.getUserAuth();
-    if (data[0]) {
+    if (data && data[0]) {
       this.data = data[0];
     }
   }
@@ -50,11 +50,11 @@ export class UserInfoComponent implements OnInit {
     this.isShowScreens = true;
   }
 
-  private ScreenActive(e) {
+  ScreenActive(e) {
     this.isShowScreens = true;
   }
 
-  private ScreenDisable(e) {
+  ScreenDisable(e) {
     this.isShowScreens = false;
 
   }

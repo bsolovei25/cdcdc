@@ -54,7 +54,7 @@ build artifact:
     <<: *init
     stage: build
     script:
-        - docker exec ${CI_PROJECT_NAME} ng build || docker run --rm --name ${CI_PROJECT_NAME} -p 8000:4200 -d ${CI_PROJECT_NAME} ; docker exec ${CI_PROJECT_NAME} ng build
+        - docker exec ${CI_PROJECT_NAME} ng build --prod || docker run --rm --name ${CI_PROJECT_NAME} -p 8000:4200 -d ${CI_PROJECT_NAME} ; docker exec ${CI_PROJECT_NAME} ng build --prod
         - docker cp ${CI_PROJECT_NAME}:/app/dist/evj ./public
         - docker container stop ${CI_PROJECT_NAME}
     only:
@@ -106,7 +106,6 @@ staging:
         - ssh root@${DEPLOY_DOMAIN} "sed -i  's/:5555/:6555/g' /var/www/angular-staging.local/public/assets/config.json || sleep 0.1"
         - ssh root@${DEPLOY_DOMAIN} nginx -s reload
     only:
-        - master
         - develop
 
 prod:
@@ -123,7 +122,6 @@ prod:
         - ssh root@${DEPLOY_DOMAIN} $CMD_REPLACE
         - ssh root@${DEPLOY_DOMAIN} "sed -i  's/:6555/:5555/g' /var/www/angular.local/public/assets/config.json || sleep 0.1"
         - ssh root@${DEPLOY_DOMAIN} nginx -s reload
-    when: manual
     only:
         - master
 

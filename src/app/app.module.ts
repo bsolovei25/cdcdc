@@ -1,12 +1,11 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule, APP_INITIALIZER} from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 
-import {AppComponent} from './app.component';
-import {CoreModule} from './@core/core.module';
-import {DashboardModule} from './dashboard/dashboard.module';
-import {SharedModule} from './@shared/shared.module';
-import {AngularSvgIconModule} from 'angular-svg-icon';
-import {AppConfigService} from './services/appConfigService';
+import { AppComponent } from './app.component';
+import { CoreModule } from './@core/core.module';
+import { SharedModule } from './@shared/shared.module';
+import { AngularSvgIconModule } from 'angular-svg-icon';
+import { AppConfigService } from './services/appConfigService';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorInterceptor } from '@core/interceptors/error.interceptor';

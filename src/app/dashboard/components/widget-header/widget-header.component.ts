@@ -13,7 +13,7 @@ export class WidgetHeaderComponent implements OnInit {
   @Input() units: string;
   @Input() code: string;
   @Input() id: string;
-  public uniqid:string;
+  @Input() uniqId: string;
 
   constructor(
     public widgetService: NewWidgetService,
@@ -24,9 +24,8 @@ export class WidgetHeaderComponent implements OnInit {
   }
 
   onRemoveButton(){
-    this.widgetService.removeItemService(this.id);
-    this.userSettings.removeItem();
-
+    this.widgetService.removeItemService(this.uniqId);
+    this.userSettings.removeItem(this.uniqId);
   }
 
 }
