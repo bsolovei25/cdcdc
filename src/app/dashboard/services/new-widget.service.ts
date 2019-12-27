@@ -155,6 +155,9 @@ export class NewWidgetService {
 
       case 'point-diagram':
         return data;
+
+      case 'circle-diagram':
+        return data;
     }
   }
 
