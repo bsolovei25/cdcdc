@@ -130,14 +130,14 @@ export class CircleDiagramComponent implements OnInit, OnDestroy {
             .attr("fill", (!data.acknowledged) ? 'gray' : "orange")
             .text(data.acknowledged);
 
-        let сritical = this.svg.append("text")
+        let nonAcknowledged = this.svg.append("text")
             .attr("font-size", "8px")
             .attr("x", this.x)
             .attr("y", this.y + 14 * 2)
             .attr("fill", "white")
-            .text("Квитировано", data.сritical);
+            .text("Квитировано", data.nonAcknowledged);
 
-        let сritical_num = this.svg.append("text")
+        let nonAcknowledged_num = this.svg.append("text")
             .attr("font-size", "10px")
             .attr("x", this.x)
             .attr("y", this.y + 14 * 3)
@@ -149,7 +149,7 @@ export class CircleDiagramComponent implements OnInit, OnDestroy {
             .attr("x", this.x)
             .attr("y", this.y + 14 * 4)
             .attr("fill", "var(--color-border-active)")
-            .text("Диагностика", data.сritical);
+            .text("Диагностика", data.nonAcknowledged);
 
         let diagnostic_num = this.svg.append("text")
             .attr("font-size", "10px")
