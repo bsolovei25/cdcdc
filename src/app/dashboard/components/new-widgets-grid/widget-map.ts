@@ -31,6 +31,7 @@ import { SemicircleEnergyComponent } from "../../widgets/semicircle-energy/semic
 import { DeviationCircleDiagramComponent } from "../../widgets/deviation-circle-diagram/deviation-circle-diagram.component";
 import { CircleBlockDiagramComponent } from "../../widgets/circle-block-diagram/circle-block-diagram.component";
 import { ColumnChartStackedComponent } from "../../widgets/column-chart-stacked/column-chart-stacked.component";
+import {FlameDiagramComponent} from "../../widgets/flame-diagram/flame-diagram.component";
 
 export const WIDGETS = {
   "pie-diagram": WidgetPiesComponent,
@@ -66,5 +67,6 @@ export const WIDGETS = {
   "semicircle-energy": SemicircleEnergyComponent,
   "deviation-circle-diagram": DeviationCircleDiagramComponent,
   "circle-block-diagram": CircleBlockDiagramComponent,
-  "column-chart-stacked": ColumnChartStackedComponent
+  "column-chart-stacked": ColumnChartStackedComponent,
+  "flame-diagram": FlameDiagramComponent,
 };
