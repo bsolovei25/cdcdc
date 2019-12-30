@@ -85,11 +85,7 @@ export class ProductStocksComponent implements OnInit, OnDestroy, AfterViewInit 
 
   dataSvgSize() {
     const passportizationHeight = ((this.data.passportization / this.data.stocks) * 100).toFixed(2);
-    console.log(passportizationHeight);
-
     const shipmentHeight = ((this.data.shipment / this.data.stocks) * 100).toFixed(2);
-
-
   }
 
   onActive() {

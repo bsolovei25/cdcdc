@@ -135,7 +135,6 @@ export class ShiftPersonComponent implements OnInit {
         );
         break;
       case "Отсутствует":
-        console.log(person);
         if (person.employee.brigade.id === this.currentBrigade) {
           this.shiftService.changeStatus(
             "absent",

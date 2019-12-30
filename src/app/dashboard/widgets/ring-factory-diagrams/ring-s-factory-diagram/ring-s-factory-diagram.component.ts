@@ -117,7 +117,6 @@ export class RingSFactoryDiagramComponent implements OnInit {
     if (!this.isMock) {
       this.subscriptions.push(this.widgetService.getWidgetLiveDataFromWS(this.id, 'ring-factory-diagram')
         .subscribe((ref) => {
-          console.log(ref.items);
           this.datas = ref.items;
         }));
     }

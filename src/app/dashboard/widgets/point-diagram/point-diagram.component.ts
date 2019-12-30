@@ -96,7 +96,6 @@ export class PointDiagramComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.widgetService.getWidgetLiveDataFromWS(this.id, 'point-diagram')
       .subscribe((ref) => {
           this.pointDiagramElements = ref.chartItems;
-          console.log(this.pointDiagramElements);
         }
       ));
   }
