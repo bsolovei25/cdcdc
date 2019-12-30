@@ -7,7 +7,7 @@ import { AuthService } from '@core/service/auth.service';
 // Local modules 
 
 @Injectable({
-  providedIn: 'root' 
+  providedIn: 'root'
 })
 export class AuthenticationInterceptor implements HttpInterceptor {
 
@@ -20,7 +20,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
       return next.handle(req);
     } else {
       const authReq = req.clone({
-        headers: req.headers.append('Authorization', `Bearer ` + this.authService.userSessionToken || '' )
+        headers: req.headers.append('Authorization', `Bearer ` + this.authService.userSessionToken)
       });
       return next.handle(authReq);
     }

@@ -45,10 +45,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
         }, 500);
     }
 
-    // getErrorMessage() {
-    //     return this.username.hasError('required') ? 'Нужно ввести Логин' : '';
-    // }
-
     async onSubmit(): Promise<void> {
         this.swing = false;
         this.isLoadingData = true;
