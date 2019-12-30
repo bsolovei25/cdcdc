@@ -4,6 +4,8 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '@core/service/auth.service';
 import { environment } from 'src/environments/environment';
+import { FormControl, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 // Angular material
 // Local modules  
 
@@ -15,20 +17,22 @@ import { environment } from 'src/environments/environment';
 
 export class LoginComponent implements OnInit, AfterViewInit {
 
-    username: string = environment.username;
-    password: string = environment.password;
+    username = new FormControl(environment.username, [Validators.required]);
+    password = new FormControl(environment.password, [Validators.required]);
+
     isLoadingData: boolean = false;
-    savePassword: boolean = false;
 
     isLoading: boolean = true;
     isHidden: boolean = false;
+
+    hide = true;
 
     swing: boolean = false;
 
     constructor(
         public authService: AuthService,
         private router: Router,
-        private route: ActivatedRoute,
+        private snackBar: MatSnackBar,
     ) { }
 
     ngOnInit() {
@@ -41,26 +45,40 @@ export class LoginComponent implements OnInit, AfterViewInit {
         }, 500);
     }
 
+    // getErrorMessage() {
+    //     return this.username.hasError('required') ? 'Нужно ввести Логин' : '';
+    // }
+
     async onSubmit(): Promise<void> {
         this.swing = false;
         this.isLoadingData = true;
         if (!this.username || !this.password) {
             return;
         }
-        // extract return path
-        const backUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-
         // authentication
         try {
-            const auth = await this.authService.authenticate(this.username, this.password);
+            const auth = await this.authService.authenticate(this.username.value, this.password.value);
             if (auth) {
                 this.router.navigate(['dashboard']);
+                setTimeout(() => {
+                    this.isLoadingData = false;
+                }, 1000);
             } else {
+                this.openSnackBar('Неверный логин или пароль');
                 this.swing = true;
+                this.isLoadingData = false;
             }
-
         } catch (err) {
             this.isLoadingData = false;
+        }
+    }
+
+    openSnackBar(msg: string = 'Операция выполнена', msgDuration: number = 3000, actionText?: string, actionFunction?: () => void) {
+        const snackBarInstance = this.snackBar.open(msg, actionText, { duration: msgDuration });
+        if (actionFunction) {
+            snackBarInstance.onAction().subscribe(
+                () => actionFunction()
+            );
         }
     }
 
