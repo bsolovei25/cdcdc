@@ -83,7 +83,6 @@ export class DispatcherScreenComponent implements OnInit, AfterViewInit, OnDestr
     if (!this.unityInstance) {
       return;
     }
-    console.log('click');
   }
 
   private wsConnect() {
