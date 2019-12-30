@@ -175,7 +175,8 @@ import {FlameDiagramComponent} from './widgets/flame-diagram/flame-diagram.compo
     FormsModule,
     GridsterModule,
     ClickOutsideModule,
-    DashboardRoutingModule
+    DashboardRoutingModule,
+    MatSnackBarModule
   ],
   bootstrap: []
 })
