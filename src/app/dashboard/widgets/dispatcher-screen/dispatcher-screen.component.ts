@@ -43,7 +43,6 @@ export class DispatcherScreenComponent implements OnInit, AfterViewInit, OnDestr
 
   ngAfterViewInit() {
     this.showMock(this.isMock);
-    console.log('isMock' + this.isMock);
   }
 
   ngOnDestroy() {
@@ -84,7 +83,6 @@ export class DispatcherScreenComponent implements OnInit, AfterViewInit, OnDestr
     if (!this.unityInstance) {
       return;
     }
-    console.log('click');
   }
 
   private wsConnect() {

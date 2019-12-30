@@ -300,9 +300,7 @@ export class EventsComponent implements OnInit, OnDestroy {
     this.liveSubscription = this.widgetService.getWidgetLiveDataFromWS(this.id, 'events')
       .subscribe((ref: EventsWidgetData) => {
         this.appendNotifications(ref.notifications);
-        // this.appendFilterCounters(ref.filters);
         this.appendCategoriesCounters();
-        // console.log('get_ws_events');
       }
       );
   }

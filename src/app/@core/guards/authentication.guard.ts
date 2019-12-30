@@ -27,17 +27,14 @@ export class AuthenticationGuard implements CanLoad, CanActivate, CanActivateChi
   }
 
   async canLoad(route: Route, segments: UrlSegment[]): Promise<boolean> {
-    // console.log(`%cAuthenticateAndPermissionGuard.canLoad: ${route.loadChildren}`, 'background-color: #dfffd6; color: #000000;');
     return this.authenticationCheck(route, segments.join('/'), true);
   }
 
   async canActivate(route: ActivatedRouteSnapshot, routerState: RouterStateSnapshot): Promise<boolean | UrlTree> {
-    // console.log(`%cAuthenticateAndPermissionGuard.canActivate: ${routerState.url}`, 'background-color: #dfffd6; color: #000000;');
     return this.authenticationCheck(route, routerState.url);
   }
 
   async canActivateChild(route: ActivatedRouteSnapshot, routerState: RouterStateSnapshot): Promise<boolean | UrlTree> {
-    // console.log(`%cAuthenticateAndPermissionGuard.canActivateChild: ${route.component ? (route.component as any).name : undefined} ${routerState.url}`, 'background-color: #dfffd6; color: #000000;');
     return this.authenticationCheck(route, routerState.url);
   }
 

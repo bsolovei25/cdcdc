@@ -228,7 +228,6 @@ export class MapEcologyComponent implements AfterViewInit, OnInit, OnDestroy {
 
   public infoPoint(name) {
     this.namePoint = name;
-    console.log("good");
   }
 
   public nextPoint(name) {

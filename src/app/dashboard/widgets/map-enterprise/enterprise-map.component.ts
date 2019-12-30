@@ -86,7 +86,7 @@ export class EnterpriseMapComponent implements OnInit, OnDestroy, AfterViewInit 
         }
     }
 
-    settingsСompass() {
+    private settingsCompass() {
         const data = this.data.weather.direction;
         const lines = document.querySelectorAll('.compass-line');
         const values = document.querySelectorAll('.compass__value');
@@ -131,7 +131,7 @@ export class EnterpriseMapComponent implements OnInit, OnDestroy, AfterViewInit 
     draw() {
         const buildings = document.querySelectorAll('.build');
         const textArray = document.querySelectorAll('.text');
-        this.settingsСompass();
+        this.settingsCompass();
 
         buildings.forEach(b => {
             let value: {
