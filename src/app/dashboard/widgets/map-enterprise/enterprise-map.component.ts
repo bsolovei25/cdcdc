@@ -86,7 +86,7 @@ export class EnterpriseMapComponent implements OnInit, OnDestroy, AfterViewInit 
         }
     }
 
-    settingsCompass() {
+    private settingsCompass() {
         const data = this.data.weather.direction;
         const lines = document.querySelectorAll('.compass-line');
         const values = document.querySelectorAll('.compass__value');

@@ -194,9 +194,7 @@ export class ChangeShiftComponent implements OnInit {
   shiftApply() {
     if (this.aboutWidget.widgetType === "shift-pass") {
       this.shiftService.applyShift(this.currentShift.id, "pass");
-      console.log("Сдал");
     } else {
-      console.log("Принял");
       this.shiftService.applyShift(this.currentShift.id, "accept");
     }
   }

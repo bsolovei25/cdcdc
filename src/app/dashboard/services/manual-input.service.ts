@@ -96,7 +96,6 @@ export class ManualInputService {
       User = 'Username';
       Params = params;
     };
-    // console.log(JSON.stringify(req));
     this.PostData(req, data);
   }
 
@@ -104,10 +103,8 @@ export class ManualInputService {
     this.http.post(this.restUrl + '/api/manualinput/post', Params)
       .subscribe(
         (ans: MI_DataGet) => {
-          console.log(ans);
           this.SaveValues(ans, data);
         },
-      //  error => console.log(error)
       );
   }
 

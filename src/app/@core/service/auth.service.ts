@@ -4,9 +4,21 @@ import { Router } from '@angular/router';
 // RxJS
 import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { get } from 'http';
 import { AppConfigService } from 'src/app/services/appConfigService';
 // Local modules
+
+interface ITokenData {
+    login: string,
+    firstName: string,
+    lastName: string,
+    middleName: string,
+    phone: string,
+    position: string,
+    positionDescription: string,
+    token: string,
+    id: number,
+    email: string,
+}
 
 
 @Injectable({
@@ -14,16 +26,18 @@ import { AppConfigService } from 'src/app/services/appConfigService';
 })
 export class AuthService {
 
-    private appConfig: any;
-
+    private authTokenData: ITokenData | null;
     private restUrl: string;
-
-    private savePassword: boolean;
 
     user$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
     get userIsAuthenticated(): boolean {
         return false
+    }
+
+    get userSessionToken(): string | null {
+        const storageToken: string | null = localStorage.getItem('authentication-token');
+        return (this.authTokenData ? this.authTokenData.token : storageToken);
     }
 
     constructor(
@@ -32,15 +46,16 @@ export class AuthService {
         private configService: AppConfigService
     ) {
         // this.restUrl = configService.restUrl;
-        this.configService.restUrl$.subscribe(a => {
-            console.log(a);
-            this.restUrl = a
+        this.configService.restUrl$.subscribe(value => {
+            this.restUrl = value;
         });
     }
 
     async authenticate(username: string, password: string): Promise<any> {
         try {
-            return await this.http.post<any>(this.restUrl + `/api/user-management/auth`, { username, password }).toPromise();
+            const auth = await this.http.post<any>(this.restUrl + `/api/user-management/auth`, { username, password }).toPromise();
+            this.configureUserAuth(auth);
+            return auth
         } catch (error) {
             console.error(error);
         }
@@ -56,9 +71,25 @@ export class AuthService {
         }
     }
 
+
+    private configureUserAuth(tokenData: ITokenData) {
+        this.authTokenData = tokenData;
+        this.user$.next('');
+        // save token
+        localStorage.setItem('authentication-token', this.authTokenData.token);
+    }
+
+    private resetUserAuth(clearTokenFromStorage?: boolean): any {
+        this.authTokenData = null;
+        this.user$.next(null);
+        if (clearTokenFromStorage) {
+            localStorage.removeItem('authentication-token');
+        }
+    }
+
     async logOut(): Promise<any> {
         try {
-            return await this.http.post<any>(this.restUrl + `/api/user-management/logout`, ({})).toPromise();
+            this.resetUserAuth(true);
         } catch (error) {
             console.error(error);
         }

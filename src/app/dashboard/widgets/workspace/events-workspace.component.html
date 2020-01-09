@@ -228,7 +228,7 @@
                     <div class="event__header">
                       <span> {{ getIndex(i) }}. <span class="event__sub">Ответственный</span>
                         <span style="padding-left:10px;" *ngIf="retrieval.responsibleOperator">
-                          {{ retrieval.responsibleOperator.lastName}}
+                          {{ retrieval.responsibleOperator.lastName }}
                           {{ retrieval.responsibleOperator.firstName }}</span>
                       </span>
 
@@ -326,8 +326,7 @@
                 <button type="submit" class="button comment__file   gridster-item-content">
                   <svg-icon class="button__icon" src="./assets/icons/widgets/change-shift/add_file.svg"></svg-icon>
                 </button>
-                <button type="submit" class="button comment__submit  gridster-item-content"
-                  (click)="onSendMessage()">
+                <button type="submit" class="button comment__submit  gridster-item-content" (click)="onSendMessage()">
                   <svg-icon class="button__icon" src="./assets/icons/widgets/change-shift/send.svg"></svg-icon>
                 </button>
               </div>
@@ -574,7 +573,7 @@
               Сохранить
             </button>
             <button *ngIf="isEdit" type="submit gridster-item-content" (click)="editSaveRetrieval()">
-              Изменить и сохранить 
+              Изменить и сохранить
             </button>
           </div>
         </div>

@@ -189,7 +189,6 @@ export class NewUserSettingsService {
           if (this.ScreenId === id)
             this.ScreenId = undefined;
           this.GetScreen();
-          console.log(ans);
         },
         error => console.log(error)
       );
@@ -206,7 +205,6 @@ export class NewUserSettingsService {
     return this.http.put(this.restUrl + '/api/user-management/user/1/screen/' + id, userScreen).subscribe(
       ans => {
         this.GetScreen();
-        console.log(ans);
       },
       error => console.log(error)
     );

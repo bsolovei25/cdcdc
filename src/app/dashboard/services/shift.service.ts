@@ -73,8 +73,6 @@ export class ShiftService {
     const tempData = await this.getShiftPassAsync();
     // this.allMembers = await this.getAllMembersAsync();
     this.shiftPass.next(tempData);
-    console.log(this.shiftPass);
-    console.log(this.allMembers);
   }
 
   public async getFreeShiftMembers(id: number) {

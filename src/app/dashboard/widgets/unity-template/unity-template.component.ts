@@ -55,7 +55,6 @@ export class UnityTemplateComponent implements OnInit {
 
   ngAfterViewInit() {
     this.showMock(this.isMock);
-    console.log('isMock' + this.isMock);
   }
 
   private showMock(show) {
@@ -83,7 +82,6 @@ export class UnityTemplateComponent implements OnInit {
     if (!this.unityInstance) {
       return;
     }
-    console.log('click');
   }
 
   private InitUnity() {

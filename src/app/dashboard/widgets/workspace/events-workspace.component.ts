@@ -247,7 +247,6 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
   async saveItem(): Promise<void> {
     this.isLoading = true;
-    let snackBar = document.getElementById("snackbar");
 
     if (this.isNew) {
       try {
@@ -278,8 +277,6 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
   // #region Retrieval Event
 
   async saveRetrieval(idEvent: number): Promise<void> {
-    let snackBar = document.getElementById("snackbar");
-
     // Если не новый event, отсылаем
     if (!this.isNew) {
       try {

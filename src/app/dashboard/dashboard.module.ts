@@ -64,6 +64,7 @@ import { CircleBlockDiagramComponent } from './widgets/circle-block-diagram/circ
 import { ColumnChartStackedComponent } from './widgets/column-chart-stacked/column-chart-stacked.component';
 import { CcsOneColumnComponent } from './widgets/column-chart-stacked/ccs-one-column/ccs-one-column.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {FlameDiagramComponent} from './widgets/flame-diagram/flame-diagram.component';
 
 @NgModule({
   declarations: [
@@ -122,6 +123,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     CircleBlockDiagramComponent,
     ColumnChartStackedComponent,
     CcsOneColumnComponent,
+    FlameDiagramComponent,
   ],
   entryComponents: [
     LineChartComponent,
@@ -160,7 +162,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     SemicircleEnergyComponent,
     DeviationCircleDiagramComponent,
     CircleBlockDiagramComponent,
-    ColumnChartStackedComponent
+    ColumnChartStackedComponent,
+    FlameDiagramComponent,
   ],
   exports: [HomeComponent],
   imports: [
