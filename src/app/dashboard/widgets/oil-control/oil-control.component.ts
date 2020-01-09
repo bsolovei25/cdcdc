@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, ViewChild, AfterViewInit, ElementRef, HostLi
 import { NewWidgetService } from '../../services/new-widget.service';
 import { Subscription, pipe, VirtualTimeScheduler } from 'rxjs';
 import 'leader-line';
-import { FORMERR } from 'dns';
+import { EventEmitter } from '@angular/core';
 
 declare var LeaderLine: any;
 
@@ -13,7 +13,7 @@ declare var d3: any;
   templateUrl: './oil-control.component.html',
   styleUrls: ['./oil-control.component.scss']
 })
-export class OilControllComponent implements OnInit, AfterViewInit {
+export class OilControlComponent implements OnInit, AfterViewInit {
   
   @ViewChild('oilIcon', {static:false}) oilIcon: ElementRef;
   @ViewChild('oilBak', {static:false}) oilBak: ElementRef;
@@ -27,7 +27,7 @@ export class OilControllComponent implements OnInit, AfterViewInit {
 
   private subscriptions: Subscription[] = [];
 
-  private newWidth;
+
 
   data = {
     operations: 42,
@@ -880,10 +880,15 @@ export class OilControllComponent implements OnInit, AfterViewInit {
   public htmlDataStorage = [];
 
 
+  public newWidth;
+  public checkWidth;
+
+
   constructor(
     public widgetService: NewWidgetService,
     @Inject('isMock') public isMock: boolean,
-    @Inject('widgetId') public id: string
+    @Inject('widgetId') public id: string,
+    @Inject('resizeWidget') public resizeWidget: EventEmitter<MouseEvent>,
   ) { 
     this.subscriptions.push(this.widgetService.getWidgetChannel(this.id).subscribe(data => {
       this.title = data.title;
@@ -906,46 +911,33 @@ export class OilControllComponent implements OnInit, AfterViewInit {
   public test = false;
 
   ngOnInit() {
-
+   
   }
 
   ngAfterViewInit(){
     if(!this.isMock){
-      debugger
-    //  let test = document.getElementById("test");
-    //  this.newWidth = test.clientWidth;
-    //  this.drawOilControl();
-    }
-  }
-
- 
-
-  @HostListener('document:resize', ['$event'])
-  private OnResize(event) {
-    if(!this.isMock){
-      debugger
-      let test = document.getElementById("test");
-      this.newWidth = test.clientWidth;
-      if(this.test){
-        this.clearOilControl();
-      }
       this.drawOilControl();
-      this.test = true;
+      this.subscriptions.push(this.resizeWidget.subscribe(data => { 
+        this.onResize(data.srcElement.clientWidth);
+        this.clearProduct();
+        this.drawOilControl();
+      }));
     }
-   
-    //подумтаь над изменениемм ширины блока...
   }
+
+ public onResize(width){
+  this.checkWidth = width < 500;
+ }
 
   public drawOilControl(){
-    debugger
+
     this.drawPicture(this.oilIcon.nativeElement);
     this.drawBak(this.oilBak.nativeElement);
     this.FilterCircle(this.indexTestProduct);
   }
 
   public clearOilControl(){
-    this.oilIcon.nativeElement.remove();
-    this.oilBak.nativeElement.remove();
+    this.clearProduct();
   }
 
   componentDidMount() {

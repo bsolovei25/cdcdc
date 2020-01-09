@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
-import { UiElementsComponent } from './layout/ui-elements.component';
+import { UiElementsComponent } from '@shared/layout/ui-elements.component';
+
 
 
 @NgModule({
     declarations: [
-        UiElementsComponent,
+       UiElementsComponent
     ]
 })
 

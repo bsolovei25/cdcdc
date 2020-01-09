@@ -1,21 +1,21 @@
-import {Component, HostListener, Inject, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, HostListener, Inject, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { UnityLoader } from './UnityLoader.js';
 import { PlatformLocation } from '@angular/common';
-import {NewWidgetService} from '../../services/new-widget.service';
-import {Subscription} from 'rxjs';
+import { NewWidgetService } from '../../services/new-widget.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'evj-dispatcher-screen',
   templateUrl: './dispatcher-screen.component.html',
   styleUrls: ['./dispatcher-screen.component.scss']
 })
-export class DispatcherScreenComponent implements OnInit {
+export class DispatcherScreenComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private baseUrl: string;
   private unityInstance: any;
-  private isStart: boolean;
+  isStart: boolean;
 
-  private title: string;
+  title: string;
   private subscriptions: Subscription[] = [];
 
   private canvas: HTMLCanvasElement;
@@ -27,6 +27,7 @@ export class DispatcherScreenComponent implements OnInit {
     public widgetService: NewWidgetService,
     @Inject('isMock') public isMock: boolean,
     @Inject('widgetId') public id: string,
+    @Inject('uniqId') public uniqId: string,
     platformLocation: PlatformLocation
   ) {
     const location = (platformLocation as any).location;
@@ -42,13 +43,14 @@ export class DispatcherScreenComponent implements OnInit {
 
   ngAfterViewInit() {
     this.showMock(this.isMock);
-    console.log('isMock' + this.isMock);
   }
 
   ngOnDestroy() {
     console.log('destroy_unity');
-    for (const i in this.subscriptions) {
-      this.subscriptions[i].unsubscribe();
+    if (this.subscriptions) {
+      for (const i in this.subscriptions) {
+        this.subscriptions[i].unsubscribe();
+      }
     }
     if (this.unityInstance) {
       this.unityInstance.Quit(() => console.log('destroy'));
@@ -63,25 +65,32 @@ export class DispatcherScreenComponent implements OnInit {
   }
 
   @HostListener('document:resize', ['$event'])
-  private OnResize(event) {
+  OnResize(event) {
     this.resize();
   }
 
-  @HostListener('document:UnityTemplate_Start', ['$event', '$event.detail.param1'])
-  private OnUnityStart(event, param1) {
+  @HostListener('document:UnityDispatcherScreen_Start', ['$event', '$event.detail.param1'])
+  OnUnityStart(event, param1) {
     this.isStart = true;
     if (!this.unityInstance) {
       return;
     }
-    this.CallUnityScript('Scripts', 'FromAngular');
+    this.wsConnect();
   }
 
   @HostListener('document:UnityTemplate_Click', ['$event'])
-  private OnUnityClick(event) {
+  OnUnityClick(event) {
     if (!this.unityInstance) {
       return;
     }
-    console.log('click');
+  }
+
+  private wsConnect() {
+    this.widgetService.getWidgetLiveDataFromWS(this.id, 'dispatcher-screen')
+      .subscribe((ref) => {
+        this.CallUnityScript('Scripts', 'RefreshValues', JSON.stringify(ref));
+      }
+      );
   }
 
   private InitUnity() {
@@ -89,14 +98,14 @@ export class DispatcherScreenComponent implements OnInit {
     this.loadProject(`${this.baseUrl}assets/unity/dispatcher-screen/web_build.json`);
   }
 
-  private CallUnityScript(funName, ...args) {
+  private CallUnityScript(objName, funName, ...args) {
     if (this.isStart && this.unityInstance) {
-      this.unityInstance.SendMessage(funName, ...args);
+      this.unityInstance.SendMessage(objName, funName, ...args);
     }
   }
 
   private loadProject(path) {
-    this.unityInstance = UnityLoader.instantiate('unityContainer_unity-template', path);
+    this.unityInstance = UnityLoader.instantiate('unityContainer_unity-dispatcher-screen', path);
   }
 
   private resize() {

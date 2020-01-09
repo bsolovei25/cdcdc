@@ -249,7 +249,8 @@ export class DeviationsTableComponent implements OnInit, OnDestroy {
         private eventService: EventService,
         public widgetService: NewWidgetService,
         @Inject("isMock") public isMock: boolean,
-        @Inject("widgetId") public id: string
+        @Inject("widgetId") public id: string,
+        @Inject("uniqId") public uniqId: string
     ) {
         this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe(data => {
             this.title = data.title;
@@ -268,7 +269,9 @@ export class DeviationsTableComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.subscription.unsubscribe();
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 
 

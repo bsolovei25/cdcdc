@@ -4,6 +4,7 @@
     [units]="'гДж'"
     [code]=""
     [id]="id"
+    [uniqId]="uniqId"
   ></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
@@ -174,6 +175,44 @@
                   [attr.stroke-dashoffset]="
                     diaOffset(fuelRadius, energyCircleDiagram.upperLimit)
                   "
+                ></circle>
+
+                <!-- Точки на концах линий -->
+                <circle
+                  [attr.cx]="
+                    diaEndsLine(energyCircleDiagram.termo, termoRadius).xCen
+                  "
+                  [attr.cy]="
+                    diaEndsLine(energyCircleDiagram.termo, termoRadius).yCen
+                  "
+                  [attr.r]="radPoint"
+                  fill="colorBg"
+                  [attr.stroke]="diaFill(energyCircleDiagram.termo)"
+                  stroke-width="0.3"
+                ></circle>
+                <circle
+                  [attr.cx]="
+                    diaEndsLine(energyCircleDiagram.electro, electroRadius).xCen
+                  "
+                  [attr.cy]="
+                    diaEndsLine(energyCircleDiagram.electro, electroRadius).yCen
+                  "
+                  [attr.r]="radPoint"
+                  fill="colorBg"
+                  [attr.stroke]="diaFill(energyCircleDiagram.electro)"
+                  stroke-width="0.3"
+                ></circle>
+                <circle
+                  [attr.cx]="
+                    diaEndsLine(energyCircleDiagram.fuel, fuelRadius).xCen
+                  "
+                  [attr.cy]="
+                    diaEndsLine(energyCircleDiagram.fuel, fuelRadius).yCen
+                  "
+                  [attr.r]="radPoint"
+                  fill="colorBg"
+                  [attr.stroke]="diaFill(energyCircleDiagram.fuel)"
+                  stroke-width="0.3"
                 ></circle>
 
                 <line

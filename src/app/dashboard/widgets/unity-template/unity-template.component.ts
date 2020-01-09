@@ -1,8 +1,8 @@
-import {Component, HostListener, Inject, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, HostListener, Inject, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { UnityLoader } from './UnityLoader.js';
 import { PlatformLocation } from '@angular/common';
-import {NewWidgetService} from '../../services/new-widget.service';
-import {Subscription} from 'rxjs';
+import { NewWidgetService } from '../../services/new-widget.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'evj-unity-template',
@@ -13,9 +13,9 @@ export class UnityTemplateComponent implements OnInit {
 
   private baseUrl: string;
   private unityInstance: any;
-  private isStart: boolean;
+  isStart: boolean;
 
-  private title: string;
+  title: string;
   private subscriptions: Subscription[] = [];
 
   private canvas: HTMLCanvasElement;
@@ -27,6 +27,7 @@ export class UnityTemplateComponent implements OnInit {
     public widgetService: NewWidgetService,
     @Inject('isMock') public isMock: boolean,
     @Inject('widgetId') public id: string,
+    @Inject('uniqId') public uniqId: string,
     platformLocation: PlatformLocation
   ) {
     const location = (platformLocation as any).location;
@@ -42,15 +43,18 @@ export class UnityTemplateComponent implements OnInit {
 
   ngOnDestroy() {
     console.log('destroy_unity');
-    for (const i in this.subscriptions) {
-      this.subscriptions[i].unsubscribe();
+    if (this.subscriptions) {
+      for (const i in this.subscriptions) {
+        this.subscriptions[i].unsubscribe();
+      }
     }
-    this.unityInstance.Quit(() => console.log('destroy'));
+    if (this.unityInstance) {
+      this.unityInstance.Quit(() => console.log('destroy'));
+    }
   }
 
   ngAfterViewInit() {
     this.showMock(this.isMock);
-    console.log('isMock' + this.isMock);
   }
 
   private showMock(show) {
@@ -60,12 +64,12 @@ export class UnityTemplateComponent implements OnInit {
   }
 
   @HostListener('document:resize', ['$event'])
-  private OnResize(event) {
+  OnResize(event) {
     this.resize();
   }
 
   @HostListener('document:UnityTemplate_Start', ['$event', '$event.detail.param1'])
-  private OnUnityStart(event, param1) {
+  OnUnityStart(event, param1) {
     this.isStart = true;
     if (!this.unityInstance) {
       return;
@@ -74,11 +78,10 @@ export class UnityTemplateComponent implements OnInit {
   }
 
   @HostListener('document:UnityTemplate_Click', ['$event'])
-  private OnUnityClick(event) {
+  OnUnityClick(event) {
     if (!this.unityInstance) {
       return;
     }
-    console.log('click');
   }
 
   private InitUnity() {

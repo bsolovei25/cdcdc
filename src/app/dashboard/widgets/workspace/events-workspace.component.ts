@@ -10,7 +10,7 @@ import {
 import { Subscription } from "rxjs";
 import { EventService } from '../../services/event.service';
 import { EventsWidgetNotification, EventsWidgetNotificationStatus, EventsWidgetNotificationPriority, IStatus, IPriority, User, ICategory, EventsWidgetCategory, EventsWidgetCategoryCode } from '../../models/events-widget';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: "evj-events-workspace",
@@ -71,9 +71,11 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
   constructor(
     private eventService: EventService,
+    private snackBar: MatSnackBar,
     // private formBuilder: FormBuilder,
     @Inject("isMock") public isMock: boolean,
-    @Inject("widgetId") public id: string
+    @Inject("widgetId") public id: string,
+    @Inject("uniqId") public uniqId: string
   ) {
   }
 
@@ -99,7 +101,9 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   resetComponent() {
@@ -243,25 +247,24 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
   async saveItem(): Promise<void> {
     this.isLoading = true;
-    let snackBar = document.getElementById("snackbar");
 
     if (this.isNew) {
       try {
         const ev = await this.eventService.postEvent(this.event);
         this.event = ev;
         this.isNew = false;
-        this.snackBar('Сохранено');
+        this.openSnackBar('Сохранено');
       } catch (error) {
         this.isLoading = false;
-        this.snackBar('Ошибка');
+        this.openSnackBar('Ошибка');
       }
     } else {
       try {
         const ev = await this.eventService.putEvent(this.event);
-        this.snackBar('Сохранено');
+        this.openSnackBar('Сохранено');
       } catch (error) {
         this.isLoading = false;
-        this.snackBar('Ошибка');
+        this.openSnackBar('Ошибка');
       }
     }
 
@@ -274,8 +277,6 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
   // #region Retrieval Event
 
   async saveRetrieval(idEvent: number): Promise<void> {
-    let snackBar = document.getElementById("snackbar");
-
     // Если не новый event, отсылаем
     if (!this.isNew) {
       try {
@@ -283,11 +284,11 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         this.event.retrievalEvents.push(post);
         this.overlayClose();
         this.eventService.updateEvent$.next(true);
-        this.snackBar('Сохранено');
+        this.openSnackBar('Сохранено');
       } catch (error) {
         this.overlayClose();
         this.isLoading = false;
-        this.snackBar('Ошибка');
+        this.openSnackBar('Ошибка');
       }
     } else {
       // Если новый event то добавляем в массив
@@ -360,10 +361,10 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         this.eventService.updateEvent$.next(true);
         this.overlayClose();
         this.isLoading = false;
-        this.snackBar('Сохранено');
+        this.openSnackBar('Сохранено');
       } catch (error) {
         this.isLoading = false;
-        this.snackBar('Ошибка');
+        this.openSnackBar('Ошибка');
       }
       this.isEdit = false;
     }
@@ -382,6 +383,15 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
   // #region Overlay Сonfirmation
 
+  openSnackBar(msg: string = 'Операция выполнена', msgDuration: number = 500, actionText?: string, actionFunction?: () => void) {
+    const snackBarInstance = this.snackBar.open(msg, actionText, { duration: msgDuration });
+    if (actionFunction) {
+      snackBarInstance.onAction().subscribe(
+        () => actionFunction()
+      );
+    }
+  }
+
   overlayConfirmationOpen() {
     document.getElementById("overlay-confirmation").style.display = "block";
   }
@@ -392,12 +402,12 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
   // #endregion
 
-  snackBar(text: string = 'Выполнено', durection: number = 3000) {
-    let snackBar = document.getElementById("snackbar-workspace");
-    snackBar.className = "show";
-    snackBar.innerText = text;
-    setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, durection);
-  }
+  // snackBar(text: string = 'Выполнено', durection: number = 3000) {
+  //   let snackBar = document.getElementById("snackbar-workspace");
+  //   snackBar.className = "show";
+  //   snackBar.innerText = text;
+  //   setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, durection);
+  // }
 
   getIndex(i: number): string {
     return Number(i + 1).toString();

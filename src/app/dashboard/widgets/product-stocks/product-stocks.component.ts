@@ -41,7 +41,8 @@ export class ProductStocksComponent implements OnInit, OnDestroy, AfterViewInit 
     public widgetService: NewWidgetService,
     private renderer: Renderer2,
     @Inject('isMock') public isMock: boolean,
-    @Inject('widgetId') public id: string
+    @Inject('widgetId') public id: string,
+    @Inject('uniqId') public uniqId: string
   ) {
     this.liveSubscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
       this.title = data.title
@@ -84,11 +85,7 @@ export class ProductStocksComponent implements OnInit, OnDestroy, AfterViewInit 
 
   dataSvgSize() {
     const passportizationHeight = ((this.data.passportization / this.data.stocks) * 100).toFixed(2);
-    console.log(passportizationHeight);
-
     const shipmentHeight = ((this.data.shipment / this.data.stocks) * 100).toFixed(2);
-
-
   }
 
   onActive() {

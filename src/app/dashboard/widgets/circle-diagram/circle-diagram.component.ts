@@ -27,15 +27,16 @@ export class CircleDiagramComponent implements OnInit, OnDestroy {
     static itemCols = 18;
     static itemRows = 14;
 
-    code;
-    public title;
-    units = "шт.";
+    public code: string;
+    public title: string;
+    public units: string = "шт.";
     options;
 
-    @Input() public data = {
-        name: 'Hello',
-        nonCritical: 40,
-        critical: 100,
+    public svg: any;
+
+    public data = {
+        acknowledged: 40,
+        nonAcknowledged: 100,
         diagnostics: 100,
         prognosis: 0
     };
@@ -48,7 +49,8 @@ export class CircleDiagramComponent implements OnInit, OnDestroy {
     constructor(
         public widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,
-        @Inject('widgetId') public id: string
+        @Inject('widgetId') public id: string,
+        @Inject('uniqId') public uniqId: string
     ) {
         this.subscriptions.push(this.widgetService.getWidgetChannel(id).subscribe(data => {
             this.code = data.code,
@@ -60,8 +62,14 @@ export class CircleDiagramComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         if (!this.isMock) {
-            this.d3Circle(this.data, this.myCircle.nativeElement);
-            console.log('asdad');
+            this.subscriptions.push(this.widgetService.getWidgetLiveDataFromWS(this.id, 'circle-diagram')
+              .subscribe((ref) => {
+                this.data = ref;
+                if (this.svg) {
+                  this.svg.remove();
+                }
+                this.d3Circle(this.data, this.myCircle.nativeElement);
+              }));
         }
     }
 
@@ -70,8 +78,8 @@ export class CircleDiagramComponent implements OnInit, OnDestroy {
     }
 
     public d3Circle(data, el): void {
-        const summ = data.critical + data.nonCritical + data.diagnostics + data.critical;
-        const mass = [data.nonCritical, data.critical, data.diagnostics, data.prognosis];
+        const summ = data.nonAcknowledged + data.acknowledged + data.diagnostics + data.prognosis;
+        const mass = [data.acknowledged, data.nonAcknowledged, data.diagnostics, data.prognosis];
         let color: any;
 
         if (summ === 0) {
@@ -80,11 +88,11 @@ export class CircleDiagramComponent implements OnInit, OnDestroy {
             color = d3.scaleOrdinal().range(["white", "orange", "var(--color-border-active)", "var(--color-circle)"]);
         }
 
-        const canvas = d3.select(el).append("svg")
+        this.svg = d3.select(el).append("svg")
             .attr("min-width", "100px")
             .attr("viewBox", "40 25 208 120");
 
-        let group = canvas.append("g")
+        let group = this.svg.append("g")
             .attr("transform", "translate(102 ,88)");
 
         const arc = d3.arc().innerRadius(43).outerRadius(this.RADIUS);
@@ -103,68 +111,68 @@ export class CircleDiagramComponent implements OnInit, OnDestroy {
         group = group.append("text")
             .attr("text-anchor", "middle")
             .attr("font-size", "2em")
-            .attr("fill", (!data.nonCritical && !data.critical) ? 'gray' : "white")
+            .attr("fill", (!data.acknowledged && !data.nonAcknowledged) ? 'gray' : "white")
             .attr("dominant-baseline", "middle")
             .text(summ);
 
-        let nonCriticall = canvas.append("text")
+        let acknowledgedl = this.svg.append("text")
             .attr("font-size", "8px")
             .attr("x", this.x)
             .attr("y", this.y)
             .attr("fill", "orange")
-            .text("Не квитировано", data.nonCriticall);
+            .text("Не квитировано", data.acknowledgedl);
 
-        let nonCriticall_num = canvas.append("text")
+        let acknowledgedl_num = this.svg.append("text")
             .attr("font-size", "10px")
             .attr("x", this.x)
             .attr("y", this.y + 14)
-            .attr("fill", (!data.nonCritical) ? 'gray' : "orange")
-            .text(data.nonCritical);
+            .attr("fill", (!data.acknowledged) ? 'gray' : "orange")
+            .text(data.acknowledged);
 
-        let сritical = canvas.append("text")
+        let nonAcknowledged = this.svg.append("text")
             .attr("font-size", "8px")
             .attr("x", this.x)
             .attr("y", this.y + 14 * 2)
             .attr("fill", "white")
-            .text("Квитировано", data.сritical);
+            .text("Квитировано", data.nonAcknowledged);
 
-        let сritical_num = canvas.append("text")
+        let nonAcknowledged_num = this.svg.append("text")
             .attr("font-size", "10px")
             .attr("x", this.x)
             .attr("y", this.y + 14 * 3)
-            .attr("fill", (!data.critical) ? 'gray' : "white")
-            .text(data.critical);
+            .attr("fill", (!data.nonAcknowledged) ? 'gray' : "white")
+            .text(data.nonAcknowledged);
 
-        let diagnostic = canvas.append("text")
+        let diagnostic = this.svg.append("text")
             .attr("font-size", "8px")
             .attr("x", this.x)
             .attr("y", this.y + 14 * 4)
             .attr("fill", "var(--color-border-active)")
-            .text("Диагностика", data.сritical);
+            .text("Диагностика", data.nonAcknowledged);
 
-        let diagnostic_num = canvas.append("text")
+        let diagnostic_num = this.svg.append("text")
             .attr("font-size", "10px")
             .attr("x", this.x)
             .attr("y", this.y + 14 * 5)
             .attr("fill", (!data.diagnostics) ? 'gray' : "var(--color-border-active)")
             .text(data.diagnostics);
 
-        let prognosis = canvas.append("text")
+        let prognosis = this.svg.append("text")
             .attr("font-size", "8px")
             .attr("x", this.x)
             .attr("y", this.y + 14 * 6)
             .attr("fill", "var(--color-circle)")
             .text("Прогноз", data.prognosis);
 
-        let prognosis_num = canvas.append("text")
+        let prognosis_num = this.svg.append("text")
             .attr("font-size", "10px")
             .attr("x", this.x)
             .attr("y", this.y + 14 * 7)
             .attr("fill", (!data.prognosis) ? 'gray' : "var(--color-circle)")
             .text(data.prognosis);
 
-        let pie_back = canvas.append("image")
-            .attr("xlink:href", !data.nonCritical ? "./assets/pic/circle-diagram-grey.svg" : "./assets/pic/circle-diagram-orange.svg")
+        let pie_back = this.svg.append("image")
+            .attr("xlink:href", !data.acknowledged ? "./assets/pic/circle-diagram-grey.svg" : "./assets/pic/circle-diagram-orange.svg")
             .attr("height", "189px")
             .attr("width", "110px")
             .attr("x", "47")

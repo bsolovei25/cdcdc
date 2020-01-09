@@ -50,7 +50,9 @@ export class MapEcologyComponent implements AfterViewInit, OnInit, OnDestroy {
   constructor(
     public widgetService: NewWidgetService,
     @Inject('isMock') public isMock: boolean,
-    @Inject('widgetId') public id: string) {
+    @Inject('widgetId') public id: string,
+    @Inject('uniqId') public uniqId: string
+    ) {
 
     this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe(data => {
       this.title = data.title;
@@ -64,7 +66,9 @@ export class MapEcologyComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   ngAfterViewInit() {
@@ -224,7 +228,6 @@ export class MapEcologyComponent implements AfterViewInit, OnInit, OnDestroy {
 
   public infoPoint(name) {
     this.namePoint = name;
-    console.log("good");
   }
 
   public nextPoint(name) {

@@ -26,7 +26,7 @@ export class NewWidgetService {
 
   public draggingItem: GridsterItem;
   public isOver = false;
-  public dashboard: GridsterItem[] = [];
+  public dashboard: GridsterItem[] = []; // GridsterItem with uniqid that identifies concrete widget
   public mass = [];
   private _widgets$: BehaviorSubject<Widgets[]> = new BehaviorSubject(null);
   private reconnectTimer: any;
@@ -79,9 +79,9 @@ export class NewWidgetService {
     }
   }
 
-  removeItemService(id) {
+  removeItemService(uniqid: string) {
     for (const item of this.dashboard) {
-      if (item.id === id) {
+      if (item.uniqid === uniqid) {
         this.dashboard.splice(this.dashboard.indexOf(item), 1);
       }
     }
@@ -146,7 +146,23 @@ export class NewWidgetService {
 
       case 'ring-factory-diagram':
         return data;
+
+      case "semicircle-energy":
+        return data;
+
+      case 'dispatcher-screen':
+        return data;
+
+      case 'point-diagram':
+        return data;
+
+      case 'circle-diagram':
+        return data;
+
+      case 'polar-chart':
+        return data;
     }
+    console.warn(`unknown widget type ${widgetType}`);
   }
 
   private mapEventsWidgetData(data: EventsWidgetData): EventsWidgetData {
@@ -199,5 +215,3 @@ export class NewWidgetService {
     }, this.reconnectInterval);
   }
 }
-
-

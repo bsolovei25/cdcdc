@@ -86,13 +86,15 @@ export class EnergeticsComponent implements OnInit {
   fuelRadius = (15.91549430918954).toString();
   electroRadius = (15.91549430918954 + 3).toString();
   termoRadius = (15.91549430918954 + 6).toString();
+  radPoint = "0.8";
 
   public title;
 
   constructor(
     private widgetService: NewWidgetService,
     @Inject("isMock") public isMock: boolean,
-    @Inject("widgetId") public id: string
+    @Inject("widgetId") public id: string,
+    @Inject("uniqId") public uniqId: string
   ) {
     this.subscription = this.widgetService
       .getWidgetChannel(this.id)
@@ -177,5 +179,16 @@ export class EnergeticsComponent implements OnInit {
     if (percent === this.energyCircleDiagram.upperLimit) return this.colorFull;
     if (percent > this.energyCircleDiagram.upperLimit)
       return this.colorDeviation;
+  }
+
+  diaEndsLine(line: number, rad: string) {
+    const newLine = 100 - line + +this.radPoint; // отсчет угла от 100%
+    const t = (Math.PI * newLine) / 100 + Math.PI / 2;
+    const r = +rad;
+    const limitLine = {
+      xCen: (r * Math.cos(t) + +this.centerX).toString(),
+      yCen: (r * Math.sin(t) + +this.centerY).toString()
+    };
+    return limitLine;
   }
 }

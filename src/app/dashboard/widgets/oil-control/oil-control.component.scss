@@ -55,10 +55,20 @@
     display: flex;
 }
 
+.container_oil_short{
+    height: 100%;
+}
+
 .oilCircle{
     min-height: 180px;
     min-width: 240px;
     width: 40%;
+}
+
+.oilCircle_short{
+    min-height: 180px;
+    min-width: 240px;
+   
 }
 
 .oil_info{
@@ -71,6 +81,10 @@
     width: 95%;
     margin: 0 auto;
   
+}
+
+.value_oil_short{
+
 }
 
 .oil_block_inter_info{
@@ -127,7 +141,25 @@
     margin-left: 30px;
 }
 
+.page_short{
+    margin: auto;
+    justify-content: space-around;
+    font-size: 14px;
+    min-width: 140px;
+    display: flex;
+}
+
 .data{
+    margin: auto;
+    color: #8c99b2;
+    font-size: 12px;
+    width: 25%;
+    min-width: 145px;
+    display: flex;
+    justify-content: center;
+}
+
+.data_short{
     margin: auto;
     color: #8c99b2;
     font-size: 12px;
@@ -156,12 +188,35 @@
     font-size: 14px;
     color: #8c99b2;
 }
+
+.name_value_short{
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: auto;
+    width: 25%;
+    min-width: 140px;
+    font-size: 14px;
+    color: #8c99b2;
+}
+
+.value_oils_short{
+    margin: auto;
+    justify-content: space-around;
+    width: 25%;
+    min-width: 140px;
+    display: flex;
+    font-size: 10px;
+}
  
 .row{
     margin-top: 1px;
     display: flex;
    // justify-content: space-around;
     height: 30%;
+}
+.row_short{
+  
 }
 
 .activePage{
@@ -171,6 +226,10 @@
 .container ::ng-deep .header{
     width: 40%;
     min-width: 200px;
+}
+
+.oil_short_info{
+    display: flex;
 }
 
 

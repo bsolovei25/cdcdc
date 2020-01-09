@@ -13,11 +13,11 @@ export class IndicatorSelectorComponent implements OnInit, AfterViewInit {
 
   public dataScreen: ScreenSettings[] = [];
 
-  private isReadyAdd: boolean = false;
+  isReadyAdd: boolean = false;
 
-  private tempScreen: string = '';
+  tempScreen: string = '';
 
-  private newNameScreen: string = ''
+  newNameScreen: string = '';
 
   private subscription: Subscription;
 
@@ -31,42 +31,41 @@ export class IndicatorSelectorComponent implements OnInit, AfterViewInit {
 
   private timerOff = null;
 
-  private isShowScreens: boolean = false;
+  isShowScreens: boolean = false;
 
   constructor(
     private userSettings: NewUserSettingsService
-    ) {
-      this.subscription = this.userSettings.screens$.subscribe(dataW => {
-        this.dataScreen = dataW;
-        this.nameScreen = this.getActiveScreen();
-        for (const item of this.dataScreen) {
-          item.updateScreen = false;
-        }
-      });
+  ) {
+    this.subscription = this.userSettings.screens$.subscribe(dataW => {
+      this.dataScreen = dataW;
+      this.nameScreen = this.getActiveScreen();
+      for (const item of this.dataScreen) {
+        item.updateScreen = false;
+      }
+    });
 
-     }
+  }
 
-  ngOnInit(){
-    this.localSaved= Number(localStorage.getItem('screenid'));
+  ngOnInit() {
+    this.localSaved = Number(localStorage.getItem('screenid'));
   }
 
   ngAfterViewInit() {
     this.nameScreen = this.getActiveScreen();
   }
 
-  public LoadScreen(id){
-
+  public LoadScreen(id) {
     this.userSettings.LoadScreen(id);
   }
 
-  private ScreenActive(e) {
+  ScreenActive(e) {
     if (this.timerOff) {
       clearTimeout(this.timerOff);
     }
     this.isShowScreens = true;
   }
 
-  private ScreenDisable(e) {
+  ScreenDisable(e) {
     this.timerOff = setTimeout(() => {
       this.isShowScreens = false;
     }, 700);
@@ -82,9 +81,9 @@ export class IndicatorSelectorComponent implements OnInit, AfterViewInit {
 
     if (this.localSaved) {
       const found = this.dataScreen.find(x => x.id === this.localSaved);
-        if (found){
-          return found.screenName;
-        }
+      if (found) {
+        return found.screenName;
+      }
       this.LoadScreen(this.localSaved);
 
     }
@@ -109,10 +108,9 @@ export class IndicatorSelectorComponent implements OnInit, AfterViewInit {
   }
 
   public deleteScreen(id) {
-    console.log(event);
     this.userSettings.deleteScreen(id);
     for (const item of this.dataScreen) {
-      if (item.id === id){
+      if (item.id === id) {
         this.dataScreen.splice(this.dataScreen.indexOf(item), 1);
       }
     }
@@ -124,7 +122,7 @@ export class IndicatorSelectorComponent implements OnInit, AfterViewInit {
     }
   }
 
-  public updateScreen(id, newName){
+  public updateScreen(id, newName) {
     for (const item of this.dataScreen) {
       if (item.id === id) {
         item.updateScreen = false;
@@ -144,7 +142,7 @@ export class IndicatorSelectorComponent implements OnInit, AfterViewInit {
   }
 
   onUpdateForm(id) {
-    for (const item of this.dataScreen){
+    for (const item of this.dataScreen) {
       if (item.id === id) {
         item.updateScreen = true;
         this.newNameScreen = item.screenName;
@@ -153,7 +151,7 @@ export class IndicatorSelectorComponent implements OnInit, AfterViewInit {
   }
 
   isLeaveScreen(e) {
-    for (const item of this.dataScreen){
+    for (const item of this.dataScreen) {
       item.updateScreen = false;
     }
   }

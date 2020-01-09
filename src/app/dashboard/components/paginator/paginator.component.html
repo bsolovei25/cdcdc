@@ -41,11 +41,11 @@
         class="paginator-button"
       >{{ page }}</button>
     </ng-template>
-    <button
+  <!--  <button
       (click)="onClick(currentPage + 1)"
       [disabled]="currentPage === countPages"
       class="paginator-button paginator-button-next"
-    ></button>
+    ></button> -->
     <select (change)="onChangePer($event.target.value)" *ngIf="showPersSelect">
       <option
         *ngFor="let per of pers"

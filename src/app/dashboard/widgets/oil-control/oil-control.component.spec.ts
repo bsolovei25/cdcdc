@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OilControllComponent } from './oil-control.component';
+import { OilControlComponent } from './oil-control.component';
 
 describe('OilControllComponent', () => {
-  let component: OilControllComponent;
-  let fixture: ComponentFixture<OilControllComponent>;
+  let component: OilControlComponent;
+  let fixture: ComponentFixture<OilControlComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OilControllComponent ]
+      declarations: [ OilControlComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OilControllComponent);
+    fixture = TestBed.createComponent(OilControlComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

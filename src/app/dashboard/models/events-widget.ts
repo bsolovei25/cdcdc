@@ -79,6 +79,7 @@ export interface EventsWidgetCategory {
   iconUrl?: string;
   name?: string;
   isActive?: boolean;
+  url?: string;
 }
 
 export interface EventsWidgetNotificationsCounter {

@@ -162,6 +162,14 @@
                 <div class="line__circle line__circle__right"></div>
               </div>
 
+              <div class="workspace__submit">
+                <div class="submit__frame submit__frame-left"></div>
+                <div class="submit__frame submit__frame-right"></div>
+                <button [disabled]="c.url === '#'" type="submit gridster-item-content" (click)="onClick($event, c.url)">
+                  В систему источник
+                </button>
+              </div>
+
             </div>
 
           </div>
@@ -234,14 +242,14 @@
                 <span *ngIf="isDeleteRetrieval">Вы действительно хотите удалить выбранное
                   Событие и связанные Мероприятия?</span>
                 <div style="display: flex;">
-                  <div class="workspace__submit">
+                  <div class="event-confirm__submit">
                     <div class="submit__frame submit__frame-left"></div>
                     <div class="submit__frame submit__frame-right"></div>
                     <button type="submit gridster-item-content" (click)="eventClick(true, undefined, $event)">
                       Удалить
                     </button>
                   </div>
-                  <div class="workspace__submit">
+                  <div class="event-confirm__submit">
                     <div class="submit__frame submit__frame-left"></div>
                     <div class="submit__frame submit__frame-right"></div>
                     <button type="submit gridster-item-content" (click)="overlayConfirmationClose()">
@@ -303,6 +311,14 @@
               <div class="line category__line category__line_bottom">
                 <div class="line__circle line__circle__left"></div>
                 <div class="line__circle line__circle__right"></div>
+              </div>
+
+              <div class="workspace__submit">
+                <div class="submit__frame submit__frame-left"></div>
+                <div class="submit__frame submit__frame-right"></div>
+                <button [disabled]="c.url === '#'" type="submit gridster-item-content" (click)="onClick($event, c.url)">
+                  В систему источник
+                </button>
               </div>
 
             </div>
