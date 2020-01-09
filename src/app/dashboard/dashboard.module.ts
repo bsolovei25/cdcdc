@@ -63,8 +63,9 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { CircleBlockDiagramComponent } from './widgets/circle-block-diagram/circle-block-diagram.component';
 import { ColumnChartStackedComponent } from './widgets/column-chart-stacked/column-chart-stacked.component';
 import { CcsOneColumnComponent } from './widgets/column-chart-stacked/ccs-one-column/ccs-one-column.component';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {FlameDiagramComponent} from './widgets/flame-diagram/flame-diagram.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FlameDiagramComponent } from './widgets/flame-diagram/flame-diagram.component';
+import { ObservationNormTRComponent } from './widgets/observation-norm-tr/observation-norm-tr.component';
 
 @NgModule({
   declarations: [
@@ -124,6 +125,7 @@ import {FlameDiagramComponent} from './widgets/flame-diagram/flame-diagram.compo
     ColumnChartStackedComponent,
     CcsOneColumnComponent,
     FlameDiagramComponent,
+    ObservationNormTRComponent,
   ],
   entryComponents: [
     LineChartComponent,
@@ -164,6 +166,7 @@ import {FlameDiagramComponent} from './widgets/flame-diagram/flame-diagram.compo
     CircleBlockDiagramComponent,
     ColumnChartStackedComponent,
     FlameDiagramComponent,
+    ObservationNormTRComponent,
   ],
   exports: [HomeComponent],
   imports: [

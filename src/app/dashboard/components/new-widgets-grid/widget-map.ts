@@ -32,6 +32,7 @@ import { DeviationCircleDiagramComponent } from "../../widgets/deviation-circle-
 import { CircleBlockDiagramComponent } from "../../widgets/circle-block-diagram/circle-block-diagram.component";
 import { ColumnChartStackedComponent } from "../../widgets/column-chart-stacked/column-chart-stacked.component";
 import {FlameDiagramComponent} from "../../widgets/flame-diagram/flame-diagram.component";
+import { ObservationNormTRComponent } from '../../widgets/observation-norm-tr/observation-norm-tr.component';
 
 export const WIDGETS = {
   "pie-diagram": WidgetPiesComponent,
@@ -69,4 +70,5 @@ export const WIDGETS = {
   "circle-block-diagram": CircleBlockDiagramComponent,
   "column-chart-stacked": ColumnChartStackedComponent,
   "flame-diagram": FlameDiagramComponent,
+  'observation-norm-tr' : ObservationNormTRComponent
 };
