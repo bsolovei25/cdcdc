@@ -65,7 +65,7 @@ export class NewUserSettingsService {
   private addWidgetApi(uniqId: string) {
     this.save(uniqId);
     const updateWidget = this.widgetInfo;
-    this.http.post(this.restUrl + '/api/user-management/widget/' + this.ScreenId, updateWidget)
+    this.http.post(this.restUrl + '/user-management/widget/' + this.ScreenId, updateWidget)
       .subscribe(
         ans => {
         },
@@ -93,7 +93,7 @@ export class NewUserSettingsService {
   private updateWidgetApi(uniqId) {
     this.save(uniqId);
     const updateWidget = this.widgetInfo;
-    this.http.put(this.restUrl + '/api/user-management/widget/' + uniqId, updateWidget)
+    this.http.put(this.restUrl + '/user-management/widget/' + uniqId, updateWidget)
       .subscribe(
         ans => {
         },
@@ -114,7 +114,7 @@ export class NewUserSettingsService {
   }
 
   public removeItem(widgetId: string) {
-    this.http.delete(this.restUrl + '/api/user-management/widget/' + widgetId)
+    this.http.delete(this.restUrl + '/user-management/widget/' + widgetId)
       .subscribe(
         ans => {
         },
@@ -124,7 +124,7 @@ export class NewUserSettingsService {
 
   public GetScreen() {
     try {
-      this.http.get<ScreenSettings[]>(this.restUrl + '/api/user-management/user/1/screens')
+      this.http.get<ScreenSettings[]>(this.restUrl + '/user-management/user/1/screens')
         .subscribe(data => {
           this._screens$.next(data);
           if (!this.ScreenId && data[0]) {
@@ -137,7 +137,7 @@ export class NewUserSettingsService {
   }
 
   private LoadScreenAsync(id: any, loadDefault: boolean): Observable<any> {
-    return this.http.get(this.restUrl + '/api/user-management/screen/' + id)
+    return this.http.get(this.restUrl + '/user-management/screen/' + id)
       .pipe(catchError(err => {
         this.dataScreen = this._screens$.getValue();
         if (err.status === 404 && loadDefault && this.dataScreen && this.dataScreen.length) {
@@ -174,7 +174,7 @@ export class NewUserSettingsService {
       updateScreen;
       widgets;
     };
-    return this.http.post(this.restUrl + '/api/user-management/user/1/screen', userScreen).subscribe(
+    return this.http.post(this.restUrl + '/user-management/user/1/screen', userScreen).subscribe(
       ans => {
         this.GetScreen();
       },
@@ -183,7 +183,7 @@ export class NewUserSettingsService {
   }
 
   public deleteScreen(id: number) {
-    return this.http.delete(this.restUrl + '/api/user-management/screen/' + id)
+    return this.http.delete(this.restUrl + '/user-management/screen/' + id)
       .subscribe(
         ans => {
           if (this.ScreenId === id)
@@ -202,7 +202,7 @@ export class NewUserSettingsService {
       updateScreen;
       widgets;
     };
-    return this.http.put(this.restUrl + '/api/user-management/user/1/screen/' + id, userScreen).subscribe(
+    return this.http.put(this.restUrl + '/user-management/user/1/screen/' + id, userScreen).subscribe(
       ans => {
         this.GetScreen();
       },
