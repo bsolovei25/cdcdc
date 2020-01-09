@@ -59,6 +59,11 @@ import { SemicircleEnergyComponent } from './widgets/semicircle-energy/semicircl
 import { ProductStocksComponent } from './widgets/product-stocks/product-stocks.component';
 import { PolarChartComponent } from './widgets/polar-chart/polar-chart.component';
 import { DeviationCircleDiagramComponent } from './widgets/deviation-circle-diagram/deviation-circle-diagram.component';
+import { OilControllComponent } from './widgets/oil-control/oil-control.component';
+import { PaginatorComponent } from './components/paginator/paginator.component';
+import { PaginatorDirective } from './components/paginator/paginator.directive';
+import { SearchComponent } from './components/search/search.component';
+
 
 @NgModule({
   declarations: [
@@ -114,6 +119,10 @@ import { DeviationCircleDiagramComponent } from './widgets/deviation-circle-diag
     ProductStocksComponent,
     PolarChartComponent,
     DeviationCircleDiagramComponent,
+    OilControllComponent,
+    PaginatorComponent,
+    PaginatorDirective,
+    SearchComponent
   ],
   entryComponents: [
     LineChartComponent,
@@ -150,7 +159,8 @@ import { DeviationCircleDiagramComponent } from './widgets/deviation-circle-diag
     ProductStocksComponent,
     PolarChartComponent,
     SemicircleEnergyComponent,
-    DeviationCircleDiagramComponent
+    DeviationCircleDiagramComponent,
+    OilControllComponent,
   ],
   exports: [HomeComponent],
   imports: [
