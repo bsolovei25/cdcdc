@@ -181,4 +181,3 @@ export class CircleDiagramComponent implements OnInit, OnDestroy {
 
     }
 }
-
