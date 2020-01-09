@@ -62,12 +62,48 @@ export class ManualInputComponent implements OnInit, OnDestroy {
   public onActiveBlock(name, event) {
     if (!this.isMock) {
       for (let item of this.Data) {
+        event.currentTarget.parentElement.lastElementChild.classList.remove("ng-star-inserted");
         if (item.name === name && event.currentTarget.parentElement.lastElementChild.className === "table-container-2-none") {
-          event.currentTarget.parentElement.lastElementChild.classList.remove("table-container-2-none");
-          event.currentTarget.parentElement.lastElementChild.classList.add("table-container-2");
+          for(let i of event.currentTarget.parentElement.children){
+            i.classList.remove("ng-star-inserted");
+            if(i.className === "table-container-2-none"){
+              i.classList.remove("table-container-2-none");
+              i.classList.add("table-container-2");
+            }
+          }
         } else if (item.name === name && event.currentTarget.parentElement.lastElementChild.className === "table-container-2") {
-          event.currentTarget.parentElement.lastElementChild.classList.remove("table-container-2");
-          event.currentTarget.parentElement.lastElementChild.classList.add("table-container-2-none");
+          for(let i of event.currentTarget.parentElement.children){
+            i.classList.remove("ng-star-inserted");
+            if(i.className === "table-container-2"){
+              i.classList.remove("table-container-2");
+              i.classList.add("table-container-2-none");
+            }
+          }
+        }
+      }
+    }
+  }
+
+  public onActiveBottomBlock(name, event) {
+    debugger
+    if (!this.isMock) {
+      for (let item of this.Data) {
+        for (let i of item.groups){
+          if (i.name === name && event.currentTarget.parentElement.lastElementChild.className === "d-table-none") {
+            for(let i of event.currentTarget.parentElement.children){
+              if(i.className === "d-table-none"){
+                i.classList.remove("d-table-none");
+                i.classList.add("d-table");
+              }
+            }
+          } else if (i.name === name && event.currentTarget.parentElement.lastElementChild.className === "d-table") {
+            for(let i of event.currentTarget.parentElement.children){
+              if(i.className === "d-table"){
+                i.classList.remove("d-table");
+                i.classList.add("d-table-none");
+              }
+            }
+          }
         }
       }
     }
