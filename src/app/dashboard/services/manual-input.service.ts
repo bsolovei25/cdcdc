@@ -5,6 +5,7 @@ import {AppConfigService} from 'src/app/services/appConfigService';
 
 @Injectable({providedIn: 'root'})
 export class ManualInputService {
+  public statusLoading;
 
   constructor(private http: HttpClient, configService: AppConfigService) {
     this.restUrl = configService.restUrl;
@@ -40,7 +41,7 @@ export class ManualInputService {
       return newData;
     }
     for (const i in tempData) {
-      const el = this.GetElementById(tempData[i].id, data);
+      const el = this.GetElementById(tempData[i].id, newData);
       el.isError = tempData[i].isError;
       el.comment = tempData[i].comment;
       if (el.curValue !== '') {
@@ -56,10 +57,8 @@ export class ManualInputService {
         }
       }
     }
-    return data;
+    return newData;
   }
-
-  public statusLoading;
 
   BtnSaveValues(data: Machine_MI[]) {
     this.saveBar('Сохранение', true);
@@ -100,7 +99,7 @@ export class ManualInputService {
   }
 
   PostData(Params: MI_DataSend, data: Machine_MI[]) {
-    this.http.post(this.restUrl + '/api/manualinput/post', Params)
+    this.http.post(this.restUrl + '/manualinput/post', Params)
       .subscribe(
         (ans: MI_DataGet) => {
           this.SaveValues(ans, data);
@@ -149,7 +148,6 @@ export class ManualInputService {
     }
     return null;
   }
-
 
   saveBar(text: string,  statusLoad:boolean , durection: number = 2000) {
     

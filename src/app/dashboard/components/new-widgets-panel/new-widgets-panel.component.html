@@ -4,7 +4,7 @@
      <svg-icon class="widgets-panel__icon"
                 src="./assets/icons/settings.svg" [svgStyle]="{ 'width.px':20, 'height.px':20 }"></svg-icon>
     </div>
-  
+
     <h4 class="widgets-panel__heading">
       Доступные виджеты
     </h4>
@@ -20,7 +20,7 @@
       <div class="mycheckbox__descr">Сетка</div>
   </label>
     </div>
-  
+
           <div class="widgets-panel__list scroll-bar">
             <div class="options-header">
                 <ng-container *ngFor="let item of widgets; trackBy: dataById">
@@ -31,5 +31,5 @@
                 </ng-container>
               </div>
             </div>
-    
+
   </div>
