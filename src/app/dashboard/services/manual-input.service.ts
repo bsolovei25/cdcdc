@@ -150,6 +150,8 @@ export class ManualInputService {
   }
 
   saveBar(text: string,  statusLoad:boolean , durection: number = 2000) {
+    
+    debugger
     let snackBar = document.getElementById("saveBar");
     let snackBarBlock = document.getElementById("saveBarBlock");
    // snackBar.className = "show";
