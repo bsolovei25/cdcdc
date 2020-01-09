@@ -46,7 +46,7 @@ export class NewWidgetService {
   );
 
   public getAvailableWidgets(): Observable<Widgets[]> {
-    return this.http.get(this.restUrl + '/af/GetAvailableWidgets').pipe(
+    return this.http.get(this.restUrl + '/api/af/GetAvailableWidgets').pipe(
       map(data => {
         const _data = this.mapData(data);
         this.mass = this.mapData(data);

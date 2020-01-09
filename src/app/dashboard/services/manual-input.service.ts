@@ -100,7 +100,7 @@ export class ManualInputService {
   }
 
   PostData(Params: MI_DataSend, data: Machine_MI[]) {
-    this.http.post(this.restUrl + '/manualinput/post', Params)
+    this.http.post(this.restUrl + '/api/manualinput/post', Params)
       .subscribe(
         (ans: MI_DataGet) => {
           this.SaveValues(ans, data);

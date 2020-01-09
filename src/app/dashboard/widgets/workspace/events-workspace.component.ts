@@ -381,7 +381,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
   // #endregion
 
-  // #region Overlay Сonfirmation
+  // #region Overlay Confirmation
 
   openSnackBar(msg: string = 'Операция выполнена', msgDuration: number = 500, actionText?: string, actionFunction?: () => void) {
     const snackBarInstance = this.snackBar.open(msg, actionText, { duration: msgDuration });
