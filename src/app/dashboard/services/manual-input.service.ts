@@ -41,7 +41,7 @@ export class ManualInputService {
       return newData;
     }
     for (const i in tempData) {
-      const el = this.GetElementById(tempData[i].id, data);
+      const el = this.GetElementById(tempData[i].id, newData);
       el.isError = tempData[i].isError;
       el.comment = tempData[i].comment;
       if (el.curValue !== '') {
@@ -57,7 +57,7 @@ export class ManualInputService {
         }
       }
     }
-    return data;
+    return newData;
   }
 
   BtnSaveValues(data: Machine_MI[]) {
