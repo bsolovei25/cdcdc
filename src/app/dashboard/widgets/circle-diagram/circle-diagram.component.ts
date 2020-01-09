@@ -64,7 +64,6 @@ export class CircleDiagramComponent implements OnInit, OnDestroy {
         if (!this.isMock) {
             this.subscriptions.push(this.widgetService.getWidgetLiveDataFromWS(this.id, 'circle-diagram')
               .subscribe((ref) => {
-                console.log(ref);
                 this.data = ref;
                 if (this.svg) {
                   this.svg.remove();

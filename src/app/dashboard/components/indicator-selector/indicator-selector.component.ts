@@ -108,7 +108,6 @@ export class IndicatorSelectorComponent implements OnInit, AfterViewInit {
   }
 
   public deleteScreen(id) {
-    console.log(event);
     this.userSettings.deleteScreen(id);
     for (const item of this.dataScreen) {
       if (item.id === id) {
