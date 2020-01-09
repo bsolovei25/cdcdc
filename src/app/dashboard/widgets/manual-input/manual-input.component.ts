@@ -17,9 +17,7 @@ export class ManualInputComponent implements OnInit, OnDestroy {
   static itemCols = 30;
   static itemRows = 20;
 
-  private subscription: Subscription;
-
-  private subscribtion2: Subscription;
+  private subscriptions: Subscription[] = [];
 
   title;
 
@@ -34,9 +32,9 @@ export class ManualInputComponent implements OnInit, OnDestroy {
   ) {
     this.restUrl = configService.restUrl;
     this.isLoading = true;
-    this.subscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
+    this.subscriptions.push(this.widgetService.getWidgetChannel(id).subscribe(data => {
       this.title = data.title;
-    });
+    }));
   }
 
   public isLoading: boolean;
@@ -54,14 +52,15 @@ export class ManualInputComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
+    for (const subscription of this.subscriptions) {
+      subscription.unsubscribe();
     }
+    this.subscriptions = [];
   }
 
   public onActiveBlock(name, event) {
     if (!this.isMock) {
-      for (let item of this.Data) {
+      for (const item of this.Data) {
         if (item.name === name && event.currentTarget.parentElement.lastElementChild.className === "table-container-2-none") {
           event.currentTarget.parentElement.lastElementChild.classList.remove("table-container-2-none");
           event.currentTarget.parentElement.lastElementChild.classList.add("table-container-2");
@@ -105,20 +104,9 @@ export class ManualInputComponent implements OnInit, OnDestroy {
       }
       );
   }
-  wsDisconnect() {
-    if (!this.subscribtion2) {
-      return;
-    }
-    // this.subscribtion2 = this.widgetService.getWidgetLiveDataFromWS(this.id, 'manual-input')
-    //   .subscribe((ref) => {
-    //       this.manualInputService.LoadData(this.Data, ref);
-    //     }
-    //   );
-  }
 
   showMock(show) {
     if (show) {
-      this.wsDisconnect();
     } else {
       this.setInitData();
       this.wsConnect();

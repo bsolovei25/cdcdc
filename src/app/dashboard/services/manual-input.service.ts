@@ -5,6 +5,7 @@ import {AppConfigService} from 'src/app/services/appConfigService';
 
 @Injectable({providedIn: 'root'})
 export class ManualInputService {
+  public statusLoading;
 
   constructor(private http: HttpClient, configService: AppConfigService) {
     this.restUrl = configService.restUrl;
@@ -58,8 +59,6 @@ export class ManualInputService {
     }
     return data;
   }
-
-  public statusLoading;
 
   BtnSaveValues(data: Machine_MI[]) {
     this.saveBar('Сохранение', true);
@@ -150,10 +149,7 @@ export class ManualInputService {
     return null;
   }
 
-
   saveBar(text: string,  statusLoad:boolean , durection: number = 2000) {
-    
-    debugger
     let snackBar = document.getElementById("saveBar");
     let snackBarBlock = document.getElementById("saveBarBlock");
    // snackBar.className = "show";
