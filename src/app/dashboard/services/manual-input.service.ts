@@ -60,7 +60,6 @@ export class ManualInputService {
     return newData;
   }
 
-
   BtnSaveValues(data: Machine_MI[]) {
     this.saveBar('Сохранение', true);
     this.statusLoading = true;
@@ -150,10 +149,14 @@ export class ManualInputService {
     return null;
   }
 
-
   saveBar(text: string,  statusLoad:boolean , durection: number = 2000) {
+    
+    debugger
     let snackBar = document.getElementById("saveBar");
     let snackBarBlock = document.getElementById("saveBarBlock");
+   // snackBar.className = "show";
+   // snackBarBlock.className = "show";
+  //  snackBar.innerText = text;
     if(statusLoad){
       snackBar.className = "show";
       snackBarBlock.className = "show";
@@ -165,5 +168,10 @@ export class ManualInputService {
       }, durection);
        snackBarBlock.className = snackBarBlock.className.replace("show", "");
     }
+    /*
+    setTimeout(function () {
+       snackBar.className = snackBar.className.replace("show", "");
+       snackBarBlock.className = snackBarBlock.className.replace("show", "");
+    }, durection); */
   }
 }

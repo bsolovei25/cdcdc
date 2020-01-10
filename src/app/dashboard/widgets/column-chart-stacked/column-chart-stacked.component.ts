@@ -9,7 +9,7 @@ import { Subscription } from "rxjs";
 })
 export class ColumnChartStackedComponent implements OnInit {
   public icon: string = 'columns';
-  
+
   cols = [
     {
       plan: 7,
