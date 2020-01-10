@@ -154,11 +154,11 @@ export class NewWidgetsGridComponent implements OnInit {
 
   }
 
-  public dragStop(item: GridsterItem, itemComponent: GridsterItemComponentInterface, e: MouseEvent) {
-    if (!e) return;
+  public dragStop(item: GridsterItem, e: MouseEvent) {
+  /*  if (!e) return;
     const dataTrasfer = new DataTransfer();
     e.currentTarget.dispatchEvent(new DragEvent('dragstop', { dataTransfer: dataTrasfer }));
-    this.widgetService.draggingItem = null;
+    this.widgetService.draggingItem = null; */
   }
 
 
