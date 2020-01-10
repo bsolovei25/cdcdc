@@ -475,7 +475,7 @@ d-table-none{
     content: '';
     @extend %circle;
     top: -2px;
-    right: -2.5px;
+    right: 2px;
     z-index: 1;
   }
 }
