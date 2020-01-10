@@ -29,7 +29,6 @@ import { ProductStocksComponent } from "../../widgets/product-stocks/product-sto
 import { PolarChartComponent } from "../../widgets/polar-chart/polar-chart.component";
 import { SemicircleEnergyComponent } from "../../widgets/semicircle-energy/semicircle-energy.component";
 import { DeviationCircleDiagramComponent } from "../../widgets/deviation-circle-diagram/deviation-circle-diagram.component";
-import { OilControlComponent } from '../../widgets/oil-control/oil-control.component';
 import { CircleBlockDiagramComponent } from "../../widgets/circle-block-diagram/circle-block-diagram.component";
 import { ColumnChartStackedComponent } from "../../widgets/column-chart-stacked/column-chart-stacked.component";
 import {FlameDiagramComponent} from "../../widgets/flame-diagram/flame-diagram.component";
@@ -68,7 +67,6 @@ export const WIDGETS = {
   "polar-chart": PolarChartComponent,
   "semicircle-energy": SemicircleEnergyComponent,
   "deviation-circle-diagram": DeviationCircleDiagramComponent,
-  "oil-control": OilControlComponent,
   "circle-block-diagram": CircleBlockDiagramComponent,
   "column-chart-stacked": ColumnChartStackedComponent,
   "flame-diagram": FlameDiagramComponent,

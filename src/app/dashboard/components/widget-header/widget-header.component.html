@@ -2,10 +2,12 @@
     <div class="header">
       <div class="header__content drag handle">
         <div class="header__icon-wrapper">
-          <svg-icon
-            class="header__icon" style="fill: #8C99B2"
-            src="./assets/icons/widgets/events/letter.svg"
-          ></svg-icon>
+          <img src="{{iconRoute}}{{icon}}.png" *ngIf="!code">
+<!--          <svg-icon *ngIf="!code"-->
+<!--                    class="header__icon" style="width: 100%; height: 100%; fill: #8C99B2"-->
+<!--                    src={{iconRoute}}{{icon}}.svg-->
+<!--          ></svg-icon>-->
+          {{code}}
         </div>
         <span class="header__name">
           {{title}}

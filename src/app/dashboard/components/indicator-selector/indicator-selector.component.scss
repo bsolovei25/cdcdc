@@ -55,8 +55,8 @@
   color: white;
   background-color: var(--color-bg-main);
   cursor: pointer;
-  height: 45px;
   font-size: 13px;
+  //padding: 10px;
   &:hover {
     transition: all 0.3s ease;
     background-color: var(--color-bg-sub);
@@ -65,7 +65,8 @@
     background: transparent;
     border: solid 0.5px var(--color-border-main);
     border-radius: 5px;
-    padding: 5px;
+    padding: 5px 0 5px 5px;
+    margin: 5px 0 5px 0;;
     color: inherit;
   }
   &_adder {
@@ -96,14 +97,14 @@
  text-align: left;
  font-size: 15px;
  width: 160px;
- margin-top: 15px;
+ padding: 10px;
 }
 .delete_screen{
   display: inline-block;
   z-index: 999;
-  padding-top: 17px;
+  //padding-top: 17px;
   padding-left: 5px;
-  height: 40px;
+  //height: 40px;
   width: 20px;
   fill: white;
 }
@@ -111,18 +112,18 @@
 .delete_screen2{
   display: inline-block;
   z-index: 999;
-  padding-top: 17px;
+  //padding-top: 17px;
   padding-left: 5px;
-  height: 40px;
+  //height: 40px;
   width: 20px;
   fill: white;
 }
 .update_screen{
   display: inline-block;
   z-index: 999;
-  padding-top: 17px;
+  //padding-top: 17px;
   padding-left: 5px;
-  height: 40px;
+  //height: 40px;
   width: 20px;
   fill: white;
 }
@@ -130,16 +131,16 @@
 .update_screen2{
   display: inline-block;
   z-index: 999;
-  padding-top: 17px;
+  //padding-top: 17px;
   padding-left: 10px;
-  height: 40px;
+  //height: 40px;
   width: 20px;
   fill: white;
 }
 
 .update_screen2 ::ng-deep svg{
   width: 20px;
-  height: 20px;
+  //height: 20px;
 }
 
 .delete_screen:hover{
@@ -159,23 +160,27 @@
   background: transparent;
   border: solid 0.5px #5B607D;
   border-radius: 5px  ;
-  margin-top: 8px;
-  width: 150px;
-  height: 20px;
-  color: white;
   padding: 5px;
+  width: 170px;
+  //height: 20px;
+  color: white;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .hover-button{
-  height: 45px;
-  margin-left: 15px;
+  //height: 45px;
+  padding-left: 5px;
   width: 70px;
-  background:#272b35;
-  display:none;
+  background-color: var(--color-bg-main);
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  //display:none;
 }
 
 .screen_blocks:hover .hover-button {
   transition: all 0.3s ease;
-  display: block;
-  text-align: center;
+  opacity: 100%;
+  background:#272b35;
 }
