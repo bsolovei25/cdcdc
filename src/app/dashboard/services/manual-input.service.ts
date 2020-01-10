@@ -103,6 +103,7 @@ export class ManualInputService {
     this.http.post(this.restUrl + '/manualinput/post', Params)
       .subscribe(
         (ans: MI_DataGet) => {
+          this.saveBar('Пустой ввод', false);
           this.SaveValues(ans, data);
         },
       );
@@ -119,7 +120,7 @@ export class ManualInputService {
     for (const i in ids.falseValues) {
       let el = this.GetElementById(ids.falseValues[i], data);
       el.isError = true;
-      this.saveBar('Ошибка', false);
+      this.saveBar('Сохранено с ошибкой', false);
     }
   }
 
@@ -154,11 +155,11 @@ export class ManualInputService {
   saveBar(text: string,  statusLoad:boolean , durection: number = 2000) {
     let snackBar = document.getElementById("saveBar");
     let snackBarBlock = document.getElementById("saveBarBlock");
-    if(statusLoad){
+    if (statusLoad){
       snackBar.className = "show";
       snackBarBlock.className = "show";
       snackBar.innerText = text;
-    }else{
+    } else {
       snackBar.innerText = text;
       setTimeout(function () {
        snackBar.className = snackBar.className.replace("show", "");
