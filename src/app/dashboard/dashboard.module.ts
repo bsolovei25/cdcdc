@@ -59,6 +59,11 @@ import { SemicircleEnergyComponent } from './widgets/semicircle-energy/semicircl
 import { ProductStocksComponent } from './widgets/product-stocks/product-stocks.component';
 import { PolarChartComponent } from './widgets/polar-chart/polar-chart.component';
 import { DeviationCircleDiagramComponent } from './widgets/deviation-circle-diagram/deviation-circle-diagram.component';
+import { OilControlComponent } from './widgets/oil-control/oil-control.component';
+import { PaginatorComponent } from './components/paginator/paginator.component';
+import { PaginatorDirective } from './components/paginator/paginator.directive';
+import { SearchComponent } from './components/search/search.component';
+
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { CircleBlockDiagramComponent } from './widgets/circle-block-diagram/circle-block-diagram.component';
 import { ColumnChartStackedComponent } from './widgets/column-chart-stacked/column-chart-stacked.component';
@@ -120,6 +125,10 @@ import {FlameDiagramComponent} from './widgets/flame-diagram/flame-diagram.compo
     ProductStocksComponent,
     PolarChartComponent,
     DeviationCircleDiagramComponent,
+    OilControlComponent,
+    PaginatorComponent,
+    PaginatorDirective,
+    SearchComponent,
     CircleBlockDiagramComponent,
     ColumnChartStackedComponent,
     CcsOneColumnComponent,
@@ -161,6 +170,7 @@ import {FlameDiagramComponent} from './widgets/flame-diagram/flame-diagram.compo
     PolarChartComponent,
     SemicircleEnergyComponent,
     DeviationCircleDiagramComponent,
+    OilControlComponent,
     CircleBlockDiagramComponent,
     ColumnChartStackedComponent,
     FlameDiagramComponent,

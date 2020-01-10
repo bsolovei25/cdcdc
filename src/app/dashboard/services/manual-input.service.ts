@@ -5,7 +5,6 @@ import {AppConfigService} from 'src/app/services/appConfigService';
 
 @Injectable({providedIn: 'root'})
 export class ManualInputService {
-  public statusLoading;
 
   constructor(private http: HttpClient, configService: AppConfigService) {
     this.restUrl = configService.restUrl;
@@ -41,7 +40,7 @@ export class ManualInputService {
       return newData;
     }
     for (const i in tempData) {
-      const el = this.GetElementById(tempData[i].id, newData);
+      const el = this.GetElementById(tempData[i].id, data);
       el.isError = tempData[i].isError;
       el.comment = tempData[i].comment;
       if (el.curValue !== '') {
@@ -57,8 +56,10 @@ export class ManualInputService {
         }
       }
     }
-    return newData;
+    return data;
   }
+
+  public statusLoading;
 
   BtnSaveValues(data: Machine_MI[]) {
     this.saveBar('Сохранение', true);
@@ -149,14 +150,10 @@ export class ManualInputService {
     return null;
   }
 
+
   saveBar(text: string,  statusLoad:boolean , durection: number = 2000) {
-    
-    debugger
     let snackBar = document.getElementById("saveBar");
     let snackBarBlock = document.getElementById("saveBarBlock");
-   // snackBar.className = "show";
-   // snackBarBlock.className = "show";
-  //  snackBar.innerText = text;
     if(statusLoad){
       snackBar.className = "show";
       snackBarBlock.className = "show";
@@ -168,10 +165,5 @@ export class ManualInputService {
       }, durection);
        snackBarBlock.className = snackBarBlock.className.replace("show", "");
     }
-    /*
-    setTimeout(function () {
-       snackBar.className = snackBar.className.replace("show", "");
-       snackBarBlock.className = snackBarBlock.className.replace("show", "");
-    }, durection); */
   }
 }

@@ -5,6 +5,8 @@ import { WidgetModel } from '../../models/widget.model';
 import { GridsterConfig, GridType, GridsterItem, GridsterItemComponentInterface, DisplayGrid } from 'angular-gridster2';
 import { Subscription } from 'rxjs';
 import { NewUserSettingsService } from '../../services/new-user-settings.service';
+import { EventEmitter } from '@angular/core';
+
 
 @Component({
   selector: 'evj-new-widgets-grid',
@@ -23,6 +25,10 @@ export class NewWidgetsGridComponent implements OnInit {
 
   public nameWidget;
 
+  public resizeWidget = new EventEmitter<MouseEvent>();
+
+
+
   _injector: Injector;
 
   private subscription: Subscription;
@@ -33,10 +39,10 @@ export class NewWidgetsGridComponent implements OnInit {
     public userSettings: NewUserSettingsService
   ) { }
 
+
   ngOnInit() {
     this.userSettings.GetScreen();
-
-
+    
     this.options = {
 
       gridType: GridType.Fixed,
@@ -74,7 +80,7 @@ export class NewWidgetsGridComponent implements OnInit {
         delayStart: 0,
         enabled: true,
         start: this.eventStart.bind(this),
-        stop: this.dragStop.bind(this),
+        stop: this.resizeStop.bind(this),
         handles: {
           s: true,
           e: true,
@@ -123,26 +129,32 @@ export class NewWidgetsGridComponent implements OnInit {
         { provide: 'widgetId', useValue: idWidget },
         { provide: 'uniqId', useValue: uniqId },
         { provide: 'isMock', useValue: false },
+        { provide: 'resizeWidget', useValue: this.resizeWidget },
       ],
       parent: this.injector
     });
   }
 
   public eventStart(item: GridsterItem, itemComponent: GridsterItemComponentInterface, e: MouseEvent) {
+   
     if (!e) return;
     const dataTrasfer = new DataTransfer();
     e.currentTarget.dispatchEvent(new DragEvent('dragstart', { dataTransfer: dataTrasfer }));
   }
 
-  public dragStart(e: DragEvent, item: GridsterItem): void {
+  public resizeStop(item: GridsterItem, itemComponent: GridsterItemComponentInterface, event: MouseEvent) {
+   
+    this.resizeWidget.emit(event);
+  }
 
+  public dragStart(e: DragEvent, item: GridsterItem): void {
     e.dataTransfer.setData('text/plain', item.toString());
     e.dataTransfer.dropEffect = 'copy';
     this.widgetService.draggingItem = item;
 
   }
 
-  public dragStop(item: GridsterItem, itemComponent: GridsterItemComponentInterface, e?: MouseEvent) {
+  public dragStop(item: GridsterItem, itemComponent: GridsterItemComponentInterface, e: MouseEvent) {
     if (!e) return;
     const dataTrasfer = new DataTransfer();
     e.currentTarget.dispatchEvent(new DragEvent('dragstop', { dataTransfer: dataTrasfer }));

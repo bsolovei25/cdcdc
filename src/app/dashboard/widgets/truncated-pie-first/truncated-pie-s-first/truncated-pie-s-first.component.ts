@@ -18,14 +18,13 @@ export class TruncatedPieSFirstComponent implements OnInit {
   public code;
   public units = "%";
   public name;
-  public icon = 'flask';
 
-
+  
   public datas = [
     {name: "Статическое Оборудование 1", plan: 5, value: 28},
     {name: "Статическое Оборудование 2", plan: 32, value: 5},
     {name: "Статическое Оборудование 3", plan: 100, value: 67},
-
+    
   ];
 
   constructor(
@@ -39,19 +38,19 @@ export class TruncatedPieSFirstComponent implements OnInit {
         this.code = data.code;
       //  this.units = data.units;
         this.name = data.name;
-      });
-    }
-
+      }); 
+    } 
+  
   ngOnInit() {
       this.showMock(this.isMock);
   }
 
   showMock(show) {
     if (show){
-
+   
       this.wsDisconnect();
     } else {
-
+   
       this.wsConnect();
     }
   }

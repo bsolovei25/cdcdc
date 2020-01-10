@@ -28,16 +28,6 @@
      (mousedown)="$event.stopPropagation()"
      (touchstart)="$event.stopPropagation()">
   <div class="table">
-
-    <div id="saveBarBlock">
-      <div class="loader">
-        <svg viewBox="25 25 50 50">
-          <circle cx="50" cy="50" r="20"></circle>
-        </svg>
-      </div>
-    </div>
-    <div id="saveBar"></div>
-
     <div class="table-header">
       <div class="d-table">
         <div class="d-tr_header">
@@ -52,6 +42,8 @@
       </div>
     </div>
     <div class="line-horizontal"></div>
+    <div id="saveBarBlock"></div>
+    <div id="saveBar"></div>
     <div class="table-body">
       <div class="table-body_list scroll-bar">
         <div class="table-container-1" *ngFor="let machine of Data">
@@ -59,8 +51,8 @@
 
           <div class="vertical-line-1"></div>
           <div class="table-container-2" *ngFor="let group of machine.groups">
-
-            <div class="table-header-2" (click)="onActiveBottomBlock(group.name, $event)">{{ group.name }}</div>
+  
+              <div class="table-header-2" (click)="onActiveBottomBlock(group.name, $event)">{{ group.name }}</div>
               <div class="vertical-line-2"></div>
               <div class="d-table">
                 <ng-container *ngFor="let param of group.params">
@@ -90,7 +82,7 @@
                   </div>
                   <div class="space"></div>
                 </ng-container>
-
+              
             </div>
           </div>
         </div>
