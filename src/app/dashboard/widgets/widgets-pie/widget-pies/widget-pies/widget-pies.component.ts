@@ -11,7 +11,7 @@ import { NewUserSettingsService } from 'src/app/dashboard/services/new-user-sett
 })
 export class WidgetPiesComponent implements OnInit {
 
-
+    
   static itemCols = 16;
   static itemRows = 10;
 
@@ -21,10 +21,9 @@ export class WidgetPiesComponent implements OnInit {
   public code;
   public units ="шт.";
   public name;
-  public icon: string = 'tools';
 
  public uniqal;
-
+  
   public datas = [
     {name: "Статическое Оборудование", critical: 5, nonCritical: 2},
   ];
@@ -66,10 +65,10 @@ export class WidgetPiesComponent implements OnInit {
 
   showMock(show) {
     if (show){
-
+   
       this.wsDisconnect();
     } else {
-
+   
       this.wsConnect();
     }
   }

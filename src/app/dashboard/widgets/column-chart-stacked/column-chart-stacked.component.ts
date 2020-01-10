@@ -8,8 +8,6 @@ import { Subscription } from "rxjs";
   styleUrls: ["./column-chart-stacked.component.scss"]
 })
 export class ColumnChartStackedComponent implements OnInit {
-  public icon: string = 'columns';
-
   cols = [
     {
       plan: 7,

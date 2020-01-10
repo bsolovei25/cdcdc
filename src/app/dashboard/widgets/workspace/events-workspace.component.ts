@@ -24,7 +24,6 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
   isLoading: boolean = true;
 
   public title = "Рабочая область";
-  public icon: string = 'document';
   comments: string[] = [];
   isNew: boolean = true;
 

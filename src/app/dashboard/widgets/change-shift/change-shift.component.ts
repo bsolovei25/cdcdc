@@ -36,8 +36,6 @@ export class ChangeShiftComponent implements OnInit {
     }
   ];
 
-  public icon: string = 'peoples';
-
   comments: string[] = [];
   aboutWidget;
   currentShift: Shift = null;

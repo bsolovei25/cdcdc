@@ -14,8 +14,6 @@ export class WidgetHeaderComponent implements OnInit {
   @Input() code: string;
   @Input() id: string;
   @Input() uniqId: string;
-  @Input() icon: string = 'shedule';
-  public readonly iconRoute: string = './assets/icons/widget-title-icons/';
 
   constructor(
     public widgetService: NewWidgetService,
@@ -25,7 +23,7 @@ export class WidgetHeaderComponent implements OnInit {
   ngOnInit() {
   }
 
-  onRemoveButton() {
+  onRemoveButton(){
     this.widgetService.removeItemService(this.uniqId);
     this.userSettings.removeItem(this.uniqId);
   }

@@ -34,10 +34,10 @@ export class RingEnergyIndicatorComponent implements AfterViewInit {
     procent: 10,
     value: [
       {
-        name: "тм", fact: 67.7, plan: 138.2
+        name: "тм", plan: 67.7, fact: 138.2
       },
       {
-        name: "т.у.т", fact: 108.6, plan: 221.6
+        name: "т.у.т", plan: 108.6, fact: 221.6
       },
     ]
   }
@@ -119,7 +119,7 @@ export class RingEnergyIndicatorComponent implements AfterViewInit {
         .attr("y", y+1)
         .attr("fill", "rgba(158,215,245)")
         .attr("font-family", "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-        .text(i.fact);
+        .text(i.plan);
   
       let name = canvas.append("text")
         .attr("font-size", "8px")
@@ -135,7 +135,7 @@ export class RingEnergyIndicatorComponent implements AfterViewInit {
         .attr("y", y+1)
         .attr("fill", (data.isCritical) ? "orange": "white")
         .attr("font-family", "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-        .text(i.plan);
+        .text(i.fact);
         y += 15;
       }
     }else{
@@ -145,7 +145,7 @@ export class RingEnergyIndicatorComponent implements AfterViewInit {
       .attr("y", 171)
       .attr("fill", "rgba(158,215,245)")
       .attr("font-family", "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-      .text(data.value[0].fact);
+      .text(data.value[0].plan);
 
     let name = canvas.append("text")
       .attr("font-size", "8px")
@@ -161,7 +161,7 @@ export class RingEnergyIndicatorComponent implements AfterViewInit {
       .attr("y", 171)
       .attr("fill", (data.isCritical) ? "orange": "white")
       .attr("font-family", "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-      .text(data.value[0].plan);
+      .text(data.value[0].fact);
     }
     
 
