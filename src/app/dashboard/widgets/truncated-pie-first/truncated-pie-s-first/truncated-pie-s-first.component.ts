@@ -18,6 +18,7 @@ export class TruncatedPieSFirstComponent implements OnInit {
   public code;
   public units = "%";
   public name;
+  public icon = 'flask';
 
   
   public datas = [

@@ -5,6 +5,7 @@ import {AppConfigService} from 'src/app/services/appConfigService';
 
 @Injectable({providedIn: 'root'})
 export class ManualInputService {
+  public statusLoading;
 
   constructor(private http: HttpClient, configService: AppConfigService) {
     this.restUrl = configService.restUrl;
@@ -40,7 +41,7 @@ export class ManualInputService {
       return newData;
     }
     for (const i in tempData) {
-      const el = this.GetElementById(tempData[i].id, data);
+      const el = this.GetElementById(tempData[i].id, newData);
       el.isError = tempData[i].isError;
       el.comment = tempData[i].comment;
       if (el.curValue !== '') {
@@ -56,10 +57,9 @@ export class ManualInputService {
         }
       }
     }
-    return data;
+    return newData;
   }
 
-  public statusLoading;
 
   BtnSaveValues(data: Machine_MI[]) {
     this.saveBar('Сохранение', true);

@@ -3,11 +3,13 @@
         <div class="header">
                 <div class="header__content drag handle">
                   <div class="header__icon-wrapper">
-                    <svg-icon
-                      class="header__icon" style="fill: #8C99B2"
-                      src="./assets/icons/widgets/events/letter.svg"
-                    ></svg-icon>
-                  </div>
+                    <!--                    <svg-icon-->
+                    <!--                      class="header__icon" style="fill: #8C99B2"-->
+                    <!--                      src="./assets/icons/widget-title-icons/valve.png"-->
+                    <!--                    ></svg-icon>-->
+                                        <img src="./assets/icons/widget-title-icons/valve.png" *ngIf="!code">
+                                      </div>
+                    
                   <div class="header__name">
                     {{title}}
                   </div>
