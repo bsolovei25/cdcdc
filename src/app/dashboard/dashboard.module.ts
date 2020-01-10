@@ -70,6 +70,7 @@ import { ColumnChartStackedComponent } from './widgets/column-chart-stacked/colu
 import { CcsOneColumnComponent } from './widgets/column-chart-stacked/ccs-one-column/ccs-one-column.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {FlameDiagramComponent} from './widgets/flame-diagram/flame-diagram.component';
+import { RingEnergyIndicatorComponent } from './widgets/ring-energy-indicator/ring-energy-indicator.component';
 
 @NgModule({
   declarations: [
@@ -133,6 +134,7 @@ import {FlameDiagramComponent} from './widgets/flame-diagram/flame-diagram.compo
     ColumnChartStackedComponent,
     CcsOneColumnComponent,
     FlameDiagramComponent,
+    RingEnergyIndicatorComponent,
   ],
   entryComponents: [
     LineChartComponent,
@@ -174,6 +176,7 @@ import {FlameDiagramComponent} from './widgets/flame-diagram/flame-diagram.compo
     CircleBlockDiagramComponent,
     ColumnChartStackedComponent,
     FlameDiagramComponent,
+    RingEnergyIndicatorComponent,
   ],
   exports: [HomeComponent],
   imports: [

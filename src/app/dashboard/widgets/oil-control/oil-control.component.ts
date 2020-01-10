@@ -888,6 +888,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
     public widgetService: NewWidgetService,
     @Inject('isMock') public isMock: boolean,
     @Inject('widgetId') public id: string,
+    @Inject('uniqId') public uniqId: string,
     @Inject('resizeWidget') public resizeWidget: EventEmitter<MouseEvent>,
   ) { 
     this.subscriptions.push(this.widgetService.getWidgetChannel(this.id).subscribe(data => {
