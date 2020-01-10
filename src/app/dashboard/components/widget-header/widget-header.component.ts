@@ -17,6 +17,7 @@ export class WidgetHeaderComponent implements OnInit {
   @Input() icon: string = 'shedule';
   public readonly iconRoute: string = './assets/icons/widget-title-icons/';
 
+
   constructor(
     public widgetService: NewWidgetService,
     public userSettings: NewUserSettingsService
