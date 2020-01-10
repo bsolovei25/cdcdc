@@ -59,12 +59,18 @@ import { SemicircleEnergyComponent } from './widgets/semicircle-energy/semicircl
 import { ProductStocksComponent } from './widgets/product-stocks/product-stocks.component';
 import { PolarChartComponent } from './widgets/polar-chart/polar-chart.component';
 import { DeviationCircleDiagramComponent } from './widgets/deviation-circle-diagram/deviation-circle-diagram.component';
+import { OilControlComponent } from './widgets/oil-control/oil-control.component';
+import { PaginatorComponent } from './components/paginator/paginator.component';
+import { PaginatorDirective } from './components/paginator/paginator.directive';
+import { SearchComponent } from './components/search/search.component';
+
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { CircleBlockDiagramComponent } from './widgets/circle-block-diagram/circle-block-diagram.component';
 import { ColumnChartStackedComponent } from './widgets/column-chart-stacked/column-chart-stacked.component';
 import { CcsOneColumnComponent } from './widgets/column-chart-stacked/ccs-one-column/ccs-one-column.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {FlameDiagramComponent} from './widgets/flame-diagram/flame-diagram.component';
+import { RingEnergyIndicatorComponent } from './widgets/ring-energy-indicator/ring-energy-indicator.component';
 
 @NgModule({
   declarations: [
@@ -120,10 +126,15 @@ import {FlameDiagramComponent} from './widgets/flame-diagram/flame-diagram.compo
     ProductStocksComponent,
     PolarChartComponent,
     DeviationCircleDiagramComponent,
+    OilControlComponent,
+    PaginatorComponent,
+    PaginatorDirective,
+    SearchComponent,
     CircleBlockDiagramComponent,
     ColumnChartStackedComponent,
     CcsOneColumnComponent,
     FlameDiagramComponent,
+    RingEnergyIndicatorComponent,
   ],
   entryComponents: [
     LineChartComponent,
@@ -161,9 +172,11 @@ import {FlameDiagramComponent} from './widgets/flame-diagram/flame-diagram.compo
     PolarChartComponent,
     SemicircleEnergyComponent,
     DeviationCircleDiagramComponent,
+    OilControlComponent,
     CircleBlockDiagramComponent,
     ColumnChartStackedComponent,
     FlameDiagramComponent,
+    RingEnergyIndicatorComponent,
   ],
   exports: [HomeComponent],
   imports: [

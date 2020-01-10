@@ -146,6 +146,7 @@ export class NewWidgetsPanelComponent implements OnInit {
         { provide: 'widgetId', useValue: idWidget},
         { provide: 'uniqId', useValue: null}, // uniqId is null when isMock
         { provide: 'isMock', useValue: true},
+        { provide: 'resizeWidget', useValue: null },
       ],
       parent: this.injector
     });

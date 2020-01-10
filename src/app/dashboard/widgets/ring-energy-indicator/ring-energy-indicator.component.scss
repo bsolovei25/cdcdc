@@ -1,0 +1,192 @@
+
+.point{
+    z-index: 50;
+    position: absolute;
+    margin: 0 auto;
+    margin-left: 108px;
+    margin-top: 90px;
+  }
+
+
+.item-a {
+
+    min-height: 30px;
+    min-width: 120px;
+
+  }
+.item-b {
+    margin: 5px auto;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+  }
+
+
+.cb{
+
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: stretch;
+    margin: 0 auto;
+  }
+
+.item-b ::ng-deep svg{
+   height: 100%;
+  }
+
+.activeBack{
+  background:linear-gradient(180deg, rgba(8, 128, 207, 0.3), transparent) !important;
+}
+
+.item-c {
+
+    padding-top:5%;
+  }
+
+.name_circle{
+    margin-top: 8px;
+    color: rgb(228, 228, 228);
+    margin-left: 30px;
+    font-size: 15px;
+  }
+
+
+.name_circle2{
+    margin-top: 30px;
+    color: rgb(189, 189, 189);
+    margin-left: 30px;
+    font-size: 15px;
+  }
+
+  @media screen and(max-width: 300px){
+    .positive{
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 9px;
+    }
+    .negative{
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 9px;
+      color: orange;
+    }
+    .name_circle{
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: rgb(228, 228, 228);
+      font-size: 9px;
+    }
+    .positive__show{
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 8px;
+    }
+    .negative__show{
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 8px;
+
+    }
+  }
+
+  .positive{
+    margin-top: 5%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 17px;
+  }
+
+  .name_circle{
+    margin-top: 20px;
+  }
+  .negative{
+    font-size: 17px;
+    color: orange;
+  }
+
+
+  .item-b.active ::ng-deep div{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: rgb(139, 139, 139);
+  }
+
+
+
+  .content_block{
+    height: calc(100% - 60px);
+    width: calc(100% - 3px);
+    border: 1px dashed  var(--color-border-main);
+    border-style: none dashed none dashed;
+  }
+
+  .blocks{
+    width: 100%;
+    min-width: 100px;
+    height: calc(100%);
+  }
+
+.activeHeader ::ng-deep .header{
+  background-color: rgba(8, 128, 207, 0.3) !important;
+}
+
+.activeHeader ::ng-deep .header__icon-wrapper{
+  background-color: transparent;
+}
+
+.activeHeader ::ng-deep .delete_widget{
+  background-color: transparent;
+}
+
+.activeHeader ::ng-deep svg-icon{
+  fill: rgb(79, 165, 223) !important;
+}
+
+.activeBack ::ng-deep .frame_top{
+  border: 0.5px solid rgb(79, 165, 223);
+  border-bottom: transparent;
+}
+
+.activeBack ::ng-deep .frame_top::after{
+  border-left: 3px solid rgb(79, 165, 223);
+  border-bottom: transparent;
+}
+
+.activeBack ::ng-deep .frame__circle__topright{
+  border-right: 3px solid rgb(79, 165, 223);
+  border-top: 3px solid rgb(79, 165, 223);
+  
+}
+
+.activeBack ::ng-deep .frame_bottom{
+  border: 0.5px solid rgb(79, 165, 223);
+  border-top: transparent;
+}
+
+
+.activeBack ::ng-deep .frame_bottom::before{
+  border-top: 3px solid rgb(79, 165, 223);
+}
+
+.activeBack ::ng-deep .frame_bottom::after{
+  border-top: 3px solid rgb(79, 165, 223);
+}
+
+.activeBack ::ng-deep .frame__circle__left{
+  border-left: 3px solid rgb(79, 165, 223);
+  border-bottom: 3px solid rgb(79, 165, 223);
+}
+
+.activeBack ::ng-deep .frame__circle__right{
+  border-right: 3px solid rgb(79, 165, 223);
+  border-bottom: 3px solid rgb(79, 165, 223);
+}
+
+
+.activeBorder{
+  border: 1px dashed  rgb(79, 165, 223);
+  border-style: none dashed none dashed;
+}
+
+.imgblock{
+  width: 160px;
+  margin: 0 auto;
+}
+
+.imgblock img{
+ height: 140px;
+}

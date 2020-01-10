@@ -20,7 +20,7 @@ export class TruncatedPieSIconComponent implements OnInit {
   public name;
   public icon: string = 'triangle';
 
-
+  
   public datas = [
     {id:1, name: "Загазованность", count: 10, critical: 0, image: "fabric"},
     {id:2, name: "Деблокировочные ключи", count: 10, critical: 0, image: "key"},
@@ -42,19 +42,19 @@ export class TruncatedPieSIconComponent implements OnInit {
         this.code = data.code;
       //  this.units = data.units;
         this.name = data.name;
-      });
-    }
-
+      }); 
+    } 
+  
   ngOnInit() {
       this.showMock(this.isMock);
   }
 
   showMock(show) {
     if (show){
-
+   
       this.wsDisconnect();
     } else {
-
+   
       this.wsConnect();
     }
   }
