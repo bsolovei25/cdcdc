@@ -34,4 +34,27 @@
   border-right: dashed 0.5px var(--color-border-main);
 }
 
+.circle-warning {
+  fill: none;
+  stroke: #f4a321;
+  stroke-miterlimit: 10;
+  stroke-width: 0.406110529780143px;
+}
+
+.progress-ring__circle {
+  transition: 0.35s stroke-dashoffset;
+  // axis compensation
+  stroke: rgba(255, 255, 255, 0.5); 
+  transform: rotate(-90deg);
+  transform-origin: 89px 92px;
+}
+
+.progress-ring__circle2 {
+  transition: 0.35s stroke-dashoffset;
+  // axis compensation
+  stroke: rgba(255, 255, 255); 
+  transform: rotate(61deg);
+  transform-origin: 89px 92px;
+}
+
 

@@ -33,6 +33,17 @@
                         </radialGradient>
                     </defs>
 
+                    <g #activeCircle>
+                        <!-- <circle id="bar" r="70.37" cx="88.83" cy="92.02" fill="rgba(123, 181, 235, 0.4)"
+                            stroke-dasharray="0,1000" stroke-width="1em" stroke-dashoffset="100">
+                        </circle> -->
+                        <circle id="loadCircle" class="progress-ring__circle" stroke="rgba(255, 255, 255, 0.5)"
+                            stroke-width="21" fill="transparent" r="60" cx="88.83" cy="92.02" />
+                        <circle class="progress-ring__circle2" style="stroke-Dasharray: 381, 376;
+                            stroke-Dashoffset: 380" fill="transparent" stroke-width="21" r="60" cx="88.83"
+                            cy="92.02" />
+                    </g>
+
                     <circle cx="89.27" cy="92.28" r="70.37" style="opacity:0.8;fill:url(#a)" />
                     <line x1="89.27" y1="92.28" x2="89.27" y2="162.65"
                         style="fill:none;stroke:#1b1e27;stroke-miterlimit:10;stroke-width:0.160621000814253px" />
@@ -103,19 +114,32 @@
                         style="fill:#5e6581;opacity:0.2" />
 
                     <circle cx="89.27" cy="92.28" r="51.72" style="fill:#1b1e27" />
-                    <text transform="translate(83 17.18)"
-                        style="font-size:7.830049991607666px;fill:#9ed7f5;font-family:Tahoma, Tahoma">100</text>
-                    <text transform="translate(85.12 51.08)"
-                        style="font-size:7.830049991607666px;fill:#9ed7f5;font-family:Tahoma, Tahoma">95</text>
+                    <text id="maxValue" transform="translate(83 17.18)"
+                        style="font-size:7.830049991607666px;fill:#9ed7f5;font-family:Tahoma, Tahoma">0</text>
+                    <text id="minValue" transform="translate(85.12 51.08)"
+                        style="font-size:7.830049991607666px;fill:#9ed7f5;font-family:Tahoma, Tahoma">0</text>
                     <line x1="89.41" y1="22.24" x2="89.41" y2="40.41"
                         style="fill:none;stroke:#9ed7f5;stroke-miterlimit:10;stroke-width:0.628939304601437px" />
                     <circle cx="89.41" cy="40.41" r="1.24"
                         style="fill:#1b1e27;stroke:#9ed7f5;stroke-miterlimit:10;stroke-width:0.64248400325701px" />
                     <circle cx="89.41" cy="22" r="1.24"
                         style="fill:#1b1e27;stroke:#9ed7f5;stroke-miterlimit:10;stroke-width:0.64248400325701px" />
+                    <g #lineAndCircle>
+                    </g>
+                    <g #lastCircle style="display: none;">
+                        <image width="20" height="21"
+                            xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAWCAYAAAAvg9c4AAAACXBIWXMAAAsSAAALEgHS3X78AAABOElEQVQ4T72U7U7DMAxFj1u0CSYNJnj/V+RDZNPC2vAj1yTtMpBgJZKVtHZPrx0nllLi2uPmO6eZWet9+kGJtfyCzQ0g1XYJfgYVsJP1sk7uERhkIzC2wJP0K2APrCrzuBMQK8PMzsBf0BlwDdwBG81rhR2BPRDIJTnq2wm4VurQlUA74AG41zMCvgIvek5ksNcZELTaGE97I+AjGb5RfKAIicAHuSSjmZmrnSv11B26A56ArWLeNA/kHxzISk8Vp5m+q70lw7cUKGRQUIx3xqSfOxYYtdJE6cNIUeQpo7WnHSn92m4pOQZyjQJ5h3v5DpoD8CxfUOxAC5pSSmbm0EiBQt6EoHXdUoGiNl3qU08/UgofgXfazb+X/yz9ydn/xTEdaJz/RS6U/7n6Js5rXtJ/HYucqEWgn3w7sm4oJ3JbAAAAAElFTkSuQmCC"
+                            style="opacity:0.75;mix-blend-mode:multiply" />
+                        <circle cx="9.97" cy="10.09" r="3.39"
+                            style="fill:none;stroke:#a2e2ff;stroke-miterlimit:10;stroke-width:0.64248400325701px" />
+                        <circle cx="9.97" cy="10.09" r="1.69" style="fill:#fff" />
+                    </g>
+                    <g #warningCircle>
+                        <circle cx="4.28" cy="4.94" r="1.69" style="fill:#f4a321" />
+                        <polygon points="4.28 0.41 6.24 3.81 8.21 7.21 4.28 7.21 0.35 7.21 2.31 3.81 4.28 0.41"
+                            class="circle-warning" />
+                    </g>
 
-                    <!-- <circle style="fill:#9ed7f5" [attr.cx]="diaEndsLine(value, radius).xCen"
-                        [attr.cy]="diaEndsLine(value, radius).yCen" [attr.r]="radPoint" /> -->
 
                 </svg>
             </div>
