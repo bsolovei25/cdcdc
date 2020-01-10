@@ -85,7 +85,6 @@ export class ManualInputComponent implements OnInit, OnDestroy {
   }
 
   public onActiveBottomBlock(name, event) {
-    debugger
     if (!this.isMock) {
       for (let item of this.Data) {
         for (let i of item.groups){
