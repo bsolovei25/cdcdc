@@ -24,6 +24,103 @@
   box-sizing: border-box;
 }
 
+#saveBar {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 250px; /* Set a default minimum width */
+  margin-left: -135px;
+  background-color: var(--color-border-active); /* Black background color */
+  color: #fff; /* White text color */
+  text-align: center; /* Centered text */
+  border-radius: 8px; /* Rounded borders */
+  padding: 16px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 999; /* Add a z-index if needed */
+  left: 50%; /* Center the snackbar */
+  bottom: 30px; /* 30px from the bottom */
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
+}
+#saveBar.show {
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+#saveBar.complete {
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  background-color: var(--color-border-active); /* Black background color */
+}
+#saveBar.error {
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  background-color: var(--color-danger); /* Black background color */
+}
+
+#saveBarBlock {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 3px;
+  bottom: 40px;
+  background-color: var(--color-bg-main-opacity);
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+  border-radius: inherit;
+  display: none;
+}
+#saveBarBlock.show {
+  display: flex;
+}
+.loader {
+  position: absolute;
+  width: 7em;
+  height: 7em;
+  background-color: var(--color-bg-main-opacity);
+  z-index: 10;
+  display: block;
+  svg {
+    width: 7em;
+    transform-origin: center;
+    animation: rotate 2s linear infinite;
+  }
+  circle {
+    fill: none;
+    stroke: var(--color-border-active);
+    stroke-width: 4;
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+    animation: dash 1s ease-in-out infinite;
+  }
+  @keyframes rotate {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes dash {
+    0% {
+      stroke-dasharray: 1, 200;
+      stroke-dashoffset: 0;
+    }
+    50% {
+      stroke-dasharray: 90, 200;
+      stroke-dashoffset: -35px;
+    }
+    100% {
+      stroke-dashoffset: -125px;
+    }
+  }
+}
+
+
 .scroll-bar {
   position: absolute;
   top: 5px;
@@ -261,7 +358,7 @@
   display: none;
 }
 
-d-table-none{
+.d-table-none{
   display: none;;
 }
 
@@ -560,100 +657,4 @@ table {
 }
 tr {
   height: 20%;
-}
-
-#saveBar {
-  visibility: hidden; /* Hidden by default. Visible on click */
-  min-width: 250px; /* Set a default minimum width */
-  margin-left: -135px;
-  background-color: var(--color-border-active); /* Black background color */
-  color: #fff; /* White text color */
-  text-align: center; /* Centered text */
-  border-radius: 8px; /* Rounded borders */
-  padding: 16px; /* Padding */
-  position: fixed; /* Sit on top of the screen */
-  z-index: 999; /* Add a z-index if needed */
-  left: 50%; /* Center the snackbar */
-  bottom: 30px; /* 30px from the bottom */
-  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
-}
-#saveBar.show {
-  visibility: visible; /* Show the snackbar */
-  /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
-  However, delay the fade out process for 2.5 seconds */
-  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-  animation: fadein 0.5s, fadeout 0.5s 2.5s;
-}
-#saveBar.complete {
-  visibility: visible; /* Show the snackbar */
-  /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
-  However, delay the fade out process for 2.5 seconds */
-  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-  animation: fadein 0.5s, fadeout 0.5s 2.5s;
-  background-color: var(--color-border-active); /* Black background color */
-}
-#saveBar.error {
-  visibility: visible; /* Show the snackbar */
-  /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
-  However, delay the fade out process for 2.5 seconds */
-  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-  animation: fadein 0.5s, fadeout 0.5s 2.5s;
-  background-color: var(--color-danger); /* Black background color */
-}
-
-#saveBarBlock {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 3px;
-  bottom: 40px;
-  background-color: var(--color-bg-main-opacity);
-  z-index: 999;
-  align-items: center;
-  justify-content: center;
-  border-radius: inherit;
-  display: none;
-}
-#saveBarBlock.show {
-  display: flex;
-}
-.loader {
-  position: absolute;
-  width: 7em;
-  height: 7em;
-  background-color: var(--color-bg-main-opacity);
-  z-index: 10;
-  display: block;
-  svg {
-    width: 7em;
-    transform-origin: center;
-    animation: rotate 2s linear infinite;
-  }
-  circle {
-    fill: none;
-    stroke: var(--color-border-active);
-    stroke-width: 4;
-    stroke-dasharray: 1, 200;
-    stroke-dashoffset: 0;
-    stroke-linecap: round;
-    animation: dash 1s ease-in-out infinite;
-  }
-  @keyframes rotate {
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-  @keyframes dash {
-    0% {
-      stroke-dasharray: 1, 200;
-      stroke-dashoffset: 0;
-    }
-    50% {
-      stroke-dasharray: 90, 200;
-      stroke-dashoffset: -35px;
-    }
-    100% {
-      stroke-dashoffset: -125px;
-    }
-  }
 }
