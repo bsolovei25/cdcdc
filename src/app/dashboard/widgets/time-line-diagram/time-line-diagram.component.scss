@@ -53,30 +53,46 @@
   min-height: 60px;
 
   box-sizing: border-box;
-  padding: 0 10px 20px;
+  padding: 0 20px 20px;
 
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
 
   font-size: 14px;
 
-  span {
-    font-size: 14px;
-    margin-left: 5px;
-    margin-right: 10px;
-  }
+  &__title {
+    width: 100%;
 
-  img {
-    width: 10px;
-    height: 10px;
-  }
+    box-sizing: border-box;
 
-  &__title{
-      width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    .title {
+      color: var(--color-text-sub);
+    }
+
+    .subtitle {
+      font-size: 12px;
+      line-height: 130%;
+      margin-right: 5px;
+      color: var(--color-axis);
+    }
+
+    .time {
+      line-height: 100%;
+      font-size: 20px;
+
       display: flex;
-
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: flex-end;
+      color: var(--color-text-main);
+    }
   }
 
   &__graph {
@@ -91,7 +107,7 @@
     justify-content: space-between;
 
     box-sizing: border-box;
-    padding-top: 20px;
+    padding-top: 10px;
 
     .graph {
       &__line {
@@ -107,6 +123,10 @@
 
           box-sizing: border-box;
           padding: 0 2px;
+
+          rect {
+            transition: 1s;
+          }
         }
 
         .line {
@@ -132,37 +152,6 @@
 
             &-75 {
               left: 75%;
-            }
-          }
-
-          &__limit {
-            height: 20px;
-            right: 40px;
-            top: -3px;
-
-            &-lower {
-              left: 0;
-              border: none;
-            }
-
-            // &-higher {
-            //   right: 15%;
-            // }
-          }
-
-          .label {
-            &__limit {
-              font-size: 12px;
-              position: absolute;
-              right: -15px;
-
-              &-lower {
-                top: -20px;
-              }
-
-              &-higher {
-                top: -20px;
-              }
             }
           }
         }

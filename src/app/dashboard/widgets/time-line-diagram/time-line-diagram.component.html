@@ -19,26 +19,38 @@
       (touchstart)="$event.stopPropagation()"
     >
       <div class="dl-dia">
-          <div class="dl-dia__title">
-              <div class="title">Сброс на факел</div>
-              <div class="subtitle">Сброс прозойдет через</div>
-              <div class="time">02:02:22</div>
+        <div class="dl-dia__title">
+          <div class="title">Сброс на факел</div>
+
+          <div class="time">
+            <div class="subtitle">Сброс прозойдет через:</div>
+            {{ now | date: "HH:mm:ss" }}
           </div>
+        </div>
         <div class="dl-dia__graph">
           <div class="graph__line">
             <div class="line line__marking line__marking-25"></div>
             <div class="line line__marking line__marking-50"></div>
             <div class="line line__marking line__marking-75"></div>
             <svg width="100%" height="100%">
-              <!-- <rect
+              <rect
                 x="0"
-                y="2px"
-                [attr.width]="drawGraph((data.curValue / data.maxValue) * 100)"
-                height="8px"
+                y="2.5px"
+                width="100%"
+                height="6px"
                 rx="3px"
                 ry="3px"
-                [attr.fill]="fillGraph(true)"
-              /> -->
+                [attr.fill]="colorNormal"
+              />
+              <rect
+                x="0"
+                y="2.5px"
+                [attr.width]="timeLine()"
+                height="6px"
+                rx="3px"
+                ry="3px"
+                [attr.fill]="colorNow"
+              />
             </svg>
           </div>
         </div>
