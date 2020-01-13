@@ -23,8 +23,11 @@ export class TimeDiagramComponent implements OnInit {
   ngOnInit() {
     setInterval(() => {
       this.timeLeft = this.data.dropTimeNext - Date.now();
-      const date = new Date(this.timeLeft);
     }, 1000);
+  }
+
+  timeCounter(): number {
+    return this.timeLeft > 0 ? this.timeLeft : 0;
   }
 
   timeLine(): string {
