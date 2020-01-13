@@ -4,7 +4,7 @@ import {
   ChangeDetectionStrategy,
   Inject
 } from "@angular/core";
-import { TimeLineDiagram } from "../../models/time-line-diagram";
+import { timeLineItem, timeLineData } from "../../models/time-line-diagram";
 import { NewWidgetService } from "../../services/new-widget.service";
 import { Subscription } from "rxjs";
 
@@ -14,45 +14,47 @@ import { Subscription } from "rxjs";
   styleUrls: ["./time-line-diagram.component.scss"]
 })
 export class TimeLineDiagramComponent implements OnInit {
-  data: TimeLineDiagram[] = [
-    {
-      dropTimeNext: 1578911767856 + 14000000,
-      dropTimeLast: 1578911767856 + 3000000,
-      dropTitle: "Сброс на факел"
-    },
-    {
-      dropTimeNext: 1578911767856 + 4000000,
-      dropTimeLast: 1578911767856 + 1000000,
-      dropTitle: "Сточные воды"
-    },
-    {
-      dropTimeNext: 1578911767856 + 9000000,
-      dropTimeLast: 1578911767856 + 1000000,
-      dropTitle: "Дымовые"
-    },
-    {
-      dropTimeNext: 1578911767856 + 4000000,
-      dropTimeLast: 1578911767856 + 1000000,
-      dropTitle: "Сточные воды"
-    },
-    {
-      dropTimeNext: 1578911767856 + 9000000,
-      dropTimeLast: 1578911767856 + 1000000,
-      dropTitle: "Дымовые"
-    },
-    {
-      dropTimeNext: 1578911767856 + 4000000,
-      dropTimeLast: 1578911767856 + 1000000,
-      dropTitle: "Сточные воды"
-    },
-    {
-      dropTimeNext: 1578911767856 + 9000000,
-      dropTimeLast: 1578911767856 + 1000000,
-      dropTitle: "Дымовые"
-    }
-  ];
+  data: timeLineData = {
+    values: [
+      {
+        dropTimeNext: 1578911767856 + 14000000,
+        dropTimeLast: 1578911767856 + 3000000,
+        dropTitle: "Сброс на факел"
+      },
+      {
+        dropTimeNext: 1578911767856 + 4000000,
+        dropTimeLast: 1578911767856 + 1000000,
+        dropTitle: "Сточные воды"
+      },
+      {
+        dropTimeNext: 1578911767856 + 9000000,
+        dropTimeLast: 1578911767856 + 1000000,
+        dropTitle: "Дымовые"
+      },
+      {
+        dropTimeNext: 1578911767856 + 4000000,
+        dropTimeLast: 1578911767856 + 1000000,
+        dropTitle: "Сточные воды"
+      },
+      {
+        dropTimeNext: 1578911767856 + 9000000,
+        dropTimeLast: 1578911767856 + 1000000,
+        dropTitle: "Дымовые"
+      },
+      {
+        dropTimeNext: 1578911767856 + 4000000,
+        dropTimeLast: 1578911767856 + 1000000,
+        dropTitle: "Сточные воды"
+      },
+      {
+        dropTimeNext: 1578911767856 + 9000000,
+        dropTimeLast: 1578911767856 + 1000000,
+        dropTitle: "Дымовые"
+      }
+    ]
+  };
 
-  public title = '';
+  public title = "";
   public units = "час";
 
   subscription: Subscription;

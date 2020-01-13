@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { TimeLineDiagram } from "src/app/dashboard/models/time-line-diagram";
+import { timeLineItem } from "src/app/dashboard/models/time-line-diagram";
 
 @Component({
   selector: "evj-time-diagram",
@@ -7,7 +7,7 @@ import { TimeLineDiagram } from "src/app/dashboard/models/time-line-diagram";
   styleUrls: ["./time-diagram.component.scss"]
 })
 export class TimeDiagramComponent implements OnInit {
-  @Input() data: TimeLineDiagram = {
+  @Input() data: timeLineItem = {
     dropTimeNext: 0,
     dropTimeLast: 0,
     dropTitle: ""
