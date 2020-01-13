@@ -83,7 +83,6 @@
   position: absolute;
   width: 7em;
   height: 7em;
-  background-color: var(--color-bg-main-opacity);
   z-index: 10;
   display: block;
   svg {
@@ -572,7 +571,7 @@
     content: '';
     @extend %circle;
     top: -2px;
-    right: -2.5px;
+    right: 2px;
     z-index: 1;
   }
 }
@@ -583,7 +582,7 @@
   bottom: 0;
   right: 0;
   top: calc(0.5em + 4px);
-  height: calc(100% - 0.5em - 20px);
+  //height: calc(100% - 0.5em - 20px);
   border-left: var(--border-style-dashed);
 }
 

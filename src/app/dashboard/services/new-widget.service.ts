@@ -164,6 +164,8 @@ export class NewWidgetService {
 
       case 'solid-gauge-with-marker':
          return data;
+      case "circle-block-diagram":
+        return data;
     }
     console.warn(`unknown widget type ${widgetType}`);
   }
