@@ -1,4 +1,5 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import { TimeLineDiagram } from "../../models/time-line-diagram";
 
 @Component({
   selector: "evj-time-line-diagram",
@@ -6,12 +7,14 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./time-line-diagram.component.scss"]
 })
 export class TimeLineDiagramComponent implements OnInit {
-  data = {
+  data: TimeLineDiagram = {
     dropTimeNext: Date.now() + 100000,
-    dropInterval: 500000
+    dropInterval: 500000,
+    dropTitle: "Сброс на факел"
   };
 
-  public now = 0;
+  public timeLeft = 0;
+  public;
 
   colorNormal = "#616580";
   colorNow = "#a2e2ff";
@@ -24,18 +27,19 @@ export class TimeLineDiagramComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    setInterval(()=>{
-      this.now = Date.now();
-    },1000)
+    setInterval(() => {
+      this.timeLeft = this.data.dropTimeNext - Date.now();
+    }, 1000);
   }
 
-  timeLine() {
+  timeLine(): string {
     const now = Date.now();
-    return (
+    let percent =
       ((now - (this.data.dropTimeNext - this.data.dropInterval)) /
         this.data.dropInterval) *
-        100 +
-      "%"
-    );
+      100;
+    percent = +percent.toFixed(2);
+    if (percent > 100) percent = 100;
+    return percent + "%";
   }
 }
