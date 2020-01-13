@@ -59,7 +59,6 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
           for (const item of pie) {
             const id = item.getAttribute('data-item-id');
             if (datButton === id) {
-              debugger
               if (id === "0" && dat.critical !== 0 ){
                 const status = this.dataStyle['id_0'].status;
                 item.classList.add(`-${status}`);
