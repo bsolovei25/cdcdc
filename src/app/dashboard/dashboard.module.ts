@@ -72,6 +72,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {FlameDiagramComponent} from './widgets/flame-diagram/flame-diagram.component';
 import { RingEnergyIndicatorComponent } from './widgets/ring-energy-indicator/ring-energy-indicator.component';
 import { TimeLineDiagramComponent } from './widgets/time-line-diagram/time-line-diagram.component';
+import { TimeDiagramComponent } from './widgets/time-line-diagram/time-diagram/time-diagram.component';
 
 @NgModule({
   declarations: [
@@ -137,6 +138,7 @@ import { TimeLineDiagramComponent } from './widgets/time-line-diagram/time-line-
     FlameDiagramComponent,
     RingEnergyIndicatorComponent,
     TimeLineDiagramComponent,
+    TimeDiagramComponent,
   ],
   entryComponents: [
     LineChartComponent,

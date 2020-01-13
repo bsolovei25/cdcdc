@@ -1,5 +1,5 @@
 export interface TimeLineDiagram {
   dropTimeNext: number;
-  dropInterval: number;
+  dropTimeLast: number;
   dropTitle: string;
 }
