@@ -71,6 +71,7 @@ import { CcsOneColumnComponent } from './widgets/column-chart-stacked/ccs-one-co
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {FlameDiagramComponent} from './widgets/flame-diagram/flame-diagram.component';
 import { RingEnergyIndicatorComponent } from './widgets/ring-energy-indicator/ring-energy-indicator.component';
+import { TimeLineDiagramComponent } from './widgets/time-line-diagram/time-line-diagram.component';
 
 @NgModule({
   declarations: [
@@ -135,6 +136,7 @@ import { RingEnergyIndicatorComponent } from './widgets/ring-energy-indicator/ri
     CcsOneColumnComponent,
     FlameDiagramComponent,
     RingEnergyIndicatorComponent,
+    TimeLineDiagramComponent,
   ],
   entryComponents: [
     LineChartComponent,
