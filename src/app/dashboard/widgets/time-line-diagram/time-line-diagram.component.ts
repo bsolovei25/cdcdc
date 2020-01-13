@@ -7,6 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TimeLineDiagramComponent implements OnInit {
 
+  aboutWidget = 'Сброс';
+  units = 'час';
+
+  isMock = false;
+
+
   constructor() { }
 
   ngOnInit() {

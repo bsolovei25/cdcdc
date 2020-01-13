@@ -1,1 +1,50 @@
-<p>time-line-diagram works!</p>
+<div class="container pointer-event">
+  <evj-widget-header
+    [title]="aboutWidget"
+    [units]="units"
+    [code]=""
+    [id]=""
+    [uniqId]=""
+  ></evj-widget-header>
+
+  <evj-frame-top></evj-frame-top>
+
+  <ng-container *ngIf="isMock">
+    <div class="mock"></div>
+  </ng-container>
+  <ng-container *ngIf="!isMock">
+    <div
+      class="time-diagram"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
+      <div class="dl-dia">
+          <div class="dl-dia__title">
+              <div class="title">Сброс на факел</div>
+              <div class="subtitle">Сброс прозойдет через</div>
+              <div class="time">02:02:22</div>
+          </div>
+        <div class="dl-dia__graph">
+          <div class="graph__line">
+            <div class="line line__marking line__marking-25"></div>
+            <div class="line line__marking line__marking-50"></div>
+            <div class="line line__marking line__marking-75"></div>
+            <svg width="100%" height="100%">
+              <!-- <rect
+                x="0"
+                y="2px"
+                [attr.width]="drawGraph((data.curValue / data.maxValue) * 100)"
+                height="8px"
+                rx="3px"
+                ry="3px"
+                [attr.fill]="fillGraph(true)"
+              /> -->
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <evj-frame-bottom></evj-frame-bottom>
+</div>
