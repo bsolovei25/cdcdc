@@ -56,177 +56,233 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
       const iconpie: any = el.querySelectorAll('.st1');
       for (const dat of this.data.buttons) {
         const datButton = dat.typeButton.toString();
-        for (const item of pie) {
-          const id = item.getAttribute('data-item-id');
-          if (datButton === id) {
-            const status = this.dataStyle['id_0'].status;
-            item.classList.add(`-${status}`);
-            if (id === "0"){
-              svg.append("image")
-                .attr("xlink:href","/assets/pic/borderimg.png")
-                .attr("height", "250px")
-                .attr("width", "250px")
-                .attr("x","166")
-                .attr("y","400");
-
-              svg.append("text")
-                .attr("font-size", "8px")
-                .attr("x","160")
-                .attr("y","400")
-                .attr("fill", "rgb(97,101,128)")
-                .text("Критичные /", dat.critical);
-
-            } else if (id === "1"){
-              svg.append("image")
-                .attr("xlink:href","/assets/pic/borderimg.png")
-                .attr("height", "250px")
-                .attr("width", "250px")
-                .attr("x","40")
-                .attr("y","190");
-
-              svg.append("text")
-                .attr("font-family"," font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                .attr("font-size", "36px")
-                .attr("x","70")
-                .attr("y","280")
-                .attr("fill", "orange")
-                .text("-" + dat.critical);
-
-              svg.append("text")
-                .attr("font-family"," font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                .attr("font-size", "30px")
-                .attr("x","140")
-                .attr("y","280")
-                .attr("fill", "gray")
-                .text("%");
-
-              svg.append("text")
-                .attr("font-size", "36px")
-                .attr("x","200")
-                .attr("y","280")
-                .attr("fill", "white")
-                .text("+" + dat.notCritical);
-
-            } else if (id === "2"){
-              svg.append("image")
-                .attr("xlink:href","/assets/pic/borderimg.png")
-                .attr("height", "250px")
-                .attr("width", "250px")
-                .attr("x","-550")
-                .attr("y","190")
-                .attr("transform", "scale(-1,1)");
-
+          for (const item of pie) {
+            const id = item.getAttribute('data-item-id');
+            if (datButton === id) {
+              debugger
+              if (id === "0" && dat.critical !== 0 ){
+                const status = this.dataStyle['id_0'].status;
+                item.classList.add(`-${status}`);
+                svg.append("image")
+                  .attr("xlink:href","/assets/pic/RingFactory/leftBorder.svg")
+                  .attr("height", "250px")
+                  .attr("width", "250px")
+                  .attr("x","-21")
+                  .attr("y","308");
+  
+                  svg.append("text")
+                  .attr("font-family"," font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                  .attr("font-size", "36px")
+                  .attr("x","40")
+                  .attr("y","370")
+                  .attr("fill", "orange")
+                  .attr("text-anchor", 'middle')
+                  .text("-" + dat.critical);
+  
                 svg.append("text")
-                .attr("font-family"," font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                .attr("font-size", "36px")
-                .attr("x","330")
-                .attr("y","280")
-                .attr("fill", "orange")
-                .text("-" + dat.critical);
-
-              svg.append("text")
-                .attr("font-family"," font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                .attr("font-size", "30px")
-                .attr("x","400")
-                .attr("y","280")
-                .attr("fill", "gray")
-                .text("%");
-
-              svg.append("text")
-                .attr("font-size", "36px")
-                .attr("x","470")
-                .attr("y","280")
-                .attr("fill", "white")
-                .text("+" + dat.notCritical);
-
-            } else if (id === "3"){
-              svg.append("image")
-                .attr("xlink:href","/assets/pic/borderimg.png")
-                .attr("height", "250px")
-                .attr("width", "250px")
-                .attr("x","366")
-                .attr("y","300");
-
-            } else if (id === "4"){
-              svg.append("image")
-                .attr("xlink:href","/assets/pic/borderimg.png")
-                .attr("height", "250px")
-                .attr("width", "250px")
-                .attr("x","-550")
-                .attr("y","-680")
-                .attr("transform","scale(-1)");
-
-              svg.append("text")
-                .attr("font-family"," font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                .attr("font-size", "36px")
-                .attr("x","330")
-                .attr("y","620")
-                .attr("fill", "orange")
-                .text("-" + dat.critical);
-
-              svg.append("text")
-                .attr("font-family"," font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                .attr("font-size", "30px")
-                .attr("x","400")
-                .attr("y","620")
-                .attr("fill", "gray")
-                .text("%");
-
-              svg.append("text")
-                .attr("font-size", "36px")
-                .attr("x","470")
-                .attr("y","620")
-                .attr("fill", "white")
-                .text("+" + dat.notCritical);
-
-            } else if (id === "5"){
-              svg.append("image")
-                .attr("xlink:href","/assets/pic/borderimg.png")
-                .attr("height", "250px")
-                .attr("width", "250px")
-                .attr("x","45")
-                .attr("y","-680")
-                .attr("transform","scale(1,-1)");
-
-              svg.append("text")
-                .attr("font-family"," font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                .attr("font-size", "36px")
-                .attr("x","70")
-                .attr("y","620")
-                .attr("fill", "orange")
-                .text("-" + dat.critical);
-
-              svg.append("text")
-                .attr("font-family"," font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                .attr("font-size", "30px")
-                .attr("x","140")
-                .attr("y","620")
-                .attr("fill", "gray")
-                .text("%");
-
-              svg.append("text")
-                .attr("font-size", "36px")
-                .attr("x","200")
-                .attr("y","620")
-                .attr("fill", "white")
-                .text("+" + dat.notCritical);
+                  .attr("font-family"," font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                  .attr("font-size", "30px")
+                  .attr("x","40")
+                  .attr("y","440")
+                  .attr("text-anchor", 'middle')
+                  .attr("fill", "gray")
+                  .text("%");
+  
+                svg.append("text")
+                  .attr("font-size", "36px")
+                  .attr("x","40")
+                  .attr("y","520")
+                  .attr("fill", "white")
+                  .attr("text-anchor", 'middle')
+                  .text("+" + dat.notCritical);
+  
+              } else if (id === "1" && dat.critical !== 0 ){
+                const status = this.dataStyle['id_0'].status;
+                item.classList.add(`-${status}`);
+                svg.append("image")
+                  .attr("xlink:href","/assets/pic/RingFactory/borderimg.png")
+                  .attr("height", "250px")
+                  .attr("width", "250px")
+                  .attr("x","40")
+                  .attr("y","190");
+  
+                svg.append("text")
+                  .attr("font-family"," font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                  .attr("font-size", "36px")
+                  .attr("x","70")
+                  .attr("y","280")
+                  .attr("fill", "orange")
+                  .text("-" + dat.critical);
+  
+                svg.append("text")
+                  .attr("font-family"," font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                  .attr("font-size", "30px")
+                  .attr("x","140")
+                  .attr("y","280")
+                  .attr("fill", "gray")
+                  .text("%");
+  
+                svg.append("text")
+                  .attr("font-size", "36px")
+                  .attr("x","200")
+                  .attr("y","280")
+                  .attr("fill", "white")
+                  .text("+" + dat.notCritical);
+  
+              } else if (id === "2" && dat.critical !== 0 ){
+                const status = this.dataStyle['id_0'].status;
+                item.classList.add(`-${status}`);
+                svg.append("image")
+                  .attr("xlink:href","/assets/pic/RingFactory/borderimg.png")
+                  .attr("height", "250px")
+                  .attr("width", "250px")
+                  .attr("x","-550")
+                  .attr("y","190")
+                  .attr("transform", "scale(-1,1)");
+  
+                  svg.append("text")
+                  .attr("font-family"," font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                  .attr("font-size", "36px")
+                  .attr("x","330")
+                  .attr("y","280")
+                  .attr("fill", "orange")
+                  .text("-" + dat.critical);
+  
+                svg.append("text")
+                  .attr("font-family"," font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                  .attr("font-size", "30px")
+                  .attr("x","400")
+                  .attr("y","280")
+                  .attr("fill", "gray")
+                  .text("%");
+  
+                svg.append("text")
+                  .attr("font-size", "36px")
+                  .attr("x","470")
+                  .attr("y","280")
+                  .attr("fill", "white")
+                  .text("+" + dat.notCritical);
+  
+              } else if (id === "3" && dat.critical !== 0 ){
+                const status = this.dataStyle['id_0'].status;
+                item.classList.add(`-${status}`);
+                svg.append("image")
+                  .attr("xlink:href","/assets/pic/RingFactory/leftBorder.svg")
+                  .attr("height", "250px")
+                  .attr("width", "250px")
+                  .attr("x","-617")
+                  .attr("transform","scale(-1,1)")
+                  .attr("y","308");
+  
+                  svg.append("text")
+                  .attr("font-family"," font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                  .attr("font-size", "36px")
+                  .attr("x","548")
+                  .attr("y","370")
+                  .attr("fill", "orange")
+                  .attr("text-anchor", 'middle')
+                  .text("-" + dat.critical);
+  
+                svg.append("text")
+                  .attr("font-family"," font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                  .attr("font-size", "30px")
+                  .attr("x","548")
+                  .attr("y","440")
+                  .attr("text-anchor", 'middle')
+                  .attr("fill", "gray")
+                  .text("%");
+  
+                svg.append("text")
+                  .attr("font-size", "36px")
+                  .attr("x","548")
+                  .attr("y","520")
+                  .attr("fill", "white")
+                  .attr("text-anchor", 'middle')
+                  .text("+" + dat.notCritical);
+  
+              } else if (id === "4" && dat.critical !== 0 ){
+                const status = this.dataStyle['id_0'].status;
+                item.classList.add(`-${status}`);
+                svg.append("image")
+                  .attr("xlink:href","/assets/pic/RingFactory/borderimg.png")
+                  .attr("height", "250px")
+                  .attr("width", "250px")
+                  .attr("x","-550")
+                  .attr("y","-680")
+                  .attr("transform","scale(-1)");
+  
+                svg.append("text")
+                  .attr("font-family"," font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                  .attr("font-size", "36px")
+                  .attr("x","330")
+                  .attr("y","620")
+                  .attr("fill", "orange")
+                  .text("-" + dat.critical);
+  
+                svg.append("text")
+                  .attr("font-family"," font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                  .attr("font-size", "30px")
+                  .attr("x","400")
+                  .attr("y","620")
+                  .attr("fill", "gray")
+                  .text("%");
+  
+                svg.append("text")
+                  .attr("font-size", "36px")
+                  .attr("x","470")
+                  .attr("y","620")
+                  .attr("fill", "white")
+                  .text("+" + dat.notCritical);
+  
+              } else if (id === "5" && dat.critical !== 0 ){
+                const status = this.dataStyle['id_0'].status;
+                item.classList.add(`-${status}`);
+                svg.append("image")
+                  .attr("xlink:href","/assets/pic/RingFactory/borderimg.png")
+                  .attr("height", "250px")
+                  .attr("width", "250px")
+                  .attr("x","45")
+                  .attr("y","-680")
+                  .attr("transform","scale(1,-1)");
+  
+                svg.append("text")
+                  .attr("font-family"," font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                  .attr("font-size", "36px")
+                  .attr("x","70")
+                  .attr("y","620")
+                  .attr("fill", "orange")
+                  .text("-" + dat.critical);
+  
+                svg.append("text")
+                  .attr("font-family"," font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                  .attr("font-size", "30px")
+                  .attr("x","140")
+                  .attr("y","620")
+                  .attr("fill", "gray")
+                  .text("%");
+  
+                svg.append("text")
+                  .attr("font-size", "36px")
+                  .attr("x","200")
+                  .attr("y","620")
+                  .attr("fill", "white")
+                  .text("+" + dat.notCritical);
+              }
+            } else {
+              const status = this.dataStyle['id_1'].status;
+              item.classList.add(`-${status}`);
             }
-          } else {
-            const status = this.dataStyle['id_1'].status;
-            item.classList.add(`-${status}`);
           }
-
-        }
-        for (const item of iconpie) {
-          const id = item.getAttribute('data-item-id');
-          if (datButton === id) {
-            const status = this.dataStyle['id_0'].status;
-            item.classList.add(`-${status}`);
-          } else {
-            const status = this.dataStyle['id_1'].status;
-            item.classList.add(`-${status}`);
+          for (const item of iconpie) {
+            const id = item.getAttribute('data-item-id');
+            if (datButton === id && dat.critical !== 0) {
+              const status = this.dataStyle['id_0'].status;
+              item.classList.add(`-${status}`);
+            } else {
+              const status = this.dataStyle['id_1'].status;
+              item.classList.add(`-${status}`);
+            }
           }
-        }
       }
     } else { }
   }

@@ -388,6 +388,11 @@ svg #layer1{
   text-overflow: ellipsis;
 }
 
+.name_value{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 .diagram_container{
   height: 92%;
@@ -613,7 +618,7 @@ svg #layer1{
 
 .name_info_block{
   margin-left: 10px;
-   width: 120px;
+   width: 73px;
    height: 30px;
 }
 

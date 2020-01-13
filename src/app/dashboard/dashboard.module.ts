@@ -71,6 +71,8 @@ import { CcsOneColumnComponent } from './widgets/column-chart-stacked/ccs-one-co
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {FlameDiagramComponent} from './widgets/flame-diagram/flame-diagram.component';
 import { RingEnergyIndicatorComponent } from './widgets/ring-energy-indicator/ring-energy-indicator.component';
+import { SolidGaugesComponent } from './widgets/solid-gauge-with-marker/solid-gauges/solid-gauges.component';
+import { SolidGaugeWithMarkerComponent } from './widgets/solid-gauge-with-marker/solid-gauge-with-marker/solid-gauge-with-marker.component';
 
 @NgModule({
   declarations: [
@@ -135,6 +137,8 @@ import { RingEnergyIndicatorComponent } from './widgets/ring-energy-indicator/ri
     CcsOneColumnComponent,
     FlameDiagramComponent,
     RingEnergyIndicatorComponent,
+    SolidGaugesComponent,
+    SolidGaugeWithMarkerComponent,
   ],
   entryComponents: [
     LineChartComponent,
@@ -177,6 +181,7 @@ import { RingEnergyIndicatorComponent } from './widgets/ring-energy-indicator/ri
     ColumnChartStackedComponent,
     FlameDiagramComponent,
     RingEnergyIndicatorComponent,
+    SolidGaugesComponent
   ],
   exports: [HomeComponent],
   imports: [

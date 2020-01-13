@@ -161,6 +161,9 @@ export class NewWidgetService {
 
       case 'polar-chart':
         return data;
+
+      case 'solid-gauge-with-marker':
+         return data;
     }
     console.warn(`unknown widget type ${widgetType}`);
   }

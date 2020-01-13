@@ -34,6 +34,7 @@ import { CircleBlockDiagramComponent } from "../../widgets/circle-block-diagram/
 import { ColumnChartStackedComponent } from "../../widgets/column-chart-stacked/column-chart-stacked.component";
 import {FlameDiagramComponent} from "../../widgets/flame-diagram/flame-diagram.component";
 import { RingEnergyIndicatorComponent } from '../../widgets/ring-energy-indicator/ring-energy-indicator.component';
+import { SolidGaugesComponent } from '../../widgets/solid-gauge-with-marker/solid-gauges/solid-gauges.component';
 
 export const WIDGETS = {
   "pie-diagram": WidgetPiesComponent,
@@ -73,4 +74,5 @@ export const WIDGETS = {
   "column-chart-stacked": ColumnChartStackedComponent,
   "flame-diagram": FlameDiagramComponent,
   "ring-energy-indicator": RingEnergyIndicatorComponent,
+  "solid-gauge-with-marker": SolidGaugesComponent,
 };
