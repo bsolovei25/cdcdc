@@ -9,9 +9,9 @@ import { Subscription } from "rxjs";
 })
 export class CircleBlockDiagramComponent implements OnInit {
   blockDiagram = {
-    improvement: 98.2, // улучшение в %
-    disabled: 1.4, // отключенные блокировки в %
-    noReason: 1.2 // не указана причина снятия блокировок в %
+    improvement: 0, // улучшение в %
+    disabled: 0, // отключенные блокировки в %
+    noReason: 0 // не указана причина снятия блокировок в %
   };
 
   isMockData = {
@@ -39,6 +39,7 @@ export class CircleBlockDiagramComponent implements OnInit {
 
   public title;
   public units = "%";
+  public widgetType = "circle-block-diagram";
 
   static itemCols = 15;
   static itemRows = 17;
@@ -60,11 +61,15 @@ export class CircleBlockDiagramComponent implements OnInit {
   }
 
   ngOnInit() {
-    setInterval(()=>{
-      this.blockDiagram.improvement = Math.floor(10 + Math.random()*(90));
-      this.blockDiagram.noReason = Math.floor(Math.random()*(15));
-      this.blockDiagram.disabled = Math.floor(Math.random()*(15));
-    },7000)
+    if (!this.isMock) {
+      this.widgetService
+        .getWidgetLiveDataFromWS(this.id, this.widgetType)
+        .subscribe(data => {
+          this.blockDiagram.disabled = data.disabled;
+          this.blockDiagram.improvement = data.improvement;
+          this.blockDiagram.noReason = data.noReason;
+        });
+    }
   }
 
   /* Отрисовка дуговых диаграмм */
