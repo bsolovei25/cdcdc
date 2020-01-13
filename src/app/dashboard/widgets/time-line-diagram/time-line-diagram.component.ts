@@ -1,5 +1,12 @@
-import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Inject
+} from "@angular/core";
 import { TimeLineDiagram } from "../../models/time-line-diagram";
+import { NewWidgetService } from "../../services/new-widget.service";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "evj-time-line-diagram",
@@ -42,20 +49,29 @@ export class TimeLineDiagramComponent implements OnInit {
       dropTimeNext: 1578911767856 + 9000000,
       dropTimeLast: 1578911767856 + 1000000,
       dropTitle: "Дымовые"
-    },
+    }
   ];
 
-  // public timeLeft = 0;
+  public title = '';
+  public units = "час";
 
-  // colorNormal = "#616580";
-  // colorNow = "#a2e2ff";
+  subscription: Subscription;
 
-  aboutWidget = "Сброс";
-  units = "час";
-
-  isMock = false;
-
-  constructor() {}
+  constructor(
+    private widgetService: NewWidgetService,
+    @Inject("isMock") public isMock: boolean,
+    @Inject("widgetId") public id: string,
+    @Inject("uniqId") public uniqId: string
+  ) {
+    this.subscription = this.widgetService
+      .getWidgetChannel(this.id)
+      .subscribe(data => {
+        this.title = data.title;
+        // this.code = data.code;
+        // this.units = data.units;
+        // this.name = data.name;
+      });
+  }
 
   ngOnInit() {}
 }

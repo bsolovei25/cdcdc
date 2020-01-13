@@ -29,11 +29,12 @@ import { ProductStocksComponent } from "../../widgets/product-stocks/product-sto
 import { PolarChartComponent } from "../../widgets/polar-chart/polar-chart.component";
 import { SemicircleEnergyComponent } from "../../widgets/semicircle-energy/semicircle-energy.component";
 import { DeviationCircleDiagramComponent } from "../../widgets/deviation-circle-diagram/deviation-circle-diagram.component";
-import { OilControlComponent } from '../../widgets/oil-control/oil-control.component';
+import { OilControlComponent } from "../../widgets/oil-control/oil-control.component";
 import { CircleBlockDiagramComponent } from "../../widgets/circle-block-diagram/circle-block-diagram.component";
 import { ColumnChartStackedComponent } from "../../widgets/column-chart-stacked/column-chart-stacked.component";
-import {FlameDiagramComponent} from "../../widgets/flame-diagram/flame-diagram.component";
-import { RingEnergyIndicatorComponent } from '../../widgets/ring-energy-indicator/ring-energy-indicator.component';
+import { FlameDiagramComponent } from "../../widgets/flame-diagram/flame-diagram.component";
+import { RingEnergyIndicatorComponent } from "../../widgets/ring-energy-indicator/ring-energy-indicator.component";
+import { TimeLineDiagramComponent } from "../../widgets/time-line-diagram/time-line-diagram.component";
 
 export const WIDGETS = {
   "pie-diagram": WidgetPiesComponent,
@@ -73,4 +74,5 @@ export const WIDGETS = {
   "column-chart-stacked": ColumnChartStackedComponent,
   "flame-diagram": FlameDiagramComponent,
   "ring-energy-indicator": RingEnergyIndicatorComponent,
+  "time-line-diagram": TimeLineDiagramComponent
 };
