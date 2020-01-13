@@ -161,6 +161,8 @@ export class NewWidgetService {
 
       case 'polar-chart':
         return data;
+      case "circle-block-diagram":
+        return data;
     }
     console.warn(`unknown widget type ${widgetType}`);
   }
