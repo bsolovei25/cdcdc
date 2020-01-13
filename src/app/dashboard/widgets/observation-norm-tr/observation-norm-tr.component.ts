@@ -17,8 +17,8 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy {
     static itemRows = 10;
 
     circleRadius: string = (35).toString();
-    minRadius: string = (47).toString();
-    maxRadius: string = (75).toString();
+    minRadius = (47);
+    maxRadius = (75);
     radPoint = "1.69";
     centerX = "89.27";
     centerY = "92.28";
@@ -27,11 +27,11 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy {
     data: IObservationNormTR = {
         minValue: 95,
         maxValue: 100,
-        values: [94, 93, 95, 96, 97, 95, 96, 94, 93, 95, 96, 97, 95, 96]
-        // values: [94, 93, 95,]
+        values: [97, 97, 95, 96, 97, 95, 96, 98, 96, 99, 100, 97, 97, 97]
+        // values: [94, 97, 99, 100]
     }
 
-    radius = 60;
+    middleRadius = 60;
 
     public title = '';
     private subscription: Subscription;
@@ -39,6 +39,9 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy {
     @ViewChild('svgContainerObservation', { static: false }) svgContainerObservation: ElementRef;
     @ViewChild('lastCircle', { static: false }) lastCircle: ElementRef;
     @ViewChild('lineAndCircle', { static: false }) lineAndCircle: ElementRef;
+    @ViewChild('activeLine', { static: false }) activeLine: ElementRef;
+    @ViewChild('activeCircle', { static: false }) activeCircle: ElementRef;
+    @ViewChild('warningCircle', { static: false }) warningCircle: ElementRef;
 
     constructor(
         public widgetService: NewWidgetService,
@@ -75,25 +78,81 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy {
         max.textContent = this.data.maxValue.toString();
     }
 
-
-
     drawCircle() {
         let x1, y1, x2, y2 = '';
+        if (this.data.values[0]) {
+            x1 = this.diaEndsLine(-1, this.middleRadius).xCen;
+            y1 = this.diaEndsLine(-1, this.middleRadius).yCen;
+            x2 = this.diaEndsLine(0, this.radiusСalculation(this.data.values[0])).xCen;
+            y2 = this.diaEndsLine(0, this.radiusСalculation(this.data.values[0])).yCen;
+            this.drawLine(x1, y1, x2, y2);
+        }
         this.data.values.forEach((item, i) => {
             const circle = this.renderer.createElement('circle', 'svg');
-            x1 = this.diaEndsLine(i, this.radius).xCen;
-            y1 = this.diaEndsLine(i, this.radius).yCen;
-            x2 = this.diaEndsLine(i + 1, this.radius).xCen;
-            y2 = this.diaEndsLine(i + 1, this.radius).yCen;
-
+            x1 = this.diaEndsLine(i, this.radiusСalculation(item)).xCen;
+            y1 = this.diaEndsLine(i, this.radiusСalculation(item)).yCen;
+            if (this.data.values[i + 1]) {
+                x2 = this.diaEndsLine(i + 1, this.radiusСalculation(this.data.values[i + 1])).xCen;
+                y2 = this.diaEndsLine(i + 1, this.radiusСalculation(this.data.values[i + 1])).yCen;
+            }
             this.renderer.setAttribute(circle, 'cx', x1);
             this.renderer.setAttribute(circle, 'cy', y1);
             this.renderer.setAttribute(circle, 'r', this.radPoint);
             this.renderer.setStyle(circle, 'fill', '#9ed7f5');
             this.renderer.appendChild(this.lineAndCircle.nativeElement, circle);
+            if (item <= this.data.minValue || this.data.maxValue <= item) {
+                this.drawWarningCircle(i, item, x1, y1);
+            }
             this.drawLine(x1, y1, x2, y2);
-            this.drawLastCircle();
         })
+        this.drawLastCircle();
+        this.drawEndLine();
+        this.drawActiveCircle();
+    }
+
+    radiusСalculation(value: number): number {
+        return this.minRadius + ((value - this.data.minValue) * (this.maxRadius - this.minRadius)) / (this.data.maxValue - this.data.minValue);
+    }
+
+    drawEndLine() {
+        if (this.activeLine && this.activeLine.nativeElement) {
+            this.renderer.setStyle(this.activeLine.nativeElement, 'transform', 'rotate(61deg)');
+        }
+    }
+
+    drawActiveCircle() {
+        if (this.activeCircle && this.activeCircle.nativeElement) {
+            const percent = 42;
+            const circumference = this.middleRadius * 2 * Math.PI;
+            this.renderer.setStyle(this.activeCircle.nativeElement, 'strokeDasharray', `${circumference} ${circumference}`);
+            this.renderer.setStyle(this.activeCircle.nativeElement, 'strokeDashoffset', `${circumference}`);
+            const offset = circumference - percent / 100 * circumference;
+            this.renderer.setStyle(this.activeCircle.nativeElement, 'strokeDashoffset', `${offset.toString()}`);
+        }
+    }
+
+    drawWarningCircle(i, item, x1, y1) {
+        if (this.warningCircle && this.warningCircle.nativeElement) {
+            const x = x1 - 4.35;
+            const y = y1 - 4.8;
+            
+            const gEl = this.renderer.createElement('g', 'svg');
+            this.renderer.setStyle(gEl, 'display', 'block');
+            this.renderer.setAttribute(gEl, 'transform', `translate(${x}, ${y})`);
+            this.renderer.appendChild(this.warningCircle.nativeElement, gEl);
+
+            const circle = this.renderer.createElement('circle', 'svg');
+            this.renderer.setAttribute(circle, 'cx', '4.28');
+            this.renderer.setAttribute(circle, 'cy', '4.94');
+            this.renderer.setAttribute(circle, 'r', '1.69');
+            this.renderer.setStyle(circle, 'fill', '#f4a321');
+            this.renderer.appendChild(gEl, circle);
+
+            const polygon = this.renderer.createElement('polygon', 'svg');
+            this.renderer.setAttribute(polygon, 'points', '4.28 0.41 6.24 3.81 8.21 7.21 4.28 7.21 0.35 7.21 2.31 3.81 4.28 0.41');
+            this.renderer.addClass(polygon, 'circle-warning');
+            this.renderer.appendChild(gEl, polygon);
+        }
     }
 
     drawLine(x1, y1, x2, y2) {
@@ -105,32 +164,16 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy {
         this.renderer.setAttribute(line, 'stroke', '#9ed7f5');
         this.renderer.setAttribute(line, 'stroke-width', '1.3');
         this.renderer.appendChild(this.lineAndCircle.nativeElement, line);
-
-        var circle2 = document.getElementById('loadCircle');
-        var radius = 60;
-        var circumference = radius * 2 * Math.PI;
-
-        circle2.style.strokeDasharray = `${circumference} ${circumference}`;
-        circle2.style.strokeDashoffset = `${circumference}`;
-
-        function setProgress(percent) {
-            const offset = circumference - percent / 100 * circumference;
-            circle2.style.strokeDashoffset = offset.toString();
-        }
-        setProgress(42);
     }
 
     drawLastCircle() {
         if (this.lastCircle && this.lastCircle.nativeElement) {
-            const x = (Number(this.diaEndsLine(this.data.values.length, this.radius).xCen) - 10).toString();
-            const y = (Number(this.diaEndsLine(this.data.values.length, this.radius).yCen) - 10).toString();
+            const x = (Number(this.diaEndsLine(this.data.values.length - 1, this.radiusСalculation(this.data.values[this.data.values.length - 1])).xCen) - 10).toString();
+            const y = (Number(this.diaEndsLine(this.data.values.length - 1, this.radiusСalculation(this.data.values[this.data.values.length - 1])).yCen) - 10).toString();
             this.renderer.setStyle(this.lastCircle.nativeElement, 'display', 'block');
             this.renderer.setAttribute(this.lastCircle.nativeElement, 'transform', `translate(${x}, ${y})`);
-
         }
     }
-
-
 
     diaCounter(r: string): string {
         const c: number = 2 * Math.PI * +r;
@@ -139,10 +182,10 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy {
 
     diaEndsLine(el: number, rad: number) {
         let newPoint = 0;
-        if (el === 0) {
+        if (el === -1) {
             newPoint = 100;
         } else {
-            newPoint = 100 + (el * 6.25) - this.middleCell; // отсчет угла от 100%
+            newPoint = 100 + (el * 6.25) + this.middleCell; // отсчет угла от 100%
         }
         const t = (Math.PI * newPoint) / 100 + Math.PI / 2;
         const r = +rad;

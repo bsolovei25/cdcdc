@@ -33,15 +33,22 @@
                         </radialGradient>
                     </defs>
 
-                    <g #activeCircle>
-                        <!-- <circle id="bar" r="70.37" cx="88.83" cy="92.02" fill="rgba(123, 181, 235, 0.4)"
-                            stroke-dasharray="0,1000" stroke-width="1em" stroke-dashoffset="100">
-                        </circle> -->
-                        <circle id="loadCircle" class="progress-ring__circle" stroke="rgba(255, 255, 255, 0.5)"
+                    <g>
+                        <circle #activeCircle class="progress-ring__circle" stroke="rgba(255, 255, 255, 0.5)"
                             stroke-width="21" fill="transparent" r="60" cx="88.83" cy="92.02" />
-                        <circle class="progress-ring__circle2" style="stroke-Dasharray: 381, 376;
-                            stroke-Dashoffset: 380" fill="transparent" stroke-width="21" r="60" cx="88.83"
-                            cy="92.02" />
+                        <circle #activeLine class="progress-ring__end__line" style="stroke-Dasharray: 380.3, 376;
+                        stroke-Dashoffset: 379;" fill="transparent" stroke-width="21.5" r="60" cx="88.83" cy="92.02" />
+
+                        <circle cx="89.27" cy="92.28" r="70.37" style="opacity:0.8;fill:url(#a)" />
+
+                        <defs>
+                            <radialGradient id="b" cx="114.03" cy="62.91" r="28.19" gradientUnits="userSpaceOnUse">
+                                <stop offset="0" stop-color="#f4a321" />
+                                <stop offset="1" stop-color="#f4a321" />
+                            </radialGradient>
+                        </defs>
+                        <path d="M89.27,92.28l39.06-58.53a69.27,69.27,0,0,1,5.6,4.15q2.7,2.22,5.17,4.69Z"
+                            style="opacity:0.9;fill:url(#b)" />
                     </g>
 
                     <circle cx="89.27" cy="92.28" r="70.37" style="opacity:0.8;fill:url(#a)" />
@@ -135,12 +142,10 @@
                         <circle cx="9.97" cy="10.09" r="1.69" style="fill:#fff" />
                     </g>
                     <g #warningCircle>
-                        <circle cx="4.28" cy="4.94" r="1.69" style="fill:#f4a321" />
+                        <!-- <circle cx="4.28" cy="4.94" r="1.69" style="fill:#f4a321" />
                         <polygon points="4.28 0.41 6.24 3.81 8.21 7.21 4.28 7.21 0.35 7.21 2.31 3.81 4.28 0.41"
-                            class="circle-warning" />
+                            class="circle-warning" /> -->
                     </g>
-
-
                 </svg>
             </div>
         </div>
