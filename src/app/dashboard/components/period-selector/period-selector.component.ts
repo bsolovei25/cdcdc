@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HeaderDataService } from '../../services/header-data.service';
 
 @Component({
   selector: 'evj-period-selector',
@@ -11,7 +12,9 @@ export class PeriodSelectorComponent implements OnInit {
   public fromDate: Date;
   public isCurrent: boolean;
 
-  constructor() {
+  constructor(
+    private headerData: HeaderDataService
+  ) {
     this.setDefault();
   }
 
@@ -23,11 +26,12 @@ export class PeriodSelectorComponent implements OnInit {
     defaultTime = new Date(defaultTime.getFullYear(), defaultTime.getMonth(), defaultTime.getDate(), 0, 0, 0);
     this.toDate = defaultTime;
     this.fromDate = defaultTime;
-
     this.isCurrent = true;
+    this.headerData.catchDefaultDate(this.toDate, this.fromDate, this.isCurrent);
   }
 
   setDefaultTime(event, datetime) {
+    this.headerData.catchDate(event, datetime);
     let defaultTime = new Date();
     defaultTime = new Date(defaultTime.getFullYear(), defaultTime.getMonth(), defaultTime.getDate(), 0, 0, 0);
     if(datetime === 1) {
@@ -47,6 +51,7 @@ export class PeriodSelectorComponent implements OnInit {
 
   isCurrentChange(value: boolean) {
     this.isCurrent = value;
+    this.headerData.catchStatusButton(this.isCurrent);
   }
 
 }
