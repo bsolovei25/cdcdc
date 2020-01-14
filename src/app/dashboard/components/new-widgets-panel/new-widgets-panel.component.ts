@@ -80,6 +80,7 @@ export class NewWidgetsPanelComponent implements OnInit {
 
   @Output() onSwap = new EventEmitter<boolean>();
   @Output() onGrid = new EventEmitter<boolean>();
+  @Output() onViewSise = new EventEmitter<boolean>();
 
   changeSwap(){
     let check = <HTMLInputElement> document.getElementById('checkBoxFix');
@@ -104,7 +105,14 @@ export class NewWidgetsPanelComponent implements OnInit {
   }
 
   public bigSize(){
-
+    let check = <HTMLInputElement> document.getElementById('checkBoxView');
+    if(check.checked){
+      this.swapWidget = false;
+      this.onGrid.emit(this.swapWidget);
+    }else{
+      this.swapWidget = true;
+      this.onGrid.emit(this.swapWidget);
+    }
   }
 
   ngOnDestroy() {
