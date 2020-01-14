@@ -1,26 +1,32 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { HeaderDataService } from '../../services/header-data.service';
 import { map } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { HeaderDate } from '../../models/header-date';
 
 @Component({
   selector: 'evj-line-datetime',
   templateUrl: './line-datetime.component.html',
   styleUrls: ['./line-datetime.component.scss']
 })
-export class LineDatetimeComponent implements OnInit, AfterViewInit {
+export class LineDatetimeComponent implements OnInit {
 
   @ViewChild('startLine', {static: false}) startLine: ElementRef;
-  @ViewChild('middleLine', {static: false}) middleLine: ElementRef;
+
+
+  private subscription: Subscription;
 
   public currentData;
   public dates = [];
 
-  public dateFromSelector = {};
+  public dateFromSelector: HeaderDate;
 
   public positionEndLine = 1;
   public positionStartLine = 1;
 
   public widthBlock;
+
+  public check = false;
 
   constructor(
     private renderer: Renderer2,
@@ -29,20 +35,26 @@ export class LineDatetimeComponent implements OnInit, AfterViewInit {
     setInterval(() => {
       this.currentData = Date.now();
     }, 1000);
+
+    this.subscription = this.headerData.date$.subscribe(data => {
+      this.dateFromSelector = data;
+      if(this.dateFromSelector.status === false && this.check === true){
+        this.searchDate(this.dateFromSelector, this.startLine);
+      }
+    })
   }
-
-
 
   ngOnInit() {
     this.datesFill();
-    this.dateFromSelector = this.headerData.getDate();
-    
   }
 
-  ngAfterViewInit() { 
-    this.widthBlock = this.widthBlockDataLine();
-    this.searchDate(this.dateFromSelector, this.startLine, this.middleLine);
+  ngAfterViewInit(){
+    this.check = true;
+    if(this.dateFromSelector.status === false){
+      this.searchDate(this.dateFromSelector, this.startLine);
+    }
   }
+  
 
   datesFill() {
     const date = new Date();
@@ -71,32 +83,23 @@ export class LineDatetimeComponent implements OnInit, AfterViewInit {
     }
   }
 
-  public addBorderLine(){
-
-  }
-
+/*
   public widthBlockDataLine(){
     let widthBlock = document.getElementById("widthBlock");
     return widthBlock.offsetWidth;
   }
+*/
+  public searchDate(data, elStart){
+    debugger
+    let count = this.dates.length/100;
+    let count2 = this.dates.length/10;
+    let countLine = data.start - data.end + 1;
 
-  public searchDate(data, elStart, elMiddle){
-    this.positionStartLine = ((data.start-1)*this.widthBlock);
+    this.positionStartLine = (data.start-1)/count;
     debugger
-    let width = (data.start - data.end + 1) * this.widthBlock;
-    this.renderer.setStyle(elStart.nativeElement, 'left', `${this.positionStartLine}px`);
-    this.renderer.setStyle(elMiddle.nativeElement, 'width', `${width}px`);
-    return 1;
-   /* let search;
-    let mass = [];
-    search = document.getElementsByClassName("calendar-column_date");
-    for(let i of this.dates){
-      debugger
-      let text = search[i].textContent;
-      mass.push(text);
-    }
-    debugger
-    return mass; */
+   let width = countLine*count2 + count;
+    this.renderer.setStyle(elStart.nativeElement, 'left', `${this.positionStartLine}%`);
+    this.renderer.setStyle(elStart.nativeElement, 'width', `${width}%`);
   }
 
 }

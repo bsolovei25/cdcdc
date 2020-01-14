@@ -71,13 +71,12 @@
 }
 
 .middle-line{
-  
+  width: 100%; 
   background-color: rgba(63,169,254,0.2);
 }
 
 .line-block{
   height: 100%;
   display: flex;
-  width: 300px;
   position: absolute;
 }
