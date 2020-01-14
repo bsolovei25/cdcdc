@@ -93,7 +93,7 @@ export class NewWidgetsPanelComponent implements OnInit {
   } 
 
   getGridView(){
-    let check = <HTMLInputElement> document.getElementById('checkBoxGrid');
+    let check = <HTMLInputElement> document.getElementById('checkBoxView');
     if(check.checked){
       this.swapWidget = false;
       this.onGrid.emit(this.swapWidget);
@@ -101,6 +101,10 @@ export class NewWidgetsPanelComponent implements OnInit {
       this.swapWidget = true;
       this.onGrid.emit(this.swapWidget);
     }
+  }
+
+  public bigSize(){
+
   }
 
   ngOnDestroy() {
