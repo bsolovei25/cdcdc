@@ -126,7 +126,7 @@ gridster-item {
   border: 1px solid transparent;
   border-radius: 10px 0 0;
 
-  transition: width .5s, padding .5s, box-shadow .5s;
+  transition: width 0.4s, padding .4s, box-shadow .4s;
 
   &_active {
     width: 500px;
@@ -191,12 +191,14 @@ gridster-item {
 
 .widget_menu{
   display: flex;
-  height: 30px;
-  width: 100%;
+  height: 40px;
+  width: calc(100% - 10px);
   min-width: 469px;
   background-color: var(--color-bg-sub);
   border-radius: 8px;
   line-height: 30px;
+  margin: 5px;
+
 }
 
 .mycheckbox {

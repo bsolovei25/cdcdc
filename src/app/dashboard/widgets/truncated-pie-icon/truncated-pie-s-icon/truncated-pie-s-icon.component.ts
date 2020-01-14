@@ -18,6 +18,7 @@ export class TruncatedPieSIconComponent implements OnInit {
   public code;
   public units = "шт.";
   public name;
+  public icon: string = 'triangle';
 
   
   public datas = [

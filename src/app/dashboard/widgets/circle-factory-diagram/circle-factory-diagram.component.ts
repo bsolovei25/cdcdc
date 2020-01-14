@@ -14,7 +14,7 @@ export class CircleFactoryDiagramComponent implements AfterViewInit {
 
   @ViewChild('circleFactory', { static: false }) CircleFactory: ElementRef;
 
-  public readonly RADIUS = 40;
+  public readonly RADIUS = 42;
 
   public title = "Производство";
   public code;
@@ -169,10 +169,9 @@ export class CircleFactoryDiagramComponent implements AfterViewInit {
 
 
     let pie_back = canvas.append("image")
-      .attr("xlink:href", !data.value ? "./assets/pic/nCirFacDiag.svg" : "./assets/pic/aCirFacDiag.svg")
+      .attr("xlink:href", !data.value ? "./assets/pic/CircleFactory/notActiveCircleBack.svg" : "./assets/pic/CircleFactory/activeCircleBack.svg")
       .attr("height", "189px")
       .attr("width", "110px")
-      .attr("opacity", "0.6")
       .attr("x", "6.5")
       .attr("y", "-34");
 
@@ -207,5 +206,13 @@ export class CircleFactoryDiagramComponent implements AfterViewInit {
         xPos2 += 35;
       }
     }
+
+    let pointStart = canvas.append("image")
+    .attr("xlink:href", "./assets/pic/CircleFactory/pointStart.svg")
+    .attr("height", "20px")
+    .attr("width", "20px")
+    .attr("x", "50")
+    .attr("y", "8");
   }
+  
 }

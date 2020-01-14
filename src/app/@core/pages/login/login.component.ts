@@ -1,7 +1,7 @@
 
 // Angular 
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '@core/service/auth.service';
 import { environment } from 'src/environments/environment';
 import { FormControl, Validators } from '@angular/forms';

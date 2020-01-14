@@ -10,10 +10,8 @@
 }
 .body-container {
   position: relative;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  width: calc(100%);
-  height: calc(100% - 80px);
+  width: calc(100% - 1px);
+  height: calc(100% - 60px);
   border-left: dashed 0.5px var(--color-border-main);
   border-right: dashed 0.5px var(--color-border-main);
 }
@@ -36,14 +34,7 @@ canvas {
 canvas + * {
   z-index: 2;
 }
-//.loader {
-//  position: absolute;
-//  width: 100%;
-//  height: 100%;
-//  background-color: var(--color-bg-main);
-//  z-index: 10;
-//  display: block;
-//}
+
 
 .loading-shade {
   position: absolute;

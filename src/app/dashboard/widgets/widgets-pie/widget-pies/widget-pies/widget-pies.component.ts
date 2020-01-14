@@ -21,6 +21,7 @@ export class WidgetPiesComponent implements OnInit {
   public code;
   public units ="шт.";
   public name;
+  public icon: string = 'tools';
 
  public uniqal;
   

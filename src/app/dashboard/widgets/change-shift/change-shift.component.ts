@@ -8,7 +8,7 @@ import {
 import { ShiftService } from "../../services/shift.service";
 import { Subscription } from "rxjs";
 import { NewWidgetService } from "../../services/new-widget.service";
-import { Shift, ShiftMember } from "../../models/shift.model";
+import {Shift, ShiftComment, ShiftMember} from "../../models/shift.model";
 
 interface CommentModel {
   id: number;
@@ -36,7 +36,9 @@ export class ChangeShiftComponent implements OnInit {
     }
   ];
 
-  comments: string[] = [];
+  public icon: string = 'peoples';
+
+  comments: ShiftComment[] = [];
   aboutWidget;
   currentShift: Shift = null;
   presentMembers = null;
@@ -100,6 +102,11 @@ export class ChangeShiftComponent implements OnInit {
       const tempMember = this.currentShift.shiftMembers[0];
       this.currentShift.shiftMembers[0] = this.currentShift.shiftMembers[index];
       this.currentShift.shiftMembers[index] = tempMember;
+
+      this.comments = [];
+      for (const commentObj of this.currentShift.shiftPassingComments) {
+        this.setMessage(commentObj);
+      }
     }
 
     this.absentMembers = this.currentShift.shiftMembers.filter(
@@ -130,9 +137,9 @@ export class ChangeShiftComponent implements OnInit {
     }, 50);
   }
 
-  private setMessage(comment: string): void {
+  private setMessage(comment: ShiftComment): void {
     this.comments.push(comment);
-    this.input.nativeElement.value = "";
+    this.input.nativeElement.value = '';
   }
 
   onEnterPush(event?: any) {

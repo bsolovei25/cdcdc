@@ -1,5 +1,5 @@
 <evj-preloader [isLoading]="isLoading" [isHidden]="isHidden"></evj-preloader>
-<form class="login-form" [class.swing]="swing">
+<div class="login-form" [class.swing]="swing" (ngSubmit)="onSubmit()">
     <p class="login-text">
         <span class="fa-stack fa-lg">
             <i class="fa fa-circle fa-stack-2x"></i>
@@ -14,9 +14,10 @@
         <mat-error *ngIf="username.invalid"></mat-error>
     </mat-form-field>
     <mat-form-field>
-        <input matInput placeholder="Пароль" [type]="hide ? 'password' : 'text'" [formControl]="password">
-        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="hide">
+        <input matInput placeholder="Пароль" [type]="hide ? 'password' : 'text'" [formControl]="password"
+            (keyup.enter)="onSubmit()">
+        <button mat-icon-button matSuffix (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
 
         </button>
@@ -36,4 +37,4 @@
             <span *ngIf="!isLoadingData">Войти</span>
         </button>
     </div>
-</form>
+</div>

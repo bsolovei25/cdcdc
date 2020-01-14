@@ -24,10 +24,18 @@ export interface Shift {
   id: number;
   shiftMembers: ShiftMember[];
   brigade: Brigade;
+  shiftPassingComments: ShiftComment[];
 }
 
 export interface ShiftPass {
   id: number;
   passingShift: Shift;
   acceptingShift: Shift;
+}
+
+export interface ShiftComment {
+  id: number;
+  comment: string;
+  createdAt: Date;
+  createdBy: number;
 }
