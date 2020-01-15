@@ -1,5 +1,10 @@
 import { Component, OnInit, Inject, OnDestroy } from "@angular/core";
-import { TimeLineData } from "../../models/time-line-diagram";
+import {
+  TimeLineData,
+  TimeLineDataInput,
+  TimeLineItemInput,
+  TimeLineItem
+} from "../../models/time-line-diagram";
 import { NewWidgetService } from "../../services/new-widget.service";
 import { Subscription } from "rxjs";
 
@@ -24,7 +29,7 @@ export class TimeLineDiagramComponent implements OnInit, OnDestroy {
         dropTimeNext: 0,
         dropTimeLast: 0,
         dropTitle: "Сточные воды"
-      },
+      }
     ]
   };
 
@@ -58,8 +63,8 @@ export class TimeLineDiagramComponent implements OnInit, OnDestroy {
       this.subscriptions.push(
         this.widgetService
           .getWidgetLiveDataFromWS(this.id, this.widgetType)
-          .subscribe((data: TimeLineData) => {
-            this.data = data;
+          .subscribe((data: TimeLineDataInput) => {
+            this.getData(data);
           })
       );
     }
@@ -71,5 +76,18 @@ export class TimeLineDiagramComponent implements OnInit, OnDestroy {
         subscription.unsubscribe()
       );
     }
+  }
+
+  getData(data: TimeLineDataInput): void {
+    const arr: TimeLineItem[] = [];
+    for (let value of data.values) {
+      const item: TimeLineItem = {
+        dropTimeLast: Date.parse(value.dropTimeLast),
+        dropTimeNext: Date.parse(value.dropTimeNext),
+        dropTitle: value.dropTitle
+      };
+      arr.push(item);
+    }
+    this.data.values = arr.slice();
   }
 }
