@@ -20,7 +20,7 @@
     >
       <div class="time-diagram__container scroll-bar">
         <div class="time-diagram__scroll">
-          <ng-container *ngFor="let item of data">
+          <ng-container *ngFor="let item of data.values">
             <evj-time-diagram [data]="item"></evj-time-diagram>
           </ng-container>
         </div>

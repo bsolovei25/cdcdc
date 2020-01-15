@@ -2,7 +2,8 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  Inject
+  Inject,
+  OnDestroy
 } from "@angular/core";
 import { timeLineItem, timeLineData } from "../../models/time-line-diagram";
 import { NewWidgetService } from "../../services/new-widget.service";
@@ -13,7 +14,7 @@ import { Subscription } from "rxjs";
   templateUrl: "./time-line-diagram.component.html",
   styleUrls: ["./time-line-diagram.component.scss"]
 })
-export class TimeLineDiagramComponent implements OnInit {
+export class TimeLineDiagramComponent implements OnInit, OnDestroy {
   data: timeLineData = {
     values: [
       {
@@ -54,10 +55,11 @@ export class TimeLineDiagramComponent implements OnInit {
     ]
   };
 
-  public title = "";
-  public units = "час";
+  public title: string = "";
+  public units: string = "час";
+  public widgetType: string = "time-line-diagram";
 
-  subscription: Subscription;
+  subscriptions: Subscription[] = [];
 
   constructor(
     private widgetService: NewWidgetService,
@@ -65,15 +67,23 @@ export class TimeLineDiagramComponent implements OnInit {
     @Inject("widgetId") public id: string,
     @Inject("uniqId") public uniqId: string
   ) {
-    this.subscription = this.widgetService
-      .getWidgetChannel(this.id)
-      .subscribe(data => {
+    this.subscriptions.push(
+      this.widgetService.getWidgetChannel(this.id).subscribe(data => {
         this.title = data.title;
         // this.code = data.code;
         // this.units = data.units;
         // this.name = data.name;
-      });
+      })
+    );
   }
 
   ngOnInit() {}
+
+  ngOnDestroy() {
+    if (this.subscriptions) {
+      this.subscriptions.forEach((subscription: Subscription) =>
+        subscription.unsubscribe()
+      );
+    }
+  }
 }

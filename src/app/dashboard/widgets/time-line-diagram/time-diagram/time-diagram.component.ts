@@ -13,7 +13,7 @@ export class TimeDiagramComponent implements OnInit {
     dropTitle: ""
   };
 
-  public timeLeft = 0;
+  public timeLeft: number = 0;
 
   colorNormal = "#616580";
   colorNow = "#a2e2ff";
@@ -31,7 +31,7 @@ export class TimeDiagramComponent implements OnInit {
   }
 
   timeLine(): string {
-    let percent = 0;
+    let percent: number = 0;
     if (this.timeLeft > 0) {
       percent =
         100 -
