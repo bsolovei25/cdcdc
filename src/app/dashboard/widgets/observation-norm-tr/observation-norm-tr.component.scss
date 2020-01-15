@@ -30,6 +30,8 @@
   // overflow-y: scroll;
   height: calc(100% - 56px);
   position: relative;
+  padding-left: 2%;
+  padding-right: 2%;
   border-left: dashed 0.5px var(--color-border-main);
   border-right: dashed 0.5px var(--color-border-main);
 }

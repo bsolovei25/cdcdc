@@ -42,6 +42,7 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy {
     @ViewChild('activeLine', { static: false }) activeLine: ElementRef;
     @ViewChild('activeCircle', { static: false }) activeCircle: ElementRef;
     @ViewChild('warningCircle', { static: false }) warningCircle: ElementRef;
+    @ViewChild('warningPolygon', { static: false }) warningPolygon: ElementRef;
 
     constructor(
         public widgetService: NewWidgetService,
@@ -87,10 +88,12 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy {
             y2 = this.diaEndsLine(0, this.radiusСalculation(this.data.values[0])).yCen;
             this.drawLine(x1, y1, x2, y2);
         }
+        this.scoreValues = this.data.values.length;
         this.data.values.forEach((item, i) => {
             const circle = this.renderer.createElement('circle', 'svg');
             x1 = this.diaEndsLine(i, this.radiusСalculation(item)).xCen;
             y1 = this.diaEndsLine(i, this.radiusСalculation(item)).yCen;
+
             if (this.data.values[i + 1]) {
                 x2 = this.diaEndsLine(i + 1, this.radiusСalculation(this.data.values[i + 1])).xCen;
                 y2 = this.diaEndsLine(i + 1, this.radiusСalculation(this.data.values[i + 1])).yCen;
@@ -111,18 +114,28 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy {
     }
 
     radiusСalculation(value: number): number {
+        if (value < this.data.minValue) {
+            return this.minRadius;
+        }
+        if (value > this.data.maxValue) {
+            return this.maxRadius;
+        }
         return this.minRadius + ((value - this.data.minValue) * (this.maxRadius - this.minRadius)) / (this.data.maxValue - this.data.minValue);
     }
 
     drawEndLine() {
         if (this.activeLine && this.activeLine.nativeElement) {
-            this.renderer.setStyle(this.activeLine.nativeElement, 'transform', 'rotate(61deg)');
+            let deg = 270 + ((this.scoreValues * 11.25) - 6.4);
+            this.renderer.setStyle(this.activeLine.nativeElement, 'transform', `rotate(${deg}deg)`);
         }
     }
 
     drawActiveCircle() {
         if (this.activeCircle && this.activeCircle.nativeElement) {
-            const percent = 42;
+            let percent = 0;
+            if (this.scoreValues && this.scoreValues !== 0) {
+                percent = (this.scoreValues * 3.125) - 1.5625;
+            }
             const circumference = this.middleRadius * 2 * Math.PI;
             this.renderer.setStyle(this.activeCircle.nativeElement, 'strokeDasharray', `${circumference} ${circumference}`);
             this.renderer.setStyle(this.activeCircle.nativeElement, 'strokeDashoffset', `${circumference}`);
@@ -133,9 +146,10 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy {
 
     drawWarningCircle(i, item, x1, y1) {
         if (this.warningCircle && this.warningCircle.nativeElement) {
-            const x = x1 - 4.35;
-            const y = y1 - 4.8;
-            
+            this.drawWarningPolygon(i);
+            const x = x1 - 4.26;
+            const y = y1 - 4.92;
+
             const gEl = this.renderer.createElement('g', 'svg');
             this.renderer.setStyle(gEl, 'display', 'block');
             this.renderer.setAttribute(gEl, 'transform', `translate(${x}, ${y})`);
@@ -155,6 +169,33 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy {
         }
     }
 
+
+    drawWarningPolygon(i: number) {
+        if (this.warningPolygon && this.warningPolygon.nativeElement) {
+            let deg = (i + 1) * 11.242 + 315;
+            const gEl = this.renderer.createElement('g', 'svg');
+            this.renderer.setStyle(gEl, 'transform', `translate(0px, 0px) rotate(${deg}deg)`);
+            this.renderer.setStyle(gEl, 'transform-origin', '89px 92.2px 0');
+            this.renderer.appendChild(this.warningPolygon.nativeElement, gEl);
+
+            // const circle = this.renderer.createElement('circle', 'svg');
+            // this.renderer.setAttribute(circle, 'cx', '89.27');
+            // this.renderer.setAttribute(circle, 'cy', '4.94');
+            // this.renderer.setAttribute(circle, 'r', '1.69');
+            // this.renderer.setStyle(circle, 'fill', '#f4a321');
+            // this.renderer.appendChild(gEl, circle);
+
+            const path = this.renderer.createElement('path', 'svg');
+            this.renderer.setAttribute(path, 'd', 'M89.27,92.28l39.06-58.53a69.27,69.27,0,0,1,5.6,4.15q2.7,2.22,5.17,4.69Z');
+            this.renderer.setStyle(path, 'fill', '#f4a321');
+            this.renderer.setStyle(path, 'opacity', '0.9');
+            this.renderer.appendChild(gEl, path);
+        }
+        //     line.setAttribute('style', `transform: translate(834.21px, 486.66px) rotate(${data}deg);transform-origin: 84px 84px 0`);
+        //     transform-origin: 89px 92.2px 0;
+        // transform: translate(0px, 0px) rotate(157deg); 
+    }
+
     drawLine(x1, y1, x2, y2) {
         const line = this.renderer.createElement('line', 'svg');
         this.renderer.setAttribute(line, 'x1', x1);
@@ -168,10 +209,12 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy {
 
     drawLastCircle() {
         if (this.lastCircle && this.lastCircle.nativeElement) {
-            const x = (Number(this.diaEndsLine(this.data.values.length - 1, this.radiusСalculation(this.data.values[this.data.values.length - 1])).xCen) - 10).toString();
-            const y = (Number(this.diaEndsLine(this.data.values.length - 1, this.radiusСalculation(this.data.values[this.data.values.length - 1])).yCen) - 10).toString();
-            this.renderer.setStyle(this.lastCircle.nativeElement, 'display', 'block');
-            this.renderer.setAttribute(this.lastCircle.nativeElement, 'transform', `translate(${x}, ${y})`);
+            if (this.data.values.length && this.data.values[this.data.values.length - 1] < this.data.maxValue && this.data.values[this.data.values.length - 1] > this.data.minValue) {
+                const x = (Number(this.diaEndsLine(this.data.values.length - 1, this.radiusСalculation(this.data.values[this.data.values.length - 1])).xCen) - 10).toString();
+                const y = (Number(this.diaEndsLine(this.data.values.length - 1, this.radiusСalculation(this.data.values[this.data.values.length - 1])).yCen) - 10).toString();
+                this.renderer.setStyle(this.lastCircle.nativeElement, 'display', 'block');
+                this.renderer.setAttribute(this.lastCircle.nativeElement, 'transform', `translate(${x}, ${y})`);
+            }
         }
     }
 
@@ -195,7 +238,6 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy {
         };
         return limitLine;
     }
-
 
 
 
