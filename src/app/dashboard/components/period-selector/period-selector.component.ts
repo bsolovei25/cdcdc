@@ -27,11 +27,11 @@ export class PeriodSelectorComponent implements OnInit {
     this.toDate = defaultTime;
     this.fromDate = defaultTime;
     this.isCurrent = true;
-    this.headerData.catchDefaultDate(this.toDate, this.fromDate, this.isCurrent);
+    this.headerData.catchDefaultDate(this.fromDate, this.toDate, this.isCurrent);
   }
 
   setDefaultTime(event, datetime) {
-    this.headerData.catchDate(event, datetime);
+   // this.headerData.catchDate(event, datetime);
     let defaultTime = new Date();
     defaultTime = new Date(defaultTime.getFullYear(), defaultTime.getMonth(), defaultTime.getDate(), 0, 0, 0);
     if(datetime === 1) {
@@ -47,6 +47,8 @@ export class PeriodSelectorComponent implements OnInit {
         this.fromDate = defaultTime;
       }
     }
+    this.isCurrent = false;
+    this.headerData.catchDefaultDate(this.fromDate, this.toDate, this.isCurrent);
   }
 
   isCurrentChange(value: boolean) {

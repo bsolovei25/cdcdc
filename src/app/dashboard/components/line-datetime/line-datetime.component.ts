@@ -19,14 +19,12 @@ export class LineDatetimeComponent implements OnInit {
   public currentData;
   public dates = [];
 
-  public dateFromSelector: HeaderDate;
+  public dateFromSelector: HeaderDate = {start: 0, end: 0, status: true};
 
   public positionEndLine = 1;
   public positionStartLine = 1;
 
   public widthBlock;
-
-  public check = false;
 
   constructor(
     private renderer: Renderer2,
@@ -36,12 +34,6 @@ export class LineDatetimeComponent implements OnInit {
       this.currentData = Date.now();
     }, 1000);
 
-    this.subscription = this.headerData.date$.subscribe(data => {
-      this.dateFromSelector = data;
-      if(this.dateFromSelector.status === false && this.check === true){
-        this.searchDate(this.dateFromSelector, this.startLine);
-      }
-    })
   }
 
   ngOnInit() {
@@ -49,12 +41,13 @@ export class LineDatetimeComponent implements OnInit {
   }
 
   ngAfterViewInit(){
-    this.check = true;
-    if(this.dateFromSelector.status === false){
-      this.searchDate(this.dateFromSelector, this.startLine);
-    }
+    this.subscription = this.headerData.date$.subscribe(data => {
+      this.dateFromSelector = data;
+      if(this.dateFromSelector.status === false){
+        setTimeout(() => { this.searchDate(this.dateFromSelector, this.startLine);}, 1);
+      }
+    });
   }
-  
 
   datesFill() {
     const date = new Date();
@@ -83,23 +76,31 @@ export class LineDatetimeComponent implements OnInit {
     }
   }
 
-/*
   public widthBlockDataLine(){
     let widthBlock = document.getElementById("widthBlock");
     return widthBlock.offsetWidth;
   }
-*/
-  public searchDate(data, elStart){
-    debugger
-    let count = this.dates.length/100;
-    let count2 = this.dates.length/10;
-    let countLine = data.start - data.end + 1;
 
-    this.positionStartLine = (data.start-1)/count;
-    debugger
-   let width = countLine*count2 + count;
-    this.renderer.setStyle(elStart.nativeElement, 'left', `${this.positionStartLine}%`);
+  public searchDate(data, elStart){
+    let widthBlock = this.widthBlockDataLine();
+
+    let count = this.dates.length/100;
+    let countLine = data.end - data.start + 1;
+
+    let lineLength = widthBlock * this.dates.length;
+    let pieLine = (widthBlock * 100)/lineLength;
+
+    let start = (data.end > data.start) ? data.start: data.end;
+
+    let positionStartLine = ((start-1)/count) - 0.45;
+   
+    let width = pieLine*countLine + 1.1;
+
+    this.renderer.removeStyle(elStart.nativeElement, 'left');
+    this.renderer.setStyle(elStart.nativeElement, 'left', `${positionStartLine}%`);
     this.renderer.setStyle(elStart.nativeElement, 'width', `${width}%`);
   }
+
+  
 
 }

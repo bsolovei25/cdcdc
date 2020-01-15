@@ -31,20 +31,19 @@ export class HeaderDataService {
     this.endDate = datePipe.transform(end, 'dd');
     this.statusButton = status;
     this.pushDate();
-    return console.log("date start: " + this.startDate + "; data end: " + end + "; status: " + status);
   }
-
-  public catchDate(data, dateTime){
+/*
+  public catchDate(start, end, dateTime){
+    debugger
     let datePipe = new DatePipe("en-Us");
     let result = (dateTime) ? this.startDate = datePipe.transform(data, 'dd') : this.endDate = datePipe.transform(data, 'dd');
     this.pushDate();
     return console.log("choose date: " + result);
   }
-
+*/
   public catchStatusButton(status){
     this.statusButton = status;
     this.pushDate();
-    return console.log("status: " + status);
   }
 
   public pushDate(){

@@ -61,13 +61,15 @@
 }
 
 .line-start{
-  width: 1px;
-  background-color: blue;
+  width: 8px;
+  background-image: url(/assets/pic/Header/start.svg);
+  background-repeat: no-repeat;
 }
 
 .line-end{
-  width: 1px;
-  background-color: red;
+  width: 8px;
+  background-image: url(/assets/pic/Header/end.svg);
+  background-repeat: no-repeat;
 }
 
 .middle-line{
@@ -76,6 +78,7 @@
 }
 
 .line-block{
+  z-index: 999;
   height: 100%;
   display: flex;
   position: absolute;
