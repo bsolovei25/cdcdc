@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { HeaderDataService } from '../../services/header-data.service';
+import { map } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { HeaderDate } from '../../models/header-date';
 
 @Component({
   selector: 'evj-line-datetime',
@@ -7,19 +11,42 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LineDatetimeComponent implements OnInit {
 
+  @ViewChild('startLine', {static: false}) startLine: ElementRef;
+
+
+  private subscription: Subscription;
+
   public currentData;
   public dates = [];
 
-  constructor() {
+  public dateFromSelector: HeaderDate = {start: 0, end: 0, status: true};
+
+  public positionEndLine = 1;
+  public positionStartLine = 1;
+
+  public widthBlock;
+
+  constructor(
+    private renderer: Renderer2,
+    private headerData: HeaderDataService
+  ) {
     setInterval(() => {
       this.currentData = Date.now();
     }, 1000);
+
   }
-
-
 
   ngOnInit() {
     this.datesFill();
+  }
+
+  ngAfterViewInit(){
+    this.subscription = this.headerData.date$.subscribe(data => {
+      this.dateFromSelector = data;
+      if(this.dateFromSelector.status === false){
+        setTimeout(() => { this.searchDate(this.dateFromSelector, this.startLine);}, 1);
+      }
+    });
   }
 
   datesFill() {
@@ -48,5 +75,32 @@ export class LineDatetimeComponent implements OnInit {
       this.dates.push(el);
     }
   }
+
+  public widthBlockDataLine(){
+    let widthBlock = document.getElementById("widthBlock");
+    return widthBlock.offsetWidth;
+  }
+
+  public searchDate(data, elStart){
+    let widthBlock = this.widthBlockDataLine();
+
+    let count = this.dates.length/100;
+    let countLine = data.end - data.start + 1;
+
+    let lineLength = widthBlock * this.dates.length;
+    let pieLine = (widthBlock * 100)/lineLength;
+
+    let start = (data.end > data.start) ? data.start: data.end;
+
+    let positionStartLine = ((start-1)/count) - 0.45;
+   
+    let width = pieLine*countLine + 1.1;
+
+    this.renderer.removeStyle(elStart.nativeElement, 'left');
+    this.renderer.setStyle(elStart.nativeElement, 'left', `${positionStartLine}%`);
+    this.renderer.setStyle(elStart.nativeElement, 'width', `${width}%`);
+  }
+
+  
 
 }
