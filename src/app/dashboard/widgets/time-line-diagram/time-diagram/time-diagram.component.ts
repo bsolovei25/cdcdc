@@ -26,7 +26,7 @@ export class TimeDiagramComponent implements OnInit {
     if (!this.isMock) {
       setInterval(() => {
         this.timeLeft = Date.parse(this.data.dropTimeNext) - Date.now();
-      }, 1000);
+      }, 100);
     }
   }
 
