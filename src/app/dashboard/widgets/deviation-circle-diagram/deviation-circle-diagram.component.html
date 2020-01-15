@@ -1,4 +1,6 @@
-<div class="container pointer-event">
+<evj-widget-preview [title]="title" [previewTitle]="previewTitle" *ngIf="isMock"></evj-widget-preview>
+
+<div class="container pointer-event" *ngIf="!isMock">
   <evj-widget-header
     [title]="title"
     [units]="'%'"
@@ -9,139 +11,7 @@
 
   <evj-frame-top></evj-frame-top>
 
-  <ng-container *ngIf="isMock">
-    <div class="mock">
-      <div class="devi-circle">
-        <div class="diagram">
-          <svg width="100%" height="100%" viewBox="0 0 50 50">
-            <!-- outer contour dia -->
-            <image
-              x="0"
-              y="0"
-              width="50"
-              height="50"
-              xlink:href="../../../../assets/icons/widgets/deviation-circle-diagram/outer_contour.svg"
-            />
-
-            <circle
-              [attr.cx]="centerX"
-              [attr.cy]="centerY"
-              [attr.r]="radius"
-              [attr.fill]="colorMain"
-            ></circle>
-            <circle
-              [attr.cx]="centerX"
-              [attr.cy]="centerY"
-              [attr.r]="radius"
-              fill="transparent"
-              [attr.stroke]="colorBg"
-              stroke-width="3"
-            ></circle>
-
-            <!-- deviation line -->
-            <circle
-              [attr.cx]="centerX"
-              [attr.cy]="centerY"
-              [attr.r]="radius"
-              fill="transparent"
-              [attr.stroke]="colorDeviation"
-              stroke-width="2"
-              [attr.stroke-dasharray]="diaLine(radius, isMockData.deviation)"
-              [attr.stroke-dashoffset]="diaOffset(radius, isMockData.deviation)"
-            ></circle>
-
-            <!-- improvement line -->
-            <circle
-              [attr.cx]="centerX"
-              [attr.cy]="centerY"
-              [attr.r]="radius"
-              fill="transparent"
-              [attr.stroke]="colorFull"
-              stroke-width="2"
-              [attr.stroke-dasharray]="diaLine(radius, isMockData.improvement)"
-              [attr.stroke-dashoffset]="
-                diaOffset(radius, isMockData.improvement)
-              "
-            ></circle>
-
-            <!-- start dia -->
-            <line
-              [attr.x1]="centerX"
-              [attr.y1]="3"
-              [attr.x2]="centerX"
-              [attr.y2]="9"
-              [attr.stroke]="colorFull"
-              stroke-width="0.5"
-            />
-            <circle
-              [attr.cx]="centerX"
-              [attr.cy]="3"
-              [attr.r]="radPoint"
-              fill="colorMain"
-              [attr.stroke]="colorFull"
-              stroke-width="0.5"
-            ></circle>
-            <circle
-              [attr.cx]="centerX"
-              [attr.cy]="9"
-              [attr.r]="radPoint"
-              fill="colorMain"
-              [attr.stroke]="colorFull"
-              stroke-width="0.5"
-            ></circle>
-
-            <!-- dynamic points -->
-            <circle
-              [attr.cx]="diaLinePoint(isMockData.improvement, true).xCen"
-              [attr.cy]="diaLinePoint(isMockData.improvement, true).yCen"
-              [attr.r]="radPoint"
-              fill="colorMain"
-              [attr.stroke]="colorFull"
-              stroke-width="0.5"
-            ></circle>
-            <circle
-              [attr.cx]="diaLinePoint(isMockData.deviation, false).xCen"
-              [attr.cy]="diaLinePoint(isMockData.deviation, false).yCen"
-              [attr.r]="radPoint"
-              fill="colorMain"
-              [attr.stroke]="colorDeviation"
-              stroke-width="0.5"
-            ></circle>
-
-            <text [attr.x]="17" [attr.y]="27" class="svg__txt">
-              {{ isMockData.maxValue }}%
-            </text>
-          </svg>
-        </div>
-        <div class="counters">
-          <div class="counter counter-deviation">
-            <div class="counter__title">Отклонение</div>
-            <div class="counter__number">
-              + 30
-              <img
-                class="rotate"
-                src="../../../../assets/icons/widgets/calendar-plan/deviat_danger.svg"
-                alt=""
-              />
-            </div>
-          </div>
-          <div class="counter">
-            <div class="counter__title">Улучшение</div>
-            <div class="counter__number">
-              - 25
-              <img
-                class="rotate"
-                src="../../../../assets/icons/widgets/calendar-plan/deviat.svg"
-                alt=""
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </ng-container>
-
-  <ng-container *ngIf="!isMock">
+  <ng-container>
     <div class="devi-circle">
       <div class="diagram">
         <svg width="100%" height="100%" viewBox="0 0 50 50">

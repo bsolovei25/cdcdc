@@ -1,4 +1,6 @@
-<div class="container pointer-event">
+<evj-widget-preview [title]="aboutWidget" [previewTitle]="previewTitle" *ngIf="isMock"></evj-widget-preview>
+
+<div class="container pointer-event" *ngIf="!isMock">
   <evj-widget-header
     [title]="aboutWidget"
     [units]=""
@@ -9,15 +11,7 @@
 
   <evj-frame-top></evj-frame-top>
 
-  <ng-container *ngIf="isMock">
-    <div class="mock">
-      <div class="mock-container">
-        <img src="../../../../assets/img/pyramid.png" alt="" />
-      </div>
-    </div>
-  </ng-container>
-
-  <ng-container *ngIf="!isMock">
+  <ng-container>
     <div
       class="production"
       (mousedown)="$event.stopPropagation()"

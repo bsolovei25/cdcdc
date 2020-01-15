@@ -23,6 +23,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
   event: EventsWidgetNotification;
   isLoading: boolean = true;
 
+  public previewTitle: string = "events-workspace";
   public title = "Рабочая область";
   public icon: string = 'document';
   comments: string[] = [];
@@ -92,7 +93,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         } else {
           this.event = value;
         }
-      })
+      });
     }
     this.isLoading = false;
   }

@@ -29,6 +29,7 @@ export class SuspenseMachineComponent implements OnInit, OnDestroy {
     isLoading: boolean = false;
 
     public title = 'Простой установки';
+    public previewTitle: string = 'suspense-machine';
 
     data: ISuspenseMachine[] = [
         {

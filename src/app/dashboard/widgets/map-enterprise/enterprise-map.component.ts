@@ -21,7 +21,6 @@ export interface IEnterpriseMap {
         direction: number,
         pressure: number
     }
-
 }
 
 @Component({
@@ -34,6 +33,8 @@ export class EnterpriseMapComponent implements OnInit, OnDestroy, AfterViewInit 
     title: string = '';
 
     values: any[] = [];
+
+    public previewTitle: string;
 
     data: IEnterpriseMap =
         {
@@ -68,6 +69,7 @@ export class EnterpriseMapComponent implements OnInit, OnDestroy, AfterViewInit 
     ) {
         this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe(data => {
             this.title = data.title;
+            this.previewTitle = data.widgetType;
         });
     }
 

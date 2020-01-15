@@ -19,8 +19,12 @@ export class BarChartsComponent implements OnInit {
   public code;
   public units = "шт.";
   public name;
-  
+
   public datas = [];
+
+  public previewTitle: string;
+
+  public icon: string = 'valve';
 
   constructor(
     public widgetService: NewWidgetService,
@@ -34,19 +38,21 @@ export class BarChartsComponent implements OnInit {
         this.code = data.code;
      //   this.units = data.units;
         this.name = data.name;
-      }); 
-    } 
-  
+        this.previewTitle = data.widgetType;
+        console.log(data.widgetType);
+      });
+    }
+
   ngOnInit() {
      this.showMock(this.isMock);
   }
 
   showMock(show) {
     if (show){
-   
+
       this.wsDisconnect();
     } else {
-   
+
       this.wsConnect();
     }
   }
@@ -71,5 +77,5 @@ export class BarChartsComponent implements OnInit {
     this.widgetService.removeItemService(this.uniqId);
     this.userSettings.removeItem(this.uniqId);
   }
-  
+
 }

@@ -28,6 +28,8 @@ export class ProductionPyramidComponent implements OnInit {
 
   aboutWidget;
 
+  public previewTitle: string;
+
   subscription: Subscription;
 
   constructor(
@@ -40,6 +42,7 @@ export class ProductionPyramidComponent implements OnInit {
       .getWidgetChannel(this.id)
       .subscribe(data => {
         this.aboutWidget = data.title;
+        this.previewTitle = data.widgetType;
       });
   }
 

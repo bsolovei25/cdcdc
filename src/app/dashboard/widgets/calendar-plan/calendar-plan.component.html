@@ -1,15 +1,11 @@
-<div class="container pointer-event">
+<evj-widget-preview [title]="aboutWidget" [previewTitle]="previewTitle" *ngIf="isMock"></evj-widget-preview>
+
+<div class="container pointer-event" *ngIf="!isMock">
   <evj-widget-header [title]="aboutWidget" [units]="'млн.руб.'" [code]="" [id]="id" [uniqId]="uniqId"></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
 
-  <ng-container *ngIf="isMock">
-    <div class="mock">
-      <img src="../../../../assets/img/calendar-plan.PNG" alt="">
-    </div>
-  </ng-container>
-
-  <ng-container *ngIf="!isMock">
+  <ng-container>
     <div class="cal-plan" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
       <evj-detailed-line-diagram class="dld" [data]="data"></evj-detailed-line-diagram>
       <div class="cards">

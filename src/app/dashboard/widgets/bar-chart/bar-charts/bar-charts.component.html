@@ -1,15 +1,12 @@
-<div style="height: 100%; width: 100%;" >
+<evj-widget-preview [title]="title" [icon]="icon" [previewTitle]="previewTitle" *ngIf="isMock"></evj-widget-preview>
 
+<div style="height: 100%; width: 100%;" *ngIf="!isMock">
         <div class="header">
                 <div class="header__content drag handle">
                   <div class="header__icon-wrapper">
-                    <!--                    <svg-icon-->
-                    <!--                      class="header__icon" style="fill: #8C99B2"-->
-                    <!--                      src="./assets/icons/widget-title-icons/valve.png"-->
-                    <!--                    ></svg-icon>-->
                                         <img src="./assets/icons/widget-title-icons/valve.png" *ngIf="!code">
                                       </div>
-                    
+
                   <div class="header__name">
                     {{title}}
                   </div>
@@ -30,20 +27,13 @@
                 </div>
               </div>
 
- <!--   <evj-widget-header [title]="title" [units]="units" [code]="code" [id]="id"></evj-widget-header> -->
-
     <evj-frame-top></evj-frame-top>
-    
+
     <ng-container>
-            <div class="content_block" (mousedown)="$event.stopPropagation()" 
+            <div class="content_block" (mousedown)="$event.stopPropagation()"
             (touchstart)="$event.stopPropagation()">
                     <div class="blocks">
-                            <div *ngIf="isMock === true"  class="contant">
-                                    <div class="imgblock" >
-                                      <img src='../../../../../assets/img/barChart.png'>
-                                    </div>
-                            </div>
-                            <div *ngIf="isMock === false" class="contant">
+                            <div class="contant">
                                     <div *ngFor="let data of datas;" class="block" >
                                             <evj-bar-chart [data]="data" ></evj-bar-chart>
                                     </div>
@@ -51,6 +41,6 @@
                      </div>
             </div>
     </ng-container>
-    
+
     <evj-frame-bottom></evj-frame-bottom>
 </div>

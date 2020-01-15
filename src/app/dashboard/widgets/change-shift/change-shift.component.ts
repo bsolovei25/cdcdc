@@ -37,6 +37,7 @@ export class ChangeShiftComponent implements OnInit {
   ];
 
   public icon: string = 'peoples';
+  public previewTitle: string = 'change-shift';
 
   comments: ShiftComment[] = [];
   aboutWidget;
@@ -104,8 +105,14 @@ export class ChangeShiftComponent implements OnInit {
       this.currentShift.shiftMembers[index] = tempMember;
 
       this.comments = [];
-      for (const commentObj of this.currentShift.shiftPassingComments) {
-        this.setMessage(commentObj);
+      if (widgetType === "shift-pass") {
+        for (const commentObj of this.currentShift.shiftPassingComments || []) {
+          this.setMessage(commentObj);
+        }
+      } else {
+        for (const commentObj of this.currentShift.shiftAcceptingComments || []) {
+          this.setMessage(commentObj);
+        }
       }
     }
 
@@ -139,7 +146,9 @@ export class ChangeShiftComponent implements OnInit {
 
   private setMessage(comment: ShiftComment): void {
     this.comments.push(comment);
-    this.input.nativeElement.value = '';
+    try {
+      this.input.nativeElement.value = '';
+    } catch { }
   }
 
   onEnterPush(event?: any) {

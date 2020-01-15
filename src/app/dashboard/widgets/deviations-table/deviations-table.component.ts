@@ -245,6 +245,8 @@ export class DeviationsTableComponent implements OnInit, OnDestroy {
     static itemCols = 15;
     static itemRows = 18;
 
+    public previewTitle: string;
+
     constructor(
         private eventService: EventService,
         public widgetService: NewWidgetService,
@@ -254,6 +256,7 @@ export class DeviationsTableComponent implements OnInit, OnDestroy {
     ) {
         this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe(data => {
             this.title = data.title;
+            this.previewTitle = data.widgetType;
         });
     }
 

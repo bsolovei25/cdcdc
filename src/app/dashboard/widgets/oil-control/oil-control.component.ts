@@ -14,7 +14,7 @@ declare var d3: any;
   styleUrls: ['./oil-control.component.scss']
 })
 export class OilControlComponent implements OnInit, AfterViewInit {
-  
+
   @ViewChild('oilIcon', {static:false}) oilIcon: ElementRef;
   @ViewChild('oilBak', {static:false}) oilBak: ElementRef;
   @ViewChild('oilCircle', {static:false}) oilCircle: ElementRef;
@@ -27,7 +27,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
 
   private subscriptions: Subscription[] = [];
 
-
+  public previewTitle: string;
 
   data = {
     operations: 42,
@@ -78,7 +78,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                       valueSecond: 103.23,
                       status: "normal"
                     }
-                  ]                  
+                  ]
                 },
             tanker: [
               {
@@ -132,7 +132,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                       valueSecond: 0,
                       status: "normal"
                     }
-                  ]                  
+                  ]
                 },
             tanker: [
               {
@@ -186,7 +186,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                       valueSecond: 0,
                       status: "normal"
                     }
-                  ]                  
+                  ]
                 },
             tanker: [
               {
@@ -238,7 +238,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                       valueSecond: 0,
                       status: "normal"
                     }
-                  ]                  
+                  ]
                 },
             tanker: [
               {
@@ -252,7 +252,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
               },
             ]
           },
-          { 
+          {
             id: 5,
             nameStorage: "E-5",
             valueStorage: 10253,
@@ -290,7 +290,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                       valueSecond: 0,
                       status: "normal"
                     }
-                  ]                  
+                  ]
                 },
             tanker: [
               {
@@ -310,7 +310,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
       {
         name: "ДТ сорт C",
         value: 12132,
-        
+
         storage: [
           {
             id: 1,
@@ -350,7 +350,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                       valueSecond: 0,
                       status: "normal"
                     }
-                  ]                  
+                  ]
                 },
             tanker: [
               {
@@ -402,7 +402,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                       valueSecond: 0,
                       status: "normal"
                     }
-                  ]                  
+                  ]
                 },
             tanker: [
               {
@@ -454,7 +454,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                       valueSecond: 0,
                       status: "normal"
                     }
-                  ]                  
+                  ]
                 },
             tanker: [
               {
@@ -506,7 +506,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                       valueSecond: 0,
                       status: "normal"
                     }
-                  ]                  
+                  ]
                 },
             tanker: [
               {
@@ -527,7 +527,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
       {
         name: "ДТ сорт A",
         value: 12132,
-      
+
         storage: [
           {
             id: 1,
@@ -567,7 +567,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                       valueSecond: 0,
                       status: "normal"
                     }
-                  ]                  
+                  ]
                 },
             tanker: [
               {
@@ -619,7 +619,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                       valueSecond: 0,
                       status: "normal"
                     }
-                  ]                  
+                  ]
                 },
             tanker: [
               {
@@ -633,14 +633,14 @@ export class OilControlComponent implements OnInit, AfterViewInit {
               },
             ]
           },
-         
+
         ]
       },
 
       {
         name: "ДТ сорт Г",
         value: 12132,
-       
+
         storage: [
           {
             id: 1,
@@ -680,7 +680,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                       valueSecond: 0,
                       status: "normal"
                     }
-                  ]                  
+                  ]
                 },
             tanker: [
               {
@@ -732,7 +732,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                       valueSecond: 0,
                       status: "normal"
                     }
-                  ]                  
+                  ]
                 },
             tanker: [
               {
@@ -784,7 +784,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                       valueSecond: 0,
                       status: "normal"
                     }
-                  ]                  
+                  ]
                 },
             tanker: [
               {
@@ -801,7 +801,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
 
         ]
       },
-    
+
     ]
   }
 
@@ -890,12 +890,13 @@ export class OilControlComponent implements OnInit, AfterViewInit {
     @Inject('widgetId') public id: string,
     @Inject('uniqId') public uniqId: string,
     @Inject('resizeWidget') public resizeWidget: EventEmitter<MouseEvent>,
-  ) { 
+  ) {
     this.subscriptions.push(this.widgetService.getWidgetChannel(this.id).subscribe(data => {
       this.title = data.title;
       this.code = data.code;
       this.units = data.units;
       this.name = data.name;
+      this.previewTitle = data.widgetType;
     }));
     this.maxPage = this.data.product[2].storage.length;
     this.activeProduct = this.data.product;
@@ -912,13 +913,13 @@ export class OilControlComponent implements OnInit, AfterViewInit {
   public test = false;
 
   ngOnInit() {
-   
+
   }
 
   ngAfterViewInit(){
     if(!this.isMock){
       this.drawOilControl();
-      this.subscriptions.push(this.resizeWidget.subscribe(data => { 
+      this.subscriptions.push(this.resizeWidget.subscribe(data => {
         this.onResize(data.srcElement.clientWidth);
         this.clearProduct();
         this.drawOilControl();
@@ -965,7 +966,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
     let cis = "./assets/pic/Icons3D/Cistern.png";
 
     for(let item of this.activeStorage.tanker){
-     
+
       if(item.shipped === true){
 
         let pictureContainer = canvas.append("image")
@@ -993,7 +994,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             .attr("text-anchor","middle")
             .attr("fill", "#8c99b2")
             .text(item.title);
-    
+
         let valueText1 = canvas.append("text")
             .attr("font-family","Tahoma bold")
             .attr("font-size", "14px")
@@ -1026,7 +1027,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
     else{
       this.activeStorage = dataStorage[2];
     }
-    
+
     const leftBorder:any = el.querySelectorAll('.st5');
     const Circle:any = el.querySelectorAll('.st6');
     const rightBorder:any = el.querySelectorAll('.st7');
@@ -1035,7 +1036,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
     const CircleC:any = el.querySelectorAll('.st6-critical');
     const rightBorderC:any = el.querySelectorAll('.st7-critical');
 
-  
+
     if(this.activeStorage.status === "critical"){
       let operations = svg.append("text")
       .attr("font-family","'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
@@ -1078,17 +1079,17 @@ export class OilControlComponent implements OnInit, AfterViewInit {
       .text(this.data.criticalOperations);
 
       for(let item of leftBorder){
-     
+
         item.classList.remove("st5");
         item.classList.add("st5-critical");
       }
       for(let item of Circle){
-    
+
         item.classList.remove("st6");
         item.classList.add("st6-critical");
       }
       for(let item of rightBorder){
-        
+
         item.classList.remove("st7");
         item.classList.add("st7-critical");
       }
@@ -1114,12 +1115,12 @@ export class OilControlComponent implements OnInit, AfterViewInit {
       .text(this.data.operations);
 
       for(let item of leftBorderC){
-    
+
         item.classList.remove("st5-critical");
         item.classList.add("st5");
       }
       for(let item of CircleC){
-  
+
         item.classList.remove("st6-critical");
         item.classList.add("st6");
       }
@@ -1131,7 +1132,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
     }
 
     this.maxPage = dataStorage.length;
-  
+
 
     let indexPies = this.indexPie;
     let indexPies1 = this.indexPie;
@@ -1139,13 +1140,13 @@ export class OilControlComponent implements OnInit, AfterViewInit {
     let newProductXY = [];
     let newStorageXY = [];
 
-    
 
-   
+
+
     for(let i = pieStartStorage; i <= pieEndStorage; i++){
       newStorageXY.push(this.storageXY[i]);
     }
-    
+
     for(let i = pieStart; i <= pieEnd; i++){
       newProductXY.push(this.productXY[i]);
     }
@@ -1155,7 +1156,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
       let indexProducts = this.indexProduct;
 
       for(let textProduct of data){
-        
+
         if(indexPies === indexProducts){
           if(pie.point === 3){
             if(textProduct.criticalValue){
@@ -1201,7 +1202,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
               .attr("fill", "white")
               .attr("class", "textProduct")
               .text(textProduct.name);
-  
+
                 let middleText2 = svg.append("text")
               .attr("font-family","'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
               .attr("font-size", "40px")
@@ -1235,7 +1236,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
         indexPies++;
     }
 
-    
+
     for(let pie of newStorageXY){
       let indexStorage = this.indexStorage;
       for(let textStorage of dataStorage){
@@ -1260,7 +1261,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
           .attr("fill", "#a2e2ff")
           .attr("class", "textValues")
           .text(textStorage.valueStorage);
-           
+
           }else{
             let valueGoodText = svg.append("text")
             .attr("font-family","'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
@@ -1286,7 +1287,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
     }
 
 
-   
+
   }
 
   public drawBak(el){
@@ -1321,7 +1322,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
         .attr("text-anchor","middle")
         .attr("class", "textProduct")
         .attr("fill", "white")
-        .text(this.activeStorage.tank.tankValue[0].valueFirst); 
+        .text(this.activeStorage.tank.tankValue[0].valueFirst);
 
   }
 
@@ -1337,13 +1338,13 @@ export class OilControlComponent implements OnInit, AfterViewInit {
       this.changeMassiv(index, this.newArrayProduct);
       this.FilterStorageCircle(this.newArrayProduct[2], this.indexTestStorage = 0);
     }
-    
+
     for(let item of this.newArrayProduct[2].storage){
       if(this.newArrayProduct[2].storage.length < 4){
         this.currentPage = 2;
       }else {  this.currentPage = 3; }
     }
-  
+
     this.drawOnCircle(this.oilCircle.nativeElement, this.pieStart, this.pieEnd, this.pieStartStorage, this.pieEndStorage, this.newArrayProduct, this.newArrayProduct[2].storage);
     this.drawBak(this.oilBak.nativeElement);
     this.drawPicture(this.oilIcon.nativeElement);
@@ -1353,14 +1354,14 @@ export class OilControlComponent implements OnInit, AfterViewInit {
 
     if(this.countClickChange === 0){
       for(let item of this.data.product[2].storage){
-        
+
         if(item.id === event){
           if(this.countClickChangeStorage === 0){
             this.onButtonChangeStorage(item.id,  this.data.product[2].storage);
-         
+
           }else{
             this.onButtonChangeStorage(item.id,  this.htmlDataStorage);
-           
+
           }
         }
       }
@@ -1372,15 +1373,15 @@ export class OilControlComponent implements OnInit, AfterViewInit {
         }
       }
     }
-   
-   
+
+
   }
 
   public onButtonChangeStorage(index, data){
 
     this.currentPage = index;
     this.clearProduct();
-   
+
     if(this.countClickChange === 0){
       if(this.countClickChangeStorage === 0 ){
         this.changeMassivStorage(index, data);
@@ -1401,7 +1402,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
     this.drawBak(this.oilBak.nativeElement);
     this.drawPicture(this.oilIcon.nativeElement);
   }
-  
+
   public clearStorage(){
     let clears = document.querySelectorAll('.textValues');
     clears.forEach(el => el.remove());
@@ -1449,7 +1450,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
               this.shiftMassiv( newIndexProduct, move);
             }
           }
-  
+
         }
       }
   }
@@ -1462,7 +1463,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
     for(let item of data){
       indexProduct++;
         if(item.id === el){
-   
+
           if(indexProduct > 2){
             move = "next";
             if(data.length === 5){
@@ -1491,7 +1492,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
               this.shiftMassivStorage( newIndexProduct, move, data);
             }
           }
-  
+
         }
       }
   }
@@ -1511,7 +1512,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
         this.newArrayProduct.push(this.newArrayProduct.shift());
       }
     }
-  } 
+  }
 
   public shiftMassivStorage(el, move, data){
 
@@ -1530,7 +1531,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
         this.newArrayStorage.push(this.newArrayStorage.shift());
       }
     }
-  } 
+  }
 
   public FilterCircle(el){
     if(this.data.product[el+1] === undefined && el === 0){

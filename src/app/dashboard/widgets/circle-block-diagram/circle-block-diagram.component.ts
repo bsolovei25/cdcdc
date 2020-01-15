@@ -43,6 +43,8 @@ export class CircleBlockDiagramComponent implements OnInit {
   static itemCols = 15;
   static itemRows = 17;
 
+  public previewTitle: string;
+
   constructor(
     private widgetService: NewWidgetService,
     @Inject("isMock") public isMock: boolean,
@@ -53,6 +55,7 @@ export class CircleBlockDiagramComponent implements OnInit {
       .getWidgetChannel(this.id)
       .subscribe(data => {
         this.title = data.title;
+        this.previewTitle = data.widgetType;
         // this.code = data.code;
         // this.units = data.units;
         // this.name = data.name;
@@ -60,7 +63,7 @@ export class CircleBlockDiagramComponent implements OnInit {
   }
 
   ngOnInit() {
-    setInterval(()=>{
+    setInterval(() => {
       this.blockDiagram.improvement = Math.floor(10 + Math.random()*(90));
       this.blockDiagram.noReason = Math.floor(Math.random()*(15));
       this.blockDiagram.disabled = Math.floor(Math.random()*(15));

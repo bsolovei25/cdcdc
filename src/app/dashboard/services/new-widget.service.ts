@@ -182,6 +182,9 @@ export class NewWidgetService {
   }
 
   private initWS() {
+    if (this.ws) {
+      this.ws.complete();
+    }
     this.ws = webSocket(this.wsUrl);
     this.ws.subscribe(
       (msg) => {

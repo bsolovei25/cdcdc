@@ -1,13 +1,12 @@
-<div class="container pointer-event">
+<evj-widget-preview [title]="this.aboutWidget.title" [icon]="icon" [previewTitle]="previewTitle" *ngIf="isMock"></evj-widget-preview>
+
+<div class="container pointer-event"*ngIf="!isMock">
   <evj-widget-header *ngIf="this.aboutWidget" [title]="this.aboutWidget.title" [units]="" [code]="" [id]="id" [icon]="icon"
     [uniqId]="uniqId"></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
 
-  <ng-container *ngIf="isMock">
-    <div class="mock"></div>
-  </ng-container>
-  <ng-container *ngIf="!isMock">
+  <ng-container>
     <div class="change-shift" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
       <div class="change-shift__mainWorker">
         <div class="circle circle__left circle__left-top"></div>

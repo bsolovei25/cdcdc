@@ -5,7 +5,8 @@ import {
     Inject,
     ElementRef,
     ViewChild,
-    Input
+    Input,
+    AfterViewInit
 } from '@angular/core';
 
 import { NewWidgetService } from '../../services/new-widget.service';
@@ -18,7 +19,7 @@ declare var d3: any;
     templateUrl: './circle-diagram.component.html',
     styleUrls: ['./circle-diagram.component.scss']
 })
-export class CircleDiagramComponent implements OnInit, OnDestroy {
+export class CircleDiagramComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
     private x: number = 175;
@@ -44,7 +45,7 @@ export class CircleDiagramComponent implements OnInit, OnDestroy {
     public readonly RADIUS = 40;
     private subscriptions: Subscription[] = [];
 
-    @ViewChild('myCircle', { static: true }) myCircle: ElementRef;
+    @ViewChild('myCircle', { static: false }) myCircle: ElementRef;
 
     constructor(
         public widgetService: NewWidgetService,
@@ -60,17 +61,22 @@ export class CircleDiagramComponent implements OnInit, OnDestroy {
           }));
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
+    }
+
+    ngAfterViewInit(): void {
+      try {
         if (!this.isMock) {
-            this.subscriptions.push(this.widgetService.getWidgetLiveDataFromWS(this.id, 'circle-diagram')
-              .subscribe((ref) => {
-                this.data = ref;
-                if (this.svg) {
-                  this.svg.remove();
-                }
-                this.d3Circle(this.data, this.myCircle.nativeElement);
-              }));
+          this.subscriptions.push(this.widgetService.getWidgetLiveDataFromWS(this.id, 'circle-diagram')
+            .subscribe((ref) => {
+              this.data = ref;
+              if (this.svg) {
+                this.svg.remove();
+              }
+              this.d3Circle(this.data, this.myCircle.nativeElement);
+            }));
         }
+      } catch { }
     }
 
     ngOnDestroy() {

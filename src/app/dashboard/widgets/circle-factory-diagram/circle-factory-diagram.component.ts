@@ -26,9 +26,6 @@ export class CircleFactoryDiagramComponent implements AfterViewInit {
 
   public clicked = false;
 
-
-  private subscription: Subscription;
-
   public data = {
     value: 100,
     improvement: 94,
@@ -45,17 +42,20 @@ export class CircleFactoryDiagramComponent implements AfterViewInit {
 
   private subscriptions: Subscription[] = [];
 
+  public previewTitle: string;
+
   constructor(
     public widgetService: NewWidgetService,
     @Inject('isMock') public isMock: boolean,
     @Inject('widgetId') public id: string,
     @Inject('uniqId') public uniqId: string
-  ) { 
+  ) {
     this.subscriptions.push(this.widgetService.getWidgetChannel(this.id).subscribe(data => {
       this.title = data.title;
       this.code = data.code;
       this.units = data.units;
       this.name = data.name;
+      this.previewTitle = data.widgetType;
     }));
   }
 

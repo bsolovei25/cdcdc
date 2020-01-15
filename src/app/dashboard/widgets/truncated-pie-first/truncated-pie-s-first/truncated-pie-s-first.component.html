@@ -1,19 +1,16 @@
-<div style="height: 100%; width: 100%;" >
+<evj-widget-preview [title]="title" [previewTitle]="previewTitle" *ngIf="isMock"></evj-widget-preview>
+
+<div style="height: 100%; width: 100%;" *ngIf="!isMock">
 
         <evj-widget-header [title]="title" [units]="units" [code]="code" [id]="id" [uniqId]="uniqId" [icon]="icon"></evj-widget-header>
 
         <evj-frame-top></evj-frame-top>
-        
+
         <ng-container>
-                <div class="content_block" (mousedown)="$event.stopPropagation()" 
+                <div class="content_block" (mousedown)="$event.stopPropagation()"
                 (touchstart)="$event.stopPropagation()">
                         <div class="blocks">
-                                <div *ngIf="isMock"  class="contant">
-                                        <div class="imgblock" >
-                                          <img src='../../../../../assets/img/criticOtk.png'>
-                                        </div>
-                                </div>
-                                <div *ngIf="!isMock" class="contant">
+                                <div class="contant">
                                         <div *ngFor="let data of datas;" class="block" >
                                                 <evj-truncated-pie-first [data]="data" ></evj-truncated-pie-first>
                                         </div>
@@ -21,6 +18,6 @@
                          </div>
                 </div>
         </ng-container>
-        
+
         <evj-frame-bottom></evj-frame-bottom>
   </div>

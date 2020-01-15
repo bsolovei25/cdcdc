@@ -23,6 +23,8 @@ export class DispatcherScreenComponent implements OnInit, AfterViewInit, OnDestr
   static itemCols = 15;
   static itemRows = 15;
 
+  public previewTitle;
+
   constructor(
     public widgetService: NewWidgetService,
     @Inject('isMock') public isMock: boolean,
@@ -34,6 +36,8 @@ export class DispatcherScreenComponent implements OnInit, AfterViewInit, OnDestr
     this.baseUrl = location.origin + location.pathname.replace('dashboard', '');
     this.subscriptions.push(this.widgetService.getWidgetChannel(id).subscribe(data => {
       this.title = data.title;
+      this.previewTitle = data.widgetType.toString();
+      console.log(data.widgetType);
     }));
   }
 

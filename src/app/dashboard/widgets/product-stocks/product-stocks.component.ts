@@ -18,6 +18,7 @@ export interface IProductStocks {
 export class ProductStocksComponent implements OnInit, OnDestroy, AfterViewInit {
 
   title: string = '';
+  public previewTitle: string;
 
   data: IProductStocks = {
     stocks: 1667,
@@ -45,7 +46,8 @@ export class ProductStocksComponent implements OnInit, OnDestroy, AfterViewInit 
     @Inject('uniqId') public uniqId: string
   ) {
     this.liveSubscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
-      this.title = data.title
+      this.title = data.title;
+      this.previewTitle = data.widgetType;
     });
 
   }

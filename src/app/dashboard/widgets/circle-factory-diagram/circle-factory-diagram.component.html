@@ -1,29 +1,24 @@
-<div style="height: 100%; width: 100%;" [class.activeHeader]="clicked">
+<evj-widget-preview [title]="title" [previewTitle]="previewTitle" *ngIf="isMock"></evj-widget-preview>
+
+<div style="height: 100%; width: 100%;" [class.activeHeader]="clicked" *ngIf="!isMock">
 
     <evj-widget-header [title]="title" [units]="units" [code]="code" [id]="id" [uniqId]="uniqId"></evj-widget-header>
-<div style="height: 100%; width: 100%;" (click)="onChangeBackground()" [class.activeBack]="clicked">
-    <evj-frame-top></evj-frame-top>
-    
-    <ng-container>
-            <div class="content_block" (mousedown)="$event.stopPropagation()" 
-            (touchstart)="$event.stopPropagation()" [class.activeBorder]="clicked" >
-                    <div class="blocks" >
-                            <div *ngIf="isMock"  style="width: 100%; height: 100%;">
-                                            <div class="imgblock" >
-                                                            <img src='../../../../../assets/img/CircleFabricDiagram.png'>
-                                            </div>
-                            </div>
-                            <div *ngIf="!isMock" style="display:flex; height: 100%;">
-                                        <div  class="cb">
-                                            <div #circleFactory class="item-b">
-                                            </div>
-                                        </div>
-                            </div>
-                     </div>
-            </div>
-    </ng-container>
-    
-    <evj-frame-bottom></evj-frame-bottom>
-</div>
-    
+    <div style="height: 100%; width: 100%;" (click)="onChangeBackground()" [class.activeBack]="clicked">
+      <evj-frame-top></evj-frame-top>
+        <ng-container>
+          <div class="content_block" (mousedown)="$event.stopPropagation()"
+          (touchstart)="$event.stopPropagation()" [class.activeBorder]="clicked" >
+                  <div class="blocks" >
+                          <div style="display:flex; height: 100%;">
+                                      <div  class="cb">
+                                          <div #circleFactory class="item-b">
+                                          </div>
+                                      </div>
+                          </div>
+                   </div>
+          </div>
+        </ng-container>
+      <evj-frame-bottom></evj-frame-bottom>
+    </div>
+
 </div>

@@ -1,8 +1,11 @@
+<evj-widget-preview [title]="title" [previewTitle]="previewTitle" *ngIf="isMock"></evj-widget-preview>
+
 <div
   class="container pointer-event"
   [ngStyle]="{
     width: containerIsMock()
   }"
+  *ngIf="!isMock"
 >
   <evj-widget-header
     [title]="title"
@@ -14,21 +17,7 @@
 
   <evj-frame-top></evj-frame-top>
 
-  <ng-container *ngIf="isMock">
-    <div class="mock">
-      <div class="diagrams scroll-bar">
-        <div class="diagrams__item" *ngFor="let item of pointDiagramElements; let i = index">
-          <evj-one-column
-            [item]="item"
-            [isDiagram]="true"
-            [isMock]="true"
-            *ngIf="i < 4"
-          ></evj-one-column>
-        </div>
-      </div>
-    </div>
-  </ng-container>
-  <ng-container *ngIf="!isMock">
+  <ng-container>
     <div
       class="point-diagram"
       (mousedown)="$event.stopPropagation()"

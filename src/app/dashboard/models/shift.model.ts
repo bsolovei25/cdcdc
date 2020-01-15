@@ -25,6 +25,7 @@ export interface Shift {
   shiftMembers: ShiftMember[];
   brigade: Brigade;
   shiftPassingComments: ShiftComment[];
+  shiftAcceptingComments: ShiftComment[];
 }
 
 export interface ShiftPass {

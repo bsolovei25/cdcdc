@@ -1,19 +1,16 @@
-<div style="height: 100%; width: 100%;" >
+<evj-widget-preview [title]="title" [previewTitle]="previewTitle" *ngIf="isMock"></evj-widget-preview>
+
+<div style="height: 100%; width: 100%;" *ngIf="!isMock">
 
     <evj-widget-header [title]="title" [units]="units" [code]="code" [id]="id" [uniqId]="uniqId"></evj-widget-header>
 
     <evj-frame-top></evj-frame-top>
-    
+
     <ng-container>
-            <div class="content_block" (mousedown)="$event.stopPropagation()" 
+            <div class="content_block" (mousedown)="$event.stopPropagation()"
             (touchstart)="$event.stopPropagation()">
                     <div class="blocks">
-                            <div *ngIf="isMock === true"  style="width: 100%; height: 100%;">
-                                            <div class="imgblock" >
-                                                            <img src='../../../../../assets/img/ChainMap.png'>
-                                            </div>
-                            </div>
-                            <div *ngIf="isMock === false" class="container_map">
+                            <div class="container_map">
                                     <div class="map" #chain>
                                         <svg
                                         xmlns:svg="http://www.w3.org/2000/svg"
@@ -34,7 +31,7 @@
                                         item-circle-id="0"
                                         transform="matrix(1 0 0 1 87.0952 282.9877)"
                                         class="st0 st1">Нефть</text>
-                                     
+
                                          </g>
                                      </g>
                                      <line
@@ -961,7 +958,7 @@
                                         item-circle-id="2"
                                         transform="matrix(1 0 0 1 143.728 317.3871)"
                                         class="st0 st1">ЭЛОУ-2</text>
-                                     
+
                                      </g>
                                      <g
                                         id="XMLID_1658_"
@@ -1007,7 +1004,7 @@
                                         item-circle-id="4"
                                         transform="matrix(1 0 0 1 186.831 341.1313)"
                                         class="st0 st1">АВТ-3</text>
-                                     
+
                                      </g>
                                      <g
                                         id="XMLID_1594_"
@@ -1071,7 +1068,7 @@
                                         item-circle-id="6"
                                         transform="matrix(1 0 0 1 56.3608 444.2724)"
                                         class="st0 st1">Блок ВТ (АТВБ)</text>
-                                     
+
                                      </g>
                                      <g
                                         id="XMLID_1528_"
@@ -1082,7 +1079,7 @@
                                         id="XMLID_863_"
                                         class="st6"
                                         style="enable-background:new">
-                                               
+
                                                  <g
                                         id="XMLID_865_"
                                         class="st17"
@@ -1100,7 +1097,7 @@
                                         item-circle-id="11"
                                         transform="matrix(1 0 0 1 81.2011 491.6962)"
                                         class="st0 st1">Реагентное хоз-во</text>
-                                     
+
                                      </g>
                                      <g
                                         id="XMLID_1495_"
@@ -1111,7 +1108,7 @@
                                         id="XMLID_882_"
                                         class="st6"
                                         style="enable-background:new">
-                                           
+
                                                  <g
                                         id="XMLID_884_"
                                         class="st18"
@@ -1129,7 +1126,7 @@
                                         item-circle-id="12"
                                         transform="matrix(1 0 0 1 148.3207 460.0644)"
                                         class="st0 st1">УПБ</text>
-                                     
+
                                      </g>
                                      <g
                                         id="XMLID_1462_"
@@ -1157,7 +1154,7 @@
                                         item-circle-id="13"
                                         transform="matrix(1 0 0 1 202.8735 428.4355)"
                                         class="st0 st1">УПС</text>
-                                     
+
                                      </g>
                                      <g
                                         id="XMLID_1429_"
@@ -1168,7 +1165,7 @@
                                         id="XMLID_944_"
                                         class="st6"
                                         style="enable-background:new">
-                                                 
+
                                                  <g
                                         id="XMLID_947_"
                                         class="st20"
@@ -1186,7 +1183,7 @@
                                         item-circle-id="7"
                                         transform="matrix(1 0 0 1 120.9067 411.9731)"
                                         class="st0 st1">УПВ</text>
-                                     
+
                                      </g>
                                      <g
                                         id="XMLID_1396_"
@@ -1197,7 +1194,7 @@
                                         id="XMLID_950_"
                                         class="st6"
                                         style="enable-background:new">
-                                        
+
                                                  <g
                                         id="XMLID_967_"
                                         class="st21"
@@ -1242,7 +1239,7 @@
                                         item-circle-id="1"
                                         transform="matrix(1 0 0 1 97.8691 341.2397)"
                                         class="st0 st1">ЭЛОУ-АВТ-6</text>
-                                     
+
                                      </g>
                                      <g
                                         id="XMLID_1363_"
@@ -1253,7 +1250,7 @@
                                         id="XMLID_216_"
                                         class="st6"
                                         style="enable-background:new">
-                                               
+
                                                  <g
                                         id="XMLID_237_"
                                         class="st23"
@@ -1271,7 +1268,7 @@
                                         item-circle-id="19"
                                         transform="matrix(1 0 0 1 216.9892 499.5087)"
                                         class="st0 st1">КЦА</text>
-                                     
+
                                      </g>
                                      <g
                                         id="XMLID_1346_"
@@ -1282,7 +1279,7 @@
                                         id="XMLID_208_"
                                         class="st6"
                                         style="enable-background:new">
-                                            
+
                                                  <g
                                         id="XMLID_220_"
                                         class="st24"
@@ -1302,7 +1299,7 @@
                                         item-circle-id="20"
                                         transform="matrix(1 0 0 1 270.1249 467.7802)"
                                         class="st0 st1">МТБЭ</text>
-                                     
+
                                          </g>
                                      </g>
                                      <g
@@ -1314,7 +1311,7 @@
                                         id="XMLID_201_"
                                         class="st6"
                                         style="enable-background:new">
-                                    
+
                                                  <g
                                         id="XMLID_210_"
                                         class="st25"
@@ -1334,7 +1331,7 @@
                                         id="XMLID_196_"
                                         class="st6"
                                         style="enable-background:new">
-                                              
+
                                                  <g
                                         id="XMLID_205_"
                                         class="st26"
@@ -1352,7 +1349,7 @@
                                         item-circle-id="15"
                                         transform="matrix(1 0 0 1 269.3227 404.5902)"
                                         class="st0 st1">ГФУ-2</text>
-                                     
+
                                      </g>
                                      <g
                                         id="XMLID_1294_"
@@ -1363,7 +1360,7 @@
                                         id="XMLID_189_"
                                         class="st6"
                                         style="enable-background:new">
-                                
+
                                                  <g
                                         id="XMLID_202_"
                                         class="st27"
@@ -1383,7 +1380,7 @@
                                         id="XMLID_184_"
                                         class="st6"
                                         style="enable-background:new">
-                                            
+
                                                  <g
                                         id="XMLID_197_"
                                         class="st28"
@@ -1403,7 +1400,7 @@
                                         id="XMLID_180_"
                                         class="st6"
                                         style="enable-background:new">
-                                               
+
                                                  <g
                                         id="XMLID_193_"
                                         class="st29"
@@ -1421,7 +1418,7 @@
                                         item-circle-id="16"
                                         transform="matrix(1 0 0 1 320.9404 372.7563)"
                                         class="st0 st1">Г-43-107</text>
-                                     
+
                                      </g>
                                      <g
                                         id="XMLID_1247_"
@@ -1449,7 +1446,7 @@
                                         item-circle-id="22"
                                         transform="matrix(1 0 0 1 378.1044 404.7104)"
                                         class="st0 st1">ГОБКК</text>
-                                     
+
                                      </g>
                                      <g
                                         id="XMLID_1230_"
@@ -1460,14 +1457,14 @@
                                         id="XMLID_175_"
                                         class="st6"
                                         style="enable-background:new">
-                                               
+
                                                  <g
                                         id="XMLID_185_"
                                         class="st31"
                                         clip-path="url(#XMLID_446_)">
                                         <image  item-circle-id="28" class="st50" href="../../../../assets/pic/chain2.png" style="width: 66px; height: 55px; x:459; y:472;"></image>
                                         <image item-circle-id="28" class="st60" href="../../../../assets/pic/Icons3D/Cistern.png" class="st60" style="width: 25px; height: 50px; x:479; y:472;"></image>
-                                        
+
                                                  </g>
                                              </g>
                                          </g>
@@ -1479,7 +1476,7 @@
                                         item-circle-id="28"
                                         transform="matrix(1 0 0 1 481.2861 483.4482)"
                                         class="st0 st1">ЖД эстакажы</text>
-                                     
+
                                      </g>
                                      <g
                                         id="XMLID_1213_"
@@ -1507,7 +1504,7 @@
                                         item-circle-id="29"
                                         transform="matrix(1 0 0 1 534.0595 448.996)"
                                         class="st0 st1">АВТО эстакажы</text>
-                                     
+
                                      </g>
                                      <g
                                         id="XMLID_1196_"
@@ -1518,7 +1515,7 @@
                                         id="XMLID_179_"
                                         class="st6"
                                         style="enable-background:new">
-                                              
+
                                                  <g
                                         id="XMLID_209_"
                                         class="st33"
@@ -1536,7 +1533,7 @@
                                         item-circle-id="27"
                                         transform="matrix(1 0 0 1 414.7382 515.1357)"
                                         class="st0 st1">Трубопровод транснефть</text>
-                                     
+
                                      </g>
                                      <g
                                         id="XMLID_1192_">
@@ -1545,7 +1542,7 @@
                                         item-circle-id="25"
                                         transform="matrix(1 0 0 1 361.7685 475.6015)"
                                         class="st0 st1">АССБ и КТ</text>
-                                     
+
                                      </g>
                                      <g
                                         id="XMLID_1177_"
@@ -1556,7 +1553,7 @@
                                         id="XMLID_212_"
                                         class="st6"
                                         style="enable-background:new">
-                                                
+
                                                  <g
                                         id="XMLID_229_"
                                         class="st35"
@@ -1574,7 +1571,7 @@
                                         item-circle-id="26"
                                         transform="matrix(1 0 0 1 412.6894 443.9257)"
                                         class="st0 st1">Парк Б,Р и ДТ</text>
-                                     
+
                                      </g>
                                      <g
                                         id="XMLID_1160_"
@@ -1585,7 +1582,7 @@
                                         id="XMLID_454_"
                                         class="st6"
                                         style="enable-background:new">
-                                            
+
                                                  <g
                                         id="XMLID_468_"
                                         class="st36"
@@ -1603,7 +1600,7 @@
                                         item-circle-id="21"
                                         transform="matrix(1 0 0 1 324.455 436.2108)"
                                         class="st0 st1">ТАМЭ</text>
-                                     
+
                                      </g>
                                      <g
                                         id="XMLID_1156_">
@@ -1612,7 +1609,7 @@
                                         item-circle-id="3"
                                         transform="matrix(1 0 0 1 167.183 293.5561)"
                                         class="st0 st1">С.100 КУПН ЭЛОУ-АВТ-6</text>
-                                     
+
                                      </g>
                                      <line
                                         id="XMLID_581_"
@@ -1722,7 +1719,7 @@
                                         cx="83.5"
                                         item-line-id="1"
                                         cy="343.1"
-                                        
+
                                         r="0.7" />
                                      <circle
                                         id="XMLID_560_"
@@ -1849,7 +1846,7 @@
                                      </g>
                                      <g
                                         id="XMLID_380_"
-                                        
+
                                        >
                                          <g
                                         id="XMLID_94_">
@@ -2044,7 +2041,7 @@
                                         item-circle-id="9"
                                         transform="matrix(1 0 0 1 227.1874 364.849)"
                                         class="st0 st1">Л-22/4</text>
-                                     
+
                                          </g>
                                      </g>
                                      <g
@@ -2056,7 +2053,7 @@
                                         item-circle-id="23"
                                         transform="matrix(1 0 0 1 424.3232 372.8764)"
                                         class="st0 st1">ЛЧ-35-11-1000</text>
-                                     
+
                                          </g>
                                      </g>
                                      <g
@@ -2069,7 +2066,7 @@
                                         transform="matrix(1 0 0 1 368.8085 341.0473)"
                                         class="st0 st1"
                                         >ЛЧ-35-11-300М</text>
-                                     
+
                                          </g>
                                      </g>
                                      <g
@@ -2081,7 +2078,7 @@
                                         item-circle-id="5"
                                         transform="matrix(1 0 0 1 254.2148 285.8852)"
                                         class="st0 st1">Л-24/5</text>
-                                     
+
                                          </g>
                                      </g>
                                      <line
@@ -2111,7 +2108,7 @@
                                         id="XMLID_913_"
                                         class="st6"
                                         style="enable-background:new">
-                                                
+
                                                  <g
                                         id="XMLID_915_"
                                         class="st41"
@@ -2131,7 +2128,7 @@
                                         item-circle-id="8"
                                         transform="matrix(1 0 0 1 332.2167 270.2143)"
                                         class="st0 st1">Л-24-2000</text>
-                                     
+
                                          </g>
                                      </g>
                                      <g
@@ -2143,7 +2140,7 @@
                                         id="XMLID_473_"
                                         class="st6"
                                         style="enable-background:new">
-                                             
+
                                                  <g
                                         id="XMLID_475_"
                                         class="st42"
@@ -2163,7 +2160,7 @@
                                         item-circle-id="14"
                                         transform="matrix(1 0 0 1 394.8437 294.433)"
                                         class="st0 st1">С-200 КУПН СТО</text>
-                                     
+
                                          </g>
                                      </g>
                                      <g
@@ -2175,7 +2172,7 @@
                                         id="XMLID_482_"
                                         class="st6"
                                         style="enable-background:new">
-                                            
+
                                                  <g
                                         id="XMLID_488_"
                                         class="st43"
@@ -2195,7 +2192,7 @@
                                         item-circle-id="10"
                                         transform="matrix(1 0 0 1 301.2568 317.1)"
                                         class="st0 st1">Изомеризация</text>
-                                     
+
                                          </g>
                                      </g>
                                      <g
@@ -2207,7 +2204,7 @@
                                         id="XMLID_481_"
                                         class="st6"
                                         style="enable-background:new">
-                                    
+
                                                  <g
                                         id="XMLID_483_"
                                         class="st44"
@@ -2227,7 +2224,7 @@
                                         item-circle-id="18"
                                         transform="matrix(1 0 0 1 449.4355 325.2055)"
                                         class="st0 st1">С-400 КУПН ГФУ</text>
-                                     
+
                                          </g>
                                      </g>
                                      <g
@@ -2239,7 +2236,7 @@
                                         item-circle-id="24"
                                         transform="matrix(1 0 0 1 509.8915 357.7035)"
                                         class="st0 st1">С-300 КУПН</text>
-                                     
+
                                          </g>
                                      </g>
                                      <circle
@@ -2296,15 +2293,15 @@
                                         cy="399.9"
                                         item-circle-id="16"
                                         r="1.3" />
-                                     
-                                     
-                                     
+
+
+
                                         </svg>
                                     </div>
                             </div>
                     </div>
             </div>
     </ng-container>
-    
+
     <evj-frame-bottom></evj-frame-bottom>
 </div>

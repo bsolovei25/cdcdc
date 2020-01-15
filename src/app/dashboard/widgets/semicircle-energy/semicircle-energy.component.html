@@ -1,4 +1,6 @@
-<div class="container pointer-event">
+<evj-widget-preview [title]="title" [previewTitle]="previewTitle" *ngIf="isMock"></evj-widget-preview>
+
+<div class="container pointer-event" *ngIf="!isMock">
   <evj-widget-header
     [title]="title"
     [units]="units"
@@ -9,27 +11,7 @@
 
   <evj-frame-top></evj-frame-top>
 
-  <ng-container *ngIf="isMock">
-    <div class="mock">
-      <img
-        *ngIf="title === 'Электрическая энергия'"
-        src="../../../../assets/img/electro_preview.PNG"
-        alt=""
-      />
-      <img
-        *ngIf="title === 'Тепловая энергия'"
-        src="../../../../assets/img/termo_preview.PNG"
-        alt=""
-      />
-      <img
-        *ngIf="title === 'Топливная энергия'"
-        src="../../../../assets/img/fuel_preview.PNG"
-        alt=""
-      />
-    </div>
-  </ng-container>
-
-  <ng-container *ngIf="!isMock">
+  <ng-container>
     <div class="semicircle">
       <div class="diagram">
         <svg width="100%" height="100%" viewBox="0 0 50 50">

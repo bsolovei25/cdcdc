@@ -37,6 +37,8 @@ export class EventsComponent implements OnInit, OnDestroy {
   static itemCols = 30;
   static itemRows = 20;
 
+  public previewTitle: string;
+
   category: ICategory[] = [
     { id: 1001, name: "smotr", code: "0" },
     { id: 1002, name: "safety", code: "1" },
@@ -165,7 +167,8 @@ export class EventsComponent implements OnInit, OnDestroy {
   ) {
     this.liveSubscription = this.widgetService.getWidgetChannel(id).subscribe(data => {
       if (data) {
-        this.title = data.title
+        this.title = data.title;
+        this.previewTitle = data.widgetType;
       }
     });
     this.updateSubscription = this.eventService.updateEvent$.subscribe((value) => {

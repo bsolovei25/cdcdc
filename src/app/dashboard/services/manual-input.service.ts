@@ -155,7 +155,7 @@ export class ManualInputService {
   saveBar(text: string,  statusLoad:boolean , durection: number = 2000) {
     let snackBar = document.getElementById("saveBar");
     let snackBarBlock = document.getElementById("saveBarBlock");
-    if (statusLoad){
+    if (statusLoad) {
       snackBar.className = "show";
       snackBarBlock.className = "show";
       snackBar.innerText = text;
@@ -164,7 +164,7 @@ export class ManualInputService {
       setTimeout(function () {
        snackBar.className = snackBar.className.replace("show", "");
       }, durection);
-       snackBarBlock.className = snackBarBlock.className.replace("show", "");
+      snackBarBlock.className = snackBarBlock.className.replace("show", "");
     }
   }
 }
