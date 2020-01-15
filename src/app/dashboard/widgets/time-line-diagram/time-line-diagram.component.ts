@@ -9,7 +9,9 @@ import { Subscription } from "rxjs";
   styleUrls: ["./time-line-diagram.component.scss"]
 })
 export class TimeLineDiagramComponent implements OnInit, OnDestroy {
-  data: TimeLineDataInput;
+  data: TimeLineDataInput = {
+    values:[]
+  };
 
   isMockData: TimeLineDataInput = {
     values: [

@@ -20,18 +20,26 @@ export class TimeDiagramComponent implements OnInit {
   colorNormal = "#616580";
   colorNow = "#a2e2ff";
 
+  public hours: number;
+  public minutes: number;
+  public seconds: number;
+
   constructor() {}
 
   ngOnInit() {
     if (!this.isMock) {
       setInterval(() => {
         this.timeLeft = Date.parse(this.data.dropTimeNext) - Date.now();
+        this.timeCounter();
       }, 100);
     }
   }
 
-  timeCounter(): number {
-    return this.timeLeft > 0 ? this.timeLeft : 0;
+  timeCounter(): void {
+    const date = new Date(this.timeLeft);
+    this.hours = +(this.timeLeft / (1000 * 60 * 60)).toFixed(0);
+    this.minutes = date.getUTCMinutes();
+    this.seconds = date.getUTCSeconds();
   }
 
   timeLine(): string {
