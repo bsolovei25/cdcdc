@@ -32,15 +32,7 @@ export class HeaderDataService {
     this.statusButton = status;
     this.pushDate();
   }
-/*
-  public catchDate(start, end, dateTime){
-    debugger
-    let datePipe = new DatePipe("en-Us");
-    let result = (dateTime) ? this.startDate = datePipe.transform(data, 'dd') : this.endDate = datePipe.transform(data, 'dd');
-    this.pushDate();
-    return console.log("choose date: " + result);
-  }
-*/
+
   public catchStatusButton(status){
     this.statusButton = status;
     this.pushDate();

@@ -59,7 +59,7 @@ export class SolidGaugesComponent implements OnInit {
   private wsConnect() {
     this.widgetService.getWidgetLiveDataFromWS(this.id, 'solid-gauge-with-marker')
       .subscribe((ref) => {
-        debugger
+      
           this.datas = ref.values;
         }
       ); 
