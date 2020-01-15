@@ -111,7 +111,7 @@
         height: 15px;
         width: 10px;
         z-index: 3;
-        right: 4px;
+        right: 0px;
         bottom: 43px;
         transform: rotate(90deg);
 
@@ -150,6 +150,12 @@
       flex-direction: row;
       justify-content: flex-start;
       align-items: center;
+
+      .col-component{
+        height: 100%;
+        width: 80px;
+        min-width: 25px;
+      }
     }
   }
 }
