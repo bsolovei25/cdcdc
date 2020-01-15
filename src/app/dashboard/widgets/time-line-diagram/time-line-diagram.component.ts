@@ -1,10 +1,5 @@
 import { Component, OnInit, Inject, OnDestroy } from "@angular/core";
-import {
-  TimeLineData,
-  TimeLineDataInput,
-  TimeLineItemInput,
-  TimeLineItem
-} from "../../models/time-line-diagram";
+import { TimeLineDataInput } from "../../models/time-line-diagram";
 import { NewWidgetService } from "../../services/new-widget.service";
 import { Subscription } from "rxjs";
 
@@ -14,20 +9,18 @@ import { Subscription } from "rxjs";
   styleUrls: ["./time-line-diagram.component.scss"]
 })
 export class TimeLineDiagramComponent implements OnInit, OnDestroy {
-  data: TimeLineData = {
-    values: []
-  };
+  data: TimeLineDataInput;
 
-  isMockData: TimeLineData = {
+  isMockData: TimeLineDataInput = {
     values: [
       {
-        dropTimeNext: 0,
-        dropTimeLast: 0,
+        dropTimeNext: "0",
+        dropTimeLast: "0",
         dropTitle: "Сброс на факел"
       },
       {
-        dropTimeNext: 0,
-        dropTimeLast: 0,
+        dropTimeNext: "0",
+        dropTimeLast: "0",
         dropTitle: "Сточные воды"
       }
     ]
@@ -63,9 +56,7 @@ export class TimeLineDiagramComponent implements OnInit, OnDestroy {
       this.subscriptions.push(
         this.widgetService
           .getWidgetLiveDataFromWS(this.id, this.widgetType)
-          .subscribe((data: TimeLineDataInput) => {
-            this.getData(data);
-          })
+          .subscribe((data: TimeLineDataInput) => (this.data = data))
       );
     }
   }
@@ -76,18 +67,5 @@ export class TimeLineDiagramComponent implements OnInit, OnDestroy {
         subscription.unsubscribe()
       );
     }
-  }
-
-  getData(data: TimeLineDataInput): void {
-    const arr: TimeLineItem[] = [];
-    for (let value of data.values) {
-      const item: TimeLineItem = {
-        dropTimeLast: Date.parse(value.dropTimeLast),
-        dropTimeNext: Date.parse(value.dropTimeNext),
-        dropTitle: value.dropTitle
-      };
-      arr.push(item);
-    }
-    this.data.values = arr.slice();
   }
 }

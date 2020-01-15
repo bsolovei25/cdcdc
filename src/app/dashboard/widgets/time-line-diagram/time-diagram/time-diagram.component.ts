@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { TimeLineItem } from "src/app/dashboard/models/time-line-diagram";
+import { Component, OnInit, Input, OnChanges } from "@angular/core";
+import { TimeLineItemInput } from "src/app/dashboard/models/time-line-diagram";
 
 @Component({
   selector: "evj-time-diagram",
@@ -7,9 +7,9 @@ import { TimeLineItem } from "src/app/dashboard/models/time-line-diagram";
   styleUrls: ["./time-diagram.component.scss"]
 })
 export class TimeDiagramComponent implements OnInit {
-  @Input() data: TimeLineItem = {
-    dropTimeNext: 0,
-    dropTimeLast: 0,
+  @Input() data: TimeLineItemInput = {
+    dropTimeNext: "0",
+    dropTimeLast: "0",
     dropTitle: ""
   };
 
@@ -25,7 +25,7 @@ export class TimeDiagramComponent implements OnInit {
   ngOnInit() {
     if (!this.isMock) {
       setInterval(() => {
-        this.timeLeft = this.data.dropTimeNext - Date.now();
+        this.timeLeft = Date.parse(this.data.dropTimeNext) - Date.now();
       }, 1000);
     }
   }
@@ -39,7 +39,9 @@ export class TimeDiagramComponent implements OnInit {
     if (this.timeLeft > 0 && !this.isMock) {
       percent =
         100 -
-        (this.timeLeft / (this.data.dropTimeNext - this.data.dropTimeLast)) *
+        (this.timeLeft /
+          (Date.parse(this.data.dropTimeNext) -
+            Date.parse(this.data.dropTimeLast))) *
           100;
     } else if (this.timeLeft === 0 && !this.isMock) {
       percent = 0;
