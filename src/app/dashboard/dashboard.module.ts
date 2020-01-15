@@ -73,6 +73,8 @@ import { FlameDiagramComponent } from "./widgets/flame-diagram/flame-diagram.com
 import { RingEnergyIndicatorComponent } from "./widgets/ring-energy-indicator/ring-energy-indicator.component";
 import { TimeLineDiagramComponent } from "./widgets/time-line-diagram/time-line-diagram.component";
 import { TimeDiagramComponent } from "./widgets/time-line-diagram/time-diagram/time-diagram.component";
+import { SolidGaugesComponent } from './widgets/solid-gauge-with-marker/solid-gauges/solid-gauges.component';
+import { SolidGaugeWithMarkerComponent } from './widgets/solid-gauge-with-marker/solid-gauge-with-marker/solid-gauge-with-marker.component';
 
 @NgModule({
   declarations: [
@@ -138,7 +140,9 @@ import { TimeDiagramComponent } from "./widgets/time-line-diagram/time-diagram/t
     FlameDiagramComponent,
     RingEnergyIndicatorComponent,
     TimeLineDiagramComponent,
-    TimeDiagramComponent
+    TimeDiagramComponent,
+    SolidGaugesComponent,
+    SolidGaugeWithMarkerComponent,
   ],
   entryComponents: [
     LineChartComponent,
@@ -181,7 +185,8 @@ import { TimeDiagramComponent } from "./widgets/time-line-diagram/time-diagram/t
     ColumnChartStackedComponent,
     FlameDiagramComponent,
     RingEnergyIndicatorComponent,
-    TimeLineDiagramComponent
+    TimeLineDiagramComponent,
+    SolidGaugesComponent
   ],
   exports: [HomeComponent],
   imports: [
