@@ -5,7 +5,7 @@ import {
     OnDestroy,
 } from "@angular/core";
 import { Subscription } from "rxjs";
-import { EventService } from '../../services/event.service';
+import { NewWidgetService } from '../../services/new-widget.service';
 
 
 export interface ISuspenseMachine {
@@ -28,7 +28,7 @@ export class SuspenseMachineComponent implements OnInit, OnDestroy {
     subscription: Subscription;
     isLoading: boolean = false;
 
-    public title = 'Простой установки';
+    public title = '';
 
     data: ISuspenseMachine[] = [
         {
@@ -136,7 +136,7 @@ export class SuspenseMachineComponent implements OnInit, OnDestroy {
     static itemRows = 5;
 
     constructor(
-        private eventService: EventService,
+        public widgetService: NewWidgetService,
         @Inject("isMock") public isMock: boolean,
         @Inject("widgetId") public id: string,
         @Inject("uniqId") public uniqId: string
@@ -144,16 +144,9 @@ export class SuspenseMachineComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-
-        if (!this.isMock) {
-            this.subscription = this.eventService.event$.subscribe((value) => {
-                if (value) {
-                    this.isLoading = true;
-
-                    this.isLoading = false;
-                }
-            })
-        }
+            this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe(data => {
+                this.title = data.title;
+            });
     }
 
     ngOnDestroy() {

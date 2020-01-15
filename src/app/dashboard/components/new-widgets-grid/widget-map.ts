@@ -34,6 +34,7 @@ import { CircleBlockDiagramComponent } from "../../widgets/circle-block-diagram/
 import { ColumnChartStackedComponent } from "../../widgets/column-chart-stacked/column-chart-stacked.component";
 import { TimeLineDiagramComponent } from "../../widgets/time-line-diagram/time-line-diagram.component";
 import {FlameDiagramComponent} from "../../widgets/flame-diagram/flame-diagram.component";
+import { ObservationNormTRComponent } from '../../widgets/observation-norm-tr/observation-norm-tr.component';
 import { RingEnergyIndicatorComponent } from '../../widgets/ring-energy-indicator/ring-energy-indicator.component';
 import { SolidGaugesComponent } from '../../widgets/solid-gauge-with-marker/solid-gauges/solid-gauges.component';
 
@@ -77,4 +78,5 @@ export const WIDGETS = {
   "ring-energy-indicator": RingEnergyIndicatorComponent,
   "time-line-diagram": TimeLineDiagramComponent,
   "solid-gauge-with-marker": SolidGaugesComponent,
+  'observation-norm-tr' : ObservationNormTRComponent,
 };
