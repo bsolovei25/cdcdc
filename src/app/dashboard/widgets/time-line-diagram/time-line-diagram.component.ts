@@ -1,11 +1,5 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  Inject,
-  OnDestroy
-} from "@angular/core";
-import { timeLineItem, timeLineData } from "../../models/time-line-diagram";
+import { Component, OnInit, Inject, OnDestroy } from "@angular/core";
+import { TimeLineData } from "../../models/time-line-diagram";
 import { NewWidgetService } from "../../services/new-widget.service";
 import { Subscription } from "rxjs";
 
@@ -15,44 +9,8 @@ import { Subscription } from "rxjs";
   styleUrls: ["./time-line-diagram.component.scss"]
 })
 export class TimeLineDiagramComponent implements OnInit, OnDestroy {
-  data: timeLineData = {
-    values: [
-      {
-        dropTimeNext: 1578911767856 + 14000000,
-        dropTimeLast: 1578911767856 + 3000000,
-        dropTitle: "Сброс на факел"
-      },
-      {
-        dropTimeNext: 1578911767856 + 4000000,
-        dropTimeLast: 1578911767856 + 1000000,
-        dropTitle: "Сточные воды"
-      },
-      {
-        dropTimeNext: 1578911767856 + 9000000,
-        dropTimeLast: 1578911767856 + 1000000,
-        dropTitle: "Дымовые"
-      },
-      {
-        dropTimeNext: 1578911767856 + 4000000,
-        dropTimeLast: 1578911767856 + 1000000,
-        dropTitle: "Сточные воды"
-      },
-      {
-        dropTimeNext: 1578911767856 + 9000000,
-        dropTimeLast: 1578911767856 + 1000000,
-        dropTitle: "Дымовые"
-      },
-      {
-        dropTimeNext: 1578911767856 + 4000000,
-        dropTimeLast: 1578911767856 + 1000000,
-        dropTitle: "Сточные воды"
-      },
-      {
-        dropTimeNext: 1578911767856 + 9000000,
-        dropTimeLast: 1578911767856 + 1000000,
-        dropTitle: "Дымовые"
-      }
-    ]
+  data: TimeLineData = {
+    values: []
   };
 
   public title: string = "";
@@ -60,6 +18,9 @@ export class TimeLineDiagramComponent implements OnInit, OnDestroy {
   public widgetType: string = "time-line-diagram";
 
   subscriptions: Subscription[] = [];
+
+  static itemCols = 14;
+  static itemRows = 9;
 
   constructor(
     private widgetService: NewWidgetService,
@@ -77,7 +38,15 @@ export class TimeLineDiagramComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.subscriptions.push(
+      this.widgetService
+        .getWidgetLiveDataFromWS(this.id, this.widgetType)
+        .subscribe((data: TimeLineData) => {
+          this.data = data;
+        })
+    );
+  }
 
   ngOnDestroy() {
     if (this.subscriptions) {
