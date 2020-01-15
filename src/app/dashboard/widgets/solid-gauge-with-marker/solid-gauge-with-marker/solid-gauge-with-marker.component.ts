@@ -31,7 +31,8 @@ export class SolidGaugeWithMarkerComponent implements AfterViewInit {
   }
 
   indicatorGauge(data){
-    return (this.pie*data.percent)/100;
+    let percent = (data.percent > 100) ? 100 : data.percent
+    return (this.pie*percent)/100;
   }
   
   draw(data, el, gaugemap, indicator) {
@@ -223,7 +224,7 @@ export class SolidGaugeWithMarkerComponent implements AfterViewInit {
          .attr("font-family","'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
          .attr("y","160")
          .attr("text-anchor", 'middle')
-         .text(data.fact)
+         .text((data.fact < 0) ? 0 : data.fact);
 
          let bottomTextGauge = svg.append("text")
          .attr('fill', '#8C99B2')
@@ -232,7 +233,7 @@ export class SolidGaugeWithMarkerComponent implements AfterViewInit {
          .attr("font-family","'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
          .attr("y","215")
          .attr("text-anchor", 'middle')
-         .text(data.name)
+         .text(data.name);
 
          let lineGauge = svg.append("image")
          .attr("xlink:href", "/assets/pic/SolidGauge/lineGauge.svg")
@@ -248,7 +249,7 @@ export class SolidGaugeWithMarkerComponent implements AfterViewInit {
          .attr("font-family","'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
          .attr("y","25")
          .attr("text-anchor", 'middle')
-         .text(data.value)
+         .text(data.value);
      }
      gaugemap.render = render;
      function update(newValue, newConfiguration?) {

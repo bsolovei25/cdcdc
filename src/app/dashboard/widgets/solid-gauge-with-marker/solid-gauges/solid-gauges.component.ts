@@ -23,12 +23,12 @@ export class SolidGaugesComponent implements OnInit {
 
   public uniqal;
   
-  /*public datas = [
+  public datas = [
     {name: "СУГ", fact: 11.5, percent: 50, value: 14.5},
     {name: "Висбрекинг", fact: 3.07, percent: 70, value: 2.67},
-  ]; */
+  ]; 
 
-  public datas: SolidGaugeWithMarker;
+//  public datas;
 
 
   constructor(
@@ -59,6 +59,7 @@ export class SolidGaugesComponent implements OnInit {
   private wsConnect() {
     this.widgetService.getWidgetLiveDataFromWS(this.id, 'solid-gauge-with-marker')
       .subscribe((ref) => {
+      
           this.datas = ref.values;
         }
       ); 

@@ -1,6 +1,13 @@
 import { Component, OnInit, Inject, OnDestroy } from "@angular/core";
 import { NewWidgetService } from "../../services/new-widget.service";
 import { Subscription } from "rxjs";
+import {
+  EnergyCircleDiagram,
+  Production,
+  SemicircleEnergy,
+  CenterCoords,
+  LimitLine
+} from "../../models/semicircle-energy";
 
 @Component({
   selector: "evj-semicircle-energy",
@@ -10,7 +17,7 @@ import { Subscription } from "rxjs";
 export class SemicircleEnergyComponent implements OnInit, OnDestroy {
   /* Параметры для круговых диаграмм */
 
-  energyCircleDiagram = {
+  energyCircleDiagram: EnergyCircleDiagram = {
     lowerLimit: 0, // нижний предел на диаграмме в %
     upperLimit: 0, // верхний предел на диаграмме в %
     production1: 0, // процентная доля Пр-во1
@@ -19,31 +26,31 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
     production4: 0 // процентная доля ОЗХ
   };
 
-  public lowerLimit = 97;
-  public upperLimit = 103;
+  public lowerLimit: number = 97;
+  public upperLimit: number = 103;
 
-  public iconType;
+  public iconType: number;
 
-  productionList = [
+  productionList: Production[] = [
     {
-      name: "Пр-во 1",
-      plan: 0.0215,
-      fact: 0.0214
+      name: "",
+      plan: 0,
+      fact: 0
     },
     {
-      name: "Пр-во 2",
-      plan: 0.1408,
-      fact: 0.15
+      name: "",
+      plan: 0,
+      fact: 0
     },
     {
-      name: "Товарное",
-      plan: 17.4545,
-      fact: 17.5091
+      name: "",
+      plan: 0,
+      fact: 0
     },
     {
-      name: "ОЗХ",
-      plan: 0.0761,
-      fact: 0.0711
+      name: "",
+      plan: 0,
+      fact: 0
     }
   ];
 
@@ -72,9 +79,9 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
   public diagramLogoDanger: string;
   public isWarning = false;
 
-  public title;
-  public units = "кг/м^3";
-  public widgetType = "semicircle-energy";
+  public title: string;
+  public units: string = "кг/м^3";
+  public widgetType: string = "semicircle-energy";
 
   subscriptions: Subscription[] = [];
 
@@ -104,7 +111,7 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
       this.subscriptions.push(
         this.widgetService
           .getWidgetLiveDataFromWS(this.id, this.widgetType)
-          .subscribe(data => {
+          .subscribe((data: SemicircleEnergy) => {
             this.iconType = data.iconType;
             this.lowerLimit = data.lowerLimit;
             this.upperLimit = data.upperLimit;
@@ -123,7 +130,7 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
     }
   }
 
-  drawDiagram() {
+  drawDiagram(): void {
     let key: string;
     for (let i = 0; i < 4; i++) {
       key = "production" + (i + 1);
@@ -139,7 +146,7 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
       : 103;
   }
 
-  logoType() {
+  logoType(): void {
     switch (this.iconType) {
       case 0:
         this.diagramLogo =
@@ -196,12 +203,12 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
     return (0.5 * c).toString();
   }
 
-  diaLimits(line: number) {
+  diaLimits(line: number): LimitLine {
     const newLine = 100 - line; // отсчет угла от 100%
     const t = (((1.5 * Math.PI) / 2) * newLine) / 100 + (2.5 * Math.PI) / 2;
     const rMin = 13.7;
     const rMax = 27.3;
-    const limitLine = {
+    const limitLine: LimitLine = {
       x1: (-rMin * Math.cos(t) + +this.centerX).toString(),
       y1: (rMin * Math.sin(t) + +this.centerY).toString(),
       x2: (-rMax * Math.cos(t) + +this.centerX).toString(),
@@ -223,11 +230,11 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
       return this.colorDeviation;
   }
 
-  diaEndsLine(line: number, rad: string) {
+  diaEndsLine(line: number, rad: string): CenterCoords {
     const newLine = 100 - line + +this.radPoint; // отсчет угла от 100%
     const t = (((1.5 * Math.PI) / 2) * newLine) / 100 + (2.5 * Math.PI) / 2;
     const r = +rad;
-    const centerOfTheEnd = {
+    const centerOfTheEnd: CenterCoords = {
       xCen: (-r * Math.cos(t) + +this.centerX).toString(),
       yCen: (r * Math.sin(t) + +this.centerY).toString()
     };

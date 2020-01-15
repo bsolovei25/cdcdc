@@ -1,4 +1,5 @@
 .block {
+ 
   position: relative;
   display: flex;
   width: 100%;
@@ -7,6 +8,7 @@
 }
 
 .calendar-column {
+  z-index: 1;
   position: relative;
   height: 100%;
   width: 100%;
@@ -56,4 +58,28 @@
     align-items: center;
     background-color: var(--color-bg-active);
   }
+}
+
+.line-start{
+  width: 8px;
+  background-image: url(/assets/pic/Header/start.svg);
+  background-repeat: no-repeat;
+}
+
+.line-end{
+  width: 8px;
+  background-image: url(/assets/pic/Header/end.svg);
+  background-repeat: no-repeat;
+}
+
+.middle-line{
+  width: 100%; 
+  background-color: rgba(63,169,254,0.2);
+}
+
+.line-block{
+  z-index: 999;
+  height: 100%;
+  display: flex;
+  position: absolute;
 }
