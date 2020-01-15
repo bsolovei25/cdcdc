@@ -39,8 +39,8 @@ export class TimeLineDiagramComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
 
-  static itemCols = 14;
-  static itemRows = 9;
+  static itemCols = 22;
+  static itemRows = 13;
 
   constructor(
     private widgetService: NewWidgetService,

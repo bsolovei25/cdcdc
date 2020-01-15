@@ -12,18 +12,22 @@
   <ng-container *ngIf="isMock">
     <div class="mock">
       <div
-      class="time-diagram"
-      (mousedown)="$event.stopPropagation()"
-      (touchstart)="$event.stopPropagation()"
-    >
-      <div class="time-diagram__container scroll-bar">
-        <div class="time-diagram__scroll">
-          <ng-container *ngFor="let item of isMockData.values">
-            <evj-time-diagram [data]="item" [isMock]="isMock"></evj-time-diagram>
-          </ng-container>
+        class="time-diagram"
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
+      >
+        <div class="time-diagram__container scroll-bar">
+          <div class="time-diagram__scroll">
+            <ng-container *ngFor="let item of isMockData.values">
+              <evj-time-diagram
+                class="time-diagram__line"
+                [data]="item"
+                [isMock]="isMock"
+              ></evj-time-diagram>
+            </ng-container>
+          </div>
         </div>
       </div>
-    </div>
     </div>
   </ng-container>
   <ng-container *ngIf="!isMock">
@@ -35,7 +39,11 @@
       <div class="time-diagram__container scroll-bar">
         <div class="time-diagram__scroll">
           <ng-container *ngFor="let item of data.values">
-            <evj-time-diagram [data]="item"></evj-time-diagram>
+            <evj-time-diagram
+              class="time-diagram__line"
+              [data]="item"
+              [isMock]="isMock"
+            ></evj-time-diagram>
           </ng-container>
         </div>
       </div>
