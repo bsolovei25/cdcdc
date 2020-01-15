@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Слой_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 595.3 841.9" style="enable-background:new 0 0 595.3 841.9;" xml:space="preserve">
+<style type="text/css">
+	.st0{opacity:0.8;}
+</style>
+<g id="XMLID_3_" class="st0">
+	<defs>
+		<path id="XMLID_1_" class="st0" d="M570,684.5L27.6,721.7c-0.4-48.5-29.4-131.4-17.1-178.1C79.1,284.5,297.7,108.8,576.9,128
+			L570,684.5z"/>
+	</defs>
+	
+		<linearGradient id="XMLID_4_" gradientUnits="userSpaceOnUse" x1="-1502.0051" y1="1568.9973" x2="-1785.7543" y2="2348.5918" gradientTransform="matrix(0.9693 0.2564 -0.2452 0.9268 2442.6155 -924.0121)">
+		<stop  offset="0" style="stop-color:#FEFFFF;stop-opacity:0.4"/>
+		<stop  offset="0.6349" style="stop-color:#FEFFFF;stop-opacity:0"/>
+	</linearGradient>
+	<use xlink:href="#XMLID_1_"  style="overflow:visible;fill:url(#XMLID_4_);"/>
+	<clipPath id="XMLID_5_">
+		<use xlink:href="#XMLID_1_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+</svg>

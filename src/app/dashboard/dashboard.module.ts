@@ -72,6 +72,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {FlameDiagramComponent} from './widgets/flame-diagram/flame-diagram.component';
 import { RingEnergyIndicatorComponent } from './widgets/ring-energy-indicator/ring-energy-indicator.component';
 import { WidgetPreviewComponent } from './components/widget-preview/widget-preview.component';
+import { SolidGaugesComponent } from './widgets/solid-gauge-with-marker/solid-gauges/solid-gauges.component';
+import { SolidGaugeWithMarkerComponent } from './widgets/solid-gauge-with-marker/solid-gauge-with-marker/solid-gauge-with-marker.component';
 
 @NgModule({
   declarations: [
@@ -137,6 +139,8 @@ import { WidgetPreviewComponent } from './components/widget-preview/widget-previ
     FlameDiagramComponent,
     RingEnergyIndicatorComponent,
     WidgetPreviewComponent,
+    SolidGaugesComponent,
+    SolidGaugeWithMarkerComponent,
   ],
   entryComponents: [
     LineChartComponent,
@@ -179,6 +183,7 @@ import { WidgetPreviewComponent } from './components/widget-preview/widget-previ
     ColumnChartStackedComponent,
     FlameDiagramComponent,
     RingEnergyIndicatorComponent,
+    SolidGaugesComponent
   ],
   exports: [HomeComponent],
   imports: [
