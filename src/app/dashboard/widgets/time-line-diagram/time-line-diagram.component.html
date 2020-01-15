@@ -10,7 +10,21 @@
   <evj-frame-top></evj-frame-top>
 
   <ng-container *ngIf="isMock">
-    <div class="mock"></div>
+    <div class="mock">
+      <div
+      class="time-diagram"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
+      <div class="time-diagram__container scroll-bar">
+        <div class="time-diagram__scroll">
+          <ng-container *ngFor="let item of isMockData.values">
+            <evj-time-diagram [data]="item" [isMock]="isMock"></evj-time-diagram>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    </div>
   </ng-container>
   <ng-container *ngIf="!isMock">
     <div

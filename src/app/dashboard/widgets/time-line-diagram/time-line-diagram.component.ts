@@ -13,6 +13,21 @@ export class TimeLineDiagramComponent implements OnInit, OnDestroy {
     values: []
   };
 
+  isMockData: TimeLineData = {
+    values: [
+      {
+        dropTimeNext: 0,
+        dropTimeLast: 0,
+        dropTitle: "Сброс на факел"
+      },
+      {
+        dropTimeNext: 0,
+        dropTimeLast: 0,
+        dropTitle: "Сточные воды"
+      },
+    ]
+  };
+
   public title: string = "";
   public units: string = "час";
   public widgetType: string = "time-line-diagram";
@@ -39,13 +54,15 @@ export class TimeLineDiagramComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscriptions.push(
-      this.widgetService
-        .getWidgetLiveDataFromWS(this.id, this.widgetType)
-        .subscribe((data: TimeLineData) => {
-          this.data = data;
-        })
-    );
+    if (!this.isMock) {
+      this.subscriptions.push(
+        this.widgetService
+          .getWidgetLiveDataFromWS(this.id, this.widgetType)
+          .subscribe((data: TimeLineData) => {
+            this.data = data;
+          })
+      );
+    }
   }
 
   ngOnDestroy() {
