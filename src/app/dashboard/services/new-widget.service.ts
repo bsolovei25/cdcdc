@@ -166,6 +166,8 @@ export class NewWidgetService {
          return data;
       case "circle-block-diagram":
         return data;
+      case "deviation-circle-diagram":
+        return data;
     }
     console.warn(`unknown widget type ${widgetType}`);
   }
