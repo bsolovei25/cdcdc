@@ -11,7 +11,8 @@ import {
   Inject, HostListener
 } from '@angular/core';
 
-import * as d3 from 'd3-selection';
+import * as d3Selection from 'd3-selection';
+import * as d3 from 'd3';
 import * as d3Scale from 'd3-scale';
 import * as d3Shape from 'd3-shape';
 import * as d3Array from 'd3-array';
@@ -365,7 +366,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
       this.width = minWidth;
     }
 
-    this.svg = d3.select(element).append('svg')
+    this.svg = d3Selection.select(element).append('svg')
       .attr('width', this.width)
       .attr('height', element.offsetHeight);
     this.g = this.svg.append('g').attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
@@ -382,11 +383,41 @@ export class LineChartComponent implements OnInit, OnDestroy {
   }
 
   private drawAxis(): void {
+    let locale = d3.timeFormatLocale({
+      "dateTime": "%A, %e %B %Y г. %X",
+      "date": "%d.%m.%Y",
+      "time": "%H:%M:%S",
+      "periods": ["", ""],
+      "days": ["воскресенье", "понедельник", "вторник", "среда", "четверг", "пятница", "суббота"],
+      "shortDays": ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"],
+      "months": ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+      "shortMonths": ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"]
+    });
+    let formatMillisecond = locale.format(".%L"),
+      formatSecond = locale.format(":%S"),
+      formatMinute = locale.format("%I:%M"),
+      formatHour = locale.format("%I %p"),
+      formatDay = locale.format("%d %b"),
+      formatWeek = locale.format("%b %d "),
+      formatMonth = locale.format("%B"),
+      formatYear = locale.format("%Y");
+
+    function multiFormat(date) {
+      return (d3.timeSecond(date) < date ? formatMillisecond
+        : d3.timeMinute(date) < date ? formatSecond
+          : d3.timeHour(date) < date ? formatMinute
+            : d3.timeDay(date) < date ? formatHour
+              : d3.timeMonth(date) < date ? (d3.timeWeek(date) < date ? formatDay : formatWeek)
+                : d3.timeYear(date) < date ? formatMonth
+                  : formatYear)(date);
+    }
+    // let RU = d3.timeFormatDefaultLocale(ru_RU);
     this.g.append('g')
       .attr("class", "axis x-axis")
       .attr('transform', 'translate(0,' + this.height + ')')
       .call(d3Axis.axisBottom(this.x)
         .ticks(7)
+        .tickFormat(multiFormat)
       );
 
     this.g.append('g')
