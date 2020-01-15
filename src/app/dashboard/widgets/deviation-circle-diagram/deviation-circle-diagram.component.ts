@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from "@angular/core";
 import { Subscription } from "rxjs";
 import { NewWidgetService } from "../../services/new-widget.service";
+import { DeviationCircleDiagram } from "../../models/deviation-circle-diagram";
 
 @Component({
   selector: "evj-deviation-circle-diagram",
@@ -8,10 +9,10 @@ import { NewWidgetService } from "../../services/new-widget.service";
   styleUrls: ["./deviation-circle-diagram.component.scss"]
 })
 export class DeviationCircleDiagramComponent implements OnInit {
-  deviationCircleDiagram = {
-    deviation: 55, // отклонение в %
-    improvement: 40, // улучшение в %
-    maxValue: 100
+  deviationCircleDiagram: DeviationCircleDiagram = {
+    deviation: 0, // отклонение в %
+    improvement: 0, // улучшение в %
+    maxValue: 0
   };
 
   isMockData = {
@@ -38,6 +39,7 @@ export class DeviationCircleDiagramComponent implements OnInit {
 
   public title;
   public units = "%";
+  public widgetType = "deviation-circle-diagram";
 
   subscription: Subscription;
 
@@ -60,7 +62,15 @@ export class DeviationCircleDiagramComponent implements OnInit {
       });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (!this.isMock) {
+      this.widgetService
+        .getWidgetLiveDataFromWS(this.id, this.widgetType)
+        .subscribe((data: DeviationCircleDiagram) => {
+          this.deviationCircleDiagram = data;
+        });
+    }
+  }
 
   /* Отрисовка дуговых диаграмм */
 
