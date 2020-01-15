@@ -68,6 +68,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { CircleBlockDiagramComponent } from './widgets/circle-block-diagram/circle-block-diagram.component';
 import { ColumnChartStackedComponent } from './widgets/column-chart-stacked/column-chart-stacked.component';
 import { CcsOneColumnComponent } from './widgets/column-chart-stacked/ccs-one-column/ccs-one-column.component';
+import { ObservationNormTRComponent } from './widgets/observation-norm-tr/observation-norm-tr.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {FlameDiagramComponent} from './widgets/flame-diagram/flame-diagram.component';
 import { RingEnergyIndicatorComponent } from './widgets/ring-energy-indicator/ring-energy-indicator.component';
@@ -139,6 +140,7 @@ import { SolidGaugeWithMarkerComponent } from './widgets/solid-gauge-with-marker
     RingEnergyIndicatorComponent,
     SolidGaugesComponent,
     SolidGaugeWithMarkerComponent,
+    ObservationNormTRComponent,
   ],
   entryComponents: [
     LineChartComponent,
@@ -181,7 +183,8 @@ import { SolidGaugeWithMarkerComponent } from './widgets/solid-gauge-with-marker
     ColumnChartStackedComponent,
     FlameDiagramComponent,
     RingEnergyIndicatorComponent,
-    SolidGaugesComponent
+    SolidGaugesComponent,
+    ObservationNormTRComponent,
   ],
   exports: [HomeComponent],
   imports: [

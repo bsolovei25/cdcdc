@@ -33,6 +33,7 @@ import { OilControlComponent } from '../../widgets/oil-control/oil-control.compo
 import { CircleBlockDiagramComponent } from "../../widgets/circle-block-diagram/circle-block-diagram.component";
 import { ColumnChartStackedComponent } from "../../widgets/column-chart-stacked/column-chart-stacked.component";
 import {FlameDiagramComponent} from "../../widgets/flame-diagram/flame-diagram.component";
+import { ObservationNormTRComponent } from '../../widgets/observation-norm-tr/observation-norm-tr.component';
 import { RingEnergyIndicatorComponent } from '../../widgets/ring-energy-indicator/ring-energy-indicator.component';
 import { SolidGaugesComponent } from '../../widgets/solid-gauge-with-marker/solid-gauges/solid-gauges.component';
 
@@ -75,4 +76,5 @@ export const WIDGETS = {
   "flame-diagram": FlameDiagramComponent,
   "ring-energy-indicator": RingEnergyIndicatorComponent,
   "solid-gauge-with-marker": SolidGaugesComponent,
+  'observation-norm-tr' : ObservationNormTRComponent,
 };
