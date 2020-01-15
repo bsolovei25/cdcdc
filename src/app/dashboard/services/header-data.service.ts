@@ -18,6 +18,8 @@ export class HeaderDataService {
   public startDate;
   public endDate;
   public statusButton;
+  public monthStart;
+  public monthEnd;
 
   public dateToLine = {
 
@@ -26,9 +28,21 @@ export class HeaderDataService {
   constructor() { }
 
   public catchDefaultDate(start, end, status){
+    let defaultTime = new Date();
+    defaultTime = new Date(defaultTime.getFullYear(), defaultTime.getMonth(), defaultTime.getDate(), 0, 0, 0);
+    debugger
+    
     let datePipe = new DatePipe("en-Us");
+
+    let defaultMonth = datePipe.transform(defaultTime, 'yyyyMM');
     this.startDate = datePipe.transform(start, 'dd');
     this.endDate = datePipe.transform(end, 'dd');
+    this.monthStart = datePipe.transform(start, 'yyyyMM');
+    this.monthEnd = datePipe.transform(end, 'yyyyMM');
+
+    (this.monthStart !== defaultMonth && this.monthEnd !== defaultMonth) ? (this.startDate = "01", this.endDate = "31") : 
+            (this.monthStart !== this.monthEnd && this.monthStart < this.monthEnd && (this.monthEnd === defaultMonth)) ? this.startDate = "01" :
+            (this.monthStart !== this.monthEnd && this.monthStart < this.monthEnd && (this.monthEnd !== defaultMonth)) ? this.endDate = "31" : this.startDate;
     this.statusButton = status;
     this.pushDate();
   }
@@ -39,6 +53,7 @@ export class HeaderDataService {
   }
 
   public pushDate(){
+    debugger
     let dateTo = { start: this.startDate, end: this.endDate, status: this.statusButton };
     this._date$.next(dateTo);
   }
