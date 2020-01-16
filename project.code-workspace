@@ -1,0 +1,101 @@
+{
+  "folders": [
+    {
+      "name": "Evj.FRONTEND",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "typescript.tsdk": "node_modules\\typescript\\lib",
+    "search.exclude": {
+      "**/.git": true,
+      "**/node_modules": true,
+      "**/bower_components": true
+    },
+    // Telemetry disable
+    "telemetry.enableCrashReporter": false,
+    "telemetry.enableTelemetry": false,
+    // Editor settings
+    "editor.wordWrap": "off",
+    "editor.wordWrapColumn": 180,
+    "editor.cursorBlinking": "smooth",
+    "editor.renderIndentGuides": true,
+    "editor.minimap.enabled": false,
+    "editor.minimap.maxColumn": 100,
+    "editor.dragAndDrop": true,
+    "editor.rulers": [
+      180
+    ],
+    "editor.cursorStyle": "line",
+    "editor.showFoldingControls": "always",
+    "editor.tabSize": 2,
+    "editor.cursorSmoothCaretAnimation": true,
+    // File settings
+    "files.hotExit": "off",
+    "files.autoGuessEncoding": true,
+    "files.encoding": "utf8",
+    // UI settings
+    "breadcrumbs.enabled": true,
+    // IDE
+    "tslint.exclude": "**/node_modules/**",
+    // Beautify code settings
+    "html.format.wrapAttributes": "force-aligned",
+    "html.format.indentInnerHtml": true,
+    "html.format.wrapLineLength": 180,
+    "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+    "typescript.preferences.quoteStyle": "single",
+    "typescript.preferences.importModuleSpecifier": "relative",
+    // Terminal
+    "terminal.integrated.rendererType": "dom",
+    // GIT
+    "git.enableSmartCommit": true,
+    "git.autofetch": true,
+    // Language specific settings
+    "[scss]": {
+      "editor.tabSize": 4,
+      "editor.wordWrap": "off"
+    },
+    "[json]": {
+      "editor.wordWrap": "off"
+    },
+    "[typescript]": {
+      "editor.tabSize": 2
+    },
+    "[html]": {
+      "editor.tabSize": 2
+    },
+    // Plugin "Material icons"
+    "material-icon-theme.showUpdateMessage": false,
+    // Plugin "Version lens"
+    "versionlens.showVersionLensesAtStartup": false,
+    // Plugin "TO DO Higlight"
+    "todohighlight.keywords": [
+      {
+        "text": "TODO",
+        "color": "white",
+        "backgroundColor": "#ff9800",
+        "overviewRulerColor": "grey",
+      },
+      {
+        "text": "TOFIX",
+        "color": "white",
+        "backgroundColor": "#ff4700",
+        "overviewRulerColor": "grey",
+      }
+    ],
+    "todohighlight.exclude": [
+      "**/node_modules/**",
+      "**/bower_components/**",
+      "**/dist/**",
+      "**/build/**",
+      "**/.vscode/**",
+      "**/.github/**",
+      "**/_output/**",
+      "**/*.min.*",
+      "**/*.map",
+      "**/.next/**",
+      "platforms/**",
+      "plugins/**"
+    ]
+  }
+}

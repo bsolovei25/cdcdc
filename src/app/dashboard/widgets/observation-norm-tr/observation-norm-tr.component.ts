@@ -1,35 +1,43 @@
-import { Component, Inject, OnInit, OnDestroy, ViewChild, ElementRef, Renderer2, Input } from "@angular/core";
+import {
+    Component,
+    Inject,
+    OnInit,
+    OnDestroy,
+    ViewChild,
+    ElementRef,
+    Renderer2,
+    Input,
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
 interface IObservationNormTR {
-    minValue: number,
-    maxValue: number,
-    values: number[]
+    minValue: number;
+    maxValue: number;
+    values: number[];
 }
 @Component({
     selector: 'evj-observation-norm-tr',
     templateUrl: './observation-norm-tr.component.html',
-    styleUrls: ['./observation-norm-tr.component.scss']
+    styleUrls: ['./observation-norm-tr.component.scss'],
 })
 export class ObservationNormTRComponent implements OnInit, OnDestroy {
-
     static itemCols = 15;
     static itemRows = 10;
 
     circleRadius: string = (35).toString();
-    minRadius = (47);
-    maxRadius = (75);
-    radPoint = "1.69";
-    centerX = "89.27";
-    centerY = "92.28";
+    minRadius = 47;
+    maxRadius = 75;
+    radPoint = '1.69';
+    centerX = '89.27';
+    centerY = '92.28';
     middleCell = 3;
     scoreValues = 20;
     data: IObservationNormTR = {
         minValue: 95,
         maxValue: 100,
-        values: [97, 97, 95, 96, 97, 95, 96, 98, 96, 99, 100, 97, 97, 97]
+        values: [97, 97, 95, 96, 97, 95, 96, 98, 96, 99, 100, 97, 97, 97],
         // values: [94, 97, 99, 100]
-    }
+    };
 
     middleRadius = 60;
 
@@ -47,14 +55,13 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy {
     constructor(
         public widgetService: NewWidgetService,
         private renderer: Renderer2,
-        @Inject("isMock") public isMock: boolean,
-        @Inject("widgetId") public id: string,
-        @Inject("uniqId") public uniqId: string
-    ) {
-    }
+        @Inject('isMock') public isMock: boolean,
+        @Inject('widgetId') public id: string,
+        @Inject('uniqId') public uniqId: string
+    ) {}
 
     ngOnInit() {
-        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe(data => {
+        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
             this.title = data.title;
         });
     }
@@ -80,7 +87,10 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy {
     }
 
     drawCircle() {
-        let x1, y1, x2, y2 = '';
+        let x1,
+            y1,
+            x2,
+            y2 = '';
         if (this.data.values[0]) {
             x1 = this.diaEndsLine(-1, this.middleRadius).xCen;
             y1 = this.diaEndsLine(-1, this.middleRadius).yCen;
@@ -107,7 +117,7 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy {
                 this.drawWarningCircle(i, item, x1, y1);
             }
             this.drawLine(x1, y1, x2, y2);
-        })
+        });
         this.drawLastCircle();
         this.drawEndLine();
         this.drawActiveCircle();
@@ -120,12 +130,16 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy {
         if (value > this.data.maxValue) {
             return this.maxRadius;
         }
-        return this.minRadius + ((value - this.data.minValue) * (this.maxRadius - this.minRadius)) / (this.data.maxValue - this.data.minValue);
+        return (
+            this.minRadius +
+            ((value - this.data.minValue) * (this.maxRadius - this.minRadius)) /
+                (this.data.maxValue - this.data.minValue)
+        );
     }
 
     drawEndLine() {
         if (this.activeLine && this.activeLine.nativeElement) {
-            let deg = 270 + ((this.scoreValues * 11.25) - 6.4);
+            let deg = 270 + (this.scoreValues * 11.25 - 6.4);
             this.renderer.setStyle(this.activeLine.nativeElement, 'transform', `rotate(${deg}deg)`);
         }
     }
@@ -134,13 +148,25 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy {
         if (this.activeCircle && this.activeCircle.nativeElement) {
             let percent = 0;
             if (this.scoreValues && this.scoreValues !== 0) {
-                percent = (this.scoreValues * 3.125) - 1.5625;
+                percent = this.scoreValues * 3.125 - 1.5625;
             }
             const circumference = this.middleRadius * 2 * Math.PI;
-            this.renderer.setStyle(this.activeCircle.nativeElement, 'strokeDasharray', `${circumference} ${circumference}`);
-            this.renderer.setStyle(this.activeCircle.nativeElement, 'strokeDashoffset', `${circumference}`);
-            const offset = circumference - percent / 100 * circumference;
-            this.renderer.setStyle(this.activeCircle.nativeElement, 'strokeDashoffset', `${offset.toString()}`);
+            this.renderer.setStyle(
+                this.activeCircle.nativeElement,
+                'strokeDasharray',
+                `${circumference} ${circumference}`
+            );
+            this.renderer.setStyle(
+                this.activeCircle.nativeElement,
+                'strokeDashoffset',
+                `${circumference}`
+            );
+            const offset = circumference - (percent / 100) * circumference;
+            this.renderer.setStyle(
+                this.activeCircle.nativeElement,
+                'strokeDashoffset',
+                `${offset.toString()}`
+            );
         }
     }
 
@@ -163,12 +189,15 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy {
             this.renderer.appendChild(gEl, circle);
 
             const polygon = this.renderer.createElement('polygon', 'svg');
-            this.renderer.setAttribute(polygon, 'points', '4.28 0.41 6.24 3.81 8.21 7.21 4.28 7.21 0.35 7.21 2.31 3.81 4.28 0.41');
+            this.renderer.setAttribute(
+                polygon,
+                'points',
+                '4.28 0.41 6.24 3.81 8.21 7.21 4.28 7.21 0.35 7.21 2.31 3.81 4.28 0.41'
+            );
             this.renderer.addClass(polygon, 'circle-warning');
             this.renderer.appendChild(gEl, polygon);
         }
     }
-
 
     drawWarningPolygon(i: number) {
         if (this.warningPolygon && this.warningPolygon.nativeElement) {
@@ -186,14 +215,18 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy {
             // this.renderer.appendChild(gEl, circle);
 
             const path = this.renderer.createElement('path', 'svg');
-            this.renderer.setAttribute(path, 'd', 'M89.27,92.28l39.06-58.53a69.27,69.27,0,0,1,5.6,4.15q2.7,2.22,5.17,4.69Z');
+            this.renderer.setAttribute(
+                path,
+                'd',
+                'M89.27,92.28l39.06-58.53a69.27,69.27,0,0,1,5.6,4.15q2.7,2.22,5.17,4.69Z'
+            );
             this.renderer.setStyle(path, 'fill', '#f4a321');
             this.renderer.setStyle(path, 'opacity', '0.9');
             this.renderer.appendChild(gEl, path);
         }
         //     line.setAttribute('style', `transform: translate(834.21px, 486.66px) rotate(${data}deg);transform-origin: 84px 84px 0`);
         //     transform-origin: 89px 92.2px 0;
-        // transform: translate(0px, 0px) rotate(157deg); 
+        // transform: translate(0px, 0px) rotate(157deg);
     }
 
     drawLine(x1, y1, x2, y2) {
@@ -209,18 +242,40 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy {
 
     drawLastCircle() {
         if (this.lastCircle && this.lastCircle.nativeElement) {
-            if (this.data.values.length && this.data.values[this.data.values.length - 1] < this.data.maxValue && this.data.values[this.data.values.length - 1] > this.data.minValue) {
-                const x = (Number(this.diaEndsLine(this.data.values.length - 1, this.radiusСalculation(this.data.values[this.data.values.length - 1])).xCen) - 10).toString();
-                const y = (Number(this.diaEndsLine(this.data.values.length - 1, this.radiusСalculation(this.data.values[this.data.values.length - 1])).yCen) - 10).toString();
+            if (
+                this.data.values.length &&
+                this.data.values[this.data.values.length - 1] < this.data.maxValue &&
+                this.data.values[this.data.values.length - 1] > this.data.minValue
+            ) {
+                const x = (
+                    Number(
+                        this.diaEndsLine(
+                            this.data.values.length - 1,
+                            this.radiusСalculation(this.data.values[this.data.values.length - 1])
+                        ).xCen
+                    ) - 10
+                ).toString();
+                const y = (
+                    Number(
+                        this.diaEndsLine(
+                            this.data.values.length - 1,
+                            this.radiusСalculation(this.data.values[this.data.values.length - 1])
+                        ).yCen
+                    ) - 10
+                ).toString();
                 this.renderer.setStyle(this.lastCircle.nativeElement, 'display', 'block');
-                this.renderer.setAttribute(this.lastCircle.nativeElement, 'transform', `translate(${x}, ${y})`);
+                this.renderer.setAttribute(
+                    this.lastCircle.nativeElement,
+                    'transform',
+                    `translate(${x}, ${y})`
+                );
             }
         }
     }
 
     diaCounter(r: string): string {
         const c: number = 2 * Math.PI * +r;
-        return 0.75 * c + " " + 0.25 * c;
+        return 0.75 * c + ' ' + 0.25 * c;
     }
 
     diaEndsLine(el: number, rad: number) {
@@ -228,17 +283,14 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy {
         if (el === -1) {
             newPoint = 100;
         } else {
-            newPoint = 100 + (el * 6.25) + this.middleCell; // отсчет угла от 100%
+            newPoint = 100 + el * 6.25 + this.middleCell; // отсчет угла от 100%
         }
         const t = (Math.PI * newPoint) / 100 + Math.PI / 2;
         const r = +rad;
         const limitLine = {
             xCen: (r * Math.cos(t) + +this.centerX).toString(),
-            yCen: (r * Math.sin(t) + +this.centerY).toString()
+            yCen: (r * Math.sin(t) + +this.centerY).toString(),
         };
         return limitLine;
     }
-
-
-
 }

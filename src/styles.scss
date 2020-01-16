@@ -1,8 +1,6 @@
+@import "custom-app-theme.scss";
 
-@import 'custom-app-theme.scss';
-
-
-@import '~normalize.css';
+@import "~normalize.css";
 @import "theme/variables";
 @import "theme/theme";
 @import "theme/widgets/line-chart";

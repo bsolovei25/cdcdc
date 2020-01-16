@@ -4,7 +4,7 @@
   height: 35px;
   width: calc(100% - 5px);
   box-sizing: border-box;
-  z-index: 999;
+  z-index: 800;
   background-color: var(--color-bg-additional);
 
   &__content {
@@ -75,7 +75,7 @@
   }
 }
 
-.delete_widget{
+.delete_widget {
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -88,4 +88,3 @@
   font-weight: bold;
   pointer-events: fill !important;
 }
-

@@ -1,5 +1,4 @@
-
-// Angular 
+// Angular
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@core/service/auth.service';
@@ -7,16 +6,14 @@ import { environment } from 'src/environments/environment';
 import { FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 // Angular material
-// Local modules  
+// Local modules
 
 @Component({
     selector: 'evj-core-login',
     styleUrls: ['./login.component.scss'],
-    templateUrl: './login.component.html'
+    templateUrl: './login.component.html',
 })
-
 export class LoginComponent implements OnInit, AfterViewInit {
-
     username = new FormControl(environment.username, [Validators.required]);
     password = new FormControl(environment.password, [Validators.required]);
 
@@ -32,8 +29,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
     constructor(
         public authService: AuthService,
         private router: Router,
-        private snackBar: MatSnackBar,
-    ) { }
+        private snackBar: MatSnackBar
+    ) {}
 
     ngOnInit() {
         this.isLoading = true;
@@ -53,7 +50,10 @@ export class LoginComponent implements OnInit, AfterViewInit {
         }
         // authentication
         try {
-            const auth = await this.authService.authenticate(this.username.value, this.password.value);
+            const auth = await this.authService.authenticate(
+                this.username.value,
+                this.password.value
+            );
             if (auth) {
                 this.router.navigate(['dashboard']);
                 setTimeout(() => {
@@ -69,13 +69,15 @@ export class LoginComponent implements OnInit, AfterViewInit {
         }
     }
 
-    openSnackBar(msg: string = 'Операция выполнена', msgDuration: number = 3000, actionText?: string, actionFunction?: () => void) {
+    openSnackBar(
+        msg: string = 'Операция выполнена',
+        msgDuration: number = 3000,
+        actionText?: string,
+        actionFunction?: () => void
+    ) {
         const snackBarInstance = this.snackBar.open(msg, actionText, { duration: msgDuration });
         if (actionFunction) {
-            snackBarInstance.onAction().subscribe(
-                () => actionFunction()
-            );
+            snackBarInstance.onAction().subscribe(() => actionFunction());
         }
     }
-
 }

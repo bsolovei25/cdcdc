@@ -1,4 +1,10 @@
-<div class="container pointer-event">
+<evj-widget-preview
+  [title]="aboutWidget"
+  [previewTitle]="previewTitle"
+  *ngIf="isMock"
+></evj-widget-preview>
+
+<div class="container pointer-event" *ngIf="!isMock">
   <evj-widget-header
     [title]="aboutWidget"
     [units]=""
@@ -9,15 +15,7 @@
 
   <evj-frame-top></evj-frame-top>
 
-  <ng-container *ngIf="isMock">
-    <div class="mock">
-      <div class="mock-container">
-        <img src="../../../../assets/img/pyramid.png" alt="" />
-      </div>
-    </div>
-  </ng-container>
-
-  <ng-container *ngIf="!isMock">
+  <ng-container>
     <div
       class="production"
       (mousedown)="$event.stopPropagation()"
@@ -34,23 +32,17 @@
         <div class="pyramid__body">
           <div class="pyramid__graphs">
             <div class="row pyramid__graph">
-              <div
-                class="label__line label__line-top label__line-top-right"
-              ></div>
+              <div class="label__line label__line-top label__line-top-right"></div>
               <div class="graph graph__top graph__left">0 / 0</div>
               <div class="graph graph__top graph__right">0 / 0</div>
             </div>
             <div class="row pyramid__graph">
-              <div
-                class="label__line label__line-pretop label__line-pretop-right"
-              ></div>
+              <div class="label__line label__line-pretop label__line-pretop-right"></div>
               <div class="graph graph__pretop graph__left">25 / 24</div>
               <div class="graph graph__pretop graph__right">5 / 4</div>
             </div>
             <div class="row pyramid__graph">
-              <div
-                class="label__line label__line-prebottom label__line-prebottom-right"
-              ></div>
+              <div class="label__line label__line-prebottom label__line-prebottom-right"></div>
               <div class="graph graph__prebottom graph__left">
                 <div class="label__line pyramid__line-horizontal"></div>
                 <div class="label__line pyramid__line-vertical"></div>
@@ -62,9 +54,7 @@
               <div class="graph graph__prebottom graph__right">196 / 131</div>
             </div>
             <div class="row pyramid__graph">
-              <div
-                class="label__line  label__line-bottom  label__line-bottom-right"
-              ></div>
+              <div class="label__line  label__line-bottom  label__line-bottom-right"></div>
               <div class="graph graph__bottom graph__left">1256 / 1256</div>
               <div class="graph graph__bottom graph__right">256 / 256</div>
             </div>

@@ -1,93 +1,96 @@
 app-root {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-    overflow-x: hidden;
-  }
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  overflow-x: hidden;
+}
 
-  mat-nav-list {
-    min-width: 200px;
-    width: 20%;
-    border-right: 1px solid grey;
-    overflow: auto;
-  }
+mat-nav-list {
+  min-width: 200px;
+  width: 20%;
+  border-right: 1px solid grey;
+  overflow: auto;
+}
 
-  mat-nav-list .active, mat-nav-list .mat-list-item-focus.active:focus {
-    background: #afddff;
-  }
+mat-nav-list .active,
+mat-nav-list .mat-list-item-focus.active:focus {
+  background: #afddff;
+}
 
-  router-outlet + * {
-    width: 100%;
-    overflow: auto;
-  }
+router-outlet + * {
+  width: 100%;
+  overflow: auto;
+}
 
-  gridster-item div.button-holder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
+gridster-item div.button-holder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
-  .options {
-    padding: 10px;
-    display: grid;
-  }
+.options {
+  padding: 10px;
+  display: grid;
+}
 
-  .options-header {
-    height: 200px;
-    padding: 10px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-  }
+.options-header {
+  height: 200px;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
 
-  .source-code-button {
-    justify-self: end;
-  }
+.source-code-button {
+  justify-self: end;
+}
 
-  [draggable] {
-    user-select: none;
-    cursor: pointer;
-  }
+[draggable] {
+  user-select: none;
+  cursor: pointer;
+}
 
-  app-parent-dynamic, app-widget-a, app-widget-b, app-widget-c {
-    display: flex;
-    height: 100%;
-    width: 100%;
-    color: rgb(172, 89, 89);
-    font-weight: bold;
-    font-size: 24px;
-    align-items: center;
-    justify-content: center;
-  }
+app-parent-dynamic,
+app-widget-a,
+app-widget-b,
+app-widget-c {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  color: rgb(172, 89, 89);
+  font-weight: bold;
+  font-size: 24px;
+  align-items: center;
+  justify-content: center;
+}
 
-  code {
-    background: rgb(11, 4, 51);
-  }
+code {
+  background: rgb(11, 4, 51);
+}
 
-  app-widget-a {
-    background: red;
-  }
+app-widget-a {
+  background: red;
+}
 
-  app-widget-b {
-    background: blue;
-  }
+app-widget-b {
+  background: blue;
+}
 
-  app-widget-c {
-    background: lawngreen;
-  }
+app-widget-c {
+  background: lawngreen;
+}
 
-  .widget{
-    margin-top: 20px;
-    height: 200px;
-    width: 490px;
-  }
-
+.widget {
+  margin-top: 10px;
+  height: 200px;
+  width: 490px;
+}
 
 gridster-item {
   min-width: 200px !important;
@@ -95,12 +98,11 @@ gridster-item {
   background-color: rgb(27, 30, 39);
 }
 
-
-.content_block{
+.content_block {
   height: none;
 }
 
-.fixed{
+.fixed {
   padding: 0px !important;
   height: 100% !important;
   width: 100% !important;
@@ -126,7 +128,7 @@ gridster-item {
   border: 1px solid transparent;
   border-radius: 10px 0 0;
 
-  transition: width 0.4s, padding .4s, box-shadow .4s;
+  transition: width 0.4s, padding 0.4s, box-shadow 0.4s;
 
   &_active {
     width: 500px;
@@ -135,7 +137,6 @@ gridster-item {
     border-color: var(--color-border-active);
     border-right: 1px;
     z-index: 100;
-
   }
 
   &__widget {
@@ -185,11 +186,9 @@ gridster-item {
     flex: 1;
     overflow-y: scroll;
   }
-
 }
 
-
-.widget_menu{
+.widget_menu {
   display: flex;
   height: 40px;
   width: calc(100% - 10px);
@@ -198,7 +197,6 @@ gridster-item {
   border-radius: 8px;
   line-height: 30px;
   margin: 5px;
-
 }
 
 .mycheckbox {
@@ -209,19 +207,19 @@ gridster-item {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .mycheckbox__default {
   display: none;
 }
 
-.mycheckbox__descr{
+.mycheckbox__descr {
   font-size: 12px;
 }
 .mycheckbox__default:checked + .mycheckbox__new::after {
@@ -245,13 +243,18 @@ gridster-item {
   width: 0;
   height: 0;
   background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4Igp3aWR0aD0iNTAiIGhlaWdodD0iNTAiCnZpZXdCb3g9IjAgMCA1MCA1MCIKc3R5bGU9IiBmaWxsOiMwMDAwMDA7Ij48cGF0aCBkPSJNIDQxLjkzNzUgOC42MjUgQyA0MS4yNzM0MzggOC42NDg0MzggNDAuNjY0MDYzIDkgNDAuMzEyNSA5LjU2MjUgTCAyMS41IDM4LjM0Mzc1IEwgOS4zMTI1IDI3LjgxMjUgQyA4Ljc4OTA2MyAyNy4yNjk1MzEgOC4wMDM5MDYgMjcuMDY2NDA2IDcuMjgxMjUgMjcuMjkyOTY5IEMgNi41NjI1IDI3LjUxNTYyNSA2LjAyNzM0NCAyOC4xMjUgNS45MDIzNDQgMjguODY3MTg4IEMgNS43NzczNDQgMjkuNjEzMjgxIDYuMDc4MTI1IDMwLjM2MzI4MSA2LjY4NzUgMzAuODEyNSBMIDIwLjYyNSA0Mi44NzUgQyAyMS4wNjI1IDQzLjI0NjA5NCAyMS42NDA2MjUgNDMuNDEwMTU2IDIyLjIwNzAzMSA0My4zMjgxMjUgQyAyMi43NzczNDQgNDMuMjQyMTg4IDIzLjI4MTI1IDQyLjkxNzk2OSAyMy41OTM3NSA0Mi40Mzc1IEwgNDMuNjg3NSAxMS43NSBDIDQ0LjExNzE4OCAxMS4xMjEwOTQgNDQuMTUyMzQ0IDEwLjMwODU5NCA0My43ODEyNSA5LjY0NDUzMSBDIDQzLjQxMDE1NiA4Ljk4NDM3NSA0Mi42OTUzMTMgOC41ODk4NDQgNDEuOTM3NSA4LjYyNSBaIj48L3BhdGg+PC9zdmc+")
-  no-repeat center / 95%;
-  background-color:white;
+    no-repeat center / 95%;
+  background-color: white;
   left: 50%;
   top: 50%;
   position: absolute;
   -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   -webkit-transition: 0.2s ease-in;
   transition: 0.2s ease-in;
+}
+
+.search_block {
+  margin-top: 5px;
+  margin-left: 5px;
 }

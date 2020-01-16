@@ -1,5 +1,4 @@
-
-export interface SolidGaugeWithMarker{
+export interface SolidGaugeWithMarker {
     values: SolidGaugeWithMarkerItem[];
 }
 

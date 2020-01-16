@@ -1,5 +1,4 @@
 .line-chart {
-
   .domain {
     display: none;
   }
@@ -12,17 +11,16 @@
     fill: transparent;
 
     &_plan {
-      stroke: #A2E2FF;
+      stroke: #a2e2ff;
     }
 
     &_fact {
       stroke: #fff;
-
     }
 
     &_limit {
-      stroke: #494B52;
-      stroke-dasharray: 5,5;
+      stroke: #494b52;
+      stroke-dasharray: 5, 5;
     }
   }
 
@@ -48,5 +46,4 @@
     stroke-width: 0.25px;
     stroke: white;
   }
-
 }

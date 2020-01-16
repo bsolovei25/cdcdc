@@ -100,7 +100,7 @@
         fill: var(--color-text-sub);
       }
 
-      .limitLabel{
+      .limitLabel {
         font-size: 2.7px;
         fill: var(--color-plan);
       }
@@ -220,7 +220,7 @@
       }
 
       &__counters {
-        flex-basis:50%;
+        flex-basis: 50%;
         width: 100%;
         box-sizing: border-box;
         margin: 7px 0 12px;
@@ -262,8 +262,8 @@
         }
       }
 
-      &__dia{
-        flex-basis:50%;
+      &__dia {
+        flex-basis: 50%;
       }
     }
   }

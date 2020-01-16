@@ -3,23 +3,22 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NewWidgetsGridComponent } from './new-widgets-grid.component';
 
 describe('NewWidgetsGridComponent', () => {
-  let component: NewWidgetsGridComponent;
-  let fixture: ComponentFixture<NewWidgetsGridComponent>;
+    let component: NewWidgetsGridComponent;
+    let fixture: ComponentFixture<NewWidgetsGridComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ NewWidgetsGridComponent ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [NewWidgetsGridComponent],
+        }).compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(NewWidgetsGridComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(NewWidgetsGridComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

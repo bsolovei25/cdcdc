@@ -5,7 +5,9 @@
   width: 100%;
   box-sizing: border-box;
 }
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 .body-container {
@@ -109,4 +111,3 @@ canvas + * {
   -webkit-mask: url("../../../../assets/img/mock-unity.png") no-repeat center;
   -webkit-mask-size: contain;
 }
-

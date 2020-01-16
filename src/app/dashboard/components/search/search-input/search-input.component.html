@@ -1,0 +1,15 @@
+<div class="search_input">
+  <div class="result_search" *ngFor="let i of data">
+    <div class="result">{{i}}</div>
+    <div class="delete_result">x</div>
+  </div>
+
+  <input
+    type="text"
+    placeholder="Поиск..."
+    (click)="checkInput($event)"
+    (keyup)="searchRecords($event)"
+  />
+
+  <div class="button" (click)="searchItem()"></div>
+</div>

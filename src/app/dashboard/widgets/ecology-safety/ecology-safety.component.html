@@ -1,4 +1,10 @@
-<div class="container pointer-event">
+<evj-widget-preview
+  [title]="aboutWidget"
+  [previewTitle]="previewTitle"
+  *ngIf="isMock"
+></evj-widget-preview>
+
+<div class="container pointer-event" *ngIf="!isMock">
   <evj-widget-header
     [title]="aboutWidget"
     [units]="'индекс'"
@@ -9,12 +15,7 @@
 
   <evj-frame-top></evj-frame-top>
 
-  <ng-container *ngIf="isMock">
-    <div class="mock">
-      <img src="../../../../assets/img/ecology-safety.PNG" alt="">
-    </div>
-  </ng-container>
-  <ng-container *ngIf="!isMock">
+  <ng-container>
     <div
       class="eco-dia"
       (mousedown)="$event.stopPropagation()"
@@ -52,23 +53,13 @@
         <div class="dl-dia__deviation">
           <div class="deviation__worse">
             Отклонение
-            <span>{{
-              data.plan - data.curValue > 0 ? -(data.plan - data.curValue) : 0
-            }}</span>
-            <img
-              src="../../../../assets/icons/widgets/calendar-plan/deviat_danger.svg"
-              alt=""
-            />
+            <span>{{ data.plan - data.curValue > 0 ? -(data.plan - data.curValue) : 0 }}</span>
+            <img src="../../../../assets/icons/widgets/calendar-plan/deviat_danger.svg" alt="" />
           </div>
           <div class="deviation__better">
             Улучшение
-            <span>{{
-              data.plan - data.curValue < 0 ? data.plan - data.curValue : 0
-            }}</span>
-            <img
-              src="../../../../assets/icons/widgets/calendar-plan/deviat.svg"
-              alt=""
-            />
+            <span>{{ data.plan - data.curValue < 0 ? data.plan - data.curValue : 0 }}</span>
+            <img src="../../../../assets/icons/widgets/calendar-plan/deviat.svg" alt="" />
           </div>
         </div>
       </div>

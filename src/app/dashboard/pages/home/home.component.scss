@@ -19,7 +19,7 @@
   }
 
   &__user-info {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     margin-left: 0;
     height: 100%;
     width: auto;
@@ -34,9 +34,8 @@
   margin: 7px 15px 7px 5px;
   min-width: 240px;
   height: calc(100% - 15px);
-  background: url('../../../../assets/icons/gpn-logo.svg');
+  background: url("../../../../assets/icons/gpn-logo.svg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
 }
-

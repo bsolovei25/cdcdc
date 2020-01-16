@@ -1,4 +1,3 @@
-
 export interface RingEnegryIndicatorModel {
     isCritical: boolean;
     iconId: number;
@@ -6,7 +5,7 @@ export interface RingEnegryIndicatorModel {
     value: EnergyValue[];
 }
 
-export interface EnergyValue{
+export interface EnergyValue {
     name: string;
     plan: number;
     fact: number;

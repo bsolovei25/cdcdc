@@ -12,24 +12,20 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
-  declarations: [
-    LoginComponent,
-  ],
-  imports: [
-    CommonModule,
-    CoreRoutingModule,
-    FormsModule,
-    SharedModule,
-    MatFormFieldModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    MatIconModule,
-    MatButtonModule,
-    MatSnackBarModule,
-    MatProgressSpinnerModule,
-  ],
-  providers: [
-   
-  ]
+    declarations: [LoginComponent],
+    imports: [
+        CommonModule,
+        CoreRoutingModule,
+        FormsModule,
+        SharedModule,
+        MatFormFieldModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        MatIconModule,
+        MatButtonModule,
+        MatSnackBarModule,
+        MatProgressSpinnerModule,
+    ],
+    providers: [],
 })
-export class CoreModule { }
+export class CoreModule {}

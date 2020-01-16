@@ -13,32 +13,30 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthenticationInterceptor } from '@core/interceptors/authentication.interceptor';
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    CoreModule,
-    RouterModule,
-    AngularSvgIconModule,
-    SharedModule,
-    HttpClientModule,
-    BrowserAnimationsModule
-  ],
-  declarations: [
-    AppComponent,
-  ],
-  providers: [
-    {
-      provide: APP_INITIALIZER,
-      multi: true,
-      deps: [AppConfigService],
-      useFactory: (appConfigService: AppConfigService) => {
-        return () => {
-          return appConfigService.loadAppConfig();
-        };
-      }
-    },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true },
-  ],
-  bootstrap: [AppComponent]
+    imports: [
+        BrowserModule,
+        CoreModule,
+        RouterModule,
+        AngularSvgIconModule,
+        SharedModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+    ],
+    declarations: [AppComponent],
+    providers: [
+        {
+            provide: APP_INITIALIZER,
+            multi: true,
+            deps: [AppConfigService],
+            useFactory: (appConfigService: AppConfigService) => {
+                return () => {
+                    return appConfigService.loadAppConfig();
+                };
+            },
+        },
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true },
+    ],
+    bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

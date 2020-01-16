@@ -4,15 +4,14 @@ import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class AppConfigService {
-
     private appConfig: any;
 
     restUrl$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {}
 
     public async loadAppConfig() {
         const data = await this.http.get('/assets/config.json').toPromise();

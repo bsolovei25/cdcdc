@@ -1,13 +1,7 @@
-import {
-    Component,
-    OnInit,
-    Inject,
-    OnDestroy,
-} from "@angular/core";
-import { Subscription } from "rxjs";
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { EventService } from '../../services/event.service';
 import { NewWidgetService } from '../../services/new-widget.service';
-
 
 export interface ITriggeringCriticalParameters {
     equipment: string;
@@ -22,12 +16,11 @@ export interface ITriggeringCriticalParameters {
 }
 
 @Component({
-    selector: "evj-triggering-critical-parameters",
-    templateUrl: "./triggering-critical-parameters.component.html",
-    styleUrls: ["./triggering-critical-parameters.component.scss"]
+    selector: 'evj-triggering-critical-parameters',
+    templateUrl: './triggering-critical-parameters.component.html',
+    styleUrls: ['./triggering-critical-parameters.component.scss'],
 })
 export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy {
-
     isLoading: boolean = false;
 
     public title = '';
@@ -43,7 +36,7 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
             PIDControllers: 0,
             vibrodiagnosticSystems: 24,
             electricalHeatingSystems: 0,
-            nonCritical: true
+            nonCritical: true,
         },
         {
             equipment: 'ЭЛОУ-2',
@@ -54,7 +47,7 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
             PIDControllers: 0,
             vibrodiagnosticSystems: 0,
             electricalHeatingSystems: 0,
-            nonCritical: false
+            nonCritical: false,
         },
         {
             equipment: 'С.100 ЭЛОУ-АВТ-6',
@@ -65,7 +58,7 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
             PIDControllers: 0,
             vibrodiagnosticSystems: 0,
             electricalHeatingSystems: 0,
-            nonCritical: false
+            nonCritical: false,
         },
         {
             equipment: 'Блок ВТ (АТВБ)',
@@ -76,7 +69,7 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
             PIDControllers: 0,
             vibrodiagnosticSystems: 0,
             electricalHeatingSystems: 0,
-            nonCritical: true
+            nonCritical: true,
         },
         {
             equipment: 'Блок ВТ (АТВБ)',
@@ -87,7 +80,7 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
             PIDControllers: 0,
             vibrodiagnosticSystems: 0,
             electricalHeatingSystems: 0,
-            nonCritical: false
+            nonCritical: false,
         },
         {
             equipment: 'УПВ',
@@ -98,7 +91,7 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
             PIDControllers: 0,
             vibrodiagnosticSystems: 0,
             electricalHeatingSystems: 0,
-            nonCritical: false
+            nonCritical: false,
         },
         {
             equipment: 'АВТ-3',
@@ -109,7 +102,7 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
             PIDControllers: 0,
             vibrodiagnosticSystems: 0,
             electricalHeatingSystems: 0,
-            nonCritical: true
+            nonCritical: true,
         },
         {
             equipment: 'Изомеризация',
@@ -120,7 +113,7 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
             PIDControllers: 0,
             vibrodiagnosticSystems: 0,
             electricalHeatingSystems: 0,
-            nonCritical: false
+            nonCritical: false,
         },
         {
             equipment: 'Л-22/4',
@@ -131,7 +124,7 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
             PIDControllers: 0,
             vibrodiagnosticSystems: 0,
             electricalHeatingSystems: 0,
-            nonCritical: true
+            nonCritical: true,
         },
         {
             equipment: 'Л-24-2000',
@@ -142,7 +135,7 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
             PIDControllers: 0,
             vibrodiagnosticSystems: 0,
             electricalHeatingSystems: 0,
-            nonCritical: false
+            nonCritical: false,
         },
         {
             equipment: 'Л-24/5',
@@ -153,7 +146,7 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
             PIDControllers: 0,
             vibrodiagnosticSystems: 0,
             electricalHeatingSystems: 0,
-            nonCritical: false
+            nonCritical: false,
         },
         {
             equipment: 'Реагентное хоз-во',
@@ -164,7 +157,7 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
             PIDControllers: 0,
             vibrodiagnosticSystems: 0,
             electricalHeatingSystems: 0,
-            nonCritical: false
+            nonCritical: false,
         },
         {
             equipment: 'ЛЧ-35-11-300М',
@@ -175,7 +168,7 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
             PIDControllers: 0,
             vibrodiagnosticSystems: 0,
             electricalHeatingSystems: 0,
-            nonCritical: false
+            nonCritical: false,
         },
         {
             equipment: 'УПБ',
@@ -186,7 +179,7 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
             PIDControllers: 0,
             vibrodiagnosticSystems: 0,
             electricalHeatingSystems: 0,
-            nonCritical: false
+            nonCritical: false,
         },
         {
             equipment: 'С-200 КУПН СТО',
@@ -197,7 +190,7 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
             PIDControllers: 0,
             vibrodiagnosticSystems: 0,
             electricalHeatingSystems: 0,
-            nonCritical: false
+            nonCritical: false,
         },
         {
             equipment: 'УПС',
@@ -208,7 +201,7 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
             PIDControllers: 0,
             vibrodiagnosticSystems: 4,
             electricalHeatingSystems: 0,
-            nonCritical: true
+            nonCritical: true,
         },
         {
             equipment: 'С-400 КУПН ГФУ',
@@ -219,7 +212,7 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
             PIDControllers: 0,
             vibrodiagnosticSystems: 0,
             electricalHeatingSystems: 0,
-            nonCritical: false
+            nonCritical: false,
         },
         {
             equipment: 'КЦА',
@@ -230,7 +223,7 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
             PIDControllers: 0,
             vibrodiagnosticSystems: 4,
             electricalHeatingSystems: 0,
-            nonCritical: true
+            nonCritical: true,
         },
         {
             equipment: 'ЛЧ-35-11-1000',
@@ -241,7 +234,7 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
             PIDControllers: 0,
             vibrodiagnosticSystems: 0,
             electricalHeatingSystems: 0,
-            nonCritical: false
+            nonCritical: false,
         },
         {
             equipment: 'МТБЭ',
@@ -252,7 +245,7 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
             PIDControllers: 0,
             vibrodiagnosticSystems: 5,
             electricalHeatingSystems: 0,
-            nonCritical: true
+            nonCritical: true,
         },
         {
             equipment: 'С-300 КУПН',
@@ -263,7 +256,7 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
             PIDControllers: 0,
             vibrodiagnosticSystems: 0,
             electricalHeatingSystems: 0,
-            nonCritical: false
+            nonCritical: false,
         },
         {
             equipment: 'ГФУ-2',
@@ -274,7 +267,7 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
             PIDControllers: 0,
             vibrodiagnosticSystems: 0,
             electricalHeatingSystems: 0,
-            nonCritical: false
+            nonCritical: false,
         },
         {
             equipment: 'АССБ и КТ',
@@ -285,7 +278,7 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
             PIDControllers: 0,
             vibrodiagnosticSystems: 0,
             electricalHeatingSystems: 0,
-            nonCritical: true
+            nonCritical: true,
         },
         {
             equipment: 'Парк Б,Р и ДТ',
@@ -296,7 +289,7 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
             PIDControllers: 0,
             vibrodiagnosticSystems: 0,
             electricalHeatingSystems: 0,
-            nonCritical: true
+            nonCritical: true,
         },
         {
             equipment: 'ТАМЭ',
@@ -307,7 +300,7 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
             PIDControllers: 0,
             vibrodiagnosticSystems: 0,
             electricalHeatingSystems: 0,
-            nonCritical: false
+            nonCritical: false,
         },
         {
             equipment: 'Т-д транснефть',
@@ -318,7 +311,7 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
             PIDControllers: 0,
             vibrodiagnosticSystems: 0,
             electricalHeatingSystems: 0,
-            nonCritical: false
+            nonCritical: false,
         },
         {
             equipment: 'Г-43-107',
@@ -329,7 +322,7 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
             PIDControllers: 0,
             vibrodiagnosticSystems: 0,
             electricalHeatingSystems: 0,
-            nonCritical: false
+            nonCritical: false,
         },
         {
             equipment: 'ГОБКК',
@@ -340,7 +333,7 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
             PIDControllers: 0,
             vibrodiagnosticSystems: 0,
             electricalHeatingSystems: 0,
-            nonCritical: false
+            nonCritical: false,
         },
         {
             equipment: 'ЖД эстакажы',
@@ -351,7 +344,7 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
             PIDControllers: 0,
             vibrodiagnosticSystems: 0,
             electricalHeatingSystems: 0,
-            nonCritical: true
+            nonCritical: true,
         },
         {
             equipment: 'АВТО эстакажы',
@@ -362,33 +355,34 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
             PIDControllers: 0,
             vibrodiagnosticSystems: 0,
             electricalHeatingSystems: 0,
-            nonCritical: true
+            nonCritical: true,
         },
-    ]
+    ];
 
     static itemCols = 15;
     static itemRows = 18;
 
+    public previewTitle: string;
+
     constructor(
         private eventService: EventService,
         public widgetService: NewWidgetService,
-        @Inject("isMock") public isMock: boolean,
-        @Inject("widgetId") public id: string,
-        @Inject("uniqId") public uniqId: string
+        @Inject('isMock') public isMock: boolean,
+        @Inject('widgetId') public id: string,
+        @Inject('uniqId') public uniqId: string
     ) {
-        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe(data => {
+        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
             this.title = data.title;
+            this.previewTitle = data.widgetType;
         });
     }
 
     ngOnInit() {
-
         if (!this.isMock) {
             this.subscription = this.eventService.event$.subscribe((value) => {
                 if (value) {
-
                 }
-            })
+            });
         }
     }
 
@@ -397,6 +391,4 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
             this.subscription.unsubscribe();
         }
     }
-
-
 }
