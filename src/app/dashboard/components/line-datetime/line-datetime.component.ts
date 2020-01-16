@@ -9,7 +9,7 @@ import { HeaderDate } from '../../models/header-date';
   templateUrl: './line-datetime.component.html',
   styleUrls: ['./line-datetime.component.scss']
 })
-export class LineDatetimeComponent implements OnInit {
+export class LineDatetimeComponent implements OnInit, AfterViewInit {
 
   @ViewChild('startLine', {static: false}) startLine: ElementRef;
 
@@ -32,7 +32,7 @@ export class LineDatetimeComponent implements OnInit {
   ) {
     setInterval(() => {
       this.currentData = Date.now();
-    }, 1000);
+    }, 10000);
 
   }
 
@@ -40,10 +40,10 @@ export class LineDatetimeComponent implements OnInit {
     this.datesFill();
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.subscription = this.headerData.date$.subscribe(data => {
       this.dateFromSelector = data;
-      if(this.dateFromSelector.status === false){
+      if (this.dateFromSelector.status === false) {
         setTimeout(() => { this.searchDate(this.dateFromSelector, this.startLine);}, 1);
       }
     });
@@ -76,12 +76,12 @@ export class LineDatetimeComponent implements OnInit {
     }
   }
 
-  public widthBlockDataLine(){
+  public widthBlockDataLine() {
     let widthBlock = document.getElementById("widthBlock");
     return widthBlock.offsetWidth;
   }
 
-  public searchDate(data, elStart){
+  public searchDate(data, elStart) {
     let widthBlock = this.widthBlockDataLine();
 
     let count = this.dates.length/100;
@@ -93,14 +93,14 @@ export class LineDatetimeComponent implements OnInit {
     let start = (data.end > data.start) ? data.start: data.end;
 
     let positionStartLine = ((start-1)/count) - 0.45;
-   
-    let width = pieLine*countLine + 1.1;
+
+    let width = pieLine * countLine + 1.1;
 
     this.renderer.removeStyle(elStart.nativeElement, 'left');
     this.renderer.setStyle(elStart.nativeElement, 'left', `${positionStartLine}%`);
     this.renderer.setStyle(elStart.nativeElement, 'width', `${width}%`);
   }
 
-  
+
 
 }
