@@ -13,9 +13,6 @@ export class SearchFilterComponent implements OnInit {
 
   @Output() onSearch = new EventEmitter<boolean>();
 
-
-  public typeWidgetChoose;
-
   constructor() {}
 
   ngOnInit() {
@@ -23,7 +20,6 @@ export class SearchFilterComponent implements OnInit {
   }
 
   public choosenType(type){
-      this.typeWidgetChoose = type;
       this.onSearch.emit(type);
   }
 

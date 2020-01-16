@@ -5,6 +5,6 @@
 <ng-container *ngIf="this.checkClick">
     <div class="result_block">
         <evj-search-filter [data]="newArrayType" (onSearch)="onSearch($event)"></evj-search-filter>
-        <evj-search-list [data]="newArrayType"></evj-search-list>
+        <evj-search-list [data]="newArrayType" (onSearch)="onSearch($event)"></evj-search-list>
     </div>
 </ng-container>

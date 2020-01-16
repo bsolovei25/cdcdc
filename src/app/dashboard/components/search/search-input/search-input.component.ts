@@ -36,6 +36,12 @@ export class SearchInputComponent implements OnInit {
       this.checkClick = !this.checkClick;
     }
     this.onCheck.emit(this.checkClick);
-}
+  }
+
+  public searchRecords(e: any){
+   /*this.httpService.goToSearch(e.currentTarget.value);
+    if (!e.currentTarget.value){
+      this.httpService.reEmitList();*/
+  }
 
 }

@@ -14,7 +14,7 @@ export class SearchComponent implements OnInit {
 
   public checkData = false;
 
-  public typeWidgetChoose;
+  public typeWidgetChoose = [];
 
   private subscription: Subscription;
 
@@ -39,7 +39,7 @@ export class SearchComponent implements OnInit {
   }
 
   public onSearch(data: any) {
-    this.typeWidgetChoose = data;
+    this.typeWidgetChoose.push(data);
     this.checkData = true;
   }
 

@@ -17,6 +17,7 @@ input {
   color: #9E9C9C;
 }
 .button {
+  z-index: 999;
   width: 42px;
   height: 30px;
   border: 2px solid var(--color-border-main);
