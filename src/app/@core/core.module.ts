@@ -30,4 +30,4 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     ],
     providers: [],
 })
-export class CoreModule { }
+export class CoreModule {}

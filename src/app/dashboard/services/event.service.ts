@@ -123,12 +123,15 @@ export class EventService {
         }
     }
 
-    async editRetrievalEvents(eventId: number,
+    async editRetrievalEvents(
+        eventId: number,
         retrievalEvents: EventsWidgetNotification
     ): Promise<any> {
         try {
             return this.http
-                .put(this.restUrl + `/api/notification-retrieval/${eventId}/retrievalevents/${retrievalEvents.id}`,
+                .put(
+                    this.restUrl +
+                        `/api/notification-retrieval/${eventId}/retrievalevents/${retrievalEvents.id}`,
                     retrievalEvents
                 )
                 .toPromise();
@@ -155,7 +158,7 @@ export class EventService {
             return this.http
                 .delete<any>(
                     this.restUrl +
-                    `/api/notification-retrieval/${idEvent}/retrievalevents/${idRetr}`
+                        `/api/notification-retrieval/${idEvent}/retrievalevents/${idRetr}`
                 )
                 .toPromise();
         } catch (error) {

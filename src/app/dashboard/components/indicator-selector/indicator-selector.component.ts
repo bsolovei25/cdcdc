@@ -82,7 +82,7 @@ export class IndicatorSelectorComponent implements OnInit {
         if (this.dataScreen && this.dataScreen[0]) {
             return this.dataScreen[0].screenName;
         }
-    }
+    };
 
     setActiveScreen(screen) {
         this.nameScreen = screen.screenName;
@@ -146,5 +146,5 @@ export class IndicatorSelectorComponent implements OnInit {
             item.updateScreen = false;
         }
     }
-    isOverScreen(e) { }
+    isOverScreen(e) {}
 }

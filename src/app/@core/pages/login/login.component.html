@@ -1,7 +1,5 @@
 <evj-preloader [isLoading]="isLoadingData"></evj-preloader>
-<div class="login-form"
-     [class.swing]="swing"
-     (ngSubmit)="onSubmit()">
+<div class="login-form" [class.swing]="swing" (ngSubmit)="onSubmit()">
   <p class="login-text">
     <span class="fa-stack fa-lg">
       <i class="fa fa-circle fa-stack-2x"></i>
@@ -12,28 +10,34 @@
   <!-- <input [(ngModel)]="username" name="username" type="login" class="login-username" autofocus="true" required="true"
         placeholder="Логин" /> -->
   <mat-form-field>
-    <input matInput
-           placeholder="Логин"
-           [formControl]="username" />
+    <input matInput placeholder="Логин" [formControl]="username" />
     <mat-error *ngIf="username.invalid"></mat-error>
   </mat-form-field>
   <mat-form-field>
-    <input matInput
-           placeholder="Пароль"
-           [type]="hide ? 'password' : 'text'"
-           [formControl]="password"
-           (keyup.enter)="onSubmit()" />
-    <button mat-icon-button
-            matSuffix
-            (click)="hide = !hide"
-            [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="hide">
-      <svg-icon *ngIf="hide"
-                src="./assets/icons/login/visibility_off.svg"
-                [svgStyle]="{ 'width.px':20, 'height.px':20 }"></svg-icon>
-      <svg-icon *ngIf="!hide"
-                src="./assets/icons/login/visibility.svg"
-                [svgStyle]="{ 'width.px':20, 'height.px':20 }"></svg-icon>
+    <input
+      matInput
+      placeholder="Пароль"
+      [type]="hide ? 'password' : 'text'"
+      [formControl]="password"
+      (keyup.enter)="onSubmit()"
+    />
+    <button
+      mat-icon-button
+      matSuffix
+      (click)="hide = !hide"
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="hide"
+    >
+      <svg-icon
+        *ngIf="hide"
+        src="./assets/icons/login/visibility_off.svg"
+        [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+      ></svg-icon>
+      <svg-icon
+        *ngIf="!hide"
+        src="./assets/icons/login/visibility.svg"
+        [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+      ></svg-icon>
     </button>
     <mat-error *ngIf="password.invalid"></mat-error>
   </mat-form-field>
@@ -42,16 +46,20 @@
   <div class="login__submit">
     <div class="submit__frame submit__frame-left"></div>
     <div class="submit__frame submit__frame-right"></div>
-    <button type="submit gridster-item-content"
-            name="Login"
-            value="Войти"
-            class="login-submit"
-            (click)="onSubmit()">
-      <mat-spinner *ngIf="isLoadingData"
-                   diameter="20"
-                   style="position: relative;
+    <button
+      type="submit gridster-item-content"
+      name="Login"
+      value="Войти"
+      class="login-submit"
+      (click)="onSubmit()"
+    >
+      <mat-spinner
+        *ngIf="isLoadingData"
+        diameter="20"
+        style="position: relative;
             margin-left: -10px;
-            left: 50%;"></mat-spinner>
+            left: 50%;"
+      ></mat-spinner>
       <span *ngIf="!isLoadingData">Войти</span>
     </button>
   </div>
