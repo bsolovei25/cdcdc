@@ -1,26 +1,27 @@
-import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
-import { GridsterItem } from 'angular-gridster2';
-import { Widgets } from '../models/widget.model';
-import { AppConfigService } from 'src/app/services/appConfigService';
-import { EventsWidgetData } from '../models/events-widget';
-import { LineChartData } from '../models/line-chart';
-import { Machine_MI } from '../models/manual-input.model';
-import { WebSocketSubject } from 'rxjs/internal/observable/dom/WebSocketSubject';
-import { webSocket } from 'rxjs/internal/observable/dom/webSocket';
+import { Injectable } from "@angular/core";
+import { Observable, BehaviorSubject } from "rxjs";
+import { filter, map } from "rxjs/operators";
+import { HttpClient } from "@angular/common/http";
+import { GridsterItem } from "angular-gridster2";
+import { Widgets } from "../models/widget.model";
+import { AppConfigService } from "src/app/services/appConfigService";
+import { EventsWidgetData } from "../models/events-widget";
+import { LineChartData } from "../models/line-chart";
+import { Machine_MI } from "../models/manual-input.model";
+import { WebSocketSubject } from "rxjs/internal/observable/dom/WebSocketSubject";
+import { webSocket } from "rxjs/internal/observable/dom/webSocket";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class NewWidgetService {
-
   private readonly wsUrl: string;
   private readonly restUrl: string;
-  private readonly  reconnectInterval: number;
+  private readonly reconnectInterval: number;
 
-  private widgetsSocketObservable: BehaviorSubject<any> = new BehaviorSubject(null);
+  private widgetsSocketObservable: BehaviorSubject<any> = new BehaviorSubject(
+    null
+  );
   private ws: WebSocketSubject<any> = null;
   private connectedWidgetsId: string[] = [];
 
@@ -32,7 +33,6 @@ export class NewWidgetService {
   private _filterWidgets$: BehaviorSubject<Widgets[]> = new BehaviorSubject(null);
   private reconnectTimer: any;
 
-
   constructor(public http: HttpClient, configService: AppConfigService) {
     this.restUrl = configService.restUrl;
     this.wsUrl = configService.wsUrl;
@@ -40,11 +40,11 @@ export class NewWidgetService {
 
     this.getAvailableWidgets().subscribe(data => this._widgets$.next(data));
     this.initWS();
-   }
+  }
 
-  public widgets$: Observable<Widgets[]> = this._widgets$.asObservable().pipe(
-    filter(item => item !== null)
-  );
+  public widgets$: Observable<Widgets[]> = this._widgets$
+    .asObservable()
+    .pipe(filter(item => item !== null));
 
   public filterWidgets$: Observable<Widgets[]> = this._widgets$.asObservable().pipe(
     filter(item => item !== null)
@@ -68,7 +68,7 @@ export class NewWidgetService {
   }
 
   public getAvailableWidgets(): Observable<Widgets[]> {
-    return this.http.get(this.restUrl + '/af/GetAvailableWidgets').pipe(
+    return this.http.get(this.restUrl + "/af/GetAvailableWidgets").pipe(
       map(data => {
         const _data = this.mapData(data);
         this.mass = this.mapData(data);
@@ -78,23 +78,23 @@ export class NewWidgetService {
   }
 
   mapData(data) {
-      return data.map((item) => {
-          return {
-            code: item.code,
-            id: item.id,
-            name: item.name,
-            title: item.title,
-            units: item.units,
-            widgetOptions: item.widgetOptions,
-            widgetType: item.widgetType,
-          };
+    return data.map(item => {
+      return {
+        code: item.code,
+        id: item.id,
+        name: item.name,
+        title: item.title,
+        units: item.units,
+        widgetOptions: item.widgetOptions,
+        widgetType: item.widgetType
+      };
     });
   }
 
   getName(idWidg) {
-    let widgetNames = this.mass.find( (x) => x.id === idWidg );
-    if (widgetNames === null || widgetNames === '') {
-      widgetNames = 'Нет имени';
+    let widgetNames = this.mass.find(x => x.id === idWidg);
+    if (widgetNames === null || widgetNames === "") {
+      widgetNames = "Нет имени";
       return widgetNames.widgetType;
     } else {
       return widgetNames.widgetType;
@@ -110,14 +110,14 @@ export class NewWidgetService {
   }
 
   getWidgetChannel(idWidg) {
-    return this.widgets$.pipe(map((i) => i.find((x) => x.id === idWidg)));
+    return this.widgets$.pipe(map(i => i.find(x => x.id === idWidg)));
   }
 
   getWidgetLiveDataFromWS(widgetId, widgetType): any {
     this.connectedWidgetsId.push(widgetId);
     this.wsConnect(widgetId);
     return this.widgetsSocketObservable.pipe(
-      filter(ref => (ref && ref.channelId === widgetId)),
+      filter(ref => ref && ref.channelId === widgetId),
       map(ref => {
         return this.mapWidgetData(ref.data, widgetType);
       })
@@ -126,82 +126,91 @@ export class NewWidgetService {
 
   // TODO добавить метод ко всем виджетам
   removeWidgetConnection(widgetId: string) {
-    this.connectedWidgetsId.splice(this.connectedWidgetsId.indexOf(this.connectedWidgetsId.find(el => el === widgetId)), 1);
+    this.connectedWidgetsId.splice(
+      this.connectedWidgetsId.indexOf(
+        this.connectedWidgetsId.find(el => el === widgetId)
+      ),
+      1
+    );
     // this.connectedWidgetsId = this.connectedWidgetsId.filter(el => el !== widgetId);
   }
 
   private wsConnect(widgetId: string) {
     this.ws.next({
-      ActionType: 'Subscribe',
+      ActionType: "Subscribe",
       ChannelId: widgetId
     });
   }
 
   private mapWidgetData(data, widgetType) {
     switch (widgetType) {
-      case 'events':
+      case "events":
         return this.mapEventsWidgetData(data);
 
-      case 'line-chart':
+      case "line-chart":
         return this.mapLineChartData(data);
 
-      case 'line-diagram':
+      case "line-diagram":
         return data;
 
-      case 'manual-input':
+      case "manual-input":
         return this.mapManualInput(data.items);
 
-      case 'pie-diagram':
+      case "pie-diagram":
         return data;
 
-      case 'truncated-diagram-counter':
+      case "truncated-diagram-counter":
         return data;
 
-      case 'truncated-diagram-percentage':
+      case "truncated-diagram-percentage":
         return data;
 
-      case 'bar-chart':
+      case "bar-chart":
         return data;
 
-      case 'map-ecology':
+      case "map-ecology":
         return data;
 
-      case 'ring-factory-diagram':
+      case "ring-factory-diagram":
         return data;
 
       case "semicircle-energy":
         return data;
 
-      case 'dispatcher-screen':
+      case "dispatcher-screen":
         return data;
 
-      case 'point-diagram':
+      case "point-diagram":
         return data;
 
-      case 'circle-diagram':
+      case "circle-diagram":
         return data;
 
-      case 'polar-chart':
+      case "polar-chart":
         return data;
 
-      case 'solid-gauge-with-marker':
-         return data;
+      case "solid-gauge-with-marker":
+        return data;
       case "circle-block-diagram":
         return data;
       case "deviation-circle-diagram":
+        return data;
+      case "time-line-diagram":
         return data;
     }
     console.warn(`unknown widget type ${widgetType}`);
   }
 
   private mapEventsWidgetData(data: EventsWidgetData): EventsWidgetData {
-    data.notifications.forEach(n => n.eventDateTime = new Date(n.eventDateTime));
+    data.notifications.forEach(
+      n => (n.eventDateTime = new Date(n.eventDateTime))
+    );
     return data;
   }
 
   private mapLineChartData(data): LineChartData {
     data.graphs.forEach(g => {
-      g.values.forEach(v => v.date = new Date(v.date));
+      g.values.forEach(v => (v.date = new Date(v.date)));
     });
     return data;
   }
@@ -213,17 +222,20 @@ export class NewWidgetService {
   private initWS() {
     this.ws = webSocket(this.wsUrl);
     this.ws.subscribe(
-      (msg) => {
-        console.log('message received: ' + msg);
+      msg => {
+        console.log("message received: " + msg);
         if (this.reconnectTimer) {
           clearInterval(this.reconnectTimer);
-        }},
-      (err) => {
-        console.log('Error ws: ' + err);
-        this.reconnectWs(); },
+        }
+      },
+      err => {
+        console.log("Error ws: " + err);
+        this.reconnectWs();
+      },
       () => {
-        console.log('complete');
-        this.reconnectWs(); }
+        console.log("complete");
+        this.reconnectWs();
+      }
     );
     this.ws.asObservable().subscribe(data => {
       this.widgetsSocketObservable.next(data);
@@ -232,7 +244,7 @@ export class NewWidgetService {
 
   private reconnectWs() {
     if (this.reconnectTimer) {
-      console.log('reconnect уже создан');
+      console.log("reconnect уже создан");
       return;
     }
 
