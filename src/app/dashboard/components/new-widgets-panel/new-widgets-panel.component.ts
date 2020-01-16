@@ -78,8 +78,15 @@ export class NewWidgetsPanelComponent implements OnInit {
     };
   }
 
+  ngAfterViewInit() {
+    this.subscription = this.widgetService.filterWidgets$.subscribe(data => {
+      this.widgets = data;
+    });
+  }
+
   @Output() onSwap = new EventEmitter<boolean>();
   @Output() onGrid = new EventEmitter<boolean>();
+  @Output() onViewSise = new EventEmitter<boolean>();
 
   changeSwap(){
     let check = <HTMLInputElement> document.getElementById('checkBoxFix');
@@ -94,6 +101,17 @@ export class NewWidgetsPanelComponent implements OnInit {
 
   getGridView(){
     let check = <HTMLInputElement> document.getElementById('checkBoxGrid');
+    if(check.checked){
+      this.swapWidget = false;
+      this.onGrid.emit(this.swapWidget);
+    }else{
+      this.swapWidget = true;
+      this.onGrid.emit(this.swapWidget);
+    }
+  }
+
+  public bigSize(){
+    let check = <HTMLInputElement> document.getElementById('checkBoxView');
     if(check.checked){
       this.swapWidget = false;
       this.onGrid.emit(this.swapWidget);

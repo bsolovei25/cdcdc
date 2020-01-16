@@ -1,1 +1,10 @@
-<p>search works!</p>
+<div class="search">
+    <evj-search-input [data]="typeWidgetChoose" [dataWidget]="widgets" (onCheck)="onCheck($event)"></evj-search-input>
+</div
+>
+<ng-container *ngIf="this.checkClick">
+    <div class="result_block">
+        <evj-search-filter [data]="newArrayType" (onSearch)="onSearch($event)"></evj-search-filter>
+        <evj-search-list [data]="newArrayType" (onSearch)="onSearch($event)"></evj-search-list>
+    </div>
+</ng-container>

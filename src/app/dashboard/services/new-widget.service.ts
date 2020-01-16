@@ -30,6 +30,7 @@ export class NewWidgetService {
   public dashboard: GridsterItem[] = []; // GridsterItem with uniqid that identifies concrete widget
   public mass = [];
   private _widgets$: BehaviorSubject<Widgets[]> = new BehaviorSubject(null);
+  private _filterWidgets$: BehaviorSubject<Widgets[]> = new BehaviorSubject(null);
   private reconnectTimer: any;
 
   constructor(public http: HttpClient, configService: AppConfigService) {
@@ -44,6 +45,27 @@ export class NewWidgetService {
   public widgets$: Observable<Widgets[]> = this._widgets$
     .asObservable()
     .pipe(filter(item => item !== null));
+
+  public filterWidgets$: Observable<Widgets[]> = this._widgets$.asObservable().pipe(
+    filter(item => item !== null)
+  );
+
+  public searchItems(data, types){
+    let newArray = [];
+    try {
+      for(let type of types){
+        for(let item of data){
+          if(item.widgetType === type){
+            newArray.push(item);
+          }
+        }
+       }
+       this._filterWidgets$.next(newArray);
+    } catch (error) {
+      return console.log("Поиск пуст");
+    }
+   
+  }
 
   public getAvailableWidgets(): Observable<Widgets[]> {
     return this.http.get(this.restUrl + "/af/GetAvailableWidgets").pipe(

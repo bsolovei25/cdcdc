@@ -64,18 +64,24 @@ import { PaginatorComponent } from "./components/paginator/paginator.component";
 import { PaginatorDirective } from "./components/paginator/paginator.directive";
 import { SearchComponent } from "./components/search/search.component";
 import { WidgetPreviewComponent } from './components/widget-preview/widget-preview.component';
+import { DashboardRoutingModule } from './dashboard-routing.module';
+import { CircleBlockDiagramComponent } from './widgets/circle-block-diagram/circle-block-diagram.component';
+import { ColumnChartStackedComponent } from './widgets/column-chart-stacked/column-chart-stacked.component';
+import { CcsOneColumnComponent } from './widgets/column-chart-stacked/ccs-one-column/ccs-one-column.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {FlameDiagramComponent} from './widgets/flame-diagram/flame-diagram.component';
+import { RingEnergyIndicatorComponent } from './widgets/ring-energy-indicator/ring-energy-indicator.component';
+import { SolidGaugesComponent } from './widgets/solid-gauge-with-marker/solid-gauges/solid-gauges.component';
+import { SolidGaugeWithMarkerComponent } from './widgets/solid-gauge-with-marker/solid-gauge-with-marker/solid-gauge-with-marker.component';
+import { SearchFilterComponent } from './components/search/search-filter/search-filter.component';
+import { SearchInputComponent } from './components/search/search-input/search-input.component';
+import { SearchListComponent } from './components/search/search-list/search-list.component';
 import { TimeLineDiagramComponent } from "./widgets/time-line-diagram/time-line-diagram.component";
 import { TimeDiagramComponent } from "./widgets/time-line-diagram/time-diagram/time-diagram.component";
-import { DashboardRoutingModule } from "./dashboard-routing.module";
-import { CircleBlockDiagramComponent } from "./widgets/circle-block-diagram/circle-block-diagram.component";
-import { ColumnChartStackedComponent } from "./widgets/column-chart-stacked/column-chart-stacked.component";
-import { CcsOneColumnComponent } from "./widgets/column-chart-stacked/ccs-one-column/ccs-one-column.component";
 import { ObservationNormTRComponent } from "./widgets/observation-norm-tr/observation-norm-tr.component";
-import { MatSnackBarModule } from "@angular/material/snack-bar";
-import { FlameDiagramComponent } from "./widgets/flame-diagram/flame-diagram.component";
-import { RingEnergyIndicatorComponent } from "./widgets/ring-energy-indicator/ring-energy-indicator.component";
-import { SolidGaugesComponent } from "./widgets/solid-gauge-with-marker/solid-gauges/solid-gauges.component";
-import { SolidGaugeWithMarkerComponent } from "./widgets/solid-gauge-with-marker/solid-gauge-with-marker/solid-gauge-with-marker.component";
+
+
+
 
 @NgModule({
   declarations: [
@@ -145,6 +151,9 @@ import { SolidGaugeWithMarkerComponent } from "./widgets/solid-gauge-with-marker
     TimeDiagramComponent,
     SolidGaugesComponent,
     SolidGaugeWithMarkerComponent,
+    SearchFilterComponent,
+    SearchInputComponent,
+    SearchListComponent,
     ObservationNormTRComponent
   ],
   entryComponents: [
@@ -203,7 +212,7 @@ import { SolidGaugeWithMarkerComponent } from "./widgets/solid-gauge-with-marker
     GridsterModule,
     ClickOutsideModule,
     DashboardRoutingModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
   bootstrap: []
 })
