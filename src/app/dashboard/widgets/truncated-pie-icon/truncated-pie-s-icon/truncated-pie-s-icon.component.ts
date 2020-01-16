@@ -20,7 +20,6 @@ export class TruncatedPieSIconComponent implements OnInit {
     public icon: string = 'triangle';
     public previewTitle: string;
 
-
     public datas = [
         { id: 1, name: 'Загазованность', count: 10, critical: 0, image: 'fabric' },
         { id: 2, name: 'Деблокировочные ключи', count: 10, critical: 0, image: 'key' },

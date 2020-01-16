@@ -84,7 +84,6 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
     public widgetType: string = 'semicircle-energy';
     public previewTitle: string;
 
-
     subscriptions: Subscription[] = [];
 
     static itemCols = 14;

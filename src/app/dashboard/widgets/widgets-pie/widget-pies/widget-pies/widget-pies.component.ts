@@ -22,7 +22,6 @@ export class WidgetPiesComponent implements OnInit {
     public icon: string = 'tools';
     public previewTitle: string;
 
-
     public uniqal;
 
     public datas = [{ name: 'Статическое Оборудование', critical: 5, nonCritical: 2 }];

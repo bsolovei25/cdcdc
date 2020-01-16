@@ -20,7 +20,6 @@ export class TruncatedPieSFirstComponent implements OnInit {
     public icon = 'flask';
     public previewTitle: string;
 
-
     public datas = [
         { name: 'Статическое Оборудование 1', plan: 5, value: 28 },
         { name: 'Статическое Оборудование 2', plan: 32, value: 5 },
