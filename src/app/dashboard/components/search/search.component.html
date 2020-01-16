@@ -1,1 +1,19 @@
-<p>search works!</p>
+<form>
+    <input type="text" placeholder="Искать здесь..." (click)="this.checkInput()">
+    <ng-container *ngIf="checkData">
+        <div class="result_search">
+            <div class="result">{{this.typeWidgetChoose}}</div>
+            <div class="delete_result">x</div>
+        </div>
+    </ng-container>
+    <button type="submit"></button> 
+</form>
+<div class="search">
+    <evj-search-input [data]="widgets" (onCheck)="onCheck($event)"></evj-search-input>
+</div
+>
+<ng-container *ngIf="this.checkClick">
+    <div class="result_block">
+        <evj-search-filter [data]="widgets" (onSearch)="onSearch($event)"></evj-search-filter>
+    </div>
+</ng-container>

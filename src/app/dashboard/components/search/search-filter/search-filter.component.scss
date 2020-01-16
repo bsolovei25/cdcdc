@@ -1,0 +1,24 @@
+
+.result_search{
+    color: white;
+    width: 120px;
+    height: 35px;
+    background-color: var(--color-bg-sub);
+    border-radius: 5px;
+    margin: 3px auto;
+    font-size: 14px;
+    text-align: center;
+    line-height: 35px;
+
+    &:hover{
+        background-color: gray;
+        cursor: pointer;
+    }
+}
+
+
+.result_block{
+    display: flex;
+    flex-wrap: wrap;
+}
+

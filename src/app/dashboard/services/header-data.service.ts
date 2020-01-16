@@ -30,7 +30,7 @@ export class HeaderDataService {
   public catchDefaultDate(start, end, status){
     let defaultTime = new Date();
     defaultTime = new Date(defaultTime.getFullYear(), defaultTime.getMonth(), defaultTime.getDate(), 0, 0, 0);
-    debugger
+
     
     let datePipe = new DatePipe("en-Us");
 
@@ -53,7 +53,7 @@ export class HeaderDataService {
   }
 
   public pushDate(){
-    debugger
+
     let dateTo = { start: this.startDate, end: this.endDate, status: this.statusButton };
     this._date$.next(dateTo);
   }

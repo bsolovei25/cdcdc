@@ -41,7 +41,7 @@ export class DeviationCircleDiagramComponent implements OnInit, OnDestroy {
   public units = "%";
   public widgetType = "deviation-circle-diagram";
 
-  subscriptions: Subscription[];
+  subscriptions: Subscription[]=[];
 
   static itemCols = 10;
   static itemRows = 8;

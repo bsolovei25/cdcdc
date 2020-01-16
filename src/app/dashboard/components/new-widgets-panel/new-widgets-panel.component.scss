@@ -83,7 +83,7 @@ app-root {
   }
 
   .widget{
-    margin-top: 20px;
+    margin-top: 10px;
     height: 200px;
     width: 490px;
   }
@@ -254,4 +254,8 @@ gridster-item {
           transform: translate(-50%, -50%);
   -webkit-transition: 0.2s ease-in;
   transition: 0.2s ease-in;
+}
+
+.search_block{
+  margin-top: 5px;
 }

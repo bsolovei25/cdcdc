@@ -73,6 +73,8 @@ import {FlameDiagramComponent} from './widgets/flame-diagram/flame-diagram.compo
 import { RingEnergyIndicatorComponent } from './widgets/ring-energy-indicator/ring-energy-indicator.component';
 import { SolidGaugesComponent } from './widgets/solid-gauge-with-marker/solid-gauges/solid-gauges.component';
 import { SolidGaugeWithMarkerComponent } from './widgets/solid-gauge-with-marker/solid-gauge-with-marker/solid-gauge-with-marker.component';
+import { SearchFilterComponent } from './components/search/search-filter/search-filter.component';
+import { SearchInputComponent } from './components/search/search-input/search-input.component';
 
 @NgModule({
   declarations: [
@@ -139,6 +141,8 @@ import { SolidGaugeWithMarkerComponent } from './widgets/solid-gauge-with-marker
     RingEnergyIndicatorComponent,
     SolidGaugesComponent,
     SolidGaugeWithMarkerComponent,
+    SearchFilterComponent,
+    SearchInputComponent,
   ],
   entryComponents: [
     LineChartComponent,

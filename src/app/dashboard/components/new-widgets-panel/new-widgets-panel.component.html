@@ -12,20 +12,22 @@
       <label class="mycheckbox">
         <input type="checkbox" id="checkBoxFix" value="Swap Items" class="mycheckbox__default" (click)="changeSwap()">
         <div class="mycheckbox__new"></div>
-        <div class="mycheckbox__descr">Зафиксировать</div>
+        <div class="mycheckbox__descr">Зафиксировать виджеты</div>
     </label>
     <label class="mycheckbox">
       <input type="checkbox" id="checkBoxGrid" value="Swap Items" class="mycheckbox__default" (click)="getGridView()">
       <div class="mycheckbox__new"></div>
       <div class="mycheckbox__descr">Сетка</div>
   </label>
-    <label class="mycheckbox">
+ <!--   <label class="mycheckbox">
     <input type="checkbox" id="checkBoxView" value="Swap Items" class="mycheckbox__default" (click)="getGridView()">
     <div class="mycheckbox__new"></div>
     <div class="mycheckbox__descr">Увеличить экран</div>
-    </label>
+    </label> -->
     </div>
-  
+    <div class="search_block">
+      <evj-search></evj-search>
+    </div>
           <div class="widgets-panel__list scroll-bar">
             <div class="options-header">
                 <ng-container *ngFor="let item of widgets; trackBy: dataById">

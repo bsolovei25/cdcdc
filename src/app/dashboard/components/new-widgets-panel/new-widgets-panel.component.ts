@@ -94,7 +94,7 @@ export class NewWidgetsPanelComponent implements OnInit {
   } 
 
   getGridView(){
-    let check = <HTMLInputElement> document.getElementById('checkBoxView');
+    let check = <HTMLInputElement> document.getElementById('checkBoxGrid');
     if(check.checked){
       this.swapWidget = false;
       this.onGrid.emit(this.swapWidget);
