@@ -28,7 +28,6 @@ export class SearchComponent implements OnInit {
     this.subscription = this.widgetService.getAvailableWidgets().subscribe(dataW => {
       this.widgets = dataW;
       this.newArrayType = this.filterData(this.widgets);
-      debugger
     });
   }
 
@@ -50,7 +49,6 @@ export class SearchComponent implements OnInit {
     }else{
       this.checkClick = false;
     }
-    console.log(data);
   }
 
   public filterData(data){

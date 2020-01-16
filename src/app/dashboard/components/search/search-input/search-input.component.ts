@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
 
 @Component({
   selector: 'evj-search-input',
@@ -8,6 +9,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class SearchInputComponent implements OnInit {
 
   @Input() public data;
+  @Input() public dataWidget;
 
   @Output() onCheck = new EventEmitter<boolean>();
 
@@ -16,7 +18,7 @@ export class SearchInputComponent implements OnInit {
   itemChoose = false;
 
 
-  constructor() { 
+  constructor( public widgetService: NewWidgetService ) { 
     if(this.data){
       this.itemChoose = true;
     }
@@ -24,6 +26,9 @@ export class SearchInputComponent implements OnInit {
 
   ngOnInit() {
 
+  }
+  searchItem(){
+    this.widgetService.searchItems(this.dataWidget, this.data);
   }
 
   public checkInput(event){

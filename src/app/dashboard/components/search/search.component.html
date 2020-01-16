@@ -1,5 +1,5 @@
 <div class="search">
-    <evj-search-input [data]="newArrayType" (onCheck)="onCheck($event)"></evj-search-input>
+    <evj-search-input [data]="typeWidgetChoose" [dataWidget]="widgets" (onCheck)="onCheck($event)"></evj-search-input>
 </div
 >
 <ng-container *ngIf="this.checkClick">

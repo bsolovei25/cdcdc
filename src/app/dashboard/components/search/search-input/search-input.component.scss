@@ -6,7 +6,7 @@ form {
 }
 input {
   width: 100%;
-  height: 36px;
+  height: 30px;
   padding-left: 10px;
   border: 2px solid var(--color-border-main);
   border-right: none;
@@ -18,14 +18,14 @@ input {
 }
 .button {
   width: 42px;
-  height: 36px;
+  height: 30px;
   border: 2px solid var(--color-border-main);
   border-left: none;
   outline: none;
   background: #1b1e27;
   border-radius: 0 5px 5px 0;
   cursor: pointer;
-  line-height: 30px;
+  line-height: 25px;
   text-align: center;
 
   &:hover{
@@ -38,19 +38,6 @@ input {
   font-size: 16px;
   color: #F9F0DA;
 }
-
-.result_block{
-  z-index: 999;
-  width: 400px;
-  overflow-y: auto;
-  height: 200px;
-  background-color: white;
-  border: 2px solid var(--color-border-main);
-  border-radius: 5px;
-  left: 55px;
-  position: absolute;
-}
-
 
 .result_search{
   display: flex;

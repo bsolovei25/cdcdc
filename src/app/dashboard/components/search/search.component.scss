@@ -10,14 +10,16 @@
 
 .result_block{
   z-index: 999;
-  width: 397px;
+  width: 84.7%;
   overflow-y: auto;
   height: 200px;
   background-color: white;
   border: 2px solid var(--color-border-main);
-  border-radius: 5px;
-  left: 55px;
+  border-top: none;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
   position: absolute;
+  margin-top: -4px;
 }
 
 

@@ -78,6 +78,12 @@ export class NewWidgetsPanelComponent implements OnInit {
     };
   }
 
+  ngAfterViewInit() {
+    this.subscription = this.widgetService.filterWidgets$.subscribe(data => {
+      this.widgets = data;
+    });
+  }
+
   @Output() onSwap = new EventEmitter<boolean>();
   @Output() onGrid = new EventEmitter<boolean>();
   @Output() onViewSise = new EventEmitter<boolean>();
