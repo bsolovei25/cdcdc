@@ -36,6 +36,7 @@
       true,
       {
         "order": [
+          "fields-first",
           "static-field",
           "instance-field",
           "static-method",
@@ -53,10 +54,21 @@
       "trace"
     ],
     "no-empty": false,
-    "no-inferrable-types": [
+    "no-any": [
       true,
-      "ignore-params"
+      {
+        "ignore-rest-args": true
+      }
     ],
+    "typedef": [
+      true,
+      "call-signature",
+      "parameter",
+      "member-variable-declaration"
+    ],
+    "no-debugger": true,
+    "no-async-without-await": true,
+    "promise-function-async": true,
     "no-non-null-assertion": true,
     "no-redundant-jsdoc": true,
     "no-switch-case-fall-through": true,

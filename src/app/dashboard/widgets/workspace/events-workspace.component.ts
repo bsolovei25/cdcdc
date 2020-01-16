@@ -404,13 +404,6 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
   // #endregion
 
-  // snackBar(text: string = 'Выполнено', durection: number = 3000) {
-  //   let snackBar = document.getElementById("snackbar-workspace");
-  //   snackBar.className = "show";
-  //   snackBar.innerText = text;
-  //   setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, durection);
-  // }
-
   getIndex(i: number): string {
     return Number(i + 1).toString();
   }
