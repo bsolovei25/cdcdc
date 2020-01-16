@@ -1,26 +1,21 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Widgets } from 'src/app/dashboard/models/widget.model';
 
-
 @Component({
-  selector: 'evj-search-filter',
-  templateUrl: './search-filter.component.html',
-  styleUrls: ['./search-filter.component.scss']
+    selector: 'evj-search-filter',
+    templateUrl: './search-filter.component.html',
+    styleUrls: ['./search-filter.component.scss'],
 })
 export class SearchFilterComponent implements OnInit {
+    @Input() public data;
 
-  @Input() public data;
+    @Output() onSearch = new EventEmitter<boolean>();
 
-  @Output() onSearch = new EventEmitter<boolean>();
+    constructor() {}
 
-  constructor() {}
+    ngOnInit() {}
 
-  ngOnInit() {
-
-  }
-
-  public choosenType(type){
-      this.onSearch.emit(type);
-  }
-
+    public choosenType(type) {
+        this.onSearch.emit(type);
+    }
 }

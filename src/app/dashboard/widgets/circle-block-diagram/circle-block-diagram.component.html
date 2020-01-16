@@ -1,4 +1,8 @@
-<evj-widget-preview [title]="title" [previewTitle]="previewTitle" *ngIf="isMock"></evj-widget-preview>
+<evj-widget-preview
+  [title]="title"
+  [previewTitle]="previewTitle"
+  *ngIf="isMock"
+></evj-widget-preview>
 
 <div class="container pointer-event" *ngIf="!isMock">
   <evj-widget-header
@@ -196,36 +200,16 @@
           <text [attr.x]="3" [attr.y]="3.5" class="svg__txt">
             Блокировки и усовершенствованное управление
           </text>
-          <text
-            [attr.x]="11"
-            [attr.y]="45"
-            text-anchor="middle"
-            class="svg__txt"
-          >
+          <text [attr.x]="11" [attr.y]="45" text-anchor="middle" class="svg__txt">
             Отключенных
           </text>
-          <text
-            [attr.x]="11"
-            [attr.y]="48"
-            text-anchor="middle"
-            class="svg__txt"
-          >
+          <text [attr.x]="11" [attr.y]="48" text-anchor="middle" class="svg__txt">
             блокировок
           </text>
-          <text
-            [attr.x]="37"
-            [attr.y]="45"
-            text-anchor="middle"
-            class="svg__txt"
-          >
+          <text [attr.x]="37" [attr.y]="45" text-anchor="middle" class="svg__txt">
             Не указана причина
           </text>
-          <text
-            [attr.x]="37"
-            [attr.y]="48"
-            text-anchor="middle"
-            class="svg__txt"
-          >
+          <text [attr.x]="37" [attr.y]="48" text-anchor="middle" class="svg__txt">
             снятия блокировок
           </text>
           <text

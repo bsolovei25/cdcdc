@@ -1,12 +1,11 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-    selector: "evj-preloader",
-    templateUrl: "./preloader.component.html",
-    styleUrls: ["./preloader.component.scss"]
+    selector: 'evj-preloader',
+    templateUrl: './preloader.component.html',
+    styleUrls: ['./preloader.component.scss'],
 })
 export class PreLoaderComponent implements OnInit {
-
     @Input() isHidden: boolean = false;
     isLoad: boolean = false;
 
@@ -21,9 +20,7 @@ export class PreLoaderComponent implements OnInit {
         }
     }
 
+    constructor() {}
 
-    constructor() { }
-
-    ngOnInit() { }
-
+    ngOnInit() {}
 }

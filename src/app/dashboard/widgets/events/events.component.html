@@ -1,4 +1,8 @@
-<evj-widget-preview [title]="title" [previewTitle]="previewTitle" *ngIf="isMock"></evj-widget-preview>
+<evj-widget-preview
+  [title]="title"
+  [previewTitle]="previewTitle"
+  *ngIf="isMock"
+></evj-widget-preview>
 
 <ng-container *ngIf="!isMock">
   <div id="snackbar"></div>
@@ -14,92 +18,135 @@
           </svg-icon>
         </div>
         <div *ngIf="!isMock" class="header__icon-wrapper" (click)="listView(true)">
-          <svg-icon [ngClass]="{'blocks': isList}" class="header__icon" src="./assets/pic/blocks.svg"></svg-icon>
+          <svg-icon
+            [ngClass]="{'blocks': isList}"
+            class="header__icon"
+            src="./assets/pic/blocks.svg"
+          ></svg-icon>
         </div>
         <span class="header__name">
-        {{ title }}
-      </span>
-        <div class="delete_widget" (click)="onRemoveButton()" (mousedown)="$event.stopPropagation()"
-             (touchstart)="$event.stopPropagation()">
-          <svg-icon style="height: 100%; width: 100%; fill: #8C99B2" src="./assets/icons/close_bad.svg"></svg-icon>
+          {{ title }}
+        </span>
+        <div
+          class="delete_widget"
+          (click)="onRemoveButton()"
+          (mousedown)="$event.stopPropagation()"
+          (touchstart)="$event.stopPropagation()"
+        >
+          <svg-icon
+            style="height: 100%; width: 100%; fill: #8C99B2"
+            src="./assets/icons/close_bad.svg"
+          ></svg-icon>
         </div>
       </div>
     </div>
   </div>
 
   <ng-container>
-
     <ng-container *ngIf="isList">
-      <div class="pointer-events" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+      <div
+        class="pointer-events"
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
+      >
         <div class="events">
           <div class="notifications">
             <div class="notifications__block__list scroll-bar">
-              <div class="notification__block notifications__block__item" *ngFor="let n of notifications"
-                   (click)="eventClick(false, n.id, $event)"
-                   [ngClass]="{'selected-block': selectedId === n.id || eventOverlayId === n.id}">
-
+              <div
+                class="notification__block notifications__block__item"
+                *ngFor="let n of notifications"
+                (click)="eventClick(false, n.id, $event)"
+                [ngClass]="{'selected-block': selectedId === n.id || eventOverlayId === n.id}"
+              >
                 <div class="notification__block__header">
-                <span class="notification__block__number" [ngClass]="'notification__number_' + n.priority">
-                  {{n.itemNumber}}
-                </span>
+                  <span
+                    class="notification__block__number"
+                    [ngClass]="'notification__number_' + n.priority"
+                  >
+                    {{n.itemNumber}}
+                  </span>
 
                   <div class="notification__block__extra">
-                  <span class="notification__block__status"
-                        [ngClass]="'notification__block__status_' + n.priority.name">
-                    {{n.statusName}}
-                  </span>
+                    <span
+                      class="notification__block__status"
+                      [ngClass]="'notification__block__status_' + n.priority.name"
+                    >
+                      {{n.statusName}}
+                    </span>
 
                     <span class="notification__block__status">
-                    <svg-icon [applyCss]="true" [src]="n.iconUrlStatus"
-                              [ngClass]="'notification__block__icon_' + n.priority.name"
-                              [svgStyle]="{'fill':'rgb(63, 168, 243)'}">
-                    </svg-icon>
-                  </span>
+                      <svg-icon
+                        [applyCss]="true"
+                        [src]="n.iconUrlStatus"
+                        [ngClass]="'notification__block__icon_' + n.priority.name"
+                        [svgStyle]="{'fill':'rgb(63, 168, 243)'}"
+                      >
+                      </svg-icon>
+                    </span>
 
                     <span *ngIf="!n.source" class="notification__block__status">
-                    <svg-icon class="notification__block__icon notification__block__icon_delete" [applyCss]="true"
-                              src="./assets/garbage_bad_pic.svg" (click)="overlayConfirmationOpen(n)"
-                              (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
-                    </svg-icon>
-                  </span>
+                      <svg-icon
+                        class="notification__block__icon notification__block__icon_delete"
+                        [applyCss]="true"
+                        src="./assets/garbage_bad_pic.svg"
+                        (click)="overlayConfirmationOpen(n)"
+                        (mousedown)="$event.stopPropagation()"
+                        (touchstart)="$event.stopPropagation()"
+                      >
+                      </svg-icon>
+                    </span>
 
                     <span class="notification__block__span__icon">
-                    <svg-icon [applyCss]="true" class="notification__block__icon__right" [src]="n.iconUrl"
-                              [ngClass]="'notification__block__icon_'" [svgStyle]="{'fill':'rgb(63, 168, 243)'}">
-                    </svg-icon>
-                  </span>
-
+                      <svg-icon
+                        [applyCss]="true"
+                        class="notification__block__icon__right"
+                        [src]="n.iconUrl"
+                        [ngClass]="'notification__block__icon_'"
+                        [svgStyle]="{'fill':'rgb(63, 168, 243)'}"
+                      >
+                      </svg-icon>
+                    </span>
                   </div>
                 </div>
 
                 <div class="notification__block__body">
-
-                <span class="notification__block__description">
-                  {{n.description}}
-                </span>
-
+                  <span class="notification__block__description">
+                    {{n.description}}
+                  </span>
                 </div>
-
               </div>
             </div>
-            <div (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()"
-                 (click)="overlayConfirmationClose()" id="overlay-confirmation-event">
+            <div
+              (mousedown)="$event.stopPropagation()"
+              (touchstart)="$event.stopPropagation()"
+              (click)="overlayConfirmationClose()"
+              id="overlay-confirmation-event"
+            >
               <div class="overlay-confirmation__body">
-                <span *ngIf="!isDeleteRetrieval">Вы действительно хотите удалить выбранное Событие?</span>
-                <span *ngIf="isDeleteRetrieval">Вы действительно хотите удалить выбранное
-                Событие и связанные Мероприятия?</span>
+                <span *ngIf="!isDeleteRetrieval"
+                  >Вы действительно хотите удалить выбранное Событие?</span
+                >
+                <span *ngIf="isDeleteRetrieval"
+                  >Вы действительно хотите удалить выбранное Событие и связанные Мероприятия?</span
+                >
                 <div style="display: flex;">
                   <div class="workspace__submit">
                     <div class="submit__frame submit__frame-left"></div>
                     <div class="submit__frame submit__frame-right"></div>
-                    <button type="submit gridster-item-content" (click)="eventClick(true, undefined, $event)">
+                    <button
+                      type="submit gridster-item-content"
+                      (click)="eventClick(true, undefined, $event)"
+                    >
                       Удалить
                     </button>
                   </div>
                   <div class="workspace__submit">
                     <div class="submit__frame submit__frame-left"></div>
                     <div class="submit__frame submit__frame-right"></div>
-                    <button type="submit gridster-item-content" (click)="overlayConfirmationClose()">
+                    <button
+                      type="submit gridster-item-content"
+                      (click)="overlayConfirmationClose()"
+                    >
                       Отменить
                     </button>
                   </div>
@@ -110,31 +157,36 @@
 
           <div class="controls">
             <div class="controls__line controls__line_left">
-              <div class="controls__circle controls__circle_left">
-              </div>
+              <div class="controls__circle controls__circle_left"></div>
             </div>
 
             <div class="filters">
-              <div class="filter filters__item" *ngFor="let f of filters" (click)="onFilterClick(f)"
-                   [class.filter_active]="f.isActive">
-              <span class="filter__name">
-                {{f.name}}
-              </span>
+              <div
+                class="filter filters__item"
+                *ngFor="let f of filters"
+                (click)="onFilterClick(f)"
+                [class.filter_active]="f.isActive"
+              >
+                <span class="filter__name">
+                  {{f.name}}
+                </span>
                 <span class="filter__count">
-                {{f.notificationsCount}}
-              </span>
+                  {{f.notificationsCount}}
+                </span>
               </div>
             </div>
 
             <div class="categories">
               <div class="categories__line categories__line_left">
-                <div class="categories__circle categories__circle_left">
-                </div>
+                <div class="categories__circle categories__circle_left"></div>
               </div>
 
-              <div class="category categories__item" *ngFor="let c of categories" (click)="onCategoryClick(c)"
-                   [class.category_active]="c.isActive">
-
+              <div
+                class="category categories__item"
+                *ngFor="let c of categories"
+                (click)="onCategoryClick(c)"
+                [class.category_active]="c.isActive"
+              >
                 <div class="line category__line category__line_top">
                   <div class="line__circle line__circle__left"></div>
                   <div class="line__circle line__circle__right"></div>
@@ -162,18 +214,19 @@
                 <div class="workspace__submit">
                   <div class="submit__frame submit__frame-left"></div>
                   <div class="submit__frame submit__frame-right"></div>
-                  <button [disabled]="c.url === '#'" type="submit gridster-item-content" (click)="onClick($event, c.url)">
+                  <button
+                    [disabled]="c.url === '#'"
+                    type="submit gridster-item-content"
+                    (click)="onClick($event, c.url)"
+                  >
                     В систему источник
                   </button>
                 </div>
-
               </div>
-
             </div>
 
             <div class="controls__line controls__line_right">
-              <div class="controls__circle controls__circle_right">
-              </div>
+              <div class="controls__circle controls__circle_right"></div>
             </div>
           </div>
         </div>
@@ -182,49 +235,73 @@
 
     <!-- <ng-container *ngIf="isMock === false">  -->
     <ng-container *ngIf="!isList">
-      <div class="pointer-events" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+      <div
+        class="pointer-events"
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
+      >
         <div class="events">
           <div class="notifications">
             <div class="notifications__list scroll-bar">
-              <div class="notification notifications__item" *ngFor="let n of notifications"
-                   (click)="eventClick(false, n.id, $event)"
-                   [ngClass]="{'selected': selectedId === n.id || eventOverlayId === n.id }">
-
+              <div
+                class="notification notifications__item"
+                *ngFor="let n of notifications"
+                (click)="eventClick(false, n.id, $event)"
+                [ngClass]="{'selected': selectedId === n.id || eventOverlayId === n.id }"
+              >
                 <div class="notification__header">
-                <span class="notification__number" [ngClass]="'notification__number_' + n.priority">
-                  {{ n.itemNumber }}
-                </span>
+                  <span
+                    class="notification__number"
+                    [ngClass]="'notification__number_' + n.priority"
+                  >
+                    {{ n.itemNumber }}
+                  </span>
                   <span class="notification__name" *ngIf="n.eventType">
-                  {{ n.eventType.name | slice : 0 : 25 }}
-                </span>
+                    {{ n.eventType.name | slice : 0 : 25 }}
+                  </span>
                   <div class="line notification__line notification__line_top">
                     <div class="line__circle line__circle__left"></div>
                     <div class="line__circle line__circle__right"></div>
                   </div>
                   <span class="notification__date-time">
-                  {{ n.eventDateTime | date: 'dd.MM.yyyy HH:mm' }}
-                </span>
+                    {{ n.eventDateTime | date: 'dd.MM.yyyy HH:mm' }}
+                  </span>
                 </div>
 
                 <div class="notification__body">
-                <span class="notification__description">
-                  {{ n.description }}
-                </span>
-
-                  <div class="notification__extra" (mousedown)="$event.stopPropagation()"
-                       (touchstart)="$event.stopPropagation()">
-                  <span class="notification__status" [ngClass]="'notification__status_' + n.priority.name">
-                    {{ n.statusName }}
+                  <span class="notification__description">
+                    {{ n.description }}
                   </span>
-                    <svg-icon class="notification__icon" [applyCss]="true" [src]="n.iconUrl"
-                              [ngClass]="'notification__icon_' + n.priority.name"></svg-icon>
-                    <svg-icon *ngIf="!n.source" class="notification__icon_delete" [applyCss]="true"
-                              src="./assets/garbage_bad_pic.svg" (click)="overlayConfirmationOpen(n)"
-                              (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+
+                  <div
+                    class="notification__extra"
+                    (mousedown)="$event.stopPropagation()"
+                    (touchstart)="$event.stopPropagation()"
+                  >
+                    <span
+                      class="notification__status"
+                      [ngClass]="'notification__status_' + n.priority.name"
+                    >
+                      {{ n.statusName }}
+                    </span>
+                    <svg-icon
+                      class="notification__icon"
+                      [applyCss]="true"
+                      [src]="n.iconUrl"
+                      [ngClass]="'notification__icon_' + n.priority.name"
+                    ></svg-icon>
+                    <svg-icon
+                      *ngIf="!n.source"
+                      class="notification__icon_delete"
+                      [applyCss]="true"
+                      src="./assets/garbage_bad_pic.svg"
+                      (click)="overlayConfirmationOpen(n)"
+                      (mousedown)="$event.stopPropagation()"
+                      (touchstart)="$event.stopPropagation()"
+                    >
                     </svg-icon>
                     <span *ngIf="!n.source" class="notification__icon_delete__mock"></span>
                   </div>
-
                 </div>
                 <div class="line notification__line notification__line_bottom">
                   <div class="line__circle line__circle__left"></div>
@@ -232,24 +309,38 @@
                 </div>
               </div>
 
-              <div (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()"
-                   (click)="overlayConfirmationClose()" id="overlay-confirmation-event">
+              <div
+                (mousedown)="$event.stopPropagation()"
+                (touchstart)="$event.stopPropagation()"
+                (click)="overlayConfirmationClose()"
+                id="overlay-confirmation-event"
+              >
                 <div class="overlay-confirmation__body">
-                  <span *ngIf="!isDeleteRetrieval">Вы действительно хотите удалить выбранное Событие?</span>
-                  <span *ngIf="isDeleteRetrieval">Вы действительно хотите удалить выбранное
-                  Событие и связанные Мероприятия?</span>
+                  <span *ngIf="!isDeleteRetrieval"
+                    >Вы действительно хотите удалить выбранное Событие?</span
+                  >
+                  <span *ngIf="isDeleteRetrieval"
+                    >Вы действительно хотите удалить выбранное Событие и связанные
+                    Мероприятия?</span
+                  >
                   <div style="display: flex;">
                     <div class="event-confirm__submit">
                       <div class="submit__frame submit__frame-left"></div>
                       <div class="submit__frame submit__frame-right"></div>
-                      <button type="submit gridster-item-content" (click)="eventClick(true, undefined, $event)">
+                      <button
+                        type="submit gridster-item-content"
+                        (click)="eventClick(true, undefined, $event)"
+                      >
                         Удалить
                       </button>
                     </div>
                     <div class="event-confirm__submit">
                       <div class="submit__frame submit__frame-left"></div>
                       <div class="submit__frame submit__frame-right"></div>
-                      <button type="submit gridster-item-content" (click)="overlayConfirmationClose()">
+                      <button
+                        type="submit gridster-item-content"
+                        (click)="overlayConfirmationClose()"
+                      >
                         Отменить
                       </button>
                     </div>
@@ -261,31 +352,36 @@
 
           <div class="controls">
             <div class="controls__line controls__line_left">
-              <div class="controls__circle controls__circle_left">
-              </div>
+              <div class="controls__circle controls__circle_left"></div>
             </div>
 
             <div class="filters">
-              <div class="filter filters__item" *ngFor="let f of filters" (click)="onFilterClick(f)"
-                   [class.filter_active]="f.isActive">
-              <span class="filter__name">
-                {{ f.name }}
-              </span>
+              <div
+                class="filter filters__item"
+                *ngFor="let f of filters"
+                (click)="onFilterClick(f)"
+                [class.filter_active]="f.isActive"
+              >
+                <span class="filter__name">
+                  {{ f.name }}
+                </span>
                 <span class="filter__count">
-                {{ f.notificationsCount }}
-              </span>
+                  {{ f.notificationsCount }}
+                </span>
               </div>
             </div>
 
             <div class="categories">
               <div class="categories__line categories__line_left">
-                <div class="categories__circle categories__circle_left">
-                </div>
+                <div class="categories__circle categories__circle_left"></div>
               </div>
 
-              <div class="category categories__item" *ngFor="let c of categories" (click)="onCategoryClick(c)"
-                   [class.category_active]="c.isActive">
-
+              <div
+                class="category categories__item"
+                *ngFor="let c of categories"
+                (click)="onCategoryClick(c)"
+                [class.category_active]="c.isActive"
+              >
                 <div class="line category__line category__line_top">
                   <div class="line__circle line__circle__left"></div>
                   <div class="line__circle line__circle__right"></div>
@@ -313,25 +409,24 @@
                 <div class="workspace__submit">
                   <div class="submit__frame submit__frame-left"></div>
                   <div class="submit__frame submit__frame-right"></div>
-                  <button [disabled]="c.url === '#'" type="submit gridster-item-content" (click)="onClick($event, c.url)">
+                  <button
+                    [disabled]="c.url === '#'"
+                    type="submit gridster-item-content"
+                    (click)="onClick($event, c.url)"
+                  >
                     В систему источник
                   </button>
                 </div>
-
               </div>
-
             </div>
 
             <div class="controls__line controls__line_right">
-              <div class="controls__circle controls__circle_right">
-              </div>
+              <div class="controls__circle controls__circle_right"></div>
             </div>
           </div>
         </div>
       </div>
     </ng-container>
     <evj-frame-bottom class="frame-bottom"></evj-frame-bottom>
-
-
   </ng-container>
 </ng-container>

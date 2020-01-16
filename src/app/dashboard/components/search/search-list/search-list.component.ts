@@ -1,23 +1,20 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
-  selector: 'evj-search-list',
-  templateUrl: './search-list.component.html',
-  styleUrls: ['./search-list.component.scss']
+    selector: 'evj-search-list',
+    templateUrl: './search-list.component.html',
+    styleUrls: ['./search-list.component.scss'],
 })
 export class SearchListComponent implements OnInit {
+    @Input() public data;
 
-  @Input() public data;
+    @Output() onSearch = new EventEmitter<boolean>();
 
-  @Output() onSearch = new EventEmitter<boolean>();
+    constructor() {}
 
-  constructor() { }
+    ngOnInit() {}
 
-  ngOnInit() {
-  }
-
-  public choosenType(type){   
-    this.onSearch.emit(type);
-  }
-
+    public choosenType(type) {
+        this.onSearch.emit(type);
+    }
 }

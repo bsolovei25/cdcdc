@@ -1,4 +1,6 @@
-* {box-sizing: border-box;}
+* {
+  box-sizing: border-box;
+}
 form {
   position: relative;
   width: 400px;
@@ -14,7 +16,7 @@ input {
   border-bottom-left-radius: 5px;
   outline: none;
   background: white;
-  color: #9E9C9C;
+  color: #9e9c9c;
 }
 .button {
   z-index: 999;
@@ -29,7 +31,7 @@ input {
   line-height: 25px;
   text-align: center;
 
-  &:hover{
+  &:hover {
     background: var(--color-bg-sub);
   }
 }
@@ -37,10 +39,10 @@ input {
   content: "\f002";
   font-family: FontAwesome;
   font-size: 16px;
-  color: #F9F0DA;
+  color: #f9f0da;
 }
 
-.result_search{
+.result_search {
   display: flex;
   color: white;
   width: 120px;
@@ -55,15 +57,13 @@ input {
   top: 3px;
 }
 
-.delete_result{
-  
+.delete_result {
 }
 
-.search_input{
+.search_input {
   display: flex;
 }
 
-.result{
+.result {
   width: 85%;
 }
-

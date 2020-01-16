@@ -5,7 +5,9 @@
   box-sizing: border-box;
   display: contents;
 }
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 .body-container {
@@ -35,4 +37,3 @@
   top: -10px;
   left: -2px;
 }
-

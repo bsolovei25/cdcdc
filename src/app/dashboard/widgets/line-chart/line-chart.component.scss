@@ -8,7 +8,7 @@
 .content {
   display: flex;
   justify-content: space-around;
-  border: 0.5px dashed  var(--color-border-main);
+  border: 0.5px dashed var(--color-border-main);
   border-style: none dashed none dashed;
   height: calc(100% - 57px);
 }
@@ -20,7 +20,7 @@
 
 .totals {
   width: 75px;
- // margin-top: -15px;
+  // margin-top: -15px;
 
   &__item {
     margin-bottom: 15px;
@@ -89,7 +89,7 @@
 
     justify-self: flex-end;
     font-size: 0.75rem;
-    color: var(--color-text-sub)
+    color: var(--color-text-sub);
   }
 
   &:before {
@@ -125,7 +125,6 @@
 
     background: var(--color-bg-main);
   }
-
 }
 
 .frame {
@@ -149,7 +148,7 @@
     box-sizing: border-box;
 */
 
-    &__topright{
+    &__topright {
       z-index: 2;
       top: -2px;
       width: 20px;
@@ -162,14 +161,14 @@
     }
 
     &__left {
-    //  left: -2.5px;
-    left: -1px;
-    width: 20px;
-    height: 21px;
-    border-left: 3px solid var(--color-border-main-transparrent);
-    border-bottom: 3px solid var(--color-border-main-transparrent);
-    position: absolute;
-    box-sizing: border-box;
+      //  left: -2.5px;
+      left: -1px;
+      width: 20px;
+      height: 21px;
+      border-left: 3px solid var(--color-border-main-transparrent);
+      border-bottom: 3px solid var(--color-border-main-transparrent);
+      position: absolute;
+      box-sizing: border-box;
     }
 
     &__right {
@@ -200,7 +199,6 @@
       border-left: 3px solid var(--color-border-main-transparrent);
 
       background: var(--color-bg-main);
-
     }
   }
 
@@ -232,15 +230,15 @@
       content: "";
       position: absolute;
 
-     // bottom: -3px;
-    //  left: -1px;
+      // bottom: -3px;
+      //  left: -1px;
       bottom: -4px;
       left: 0px;
       height: 9px;
       width: 9px;
 
-    //  height: 6px;
-     // width: 6px;
+      //  height: 6px;
+      // width: 6px;
 
       box-sizing: border-box;
       transform-origin: 43% 0;
@@ -250,9 +248,7 @@
       border-top: 3px solid var(--color-border-main-transparrent);
 
       background: var(--color-bg-main);
-
     }
-
   }
 
   &_bottom &__circle {
@@ -260,4 +256,3 @@
     top: -9.5px;
   }
 }
-

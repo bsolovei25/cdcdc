@@ -1,4 +1,8 @@
-<evj-widget-preview [title]="title" [previewTitle]="previewTitle" *ngIf="isMock"></evj-widget-preview>
+<evj-widget-preview
+  [title]="title"
+  [previewTitle]="previewTitle"
+  *ngIf="isMock"
+></evj-widget-preview>
 
 <div class="container pointer-event" *ngIf="!isMock">
   <evj-widget-header [title]="title" [id]="id" [uniqId]="uniqId"></evj-widget-header>
@@ -6,7 +10,11 @@
   <evj-frame-top></evj-frame-top>
 
   <ng-container>
-    <section class="table" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+    <section
+      class="table"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
       <div class="table__header">
         <table>
           <thead>
@@ -42,12 +50,8 @@
           </tbody>
         </table>
       </div>
-
     </section>
-
   </ng-container>
 
   <evj-frame-bottom></evj-frame-bottom>
-
-
 </div>

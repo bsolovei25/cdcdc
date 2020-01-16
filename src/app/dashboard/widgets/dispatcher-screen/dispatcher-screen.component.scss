@@ -5,7 +5,9 @@
   width: 100%;
   box-sizing: border-box;
 }
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 .body-container {
@@ -34,7 +36,6 @@ canvas {
 canvas + * {
   z-index: 2;
 }
-
 
 .loading-shade {
   position: absolute;
@@ -94,6 +95,3 @@ canvas + * {
     }
   }
 }
-
-
-

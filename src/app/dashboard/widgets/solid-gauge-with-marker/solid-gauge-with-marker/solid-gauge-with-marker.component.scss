@@ -1,101 +1,108 @@
-
 .item-b {
-    margin: 0px auto;
-    height: 100%;
-    width: 100%;
-    text-align: center;
-  }
-
-.cb{
-
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: stretch;
-    margin: 0 auto;
-  }
-
-.item-b ::ng-deep svg{
-   height: 100%;
-  }
-
-.pointer{
-  filter: drop-shadow( 0 2px 1px black);
+  margin: 0px auto;
+  height: 100%;
+  width: 100%;
+  text-align: center;
 }
 
-.name_circle{
-    margin-top: 8px;
-    color: rgb(228, 228, 228);
-    margin-left: 30px;
-    font-size: 15px;
-  }
+.cb {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+  margin: 0 auto;
+}
 
-.name_circle2{
-    margin-top: 30px;
-    color: rgb(189, 189, 189);
-    margin-left: 30px;
-    font-size: 15px;
-  }
+.item-b ::ng-deep svg {
+  height: 100%;
+}
 
-  @media screen and(max-width: 300px){
-    .positive{
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      font-size: 9px;
-    }
-    .negative{
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      font-size: 9px;
-      color: orange;
-    }
-    .name_circle{
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: rgb(228, 228, 228);
-      font-size: 9px;
-    }
-    .positive__show{
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      font-size: 8px;
-    }
-    .negative__show{
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      font-size: 8px;
+.pointer {
+  filter: drop-shadow(0 2px 1px black);
+}
 
-    }
-  }
+.name_circle {
+  margin-top: 8px;
+  color: rgb(228, 228, 228);
+  margin-left: 30px;
+  font-size: 15px;
+}
 
-  .positive{
-    margin-top: 5%;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 17px;
-  }
+.name_circle2 {
+  margin-top: 30px;
+  color: rgb(189, 189, 189);
+  margin-left: 30px;
+  font-size: 15px;
+}
 
-  .name_circle{
-    margin-top: 20px;
+@media screen and(max-width: 300px) {
+  .positive {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 9px;
   }
-  .negative{
-    font-size: 17px;
+  .negative {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 9px;
     color: orange;
   }
-
-  .gauge{
-    height: 100%;
-    width: 100%;
+  .name_circle {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: rgb(228, 228, 228);
+    font-size: 9px;
   }
-
-
-  .item-b.active ::ng-deep div{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: rgb(139, 139, 139);
+  .positive__show {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 8px;
   }
+  .negative__show {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 8px;
+  }
+}
 
-  ::-webkit-scrollbar { width: 3px; height: 8px;}
+.positive {
+  margin-top: 5%;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 17px;
+}
 
-  ::-webkit-scrollbar-track {  background-color: #999;}
-  ::-webkit-scrollbar-track-piece { background-color:  rgb(27, 30, 39);}
-  ::-webkit-scrollbar-thumb { height: 50px; background-color: #666; border-radius: 3px;}
-  ::-webkit-scrollbar-corner { background-color: #999;}
-  ::-webkit-resizer { background-color: #666;}
+.name_circle {
+  margin-top: 20px;
+}
+.negative {
+  font-size: 17px;
+  color: orange;
+}
 
+.gauge {
+  height: 100%;
+  width: 100%;
+}
 
+.item-b.active ::ng-deep div {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: rgb(139, 139, 139);
+}
 
+::-webkit-scrollbar {
+  width: 3px;
+  height: 8px;
+}
 
+::-webkit-scrollbar-track {
+  background-color: #999;
+}
+::-webkit-scrollbar-track-piece {
+  background-color: rgb(27, 30, 39);
+}
+::-webkit-scrollbar-thumb {
+  height: 50px;
+  background-color: #666;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-corner {
+  background-color: #999;
+}
+::-webkit-resizer {
+  background-color: #666;
+}

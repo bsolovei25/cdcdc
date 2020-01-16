@@ -3,9 +3,9 @@ export interface CircleFactoryDiagram {
     improvement: number;
     deviation: number;
     image: CircleFactoryDiagramImage[];
-  }
+}
 
-export interface CircleFactoryDiagramImage{
+export interface CircleFactoryDiagramImage {
     id: number;
     isCritical: boolean;
 }

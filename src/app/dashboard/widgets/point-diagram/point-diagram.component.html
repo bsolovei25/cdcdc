@@ -1,4 +1,8 @@
-<evj-widget-preview [title]="title" [previewTitle]="previewTitle" *ngIf="isMock"></evj-widget-preview>
+<evj-widget-preview
+  [title]="title"
+  [previewTitle]="previewTitle"
+  *ngIf="isMock"
+></evj-widget-preview>
 
 <div
   class="container pointer-event"
@@ -24,10 +28,7 @@
       (touchstart)="$event.stopPropagation()"
     >
       <div class="title">
-        <div
-          class="title__name"
-          [innerHTML]="'Норматив, мг/м^3' | powIndex"
-        ></div>
+        <div class="title__name" [innerHTML]="'Норматив, мг/м^3' | powIndex"></div>
         <div class="title__percent">ПДК 100%</div>
       </div>
       <div class="line">

@@ -8,36 +8,34 @@ import { AppConfigService } from 'src/app/services/appConfigService';
 // Local modules
 
 interface ITokenData {
-    login: string,
-    firstName: string,
-    lastName: string,
-    middleName: string,
-    phone: string,
-    position: string,
-    positionDescription: string,
-    token: string,
-    id: number,
-    email: string,
+    login: string;
+    firstName: string;
+    lastName: string;
+    middleName: string;
+    phone: string;
+    position: string;
+    positionDescription: string;
+    token: string;
+    id: number;
+    email: string;
 }
 
-
 @Injectable({
-    providedIn: 'root' // singleton service
+    providedIn: 'root', // singleton service
 })
 export class AuthService {
-
     private authTokenData: ITokenData | null;
     private restUrl: string;
 
     user$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
     get userIsAuthenticated(): boolean {
-        return false
+        return false;
     }
 
     get userSessionToken(): string | null {
         const storageToken: string | null = localStorage.getItem('authentication-token');
-        return (this.authTokenData ? this.authTokenData.token : storageToken);
+        return this.authTokenData ? this.authTokenData.token : storageToken;
     }
 
     constructor(
@@ -46,16 +44,18 @@ export class AuthService {
         private configService: AppConfigService
     ) {
         // this.restUrl = configService.restUrl;
-        this.configService.restUrl$.subscribe(value => {
+        this.configService.restUrl$.subscribe((value) => {
             this.restUrl = value;
         });
     }
 
     async authenticate(username: string, password: string): Promise<any> {
         try {
-            const auth = await this.http.post<any>(this.restUrl + `/api/user-management/auth`, { username, password }).toPromise();
+            const auth = await this.http
+                .post<any>(this.restUrl + `/api/user-management/auth`, { username, password })
+                .toPromise();
             this.configureUserAuth(auth);
-            return auth
+            return auth;
         } catch (error) {
             console.error(error);
         }
@@ -64,13 +64,14 @@ export class AuthService {
     async getUserAuth(): Promise<any[]> {
         try {
             if (this.restUrl) {
-                return await this.http.get<any[]>(this.restUrl + '/api/user-management/current').toPromise();
+                return await this.http
+                    .get<any[]>(this.restUrl + '/api/user-management/current')
+                    .toPromise();
             }
         } catch (error) {
             console.error(error);
         }
     }
-
 
     private configureUserAuth(tokenData: ITokenData) {
         this.authTokenData = tokenData;
@@ -94,5 +95,4 @@ export class AuthService {
             console.error(error);
         }
     }
-
 }

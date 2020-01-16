@@ -46,16 +46,14 @@
 .progress-ring__circle {
   transition: 0.35s stroke-dashoffset;
   // axis compensation
-  stroke: rgba(255, 255, 255, 0.5); 
+  stroke: rgba(255, 255, 255, 0.5);
   transform: rotate(-90deg);
   transform-origin: 89px 92px;
 }
 
-.progress-ring__end__line{
+.progress-ring__end__line {
   transition: 0.35s stroke-dashoffset;
   // axis compensation
-  stroke: rgba(255, 255, 255); 
+  stroke: rgba(255, 255, 255);
   transform-origin: 89px 92px;
 }
-
-

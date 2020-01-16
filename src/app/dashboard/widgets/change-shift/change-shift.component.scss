@@ -247,7 +247,7 @@
         border-radius: 50%;
         margin-left: 20px;
         margin-top: 15px;
-        background: url('../../../../assets/pic/avatar_temp.jpg');
+        background: url("../../../../assets/pic/avatar_temp.jpg");
         background-repeat: no-repeat;
         background-size: contain;
       }
@@ -272,12 +272,12 @@
 
           &__InProgress {
             background-color: var(--color-border-main);
-            mask: url('../../../../assets/icons/widgets/process/in-work.svg') no-repeat center;
+            mask: url("../../../../assets/icons/widgets/process/in-work.svg") no-repeat center;
             mask-size: contain;
           }
           &__Ready {
             background-color: var(--color-text-main);
-            mask: url('../../../../assets/icons/widgets/process/closed.svg') no-repeat center;
+            mask: url("../../../../assets/icons/widgets/process/closed.svg") no-repeat center;
             mask-size: contain;
           }
         }

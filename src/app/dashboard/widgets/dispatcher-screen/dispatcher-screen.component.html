@@ -1,11 +1,17 @@
-<evj-widget-preview [title]="title" [previewTitle]="previewTitle" *ngIf="isMock"></evj-widget-preview>
+<evj-widget-preview
+  [title]="title"
+  [previewTitle]="previewTitle"
+  *ngIf="isMock"
+></evj-widget-preview>
 
 <ng-container *ngIf="!isMock">
-  <evj-widget-header [title]="title"  [id]="id" [uniqId]="uniqId"></evj-widget-header>
+  <evj-widget-header [title]="title" [id]="id" [uniqId]="uniqId"></evj-widget-header>
   <evj-frame-top></evj-frame-top>
-  <div class="body-container"
-       (mousedown)="$event.stopPropagation()"
-       (touchstart)="$event.stopPropagation()">
+  <div
+    class="body-container"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
     <div class="unity-body-container">
       <div class="loading-shade" *ngIf="!isStart && !isMock">
         <div class="loader">
@@ -20,4 +26,3 @@
   </div>
   <evj-frame-bottom></evj-frame-bottom>
 </ng-container>
-

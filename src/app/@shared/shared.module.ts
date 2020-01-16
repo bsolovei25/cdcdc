@@ -6,24 +6,15 @@ import { FnPipe } from './pipes/fn_pipe';
 import { PreLoaderComponent } from './preloader/preloader.component';
 import { UiElementsComponent } from './layout/ui-elements.component';
 
-
 @NgModule({
-  declarations: [
-    HeaderComponent, 
-    ContentComponent, 
-    FnPipe,
-    PreLoaderComponent,
-    UiElementsComponent
-  ],
-  exports: [
-    HeaderComponent,
-    ContentComponent,
-    FnPipe,
-    PreLoaderComponent
-  ],
-  imports: [
-    CommonModule
-  ]
+    declarations: [
+        HeaderComponent,
+        ContentComponent,
+        FnPipe,
+        PreLoaderComponent,
+        UiElementsComponent,
+    ],
+    exports: [HeaderComponent, ContentComponent, FnPipe, PreLoaderComponent],
+    imports: [CommonModule],
 })
-export class SharedModule {
-}
+export class SharedModule {}
