@@ -32,11 +32,11 @@ export class CalendarPlanComponent implements OnInit {
         higherValue: 1000 * (1 + 0.1),
     };
 
-    public a = 0
+    public a = 0;
 
     array = [
         {
-            name: "Бензины", // название
+            name: 'Бензины', // название
             deviation: -0.4, // отклонение
             isBetter: false, // флаг улучшение
         },
