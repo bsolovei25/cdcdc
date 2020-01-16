@@ -1,9 +1,9 @@
-import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Machine_MI, MI_DataGet, MI_DataSend, MI_ParamSend, Param_MI} from '../models/manual-input.model';
-import {AppConfigService} from 'src/app/services/appConfigService';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Machine_MI, MI_DataGet, MI_DataSend, MI_ParamSend, Param_MI } from '../models/manual-input.model';
+import { AppConfigService } from 'src/app/services/appConfigService';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class ManualInputService {
   public statusLoading;
 
@@ -152,19 +152,19 @@ export class ManualInputService {
   }
 
 
-  saveBar(text: string,  statusLoad:boolean , durection: number = 2000) {
+  saveBar(text: string, statusLoad: boolean, durection: number = 2000) {
     let snackBar = document.getElementById("saveBar");
     let snackBarBlock = document.getElementById("saveBarBlock");
-    if (statusLoad){
+    if (statusLoad) {
       snackBar.className = "show";
       snackBarBlock.className = "show";
       snackBar.innerText = text;
     } else {
       snackBar.innerText = text;
-      setTimeout(function () {
-       snackBar.className = snackBar.className.replace("show", "");
+      setTimeout(function() {
+        snackBar.className = snackBar.className.replace("show", "");
       }, durection);
-       snackBarBlock.className = snackBarBlock.className.replace("show", "");
+      snackBarBlock.className = snackBarBlock.className.replace("show", "");
     }
   }
 }
