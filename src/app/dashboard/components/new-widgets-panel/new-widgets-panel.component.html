@@ -3,7 +3,7 @@
     <svg-icon
       class="widgets-panel__icon"
       src="./assets/icons/settings.svg"
-      [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+      [svgStyle]="{ 'width.px': 20, 'height.px': 20 }"
     ></svg-icon>
   </div>
 
@@ -52,7 +52,7 @@
           class="widget"
         >
           <ng-container
-            *ngComponentOutlet="WIDGETS[item.widgetType]; injector: (item.id | fn:getInjector);"
+            *ngComponentOutlet="WIDGETS[item.widgetType]; injector: item.id | fn: getInjector"
           >
           </ng-container>
         </div>

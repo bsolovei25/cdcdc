@@ -1,23 +1,21 @@
-<div
-  class="indicator-selector"
-  (mouseover)="ScreenActive($event)"
-  (mouseleave)="ScreenDisable($event)"
->
-  <svg-icon class="indicator-selector__icon" src="./assets/icons/screen.svg"></svg-icon>
+<div class="indicator-selector"
+     (mouseover)="ScreenActive($event)"
+     (mouseleave)="ScreenDisable($event)">
+  <svg-icon class="indicator-selector__icon"
+            src="./assets/icons/screen.svg"></svg-icon>
 
   <span class="indicator-selector__name">
-    {{ this.nameScreen }}
+    {{ nameScreen }}
   </span>
 
-  <div class="dropdown-content" [class.dropdown-content_active]="isShowScreens">
+  <div class="dropdown-content"
+       [class.dropdown-content_active]="isShowScreens">
     <ng-container *ngFor="let screen of dataScreen">
-      <div
-        (click)="this.setActiveScreen(screen)"
-        (click)="LoadScreen(idScreen)"
-        class="dropdown-component"
-        (mouseover)="isOverScreen($event)"
-        (mouseleave)="isLeaveScreen($event)"
-      >
+      <div (click)="this.setActiveScreen(screen)"
+           (click)="LoadScreen(idScreen)"
+           class="dropdown-component"
+           (mouseover)="isOverScreen($event)"
+           (mouseleave)="isLeaveScreen($event)">
         <div class="screen_block">
           <div class="screen_blocks">
             <div *ngIf="screen.updateScreen === false">
@@ -26,34 +24,33 @@
               </div>
             </div>
             <div *ngIf="screen.updateScreen === true">
-              <input class="update_input" [(ngModel)]="newNameScreen" />
+              <input class="update_input"
+                     [(ngModel)]="newNameScreen" />
             </div>
-            <div class="hover-button" *ngIf="screen.updateScreen === false">
-              <div class="update_screen" (click)="onUpdateForm(screen.id)">
-                <svg-icon
-                  class="indicator-selector__collapse"
-                  src="./assets/icons/edit.svg"
-                ></svg-icon>
+            <div class="hover-button"
+                 *ngIf="screen.updateScreen === false">
+              <div class="update_screen"
+                   (click)="onUpdateForm(screen.id)">
+                <svg-icon class="indicator-selector__collapse"
+                          src="./assets/icons/edit.svg"></svg-icon>
               </div>
-              <div class="delete_screen" (click)="deleteScreen(screen.id)">
-                <svg-icon
-                  class="indicator-selector__collapse"
-                  src="./assets/icons/garbage_bad_pic.svg"
-                ></svg-icon>
+              <div class="delete_screen"
+                   (click)="deleteScreen(screen.id)">
+                <svg-icon class="indicator-selector__collapse"
+                          src="./assets/icons/garbage_bad_pic.svg"></svg-icon>
               </div>
             </div>
-            <div class="hover-button" *ngIf="screen.updateScreen === true">
-              <div class="update_screen2" (click)="updateScreen(screen.id, this.newNameScreen)">
-                <svg-icon
-                  class="indicator-selector__collapse"
-                  src="./assets/icons/checkmark.svg"
-                ></svg-icon>
+            <div class="hover-button"
+                 *ngIf="screen.updateScreen === true">
+              <div class="update_screen2"
+                   (click)="updateScreen(screen.id, this.newNameScreen)">
+                <svg-icon class="indicator-selector__collapse"
+                          src="./assets/icons/checkmark.svg"></svg-icon>
               </div>
-              <div class="delete_screen2" (click)="deleteScreen(screen.id)">
-                <svg-icon
-                  class="indicator-selector__collapse"
-                  src="./assets/icons/garbage_bad_pic.svg"
-                ></svg-icon>
+              <div class="delete_screen2"
+                   (click)="deleteScreen(screen.id)">
+                <svg-icon class="indicator-selector__collapse"
+                          src="./assets/icons/garbage_bad_pic.svg"></svg-icon>
               </div>
             </div>
           </div>
@@ -61,19 +58,16 @@
       </div>
     </ng-container>
     <div class="dropdown-component">
-      <input
-        class="dropdown-component_input"
-        [(ngModel)]="tempScreen"
-        (ngModelChange)="onChangeAdder()"
-      />
-      <div
-        class="dropdown-component_adder"
-        (click)="this.addScreen()"
-        [class.dropdown-component_adder__non-active]="!isReadyAdd"
-        [class.dropdown-component_adder__active]="isReadyAdd"
-      ></div>
+      <input class="dropdown-component_input"
+             [(ngModel)]="tempScreen"
+             (ngModelChange)="onChangeAdder()" />
+      <div class="dropdown-component_adder"
+           (click)="this.addScreen()"
+           [class.dropdown-component_adder__non-active]="!isReadyAdd"
+           [class.dropdown-component_adder__active]="isReadyAdd"></div>
     </div>
   </div>
 
-  <svg-icon class="indicator-selector__collapse" src="./assets/icons/collapse.svg"></svg-icon>
+  <svg-icon class="indicator-selector__collapse"
+            src="./assets/icons/collapse.svg"></svg-icon>
 </div>
