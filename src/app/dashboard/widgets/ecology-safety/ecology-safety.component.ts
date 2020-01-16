@@ -1,6 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
+import { IEcologySafety } from '../../models/ecology-safety';
+import { Widgets } from '../../models/widget.model';
 
 @Component({
     selector: 'evj-ecology-safety',
@@ -8,24 +10,23 @@ import { NewWidgetService } from '../../services/new-widget.service';
     styleUrls: ['./ecology-safety.component.scss'],
 })
 export class EcologySafetyComponent implements OnInit {
-    aboutWidget;
+    static itemCols: number = 18;
+    static itemRows: number = 2;
 
-    static itemCols = 18;
-    static itemRows = 2;
-
-    subscription: Subscription;
+    public subscription: Subscription;
 
     /* Приблизительная структура, получаемая с бека */
 
-    data = {
+    public data: IEcologySafety = {
         plan: 100, // план
         curValue: 80, // текущее значение
         maxValue: 120, // максимальное значение
     };
 
-    colorNormal = '#FFFFFF';
-    colorDeviation = '#F4A321';
+    public colorNormal: string = '#FFFFFF';
+    public colorDeviation: string = '#F4A321';
 
+    public title: string;
     public previewTitle: string;
 
     constructor(
@@ -34,13 +35,13 @@ export class EcologySafetyComponent implements OnInit {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-            this.aboutWidget = data.title;
+        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data: Widgets) => {
+            this.title = data.title;
             this.previewTitle = data.widgetType;
         });
     }
 
-    ngOnInit() {}
+    ngOnInit(): void {}
 
     drawGraph(count: number): string {
         return count.toString() + '%';
