@@ -8,13 +8,6 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./calendar-plan.component.scss'],
 })
 export class CalendarPlanComponent implements OnInit {
-    aboutWidget;
-
-    static itemCols = 18;
-    static itemRows = 10;
-
-    subscription: Subscription;
-
     /* Приблизительная структура, получаемая с бека */
 
     data = {
@@ -65,6 +58,14 @@ export class CalendarPlanComponent implements OnInit {
         },
     ];
 
+    static itemCols: number = 18;
+    static itemRows: number = 10;
+
+    public subscription: Subscription;
+
+    public aboutWidget: string;
+    public previewTitle: string;
+
     constructor(
         private widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,
@@ -76,5 +77,5 @@ export class CalendarPlanComponent implements OnInit {
         });
     }
 
-    ngOnInit() {}
+    ngOnInit(): void {}
 }

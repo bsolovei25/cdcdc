@@ -26,6 +26,8 @@ export class EcologySafetyComponent implements OnInit {
     colorNormal = '#FFFFFF';
     colorDeviation = '#F4A321';
 
+    public previewTitle: string;
+
     constructor(
         private widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,
@@ -34,6 +36,7 @@ export class EcologySafetyComponent implements OnInit {
     ) {
         this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
             this.aboutWidget = data.title;
+            this.previewTitle = data.widgetType;
         });
     }
 

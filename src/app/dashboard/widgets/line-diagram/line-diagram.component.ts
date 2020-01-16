@@ -34,8 +34,9 @@ export class LineDiagramComponent implements OnInit {
     ];
     fillGraphs = '#3FA9F5';
 
-    public title;
-    public unitsA;
+    public title: string;
+    public units: string;
+    public previewTitle: string;
 
     constructor(
         public widgetService: NewWidgetService,
@@ -45,7 +46,8 @@ export class LineDiagramComponent implements OnInit {
     ) {
         this.subscription = this.widgetService.getWidgetChannel(id).subscribe((data) => {
             this.title = data.title;
-            this.unitsA = data.units;
+            this.units = data.units;
+            this.previewTitle = data.widgetType;
         });
     }
 

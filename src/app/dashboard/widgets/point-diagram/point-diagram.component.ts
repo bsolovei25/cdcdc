@@ -63,10 +63,9 @@ export class PointDiagramComponent implements OnInit, OnDestroy {
     static itemCols = 23;
     static itemRows = 16;
 
-    public units = '%';
-    public title;
-
-    aboutWidget;
+    public units: string = '%';
+    public title: string;
+    public previewTitle: string;
 
     private subscriptions: Subscription[] = [];
 
@@ -82,6 +81,7 @@ export class PointDiagramComponent implements OnInit, OnDestroy {
                 // this.code = data.code;
                 this.units = data.units;
                 // this.name = data.name;
+                this.previewTitle = data.widgetType;
             })
         );
     }

@@ -102,6 +102,7 @@ export class RingSFactoryDiagramComponent implements OnInit {
     public code;
     public units;
     public name;
+    public previewTitle: string;
 
     constructor(
         public widgetService: NewWidgetService,
@@ -116,6 +117,7 @@ export class RingSFactoryDiagramComponent implements OnInit {
                 this.code = data.code;
                 this.units = data.units;
                 this.name = data.name;
+                this.previewTitle = data.widgetType;
             })
         );
     }

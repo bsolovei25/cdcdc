@@ -32,6 +32,9 @@ export class OperationEfficiencyComponent implements OnInit {
         higherValue: 1000 * (1 + 0.1),
     };
 
+    public title: string;
+    public previewTitle: string;
+
     constructor(
         private widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,
@@ -39,7 +42,8 @@ export class OperationEfficiencyComponent implements OnInit {
         @Inject('uniqId') public uniqId: string
     ) {
         this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-            this.aboutWidget = data.title;
+            this.title = data.title;
+            this.previewTitle = data.widgetType;
         });
     }
 

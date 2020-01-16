@@ -39,7 +39,7 @@ export class DeviationCircleDiagramComponent implements OnInit, OnDestroy {
 
     public title;
     public units = '%';
-    public widgetType = 'deviation-circle-diagram';
+    public previewTitle = 'deviation-circle-diagram';
 
     subscriptions: Subscription[] = [];
 
@@ -55,6 +55,7 @@ export class DeviationCircleDiagramComponent implements OnInit, OnDestroy {
         this.subscriptions.push(
             this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
                 this.title = data.title;
+                this.previewTitle = data.widgetType;
                 // this.code = data.code;
                 // this.units = data.units;
                 // this.name = data.name;
@@ -66,7 +67,7 @@ export class DeviationCircleDiagramComponent implements OnInit, OnDestroy {
         if (!this.isMock) {
             this.subscriptions.push(
                 this.widgetService
-                    .getWidgetLiveDataFromWS(this.id, this.widgetType)
+                    .getWidgetLiveDataFromWS(this.id, this.previewTitle)
                     .subscribe((data: DeviationCircleDiagram) => {
                         this.deviationCircleDiagram = data;
                     })

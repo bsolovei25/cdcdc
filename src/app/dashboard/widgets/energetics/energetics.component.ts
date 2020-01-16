@@ -88,7 +88,8 @@ export class EnergeticsComponent implements OnInit {
     termoRadius = (15.91549430918954 + 6).toString();
     radPoint = '0.8';
 
-    public title;
+    public title: string;
+    public previewTitle: string;
 
     constructor(
         private widgetService: NewWidgetService,
@@ -98,6 +99,7 @@ export class EnergeticsComponent implements OnInit {
     ) {
         this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
             this.title = data.title;
+            this.previewTitle = data.widgetType;
             // this.code = data.code;
             // this.units = data.units;
             // this.name = data.name;
