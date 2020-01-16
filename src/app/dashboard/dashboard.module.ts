@@ -75,6 +75,7 @@ import { SolidGaugesComponent } from './widgets/solid-gauge-with-marker/solid-ga
 import { SolidGaugeWithMarkerComponent } from './widgets/solid-gauge-with-marker/solid-gauge-with-marker/solid-gauge-with-marker.component';
 import { SearchFilterComponent } from './components/search/search-filter/search-filter.component';
 import { SearchInputComponent } from './components/search/search-input/search-input.component';
+import { SearchListComponent } from './components/search/search-list/search-list.component';
 
 @NgModule({
   declarations: [
@@ -143,6 +144,7 @@ import { SearchInputComponent } from './components/search/search-input/search-in
     SolidGaugeWithMarkerComponent,
     SearchFilterComponent,
     SearchInputComponent,
+    SearchListComponent,
   ],
   entryComponents: [
     LineChartComponent,

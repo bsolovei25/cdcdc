@@ -2,20 +2,6 @@
     font-size: 6px;
     color: var(--color-text-sub);
 }
-
-
-.result_block{
-    z-index: 999;
-    width: 400px;
-    overflow-y: auto;
-    height: 200px;
-    background-color: white;
-    border: 2px solid var(--color-border-main);
-    border-radius: 5px;
-    left: 55px;
-    position: absolute;
-  }
-
 .result_search{
     color: white;
     width: 120px;
@@ -34,10 +20,9 @@
 }
 
 
-.result_filter{
+.result_list{
     padding: 12px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     flex-wrap: wrap;
 }
-

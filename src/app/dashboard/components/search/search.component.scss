@@ -6,40 +6,7 @@
 ::-webkit-scrollbar-corner { background-color: #999;}
 ::-webkit-resizer { background-color: #666;}
 
-* {box-sizing: border-box;}
-form {
-  position: relative;
-  width: 400px;
-  margin: 0 auto;
-}
-input {
-  width: 100%;
-  height: 36px;
-  padding-left: 10px;
-  border: 2px solid var(--color-border-main);
-  border-radius: 5px;
-  outline: none;
-  background: white;
-  color: #9E9C9C;
-}
-button {
-  position: absolute; 
-  top: 0;
-  right: 0px;
-  width: 42px;
-  height: 36px;
-  border: 2px solid var(--color-border-main);
-  border-left: none;
-  background: var(--color-bg-sub);
-  border-radius: 0 5px 5px 0;
-  cursor: pointer;
-}
-button:before {
-  content: "\f002";
-  font-family: FontAwesome;
-  font-size: 16px;
-  color: #F9F0DA;
-}
+
 
 .result_block{
   z-index: 999;

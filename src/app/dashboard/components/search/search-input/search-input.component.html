@@ -1,4 +1,5 @@
-<input type="text" placeholder="Искать здесь..." (click)="this.checkInput($event)">
+<form>
+    <input type="text" placeholder="Искать здесь..." (click)="this.checkInput($event)">
     <ng-container *ngIf="checkData">
         <div class="result_search">
             <div class="result">{{this.typeWidgetChoose}}</div>
@@ -7,3 +8,4 @@
     </ng-container>
     
 <button type="submit"></button>
+</form>
