@@ -32,8 +32,6 @@ export class CalendarPlanComponent implements OnInit {
         higherValue: 1000 * (1 + 0.1),
     };
 
-    public a = 0;
-
     array = [
         {
             name: 'Бензины', // название
