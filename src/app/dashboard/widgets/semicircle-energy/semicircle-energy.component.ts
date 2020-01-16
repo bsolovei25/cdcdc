@@ -56,28 +56,28 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
 
     /* Цвета для диаграмм */
 
-    colorMain = '#1b1e27';
-    colorBg = '#0d1014';
-    colorNormal = '#a2e2ff';
-    colorFull = '#FFFFFF';
-    colorDeviation = '#F4A321';
+    public colorMain: string = '#1b1e27';
+    public colorBg: string = '#0d1014';
+    public colorNormal: string = '#a2e2ff';
+    public colorFull: string = '#FFFFFF';
+    public colorDeviation: string = '#F4A321';
 
     /* Координаты центров окружностей */
 
-    centerX = '25';
-    centerY = '30';
+    public centerX: string = '25';
+    public centerY: string = '30';
 
     /* Радиусы диаграмм */
 
-    radProd4 = (15.91549430918954).toString();
-    radProd3 = (15.91549430918954 + 3).toString();
-    radProd2 = (15.91549430918954 + 6).toString();
-    radProd1 = (15.91549430918954 + 9).toString();
-    radPoint = '0.8';
+    public radProd4: string = (15.91549430918954).toString();
+    public radProd3: string = (15.91549430918954 + 3).toString();
+    public radProd2: string = (15.91549430918954 + 6).toString();
+    public radProd1: string = (15.91549430918954 + 9).toString();
+    public radPoint: string = '0.8';
 
     public diagramLogo: string;
     public diagramLogoDanger: string;
-    public isWarning = false;
+    public isWarning: boolean = false;
 
     public title: string;
     public units: string = 'кг/м^3';
@@ -86,10 +86,8 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
 
     subscriptions: Subscription[] = [];
 
-    static itemCols = 14;
-    static itemRows = 11;
-
-    public test;
+    static itemCols: number = 14;
+    static itemRows: number = 11;
 
     constructor(
         private widgetService: NewWidgetService,
@@ -107,7 +105,7 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
         );
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         if (!this.isMock) {
             this.subscriptions.push(
                 this.widgetService
@@ -125,7 +123,7 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
         }
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         if (this.subscriptions) {
             this.subscriptions.forEach((subscription) => subscription.unsubscribe());
         }
@@ -188,8 +186,8 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
 
     diaLine(r: string, line: number): string {
         const c: number = 2 * Math.PI * +r;
-        const per_cent = line / 100;
-        return ((per_cent * 3) / 8) * c + ' ' + (1 - (per_cent * 3) / 8) * c;
+        const percent = line / 100;
+        return ((percent * 3) / 8) * c + ' ' + (1 - (percent * 3) / 8) * c;
     }
 
     diaOffset(r: string, line: number): string {
@@ -212,14 +210,21 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
     }
 
     diaFill(percent: number): string {
-        if (percent < this.energyCircleDiagram.lowerLimit) return this.colorDeviation;
+        if (percent < this.energyCircleDiagram.lowerLimit) {
+            return this.colorDeviation;
+        }
         if (
             percent >= this.energyCircleDiagram.lowerLimit &&
             percent < this.energyCircleDiagram.upperLimit
-        )
+        ) {
             return this.colorNormal;
-        if (percent === this.energyCircleDiagram.upperLimit) return this.colorFull;
-        if (percent > this.energyCircleDiagram.upperLimit) return this.colorDeviation;
+        }
+        if (percent === this.energyCircleDiagram.upperLimit) {
+            return this.colorFull;
+        }
+        if (percent > this.energyCircleDiagram.upperLimit) {
+            return this.colorDeviation;
+        }
     }
 
     diaEndsLine(line: number, rad: string): CenterCoords {

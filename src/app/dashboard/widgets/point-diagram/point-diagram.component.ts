@@ -1,13 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { Subscription } from 'rxjs';
-
-export interface PointDiagramElement {
-    norm: number;
-    percentageValue: number;
-    title: string;
-    isCritical: boolean;
-}
+import { IPointDiagramElement } from '../../models/point-diagram';
 
 @Component({
     selector: 'evj-point-diagram',
@@ -15,7 +9,7 @@ export interface PointDiagramElement {
     styleUrls: ['./point-diagram.component.scss'],
 })
 export class PointDiagramComponent implements OnInit, OnDestroy {
-    pointDiagramElements: PointDiagramElement[] = [
+    pointDiagramElements: IPointDiagramElement[] = [
         {
             norm: 0.2,
             percentageValue: 30.6,
@@ -60,8 +54,8 @@ export class PointDiagramComponent implements OnInit, OnDestroy {
         },
     ];
 
-    static itemCols = 23;
-    static itemRows = 16;
+    static itemCols: number = 23;
+    static itemRows: number = 16;
 
     public units: string = '%';
     public title: string;
@@ -86,13 +80,13 @@ export class PointDiagramComponent implements OnInit, OnDestroy {
         );
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         if (!this.isMock) {
             this.wsConnect();
         }
     }
 
-    private wsConnect() {
+    private wsConnect(): void {
         this.subscriptions.push(
             this.widgetService
                 .getWidgetLiveDataFromWS(this.id, 'point-diagram')
@@ -102,7 +96,7 @@ export class PointDiagramComponent implements OnInit, OnDestroy {
         );
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         if (this.subscriptions) {
             for (const subscription of this.subscriptions) {
                 subscription.unsubscribe();
