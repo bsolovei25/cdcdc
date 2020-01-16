@@ -40,6 +40,7 @@ export class MapEcologyComponent implements AfterViewInit, OnInit, OnDestroy {
     public code;
     public units;
     public name;
+    public previewTitle: string;
 
     public svgimg;
 
@@ -64,6 +65,7 @@ export class MapEcologyComponent implements AfterViewInit, OnInit, OnDestroy {
             this.code = data.code;
             this.units = data.units;
             this.name = data.name;
+            this.previewTitle = data.widgetType;
         });
     }
 

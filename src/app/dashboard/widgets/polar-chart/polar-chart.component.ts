@@ -17,10 +17,11 @@ export class PolarChartComponent implements AfterViewInit {
 
     private canvas: any;
 
-    public title;
-    public code;
-    public units;
-    public name;
+    public title: string;
+    public code: string;
+    public units: string;
+    public name: string;
+    public previewTitle: string;
 
     public index = 0;
 
@@ -135,6 +136,7 @@ export class PolarChartComponent implements AfterViewInit {
                 this.code = data.code;
                 this.units = data.units;
                 this.name = data.name;
+                this.previewTitle = data.widgetType;
             })
         );
     }
