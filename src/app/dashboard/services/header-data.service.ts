@@ -30,8 +30,7 @@ export class HeaderDataService {
   public catchDefaultDate(start, end, status){
     let defaultTime = new Date();
     defaultTime = new Date(defaultTime.getFullYear(), defaultTime.getMonth(), defaultTime.getDate(), 0, 0, 0);
-    debugger
-    
+
     let datePipe = new DatePipe("en-Us");
 
     let defaultMonth = datePipe.transform(defaultTime, 'yyyyMM');
@@ -40,7 +39,7 @@ export class HeaderDataService {
     this.monthStart = datePipe.transform(start, 'yyyyMM');
     this.monthEnd = datePipe.transform(end, 'yyyyMM');
 
-    (this.monthStart !== defaultMonth && this.monthEnd !== defaultMonth) ? (this.startDate = "01", this.endDate = "31") : 
+    (this.monthStart !== defaultMonth && this.monthEnd !== defaultMonth) ? (this.startDate = "01", this.endDate = "31") :
             (this.monthStart !== this.monthEnd && this.monthStart < this.monthEnd && (this.monthEnd === defaultMonth)) ? this.startDate = "01" :
             (this.monthStart !== this.monthEnd && this.monthStart < this.monthEnd && (this.monthEnd !== defaultMonth)) ? this.endDate = "31" : this.startDate;
     this.statusButton = status;
@@ -52,8 +51,7 @@ export class HeaderDataService {
     this.pushDate();
   }
 
-  public pushDate(){
-    debugger
+  public pushDate() {
     let dateTo = { start: this.startDate, end: this.endDate, status: this.statusButton };
     this._date$.next(dateTo);
   }
