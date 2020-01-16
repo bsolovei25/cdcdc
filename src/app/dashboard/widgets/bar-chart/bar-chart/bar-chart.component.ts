@@ -11,7 +11,7 @@ export class BarChartComponent implements OnInit {
   @Input() public data: BarWidget;
 
   public min = 1;
-  public max = 100;
+  public max = 100; 
   public goodValue;
   public badValue;
   public summ;
@@ -23,10 +23,10 @@ export class BarChartComponent implements OnInit {
     this.barIt(this.data);
   }
 
-  public barIt(data) {
-    this.summ = data.good + data.bad;
-    this.procsumm = (this.summ / this.summ) * 100;
-    this.goodValue = (100 * data.good) / this.summ;
-    this.badValue = (100 * data.bad) / this.summ;
+  public barIt(data){
+      this.summ = data.good + data.bad;
+      this.procsumm = (this.summ/this.summ)*100;
+      this.goodValue = (100*data.good)/this.summ;
+      this.badValue = (100*data.bad)/this.summ;
   }
 }
