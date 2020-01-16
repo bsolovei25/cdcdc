@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
+import { IOperationEfficiency } from '../../models/operation-efficiency';
 
 @Component({
     selector: 'evj-operation-efficiency',
@@ -8,16 +9,14 @@ import { NewWidgetService } from '../../services/new-widget.service';
     styleUrls: ['./operation-efficiency.component.scss'],
 })
 export class OperationEfficiencyComponent implements OnInit {
-    aboutWidget;
+    static itemCols: number = 18;
+    static itemRows: number = 6;
 
-    static itemCols = 18;
-    static itemRows = 6;
-
-    subscription: Subscription;
+    public subscription: Subscription;
 
     /* Приблизительная структура, получаемая с бека */
 
-    data = {
+    public data: IOperationEfficiency = {
         plan: 1000,
         lowerBorder: 0.03,
         higherBorder: 0.1,
@@ -47,5 +46,5 @@ export class OperationEfficiencyComponent implements OnInit {
         });
     }
 
-    ngOnInit() {}
+    ngOnInit(): void {}
 }

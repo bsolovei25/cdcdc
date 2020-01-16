@@ -9,11 +9,11 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./time-line-diagram.component.scss'],
 })
 export class TimeLineDiagramComponent implements OnInit, OnDestroy {
-    data: TimeLineDataInput = {
+    public data: TimeLineDataInput = {
         values: [],
     };
 
-    isMockData: TimeLineDataInput = {
+    public isMockData: TimeLineDataInput = {
         values: [
             {
                 dropTimeNext: '0',
@@ -32,10 +32,10 @@ export class TimeLineDiagramComponent implements OnInit, OnDestroy {
     public units: string = 'час';
     public widgetType: string = 'time-line-diagram';
 
-    subscriptions: Subscription[] = [];
+    public subscriptions: Subscription[] = [];
 
-    static itemCols = 22;
-    static itemRows = 13;
+    static itemCols: number = 22;
+    static itemRows: number = 13;
 
     constructor(
         private widgetService: NewWidgetService,
@@ -53,7 +53,7 @@ export class TimeLineDiagramComponent implements OnInit, OnDestroy {
         );
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         if (!this.isMock) {
             this.subscriptions.push(
                 this.widgetService
@@ -63,7 +63,7 @@ export class TimeLineDiagramComponent implements OnInit, OnDestroy {
         }
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         if (this.subscriptions) {
             this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
         }

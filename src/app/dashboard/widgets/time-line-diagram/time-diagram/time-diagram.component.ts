@@ -17,8 +17,8 @@ export class TimeDiagramComponent implements OnInit {
 
     public timeLeft: number = 0;
 
-    colorNormal = '#616580';
-    colorNow = '#a2e2ff';
+    public colorNormal: string = '#616580';
+    public colorNow: string = '#a2e2ff';
 
     public hours: number;
     public minutes: number;
@@ -26,7 +26,7 @@ export class TimeDiagramComponent implements OnInit {
 
     constructor() {}
 
-    ngOnInit() {
+    ngOnInit(): void {
         if (!this.isMock) {
             setInterval(() => {
                 this.timeLeft = Date.parse(this.data.dropTimeNext) - Date.now();

@@ -1,12 +1,12 @@
 <evj-widget-preview
-  [title]="aboutWidget"
+  [title]="title"
   [previewTitle]="previewTitle"
   *ngIf="isMock"
 ></evj-widget-preview>
 
 <div class="container pointer-event" *ngIf="!isMock">
   <evj-widget-header
-    [title]="aboutWidget"
+    [title]="title"
     [units]=""
     [code]=""
     [id]="id"
