@@ -27,9 +27,7 @@ export class SearchComponent implements OnInit {
   ) { 
     this.subscription = this.widgetService.getAvailableWidgets().subscribe(dataW => {
       this.widgets = dataW;
-      for(let i of this.widgets){
-        this.newArrayType.push(i.widgetType);
-      }
+      this.newArrayType = this.filterData(this.widgets);
       debugger
     });
   }
@@ -55,5 +53,13 @@ export class SearchComponent implements OnInit {
     console.log(data);
   }
 
+  public filterData(data){
+    let newArray = [];
+    for(let i of data){
+      newArray.push(i.widgetType);
+    }
+    let newFilterArray = [... new Set(newArray)];
+    return newFilterArray;
+  }
 
 }

@@ -13,9 +13,14 @@ export class SearchInputComponent implements OnInit {
 
   public checkClick = false;
 
-  public typeWidgetChoose;
+  itemChoose = false;
 
-  constructor() { }
+
+  constructor() { 
+    if(this.data){
+      this.itemChoose = true;
+    }
+  }
 
   ngOnInit() {
 

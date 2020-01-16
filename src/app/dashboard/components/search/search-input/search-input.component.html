@@ -1,11 +1,13 @@
-<form>
-    <input type="text" placeholder="Искать здесь..." (click)="this.checkInput($event)">
-    <ng-container *ngIf="checkData">
-        <div class="result_search">
-            <div class="result">{{this.typeWidgetChoose}}</div>
-            <div class="delete_result">x</div>
-        </div>
-    </ng-container>
+<div class="search_input">
+    <div class="result_search" *ngFor="let i of data">
+                <div class="result">{{i}}</div>
+                <div class="delete_result">x</div>
+    </div>
     
-<button type="submit"></button>
-</form>
+    <input type="text" placeholder="Поиск..." (click)="this.checkInput($event)">
+
+    <div class="button" (click)="searchItem($event)"></div>
+</div>
+
+
+

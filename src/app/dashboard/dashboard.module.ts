@@ -200,7 +200,7 @@ import { SearchListComponent } from './components/search/search-list/search-list
     GridsterModule,
     ClickOutsideModule,
     DashboardRoutingModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
   bootstrap: []
 })
