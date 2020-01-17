@@ -17,14 +17,14 @@
     "telemetry.enableTelemetry": false,
     // Editor settings
     "editor.wordWrap": "off",
-    "editor.wordWrapColumn": 180,
+    "editor.wordWrapColumn": 120,
     "editor.cursorBlinking": "smooth",
     "editor.renderIndentGuides": true,
     "editor.minimap.enabled": false,
     "editor.minimap.maxColumn": 100,
     "editor.dragAndDrop": true,
     "editor.rulers": [
-      180
+      120
     ],
     "editor.cursorStyle": "line",
     "editor.showFoldingControls": "always",
@@ -41,7 +41,7 @@
     // Beautify code settings
     "html.format.wrapAttributes": "force-aligned",
     "html.format.indentInnerHtml": true,
-    "html.format.wrapLineLength": 180,
+    "html.format.wrapLineLength": 120,
     "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
     "typescript.preferences.quoteStyle": "single",
     "typescript.preferences.importModuleSpecifier": "relative",

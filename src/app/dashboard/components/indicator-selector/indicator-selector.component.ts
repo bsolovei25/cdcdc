@@ -9,7 +9,7 @@ import { ScreenSettings } from '../../models/user-settings.model';
     templateUrl: './indicator-selector.component.html',
     styleUrls: ['./indicator-selector.component.scss'],
 })
-export class IndicatorSelectorComponent implements OnInit, AfterViewInit {
+export class IndicatorSelectorComponent implements OnInit {
     public dataScreen: ScreenSettings[] = [];
 
     isReadyAdd: boolean = false;
@@ -33,22 +33,20 @@ export class IndicatorSelectorComponent implements OnInit, AfterViewInit {
     constructor(private userSettings: NewUserSettingsService) {
         this.subscription = this.userSettings.screens$.subscribe((dataW) => {
             this.dataScreen = dataW;
-            this.nameScreen = this.getActiveScreen();
+            if (this.getActiveScreen()) {
+                this.nameScreen = this.getActiveScreen();
+            }
             for (const item of this.dataScreen) {
                 item.updateScreen = false;
             }
         });
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.localSaved = Number(localStorage.getItem('screenid'));
     }
 
-    ngAfterViewInit() {
-        this.nameScreen = this.getActiveScreen();
-    }
-
-    public LoadScreen(id) {
+    public LoadScreen(id: string): void {
         this.userSettings.LoadScreen(id);
     }
 
@@ -109,7 +107,7 @@ export class IndicatorSelectorComponent implements OnInit, AfterViewInit {
         if (this.idScreen === id) {
             this.nameScreen = this.dataScreen[0].screenName;
             this.idScreen = this.dataScreen[0].id;
-            this.LoadScreen(this.idScreen);
+            this.LoadScreen(this.idScreen.toString());
         }
     }
 
