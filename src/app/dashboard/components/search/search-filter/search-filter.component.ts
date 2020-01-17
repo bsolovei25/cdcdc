@@ -9,13 +9,22 @@ import { Widgets } from 'src/app/dashboard/models/widget.model';
 export class SearchFilterComponent implements OnInit {
     @Input() public data;
 
+
+    itemId: number;
+    clicked: boolean;
+
+    arrayClick = [];
+
     @Output() onSearch = new EventEmitter<boolean>();
 
     constructor() {}
 
     ngOnInit() {}
 
-    public choosenType(type) {
+    public choosenType(type, i) {
+        this.arrayClick.push(i);
+        this.clicked = true;
+        this.itemId = i;
         this.onSearch.emit(type);
     }
 }

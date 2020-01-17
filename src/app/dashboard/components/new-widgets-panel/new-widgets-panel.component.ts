@@ -57,6 +57,10 @@ export class NewWidgetsPanelComponent implements OnInit {
     }
 
     ngOnInit() {
+
+        this.subscription = this.widgetService.searchWidgetT.subscribe((data) => {
+            this.widgets = data;
+        });
         this.options = {
             gridType: GridType.Fit,
             displayGrid: 'none',
@@ -83,9 +87,7 @@ export class NewWidgetsPanelComponent implements OnInit {
     }
 
     ngAfterViewInit() {
-        this.subscription = this.widgetService.filterWidgets$.subscribe((data) => {
-            this.widgets = data;
-        });
+    
     }
 
     @Output() onSwap = new EventEmitter<boolean>();

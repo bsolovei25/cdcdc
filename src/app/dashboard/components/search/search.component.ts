@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Widgets } from '../../models/widget.model';
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
+import { IfStmt } from '@angular/compiler';
 
 @Component({
     selector: 'evj-search',
@@ -10,8 +11,6 @@ import { NewWidgetService } from '../../services/new-widget.service';
 })
 export class SearchComponent implements OnInit {
     public checkClick = false;
-
-    public checkData = false;
 
     public typeWidgetChoose = [];
 
@@ -30,20 +29,9 @@ export class SearchComponent implements OnInit {
 
     ngOnInit() {}
 
-    public checkInput() {
-        this.checkClick = !this.checkClick;
-    }
-
-    public onSearch(data: any) {
-        this.typeWidgetChoose.push(data);
-        this.checkData = true;
-    }
-
     public onCheck(data: any) {
-        if (data === true) {
-            this.checkClick = true;
-        } else {
-            this.checkClick = false;
+        if(data){
+            this.checkClick = data; 
         }
     }
 
