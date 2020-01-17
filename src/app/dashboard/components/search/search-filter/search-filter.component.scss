@@ -7,7 +7,7 @@
   color: white;
   width: 140px;
   height: 35px;
-  background: rgb(33,36,45);
+  background: rgb(33, 36, 45);
   border-radius: 25px;
   margin: 3px auto;
   font-size: 14px;
@@ -27,6 +27,6 @@
   flex-wrap: wrap;
 }
 
-.activeFilter{
+.activeFilter {
   background: var(--color-border-active);
 }

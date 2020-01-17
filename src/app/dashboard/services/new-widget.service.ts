@@ -37,13 +37,15 @@ export class NewWidgetService {
 
     public searchValue: string;
 
+    public searchType;
+
     public searchWidgetT: Observable<any> = this.searchWidget$.pipe(
         tap((val) => {
             this._lastSearchValue = val;
         }),
         switchMap(this.Search.bind(this))
-     //   filter(res => res.length > 0),
-      //  switchMap(this.Search.bind(this))
+        //   filter(res => res.length > 0),
+        //  switchMap(this.Search.bind(this))
     );
 
     constructor(public http: HttpClient, configService: AppConfigService) {
@@ -79,7 +81,7 @@ export class NewWidgetService {
                 units: item.units,
                 widgetOptions: item.widgetOptions,
                 widgetType: item.widgetType,
-                categories: item.categories
+                categories: item.categories,
             };
         });
     }
@@ -189,7 +191,7 @@ export class NewWidgetService {
             case 'time-line-diagram':
                 return data;
             case 'ring-energy-indicator':
-                    return data;
+                return data;
         }
         console.warn(`unknown widget type ${widgetType}`);
     }
@@ -250,7 +252,8 @@ export class NewWidgetService {
         }, this.reconnectInterval);
     }
 
-    public searchItems(value) {
+    public searchItems(value, type) {
+        this.searchType = type;
         try {
             this.searchWidget$.next(value);
         } catch (error) {
@@ -260,7 +263,20 @@ export class NewWidgetService {
 
     public Search(record: string): Observable<Widgets[]> {
         const point = this._widgets$.getValue();
-        const point2 = of(point.filter(point => point.title.toLowerCase().indexOf(record.toLowerCase()) > -1));
+        let point2;
+        if(this.searchType === "input"){
+            const filter = of(
+                point.filter((point) => point.title.toLowerCase().indexOf(record.toLowerCase()) > -1)
+            );
+            point2 = filter;
+        }else{
+            for(let item of point){
+                       const filter = of(
+                        item.categories.filter((point) => point.toLowerCase().indexOf(record.toLowerCase()) > -1)
+                    );
+            }
+        }
+        
         this.searchValue = record;
         return point2;
     }

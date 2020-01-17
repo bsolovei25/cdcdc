@@ -58,7 +58,6 @@ export class NewWidgetsPanelComponent implements OnInit {
     }
 
     ngOnInit() {
-
         this.subscription = this.widgetService.searchWidgetT.subscribe((data) => {
             this.widgets = data;
         });
@@ -87,9 +86,7 @@ export class NewWidgetsPanelComponent implements OnInit {
         };
     }
 
-    ngAfterViewInit() {
-    
-    }
+    ngAfterViewInit() {}
 
     @Output() onSwap = new EventEmitter<boolean>();
     @Output() onGrid = new EventEmitter<boolean>();
@@ -117,7 +114,7 @@ export class NewWidgetsPanelComponent implements OnInit {
         }
     }
 
-   /* bigSize() {
+    /* bigSize() {
         let check = <HTMLInputElement>document.getElementById('checkBoxView');
         if (check.checked) {
             this.swapWidget = false;

@@ -99,17 +99,19 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
     ngOnInit() {
         if (!this.isMock) {
-            this.subscriptions.push(this.eventService.event$.subscribe((value) => {
-                if (value) {
-                    this.isLoading = true;
-                    this.resetComponent();
-                    this.isNew = false;
-                    this.event = value;
-                    this.loadItem();
-                } else {
-                    this.event = value;
-                }
-            }));
+            this.subscriptions.push(
+                this.eventService.event$.subscribe((value) => {
+                    if (value) {
+                        this.isLoading = true;
+                        this.resetComponent();
+                        this.isNew = false;
+                        this.event = value;
+                        this.loadItem();
+                    } else {
+                        this.event = value;
+                    }
+                })
+            );
         }
         this.isLoading = false;
     }

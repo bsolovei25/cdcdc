@@ -10,12 +10,10 @@ import { ManualInputService } from 'src/app/dashboard/services/manual-input.serv
 export class SearchInputComponent implements OnInit {
     @Input() public data;
     @Input() public dataWidget;
-   
 
     @Output() onCheck = new EventEmitter<boolean>();
- 
+
     public checkClick: boolean = false;
-    public BoolChange: boolean;
 
     itemChoose: boolean = false;
 
@@ -29,14 +27,15 @@ export class SearchInputComponent implements OnInit {
 
     searchRecords(e: any) {
         this.onCheck.emit(this.checkClick);
-        this.widgetService.searchItems(e.currentTarget.value);
-        if (!e.currentTarget.value){
-          this.widgetService.reEmitList();
+        let type = "input";
+        this.widgetService.searchItems(e.currentTarget.value, type);
+        if (!e.currentTarget.value) {
+            this.widgetService.reEmitList();
         }
     }
 
     public openFilter(event: any) {
-        if(event){
+        if (event) {
             this.checkClick = !this.checkClick;
         }
         this.onCheck.emit(this.checkClick);

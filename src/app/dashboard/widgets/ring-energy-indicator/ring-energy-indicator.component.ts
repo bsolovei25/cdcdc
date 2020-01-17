@@ -32,7 +32,7 @@ export class RingEnergyIndicatorComponent implements AfterViewInit {
 
     private subscription: Subscription;
 
-  /*  public data = {
+    /*  public data = {
         isCritical: true,
         iconId: 4,
         procent: 10,
@@ -68,7 +68,6 @@ export class RingEnergyIndicatorComponent implements AfterViewInit {
         );
     }
 
-
     ngAfterViewInit() {
         this.showMock(this.isMock);
     }
@@ -82,13 +81,15 @@ export class RingEnergyIndicatorComponent implements AfterViewInit {
     }
 
     private wsConnect() {
-        this.widgetService.getWidgetLiveDataFromWS(this.id, 'ring-energy-indicator').subscribe((ref) => {
-            this.data = ref;
-            if (this.svg) {
-                this.svg.remove();
-            }
-            this.d3Circle(this.data, this.CircleFactory.nativeElement);
-        });
+        this.widgetService
+            .getWidgetLiveDataFromWS(this.id, 'ring-energy-indicator')
+            .subscribe((ref) => {
+                this.data = ref;
+                if (this.svg) {
+                    this.svg.remove();
+                }
+                this.d3Circle(this.data, this.CircleFactory.nativeElement);
+            });
     }
     private wsDisconnect() {}
 
@@ -151,37 +152,38 @@ export class RingEnergyIndicatorComponent implements AfterViewInit {
         if (countValue > 1) {
             let y = 160;
             let index = 0;
-            for (let i of data.values ) {
+            for (let i of data.values) {
                 index++;
-                if(index < 3){
+                if (index < 3) {
                     let plan = this.svg
-                    .append('text')
-                    .attr('font-size', '10px')
-                    .attr('x', '125')
-                    .attr('y', y + 1)
-                    .attr('fill', 'rgba(158,215,245)')
-                    .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                    .text(i.plan);
+                        .append('text')
+                        .attr('font-size', '10px')
+                        .attr('x', '125')
+                        .attr('y', y + 1)
+                        .attr('fill', 'rgba(158,215,245)')
+                        .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                        .text(i.plan);
 
-                let name = this.svg
-                    .append('text')
-                    .attr('font-size', '8px')
-                    .attr('x', '93')
-                    .attr('y', y)
-                    .attr('fill', '#636680')
-                    .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                    .text(i.name);
+                    let name = this.svg
+                        .append('text')
+                        .attr('font-size', '8px')
+                        .attr('x', '93')
+                        .attr('y', y)
+                        .attr('fill', '#636680')
+                        .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                        .text(i.name);
 
-                let fact = this.svg
-                    .append('text')
-                    .attr('font-size', '10px')
-                    .attr('x', '50')
-                    .attr('y', y + 1)
-                    .attr('fill', data.isCritical ? 'orange' : 'white')
-                    .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                    .text(i.fact);
-                y += 15;
-                }else{}
+                    let fact = this.svg
+                        .append('text')
+                        .attr('font-size', '10px')
+                        .attr('x', '50')
+                        .attr('y', y + 1)
+                        .attr('fill', data.isCritical ? 'orange' : 'white')
+                        .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                        .text(i.fact);
+                    y += 15;
+                } else {
+                }
             }
         } else {
             let plan = this.svg

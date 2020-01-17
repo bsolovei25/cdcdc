@@ -4,16 +4,16 @@
     <div class="delete_result">x</div>
   </div>
 
-  <input
-    type="text"
-    placeholder="Введите название виджета"
-    (keyup)="searchRecords($event)"
-  />
+  <input type="text" placeholder="Введите название виджета" (keyup)="searchRecords($event)" />
 
   <div class="button" (click)="openFilter($event)">
-      <svg-icon
-      class="button_icon"
-      src="./assets/icons/SearchFilter.svg"
-       ></svg-icon>
+    <ng-container *ngIf="this.checkClick">
+      <svg-icon class="button_icon" src="./assets/icons/SearchFilter.svg"></svg-icon>
+    </ng-container>
+    <ng-container *ngIf="this.checkClick">
+      <svg-icon class="button_icon" src="./assets/icons/close_bad"></svg-icon>
+    </ng-container>
+    
+    
   </div>
 </div>

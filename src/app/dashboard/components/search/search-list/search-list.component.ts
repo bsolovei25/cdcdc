@@ -17,7 +17,7 @@ export class SearchListComponent implements OnInit {
     ngOnInit() {}
 
     public openFilter(event) {
-        if(event){
+        if (event) {
             this.check = !this.check;
         }
         this.onFilter.emit(this.check);

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Widgets } from 'src/app/dashboard/models/widget.model';
+import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
 
 @Component({
     selector: 'evj-search-filter',
@@ -9,7 +10,6 @@ import { Widgets } from 'src/app/dashboard/models/widget.model';
 export class SearchFilterComponent implements OnInit {
     @Input() public data;
 
-
     itemId: number;
     clicked: boolean = false;
 
@@ -17,15 +17,15 @@ export class SearchFilterComponent implements OnInit {
 
     @Output() onSearch = new EventEmitter<boolean>();
 
-    constructor() {}
+    constructor(public widgetService: NewWidgetService) {}
 
     ngOnInit() {}
 
-    public choosenType(type, i) {
-        for(let check of this.arrayClick){
-            if(check = i){
+    public choosenType(value, i) {
+        for (let check of this.arrayClick) {
+            if ((check = i)) {
                 this.clicked = !this.clicked;
-                this.arrayClick.splice(i,1);
+                this.arrayClick.splice(i, 1);
             }
             {
                 this.arrayClick.push(i);
@@ -33,6 +33,9 @@ export class SearchFilterComponent implements OnInit {
             }
         }
         this.itemId = i;
-        this.onSearch.emit(type);
+        let type = "filter";
+        this.widgetService.searchItems(value, type);
+       // this.onSearch.emit(type);
+
     }
 }

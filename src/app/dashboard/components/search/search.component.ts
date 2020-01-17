@@ -30,7 +30,7 @@ export class SearchComponent implements OnInit {
     ngOnInit() {}
 
     public onCheck(data: any) {
-        if(data === true){
+        if (data === true) {
             this.checkClick = false;
         } else {
             this.checkClick = true;
@@ -41,13 +41,13 @@ export class SearchComponent implements OnInit {
         let newArray = [];
         let newCategoryArray = [];
         for (let i of data) {
-            if(i.categories || i.categories.length !== 0){
+            if (i.categories || i.categories.length !== 0) {
                 newArray.push(i.categories);
             }
         }
         let newWidgetCategory = [...new Set(newArray)];
-        for(let i of newWidgetCategory){
-            for(let j of i){
+        for (let i of newWidgetCategory) {
+            for (let j of i) {
                 newCategoryArray.push(j);
             }
         }
