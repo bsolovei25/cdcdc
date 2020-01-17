@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Widgets } from '../../models/widget.model';
+import { IWidgets } from '../../models/widget.model';
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
 
@@ -17,12 +17,12 @@ export class SearchComponent implements OnInit {
 
     private subscription: Subscription;
 
-    widgets: Widgets[];
+    widgets: IWidgets[];
 
     public newArrayType = [];
 
     constructor(public widgetService: NewWidgetService) {
-        this.subscription = this.widgetService.getAvailableWidgets().subscribe((dataW) => {
+        this.subscription = this.widgetService.widgets$.subscribe((dataW) => {
             this.widgets = dataW;
             this.newArrayType = this.filterData(this.widgets);
         });

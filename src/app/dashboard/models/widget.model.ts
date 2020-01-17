@@ -10,7 +10,7 @@ export class WidgetModel {
     id: number;
 }
 
-export interface Widgets {
+export interface IWidgets {
     code: string;
     id: string;
     name: string;

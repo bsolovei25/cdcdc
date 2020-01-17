@@ -66,7 +66,7 @@ export class NewUserSettingsService {
         this.http
             .post(this.restUrl + '/user-management/widget/' + this.ScreenId, updateWidget)
             .subscribe(
-                (ans) => {},
+                (ans) => { },
                 (error) => console.log(error)
             );
     }
@@ -93,7 +93,7 @@ export class NewUserSettingsService {
         this.save(uniqId);
         const updateWidget = this.widgetInfo;
         this.http.put(this.restUrl + '/user-management/widget/' + uniqId, updateWidget).subscribe(
-            (ans) => {},
+            (ans) => { },
             (error) => console.log(error)
         );
     }
@@ -112,7 +112,7 @@ export class NewUserSettingsService {
 
     public removeItem(widgetId: string) {
         this.http.delete(this.restUrl + '/user-management/widget/' + widgetId).subscribe(
-            (ans) => {},
+            (ans) => { },
             (error) => console.log(error)
         );
     }

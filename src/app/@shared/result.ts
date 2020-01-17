@@ -20,7 +20,7 @@ export enum CoreResultCodeEnum {
 /**
  * Result class implementation
  */
-export class Result<X = any> implements IResult {
+export class Result<X> implements IResult {
     code: number = 0;
     description: string = '';
     comment?: string;

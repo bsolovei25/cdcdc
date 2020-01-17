@@ -1,5 +1,5 @@
 <evj-widget-preview
-  [title]="this.aboutWidget.title"
+  [title]="title"
   [icon]="icon"
   [previewTitle]="previewTitle"
   *ngIf="isMock"
@@ -8,7 +8,7 @@
 <div class="container pointer-event" *ngIf="!isMock">
   <evj-widget-header
     *ngIf="this.aboutWidget"
-    [title]="this.aboutWidget.title"
+    [title]="title"
     [units]=""
     [code]=""
     [id]="id"

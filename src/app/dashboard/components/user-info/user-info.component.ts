@@ -16,39 +16,45 @@ interface IUserInfo {
     styleUrls: ['./user-info.component.scss'],
 })
 export class UserInfoComponent implements OnInit {
-    data: IUserInfo;
+    data: IUserInfo = {
+        firstName: '',
+        lastName: '',
+        brigade: { id: 0, number: '' },
+        middleName: '',
+        positionDescription: ''
+    };
     isShowScreens: boolean = false;
 
-    constructor(private authService: AuthService, private router: Router) {}
+    constructor(private authService: AuthService, private router: Router) { }
 
     ngOnInit() {
         this.loadData();
     }
 
-    async loadData() {
+    async loadData(): Promise<void> {
         const data: any[] = await this.authService.getUserAuth();
         if (data && data[0]) {
             this.data = data[0];
         }
     }
 
-    async logOut() {
+    async logOut(): Promise<void> {
         await this.authService.logOut();
         this.router.navigate(['login']);
     }
 
-    isLeaveScreen(e) {
+    isLeaveScreen(): void {
         this.isShowScreens = false;
     }
-    isOverScreen(e) {
+    isOverScreen(): void {
         this.isShowScreens = true;
     }
 
-    ScreenActive(e) {
+    ScreenActive(): void {
         this.isShowScreens = true;
     }
 
-    ScreenDisable(e) {
+    ScreenDisable(): void {
         this.isShowScreens = false;
     }
 }

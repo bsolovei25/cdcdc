@@ -1,9 +1,9 @@
 // Angular
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
+import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent } from '@angular/common/http';
 // Angular material
 // RxJS
-import { throwError } from 'rxjs';
+import { throwError, Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -13,10 +13,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     providedIn: 'root', // singleton service
 })
 export class ErrorInterceptor implements HttpInterceptor {
-    constructor(private router: Router, private snackBar: MatSnackBar) {}
+    constructor(private router: Router, private snackBar: MatSnackBar) { }
 
     /** Intercept request with custom error handling */
-    intercept(req: HttpRequest<any>, next: HttpHandler): any {
+    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         // pass source request
         return next.handle(req).pipe(
             catchError((err) => {
@@ -25,11 +25,11 @@ export class ErrorInterceptor implements HttpInterceptor {
                         this.router.navigate(['login']);
                         break;
                     case 500:
-                        this.router.navigate(['login']);
+                        // this.router.navigate(['login']);
                         break;
                     case 0:
                         this.router.navigate(['login']);
-                        // this.openSnackBar('Ошибка сервера 0');
+                        // this.openSnackBar('Сервер не отвечает');
                         break;
                     case 403:
                         console.error(err);

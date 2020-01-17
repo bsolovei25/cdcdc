@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Widgets } from 'src/app/dashboard/models/widget.model';
 
 @Component({
     selector: 'evj-search-filter',

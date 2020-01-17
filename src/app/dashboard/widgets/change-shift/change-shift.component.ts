@@ -32,6 +32,7 @@ export class ChangeShiftComponent implements OnInit {
 
     public icon: string = 'peoples';
     public previewTitle: string = 'change-shift';
+    public title: string = '';
 
     comments: ShiftComment[] = [];
     aboutWidget;
@@ -54,12 +55,15 @@ export class ChangeShiftComponent implements OnInit {
     ) {
         this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
             this.aboutWidget = data;
+            if (this.aboutWidget) {
+                this.title = this.aboutWidget.title;
+            }
             try {
                 this.setRealtimeData(
                     this.aboutWidget.widgetType,
                     this.shiftService.shiftPass.getValue()
                 );
-            } catch {}
+            } catch { }
         });
         this.shiftService.shiftPass.subscribe((data) => {
             if (this.aboutWidget) {
@@ -68,7 +72,7 @@ export class ChangeShiftComponent implements OnInit {
         });
     }
 
-    ngOnInit() {}
+    ngOnInit() { }
 
     private setRealtimeData(widgetType, data) {
         if (!widgetType || !data) {
@@ -136,7 +140,7 @@ export class ChangeShiftComponent implements OnInit {
         this.comments.push(comment);
         try {
             this.input.nativeElement.value = '';
-        } catch {}
+        } catch { }
     }
 
     onEnterPush(event?: any) {

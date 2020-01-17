@@ -11,7 +11,7 @@ import { NewWidgetService } from '../../services/new-widget.service';
 import { Observable, Subscription } from 'rxjs';
 import { WIDGETS } from '../new-widgets-grid/widget-map';
 import { WidgetModel } from '../../models/widget.model';
-import { Widgets } from '../../models/widget.model';
+import { IWidgets } from '../../models/widget.model';
 import { tick } from '@angular/core/testing';
 import { NewUserSettingsService } from '../../services/new-user-settings.service';
 
@@ -33,9 +33,9 @@ export class NewWidgetsPanelComponent implements OnInit {
 
     public options: GridsterConfig;
 
-    dataW: Widgets;
+    dataW: IWidgets;
 
-    widgets: Widgets[];
+    widgets: IWidgets[];
 
     model: WidgetModel;
 
@@ -51,7 +51,7 @@ export class NewWidgetsPanelComponent implements OnInit {
         public injector: Injector,
         public userSettings: NewUserSettingsService
     ) {
-        this.subscription = this.widgetService.getAvailableWidgets().subscribe((dataW) => {
+        this.subscription = this.widgetService.widgets$.subscribe((dataW) => {
             this.widgets = dataW;
         });
     }
