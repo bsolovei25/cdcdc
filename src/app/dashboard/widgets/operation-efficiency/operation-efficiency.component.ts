@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
+import { IOperationEfficiency } from '../../models/operation-efficiency';
 
 @Component({
     selector: 'evj-operation-efficiency',
@@ -8,16 +9,14 @@ import { NewWidgetService } from '../../services/new-widget.service';
     styleUrls: ['./operation-efficiency.component.scss'],
 })
 export class OperationEfficiencyComponent implements OnInit {
-    aboutWidget;
+    static itemCols: number = 18;
+    static itemRows: number = 6;
 
-    static itemCols = 18;
-    static itemRows = 6;
-
-    subscription: Subscription;
+    public subscription: Subscription;
 
     /* Приблизительная структура, получаемая с бека */
 
-    data = {
+    public data: IOperationEfficiency = {
         plan: 1000,
         lowerBorder: 0.03,
         higherBorder: 0.1,
@@ -32,6 +31,9 @@ export class OperationEfficiencyComponent implements OnInit {
         higherValue: 1000 * (1 + 0.1),
     };
 
+    public title: string;
+    public previewTitle: string;
+
     constructor(
         private widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,
@@ -39,9 +41,10 @@ export class OperationEfficiencyComponent implements OnInit {
         @Inject('uniqId') public uniqId: string
     ) {
         this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-            this.aboutWidget = data.title;
+            this.title = data.title;
+            this.previewTitle = data.widgetType;
         });
     }
 
-    ngOnInit() {}
+    ngOnInit(): void {}
 }

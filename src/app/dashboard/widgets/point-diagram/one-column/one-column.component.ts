@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { PointDiagramElement } from '../point-diagram.component';
+import { IPointDiagramElement } from '../../../models/point-diagram';
 
 @Component({
     selector: 'evj-one-column',
@@ -8,12 +8,12 @@ import { PointDiagramElement } from '../point-diagram.component';
 })
 export class OneColumnComponent implements OnInit {
     @Input() isDiagram: boolean;
-    @Input() item: PointDiagramElement;
+    @Input() item: IPointDiagramElement;
     @Input() isMock: boolean = false;
 
     constructor() {}
 
-    ngOnInit() {}
+    ngOnInit(): void {}
 
     getGraphHeight(percent: number): string {
         return this.isMock ? '20%' : (100 - percent).toString() + '%';

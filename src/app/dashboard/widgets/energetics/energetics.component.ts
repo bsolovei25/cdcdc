@@ -1,6 +1,14 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
+import {
+    IEnergeticsEndsLine,
+    IEnergeticsCoordinates,
+    IEnergeticsLimits,
+    IEnergeticsGraph,
+    IEnergeticsCard,
+    IEnergeticsCircleDiagram,
+} from '../../models/energetics';
 
 @Component({
     selector: 'evj-energetics',
@@ -8,16 +16,14 @@ import { NewWidgetService } from '../../services/new-widget.service';
     styleUrls: ['./energetics.component.scss'],
 })
 export class EnergeticsComponent implements OnInit {
-    aboutWidget;
+    static itemCols: number = 18;
+    static itemRows: number = 14;
 
-    static itemCols = 18;
-    static itemRows = 14;
-
-    subscription: Subscription;
+    public subscription: Subscription;
 
     /* Приблизительная структура, получаемая с бека */
 
-    data = {
+    public data: IEnergeticsGraph = {
         plan: 1000, // план
         lowerBorder: 0.03, // нижняя граница (отклонение в процентах от плана)
         higherBorder: 0.1, // верхняя граница (отклонение в процентах от плана)
@@ -35,7 +41,7 @@ export class EnergeticsComponent implements OnInit {
     /* Данные с сервера для карточек */
 
     // термо-карточка
-    termoCard = {
+    public termoCard: IEnergeticsCard = {
         plan: 1000, // план
         curValue: 623, // текущее значение
         deviation1: 142.8, // значение отклонения [тыс. Гкал]
@@ -43,7 +49,7 @@ export class EnergeticsComponent implements OnInit {
     };
 
     // электро-карточка
-    electroCard = {
+    public electroCard: IEnergeticsCard = {
         plan: 1500, // план
         curValue: 1230, // текущее значение
         deviation1: 17.7, // значение отклонения [млн. кВт/ч]
@@ -51,7 +57,7 @@ export class EnergeticsComponent implements OnInit {
     };
 
     // топливная-карточка
-    fuelCard = {
+    public fuelCard: IEnergeticsCard = {
         plan: 2500, // план
         curValue: 2690, // текущее значение
         deviation1: 85.3, // значение отклонения [тыс.т.у.т]
@@ -60,7 +66,7 @@ export class EnergeticsComponent implements OnInit {
 
     /* Параметры для круговых диаграмм */
 
-    energyCircleDiagram = {
+    public energyCircleDiagram: IEnergeticsCircleDiagram = {
         lowerLimit: 97, // нижний предел на диаграмме в %
         upperLimit: 103, // верхний предел на диаграмме в %
         termo: 102, // процентная доля тепловой энергии
@@ -70,25 +76,26 @@ export class EnergeticsComponent implements OnInit {
 
     /* Цвета для диаграмм */
 
-    colorMain = '#1b1e27';
-    colorBg = '#0d1014';
-    colorNormal = '#a2e2ff';
-    colorFull = '#FFFFFF';
-    colorDeviation = '#F4A321';
+    public colorMain: string = '#1b1e27';
+    public colorBg: string = '#0d1014';
+    public colorNormal: string = '#a2e2ff';
+    public colorFull: string = '#FFFFFF';
+    public colorDeviation: string = '#F4A321';
 
     /* Координаты центров окружностей */
 
-    centerX = '25';
-    centerY = '25';
+    public centerX: string = '25';
+    public centerY: string = '25';
 
     /* Радиусы диаграмм */
 
-    fuelRadius = (15.91549430918954).toString();
-    electroRadius = (15.91549430918954 + 3).toString();
-    termoRadius = (15.91549430918954 + 6).toString();
-    radPoint = '0.8';
+    public fuelRadius: string = (15.91549430918954).toString();
+    public electroRadius: string = (15.91549430918954 + 3).toString();
+    public termoRadius: string = (15.91549430918954 + 6).toString();
+    public radPoint: string = '0.8';
 
-    public title;
+    public title: string;
+    public previewTitle: string;
 
     constructor(
         private widgetService: NewWidgetService,
@@ -98,21 +105,22 @@ export class EnergeticsComponent implements OnInit {
     ) {
         this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
             this.title = data.title;
+            this.previewTitle = data.widgetType;
             // this.code = data.code;
             // this.units = data.units;
             // this.name = data.name;
         });
     }
 
-    ngOnInit() {}
+    ngOnInit(): void {}
 
     /* Отрисовка линейных графиков в карточках */
 
-    drawGraph(obj): string {
+    drawGraph(obj: IEnergeticsCard): string {
         return ((obj.curValue / obj.plan) * 100 * 0.8).toString() + '%';
     }
 
-    fillGraph(obj): string {
+    fillGraph(obj: IEnergeticsCard): string {
         return obj.plan - obj.curValue > 0 ? this.colorNormal : this.colorDeviation;
     }
 
@@ -125,22 +133,22 @@ export class EnergeticsComponent implements OnInit {
 
     diaLine(r: string, line: number): string {
         const c: number = 2 * Math.PI * +r;
-        const per_cent = line / 100;
-        return per_cent * 0.5 * c + ' ' + (c - per_cent * 0.5 * c);
+        const percent: number = line / 100;
+        return percent * 0.5 * c + ' ' + (c - percent * 0.5 * c);
     }
 
     diaOffset(r: string, line: number): string {
         const c: number = 2 * Math.PI * +r;
-        const per_cent = line / 100;
-        return (-0.75 * c + per_cent * 0.5 * c).toString();
+        const percent: number = line / 100;
+        return (-0.75 * c + percent * 0.5 * c).toString();
     }
 
-    diaLimits(line: number) {
+    diaLimits(line: number): IEnergeticsLimits {
         const newLine = 100 - line; // отсчет угла от 100%
         const t = (Math.PI * newLine) / 100 + Math.PI / 2;
         const rMin = 13;
         const rMax = 25;
-        const limitLine = {
+        const limitLine: IEnergeticsLimits = {
             x1: (rMin * Math.cos(t) + +this.centerX).toString(),
             y1: (rMin * Math.sin(t) + +this.centerY).toString(),
             x2: (rMax * Math.cos(t) + +this.centerX).toString(),
@@ -149,9 +157,9 @@ export class EnergeticsComponent implements OnInit {
         return limitLine;
     }
 
-    diaLimitsLabels(line: number, isLowerLimit: boolean = false) {
+    diaLimitsLabels(line: number, isLowerLimit: boolean = false): IEnergeticsCoordinates {
         const coords = this.diaLimits(line);
-        let returnedCoords;
+        let returnedCoords: IEnergeticsCoordinates;
         if (isLowerLimit) {
             returnedCoords = {
                 x: (+coords.x2 - 5).toString(),
@@ -166,22 +174,29 @@ export class EnergeticsComponent implements OnInit {
         return returnedCoords;
     }
 
-    diaFill(percent: number) {
-        if (percent < this.energyCircleDiagram.lowerLimit) return this.colorDeviation;
+    diaFill(percent: number): string {
+        if (percent < this.energyCircleDiagram.lowerLimit) {
+            return this.colorDeviation;
+        }
         if (
             percent >= this.energyCircleDiagram.lowerLimit &&
             percent < this.energyCircleDiagram.upperLimit
-        )
+        ) {
             return this.colorNormal;
-        if (percent === this.energyCircleDiagram.upperLimit) return this.colorFull;
-        if (percent > this.energyCircleDiagram.upperLimit) return this.colorDeviation;
+        }
+        if (percent === this.energyCircleDiagram.upperLimit) {
+            return this.colorFull;
+        }
+        if (percent > this.energyCircleDiagram.upperLimit) {
+            return this.colorDeviation;
+        }
     }
 
-    diaEndsLine(line: number, rad: string) {
+    diaEndsLine(line: number, rad: string): IEnergeticsEndsLine {
         const newLine = 100 - line + +this.radPoint; // отсчет угла от 100%
         const t = (Math.PI * newLine) / 100 + Math.PI / 2;
         const r = +rad;
-        const limitLine = {
+        const limitLine: IEnergeticsEndsLine = {
             xCen: (r * Math.cos(t) + +this.centerX).toString(),
             yCen: (r * Math.sin(t) + +this.centerY).toString(),
         };

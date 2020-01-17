@@ -17,7 +17,8 @@ export class ManualInputComponent implements OnInit, OnDestroy {
 
     private subscriptions: Subscription[] = [];
 
-    title;
+    public title: string;
+    public previewTitle: string;
 
     constructor(
         public manualInputService: ManualInputService,
@@ -33,6 +34,7 @@ export class ManualInputComponent implements OnInit, OnDestroy {
         this.subscriptions.push(
             this.widgetService.getWidgetChannel(id).subscribe((data) => {
                 this.title = data.title;
+                this.previewTitle = data.widgetType;
             })
         );
     }
