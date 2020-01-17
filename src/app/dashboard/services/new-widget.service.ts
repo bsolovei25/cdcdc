@@ -79,6 +79,7 @@ export class NewWidgetService {
                 units: item.units,
                 widgetOptions: item.widgetOptions,
                 widgetType: item.widgetType,
+                categories: item.categories
             };
         });
     }
@@ -187,6 +188,8 @@ export class NewWidgetService {
                 return data;
             case 'time-line-diagram':
                 return data;
+            case 'ring-energy-indicator':
+                    return data;
         }
         console.warn(`unknown widget type ${widgetType}`);
     }

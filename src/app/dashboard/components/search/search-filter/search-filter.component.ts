@@ -11,7 +11,7 @@ export class SearchFilterComponent implements OnInit {
 
 
     itemId: number;
-    clicked: boolean;
+    clicked: boolean = false;
 
     arrayClick = [];
 
@@ -22,8 +22,16 @@ export class SearchFilterComponent implements OnInit {
     ngOnInit() {}
 
     public choosenType(type, i) {
-        this.arrayClick.push(i);
-        this.clicked = true;
+        for(let check of this.arrayClick){
+            if(check = i){
+                this.clicked = !this.clicked;
+                this.arrayClick.splice(i,1);
+            }
+            {
+                this.arrayClick.push(i);
+                this.clicked = !this.clicked;
+            }
+        }
         this.itemId = i;
         this.onSearch.emit(type);
     }

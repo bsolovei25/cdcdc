@@ -1,6 +1,5 @@
 <div class="result_filter">
-  <div class="filter_name">Тип виджета:</div>
   <ng-container *ngFor="let item of data; let i = index">
-    <div class="result_search" (click)="choosenType(item, i)" [class.activeHeader]="clicked && arrayClick[i] === i">{{item}}</div>
+    <div class="result_search" (click)="choosenType(item, i)" [class.activeFilter]="clicked && arrayClick[i] === i">{{item}}</div>
   </ng-container>
 </div>

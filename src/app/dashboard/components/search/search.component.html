@@ -5,7 +5,7 @@
     (onCheck)="onCheck($event)"
   ></evj-search-input>
 </div>
-<ng-container *ngIf="checkClick">
+<ng-container *ngIf="!checkClick && newArrayType !== null">
   <div class="result_block">
     <evj-search-filter [data]="newArrayType"></evj-search-filter>
  <!--   <evj-search-list [data]="newArrayType" (onSearch)="onSearch($event)"></evj-search-list>  -->

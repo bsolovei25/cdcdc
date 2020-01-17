@@ -10,7 +10,7 @@ import { IfStmt } from '@angular/compiler';
     styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit {
-    public checkClick = false;
+    public checkClick = true;
 
     public typeWidgetChoose = [];
 
@@ -21,7 +21,7 @@ export class SearchComponent implements OnInit {
     public newArrayType = [];
 
     constructor(public widgetService: NewWidgetService) {
-        this.subscription = this.widgetService.getAvailableWidgets().subscribe((dataW) => {
+        this.subscription = this.widgetService.widgets$.subscribe((dataW) => {
             this.widgets = dataW;
             this.newArrayType = this.filterData(this.widgets);
         });
@@ -30,17 +30,29 @@ export class SearchComponent implements OnInit {
     ngOnInit() {}
 
     public onCheck(data: any) {
-        if(data){
-            this.checkClick = data; 
+        if(data === true){
+            this.checkClick = false;
+        } else {
+            this.checkClick = true;
         }
     }
 
     public filterData(data) {
         let newArray = [];
+        let newCategoryArray = [];
         for (let i of data) {
-            newArray.push(i.widgetType);
+            if(i.categories || i.categories.length !== 0){
+                newArray.push(i.categories);
+            }
         }
-        let newFilterArray = [...new Set(newArray)];
+        let newWidgetCategory = [...new Set(newArray)];
+        for(let i of newWidgetCategory){
+            for(let j of i){
+                newCategoryArray.push(j);
+            }
+        }
+        let newFilterArray = [...new Set(newCategoryArray)];
+
         return newFilterArray;
     }
 }

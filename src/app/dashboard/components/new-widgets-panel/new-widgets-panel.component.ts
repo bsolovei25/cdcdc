@@ -41,7 +41,8 @@ export class NewWidgetsPanelComponent implements OnInit {
 
     _injector: Injector;
 
-    public swapWidget = true;
+    public gridWidget = true;
+    public fixWidget = true;
 
     massWidg = [WIDGETS];
 
@@ -97,26 +98,26 @@ export class NewWidgetsPanelComponent implements OnInit {
     changeSwap() {
         let check = <HTMLInputElement>document.getElementById('checkBoxFix');
         if (check.checked) {
-            this.swapWidget = false;
-            this.onSwap.emit(this.swapWidget);
+            this.fixWidget = false;
+            this.onSwap.emit(this.fixWidget);
         } else {
-            this.swapWidget = true;
-            this.onSwap.emit(this.swapWidget);
+            this.fixWidget = true;
+            this.onSwap.emit(this.fixWidget);
         }
     }
 
     getGridView() {
         let check = <HTMLInputElement>document.getElementById('checkBoxGrid');
         if (check.checked) {
-            this.swapWidget = false;
-            this.onGrid.emit(this.swapWidget);
+            this.gridWidget = false;
+            this.onGrid.emit(this.gridWidget);
         } else {
-            this.swapWidget = true;
-            this.onGrid.emit(this.swapWidget);
+            this.gridWidget = true;
+            this.onGrid.emit(this.gridWidget);
         }
     }
 
-    public bigSize() {
+   /* bigSize() {
         let check = <HTMLInputElement>document.getElementById('checkBoxView');
         if (check.checked) {
             this.swapWidget = false;
@@ -125,7 +126,7 @@ export class NewWidgetsPanelComponent implements OnInit {
             this.swapWidget = true;
             this.onGrid.emit(this.swapWidget);
         }
-    }
+    } */
 
     ngOnDestroy() {
         if (this.subscription) {

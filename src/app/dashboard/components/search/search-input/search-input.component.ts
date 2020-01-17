@@ -14,7 +14,7 @@ export class SearchInputComponent implements OnInit {
 
     @Output() onCheck = new EventEmitter<boolean>();
  
-    public checkClick: boolean;
+    public checkClick: boolean = false;
     public BoolChange: boolean;
 
     itemChoose: boolean = false;

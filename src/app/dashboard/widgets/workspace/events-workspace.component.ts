@@ -21,6 +21,7 @@ import {
     EventsWidgetCategoryCode,
 } from '../../models/events-widget';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NewWidgetService } from '../../services/new-widget.service';
 
 @Component({
     selector: 'evj-events-workspace',
@@ -28,7 +29,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     styleUrls: ['./events-workspace.component.scss'],
 })
 export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewInit {
-    subscription: Subscription;
+    private subscriptions: Subscription[] = [];
     event: EventsWidgetNotification;
     isLoading: boolean = true;
 
@@ -83,15 +84,22 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     constructor(
         private eventService: EventService,
         private snackBar: MatSnackBar,
+        public widgetService: NewWidgetService,
         // private formBuilder: FormBuilder,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
-    ) {}
+    ) {
+        this.subscriptions.push(
+            this.widgetService.getWidgetChannel(id).subscribe((data) => {
+                this.title = data.title;
+            })
+        );
+    }
 
     ngOnInit() {
         if (!this.isMock) {
-            this.subscription = this.eventService.event$.subscribe((value) => {
+            this.subscriptions.push(this.eventService.event$.subscribe((value) => {
                 if (value) {
                     this.isLoading = true;
                     this.resetComponent();
@@ -101,7 +109,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
                 } else {
                     this.event = value;
                 }
-            });
+            }));
         }
         this.isLoading = false;
     }
@@ -111,8 +119,10 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
+        if (this.subscriptions) {
+            for (const i in this.subscriptions) {
+                this.subscriptions[i].unsubscribe();
+            }
         }
     }
 

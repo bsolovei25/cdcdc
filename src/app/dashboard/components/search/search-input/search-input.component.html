@@ -6,9 +6,14 @@
 
   <input
     type="text"
-    placeholder="Поиск..."
+    placeholder="Введите название виджета"
     (keyup)="searchRecords($event)"
   />
 
-  <div class="button" (click)="openFilter($event)"></div>
+  <div class="button" (click)="openFilter($event)">
+      <svg-icon
+      class="button_icon"
+      src="./assets/icons/SearchFilter.svg"
+       ></svg-icon>
+  </div>
 </div>
