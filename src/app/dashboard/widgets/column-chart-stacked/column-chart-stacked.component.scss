@@ -111,7 +111,7 @@
         height: 15px;
         width: 10px;
         z-index: 3;
-        right: 0px;
+        right: 4px;
         bottom: 43px;
         transform: rotate(90deg);
 
@@ -136,7 +136,7 @@
     justify-content: center;
     align-items: center;
 
-    overflow-x: scroll;
+    overflow-x: auto;
     overflow-y: hidden;
 
     &__cols {

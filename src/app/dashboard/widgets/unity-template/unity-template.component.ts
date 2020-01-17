@@ -15,6 +15,8 @@ export class UnityTemplateComponent implements OnInit {
     isStart: boolean;
 
     title: string;
+    public previewTitle: string;
+
     private subscriptions: Subscription[] = [];
 
     private canvas: HTMLCanvasElement;

@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { Subscription } from 'rxjs';
+import { IProductionPyramid } from '../../models/production-pyramid';
 
 @Component({
     selector: 'evj-production-pyramid',
@@ -8,7 +9,7 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./production-pyramid.component.scss'],
 })
 export class ProductionPyramidComponent implements OnInit {
-    array = [
+    public array: IProductionPyramid[] = [
         {
             cardTitle: 'Без пожара',
             daysCounter: 615,
@@ -23,14 +24,13 @@ export class ProductionPyramidComponent implements OnInit {
         },
     ];
 
-    static itemCols = 20;
-    static itemRows = 16;
+    static itemCols: number = 20;
+    static itemRows: number = 16;
 
-    aboutWidget;
-
+    public title: string;
     public previewTitle: string;
 
-    subscription: Subscription;
+    public subscription: Subscription;
 
     constructor(
         private widgetService: NewWidgetService,
@@ -39,10 +39,10 @@ export class ProductionPyramidComponent implements OnInit {
         @Inject('uniqId') public uniqId: string
     ) {
         this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-            this.aboutWidget = data.title;
+            this.title = data.title;
             this.previewTitle = data.widgetType;
         });
     }
 
-    ngOnInit() {}
+    ngOnInit(): void {}
 }

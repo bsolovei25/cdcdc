@@ -79,9 +79,7 @@ export class IndicatorSelectorComponent implements OnInit {
             this.LoadScreen(this.localSaved);
         }
 
-        if (this.dataScreen && this.dataScreen[0]) {
-            return this.dataScreen[0].screenName;
-        }
+        if (this.dataScreen[0]) return this.dataScreen[0].screenName;
     };
 
     setActiveScreen(screen) {
