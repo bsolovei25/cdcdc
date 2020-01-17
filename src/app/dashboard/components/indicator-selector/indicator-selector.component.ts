@@ -46,7 +46,7 @@ export class IndicatorSelectorComponent implements OnInit {
         this.localSaved = Number(localStorage.getItem('screenid'));
     }
 
-    public LoadScreen(id: string): void {
+    public LoadScreen(id): void {
         this.userSettings.LoadScreen(id);
     }
 
@@ -107,7 +107,7 @@ export class IndicatorSelectorComponent implements OnInit {
         if (this.idScreen === id) {
             this.nameScreen = this.dataScreen[0].screenName;
             this.idScreen = this.dataScreen[0].id;
-            this.LoadScreen(this.idScreen.toString());
+            this.LoadScreen(this.idScreen);
         }
     }
 

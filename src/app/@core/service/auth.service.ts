@@ -74,14 +74,14 @@ export class AuthService {
         return null;
     }
 
-    private configureUserAuth(tokenData: ITokenData) {
+    private configureUserAuth(tokenData: ITokenData): void {
         this.authTokenData = tokenData;
         this.user$.next('');
         // save token
         localStorage.setItem('authentication-token', this.authTokenData.token);
     }
 
-    private resetUserAuth(clearTokenFromStorage?: boolean): any {
+    private resetUserAuth(clearTokenFromStorage?: boolean): void {
         this.authTokenData = null;
         this.user$.next(null);
         if (clearTokenFromStorage) {
@@ -89,7 +89,7 @@ export class AuthService {
         }
     }
 
-    async logOut(): Promise<any> {
+    async logOut(): Promise<void> {
         try {
             this.resetUserAuth(true);
         } catch (error) {
