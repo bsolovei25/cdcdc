@@ -14,27 +14,28 @@ export class LineDatetimeComponent implements OnInit, AfterViewInit {
 
     private subscription: Subscription;
 
-    public currentData;
+    public currentData: number;
     public dates = [];
 
     public dateFromSelector: HeaderDate = { start: 0, end: 0, status: true };
 
-    public positionEndLine = 1;
-    public positionStartLine = 1;
+    public positionEndLine: number = 1;
+    public positionStartLine: number = 1;
 
     public widthBlock;
 
     constructor(private renderer: Renderer2, private headerData: HeaderDataService) {
         setInterval(() => {
+            this.datesFill();
             this.currentData = Date.now();
         }, 10000);
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.datesFill();
     }
 
-    ngAfterViewInit() {
+    ngAfterViewInit(): void {
         this.subscription = this.headerData.date$.subscribe((data) => {
             this.dateFromSelector = data;
             if (this.dateFromSelector.status === false) {
@@ -45,7 +46,8 @@ export class LineDatetimeComponent implements OnInit, AfterViewInit {
         });
     }
 
-    datesFill() {
+    datesFill(): void {
+        this.dates = [];
         const date = new Date();
         const day = date.getDate();
         const month = date.getMonth() + 1;
@@ -72,8 +74,8 @@ export class LineDatetimeComponent implements OnInit, AfterViewInit {
         }
     }
 
-    public widthBlockDataLine() {
-        let widthBlock = document.getElementById('widthBlock');
+    public widthBlockDataLine(): number {
+        const widthBlock = document.getElementById('widthBlock');
         return widthBlock.offsetWidth;
     }
 

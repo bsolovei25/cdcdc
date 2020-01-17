@@ -19,10 +19,10 @@ export class DispatcherScreenComponent implements OnInit, AfterViewInit, OnDestr
 
     private canvas: HTMLCanvasElement;
 
-    static itemCols = 15;
-    static itemRows = 15;
+    static itemCols: number = 15;
+    static itemRows: number = 15;
 
-    public previewTitle;
+    public previewTitle: string;
 
     constructor(
         public widgetService: NewWidgetService,
@@ -42,13 +42,13 @@ export class DispatcherScreenComponent implements OnInit, AfterViewInit, OnDestr
         );
     }
 
-    ngOnInit() {}
+    ngOnInit(): void {}
 
-    ngAfterViewInit() {
+    ngAfterViewInit(): void {
         this.showMock(this.isMock);
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         console.log('destroy_unity');
         if (this.subscriptions) {
             for (const i in this.subscriptions) {
@@ -60,7 +60,7 @@ export class DispatcherScreenComponent implements OnInit, AfterViewInit, OnDestr
         }
     }
 
-    private showMock(show) {
+    private showMock(show: boolean): void {
         if (!show) {
             this.InitUnity();
             console.log('init_u');
@@ -68,12 +68,12 @@ export class DispatcherScreenComponent implements OnInit, AfterViewInit, OnDestr
     }
 
     @HostListener('document:resize', ['$event'])
-    OnResize(event) {
+    OnResize(event): void {
         this.resize();
     }
 
     @HostListener('document:UnityDispatcherScreen_Start', ['$event', '$event.detail.param1'])
-    OnUnityStart(event, param1) {
+    OnUnityStart(event, param1): void {
         this.isStart = true;
         if (!this.unityInstance) {
             return;
@@ -82,13 +82,13 @@ export class DispatcherScreenComponent implements OnInit, AfterViewInit, OnDestr
     }
 
     @HostListener('document:UnityTemplate_Click', ['$event'])
-    OnUnityClick(event) {
+    OnUnityClick(event): void {
         if (!this.unityInstance) {
             return;
         }
     }
 
-    private wsConnect() {
+    private wsConnect(): void {
         this.widgetService
             .getWidgetLiveDataFromWS(this.id, 'dispatcher-screen')
             .subscribe((ref) => {
@@ -96,25 +96,25 @@ export class DispatcherScreenComponent implements OnInit, AfterViewInit, OnDestr
             });
     }
 
-    private InitUnity() {
+    private InitUnity(): void {
         window['UnityLoader'] = UnityLoader;
         this.loadProject(`${this.baseUrl}assets/unity/dispatcher-screen/web_build.json`);
     }
 
-    private CallUnityScript(objName, funName, ...args) {
+    private CallUnityScript(objName, funName, ...args): void {
         if (this.isStart && this.unityInstance) {
             this.unityInstance.SendMessage(objName, funName, ...args);
         }
     }
 
-    private loadProject(path) {
+    private loadProject(path: string): void {
         this.unityInstance = UnityLoader.instantiate(
             'unityContainer_unity-dispatcher-screen',
             path
         );
     }
 
-    private resize() {
+    private resize(): void {
         this.canvas = document.getElementById('#canvas') as HTMLCanvasElement;
         if (this.canvas) {
             this.canvas.width = this.canvas.parentElement.offsetWidth;
