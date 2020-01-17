@@ -1,4 +1,4 @@
-<evj-preloader [isLoading]="isLoading" [isHidden]="isHidden"></evj-preloader>
+<evj-preloader [isLoading]="isLoadingData"></evj-preloader>
 <div class="login-form" [class.swing]="swing" (ngSubmit)="onSubmit()">
   <p class="login-text">
     <span class="fa-stack fa-lg">
@@ -28,7 +28,16 @@
       [attr.aria-label]="'Hide password'"
       [attr.aria-pressed]="hide"
     >
-      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <svg-icon
+        *ngIf="hide"
+        src="./assets/icons/login/visibility_off.svg"
+        [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+      ></svg-icon>
+      <svg-icon
+        *ngIf="!hide"
+        src="./assets/icons/login/visibility.svg"
+        [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+      ></svg-icon>
     </button>
     <mat-error *ngIf="password.invalid"></mat-error>
   </mat-form-field>

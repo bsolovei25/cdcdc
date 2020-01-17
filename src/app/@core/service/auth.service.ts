@@ -61,7 +61,7 @@ export class AuthService {
         }
     }
 
-    async getUserAuth(): Promise<any[]> {
+    async getUserAuth(): Promise<any[]> | null {
         try {
             if (this.restUrl) {
                 return await this.http
@@ -71,6 +71,7 @@ export class AuthService {
         } catch (error) {
             console.error(error);
         }
+        return null;
     }
 
     private configureUserAuth(tokenData: ITokenData) {

@@ -76,7 +76,6 @@ export class EventService {
     }
 
     async getCategory(): Promise<ICategory[]> {
-        // TODO check
         try {
             return this.http
                 .get<ICategory[]>(this.restUrl + '/api/notification-reference/category')
@@ -87,7 +86,6 @@ export class EventService {
     }
 
     async getEventType(): Promise<ICategory[]> {
-        // TODO check
         try {
             return this.http
                 .get<ICategory[]>(this.restUrl + '/api/notification-reference/eventtype')
@@ -98,7 +96,6 @@ export class EventService {
     }
 
     async getPlace(): Promise<any> {
-        // TODO check
         try {
             return this.http
                 .get<any>(this.restUrl + '/api/notification-reference/place')
@@ -109,7 +106,6 @@ export class EventService {
     }
 
     async getUser(): Promise<any> {
-        // TODO check
         try {
             return this.http.get<any>(this.restUrl + '/api/user-management/users').toPromise();
         } catch (error) {
@@ -118,7 +114,6 @@ export class EventService {
     }
 
     async getEquipmentCategory(): Promise<any> {
-        // TODO check
         try {
             return this.http
                 .get<any>(this.restUrl + '/api/notification-reference/equipmentcategory')
@@ -132,7 +127,6 @@ export class EventService {
         eventId: number,
         retrievalEvents: EventsWidgetNotification
     ): Promise<any> {
-        // TODO check
         try {
             return this.http
                 .put(
