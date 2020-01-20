@@ -32,6 +32,7 @@ export class ChangeShiftComponent implements OnInit {
 
     public icon: string = 'peoples';
     public previewTitle: string = 'change-shift';
+    public title: string = '';
 
     comments: ShiftComment[] = [];
     aboutWidget;
@@ -55,6 +56,7 @@ export class ChangeShiftComponent implements OnInit {
         this.subscriptions.push(
             this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
                 this.aboutWidget = data;
+                this.title = this.aboutWidget.title;
                 try {
                     this.setRealtimeData(
                         this.aboutWidget.widgetType,
@@ -151,13 +153,13 @@ export class ChangeShiftComponent implements OnInit {
         } catch {}
     }
 
-    onEnterPush(event?: any) {
+    onEnterPush(event?: any): void {
         if (event.keyCode === 13) {
             this.onSendMessage();
         }
     }
 
-    scrollBottom() {
+    scrollBottom(): void {
         this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
     }
 
@@ -167,7 +169,7 @@ export class ChangeShiftComponent implements OnInit {
         }
     }
 
-    showPeople() {
+    showPeople(): void {
         const classes: DOMTokenList = this.addShift.nativeElement.classList;
         if (classes.contains('onShift__add-active')) {
             classes.remove('onShift__add-active');
@@ -188,7 +190,7 @@ export class ChangeShiftComponent implements OnInit {
         }
     }
 
-    async showFreeShiftMembers() {
+    async showFreeShiftMembers(): Promise<void> {
         const tempShiftMembers = await this.shiftService.getFreeShiftMembers(this.currentShift.id);
         this.addingShiftMembers.splice(0, this.addingShiftMembers.length);
         for (const i in tempShiftMembers) {

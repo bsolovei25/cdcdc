@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { IEcologySafety } from '../../models/ecology-safety';
-import { Widgets } from '../../models/widget.model';
+import { IWidgets } from '../../models/widget.model';
 
 @Component({
     selector: 'evj-ecology-safety',
@@ -37,7 +37,7 @@ export class EcologySafetyComponent implements OnInit {
     ) {
         this.subscription = this.widgetService
             .getWidgetChannel(this.id)
-            .subscribe((data: Widgets) => {
+            .subscribe((data: IWidgets) => {
                 this.title = data.title;
                 this.previewTitle = data.widgetType;
             });

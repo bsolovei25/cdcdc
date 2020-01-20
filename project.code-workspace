@@ -17,7 +17,7 @@
     "telemetry.enableTelemetry": false,
     // Editor settings
     "editor.wordWrap": "off",
-    "editor.wordWrapColumn": 120,
+    "editor.wordWrapColumn": 100,
     "editor.cursorBlinking": "smooth",
     "editor.renderIndentGuides": true,
     "editor.minimap.enabled": false,
@@ -41,7 +41,7 @@
     // Beautify code settings
     "html.format.wrapAttributes": "force-aligned",
     "html.format.indentInnerHtml": true,
-    "html.format.wrapLineLength": 120,
+    "html.format.wrapLineLength": 100,
     "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
     "typescript.preferences.quoteStyle": "single",
     "typescript.preferences.importModuleSpecifier": "relative",
@@ -52,14 +52,14 @@
     "git.autofetch": true,
     // Language specific settings
     "[scss]": {
-      "editor.tabSize": 4,
+      "editor.tabSize": 2,
       "editor.wordWrap": "off"
     },
     "[json]": {
       "editor.wordWrap": "off"
     },
     "[typescript]": {
-      "editor.tabSize": 2
+      "editor.tabSize": 4
     },
     "[html]": {
       "editor.tabSize": 2

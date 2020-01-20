@@ -8,10 +8,10 @@ import {
 } from '@angular/core';
 import { GridsterItem, GridsterConfig, GridType } from 'angular-gridster2';
 import { NewWidgetService } from '../../services/new-widget.service';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, BehaviorSubject } from 'rxjs';
 import { WIDGETS } from '../new-widgets-grid/widget-map';
 import { WidgetModel } from '../../models/widget.model';
-import { Widgets } from '../../models/widget.model';
+import { IWidgets } from '../../models/widget.model';
 import { tick } from '@angular/core/testing';
 import { NewUserSettingsService } from '../../services/new-user-settings.service';
 
@@ -33,9 +33,9 @@ export class NewWidgetsPanelComponent implements OnInit {
 
     public options: GridsterConfig;
 
-    dataW: Widgets;
+    dataW: IWidgets;
 
-    widgets: Widgets[];
+    widgets: BehaviorSubject<IWidgets[]> = new BehaviorSubject<IWidgets[]>([]);
 
     model: WidgetModel;
 
@@ -53,8 +53,8 @@ export class NewWidgetsPanelComponent implements OnInit {
         public userSettings: NewUserSettingsService
     ) {
         this.subscriptions.push(
-            this.widgetService.getAvailableWidgets().subscribe((dataW) => {
-                this.widgets = dataW;
+            this.widgetService.widgets$.subscribe((dataW) => {
+                this.widgets.next(dataW);
             })
         );
     }
@@ -62,7 +62,7 @@ export class NewWidgetsPanelComponent implements OnInit {
     ngOnInit() {
         this.subscriptions.push(
             this.widgetService.searchWidgetT.subscribe((data) => {
-                this.widgets = data;
+                this.widgets.next(data);
             })
         );
         this.options = {

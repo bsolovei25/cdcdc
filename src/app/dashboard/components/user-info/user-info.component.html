@@ -1,8 +1,11 @@
-<div class="user-info" (mouseover)="ScreenActive($event)" (mouseleave)="ScreenDisable($event)">
+<div class="user-info" (mouseover)="ScreenActive()" (mouseleave)="ScreenDisable()">
   <div class="user-info_avatar"></div>
   <div *ngIf="data" class="user-info_data">
     <div class="user-name">
-      {{ data.lastName }} {{ data.firstName | slice : 0 : 1 }}.{{ data.middleName | slice : 0 : 1 }}
+      <span>
+        {{ data.lastName }} {{ data.firstName | slice : 0 : 1 }}.{{ data.middleName | slice : 0 : 1
+        }}
+      </span>
     </div>
     <div class="user-position">{{ data.positionDescription }}</div>
     <div class="user-groupe">Бригада {{ data.brigade.number }}</div>
@@ -14,8 +17,8 @@
     <div
       (click)="logOut()"
       class="dropdown-component"
-      (mouseover)="isOverScreen($event)"
-      (mouseleave)="isLeaveScreen($event)"
+      (mouseover)="isOverScreen()"
+      (mouseleave)="isLeaveScreen()"
     >
       <div class="screen_block">
         <div class="screen_blocks">

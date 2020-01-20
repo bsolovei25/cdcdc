@@ -64,6 +64,8 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
     deviationMode = 'planFact';
 
+    public previewTitle: string = 'line-chart';
+
     private readonly trendsStyle: any = {
         plan: {
             point: {
