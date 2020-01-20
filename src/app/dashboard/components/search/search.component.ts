@@ -29,10 +29,9 @@ export class SearchComponent implements OnInit {
 
     ngOnInit() {}
 
-
     ngOnDestroy(): void {
         if (this.subscription) {
-                this.subscription.unsubscribe();
+            this.subscription.unsubscribe();
         }
     }
 
@@ -60,7 +59,7 @@ export class SearchComponent implements OnInit {
                 }
             }
             let newFilterArray = [...new Set(newCategoryArray)];
-    
+
             return newFilterArray;
         } catch (error) {
             console.log('Ошибка:', error);

@@ -273,16 +273,15 @@ export class NewWidgetService {
                 );
                 pointFilter = filter;
             } else {
-                const filter = point.filter(item => item.categories.indexOf(record) > -1);
+                const filter = point.filter((item) => item.categories.indexOf(record) > -1);
                 pointFilter = filter;
             }
-    
+
             this.searchValue = record;
             return pointFilter;
         } catch (error) {
             console.log('Ошбика', error);
         }
-      
     }
 
     public reEmitList(): void {

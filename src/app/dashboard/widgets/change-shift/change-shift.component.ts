@@ -52,20 +52,24 @@ export class ChangeShiftComponent implements OnInit {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscriptions.push(this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-            this.aboutWidget = data;
-            try {
-                this.setRealtimeData(
-                    this.aboutWidget.widgetType,
-                    this.shiftService.shiftPass.getValue()
-                );
-            } catch {}
-        }));
-        this.subscriptions.push(this.shiftService.shiftPass.subscribe((data) => {
-            if (this.aboutWidget) {
-                this.setRealtimeData(this.aboutWidget.widgetType, data);
-            }
-        }));
+        this.subscriptions.push(
+            this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
+                this.aboutWidget = data;
+                try {
+                    this.setRealtimeData(
+                        this.aboutWidget.widgetType,
+                        this.shiftService.shiftPass.getValue()
+                    );
+                } catch {}
+            })
+        );
+        this.subscriptions.push(
+            this.shiftService.shiftPass.subscribe((data) => {
+                if (this.aboutWidget) {
+                    this.setRealtimeData(this.aboutWidget.widgetType, data);
+                }
+            })
+        );
     }
 
     ngOnInit() {}

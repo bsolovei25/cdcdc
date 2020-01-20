@@ -998,7 +998,6 @@ export class OilControlComponent implements OnInit, AfterViewInit {
         }
     }
 
-    
     ngOnDestroy(): void {
         if (this.subscriptions) {
             for (const subscribe of this.subscriptions) {

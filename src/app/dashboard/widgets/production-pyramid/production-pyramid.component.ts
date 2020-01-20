@@ -51,5 +51,4 @@ export class ProductionPyramidComponent implements OnInit {
             this.subscription.unsubscribe();
         }
     }
-
 }

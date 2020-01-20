@@ -78,7 +78,6 @@ export class CalendarPlanComponent implements OnInit {
 
     ngOnInit() {}
 
-    
     ngOnDestroy() {
         if (this.subscription) {
             this.subscription.unsubscribe();

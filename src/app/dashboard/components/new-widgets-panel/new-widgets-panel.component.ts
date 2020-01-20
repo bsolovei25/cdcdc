@@ -22,7 +22,7 @@ import { NewUserSettingsService } from '../../services/new-user-settings.service
     styleUrls: ['./new-widgets-panel.component.scss'],
 })
 export class NewWidgetsPanelComponent implements OnInit {
-    private subscription: Subscription;
+    private subscriptions: Subscription[] = [];
 
     public event;
     public item;
@@ -52,15 +52,15 @@ export class NewWidgetsPanelComponent implements OnInit {
         public injector: Injector,
         public userSettings: NewUserSettingsService
     ) {
-        this.subscription = this.widgetService.getAvailableWidgets().subscribe((dataW) => {
+        this.subscriptions.push(this.widgetService.getAvailableWidgets().subscribe((dataW) => {
             this.widgets = dataW;
-        });
+        }));
     }
 
     ngOnInit() {
-        this.subscription = this.widgetService.searchWidgetT.subscribe((data) => {
+        this.subscriptions.push(this.widgetService.searchWidgetT.subscribe((data) => {
             this.widgets = data;
-        });
+        }));
         this.options = {
             gridType: GridType.Fit,
             displayGrid: 'none',
@@ -125,9 +125,11 @@ export class NewWidgetsPanelComponent implements OnInit {
         }
     } */
 
-    ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
+    ngOnDestroy(): void {
+        if (this.subscriptions) {
+            for (const subscribe of this.subscriptions) {
+                subscribe.unsubscribe();
+            }
         }
     }
 

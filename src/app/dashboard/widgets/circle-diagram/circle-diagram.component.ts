@@ -81,7 +81,6 @@ export class CircleDiagramComponent implements OnInit, OnDestroy, AfterViewInit 
         } catch {}
     }
 
-    
     ngOnDestroy(): void {
         if (this.subscriptions) {
             for (const subscribe of this.subscriptions) {
