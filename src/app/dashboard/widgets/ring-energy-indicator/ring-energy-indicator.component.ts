@@ -16,10 +16,11 @@ export class RingEnergyIndicatorComponent implements AfterViewInit {
 
     public readonly RADIUS = 50;
 
-    public title = 'Производство';
-    public code;
-    public units;
-    public name;
+    public title: string = 'Производство';
+    public code: string;
+    public units: string;
+    public name: string;
+    public previewTitle: string;
 
     static itemCols = 12;
     static itemRows = 8;
@@ -64,6 +65,7 @@ export class RingEnergyIndicatorComponent implements AfterViewInit {
                 this.code = data.code;
                 this.units = data.units;
                 this.name = data.name;
+                this.previewTitle = data.widgetType;
             })
         );
     }

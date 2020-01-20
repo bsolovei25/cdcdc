@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { Subscription } from 'rxjs';
+import { IBlockDiagram, IBlockDiagramMock } from '../../models/circle-block-diagram';
 
 @Component({
     selector: 'evj-circle-block-diagram',
@@ -8,41 +9,41 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./circle-block-diagram.component.scss'],
 })
 export class CircleBlockDiagramComponent implements OnInit {
-    blockDiagram = {
+    public blockDiagram: IBlockDiagram = {
         improvement: 0, // улучшение в %
         disabled: 0, // отключенные блокировки в %
         noReason: 0, // не указана причина снятия блокировок в %
     };
 
-    isMockData = {
+    public isMockData: IBlockDiagramMock = {
         improvement: 87.7, // улучшение в %
     };
 
     /* Цвета для диаграмм */
 
-    colorMain = '#1b1e27';
-    colorBg = '#0d1014';
-    colorNormal = '#a2e2ff';
-    colorFull = '#FFFFFF';
-    colorDeviation = '#F4A321';
+    public colorMain: string = '#1b1e27';
+    public colorBg: string = '#0d1014';
+    public colorNormal: string = '#a2e2ff';
+    public colorFull: string = '#FFFFFF';
+    public colorDeviation: string = '#F4A321';
 
-    colorContour = '#5b607d';
+    public colorContour: string = '#5b607d';
 
     /* Координаты центров окружностей */
 
-    centerX = '25';
-    centerY = '25';
+    public centerX: string = '25';
+    public centerY: string = '25';
 
-    radius = '12';
+    public radius: string = '12';
 
-    subscription: Subscription;
+    public subscription: Subscription;
 
-    public title;
-    public units = '%';
-    public widgetType = 'circle-block-diagram';
+    public title: string;
+    public units: string = '%';
+    public widgetType: string = 'circle-block-diagram';
 
-    static itemCols = 15;
-    static itemRows = 17;
+    static itemCols: number = 15;
+    static itemRows: number = 17;
 
     public previewTitle: string;
 
@@ -61,7 +62,7 @@ export class CircleBlockDiagramComponent implements OnInit {
         });
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         if (!this.isMock) {
             this.widgetService
                 .getWidgetLiveDataFromWS(this.id, this.widgetType)
@@ -83,13 +84,12 @@ export class CircleBlockDiagramComponent implements OnInit {
 
     diaLine(r: string, line: number): string {
         const c: number = 2 * Math.PI * +r;
-        const per_cent = line / 100;
-        return per_cent * c + ' ' + (c - per_cent * c);
+        const percent = line / 100;
+        return percent * c + ' ' + (c - percent * c);
     }
 
     diaOffset(r: string, line: number): string {
         const c: number = 2 * Math.PI * +r;
-        const per_cent = line / 100;
         return (-0.75 * c).toString();
     }
 }

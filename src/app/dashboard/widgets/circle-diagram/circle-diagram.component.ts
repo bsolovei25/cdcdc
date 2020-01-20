@@ -29,7 +29,8 @@ export class CircleDiagramComponent implements OnInit, OnDestroy, AfterViewInit 
     public code: string;
     public title: string;
     public units: string = 'шт.';
-    options;
+    public previewTitle: string;
+    public options;
 
     public svg: any;
 

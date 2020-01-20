@@ -2,19 +2,20 @@ import { Component, Input, OnInit, OnDestroy, Inject } from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { Subscription } from 'rxjs';
 import { inject } from '@angular/core/testing';
+import { ILineDiagram, ILineDiagramData, ILineDiagramDataItem } from '../../models/line-diagram';
 
 @Component({
     selector: 'evj-line-diagram',
     templateUrl: './line-diagram.component.html',
     styleUrls: ['./line-diagram.component.scss'],
 })
-export class LineDiagramComponent implements OnInit {
-    static itemCols = 15;
-    static itemRows = 7;
+export class LineDiagramComponent implements OnInit, OnDestroy {
+    static itemCols: number = 15;
+    static itemRows: number = 7;
 
     private subscription: Subscription;
 
-    data = [
+    public data: ILineDiagram[] = [
         {
             name: 'Сухой газ',
             count: 97,
@@ -32,10 +33,11 @@ export class LineDiagramComponent implements OnInit {
             critical: true,
         },
     ];
-    fillGraphs = '#3FA9F5';
+    public fillGraphs: string = '#3FA9F5';
 
-    public title;
-    public unitsA;
+    public title: string;
+    public units: string;
+    public previewTitle: string;
 
     constructor(
         public widgetService: NewWidgetService,
@@ -45,15 +47,16 @@ export class LineDiagramComponent implements OnInit {
     ) {
         this.subscription = this.widgetService.getWidgetChannel(id).subscribe((data) => {
             this.title = data.title;
-            this.unitsA = data.units;
+            this.units = data.units;
+            this.previewTitle = data.widgetType;
         });
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.showMock(this.isMock);
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
@@ -69,17 +72,17 @@ export class LineDiagramComponent implements OnInit {
         return flag ? criticalFill : normalFill;
     }
 
-    showMock(show) {
+    showMock(show: boolean): void {
         if (!show) {
             this.wsConnect();
         }
     }
 
-    wsConnect() {
+    wsConnect(): void {
         this.subscription = this.widgetService
             .getWidgetLiveDataFromWS(this.id, 'line-diagram')
-            .subscribe((data) => {
-                this.data = data.items.map((el) => ({
+            .subscribe((data: ILineDiagramData) => {
+                this.data = data.items.map((el: ILineDiagramDataItem) => ({
                     name: el.name,
                     count: el.percentage,
                     curValue: el.value,
@@ -90,7 +93,7 @@ export class LineDiagramComponent implements OnInit {
             });
     }
 
-    wsDisconnect() {
+    wsDisconnect(): void {
         if (this.subscription) {
             this.subscription.unsubscribe();
         }

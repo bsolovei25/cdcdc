@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { Subscription } from 'rxjs';
+import { IColumnChartStacked } from '../../models/column-chart-stacked';
 
 @Component({
     selector: 'evj-column-chart-stacked',
@@ -10,7 +11,7 @@ import { Subscription } from 'rxjs';
 export class ColumnChartStackedComponent implements OnInit {
     public icon: string = 'columns';
 
-    cols = [
+    public cols: IColumnChartStacked[] = [
         {
             plan: 7,
             fact: 4,
@@ -78,13 +79,14 @@ export class ColumnChartStackedComponent implements OnInit {
         },
     ];
 
-    public title;
-    public units = 'шт';
+    public title: string;
+    public units: string = 'шт';
+    public previewTitle: string;
 
-    subscription: Subscription;
+    public subscription: Subscription;
 
-    static itemCols = 26;
-    static itemRows = 20;
+    static itemCols: number = 26;
+    static itemRows: number = 20;
 
     constructor(
         private widgetService: NewWidgetService,
@@ -94,13 +96,14 @@ export class ColumnChartStackedComponent implements OnInit {
     ) {
         this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
             this.title = data.title;
+            this.previewTitle = data.widgetType;
             // this.code = data.code;
             // this.units = data.units;
             // this.name = data.name;
         });
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.findMax();
     }
 
@@ -112,7 +115,7 @@ export class ColumnChartStackedComponent implements OnInit {
 
     findMax() {
         let max = 0;
-        for (let col of this.cols) {
+        for (const col of this.cols) {
             max = col.plan > max ? col.plan : max;
         }
         this.cols.forEach((item) => (item.max = max));

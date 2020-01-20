@@ -5,3 +5,8 @@ export interface DeviationCircleDiagram {
     title?: string;
     widgetType?: string;
 }
+
+export interface ICenterOfPoint {
+    xCen: string;
+    yCen: string;
+}

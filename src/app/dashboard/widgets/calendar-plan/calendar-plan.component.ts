@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { Subscription } from 'rxjs';
+import { ICalendarPlanGraph, ICalendarPlanData } from '../../models/calendar-plan';
 
 @Component({
     selector: 'evj-calendar-plan',
@@ -8,16 +9,9 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./calendar-plan.component.scss'],
 })
 export class CalendarPlanComponent implements OnInit {
-    aboutWidget;
-
-    static itemCols = 18;
-    static itemRows = 10;
-
-    subscription: Subscription;
-
     /* Приблизительная структура, получаемая с бека */
 
-    data = {
+    public data: ICalendarPlanGraph = {
         plan: 1000,
         lowerBorder: 0.03,
         higherBorder: 0.1,
@@ -32,7 +26,7 @@ export class CalendarPlanComponent implements OnInit {
         higherValue: 1000 * (1 + 0.1),
     };
 
-    array = [
+    public array: ICalendarPlanData[] = [
         {
             name: 'Бензины', // название
             deviation: -0.4, // отклонение
@@ -64,6 +58,14 @@ export class CalendarPlanComponent implements OnInit {
             isBetter: true, // флаг улучшение
         },
     ];
+
+    static itemCols: number = 18;
+    static itemRows: number = 10;
+
+    public subscription: Subscription;
+
+    public aboutWidget: string;
+    public previewTitle: string;
 
     constructor(
         private widgetService: NewWidgetService,
