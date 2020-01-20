@@ -64,7 +64,7 @@ export class NewWidgetService {
         .pipe(filter((item) => item !== null));
 
     public getAvailableWidgets(): Observable<Widgets[]> {
-        return this.http.get(this.restUrl + '/af/GetAvailableWidgets').pipe(
+        return this.http.get(this.restUrl + '/api/af-service/GetAvailableWidgets').pipe(
             map((data) => {
                 const _data = this.mapData(data);
                 this.mass = this.mapData(data);
@@ -265,9 +265,12 @@ export class NewWidgetService {
 
     public Search(record: string): Observable<Widgets[]> {
         try {
+            
             const point = this._widgets$.getValue();
             let pointFilter;
             let arrFilter: any = [];
+            let arrFilterButton: any = [];
+            let resultObject: any = [];
             if (this.searchType === 'input') {
                 const filter = of(
                     point.filter(
@@ -278,10 +281,21 @@ export class NewWidgetService {
                 this.searchValue = record;
                 return pointFilter;
             } else {
-                const filter = point.filter((point) => point.categories.indexOf(record) > -1);
-                arrFilter.push(filter);
+                for(let i of record){
+                    const filter = point.filter((point) => point.categories.indexOf(i) > -1);
+                    arrFilter.push(filter);
+                }
+              //  const filter = point.filter((point) => point.categories.indexOf(record) > -1);
+              //  arrFilter.push(filter);
+                for(let i of arrFilter){
+                    for(let j of i){
+                        arrFilterButton.push(j);
+                    }
+                }
+                let newFilterArray:any = [...new Set(arrFilterButton)];
+                resultObject.push(newFilterArray);
                 this.searchValue = record;
-                return arrFilter;
+                return  resultObject;
             }
         } catch (error) {
             console.log('Ошбика', error);
