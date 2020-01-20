@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 export class FlameDiagramComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
     public title: string;
+    public previewTitle: string = 'flame-diagram';
     static itemCols = 20;
     static itemRows = 16;
 
