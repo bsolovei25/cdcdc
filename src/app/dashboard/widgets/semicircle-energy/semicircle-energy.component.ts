@@ -83,7 +83,7 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
     public units: string = 'кг/м^3';
     public widgetType: string = 'semicircle-energy';
     public previewTitle: string = 'semicircle-energy';
-    public code: string;
+    public code: string = '';
 
     subscriptions: Subscription[] = [];
 
@@ -98,8 +98,10 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
     ) {
         this.subscriptions.push(
             this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-                this.title = data.title;
-                this.code = data.code;
+                if (data) {
+                    this.title = data.title;
+                    this.code = data.code;
+                }
                 // this.units = data.units;
                 // this.name = data.name;
             })

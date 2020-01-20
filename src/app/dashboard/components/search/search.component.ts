@@ -19,6 +19,7 @@ export class SearchComponent implements OnInit {
     widgets: IWidgets[];
 
     public newArrayType = [];
+    public newArrayClick = [];
 
     constructor(public widgetService: NewWidgetService) {
         this.subscription = this.widgetService.widgets$.subscribe((dataW) => {
@@ -41,6 +42,10 @@ export class SearchComponent implements OnInit {
         } else {
             this.checkClick = true;
         }
+    }
+
+    public onFilterMass(data: any) {
+        this.newArrayClick = data;
     }
 
     public filterData(data) {
