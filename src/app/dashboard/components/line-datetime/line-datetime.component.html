@@ -10,7 +10,7 @@
       >
         {{data.day}}
       </div>
-      <div *ngIf="data.isActive === true" class="calendar-column_time" id="widthBlock">
+      <div *ngIf="data.isActive" class="calendar-column_time" id="widthBlock">
         {{this.currentData | date:'HH:mm'}}
       </div>
     </div>

@@ -27,13 +27,6 @@
   justify-content: flex-start;
 }
 
-.mock {
-  display: block;
-  border-left: dashed 0.5px var(--color-border-main);
-  border-right: dashed 0.5px var(--color-border-main);
-  height: 200px;
-}
-
 .header {
   position: relative;
   height: 30px;
@@ -620,8 +613,8 @@
   }
 
   &__comment {
-    margin-top: 25px;
-    margin-bottom: 50px;
+    margin-top: 10px;
+    margin-bottom: 35px;
     min-height: 100px;
     flex: 1;
     .comment {
@@ -956,4 +949,8 @@
       bottom: 5px;
     }
   }
+}
+
+.buttons {
+  display: flex;
 }

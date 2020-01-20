@@ -18,7 +18,7 @@ export class TruncatedPieSFirstComponent implements OnInit {
     public units = '%';
     public name;
     public icon = 'flask';
-    public previewTitle: string;
+    public previewTitle: string = 'truncated-pie-s-first';
 
     public datas = [
         { name: 'Статическое Оборудование 1', plan: 5, value: 28 },

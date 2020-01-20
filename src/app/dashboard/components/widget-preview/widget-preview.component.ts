@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class WidgetPreviewComponent implements OnInit {
     @Input() previewTitle: string = '';
     @Input() title: string = '';
+    @Input() code: string = '';
     @Input() icon: string;
     public route: string = '../../../../assets/icons/widget-preview/';
     public format: string = '.svg';

@@ -14,6 +14,7 @@
     </span>
     <span class="header__units">{{units}}</span>
     <div
+      *ngIf="!isPreview"
       class="delete_widget"
       (click)="onRemoveButton()"
       (mousedown)="$event.stopPropagation()"
