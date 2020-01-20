@@ -36,12 +36,12 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy {
         minValue: 95,
         maxValue: 100,
         values: [97, 97, 95, 96, 97, 95, 96, 98, 96, 99, 100, 97, 97, 97],
+        // values: [94, 97, 99, 100]
     };
 
     middleRadius = 60;
 
     public title = '';
-    public previewTitle: string = 'observation-norm-tr';
     private subscription: Subscription;
 
     @ViewChild('svgContainerObservation', { static: false }) svgContainerObservation: ElementRef;

@@ -62,10 +62,10 @@ export class CalendarPlanComponent implements OnInit {
     static itemCols: number = 18;
     static itemRows: number = 10;
 
-    public subscriptions: Subscription[] = [];
+    public subscription: Subscription;
 
     public aboutWidget: string;
-    public previewTitle: string = 'calendar-plan';
+    public previewTitle: string;
 
     constructor(
         private widgetService: NewWidgetService,
@@ -73,22 +73,10 @@ export class CalendarPlanComponent implements OnInit {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscriptions.push(this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
+        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
             this.aboutWidget = data.title;
-        }));
+        });
     }
 
-    ngOnInit(): void {
-        if (!this.isMock) {
-           this.wsConnect() ;
-        }
-    }
-
-    wsConnect(): void {
-        this.subscriptions.push(
-            this.widgetService.getWidgetLiveDataFromWS(this.id, 'calendar-plan').subscribe((ref) => {
-                console.log(ref);
-            })
-        );
-    }
+    ngOnInit(): void {}
 }

@@ -15,7 +15,7 @@ export class ChainMapComponent implements AfterViewInit {
     static itemCols = 30;
     static itemRows = 20;
 
-    public previewTitle: string = 'chain-map';
+    public previewTitle: string;
 
     public dataStyle = {
         id_0: { status: 'pipeActive' },

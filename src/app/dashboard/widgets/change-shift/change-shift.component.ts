@@ -139,13 +139,13 @@ export class ChangeShiftComponent implements OnInit {
         } catch {}
     }
 
-    onEnterPush(event?: any): void {
+    onEnterPush(event?: any) {
         if (event.keyCode === 13) {
             this.onSendMessage();
         }
     }
 
-    scrollBottom(): void {
+    scrollBottom() {
         this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
     }
 
@@ -155,7 +155,7 @@ export class ChangeShiftComponent implements OnInit {
         }
     }
 
-    showPeople(): void {
+    showPeople() {
         const classes: DOMTokenList = this.addShift.nativeElement.classList;
         if (classes.contains('onShift__add-active')) {
             classes.remove('onShift__add-active');
@@ -176,7 +176,7 @@ export class ChangeShiftComponent implements OnInit {
         }
     }
 
-    async showFreeShiftMembers(): Promise<void> {
+    async showFreeShiftMembers() {
         const tempShiftMembers = await this.shiftService.getFreeShiftMembers(this.currentShift.id);
         this.addingShiftMembers.splice(0, this.addingShiftMembers.length);
         for (const i in tempShiftMembers) {

@@ -64,8 +64,6 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
     deviationMode = 'planFact';
 
-    public previewTitle: string = 'line-chart';
-
     private readonly trendsStyle: any = {
         plan: {
             point: {
@@ -143,9 +141,9 @@ export class LineChartComponent implements OnInit, OnDestroy {
         this.subscriptions.push(
             this.widgetService.getWidgetChannel(id).subscribe((data) => {
                 (this.code = data.code),
-                (this.title = data.title),
-                // this.units = data.units,
-                (this.options = data.widgetOptions);
+                    (this.title = data.title),
+                    // this.units = data.units,
+                    (this.options = data.widgetOptions);
             })
         );
     }

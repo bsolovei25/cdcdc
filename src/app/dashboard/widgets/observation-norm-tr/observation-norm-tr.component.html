@@ -1,15 +1,21 @@
-<evj-widget-preview
-    [title]="title"
-    [previewTitle]="previewTitle"
-    *ngIf="isMock"
-></evj-widget-preview>
-
-<div class="container pointer-event" *ngIf="!isMock">
+<div class="container pointer-event">
   <evj-widget-header [title]="title" [id]="id" [uniqId]="uniqId"></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
 
-  <ng-container>
+  <ng-container *ngIf="isMock">
+    <div class="mock">
+      <div class="line">---------------------</div>
+      <div class="line">---------------------</div>
+      <div class="line">---------------------</div>
+      <div class="line">---------------------</div>
+      <div class="line">---------------------</div>
+      <div class="line">---------------------</div>
+      <div class="line">---------------------</div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="!isMock">
     <div
       class="content"
       (mousedown)="$event.stopPropagation()"
