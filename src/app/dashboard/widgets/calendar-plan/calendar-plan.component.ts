@@ -92,8 +92,10 @@ export class CalendarPlanComponent implements OnInit, OnDestroy {
 
     wsConnect(): void {
         this.subscriptions.push(
-            this.widgetService.getWidgetLiveDataFromWS(this.id, 'calendar-plan').subscribe((ref) => {
-                console.log(ref);
+            this.widgetService.getWidgetLiveDataFromWS(this.id, 'calendar-plan')
+                .subscribe((ref) => {
+                    console.log(ref);
             })
         );
+    }
 }
