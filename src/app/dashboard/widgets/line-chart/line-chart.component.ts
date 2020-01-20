@@ -143,9 +143,9 @@ export class LineChartComponent implements OnInit, OnDestroy {
         this.subscriptions.push(
             this.widgetService.getWidgetChannel(id).subscribe((data) => {
                 (this.code = data.code),
-                (this.title = data.title),
-                // this.units = data.units,
-                (this.options = data.widgetOptions);
+                    (this.title = data.title),
+                    // this.units = data.units,
+                    (this.options = data.widgetOptions);
             })
         );
     }

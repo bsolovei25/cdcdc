@@ -32,6 +32,7 @@ export class ChangeShiftComponent implements OnInit {
 
     public icon: string = 'peoples';
     public previewTitle: string = 'change-shift';
+    public title: string = '';
 
     comments: ShiftComment[] = [];
     aboutWidget;

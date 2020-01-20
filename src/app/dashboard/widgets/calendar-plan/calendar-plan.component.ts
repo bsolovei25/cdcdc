@@ -73,14 +73,16 @@ export class CalendarPlanComponent implements OnInit, OnDestroy {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscriptions.push(this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-            this.aboutWidget = data.title;
-        }));
+        this.subscriptions.push(
+            this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
+                this.aboutWidget = data.title;
+            })
+        );
     }
 
     ngOnInit(): void {
         if (!this.isMock) {
-           this.wsConnect() ;
+            this.wsConnect();
         }
     }
 
@@ -92,10 +94,11 @@ export class CalendarPlanComponent implements OnInit, OnDestroy {
 
     wsConnect(): void {
         this.subscriptions.push(
-            this.widgetService.getWidgetLiveDataFromWS(this.id, 'calendar-plan')
+            this.widgetService
+                .getWidgetLiveDataFromWS(this.id, 'calendar-plan')
                 .subscribe((ref) => {
                     console.log(ref);
-            })
+                })
         );
     }
 }

@@ -44,7 +44,7 @@
   </div>
   <div class="widgets-panel__list scroll-bar">
     <div class="options-header">
-      <ng-container *ngFor="let item of widgets; trackBy: dataById">
+      <ng-container *ngFor="let item of widgets | async; trackBy: dataById">
         <div
           *ngIf="WIDGETS[item.widgetType]"
           draggable="true"
