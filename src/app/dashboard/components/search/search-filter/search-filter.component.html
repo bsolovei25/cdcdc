@@ -1,10 +1,6 @@
 <div class="result_filter">
   <ng-container *ngFor="let item of data; let i = index">
-    <div
-      class="result_search"
-    
-      [class.activeFilter]="clicked && arrayClick[i] === i"
-    >
+    <div class="result_search" [class.activeFilter]="clicked && arrayClick[i] === i">
       {{item}}
     </div>
   </ng-container>

@@ -22,27 +22,26 @@ export class SearchFilterComponent implements OnInit {
     ngOnInit() {}
 
     public choosenType(value, i) {
-
-        if(this.arrayClick.indexOf(i) !== -1){
-            for(let check of this.arrayClick){
-                if(check === i){
+        if (this.arrayClick.indexOf(i) !== -1) {
+            for (let check of this.arrayClick) {
+                if (check === i) {
                     this.clicked = false;
                     this.arrayClick.splice(this.arrayClick.indexOf(i), 1);
                 }
             }
-        }else{
+        } else {
             this.arrayClick.push(i);
             this.clicked = true;
         }
         this.itemId = i;
         let type = 'filter';
 
-        if(this.arrayClick.length === 0){
-                    this.widgetService.reEmitList();
-        }else{
-                    this.widgetService.searchItems(value, type);
+        if (this.arrayClick.length === 0) {
+            this.widgetService.reEmitList();
+        } else {
+            this.widgetService.searchItems(value, type);
         }
-        
+
         // this.onSearch.emit(type);
     }
 }

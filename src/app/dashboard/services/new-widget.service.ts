@@ -276,13 +276,11 @@ export class NewWidgetService {
                 this.searchValue = record;
                 return pointFilter;
             } else {
-                const filter = point.filter(point => point.categories.indexOf(record) > -1);
+                const filter = point.filter((point) => point.categories.indexOf(record) > -1);
                 arrFilter.push(filter);
                 this.searchValue = record;
                 return arrFilter;
             }
-
-         
         } catch (error) {
             console.log('Ошбика', error);
         }
