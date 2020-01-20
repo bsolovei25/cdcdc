@@ -15,7 +15,7 @@ import {
     EventsWidgetNotificationPriority,
     IStatus,
     IPriority,
-    User,
+    IUser,
     ICategory,
     EventsWidgetCategory,
     EventsWidgetCategoryCode,
@@ -43,7 +43,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
     priority: IPriority[];
     status: IStatus[];
-    user: User[];
+    user: IUser[];
     code;
     category: ICategory[];
     place;
@@ -185,6 +185,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
                 firstName: '',
                 id: 1,
                 lastName: '',
+                middleName: '',
                 phone: '00123456789',
             },
             place: { id: 5001, name: 'ГФУ-2 с БОР' },
@@ -335,6 +336,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
                 id: 2,
                 firstName: 'Петр',
                 lastName: 'Петров',
+                middleName: '',
                 email: 'test@test',
                 phone: '00123456789',
             },

@@ -6,8 +6,8 @@ export interface EventsWidgetNotification {
     organization: string;
     branch: string;
     place: { id: number; name: string };
-    responsibleOperator: User;
-    fixedBy: User;
+    responsibleOperator: IUser;
+    fixedBy: IUser;
     eventDateTime: Date;
     iconUrl?: string;
     iconUrlStatus?: string;
@@ -29,12 +29,15 @@ export interface EventsWidgetNotification {
     source?: any;
 }
 
-export interface User {
+export interface IUser {
     id: number;
     firstName: string;
     lastName: string;
-    email: string;
-    phone: string;
+    middleName: string;
+    email?: string;
+    phone?: string;
+    brigade?: { id: number, number: string };
+    positionDescription?: string;
 }
 
 export type EventsWidgetNotificationPriority = 'danger' | 'warning' | 'standard';

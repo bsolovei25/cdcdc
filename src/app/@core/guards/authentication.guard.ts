@@ -19,7 +19,7 @@ import { AuthService } from '@core/service/auth.service';
     providedIn: 'root', // singleton service
 })
 export class AuthenticationGuard implements CanLoad, CanActivate, CanActivateChild {
-    constructor(private authService: AuthService, private router: Router) {}
+    constructor(private authService: AuthService, private router: Router) { }
 
     private async authenticationCheck(
         route: Route | ActivatedRouteSnapshot,
@@ -45,13 +45,13 @@ export class AuthenticationGuard implements CanLoad, CanActivate, CanActivateChi
         route: ActivatedRouteSnapshot,
         routerState: RouterStateSnapshot
     ): Promise<boolean | UrlTree> {
-        return this.authenticationCheck(route, routerState.url);
+        return true;
     }
 
     async canActivateChild(
         route: ActivatedRouteSnapshot,
         routerState: RouterStateSnapshot
     ): Promise<boolean | UrlTree> {
-        return this.authenticationCheck(route, routerState.url);
+        return true;
     }
 }
