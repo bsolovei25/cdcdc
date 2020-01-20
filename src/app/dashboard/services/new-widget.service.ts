@@ -69,12 +69,8 @@ export class NewWidgetService {
         .pipe(filter((item) => item !== null));
 
     private getAvailableWidgets(): Observable<IWidgets[]> {
-        let a = this.i > 2 ? '' : 'd';
-        this.i++;
-        // this.i > 3 ? a = '' : a = 'd';
         return this.http.get(this.restUrl + `/af/GetAvailableWidgets`).pipe(
             map((data: IWidgets[]) => {
-                // throw throwError('err');
                 const localeData = this.mapData(data);
                 this.mass = this.mapData(data);
                 return localeData;
@@ -137,7 +133,6 @@ export class NewWidgetService {
             this.connectedWidgetsId.indexOf(this.connectedWidgetsId.find((el) => el === widgetId)),
             1
         );
-        // this.connectedWidgetsId = this.connectedWidgetsId.filter(el => el !== widgetId);
     }
 
     private wsConnect(widgetId: string): void {
@@ -250,7 +245,7 @@ export class NewWidgetService {
         this.openSnackBar('Переподключение');
         this.reconnectRestTimer = setInterval(() => {
             this.getRest();
-        }, 10000);
+        }, 5000);
     }
 
     private initWS(): void {

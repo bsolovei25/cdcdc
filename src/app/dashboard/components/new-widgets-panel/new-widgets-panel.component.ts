@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { GridsterItem, GridsterConfig, GridType } from 'angular-gridster2';
 import { NewWidgetService } from '../../services/new-widget.service';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, BehaviorSubject } from 'rxjs';
 import { WIDGETS } from '../new-widgets-grid/widget-map';
 import { WidgetModel } from '../../models/widget.model';
 import { IWidgets } from '../../models/widget.model';
@@ -35,7 +35,7 @@ export class NewWidgetsPanelComponent implements OnInit {
 
     dataW: IWidgets;
 
-    widgets: IWidgets[];
+    widgets: BehaviorSubject<IWidgets[]> = new BehaviorSubject<IWidgets[]>([]);
 
     model: WidgetModel;
 
@@ -53,8 +53,8 @@ export class NewWidgetsPanelComponent implements OnInit {
         public userSettings: NewUserSettingsService
     ) {
         this.subscriptions.push(
-            this.widgetService.getAvailableWidgets().subscribe((dataW) => {
-                this.widgets = dataW;
+            this.widgetService.widgets$.subscribe((dataW) => {
+                this.widgets.next(dataW);
             })
         );
     }
@@ -90,7 +90,7 @@ export class NewWidgetsPanelComponent implements OnInit {
         };
     }
 
-    ngAfterViewInit() {}
+    ngAfterViewInit() { }
 
     @Output() onSwap = new EventEmitter<boolean>();
     @Output() onGrid = new EventEmitter<boolean>();
@@ -159,13 +159,13 @@ export class NewWidgetsPanelComponent implements OnInit {
         }
     }
 
-    emptyCellClick(event: MouseEvent, item: GridsterItem) {}
+    emptyCellClick(event: MouseEvent, item: GridsterItem) { }
 
-    emptyCellMenuClick() {}
+    emptyCellMenuClick() { }
 
-    emptyCellDragClick() {}
+    emptyCellDragClick() { }
 
-    emptyCellDropClick(event: DragEvent, item: GridsterItem) {}
+    emptyCellDropClick(event: DragEvent, item: GridsterItem) { }
 
     public getInjector = (idWidget: string): Injector => {
         return Injector.create({
