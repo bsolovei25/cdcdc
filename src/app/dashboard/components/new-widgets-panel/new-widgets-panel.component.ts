@@ -52,15 +52,19 @@ export class NewWidgetsPanelComponent implements OnInit {
         public injector: Injector,
         public userSettings: NewUserSettingsService
     ) {
-        this.subscriptions.push(this.widgetService.getAvailableWidgets().subscribe((dataW) => {
-            this.widgets = dataW;
-        }));
+        this.subscriptions.push(
+            this.widgetService.getAvailableWidgets().subscribe((dataW) => {
+                this.widgets = dataW;
+            })
+        );
     }
 
     ngOnInit() {
-        this.subscriptions.push(this.widgetService.searchWidgetT.subscribe((data) => {
-            this.widgets = data;
-        }));
+        this.subscriptions.push(
+            this.widgetService.searchWidgetT.subscribe((data) => {
+                this.widgets = data;
+            })
+        );
         this.options = {
             gridType: GridType.Fit,
             displayGrid: 'none',

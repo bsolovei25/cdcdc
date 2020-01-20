@@ -25,8 +25,9 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
   flex-wrap: wrap;
+  margin-right: 10px;
 }
 
-.activeFilter {
-  background: var(--color-border-active);
+.activeFilter{
+  background-color: var(--color-border-active);
 }

@@ -48,6 +48,12 @@ export class IndicatorSelectorComponent implements OnInit, AfterViewInit {
         this.nameScreen = this.getActiveScreen();
     }
 
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+    }
+
     public LoadScreen(id) {
         this.userSettings.LoadScreen(id);
     }

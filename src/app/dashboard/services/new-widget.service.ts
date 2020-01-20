@@ -265,6 +265,7 @@ export class NewWidgetService {
         try {
             const point = this._widgets$.getValue();
             let pointFilter;
+            let arrFilter: any = [];
             if (this.searchType === 'input') {
                 const filter = of(
                     point.filter(
@@ -272,13 +273,16 @@ export class NewWidgetService {
                     )
                 );
                 pointFilter = filter;
+                this.searchValue = record;
+                return pointFilter;
             } else {
-                const filter = point.filter((item) => item.categories.indexOf(record) > -1);
-                pointFilter = filter;
+                const filter = point.filter(point => point.categories.indexOf(record) > -1);
+                arrFilter.push(filter);
+                this.searchValue = record;
+                return arrFilter;
             }
 
-            this.searchValue = record;
-            return pointFilter;
+         
         } catch (error) {
             console.log('Ошбика', error);
         }
