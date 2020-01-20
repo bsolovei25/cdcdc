@@ -52,14 +52,14 @@
     "git.autofetch": true,
     // Language specific settings
     "[scss]": {
-      "editor.tabSize": 4,
+      "editor.tabSize": 2,
       "editor.wordWrap": "off"
     },
     "[json]": {
       "editor.wordWrap": "off"
     },
     "[typescript]": {
-      "editor.tabSize": 2
+      "editor.tabSize": 4
     },
     "[html]": {
       "editor.tabSize": 2

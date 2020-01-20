@@ -58,13 +58,13 @@ export class HeaderDataService {
         this.pushDate();
     }
 
-    public catchStatusButton(status) {
+    public catchStatusButton(status): void {
         this.statusButton = status;
         this.pushDate();
     }
 
-    public pushDate() {
-        let dateTo = {
+    public pushDate(): void {
+        const dateTo = {
             start: this.startDate,
             end: this.endDate,
             status: this.statusButton,

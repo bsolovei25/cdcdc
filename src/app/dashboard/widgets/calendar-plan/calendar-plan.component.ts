@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { Subscription } from 'rxjs';
 import { ICalendarPlanGraph, ICalendarPlanData } from '../../models/calendar-plan';
@@ -8,7 +8,7 @@ import { ICalendarPlanGraph, ICalendarPlanData } from '../../models/calendar-pla
     templateUrl: './calendar-plan.component.html',
     styleUrls: ['./calendar-plan.component.scss'],
 })
-export class CalendarPlanComponent implements OnInit {
+export class CalendarPlanComponent implements OnInit, OnDestroy {
     /* Приблизительная структура, получаемая с бека */
 
     public data: ICalendarPlanGraph = {
@@ -62,10 +62,10 @@ export class CalendarPlanComponent implements OnInit {
     static itemCols: number = 18;
     static itemRows: number = 10;
 
-    public subscription: Subscription;
+    public subscriptions: Subscription[] = [];
 
     public aboutWidget: string;
-    public previewTitle: string;
+    public previewTitle: string = 'calendar-plan';
 
     constructor(
         private widgetService: NewWidgetService,
@@ -73,16 +73,29 @@ export class CalendarPlanComponent implements OnInit {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
+        this.subscriptions.push(this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
             this.aboutWidget = data.title;
-        });
+        }));
     }
 
-    ngOnInit() {}
-
-    ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
+    ngOnInit(): void {
+        if (!this.isMock) {
+           this.wsConnect() ;
         }
+    }
+
+    ngOnDestroy(): void {
+        for (const subscription of this.subscriptions) {
+            subscription.unsubscribe();
+        }
+    }
+
+    wsConnect(): void {
+        this.subscriptions.push(
+            this.widgetService.getWidgetLiveDataFromWS(this.id, 'calendar-plan')
+                .subscribe((ref) => {
+                    console.log(ref);
+            })
+        );
     }
 }
