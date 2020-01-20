@@ -62,7 +62,7 @@ export class NewWidgetsPanelComponent implements OnInit {
     ngOnInit() {
         this.subscriptions.push(
             this.widgetService.searchWidgetT.subscribe((data) => {
-                this.widgets = data;
+                this.widgets.next(data);
             })
         );
         this.options = {
@@ -90,7 +90,7 @@ export class NewWidgetsPanelComponent implements OnInit {
         };
     }
 
-    ngAfterViewInit() {}
+    ngAfterViewInit() { }
 
     @Output() onSwap = new EventEmitter<boolean>();
     @Output() onGrid = new EventEmitter<boolean>();
@@ -159,13 +159,13 @@ export class NewWidgetsPanelComponent implements OnInit {
         }
     }
 
-    emptyCellClick(event: MouseEvent, item: GridsterItem) {}
+    emptyCellClick(event: MouseEvent, item: GridsterItem) { }
 
-    emptyCellMenuClick() {}
+    emptyCellMenuClick() { }
 
-    emptyCellDragClick() {}
+    emptyCellDragClick() { }
 
-    emptyCellDropClick(event: DragEvent, item: GridsterItem) {}
+    emptyCellDropClick(event: DragEvent, item: GridsterItem) { }
 
     public getInjector = (idWidget: string): Injector => {
         return Injector.create({
