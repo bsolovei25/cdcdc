@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IWidgets } from '../../models/widget.model';
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
+import { IfStmt } from '@angular/compiler';
 
 @Component({
     selector: 'evj-search',
@@ -9,9 +10,7 @@ import { NewWidgetService } from '../../services/new-widget.service';
     styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit {
-    public checkClick = false;
-
-    public checkData = false;
+    public checkClick = true;
 
     public typeWidgetChoose = [];
 
@@ -30,29 +29,40 @@ export class SearchComponent implements OnInit {
 
     ngOnInit() {}
 
-    public checkInput() {
-        this.checkClick = !this.checkClick;
-    }
-
-    public onSearch(data: any) {
-        this.typeWidgetChoose.push(data);
-        this.checkData = true;
+    ngOnDestroy(): void {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 
     public onCheck(data: any) {
         if (data === true) {
-            this.checkClick = true;
-        } else {
             this.checkClick = false;
+        } else {
+            this.checkClick = true;
         }
     }
 
     public filterData(data) {
-        let newArray = [];
-        for (let i of data) {
-            newArray.push(i.widgetType);
+        try {
+            let newArray = [];
+            let newCategoryArray = [];
+            for (let i of data) {
+                if (i.categories || i.categories.length !== 0) {
+                    newArray.push(i.categories);
+                }
+            }
+            let newWidgetCategory = [...new Set(newArray)];
+            for (let i of newWidgetCategory) {
+                for (let j of i) {
+                    newCategoryArray.push(j);
+                }
+            }
+            let newFilterArray = [...new Set(newCategoryArray)];
+
+            return newFilterArray;
+        } catch (error) {
+            console.log('Ошибка:', error);
         }
-        let newFilterArray = [...new Set(newArray)];
-        return newFilterArray;
     }
 }

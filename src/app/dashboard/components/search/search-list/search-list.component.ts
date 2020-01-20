@@ -8,13 +8,18 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 export class SearchListComponent implements OnInit {
     @Input() public data;
 
-    @Output() onSearch = new EventEmitter<boolean>();
+    @Output() onFilter = new EventEmitter<boolean>();
+
+    check: boolean;
 
     constructor() {}
 
     ngOnInit() {}
 
-    public choosenType(type) {
-        this.onSearch.emit(type);
+    public openFilter(event) {
+        if (event) {
+            this.check = !this.check;
+        }
+        this.onFilter.emit(this.check);
     }
 }

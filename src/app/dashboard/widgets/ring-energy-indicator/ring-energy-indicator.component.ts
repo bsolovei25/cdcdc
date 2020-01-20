@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef, AfterViewInit, ViewChild, Inject } from 
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { count } from 'rxjs/operators';
+import { RingEnegryIndicatorModel } from '../../models/ring-energy-indicator';
 
 declare var d3: any;
 
@@ -26,9 +27,13 @@ export class RingEnergyIndicatorComponent implements AfterViewInit {
 
     public pic;
 
+    public svg;
+
+    public data: RingEnegryIndicatorModel;
+
     private subscription: Subscription;
 
-    public data = {
+    /*  public data = {
         isCritical: true,
         iconId: 4,
         procent: 10,
@@ -44,7 +49,7 @@ export class RingEnergyIndicatorComponent implements AfterViewInit {
                 fact: 221.6,
             },
         ],
-    };
+    };*/
 
     private subscriptions: Subscription[] = [];
 
@@ -66,9 +71,7 @@ export class RingEnergyIndicatorComponent implements AfterViewInit {
     }
 
     ngAfterViewInit() {
-        if (!this.isMock) {
-            this.d3Circle(this.data, this.CircleFactory.nativeElement);
-        }
+        this.showMock(this.isMock);
     }
 
     ngOnDestroy() {
@@ -79,12 +82,33 @@ export class RingEnergyIndicatorComponent implements AfterViewInit {
         }
     }
 
+    private wsConnect() {
+        this.widgetService
+            .getWidgetLiveDataFromWS(this.id, 'ring-energy-indicator')
+            .subscribe((ref) => {
+                this.data = ref;
+                if (this.svg) {
+                    this.svg.remove();
+                }
+                this.d3Circle(this.data, this.CircleFactory.nativeElement);
+            });
+    }
+    private wsDisconnect() {}
+
+    showMock(show) {
+        if (show) {
+            this.wsDisconnect();
+        } else {
+            this.wsConnect();
+        }
+    }
+
     public d3Circle(data, el): void {
         this.pic = data.isCritical
             ? '/assets/pic/RingEnergyIndicator/active' + data.iconId + '.svg'
             : '/assets/pic/RingEnergyIndicator/notActive' + data.iconId + '.svg';
 
-        const mass = [data.procent, 100 - data.procent];
+        const mass = [data.percent, 100 - data.percent];
         let color: any;
         let countValue;
 
@@ -94,13 +118,13 @@ export class RingEnergyIndicatorComponent implements AfterViewInit {
             color = d3.scaleOrdinal().range(['white', 'rgba(255,165,0,0.3)']);
         }
 
-        const canvas = d3
+        this.svg = d3
             .select(el)
             .append('svg')
             .attr('min-width', '100px')
             .attr('viewBox', '0 3 200 200');
 
-        let group = canvas.append('g').attr('transform', 'translate(98.5, 74)');
+        let group = this.svg.append('g').attr('transform', 'translate(98.5, 74)');
 
         const arc = d3
             .arc()
@@ -125,69 +149,74 @@ export class RingEnergyIndicatorComponent implements AfterViewInit {
             .attr('d', arc)
             .attr('fill', (d) => color(d.index));
 
-        countValue = data.value.length;
+        countValue = data.values.length;
 
         if (countValue > 1) {
             let y = 160;
-            for (let i of data.value) {
-                let plan = canvas
-                    .append('text')
-                    .attr('font-size', '10px')
-                    .attr('x', '125')
-                    .attr('y', y + 1)
-                    .attr('fill', 'rgba(158,215,245)')
-                    .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                    .text(i.plan);
+            let index = 0;
+            for (let i of data.values) {
+                index++;
+                if (index < 3) {
+                    let plan = this.svg
+                        .append('text')
+                        .attr('font-size', '10px')
+                        .attr('x', '125')
+                        .attr('y', y + 1)
+                        .attr('fill', 'rgba(158,215,245)')
+                        .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                        .text(i.plan);
 
-                let name = canvas
-                    .append('text')
-                    .attr('font-size', '8px')
-                    .attr('x', '93')
-                    .attr('y', y)
-                    .attr('fill', '#636680')
-                    .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                    .text(i.name);
+                    let name = this.svg
+                        .append('text')
+                        .attr('font-size', '8px')
+                        .attr('x', '93')
+                        .attr('y', y)
+                        .attr('fill', '#636680')
+                        .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                        .text(i.name);
 
-                let fact = canvas
-                    .append('text')
-                    .attr('font-size', '10px')
-                    .attr('x', '50')
-                    .attr('y', y + 1)
-                    .attr('fill', data.isCritical ? 'orange' : 'white')
-                    .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                    .text(i.fact);
-                y += 15;
+                    let fact = this.svg
+                        .append('text')
+                        .attr('font-size', '10px')
+                        .attr('x', '50')
+                        .attr('y', y + 1)
+                        .attr('fill', data.isCritical ? 'orange' : 'white')
+                        .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                        .text(i.fact);
+                    y += 15;
+                } else {
+                }
             }
         } else {
-            let plan = canvas
+            let plan = this.svg
                 .append('text')
                 .attr('font-size', '10px')
                 .attr('x', '125')
                 .attr('y', 171)
                 .attr('fill', 'rgba(158,215,245)')
                 .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                .text(data.value[0].plan);
+                .text(data.values[0].plan);
 
-            let name = canvas
+            let name = this.svg
                 .append('text')
                 .attr('font-size', '8px')
                 .attr('x', '93')
                 .attr('y', 170)
                 .attr('fill', '#636680')
                 .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                .text(data.value[0].name);
+                .text(data.values[0].name);
 
-            let fact = canvas
+            let fact = this.svg
                 .append('text')
                 .attr('font-size', '10px')
                 .attr('x', '50')
                 .attr('y', 171)
                 .attr('fill', data.isCritical ? 'orange' : 'white')
                 .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                .text(data.value[0].fact);
+                .text(data.values[0].fact);
         }
 
-        let pie_back = canvas
+        let pie_back = this.svg
             .append('image')
             .attr('xlink:href', '/assets/pic/RingEnergyIndicator/around.svg')
             .attr('height', '189px')
@@ -196,7 +225,7 @@ export class RingEnergyIndicatorComponent implements AfterViewInit {
             .attr('x', '40')
             .attr('y', '-20');
 
-        let imageInCenter = canvas
+        let imageInCenter = this.svg
             .append('image')
             .attr('xlink:href', this.pic)
             .attr('height', '150px')

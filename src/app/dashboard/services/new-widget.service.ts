@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, throwError, of, Subject } from 'rxjs';
-import { filter, map, catchError, tap, switchMap } from 'rxjs/operators';
+import { Observable, BehaviorSubject, Subject, of } from 'rxjs';
+import { filter, map, tap, debounceTime, switchMap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { GridsterItem } from 'angular-gridster2';
 import { IWidgets } from '../models/widget.model';
@@ -31,6 +31,9 @@ export class NewWidgetService {
     private i = 0;
     private _widgets$: BehaviorSubject<IWidgets[]> = new BehaviorSubject(null);
     private _filterWidgets$: BehaviorSubject<IWidgets[]> = new BehaviorSubject(null);
+
+    public searchWidget$ = new Subject<any>();
+
     private reconnectTimer: any;
     private reconnectRestTimer: any;
 
@@ -39,8 +42,6 @@ export class NewWidgetService {
     public searchValue: string;
 
     public searchType;
-
-    public searchWidget$ = new Subject<any>();
 
     public searchWidgetT: Observable<any> = this.searchWidget$.pipe(
         tap((val) => {

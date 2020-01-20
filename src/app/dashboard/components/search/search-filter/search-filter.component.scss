@@ -3,31 +3,19 @@
   color: var(--color-text-sub);
 }
 
-.result_block {
-  z-index: 999;
-  width: 400px;
-  overflow-y: auto;
-  height: 200px;
-  background-color: white;
-  border: 2px solid var(--color-border-main);
-  border-radius: 5px;
-  left: 55px;
-  position: absolute;
-}
-
 .result_search {
   color: white;
-  width: 120px;
+  width: 140px;
   height: 35px;
-  background-color: var(--color-bg-sub);
-  border-radius: 5px;
+  background: rgb(33, 36, 45);
+  border-radius: 25px;
   margin: 3px auto;
   font-size: 14px;
   text-align: center;
   line-height: 35px;
 
   &:hover {
-    background-color: gray;
+    background-color: var(--color-border-active);
     cursor: pointer;
   }
 }
@@ -37,4 +25,9 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
   flex-wrap: wrap;
+  margin-right: 10px;
+}
+
+.activeFilter {
+  background-color: var(--color-border-active);
 }

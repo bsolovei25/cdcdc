@@ -78,5 +78,11 @@ export class CalendarPlanComponent implements OnInit {
         });
     }
 
-    ngOnInit(): void {}
+    ngOnInit() {}
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+    }
 }
