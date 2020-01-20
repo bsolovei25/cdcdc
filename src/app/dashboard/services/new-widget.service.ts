@@ -3,13 +3,14 @@ import { Observable, BehaviorSubject, Subject, of } from 'rxjs';
 import { filter, map, tap, debounceTime, switchMap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { GridsterItem } from 'angular-gridster2';
-import { Widgets } from '../models/widget.model';
+import { IWidgets } from '../models/widget.model';
 import { AppConfigService } from 'src/app/services/appConfigService';
 import { EventsWidgetData } from '../models/events-widget';
 import { LineChartData } from '../models/line-chart';
 import { Machine_MI } from '../models/manual-input.model';
 import { WebSocketSubject } from 'rxjs/internal/observable/dom/WebSocketSubject';
 import { webSocket } from 'rxjs/internal/observable/dom/webSocket';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
     providedIn: 'root',
@@ -27,11 +28,14 @@ export class NewWidgetService {
     public isOver = false;
     public dashboard: GridsterItem[] = []; // GridsterItem with uniqid that identifies concrete widget
     public mass = [];
-    private _widgets$: BehaviorSubject<Widgets[]> = new BehaviorSubject(null);
+    private i = 0;
+    private _widgets$: BehaviorSubject<IWidgets[]> = new BehaviorSubject(null);
+    private _filterWidgets$: BehaviorSubject<IWidgets[]> = new BehaviorSubject(null);
 
     public searchWidget$ = new Subject<any>();
 
     private reconnectTimer: any;
+    private reconnectRestTimer: any;
 
     private _lastSearchValue: string;
 
@@ -47,32 +51,35 @@ export class NewWidgetService {
         //   filter(res => res.length > 0),
         //  switchMap(this.Search.bind(this))
     );
-
-    constructor(public http: HttpClient, configService: AppConfigService) {
+    constructor(
+        public http: HttpClient,
+        configService: AppConfigService,
+        private snackBar: MatSnackBar
+    ) {
         this.restUrl = configService.restUrl;
         this.wsUrl = configService.wsUrl;
         this.reconnectInterval = configService.reconnectInterval * 1000;
 
-        this.getAvailableWidgets().subscribe((data) => this._widgets$.next(data));
+        this.getRest();
         this.initWS();
     }
 
-    public widgets$: Observable<Widgets[]> = this._widgets$
+    public widgets$: Observable<IWidgets[]> = this._widgets$
         .asObservable()
         .pipe(filter((item) => item !== null));
 
-    public getAvailableWidgets(): Observable<Widgets[]> {
-        return this.http.get(this.restUrl + '/af/GetAvailableWidgets').pipe(
-            map((data) => {
-                const _data = this.mapData(data);
+    private getAvailableWidgets(): Observable<IWidgets[]> {
+        return this.http.get(this.restUrl + `/af/GetAvailableWidgets`).pipe(
+            map((data: IWidgets[]) => {
+                const localeData = this.mapData(data);
                 this.mass = this.mapData(data);
-                return _data;
+                return localeData;
             })
         );
     }
 
-    mapData(data) {
-        return data.map((item) => {
+    mapData(data: IWidgets[]): IWidgets[] {
+        return data.map((item: IWidgets) => {
             return {
                 code: item.code,
                 id: item.id,
@@ -86,13 +93,15 @@ export class NewWidgetService {
         });
     }
 
-    getName(idWidg) {
-        let widgetNames = this.mass.find((x) => x.id === idWidg);
+    getName(idWidg: string): string {
+        let widgetNames: IWidgets | string = this.mass.find((x) => x.id === idWidg);
         if (widgetNames === null || widgetNames === '') {
             widgetNames = 'Нет имени';
-            return widgetNames.widgetType;
+            return widgetNames;
         } else {
-            return widgetNames.widgetType;
+            if (widgetNames && typeof widgetNames !== 'string') {
+                return widgetNames.widgetType;
+            }
         }
     }
 
@@ -119,16 +128,14 @@ export class NewWidgetService {
         );
     }
 
-    // TODO добавить метод ко всем виджетам
-    removeWidgetConnection(widgetId: string) {
+    removeWidgetConnection(widgetId: string): void {
         this.connectedWidgetsId.splice(
             this.connectedWidgetsId.indexOf(this.connectedWidgetsId.find((el) => el === widgetId)),
             1
         );
-        // this.connectedWidgetsId = this.connectedWidgetsId.filter(el => el !== widgetId);
     }
 
-    private wsConnect(widgetId: string) {
+    private wsConnect(widgetId: string): void {
         this.ws.next({
             ActionType: 'Subscribe',
             ChannelId: widgetId,
@@ -212,7 +219,36 @@ export class NewWidgetService {
         return data;
     }
 
-    private initWS() {
+    private getRest(): void {
+        this.getAvailableWidgets().subscribe(
+            (data) => {
+                this._widgets$.next(data);
+                if (this.reconnectRestTimer) {
+                    clearInterval(this.reconnectRestTimer);
+                }
+            },
+            (err) => {
+                console.log('error rest', err);
+                this.reconnectRest();
+            },
+            () => {
+                console.log('complete');
+            }
+        );
+    }
+
+    private reconnectRest(): void {
+        if (this.reconnectRestTimer) {
+            console.log('reconnect уже создан');
+            return;
+        }
+        this.openSnackBar('Переподключение');
+        this.reconnectRestTimer = setInterval(() => {
+            this.getRest();
+        }, 5000);
+    }
+
+    private initWS(): void {
         if (this.ws) {
             this.ws.complete();
         }
@@ -261,7 +297,7 @@ export class NewWidgetService {
         }
     }
 
-    public Search(record: string): Observable<Widgets[]> {
+    public Search(record: string): Observable<IWidgets[]> {
         try {
             const point = this._widgets$.getValue();
             let pointFilter;
@@ -289,5 +325,17 @@ export class NewWidgetService {
     public reEmitList(): void {
         this._widgets$.next(this._widgets$.getValue());
         this.searchValue = null;
+    }
+
+    openSnackBar(
+        msg: string = 'Операция выполнена',
+        msgDuration: number = 3000,
+        actionText?: string,
+        actionFunction?: () => void
+    ): void {
+        const snackBarInstance = this.snackBar.open(msg, actionText, { duration: msgDuration });
+        if (actionFunction) {
+            snackBarInstance.onAction().subscribe(() => actionFunction());
+        }
     }
 }

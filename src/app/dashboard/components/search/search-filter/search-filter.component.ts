@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Widgets } from 'src/app/dashboard/models/widget.model';
+import { IWidgets } from 'src/app/dashboard/models/widget.model';
 import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
 
 @Component({
