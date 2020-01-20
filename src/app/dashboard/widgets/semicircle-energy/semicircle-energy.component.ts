@@ -98,7 +98,7 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
     ) {
         this.subscriptions.push(
             this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-                if(data){
+                if (data) {
                     this.title = data.title;
                     this.code = data.code;
                 }
