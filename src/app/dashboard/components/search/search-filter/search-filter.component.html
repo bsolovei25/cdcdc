@@ -2,7 +2,7 @@
   <ng-container *ngFor="let item of data; let i = index">
     <div
       class="result_search"
-      (click)="choosenType(item, i)"
+    
       [class.activeFilter]="clicked && arrayClick[i] === i"
     >
       {{item}}
