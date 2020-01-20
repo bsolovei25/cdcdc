@@ -82,7 +82,13 @@ export class CircleDiagramComponent implements OnInit, OnDestroy, AfterViewInit 
         } catch {}
     }
 
-    ngOnDestroy() {}
+    ngOnDestroy(): void {
+        if (this.subscriptions) {
+            for (const subscribe of this.subscriptions) {
+                subscribe.unsubscribe();
+            }
+        }
+    }
 
     public d3Circle(data, el): void {
         const summ = data.nonAcknowledged + data.acknowledged + data.diagnostics + data.prognosis;

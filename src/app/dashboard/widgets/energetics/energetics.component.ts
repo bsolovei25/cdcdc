@@ -114,6 +114,12 @@ export class EnergeticsComponent implements OnInit {
 
     ngOnInit(): void {}
 
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+    }
+
     /* Отрисовка линейных графиков в карточках */
 
     drawGraph(obj: IEnergeticsCard): string {

@@ -1,8 +1,8 @@
 export interface RingEnegryIndicatorModel {
     isCritical: boolean;
     iconId: number;
-    procent: number;
-    value: EnergyValue[];
+    percent: number;
+    values: EnergyValue[];
 }
 
 export interface EnergyValue {

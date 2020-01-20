@@ -5,6 +5,7 @@ import { AuthService } from '@core/service/auth.service';
 import { environment } from 'src/environments/environment';
 import { FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { PreloaderService } from '../../service/preloader.service';
 // Angular material
 // Local modules
 
@@ -14,31 +15,31 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     templateUrl: './login.component.html',
 })
 export class LoginComponent implements OnInit, AfterViewInit {
-    username = new FormControl(environment.username, [Validators.required]);
-    password = new FormControl(environment.password, [Validators.required]);
+    username: FormControl = new FormControl(environment.username, [Validators.required]);
+    password: FormControl = new FormControl(environment.password, [Validators.required]);
 
     isLoadingData: boolean = false;
-
     isLoading: boolean = true;
-    isHidden: boolean = false;
-
-    hide = true;
+    hide: boolean = true;
 
     swing: boolean = false;
 
     constructor(
         public authService: AuthService,
         private router: Router,
-        private snackBar: MatSnackBar
+        private snackBar: MatSnackBar,
+        private preLoaderService: PreloaderService
     ) {}
 
-    ngOnInit() {
-        this.isLoading = true;
+    ngOnInit(): void {
+        this.isLoadingData = true;
+        this.preLoaderService.isLoad$.next(this.isLoadingData);
     }
 
-    ngAfterViewInit() {
+    ngAfterViewInit(): void {
         setTimeout(() => {
-            this.isLoading = false;
+            this.isLoadingData = false;
+            this.preLoaderService.isLoad$.next(this.isLoadingData);
         }, 500);
     }
 
@@ -74,7 +75,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
         msgDuration: number = 3000,
         actionText?: string,
         actionFunction?: () => void
-    ) {
+    ): void {
         const snackBarInstance = this.snackBar.open(msg, actionText, { duration: msgDuration });
         if (actionFunction) {
             snackBarInstance.onAction().subscribe(() => actionFunction());

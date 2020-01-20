@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, Renderer2, OnDestroy } from '@angular/core';
 import { HeaderDataService } from '../../services/header-data.service';
 import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
@@ -9,7 +9,7 @@ import { HeaderDate } from '../../models/header-date';
     templateUrl: './line-datetime.component.html',
     styleUrls: ['./line-datetime.component.scss'],
 })
-export class LineDatetimeComponent implements OnInit, AfterViewInit {
+export class LineDatetimeComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('startLine', { static: false }) startLine: ElementRef;
 
     private subscription: Subscription;
@@ -44,6 +44,12 @@ export class LineDatetimeComponent implements OnInit, AfterViewInit {
                 }, 1);
             }
         });
+    }
+
+    ngOnDestroy(): void {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 
     datesFill(): void {

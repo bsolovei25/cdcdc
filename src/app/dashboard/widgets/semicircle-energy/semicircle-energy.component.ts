@@ -194,6 +194,7 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
     }
 
     diaLine(r: string, line: number): string {
+        line = line > 133 ? (line = 133) : line < 0 ? (line = 0) : line;
         const c: number = 2 * Math.PI * +r;
         const percent = line / 100;
         return ((percent * 3) / 8) * c + ' ' + (1 - (percent * 3) / 8) * c;

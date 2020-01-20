@@ -998,6 +998,14 @@ export class OilControlComponent implements OnInit, AfterViewInit {
         }
     }
 
+    ngOnDestroy(): void {
+        if (this.subscriptions) {
+            for (const subscribe of this.subscriptions) {
+                subscribe.unsubscribe();
+            }
+        }
+    }
+
     public onResize(width) {
         this.checkWidth = width < 500;
     }

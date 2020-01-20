@@ -19,7 +19,7 @@
         class="mycheckbox__default"
         (click)="changeSwap()"
       />
-      <div class="mycheckbox__new"></div>
+      <div class="mycheckbox__new" [class.mycheckbox__checked]="!fixWidget"></div>
       <div class="mycheckbox__descr">Зафиксировать виджеты</div>
     </label>
     <label class="mycheckbox">
@@ -30,7 +30,7 @@
         class="mycheckbox__default"
         (click)="getGridView()"
       />
-      <div class="mycheckbox__new"></div>
+      <div class="mycheckbox__new" [class.mycheckbox__checked]="!gridWidget"></div>
       <div class="mycheckbox__descr">Сетка</div>
     </label>
     <!--   <label class="mycheckbox">
