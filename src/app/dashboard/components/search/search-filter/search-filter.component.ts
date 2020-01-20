@@ -25,7 +25,7 @@ export class SearchFilterComponent implements OnInit {
         if (this.arrayClick.indexOf(i) !== -1) {
             for (let check of this.arrayClick) {
                 if (check === i) {
-                    this.clicked = false;
+                   
                     this.arrayClick.splice(this.arrayClick.indexOf(i), 1);
                 }
             }
@@ -38,6 +38,7 @@ export class SearchFilterComponent implements OnInit {
 
         if (this.arrayClick.length === 0) {
             this.widgetService.reEmitList();
+            this.widgetService.searchItems("", 'input');
         } else {
             this.widgetService.searchItems(value, type);
         }
