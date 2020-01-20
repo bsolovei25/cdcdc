@@ -39,7 +39,7 @@ export class NewWidgetService {
 
     public searchType;
 
-    public offFilterWidget: any = [];;
+    public offFilterWidget: any = [];
 
     public searchWidgetT: Observable<any> = this.searchWidget$.pipe(
         tap((val) => {
@@ -292,5 +292,4 @@ export class NewWidgetService {
         this._widgets$.next(this._widgets$.getValue());
         this.searchValue = null;
     }
-
 }
