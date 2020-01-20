@@ -13,7 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     providedIn: 'root', // singleton service
 })
 export class ErrorInterceptor implements HttpInterceptor {
-    constructor(private router: Router, private snackBar: MatSnackBar) { }
+    constructor(private router: Router, private snackBar: MatSnackBar) {}
 
     /** Intercept request with custom error handling */
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

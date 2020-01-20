@@ -77,7 +77,7 @@ export class NewWidgetService {
                 const localeData = this.mapData(data);
                 this.mass = this.mapData(data);
                 return localeData;
-            }),
+            })
         );
     }
 
@@ -102,7 +102,7 @@ export class NewWidgetService {
             widgetNames = 'Нет имени';
             return widgetNames;
         } else {
-            if (widgetNames && typeof (widgetNames) !== 'string') {
+            if (widgetNames && typeof widgetNames !== 'string') {
                 return widgetNames.widgetType;
             }
         }
@@ -133,7 +133,9 @@ export class NewWidgetService {
 
     removeWidgetConnection(widgetId: string): void {
         this.connectedWidgetsId.splice(
-            this.connectedWidgetsId.indexOf(this.connectedWidgetsId.find((el) => el === widgetId)), 1);
+            this.connectedWidgetsId.indexOf(this.connectedWidgetsId.find((el) => el === widgetId)),
+            1
+        );
         // this.connectedWidgetsId = this.connectedWidgetsId.filter(el => el !== widgetId);
     }
 
@@ -237,7 +239,6 @@ export class NewWidgetService {
                 console.log('complete');
             }
         );
-
     }
 
     private reconnectRest(): void {
@@ -315,13 +316,11 @@ export class NewWidgetService {
                 this.searchValue = record;
                 return pointFilter;
             } else {
-                const filter = point.filter(point => point.categories.indexOf(record) > -1);
+                const filter = point.filter((point) => point.categories.indexOf(record) > -1);
                 arrFilter.push(filter);
                 this.searchValue = record;
                 return arrFilter;
             }
-
-
         } catch (error) {
             console.log('Ошбика', error);
         }
@@ -343,6 +342,4 @@ export class NewWidgetService {
             snackBarInstance.onAction().subscribe(() => actionFunction());
         }
     }
-
-
 }

@@ -82,7 +82,7 @@ export class NewWidgetsPanelComponent implements OnInit {
         };
     }
 
-    ngAfterViewInit() { }
+    ngAfterViewInit() {}
 
     @Output() onSwap = new EventEmitter<boolean>();
     @Output() onGrid = new EventEmitter<boolean>();

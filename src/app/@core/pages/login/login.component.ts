@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
         private router: Router,
         private snackBar: MatSnackBar,
         private preLoaderService: PreloaderService
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         this.isLoadingData = true;

@@ -63,7 +63,7 @@ export class ChangeShiftComponent implements OnInit {
                     this.aboutWidget.widgetType,
                     this.shiftService.shiftPass.getValue()
                 );
-            } catch { }
+            } catch {}
         });
         this.shiftService.shiftPass.subscribe((data) => {
             if (this.aboutWidget) {
@@ -72,7 +72,7 @@ export class ChangeShiftComponent implements OnInit {
         });
     }
 
-    ngOnInit() { }
+    ngOnInit() {}
 
     private setRealtimeData(widgetType, data) {
         if (!widgetType || !data) {
@@ -140,7 +140,7 @@ export class ChangeShiftComponent implements OnInit {
         this.comments.push(comment);
         try {
             this.input.nativeElement.value = '';
-        } catch { }
+        } catch {}
     }
 
     onEnterPush(event?: any) {

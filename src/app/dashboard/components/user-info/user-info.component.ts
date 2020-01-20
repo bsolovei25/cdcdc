@@ -21,11 +21,11 @@ export class UserInfoComponent implements OnInit {
         lastName: '',
         brigade: { id: 0, number: '' },
         middleName: '',
-        positionDescription: ''
+        positionDescription: '',
     };
     isShowScreens: boolean = false;
 
-    constructor(private authService: AuthService, private router: Router) { }
+    constructor(private authService: AuthService, private router: Router) {}
 
     ngOnInit() {
         this.loadData();
