@@ -73,6 +73,12 @@ export class CircleBlockDiagramComponent implements OnInit {
         }
     }
 
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+    }
+
     /* Отрисовка дуговых диаграмм */
 
     diaLine(r: string, line: number): string {

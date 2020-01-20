@@ -262,23 +262,27 @@ export class NewWidgetService {
     }
 
     public Search(record: string): Observable<Widgets[]> {
-        const point = this._widgets$.getValue();
-        let point2;
-        if(this.searchType === "input"){
-            const filter = of(
-                point.filter((point) => point.title.toLowerCase().indexOf(record.toLowerCase()) > -1)
-            );
-            point2 = filter;
-        }else{
-            for(let item of point){
-                       const filter = of(
-                        item.categories.filter((point) => point.toLowerCase().indexOf(record.toLowerCase()) > -1)
-                    );
+        try {
+            const point = this._widgets$.getValue();
+            let pointFilter;
+            if (this.searchType === 'input') {
+                const filter = of(
+                    point.filter(
+                        (point) => point.title.toLowerCase().indexOf(record.toLowerCase()) > -1
+                    )
+                );
+                pointFilter = filter;
+            } else {
+                const filter = point.filter(item => item.categories.indexOf(record) > -1);
+                pointFilter = filter;
             }
+    
+            this.searchValue = record;
+            return pointFilter;
+        } catch (error) {
+            console.log('Ошбика', error);
         }
-        
-        this.searchValue = record;
-        return point2;
+      
     }
 
     public reEmitList(): void {

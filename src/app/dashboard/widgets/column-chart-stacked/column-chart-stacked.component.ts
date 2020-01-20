@@ -104,6 +104,12 @@ export class ColumnChartStackedComponent implements OnInit {
         this.findMax();
     }
 
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+    }
+
     findMax() {
         let max = 0;
         for (let col of this.cols) {

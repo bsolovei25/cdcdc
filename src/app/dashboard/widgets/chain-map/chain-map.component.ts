@@ -281,6 +281,14 @@ export class ChainMapComponent implements AfterViewInit {
         }
     }
 
+    ngOnDestroy() {
+        if (this.subscriptions) {
+            for (const subscribe of this.subscriptions) {
+                subscribe.unsubscribe();
+            }
+        }
+    }
+
     public drowChain() {
         this.mass1 = this.data[0];
         this.mass2 = this.data[1];

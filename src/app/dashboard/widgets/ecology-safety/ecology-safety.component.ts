@@ -39,6 +39,12 @@ export class EcologySafetyComponent implements OnInit {
 
     ngOnInit() {}
 
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+    }
+
     drawGraph(count: number): string {
         return count.toString() + '%';
     }

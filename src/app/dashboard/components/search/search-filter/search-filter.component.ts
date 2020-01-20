@@ -33,9 +33,8 @@ export class SearchFilterComponent implements OnInit {
             }
         }
         this.itemId = i;
-        let type = "filter";
+        let type = 'filter';
         this.widgetService.searchItems(value, type);
-       // this.onSearch.emit(type);
-
+        // this.onSearch.emit(type);
     }
 }

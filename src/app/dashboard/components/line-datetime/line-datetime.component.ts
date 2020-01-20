@@ -44,6 +44,12 @@ export class LineDatetimeComponent implements OnInit, AfterViewInit {
             }
         });
     }
+    
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+    }
 
     datesFill() {
         const date = new Date();

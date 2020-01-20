@@ -48,15 +48,25 @@ input {
     background: var(--color-border-active);
   }
 
-  &:hover .button_icon {
+  &:hover .button_filter_icon {
     fill: white;
   }
 }
 
-.button_icon {
+.button_filter_icon {
   fill: #8c99b2;
   width: 26px;
   height: 26px;
+}
+
+.button_close_icon{
+  fill: white;
+  width: 26px;
+  height: 26px;
+}
+
+.active{
+  background: var(--color-border-active);
 }
 
 .result_search {

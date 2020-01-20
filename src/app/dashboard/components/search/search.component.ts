@@ -29,6 +29,13 @@ export class SearchComponent implements OnInit {
 
     ngOnInit() {}
 
+
+    ngOnDestroy(): void {
+        if (this.subscription) {
+                this.subscription.unsubscribe();
+        }
+    }
+
     public onCheck(data: any) {
         if (data === true) {
             this.checkClick = false;
@@ -38,21 +45,25 @@ export class SearchComponent implements OnInit {
     }
 
     public filterData(data) {
-        let newArray = [];
-        let newCategoryArray = [];
-        for (let i of data) {
-            if (i.categories || i.categories.length !== 0) {
-                newArray.push(i.categories);
+        try {
+            let newArray = [];
+            let newCategoryArray = [];
+            for (let i of data) {
+                if (i.categories || i.categories.length !== 0) {
+                    newArray.push(i.categories);
+                }
             }
-        }
-        let newWidgetCategory = [...new Set(newArray)];
-        for (let i of newWidgetCategory) {
-            for (let j of i) {
-                newCategoryArray.push(j);
+            let newWidgetCategory = [...new Set(newArray)];
+            for (let i of newWidgetCategory) {
+                for (let j of i) {
+                    newCategoryArray.push(j);
+                }
             }
+            let newFilterArray = [...new Set(newCategoryArray)];
+    
+            return newFilterArray;
+        } catch (error) {
+            console.log('Ошибка:', error);
         }
-        let newFilterArray = [...new Set(newCategoryArray)];
-
-        return newFilterArray;
     }
 }

@@ -27,7 +27,7 @@ export class SearchInputComponent implements OnInit {
 
     searchRecords(e: any) {
         this.onCheck.emit(this.checkClick);
-        let type = "input";
+        let type = 'input';
         this.widgetService.searchItems(e.currentTarget.value, type);
         if (!e.currentTarget.value) {
             this.widgetService.reEmitList();

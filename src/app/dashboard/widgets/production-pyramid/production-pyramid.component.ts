@@ -45,4 +45,11 @@ export class ProductionPyramidComponent implements OnInit {
     }
 
     ngOnInit() {}
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+    }
+
 }
