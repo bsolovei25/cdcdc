@@ -83,7 +83,7 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
     public units: string = 'кг/м^3';
     public widgetType: string = 'semicircle-energy';
     public previewTitle: string = 'semicircle-energy';
-    public code: string;
+    public code: string = '';
 
     subscriptions: Subscription[] = [];
 

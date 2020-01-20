@@ -9,38 +9,43 @@ import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service'
 })
 export class SearchFilterComponent implements OnInit {
     @Input() public data;
+    @Input() public arrayClick;
 
     itemId: number;
     clicked: boolean = false;
 
-    arrayClick = [];
+    public massFilter = [];
 
-    @Output() onSearch = new EventEmitter<boolean>();
+    @Output() onFilterMass = new EventEmitter<any>();
 
     constructor(public widgetService: NewWidgetService) {}
 
     ngOnInit() {}
 
     public choosenType(value, i) {
+        let type = 'filter';
+        this.itemId = i;
         if (this.arrayClick.indexOf(i) !== -1) {
             for (let check of this.arrayClick) {
                 if (check === i) {
-                    this.clicked = false;
                     this.arrayClick.splice(this.arrayClick.indexOf(i), 1);
+                    this.massFilter.splice(this.massFilter.indexOf(value), 1);
+                    this.widgetService.searchItems(this.massFilter, type);
                 }
             }
         } else {
+            this.massFilter.push(value);
             this.arrayClick.push(i);
             this.clicked = true;
+            this.widgetService.searchItems(this.massFilter, type);
         }
-        this.itemId = i;
-        let type = 'filter';
 
         if (this.arrayClick.length === 0) {
             this.widgetService.reEmitList();
-        } else {
-            this.widgetService.searchItems(value, type);
+            this.widgetService.searchItems('', 'input');
         }
+
+        this.onFilterMass.emit(this.arrayClick);
 
         // this.onSearch.emit(type);
     }
