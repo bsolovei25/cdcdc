@@ -46,5 +46,11 @@ export class OperationEfficiencyComponent implements OnInit {
         });
     }
 
-    ngOnInit(): void {}
+    ngOnInit() {}
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+    }
 }

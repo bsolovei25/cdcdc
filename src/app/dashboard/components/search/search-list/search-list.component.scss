@@ -2,26 +2,11 @@
   font-size: 12px;
   color: var(--color-text-sub);
 }
-.result_search {
-  color: white;
-  width: 120px;
-  height: 35px;
-  background-color: var(--color-bg-sub);
-  border-radius: 5px;
-  margin: 3px auto;
-  font-size: 14px;
-  text-align: center;
-  line-height: 35px;
-
-  &:hover {
-    background-color: gray;
-    cursor: pointer;
-  }
+.result_list {
+  color: black;
 }
 
 .result_list {
   padding: 10px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  display: flex;
-  flex-wrap: wrap;
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { Observable, BehaviorSubject, Subject, of } from 'rxjs';
+import { filter, map, tap, debounceTime, switchMap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { GridsterItem } from 'angular-gridster2';
 import { Widgets } from '../models/widget.model';
@@ -28,8 +28,25 @@ export class NewWidgetService {
     public dashboard: GridsterItem[] = []; // GridsterItem with uniqid that identifies concrete widget
     public mass = [];
     private _widgets$: BehaviorSubject<Widgets[]> = new BehaviorSubject(null);
-    private _filterWidgets$: BehaviorSubject<Widgets[]> = new BehaviorSubject(null);
+
+    public searchWidget$ = new Subject<any>();
+
     private reconnectTimer: any;
+
+    private _lastSearchValue: string;
+
+    public searchValue: string;
+
+    public searchType;
+
+    public searchWidgetT: Observable<any> = this.searchWidget$.pipe(
+        tap((val) => {
+            this._lastSearchValue = val;
+        }),
+        switchMap(this.Search.bind(this))
+        //   filter(res => res.length > 0),
+        //  switchMap(this.Search.bind(this))
+    );
 
     constructor(public http: HttpClient, configService: AppConfigService) {
         this.restUrl = configService.restUrl;
@@ -43,26 +60,6 @@ export class NewWidgetService {
     public widgets$: Observable<Widgets[]> = this._widgets$
         .asObservable()
         .pipe(filter((item) => item !== null));
-
-    public filterWidgets$: Observable<Widgets[]> = this._widgets$
-        .asObservable()
-        .pipe(filter((item) => item !== null));
-
-    public searchItems(data, types) {
-        let newArray = [];
-        try {
-            for (let type of types) {
-                for (let item of data) {
-                    if (item.widgetType === type) {
-                        newArray.push(item);
-                    }
-                }
-            }
-            this._filterWidgets$.next(newArray);
-        } catch (error) {
-            return console.log('Поиск пуст');
-        }
-    }
 
     public getAvailableWidgets(): Observable<Widgets[]> {
         return this.http.get(this.restUrl + '/af/GetAvailableWidgets').pipe(
@@ -84,6 +81,7 @@ export class NewWidgetService {
                 units: item.units,
                 widgetOptions: item.widgetOptions,
                 widgetType: item.widgetType,
+                categories: item.categories,
             };
         });
     }
@@ -192,6 +190,8 @@ export class NewWidgetService {
                 return data;
             case 'time-line-diagram':
                 return data;
+            case 'ring-energy-indicator':
+                return data;
         }
         console.warn(`unknown widget type ${widgetType}`);
     }
@@ -250,5 +250,44 @@ export class NewWidgetService {
                 this.wsConnect(connectedWidget);
             }
         }, this.reconnectInterval);
+    }
+
+    public searchItems(value, type) {
+        this.searchType = type;
+        try {
+            this.searchWidget$.next(value);
+        } catch (error) {
+            return console.log('Поиск пуст');
+        }
+    }
+
+    public Search(record: string): Observable<Widgets[]> {
+        try {
+            const point = this._widgets$.getValue();
+            let pointFilter;
+            let arrFilter: any = [];
+            if (this.searchType === 'input') {
+                const filter = of(
+                    point.filter(
+                        (point) => point.title.toLowerCase().indexOf(record.toLowerCase()) > -1
+                    )
+                );
+                pointFilter = filter;
+                this.searchValue = record;
+                return pointFilter;
+            } else {
+                const filter = point.filter((point) => point.categories.indexOf(record) > -1);
+                arrFilter.push(filter);
+                this.searchValue = record;
+                return arrFilter;
+            }
+        } catch (error) {
+            console.log('Ошбика', error);
+        }
+    }
+
+    public reEmitList(): void {
+        this._widgets$.next(this._widgets$.getValue());
+        this.searchValue = null;
     }
 }

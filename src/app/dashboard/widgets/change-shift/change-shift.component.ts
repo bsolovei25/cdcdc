@@ -40,7 +40,7 @@ export class ChangeShiftComponent implements OnInit {
     absentMembers = null;
     addingShiftMembers = [];
 
-    subscription: Subscription;
+    private subscriptions: Subscription[] = [];
 
     static itemCols = 16;
     static itemRows = 30;
@@ -52,23 +52,35 @@ export class ChangeShiftComponent implements OnInit {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-            this.aboutWidget = data;
-            try {
-                this.setRealtimeData(
-                    this.aboutWidget.widgetType,
-                    this.shiftService.shiftPass.getValue()
-                );
-            } catch {}
-        });
-        this.shiftService.shiftPass.subscribe((data) => {
-            if (this.aboutWidget) {
-                this.setRealtimeData(this.aboutWidget.widgetType, data);
-            }
-        });
+        this.subscriptions.push(
+            this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
+                this.aboutWidget = data;
+                try {
+                    this.setRealtimeData(
+                        this.aboutWidget.widgetType,
+                        this.shiftService.shiftPass.getValue()
+                    );
+                } catch {}
+            })
+        );
+        this.subscriptions.push(
+            this.shiftService.shiftPass.subscribe((data) => {
+                if (this.aboutWidget) {
+                    this.setRealtimeData(this.aboutWidget.widgetType, data);
+                }
+            })
+        );
     }
 
     ngOnInit() {}
+
+    ngOnDestroy(): void {
+        if (this.subscriptions) {
+            for (const subscribe of this.subscriptions) {
+                subscribe.unsubscribe();
+            }
+        }
+    }
 
     private setRealtimeData(widgetType, data) {
         if (!widgetType || !data) {

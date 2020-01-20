@@ -46,6 +46,16 @@ export class IndicatorSelectorComponent implements OnInit {
         this.localSaved = Number(localStorage.getItem('screenid'));
     }
 
+    ngAfterViewInit() {
+        this.nameScreen = this.getActiveScreen();
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+    }
+
     public LoadScreen(id): void {
         this.userSettings.LoadScreen(id);
     }

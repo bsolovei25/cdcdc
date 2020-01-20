@@ -29,7 +29,7 @@ export class SolidGaugeWithMarkerComponent implements AfterViewInit {
     }
 
     indicatorGauge(data) {
-        let percent = data.percent > 100 ? 100 : data.percent;
+        let percent = data.percent > 100 ? 100 : data.percent < 0 ? 0 : data.percent;
         return (this.pie * percent) / 100;
     }
 
@@ -152,7 +152,7 @@ export class SolidGaugeWithMarkerComponent implements AfterViewInit {
                         .attr('fill', function(d, i) {
                             if (i + 1 > criticalPie) {
                                 return 'rgba(244,163,33, 0.5)';
-                            } else if (i + 1 <= newValue + 1) {
+                            } else if (i + 1 <= newValue + 1 && newValue !== 0) {
                                 return 'rgb(158, 215, 245)';
                             } else if (i + 1 >= newValue && i + 1 <= criticalPie) {
                                 return 'rgba(158, 215, 245, 0.5)';
