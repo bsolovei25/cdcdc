@@ -32,7 +32,7 @@ export class OperationEfficiencyComponent implements OnInit {
     };
 
     public title: string;
-    public previewTitle: string;
+    public previewTitle: string = 'operation-efficiency';
 
     constructor(
         private widgetService: NewWidgetService,

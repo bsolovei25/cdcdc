@@ -8,6 +8,7 @@ import { NewUserSettingsService } from '../../services/new-user-settings.service
     styleUrls: ['./widget-header.component.scss'],
 })
 export class WidgetHeaderComponent implements OnInit {
+    @Input() isPreview: boolean;
     @Input() title: string;
     @Input() units: string;
     @Input() code: string;
