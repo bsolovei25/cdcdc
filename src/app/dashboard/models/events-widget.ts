@@ -36,7 +36,7 @@ export interface IUser {
     middleName: string;
     email?: string;
     phone?: string;
-    brigade?: { id: number, number: string };
+    brigade?: { id: number; number: string };
     positionDescription?: string;
 }
 

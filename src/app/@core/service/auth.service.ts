@@ -14,7 +14,7 @@ export interface ITokenData {
     firstName: string;
     lastName: string;
     middleName: string;
-    brigade: { id: number, number: string };
+    brigade: { id: number; number: string };
     phone: string;
     position: string;
     positionDescription: string;

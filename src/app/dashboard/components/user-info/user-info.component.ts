@@ -21,7 +21,7 @@ export class UserInfoComponent implements OnInit, OnDestroy {
     isShowScreens: boolean = false;
     subscription: Subscription;
 
-    constructor(private authService: AuthService, private router: Router) { }
+    constructor(private authService: AuthService, private router: Router) {}
 
     ngOnInit(): void {
         this.loadData();
@@ -34,7 +34,7 @@ export class UserInfoComponent implements OnInit, OnDestroy {
     }
 
     async loadData(): Promise<void> {
-        this.subscription = this.authService.user$.subscribe(data => {
+        this.subscription = this.authService.user$.subscribe((data) => {
             if (data) {
                 if (data[0]) {
                     this.data = data[0];

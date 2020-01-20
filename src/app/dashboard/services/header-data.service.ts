@@ -8,8 +8,9 @@ import { HeaderDate } from '../models/header-date';
     providedIn: 'root',
 })
 export class HeaderDataService {
-    private localDate$: BehaviorSubject<HeaderDate | null> =
-        new BehaviorSubject<HeaderDate | null>(null);
+    private localDate$: BehaviorSubject<HeaderDate | null> = new BehaviorSubject<HeaderDate | null>(
+        null
+    );
 
     public date$: Observable<HeaderDate> = this.localDate$
         .asObservable()
@@ -23,7 +24,7 @@ export class HeaderDataService {
 
     public dateToLine = {};
 
-    constructor() { }
+    constructor() {}
 
     public catchDefaultDate(start, end, status) {
         let defaultTime = new Date();
@@ -47,14 +48,14 @@ export class HeaderDataService {
         this.monthStart !== defaultMonth && this.monthEnd !== defaultMonth
             ? ((this.startDate = '01'), (this.endDate = '31'))
             : this.monthStart !== this.monthEnd &&
-                this.monthStart < this.monthEnd &&
-                this.monthEnd === defaultMonth
-                ? (this.startDate = '01')
-                : this.monthStart !== this.monthEnd &&
-                    this.monthStart < this.monthEnd &&
-                    this.monthEnd !== defaultMonth
-                    ? (this.endDate = '31')
-                    : this.startDate;
+              this.monthStart < this.monthEnd &&
+              this.monthEnd === defaultMonth
+            ? (this.startDate = '01')
+            : this.monthStart !== this.monthEnd &&
+              this.monthStart < this.monthEnd &&
+              this.monthEnd !== defaultMonth
+            ? (this.endDate = '31')
+            : this.startDate;
         this.statusButton = status;
         this.pushDate();
     }
