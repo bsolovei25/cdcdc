@@ -64,7 +64,7 @@ export class Result<X> implements IResult {
         comment?: string,
         httpCode?: number,
         responseData?: HttpEvent<X>
-    ): Result {
+    ): Result<X> {
         this.code = code;
         this.description = getResultDescription(code);
         this.comment = comment;
@@ -77,14 +77,14 @@ export class Result<X> implements IResult {
         return this.code === resultCode;
     }
 
-    onError(f: (result: Result) => void): Result {
+    onError(f: (result: IResult) => void): IResult {
         if (!this.success) {
             f(this);
         }
         return this;
     }
 
-    onSuccess(f: (result: Result) => void): Result {
+    onSuccess(f: (result: IResult) => void): IResult {
         if (this.success) {
             f(this);
         }

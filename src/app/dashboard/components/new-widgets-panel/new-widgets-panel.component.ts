@@ -51,7 +51,7 @@ export class NewWidgetsPanelComponent implements OnInit {
         public injector: Injector,
         public userSettings: NewUserSettingsService
     ) {
-        this.subscription = this.widgetService.widgets$.subscribe((dataW) => {
+        this.subscription = this.widgetService.searchWidgetT.subscribe((dataW) => {
             this.widgets = dataW;
         });
     }
@@ -82,11 +82,7 @@ export class NewWidgetsPanelComponent implements OnInit {
         };
     }
 
-    ngAfterViewInit() {
-        this.subscription = this.widgetService.filterWidgets$.subscribe((data) => {
-            this.widgets = data;
-        });
-    }
+    ngAfterViewInit() { }
 
     @Output() onSwap = new EventEmitter<boolean>();
     @Output() onGrid = new EventEmitter<boolean>();

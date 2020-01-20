@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, throwError } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { Observable, BehaviorSubject, throwError, of, Subject } from 'rxjs';
+import { filter, map, catchError, tap, switchMap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { GridsterItem } from 'angular-gridster2';
 import { IWidgets } from '../models/widget.model';
@@ -28,11 +28,28 @@ export class NewWidgetService {
     public isOver = false;
     public dashboard: GridsterItem[] = []; // GridsterItem with uniqid that identifies concrete widget
     public mass = [];
+    private i = 0;
     private _widgets$: BehaviorSubject<IWidgets[]> = new BehaviorSubject(null);
     private _filterWidgets$: BehaviorSubject<IWidgets[]> = new BehaviorSubject(null);
     private reconnectTimer: any;
     private reconnectRestTimer: any;
 
+    private _lastSearchValue: string;
+
+    public searchValue: string;
+
+    public searchType;
+
+    public searchWidget$ = new Subject<any>();
+
+    public searchWidgetT: Observable<any> = this.searchWidget$.pipe(
+        tap((val) => {
+            this._lastSearchValue = val;
+        }),
+        switchMap(this.Search.bind(this))
+        //   filter(res => res.length > 0),
+        //  switchMap(this.Search.bind(this))
+    );
     constructor(
         public http: HttpClient,
         configService: AppConfigService,
@@ -50,33 +67,17 @@ export class NewWidgetService {
         .asObservable()
         .pipe(filter((item) => item !== null));
 
-    public filterWidgets$: Observable<IWidgets[]> = this._widgets$
-        .asObservable()
-        .pipe(filter((item) => item !== null));
-
-    public searchItems(data, types) {
-        let newArray = [];
-        try {
-            for (let type of types) {
-                for (let item of data) {
-                    if (item.widgetType === type) {
-                        newArray.push(item);
-                    }
-                }
-            }
-            this._filterWidgets$.next(newArray);
-        } catch (error) {
-            return console.log('Поиск пуст');
-        }
-    }
-
     private getAvailableWidgets(): Observable<IWidgets[]> {
-        return this.http.get(this.restUrl + '/af/GetAvailableWidgets').pipe(
+        let a = this.i > 2 ? '' : 'd';
+        this.i++;
+        // this.i > 3 ? a = '' : a = 'd';
+        return this.http.get(this.restUrl + `/af/GetAvailableWidgets`).pipe(
             map((data: IWidgets[]) => {
+                // throw throwError('err');
                 const localeData = this.mapData(data);
                 this.mass = this.mapData(data);
                 return localeData;
-            })
+            }),
         );
     }
 
@@ -90,6 +91,7 @@ export class NewWidgetService {
                 units: item.units,
                 widgetOptions: item.widgetOptions,
                 widgetType: item.widgetType,
+                categories: item.categories,
             };
         });
     }
@@ -197,6 +199,8 @@ export class NewWidgetService {
                 return data;
             case 'time-line-diagram':
                 return data;
+            case 'ring-energy-indicator':
+                return data;
         }
         console.warn(`unknown widget type ${widgetType}`);
     }
@@ -287,6 +291,47 @@ export class NewWidgetService {
         }, this.reconnectInterval);
     }
 
+    public searchItems(value, type) {
+        this.searchType = type;
+        try {
+            this.searchWidget$.next(value);
+        } catch (error) {
+            return console.log('Поиск пуст');
+        }
+    }
+
+    public Search(record: string): Observable<IWidgets[]> {
+        try {
+            const point = this._widgets$.getValue();
+            let pointFilter;
+            let arrFilter: any = [];
+            if (this.searchType === 'input') {
+                const filter = of(
+                    point.filter(
+                        (point) => point.title.toLowerCase().indexOf(record.toLowerCase()) > -1
+                    )
+                );
+                pointFilter = filter;
+                this.searchValue = record;
+                return pointFilter;
+            } else {
+                const filter = point.filter(point => point.categories.indexOf(record) > -1);
+                arrFilter.push(filter);
+                this.searchValue = record;
+                return arrFilter;
+            }
+
+
+        } catch (error) {
+            console.log('Ошбика', error);
+        }
+    }
+
+    public reEmitList(): void {
+        this._widgets$.next(this._widgets$.getValue());
+        this.searchValue = null;
+    }
+
     openSnackBar(
         msg: string = 'Операция выполнена',
         msgDuration: number = 3000,
@@ -298,4 +343,6 @@ export class NewWidgetService {
             snackBarInstance.onAction().subscribe(() => actionFunction());
         }
     }
+
+
 }

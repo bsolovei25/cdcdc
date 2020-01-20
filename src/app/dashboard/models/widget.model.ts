@@ -18,6 +18,7 @@ export interface IWidgets {
     units: string;
     widgetOptions: LineChartOptions;
     widgetType: string;
+    categories: string[];
 }
 
 export interface RingFactoryWidget {
