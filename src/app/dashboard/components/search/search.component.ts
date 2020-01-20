@@ -44,7 +44,7 @@ export class SearchComponent implements OnInit {
         }
     }
 
-    public onFilterMass(data: any){
+    public onFilterMass(data: any) {
         this.newArrayClick = data;
     }
 

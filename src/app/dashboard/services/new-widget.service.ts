@@ -265,7 +265,6 @@ export class NewWidgetService {
 
     public Search(record: string): Observable<Widgets[]> {
         try {
-            
             const point = this._widgets$.getValue();
             let pointFilter;
             let arrFilter: any = [];
@@ -281,21 +280,21 @@ export class NewWidgetService {
                 this.searchValue = record;
                 return pointFilter;
             } else {
-                for(let i of record){
+                for (let i of record) {
                     const filter = point.filter((point) => point.categories.indexOf(i) > -1);
                     arrFilter.push(filter);
                 }
-              //  const filter = point.filter((point) => point.categories.indexOf(record) > -1);
-              //  arrFilter.push(filter);
-                for(let i of arrFilter){
-                    for(let j of i){
+                //  const filter = point.filter((point) => point.categories.indexOf(record) > -1);
+                //  arrFilter.push(filter);
+                for (let i of arrFilter) {
+                    for (let j of i) {
                         arrFilterButton.push(j);
                     }
                 }
-                let newFilterArray:any = [...new Set(arrFilterButton)];
+                let newFilterArray: any = [...new Set(arrFilterButton)];
                 resultObject.push(newFilterArray);
                 this.searchValue = record;
-                return  resultObject;
+                return resultObject;
             }
         } catch (error) {
             console.log('Ошбика', error);
