@@ -1,7 +1,13 @@
-<div class="container">
+<evj-widget-preview
+  [title]="title"
+  [previewTitle]="previewTitle"
+  *ngIf="isMock"
+></evj-widget-preview>
+
+<div class="container" *ngIf="!isMock">
   <evj-widget-header
     [title]="title"
-    [units]="unitsA"
+    [units]="units"
     [id]="id"
     [uniqId]="uniqId"
   ></evj-widget-header>

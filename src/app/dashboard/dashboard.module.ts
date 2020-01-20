@@ -1,20 +1,20 @@
-import { ChangeShiftComponent } from "./widgets/change-shift/change-shift.component";
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { HomeComponent } from "./pages/home/home.component";
-import { SharedModule } from "../@shared/shared.module";
-import { AngularSvgIconModule } from "angular-svg-icon";
-import { PeriodSelectorComponent } from "./components/period-selector/period-selector.component";
-import { IndicatorSelectorComponent } from "./components/indicator-selector/indicator-selector.component";
-import { LineChartComponent } from "./widgets/line-chart/line-chart.component";
-import { DndModule } from "ngx-drag-drop";
-import { DashboardComponent } from "./pages/dashboard.component";
-import { HttpClientModule } from "@angular/common/http";
-import { EventsComponent } from "./widgets/events/events.component";
-import { ManualInputComponent } from "./widgets/manual-input/manual-input.component";
-import { FormsModule } from "@angular/forms";
-import { LineDiagramComponent } from "./widgets/line-diagram/line-diagram.component";
-import { LineDatetimeComponent } from "./components/line-datetime/line-datetime.component";
+import { ChangeShiftComponent } from './widgets/change-shift/change-shift.component';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HomeComponent } from './pages/home/home.component';
+import { SharedModule } from '../@shared/shared.module';
+import { AngularSvgIconModule } from 'angular-svg-icon';
+import { PeriodSelectorComponent } from './components/period-selector/period-selector.component';
+import { IndicatorSelectorComponent } from './components/indicator-selector/indicator-selector.component';
+import { LineChartComponent } from './widgets/line-chart/line-chart.component';
+import { DndModule } from 'ngx-drag-drop';
+import { DashboardComponent } from './pages/dashboard.component';
+import { HttpClientModule } from '@angular/common/http';
+import { EventsComponent } from './widgets/events/events.component';
+import { ManualInputComponent } from './widgets/manual-input/manual-input.component';
+import { FormsModule } from '@angular/forms';
+import { LineDiagramComponent } from './widgets/line-diagram/line-diagram.component';
+import { LineDatetimeComponent } from './components/line-datetime/line-datetime.component';
 import { ShiftPersonComponent } from './widgets/change-shift/shift-person/shift-person.component';
 import { NewWidgetsPanelComponent } from './components/new-widgets-panel/new-widgets-panel.component';
 import { NewWidgetsGridComponent } from './components/new-widgets-grid/new-widgets-grid.component';
@@ -38,18 +38,18 @@ import { BarChartsComponent } from './widgets/bar-chart/bar-charts/bar-charts.co
 import { BarChartComponent } from './widgets/bar-chart/bar-chart/bar-chart.component';
 import { SuspenseMachineComponent } from './widgets/suspense-machine/suspense-machine.component';
 import { EnterpriseMapComponent } from './widgets/map-enterprise/enterprise-map.component';
-import { DetailedLineDiagramComponent } from "./components/detailed-line-diagram/detailed-line-diagram.component";
-import { OperationEfficiencyComponent } from "./widgets/operation-efficiency/operation-efficiency.component";
-import { MapEcologyComponent } from "./widgets/map-ecology/map-ecology/map-ecology.component";
-import { UnityTemplateComponent } from "./widgets/unity-template/unity-template.component";
-import { PowIndexPipe } from "./pipes/pow-index.pipe";
+import { DetailedLineDiagramComponent } from './components/detailed-line-diagram/detailed-line-diagram.component';
+import { OperationEfficiencyComponent } from './widgets/operation-efficiency/operation-efficiency.component';
+import { MapEcologyComponent } from './widgets/map-ecology/map-ecology/map-ecology.component';
+import { UnityTemplateComponent } from './widgets/unity-template/unity-template.component';
+import { PowIndexPipe } from './pipes/pow-index.pipe';
 import { RingFactoryDiagramComponent } from './widgets/ring-factory-diagrams/ring-factory-diagram/ring-factory-diagram.component';
 import { LineChartWorkspaceComponent } from './widgets/workspace/line-chart-workspace/line-chart-workspace.component';
 import { RingSFactoryDiagramComponent } from './widgets/ring-factory-diagrams/ring-s-factory-diagram/ring-s-factory-diagram.component';
-import { CalendarPlanComponent } from "./widgets/calendar-plan/calendar-plan.component";
-import { EcologySafetyComponent } from "./widgets/ecology-safety/ecology-safety.component";
+import { CalendarPlanComponent } from './widgets/calendar-plan/calendar-plan.component';
+import { EcologySafetyComponent } from './widgets/ecology-safety/ecology-safety.component';
 import { ChainMapComponent } from './widgets/chain-map/chain-map.component';
-import { DispatcherScreenComponent } from "./widgets/dispatcher-screen/dispatcher-screen.component";
+import { DispatcherScreenComponent } from './widgets/dispatcher-screen/dispatcher-screen.component';
 import { EnergeticsComponent } from './widgets/energetics/energetics.component';
 import { CircleDiagramComponent } from './widgets/circle-diagram/circle-diagram.component';
 import { DeviationsTableComponent } from './widgets/deviations-table/deviations-table.component';
@@ -59,122 +59,158 @@ import { SemicircleEnergyComponent } from './widgets/semicircle-energy/semicircl
 import { ProductStocksComponent } from './widgets/product-stocks/product-stocks.component';
 import { PolarChartComponent } from './widgets/polar-chart/polar-chart.component';
 import { DeviationCircleDiagramComponent } from './widgets/deviation-circle-diagram/deviation-circle-diagram.component';
+import { OilControlComponent } from './widgets/oil-control/oil-control.component';
+import { PaginatorComponent } from './components/paginator/paginator.component';
+import { PaginatorDirective } from './components/paginator/paginator.directive';
+import { SearchComponent } from './components/search/search.component';
+import { WidgetPreviewComponent } from './components/widget-preview/widget-preview.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { CircleBlockDiagramComponent } from './widgets/circle-block-diagram/circle-block-diagram.component';
 import { ColumnChartStackedComponent } from './widgets/column-chart-stacked/column-chart-stacked.component';
 import { CcsOneColumnComponent } from './widgets/column-chart-stacked/ccs-one-column/ccs-one-column.component';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FlameDiagramComponent } from './widgets/flame-diagram/flame-diagram.component';
+import { RingEnergyIndicatorComponent } from './widgets/ring-energy-indicator/ring-energy-indicator.component';
+import { SolidGaugesComponent } from './widgets/solid-gauge-with-marker/solid-gauges/solid-gauges.component';
+import { SolidGaugeWithMarkerComponent } from './widgets/solid-gauge-with-marker/solid-gauge-with-marker/solid-gauge-with-marker.component';
+import { SearchFilterComponent } from './components/search/search-filter/search-filter.component';
+import { SearchInputComponent } from './components/search/search-input/search-input.component';
+import { SearchListComponent } from './components/search/search-list/search-list.component';
+import { TimeLineDiagramComponent } from './widgets/time-line-diagram/time-line-diagram.component';
+import { TimeDiagramComponent } from './widgets/time-line-diagram/time-diagram/time-diagram.component';
+import { ObservationNormTRComponent } from './widgets/observation-norm-tr/observation-norm-tr.component';
 
 @NgModule({
-  declarations: [
-    HomeComponent,
-    PeriodSelectorComponent,
-    IndicatorSelectorComponent,
-    LineDatetimeComponent,
-    LineChartComponent,
-    DashboardComponent,
-    EventsComponent,
-    ManualInputComponent,
-    ChangeShiftComponent,
-    LineDiagramComponent,
-    ShiftPersonComponent,
-    NewWidgetsPanelComponent,
-    NewWidgetsGridComponent,
-    UserInfoComponent,
-    WidgetPiesComponent,
-    WidgetsPieComponent,
-    WidgetHeaderComponent,
-    EventsWorkSpaceComponent,
-    PointDiagramComponent,
-    OneColumnComponent,
-    FrameTopComponent,
-    FrameBottomComponent,
-    TruncatedPieFirstComponent,
-    TruncatedPieSFirstComponent,
-    TruncatedPieSIconComponent,
-    TruncatedPieIconComponent,
-    ProductionPyramidComponent,
-    BarChartsComponent,
-    BarChartComponent,
-    SuspenseMachineComponent,
-    CircleDiagramComponent,
-    UnityTemplateComponent,
-    EnterpriseMapComponent,
-    PowIndexPipe,
-    MapEcologyComponent,
-    DetailedLineDiagramComponent,
-    OperationEfficiencyComponent,
-    RingFactoryDiagramComponent,
-    RingSFactoryDiagramComponent,
-    LineChartWorkspaceComponent,
-    CalendarPlanComponent,
-    EcologySafetyComponent,
-    ChainMapComponent,
-    DispatcherScreenComponent,
-    EnergeticsComponent,
-    DeviationsTableComponent,
-    TriggeringCriticalParametersComponent,
-    CircleFactoryDiagramComponent,
-    SemicircleEnergyComponent,
-    ProductStocksComponent,
-    PolarChartComponent,
-    DeviationCircleDiagramComponent,
-    CircleBlockDiagramComponent,
-    ColumnChartStackedComponent,
-    CcsOneColumnComponent,
-  ],
-  entryComponents: [
-    LineChartComponent,
-    WidgetPiesComponent,
-    EventsComponent,
-    LineChartComponent,
-    ManualInputComponent,
-    LineDiagramComponent,
-    ChangeShiftComponent,
-    EventsWorkSpaceComponent,
-    TruncatedPieSFirstComponent,
-    TruncatedPieSIconComponent,
-    PointDiagramComponent,
-    ProductionPyramidComponent,
-    BarChartsComponent,
-    SuspenseMachineComponent,
-    CircleDiagramComponent,
-    MapEcologyComponent,
-    UnityTemplateComponent,
-    EnterpriseMapComponent,
-    OperationEfficiencyComponent,
-    CalendarPlanComponent,
-    EcologySafetyComponent,
-    RingFactoryDiagramComponent,
-    LineChartWorkspaceComponent,
-    EnergeticsComponent,
-    RingSFactoryDiagramComponent,
-    LineChartWorkspaceComponent,
-    ChainMapComponent,
-    DispatcherScreenComponent,
-    DeviationsTableComponent,
-    TriggeringCriticalParametersComponent,
-    CircleFactoryDiagramComponent,
-    ProductStocksComponent,
-    PolarChartComponent,
-    SemicircleEnergyComponent,
-    DeviationCircleDiagramComponent,
-    CircleBlockDiagramComponent,
-    ColumnChartStackedComponent
-  ],
-  exports: [HomeComponent],
-  imports: [
-    CommonModule,
-    SharedModule,
-    AngularSvgIconModule,
-    DndModule,
-    HttpClientModule,
-    FormsModule,
-    GridsterModule,
-    ClickOutsideModule,
-    DashboardRoutingModule,
-    MatSnackBarModule
-  ],
-  bootstrap: []
+    declarations: [
+        HomeComponent,
+        PeriodSelectorComponent,
+        IndicatorSelectorComponent,
+        LineDatetimeComponent,
+        LineChartComponent,
+        DashboardComponent,
+        EventsComponent,
+        ManualInputComponent,
+        ChangeShiftComponent,
+        LineDiagramComponent,
+        ShiftPersonComponent,
+        NewWidgetsPanelComponent,
+        NewWidgetsGridComponent,
+        UserInfoComponent,
+        WidgetPiesComponent,
+        WidgetsPieComponent,
+        WidgetHeaderComponent,
+        EventsWorkSpaceComponent,
+        PointDiagramComponent,
+        OneColumnComponent,
+        FrameTopComponent,
+        FrameBottomComponent,
+        TruncatedPieFirstComponent,
+        TruncatedPieSFirstComponent,
+        TruncatedPieSIconComponent,
+        TruncatedPieIconComponent,
+        ProductionPyramidComponent,
+        BarChartsComponent,
+        BarChartComponent,
+        SuspenseMachineComponent,
+        CircleDiagramComponent,
+        UnityTemplateComponent,
+        EnterpriseMapComponent,
+        PowIndexPipe,
+        MapEcologyComponent,
+        DetailedLineDiagramComponent,
+        OperationEfficiencyComponent,
+        RingFactoryDiagramComponent,
+        RingSFactoryDiagramComponent,
+        LineChartWorkspaceComponent,
+        CalendarPlanComponent,
+        EcologySafetyComponent,
+        ChainMapComponent,
+        DispatcherScreenComponent,
+        EnergeticsComponent,
+        DeviationsTableComponent,
+        TriggeringCriticalParametersComponent,
+        CircleFactoryDiagramComponent,
+        SemicircleEnergyComponent,
+        ProductStocksComponent,
+        PolarChartComponent,
+        DeviationCircleDiagramComponent,
+        OilControlComponent,
+        PaginatorComponent,
+        PaginatorDirective,
+        SearchComponent,
+        CircleBlockDiagramComponent,
+        ColumnChartStackedComponent,
+        CcsOneColumnComponent,
+        FlameDiagramComponent,
+        RingEnergyIndicatorComponent,
+        WidgetPreviewComponent,
+        TimeLineDiagramComponent,
+        TimeDiagramComponent,
+        SolidGaugesComponent,
+        SolidGaugeWithMarkerComponent,
+        SearchFilterComponent,
+        SearchInputComponent,
+        SearchListComponent,
+        ObservationNormTRComponent,
+    ],
+    entryComponents: [
+        LineChartComponent,
+        WidgetPiesComponent,
+        EventsComponent,
+        LineChartComponent,
+        ManualInputComponent,
+        LineDiagramComponent,
+        ChangeShiftComponent,
+        EventsWorkSpaceComponent,
+        TruncatedPieSFirstComponent,
+        TruncatedPieSIconComponent,
+        PointDiagramComponent,
+        ProductionPyramidComponent,
+        BarChartsComponent,
+        SuspenseMachineComponent,
+        CircleDiagramComponent,
+        MapEcologyComponent,
+        UnityTemplateComponent,
+        EnterpriseMapComponent,
+        OperationEfficiencyComponent,
+        CalendarPlanComponent,
+        EcologySafetyComponent,
+        RingFactoryDiagramComponent,
+        LineChartWorkspaceComponent,
+        EnergeticsComponent,
+        RingSFactoryDiagramComponent,
+        LineChartWorkspaceComponent,
+        ChainMapComponent,
+        DispatcherScreenComponent,
+        DeviationsTableComponent,
+        TriggeringCriticalParametersComponent,
+        CircleFactoryDiagramComponent,
+        ProductStocksComponent,
+        PolarChartComponent,
+        SemicircleEnergyComponent,
+        DeviationCircleDiagramComponent,
+        OilControlComponent,
+        CircleBlockDiagramComponent,
+        ColumnChartStackedComponent,
+        FlameDiagramComponent,
+        RingEnergyIndicatorComponent,
+        TimeLineDiagramComponent,
+        SolidGaugesComponent,
+        ObservationNormTRComponent,
+    ],
+    exports: [HomeComponent],
+    imports: [
+        CommonModule,
+        SharedModule,
+        AngularSvgIconModule,
+        DndModule,
+        HttpClientModule,
+        FormsModule,
+        GridsterModule,
+        ClickOutsideModule,
+        DashboardRoutingModule,
+        MatSnackBarModule,
+    ],
+    bootstrap: [],
 })
-export class DashboardModule { }
+export class DashboardModule {}

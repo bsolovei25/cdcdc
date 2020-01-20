@@ -5,107 +5,108 @@ import { NewWidgetService } from '../../services/new-widget.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'evj-unity-template',
-  templateUrl: './unity-template.component.html',
-  styleUrls: ['./unity-template.component.scss']
+    selector: 'evj-unity-template',
+    templateUrl: './unity-template.component.html',
+    styleUrls: ['./unity-template.component.scss'],
 })
 export class UnityTemplateComponent implements OnInit {
+    private baseUrl: string;
+    private unityInstance: any;
+    isStart: boolean;
 
-  private baseUrl: string;
-  private unityInstance: any;
-  isStart: boolean;
+    title: string;
+    public previewTitle: string = 'unity-template';
 
-  title: string;
-  private subscriptions: Subscription[] = [];
+    private subscriptions: Subscription[] = [];
 
-  private canvas: HTMLCanvasElement;
+    private canvas: HTMLCanvasElement;
 
-  static itemCols = 15;
-  static itemRows = 15;
+    static itemCols = 15;
+    static itemRows = 15;
 
-  constructor(
-    public widgetService: NewWidgetService,
-    @Inject('isMock') public isMock: boolean,
-    @Inject('widgetId') public id: string,
-    @Inject('uniqId') public uniqId: string,
-    platformLocation: PlatformLocation
-  ) {
-    const location = (platformLocation as any).location;
-    this.baseUrl = location.origin + location.pathname.replace('dashboard', '');
-    this.subscriptions.push(this.widgetService.getWidgetChannel(id).subscribe(data => {
-      this.title = data.title;
-    }));
-  }
-
-  ngOnInit() {
-
-  }
-
-  ngOnDestroy() {
-    console.log('destroy_unity');
-    if (this.subscriptions) {
-      for (const i in this.subscriptions) {
-        this.subscriptions[i].unsubscribe();
-      }
+    constructor(
+        public widgetService: NewWidgetService,
+        @Inject('isMock') public isMock: boolean,
+        @Inject('widgetId') public id: string,
+        @Inject('uniqId') public uniqId: string,
+        platformLocation: PlatformLocation
+    ) {
+        const location = (platformLocation as any).location;
+        this.baseUrl = location.origin + location.pathname.replace('dashboard', '');
+        this.subscriptions.push(
+            this.widgetService.getWidgetChannel(id).subscribe((data) => {
+                this.title = data.title;
+            })
+        );
     }
-    if (this.unityInstance) {
-      this.unityInstance.Quit(() => console.log('destroy'));
+
+    ngOnInit() {}
+
+    ngOnDestroy() {
+        console.log('destroy_unity');
+        if (this.subscriptions) {
+            for (const i in this.subscriptions) {
+                this.subscriptions[i].unsubscribe();
+            }
+        }
+        if (this.unityInstance) {
+            this.unityInstance.Quit(() => console.log('destroy'));
+        }
     }
-  }
 
-  ngAfterViewInit() {
-    this.showMock(this.isMock);
-    console.log('isMock' + this.isMock);
-  }
-
-  private showMock(show) {
-    if (!show) {
-      this.InitUnity();
+    ngAfterViewInit() {
+        this.showMock(this.isMock);
     }
-  }
 
-  @HostListener('document:resize', ['$event'])
-  OnResize(event) {
-    this.resize();
-  }
-
-  @HostListener('document:UnityTemplate_Start', ['$event', '$event.detail.param1'])
-  OnUnityStart(event, param1) {
-    this.isStart = true;
-    if (!this.unityInstance) {
-      return;
+    private showMock(show) {
+        if (!show) {
+            this.InitUnity();
+        }
     }
-    this.CallUnityScript('Scripts', 'FromAngular');
-  }
 
-  @HostListener('document:UnityTemplate_Click', ['$event'])
-  OnUnityClick(event) {
-    if (!this.unityInstance) {
-      return;
+    @HostListener('document:resize', ['$event'])
+    OnResize(event) {
+        this.resize();
     }
-    console.log('click');
-  }
 
-  private InitUnity() {
-    window['UnityLoader'] = UnityLoader;
-    this.loadProject(`${this.baseUrl}assets/unity/webgl_template_3d/webgl_template_3d_new.json`);
-  }
-
-  private CallUnityScript(funName, ...args) {
-    if (this.isStart && this.unityInstance) {
-      this.unityInstance.SendMessage(funName, ...args);
+    @HostListener('document:UnityTemplate_Start', ['$event', '$event.detail.param1'])
+    OnUnityStart(event, param1) {
+        this.isStart = true;
+        if (!this.unityInstance) {
+            return;
+        }
+        this.CallUnityScript('Scripts', 'FromAngular');
     }
-  }
 
-  private loadProject(path) {
-    this.unityInstance = UnityLoader.instantiate('unityContainer_unity-template', path);
-  }
-
-  private resize() {
-    this.canvas = document.getElementById('#canvas') as HTMLCanvasElement;
-    if (this.canvas) {
-      this.canvas.width = this.canvas.parentElement.offsetWidth;
-      this.canvas.height = this.canvas.parentElement.offsetHeight;
+    @HostListener('document:UnityTemplate_Click', ['$event'])
+    OnUnityClick(event) {
+        if (!this.unityInstance) {
+            return;
+        }
     }
-  }
+
+    private InitUnity() {
+        window['UnityLoader'] = UnityLoader;
+        this.loadProject(
+            `${this.baseUrl}assets/unity/webgl_template_3d/webgl_template_3d_new.json`
+        );
+    }
+
+    private CallUnityScript(funName, ...args) {
+        if (this.isStart && this.unityInstance) {
+            this.unityInstance.SendMessage(funName, ...args);
+        }
+    }
+
+    private loadProject(path) {
+        this.unityInstance = UnityLoader.instantiate('unityContainer_unity-template', path);
+    }
+
+    private resize() {
+        this.canvas = document.getElementById('#canvas') as HTMLCanvasElement;
+        if (this.canvas) {
+            this.canvas.width = this.canvas.parentElement.offsetWidth;
+            this.canvas.height = this.canvas.parentElement.offsetHeight;
+        }
+    }
 }

@@ -1,21 +1,22 @@
-<div class="container pointer-event">
+<evj-widget-preview
+  [title]="title"
+  [previewTitle]="previewTitle"
+  *ngIf="isMock"
+></evj-widget-preview>
+
+<div class="container pointer-event" *ngIf="!isMock">
   <evj-widget-header
     [title]="title"
     [units]="units"
     [code]=""
     [id]="id"
     [uniqId]="uniqId"
+    [icon]="this.icon"
   ></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
 
-  <ng-container *ngIf="isMock">
-    <div class="mock">
-      <img src="../../../../assets/img/column-chart-stacked.PNG" alt="">
-    </div>
-  </ng-container>
-
-  <ng-container *ngIf="!isMock">
+  <ng-container>
     <div
       class="col-chart"
       (mousedown)="$event.stopPropagation()"
@@ -41,10 +42,7 @@
           <div class="axis-x"></div>
           <div class="graph__cols">
             <ng-container *ngFor="let col of cols">
-              <evj-ccs-one-column
-                [data]="col"
-                style="height: 100%;"
-              ></evj-ccs-one-column>
+              <evj-ccs-one-column [data]="col" class="col-component"></evj-ccs-one-column>
             </ng-container>
           </div>
         </div>

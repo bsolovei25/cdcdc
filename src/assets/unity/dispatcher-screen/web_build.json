@@ -1,7 +1,7 @@
 {
 "companyName": "DefaultCompany",
 "productName": "OperatorWidget",
-"productVersion": "0.1",
+"productVersion": "1.1",
 "dataUrl": "web_build.data.unityweb",
 "wasmCodeUrl": "web_build.wasm.code.unityweb",
 "wasmFrameworkUrl": "web_build.wasm.framework.unityweb",

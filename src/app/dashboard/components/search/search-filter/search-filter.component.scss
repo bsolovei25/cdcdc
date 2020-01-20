@@ -1,0 +1,33 @@
+.filter_name {
+  font-size: 12px;
+  color: var(--color-text-sub);
+}
+
+.result_search {
+  color: white;
+  width: 140px;
+  height: 35px;
+  background: rgb(33, 36, 45);
+  border-radius: 25px;
+  margin: 3px auto;
+  font-size: 14px;
+  text-align: center;
+  line-height: 35px;
+
+  &:hover {
+    background-color: var(--color-border-active);
+    cursor: pointer;
+  }
+}
+
+.result_filter {
+  padding: 10px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: 10px;
+}
+
+.activeFilter {
+  background-color: var(--color-border-active);
+}

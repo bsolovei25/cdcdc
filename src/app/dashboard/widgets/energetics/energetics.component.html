@@ -1,4 +1,10 @@
-<div class="container pointer-event">
+<evj-widget-preview
+  [title]="title"
+  [previewTitle]="previewTitle"
+  *ngIf="isMock"
+></evj-widget-preview>
+
+<div class="container pointer-event" *ngIf="!isMock">
   <evj-widget-header
     [title]="title"
     [units]="'гДж'"
@@ -9,23 +15,14 @@
 
   <evj-frame-top></evj-frame-top>
 
-  <ng-container *ngIf="isMock">
-    <div class="mock">
-      <img src="../../../../assets/img/energetics.PNG" alt="" />
-    </div>
-  </ng-container>
-
-  <ng-container *ngIf="!isMock">
+  <ng-container>
     <div
       class="energetics"
       (mousedown)="$event.stopPropagation()"
       (touchstart)="$event.stopPropagation()"
     >
       <div class="energetics__container">
-        <evj-detailed-line-diagram
-          class="dld"
-          [data]="data"
-        ></evj-detailed-line-diagram>
+        <evj-detailed-line-diagram class="dld" [data]="data"></evj-detailed-line-diagram>
         <div class="energetics__energy">
           <div class="energetics__graphic">
             <div class="energetics__round">

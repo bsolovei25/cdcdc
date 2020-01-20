@@ -37,10 +37,9 @@
   z-index: 999; /* Add a z-index if needed */
   left: 50%; /* Center the snackbar */
   bottom: 30px; /* 30px from the bottom */
-  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14),
+    0 1px 18px 0 rgba(0, 0, 0, 0.12);
 }
-
-
 #saveBar.show {
   visibility: visible; /* Show the snackbar */
   /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
@@ -48,7 +47,6 @@
   -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
-
 #saveBar.complete {
   visibility: visible; /* Show the snackbar */
   /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
@@ -57,7 +55,6 @@
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
   background-color: var(--color-border-active); /* Black background color */
 }
-
 #saveBar.error {
   visibility: visible; /* Show the snackbar */
   /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
@@ -67,30 +64,60 @@
   background-color: var(--color-danger); /* Black background color */
 }
 
-
 #saveBarBlock {
-  z-index: 1;
-  visibility: hidden; /* Hidden by default. Visible on click */
-  height: 100%;
-  min-width: 250px; /* Set a default minimum width */
-  width: 100%;
-  background-color: rgba(1,1,1,0.5);
-  background-image: url("/assets/pic/2.gif");
-  background-repeat: no-repeat;
-  color: #fff; /* White text color */
-  background-position: center;
-  margin-top: -110px;
-  border-radius: 8px; /* Rounded borders */
-  position: fixed; /* Sit on top of the screen */
-
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 3px;
+  bottom: 40px;
+  background-color: var(--color-bg-main-opacity);
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+  border-radius: inherit;
+  display: none;
 }
-
 #saveBarBlock.show {
-  visibility: visible; /* Show the snackbar */
-  /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
-  However, delay the fade out process for 2.5 seconds */
-  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  display: flex;
+}
+.loader {
+  position: absolute;
+  width: 7em;
+  height: 7em;
+  z-index: 10;
+  display: block;
+  svg {
+    width: 7em;
+    transform-origin: center;
+    animation: rotate 2s linear infinite;
+  }
+  circle {
+    fill: none;
+    stroke: var(--color-border-active);
+    stroke-width: 4;
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+    animation: dash 1s ease-in-out infinite;
+  }
+  @keyframes rotate {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes dash {
+    0% {
+      stroke-dasharray: 1, 200;
+      stroke-dashoffset: 0;
+    }
+    50% {
+      stroke-dasharray: 90, 200;
+      stroke-dashoffset: -35px;
+    }
+    100% {
+      stroke-dashoffset: -125px;
+    }
+  }
 }
 
 .scroll-bar {
@@ -149,7 +176,7 @@
     margin-right: 10px;
     justify-self: flex-end;
     font-size: 0.75rem;
-    color: var(--color-text-sub)
+    color: var(--color-text-sub);
   }
   &:before {
     z-index: 0.1;
@@ -218,7 +245,7 @@
   padding-top: 33px;
   box-sizing: border-box;
   color: var(--color-text-sub);
-  background: url('../../../../assets/icons/widgets/manualinput/btn-manual-input_unactive.svg');
+  background: url("../../../../assets/icons/widgets/manualinput/btn-manual-input_unactive.svg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -226,14 +253,13 @@
   font-size: 10px;
 }
 .button:hover {
-
 }
 .button:active {
-  background: url('../../../../assets/icons/widgets/manualinput/btn-manual-input_active.svg');
+  background: url("../../../../assets/icons/widgets/manualinput/btn-manual-input_active.svg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  color:white;
+  color: white;
 }
 
 .space {
@@ -248,7 +274,7 @@
   width: calc(100% - 1px);
   height: calc(100% - 70px);
   &:before {
-    content: '';
+    content: "";
     position: absolute;
     left: -2px;
     right: -5px;
@@ -261,7 +287,7 @@
 }
 
 .table {
-  position:relative;
+  position: relative;
   height: 100%;
   padding-top: 50px;
   width: 100%;
@@ -306,8 +332,9 @@
 .table-container-2 {
   position: relative;
   margin-top: 15px;
+  margin-left: 2px;
   &:before {
-    content: '';
+    content: "";
     width: calc(var(--tree-width-2) + var(--tree-width-1));
     height: calc(0.5em + 1.5px);
     left: 1px;
@@ -315,7 +342,7 @@
     position: absolute;
   }
   &:last-child:after {
-    content: '';
+    content: "";
     position: absolute;
     left: -5px;
     top: calc(0.5em + 2.5px);
@@ -325,7 +352,11 @@
   }
 }
 
-.table-container-2-none{
+.table-container-2-none {
+  display: none;
+}
+
+.d-table-none {
   display: none;
 }
 
@@ -334,7 +365,7 @@
   height: 100%;
   width: 100%;
   &:before {
-    content: '';
+    content: "";
     width: 50%;
     height: calc(100% / 2);
     right: -40%;
@@ -342,10 +373,10 @@
     position: absolute;
   }
   &:after {
-    content: '';
+    content: "";
     @extend %circle;
     right: calc(-50% + 1.5px);
-    top:calc(100% / 2 - 1.5px);
+    top: calc(100% / 2 - 1.5px);
   }
 }
 
@@ -355,7 +386,7 @@
   color: var(--color-text-main);
   padding-left: calc(var(--tree-width-1) + 3px);
   &:before {
-    content: '';
+    content: "";
     @extend %circle;
     position: absolute;
     top: calc(0.5em);
@@ -363,7 +394,7 @@
   }
 }
 
-.table-header-1-none{
+.table-header-1-none {
   display: none;
 }
 
@@ -374,7 +405,7 @@
   padding-left: calc(var(--tree-width-1) + var(--tree-width-2) + 13px);
   margin-bottom: 10px;
   &:before {
-    content: '';
+    content: "";
     @extend %circle;
     position: absolute;
     top: calc(0.5em);
@@ -397,7 +428,7 @@
   width: 100%;
 }
 
-.d-tr{
+.d-tr {
   display: table-row;
   width: 100%;
   position: relative;
@@ -408,7 +439,7 @@
   text-align: left;
   border: none;
   vertical-align: middle;
-  width:100%;
+  width: 100%;
   padding: 8px;
   padding-left: 10px;
   background-color: var(--color-bg-sub);
@@ -529,17 +560,17 @@
   border-bottom: var(--border-style-solid);
 
   &:before {
-    content: '';
+    content: "";
     @extend %circle;
     top: -2px;
     left: -2px;
     z-index: 1;
   }
   &:after {
-    content: '';
+    content: "";
     @extend %circle;
     top: -2px;
-    right: -2.5px;
+    right: 2px;
     z-index: 1;
   }
 }
@@ -550,7 +581,7 @@
   bottom: 0;
   right: 0;
   top: calc(0.5em + 4px);
-  height: calc(100% - 0.5em - 20px);
+  //height: calc(100% - 0.5em - 20px);
   border-left: var(--border-style-dashed);
 }
 
@@ -566,25 +597,23 @@ input.data {
   font-size: 10px;
   width: 100%;
   height: 16px;
-  background: var(--color-bg-main);;
+  background: var(--color-bg-main);
   border: solid 1px transparent;
   color: var(--color-text-sub);
-  pointer-events:none;
+  pointer-events: none;
 
   &_comment {
-    pointer-events:fill;
+    pointer-events: fill;
   }
 
   &_val {
-
   }
 
   &_com {
-
   }
 
   &_active {
-    pointer-events:fill;
+    pointer-events: fill;
     border-radius: 3px;
     border: solid 0.5px var(--color-border-active);
 
@@ -601,7 +630,11 @@ input.data {
       animation: blink 1s;
       animation-iteration-count: 3;
     }
-    @keyframes blink { 50% { border-color: transparent; }  }
+    @keyframes blink {
+      50% {
+        border-color: transparent;
+      }
+    }
   }
 
   &::placeholder {
@@ -615,7 +648,7 @@ input.data {
 }
 
 table {
-  width:100%;
+  width: 100%;
   height: calc(100% - 60px);
   text-align: center;
   color: var(--color-text-sub);

@@ -1,18 +1,28 @@
-<div class="container pointer-event">
+<evj-widget-preview
+  [title]="title"
+  [previewTitle]="previewTitle"
+  *ngIf="isMock"
+></evj-widget-preview>
 
-    <evj-widget-header [title]="title" [id]="id" [units]="units" [uniqId]="uniqId"></evj-widget-header>
+<div class="container pointer-event" *ngIf="!isMock">
+  <evj-widget-header
+    [title]="title"
+    [id]="id"
+    [units]="units"
+    [uniqId]="uniqId"
+  ></evj-widget-header>
 
-    <evj-frame-top></evj-frame-top>
+  <evj-frame-top></evj-frame-top>
 
-    <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
-        <div class="cb">
-            <div #myCircle class="item-b">
-            </div>
-        </div>
+  <div
+    class="content"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="cb">
+      <div #myCircle class="item-b"></div>
     </div>
+  </div>
 
-    <evj-frame-bottom></evj-frame-bottom>
-
-
-
+  <evj-frame-bottom></evj-frame-bottom>
 </div>

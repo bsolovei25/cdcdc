@@ -3,60 +3,58 @@ import { AuthService } from '@core/service/auth.service';
 import { Router } from '@angular/router';
 
 interface IUserInfo {
-  firstName: string;
-  lastName?: string;
-  middleName?: string;
-  positionDescription?: string;
-  brigade?: { id: number, number: string }
+    firstName: string;
+    lastName?: string;
+    middleName?: string;
+    positionDescription?: string;
+    brigade?: { id: number; number: string };
 }
 
 @Component({
-  selector: 'evj-user-info',
-  templateUrl: './user-info.component.html',
-  styleUrls: ['./user-info.component.scss']
+    selector: 'evj-user-info',
+    templateUrl: './user-info.component.html',
+    styleUrls: ['./user-info.component.scss'],
 })
 export class UserInfoComponent implements OnInit {
+    data: IUserInfo = {
+        firstName: '',
+        lastName: '',
+        brigade: { id: 0, number: '' },
+        middleName: '',
+        positionDescription: '',
+    };
+    isShowScreens: boolean = false;
 
-  data: IUserInfo;
-  isShowScreens: boolean = false;
+    constructor(private authService: AuthService, private router: Router) {}
 
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-  ) { }
-
-  ngOnInit() {
-    this.loadData();
-  }
-
-
-  async loadData() {
-    const data: any[] = await this.authService.getUserAuth();
-    if (data && data[0]) {
-      this.data = data[0];
+    ngOnInit() {
+        this.loadData();
     }
-  }
 
-  async logOut() {
-    await this.authService.logOut();
-    this.router.navigate(['login']);
-  }
+    async loadData(): Promise<void> {
+        const data: any[] = await this.authService.getUserAuth();
+        if (data && data[0]) {
+            this.data = data[0];
+        }
+    }
 
-  isLeaveScreen(e) {
-    this.isShowScreens = false;
+    async logOut(): Promise<void> {
+        await this.authService.logOut();
+        this.router.navigate(['login']);
+    }
 
-  }
-  isOverScreen(e) {
-    this.isShowScreens = true;
-  }
+    isLeaveScreen(): void {
+        this.isShowScreens = false;
+    }
+    isOverScreen(): void {
+        this.isShowScreens = true;
+    }
 
-  ScreenActive(e) {
-    this.isShowScreens = true;
-  }
+    ScreenActive(): void {
+        this.isShowScreens = true;
+    }
 
-  ScreenDisable(e) {
-    this.isShowScreens = false;
-
-  }
-
+    ScreenDisable(): void {
+        this.isShowScreens = false;
+    }
 }

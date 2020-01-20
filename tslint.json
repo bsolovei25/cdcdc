@@ -1,7 +1,12 @@
 {
   "extends": "tslint:recommended",
   "rules": {
-    "array-type": false,
+    "array-type": [
+      true,
+      "array"
+    ],
+    "file-name-casing": [true, "kebab-case"],
+    "interface-name": [true, "always-prefix"],
     "arrow-parens": false,
     "deprecation": {
       "severity": "warning"
@@ -25,17 +30,17 @@
       true,
       "rxjs/Rx"
     ],
-    "interface-name": false,
     "max-classes-per-file": false,
     "max-line-length": [
       true,
-      140
+      100
     ],
     "member-access": false,
     "member-ordering": [
       true,
       {
         "order": [
+          "fields-first",
           "static-field",
           "instance-field",
           "static-method",
@@ -53,10 +58,21 @@
       "trace"
     ],
     "no-empty": false,
-    "no-inferrable-types": [
+    "no-any": [
       true,
-      "ignore-params"
+      {
+        "ignore-rest-args": true
+      }
     ],
+    "typedef": [
+      true,
+      "call-signature",
+      "parameter",
+      "member-variable-declaration"
+    ],
+    "no-debugger": true,
+    "no-async-without-await": true,
+    "promise-function-async": true,
     "no-non-null-assertion": true,
     "no-redundant-jsdoc": true,
     "no-switch-case-fall-through": true,

@@ -1,10 +1,7 @@
 <ng-container *ngIf="isDiagram">
   <div class="diagram">
     <div class="graph">
-      <div
-        class="pusher"
-        [ngStyle]="{ height: getGraphHeight(item.percentageValue) }"
-      ></div>
+      <div class="pusher" [ngStyle]="{ height: getGraphHeight(item.percentageValue) }"></div>
       <div
         class="point"
         [ngStyle]="{
@@ -25,10 +22,7 @@
 </ng-container>
 
 <ng-container *ngIf="!isDiagram">
-  <div
-    class="item"
-    [ngClass]="item.percentageValue !== 0 ? 'item__active' : 'item__disable'"
-  >
+  <div class="item" [ngClass]="item.percentageValue !== 0 ? 'item__active' : 'item__disable'">
     {{ item.percentageValue }}
   </div>
 </ng-container>

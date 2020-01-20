@@ -136,7 +136,7 @@
     justify-content: center;
     align-items: center;
 
-    overflow-x: scroll;
+    overflow-x: auto;
     overflow-y: hidden;
 
     &__cols {
@@ -150,6 +150,12 @@
       flex-direction: row;
       justify-content: flex-start;
       align-items: center;
+
+      .col-component {
+        height: 100%;
+        width: 80px;
+        min-width: 25px;
+      }
     }
   }
 }

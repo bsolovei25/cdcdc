@@ -1,83 +1,95 @@
-import { Component, OnInit, Inject } from "@angular/core";
-import { NewWidgetService } from "../../services/new-widget.service";
-import { Subscription } from "rxjs";
+import { Component, OnInit, Inject } from '@angular/core';
+import { NewWidgetService } from '../../services/new-widget.service';
+import { Subscription } from 'rxjs';
+import { IBlockDiagram, IBlockDiagramMock } from '../../models/circle-block-diagram';
 
 @Component({
-  selector: "evj-circle-block-diagram",
-  templateUrl: "./circle-block-diagram.component.html",
-  styleUrls: ["./circle-block-diagram.component.scss"]
+    selector: 'evj-circle-block-diagram',
+    templateUrl: './circle-block-diagram.component.html',
+    styleUrls: ['./circle-block-diagram.component.scss'],
 })
 export class CircleBlockDiagramComponent implements OnInit {
-  blockDiagram = {
-    improvement: 98.2, // улучшение в %
-    disabled: 1.4, // отключенные блокировки в %
-    noReason: 1.2 // не указана причина снятия блокировок в %
-  };
+    public blockDiagram: IBlockDiagram = {
+        improvement: 0, // улучшение в %
+        disabled: 0, // отключенные блокировки в %
+        noReason: 0, // не указана причина снятия блокировок в %
+    };
 
-  isMockData = {
-    improvement: 87.7 // улучшение в %
-  };
+    public isMockData: IBlockDiagramMock = {
+        improvement: 87.7, // улучшение в %
+    };
 
-  /* Цвета для диаграмм */
+    /* Цвета для диаграмм */
 
-  colorMain = "#1b1e27";
-  colorBg = "#0d1014";
-  colorNormal = "#a2e2ff";
-  colorFull = "#FFFFFF";
-  colorDeviation = "#F4A321";
+    public colorMain: string = '#1b1e27';
+    public colorBg: string = '#0d1014';
+    public colorNormal: string = '#a2e2ff';
+    public colorFull: string = '#FFFFFF';
+    public colorDeviation: string = '#F4A321';
 
-  colorContour = "#5b607d";
+    public colorContour: string = '#5b607d';
 
-  /* Координаты центров окружностей */
+    /* Координаты центров окружностей */
 
-  centerX = "25";
-  centerY = "25";
+    public centerX: string = '25';
+    public centerY: string = '25';
 
-  radius = "12";
+    public radius: string = '12';
 
-  subscription: Subscription;
+    public subscription: Subscription;
 
-  public title;
-  public units = "%";
+    public title: string;
+    public units: string = '%';
+    public widgetType: string = 'circle-block-diagram';
 
-  static itemCols = 15;
-  static itemRows = 17;
+    static itemCols: number = 15;
+    static itemRows: number = 17;
 
-  constructor(
-    private widgetService: NewWidgetService,
-    @Inject("isMock") public isMock: boolean,
-    @Inject("widgetId") public id: string,
-    @Inject("uniqId") public uniqId: string
-  ) {
-    this.subscription = this.widgetService
-      .getWidgetChannel(this.id)
-      .subscribe(data => {
-        this.title = data.title;
-        // this.code = data.code;
-        // this.units = data.units;
-        // this.name = data.name;
-      });
-  }
+    public previewTitle: string;
 
-  ngOnInit() {
-    setInterval(()=>{
-      this.blockDiagram.improvement = Math.floor(10 + Math.random()*(90));
-      this.blockDiagram.noReason = Math.floor(Math.random()*(15));
-      this.blockDiagram.disabled = Math.floor(Math.random()*(15));
-    },7000)
-  }
+    constructor(
+        private widgetService: NewWidgetService,
+        @Inject('isMock') public isMock: boolean,
+        @Inject('widgetId') public id: string,
+        @Inject('uniqId') public uniqId: string
+    ) {
+        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
+            this.title = data.title;
+            this.previewTitle = data.widgetType;
+            // this.code = data.code;
+            // this.units = data.units;
+            // this.name = data.name;
+        });
+    }
 
-  /* Отрисовка дуговых диаграмм */
+    ngOnInit(): void {
+        if (!this.isMock) {
+            this.widgetService
+                .getWidgetLiveDataFromWS(this.id, this.widgetType)
+                .subscribe((data) => {
+                    this.blockDiagram.disabled = data.disabled;
+                    this.blockDiagram.improvement = data.improvement;
+                    this.blockDiagram.noReason = data.noReason;
+                });
+        }
+    }
 
-  diaLine(r: string, line: number): string {
-    const c: number = 2 * Math.PI * +r;
-    const per_cent = line / 100;
-    return per_cent * c + " " + (c - per_cent * c);
-  }
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+    }
 
-  diaOffset(r: string, line: number): string {
-    const c: number = 2 * Math.PI * +r;
-    const per_cent = line / 100;
-    return (-0.75 * c).toString();
-  }
+    /* Отрисовка дуговых диаграмм */
+
+    diaLine(r: string, line: number): string {
+        const c: number = 2 * Math.PI * +r;
+        const percent = line / 100;
+        return percent * c + ' ' + (c - percent * c);
+    }
+
+    diaOffset(r: string, line: number): string {
+        const c: number = 2 * Math.PI * +r;
+        return (-0.75 * c).toString();
+    }
 }

@@ -29,7 +29,7 @@
   }
 
   &:hover {
-    background-color: var(--color-bg-main);;
+    background-color: var(--color-bg-main);
   }
 }
 
@@ -37,7 +37,7 @@
   display: none;
   position: absolute;
   width: calc(100% + 1px);
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
   top: 60px;
   left: 0px;
@@ -55,7 +55,6 @@
   color: white;
   background-color: var(--color-bg-main);
   cursor: pointer;
-  height: 45px;
   font-size: 13px;
   &:hover {
     transition: all 0.3s ease;
@@ -65,7 +64,8 @@
     background: transparent;
     border: solid 0.5px var(--color-border-main);
     border-radius: 5px;
-    padding: 5px;
+    padding: 5px 0 5px 5px;
+    margin: 5px 0 5px 0;
     color: inherit;
   }
   &_adder {
@@ -92,90 +92,82 @@
   }
 }
 
-.screen_name{
- text-align: left;
- font-size: 15px;
- width: 160px;
- margin-top: 15px;
+.screen_name {
+  text-align: left;
+  font-size: 15px;
+  width: 160px;
+  padding: 10px;
 }
-.delete_screen{
+.delete_screen {
   display: inline-block;
   z-index: 999;
-  padding-top: 17px;
   padding-left: 5px;
-  height: 40px;
   width: 20px;
   fill: white;
 }
 
-.delete_screen2{
+.delete_screen2 {
   display: inline-block;
   z-index: 999;
-  padding-top: 17px;
   padding-left: 5px;
-  height: 40px;
   width: 20px;
   fill: white;
 }
-.update_screen{
+.update_screen {
   display: inline-block;
   z-index: 999;
-  padding-top: 17px;
   padding-left: 5px;
-  height: 40px;
   width: 20px;
   fill: white;
 }
 
-.update_screen2{
+.update_screen2 {
   display: inline-block;
   z-index: 999;
-  padding-top: 17px;
   padding-left: 10px;
-  height: 40px;
   width: 20px;
   fill: white;
 }
 
-.update_screen2 ::ng-deep svg{
+.update_screen2 ::ng-deep svg {
   width: 20px;
-  height: 20px;
 }
 
-.delete_screen:hover{
-  fill:gray;
+.delete_screen:hover {
+  fill: gray;
 }
-.update_screen:hover{
-  fill:gray;
+.update_screen:hover {
+  fill: gray;
 }
 
-.screen_blocks{
+.screen_blocks {
   display: flex;
 }
-.screen_block{
+.screen_block {
   display: flex;
 }
-.update_input{
+.update_input {
   background: transparent;
-  border: solid 0.5px #5B607D;
-  border-radius: 5px  ;
-  margin-top: 8px;
-  width: 150px;
-  height: 20px;
-  color: white;
+  border: solid 0.5px #5b607d;
+  border-radius: 5px;
   padding: 5px;
+  width: 170px;
+  color: white;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
-.hover-button{
-  height: 45px;
-  margin-left: 15px;
+.hover-button {
+  padding-left: 5px;
   width: 70px;
-  background:#272b35;
-  display:none;
+  background-color: var(--color-bg-main);
+  display: flex;
+  align-items: center;
+  opacity: 0;
 }
 
 .screen_blocks:hover .hover-button {
   transition: all 0.3s ease;
-  display: block;
-  text-align: center;
+  opacity: 100%;
+  background: #272b35;
 }

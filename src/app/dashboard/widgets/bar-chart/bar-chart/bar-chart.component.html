@@ -1,19 +1,18 @@
 <div class="flex-container">
-      <div class="tower">
-        <div class="value_tower all" [style.height.%]="procsumm">
-                <div class="value allv">{{summ}}</div>
-        </div>
-      </div>
-      <div class="tower">
-        <div class="value_tower good" [style.height.%]="goodValue">
-                <div class="value goodv">{{data.good}}</div>
-        </div>
-      </div>
-      <div class="tower">
-        <div class="value_tower bad" [style.height.%]="badValue">
-                <div class="value badv">{{data.bad}}</div>
-        </div>
-      </div>
+  <div class="tower">
+    <div class="value_tower all" [style.height.%]="procsumm">
+      <div class="value allv">{{summ}}</div>
+    </div>
   </div>
-  <div class="name">{{data.name}}</div>
-  
+  <div class="tower">
+    <div class="value_tower good" [style.height.%]="goodValue">
+      <div class="value goodv">{{data.good}}</div>
+    </div>
+  </div>
+  <div class="tower">
+    <div class="value_tower bad" [style.height.%]="badValue">
+      <div class="value badv">{{data.bad}}</div>
+    </div>
+  </div>
+</div>
+<div class="name">{{data.name}}</div>

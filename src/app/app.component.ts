@@ -3,18 +3,17 @@ import { slideInAnimation } from 'src/app/animations';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'evj-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  animations: [slideInAnimation]
+    selector: 'evj-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    animations: [slideInAnimation],
 })
 export class AppComponent {
-  title = 'evj';
+    title = 'evj';
 
-  constructor() {
-  }
+    constructor() {}
 
-  prepareRoute(outlet: RouterOutlet) {
-    return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
-  }
+    prepareRoute(outlet: RouterOutlet) {
+        return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
+    }
 }

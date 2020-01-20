@@ -2,9 +2,9 @@
   cursor: move !important;
   position: relative;
   height: 35px;
-  width: 99%;
+  width: calc(100% - 5px);
   box-sizing: border-box;
-  z-index: 999;
+  z-index: 800;
   background-color: var(--color-bg-additional);
 
   &__content {
@@ -17,14 +17,13 @@
   &__icon-wrapper {
     display: flex;
     align-items: center;
-
     min-width: 44px;
     height: 100%;
     background-color: var(--color-bg-sub);
     padding: 9px 15px;
     margin-right: 10px;
     box-sizing: border-box;
-
+    font-size: 11pt;
     font-weight: bold;
   }
 
@@ -76,7 +75,7 @@
   }
 }
 
-.delete_widget{
+.delete_widget {
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -89,4 +88,3 @@
   font-weight: bold;
   pointer-events: fill !important;
 }
-

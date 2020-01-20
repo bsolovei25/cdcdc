@@ -1,65 +1,81 @@
-import { Component, OnInit, Input, AfterViewInit } from "@angular/core";
+import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
+import { IColumnChartStacked } from '../../../models/column-chart-stacked';
+import { IBlockDiagramColumn } from '../../../models/circle-block-diagram';
 
 @Component({
-  selector: "evj-ccs-one-column",
-  templateUrl: "./ccs-one-column.component.html",
-  styleUrls: ["./ccs-one-column.component.scss"]
+    selector: 'evj-ccs-one-column',
+    templateUrl: './ccs-one-column.component.html',
+    styleUrls: ['./ccs-one-column.component.scss'],
 })
 export class CcsOneColumnComponent implements OnInit, AfterViewInit {
-  @Input() data: any;
+    @Input() data: IColumnChartStacked;
 
-  colorActive = "#8c99b2";
-  colorDisable = "#606580";
-  colorPlan = "#f4a321";
-  colorFact = "#ffffff";
-  colorNormal = "#A2E2FF";
+    public colorActive: string = '#8c99b2';
+    public colorDisable: string = '#606580';
+    public colorPlan: string = '#f4a321';
+    public colorFact: string = '#ffffff';
+    public colorNormal: string = '#A2E2FF';
 
-  defaultIconPath = "../../../../../assets/icons/widgets/column-chart-stacked/";
+    public defaultIconPath: string = '../../../../../assets/icons/widgets/column-chart-stacked/';
 
-  constructor() {}
+    constructor() {}
 
-  ngOnInit() {}
+    ngOnInit(): void {}
 
-  ngAfterViewInit() {
-    this.graphIcon()
-  }
-
-  graphIcon(): string {
-    if (this.data.iconId) {
-      return this.defaultIconPath + this.data.iconId + ".svg";
+    ngAfterViewInit(): void {
+        this.graphIcon();
     }
-    return '';
-  }
 
-  graphValues() {
-    const maxValue: number = this.data.max + 7;
-    const plan = Math.round((this.data.plan / maxValue) * 100);
-    let fact = this.data.plan ? Math.round((this.data.fact / this.data.plan) * 100) : 0;
-    if (this.data.fact > this.data.plan) fact = plan;
-    const values = {
-      plan: plan + "%",
-      fact: fact + "%",
-      pusher: (100 - plan) + "%"
-    };
+    graphIcon(): string {
+        if (this.data.iconId) {
+            return this.defaultIconPath + this.data.iconId + '.svg';
+        }
+        return '';
+    }
 
-    return values;
-  }
+    graphValues(): IBlockDiagramColumn {
+        const maxValue: number = this.data.max + 7;
+        const plan: number = Math.round((this.data.plan / maxValue) * 100);
+        let fact: number = this.data.plan ? Math.round((this.data.fact / this.data.plan) * 100) : 0;
+        if (this.data.fact > this.data.plan) {
+            fact = plan;
+        }
+        const values: IBlockDiagramColumn = {
+            plan: plan + '%',
+            fact: fact + '%',
+            pusher: 100 - plan + '%',
+        };
 
-  graphColor(): string {
-    if (this.data.plan === this.data.fact) return this.colorNormal;
-    return this.colorFact;
-  }
+        return values;
+    }
 
-  fontColor(isOnGraph: boolean = false): string {
-    if (this.data.plan === 0) return this.colorDisable;
-    if (isOnGraph && this.data.plan === this.data.fact) return this.colorNormal;
-    if (isOnGraph) return this.colorFact;
-    return this.colorActive;
-  }
+    graphColor(): string {
+        if (this.data.plan === this.data.fact) {
+            return this.colorNormal;
+        }
+        return this.colorFact;
+    }
 
-  iconColor(): string {
-    if (this.data.plan === 0) return this.colorDisable;
-    if (this.data.plan === this.data.fact) return this.colorNormal;
-    return this.colorActive;
-  }
+    fontColor(isOnGraph: boolean = false): string {
+        if (this.data.plan === 0) {
+            return this.colorDisable;
+        }
+        if (isOnGraph && this.data.plan === this.data.fact) {
+            return this.colorNormal;
+        }
+        if (isOnGraph) {
+            return this.colorFact;
+        }
+        return this.colorActive;
+    }
+
+    iconColor(): string {
+        if (this.data.plan === 0) {
+            return this.colorDisable;
+        }
+        if (this.data.plan === this.data.fact) {
+            return this.colorNormal;
+        }
+        return this.colorActive;
+    }
 }

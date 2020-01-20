@@ -5,15 +5,15 @@
   width: 100%;
   box-sizing: border-box;
 }
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 .body-container {
   position: relative;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  width: calc(100%);
-  height: calc(100% - 80px);
+  width: calc(100% - 1px);
+  height: calc(100% - 60px);
   border-left: dashed 0.5px var(--color-border-main);
   border-right: dashed 0.5px var(--color-border-main);
 }
@@ -111,4 +111,3 @@ canvas + * {
   -webkit-mask: url("../../../../assets/img/mock-unity.png") no-repeat center;
   -webkit-mask-size: contain;
 }
-

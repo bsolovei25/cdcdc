@@ -1,29 +1,26 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Evj</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-</head>
-<body>
-  <evj-root></evj-root>
-</body>
-<script>
+  <head>
+    <meta charset="utf-8" />
+    <title>Evj</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  </head>
+  <body>
+    <evj-root></evj-root>
+  </body>
+  <script>
     function UnityListener() {
-        var funName = arguments[0];
-        var dictParams = {};
-        for (let i in arguments) {
-            if (i!=0) {
-                dictParams['param' + i.toString()] = arguments[i];
-            }
+      var funName = arguments[0];
+      var dictParams = {};
+      for (let i in arguments) {
+        if (i != 0) {
+          dictParams["param" + i.toString()] = arguments[i];
         }
-        var event = new CustomEvent(
-            funName,
-            { detail: dictParams}
-        );
-        document.dispatchEvent(event);
+      }
+      var event = new CustomEvent(funName, { detail: dictParams });
+      document.dispatchEvent(event);
     }
-</script>
+  </script>
 </html>

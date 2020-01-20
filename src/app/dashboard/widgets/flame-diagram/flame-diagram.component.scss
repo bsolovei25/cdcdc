@@ -1,0 +1,26 @@
+.flame-container {
+  margin-left: 5px;
+  margin-right: 5px;
+  width: calc(100% - 10px);
+  height: calc(100%);
+  position: relative;
+  overflow: hidden;
+  border-radius: 7px;
+}
+
+.body-container {
+  z-index: 999;
+  position: relative;
+  width: calc(100% - 1px);
+  height: calc(100% - 60px);
+  border-left: dashed 0.5px var(--color-border-main);
+  border-right: dashed 0.5px var(--color-border-main);
+}
+
+.mock-container {
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-border-main);
+  -webkit-mask: url("../../../../assets/icons/widget-preview/flame-diagram.png") no-repeat center;
+  -webkit-mask-size: contain;
+}

@@ -1,43 +1,45 @@
-
-// Angular 
+// Angular
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '@core/service/auth.service';
 import { environment } from 'src/environments/environment';
+import { FormControl, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { PreloaderService } from '../../service/preloader.service';
 // Angular material
-// Local modules  
+// Local modules
 
 @Component({
     selector: 'evj-core-login',
     styleUrls: ['./login.component.scss'],
-    templateUrl: './login.component.html'
+    templateUrl: './login.component.html',
 })
-
 export class LoginComponent implements OnInit, AfterViewInit {
+    username: FormControl = new FormControl(environment.username, [Validators.required]);
+    password: FormControl = new FormControl(environment.password, [Validators.required]);
 
-    username: string = environment.username;
-    password: string = environment.password;
     isLoadingData: boolean = false;
-    savePassword: boolean = false;
-
     isLoading: boolean = true;
-    isHidden: boolean = false;
+    hide: boolean = true;
 
     swing: boolean = false;
 
     constructor(
         public authService: AuthService,
         private router: Router,
-        private route: ActivatedRoute,
-    ) { }
+        private snackBar: MatSnackBar,
+        private preLoaderService: PreloaderService
+    ) {}
 
-    ngOnInit() {
-        this.isLoading = true;
+    ngOnInit(): void {
+        this.isLoadingData = true;
+        this.preLoaderService.isLoad$.next(this.isLoadingData);
     }
 
-    ngAfterViewInit() {
+    ngAfterViewInit(): void {
         setTimeout(() => {
-            this.isLoading = false;
+            this.isLoadingData = false;
+            this.preLoaderService.isLoad$.next(this.isLoadingData);
         }, 500);
     }
 
@@ -47,21 +49,36 @@ export class LoginComponent implements OnInit, AfterViewInit {
         if (!this.username || !this.password) {
             return;
         }
-        // extract return path
-        const backUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-
         // authentication
         try {
-            const auth = await this.authService.authenticate(this.username, this.password);
+            const auth = await this.authService.authenticate(
+                this.username.value,
+                this.password.value
+            );
             if (auth) {
                 this.router.navigate(['dashboard']);
+                setTimeout(() => {
+                    this.isLoadingData = false;
+                }, 1000);
             } else {
+                // this.openSnackBar('Неверный логин или пароль');
                 this.swing = true;
+                this.isLoadingData = false;
             }
-
         } catch (err) {
             this.isLoadingData = false;
         }
     }
 
+    openSnackBar(
+        msg: string = 'Операция выполнена',
+        msgDuration: number = 3000,
+        actionText?: string,
+        actionFunction?: () => void
+    ): void {
+        const snackBarInstance = this.snackBar.open(msg, actionText, { duration: msgDuration });
+        if (actionFunction) {
+            snackBarInstance.onAction().subscribe(() => actionFunction());
+        }
+    }
 }

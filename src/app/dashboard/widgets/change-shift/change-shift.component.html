@@ -1,14 +1,29 @@
-<div class="container pointer-event">
-  <evj-widget-header *ngIf="this.aboutWidget" [title]="this.aboutWidget.title" [units]="" [code]="" [id]="id"
-    [uniqId]="uniqId"></evj-widget-header>
+<evj-widget-preview
+  [title]="title"
+  [icon]="icon"
+  [previewTitle]="previewTitle"
+  *ngIf="isMock"
+></evj-widget-preview>
+
+<div class="container pointer-event" *ngIf="!isMock">
+  <evj-widget-header
+    *ngIf="this.aboutWidget"
+    [title]="title"
+    [units]=""
+    [code]=""
+    [id]="id"
+    [icon]="icon"
+    [uniqId]="uniqId"
+  ></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
 
-  <ng-container *ngIf="isMock">
-    <div class="mock"></div>
-  </ng-container>
-  <ng-container *ngIf="!isMock">
-    <div class="change-shift" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+  <ng-container>
+    <div
+      class="change-shift"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
       <div class="change-shift__mainWorker">
         <div class="circle circle__left circle__left-top"></div>
         <div class="circle circle__right circle__right-top"></div>
@@ -20,16 +35,19 @@
           <div class="mainWorker__row">
             <div class="mainWorker__row_colInfo" *ngIf="getMain()">
               <div class="mainWorker__name">
-                {{ getMain().employee.lastName }} {{  getMain().employee.firstName.charAt(0).toUpperCase() }}.
+                {{ getMain().employee.lastName }} {{
+                getMain().employee.firstName.charAt(0).toUpperCase() }}.
               </div>
               <div class="mainWorker__position" *ngIf="currentShift != null">
                 {{ this.getDisplayPosition(getMain().position) }}
               </div>
             </div>
-            <div class="mainWorker__row_colIcon" *ngIf="getMain()"
+            <div
+              class="mainWorker__row_colIcon"
+              *ngIf="getMain()"
               [class.mainWorker__row_colIcon__InProgress]="!(getMain().status === 'passed' || getMain().status === 'accepted')"
-              [class.mainWorker__row_colIcon__Ready]="getMain().status === 'passed' || getMain().status === 'accepted'">
-            </div>
+              [class.mainWorker__row_colIcon__Ready]="getMain().status === 'passed' || getMain().status === 'accepted'"
+            ></div>
           </div>
           <div class="mainWorker__row">
             <div class="circle circle__right circle__right-top"></div>
@@ -48,14 +66,24 @@
           </div>
           <div class="onShift__people scroll-bar">
             <div *ngFor="let person of this.presentMembers; let i = index">
-              <evj-shift-person [person]="person" [shiftType]="this.aboutWidget.widgetType" [shiftId]="currentShift.id"
-                [currentBrigade]="currentShift.brigade.id" [onShift]="true" [isPresent]="true"></evj-shift-person>
+              <evj-shift-person
+                [person]="person"
+                [shiftType]="this.aboutWidget.widgetType"
+                [shiftId]="currentShift.id"
+                [currentBrigade]="currentShift.brigade.id"
+                [onShift]="true"
+                [isPresent]="true"
+              ></evj-shift-person>
             </div>
           </div>
           <div class="onShift__allPeople" #allPeople>
             <div class="allPeople__scroll scroll-bar">
               <div *ngFor="let person of this.addingShiftMembers">
-                <evj-shift-person [person]="person" [shiftId]="currentShift.id" [onShift]="false"></evj-shift-person>
+                <evj-shift-person
+                  [person]="person"
+                  [shiftId]="currentShift.id"
+                  [onShift]="false"
+                ></evj-shift-person>
               </div>
             </div>
           </div>
@@ -66,8 +94,13 @@
         <ng-container *ngIf="currentShift != null">
           <div class="absent__people scroll-bar">
             <div class="absent__person" *ngFor="let person of absentMembers">
-              <evj-shift-person [person]="person" [shiftType]="this.aboutWidget.widgetType" [shiftId]="currentShift.id"
-                [onShift]="true" [isPresent]="false"></evj-shift-person>
+              <evj-shift-person
+                [person]="person"
+                [shiftType]="this.aboutWidget.widgetType"
+                [shiftId]="currentShift.id"
+                [onShift]="true"
+                [isPresent]="false"
+              ></evj-shift-person>
             </div>
           </div>
         </ng-container>
@@ -80,36 +113,71 @@
           <div class="comment__display">
             <div class="messages scroll-bar" #scroll>
               <div class="message" *ngFor="let comment of comments">
-                {{ comment }}
+                {{ comment.comment }}
               </div>
             </div>
           </div>
           <div class="comment__new">
-            <input type="text" class="comment__text gridster-item-content" placeholder="Напишите свой комментарий..."
-              (keypress)="onEnterPush($event)" #input />
+            <input
+              type="text"
+              class="comment__text gridster-item-content"
+              placeholder="Напишите свой комментарий..."
+              (keypress)="onEnterPush($event)"
+              #input
+            />
             <button type="submit" class="button comment__file   gridster-item-content">
-              <svg-icon class="button__icon" src="./assets/icons/widgets/change-shift/add_file.svg"></svg-icon>
+              <svg-icon
+                class="button__icon"
+                src="./assets/icons/widgets/change-shift/add_file.svg"
+              ></svg-icon>
             </button>
-            <button type="submit" class="button comment__submit  gridster-item-content" (click)="onSendMessage()">
-              <svg-icon class="button__icon" src="./assets/icons/widgets/change-shift/send.svg"></svg-icon>
+            <button
+              type="submit"
+              class="button comment__submit  gridster-item-content"
+              (click)="onSendMessage()"
+            >
+              <svg-icon
+                class="button__icon"
+                src="./assets/icons/widgets/change-shift/send.svg"
+              ></svg-icon>
             </button>
           </div>
         </div>
       </div>
-      <div class="change-shift__submit" *ngIf="aboutWidget">
-        <div class="submit__frame submit__frame-left"></div>
-        <div class="submit__frame submit__frame-right"></div>
-        <button type="submit" (click)="shiftApply()">
-          {{
-            this.aboutWidget.widgetType === "shift-pass"
-              ? "Передать смену"
-              : "Принять смену"
-          }}
-        </button>
-      </div>
+      <ng-container *ngIf="aboutWidget && this.aboutWidget.widgetType === 'shift-pass'">
+        <div class="buttons">
+          <div class="change-shift__submit">
+            <div class="submit__frame submit__frame-left"></div>
+            <div class="submit__frame submit__frame-right"></div>
+            <button type="submit" (click)="shiftApply()">
+              {{ this.aboutWidget.widgetType === "shift-pass" ? "Передать смену" : "Принять смену"
+              }}
+            </button>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="aboutWidget && this.aboutWidget.widgetType !== 'shift-pass'">
+        <div class="buttons">
+          <div class="change-shift__submit">
+            <div class="submit__frame submit__frame-left"></div>
+            <div class="submit__frame submit__frame-right"></div>
+            <button type="submit" (click)="shiftApply()">
+              {{ this.aboutWidget.widgetType === "shift-pass" ? "Передать смену" : "Принять смену"
+              }}
+            </button>
+          </div>
+          <div style="margin: 5px"></div>
+          <div class="change-shift__submit">
+            <div class="submit__frame submit__frame-left"></div>
+            <div class="submit__frame submit__frame-right"></div>
+            <button>
+              Отказаться
+            </button>
+          </div>
+        </div>
+      </ng-container>
     </div>
   </ng-container>
 
   <evj-frame-bottom></evj-frame-bottom>
-
 </div>
