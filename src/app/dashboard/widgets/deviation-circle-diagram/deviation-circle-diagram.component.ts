@@ -69,7 +69,7 @@ export class DeviationCircleDiagramComponent implements OnInit, OnDestroy {
                 this.widgetService
                     .getWidgetLiveDataFromWS(this.id, this.previewTitle)
                     .subscribe((data: DeviationCircleDiagram) => {
-                        this.deviationCircleDiagram = data;
+                        this.copyAbsoluteData(data);
                     })
             );
         }
@@ -81,11 +81,17 @@ export class DeviationCircleDiagramComponent implements OnInit, OnDestroy {
         }
     }
 
+    copyAbsoluteData(data: DeviationCircleDiagram): void {
+        for (const prop of Object.keys(data)) {
+            this.deviationCircleDiagram[prop] = Math.abs(data[prop]);
+        }
+    }
+
     /* Отрисовка дуговых диаграмм */
 
     diaLine(r: string, line: number): string {
         const c: number = 2 * Math.PI * +r;
-        const percent = line / 100;
+        const percent: number = line / 100 < 1 ? line / 100 : 1;
         return percent * c + ' ' + (c - percent * c);
     }
 
@@ -95,7 +101,7 @@ export class DeviationCircleDiagramComponent implements OnInit, OnDestroy {
     }
 
     diaLinePoint(line: number, isOuter: boolean): ICenterOfPoint {
-        const percent = line / 100;
+        const percent: number = line / 100;
         const t = percent < 1 ? 2 * Math.PI * percent - Math.PI / 2 : (3 / 2) * Math.PI;
         const r = isOuter ? +this.radius + 3 : +this.radius - 3;
         const centerOfPoint: ICenterOfPoint = {

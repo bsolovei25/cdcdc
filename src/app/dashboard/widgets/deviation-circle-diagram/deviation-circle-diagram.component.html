@@ -142,10 +142,22 @@
           <text [attr.x]="3" [attr.y]="33" [attr.fill]="colorFull" class="svg__name">
             Улучшение
           </text>
-          <text [attr.x]="10" [attr.y]="18" [attr.fill]="colorDeviation" class="svg__numbers">
+          <text
+            [attr.x]="33"
+            [attr.y]="18"
+            [attr.fill]="colorDeviation"
+            text-anchor="end"
+            class="svg__numbers"
+          >
             +{{ deviationCircleDiagram.deviation }}
           </text>
-          <text [attr.x]="14" [attr.y]="46" [attr.fill]="colorFull" class="svg__numbers">
+          <text
+            [attr.x]="33"
+            [attr.y]="46"
+            [attr.fill]="colorFull"
+            text-anchor="end"
+            class="svg__numbers"
+          >
             -{{ deviationCircleDiagram.improvement }}
           </text>
           <image
