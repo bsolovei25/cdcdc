@@ -9,18 +9,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { IUser } from '../../dashboard/models/events-widget';
 // Local modules
 
-export interface ITokenData {
-    login: string;
-    firstName: string;
-    lastName: string;
-    middleName: string;
-    brigade: { id: number; number: string };
-    phone: string;
-    position: string;
-    positionDescription: string;
+export interface ITokenData extends IUser {
     token: string;
-    id: number;
-    email: string;
 }
 
 @Injectable({
@@ -53,10 +43,10 @@ export class AuthService {
         });
     }
 
-    async authenticate(username: string, password: string): Promise<any> {
+    async authenticate(username: string, password: string): Promise<ITokenData> {
         try {
             const auth = await this.http
-                .post<any>(this.restUrl + `/api/user-management/auth`, { username, password })
+                .post<ITokenData>(this.restUrl + `/api/user-management/auth`, { username, password })
                 .toPromise();
             this.configureUserAuth(auth);
             return auth;
@@ -65,13 +55,14 @@ export class AuthService {
         }
     }
 
-    async getUserAuth(): Promise<ITokenData> | null {
+    async getUserAuth(): Promise<ITokenData[]> | null {
         try {
             if (this.restUrl) {
-                const current: ITokenData = await this.http
-                    .get<ITokenData>(this.restUrl + '/api/user-management/current')
+                const current = await this.http
+                    .get<ITokenData[]>(this.restUrl + '/api/user-management/current', { withCredentials: true })
                     .toPromise();
-                this.user$.next(current);
+                this.configureUserAuth(current[0]);
+                this.user$.next(current[0]);
                 return current;
             }
         } catch (error) {
@@ -82,6 +73,9 @@ export class AuthService {
     }
 
     private configureUserAuth(tokenData: ITokenData): void {
+        if (!tokenData.token)
+            return;
+
         this.authTokenData = tokenData;
         this.user$.next(tokenData);
         // save token

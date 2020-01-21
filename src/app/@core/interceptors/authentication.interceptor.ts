@@ -16,12 +16,15 @@ export class AuthenticationInterceptor implements HttpInterceptor {
         if (req.headers.get('Authorization')) {
             return next.handle(req);
         } else {
-            const authReq = req.clone({
-                headers: req.headers.append(
-                    'Authorization',
-                    `Bearer ` + this.authService.userSessionToken
-                ),
-            });
+            let authReq = req;
+            if (this.authService.userSessionToken) {
+                authReq = req.clone({
+                    headers: req.headers.append(
+                        'Authorization',
+                        `Bearer ` + this.authService.userSessionToken
+                    ),
+                });
+            }
             return next.handle(authReq);
         }
     }
