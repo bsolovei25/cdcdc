@@ -30,6 +30,7 @@ export interface EventsWidgetNotification {
 }
 
 export interface IUser {
+    login: string;
     id: number;
     firstName: string;
     lastName: string;
