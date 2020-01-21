@@ -44,12 +44,13 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
     public previewTitle: string = 'change-shift';
     public title: string = '';
 
-    comments: ShiftComment[] = [];
-    aboutWidget: IWidgets;
-    currentShift: Shift = null;
-    presentMembers: ShiftMember[] = null;
-    absentMembers: ShiftMember[] = null;
-    addingShiftMembers: ShiftMember[] = [];
+    public comments: ShiftComment[] = [];
+    public aboutWidget: IWidgets;
+    public currentShift: Shift = null;
+    public presentMembers: ShiftMember[] = null;
+    public absentMembers: ShiftMember[] = null;
+    public addingShiftMembers: ShiftMember[] = [];
+    public brigadeId: number;
 
     private subscriptions: Subscription[] = [];
 
@@ -103,6 +104,7 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
             this.currentShift = data.passingShift;
         } else {
             this.currentShift = data.acceptingShift;
+            console.log(this.currentShift);
         }
 
         if (this.currentShift.shiftMembers) {
@@ -217,10 +219,19 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
     }
 
     shiftApply(): void {
+        // TODO
         if (this.aboutWidget.widgetType === 'shift-pass') {
-            this.shiftService.applyShift(this.currentShift.id, 'pass');
+            try {
+                this.shiftService.applyShift(this.currentShift.id, 'pass');
+            } catch (error) {
+                console.error(error);
+            }
         } else {
-            this.shiftService.applyShift(this.currentShift.id, 'accept');
+            try {
+                this.shiftService.applyShift(this.currentShift.id, 'accept');
+            } catch (error) {
+                console.error(error);
+            }
         }
     }
 
