@@ -206,7 +206,7 @@ export class EventsComponent implements OnInit, OnDestroy {
         filter.notificationsCount = this.notifications.length;
     }
 
-    private clearNotifications() {
+    private clearNotifications(): void {
         this.notifications = [];
     }
 
@@ -218,7 +218,7 @@ export class EventsComponent implements OnInit, OnDestroy {
         return options;
     }
 
-    private appendOptions() {
+    private appendOptions(): void {
         this.clearNotifications();
 
         const options = this.getCurrentOptions();
@@ -240,13 +240,18 @@ export class EventsComponent implements OnInit, OnDestroy {
     ): EventsWidgetNotification[] {
         let notifications = allNotifications;
 
-        if (filterOptions.filter && filterOptions.filter != 'all')
-            notifications = notifications.filter((x) => x.status.name == filterOptions.filter);
+        if (filterOptions.filter && filterOptions.filter === 'all') {
+            notifications = notifications.filter((x) => x.status.name !== 'closed');
+        }
 
-        if (filterOptions.categories && filterOptions.categories.length > 0)
+        if (filterOptions.filter && filterOptions.filter !== 'all') {
+            notifications = notifications.filter((x) => x.status.name === filterOptions.filter);
+        }
+        if (filterOptions.categories && filterOptions.categories.length > 0) {
             notifications = notifications.filter((x) =>
-                filterOptions.categories.some((c) => c == x.category.name)
+                filterOptions.categories.some((c) => c === x.category.name)
             );
+        }
 
         return notifications;
     }
