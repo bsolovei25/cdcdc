@@ -34,9 +34,9 @@ import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service'
     styleUrls: ['./line-chart-workspace.component.scss'],
 })
 export class LineChartWorkspaceComponent implements OnInit {
-    code;
-    public title;
-    units;
+    code: number;
+    public title: string;
+    units: number;
     options = {
         factLineType: 'curveLinear',
         lowerLimitLineType: 'curveMonotoneX',

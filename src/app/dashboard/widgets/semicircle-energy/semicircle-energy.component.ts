@@ -101,9 +101,9 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
                 if (data) {
                     this.title = data.title;
                     this.code = data.code;
+                    // this.units = data.units;
+                    // this.name = data.name;
                 }
-                // this.units = data.units;
-                // this.name = data.name;
             })
         );
     }

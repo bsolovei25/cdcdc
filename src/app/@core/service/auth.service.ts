@@ -3,16 +3,18 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 // RxJS
 import { BehaviorSubject } from 'rxjs';
-import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from 'src/app/services/appConfigService';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { IUser } from '../../dashboard/models/events-widget';
 // Local modules
 
-interface ITokenData {
+export interface ITokenData {
     login: string;
     firstName: string;
     lastName: string;
     middleName: string;
+    brigade: { id: number; number: string };
     phone: string;
     position: string;
     positionDescription: string;
@@ -28,10 +30,10 @@ export class AuthService {
     private authTokenData: ITokenData | null;
     private restUrl: string;
 
-    user$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+    user$: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(null);
 
     get userIsAuthenticated(): boolean {
-        return false;
+        return this.authTokenData !== null || false;
     }
 
     get userSessionToken(): string | null {
@@ -63,12 +65,14 @@ export class AuthService {
         }
     }
 
-    async getUserAuth(): Promise<any[]> | null {
+    async getUserAuth(): Promise<ITokenData> | null {
         try {
             if (this.restUrl) {
-                return await this.http
-                    .get<any[]>(this.restUrl + '/api/user-management/current')
+                const current: ITokenData = await this.http
+                    .get<ITokenData>(this.restUrl + '/api/user-management/current')
                     .toPromise();
+                this.user$.next(current);
+                return current;
             }
         } catch (error) {
             this.router.navigate(['login']);
@@ -79,7 +83,7 @@ export class AuthService {
 
     private configureUserAuth(tokenData: ITokenData): void {
         this.authTokenData = tokenData;
-        this.user$.next('');
+        this.user$.next(tokenData);
         // save token
         localStorage.setItem('authentication-token', this.authTokenData.token);
     }

@@ -1,41 +1,48 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '@core/service/auth.service';
 import { Router } from '@angular/router';
-
-interface IUserInfo {
-    firstName: string;
-    lastName?: string;
-    middleName?: string;
-    positionDescription?: string;
-    brigade?: { id: number; number: string };
-}
+import { IUser } from '../../models/events-widget';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'evj-user-info',
     templateUrl: './user-info.component.html',
     styleUrls: ['./user-info.component.scss'],
 })
-export class UserInfoComponent implements OnInit {
-    data: IUserInfo = {
+export class UserInfoComponent implements OnInit, OnDestroy {
+    data: IUser = {
+        id: 0,
         firstName: '',
         lastName: '',
-        brigade: { id: 0, number: '' },
         middleName: '',
+        brigade: { id: 0, number: '' },
         positionDescription: '',
     };
     isShowScreens: boolean = false;
+    subscription: Subscription;
 
     constructor(private authService: AuthService, private router: Router) {}
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.loadData();
     }
 
-    async loadData(): Promise<void> {
-        const data: any[] = await this.authService.getUserAuth();
-        if (data && data[0]) {
-            this.data = data[0];
+    ngOnDestroy(): void {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
         }
+    }
+
+    async loadData(): Promise<void> {
+        this.subscription = this.authService.user$.subscribe((data) => {
+            if (data) {
+                if (data[0]) {
+                    this.data = data[0];
+                } else {
+                    this.data = data;
+                }
+            }
+        });
     }
 
     async logOut(): Promise<void> {
