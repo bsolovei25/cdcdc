@@ -62,7 +62,8 @@
         <div class="onShift__label">На смене</div>
         <ng-container *ngIf="currentShift != null">
           <div class="onShift__add" #addShift (click)="showPeople()">
-            +
+            <span class="onShift__add-verical"></span>
+            <span class="onShift__add-horizontal"></span>
           </div>
           <div class="onShift__people scroll-bar">
             <div *ngFor="let person of this.presentMembers; let i = index">

@@ -397,6 +397,30 @@
           box-shadow: 0px 0px 2px var(--color-border-active);
           font-weight: bold;
         }
+
+        &-verical {
+          position: absolute;
+          margin: auto;
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          width: 2px;
+          height: 10px;
+          background: var(--color-text-sub);
+        }
+
+        &-horizontal {
+          position: absolute;
+          margin: auto;
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          height: 2px;
+          width: 10px;
+          background: var(--color-text-sub);
+        }
       }
 
       &__people {
@@ -475,7 +499,7 @@
     position: relative;
     box-sizing: border-box;
     padding-top: 15px;
-    min-height: 120px;
+    min-height: 100px;
 
     .absent {
       &__label {
@@ -494,8 +518,7 @@
         overflow: auto;
         box-sizing: border-box;
         padding: 3px 0 0;
-        height: 90px;
-        margin-bottom: 10px;
+        height: 85px;
       }
 
       &__person {
@@ -504,11 +527,9 @@
         margin-top: 20px;
         display: inline-flex;
         position: relative;
-        //border-top: 0.5px dashed var(--color-border-main-transparrent);
         font-size: 7px;
         box-sizing: border-box;
-        //padding-top: 5px;
-        margin: 0 7px 20px;
+        margin: 0 5px 10px;
 
         .person {
           display: flex;
