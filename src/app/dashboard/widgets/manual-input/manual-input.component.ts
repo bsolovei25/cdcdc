@@ -131,7 +131,7 @@ export class ManualInputComponent implements OnInit, OnDestroy {
 
     setInitData() {
         this.http
-            .get(this.restUrl + '/api/manualinput/ManualInputData/' + this.id)
+            .get(this.restUrl + '/api/manualinput/ManualInputData/' + this.id, { withCredentials: true })
             .subscribe((ref: Machine_MI[]) => {
                 this.Data = this.manualInputService.LoadData(this.Data, ref);
             });

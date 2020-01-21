@@ -20,15 +20,15 @@ export class ShiftService {
     }
 
     private async getShiftPassAsync(): Promise<any> {
-        return this.http.get(this.restUrl + '/api/shift').toPromise();
+        return this.http.get(this.restUrl + '/api/shift', { withCredentials: true }).toPromise();
     }
 
     private async getAllMembersAsync(): Promise<any> {
-        return this.http.get(this.restUrl + '/api/user-management/users').toPromise();
+        return this.http.get(this.restUrl + '/api/user-management/users', { withCredentials: true }).toPromise();
     }
 
     private async getFreeMembersAsync(id: number): Promise<any> {
-        return this.http.get(this.restUrl + '/api/shift/users/free/' + id.toString()).toPromise();
+        return this.http.get(this.restUrl + '/api/shift/users/free/' + id.toString(), { withCredentials: true }).toPromise();
     }
 
     private async changePositionAsync(id, idShift): Promise<any> {
@@ -40,7 +40,8 @@ export class ShiftService {
                     '/employee/' +
                     id.toString() +
                     '/setresponsible',
-                null
+                null,
+                { withCredentials: true }
             )
             .toPromise();
     }
@@ -55,26 +56,27 @@ export class ShiftService {
                     id +
                     '/ChangeStatus/' +
                     status,
-                null
+                null,
+                { withCredentials: true }
             )
             .toPromise();
     }
 
     private async addMemberAsync(id, idShift): Promise<any> {
         return this.http
-            .post(this.restUrl + '/api/shift/' + idShift + '/Employee/' + id, null)
+            .post(this.restUrl + '/api/shift/' + idShift + '/Employee/' + id, null, { withCredentials: true })
             .toPromise();
     }
 
     private async delMemberAsync(id, idShift): Promise<any> {
         return this.http
-            .delete(this.restUrl + '/api/shift/' + idShift + '/Employee/' + id)
+            .delete(this.restUrl + '/api/shift/' + idShift + '/Employee/' + id, { withCredentials: true })
             .toPromise();
     }
 
     private async applyShiftAsync(idShift, type) {
         return this.http
-            .post(this.restUrl + '/api/shift/' + idShift + '/' + type, null)
+            .post(this.restUrl + '/api/shift/' + idShift + '/' + type, null, { withCredentials: true })
             .toPromise();
     }
 
@@ -84,7 +86,7 @@ export class ShiftService {
             comment: commentary,
         };
         return this.http
-            .post(this.restUrl + '/api/shift/' + idShift + '/passingcomment', body)
+            .post(this.restUrl + '/api/shift/' + idShift + '/passingcomment', body, { withCredentials: true })
             .toPromise();
     }
 
@@ -94,7 +96,7 @@ export class ShiftService {
             comment: commentary,
         };
         return this.http
-            .post(this.restUrl + '/api/shift/' + idShift + '/acceptingcomment', body)
+            .post(this.restUrl + '/api/shift/' + idShift + '/acceptingcomment', body, { withCredentials: true })
             .toPromise();
     }
 
