@@ -245,7 +245,7 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
             const currentComments: ShiftComment[] = this.currentShift.shiftAcceptingComments;
             if (currentComments.length === 0) {
                 const message: string = 'Введите комментарий';
-                const panelClass = 'snackbar-red';
+                const panelClass: string = 'snackbar-red';
                 this.openSnackBar(message, panelClass);
             } else {
                 alert('Have comments');
