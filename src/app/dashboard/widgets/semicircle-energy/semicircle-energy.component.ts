@@ -134,13 +134,6 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
         this.lowerLimit = data.lowerLimit;
         this.upperLimit = data.upperLimit;
         this.productionList = data.items.slice();
-        for (const item of this.productionList) {
-            if (item.fact > 120) {
-                item.fact = 120;
-            } else if (item.fact < 0) {
-                item.fact = 0;
-            }
-        }
     }
 
     drawDiagram(): void {
