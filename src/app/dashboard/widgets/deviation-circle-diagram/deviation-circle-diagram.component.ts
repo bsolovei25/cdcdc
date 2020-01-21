@@ -83,7 +83,14 @@ export class DeviationCircleDiagramComponent implements OnInit, OnDestroy {
 
     copyAbsoluteData(data: DeviationCircleDiagram): void {
         for (const prop of Object.keys(data)) {
-            this.deviationCircleDiagram[prop] = Math.abs(data[prop]);
+            let value: number;
+            if (data[prop] % 1 !== 0) {
+                value = Number(data[prop]);
+                value = +value.toFixed(2);
+            } else {
+                value = data[prop];
+            }
+            this.deviationCircleDiagram[prop] = Math.abs(value);
         }
     }
 
