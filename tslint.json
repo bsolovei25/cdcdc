@@ -5,8 +5,14 @@
       true,
       "array"
     ],
-    "file-name-casing": [true, "kebab-case"],
-    "interface-name": [true, "always-prefix"],
+    "file-name-casing": [
+      true,
+      "kebab-case"
+    ],
+    "interface-name": [
+      true,
+      "always-prefix"
+    ],
     "arrow-parens": false,
     "deprecation": {
       "severity": "warning"
