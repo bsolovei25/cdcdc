@@ -218,21 +218,25 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
         }
     }
 
-    shiftApply(): void {
+    shiftApply() {
         // TODO
-        if (this.aboutWidget.widgetType === 'shift-pass') {
-            try {
-                this.shiftService.applyShift(this.currentShift.id, 'pass');
-            } catch (error) {
-                console.error(error);
-            }
-        } else {
-            try {
-                this.shiftService.applyShift(this.currentShift.id, 'accept');
-            } catch (error) {
-                console.error(error);
-            }
-        }
+        const typeOfChangingShift: string =
+            this.aboutWidget.widgetType === 'shift-pass' ? 'pass' : 'accept';
+        this.shiftService
+            .applyShift(this.currentShift.id, typeOfChangingShift)
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                if (err.status === 400) {
+                    const message: string = 'Выберите главного';
+                    const panelClass: string = 'snackbar-red';
+                    this.openSnackBar(message, panelClass);
+                    console.error(err.status);
+                } else {
+                    console.error(err.status);
+                }
+            });
     }
 
     openSnackBar(
