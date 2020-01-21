@@ -1,8 +1,18 @@
-import { Component, OnInit, ViewChild, ElementRef, Inject, HostListener } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    ViewChild,
+    ElementRef,
+    Inject,
+    HostListener,
+    OnDestroy,
+} from '@angular/core';
 import { ShiftService } from '../../services/shift.service';
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { Shift, ShiftComment, ShiftMember } from '../../models/shift.model';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { IWidgets } from '../../models/widget.model';
 
 interface CommentModel {
     id: number;
@@ -13,7 +23,7 @@ interface CommentModel {
     templateUrl: './change-shift.component.html',
     styleUrls: ['./change-shift.component.scss'],
 })
-export class ChangeShiftComponent implements OnInit {
+export class ChangeShiftComponent implements OnInit, OnDestroy {
     @ViewChild('input', { static: false }) input: ElementRef;
     @ViewChild('scroll', { static: false }) scroll: ElementRef;
     @ViewChild('allPeople', { static: false }) allPeople: ElementRef;
@@ -35,20 +45,21 @@ export class ChangeShiftComponent implements OnInit {
     public title: string = '';
 
     comments: ShiftComment[] = [];
-    aboutWidget;
+    aboutWidget: IWidgets;
     currentShift: Shift = null;
-    presentMembers = null;
-    absentMembers = null;
-    addingShiftMembers = [];
+    presentMembers: ShiftMember[] = null;
+    absentMembers: ShiftMember[] = null;
+    addingShiftMembers: ShiftMember[] = [];
 
     private subscriptions: Subscription[] = [];
 
-    static itemCols = 16;
-    static itemRows = 30;
+    static itemCols: number = 16;
+    static itemRows: number = 30;
 
     constructor(
         private widgetService: NewWidgetService,
         private shiftService: ShiftService,
+        private snackBar: MatSnackBar,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -74,7 +85,7 @@ export class ChangeShiftComponent implements OnInit {
         );
     }
 
-    ngOnInit() {}
+    ngOnInit(): void {}
 
     ngOnDestroy(): void {
         if (this.subscriptions) {
@@ -84,7 +95,7 @@ export class ChangeShiftComponent implements OnInit {
         }
     }
 
-    private setRealtimeData(widgetType, data) {
+    private setRealtimeData(widgetType, data): void {
         if (!widgetType || !data) {
             return;
         }
@@ -130,7 +141,7 @@ export class ChangeShiftComponent implements OnInit {
         }
     }
 
-    async onSendMessage() {
+    async onSendMessage(): Promise<void> {
         if (this.input.nativeElement.value) {
             const comment = await this.shiftService.sendComment(
                 this.currentShift.shiftMembers.find((el) => el.position === 'responsible').employee
@@ -182,7 +193,7 @@ export class ChangeShiftComponent implements OnInit {
     }
 
     @HostListener('document:changeShift_clickAddBtn', ['$event'])
-    removeAddPeople(event) {
+    removeAddPeople(event): void {
         const classes: DOMTokenList = this.addShift.nativeElement.classList;
         if (classes.contains('onShift__add-active')) {
             classes.remove('onShift__add-active');
@@ -205,11 +216,40 @@ export class ChangeShiftComponent implements OnInit {
         }
     }
 
-    shiftApply() {
+    shiftApply(): void {
         if (this.aboutWidget.widgetType === 'shift-pass') {
             this.shiftService.applyShift(this.currentShift.id, 'pass');
         } else {
             this.shiftService.applyShift(this.currentShift.id, 'accept');
         }
+    }
+
+    openSnackBar(
+        msg: string = 'Операция выполнена',
+        panelClass: string | string[] = '',
+        msgDuration: number = 5000,
+        actionText?: string,
+        actionFunction?: () => void
+    ): void {
+        const configSnackBar = new MatSnackBarConfig();
+        configSnackBar.panelClass = panelClass;
+        configSnackBar.duration = msgDuration;
+        const snackBarInstance = this.snackBar.open(msg, actionText, configSnackBar);
+        if (actionFunction) {
+            snackBarInstance.onAction().subscribe(() => actionFunction());
+        }
+    }
+
+    onRefuse(): void {
+        this.shiftService.getShiftInfo().then(() => {
+            const currentComments: ShiftComment[] = this.currentShift.shiftAcceptingComments;
+            if (currentComments.length === 0) {
+                const message: string = 'Введите комментарий';
+                const panelClass = 'snackbar-red';
+                this.openSnackBar(message, panelClass);
+            } else {
+                alert('Have comments');
+            }
+        });
     }
 }
