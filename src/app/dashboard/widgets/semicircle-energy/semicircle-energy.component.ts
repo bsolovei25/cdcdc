@@ -114,18 +114,7 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
                 this.widgetService
                     .getWidgetLiveDataFromWS(this.id, this.widgetType)
                     .subscribe((data: SemicircleEnergy) => {
-                        this.iconType = data.iconType;
-                        this.lowerLimit = data.lowerLimit;
-                        this.upperLimit = data.upperLimit;
-                        this.productionList = data.items.slice();
-                        // TODO
-                        for (const el of this.productionList) {
-                            if (el.fact > 120) {
-                                el.fact = 120;
-                            } else if (el.fact < 0) {
-                                el.fact = 0;
-                            }
-                        }
+                        this.copyData(data);
                         this.logoType();
                         this.warningControl();
                         this.drawDiagram();
@@ -137,6 +126,20 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         if (this.subscriptions) {
             this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+        }
+    }
+
+    copyData(data: SemicircleEnergy): void {
+        this.iconType = data.iconType;
+        this.lowerLimit = data.lowerLimit;
+        this.upperLimit = data.upperLimit;
+        this.productionList = data.items.slice();
+        for (const item of this.productionList) {
+            if (item.fact > 120) {
+                item.fact = 120;
+            } else if (item.fact < 0) {
+                item.fact = 0;
+            }
         }
     }
 
@@ -241,7 +244,10 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
 
     diaEndsLine(line: number, rad: string): CenterCoords {
         const newLine = 100 - line + +this.radPoint; // отсчет угла от 100%
-        const t = (((1.5 * Math.PI) / 2) * newLine) / 100 + (2.5 * Math.PI) / 2;
+        let t = (((1.5 * Math.PI) / 2) * newLine) / 100 + (2.5 * Math.PI) / 2;
+        if (t < Math.PI + 0.04) {
+            t = Math.PI + 0.04;
+        }
         const r = +rad;
         const centerOfTheEnd: CenterCoords = {
             xCen: (-r * Math.cos(t) + +this.centerX).toString(),
