@@ -3,7 +3,7 @@
   <div *ngIf="data" class="user-info_data">
     <div class="user-name">
       <span>
-        {{ data.lastName }} {{ data.firstName | slice : 0 : 1 }}.{{ data.middleName | slice : 0 : 1
+        {{ data.lastName ? data.lastName : data.login }} {{ data.firstName | slice : 0 : 1 }}.{{ data.middleName | slice : 0 : 1
         }}
       </span>
     </div>
