@@ -64,8 +64,7 @@ export class AuthService {
 
         // Try get current by token
         try {
-            const token = this.userSessionToken;
-            if (token) {
+            if (this.userSessionToken) {
                 current = await this.http
                     .get<ITokenData[]>(this.restUrl + '/api/user-management/current')
                     .toPromise();
