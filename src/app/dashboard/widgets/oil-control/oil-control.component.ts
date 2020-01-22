@@ -26,7 +26,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
     @ViewChild('oilBak', { static: false }) oilBak: ElementRef;
     @ViewChild('oilCircle', { static: false }) oilCircle: ElementRef;
     @ViewChild('borders', { static: false }) borders: ElementRef;
-    @ViewChild('line', {static: false}) line: ElementRef;
+    @ViewChild('line', { static: false }) line: ElementRef;
 
     static itemCols = 32;
     static itemRows = 12;
@@ -956,7 +956,6 @@ export class OilControlComponent implements OnInit, AfterViewInit {
     public newWidth;
     public checkWidth: boolean = false;
 
-
     public criticalPage: any = [];
 
     constructor(
@@ -976,7 +975,6 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             })
         );
 
-
         this.maxPage = this.data.product[2].storage.length;
         this.activeProduct = this.data.product;
         if (this.activeProduct[2].storage.length < 3) {
@@ -989,8 +987,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
     }
     public test = false;
 
-    ngOnInit() {
-    }
+    ngOnInit() {}
 
     ngAfterViewInit() {
         if (!this.isMock) {
@@ -1005,10 +1002,10 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                 this.resizeWidget.subscribe((data) => {
                     this.newWidth = data.clientX;
                     this.onResize(data.clientX);
-               //     if ( this.checkWidth ) {
-               //         this.clearProduct();
-               //         this.drawOilControl();
-               //     }
+                    //     if ( this.checkWidth ) {
+                    //         this.clearProduct();
+                    //         this.drawOilControl();
+                    //     }
                 })
             );
         }
@@ -1029,12 +1026,11 @@ export class OilControlComponent implements OnInit, AfterViewInit {
     public drawOilControl() {
         this.drawPicture(this.oilIcon.nativeElement);
         this.drawBak(this.oilBak.nativeElement);
-        if (this.newArrayProduct.length === 0){
+        if (this.newArrayProduct.length === 0) {
             this.FilterCircle(this.data.product, this.indexTestProduct);
         } else {
             this.FilterCircle(this.newArrayProduct, this.indexTestProduct);
         }
-        
     }
 
     public clearOilControl() {
@@ -1055,7 +1051,6 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             .attr('class', 'textProduct')
             .attr('viewBox', '0 0 350 140');
 
-        
         let x1 = -100;
         let x2 = -80;
         let x3 = -48;
@@ -1068,10 +1063,10 @@ export class OilControlComponent implements OnInit, AfterViewInit {
 
         let countPicture = 0;
 
-        for(let i of this.activeStorage.tanker){
-            if (i.shipped === true){
+        for (let i of this.activeStorage.tanker) {
+            if (i.shipped === true) {
                 countPicture++;
-            } 
+            }
         }
 
         if (countPicture === 1) {
@@ -1083,9 +1078,9 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             x1 = -180;
             x2 = -160;
             x3 = -48;
-            x4 = -48; 
+            x4 = -48;
             y = 180;
-        } else { 
+        } else {
             x1 = -100;
             x2 = -80;
             x3 = -48;
@@ -1147,50 +1142,48 @@ export class OilControlComponent implements OnInit, AfterViewInit {
         this.drawLine(this.line.nativeElement, countPicture);
     }
 
-    public drawLine(el, count){
+    public drawLine(el, count) {
         console.log('Картинки', count);
         let size = 0;
-        if(this.newWidth){
-            size = this.newWidth/100;
+        if (this.newWidth) {
+            size = this.newWidth / 100;
         }
         let svgLine = d3
-        .select(el)
-        .append('svg')
-        .attr('min-width', '300px')
-        .attr('height', '55px')
-        .attr('width', '100%')
-        .attr('class', 'textProduct')
-        .attr('viewBox', '0 0 1200 200');
+            .select(el)
+            .append('svg')
+            .attr('min-width', '300px')
+            .attr('height', '55px')
+            .attr('width', '100%')
+            .attr('class', 'textProduct')
+            .attr('viewBox', '0 0 1200 200');
 
-        if ( count === 1) {
+        if (count === 1) {
             let lineOne = svgLine
-            .append('image')
-            .attr('xlink:href', './assets/pic/OilControl/LineOne.svg')
-            .attr('height', '100%')
-            .attr('width', '100%')
-            .attr('class', 'textProduct')
-            .attr('x', 200 + size)
-            .attr('y', '0');
-        } else if ( count === 2) {
-
+                .append('image')
+                .attr('xlink:href', './assets/pic/OilControl/LineOne.svg')
+                .attr('height', '100%')
+                .attr('width', '100%')
+                .attr('class', 'textProduct')
+                .attr('x', 200 + size)
+                .attr('y', '0');
+        } else if (count === 2) {
             let lineTwo = svgLine
-            .append('image')
-            .attr('xlink:href', './assets/pic/OilControl/LineTwo.svg')
-            .attr('height', '100%')
-            .attr('width', '100%')
-            .attr('class', 'textProduct')
-            .attr('x', 300)
-            .attr('y', '0');
+                .append('image')
+                .attr('xlink:href', './assets/pic/OilControl/LineTwo.svg')
+                .attr('height', '100%')
+                .attr('width', '100%')
+                .attr('class', 'textProduct')
+                .attr('x', 300)
+                .attr('y', '0');
         } else {
-
             let lineThree = svgLine
-            .append('image')
-            .attr('xlink:href', './assets/pic/OilControl/LineThree.svg')
-            .attr('height', '100%')
-            .attr('width', '100%')
-            .attr('class', 'textProduct')
-            .attr('x', 450)
-            .attr('y', '0');
+                .append('image')
+                .attr('xlink:href', './assets/pic/OilControl/LineThree.svg')
+                .attr('height', '100%')
+                .attr('width', '100%')
+                .attr('class', 'textProduct')
+                .attr('x', 450)
+                .attr('y', '0');
         }
     }
 
@@ -1468,36 +1461,42 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                         if (textStorage.status === 'critical') {
                             this.criticalPage.push(textStorage);
                             let valueGoodText = svg
-                            .append('text')
-                            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                            .attr('font-size', '25px')
-                            .attr('x', pie.x)
-                            .attr('y', pie.y)
-                            .attr('text-anchor', 'middle')
-                            .attr('fill', 'orange')
-                            .attr('cursor', 'pointer')
-                            .attr('class', 'textValues')
-                            .attr('id', indexStorage)
-                            .text(textStorage.nameStorage)
-                            .on('click', () => {
-                                this.onButtonChangeStorage(textStorage.id, dataStorage);
-                            });
+                                .append('text')
+                                .attr(
+                                    'font-family',
+                                    "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+                                )
+                                .attr('font-size', '25px')
+                                .attr('x', pie.x)
+                                .attr('y', pie.y)
+                                .attr('text-anchor', 'middle')
+                                .attr('fill', 'orange')
+                                .attr('cursor', 'pointer')
+                                .attr('class', 'textValues')
+                                .attr('id', indexStorage)
+                                .text(textStorage.nameStorage)
+                                .on('click', () => {
+                                    this.onButtonChangeStorage(textStorage.id, dataStorage);
+                                });
                         } else {
                             let valueGoodText = svg
-                            .append('text')
-                            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                            .attr('font-size', '25px')
-                            .attr('x', pie.x)
-                            .attr('y', pie.y)
-                            .attr('text-anchor', 'middle')
-                            .attr('fill', '#a2e2ff')
-                            .attr('cursor', 'pointer')
-                            .attr('class', 'textValues')
-                            .attr('id', indexStorage)
-                            .text(textStorage.nameStorage)
-                            .on('click', () => {
-                                this.onButtonChangeStorage(textStorage.id, dataStorage);
-                            });
+                                .append('text')
+                                .attr(
+                                    'font-family',
+                                    "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+                                )
+                                .attr('font-size', '25px')
+                                .attr('x', pie.x)
+                                .attr('y', pie.y)
+                                .attr('text-anchor', 'middle')
+                                .attr('fill', '#a2e2ff')
+                                .attr('cursor', 'pointer')
+                                .attr('class', 'textValues')
+                                .attr('id', indexStorage)
+                                .text(textStorage.nameStorage)
+                                .on('click', () => {
+                                    this.onButtonChangeStorage(textStorage.id, dataStorage);
+                                });
                         }
                         this.htmlDataStorage = dataStorage;
                         this.htmlStorage = textStorage.nameStorage;
@@ -1537,18 +1536,18 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             .attr('class', 'textProduct')
             .attr('y', this.rectYHeight - this.activeStorage.tank.bakLevel * 2.2 + 10);
 
-        for(let item of this.activeStorage.tank.tankValue){
-            if (item.status === 'critical'){
+        for (let item of this.activeStorage.tank.tankValue) {
+            if (item.status === 'critical') {
                 let bakValue = canvas
-                .append('text')
-                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                .attr('font-size', '38px')
-                .attr('x', '190')
-                .attr('y', '100')
-                .attr('text-anchor', 'middle')
-                .attr('class', 'textProduct')
-                .attr('fill', item.status === 'critical' ? 'orange' : 'white')
-                .text(item.valueFirst);
+                    .append('text')
+                    .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                    .attr('font-size', '38px')
+                    .attr('x', '190')
+                    .attr('y', '100')
+                    .attr('text-anchor', 'middle')
+                    .attr('class', 'textProduct')
+                    .attr('fill', item.status === 'critical' ? 'orange' : 'white')
+                    .text(item.valueFirst);
             }
         }
     }

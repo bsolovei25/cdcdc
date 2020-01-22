@@ -15,20 +15,16 @@
     width: 26px;
     height: 32px;
     background-color: transparent;
-   
   }
 
   .paginator-button:active,
   .paginator-button:focus {
     outline: none;
-    
   }
 
-  .critical{
+  .critical {
     color: orange;
   }
-
- 
 
   .paginator-button:disabled {
     cursor: default;

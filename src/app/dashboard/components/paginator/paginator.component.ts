@@ -39,7 +39,6 @@ export class PaginatorComponent implements OnInit, OnChanges, AfterViewInit {
     public check: boolean = true;
     public mass = [];
 
-
     public get leftDots(): number[] {
         const leftPages = this.leftPages;
 
@@ -124,8 +123,7 @@ export class PaginatorComponent implements OnInit, OnChanges, AfterViewInit {
         this.criticalValue(this.criticalPage);
     }
 
-    ngAfterViewInit(): void {
-    }
+    ngAfterViewInit(): void {}
 
     ngOnChanges(changes: SimpleChanges) {
         if ('totalCount' in changes) {
@@ -171,9 +169,9 @@ export class PaginatorComponent implements OnInit, OnChanges, AfterViewInit {
         }
     }
 
-    public criticalValue(data: any){
+    public criticalValue(data: any) {
         this.check = false;
-        for(let item of data){
+        for (let item of data) {
             this.mass.push(item.id);
         }
         console.log(this.mass);
