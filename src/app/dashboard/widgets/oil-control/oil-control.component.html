@@ -397,12 +397,12 @@
               </svg>
             </div>
             <div class="oil_info">
-              <ng-container *ngIf="!checkWidth">
-                <div id="start" class="oil_block_info">
-                  <div class="oil_block_inter_info">
-                    <ng-container *ngFor="let item of this.activeProduct[2].storage">
+             <!-- <ng-container *ngIf="!checkWidth"> -->
+                <div id="start" class="oil_block_info" [class.oil_block_info_short]="checkWidth">
+                  <div class="oil_block_inter_info" [class.oil_block_inter_info_short]="checkWidth">
+                    <ng-container *ngFor="let item of this.activeProduct[indexProductActive].storages">
                       <ng-container *ngIf="item.nameStorage === this.activeStorage.nameStorage">
-                        <div class="row">
+                        <div class="row" [class.row_short]="checkWidth">
                           <div class="page">
                             <!-- <ng-container *ngFor="let item of this.activeProduct[2].storage; index as i">
                                                                                       <div [class.activePage]="item.nameStorage === this.activeStorage.nameStorage">{{i+1}}</div>
@@ -417,7 +417,7 @@
                             >
                             </evj-paginator>
                           </div>
-                          <div class="data">
+                          <div class="data" [class.date_short]="checkWidth">
                             <div>
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -439,11 +439,11 @@
                               {{this.activeStorage.tank.timeEnd}}
                             </div>
                           </div>
-                          <div class="name_value_debalance">
+                          <div class="name_value_debalance" [class.name_value_debalance_short]="checkWidth">
                             Дебаланс:
                           </div>
                           <div class="value_oil_debalance">
-                            <ng-container *ngFor="let item of this.activeStorage.tank.tankValue">
+                            <ng-container *ngFor="let item of this.activeStorage.tank.tankValues">
                               <ng-container *ngIf="item.name === 'Дебаланс'">
                                 <div
                                   [class.critical]="item.status === 'critical'"
@@ -461,13 +461,13 @@
                             </ng-container>
                           </div>
                         </div>
-                        <div class="row">
-                          <ng-container *ngFor="let item of this.activeStorage.tank.tankValue">
+                        <div class="row" [class.row_short]="checkWidth">
+                          <ng-container *ngFor="let item of this.activeStorage.tank.tankValues">
                             <ng-container *ngIf="item.name === 'Отгружено по резервуару'">
-                              <div class="name_value">
+                              <div class="name_value" [class.name_value_short]="checkWidth">
                                 Отгружено по резервуару:
                               </div>
-                              <div class="value_oil">
+                              <div class="value_oil" [class.value_oil_short]="checkWidth">
                                 <div
                                   [class.critical]="item.status === 'critical'"
                                   [class.default]="item.status === 'default'"
@@ -483,10 +483,10 @@
                               </div>
                             </ng-container>
                             <ng-container *ngIf="item.name === 'Допустимый дебаланс'">
-                              <div class="name_value">
+                              <div class="name_value" [class.name_value_short]="checkWidth">
                                 Допустимый дебаланс:
                               </div>
-                              <div class="value_oil">
+                              <div class="value_oil" [class.value_oil_short]="checkWidth">
                                 <div
                                   [class.critical]="item.status === 'critical'"
                                   [class.default]="item.status === 'default'"
@@ -503,13 +503,13 @@
                             </ng-container>
                           </ng-container>
                         </div>
-                        <div class="row">
-                          <ng-container *ngFor="let item of this.activeStorage.tank.tankValue">
+                        <div class="row" [class.row_short]="checkWidth">
+                          <ng-container *ngFor="let item of this.activeStorage.tank.tankValues">
                             <ng-container *ngIf="item.name === 'По данным отгрузки'">
-                              <div class="name_value">
+                              <div class="name_value" [class.name_value_short]="checkWidth">
                                 По данными отгрузки:
                               </div>
-                              <div class="value_oil">
+                              <div class="value_oil" [class.value_oil_short]="checkWidth">
                                 <div
                                   [class.critical]="item.status === 'critical'"
                                   [class.default]="item.status === 'default'"
@@ -522,10 +522,10 @@
                               </div>
                             </ng-container>
                             <ng-container *ngIf="item.name === 'Отклонение'">
-                              <div class="name_value">
+                              <div class="name_value" [class.name_value_short]="checkWidth">
                                 Отклонение:
                               </div>
-                              <div class="value_oil">
+                              <div class="value_oil" [class.value_oil_short]="checkWidth">
                                 <div
                                   [class.critical]="item.status === 'critical'"
                                   [class.default]="item.status === 'default'"
@@ -546,7 +546,8 @@
                     </ng-container>
                   </div>
                 </div>
-              </ng-container>
+               <!-- </ng-container> -->
+              <!--
               <ng-container *ngIf="checkWidth">
                 <div id="start" class="oil_block_info" [class.oil_block_info_short]="checkWidth">
                   <div class="oil_block_inter_info" [class.oil_block_inter_info_short]="checkWidth">
@@ -554,9 +555,6 @@
                       <ng-container *ngIf="item.nameStorage === this.activeStorage.nameStorage">
                         <div class="row_short">
                           <div class="page_short">
-                            <!-- <ng-container *ngFor="let item of this.activeProduct[2].storage; index as i">
-                                                        <div [class.activePage]="item.nameStorage === this.activeStorage.nameStorage">{{i+1}}</div>
-                                                    </ng-container> -->
                             <evj-paginator
                               [perPage]="1"
                               [currentPage]="this.currentPage"
@@ -653,6 +651,7 @@
                   </div>
                 </div>
               </ng-container>
+              -->
 
               <div class="line_on_picture" #line [class.line_on_picture_short]="checkWidth"></div>
               <div class="oil_picture" [class.oil_picture_short]="checkWidth">
@@ -671,21 +670,25 @@
                   >
                     <g id="XMLID_2_">
                       <polygon
+                        [class.st10-critical]="isCriticalArrow"
                         id="XMLID_6_"
                         class="st10"
                         points="417.3,524 479.4,413.5 417.3,303 501.7,303 563.8,413.5 501.7,524 	"
                       />
                       <polygon
+                        [class.st11-critical]="isCriticalArrow"
                         id="XMLID_5_"
                         class="st11"
                         points="284.7,524 346.8,413.5 284.7,303 369.1,303 431.2,413.5 369.1,524 	"
                       />
                       <polygon
+                        [class.st12-critical]="isCriticalArrow"
                         id="XMLID_4_"
                         class="st12"
                         points="152.1,524 214.2,413.5 152.1,303 236.5,303 298.6,413.5 236.5,524 	"
                       />
                       <polygon
+                        [class.st13-critical]="isCriticalArrow"
                         id="XMLID_3_"
                         class="st13"
                         points="19.5,524 81.5,413.5 19.5,303 103.9,303 166,413.5 103.9,524 	"

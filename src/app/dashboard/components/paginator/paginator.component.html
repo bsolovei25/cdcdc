@@ -9,7 +9,7 @@
     <button
       *ngFor="let page of pages; let i = index;"
       (click)="onClick(page)"
-      [disabled]="currentPage === page && page !== mass[i]"
+      [disabled]="currentPage === page"
       class="paginator-button"
       [class.critical]="!check && page === mass[i]"
     >

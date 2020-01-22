@@ -35,6 +35,10 @@
     background-size: 100% 100%;
   }
 
+  .critical:disabled{
+    background-image: url(../../../../assets/pic/OilControl/critical_button.svg);
+  }
+
   .paginator-button:not(:disabled):hover {
     color: white;
   }

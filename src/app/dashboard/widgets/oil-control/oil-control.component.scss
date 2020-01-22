@@ -81,6 +81,24 @@
   opacity: 0.1;
   fill: #a2e2ff;
 }
+
+.st10-critical {
+  fill: orange;
+}
+.st11-critical {
+  opacity: 0.55;
+  fill: orange;
+}
+.st12-critical {
+  opacity: 0.25;
+  fill: orange;
+}
+.st13-critical {
+  opacity: 0.1;
+  fill: orange;
+}
+
+
 .cls-2 {
   fill: #60647f;
   fill-rule: evenodd;
@@ -221,16 +239,18 @@
 
 .oil_block_info_short {
   min-height: 80px;
-  height: 200px;
+  height: 210px;
   width: 100%;
   margin-top: 10px;
   max-width: 900px;
   background-image: url(../../../../assets/pic/OilControl/border_short2.svg);
   background-repeat: no-repeat;
   background-size: cover;
+  min-height: 210px;
 }
 
 .value_oil_short {
+  margin-top: 10px;
 }
 
 .oil_block_inter_info {
@@ -373,15 +393,13 @@
   margin-top: 15px;
 }
 
+.name_value_debalance_short {
+  margin-left: 15px;
+}
+
 .name_value_short {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin: auto;
-  width: 25%;
-  min-width: 140px;
-  font-size: 12px;
-  color: #8c99b2;
+  margin-left: 15px;
+  margin-top: 10px;
 }
 
 .value_oils_short {
@@ -402,8 +420,19 @@
 }
 
 .row_short {
-  padding-top: 20px;
+ // padding-top: 20px;
+ height: 70px;
+ flex-flow: wrap;
+ min-width: 315px;
+ width: 100%;
+ max-width: 475px;
 }
+
+.date_short{
+  margin:0;
+  margin-top: 15px;
+}
+
 
 .oil_block_inter_info_short {
   background-image: none;
