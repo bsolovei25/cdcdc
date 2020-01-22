@@ -64,7 +64,7 @@ export class AuthService {
 
         // Try get current by token
         try {
-            if (this.authTokenData) {
+            if (this.userSessionToken) {
                 current = await this.http
                     .get<ITokenData[]>(this.restUrl + '/api/user-management/current')
                     .toPromise();
@@ -91,11 +91,12 @@ export class AuthService {
     }
 
     private configureUserAuth(tokenData: ITokenData): void {
+        this.user$.next(tokenData);
+
         if (!tokenData.token)
             return;
 
         this.authTokenData = tokenData;
-        this.user$.next(tokenData);
         // save token
         localStorage.setItem('authentication-token', this.authTokenData.token);
     }
