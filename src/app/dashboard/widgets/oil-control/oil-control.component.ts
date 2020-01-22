@@ -11,7 +11,7 @@ import { NewWidgetService } from '../../services/new-widget.service';
 import { Subscription, pipe, VirtualTimeScheduler } from 'rxjs';
 import 'leader-line';
 import { EventEmitter } from '@angular/core';
-import { OilControls} from '../../models/oil-control';
+import { OilControls } from '../../models/oil-control';
 
 declare var LeaderLine: any;
 
@@ -54,8 +54,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                         nameStorage: 'E-1',
                         status: 'critical',
                         valueStorage: 10253,
-                        tank: 
-                            {
+                        tank: {
                             timeStart: '02:03:20',
                             timeEnd: '04:08:38',
                             tankLevel: 10,
@@ -118,8 +117,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                         nameStorage: 'E-2',
                         valueStorage: 10253,
                         status: 'normal',
-                        tank: 
-                            {
+                        tank: {
                             timeStart: '020320',
                             timeEnd: '040838',
                             tankLevel: 70,
@@ -155,8 +153,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                                     status: 'normal',
                                 },
                             ],
-                            }
-                        ,
+                        },
                         tankers: [
                             {
                                 nameTanker: 'Tug',
@@ -183,8 +180,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                         nameStorage: 'E-3',
                         valueStorage: 10253,
                         status: 'normal',
-                        tank: 
-                            {
+                        tank: {
                             timeStart: '020320',
                             timeEnd: '040838',
                             tankLevel: 100,
@@ -220,8 +216,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                                     status: 'normal',
                                 },
                             ],
-                            } 
-                        ,
+                        },
                         tankers: [
                             {
                                 nameTanker: 'bus',
@@ -250,71 +245,9 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                         status: 'normal',
                         tank: [
                             {
-                            timeStart: '020320',
-                            timeEnd: '040838',
-                            tankLevel: 70,
-                            tankValues: [
-                                {
-                                    name: 'Отгружено по резервуару',
-                                    valueFirst: 1670,
-                                    valueSecond: 98.73,
-                                    status: 'normal',
-                                },
-                                {
-                                    name: 'По данным отгрузки',
-                                    valueFirst: 1700,
-                                    valueSecond: 103.23,
-                                    status: 'normal',
-                                },
-                                {
-                                    name: 'Дебаланс',
-                                    valueFirst: 30,
-                                    valueSecond: 1.27,
-                                    status: 'default',
-                                },
-                                {
-                                    name: 'Допустимый дебаланс',
-                                    valueFirst: 15,
-                                    valueSecond: 103.23,
-                                    status: 'normal',
-                                },
-                                {
-                                    name: 'Отклонение',
-                                    valueFirst: 0,
-                                    valueSecond: 0,
-                                    status: 'normal',
-                                },
-                            ],
-                            }
-                        ],
-                        tankers: [
-                            {
-                                nameTanker: 'bus',
-                                shipped: true,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'pipe',
-                                shipped: false,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'train',
-                                shipped: false,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                        ],
-                    },
-                    {
-                        id: 5,
-                        nameStorage: 'E-5',
-                        valueStorage: 10253,
-                        tank: { 
                                 timeStart: '020320',
                                 timeEnd: '040838',
+                                tankLevel: 70,
                                 tankValues: [
                                     {
                                         name: 'Отгружено по резервуару',
@@ -347,8 +280,69 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                                         status: 'normal',
                                     },
                                 ],
-                            }
-                        ,
+                            },
+                        ],
+                        tankers: [
+                            {
+                                nameTanker: 'bus',
+                                shipped: true,
+                                value: 528,
+                                title: 'Авто ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'pipe',
+                                shipped: false,
+                                value: 528,
+                                title: 'Авто ( AУТН-2 )',
+                            },
+                            {
+                                nameTanker: 'train',
+                                shipped: false,
+                                value: 528,
+                                title: 'Авто ( AУТН-2 )',
+                            },
+                        ],
+                    },
+                    {
+                        id: 5,
+                        nameStorage: 'E-5',
+                        valueStorage: 10253,
+                        tank: {
+                            timeStart: '020320',
+                            timeEnd: '040838',
+                            tankValues: [
+                                {
+                                    name: 'Отгружено по резервуару',
+                                    valueFirst: 1670,
+                                    valueSecond: 98.73,
+                                    status: 'normal',
+                                },
+                                {
+                                    name: 'По данным отгрузки',
+                                    valueFirst: 1700,
+                                    valueSecond: 103.23,
+                                    status: 'normal',
+                                },
+                                {
+                                    name: 'Дебаланс',
+                                    valueFirst: 30,
+                                    valueSecond: 1.27,
+                                    status: 'default',
+                                },
+                                {
+                                    name: 'Допустимый дебаланс',
+                                    valueFirst: 15,
+                                    valueSecond: 103.23,
+                                    status: 'normal',
+                                },
+                                {
+                                    name: 'Отклонение',
+                                    valueFirst: 0,
+                                    valueSecond: 0,
+                                    status: 'normal',
+                                },
+                            ],
+                        },
                         tankers: [
                             {
                                 nameTanker: 'bus',
@@ -886,7 +880,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                 ],
             },
         ],
-    }; 
+    };
 
     storageXY = [
         {
@@ -1010,7 +1004,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                 this.previewTitle = data.widgetType;
             })
         );
-        
+
         this.maxPage = this.data.products[2].storages.length;
         this.activeProduct = this.data.products;
         if (this.activeProduct[2].storages.length < 3) {
@@ -1021,7 +1015,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             this.activeStorage = this.activeProduct[2].storages[2];
         }
     }
-    
+
     public test = false;
 
     ngOnInit() {}
@@ -1029,7 +1023,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
     ngAfterViewInit() {
         if (!this.isMock) {
             //this.drawOilControl(this.data);
-           this.showMock(this.isMock);
+            this.showMock(this.isMock);
             /*
             this.onResize(document.getElementById("test").clientWidth);
             if ( this.checkWidth ) {
@@ -1058,22 +1052,19 @@ export class OilControlComponent implements OnInit, AfterViewInit {
     }
 
     private wsConnect() {
-        this.widgetService
-            .getWidgetLiveDataFromWS(this.id, 'oil-control')
-            .subscribe((ref) => {
-                this.data = ref;
-                if (this.svgMenu) {
-                    this.clearProduct();
-                    this.tankersPicture.remove();
-                    this.tankPicture.remove();
-                    this.svgLine.remove();
-                }
-                this.drawOilControl(this.data);
-            });
+        this.widgetService.getWidgetLiveDataFromWS(this.id, 'oil-control').subscribe((ref) => {
+            this.data = ref;
+            if (this.svgMenu) {
+                this.clearProduct();
+                this.tankersPicture.remove();
+                this.tankPicture.remove();
+                this.svgLine.remove();
+            }
+            this.drawOilControl(this.data);
+        });
     }
     private wsDisconnect() {}
 
-    
     showMock(show) {
         if (show) {
             this.wsDisconnect();
@@ -1089,7 +1080,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
     public drawOilControl(data) {
         this.drawPicture(this.oilIcon.nativeElement);
         this.drawBak(this.oilBak.nativeElement);
-       /* if (this.newArrayProduct.length === 0) {
+        /* if (this.newArrayProduct.length === 0) {
             this.FilterCircle(data.products, this.indexTestProduct);
         } else {
             this.FilterCircle(this.newArrayProduct, this.indexTestProduct);
@@ -1253,9 +1244,9 @@ export class OilControlComponent implements OnInit, AfterViewInit {
 
     public drawOnCircle(el, pieStart, pieEnd, pieStartStorage, pieEndStorage, data, dataStorage) {
         this.criticalPage = [];
-         this.svgMenu = d3.select(el.firstElementChild);
-      //  this.svgMenu = d3.select(el);
-     //   let svgMenu = d3.select(el.firstElementChild);
+        this.svgMenu = d3.select(el.firstElementChild);
+        //  this.svgMenu = d3.select(el);
+        //   let svgMenu = d3.select(el.firstElementChild);
         let svgMenu = this.svgMenu;
         this.activeProduct = data;
 
@@ -1330,15 +1321,15 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                 .text(this.data.criticalOperations);
 
             for (let item of leftBorder) {
-             //   item.classList.remove('st5');
+                //   item.classList.remove('st5');
                 item.classList.add('st5-critical');
             }
             for (let item of Circle) {
-             //   item.classList.remove('st6');
+                //   item.classList.remove('st6');
                 item.classList.add('st6-critical');
             }
             for (let item of rightBorder) {
-              //  item.classList.remove('st7');
+                //  item.classList.remove('st7');
                 item.classList.add('st7-critical');
             }
         } else {

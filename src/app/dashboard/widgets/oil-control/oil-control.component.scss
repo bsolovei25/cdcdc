@@ -98,7 +98,6 @@
   fill: orange;
 }
 
-
 .cls-2 {
   fill: #60647f;
   fill-rule: evenodd;
@@ -420,19 +419,18 @@
 }
 
 .row_short {
- // padding-top: 20px;
- height: 70px;
- flex-flow: wrap;
- min-width: 315px;
- width: 100%;
- max-width: 475px;
+  // padding-top: 20px;
+  height: 70px;
+  flex-flow: wrap;
+  min-width: 315px;
+  width: 100%;
+  max-width: 475px;
 }
 
-.date_short{
-  margin:0;
+.date_short {
+  margin: 0;
   margin-top: 15px;
 }
-
 
 .oil_block_inter_info_short {
   background-image: none;
