@@ -963,7 +963,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
     public indexData = 0;
 
     public maxPage;
-    public currentPage = 3;
+    public currentPage;
 
     public activeStorage;
     public activeProduct = [];
@@ -987,6 +987,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
     public svgLine;
 
     public checkRemove = false;
+    public checkCriticalTank = false;
 
     constructor(
         public widgetService: NewWidgetService,
@@ -1004,7 +1005,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                 this.previewTitle = data.widgetType;
             })
         );
-
+        this.currentPage = 3;
         this.maxPage = this.data.products[2].storages.length;
         this.activeProduct = this.data.products;
         if (this.activeProduct[2].storages.length < 3) {
@@ -1060,6 +1061,11 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                 this.tankPicture.remove();
                 this.svgLine.remove();
             }
+            let count = 0;
+            for(let i of this.data.products){
+                count++;
+            }
+            this.indexTestProduct = count - 1; 
             this.drawOilControl(this.data);
         });
     }
@@ -1369,7 +1375,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             }
         }
 
-        this.maxPage = dataStorage.length;
+      //  this.maxPage = dataStorage.length;
 
         let indexPies = this.indexPie;
         let indexPies1 = this.indexPie;
@@ -1493,6 +1499,9 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             for (let textStorage of dataStorage) {
                 if (indexPies1 === indexStorage) {
                     if (pie.point === 3) {
+                        if(textStorage.status === 'critical'){
+                            this.criticalPage.push(textStorage.id);
+                        }
                         let valueBadText = svgMenu
                             .append('text')
                             .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
@@ -1516,7 +1525,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                             .text(textStorage.valueStorage);
                     } else {
                         if (textStorage.status === 'critical') {
-                            this.criticalPage.push(textStorage);
+                            this.criticalPage.push(textStorage.id);
                             let valueGoodText = svgMenu
                                 .append('text')
                                 .attr(
@@ -1595,8 +1604,9 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             .attr('y', this.rectYHeight - this.activeStorage.tank.tankLevel * 2.2 + 10);
 
         for (let item of this.activeStorage.tank.tankValues) {
-            if (item.status === 'critical') {
+            if (item.status === 'critical' ) {
                 this.isCriticalArrow = true;
+                this.checkCriticalTank = true;
                 let bakValue = this.tankPicture
                     .append('text')
                     .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
@@ -1605,10 +1615,24 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                     .attr('y', '100')
                     .attr('text-anchor', 'middle')
                     .attr('class', 'textProduct')
-                    .attr('fill', item.status === 'critical' ? 'orange' : 'white')
+                    .attr('fill','orange')
                     .text(item.valueFirst);
+                    break;
             }
         }
+        if (this.checkCriticalTank === false) {
+            let bakValue = this.tankPicture
+                .append('text')
+                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                .attr('font-size', '38px')
+                .attr('x', '190')
+                .attr('y', '100')
+                .attr('text-anchor', 'middle')
+                .attr('class', 'textProduct')
+                .attr('fill', 'white')
+                .text(this.activeStorage.tank.tankValues[0].valueFirst);
+        }
+        this.checkCriticalTank = false;
     }
 
     public onButtonChangeProduct(index) {
@@ -1616,13 +1640,15 @@ export class OilControlComponent implements OnInit, AfterViewInit {
         let dataStorages;
         if (this.countClickChange === 0) {
             this.changeMassiv(index, this.data.products);
-            this.FilterStorageCircle(this.newArrayProduct[2], (this.indexTestStorage = 0));
+            this.indexTestStorage = this.countStorage(this.newArrayProduct[2]);
+            this.FilterStorageCircle(this.newArrayProduct[2], this.indexTestStorage);
             this.countClickChange++;
         } else {
             this.changeMassiv(index, this.newArrayProduct);
-            this.FilterStorageCircle(this.newArrayProduct[2], (this.indexTestStorage = 0));
+            this.indexTestStorage = this.countStorage(this.newArrayProduct[2]);
+            this.FilterStorageCircle(this.newArrayProduct[2], this.indexTestStorage);
         }
-
+        /*
         for (let item of this.newArrayProduct[2].storages) {
             if (this.newArrayProduct[2].storages.length < 4) {
                 this.currentPage = 2;
@@ -1630,7 +1656,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                 this.currentPage = 3;
             }
         }
-
+        */
         this.drawOnCircle(
             this.oilCircle.nativeElement,
             this.pieStart,
@@ -1730,20 +1756,20 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                         lengthData = lengthData - 1;
                     }
                     newIndexProduct = lengthData - indexProduct;
-                    if (indexProduct === 1) {
-                        newIndexProduct = 2;
+                    if (indexProduct === 4) {
+                        newIndexProduct = 1;
                         this.shiftMassiv(newIndexProduct, move);
                     } else {
-                        newIndexProduct = 1;
+                        newIndexProduct = 2;
                         this.shiftMassiv(newIndexProduct, move);
                     }
                 } else {
                     move = 'prev';
-                    if (data.length === 5) {
+                    if (data.length === 1) {
                         lengthData = lengthData - 1;
                     }
                     newIndexProduct = lengthData - indexProduct;
-                    if (newIndexProduct < 3) {
+                    if (indexProduct === 2) {
                         newIndexProduct = 1;
                         this.shiftMassiv(newIndexProduct, move);
                     } else {
@@ -1833,6 +1859,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             this.pieEnd = 2;
             this.pieStart = 2;
             this.indexProductActive = 0;
+            this.indexTestStorage = this.countStorage(data[0]);
             this.FilterStorageCircle(data[el], this.indexTestStorage);
             return this.drawOnCircle(
                 this.oilCircle.nativeElement,
@@ -1846,6 +1873,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
         } else if (data[el + 1] !== undefined && el < 3) {
             this.pieStart = this.pieStart - 1;
             this.indexTestProduct++;
+            this.indexProductActive = 2;
             return this.FilterCircle(data, this.indexTestProduct);
         } else if (data[el + 1] === undefined && el === 3) {
             this.pieStart = 0;
@@ -1862,7 +1890,11 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                 data[2].storages
             );
         } else if (data[el + 1] === undefined) {
-            this.FilterStorageCircle(data[el - 1], this.indexTestStorage);
+            this.pieStart = 0;
+            this.pieEnd = 4;
+            this.indexProductActive = 2;
+            this.indexTestStorage = this.countStorage(data[2]);
+            this.FilterStorageCircle(data[2], this.indexTestStorage);
             return this.drawOnCircle(
                 this.oilCircle.nativeElement,
                 this.pieStart,
@@ -1875,7 +1907,9 @@ export class OilControlComponent implements OnInit, AfterViewInit {
         } else {
             this.pieStart = 0;
             this.pieEnd = 4;
-            this.FilterStorageCircle(data[el - 2], this.indexTestStorage);
+            this.indexProductActive = 2;
+            this.indexTestStorage = this.countStorage(data[2]);
+            this.FilterStorageCircle(data[2], this.indexTestStorage);
             return this.drawOnCircle(
                 this.oilCircle.nativeElement,
                 this.pieStart,
@@ -1888,24 +1922,42 @@ export class OilControlComponent implements OnInit, AfterViewInit {
         }
     }
 
+    public countStorage(data){
+        let count = 0;
+        for(let item of data.storages){
+            count++;
+        }
+        return count-1;
+    }
+
     public FilterStorageCircle(data, el) {
+        this.maxPage = el + 1;
         this.pieStartStorage = 2;
         if (data.storages[el + 1] === undefined && el === 0) {
             this.pieEndStorage = 2;
             this.pieStartStorage = 2;
+            this.currentPage = 1;
         } else if (data.storages[el + 1] !== undefined && el < 3) {
             this.pieStartStorage = this.pieStartStorage - 1;
             this.indexTestStorage++;
+            this.currentPage = 2;
             return this.FilterStorageCircle(data, this.indexTestStorage);
+        } else if(data.storages[el + 1] === undefined && el === 1) {
+            this.pieStartStorage = 1;
+            this.pieEndStorage = 2;
+            this.currentPage = 3;
         } else if (data.storages[el + 1] === undefined && el === 3) {
             this.pieStartStorage = 0;
             this.pieEndStorage = 3;
-        } else if (data.storages[el + 1] === undefined) {
-            this.pieStartStorage = this.pieStartStorage - 1;
+            this.currentPage = 3;
+        } else if (data.storages[el + 1] === undefined && el === 4) {
+            this.pieStartStorage = 0;
             this.pieEndStorage = 3;
+            this.currentPage = 3;
         } else {
             this.pieStartStorage = 0;
             this.pieEndStorage = 4;
+            this.currentPage = 3;
         }
     }
 }

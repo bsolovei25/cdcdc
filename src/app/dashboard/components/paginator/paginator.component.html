@@ -9,9 +9,9 @@
     <button
       *ngFor="let page of pages; let i = index;"
       (click)="onClick(page)"
+      [class.critical]="mass.indexOf(page) > -1"
       [disabled]="currentPage === page"
       class="paginator-button"
-      [class.critical]="!check && page === mass[i]"
     >
       {{ page }}
     </button>

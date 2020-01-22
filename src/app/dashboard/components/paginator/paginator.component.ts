@@ -170,10 +170,9 @@ export class PaginatorComponent implements OnInit, OnChanges, AfterViewInit {
     }
 
     public criticalValue(data: any) {
-        this.check = false;
         for (let item of data) {
-            this.mass.push(item.id);
+            this.mass.push(item);
         }
-        console.log(this.mass);
+
     }
 }
