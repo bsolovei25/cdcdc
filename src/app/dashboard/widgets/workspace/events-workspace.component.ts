@@ -182,6 +182,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
             eventType: this.eventTypes ? this.eventTypes[0] : null,
             fixedBy: {
                 email: 'test@test',
+                login: '',
                 firstName: '',
                 id: 1,
                 lastName: '',
@@ -334,6 +335,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
             eventType: this.eventTypes ? this.eventTypes[0] : null,
             fixedBy: {
                 id: 2,
+                login: 'PetrovP',
                 firstName: 'Петр',
                 lastName: 'Петров',
                 middleName: '',

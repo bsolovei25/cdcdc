@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 export class UserInfoComponent implements OnInit, OnDestroy {
     data: IUser = {
         id: 0,
+        login: '',
         firstName: '',
         lastName: '',
         middleName: '',
@@ -34,13 +35,9 @@ export class UserInfoComponent implements OnInit, OnDestroy {
     }
 
     async loadData(): Promise<void> {
-        this.subscription = this.authService.user$.subscribe((data) => {
+        this.subscription = this.authService.user$.subscribe((data: IUser) => {
             if (data) {
-                if (data[0]) {
-                    this.data = data[0];
-                } else {
-                    this.data = data;
-                }
+                this.data = data;
             }
         });
     }
