@@ -173,6 +173,5 @@ export class PaginatorComponent implements OnInit, OnChanges, AfterViewInit {
         for (let item of data) {
             this.mass.push(item);
         }
-
     }
 }

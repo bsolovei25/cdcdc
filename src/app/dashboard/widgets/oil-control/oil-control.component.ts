@@ -1062,10 +1062,10 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                 this.svgLine.remove();
             }
             let count = 0;
-            for(let i of this.data.products){
+            for (let i of this.data.products) {
                 count++;
             }
-            this.indexTestProduct = count - 1; 
+            this.indexTestProduct = count - 1;
             this.drawOilControl(this.data);
         });
     }
@@ -1375,7 +1375,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             }
         }
 
-      //  this.maxPage = dataStorage.length;
+        //  this.maxPage = dataStorage.length;
 
         let indexPies = this.indexPie;
         let indexPies1 = this.indexPie;
@@ -1499,7 +1499,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             for (let textStorage of dataStorage) {
                 if (indexPies1 === indexStorage) {
                     if (pie.point === 3) {
-                        if(textStorage.status === 'critical'){
+                        if (textStorage.status === 'critical') {
                             this.criticalPage.push(textStorage.id);
                         }
                         let valueBadText = svgMenu
@@ -1604,7 +1604,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             .attr('y', this.rectYHeight - this.activeStorage.tank.tankLevel * 2.2 + 10);
 
         for (let item of this.activeStorage.tank.tankValues) {
-            if (item.status === 'critical' ) {
+            if (item.status === 'critical') {
                 this.isCriticalArrow = true;
                 this.checkCriticalTank = true;
                 let bakValue = this.tankPicture
@@ -1615,9 +1615,9 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                     .attr('y', '100')
                     .attr('text-anchor', 'middle')
                     .attr('class', 'textProduct')
-                    .attr('fill','orange')
+                    .attr('fill', 'orange')
                     .text(item.valueFirst);
-                    break;
+                break;
             }
         }
         if (this.checkCriticalTank === false) {
@@ -1922,12 +1922,12 @@ export class OilControlComponent implements OnInit, AfterViewInit {
         }
     }
 
-    public countStorage(data){
+    public countStorage(data) {
         let count = 0;
-        for(let item of data.storages){
+        for (let item of data.storages) {
             count++;
         }
-        return count-1;
+        return count - 1;
     }
 
     public FilterStorageCircle(data, el) {
@@ -1942,7 +1942,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             this.indexTestStorage++;
             this.currentPage = 2;
             return this.FilterStorageCircle(data, this.indexTestStorage);
-        } else if(data.storages[el + 1] === undefined && el === 1) {
+        } else if (data.storages[el + 1] === undefined && el === 1) {
             this.pieStartStorage = 1;
             this.pieEndStorage = 2;
             this.currentPage = 3;
