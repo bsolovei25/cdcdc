@@ -234,7 +234,7 @@ export class SolidGaugeWithMarkerComponent implements AfterViewInit {
                     .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                     .attr('y', '160')
                     .attr('text-anchor', 'middle')
-                    .text(data.fact < 0 ? 0 : data.fact);
+                    .text(data.fact);
 
                 let bottomTextGauge = svg
                     .append('text')

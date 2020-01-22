@@ -26,6 +26,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
     @ViewChild('oilBak', { static: false }) oilBak: ElementRef;
     @ViewChild('oilCircle', { static: false }) oilCircle: ElementRef;
     @ViewChild('borders', { static: false }) borders: ElementRef;
+    @ViewChild('line', {static: false}) line: ElementRef;
 
     static itemCols = 32;
     static itemRows = 12;
@@ -65,7 +66,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                                     name: 'По данным отгрузки',
                                     valueFirst: 1700,
                                     valueSecond: 103.23,
-                                    status: 'ctitical',
+                                    status: 'critical',
                                 },
                                 {
                                     name: 'Дебаланс',
@@ -953,7 +954,10 @@ export class OilControlComponent implements OnInit, AfterViewInit {
     public htmlDataStorage = [];
 
     public newWidth;
-    public checkWidth;
+    public checkWidth: boolean = false;
+
+
+    public criticalPage: any = [];
 
     constructor(
         public widgetService: NewWidgetService,
@@ -971,6 +975,8 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                 this.previewTitle = data.widgetType;
             })
         );
+
+
         this.maxPage = this.data.product[2].storage.length;
         this.activeProduct = this.data.product;
         if (this.activeProduct[2].storage.length < 3) {
@@ -983,16 +989,26 @@ export class OilControlComponent implements OnInit, AfterViewInit {
     }
     public test = false;
 
-    ngOnInit() {}
+    ngOnInit() {
+    }
 
     ngAfterViewInit() {
         if (!this.isMock) {
             this.drawOilControl();
+            /*
+            this.onResize(document.getElementById("test").clientWidth);
+            if ( this.checkWidth ) {
+                this.clearProduct();
+                this.drawOilControl();
+            } */
             this.subscriptions.push(
                 this.resizeWidget.subscribe((data) => {
-                    this.onResize(data.srcElement.clientWidth);
-                    this.clearProduct();
-                    this.drawOilControl();
+                    this.newWidth = data.clientX;
+                    this.onResize(data.clientX);
+               //     if ( this.checkWidth ) {
+               //         this.clearProduct();
+               //         this.drawOilControl();
+               //     }
                 })
             );
         }
@@ -1007,13 +1023,18 @@ export class OilControlComponent implements OnInit, AfterViewInit {
     }
 
     public onResize(width) {
-        this.checkWidth = width < 500;
+        this.checkWidth = width < 600;
     }
 
     public drawOilControl() {
         this.drawPicture(this.oilIcon.nativeElement);
         this.drawBak(this.oilBak.nativeElement);
-        this.FilterCircle(this.indexTestProduct);
+        if (this.newArrayProduct.length === 0){
+            this.FilterCircle(this.data.product, this.indexTestProduct);
+        } else {
+            this.FilterCircle(this.newArrayProduct, this.indexTestProduct);
+        }
+        
     }
 
     public clearOilControl() {
@@ -1034,24 +1055,52 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             .attr('class', 'textProduct')
             .attr('viewBox', '0 0 350 140');
 
+        
         let x1 = -100;
         let x2 = -80;
         let x3 = -48;
         let x4 = -48;
+        let y = 110;
 
         let tug = './assets/pic/Icons3D/Tug.png';
         let tube = './assets/pic/Icons3D/Tube.png';
         let cis = './assets/pic/Icons3D/Cistern.png';
+
+        let countPicture = 0;
+
+        for(let i of this.activeStorage.tanker){
+            if (i.shipped === true){
+                countPicture++;
+            } 
+        }
+
+        if (countPicture === 1) {
+            x1 = -45;
+            x2 = -25;
+            x3 = 7;
+            x4 = 7;
+        } else if (countPicture === 2) {
+            x1 = -180;
+            x2 = -160;
+            x3 = -48;
+            x4 = -48; 
+            y = 180;
+        } else { 
+            x1 = -100;
+            x2 = -80;
+            x3 = -48;
+            x4 = -48;
+        }
 
         for (let item of this.activeStorage.tanker) {
             if (item.shipped === true) {
                 let pictureContainer = canvas
                     .append('image')
                     .attr('xlink:href', './assets/pic/OilControl/oil_icon.svg')
-                    .attr('height', '140px')
+                    .attr('height', '130px')
                     .attr('width', '105px')
                     .attr('class', 'textProduct')
-                    .attr('x', x1 + 110)
+                    .attr('x', x1 + y)
                     .attr('y', '10');
 
                 let pictureIcon = canvas
@@ -1060,17 +1109,17 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                         'xlink:href',
                         item.nameTanker === 'Tug' ? tug : item.nameTanker === 'Tube' ? tube : cis
                     )
-                    .attr('height', '60px')
+                    .attr('height', '50px')
                     .attr('width', '60px')
                     .attr('class', 'textProduct')
-                    .attr('x', x2 + 110)
+                    .attr('x', x2 + y)
                     .attr('y', '65');
 
                 let planText1 = canvas
                     .append('text')
                     .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                     .attr('font-size', '10px')
-                    .attr('x', x3 + 110)
+                    .attr('x', x3 + y)
                     .attr('class', 'textProduct')
                     .attr('y', '40')
                     .attr('text-anchor', 'middle')
@@ -1081,22 +1130,72 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                     .append('text')
                     .attr('font-family', 'Tahoma bold')
                     .attr('font-size', '14px')
-                    .attr('x', x4 + 110)
+                    .attr('x', x4 + y)
                     .attr('y', '60')
                     .attr('class', 'textProduct')
                     .attr('text-anchor', 'middle')
                     .attr('fill', '#a2e2ff')
                     .text(item.value);
 
-                x1 += 110;
-                x2 += 110;
-                x3 += 110;
-                x4 += 110;
+                x1 += y;
+                x2 += y;
+                x3 += y;
+                x4 += y;
             }
+        }
+
+        this.drawLine(this.line.nativeElement, countPicture);
+    }
+
+    public drawLine(el, count){
+        console.log('Картинки', count);
+        let size = 0;
+        if(this.newWidth){
+            size = this.newWidth/100;
+        }
+        let svgLine = d3
+        .select(el)
+        .append('svg')
+        .attr('min-width', '300px')
+        .attr('height', '55px')
+        .attr('width', '100%')
+        .attr('class', 'textProduct')
+        .attr('viewBox', '0 0 1200 200');
+
+        if ( count === 1) {
+            let lineOne = svgLine
+            .append('image')
+            .attr('xlink:href', './assets/pic/OilControl/LineOne.svg')
+            .attr('height', '100%')
+            .attr('width', '100%')
+            .attr('class', 'textProduct')
+            .attr('x', 200 + size)
+            .attr('y', '0');
+        } else if ( count === 2) {
+
+            let lineTwo = svgLine
+            .append('image')
+            .attr('xlink:href', './assets/pic/OilControl/LineTwo.svg')
+            .attr('height', '100%')
+            .attr('width', '100%')
+            .attr('class', 'textProduct')
+            .attr('x', 300)
+            .attr('y', '0');
+        } else {
+
+            let lineThree = svgLine
+            .append('image')
+            .attr('xlink:href', './assets/pic/OilControl/LineThree.svg')
+            .attr('height', '100%')
+            .attr('width', '100%')
+            .attr('class', 'textProduct')
+            .attr('x', 450)
+            .attr('y', '0');
         }
     }
 
     public drawOnCircle(el, pieStart, pieEnd, pieStartStorage, pieEndStorage, data, dataStorage) {
+        this.criticalPage = [];
         let svg = d3.select(el.firstElementChild);
 
         this.activeProduct = data;
@@ -1118,10 +1217,19 @@ export class OilControlComponent implements OnInit, AfterViewInit {
         const rightBorderC: any = el.querySelectorAll('.st7-critical');
 
         if (this.activeStorage.status === 'critical') {
+            let backgroundCircle = svg
+                .append('image')
+                .attr('xlink:href', './assets/pic/OilControl/backCircle.svg')
+                .attr('height', '250px')
+                .attr('width', '250px')
+                .attr('x', '195')
+                .attr('class', 'textProduct')
+                .attr('y', '320');
+
             let operations = svg
                 .append('text')
                 .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                .attr('font-size', '31px')
+                .attr('font-size', '25px')
                 .attr('x', '100')
                 .attr('y', '390')
                 .attr('text-anchor', 'middle')
@@ -1132,7 +1240,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             let operationsValues = svg
                 .append('text')
                 .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                .attr('font-size', '31px')
+                .attr('font-size', '25px')
                 .attr('x', '100')
                 .attr('y', '430')
                 .attr('text-anchor', 'middle')
@@ -1143,7 +1251,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             let critical = svg
                 .append('text')
                 .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                .attr('font-size', '31px')
+                .attr('font-size', '25px')
                 .attr('x', '100')
                 .attr('y', '480')
                 .attr('text-anchor', 'middle')
@@ -1154,7 +1262,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             let ctiticalValuues = svg
                 .append('text')
                 .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                .attr('font-size', '31px')
+                .attr('font-size', '25px')
                 .attr('x', '100')
                 .attr('y', '520')
                 .attr('text-anchor', 'middle')
@@ -1178,7 +1286,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             let middleText3 = svg
                 .append('text')
                 .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                .attr('font-size', '32px')
+                .attr('font-size', '25px')
                 .attr('x', '100')
                 .attr('y', '420')
                 .attr('text-anchor', 'middle')
@@ -1189,7 +1297,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             let middleText4 = svg
                 .append('text')
                 .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                .attr('font-size', '42px')
+                .attr('font-size', '25px')
                 .attr('x', '100')
                 .attr('y', '500')
                 .attr('text-anchor', 'middle')
@@ -1240,7 +1348,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                                     'font-family',
                                     "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
                                 )
-                                .attr('font-size', '36px')
+                                .attr('font-size', '25px')
                                 .attr('x', pie.x)
                                 .attr('y', pie.y - 20)
                                 .attr('text-anchor', 'middle')
@@ -1254,7 +1362,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                                     'font-family',
                                     "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
                                 )
-                                .attr('font-size', '36px')
+                                .attr('font-size', '32px')
                                 .attr('x', pie.x)
                                 .attr('y', pie.y + 40)
                                 .attr('text-anchor', 'middle')
@@ -1268,7 +1376,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                                     'font-family',
                                     "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
                                 )
-                                .attr('font-size', '28px')
+                                .attr('font-size', '25px')
                                 .attr('x', pie.x)
                                 .attr('y', pie.y + 100)
                                 .attr('text-anchor', 'middle')
@@ -1284,7 +1392,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                                     'font-family',
                                     "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
                                 )
-                                .attr('font-size', '32px')
+                                .attr('font-size', '25px')
                                 .attr('x', pie.x)
                                 .attr('y', pie.y)
                                 .attr('text-anchor', 'middle')
@@ -1311,7 +1419,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                         let valueGoodText = svg
                             .append('text')
                             .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                            .attr('font-size', '32px')
+                            .attr('font-size', '25px')
                             .attr('x', pie.x)
                             .attr('y', pie.y)
                             .attr('text-anchor', 'middle')
@@ -1338,7 +1446,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                         let valueBadText = svg
                             .append('text')
                             .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                            .attr('font-size', '32px')
+                            .attr('font-size', '25px')
                             .attr('x', pie.x)
                             .attr('y', pie.y)
                             .attr('text-anchor', 'middle')
@@ -1349,7 +1457,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                         let middleText2 = svg
                             .append('text')
                             .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                            .attr('font-size', '40px')
+                            .attr('font-size', '25px')
                             .attr('x', pie.x)
                             .attr('y', pie.y + 80)
                             .attr('text-anchor', 'middle')
@@ -1357,10 +1465,28 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                             .attr('class', 'textValues')
                             .text(textStorage.valueStorage);
                     } else {
-                        let valueGoodText = svg
+                        if (textStorage.status === 'critical') {
+                            this.criticalPage.push(textStorage);
+                            let valueGoodText = svg
                             .append('text')
                             .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                            .attr('font-size', '32px')
+                            .attr('font-size', '25px')
+                            .attr('x', pie.x)
+                            .attr('y', pie.y)
+                            .attr('text-anchor', 'middle')
+                            .attr('fill', 'orange')
+                            .attr('cursor', 'pointer')
+                            .attr('class', 'textValues')
+                            .attr('id', indexStorage)
+                            .text(textStorage.nameStorage)
+                            .on('click', () => {
+                                this.onButtonChangeStorage(textStorage.id, dataStorage);
+                            });
+                        } else {
+                            let valueGoodText = svg
+                            .append('text')
+                            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                            .attr('font-size', '25px')
                             .attr('x', pie.x)
                             .attr('y', pie.y)
                             .attr('text-anchor', 'middle')
@@ -1372,6 +1498,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                             .on('click', () => {
                                 this.onButtonChangeStorage(textStorage.id, dataStorage);
                             });
+                        }
                         this.htmlDataStorage = dataStorage;
                         this.htmlStorage = textStorage.nameStorage;
                     }
@@ -1410,16 +1537,20 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             .attr('class', 'textProduct')
             .attr('y', this.rectYHeight - this.activeStorage.tank.bakLevel * 2.2 + 10);
 
-        let bakValue = canvas
-            .append('text')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-            .attr('font-size', '38px')
-            .attr('x', '190')
-            .attr('y', '100')
-            .attr('text-anchor', 'middle')
-            .attr('class', 'textProduct')
-            .attr('fill', 'white')
-            .text(this.activeStorage.tank.tankValue[0].valueFirst);
+        for(let item of this.activeStorage.tank.tankValue){
+            if (item.status === 'critical'){
+                let bakValue = canvas
+                .append('text')
+                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                .attr('font-size', '38px')
+                .attr('x', '190')
+                .attr('y', '100')
+                .attr('text-anchor', 'middle')
+                .attr('class', 'textProduct')
+                .attr('fill', item.status === 'critical' ? 'orange' : 'white')
+                .text(item.valueFirst);
+            }
+        }
     }
 
     public onButtonChangeProduct(index) {
@@ -1639,60 +1770,60 @@ export class OilControlComponent implements OnInit, AfterViewInit {
         }
     }
 
-    public FilterCircle(el) {
-        if (this.data.product[el + 1] === undefined && el === 0) {
+    public FilterCircle(data, el) {
+        if (data[el + 1] === undefined && el === 0) {
             this.pieEnd = 2;
             this.pieStart = 2;
-            this.FilterStorageCircle(this.data.product[el], this.indexTestStorage);
+            this.FilterStorageCircle(data[el], this.indexTestStorage);
             return this.drawOnCircle(
                 this.oilCircle.nativeElement,
                 this.pieStart,
                 this.pieEnd,
                 this.pieStartStorage,
                 this.pieEndStorage,
-                this.data.product,
-                this.data.product[2].storage
+                data,
+                data[2].storage
             );
-        } else if (this.data.product[el + 1] !== undefined && el < 3) {
+        } else if (data[el + 1] !== undefined && el < 3) {
             this.pieStart = this.pieStart - 1;
             this.indexTestProduct++;
-            return this.FilterCircle(this.indexTestProduct);
-        } else if (this.data.product[el + 1] === undefined && el === 3) {
+            return this.FilterCircle(data, this.indexTestProduct);
+        } else if (data[el + 1] === undefined && el === 3) {
             this.pieStart = 0;
             this.pieEnd = 3;
-            this.FilterStorageCircle(this.data.product[el - 1], this.indexTestStorage);
+            this.FilterStorageCircle(data[el - 1], this.indexTestStorage);
             return this.drawOnCircle(
                 this.oilCircle.nativeElement,
                 this.pieStart,
                 this.pieEnd,
                 this.pieStartStorage,
                 this.pieEndStorage,
-                this.data.product,
-                this.data.product[2].storage
+                data,
+                data[2].storage
             );
-        } else if (this.data.product[el + 1] === undefined) {
-            this.FilterStorageCircle(this.data.product[el - 1], this.indexTestStorage);
+        } else if (data[el + 1] === undefined) {
+            this.FilterStorageCircle(data[el - 1], this.indexTestStorage);
             return this.drawOnCircle(
                 this.oilCircle.nativeElement,
                 this.pieStart,
                 this.pieEnd,
                 this.pieStartStorage,
                 this.pieEndStorage,
-                this.data.product,
-                this.data.product[2].storage
+                data,
+                data[2].storage
             );
         } else {
             this.pieStart = 0;
             this.pieEnd = 4;
-            this.FilterStorageCircle(this.data.product[el - 2], this.indexTestStorage);
+            this.FilterStorageCircle(data[el - 2], this.indexTestStorage);
             return this.drawOnCircle(
                 this.oilCircle.nativeElement,
                 this.pieStart,
                 this.pieEnd,
                 this.pieStartStorage,
                 this.pieEndStorage,
-                this.data.product,
-                this.data.product[2].storage
+                data,
+                data[2].storage
             );
         }
     }

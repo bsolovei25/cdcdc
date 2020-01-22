@@ -7,14 +7,16 @@
   <div *ngIf="countPages < maxButons + 2; then single else several"></div>
   <ng-template #single>
     <button
-      *ngFor="let page of pages"
+      *ngFor="let page of pages; let i = index;"
       (click)="onClick(page)"
-      [disabled]="currentPage === page"
+      [disabled]="currentPage === page && page !== mass[i]"
       class="paginator-button"
+      [class.critical]="!check && page === mass[i]"
     >
       {{ page }}
     </button>
   </ng-template>
+  <!--
   <ng-template #several>
     <button
       *ngFor="let page of leftPages"
@@ -42,7 +44,7 @@
     >
       {{ page }}
     </button>
-  </ng-template>
+  </ng-template> -->
   <!--  <button
       (click)="onClick(currentPage + 1)"
       [disabled]="currentPage === countPages"
