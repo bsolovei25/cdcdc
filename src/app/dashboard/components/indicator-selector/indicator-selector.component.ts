@@ -48,7 +48,7 @@ export class IndicatorSelectorComponent {
         }
     }
 
-    public LoadScreen(id: string): void {
+    public LoadScreen(id: number): void {
         this.userSettings.LoadScreen(id);
     }
 
@@ -109,7 +109,7 @@ export class IndicatorSelectorComponent {
         if (this.idScreen === Number(id)) {
             this.nameScreen = this.dataScreen[0].screenName;
             this.idScreen = this.dataScreen[0].id;
-            this.LoadScreen(this.idScreen.toString());
+            this.LoadScreen(this.idScreen);
         }
     }
 
@@ -146,5 +146,5 @@ export class IndicatorSelectorComponent {
             item.updateScreen = false;
         }
     }
-    isOverScreen(e) {}
+    isOverScreen(e) { }
 }
