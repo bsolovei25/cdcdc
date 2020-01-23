@@ -9,18 +9,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { IUser } from '../../dashboard/models/events-widget';
 // Local modules
 
-export interface ITokenData {
-    login: string;
-    firstName: string;
-    lastName: string;
-    middleName: string;
-    brigade: { id: number; number: string };
-    phone: string;
-    position: string;
-    positionDescription: string;
+export interface ITokenData extends IUser {
     token: string;
-    id: number;
-    email: string;
 }
 
 @Injectable({
@@ -53,10 +43,10 @@ export class AuthService {
         });
     }
 
-    async authenticate(username: string, password: string): Promise<any> {
+    async authenticate(username: string, password: string): Promise<ITokenData> {
         try {
             const auth = await this.http
-                .post<any>(this.restUrl + `/api/user-management/auth`, { username, password })
+                .post<ITokenData>(this.restUrl + `/api/user-management/auth`, { username, password })
                 .toPromise();
             this.configureUserAuth(auth);
             return auth;
@@ -65,25 +55,48 @@ export class AuthService {
         }
     }
 
-    async getUserAuth(): Promise<ITokenData> | null {
+    async getUserAuth(): Promise<ITokenData[]> | null {
+        if (!this.restUrl) {
+            return null;
+        }
+
+        let current: ITokenData[];
+
+        // Try get current by token
         try {
-            if (this.restUrl) {
-                const current: ITokenData = await this.http
-                    .get<ITokenData>(this.restUrl + '/api/user-management/current')
+            if (this.userSessionToken) {
+                current = await this.http
+                    .get<ITokenData[]>(this.restUrl + '/api/user-management/current')
                     .toPromise();
-                this.user$.next(current);
+                this.configureUserAuth(current[0]);
                 return current;
             }
         } catch (error) {
+            console.warn(error);
+        }
+
+        // If not loaded by token, try with Windows auth
+        try {
+            current = await this.http
+                .get<ITokenData[]>(this.restUrl + '/api/user-management/windows-current', { withCredentials: true })
+                .toPromise();
+
+            this.configureUserAuth(current[0]);
+            return current;
+        } catch (error) {
             this.router.navigate(['login']);
-            console.error(error);
+            console.warn(error);
         }
         return null;
     }
 
     private configureUserAuth(tokenData: ITokenData): void {
-        this.authTokenData = tokenData;
         this.user$.next(tokenData);
+
+        if (!tokenData.token)
+            return;
+
+        this.authTokenData = tokenData;
         // save token
         localStorage.setItem('authentication-token', this.authTokenData.token);
     }
