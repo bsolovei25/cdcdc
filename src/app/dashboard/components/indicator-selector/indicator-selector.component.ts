@@ -48,7 +48,7 @@ export class IndicatorSelectorComponent {
         }
     }
 
-    public LoadScreen(id: string): void {
+    public LoadScreen(id: any): void {
         this.userSettings.LoadScreen(id);
     }
 
