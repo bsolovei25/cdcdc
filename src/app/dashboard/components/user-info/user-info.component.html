@@ -15,6 +15,20 @@
 <div class="dropdown-content" [class.dropdown-content_active]="this.isShowScreens">
   <ng-container>
     <div
+      (click)="fullScreen()"
+      class="dropdown-component"
+      (mouseover)="isOverScreen()"
+      (mouseleave)="isLeaveScreen()"
+    >
+      <div class="screen_block">
+        <div class="screen_blocks">
+          <div class="screen_name">
+            Полный экран
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
       (click)="logOut()"
       class="dropdown-component"
       (mouseover)="isOverScreen()"

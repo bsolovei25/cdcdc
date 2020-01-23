@@ -47,6 +47,13 @@ export class UserInfoComponent implements OnInit, OnDestroy {
         this.router.navigate(['login']);
     }
 
+    async fullScreen(): Promise<void> {
+        let elem = document.getElementById('#fullScreen');
+        console.log(elem);
+
+        document.documentElement.requestFullscreen();
+    }
+
     isLeaveScreen(): void {
         this.isShowScreens = false;
     }
