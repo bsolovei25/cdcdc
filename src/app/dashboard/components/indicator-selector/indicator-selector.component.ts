@@ -146,5 +146,5 @@ export class IndicatorSelectorComponent {
             item.updateScreen = false;
         }
     }
-    isOverScreen(e) { }
+    isOverScreen(e) {}
 }
