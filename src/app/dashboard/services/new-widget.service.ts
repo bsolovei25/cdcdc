@@ -26,7 +26,8 @@ export class NewWidgetService {
 
     public draggingItem: GridsterItem;
     public isOver = false;
-    public dashboard: GridsterItem[] = []; // GridsterItem with uniqid that identifies concrete widget
+    // GridsterItem with uniqid that identifies concrete widget
+    public dashboard: GridsterItem[] = [];
     public mass = [];
     private i = 0;
     private _widgets$: BehaviorSubject<IWidgets[]> = new BehaviorSubject(null);
@@ -97,7 +98,7 @@ export class NewWidgetService {
 
     getName(idWidg: string): string {
         let widgetNames: IWidgets | string = this.mass.find((x) => x.id === idWidg);
-        if (widgetNames === null || widgetNames === '') {
+        if (widgetNames === undefined || widgetNames === null || widgetNames === '') {
             widgetNames = 'Нет имени';
             return widgetNames;
         } else {

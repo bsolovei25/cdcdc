@@ -221,8 +221,8 @@
     box-sizing: border-box;
     padding-top: 10px;
     position: relative;
-    height: 150px;
-    min-height: 150px;
+    height: 120px;
+    min-height: 120px;
     margin-bottom: 25px;
 
     .mainWorker {
@@ -238,8 +238,8 @@
         width: 104.62px;
         height: 104.62px;
         border-radius: 50%;
-        margin-left: 20px;
-        margin-top: 15px;
+        margin-left: 15px;
+        margin-top: -2px;
         background: url("../../../../assets/pic/avatar_temp.jpg");
         background-repeat: no-repeat;
         background-size: contain;
@@ -355,7 +355,7 @@
     position: relative;
     box-sizing: border-box;
     padding-top: 15px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     min-height: 200px;
 
     .onShift {
@@ -397,11 +397,35 @@
           box-shadow: 0px 0px 2px var(--color-border-active);
           font-weight: bold;
         }
+
+        &-verical {
+          position: absolute;
+          margin: auto;
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          width: 2px;
+          height: 10px;
+          background: var(--color-text-sub);
+        }
+
+        &-horizontal {
+          position: absolute;
+          margin: auto;
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          height: 2px;
+          width: 10px;
+          background: var(--color-text-sub);
+        }
       }
 
       &__people {
         width: 100%;
-        height: 200px;
+        height: 180px;
         display: inline-flex;
         flex-wrap: wrap;
         justify-content: flex-start;
@@ -475,8 +499,7 @@
     position: relative;
     box-sizing: border-box;
     padding-top: 15px;
-    margin-bottom: 10px;
-    min-height: 120px;
+    min-height: 100px;
 
     .absent {
       &__label {
@@ -495,8 +518,7 @@
         overflow: auto;
         box-sizing: border-box;
         padding: 3px 0 0;
-        height: 100px;
-        margin-bottom: 10px;
+        height: 85px;
       }
 
       &__person {
@@ -505,11 +527,9 @@
         margin-top: 20px;
         display: inline-flex;
         position: relative;
-        //border-top: 0.5px dashed var(--color-border-main-transparrent);
         font-size: 7px;
         box-sizing: border-box;
-        //padding-top: 5px;
-        margin: 0 7px 20px;
+        margin: 0 5px 20px;
 
         .person {
           display: flex;
@@ -707,12 +727,12 @@
         justify-content: space-between;
         align-items: center;
         box-sizing: border-box;
-        padding: 0 0 10px;
+        padding: 0 0 2px;
         position: relative;
 
         .button {
-          height: 40px;
-          width: 50px;
+          height: 30px;
+          width: 35px;
           outline: none;
           box-sizing: border-box;
           margin: 3px;
@@ -760,15 +780,10 @@
           border-top: 0.5px solid var(--color-border-main-transparrent);
           background: var(--color-bg-main);
         }
-
-        .button__icon {
-          height: 80%;
-          width: 80%;
-        }
       }
 
       &__text {
-        height: 40px;
+        height: 30px;
         width: 100%;
         background: var(--color-bg-main);
         border: none;

@@ -64,3 +64,9 @@ select:-webkit-autofill:focus {
     rgba(0, 174, 255, 0.03) 100%
   );
 }
+
+.snackbar {
+  &-red {
+    background-color: var(--color-danger) !important;
+  }
+}

@@ -3,12 +3,12 @@
   <div *ngIf="data" class="user-info_data">
     <div class="user-name">
       <span>
-        {{ data.lastName }} {{ data.firstName | slice : 0 : 1 }}.{{ data.middleName | slice : 0 : 1
+        {{ data.lastName ? data.lastName : data.login }} {{ data.firstName | slice : 0 : 1 }}.{{ data.middleName | slice : 0 : 1
         }}
       </span>
     </div>
     <div class="user-position">{{ data.positionDescription }}</div>
-    <div class="user-groupe">Бригада {{ data.brigade.number }}</div>
+    <div class="user-groupe">Бригада {{ data.brigade?.number }}</div>
   </div>
 </div>
 

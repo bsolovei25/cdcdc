@@ -45,13 +45,13 @@ export class AuthenticationGuard implements CanLoad, CanActivate, CanActivateChi
         route: ActivatedRouteSnapshot,
         routerState: RouterStateSnapshot
     ): Promise<boolean | UrlTree> {
-        return this.authenticationCheck(route, routerState.url);
+        return true;
     }
 
     async canActivateChild(
         route: ActivatedRouteSnapshot,
         routerState: RouterStateSnapshot
     ): Promise<boolean | UrlTree> {
-        return this.authenticationCheck(route, routerState.url);
+        return true;
     }
 }

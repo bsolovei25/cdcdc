@@ -14,7 +14,7 @@
     <div class="person__img"></div>
   </div>
   <div class="person__info" *ngIf="person">
-    <div class="person__name" *ngIf="person.employee">
+    <div class="person__name" *ngIf="isPersonExist()">
       {{person.employee.lastName}} {{ person.employee.firstName.charAt(0).toUpperCase() }}.
     </div>
     <div class="person__position" *ngIf="person.employee">
@@ -50,11 +50,18 @@
       <div class="dropdown__item" *ngIf="isPresent" (click)="menuCheck($event, person)">
         Отсутствует
       </div>
+      <div class="dropdown__item" *ngIf="isPresent" (click)="menuCheck($event, person)">
+        Сделать главным
+      </div>
       <div class="dropdown__item" *ngIf="!isPresent" (click)="menuCheck($event, person)">
         На месте
       </div>
-      <div class="dropdown__item" *ngIf="isPresent" (click)="menuCheck($event, person)">
-        Сделать главным
+      <div
+        class="dropdown__item"
+        *ngIf="!isPresent && !isFromThisBrigade()"
+        (click)="menuCheck($event, person)"
+      >
+        Удалить
       </div>
     </div>
   </div>
