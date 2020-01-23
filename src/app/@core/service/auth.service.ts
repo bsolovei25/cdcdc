@@ -46,7 +46,10 @@ export class AuthService {
     async authenticate(username: string, password: string): Promise<ITokenData> {
         try {
             const auth = await this.http
-                .post<ITokenData>(this.restUrl + `/api/user-management/auth`, { username, password })
+                .post<ITokenData>(this.restUrl + `/api/user-management/auth`, {
+                    username,
+                    password,
+                })
                 .toPromise();
             this.configureUserAuth(auth);
             return auth;
@@ -78,7 +81,9 @@ export class AuthService {
         // If not loaded by token, try with Windows auth
         try {
             current = await this.http
-                .get<ITokenData[]>(this.restUrl + '/api/user-management/windows-current', { withCredentials: true })
+                .get<ITokenData[]>(this.restUrl + '/api/user-management/windows-current', {
+                    withCredentials: true,
+                })
                 .toPromise();
 
             this.configureUserAuth(current[0]);
@@ -93,8 +98,7 @@ export class AuthService {
     private configureUserAuth(tokenData: ITokenData): void {
         this.user$.next(tokenData);
 
-        if (!tokenData.token)
-            return;
+        if (!tokenData.token) return;
 
         this.authTokenData = tokenData;
         // save token
