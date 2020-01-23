@@ -346,33 +346,33 @@ export class EnterpriseMapComponent implements OnDestroy, AfterViewInit {
                 options = this.data.build[idx].options;
             }
             if (options) {
-                const allOptions: number = options.diagnostics + options.nonCritical
-                    + options.prognosis;
+                const allOptions: number =
+                    options.diagnostics + options.nonCritical + options.prognosis;
                 const widthNumber: number = allOptions.toString().length;
                 if (b.tagName === 'polygon' || b.tagName === 'polyline') {
                     const id = b.getAttribute('data-id');
                     const dataPolygon = [
-                        { id: 1, x: `${218 - (widthNumber * 6)}`, y: '28' },
+                        { id: 1, x: `${218 - widthNumber * 6}`, y: '28' },
                         { id: 10, x: '603', y: '149' },
-                        { id: 11, x: `${207 - (widthNumber * 6)}`, y: '68' },
-                        { id: 18, x: `${207 - (widthNumber * 6)}`, y: '114' },
+                        { id: 11, x: `${207 - widthNumber * 6}`, y: '68' },
+                        { id: 18, x: `${207 - widthNumber * 6}`, y: '114' },
                         { id: 23, x: '188', y: '166' },
-                        { id: 30, x: `${621 - (widthNumber * 6)}`, y: '166' },
-                        { id: 31, x: `${163 - (widthNumber * 6)}`, y: '202' },
-                        { id: 32, x: `${187 - (widthNumber * 6)}`, y: '239' },
-                        { id: 40, x: `${670 - (widthNumber * 6)}`, y: '219' },
-                        { id: 56, x: `${378 - (widthNumber * 6)}`, y: '346' },
-                        { id: 57, x: `${378 - (widthNumber * 6)}`, y: '393' },
-                        { id: 77, x: `${788 - (widthNumber * 6)}`, y: '427' },
-                        { id: 78, x: `${813 - (widthNumber * 6)}`, y: '427' },
-                        { id: 80, x: `${246 - (widthNumber * 6)}`, y: '481' },
-                        { id: 92, x: `${655 - (widthNumber * 6)}`, y: '579' }
+                        { id: 30, x: `${621 - widthNumber * 6}`, y: '166' },
+                        { id: 31, x: `${163 - widthNumber * 6}`, y: '202' },
+                        { id: 32, x: `${187 - widthNumber * 6}`, y: '239' },
+                        { id: 40, x: `${670 - widthNumber * 6}`, y: '219' },
+                        { id: 56, x: `${378 - widthNumber * 6}`, y: '346' },
+                        { id: 57, x: `${378 - widthNumber * 6}`, y: '393' },
+                        { id: 77, x: `${788 - widthNumber * 6}`, y: '427' },
+                        { id: 78, x: `${813 - widthNumber * 6}`, y: '427' },
+                        { id: 80, x: `${246 - widthNumber * 6}`, y: '481' },
+                        { id: 92, x: `${655 - widthNumber * 6}`, y: '579' },
                     ];
                     const idxPolygon: number = dataPolygon.findIndex((i) => i.id === +id);
                     if (idxPolygon !== -1) {
                         this.values.push({
-                            x: (dataPolygon[idxPolygon].x).toString(),
-                            y: (dataPolygon[idxPolygon].y).toString(),
+                            x: dataPolygon[idxPolygon].x.toString(),
+                            y: dataPolygon[idxPolygon].y.toString(),
                             class: 'number',
                             value: allOptions ? allOptions : '',
                         });
@@ -382,7 +382,7 @@ export class EnterpriseMapComponent implements OnDestroy, AfterViewInit {
                 const yBuild = b.getAttribute('y');
                 const widthBuild = b.getAttribute('width');
 
-                const x = (+xBuild + +widthBuild - (widthNumber * 6)).toString();
+                const x = (+xBuild + +widthBuild - widthNumber * 6).toString();
                 const y = (+yBuild + 10).toString();
                 const width = b.getAttribute('width');
                 const height = b.getAttribute('height');
@@ -415,10 +415,8 @@ export class EnterpriseMapComponent implements OnDestroy, AfterViewInit {
                         } else if (options.prognosis !== 0) {
                             tx.classList.add('text-prognosis');
                         }
-
                     }
                 });
-
             } else {
                 b.classList.add(`status-standard`);
             }
@@ -491,7 +489,7 @@ export class EnterpriseMapComponent implements OnDestroy, AfterViewInit {
         }
         values.forEach((value) => {
             value.append(atr);
-            value.setAttribute('x', `${937 - (atr.length * 5)}`);
+            value.setAttribute('x', `${937 - atr.length * 5}`);
         });
     }
 }
