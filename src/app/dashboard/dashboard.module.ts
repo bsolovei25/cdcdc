@@ -79,6 +79,7 @@ import { SearchListComponent } from './components/search/search-list/search-list
 import { TimeLineDiagramComponent } from './widgets/time-line-diagram/time-line-diagram.component';
 import { TimeDiagramComponent } from './widgets/time-line-diagram/time-diagram/time-diagram.component';
 import { ObservationNormTRComponent } from './widgets/observation-norm-tr/observation-norm-tr.component';
+import { AdminComponent } from './widgets/admin/admin.component';
 
 @NgModule({
     declarations: [
@@ -152,6 +153,7 @@ import { ObservationNormTRComponent } from './widgets/observation-norm-tr/observ
         SearchInputComponent,
         SearchListComponent,
         ObservationNormTRComponent,
+        AdminComponent,
     ],
     entryComponents: [
         LineChartComponent,
