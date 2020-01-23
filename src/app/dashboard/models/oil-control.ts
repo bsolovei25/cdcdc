@@ -1,40 +1,40 @@
 export interface OilControls {
     operations: number;
-    criticalOperations: number;
-    products: OilProducts[];
+    deviations: number;
+    product: OilProduct[];
 }
 
-export interface OilProducts {
+export interface OilProduct {
     name: string;
     value: number;
     critical: number;
-    storages: OilStorages[];
+    storage: OilStorage[];
 }
 
-export interface OilStorages {
+export interface OilStorage {
     id: number;
     nameStorage: string;
     status: string;
     valueStorage: number;
-    tank: OilTank;
-    tankers: OilTankers[];
+    tank: OilTank[];
+    tanker: OilTanker[];
 }
 
 export interface OilTank {
     timeStart: string;
     timeEnd: string;
-    tankLevel: number;
-    tankValues: OilTankValues[];
+    bukLevel: number;
+    tankValue: OilTankValue[];
 }
 
-export interface OilTankValues {
+export interface OilTankValue {
     name: string;
-    valueFirst: number;
+    valueFirts: number;
     valueSecond: number;
     status: string;
 }
 
-export interface OilTankers {
+export interface OilTanker {
     nameTanker: string;
     shipped: boolean;
     value: number;
