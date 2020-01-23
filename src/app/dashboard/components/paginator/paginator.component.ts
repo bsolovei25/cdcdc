@@ -82,7 +82,7 @@ export class PaginatorComponent implements OnInit, OnChanges, AfterViewInit {
                 .fill(0)
                 .map((x, i) => i + 1);
         } else {
-            return Array(this.maxButons - this.aroundCount + 1)
+            return Array(this.maxButons - this.aroundCount )
                 .fill(0)
                 .map((x, i) => i + 1);
         }
@@ -103,7 +103,7 @@ export class PaginatorComponent implements OnInit, OnChanges, AfterViewInit {
 
     public get rightPages(): number[] {
         if (this.currentPage > this.countPages - this.middleValue) {
-            return Array(this.maxButons - this.aroundCount + 1)
+            return Array(this.maxButons - this.aroundCount)
                 .fill(this.countPages)
                 .map((x, i) => x - i)
                 .reverse();

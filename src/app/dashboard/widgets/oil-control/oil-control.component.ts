@@ -989,6 +989,14 @@ export class OilControlComponent implements OnInit, AfterViewInit {
     public checkRemove = false;
     public checkCriticalTank = false;
 
+    public savePosition: boolean = false;
+    public savePositionProduct: number;
+    public savePositionStorage: number;
+
+    public saveDataStorage: any = [];
+
+    public checkSocket: boolean = false;
+
     constructor(
         public widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,
@@ -1054,6 +1062,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
 
     private wsConnect() {
         this.widgetService.getWidgetLiveDataFromWS(this.id, 'oil-control').subscribe((ref) => {
+            this.checkSocket = true;
             this.data = ref;
             if (this.svgMenu) {
                 this.clearProduct();
@@ -1067,8 +1076,18 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             }
             this.indexTestProduct = count - 1;
             this.drawOilControl(this.data);
+            if ( this.checkSocket === true && this.savePositionProduct !== undefined) {
+               this.onButtonChangeProduct(this.savePositionProduct);
+               if (this.saveDataStorage.length !== 0) {
+               this.onButtonChangeStorage(this.savePositionStorage, this.saveDataStorage);
+               }
+            }
+
+            this.savePosition = true;
+            this.checkSocket = false;
         });
     }
+
     private wsDisconnect() {}
 
     showMock(show) {
@@ -1138,8 +1157,8 @@ export class OilControlComponent implements OnInit, AfterViewInit {
         } else if (countPicture === 2) {
             x1 = -180;
             x2 = -160;
-            x3 = -48;
-            x4 = -48;
+            x3 = -128;
+            x4 = -128;
             y = 180;
         } else {
             x1 = -100;
@@ -1250,9 +1269,8 @@ export class OilControlComponent implements OnInit, AfterViewInit {
 
     public drawOnCircle(el, pieStart, pieEnd, pieStartStorage, pieEndStorage, data, dataStorage) {
         this.criticalPage = [];
+       
         this.svgMenu = d3.select(el.firstElementChild);
-        //  this.svgMenu = d3.select(el);
-        //   let svgMenu = d3.select(el.firstElementChild);
         let svgMenu = this.svgMenu;
         this.activeProduct = data;
 
@@ -1262,6 +1280,14 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             this.activeStorage = dataStorage[1];
         } else {
             this.activeStorage = dataStorage[2];
+        }
+
+        if ( (this.saveDataStorage.length === 0 && this.checkSocket === true) || (this.countClickChange !== 0 && this.checkSocket === false) ) {
+            this.saveDataStorage = [];
+            for (let item of dataStorage) {
+                this.saveDataStorage.push(item);
+            }
+            this.savePositionStorage = this.activeStorage.id;
         }
 
         const leftBorder: any = el.querySelectorAll('.st5');
@@ -1485,6 +1511,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                             .text(textProduct.name)
                             .on('click', () => {
                                 this.onButtonChangeProduct(textProduct.name);
+                                this.savePositionProduct = textProduct.name;
                             });
                         this.htmlProduct = textProduct.name;
                     }
@@ -1543,6 +1570,11 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                                 .text(textStorage.nameStorage)
                                 .on('click', () => {
                                     this.onButtonChangeStorage(textStorage.id, dataStorage);
+                                    this.savePositionStorage = textStorage.id;
+                                    this.saveDataStorage = [];
+                                    for (let item of dataStorage) {
+                                        this.saveDataStorage.push(item);
+                                    }
                                 });
                         } else {
                             let valueGoodText = svgMenu
@@ -1562,6 +1594,11 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                                 .text(textStorage.nameStorage)
                                 .on('click', () => {
                                     this.onButtonChangeStorage(textStorage.id, dataStorage);
+                                    this.savePositionStorage = textStorage.id;
+                                    this.saveDataStorage = [];
+                                    for (let item of dataStorage) {
+                                        this.saveDataStorage.push(item);
+                                    }
                                 });
                         }
                         this.htmlDataStorage = dataStorage;
@@ -1596,7 +1633,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
         let rect = this.tankPicture
             .append('rect')
             .attr('fill', '#a2e2ff')
-            .attr('opacity', '0.5')
+            .attr('opacity', '0.9')
             .attr('height', this.activeStorage.tank.tankLevel * 2.2)
             .attr('width', '260px')
             .attr('x', '63')
@@ -1643,6 +1680,10 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             this.indexTestStorage = this.countStorage(this.newArrayProduct[2]);
             this.FilterStorageCircle(this.newArrayProduct[2], this.indexTestStorage);
             this.countClickChange++;
+        } else if(this.checkSocket){
+            this.changeMassiv(index, this.data.products);
+            this.indexTestStorage = this.countStorage(this.newArrayProduct[2]);
+            this.FilterStorageCircle(this.newArrayProduct[2], this.indexTestStorage);
         } else {
             this.changeMassiv(index, this.newArrayProduct);
             this.indexTestStorage = this.countStorage(this.newArrayProduct[2]);
@@ -1795,7 +1836,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                         lengthData = lengthData - 1;
                     }
                     newIndexProduct = lengthData - indexProduct;
-                    if (newIndexProduct === 0) {
+                    if (indexProduct === 4) {
                         newIndexProduct = 1;
                         this.shiftMassivStorage(newIndexProduct, move, data);
                     } else {
@@ -1804,11 +1845,11 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                     }
                 } else {
                     move = 'prev';
-                    if (data.length === 5) {
+                    if (data.length === 1) {
                         lengthData = lengthData - 1;
                     }
                     newIndexProduct = lengthData - indexProduct;
-                    if (newIndexProduct < 3) {
+                    if (indexProduct === 2) {
                         newIndexProduct = 1;
                         this.shiftMassivStorage(newIndexProduct, move, data);
                     } else {
@@ -1822,6 +1863,8 @@ export class OilControlComponent implements OnInit, AfterViewInit {
 
     public shiftMassiv(el, move) {
         if (this.countClickChange === 0) {
+            this.newArrayProduct = [...this.data.products];
+        } else if(this.checkSocket) {
             this.newArrayProduct = [...this.data.products];
         } else {
             this.newArrayProduct = [...this.newArrayProduct];
@@ -1840,9 +1883,13 @@ export class OilControlComponent implements OnInit, AfterViewInit {
     public shiftMassivStorage(el, move, data) {
         if (this.countClickChangeStorage === 0) {
             this.newArrayStorage = [...data];
+        } else if ( this.checkSocket ) {
+            this.newArrayStorage = [...data];
         } else {
+         //   this.newArrayStorage = [...this.newArrayStorage];
             this.newArrayStorage = [...data];
         }
+
         if (move === 'prev') {
             for (let i = 0; i < el; i++) {
                 this.newArrayStorage.unshift(this.newArrayStorage.pop());
