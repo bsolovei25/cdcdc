@@ -14,17 +14,17 @@ export class HeaderDataService {
         .asObservable()
         .pipe(filter((item) => item !== null));
 
-    public startDate;
-    public endDate;
+    public startDate: any;
+    public endDate: any;
     public statusButton;
     public monthStart;
     public monthEnd;
 
-    public dateToLine = {};
+    // public dateToLine = {};
 
     constructor() {}
 
-    public catchDefaultDate(start, end, status) {
+    public catchDefaultDate(start, end, status): void {
         let defaultTime = new Date();
         defaultTime = new Date(
             defaultTime.getFullYear(),
