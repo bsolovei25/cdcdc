@@ -196,13 +196,29 @@ export class NewWidgetService {
 
             case 'solid-gauge-with-marker':
                 return data;
+
             case 'circle-block-diagram':
                 return data;
+
             case 'deviation-circle-diagram':
                 return data;
+
             case 'time-line-diagram':
                 return data;
+
             case 'ring-energy-indicator':
+                return data;
+
+            case 'calendar-plan':
+                return data;
+
+            case 'operation-efficiency':
+                return data;
+
+            case 'ecology-safety':
+                return data;
+
+            case 'energetics':
                 return data;
         }
         console.warn(`unknown widget type ${widgetType}`);

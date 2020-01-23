@@ -58,7 +58,7 @@
           </div>
           <div class="deviation__better">
             Улучшение
-            <span>{{ data.plan - data.curValue < 0 ? data.plan - data.curValue : 0 }}</span>
+            <span>{{ data.plan - data.curValue < 0 ? -(data.plan - data.curValue) : 0 }}</span>
             <img src="../../../../assets/icons/widgets/calendar-plan/deviat.svg" alt="" />
           </div>
         </div>
