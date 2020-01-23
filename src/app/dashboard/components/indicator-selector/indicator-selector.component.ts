@@ -9,7 +9,7 @@ import { ScreenSettings } from '../../models/user-settings.model';
     templateUrl: './indicator-selector.component.html',
     styleUrls: ['./indicator-selector.component.scss'],
 })
-export class IndicatorSelectorComponent implements OnInit {
+export class IndicatorSelectorComponent {
     public dataScreen: ScreenSettings[] = [];
 
     isReadyAdd: boolean = false;
@@ -32,31 +32,23 @@ export class IndicatorSelectorComponent implements OnInit {
 
     constructor(private userSettings: NewUserSettingsService) {
         this.subscription = this.userSettings.screens$.subscribe((dataW) => {
+            console.log(dataW);
             this.dataScreen = dataW;
-            if (this.getActiveScreen()) {
-                this.nameScreen = this.getActiveScreen();
-            }
+            this.localSaved = Number(localStorage.getItem('screenid'));
+            this.nameScreen = this.getActiveScreen();
             for (const item of this.dataScreen) {
                 item.updateScreen = false;
             }
         });
     }
 
-    ngOnInit(): void {
-        this.localSaved = Number(localStorage.getItem('screenid'));
-    }
-
-    ngAfterViewInit() {
-        this.nameScreen = this.getActiveScreen();
-    }
-
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
     }
 
-    public LoadScreen(id): void {
+    public LoadScreen(id: string): void {
         this.userSettings.LoadScreen(id);
     }
 
@@ -82,6 +74,8 @@ export class IndicatorSelectorComponent implements OnInit {
         }
 
         if (this.localSaved) {
+
+
             const found = this.dataScreen.find((x) => x.id === this.localSaved);
             if (found) {
                 return found.screenName;
@@ -106,22 +100,22 @@ export class IndicatorSelectorComponent implements OnInit {
         }
     }
 
-    public deleteScreen(id) {
+    public deleteScreen(id: string): void {
         this.userSettings.deleteScreen(id);
         for (const item of this.dataScreen) {
-            if (item.id === id) {
+            if (item.id === Number(id)) {
                 this.dataScreen.splice(this.dataScreen.indexOf(item), 1);
             }
         }
 
-        if (this.idScreen === id) {
+        if (this.idScreen === Number(id)) {
             this.nameScreen = this.dataScreen[0].screenName;
             this.idScreen = this.dataScreen[0].id;
-            this.LoadScreen(this.idScreen);
+            this.LoadScreen(this.idScreen.toString());
         }
     }
 
-    public updateScreen(id, newName) {
+    public updateScreen(id, newName): void {
         for (const item of this.dataScreen) {
             if (item.id === id) {
                 item.updateScreen = false;
@@ -154,5 +148,5 @@ export class IndicatorSelectorComponent implements OnInit {
             item.updateScreen = false;
         }
     }
-    isOverScreen(e) {}
+    isOverScreen(e) { }
 }

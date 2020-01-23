@@ -1,8 +1,7 @@
-<evj-new-widgets-panel
-  (onSwap)="onSwap($event)"
-  (onGrid)="onGrid($event)"
-  (ngModelChange)="changedOptions()"
->
+<evj-new-widgets-panel *ngIf="!fullscreen"
+                       (onSwap)="onSwap($event)"
+                       (onGrid)="onGrid($event)"
+                       (ngModelChange)="changedOptions()">
 </evj-new-widgets-panel>
 
 <gridster [options]="options">

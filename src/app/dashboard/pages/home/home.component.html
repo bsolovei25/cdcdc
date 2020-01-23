@@ -1,4 +1,5 @@
-<evj-header class="header">
+<evj-header *ngIf="!fullscreen"
+            class="header">
   <div class="logo-gpn"></div>
   <evj-indicator-selector class="header__indicator-selector"></evj-indicator-selector>
   <evj-line-datetime class="header__line-datetime"></evj-line-datetime>

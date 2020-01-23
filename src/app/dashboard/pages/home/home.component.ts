@@ -6,7 +6,13 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-    constructor() {}
+    fullscreen: boolean = false;
 
-    ngOnInit() {}
+    constructor() { }
+
+    ngOnInit() {
+        document.addEventListener('fullscreenchange', () => {
+            this.fullscreen = document.fullscreenElement ? true : false;
+        });
+    }
 }

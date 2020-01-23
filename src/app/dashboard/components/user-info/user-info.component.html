@@ -1,6 +1,9 @@
-<div class="user-info" (mouseover)="ScreenActive()" (mouseleave)="ScreenDisable()">
+<div class="user-info"
+     (mouseover)="ScreenActive()"
+     (mouseleave)="ScreenDisable()">
   <div class="user-info_avatar"></div>
-  <div *ngIf="data" class="user-info_data">
+  <div *ngIf="data"
+       class="user-info_data">
     <div class="user-name">
       <span>
         {{ data.lastName ? data.lastName : data.login }} {{ data.firstName | slice : 0 : 1 }}.{{
@@ -12,14 +15,25 @@
   </div>
 </div>
 
-<div class="dropdown-content" [class.dropdown-content_active]="this.isShowScreens">
+<div class="dropdown-content"
+     [class.dropdown-content_active]="this.isShowScreens">
   <ng-container>
-    <div
-      (click)="logOut()"
-      class="dropdown-component"
-      (mouseover)="isOverScreen()"
-      (mouseleave)="isLeaveScreen()"
-    >
+    <div (click)="fullScreen()"
+         class="dropdown-component"
+         (mouseover)="isOverScreen()"
+         (mouseleave)="isLeaveScreen()">
+      <div class="screen_block">
+        <div class="screen_blocks">
+          <div class="screen_name">
+            Полный экран
+          </div>
+        </div>
+      </div>
+    </div>
+    <div (click)="logOut()"
+         class="dropdown-component"
+         (mouseover)="isOverScreen()"
+         (mouseleave)="isLeaveScreen()">
       <div class="screen_block">
         <div class="screen_blocks">
           <div class="screen_name">

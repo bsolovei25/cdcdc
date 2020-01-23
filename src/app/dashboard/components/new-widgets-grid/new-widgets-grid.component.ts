@@ -21,6 +21,8 @@ import { EventEmitter } from '@angular/core';
 export class NewWidgetsGridComponent implements OnInit {
     public readonly WIDGETS = WIDGETS;
 
+    fullscreen: boolean = false;
+
     public options: GridsterConfig;
 
     model: WidgetModel;
@@ -39,9 +41,13 @@ export class NewWidgetsGridComponent implements OnInit {
         public widgetService: NewWidgetService,
         public injector: Injector,
         public userSettings: NewUserSettingsService
-    ) {}
+    ) { }
 
-    ngOnInit() {
+    ngOnInit(): void {
+        document.addEventListener('fullscreenchange', () => {
+            this.fullscreen = document.fullscreenElement ? true : false;
+        });
+
         this.userSettings.GetScreen();
 
         this.options = {
