@@ -1,4 +1,4 @@
-import {Component, OnInit, Inject, OnDestroy} from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
 import {
@@ -103,13 +103,15 @@ export class EnergeticsComponent implements OnInit, OnDestroy {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscriptions.push(this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-            this.title = data.title;
-            this.previewTitle = data.widgetType;
-            // this.code = data.code;
-            // this.units = data.units;
-            // this.name = data.name;
-        }));
+        this.subscriptions.push(
+            this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
+                this.title = data.title;
+                this.previewTitle = data.widgetType;
+                // this.code = data.code;
+                // this.units = data.units;
+                // this.name = data.name;
+            })
+        );
     }
 
     ngOnInit(): void {
@@ -119,24 +121,24 @@ export class EnergeticsComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.subscriptions.forEach(el => el.unsubscribe());
+        this.subscriptions.forEach((el) => el.unsubscribe());
     }
 
     wsConnect(): void {
         this.subscriptions.push(
-            this.widgetService
-                .getWidgetLiveDataFromWS(this.id, 'energetics')
-                .subscribe((ref) => {
-                    console.log(ref);
-                    this.data = ref;
-                    this.data.curValue = ref.currentValue;
-                    this.data.lowerBorder = Math.abs(this.data.lowerBorder - this.data.plan) / this.data.plan;
-                    this.data.higherBorder = Math.abs(this.data.higherBorder - this.data.plan) / this.data.plan;
-                    this.data.lowerValue = this.data.plan * (1 - this.data.lowerBorder);
-                    this.data.higherValue = this.data.plan * (1 + this.data.higherBorder);
-                    console.log(this.data);
-                    this.energyCircleDiagram = ref.circleDiagram;
-                })
+            this.widgetService.getWidgetLiveDataFromWS(this.id, 'energetics').subscribe((ref) => {
+                console.log(ref);
+                this.data = ref;
+                this.data.curValue = ref.currentValue;
+                this.data.lowerBorder =
+                    Math.abs(this.data.lowerBorder - this.data.plan) / this.data.plan;
+                this.data.higherBorder =
+                    Math.abs(this.data.higherBorder - this.data.plan) / this.data.plan;
+                this.data.lowerValue = this.data.plan * (1 - this.data.lowerBorder);
+                this.data.higherValue = this.data.plan * (1 + this.data.higherBorder);
+                console.log(this.data);
+                this.energyCircleDiagram = ref.circleDiagram;
+            })
         );
     }
 
