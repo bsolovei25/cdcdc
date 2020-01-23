@@ -35,6 +35,7 @@ export class IndicatorSelectorComponent {
             console.log(dataW);
             this.dataScreen = dataW;
             this.localSaved = Number(localStorage.getItem('screenid'));
+            this.LoadScreen(this.localSaved);
             this.nameScreen = this.getActiveScreen();
             for (const item of this.dataScreen) {
                 item.updateScreen = false;
