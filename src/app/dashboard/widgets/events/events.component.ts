@@ -24,7 +24,7 @@ import { EventService } from '../../services/event.service';
 export class EventsComponent implements OnInit, OnDestroy {
     @Input() name = '';
     ng;
-    isList = false;
+    isList: boolean = false;
 
     title: string = '';
     isDeleteRetrieval: boolean = false;
@@ -32,8 +32,8 @@ export class EventsComponent implements OnInit, OnDestroy {
     selectedId: number = 0;
     eventOverlayId: number;
 
-    static itemCols = 30;
-    static itemRows = 20;
+    static itemCols: number = 30;
+    static itemRows: number = 20;
 
     public previewTitle: string;
 
