@@ -15,9 +15,39 @@
 
   <evj-frame-top></evj-frame-top>
 
-  <ng-container> 
+  <ng-container>
     <div class="admin">
-      
+      <div class="admin__header">
+        <div class="header__search">
+          <div class="search input__container">
+            <div class="input__frame input__frame-left"></div>
+            <div class="input__frame input__frame-right"></div>
+            <input class="input search" type="text" placeholder="Введите ФИО сотрудника" />
+          </div>
+          <button class="button group__button">
+            <div class="button__frame button__frame-left"></div>
+            <div class="button__frame button__frame-right"></div>
+          </button>
+          <button class="button new__button">
+            <div class="button__frame button__frame-left"></div>
+            <div class="button__frame button__frame-right"></div>
+          </button>
+        </div>
+        <div class="header__title">
+          <div class="line"></div>
+          <div class="title">Основная информация</div>
+          <div class="line"></div>
+        </div>
+        <div class="header__more">
+          <button class="button more__button">
+            <div class="button__frame button__frame-left"></div>
+            <div class="button__frame button__frame-right"></div>
+            Подробнее
+          </button>
+        </div>
+      </div>
+      <div class="admin__emloyee"></div>
+      <div class="admin__workspace"></div>
     </div>
   </ng-container>
 
