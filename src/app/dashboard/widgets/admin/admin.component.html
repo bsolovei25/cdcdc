@@ -23,11 +23,16 @@
             <input class="input search" type="text" placeholder="Введите ФИО сотрудника" />
             <div class="input__frame input__frame-right"></div>
             <div class="input__frame input__frame-left"></div>
-            
           </div>
           <button class="button group__button">
             <div class="button__frame button__frame-left"></div>
             <div class="button__frame button__frame-right"></div>
+            <img src="../../../../assets/icons/widgets/admin/icon_group.svg" alt="" />
+            <img
+              *ngIf="false"
+              src="../../../../assets/icons/widgets/admin/icon_group-active.svg"
+              alt=""
+            />
           </button>
           <button class="button new__button">
             <div class="button__frame button__frame-left"></div>
@@ -47,7 +52,45 @@
           </button>
         </div>
       </div>
-      <div class="admin__emloyee"></div>
+      <div class="admin__employee">
+        <div class="employee__list">
+          <div class="employee__humans">
+            <div class="employee__human block__frame-left">
+              <div class="human__name">Синявский Игорь Олегович</div>
+              <div class="human__position">Слесарь | КИПиА</div>
+            </div>
+            <div class="employee__human block__frame-left">
+              <div class="human__name">Синявский Игорь Олегович</div>
+              <div class="human__position">Слесарь | КИПиА</div>
+            </div>
+            <div class="employee__human block__frame-left">
+              <div class="human__name">Синявский Игорь Олегович</div>
+              <div class="human__position">Слесарь | КИПиА</div>
+            </div>
+            <div class="employee__human block__frame-left">
+              <div class="human__name">Синявский Игорь Олегович</div>
+              <div class="human__position">Слесарь | КИПиА</div>
+            </div>
+            <div class="employee__human block__frame-left">
+              <div class="human__name">Синявский Игорь Олегович</div>
+              <div class="human__position">Слесарь | КИПиА</div>
+            </div>
+          </div>
+        </div>
+        <div class="employee__person">
+          <div class="person__photo">
+            <div class="photo__frame">
+              <div class="photo__avatar">
+                <img src="" alt="" />
+              </div>
+            </div>
+          </div>
+          <div class="person__item block__frame-right">+7 (925) 599-99-87</div>
+          <div class="person__item block__frame-right">Ivanov@gazprom-neft.ru</div>
+          <div class="person__item block__frame-right">Бригада №1</div>
+          <div class="person__item block__frame-right">Высокий уровень доступа</div>
+        </div>
+      </div>
       <div class="admin__workspace"></div>
     </div>
   </ng-container>
