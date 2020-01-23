@@ -46,7 +46,7 @@
   box-sizing: border-box;
   border-left: 0.5px dashed var(--color-border-main-transparrent);
   border-right: 0.5px dashed var(--color-border-main-transparrent);
-  padding: 0 20px;
+  padding: 20px;
 
   overflow: hidden;
 
@@ -72,7 +72,6 @@
         .group__button,
         .new__button {
           width: 65px;
-          border: 1px solid var(--color-border-search);
         }
 
         .search {
@@ -205,10 +204,6 @@
   border: none;
   padding: 0;
   background: transparent;
-
-  &:hover {
-    cursor: pointer;
-  }
 }
 
 .input {
@@ -312,13 +307,48 @@
   }
 
   &:focus {
-    outline: 1px solid var(--color-border-search);
+    outline: none;
+    border: 1px solid var(--color-border-active);
+    background: transparent;
+    color: var(--color-text-main);
+
+    & ~ .input {
+      &__frame {
+        &-left {
+          &::after {
+            border-bottom: 1px solid var(--color-border-active);
+            left: -4px;
+            top: -4px;
+          }
+
+          &::before {
+            border-top: 1px solid var(--color-border-active);
+            left: -4px;
+            bottom: -4px;
+          }
+        }
+
+        &-right {
+          &::after {
+            border-bottom: 1px solid var(--color-border-active);
+            right: -4px;
+            top: -4px;
+          }
+
+          &::before {
+            border-top: 1px solid var(--color-border-active);
+            right: -4px;
+            bottom: -4px;
+          }
+        }
+      }
+    }
   }
 }
 
 .button {
   position: relative;
-  color: var(--color-text-main);
+  color: var(--color-border-search);
   border: 1px solid var(--color-border-search);
   padding: 0 10px;
 
@@ -329,6 +359,7 @@
     width: 10px;
     box-sizing: border-box;
     top: 0px;
+    background: transparent;
 
     &-left {
       left: 0px;
@@ -409,5 +440,28 @@
         transform: rotate(-45deg);
       }
     }
+  }
+
+  &:hover {
+    cursor: pointer;
+    color: var(--color-text-main);
+    border-color: var(--color-border-active);
+    background: var(--color-bg-active);
+
+    .button {
+      &__frame {
+        &-left,
+        &-right {
+          &::after,
+          &::before {
+            border-color: var(--color-border-active);
+          }
+        }
+      }
+    }
+  }
+
+  &:focus {
+    outline: none;
   }
 }
