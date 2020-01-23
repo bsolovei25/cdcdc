@@ -82,7 +82,7 @@ export class PaginatorComponent implements OnInit, OnChanges, AfterViewInit {
                 .fill(0)
                 .map((x, i) => i + 1);
         } else {
-            return Array(this.maxButons - this.aroundCount )
+            return Array(this.maxButons - this.aroundCount)
                 .fill(0)
                 .map((x, i) => i + 1);
         }

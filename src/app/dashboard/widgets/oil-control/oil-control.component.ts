@@ -1076,11 +1076,11 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             }
             this.indexTestProduct = count - 1;
             this.drawOilControl(this.data);
-            if ( this.checkSocket === true && this.savePositionProduct !== undefined) {
-               this.onButtonChangeProduct(this.savePositionProduct);
-               if (this.saveDataStorage.length !== 0) {
-               this.onButtonChangeStorage(this.savePositionStorage, this.saveDataStorage);
-               }
+            if (this.checkSocket === true && this.savePositionProduct !== undefined) {
+                this.onButtonChangeProduct(this.savePositionProduct);
+                if (this.saveDataStorage.length !== 0) {
+                    this.onButtonChangeStorage(this.savePositionStorage, this.saveDataStorage);
+                }
             }
 
             this.savePosition = true;
@@ -1269,7 +1269,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
 
     public drawOnCircle(el, pieStart, pieEnd, pieStartStorage, pieEndStorage, data, dataStorage) {
         this.criticalPage = [];
-       
+
         this.svgMenu = d3.select(el.firstElementChild);
         let svgMenu = this.svgMenu;
         this.activeProduct = data;
@@ -1282,7 +1282,10 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             this.activeStorage = dataStorage[2];
         }
 
-        if ( (this.saveDataStorage.length === 0 && this.checkSocket === true) || (this.countClickChange !== 0 && this.checkSocket === false) ) {
+        if (
+            (this.saveDataStorage.length === 0 && this.checkSocket === true) ||
+            (this.countClickChange !== 0 && this.checkSocket === false)
+        ) {
             this.saveDataStorage = [];
             for (let item of dataStorage) {
                 this.saveDataStorage.push(item);
@@ -1680,7 +1683,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             this.indexTestStorage = this.countStorage(this.newArrayProduct[2]);
             this.FilterStorageCircle(this.newArrayProduct[2], this.indexTestStorage);
             this.countClickChange++;
-        } else if(this.checkSocket){
+        } else if (this.checkSocket) {
             this.changeMassiv(index, this.data.products);
             this.indexTestStorage = this.countStorage(this.newArrayProduct[2]);
             this.FilterStorageCircle(this.newArrayProduct[2], this.indexTestStorage);
@@ -1864,7 +1867,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
     public shiftMassiv(el, move) {
         if (this.countClickChange === 0) {
             this.newArrayProduct = [...this.data.products];
-        } else if(this.checkSocket) {
+        } else if (this.checkSocket) {
             this.newArrayProduct = [...this.data.products];
         } else {
             this.newArrayProduct = [...this.newArrayProduct];
@@ -1883,10 +1886,10 @@ export class OilControlComponent implements OnInit, AfterViewInit {
     public shiftMassivStorage(el, move, data) {
         if (this.countClickChangeStorage === 0) {
             this.newArrayStorage = [...data];
-        } else if ( this.checkSocket ) {
+        } else if (this.checkSocket) {
             this.newArrayStorage = [...data];
         } else {
-         //   this.newArrayStorage = [...this.newArrayStorage];
+            //   this.newArrayStorage = [...this.newArrayStorage];
             this.newArrayStorage = [...data];
         }
 
