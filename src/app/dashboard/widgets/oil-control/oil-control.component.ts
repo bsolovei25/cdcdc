@@ -1290,7 +1290,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             for (let item of dataStorage) {
                 this.saveDataStorage.push(item);
             }
-            this.savePositionStorage = this.activeStorage.id;
+            this.savePositionStorage = 1;
         }
 
         const leftBorder: any = el.querySelectorAll('.st5');
