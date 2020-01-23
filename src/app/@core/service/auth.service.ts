@@ -23,7 +23,7 @@ export class AuthService {
     user$: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(null);
 
     get userIsAuthenticated(): boolean {
-        return this.authTokenData !== null || false;
+        return this.authTokenData !== null;
     }
 
     get userSessionToken(): string | null {

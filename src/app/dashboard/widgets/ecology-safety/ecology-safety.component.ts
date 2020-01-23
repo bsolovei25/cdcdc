@@ -1,4 +1,4 @@
-import {Component, OnInit, Inject, OnDestroy} from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { IEcologySafety } from '../../models/ecology-safety';
@@ -35,9 +35,8 @@ export class EcologySafetyComponent implements OnInit, OnDestroy {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscriptions.push(this.widgetService
-            .getWidgetChannel(this.id)
-            .subscribe((data: IWidgets) => {
+        this.subscriptions.push(
+            this.widgetService.getWidgetChannel(this.id).subscribe((data: IWidgets) => {
                 this.title = data.title;
                 this.previewTitle = data.widgetType;
             })

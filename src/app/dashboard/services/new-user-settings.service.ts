@@ -149,8 +149,8 @@ export class NewUserSettingsService {
         );
     }
 
-    public LoadScreen(id: string) {
-        localStorage.setItem('screenid', id);
+    public LoadScreen(id: number) {
+        localStorage.setItem('screenid', id.toString());
         return this.LoadScreenAsync(id, true).subscribe((item: ScreenSettings) => {
             this.ScreenId = item.id;
             this.ScreenName = item.screenName;
