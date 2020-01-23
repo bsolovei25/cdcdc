@@ -202,8 +202,6 @@ export class NewWidgetService {
                 return data;
             case 'ring-energy-indicator':
                 return data;
-            case 'oil-control':
-                return data;
         }
         console.warn(`unknown widget type ${widgetType}`);
     }
