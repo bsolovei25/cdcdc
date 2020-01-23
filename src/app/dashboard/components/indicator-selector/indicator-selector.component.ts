@@ -74,8 +74,6 @@ export class IndicatorSelectorComponent {
         }
 
         if (this.localSaved) {
-
-
             const found = this.dataScreen.find((x) => x.id === this.localSaved);
             if (found) {
                 return found.screenName;
@@ -148,5 +146,5 @@ export class IndicatorSelectorComponent {
             item.updateScreen = false;
         }
     }
-    isOverScreen(e) { }
+    isOverScreen(e) {}
 }

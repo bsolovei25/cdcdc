@@ -41,7 +41,7 @@ export class NewWidgetsGridComponent implements OnInit {
         public widgetService: NewWidgetService,
         public injector: Injector,
         public userSettings: NewUserSettingsService
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         document.addEventListener('fullscreenchange', () => {
