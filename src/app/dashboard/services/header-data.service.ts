@@ -8,9 +8,11 @@ import { HeaderDate } from '../models/header-date';
     providedIn: 'root',
 })
 export class HeaderDataService {
-    private _date$: BehaviorSubject<HeaderDate> = new BehaviorSubject(null);
+    private localDate$: BehaviorSubject<HeaderDate | null> = new BehaviorSubject<HeaderDate | null>(
+        null
+    );
 
-    public date$: Observable<HeaderDate> = this._date$
+    public date$: Observable<HeaderDate> = this.localDate$
         .asObservable()
         .pipe(filter((item) => item !== null));
 
@@ -69,6 +71,6 @@ export class HeaderDataService {
             end: this.endDate,
             status: this.statusButton,
         };
-        this._date$.next(dateTo);
+        this.localDate$.next(dateTo);
     }
 }

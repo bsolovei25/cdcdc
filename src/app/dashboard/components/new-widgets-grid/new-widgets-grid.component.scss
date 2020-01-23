@@ -106,7 +106,7 @@ gridster-item {
   padding: 10px !important;
   height: calc(100vh - 60px) !important;
   width: 100% !important;
-  background-color: rgb(27, 30, 39);
+  background-color: var(--color-bg-main);
 }
 
 ::-webkit-scrollbar {
