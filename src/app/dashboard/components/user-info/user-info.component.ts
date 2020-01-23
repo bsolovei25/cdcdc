@@ -48,7 +48,7 @@ export class UserInfoComponent implements OnInit, OnDestroy {
     }
 
     async fullScreen(): Promise<void> {
-        let elem = document.getElementById('#fullScreen');
+        const elem = document.getElementById('#fullScreen');
         console.log(elem);
 
         document.documentElement.requestFullscreen();
