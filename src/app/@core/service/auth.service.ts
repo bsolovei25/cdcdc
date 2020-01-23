@@ -3,22 +3,14 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 // RxJS
 import { BehaviorSubject } from 'rxjs';
-import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from 'src/app/services/appConfigService';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { IUser } from '../../dashboard/models/events-widget';
 // Local modules
 
-interface ITokenData {
-    login: string;
-    firstName: string;
-    lastName: string;
-    middleName: string;
-    phone: string;
-    position: string;
-    positionDescription: string;
+export interface ITokenData extends IUser {
     token: string;
-    id: number;
-    email: string;
 }
 
 @Injectable({
@@ -28,10 +20,10 @@ export class AuthService {
     private authTokenData: ITokenData | null;
     private restUrl: string;
 
-    user$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+    user$: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(null);
 
     get userIsAuthenticated(): boolean {
-        return false;
+        return this.authTokenData !== null || false;
     }
 
     get userSessionToken(): string | null {
@@ -51,10 +43,13 @@ export class AuthService {
         });
     }
 
-    async authenticate(username: string, password: string): Promise<any> {
+    async authenticate(username: string, password: string): Promise<ITokenData> {
         try {
             const auth = await this.http
-                .post<any>(this.restUrl + `/api/user-management/auth`, { username, password })
+                .post<ITokenData>(this.restUrl + `/api/user-management/auth`, {
+                    username,
+                    password,
+                })
                 .toPromise();
             this.configureUserAuth(auth);
             return auth;
@@ -63,23 +58,49 @@ export class AuthService {
         }
     }
 
-    async getUserAuth(): Promise<any[]> | null {
+    async getUserAuth(): Promise<ITokenData[]> | null {
+        if (!this.restUrl) {
+            return null;
+        }
+
+        let current: ITokenData[];
+
+        // Try get current by token
         try {
-            if (this.restUrl) {
-                return await this.http
-                    .get<any[]>(this.restUrl + '/api/user-management/current')
+            if (this.userSessionToken) {
+                current = await this.http
+                    .get<ITokenData[]>(this.restUrl + '/api/user-management/current')
                     .toPromise();
+                this.configureUserAuth(current[0]);
+                return current;
             }
         } catch (error) {
+            console.warn(error);
+        }
+
+        // If not loaded by token, try with Windows auth
+        try {
+            current = await this.http
+                .get<ITokenData[]>(this.restUrl + '/api/user-management/windows-current', {
+                    withCredentials: true,
+                })
+                .toPromise();
+
+            this.configureUserAuth(current[0]);
+            return current;
+        } catch (error) {
             this.router.navigate(['login']);
-            console.error(error);
+            console.warn(error);
         }
         return null;
     }
 
     private configureUserAuth(tokenData: ITokenData): void {
+        this.user$.next(tokenData);
+
+        if (!tokenData.token) return;
+
         this.authTokenData = tokenData;
-        this.user$.next('');
         // save token
         localStorage.setItem('authentication-token', this.authTokenData.token);
     }

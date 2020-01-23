@@ -62,7 +62,8 @@
         <div class="onShift__label">На смене</div>
         <ng-container *ngIf="currentShift != null">
           <div class="onShift__add" #addShift (click)="showPeople()">
-            +
+            <span class="onShift__add-verical"></span>
+            <span class="onShift__add-horizontal"></span>
           </div>
           <div class="onShift__people scroll-bar">
             <div *ngFor="let person of this.presentMembers; let i = index">
@@ -99,6 +100,7 @@
                 [shiftType]="this.aboutWidget.widgetType"
                 [shiftId]="currentShift.id"
                 [onShift]="true"
+                [currentBrigade]="currentShift.brigade.id"
                 [isPresent]="false"
               ></evj-shift-person>
             </div>
@@ -126,20 +128,14 @@
               #input
             />
             <button type="submit" class="button comment__file   gridster-item-content">
-              <svg-icon
-                class="button__icon"
-                src="./assets/icons/widgets/change-shift/add_file.svg"
-              ></svg-icon>
+              <svg-icon src="./assets/icons/widgets/change-shift/add_file.svg"></svg-icon>
             </button>
             <button
               type="submit"
               class="button comment__submit  gridster-item-content"
               (click)="onSendMessage()"
             >
-              <svg-icon
-                class="button__icon"
-                src="./assets/icons/widgets/change-shift/send.svg"
-              ></svg-icon>
+              <svg-icon src="./assets/icons/widgets/change-shift/send.svg"></svg-icon>
             </button>
           </div>
         </div>
@@ -170,7 +166,7 @@
           <div class="change-shift__submit">
             <div class="submit__frame submit__frame-left"></div>
             <div class="submit__frame submit__frame-right"></div>
-            <button>
+            <button (click)="onRefuse()">
               Отказаться
             </button>
           </div>

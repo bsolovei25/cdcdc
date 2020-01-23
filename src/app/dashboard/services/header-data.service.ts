@@ -8,23 +8,25 @@ import { HeaderDate } from '../models/header-date';
     providedIn: 'root',
 })
 export class HeaderDataService {
-    private _date$: BehaviorSubject<HeaderDate> = new BehaviorSubject(null);
+    private localDate$: BehaviorSubject<HeaderDate | null> = new BehaviorSubject<HeaderDate | null>(
+        null
+    );
 
-    public date$: Observable<HeaderDate> = this._date$
+    public date$: Observable<HeaderDate> = this.localDate$
         .asObservable()
         .pipe(filter((item) => item !== null));
 
-    public startDate;
-    public endDate;
+    public startDate: any;
+    public endDate: any;
     public statusButton;
     public monthStart;
     public monthEnd;
 
-    public dateToLine = {};
+    // public dateToLine = {};
 
     constructor() {}
 
-    public catchDefaultDate(start, end, status) {
+    public catchDefaultDate(start, end, status): void {
         let defaultTime = new Date();
         defaultTime = new Date(
             defaultTime.getFullYear(),
@@ -69,6 +71,6 @@ export class HeaderDataService {
             end: this.endDate,
             status: this.statusButton,
         };
-        this._date$.next(dateTo);
+        this.localDate$.next(dateTo);
     }
 }

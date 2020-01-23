@@ -1,4 +1,5 @@
 <evj-new-widgets-panel
+  *ngIf="!fullscreen"
   (onSwap)="onSwap($event)"
   (onGrid)="onGrid($event)"
   (ngModelChange)="changedOptions()"

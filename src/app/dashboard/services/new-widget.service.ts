@@ -26,7 +26,8 @@ export class NewWidgetService {
 
     public draggingItem: GridsterItem;
     public isOver = false;
-    public dashboard: GridsterItem[] = []; // GridsterItem with uniqid that identifies concrete widget
+    // GridsterItem with uniqid that identifies concrete widget
+    public dashboard: GridsterItem[] = [];
     public mass = [];
     private i = 0;
     private _widgets$: BehaviorSubject<IWidgets[]> = new BehaviorSubject(null);
@@ -42,6 +43,8 @@ export class NewWidgetService {
     public searchValue: string;
 
     public searchType;
+
+    public offFilterWidget: any = [];
 
     public searchWidgetT: Observable<any> = this.searchWidget$.pipe(
         tap((val) => {
@@ -69,7 +72,7 @@ export class NewWidgetService {
         .pipe(filter((item) => item !== null));
 
     private getAvailableWidgets(): Observable<IWidgets[]> {
-        return this.http.get(this.restUrl + `/af/GetAvailableWidgets`).pipe(
+        return this.http.get(this.restUrl + `/api/af-service/GetAvailableWidgets`).pipe(
             map((data: IWidgets[]) => {
                 const localeData = this.mapData(data);
                 this.mass = this.mapData(data);
@@ -95,7 +98,7 @@ export class NewWidgetService {
 
     getName(idWidg: string): string {
         let widgetNames: IWidgets | string = this.mass.find((x) => x.id === idWidg);
-        if (widgetNames === null || widgetNames === '') {
+        if (widgetNames === undefined || widgetNames === null || widgetNames === '') {
             widgetNames = 'Нет имени';
             return widgetNames;
         } else {
@@ -191,13 +194,29 @@ export class NewWidgetService {
 
             case 'solid-gauge-with-marker':
                 return data;
+
             case 'circle-block-diagram':
                 return data;
+
             case 'deviation-circle-diagram':
                 return data;
+
             case 'time-line-diagram':
                 return data;
+
             case 'ring-energy-indicator':
+                return data;
+
+            case 'calendar-plan':
+                return data;
+
+            case 'operation-efficiency':
+                return data;
+
+            case 'ecology-safety':
+                return data;
+
+            case 'energetics':
                 return data;
         }
         console.warn(`unknown widget type ${widgetType}`);
@@ -302,6 +321,8 @@ export class NewWidgetService {
             const point = this._widgets$.getValue();
             let pointFilter;
             let arrFilter: any = [];
+            let arrFilterButton: any = [];
+            let resultObject: any = [];
             if (this.searchType === 'input') {
                 const filter = of(
                     point.filter(
@@ -312,10 +333,21 @@ export class NewWidgetService {
                 this.searchValue = record;
                 return pointFilter;
             } else {
-                const filter = point.filter((point) => point.categories.indexOf(record) > -1);
-                arrFilter.push(filter);
+                for (let i of record) {
+                    const filter = point.filter((point) => point.categories.indexOf(i) > -1);
+                    arrFilter.push(filter);
+                }
+                //  const filter = point.filter((point) => point.categories.indexOf(record) > -1);
+                //  arrFilter.push(filter);
+                for (let i of arrFilter) {
+                    for (let j of i) {
+                        arrFilterButton.push(j);
+                    }
+                }
+                let newFilterArray: any = [...new Set(arrFilterButton)];
+                resultObject.push(newFilterArray);
                 this.searchValue = record;
-                return arrFilter;
+                return resultObject;
             }
         } catch (error) {
             console.log('Ошбика', error);

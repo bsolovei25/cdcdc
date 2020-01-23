@@ -20,9 +20,9 @@ export class TimeDiagramComponent implements OnInit {
     public colorNormal: string = '#616580';
     public colorNow: string = '#a2e2ff';
 
-    public hours: number;
-    public minutes: number;
-    public seconds: number;
+    public hours: string;
+    public minutes: string;
+    public seconds: string;
 
     constructor() {}
 
@@ -36,10 +36,24 @@ export class TimeDiagramComponent implements OnInit {
     }
 
     timeCounter(): void {
-        const date = new Date(this.timeLeft);
-        this.hours = +(this.timeLeft / (1000 * 60 * 60)).toFixed(0);
-        this.minutes = date.getUTCMinutes();
-        this.seconds = date.getUTCSeconds();
+        if (this.timeLeft > 0) {
+            const date = new Date(this.timeLeft);
+            this.hours = (this.timeLeft / (1000 * 60 * 60)).toFixed(0);
+            if (date.getUTCMinutes().toString().length === 1) {
+                this.minutes = '0' + date.getUTCMinutes().toString();
+            } else {
+                this.minutes = date.getUTCMinutes().toString();
+            }
+            if (date.getUTCSeconds().toString().length === 1) {
+                this.seconds = '0' + date.getUTCSeconds().toString();
+            } else {
+                this.seconds = date.getUTCSeconds().toString();
+            }
+        } else {
+            this.hours = '00';
+            this.minutes = '00';
+            this.seconds = '00';
+        }
     }
 
     timeLine(): string {
