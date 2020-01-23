@@ -98,7 +98,7 @@ export class IndicatorSelectorComponent {
         }
     }
 
-    public deleteScreen(id: string): void {
+    public deleteScreen(id: any): void {
         this.userSettings.deleteScreen(id);
         for (const item of this.dataScreen) {
             if (item.id === Number(id)) {
