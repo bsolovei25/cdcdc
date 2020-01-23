@@ -1,1 +1,25 @@
-<p>admin works!</p>
+<evj-widget-preview
+  [title]="title"
+  [previewTitle]="previewTitle"
+  *ngIf="isMock"
+></evj-widget-preview>
+
+<div class="container pointer-event" *ngIf="!isMock">
+  <evj-widget-header
+    [title]="title"
+    [units]="units"
+    [code]=""
+    [id]="id"
+    [uniqId]="uniqId"
+  ></evj-widget-header>
+
+  <evj-frame-top></evj-frame-top>
+
+  <ng-container> 
+    <div class="admin">
+      
+    </div>
+  </ng-container>
+
+  <evj-frame-bottom></evj-frame-bottom>
+</div>
