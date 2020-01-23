@@ -11,6 +11,7 @@ import { Machine_MI } from '../models/manual-input.model';
 import { WebSocketSubject } from 'rxjs/internal/observable/dom/WebSocketSubject';
 import { webSocket } from 'rxjs/internal/observable/dom/webSocket';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from '../../@core/service/auth.service';
 
 @Injectable({
     providedIn: 'root',
@@ -56,6 +57,7 @@ export class NewWidgetService {
     );
     constructor(
         public http: HttpClient,
+        private authService: AuthService,
         configService: AppConfigService,
         private snackBar: MatSnackBar
     ) {
@@ -232,7 +234,13 @@ export class NewWidgetService {
             },
             (err) => {
                 console.log('error rest', err);
-                this.reconnectRest();
+                if (this.authService.userIsAuthenticated) {
+                    this.reconnectRest();
+                } else {
+                    if (this.reconnectRestTimer) {
+                        clearInterval(this.reconnectRestTimer);
+                    }
+                }
             },
             () => {
                 console.log('complete');
