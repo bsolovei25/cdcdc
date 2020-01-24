@@ -8,7 +8,10 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     SimpleChanges,
+    AfterViewInit,
 } from '@angular/core';
+import { ThrowStmt } from '@angular/compiler';
+import { VirtualTimeScheduler } from 'rxjs';
 
 @Component({
     selector: 'evj-paginator',
@@ -16,10 +19,11 @@ import {
     styleUrls: ['./paginator.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PaginatorComponent implements OnInit, OnChanges {
+export class PaginatorComponent implements OnInit, OnChanges, AfterViewInit {
     @Output() changePage: EventEmitter<number> = new EventEmitter();
 
     @Input() perPage: number;
+    @Input() criticalPage: any;
     @Input() currentPage: number;
     @Input() totalCount: number;
     @Input() pers: number[] = [20, 18, 30];
@@ -31,6 +35,9 @@ export class PaginatorComponent implements OnInit, OnChanges {
     public middleValue: number;
     public pages: number[] = [];
     public onSelectPage: (page: number) => void;
+
+    public check: boolean = true;
+    public mass = [];
 
     public get leftDots(): number[] {
         const leftPages = this.leftPages;
@@ -75,7 +82,7 @@ export class PaginatorComponent implements OnInit, OnChanges {
                 .fill(0)
                 .map((x, i) => i + 1);
         } else {
-            return Array(this.maxButons - this.aroundCount + 1)
+            return Array(this.maxButons - this.aroundCount)
                 .fill(0)
                 .map((x, i) => i + 1);
         }
@@ -96,7 +103,7 @@ export class PaginatorComponent implements OnInit, OnChanges {
 
     public get rightPages(): number[] {
         if (this.currentPage > this.countPages - this.middleValue) {
-            return Array(this.maxButons - this.aroundCount + 1)
+            return Array(this.maxButons - this.aroundCount)
                 .fill(this.countPages)
                 .map((x, i) => x - i)
                 .reverse();
@@ -112,7 +119,11 @@ export class PaginatorComponent implements OnInit, OnChanges {
         this.onSelectPage = this.selectPage.bind(this);
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.criticalValue(this.criticalPage);
+    }
+
+    ngAfterViewInit(): void {}
 
     ngOnChanges(changes: SimpleChanges) {
         if ('totalCount' in changes) {
@@ -155,6 +166,12 @@ export class PaginatorComponent implements OnInit, OnChanges {
 
         if (this.currentPage > this.countPages) {
             this.currentPage = this.countPages;
+        }
+    }
+
+    public criticalValue(data: any) {
+        for (let item of data) {
+            this.mass.push(item);
         }
     }
 }
