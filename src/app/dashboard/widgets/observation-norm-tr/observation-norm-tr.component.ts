@@ -59,7 +59,7 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy, AfterViewI
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
-    ) {}
+    ) { }
 
     ngOnInit(): void {
         this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
@@ -140,7 +140,7 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy, AfterViewI
         return (
             this.minRadius +
             ((value - this.data.minValue) * (this.maxRadius - this.minRadius)) /
-                (this.data.maxValue - this.data.minValue)
+            (this.data.maxValue - this.data.minValue)
         );
     }
 

@@ -1,0 +1,36 @@
+<evj-widget-preview
+  [title]="title"
+  [previewTitle]="previewTitle"
+  *ngIf="isMock"
+></evj-widget-preview>
+
+<div class="container pointer-event" *ngIf="!isMock">
+  <evj-widget-header
+    [title]="title"
+    [id]="id"
+    [units]=""
+    [uniqId]="uniqId"
+  ></evj-widget-header>
+
+  <evj-frame-top></evj-frame-top>
+
+  <div
+    class="content"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <!-- <mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="Choose a date" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field> -->
+
+    <mat-calendar #calendar [(selected)]="selectedDate"></mat-calendar>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38.98 38.98">
+      <title>Ресурс 1</title>
+      <path d="M34.48,39H4.5L0,34.48V4.5L4.5,0h30L39,4.5v30Z" style="fill:#f28b4a"/>
+    </svg>
+  </div>
+
+  <evj-frame-bottom></evj-frame-bottom>
+</div>

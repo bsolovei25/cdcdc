@@ -37,6 +37,7 @@ import { FlameDiagramComponent } from '../../widgets/flame-diagram/flame-diagram
 import { ObservationNormTRComponent } from '../../widgets/observation-norm-tr/observation-norm-tr.component';
 import { RingEnergyIndicatorComponent } from '../../widgets/ring-energy-indicator/ring-energy-indicator.component';
 import { SolidGaugesComponent } from '../../widgets/solid-gauge-with-marker/solid-gauges/solid-gauges.component';
+import { AdminShiftScheduleComponent } from '../../widgets/admin-widget/admin-shift-schedule.component';
 
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
@@ -79,4 +80,5 @@ export const WIDGETS = {
     'time-line-diagram': TimeLineDiagramComponent,
     'solid-gauge-with-marker': SolidGaugesComponent,
     'observation-norm-tr': ObservationNormTRComponent,
+    'admin-shift-schedule': AdminShiftScheduleComponent,
 };
