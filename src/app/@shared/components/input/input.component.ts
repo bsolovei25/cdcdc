@@ -14,7 +14,6 @@ export class InputComponent implements OnInit {
 
     ngOnInit() {}
 
-
     onFocus(): string {
         if (this.isFocused) {
             return '';
