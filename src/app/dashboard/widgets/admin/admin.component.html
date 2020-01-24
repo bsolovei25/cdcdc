@@ -79,17 +79,11 @@
           </div>
         </div>
         <div class="employee__person">
-          <div class="person__photo">
-            <div class="photo__frame">
-              <div class="photo__avatar">
-                <img src="" alt="" />
-              </div>
-            </div>
-          </div>
-          <div class="person__item block__frame-right">+7 (925) 599-99-87</div>
-          <div class="person__item block__frame-right">Ivanov@gazprom-neft.ru</div>
-          <div class="person__item block__frame-right">Бригада №1</div>
-          <div class="person__item block__frame-right">Высокий уровень доступа</div>
+          <evj-worker-card
+            class="insert-component"
+            [isSmallCard]="true"
+            [person]="man"
+          ></evj-worker-card>
         </div>
       </div>
       <div class="admin__workspace"></div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IButtonImgSrc } from '../../models/admin';
+import { IWorker } from '../../models/worker';
 
 @Component({
     selector: 'evj-admin',
@@ -23,6 +24,15 @@ export class AdminComponent implements OnInit {
     public groupsButtonIcon: IButtonImgSrc = {
         active: '../../../../assets/icons/widgets/admin/icon_group-active.svg',
         normal: '../../../../assets/icons/widgets/admin/icon_group.svg',
+    };
+
+    public man: IWorker = {
+        name: 'Иванов Иван Сергеевич',
+        phone: '+ 7 (925) 599-99-87',
+        email: 'Ivanov@gazprom-neft.ru',
+        brigade: 'Бригада №1',
+        accessLevel: 'Высокий уровень доступа',
+        position: 'Старший оператор | КИПиА',
     };
 
     constructor() {}

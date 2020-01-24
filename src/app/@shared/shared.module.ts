@@ -7,6 +7,7 @@ import { PreLoaderComponent } from './preloader/preloader.component';
 import { UiElementsComponent } from './layout/ui-elements.component';
 import { ButtonComponent } from './components/button/button.component';
 import { InputComponent } from './components/input/input.component';
+import { WorkerCardComponent } from './components/worker-card/worker-card.component';
 
 @NgModule({
     declarations: [
@@ -17,6 +18,7 @@ import { InputComponent } from './components/input/input.component';
         UiElementsComponent,
         ButtonComponent,
         InputComponent,
+        WorkerCardComponent,
     ],
     exports: [
         HeaderComponent,
@@ -25,6 +27,7 @@ import { InputComponent } from './components/input/input.component';
         PreLoaderComponent,
         ButtonComponent,
         InputComponent,
+        WorkerCardComponent,
     ],
     imports: [CommonModule],
 })
