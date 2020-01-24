@@ -1,4 +1,4 @@
-import {Component, OnInit, Inject, OnDestroy} from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { IOperationEfficiency } from '../../models/operation-efficiency';
@@ -40,10 +40,12 @@ export class OperationEfficiencyComponent implements OnInit, OnDestroy {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscriptions.push(this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-            this.title = data.title;
-            this.previewTitle = data.widgetType;
-        }));
+        this.subscriptions.push(
+            this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
+                this.title = data.title;
+                this.previewTitle = data.widgetType;
+            })
+        );
     }
 
     ngOnInit(): void {
@@ -53,7 +55,7 @@ export class OperationEfficiencyComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.subscriptions.forEach(el => el.unsubscribe());
+        this.subscriptions.forEach((el) => el.unsubscribe());
     }
 
     wsConnect(): void {
@@ -64,8 +66,10 @@ export class OperationEfficiencyComponent implements OnInit, OnDestroy {
                     console.log(ref);
                     this.data = ref;
                     this.data.curValue = ref.currentValue;
-                    this.data.lowerBorder = Math.abs(this.data.lowerBorder - this.data.plan) / this.data.plan;
-                    this.data.higherBorder = (this.data.higherBorder - this.data.plan) / this.data.plan;
+                    this.data.lowerBorder =
+                        Math.abs(this.data.lowerBorder - this.data.plan) / this.data.plan;
+                    this.data.higherBorder =
+                        (this.data.higherBorder - this.data.plan) / this.data.plan;
                     this.data.lowerValue = this.data.plan * (1 - this.data.lowerBorder);
                     this.data.higherValue = this.data.plan * (1 + this.data.higherBorder);
                     console.log(this.data);
