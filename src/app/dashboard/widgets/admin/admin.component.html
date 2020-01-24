@@ -20,7 +20,10 @@
       <div class="admin__header">
         <div class="header__search">
           <div class="search">
-            <evj-input></evj-input>
+            <evj-input
+              class="insert-component"
+              [placeholder]="'Введите ФИО сотрудника'"
+            ></evj-input>
           </div>
           <div class="group__button">
             <evj-button
@@ -81,12 +84,27 @@
         <div class="employee__person">
           <evj-worker-card
             class="insert-component"
-            [isSmallCard]="true"
+            [isSmallCard]="false"
             [person]="man"
           ></evj-worker-card>
         </div>
       </div>
-      <div class="admin__workspace"></div>
+      <div class="admin__workspace">
+        <div class="workspace__header">
+          <div class="workspace__search">
+            <evj-input
+              class="insert-component"
+              [placeholder]="'Введите название рабочей области'"
+            ></evj-input>
+          </div>
+          <div class="workspace__links">
+            <a class="active-link">Доступные рабочие области</a>
+            |
+            <a>Права</a>
+          </div>
+        </div>
+        <div class="workspace__list"></div>
+      </div>
     </div>
   </ng-container>
 
