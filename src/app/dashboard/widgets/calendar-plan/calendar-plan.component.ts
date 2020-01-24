@@ -97,7 +97,6 @@ export class CalendarPlanComponent implements OnInit, OnDestroy {
             this.widgetService
                 .getWidgetLiveDataFromWS(this.id, 'calendar-plan')
                 .subscribe((ref) => {
-                    console.log(ref);
                     this.data = ref;
                     this.data.curValue = ref.currentValue;
                     this.data.lowerBorder = Math.abs(this.data.lowerBorder - this.data.plan) / this.data.plan;
