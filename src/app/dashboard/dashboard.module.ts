@@ -80,6 +80,7 @@ import { TimeLineDiagramComponent } from './widgets/time-line-diagram/time-line-
 import { TimeDiagramComponent } from './widgets/time-line-diagram/time-diagram/time-diagram.component';
 import { ObservationNormTRComponent } from './widgets/observation-norm-tr/observation-norm-tr.component';
 import { AdminComponent } from './widgets/admin/admin.component';
+import { AdminWorkspaceCardComponent } from './widgets/admin/admin-workspace-card/admin-workspace-card.component';
 
 @NgModule({
     declarations: [
@@ -154,6 +155,7 @@ import { AdminComponent } from './widgets/admin/admin.component';
         SearchListComponent,
         ObservationNormTRComponent,
         AdminComponent,
+        AdminWorkspaceCardComponent,
     ],
     entryComponents: [
         LineChartComponent,
