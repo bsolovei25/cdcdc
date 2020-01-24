@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { IEcologySafety } from '../../models/ecology-safety';
@@ -9,11 +9,11 @@ import { IWidgets } from '../../models/widget.model';
     templateUrl: './ecology-safety.component.html',
     styleUrls: ['./ecology-safety.component.scss'],
 })
-export class EcologySafetyComponent implements OnInit {
+export class EcologySafetyComponent implements OnInit, OnDestroy {
     static itemCols: number = 18;
     static itemRows: number = 2;
 
-    public subscription: Subscription;
+    public subscriptions: Subscription[] = [];
 
     /* Приблизительная структура, получаемая с бека */
 
@@ -35,20 +35,36 @@ export class EcologySafetyComponent implements OnInit {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscription = this.widgetService
-            .getWidgetChannel(this.id)
-            .subscribe((data: IWidgets) => {
+        this.subscriptions.push(
+            this.widgetService.getWidgetChannel(this.id).subscribe((data: IWidgets) => {
                 this.title = data.title;
                 this.previewTitle = data.widgetType;
-            });
+            })
+        );
     }
 
-    ngOnInit(): void {}
-
-    ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
+    ngOnInit(): void {
+        if (!this.isMock) {
+            this.wsConnect();
         }
+    }
+
+    ngOnDestroy(): void {
+        for (const subscription of this.subscriptions) {
+            subscription.unsubscribe();
+        }
+    }
+
+    wsConnect(): void {
+        this.subscriptions.push(
+            this.widgetService
+                .getWidgetLiveDataFromWS(this.id, 'ecology-safety')
+                .subscribe((ref) => {
+                    this.data = ref;
+                    this.data.curValue = ref.currentValue;
+                    console.log(this.data);
+                })
+        );
     }
 
     drawGraph(count: number): string {

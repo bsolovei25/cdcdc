@@ -149,8 +149,8 @@ export class NewUserSettingsService {
         );
     }
 
-    public LoadScreen(id) {
-        localStorage.setItem('screenid', id);
+    public LoadScreen(id: number) {
+        localStorage.setItem('screenid', id.toString());
         return this.LoadScreenAsync(id, true).subscribe((item: ScreenSettings) => {
             this.ScreenId = item.id;
             this.ScreenName = item.screenName;
@@ -184,10 +184,13 @@ export class NewUserSettingsService {
             );
     }
 
-    public deleteScreen(id: number) {
+    public deleteScreen(id: string) {
         return this.http.delete(this.restUrl + '/user-management/screen/' + id).subscribe(
             (ans) => {
-                if (this.ScreenId === id) this.ScreenId = undefined;
+                if (this.ScreenId === Number(id)) {
+                    this.ScreenId = undefined;
+                }
+
                 this.GetScreen();
             },
             (error) => console.log(error)
