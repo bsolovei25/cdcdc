@@ -19,25 +19,24 @@
     <div class="admin">
       <div class="admin__header">
         <div class="header__search">
-          <div class="search input__container">
-            <input class="input search" type="text" placeholder="Введите ФИО сотрудника" />
-            <div class="input__frame input__frame-right"></div>
-            <div class="input__frame input__frame-left"></div>
+          <div class="search">
+            <evj-input></evj-input>
           </div>
-          <button class="button group__button">
-            <div class="button__frame button__frame-left"></div>
-            <div class="button__frame button__frame-right"></div>
-            <img src="../../../../assets/icons/widgets/admin/icon_group.svg" alt="" />
-            <img
-              *ngIf="false"
-              src="../../../../assets/icons/widgets/admin/icon_group-active.svg"
-              alt=""
-            />
-          </button>
-          <button class="button new__button">
-            <div class="button__frame button__frame-left"></div>
-            <div class="button__frame button__frame-right"></div>
-          </button>
+          <div class="group__button">
+            <evj-button
+              class="insert-component"
+              [isSmallButton]="true"
+              [imgSrc]="groupsButtonIcon"
+            ></evj-button>
+          </div>
+
+          <div class="group__button">
+            <evj-button
+              class="insert-component"
+              [isSmallButton]="true"
+              [imgSrc]="newHumanButtonIcon"
+            ></evj-button>
+          </div>
         </div>
         <div class="header__title">
           <div class="line"></div>
@@ -45,11 +44,13 @@
           <div class="line"></div>
         </div>
         <div class="header__more">
-          <button class="button more__button">
-            <div class="button__frame button__frame-left"></div>
-            <div class="button__frame button__frame-right"></div>
-            Подробнее
-          </button>
+          <div class="more__button">
+            <evj-button
+              class="insert-component"
+              [isSmallButton]="false"
+              [textButton]="'Подробнее'"
+            ></evj-button>
+          </div>
         </div>
       </div>
       <div class="admin__employee">

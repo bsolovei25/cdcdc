@@ -72,23 +72,12 @@
         .group__button,
         .new__button {
           width: 65px;
+          height: 100%;
         }
 
         .search {
           flex-basis: 70%;
           height: 100%;
-        }
-
-        .group__button {
-          display: flex;
-          flex-direction: row;
-          justify-content: center;
-          align-items: center;
-
-          img {
-            height: 27px;
-            width: 27px;
-          }
         }
 
         .new__button {
@@ -151,6 +140,7 @@
         .more {
           &__button {
             width: 100%;
+            height: 100%;
           }
         }
       }
@@ -346,276 +336,6 @@
   }
 }
 
-.input,
-.button {
-  height: 100%;
-  width: 100%;
-  box-sizing: border-box;
-  border: none;
-  padding: 0;
-  background: transparent;
-}
-
-.input {
-  background: var(--color-bg-search);
-  color: var(--color-border-unactive);
-  padding: 5px 20px;
-
-  &__container {
-    position: relative;
-    box-sizing: border-box;
-  }
-
-  &__frame {
-    position: absolute;
-    z-index: 2;
-    height: 100%;
-    width: 10px;
-    box-sizing: border-box;
-    top: 0px;
-
-    &-left {
-      left: 0px;
-
-      &::after {
-        content: "";
-
-        width: 10px;
-        height: 10px;
-
-        box-sizing: border-box;
-
-        background: var(--color-bg-main);
-
-        position: absolute;
-        left: -5px;
-        top: -5px;
-
-        transform: rotate(-45deg);
-      }
-
-      &::before {
-        content: "";
-
-        width: 10px;
-        height: 10px;
-
-        box-sizing: border-box;
-
-        background: var(--color-bg-main);
-
-        position: absolute;
-        left: -5px;
-        bottom: -5px;
-
-        transform: rotate(45deg);
-      }
-    }
-
-    &-right {
-      right: 0px;
-
-      &::after {
-        content: "";
-
-        width: 10px;
-        height: 10px;
-
-        box-sizing: border-box;
-
-        background: var(--color-bg-main);
-
-        position: absolute;
-        right: -5px;
-        top: -5px;
-
-        transform: rotate(45deg);
-      }
-
-      &::before {
-        content: "";
-
-        width: 10px;
-        height: 10px;
-
-        box-sizing: border-box;
-
-        background: var(--color-bg-main);
-
-        position: absolute;
-        right: -5px;
-        bottom: -5px;
-
-        transform: rotate(-45deg);
-      }
-    }
-  }
-
-  &::placeholder {
-    color: var(--color-border-unactive);
-    font-style: italic;
-  }
-
-  &:focus {
-    outline: none;
-    border: 1px solid var(--color-border-active);
-    background: transparent;
-    color: var(--color-text-main);
-
-    & ~ .input {
-      &__frame {
-        &-left {
-          &::after {
-            border-bottom: 1px solid var(--color-border-active);
-            left: -4px;
-            top: -4px;
-          }
-
-          &::before {
-            border-top: 1px solid var(--color-border-active);
-            left: -4px;
-            bottom: -4px;
-          }
-        }
-
-        &-right {
-          &::after {
-            border-bottom: 1px solid var(--color-border-active);
-            right: -4px;
-            top: -4px;
-          }
-
-          &::before {
-            border-top: 1px solid var(--color-border-active);
-            right: -4px;
-            bottom: -4px;
-          }
-        }
-      }
-    }
-  }
-}
-
-.button {
-  position: relative;
-  color: var(--color-border-search);
-  border: 1px solid var(--color-border-search);
-  padding: 0 10px;
-
-  &__frame {
-    position: absolute;
-    z-index: 2;
-    height: 100%;
-    width: 10px;
-    box-sizing: border-box;
-    top: 0px;
-    background: transparent;
-
-    &-left {
-      left: 0px;
-
-      &::after {
-        content: "";
-
-        width: 10px;
-        height: 10px;
-
-        box-sizing: border-box;
-        border-bottom: 1px solid var(--color-border-search);
-
-        background: var(--color-bg-main);
-
-        position: absolute;
-        left: -5px;
-        top: -5px;
-
-        transform: rotate(-45deg);
-      }
-
-      &::before {
-        content: "";
-
-        width: 10px;
-        height: 10px;
-
-        box-sizing: border-box;
-        border-top: 1px solid var(--color-border-search);
-
-        background: var(--color-bg-main);
-
-        position: absolute;
-        left: -5px;
-        bottom: -5px;
-
-        transform: rotate(45deg);
-      }
-    }
-
-    &-right {
-      right: 0px;
-
-      &::after {
-        content: "";
-
-        width: 10px;
-        height: 10px;
-
-        box-sizing: border-box;
-        border-bottom: 1px solid var(--color-border-search);
-
-        background: var(--color-bg-main);
-
-        position: absolute;
-        right: -5px;
-        top: -5px;
-
-        transform: rotate(45deg);
-      }
-
-      &::before {
-        content: "";
-
-        width: 10px;
-        height: 10px;
-
-        box-sizing: border-box;
-        border-top: 1px solid var(--color-border-search);
-
-        background: var(--color-bg-main);
-
-        position: absolute;
-        right: -5px;
-        bottom: -5px;
-
-        transform: rotate(-45deg);
-      }
-    }
-  }
-
-  &:hover {
-    cursor: pointer;
-    color: var(--color-text-main);
-    border-color: var(--color-border-active);
-    background: var(--color-bg-active);
-
-    .button {
-      &__frame {
-        &-left,
-        &-right {
-          &::after,
-          &::before {
-            border-color: var(--color-border-active);
-          }
-        }
-      }
-    }
-  }
-
-  &:focus {
-    outline: none;
-  }
-}
-
 .line {
   width: 80px;
   height: 1px;
@@ -742,4 +462,9 @@
       }
     }
   }
+}
+
+.insert-component {
+  width: 100%;
+  height: 100%;
 }
