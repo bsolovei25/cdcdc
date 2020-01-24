@@ -438,7 +438,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             this.indexTestProduct = count - 1;
             this.drawOilControl(this.data);
             if (this.checkSocket === true && this.savePositionProduct !== undefined) {
-             this.onButtonChangeProduct(this.savePositionProduct);
+                this.onButtonChangeProduct(this.savePositionProduct);
                 if (this.saveDataStorage.length !== 0) {
                     this.onButtonChangeStorage(this.savePositionStorage, this.saveDataStorage);
                 }
@@ -651,10 +651,10 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             for (let item of dataStorage) {
                 this.saveDataStorage.push(item);
             }
-          // this.savePositionStorage = this.activeStorage.id;
-        }  else if( this.countClickChange === 0){
+            // this.savePositionStorage = this.activeStorage.id;
+        } else if (this.countClickChange === 0) {
             this.savePositionStorage = this.activeStorage.id;
-        } else if (this.countClickChange !== 0 && this.checkSocket){
+        } else if (this.countClickChange !== 0 && this.checkSocket) {
             this.savePositionStorage = this.savePositionStorage;
         }
 
@@ -721,15 +721,15 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                 .text(this.data.criticalOperations);
 
             for (let item of leftBorder) {
-                   item.classList.remove('st5');
+                item.classList.remove('st5');
                 item.classList.add('st5-critical');
             }
             for (let item of Circle) {
-                  item.classList.remove('st6');
+                item.classList.remove('st6');
                 item.classList.add('st6-critical');
             }
             for (let item of rightBorder) {
-                 item.classList.remove('st7');
+                item.classList.remove('st7');
                 item.classList.add('st7-critical');
             }
         } else {
@@ -791,7 +791,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             for (let textProduct of data) {
                 if (indexPies === indexProducts) {
                     if (pie.point === 3) {
-                        if(!this.checkSocket){
+                        if (!this.checkSocket) {
                             this.savePositionProduct = textProduct.name;
                         }
                         if (textProduct.criticalValue) {
@@ -1052,12 +1052,12 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             this.FilterStorageCircle(this.newArrayProduct[2], this.indexTestStorage);
             this.countClickChange++;
         } else if (this.checkSocket && this.countClickChange === 0) {
-          //  this.changeMassiv(index, this.data.products);
+            //  this.changeMassiv(index, this.data.products);
             this.newArrayProduct = this.data.products;
             this.indexTestStorage = this.countStorage(this.newArrayProduct[2]);
             this.FilterStorageCircle(this.newArrayProduct[2], this.indexTestStorage);
-           // this.indexTestStorage = this.countStorage(this.data.products[index]);
-           // this.FilterStorageCircle(this.data.products[index], this.indexTestStorage);
+            // this.indexTestStorage = this.countStorage(this.data.products[index]);
+            // this.FilterStorageCircle(this.data.products[index], this.indexTestStorage);
         } else if (this.checkSocket) {
             this.changeMassiv(index, this.data.products);
             this.indexTestStorage = this.countStorage(this.newArrayProduct[2]);
@@ -1231,10 +1231,10 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                     if (indexProduct === 2) {
                         newIndexProduct = 1;
                         this.shiftMassivStorage(newIndexProduct, move, data);
-                    } else if (indexProduct === 1 && data.length === 2){
+                    } else if (indexProduct === 1 && data.length === 2) {
                         newIndexProduct = 1;
                         this.shiftMassivStorage(newIndexProduct, move, data);
-                    } else{
+                    } else {
                         newIndexProduct = 2;
                         this.shiftMassivStorage(newIndexProduct, move, data);
                     }

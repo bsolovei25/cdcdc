@@ -220,9 +220,9 @@ export class NewWidgetService {
 
             case 'energetics':
                 return data;
-                
+
             case 'oil-control':
-                    return data;
+                return data;
         }
         console.warn(`unknown widget type ${widgetType}`);
     }
