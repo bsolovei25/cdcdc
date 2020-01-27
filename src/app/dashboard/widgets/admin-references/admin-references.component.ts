@@ -23,6 +23,11 @@ export class AdminReferencesComponent implements OnInit {
     referencesOn = 0;
     massCheck = [];
 
+    inputClickRef: boolean = false;
+    inputClickName: boolean = false;
+
+    isChangeName: boolean = false;
+
     data = [
         {
             name: 'Установка НПЗ',
@@ -67,6 +72,27 @@ export class AdminReferencesComponent implements OnInit {
                 {
                     name: 'Сардыков Иван Петрович',
                 },
+                {
+                    name: 'Сардыков Иван Петрович',
+                },
+                {
+                    name: 'Сардыков Иван Петрович',
+                },
+                {
+                    name: 'Сардыков Иван Петрович',
+                },
+                {
+                    name: 'Сардыков Иван Петрович',
+                },
+                {
+                    name: 'Сардыков Иван Петрович',
+                },
+                {
+                    name: 'Сардыков Иван Петрович',
+                },
+                {
+                    name: 'Сардыков Иван Петрович',
+                },
             ],
         },
     ];
@@ -88,6 +114,24 @@ export class AdminReferencesComponent implements OnInit {
 
     ngOnInit() {}
 
+    ngOnDestroy() {
+        if (this.subscriptions) {
+            for (const subscribe of this.subscriptions) {
+                subscribe.unsubscribe();
+            }
+        }
+    }
+
+    onRefInputClick(){
+        this.inputClickRef = true;
+        this.inputClickName = false;
+    }
+
+    onNameInputClick(){
+        this.inputClickRef = false;
+        this.inputClickName = true;
+    }
+
     onClickReference(data) {
         let index = 0;
         this.isReference = !this.isReference;
@@ -102,5 +146,9 @@ export class AdminReferencesComponent implements OnInit {
                 }
             }
         }
+    }
+
+    onChangeName(){
+        this.isChangeName = !this.isChangeName;
     }
 }

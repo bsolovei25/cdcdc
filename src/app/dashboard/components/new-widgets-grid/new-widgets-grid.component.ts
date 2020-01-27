@@ -37,6 +37,9 @@ export class NewWidgetsGridComponent implements OnInit {
 
     private subscription: Subscription;
 
+    public ColWidth;
+    public RowHeight;
+
     constructor(
         public widgetService: NewWidgetService,
         public injector: Injector,
@@ -44,6 +47,8 @@ export class NewWidgetsGridComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
+        this.sizeGrid();
+        
         document.addEventListener('fullscreenchange', () => {
             this.fullscreen = document.fullscreenElement ? true : false;
         });
@@ -68,8 +73,8 @@ export class NewWidgetsGridComponent implements OnInit {
             emptyCellDragMaxCols: 100000,
             emptyCellDragMaxRows: 100000,
             itemResizeCallback: this.resizeGridsterElement.bind(this),
-            fixedColWidth: 20,
-            fixedRowHeight: 20,
+            fixedColWidth: this.ColWidth,
+            fixedRowHeight: this.RowHeight,
             maxItemCols: 10000,
             maxItemRows: 10000,
             minItemCols: 1,
@@ -99,6 +104,19 @@ export class NewWidgetsGridComponent implements OnInit {
                 },
             },
         };
+    }
+
+    public sizeGrid(){
+        const widthScreen = document.getElementById('gridSize').clientWidth;
+        const heigthScreen = document.getElementById('gridSize').clientHeight;
+        const widthScreenDefault = 1920;
+        const heigthScreenDefault = 1080;
+        this.ColWidth = 20;
+        this.RowHeight = 20;
+        this.ColWidth *= widthScreen / widthScreenDefault;
+        this.RowHeight *= heigthScreen / heigthScreenDefault;
+
+        console.log(this.RowHeight);
     }
 
     public resizeGridsterElement() {

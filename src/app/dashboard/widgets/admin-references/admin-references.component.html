@@ -22,10 +22,10 @@
     <div class="references">
       <div class="reference-input-block">
         <div class="reference-input">
-          <input type="text" placeholder="Введите название справочника" />
+          <input (click)="onRefInputClick();" [class.activeInputRef]="inputClickRef" type="text"  onfocus="this.placeholder = ''" onblur="this.placeholder = 'Введите название справочника'" placeholder="Введите название справочника" />
         </div>
         <div class="reference-input-button">
-          <!--СДЕЛАТЬ SVG-ICON-->
+          <svg-icon class="button_add_icon" src="./assets/pic/AdminReferences/button_add2.svg"></svg-icon>
         </div>
       </div>
       <div class="reference-text-block">
@@ -58,23 +58,33 @@
     <div class="references">
       <div class="reference-name-input-block">
         <div class="name-input">
-          <input type="text" placeholder="Введите ФИО" />
+          <input (click)="onNameInputClick();" [class.activeInputName]="inputClickName" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Введите ФИО'" placeholder="Введите ФИО" />
         </div>
-        <div class="name-input-button"></div>
+        <div class="reference-input-button ">
+          <svg-icon class="button_add_icon" src="./assets/pic/AdminReferences/button_add2.svg"></svg-icon>
+        </div>
       </div>
       <div class="reference-name-text-block">
         <ng-container *ngIf="isReference">
           <ng-container *ngFor="let item of data[referencesOn].referenceFIO">
             <div class="name-text-container">
-              <div class="name-text">
-                {{item.name}}
-              </div>
-              <div class="name-text-button">
-                <svg-icon
-                  class="delete-name-icon"
-                  src="./assets/pic/AdminReferences/delete.svg"
-                ></svg-icon>
-              </div>
+              <ng-container *ngIf="!isChangeName">
+                <div class="name-text" (click)="onChangeName()">
+                  {{item.name}}
+                </div>
+                <div class="name-text-button">
+                  <svg-icon
+                    class="delete-name-icon"
+                    src="./assets/pic/AdminReferences/delete.svg"
+                  ></svg-icon>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="isChangeName">
+                  <input class="input_name" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Введите ФИО'" placeholder="Введите ФИО" />
+                  <div class="name_button_add_block">
+                    <svg-icon class="button_add_icon"  src="./assets/pic/AdminReferences/edit.svg" (click)="onChangeName()"></svg-icon>
+                  </div>
+              </ng-container>
             </div>
           </ng-container>
         </ng-container>
