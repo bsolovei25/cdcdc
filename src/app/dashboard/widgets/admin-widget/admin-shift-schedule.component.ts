@@ -1,8 +1,12 @@
 import { Component, Inject, OnDestroy, ViewChild } from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { Subscription } from 'rxjs';
-import { MatCalendar } from '@angular/material/datepicker';
+import {
+    MatCalendar,
+    MatCalendarCellCssClasses,
+} from '@angular/material/datepicker';
 import { Moment } from 'moment';
+import { DateAdapter } from '@angular/material/core';
 
 @Component({
     selector: 'evj-admin-shift-schedule',
@@ -23,7 +27,8 @@ export class AdminShiftScheduleComponent implements OnDestroy {
         private widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
-        @Inject('uniqId') public uniqId: string
+        @Inject('uniqId') public uniqId: string,
+        private dateAdapter: DateAdapter<any>
     ) {
         this.subscription = this.widgetService
             .getWidgetChannel(this.id)
@@ -31,11 +36,29 @@ export class AdminShiftScheduleComponent implements OnDestroy {
                 this.title = data.title;
                 this.previewTitle = data.widgetType;
             });
+        this.setRus();
     }
 
     ngOnDestroy(): void {
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
+    }
+
+    dateClass() {
+        return (date: Date): MatCalendarCellCssClasses => {
+            if (date.getDate() === 1) {
+                return 'special-date';
+            } else {
+                return;
+            }
+        };
+    }
+
+    setRus() {
+        this.dateAdapter.setLocale('ru');
+        this.dateAdapter.getFirstDayOfWeek = () => {
+            return 1;
+        };
     }
 }

@@ -25,11 +25,13 @@
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field> -->
 
-    <mat-calendar #calendar [(selected)]="selectedDate"></mat-calendar>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38.98 38.98">
-      <title>Ресурс 1</title>
-      <path d="M34.48,39H4.5L0,34.48V4.5L4.5,0h30L39,4.5v30Z" style="fill:#f28b4a"/>
-    </svg>
+    <mat-calendar
+      [dateClass]="dateClass()"
+      #calendar
+      [(selected)]="selectedDate"
+      ngClass="calendar-red"
+      locale="ru"
+    ></mat-calendar>
   </div>
 
   <evj-frame-bottom></evj-frame-bottom>

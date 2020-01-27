@@ -3,4 +3,7 @@
 @import "~normalize.css";
 @import "theme/variables";
 @import "theme/theme";
+
+// Widgets
 @import "theme/widgets/line-chart";
+@import "theme/widgets/admin-shift-schedule.scss";
