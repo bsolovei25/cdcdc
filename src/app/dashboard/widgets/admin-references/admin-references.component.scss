@@ -5,11 +5,10 @@
 }
 
 ::-webkit-scrollbar-track {
- // background-color:var(--color-border-active);
- border-radius: 25px;
+  // background-color:var(--color-border-active);
+  border-radius: 25px;
 }
 ::-webkit-scrollbar-track-piece {
-
   border: solid 1px rgba(255, 255, 255, 0.2);
   border-radius: 25px;
 }
@@ -25,7 +24,6 @@
   background-color: var(--color-border-active);
   border-radius: 25px;
 }
-
 
 .container {
   position: relative;
@@ -58,26 +56,25 @@ input {
   color: rgb(255, 255, 255);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 
-  &:hover{
+  &:hover {
     border-bottom: 1px solid var(--color-border-active);
     color: white;
-    &::placeholder{
+    &::placeholder {
       color: white;
     }
   }
 }
 
-
-.activeInputRef{
+.activeInputRef {
   border-bottom: 1px solid var(--color-border-active);
-  &::placeholder{
+  &::placeholder {
     color: white;
   }
 }
 
-.activeInputName{
+.activeInputName {
   border-bottom: 1px solid var(--color-border-active);
-  &::placeholder{
+  &::placeholder {
     color: white;
   }
 }
@@ -109,39 +106,37 @@ input {
 }
 
 .reference-input-button {
-
   margin-left: 10px;
   height: 50px;
   width: 50px;
-  
-  &:hover .button_add_icon{
+
+  &:hover .button_add_icon {
     stroke: var(--color-border-active);
   }
 
-  &:hover .button_add_icon{
+  &:hover .button_add_icon {
     fill: var(--color-border-active);
     fill-opacity: 0.1;
   }
 
-  &:hover .button_add_icon ::ng-deep .st0{
+  &:hover .button_add_icon ::ng-deep .st0 {
     fill: white;
     stroke: white;
     fill-opacity: 1;
   }
-
 }
 
-.button_add_icon{
+.button_add_icon {
   cursor: pointer;
- // stroke: var(--color-border-main);
+  // stroke: var(--color-border-main);
   fill: none;
-  stroke-miterlimit:10;stroke-width:0.5px;
- }
-
-.button_add_icon ::ng-deep .st0{
-  fill: #5B607D;
+  stroke-miterlimit: 10;
+  stroke-width: 0.5px;
 }
 
+.button_add_icon ::ng-deep .st0 {
+  fill: #5b607d;
+}
 
 .reference-text-block {
   direction: rtl;
@@ -218,14 +213,14 @@ input {
   height: 45px;
   display: flex;
   width: 85%;
- // border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  // border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .name-text-button {
   padding-top: 2px;
   width: 30%;
 
-  &:hover .delete-name-icon ::ng-deep .st0{
+  &:hover .delete-name-icon ::ng-deep .st0 {
     fill: var(--color-border-active);
   }
 }
@@ -236,29 +231,29 @@ input {
   padding-left: 20px;
   color: rgb(255, 255, 255);
   width: 330px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2); 
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 
-  &:hover{
+  &:hover {
     color: var(--color-border-active);
   }
 }
 
-.input_name{
+.input_name {
   width: 330px;
-  color:  white;
+  color: white;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   height: 42px;
 
-  &:hover{
+  &:hover {
   }
 }
 
-.name_button_add_block{
+.name_button_add_block {
   width: 50px;
   margin-left: 30px;
   margin-top: 2px;
 
-  &:hover .button_add_icon ::ng-deep .st0{
+  &:hover .button_add_icon ::ng-deep .st0 {
     fill: var(--color-border-active);
   }
 }
@@ -268,24 +263,23 @@ input {
   margin-left: 18px;
 }
 
-.delete-reference-icon ::ng-deep .st0{
+.delete-reference-icon ::ng-deep .st0 {
   fill: rgba(255, 255, 255, 0.2);
 }
 
-.button_delete{
-  &:hover .delete-reference-icon ::ng-deep .st0{
+.button_delete {
+  &:hover .delete-reference-icon ::ng-deep .st0 {
     fill: var(--color-border-active);
   }
 }
 
-.button_update{
-  &:hover .delete-reference-icon ::ng-deep .st0{
+.button_update {
+  &:hover .delete-reference-icon ::ng-deep .st0 {
     fill: var(--color-border-active);
   }
 }
 
-
-.delete-name-icon{
+.delete-name-icon {
   cursor: pointer;
   margin-left: 30px;
 }

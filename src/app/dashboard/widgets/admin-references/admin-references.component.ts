@@ -122,12 +122,12 @@ export class AdminReferencesComponent implements OnInit {
         }
     }
 
-    onRefInputClick(){
+    onRefInputClick() {
         this.inputClickRef = true;
         this.inputClickName = false;
     }
 
-    onNameInputClick(){
+    onNameInputClick() {
         this.inputClickRef = false;
         this.inputClickName = true;
     }
@@ -148,7 +148,7 @@ export class AdminReferencesComponent implements OnInit {
         }
     }
 
-    onChangeName(){
+    onChangeName() {
         this.isChangeName = !this.isChangeName;
     }
 }

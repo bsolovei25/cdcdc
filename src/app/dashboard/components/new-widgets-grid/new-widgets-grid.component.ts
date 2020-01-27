@@ -48,7 +48,7 @@ export class NewWidgetsGridComponent implements OnInit {
 
     ngOnInit(): void {
         this.sizeGrid();
-        
+
         document.addEventListener('fullscreenchange', () => {
             this.fullscreen = document.fullscreenElement ? true : false;
         });
@@ -106,7 +106,7 @@ export class NewWidgetsGridComponent implements OnInit {
         };
     }
 
-    public sizeGrid(){
+    public sizeGrid() {
         const widthScreen = document.getElementById('gridSize').clientWidth;
         const heigthScreen = document.getElementById('gridSize').clientHeight;
         const widthScreenDefault = 1920;
