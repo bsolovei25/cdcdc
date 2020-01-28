@@ -12,6 +12,11 @@ import { WebSocketSubject } from 'rxjs/internal/observable/dom/WebSocketSubject'
 import { webSocket } from 'rxjs/internal/observable/dom/webSocket';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+interface IDatesInterval {
+    FromDateTime: Date;
+    ToDateTime: Date;
+}
+
 @Injectable({
     providedIn: 'root',
 })
@@ -22,7 +27,6 @@ export class NewWidgetService {
 
     private widgetsSocketObservable: BehaviorSubject<any> = new BehaviorSubject(null);
     private ws: WebSocketSubject<any> = null;
-    private connectedWidgetsId: string[] = [];
 
     public draggingItem: GridsterItem;
     public isOver = false;
@@ -45,6 +49,8 @@ export class NewWidgetService {
     public searchType;
 
     public offFilterWidget: any = [];
+
+    private currentDates: IDatesInterval = null;
 
     public searchWidgetT: Observable<any> = this.searchWidget$.pipe(
         tap((val) => {
@@ -121,7 +127,6 @@ export class NewWidgetService {
     }
 
     getWidgetLiveDataFromWS(widgetId, widgetType): any {
-        this.connectedWidgetsId.push(widgetId);
         this.wsConnect(widgetId);
         return this.widgetsSocketObservable.pipe(
             filter((ref) => ref && ref.channelId === widgetId),
@@ -131,16 +136,32 @@ export class NewWidgetService {
         );
     }
 
-    removeWidgetConnection(widgetId: string): void {
-        this.connectedWidgetsId.splice(
-            this.connectedWidgetsId.indexOf(this.connectedWidgetsId.find((el) => el === widgetId)),
-            1
-        );
+    private wsConnect(widgetId: string): void {
+        if (this.currentDates !== null) {
+            this.wsPeriodData(widgetId);
+        } else {
+            this.wsRealtimeData(widgetId);
+        }
     }
 
-    private wsConnect(widgetId: string): void {
+    private wsRealtimeData(widgetId: string): void {
         this.ws.next({
             ActionType: 'Subscribe',
+            ChannelId: widgetId,
+        });
+    }
+
+    private wsPeriodData(widgetId: string): void {
+        this.ws.next({
+            ActionType: 'GetPeriodData',
+            ChannelId: widgetId,
+            SelectedPeriod: this.currentDates,
+        });
+    }
+
+    private wsDisonnect(widgetId: string): void {
+        this.ws.next({
+            ActionType: 'Unsubscribe',
             ChannelId: widgetId,
         });
     }
@@ -289,7 +310,10 @@ export class NewWidgetService {
             }
         );
         this.ws.asObservable().subscribe((data) => {
-            this.widgetsSocketObservable.next(data);
+            if (this.currentDates === null || this.currentDates === data.data.selectedPeriod) {
+                this.widgetsSocketObservable.next(data);
+                console.log("data ws");
+            }
         });
     }
 
@@ -298,12 +322,9 @@ export class NewWidgetService {
             console.log('reconnect уже создан');
             return;
         }
-
         this.reconnectTimer = setInterval(() => {
             this.initWS();
-            for (const connectedWidget of this.connectedWidgetsId) {
-                this.wsConnect(connectedWidget);
-            }
+            this.dashboard.forEach(el => this.wsConnect(el.id));
         }, this.reconnectInterval);
     }
 
@@ -369,5 +390,19 @@ export class NewWidgetService {
         if (actionFunction) {
             snackBarInstance.onAction().subscribe(() => actionFunction());
         }
+    }
+
+    public wsSetParams(Dates: Date[] = null): void {
+        console.log(Dates);
+        if (Dates !== null) {
+            this.currentDates = new class implements IDatesInterval {
+                FromDateTime: Date = Dates[0];
+                ToDateTime: Date = Dates[1];
+            };
+        } else {
+            this.currentDates = null;
+        }
+        this.dashboard.forEach(el => this.wsDisonnect(el.id));
+        this.dashboard.forEach(el => this.wsConnect(el.id));
     }
 }

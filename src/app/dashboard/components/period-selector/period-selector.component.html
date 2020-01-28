@@ -17,7 +17,7 @@
           class="dates-selector__date-input"
           [class.dates-selector__date-input___disabled]="isCurrent"
           [ngModel]="fromDate | date:'yyyy-MM-ddTHH:mm'"
-          (ngModelChange)="setDefaultTime($event, 0)"
+          (ngModelChange)="setDateTime($event, 0)"
         />
       </div>
 
@@ -34,7 +34,7 @@
           class="dates-selector__date-input"
           [class.dates-selector__date-input___disabled]="isCurrent"
           [ngModel]="toDate | date:'yyyy-MM-ddTHH:mm'"
-          (ngModelChange)="setDefaultTime($event, 1)"
+          (ngModelChange)="setDateTime($event, 1)"
         />
       </div>
     </div>
