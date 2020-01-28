@@ -110,7 +110,7 @@ export class IndicatorSelectorComponent {
         if (this.idScreen === Number(id)) {
             this.nameScreen = this.dataScreen[0].screenName;
             this.idScreen = this.dataScreen[0].id;
-            this.LoadScreen(this.idScreen.toString());
+            this.LoadScreen(this.idScreen);
         }
     }
 

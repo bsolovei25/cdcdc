@@ -11,6 +11,7 @@ import { Machine_MI } from '../models/manual-input.model';
 import { WebSocketSubject } from 'rxjs/internal/observable/dom/WebSocketSubject';
 import { webSocket } from 'rxjs/internal/observable/dom/webSocket';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from '../../@core/service/auth.service';
 
 interface IDatesInterval {
     FromDateTime: Date;
@@ -62,6 +63,7 @@ export class NewWidgetService {
     );
     constructor(
         public http: HttpClient,
+        private authService: AuthService,
         configService: AppConfigService,
         private snackBar: MatSnackBar
     ) {
@@ -239,6 +241,9 @@ export class NewWidgetService {
 
             case 'energetics':
                 return data;
+
+            case 'oil-control':
+                return data;
         }
         console.warn(`unknown widget type ${widgetType}`);
     }
@@ -269,7 +274,13 @@ export class NewWidgetService {
             },
             (err) => {
                 console.log('error rest', err);
-                this.reconnectRest();
+                if (this.authService.userIsAuthenticated) {
+                    this.reconnectRest();
+                } else {
+                    if (this.reconnectRestTimer) {
+                        clearInterval(this.reconnectRestTimer);
+                    }
+                }
             },
             () => {
                 console.log('complete');
