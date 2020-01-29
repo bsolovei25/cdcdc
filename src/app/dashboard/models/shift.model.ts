@@ -40,3 +40,18 @@ export interface ShiftComment {
     createdAt: Date;
     createdBy: number;
 }
+
+export type ShiftMemberStatus = 'initialization' |
+    'inProgressAccepted' |
+    'accepted' |
+    'inProgressPassed' |
+    'passed' |
+    'absent' |
+    'missing';
+
+export type ShiftStatus = 'initialization' |
+    'inProgressAccepted' |
+    'accepted' |
+    'inProgressPassed' |
+    'passed' |
+    'passedConfirm';

@@ -14,8 +14,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../@core/service/auth.service';
 
 interface IDatesInterval {
-    FromDateTime: Date;
-    ToDateTime: Date;
+    fromDateTime: Date;
+    toDateTime: Date;
+}
+
+interface IWebSocket {
+    ActionType: string;
+    ChannelId: string;
+    SelectedPeriod?: IDatesInterval;
+    data?: any;
 }
 
 @Injectable({
@@ -27,7 +34,7 @@ export class NewWidgetService {
     private readonly reconnectInterval: number;
 
     private widgetsSocketObservable: BehaviorSubject<any> = new BehaviorSubject(null);
-    private ws: WebSocketSubject<any> = null;
+    private ws: WebSocketSubject<IWebSocket> = null;
 
     public draggingItem: GridsterItem;
     public isOver = false;
@@ -407,8 +414,8 @@ export class NewWidgetService {
         console.log(Dates);
         if (Dates !== null) {
             this.currentDates = new class implements IDatesInterval {
-                FromDateTime: Date = Dates[0];
-                ToDateTime: Date = Dates[1];
+                fromDateTime: Date = Dates[0];
+                toDateTime: Date = Dates[1];
             };
         } else {
             this.currentDates = null;

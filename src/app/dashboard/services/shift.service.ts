@@ -100,7 +100,6 @@ export class ShiftService {
 
     public async getShiftInfo() {
         const tempData = await this.getShiftPassAsync();
-        // this.allMembers = await this.getAllMembersAsync();
         this.shiftPass.next(tempData);
     }
 
