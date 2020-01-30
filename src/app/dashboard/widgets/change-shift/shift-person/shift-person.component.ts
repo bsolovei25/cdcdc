@@ -34,6 +34,10 @@ export class ShiftPersonComponent implements OnInit {
 
     mapStatus = [
         {
+            code: 'initialization',
+            name: 'Ожидание',
+        },
+        {
             code: 'accepted',
             name: 'Принял смену',
         },
@@ -42,14 +46,24 @@ export class ShiftPersonComponent implements OnInit {
             name: 'Сдал смену',
         },
         {
-            code: 'inProgress',
+            code: 'inProgressAccepted',
+            name: 'В процессе',
+        },
+        {
+            code: 'inProgressPassed',
             name: 'В процессе',
         },
         {
             code: 'absent',
             name: 'Отсутствует',
         },
+        {
+            code: 'missing',
+            name: 'Отсутствует',
+        },
     ];
+
+    public dropdownMenu: string[];
 
     constructor(private shiftService: ShiftService) {}
 
@@ -64,36 +78,66 @@ export class ShiftPersonComponent implements OnInit {
     }
 
     onMouseOver() {
-        if (this.ddMenu) {
-            if (!this.person.employee.main && this.isPresent) {
-                const classes: DOMTokenList = this.ddMenu.nativeElement.classList;
-                if (classes.contains('disable')) {
-                    classes.remove('disable');
-                    this.isDropdownActive = true;
-                }
-            } else if (!this.isPresent) {
-                const classes: DOMTokenList = this.ddMenu.nativeElement.classList;
-                if (classes.contains('disable')) {
-                    classes.remove('disable');
-                    this.isDropdownActive = true;
-                }
-            }
+        if (!this.ddMenu) {
+            return;
+        }
+        this.createDropdown();
+        const classes: DOMTokenList = this.ddMenu.nativeElement.classList;
+        if (classes.contains('disable')) {
+            classes.remove('disable');
+            this.isDropdownActive = true;
         }
     }
 
     onMouseOut() {
         if (this.ddMenu) {
-            if (!this.person.employee.main) {
-                const classes: DOMTokenList = this.ddMenu.nativeElement.classList;
-                if (!classes.contains('disable')) {
-                    classes.add('disable');
-                    this.isDropdownActive = false;
-                }
+            const classes: DOMTokenList = this.ddMenu.nativeElement.classList;
+            if (!classes.contains('disable')) {
+                classes.add('disable');
+                this.isDropdownActive = false;
             }
         }
     }
 
-    menuCheck(event: any, person) {
+    private createDropdown():void {
+        this.dropdownMenu = [];
+        switch (this.person.status) {
+            case 'absent':
+                this.dropdownMenu.push('Вернуть');
+                break;
+            case 'accepted':
+                this.dropdownMenu.push('Готов к передаче');
+                if (!this.person.employee.main) {
+                    this.dropdownMenu.push('Отсутствует');
+                    this.dropdownMenu.push('Сделать главным');
+                }
+                break;
+            case 'passed':
+                break;
+            case 'initialization':
+                if (!this.person.employee.main) {
+                    this.dropdownMenu.push('Покинул смену');
+                    this.dropdownMenu.push('Сделать главным');
+                }
+                this.dropdownMenu.push('На месте');
+                break;
+            case 'inProgressAccepted':
+                if (!this.person.employee.main) {
+                    this.dropdownMenu.push('Покинул смену');
+                    this.dropdownMenu.push('Сделать главным');
+                }
+                break;
+            case 'inProgressPassed':
+                if (!this.person.employee.main) {
+                    this.dropdownMenu.push('Покинул смену');
+                    this.dropdownMenu.push('Сделать главным');
+                }
+                break;
+        }
+
+    }
+
+    menuCheck(event: any, person: ShiftMember): void {
         switch (event.target.innerText) {
             case 'Принять смену':
                 this.shiftService.changeStatus('accepted', person.employee.id, this.shiftId);
@@ -105,10 +149,13 @@ export class ShiftPersonComponent implements OnInit {
                 this.shiftService.changeStatus('absent', person.employee.id, this.shiftId);
                 break;
             case 'На месте':
-                this.shiftService.changeStatus('inProgress', person.employee.id, this.shiftId);
+                this.shiftService.changeStatus('inProgressAccepted', person.employee.id, this.shiftId);
                 break;
-            case 'Отменить':
-                this.shiftService.changeStatus('inProgress', person.employee.id, this.shiftId);
+            case 'Готов к передаче':
+                this.shiftService.changeStatus('inProgressPassed', person.employee.id, this.shiftId);
+                break;
+            case 'Покинул смену':
+                this.shiftService.changeStatus('missing', person.employee.id, this.shiftId);
                 break;
             case 'Сделать главным':
                 this.shiftService.changePosition(person.employee.id, this.shiftId);

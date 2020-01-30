@@ -17,7 +17,7 @@
 }
 
 .disable-person {
-  opacity: 0.7;
+  opacity: 0.85;
 }
 
 .onShift__person {
@@ -30,7 +30,7 @@
   font-size: 7px;
   box-sizing: border-box;
   padding-top: 5px;
-  margin: 0 7px 20px;
+  margin: 0 7px 12px;
 
   .person {
     display: flex;
@@ -178,7 +178,7 @@
 .dropdown {
   position: absolute;
   width: 100px;
-  min-height: 20px;
+  //min-height: 20px;
   background: var(--color-bg-main);
   z-index: 1;
   display: flex;
