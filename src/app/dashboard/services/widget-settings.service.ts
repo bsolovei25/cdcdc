@@ -51,7 +51,7 @@ export class WidgetSettingsService {
         await this.http.post(url, `"${value}"`).toPromise();
     }
 
-    private jsonstringify<T>(data: T): string {
+    private jsonStringify<T>(data: T): string {
         return JSON.stringify(data, this.replacer);
     }
 
