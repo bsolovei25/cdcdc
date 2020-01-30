@@ -38,7 +38,7 @@ export class WidgetSettingsService {
         settings: TSettings
     ): Promise<void> {
         const url = `${this.restUrl}/api/user-management/widgetsettings/${widgetUniqueId}`;
-        const json = this.jsonstringify(settings);
+        const json = this.jsonStringify(settings);
         await this.http.post(url, json).toPromise();
     }
 
