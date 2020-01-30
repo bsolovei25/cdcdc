@@ -155,100 +155,57 @@ export class NewWidgetService {
 
     private wsRealtimeData(widgetId: string): void {
         this.ws.next({
-            ActionType: 'Subscribe',
-            ChannelId: widgetId,
+            actionType: 'subscribe',
+            channelId: widgetId,
         });
     }
 
     private wsPeriodData(widgetId: string): void {
         this.ws.next({
-            ActionType: 'GetPeriodData',
-            ChannelId: widgetId,
-            SelectedPeriod: this.currentDates,
+            actionType: 'getPeriodData',
+            channelId: widgetId,
+            selectedPeriod: this.currentDates,
         });
     }
 
     private wsDisonnect(widgetId: string): void {
         this.ws.next({
-            ActionType: 'Unsubscribe',
-            ChannelId: widgetId,
+            actionType: 'unsubscribe',
+            channelId: widgetId,
         });
     }
 
-    private mapWidgetData(data, widgetType) {
+    private mapWidgetData(data: any, widgetType: any) {
         switch (widgetType) {
             case 'events':
-                return this.mapEventsWidgetData(data);
+                return this.mapEventsWidgetData(data as EventsWidgetData);
 
             case 'line-chart':
-                return this.mapLineChartData(data);
-
-            case 'line-diagram':
-                return data;
-
+                return this.mapLineChartData(data as LineChartData);
             case 'manual-input':
                 return this.mapManualInput(data.items);
 
+            case 'line-diagram':
             case 'pie-diagram':
-                return data;
-
             case 'truncated-diagram-counter':
-                return data;
-
             case 'truncated-diagram-percentage':
-                return data;
-
             case 'bar-chart':
-                return data;
-
             case 'map-ecology':
-                return data;
-
             case 'ring-factory-diagram':
-                return data;
-
             case 'semicircle-energy':
-                return data;
-
             case 'dispatcher-screen':
-                return data;
-
             case 'point-diagram':
-                return data;
-
             case 'circle-diagram':
-                return data;
-
             case 'polar-chart':
-                return data;
-
             case 'solid-gauge-with-marker':
-                return data;
-
             case 'circle-block-diagram':
-                return data;
-
             case 'deviation-circle-diagram':
-                return data;
-
             case 'time-line-diagram':
-                return data;
-
             case 'ring-energy-indicator':
-                return data;
-
             case 'calendar-plan':
-                return data;
-
             case 'operation-efficiency':
-                return data;
-
             case 'ecology-safety':
-                return data;
-
             case 'energetics':
-                return data;
-
             case 'oil-control':
                 return data;
         }
@@ -260,14 +217,14 @@ export class NewWidgetService {
         return data;
     }
 
-    private mapLineChartData(data): LineChartData {
+    private mapLineChartData(data: LineChartData): LineChartData {
         data.graphs.forEach((g) => {
             g.values.forEach((v) => (v.date = new Date(v.date)));
         });
         return data;
     }
 
-    private mapManualInput(data): Machine_MI[] {
+    private mapManualInput(data: Machine_MI[]): Machine_MI[] {
         return data;
     }
 
@@ -328,11 +285,21 @@ export class NewWidgetService {
             }
         );
         this.ws.asObservable().subscribe((data) => {
-            if (this.currentDates === null || this.currentDates === data.data.selectedPeriod) {
-                this.widgetsSocketObservable.next(data);
-                console.log("data ws");
+            if (this.isMatchingPeriod(data.data.selectedPeriod)) {
+                    this.widgetsSocketObservable.next(data);
+                    console.log("data ws");
             }
         });
+    }
+
+    private isMatchingPeriod(incoming: IDatesInterval): boolean {
+        if (!incoming) {
+            return this.currentDates === null;
+        }
+        return (new Date(incoming.fromDateTime).getTime()
+              === new Date(this.currentDates.fromDateTime).getTime())
+            && (new Date(incoming.toDateTime).getTime()
+              === new Date(this.currentDates.toDateTime).getTime());
     }
 
     private reconnectWs() {
@@ -372,7 +339,7 @@ export class NewWidgetService {
                 this.searchValue = record;
                 return pointFilter;
             } else {
-                for (let i of record) {
+                for (const i of record) {
                     const filter = point.filter((point) => point.categories.indexOf(i) > -1);
                     arrFilter.push(filter);
                 }
@@ -383,7 +350,7 @@ export class NewWidgetService {
                         arrFilterButton.push(j);
                     }
                 }
-                let newFilterArray: any = [...new Set(arrFilterButton)];
+                const newFilterArray: any = [...new Set(arrFilterButton)];
                 resultObject.push(newFilterArray);
                 this.searchValue = record;
                 return resultObject;
@@ -413,9 +380,9 @@ export class NewWidgetService {
     public wsSetParams(Dates: Date[] = null): void {
         console.log(Dates);
         if (Dates !== null) {
-            this.currentDates = new class implements IDatesInterval {
-                fromDateTime: Date = Dates[0];
-                toDateTime: Date = Dates[1];
+            this.currentDates = {
+                fromDateTime:  Dates[0],
+                toDateTime:  Dates[1]
             };
         } else {
             this.currentDates = null;
