@@ -38,7 +38,8 @@ export class WidgetSettingsService {
         settings: TSettings
     ): Promise<void> {
         const url = `${this.restUrl}/api/user-management/widgetsettings/${widgetUniqueId}`;
-        await this.http.post(url, settings).toPromise();
+        const json = this.jsonstringify(settings);
+        await this.http.post(url, json).toPromise();
     }
 
     public async saveSingleSetting(
@@ -48,5 +49,18 @@ export class WidgetSettingsService {
     ): Promise<void> {
         const url = `${this.restUrl}/api/user-management/widgetsettings/${widgetUniqueId}/${key}`;
         await this.http.post(url, `"${value}"`).toPromise();
+    }
+
+    private jsonstringify<T>(data: T): string {
+        return JSON.stringify(data, this.replacer);
+    }
+
+    // value to be serialized can be of any type
+    // tslint:disable-next-line: no-any
+    private replacer(key: string, value: any): string {
+        if (typeof value === 'boolean' || typeof value === 'number') {
+            return String(value);
+        }
+        return value;
     }
 }
