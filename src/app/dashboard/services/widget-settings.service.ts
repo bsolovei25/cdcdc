@@ -17,7 +17,6 @@ To load settings
         .getSettings<{asd: string, zxc: string}>('4fdeb1ee-60d6-4430-9999-64c0af141ea4');
 */
 
-
 @Injectable({
     providedIn: 'root',
 })
@@ -34,17 +33,19 @@ export class WidgetSettingsService {
         return settings;
     }
 
-    public async saveSettings<TSettings>(widgetUniqueId: string, settings: TSettings)
-        : Promise<void> {
-            const url = `${this.restUrl}/api/user-management/widgetsettings/${widgetUniqueId}`;
-            await this.http.post(url, settings).toPromise();
+    public async saveSettings<TSettings>(
+        widgetUniqueId: string,
+        settings: TSettings
+    ): Promise<void> {
+        const url = `${this.restUrl}/api/user-management/widgetsettings/${widgetUniqueId}`;
+        await this.http.post(url, settings).toPromise();
     }
 
     public async saveSingleSetting(
         widgetUniqueId: string,
         key: string,
-        value: string): Promise<void> {
-
+        value: string
+    ): Promise<void> {
         const url = `${this.restUrl}/api/user-management/widgetsettings/${widgetUniqueId}/${key}`;
         await this.http.post(url, `"${value}"`).toPromise();
     }
