@@ -100,6 +100,7 @@ export class NewWidgetService {
                 widgetOptions: item.widgetOptions,
                 widgetType: item.widgetType,
                 categories: item.categories,
+                settings: []
             };
         });
     }
