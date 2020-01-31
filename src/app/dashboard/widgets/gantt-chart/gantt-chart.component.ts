@@ -1,21 +1,8 @@
-import {
-    Component,
-    Inject,
-    OnInit,
-    OnDestroy,
-    ViewChild,
-    ElementRef,
-} from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { Subscription } from 'rxjs';
 import {} from '@angular/material/tree';
-import {
-    trigger,
-    state,
-    style,
-    transition,
-    animate,
-} from '@angular/animations';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import * as moment from 'moment';
 
 export type valueType =
@@ -55,10 +42,7 @@ interface IGAntt {
         trigger('detailExpand', [
             state('collapsed', style({ height: '0px', minHeight: '0' })),
             state('expanded', style({ height: '*' })),
-            transition(
-                'expanded <=> collapsed',
-                animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
-            ),
+            transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
         ]),
     ],
 })
@@ -88,18 +72,13 @@ export class GanttChartComponent implements OnInit, OnDestroy {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscription = this.widgetService
-            .getWidgetChannel(id)
-            .subscribe((data) => {
-                this.title = data.title;
-            });
+        this.subscription = this.widgetService.getWidgetChannel(id).subscribe((data) => {
+            this.title = data.title;
+        });
     }
 
     ngOnInit(): void {
-        const arr = this.getDateArray(
-            dataComp.dateTimeStart,
-            dataComp.dateTimeEnd
-        );
+        const arr = this.getDateArray(dataComp.dateTimeStart, dataComp.dateTimeEnd);
         this.columnsToDisplay.push(...arr);
     }
 
@@ -136,10 +115,7 @@ export class GanttChartComponent implements OnInit, OnDestroy {
             return element.title;
         }
         element.objs.map((value) => {
-            if (
-                this.formatDate(value.dateTimeStart) === column &&
-                value.type === type
-            ) {
+            if (this.formatDate(value.dateTimeStart) === column && value.type === type) {
                 switch (type) {
                     case 'passport-system':
                         [dayProcent, leftProcent] = this.getTimeDay(

@@ -5,11 +5,7 @@
 ></evj-widget-preview>
 
 <ng-container *ngIf="!isMock">
-  <evj-widget-header
-    [title]="title"
-    [id]="id"
-    [uniqId]="uniqId"
-  ></evj-widget-header>
+  <evj-widget-header [title]="title" [id]="id" [uniqId]="uniqId"></evj-widget-header>
   <evj-frame-top></evj-frame-top>
   <div
     class="body-container"
@@ -44,9 +40,7 @@
       </ul>
       <div class="header__right">
         <div class="header__right__button-date">
-          <svg-icon
-            src=".\assets\icons\widgets\gantt-chart\btn-group-right.svg"
-          ></svg-icon>
+          <svg-icon src=".\assets\icons\widgets\gantt-chart\btn-group-right.svg"></svg-icon>
         </div>
       </div>
     </div>
@@ -157,10 +151,7 @@
             </div>
           </td>
         </ng-container>
-        <tr
-          mat-header-row
-          *matHeaderRowDef="columnsToDisplay; sticky: true"
-        ></tr>
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>
         <tr
           mat-row
           *matRowDef="let element; columns: columnsToDisplay;"
