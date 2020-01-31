@@ -110,13 +110,13 @@ export class NewWidgetsGridComponent implements OnInit {
         const widthScreen = document.getElementById('gridSize').clientWidth;
         const heigthScreen = document.getElementById('gridSize').clientHeight;
         const widthScreenDefault = 1920;
-        const heigthScreenDefault = 1080;
+        const heigthScreenDefault = 909;
         this.ColWidth = 20;
         this.RowHeight = 20;
         this.ColWidth *= widthScreen / widthScreenDefault;
         this.RowHeight *= heigthScreen / heigthScreenDefault;
 
-        console.log(this.RowHeight);
+        console.log(this.RowHeight + this.ColWidth);
     }
 
     public resizeGridsterElement() {

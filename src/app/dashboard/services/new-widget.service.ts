@@ -18,6 +18,13 @@ interface IDatesInterval {
     toDateTime: Date;
 }
 
+interface IWebSocket {
+    actionType: string;
+    channelId: string;
+    selectedPeriod?: IDatesInterval;
+    data?: any;
+}
+
 @Injectable({
     providedIn: 'root',
 })
@@ -27,7 +34,7 @@ export class NewWidgetService {
     private readonly reconnectInterval: number;
 
     private widgetsSocketObservable: BehaviorSubject<any> = new BehaviorSubject(null);
-    private ws: WebSocketSubject<any> = null;
+    private ws: WebSocketSubject<IWebSocket> = null;
 
     public draggingItem: GridsterItem;
     public isOver = false;

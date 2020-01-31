@@ -3,6 +3,7 @@ import { UnityLoader } from './UnityLoader.js';
 import { PlatformLocation } from '@angular/common';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { Subscription } from 'rxjs';
+import {WidgetSettingsService} from "../../services/widget-settings.service";
 
 @Component({
     selector: 'evj-dispatcher-screen',
@@ -26,6 +27,7 @@ export class DispatcherScreenComponent implements OnInit, AfterViewInit, OnDestr
 
     constructor(
         public widgetService: NewWidgetService,
+        public widgetSettingsService: WidgetSettingsService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
@@ -42,7 +44,9 @@ export class DispatcherScreenComponent implements OnInit, AfterViewInit, OnDestr
         );
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+
+    }
 
     ngAfterViewInit(): void {
         this.showMock(this.isMock);
@@ -68,24 +72,28 @@ export class DispatcherScreenComponent implements OnInit, AfterViewInit, OnDestr
     }
 
     @HostListener('document:resize', ['$event'])
-    OnResize(event): void {
+    public OnResize(event): void {
         this.resize();
     }
 
     @HostListener('document:UnityDispatcherScreen_Start', ['$event', '$event.detail.param1'])
-    OnUnityStart(event, param1): void {
+    public async OnUnityStart(event, param1): Promise<void> {
         this.isStart = true;
         if (!this.unityInstance) {
             return;
         }
         this.wsConnect();
+        const params = await this.widgetSettingsService.getSettings(this.uniqId);
+        this.CallUnityScript('Scripts', 'RefreshSettings', JSON.stringify(params));
     }
 
-    @HostListener('document:UnityTemplate_Click', ['$event'])
-    OnUnityClick(event): void {
+    @HostListener('document:UnityDispatcherScreen_SendSettings', ['$event', '$event.detail.param1'])
+    public async OnUnitySendSettings(event, param1): Promise<void> {
+        this.isStart = true;
         if (!this.unityInstance) {
             return;
         }
+        await this.widgetSettingsService.saveSettings(this.uniqId, JSON.parse(param1));
     }
 
     private wsConnect(): void {
@@ -96,7 +104,7 @@ export class DispatcherScreenComponent implements OnInit, AfterViewInit, OnDestr
             });
     }
 
-    private InitUnity(): void {
+    private async InitUnity(): Promise<void> {
         window['UnityLoader'] = UnityLoader;
         this.loadProject(`${this.baseUrl}assets/unity/dispatcher-screen/web_build.json`);
     }
