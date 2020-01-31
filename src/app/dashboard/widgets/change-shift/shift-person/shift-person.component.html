@@ -33,35 +33,11 @@
   </div>
   <div *ngIf="onShift">
     <div class="dropdown disable" *ngIf="!isMain" #dropdown>
-      <div
-        class="dropdown__item"
-        *ngIf="isPresent && (person.status === 'passed' || person.status === 'accepted')"
-        (click)="menuCheck($event, person)"
+      <div class="dropdown__item"
+           *ngFor="let dropdownEl of this.dropdownMenu"
+           (click)="menuCheck($event, person)"
       >
-        Отменить
-      </div>
-      <div
-        class="dropdown__item"
-        *ngIf="isPresent && !(person.status === 'passed' || person.status === 'accepted')"
-        (click)="menuCheck($event, person)"
-      >
-        {{ shiftType === 'shift-pass' ? "Передать смену" : "Принять смену" }}
-      </div>
-      <div class="dropdown__item" *ngIf="isPresent" (click)="menuCheck($event, person)">
-        Отсутствует
-      </div>
-      <div class="dropdown__item" *ngIf="isPresent" (click)="menuCheck($event, person)">
-        Сделать главным
-      </div>
-      <div class="dropdown__item" *ngIf="!isPresent" (click)="menuCheck($event, person)">
-        На месте
-      </div>
-      <div
-        class="dropdown__item"
-        *ngIf="!isPresent && !isFromThisBrigade()"
-        (click)="menuCheck($event, person)"
-      >
-        Удалить
+        {{ dropdownEl }}
       </div>
     </div>
   </div>

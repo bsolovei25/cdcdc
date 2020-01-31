@@ -6,41 +6,42 @@ import {
     ViewChild,
     ElementRef,
     Renderer2,
-    Input,
+    AfterViewInit,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
-interface IObservationNormTR {
-    minValue: number;
-    maxValue: number;
-    values: number[];
-}
+import { IObservationNormTR } from '../../models/observation-norm-tr';
+
 @Component({
     selector: 'evj-observation-norm-tr',
     templateUrl: './observation-norm-tr.component.html',
     styleUrls: ['./observation-norm-tr.component.scss'],
 })
-export class ObservationNormTRComponent implements OnInit, OnDestroy {
-    static itemCols = 15;
-    static itemRows = 10;
+export class ObservationNormTRComponent implements OnInit, OnDestroy, AfterViewInit {
+    static itemCols: number = 15;
+    static itemRows: number = 10;
 
     circleRadius: string = (35).toString();
-    minRadius = 47;
-    maxRadius = 75;
-    radPoint = '1.69';
-    centerX = '89.27';
-    centerY = '92.28';
-    middleCell = 3;
-    scoreValues = 20;
+    minRadius: number = 47;
+    maxRadius: number = 75;
+    radPoint: string = '1.69';
+    centerX: string = '89.27';
+    centerY: string = '92.28';
+    middleCell: number = 3;
+    scoreValues: number = 20;
     data: IObservationNormTR = {
         minValue: 95,
         maxValue: 100,
-        values: [97, 97, 95, 96, 97, 95, 96, 98, 96, 99, 100, 97, 97, 97],
+        values: [97, 97, 81, 96, 97, 95, 96, 98, 96, 99, 115.666, 97, 97, 98],
     };
 
-    middleRadius = 60;
+    maxArray: number = 0;
+    factArray: number = 0;
+    minArray: number = 0;
 
-    public title = '';
+    middleRadius: number = 60;
+
+    public title: string = '';
     public previewTitle: string = 'observation-norm-tr';
     private subscription: Subscription;
 
@@ -60,33 +61,39 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy {
         @Inject('uniqId') public uniqId: string
     ) {}
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
             this.title = data.title;
         });
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
     }
 
-    ngAfterViewInit() {
+    ngAfterViewInit(): void {
         if (this.svgContainerObservation && this.svgContainerObservation.nativeElement) {
             this.drawMinAndMax();
             this.drawCircle();
         }
     }
 
-    drawMinAndMax() {
+    drawMinAndMax(): void {
         const min = document.getElementById('minValue');
         const max = document.getElementById('maxValue');
         min.textContent = this.data.minValue.toString();
         max.textContent = this.data.maxValue.toString();
+
+        if (this.data.values) {
+            this.minArray = Math.min.apply(null, this.data.values).toFixed(1);
+            this.factArray = this.data.values[this.data.values.length - 1];
+            this.maxArray = Math.max.apply(null, this.data.values).toFixed(1);
+        }
     }
 
-    drawCircle() {
+    drawCircle(): void {
         let x1,
             y1,
             x2,
@@ -137,14 +144,14 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy {
         );
     }
 
-    drawEndLine() {
+    drawEndLine(): void {
         if (this.activeLine && this.activeLine.nativeElement) {
             let deg = 270 + (this.scoreValues * 11.25 - 6.4);
             this.renderer.setStyle(this.activeLine.nativeElement, 'transform', `rotate(${deg}deg)`);
         }
     }
 
-    drawActiveCircle() {
+    drawActiveCircle(): void {
         if (this.activeCircle && this.activeCircle.nativeElement) {
             let percent = 0;
             if (this.scoreValues && this.scoreValues !== 0) {
@@ -170,7 +177,7 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy {
         }
     }
 
-    drawWarningCircle(i, item, x1, y1) {
+    drawWarningCircle(i, item, x1, y1): void {
         if (this.warningCircle && this.warningCircle.nativeElement) {
             this.drawWarningPolygon(i);
             const x = x1 - 4.26;
@@ -199,20 +206,13 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy {
         }
     }
 
-    drawWarningPolygon(i: number) {
+    drawWarningPolygon(i: number): void {
         if (this.warningPolygon && this.warningPolygon.nativeElement) {
             let deg = (i + 1) * 11.242 + 315;
             const gEl = this.renderer.createElement('g', 'svg');
             this.renderer.setStyle(gEl, 'transform', `translate(0px, 0px) rotate(${deg}deg)`);
             this.renderer.setStyle(gEl, 'transform-origin', '89px 92.2px 0');
             this.renderer.appendChild(this.warningPolygon.nativeElement, gEl);
-
-            // const circle = this.renderer.createElement('circle', 'svg');
-            // this.renderer.setAttribute(circle, 'cx', '89.27');
-            // this.renderer.setAttribute(circle, 'cy', '4.94');
-            // this.renderer.setAttribute(circle, 'r', '1.69');
-            // this.renderer.setStyle(circle, 'fill', '#f4a321');
-            // this.renderer.appendChild(gEl, circle);
 
             const path = this.renderer.createElement('path', 'svg');
             this.renderer.setAttribute(
@@ -224,12 +224,9 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy {
             this.renderer.setStyle(path, 'opacity', '0.9');
             this.renderer.appendChild(gEl, path);
         }
-        //     line.setAttribute('style', `transform: translate(834.21px, 486.66px) rotate(${data}deg);transform-origin: 84px 84px 0`);
-        //     transform-origin: 89px 92.2px 0;
-        // transform: translate(0px, 0px) rotate(157deg);
     }
 
-    drawLine(x1, y1, x2, y2) {
+    drawLine(x1, y1, x2, y2): void {
         const line = this.renderer.createElement('line', 'svg');
         this.renderer.setAttribute(line, 'x1', x1);
         this.renderer.setAttribute(line, 'y1', y1);
@@ -240,7 +237,7 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy {
         this.renderer.appendChild(this.lineAndCircle.nativeElement, line);
     }
 
-    drawLastCircle() {
+    drawLastCircle(): void {
         if (this.lastCircle && this.lastCircle.nativeElement) {
             if (
                 this.data.values.length &&

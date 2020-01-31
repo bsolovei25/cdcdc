@@ -7,7 +7,6 @@
 
 <div class="container pointer-event" *ngIf="!isMock">
   <evj-widget-header
-    *ngIf="this.aboutWidget"
     [title]="title"
     [units]=""
     [code]=""
@@ -52,8 +51,8 @@
           <div class="mainWorker__row">
             <div class="circle circle__right circle__right-top"></div>
             <div class="mainWorker__squad">Бригада</div>
-            <div class="mainWorker__number" *ngIf="currentShift != null">
-              {{ currentShift.brigade.number }}
+            <div class="mainWorker__number">
+              {{ currentShift?.brigade?.number }}
             </div>
           </div>
         </div>
@@ -140,34 +139,53 @@
           </div>
         </div>
       </div>
-      <ng-container *ngIf="aboutWidget && this.aboutWidget.widgetType === 'shift-pass'">
+      <ng-container *ngIf="aboutWidget && this.aboutWidget.widgetType === 'shift-pass' && !this.isCommentRequired">
         <div class="buttons">
           <div class="change-shift__submit">
             <div class="submit__frame submit__frame-left"></div>
             <div class="submit__frame submit__frame-right"></div>
             <button type="submit" (click)="shiftApply()">
-              {{ this.aboutWidget.widgetType === "shift-pass" ? "Передать смену" : "Принять смену"
-              }}
+              Передать смену
             </button>
           </div>
         </div>
       </ng-container>
-      <ng-container *ngIf="aboutWidget && this.aboutWidget.widgetType !== 'shift-pass'">
+
+      <ng-container *ngIf="aboutWidget && this.aboutWidget.widgetType !== 'shift-pass' && !this.isCommentRequired">
         <div class="buttons">
           <div class="change-shift__submit">
             <div class="submit__frame submit__frame-left"></div>
             <div class="submit__frame submit__frame-right"></div>
             <button type="submit" (click)="shiftApply()">
-              {{ this.aboutWidget.widgetType === "shift-pass" ? "Передать смену" : "Принять смену"
-              }}
+              Принять смену
             </button>
           </div>
           <div style="margin: 5px"></div>
           <div class="change-shift__submit">
             <div class="submit__frame submit__frame-left"></div>
             <div class="submit__frame submit__frame-right"></div>
-            <button (click)="onRefuse()">
+            <button (click)="this.shiftCancel()">
               Отказаться
+            </button>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="this.isCommentRequired">
+        <div class="buttons">
+          <div class="change-shift__submit">
+            <div class="submit__frame submit__frame-left"></div>
+            <div class="submit__frame submit__frame-right"></div>
+            <button type="submit" (click)="onSendMessage()">
+              Подтвердить (оставить комментарий)
+            </button>
+          </div>
+          <div style="margin: 5px"></div>
+          <div class="change-shift__submit">
+            <div class="submit__frame submit__frame-left"></div>
+            <div class="submit__frame submit__frame-right"></div>
+            <button (click)="unsetRequireComment()">
+              Отмена
             </button>
           </div>
         </div>
