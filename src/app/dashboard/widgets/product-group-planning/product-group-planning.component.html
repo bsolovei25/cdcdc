@@ -17,7 +17,9 @@
         (touchstart)="$event.stopPropagation()"
       >
         <div class="blocks">
-          <div style="display:flex; height: 100%;">
+          <div style="height: 100%;">
+            <div class="top_background">
+            </div>
             <div class="cb">
               <ng-container *ngFor="let items of data;">
                 <div class="item-b">
@@ -73,6 +75,8 @@
                     </ng-container>
                   </tbody>
                 </table> -->
+            </div>
+            <div class="bottom_background">      
             </div>
           </div>
         </div>
