@@ -1,3 +1,14 @@
+<div class="modal-window" #modalWindow id="modal-window">
+  <span class="title"
+    >Поздняя паспортизация <span class="value">{{ modalWindow.text }}</span> тонн</span
+  ><br />
+  <span>{{ modalWindow.timePassportSystem }} <span class="text">Паспортизация</span></span
+  ><br />
+  <span>
+    {{ modalWindow.timeShipment }}
+    <span class="text"> Отгрузка</span>
+  </span>
+</div>
 <evj-header *ngIf="!fullscreen" class="header">
   <div class="logo-gpn"></div>
   <evj-indicator-selector class="header__indicator-selector"></evj-indicator-selector>
