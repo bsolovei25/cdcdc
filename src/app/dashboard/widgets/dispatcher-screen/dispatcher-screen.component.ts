@@ -72,12 +72,12 @@ export class DispatcherScreenComponent implements OnInit, AfterViewInit, OnDestr
     }
 
     @HostListener('document:resize', ['$event'])
-    OnResize(event): void {
+    public OnResize(event): void {
         this.resize();
     }
 
     @HostListener('document:UnityDispatcherScreen_Start', ['$event', '$event.detail.param1'])
-    private async OnUnityStart(event, param1): Promise<void> {
+    public async OnUnityStart(event, param1): Promise<void> {
         this.isStart = true;
         if (!this.unityInstance) {
             return;
@@ -88,7 +88,7 @@ export class DispatcherScreenComponent implements OnInit, AfterViewInit, OnDestr
     }
 
     @HostListener('document:UnityDispatcherScreen_SendSettings', ['$event', '$event.detail.param1'])
-    private async OnUnitySendSettings(event, param1): Promise<void> {
+    public async OnUnitySendSettings(event, param1): Promise<void> {
         this.isStart = true;
         if (!this.unityInstance) {
             return;
