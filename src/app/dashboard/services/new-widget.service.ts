@@ -287,8 +287,8 @@ export class NewWidgetService {
         );
         this.ws.asObservable().subscribe((data) => {
             if (this.isMatchingPeriod(data.data.selectedPeriod)) {
-                    this.widgetsSocketObservable.next(data);
-                    console.log("data ws");
+                this.widgetsSocketObservable.next(data);
+                console.log('data ws');
             }
         });
     }
@@ -297,10 +297,12 @@ export class NewWidgetService {
         if (!incoming) {
             return this.currentDates === null;
         }
-        return (new Date(incoming.fromDateTime).getTime()
-              === new Date(this.currentDates.fromDateTime).getTime())
-            && (new Date(incoming.toDateTime).getTime()
-              === new Date(this.currentDates.toDateTime).getTime());
+        return (
+            new Date(incoming.fromDateTime).getTime() ===
+                new Date(this.currentDates.fromDateTime).getTime() &&
+            new Date(incoming.toDateTime).getTime() ===
+                new Date(this.currentDates.toDateTime).getTime()
+        );
     }
 
     private reconnectWs() {
@@ -310,7 +312,7 @@ export class NewWidgetService {
         }
         this.reconnectTimer = setInterval(() => {
             this.initWS();
-            this.dashboard.forEach(el => this.wsConnect(el.id));
+            this.dashboard.forEach((el) => this.wsConnect(el.id));
         }, this.reconnectInterval);
     }
 
@@ -382,13 +384,13 @@ export class NewWidgetService {
         console.log(Dates);
         if (Dates !== null) {
             this.currentDates = {
-                fromDateTime:  Dates[0],
-                toDateTime:  Dates[1]
+                fromDateTime: Dates[0],
+                toDateTime: Dates[1],
             };
         } else {
             this.currentDates = null;
         }
-        this.dashboard.forEach(el => this.wsDisonnect(el.id));
-        this.dashboard.forEach(el => this.wsConnect(el.id));
+        this.dashboard.forEach((el) => this.wsDisonnect(el.id));
+        this.dashboard.forEach((el) => this.wsConnect(el.id));
     }
 }

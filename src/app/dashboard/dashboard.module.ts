@@ -80,15 +80,15 @@ import { TimeLineDiagramComponent } from './widgets/time-line-diagram/time-line-
 import { TimeDiagramComponent } from './widgets/time-line-diagram/time-diagram/time-diagram.component';
 import { ObservationNormTRComponent } from './widgets/observation-norm-tr/observation-norm-tr.component';
 import { AdminReferencesComponent } from './widgets/admin-references/admin-references.component';
-import { ShipmentScheduleComponent } from "./widgets/shipment-schedule/shipment-schedule.component";
-import { ProductionPlanComponent } from "./widgets/production-plan/production-plan.component";
-import { ProductGroupPlanningComponent } from "./widgets/product-group-planning/product-group-planning.component";
-import { ProductPlanningLeftComponent } from "./widgets/product-group-planning/product-planning-left/product-planning-left.component";
-import { ProductPlanningMiddleComponent } from "./widgets/product-group-planning/product-planning-middle/product-planning-middle.component";
-import { ProductPlanningRightComponent } from "./widgets/product-group-planning/product-planning-right/product-planning-right.component";
-import { DailyPlanProductComponent } from "./widgets/daily-plan-product/daily-plan-product.component";
-import { DppColumnDownerComponent } from "./widgets/daily-plan-product/dpp-column-downer/dpp-column-downer.component";
-import { DppColumnUpperComponent } from "./widgets/daily-plan-product/dpp-column-upper/dpp-column-upper.component";
+import { ShipmentScheduleComponent } from './widgets/shipment-schedule/shipment-schedule.component';
+import { ProductionPlanComponent } from './widgets/production-plan/production-plan.component';
+import { ProductGroupPlanningComponent } from './widgets/product-group-planning/product-group-planning.component';
+import { ProductPlanningLeftComponent } from './widgets/product-group-planning/product-planning-left/product-planning-left.component';
+import { ProductPlanningMiddleComponent } from './widgets/product-group-planning/product-planning-middle/product-planning-middle.component';
+import { ProductPlanningRightComponent } from './widgets/product-group-planning/product-planning-right/product-planning-right.component';
+import { DailyPlanProductComponent } from './widgets/daily-plan-product/daily-plan-product.component';
+import { DppColumnDownerComponent } from './widgets/daily-plan-product/dpp-column-downer/dpp-column-downer.component';
+import { DppColumnUpperComponent } from './widgets/daily-plan-product/dpp-column-upper/dpp-column-upper.component';
 
 @NgModule({
     declarations: [

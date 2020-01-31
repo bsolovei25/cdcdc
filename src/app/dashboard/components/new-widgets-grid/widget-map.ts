@@ -38,17 +38,17 @@ import { ObservationNormTRComponent } from '../../widgets/observation-norm-tr/ob
 import { RingEnergyIndicatorComponent } from '../../widgets/ring-energy-indicator/ring-energy-indicator.component';
 import { SolidGaugesComponent } from '../../widgets/solid-gauge-with-marker/solid-gauges/solid-gauges.component';
 import { AdminReferencesComponent } from '../../widgets/admin-references/admin-references.component';
-import { ShipmentScheduleComponent } from "../../widgets/shipment-schedule/shipment-schedule.component";
-import { ProductionPlanComponent } from "../../widgets/production-plan/production-plan.component";
-import { ProductGroupPlanningComponent } from "../../widgets/product-group-planning/product-group-planning.component";
-import { DailyPlanProductComponent } from "../../widgets/daily-plan-product/daily-plan-product.component";
+import { ShipmentScheduleComponent } from '../../widgets/shipment-schedule/shipment-schedule.component';
+import { ProductionPlanComponent } from '../../widgets/production-plan/production-plan.component';
+import { ProductGroupPlanningComponent } from '../../widgets/product-group-planning/product-group-planning.component';
+import { DailyPlanProductComponent } from '../../widgets/daily-plan-product/daily-plan-product.component';
 
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
     'line-chart': LineChartComponent,
     'line-diagram': LineDiagramComponent,
     'manual-input': ManualInputComponent,
-    "events": EventsComponent,
+    events: EventsComponent,
     'shift-pass': ChangeShiftComponent,
     'shift-accept': ChangeShiftComponent,
     'events-workspace': EventsWorkSpaceComponent,
@@ -66,7 +66,7 @@ export const WIDGETS = {
     'calendar-plan': CalendarPlanComponent,
     'ring-factory-diagram': RingSFactoryDiagramComponent,
     'chain-map': ChainMapComponent,
-    'energetics': EnergeticsComponent,
+    energetics: EnergeticsComponent,
     'dispatcher-screen': DispatcherScreenComponent,
     'suspense-machine': SuspenseMachineComponent,
     'deviations-table': DeviationsTableComponent,

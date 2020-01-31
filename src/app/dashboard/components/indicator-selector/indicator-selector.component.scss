@@ -172,59 +172,54 @@
   background: #272b35;
 }
 
-
-
-*{
-    margin: 0;
-    padding: 0;
+* {
+  margin: 0;
+  padding: 0;
 }
-body{
-    //background-image: url(http://joxi.ru/E2pWy79uBj4klm.jpg);
-    //font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-size: 12px;
+body {
+  //background-image: url(http://joxi.ru/E2pWy79uBj4klm.jpg);
+  //font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 12px;
 }
-ul{
-    list-style: none;
-    background-color: var(--color-bg-main);
-    width: 200px;
-    border: 1px solid #2a323f;
-    border-bottom: none;
-    color: #fff;
+ul {
+  list-style: none;
+  background-color: var(--color-bg-main);
+  width: 200px;
+  border: 1px solid #2a323f;
+  border-bottom: none;
+  color: #fff;
 }
-ul li{
-    border-bottom: 1px solid #2a323f;
-    position: relative;
-
+ul li {
+  border-bottom: 1px solid #2a323f;
+  position: relative;
 }
-ul li:hover{
-    background-color: var(--color-bg-sub);
-
+ul li:hover {
+  background-color: var(--color-bg-sub);
 }
 
-ul li:hover ul{
-    display: block;
+ul li:hover ul {
+  display: block;
 }
-ul li:hover ul li ul{
-    display: none;
+ul li:hover ul li ul {
+  display: none;
 }
-ul li a{
-    color: #fff;
-    padding: 10px 20px;
-    display: block;
-    text-decoration: none;
-    //font-weight: bold;
+ul li a {
+  color: #fff;
+  padding: 10px 20px;
+  display: block;
+  text-decoration: none;
+  //font-weight: bold;
 }
-ul li a:hover{
-    background-color: var(--color-bg-sub);
-    color: #fff;
-
+ul li a:hover {
+  background-color: var(--color-bg-sub);
+  color: #fff;
 }
-ul li ul li:hover ul{
-    display: block;
+ul li ul li:hover ul {
+  display: block;
 }
-ul li ul{
-    position: absolute;
-    left: 200px;
-    top: 0px;
-    display: none;
+ul li ul {
+  position: absolute;
+  left: 200px;
+  top: 0px;
+  display: none;
 }

@@ -54,7 +54,7 @@ export class IndicatorSelectorComponent {
     }
 
     public mapScreen(factory: string) {
-        return this.dataScreen.filter(el => el.screenName.match(factory));
+        return this.dataScreen.filter((el) => el.screenName.match(factory));
     }
 
     ScreenActive(e) {
