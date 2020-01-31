@@ -19,9 +19,9 @@ interface IDatesInterval {
 }
 
 interface IWebSocket {
-    ActionType: string;
-    ChannelId: string;
-    SelectedPeriod?: IDatesInterval;
+    actionType: string;
+    channelId: string;
+    selectedPeriod?: IDatesInterval;
     data?: any;
 }
 

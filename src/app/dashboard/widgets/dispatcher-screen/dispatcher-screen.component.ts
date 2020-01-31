@@ -77,19 +77,23 @@ export class DispatcherScreenComponent implements OnInit, AfterViewInit, OnDestr
     }
 
     @HostListener('document:UnityDispatcherScreen_Start', ['$event', '$event.detail.param1'])
-    OnUnityStart(event, param1): void {
+    private async OnUnityStart(event, param1): Promise<void> {
         this.isStart = true;
         if (!this.unityInstance) {
             return;
         }
         this.wsConnect();
+        const params = await this.widgetSettingsService.getSettings(this.uniqId);
+        this.CallUnityScript('Scripts', 'RefreshSettings', JSON.stringify(params));
     }
 
-    @HostListener('document:UnityTemplate_Click', ['$event'])
-    OnUnityClick(event): void {
+    @HostListener('document:UnityDispatcherScreen_SendSettings', ['$event', '$event.detail.param1'])
+    private async OnUnitySendSettings(event, param1): Promise<void> {
+        this.isStart = true;
         if (!this.unityInstance) {
             return;
         }
+        await this.widgetSettingsService.saveSettings(this.uniqId, JSON.parse(param1));
     }
 
     private wsConnect(): void {
@@ -100,16 +104,9 @@ export class DispatcherScreenComponent implements OnInit, AfterViewInit, OnDestr
             });
     }
 
-    private InitUnity(): void {
+    private async InitUnity(): Promise<void> {
         window['UnityLoader'] = UnityLoader;
         this.loadProject(`${this.baseUrl}assets/unity/dispatcher-screen/web_build.json`);
-        const data = {
-            dipslayWindSetting: true,
-            mapRotationSetting: true,
-        };
-        console.log(data);
-        console.log(this.uniqId);
-        this.widgetSettingsService.saveSettings(this.uniqId, data);
     }
 
     private CallUnityScript(objName, funName, ...args): void {

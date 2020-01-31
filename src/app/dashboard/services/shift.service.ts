@@ -11,7 +11,7 @@ import {filter, map} from "rxjs/operators";
 })
 export class ShiftService {
     public shiftPass: BehaviorSubject<ShiftPass> = new BehaviorSubject<ShiftPass>(null);
-    public continueWithComment: Subject<ICommentRequired> = new Subject<ICommentRequired>(null);
+    public continueWithComment: Subject<ICommentRequired> = new Subject<ICommentRequired>();
     public allMembers: Employee[] = [];
 
     private restUrl: string;
