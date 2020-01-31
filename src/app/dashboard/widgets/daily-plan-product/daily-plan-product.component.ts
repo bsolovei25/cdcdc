@@ -622,7 +622,7 @@ export class DailyPlanProductComponent implements OnInit {
 
     public movePeriodLineFromLeft(period: Date): number {
         const milisecInDay: number = 86400000;
-        const widthOfColumn: number = 54;
+        const widthOfColumn: number = 44;
         const countOfDays: number = (period.getTime() - this.days[0].date.getTime()) / milisecInDay;
         return countOfDays * widthOfColumn;
     }
