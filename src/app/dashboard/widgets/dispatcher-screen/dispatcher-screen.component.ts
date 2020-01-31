@@ -3,6 +3,7 @@ import { UnityLoader } from './UnityLoader.js';
 import { PlatformLocation } from '@angular/common';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { Subscription } from 'rxjs';
+import {WidgetSettingsService} from "../../services/widget-settings.service";
 
 @Component({
     selector: 'evj-dispatcher-screen',
@@ -26,6 +27,7 @@ export class DispatcherScreenComponent implements OnInit, AfterViewInit, OnDestr
 
     constructor(
         public widgetService: NewWidgetService,
+        public widgetSettingsService: WidgetSettingsService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
@@ -42,7 +44,9 @@ export class DispatcherScreenComponent implements OnInit, AfterViewInit, OnDestr
         );
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+
+    }
 
     ngAfterViewInit(): void {
         this.showMock(this.isMock);
@@ -99,6 +103,13 @@ export class DispatcherScreenComponent implements OnInit, AfterViewInit, OnDestr
     private InitUnity(): void {
         window['UnityLoader'] = UnityLoader;
         this.loadProject(`${this.baseUrl}assets/unity/dispatcher-screen/web_build.json`);
+        const data = {
+            dipslayWindSetting: true,
+            mapRotationSetting: true,
+        };
+        console.log(data);
+        console.log(this.uniqId);
+        this.widgetSettingsService.saveSettings(this.uniqId, data);
     }
 
     private CallUnityScript(objName, funName, ...args): void {
