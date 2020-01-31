@@ -38,6 +38,10 @@ import { ObservationNormTRComponent } from '../../widgets/observation-norm-tr/ob
 import { RingEnergyIndicatorComponent } from '../../widgets/ring-energy-indicator/ring-energy-indicator.component';
 import { SolidGaugesComponent } from '../../widgets/solid-gauge-with-marker/solid-gauges/solid-gauges.component';
 import { AdminReferencesComponent } from '../../widgets/admin-references/admin-references.component';
+import { ShipmentScheduleComponent } from "../../widgets/shipment-schedule/shipment-schedule.component";
+import { ProductionPlanComponent } from "../../widgets/production-plan/production-plan.component";
+import { ProductGroupPlanningComponent } from "../../widgets/product-group-planning/product-group-planning.component";
+import { DailyPlanProductComponent } from "../../widgets/daily-plan-product/daily-plan-product.component";
 
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
@@ -81,4 +85,8 @@ export const WIDGETS = {
     'solid-gauge-with-marker': SolidGaugesComponent,
     'observation-norm-tr': ObservationNormTRComponent,
     'admin-references': AdminReferencesComponent,
+    'shipment-schedule': ShipmentScheduleComponent,
+    'production-plan': ProductionPlanComponent,
+    'product-group-planning': ProductGroupPlanningComponent,
+    'daily-plan-product': DailyPlanProductComponent,
 };

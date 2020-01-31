@@ -1,0 +1,70 @@
+.point {
+  z-index: 50;
+  position: absolute;
+  margin: 0 auto;
+  margin-left: 108px;
+  margin-top: 90px;
+}
+.item-b {
+  margin: 5px auto;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}
+
+.cb {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+  margin: 0 auto;
+}
+
+.item-b ::ng-deep svg {
+  height: 100%;
+}
+
+.item-b ::ng-deep .arc1 {
+  transform: rotate(134deg);
+}
+
+.positive {
+  margin-top: 5%;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 17px;
+}
+
+.name_circle {
+  margin-top: 20px;
+}
+.negative {
+  font-size: 17px;
+  color: orange;
+}
+
+.item-b.active ::ng-deep div {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: rgb(139, 139, 139);
+}
+
+.content_block {
+  height: calc(100% - 60px);
+  width: calc(100% - 3px);
+  border: 1px dashed var(--color-border-main);
+  border-style: none dashed none dashed;
+}
+
+.blocks {
+  width: 100%;
+  min-width: 100px;
+  height: calc(100%);
+}
+
+.imgblock {
+  width: 260px;
+  margin: 0 auto;
+}
+
+.imgblock img {
+  height: 140px;
+}
