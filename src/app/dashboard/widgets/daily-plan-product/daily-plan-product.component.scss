@@ -26,22 +26,6 @@
   align-items: center;
 }
 
-.mock {
-  position: relative;
-  display: block;
-  height: 144px;
-
-  box-sizing: border-box;
-  border-left: 0.5px dashed var(--color-border-main-transparrent);
-  border-right: 0.5px dashed var(--color-border-main-transparrent);
-
-  img {
-    width: 63%;
-    height: 144px;
-    margin-left: 85px;
-  }
-}
-
 .header,
 .footer {
   width: 100%;
@@ -190,8 +174,8 @@
   align-items: center;
 
   box-sizing: border-box;
-  border-left: 0.5px dashed var(--color-border-main-transparrent);
-  border-right: 0.5px dashed var(--color-border-main-transparrent);
+  // border-left: 0.5px dashed var(--color-border-main-transparrent);
+  // border-right: 0.5px dashed var(--color-border-main-transparrent);
   padding: 0 10px 0 25px;
 
   .axis {
@@ -289,7 +273,7 @@
       align-items: center;
 
       &-card {
-        width: 50px;
+        width: 40px;
         height: 16px;
         background: var(--color-bg-column-disable);
         margin: 0px 2px;
@@ -343,7 +327,7 @@
       align-items: center;
 
       &-card {
-        width: 50px;
+        width: 40px;
         height: 100%;
         background: var(--color-bg-column-disable);
         margin: 0px 2px;
