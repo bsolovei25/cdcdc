@@ -18,6 +18,11 @@
   height: calc(100% - 60px);
   border-left: dashed 0.5px var(--color-border-main);
   border-right: dashed 0.5px var(--color-border-main);
+
+  &_clear {
+    height: calc(100% - 15px);
+    border: none;
+  }
 }
 
 p {
@@ -316,6 +321,7 @@ td {
   width: 5px;
   height: 5px;
   border-radius: 25px;
+  padding: 5px;
 }
 
 ::-webkit-scrollbar-track {

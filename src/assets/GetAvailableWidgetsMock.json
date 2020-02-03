@@ -28,7 +28,14 @@
         "widgetType": "daily-plan-product"
     },
     {
-        "id": "83b83353-3dc8-11ea-b218-c8dggt2123",
+        "id": "83b83353-3dc8-11ea-b218-c8d9d2317224",
+        "name": "admin-references1",
+        "title": "gant",
+        "categories": [],
+        "widgetType": "gantt-chart"
+    },
+    {
+        "id": "83b83353-3dc8-11ea-b218-c8dggt2125",
         "name": "admin-references1",
         "title": "test",
         "categories": [],
