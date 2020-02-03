@@ -217,7 +217,7 @@
         >
           <th *matHeaderCellDef>{{column === 'Продукт' ? '' : column}}</th>
           <td mat-cell *matCellDef="let element">
-            {{ getGantt(element, column) }}
+            {{ getGantt(element, column, null) }}
             <div *ngIf="column !== 'Продукт'" class="line">
               <div
                 class="preparation"
@@ -276,7 +276,7 @@
                     'position': col === 'Продукт' ?  'absolute': '' ,
                      'z-index':  col === 'Продукт' ?  '1': ''}"
                   >
-                    <p>{{ getGantt(row, col) }}</p>
+                    <p>{{ getGantt(row, col, null) }}</p>
                     <div *ngIf="col !== 'Продукт'" class="line">
                       <div
                         class="preparation"
