@@ -22,7 +22,7 @@ export class DppColumnDownerComponent implements OnInit {
         this.insertTemplates();
     }
 
-    @HostListener('document:resize', ['$event'])
+    @HostListener('document:resize')
     public onResize(): void {
         this.insertTemplates();
     }

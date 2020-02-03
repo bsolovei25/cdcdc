@@ -79,7 +79,7 @@ export class UnityTemplateComponent implements OnInit {
     }
 
     @HostListener('document:UnityTemplate_Click', ['$event'])
-    OnUnityClick(event) {
+    public OnUnityClick(event: any): void {
         if (!this.unityInstance) {
             return;
         }
