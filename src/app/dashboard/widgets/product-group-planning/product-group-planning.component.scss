@@ -28,13 +28,31 @@
 .container_widget {
   // height: 100%;
   width: 100%;
-  //height: 670px;
   height: calc(100% - 55px);
-  //width: 1880px;
-  background-image: url(../../../../assets/icons/widgets/product-group-planning/background.svg);
+}
+
+.content_block {
+  height: 100%;
+  background-image: url(../../../../assets/icons/widgets/product-group-planning/back.svg);
   background-repeat: no-repeat;
-  /// background-size: cover;
   background-size: 1911.404px 680.898px;
+}
+
+.top_background {
+  height: 25px;
+  width: 100%;
+  background-image: url(../../../../assets/icons/widgets/product-group-planning/top_back.svg);
+  background-repeat: no-repeat;
+  //background-size: cover;
+  background-size: 1911.404px 680.898px;
+}
+
+.bottom_background {
+  height: 20px;
+  background-image: url(../../../../assets/icons/widgets/product-group-planning/bottom_back.svg);
+  background-repeat: no-repeat;
+  background-size: 1911.404px;
+  margin-top: -15px;
 }
 
 .item-b {
