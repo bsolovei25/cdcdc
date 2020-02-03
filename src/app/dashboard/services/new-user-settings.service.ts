@@ -120,7 +120,8 @@ export class NewUserSettingsService {
     public GetScreen() {
         try {
             this.http
-                .get<ScreenSettings[]>(this.restUrl + '/user-management/user/1/screens')
+                // .get<ScreenSettings[]>(this.restUrl + '/user-management/user/1/screens')
+                .get<ScreenSettings[]>('/assets/GetScreensMock.json')
                 .subscribe((data) => {
                     this._screens$.next(data);
                     if (!this.ScreenId && data[0]) {
