@@ -1,5 +1,5 @@
 #!/bin/bash
-build_site="http://build.funcoff.club:8000"
+build_site="http://build.funcoff.club:${BUILD_PORT}"
 checkstate() {
 
 	res=$(curl --silent ${build_site})
@@ -17,7 +17,7 @@ check_online()
     while [ $attempt -le 88 ]; do
 	attempt=$(( $attempt + 1 ))
 	echo "Waiting for server to be up (attempt: $attempt)..."
-	result=$(docker logs ${CI_PROJECT_NAME})
+	result=$(docker logs ${CI_PROJECT_NAME}-mbo)
 	if grep -q 'Angular Live Development Server is listening' <<< $result ; then
 	    echo "Server is up"
 	    break
@@ -35,7 +35,7 @@ checkstate
 
 if [[ $? -eq 0 ]]
 then
-	echo "Develop server <${CI_PROJECT_NAME}> is online. Proceed to deploy stage"
+	echo "Develop server <${CI_PROJECT_NAME}-mbo> is online. Proceed to deploy stage"
 else
 	echo "Failed to build."
 	exit 2
