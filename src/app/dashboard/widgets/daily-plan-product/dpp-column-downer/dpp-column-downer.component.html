@@ -1,15 +1,7 @@
 <div class="container" #container *ngIf="data">
   <div class="limit" [ngStyle]="{'height':getLimitHeightString(this.data.plan)}">
     <ng-container *ngFor="let item of array">
-      <ng-container *ngIf="item && isActive">
-        <div class="line line-warning"></div>
-      </ng-container>
-      <ng-container *ngIf="!item && isActive">
-        <div class="line"></div>
-      </ng-container>
-      <ng-container *ngIf="!isActive">
-        <div class="line line-disable"></div>
-      </ng-container>
+      <div class="line" [ngClass]="chooseColorClass(item)"></div>
     </ng-container>
   </div>
   <div class="block" [ngClass]="{'block-disable':!isActive}">
