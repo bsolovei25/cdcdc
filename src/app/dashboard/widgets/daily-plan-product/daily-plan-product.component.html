@@ -55,7 +55,7 @@
               [ngStyle]="{'left.px':movePeriodLineFromLeft(period.end)}"
             ></div>
           </ng-container>
-          <div class="graph__upper">
+          <div class="graph__upper" *ngIf="isGraphShow">
             <ng-container *ngFor="let day of days">
               <div class="graph__upper-card" [ngClass]="{'graph__upper-card-active':day.isActive}">
                 <evj-dpp-column-upper
@@ -75,7 +75,7 @@
               </div>
             </ng-container>
           </div>
-          <div class="graph__downer">
+          <div class="graph__downer" *ngIf="isGraphShow">
             <ng-container *ngFor="let day of days; let i = index">
               <div class="graph__upper-card" [ngClass]="{'graph__upper-card-active':day.isActive}">
                 <evj-dpp-column-downer
