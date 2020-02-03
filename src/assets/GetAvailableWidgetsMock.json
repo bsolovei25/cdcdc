@@ -26,5 +26,12 @@
         "title": "3",
         "categories": [],
         "widgetType": "daily-plan-product"
+    },
+    {
+        "id": "83b83353-3dc8-11ea-b218-c8d9d2317224",
+        "name": "admin-references1",
+        "title": "gant",
+        "categories": [],
+        "widgetType": "gantt-chart"
     }
 ]

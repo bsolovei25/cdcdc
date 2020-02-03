@@ -1,85 +1,131 @@
 <evj-widget-preview [title]="title" [previewTitle]="" *ngIf="isMock"></evj-widget-preview>
 
-<div style="height: 100%; width: 100%;" *ngIf="!isMock">
-  <evj-widget-header
-    [title]="title"
-    [units]="units"
-    [code]="code"
-    [id]="id"
-    [uniqId]="uniqId"
-  ></evj-widget-header>
-  <div class="container_widget">
-    <evj-frame-top></evj-frame-top>
-    <ng-container>
-      <div
-        class="content_block"
-        (mousedown)="$event.stopPropagation()"
-        (touchstart)="$event.stopPropagation()"
-      >
-        <div class="blocks">
-          <div style="height: 100%;">
-            <div class="top_background"></div>
-            <div class="cb">
-              <ng-container *ngFor="let items of data;">
-                <div class="item-b">
-                  <div class="group_product">
-                    <evj-product-planning-left
-                      [data]="items.product"
-                      [imageType]="items.imageType"
-                    ></evj-product-planning-left>
-                  </div>
-                  <div class="product">
-                    <ng-container *ngFor="let item of items.typeProduct; let i = index;">
-                      <evj-product-planning-middle
-                        [data]="item"
-                        [lengthW]="items.typeProduct.length - 1"
-                        [indexBlock]="i"
-                        [imageType]="items.imageType"
-                      ></evj-product-planning-middle>
-                    </ng-container>
-                  </div>
-                  <div class="compleate">
-                    <evj-product-planning-right
-                      [data]="items.compleateProduct"
-                    ></evj-product-planning-right>
-                  </div>
-                </div>
-              </ng-container>
+<!--<div style="height: 100%; width: 100%;" *ngIf="!isMock">-->
+<!--  <evj-widget-header-->
+<!--    [title]="title"-->
+<!--    [units]="units"-->
+<!--    [code]="code"-->
+<!--    [id]="id"-->
+<!--    [uniqId]="uniqId"-->
+<!--  ></evj-widget-header>-->
+<!--  <div class="container_widget">-->
+<!--    <evj-frame-top></evj-frame-top>-->
+<!--    <ng-container>-->
+<!--      <div-->
+<!--        class="content_block"-->
+<!--        (mousedown)="$event.stopPropagation()"-->
+<!--        (touchstart)="$event.stopPropagation()"-->
+<!--      >-->
+<!--        <div class="blocks">-->
+<!--          <div style="height: 100%;">-->
+<!--            <div class="top_background"></div>-->
+<!--            <div class="cb">-->
+<!--              <ng-container *ngFor="let items of data;">-->
+<!--                <div class="item-b">-->
+<!--                  <div class="group_product">-->
+<!--                    <evj-product-planning-left-->
+<!--                      [data]="items.product"-->
+<!--                      [imageType]="items.imageType"-->
+<!--                    ></evj-product-planning-left>-->
+<!--                  </div>-->
+<!--                  <div class="product">-->
+<!--                    <ng-container *ngFor="let item of items.typeProduct; let i = index;">-->
+<!--                      <evj-product-planning-middle-->
+<!--                        [data]="item"-->
+<!--                        [lengthW]="items.typeProduct.length - 1"-->
+<!--                        [indexBlock]="i"-->
+<!--                        [imageType]="items.imageType"-->
+<!--                      ></evj-product-planning-middle>-->
+<!--                    </ng-container>-->
+<!--                  </div>-->
+<!--                  <div class="compleate">-->
+<!--                    <evj-product-planning-right-->
+<!--                      [data]="items.compleateProduct"-->
+<!--                    ></evj-product-planning-right>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </ng-container>-->
 
-              <!--
-                <table>
-                  <tbody>
-                    <ng-container *ngFor="let item of data">
-                      <tr class="item-b">
-                        <td class="fix-left">
-                          <div class="group_product">
-                            <evj-product-planning-left [data]="item.product"></evj-product-planning-left>
-                          </div>
-                        </td>
-                        <td class="move">
-                          <div class="product">
-                            <ng-container *ngFor="let i of item.typeProduct">
-                              <evj-product-planning-middle [data]="i"></evj-product-planning-middle>
+<!--              &lt;!&ndash;-->
+<!--                <table>-->
+<!--                  <tbody>-->
+<!--                    <ng-container *ngFor="let item of data">-->
+<!--                      <tr class="item-b">-->
+<!--                        <td class="fix-left">-->
+<!--                          <div class="group_product">-->
+<!--                            <evj-product-planning-left [data]="item.product"></evj-product-planning-left>-->
+<!--                          </div>-->
+<!--                        </td>-->
+<!--                        <td class="move">-->
+<!--                          <div class="product">-->
+<!--                            <ng-container *ngFor="let i of item.typeProduct">-->
+<!--                              <evj-product-planning-middle [data]="i"></evj-product-planning-middle>-->
+<!--                            </ng-container>-->
+<!--                          </div>-->
+<!--                        </td>-->
+<!--                        <td class="fix-right">-->
+<!--                          <div class="compleate">-->
+<!--                            <evj-product-planning-right-->
+<!--                              [data]="item.compleateProduct"-->
+<!--                            ></evj-product-planning-right>-->
+<!--                            </div>-->
+<!--                        </td>-->
+<!--                      </tr>-->
+<!--                    </ng-container>-->
+<!--                  </tbody>-->
+<!--                </table> &ndash;&gt;-->
+<!--            </div>-->
+<!--            <div class="bottom_background"></div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </ng-container>-->
+<!--    <evj-frame-bottom></evj-frame-bottom>-->
+<!--  </div>-->
+<!--</div>-->
+
+<div style="height: 100%; width: 100%;" *ngIf="!isMock">
+    <div class="container_widget">
+        <ng-container>
+            <div
+                class="content_block"
+                (mousedown)="$event.stopPropagation()"
+                (touchstart)="$event.stopPropagation()"
+            >
+                <div class="blocks">
+                    <div style="height: 100%;">
+                        <div class="top_background"></div>
+                        <div class="cb">
+                            <ng-container *ngFor="let items of data;">
+                                <div class="item-b">
+                                    <div class="group_product">
+                                        <evj-product-planning-left
+                                            [data]="items.product"
+                                            [imageType]="items.imageType"
+                                        ></evj-product-planning-left>
+                                    </div>
+                                    <div class="product">
+                                        <ng-container *ngFor="let item of items.typeProduct; let i = index;">
+                                            <evj-product-planning-middle
+                                                [data]="item"
+                                                [lengthW]="items.typeProduct.length - 1"
+                                                [indexBlock]="i"
+                                                [imageType]="items.imageType"
+                                            ></evj-product-planning-middle>
+                                        </ng-container>
+                                    </div>
+                                    <div class="compleate">
+                                        <evj-product-planning-right
+                                            [data]="items.compleateProduct"
+                                        ></evj-product-planning-right>
+                                    </div>
+                                </div>
                             </ng-container>
-                          </div>
-                        </td>
-                        <td class="fix-right">
-                          <div class="compleate">
-                            <evj-product-planning-right
-                              [data]="item.compleateProduct"
-                            ></evj-product-planning-right>
-                            </div>
-                        </td>
-                      </tr>
-                    </ng-container>
-                  </tbody>
-                </table> -->
+                        </div>
+                        <div class="bottom_background"></div>
+                    </div>
+                </div>
             </div>
-            <div class="bottom_background"></div>
-          </div>
-        </div>
-      </div>
-    </ng-container>
-    <evj-frame-bottom></evj-frame-bottom>
-  </div>
+        </ng-container>
+    </div>
 </div>

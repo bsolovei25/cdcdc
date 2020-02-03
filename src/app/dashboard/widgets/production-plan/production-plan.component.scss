@@ -52,6 +52,10 @@
   width: calc(100% - 3px);
   border: 1px dashed var(--color-border-main);
   border-style: none dashed none dashed;
+
+    &_clear {
+        height: calc(100%);
+    }
 }
 
 .blocks {

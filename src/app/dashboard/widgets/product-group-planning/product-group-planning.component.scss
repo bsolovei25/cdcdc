@@ -29,6 +29,9 @@
   // height: 100%;
   width: 100%;
   height: calc(100% - 55px);
+    &_clear {
+        height: 100%;
+    }
 }
 
 .content_block {
@@ -69,7 +72,7 @@
   //width: 100%;
 
   width: 100%;
-  height: 630px;
+  height: 100%;
   overflow: auto;
   direction: rtl;
   margin-left: 5px;
@@ -91,10 +94,10 @@
 }
 
 .content_block {
-  height: calc(100%);
+  height: calc(100%- 5px);
   width: calc(100% - 3px);
-  border: 1px dashed var(--color-border-main);
-  border-style: none dashed none dashed;
+  //border: 1px dashed var(--color-border-main);
+  //border-style: none dashed none dashed;
 }
 
 .blocks {
