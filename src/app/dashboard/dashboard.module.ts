@@ -92,6 +92,9 @@ import { DppColumnUpperComponent } from './widgets/daily-plan-product/dpp-column
 import { TestWidgetComponent } from './widgets/test-widget/test-widget.component';
 import { TestChildFirstComponent } from './widgets/test-widget/test-child-first/test-child-first.component';
 import { TestChildSecondComponent } from './widgets/test-widget/test-child-second/test-child-second.component';
+import { GanttChartComponent } from './widgets/gantt-chart/gantt-chart.component';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
     declarations: [
@@ -178,6 +181,7 @@ import { TestChildSecondComponent } from './widgets/test-widget/test-child-secon
         TestWidgetComponent,
         TestChildFirstComponent,
         TestChildSecondComponent,
+        GanttChartComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -229,6 +233,7 @@ import { TestChildSecondComponent } from './widgets/test-widget/test-child-secon
         ProductGroupPlanningComponent,
         DailyPlanProductComponent,
         TestWidgetComponent,
+        GanttChartComponent,
     ],
     exports: [HomeComponent],
     imports: [
@@ -242,6 +247,8 @@ import { TestChildSecondComponent } from './widgets/test-widget/test-child-secon
         ClickOutsideModule,
         DashboardRoutingModule,
         MatSnackBarModule,
+        MatTreeModule,
+        MatTableModule,
     ],
     bootstrap: [],
 })
