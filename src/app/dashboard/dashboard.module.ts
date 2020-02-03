@@ -89,6 +89,9 @@ import { ProductPlanningRightComponent } from './widgets/product-group-planning/
 import { DailyPlanProductComponent } from './widgets/daily-plan-product/daily-plan-product.component';
 import { DppColumnDownerComponent } from './widgets/daily-plan-product/dpp-column-downer/dpp-column-downer.component';
 import { DppColumnUpperComponent } from './widgets/daily-plan-product/dpp-column-upper/dpp-column-upper.component';
+import { TestWidgetComponent } from './widgets/test-widget/test-widget.component';
+import { TestChildFirstComponent } from './widgets/test-widget/test-child-first/test-child-first.component';
+import { TestChildSecondComponent } from './widgets/test-widget/test-child-second/test-child-second.component';
 
 @NgModule({
     declarations: [
@@ -172,6 +175,9 @@ import { DppColumnUpperComponent } from './widgets/daily-plan-product/dpp-column
         DailyPlanProductComponent,
         DppColumnDownerComponent,
         DppColumnUpperComponent,
+        TestWidgetComponent,
+        TestChildFirstComponent,
+        TestChildSecondComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -222,6 +228,7 @@ import { DppColumnUpperComponent } from './widgets/daily-plan-product/dpp-column
         ProductionPlanComponent,
         ProductGroupPlanningComponent,
         DailyPlanProductComponent,
+        TestWidgetComponent,
     ],
     exports: [HomeComponent],
     imports: [

@@ -1,0 +1,24 @@
+<evj-widget-preview [title]="title" [previewTitle]="" *ngIf="isMock"></evj-widget-preview>
+
+<div style="height: 100%; width: 100%;" *ngIf="!isMock">
+  <evj-widget-header
+    [title]="title"
+    [units]="units"
+    [code]="code"
+    [id]="id"
+    [uniqId]="uniqId"
+  ></evj-widget-header>
+  <div class="container_widget">
+    <evj-frame-top></evj-frame-top>
+    <ng-container>
+      <div
+        class="content_block"
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
+      >
+        
+      </div>
+    </ng-container>
+    <evj-frame-bottom></evj-frame-bottom>
+  </div>
+</div>
