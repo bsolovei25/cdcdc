@@ -1,6 +1,5 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { IDailyPlanProduct, IPeriod } from '../../models/daily-plan-product';
-import { count } from 'rxjs/operators';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { Subscription } from 'rxjs';
 
@@ -9,9 +8,11 @@ import { Subscription } from 'rxjs';
     templateUrl: './daily-plan-product.component.html',
     styleUrls: ['./daily-plan-product.component.scss'],
 })
-export class DailyPlanProductComponent implements OnInit {
+export class DailyPlanProductComponent implements OnInit, OnDestroy {
     public buttons: string[] = ['Ресурс', 'Запас всего', 'Паспортизация'];
     public buttonActive: number = 0;
+
+    public isGraphShow: boolean = true;
 
     public title: string;
     public units: string;
@@ -599,6 +600,10 @@ export class DailyPlanProductComponent implements OnInit {
 
     public ngOnInit(): void {
         this.showActivePeriod();
+    }
+
+    public ngOnDestroy(): void {
+        this.subscription.unsubscribe();
     }
 
     public showActivePeriod(): void {

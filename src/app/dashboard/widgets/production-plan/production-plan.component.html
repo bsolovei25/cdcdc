@@ -1,18 +1,39 @@
 <evj-widget-preview [title]="title" [previewTitle]="" *ngIf="isMock"></evj-widget-preview>
 
+<!--<div style="height: 100%; width: 100%;" *ngIf="!isMock">-->
+<!--  <evj-widget-header-->
+<!--    [title]="title"-->
+<!--    [units]="units"-->
+<!--    [code]="code"-->
+<!--    [id]="id"-->
+<!--    [uniqId]="uniqId"-->
+<!--  ></evj-widget-header>-->
+<!--  <div style="height: 100%; width: 100%;">-->
+<!--    <evj-frame-top></evj-frame-top>-->
+<!--    <ng-container>-->
+<!--      <div-->
+<!--        class="content_block"-->
+<!--        (mousedown)="$event.stopPropagation()"-->
+<!--        (touchstart)="$event.stopPropagation()"-->
+<!--      >-->
+<!--        <div class="blocks">-->
+<!--          <div style="display:flex; height: 100%;">-->
+<!--            <div class="cb">-->
+<!--              <div #circleProduct class="item-b"></div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </ng-container>-->
+<!--    <evj-frame-bottom></evj-frame-bottom>-->
+<!--  </div>-->
+<!--</div>-->
+
 <div style="height: 100%; width: 100%;" *ngIf="!isMock">
-  <evj-widget-header
-    [title]="title"
-    [units]="units"
-    [code]="code"
-    [id]="id"
-    [uniqId]="uniqId"
-  ></evj-widget-header>
   <div style="height: 100%; width: 100%;">
-    <evj-frame-top></evj-frame-top>
     <ng-container>
       <div
-        class="content_block"
+        class="content_block_clear"
         (mousedown)="$event.stopPropagation()"
         (touchstart)="$event.stopPropagation()"
       >
@@ -25,6 +46,5 @@
         </div>
       </div>
     </ng-container>
-    <evj-frame-bottom></evj-frame-bottom>
   </div>
 </div>

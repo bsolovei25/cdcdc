@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, HostListener } from '@angular/core';
 import { IDPPDownerCol, IDailyPlanProduct } from '../../../models/daily-plan-product';
 
 @Component({
@@ -19,9 +19,12 @@ export class DppColumnDownerComponent implements OnInit {
     constructor() {}
 
     public ngOnInit(): void {
-        setTimeout(() => {
-            this.insertTemplates();
-        }, 100);
+        this.insertTemplates();
+    }
+
+    @HostListener('document:resize', ['$event'])
+    public onResize(): void {
+        this.insertTemplates();
     }
 
     public getLimitHeight(planValue: number): number {
@@ -82,6 +85,7 @@ export class DppColumnDownerComponent implements OnInit {
         if (this.data.plan > this.data.currentValue) {
             isWarningColor = true;
         }
+        this.array = [];
         for (let i = 0; i < countOfLines; i++) {
             this.array.push(isWarningColor);
         }
@@ -89,5 +93,15 @@ export class DppColumnDownerComponent implements OnInit {
 
     public getDifference(): number {
         return this.data.currentValue - this.data.plan;
+    }
+
+    public chooseColorClass(item: boolean): string {
+        if (item && this.isActive) {
+            return 'line-warning';
+        } else if (this.isActive) {
+            return '';
+        } else {
+            return 'line-disable';
+        }
     }
 }
