@@ -82,11 +82,11 @@ select:-webkit-autofill:focus {
   border-radius: 25px;
 }
 ::-webkit-scrollbar-track-piece {
-  border: solid 1px rgba(255, 255, 255, 0.2);
+  border: solid 1px var(--color-scroll);
   border-radius: 25px;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: #4a4d4f;
+  background-color: var(--color-scroll);
   border-radius: 25px;
 }
 ::-webkit-scrollbar-corner {
