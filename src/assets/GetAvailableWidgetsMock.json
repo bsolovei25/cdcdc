@@ -1,0 +1,37 @@
+[
+    {
+        "id": "83b83353-3dc8-11ea-b218-c8d9d2317227",
+        "name": "admin-references1",
+        "title": "1",
+        "categories": [],
+        "widgetType": "shipment-schedule"
+    },
+    {
+        "id": "83b83353-3dc8-11ea-b218-c8d9d2317221",
+        "name": "admin-references1",
+        "title": "2",
+        "categories": [],
+        "widgetType": "production-plan"
+    },
+    {
+        "id": "83b83353-3dc8-11ea-b218-c8d9d2317222",
+        "name": "admin-references1",
+        "title": "3",
+        "categories": [],
+        "widgetType": "product-group-planning"
+    },
+    {
+        "id": "83b83353-3dc8-11ea-b218-c8d9d2317223",
+        "name": "admin-references1",
+        "title": "3",
+        "categories": [],
+        "widgetType": "daily-plan-product"
+    },
+    {
+        "id": "83b83353-3dc8-11ea-b218-c8dggt2123",
+        "name": "admin-references1",
+        "title": "test",
+        "categories": [],
+        "widgetType": "temporary-widget-template"
+    }
+]
