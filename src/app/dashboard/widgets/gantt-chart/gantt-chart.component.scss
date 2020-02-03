@@ -19,10 +19,10 @@
   border-left: dashed 0.5px var(--color-border-main);
   border-right: dashed 0.5px var(--color-border-main);
 
-    &_clear {
-        height: calc(100% - 15px);
-        border: none;
-    }
+  &_clear {
+    height: calc(100% - 15px);
+    border: none;
+  }
 }
 
 p {
