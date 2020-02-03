@@ -42,6 +42,8 @@ import { ShipmentScheduleComponent } from '../../widgets/shipment-schedule/shipm
 import { ProductionPlanComponent } from '../../widgets/production-plan/production-plan.component';
 import { ProductGroupPlanningComponent } from '../../widgets/product-group-planning/product-group-planning.component';
 import { DailyPlanProductComponent } from '../../widgets/daily-plan-product/daily-plan-product.component';
+import { TestWidgetComponent } from '../../widgets/test-widget/test-widget.component';
+import { GanttChartComponent } from '../../widgets/gantt-chart/gantt-chart.component';
 
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
@@ -89,4 +91,7 @@ export const WIDGETS = {
     'production-plan': ProductionPlanComponent,
     'product-group-planning': ProductGroupPlanningComponent,
     'daily-plan-product': DailyPlanProductComponent,
+    'temporary-widget-template': TestWidgetComponent,
+    //MBO
+    'gantt-chart': GanttChartComponent,
 };
