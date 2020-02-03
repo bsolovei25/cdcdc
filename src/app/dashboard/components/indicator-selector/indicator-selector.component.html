@@ -23,18 +23,18 @@
           </ng-container>
         </ul>
       </li>
-        <li>
-            <a>ОНПЗ</a>
-            <ul>
-                <ng-container *ngFor="let screen of this.mapScreen('ОНПЗ');">
-                    <li>
-                        <a (click)="this.setActiveScreen(screen)" (click)="LoadScreen(idScreen)">
-                            {{screen.screenName}}
-                        </a>
-                    </li>
-                </ng-container>
-            </ul>
-        </li>
+      <li>
+        <a>ОНПЗ</a>
+        <ul>
+          <ng-container *ngFor="let screen of this.mapScreen('ОНПЗ');">
+            <li>
+              <a (click)="this.setActiveScreen(screen)" (click)="LoadScreen(idScreen)">
+                {{screen.screenName}}
+              </a>
+            </li>
+          </ng-container>
+        </ul>
+      </li>
       <li>
         <a>ЯНОС</a>
         <ul>
