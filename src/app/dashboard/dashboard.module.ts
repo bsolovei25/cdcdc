@@ -89,6 +89,9 @@ import { ProductPlanningRightComponent } from './widgets/product-group-planning/
 import { DailyPlanProductComponent } from './widgets/daily-plan-product/daily-plan-product.component';
 import { DppColumnDownerComponent } from './widgets/daily-plan-product/dpp-column-downer/dpp-column-downer.component';
 import { DppColumnUpperComponent } from './widgets/daily-plan-product/dpp-column-upper/dpp-column-upper.component';
+import { TestWidgetComponent } from './widgets/test-widget/test-widget.component';
+import { TestChildFirstComponent } from './widgets/test-widget/test-child-first/test-child-first.component';
+import { TestChildSecondComponent } from './widgets/test-widget/test-child-second/test-child-second.component';
 import { GanttChartComponent } from './widgets/gantt-chart/gantt-chart.component';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatTableModule } from '@angular/material/table';
@@ -175,6 +178,9 @@ import { MatTableModule } from '@angular/material/table';
         DailyPlanProductComponent,
         DppColumnDownerComponent,
         DppColumnUpperComponent,
+        TestWidgetComponent,
+        TestChildFirstComponent,
+        TestChildSecondComponent,
         GanttChartComponent,
     ],
     entryComponents: [
@@ -226,6 +232,7 @@ import { MatTableModule } from '@angular/material/table';
         ProductionPlanComponent,
         ProductGroupPlanningComponent,
         DailyPlanProductComponent,
+        TestWidgetComponent,
         GanttChartComponent,
     ],
     exports: [HomeComponent],
