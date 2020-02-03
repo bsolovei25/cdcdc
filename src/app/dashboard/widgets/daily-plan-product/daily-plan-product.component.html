@@ -174,39 +174,7 @@
               ></evj-dpp-column-downer>
             </div>
           </ng-container>
-          <div class="graph__upper" *ngIf="isGraphShow">
-            <ng-container *ngFor="let day of days">
-              <div class="graph__upper-card" [ngClass]="{'graph__upper-card-active':day.isActive}">
-                <evj-dpp-column-upper
-                  class="insert-component"
-                  [data]="day.upperGraph"
-                  [MAXIMUM_COEF]="MAXIMUM_COEF"
-                  [isActive]="day.isActive"
-                  [endOfPeriod]="checkTheEndOfPeriod(day.date)"
-                ></evj-dpp-column-upper>
-              </div>
-            </ng-container>
-          </div>
-          <div class="axis__date">
-            <ng-container *ngFor="let day of days">
-              <div class="axis__date-card" [ngClass]="showClass(day)">
-                {{day.date | date:"dd"}}
-              </div>
-            </ng-container>
-          </div>
-          <div class="graph__downer" *ngIf="isGraphShow">
-            <ng-container *ngFor="let day of days; let i = index">
-              <div class="graph__upper-card" [ngClass]="{'graph__upper-card-active':day.isActive}">
-                <evj-dpp-column-downer
-                  class="insert-component"
-                  [data]="day.downerGraph"
-                  [MAXIMUM_COEF]="MAXIMUM_COEF"
-                  [nextLimit]="days[i+1]"
-                  [isActive]="day.isActive"
-                ></evj-dpp-column-downer>
-              </div>
-            </ng-container>
-          </div>
+
         </div>
       </div>
     </div>
