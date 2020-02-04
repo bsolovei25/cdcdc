@@ -80,6 +80,21 @@ import { TimeLineDiagramComponent } from './widgets/time-line-diagram/time-line-
 import { TimeDiagramComponent } from './widgets/time-line-diagram/time-diagram/time-diagram.component';
 import { ObservationNormTRComponent } from './widgets/observation-norm-tr/observation-norm-tr.component';
 import { AdminReferencesComponent } from './widgets/admin-references/admin-references.component';
+import { ShipmentScheduleComponent } from './widgets/shipment-schedule/shipment-schedule.component';
+import { ProductionPlanComponent } from './widgets/production-plan/production-plan.component';
+import { ProductGroupPlanningComponent } from './widgets/product-group-planning/product-group-planning.component';
+import { ProductPlanningLeftComponent } from './widgets/product-group-planning/product-planning-left/product-planning-left.component';
+import { ProductPlanningMiddleComponent } from './widgets/product-group-planning/product-planning-middle/product-planning-middle.component';
+import { ProductPlanningRightComponent } from './widgets/product-group-planning/product-planning-right/product-planning-right.component';
+import { DailyPlanProductComponent } from './widgets/daily-plan-product/daily-plan-product.component';
+import { DppColumnDownerComponent } from './widgets/daily-plan-product/dpp-column-downer/dpp-column-downer.component';
+import { DppColumnUpperComponent } from './widgets/daily-plan-product/dpp-column-upper/dpp-column-upper.component';
+import { TestWidgetComponent } from './widgets/test-widget/test-widget.component';
+import { TestChildFirstComponent } from './widgets/test-widget/test-child-first/test-child-first.component';
+import { TestChildSecondComponent } from './widgets/test-widget/test-child-second/test-child-second.component';
+import { GanttChartComponent } from './widgets/gantt-chart/gantt-chart.component';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
     declarations: [
@@ -154,6 +169,19 @@ import { AdminReferencesComponent } from './widgets/admin-references/admin-refer
         SearchListComponent,
         ObservationNormTRComponent,
         AdminReferencesComponent,
+        ShipmentScheduleComponent,
+        ProductionPlanComponent,
+        ProductGroupPlanningComponent,
+        ProductPlanningLeftComponent,
+        ProductPlanningMiddleComponent,
+        ProductPlanningRightComponent,
+        DailyPlanProductComponent,
+        DppColumnDownerComponent,
+        DppColumnUpperComponent,
+        TestWidgetComponent,
+        TestChildFirstComponent,
+        TestChildSecondComponent,
+        GanttChartComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -200,6 +228,12 @@ import { AdminReferencesComponent } from './widgets/admin-references/admin-refer
         SolidGaugesComponent,
         ObservationNormTRComponent,
         AdminReferencesComponent,
+        ShipmentScheduleComponent,
+        ProductionPlanComponent,
+        ProductGroupPlanningComponent,
+        DailyPlanProductComponent,
+        TestWidgetComponent,
+        GanttChartComponent,
     ],
     exports: [HomeComponent],
     imports: [
@@ -213,6 +247,8 @@ import { AdminReferencesComponent } from './widgets/admin-references/admin-refer
         ClickOutsideModule,
         DashboardRoutingModule,
         MatSnackBarModule,
+        MatTreeModule,
+        MatTableModule,
     ],
     bootstrap: [],
 })

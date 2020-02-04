@@ -1,0 +1,334 @@
+<evj-widget-preview
+  [title]="title"
+  [previewTitle]="previewTitle"
+  *ngIf="isMock"
+></evj-widget-preview>
+
+<!--<ng-container *ngIf="!isMock">-->
+<!--  <evj-widget-header [title]="title" [id]="id" [uniqId]="uniqId"></evj-widget-header>-->
+<!--  <evj-frame-top></evj-frame-top>-->
+<!--  <div-->
+<!--    class="body-container"-->
+<!--    (mousedown)="$event.stopPropagation()"-->
+<!--    (touchstart)="$event.stopPropagation()"-->
+<!--  >-->
+<!--    <div class="header">-->
+<!--      <div class="header__button">-->
+<!--        Таблица-->
+<!--      </div>-->
+<!--      <ul class="header__info">-->
+<!--        <li class="header__info-item">-->
+<!--          <div class="header__info-1"></div>-->
+<!--          <span>Приготовление</span>-->
+<!--        </li>-->
+<!--        <li class="header__info-item">-->
+<!--          <div class="header__info-2"></div>-->
+<!--          <span> Паспортизация</span>-->
+<!--        </li>-->
+<!--        <li class="header__info-item">-->
+<!--          <div class="header__info-3"></div>-->
+<!--          <span> Отгрузка</span>-->
+<!--        </li>-->
+<!--        <li class="header__info-item">-->
+<!--          <div class="header__info-4"></div>-->
+<!--          <span> Запас по качеству</span>-->
+<!--        </li>-->
+<!--        <li class="header__info-item">-->
+<!--          <div class="header__info-5"></div>-->
+<!--          <span>Некондинция</span>-->
+<!--        </li>-->
+<!--      </ul>-->
+<!--      <div class="header__right">-->
+<!--        <div class="header__right__button-date">-->
+<!--          <svg-icon src=".\assets\icons\widgets\gantt-chart\btn-group-right.svg"></svg-icon>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="example-container">-->
+<!--      <table mat-table [dataSource]="dataSource" multiTemplateDataRows>-->
+<!--        <ng-container-->
+<!--          *ngFor="let column of columnsToDisplay"-->
+<!--          matColumnDef="{{column}}"-->
+<!--          [sticky]="column === 'Продукт'"-->
+<!--        >-->
+<!--          <th *matHeaderCellDef>{{column === 'Продукт' ? '' : column}}</th>-->
+<!--          <td mat-cell *matCellDef="let element">-->
+<!--            {{ getGantt(element, column) }}-->
+<!--            <div *ngIf="column !== 'Продукт'" class="line">-->
+<!--              <div-->
+<!--                class="preparation"-->
+<!--                [ngStyle]="getGantt(element, column, 'preparation')"-->
+<!--                (mouseover)="mouseOver($event, element);"-->
+<!--                (mouseout)="mouseOut();"-->
+<!--              ></div>-->
+<!--              <div-->
+<!--                class="passport-system"-->
+<!--                [ngStyle]="getGantt(element, column, 'passport-system')"-->
+<!--                (mouseover)="mouseOver($event, element);"-->
+<!--                (mouseout)="mouseOut();"-->
+<!--              ></div>-->
+<!--              <div-->
+<!--                class="shipment"-->
+<!--                [ngStyle]="getGantt(element, column, 'shipment')"-->
+<!--                (mouseover)="mouseOver($event, element);"-->
+<!--                (mouseout)="mouseOut();"-->
+<!--              ></div>-->
+<!--              <div-->
+<!--                class="quality-stock"-->
+<!--                [ngStyle]="getGantt(element, column, 'quality-stock')"-->
+<!--                (mouseover)="mouseOver($event, element);"-->
+<!--                (mouseout)="mouseOut();"-->
+<!--              ></div>-->
+<!--              <div-->
+<!--                class="substandard"-->
+<!--                [ngStyle]="getGantt(element, column, 'substandard')"-->
+<!--                (mouseover)="mouseOver($event, element);"-->
+<!--                (mouseout)="mouseOut();"-->
+<!--              ></div>-->
+<!--            </div>-->
+<!--          </td>-->
+<!--        </ng-container>-->
+
+<!--        <ng-container matColumnDef="expandedDetail">-->
+<!--          <td-->
+<!--            *matCellDef="let element"-->
+<!--            [attr.colspan]="columnsToDisplay.length"-->
+<!--            class="expand_panel"-->
+<!--          >-->
+<!--            <div-->
+<!--              class="example-element-detail expand__table"-->
+<!--              [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'"-->
+<!--            >-->
+<!--              <tbody-->
+<!--                *ngIf="element == expandedElement"-->
+<!--                [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'"-->
+<!--                class="children-table"-->
+<!--              >-->
+<!--                <tr *ngFor="let row of getChildrenRows(element)">-->
+<!--                  <td-->
+<!--                    mat-cell-->
+<!--                    *ngFor="let col of columnsToDisplay"-->
+<!--                    [ngStyle]="{'left': col === 'Продукт' ?  '5px' : '',-->
+<!--                    'position': col === 'Продукт' ?  'absolute': '' ,-->
+<!--                     'z-index':  col === 'Продукт' ?  '1': ''}"-->
+<!--                  >-->
+<!--                    <p>{{ getGantt(row, col) }}</p>-->
+<!--                    <div *ngIf="col !== 'Продукт'" class="line">-->
+<!--                      <div-->
+<!--                        class="preparation"-->
+<!--                        [ngStyle]="getGantt(element, col, 'preparation')"-->
+<!--                        (mouseover)="mouseOver($event, element);"-->
+<!--                        (mouseout)="mouseOut();"-->
+<!--                      ></div>-->
+<!--                      <div-->
+<!--                        class="passport-system"-->
+<!--                        [ngStyle]="getGantt(element, col, 'passport-system')"-->
+<!--                        (mouseover)="mouseOver($event, element);"-->
+<!--                        (mouseout)="mouseOut();"-->
+<!--                      ></div>-->
+<!--                      <div-->
+<!--                        class="shipment"-->
+<!--                        [ngStyle]="getGantt(element, col, 'shipment')"-->
+<!--                        (mouseover)="mouseOver($event, element);"-->
+<!--                        (mouseout)="mouseOut();"-->
+<!--                      ></div>-->
+<!--                      <div-->
+<!--                        class="quality-stock"-->
+<!--                        [ngStyle]="getGantt(element, col, 'quality-stock')"-->
+<!--                        (mouseover)="mouseOver($event, element);"-->
+<!--                        (mouseout)="mouseOut();"-->
+<!--                      ></div>-->
+<!--                      <div-->
+<!--                        class="substandard"-->
+<!--                        [ngStyle]="getGantt(element, col, 'substandard')"-->
+<!--                        (mouseover)="mouseOver($event, element);"-->
+<!--                        (mouseout)="mouseOut();"-->
+<!--                      ></div>-->
+<!--                    </div>-->
+<!--                  </td>-->
+<!--                </tr>-->
+<!--              </tbody>-->
+<!--            </div>-->
+<!--          </td>-->
+<!--        </ng-container>-->
+<!--        <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>-->
+<!--        <tr-->
+<!--          mat-row-->
+<!--          *matRowDef="let element; columns: columnsToDisplay;"-->
+<!--          class="example-element-row"-->
+<!--          [class.example-expanded-row]="expandedElement === element"-->
+<!--          (click)="expandedElement = expandedElement === element ? null : element"-->
+<!--        ></tr>-->
+<!--        <tr-->
+<!--          mat-row-->
+<!--          *matRowDef="let row; columns: ['expandedDetail']"-->
+<!--          class="example-detail-row"-->
+<!--        ></tr>-->
+<!--      </table>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <evj-frame-bottom></evj-frame-bottom>-->
+<!--</ng-container>-->
+
+<ng-container *ngIf="!isMock">
+  <div
+    class="body-container_clear"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="header">
+      <div class="header__button">
+        Таблица
+      </div>
+      <ul class="header__info">
+        <li class="header__info-item">
+          <div class="header__info-1"></div>
+          <span>Приготовление</span>
+        </li>
+        <li class="header__info-item">
+          <div class="header__info-2"></div>
+          <span> Паспортизация</span>
+        </li>
+        <li class="header__info-item">
+          <div class="header__info-3"></div>
+          <span> Отгрузка</span>
+        </li>
+        <li class="header__info-item">
+          <div class="header__info-4"></div>
+          <span> Запас по качеству</span>
+        </li>
+        <li class="header__info-item">
+          <div class="header__info-5"></div>
+          <span>Некондинция</span>
+        </li>
+      </ul>
+      <div class="header__right">
+        <div class="header__right__button-date">
+          <svg-icon src=".\assets\icons\widgets\gantt-chart\btn-group-right.svg"></svg-icon>
+        </div>
+      </div>
+    </div>
+    <div class="example-container">
+      <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
+        <ng-container
+          *ngFor="let column of columnsToDisplay"
+          matColumnDef="{{column}}"
+          [sticky]="column === 'Продукт'"
+        >
+          <th *matHeaderCellDef>{{column === 'Продукт' ? '' : column}}</th>
+          <td mat-cell *matCellDef="let element">
+            {{ getGantt(element, column, null) }}
+            <div *ngIf="column !== 'Продукт'" class="line">
+              <div
+                class="preparation"
+                [ngStyle]="getGantt(element, column, 'preparation')"
+                (mouseover)="mouseOver($event, element);"
+                (mouseout)="mouseOut();"
+              ></div>
+              <div
+                class="passport-system"
+                [ngStyle]="getGantt(element, column, 'passport-system')"
+                (mouseover)="mouseOver($event, element);"
+                (mouseout)="mouseOut();"
+              ></div>
+              <div
+                class="shipment"
+                [ngStyle]="getGantt(element, column, 'shipment')"
+                (mouseover)="mouseOver($event, element);"
+                (mouseout)="mouseOut();"
+              ></div>
+              <div
+                class="quality-stock"
+                [ngStyle]="getGantt(element, column, 'quality-stock')"
+                (mouseover)="mouseOver($event, element);"
+                (mouseout)="mouseOut();"
+              ></div>
+              <div
+                class="substandard"
+                [ngStyle]="getGantt(element, column, 'substandard')"
+                (mouseover)="mouseOver($event, element);"
+                (mouseout)="mouseOut();"
+              ></div>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="expandedDetail">
+          <td
+            *matCellDef="let element"
+            [attr.colspan]="columnsToDisplay.length"
+            class="expand_panel"
+          >
+            <div
+              class="example-element-detail expand__table"
+              [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'"
+            >
+              <tbody
+                *ngIf="element == expandedElement"
+                [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'"
+                class="children-table"
+              >
+                <tr *ngFor="let row of getChildrenRows(element)">
+                  <td
+                    mat-cell
+                    *ngFor="let col of columnsToDisplay"
+                    [ngStyle]="{'left': col === 'Продукт' ?  '5px' : '',
+                    'position': col === 'Продукт' ?  'absolute': '' ,
+                     'z-index':  col === 'Продукт' ?  '1': ''}"
+                  >
+                    <p>{{ getGantt(row, col, null) }}</p>
+                    <div *ngIf="col !== 'Продукт'" class="line">
+                      <div
+                        class="preparation"
+                        [ngStyle]="getGantt(element, col, 'preparation')"
+                        (mouseover)="mouseOver($event, element);"
+                        (mouseout)="mouseOut();"
+                      ></div>
+                      <div
+                        class="passport-system"
+                        [ngStyle]="getGantt(element, col, 'passport-system')"
+                        (mouseover)="mouseOver($event, element);"
+                        (mouseout)="mouseOut();"
+                      ></div>
+                      <div
+                        class="shipment"
+                        [ngStyle]="getGantt(element, col, 'shipment')"
+                        (mouseover)="mouseOver($event, element);"
+                        (mouseout)="mouseOut();"
+                      ></div>
+                      <div
+                        class="quality-stock"
+                        [ngStyle]="getGantt(element, col, 'quality-stock')"
+                        (mouseover)="mouseOver($event, element);"
+                        (mouseout)="mouseOut();"
+                      ></div>
+                      <div
+                        class="substandard"
+                        [ngStyle]="getGantt(element, col, 'substandard')"
+                        (mouseover)="mouseOver($event, element);"
+                        (mouseout)="mouseOut();"
+                      ></div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </div>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>
+        <tr
+          mat-row
+          *matRowDef="let element; columns: columnsToDisplay;"
+          class="example-element-row"
+          [class.example-expanded-row]="expandedElement === element"
+          (click)="expandedElement = expandedElement === element ? null : element"
+        ></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: ['expandedDetail']"
+          class="example-detail-row"
+        ></tr>
+      </table>
+    </div>
+  </div>
+</ng-container>

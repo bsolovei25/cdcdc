@@ -24,7 +24,7 @@ stages:
 
 .init_template: &init
     tags:
-        - evj-front
+        - mbo-front
 
 
 docker build:
@@ -32,12 +32,12 @@ docker build:
     stage: prebuild
     script:
         - echo "Prebuild checking... Getting docker container rdy."
-        - docker container stop ${CI_PROJECT_NAME} || sleep 0.1
-        - env
-        - docker build -t ${CI_PROJECT_NAME} .
+        - docker container stop ${CI_PROJECT_NAME}-mbo || sleep 0.1
+        - docker build -t ${CI_PROJECT_NAME}-mbo .
     only:
         - master
         - develop
+          #- dev-pipelines
         - merge_requests
 
 testing website:
@@ -45,21 +45,23 @@ testing website:
     stage: test
     script:
         - echo "Doing some tests... Someone should add unit tests or whatever here"
-        - docker run --rm --name ${CI_PROJECT_NAME} -p 8000:4200 -d ${CI_PROJECT_NAME}
+        - docker run --rm --name ${CI_PROJECT_NAME}-mbo -p ${BUILD_PORT}:4200 -d ${CI_PROJECT_NAME}-mbo
         - ./init-docker.sh
     only:
         - merge_requests
+          #- dev-pipelines
  
 build artifact:
     <<: *init
     stage: build
     script:
-        - docker exec ${CI_PROJECT_NAME} ng build --prod || docker run --rm --name ${CI_PROJECT_NAME} -p 8000:4200 -d ${CI_PROJECT_NAME} ; docker exec ${CI_PROJECT_NAME} ng build --prod
-        - docker cp ${CI_PROJECT_NAME}:/app/dist/evj ./public
-        - docker container stop ${CI_PROJECT_NAME}
+        - docker exec ${CI_PROJECT_NAME}-mbo ng build --prod || docker run --rm --name ${CI_PROJECT_NAME}-mbo -p 8000:4200 -d ${CI_PROJECT_NAME}-mbo ; docker exec ${CI_PROJECT_NAME}-mbo ng build #--prod
+        - docker cp ${CI_PROJECT_NAME}-mbo:/app/dist/evj ./public
+        - docker container stop ${CI_PROJECT_NAME}-mbo
     only:
         - master
         - develop
+          #- dev-pipes
           #- merge_requests
     artifacts:
         paths:
@@ -72,7 +74,7 @@ deploy review:
         - merge_requests
     environment:
         name: review/${CI_COMMIT_REF_NAME}
-        url: http://build.funcoff.club:8000
+        url: http://build.funcoff.club:${BUILD_PORT}
         on_stop: stop-review
     script:
         - sed -i -E "s/(<title>Evj)(<\/title>)/\1  |  ${CI_COMMIT_SHORT_SHA}\2/g" ./src/index.html
@@ -85,7 +87,7 @@ stop-review:
     only:
         - merge_requests
     script:
-        - docker container stop ${CI_PROJECT_NAME}
+        - docker container stop ${CI_PROJECT_NAME}-mbo
     when: manual
     environment:
         name: review/${CI_COMMIT_REF_NAME}
@@ -96,19 +98,19 @@ staging:
     stage: staging
     environment:
         name: staging
-        url: http://${DEPLOY_DOMAIN}:88
+        url: http://${DEPLOY_DOMAIN}:90
     variables:
-        CMD_REPLACE: sed -i -E "s/(<title>Evj)(<\/title>)/\1 | ${CI_COMMIT_SHORT_SHA} \2/g" /var/www/angular-staging.local/public/index.html
+        CMD_REPLACE: sed -i -E "s/(<title>Evj)(<\/title>)/\1 | ${CI_COMMIT_SHORT_SHA} \2/g" /var/www/mbo-staging.local/public/index.html
     script:
-        - ssh root@${DEPLOY_DOMAIN} rm -rf /var/www/angular-staging.local/public
-        - scp -r ./public root@${DEPLOY_DOMAIN}:/var/www/angular-staging.local
+        - ssh root@${DEPLOY_DOMAIN} rm -rf /var/www/mbo-staging.local/public
+        - scp -r ./public root@${DEPLOY_DOMAIN}:/var/www/mbo-staging.local
         - ssh root@${DEPLOY_DOMAIN} $CMD_REPLACE
-        - ssh root@${DEPLOY_DOMAIN} "sed -i  's/:5555/:6555/g' /var/www/angular-staging.local/public/assets/config.json || sleep 0.1"
+        - ssh root@${DEPLOY_DOMAIN} "sed -i  's/:5555/:6555/g' /var/www/mbo-staging.local/public/assets/config.json || sleep 0.1"
         - ssh root@${DEPLOY_DOMAIN} nginx -s reload
     only:
         - develop
 
-prod:
+.prod:
     <<: *init
     stage: deploy
     environment:
@@ -129,5 +131,5 @@ clean on failure:
     <<: *init
     stage: clean-on-failure
     script:
-        - docker container stop ${CI_PROJECT_NAME}
+        - docker container stop ${CI_PROJECT_NAME}-mbo
     when: on_failure
