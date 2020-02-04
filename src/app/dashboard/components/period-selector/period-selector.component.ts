@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HeaderDataService } from '../../services/header-data.service';
-import { NewWidgetService } from '../../services/new-widget.service';
+import {NewWidgetService} from "../../services/new-widget.service";
 
 @Component({
     selector: 'evj-period-selector',
@@ -12,7 +12,8 @@ export class PeriodSelectorComponent implements OnInit {
     public fromDate: Date;
     public isCurrent: boolean;
 
-    constructor(private headerData: HeaderDataService, private widgetService: NewWidgetService) {
+    constructor(private headerData: HeaderDataService,
+                private widgetService: NewWidgetService) {
         this.setDefault();
     }
 

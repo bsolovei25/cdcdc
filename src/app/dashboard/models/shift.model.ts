@@ -48,19 +48,17 @@ export interface ICommentRequired {
     result: boolean;
 }
 
-export type ShiftMemberStatus =
-    | 'initialization'
-    | 'inProgressAccepted'
-    | 'accepted'
-    | 'inProgressPassed'
-    | 'passed'
-    | 'absent'
-    | 'missing';
+export type ShiftMemberStatus = 'initialization' |
+    'inProgressAccepted' |
+    'accepted' |
+    'inProgressPassed' |
+    'passed' |
+    'absent' |
+    'missing';
 
-export type ShiftStatus =
-    | 'initialization'
-    | 'inProgressAccepted'
-    | 'accepted'
-    | 'inProgressPassed'
-    | 'passed'
-    | 'passedConfirm';
+export type ShiftStatus = 'initialization' |
+    'inProgressAccepted' |
+    'accepted' |
+    'inProgressPassed' |
+    'passed' |
+    'passedConfirm';

@@ -120,8 +120,7 @@ export class NewUserSettingsService {
     public GetScreen() {
         try {
             this.http
-                // .get<ScreenSettings[]>(this.restUrl + '/user-management/user/1/screens')
-                .get<ScreenSettings[]>('/assets/GetScreensMock.json')
+                .get<ScreenSettings[]>(this.restUrl + '/user-management/user/1/screens')
                 .subscribe((data) => {
                     this._screens$.next(data);
                     if (!this.ScreenId && data[0]) {
@@ -134,8 +133,7 @@ export class NewUserSettingsService {
     }
 
     private LoadScreenAsync(id: any, loadDefault: boolean): Observable<any> {
-        // return this.http.get(this.restUrl + '/user-management/screen/' + id).pipe(
-        return this.http.get(`/assets/GetScreenMock_${id}.json`).pipe(
+        return this.http.get(this.restUrl + '/user-management/screen/' + id).pipe(
             catchError((err) => {
                 this.dataScreen = this._screens$.getValue();
                 if (
