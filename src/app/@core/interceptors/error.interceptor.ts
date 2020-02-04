@@ -22,13 +22,13 @@ export class ErrorInterceptor implements HttpInterceptor {
             catchError((err) => {
                 switch (err.status) {
                     case 401:
-                        this.router.navigate(['login']);
+                        // this.router.navigate(['login']);
                         break;
                     case 500:
                         // this.router.navigate(['login']);
                         break;
                     case 0:
-                        this.router.navigate(['login']);
+                        // this.router.navigate(['login']);
                         // this.openSnackBar('Сервер не отвечает');
                         break;
                     case 403:

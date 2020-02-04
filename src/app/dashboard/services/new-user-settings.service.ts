@@ -134,7 +134,8 @@ export class NewUserSettingsService {
     }
 
     private LoadScreenAsync(id: any, loadDefault: boolean): Observable<any> {
-        return this.http.get(this.restUrl + '/user-management/screen/' + id).pipe(
+        // return this.http.get(this.restUrl + '/user-management/screen/' + id).pipe(
+        return this.http.get(`/assets/GetScreenMock_${id}.json`).pipe(
             catchError((err) => {
                 this.dataScreen = this._screens$.getValue();
                 if (

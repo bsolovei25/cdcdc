@@ -1,6 +1,6 @@
 [
     {
-        "id": 1029,
+        "id": 1,
         "user": {
             "login": "Devin",
             "firstName": "Анатолий",
@@ -17,7 +17,7 @@
         "screenName": "МНПЗ/Экран #1",
         "widgets": [
             {
-                "id": 49464,
+                "id": 21117,
                 "posX": 0,
                 "posY": 0,
                 "sizeX": 14,
@@ -28,7 +28,7 @@
                 "widgetType": "production-plan"
             },
             {
-                "id": 49465,
+                "id": 21118,
                 "posX": 0,
                 "posY": 11,
                 "sizeX": 63,
@@ -39,7 +39,7 @@
                 "widgetType": "product-group-planning"
             },
             {
-                "id": 49466,
+                "id": 21119,
                 "posX": 14,
                 "posY": 0,
                 "sizeX": 34,
@@ -50,7 +50,7 @@
                 "widgetType": "daily-plan-product"
             },
             {
-                "id": 49468,
+                "id": 21120,
                 "posX": 48,
                 "posY": 0,
                 "sizeX": 15,
@@ -63,7 +63,7 @@
         ]
     },
     {
-        "id": 1030,
+        "id": 2,
         "user": {
             "login": "Devin",
             "firstName": "Анатолий",
@@ -80,7 +80,7 @@
         "screenName": "МНПЗ/Экран #2",
         "widgets": [
             {
-                "id": 50471,
+                "id": 21121,
                 "posX": 49,
                 "posY": 0,
                 "sizeX": 14,
@@ -91,7 +91,7 @@
                 "widgetType": "shipment-schedule"
             },
             {
-                "id": 50472,
+                "id": 21122,
                 "posX": 0,
                 "posY": 0,
                 "sizeX": 14,
@@ -102,7 +102,7 @@
                 "widgetType": "production-plan"
             },
             {
-                "id": 50475,
+                "id": 21123,
                 "posX": 14,
                 "posY": 0,
                 "sizeX": 35,
@@ -113,7 +113,7 @@
                 "widgetType": "daily-plan-product"
             },
             {
-                "id": 50476,
+                "id": 21124,
                 "posX": 0,
                 "posY": 12,
                 "sizeX": 63,
@@ -122,54 +122,6 @@
                 "widgetId": "83b83353-3dc8-11ea-b218-c8d9d2317224",
                 "uniqueId": "d1ba7d2f-a5f6-4e52-b7c9-8c62303c1c98",
                 "widgetType": "gantt-chart"
-            }
-        ]
-    },
-    {
-        "id": 1031,
-        "user": {
-            "login": "Devin",
-            "firstName": "Анатолий",
-            "lastName": "Девин",
-            "middleName": "Анатольевич",
-            "phone": "00123456789",
-            "position": "common",
-            "positionDescription": "Руководитель программы",
-            "isProximityCardHash": false,
-            "displayName": "Девин А. А.",
-            "id": 8,
-            "email": "devin@test"
-        },
-        "screenName": "ЯНОС/Экран #1",
-        "widgets": []
-    },
-    {
-        "id": 1032,
-        "user": {
-            "login": "Devin",
-            "firstName": "Анатолий",
-            "lastName": "Девин",
-            "middleName": "Анатольевич",
-            "phone": "00123456789",
-            "position": "common",
-            "positionDescription": "Руководитель программы",
-            "isProximityCardHash": false,
-            "displayName": "Девин А. А.",
-            "id": 8,
-            "email": "devin@test"
-        },
-        "screenName": "ЯНОС/Экран #2",
-        "widgets": [
-            {
-                "id": 50492,
-                "posX": 1,
-                "posY": 1,
-                "sizeX": 66,
-                "sizeY": 27,
-                "zIndex": 0,
-                "widgetId": "83b83353-3dc8-11ea-b218-c8d9d2317222",
-                "uniqueId": "60f6b949-9e23-4095-b15a-85a23c96ba1d",
-                "widgetType": "product-group-planning"
             }
         ]
     }
