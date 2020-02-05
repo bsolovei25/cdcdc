@@ -80,6 +80,11 @@ import { TimeLineDiagramComponent } from './widgets/time-line-diagram/time-line-
 import { TimeDiagramComponent } from './widgets/time-line-diagram/time-diagram/time-diagram.component';
 import { ObservationNormTRComponent } from './widgets/observation-norm-tr/observation-norm-tr.component';
 import { AdminReferencesComponent } from './widgets/admin-references/admin-references.component';
+import { PetroleumProductsMovementComponent } from './widgets/petroleum-products-movement/petroleum-products-movement.component';
+import { PetroleumReferenceLeftComponent } from './widgets/petroleum-products-movement/petroleum-reference-left/petroleum-reference-left.component';
+import { PetroleumReferenceRightComponent } from './widgets/petroleum-products-movement/petroleum-reference-right/petroleum-reference-right.component';
+import { PetroleumReferenceComponent } from './widgets/petroleum-products-movement/petroleum-reference/petroleum-reference.component';
+import { PetroleumWorkspaceComponent } from './widgets/petroleum-products-movement/petroleum-workspace/petroleum-workspace.component';
 
 @NgModule({
     declarations: [
@@ -154,6 +159,11 @@ import { AdminReferencesComponent } from './widgets/admin-references/admin-refer
         SearchListComponent,
         ObservationNormTRComponent,
         AdminReferencesComponent,
+        PetroleumProductsMovementComponent,
+        PetroleumReferenceLeftComponent,
+        PetroleumReferenceRightComponent,
+        PetroleumReferenceComponent,
+        PetroleumWorkspaceComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -200,6 +210,7 @@ import { AdminReferencesComponent } from './widgets/admin-references/admin-refer
         SolidGaugesComponent,
         ObservationNormTRComponent,
         AdminReferencesComponent,
+        PetroleumProductsMovementComponent,
     ],
     exports: [HomeComponent],
     imports: [
