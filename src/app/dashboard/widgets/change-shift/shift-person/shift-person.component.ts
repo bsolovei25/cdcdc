@@ -99,7 +99,7 @@ export class ShiftPersonComponent implements OnInit {
         }
     }
 
-    private createDropdown():void {
+    private createDropdown(): void {
         this.dropdownMenu = [];
         switch (this.person.status) {
             case 'absent':
@@ -134,7 +134,6 @@ export class ShiftPersonComponent implements OnInit {
                 }
                 break;
         }
-
     }
 
     menuCheck(event: any, person: ShiftMember): void {
@@ -149,10 +148,18 @@ export class ShiftPersonComponent implements OnInit {
                 this.shiftService.changeStatus('absent', person.employee.id, this.shiftId);
                 break;
             case 'На месте':
-                this.shiftService.changeStatus('inProgressAccepted', person.employee.id, this.shiftId);
+                this.shiftService.changeStatus(
+                    'inProgressAccepted',
+                    person.employee.id,
+                    this.shiftId
+                );
                 break;
             case 'Готов к передаче':
-                this.shiftService.changeStatus('inProgressPassed', person.employee.id, this.shiftId);
+                this.shiftService.changeStatus(
+                    'inProgressPassed',
+                    person.employee.id,
+                    this.shiftId
+                );
                 break;
             case 'Покинул смену':
                 this.shiftService.changeStatus('missing', person.employee.id, this.shiftId);

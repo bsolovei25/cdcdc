@@ -3,7 +3,7 @@ import { UnityLoader } from './UnityLoader.js';
 import { PlatformLocation } from '@angular/common';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { Subscription } from 'rxjs';
-import {WidgetSettingsService} from "../../services/widget-settings.service";
+import { WidgetSettingsService } from '../../services/widget-settings.service';
 
 @Component({
     selector: 'evj-dispatcher-screen',
@@ -44,9 +44,7 @@ export class DispatcherScreenComponent implements OnInit, AfterViewInit, OnDestr
         );
     }
 
-    ngOnInit(): void {
-
-    }
+    ngOnInit(): void {}
 
     ngAfterViewInit(): void {
         this.showMock(this.isMock);

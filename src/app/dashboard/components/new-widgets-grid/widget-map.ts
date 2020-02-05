@@ -45,7 +45,7 @@ export const WIDGETS = {
     'line-chart': LineChartComponent,
     'line-diagram': LineDiagramComponent,
     'manual-input': ManualInputComponent,
-    "events": EventsComponent,
+    events: EventsComponent,
     'shift-pass': ChangeShiftComponent,
     'shift-accept': ChangeShiftComponent,
     'events-workspace': EventsWorkSpaceComponent,
@@ -63,7 +63,7 @@ export const WIDGETS = {
     'calendar-plan': CalendarPlanComponent,
     'ring-factory-diagram': RingSFactoryDiagramComponent,
     'chain-map': ChainMapComponent,
-    'energetics': EnergeticsComponent,
+    energetics: EnergeticsComponent,
     'dispatcher-screen': DispatcherScreenComponent,
     'suspense-machine': SuspenseMachineComponent,
     'deviations-table': DeviationsTableComponent,
@@ -82,5 +82,5 @@ export const WIDGETS = {
     'solid-gauge-with-marker': SolidGaugesComponent,
     'observation-norm-tr': ObservationNormTRComponent,
     'admin-references': AdminReferencesComponent,
-    'petroleum-products-movement': PetroleumProductsMovementComponent
+    'petroleum-products-movement': PetroleumProductsMovementComponent,
 };

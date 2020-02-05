@@ -139,7 +139,9 @@
           </div>
         </div>
       </div>
-      <ng-container *ngIf="aboutWidget && this.aboutWidget.widgetType === 'shift-pass' && !this.isCommentRequired">
+      <ng-container
+        *ngIf="aboutWidget && this.aboutWidget.widgetType === 'shift-pass' && !this.isCommentRequired"
+      >
         <div class="buttons">
           <div class="change-shift__submit">
             <div class="submit__frame submit__frame-left"></div>
@@ -151,7 +153,9 @@
         </div>
       </ng-container>
 
-      <ng-container *ngIf="aboutWidget && this.aboutWidget.widgetType !== 'shift-pass' && !this.isCommentRequired">
+      <ng-container
+        *ngIf="aboutWidget && this.aboutWidget.widgetType !== 'shift-pass' && !this.isCommentRequired"
+      >
         <div class="buttons">
           <div class="change-shift__submit">
             <div class="submit__frame submit__frame-left"></div>

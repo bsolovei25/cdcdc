@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'evj-petroleum-reference-right',
-  templateUrl: './petroleum-reference-right.component.html',
-  styleUrls: ['./petroleum-reference-right.component.scss']
+    selector: 'evj-petroleum-reference-right',
+    templateUrl: './petroleum-reference-right.component.html',
+    styleUrls: ['./petroleum-reference-right.component.scss'],
 })
 export class PetroleumReferenceRightComponent implements OnInit {
+    constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+    ngOnInit() {}
 }

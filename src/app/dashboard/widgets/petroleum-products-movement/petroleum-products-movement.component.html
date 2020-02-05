@@ -1,7 +1,7 @@
 <evj-widget-preview [title]="title" [previewTitle]="" *ngIf="isMock"></evj-widget-preview>
 
 <div style="height: 100%; width: 100%;" *ngIf="!isMock">
-    <evj-widget-header
+  <evj-widget-header
     [title]="title"
     [units]="units"
     [code]="code"
@@ -10,30 +10,30 @@
   ></evj-widget-header>
   <div class="container_widget">
     <evj-frame-top></evj-frame-top>
-      <div
-        class="content_block"
-        (mousedown)="$event.stopPropagation()"
-        (touchstart)="$event.stopPropagation()"
-      >
-        <div class="blocks">
-            <div class="components">
-              <div class="left_block">
-                <evj-petroleum-reference-left></evj-petroleum-reference-left>
-              </div>
-              <div class="middle_block">
-                <evj-petroleum-reference></evj-petroleum-reference>
-              </div>
-              <div class="right_block">
-                <ng-container *ngIf="isWorkspace">
-                  <evj-petroleum-workspace></evj-petroleum-workspace>
-                </ng-container>
-                <ng-container *ngIf="!isWorkspace">
-                  <evj-petroleum-reference-right></evj-petroleum-reference-right>
-                </ng-container>
-              </div>
-            </div>
+    <div
+      class="content_block"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
+      <div class="blocks">
+        <div class="components">
+          <div class="left_block">
+            <evj-petroleum-reference-left></evj-petroleum-reference-left>
+          </div>
+          <div class="middle_block">
+            <evj-petroleum-reference></evj-petroleum-reference>
+          </div>
+          <div class="right_block">
+            <ng-container *ngIf="isWorkspace">
+              <evj-petroleum-workspace></evj-petroleum-workspace>
+            </ng-container>
+            <ng-container *ngIf="!isWorkspace">
+              <evj-petroleum-reference-right></evj-petroleum-reference-right>
+            </ng-container>
+          </div>
         </div>
       </div>
+    </div>
     <evj-frame-bottom></evj-frame-bottom>
   </div>
 </div>
