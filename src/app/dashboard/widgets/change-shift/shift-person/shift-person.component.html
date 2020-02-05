@@ -23,11 +23,21 @@
     <div class="person__place">{{ person.employee.positionDescription }}</div>
     <div class="person__status" *ngIf="onShift">
       <div class="circle circle__right circle__right-top"></div>
-      <div class="status__name">{{ this.getDisplayStatus(person.status) }}</div>
+      <div class="status__name"
+           [class.status__name__success]="(person.status === 'passed' || person.status === 'accepted')"
+           [class.status__name__progress]="(person.status === 'inProgressPassed' || person.status === 'inProgressAccepted')"
+           [class.status__name__absent]="(person.status === 'absent')"
+           [class.status__name__missing]="(person.status === 'missing')"
+           [class.status__name__init]="(person.status === 'initialization')">
+        {{ this.getDisplayStatus(person.status) }}
+      </div>
       <div
         class="status__icon"
-        [class.status__icon__ready]="(person.status === 'passed' || person.status === 'accepted')"
-        [class.status__icon__progress]="!(person.status === 'passed' || person.status === 'accepted')"
+        [class.status__icon__success]="(person.status === 'passed' || person.status === 'accepted')"
+        [class.status__icon__progress]="(person.status === 'inProgressPassed' || person.status === 'inProgressAccepted')"
+        [class.status__icon__absent]="(person.status === 'absent')"
+        [class.status__icon__missing]="(person.status === 'missing')"
+        [class.status__icon__init]="(person.status === 'initialization')"
       ></div>
     </div>
   </div>

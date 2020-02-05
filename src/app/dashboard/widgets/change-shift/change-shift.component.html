@@ -44,8 +44,11 @@
             <div
               class="mainWorker__row_colIcon"
               *ngIf="getMain()"
-              [class.mainWorker__row_colIcon__InProgress]="!(getMain().status === 'passed' || getMain().status === 'accepted')"
-              [class.mainWorker__row_colIcon__Ready]="getMain().status === 'passed' || getMain().status === 'accepted'"
+              [class.mainWorker__row_colIcon__success]="(getMain().status === 'passed' || getMain().status === 'accepted')"
+              [class.mainWorker__row_colIcon__progress]="(getMain().status === 'inProgressPassed' || getMain().status === 'inProgressAccepted')"
+              [class.mainWorker__row_colIcon__absent]="(getMain().status === 'absent')"
+              [class.mainWorker__row_colIcon__missing]="(getMain().status === 'missing')"
+              [class.mainWorker__row_colIcon__init]="(getMain().status === 'initialization')"
             ></div>
           </div>
           <div class="mainWorker__row">
@@ -73,6 +76,7 @@
                 [currentBrigade]="currentShift.brigade.id"
                 [onShift]="true"
                 [isPresent]="true"
+                [currentShift]="this.currentShift"
               ></evj-shift-person>
             </div>
           </div>
@@ -100,6 +104,7 @@
                 [shiftId]="currentShift.id"
                 [onShift]="true"
                 [currentBrigade]="currentShift.brigade.id"
+                [currentShift]="this.currentShift"
                 [isPresent]="false"
               ></evj-shift-person>
             </div>
@@ -139,7 +144,7 @@
           </div>
         </div>
       </div>
-      <ng-container *ngIf="aboutWidget && this.aboutWidget.widgetType === 'shift-pass' && !this.isCommentRequired">
+      <ng-container *ngIf="this.aboutWidget?.widgetType === 'shift-pass' && !this.shiftService.getIsCommentRequired(this.aboutWidget?.widgetType)">
         <div class="buttons">
           <div class="change-shift__submit">
             <div class="submit__frame submit__frame-left"></div>
@@ -151,7 +156,7 @@
         </div>
       </ng-container>
 
-      <ng-container *ngIf="aboutWidget && this.aboutWidget.widgetType !== 'shift-pass' && !this.isCommentRequired">
+      <ng-container *ngIf="this.aboutWidget?.widgetType !== 'shift-pass' && !this.shiftService.getIsCommentRequired(this.aboutWidget?.widgetType)">
         <div class="buttons">
           <div class="change-shift__submit">
             <div class="submit__frame submit__frame-left"></div>
@@ -171,7 +176,7 @@
         </div>
       </ng-container>
 
-      <ng-container *ngIf="this.isCommentRequired">
+      <ng-container *ngIf="this.shiftService.getIsCommentRequired(this.aboutWidget.widgetType)">
         <div class="buttons">
           <div class="change-shift__submit">
             <div class="submit__frame submit__frame-left"></div>

@@ -62,3 +62,10 @@ export type ShiftStatus = 'initialization' |
     'inProgressPassed' |
     'passed' |
     'passedConfirm';
+
+export interface IWsShiftData {
+    actionType: IWsActionType;
+}
+
+export type IWsActionType = '1' |
+    '2';

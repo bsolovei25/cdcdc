@@ -6,7 +6,7 @@ import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent } from '@angular/c
 import { throwError, Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
 // Local modules
 
 @Injectable({
@@ -29,10 +29,16 @@ export class ErrorInterceptor implements HttpInterceptor {
                         break;
                     case 0:
                         this.router.navigate(['login']);
-                        // this.openSnackBar('Сервер не отвечает');
+                        this.openSnackBar('Сервер не отвечает');
                         break;
                     case 403:
                         console.error(err);
+                        break;
+                    case 477:
+                        const message: string = err.error.messages[0].message;
+                        const panelClass: string = 'snackbar-red';
+                        this.openSnackBar(message, panelClass);
+                        console.log(err);
                         break;
                     default:
                         break;
@@ -45,11 +51,15 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     openSnackBar(
         msg: string = 'Операция выполнена',
-        msgDuration: number = 3000,
+        panelClass: string | string[] = '',
+        msgDuration: number = 5000,
         actionText?: string,
         actionFunction?: () => void
     ): void {
-        const snackBarInstance = this.snackBar.open(msg, actionText, { duration: msgDuration });
+        const configSnackBar = new MatSnackBarConfig();
+        configSnackBar.panelClass = panelClass;
+        configSnackBar.duration = msgDuration;
+        const snackBarInstance = this.snackBar.open(msg, actionText, configSnackBar);
         if (actionFunction) {
             snackBarInstance.onAction().subscribe(() => actionFunction());
         }

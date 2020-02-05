@@ -54,6 +54,7 @@ export class AuthService {
             this.configureUserAuth(auth);
             return auth;
         } catch (error) {
+            this.openSnackBar('Ошибка авторизации, неверный логин или пароль, обратитесь к системному администратору!');
             console.error(error);
         }
     }
@@ -90,6 +91,7 @@ export class AuthService {
             return current;
         } catch (error) {
             this.router.navigate(['login']);
+            this.openSnackBar('Ошибка авторизации, неудачная попытка Windows аутентификации, обратитесь к системному администратору!');
             console.warn(error);
         }
         return null;

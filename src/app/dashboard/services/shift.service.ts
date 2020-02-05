@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '../../services/appConfigService';
 import {BehaviorSubject, Subject} from 'rxjs';
 import {filter, map} from "rxjs/operators";
+import {MatSnackBar, MatSnackBarConfig} from "@angular/material/snack-bar";
 
 @Injectable({
     providedIn: 'root',
@@ -13,10 +14,14 @@ export class ShiftService {
     public shiftPass: BehaviorSubject<ShiftPass> = new BehaviorSubject<ShiftPass>(null);
     public continueWithComment: Subject<ICommentRequired> = new Subject<ICommentRequired>();
     public allMembers: Employee[] = [];
+    public isCommentRequiredPass: boolean = false;
+    public isCommentRequiredAccept: boolean = false;
 
     private restUrl: string;
 
-    constructor(private http: HttpClient, configService: AppConfigService) {
+    constructor(private http: HttpClient,
+                configService: AppConfigService,
+                private snackBar: MatSnackBar,) {
         this.restUrl = configService.restUrl;
         this.getShiftInfo();
     }
@@ -47,7 +52,10 @@ export class ShiftService {
             .toPromise();
     }
 
-    private async changeStatusAsync(status, id, idShift): Promise<any> {
+    private async changeStatusAsync(status, id, idShift, msg: string): Promise<any> {
+        const body = {
+            comment: msg,
+        };
         return this.http
             .post(
                 this.restUrl +
@@ -57,7 +65,7 @@ export class ShiftService {
                     id +
                     '/ChangeStatus/' +
                     status,
-                null
+                body
             )
             .toPromise();
     }
@@ -134,8 +142,8 @@ export class ShiftService {
         this.getShiftInfo();
     }
 
-    public async changeStatus(status, id, idShift) {
-        await this.changeStatusAsync(status, id, idShift);
+    public async changeStatus(status, id, idShift, msg: string = null) {
+        await this.changeStatusAsync(status, id, idShift, msg);
         this.getShiftInfo();
     }
 
@@ -166,5 +174,39 @@ export class ShiftService {
                 return ref;
             })
         );
+    }
+
+    public setIsCommentRequired(state: boolean, widgetType: string): void {
+        console.log(widgetType, state);
+        if (widgetType === 'shift-pass') {
+            this.isCommentRequiredPass = state;
+        } else {
+            this.isCommentRequiredAccept = state;
+        }
+        console.log(this.isCommentRequiredAccept = state);
+    }
+
+    public getIsCommentRequired(widgetType: string): boolean {
+        if (widgetType === 'shift-pass') {
+            return this.isCommentRequiredPass;
+        } else {
+            return this.isCommentRequiredAccept;
+        }
+    }
+
+    public openSnackBar(
+        msg: string = 'Операция выполнена',
+        panelClass: string | string[] = '',
+        msgDuration: number = 5000,
+        actionText?: string,
+        actionFunction?: () => void
+    ): void {
+        const configSnackBar = new MatSnackBarConfig();
+        configSnackBar.panelClass = panelClass;
+        configSnackBar.duration = msgDuration;
+        const snackBarInstance = this.snackBar.open(msg, actionText, configSnackBar);
+        if (actionFunction) {
+            snackBarInstance.onAction().subscribe(() => actionFunction());
+        }
     }
 }

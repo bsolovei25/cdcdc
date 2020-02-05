@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, HostListener } from '@angular/core';
-import { ShiftMember } from 'src/app/dashboard/models/shift.model';
+import {Shift, ShiftMember} from 'src/app/dashboard/models/shift.model';
 import { ShiftService } from '../../../services/shift.service';
 
 @Component({
@@ -15,6 +15,7 @@ export class ShiftPersonComponent implements OnInit {
     @Input() onShift: boolean;
     @Input() isPresent: boolean;
     @Input() isMain: boolean;
+    @Input() currentShift: Shift;
 
     isDropdownActive: boolean = false;
 
@@ -108,7 +109,7 @@ export class ShiftPersonComponent implements OnInit {
             case 'accepted':
                 this.dropdownMenu.push('Готов к передаче');
                 if (!this.person.employee.main) {
-                    this.dropdownMenu.push('Отсутствует');
+                    this.dropdownMenu.push('Покинул смену');
                     this.dropdownMenu.push('Сделать главным');
                 }
                 break;
@@ -116,7 +117,7 @@ export class ShiftPersonComponent implements OnInit {
                 break;
             case 'initialization':
                 if (!this.person.employee.main) {
-                    this.dropdownMenu.push('Покинул смену');
+                    this.dropdownMenu.push('Отсутствует');
                     this.dropdownMenu.push('Сделать главным');
                 }
                 this.dropdownMenu.push('На месте');
@@ -163,7 +164,37 @@ export class ShiftPersonComponent implements OnInit {
             case 'Удалить':
                 this.shiftService.delMember(person.employee.id, this.shiftId);
                 break;
+            case 'Вернуть':
+                if (this.currentShift.status === 'inProgressAccepted') {
+                    this.shiftService.changeStatus('initialization', person.employee.id, this.shiftId);
+                } else {
+                    this.changeStatusAccepted(person);
+                }
+                break;
         }
+    }
+
+    public changeStatusAccepted(person: ShiftMember): void {
+        if (this.currentShift.status !== 'accepted') {
+            return;
+        }
+        this.shiftService.openSnackBar('Для продолжения оставьте комментарий');
+        this.shiftService.setIsCommentRequired(true, 'shift-accepted');
+        const subscription = this.shiftService.getRequiredComment(this.currentShift.id)
+            .asObservable()
+            .subscribe(ans => {
+                console.log(ans);
+                if (ans.result) {
+                    console.log('continue');
+                    this.shiftService.changeStatus('accepted', person.employee.id, this.shiftId);
+                } else {
+                    console.log('cancel');
+                }
+                if (subscription) {
+                    subscription.unsubscribe();
+                }
+                this.shiftService.getIsCommentRequired('shift-accepted');
+            });
     }
 
     addToShift(id) {
