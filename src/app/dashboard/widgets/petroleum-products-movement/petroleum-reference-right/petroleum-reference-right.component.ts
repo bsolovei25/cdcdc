@@ -6,7 +6,6 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./petroleum-reference-right.component.scss'],
 })
 export class PetroleumReferenceRightComponent implements OnInit {
-
     public data = {
         nameReference: 'Парк сырой нефти',
         reference: [

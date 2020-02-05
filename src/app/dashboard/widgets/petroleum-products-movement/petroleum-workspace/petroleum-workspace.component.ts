@@ -15,7 +15,7 @@ export class PetroleumWorkspaceComponent implements OnInit {
         'Список операций',
         'Список операций',
     ];
-    
+
     constructor() {}
 
     ngOnInit() {}
