@@ -330,10 +330,9 @@ export class NewWidgetService {
             let arrFilterButton: any = [];
             let resultObject: any = [];
             if (this.searchType === 'input') {
+                let undefinedFilter =  point.filter((point) => point.title !== undefined);
                 const filter = of(
-                    point.filter(
-                        (point) => point.title.toLowerCase().indexOf(record.toLowerCase()) > -1
-                    )
+                    undefinedFilter.filter((point) => point.title.toLowerCase().indexOf(record.toLowerCase()) > -1)
                 );
                 pointFilter = filter;
                 this.searchValue = record;

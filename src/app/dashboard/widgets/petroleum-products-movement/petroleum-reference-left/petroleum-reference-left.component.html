@@ -1,0 +1,24 @@
+<div class="reference-left">
+    <div class="top-frame"></div>
+    <div class="middle">
+        <div class="top_block_middle">
+            <div class="title_block">{{data.nameReference}}</div>
+        </div>
+        <div class="bottom_block_middle">
+            <ng-container *ngFor="let item of data.reference">
+                <ng-container *ngIf="data.nameReference === 'Парк сырой нефти'">
+                    <div class="unclick_button">
+                        <div class="button_name"> {{item.name}} </div>
+                        <div class="button_icon">
+                            <svg-icon
+                            src="./assets/icons/login/visibility_off.svg"
+                            [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+                             ></svg-icon>
+                        </div>
+                    </div>
+                </ng-container>
+            </ng-container>
+        </div>
+    </div>
+    <div class="bottom_frame"></div>
+</div>

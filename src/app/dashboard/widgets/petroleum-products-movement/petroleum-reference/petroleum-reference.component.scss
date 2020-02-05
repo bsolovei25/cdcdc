@@ -1,0 +1,45 @@
+.reference{
+    width: 1264px;
+    margin: 0 auto;
+    height: 100%;
+}
+
+.reference_title{
+    background: var(--color-bg-sub);
+    display: flex;
+    justify-content: space-around;
+    height: 40px;
+    font-size: 10px;
+    color: var(--color-text-sub);
+    border-bottom: 1px solid var(--color-bg-main);
+}
+
+.title_block{
+    text-align: center;
+    width: 100px;
+}
+
+.title{
+    margin-top: 13px;
+}
+
+.reference_values{
+    height: calc(100% - 45px);
+    background: rgba(34, 36, 47, 0.5);
+}
+
+.values_block{
+    display: flex;
+    justify-content: space-around;
+    font-size: 10px;
+    color: white;
+}
+
+.values{
+    text-align: center;
+    width: 100px;
+}
+
+.value{
+    margin-top: 13px;
+}
