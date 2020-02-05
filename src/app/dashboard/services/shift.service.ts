@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Employee, ICommentRequired, ShiftMember, ShiftPass } from '../models/shift.model';
+import {Employee, ICommentRequired, ShiftMember, ShiftPass} from '../models/shift.model';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '../../services/appConfigService';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import {BehaviorSubject, Subject} from 'rxjs';
+import {filter, map} from "rxjs/operators";
 
 @Injectable({
     providedIn: 'root',
@@ -85,7 +85,7 @@ export class ShiftService {
             comment: _comment,
         };
         return this.http
-            .post(this.restUrl + '/api/shift/' + idShift + '/accept-revert', body)
+            .post(this.restUrl + '/api/shift/' + idShift + '/accept-revert' , body)
             .toPromise();
     }
 

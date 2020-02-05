@@ -53,10 +53,6 @@ export class IndicatorSelectorComponent {
         this.userSettings.LoadScreen(id);
     }
 
-    public mapScreen(factory: string) {
-        return this.dataScreen.filter((el) => el.screenName.match(factory));
-    }
-
     ScreenActive(e) {
         if (this.timerOff) {
             clearTimeout(this.timerOff);

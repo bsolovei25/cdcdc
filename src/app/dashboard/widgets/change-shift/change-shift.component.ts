@@ -8,9 +8,9 @@ import {
     OnDestroy,
 } from '@angular/core';
 import { ShiftService } from '../../services/shift.service';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import {BehaviorSubject, Subscription} from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
-import { ICommentRequired, Shift, ShiftComment, ShiftMember } from '../../models/shift.model';
+import {ICommentRequired, Shift, ShiftComment, ShiftMember} from '../../models/shift.model';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { IWidgets } from '../../models/widget.model';
 
@@ -131,13 +131,13 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
             }
         }
 
-        this.presentMembers = this.currentShift.shiftMembers.filter(
-            (el) => el.status !== 'absent' && el.status !== 'initialization'
-        );
+        this.presentMembers = this.currentShift.shiftMembers
+            .filter((el) => el.status !== 'absent'
+                && el.status !== 'initialization');
 
-        this.absentMembers = this.currentShift.shiftMembers.filter(
-            (el) => el.status === 'absent' || el.status === 'initialization'
-        );
+        this.absentMembers = this.currentShift.shiftMembers
+            .filter((el) => el.status === 'absent'
+                || el.status === 'initialization');
 
         console.log();
     }
@@ -250,10 +250,9 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
 
     public shiftCancel(): void {
         this.isCommentRequired = true;
-        const subscription = this.shiftService
-            .getRequiredComment(this.currentShift.id)
+        const subscription = this.shiftService.getRequiredComment(this.currentShift.id)
             .asObservable()
-            .subscribe((ans) => {
+            .subscribe(ans => {
                 if (ans.result) {
                     console.log('continue');
                     this.shiftService.cancelShift(this.currentShift.id, ans.comment);
