@@ -16,11 +16,11 @@
   &:before {
     content: "";
     position: absolute;
-    height: 17px;
+    height: 18px;
     width: 15px;
-    top: -9px;
-    left: -8px;
-    transform: rotate(45deg);
+    top: -7px;
+    left: -7px;
+    transform: rotate(42deg);
     background: var(--color-bg-main);
     border-right: 0.5px solid var(--color-border-active);
   }
@@ -64,9 +64,9 @@
     content: "";
     position: absolute;
     height: 20px;
-    width: 15px;
-    bottom: 9px;
-    left: -5px;
+    width: 17px;
+    bottom: 11px;
+    left: -7px;
     transform: rotate(-42deg);
     background: var(--color-bg-main);
     border-right: 0.5px solid var(--color-border-active);
