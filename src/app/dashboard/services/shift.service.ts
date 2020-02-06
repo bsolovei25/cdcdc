@@ -104,7 +104,7 @@ export class ShiftService {
             comment: _comment,
         };
         return this.http
-            .post(this.restUrl + '/api/shift/' + idShift + '/accept-revert' , body)
+            .post(this.restUrl + '/api/shift/' + idShift + '/accept-revert', body)
             .toPromise();
     }
 

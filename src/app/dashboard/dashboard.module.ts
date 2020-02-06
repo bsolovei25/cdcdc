@@ -82,6 +82,11 @@ import { ObservationNormTRComponent } from './widgets/observation-norm-tr/observ
 import { AdminReferencesComponent } from './widgets/admin-references/admin-references.component';
 import { CardVerifierComponent } from './widgets/change-shift/card-verifier/card-verifier.component';
 import {ScrollingModule} from "@angular/cdk/scrolling";
+import { PetroleumProductsMovementComponent } from './widgets/petroleum-products-movement/petroleum-products-movement.component';
+import { PetroleumReferenceLeftComponent } from './widgets/petroleum-products-movement/petroleum-reference-left/petroleum-reference-left.component';
+import { PetroleumReferenceRightComponent } from './widgets/petroleum-products-movement/petroleum-reference-right/petroleum-reference-right.component';
+import { PetroleumReferenceComponent } from './widgets/petroleum-products-movement/petroleum-reference/petroleum-reference.component';
+import { PetroleumWorkspaceComponent } from './widgets/petroleum-products-movement/petroleum-workspace/petroleum-workspace.component';
 
 @NgModule({
     declarations: [
@@ -157,6 +162,11 @@ import {ScrollingModule} from "@angular/cdk/scrolling";
         ObservationNormTRComponent,
         AdminReferencesComponent,
         CardVerifierComponent,
+        PetroleumProductsMovementComponent,
+        PetroleumReferenceLeftComponent,
+        PetroleumReferenceRightComponent,
+        PetroleumReferenceComponent,
+        PetroleumWorkspaceComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -203,6 +213,7 @@ import {ScrollingModule} from "@angular/cdk/scrolling";
         SolidGaugesComponent,
         ObservationNormTRComponent,
         AdminReferencesComponent,
+        PetroleumProductsMovementComponent,
     ],
     exports: [HomeComponent],
     imports: [

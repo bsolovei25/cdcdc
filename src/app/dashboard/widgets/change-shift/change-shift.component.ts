@@ -8,7 +8,7 @@ import {
     OnDestroy,
 } from '@angular/core';
 import { ShiftService } from '../../services/shift.service';
-import {BehaviorSubject, Subscription} from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
 import {ICommentRequired, IVerifyWindow, Shift, ShiftComment, ShiftMember} from '../../models/shift.model';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
@@ -298,7 +298,7 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
         console.log(this.shiftService.getIsCommentRequired(this.aboutWidget.widgetType));
         const subscription = this.shiftService.getRequiredComment(this.currentShift.id)
             .asObservable()
-            .subscribe(ans => {
+            .subscribe((ans) => {
                 if (ans.result) {
                     console.log('continue');
                     this.shiftService.cancelShift(this.currentShift.id, ans.comment);

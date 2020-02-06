@@ -43,9 +43,10 @@
   </div>
   <div *ngIf="onShift">
     <div class="dropdown disable" *ngIf="!isMain" #dropdown>
-      <div class="dropdown__item"
-           *ngFor="let dropdownEl of this.dropdownMenu"
-           (click)="menuCheck($event, person)"
+      <div
+        class="dropdown__item"
+        *ngFor="let dropdownEl of this.dropdownMenu"
+        (click)="menuCheck($event, person)"
       >
         {{ dropdownEl }}
       </div>

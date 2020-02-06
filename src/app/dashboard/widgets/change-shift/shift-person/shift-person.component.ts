@@ -106,7 +106,7 @@ export class ShiftPersonComponent implements OnInit {
         }
     }
 
-    private createDropdown():void {
+    private createDropdown(): void {
         this.dropdownMenu = [];
         switch (this.person.status) {
             case 'absent':
@@ -141,7 +141,6 @@ export class ShiftPersonComponent implements OnInit {
                 }
                 break;
         }
-
     }
 
     menuCheck(event: any, person: ShiftMember): void {
