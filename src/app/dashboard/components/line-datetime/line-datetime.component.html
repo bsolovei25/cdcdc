@@ -18,7 +18,10 @@
   <ng-container *ngIf="this.dateFromSelector.status === false">
     <div class="line-block" id="startLine" #startLine>
       <div class="line-start"></div>
-      <div class="middle-line" [class.mline-not-finish]="dateFromSelector.otherMonth === true"></div>
+      <div
+        class="middle-line"
+        [class.mline-not-finish]="dateFromSelector.otherMonth === true"
+      ></div>
       <div class="line-end" [class.eline-not-finish]="dateFromSelector.otherMonth === true"></div>
     </div>
   </ng-container>

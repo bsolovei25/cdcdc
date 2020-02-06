@@ -51,14 +51,15 @@ export class HeaderDataService {
             : this.monthStart !== this.monthEnd &&
               this.monthStart < this.monthEnd &&
               this.monthEnd === defaultMonth
-            ? (this.startDate = '01', this.otherMonth = false)
+            ? ((this.startDate = '01'), (this.otherMonth = false))
             : this.monthStart !== this.monthEnd &&
               this.monthStart < this.monthEnd &&
               this.monthEnd !== defaultMonth
-            ? (this.endDate = '31', this.otherMonth = true)
-            : this.monthStart === this.monthEnd &&
-              this.startDate !== this.endDate
-            ? (this.endDate = this.endDate, this.startDate = this.startDate, this.otherMonth = false)
+            ? ((this.endDate = '31'), (this.otherMonth = true))
+            : this.monthStart === this.monthEnd && this.startDate !== this.endDate
+            ? ((this.endDate = this.endDate),
+              (this.startDate = this.startDate),
+              (this.otherMonth = false))
             : this.startDate;
         this.statusButton = status;
         this.pushDate();
