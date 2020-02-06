@@ -20,20 +20,20 @@ export class CcsOneColumnComponent implements OnInit, AfterViewInit {
 
     constructor() {}
 
-    ngOnInit(): void {}
+    public ngOnInit(): void {}
 
-    ngAfterViewInit(): void {
+    public ngAfterViewInit(): void {
         this.graphIcon();
     }
 
-    graphIcon(): string {
+    public graphIcon(): string {
         if (this.data.iconId) {
             return this.defaultIconPath + this.data.iconId + '.svg';
         }
         return '';
     }
 
-    graphValues(): IBlockDiagramColumn {
+    public graphValues(): IBlockDiagramColumn {
         const maxValue: number = this.data.max + 7;
         const plan: number = Math.round((this.data.plan / maxValue) * 100);
         let fact: number = this.data.plan ? Math.round((this.data.fact / this.data.plan) * 100) : 0;
@@ -49,14 +49,14 @@ export class CcsOneColumnComponent implements OnInit, AfterViewInit {
         return values;
     }
 
-    graphColor(): string {
+    public graphColor(): string {
         if (this.data.plan === this.data.fact) {
             return this.colorNormal;
         }
         return this.colorFact;
     }
 
-    fontColor(isOnGraph: boolean = false): string {
+    public fontColor(isOnGraph: boolean = false): string {
         if (this.data.plan === 0) {
             return this.colorDisable;
         }
@@ -69,7 +69,7 @@ export class CcsOneColumnComponent implements OnInit, AfterViewInit {
         return this.colorActive;
     }
 
-    iconColor(): string {
+    public iconColor(): string {
         if (this.data.plan === 0) {
             return this.colorDisable;
         }
