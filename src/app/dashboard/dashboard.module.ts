@@ -85,6 +85,10 @@ import { PetroleumReferenceLeftComponent } from './widgets/petroleum-products-mo
 import { PetroleumReferenceRightComponent } from './widgets/petroleum-products-movement/petroleum-reference-right/petroleum-reference-right.component';
 import { PetroleumReferenceComponent } from './widgets/petroleum-products-movement/petroleum-reference/petroleum-reference.component';
 import { PetroleumWorkspaceComponent } from './widgets/petroleum-products-movement/petroleum-workspace/petroleum-workspace.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
     declarations: [
@@ -224,6 +228,10 @@ import { PetroleumWorkspaceComponent } from './widgets/petroleum-products-moveme
         ClickOutsideModule,
         DashboardRoutingModule,
         MatSnackBarModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatInputModule,
+        MatFormFieldModule,
     ],
     bootstrap: [],
 })

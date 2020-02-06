@@ -72,6 +72,10 @@
 }
 
 .dates-selector {
+  //new
+ // pointer-events: none;
+
+  //new
   color: var(--color-text-sub-heading);
   position: relative;
   display: flex;
@@ -86,6 +90,9 @@
   box-sizing: border-box;
 
   &__body {
+    //new
+   // height: 50px;
+    //
     margin-right: 17px;
   }
 
@@ -95,6 +102,9 @@
   }
 
   &__dates {
+    //new
+   // height: 18px;
+    //
     display: flex;
     justify-content: space-between;
   }
@@ -117,7 +127,10 @@
   }
 
   &__label {
-    margin-top: 6px;
+    //new
+   // margin-top: 13px;
+   //
+    margin-top: 5px;  
     margin-right: 5px;
   }
 
@@ -161,6 +174,10 @@
   }
 
   &_active {
+    //new
+   // pointer-events: fill;
+
+    //
     border: 0.5px solid var(--color-border-active);
     color: var(--color-text-sub);
     &:before {
