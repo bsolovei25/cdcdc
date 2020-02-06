@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HeaderDataService } from '../../services/header-data.service';
+import { NewWidgetService } from '../../services/new-widget.service';
 
 @Component({
     selector: 'evj-period-selector',
@@ -11,13 +12,13 @@ export class PeriodSelectorComponent implements OnInit {
     public fromDate: Date;
     public isCurrent: boolean;
 
-    constructor(private headerData: HeaderDataService) {
+    constructor(private headerData: HeaderDataService, private widgetService: NewWidgetService) {
         this.setDefault();
     }
 
-    ngOnInit() {}
+    ngOnInit(): void {}
 
-    setDefault() {
+    setDefault(): void {
         let defaultTime = new Date();
         defaultTime = new Date(
             defaultTime.getFullYear(),
@@ -33,7 +34,7 @@ export class PeriodSelectorComponent implements OnInit {
         this.headerData.catchDefaultDate(this.fromDate, this.toDate, this.isCurrent);
     }
 
-    setDefaultTime(event, datetime) {
+    setDateTime(event, datetime): void {
         // this.headerData.catchDate(event, datetime);
         let defaultTime = new Date();
         defaultTime = new Date(
@@ -59,10 +60,24 @@ export class PeriodSelectorComponent implements OnInit {
         }
         this.isCurrent = false;
         this.headerData.catchDefaultDate(this.fromDate, this.toDate, this.isCurrent);
+
+        const dates: Date[] = [];
+        dates.push(this.fromDate);
+        dates.push(this.toDate);
+        this.widgetService.wsSetParams(dates);
     }
 
-    isCurrentChange(value: boolean) {
+    isCurrentChange(value: boolean): void {
         this.isCurrent = value;
         this.headerData.catchStatusButton(this.isCurrent);
+
+        if (this.isCurrent) {
+            this.widgetService.wsSetParams();
+        } else {
+            const dates: Date[] = [];
+            dates.push(this.fromDate);
+            dates.push(this.toDate);
+            this.widgetService.wsSetParams(dates);
+        }
     }
 }

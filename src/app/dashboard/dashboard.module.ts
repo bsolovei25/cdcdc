@@ -84,6 +84,12 @@ import { AdminShiftScheduleComponent } from './widgets/admin-widget/admin-shift-
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
+import { AdminReferencesComponent } from './widgets/admin-references/admin-references.component';
+import { PetroleumProductsMovementComponent } from './widgets/petroleum-products-movement/petroleum-products-movement.component';
+import { PetroleumReferenceLeftComponent } from './widgets/petroleum-products-movement/petroleum-reference-left/petroleum-reference-left.component';
+import { PetroleumReferenceRightComponent } from './widgets/petroleum-products-movement/petroleum-reference-right/petroleum-reference-right.component';
+import { PetroleumReferenceComponent } from './widgets/petroleum-products-movement/petroleum-reference/petroleum-reference.component';
+import { PetroleumWorkspaceComponent } from './widgets/petroleum-products-movement/petroleum-workspace/petroleum-workspace.component';
 
 @NgModule({
     declarations: [
@@ -158,6 +164,12 @@ import { MatNativeDateModule } from '@angular/material/core';
         SearchListComponent,
         ObservationNormTRComponent,
         AdminShiftScheduleComponent,
+        AdminReferencesComponent,
+        PetroleumProductsMovementComponent,
+        PetroleumReferenceLeftComponent,
+        PetroleumReferenceRightComponent,
+        PetroleumReferenceComponent,
+        PetroleumWorkspaceComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -204,6 +216,8 @@ import { MatNativeDateModule } from '@angular/material/core';
         SolidGaugesComponent,
         ObservationNormTRComponent,
         AdminShiftScheduleComponent,
+        AdminReferencesComponent,
+        PetroleumProductsMovementComponent,
     ],
     exports: [HomeComponent],
     imports: [

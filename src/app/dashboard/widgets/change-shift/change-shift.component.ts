@@ -8,15 +8,11 @@ import {
     OnDestroy,
 } from '@angular/core';
 import { ShiftService } from '../../services/shift.service';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
-import { Shift, ShiftComment, ShiftMember } from '../../models/shift.model';
+import { ICommentRequired, Shift, ShiftComment, ShiftMember } from '../../models/shift.model';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { IWidgets } from '../../models/widget.model';
-
-interface CommentModel {
-    id: number;
-}
 
 @Component({
     selector: 'evj-change-shift',
@@ -56,6 +52,8 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
 
     static itemCols: number = 16;
     static itemRows: number = 30;
+
+    public isCommentRequired: boolean = false;
 
     constructor(
         private widgetService: NewWidgetService,
@@ -133,8 +131,15 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
             }
         }
 
-        this.absentMembers = this.currentShift.shiftMembers.filter((el) => el.status === 'absent');
-        this.presentMembers = this.currentShift.shiftMembers.filter((el) => el.status !== 'absent');
+        this.presentMembers = this.currentShift.shiftMembers.filter(
+            (el) => el.status !== 'absent' && el.status !== 'initialization'
+        );
+
+        this.absentMembers = this.currentShift.shiftMembers.filter(
+            (el) => el.status === 'absent' || el.status === 'initialization'
+        );
+
+        console.log();
     }
 
     getDisplayPosition(code): string {
@@ -161,6 +166,7 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
 
     private setMessage(comment: ShiftComment): void {
         this.comments.push(comment);
+        this.setRequireComment(comment.comment);
         try {
             this.input.nativeElement.value = '';
         } catch {}
@@ -183,6 +189,9 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
     }
 
     showPeople(): void {
+        if (this.currentShift.status !== 'inProgressAccepted') {
+            return;
+        }
         const classes: DOMTokenList = this.addShift.nativeElement.classList;
         if (classes.contains('onShift__add-active')) {
             classes.remove('onShift__add-active');
@@ -239,6 +248,25 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
             });
     }
 
+    public shiftCancel(): void {
+        this.isCommentRequired = true;
+        const subscription = this.shiftService
+            .getRequiredComment(this.currentShift.id)
+            .asObservable()
+            .subscribe((ans) => {
+                if (ans.result) {
+                    console.log('continue');
+                    this.shiftService.cancelShift(this.currentShift.id, ans.comment);
+                } else {
+                    console.log('cancel');
+                }
+                this.isCommentRequired = false;
+                if (subscription) {
+                    subscription.unsubscribe();
+                }
+            });
+    }
+
     openSnackBar(
         msg: string = 'Операция выполнена',
         panelClass: string | string[] = '',
@@ -266,5 +294,23 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
                 alert('Have comments');
             }
         });
+    }
+
+    public setRequireComment(ref: string): void {
+        const requiredComment: ICommentRequired = {
+            idShift: this.currentShift.id,
+            comment: ref,
+            result: true,
+        };
+        this.shiftService.continueWithComment.next(requiredComment);
+    }
+
+    public unsetRequireComment(): void {
+        const requiredComment: ICommentRequired = {
+            idShift: this.currentShift.id,
+            comment: null,
+            result: false,
+        };
+        this.shiftService.continueWithComment.next(requiredComment);
     }
 }

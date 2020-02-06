@@ -64,7 +64,7 @@ export const Mock = {
                 { date: new Date('2011-10-18'), value: 70.0 },
                 { date: new Date('2011-10-19'), value: 70.0 },
                 { date: new Date('2011-10-20'), value: 70.0 },
-                { date: new Date('2011-10-21'), value: 70.0 },
+                { date: new Date('2011-10-21'), value: 110.0 },
                 { date: new Date('2011-10-22'), value: 70.0 },
                 { date: new Date('2011-10-23'), value: 70.0 },
                 { date: new Date('2011-10-24'), value: 70.0 },

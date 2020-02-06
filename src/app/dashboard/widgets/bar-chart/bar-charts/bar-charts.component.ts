@@ -56,7 +56,9 @@ export class BarChartsComponent implements OnInit {
 
     private wsConnect() {
         this.widgetService.getWidgetLiveDataFromWS(this.id, 'bar-chart').subscribe((ref) => {
-            this.datas = ref.chartItems;
+            if (this.datas.length === 0) {
+                this.datas = ref.chartItems;
+            }
         });
     }
     private wsDisconnect() {}

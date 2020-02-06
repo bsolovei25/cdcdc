@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Employee, ShiftMember, ShiftPass } from '../models/shift.model';
+import { Employee, ICommentRequired, ShiftMember, ShiftPass } from '../models/shift.model';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '../../services/appConfigService';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root',
 })
 export class ShiftService {
     public shiftPass: BehaviorSubject<ShiftPass> = new BehaviorSubject<ShiftPass>(null);
+    public continueWithComment: Subject<ICommentRequired> = new Subject<ICommentRequired>();
     public allMembers: Employee[] = [];
 
     private restUrl: string;
@@ -78,6 +80,15 @@ export class ShiftService {
             .toPromise();
     }
 
+    private async cancelShiftAsync(idShift: number, _comment: string) {
+        const body = {
+            comment: _comment,
+        };
+        return this.http
+            .post(this.restUrl + '/api/shift/' + idShift + '/accept-revert', body)
+            .toPromise();
+    }
+
     private async passingComment(idShift, idUser, commentary): Promise<any> {
         const body = {
             userId: idUser,
@@ -100,7 +111,6 @@ export class ShiftService {
 
     public async getShiftInfo() {
         const tempData = await this.getShiftPassAsync();
-        // this.allMembers = await this.getAllMembersAsync();
         this.shiftPass.next(tempData);
     }
 
@@ -111,6 +121,11 @@ export class ShiftService {
 
     public async applyShift(idShift, type) {
         await this.applyShiftAsync(idShift, type);
+        this.getShiftInfo();
+    }
+
+    public async cancelShift(idShift: number, comment: string): Promise<void> {
+        await this.cancelShiftAsync(idShift, comment);
         this.getShiftInfo();
     }
 
@@ -142,5 +157,14 @@ export class ShiftService {
             answer = await this.acceptingComment(idShift, idUser, comment);
         }
         return answer;
+    }
+
+    public getRequiredComment(idShift: number): any {
+        return this.continueWithComment.pipe(
+            filter((ref) => ref && ref.idShift === idShift),
+            map((ref) => {
+                return ref;
+            })
+        );
     }
 }
