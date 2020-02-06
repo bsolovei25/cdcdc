@@ -16,6 +16,7 @@ import { IWidgets } from '../../models/widget.model';
 import {tryCatch} from "rxjs/internal-compatibility";
 import {MaterialControllerService} from "../../services/material-controller.service";
 import {IUser} from "../../models/events-widget";
+import set = Reflect.set;
 
 @Component({
     selector: 'evj-change-shift',
@@ -111,13 +112,13 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
             );
             this.subscriptions.push(
                 this.shiftService.verifyWindowObservable(this.id).subscribe((obj) => {
-                    console.log(obj);
-                    this.verifyInfo = obj;
                     if (obj.action === 'close') {
-                        this.isWindowVerifyActive = false;
+                        setTimeout(() => this.isWindowVerifyActive = false, 1000);
                     } else if (obj.action === 'open') {
+                        this.verifyInfo = obj;
                         this.isWindowVerifyActive = true;
                     }
+                    this.verifyInfo.result = obj.result;
                 })
             );
         }
@@ -133,11 +134,7 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
 
     private socketHandler(data: any): void {
         console.log(data);
-        if (data.isConfirm) {
-            console.log('Success');
-        } else {
-            console.log('Failed');
-        }
+        this.shiftService.resultVerify(this.id, data.isConfirm);
     }
 
     private setRealtimeData(widgetType, data): void {

@@ -20,7 +20,6 @@ export class CardVerifierComponent implements OnInit {
 
   public result(): void {
     setTimeout(() => {});
-
   }
 
   public closeVerifyWindow(): void {

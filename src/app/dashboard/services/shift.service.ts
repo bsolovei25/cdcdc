@@ -217,11 +217,15 @@ export class ShiftService {
             user: _user,
             result: _result,
         };
+        console.log(obj);
         this.verifyWindowSubject.next(obj);
     }
 
-    public resultVerify(verifyInfo: VerifyWindowActions, _result: boolean): void {
-        console.log(verifyInfo);
+    public resultVerify(widgetId: string, result: boolean): void {
+        console.log(widgetId);
+        console.log(result);
+        this.actionVerifyWindow('close', widgetId, result);
+        this.getShiftInfo();
     }
 
     public verifyWindowObservable(widgetId: string): any {

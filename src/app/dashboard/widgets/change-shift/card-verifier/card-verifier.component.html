@@ -11,9 +11,14 @@
                 {{ verifyInfo?.user?.positionDescription }}
             </div>
         </div>
-        <div class="block-middle text-formatter">
-            Успешно!
+
+        <div class="block-middle text-formatter" *ngIf="verifyInfo?.result !== null">
+            {{ verifyInfo?.result ? 'Успешно!' : 'Не успешно!' }}
         </div>
+        <div class="block-middle text-formatter" *ngIf="verifyInfo?.result === null">
+            Ожидание...
+        </div>
+
         <div class="block-bottom">
             <div class="text text-formatter">
                 Приложите Вашу карточку к считывателю!

@@ -208,6 +208,8 @@ export class NewWidgetService {
             case 'ecology-safety':
             case 'energetics':
             case 'oil-control':
+            case 'shift-pass':
+            case 'shift-accept':
                 return data;
         }
         console.warn(`unknown widget type ${widgetType}`);

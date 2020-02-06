@@ -224,6 +224,7 @@ gridster-item {
 .mycheckbox__descr {
   font-size: 14px;
 }
+
 .mycheckbox__default:checked + .mycheckbox__new::after {
   height: 10px;
   width: 10px;
@@ -262,6 +263,6 @@ gridster-item {
 
 .search_block {
   margin-top: 10px;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
   margin-left: 5px;
 }
