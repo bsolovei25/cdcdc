@@ -24,14 +24,46 @@
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field> -->
-
-    <mat-calendar
-      [dateClass]="dateClass()"
-      #calendar
-      [(selected)]="selectedDate"
-      ngClass="calendar-red"
-      locale="ru"
-    ></mat-calendar>
+    <div class="block-left">
+      <section class="calendar">
+        <mat-calendar
+          [dateClass]="dateClass()"
+          #calendar
+          [(selected)]="selectedDate"
+          ngClass="calendar-red"
+          locale="ru"
+        ></mat-calendar>
+      </section>
+      <section class="duty-schedule">
+        <div class="title"><p>График дежурств</p></div>
+        <div class="date-yesterday"><p>7 января - 8 января 2020</p></div>
+        <div class="shift-yesterday">
+          <p>I смена</p>
+          <p>20.00-06.00</p>
+          <p>Бригада 1</p>
+        </div>
+        <div class="date-today"><p>{{ selectedDate | date:'MMMM' }}</p></div>
+        <div class="shift-today">
+          <p>I смена</p>
+          <p>20.00-06.00</p>
+          <p>Назначить</p>
+        </div>
+        <div class="shift-today">
+          <p>II смена</p>
+          <p>20.00-06.00</p>
+          <p>Назначить</p>
+        </div>
+        <div class="shift-today">
+          <p>III смена</p>
+          <p>20.00-06.00</p>
+          <p>Назначить</p>
+        </div>
+      </section>
+    </div>
+    <div class="block-right">
+      <section class="main-team"></section>
+      <section class="additional-team"></section>
+    </div>
   </div>
 
   <evj-frame-bottom></evj-frame-bottom>

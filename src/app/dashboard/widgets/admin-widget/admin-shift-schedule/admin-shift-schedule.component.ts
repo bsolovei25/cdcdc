@@ -5,7 +5,7 @@ import {
     MatCalendar,
     MatCalendarCellCssClasses,
 } from '@angular/material/datepicker';
-import { Moment } from 'moment';
+import * as moment from 'moment';
 import { DateAdapter } from '@angular/material/core';
 
 @Component({
@@ -20,8 +20,9 @@ export class AdminShiftScheduleComponent implements OnDestroy {
 
     public subscription: Subscription;
 
-    @ViewChild('calendar', { static: true }) calendar: MatCalendar<Moment>;
-    selectedDate: Moment;
+    @ViewChild('calendar', { static: true }) calendar: MatCalendar<Date>;
+    
+    selectedDate: Date;
 
     constructor(
         private widgetService: NewWidgetService,

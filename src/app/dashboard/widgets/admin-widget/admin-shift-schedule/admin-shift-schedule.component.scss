@@ -13,6 +13,8 @@
   height: 100%;
   border-left: dashed 0.5px var(--color-border-main);
   border-right: dashed 0.5px var(--color-border-main);
+
+  display: flex;
 }
 
 .mock {
@@ -36,5 +38,50 @@
     width: 80%;
     height: 100%;
   }
+}
 
+.block-left {
+  min-width: 36%;
+  margin-left: 20px;
+
+  .duty-schedule {
+    .shift-yesterday {
+      color: var(--color-text-sub);
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 0px 18px;
+      &:hover {
+        background: url("./../../../../../assets/icons/widgets/admin-shift-schedule/border-shift.svg")
+          no-repeat;
+        background-size: cover;
+      }
+    }
+    .date-yesterday {
+      color: var(--color-text-sub);
+      padding: 0px 18px;
+    }
+    .shift-today {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      &:hover {
+        background: url("./../../../../../assets/icons/widgets/admin-shift-schedule/border-shift.svg")
+          no-repeat;
+        background-size: cover;
+      }
+      padding: 0px 18px;
+    }
+    .date-today {
+      padding: 0px 18px;
+    }
+
+    .title {
+      padding: 0px 18px;
+    }
+  }
+}
+
+.block-right {
+  min-width: 64%;
 }

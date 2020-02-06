@@ -7,6 +7,10 @@
 
 .calendar-red {
   // background-color: rgb(241, 187, 187);
+
+  .mat-calendar-body {
+    // font-size: 15px;
+  }
   .mat-calendar-body-cell-content {
     border-radius: 0;
   }
@@ -71,5 +75,30 @@
     background-repeat: no-repeat, no-repeat;
     background-size: 87%, 100%;
     color: var(--color-text-main);
+  }
+
+  .mat-calendar-previous-button {
+    transform: rotate(90deg);
+    height: 43px;
+    width: 43px;
+  }
+  .mat-calendar-next-button {
+    transform: rotate(90deg);
+    height: 43px;
+    width: 43px;
+  }
+
+  .mat-calendar-table-header {
+    color: var(--color-text-main);
+    .mat-calendar-table-header-divider {
+      display: none;
+    }
+  }
+
+  [aria-hidden="true"] .mat-calendar-body-label {
+    display: none;
+  }
+  td.mat-calendar-body-label {
+    visibility: hidden;
   }
 }
