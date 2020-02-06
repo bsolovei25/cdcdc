@@ -72,6 +72,14 @@
   background-repeat: no-repeat;
 }
 
+.eline-not-finish{
+  display: none;
+}
+
+.mline-not-finish{
+  width: 98.5% !important;
+}
+
 .middle-line {
   width: 100%;
   background-color: var(--color-bg-active);
