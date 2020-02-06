@@ -300,6 +300,8 @@ export class OilControlComponent implements OnInit, AfterViewInit {
     public units;
     public name;
 
+    public clickPaginator: boolean = false;
+
     public indexProduct = 0;
     public indexStorage = 0;
     public indexPie = 0;
@@ -441,8 +443,8 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             if (this.checkSocket === true && this.savePositionProduct !== undefined) {
                 this.onButtonChangeProduct(this.savePositionProduct);
                 if (this.saveDataStorage.length !== 0) {
-                    this.currentPage = this.saveCurrentPage;
                     this.onButtonChangeStorage(this.savePositionStorage, this.saveDataStorage);
+                    this.currentPage = this.saveCurrentPage;
                 }
             }
 
@@ -653,11 +655,16 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             for (let item of dataStorage) {
                 this.saveDataStorage.push(item);
             }
-            // this.savePositionStorage = this.activeStorage.id;
-        } else if (this.countClickChange === 0) {
             this.savePositionStorage = this.activeStorage.id;
-        } else if (this.countClickChange !== 0 && this.checkSocket) {
-            this.savePositionStorage = this.savePositionStorage;
+        } else if (this.countClickChange === 0 && this.clickPaginator === true) {
+            this.savePositionStorage = this.saveCurrentPage;
+        } else if (this.countClickChange === 0) {
+           // this.savePositionStorage = this.activeStorage.id;
+           this.savePositionStorage = this.saveCurrentPage;
+        } else if (this.countClickChange !== 0 && this.checkSocket && this.countClickChangeStorage === 0) {
+            this.savePositionStorage = this.activeStorage.id;
+        } else if (this.countClickChange !== 0 && this.checkSocket && this.countClickChangeStorage !== 0) {
+            this.savePositionStorage = this.saveCurrentPage;
         }
 
         const leftBorder: any = el.querySelectorAll('.st5');
@@ -884,6 +891,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                             .text(textProduct.name)
                             .on('click', () => {
                                 this.onButtonChangeProduct(textProduct.name);
+                                this.countClickChangeStorage = 0;
                                 this.savePositionProduct = textProduct.name;
                             });
                         this.htmlProduct = textProduct.name;
@@ -942,6 +950,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                                 .attr('id', indexStorage)
                                 .text(textStorage.nameStorage)
                                 .on('click', () => {
+                                    this.countClickChangeStorage++;
                                     this.onButtonChangeStorage(textStorage.id, dataStorage);
                                     this.savePositionStorage = textStorage.id;
                                     this.saveDataStorage = [];
@@ -966,6 +975,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                                 .attr('id', indexStorage)
                                 .text(textStorage.nameStorage)
                                 .on('click', () => {
+                                    this.countClickChangeStorage++;
                                     this.onButtonChangeStorage(textStorage.id, dataStorage);
                                     this.savePositionStorage = textStorage.id;
                                     this.saveDataStorage = [];
@@ -1092,6 +1102,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
     }
 
     public onNextStorage(event) {
+        this.clickPaginator = true;
         if (this.countClickChange === 0) {
             for (let item of this.data.products[2].storages) {
                 if (item.id === event) {
@@ -1133,10 +1144,14 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                 this.newArrayStorage
             );
         } else {
-            if (this.countClickChangeStorage === 0) {
-                this.changeMassivStorage(index, data);
+            if (this.countClickChangeStorage === 0 && this.countClickChange !== 0) {
+                this.newArrayStorage = data;
+               // this.changeMassivStorage(index, data);
                 this.countClickChangeStorage++;
+            } else if(this.countClickChangeStorage !== 0  && this.checkSocket) {
+                this.changeMassivStorage(index, data);
             } else {
+                this.countClickChangeStorage++;
                 this.changeMassivStorage(index, data);
                 //this.changeMassivStorage(index, this.newArrayStorage);
             }
