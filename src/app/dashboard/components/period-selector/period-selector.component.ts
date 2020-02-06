@@ -3,8 +3,6 @@ import { HeaderDataService } from '../../services/header-data.service';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { FormControl } from '@angular/forms';
 
-
-
 @Component({
     selector: 'evj-period-selector',
     templateUrl: './period-selector.component.html',
@@ -15,7 +13,7 @@ export class PeriodSelectorComponent implements OnInit {
     public fromDate: Date;
     public isCurrent: boolean;
 
-   // date = new FormControl();
+    // date = new FormControl();
 
     constructor(private headerData: HeaderDataService, private widgetService: NewWidgetService) {
         this.setDefault();

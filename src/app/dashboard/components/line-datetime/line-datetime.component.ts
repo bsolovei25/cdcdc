@@ -96,7 +96,7 @@ export class LineDatetimeComponent implements OnInit, AfterViewInit, OnDestroy {
     public searchDate(data, elStart) {
         let widthBlock = this.widthBlockDataLine();
         let end: number;
-        if(data.end > this.dates.length){
+        if (data.end > this.dates.length) {
             end = this.dates.length;
         } else {
             end = data.end;
