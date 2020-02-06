@@ -6,7 +6,6 @@ import { Component, OnInit, Input } from '@angular/core';
     styleUrls: ['./petroleum-reference.component.scss'],
 })
 export class PetroleumReferenceComponent implements OnInit {
-    
     @Input() shortHeight: boolean;
 
     public title = [
@@ -290,7 +289,5 @@ export class PetroleumReferenceComponent implements OnInit {
 
     constructor() {}
 
-    ngOnInit() {
-        
-    }
+    ngOnInit() {}
 }
