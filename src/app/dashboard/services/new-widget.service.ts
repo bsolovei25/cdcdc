@@ -207,6 +207,7 @@ export class NewWidgetService {
             case 'ecology-safety':
             case 'energetics':
             case 'oil-control':
+            case 'column-chart-stacked':
                 return data;
         }
         console.warn(`unknown widget type ${widgetType}`);
