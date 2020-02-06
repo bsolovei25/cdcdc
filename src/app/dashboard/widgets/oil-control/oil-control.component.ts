@@ -659,11 +659,19 @@ export class OilControlComponent implements OnInit, AfterViewInit {
         } else if (this.countClickChange === 0 && this.clickPaginator === true) {
             this.savePositionStorage = this.saveCurrentPage;
         } else if (this.countClickChange === 0) {
-           // this.savePositionStorage = this.activeStorage.id;
-           this.savePositionStorage = this.saveCurrentPage;
-        } else if (this.countClickChange !== 0 && this.checkSocket && this.countClickChangeStorage === 0) {
+            // this.savePositionStorage = this.activeStorage.id;
+            this.savePositionStorage = this.saveCurrentPage;
+        } else if (
+            this.countClickChange !== 0 &&
+            this.checkSocket &&
+            this.countClickChangeStorage === 0
+        ) {
             this.savePositionStorage = this.activeStorage.id;
-        } else if (this.countClickChange !== 0 && this.checkSocket && this.countClickChangeStorage !== 0) {
+        } else if (
+            this.countClickChange !== 0 &&
+            this.checkSocket &&
+            this.countClickChangeStorage !== 0
+        ) {
             this.savePositionStorage = this.saveCurrentPage;
         }
 
@@ -1146,9 +1154,9 @@ export class OilControlComponent implements OnInit, AfterViewInit {
         } else {
             if (this.countClickChangeStorage === 0 && this.countClickChange !== 0) {
                 this.newArrayStorage = data;
-               // this.changeMassivStorage(index, data);
+                // this.changeMassivStorage(index, data);
                 this.countClickChangeStorage++;
-            } else if(this.countClickChangeStorage !== 0  && this.checkSocket) {
+            } else if (this.countClickChangeStorage !== 0 && this.checkSocket) {
                 this.changeMassivStorage(index, data);
             } else {
                 this.countClickChangeStorage++;
