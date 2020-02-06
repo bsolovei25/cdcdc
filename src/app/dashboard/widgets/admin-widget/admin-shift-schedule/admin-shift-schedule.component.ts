@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, ViewChild } from '@angular/core';
-import { NewWidgetService } from '../../services/new-widget.service';
+import { NewWidgetService } from '../../../services/new-widget.service';
 import { Subscription } from 'rxjs';
 import {
     MatCalendar,
