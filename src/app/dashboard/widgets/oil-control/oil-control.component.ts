@@ -353,6 +353,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
     public savePosition: boolean = false;
     public savePositionProduct: number;
     public savePositionStorage: number;
+    public saveCurrentPage: number;
 
     public saveDataStorage: any = [];
 
@@ -440,6 +441,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             if (this.checkSocket === true && this.savePositionProduct !== undefined) {
                 this.onButtonChangeProduct(this.savePositionProduct);
                 if (this.saveDataStorage.length !== 0) {
+                    this.currentPage = this.saveCurrentPage;
                     this.onButtonChangeStorage(this.savePositionStorage, this.saveDataStorage);
                 }
             }
@@ -1111,6 +1113,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
 
     public onButtonChangeStorage(index, data) {
         this.currentPage = index;
+        this.saveCurrentPage = this.currentPage;
         this.clearProduct();
 
         if (this.countClickChange === 0 && !this.checkSocket) {
