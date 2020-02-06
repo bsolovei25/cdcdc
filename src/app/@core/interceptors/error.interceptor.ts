@@ -7,13 +7,14 @@ import { throwError, Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
+import {MaterialControllerService} from "../../dashboard/services/material-controller.service";
 // Local modules
 
 @Injectable({
     providedIn: 'root', // singleton service
 })
 export class ErrorInterceptor implements HttpInterceptor {
-    constructor(private router: Router, private snackBar: MatSnackBar) {}
+    constructor(private router: Router, private materialController: MaterialControllerService) {}
 
     /** Intercept request with custom error handling */
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -29,15 +30,13 @@ export class ErrorInterceptor implements HttpInterceptor {
                         break;
                     case 0:
                         this.router.navigate(['login']);
-                        this.openSnackBar('Сервер не отвечает');
+                        this.materialController.openSnackBar('Сервер не отвечает', 'snackbar-red');
                         break;
                     case 403:
                         console.error(err);
                         break;
                     case 477:
-                        const message: string = err.error.messages[0].message;
-                        const panelClass: string = 'snackbar-red';
-                        this.openSnackBar(message, panelClass);
+                        this.materialController.openSnackBar(err.error.messages[0].message, 'snackbar-red');
                         console.log(err);
                         break;
                     default:
@@ -47,21 +46,5 @@ export class ErrorInterceptor implements HttpInterceptor {
                 return throwError(err);
             })
         );
-    }
-
-    openSnackBar(
-        msg: string = 'Операция выполнена',
-        panelClass: string | string[] = '',
-        msgDuration: number = 5000,
-        actionText?: string,
-        actionFunction?: () => void
-    ): void {
-        const configSnackBar = new MatSnackBarConfig();
-        configSnackBar.panelClass = panelClass;
-        configSnackBar.duration = msgDuration;
-        const snackBarInstance = this.snackBar.open(msg, actionText, configSnackBar);
-        if (actionFunction) {
-            snackBarInstance.onAction().subscribe(() => actionFunction());
-        }
     }
 }

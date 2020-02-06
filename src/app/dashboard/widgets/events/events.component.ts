@@ -22,7 +22,7 @@ import { EventService } from '../../services/event.service';
     styleUrls: ['./events.component.scss'],
 })
 export class EventsComponent implements OnInit, OnDestroy {
-    @Input() name = '';
+    @Input() name: string = '';
     ng;
     isList: boolean = false;
 

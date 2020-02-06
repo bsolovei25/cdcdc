@@ -80,6 +80,8 @@ import { TimeLineDiagramComponent } from './widgets/time-line-diagram/time-line-
 import { TimeDiagramComponent } from './widgets/time-line-diagram/time-diagram/time-diagram.component';
 import { ObservationNormTRComponent } from './widgets/observation-norm-tr/observation-norm-tr.component';
 import { AdminReferencesComponent } from './widgets/admin-references/admin-references.component';
+import { CardVerifierComponent } from './widgets/change-shift/card-verifier/card-verifier.component';
+import {ScrollingModule} from "@angular/cdk/scrolling";
 
 @NgModule({
     declarations: [
@@ -154,6 +156,7 @@ import { AdminReferencesComponent } from './widgets/admin-references/admin-refer
         SearchListComponent,
         ObservationNormTRComponent,
         AdminReferencesComponent,
+        CardVerifierComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -213,6 +216,7 @@ import { AdminReferencesComponent } from './widgets/admin-references/admin-refer
         ClickOutsideModule,
         DashboardRoutingModule,
         MatSnackBarModule,
+        ScrollingModule,
     ],
     bootstrap: [],
 })

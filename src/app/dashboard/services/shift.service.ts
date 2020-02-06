@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core';
-import {Employee, ICommentRequired, ShiftMember, ShiftPass} from '../models/shift.model';
+import {
+    Employee,
+    ICommentRequired,
+    IVerifyWindow,
+    ShiftMember,
+    ShiftPass,
+    VerifyWindowActions
+} from '../models/shift.model';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '../../services/appConfigService';
@@ -13,6 +20,7 @@ import {MatSnackBar, MatSnackBarConfig} from "@angular/material/snack-bar";
 export class ShiftService {
     public shiftPass: BehaviorSubject<ShiftPass> = new BehaviorSubject<ShiftPass>(null);
     public continueWithComment: Subject<ICommentRequired> = new Subject<ICommentRequired>();
+    public verifyWindowSubject: Subject<IVerifyWindow> = new Subject<IVerifyWindow>();
     public allMembers: Employee[] = [];
     public isCommentRequiredPass: boolean = false;
     public isCommentRequiredAccept: boolean = false;
@@ -52,7 +60,7 @@ export class ShiftService {
             .toPromise();
     }
 
-    private async changeStatusAsync(status, id, idShift, msg: string): Promise<any> {
+    private async changeStatusAsync(status, id, idShift, widgetId: string, msg: string): Promise<any> {
         const body = {
             comment: msg,
         };
@@ -63,6 +71,8 @@ export class ShiftService {
                     idShift +
                     '/Employee/' +
                     id +
+                    '/WidgetId/' +
+                    widgetId +
                     '/ChangeStatus/' +
                     status,
                 body
@@ -142,9 +152,13 @@ export class ShiftService {
         this.getShiftInfo();
     }
 
-    public async changeStatus(status, id, idShift, msg: string = null) {
-        await this.changeStatusAsync(status, id, idShift, msg);
+    public async changeStatus(status, id, idShift, widgetId: string, msg: string = null) {
+        const obj = await this.changeStatusAsync(status, id, idShift, widgetId, msg);
+        console.log(obj);
         this.getShiftInfo();
+        if (obj.actionType === 'confirmed') {
+            this.actionVerifyWindow('open', widgetId);
+        }
     }
 
     public async addMember(id, idShift) {
@@ -194,19 +208,17 @@ export class ShiftService {
         }
     }
 
-    public openSnackBar(
-        msg: string = 'Операция выполнена',
-        panelClass: string | string[] = '',
-        msgDuration: number = 5000,
-        actionText?: string,
-        actionFunction?: () => void
-    ): void {
-        const configSnackBar = new MatSnackBarConfig();
-        configSnackBar.panelClass = panelClass;
-        configSnackBar.duration = msgDuration;
-        const snackBarInstance = this.snackBar.open(msg, actionText, configSnackBar);
-        if (actionFunction) {
-            snackBarInstance.onAction().subscribe(() => actionFunction());
-        }
+    public actionVerifyWindow(_action: VerifyWindowActions ,_widgetId: string): void {
+        const obj: IVerifyWindow = {
+            action: _action,
+            widgetId: _widgetId
+        };
+        this.verifyWindowSubject.next(obj);
+    }
+
+    public verifyWindowObservable(widgetId: string): any {
+        return this.verifyWindowSubject.pipe(
+            filter((ref) => ref && ref.widgetId === widgetId)
+        );
     }
 }

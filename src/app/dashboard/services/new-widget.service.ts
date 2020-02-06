@@ -12,6 +12,7 @@ import { WebSocketSubject } from 'rxjs/internal/observable/dom/WebSocketSubject'
 import { webSocket } from 'rxjs/internal/observable/dom/webSocket';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../@core/service/auth.service';
+import {MaterialControllerService} from "./material-controller.service";
 
 interface IDatesInterval {
     fromDateTime: Date;
@@ -72,7 +73,7 @@ export class NewWidgetService {
         public http: HttpClient,
         private authService: AuthService,
         configService: AppConfigService,
-        private snackBar: MatSnackBar
+        private materialController: MaterialControllerService,
     ) {
         this.restUrl = configService.restUrl;
         this.wsUrl = configService.wsUrl;
@@ -237,7 +238,7 @@ export class NewWidgetService {
                 }
             },
             (err) => {
-                console.log('error rest', err);
+                console.error('error rest', err);
                 if (this.authService.userIsAuthenticated) {
                     this.reconnectRest();
                 } else {
@@ -254,10 +255,10 @@ export class NewWidgetService {
 
     private reconnectRest(): void {
         if (this.reconnectRestTimer) {
-            console.log('reconnect уже создан');
+            console.warn('reconnect уже создан');
             return;
         }
-        this.openSnackBar('Переподключение');
+        this.materialController.openSnackBar('Переподключение к хосту');
         this.reconnectRestTimer = setInterval(() => {
             this.getRest();
         }, 5000);
@@ -304,9 +305,10 @@ export class NewWidgetService {
 
     private reconnectWs() {
         if (this.reconnectTimer) {
-            console.log('reconnect уже создан');
+            console.warn('reconnect уже создан');
             return;
         }
+        this.materialController.openSnackBar('Переподключение к данным реального времени');
         this.reconnectTimer = setInterval(() => {
             this.initWS();
             this.dashboard.forEach(el => this.wsConnect(el.id));
@@ -318,7 +320,7 @@ export class NewWidgetService {
         try {
             this.searchWidget$.next(value);
         } catch (error) {
-            return console.log('Поиск пуст');
+            return console.error('Поиск пуст');
         }
     }
 
@@ -363,18 +365,6 @@ export class NewWidgetService {
     public reEmitList(): void {
         this._widgets$.next(this._widgets$.getValue());
         this.searchValue = null;
-    }
-
-    openSnackBar(
-        msg: string = 'Операция выполнена',
-        msgDuration: number = 3000,
-        actionText?: string,
-        actionFunction?: () => void
-    ): void {
-        const snackBarInstance = this.snackBar.open(msg, actionText, { duration: msgDuration });
-        if (actionFunction) {
-            snackBarInstance.onAction().subscribe(() => actionFunction());
-        }
     }
 
     public wsSetParams(Dates: Date[] = null): void {

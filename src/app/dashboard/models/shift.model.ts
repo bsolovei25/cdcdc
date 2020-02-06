@@ -48,6 +48,11 @@ export interface ICommentRequired {
     result: boolean;
 }
 
+export interface IVerifyWindow {
+    action: VerifyWindowActions;
+    widgetId: string;
+}
+
 export type ShiftMemberStatus = 'initialization' |
     'inProgressAccepted' |
     'accepted' |
@@ -63,9 +68,5 @@ export type ShiftStatus = 'initialization' |
     'passed' |
     'passedConfirm';
 
-export interface IWsShiftData {
-    actionType: IWsActionType;
-}
-
-export type IWsActionType = '1' |
-    '2';
+export type VerifyWindowActions = 'open' |
+    'close';

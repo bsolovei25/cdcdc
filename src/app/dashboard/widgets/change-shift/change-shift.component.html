@@ -17,7 +17,16 @@
 
   <evj-frame-top></evj-frame-top>
 
-  <ng-container>
+  <div style="position: relative; height: 100%">
+
+    <div *ngIf="isWindowVerifyActive"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
+      <div class="shadow-panel"></div>
+      <evj-card-verifier [widgetId]="id"></evj-card-verifier>
+    </div>
+
     <div
       class="change-shift"
       (mousedown)="$event.stopPropagation()"
@@ -70,6 +79,7 @@
           <div class="onShift__people scroll-bar">
             <div *ngFor="let person of this.presentMembers; let i = index">
               <evj-shift-person
+                [widgetId]="id"
                 [person]="person"
                 [shiftType]="this.aboutWidget.widgetType"
                 [shiftId]="currentShift.id"
@@ -99,6 +109,7 @@
           <div class="absent__people scroll-bar">
             <div class="absent__person" *ngFor="let person of absentMembers">
               <evj-shift-person
+                [widgetId]="id"
                 [person]="person"
                 [shiftType]="this.aboutWidget.widgetType"
                 [shiftId]="currentShift.id"
@@ -113,7 +124,7 @@
       </div>
       <div class="change-shift__comment" style="height: 120px; min-height: 120px;">
         <div class="comment__title">
-          Комментарий оператора
+          Комментарии оператора
         </div>
         <div class="comment__body">
           <div class="comment__display">
@@ -144,7 +155,7 @@
           </div>
         </div>
       </div>
-      <ng-container *ngIf="this.aboutWidget?.widgetType === 'shift-pass' && !this.shiftService.getIsCommentRequired(this.aboutWidget?.widgetType)">
+      <ng-container *ngIf="aboutWidget && aboutWidget?.widgetType === 'shift-pass' && !this.shiftService.getIsCommentRequired(aboutWidget?.widgetType)">
         <div class="buttons">
           <div class="change-shift__submit">
             <div class="submit__frame submit__frame-left"></div>
@@ -156,7 +167,7 @@
         </div>
       </ng-container>
 
-      <ng-container *ngIf="this.aboutWidget?.widgetType !== 'shift-pass' && !this.shiftService.getIsCommentRequired(this.aboutWidget?.widgetType)">
+      <ng-container *ngIf="aboutWidget?.widgetType !== 'shift-pass' && !this.shiftService.getIsCommentRequired(aboutWidget?.widgetType)">
         <div class="buttons">
           <div class="change-shift__submit">
             <div class="submit__frame submit__frame-left"></div>
@@ -176,7 +187,7 @@
         </div>
       </ng-container>
 
-      <ng-container *ngIf="this.shiftService.getIsCommentRequired(this.aboutWidget.widgetType)">
+      <ng-container *ngIf="this.shiftService.getIsCommentRequired(aboutWidget?.widgetType)">
         <div class="buttons">
           <div class="change-shift__submit">
             <div class="submit__frame submit__frame-left"></div>
@@ -196,7 +207,7 @@
         </div>
       </ng-container>
     </div>
-  </ng-container>
+  </div>
 
   <evj-frame-bottom></evj-frame-bottom>
 </div>
