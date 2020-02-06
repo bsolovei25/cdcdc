@@ -60,4 +60,8 @@ export class PetroleumProductsMovementComponent implements OnInit, OnDestroy {
             }
         }
     }
+
+    onChanged(el: boolean): void {
+        this.isWorkspace = !el;
+    }
 }

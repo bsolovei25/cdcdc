@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
     selector: 'evj-petroleum-reference',
@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./petroleum-reference.component.scss'],
 })
 export class PetroleumReferenceComponent implements OnInit {
+    
+    @Input() shortHeight: boolean;
+
     public title = [
         {
             name: 'Источник',
@@ -287,5 +290,7 @@ export class PetroleumReferenceComponent implements OnInit {
 
     constructor() {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        
+    }
 }
