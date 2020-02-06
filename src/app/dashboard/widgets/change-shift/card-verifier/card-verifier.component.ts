@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ShiftMember} from "../../../models/shift.model";
+import {IVerifyWindow, ShiftMember} from "../../../models/shift.model";
 import {ShiftService} from "../../../services/shift.service";
+import {IUser} from "../../../models/events-widget";
 
 @Component({
   selector: 'evj-card-verifier',
@@ -9,7 +10,7 @@ import {ShiftService} from "../../../services/shift.service";
 })
 export class CardVerifierComponent implements OnInit {
 
-  @Input() public widgetId: string;
+  @Input() public verifyInfo: IVerifyWindow;
 
   constructor(public shiftService: ShiftService) { }
 
@@ -23,7 +24,7 @@ export class CardVerifierComponent implements OnInit {
   }
 
   public closeVerifyWindow(): void {
-    this.shiftService.actionVerifyWindow('close', this.widgetId);
+    this.shiftService.actionVerifyWindow('close', this.verifyInfo.widgetId, false, this.verifyInfo.verifyId);
   }
 
 }

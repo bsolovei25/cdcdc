@@ -1,3 +1,5 @@
+import {IUser} from "./events-widget";
+
 export interface Brigade {
     id: number;
     number: number;
@@ -51,6 +53,9 @@ export interface ICommentRequired {
 export interface IVerifyWindow {
     action: VerifyWindowActions;
     widgetId: string;
+    verifyId?: number;
+    user?: IUser;
+    result?: boolean;
 }
 
 export type ShiftMemberStatus = 'initialization' |

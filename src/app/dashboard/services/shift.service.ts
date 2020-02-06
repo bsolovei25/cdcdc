@@ -13,6 +13,7 @@ import { AppConfigService } from '../../services/appConfigService';
 import {BehaviorSubject, Subject} from 'rxjs';
 import {filter, map} from "rxjs/operators";
 import {MatSnackBar, MatSnackBarConfig} from "@angular/material/snack-bar";
+import {IUser} from "../models/events-widget";
 
 @Injectable({
     providedIn: 'root',
@@ -152,12 +153,12 @@ export class ShiftService {
         this.getShiftInfo();
     }
 
-    public async changeStatus(status, id, idShift, widgetId: string, msg: string = null) {
+    public async changeStatus(status, id, idShift, widgetId: string, msg: string = null): Promise<void> {
         const obj = await this.changeStatusAsync(status, id, idShift, widgetId, msg);
         console.log(obj);
         this.getShiftInfo();
         if (obj.actionType === 'confirmed') {
-            this.actionVerifyWindow('open', widgetId);
+            this.actionVerifyWindow('open', widgetId, null, obj.confirmId, obj.user);
         }
     }
 
@@ -208,12 +209,19 @@ export class ShiftService {
         }
     }
 
-    public actionVerifyWindow(_action: VerifyWindowActions ,_widgetId: string): void {
+    public actionVerifyWindow(_action: VerifyWindowActions, _widgetId: string, _result: boolean, _verifyId: number = null, _user: IUser = null): void {
         const obj: IVerifyWindow = {
             action: _action,
-            widgetId: _widgetId
+            widgetId: _widgetId,
+            verifyId: _verifyId,
+            user: _user,
+            result: _result,
         };
         this.verifyWindowSubject.next(obj);
+    }
+
+    public resultVerify(verifyInfo: VerifyWindowActions, _result: boolean): void {
+        console.log(verifyInfo);
     }
 
     public verifyWindowObservable(widgetId: string): any {

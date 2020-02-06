@@ -1,13 +1,14 @@
 <div class="poser">
     <div class="back">
         <div class="photo">
+            <div class="img"></div>
         </div>
         <div class="block-top">
             <div class="fio-text text-formatter">
-                Гребенщиов В.М.
+                {{ verifyInfo?.user?.lastName }} {{ verifyInfo?.user?.firstName?.charAt(0).toUpperCase() }}.{{ verifyInfo?.user.middleName?.charAt(0).toUpperCase() }}.
             </div>
             <div class="type-text text-formatter">
-                Старший оператор
+                {{ verifyInfo?.user?.positionDescription }}
             </div>
         </div>
         <div class="block-middle text-formatter">
@@ -26,3 +27,4 @@
         </div>
     </div>
 </div>
+

@@ -10,11 +10,12 @@ import {
 import { ShiftService } from '../../services/shift.service';
 import {BehaviorSubject, Subscription} from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
-import {ICommentRequired, Shift, ShiftComment, ShiftMember} from '../../models/shift.model';
+import {ICommentRequired, IVerifyWindow, Shift, ShiftComment, ShiftMember} from '../../models/shift.model';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { IWidgets } from '../../models/widget.model';
 import {tryCatch} from "rxjs/internal-compatibility";
 import {MaterialControllerService} from "../../services/material-controller.service";
+import {IUser} from "../../models/events-widget";
 
 @Component({
     selector: 'evj-change-shift',
@@ -50,6 +51,7 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
     public addingShiftMembers: ShiftMember[] = [];
 
     public isWindowVerifyActive: boolean = false;
+    public verifyInfo: IVerifyWindow = null;
 
     private subscriptions: Subscription[] = [];
 
@@ -110,6 +112,7 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
             this.subscriptions.push(
                 this.shiftService.verifyWindowObservable(this.id).subscribe((obj) => {
                     console.log(obj);
+                    this.verifyInfo = obj;
                     if (obj.action === 'close') {
                         this.isWindowVerifyActive = false;
                     } else if (obj.action === 'open') {
@@ -130,6 +133,11 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
 
     private socketHandler(data: any): void {
         console.log(data);
+        if (data.isConfirm) {
+            console.log('Success');
+        } else {
+            console.log('Failed');
+        }
     }
 
     private setRealtimeData(widgetType, data): void {
