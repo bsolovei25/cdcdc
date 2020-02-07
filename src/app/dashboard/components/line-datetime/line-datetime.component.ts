@@ -25,7 +25,7 @@ export class LineDatetimeComponent implements OnInit, AfterViewInit, OnDestroy {
     public currentData: number;
     public dates = [];
 
-    public dateFromSelector: HeaderDate = { start: 0, end: 0, status: true };
+    public dateFromSelector: HeaderDate = { start: 0, end: 0, status: true, otherMonth: '' };
 
     public positionEndLine: number = 1;
     public positionStartLine: number = 1;
@@ -95,14 +95,20 @@ export class LineDatetimeComponent implements OnInit, AfterViewInit, OnDestroy {
 
     public searchDate(data, elStart) {
         let widthBlock = this.widthBlockDataLine();
+        let end: number;
+        if (data.end > this.dates.length) {
+            end = this.dates.length;
+        } else {
+            end = data.end;
+        }
 
         let count = this.dates.length / 100;
-        let countLine = data.end - data.start + 1;
+        let countLine = end - data.start + 1;
 
         let lineLength = widthBlock * this.dates.length;
         let pieLine = (widthBlock * 100) / lineLength;
 
-        let start = data.end > data.start ? data.start : data.end;
+        let start = end > data.start ? data.start : end;
 
         let positionStartLine = (start - 1) / count - 0.45;
 
