@@ -9,6 +9,7 @@ import {
     IEnergeticsCard,
     IEnergeticsCircleDiagram,
 } from '../../models/energetics';
+import { debug } from 'util';
 
 @Component({
     selector: 'evj-energetics',
@@ -136,8 +137,13 @@ export class EnergeticsComponent implements OnInit, OnDestroy {
                     Math.abs(this.data.higherBorder - this.data.plan) / this.data.plan;
                 this.data.lowerValue = this.data.plan * (1 - this.data.lowerBorder);
                 this.data.higherValue = this.data.plan * (1 + this.data.higherBorder);
-                console.log(this.data);
                 this.energyCircleDiagram = ref.circleDiagram;
+                this.termoCard = ref.termoCard;
+                this.termoCard.curValue = ref.termoCard.currentValue;
+                this.electroCard = ref.electroCard;
+                this.electroCard.curValue = ref.electroCard.currentValue;
+                this.fuelCard = ref.fuelCard;
+                this.fuelCard.curValue = ref.fuelCard.currentValue;
             })
         );
     }

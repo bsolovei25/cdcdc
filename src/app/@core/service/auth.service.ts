@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from 'src/app/services/appConfigService';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IUser } from '../../dashboard/models/events-widget';
+import {MaterialControllerService} from "../../dashboard/services/material-controller.service";
 // Local modules
 
 export interface ITokenData extends IUser {
@@ -35,7 +36,7 @@ export class AuthService {
         private router: Router,
         private http: HttpClient,
         private configService: AppConfigService,
-        private snackBar: MatSnackBar
+        private materialController: MaterialControllerService,
     ) {
         // this.restUrl = configService.restUrl;
         this.configService.restUrl$.subscribe((value) => {
@@ -54,6 +55,7 @@ export class AuthService {
             this.configureUserAuth(auth);
             return auth;
         } catch (error) {
+            this.materialController.openSnackBar('Ошибка авторизации, неверный логин или пароль, обратитесь к системному администратору!');
             console.error(error);
         }
     }
@@ -90,6 +92,7 @@ export class AuthService {
             return current;
         } catch (error) {
             this.router.navigate(['login']);
+            this.materialController.openSnackBar('Ошибка авторизации, неудачная попытка Windows аутентификации, обратитесь к системному администратору!');
             console.warn(error);
         }
         return null;
@@ -118,18 +121,6 @@ export class AuthService {
             this.resetUserAuth(true);
         } catch (error) {
             console.error(error);
-        }
-    }
-
-    private openSnackBar(
-        msg: string = 'Операция выполнена',
-        msgDuration: number = 3000,
-        actionText?: string,
-        actionFunction?: () => void
-    ): void {
-        const snackBarInstance = this.snackBar.open(msg, actionText, { duration: msgDuration });
-        if (actionFunction) {
-            snackBarInstance.onAction().subscribe(() => actionFunction());
         }
     }
 }

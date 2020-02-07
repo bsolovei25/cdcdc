@@ -1,3 +1,5 @@
+import {IUser} from "./events-widget";
+
 export interface Brigade {
     id: number;
     number: number;
@@ -15,7 +17,7 @@ export interface Employee {
 
 export interface ShiftMember {
     employee: Employee;
-    status: string;
+    status: ShiftMemberStatus;
     position: string;
     shiftType?: string;
 }
@@ -26,6 +28,7 @@ export interface Shift {
     brigade: Brigade;
     shiftPassingComments: ShiftComment[];
     shiftAcceptingComments: ShiftComment[];
+    status: ShiftStatus;
 }
 
 export interface ShiftPass {
@@ -40,3 +43,35 @@ export interface ShiftComment {
     createdAt: Date;
     createdBy: number;
 }
+
+export interface ICommentRequired {
+    idShift: number;
+    comment: string;
+    result: boolean;
+}
+
+export interface IVerifyWindow {
+    action: VerifyWindowActions;
+    widgetId: string;
+    verifyId?: number;
+    user?: IUser;
+    result?: boolean;
+}
+
+export type ShiftMemberStatus = 'initialization' |
+    'inProgressAccepted' |
+    'accepted' |
+    'inProgressPassed' |
+    'passed' |
+    'absent' |
+    'missing';
+
+export type ShiftStatus = 'initialization' |
+    'inProgressAccepted' |
+    'accepted' |
+    'inProgressPassed' |
+    'passed' |
+    'passedConfirm';
+
+export type VerifyWindowActions = 'open' |
+    'close';

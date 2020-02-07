@@ -263,14 +263,29 @@
           border-radius: 50%;
           background-size: auto;
 
-          &__InProgress {
-            background-color: var(--color-border-main);
-            mask: url("../../../../assets/icons/widgets/process/in-work.svg") no-repeat center;
+          &__success {
+            background-color: var(--color-shift-status-success);
+            mask: url("../../../../assets/icons/widgets/change-shift/statuses/success.svg") no-repeat center;
             mask-size: contain;
           }
-          &__Ready {
-            background-color: var(--color-text-main);
-            mask: url("../../../../assets/icons/widgets/process/closed.svg") no-repeat center;
+          &__progress {
+            background-color: var(--color-shift-status-process);
+            mask: url("../../../../assets/icons/widgets/change-shift/statuses/progress.svg") no-repeat center;
+            mask-size: contain;
+          }
+          &__absent {
+            background-color: var(--color-shift-status-absent);
+            mask: url("../../../../assets/icons/widgets/change-shift/statuses/absent.svg") no-repeat center;
+            mask-size: contain;
+          }
+          &__missing {
+            background-color: var(--color-shift-status-missing);
+            mask: url("../../../../assets/icons/widgets/change-shift/statuses/missing.svg") no-repeat center;
+            mask-size: contain;
+          }
+          &__init {
+            background-color: var(--color-shift-status-init);
+            mask: url("../../../../assets/icons/widgets/change-shift/statuses/init.svg") no-repeat center;
             mask-size: contain;
           }
         }
@@ -337,7 +352,7 @@
       }
 
       &__number {
-        font-size: 42px;
+        font-size: 35px;
         min-height: 42px;
         font-weight: bold;
         line-height: 100%;
@@ -529,7 +544,7 @@
         position: relative;
         font-size: 7px;
         box-sizing: border-box;
-        margin: 0 5px 20px;
+        margin: 0 5px 12px;
 
         .person {
           display: flex;
@@ -968,4 +983,13 @@
 
 .buttons {
   display: flex;
+}
+
+.shadow-panel {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  z-index: 999;
+  opacity: 0.05;
 }

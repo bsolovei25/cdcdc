@@ -10,7 +10,7 @@
     cursor: pointer;
     border: none;
     border-radius: 3px;
-    color: white;
+    color: rgb(162, 226, 255);
     // border-radius: 100%;
     width: 26px;
     height: 32px;
@@ -22,14 +22,25 @@
     outline: none;
   }
 
+  .critical {
+    color: orange;
+  }
+
   .paginator-button:disabled {
     cursor: default;
-    color: #49e6e6;
+    color: white;
     border: none;
+    background-image: url(../../../../assets/pic/OilControl/not_critical_button.svg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+
+  .critical:disabled {
+    background-image: url(../../../../assets/pic/OilControl/critical_button.svg);
   }
 
   .paginator-button:not(:disabled):hover {
-    background-color: rgb(54, 82, 207);
+    color: white;
   }
 
   .paginator-dots {

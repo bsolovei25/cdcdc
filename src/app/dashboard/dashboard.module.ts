@@ -81,6 +81,18 @@ import { TimeDiagramComponent } from './widgets/time-line-diagram/time-diagram/t
 import { ObservationNormTRComponent } from './widgets/observation-norm-tr/observation-norm-tr.component';
 import { AdminComponent } from './widgets/admin/admin.component';
 import { AdminWorkspaceCardComponent } from './widgets/admin/admin-workspace-card/admin-workspace-card.component';
+import { AdminReferencesComponent } from './widgets/admin-references/admin-references.component';
+import { CardVerifierComponent } from './widgets/change-shift/card-verifier/card-verifier.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { PetroleumProductsMovementComponent } from './widgets/petroleum-products-movement/petroleum-products-movement.component';
+import { PetroleumReferenceLeftComponent } from './widgets/petroleum-products-movement/petroleum-reference-left/petroleum-reference-left.component';
+import { PetroleumReferenceRightComponent } from './widgets/petroleum-products-movement/petroleum-reference-right/petroleum-reference-right.component';
+import { PetroleumReferenceComponent } from './widgets/petroleum-products-movement/petroleum-reference/petroleum-reference.component';
+import { PetroleumWorkspaceComponent } from './widgets/petroleum-products-movement/petroleum-workspace/petroleum-workspace.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
     declarations: [
@@ -156,6 +168,13 @@ import { AdminWorkspaceCardComponent } from './widgets/admin/admin-workspace-car
         ObservationNormTRComponent,
         AdminComponent,
         AdminWorkspaceCardComponent,
+        AdminReferencesComponent,
+        CardVerifierComponent,
+        PetroleumProductsMovementComponent,
+        PetroleumReferenceLeftComponent,
+        PetroleumReferenceRightComponent,
+        PetroleumReferenceComponent,
+        PetroleumWorkspaceComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -201,6 +220,8 @@ import { AdminWorkspaceCardComponent } from './widgets/admin/admin-workspace-car
         TimeLineDiagramComponent,
         SolidGaugesComponent,
         ObservationNormTRComponent,
+        AdminReferencesComponent,
+        PetroleumProductsMovementComponent,
     ],
     exports: [HomeComponent],
     imports: [
@@ -214,6 +235,11 @@ import { AdminWorkspaceCardComponent } from './widgets/admin/admin-workspace-car
         ClickOutsideModule,
         DashboardRoutingModule,
         MatSnackBarModule,
+        ScrollingModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatInputModule,
+        MatFormFieldModule,
     ],
     bootstrap: [],
 })

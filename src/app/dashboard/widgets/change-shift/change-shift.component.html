@@ -7,7 +7,6 @@
 
 <div class="container pointer-event" *ngIf="!isMock">
   <evj-widget-header
-    *ngIf="this.aboutWidget"
     [title]="title"
     [units]=""
     [code]=""
@@ -18,7 +17,16 @@
 
   <evj-frame-top></evj-frame-top>
 
-  <ng-container>
+  <div style="position: relative; height: 100%">
+
+    <div *ngIf="isWindowVerifyActive"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
+      <div class="shadow-panel"></div>
+      <evj-card-verifier [verifyInfo]="verifyInfo"></evj-card-verifier>
+    </div>
+
     <div
       class="change-shift"
       (mousedown)="$event.stopPropagation()"
@@ -45,15 +53,18 @@
             <div
               class="mainWorker__row_colIcon"
               *ngIf="getMain()"
-              [class.mainWorker__row_colIcon__InProgress]="!(getMain().status === 'passed' || getMain().status === 'accepted')"
-              [class.mainWorker__row_colIcon__Ready]="getMain().status === 'passed' || getMain().status === 'accepted'"
+              [class.mainWorker__row_colIcon__success]="(getMain().status === 'passed' || getMain().status === 'accepted')"
+              [class.mainWorker__row_colIcon__progress]="(getMain().status === 'inProgressPassed' || getMain().status === 'inProgressAccepted')"
+              [class.mainWorker__row_colIcon__absent]="(getMain().status === 'absent')"
+              [class.mainWorker__row_colIcon__missing]="(getMain().status === 'missing')"
+              [class.mainWorker__row_colIcon__init]="(getMain().status === 'initialization')"
             ></div>
           </div>
           <div class="mainWorker__row">
             <div class="circle circle__right circle__right-top"></div>
             <div class="mainWorker__squad">Бригада</div>
-            <div class="mainWorker__number" *ngIf="currentShift != null">
-              {{ currentShift.brigade.number }}
+            <div class="mainWorker__number">
+              {{ currentShift?.brigade?.number }}
             </div>
           </div>
         </div>
@@ -68,12 +79,14 @@
           <div class="onShift__people scroll-bar">
             <div *ngFor="let person of this.presentMembers; let i = index">
               <evj-shift-person
+                [widgetId]="id"
                 [person]="person"
                 [shiftType]="this.aboutWidget.widgetType"
                 [shiftId]="currentShift.id"
                 [currentBrigade]="currentShift.brigade.id"
                 [onShift]="true"
                 [isPresent]="true"
+                [currentShift]="this.currentShift"
               ></evj-shift-person>
             </div>
           </div>
@@ -96,11 +109,13 @@
           <div class="absent__people scroll-bar">
             <div class="absent__person" *ngFor="let person of absentMembers">
               <evj-shift-person
+                [widgetId]="id"
                 [person]="person"
                 [shiftType]="this.aboutWidget.widgetType"
                 [shiftId]="currentShift.id"
                 [onShift]="true"
                 [currentBrigade]="currentShift.brigade.id"
+                [currentShift]="this.currentShift"
                 [isPresent]="false"
               ></evj-shift-person>
             </div>
@@ -109,7 +124,7 @@
       </div>
       <div class="change-shift__comment" style="height: 120px; min-height: 120px;">
         <div class="comment__title">
-          Комментарий оператора
+          Комментарии оператора
         </div>
         <div class="comment__body">
           <div class="comment__display">
@@ -140,40 +155,59 @@
           </div>
         </div>
       </div>
-      <ng-container *ngIf="aboutWidget && this.aboutWidget.widgetType === 'shift-pass'">
+      <ng-container *ngIf="aboutWidget && aboutWidget?.widgetType === 'shift-pass' && !this.shiftService.getIsCommentRequired(aboutWidget?.widgetType)">
         <div class="buttons">
           <div class="change-shift__submit">
             <div class="submit__frame submit__frame-left"></div>
             <div class="submit__frame submit__frame-right"></div>
             <button type="submit" (click)="shiftApply()">
-              {{ this.aboutWidget.widgetType === "shift-pass" ? "Передать смену" : "Принять смену"
-              }}
+              Передать смену
             </button>
           </div>
         </div>
       </ng-container>
-      <ng-container *ngIf="aboutWidget && this.aboutWidget.widgetType !== 'shift-pass'">
+
+      <ng-container *ngIf="aboutWidget?.widgetType !== 'shift-pass' && !this.shiftService.getIsCommentRequired(aboutWidget?.widgetType)">
         <div class="buttons">
           <div class="change-shift__submit">
             <div class="submit__frame submit__frame-left"></div>
             <div class="submit__frame submit__frame-right"></div>
             <button type="submit" (click)="shiftApply()">
-              {{ this.aboutWidget.widgetType === "shift-pass" ? "Передать смену" : "Принять смену"
-              }}
+              Принять смену
             </button>
           </div>
           <div style="margin: 5px"></div>
           <div class="change-shift__submit">
             <div class="submit__frame submit__frame-left"></div>
             <div class="submit__frame submit__frame-right"></div>
-            <button (click)="onRefuse()">
+            <button (click)="this.shiftCancel()">
               Отказаться
             </button>
           </div>
         </div>
       </ng-container>
+
+      <ng-container *ngIf="this.shiftService.getIsCommentRequired(aboutWidget?.widgetType)">
+        <div class="buttons">
+          <div class="change-shift__submit">
+            <div class="submit__frame submit__frame-left"></div>
+            <div class="submit__frame submit__frame-right"></div>
+            <button type="submit" (click)="onSendMessage()">
+              Подтвердить (оставить комментарий)
+            </button>
+          </div>
+          <div style="margin: 5px"></div>
+          <div class="change-shift__submit">
+            <div class="submit__frame submit__frame-left"></div>
+            <div class="submit__frame submit__frame-right"></div>
+            <button (click)="unsetRequireComment()">
+              Отмена
+            </button>
+          </div>
+        </div>
+      </ng-container>
     </div>
-  </ng-container>
+  </div>
 
   <evj-frame-bottom></evj-frame-bottom>
 </div>
