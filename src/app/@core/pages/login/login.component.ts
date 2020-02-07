@@ -15,8 +15,12 @@ import { PreloaderService } from '../../service/preloader.service';
     templateUrl: './login.component.html',
 })
 export class LoginComponent implements OnInit, AfterViewInit {
-    username: FormControl = new FormControl(environment.username, [Validators.required]);
-    password: FormControl = new FormControl(environment.password, [Validators.required]);
+    username: FormControl = new FormControl(environment.username, [
+        Validators.required,
+    ]);
+    password: FormControl = new FormControl(environment.password, [
+        Validators.required,
+    ]);
 
     isLoadingData: boolean = false;
     isLoading: boolean = true;
@@ -61,11 +65,14 @@ export class LoginComponent implements OnInit, AfterViewInit {
                     this.isLoadingData = false;
                 }, 1000);
             } else {
-                // this.openSnackBar('Неверный логин или пароль');
+                this.openSnackBar('Неверный логин или пароль');
                 this.swing = true;
                 this.isLoadingData = false;
             }
         } catch (err) {
+            if (err.status === 0) {
+                this.openSnackBar('Сервер не отвечает');
+            }
             this.isLoadingData = false;
         }
     }
@@ -76,7 +83,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
         actionText?: string,
         actionFunction?: () => void
     ): void {
-        const snackBarInstance = this.snackBar.open(msg, actionText, { duration: msgDuration });
+        const snackBarInstance = this.snackBar.open(msg, actionText, {
+            duration: msgDuration,
+        });
         if (actionFunction) {
             snackBarInstance.onAction().subscribe(() => actionFunction());
         }

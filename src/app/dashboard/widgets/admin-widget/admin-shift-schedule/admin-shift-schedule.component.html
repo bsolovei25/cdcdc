@@ -12,6 +12,8 @@
     [uniqId]="uniqId"
   ></evj-widget-header>
 
+  <div></div>
+
   <evj-frame-top></evj-frame-top>
 
   <div
@@ -19,12 +21,7 @@
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
   >
-    <!-- <mat-form-field>
-      <input matInput [matDatepicker]="picker" placeholder="Choose a date" />
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field> -->
-    <div class="block-left">
+    <div class="block-top">
       <section class="calendar">
         <mat-calendar
           [dateClass]="dateClass()"
@@ -34,6 +31,11 @@
           locale="ru"
         ></mat-calendar>
       </section>
+      <section class="main-team">
+        <p>Основной состав бригады</p>
+      </section>
+    </div>
+    <div class="block-bottom">
       <section class="duty-schedule">
         <div class="title"><p>График дежурств</p></div>
         <div class="date-yesterday"><p>7 января - 8 января 2020</p></div>
@@ -42,7 +44,9 @@
           <p>20.00-06.00</p>
           <p>Бригада 1</p>
         </div>
-        <div class="date-today"><p>{{ selectedDate | date:'MMMM' }}</p></div>
+        <div class="date-today">
+          <p>{{ selectedDate | date:'d MMMM yyyy' }}</p>
+        </div>
         <div class="shift-today">
           <p>I смена</p>
           <p>20.00-06.00</p>
@@ -59,10 +63,9 @@
           <p>Назначить</p>
         </div>
       </section>
-    </div>
-    <div class="block-right">
-      <section class="main-team"></section>
-      <section class="additional-team"></section>
+      <section class="additional-team">
+        <p>Дополнительный состав бригады</p>
+      </section>
     </div>
   </div>
 

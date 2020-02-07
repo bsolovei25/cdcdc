@@ -27,7 +27,9 @@ export class AuthService {
     }
 
     get userSessionToken(): string | null {
-        const storageToken: string | null = localStorage.getItem('authentication-token');
+        const storageToken: string | null = localStorage.getItem(
+            'authentication-token'
+        );
         return this.authTokenData ? this.authTokenData.token : storageToken;
     }
 
@@ -43,19 +45,18 @@ export class AuthService {
         });
     }
 
-    async authenticate(username: string, password: string): Promise<ITokenData> {
-        try {
-            const auth = await this.http
-                .post<ITokenData>(this.restUrl + `/api/user-management/auth`, {
-                    username,
-                    password,
-                })
-                .toPromise();
-            this.configureUserAuth(auth);
-            return auth;
-        } catch (error) {
-            console.error(error);
-        }
+    async authenticate(
+        username: string,
+        password: string
+    ): Promise<ITokenData> {
+        const auth = await this.http
+            .post<ITokenData>(this.restUrl + `/api/user-management/auth`, {
+                username,
+                password,
+            })
+            .toPromise();
+        this.configureUserAuth(auth);
+        return auth;
     }
 
     async getUserAuth(): Promise<ITokenData[]> | null {
@@ -69,7 +70,9 @@ export class AuthService {
         try {
             if (this.userSessionToken) {
                 current = await this.http
-                    .get<ITokenData[]>(this.restUrl + '/api/user-management/current')
+                    .get<ITokenData[]>(
+                        this.restUrl + '/api/user-management/current'
+                    )
                     .toPromise();
                 this.configureUserAuth(current[0]);
                 return current;
@@ -81,9 +84,12 @@ export class AuthService {
         // If not loaded by token, try with Windows auth
         try {
             current = await this.http
-                .get<ITokenData[]>(this.restUrl + '/api/user-management/windows-current', {
-                    withCredentials: true,
-                })
+                .get<ITokenData[]>(
+                    this.restUrl + '/api/user-management/windows-current',
+                    {
+                        withCredentials: true,
+                    }
+                )
                 .toPromise();
 
             this.configureUserAuth(current[0]);
@@ -127,7 +133,9 @@ export class AuthService {
         actionText?: string,
         actionFunction?: () => void
     ): void {
-        const snackBarInstance = this.snackBar.open(msg, actionText, { duration: msgDuration });
+        const snackBarInstance = this.snackBar.open(msg, actionText, {
+            duration: msgDuration,
+        });
         if (actionFunction) {
             snackBarInstance.onAction().subscribe(() => actionFunction());
         }

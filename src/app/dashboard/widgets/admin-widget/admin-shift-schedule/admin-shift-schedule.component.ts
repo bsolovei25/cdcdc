@@ -17,11 +17,12 @@ export class AdminShiftScheduleComponent implements OnDestroy {
     aboutWidget: string;
     public previewTitle: string = 'calendar-plan';
     public title: string = '';
+    defaultLocale: string = 'ru-RU';
 
     public subscription: Subscription;
 
     @ViewChild('calendar', { static: true }) calendar: MatCalendar<Date>;
-    
+
     selectedDate: Date;
 
     constructor(
@@ -56,7 +57,7 @@ export class AdminShiftScheduleComponent implements OnDestroy {
         };
     }
 
-    setRus() {
+    setRus(): void {
         this.dateAdapter.setLocale('ru');
         this.dateAdapter.getFirstDayOfWeek = () => {
             return 1;

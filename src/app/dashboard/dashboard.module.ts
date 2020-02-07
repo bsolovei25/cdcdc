@@ -1,5 +1,5 @@
 import { ChangeShiftComponent } from './widgets/change-shift/change-shift.component';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './pages/home/home.component';
 import { SharedModule } from '../@shared/shared.module';
@@ -237,5 +237,6 @@ import { PetroleumWorkspaceComponent } from './widgets/petroleum-products-moveme
         MatNativeDateModule,
     ],
     bootstrap: [],
+    providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }],
 })
 export class DashboardModule {}
