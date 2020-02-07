@@ -86,16 +86,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { AdminReferencesComponent } from './widgets/admin-references/admin-references.component';
 import { CardVerifierComponent } from './widgets/change-shift/card-verifier/card-verifier.component';
-import {ScrollingModule} from "@angular/cdk/scrolling";
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { PetroleumProductsMovementComponent } from './widgets/petroleum-products-movement/petroleum-products-movement.component';
 import { PetroleumReferenceLeftComponent } from './widgets/petroleum-products-movement/petroleum-reference-left/petroleum-reference-left.component';
 import { PetroleumReferenceRightComponent } from './widgets/petroleum-products-movement/petroleum-reference-right/petroleum-reference-right.component';
 import { PetroleumReferenceComponent } from './widgets/petroleum-products-movement/petroleum-reference/petroleum-reference.component';
 import { PetroleumWorkspaceComponent } from './widgets/petroleum-products-movement/petroleum-workspace/petroleum-workspace.component';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
     declarations: [
