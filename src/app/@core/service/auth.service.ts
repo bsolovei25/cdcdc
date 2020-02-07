@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from 'src/app/services/appConfigService';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IUser } from '../../dashboard/models/events-widget';
-import {MaterialControllerService} from "../../dashboard/services/material-controller.service";
+import { MaterialControllerService } from '../../dashboard/services/material-controller.service';
 // Local modules
 
 export interface ITokenData extends IUser {
@@ -36,7 +36,7 @@ export class AuthService {
         private router: Router,
         private http: HttpClient,
         private configService: AppConfigService,
-        private materialController: MaterialControllerService,
+        private materialController: MaterialControllerService
     ) {
         // this.restUrl = configService.restUrl;
         this.configService.restUrl$.subscribe((value) => {
@@ -55,7 +55,9 @@ export class AuthService {
             this.configureUserAuth(auth);
             return auth;
         } catch (error) {
-            this.materialController.openSnackBar('Ошибка авторизации, неверный логин или пароль, обратитесь к системному администратору!');
+            this.materialController.openSnackBar(
+                'Ошибка авторизации, неверный логин или пароль, обратитесь к системному администратору!'
+            );
             console.error(error);
         }
     }
@@ -92,7 +94,9 @@ export class AuthService {
             return current;
         } catch (error) {
             this.router.navigate(['login']);
-            this.materialController.openSnackBar('Ошибка авторизации, неудачная попытка Windows аутентификации, обратитесь к системному администратору!');
+            this.materialController.openSnackBar(
+                'Ошибка авторизации, неудачная попытка Windows аутентификации, обратитесь к системному администратору!'
+            );
             console.warn(error);
         }
         return null;

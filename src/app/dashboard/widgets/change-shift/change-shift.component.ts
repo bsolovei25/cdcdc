@@ -10,12 +10,18 @@ import {
 import { ShiftService } from '../../services/shift.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
-import {ICommentRequired, IVerifyWindow, Shift, ShiftComment, ShiftMember} from '../../models/shift.model';
+import {
+    ICommentRequired,
+    IVerifyWindow,
+    Shift,
+    ShiftComment,
+    ShiftMember,
+} from '../../models/shift.model';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { IWidgets } from '../../models/widget.model';
-import {tryCatch} from "rxjs/internal-compatibility";
-import {MaterialControllerService} from "../../services/material-controller.service";
-import {IUser} from "../../models/events-widget";
+import { tryCatch } from 'rxjs/internal-compatibility';
+import { MaterialControllerService } from '../../services/material-controller.service';
+import { IUser } from '../../models/events-widget';
 import set = Reflect.set;
 
 @Component({
@@ -66,16 +72,16 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
-    ) {
-
-    }
+    ) {}
 
     private wsConnect(): void {
-        this.subscriptions.push(this.widgetService
-            .getWidgetLiveDataFromWS(this.id, this.aboutWidget.widgetType)
-            .subscribe((ref) => {
-                this.socketHandler(ref);
-            }));
+        this.subscriptions.push(
+            this.widgetService
+                .getWidgetLiveDataFromWS(this.id, this.aboutWidget.widgetType)
+                .subscribe((ref) => {
+                    this.socketHandler(ref);
+                })
+        );
     }
 
     private showMock(show: boolean): void {
@@ -113,7 +119,7 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
             this.subscriptions.push(
                 this.shiftService.verifyWindowObservable(this.id).subscribe((obj) => {
                     if (obj.action === 'close') {
-                        setTimeout(() => this.isWindowVerifyActive = false, 1000);
+                        setTimeout(() => (this.isWindowVerifyActive = false), 1000);
                     } else if (obj.action === 'open') {
                         this.verifyInfo = obj;
                         this.isWindowVerifyActive = true;
@@ -175,15 +181,15 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
             }
         }
 
-        this.presentMembers = this.currentShift.shiftMembers
-            .filter((el) => el.status !== 'absent'
-                && el.status !== 'initialization'
-                && el.status !== 'missing');
+        this.presentMembers = this.currentShift.shiftMembers.filter(
+            (el) =>
+                el.status !== 'absent' && el.status !== 'initialization' && el.status !== 'missing'
+        );
 
-        this.absentMembers = this.currentShift.shiftMembers
-            .filter((el) => el.status === 'absent'
-                || el.status === 'initialization'
-                || el.status === 'missing');
+        this.absentMembers = this.currentShift.shiftMembers.filter(
+            (el) =>
+                el.status === 'absent' || el.status === 'initialization' || el.status === 'missing'
+        );
 
         console.log();
     }
@@ -296,7 +302,8 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
         this.materialController.openSnackBar('Для продолжения оставьте комментарий');
         this.shiftService.setIsCommentRequired(true, this.aboutWidget.widgetType);
         console.log(this.shiftService.getIsCommentRequired(this.aboutWidget.widgetType));
-        const subscription = this.shiftService.getRequiredComment(this.currentShift.id)
+        const subscription = this.shiftService
+            .getRequiredComment(this.currentShift.id)
             .asObservable()
             .subscribe((ans) => {
                 if (ans.result) {
