@@ -21,7 +21,7 @@ export class HeaderDataService {
     public statusButton;
     public monthStart;
     public monthEnd;
-    public otherMonth: boolean = false;
+    public otherMonth: string;
 
     // public dateToLine = {};
 
@@ -47,20 +47,9 @@ export class HeaderDataService {
         this.monthEnd = datePipe.transform(end, 'yyyyMM');
 
         this.monthStart !== defaultMonth && this.monthEnd !== defaultMonth
-            ? ((this.startDate = '01'), (this.endDate = '31'), (this.otherMonth = true))
-            : this.monthStart !== this.monthEnd &&
-              this.monthStart < this.monthEnd &&
-              this.monthEnd === defaultMonth
-            ? ((this.startDate = '01'), (this.otherMonth = false))
-            : this.monthStart !== this.monthEnd &&
-              this.monthStart < this.monthEnd &&
-              this.monthEnd !== defaultMonth
-            ? ((this.endDate = '31'), (this.otherMonth = true))
-            : this.monthStart === this.monthEnd && this.startDate !== this.endDate
-            ? ((this.endDate = this.endDate),
-              (this.startDate = this.startDate),
-              (this.otherMonth = false))
-            : this.startDate;
+        ? ((this.startDate = '01'), (this.endDate = '31'), (this.otherMonth = 'all')) : this.monthStart !== defaultMonth
+        ? ((this.startDate = '01'), (this.otherMonth = 'past')) : this.monthEnd !== defaultMonth
+        ? ((this.endDate = '31'), (this.otherMonth = 'future')) : this.otherMonth = '';
         this.statusButton = status;
         this.pushDate();
     }
