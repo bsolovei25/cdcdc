@@ -264,6 +264,11 @@ export class EventsComponent implements OnInit, OnDestroy {
     }
 
     private appendNotifications(remoteNotifications: EventsWidgetNotification[]) {
+
+        for (let i = 0; i < 1000000; i++) {
+            remoteNotifications.push(remoteNotifications[0]);
+        }
+
         const notifications = remoteNotifications.map((n) => {
             if (n.category && n.category.name) {
                 const iconUrl = this.getNotificationIcon(n.category.name);
@@ -273,7 +278,7 @@ export class EventsComponent implements OnInit, OnDestroy {
             }
         });
 
-        this.allNotifications = notifications.reverse();
+        this.allNotifications = notifications;
 
         this.notifications = this.applyFilter(this.allNotifications, this.getCurrentOptions());
         this.filters.map((f) => {

@@ -242,10 +242,10 @@
       >
         <div class="events">
           <div class="notifications">
-            <cdk-virtual-scroll-viewport itemSize="20" class="notifications__list scroll-bar">
+            <cdk-virtual-scroll-viewport itemSize="30" class="notifications__list scroll-bar">
               <div
                 class="notification notifications__item"
-                *ngFor="let n of notifications"
+                *cdkVirtualFor="let n of notifications"
                 (click)="eventClick(false, n.id, $event)"
                 [ngClass]="{'selected': selectedId === n.id || eventOverlayId === n.id }"
               >
