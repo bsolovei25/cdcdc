@@ -84,6 +84,8 @@ import { AdminShiftScheduleComponent } from './widgets/admin-widget/admin-shift-
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
+import { AdminComponent } from './widgets/admin/admin.component';
+import { AdminWorkspaceCardComponent } from './widgets/admin/admin-workspace-card/admin-workspace-card.component';
 import { AdminReferencesComponent } from './widgets/admin-references/admin-references.component';
 import { CardVerifierComponent } from './widgets/change-shift/card-verifier/card-verifier.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
@@ -166,6 +168,8 @@ import { PetroleumWorkspaceComponent } from './widgets/petroleum-products-moveme
         SearchListComponent,
         ObservationNormTRComponent,
         AdminShiftScheduleComponent,
+        AdminComponent,
+        AdminWorkspaceCardComponent,
         AdminReferencesComponent,
         CardVerifierComponent,
         PetroleumProductsMovementComponent,

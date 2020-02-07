@@ -6,8 +6,8 @@ import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent } from '@angular/c
 import { throwError, Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
-import {MaterialControllerService} from "../../dashboard/services/material-controller.service";
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { MaterialControllerService } from '../../dashboard/services/material-controller.service';
 // Local modules
 
 @Injectable({
@@ -36,7 +36,10 @@ export class ErrorInterceptor implements HttpInterceptor {
                         console.error(err);
                         break;
                     case 477:
-                        this.materialController.openSnackBar(err.error.messages[0].message, 'snackbar-red');
+                        this.materialController.openSnackBar(
+                            err.error.messages[0].message,
+                            'snackbar-red'
+                        );
                         console.log(err);
                         break;
                     default:

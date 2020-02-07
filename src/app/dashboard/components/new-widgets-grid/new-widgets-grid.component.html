@@ -6,9 +6,7 @@
 >
 </evj-new-widgets-panel>
 
-<gridster id="gridSize"
-          [options]="options"
-          (window:resize)="onResize($event)">
+<gridster id="gridSize" [options]="options" (window:resize)="onResize($event)">
   <gridster-item
     [item]="item"
     *ngFor="let item of widgetService.dashboard; let i = index"

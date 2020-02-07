@@ -1,4 +1,4 @@
-import {IUser} from "./events-widget";
+import { IUser } from './events-widget';
 
 export interface Brigade {
     id: number;
@@ -58,20 +58,21 @@ export interface IVerifyWindow {
     result?: boolean;
 }
 
-export type ShiftMemberStatus = 'initialization' |
-    'inProgressAccepted' |
-    'accepted' |
-    'inProgressPassed' |
-    'passed' |
-    'absent' |
-    'missing';
+export type ShiftMemberStatus =
+    | 'initialization'
+    | 'inProgressAccepted'
+    | 'accepted'
+    | 'inProgressPassed'
+    | 'passed'
+    | 'absent'
+    | 'missing';
 
-export type ShiftStatus = 'initialization' |
-    'inProgressAccepted' |
-    'accepted' |
-    'inProgressPassed' |
-    'passed' |
-    'passedConfirm';
+export type ShiftStatus =
+    | 'initialization'
+    | 'inProgressAccepted'
+    | 'accepted'
+    | 'inProgressPassed'
+    | 'passed'
+    | 'passedConfirm';
 
-export type VerifyWindowActions = 'open' |
-    'close';
+export type VerifyWindowActions = 'open' | 'close';
