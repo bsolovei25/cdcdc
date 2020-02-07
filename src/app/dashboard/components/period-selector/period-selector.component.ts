@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HeaderDataService } from '../../services/header-data.service';
-import {NewWidgetService} from "../../services/new-widget.service";
+import { NewWidgetService } from '../../services/new-widget.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'evj-period-selector',
@@ -12,8 +13,9 @@ export class PeriodSelectorComponent implements OnInit {
     public fromDate: Date;
     public isCurrent: boolean;
 
-    constructor(private headerData: HeaderDataService,
-                private widgetService: NewWidgetService) {
+    // date = new FormControl();
+
+    constructor(private headerData: HeaderDataService, private widgetService: NewWidgetService) {
         this.setDefault();
     }
 
@@ -46,19 +48,31 @@ export class PeriodSelectorComponent implements OnInit {
             0,
             0
         );
+
         if (datetime === 1) {
             if (event) {
-                this.toDate = event;
+                if (new Date(event) < defaultTime) {
+                    this.toDate = event;
+                    this.fromDate = event;
+                } else {
+                    this.toDate = event;
+                }
             } else {
                 this.toDate = defaultTime;
             }
         } else {
             if (event) {
-                this.fromDate = event;
+                if (new Date(event) > defaultTime) {
+                    this.toDate = event;
+                    this.fromDate = event;
+                } else {
+                    this.fromDate = event;
+                }
             } else {
                 this.fromDate = defaultTime;
             }
         }
+
         this.isCurrent = false;
         this.headerData.catchDefaultDate(this.fromDate, this.toDate, this.isCurrent);
 

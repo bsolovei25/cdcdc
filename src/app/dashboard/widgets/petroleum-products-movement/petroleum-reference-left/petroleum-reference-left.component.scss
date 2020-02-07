@@ -1,0 +1,106 @@
+.reference-left {
+  height: 100%;
+}
+
+.top-frame {
+  position: relative;
+  background: linear-gradient(
+    to bottom,
+    var(--color-border-active) -60%,
+    rgba(34, 36, 47, 0.5) 80%
+  );
+  height: 10px;
+  border-left: 0.5px solid var(--color-border-active);
+  border-top: 0.5px solid var(--color-border-active);
+
+  &:before {
+    content: "";
+    position: absolute;
+    height: 18px;
+    width: 15px;
+    top: -7px;
+    left: -7px;
+    transform: rotate(42deg);
+    background: var(--color-bg-main);
+    border-right: 0.5px solid var(--color-border-active);
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    height: 16px;
+    width: 15px;
+    top: 2px;
+    right: -8px;
+    transform: rotate(225deg);
+    background: var(--color-bg-main);
+    // border-right: 1px solid var(--color-border-active);
+  }
+}
+
+.middle {
+  background: rgba(34, 36, 47, 0.5);
+  height: calc(100% - 25px);
+  border-left: 0.5px solid var(--color-border-active);
+  width: calc(100% - 12px);
+}
+
+.top_block_middle {
+  height: 55px;
+  padding-top: 5px;
+}
+
+.bottom_block_middle {
+}
+
+.bottom_frame {
+  background: rgba(34, 36, 47, 0.5);
+  width: calc(100% - 12px);
+  height: 10px;
+  border-left: 0.5px solid var(--color-border-active);
+  border-bottom: 0.5px solid var(--color-border-active);
+
+  &:before {
+    content: "";
+    position: absolute;
+    height: 20px;
+    width: 17px;
+    bottom: 11px;
+    left: -7px;
+    transform: rotate(-42deg);
+    background: var(--color-bg-main);
+    border-right: 0.5px solid var(--color-border-active);
+  }
+}
+
+.title_block {
+  margin: 0 auto;
+  height: 41.5px;
+  width: 260px;
+  background: url(../../../../../assets/icons/widgets/petroleum-products-movement/Background-blue.svg);
+  background-repeat: no-repeat;
+  text-align: center;
+  line-height: 40px;
+  font-size: 12px;
+}
+
+.unclick_button {
+  font-size: 12px;
+  background: url(../../../../../assets/icons/widgets/petroleum-products-movement/active-background-button-left.svg);
+  background-repeat: no-repeat;
+  display: flex;
+  height: 71px;
+  width: 260px;
+  margin: 8px auto;
+}
+
+.button_name {
+  width: 80%;
+  text-align: center;
+  line-height: 70px;
+}
+
+.button_icon {
+  width: 20%;
+  line-height: 70px;
+}
