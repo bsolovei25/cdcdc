@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, HostListener } from '@angular/core';
-import { ShiftMember } from 'src/app/dashboard/models/shift.model';
+import {Component, OnInit, Input, ViewChild, ElementRef, HostListener, Inject} from '@angular/core';
+import {Shift, ShiftMember} from 'src/app/dashboard/models/shift.model';
 import { ShiftService } from '../../../services/shift.service';
+import {MaterialControllerService} from "../../../services/material-controller.service";
 
 @Component({
     selector: 'evj-shift-person',
@@ -8,6 +9,9 @@ import { ShiftService } from '../../../services/shift.service';
     styleUrls: ['./shift-person.component.scss'],
 })
 export class ShiftPersonComponent implements OnInit {
+
+    @Input() public widgetId: string;
+
     @Input() person: ShiftMember;
     @Input() currentBrigade: number;
     @Input() shiftType: string;
@@ -15,6 +19,7 @@ export class ShiftPersonComponent implements OnInit {
     @Input() onShift: boolean;
     @Input() isPresent: boolean;
     @Input() isMain: boolean;
+    @Input() currentShift: Shift;
 
     isDropdownActive: boolean = false;
 
@@ -65,7 +70,9 @@ export class ShiftPersonComponent implements OnInit {
 
     public dropdownMenu: string[];
 
-    constructor(private shiftService: ShiftService) {}
+    constructor(
+        private shiftService: ShiftService,
+        private materialController: MaterialControllerService) {}
 
     ngOnInit(): void {}
 
@@ -77,7 +84,7 @@ export class ShiftPersonComponent implements OnInit {
         return this.mapPosition.find((el) => el.code === code).name;
     }
 
-    onMouseOver() {
+    onMouseOver(): void {
         if (!this.ddMenu) {
             return;
         }
@@ -89,7 +96,7 @@ export class ShiftPersonComponent implements OnInit {
         }
     }
 
-    onMouseOut() {
+    onMouseOut(): void {
         if (this.ddMenu) {
             const classes: DOMTokenList = this.ddMenu.nativeElement.classList;
             if (!classes.contains('disable')) {
@@ -108,7 +115,7 @@ export class ShiftPersonComponent implements OnInit {
             case 'accepted':
                 this.dropdownMenu.push('Готов к передаче');
                 if (!this.person.employee.main) {
-                    this.dropdownMenu.push('Отсутствует');
+                    this.dropdownMenu.push('Покинул смену');
                     this.dropdownMenu.push('Сделать главным');
                 }
                 break;
@@ -116,7 +123,7 @@ export class ShiftPersonComponent implements OnInit {
                 break;
             case 'initialization':
                 if (!this.person.employee.main) {
-                    this.dropdownMenu.push('Покинул смену');
+                    this.dropdownMenu.push('Отсутствует');
                     this.dropdownMenu.push('Сделать главным');
                 }
                 this.dropdownMenu.push('На месте');
@@ -139,30 +146,22 @@ export class ShiftPersonComponent implements OnInit {
     menuCheck(event: any, person: ShiftMember): void {
         switch (event.target.innerText) {
             case 'Принять смену':
-                this.shiftService.changeStatus('accepted', person.employee.id, this.shiftId);
+                this.shiftService.changeStatus('accepted', person.employee.id, this.shiftId, this.widgetId);
                 break;
             case 'Передать смену':
-                this.shiftService.changeStatus('passed', person.employee.id, this.shiftId);
+                this.shiftService.changeStatus('passed', person.employee.id, this.shiftId, this.widgetId);
                 break;
             case 'Отсутствует':
-                this.shiftService.changeStatus('absent', person.employee.id, this.shiftId);
+                this.shiftService.changeStatus('absent', person.employee.id, this.shiftId, this.widgetId);
                 break;
             case 'На месте':
-                this.shiftService.changeStatus(
-                    'inProgressAccepted',
-                    person.employee.id,
-                    this.shiftId
-                );
+                this.shiftService.changeStatus('inProgressAccepted', person.employee.id, this.shiftId, this.widgetId);
                 break;
             case 'Готов к передаче':
-                this.shiftService.changeStatus(
-                    'inProgressPassed',
-                    person.employee.id,
-                    this.shiftId
-                );
+                this.shiftService.changeStatus('inProgressPassed', person.employee.id, this.shiftId, this.widgetId);
                 break;
             case 'Покинул смену':
-                this.shiftService.changeStatus('missing', person.employee.id, this.shiftId);
+                this.shiftService.changeStatus('missing', person.employee.id, this.shiftId, this.widgetId);
                 break;
             case 'Сделать главным':
                 this.shiftService.changePosition(person.employee.id, this.shiftId);
@@ -170,7 +169,38 @@ export class ShiftPersonComponent implements OnInit {
             case 'Удалить':
                 this.shiftService.delMember(person.employee.id, this.shiftId);
                 break;
+            case 'Вернуть':
+                if (this.currentShift.status === 'inProgressAccepted') {
+                    this.shiftService.changeStatus('initialization', person.employee.id, this.shiftId, this.widgetId);
+                } else {
+                    this.changeStatusAccepted(person);
+                }
+                break;
         }
+    }
+
+    public changeStatusAccepted(person: ShiftMember): void {
+        if (this.currentShift.status !== 'accepted') {
+            return;
+        }
+        this.materialController.openSnackBar('Для продолжения оставьте комментарий');
+        this.shiftService.setIsCommentRequired(true, 'shift-accepted');
+        const subscription = this.shiftService.getRequiredComment(this.currentShift.id)
+            .asObservable()
+            .subscribe(ans => {
+                console.log(ans);
+                if (ans.result) {
+                    console.log('continue');
+                    this.shiftService.changeStatus('accepted', person.employee.id, this.shiftId, this.widgetId, ans.comment);
+                } else {
+                    console.log('cancel');
+                }
+                if (subscription) {
+                    subscription.unsubscribe();
+                }
+                this.shiftService.getIsCommentRequired('shift-accepted');
+                this.shiftService.setIsCommentRequired(false, 'shift-accepted');
+            });
     }
 
     addToShift(id) {

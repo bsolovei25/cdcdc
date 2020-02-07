@@ -12,6 +12,7 @@ import {
 import { Subscription } from 'rxjs';
 import { NewUserSettingsService } from '../../services/new-user-settings.service';
 import { EventEmitter } from '@angular/core';
+import {Time} from '@angular/common';
 
 @Component({
     selector: 'evj-new-widgets-grid',
@@ -32,6 +33,8 @@ export class NewWidgetsGridComponent implements OnInit {
     public nameWidget;
 
     public resizeWidget = new EventEmitter<MouseEvent>();
+    
+    private sizeTimeout: any;
 
     _injector: Injector;
 
@@ -47,11 +50,11 @@ export class NewWidgetsGridComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.sizeGrid();
-
         document.addEventListener('fullscreenchange', () => {
             this.fullscreen = document.fullscreenElement ? true : false;
         });
+
+        // document.getElementById('gridSize').onresize = console.log('resize');
 
         this.userSettings.GetScreen();
 
@@ -104,19 +107,32 @@ export class NewWidgetsGridComponent implements OnInit {
                 },
             },
         };
+
+        this.sizeGrid();
     }
 
-    public sizeGrid() {
+    public onResize(event: any): void {
+        clearTimeout(this.sizeTimeout);
+        this.sizeTimeout = setTimeout(() => this.sizeGrid(), 1000);
+    }
+
+    public sizeGrid(): void {
         const widthScreen = document.getElementById('gridSize').clientWidth;
         const heigthScreen = document.getElementById('gridSize').clientHeight;
         const widthScreenDefault = 1920;
         const heigthScreenDefault = 909;
         this.ColWidth = 20;
         this.RowHeight = 20;
-        this.ColWidth *= widthScreen / widthScreenDefault;
-        this.RowHeight *= heigthScreen / heigthScreenDefault;
+        this.ColWidth *= (widthScreen - 660) / (widthScreenDefault - 660);
+        this.RowHeight *= (heigthScreen - 329) / (heigthScreenDefault - 329);
 
-        console.log(this.RowHeight + this.ColWidth);
+        this.options.fixedColWidth = this.ColWidth;
+        this.options.fixedRowHeight = this.RowHeight;
+
+        this.changedOptions();
+
+        console.log(heigthScreen + ' ' + widthScreen);
+        console.log(this.RowHeight + ' ' + this.ColWidth);
     }
 
     public resizeGridsterElement() {
@@ -126,8 +142,6 @@ export class NewWidgetsGridComponent implements OnInit {
 
     public itemChange(item: GridsterItem, itemComponent: GridsterItemComponentInterface) {
         this.userSettings.updateByPosition(item, itemComponent.$item);
-
-        // console.info('itemChanged', this.widgetService.dashboard);
     }
 
     public onSwap(swap: any) {

@@ -10,9 +10,13 @@ import {
 import { ShiftService } from '../../services/shift.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
-import { ICommentRequired, Shift, ShiftComment, ShiftMember } from '../../models/shift.model';
+import {ICommentRequired, IVerifyWindow, Shift, ShiftComment, ShiftMember} from '../../models/shift.model';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { IWidgets } from '../../models/widget.model';
+import {tryCatch} from "rxjs/internal-compatibility";
+import {MaterialControllerService} from "../../services/material-controller.service";
+import {IUser} from "../../models/events-widget";
+import set = Reflect.set;
 
 @Component({
     selector: 'evj-change-shift',
@@ -41,50 +45,84 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
     public title: string = '';
 
     public comments: ShiftComment[] = [];
-    public aboutWidget: IWidgets;
+    public aboutWidget: IWidgets = null;
     public currentShift: Shift = null;
     public presentMembers: ShiftMember[] = null;
     public absentMembers: ShiftMember[] = null;
     public addingShiftMembers: ShiftMember[] = [];
-    public brigadeId: number;
+
+    public isWindowVerifyActive: boolean = false;
+    public verifyInfo: IVerifyWindow = null;
 
     private subscriptions: Subscription[] = [];
 
     static itemCols: number = 16;
     static itemRows: number = 30;
 
-    public isCommentRequired: boolean = false;
-
     constructor(
         private widgetService: NewWidgetService,
-        private shiftService: ShiftService,
-        private snackBar: MatSnackBar,
+        public shiftService: ShiftService,
+        private materialController: MaterialControllerService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
+
+    }
+
+    private wsConnect(): void {
+        this.subscriptions.push(this.widgetService
+            .getWidgetLiveDataFromWS(this.id, this.aboutWidget.widgetType)
+            .subscribe((ref) => {
+                this.socketHandler(ref);
+            }));
+    }
+
+    private showMock(show: boolean): void {
+        if (show) {
+            // do nothing
+        } else {
+            this.wsConnect();
+        }
+    }
+
+    ngOnInit(): void {
         this.subscriptions.push(
             this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
                 this.aboutWidget = data;
                 this.title = this.aboutWidget.title;
-                try {
-                    this.setRealtimeData(
-                        this.aboutWidget.widgetType,
-                        this.shiftService.shiftPass.getValue()
-                    );
-                } catch {}
-            })
-        );
-        this.subscriptions.push(
-            this.shiftService.shiftPass.subscribe((data) => {
-                if (this.aboutWidget) {
-                    this.setRealtimeData(this.aboutWidget.widgetType, data);
+                if (!this.isMock) {
+                    try {
+                        this.setRealtimeData(
+                            this.aboutWidget.widgetType,
+                            this.shiftService.shiftPass.getValue()
+                        );
+                    } catch {}
+                    this.showMock(this.isMock);
                 }
             })
         );
+        if (!this.isMock) {
+            this.subscriptions.push(
+                this.shiftService.shiftPass.subscribe((data) => {
+                    if (this.aboutWidget) {
+                        this.setRealtimeData(this.aboutWidget.widgetType, data);
+                    }
+                })
+            );
+            this.subscriptions.push(
+                this.shiftService.verifyWindowObservable(this.id).subscribe((obj) => {
+                    if (obj.action === 'close') {
+                        setTimeout(() => this.isWindowVerifyActive = false, 1000);
+                    } else if (obj.action === 'open') {
+                        this.verifyInfo = obj;
+                        this.isWindowVerifyActive = true;
+                    }
+                    this.verifyInfo.result = obj.result;
+                })
+            );
+        }
     }
-
-    ngOnInit(): void {}
 
     ngOnDestroy(): void {
         if (this.subscriptions) {
@@ -94,12 +132,18 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
         }
     }
 
+    private socketHandler(data: any): void {
+        console.log(data);
+        this.shiftService.resultVerify(this.id, data.isConfirm);
+    }
+
     private setRealtimeData(widgetType, data): void {
         if (!widgetType || !data) {
             return;
         }
         if (widgetType === 'shift-pass') {
             this.currentShift = data.passingShift;
+            console.log(this.currentShift);
         } else {
             this.currentShift = data.acceptingShift;
             console.log(this.currentShift);
@@ -131,18 +175,20 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
             }
         }
 
-        this.presentMembers = this.currentShift.shiftMembers.filter(
-            (el) => el.status !== 'absent' && el.status !== 'initialization'
-        );
+        this.presentMembers = this.currentShift.shiftMembers
+            .filter((el) => el.status !== 'absent'
+                && el.status !== 'initialization'
+                && el.status !== 'missing');
 
-        this.absentMembers = this.currentShift.shiftMembers.filter(
-            (el) => el.status === 'absent' || el.status === 'initialization'
-        );
+        this.absentMembers = this.currentShift.shiftMembers
+            .filter((el) => el.status === 'absent'
+                || el.status === 'initialization'
+                || el.status === 'missing');
 
         console.log();
     }
 
-    getDisplayPosition(code): string {
+    public getDisplayPosition(code): string {
         if (code) {
             return this.mapPosition.find((el) => el.code === code).name;
         }
@@ -235,65 +281,36 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
             .applyShift(this.currentShift.id, typeOfChangingShift)
             .then((res) => {
                 console.log(res);
+                if (this.aboutWidget.widgetType === 'shift-pass') {
+                    this.materialController.openSnackBar('Смена передана');
+                } else {
+                    this.materialController.openSnackBar('Смена принята');
+                }
             })
             .catch((err) => {
-                if (err.status === 400) {
-                    const message: string = 'Выберите главного';
-                    const panelClass: string = 'snackbar-red';
-                    this.openSnackBar(message, panelClass);
-                    console.error(err.status);
-                } else {
-                    console.error(err.status);
-                }
+                console.log(err);
             });
     }
 
     public shiftCancel(): void {
-        this.isCommentRequired = true;
-        const subscription = this.shiftService
-            .getRequiredComment(this.currentShift.id)
+        this.materialController.openSnackBar('Для продолжения оставьте комментарий');
+        this.shiftService.setIsCommentRequired(true, this.aboutWidget.widgetType);
+        console.log(this.shiftService.getIsCommentRequired(this.aboutWidget.widgetType));
+        const subscription = this.shiftService.getRequiredComment(this.currentShift.id)
             .asObservable()
             .subscribe((ans) => {
                 if (ans.result) {
                     console.log('continue');
                     this.shiftService.cancelShift(this.currentShift.id, ans.comment);
+                    this.materialController.openSnackBar('Отказ от смены');
                 } else {
                     console.log('cancel');
                 }
-                this.isCommentRequired = false;
+                this.shiftService.setIsCommentRequired(false, this.aboutWidget.widgetType);
                 if (subscription) {
                     subscription.unsubscribe();
                 }
             });
-    }
-
-    openSnackBar(
-        msg: string = 'Операция выполнена',
-        panelClass: string | string[] = '',
-        msgDuration: number = 5000,
-        actionText?: string,
-        actionFunction?: () => void
-    ): void {
-        const configSnackBar = new MatSnackBarConfig();
-        configSnackBar.panelClass = panelClass;
-        configSnackBar.duration = msgDuration;
-        const snackBarInstance = this.snackBar.open(msg, actionText, configSnackBar);
-        if (actionFunction) {
-            snackBarInstance.onAction().subscribe(() => actionFunction());
-        }
-    }
-
-    onRefuse(): void {
-        this.shiftService.getShiftInfo().then(() => {
-            const currentComments: ShiftComment[] = this.currentShift.shiftAcceptingComments;
-            if (currentComments.length === 0) {
-                const message: string = 'Введите комментарий';
-                const panelClass: string = 'snackbar-red';
-                this.openSnackBar(message, panelClass);
-            } else {
-                alert('Have comments');
-            }
-        });
     }
 
     public setRequireComment(ref: string): void {

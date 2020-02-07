@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PreloaderService } from '../../service/preloader.service';
+import {MaterialControllerService} from "../../../dashboard/services/material-controller.service";
 // Angular material
 // Local modules
 
@@ -31,7 +32,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     constructor(
         public authService: AuthService,
         private router: Router,
-        private snackBar: MatSnackBar,
+        private materialController: MaterialControllerService,
         private preLoaderService: PreloaderService
     ) {}
 
@@ -65,29 +66,15 @@ export class LoginComponent implements OnInit, AfterViewInit {
                     this.isLoadingData = false;
                 }, 1000);
             } else {
-                this.openSnackBar('Неверный логин или пароль');
+                this.materialController.openSnackBar('Неверный логин или пароль');
                 this.swing = true;
                 this.isLoadingData = false;
             }
         } catch (err) {
             if (err.status === 0) {
-                this.openSnackBar('Сервер не отвечает');
+                this.materialController.openSnackBar('Сервер не отвечает');
             }
             this.isLoadingData = false;
-        }
-    }
-
-    openSnackBar(
-        msg: string = 'Операция выполнена',
-        msgDuration: number = 3000,
-        actionText?: string,
-        actionFunction?: () => void
-    ): void {
-        const snackBarInstance = this.snackBar.open(msg, actionText, {
-            duration: msgDuration,
-        });
-        if (actionFunction) {
-            snackBarInstance.onAction().subscribe(() => actionFunction());
         }
     }
 }
