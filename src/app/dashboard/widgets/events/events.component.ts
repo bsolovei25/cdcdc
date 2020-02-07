@@ -22,7 +22,7 @@ import { EventService } from '../../services/event.service';
     styleUrls: ['./events.component.scss'],
 })
 export class EventsComponent implements OnInit, OnDestroy {
-    @Input() name = '';
+    @Input() name: string = '';
     ng;
     isList: boolean = false;
 
@@ -273,7 +273,7 @@ export class EventsComponent implements OnInit, OnDestroy {
             }
         });
 
-        this.allNotifications = notifications.reverse();
+        this.allNotifications = notifications;
 
         this.notifications = this.applyFilter(this.allNotifications, this.getCurrentOptions());
         this.filters.map((f) => {
