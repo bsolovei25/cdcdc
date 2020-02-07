@@ -4,7 +4,11 @@
   *ngIf="isMock"
 ></evj-widget-preview>
 
-<div style="height: 100%; width: 100%;" [class.activeHeader]="clicked" *ngIf="!isMock">
+<div
+  style="height: 100%; width: 100%;"
+  [class.activeHeader]="clicked"
+  *ngIf="!isMock"
+>
   <evj-widget-header
     [title]="title"
     [units]="units"

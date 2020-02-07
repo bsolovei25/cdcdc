@@ -47,7 +47,9 @@ export class HeaderDataService {
         this.monthEnd = datePipe.transform(end, 'yyyyMM');
 
         this.monthStart !== defaultMonth && this.monthEnd !== defaultMonth
-            ? ((this.startDate = '01'), (this.endDate = '31'), (this.otherMonth = 'all'))
+            ? ((this.startDate = '01'),
+              (this.endDate = '31'),
+              (this.otherMonth = 'all'))
             : this.monthStart !== defaultMonth
             ? ((this.startDate = '01'), (this.otherMonth = 'past'))
             : this.monthEnd !== defaultMonth

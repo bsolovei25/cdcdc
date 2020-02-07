@@ -148,7 +148,8 @@ export class EventsComponent implements OnInit, OnDestroy {
         closed: 'Завершено',
     };
 
-    private readonly defaultIconPath = './assets/icons/widgets/events/smotr.svg';
+    private readonly defaultIconPath =
+        './assets/icons/widgets/events/smotr.svg';
     defaultIcons = './assets/icons/widgets/process/in-work.svg'; // TODO изменить иконки
 
     private liveSubscription: Subscription;
@@ -163,17 +164,21 @@ export class EventsComponent implements OnInit, OnDestroy {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.liveSubscription = this.widgetService.getWidgetChannel(id).subscribe((data) => {
-            if (data) {
-                this.title = data.title;
-                this.previewTitle = data.widgetType;
+        this.liveSubscription = this.widgetService
+            .getWidgetChannel(id)
+            .subscribe((data) => {
+                if (data) {
+                    this.title = data.title;
+                    this.previewTitle = data.widgetType;
+                }
+            });
+        this.updateSubscription = this.eventService.updateEvent$.subscribe(
+            (value) => {
+                if (value) {
+                    this.wsConnect();
+                }
             }
-        });
-        this.updateSubscription = this.eventService.updateEvent$.subscribe((value) => {
-            if (value) {
-                this.wsConnect();
-            }
-        });
+        );
     }
 
     ngOnInit() {
@@ -212,7 +217,9 @@ export class EventsComponent implements OnInit, OnDestroy {
 
     private getCurrentOptions(): EventsWidgetOptions {
         const options: EventsWidgetOptions = {
-            categories: this.categories.filter((c) => c.isActive).map((c) => c.code),
+            categories: this.categories
+                .filter((c) => c.isActive)
+                .map((c) => c.code),
             filter: this.filters.find((f) => f.isActive).code,
         };
         return options;
@@ -227,9 +234,15 @@ export class EventsComponent implements OnInit, OnDestroy {
     }
 
     sortByPriority() {
-        const danger = this.notifications.filter((n) => n.priority.code === '0');
-        const warning = this.notifications.filter((n) => n.priority.code === '1');
-        const standard = this.notifications.filter((n) => n.priority.code === '2');
+        const danger = this.notifications.filter(
+            (n) => n.priority.code === '0'
+        );
+        const warning = this.notifications.filter(
+            (n) => n.priority.code === '1'
+        );
+        const standard = this.notifications.filter(
+            (n) => n.priority.code === '2'
+        );
         this.notifications = [...danger, ...warning, ...standard];
     }
 
@@ -241,11 +254,15 @@ export class EventsComponent implements OnInit, OnDestroy {
         let notifications = allNotifications;
 
         if (filterOptions.filter && filterOptions.filter === 'all') {
-            notifications = notifications.filter((x) => x.status.name !== 'closed');
+            notifications = notifications.filter(
+                (x) => x.status.name !== 'closed'
+            );
         }
 
         if (filterOptions.filter && filterOptions.filter !== 'all') {
-            notifications = notifications.filter((x) => x.status.name === filterOptions.filter);
+            notifications = notifications.filter(
+                (x) => x.status.name === filterOptions.filter
+            );
         }
         if (filterOptions.categories && filterOptions.categories.length > 0) {
             notifications = notifications.filter((x) =>
@@ -263,7 +280,9 @@ export class EventsComponent implements OnInit, OnDestroy {
         }
     }
 
-    private appendNotifications(remoteNotifications: EventsWidgetNotification[]) {
+    private appendNotifications(
+        remoteNotifications: EventsWidgetNotification[]
+    ) {
         const notifications = remoteNotifications.map((n) => {
             if (n.category && n.category.name) {
                 const iconUrl = this.getNotificationIcon(n.category.name);
@@ -275,13 +294,21 @@ export class EventsComponent implements OnInit, OnDestroy {
 
         this.allNotifications = notifications;
 
-        this.notifications = this.applyFilter(this.allNotifications, this.getCurrentOptions());
+        this.notifications = this.applyFilter(
+            this.allNotifications,
+            this.getCurrentOptions()
+        );
         this.filters.map((f) => {
             const options: EventsWidgetOptions = {
-                categories: this.categories.filter((c) => c.isActive).map((c) => c.code),
+                categories: this.categories
+                    .filter((c) => c.isActive)
+                    .map((c) => c.code),
                 filter: f.code,
             };
-            f.notificationsCount = this.applyFilter(this.allNotifications, options).length;
+            f.notificationsCount = this.applyFilter(
+                this.allNotifications,
+                options
+            ).length;
         });
         this.sortByPriority();
     }
@@ -293,7 +320,8 @@ export class EventsComponent implements OnInit, OnDestroy {
             ).length;
             c.notificationsCounts.open = this.allNotifications.filter(
                 (v) =>
-                    v.category.name === c.code && (v.status.code === '0' || v.status.code === '1')
+                    v.category.name === c.code &&
+                    (v.status.code === '0' || v.status.code === '1')
             ).length;
         });
     }
@@ -318,7 +346,11 @@ export class EventsComponent implements OnInit, OnDestroy {
             });
     }
 
-    snackBar(text: string = 'Выполнено', status: string = 'complete', durection: number = 3000) {
+    snackBar(
+        text: string = 'Выполнено',
+        status: string = 'complete',
+        durection: number = 3000
+    ) {
         let snackBar = document.getElementById('snackbar');
         snackBar.className = 'show';
         // snackBar.className = status;
@@ -350,7 +382,9 @@ export class EventsComponent implements OnInit, OnDestroy {
         if (deleteItem) {
             try {
                 if (this.eventOverlayId >= 0) {
-                    const event = await this.eventService.deleteEvent(this.eventOverlayId);
+                    const event = await this.eventService.deleteEvent(
+                        this.eventOverlayId
+                    );
                     this.wsConnect();
                     this.eventService.event$.next(null);
                 }
@@ -374,11 +408,13 @@ export class EventsComponent implements OnInit, OnDestroy {
         n.retrievalEvents.length
             ? (this.isDeleteRetrieval = true)
             : (this.isDeleteRetrieval = false);
-        document.getElementById('overlay-confirmation-event').style.display = 'block';
+        document.getElementById('overlay-confirmation-event').style.display =
+            'block';
     }
 
     overlayConfirmationClose() {
-        document.getElementById('overlay-confirmation-event').style.display = 'none';
+        document.getElementById('overlay-confirmation-event').style.display =
+            'none';
         this.eventOverlayId = undefined;
     }
 

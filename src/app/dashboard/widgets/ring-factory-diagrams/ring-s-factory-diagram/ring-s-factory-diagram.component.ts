@@ -16,7 +16,8 @@ export class RingSFactoryDiagramComponent implements OnInit {
     datas: RingFactoryWidget[] = [
         {
             id: '1',
-            title: 'Комплекс атмосферно-вакуумной переработки нефти и газофракционирования',
+            title:
+                'Комплекс атмосферно-вакуумной переработки нефти и газофракционирования',
             typeFabric: 0,
             values: [
                 { name: 'ЭЛОУ-АВТ-6', plan: 100, fact: 100 },
@@ -42,7 +43,8 @@ export class RingSFactoryDiagramComponent implements OnInit {
         },
         {
             id: '3',
-            title: 'Комплекс гидроочистки дизельного топлива и каталитического риформирования',
+            title:
+                'Комплекс гидроочистки дизельного топлива и каталитического риформирования',
             typeFabric: 2,
             values: [
                 { name: 'ЭЛОУ-АВТ-6', plan: 100, fact: 100 },
@@ -59,7 +61,8 @@ export class RingSFactoryDiagramComponent implements OnInit {
         },
         {
             id: '4',
-            title: 'Комплекс атмосферно-вакуумной переработки нефти и газофракционирования',
+            title:
+                'Комплекс атмосферно-вакуумной переработки нефти и газофракционирования',
             typeFabric: 3,
             values: [
                 { name: 'ЭЛОУ-АВТ-6', plan: 100, fact: 100 },
@@ -71,7 +74,8 @@ export class RingSFactoryDiagramComponent implements OnInit {
         },
         {
             id: '5',
-            title: 'Комплекс атмосферно-вакуумной переработки нефти и газофракционирования',
+            title:
+                'Комплекс атмосферно-вакуумной переработки нефти и газофракционирования',
             typeFabric: 4,
             values: [
                 { name: 'ЭЛОУ-АВТ-6', plan: 100, fact: 100 },
@@ -81,7 +85,8 @@ export class RingSFactoryDiagramComponent implements OnInit {
         },
         {
             id: '6',
-            title: 'Комплекс гидроочистки дизельного топлива и каталитического риформирования',
+            title:
+                'Комплекс гидроочистки дизельного топлива и каталитического риформирования',
             typeFabric: 5,
             values: [
                 { name: 'ЭЛОУ-АВТ-6', plan: 100, fact: 100 },

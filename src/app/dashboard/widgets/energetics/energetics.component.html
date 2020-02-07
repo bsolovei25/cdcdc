@@ -22,7 +22,10 @@
       (touchstart)="$event.stopPropagation()"
     >
       <div class="energetics__container">
-        <evj-detailed-line-diagram class="dld" [data]="data"></evj-detailed-line-diagram>
+        <evj-detailed-line-diagram
+          class="dld"
+          [data]="data"
+        ></evj-detailed-line-diagram>
         <div class="energetics__energy">
           <div class="energetics__graphic">
             <div class="energetics__round">

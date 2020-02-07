@@ -22,7 +22,11 @@ import * as d3Axis from 'd3-axis';
 import * as d3Format from 'd3-format';
 import { Mock } from 'src/app/dashboard/widgets/line-chart/mock';
 import { Subscription } from 'rxjs';
-import { LineChartData, LineChartGraph, LineChartGraphValue } from '../../models/line-chart';
+import {
+    LineChartData,
+    LineChartGraph,
+    LineChartGraphValue,
+} from '../../models/line-chart';
 import { NewWidgetService } from '../../services/new-widget.service';
 
 @Component({
@@ -95,7 +99,8 @@ export class LineChartComponent implements OnInit, OnDestroy {
         },
         deviation: {
             point: {
-                iconUrl: './assets/icons/widgets/line-chart/point-deviation.svg',
+                iconUrl:
+                    './assets/icons/widgets/line-chart/point-deviation.svg',
                 width: 9.2,
                 height: 8,
                 widthOffset: -4.6,
@@ -105,7 +110,8 @@ export class LineChartComponent implements OnInit, OnDestroy {
         },
         lowerLimit: {
             point: {
-                iconUrl: './assets/icons/widgets/line-chart/point-deviation.svg',
+                iconUrl:
+                    './assets/icons/widgets/line-chart/point-deviation.svg',
                 width: 9.2,
                 height: 8,
                 widthOffset: -4.6,
@@ -118,7 +124,8 @@ export class LineChartComponent implements OnInit, OnDestroy {
         },
         upperLimit: {
             point: {
-                iconUrl: './assets/icons/widgets/line-chart/point-deviation.svg',
+                iconUrl:
+                    './assets/icons/widgets/line-chart/point-deviation.svg',
                 width: 9.2,
                 height: 8,
                 widthOffset: -4.6,
@@ -187,11 +194,15 @@ export class LineChartComponent implements OnInit, OnDestroy {
     private enableLiveData() {
         // TODO добавить получение типа графика
         this.subscriptions.push(
-            this.widgetService.getWidgetLiveDataFromWS(this.id, 'line-chart').subscribe((ref) => {
-                this.dataLine = ref;
-                this.dataLine.graphs.map((x) => x.values.map((z) => (z.date = new Date(z.date))));
-                this.draw(this.dataLine);
-            })
+            this.widgetService
+                .getWidgetLiveDataFromWS(this.id, 'line-chart')
+                .subscribe((ref) => {
+                    this.dataLine = ref;
+                    this.dataLine.graphs.map((x) =>
+                        x.values.map((z) => (z.date = new Date(z.date)))
+                    );
+                    this.draw(this.dataLine);
+                })
         );
     }
 
@@ -212,7 +223,9 @@ export class LineChartComponent implements OnInit, OnDestroy {
     }
 
     private buildData(data) {
-        const xMax = d3Array.max(data.graphs, (c) => d3Array.max(c.values, (d) => d.date));
+        const xMax = d3Array.max(data.graphs, (c) =>
+            d3Array.max(c.values, (d) => d.date)
+        );
         data.graphs
             .filter((x) => x.graphType !== 'fact')
             .forEach((g) => {
@@ -232,8 +245,12 @@ export class LineChartComponent implements OnInit, OnDestroy {
     private startChart() {
         // const plan = this.data.graphs.find(d => d.graphType === 'plan');
         // const fact = this.data.graphs.find(d => d.graphType === 'fact');
-        const upperLimit = this.data.graphs.find((d) => d.graphType === 'upperLimit');
-        const lowerLimit = this.data.graphs.find((d) => d.graphType === 'lowerLimit');
+        const upperLimit = this.data.graphs.find(
+            (d) => d.graphType === 'upperLimit'
+        );
+        const lowerLimit = this.data.graphs.find(
+            (d) => d.graphType === 'lowerLimit'
+        );
 
         this.initChart();
         this.refreshDomains();
@@ -253,7 +270,10 @@ export class LineChartComponent implements OnInit, OnDestroy {
         this.drawPoints();
     }
 
-    private extractByName(graphs: LineChartGraph[], graphTypeName: string): LineChartGraphValue[] {
+    private extractByName(
+        graphs: LineChartGraph[],
+        graphTypeName: string
+    ): LineChartGraphValue[] {
         var found = graphs.find((d) => d.graphType === graphTypeName);
         return found != null ? found.values : [];
     }
@@ -285,7 +305,9 @@ export class LineChartComponent implements OnInit, OnDestroy {
                                 .slice()
                                 .reverse()
                                 .find(
-                                    (p) => new Date(p.date).getTime() <= new Date(d.date).getTime()
+                                    (p) =>
+                                        new Date(p.date).getTime() <=
+                                        new Date(d.date).getTime()
                                 );
                             if (planvalue && planvalue.value < d.value) {
                                 acc.values.push(d);
@@ -296,7 +318,9 @@ export class LineChartComponent implements OnInit, OnDestroy {
                                 .slice()
                                 .reverse()
                                 .find(
-                                    (p) => new Date(p.date).getTime() <= new Date(d.date).getTime()
+                                    (p) =>
+                                        new Date(p.date).getTime() <=
+                                        new Date(d.date).getTime()
                                 );
                             if (ul && ul.value < d.value) {
                                 acc.values.push(d);
@@ -306,7 +330,9 @@ export class LineChartComponent implements OnInit, OnDestroy {
                                 .slice()
                                 .reverse()
                                 .find(
-                                    (p) => new Date(p.date).getTime() <= new Date(d.date).getTime()
+                                    (p) =>
+                                        new Date(p.date).getTime() <=
+                                        new Date(d.date).getTime()
                                 );
                             if (li && li.value > d.value) {
                                 acc.values.push(d);
@@ -322,11 +348,15 @@ export class LineChartComponent implements OnInit, OnDestroy {
     }
 
     private deleteLimitsData() {
-        const ulIndex = this.data.graphs.findIndex((d) => d.graphType === 'upperLimit');
+        const ulIndex = this.data.graphs.findIndex(
+            (d) => d.graphType === 'upperLimit'
+        );
         if (ulIndex !== -1) {
             this.data.graphs.splice(ulIndex, 1);
         }
-        const llIndex = this.data.graphs.findIndex((d) => d.graphType === 'lowerLimit');
+        const llIndex = this.data.graphs.findIndex(
+            (d) => d.graphType === 'lowerLimit'
+        );
         if (llIndex !== -1) {
             this.data.graphs.splice(llIndex, 1);
         }
@@ -352,8 +382,12 @@ export class LineChartComponent implements OnInit, OnDestroy {
             );
         }
 
-        const yMin = d3Array.min(this.data.graphs, (c) => d3Array.min(c.values, (d) => d.value));
-        const yMax = d3Array.max(this.data.graphs, (c) => d3Array.max(c.values, (d) => d.value));
+        const yMin = d3Array.min(this.data.graphs, (c) =>
+            d3Array.min(c.values, (d) => d.value)
+        );
+        const yMax = d3Array.max(this.data.graphs, (c) =>
+            d3Array.max(c.values, (d) => d.value)
+        );
         const offset = (yMax - yMin) * 0.15;
 
         this.y.domain([yMin - offset, yMax + offset]).nice();
@@ -394,7 +428,8 @@ export class LineChartComponent implements OnInit, OnDestroy {
     private initChart() {
         const element = this.chartContainer.nativeElement;
         this.width = element.offsetWidth - this.margin.left - this.margin.right;
-        this.height = element.offsetHeight - this.margin.top - this.margin.bottom;
+        this.height =
+            element.offsetHeight - this.margin.top - this.margin.bottom;
         this.heightNoMargins = element.offsetHeight;
 
         const minWidth = 350;
@@ -409,7 +444,10 @@ export class LineChartComponent implements OnInit, OnDestroy {
             .attr('height', element.offsetHeight);
         this.g = this.svg
             .append('g')
-            .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
+            .attr(
+                'transform',
+                'translate(' + this.margin.left + ',' + this.margin.top + ')'
+            );
     }
 
     private makeXGridLines() {
@@ -570,7 +608,9 @@ export class LineChartComponent implements OnInit, OnDestroy {
         const points = this.g
             .selectAll('.point')
             .data([
-                ...this.data.graphs.filter((d) => d.graphType === 'plan' || d.graphType === 'fact'),
+                ...this.data.graphs.filter(
+                    (d) => d.graphType === 'plan' || d.graphType === 'fact'
+                ),
                 this.deviationPoints,
             ])
             .enter()
@@ -587,8 +627,17 @@ export class LineChartComponent implements OnInit, OnDestroy {
             .append('svg:image')
             .attr('width', (d) => this.trendsStyle[d.type].point.width)
             .attr('height', (d) => this.trendsStyle[d.type].point.height)
-            .attr('x', (d) => this.x(d.date) + this.trendsStyle[d.type].point.widthOffset)
-            .attr('y', (d) => this.y(d.value) + this.trendsStyle[d.type].point.heightOffset)
+            .attr(
+                'x',
+                (d) =>
+                    this.x(d.date) + this.trendsStyle[d.type].point.widthOffset
+            )
+            .attr(
+                'y',
+                (d) =>
+                    this.y(d.value) +
+                    this.trendsStyle[d.type].point.heightOffset
+            )
             .attr('xlink:href', (d) => this.trendsStyle[d.type].point.iconUrl)
             .attr('class', 'point')
             .attr('class', (d) => this.trendsStyle[d.type].point.class);

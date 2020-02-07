@@ -122,7 +122,10 @@
           </div>
         </ng-container>
       </div>
-      <div class="change-shift__comment" style="height: 120px; min-height: 120px;">
+      <div
+        class="change-shift__comment"
+        style="height: 120px; min-height: 120px;"
+      >
         <div class="comment__title">
           Комментарии оператора
         </div>
@@ -142,15 +145,22 @@
               (keypress)="onEnterPush($event)"
               #input
             />
-            <button type="submit" class="button comment__file   gridster-item-content">
-              <svg-icon src="./assets/icons/widgets/change-shift/add_file.svg"></svg-icon>
+            <button
+              type="submit"
+              class="button comment__file   gridster-item-content"
+            >
+              <svg-icon
+                src="./assets/icons/widgets/change-shift/add_file.svg"
+              ></svg-icon>
             </button>
             <button
               type="submit"
               class="button comment__submit  gridster-item-content"
               (click)="onSendMessage()"
             >
-              <svg-icon src="./assets/icons/widgets/change-shift/send.svg"></svg-icon>
+              <svg-icon
+                src="./assets/icons/widgets/change-shift/send.svg"
+              ></svg-icon>
             </button>
           </div>
         </div>
@@ -191,7 +201,9 @@
         </div>
       </ng-container>
 
-      <ng-container *ngIf="this.shiftService.getIsCommentRequired(aboutWidget?.widgetType)">
+      <ng-container
+        *ngIf="this.shiftService.getIsCommentRequired(aboutWidget?.widgetType)"
+      >
         <div class="buttons">
           <div class="change-shift__submit">
             <div class="submit__frame submit__frame-left"></div>

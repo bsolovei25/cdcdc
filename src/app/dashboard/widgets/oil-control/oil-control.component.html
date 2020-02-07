@@ -22,9 +22,17 @@
       (touchstart)="$event.stopPropagation()"
     >
       <div class="blocks">
-        <div class="container_oils" id="test" [class.container_oils_short]="checkWidth">
+        <div
+          class="container_oils"
+          id="test"
+          [class.container_oils_short]="checkWidth"
+        >
           <div class="container_oil" [class.container_oil_short]="checkWidth">
-            <div class="oilCircle" #oilCircle [class.oilCircle_short]="checkWidth">
+            <div
+              class="oilCircle"
+              #oilCircle
+              [class.oilCircle_short]="checkWidth"
+            >
               <svg
                 xmlns:svg="http://www.w3.org/2000/svg"
                 xmlns="http://www.w3.org/2000/svg"
@@ -398,12 +406,21 @@
             </div>
             <div class="oil_info">
               <!-- <ng-container *ngIf="!checkWidth"> -->
-              <div id="start" class="oil_block_info" [class.oil_block_info_short]="checkWidth">
-                <div class="oil_block_inter_info" [class.oil_block_inter_info_short]="checkWidth">
+              <div
+                id="start"
+                class="oil_block_info"
+                [class.oil_block_info_short]="checkWidth"
+              >
+                <div
+                  class="oil_block_inter_info"
+                  [class.oil_block_inter_info_short]="checkWidth"
+                >
                   <ng-container
                     *ngFor="let item of this.activeProduct[indexProductActive].storages"
                   >
-                    <ng-container *ngIf="item.nameStorage === this.activeStorage.nameStorage">
+                    <ng-container
+                      *ngIf="item.nameStorage === this.activeStorage.nameStorage"
+                    >
                       <div class="row" [class.row_short]="checkWidth">
                         <div class="page">
                           <!-- <ng-container *ngFor="let item of this.activeProduct[2].storage; index as i">
@@ -448,7 +465,9 @@
                           Дебаланс:
                         </div>
                         <div class="value_oil_debalance">
-                          <ng-container *ngFor="let item of this.activeStorage.tank.tankValues">
+                          <ng-container
+                            *ngFor="let item of this.activeStorage.tank.tankValues"
+                          >
                             <ng-container *ngIf="item.name === 'Дебаланс'">
                               <div
                                 [class.critical]="item.status === 'critical'"
@@ -467,12 +486,22 @@
                         </div>
                       </div>
                       <div class="row" [class.row_short]="checkWidth">
-                        <ng-container *ngFor="let item of this.activeStorage.tank.tankValues">
-                          <ng-container *ngIf="item.name === 'Отгружено по резервуару'">
-                            <div class="name_value" [class.name_value_short]="checkWidth">
+                        <ng-container
+                          *ngFor="let item of this.activeStorage.tank.tankValues"
+                        >
+                          <ng-container
+                            *ngIf="item.name === 'Отгружено по резервуару'"
+                          >
+                            <div
+                              class="name_value"
+                              [class.name_value_short]="checkWidth"
+                            >
                               Отгружено по резервуару:
                             </div>
-                            <div class="value_oil" [class.value_oil_short]="checkWidth">
+                            <div
+                              class="value_oil"
+                              [class.value_oil_short]="checkWidth"
+                            >
                               <div
                                 [class.critical]="item.status === 'critical'"
                                 [class.default]="item.status === 'default'"
@@ -487,11 +516,19 @@
                               </div>
                             </div>
                           </ng-container>
-                          <ng-container *ngIf="item.name === 'Допустимый дебаланс'">
-                            <div class="name_value" [class.name_value_short]="checkWidth">
+                          <ng-container
+                            *ngIf="item.name === 'Допустимый дебаланс'"
+                          >
+                            <div
+                              class="name_value"
+                              [class.name_value_short]="checkWidth"
+                            >
                               Допустимый дебаланс:
                             </div>
-                            <div class="value_oil" [class.value_oil_short]="checkWidth">
+                            <div
+                              class="value_oil"
+                              [class.value_oil_short]="checkWidth"
+                            >
                               <div
                                 [class.critical]="item.status === 'critical'"
                                 [class.default]="item.status === 'default'"
@@ -509,28 +546,46 @@
                         </ng-container>
                       </div>
                       <div class="row" [class.row_short]="checkWidth">
-                        <ng-container *ngFor="let item of this.activeStorage.tank.tankValues">
-                          <ng-container *ngIf="item.name === 'По данным отгрузки'">
-                            <div class="name_value" [class.name_value_short]="checkWidth">
+                        <ng-container
+                          *ngFor="let item of this.activeStorage.tank.tankValues"
+                        >
+                          <ng-container
+                            *ngIf="item.name === 'По данным отгрузки'"
+                          >
+                            <div
+                              class="name_value"
+                              [class.name_value_short]="checkWidth"
+                            >
                               По данными отгрузки:
                             </div>
-                            <div class="value_oil" [class.value_oil_short]="checkWidth">
+                            <div
+                              class="value_oil"
+                              [class.value_oil_short]="checkWidth"
+                            >
                               <div
                                 [class.critical]="item.status === 'critical'"
                                 [class.default]="item.status === 'default'"
                               >
                                 {{item.valueFirst}} т.
                               </div>
-                              <div [class.critical]="item.status === 'critical'">
+                              <div
+                                [class.critical]="item.status === 'critical'"
+                              >
                                 {{item.valueSecond}} %
                               </div>
                             </div>
                           </ng-container>
                           <ng-container *ngIf="item.name === 'Отклонение'">
-                            <div class="name_value" [class.name_value_short]="checkWidth">
+                            <div
+                              class="name_value"
+                              [class.name_value_short]="checkWidth"
+                            >
                               Отклонение:
                             </div>
-                            <div class="value_oil" [class.value_oil_short]="checkWidth">
+                            <div
+                              class="value_oil"
+                              [class.value_oil_short]="checkWidth"
+                            >
                               <div
                                 [class.critical]="item.status === 'critical'"
                                 [class.default]="item.status === 'default'"
@@ -658,9 +713,17 @@
               </ng-container>
               -->
 
-              <div class="line_on_picture" #line [class.line_on_picture_short]="checkWidth"></div>
+              <div
+                class="line_on_picture"
+                #line
+                [class.line_on_picture_short]="checkWidth"
+              ></div>
               <div class="oil_picture" [class.oil_picture_short]="checkWidth">
-                <div class="oil_tower" #oilBak [class.oil_tower_short]="checkWidth"></div>
+                <div
+                  class="oil_tower"
+                  #oilBak
+                  [class.oil_tower_short]="checkWidth"
+                ></div>
                 <div class="arrow" [class.arrow_short]="checkWidth">
                   <svg
                     version="1.1"

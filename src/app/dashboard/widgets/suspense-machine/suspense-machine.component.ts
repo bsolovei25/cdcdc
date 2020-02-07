@@ -137,9 +137,11 @@ export class SuspenseMachineComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit() {
-        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-            this.title = data.title;
-        });
+        this.subscription = this.widgetService
+            .getWidgetChannel(this.id)
+            .subscribe((data) => {
+                this.title = data.title;
+            });
     }
 
     ngOnDestroy() {

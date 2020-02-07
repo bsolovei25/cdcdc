@@ -1,4 +1,12 @@
-import { Component, OnDestroy, OnInit, Input, Output, Inject, Injector } from '@angular/core';
+import {
+    Component,
+    OnDestroy,
+    OnInit,
+    Input,
+    Output,
+    Inject,
+    Injector,
+} from '@angular/core';
 import { ManualInputService } from '../../services/manual-input.service';
 import { HttpClient } from '@angular/common/http';
 import { Machine_MI, ManualInputData } from '../../models/manual-input.model';
@@ -66,8 +74,8 @@ export class ManualInputComponent implements OnInit, OnDestroy {
                 );
                 if (
                     item.name === name &&
-                    event.currentTarget.parentElement.lastElementChild.className ===
-                        'table-container-2-none'
+                    event.currentTarget.parentElement.lastElementChild
+                        .className === 'table-container-2-none'
                 ) {
                     for (let i of event.currentTarget.parentElement.children) {
                         i.classList.remove('ng-star-inserted');
@@ -78,8 +86,8 @@ export class ManualInputComponent implements OnInit, OnDestroy {
                     }
                 } else if (
                     item.name === name &&
-                    event.currentTarget.parentElement.lastElementChild.className ===
-                        'table-container-2'
+                    event.currentTarget.parentElement.lastElementChild
+                        .className === 'table-container-2'
                 ) {
                     for (let i of event.currentTarget.parentElement.children) {
                         i.classList.remove('ng-star-inserted');
@@ -99,10 +107,11 @@ export class ManualInputComponent implements OnInit, OnDestroy {
                 for (let i of item.groups) {
                     if (
                         i.name === name &&
-                        event.currentTarget.parentElement.lastElementChild.className ===
-                            'd-table-none'
+                        event.currentTarget.parentElement.lastElementChild
+                            .className === 'd-table-none'
                     ) {
-                        for (let i of event.currentTarget.parentElement.children) {
+                        for (let i of event.currentTarget.parentElement
+                            .children) {
                             if (i.className === 'd-table-none') {
                                 i.classList.remove('d-table-none');
                                 i.classList.add('d-table');
@@ -110,9 +119,11 @@ export class ManualInputComponent implements OnInit, OnDestroy {
                         }
                     } else if (
                         i.name === name &&
-                        event.currentTarget.parentElement.lastElementChild.className === 'd-table'
+                        event.currentTarget.parentElement.lastElementChild
+                            .className === 'd-table'
                     ) {
-                        for (let i of event.currentTarget.parentElement.children) {
+                        for (let i of event.currentTarget.parentElement
+                            .children) {
                             if (i.className === 'd-table') {
                                 i.classList.remove('d-table');
                                 i.classList.add('d-table-none');
@@ -150,9 +161,11 @@ export class ManualInputComponent implements OnInit, OnDestroy {
     }
 
     private wsConnect() {
-        this.widgetService.getWidgetLiveDataFromWS(this.id, 'manual-input').subscribe((ref) => {
-            this.Data = this.manualInputService.LoadData(this.Data, ref);
-        });
+        this.widgetService
+            .getWidgetLiveDataFromWS(this.id, 'manual-input')
+            .subscribe((ref) => {
+                this.Data = this.manualInputService.LoadData(this.Data, ref);
+            });
     }
 
     showMock(show) {

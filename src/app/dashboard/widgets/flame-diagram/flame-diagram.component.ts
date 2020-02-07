@@ -20,9 +20,11 @@ export class FlameDiagramComponent implements OnInit, OnDestroy {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscription = this.widgetService.getWidgetChannel(id).subscribe((data) => {
-            this.title = data.title;
-        });
+        this.subscription = this.widgetService
+            .getWidgetChannel(id)
+            .subscribe((data) => {
+                this.title = data.title;
+            });
     }
 
     ngOnInit() {

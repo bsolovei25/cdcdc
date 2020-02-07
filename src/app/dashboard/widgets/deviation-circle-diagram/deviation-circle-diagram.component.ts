@@ -1,7 +1,10 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
-import { DeviationCircleDiagram, ICenterOfPoint } from '../../models/deviation-circle-diagram';
+import {
+    DeviationCircleDiagram,
+    ICenterOfPoint,
+} from '../../models/deviation-circle-diagram';
 
 @Component({
     selector: 'evj-deviation-circle-diagram',
@@ -77,7 +80,9 @@ export class DeviationCircleDiagramComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         if (this.subscriptions) {
-            this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
+            this.subscriptions.forEach((subscription: Subscription) =>
+                subscription.unsubscribe()
+            );
         }
     }
 
@@ -109,7 +114,10 @@ export class DeviationCircleDiagramComponent implements OnInit, OnDestroy {
 
     diaLinePoint(line: number, isOuter: boolean): ICenterOfPoint {
         const percent: number = line / 100;
-        const t = percent < 1 ? 2 * Math.PI * percent - Math.PI / 2 : (3 / 2) * Math.PI;
+        const t =
+            percent < 1
+                ? 2 * Math.PI * percent - Math.PI / 2
+                : (3 / 2) * Math.PI;
         const r = isOuter ? +this.radius + 3 : +this.radius - 3;
         const centerOfPoint: ICenterOfPoint = {
             xCen: (r * Math.cos(t) + +this.centerX).toString(),

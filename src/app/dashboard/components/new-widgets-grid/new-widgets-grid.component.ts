@@ -140,13 +140,20 @@ export class NewWidgetsGridComponent implements OnInit {
         document.dispatchEvent(event);
     }
 
-    public itemChange(item: GridsterItem, itemComponent: GridsterItemComponentInterface) {
+    public itemChange(
+        item: GridsterItem,
+        itemComponent: GridsterItemComponentInterface
+    ) {
         this.userSettings.updateByPosition(item, itemComponent.$item);
     }
 
     public onSwap(swap: any) {
-        swap === true ? (this.options.swap = true) : (this.options.swap = false);
-        swap === true ? (this.options.pushItems = true) : (this.options.pushItems = false);
+        swap === true
+            ? (this.options.swap = true)
+            : (this.options.swap = false);
+        swap === true
+            ? (this.options.pushItems = true)
+            : (this.options.pushItems = false);
         this.changedOptions();
     }
 
@@ -176,7 +183,9 @@ export class NewWidgetsGridComponent implements OnInit {
     ) {
         if (!e) return;
         const dataTrasfer = new DataTransfer();
-        e.currentTarget.dispatchEvent(new DragEvent('dragstart', { dataTransfer: dataTrasfer }));
+        e.currentTarget.dispatchEvent(
+            new DragEvent('dragstart', { dataTransfer: dataTrasfer })
+        );
     }
 
     public resizeStop(

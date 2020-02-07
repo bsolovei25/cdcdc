@@ -2,7 +2,11 @@ import { Component, Input, OnInit, OnDestroy, Inject } from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { Subscription } from 'rxjs';
 import { inject } from '@angular/core/testing';
-import { ILineDiagram, ILineDiagramData, ILineDiagramDataItem } from '../../models/line-diagram';
+import {
+    ILineDiagram,
+    ILineDiagramData,
+    ILineDiagramDataItem,
+} from '../../models/line-diagram';
 
 @Component({
     selector: 'evj-line-diagram',
@@ -45,11 +49,13 @@ export class LineDiagramComponent implements OnInit, OnDestroy {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscription = this.widgetService.getWidgetChannel(id).subscribe((data) => {
-            this.title = data.title;
-            this.units = data.units;
-            this.previewTitle = data.widgetType;
-        });
+        this.subscription = this.widgetService
+            .getWidgetChannel(id)
+            .subscribe((data) => {
+                this.title = data.title;
+                this.units = data.units;
+                this.previewTitle = data.widgetType;
+            });
     }
 
     ngOnInit(): void {

@@ -3,7 +3,10 @@
   (mouseover)="ScreenActive($event)"
   (mouseleave)="ScreenDisable($event)"
 >
-  <svg-icon class="indicator-selector__icon" src="./assets/icons/screen.svg"></svg-icon>
+  <svg-icon
+    class="indicator-selector__icon"
+    src="./assets/icons/screen.svg"
+  ></svg-icon>
 
   <span class="indicator-selector__name">
     {{ nameScreen }}
@@ -43,7 +46,10 @@
               </div>
             </div>
             <div class="hover-button" *ngIf="screen.updateScreen === true">
-              <div class="update_screen2" (click)="updateScreen(screen.id, this.newNameScreen)">
+              <div
+                class="update_screen2"
+                (click)="updateScreen(screen.id, this.newNameScreen)"
+              >
                 <svg-icon
                   class="indicator-selector__collapse"
                   src="./assets/icons/checkmark.svg"
@@ -75,5 +81,8 @@
     </div>
   </div>
 
-  <svg-icon class="indicator-selector__collapse" src="./assets/icons/collapse.svg"></svg-icon>
+  <svg-icon
+    class="indicator-selector__collapse"
+    src="./assets/icons/collapse.svg"
+  ></svg-icon>
 </div>

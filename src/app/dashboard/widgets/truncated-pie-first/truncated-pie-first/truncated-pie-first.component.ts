@@ -60,7 +60,9 @@ export class TruncatedPieFirstComponent implements OnInit {
         let group = canvas.append('g').attr('transform', 'translate(100 ,100)');
 
         if (summ === 0) {
-            color = d3.scaleOrdinal().range(['rgb(162, 226, 255)', 'rgb(162, 226, 255)']);
+            color = d3
+                .scaleOrdinal()
+                .range(['rgb(162, 226, 255)', 'rgb(162, 226, 255)']);
             this.RADIUS = 47;
         } else {
             color = d3.scaleOrdinal().range(['white', 'orange']);
@@ -120,46 +122,76 @@ export class TruncatedPieFirstComponent implements OnInit {
         if (this.text3) {
             canvas
                 .append('text')
-                .attr('fill', data.value === 100 ? 'rgb(140,153,178)' : 'orange')
+                .attr(
+                    'fill',
+                    data.value === 100 ? 'rgb(140,153,178)' : 'orange'
+                )
                 .attr('font-size', '12px')
                 .attr('x', '45')
-                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                .attr(
+                    'font-family',
+                    "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+                )
                 .attr('y', '160')
                 .text(this.text1);
 
             canvas
                 .append('text')
-                .attr('fill', data.value === 100 ? 'rgb(140,153,178)' : 'orange')
+                .attr(
+                    'fill',
+                    data.value === 100 ? 'rgb(140,153,178)' : 'orange'
+                )
                 .attr('font-size', '12px')
                 .attr('x', '115')
-                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                .attr(
+                    'font-family',
+                    "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+                )
                 .attr('y', '160')
                 .text(this.text2);
 
             canvas
                 .append('text')
-                .attr('fill', data.value === 100 ? 'rgb(140,153,178)' : 'orange')
+                .attr(
+                    'fill',
+                    data.value === 100 ? 'rgb(140,153,178)' : 'orange'
+                )
                 .attr('font-size', '12px')
                 .attr('x', '75')
-                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                .attr(
+                    'font-family',
+                    "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+                )
                 .attr('y', '175')
                 .text(this.text3);
         } else if (data.name.length < 15) {
             canvas
                 .append('text')
-                .attr('fill', data.value === 100 ? 'rgb(140,153,178)' : 'orange')
+                .attr(
+                    'fill',
+                    data.value === 100 ? 'rgb(140,153,178)' : 'orange'
+                )
                 .attr('font-size', '12px')
                 .attr('x', '60')
-                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                .attr(
+                    'font-family',
+                    "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+                )
                 .attr('y', '160')
                 .text(data.name);
         } else {
             canvas
                 .append('text')
-                .attr('fill', data.value === 100 ? 'rgb(140,153,178)' : 'orange')
+                .attr(
+                    'fill',
+                    data.value === 100 ? 'rgb(140,153,178)' : 'orange'
+                )
                 .attr('font-size', '12px')
                 .attr('x', '47')
-                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                .attr(
+                    'font-family',
+                    "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+                )
                 .attr('y', '160')
                 .text(data.name);
         }

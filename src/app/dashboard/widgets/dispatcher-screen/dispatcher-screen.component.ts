@@ -1,4 +1,11 @@
-import { Component, HostListener, Inject, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import {
+    Component,
+    HostListener,
+    Inject,
+    OnInit,
+    OnDestroy,
+    AfterViewInit,
+} from '@angular/core';
 import { UnityLoader } from './UnityLoader.js';
 import { PlatformLocation } from '@angular/common';
 import { NewWidgetService } from '../../services/new-widget.service';
@@ -10,7 +17,8 @@ import { WidgetSettingsService } from '../../services/widget-settings.service';
     templateUrl: './dispatcher-screen.component.html',
     styleUrls: ['./dispatcher-screen.component.scss'],
 })
-export class DispatcherScreenComponent implements OnInit, AfterViewInit, OnDestroy {
+export class DispatcherScreenComponent
+    implements OnInit, AfterViewInit, OnDestroy {
     private baseUrl: string;
     private unityInstance: any;
     isStart: boolean;
@@ -34,7 +42,8 @@ export class DispatcherScreenComponent implements OnInit, AfterViewInit, OnDestr
         platformLocation: PlatformLocation
     ) {
         const location = (platformLocation as any).location;
-        this.baseUrl = location.origin + location.pathname.replace('dashboard', '');
+        this.baseUrl =
+            location.origin + location.pathname.replace('dashboard', '');
         this.subscriptions.push(
             this.widgetService.getWidgetChannel(id).subscribe((data) => {
                 this.title = data.title;
@@ -74,37 +83,58 @@ export class DispatcherScreenComponent implements OnInit, AfterViewInit, OnDestr
         this.resize();
     }
 
-    @HostListener('document:UnityDispatcherScreen_Start', ['$event', '$event.detail.param1'])
+    @HostListener('document:UnityDispatcherScreen_Start', [
+        '$event',
+        '$event.detail.param1',
+    ])
     public async OnUnityStart(event, param1): Promise<void> {
         this.isStart = true;
         if (!this.unityInstance) {
             return;
         }
         this.wsConnect();
-        const params = await this.widgetSettingsService.getSettings(this.uniqId);
-        this.CallUnityScript('Scripts', 'RefreshSettings', JSON.stringify(params));
+        const params = await this.widgetSettingsService.getSettings(
+            this.uniqId
+        );
+        this.CallUnityScript(
+            'Scripts',
+            'RefreshSettings',
+            JSON.stringify(params)
+        );
     }
 
-    @HostListener('document:UnityDispatcherScreen_SendSettings', ['$event', '$event.detail.param1'])
+    @HostListener('document:UnityDispatcherScreen_SendSettings', [
+        '$event',
+        '$event.detail.param1',
+    ])
     public async OnUnitySendSettings(event, param1): Promise<void> {
         this.isStart = true;
         if (!this.unityInstance) {
             return;
         }
-        await this.widgetSettingsService.saveSettings(this.uniqId, JSON.parse(param1));
+        await this.widgetSettingsService.saveSettings(
+            this.uniqId,
+            JSON.parse(param1)
+        );
     }
 
     private wsConnect(): void {
         this.widgetService
             .getWidgetLiveDataFromWS(this.id, 'dispatcher-screen')
             .subscribe((ref) => {
-                this.CallUnityScript('Scripts', 'RefreshValues', JSON.stringify(ref));
+                this.CallUnityScript(
+                    'Scripts',
+                    'RefreshValues',
+                    JSON.stringify(ref)
+                );
             });
     }
 
     private async InitUnity(): Promise<void> {
         window['UnityLoader'] = UnityLoader;
-        this.loadProject(`${this.baseUrl}assets/unity/dispatcher-screen/web_build.json`);
+        this.loadProject(
+            `${this.baseUrl}assets/unity/dispatcher-screen/web_build.json`
+        );
     }
 
     private CallUnityScript(objName, funName, ...args): void {

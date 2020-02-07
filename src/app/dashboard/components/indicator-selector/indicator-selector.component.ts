@@ -68,7 +68,9 @@ export class IndicatorSelectorComponent {
 
     public getActiveScreen = (): string => {
         if (this.idScreen) {
-            const currentScreen = this.dataScreen.find((x) => x.id === this.idScreen);
+            const currentScreen = this.dataScreen.find(
+                (x) => x.id === this.idScreen
+            );
             if (currentScreen) {
                 return currentScreen.screenName;
             }

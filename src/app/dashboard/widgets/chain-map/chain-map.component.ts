@@ -1,4 +1,11 @@
-import { Component, OnInit, Inject, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    Inject,
+    ElementRef,
+    ViewChild,
+    AfterViewInit,
+} from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { format } from 'url';
 import { Subscription } from 'rxjs';

@@ -1,4 +1,11 @@
-import { Component, OnInit, ElementRef, ViewChild, Inject, AfterViewInit } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    ElementRef,
+    ViewChild,
+    Inject,
+    AfterViewInit,
+} from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { Subscription } from 'rxjs';
 
@@ -290,7 +297,10 @@ export class PolarChartComponent implements AfterViewInit {
 
         let titleText1 = this.canvas
             .append('text')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr(
+                'font-family',
+                "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+            )
             .attr('font-size', '1.9px')
             .attr('x', '75')
             .attr('y', '8')
@@ -300,7 +310,10 @@ export class PolarChartComponent implements AfterViewInit {
 
         let forecastText1 = this.canvas
             .append('text')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr(
+                'font-family',
+                "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+            )
             .attr('font-size', '1.4px')
             .attr('x', '64')
             .attr('y', '13')
@@ -309,7 +322,10 @@ export class PolarChartComponent implements AfterViewInit {
 
         let planText1 = this.canvas
             .append('text')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr(
+                'font-family',
+                "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+            )
             .attr('font-size', '1.4px')
             .attr('x', '82')
             .attr('y', '13')
@@ -318,7 +334,10 @@ export class PolarChartComponent implements AfterViewInit {
 
         let forecastTextData1 = this.canvas
             .append('text')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr(
+                'font-family',
+                "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+            )
             .attr('font-size', '2.4px')
             .attr('x', '67')
             .attr('y', '11')
@@ -334,7 +353,10 @@ export class PolarChartComponent implements AfterViewInit {
 
         let planTextData1 = this.canvas
             .append('text')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr(
+                'font-family',
+                "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+            )
             .attr('font-size', '2.4px')
             .attr('x', '84')
             .attr('y', '11')
@@ -350,7 +372,10 @@ export class PolarChartComponent implements AfterViewInit {
 
         let titleText2 = this.canvas
             .append('text')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr(
+                'font-family',
+                "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+            )
             .attr('font-size', '1.9px')
             .attr('x', '115')
             .attr('y', '25')
@@ -360,7 +385,10 @@ export class PolarChartComponent implements AfterViewInit {
 
         let forecastText2 = this.canvas
             .append('text')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr(
+                'font-family',
+                "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+            )
             .attr('font-size', '1.4px')
             .attr('x', '104')
             .attr('y', '30')
@@ -369,7 +397,10 @@ export class PolarChartComponent implements AfterViewInit {
 
         let planText2 = this.canvas
             .append('text')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr(
+                'font-family',
+                "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+            )
             .attr('font-size', '1.4px')
             .attr('x', '122')
             .attr('y', '30')
@@ -378,7 +409,10 @@ export class PolarChartComponent implements AfterViewInit {
 
         let forecastTextData2 = this.canvas
             .append('text')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr(
+                'font-family',
+                "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+            )
             .attr('font-size', '2.4px')
             .attr('x', '107')
             .attr('y', '28')
@@ -394,7 +428,10 @@ export class PolarChartComponent implements AfterViewInit {
 
         let planTextData2 = this.canvas
             .append('text')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr(
+                'font-family',
+                "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+            )
             .attr('font-size', '2.4px')
             .attr('x', '124')
             .attr('y', '28')
@@ -410,7 +447,10 @@ export class PolarChartComponent implements AfterViewInit {
 
         let titleText3 = this.canvas
             .append('text')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr(
+                'font-family',
+                "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+            )
             .attr('font-size', '1.9px')
             .attr('x', '115')
             .attr('y', '81')
@@ -420,7 +460,10 @@ export class PolarChartComponent implements AfterViewInit {
 
         let forecastText3 = this.canvas
             .append('text')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr(
+                'font-family',
+                "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+            )
             .attr('font-size', '1.4px')
             .attr('x', '104')
             .attr('y', '86')
@@ -429,7 +472,10 @@ export class PolarChartComponent implements AfterViewInit {
 
         let planText3 = this.canvas
             .append('text')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr(
+                'font-family',
+                "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+            )
             .attr('font-size', '1.4px')
             .attr('x', '122')
             .attr('y', '86')
@@ -438,7 +484,10 @@ export class PolarChartComponent implements AfterViewInit {
 
         let forecastTextData3 = this.canvas
             .append('text')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr(
+                'font-family',
+                "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+            )
             .attr('font-size', '2.4px')
             .attr('x', '107')
             .attr('y', '84')
@@ -454,7 +503,10 @@ export class PolarChartComponent implements AfterViewInit {
 
         let planTextData3 = this.canvas
             .append('text')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr(
+                'font-family',
+                "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+            )
             .attr('font-size', '2.4px')
             .attr('x', '124')
             .attr('y', '84')
@@ -470,7 +522,10 @@ export class PolarChartComponent implements AfterViewInit {
 
         let titleText4 = this.canvas
             .append('text')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr(
+                'font-family',
+                "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+            )
             .attr('font-size', '1.9px')
             .attr('x', '75')
             .attr('y', '99')
@@ -480,7 +535,10 @@ export class PolarChartComponent implements AfterViewInit {
 
         let forecastText4 = this.canvas
             .append('text')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr(
+                'font-family',
+                "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+            )
             .attr('font-size', '1.4px')
             .attr('x', '64')
             .attr('y', '104')
@@ -489,7 +547,10 @@ export class PolarChartComponent implements AfterViewInit {
 
         let planText4 = this.canvas
             .append('text')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr(
+                'font-family',
+                "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+            )
             .attr('font-size', '1.4px')
             .attr('x', '82')
             .attr('y', '104')
@@ -498,7 +559,10 @@ export class PolarChartComponent implements AfterViewInit {
 
         let forecastTextData4 = this.canvas
             .append('text')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr(
+                'font-family',
+                "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+            )
             .attr('font-size', '2.4px')
             .attr('x', '67')
             .attr('y', '102')
@@ -514,7 +578,10 @@ export class PolarChartComponent implements AfterViewInit {
 
         let planTextData4 = this.canvas
             .append('text')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr(
+                'font-family',
+                "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+            )
             .attr('font-size', '2.4px')
             .attr('x', '84')
             .attr('y', '102')
@@ -530,7 +597,10 @@ export class PolarChartComponent implements AfterViewInit {
 
         let titleText5 = this.canvas
             .append('text')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr(
+                'font-family',
+                "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+            )
             .attr('font-size', '1.9px')
             .attr('x', '35')
             .attr('y', '81')
@@ -540,7 +610,10 @@ export class PolarChartComponent implements AfterViewInit {
 
         let forecastText5 = this.canvas
             .append('text')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr(
+                'font-family',
+                "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+            )
             .attr('font-size', '1.4px')
             .attr('x', '24')
             .attr('y', '86')
@@ -549,7 +622,10 @@ export class PolarChartComponent implements AfterViewInit {
 
         let planText5 = this.canvas
             .append('text')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr(
+                'font-family',
+                "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+            )
             .attr('font-size', '1.4px')
             .attr('x', '42')
             .attr('y', '86')
@@ -558,7 +634,10 @@ export class PolarChartComponent implements AfterViewInit {
 
         let forecastTextData5 = this.canvas
             .append('text')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr(
+                'font-family',
+                "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+            )
             .attr('font-size', '2.4px')
             .attr('x', '27')
             .attr('y', '84')
@@ -574,7 +653,10 @@ export class PolarChartComponent implements AfterViewInit {
 
         let planTextData5 = this.canvas
             .append('text')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr(
+                'font-family',
+                "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+            )
             .attr('font-size', '2.4px')
             .attr('x', '43')
             .attr('y', '84')
@@ -590,7 +672,10 @@ export class PolarChartComponent implements AfterViewInit {
 
         let titleText6 = this.canvas
             .append('text')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr(
+                'font-family',
+                "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+            )
             .attr('font-size', '1.9px')
             .attr('x', '35')
             .attr('y', '25')
@@ -601,7 +686,10 @@ export class PolarChartComponent implements AfterViewInit {
 
         let forecastText6 = this.canvas
             .append('text')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr(
+                'font-family',
+                "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+            )
             .attr('font-size', '1.4px')
             .attr('x', '24')
             .attr('y', '30')
@@ -610,7 +698,10 @@ export class PolarChartComponent implements AfterViewInit {
 
         let forecastTextData6 = this.canvas
             .append('text')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr(
+                'font-family',
+                "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+            )
             .attr('font-size', '2.4px')
             .attr('x', '27')
             .attr('y', '28')
@@ -626,7 +717,10 @@ export class PolarChartComponent implements AfterViewInit {
 
         let planText6 = this.canvas
             .append('text')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr(
+                'font-family',
+                "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+            )
             .attr('font-size', '1.4px')
             .attr('x', '42')
             .attr('y', '30')
@@ -635,7 +729,10 @@ export class PolarChartComponent implements AfterViewInit {
 
         let planTextData6 = this.canvas
             .append('text')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr(
+                'font-family',
+                "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+            )
             .attr('font-size', '2.4px')
             .attr('x', '43')
             .attr('y', '28')
@@ -663,7 +760,11 @@ export class PolarChartComponent implements AfterViewInit {
                 );
             } else if (item.value < 100) {
                 index = item.line - 1;
-                this.changePointsBottom(this.longLine[index], this.valueLine[index], index);
+                this.changePointsBottom(
+                    this.longLine[index],
+                    this.valueLine[index],
+                    index
+                );
             }
         }
     }
@@ -673,7 +774,10 @@ export class PolarChartComponent implements AfterViewInit {
             for (let itemBottom of pointBottom) {
                 if (itemTop.line === itemBottom.line) {
                     this.longLine.push(
-                        Math.sqrt((itemTop.x - itemBottom.x) ** 2 + (itemTop.y - itemBottom.y) ** 2)
+                        Math.sqrt(
+                            (itemTop.x - itemBottom.x) ** 2 +
+                                (itemTop.y - itemBottom.y) ** 2
+                        )
                     );
                 }
             }
@@ -687,7 +791,8 @@ export class PolarChartComponent implements AfterViewInit {
                     let line = itemPoint.line;
                     this.shortLine.push(
                         Math.sqrt(
-                            (itemPoint.x - itemBottom.x) ** 2 + (itemPoint.y - itemBottom.y) ** 2
+                            (itemPoint.x - itemBottom.x) ** 2 +
+                                (itemPoint.y - itemBottom.y) ** 2
                         )
                     );
                 }
@@ -702,14 +807,18 @@ export class PolarChartComponent implements AfterViewInit {
                 for (let itemLine of short) {
                     index++;
                     if (itemData.line === index) {
-                        this.valueLine.push((itemLine / 100) * (100 - (100 - itemData.value)));
+                        this.valueLine.push(
+                            (itemLine / 100) * (100 - (100 - itemData.value))
+                        );
                     }
                 }
             } else {
                 for (let itemLine of longLine) {
                     index++;
                     if (itemData.line === index) {
-                        this.valueLine.push((itemLine / 100) * (itemData.value - 100));
+                        this.valueLine.push(
+                            (itemLine / 100) * (itemData.value - 100)
+                        );
                     }
                 }
             }

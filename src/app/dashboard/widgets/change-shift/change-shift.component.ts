@@ -117,15 +117,20 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
                 })
             );
             this.subscriptions.push(
-                this.shiftService.verifyWindowObservable(this.id).subscribe((obj) => {
-                    if (obj.action === 'close') {
-                        setTimeout(() => (this.isWindowVerifyActive = false), 1000);
-                    } else if (obj.action === 'open') {
-                        this.verifyInfo = obj;
-                        this.isWindowVerifyActive = true;
-                    }
-                    this.verifyInfo.result = obj.result;
-                })
+                this.shiftService
+                    .verifyWindowObservable(this.id)
+                    .subscribe((obj) => {
+                        if (obj.action === 'close') {
+                            setTimeout(
+                                () => (this.isWindowVerifyActive = false),
+                                1000
+                            );
+                        } else if (obj.action === 'open') {
+                            this.verifyInfo = obj;
+                            this.isWindowVerifyActive = true;
+                        }
+                        this.verifyInfo.result = obj.result;
+                    })
             );
         }
     }
@@ -160,22 +165,29 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
                 (item) => item.position === 'responsible'
             );
             if (index === -1) {
-                console.warn('No responsible found in shift: ' + JSON.stringify(this.currentShift));
+                console.warn(
+                    'No responsible found in shift: ' +
+                        JSON.stringify(this.currentShift)
+                );
                 index = 0;
             }
 
             this.currentShift.shiftMembers[index].employee.main = true;
             const tempMember = this.currentShift.shiftMembers[0];
-            this.currentShift.shiftMembers[0] = this.currentShift.shiftMembers[index];
+            this.currentShift.shiftMembers[0] = this.currentShift.shiftMembers[
+                index
+            ];
             this.currentShift.shiftMembers[index] = tempMember;
 
             this.comments = [];
             if (widgetType === 'shift-pass') {
-                for (const commentObj of this.currentShift.shiftPassingComments || []) {
+                for (const commentObj of this.currentShift
+                    .shiftPassingComments || []) {
                     this.setMessage(commentObj);
                 }
             } else {
-                for (const commentObj of this.currentShift.shiftAcceptingComments || []) {
+                for (const commentObj of this.currentShift
+                    .shiftAcceptingComments || []) {
                     this.setMessage(commentObj);
                 }
             }
@@ -183,12 +195,16 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
 
         this.presentMembers = this.currentShift.shiftMembers.filter(
             (el) =>
-                el.status !== 'absent' && el.status !== 'initialization' && el.status !== 'missing'
+                el.status !== 'absent' &&
+                el.status !== 'initialization' &&
+                el.status !== 'missing'
         );
 
         this.absentMembers = this.currentShift.shiftMembers.filter(
             (el) =>
-                el.status === 'absent' || el.status === 'initialization' || el.status === 'missing'
+                el.status === 'absent' ||
+                el.status === 'initialization' ||
+                el.status === 'missing'
         );
 
         console.log();
@@ -203,8 +219,9 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
     async onSendMessage(): Promise<void> {
         if (this.input.nativeElement.value) {
             const comment = await this.shiftService.sendComment(
-                this.currentShift.shiftMembers.find((el) => el.position === 'responsible').employee
-                    .id,
+                this.currentShift.shiftMembers.find(
+                    (el) => el.position === 'responsible'
+                ).employee.id,
                 this.currentShift.id,
                 this.input.nativeElement.value,
                 this.aboutWidget.widgetType
@@ -236,7 +253,9 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
 
     getMain(): ShiftMember {
         if (this.currentShift) {
-            return this.currentShift.shiftMembers.find((item) => item.employee.main);
+            return this.currentShift.shiftMembers.find(
+                (item) => item.employee.main
+            );
         }
     }
 
@@ -247,11 +266,15 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
         const classes: DOMTokenList = this.addShift.nativeElement.classList;
         if (classes.contains('onShift__add-active')) {
             classes.remove('onShift__add-active');
-            this.allPeople.nativeElement.classList.remove('onShift__allPeople-active');
+            this.allPeople.nativeElement.classList.remove(
+                'onShift__allPeople-active'
+            );
         } else {
             this.showFreeShiftMembers();
             classes.add('onShift__add-active');
-            this.allPeople.nativeElement.classList.add('onShift__allPeople-active');
+            this.allPeople.nativeElement.classList.add(
+                'onShift__allPeople-active'
+            );
         }
     }
 
@@ -260,15 +283,20 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
         const classes: DOMTokenList = this.addShift.nativeElement.classList;
         if (classes.contains('onShift__add-active')) {
             classes.remove('onShift__add-active');
-            this.allPeople.nativeElement.classList.remove('onShift__allPeople-active');
+            this.allPeople.nativeElement.classList.remove(
+                'onShift__allPeople-active'
+            );
         }
     }
 
     async showFreeShiftMembers(): Promise<void> {
-        const tempShiftMembers = await this.shiftService.getFreeShiftMembers(this.currentShift.id);
+        const tempShiftMembers = await this.shiftService.getFreeShiftMembers(
+            this.currentShift.id
+        );
         this.addingShiftMembers.splice(0, this.addingShiftMembers.length);
         for (const i in tempShiftMembers) {
-            const addingShiftMember: ShiftMember = new (class implements ShiftMember {
+            const addingShiftMember: ShiftMember = new (class
+                implements ShiftMember {
                 employee = null;
                 shiftType = null;
                 status = null;
@@ -299,21 +327,34 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
     }
 
     public shiftCancel(): void {
-        this.materialController.openSnackBar('Для продолжения оставьте комментарий');
-        this.shiftService.setIsCommentRequired(true, this.aboutWidget.widgetType);
-        console.log(this.shiftService.getIsCommentRequired(this.aboutWidget.widgetType));
+        this.materialController.openSnackBar(
+            'Для продолжения оставьте комментарий'
+        );
+        this.shiftService.setIsCommentRequired(
+            true,
+            this.aboutWidget.widgetType
+        );
+        console.log(
+            this.shiftService.getIsCommentRequired(this.aboutWidget.widgetType)
+        );
         const subscription = this.shiftService
             .getRequiredComment(this.currentShift.id)
             .asObservable()
             .subscribe((ans) => {
                 if (ans.result) {
                     console.log('continue');
-                    this.shiftService.cancelShift(this.currentShift.id, ans.comment);
+                    this.shiftService.cancelShift(
+                        this.currentShift.id,
+                        ans.comment
+                    );
                     this.materialController.openSnackBar('Отказ от смены');
                 } else {
                     console.log('cancel');
                 }
-                this.shiftService.setIsCommentRequired(false, this.aboutWidget.widgetType);
+                this.shiftService.setIsCommentRequired(
+                    false,
+                    this.aboutWidget.widgetType
+                );
                 if (subscription) {
                     subscription.unsubscribe();
                 }

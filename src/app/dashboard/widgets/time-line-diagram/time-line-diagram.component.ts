@@ -65,7 +65,9 @@ export class TimeLineDiagramComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         if (this.subscriptions) {
-            this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
+            this.subscriptions.forEach((subscription: Subscription) =>
+                subscription.unsubscribe()
+            );
         }
     }
 }

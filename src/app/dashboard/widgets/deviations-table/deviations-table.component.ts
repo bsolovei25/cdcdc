@@ -247,10 +247,12 @@ export class DeviationsTableComponent implements OnInit, OnDestroy {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-            this.title = data.title;
-            this.previewTitle = data.widgetType;
-        });
+        this.subscription = this.widgetService
+            .getWidgetChannel(this.id)
+            .subscribe((data) => {
+                this.title = data.title;
+                this.previewTitle = data.widgetType;
+            });
     }
 
     ngOnInit() {

@@ -1,4 +1,11 @@
-import { Component, OnInit, ElementRef, AfterViewInit, ViewChild, Inject } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    ElementRef,
+    AfterViewInit,
+    ViewChild,
+    Inject,
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { count } from 'rxjs/operators';
@@ -106,14 +113,18 @@ export class RingEnergyIndicatorComponent implements AfterViewInit {
     public d3Circle(data, el): void {
         this.pic = data.isCritical
             ? '/assets/pic/RingEnergyIndicator/active' + data.iconId + '.svg'
-            : '/assets/pic/RingEnergyIndicator/notActive' + data.iconId + '.svg';
+            : '/assets/pic/RingEnergyIndicator/notActive' +
+              data.iconId +
+              '.svg';
 
         const mass = [data.percent, 100 - data.percent];
         let color: any;
         let countValue;
 
         if (!data.isCritical) {
-            color = d3.scaleOrdinal().range(['#9ED7F5', 'rgba(158,215,245,0.3)']);
+            color = d3
+                .scaleOrdinal()
+                .range(['#9ED7F5', 'rgba(158,215,245,0.3)']);
         } else {
             color = d3.scaleOrdinal().range(['white', 'rgba(255,165,0,0.3)']);
         }
@@ -124,7 +135,9 @@ export class RingEnergyIndicatorComponent implements AfterViewInit {
             .attr('min-width', '100px')
             .attr('viewBox', '0 3 200 200');
 
-        let group = this.svg.append('g').attr('transform', 'translate(98.5, 74)');
+        let group = this.svg
+            .append('g')
+            .attr('transform', 'translate(98.5, 74)');
 
         const arc = d3
             .arc()
@@ -163,7 +176,10 @@ export class RingEnergyIndicatorComponent implements AfterViewInit {
                         .attr('x', '125')
                         .attr('y', y + 1)
                         .attr('fill', 'rgba(158,215,245)')
-                        .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                        .attr(
+                            'font-family',
+                            "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+                        )
                         .text(i.plan);
 
                     let name = this.svg
@@ -172,7 +188,10 @@ export class RingEnergyIndicatorComponent implements AfterViewInit {
                         .attr('x', '93')
                         .attr('y', y)
                         .attr('fill', '#636680')
-                        .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                        .attr(
+                            'font-family',
+                            "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+                        )
                         .text(i.name);
 
                     let fact = this.svg
@@ -181,7 +200,10 @@ export class RingEnergyIndicatorComponent implements AfterViewInit {
                         .attr('x', '50')
                         .attr('y', y + 1)
                         .attr('fill', data.isCritical ? 'orange' : 'white')
-                        .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                        .attr(
+                            'font-family',
+                            "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+                        )
                         .text(i.fact);
                     y += 15;
                 } else {
@@ -194,7 +216,10 @@ export class RingEnergyIndicatorComponent implements AfterViewInit {
                 .attr('x', '125')
                 .attr('y', 171)
                 .attr('fill', 'rgba(158,215,245)')
-                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                .attr(
+                    'font-family',
+                    "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+                )
                 .text(data.values[0].plan);
 
             let name = this.svg
@@ -203,7 +228,10 @@ export class RingEnergyIndicatorComponent implements AfterViewInit {
                 .attr('x', '93')
                 .attr('y', 170)
                 .attr('fill', '#636680')
-                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                .attr(
+                    'font-family',
+                    "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+                )
                 .text(data.values[0].name);
 
             let fact = this.svg
@@ -212,7 +240,10 @@ export class RingEnergyIndicatorComponent implements AfterViewInit {
                 .attr('x', '50')
                 .attr('y', 171)
                 .attr('fill', data.isCritical ? 'orange' : 'white')
-                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                .attr(
+                    'font-family',
+                    "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+                )
                 .text(data.values[0].fact);
         }
 

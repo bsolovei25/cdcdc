@@ -6,7 +6,9 @@ describe('MboDataControllerService', () => {
     beforeEach(() => TestBed.configureTestingModule({}));
 
     it('should be created', () => {
-        const service: MboDataControllerService = TestBed.get(MboDataControllerService);
+        const service: MboDataControllerService = TestBed.get(
+            MboDataControllerService
+        );
         expect(service).toBeTruthy();
     });
 });

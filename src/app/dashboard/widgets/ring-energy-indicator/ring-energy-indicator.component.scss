@@ -30,7 +30,11 @@
 }
 
 .activeBack {
-  background: linear-gradient(180deg, rgba(8, 128, 207, 0.3), transparent) !important;
+  background: linear-gradient(
+    180deg,
+    rgba(8, 128, 207, 0.3),
+    transparent
+  ) !important;
 }
 
 .item-c {

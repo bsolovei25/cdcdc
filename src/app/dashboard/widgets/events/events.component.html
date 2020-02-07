@@ -11,13 +11,28 @@
     <div class="pointer-events">
       <div class="header__content drag handle">
         <div class="header__icon-wrapper">
-          <svg-icon class="header__icon" src="./assets/icons/widgets/events/letter.svg"></svg-icon>
+          <svg-icon
+            class="header__icon"
+            src="./assets/icons/widgets/events/letter.svg"
+          ></svg-icon>
         </div>
-        <div *ngIf="!isMock" class="header__icon-wrapper" (click)="listView(false)">
-          <svg-icon [ngClass]="{'list': !isList}" class="header__icon" src="./assets/pic/list.svg">
+        <div
+          *ngIf="!isMock"
+          class="header__icon-wrapper"
+          (click)="listView(false)"
+        >
+          <svg-icon
+            [ngClass]="{'list': !isList}"
+            class="header__icon"
+            src="./assets/pic/list.svg"
+          >
           </svg-icon>
         </div>
-        <div *ngIf="!isMock" class="header__icon-wrapper" (click)="listView(true)">
+        <div
+          *ngIf="!isMock"
+          class="header__icon-wrapper"
+          (click)="listView(true)"
+        >
           <svg-icon
             [ngClass]="{'blocks': isList}"
             class="header__icon"
@@ -127,7 +142,8 @@
                   >Вы действительно хотите удалить выбранное Событие?</span
                 >
                 <span *ngIf="isDeleteRetrieval"
-                  >Вы действительно хотите удалить выбранное Событие и связанные Мероприятия?</span
+                  >Вы действительно хотите удалить выбранное Событие и связанные
+                  Мероприятия?</span
                 >
                 <div style="display: flex;">
                   <div class="workspace__submit">
@@ -197,12 +213,20 @@
                 </div>
 
                 <div class="category__row category__row_bottom">
-                  <svg-icon class="category__icon" [applyCss]="true" [src]="c.iconUrl"></svg-icon>
+                  <svg-icon
+                    class="category__icon"
+                    [applyCss]="true"
+                    [src]="c.iconUrl"
+                  ></svg-icon>
 
                   <div class="counts category__counts">
-                    <span class="counts__count">{{c.notificationsCounts?.open}}</span>
+                    <span class="counts__count"
+                      >{{c.notificationsCounts?.open}}</span
+                    >
                     <span class="counts__count">/</span>
-                    <span class="counts__count">{{c.notificationsCounts?.all}}</span>
+                    <span class="counts__count"
+                      >{{c.notificationsCounts?.all}}</span
+                    >
                   </div>
                 </div>
 
@@ -242,7 +266,10 @@
       >
         <div class="events">
           <div class="notifications">
-            <cdk-virtual-scroll-viewport itemSize="30" class="notifications__list scroll-bar">
+            <cdk-virtual-scroll-viewport
+              itemSize="30"
+              class="notifications__list scroll-bar"
+            >
               <div
                 class="notification notifications__item"
                 *cdkVirtualFor="let n of notifications"
@@ -300,7 +327,10 @@
                       (touchstart)="$event.stopPropagation()"
                     >
                     </svg-icon>
-                    <span *ngIf="!n.source" class="notification__icon_delete__mock"></span>
+                    <span
+                      *ngIf="!n.source"
+                      class="notification__icon_delete__mock"
+                    ></span>
                   </div>
                 </div>
                 <div class="line notification__line notification__line_bottom">
@@ -320,8 +350,8 @@
                     >Вы действительно хотите удалить выбранное Событие?</span
                   >
                   <span *ngIf="isDeleteRetrieval"
-                    >Вы действительно хотите удалить выбранное Событие и связанные
-                    Мероприятия?</span
+                    >Вы действительно хотите удалить выбранное Событие и
+                    связанные Мероприятия?</span
                   >
                   <div style="display: flex;">
                     <div class="event-confirm__submit">
@@ -392,12 +422,20 @@
                 </div>
 
                 <div class="category__row category__row_bottom">
-                  <svg-icon class="category__icon" [applyCss]="true" [src]="c.iconUrl"></svg-icon>
+                  <svg-icon
+                    class="category__icon"
+                    [applyCss]="true"
+                    [src]="c.iconUrl"
+                  ></svg-icon>
 
                   <div class="counts category__counts">
-                    <span class="counts__count">{{c.notificationsCounts?.open}}</span>
+                    <span class="counts__count"
+                      >{{c.notificationsCounts?.open}}</span
+                    >
                     <span class="counts__count">/</span>
-                    <span class="counts__count">{{c.notificationsCounts?.all}}</span>
+                    <span class="counts__count"
+                      >{{c.notificationsCounts?.all}}</span
+                    >
                   </div>
                 </div>
 

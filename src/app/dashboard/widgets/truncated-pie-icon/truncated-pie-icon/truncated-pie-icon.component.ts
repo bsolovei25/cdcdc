@@ -64,7 +64,9 @@ export class TruncatedPieIconComponent implements OnInit {
         let group = canvas.append('g').attr('transform', 'translate(100 ,100)');
 
         if (data.critical === 0) {
-            color = d3.scaleOrdinal().range(['rgb(140,153,178)', 'rgb(140,153,178)']);
+            color = d3
+                .scaleOrdinal()
+                .range(['rgb(140,153,178)', 'rgb(140,153,178)']);
             this.RADIUS = 46;
         } else {
             color = d3.scaleOrdinal().range(['white', 'orange']);
@@ -133,7 +135,10 @@ export class TruncatedPieIconComponent implements OnInit {
             text.append('tspan')
                 .attr('fill', 'rgb(140,153,178)')
                 .attr('font-size', '12px')
-                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                .attr(
+                    'font-family',
+                    "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+                )
                 .attr('x', '70')
                 .attr('y', '160')
                 .text(this.text1);
@@ -141,7 +146,10 @@ export class TruncatedPieIconComponent implements OnInit {
             text.append('tspan')
                 .attr('fill', 'rgb(140,153,178)')
                 .attr('font-size', '12px')
-                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                .attr(
+                    'font-family',
+                    "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+                )
                 .attr('x', '60')
                 .attr('y', '170')
                 .text(this.text2);
@@ -149,7 +157,10 @@ export class TruncatedPieIconComponent implements OnInit {
             text.append('tspan')
                 .attr('fill', 'rgb(140,153,178)')
                 .attr('font-size', '12px')
-                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                .attr(
+                    'font-family',
+                    "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+                )
                 .attr('x', '70')
                 .attr('y', '170')
                 .text(this.text3);
@@ -157,7 +168,10 @@ export class TruncatedPieIconComponent implements OnInit {
             text.append('tspan')
                 .attr('fill', 'rgb(140,153,178)')
                 .attr('font-size', '12px')
-                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                .attr(
+                    'font-family',
+                    "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+                )
                 .attr('x', '70')
                 .attr('y', '160')
                 .text(this.text1);
@@ -165,7 +179,10 @@ export class TruncatedPieIconComponent implements OnInit {
             text.append('tspan')
                 .attr('fill', 'rgb(140,153,178)')
                 .attr('font-size', '12px')
-                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                .attr(
+                    'font-family',
+                    "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+                )
                 .attr('x', '60')
                 .attr('y', '170')
                 .text(this.text2);
@@ -173,7 +190,10 @@ export class TruncatedPieIconComponent implements OnInit {
             text.append('tspan')
                 .attr('fill', 'rgb(140,153,178)')
                 .attr('font-size', '12px')
-                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                .attr(
+                    'font-family',
+                    "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+                )
                 .attr('x', '50')
                 .attr('y', '160')
                 .text(this.text1);
@@ -181,7 +201,10 @@ export class TruncatedPieIconComponent implements OnInit {
             text.append('tspan')
                 .attr('fill', 'rgb(140,153,178)')
                 .attr('font-size', '12px')
-                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                .attr(
+                    'font-family',
+                    "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+                )
                 .attr('x', '80')
                 .attr('y', '170')
                 .text(this.text2);
@@ -189,7 +212,10 @@ export class TruncatedPieIconComponent implements OnInit {
             text.append('tspan')
                 .attr('fill', 'rgb(140,153,178)')
                 .attr('font-size', '12px')
-                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+                .attr(
+                    'font-family',
+                    "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+                )
                 .attr('x', '60')
                 .attr('y', '160')
                 .text(this.text1);

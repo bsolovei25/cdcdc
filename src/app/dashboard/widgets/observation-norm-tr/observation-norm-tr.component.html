@@ -5,7 +5,11 @@
 ></evj-widget-preview>
 
 <div class="container pointer-event" *ngIf="!isMock">
-  <evj-widget-header [title]="title" [id]="id" [uniqId]="uniqId"></evj-widget-header>
+  <evj-widget-header
+    [title]="title"
+    [id]="id"
+    [uniqId]="uniqId"
+  ></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
 
@@ -25,7 +29,13 @@
           #svgContainerObservation
         >
           <defs>
-            <radialGradient id="a" cx="88.83" cy="92.02" r="73" gradientUnits="userSpaceOnUse">
+            <radialGradient
+              id="a"
+              cx="88.83"
+              cy="92.02"
+              r="73"
+              gradientUnits="userSpaceOnUse"
+            >
               <stop offset="0" stop-color="#9ed7f5" />
               <stop offset="0.1" stop-color="#9ed7f5" stop-opacity="0.97" />
               <stop offset="0.26" stop-color="#9ed7f5" stop-opacity="0.89" />
@@ -49,7 +59,12 @@
             />
           </g>
 
-          <circle cx="89.27" cy="92.28" r="70.37" style="opacity:0.8;fill:url(#a)" />
+          <circle
+            cx="89.27"
+            cy="92.28"
+            r="70.37"
+            style="opacity:0.8;fill:url(#a)"
+          />
           <g #warningPolygon></g>
 
           <circle

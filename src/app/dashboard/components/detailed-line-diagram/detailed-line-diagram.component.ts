@@ -34,20 +34,29 @@ export class DetailedLineDiagramComponent implements OnInit {
     deviationCounter(data, flag) {
         if (flag) {
             if (data.curValue < this.data.lowerValue) {
-                return ((data.curValue / data.plan) * 100 - (100 - data.lowerBorder * 100)).toFixed(
-                    1
-                );
+                return (
+                    (data.curValue / data.plan) * 100 -
+                    (100 - data.lowerBorder * 100)
+                ).toFixed(1);
             } else if (data.curValue > this.data.higherValue) {
                 return (
                     '+' +
-                    ((data.curValue / data.plan) * 100 - (100 + data.higherBorder * 100)).toFixed(1)
+                    (
+                        (data.curValue / data.plan) * 100 -
+                        (100 + data.higherBorder * 100)
+                    ).toFixed(1)
                 );
             } else {
                 return 0;
             }
         } else {
-            if (data.curValue > data.plan && data.curValue <= this.data.higherValue) {
-                return '+' + ((data.curValue / data.plan) * 100 - 100).toFixed(1);
+            if (
+                data.curValue > data.plan &&
+                data.curValue <= this.data.higherValue
+            ) {
+                return (
+                    '+' + ((data.curValue / data.plan) * 100 - 100).toFixed(1)
+                );
             } else {
                 return 0;
             }

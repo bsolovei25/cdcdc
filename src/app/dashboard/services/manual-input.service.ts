@@ -26,7 +26,11 @@ export class ManualInputService {
 
     CheckLastValue(id: string, data: Machine_MI[]) {
         const param = this.GetElementById(id, data);
-        if (param.curValue === '' && param.saveValue && param.saveValue !== '') {
+        if (
+            param.curValue === '' &&
+            param.saveValue &&
+            param.saveValue !== ''
+        ) {
             param.curValue = param.saveValue;
             param.isSave = true;
             param.isError = false;
@@ -74,7 +78,11 @@ export class ManualInputService {
             for (const j in data[i].groups) {
                 for (const k in data[i].groups[j].params) {
                     const param = data[i].groups[j].params[k];
-                    if (param.curValue !== null && param.curValue !== '' && param.isActive) {
+                    if (
+                        param.curValue !== null &&
+                        param.curValue !== '' &&
+                        param.isActive
+                    ) {
                         elsToSave.push(param);
                     }
                 }
@@ -105,10 +113,12 @@ export class ManualInputService {
     }
 
     PostData(Params: MI_DataSend, data: Machine_MI[]) {
-        this.http.post(this.restUrl + '/manualinput/post', Params).subscribe((ans: MI_DataGet) => {
-            this.saveBar('Пустой ввод', false);
-            this.SaveValues(ans, data);
-        });
+        this.http
+            .post(this.restUrl + '/manualinput/post', Params)
+            .subscribe((ans: MI_DataGet) => {
+                this.saveBar('Пустой ввод', false);
+                this.SaveValues(ans, data);
+            });
     }
 
     SaveValues(ids: MI_DataGet, data: Machine_MI[]) {
@@ -165,7 +175,10 @@ export class ManualInputService {
             setTimeout(function() {
                 snackBar.className = snackBar.className.replace('show', '');
             }, durection);
-            snackBarBlock.className = snackBarBlock.className.replace('show', '');
+            snackBarBlock.className = snackBarBlock.className.replace(
+                'show',
+                ''
+            );
         }
     }
 }

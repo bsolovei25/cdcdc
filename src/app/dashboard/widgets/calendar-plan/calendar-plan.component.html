@@ -21,9 +21,16 @@
       (mousedown)="$event.stopPropagation()"
       (touchstart)="$event.stopPropagation()"
     >
-      <evj-detailed-line-diagram class="dld" [data]="data"></evj-detailed-line-diagram>
+      <evj-detailed-line-diagram
+        class="dld"
+        [data]="data"
+      ></evj-detailed-line-diagram>
       <div class="cards">
-        <div class="card" *ngFor="let item of array" [ngClass]="{ 'card-active': !item.isBetter }">
+        <div
+          class="card"
+          *ngFor="let item of array"
+          [ngClass]="{ 'card-active': !item.isBetter }"
+        >
           <div class="card__border card__border-left "></div>
           <div class="card__border card__border-right"></div>
           <div class="card__title">{{ item.name }}</div>
@@ -40,7 +47,8 @@
               *ngIf="item.isBetter"
               [ngClass]="{ rotate: item.deviation < 0 }"
             />
-            {{ item.deviation > 0 ? "+ " + item.deviation : "- " + -item.deviation }}
+            {{ item.deviation > 0 ? "+ " + item.deviation : "- " +
+            -item.deviation }}
           </div>
         </div>
       </div>

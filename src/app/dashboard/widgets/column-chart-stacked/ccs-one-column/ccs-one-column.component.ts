@@ -16,7 +16,8 @@ export class CcsOneColumnComponent implements OnInit, AfterViewInit {
     public colorFact: string = '#ffffff';
     public colorNormal: string = '#A2E2FF';
 
-    public defaultIconPath: string = '../../../../../assets/icons/widgets/column-chart-stacked/';
+    public defaultIconPath: string =
+        '../../../../../assets/icons/widgets/column-chart-stacked/';
 
     constructor() {}
 
@@ -36,7 +37,9 @@ export class CcsOneColumnComponent implements OnInit, AfterViewInit {
     public graphValues(): IBlockDiagramColumn {
         const maxValue: number = this.data.max + 7;
         const plan: number = Math.round((this.data.plan / maxValue) * 100);
-        let fact: number = this.data.plan ? Math.round((this.data.fact / this.data.plan) * 100) : 0;
+        let fact: number = this.data.plan
+            ? Math.round((this.data.fact / this.data.plan) * 100)
+            : 0;
         if (this.data.fact > this.data.plan) {
             fact = plan;
         }

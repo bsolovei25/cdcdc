@@ -127,24 +127,30 @@ export class EnergeticsComponent implements OnInit, OnDestroy {
 
     wsConnect(): void {
         this.subscriptions.push(
-            this.widgetService.getWidgetLiveDataFromWS(this.id, 'energetics').subscribe((ref) => {
-                console.log(ref);
-                this.data = ref;
-                this.data.curValue = ref.currentValue;
-                this.data.lowerBorder =
-                    Math.abs(this.data.lowerBorder - this.data.plan) / this.data.plan;
-                this.data.higherBorder =
-                    Math.abs(this.data.higherBorder - this.data.plan) / this.data.plan;
-                this.data.lowerValue = this.data.plan * (1 - this.data.lowerBorder);
-                this.data.higherValue = this.data.plan * (1 + this.data.higherBorder);
-                this.energyCircleDiagram = ref.circleDiagram;
-                this.termoCard = ref.termoCard;
-                this.termoCard.curValue = ref.termoCard.currentValue;
-                this.electroCard = ref.electroCard;
-                this.electroCard.curValue = ref.electroCard.currentValue;
-                this.fuelCard = ref.fuelCard;
-                this.fuelCard.curValue = ref.fuelCard.currentValue;
-            })
+            this.widgetService
+                .getWidgetLiveDataFromWS(this.id, 'energetics')
+                .subscribe((ref) => {
+                    console.log(ref);
+                    this.data = ref;
+                    this.data.curValue = ref.currentValue;
+                    this.data.lowerBorder =
+                        Math.abs(this.data.lowerBorder - this.data.plan) /
+                        this.data.plan;
+                    this.data.higherBorder =
+                        Math.abs(this.data.higherBorder - this.data.plan) /
+                        this.data.plan;
+                    this.data.lowerValue =
+                        this.data.plan * (1 - this.data.lowerBorder);
+                    this.data.higherValue =
+                        this.data.plan * (1 + this.data.higherBorder);
+                    this.energyCircleDiagram = ref.circleDiagram;
+                    this.termoCard = ref.termoCard;
+                    this.termoCard.curValue = ref.termoCard.currentValue;
+                    this.electroCard = ref.electroCard;
+                    this.electroCard.curValue = ref.electroCard.currentValue;
+                    this.fuelCard = ref.fuelCard;
+                    this.fuelCard.curValue = ref.fuelCard.currentValue;
+                })
         );
     }
 
@@ -155,7 +161,9 @@ export class EnergeticsComponent implements OnInit, OnDestroy {
     }
 
     fillGraph(obj: IEnergeticsCard): string {
-        return obj.plan - obj.curValue > 0 ? this.colorNormal : this.colorDeviation;
+        return obj.plan - obj.curValue > 0
+            ? this.colorNormal
+            : this.colorDeviation;
     }
 
     /* Отрисовка дуговых диаграмм */
@@ -191,7 +199,10 @@ export class EnergeticsComponent implements OnInit, OnDestroy {
         return limitLine;
     }
 
-    diaLimitsLabels(line: number, isLowerLimit: boolean = false): IEnergeticsCoordinates {
+    diaLimitsLabels(
+        line: number,
+        isLowerLimit: boolean = false
+    ): IEnergeticsCoordinates {
         const coords = this.diaLimits(line);
         let returnedCoords: IEnergeticsCoordinates;
         if (isLowerLimit) {

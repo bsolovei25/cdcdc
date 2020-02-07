@@ -21,13 +21,55 @@ export class TruncatedPieSIconComponent implements OnInit {
     public previewTitle: string = 'truncated-pie-s-icon';
 
     public datas = [
-        { id: 1, name: 'Загазованность', count: 10, critical: 0, image: 'fabric' },
-        { id: 2, name: 'Деблокировочные ключи', count: 10, critical: 0, image: 'key' },
-        { id: 3, name: 'Пожарная сигнализация', count: 10, critical: 0, image: 'fire' },
-        { id: 4, name: 'Блокировки и сигнализации', count: 10, critical: 1, image: 'signal' },
-        { id: 5, name: 'ПИД-регуляторы', count: 10, critical: 0, image: 'regul' },
-        { id: 6, name: 'Вибдродиагности', count: 10, critical: 0, image: 'ring' },
-        { id: 7, name: 'Электрообогрев', count: 10, critical: 3, image: 'temp' },
+        {
+            id: 1,
+            name: 'Загазованность',
+            count: 10,
+            critical: 0,
+            image: 'fabric',
+        },
+        {
+            id: 2,
+            name: 'Деблокировочные ключи',
+            count: 10,
+            critical: 0,
+            image: 'key',
+        },
+        {
+            id: 3,
+            name: 'Пожарная сигнализация',
+            count: 10,
+            critical: 0,
+            image: 'fire',
+        },
+        {
+            id: 4,
+            name: 'Блокировки и сигнализации',
+            count: 10,
+            critical: 1,
+            image: 'signal',
+        },
+        {
+            id: 5,
+            name: 'ПИД-регуляторы',
+            count: 10,
+            critical: 0,
+            image: 'regul',
+        },
+        {
+            id: 6,
+            name: 'Вибдродиагности',
+            count: 10,
+            critical: 0,
+            image: 'ring',
+        },
+        {
+            id: 7,
+            name: 'Электрообогрев',
+            count: 10,
+            critical: 3,
+            image: 'temp',
+        },
     ];
 
     constructor(
@@ -36,12 +78,14 @@ export class TruncatedPieSIconComponent implements OnInit {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-            this.title = data.title;
-            this.code = data.code;
-            //  this.units = data.units;
-            this.name = data.name;
-        });
+        this.subscription = this.widgetService
+            .getWidgetChannel(this.id)
+            .subscribe((data) => {
+                this.title = data.title;
+                this.code = data.code;
+                //  this.units = data.units;
+                this.name = data.name;
+            });
     }
 
     ngOnInit() {

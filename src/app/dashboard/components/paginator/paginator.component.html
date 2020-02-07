@@ -36,7 +36,11 @@
     >
       {{ page }}
     </button>
-    <span *ngIf="currentPage < countPages - middleValue + 1" class="paginator-dots">...</span>
+    <span
+      *ngIf="currentPage < countPages - middleValue + 1"
+      class="paginator-dots"
+      >...</span
+    >
     <button
       *ngFor="let page of rightPages"
       (click)="onClick(page)"
@@ -53,6 +57,8 @@
       class="paginator-button paginator-button-next"
     ></button> -->
   <select (change)="onChangePer($event.target.value)" *ngIf="showPersSelect">
-    <option *ngFor="let per of pers" [selected]="per === perPage" [value]="per">{{ per }}</option>
+    <option *ngFor="let per of pers" [selected]="per === perPage" [value]="per"
+      >{{ per }}</option
+    >
   </select>
 </div>

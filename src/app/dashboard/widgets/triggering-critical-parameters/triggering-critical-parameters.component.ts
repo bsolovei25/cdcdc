@@ -20,7 +20,8 @@ export interface ITriggeringCriticalParameters {
     templateUrl: './triggering-critical-parameters.component.html',
     styleUrls: ['./triggering-critical-parameters.component.scss'],
 })
-export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy {
+export class TriggeringCriticalParametersComponent
+    implements OnInit, OnDestroy {
     isLoading: boolean = false;
 
     public title = '';
@@ -371,10 +372,12 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-            this.title = data.title;
-            this.previewTitle = data.widgetType;
-        });
+        this.subscription = this.widgetService
+            .getWidgetChannel(this.id)
+            .subscribe((data) => {
+                this.title = data.title;
+                this.previewTitle = data.widgetType;
+            });
     }
 
     ngOnInit() {

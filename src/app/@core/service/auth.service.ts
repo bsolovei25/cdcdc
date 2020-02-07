@@ -46,7 +46,10 @@ export class AuthService {
         });
     }
 
-    async authenticate(username: string, password: string): Promise<ITokenData> {
+    async authenticate(
+        username: string,
+        password: string
+    ): Promise<ITokenData> {
         try {
             const auth = await this.http
                 .post<ITokenData>(this.restUrl + `/api/user-management/auth`, {

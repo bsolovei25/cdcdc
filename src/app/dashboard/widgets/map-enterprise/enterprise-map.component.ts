@@ -268,7 +268,11 @@ export class EnterpriseMapComponent implements OnDestroy, AfterViewInit {
 
     data: IEnterpriseMap = {
         build: [
-            { id: 4, name: 'УУГ', options: { nonCritical: 200, diagnostics: 6, prognosis: 2 } },
+            {
+                id: 4,
+                name: 'УУГ',
+                options: { nonCritical: 200, diagnostics: 6, prognosis: 2 },
+            },
             {
                 id: 13,
                 name: 'Станция смешения',
@@ -289,11 +293,31 @@ export class EnterpriseMapComponent implements OnDestroy, AfterViewInit {
                 name: 'Станция смешения',
                 options: { nonCritical: 0, diagnostics: 10, prognosis: 20 },
             },
-            { id: 26, name: 'ДТ', options: { nonCritical: 0, diagnostics: 0, prognosis: 20 } },
-            { id: 29, name: 'ДТ', options: { nonCritical: 0, diagnostics: 0, prognosis: 48 } },
-            { id: 36, name: 'ДТ', options: { nonCritical: 0, diagnostics: 29, prognosis: 20 } },
-            { id: 38, name: 'ДТ', options: { nonCritical: 1, diagnostics: 0, prognosis: 20 } },
-            { id: 41, name: 'Бензин', options: { nonCritical: 25, diagnostics: 6, prognosis: 2 } },
+            {
+                id: 26,
+                name: 'ДТ',
+                options: { nonCritical: 0, diagnostics: 0, prognosis: 20 },
+            },
+            {
+                id: 29,
+                name: 'ДТ',
+                options: { nonCritical: 0, diagnostics: 0, prognosis: 48 },
+            },
+            {
+                id: 36,
+                name: 'ДТ',
+                options: { nonCritical: 0, diagnostics: 29, prognosis: 20 },
+            },
+            {
+                id: 38,
+                name: 'ДТ',
+                options: { nonCritical: 1, diagnostics: 0, prognosis: 20 },
+            },
+            {
+                id: 41,
+                name: 'Бензин',
+                options: { nonCritical: 25, diagnostics: 6, prognosis: 2 },
+            },
         ],
         weather: { temperature: 15, direction: 320, wind: 5.1, pressure: 741 },
     };
@@ -311,10 +335,12 @@ export class EnterpriseMapComponent implements OnDestroy, AfterViewInit {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-            this.title = data.title;
-            this.previewTitle = data.widgetType;
-        });
+        this.subscription = this.widgetService
+            .getWidgetChannel(this.id)
+            .subscribe((data) => {
+                this.title = data.title;
+                this.previewTitle = data.widgetType;
+            });
     }
 
     ngOnDestroy(): void {
@@ -341,13 +367,17 @@ export class EnterpriseMapComponent implements OnDestroy, AfterViewInit {
                 prognosis: number;
             } | null;
             const dataId = b.getAttribute('data-id');
-            const idx: number = this.data.build.findIndex((d) => d.id === +dataId);
+            const idx: number = this.data.build.findIndex(
+                (d) => d.id === +dataId
+            );
             if (idx !== -1) {
                 options = this.data.build[idx].options;
             }
             if (options) {
                 const allOptions: number =
-                    options.diagnostics + options.nonCritical + options.prognosis;
+                    options.diagnostics +
+                    options.nonCritical +
+                    options.prognosis;
                 const widthNumber: number = allOptions.toString().length;
                 if (b.tagName === 'polygon' || b.tagName === 'polyline') {
                     const id = b.getAttribute('data-id');
@@ -368,7 +398,9 @@ export class EnterpriseMapComponent implements OnDestroy, AfterViewInit {
                         { id: 80, x: `${246 - widthNumber * 6}`, y: '481' },
                         { id: 92, x: `${655 - widthNumber * 6}`, y: '579' },
                     ];
-                    const idxPolygon: number = dataPolygon.findIndex((i) => i.id === +id);
+                    const idxPolygon: number = dataPolygon.findIndex(
+                        (i) => i.id === +id
+                    );
                     if (idxPolygon !== -1) {
                         this.values.push({
                             x: dataPolygon[idxPolygon].x.toString(),

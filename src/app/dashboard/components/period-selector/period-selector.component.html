@@ -1,9 +1,17 @@
 <div class="period-selector">
   <div class="type-selector">
-    <div class="type" [class.type_active]="isCurrent" (click)="isCurrentChange(true)">
+    <div
+      class="type"
+      [class.type_active]="isCurrent"
+      (click)="isCurrentChange(true)"
+    >
       <span class="type__name">Сутки</span>
     </div>
-    <div class="type" [class.type_active]="!isCurrent" (click)="isCurrentChange(false)">
+    <div
+      class="type"
+      [class.type_active]="!isCurrent"
+      (click)="isCurrentChange(false)"
+    >
       <span class="type__name">Период</span>
     </div>
   </div>
@@ -52,6 +60,9 @@
       </div>
     </div>
 
-    <svg-icon class="dates-selector__calendar" src="./assets/icons/calendar.svg"></svg-icon>
+    <svg-icon
+      class="dates-selector__calendar"
+      src="./assets/icons/calendar.svg"
+    ></svg-icon>
   </div>
 </div>

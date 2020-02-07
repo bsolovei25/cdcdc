@@ -1,7 +1,10 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { Subscription } from 'rxjs';
-import { ICalendarPlanGraph, ICalendarPlanData } from '../../models/calendar-plan';
+import {
+    ICalendarPlanGraph,
+    ICalendarPlanData,
+} from '../../models/calendar-plan';
 
 @Component({
     selector: 'evj-calendar-plan',
@@ -100,11 +103,15 @@ export class CalendarPlanComponent implements OnInit, OnDestroy {
                     this.data = ref;
                     this.data.curValue = ref.currentValue;
                     this.data.lowerBorder =
-                        Math.abs(this.data.lowerBorder - this.data.plan) / this.data.plan;
+                        Math.abs(this.data.lowerBorder - this.data.plan) /
+                        this.data.plan;
                     this.data.higherBorder =
-                        (this.data.higherBorder - this.data.plan) / this.data.plan;
-                    this.data.lowerValue = this.data.plan * (1 - this.data.lowerBorder);
-                    this.data.higherValue = this.data.plan * (1 + this.data.higherBorder);
+                        (this.data.higherBorder - this.data.plan) /
+                        this.data.plan;
+                    this.data.lowerValue =
+                        this.data.plan * (1 - this.data.lowerBorder);
+                    this.data.higherValue =
+                        this.data.plan * (1 + this.data.higherBorder);
                     this.array = ref.items;
                 })
         );

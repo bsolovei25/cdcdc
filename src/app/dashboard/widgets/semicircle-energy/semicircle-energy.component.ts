@@ -125,7 +125,9 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         if (this.subscriptions) {
-            this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+            this.subscriptions.forEach((subscription) =>
+                subscription.unsubscribe()
+            );
         }
     }
 
@@ -141,27 +143,35 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
         for (let i = 0; i < 4; i++) {
             key = 'production' + (i + 1);
             this.energyCircleDiagram[key] = this.productionList[i]
-                ? (this.productionList[i].fact / this.productionList[i].plan) * 100
+                ? (this.productionList[i].fact / this.productionList[i].plan) *
+                  100
                 : undefined;
         }
-        this.energyCircleDiagram.lowerLimit = this.lowerLimit ? this.lowerLimit : 97;
-        this.energyCircleDiagram.upperLimit = this.upperLimit ? this.upperLimit : 103;
+        this.energyCircleDiagram.lowerLimit = this.lowerLimit
+            ? this.lowerLimit
+            : 97;
+        this.energyCircleDiagram.upperLimit = this.upperLimit
+            ? this.upperLimit
+            : 103;
     }
 
     logoType(): void {
         switch (this.iconType) {
             case 0:
-                this.diagramLogo = '../../../../assets/icons/widgets/energetics/electro.svg';
+                this.diagramLogo =
+                    '../../../../assets/icons/widgets/energetics/electro.svg';
                 this.diagramLogoDanger =
                     '../../../../assets/icons/widgets/energetics/electro_danger.svg';
                 return;
             case 1:
-                this.diagramLogo = '../../../../assets/icons/widgets/energetics/termo.svg';
+                this.diagramLogo =
+                    '../../../../assets/icons/widgets/energetics/termo.svg';
                 this.diagramLogoDanger =
                     '../../../../assets/icons/widgets/energetics/termo_danger.svg';
                 return;
             case 2:
-                this.diagramLogo = '../../../../assets/icons/widgets/energetics/fuel.svg';
+                this.diagramLogo =
+                    '../../../../assets/icons/widgets/energetics/fuel.svg';
                 this.diagramLogoDanger =
                     '../../../../assets/icons/widgets/energetics/fuel_danger.svg';
                 return;

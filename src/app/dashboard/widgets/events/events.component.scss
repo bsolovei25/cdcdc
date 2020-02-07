@@ -18,7 +18,11 @@
 
 .selected-block {
   border: 1px solid var(--color-border-active);
-  background: linear-gradient(0deg, rgba(63, 169, 245, 0.1) 0%, var(--color-bg-main) 100%);
+  background: linear-gradient(
+    0deg,
+    rgba(63, 169, 245, 0.1) 0%,
+    var(--color-bg-main) 100%
+  );
 }
 
 .selected {
@@ -29,7 +33,11 @@
     border-color: var(--color-border-active);
   }
   border-color: var(--color-border-active);
-  background: linear-gradient(0deg, rgba(63, 169, 245, 0.1) 0%, var(--color-bg-main) 100%);
+  background: linear-gradient(
+    0deg,
+    rgba(63, 169, 245, 0.1) 0%,
+    var(--color-bg-main) 100%
+  );
 }
 
 .delete_widget {
@@ -60,8 +68,8 @@
   z-index: 9999; /* Add a z-index if needed */
   left: 50%; /* Center the snackbar */
   bottom: 30px; /* 30px from the bottom */
-  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14),
-    0 1px 18px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2),
+    0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
 }
 
 /* Show the snackbar when clicking on a button (class added with JavaScript) */
@@ -331,7 +339,11 @@
     color: white;
 
     background: var(--color-bg-active-bright);
-    background: linear-gradient(0deg, var(--color-bg-main) 0%, rgba(63, 169, 245, 0.1) 100%);
+    background: linear-gradient(
+      0deg,
+      var(--color-bg-main) 0%,
+      rgba(63, 169, 245, 0.1) 100%
+    );
   }
 
   &_active &__icon {
@@ -355,7 +367,10 @@
   --padding: 20px;
 
   position: relative;
-  height: calc(100% - var(--filters-min-height) - var(--categories-min-height) - var(--padding));
+  height: calc(
+    100% - var(--filters-min-height) - var(--categories-min-height) -
+      var(--padding)
+  );
   padding: var(--padding);
   box-sizing: border-box;
 
@@ -480,7 +495,11 @@
 
   &:hover &__body {
     background: var(--color-bg-active-bright);
-    background: linear-gradient(0deg, rgba(63, 169, 245, 0.1) 0%, var(--color-bg-main) 100%);
+    background: linear-gradient(
+      0deg,
+      rgba(63, 169, 245, 0.1) 0%,
+      var(--color-bg-main) 100%
+    );
 
     .notification__icon_delete {
       display: inline;
@@ -760,7 +779,11 @@
     color: var(--color-text-main);
 
     background: var(--color-bg-active-bright);
-    background: linear-gradient(0deg, rgba(63, 169, 245, 0.1) 0%, var(--color-bg-main) 100%);
+    background: linear-gradient(
+      0deg,
+      rgba(63, 169, 245, 0.1) 0%,
+      var(--color-bg-main) 100%
+    );
   }
 
   &__name {

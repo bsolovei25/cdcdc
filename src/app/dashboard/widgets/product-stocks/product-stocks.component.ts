@@ -24,7 +24,8 @@ export interface IProductStocks {
     templateUrl: './product-stocks.component.html',
     styleUrls: ['./product-stocks.component.scss'],
 })
-export class ProductStocksComponent implements OnInit, OnDestroy, AfterViewInit {
+export class ProductStocksComponent
+    implements OnInit, OnDestroy, AfterViewInit {
     title: string = '';
     public previewTitle: string;
 
@@ -53,10 +54,12 @@ export class ProductStocksComponent implements OnInit, OnDestroy, AfterViewInit 
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.liveSubscription = this.widgetService.getWidgetChannel(id).subscribe((data) => {
-            this.title = data.title;
-            this.previewTitle = data.widgetType;
-        });
+        this.liveSubscription = this.widgetService
+            .getWidgetChannel(id)
+            .subscribe((data) => {
+                this.title = data.title;
+                this.previewTitle = data.widgetType;
+            });
     }
 
     ngOnInit() {
@@ -96,7 +99,10 @@ export class ProductStocksComponent implements OnInit, OnDestroy, AfterViewInit 
             (this.data.passportization / this.data.stocks) *
             100
         ).toFixed(2);
-        const shipmentHeight = ((this.data.shipment / this.data.stocks) * 100).toFixed(2);
+        const shipmentHeight = (
+            (this.data.shipment / this.data.stocks) *
+            100
+        ).toFixed(2);
     }
 
     onActive() {

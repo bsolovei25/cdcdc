@@ -27,7 +27,9 @@ export class WidgetSettingsService {
         this.restUrl = configService.restUrl;
     }
 
-    public async getSettings<TSettings>(widgetUniqueId: string): Promise<TSettings> {
+    public async getSettings<TSettings>(
+        widgetUniqueId: string
+    ): Promise<TSettings> {
         const url = `${this.restUrl}/api/user-management/widgetsettings/${widgetUniqueId}`;
         const settings = await this.http.get<TSettings>(url).toPromise();
         return settings;
