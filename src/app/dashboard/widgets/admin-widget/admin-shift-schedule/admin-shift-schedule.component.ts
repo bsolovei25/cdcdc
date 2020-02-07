@@ -7,6 +7,7 @@ import {
 } from '@angular/material/datepicker';
 import * as moment from 'moment';
 import { DateAdapter } from '@angular/material/core';
+import { IWorker } from '../../../models/worker';
 
 @Component({
     selector: 'evj-admin-shift-schedule',
@@ -23,7 +24,18 @@ export class AdminShiftScheduleComponent implements OnDestroy {
 
     @ViewChild('calendar', { static: true }) calendar: MatCalendar<Date>;
 
+    size = [1, 2, 3, 4, 5, 6, 7, 3, 4, 5, 6, 6, 7, 7];
+
     selectedDate: Date;
+
+    public man: IWorker = {
+        name: 'Иванов Иван Сергеевич',
+        phone: '+ 7 (925) 599-99-87',
+        email: 'Ivanov@gazprom-neft.ru',
+        brigade: 'Бригада №1',
+        accessLevel: 'Высокий уровень доступа',
+        position: 'Старший оператор | КИПиА',
+    };
 
     constructor(
         private widgetService: NewWidgetService,
@@ -50,6 +62,7 @@ export class AdminShiftScheduleComponent implements OnDestroy {
     dateClass() {
         return (date: Date): MatCalendarCellCssClasses => {
             if (date.getDate() === 1) {
+                this.selectedDate = date;
                 return 'special-date';
             } else {
                 return;

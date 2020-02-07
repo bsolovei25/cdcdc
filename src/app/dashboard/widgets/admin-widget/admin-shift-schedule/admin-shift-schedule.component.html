@@ -33,6 +33,17 @@
       </section>
       <section class="main-team">
         <p>Основной состав бригады</p>
+        <div class="main-team__container">
+          <ul class="list">
+            <li *ngFor="let i of size">
+              <evj-worker-card
+                class="insert-component"
+                [isSmallCard]="true"
+                [person]="man"
+              ></evj-worker-card>
+            </li>
+          </ul>
+        </div>
       </section>
     </div>
     <div class="block-bottom">
@@ -65,6 +76,17 @@
       </section>
       <section class="additional-team">
         <p>Дополнительный состав бригады</p>
+        <div class="additional-team__container">
+          <ul class="list">
+            <li *ngFor="let i of size">
+              <evj-worker-card
+                class="insert-component"
+                [isSmallCard]="true"
+                [person]="man"
+              ></evj-worker-card>
+            </li>
+          </ul>
+        </div>
       </section>
     </div>
   </div>

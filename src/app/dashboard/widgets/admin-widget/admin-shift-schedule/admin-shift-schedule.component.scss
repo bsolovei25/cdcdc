@@ -42,30 +42,54 @@
   }
 }
 
+p {
+  margin: 11px 0;
+}
+
 .block-top {
-  margin-left: 20px;
   display: flex;
   justify-content: space-between;
 
+  margin-right: 20px;
+  margin-left: 10px;
+
   .calendar {
-    width: 55%;
-    min-height: 320px;
-    min-width: 250px;
+    min-height: 385px;
+    min-width: 350px;
   }
   .main-team {
-    width: 100%;
     min-height: 270px;
     min-width: 250px;
+    max-height: 316px;
+    margin-left: 20px;
+
+    &__container {
+      height: 100%;
+      .list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        display: flex;
+        flex-wrap: wrap;
+        overflow: auto;
+        height: 100%;
+        max-height: 350px;
+      }
+    }
   }
 }
 
 .block-bottom {
   display: flex;
   justify-content: space-between;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+
   .duty-schedule {
-    width: 55%;
     min-height: 300px;
-    min-width: 250px;
+    min-width: 350px;
     .shift-yesterday {
       color: var(--color-text-sub);
       display: flex;
@@ -101,8 +125,60 @@
   }
 
   .additional-team {
-    width: 100%;
+    max-height: 300px;
     min-height: 300px;
-    min-width: 250px;
+    min-width: 350px;
+    margin-left: 20px;
+
+    &__container {
+      max-height: 210px;
+      overflow: auto;
+      .list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        display: flex;
+        flex-wrap: wrap;
+        overflow: auto;
+        height: 100%;
+      }
+    }
   }
+}
+
+.insert-component {
+  display: block;
+  width: 340px;
+  height: 95px;
+  margin: 5px 0;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  border-radius: 25px;
+  z-index: 999;
+}
+
+::-webkit-scrollbar-track {
+  // background-color:var(--color-border-active);
+  border-radius: 25px;
+  margin: 20px;
+}
+::-webkit-scrollbar-track-piece {
+  border: solid 1px var(--color-border-active);
+  border-radius: 25px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-border-active);
+  border-radius: 25px;
+}
+::-webkit-scrollbar-corner {
+  //background-color: var(--color-border-active);
+  border-radius: 25px;
+}
+::-webkit-resizer {
+  background-color: var(--color-border-active);
+  border-radius: 25px;
 }

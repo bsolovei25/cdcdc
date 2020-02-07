@@ -8,8 +8,16 @@
 .calendar-red {
   // background-color: rgb(241, 187, 187);
 
-  .mat-calendar-body {
-    // font-size: 15px;
+  .mat-calendar-header {
+    padding: 0;
+  }
+
+  .mat-calendar-controls {
+    margin-top: 5px;
+  }
+
+  .mat-calendar-content {
+    padding: 0;
   }
   .mat-calendar-body-cell-content {
     border-radius: 0;
