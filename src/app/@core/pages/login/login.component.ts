@@ -16,12 +16,8 @@ import { MaterialControllerService } from '../../../dashboard/services/material-
     templateUrl: './login.component.html',
 })
 export class LoginComponent implements OnInit, AfterViewInit {
-    username: FormControl = new FormControl(environment.username, [
-        Validators.required,
-    ]);
-    password: FormControl = new FormControl(environment.password, [
-        Validators.required,
-    ]);
+    username: FormControl = new FormControl(environment.username, [Validators.required]);
+    password: FormControl = new FormControl(environment.password, [Validators.required]);
 
     isLoadingData: boolean = false;
     isLoading: boolean = true;
@@ -66,9 +62,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
                     this.isLoadingData = false;
                 }, 1000);
             } else {
-                this.materialController.openSnackBar(
-                    'Неверный логин или пароль'
-                );
+                this.materialController.openSnackBar('Неверный логин или пароль');
                 this.swing = true;
                 this.isLoadingData = false;
             }

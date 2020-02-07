@@ -24,9 +24,7 @@ export class WidgetPiesComponent implements OnInit {
 
     public uniqal;
 
-    public datas = [
-        { name: 'Статическое Оборудование', critical: 5, nonCritical: 2 },
-    ];
+    public datas = [{ name: 'Статическое Оборудование', critical: 5, nonCritical: 2 }];
 
     constructor(
         public widgetService: NewWidgetService,
@@ -34,13 +32,11 @@ export class WidgetPiesComponent implements OnInit {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscription = this.widgetService
-            .getWidgetChannel(this.id)
-            .subscribe((data) => {
-                this.title = data.title;
-                this.code = data.code;
-                this.name = data.name;
-            });
+        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
+            this.title = data.title;
+            this.code = data.code;
+            this.name = data.name;
+        });
     }
 
     ngOnInit() {
@@ -54,11 +50,9 @@ export class WidgetPiesComponent implements OnInit {
     }
 
     private wsConnect() {
-        this.widgetService
-            .getWidgetLiveDataFromWS(this.id, 'pie-diagram')
-            .subscribe((ref) => {
-                this.datas = ref.items;
-            });
+        this.widgetService.getWidgetLiveDataFromWS(this.id, 'pie-diagram').subscribe((ref) => {
+            this.datas = ref.items;
+        });
     }
     private wsDisconnect() {}
 

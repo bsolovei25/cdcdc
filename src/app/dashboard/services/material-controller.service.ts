@@ -17,11 +17,7 @@ export class MaterialControllerService {
         const configSnackBar = new MatSnackBarConfig();
         configSnackBar.panelClass = panelClass;
         configSnackBar.duration = msgDuration;
-        const snackBarInstance = this.snackBar.open(
-            msg,
-            actionText,
-            configSnackBar
-        );
+        const snackBarInstance = this.snackBar.open(msg, actionText, configSnackBar);
         if (actionFunction) {
             snackBarInstance.onAction().subscribe(() => actionFunction());
         }

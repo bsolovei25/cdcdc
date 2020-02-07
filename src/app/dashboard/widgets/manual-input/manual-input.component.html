@@ -5,11 +5,7 @@
 ></evj-widget-preview>
 
 <ng-container *ngIf="!this.isMock">
-  <evj-widget-header
-    [title]="title"
-    [id]="id"
-    [uniqId]="uniqId"
-  ></evj-widget-header>
+  <evj-widget-header [title]="title" [id]="id" [uniqId]="uniqId"></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
 
@@ -19,10 +15,7 @@
     (touchstart)="$event.stopPropagation()"
   >
     <div class="buttons">
-      <div
-        class="button buttons__item  gridster-item-content"
-        (click)="onButtonSave()"
-      >
+      <div class="button buttons__item  gridster-item-content" (click)="onButtonSave()">
         Сохранить значение
       </div>
     </div>
@@ -61,19 +54,13 @@
       <div class="table-body">
         <div class="table-body_list scroll-bar">
           <div class="table-container-1" *ngFor="let machine of Data">
-            <div
-              class="table-header-1"
-              (click)="onActiveBlock(machine.name, $event)"
-            >
+            <div class="table-header-1" (click)="onActiveBlock(machine.name, $event)">
               {{ machine.name }}
             </div>
 
             <div class="vertical-line-1"></div>
             <div class="table-container-2" *ngFor="let group of machine.groups">
-              <div
-                class="table-header-2"
-                (click)="onActiveBottomBlock(group.name, $event)"
-              >
+              <div class="table-header-2" (click)="onActiveBottomBlock(group.name, $event)">
                 {{ group.name }}
               </div>
               <div class="vertical-line-2"></div>

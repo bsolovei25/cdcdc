@@ -7,11 +7,7 @@
 <div class="container pointer-event" *ngIf="!isMock">
   <div id="snackbar"></div>
 
-  <evj-widget-header
-    [title]="title"
-    [id]="id"
-    [uniqId]="uniqId"
-  ></evj-widget-header>
+  <evj-widget-header [title]="title" [id]="id" [uniqId]="uniqId"></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
 
@@ -23,10 +19,7 @@
         <div class="card-blocks">
           <div class="block__left">
             <div class="block__left_first" #svgContainers>
-              <svg-icon
-                class="block__left__img"
-                src="./assets/icons/widgets/product-stocks/1.svg"
-              >
+              <svg-icon class="block__left__img" src="./assets/icons/widgets/product-stocks/1.svg">
               </svg-icon>
               <svg
                 class="block__left__img-2"
@@ -45,13 +38,7 @@
                 />
                 <!-- <rect width="42.4" height="29" x="1.24" y="7.1" style="fill:#f4a321;opacity:0.8" /> -->
                 <!-- <rect width="42.4" height="29" x="1.24" y="7.1" style="fill:#a2e2ff;opacity:0.8" /> -->
-                <rect
-                  x="1.24"
-                  y="7.1"
-                  width="42.4"
-                  height="29"
-                  style="fill:#a2e2ff;opacity:0.1"
-                />
+                <rect x="1.24" y="7.1" width="42.4" height="29" style="fill:#a2e2ff;opacity:0.1" />
                 <path
                   d="M44.17,37.82H.7l-.64-.63V.7L.7.06H44.17L44.8.7V37.19Z"
                   style="fill:none;stroke:#61647d;stroke-miterlimit:10;stroke-width:0.126453577802817px"
@@ -70,9 +57,7 @@
           </div>
           <div class="block__right">
             <div class="block__right_first">
-              <span class="block__right__text-header"
-                >Прогноз исполнения плана</span
-              >
+              <span class="block__right__text-header">Прогноз исполнения плана</span>
               <svg-icon
                 class="block__right__img-1 block__right__img-1-warning"
                 src="./assets/icons/widgets/product-stocks/3.svg"
@@ -90,15 +75,12 @@
                 src="./assets/icons/widgets/product-stocks/5.svg"
               >
               </svg-icon>
-              <span class="block__right__text block__right__text-active"
-                >Паспортизация</span
-              >
+              <span class="block__right__text block__right__text-active">Паспортизация</span>
               <span class="block__right__text">Отгрузка</span>
             </div>
             <div class="block__right_second">
               <span class="block__right__text-sub">т.</span>
-              <span
-                class="block__right__text-value block__right__text-value-warning"
+              <span class="block__right__text-value block__right__text-value-warning"
                 >{{ data.passportization }}</span
               >
               <span class="block__right__text-value">{{ data.shipment }}</span>

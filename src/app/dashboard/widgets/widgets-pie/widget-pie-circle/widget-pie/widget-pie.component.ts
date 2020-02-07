@@ -90,10 +90,7 @@ export class WidgetsPieComponent implements OnInit {
             .append('text')
             .attr('text-anchor', 'middle')
             .attr('font-size', '2em')
-            .attr(
-                'fill',
-                !data.nonCritical && !data.critical ? 'gray' : 'white'
-            )
+            .attr('fill', !data.nonCritical && !data.critical ? 'gray' : 'white')
             .attr('dominant-baseline', 'middle')
             .text(summ);
 
@@ -102,10 +99,7 @@ export class WidgetsPieComponent implements OnInit {
             .attr('fill', 'rgb(140,153,178)')
             .attr('font-size', '11px')
             .attr('x', '46')
-            .attr(
-                'font-family',
-                "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
-            )
+            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
             .attr('y', '0')
             .text(data.name);
 
@@ -122,10 +116,7 @@ export class WidgetsPieComponent implements OnInit {
             .attr('font-size', '12px')
             .attr('x', '125')
             .attr('y', '172')
-            .attr(
-                'fill',
-                !data.nonCritical && !data.critical ? 'gray' : 'white'
-            )
+            .attr('fill', !data.nonCritical && !data.critical ? 'gray' : 'white')
             .text(data.nonCritical);
 
         let negative = canvas
@@ -141,10 +132,7 @@ export class WidgetsPieComponent implements OnInit {
             .attr('font-size', '12px')
             .attr('x', '70')
             .attr('y', '172')
-            .attr(
-                'fill',
-                !data.nonCritical && !data.critical ? 'gray' : 'orange'
-            )
+            .attr('fill', !data.nonCritical && !data.critical ? 'gray' : 'orange')
             .text(data.critical);
 
         let pie_back = canvas

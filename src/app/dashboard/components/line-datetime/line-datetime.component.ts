@@ -37,10 +37,7 @@ export class LineDatetimeComponent implements OnInit, AfterViewInit, OnDestroy {
 
     public widthBlock;
 
-    constructor(
-        private renderer: Renderer2,
-        private headerData: HeaderDataService
-    ) {
+    constructor(private renderer: Renderer2, private headerData: HeaderDataService) {
         setInterval(() => {
             this.datesFill();
             this.currentData = Date.now();
@@ -123,11 +120,7 @@ export class LineDatetimeComponent implements OnInit, AfterViewInit, OnDestroy {
         let width = pieLine * countLine + 1.1;
 
         this.renderer.removeStyle(elStart.nativeElement, 'left');
-        this.renderer.setStyle(
-            elStart.nativeElement,
-            'left',
-            `${positionStartLine}%`
-        );
+        this.renderer.setStyle(elStart.nativeElement, 'left', `${positionStartLine}%`);
         this.renderer.setStyle(elStart.nativeElement, 'width', `${width}%`);
     }
 }

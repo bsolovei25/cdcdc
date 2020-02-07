@@ -4,18 +4,12 @@
     <div class="graph__line">
       <div class="line line__marking line__marking-0"></div>
       <div class="line line__marking line__marking-50"></div>
-      <div
-        class="line line__limit"
-        [ngStyle]="{ left: limitsGraph(data, 'l') }"
-      >
+      <div class="line line__limit" [ngStyle]="{ left: limitsGraph(data, 'l') }">
         <div class="label label__limit label__limit-lower">
           {{ (data.lowerValue / data.plan) * 100 | number: "1.0-0" }}%
         </div>
       </div>
-      <div
-        class="line line__limit"
-        [ngStyle]="{ left: limitsGraph(data, 'r') }"
-      >
+      <div class="line line__limit" [ngStyle]="{ left: limitsGraph(data, 'r') }">
         <div class="label label__limit label__limit-higher">
           {{ (data.higherValue / data.plan) * 100 | number: "1.0-2" }}%
         </div>
@@ -58,10 +52,7 @@
     </div>
     <div class="deviation__better">
       Улучшение <span>{{ deviationCounter(data, false) }}</span>
-      <img
-        src="../../../../assets/icons/widgets/calendar-plan/deviat.svg"
-        alt=""
-      />
+      <img src="../../../../assets/icons/widgets/calendar-plan/deviat.svg" alt="" />
     </div>
   </div>
 </div>

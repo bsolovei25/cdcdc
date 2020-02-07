@@ -60,15 +60,13 @@ export class MapEcologyComponent implements AfterViewInit, OnInit, OnDestroy {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscription = this.widgetService
-            .getWidgetChannel(this.id)
-            .subscribe((data) => {
-                this.title = data.title;
-                this.code = data.code;
-                this.units = data.units;
-                this.name = data.name;
-                this.previewTitle = data.widgetType;
-            });
+        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
+            this.title = data.title;
+            this.code = data.code;
+            this.units = data.units;
+            this.name = data.name;
+            this.previewTitle = data.widgetType;
+        });
     }
 
     ngOnInit() {}
@@ -84,21 +82,19 @@ export class MapEcologyComponent implements AfterViewInit, OnInit, OnDestroy {
     }
 
     private wsConnect() {
-        this.widgetService
-            .getWidgetLiveDataFromWS(this.id, 'map-ecology')
-            .subscribe((ref) => {
-                if (this.datas == null) {
-                    this.datas = ref.points;
-                    this.regexText(this.datas);
-                    this.drawMap(this.myCircle.nativeElement, this.datas);
-                    this.namePoint = this.datas[0].name;
-                } else {
-                    this.clearMap();
-                    this.datas = ref.points;
-                    this.regexText(this.datas);
-                    this.drawMap(this.myCircle.nativeElement, this.datas);
-                }
-            });
+        this.widgetService.getWidgetLiveDataFromWS(this.id, 'map-ecology').subscribe((ref) => {
+            if (this.datas == null) {
+                this.datas = ref.points;
+                this.regexText(this.datas);
+                this.drawMap(this.myCircle.nativeElement, this.datas);
+                this.namePoint = this.datas[0].name;
+            } else {
+                this.clearMap();
+                this.datas = ref.points;
+                this.regexText(this.datas);
+                this.drawMap(this.myCircle.nativeElement, this.datas);
+            }
+        });
     }
     private wsDisconnect() {}
 
@@ -153,10 +149,7 @@ export class MapEcologyComponent implements AfterViewInit, OnInit, OnDestroy {
                                 'xlink:href',
                                 '/assets/pic/point.svg'
                             );
-                            svg.selectAll('#critical').attr(
-                                'xlink:href',
-                                '/assets/pic/point3.svg'
-                            );
+                            svg.selectAll('#critical').attr('xlink:href', '/assets/pic/point3.svg');
                             svg.select('.' + item.name).attr(
                                 'xlink:href',
                                 '/assets/pic/point2.svg'
@@ -178,10 +171,7 @@ export class MapEcologyComponent implements AfterViewInit, OnInit, OnDestroy {
                                 'xlink:href',
                                 '/assets/pic/point.svg'
                             );
-                            svg.selectAll('#critical').attr(
-                                'xlink:href',
-                                '/assets/pic/point3.svg'
-                            );
+                            svg.selectAll('#critical').attr('xlink:href', '/assets/pic/point3.svg');
                             svg.select('.' + item.name).attr(
                                 'xlink:href',
                                 '/assets/pic/point2.svg'
@@ -205,10 +195,7 @@ export class MapEcologyComponent implements AfterViewInit, OnInit, OnDestroy {
                                 'xlink:href',
                                 '/assets/pic/point.svg'
                             );
-                            svg.selectAll('#critical').attr(
-                                'xlink:href',
-                                '/assets/pic/point3.svg'
-                            );
+                            svg.selectAll('#critical').attr('xlink:href', '/assets/pic/point3.svg');
                             svg.select('.' + item.name).attr(
                                 'xlink:href',
                                 '/assets/pic/point2.svg'
@@ -230,10 +217,7 @@ export class MapEcologyComponent implements AfterViewInit, OnInit, OnDestroy {
                                 'xlink:href',
                                 '/assets/pic/point.svg'
                             );
-                            svg.selectAll('#critical').attr(
-                                'xlink:href',
-                                '/assets/pic/point3.svg'
-                            );
+                            svg.selectAll('#critical').attr('xlink:href', '/assets/pic/point3.svg');
                             svg.select('.' + item.name).attr(
                                 'xlink:href',
                                 '/assets/pic/point2.svg'

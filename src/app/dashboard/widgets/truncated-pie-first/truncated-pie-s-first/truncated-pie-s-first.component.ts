@@ -32,14 +32,12 @@ export class TruncatedPieSFirstComponent implements OnInit {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscription = this.widgetService
-            .getWidgetChannel(this.id)
-            .subscribe((data) => {
-                this.title = data.title;
-                this.code = data.code;
-                //  this.units = data.units;
-                this.name = data.name;
-            });
+        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
+            this.title = data.title;
+            this.code = data.code;
+            //  this.units = data.units;
+            this.name = data.name;
+        });
     }
 
     ngOnInit() {

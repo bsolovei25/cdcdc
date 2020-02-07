@@ -1,10 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { Subscription } from 'rxjs';
-import {
-    IBlockDiagram,
-    IBlockDiagramMock,
-} from '../../models/circle-block-diagram';
+import { IBlockDiagram, IBlockDiagramMock } from '../../models/circle-block-diagram';
 
 @Component({
     selector: 'evj-circle-block-diagram',
@@ -56,15 +53,13 @@ export class CircleBlockDiagramComponent implements OnInit {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscription = this.widgetService
-            .getWidgetChannel(this.id)
-            .subscribe((data) => {
-                this.title = data.title;
-                this.previewTitle = data.widgetType;
-                // this.code = data.code;
-                // this.units = data.units;
-                // this.name = data.name;
-            });
+        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
+            this.title = data.title;
+            this.previewTitle = data.widgetType;
+            // this.code = data.code;
+            // this.units = data.units;
+            // this.name = data.name;
+        });
     }
 
     ngOnInit(): void {

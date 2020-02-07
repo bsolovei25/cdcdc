@@ -31,11 +31,7 @@ export class Result<X> implements IResult {
         return this.is(CoreResultCodeEnum.noErrors);
     }
 
-    static create<Y = undefined>(
-        code?: CoreResultCodeEnum,
-        comment?: string,
-        data?: Y
-    ): Result<Y>;
+    static create<Y = undefined>(code?: CoreResultCodeEnum, comment?: string, data?: Y): Result<Y>;
     static create<Y = undefined>(
         codeError?: CoreResultCodeEnum | Error,
         comment?: string
@@ -59,9 +55,7 @@ export class Result<X> implements IResult {
         return new Result<Y>().setResult(CoreResultCodeEnum.noErrors, comment);
     }
 
-    static createFromResult<Y = undefined>(
-        otherResult: Result<any>
-    ): Result<Y> {
+    static createFromResult<Y = undefined>(otherResult: Result<any>): Result<Y> {
         return new Result<Y>().setResult(otherResult.code, otherResult.comment);
     }
 

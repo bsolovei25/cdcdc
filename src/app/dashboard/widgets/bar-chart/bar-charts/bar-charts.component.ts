@@ -32,16 +32,14 @@ export class BarChartsComponent implements OnInit {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscription = this.widgetService
-            .getWidgetChannel(this.id)
-            .subscribe((data) => {
-                this.title = data.title;
-                this.code = data.code;
-                //   this.units = data.units;
-                this.name = data.name;
-                this.previewTitle = data.widgetType;
-                console.log(data.widgetType);
-            });
+        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
+            this.title = data.title;
+            this.code = data.code;
+            //   this.units = data.units;
+            this.name = data.name;
+            this.previewTitle = data.widgetType;
+            console.log(data.widgetType);
+        });
     }
 
     ngOnInit() {
@@ -57,13 +55,11 @@ export class BarChartsComponent implements OnInit {
     }
 
     private wsConnect() {
-        this.widgetService
-            .getWidgetLiveDataFromWS(this.id, 'bar-chart')
-            .subscribe((ref) => {
-                if (this.datas.length === 0) {
-                    this.datas = ref.chartItems;
-                }
-            });
+        this.widgetService.getWidgetLiveDataFromWS(this.id, 'bar-chart').subscribe((ref) => {
+            if (this.datas.length === 0) {
+                this.datas = ref.chartItems;
+            }
+        });
     }
     private wsDisconnect() {}
 

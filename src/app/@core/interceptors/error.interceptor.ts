@@ -1,11 +1,6 @@
 // Angular
 import { Injectable } from '@angular/core';
-import {
-    HttpInterceptor,
-    HttpHandler,
-    HttpRequest,
-    HttpEvent,
-} from '@angular/common/http';
+import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent } from '@angular/common/http';
 // Angular material
 // RxJS
 import { throwError, Observable } from 'rxjs';
@@ -19,16 +14,10 @@ import { MaterialControllerService } from '../../dashboard/services/material-con
     providedIn: 'root', // singleton service
 })
 export class ErrorInterceptor implements HttpInterceptor {
-    constructor(
-        private router: Router,
-        private materialController: MaterialControllerService
-    ) {}
+    constructor(private router: Router, private materialController: MaterialControllerService) {}
 
     /** Intercept request with custom error handling */
-    intercept(
-        req: HttpRequest<any>,
-        next: HttpHandler
-    ): Observable<HttpEvent<any>> {
+    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         // pass source request
         return next.handle(req).pipe(
             catchError((err) => {
@@ -41,10 +30,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                         break;
                     case 0:
                         this.router.navigate(['login']);
-                        this.materialController.openSnackBar(
-                            'Сервер не отвечает',
-                            'snackbar-red'
-                        );
+                        this.materialController.openSnackBar('Сервер не отвечает', 'snackbar-red');
                         break;
                     case 403:
                         console.error(err);

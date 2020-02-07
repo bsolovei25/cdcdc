@@ -1,10 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { Subscription } from 'rxjs';
-import {
-    IColumnChartStacked,
-    IColumnChartStackedDataWS,
-} from '../../models/column-chart-stacked';
+import { IColumnChartStacked, IColumnChartStackedDataWS } from '../../models/column-chart-stacked';
 import { IWidgets } from '../../models/widget.model';
 
 @Component({
@@ -34,15 +31,13 @@ export class ColumnChartStackedComponent implements OnInit, OnDestroy {
         @Inject('uniqId') public uniqId: string
     ) {
         this.subscriptions.push(
-            this.widgetService
-                .getWidgetChannel(this.id)
-                .subscribe((data: IWidgets) => {
-                    this.title = data.title;
-                    this.previewTitle = data.widgetType;
-                    this.units = data.units;
-                    // this.code = data.code;
-                    // this.name = data.name;
-                })
+            this.widgetService.getWidgetChannel(this.id).subscribe((data: IWidgets) => {
+                this.title = data.title;
+                this.previewTitle = data.widgetType;
+                this.units = data.units;
+                // this.code = data.code;
+                // this.name = data.name;
+            })
         );
     }
 

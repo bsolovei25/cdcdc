@@ -50,11 +50,7 @@
   border-bottom: 0.5px solid var(--color-text-sub);
 
   &-active {
-    background: linear-gradient(
-      180deg,
-      rgba(63, 169, 245, 0.1) 0%,
-      var(--color-bg-main) 100%
-    );
+    background: linear-gradient(180deg, rgba(63, 169, 245, 0.1) 0%, var(--color-bg-main) 100%);
 
     border-color: var(--color-bg-active-bright);
     * {

@@ -335,12 +335,10 @@ export class EnterpriseMapComponent implements OnDestroy, AfterViewInit {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscription = this.widgetService
-            .getWidgetChannel(this.id)
-            .subscribe((data) => {
-                this.title = data.title;
-                this.previewTitle = data.widgetType;
-            });
+        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
+            this.title = data.title;
+            this.previewTitle = data.widgetType;
+        });
     }
 
     ngOnDestroy(): void {
@@ -367,17 +365,13 @@ export class EnterpriseMapComponent implements OnDestroy, AfterViewInit {
                 prognosis: number;
             } | null;
             const dataId = b.getAttribute('data-id');
-            const idx: number = this.data.build.findIndex(
-                (d) => d.id === +dataId
-            );
+            const idx: number = this.data.build.findIndex((d) => d.id === +dataId);
             if (idx !== -1) {
                 options = this.data.build[idx].options;
             }
             if (options) {
                 const allOptions: number =
-                    options.diagnostics +
-                    options.nonCritical +
-                    options.prognosis;
+                    options.diagnostics + options.nonCritical + options.prognosis;
                 const widthNumber: number = allOptions.toString().length;
                 if (b.tagName === 'polygon' || b.tagName === 'polyline') {
                     const id = b.getAttribute('data-id');
@@ -398,9 +392,7 @@ export class EnterpriseMapComponent implements OnDestroy, AfterViewInit {
                         { id: 80, x: `${246 - widthNumber * 6}`, y: '481' },
                         { id: 92, x: `${655 - widthNumber * 6}`, y: '579' },
                     ];
-                    const idxPolygon: number = dataPolygon.findIndex(
-                        (i) => i.id === +id
-                    );
+                    const idxPolygon: number = dataPolygon.findIndex((i) => i.id === +id);
                     if (idxPolygon !== -1) {
                         this.values.push({
                             x: dataPolygon[idxPolygon].x.toString(),

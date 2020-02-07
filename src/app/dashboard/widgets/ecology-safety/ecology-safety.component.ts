@@ -36,12 +36,10 @@ export class EcologySafetyComponent implements OnInit, OnDestroy {
         @Inject('uniqId') public uniqId: string
     ) {
         this.subscriptions.push(
-            this.widgetService
-                .getWidgetChannel(this.id)
-                .subscribe((data: IWidgets) => {
-                    this.title = data.title;
-                    this.previewTitle = data.widgetType;
-                })
+            this.widgetService.getWidgetChannel(this.id).subscribe((data: IWidgets) => {
+                this.title = data.title;
+                this.previewTitle = data.widgetType;
+            })
         );
     }
 

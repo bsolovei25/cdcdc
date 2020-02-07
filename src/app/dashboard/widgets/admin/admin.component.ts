@@ -18,8 +18,7 @@ export class AdminComponent implements OnInit {
     public units: string = '';
 
     public newHumanButtonIcon: IButtonImgSrc = {
-        active:
-            '../../../../assets/icons/widgets/admin/newWorkerIcon-active.svg',
+        active: '../../../../assets/icons/widgets/admin/newWorkerIcon-active.svg',
         normal: '../../../../assets/icons/widgets/admin/newWorkerIcon.svg',
     };
     public groupsButtonIcon: IButtonImgSrc = {

@@ -12,9 +12,7 @@
     <ng-container *ngFor="let item of data">
       <div class="values_block">
         <ng-container *ngFor="let key of objectKeys(item)">
-          <ng-container
-            *ngIf="(key === 'finishOperation') || (key === 'startOperation')"
-          >
+          <ng-container *ngIf="(key === 'finishOperation') || (key === 'startOperation')">
             <ng-container *ngIf="objectEntries(item[key]).length !== 0">
               <div class="values">
                 <div class="value">
@@ -39,9 +37,7 @@
               </div>
             </ng-container>
           </ng-container>
-          <ng-container
-            *ngIf="(key !== 'finishOperation') && (key !== 'startOperation')"
-          >
+          <ng-container *ngIf="(key !== 'finishOperation') && (key !== 'startOperation')">
             <div class="values">
               <div class="value">
                 {{ item[key] }}

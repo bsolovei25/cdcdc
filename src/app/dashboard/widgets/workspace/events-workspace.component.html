@@ -84,12 +84,8 @@
               <div class="workspace__block__title">
                 Старший оператор:
               </div>
-              <div
-                class="workspace__block__body"
-                *ngIf="event.responsibleOperator"
-              >
-                {{ event.responsibleOperator.lastName }} {{
-                event.responsibleOperator.firstName }}
+              <div class="workspace__block__body" *ngIf="event.responsibleOperator">
+                {{ event.responsibleOperator.lastName }} {{ event.responsibleOperator.firstName }}
               </div>
             </div>
 
@@ -116,9 +112,7 @@
                     [(ngModel)]="event.status"
                     [compareWith]="compareFn"
                   >
-                    <option *ngFor="let p of status" [ngValue]="p"
-                      >{{ statuses[p.name] }}</option
-                    >
+                    <option *ngFor="let p of status" [ngValue]="p">{{ statuses[p.name] }}</option>
                   </select>
                 </div>
               </div>
@@ -169,10 +163,7 @@
               <div class="workspace__block__title">
                 Зафиксировал:
               </div>
-              <div
-                class="workspace__block__body__drop-down"
-                style="max-width: 120px;"
-              >
+              <div class="workspace__block__body__drop-down" style="max-width: 120px;">
                 <div class="dropdown dropdown-dark">
                   <select
                     name="contactMethod"
@@ -201,9 +192,7 @@
                     [compareWith]="compareFn"
                     (change)="changeCategory()"
                   >
-                    <option *ngFor="let p of eventTypes" [ngValue]="p"
-                      >{{ p.name }}
-                    </option>
+                    <option *ngFor="let p of eventTypes" [ngValue]="p">{{ p.name }} </option>
                   </select>
                 </div>
               </div>
@@ -222,9 +211,7 @@
                     [compareWith]="compareFn"
                     (change)="changeCategory()"
                   >
-                    <option *ngFor="let p of equipmentCategory" [ngValue]="p"
-                      >{{ p.name }}
-                    </option>
+                    <option *ngFor="let p of equipmentCategory" [ngValue]="p">{{ p.name }} </option>
                   </select>
                 </div>
               </div>
@@ -268,10 +255,7 @@
 
         <div class="blocks-bottom">
           <div class="block-bottom">
-            <div
-              class="change-shift__comment"
-              style="height: 120px; min-height: 120px;"
-            >
+            <div class="change-shift__comment" style="height: 120px; min-height: 120px;">
               <div class="comment__title">
                 Корректирующие мероприятия
               </div>
@@ -286,10 +270,7 @@
                         <span>
                           {{ getIndex(i) }}.
                           <span class="event__sub">Ответственный</span>
-                          <span
-                            style="padding-left:10px;"
-                            *ngIf="retrieval.responsibleOperator"
-                          >
+                          <span style="padding-left:10px;" *ngIf="retrieval.responsibleOperator">
                             {{ retrieval.responsibleOperator.lastName }} {{
                             retrieval.responsibleOperator.firstName }}</span
                           >
@@ -323,10 +304,7 @@
                       <div class="event__footer">
                         <span class="event__sub">Срок исполнения</span>
                         <span class="event__date">
-                          <span
-                            >{{ retrieval.deadline | date:'dd-MM-yyyy HH:mm'
-                            }}</span
-                          >
+                          <span>{{ retrieval.deadline | date:'dd-MM-yyyy HH:mm' }}</span>
                         </span>
                       </div>
                       <div
@@ -334,22 +312,12 @@
                         (touchstart)="$event.stopPropagation()"
                         id="overlay-confirmation"
                       >
-                        <div
-                          class="overlay-confirmation__body"
-                          (click)="$event.stopPropagation()"
-                        >
-                          <span
-                            >Вы действительно хотите удалить выбранное
-                            Мероприятие?</span
-                          >
+                        <div class="overlay-confirmation__body" (click)="$event.stopPropagation()">
+                          <span>Вы действительно хотите удалить выбранное Мероприятие?</span>
                           <div style="display: flex;">
                             <div class="workspace__submit">
-                              <div
-                                class="submit__frame submit__frame-left"
-                              ></div>
-                              <div
-                                class="submit__frame submit__frame-right"
-                              ></div>
+                              <div class="submit__frame submit__frame-left"></div>
+                              <div class="submit__frame submit__frame-right"></div>
                               <button
                                 type="submit gridster-item-content"
                                 (click)="deleteRetrieval(event.id, retrieval.id)"
@@ -358,12 +326,8 @@
                               </button>
                             </div>
                             <div class="workspace__submit">
-                              <div
-                                class="submit__frame submit__frame-left"
-                              ></div>
-                              <div
-                                class="submit__frame submit__frame-right"
-                              ></div>
+                              <div class="submit__frame submit__frame-left"></div>
+                              <div class="submit__frame submit__frame-right"></div>
                               <button
                                 type="submit gridster-item-content"
                                 (click)="overlayConfirmationClose()"
@@ -381,10 +345,7 @@
                   <div class="workspace__submit">
                     <div class="submit__frame submit__frame-left"></div>
                     <div class="submit__frame submit__frame-right"></div>
-                    <button
-                      type="submit gridster-item-content"
-                      (click)="addRetrieval()"
-                    >
+                    <button type="submit gridster-item-content" (click)="addRetrieval()">
                       Добавить мероприятие
                     </button>
                   </div>
@@ -399,28 +360,16 @@
                 Медиа контент
               </div>
               <div class="media__items">
-                <div
-                  *ngIf="event.graphValues"
-                  class="media__item"
-                  (click)="openLineChart()"
-                >
-                  <svg-icon class="button__icon" src="./assets/line-chart.svg">
-                  </svg-icon>
+                <div *ngIf="event.graphValues" class="media__item" (click)="openLineChart()">
+                  <svg-icon class="button__icon" src="./assets/line-chart.svg"> </svg-icon>
                 </div>
                 <div class="media__item">
-                  <svg-icon
-                    class="button__icon"
-                    src="./assets/round-add-button.svg"
-                  >
-                  </svg-icon>
+                  <svg-icon class="button__icon" src="./assets/round-add-button.svg"> </svg-icon>
                 </div>
               </div>
             </div>
 
-            <div
-              class="change-shift__comment"
-              style="height: 100px; min-height: 100px;"
-            >
+            <div class="change-shift__comment" style="height: 100px; min-height: 100px;">
               <div class="comment__title">
                 Комментарий оператора
               </div>
@@ -440,10 +389,7 @@
                     (keypress)="onEnterPush($event)"
                     #input
                   />
-                  <button
-                    type="submit"
-                    class="button comment__file   gridster-item-content"
-                  >
+                  <button type="submit" class="button comment__file   gridster-item-content">
                     <svg-icon
                       class="button__icon"
                       src="./assets/icons/widgets/change-shift/add_file.svg"
@@ -592,9 +538,7 @@
                       [(ngModel)]="isNewRetrieval.status"
                       [compareWith]="compareFn"
                     >
-                      <option *ngFor="let p of status" [ngValue]="p"
-                        >{{ statuses[p.name] }}</option
-                      >
+                      <option *ngFor="let p of status" [ngValue]="p">{{ statuses[p.name] }}</option>
                     </select>
                   </div>
                 </div>
@@ -654,9 +598,7 @@
                       [compareWith]="compareFn"
                       (change)="changeCategory()"
                     >
-                      <option *ngFor="let p of eventTypes" [ngValue]="p"
-                        >{{ p.name }}
-                      </option>
+                      <option *ngFor="let p of eventTypes" [ngValue]="p">{{ p.name }} </option>
                     </select>
                   </div>
                 </div>
@@ -706,9 +648,7 @@
                 </div>
               </div>
 
-              <div
-                class="overlay-retrieval__block overlay-retrieval__block-border"
-              >
+              <div class="overlay-retrieval__block overlay-retrieval__block-border">
                 <div class="block-border__title">
                   Краткое описание причины
                 </div>
@@ -724,9 +664,7 @@
                 </div>
               </div>
 
-              <div
-                class="overlay-retrieval__block-border overlay-retrieval__block-border"
-              >
+              <div class="overlay-retrieval__block-border overlay-retrieval__block-border">
                 <div class="block-border__title">
                   Непосредственные / прямые причины:
                 </div>
@@ -748,10 +686,7 @@
             <div class="workspace__submit">
               <div class="submit__frame submit__frame-left"></div>
               <div class="submit__frame submit__frame-right"></div>
-              <button
-                type="submit gridster-item-content"
-                (click)="overlayClose()"
-              >
+              <button type="submit gridster-item-content" (click)="overlayClose()">
                 Отменить
               </button>
             </div>

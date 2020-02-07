@@ -6,9 +6,7 @@ describe('MaterialControllerService', () => {
     beforeEach(() => TestBed.configureTestingModule({}));
 
     it('should be created', () => {
-        const service: MaterialControllerService = TestBed.get(
-            MaterialControllerService
-        );
+        const service: MaterialControllerService = TestBed.get(MaterialControllerService);
         expect(service).toBeTruthy();
     });
 });

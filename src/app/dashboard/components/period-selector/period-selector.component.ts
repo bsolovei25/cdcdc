@@ -15,10 +15,7 @@ export class PeriodSelectorComponent implements OnInit {
 
     // date = new FormControl();
 
-    constructor(
-        private headerData: HeaderDataService,
-        private widgetService: NewWidgetService
-    ) {
+    constructor(private headerData: HeaderDataService, private widgetService: NewWidgetService) {
         this.setDefault();
     }
 
@@ -37,11 +34,7 @@ export class PeriodSelectorComponent implements OnInit {
         this.toDate = defaultTime;
         this.fromDate = defaultTime;
         this.isCurrent = true;
-        this.headerData.catchDefaultDate(
-            this.fromDate,
-            this.toDate,
-            this.isCurrent
-        );
+        this.headerData.catchDefaultDate(this.fromDate, this.toDate, this.isCurrent);
     }
 
     setDateTime(event, datetime): void {
@@ -81,11 +74,7 @@ export class PeriodSelectorComponent implements OnInit {
         }
 
         this.isCurrent = false;
-        this.headerData.catchDefaultDate(
-            this.fromDate,
-            this.toDate,
-            this.isCurrent
-        );
+        this.headerData.catchDefaultDate(this.fromDate, this.toDate, this.isCurrent);
 
         const dates: Date[] = [];
         dates.push(this.fromDate);

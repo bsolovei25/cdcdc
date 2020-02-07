@@ -67,15 +67,11 @@ export class OperationEfficiencyComponent implements OnInit, OnDestroy {
                     this.data = ref;
                     this.data.curValue = ref.currentValue;
                     this.data.lowerBorder =
-                        Math.abs(this.data.lowerBorder - this.data.plan) /
-                        this.data.plan;
+                        Math.abs(this.data.lowerBorder - this.data.plan) / this.data.plan;
                     this.data.higherBorder =
-                        (this.data.higherBorder - this.data.plan) /
-                        this.data.plan;
-                    this.data.lowerValue =
-                        this.data.plan * (1 - this.data.lowerBorder);
-                    this.data.higherValue =
-                        this.data.plan * (1 + this.data.higherBorder);
+                        (this.data.higherBorder - this.data.plan) / this.data.plan;
+                    this.data.lowerValue = this.data.plan * (1 - this.data.lowerBorder);
+                    this.data.higherValue = this.data.plan * (1 + this.data.higherBorder);
                     console.log(this.data);
                 })
         );

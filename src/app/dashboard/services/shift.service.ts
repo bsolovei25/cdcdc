@@ -19,15 +19,9 @@ import { IUser } from '../models/events-widget';
     providedIn: 'root',
 })
 export class ShiftService {
-    public shiftPass: BehaviorSubject<ShiftPass> = new BehaviorSubject<
-        ShiftPass
-    >(null);
-    public continueWithComment: Subject<ICommentRequired> = new Subject<
-        ICommentRequired
-    >();
-    public verifyWindowSubject: Subject<IVerifyWindow> = new Subject<
-        IVerifyWindow
-    >();
+    public shiftPass: BehaviorSubject<ShiftPass> = new BehaviorSubject<ShiftPass>(null);
+    public continueWithComment: Subject<ICommentRequired> = new Subject<ICommentRequired>();
+    public verifyWindowSubject: Subject<IVerifyWindow> = new Subject<IVerifyWindow>();
     public allMembers: Employee[] = [];
     public isCommentRequiredPass: boolean = false;
     public isCommentRequiredAccept: boolean = false;
@@ -48,15 +42,11 @@ export class ShiftService {
     }
 
     private async getAllMembersAsync(): Promise<any> {
-        return this.http
-            .get(this.restUrl + '/api/user-management/users')
-            .toPromise();
+        return this.http.get(this.restUrl + '/api/user-management/users').toPromise();
     }
 
     private async getFreeMembersAsync(id: number): Promise<any> {
-        return this.http
-            .get(this.restUrl + '/api/shift/users/free/' + id.toString())
-            .toPromise();
+        return this.http.get(this.restUrl + '/api/shift/users/free/' + id.toString()).toPromise();
     }
 
     private async changePositionAsync(id, idShift): Promise<any> {
@@ -101,10 +91,7 @@ export class ShiftService {
 
     private async addMemberAsync(id, idShift): Promise<any> {
         return this.http
-            .post(
-                this.restUrl + '/api/shift/' + idShift + '/Employee/' + id,
-                null
-            )
+            .post(this.restUrl + '/api/shift/' + idShift + '/Employee/' + id, null)
             .toPromise();
     }
 
@@ -125,10 +112,7 @@ export class ShiftService {
             comment: _comment,
         };
         return this.http
-            .post(
-                this.restUrl + '/api/shift/' + idShift + '/accept-revert',
-                body
-            )
+            .post(this.restUrl + '/api/shift/' + idShift + '/accept-revert', body)
             .toPromise();
     }
 
@@ -138,10 +122,7 @@ export class ShiftService {
             comment: commentary,
         };
         return this.http
-            .post(
-                this.restUrl + '/api/shift/' + idShift + '/passingcomment',
-                body
-            )
+            .post(this.restUrl + '/api/shift/' + idShift + '/passingcomment', body)
             .toPromise();
     }
 
@@ -151,10 +132,7 @@ export class ShiftService {
             comment: commentary,
         };
         return this.http
-            .post(
-                this.restUrl + '/api/shift/' + idShift + '/acceptingcomment',
-                body
-            )
+            .post(this.restUrl + '/api/shift/' + idShift + '/acceptingcomment', body)
             .toPromise();
     }
 
@@ -190,23 +168,11 @@ export class ShiftService {
         widgetId: string,
         msg: string = null
     ): Promise<void> {
-        const obj = await this.changeStatusAsync(
-            status,
-            id,
-            idShift,
-            widgetId,
-            msg
-        );
+        const obj = await this.changeStatusAsync(status, id, idShift, widgetId, msg);
         console.log(obj);
         this.getShiftInfo();
         if (obj.actionType === 'confirmed') {
-            this.actionVerifyWindow(
-                'open',
-                widgetId,
-                null,
-                obj.confirmId,
-                obj.user
-            );
+            this.actionVerifyWindow('open', widgetId, null, obj.confirmId, obj.user);
         }
     }
 
@@ -220,12 +186,7 @@ export class ShiftService {
         this.getShiftInfo();
     }
 
-    public async sendComment(
-        idUser: number,
-        idShift: number,
-        comment: string,
-        type: string
-    ) {
+    public async sendComment(idUser: number, idShift: number, comment: string, type: string) {
         let answer: any = null;
         if (type === 'shift-pass') {
             answer = await this.passingComment(idShift, idUser, comment);
@@ -288,8 +249,6 @@ export class ShiftService {
     }
 
     public verifyWindowObservable(widgetId: string): any {
-        return this.verifyWindowSubject.pipe(
-            filter((ref) => ref && ref.widgetId === widgetId)
-        );
+        return this.verifyWindowSubject.pipe(filter((ref) => ref && ref.widgetId === widgetId));
     }
 }

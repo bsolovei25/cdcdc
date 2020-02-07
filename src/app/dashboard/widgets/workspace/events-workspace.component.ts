@@ -28,8 +28,7 @@ import { NewWidgetService } from '../../services/new-widget.service';
     templateUrl: './events-workspace.component.html',
     styleUrls: ['./events-workspace.component.scss'],
 })
-export class EventsWorkSpaceComponent
-    implements OnInit, OnDestroy, AfterViewInit {
+export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewInit {
     private subscriptions: Subscription[] = [];
     event: EventsWidgetNotification;
     isLoading: boolean = true;
@@ -132,8 +131,7 @@ export class EventsWorkSpaceComponent
     resetComponent() {
         if (
             document.getElementById('overlay-retrieval') &&
-            document.getElementById('overlay-retrieval').style.display ===
-                'block'
+            document.getElementById('overlay-retrieval').style.display === 'block'
         ) {
             document.getElementById('overlay-retrieval').style.display = 'none';
         }
@@ -205,9 +203,7 @@ export class EventsWorkSpaceComponent
             iconUrl: 'number',
             iconUrlStatus: 'number',
             statusName: '',
-            equipmentCategory: this.equipmentCategory
-                ? this.equipmentCategory[0]
-                : null,
+            equipmentCategory: this.equipmentCategory ? this.equipmentCategory[0] : null,
             deadline: new Date(),
             graphValues: null,
         };
@@ -352,9 +348,7 @@ export class EventsWorkSpaceComponent
             responsibleOperator: this.user ? this.user[0] : null,
             status: this.status ? this.status[0] : null,
             description: '',
-            equipmentCategory: this.equipmentCategory
-                ? this.equipmentCategory[0]
-                : null,
+            equipmentCategory: this.equipmentCategory ? this.equipmentCategory[0] : null,
             retrievalEvents: [],
             severity: 'Critical',
             deadline: new Date(),
@@ -415,14 +409,9 @@ export class EventsWorkSpaceComponent
     }
 
     async deleteRetrieval(idEvent: number, idRetr: number): Promise<void> {
-        const del = await this.eventService.deleteRetrievalEvents(
-            idEvent,
-            idRetr
-        );
+        const del = await this.eventService.deleteRetrievalEvents(idEvent, idRetr);
         this.eventService.updateEvent$.next(true);
-        const idx = this.event.retrievalEvents.findIndex(
-            (i) => i.id === idRetr
-        );
+        const idx = this.event.retrievalEvents.findIndex((i) => i.id === idRetr);
         if (idx !== -1) {
             this.event.retrievalEvents.splice(idx, 1);
         }

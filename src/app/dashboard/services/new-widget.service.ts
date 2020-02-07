@@ -34,9 +34,7 @@ export class NewWidgetService {
     private readonly restUrl: string;
     private readonly reconnectInterval: number;
 
-    private widgetsSocketObservable: BehaviorSubject<any> = new BehaviorSubject(
-        null
-    );
+    private widgetsSocketObservable: BehaviorSubject<any> = new BehaviorSubject(null);
     private ws: WebSocketSubject<IWebSocket> = null;
 
     public draggingItem: GridsterItem;
@@ -46,9 +44,7 @@ export class NewWidgetService {
     public mass = [];
     private i = 0;
     private _widgets$: BehaviorSubject<IWidgets[]> = new BehaviorSubject(null);
-    private _filterWidgets$: BehaviorSubject<IWidgets[]> = new BehaviorSubject(
-        null
-    );
+    private _filterWidgets$: BehaviorSubject<IWidgets[]> = new BehaviorSubject(null);
 
     public searchWidget$ = new Subject<any>();
 
@@ -87,20 +83,18 @@ export class NewWidgetService {
         this.initWS();
     }
 
-    public widgets$: Observable<
-        IWidgets[]
-    > = this._widgets$.asObservable().pipe(filter((item) => item !== null));
+    public widgets$: Observable<IWidgets[]> = this._widgets$
+        .asObservable()
+        .pipe(filter((item) => item !== null));
 
     private getAvailableWidgets(): Observable<IWidgets[]> {
-        return this.http
-            .get(this.restUrl + `/api/af-service/GetAvailableWidgets`)
-            .pipe(
-                map((data: IWidgets[]) => {
-                    const localeData = this.mapData(data);
-                    this.mass = this.mapData(data);
-                    return localeData;
-                })
-            );
+        return this.http.get(this.restUrl + `/api/af-service/GetAvailableWidgets`).pipe(
+            map((data: IWidgets[]) => {
+                const localeData = this.mapData(data);
+                this.mass = this.mapData(data);
+                return localeData;
+            })
+        );
     }
 
     mapData(data: IWidgets[]): IWidgets[] {
@@ -119,14 +113,8 @@ export class NewWidgetService {
     }
 
     getName(idWidg: string): string {
-        let widgetNames: IWidgets | string = this.mass.find(
-            (x) => x.id === idWidg
-        );
-        if (
-            widgetNames === undefined ||
-            widgetNames === null ||
-            widgetNames === ''
-        ) {
+        let widgetNames: IWidgets | string = this.mass.find((x) => x.id === idWidg);
+        if (widgetNames === undefined || widgetNames === null || widgetNames === '') {
             widgetNames = 'Нет имени';
             return widgetNames;
         } else {
@@ -229,9 +217,7 @@ export class NewWidgetService {
     }
 
     private mapEventsWidgetData(data: EventsWidgetData): EventsWidgetData {
-        data.notifications.forEach(
-            (n) => (n.eventDateTime = new Date(n.eventDateTime))
-        );
+        data.notifications.forEach((n) => (n.eventDateTime = new Date(n.eventDateTime)));
         return data;
     }
 
@@ -327,9 +313,7 @@ export class NewWidgetService {
             console.warn('reconnect уже создан');
             return;
         }
-        this.materialController.openSnackBar(
-            'Переподключение к данным реального времени'
-        );
+        this.materialController.openSnackBar('Переподключение к данным реального времени');
         this.reconnectTimer = setInterval(() => {
             this.initWS();
             this.dashboard.forEach((el) => this.wsConnect(el.id));
@@ -353,15 +337,10 @@ export class NewWidgetService {
             let arrFilterButton: any = [];
             let resultObject: any = [];
             if (this.searchType === 'input') {
-                let undefinedFilter = point.filter(
-                    (point) => point.title !== undefined
-                );
+                let undefinedFilter = point.filter((point) => point.title !== undefined);
                 const filter = of(
                     undefinedFilter.filter(
-                        (point) =>
-                            point.title
-                                .toLowerCase()
-                                .indexOf(record.toLowerCase()) > -1
+                        (point) => point.title.toLowerCase().indexOf(record.toLowerCase()) > -1
                     )
                 );
                 pointFilter = filter;
@@ -369,9 +348,7 @@ export class NewWidgetService {
                 return pointFilter;
             } else {
                 for (const i of record) {
-                    const filter = point.filter(
-                        (point) => point.categories.indexOf(i) > -1
-                    );
+                    const filter = point.filter((point) => point.categories.indexOf(i) > -1);
                     arrFilter.push(filter);
                 }
                 //  const filter = point.filter((point) => point.categories.indexOf(record) > -1);

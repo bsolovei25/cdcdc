@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs/index';
-import {
-    EventsWidgetNotification,
-    IStatus,
-    ICategory,
-} from '../models/events-widget';
+import { EventsWidgetNotification, IStatus, ICategory } from '../models/events-widget';
 import { AppConfigService } from 'src/app/services/appConfigService';
 
 @Injectable({
@@ -15,9 +11,7 @@ export class EventService {
     private readonly restUrl: string;
 
     event$: BehaviorSubject<any | null> = new BehaviorSubject<any | null>(null);
-    updateEvent$: BehaviorSubject<any | null> = new BehaviorSubject<any | null>(
-        null
-    );
+    updateEvent$: BehaviorSubject<any | null> = new BehaviorSubject<any | null>(null);
 
     constructor(public http: HttpClient, configService: AppConfigService) {
         this.restUrl = configService.restUrl;
@@ -27,9 +21,7 @@ export class EventService {
         // TODO check
         try {
             return this.http
-                .get<EventsWidgetNotification>(
-                    this.restUrl + '/notifications/' + id
-                )
+                .get<EventsWidgetNotification>(this.restUrl + '/notifications/' + id)
                 .toPromise();
         } catch (error) {
             console.error(error);
@@ -39,9 +31,7 @@ export class EventService {
     async postEvent(body: EventsWidgetNotification): Promise<any> {
         // TODO check
         try {
-            return this.http
-                .post(this.restUrl + '/notifications/', body)
-                .toPromise();
+            return this.http.post(this.restUrl + '/notifications/', body).toPromise();
         } catch (error) {
             console.error(error);
         }
@@ -50,9 +40,7 @@ export class EventService {
     async putEvent(body: EventsWidgetNotification): Promise<any> {
         // TODO check
         try {
-            return this.http
-                .put(this.restUrl + '/notifications/' + body.id, body)
-                .toPromise();
+            return this.http.put(this.restUrl + '/notifications/' + body.id, body).toPromise();
         } catch (error) {
             console.error(error);
         }
@@ -61,9 +49,7 @@ export class EventService {
     async deleteEvent(id: number): Promise<any> {
         // TODO check
         try {
-            return this.http
-                .delete(this.restUrl + '/notifications/' + id)
-                .toPromise();
+            return this.http.delete(this.restUrl + '/notifications/' + id).toPromise();
         } catch (error) {
             console.error(error);
         }
@@ -73,9 +59,7 @@ export class EventService {
         // TODO check
         try {
             return this.http
-                .get<IStatus[]>(
-                    this.restUrl + '/api/notification-reference/status'
-                )
+                .get<IStatus[]>(this.restUrl + '/api/notification-reference/status')
                 .toPromise();
         } catch (error) {
             console.error(error);
@@ -85,9 +69,7 @@ export class EventService {
     async getPriority(): Promise<any> {
         // TODO check
         try {
-            return this.http
-                .get(this.restUrl + '/api/notification-reference/priority')
-                .toPromise();
+            return this.http.get(this.restUrl + '/api/notification-reference/priority').toPromise();
         } catch (error) {
             console.error(error);
         }
@@ -96,9 +78,7 @@ export class EventService {
     async getCategory(): Promise<ICategory[]> {
         try {
             return this.http
-                .get<ICategory[]>(
-                    this.restUrl + '/api/notification-reference/category'
-                )
+                .get<ICategory[]>(this.restUrl + '/api/notification-reference/category')
                 .toPromise();
         } catch (error) {
             console.error(error);
@@ -108,9 +88,7 @@ export class EventService {
     async getEventType(): Promise<ICategory[]> {
         try {
             return this.http
-                .get<ICategory[]>(
-                    this.restUrl + '/api/notification-reference/eventtype'
-                )
+                .get<ICategory[]>(this.restUrl + '/api/notification-reference/eventtype')
                 .toPromise();
         } catch (error) {
             console.error(error);
@@ -129,9 +107,7 @@ export class EventService {
 
     async getUser(): Promise<any> {
         try {
-            return this.http
-                .get<any>(this.restUrl + '/api/user-management/users')
-                .toPromise();
+            return this.http.get<any>(this.restUrl + '/api/user-management/users').toPromise();
         } catch (error) {
             console.error(error);
         }
@@ -140,10 +116,7 @@ export class EventService {
     async getEquipmentCategory(): Promise<any> {
         try {
             return this.http
-                .get<any>(
-                    this.restUrl +
-                        '/api/notification-reference/equipmentcategory'
-                )
+                .get<any>(this.restUrl + '/api/notification-reference/equipmentcategory')
                 .toPromise();
         } catch (error) {
             console.error(error);
@@ -171,8 +144,7 @@ export class EventService {
         try {
             return this.http
                 .post<any>(
-                    this.restUrl +
-                        `/api/notification-retrieval/${idEvent}/retrievalevents`,
+                    this.restUrl + `/api/notification-retrieval/${idEvent}/retrievalevents`,
                     body
                 )
                 .toPromise();

@@ -1,10 +1,7 @@
 import { Component, Inject, OnDestroy, ViewChild } from '@angular/core';
 import { NewWidgetService } from '../../../services/new-widget.service';
 import { Subscription } from 'rxjs';
-import {
-    MatCalendar,
-    MatCalendarCellCssClasses,
-} from '@angular/material/datepicker';
+import { MatCalendar, MatCalendarCellCssClasses } from '@angular/material/datepicker';
 import * as moment from 'moment';
 import { DateAdapter } from '@angular/material/core';
 import { IWorker } from '../../../models/worker';
@@ -44,12 +41,10 @@ export class AdminShiftScheduleComponent implements OnDestroy {
         @Inject('uniqId') public uniqId: string,
         private dateAdapter: DateAdapter<any>
     ) {
-        this.subscription = this.widgetService
-            .getWidgetChannel(this.id)
-            .subscribe((data) => {
-                this.title = data.title;
-                this.previewTitle = data.widgetType;
-            });
+        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
+            this.title = data.title;
+            this.previewTitle = data.widgetType;
+        });
         this.setRus();
     }
 

@@ -277,8 +277,8 @@
           }
           &__absent {
             background-color: var(--color-shift-status-absent);
-            mask: url("../../../../assets/icons/widgets/change-shift/statuses/absent.svg")
-              no-repeat center;
+            mask: url("../../../../assets/icons/widgets/change-shift/statuses/absent.svg") no-repeat
+              center;
             mask-size: contain;
           }
           &__missing {
@@ -289,8 +289,8 @@
           }
           &__init {
             background-color: var(--color-shift-status-init);
-            mask: url("../../../../assets/icons/widgets/change-shift/statuses/init.svg")
-              no-repeat center;
+            mask: url("../../../../assets/icons/widgets/change-shift/statuses/init.svg") no-repeat
+              center;
             mask-size: contain;
           }
         }

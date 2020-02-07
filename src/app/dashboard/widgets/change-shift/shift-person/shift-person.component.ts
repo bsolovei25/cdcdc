@@ -202,10 +202,7 @@ export class ShiftPersonComponent implements OnInit {
                 );
                 break;
             case 'Сделать главным':
-                this.shiftService.changePosition(
-                    person.employee.id,
-                    this.shiftId
-                );
+                this.shiftService.changePosition(person.employee.id, this.shiftId);
                 break;
             case 'Удалить':
                 this.shiftService.delMember(person.employee.id, this.shiftId);
@@ -229,9 +226,7 @@ export class ShiftPersonComponent implements OnInit {
         if (this.currentShift.status !== 'accepted') {
             return;
         }
-        this.materialController.openSnackBar(
-            'Для продолжения оставьте комментарий'
-        );
+        this.materialController.openSnackBar('Для продолжения оставьте комментарий');
         this.shiftService.setIsCommentRequired(true, 'shift-accepted');
         const subscription = this.shiftService
             .getRequiredComment(this.currentShift.id)

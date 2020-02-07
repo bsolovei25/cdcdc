@@ -15,8 +15,7 @@
   </div>
   <div class="person__info" *ngIf="person">
     <div class="person__name" *ngIf="isPersonExist()">
-      {{person.employee.lastName}} {{
-      person.employee.firstName.charAt(0).toUpperCase() }}.
+      {{person.employee.lastName}} {{ person.employee.firstName.charAt(0).toUpperCase() }}.
     </div>
     <div class="person__position" *ngIf="person.employee">
       {{ this.getDisplayPosition(person.position) }}

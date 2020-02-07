@@ -5,11 +5,7 @@
 ></evj-widget-preview>
 
 <div class="container pointer-event" *ngIf="!isMock">
-  <evj-widget-header
-    [title]="title"
-    [id]="id"
-    [uniqId]="uniqId"
-  ></evj-widget-header>
+  <evj-widget-header [title]="title" [id]="id" [uniqId]="uniqId"></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
 
@@ -32,52 +28,31 @@
                 Установки
               </th>
               <th class="header header__icon">
-                <svg-icon
-                  class="icon"
-                  src="./assets/icons/widgets/deviations-table/2.svg"
-                >
+                <svg-icon class="icon" src="./assets/icons/widgets/deviations-table/2.svg">
                 </svg-icon>
               </th>
               <th class="header header__icon">
-                <svg-icon
-                  class="icon_svg"
-                  src="./assets/icons/widgets/deviations-table/3.svg"
-                >
+                <svg-icon class="icon_svg" src="./assets/icons/widgets/deviations-table/3.svg">
                 </svg-icon>
               </th>
               <th class="header header__icon">
-                <svg-icon
-                  class="icon_svg"
-                  src="./assets/icons/widgets/deviations-table/4.svg"
-                >
+                <svg-icon class="icon_svg" src="./assets/icons/widgets/deviations-table/4.svg">
                 </svg-icon>
               </th>
               <th class="header header__icon">
-                <svg-icon
-                  class="icon_svg"
-                  src="./assets/icons/widgets/deviations-table/5.svg"
-                >
+                <svg-icon class="icon_svg" src="./assets/icons/widgets/deviations-table/5.svg">
                 </svg-icon>
               </th>
               <th class="header header__icon">
-                <svg-icon
-                  class="icon_svg"
-                  src="./assets/icons/widgets/deviations-table/6.svg"
-                >
+                <svg-icon class="icon_svg" src="./assets/icons/widgets/deviations-table/6.svg">
                 </svg-icon>
               </th>
               <th class="header header__icon">
-                <svg-icon
-                  class="icon_svg"
-                  src="./assets/icons/widgets/deviations-table/7.svg"
-                >
+                <svg-icon class="icon_svg" src="./assets/icons/widgets/deviations-table/7.svg">
                 </svg-icon>
               </th>
               <th class="header header__icon" style="max-width: 80px;">
-                <svg-icon
-                  class="icon_svg"
-                  src="./assets/icons/widgets/deviations-table/8.svg"
-                >
+                <svg-icon class="icon_svg" src="./assets/icons/widgets/deviations-table/8.svg">
                 </svg-icon>
               </th>
             </tr>
@@ -94,12 +69,8 @@
             >
               <td class="item item__equipment">{{ item.equipment }}</td>
               <td class="item item__fuel">
-                <span *ngIf="item.gasContamination !== 0"
-                  >{{ item.gasContamination }}</span
-                >
-                <span class="item__sub" *ngIf="item.gasContamination === 0"
-                  >-</span
-                >
+                <span *ngIf="item.gasContamination !== 0">{{ item.gasContamination }}</span>
+                <span class="item__sub" *ngIf="item.gasContamination === 0">-</span>
               </td>
               <td class="item item__fuel">
                 <span *ngIf="item.deLockKeys !== 0">{{ item.deLockKeys }}</span>
@@ -110,38 +81,24 @@
                 <span class="item__sub" *ngIf="item.fireAlarm === 0">-</span>
               </td>
               <td class="item item__fuel">
-                <span *ngIf="item.lockAndAlarm !== 0"
-                  >{{ item.lockAndAlarm }}</span
-                >
+                <span *ngIf="item.lockAndAlarm !== 0">{{ item.lockAndAlarm }}</span>
                 <span class="item__sub" *ngIf="item.lockAndAlarm === 0">-</span>
               </td>
               <td class="item item__fuel">
-                <span *ngIf="item.PIDControllers !== 0"
-                  >{{ item.PIDControllers }}</span
-                >
-                <span class="item__sub" *ngIf="item.PIDControllers === 0"
-                  >-</span
-                >
+                <span *ngIf="item.PIDControllers !== 0">{{ item.PIDControllers }}</span>
+                <span class="item__sub" *ngIf="item.PIDControllers === 0">-</span>
               </td>
               <td class="item item__fuel">
                 <span *ngIf="item.vibrodiagnosticSystems !== 0"
                   >{{ item.vibrodiagnosticSystems }}</span
                 >
-                <span
-                  class="item__sub"
-                  *ngIf="item.vibrodiagnosticSystems === 0"
-                  >-</span
-                >
+                <span class="item__sub" *ngIf="item.vibrodiagnosticSystems === 0">-</span>
               </td>
               <td class="item item__fuel" style="max-width: 73px;">
                 <span *ngIf="item.electricalHeatingSystems !== 0"
                   >{{ item.electricalHeatingSystems }}</span
                 >
-                <span
-                  class="item__sub"
-                  *ngIf="item.electricalHeatingSystems === 0"
-                  >-</span
-                >
+                <span class="item__sub" *ngIf="item.electricalHeatingSystems === 0">-</span>
               </td>
             </tr>
           </tbody>

@@ -24,9 +24,7 @@
         </div>
         <div *ngIf="isMock === false" style="display:flex; height: 100%;">
           <div *ngFor="let data of datas;" class="block">
-            <evj-solid-gauge-with-marker
-              [data]="data"
-            ></evj-solid-gauge-with-marker>
+            <evj-solid-gauge-with-marker [data]="data"></evj-solid-gauge-with-marker>
           </div>
         </div>
       </div>

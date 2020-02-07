@@ -22,19 +22,13 @@ export class PaginatorDirective implements OnInit {
         this.select.options[0] = this._createOption(this._defaultValue);
 
         this.paginatorDots.forEach((page: number, index: number) => {
-            this.select.options[index + 1] = this._createOption(
-                page.toString()
-            );
+            this.select.options[index + 1] = this._createOption(page.toString());
         });
 
         this.el.nativeElement.innerHTML = '';
         this.el.nativeElement.appendChild(this.select);
 
-        this._listener = this.renderer.listen(
-            this.select,
-            'change',
-            this.onChange.bind(this)
-        );
+        this._listener = this.renderer.listen(this.select, 'change', this.onChange.bind(this));
         this._active = true;
     }
 

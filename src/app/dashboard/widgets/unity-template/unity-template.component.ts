@@ -1,11 +1,4 @@
-import {
-    Component,
-    HostListener,
-    Inject,
-    OnInit,
-    OnDestroy,
-    AfterViewInit,
-} from '@angular/core';
+import { Component, HostListener, Inject, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { UnityLoader } from './UnityLoader.js';
 import { PlatformLocation } from '@angular/common';
 import { NewWidgetService } from '../../services/new-widget.service';
@@ -39,8 +32,7 @@ export class UnityTemplateComponent implements OnInit {
         platformLocation: PlatformLocation
     ) {
         const location = (platformLocation as any).location;
-        this.baseUrl =
-            location.origin + location.pathname.replace('dashboard', '');
+        this.baseUrl = location.origin + location.pathname.replace('dashboard', '');
         this.subscriptions.push(
             this.widgetService.getWidgetChannel(id).subscribe((data) => {
                 this.title = data.title;
@@ -77,10 +69,7 @@ export class UnityTemplateComponent implements OnInit {
         this.resize();
     }
 
-    @HostListener('document:UnityTemplate_Start', [
-        '$event',
-        '$event.detail.param1',
-    ])
+    @HostListener('document:UnityTemplate_Start', ['$event', '$event.detail.param1'])
     OnUnityStart(event, param1) {
         this.isStart = true;
         if (!this.unityInstance) {
@@ -110,10 +99,7 @@ export class UnityTemplateComponent implements OnInit {
     }
 
     private loadProject(path) {
-        this.unityInstance = UnityLoader.instantiate(
-            'unityContainer_unity-template',
-            path
-        );
+        this.unityInstance = UnityLoader.instantiate('unityContainer_unity-template', path);
     }
 
     private resize() {

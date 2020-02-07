@@ -18,8 +18,7 @@ import { AuthService } from '@core/service/auth.service';
 @Injectable({
     providedIn: 'root', // singleton service
 })
-export class AuthenticationGuard
-    implements CanLoad, CanActivate, CanActivateChild {
+export class AuthenticationGuard implements CanLoad, CanActivate, CanActivateChild {
     constructor(private authService: AuthService, private router: Router) {}
 
     private async authenticationCheck(

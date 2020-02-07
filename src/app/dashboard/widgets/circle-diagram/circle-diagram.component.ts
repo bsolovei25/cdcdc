@@ -19,8 +19,7 @@ declare var d3: any;
     templateUrl: './circle-diagram.component.html',
     styleUrls: ['./circle-diagram.component.scss'],
 })
-export class CircleDiagramComponent
-    implements OnInit, OnDestroy, AfterViewInit {
+export class CircleDiagramComponent implements OnInit, OnDestroy, AfterViewInit {
     private x: number = 175;
     private y: number = 40;
 
@@ -76,10 +75,7 @@ export class CircleDiagramComponent
                             if (this.svg) {
                                 this.svg.remove();
                             }
-                            this.d3Circle(
-                                this.data,
-                                this.myCircle.nativeElement
-                            );
+                            this.d3Circle(this.data, this.myCircle.nativeElement);
                         })
                 );
             }
@@ -95,17 +91,8 @@ export class CircleDiagramComponent
     }
 
     public d3Circle(data, el): void {
-        const summ =
-            data.nonAcknowledged +
-            data.acknowledged +
-            data.diagnostics +
-            data.prognosis;
-        const mass = [
-            data.acknowledged,
-            data.nonAcknowledged,
-            data.diagnostics,
-            data.prognosis,
-        ];
+        const summ = data.nonAcknowledged + data.acknowledged + data.diagnostics + data.prognosis;
+        const mass = [data.acknowledged, data.nonAcknowledged, data.diagnostics, data.prognosis];
         let color: any;
 
         if (summ === 0) {
@@ -113,12 +100,7 @@ export class CircleDiagramComponent
         } else {
             color = d3
                 .scaleOrdinal()
-                .range([
-                    'white',
-                    'orange',
-                    'var(--color-border-active)',
-                    'var(--color-circle)',
-                ]);
+                .range(['white', 'orange', 'var(--color-border-active)', 'var(--color-circle)']);
         }
 
         this.svg = d3
@@ -127,9 +109,7 @@ export class CircleDiagramComponent
             .attr('min-width', '100px')
             .attr('viewBox', '40 25 208 120');
 
-        let group = this.svg
-            .append('g')
-            .attr('transform', 'translate(102 ,88)');
+        let group = this.svg.append('g').attr('transform', 'translate(102 ,88)');
 
         const arc = d3
             .arc()
@@ -159,10 +139,7 @@ export class CircleDiagramComponent
             .append('text')
             .attr('text-anchor', 'middle')
             .attr('font-size', '2em')
-            .attr(
-                'fill',
-                !data.acknowledged && !data.nonAcknowledged ? 'gray' : 'white'
-            )
+            .attr('fill', !data.acknowledged && !data.nonAcknowledged ? 'gray' : 'white')
             .attr('dominant-baseline', 'middle')
             .text(summ);
 
@@ -211,10 +188,7 @@ export class CircleDiagramComponent
             .attr('font-size', '10px')
             .attr('x', this.x)
             .attr('y', this.y + 14 * 5)
-            .attr(
-                'fill',
-                !data.diagnostics ? 'gray' : 'var(--color-border-active)'
-            )
+            .attr('fill', !data.diagnostics ? 'gray' : 'var(--color-border-active)')
             .text(data.diagnostics);
 
         let prognosis = this.svg

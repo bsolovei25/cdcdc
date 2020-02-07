@@ -1,11 +1,4 @@
-import {
-    Component,
-    OnInit,
-    Inject,
-    ElementRef,
-    ViewChild,
-    AfterViewInit,
-} from '@angular/core';
+import { Component, OnInit, Inject, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
 
@@ -97,9 +90,7 @@ export class CircleFactoryDiagramComponent implements AfterViewInit {
         if (data.value === 0) {
             color = d3.scaleOrdinal().range(['gray']);
         } else {
-            color = d3
-                .scaleOrdinal()
-                .range(['white', 'orange', 'rgba(4,12,33,0.1)']);
+            color = d3.scaleOrdinal().range(['white', 'orange', 'rgba(4,12,33,0.1)']);
         }
 
         const canvas = d3
@@ -154,10 +145,7 @@ export class CircleFactoryDiagramComponent implements AfterViewInit {
             .attr('font-size', '7px')
             .attr('fill', '#a2e2ff')
             .attr('x', '0')
-            .attr(
-                'font-family',
-                "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
-            )
+            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
             .attr('y', '30')
             .text(data.value + '%');
 
@@ -175,10 +163,7 @@ export class CircleFactoryDiagramComponent implements AfterViewInit {
             .attr('x', '190')
             .attr('y', '20')
             .attr('fill', 'white')
-            .attr(
-                'font-family',
-                "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
-            )
+            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
             .text('Улучшения');
 
         let deviation = canvas
@@ -195,10 +180,7 @@ export class CircleFactoryDiagramComponent implements AfterViewInit {
             .attr('x', '130')
             .attr('y', '20')
             .attr('fill', 'orange')
-            .attr(
-                'font-family',
-                "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
-            )
+            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
             .text('Отклонения');
 
         let pie_back = canvas
@@ -232,12 +214,8 @@ export class CircleFactoryDiagramComponent implements AfterViewInit {
                     .attr(
                         'xlink:href',
                         item.isCritical
-                            ? './assets/pic/IconsCircle/aFabricButton' +
-                                  item.id +
-                                  '.svg'
-                            : './assets/pic/IconsCircle/nFabricButton' +
-                                  item.id +
-                                  '.svg'
+                            ? './assets/pic/IconsCircle/aFabricButton' + item.id + '.svg'
+                            : './assets/pic/IconsCircle/nFabricButton' + item.id + '.svg'
                     )
                     .attr('height', '30px')
                     .attr('width', '30px')
@@ -250,12 +228,8 @@ export class CircleFactoryDiagramComponent implements AfterViewInit {
                     .attr(
                         'xlink:href',
                         item.isCritical
-                            ? './assets/pic/IconsCircle/aFabricButton' +
-                                  item.id +
-                                  '.svg'
-                            : './assets/pic/IconsCircle/nFabricButton' +
-                                  item.id +
-                                  '.svg'
+                            ? './assets/pic/IconsCircle/aFabricButton' + item.id + '.svg'
+                            : './assets/pic/IconsCircle/nFabricButton' + item.id + '.svg'
                     )
                     .attr('height', '30px')
                     .attr('width', '30px')

@@ -1,11 +1,4 @@
-import {
-    Component,
-    OnInit,
-    Input,
-    ElementRef,
-    ViewChild,
-    AfterViewInit,
-} from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { SolidGaugeWithMarkerItem } from 'src/app/dashboard/models/solid-gauge-with-marker';
 
 declare var d3: any;
@@ -32,17 +25,11 @@ export class SolidGaugeWithMarkerComponent implements AfterViewInit {
 
     ngAfterViewInit() {
         this.indicator = this.indicatorGauge(this.data);
-        this.draw(
-            this.data,
-            this.myCircle.nativeElement,
-            this.gaugemap,
-            this.indicator
-        );
+        this.draw(this.data, this.myCircle.nativeElement, this.gaugemap, this.indicator);
     }
 
     indicatorGauge(data) {
-        let percent =
-            data.percent > 100 ? 100 : data.percent < 0 ? 0 : data.percent;
+        let percent = data.percent > 100 ? 100 : data.percent < 0 ? 0 : data.percent;
         return (this.pie * percent) / 100;
     }
 
@@ -71,10 +58,7 @@ export class SolidGaugeWithMarkerComponent implements AfterViewInit {
                 labelFormat: d3.format('d'),
                 labelInset: 10,
 
-                arcColorFn: d3.interpolateHsl(
-                    d3.rgb('#e8e2ca'),
-                    d3.rgb('#3e6c0a')
-                ),
+                arcColorFn: d3.interpolateHsl(d3.rgb('#e8e2ca'), d3.rgb('#3e6c0a')),
             };
             var range = undefined;
             var r = undefined;
@@ -108,9 +92,7 @@ export class SolidGaugeWithMarkerComponent implements AfterViewInit {
 
                 range = config.maxAngle - config.minAngle;
                 r = config.size / 2;
-                pointerHeadLength = Math.round(
-                    r * config.pointerHeadLengthPercent
-                );
+                pointerHeadLength = Math.round(r * config.pointerHeadLengthPercent);
 
                 // a linear scale this.gaugemap maps domain values to a percent from 0..1
                 scale = d3
@@ -170,15 +152,9 @@ export class SolidGaugeWithMarkerComponent implements AfterViewInit {
                         .attr('fill', function(d, i) {
                             if (i + 1 > criticalPie) {
                                 return 'rgba(244,163,33, 0.5)';
-                            } else if (
-                                i + 1 <= newValue + 1 &&
-                                newValue !== 0
-                            ) {
+                            } else if (i + 1 <= newValue + 1 && newValue !== 0) {
                                 return 'rgb(158, 215, 245)';
-                            } else if (
-                                i + 1 >= newValue &&
-                                i + 1 <= criticalPie
-                            ) {
+                            } else if (i + 1 >= newValue && i + 1 <= criticalPie) {
                                 return 'rgba(158, 215, 245, 0.5)';
                             }
                         })
@@ -203,10 +179,7 @@ export class SolidGaugeWithMarkerComponent implements AfterViewInit {
 
                 let aroundGauge = svg
                     .append('image')
-                    .attr(
-                        'xlink:href',
-                        '/assets/pic/SolidGauge/aroundGauge.svg'
-                    )
+                    .attr('xlink:href', '/assets/pic/SolidGauge/aroundGauge.svg')
                     .attr('height', '420px')
                     .attr('width', '410px')
                     .attr('x', '-55')
@@ -229,10 +202,7 @@ export class SolidGaugeWithMarkerComponent implements AfterViewInit {
                 pointer = pg
                     .append('path')
                     .attr('fill', newValue < criticalPie ? 'white' : 'orange')
-                    .attr(
-                        'd',
-                        pointerLine /*function(d) { return pointerLine(d) +'Z';}*/
-                    )
+                    .attr('d', pointerLine /*function(d) { return pointerLine(d) +'Z';}*/)
                     .attr('transform', 'rotate(' + config.minAngle + ')');
 
                 /*     var gShadowPointer = svg.append('g').data([lineData])
@@ -261,10 +231,7 @@ export class SolidGaugeWithMarkerComponent implements AfterViewInit {
                     .attr('fill', newValue < criticalPie ? 'white' : 'orange')
                     .attr('font-size', '23px')
                     .attr('x', '148')
-                    .attr(
-                        'font-family',
-                        "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
-                    )
+                    .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                     .attr('y', '160')
                     .attr('text-anchor', 'middle')
                     .text(data.fact < 0 ? 0 : data.fact);
@@ -274,10 +241,7 @@ export class SolidGaugeWithMarkerComponent implements AfterViewInit {
                     .attr('fill', '#8C99B2')
                     .attr('font-size', '12px')
                     .attr('x', '150')
-                    .attr(
-                        'font-family',
-                        "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
-                    )
+                    .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                     .attr('y', '215')
                     .attr('text-anchor', 'middle')
                     .text(data.name);
@@ -295,10 +259,7 @@ export class SolidGaugeWithMarkerComponent implements AfterViewInit {
                     .attr('fill', 'rgb(158, 215, 245)')
                     .attr('font-size', '12px')
                     .attr('x', '270')
-                    .attr(
-                        'font-family',
-                        "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
-                    )
+                    .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                     .attr('y', '25')
                     .attr('text-anchor', 'middle')
                     .text(data.value);
