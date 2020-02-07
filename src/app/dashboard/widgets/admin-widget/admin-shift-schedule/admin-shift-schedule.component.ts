@@ -26,7 +26,7 @@ export class AdminShiftScheduleComponent implements OnDestroy {
 
     size = [1, 2, 3, 4, 5, 6, 7, 3, 4, 5, 6, 6, 7, 7];
 
-    selectedDate: Date;
+    selectedDate: Date = new Date('Sat Feb 01 2020 00:00:00 GMT+0300');
 
     public man: IWorker = {
         name: 'Иванов Иван Сергеевич',
