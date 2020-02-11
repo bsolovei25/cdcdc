@@ -5,15 +5,15 @@ import {
     IVerifyWindow,
     ShiftMember,
     ShiftPass,
-    VerifyWindowActions
+    VerifyWindowActions,
 } from '../models/shift.model';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '../../services/appConfigService';
-import {BehaviorSubject, Subject} from 'rxjs';
-import {filter, map} from "rxjs/operators";
-import {MatSnackBar, MatSnackBarConfig} from "@angular/material/snack-bar";
-import {IUser} from "../models/events-widget";
+import { BehaviorSubject, Subject } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { IUser } from '../models/events-widget';
 
 @Injectable({
     providedIn: 'root',
@@ -28,9 +28,11 @@ export class ShiftService {
 
     private restUrl: string;
 
-    constructor(private http: HttpClient,
-                configService: AppConfigService,
-                private snackBar: MatSnackBar,) {
+    constructor(
+        private http: HttpClient,
+        configService: AppConfigService,
+        private snackBar: MatSnackBar
+    ) {
         this.restUrl = configService.restUrl;
         this.getShiftInfo();
     }
@@ -61,7 +63,13 @@ export class ShiftService {
             .toPromise();
     }
 
-    private async changeStatusAsync(status, id, idShift, widgetId: string, msg: string): Promise<any> {
+    private async changeStatusAsync(
+        status,
+        id,
+        idShift,
+        widgetId: string,
+        msg: string
+    ): Promise<any> {
         const body = {
             comment: msg,
         };
@@ -153,7 +161,13 @@ export class ShiftService {
         this.getShiftInfo();
     }
 
-    public async changeStatus(status, id, idShift, widgetId: string, msg: string = null): Promise<void> {
+    public async changeStatus(
+        status,
+        id,
+        idShift,
+        widgetId: string,
+        msg: string = null
+    ): Promise<void> {
         const obj = await this.changeStatusAsync(status, id, idShift, widgetId, msg);
         console.log(obj);
         this.getShiftInfo();
@@ -198,7 +212,7 @@ export class ShiftService {
         } else {
             this.isCommentRequiredAccept = state;
         }
-        console.log(this.isCommentRequiredAccept = state);
+        console.log((this.isCommentRequiredAccept = state));
     }
 
     public getIsCommentRequired(widgetType: string): boolean {
@@ -209,7 +223,13 @@ export class ShiftService {
         }
     }
 
-    public actionVerifyWindow(_action: VerifyWindowActions, _widgetId: string, _result: boolean, _verifyId: number = null, _user: IUser = null): void {
+    public actionVerifyWindow(
+        _action: VerifyWindowActions,
+        _widgetId: string,
+        _result: boolean,
+        _verifyId: number = null,
+        _user: IUser = null
+    ): void {
         const obj: IVerifyWindow = {
             action: _action,
             widgetId: _widgetId,
@@ -229,8 +249,6 @@ export class ShiftService {
     }
 
     public verifyWindowObservable(widgetId: string): any {
-        return this.verifyWindowSubject.pipe(
-            filter((ref) => ref && ref.widgetId === widgetId)
-        );
+        return this.verifyWindowSubject.pipe(filter((ref) => ref && ref.widgetId === widgetId));
     }
 }

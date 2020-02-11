@@ -81,7 +81,7 @@ import { TimeDiagramComponent } from './widgets/time-line-diagram/time-diagram/t
 import { ObservationNormTRComponent } from './widgets/observation-norm-tr/observation-norm-tr.component';
 import { AdminReferencesComponent } from './widgets/admin-references/admin-references.component';
 import { CardVerifierComponent } from './widgets/change-shift/card-verifier/card-verifier.component';
-import {ScrollingModule} from "@angular/cdk/scrolling";
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { PetroleumProductsMovementComponent } from './widgets/petroleum-products-movement/petroleum-products-movement.component';
 import { PetroleumReferenceLeftComponent } from './widgets/petroleum-products-movement/petroleum-reference-left/petroleum-reference-left.component';
 import { PetroleumReferenceRightComponent } from './widgets/petroleum-products-movement/petroleum-reference-right/petroleum-reference-right.component';
