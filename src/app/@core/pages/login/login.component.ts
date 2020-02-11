@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 import { FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PreloaderService } from '../../service/preloader.service';
-import {MaterialControllerService} from "../../../dashboard/services/material-controller.service";
+import { MaterialControllerService } from '../../../dashboard/services/material-controller.service';
 // Angular material
 // Local modules
 

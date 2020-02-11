@@ -12,7 +12,7 @@ import { WebSocketSubject } from 'rxjs/internal/observable/dom/WebSocketSubject'
 import { webSocket } from 'rxjs/internal/observable/dom/webSocket';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../@core/service/auth.service';
-import {MaterialControllerService} from "./material-controller.service";
+import { MaterialControllerService } from './material-controller.service';
 import * as moment from 'moment';
 
 interface IDatesInterval {
@@ -74,7 +74,7 @@ export class NewWidgetService {
         public http: HttpClient,
         private authService: AuthService,
         configService: AppConfigService,
-        private materialController: MaterialControllerService,
+        private materialController: MaterialControllerService
     ) {
         this.restUrl = configService.restUrl;
         this.wsUrl = configService.wsUrl;
@@ -293,8 +293,8 @@ export class NewWidgetService {
         );
         this.ws.asObservable().subscribe((data) => {
             if (data.data && this.isMatchingPeriod(data.data.selectedPeriod)) {
-                    this.widgetsSocketObservable.next(data);
-                    console.log('data ws');
+                this.widgetsSocketObservable.next(data);
+                console.log('data ws');
             }
         });
     }
@@ -393,7 +393,12 @@ export class NewWidgetService {
     public reloadPage(): void {
         const timeFormat = 'HH:mm:ss';
         const currentTime = moment().format(timeFormat);
-        if (moment(currentTime, timeFormat).isBetween(moment('03:00:01', timeFormat), moment('03:29:59', timeFormat))) {
+        if (
+            moment(currentTime, timeFormat).isBetween(
+                moment('03:00:01', timeFormat),
+                moment('03:29:59', timeFormat)
+            )
+        ) {
             window.location.reload();
         }
     }

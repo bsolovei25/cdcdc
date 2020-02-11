@@ -281,8 +281,6 @@ export class EventsComponent implements OnInit, OnDestroy {
 
         this.allNotifications = notifications;
 
-
-
         this.notifications = this.applyFilter(this.allNotifications, this.getCurrentOptions());
         this.filters.map((f) => {
             const options: EventsWidgetOptions = {
