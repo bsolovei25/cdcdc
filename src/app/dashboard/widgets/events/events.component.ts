@@ -157,11 +157,10 @@ export class EventsComponent implements OnInit, OnDestroy {
     public notification: EventsWidgetNotification = null;
 
     constructor(
-        // private oldWidgetsService: WidgetsService,
         private eventService: EventService,
         public userSettings: NewUserSettingsService,
-        @Inject('isMock') public isMock: boolean,
         public widgetService: NewWidgetService,
+        @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
