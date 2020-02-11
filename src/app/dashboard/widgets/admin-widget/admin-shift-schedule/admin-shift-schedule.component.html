@@ -20,56 +20,46 @@
       <section class="calendar">
         <mat-calendar
           [dateClass]="dateClass()"
-          #calendar
           [(selected)]="selectedDate"
+          (selectedChange)="dateChanged($event)"
           ngClass="calendar-red"
           locale="ru"
         ></mat-calendar>
       </section>
-      <section class="main-team">
+      <section class="main-team" *ngIf="dataBrigade">
         <p>Основной состав бригады</p>
         <div class="main-team__container">
           <ul class="list">
-            <li *ngFor="let i of size">
+            <li *ngFor="let i of dataBrigade.user">
               <evj-worker-card
                 class="insert-component"
                 [isSmallCard]="true"
-                [person]="man"
+                [person]="i"
               ></evj-worker-card>
             </li>
           </ul>
         </div>
       </section>
     </div>
-    <div class="block-bottom">
+    <div class="block-bottom" *ngIf="selectedDay">
       <section class="duty-schedule">
         <div class="title"><p>График дежурств</p></div>
-        <div class="date-yesterday"><p>7 января - 8 января 2020</p></div>
-        <div class="shift-yesterday">
+        <div class="date-yesterday">
+          <p>{{ yesterday | date:'d MMMM yyyy' }} - {{ selectedDate | date:'d MMMM yyyy' }}</p>
+        </div>
+        <div class="shift-yesterday"  *ngFor="let i of yesterday.shift">
           <p>I смена</p>
-          <p>20.00-06.00</p>
+          <p>{{ i.timeStart | date:'HH' }} - {{ i.timeEnd | date:'HH' }}</p>
           <p>Бригада 1</p>
         </div>
-        <div class="date-today">
-          <p>{{ selectedDate | date:'d MMMM yyyy' }}</p>
-        </div>
-        <div class="shift-today">
-          <p>I смена</p>
-          <p>20.00-06.00</p>
-          <p>Назначить</p>
-        </div>
-        <div class="shift-today">
-          <p>II смена</p>
-          <p>20.00-06.00</p>
-          <p>Назначить</p>
-        </div>
-        <div class="shift-today">
-          <p>III смена</p>
-          <p>20.00-06.00</p>
+        <div class="date-today"><p>{{ selectedDate | date:'d MMMM yyyy' }}</p></div>
+        <div class="shift-today" *ngFor="let i of selectedDay.shift">
+          <p>{{ i.title }} смена</p>
+          <p>{{ i.timeStart | date:'HH' }} - {{ i.timeEnd | date:'HH' }}</p>
           <p>Назначить</p>
         </div>
       </section>
-      <section class="additional-team">
+      <section class="additional-team" *ngIf="dataBrigade">
         <p>Дополнительный состав бригады</p>
         <div class="additional-team__container">
           <ul class="list">

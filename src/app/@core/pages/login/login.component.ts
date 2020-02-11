@@ -62,14 +62,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
                     this.isLoadingData = false;
                 }, 1000);
             } else {
-                this.materialController.openSnackBar('Неверный логин или пароль');
+                // this.materialController.openSnackBar('Неверный логин или пароль');
                 this.swing = true;
                 this.isLoadingData = false;
             }
         } catch (err) {
-            if (err.status === 0) {
-                this.materialController.openSnackBar('Сервер не отвечает');
-            }
             this.isLoadingData = false;
         }
     }

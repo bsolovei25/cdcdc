@@ -92,10 +92,12 @@ export class NewUserSettingsService {
     private updateWidgetApi(uniqId) {
         this.save(uniqId);
         const updateWidget = this.widgetInfo;
-        this.http.put(this.restUrl + '/api/user-management/widget/' + uniqId, updateWidget).subscribe(
-            (ans) => {},
-            (error) => console.log(error)
-        );
+        this.http
+            .put(this.restUrl + '/api/user-management/widget/' + uniqId, updateWidget)
+            .subscribe(
+                (ans) => {},
+                (error) => console.log(error)
+            );
     }
 
     public updateByPosition(oldItem, newItem) {

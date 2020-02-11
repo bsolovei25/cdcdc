@@ -55,9 +55,13 @@ export class AuthService {
             this.configureUserAuth(auth);
             return auth;
         } catch (error) {
-            this.materialController.openSnackBar(
-                'Ошибка авторизации, неверный логин или пароль, обратитесь к системному администратору!'
-            );
+            if (error.status === 0) {
+                this.materialController.openSnackBar('Сервер не отвечает');
+            } else {
+                this.materialController.openSnackBar(
+                    'Ошибка авторизации, неверный логин или пароль, обратитесь к системному администратору!'
+                );
+            }
             console.error(error);
         }
     }
