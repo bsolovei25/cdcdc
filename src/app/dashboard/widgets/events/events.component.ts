@@ -154,6 +154,8 @@ export class EventsComponent implements OnInit, OnDestroy {
     private liveSubscription: Subscription;
     private updateSubscription: Subscription;
 
+    public notification: EventsWidgetNotification = null;
+
     constructor(
         // private oldWidgetsService: WidgetsService,
         private eventService: EventService,
@@ -273,7 +275,13 @@ export class EventsComponent implements OnInit, OnDestroy {
             }
         });
 
+        // for (let i = 0; i < 100000000; i++) {
+        //     notifications.push(notifications[0]);
+        // }
+
         this.allNotifications = notifications;
+
+
 
         this.notifications = this.applyFilter(this.allNotifications, this.getCurrentOptions());
         this.filters.map((f) => {
@@ -385,5 +393,11 @@ export class EventsComponent implements OnInit, OnDestroy {
     onClick(e: Event, url: string) {
         e.stopPropagation();
         window.open(url);
+    }
+
+    public scrollHandler(event: any): void {
+        console.log(event);
+        this.notifications.push(this.notification);
+        console.log(this.notifications.length);
     }
 }
