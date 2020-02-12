@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs/index';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { NewUserSettingsService } from '../../services/new-user-settings.service';
 import { EventService } from '../../services/event.service';
+import { MaterialControllerService } from '../../services/material-controller.service';
 
 @Component({
     selector: 'evj-events',
@@ -22,31 +23,24 @@ import { EventService } from '../../services/event.service';
     styleUrls: ['./events.component.scss'],
 })
 export class EventsComponent implements OnInit, OnDestroy {
-    @Input() name: string = '';
-    ng;
-    isList: boolean = false;
 
+    isList: boolean = false;
     title: string = '';
     isDeleteRetrieval: boolean = false;
 
     selectedId: number = 0;
     eventOverlayId: number;
 
+    private isAllowScrollLoading: boolean = true;
+
     static itemCols: number = 30;
     static itemRows: number = 20;
 
     public previewTitle: string;
 
-    category: ICategory[] = [
-        { id: 1001, name: 'smotr', code: '0' },
-        { id: 1002, name: 'safety', code: '1' },
-        { id: 1003, name: 'tasks', code: '2' },
-        { id: 1004, name: 'equipmentStatus', code: '3' },
-        { id: 1005, name: 'drops', code: '4' },
-    ];
-
     categories: EventsWidgetCategory[] = [
         {
+            id: 1001,
             code: 'smotr',
             iconUrl: './assets/icons/widgets/events/smotr.svg',
             notificationsCounts: {
@@ -58,6 +52,7 @@ export class EventsComponent implements OnInit, OnDestroy {
             url: 'https://spb25-cce-mo1.gazprom-neft.local/BLPS_MO/ru_RU/',
         },
         {
+            id: 1002,
             code: 'safety',
             iconUrl: './assets/icons/widgets/events/safety.svg',
             notificationsCounts: {
@@ -69,6 +64,7 @@ export class EventsComponent implements OnInit, OnDestroy {
             url: '#',
         },
         {
+            id: 1003,
             code: 'tasks',
             iconUrl: './assets/icons/widgets/events/tasks.svg',
             notificationsCounts: {
@@ -80,6 +76,7 @@ export class EventsComponent implements OnInit, OnDestroy {
             url: '#',
         },
         {
+            id: 1004,
             code: 'equipmentStatus',
             iconUrl: './assets/icons/widgets/events/status.svg',
             notificationsCounts: {
@@ -91,6 +88,7 @@ export class EventsComponent implements OnInit, OnDestroy {
             url: 'http://spb99-t-merap01/meridium',
         },
         {
+            id: 1005,
             code: 'drops',
             iconUrl: './assets/icons/widgets/events/drops.svg',
             notificationsCounts: {
@@ -148,86 +146,107 @@ export class EventsComponent implements OnInit, OnDestroy {
         closed: 'Завершено',
     };
 
-    private readonly defaultIconPath = './assets/icons/widgets/events/smotr.svg';
-    defaultIcons = './assets/icons/widgets/process/in-work.svg'; // TODO изменить иконки
-
-    private liveSubscription: Subscription;
-    private updateSubscription: Subscription;
-
-    public notification: EventsWidgetNotification = null;
+    private readonly defaultIconPath: string = './assets/icons/widgets/events/smotr.svg';
+    private subscriptions: Subscription[] = [];
 
     constructor(
         private eventService: EventService,
+        private materialService: MaterialControllerService,
         public userSettings: NewUserSettingsService,
         public widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
-    ) {
-        this.liveSubscription = this.widgetService.getWidgetChannel(id).subscribe((data) => {
+    ) { }
+
+    public ngOnInit(): void {
+        setTimeout( () => {
+            const n = this.notifications;
+            n.push(this.notifications[0]);
+            this.notifications = n;
+        }, 5000);
+        this.subscriptions.push(this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
             if (data) {
                 this.title = data.title;
                 this.previewTitle = data.widgetType;
             }
-        });
-        this.updateSubscription = this.eventService.updateEvent$.subscribe((value) => {
+        }));
+        this.subscriptions.push(this.eventService.updateEvent$.subscribe((value) => {
             if (value) {
                 this.wsConnect();
             }
-        });
-    }
-
-    ngOnInit() {
+        }));
         this.showMock(this.isMock);
     }
 
-    ngOnDestroy() {
-        if (this.liveSubscription) {
-            this.liveSubscription.unsubscribe();
-        }
-        if (this.updateSubscription) {
-            this.updateSubscription.unsubscribe();
+    public ngOnDestroy(): void {
+        for (const subscription of this.subscriptions) {
+            subscription.unsubscribe();
         }
     }
 
-    onCategoryClick(category) {
+    private showMock(show: boolean): void {
+        if (show) {
+            // do nothing
+        } else {
+            this.getData();
+            // this.wsConnect();
+        }
+    }
+
+    private wsConnect(): void {
+        this.subscriptions.push(this.widgetService
+            .getWidgetLiveDataFromWS(this.id, 'events')
+            .subscribe((ref: EventsWidgetData) => {
+                this.appendNotifications(ref.notifications);
+                // this.appendCategoriesCounters();
+            }));
+    }
+
+    public onCategoryClick(category: EventsWidgetCategory): void {
+        // category.isActive = !category.isActive;
+        // this.appendOptions();
+        // const idx = this.filters.findIndex((i) => i.isActive === true);
+        // if (idx !== -1) {
+        //     this.onFilterClick(this.filters[idx]);
+        // }
+
         category.isActive = !category.isActive;
-        this.appendOptions();
-        const idx = this.filters.findIndex((i) => i.isActive === true);
-        if (idx !== -1) {
-            this.onFilterClick(this.filters[idx]);
-        }
+        this.getData();
     }
 
-    onFilterClick(filter: EventsWidgetFilter) {
+    public onFilterClick(filter: EventsWidgetFilter): void {
+        // this.filters.forEach((f) => (f.isActive = false));
+        // filter.isActive = true;
+        // this.appendOptions();
+        // filter.notificationsCount = this.notifications.length;
+
         this.filters.forEach((f) => (f.isActive = false));
         filter.isActive = true;
+        this.getData();
+    }
 
-        this.appendOptions();
-        filter.notificationsCount = this.notifications.length;
+    private getCurrentOptions(): EventsWidgetOptions {
+        const options: EventsWidgetOptions = {
+            categories: this.categories.filter((c) => c.isActive).map((c) => c.id),
+            filter: this.filters.find((f) => f.isActive).code,
+        };
+        return options;
     }
 
     private clearNotifications(): void {
         this.notifications = [];
     }
 
-    private getCurrentOptions(): EventsWidgetOptions {
-        const options: EventsWidgetOptions = {
-            categories: this.categories.filter((c) => c.isActive).map((c) => c.code),
-            filter: this.filters.find((f) => f.isActive).code,
-        };
-        return options;
-    }
-
     private appendOptions(): void {
         this.clearNotifications();
-
         const options = this.getCurrentOptions();
+        console.log(options);
         this.notifications = this.applyFilter(this.allNotifications, options);
         // filtering only at front-end
     }
 
-    sortByPriority() {
+    sortByPriority(): void {
         const danger = this.notifications.filter((n) => n.priority.code === '0');
         const warning = this.notifications.filter((n) => n.priority.code === '1');
         const standard = this.notifications.filter((n) => n.priority.code === '2');
@@ -240,31 +259,30 @@ export class EventsComponent implements OnInit, OnDestroy {
         filterOptions: EventsWidgetOptions
     ): EventsWidgetNotification[] {
         let notifications = allNotifications;
-
-        if (filterOptions.filter && filterOptions.filter === 'all') {
-            notifications = notifications.filter((x) => x.status.name !== 'closed');
-        }
-
-        if (filterOptions.filter && filterOptions.filter !== 'all') {
-            notifications = notifications.filter((x) => x.status.name === filterOptions.filter);
-        }
-        if (filterOptions.categories && filterOptions.categories.length > 0) {
-            notifications = notifications.filter((x) =>
-                filterOptions.categories.some((c) => c === x.category.name)
-            );
-        }
-
+        //
+        // if (filterOptions.filter && filterOptions.filter === 'all') {
+        //     notifications = notifications.filter((x) => x.status.name !== 'closed');
+        // }
+        //
+        // if (filterOptions.filter && filterOptions.filter !== 'all') {
+        //     notifications = notifications.filter((x) => x.status.name === filterOptions.filter);
+        // }
+        // if (filterOptions.categories && filterOptions.categories.length > 0) {
+        //     notifications = notifications.filter((x) =>
+        //         filterOptions.categories.some((c) => c === x.category.name)
+        //     );
+        // }
         return notifications;
     }
 
-    private getStatusIcon(name) {
+    private getStatusIcon(name: string): string {
         const idx = this.iconStatus.findIndex((s) => s.name === name);
         if (idx !== -1) {
             return this.iconStatus[idx].iconUrl;
         }
     }
 
-    private appendNotifications(remoteNotifications: EventsWidgetNotification[]) {
+    private appendNotifications(remoteNotifications: EventsWidgetNotification[]): void {
         const notifications = remoteNotifications.map((n) => {
             if (n.category && n.category.name) {
                 const iconUrl = this.getNotificationIcon(n.category.name);
@@ -274,21 +292,17 @@ export class EventsComponent implements OnInit, OnDestroy {
             }
         });
 
-        // for (let i = 0; i < 100000000; i++) {
-        //     notifications.push(notifications[0]);
-        // }
-
-        this.allNotifications = notifications;
-
-        this.notifications = this.applyFilter(this.allNotifications, this.getCurrentOptions());
-        this.filters.map((f) => {
-            const options: EventsWidgetOptions = {
-                categories: this.categories.filter((c) => c.isActive).map((c) => c.code),
-                filter: f.code,
-            };
-            f.notificationsCount = this.applyFilter(this.allNotifications, options).length;
-        });
-        this.sortByPriority();
+        this.notifications = this.notifications.concat(notifications);
+        // this.allNotifications = notifications;
+        // this.notifications = this.applyFilter(this.allNotifications, this.getCurrentOptions());
+        // this.filters.map((f) => {
+        //     const options: EventsWidgetOptions = {
+        //         categories: this.categories.filter((c) => c.isActive).map((c) => c.code),
+        //         filter: f.code,
+        //     };
+        //     f.notificationsCount = this.applyFilter(this.allNotifications, options).length;
+        // });
+        // this.sortByPriority();
     }
 
     private appendCategoriesCounters() {
@@ -303,7 +317,7 @@ export class EventsComponent implements OnInit, OnDestroy {
         });
     }
 
-    private getNotificationIcon(categoryId: EventsWidgetCategoryCode) {
+    private getNotificationIcon(categoryId: EventsWidgetCategoryCode): string {
         const category = this.categories.find((c) => c.code === categoryId);
         if (category) {
             return category.iconUrl;
@@ -311,90 +325,77 @@ export class EventsComponent implements OnInit, OnDestroy {
         return this.defaultIconPath;
     }
 
-    private wsConnect() {
-        if (this.liveSubscription) {
-            this.liveSubscription.unsubscribe();
-        }
-        this.liveSubscription = this.widgetService
-            .getWidgetLiveDataFromWS(this.id, 'events')
-            .subscribe((ref: EventsWidgetData) => {
-                this.appendNotifications(ref.notifications);
-                this.appendCategoriesCounters();
-            });
+    public viewChanger(list: boolean): void {
+        this.isList = list;
     }
 
-    snackBar(text: string = 'Выполнено', status: string = 'complete', durection: number = 3000) {
-        let snackBar = document.getElementById('snackbar');
-        snackBar.className = 'show';
-        // snackBar.className = status;
-        snackBar.innerText = text;
-        setTimeout(function() {
-            snackBar.className = snackBar.className.replace('show', '');
-        }, durection);
-    }
-
-    showMock(show) {
-        if (this.isMock) {
-            // do nothing
-        } else {
-            this.wsConnect();
-        }
-    }
-
-    listView(list: boolean): void {
-        list ? (this.isList = true) : (this.isList = false);
-    }
-
-    onRemoveButton() {
+    // Удаление виджета
+    onRemoveButton(): void {
         this.widgetService.removeItemService(this.uniqId);
         this.userSettings.removeItem(this.uniqId);
     }
 
-    async eventClick(deleteItem: boolean, eventId?: number, event?: Event) {
+    public async eventClick(deleteItem: boolean, eventId?: number, event?: Event): Promise<void> {
         event.stopPropagation();
         if (deleteItem) {
             try {
                 if (this.eventOverlayId >= 0) {
-                    const event = await this.eventService.deleteEvent(this.eventOverlayId);
-                    this.wsConnect();
+                    await this.eventService.deleteEvent(this.eventOverlayId);
+                    this.wsConnect(); // TODO переход на рест
                     this.eventService.event$.next(null);
                 }
                 this.overlayConfirmationClose();
-                this.snackBar('Событие удалено');
+                this.materialService.openSnackBar('Событие удалено');
             } catch (error) {
                 this.overlayConfirmationClose();
-                this.snackBar('Ошибка', 'error');
+                this.materialService.openSnackBar('Ошибка');
             }
         } else {
             this.selectedId = eventId;
-            const event = await this.eventService.getEvent(eventId);
-            this.eventService.event$.next(event);
+            const eventGet = await this.eventService.getEvent(eventId);
+            this.eventService.event$.next(eventGet);
         }
         this.eventOverlayId = undefined;
     }
 
-    overlayConfirmationOpen(n: EventsWidgetNotification) {
+    public overlayConfirmationOpen(notification: EventsWidgetNotification): void {
         event.stopPropagation();
-        this.eventOverlayId = n.id;
-        n.retrievalEvents.length
+        this.eventOverlayId = notification.id;
+        notification.retrievalEvents.length
             ? (this.isDeleteRetrieval = true)
             : (this.isDeleteRetrieval = false);
         document.getElementById('overlay-confirmation-event').style.display = 'block';
     }
 
-    overlayConfirmationClose() {
+    public overlayConfirmationClose(): void {
         document.getElementById('overlay-confirmation-event').style.display = 'none';
         this.eventOverlayId = undefined;
     }
 
-    onClick(e: Event, url: string) {
+    // Переход в систему источник
+    public onClickUrl(e: Event, url: string): void {
         e.stopPropagation();
         window.open(url);
     }
 
     public scrollHandler(event: any): void {
-        console.log(event);
-        this.notifications.push(this.notification);
-        console.log(this.notifications.length);
+        if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight && this.notifications.length) {
+            console.log('end scroll');
+            this.getData(this.notifications[this.notifications.length - 1].id);
+        }
+    }
+
+    public async getData(lastId: number = 0): Promise<void> {
+        this.isAllowScrollLoading = false;
+        if (lastId === 0) {
+            this.clearNotifications();
+        }
+        const options = this.getCurrentOptions();
+        console.log(options);
+        const ans = await this.eventService.getBatchData(lastId, options);
+        this.appendNotifications(ans);
+        this.isAllowScrollLoading = true;
+        console.log(lastId);
+        console.log(ans);
     }
 }

@@ -13,11 +13,11 @@
         <div class="header__icon-wrapper">
           <svg-icon class="header__icon" src="./assets/icons/widgets/events/letter.svg"></svg-icon>
         </div>
-        <div *ngIf="!isMock" class="header__icon-wrapper" (click)="listView(false)">
+        <div *ngIf="!isMock" class="header__icon-wrapper" (click)="viewChanger(false)">
           <svg-icon [ngClass]="{'list': !isList}" class="header__icon" src="./assets/pic/list.svg">
           </svg-icon>
         </div>
-        <div *ngIf="!isMock" class="header__icon-wrapper" (click)="listView(true)">
+        <div *ngIf="!isMock" class="header__icon-wrapper" (click)="viewChanger(true)">
           <svg-icon
             [ngClass]="{'blocks': isList}"
             class="header__icon"
@@ -55,30 +55,30 @@
               <div
                 class="notification__block notifications__block__item"
                 *ngFor="let n of notifications"
-                (click)="eventClick(false, n.id, $event)"
-                [ngClass]="{'selected-block': selectedId === n.id || eventOverlayId === n.id}"
+                (click)="eventClick(false, n?.id, $event)"
+                [ngClass]="{'selected-block': selectedId === n?.id || eventOverlayId === n?.id}"
               >
                 <div class="notification__block__header">
                   <span
                     class="notification__block__number"
-                    [ngClass]="'notification__number_' + n.priority"
+                    [ngClass]="'notification__number_' + n?.priority"
                   >
-                    {{n.itemNumber}}
+                    {{n?.itemNumber}}
                   </span>
 
                   <div class="notification__block__extra">
                     <span
                       class="notification__block__status"
-                      [ngClass]="'notification__block__status_' + n.priority.name"
+                      [ngClass]="'notification__block__status_' + n?.priority.name"
                     >
-                      {{n.statusName}}
+                      {{n?.statusName}}
                     </span>
 
                     <span class="notification__block__status">
                       <svg-icon
                         [applyCss]="true"
                         [src]="n.iconUrlStatus"
-                        [ngClass]="'notification__block__icon_' + n.priority.name"
+                        [ngClass]="'notification__block__icon_' + n?.priority.name"
                         [svgStyle]="{'fill':'rgb(63, 168, 243)'}"
                       >
                       </svg-icon>
@@ -217,7 +217,7 @@
                   <button
                     [disabled]="c.url === '#'"
                     type="submit gridster-item-content"
-                    (click)="onClick($event, c.url)"
+                    (click)="onClickUrl($event, c.url)"
                   >
                     В систему источник
                   </button>
@@ -244,9 +244,9 @@
           <div class="notifications">
             <ng-container>
               <cdk-virtual-scroll-viewport
-                itemSize="30"
+                itemSize="160px"
                 class="notifications__list scroll-bar"
-                (scrolledIndexChange)="scrollHandler($event)"
+                (scroll)="scrollHandler($event)"
               >
                 <div
                   class="notification notifications__item"
@@ -418,7 +418,7 @@
                   <button
                     [disabled]="c.url === '#'"
                     type="submit gridster-item-content"
-                    (click)="onClick($event, c.url)"
+                    (click)="onClickUrl($event, c.url)"
                   >
                     В систему источник
                   </button>

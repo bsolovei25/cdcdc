@@ -76,6 +76,7 @@ export interface EventsWidgetFilter {
 }
 
 export interface EventsWidgetCategory {
+    id: number;
     code: EventsWidgetCategoryCode;
     notificationsCounts: EventsWidgetNotificationsCounter;
 
@@ -95,6 +96,6 @@ export interface EventsWidgetData {
 }
 
 export interface EventsWidgetOptions {
-    categories: EventsWidgetCategoryCode[];
+    categories: number[];
     filter: EventsWidgetFilterCode;
 }

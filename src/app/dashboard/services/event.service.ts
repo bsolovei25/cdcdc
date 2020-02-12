@@ -1,7 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs/index';
-import { EventsWidgetNotification, IStatus, ICategory } from '../models/events-widget';
+import {
+    EventsWidgetNotification,
+    IStatus,
+    ICategory,
+    EventsWidgetData,
+    EventsWidgetOptions
+} from '../models/events-widget';
 import { AppConfigService } from 'src/app/services/appConfigService';
 
 @Injectable({
@@ -9,12 +15,23 @@ import { AppConfigService } from 'src/app/services/appConfigService';
 })
 export class EventService {
     private readonly restUrl: string;
+    private readonly batchSize: number = 50;
 
     event$: BehaviorSubject<any | null> = new BehaviorSubject<any | null>(null);
     updateEvent$: BehaviorSubject<any | null> = new BehaviorSubject<any | null>(null);
 
     constructor(public http: HttpClient, configService: AppConfigService) {
         this.restUrl = configService.restUrl;
+    }
+
+    async getBatchData(lastId: number, options: EventsWidgetOptions): Promise<EventsWidgetNotification[]> {
+        try {
+            return this.http
+                .get<EventsWidgetNotification[]>(this.restUrl + `/api/notifications/getbyfilter?${this.getOptionString(lastId, options)}`)
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     async getEvent(id: number): Promise<EventsWidgetNotification> {
@@ -153,9 +170,9 @@ export class EventService {
         }
     }
 
-    async deleteRetrievalEvents(idEvent: number, idRetr: number) {
+    async deleteRetrievalEvents(idEvent: number, idRetr: number): Promise<any> {
         try {
-            return this.http
+            return await this.http
                 .delete<any>(
                     this.restUrl +
                         `/api/notification-retrieval/${idEvent}/retrievalevents/${idRetr}`
@@ -164,5 +181,24 @@ export class EventService {
         } catch (error) {
             console.error(error);
         }
+    }
+
+    private getOptionString(lastId: number, options: EventsWidgetOptions): string {
+        let res = `take=${this.batchSize}&lastId=${lastId}`;
+        for (const category of options.categories) {
+            res += `&categoryIds=${category}`;
+        }
+        switch (options.filter) {
+            case 'all':
+                res += '&statusIds=3001&statusIds=3002';
+                break;
+            case 'closed':
+                res += '&statusIds=3003';
+                break;
+            case 'inWork':
+                res += '&statusIds=3002';
+                break;
+        }
+        return res;
     }
 }
