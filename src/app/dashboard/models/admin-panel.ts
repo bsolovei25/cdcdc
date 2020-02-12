@@ -5,7 +5,7 @@ export interface IAdminPanel {
     person: IUser;
     workspaces: IWorkspace[];
     availableWidgets: IWidgets[];
-    rights: IRight[];
+    claims: IClaim[];
 }
 
 export interface IWorkspace {
@@ -13,7 +13,7 @@ export interface IWorkspace {
     author: IUser;
 }
 
-export interface IRight {
+export interface IClaim {
     name: string;
     id: string;
 }
