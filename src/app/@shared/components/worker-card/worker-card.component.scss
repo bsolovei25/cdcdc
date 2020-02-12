@@ -291,7 +291,11 @@
 
 .svg {
   &__txt {
-    font-size: 3px;
+    font-size: 7px;
     fill: var(--color-text-main);
+  }
+
+  &__unactive {
+    fill: var(--color-text-sub-heading);
   }
 }

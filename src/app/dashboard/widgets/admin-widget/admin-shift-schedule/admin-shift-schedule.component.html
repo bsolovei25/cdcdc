@@ -27,14 +27,14 @@
         ></mat-calendar>
       </section>
       <section class="main-team" *ngIf="dataBrigade">
-        <p>Основной состав бригады</p>
+        <p class="title">Основной состав бригады</p>
         <div class="main-team__container">
           <ul class="list">
-            <li *ngFor="let i of dataBrigade.user">
+            <li *ngFor="let i of dataBrigade">
               <evj-worker-card
                 class="insert-component"
                 [isSmallCard]="true"
-                [person]="i"
+                [person]="i.user[0]"
               ></evj-worker-card>
             </li>
           </ul>
@@ -45,9 +45,9 @@
       <section class="duty-schedule">
         <div class="title"><p>График дежурств</p></div>
         <div class="date-yesterday">
-          <p>{{ yesterday | date:'d MMMM yyyy' }} - {{ selectedDate | date:'d MMMM yyyy' }}</p>
+          <p>{{ yesterday.date | date:'d MMMM yyyy' }} - {{ selectedDate | date:'d MMMM yyyy' }}</p>
         </div>
-        <div class="shift-yesterday"  *ngFor="let i of yesterday.shift">
+        <div class="shift-yesterday" *ngFor="let i of yesterday.shift">
           <p>I смена</p>
           <p>{{ i.timeStart | date:'HH' }} - {{ i.timeEnd | date:'HH' }}</p>
           <p>Бригада 1</p>
@@ -56,18 +56,36 @@
         <div class="shift-today" *ngFor="let i of selectedDay.shift">
           <p>{{ i.title }} смена</p>
           <p>{{ i.timeStart | date:'HH' }} - {{ i.timeEnd | date:'HH' }}</p>
-          <p>Назначить</p>
+          <p class="btn" (click)="openOverlay($event, i, true)">
+            Назначить
+          </p>
+        </div>
+        <div class="shift-overlay" #shiftOverlay>
+          <ul>
+            <li (click)="openOverlay($event, null, false)">
+              <svg-icon
+                class="icon"
+                [svgStyle]="{'width.px':10,'fill':'rgb(150,50,255)','padding.px':1,'margin.px':3}"
+                src="./assets/icons/widgets/admin-shift-schedule/close.svg"
+              ></svg-icon>
+            </li>
+            <li *ngFor="let b of dataBrigade">
+              Бригада {{ b.number }}
+            </li>
+          </ul>
         </div>
       </section>
       <section class="additional-team" *ngIf="dataBrigade">
-        <p>Дополнительный состав бригады</p>
+        <p class="title">Дополнительный состав бригады</p>
         <div class="additional-team__container">
           <ul class="list">
-            <li *ngFor="let i of size">
+            <li *ngFor="let i of dataBrigade[0].user">
               <evj-worker-card
+                (click)="onClickCard(i)"
+                [active]="activeUsers.isSelected(i)"
                 class="insert-component"
                 [isSmallCard]="true"
-                [person]="man"
+                [person]="i"
               ></evj-worker-card>
             </li>
           </ul>

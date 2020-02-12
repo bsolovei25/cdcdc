@@ -1,1 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 242.33 55.33"><defs><style>.cls-1{opacity:0.6;fill:url(#Безымянный_градиент_8);}</style><linearGradient id="Безымянный_градиент_8" y1="27.67" x2="242.33" y2="27.67" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#3fa9f5" stop-opacity="0.6"/><stop offset="0.09" stop-color="#378ac7" stop-opacity="0.47"/><stop offset="0.21" stop-color="#2e6996" stop-opacity="0.32"/><stop offset="0.33" stop-color="#274e6e" stop-opacity="0.21"/><stop offset="0.47" stop-color="#22384e" stop-opacity="0.11"/><stop offset="0.61" stop-color="#1e2a38" stop-opacity="0.05"/><stop offset="0.77" stop-color="#1c212b" stop-opacity="0.01"/><stop offset="1" stop-color="#1b1e27" stop-opacity="0"/></linearGradient></defs><title>double-line</title><g id="Слой_2" data-name="Слой 2"><g id="Слой_1-2" data-name="Слой 1"><path class="cls-1" d="M236.89,0H0A72.49,72.49,0,0,1,32.71,55.33H236.89c2.12-2.12,3.32-3.31,5.44-5.44V5.44C240.21,3.32,239,2.13,236.89,0Z"/></g></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" 
+  xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 242.33 55.33">
+  <defs>
+    <style>.cls-1{opacity:0.6;fill:url(#Безымянный_градиент_8);}</style>
+    <linearGradient id="Безымянный_градиент_8" y1="27.67" x2="242.33" y2="27.67" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3fa9f5" stop-opacity="0.6"/>
+      <stop offset="0.09" stop-color="#378ac7" stop-opacity="0.47"/>
+      <stop offset="0.21" stop-color="#2e6996" stop-opacity="0.32"/>
+      <stop offset="0.33" stop-color="#274e6e" stop-opacity="0.21"/>
+      <stop offset="0.47" stop-color="#22384e" stop-opacity="0.11"/>
+      <stop offset="0.61" stop-color="#1e2a38" stop-opacity="0.05"/>
+      <stop offset="0.77" stop-color="#1c212b" stop-opacity="0.01"/>
+      <stop offset="1" stop-color="#1b1e27" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <title>double-line</title>
+  <g id="Слой_2" data-name="Слой 2">
+    <g id="Слой_1-2" data-name="Слой 1">
+      <path class="cls-1" d="M236.89,0H0A72.49,72.49,0,0,1,32.71,55.33H236.89c2.12-2.12,3.32-3.31,5.44-5.44V5.44C240.21,3.32,239,2.13,236.89,0Z"/>
+    </g>
+  </g>
+</svg>

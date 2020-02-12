@@ -1,4 +1,13 @@
-import { Component, Inject, OnDestroy, ViewChild, EventEmitter, Output } from '@angular/core';
+import {
+    Component,
+    Inject,
+    OnDestroy,
+    ViewChild,
+    EventEmitter,
+    Output,
+    ElementRef,
+    Renderer2,
+} from '@angular/core';
 import { NewWidgetService } from '../../../services/new-widget.service';
 import { Subscription } from 'rxjs';
 import { MatCalendar, MatCalendarCellCssClasses } from '@angular/material/datepicker';
@@ -6,6 +15,7 @@ import * as moment from 'moment';
 import { DateAdapter } from '@angular/material/core';
 import { IWorker } from '../../../models/worker';
 import { IUser } from '../../../models/events-widget';
+import { SelectionModel } from '@angular/cdk/collections';
 
 export interface IAdminShiftSchedule {
     worker: IWorker[];
@@ -43,13 +53,24 @@ export class AdminShiftScheduleComponent implements OnDestroy {
     static itemCols: number = 30;
     static itemRows: number = 20;
 
+    activeUsers = new SelectionModel(true);
+
+    active: boolean = true;
+
     size: number[] = [1, 2, 3, 4, 5, 6, 7, 3, 4, 5, 6, 6, 7, 7];
     now: moment.Moment = moment();
     selectedDate: Date = this.now.toDate();
     yesterday: IDay = {
         date: new Date(this.now.subtract(1, 'days').toDate()),
         isUnassigned: true,
-        shift: [],
+        shift: [
+            {
+                id: 1,
+                title: '1',
+                timeStart: new Date('2020-02-11T00:00:00'),
+                timeEnd: new Date('2020-02-12T03:03:00'),
+            },
+        ],
     };
 
     selectedDay: IDay;
@@ -80,7 +101,7 @@ export class AdminShiftScheduleComponent implements OnDestroy {
             ],
         },
         {
-            date: new Date('02.12.2020 15:38:17'),
+            date: new Date('2020-02-13T00:00:00'),
             isUnassigned: true,
             shift: [
                 {
@@ -105,32 +126,155 @@ export class AdminShiftScheduleComponent implements OnDestroy {
         },
     ];
 
-    dataBrigade: IBrigade;
+    dataBrigade: IBrigade[] = [
+        {
+            id: 1,
+            number: '1',
+            user: [
+                {
+                    firstName: 'Иван',
+                    middleName: 'Сергеевич',
+                    lastName: 'Иванов',
+                    phone: '+ 7 (925) 599-99-87',
+                    email: 'Ivanov@gazprom-neft.ru',
+                    positionDescription: 'Старший оператор | КИПиА',
+                    id: 1,
+                    login: 'fd',
+                },
+                {
+                    firstName: 'Иван',
+                    middleName: 'Сергеевич',
+                    lastName: 'Иванов',
+                    phone: '+ 7 (925) 599-99-87',
+                    email: 'Ivanov@gazprom-neft.ru',
+                    positionDescription: 'Старший оператор | КИПиА',
+                    id: 1,
+                    login: 'fd',
+                },
+            ],
+        },
+        {
+            id: 1,
+            number: '2',
+            user: [
+                {
+                    firstName: 'Иван',
+                    middleName: 'Сергеевич',
+                    lastName: 'Иванов',
+                    phone: '+ 7 (925) 599-99-87',
+                    email: 'Ivanov@gazprom-neft.ru',
+                    positionDescription: 'Старший оператор | КИПиА',
+                    id: 1,
+                    login: 'fd',
+                },
+                {
+                    firstName: 'Иван',
+                    middleName: 'Сергеевич',
+                    lastName: 'Иванов',
+                    phone: '+ 7 (925) 599-99-87',
+                    email: 'Ivanov@gazprom-neft.ru',
+                    positionDescription: 'Старший оператор | КИПиА',
+                    id: 1,
+                    login: 'fd',
+                },
+            ],
+        },
+        {
+            id: 1,
+            number: '3',
+            user: [
+                {
+                    firstName: 'Иван',
+                    middleName: 'Сергеевич',
+                    lastName: 'Иванов',
+                    phone: '+ 7 (925) 599-99-87',
+                    email: 'Ivanov@gazprom-neft.ru',
+                    positionDescription: 'Старший оператор | КИПиА',
+                    id: 1,
+                    login: 'fd',
+                },
+                {
+                    firstName: 'Иван',
+                    middleName: 'Сергеевич',
+                    lastName: 'Иванов',
+                    phone: '+ 7 (925) 599-99-87',
+                    email: 'Ivanov@gazprom-neft.ru',
+                    positionDescription: 'Старший оператор | КИПиА',
+                    id: 1,
+                    login: 'fd',
+                },
+            ],
+        },
+        {
+            id: 1,
+            number: '4',
+            user: [
+                {
+                    firstName: 'Иван',
+                    middleName: 'Сергеевич',
+                    lastName: 'Иванов',
+                    phone: '+ 7 (925) 599-99-87',
+                    email: 'Ivanov@gazprom-neft.ru',
+                    positionDescription: 'Старший оператор | КИПиА',
+                    id: 1,
+                    login: 'fd',
+                },
+                {
+                    firstName: 'Иван',
+                    middleName: 'Сергеевич',
+                    lastName: 'Иванов',
+                    phone: '+ 7 (925) 599-99-87',
+                    email: 'Ivanov@gazprom-neft.ru',
+                    positionDescription: 'Старший оператор | КИПиА',
+                    id: 1,
+                    login: 'fd',
+                },
+            ],
+        },
+        {
+            id: 1,
+            number: '5',
+            user: [
+                {
+                    firstName: 'Иван',
+                    middleName: 'Сергеевич',
+                    lastName: 'Иванов',
+                    phone: '+ 7 (925) 599-99-87',
+                    email: 'Ivanov@gazprom-neft.ru',
+                    positionDescription: 'Старший оператор | КИПиА',
+                    id: 1,
+                    login: 'fd',
+                },
+                {
+                    firstName: 'Иван',
+                    middleName: 'Сергеевич',
+                    lastName: 'Иванов',
+                    phone: '+ 7 (925) 599-99-87',
+                    email: 'Ivanov@gazprom-neft.ru',
+                    positionDescription: 'Старший оператор | КИПиА',
+                    id: 1,
+                    login: 'fd',
+                },
+            ],
+        },
+    ];
 
-    man = {
-        name: 'Иванов Иван Сергеевич',
-        phone: '+ 7 (925) 599-99-87',
-        email: 'Ivanov@gazprom-neft.ru',
-        brigade: 'Бригада №1',
-        accessLevel: 'Высокий уровень доступа',
-        position: 'Старший оператор | КИПиА',
-    };
-
-    @ViewChild('mycalendar', { static: true }) calendar: MatCalendar<Date>;
+    @ViewChild('shiftOverlay', { static: false }) shiftOverlay: ElementRef;
 
     constructor(
         private widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
-        private dateAdapter: DateAdapter<Date>
+        private dateAdapter: DateAdapter<Date>,
+        private renderer: Renderer2
     ) {
         this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
             this.title = data.title;
             this.previewTitle = data.widgetType;
         });
         this.setRus();
-        console.log(this.dataMonth);
+        this.activeUsers.select();
     }
 
     ngOnDestroy(): void {
@@ -141,15 +285,26 @@ export class AdminShiftScheduleComponent implements OnDestroy {
 
     dateChanged(event: moment.Moment) {
         this.yesterday = {
-            date: new Date(this.now.subtract(1, 'days').toDate()),
+            date: new Date(
+                moment(this.selectedDate)
+                    .subtract(1, 'days')
+                    .toDate()
+            ),
             isUnassigned: true,
             shift: [],
         };
-        console.log(moment(event).date());
 
         const day = this.dataMonth.find((val) => moment(val.date).date() === moment(event).date());
 
         this.selectedDay = day;
+    }
+
+    onClickCard(i: IUser) {
+        if (this.activeUsers.isSelected(i)) {
+            this.activeUsers.deselect(i);
+        } else {
+            this.activeUsers.select(i);
+        }
     }
 
     dateClass() {
@@ -164,6 +319,16 @@ export class AdminShiftScheduleComponent implements OnDestroy {
             });
             return str;
         };
+    }
+
+    openOverlay(event: MouseEvent, shift: any, isOpen: boolean) {
+        if (this.shiftOverlay && this.shiftOverlay.nativeElement) {
+            if (isOpen) {
+                this.renderer.setStyle(this.shiftOverlay.nativeElement, 'display', 'block');
+            } else {
+                this.renderer.setStyle(this.shiftOverlay.nativeElement, 'display', 'none');
+            }
+        }
     }
 
     setRus(): void {

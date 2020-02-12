@@ -74,7 +74,7 @@
         {{person.brigade}}
       </text>
       <text x="33" y="44.5" text-anchor="start" class="svg__txt">
-        {{person.accessLevel}}
+        {{person}}
       </text>
     </svg>
   </ng-container>
@@ -82,11 +82,20 @@
   <ng-template #smallCard>
     <svg width="100%" height="100%" viewBox="0 0 50 50">
       <image
+        *ngIf="active"
         x="-40"
         y="0"
         width="50"
         height="50"
         xlink:href="../../../../../assets/icons/widgets/admin/small-circle.svg"
+      />
+      <image
+        *ngIf="!active"
+        x="-40"
+        y="0"
+        width="50"
+        height="50"
+        xlink:href="../../../../../assets/icons/widgets/admin/border-no-active.svg"
       />
       <image
         x="-36"
@@ -97,6 +106,7 @@
       />
 
       <image
+        *ngIf="active"
         x="-7"
         y="0"
         width="110"
@@ -104,17 +114,46 @@
         xlink:href="../../../../../assets/icons/widgets/admin/double-line.svg"
       />
       <image
+        *ngIf="!active"
+        x="-7"
+        y="0"
+        width="110"
+        height="22"
+        xlink:href="../../../../../assets/icons/widgets/admin/double-no-active.svg"
+      />
+      <image
+        *ngIf="active"
         x="-7"
         y="28"
         width="110"
         height="22"
         xlink:href="../../../../../assets/icons/widgets/admin/double-bottom-line.svg"
       />
-      <text x="25" y="12" text-anchor="start" class="svg__txt">
-        {{person.name}}
+      <image
+        *ngIf="!active"
+        x="-7"
+        y="28"
+        width="110"
+        height="22"
+        xlink:href="../../../../../assets/icons/widgets/admin/double-no-active-bottom.svg"
+      />
+      <text
+        x="25"
+        y="12"
+        text-anchor="start"
+        class="svg__txt"
+        [ngClass]="{'svg__unactive': !active}"
+      >
+        {{person.firstName}} {{person.middleName}}
       </text>
-      <text x="25" y="40" text-anchor="start" class="svg__txt">
-        {{person.position}}
+      <text
+        x="25"
+        y="40"
+        text-anchor="start"
+        class="svg__txt"
+        [ngClass]="{'svg__unactive': !active}"
+      >
+        {{person.positionDescription}}
       </text>
     </svg>
   </ng-template>

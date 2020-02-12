@@ -43,12 +43,11 @@
 }
 
 p {
-  margin: 11px 0;
+  margin: 0;
 }
 
 .block-top {
   display: flex;
-  justify-content: space-between;
 
   margin-right: 20px;
   margin-left: 15px;
@@ -63,6 +62,10 @@ p {
     max-height: 316px;
     margin-left: 20px;
 
+    .title {
+      font-size: 15px;
+      padding: 15px 0;
+    }
     &__container {
       height: 100%;
       .list {
@@ -82,7 +85,7 @@ p {
 
 .block-bottom {
   display: flex;
-  justify-content: space-between;
+
   margin-top: 20px;
   margin-left: 15px;
   margin-right: 20px;
@@ -90,6 +93,9 @@ p {
   .duty-schedule {
     min-height: 300px;
     min-width: 350px;
+
+    position: relative;
+
     .shift-yesterday {
       color: var(--color-text-sub);
       display: flex;
@@ -101,9 +107,14 @@ p {
         background-size: cover;
       }
     }
+
     .date-yesterday {
       color: var(--color-text-sub);
-      padding: 0px 18px;
+      padding: 10px 18px;
+      font-size: 15px;
+    }
+    .date-today {
+      padding: 10px 18px;
     }
     .shift-today {
       display: flex;
@@ -111,16 +122,69 @@ p {
       &:hover {
         background: url("./../../../../../assets/icons/widgets/admin-shift-schedule/border-shift.svg")
           no-repeat;
-        background-size: cover;
       }
-      padding: 0px 18px;
-    }
-    .date-today {
-      padding: 0px 18px;
+      padding: 10px 18px;
     }
 
     .title {
+      font-size: 15px;
+
       padding: 0px 18px;
+      padding-bottom: 10px;
+    }
+
+    .btn {
+      cursor: pointer;
+    }
+
+    .shift-overlay {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 10px;
+      opacity: 0;
+      animation: slide 200ms ease forwards;
+
+      background-color: var(--color-bg-main);
+      z-index: 2;
+      padding: 5px;
+
+      background-image: url("./../../../../../assets/icons/widgets/admin-shift-schedule/border-hover-block-list.svg");
+      background-repeat: no-repeat;
+      .icon {
+        width: 20px;
+        height: 20px;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        li {
+          text-align: center;
+          padding: 10px 10px;
+          cursor: pointer;
+          &:hover:not(:first-child) {
+            background-image: url("./../../../../../assets/icons/widgets/admin-shift-schedule/bg-hover-list.svg");
+            background-repeat: no-repeat;
+          }
+          &:first-child {
+            padding: 0px 10px;
+            padding-top: 5px;
+          }
+          &:last-child {
+            padding: 10px 10px;
+            padding-bottom: 15px;
+          }
+        }
+      }
+    }
+    @keyframes slide {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
     }
   }
 
@@ -129,6 +193,11 @@ p {
     min-height: 300px;
     min-width: 350px;
     margin-left: 20px;
+
+    .title {
+      font-size: 15px;
+      padding-bottom: 15px;
+    }
 
     &__container {
       max-height: 210px;
