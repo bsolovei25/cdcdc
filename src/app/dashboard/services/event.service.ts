@@ -6,7 +6,7 @@ import {
     IStatus,
     ICategory,
     EventsWidgetData,
-    EventsWidgetOptions
+    EventsWidgetOptions,
 } from '../models/events-widget';
 import { AppConfigService } from 'src/app/services/appConfigService';
 
@@ -24,10 +24,16 @@ export class EventService {
         this.restUrl = configService.restUrl;
     }
 
-    async getBatchData(lastId: number, options: EventsWidgetOptions): Promise<EventsWidgetNotification[]> {
+    async getBatchData(
+        lastId: number,
+        options: EventsWidgetOptions
+    ): Promise<EventsWidgetNotification[]> {
         try {
             return this.http
-                .get<EventsWidgetNotification[]>(this.restUrl + `/api/notifications/getbyfilter?${this.getOptionString(lastId, options)}`)
+                .get<EventsWidgetNotification[]>(
+                    this.restUrl +
+                        `/api/notifications/getbyfilter?${this.getOptionString(lastId, options)}`
+                )
                 .toPromise();
         } catch (error) {
             console.error(error);

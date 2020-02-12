@@ -23,7 +23,6 @@ import { MaterialControllerService } from '../../services/material-controller.se
     styleUrls: ['./events.component.scss'],
 })
 export class EventsComponent implements OnInit, OnDestroy {
-
     isList: boolean = false;
     title: string = '';
     isDeleteRetrieval: boolean = false;
@@ -157,25 +156,29 @@ export class EventsComponent implements OnInit, OnDestroy {
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
-    ) { }
+    ) {}
 
     public ngOnInit(): void {
-        setTimeout( () => {
+        setTimeout(() => {
             const n = this.notifications;
             n.push(this.notifications[0]);
             this.notifications = n;
         }, 5000);
-        this.subscriptions.push(this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-            if (data) {
-                this.title = data.title;
-                this.previewTitle = data.widgetType;
-            }
-        }));
-        this.subscriptions.push(this.eventService.updateEvent$.subscribe((value) => {
-            if (value) {
-                this.wsConnect();
-            }
-        }));
+        this.subscriptions.push(
+            this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
+                if (data) {
+                    this.title = data.title;
+                    this.previewTitle = data.widgetType;
+                }
+            })
+        );
+        this.subscriptions.push(
+            this.eventService.updateEvent$.subscribe((value) => {
+                if (value) {
+                    this.wsConnect();
+                }
+            })
+        );
         this.showMock(this.isMock);
     }
 
@@ -195,12 +198,14 @@ export class EventsComponent implements OnInit, OnDestroy {
     }
 
     private wsConnect(): void {
-        this.subscriptions.push(this.widgetService
-            .getWidgetLiveDataFromWS(this.id, 'events')
-            .subscribe((ref: EventsWidgetData) => {
-                this.appendNotifications(ref.notifications);
-                // this.appendCategoriesCounters();
-            }));
+        this.subscriptions.push(
+            this.widgetService
+                .getWidgetLiveDataFromWS(this.id, 'events')
+                .subscribe((ref: EventsWidgetData) => {
+                    this.appendNotifications(ref.notifications);
+                    // this.appendCategoriesCounters();
+                })
+        );
     }
 
     public onCategoryClick(category: EventsWidgetCategory): void {
@@ -379,7 +384,10 @@ export class EventsComponent implements OnInit, OnDestroy {
     }
 
     public scrollHandler(event: any): void {
-        if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight && this.notifications.length) {
+        if (
+            event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight &&
+            this.notifications.length
+        ) {
             console.log('end scroll');
             this.getData(this.notifications[this.notifications.length - 1].id);
         }
