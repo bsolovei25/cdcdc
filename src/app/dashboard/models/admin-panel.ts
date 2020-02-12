@@ -10,10 +10,10 @@ export interface IAdminPanel {
 
 export interface IWorkspace {
     name: string;
-    author: IUser;
+    authorId: number;
 }
 
 export interface IClaim {
     name: string;
-    id: string;
+    id: number;
 }
