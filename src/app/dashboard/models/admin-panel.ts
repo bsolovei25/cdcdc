@@ -17,3 +17,7 @@ export interface IClaim {
     name: string;
     id: number;
 }
+
+export interface IButtonImgSrc {
+    btnIconSrc: string;
+}

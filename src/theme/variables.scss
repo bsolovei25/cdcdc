@@ -54,10 +54,15 @@
   --color-bg-active-gradient1: rgba(63, 169, 245, 0.6);
 
   --color-bg-human-disable: #2c2f38;
+
   // Цвета статусов передачи смены
   --color-shift-status-init: #6fcf97;
   --color-shift-status-missing: #eb5757;
   --color-shift-status-absent: #a5a5a5;
   --color-shift-status-process: #9ed7f5;
   --color-shift-status-success: #ffffff;
+
+  // Цвета компонентов
+  --color-button-border: rgba(255, 255, 255, 0.8);
+  --color-button-borderside: rgba(255, 255, 255, 1);
 }

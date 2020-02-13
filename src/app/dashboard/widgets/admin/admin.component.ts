@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IButtonImgSrc } from '../../models/admin';
+import { IButtonImgSrc } from '../../models/admin-panel';
 import { IWorker } from '../../models/worker';
 
 @Component({
@@ -18,12 +18,10 @@ export class AdminComponent implements OnInit {
     public units: string = '';
 
     public newHumanButtonIcon: IButtonImgSrc = {
-        active: '../../../../assets/icons/widgets/admin/newWorkerIcon-active.svg',
-        normal: '../../../../assets/icons/widgets/admin/newWorkerIcon.svg',
+        btnIconSrc: '../../../../assets/icons/widgets/admin/newWorkerIcon-active.svg',
     };
     public groupsButtonIcon: IButtonImgSrc = {
-        active: '../../../../assets/icons/widgets/admin/icon_group-active.svg',
-        normal: '../../../../assets/icons/widgets/admin/icon_group.svg',
+        btnIconSrc: '../../../../assets/icons/widgets/admin/icon_group-active.svg',
     };
 
     public man: IWorker = {

@@ -5,19 +5,8 @@
   (mouseleave)="isButtonHover=false"
   (click)="onClick()"
 >
-  <div
-    class="button__frame button__frame-left"
-    [ngClass]="{'button__frame':isSmallButton,
-    'button__frame-left':isSmallButton,
-    'button__frame-normal':!isSmallButton,
-    'button__frame-normal-left':!isSmallButton}"
-  ></div>
-  <div
-    [ngClass]="{'button__frame':isSmallButton,
-    'button__frame-right':isSmallButton,
-    'button__frame-normal':!isSmallButton,
-    'button__frame-normal-right':!isSmallButton}"
-  ></div>
+  <div class="button__frame-normal button__frame-normal-left"></div>
+  <div class="button__frame-normal button__frame-normal-right"></div>
   <ng-container *ngIf="textButton; else image">
     {{textButton}}
   </ng-container>
