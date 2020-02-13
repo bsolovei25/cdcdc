@@ -8,6 +8,8 @@ import { UiElementsComponent } from './layout/ui-elements.component';
 import { ButtonComponent } from './components/button/button.component';
 import { InputComponent } from './components/input/input.component';
 import { WorkerCardComponent } from './components/worker-card/worker-card.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
     declarations: [
@@ -29,6 +31,6 @@ import { WorkerCardComponent } from './components/worker-card/worker-card.compon
         InputComponent,
         WorkerCardComponent,
     ],
-    imports: [CommonModule],
+    imports: [CommonModule, MatInputModule, MatIconModule],
 })
 export class SharedModule {}
