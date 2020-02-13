@@ -23,6 +23,7 @@ export class AdminPanelComponent implements OnInit {
     public groupsButtonIcon: IButtonImgSrc = {
         btnIconSrc: '../../../../assets/icons/widgets/admin/icon_group-active.svg',
     };
+    public searchIcon: string = '../../../../assets/icons/search-icon.svg';
 
     public man: IWorker = {
         name: 'Иванов Иван Сергеевич',

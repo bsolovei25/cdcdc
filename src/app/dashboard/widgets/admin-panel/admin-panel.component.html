@@ -23,6 +23,7 @@
             <evj-input
               class="insert-component"
               [placeholder]="'Введите ФИО сотрудника'"
+              [iconSrc]="searchIcon"
             ></evj-input>
           </div>
           <div class="group__button">
@@ -32,21 +33,20 @@
               [imgSrc]="groupsButtonIcon"
             ></evj-button>
           </div>
-
-          <div class="group__button">
-            <evj-button
-              class="insert-component"
-              [isSmallButton]="true"
-              [imgSrc]="newHumanButtonIcon"
-            ></evj-button>
-          </div>
         </div>
         <div class="header__title">
-          <div class="line"></div>
           <div class="title">Основная информация</div>
           <div class="line"></div>
         </div>
         <div class="header__more">
+          <div class="add__button">
+            <evj-button
+              class="insert-component"
+              [isSmallButton]="false"
+              [textButton]="'Добавить сотрудника'"
+            ></evj-button>
+          </div>
+
           <div class="more__button">
             <evj-button
               class="insert-component"
@@ -95,6 +95,7 @@
             <evj-input
               class="insert-component"
               [placeholder]="'Введите название рабочей области'"
+              [iconSrc]="searchIcon"
             ></evj-input>
           </div>
           <div class="workspace__links">

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
     selector: 'evj-input',
@@ -7,6 +7,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 })
 export class InputComponent implements OnInit {
     @Input() placeholder: string = '';
+    @Input() iconSrc: string = '';
 
     public isFocused: boolean = false;
 

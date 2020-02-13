@@ -1,7 +1,7 @@
 <div class="input">
   <mat-form-field class="input__search">
-    <mat-label>Введите ФИО сотрудника</mat-label>
+    <mat-label>{{ placeholder }}</mat-label>
     <input type="search" matInput />
-    <mat-icon matSuffix><img class="icon" src="../../../../assets/icons/search-icon.svg"></mat-icon>
+    <mat-icon matSuffix><img class="icon" [src]="iconSrc"/></mat-icon>
   </mat-form-field>
 </div>

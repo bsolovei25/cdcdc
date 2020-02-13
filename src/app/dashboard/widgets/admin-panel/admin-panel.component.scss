@@ -61,7 +61,7 @@
 
     .header {
       &__search {
-        flex-basis: 40%;
+        width: 430px;
         height: 100%;
 
         display: flex;
@@ -119,17 +119,20 @@
       }
 
       &__title {
-        flex-basis: 30%;
+        flex-basis: 270px;
         height: 100%;
 
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+
+        font-size: 14px;
+        color: var(--color-text-sub-heading);
       }
 
       &__more {
-        flex-basis: 12%;
+        flex-basis: 370px;
         height: 100%;
 
         display: flex;
@@ -137,9 +140,16 @@
         justify-content: space-between;
         align-items: center;
 
+        .add {
+          &__button {
+            width: 195px;
+            height: 100%;
+          }
+        }
+
         .more {
           &__button {
-            width: 100%;
+            width: 160px;
             height: 100%;
           }
         }
@@ -258,8 +268,8 @@
       }
 
       &__search {
-        width: 380px;
-        height: 100%;
+        width: 350px;
+        height: 25px;
       }
 
       &__links {
@@ -345,7 +355,7 @@
 .line {
   width: 80px;
   height: 1px;
-  background: var(--color-border-search-line);
+  background: var(--color-border-main);
   position: relative;
 
   &::after {
