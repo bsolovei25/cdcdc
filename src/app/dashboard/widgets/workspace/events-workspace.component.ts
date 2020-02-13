@@ -72,6 +72,12 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         drops: 'Сбросы',
     };
 
+    foods = [
+        { value: 'steak-0', viewValue: 'Steak' },
+        { value: 'pizza-1', viewValue: 'Pizza' },
+        { value: 'tacos-2', viewValue: 'Tacos' },
+    ];
+
     idUser: number = 0;
 
     static itemCols = 20;
