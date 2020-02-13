@@ -6,7 +6,7 @@ import {
     IStatus,
     ICategory,
     EventsWidgetData,
-    EventsWidgetOptions,
+    EventsWidgetOptions, EventsWidgetsStats,
 } from '../models/events-widget';
 import { AppConfigService } from 'src/app/services/appConfigService';
 
@@ -33,6 +33,19 @@ export class EventService {
                 .get<EventsWidgetNotification[]>(
                     this.restUrl +
                         `/api/notifications/getbyfilter?${this.getOptionString(lastId, options)}`
+                )
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    public async getStats(options: EventsWidgetOptions): Promise<EventsWidgetsStats> {
+        try {
+            return this.http
+                .get<EventsWidgetsStats>(
+                    this.restUrl +
+                    `/api/notifications/stats?${this.getOptionString(0, options)}`
                 )
                 .toPromise();
         } catch (error) {

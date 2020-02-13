@@ -105,18 +105,21 @@ export class EventsComponent implements OnInit, OnDestroy {
 
     filters: EventsWidgetFilter[] = [
         {
+            id: 3001,
             code: 'all',
             name: 'Все',
             notificationsCount: 0,
             isActive: true,
         },
         {
+            id: 3002,
             code: 'closed',
             name: 'Отработано',
             notificationsCount: 0,
             isActive: false,
         },
         {
+            id: 3003,
             code: 'inWork',
             name: 'В работе',
             notificationsCount: 0,
@@ -159,11 +162,6 @@ export class EventsComponent implements OnInit, OnDestroy {
     ) {}
 
     public ngOnInit(): void {
-        setTimeout(() => {
-            const n = this.notifications;
-            n.push(this.notifications[0]);
-            this.notifications = n;
-        }, 5000);
         this.subscriptions.push(
             this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
                 if (data) {
@@ -193,6 +191,8 @@ export class EventsComponent implements OnInit, OnDestroy {
             // do nothing
         } else {
             this.getData();
+            this.getStats();
+            setInterval(() => this.mockPushNewElement(), 5000);
             // this.wsConnect();
         }
     }
@@ -218,6 +218,7 @@ export class EventsComponent implements OnInit, OnDestroy {
 
         category.isActive = !category.isActive;
         this.getData();
+        this.getStats();
     }
 
     public onFilterClick(filter: EventsWidgetFilter): void {
@@ -229,6 +230,7 @@ export class EventsComponent implements OnInit, OnDestroy {
         this.filters.forEach((f) => (f.isActive = false));
         filter.isActive = true;
         this.getData();
+        this.getStats();
     }
 
     private getCurrentOptions(): EventsWidgetOptions {
@@ -243,42 +245,42 @@ export class EventsComponent implements OnInit, OnDestroy {
         this.notifications = [];
     }
 
-    private appendOptions(): void {
-        this.clearNotifications();
-        const options = this.getCurrentOptions();
-        console.log(options);
-        this.notifications = this.applyFilter(this.allNotifications, options);
-        // filtering only at front-end
-    }
+    // private appendOptions(): void {
+    //     this.clearNotifications();
+    //     const options = this.getCurrentOptions();
+    //     console.log(options);
+    //     this.notifications = this.applyFilter(this.allNotifications, options);
+    //     // filtering only at front-end
+    // }
 
-    sortByPriority(): void {
-        const danger = this.notifications.filter((n) => n.priority.code === '0');
-        const warning = this.notifications.filter((n) => n.priority.code === '1');
-        const standard = this.notifications.filter((n) => n.priority.code === '2');
-        this.notifications = [...danger, ...warning, ...standard];
-    }
+    // sortByPriority(): void {
+    //     const danger = this.notifications.filter((n) => n.priority.code === '0');
+    //     const warning = this.notifications.filter((n) => n.priority.code === '1');
+    //     const standard = this.notifications.filter((n) => n.priority.code === '2');
+    //     this.notifications = [...danger, ...warning, ...standard];
+    // }
 
     // Фильтрация
-    private applyFilter(
-        allNotifications: EventsWidgetNotification[],
-        filterOptions: EventsWidgetOptions
-    ): EventsWidgetNotification[] {
-        let notifications = allNotifications;
-        //
-        // if (filterOptions.filter && filterOptions.filter === 'all') {
-        //     notifications = notifications.filter((x) => x.status.name !== 'closed');
-        // }
-        //
-        // if (filterOptions.filter && filterOptions.filter !== 'all') {
-        //     notifications = notifications.filter((x) => x.status.name === filterOptions.filter);
-        // }
-        // if (filterOptions.categories && filterOptions.categories.length > 0) {
-        //     notifications = notifications.filter((x) =>
-        //         filterOptions.categories.some((c) => c === x.category.name)
-        //     );
-        // }
-        return notifications;
-    }
+    // private applyFilter(
+    //     allNotifications: EventsWidgetNotification[],
+    //     filterOptions: EventsWidgetOptions
+    // ): EventsWidgetNotification[] {
+    //     let notifications = allNotifications;
+    //     //
+    //     // if (filterOptions.filter && filterOptions.filter === 'all') {
+    //     //     notifications = notifications.filter((x) => x.status.name !== 'closed');
+    //     // }
+    //     //
+    //     // if (filterOptions.filter && filterOptions.filter !== 'all') {
+    //     //     notifications = notifications.filter((x) => x.status.name === filterOptions.filter);
+    //     // }
+    //     // if (filterOptions.categories && filterOptions.categories.length > 0) {
+    //     //     notifications = notifications.filter((x) =>
+    //     //         filterOptions.categories.some((c) => c === x.category.name)
+    //     //     );
+    //     // }
+    //     return notifications;
+    // }
 
     private getStatusIcon(name: string): string {
         const idx = this.iconStatus.findIndex((s) => s.name === name);
@@ -310,17 +312,17 @@ export class EventsComponent implements OnInit, OnDestroy {
         // this.sortByPriority();
     }
 
-    private appendCategoriesCounters() {
-        this.categories.map((c) => {
-            c.notificationsCounts.all = this.allNotifications.filter(
-                (v) => v.category.name === c.code
-            ).length;
-            c.notificationsCounts.open = this.allNotifications.filter(
-                (v) =>
-                    v.category.name === c.code && (v.status.code === '0' || v.status.code === '1')
-            ).length;
-        });
-    }
+    // private appendCategoriesCounters() {
+    //     this.categories.map((c) => {
+    //         c.notificationsCounts.all = this.allNotifications.filter(
+    //             (v) => v.category.name === c.code
+    //         ).length;
+    //         c.notificationsCounts.open = this.allNotifications.filter(
+    //             (v) =>
+    //                 v.category.name === c.code && (v.status.code === '0' || v.status.code === '1')
+    //         ).length;
+    //     });
+    // }
 
     private getNotificationIcon(categoryId: EventsWidgetCategoryCode): string {
         const category = this.categories.find((c) => c.code === categoryId);
@@ -383,17 +385,18 @@ export class EventsComponent implements OnInit, OnDestroy {
         window.open(url);
     }
 
-    public scrollHandler(event: any): void {
+    public async scrollHandler(event: any): Promise<void> {
         if (
             event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight &&
-            this.notifications.length
+            this.notifications.length &&
+            this.isAllowScrollLoading
         ) {
             console.log('end scroll');
-            this.getData(this.notifications[this.notifications.length - 1].id);
+            await this.getData(this.notifications[this.notifications.length - 1].id);
         }
     }
 
-    public async getData(lastId: number = 0): Promise<void> {
+    private async getData(lastId: number = 0): Promise<void> {
         this.isAllowScrollLoading = false;
         if (lastId === 0) {
             this.clearNotifications();
@@ -405,5 +408,46 @@ export class EventsComponent implements OnInit, OnDestroy {
         this.isAllowScrollLoading = true;
         console.log(lastId);
         console.log(ans);
+    }
+
+    private async getStats(): Promise<void> {
+        const options = this.getCurrentOptions();
+        const stats = await this.eventService.getStats(options);
+        console.log(stats);
+        this.categories.forEach(c => {
+            c.notificationsCounts.all = stats.statsByCategory
+                .find(sc => sc.category.id === c.id).totalCount;
+            c.notificationsCounts.open = stats.statsByCategory
+                .find(sc => sc.category.id === c.id).unclosedCount;
+        });
+        this.filters.forEach(f => {
+            switch (f.code) {
+                case 'all':
+                    f.notificationsCount = stats.statsByStatus
+                        .find(sf => sf.status.id === 3001).count;
+                    f.notificationsCount += stats.statsByStatus
+                        .find(sf => sf.status.id === 3002).count;
+                    break;
+                case 'closed':
+                    f.notificationsCount = stats.statsByStatus
+                        .find(sf => sf.status.id === 3003).count;
+                    break;
+                case 'inWork':
+                    f.notificationsCount = stats.statsByStatus
+                        .find(sf => sf.status.id === 3002).count;
+                    break;
+            }
+        });
+    }
+
+    mockPushNewElement(): void {
+        const arr = [];
+        // arr.push(this.notifications[0]);
+        // const beginMass = this.notifications.splice(2, )
+        // this.notifications = arr.concat(this.notifications);
+        const index = 20;
+        // this.notifications.findIndex(n => index < )
+        this.notifications.splice(0, 0, this.notifications[0]);
+        this.notifications = this.notifications.slice();
     }
 }
