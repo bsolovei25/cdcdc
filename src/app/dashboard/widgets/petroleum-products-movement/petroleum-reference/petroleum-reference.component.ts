@@ -6,25 +6,19 @@ import { transition, trigger, animate, style } from '@angular/animations';
     templateUrl: './petroleum-reference.component.html',
     styleUrls: ['./petroleum-reference.component.scss'],
     animations: [
-        trigger(
-            'leaveAnimation', [
-              transition(':leave', [
-                style({transform: 'translateY(0%)'}),
-                animate('2000ms', style({transform: 'translateY(468px)'}))
-              ])
-            ]
-            
-          ),
-        trigger(
-            'enterAnimation', [
-              transition(':enter', [
-                style({transform: 'translateY(20%)'}),
-                animate('2000ms', style({transform: 'translateY(0%)'}))
-              ])
-            ]
-            
-          ),
-    ]
+        trigger('leaveAnimation', [
+            transition(':leave', [
+                style({ transform: 'translateY(0%)' }),
+                animate('2000ms', style({ transform: 'translateY(468px)' })),
+            ]),
+        ]),
+        trigger('enterAnimation', [
+            transition(':enter', [
+                style({ transform: 'translateY(20%)' }),
+                animate('2000ms', style({ transform: 'translateY(0%)' })),
+            ]),
+        ]),
+    ],
 })
 export class PetroleumReferenceComponent implements OnInit {
     @Input() shortHeight: boolean;
@@ -310,6 +304,5 @@ export class PetroleumReferenceComponent implements OnInit {
 
     constructor() {}
 
-    ngOnInit() {
-    }
+    ngOnInit() {}
 }

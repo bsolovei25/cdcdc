@@ -85,7 +85,6 @@
   overflow: auto;
 }
 
-
 .values_block {
   display: flex;
   justify-content: space-around;
@@ -121,17 +120,17 @@
   width: 1264px;
   margin: 0 auto;
   height: 50%;
-//  overflow: auto;
- // transform: translateY(80%);
+  //  overflow: auto;
+  // transform: translateY(80%);
 }
 
-.test{
+.test {
   width: 1264px;
   margin: 0 auto;
   height: 100%;
 }
 
-.menu{
+.menu {
   height: 33px;
   width: 100%;
   background: yellow;

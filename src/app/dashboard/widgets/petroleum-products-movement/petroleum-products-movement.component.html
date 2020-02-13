@@ -1,17 +1,27 @@
 <evj-widget-preview [title]="title" [previewTitle]="" *ngIf="isMock"></evj-widget-preview>
 
 <div style="height: 100%; width: 100%;" *ngIf="!isMock">
-  <evj-widget-header [title]="title" [units]="units" [code]="code" [id]="id" [uniqId]="uniqId"></evj-widget-header>
+  <evj-widget-header
+    [title]="title"
+    [units]="units"
+    [code]="code"
+    [id]="id"
+    [uniqId]="uniqId"
+  ></evj-widget-header>
   <div class="container_widget">
     <evj-frame-top></evj-frame-top>
-    <div class="content_block" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+    <div
+      class="content_block"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
       <div class="blocks">
         <div class="components">
           <div class="left_block">
             <evj-petroleum-reference-left></evj-petroleum-reference-left>
           </div>
           <div class="middle_block">
-              <evj-petroleum-reference [shortHeight]="isWorkspace"></evj-petroleum-reference>
+            <evj-petroleum-reference [shortHeight]="isWorkspace"></evj-petroleum-reference>
           </div>
           <div class="right_block">
             <evj-petroleum-workspace (isClick)="onChanged($event)" *ngIf="isWorkspace">
