@@ -6,7 +6,8 @@ import {
     IStatus,
     ICategory,
     EventsWidgetData,
-    EventsWidgetOptions, EventsWidgetsStats,
+    EventsWidgetOptions,
+    EventsWidgetsStats,
 } from '../models/events-widget';
 import { AppConfigService } from 'src/app/services/appConfigService';
 
@@ -44,8 +45,7 @@ export class EventService {
         try {
             return this.http
                 .get<EventsWidgetsStats>(
-                    this.restUrl +
-                    `/api/notifications/stats?${this.getOptionString(0, options)}`
+                    this.restUrl + `/api/notifications/stats?${this.getOptionString(0, options)}`
                 )
                 .toPromise();
         } catch (error) {

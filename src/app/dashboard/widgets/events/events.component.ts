@@ -414,27 +414,33 @@ export class EventsComponent implements OnInit, OnDestroy {
         const options = this.getCurrentOptions();
         const stats = await this.eventService.getStats(options);
         console.log(stats);
-        this.categories.forEach(c => {
-            c.notificationsCounts.all = stats.statsByCategory
-                .find(sc => sc.category.id === c.id).totalCount;
-            c.notificationsCounts.open = stats.statsByCategory
-                .find(sc => sc.category.id === c.id).unclosedCount;
+        this.categories.forEach((c) => {
+            c.notificationsCounts.all = stats.statsByCategory.find(
+                (sc) => sc.category.id === c.id
+            ).totalCount;
+            c.notificationsCounts.open = stats.statsByCategory.find(
+                (sc) => sc.category.id === c.id
+            ).unclosedCount;
         });
-        this.filters.forEach(f => {
+        this.filters.forEach((f) => {
             switch (f.code) {
                 case 'all':
-                    f.notificationsCount = stats.statsByStatus
-                        .find(sf => sf.status.id === 3001).count;
-                    f.notificationsCount += stats.statsByStatus
-                        .find(sf => sf.status.id === 3002).count;
+                    f.notificationsCount = stats.statsByStatus.find(
+                        (sf) => sf.status.id === 3001
+                    ).count;
+                    f.notificationsCount += stats.statsByStatus.find(
+                        (sf) => sf.status.id === 3002
+                    ).count;
                     break;
                 case 'closed':
-                    f.notificationsCount = stats.statsByStatus
-                        .find(sf => sf.status.id === 3003).count;
+                    f.notificationsCount = stats.statsByStatus.find(
+                        (sf) => sf.status.id === 3003
+                    ).count;
                     break;
                 case 'inWork':
-                    f.notificationsCount = stats.statsByStatus
-                        .find(sf => sf.status.id === 3002).count;
+                    f.notificationsCount = stats.statsByStatus.find(
+                        (sf) => sf.status.id === 3002
+                    ).count;
                     break;
             }
         });
