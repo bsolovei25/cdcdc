@@ -15,6 +15,8 @@
   --color-border-active: #3fa9f5;
   --color-border-unactive: #8c99b2;
 
+  --color-border-light: #9ed7f5;
+
   // Переделать под прозрачность
   --color-border-active-hover: #1e2b3a;
 
@@ -44,4 +46,11 @@
   --color-warning-transparent: rgba(244, 163, 33, 0.2);
   --color-disable-transparent: rgba(91, 96, 125, 0.2);
   --color-active-transparent: rgba(63, 169, 245, 0.2);
+
+  // Цвета статусов передачи смены
+  --color-shift-status-init: #6fcf97;
+  --color-shift-status-missing: #eb5757;
+  --color-shift-status-absent: #a5a5a5;
+  --color-shift-status-process: #9ed7f5;
+  --color-shift-status-success: #ffffff;
 }

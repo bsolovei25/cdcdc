@@ -1,3 +1,5 @@
+import { IUser } from './events-widget';
+
 export interface Brigade {
     id: number;
     number: number;
@@ -48,6 +50,14 @@ export interface ICommentRequired {
     result: boolean;
 }
 
+export interface IVerifyWindow {
+    action: VerifyWindowActions;
+    widgetId: string;
+    verifyId?: number;
+    user?: IUser;
+    result?: boolean;
+}
+
 export type ShiftMemberStatus =
     | 'initialization'
     | 'inProgressAccepted'
@@ -64,3 +74,5 @@ export type ShiftStatus =
     | 'inProgressPassed'
     | 'passed'
     | 'passedConfirm';
+
+export type VerifyWindowActions = 'open' | 'close';

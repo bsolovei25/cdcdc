@@ -72,9 +72,22 @@
   background-repeat: no-repeat;
 }
 
+.eline-not-finish {
+  display: none;
+}
+
+.mline-not-finish {
+  width: 99.2% !important;
+  margin-left: 4px;
+}
+
+.mline-not-finish-end {
+  width: 98.5% !important;
+}
+
 .middle-line {
   width: 100%;
-  background-color: var(--color-bg-active);
+  background-color: rgba(63, 169, 245, 0.25);
 }
 
 .line-block {
