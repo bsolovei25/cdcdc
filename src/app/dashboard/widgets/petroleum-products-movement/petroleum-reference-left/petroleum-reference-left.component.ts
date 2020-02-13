@@ -55,7 +55,6 @@ export class PetroleumReferenceLeftComponent implements OnInit {
                 status: 'Otstoy',
             },
         ],
-        
     };
 
     constructor() {}
