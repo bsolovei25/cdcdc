@@ -6,12 +6,12 @@
   position: relative;
   background: linear-gradient(
     to bottom,
-    var(--color-border-active) -60%,
+    #f28b4a -60%,
     rgba(34, 36, 47, 0.5) 80%
   );
   height: 10px;
-  border-right: 0.5px solid var(--color-border-active);
-  border-top: 0.5px solid var(--color-border-active);
+  border-right: 0.5px solid #f28b4a;
+  border-top: 0.5px solid #f28b4a;
 
   &:before {
     content: "";
@@ -33,14 +33,14 @@
     right: -8px;
     transform: rotate(136deg);
     background: var(--color-bg-main);
-    border-right: 1px solid var(--color-border-active);
+    border-right: 1px solid #f28b4a;
   }
 }
 
 .middle {
   background: rgba(34, 36, 47, 0.5);
   height: calc(100% - 25px);
-  border-right: 0.5px solid var(--color-border-active);
+  border-right: 0.5px solid #f28b4a;
   width: calc(100% - 12px);
   margin-left: 12px;
 }
@@ -58,8 +58,8 @@
   background: rgba(34, 36, 47, 0.5);
   width: calc(100% - 12px);
   height: 10px;
-  border-right: 0.5px solid var(--color-border-active);
-  border-bottom: 0.5px solid var(--color-border-active);
+  border-right: 0.5px solid #f28b4a;
+  border-bottom: 0.5px solid #f28b4a;
   margin-left: 12px;
 
   &:after {
@@ -71,7 +71,7 @@
     right: -8px;
     transform: rotate(219deg);
     background: var(--color-bg-main);
-    border-right: 0.5px solid var(--color-border-active);
+    border-right: 0.5px solid #f28b4a;
   }
 }
 
@@ -79,7 +79,7 @@
   margin: 0 auto;
   height: 41.5px;
   width: 260px;
-  background: url(../../../../../assets/icons/widgets/petroleum-products-movement/Background-blue.svg);
+  background: url(../../../../../assets/icons/widgets/petroleum-products-movement/SVG/orange_button.svg);
   background-repeat: no-repeat;
   text-align: center;
   line-height: 40px;

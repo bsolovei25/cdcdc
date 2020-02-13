@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PetroleumReferenceRightComponent implements OnInit {
     public data = {
-        nameReference: 'Парк сырой нефти',
+        nameReference: 'Приемник',
         reference: [
             {
                 name: 'Резервуар 503',
