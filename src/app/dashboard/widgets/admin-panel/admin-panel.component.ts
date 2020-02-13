@@ -3,11 +3,11 @@ import { IButtonImgSrc } from '../../models/admin-panel';
 import { IWorker } from '../../models/worker';
 
 @Component({
-    selector: 'evj-admin',
-    templateUrl: './admin.component.html',
-    styleUrls: ['./admin.component.scss'],
+    selector: 'evj-admin-panel',
+    templateUrl: './admin-panel.component.html',
+    styleUrls: ['./admin-panel.component.scss'],
 })
-export class AdminComponent implements OnInit {
+export class AdminPanelComponent implements OnInit {
     public isMock: boolean = false;
 
     public id: number = null;

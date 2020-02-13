@@ -28,7 +28,7 @@ export class ButtonComponent implements OnInit {
     public changeButtonIcon(): string {
         // if (this.imgSrc && this.isButtonHover) {
         //     return this.imgSrc.active;
-        // } else 
+        // } else
         if (this.imgSrc) {
             return this.imgSrc.btnIconSrc;
         } else {

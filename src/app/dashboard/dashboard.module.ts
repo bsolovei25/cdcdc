@@ -79,8 +79,8 @@ import { SearchListComponent } from './components/search/search-list/search-list
 import { TimeLineDiagramComponent } from './widgets/time-line-diagram/time-line-diagram.component';
 import { TimeDiagramComponent } from './widgets/time-line-diagram/time-diagram/time-diagram.component';
 import { ObservationNormTRComponent } from './widgets/observation-norm-tr/observation-norm-tr.component';
-import { AdminComponent } from './widgets/admin/admin.component';
-import { AdminWorkspaceCardComponent } from './widgets/admin/admin-workspace-card/admin-workspace-card.component';
+import { AdminPanelComponent } from './widgets/admin-panel/admin-panel.component';
+import { AdminWorkspaceCardComponent } from './widgets/admin-panel/admin-workspace-card/admin-workspace-card.component';
 import { AdminReferencesComponent } from './widgets/admin-references/admin-references.component';
 import { CardVerifierComponent } from './widgets/change-shift/card-verifier/card-verifier.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
@@ -166,7 +166,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
         SearchInputComponent,
         SearchListComponent,
         ObservationNormTRComponent,
-        AdminComponent,
+        AdminPanelComponent,
         AdminWorkspaceCardComponent,
         AdminReferencesComponent,
         CardVerifierComponent,
