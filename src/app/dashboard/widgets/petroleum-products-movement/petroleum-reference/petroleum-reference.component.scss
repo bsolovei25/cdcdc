@@ -26,6 +26,7 @@
 }
 
 .reference {
+  position: relative;
   background: rgba(34, 36, 47, 0.5);
   width: 1264px;
   margin: 0 auto;
@@ -79,6 +80,11 @@
   overflow: auto;
 }
 
+.reference_values_short {
+  height: 280px;
+  overflow: auto;
+}
+
 .values_block {
   display: flex;
   justify-content: space-around;
@@ -103,4 +109,29 @@
     font-size: 8px;
     color: var(--color-text-sub);
   }
+}
+
+.illustration_widget {
+  height: 468px;
+}
+
+.shortReference {
+  background: rgba(34, 36, 47, 0.5);
+  width: 1264px;
+  margin: 0 auto;
+  height: 50%;
+  //  overflow: auto;
+  // transform: translateY(80%);
+}
+
+.test {
+  width: 1264px;
+  margin: 0 auto;
+  height: 100%;
+}
+
+.menu {
+  height: 33px;
+  width: 100%;
+  background: yellow;
 }
