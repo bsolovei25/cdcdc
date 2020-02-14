@@ -121,7 +121,7 @@
   font-size: 12px;
 }
 
-.park{
+.park {
   cursor: pointer;
 }
 .settings {
@@ -161,11 +161,11 @@
     background-repeat: no-repeat;
   }
 
-  &:hover .item_name{
+  &:hover .item_name {
     color: white;
   }
 
-  &:hover .item_icon{
+  &:hover .item_icon {
     opacity: 1;
   }
 }
@@ -181,5 +181,4 @@
   opacity: 0.5;
   width: 20%;
   line-height: 85px;
-
 }
