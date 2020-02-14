@@ -12,7 +12,8 @@ import { WebSocketSubject } from 'rxjs/internal/observable/dom/WebSocketSubject'
 import { webSocket } from 'rxjs/internal/observable/dom/webSocket';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../@core/service/auth.service';
-import {MaterialControllerService} from "./material-controller.service";
+import { MaterialControllerService } from './material-controller.service';
+import * as moment from 'moment';
 
 interface IDatesInterval {
     fromDateTime: Date;
@@ -73,7 +74,7 @@ export class NewWidgetService {
         public http: HttpClient,
         private authService: AuthService,
         configService: AppConfigService,
-        private materialController: MaterialControllerService,
+        private materialController: MaterialControllerService
     ) {
         this.restUrl = configService.restUrl;
         this.wsUrl = configService.wsUrl;
@@ -81,6 +82,8 @@ export class NewWidgetService {
 
         this.getRest();
         this.initWS();
+
+        setInterval(() => this.reloadPage(), 1800000);
     }
 
     public widgets$: Observable<IWidgets[]> = this._widgets$
@@ -217,7 +220,8 @@ export class NewWidgetService {
     }
 
     private mapEventsWidgetData(data: EventsWidgetData): EventsWidgetData {
-        data.notifications.forEach((n) => (n.eventDateTime = new Date(n.eventDateTime)));
+        // data.notification.forEach((n) => (n.eventDateTime = new Date(n.eventDateTime)));
+        data.notification.eventDateTime = new Date(data.notification.eventDateTime);
         return data;
     }
 
@@ -290,8 +294,8 @@ export class NewWidgetService {
         );
         this.ws.asObservable().subscribe((data) => {
             if (data.data && this.isMatchingPeriod(data.data.selectedPeriod)) {
-                    this.widgetsSocketObservable.next(data);
-                    console.log('data ws');
+                this.widgetsSocketObservable.next(data);
+                console.log('data ws');
             }
         });
     }
@@ -385,5 +389,18 @@ export class NewWidgetService {
         }
         this.dashboard.forEach((el) => this.wsDisonnect(el.id));
         this.dashboard.forEach((el) => this.wsConnect(el.id));
+    }
+
+    public reloadPage(): void {
+        const timeFormat = 'HH:mm:ss';
+        const currentTime = moment().format(timeFormat);
+        if (
+            moment(currentTime, timeFormat).isBetween(
+                moment('03:00:01', timeFormat),
+                moment('03:29:59', timeFormat)
+            )
+        ) {
+            window.location.reload();
+        }
     }
 }
