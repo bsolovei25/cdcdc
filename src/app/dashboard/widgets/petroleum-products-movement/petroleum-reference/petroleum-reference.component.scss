@@ -27,7 +27,7 @@
 
 .reference {
   position: relative;
- // background: rgba(34, 36, 47, 0.5);
+  // background: rgba(34, 36, 47, 0.5);
   background: var(--color-bg-main);
   width: 1110px;
   margin: 0 auto;
@@ -120,9 +120,9 @@
 }
 
 .shortReference {
- // background: rgba(34, 36, 47, 0.5);
+  // background: rgba(34, 36, 47, 0.5);
   background: var(--color-bg-main);
-  width: 1264px;
+  width: 1110px;
   margin: 0 auto;
   height: 100%;
   position: relative;
@@ -246,7 +246,7 @@
   }
 }
 
-.table_widget{
+.table_widget {
   bottom: 0;
   position: absolute;
   width: 100%;

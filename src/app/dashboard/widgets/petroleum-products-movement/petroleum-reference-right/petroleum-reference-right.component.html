@@ -9,8 +9,10 @@
         <div class="title_park" (click)="onPark()">
           <div class="title_parks">Парк Сырой нефти</div>
           <div class="button">
-            <svg-icon src="./assets/icons/widgets/petroleum-products-movement/arrow_bottom.svg"
-              [svgStyle]="{ 'width.px':15, 'height.px':15 }">
+            <svg-icon
+              src="./assets/icons/widgets/petroleum-products-movement/arrow_bottom.svg"
+              [svgStyle]="{ 'width.px':15, 'height.px':15 }"
+            >
             </svg-icon>
           </div>
         </div>
@@ -18,10 +20,13 @@
           <ng-container *ngFor="let item of data">
             <div class="ref_items">
               <div class="item_icon">
-                <svg-icon src="./assets/icons/widgets/petroleum-products-movement/{{item.status}}.svg" [svgStyle]="{ 'width.px':25, 'height.px':25 }">
+                <svg-icon
+                  src="./assets/icons/widgets/petroleum-products-movement/{{item.status}}.svg"
+                  [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+                >
                 </svg-icon>
               </div>
-              <div class="item_name"> {{ item.name }} </div>
+              <div class="item_name">{{ item.name }}</div>
             </div>
           </ng-container>
         </div>
@@ -30,8 +35,10 @@
         <div class="title_sett" (click)="onSettings()">
           <div class="title_settings">Установки</div>
           <div class="button">
-            <svg-icon src="./assets/icons/widgets/petroleum-products-movement/arrow_bottom.svg"
-              [svgStyle]="{ 'width.px':15, 'height.px':15 }">
+            <svg-icon
+              src="./assets/icons/widgets/petroleum-products-movement/arrow_bottom.svg"
+              [svgStyle]="{ 'width.px':15, 'height.px':15 }"
+            >
             </svg-icon>
           </div>
         </div>
@@ -39,10 +46,13 @@
           <ng-container *ngFor="let item of data">
             <div class="ref_items">
               <div class="item_icon">
-                <svg-icon src="./assets/icons/widgets/petroleum-products-movement/{{item.status}}.svg" [svgStyle]="{ 'width.px':25, 'height.px':25 }">
+                <svg-icon
+                  src="./assets/icons/widgets/petroleum-products-movement/{{item.status}}.svg"
+                  [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+                >
                 </svg-icon>
               </div>
-              <div class="item_name"> {{ item.name }}</div>
+              <div class="item_name">{{ item.name }}</div>
             </div>
           </ng-container>
         </div>
