@@ -313,31 +313,28 @@
                     <div class="line__circle line__circle__right"></div>
                   </div>
                 </div>
-
-
               </cdk-virtual-scroll-viewport>
             </ng-container>
             <div
-                    (mousedown)="$event.stopPropagation()"
-                    (touchstart)="$event.stopPropagation()"
-                    (click)="overlayConfirmationClose()"
-                    id="overlay-confirmation-event"
+              (mousedown)="$event.stopPropagation()"
+              (touchstart)="$event.stopPropagation()"
+              (click)="overlayConfirmationClose()"
+              id="overlay-confirmation-event"
             >
               <div class="overlay-confirmation__body">
-                    <span *ngIf="!isDeleteRetrieval"
-                    >Вы действительно хотите удалить выбранное Событие?</span
-                    >
+                <span *ngIf="!isDeleteRetrieval"
+                  >Вы действительно хотите удалить выбранное Событие?</span
+                >
                 <span *ngIf="isDeleteRetrieval"
-                >Вы действительно хотите удалить выбранное Событие и связанные
-                      Мероприятия?</span
+                  >Вы действительно хотите удалить выбранное Событие и связанные Мероприятия?</span
                 >
                 <div style="display: flex;">
                   <div class="event-confirm__submit">
                     <div class="submit__frame submit__frame-left"></div>
                     <div class="submit__frame submit__frame-right"></div>
                     <button
-                            type="submit gridster-item-content"
-                            (click)="eventClick(true, undefined, $event)"
+                      type="submit gridster-item-content"
+                      (click)="eventClick(true, undefined, $event)"
                     >
                       Удалить
                     </button>
@@ -346,8 +343,8 @@
                     <div class="submit__frame submit__frame-left"></div>
                     <div class="submit__frame submit__frame-right"></div>
                     <button
-                            type="submit gridster-item-content"
-                            (click)="overlayConfirmationClose()"
+                      type="submit gridster-item-content"
+                      (click)="overlayConfirmationClose()"
                     >
                       Отменить
                     </button>
