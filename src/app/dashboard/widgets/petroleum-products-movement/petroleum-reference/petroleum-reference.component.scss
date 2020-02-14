@@ -27,8 +27,9 @@
 
 .reference {
   position: relative;
-  background: rgba(34, 36, 47, 0.5);
-  width: 1264px;
+ // background: rgba(34, 36, 47, 0.5);
+  background: var(--color-bg-main);
+  width: 1110px;
   margin: 0 auto;
   height: 100%;
 }
@@ -76,12 +77,15 @@
 }
 
 .reference_values {
+  background: rgba(34, 36, 47, 0.5);
   height: calc(100% - 40px);
   overflow: auto;
 }
 
 .reference_values_short {
-  height: 280px;
+  //height: 280px;
+  height: 100%;
+  max-height: 300px;
   overflow: auto;
 }
 
@@ -116,16 +120,18 @@
 }
 
 .shortReference {
-  background: rgba(34, 36, 47, 0.5);
+ // background: rgba(34, 36, 47, 0.5);
+  background: var(--color-bg-main);
   width: 1264px;
   margin: 0 auto;
-  height: 50%;
+  height: 100%;
+  position: relative;
   //  overflow: auto;
   // transform: translateY(80%);
 }
 
 .test {
-  width: 1264px;
+  width: 100%;
   margin: 0 auto;
   height: 100%;
 }
@@ -238,4 +244,11 @@
     background-repeat: no-repeat;
     color: white;
   }
+}
+
+.table_widget{
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+  //height: calc(100% - 468px);
 }

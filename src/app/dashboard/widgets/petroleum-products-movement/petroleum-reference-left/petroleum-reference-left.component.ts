@@ -13,30 +13,16 @@ export class PetroleumReferenceLeftComponent implements OnInit {
         nameReference2: 'Источник',
         reference1: [
             {
-                name: 'Резервуар 503',
-                status: 'Otstoy',
-            },
-            {
-                name: 'Резервуар 503',
-                status: 'Otstoy',
-            },
-            {
-                name: 'Резервуар 503',
-                status: 'Otstoy',
-            },
-        ],
-        reference2: [
-            {
                 name: 'Резервуар 501',
-                status: 'Otstoy',
+                status: 'vverh-arrow',
             },
             {
                 name: 'Резервуар 502',
-                status: 'Otstoy',
+                status: 'Remont',
             },
             {
                 name: 'Резервуар 503',
-                status: 'Otstoy',
+                status: 'vniz-arrow',
             },
             {
                 name: 'Резервуар 504',
@@ -44,15 +30,29 @@ export class PetroleumReferenceLeftComponent implements OnInit {
             },
             {
                 name: 'Резервуар 505',
+                status: 'two-arrow',
+            },
+        ],
+        reference2: [
+            {
+                name: 'Резервуар 501',
+                status: 'vverh-arrow',
+            },
+            {
+                name: 'Резервуар 502',
+                status: 'Remont',
+            },
+            {
+                name: 'Резервуар 503',
+                status: 'vniz-arrow',
+            },
+            {
+                name: 'Резервуар 504',
                 status: 'Otstoy',
             },
             {
-                name: 'Резервуар 506',
-                status: 'Otstoy',
-            },
-            {
-                name: 'Резервуар 507',
-                status: 'Otstoy',
+                name: 'Резервуар 505',
+                status: 'two-arrow',
             },
         ],
     };

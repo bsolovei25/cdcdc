@@ -102,3 +102,68 @@
   width: 20%;
   line-height: 70px;
 }
+
+.title_park {
+  justify-content: space-evenly;
+  display: flex;
+}
+
+.title_sett {
+  justify-content: space-evenly;
+  display: flex;
+}
+
+.title_parks {
+  margin-right: 40px;
+  color: white;
+  font-size: 12px;
+}
+
+.settings {
+  margin-top: 10px;
+}
+
+.title_settings {
+  color: white;
+  font-size: 12px;
+  margin-right: 88px;
+}
+
+.reference {
+  display: none;
+}
+
+.reference_active {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.ref_items {
+  font-size: 12px;
+  background: url(../../../../../assets/icons/widgets/petroleum-products-movement/right-button.svg);
+  background-repeat: no-repeat;
+  height: 71px;
+  width: 260px;
+  display: flex;
+  margin: 8px auto;
+  text-align: center;
+  line-height: 70px;
+  cursor: pointer;
+
+  &:hover {
+    background: url(../../../../../assets/icons/widgets/petroleum-products-movement/orange_hover_button.svg);
+    background-repeat: no-repeat;
+  }
+}
+
+.item_name {
+  width: 80%;
+  text-align: center;
+  line-height: 70px;
+}
+
+.item_icon {
+  width: 20%;
+  line-height: 85px;
+}
