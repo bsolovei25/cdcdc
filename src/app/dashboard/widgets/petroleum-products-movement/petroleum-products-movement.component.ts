@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
+import { transition, style, animate, trigger } from '@angular/animations';
 
 @Component({
     selector: 'evj-petroleum-products-movement',
@@ -59,5 +60,9 @@ export class PetroleumProductsMovementComponent implements OnInit, OnDestroy {
                 subscription.unsubscribe();
             }
         }
+    }
+
+    onChanged(el: boolean): void {
+        this.isWorkspace = !el;
     }
 }

@@ -26,8 +26,10 @@
 }
 
 .reference {
-  background: rgba(34, 36, 47, 0.5);
-  width: 1264px;
+  position: relative;
+  // background: rgba(34, 36, 47, 0.5);
+  background: var(--color-bg-main);
+  width: 1110px;
   margin: 0 auto;
   height: 100%;
 }
@@ -75,7 +77,15 @@
 }
 
 .reference_values {
+  background: rgba(34, 36, 47, 0.5);
   height: calc(100% - 40px);
+  overflow: auto;
+}
+
+.reference_values_short {
+  //height: 280px;
+  height: 100%;
+  max-height: 300px;
   overflow: auto;
 }
 
@@ -103,4 +113,142 @@
     font-size: 8px;
     color: var(--color-text-sub);
   }
+}
+
+.illustration_widget {
+  height: 468px;
+}
+
+.shortReference {
+  // background: rgba(34, 36, 47, 0.5);
+  background: var(--color-bg-main);
+  width: 1110px;
+  margin: 0 auto;
+  height: 100%;
+  position: relative;
+  //  overflow: auto;
+  // transform: translateY(80%);
+}
+
+.test {
+  width: 100%;
+  margin: 0 auto;
+  height: 100%;
+}
+
+.menu {
+  justify-content: space-between;
+  height: 38px;
+  width: 100%;
+  display: flex;
+  border-top: 4px solid var(--color-bg-main);
+  background-color: var(--color-bg-main);
+}
+
+.left_button_menu {
+  line-height: 24px;
+  color: var(--color-text-sub);
+  font-size: 10px;
+  display: flex;
+}
+
+.all_operation {
+  cursor: pointer;
+  text-align: center;
+  margin-top: 5px;
+  background: url(../../../../../assets/icons/widgets/petroleum-products-movement/SVG/left_button_left.svg);
+  background-repeat: no-repeat;
+  width: 160px;
+  height: 24px;
+
+  &:hover {
+    background: url(../../../../../assets/icons/widgets/petroleum-products-movement/SVG/left_button_left_a.svg);
+    background-repeat: no-repeat;
+    color: white;
+  }
+}
+
+.open_operation {
+  cursor: pointer;
+  text-align: center;
+  margin-top: 5px;
+  background: url(../../../../../assets/icons/widgets/petroleum-products-movement/SVG/left_button_right.svg);
+  background-repeat: no-repeat;
+  width: 160px;
+  height: 24px;
+
+  &:hover {
+    background: url(../../../../../assets/icons/widgets/petroleum-products-movement/SVG/left_button_right_a.svg);
+    background-repeat: no-repeat;
+    color: white;
+  }
+}
+
+.right_button_menu {
+  line-height: 24px;
+  color: var(--color-text-sub);
+  font-size: 10px;
+  display: flex;
+}
+
+.menu_text {
+  margin-top: 5px;
+  color: var(--color-text-sub-heading);
+  width: 108px;
+  height: 24px;
+}
+
+.right_button {
+  cursor: pointer;
+  text-align: center;
+  margin-top: 5px;
+  background: url(../../../../../assets/icons/widgets/petroleum-products-movement/SVG/right_button_osn.svg);
+  background-repeat: no-repeat;
+  width: 124px;
+  height: 23px;
+
+  &:hover {
+    background: url(../../../../../assets/icons/widgets/petroleum-products-movement/SVG/right_button_osn_a.svg);
+    background-repeat: no-repeat;
+    color: white;
+  }
+}
+
+.right_button_rezerv {
+  cursor: pointer;
+  text-align: center;
+  margin-top: 5px;
+  background: url(../../../../../assets/icons/widgets/petroleum-products-movement/SVG/right_button_ones.svg);
+  background-repeat: no-repeat;
+  width: 137px;
+  height: 24px;
+
+  &:hover {
+    background: url(../../../../../assets/icons/widgets/petroleum-products-movement/SVG/right_button_ones_a.svg);
+    background-repeat: no-repeat;
+    color: white;
+  }
+}
+
+.right_button_reference {
+  cursor: pointer;
+  text-align: center;
+  margin-top: 5px;
+  background: url(../../../../../assets/icons/widgets/petroleum-products-movement/SVG/right_button_seconds.svg);
+  background-repeat: no-repeat;
+  width: 120px;
+  height: 24px;
+
+  &:hover {
+    background: url(../../../../../assets/icons/widgets/petroleum-products-movement/SVG/right_button_seconds_a.svg);
+    background-repeat: no-repeat;
+    color: white;
+  }
+}
+
+.table_widget {
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+  //height: calc(100% - 468px);
 }
