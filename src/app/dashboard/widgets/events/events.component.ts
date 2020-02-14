@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit, Inject } from '@angular/core';
 import {
     EventsWidgetCategory,
     EventsWidgetCategoryCode,
-    EventsWidgetData,
+    EventsWidgetData, EventsWidgetNotificationPreview,
     EventsWidgetOptions,
     ICategory,
 } from '../../models/events-widget';
@@ -101,7 +101,7 @@ export class EventsComponent implements OnInit, OnDestroy {
     ];
 
     allNotifications: EventsWidgetNotification[] = [];
-    notifications: EventsWidgetNotification[] = [];
+    notifications: EventsWidgetNotificationPreview[] = [];
 
     filters: EventsWidgetFilter[] = [
         {
@@ -192,8 +192,7 @@ export class EventsComponent implements OnInit, OnDestroy {
         } else {
             this.getData();
             this.getStats();
-            setInterval(() => this.mockPushNewElement(), 5000);
-            // this.wsConnect();
+            this.wsConnect();
         }
     }
 
@@ -202,8 +201,7 @@ export class EventsComponent implements OnInit, OnDestroy {
             this.widgetService
                 .getWidgetLiveDataFromWS(this.id, 'events')
                 .subscribe((ref: EventsWidgetData) => {
-                    this.appendNotifications(ref.notifications);
-                    // this.appendCategoriesCounters();
+                    this.wsHandler(ref);
                 })
         );
     }
@@ -243,6 +241,46 @@ export class EventsComponent implements OnInit, OnDestroy {
 
     private clearNotifications(): void {
         this.notifications = [];
+    }
+
+    private wsHandler(data: EventsWidgetData): void {
+        switch (data.action) {
+            case 'add':
+                this.addWsElement(data.notification);
+                break;
+            case 'edit':
+                this.editWsElement(data.notification);
+                break;
+            case 'delete':
+                this.deleteWsElement(data.notification);
+                break;
+        }
+    }
+
+    private addWsElement(notification: EventsWidgetNotificationPreview): void {
+        const idx = this.notifications.findIndex(n => notification.sortIndex <= n.sortIndex);
+        console.log(idx);
+        if (idx) {
+            this.notifications.splice(idx, 0, notification);
+            this.notifications = this.notifications.slice();
+        }
+    }
+
+    private deleteWsElement(notification: EventsWidgetNotificationPreview): void {
+        const idx = this.notifications.findIndex(n => n.id === notification.id);
+        console.log(idx);
+        if (idx) {
+            this.notifications.splice(idx, 1);
+            this.notifications = this.notifications.slice();
+        }
+    }
+
+    private editWsElement(notification: EventsWidgetNotificationPreview): void {
+        const idx = this.notifications.findIndex(n => n.id === notification.id);
+        console.log(idx);
+        if (idx) {
+            this.notifications[idx] = notification;
+        }
     }
 
     // private appendOptions(): void {
@@ -289,7 +327,7 @@ export class EventsComponent implements OnInit, OnDestroy {
         }
     }
 
-    private appendNotifications(remoteNotifications: EventsWidgetNotification[]): void {
+    private appendNotifications(remoteNotifications: EventsWidgetNotificationPreview[]): void {
         const notifications = remoteNotifications.map((n) => {
             if (n.category && n.category.name) {
                 const iconUrl = this.getNotificationIcon(n.category.name);
@@ -348,7 +386,6 @@ export class EventsComponent implements OnInit, OnDestroy {
             try {
                 if (this.eventOverlayId >= 0) {
                     await this.eventService.deleteEvent(this.eventOverlayId);
-                    this.wsConnect(); // TODO переход на рест
                     this.eventService.event$.next(null);
                 }
                 this.overlayConfirmationClose();
@@ -368,9 +405,10 @@ export class EventsComponent implements OnInit, OnDestroy {
     public overlayConfirmationOpen(notification: EventsWidgetNotification): void {
         event.stopPropagation();
         this.eventOverlayId = notification.id;
-        notification.retrievalEvents.length
-            ? (this.isDeleteRetrieval = true)
-            : (this.isDeleteRetrieval = false);
+        // TODO ждать от бэка флага
+        // notification.retrievalEvents.length
+        //     ? (this.isDeleteRetrieval = true)
+        //     : (this.isDeleteRetrieval = false);
         document.getElementById('overlay-confirmation-event').style.display = 'block';
     }
 
@@ -444,16 +482,5 @@ export class EventsComponent implements OnInit, OnDestroy {
                     break;
             }
         });
-    }
-
-    mockPushNewElement(): void {
-        const arr = [];
-        // arr.push(this.notifications[0]);
-        // const beginMass = this.notifications.splice(2, )
-        // this.notifications = arr.concat(this.notifications);
-        const index = 20;
-        // this.notifications.findIndex(n => index < )
-        this.notifications.splice(0, 0, this.notifications[0]);
-        this.notifications = this.notifications.slice();
     }
 }

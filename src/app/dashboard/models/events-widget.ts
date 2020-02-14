@@ -77,6 +77,9 @@ export type EventsWidgetFilterCode = 'all' | 'inWork' | 'closed';
 
 export type EventsWidgetCategoryCode = 'smotr' | 'safety' | 'tasks' | 'equipmentStatus' | 'drops';
 
+export type EventAction = 'add' | 'edit' | 'delete';
+
+
 export interface ICategory {
     id: number;
     name: EventsWidgetCategoryCode;
@@ -121,7 +124,8 @@ export interface EventsWidgetNotificationsCounter {
 }
 
 export interface EventsWidgetData {
-    notifications: EventsWidgetNotification[];
+    notification: EventsWidgetNotificationPreview;
+    action: EventAction;
 }
 
 export interface EventsWidgetOptions {

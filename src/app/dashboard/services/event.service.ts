@@ -7,7 +7,7 @@ import {
     ICategory,
     EventsWidgetData,
     EventsWidgetOptions,
-    EventsWidgetsStats,
+    EventsWidgetsStats, EventsWidgetNotificationPreview,
 } from '../models/events-widget';
 import { AppConfigService } from 'src/app/services/appConfigService';
 
@@ -28,10 +28,10 @@ export class EventService {
     async getBatchData(
         lastId: number,
         options: EventsWidgetOptions
-    ): Promise<EventsWidgetNotification[]> {
+    ): Promise<EventsWidgetNotificationPreview[]> {
         try {
             return this.http
-                .get<EventsWidgetNotification[]>(
+                .get<EventsWidgetNotificationPreview[]>(
                     this.restUrl +
                         `/api/notifications/getbyfilter?${this.getOptionString(lastId, options)}`
                 )

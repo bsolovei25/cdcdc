@@ -220,7 +220,8 @@ export class NewWidgetService {
     }
 
     private mapEventsWidgetData(data: EventsWidgetData): EventsWidgetData {
-        data.notifications.forEach((n) => (n.eventDateTime = new Date(n.eventDateTime)));
+        // data.notification.forEach((n) => (n.eventDateTime = new Date(n.eventDateTime)));
+        data.notification.eventDateTime = new Date(data.notification.eventDateTime);
         return data;
     }
 
