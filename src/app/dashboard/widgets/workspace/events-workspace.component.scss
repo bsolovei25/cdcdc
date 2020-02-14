@@ -57,14 +57,13 @@ $border-size: 4px;
   border-left: 0.5px dashed var(--color-border-main-transparrent);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   position: relative;
-  overflow: hidden;
+  overflow: auto;
 
   mat-form-field {
     box-sizing: border-box;
     width: 100%;
-    padding: 10px 10px;
+    padding: 10px 25px;
     padding-bottom: 0px;
   }
 
@@ -76,7 +75,11 @@ $border-size: 4px;
       height: 0;
     }
     .mat-form-field-appearance-legacy .mat-form-field-wrapper {
-      padding-bottom: 1px;
+      // padding-bottom: 1px;
+    }
+
+    .mat-select-value {
+      color: var(--color-text-main);
     }
   }
 
@@ -89,43 +92,50 @@ $border-size: 4px;
 
     &__block {
       margin-left: 10px;
+      width: 100%;
+    }
+
+    .priority {
+      border: 1px solid;
+      border-image: linear-gradient(90deg, transparent 0%, var(--color-danger) 100%);
+      border-image-slice: 1;
+      background: rgb(235, 87, 87);
+      background-image: linear-gradient(
+        to right,
+        #eb5757 0%,
+        #e55555 0%,
+        #bc4a4d 4%,
+        #974145 9%,
+        #76383e 14%,
+        #5b3139 19%,
+        #452b34 25%,
+        #342731 32%,
+        #28242e 41%,
+        #21222d 53%,
+        #20222d 86%
+      );
     }
   }
 
   &__body {
+    display: flex;
+    justify-content: space-between;
     &__left {
+      width: 50%;
       .select__block {
       }
       .short-description {
       }
     }
+
+    &__right {
+      width: 50%;
+    }
   }
 }
 
 mat-option {
-  background-color: var(--color-bg-main);
-}
-
-.card {
-  background: var(--color-bg-card);
-  background: -webkit-linear-gradient(
-      45deg,
-      transparent $border-size,
-      var(--color-bg-card) $border-size
-    ),
-    -webkit-linear-gradient(135deg, transparent $border-size, var(--color-bg-card) $border-size),
-    -webkit-linear-gradient(225deg, transparent $border-size, var(--color-bg-card) $border-size),
-    -webkit-linear-gradient(315deg, transparent $border-size, var(--color-bg-card) $border-size);
-  background-position: bottom left, bottom right, top right, top left;
-  -moz-background-size: 50% 50%;
-  -webkit-background-size: 50% 50%;
-  background-size: 50% 50%;
-  background-repeat: no-repeat;
-
-  float: left;
-  width: 100%;
-  color: white;
-  line-height: 1.5;
+  // background-color: var(--color-bg-main);
 }
 
 // .header {

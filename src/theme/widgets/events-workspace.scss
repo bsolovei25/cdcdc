@@ -1,0 +1,20 @@
+.mat-select-custom {
+  &.mat-select-panel {
+    background: var(--color-bg-main) !important;
+  }
+}
+.mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+  color: var(--color-text-main) !important;
+}
+
+.mat-select-arrow {
+  color: var(--color-text-main) !important;
+  width: 13px !important;
+  height: 10px !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-top: none !important;
+  margin: 0 !important;
+  background-image: url("./assets/icons/widgets/workspace/arrow.svg");
+  background-repeat: no-repeat;
+}

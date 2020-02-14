@@ -34,81 +34,123 @@
         (touchstart)="$event.stopPropagation()"
       >
         <div class="workspace__header">
-          <div class="card">
-            <mat-form-field>
+          <evj-ui-block class="workspace__header__block" status="normal">
+            <mat-form-field class="status">
               <mat-label>Статус</mat-label>
-              <mat-select>
+              <mat-select panelClass="mat-select-custom">
                 <mat-option *ngFor="let food of foods" [value]="food.value">
                   {{food.viewValue}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
-          </div>
-          <div class="card workspace__header__block">
-            <mat-form-field>
+          </evj-ui-block>
+          <evj-ui-block class="workspace__header__block" status="danger">
+            <mat-form-field class="priority">
               <mat-label>Приоритет</mat-label>
-              <mat-select>
+              <mat-select panelClass="mat-select-custom">
                 <mat-option *ngFor="let food of foods" [value]="food.value">
                   {{food.viewValue}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
-          </div>
-          <div class="card workspace__header__block">
+          </evj-ui-block>
+          <evj-ui-block class="workspace__header__block" status="normal">
             <mat-form-field>
               <mat-label>Событие</mat-label>
-              <mat-select>
+              <mat-select panelClass="mat-select-custom">
                 <mat-option *ngFor="let food of foods" [value]="food.value">
                   {{food.viewValue}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
-          </div>
+          </evj-ui-block>
         </div>
 
         <div class="workspace__body">
           <div class="workspace__body__left">
             <div class="select__block">
               <div class="categories">
-                <mat-form-field>
-                  <mat-label>Событие</mat-label>
-                  <mat-select>
-                    <mat-option *ngFor="let food of foods" [value]="food.value">
-                      {{food.viewValue}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
+                <evj-ui-block class="workspace__header__block" status="normal">
+                  <mat-form-field>
+                    <mat-label>Событие</mat-label>
+                    <mat-select panelClass="mat-select-custom">
+                      <mat-option *ngFor="let food of foods" [value]="food.value">
+                        {{food.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </evj-ui-block>
               </div>
               <div class="type">
-                <mat-form-field>
-                  <mat-label>Событие</mat-label>
-                  <mat-select>
-                    <mat-option *ngFor="let food of foods" [value]="food.value">
-                      {{food.viewValue}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
+                <evj-ui-block class="workspace__header__block" status="normal">
+                  <mat-form-field>
+                    <mat-label>Событие</mat-label>
+                    <mat-select panelClass="mat-select-custom">
+                      <mat-option *ngFor="let food of foods" [value]="food.value">
+                        {{food.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </evj-ui-block>
               </div>
             </div>
-            <div class="short-description card">
-              Неисправность расходомера FIRCАHL-1008 «Расход МЭА в колонну К-2» в 8:20. Переход на
-              ручное управление клапаном 12FV-1008 в 8:22 Остановка насоса Н-17А по блокировке поз.
-              FISAL1043 на установке ГФУ-2 с БОР производства №1
-            </div>
-            <div class="fact">
-              Ручное управление клапаном 12FV-1008 в 8:22 Остановка насоса Н-17А по блокировке поз.
-              FISAL1043 на установке ГФУ-2 с БОР производства №1
-            </div>
-            <div class="comments"></div>
+            <evj-ui-block class="workspace__header__block" status="normal">
+              <div class="short-description">
+                Неисправность расходомера FIRCАHL-1008 «Расход МЭА в колонну К-2» в 8:20. Переход на
+                ручное управление клапаном 12FV-1008 в 8:22 Остановка насоса Н-17А по блокировке
+                поз. FISAL1043 на установке ГФУ-2 с БОР производства №1
+              </div>
+            </evj-ui-block>
+            <evj-ui-block class="workspace__header__block" status="normal">
+              <div class="fact">
+                Ручное управление клапаном 12FV-1008 в 8:22 Остановка насоса Н-17А по блокировке
+                поз. FISAL1043 на установке ГФУ-2 с БОР производства №1
+              </div>
+            </evj-ui-block>
+            <evj-ui-block class="workspace__header__block" status="normal">
+              <div class="comments"></div>
+            </evj-ui-block>
           </div>
           <div class="workspace__body__right">
             <div>
-              <div class="place"></div>
-              <div class="creator"></div>
+              <div class="place">
+                <div class="workspace__block__title">
+                  Место:
+                </div>
+                <div class="workspace__block__body">
+                  ГФУ-2 с БОР
+                </div>
+              </div>
+              <div class="creator">
+                <div>
+                  Автор
+                </div>
+                <div>Иванов И.И.</div>
+              </div>
               <div class="deadline"></div>
             </div>
-            <div class="responsible"></div>
-            <div class="events-correct"></div>
+            <div class="responsible">
+              <evj-ui-block class="workspace__header__block" status="normal">
+                <mat-form-field>
+                  <mat-label>Отвественный</mat-label>
+                  <mat-select panelClass="mat-select-custom">
+                    <mat-option *ngFor="let food of foods" [value]="food.value">
+                      {{food.viewValue}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </evj-ui-block>
+            </div>
+            <div class="events-correct">
+              <evj-ui-block class="workspace__header__block" status="normal">
+                <mat-form-field>
+                  <mat-label>Choose a date</mat-label>
+                  <input matInput [matDatepicker]="picker" />
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </evj-ui-block>
+            </div>
           </div>
         </div>
       </section>

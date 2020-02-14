@@ -5,6 +5,7 @@ import { ContentComponent } from './layout/content/content.component';
 import { FnPipe } from './pipes/fn_pipe';
 import { PreLoaderComponent } from './preloader/preloader.component';
 import { UiElementsComponent } from './layout/ui-elements.component';
+import { UiBlockComponent } from './layout/ui-block/ui-block.component';
 
 @NgModule({
     declarations: [
@@ -13,8 +14,9 @@ import { UiElementsComponent } from './layout/ui-elements.component';
         FnPipe,
         PreLoaderComponent,
         UiElementsComponent,
+        UiBlockComponent,
     ],
-    exports: [HeaderComponent, ContentComponent, FnPipe, PreLoaderComponent],
+    exports: [HeaderComponent, ContentComponent, FnPipe, PreLoaderComponent, UiBlockComponent],
     imports: [CommonModule],
 })
 export class SharedModule {}
