@@ -2,7 +2,8 @@ import { Component, Input, OnDestroy, OnInit, Inject } from '@angular/core';
 import {
     EventsWidgetCategory,
     EventsWidgetCategoryCode,
-    EventsWidgetData, EventsWidgetNotificationPreview,
+    EventsWidgetData,
+    EventsWidgetNotificationPreview,
     EventsWidgetOptions,
     ICategory,
 } from '../../models/events-widget';
@@ -170,13 +171,13 @@ export class EventsComponent implements OnInit, OnDestroy {
                 }
             })
         );
-        this.subscriptions.push(
-            this.eventService.updateEvent$.subscribe((value) => {
-                if (value) {
-                    this.wsConnect();
-                }
-            })
-        );
+        // this.subscriptions.push(
+        //     this.eventService.updateEvent$.subscribe((value) => {
+        //         if (value) {
+        //             this.wsConnect();
+        //         }
+        //     })
+        // );
         this.showMock(this.isMock);
     }
 
@@ -258,7 +259,7 @@ export class EventsComponent implements OnInit, OnDestroy {
     }
 
     private addWsElement(notification: EventsWidgetNotificationPreview): void {
-        const idx = this.notifications.findIndex(n => notification.sortIndex <= n.sortIndex);
+        const idx = this.notifications.findIndex((n) => notification.sortIndex <= n.sortIndex);
         console.log(idx);
         if (idx) {
             this.notifications.splice(idx, 0, notification);
@@ -267,19 +268,25 @@ export class EventsComponent implements OnInit, OnDestroy {
     }
 
     private deleteWsElement(notification: EventsWidgetNotificationPreview): void {
-        const idx = this.notifications.findIndex(n => n.id === notification.id);
+        const idx = this.notifications.findIndex((n) => n.id === notification.id);
         console.log(idx);
-        if (idx) {
+        if (idx >= 0) {
             this.notifications.splice(idx, 1);
             this.notifications = this.notifications.slice();
         }
     }
 
     private editWsElement(notification: EventsWidgetNotificationPreview): void {
-        const idx = this.notifications.findIndex(n => n.id === notification.id);
+        const idx = this.notifications.findIndex((n) => n.id === notification.id);
         console.log(idx);
-        if (idx) {
+        if (idx >= 0) {
+            if (notification.category && notification.category.name) {
+                notification.iconUrl = this.getNotificationIcon(notification.category.name);
+                notification.iconUrlStatus = this.getStatusIcon(notification.status.name);
+                notification.statusName = this.statuses[notification.status.name]; // TODO check
+            }
             this.notifications[idx] = notification;
+            this.notifications = this.notifications.slice();
         }
     }
 

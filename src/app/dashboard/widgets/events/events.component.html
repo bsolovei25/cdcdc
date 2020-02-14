@@ -244,7 +244,7 @@
           <div class="notifications">
             <ng-container>
               <cdk-virtual-scroll-viewport
-                itemSize="160px"
+                itemSize="70px"
                 class="notifications__list scroll-bar"
                 (scroll)="scrollHandler($event)"
               >
@@ -314,46 +314,47 @@
                   </div>
                 </div>
 
-                <div
-                  (mousedown)="$event.stopPropagation()"
-                  (touchstart)="$event.stopPropagation()"
-                  (click)="overlayConfirmationClose()"
-                  id="overlay-confirmation-event"
-                >
-                  <div class="overlay-confirmation__body">
-                    <span *ngIf="!isDeleteRetrieval"
-                      >Вы действительно хотите удалить выбранное Событие?</span
-                    >
-                    <span *ngIf="isDeleteRetrieval"
-                      >Вы действительно хотите удалить выбранное Событие и связанные
-                      Мероприятия?</span
-                    >
-                    <div style="display: flex;">
-                      <div class="event-confirm__submit">
-                        <div class="submit__frame submit__frame-left"></div>
-                        <div class="submit__frame submit__frame-right"></div>
-                        <button
-                          type="submit gridster-item-content"
-                          (click)="eventClick(true, undefined, $event)"
-                        >
-                          Удалить
-                        </button>
-                      </div>
-                      <div class="event-confirm__submit">
-                        <div class="submit__frame submit__frame-left"></div>
-                        <div class="submit__frame submit__frame-right"></div>
-                        <button
-                          type="submit gridster-item-content"
-                          (click)="overlayConfirmationClose()"
-                        >
-                          Отменить
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+
               </cdk-virtual-scroll-viewport>
             </ng-container>
+            <div
+                    (mousedown)="$event.stopPropagation()"
+                    (touchstart)="$event.stopPropagation()"
+                    (click)="overlayConfirmationClose()"
+                    id="overlay-confirmation-event"
+            >
+              <div class="overlay-confirmation__body">
+                    <span *ngIf="!isDeleteRetrieval"
+                    >Вы действительно хотите удалить выбранное Событие?</span
+                    >
+                <span *ngIf="isDeleteRetrieval"
+                >Вы действительно хотите удалить выбранное Событие и связанные
+                      Мероприятия?</span
+                >
+                <div style="display: flex;">
+                  <div class="event-confirm__submit">
+                    <div class="submit__frame submit__frame-left"></div>
+                    <div class="submit__frame submit__frame-right"></div>
+                    <button
+                            type="submit gridster-item-content"
+                            (click)="eventClick(true, undefined, $event)"
+                    >
+                      Удалить
+                    </button>
+                  </div>
+                  <div class="event-confirm__submit">
+                    <div class="submit__frame submit__frame-left"></div>
+                    <div class="submit__frame submit__frame-right"></div>
+                    <button
+                            type="submit gridster-item-content"
+                            (click)="overlayConfirmationClose()"
+                    >
+                      Отменить
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="controls">

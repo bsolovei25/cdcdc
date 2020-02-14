@@ -7,7 +7,8 @@ import {
     ICategory,
     EventsWidgetData,
     EventsWidgetOptions,
-    EventsWidgetsStats, EventsWidgetNotificationPreview,
+    EventsWidgetsStats,
+    EventsWidgetNotificationPreview,
 } from '../models/events-widget';
 import { AppConfigService } from 'src/app/services/appConfigService';
 

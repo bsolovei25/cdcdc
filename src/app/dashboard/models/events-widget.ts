@@ -26,6 +26,9 @@ export interface EventsWidgetNotificationPreview {
     description: string;
     comment: string;
     sortIndex: number;
+    iconUrl?: string;
+    statusName?: string;
+    iconUrlStatus?: string;
 }
 
 export interface EventsWidgetNotification {
@@ -78,7 +81,6 @@ export type EventsWidgetFilterCode = 'all' | 'inWork' | 'closed';
 export type EventsWidgetCategoryCode = 'smotr' | 'safety' | 'tasks' | 'equipmentStatus' | 'drops';
 
 export type EventAction = 'add' | 'edit' | 'delete';
-
 
 export interface ICategory {
     id: number;
