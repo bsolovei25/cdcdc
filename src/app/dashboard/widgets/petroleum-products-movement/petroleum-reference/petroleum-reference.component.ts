@@ -9,13 +9,13 @@ import { transition, trigger, animate, style } from '@angular/animations';
         trigger('leaveAnimation', [
             transition(':leave', [
                 style({ transform: 'translateY(0%)' }),
-                animate('2000ms', style({ transform: 'translateY(468px)' })),
+                animate('1000ms', style({ transform: 'translateY(468px)' })),
             ]),
         ]),
         trigger('enterAnimation', [
             transition(':enter', [
                 style({ transform: 'translateY(20%)' }),
-                animate('2000ms', style({ transform: 'translateY(0%)' })),
+                animate('1000ms', style({ transform: 'translateY(0%)' })),
             ]),
         ]),
     ],
