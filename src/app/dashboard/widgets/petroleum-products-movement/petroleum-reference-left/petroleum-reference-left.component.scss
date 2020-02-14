@@ -85,6 +85,7 @@
 }
 
 .unclick_button {
+  cursor: default;
   font-size: 12px;
   background: url(../../../../../assets/icons/widgets/petroleum-products-movement/active-background-button-left.svg);
   background-repeat: no-repeat;
@@ -92,6 +93,30 @@
   height: 71px;
   width: 260px;
   margin: 8px auto;
+}
+
+.click_button {
+  font-size: 12px;
+  background: url(../../../../../assets/icons/widgets/petroleum-products-movement/left-button.svg);
+  background-repeat: no-repeat;
+  display: flex;
+  height: 71px;
+  width: 260px;
+  margin: 8px auto;
+  cursor: pointer;
+
+  &:hover {
+    background: url(../../../../../assets/icons/widgets/petroleum-products-movement/active-background-button-left.svg);
+    background-repeat: no-repeat;
+  }
+
+  &:hover .button_name_short{
+    color: white;
+  }
+
+  &:hover .button_icon_short{
+    opacity: 1;
+  }
 }
 
 .button_name {
@@ -103,4 +128,22 @@
 .button_icon {
   width: 20%;
   line-height: 85px;
+}
+
+.button_name_short {
+  color: var(--color-text-sub-heading);
+  width: 80%;
+  text-align: center;
+  line-height: 70px;
+}
+
+.button_icon_short {
+  opacity: 0.5;
+  width: 20%;
+  line-height: 85px;
+}
+
+.active_button{
+  background: url(../../../../../assets/icons/widgets/petroleum-products-movement/active-background-button-left.svg);
+  background-repeat: no-repeat;
 }
