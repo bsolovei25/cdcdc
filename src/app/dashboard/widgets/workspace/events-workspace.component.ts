@@ -77,9 +77,9 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     static itemCols = 20;
     static itemRows = 5;
 
-    @ViewChild('input', { static: false }) input: ElementRef;
-    @ViewChild('scroll', { static: false }) scroll: ElementRef;
-    @ViewChild('scroll2', { static: false }) scroll2: ElementRef;
+    @ViewChild('input') input: ElementRef;
+    @ViewChild('scroll') scroll: ElementRef;
+    @ViewChild('scroll2') scroll2: ElementRef;
 
     constructor(
         private eventService: EventService,

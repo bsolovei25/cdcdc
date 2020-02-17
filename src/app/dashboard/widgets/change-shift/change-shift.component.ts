@@ -30,10 +30,10 @@ import set = Reflect.set;
     styleUrls: ['./change-shift.component.scss'],
 })
 export class ChangeShiftComponent implements OnInit, OnDestroy {
-    @ViewChild('input', { static: false }) input: ElementRef;
-    @ViewChild('scroll', { static: false }) scroll: ElementRef;
-    @ViewChild('allPeople', { static: false }) allPeople: ElementRef;
-    @ViewChild('addShift', { static: false }) addShift: ElementRef;
+    @ViewChild('input') input: ElementRef;
+    @ViewChild('scroll') scroll: ElementRef;
+    @ViewChild('allPeople') allPeople: ElementRef;
+    @ViewChild('addShift') addShift: ElementRef;
 
     mapPosition = [
         {

@@ -44,7 +44,7 @@ export class CircleDiagramComponent implements OnInit, OnDestroy, AfterViewInit 
     public readonly RADIUS = 40;
     private subscriptions: Subscription[] = [];
 
-    @ViewChild('myCircle', { static: false }) myCircle: ElementRef;
+    @ViewChild('myCircle') myCircle: ElementRef;
 
     constructor(
         public widgetService: NewWidgetService,
