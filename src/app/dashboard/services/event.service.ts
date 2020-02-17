@@ -5,7 +5,7 @@ import {
     EventsWidgetNotification,
     IStatus,
     ICategory,
-    EventsWidgetData,
+    EventsWidgetDataPreview,
     EventsWidgetOptions,
     EventsWidgetsStats,
     EventsWidgetNotificationPreview,

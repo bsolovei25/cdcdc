@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { GridsterItem } from 'angular-gridster2';
 import { IWidgets } from '../models/widget.model';
 import { AppConfigService } from 'src/app/services/appConfigService';
-import { EventsWidgetData } from '../models/events-widget';
+import { EventsWidgetDataPreview } from '../models/events-widget';
 import { LineChartData } from '../models/line-chart';
 import { Machine_MI } from '../models/manual-input.model';
 import { WebSocketSubject } from 'rxjs/internal/observable/dom/WebSocketSubject';
@@ -182,7 +182,7 @@ export class NewWidgetService {
     private mapWidgetData(data: any, widgetType: any) {
         switch (widgetType) {
             case 'events':
-                return this.mapEventsWidgetData(data as EventsWidgetData);
+                return this.mapEventsWidgetDataPreview(data as EventsWidgetDataPreview);
 
             case 'line-chart':
                 return this.mapLineChartData(data as LineChartData);
@@ -214,12 +214,13 @@ export class NewWidgetService {
             case 'shift-pass':
             case 'shift-accept':
             case 'column-chart-stacked':
+            case 'events-workspace':
                 return data;
         }
         console.warn(`unknown widget type ${widgetType}`);
     }
 
-    private mapEventsWidgetData(data: EventsWidgetData): EventsWidgetData {
+    private mapEventsWidgetDataPreview(data: EventsWidgetDataPreview): EventsWidgetDataPreview {
         // data.notification.forEach((n) => (n.eventDateTime = new Date(n.eventDateTime)));
         data.notification.eventDateTime = new Date(data.notification.eventDateTime);
         return data;

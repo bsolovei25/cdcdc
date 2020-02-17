@@ -125,8 +125,13 @@ export interface EventsWidgetNotificationsCounter {
     all: number;
 }
 
-export interface EventsWidgetData {
+export interface EventsWidgetDataPreview {
     notification: EventsWidgetNotificationPreview;
+    action: EventAction;
+}
+
+export interface EventsWidgetData {
+    notification: EventsWidgetNotification;
     action: EventAction;
 }
 

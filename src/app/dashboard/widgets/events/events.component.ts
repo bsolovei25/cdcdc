@@ -2,7 +2,7 @@ import {Component, Input, OnDestroy, OnInit, Inject, ViewChild} from '@angular/c
 import {
     EventsWidgetCategory,
     EventsWidgetCategoryCode,
-    EventsWidgetData,
+    EventsWidgetDataPreview,
     EventsWidgetNotificationPreview,
     EventsWidgetOptions,
     ICategory,
@@ -204,7 +204,7 @@ export class EventsComponent implements OnInit, OnDestroy {
         this.subscriptions.push(
             this.widgetService
                 .getWidgetLiveDataFromWS(this.id, 'events')
-                .subscribe((ref: EventsWidgetData) => {
+                .subscribe((ref: EventsWidgetDataPreview) => {
                     this.wsHandler(ref);
                 })
         );
@@ -247,7 +247,7 @@ export class EventsComponent implements OnInit, OnDestroy {
         this.notifications = [];
     }
 
-    private wsHandler(data: EventsWidgetData): void {
+    private wsHandler(data: EventsWidgetDataPreview): void {
         switch (data.action) {
             case 'add':
                 this.addWsElement(data.notification);
@@ -264,7 +264,12 @@ export class EventsComponent implements OnInit, OnDestroy {
     private addWsElement(notification: EventsWidgetNotificationPreview): void {
         const idx = this.notifications.findIndex((n) => notification.sortIndex <= n.sortIndex);
         console.log(idx);
-        if (idx) {
+        if (idx >= 0) {
+            if (notification.category && notification.category.name) {
+                notification.iconUrl = this.getNotificationIcon(notification.category.name);
+                notification.iconUrlStatus = this.getStatusIcon(notification.status.name);
+                notification.statusName = this.statuses[notification.status.name]; // TODO check
+            }
             this.notifications.splice(idx, 0, notification);
             this.notifications = this.notifications.slice();
         }
