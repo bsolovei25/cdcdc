@@ -123,9 +123,9 @@ $border-size: 4px;
 
     .priority {
       border: 1px solid;
-     // background:rgba(255, 0, 0, 0.05);
+      // background:rgba(255, 0, 0, 0.05);
 
-        border-image: linear-gradient(90deg, transparent 0%, var(--color-danger) 100%);
+      border-image: linear-gradient(90deg, transparent 0%, var(--color-danger) 100%);
       border-image-slice: 1;
       background: rgb(235, 87, 87);
       background-image: linear-gradient(
@@ -144,13 +144,10 @@ $border-size: 4px;
       );
     }
 
-    .accept{
-        border: 1px solid var(--color-border-active);
-        background:rgba(63, 169, 245, 0.05);
+    .accept {
+      border: 1px solid var(--color-border-active);
+      background: rgba(63, 169, 245, 0.05);
     }
-      
-    
-    
   }
 
   &__body {
@@ -883,42 +880,42 @@ $border-size: 4px;
             }
           }
 
-          .events{
+          .events {
             max-height: 490px;
             overflow: auto;
             direction: rtl;
             padding-left: 5px;
-            .events_content {           
+            .events_content {
               margin-top: 10px;
               direction: ltr;
               .events_container {
                 display: flex;
                 background: var(--color-bg-card);
                 border-radius: 10px;
-  
+
                 .events_info {
                   width: 70%;
-  
+
                   .events_info_title {
                     font-size: 10px;
                     color: var(--color-text-sub);
                   }
-  
+
                   .events_info_body {
                     color: white;
                     font-size: 12px;
                   }
                 }
-  
+
                 .events_status {
                   width: 30%;
                   text-align: end;
                   font-size: 10px;
-  
+
                   .events_status_status {
                     color: var(--color-danger);
                   }
-  
+
                   .events_status_datetime {
                     .datetime_title {
                       font-size: 10px;
@@ -929,7 +926,7 @@ $border-size: 4px;
                       color: white;
                     }
                   }
-  
+
                   .events_status_responsible {
                     .responsible_title {
                       font-size: 10px;
@@ -942,12 +939,12 @@ $border-size: 4px;
                   }
                 }
               }
-  
+
               .events_menu {
                 height: 20px;
                 background: var(--color-bg-card);
               }
-  
+
               .progress_line {
                 height: 3px;
                 border-radius: 5px;
@@ -956,16 +953,14 @@ $border-size: 4px;
             }
           }
 
-          
-
           .events_bottom_info {
             display: flex;
 
-            .add_events{
+            .add_events {
               width: 70%;
             }
 
-            .end_events{
+            .end_events {
               width: 30%;
               font-size: 8px;
             }
@@ -974,14 +969,14 @@ $border-size: 4px;
 
         .events-correct-progress {
           width: 10px;
-          .line_progress{
+          .line_progress {
             height: 100%;
-            margin:0 auto;
+            margin: 0 auto;
             position: relative;
             width: 3px;
             background: rgba(63, 169, 245, 0.5);
 
-            .top_frame_line{
+            .top_frame_line {
               position: absolute;
               height: 50px;
               width: 3px;
@@ -989,7 +984,7 @@ $border-size: 4px;
               top: 0;
             }
 
-            .bottom_frame_line{
+            .bottom_frame_line {
               position: absolute;
               height: 50px;
               width: 3px;
