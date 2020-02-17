@@ -40,8 +40,8 @@
               </mat-select>
             </mat-form-field>
           </evj-ui-block>
-          <evj-ui-block class="workspace__header__block" status="normal">
-            <mat-form-field>
+          <evj-ui-block class="workspace__header__block" status="accept">
+            <mat-form-field class="accept">
               <mat-label>Событие</mat-label>
               <mat-select panelClass="mat-select-custom">
                 <mat-option *ngFor="let food of foods" [value]="food.value">
@@ -112,9 +112,9 @@
               </div>
               <div class="description__content">
                 <div class="description__content_text">
-                  Неисправность расходомера FIRCАHL-1008 «Расход МЭА в колонну К-2» в 8:20. Переход на
-                  ручное управление клапаном 12FV-1008 в 8:22 Остановка насоса Н-17А по блокировке
-                  поз. FISAL1043 на установке ГФУ-2 с БОР производства №1
+                  Неисправность расходомера FIRCАHL-1008 «Расход МЭА в колонну К-2» в 8:20. Переход
+                  на ручное управление клапаном 12FV-1008 в 8:22 Остановка насоса Н-17А по
+                  блокировке поз. FISAL1043 на установке ГФУ-2 с БОР производства №1
                 </div>
               </div>
               <div class="frame_description_bottom"></div>
@@ -130,9 +130,9 @@
                 <!--ngFor -->
                 <div class="fact_new">
                   <div class="fact_text">
-                    Неисправность расходомера FIRCАHL-1008 «Расход МЭА в колонну К-2» в 8:20. Переход на
-                    ручное управление клапаном 12FV-1008 в 8:22 Остановка насоса Н-17А по блокировке
-                    поз. FISAL1043 на установке ГФУ-2 с БОР производства №1
+                    <span>Неисправность расходомера FIRCАHL-1008 «Расход МЭА в колонну К-2» в 8:20.
+                      Переход на ручное управление клапаном 12FV-1008 в 8:22 Остановка насоса Н-17А по
+                      блокировке поз. FISAL1043 на установке ГФУ-2 с БОР производства №1</span>
                   </div>
                   <div class="fact_menu">
                     <div class="fact_button">
@@ -144,9 +144,37 @@
                 </div>
                 <div class="fact_new">
                   <div class="fact_text">
-                    Неисправность расходомера FIRCАHL-1008 «Расход МЭА в колонну К-2» в 8:20. Переход на
-                    ручное управление клапаном 12FV-1008 в 8:22 Остановка насоса Н-17А по блокировке
-                    поз. FISAL1043 на установке ГФУ-2 с БОР производства №1
+                    Неисправность расходомера FIRCАHL-1008 «Расход МЭА в колонну К-2» в 8:20.
+                    Переход на ручное управление клапаном 12FV-1008 в 8:22 Остановка насоса Н-17А по
+                    блокировке поз. FISAL1043 на установке ГФУ-2 с БОР производства №1
+                  </div>
+                  <div class="fact_menu">
+                    <div class="fact_button">
+                      <div class="fact_button_update"></div>
+                      <div class="fact_button_delete"></div>
+                    </div>
+                    <div class="fact_info"></div>
+                  </div>
+                </div>
+                <div class="fact_new">
+                  <div class="fact_text">
+                    Неисправность расходомера FIRCАHL-1008 «Расход МЭА в колонну К-2» в 8:20.
+                    Переход на ручное управление клапаном 12FV-1008 в 8:22 Остановка насоса Н-17А по
+                    блокировке поз. FISAL1043 на установке ГФУ-2 с БОР производства №1
+                  </div>
+                  <div class="fact_menu">
+                    <div class="fact_button">
+                      <div class="fact_button_update"></div>
+                      <div class="fact_button_delete"></div>
+                    </div>
+                    <div class="fact_info"></div>
+                  </div>
+                </div>
+                <div class="fact_new">
+                  <div class="fact_text">
+                    Неисправность расходомера FIRCАHL-1008 «Расход МЭА в колонну К-2» в 8:20.
+                    Переход на ручное управление клапаном 12FV-1008 в 8:22 Остановка насоса Н-17А по
+                    блокировке поз. FISAL1043 на установке ГФУ-2 с БОР производства №1
                   </div>
                   <div class="fact_menu">
                     <div class="fact_button">
@@ -182,9 +210,9 @@
                 <!--ngFor -->
                 <div class="comment_new">
                   <div class="comment_text">
-                    Неисправность расходомера FIRCАHL-1008 «Расход МЭА в колонну К-2» в 8:20. Переход на
-                    ручное управление клапаном 12FV-1008 в 8:22 Остановка насоса Н-17А по блокировке
-                    поз. FISAL1043 на установке ГФУ-2 с БОР производства №1
+                    Неисправность расходомера FIRCАHL-1008 «Расход МЭА в колонну К-2» в 8:20.
+                    Переход на ручное управление клапаном 12FV-1008 в 8:22 Остановка насоса Н-17А по
+                    блокировке поз. FISAL1043 на установке ГФУ-2 с БОР производства №1
                   </div>
                   <div class="comment_menu">
                     <div class="comment_button">
@@ -211,7 +239,6 @@
             </div>
           </div>
 
-
           <div class="workspace__body__right">
             <div class="info_block">
               <div class="place">
@@ -230,7 +257,7 @@
               </div>
               <div class="deadline">
                 <mat-form-field>
-                  <input matInput [matDatepicker]="myDatepicker">
+                  <input matInput [matDatepicker]="myDatepicker" />
                   <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
                   <mat-datepicker #myDatepicker></mat-datepicker>
                 </mat-form-field>
@@ -249,44 +276,156 @@
               </evj-ui-block>
             </div>
             <div class="events-correct">
-              <div class="event_info">
-                <div class="event_info_title">Корректирующие мероприятия</div>
-                <div class="event_info_date">
-                  <div class="event_info_date_title">Начало события</div>
-                  <div class="event_info_date_body">
-                    25.02.2020 | 13.23
-                  </div>
-                </div>
-              </div>
-              <div class="events_content">
-                <div class="events_info">
-                  <div class="events_info_title">Кратное описание</div>
-                  <div class="events_info_body">    Неисправность расходомера FIRCАHL-1008 «Расход МЭА в колонну К-2» в 8:20. Переход на
-                    ручное управление клапаном 12FV-1008 в 8:22 Остановка насоса Н-17А по блокировке
-                    поз. FISAL1043 на установке ГФУ-2 с БОР производства №1</div>
-                </div>
-                <div class="events_status">
-                  <div class="events_status_status">Потрачено</div>
-                  <div class="events_status_datetime">
-                    <div class="datetime_title">Срок исполнения</div>
-                    <div class="datetime_body"></div>
-                  </div>
-                  <div class="events_status_responsible">
-                    <div class="responsible_title">Ответственный</div>
-                    <div class="responsible_body">Иванов Иван Иванович</div>
-                    <div class="responsible_button">
-                      <div class="responsible_button_delete"></div>
-                      <div class="responsible_button_update"></div>
+              <div class="events-correct-block">
+                <div class="event_info">
+                  <div class="event_info_title">Корректирующие мероприятия</div>
+                  <div class="event_info_date">
+                    <div class="event_info_date_title">Начало события</div>
+                    <div class="event_info_date_body">
+                      25.02.2020 | 13.23
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="events_bottom_info">
+                <div class="events">
+                  <div class="events_content">
+                    <div class="events_container">
+                      <div class="events_info">
+                        <div class="events_info_title">Кратное описание</div>
+                        <div class="events_info_body">
+                          Неисправность расходомера FIRCАHL-1008 «Расход МЭА в колонну К-2» в 8:20.
+                          Переход на ручное управление клапаном 12FV-1008 в 8:22 Остановка насоса Н-17А по
+                          блокировке поз. FISAL1043 на установке ГФУ-2 с БОР производства №1
+                        </div>
+                      </div>
+                      <div class="events_status">
+                        <div class="events_status_status">Потрачено</div>
+                        <div class="events_status_datetime">
+                          <div class="datetime_title">Срок исполнения</div>
+                          <div class="datetime_body"> 25.02.2020 | 13.23</div>
+                        </div>
+                        <div class="events_status_responsible">
+                          <div class="responsible_title">Ответственный</div>
+                          <div class="responsible_body">Иванов Иван Иванович</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="events_menu">
+                      <div class="events_check"></div>
+                      <div class="events_button">
+                        <div clas="events_button_delete"></div>
+                        <div clas="events_button_update"></div>
+                      </div>
+                    </div>
+                    <div class="progress_line"></div>
+                  </div>
+                  <div class="events_content">
+                    <div class="events_container">
+                      <div class="events_info">
+                        <div class="events_info_title">Кратное описание</div>
+                        <div class="events_info_body">
+                          Неисправность расходомера FIRCАHL-1008 «Расход МЭА в колонну К-2» в 8:20.
+                          Переход на ручное управление клапаном 12FV-1008 в 8:22 Остановка насоса Н-17А по
+                          блокировке поз. FISAL1043 на установке ГФУ-2 с БОР производства №1
+                        </div>
+                      </div>
+                      <div class="events_status">
+                        <div class="events_status_status">Потрачено</div>
+                        <div class="events_status_datetime">
+                          <div class="datetime_title">Срок исполнения</div>
+                          <div class="datetime_body"> 25.02.2020 | 13.23</div>
+                        </div>
+                        <div class="events_status_responsible">
+                          <div class="responsible_title">Ответственный</div>
+                          <div class="responsible_body">Иванов Иван Иванович</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="events_menu">
+                      <div class="events_check"></div>
+                      <div class="events_button">
+                        <div clas="events_button_delete"></div>
+                        <div clas="events_button_update"></div>
+                      </div>
+                    </div>
+                    <div class="progress_line"></div>
+                  </div>
+                  <div class="events_content">
+                    <div class="events_container">
+                      <div class="events_info">
+                        <div class="events_info_title">Кратное описание</div>
+                        <div class="events_info_body">
+                          Неисправность расходомера FIRCАHL-1008 «Расход МЭА в колонну К-2» в 8:20.
+                          Переход на ручное управление клапаном 12FV-1008 в 8:22 Остановка насоса Н-17А по
+                          блокировке поз. FISAL1043 на установке ГФУ-2 с БОР производства №1
+                        </div>
+                      </div>
+                      <div class="events_status">
+                        <div class="events_status_status">Потрачено</div>
+                        <div class="events_status_datetime">
+                          <div class="datetime_title">Срок исполнения</div>
+                          <div class="datetime_body"> 25.02.2020 | 13.23</div>
+                        </div>
+                        <div class="events_status_responsible">
+                          <div class="responsible_title">Ответственный</div>
+                          <div class="responsible_body">Иванов Иван Иванович</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="events_menu">
+                      <div class="events_check"></div>
+                      <div class="events_button">
+                        <div clas="events_button_delete"></div>
+                        <div clas="events_button_update"></div>
+                      </div>
+                    </div>
+                    <div class="progress_line"></div>
+                  </div>
+                  <div class="events_content">
+                    <div class="events_container">
+                      <div class="events_info">
+                        <div class="events_info_title">Кратное описание</div>
+                        <div class="events_info_body">
+                          Неисправность расходомера FIRCАHL-1008 «Расход МЭА в колонну К-2» в 8:20.
+                          Переход на ручное управление клапаном 12FV-1008 в 8:22 Остановка насоса Н-17А по
+                          блокировке поз. FISAL1043 на установке ГФУ-2 с БОР производства №1
+                        </div>
+                      </div>
+                      <div class="events_status">
+                        <div class="events_status_status">Потрачено</div>
+                        <div class="events_status_datetime">
+                          <div class="datetime_title">Срок исполнения</div>
+                          <div class="datetime_body"> 25.02.2020 | 13.23</div>
+                        </div>
+                        <div class="events_status_responsible">
+                          <div class="responsible_title">Ответственный</div>
+                          <div class="responsible_body">Иванов Иван Иванович</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="events_menu">
+                      <div class="events_check"></div>
+                      <div class="events_button">
+                        <div clas="events_button_delete"></div>
+                        <div clas="events_button_update"></div>
+                      </div>
+                    </div>
+                    <div class="progress_line"></div>
+                  </div>
+                </div>
+                <div class="events_bottom_info">
                   <div class="add_events"></div>
                   <div class="end_events">
                     <div class="end_events_title">Завершение события</div>
                     <div class="end_events_body">25.02.2020 | 13.23</div>
                   </div>
+                </div>
+              </div>
+              <div class="events-correct-progress">
+                <div class="line_progress">
+                  <div class="top_frame_line"></div>
+                  <div class="middle_line"></div>
+                  <div class="bottom_frame_line"></div>
+                </div>
               </div>
             </div>
           </div>

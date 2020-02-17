@@ -6,5 +6,5 @@ import { Component, Input } from '@angular/core';
     styleUrls: ['./ui-block.component.scss'],
 })
 export class UiBlockComponent {
-    @Input() status: 'danger' | 'standart' | 'warning' | 'normal';
+    @Input() status: 'danger' | 'standart' | 'warning' | 'normal' | 'accept';
 }
