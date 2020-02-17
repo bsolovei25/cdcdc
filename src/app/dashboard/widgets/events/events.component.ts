@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, Inject } from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, Inject, ViewChild} from '@angular/core';
 import {
     EventsWidgetCategory,
     EventsWidgetCategoryCode,
@@ -17,6 +17,7 @@ import { NewWidgetService } from '../../services/new-widget.service';
 import { NewUserSettingsService } from '../../services/new-user-settings.service';
 import { EventService } from '../../services/event.service';
 import { MaterialControllerService } from '../../services/material-controller.service';
+import { CdkVirtualScrollViewport } from "@angular/cdk/scrolling";
 
 @Component({
     selector: 'evj-events',
@@ -24,6 +25,8 @@ import { MaterialControllerService } from '../../services/material-controller.se
     styleUrls: ['./events.component.scss'],
 })
 export class EventsComponent implements OnInit, OnDestroy {
+    @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
+
     isList: boolean = false;
     title: string = '';
     isDeleteRetrieval: boolean = false;
@@ -431,8 +434,9 @@ export class EventsComponent implements OnInit, OnDestroy {
     }
 
     public async scrollHandler(event: any): Promise<void> {
+        this.viewport.checkViewportSize();
         if (
-            event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight &&
+            event.target.offsetHeight + event.target.scrollTop + 100 >= event.target.scrollHeight &&
             this.notifications.length &&
             this.isAllowScrollLoading
         ) {
@@ -453,6 +457,7 @@ export class EventsComponent implements OnInit, OnDestroy {
         this.isAllowScrollLoading = true;
         console.log(lastId);
         console.log(ans);
+        this.viewport.checkViewportSize();
     }
 
     private async getStats(): Promise<void> {

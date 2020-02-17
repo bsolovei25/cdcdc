@@ -9,7 +9,6 @@ import {
     IEnergeticsCard,
     IEnergeticsCircleDiagram,
 } from '../../models/energetics';
-import { debug } from 'util';
 
 @Component({
     selector: 'evj-energetics',
