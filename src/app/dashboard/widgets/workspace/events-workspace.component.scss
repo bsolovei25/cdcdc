@@ -185,6 +185,23 @@ $border-size: 4px;
           height: 55px;
           width: 40%;
           margin-left: 10px;
+
+          ::ng-deep .card-normal {
+            display: flex;
+
+            .position_icon {
+              width: 20%;
+              line-height: 70px;
+            }
+
+            .input_position {
+              width: 80%;
+            }
+
+            .position_icon svg {
+              fill: var(--color-text-sub);
+            }
+          }
         }
       }
 
@@ -336,6 +353,10 @@ $border-size: 4px;
           overflow: auto;
 
           .fact_new {
+            display: flex;
+            padding-bottom: 10px;
+            cursor: pointer;
+
             &:nth-child(2n) {
               background: var(--color-bg-card);
             }
@@ -346,6 +367,23 @@ $border-size: 4px;
               width: 80%;
               color: white;
               font-size: 10px;
+            }
+
+            .fact_menu {
+              .fact_button {
+                display: flex;
+
+                .fact_button_update ::ng-deep svg {
+                  fill: var(--color-text-sub);
+                }
+
+                .fact_button_delete ::ng-deep svg {
+                  fill: var(--color-text-sub);
+                }
+              }
+
+              .fact_info {
+              }
             }
           }
         }
@@ -973,21 +1011,23 @@ $border-size: 4px;
             height: 100%;
             margin: 0 auto;
             position: relative;
-            width: 3px;
+            width: 4px;
             background: rgba(63, 169, 245, 0.5);
 
             .top_frame_line {
+              border-radius: 4px;
               position: absolute;
               height: 50px;
-              width: 3px;
+              width: 4px;
               background-color: white;
               top: 0;
             }
 
             .bottom_frame_line {
+              border-radius: 4px;
               position: absolute;
               height: 50px;
-              width: 3px;
+              width: 4px;
               background-color: white;
               bottom: 0;
             }
@@ -996,6 +1036,28 @@ $border-size: 4px;
       }
     }
   }
+}
+
+.activeFact{
+  background: linear-gradient(to left, rgba(63, 169, 245, 0.25) 0%, rgba(63, 169, 245, 0));
+}
+
+::ng-deep {
+  .cdk-overlay-pane {
+    top: 195px !important;
+  }
+
+  .mat-option:hover {
+    background: var(--color-text-sub);
+  }
+
+  .ng-tns-c39-2 {
+    font-size: 15px;
+  }
+}
+
+.categories ::ng-deep .cdk-overlay-pane {
+  top: 295px !important;
 }
 
 // .header {

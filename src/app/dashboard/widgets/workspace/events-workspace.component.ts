@@ -22,6 +22,7 @@ import {
 } from '../../models/events-widget';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NewWidgetService } from '../../services/new-widget.service';
+import { DateAdapter } from '@angular/material/core';
 
 @Component({
     selector: 'evj-events-workspace',
@@ -40,6 +41,8 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     isNew: boolean = true;
 
     isEdit: boolean = false;
+
+    isClickFact: boolean = false;
 
     priority: IPriority[];
     status: IStatus[];
@@ -91,6 +94,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         private eventService: EventService,
         private snackBar: MatSnackBar,
         public widgetService: NewWidgetService,
+        private dateAdapter: DateAdapter<Date>,
         // private formBuilder: FormBuilder,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
@@ -101,6 +105,8 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
                 this.title = data.title;
             })
         );
+
+        this.dateAdapter.setLocale('ru');
     }
 
     ngOnInit() {
@@ -159,6 +165,10 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         setTimeout(() => {
             this.scrollBottom();
         }, 50);
+    }
+
+    clickFact(): void{
+        this.isClickFact = !this.isClickFact;
     }
 
     scrollBottom() {
