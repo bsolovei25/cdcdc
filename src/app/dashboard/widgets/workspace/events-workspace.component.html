@@ -375,8 +375,8 @@
               <div class="comment__body">
                 <div class="comment__display">
                   <div class="messages scroll-bar" #scroll>
-                    <div class="message" *ngFor="let comment of comments">
-                      {{ comment }}
+                    <div class="message" *ngFor="let comment of event?.comments">
+                      {{ comment.comment }}
                     </div>
                   </div>
                 </div>

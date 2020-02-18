@@ -23,11 +23,11 @@ declare var d3: any;
     styleUrls: ['./oil-control.component.scss'],
 })
 export class OilControlComponent implements OnInit, AfterViewInit {
-    @ViewChild('oilIcon', { static: false }) oilIcon: ElementRef;
-    @ViewChild('oilBak', { static: false }) oilBak: ElementRef;
-    @ViewChild('oilCircle', { static: false }) oilCircle: ElementRef;
-    @ViewChild('borders', { static: false }) borders: ElementRef;
-    @ViewChild('line', { static: false }) line: ElementRef;
+    @ViewChild('oilIcon') oilIcon: ElementRef;
+    @ViewChild('oilBak') oilBak: ElementRef;
+    @ViewChild('oilCircle') oilCircle: ElementRef;
+    @ViewChild('borders') borders: ElementRef;
+    @ViewChild('line') line: ElementRef;
 
     static itemCols = 32;
     static itemRows = 12;

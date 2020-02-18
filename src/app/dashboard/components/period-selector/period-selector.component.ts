@@ -22,7 +22,7 @@ export class PeriodSelectorComponent implements OnInit {
     ngOnInit(): void {}
 
     setDefault(): void {
-        let defaultTime = new Date();
+        let defaultTime: Date = new Date(Date.now());
         defaultTime = new Date(
             defaultTime.getFullYear(),
             defaultTime.getMonth(),
@@ -51,22 +51,24 @@ export class PeriodSelectorComponent implements OnInit {
 
         if (datetime === 1) {
             if (event) {
-                if (new Date(event) < defaultTime) {
-                    this.toDate = event;
-                    this.fromDate = event;
+                const eventDate: Date = new Date(event);
+                if (eventDate < defaultTime) {
+                    this.toDate = eventDate;
+                    this.fromDate = eventDate;
                 } else {
-                    this.toDate = event;
+                    this.toDate = eventDate;
                 }
             } else {
                 this.toDate = defaultTime;
             }
         } else {
             if (event) {
+                const eventDate: Date = new Date(event);
                 if (new Date(event) > defaultTime) {
-                    this.toDate = event;
-                    this.fromDate = event;
+                    this.toDate = eventDate;
+                    this.fromDate = eventDate;
                 } else {
-                    this.fromDate = event;
+                    this.fromDate = eventDate;
                 }
             } else {
                 this.fromDate = defaultTime;
@@ -76,10 +78,12 @@ export class PeriodSelectorComponent implements OnInit {
         this.isCurrent = false;
         this.headerData.catchDefaultDate(this.fromDate, this.toDate, this.isCurrent);
 
-        const dates: Date[] = [];
-        dates.push(this.fromDate);
-        dates.push(this.toDate);
-        this.widgetService.wsSetParams(dates);
+        const dates = {
+            fromDateTime: this.fromDate,
+            toDateTime: this.toDate,
+        };
+        this.widgetService.currentDatesObservable.next(dates);
+        console.log(dates);
     }
 
     isCurrentChange(value: boolean): void {
@@ -89,10 +93,12 @@ export class PeriodSelectorComponent implements OnInit {
         if (this.isCurrent) {
             this.widgetService.wsSetParams();
         } else {
-            const dates: Date[] = [];
-            dates.push(this.fromDate);
-            dates.push(this.toDate);
-            this.widgetService.wsSetParams(dates);
+            const dates = {
+                fromDateTime: this.fromDate,
+                toDateTime: this.toDate,
+            };
+            console.log(dates);
+            this.widgetService.currentDatesObservable.next(dates);
         }
     }
 }

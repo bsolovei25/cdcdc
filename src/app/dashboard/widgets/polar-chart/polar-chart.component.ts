@@ -10,7 +10,7 @@ declare var d3: any;
     styleUrls: ['./polar-chart.component.scss'],
 })
 export class PolarChartComponent implements AfterViewInit {
-    @ViewChild('polar', { static: false }) Polar: ElementRef;
+    @ViewChild('polar') Polar: ElementRef;
 
     static itemCols = 12;
     static itemRows = 12;

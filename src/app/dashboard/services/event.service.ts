@@ -5,7 +5,7 @@ import {
     EventsWidgetNotification,
     IStatus,
     ICategory,
-    EventsWidgetData,
+    EventsWidgetDataPreview,
     EventsWidgetOptions,
     EventsWidgetsStats,
     EventsWidgetNotificationPreview,
@@ -204,9 +204,12 @@ export class EventService {
     }
 
     private getOptionString(lastId: number, options: EventsWidgetOptions): string {
-        let res = `take=${this.batchSize}&lastId=${lastId}`;
+        let res = `take=${this.batchSize}&lastId=${lastId}&placeNames=ГФУ-2,ГФУ-1?`;
+        if (options.dates) {
+            res += `fromDateTime=${options.dates?.fromDateTime.toISOString()}&toDateTime=${options.dates?.toDateTime.toISOString()}`;
+        }
         for (const category of options.categories) {
-            res += `&categoryIds=${category}`;
+            res += `categoryIds=${category}`;
         }
         switch (options.filter) {
             case 'all':
