@@ -219,12 +219,11 @@ $border-size: 4px;
             margin-left: 26px;
           }
           .description_button_update {
-          margin-left: 10px;
+            margin-left: 10px;
 
-            svg-icon{
+            svg-icon {
               fill: var(--color-text-sub);
               line-height: 40px;
-
             }
           }
 
@@ -386,40 +385,38 @@ $border-size: 4px;
                 bottom: 20px;
                 left: 45px;
 
-                .fact_button_update{
+                .fact_button_update {
                   margin-left: 10px;
                 }
 
                 .fact_button_update ::ng-deep svg {
                   fill: var(--color-text-sub);
 
-                  &:hover{
-                    fill: white
+                  &:hover {
+                    fill: white;
                   }
                 }
 
                 .fact_button_delete ::ng-deep svg {
                   fill: var(--color-text-sub);
 
-                  &:hover{
-                    fill: white
+                  &:hover {
+                    fill: white;
                   }
                 }
               }
 
               .fact_info {
                 position: absolute;
-                bottom: -15px;  
+                bottom: -15px;
                 font-size: 9px;
-                
 
-                .fact_info_user{
+                .fact_info_user {
                   text-align: end;
                   height: 10px;
                 }
 
-                .fact_info_date{
-
+                .fact_info_date {
                 }
               }
             }

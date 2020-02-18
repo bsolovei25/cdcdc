@@ -163,7 +163,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         if (this.input.nativeElement.value) {
             this.comments.push(this.input.nativeElement.value);
             this.input.nativeElement.value = '';
-        } else if(this.input2.nativeElement.value){
+        } else if (this.input2.nativeElement.value) {
             this.comments2.push(this.input2.nativeElement.value);
             this.input2.nativeElement.value = '';
         }
