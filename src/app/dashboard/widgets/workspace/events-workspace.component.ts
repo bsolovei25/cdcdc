@@ -18,7 +18,7 @@ import {
     IUser,
     ICategory,
     EventsWidgetCategory,
-    EventsWidgetCategoryCode,
+    EventsWidgetCategoryCode, EventsWidgetDataPreview, EventsWidgetData,
 } from '../../models/events-widget';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NewWidgetService } from '../../services/new-widget.service';
@@ -35,7 +35,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     isLoading: boolean = true;
 
     public previewTitle: string = 'events-workspace';
-    public title = 'Рабочая область';
+    public title: string = 'Рабочая область';
     public icon: string = 'document';
     comments: string[] = [];
     comments2: string[] = [];
@@ -84,8 +84,8 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
     idUser: number = 0;
 
-    static itemCols = 20;
-    static itemRows = 5;
+    static itemCols: number = 20;
+    static itemRows: number = 5;
 
     @ViewChild('input', { static: false }) input: ElementRef;
     @ViewChild('input2', { static: false }) input2: ElementRef;
@@ -111,38 +111,71 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         this.dateAdapter.setLocale('ru');
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         if (!this.isMock) {
             this.subscriptions.push(
                 this.eventService.event$.subscribe((value) => {
                     if (value) {
-                        this.isLoading = true;
-                        this.resetComponent();
-                        this.isNew = false;
-                        this.event = value;
-                        this.loadItem();
+                        this.setEventByInfo(value);
                     } else {
                         this.event = value;
                     }
                 })
             );
+            this.subscriptions.push(
+                this.widgetService.getWidgetLiveDataFromWS(this.id, 'events-workspace')
+                    .subscribe((value => {
+                        this.wsHandler(value);
+                    })
+                )
+            );
         }
         this.isLoading = false;
+    }
+
+    private async setEventByInfo(value: EventsWidgetNotification): Promise<void> {
+        this.isLoading = true;
+        this.resetComponent();
+        this.isNew = false;
+        this.event = value;
+        await this.loadItem();
     }
 
     ngAfterViewInit(): void {
         // this.isLoading = false;
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         if (this.subscriptions) {
-            for (const i in this.subscriptions) {
-                this.subscriptions[i].unsubscribe();
+            for (const subscription of this.subscriptions) {
+                subscription.unsubscribe();
             }
         }
     }
 
-    resetComponent() {
+    private wsHandler(data: EventsWidgetData): void {
+        if (this.event?.id !== data.notification.id) {
+            return;
+        }
+        switch (data.action) {
+            case 'edit':
+                this.editWsElement(data.notification);
+                break;
+            case 'delete':
+                this.deleteWsElement();
+                break;
+        }
+    }
+
+    private editWsElement(notification: EventsWidgetNotification): void {
+        this.setEventByInfo(notification);
+    }
+
+    private deleteWsElement(): void {
+        this.event = null;
+    }
+
+    resetComponent(): void {
         if (
             document.getElementById('overlay-retrieval') &&
             document.getElementById('overlay-retrieval').style.display === 'block'
@@ -159,9 +192,13 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         this.isNewRetrieval = null;
     }
 
-    onSendMessage() {
+    onSendMessage(): void {
         if (this.input.nativeElement.value) {
-            this.comments.push(this.input.nativeElement.value);
+            const commentInfo = {
+                comment: this.input.nativeElement.value
+            }
+            this.event.comments.push(commentInfo);
+            // this.comments.push(this.input.nativeElement.value);
             this.input.nativeElement.value = '';
         } else if (this.input2.nativeElement.value) {
             this.comments2.push(this.input2.nativeElement.value);
@@ -180,13 +217,13 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
     }
 
-    onEnterPush(event?: any) {
+    onEnterPush(event?: any): void {
         if (event.keyCode === 13) {
             this.onSendMessage();
         }
     }
 
-    async createEvent() {
+    async createEvent(): Promise<void> {
         await this.loadItem();
         this.isNew = true;
 
@@ -194,7 +231,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
             itemNumber: 0,
             branch: 'Производство',
             category: this.category ? this.category[0] : null,
-            comment: 'Новое событие',
+            // comments: ['Новое событие'],
             description: '',
             deviationReason: 'Причина отклонения...',
             directReasons: '',
@@ -232,7 +269,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
     // #region DATA API
 
-    async loadItem() {
+    async loadItem(): Promise<void> {
         this.isLoading = true;
         const dataLoadQueue: Promise<void>[] = [];
 
@@ -348,7 +385,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
             itemNumber: 0,
             branch: 'Производство',
             category: this.category ? this.category[0] : null,
-            comment: 'Новое событие',
+            // comments: ['Новое событие'],
             deviationReason: 'Причина отклонения...',
             directReasons: '',
             establishedFacts: '',
@@ -377,7 +414,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         };
     }
 
-    overlayClose() {
+    overlayClose(): void {
         document.getElementById('overlay-retrieval').style.display = 'none';
         this.isNewRetrieval = null;
     }
@@ -386,13 +423,13 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         this.event.retrievalEvents.pop();
     }
 
-    onEditRetrieval(retrieval: EventsWidgetNotification) {
+    onEditRetrieval(retrieval: EventsWidgetNotification): void {
         this.isEdit = true;
         this.isNewRetrieval = retrieval;
         document.getElementById('overlay-retrieval').style.display = 'block';
     }
 
-    async editSaveRetrieval() {
+    async editSaveRetrieval(): Promise<void> {
         this.isEdit = true;
         if (this.isNew) {
             const idx = this.event.retrievalEvents.findIndex(
@@ -447,18 +484,18 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         msgDuration: number = 500,
         actionText?: string,
         actionFunction?: () => void
-    ) {
+    ): void {
         const snackBarInstance = this.snackBar.open(msg, actionText, { duration: msgDuration });
         if (actionFunction) {
             snackBarInstance.onAction().subscribe(() => actionFunction());
         }
     }
 
-    overlayConfirmationOpen() {
+    overlayConfirmationOpen(): void {
         document.getElementById('overlay-confirmation').style.display = 'block';
     }
 
-    overlayConfirmationClose() {
+    overlayConfirmationClose(): void {
         document.getElementById('overlay-confirmation').style.display = 'none';
     }
 
@@ -468,25 +505,25 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         return Number(i + 1).toString();
     }
 
-    compareFn(a, b) {
-        return a && b && a.id == b.id;
+    compareFn(a, b): boolean {
+        return a && b && a.id === b.id;
     }
 
     getRandomInt(max: number): number {
         return Math.floor(Math.random() * Math.floor(max));
     }
 
-    changeCategory() {
+    changeCategory(): void {
         this.idUser = this.getRandomInt(7);
     }
 
-    openLineChart() {
+    openLineChart(): void {
         document.getElementById('overlay-chart').style.display = 'block';
         const event = new CustomEvent('resize');
         document.dispatchEvent(event);
     }
 
-    overlayChartClose() {
+    overlayChartClose(): void {
         document.getElementById('overlay-chart').style.display = 'none';
     }
 }

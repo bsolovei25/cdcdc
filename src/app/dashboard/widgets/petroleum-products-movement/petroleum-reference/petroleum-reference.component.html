@@ -1,4 +1,126 @@
 <div class="reference">
+  <div *ngIf="shortHeight" class="test" [@leaveAnimation]>
+    <div class="reference_title">
+      <ng-container *ngFor="let item of title">
+        <div class="title_block">
+          <div class="title">
+            {{ item.name }}
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="reference_values">
+      <ng-container *ngFor="let item of data">
+        <div class="values_block">
+          <ng-container *ngFor="let key of objectKeys(item)">
+            <ng-container *ngIf="(key === 'finishOperation') || (key === 'startOperation')">
+              <ng-container *ngIf="objectEntries(item[key]).length !== 0">
+                <div class="values">
+                  <div class="value">
+                    <div class="date">
+                      {{ item[key].date }} | {{ item[key].time }}
+                    </div>
+                    <div class="operator">
+                      {{ item[key].operator }}
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="objectEntries(item[key]).length === 0">
+                <div class="values">
+                  <div class="value">
+                    <svg-icon
+                      src="./assets/icons/widgets/petroleum-products-movement/Voskl.svg"
+                      [svgStyle]="{ 'width.px':15, 'height.px':15 }"
+                    >
+                    </svg-icon>
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="(key !== 'finishOperation') && (key !== 'startOperation')">
+              <div class="values">
+                <div class="value">
+                  {{ item[key] }}
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="shortReference" *ngIf="!shortHeight" [@enterAnimation]>
+    <div class="illustration_widget"></div>
+    <div class="table_widget">
+      <div class="reference_title">
+        <ng-container *ngFor="let item of title">
+          <div class="title_block">
+            <div class="title">
+              {{ item.name }}
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <div class="reference_values_short">
+        <ng-container *ngFor="let item of data">
+          <div class="values_block">
+            <ng-container *ngFor="let key of objectKeys(item)">
+              <ng-container *ngIf="(key === 'finishOperation') || (key === 'startOperation')">
+                <ng-container *ngIf="objectEntries(item[key]).length !== 0">
+                  <div class="values">
+                    <div class="value">
+                      <div class="date">
+                        {{ item[key].date }} | {{ item[key].time }}
+                      </div>
+                      <div class="operator">
+                        {{ item[key].operator }}
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="objectEntries(item[key]).length === 0">
+                  <div class="values">
+                    <div class="value">
+                      <svg-icon
+                        src="./assets/icons/widgets/petroleum-products-movement/Voskl.svg"
+                        [svgStyle]="{ 'width.px':15, 'height.px':15 }"
+                      >
+                      </svg-icon>
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <ng-container *ngIf="(key !== 'finishOperation') && (key !== 'startOperation')">
+                <div class="values">
+                  <div class="value">
+                    {{ item[key] }}
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
+          </div>
+        </ng-container>
+      </div>
+      <div class="menu">
+        <div class="left_button_menu">
+          <div class="all_operation">Все операции за период</div>
+          <div class="open_operation">Только открытые операции</div>
+        </div>
+        <div class="right_button_menu">
+          <div class="menu_text">Сформировать отчет</div>
+          <div class="right_button">Баланс по продуктам</div>
+          <div class="right_button">Накопительный баланс</div>
+          <div class="right_button">Оперативный лист</div>
+          <div class="right_button_rezerv">Остатки в резервуарах</div>
+          <div class="right_button_reference">Список операций</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="shortReference" *ngIf="!shortHeight">
   <div class="reference_title">
     <ng-container *ngFor="let item of title">
       <div class="title_block">
@@ -48,4 +170,4 @@
       </div>
     </ng-container>
   </div>
-</div>
+</div> -->

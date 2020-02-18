@@ -1,5 +1,23 @@
 import { LineChartData } from './line-chart';
 
+export interface EventsWidgetNotificationPreview {
+    id: number;
+    originalId: string;
+    itemNumber: number;
+    place: { id: number; name: string };
+    eventDateTime: Date;
+    status: IStatus;
+    priority: IPriority;
+    category: ICategory;
+    severity: string;
+    description: string;
+    comments?: { comment: string, createdBy?: number}[];
+    sortIndex: number;
+    iconUrl?: string;
+    statusName?: string;
+    iconUrlStatus?: string;
+}
+
 export interface EventsWidgetNotification {
     id?: number;
     itemNumber: number;
@@ -18,7 +36,7 @@ export interface EventsWidgetNotification {
     eventType: { id: number; name: string }; // Тип происшествия
     directReasons: string; // Непосредственные/прямые причины
     description: string; // Описание
-    comment: string; // Комментарий оператора
+    comments?: { comment: string, createdBy?: number}[]; // Комментарий оператора
     category: ICategory;
     statusName?: string;
     severity: string;
@@ -49,6 +67,8 @@ export type EventsWidgetFilterCode = 'all' | 'inWork' | 'closed';
 
 export type EventsWidgetCategoryCode = 'smotr' | 'safety' | 'tasks' | 'equipmentStatus' | 'drops';
 
+export type EventAction = 'add' | 'edit' | 'delete';
+
 export interface ICategory {
     id: number;
     name: EventsWidgetCategoryCode;
@@ -68,6 +88,7 @@ export interface IPriority {
 }
 
 export interface EventsWidgetFilter {
+    id: number;
     code: EventsWidgetFilterCode;
     notificationsCount: number;
 
@@ -76,6 +97,7 @@ export interface EventsWidgetFilter {
 }
 
 export interface EventsWidgetCategory {
+    id: number;
     code: EventsWidgetCategoryCode;
     notificationsCounts: EventsWidgetNotificationsCounter;
 
@@ -90,11 +112,34 @@ export interface EventsWidgetNotificationsCounter {
     all: number;
 }
 
+export interface EventsWidgetDataPreview {
+    notification: EventsWidgetNotificationPreview;
+    action: EventAction;
+}
+
 export interface EventsWidgetData {
-    notifications: EventsWidgetNotification[];
+    notification: EventsWidgetNotification;
+    action: EventAction;
 }
 
 export interface EventsWidgetOptions {
-    categories: EventsWidgetCategoryCode[];
+    categories: number[];
     filter: EventsWidgetFilterCode;
+    dates: { fromDateTime: Date, toDateTime: Date };
+}
+
+export interface EventsWidgetsStats {
+    statsByCategory: EventsWidgetsStatsCategory[];
+    statsByStatus: EventsWidgetsStatsStatus[];
+}
+
+export interface EventsWidgetsStatsCategory {
+    category: { id: number };
+    unclosedCount: number;
+    totalCount: number;
+}
+
+export interface EventsWidgetsStatsStatus {
+    status: { id: number };
+    count: number;
 }

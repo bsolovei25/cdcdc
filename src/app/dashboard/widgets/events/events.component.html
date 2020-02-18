@@ -13,11 +13,11 @@
         <div class="header__icon-wrapper">
           <svg-icon class="header__icon" src="./assets/icons/widgets/events/letter.svg"></svg-icon>
         </div>
-        <div *ngIf="!isMock" class="header__icon-wrapper" (click)="listView(false)">
+        <div *ngIf="!isMock" class="header__icon-wrapper" (click)="viewChanger(false)">
           <svg-icon [ngClass]="{'list': !isList}" class="header__icon" src="./assets/pic/list.svg">
           </svg-icon>
         </div>
-        <div *ngIf="!isMock" class="header__icon-wrapper" (click)="listView(true)">
+        <div *ngIf="!isMock" class="header__icon-wrapper" (click)="viewChanger(true)">
           <svg-icon
             [ngClass]="{'blocks': isList}"
             class="header__icon"
@@ -55,30 +55,30 @@
               <div
                 class="notification__block notifications__block__item"
                 *ngFor="let n of notifications"
-                (click)="eventClick(false, n.id, $event)"
-                [ngClass]="{'selected-block': selectedId === n.id || eventOverlayId === n.id}"
+                (click)="eventClick(false, n?.id, $event)"
+                [ngClass]="{'selected-block': selectedId === n?.id || eventOverlayId === n?.id}"
               >
                 <div class="notification__block__header">
                   <span
                     class="notification__block__number"
-                    [ngClass]="'notification__number_' + n.priority"
+                    [ngClass]="'notification__number_' + n?.priority"
                   >
-                    {{n.itemNumber}}
+                    {{n?.itemNumber}}
                   </span>
 
                   <div class="notification__block__extra">
                     <span
                       class="notification__block__status"
-                      [ngClass]="'notification__block__status_' + n.priority.name"
+                      [ngClass]="'notification__block__status_' + n?.priority.name"
                     >
-                      {{n.statusName}}
+                      {{n?.statusName}}
                     </span>
 
                     <span class="notification__block__status">
                       <svg-icon
                         [applyCss]="true"
                         [src]="n.iconUrlStatus"
-                        [ngClass]="'notification__block__icon_' + n.priority.name"
+                        [ngClass]="'notification__block__icon_' + n?.priority.name"
                         [svgStyle]="{'fill':'rgb(63, 168, 243)'}"
                       >
                       </svg-icon>
@@ -217,7 +217,7 @@
                   <button
                     [disabled]="c.url === '#'"
                     type="submit gridster-item-content"
-                    (click)="onClick($event, c.url)"
+                    (click)="onClickUrl($event, c.url)"
                   >
                     В систему источник
                   </button>
@@ -242,112 +242,116 @@
       >
         <div class="events">
           <div class="notifications">
-            <cdk-virtual-scroll-viewport itemSize="30" class="notifications__list scroll-bar">
-              <div
-                class="notification notifications__item"
-                *cdkVirtualFor="let n of notifications"
-                (click)="eventClick(false, n.id, $event)"
-                [ngClass]="{'selected': selectedId === n.id || eventOverlayId === n.id }"
+            <ng-container>
+              <cdk-virtual-scroll-viewport
+                autosize
+                class="notifications__list scroll-bar"
+                (scroll)="scrollHandler($event)"
               >
-                <div class="notification__header">
-                  <span
-                    class="notification__number"
-                    [ngClass]="'notification__number_' + n.priority"
-                  >
-                    {{ n.itemNumber }}
-                  </span>
-                  <span class="notification__name" *ngIf="n.eventType">
-                    {{ n.eventType.name | slice : 0 : 25 }}
-                  </span>
-                  <div class="line notification__line notification__line_top">
-                    <div class="line__circle line__circle__left"></div>
-                    <div class="line__circle line__circle__right"></div>
-                  </div>
-                  <span class="notification__date-time">
-                    {{ n.eventDateTime | date: 'dd.MM.yyyy HH:mm' }}
-                  </span>
-                </div>
-
-                <div class="notification__body">
-                  <span class="notification__description">
-                    {{ n.description }}
-                  </span>
-
-                  <div
-                    class="notification__extra"
-                    (mousedown)="$event.stopPropagation()"
-                    (touchstart)="$event.stopPropagation()"
-                  >
+                <div
+                  class="notification notifications__item"
+                  *cdkVirtualFor="let n of notifications"
+                  (click)="eventClick(false, n.id, $event)"
+                  [ngClass]="{'selected': selectedId === n.id || eventOverlayId === n.id }"
+                >
+                  <div class="notification__header">
                     <span
-                      class="notification__status"
-                      [ngClass]="'notification__status_' + n.priority.name"
+                      class="notification__number"
+                      [ngClass]="'notification__number_' + n.priority"
                     >
-                      {{ n.statusName }}
+                      {{ n.itemNumber }}
                     </span>
-                    <svg-icon
-                      class="notification__icon"
-                      [applyCss]="true"
-                      [src]="n.iconUrl"
-                      [ngClass]="'notification__icon_' + n.priority.name"
-                    ></svg-icon>
-                    <svg-icon
-                      *ngIf="!n.source"
-                      class="notification__icon_delete"
-                      [applyCss]="true"
-                      src="./assets/garbage_bad_pic.svg"
-                      (click)="overlayConfirmationOpen(n)"
+                    <span class="notification__name" *ngIf="n.eventType">
+                      {{ n.eventType.name | slice : 0 : 25 }}
+                    </span>
+                    <div class="line notification__line notification__line_top">
+                      <div class="line__circle line__circle__left"></div>
+                      <div class="line__circle line__circle__right"></div>
+                    </div>
+                    <span class="notification__date-time">
+                      {{ n.eventDateTime | date: 'dd.MM.yyyy HH:mm' }}
+                    </span>
+                  </div>
+
+                  <div class="notification__body">
+                    <span class="notification__description">
+                      {{ n.description }}
+                    </span>
+
+                    <div
+                      class="notification__extra"
                       (mousedown)="$event.stopPropagation()"
                       (touchstart)="$event.stopPropagation()"
                     >
-                    </svg-icon>
-                    <span *ngIf="!n.source" class="notification__icon_delete__mock"></span>
-                  </div>
-                </div>
-                <div class="line notification__line notification__line_bottom">
-                  <div class="line__circle line__circle__left"></div>
-                  <div class="line__circle line__circle__right"></div>
-                </div>
-              </div>
-
-              <div
-                (mousedown)="$event.stopPropagation()"
-                (touchstart)="$event.stopPropagation()"
-                (click)="overlayConfirmationClose()"
-                id="overlay-confirmation-event"
-              >
-                <div class="overlay-confirmation__body">
-                  <span *ngIf="!isDeleteRetrieval"
-                    >Вы действительно хотите удалить выбранное Событие?</span
-                  >
-                  <span *ngIf="isDeleteRetrieval"
-                    >Вы действительно хотите удалить выбранное Событие и связанные
-                    Мероприятия?</span
-                  >
-                  <div style="display: flex;">
-                    <div class="event-confirm__submit">
-                      <div class="submit__frame submit__frame-left"></div>
-                      <div class="submit__frame submit__frame-right"></div>
-                      <button
-                        type="submit gridster-item-content"
-                        (click)="eventClick(true, undefined, $event)"
+                      <span
+                        class="notification__status"
+                        [ngClass]="'notification__status_' + n.priority.name"
                       >
-                        Удалить
-                      </button>
-                    </div>
-                    <div class="event-confirm__submit">
-                      <div class="submit__frame submit__frame-left"></div>
-                      <div class="submit__frame submit__frame-right"></div>
-                      <button
-                        type="submit gridster-item-content"
-                        (click)="overlayConfirmationClose()"
+                        {{ n.statusName }}
+                      </span>
+                      <svg-icon
+                        class="notification__icon"
+                        [applyCss]="true"
+                        [src]="n.iconUrl"
+                        [ngClass]="'notification__icon_' + n.priority.name"
+                      ></svg-icon>
+                      <svg-icon
+                        *ngIf="!n.source"
+                        class="notification__icon_delete"
+                        [applyCss]="true"
+                        src="./assets/garbage_bad_pic.svg"
+                        (click)="overlayConfirmationOpen(n)"
+                        (mousedown)="$event.stopPropagation()"
+                        (touchstart)="$event.stopPropagation()"
                       >
-                        Отменить
-                      </button>
+                      </svg-icon>
+                      <span *ngIf="!n.source" class="notification__icon_delete__mock"></span>
                     </div>
                   </div>
+                  <div class="line notification__line notification__line_bottom">
+                    <div class="line__circle line__circle__left"></div>
+                    <div class="line__circle line__circle__right"></div>
+                  </div>
+                </div>
+              </cdk-virtual-scroll-viewport>
+            </ng-container>
+            <div
+              (mousedown)="$event.stopPropagation()"
+              (touchstart)="$event.stopPropagation()"
+              (click)="overlayConfirmationClose()"
+              id="overlay-confirmation-event"
+            >
+              <div class="overlay-confirmation__body">
+                <span *ngIf="!isDeleteRetrieval"
+                  >Вы действительно хотите удалить выбранное Событие?</span
+                >
+                <span *ngIf="isDeleteRetrieval"
+                  >Вы действительно хотите удалить выбранное Событие и связанные Мероприятия?</span
+                >
+                <div style="display: flex;">
+                  <div class="event-confirm__submit">
+                    <div class="submit__frame submit__frame-left"></div>
+                    <div class="submit__frame submit__frame-right"></div>
+                    <button
+                      type="submit gridster-item-content"
+                      (click)="eventClick(true, undefined, $event)"
+                    >
+                      Удалить
+                    </button>
+                  </div>
+                  <div class="event-confirm__submit">
+                    <div class="submit__frame submit__frame-left"></div>
+                    <div class="submit__frame submit__frame-right"></div>
+                    <button
+                      type="submit gridster-item-content"
+                      (click)="overlayConfirmationClose()"
+                    >
+                      Отменить
+                    </button>
+                  </div>
                 </div>
               </div>
-            </cdk-virtual-scroll-viewport>
+            </div>
           </div>
 
           <div class="controls">
@@ -412,7 +416,7 @@
                   <button
                     [disabled]="c.url === '#'"
                     type="submit gridster-item-content"
-                    (click)="onClick($event, c.url)"
+                    (click)="onClickUrl($event, c.url)"
                   >
                     В систему источник
                   </button>

@@ -298,7 +298,7 @@ export class EnterpriseMapComponent implements OnDestroy, AfterViewInit {
         weather: { temperature: 15, direction: 320, wind: 5.1, pressure: 741 },
     };
 
-    @ViewChild('maps', { static: false }) maps: ElementRef;
+    @ViewChild('maps') maps: ElementRef;
 
     static itemCols: number = 30;
     static itemRows: number = 21;

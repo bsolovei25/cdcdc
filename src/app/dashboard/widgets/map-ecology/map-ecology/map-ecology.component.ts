@@ -50,7 +50,7 @@ export class MapEcologyComponent implements AfterViewInit, OnInit, OnDestroy {
 
     private subscription: Subscription;
 
-    @ViewChild('myCircle', { static: false }) myCircle: ElementRef;
+    @ViewChild('myCircle') myCircle: ElementRef;
 
     public datas;
 

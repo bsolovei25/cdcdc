@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="workspace_button">
-        <div class="button_operation">Создание операций</div>
+        <div class="button_operation" (click)="createOperation(true)">Создание операций</div>
         <div class="button_edit_param">Редактирование параметров</div>
       </div>
     </div>
@@ -43,7 +43,7 @@
       </div>
       <div class="reports_button">
         <ng-container *ngFor="let item of data">
-          <div class="button_rep ">{{item}}</div>
+          <div class="button_rep">{{item}}</div>
         </ng-container>
       </div>
     </div>
