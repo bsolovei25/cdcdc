@@ -1,18 +1,5 @@
 import { LineChartData } from './line-chart';
 
-// id: 32953
-// originalId: "32ce124d-ff84-4ec0-ba66-8a4b56e9f55e"
-// itemNumber: 2
-// place: {id: 5001, name: "ГФУ-1"}
-// eventDateTime: "2020-02-11T10:35:36.159"
-// status: {id: 3001, name: "new", code: "0"}
-// priority: {id: 2001, name: "danger", code: "0", sortOrder: 1}
-// category: {id: 1001, name: "smotr", code: "0"}
-// severity: "critical"
-// description: ""
-// comment: "Новое событие"
-// sortIndex: 0
-
 export interface EventsWidgetNotificationPreview {
     id: number;
     originalId: string;
@@ -24,7 +11,7 @@ export interface EventsWidgetNotificationPreview {
     category: ICategory;
     severity: string;
     description: string;
-    comment: string;
+    comments?: { comment: string, createdBy?: number}[];
     sortIndex: number;
     iconUrl?: string;
     statusName?: string;
@@ -49,7 +36,7 @@ export interface EventsWidgetNotification {
     eventType: { id: number; name: string }; // Тип происшествия
     directReasons: string; // Непосредственные/прямые причины
     description: string; // Описание
-    comment: string; // Комментарий оператора
+    comments?: { comment: string, createdBy?: number}[]; // Комментарий оператора
     category: ICategory;
     statusName?: string;
     severity: string;
@@ -138,6 +125,7 @@ export interface EventsWidgetData {
 export interface EventsWidgetOptions {
     categories: number[];
     filter: EventsWidgetFilterCode;
+    dates: { fromDateTime: Date, toDateTime: Date };
 }
 
 export interface EventsWidgetsStats {

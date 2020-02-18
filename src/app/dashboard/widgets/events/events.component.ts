@@ -208,6 +208,12 @@ export class EventsComponent implements OnInit, OnDestroy {
                     this.wsHandler(ref);
                 })
         );
+
+        this.subscriptions.push(
+            this.widgetService.currentDatesObservable.subscribe((ref) => {
+                this.getData();
+            })
+        );
     }
 
     public onCategoryClick(category: EventsWidgetCategory): void {
@@ -239,6 +245,7 @@ export class EventsComponent implements OnInit, OnDestroy {
         const options: EventsWidgetOptions = {
             categories: this.categories.filter((c) => c.isActive).map((c) => c.id),
             filter: this.filters.find((f) => f.isActive).code,
+            dates: this.widgetService.currentDatesObservable.getValue(),
         };
         return options;
     }

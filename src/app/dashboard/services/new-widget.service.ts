@@ -61,6 +61,7 @@ export class NewWidgetService {
     public offFilterWidget: any = [];
 
     private currentDates: IDatesInterval = null;
+    public currentDatesObservable: BehaviorSubject<IDatesInterval> = new BehaviorSubject<IDatesInterval>(null);
 
     public searchWidgetT: Observable<any> = this.searchWidget$.pipe(
         tap((val) => {
@@ -82,6 +83,10 @@ export class NewWidgetService {
 
         this.getRest();
         this.initWS();
+
+        this.currentDatesObservable.subscribe((ref) => {
+            this.wsSetParams(ref);
+        })
 
         setInterval(() => this.reloadPage(), 1800000);
     }
@@ -150,7 +155,7 @@ export class NewWidgetService {
     }
 
     private wsConnect(widgetId: string): void {
-        if (this.currentDates !== null) {
+        if (this.currentDatesObservable.getValue() !== null) {
             this.wsPeriodData(widgetId);
         } else {
             this.wsRealtimeData(widgetId);
@@ -168,7 +173,7 @@ export class NewWidgetService {
         this.ws.next({
             actionType: 'getPeriodData',
             channelId: widgetId,
-            selectedPeriod: this.currentDates,
+            selectedPeriod: this.currentDatesObservable.getValue(),
         });
     }
 
@@ -378,16 +383,16 @@ export class NewWidgetService {
         this.searchValue = null;
     }
 
-    public wsSetParams(Dates: Date[] = null): void {
+    public wsSetParams(Dates: IDatesInterval = null): void {
         console.log(Dates);
-        if (Dates !== null) {
-            this.currentDates = {
-                fromDateTime: Dates[0],
-                toDateTime: Dates[1],
-            };
-        } else {
-            this.currentDates = null;
-        }
+        // if (Dates !== null) {
+        //     this.currentDates = {
+        //         fromDateTime: Dates[0],
+        //         toDateTime: Dates[1],
+        //     };
+        // } else {
+        //     this.currentDates = null;
+        // }
         this.dashboard.forEach((el) => this.wsDisonnect(el.id));
         this.dashboard.forEach((el) => this.wsConnect(el.id));
     }

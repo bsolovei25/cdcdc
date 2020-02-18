@@ -180,7 +180,11 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
     onSendMessage(): void {
         if (this.input.nativeElement.value) {
-            this.comments.push(this.input.nativeElement.value);
+            const commentInfo = {
+                comment: this.input.nativeElement.value
+            }
+            this.event.comments.push(commentInfo);
+            // this.comments.push(this.input.nativeElement.value);
             this.input.nativeElement.value = '';
         }
         setTimeout(() => {
@@ -206,7 +210,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
             itemNumber: 0,
             branch: 'Производство',
             category: this.category ? this.category[0] : null,
-            comment: 'Новое событие',
+            // comments: ['Новое событие'],
             description: '',
             deviationReason: 'Причина отклонения...',
             directReasons: '',
@@ -360,7 +364,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
             itemNumber: 0,
             branch: 'Производство',
             category: this.category ? this.category[0] : null,
-            comment: 'Новое событие',
+            // comments: ['Новое событие'],
             deviationReason: 'Причина отклонения...',
             directReasons: '',
             establishedFacts: '',
