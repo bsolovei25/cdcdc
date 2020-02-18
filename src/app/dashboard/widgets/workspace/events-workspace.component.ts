@@ -167,7 +167,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         }, 50);
     }
 
-    clickFact(): void{
+    clickFact(): void {
         this.isClickFact = !this.isClickFact;
     }
 
