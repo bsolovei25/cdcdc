@@ -195,7 +195,7 @@ $border-size: 4px;
             }
 
             .input_position {
-              width: 80%;
+              width: 75%;
             }
 
             .position_icon svg {
@@ -219,7 +219,13 @@ $border-size: 4px;
             margin-left: 26px;
           }
           .description_button_update {
-            width: 20%;
+          margin-left: 10px;
+
+            svg-icon{
+              fill: var(--color-text-sub);
+              line-height: 40px;
+
+            }
           }
 
           &:before {
@@ -353,6 +359,7 @@ $border-size: 4px;
           overflow: auto;
 
           .fact_new {
+            position: relative;
             display: flex;
             padding-bottom: 10px;
             cursor: pointer;
@@ -362,27 +369,58 @@ $border-size: 4px;
             }
 
             .fact_text {
+              overflow-wrap: break-word;
               padding-top: 15px;
               margin-left: 26px;
-              width: 80%;
+              width: 70%;
               color: white;
               font-size: 10px;
             }
 
             .fact_menu {
+              width: 100px;
+              position: relative;
               .fact_button {
                 display: flex;
+                position: absolute;
+                bottom: 20px;
+                left: 45px;
+
+                .fact_button_update{
+                  margin-left: 10px;
+                }
 
                 .fact_button_update ::ng-deep svg {
                   fill: var(--color-text-sub);
+
+                  &:hover{
+                    fill: white
+                  }
                 }
 
                 .fact_button_delete ::ng-deep svg {
                   fill: var(--color-text-sub);
+
+                  &:hover{
+                    fill: white
+                  }
                 }
               }
 
               .fact_info {
+                position: absolute;
+                bottom: -15px;  
+                font-size: 9px;
+                
+
+                .fact_info_user{
+                  text-align: end;
+                  height: 10px;
+                }
+
+                .fact_info_date{
+
+                }
               }
             }
           }

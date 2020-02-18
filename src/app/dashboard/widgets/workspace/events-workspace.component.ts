@@ -38,6 +38,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     public title = 'Рабочая область';
     public icon: string = 'document';
     comments: string[] = [];
+    comments2: string[] = [];
     isNew: boolean = true;
 
     isEdit: boolean = false;
@@ -87,6 +88,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     static itemRows = 5;
 
     @ViewChild('input', { static: false }) input: ElementRef;
+    @ViewChild('input2', { static: false }) input2: ElementRef;
     @ViewChild('scroll', { static: false }) scroll: ElementRef;
     @ViewChild('scroll2', { static: false }) scroll2: ElementRef;
 
@@ -161,6 +163,9 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         if (this.input.nativeElement.value) {
             this.comments.push(this.input.nativeElement.value);
             this.input.nativeElement.value = '';
+        } else if(this.input2.nativeElement.value){
+            this.comments2.push(this.input2.nativeElement.value);
+            this.input2.nativeElement.value = '';
         }
         setTimeout(() => {
             this.scrollBottom();
