@@ -18,18 +18,17 @@
       <div class="blocks">
         <div class="components">
           <div class="left_block">
-            <evj-petroleum-reference-left></evj-petroleum-reference-left>
+            <evj-petroleum-reference-left
+              [shortHeight]="isWorkspace"
+            ></evj-petroleum-reference-left>
           </div>
           <div class="middle_block">
-            <evj-petroleum-reference></evj-petroleum-reference>
+            <evj-petroleum-reference [shortHeight]="isWorkspace"></evj-petroleum-reference>
           </div>
           <div class="right_block">
-            <ng-container *ngIf="isWorkspace">
-              <evj-petroleum-workspace></evj-petroleum-workspace>
-            </ng-container>
-            <ng-container *ngIf="!isWorkspace">
-              <evj-petroleum-reference-right></evj-petroleum-reference-right>
-            </ng-container>
+            <evj-petroleum-workspace (isClick)="onChanged($event)" *ngIf="isWorkspace">
+            </evj-petroleum-workspace>
+            <evj-petroleum-reference-right *ngIf="!isWorkspace"></evj-petroleum-reference-right>
           </div>
         </div>
       </div>

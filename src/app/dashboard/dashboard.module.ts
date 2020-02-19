@@ -83,7 +83,6 @@ import { AdminPanelComponent } from './widgets/admin-panel/admin-panel.component
 import { AdminWorkspaceCardComponent } from './widgets/admin-panel/admin-workspace-card/admin-workspace-card.component';
 import { AdminReferencesComponent } from './widgets/admin-references/admin-references.component';
 import { CardVerifierComponent } from './widgets/change-shift/card-verifier/card-verifier.component';
-import { ScrollingModule } from '@angular/cdk/scrolling';
 import { PetroleumProductsMovementComponent } from './widgets/petroleum-products-movement/petroleum-products-movement.component';
 import { PetroleumReferenceLeftComponent } from './widgets/petroleum-products-movement/petroleum-reference-left/petroleum-reference-left.component';
 import { PetroleumReferenceRightComponent } from './widgets/petroleum-products-movement/petroleum-reference-right/petroleum-reference-right.component';
@@ -93,6 +92,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { ScrollingModule } from '@angular/cdk-experimental/scrolling';
+import { ScrollingModule as OldScrollingModule } from "@angular/cdk/scrolling";
 
 @NgModule({
     declarations: [
@@ -240,6 +241,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
         MatNativeDateModule,
         MatInputModule,
         MatFormFieldModule,
+        ScrollingModule,
+        OldScrollingModule,
     ],
     bootstrap: [],
 })

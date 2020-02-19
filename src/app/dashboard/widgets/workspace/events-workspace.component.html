@@ -375,8 +375,8 @@
               <div class="comment__body">
                 <div class="comment__display">
                   <div class="messages scroll-bar" #scroll>
-                    <div class="message" *ngFor="let comment of comments">
-                      {{ comment }}
+                    <div class="message" *ngFor="let comment of event?.comments">
+                      {{ comment.comment }}
                     </div>
                   </div>
                 </div>
@@ -722,9 +722,9 @@
           (click)="$event.stopPropagation()"
           *ngIf="event.graphValues"
         >
-          <evj-line-chart-workspace
-            [dataChartAttribute]="event.graphValues"
-          ></evj-line-chart-workspace>
+          <!--          <evj-line-chart-workspace-->
+          <!--            [dataChartAttribute]="event.graphValues"-->
+          <!--          ></evj-line-chart-workspace>-->
         </div>
       </div>
     </ng-container>

@@ -10,7 +10,7 @@ declare var d3: any;
     styleUrls: ['./circle-factory-diagram.component.scss'],
 })
 export class CircleFactoryDiagramComponent implements AfterViewInit {
-    @ViewChild('circleFactory', { static: false }) CircleFactory: ElementRef;
+    @ViewChild('circleFactory') CircleFactory: ElementRef;
 
     public readonly RADIUS = 42;
 

@@ -10,7 +10,7 @@ declare var d3: any;
     styleUrls: ['./chain-map.component.scss'],
 })
 export class ChainMapComponent implements AfterViewInit {
-    @ViewChild('chain', { static: false }) chain: ElementRef;
+    @ViewChild('chain') chain: ElementRef;
 
     static itemCols = 30;
     static itemRows = 20;

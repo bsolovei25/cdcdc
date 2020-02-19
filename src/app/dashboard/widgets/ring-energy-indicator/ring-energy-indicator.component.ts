@@ -12,7 +12,7 @@ declare var d3: any;
     styleUrls: ['./ring-energy-indicator.component.scss'],
 })
 export class RingEnergyIndicatorComponent implements AfterViewInit {
-    @ViewChild('circleFactory', { static: false }) CircleFactory: ElementRef;
+    @ViewChild('circleFactory') CircleFactory: ElementRef;
 
     public readonly RADIUS = 50;
 
