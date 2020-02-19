@@ -25,6 +25,7 @@ import {
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { DateAdapter } from '@angular/material/core';
+import { AuthService } from '@core/service/auth.service';
 
 @Component({
     selector: 'evj-events-workspace',
@@ -55,6 +56,8 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     place;
     equipmentCategory;
     eventTypes;
+    
+    nameUser;
 
     isNewRetrieval: EventsWidgetNotification = null;
 
@@ -99,6 +102,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         private snackBar: MatSnackBar,
         public widgetService: NewWidgetService,
         private dateAdapter: DateAdapter<Date>,
+        private authService: AuthService,
         // private formBuilder: FormBuilder,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
@@ -109,6 +113,12 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
                 this.title = data.title;
             })
         );
+
+        this.subscriptions.push(this.authService.user$.subscribe((data: IUser) => {
+            if (data) {
+                this.nameUser = data.lastName;
+            }
+        }));
 
         this.dateAdapter.setLocale('ru');
     }
@@ -200,7 +210,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
                 comment: this.input.nativeElement.value,
             };
             this.event.comments.push(commentInfo);
-            // this.comments.push(this.input.nativeElement.value);
+           // this.comments.push(this.input.nativeElement.value);
             this.input.nativeElement.value = '';
         } else if (this.input2.nativeElement.value) {
             this.comments2.push(this.input2.nativeElement.value);
