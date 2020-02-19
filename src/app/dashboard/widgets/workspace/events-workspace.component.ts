@@ -56,7 +56,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     place;
     equipmentCategory;
     eventTypes;
-    
+
     nameUser;
 
     isNewRetrieval: EventsWidgetNotification = null;
@@ -114,11 +114,13 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
             })
         );
 
-        this.subscriptions.push(this.authService.user$.subscribe((data: IUser) => {
-            if (data) {
-                this.nameUser = data.lastName;
-            }
-        }));
+        this.subscriptions.push(
+            this.authService.user$.subscribe((data: IUser) => {
+                if (data) {
+                    this.nameUser = data.lastName;
+                }
+            })
+        );
 
         this.dateAdapter.setLocale('ru');
     }
@@ -210,7 +212,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
                 comment: this.input.nativeElement.value,
             };
             this.event.comments.push(commentInfo);
-           // this.comments.push(this.input.nativeElement.value);
+            // this.comments.push(this.input.nativeElement.value);
             this.input.nativeElement.value = '';
         } else if (this.input2.nativeElement.value) {
             this.comments2.push(this.input2.nativeElement.value);
