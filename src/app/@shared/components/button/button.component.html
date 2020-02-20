@@ -1,6 +1,7 @@
 <button
   class="button button__normal"
   [ngClass]="changeButtonStyle()"
+  [ngClass]="{'button-active':isActive}"
   (mouseover)="isButtonHover=true"
   (mouseleave)="isButtonHover=false"
   (click)="onClick()"

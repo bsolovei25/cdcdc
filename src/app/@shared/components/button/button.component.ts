@@ -12,6 +12,7 @@ export class ButtonComponent implements OnInit {
     @Input() imgSrc: IButtonImgSrc = null;
 
     public isButtonHover: boolean = false;
+    public isActive: boolean = false;
 
     constructor() {}
 
@@ -19,7 +20,7 @@ export class ButtonComponent implements OnInit {
 
     public changeButtonStyle(): string {
         const classBtn: string = this.isSmallButton ? 'button-small' : '';
-        if (this.isButtonHover) {
+        if (this.isButtonHover || this.isActive) {
             return `${classBtn} button-active`;
         }
         return classBtn;
@@ -37,6 +38,6 @@ export class ButtonComponent implements OnInit {
     }
 
     public onClick(): void {
-        console.log('123');
+        this.isActive = !this.isActive;
     }
 }

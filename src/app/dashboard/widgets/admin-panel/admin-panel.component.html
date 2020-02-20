@@ -32,6 +32,7 @@
               class="insert-component"
               [isSmallButton]="true"
               [imgSrc]="groupsButtonIcon"
+              (click)="isGroupShowed=!isGroupShowed"
             ></evj-button>
           </div>
         </div>
@@ -58,7 +59,11 @@
         </div>
       </div>
       <div class="admin__employee">
-        <evj-admin-employee [searchedWorker]="searchedWorker"></evj-admin-employee>
+        <evj-admin-employee
+          [searchedWorker]="searchedWorker"
+          *ngIf="!isGroupShowed"
+        ></evj-admin-employee>
+        <evj-admin-brigades *ngIf="isGroupShowed"></evj-admin-brigades>
       </div>
       <div class="admin__workspace">
         <evj-admin-workspace></evj-admin-workspace>
