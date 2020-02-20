@@ -25,6 +25,8 @@ export class AdminPanelComponent implements OnInit {
     };
     public searchIcon: string = '../../../../assets/icons/search-icon.svg';
 
+    public searchedWorker: string = '';
+
     public man: IWorker = {
         id: 1,
         name: 'Иванов Иван Сергеевич',
@@ -40,4 +42,8 @@ export class AdminPanelComponent implements OnInit {
     ngOnInit(): void {}
 
     onClick(): void {}
+
+    public onSearchWorker(inputedValue: string): void {
+        this.searchedWorker = inputedValue;
+    }
 }

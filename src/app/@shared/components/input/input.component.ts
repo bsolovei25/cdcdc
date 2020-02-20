@@ -1,4 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    Input,
+    Output,
+    EventEmitter,
+    ViewChild,
+    ElementRef,
+} from '@angular/core';
 
 @Component({
     selector: 'evj-input',
@@ -8,18 +16,24 @@ import { Component, OnInit, Input } from '@angular/core';
 export class InputComponent implements OnInit {
     @Input() placeholder: string = '';
     @Input() iconSrc: string = '';
+    @Output() inputedValue: EventEmitter<string> = new EventEmitter<string>();
+    @ViewChild('input') input: ElementRef;
 
     public isFocused: boolean = false;
 
     constructor() {}
 
-    ngOnInit() {}
+    public ngOnInit(): void {}
 
-    onFocus(): string {
+    public onFocus(): string {
         if (this.isFocused) {
             return '';
         } else {
             return this.placeholder;
         }
+    }
+
+    public onInput(): void {
+        this.inputedValue.emit(this.input.nativeElement.value);
     }
 }

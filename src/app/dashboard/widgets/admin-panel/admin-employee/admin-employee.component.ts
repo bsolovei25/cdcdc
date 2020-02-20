@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { IWorker } from '../../../models/worker';
 
 @Component({
@@ -7,6 +7,8 @@ import { IWorker } from '../../../models/worker';
     styleUrls: ['./admin-employee.component.scss'],
 })
 export class AdminEmployeeComponent implements OnInit {
+    @Input() searchedWorker: string = '';
+
     public activeWorker: IWorker = null;
 
     private defaultWorker: IWorker = {
@@ -97,5 +99,10 @@ export class AdminEmployeeComponent implements OnInit {
 
     public showActiveWorker(workerId: number): boolean {
         return workerId === this.activeWorker.id;
+    }
+
+    public onSearchWorker(workerName: string): boolean {
+        const name: string = workerName.toLowerCase();
+        return name.includes(this.searchedWorker.toLowerCase());
     }
 }

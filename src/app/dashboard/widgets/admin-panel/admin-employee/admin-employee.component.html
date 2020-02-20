@@ -1,15 +1,17 @@
 <div class="container">
   <div class="employee__list scroll-bar">
     <div class="employee__humans">
-      <div
-        class="employee__human block__frame-left"
-        *ngFor="let worker of workers"
-        (click)="onSelectWorker(worker.id)"
-        [ngClass]="{'employee__human-active':showActiveWorker(worker.id)}"
-      >
-        <div class="human__name">{{worker.name}}</div>
-        <div class="human__position">{{worker.position}}</div>
-      </div>
+      <ng-container *ngFor="let worker of workers">
+        <div
+          class="employee__human block__frame-left"
+          *ngIf="onSearchWorker(worker.name)"
+          (click)="onSelectWorker(worker.id)"
+          [ngClass]="{'employee__human-active':showActiveWorker(worker.id)}"
+        >
+          <div class="human__name">{{worker.name}}</div>
+          <div class="human__position">{{worker.position}}</div>
+        </div>
+      </ng-container>
     </div>
   </div>
   <div class="employee__person">

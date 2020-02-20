@@ -24,6 +24,7 @@
               class="insert-component"
               [placeholder]="'Введите ФИО сотрудника'"
               [iconSrc]="searchIcon"
+              (inputedValue)="onSearchWorker($event)"
             ></evj-input>
           </div>
           <div class="group__button">
@@ -57,7 +58,7 @@
         </div>
       </div>
       <div class="admin__employee">
-        <evj-admin-employee></evj-admin-employee>
+        <evj-admin-employee [searchedWorker]="searchedWorker"></evj-admin-employee>
       </div>
       <div class="admin__workspace">
         <div class="workspace__header">
