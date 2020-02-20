@@ -80,7 +80,7 @@ import { TimeLineDiagramComponent } from './widgets/time-line-diagram/time-line-
 import { TimeDiagramComponent } from './widgets/time-line-diagram/time-diagram/time-diagram.component';
 import { ObservationNormTRComponent } from './widgets/observation-norm-tr/observation-norm-tr.component';
 import { AdminPanelComponent } from './widgets/admin-panel/admin-panel.component';
-import { AdminWorkspaceCardComponent } from './widgets/admin-panel/admin-workspace-card/admin-workspace-card.component';
+import { AdminWorkspaceCardComponent } from './widgets/admin-panel/admin-workspace/admin-workspace-card/admin-workspace-card.component';
 import { AdminReferencesComponent } from './widgets/admin-references/admin-references.component';
 import { CardVerifierComponent } from './widgets/change-shift/card-verifier/card-verifier.component';
 import { PetroleumProductsMovementComponent } from './widgets/petroleum-products-movement/petroleum-products-movement.component';
@@ -95,6 +95,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ScrollingModule } from '@angular/cdk-experimental/scrolling';
 import { ScrollingModule as OldScrollingModule } from '@angular/cdk/scrolling';
 import { AdminEmployeeComponent } from './widgets/admin-panel/admin-employee/admin-employee.component';
+import { AdminWorkspaceComponent } from './widgets/admin-panel/admin-workspace/admin-workspace.component';
 
 @NgModule({
     declarations: [
@@ -178,6 +179,7 @@ import { AdminEmployeeComponent } from './widgets/admin-panel/admin-employee/adm
         PetroleumReferenceComponent,
         PetroleumWorkspaceComponent,
         AdminEmployeeComponent,
+        AdminWorkspaceComponent,
     ],
     entryComponents: [
         LineChartComponent,

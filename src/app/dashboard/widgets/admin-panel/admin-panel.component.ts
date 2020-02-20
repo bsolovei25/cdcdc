@@ -17,13 +17,10 @@ export class AdminPanelComponent implements OnInit {
     public previewTitle: string = 'Панель администратора';
     public units: string = '';
 
-    public newHumanButtonIcon: IButtonImgSrc = {
-        btnIconSrc: '../../../../assets/icons/widgets/admin/newWorkerIcon-active.svg',
-    };
     public groupsButtonIcon: IButtonImgSrc = {
-        btnIconSrc: '../../../../assets/icons/widgets/admin/icon_group-active.svg',
+        btnIconSrc: 'assets/icons/widgets/admin/icon_group-active.svg',
     };
-    public searchIcon: string = '../../../../assets/icons/search-icon.svg';
+    public searchIcon: string = 'assets/icons/search-icon.svg';
 
     public searchedWorker: string = '';
 

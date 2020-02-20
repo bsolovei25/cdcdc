@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="workspace__header">
+    <div class="workspace__search">
+      <evj-input
+        class="insert-component"
+        [placeholder]="'Введите название рабочей области'"
+        [iconSrc]="searchIcon"
+      ></evj-input>
+    </div>
+    <div class="workspace__links">
+      <a class="active-link">Доступные рабочие области</a>
+      |
+      <a>Права</a>
+    </div>
+  </div>
+  <div class="workspace__list scroll-bar">
+    <div class="cards">
+      <div class="card" *ngFor="let workspace of workspaces">
+        <evj-admin-workspace-card [workspace]="workspace"></evj-admin-workspace-card>
+      </div>
+    </div>
+  </div>
+</div>
