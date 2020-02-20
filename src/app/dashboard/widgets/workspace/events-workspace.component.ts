@@ -18,7 +18,9 @@ import {
     IUser,
     ICategory,
     EventsWidgetCategory,
-    EventsWidgetCategoryCode, EventsWidgetDataPreview, EventsWidgetData,
+    EventsWidgetCategoryCode,
+    EventsWidgetDataPreview,
+    EventsWidgetData,
 } from '../../models/events-widget';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NewWidgetService } from '../../services/new-widget.service';
@@ -109,11 +111,11 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
                 })
             );
             this.subscriptions.push(
-                this.widgetService.getWidgetLiveDataFromWS(this.id, 'events-workspace')
-                    .subscribe((value => {
+                this.widgetService
+                    .getWidgetLiveDataFromWS(this.id, 'events-workspace')
+                    .subscribe((value) => {
                         this.wsHandler(value);
                     })
-                )
             );
         }
         this.isLoading = false;
@@ -181,8 +183,8 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     onSendMessage(): void {
         if (this.input.nativeElement.value) {
             const commentInfo = {
-                comment: this.input.nativeElement.value
-            }
+                comment: this.input.nativeElement.value,
+            };
             this.event.comments.push(commentInfo);
             // this.comments.push(this.input.nativeElement.value);
             this.input.nativeElement.value = '';

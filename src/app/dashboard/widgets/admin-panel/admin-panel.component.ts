@@ -26,6 +26,7 @@ export class AdminPanelComponent implements OnInit {
     public searchIcon: string = '../../../../assets/icons/search-icon.svg';
 
     public man: IWorker = {
+        id: 1,
         name: 'Иванов Иван Сергеевич',
         phone: '+ 7 (925) 599-99-87',
         email: 'Ivanov@gazprom-neft.ru',
