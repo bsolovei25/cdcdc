@@ -7,7 +7,7 @@ import { IWorkspace } from '../../../models/admin-panel';
     styleUrls: ['./admin-workspace.component.scss'],
 })
 export class AdminWorkspaceComponent implements OnInit {
-    public isWorkspaceActive: boolean = false;
+    public isWorkspaceActive: boolean = true;
 
     public searchValue: string = '';
 
