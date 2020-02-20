@@ -96,6 +96,7 @@ import { ScrollingModule } from '@angular/cdk-experimental/scrolling';
 import { ScrollingModule as OldScrollingModule } from '@angular/cdk/scrolling';
 import { AdminEmployeeComponent } from './widgets/admin-panel/admin-employee/admin-employee.component';
 import { AdminWorkspaceComponent } from './widgets/admin-panel/admin-workspace/admin-workspace.component';
+import { AdminClaimsComponent } from './widgets/admin-panel/admin-workspace/admin-claims/admin-claims.component';
 
 @NgModule({
     declarations: [
@@ -180,6 +181,7 @@ import { AdminWorkspaceComponent } from './widgets/admin-panel/admin-workspace/a
         PetroleumWorkspaceComponent,
         AdminEmployeeComponent,
         AdminWorkspaceComponent,
+        AdminClaimsComponent,
     ],
     entryComponents: [
         LineChartComponent,

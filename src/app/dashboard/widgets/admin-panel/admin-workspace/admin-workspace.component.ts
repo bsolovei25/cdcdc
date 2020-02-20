@@ -7,6 +7,8 @@ import { IWorkspace } from '../../../models/admin-panel';
     styleUrls: ['./admin-workspace.component.scss'],
 })
 export class AdminWorkspaceComponent implements OnInit {
+    public isWorkspaceActive: boolean = false;
+
     public searchValue: string = '';
 
     public searchIcon: string = 'assets/icons/search-icon.svg';

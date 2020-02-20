@@ -71,6 +71,9 @@
     &__search {
       width: 350px;
       height: 25px;
+
+      color: var(--color-border-search);
+      font-size: 14px;
     }
 
     &__links {
