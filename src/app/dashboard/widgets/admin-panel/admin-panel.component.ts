@@ -23,7 +23,7 @@ export class AdminPanelComponent implements OnInit {
     public searchIcon: string = 'assets/icons/search-icon.svg';
 
     public searchedWorker: string = '';
-    public isGroupShowed: boolean = false;
+    public isGroupShowed: boolean = true;
 
     public man: IWorker = {
         id: 1,
