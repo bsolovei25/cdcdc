@@ -547,14 +547,14 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         document.getElementById('overlay-chart').style.display = 'none';
     }
 
-    chooseRespons(data){
+    chooseRespons(data) {
         this.userChoosen = true;
         this.chooseNameUser = data.firstName + ' ' + data.middleName + ' ' + data.lastName;
         this.userBrigade = data.brigade.number;
         this.userDescription = data.positionDescription;
     }
 
-    chooseMeropRespons(data){
+    chooseMeropRespons(data) {
         this.userMeropChoosen = true;
         this.chooseNameUser = data.firstName + ' ' + data.middleName + ' ' + data.lastName;
         this.userBrigade = data.brigade.number;

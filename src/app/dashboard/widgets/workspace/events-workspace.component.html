@@ -87,7 +87,8 @@
                     <mat-form-field class="categories_selectbox">
                       <mat-label>Тип оборудования</mat-label>
                       <mat-select panelClass="mat-select-custom">
-                        <mat-option *ngFor="let p of equipmentCategory" [value]="p">{{ p.name }} 
+                        <mat-option *ngFor="let p of equipmentCategory" [value]="p"
+                          >{{ p.name }}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
@@ -107,7 +108,7 @@
                     </mat-form-field>
                   </evj-ui-block>
                 </div>
-                <div class="number_position" >
+                <div class="number_position">
                   <evj-ui-block class="workspace__header__block" status="normal">
                     <div class="input_position">
                       <mat-form-field class="example-full-width">
@@ -314,7 +315,7 @@
                   </div>
                   <div class="name_user_info">
                     <div>{{ chooseNameUser }}</div>
-                    <div> {{ userDescription }}</div>
+                    <div>{{ userDescription }}</div>
                   </div>
                 </div>
                 <div class="brigade_user">
@@ -323,15 +324,15 @@
                   </div>
                 </div>
                 <div class="avatar_user">
-                  <div class="avatar_user_img"><img src="../assets/pic/avatar_temp.jpg"></div>
+                  <div class="avatar_user_img"><img src="../assets/pic/avatar_temp.jpg" /></div>
                 </div>
               </div>
               <evj-ui-block class="workspace__header__block" status="normal">
                 <mat-form-field>
                   <mat-label>Отвественный</mat-label>
                   <mat-select panelClass="mat-select-custom">
-                    <mat-option *ngFor="let p of user" [value]="p" (click) = "chooseRespons(p)"
-                    >{{ p.lastName }} {{ p.firstName }}
+                    <mat-option *ngFor="let p of user" [value]="p" (click)="chooseRespons(p)"
+                      >{{ p.lastName }} {{ p.firstName }}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
@@ -373,19 +374,21 @@
                       </div>
                     </div>
                     <div class="events_menu">
-                      <div class="events_check">  <svg-icon
-                        src="./assets/icons/widgets/workspace/accept.svg"
-                        [svgStyle]="{ 'width.px':15, 'height.px':15 }"
-                      >
-                      </svg-icon></div>
+                      <div class="events_check">
+                        <svg-icon
+                          src="./assets/icons/widgets/workspace/accept.svg"
+                          [svgStyle]="{ 'width.px':15, 'height.px':15 }"
+                        >
+                        </svg-icon>
+                      </div>
                       <div class="events_button">
                         <div clas="events_button_delete">
                           <svg-icon
-                          class="delete_button_icon"
-                          src="./assets/icons/widgets/workspace/delete.svg"
-                          [svgStyle]="{ 'width.px':16, 'height.px':16 }"
-                        >
-                        </svg-icon>
+                            class="delete_button_icon"
+                            src="./assets/icons/widgets/workspace/delete.svg"
+                            [svgStyle]="{ 'width.px':16, 'height.px':16 }"
+                          >
+                          </svg-icon>
                         </div>
                         <div clas="events_button_update">
                           <svg-icon
@@ -435,7 +438,6 @@
                         <div class="events_info_title">Кратное описание</div>
                         <div class="events_info_body">
                           Неисправность расходомера FIRCАHL-1008 «Расход МЭА в колонну К-2» в 8:20.
-                        
                         </div>
                       </div>
                       <div class="events_status">
@@ -465,7 +467,6 @@
                         <div class="events_info_title">Кратное описание</div>
                         <div class="events_info_body">
                           Неисправность расходомера FIRCАHL-1008 «Расход МЭА в колонну К-2» в 8:20.
-                        
                         </div>
                       </div>
                       <div class="events_status">
@@ -584,7 +585,7 @@
                 </mat-form-field>
               </evj-ui-block>
             </div>
-    
+
             <div class="workspace__body">
               <div class="workspace__body__left">
                 <div class="select__block">
@@ -606,7 +607,8 @@
                         <mat-form-field class="categories_selectbox">
                           <mat-label>Тип оборудования</mat-label>
                           <mat-select panelClass="mat-select-custom">
-                            <mat-option *ngFor="let p of equipmentCategory" [value]="p">{{ p.name }} 
+                            <mat-option *ngFor="let p of equipmentCategory" [value]="p"
+                              >{{ p.name }}
                             </mat-option>
                           </mat-select>
                         </mat-form-field>
@@ -626,7 +628,7 @@
                         </mat-form-field>
                       </evj-ui-block>
                     </div>
-                    <div class="number_position" >
+                    <div class="number_position">
                       <evj-ui-block class="workspace__header__block" status="normal">
                         <div class="input_position">
                           <mat-form-field class="example-full-width">
@@ -644,7 +646,7 @@
                     </div>
                   </div>
                 </div>
-    
+
                 <div class="description">
                   <div class="description_nav">
                     <div class="description_title">Краткое описание</div>
@@ -658,14 +660,14 @@
                   </div>
                   <div class="description__content">
                     <div class="description__content_text">
-                      Неисправность расходомера FIRCАHL-1008 «Расход МЭА в колонну К-2» в 8:20. Переход
-                      на ручное управление клапаном 12FV-1008 в 8:22 Остановка насоса Н-17А по
-                      блокировке поз. FISAL1043 на установке ГФУ-2 с БОР производства №1
+                      Неисправность расходомера FIRCАHL-1008 «Расход МЭА в колонну К-2» в 8:20.
+                      Переход на ручное управление клапаном 12FV-1008 в 8:22 Остановка насоса Н-17А
+                      по блокировке поз. FISAL1043 на установке ГФУ-2 с БОР производства №1
                     </div>
                   </div>
                   <div class="frame_description_bottom"></div>
                 </div>
-    
+
                 <div class="fact_block">
                   <div class="title_fact_block">
                     <div class="title_fact_block_text">
@@ -737,7 +739,7 @@
                   </div>
                 </div>
               </div>
-    
+
               <div class="workspace__body__right">
                 <div class="info_block">
                   <div class="place">
@@ -771,7 +773,7 @@
                       </div>
                       <div class="name_user_info">
                         <div>{{ chooseNameUser }}</div>
-                        <div> {{ userDescription }}</div>
+                        <div>{{ userDescription }}</div>
                       </div>
                     </div>
                     <div class="brigade_user">
@@ -780,15 +782,18 @@
                       </div>
                     </div>
                     <div class="avatar_user">
-                      <div class="avatar_user_img"><img src="../assets/pic/avatar_temp.jpg"></div>
+                      <div class="avatar_user_img"><img src="../assets/pic/avatar_temp.jpg" /></div>
                     </div>
                   </div>
                   <evj-ui-block class="workspace__header__block" status="normal">
                     <mat-form-field>
                       <mat-label>Отвественный</mat-label>
                       <mat-select panelClass="mat-select-custom">
-                        <mat-option *ngFor="let p of user" [value]="p" (click) = "chooseMeropRespons(p)"
-                        >{{ p.lastName }} {{ p.firstName }}
+                        <mat-option
+                          *ngFor="let p of user"
+                          [value]="p"
+                          (click)="chooseMeropRespons(p)"
+                          >{{ p.lastName }} {{ p.firstName }}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
@@ -876,7 +881,11 @@
                 >
                   Сохранить
                 </button>
-                <button *ngIf="isEdit" type="submit gridster-item-content" (click)="editSaveRetrieval()">
+                <button
+                  *ngIf="isEdit"
+                  type="submit gridster-item-content"
+                  (click)="editSaveRetrieval()"
+                >
                   Изменить и сохранить
                 </button>
               </div>
