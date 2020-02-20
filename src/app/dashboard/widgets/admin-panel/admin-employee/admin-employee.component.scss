@@ -85,6 +85,36 @@
       &:hover {
         cursor: pointer;
       }
+
+      &::before {
+        content: "";
+        position: absolute;
+
+        width: 10px;
+        height: 10px;
+
+        background: var(--color-bg-main);
+
+        transform: rotate(45deg);
+
+        top: -5px;
+        left: -5px;
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+
+        width: 10px;
+        height: 10px;
+
+        background: var(--color-bg-main);
+
+        transform: rotate(45deg);
+
+        bottom: -5px;
+        left: -5px;
+      }
     }
 
     &__person {
