@@ -71,16 +71,13 @@
     &__search {
       width: 350px;
       height: 25px;
-
-      color: var(--color-border-search);
-      font-size: 14px;
     }
 
     &__links {
       color: var(--color-border-search);
       a {
         text-decoration: none;
-        color: var(--color-border-search);
+        color: var(--color-text-main);
         margin: 0px 10px;
 
         &:hover {
@@ -152,6 +149,19 @@
           }
         }
       }
+    }
+
+    &__claims {
+      width: 100%;
+      height: calc(100% - 80px);
+
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+
+      box-sizing: border-box;
+      padding: 0px 0px 20px 0px;
     }
   }
 }

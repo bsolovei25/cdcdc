@@ -8,7 +8,6 @@
         (inputedValue)="onInput($event)"
         *ngIf="isWorkspaceActive"
       ></evj-input>
-      <ng-container *ngIf="!isWorkspaceActive">Права</ng-container>
     </div>
     <div class="workspace__links">
       <a [ngClass]="{'active-link':isWorkspaceActive}" (click)="isWorkspaceActive=true"
@@ -30,5 +29,5 @@
     </div>
   </ng-container>
 
-  <evj-admin-claims *ngIf="!isWorkspaceActive"></evj-admin-claims>
+  <evj-admin-claims class="workspace__claims" *ngIf="!isWorkspaceActive"></evj-admin-claims>
 </div>

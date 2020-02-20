@@ -1,1 +1,14 @@
-<p>admin-claims works!</p>
+<div class="claims scroll-bar">
+  <div class="row">
+    <div class="row__title">Права</div>
+    <div class="row__items">
+      <div class="item" *ngFor="let item of claims">{{item.name}}</div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="row__title">Доступные виджеты</div>
+    <div class="row__items">
+      <div class="item" *ngFor="let item of availableWidgets">{{item.name}}</div>
+    </div>
+  </div>
+</div>

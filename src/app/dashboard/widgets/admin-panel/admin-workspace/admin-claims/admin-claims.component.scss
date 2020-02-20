@@ -1,67 +1,77 @@
-.container {
+.claims {
   width: 100%;
-  height: 100%;
+  height: calc(100% + 110px);
 
-  .claims {
-    &__list {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  box-sizing: border-box;
+
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  .row {
+    width: 100%;
+    height: fit-content;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    &__title {
+      color: var(--color-border-search);
+      font-size: 14px;
+
+      margin-bottom: 20px;
+      margin-left: 30px;
+    }
+
+    &__items {
       width: 100%;
-      height: 150px;
+      height: fit-content;
 
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
       align-items: center;
+      flex-wrap: wrap;
 
-      box-sizing: border-box;
-      padding: 0px 0px 20px 0px;
-
-      overflow-x: scroll;
-      overflow-y: hidden;
-
-      .cards {
-        height: 100%;
+      .item {
+        height: 35px;
+        width: max-content;
 
         display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
+        flex-direction: column;
+        justify-content: center;
         align-items: center;
 
-        .card {
-          height: 100px;
-          width: 230px;
+        box-sizing: border-box;
+        padding: 0px 10px;
+        border: 0.5px solid var(--color-active);
+        border-radius: 35px;
 
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
+        margin-bottom: 15px;
+        margin-right: 10px;
 
-          margin: 0px 10px;
-
-          svg {
-            width: 100%;
-            height: 100%;
-          }
-
-          .text {
-            font-size: 3px;
-            fill: var(--color-text-main-transparent);
-          }
-
-          &:first-child {
-            margin-left: 15px;
-          }
-
-          &:last-child {
-            margin-right: 0;
-          }
-
-          &-active {
-            .text {
-              fill: var(--color-text-main);
-            }
-          }
-        }
+        color: var(--color-text-main);
+        font-size: 12px;
       }
     }
+  }
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-axis);
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 25px;
+  margin: 15px 0px;
+
+  &-piece {
+    background: var(--color-bg-sub);
   }
 }
