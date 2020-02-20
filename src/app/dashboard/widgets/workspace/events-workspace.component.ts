@@ -59,6 +59,11 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
     nameUser;
 
+    userChoosen: boolean = false;
+    chooseNameUser: string;
+    userBrigade: string;
+    userDescription: string;
+
     isNewRetrieval: EventsWidgetNotification = null;
 
     statuses: { [id in EventsWidgetNotificationStatus]: string } = {
@@ -539,5 +544,12 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
     overlayChartClose(): void {
         document.getElementById('overlay-chart').style.display = 'none';
+    }
+
+    chooseRespons(data){
+        this.userChoosen = true;
+        this.chooseNameUser = data.firstName + ' ' + data.middleName + ' ' + data.lastName;
+        this.userBrigade = data.brigade.number;
+        this.userDescription = data.positionDescription;
     }
 }

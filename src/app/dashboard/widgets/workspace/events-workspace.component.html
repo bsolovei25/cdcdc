@@ -69,57 +69,60 @@
         <div class="workspace__body">
           <div class="workspace__body__left">
             <div class="select__block">
-              <div class="categories">
-                <evj-ui-block class="workspace__body__categories" status="normal">
-                  <mat-form-field class="categories_selectbox">
-                    <mat-label>Категория</mat-label>
-                    <mat-select panelClass="mat-select-custom">
-                      <mat-option *ngFor="let cat of this.category" [value]="cat">
-                        {{ categories[cat.name] }}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </evj-ui-block>
-              </div>
-              <div class="type">
-                <evj-ui-block class="workspace__body__categories" status="normal">
-                  <mat-form-field class="categories_selectbox">
-                    <mat-label>Тип оборудования</mat-label>
-                    <mat-select panelClass="mat-select-custom">
-                      <mat-option *ngFor="let food of foods" [value]="food.value">
-                        {{food.viewValue}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </evj-ui-block>
-              </div>
-              <div class="type_incident" *ngIf="isClickFact">
-                <evj-ui-block class="workspace__header__block" status="normal">
-                  <mat-form-field>
-                    <mat-label>Тип происшествия</mat-label>
-                    <mat-select panelClass="mat-select-custom">
-                      <mat-option *ngFor="let food of foods" [value]="food.value">
-                        {{food.viewValue}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </evj-ui-block>
-              </div>
-              <div class="number_position" *ngIf="isClickFact">
-                <evj-ui-block class="workspace__header__block" status="normal">
-                  <div class="input_position">
-                    <mat-form-field class="example-full-width">
-                      <mat-label>Номер позиции</mat-label>
-                      <input matInput placeholder="Текст..." />
+              <div class="first_block">
+                <div class="categories">
+                  <evj-ui-block class="workspace__body__categories" status="normal">
+                    <mat-form-field class="categories_selectbox">
+                      <mat-label>Категория</mat-label>
+                      <mat-select panelClass="mat-select-custom">
+                        <mat-option *ngFor="let cat of this.category" [value]="cat">
+                          {{ categories[cat.name] }}
+                        </mat-option>
+                      </mat-select>
                     </mat-form-field>
-                  </div>
-                  <div class="position_icon">
-                    <svg-icon
-                      src="./assets/icons/edit.svg"
-                      [svgStyle]="{ 'width.px':25, 'height.px':25 }"
-                    ></svg-icon>
-                  </div>
-                </evj-ui-block>
+                  </evj-ui-block>
+                </div>
+                <div class="type">
+                  <evj-ui-block class="workspace__body__categories" status="normal">
+                    <mat-form-field class="categories_selectbox">
+                      <mat-label>Тип оборудования</mat-label>
+                      <mat-select panelClass="mat-select-custom">
+                        <mat-option *ngFor="let p of equipmentCategory" [value]="p">{{ p.name }} 
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </evj-ui-block>
+                </div>
+              </div>
+              <div class="second_block" *ngIf="isClickFact">
+                <div class="type_incident">
+                  <evj-ui-block class="workspace__header__block" status="normal">
+                    <mat-form-field>
+                      <mat-label>Тип происшествия</mat-label>
+                      <mat-select panelClass="mat-select-custom">
+                        <mat-option *ngFor="let food of foods" [value]="food.value">
+                          {{food.viewValue}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </evj-ui-block>
+                </div>
+                <div class="number_position" >
+                  <evj-ui-block class="workspace__header__block" status="normal">
+                    <div class="input_position">
+                      <mat-form-field class="example-full-width">
+                        <mat-label>Номер позиции</mat-label>
+                        <input matInput placeholder="Текст..." />
+                      </mat-form-field>
+                    </div>
+                    <div class="position_icon">
+                      <svg-icon
+                        src="./assets/icons/edit.svg"
+                        [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+                      ></svg-icon>
+                    </div>
+                  </evj-ui-block>
+                </div>
               </div>
             </div>
 
@@ -304,12 +307,31 @@
               </div>
             </div>
             <div class="responsible">
+              <div *ngIf="userChoosen" class="choosenUser">
+                <div class="name_user">
+                  <div class="name_user_responsible">
+                    Ответственный
+                  </div>
+                  <div class="name_user_info">
+                    <div>{{ chooseNameUser }}</div>
+                    <div> {{ userDescription }}</div>
+                  </div>
+                </div>
+                <div class="brigade_user">
+                  <div class="brigade_user_text">
+                    Бригада № {{ userBrigade }}
+                  </div>
+                </div>
+                <div class="avatar_user">
+                  <div class="avatar_user_img"><img src="../assets/pic/avatar_temp.jpg"></div>
+                </div>
+              </div>
               <evj-ui-block class="workspace__header__block" status="normal">
                 <mat-form-field>
                   <mat-label>Отвественный</mat-label>
                   <mat-select panelClass="mat-select-custom">
-                    <mat-option *ngFor="let food of foods" [value]="food.value">
-                      {{food.viewValue}}
+                    <mat-option *ngFor="let p of user" [value]="p" (click) = "chooseRespons(p)"
+                    >{{ p.lastName }} {{ p.firstName }}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
@@ -351,12 +373,24 @@
                       </div>
                     </div>
                     <div class="events_menu">
-                      <div class="events_check"></div>
+                      <div class="events_check">  <svg-icon
+                        src="./assets/icons/widgets/workspace/accept.svg"
+                        [svgStyle]="{ 'width.px':15, 'height.px':15 }"
+                      >
+                      </svg-icon></div>
                       <div class="events_button">
-                        <div clas="events_button_delete"></div>
+                        <div clas="events_button_delete">
+                          <svg-icon
+                          class="delete_button_icon"
+                          src="./assets/icons/widgets/workspace/delete.svg"
+                          [svgStyle]="{ 'width.px':16, 'height.px':16 }"
+                        >
+                        </svg-icon>
+                        </div>
                         <div clas="events_button_update">
                           <svg-icon
-                            src="./assets/icons/edit.svg"
+                            class="edit_button_icon"
+                            src="./assets/icons/widgets/workspace/edit.svg"
                             [svgStyle]="{ 'width.px':20, 'height.px':20 }"
                           >
                           </svg-icon>
@@ -371,9 +405,7 @@
                         <div class="events_info_title">Кратное описание</div>
                         <div class="events_info_body">
                           Неисправность расходомера FIRCАHL-1008 «Расход МЭА в колонну К-2» в 8:20.
-                          Переход на ручное управление клапаном 12FV-1008 в 8:22 Остановка насоса
-                          Н-17А по блокировке поз. FISAL1043 на установке ГФУ-2 с БОР производства
-                          №1
+                          Переход на ручное управление клапаном.
                         </div>
                       </div>
                       <div class="events_status">
@@ -403,9 +435,7 @@
                         <div class="events_info_title">Кратное описание</div>
                         <div class="events_info_body">
                           Неисправность расходомера FIRCАHL-1008 «Расход МЭА в колонну К-2» в 8:20.
-                          Переход на ручное управление клапаном 12FV-1008 в 8:22 Остановка насоса
-                          Н-17А по блокировке поз. FISAL1043 на установке ГФУ-2 с БОР производства
-                          №1
+                        
                         </div>
                       </div>
                       <div class="events_status">
@@ -435,9 +465,7 @@
                         <div class="events_info_title">Кратное описание</div>
                         <div class="events_info_body">
                           Неисправность расходомера FIRCАHL-1008 «Расход МЭА в колонну К-2» в 8:20.
-                          Переход на ручное управление клапаном 12FV-1008 в 8:22 Остановка насоса
-                          Н-17А по блокировке поз. FISAL1043 на установке ГФУ-2 с БОР производства
-                          №1
+                        
                         </div>
                       </div>
                       <div class="events_status">
@@ -466,6 +494,7 @@
                   <div class="add_events">
                     <svg-icon
                       src="./assets/icons/add_button.svg"
+                      class="add_button_icon"
                       [svgStyle]="{ 'width.px':20, 'height.px':20 }"
                       (click)="addRetrieval()"
                     ></svg-icon>
@@ -516,7 +545,7 @@
       (click)="overlayClose()"
     >
       <div class="overlay-retrieval__body" (click)="$event.stopPropagation()">
-        <div *ngIf="isNewRetrieval" class="overlay-retrieval__header__block">
+        <!-- <div *ngIf="isNewRetrieval" class="overlay-retrieval__header__block">
           <section class="overlay-retrieval__blocks">
             <div class="overlay-retrieval__block">
               <div class="overlay-retrieval__block__title">
@@ -559,7 +588,6 @@
                 Место:
               </div>
               <div class="overlay-retrieval__block__body">
-                <!-- {{ event.place.name }} -->
                 ГФУ-2 с БОР
               </div>
             </div>
@@ -749,9 +777,346 @@
               </div>
             </div>
           </section>
-        </div>
+        </div> -->
+        <ng-container>
+          <section
+            *ngIf="true"
+            class="workspace"
+            (mousedown)="$event.stopPropagation()"
+            (touchstart)="$event.stopPropagation()"
+          >
+            <div class="workspace__header">
+              <evj-ui-block class="workspace__header__block" status="normal">
+                <mat-form-field class="status">
+                  <mat-label>Статус</mat-label>
+                  <mat-select panelClass="mat-select-custom">
+                    <mat-option *ngFor="let p of status" [value]="p"
+                      >{{ statuses[p.name] }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </evj-ui-block>
+              <evj-ui-block class="workspace__header__block" status="danger">
+                <mat-form-field class="priority">
+                  <mat-label>Приоритет</mat-label>
+                  <mat-select panelClass="mat-select-custom">
+                    <mat-option *ngFor="let p of priority" [value]="p"
+                      >{{ priorities[p.name] }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </evj-ui-block>
+              <evj-ui-block class="workspace__header__block" status="accept">
+                <mat-form-field class="accept">
+                  <mat-label>Событие</mat-label>
+                  <mat-select panelClass="mat-select-custom">
+                    <mat-option *ngFor="let food of foods" [value]="food.value">
+                      {{food.viewValue}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </evj-ui-block>
+            </div>
+    
+            <div class="workspace__body">
+              <div class="workspace__body__left">
+                <div class="select__block">
+                  <div class="first_block">
+                    <div class="categories">
+                      <evj-ui-block class="workspace__body__categories" status="normal">
+                        <mat-form-field class="categories_selectbox">
+                          <mat-label>Категория</mat-label>
+                          <mat-select panelClass="mat-select-custom">
+                            <mat-option *ngFor="let cat of this.category" [value]="cat">
+                              {{ categories[cat.name] }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </evj-ui-block>
+                    </div>
+                    <div class="type">
+                      <evj-ui-block class="workspace__body__categories" status="normal">
+                        <mat-form-field class="categories_selectbox">
+                          <mat-label>Тип оборудования</mat-label>
+                          <mat-select panelClass="mat-select-custom">
+                            <mat-option *ngFor="let p of equipmentCategory" [value]="p">{{ p.name }} 
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </evj-ui-block>
+                    </div>
+                  </div>
+                  <div class="second_block" *ngIf="isClickFact">
+                    <div class="type_incident">
+                      <evj-ui-block class="workspace__header__block" status="normal">
+                        <mat-form-field>
+                          <mat-label>Тип происшествия</mat-label>
+                          <mat-select panelClass="mat-select-custom">
+                            <mat-option *ngFor="let food of foods" [value]="food.value">
+                              {{food.viewValue}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </evj-ui-block>
+                    </div>
+                    <div class="number_position" >
+                      <evj-ui-block class="workspace__header__block" status="normal">
+                        <div class="input_position">
+                          <mat-form-field class="example-full-width">
+                            <mat-label>Номер позиции</mat-label>
+                            <input matInput placeholder="Текст..." />
+                          </mat-form-field>
+                        </div>
+                        <div class="position_icon">
+                          <svg-icon
+                            src="./assets/icons/edit.svg"
+                            [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+                          ></svg-icon>
+                        </div>
+                      </evj-ui-block>
+                    </div>
+                  </div>
+                </div>
+    
+                <div class="description">
+                  <div class="description_nav">
+                    <div class="description_title">Краткое описание</div>
+                    <div class="description_button_update">
+                      <svg-icon
+                        src="./assets/icons/edit.svg"
+                        [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+                      >
+                      </svg-icon>
+                    </div>
+                  </div>
+                  <div class="description__content">
+                    <div class="description__content_text">
+                      Неисправность расходомера FIRCАHL-1008 «Расход МЭА в колонну К-2» в 8:20. Переход
+                      на ручное управление клапаном 12FV-1008 в 8:22 Остановка насоса Н-17А по
+                      блокировке поз. FISAL1043 на установке ГФУ-2 с БОР производства №1
+                    </div>
+                  </div>
+                  <div class="frame_description_bottom"></div>
+                </div>
+    
+                <div class="fact_block">
+                  <div class="title_fact_block">
+                    <div class="title_fact_block_text">
+                      кекчебурек
+                    </div>
+                  </div>
+                  <div class="fact_content_create_event" #scroll>
+                    <!--ngFor -->
+                    <div
+                      class="fact_new"
+                      (click)="clickFact()"
+                      [class.activeFact]="isClickFact"
+                      *ngFor="let comment of event?.comments"
+                    >
+                      <div class="fact_text">
+                        <p>{{comment.comment}}</p>
+                      </div>
+                      <div class="fact_menu">
+                        <div class="fact_button">
+                          <div class="fact_button_update" *ngIf="isClickFact">
+                            <svg-icon
+                              src="./assets/pic/AdminReferences/delete.svg"
+                              [svgStyle]="{ 'width.px':16, 'height.px':16 }"
+                            >
+                            </svg-icon>
+                          </div>
+                          <div class="fact_button_delete" *ngIf="isClickFact">
+                            <svg-icon
+                              src="./assets/icons/edit.svg"
+                              [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+                            >
+                            </svg-icon>
+                          </div>
+                        </div>
+                        <div class="fact_info">
+                          <div class="fact_info_user">Иванов И.В.</div>
+                          <div class="fact_info_date">25.05.2020 | 13:23:23</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="empty"></div>
+                  <div class="fact_comment">
+                    <div class="comment__new">
+                      <input
+                        type="text"
+                        class="comment__text gridster-item-content"
+                        placeholder="Напишите свой комментарий..."
+                        (keypress)="onEnterPush($event)"
+                        #input
+                      />
+                      <button type="submit" class="button comment__file   gridster-item-content">
+                        <svg-icon
+                          class="button__icon"
+                          src="./assets/icons/widgets/change-shift/add_file.svg"
+                        ></svg-icon>
+                      </button>
+                      <button
+                        type="submit"
+                        class="button comment__submit  gridster-item-content"
+                        (click)="onSendMessage()"
+                      >
+                        <svg-icon
+                          class="button__icon"
+                          src="./assets/icons/widgets/change-shift/send.svg"
+                        ></svg-icon>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+    
+              <div class="workspace__body__right">
+                <div class="info_block">
+                  <div class="place">
+                    <div class="place_title">
+                      Место:
+                    </div>
+                    <div class="place_body">
+                      ГФУ-2 с БОР
+                    </div>
+                  </div>
+                  <div class="creator">
+                    <div class="creator_title">
+                      Автор
+                    </div>
+                    <div class="creator_body">{{nameUser}}</div>
+                  </div>
+                  <div class="deadline">
+                    <mat-form-field>
+                      <mat-label>Срок выполнения</mat-label>
+                      <input matInput [matDatepicker]="myDatepicker" />
+                      <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+                      <mat-datepicker #myDatepicker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="responsible">
+                  <div *ngIf="userChoosen" class="choosenUser">
+                    <div class="name_user">
+                      <div class="name_user_responsible">
+                        Ответственный
+                      </div>
+                      <div class="name_user_info">
+                        <div>{{ chooseNameUser }}</div>
+                        <div> {{ userDescription }}</div>
+                      </div>
+                    </div>
+                    <div class="brigade_user">
+                      <div class="brigade_user_text">
+                        Бригада № {{ userBrigade }}
+                      </div>
+                    </div>
+                    <div class="avatar_user">
+                      <div class="avatar_user_img"><img src="../assets/pic/avatar_temp.jpg"></div>
+                    </div>
+                  </div>
+                  <evj-ui-block class="workspace__header__block" status="normal">
+                    <mat-form-field>
+                      <mat-label>Отвественный</mat-label>
+                      <mat-select panelClass="mat-select-custom">
+                        <mat-option *ngFor="let p of user" [value]="p" (click) = "chooseRespons(p)"
+                        >{{ p.lastName }} {{ p.firstName }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </evj-ui-block>
+                </div>
+                <div class="comments_block">
+                  <div class="title_comments_block">
+                    <div class="title_comments_block_text">
+                      кекчебурек
+                    </div>
+                  </div>
+                  <div class="comments_content_create_event">
+                    <!--ngFor -->
+                    <div
+                      class="comment_new"
+                      (click)="clickFact()"
+                      [class.activeFact]="isClickFact"
+                      *ngFor="let comment of comments2"
+                    >
+                      <div class="comment_text">
+                        {{comment}}
+                      </div>
+                      <div class="comment_menu">
+                        <div class="comment_button">
+                          <div class="comment_button_update">
+                            <svg-icon
+                              src="./assets/icons/edit.svg"
+                              [svgStyle]="{ 'width.px':15, 'height.px':15 }"
+                            >
+                            </svg-icon>
+                          </div>
+                          <div class="comment_button_delete"></div>
+                        </div>
+                        <div class="comment_info"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="empty"></div>
+                  <div class="fact_comment">
+                    <div class="comment__new">
+                      <input
+                        type="text"
+                        class="comment__text gridster-item-content"
+                        placeholder="Напишите свой комментарий..."
+                        (keypress)="onEnterPush($event)"
+                        #input2
+                      />
+                      <button type="submit" class="button comment__file   gridster-item-content">
+                        <svg-icon
+                          class="button__icon"
+                          src="./assets/icons/widgets/change-shift/add_file.svg"
+                        ></svg-icon>
+                      </button>
+                      <button
+                        type="submit"
+                        class="button comment__submit  gridster-item-content"
+                        (click)="onSendMessage()"
+                      >
+                        <svg-icon
+                          class="button__icon"
+                          src="./assets/icons/widgets/change-shift/send.svg"
+                        ></svg-icon>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-        <div class="overlay-retrieval__footer">
+            <div class="overlay-retrieval__footer">
+              <div class="workspace__submit">
+                <div class="submit__frame submit__frame-left"></div>
+                <div class="submit__frame submit__frame-right"></div>
+                <button type="submit gridster-item-content" (click)="overlayClose()">
+                  Отменить
+                </button>
+              </div>
+              <div class="workspace__submit">
+                <div class="submit__frame submit__frame-left"></div>
+                <div class="submit__frame submit__frame-right"></div>
+                <button
+                  *ngIf="!isEdit"
+                  type="submit gridster-item-content"
+                  (click)="saveRetrieval(event.id)"
+                >
+                  Сохранить
+                </button>
+                <button *ngIf="isEdit" type="submit gridster-item-content" (click)="editSaveRetrieval()">
+                  Изменить и сохранить
+                </button>
+              </div>
+            </div>
+          </section>
+        </ng-container>
+        <!-- <div class="overlay-retrieval__footer">
           <div class="workspace__submit">
             <div class="submit__frame submit__frame-left"></div>
             <div class="submit__frame submit__frame-right"></div>
@@ -777,7 +1142,7 @@
               Изменить и сохранить
             </button>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -1169,7 +1534,7 @@
           Создать событие
         </button>
       </div>
-      <div class="workspace__submit">
+      <div class="workspace__submit" style="margin-left: 5px;">
         <div class="submit__frame submit__frame-left"></div>
         <div class="submit__frame submit__frame-right"></div>
         <button
