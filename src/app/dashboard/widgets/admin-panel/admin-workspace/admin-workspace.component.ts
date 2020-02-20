@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { IWorkspace } from '../../../models/admin-panel';
 
 @Component({
@@ -7,6 +7,8 @@ import { IWorkspace } from '../../../models/admin-panel';
     styleUrls: ['./admin-workspace.component.scss'],
 })
 export class AdminWorkspaceComponent implements OnInit {
+    public searchValue: string = '';
+
     public searchIcon: string = 'assets/icons/search-icon.svg';
 
     public workspaces: IWorkspace[] = [
@@ -47,4 +49,13 @@ export class AdminWorkspaceComponent implements OnInit {
     constructor() {}
 
     public ngOnInit(): void {}
+
+    public onInput(inputVal: string): void {
+        this.searchValue = inputVal;
+    }
+
+    public onSearchWorkspace(workspaceName: string): boolean {
+        const workspaceNameValue: string = workspaceName.toLowerCase();
+        return workspaceNameValue.includes(this.searchValue.toLowerCase());
+    }
 }

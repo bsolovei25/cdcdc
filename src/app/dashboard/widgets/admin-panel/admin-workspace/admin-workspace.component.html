@@ -5,6 +5,7 @@
         class="insert-component"
         [placeholder]="'Введите название рабочей области'"
         [iconSrc]="searchIcon"
+        (inputedValue)="onInput($event)"
       ></evj-input>
     </div>
     <div class="workspace__links">
@@ -15,9 +16,11 @@
   </div>
   <div class="workspace__list scroll-bar">
     <div class="cards">
-      <div class="card" *ngFor="let workspace of workspaces">
-        <evj-admin-workspace-card [workspace]="workspace"></evj-admin-workspace-card>
-      </div>
+      <ng-container *ngFor="let workspace of workspaces">
+        <div class="card" *ngIf="onSearchWorkspace(workspace.name)">
+          <evj-admin-workspace-card [workspace]="workspace"></evj-admin-workspace-card>
+        </div>
+      </ng-container>
     </div>
   </div>
 </div>
