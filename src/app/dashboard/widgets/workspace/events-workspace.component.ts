@@ -60,6 +60,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     nameUser;
 
     userChoosen: boolean = false;
+    userMeropChoosen: boolean = false;
     chooseNameUser: string;
     userBrigade: string;
     userDescription: string;
@@ -548,6 +549,13 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
     chooseRespons(data){
         this.userChoosen = true;
+        this.chooseNameUser = data.firstName + ' ' + data.middleName + ' ' + data.lastName;
+        this.userBrigade = data.brigade.number;
+        this.userDescription = data.positionDescription;
+    }
+
+    chooseMeropRespons(data){
+        this.userMeropChoosen = true;
         this.chooseNameUser = data.firstName + ' ' + data.middleName + ' ' + data.lastName;
         this.userBrigade = data.brigade.number;
         this.userDescription = data.positionDescription;

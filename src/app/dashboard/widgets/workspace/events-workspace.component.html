@@ -545,239 +545,6 @@
       (click)="overlayClose()"
     >
       <div class="overlay-retrieval__body" (click)="$event.stopPropagation()">
-        <!-- <div *ngIf="isNewRetrieval" class="overlay-retrieval__header__block">
-          <section class="overlay-retrieval__blocks">
-            <div class="overlay-retrieval__block">
-              <div class="overlay-retrieval__block__title">
-                Дата / время:
-              </div>
-              <div class="overlay-retrieval__block__body">
-                {{ isNewRetrieval.eventDateTime | date:'dd-MM-yyyy HH:mm' }}
-              </div>
-            </div>
-
-            <div class="overlay-retrieval__block">
-              <div class="overlay-retrieval__block__title">
-                Организация:
-              </div>
-              <div class="overlay-retrieval__block__body">
-                {{ isNewRetrieval.organization }}
-              </div>
-            </div>
-
-            <div class="overlay-retrieval__block">
-              <div class="overlay-retrieval__block__title">
-                Смена:
-              </div>
-              <div class="overlay-retrieval__block__body">
-                Бригада-3
-              </div>
-            </div>
-
-            <div class="overlay-retrieval__block">
-              <div class="overlay-retrieval__block__title">
-                Подразделение:
-              </div>
-              <div class="overlay-retrieval__block__body">
-                {{ isNewRetrieval.branch }}
-              </div>
-            </div>
-
-            <div class="overlay-retrieval__block">
-              <div class="overlay-retrieval__block__title">
-                Место:
-              </div>
-              <div class="overlay-retrieval__block__body">
-                ГФУ-2 с БОР
-              </div>
-            </div>
-
-            <div class="overlay-retrieval__block">
-              <div class="overlay-retrieval__block__title">
-                Старший оператор:
-              </div>
-              <div
-                class="overlay-retrieval__block__body"
-                *ngIf="isNewRetrieval.responsibleOperator"
-              >
-                {{ isNewRetrieval.responsibleOperator.lastName }} {{
-                isNewRetrieval.responsibleOperator.firstName }}
-              </div>
-            </div>
-
-            <div class="overlay-retrieval__block">
-              <div class="overlay-retrieval__block__title">
-                Зафиксировал:
-              </div>
-              <div class="overlay-retrieval__block__body select">
-                <div class="dropdown dropdown-dark">
-                  <select
-                    name="contactMethod"
-                    class="dropdown-select"
-                    [(ngModel)]="isNewRetrieval.fixedBy"
-                    [compareWith]="compareFn"
-                  >
-                    <option *ngFor="let p of user" [ngValue]="p"
-                      >{{ p.lastName }} {{ p.firstName }}</option
-                    >
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div class="overlay-retrieval__block">
-              <div class="overlay-retrieval__block__title">
-                Статус:
-              </div>
-              <div class="overlay-retrieval__block__body select">
-                <div class="dropdown dropdown-dark">
-                  <select
-                    name="contactMethod"
-                    class="dropdown-select"
-                    [(ngModel)]="isNewRetrieval.status"
-                    [compareWith]="compareFn"
-                  >
-                    <option *ngFor="let p of status" [ngValue]="p">{{ statuses[p.name] }}</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div class="overlay-retrieval__block">
-              <div class="overlay-retrieval__block__title">
-                Приоритет:
-              </div>
-              <div class="overlay-retrieval__block__body select">
-                <div class="dropdown dropdown-dark">
-                  <select
-                    name="contactMethod"
-                    class="dropdown-select"
-                    [(ngModel)]="isNewRetrieval.priority"
-                    [compareWith]="compareFn"
-                  >
-                    <option *ngFor="let p of priority" [ngValue]="p"
-                      >{{ priorities[p.name] }}</option
-                    >
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div class="overlay-retrieval__block">
-              <div class="overlay-retrieval__block__title">
-                Система источник:
-              </div>
-              <div class="overlay-retrieval__block__body select">
-                <div class="dropdown dropdown-dark">
-                  <select
-                    name="contactMethod"
-                    class="dropdown-select"
-                    [(ngModel)]="isNewRetrieval.category"
-                    [compareWith]="compareFn"
-                    (change)="changeCategory()"
-                  >
-                    <option *ngFor="let p of category" [ngValue]="p"
-                      >{{ categories[p.name] }}
-                    </option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div class="overlay-retrieval__block">
-              <div class="overlay-retrieval__block__title">
-                Тип происшествия:
-              </div>
-              <div class="overlay-retrieval__block__body select">
-                <div class="dropdown dropdown-dark">
-                  <select
-                    name="contactMethod"
-                    class="dropdown-select"
-                    [(ngModel)]="isNewRetrieval.eventType"
-                    [compareWith]="compareFn"
-                    (change)="changeCategory()"
-                  >
-                    <option *ngFor="let p of eventTypes" [ngValue]="p">{{ p.name }} </option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div class="overlay-retrieval__block">
-              <div class="overlay-retrieval__block__title">
-                Тип оборудования:
-              </div>
-              <div class="overlay-retrieval__block__body select">
-                <div class="dropdown dropdown-dark">
-                  <select
-                    name="contactMethod"
-                    class="dropdown-select"
-                    [(ngModel)]="isNewRetrieval.equipmentCategory"
-                    [compareWith]="compareFn"
-                    (change)="changeCategory()"
-                  >
-                    <option *ngFor="let p of equipmentCategory" [ngValue]="p">{{ p.name }} </option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div *ngIf="user" class="overlay-retrieval__block">
-              <div class="overlay-retrieval__block__title">
-                Ответственный:
-              </div>
-              <div class="overlay-retrieval__block__body">
-                {{ user[idUser].lastName }} {{ user[idUser].firstName }}
-              </div>
-            </div>
-
-            <div class="overlay-retrieval__block">
-              <div class="overlay-retrieval__block__title">
-                Срок исполнения
-              </div>
-              <div class="overlay-retrieval__block__body">
-                <input
-                  type="datetime-local"
-                  class="dates-selector__date-input"
-                  [ngModel]="isNewRetrieval.deadline | date:'yyyy-MM-ddTHH:mm'"
-                  (ngModelChange)="isNewRetrieval.deadline=$event"
-                />
-              </div>
-            </div>
-
-            <div class="overlay-retrieval__block overlay-retrieval__block-border">
-              <div class="block-border__title">
-                Краткое описание причины
-              </div>
-              <div class="block-border__body">
-                <textarea
-                  class="gridster-item-content"
-                  placeholder="Введите значение..."
-                  minlength="3"
-                  [(ngModel)]="isNewRetrieval.description"
-                >
-                </textarea>
-                <div class="block-border__footer"></div>
-              </div>
-            </div>
-
-            <div class="overlay-retrieval__block-border overlay-retrieval__block-border">
-              <div class="block-border__title">
-                Непосредственные / прямые причины:
-              </div>
-              <div class="block-border__body">
-                <textarea
-                  class="gridster-item-content"
-                  placeholder="Введите значение..."
-                  minlength="6"
-                  [(ngModel)]="isNewRetrieval.directReasons"
-                >
-                </textarea>
-                <div class="block-border__footer"></div>
-              </div>
-            </div>
-          </section>
-        </div> -->
         <ng-container>
           <section
             *ngIf="true"
@@ -997,7 +764,7 @@
                   </div>
                 </div>
                 <div class="responsible">
-                  <div *ngIf="userChoosen" class="choosenUser">
+                  <div *ngIf="userMeropChoosen" class="choosenUser">
                     <div class="name_user">
                       <div class="name_user_responsible">
                         Ответственный
@@ -1020,7 +787,7 @@
                     <mat-form-field>
                       <mat-label>Отвественный</mat-label>
                       <mat-select panelClass="mat-select-custom">
-                        <mat-option *ngFor="let p of user" [value]="p" (click) = "chooseRespons(p)"
+                        <mat-option *ngFor="let p of user" [value]="p" (click) = "chooseMeropRespons(p)"
                         >{{ p.lastName }} {{ p.firstName }}
                         </mat-option>
                       </mat-select>
@@ -1099,7 +866,7 @@
                   Отменить
                 </button>
               </div>
-              <div class="workspace__submit">
+              <div class="workspace__submit" style="margin-left: 5px;">
                 <div class="submit__frame submit__frame-left"></div>
                 <div class="submit__frame submit__frame-right"></div>
                 <button

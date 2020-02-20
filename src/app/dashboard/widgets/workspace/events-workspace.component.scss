@@ -91,7 +91,7 @@ $border-size: 4px;
     width: 100%;
     height: 50px;
     min-height: 50px;
-    
+
     .submit {
       &__frame {
         position: absolute;
@@ -1211,8 +1211,9 @@ $border-size: 4px;
         justify-content: space-between;
         border-radius: 10px;
         margin-top: 10px;
-
+        line-height: 25px;
         .place {
+          margin-left: 15px;
           .place_title {
             color: var(--color-text-sub);
             font-size: 10px;
@@ -1374,7 +1375,8 @@ $border-size: 4px;
                 overflow: auto;
                 display: flex;
                 background: var(--color-bg-card);
-                border-radius: 10px;
+                border-top-right-radius: 10px;
+                border-top-left-radius: 10px;
 
                 .events_info {
                   width: 70%;
@@ -1432,7 +1434,8 @@ $border-size: 4px;
                 display: flex;
                 height: 20px;
                 background: var(--color-bg-card);
-
+                border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;
                 .events_check {
                   margin-left: 10px;
                   svg-icon {
@@ -1474,7 +1477,9 @@ $border-size: 4px;
               }
 
               .progress_line {
-                height: 3px;
+                width: 97%;
+                margin: 0 auto;
+                height: 4px;
                 border-radius: 5px;
                 background: var(--color-danger);
               }
@@ -1601,7 +1606,7 @@ $border-size: 4px;
       // border: 1px solid var(--color-border-main);
       padding: 10px;
 
-      section{
+      section {
         overflow: hidden;
       }
 
@@ -1610,11 +1615,46 @@ $border-size: 4px;
 
         .workspace__header {
           padding: 10px;
-          border-top: 2px solid var(--color-text-sub);
-          border-left: 2px solid var(--color-text-sub);
-          border-right: 2px solid var(--color-text-sub);
+          border-top: 1px solid var(--color-border-main-transparrent);
+          border-left: 1px solid var(--color-border-main-transparrent);
+          border-right: 1px solid var(--color-border-main-transparrent);
+          border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
           margin-left: 0;
           background-color: var(--color-bg-main);
+
+          //       &:before {
+          //         z-index: 1;
+          //         content: "";
+          //         position: absolute;
+          //         top: -2px;
+          // left: 14px;
+          // height: 13px;
+          // width: 15px;
+          //         box-sizing: border-box;
+          //         -webkit-transform-origin: 43% 0;
+          //         transform-origin: 43% 0;
+          //         -webkit-transform: rotate(-45deg);
+          //         transform: rotate(-45deg);
+          //         border-bottom: 1px solid var(--color-border-main-transparrent);
+          //         background: var(--color-bg-main);
+          //       }
+          //       &:after {
+          //         z-index: 1;
+          //         content: "";
+          //         position: absolute;
+          //         top: -4px;
+          //         right: -9px;
+          //         height: 10px;
+          //         width: 10px;
+          //         box-sizing: border-box;
+          //         -webkit-transform-origin: 43% 0;
+          //         transform-origin: 43% 0;
+          //         -webkit-transform: rotate(45deg);
+          //         transform: rotate(45deg);
+          //         border-bottom: 0.5px solid var(--color-bg-card);
+          //         background: var(--color-bg-main);
+          //       }
         }
 
         &__body {
@@ -1622,8 +1662,10 @@ $border-size: 4px;
           &__left {
             padding: 7px;
             background-color: var(--color-bg-main);
-            border-left: 2px solid var(--color-text-sub);
-            border-bottom: 2px solid var(--color-text-sub);
+            border-left: 1px solid var(--color-border-main-transparrent);
+            border-bottom: 1px solid var(--color-border-main-transparrent);
+            border-bottom-left-radius: 10px;
+
             ::ng-deep .categories {
               width: 55%;
             }
@@ -1633,21 +1675,21 @@ $border-size: 4px;
               .fact_content_create_event {
                 height: calc(100% - 350px);
 
-                .fact_comment{
+                .fact_comment {
                   margin-top: 5px;
                 }
               }
             }
-
           }
 
           &__right {
             min-height: 174px;
             padding: 7px;
             background-color: var(--color-bg-main);
-            border-right: 2px solid var(--color-text-sub);
-            border-bottom: 2px solid var(--color-text-sub);
+            border-right: 1px solid var(--color-border-main-transparrent);
+            border-bottom: 1px solid var(--color-border-main-transparrent);
             margin-left: -2px;
+            border-bottom-right-radius: 10px;
 
             .comments_block {
               height: 100%;
@@ -1697,7 +1739,7 @@ $border-size: 4px;
                 }
               }
               .comments_content_create_event {
-              height: calc(100% - 300px);
+                height: calc(100% - 300px);
                 overflow: auto;
                 background: #1d202a;
                 .comment_new {
