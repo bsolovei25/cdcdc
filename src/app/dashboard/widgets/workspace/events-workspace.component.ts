@@ -59,6 +59,9 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
     nameUser;
 
+    nameUserFirstName: string;
+    nameUserLastName: string;
+
     userChoosen: boolean = false;
     userMeropChoosen: boolean = false;
     chooseNameUser: string;
@@ -123,7 +126,9 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         this.subscriptions.push(
             this.authService.user$.subscribe((data: IUser) => {
                 if (data) {
-                    this.nameUser = data.lastName;
+                    this.nameUser = data.firstName + ' ' + data.lastName;
+                    this.nameUserFirstName = data.firstName;
+                    this.nameUserLastName = data.lastName;
                 }
             })
         );
@@ -153,12 +158,15 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         this.isLoading = false;
     }
 
-    private async setEventByInfo(value: EventsWidgetNotification): Promise<void> {
+    private async setEventByInfo(value: EventsWidgetNotification | number): Promise<void> {
         this.isLoading = true;
         this.resetComponent();
         this.isNew = false;
-        this.event = value;
-        await this.loadItem();
+        if (typeof value !== 'number') {
+            this.event = value;
+        }
+
+        await this.loadItem((typeof value === 'number') ? value : undefined);
     }
 
     ngAfterViewInit(): void {
@@ -289,9 +297,16 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
     // #region DATA API
 
-    async loadItem(): Promise<void> {
+    async loadItem(id?: number): Promise<void> {
         this.isLoading = true;
         const dataLoadQueue: Promise<void>[] = [];
+        if (id) {
+            dataLoadQueue.push(
+                this.eventService.getEvent(id).then((data) => {
+                    this.event = data;
+                })
+            );
+        }
 
         dataLoadQueue.push(
             this.eventService.getCategory().then((data) => {
@@ -370,6 +385,10 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         this.isLoading = false;
     }
 
+    onLoadEvent(id) {
+        this.setEventByInfo(id);
+    }
+
     // #endregion
 
     // #region Retrieval Event
@@ -399,6 +418,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     addRetrieval(): void {
+        this.changeCategory();
         document.getElementById('overlay-retrieval').style.display = 'block';
 
         this.isNewRetrieval = {
@@ -423,7 +443,8 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
             organization: 'АО Газпромнефть',
             place: { id: 5001, name: 'ГФУ-1' },
             priority: { id: 2003, name: 'standard', code: '2' },
-            responsibleOperator: this.user ? this.user[0] : null,
+       //     responsibleOperator: this.user ? this.user[0] : null,
+            responsibleOperator: this.user[this.idUser - 1],
             status: this.status ? this.status[0] : null,
             description: '',
             equipmentCategory: this.equipmentCategory ? this.equipmentCategory[0] : null,
@@ -529,12 +550,13 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         return a && b && a.id === b.id;
     }
 
-    getRandomInt(max: number): number {
-        return Math.floor(Math.random() * Math.floor(max));
-    }
-
     changeCategory(): void {
-        this.idUser = this.getRandomInt(7);
+
+        for(let item of this.user){
+            if(item.lastName === this.nameUserLastName && item.firstName === this.nameUserFirstName){
+                this.idUser = item.id;
+            }
+        }
     }
 
     openLineChart(): void {
