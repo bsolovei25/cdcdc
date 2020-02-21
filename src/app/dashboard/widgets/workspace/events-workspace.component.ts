@@ -166,7 +166,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
             this.event = value;
         }
 
-        await this.loadItem((typeof value === 'number') ? value : undefined);
+        await this.loadItem(typeof value === 'number' ? value : undefined);
     }
 
     ngAfterViewInit(): void {
@@ -443,7 +443,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
             organization: 'АО Газпромнефть',
             place: { id: 5001, name: 'ГФУ-1' },
             priority: { id: 2003, name: 'standard', code: '2' },
-       //     responsibleOperator: this.user ? this.user[0] : null,
+            //     responsibleOperator: this.user ? this.user[0] : null,
             responsibleOperator: this.user[this.idUser - 1],
             status: this.status ? this.status[0] : null,
             description: '',
@@ -551,9 +551,11 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     changeCategory(): void {
-
-        for(let item of this.user){
-            if(item.lastName === this.nameUserLastName && item.firstName === this.nameUserFirstName){
+        for (let item of this.user) {
+            if (
+                item.lastName === this.nameUserLastName &&
+                item.firstName === this.nameUserFirstName
+            ) {
                 this.idUser = item.id;
             }
         }
