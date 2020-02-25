@@ -91,7 +91,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ScrollingModule } from '@angular/cdk-experimental/scrolling';
-import { ScrollingModule as OldScrollingModule } from "@angular/cdk/scrolling";
+import { ScrollingModule as OldScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
     declarations: [
