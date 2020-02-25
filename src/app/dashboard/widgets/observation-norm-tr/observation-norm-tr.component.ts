@@ -94,9 +94,10 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy, AfterViewI
     }
 
     drawCircle(): void {
-        let x1,
-            y1,
-            x2,
+        // tslint:disable-next-line: one-variable-per-declaration
+        let x1: string,
+            y1: string,
+            x2: string,
             y2 = '';
         if (this.data.values[0]) {
             x1 = this.diaEndsLine(-1, this.middleRadius).xCen;
@@ -146,7 +147,7 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy, AfterViewI
 
     drawEndLine(): void {
         if (this.activeLine && this.activeLine.nativeElement) {
-            let deg = 270 + (this.scoreValues * 11.25 - 6.4);
+            const deg = 270 + (this.scoreValues * 11.25 - 6.4);
             this.renderer.setStyle(this.activeLine.nativeElement, 'transform', `rotate(${deg}deg)`);
         }
     }
@@ -208,7 +209,7 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy, AfterViewI
 
     drawWarningPolygon(i: number): void {
         if (this.warningPolygon && this.warningPolygon.nativeElement) {
-            let deg = (i + 1) * 11.242 + 315;
+            const deg = (i + 1) * 11.242 + 315;
             const gEl = this.renderer.createElement('g', 'svg');
             this.renderer.setStyle(gEl, 'transform', `translate(0px, 0px) rotate(${deg}deg)`);
             this.renderer.setStyle(gEl, 'transform-origin', '89px 92.2px 0');
@@ -275,7 +276,7 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy, AfterViewI
         return 0.75 * c + ' ' + 0.25 * c;
     }
 
-    diaEndsLine(el: number, rad: number) {
+    diaEndsLine(el: number, rad: number): { xCen: string; yCen: string } {
         let newPoint = 0;
         if (el === -1) {
             newPoint = 100;

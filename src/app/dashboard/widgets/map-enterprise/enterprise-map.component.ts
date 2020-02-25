@@ -268,11 +268,8 @@ export class EnterpriseMapComponent implements OnDestroy, AfterViewInit {
 
     data: IEnterpriseMap = {
         build: [
-            {
-                id: 4,
-                name: 'УУГ',
-                options: { nonCritical: 200, diagnostics: 6, prognosis: 2 },
-            },
+            { id: 58, name: 'УУГ', options: { nonCritical: 200, diagnostics: 6, prognosis: 2 } },
+            { id: 4, name: 'УУГ', options: { nonCritical: 200, diagnostics: 6, prognosis: 2 } },
             {
                 id: 13,
                 name: 'Станция смешения',
@@ -293,36 +290,16 @@ export class EnterpriseMapComponent implements OnDestroy, AfterViewInit {
                 name: 'Станция смешения',
                 options: { nonCritical: 0, diagnostics: 10, prognosis: 20 },
             },
-            {
-                id: 26,
-                name: 'ДТ',
-                options: { nonCritical: 0, diagnostics: 0, prognosis: 20 },
-            },
-            {
-                id: 29,
-                name: 'ДТ',
-                options: { nonCritical: 0, diagnostics: 0, prognosis: 48 },
-            },
-            {
-                id: 36,
-                name: 'ДТ',
-                options: { nonCritical: 0, diagnostics: 29, prognosis: 20 },
-            },
-            {
-                id: 38,
-                name: 'ДТ',
-                options: { nonCritical: 1, diagnostics: 0, prognosis: 20 },
-            },
-            {
-                id: 41,
-                name: 'Бензин',
-                options: { nonCritical: 25, diagnostics: 6, prognosis: 2 },
-            },
+            { id: 26, name: 'ДТ', options: { nonCritical: 0, diagnostics: 0, prognosis: 20 } },
+            { id: 29, name: 'ДТ', options: { nonCritical: 0, diagnostics: 0, prognosis: 48 } },
+            { id: 36, name: 'ДТ', options: { nonCritical: 0, diagnostics: 29, prognosis: 20 } },
+            { id: 38, name: 'ДТ', options: { nonCritical: 1, diagnostics: 0, prognosis: 20 } },
+            { id: 41, name: 'Бензин', options: { nonCritical: 25, diagnostics: 6, prognosis: 2 } },
         ],
         weather: { temperature: 15, direction: 320, wind: 5.1, pressure: 741 },
     };
 
-    @ViewChild('maps', { static: false }) maps: ElementRef;
+    @ViewChild('maps') maps: ElementRef;
 
     static itemCols: number = 30;
     static itemRows: number = 21;
@@ -376,21 +353,20 @@ export class EnterpriseMapComponent implements OnDestroy, AfterViewInit {
                 if (b.tagName === 'polygon' || b.tagName === 'polyline') {
                     const id = b.getAttribute('data-id');
                     const dataPolygon = [
-                        { id: 1, x: `${218 - widthNumber * 6}`, y: '28' },
-                        { id: 10, x: '603', y: '149' },
-                        { id: 11, x: `${207 - widthNumber * 6}`, y: '68' },
-                        { id: 18, x: `${207 - widthNumber * 6}`, y: '114' },
-                        { id: 23, x: '188', y: '166' },
-                        { id: 30, x: `${621 - widthNumber * 6}`, y: '166' },
-                        { id: 31, x: `${163 - widthNumber * 6}`, y: '202' },
-                        { id: 32, x: `${187 - widthNumber * 6}`, y: '239' },
-                        { id: 40, x: `${670 - widthNumber * 6}`, y: '219' },
-                        { id: 56, x: `${378 - widthNumber * 6}`, y: '346' },
-                        { id: 57, x: `${378 - widthNumber * 6}`, y: '393' },
-                        { id: 77, x: `${788 - widthNumber * 6}`, y: '427' },
-                        { id: 78, x: `${813 - widthNumber * 6}`, y: '427' },
-                        { id: 80, x: `${246 - widthNumber * 6}`, y: '481' },
-                        { id: 92, x: `${655 - widthNumber * 6}`, y: '579' },
+                        { id: 1, x: `${256 - widthNumber * 6}`, y: '29' },
+                        { id: 6, x: '543', y: '29' },
+                        { id: 7, x: `${182 - widthNumber * 6}`, y: '88' },
+                        { id: 8, x: `${257 - widthNumber * 6}`, y: '88' },
+                        { id: 12, x: '526', y: '89' },
+                        { id: 13, x: `${182 - widthNumber * 6}`, y: '144' },
+                        { id: 18, x: '605', y: '145' },
+                        { id: 19, x: `${182 - widthNumber * 6}`, y: '203' },
+                        { id: 25, x: '604', y: '238' },
+                        { id: 35, x: `${510 - widthNumber * 6}`, y: '348' },
+                        { id: 42, x: '835', y: '348' },
+                        { id: 50, x: '797', y: '442' },
+                        { id: 57, x: '597', y: '510' },
+                        { id: 58, x: '597', y: '577' },
                     ];
                     const idxPolygon: number = dataPolygon.findIndex((i) => i.id === +id);
                     if (idxPolygon !== -1) {

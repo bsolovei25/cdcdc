@@ -55,7 +55,6 @@ export class EventService {
     }
 
     async getEvent(id: number): Promise<EventsWidgetNotification> {
-        // TODO check
         try {
             return this.http
                 .get<EventsWidgetNotification>(this.restUrl + '/notifications/' + id)
@@ -66,7 +65,6 @@ export class EventService {
     }
 
     async postEvent(body: EventsWidgetNotification): Promise<any> {
-        // TODO check
         try {
             return this.http.post(this.restUrl + '/notifications/', body).toPromise();
         } catch (error) {
@@ -75,7 +73,6 @@ export class EventService {
     }
 
     async putEvent(body: EventsWidgetNotification): Promise<any> {
-        // TODO check
         try {
             return this.http.put(this.restUrl + '/notifications/' + body.id, body).toPromise();
         } catch (error) {
@@ -84,7 +81,6 @@ export class EventService {
     }
 
     async deleteEvent(id: number): Promise<any> {
-        // TODO check
         try {
             return this.http.delete(this.restUrl + '/notifications/' + id).toPromise();
         } catch (error) {
@@ -93,7 +89,6 @@ export class EventService {
     }
 
     async getStatus(): Promise<IStatus[]> {
-        // TODO check
         try {
             return this.http
                 .get<IStatus[]>(this.restUrl + '/api/notification-reference/status')
@@ -104,7 +99,6 @@ export class EventService {
     }
 
     async getPriority(): Promise<any> {
-        // TODO check
         try {
             return this.http.get(this.restUrl + '/api/notification-reference/priority').toPromise();
         } catch (error) {
@@ -168,7 +162,8 @@ export class EventService {
             return this.http
                 .put(
                     this.restUrl +
-                        `/api/notification-retrieval/${eventId}/retrievalevents/${retrievalEvents.id}`,
+                        `/api/notification-retrieval/${eventId}/retrievalevents/
+                        ${retrievalEvents.id}`,
                     retrievalEvents
                 )
                 .toPromise();
@@ -206,7 +201,8 @@ export class EventService {
     private getOptionString(lastId: number, options: EventsWidgetOptions): string {
         let res = `take=${this.batchSize}&lastId=${lastId}&placeNames=ГФУ-2,ГФУ-1?`;
         if (options.dates) {
-            res += `fromDateTime=${options.dates?.fromDateTime.toISOString()}&toDateTime=${options.dates?.toDateTime.toISOString()}`;
+            res += `fromDateTime=${options.dates?.fromDateTime.toISOString()}&
+            toDateTime=${options.dates?.toDateTime.toISOString()}`;
         }
         for (const category of options.categories) {
             res += `categoryIds=${category}`;

@@ -7,6 +7,7 @@ import {
     Output,
     ElementRef,
     Renderer2,
+    OnInit,
 } from '@angular/core';
 import { NewWidgetService } from '../../../services/new-widget.service';
 import { Subscription } from 'rxjs';
@@ -16,6 +17,7 @@ import { DateAdapter } from '@angular/material/core';
 import { IWorker } from '../../../models/worker';
 import { IUser } from '../../../models/events-widget';
 import { SelectionModel } from '@angular/cdk/collections';
+import { AdminShiftScheduleService } from '../../../services/admin-shift-schedule.service';
 
 export interface IAdminShiftSchedule {
     worker: IWorker[];
@@ -43,7 +45,7 @@ interface IBrigade {
     templateUrl: './admin-shift-schedule.component.html',
     styleUrls: ['./admin-shift-schedule.component.scss'],
 })
-export class AdminShiftScheduleComponent implements OnDestroy {
+export class AdminShiftScheduleComponent implements OnInit, OnDestroy {
     aboutWidget: string;
     public previewTitle: string = 'calendar-plan';
     public title: string = '';
@@ -53,7 +55,7 @@ export class AdminShiftScheduleComponent implements OnDestroy {
     static itemCols: number = 30;
     static itemRows: number = 20;
 
-    activeUsers = new SelectionModel(true);
+    activeUsers: SelectionModel<IUser> = new SelectionModel(true);
 
     active: boolean = true;
 
@@ -267,7 +269,8 @@ export class AdminShiftScheduleComponent implements OnDestroy {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
         private dateAdapter: DateAdapter<Date>,
-        private renderer: Renderer2
+        private renderer: Renderer2,
+        private adminShiftScheduleService: AdminShiftScheduleService
     ) {
         this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
             this.title = data.title;
@@ -277,13 +280,17 @@ export class AdminShiftScheduleComponent implements OnDestroy {
         this.activeUsers.select();
     }
 
+    ngOnInit(): void {
+        this.loadItem();
+    }
+
     ngOnDestroy(): void {
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
     }
 
-    dateChanged(event: moment.Moment) {
+    dateChanged(event: moment.Moment): void {
         this.yesterday = {
             date: new Date(
                 moment(this.selectedDate)
@@ -299,7 +306,7 @@ export class AdminShiftScheduleComponent implements OnDestroy {
         this.selectedDay = day;
     }
 
-    onClickCard(i: IUser) {
+    onClickCard(i: IUser): void {
         if (this.activeUsers.isSelected(i)) {
             this.activeUsers.deselect(i);
         } else {
@@ -321,7 +328,31 @@ export class AdminShiftScheduleComponent implements OnDestroy {
         };
     }
 
-    openOverlay(event: MouseEvent, shift: any, isOpen: boolean) {
+    // #region DATA API
+
+    async loadItem(): Promise<void> {
+        const dataLoadQueue: Promise<void>[] = [];
+
+        dataLoadQueue.push(
+            this.adminShiftScheduleService.getSchudele().then((data) => {
+                console.log(data);
+            })
+        );
+
+        if (dataLoadQueue.length > 0) {
+            try {
+                // wait untill all data will be loaded (with parralel requests)
+                await Promise.all(dataLoadQueue);
+                // fill form data from source object
+            } catch (err) {
+                console.error(err);
+            }
+        }
+    }
+
+    // #endregion
+
+    openOverlay(event: MouseEvent, shift: any, isOpen: boolean): void {
         if (this.shiftOverlay && this.shiftOverlay.nativeElement) {
             if (isOpen) {
                 this.renderer.setStyle(this.shiftOverlay.nativeElement, 'display', 'block');
