@@ -164,7 +164,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
     private async setEventByInfo(value: EventsWidgetNotification | number): Promise<void> {
         this.isLoading = true;
-       
+
         this.resetComponent();
         this.isNew = false;
         if (typeof value !== 'number') {
@@ -237,7 +237,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     onSendMessage(graph?): void {
         if (graph === true) {
             const commentInfo = {
-                comment: "График",
+                comment: 'График',
             };
             this.event.comments.push(commentInfo);
         } else {
@@ -273,7 +273,6 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     async createEvent(): Promise<void> {
-
         await this.loadItem();
         this.changeCategory();
         this.isNew = true;
@@ -316,7 +315,6 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
             deadline: new Date(),
             graphValues: null,
         };
-
     }
 
     // #region DATA API

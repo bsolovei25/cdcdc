@@ -32,8 +32,7 @@ export class WidgetHeaderComponent implements OnInit {
         this.userSettings.removeItem(this.uniqId);
     }
 
-
-    createEvent(): void{
+    createEvent(): void {
         this.eventCreated.emit(true);
     }
 }
