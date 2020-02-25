@@ -27,6 +27,7 @@ export interface EventsWidgetNotification {
     responsibleOperator: IUser;
     fixedBy: IUser;
     eventDateTime: Date;
+    eventEndDateTime?: Date;
     iconUrl?: string;
     iconUrlStatus?: string;
     status: IStatus;

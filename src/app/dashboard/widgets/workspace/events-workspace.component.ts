@@ -39,6 +39,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
     public previewTitle: string = 'events-workspace';
     public title: string = 'Рабочая область';
+    public widgetType: string;
     public icon: string = 'document';
     comments: string[] = [];
     comments2: string[] = [];
@@ -67,6 +68,8 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     chooseNameUser: string;
     userBrigade: string;
     userDescription: string;
+
+    saveEvent: boolean;
 
     isNewRetrieval: EventsWidgetNotification = null;
 
@@ -120,6 +123,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         this.subscriptions.push(
             this.widgetService.getWidgetChannel(id).subscribe((data) => {
                 this.title = data.title;
+                this.widgetType = data.widgetType;
             })
         );
 
@@ -160,10 +164,15 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
     private async setEventByInfo(value: EventsWidgetNotification | number): Promise<void> {
         this.isLoading = true;
+       
         this.resetComponent();
         this.isNew = false;
         if (typeof value !== 'number') {
             this.event = value;
+        }
+
+        if (this.event.graphValues) {
+            this.onSendMessage(true);
         }
 
         await this.loadItem(typeof value === 'number' ? value : undefined);
@@ -203,6 +212,11 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         this.event = null;
     }
 
+    createdEvent(event: boolean) {
+        console.log(event);
+        this.createEvent();
+    }
+
     resetComponent(): void {
         if (
             document.getElementById('overlay-retrieval') &&
@@ -220,17 +234,24 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         this.isNewRetrieval = null;
     }
 
-    onSendMessage(): void {
-        if (this.input.nativeElement.value) {
+    onSendMessage(graph?): void {
+        if (graph === true) {
             const commentInfo = {
-                comment: this.input.nativeElement.value,
+                comment: "График",
             };
             this.event.comments.push(commentInfo);
-            // this.comments.push(this.input.nativeElement.value);
-            this.input.nativeElement.value = '';
-        } else if (this.input2.nativeElement.value) {
-            this.comments2.push(this.input2.nativeElement.value);
-            this.input2.nativeElement.value = '';
+        } else {
+            if (this.input.nativeElement.value) {
+                const commentInfo = {
+                    comment: this.input.nativeElement.value,
+                };
+                this.event.comments.push(commentInfo);
+                // this.comments.push(this.input.nativeElement.value);
+                this.input.nativeElement.value = '';
+            } else if (this.input2.nativeElement.value) {
+                this.comments2.push(this.input2.nativeElement.value);
+                this.input2.nativeElement.value = '';
+            }
         }
         setTimeout(() => {
             this.scrollBottom();
@@ -252,7 +273,9 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     async createEvent(): Promise<void> {
+
         await this.loadItem();
+        this.changeCategory();
         this.isNew = true;
 
         this.event = {
@@ -282,7 +305,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
                     ? this.priority[2]
                     : this.priority[0]
                 : null,
-            responsibleOperator: this.user ? this.user[0] : null,
+            responsibleOperator: this.user[this.idUser - 1],
             retrievalEvents: [],
             severity: 'Critical',
             status: this.status ? this.status[0] : null,
@@ -293,6 +316,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
             deadline: new Date(),
             graphValues: null,
         };
+
     }
 
     // #region DATA API
