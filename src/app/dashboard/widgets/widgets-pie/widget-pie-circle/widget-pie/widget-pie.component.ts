@@ -1,14 +1,5 @@
-import {
-    Component,
-    OnInit,
-    ElementRef,
-    ViewChild,
-    Input,
-    Injectable,
-} from '@angular/core';
-import {
-    PieWidget,
-} from 'src/app/dashboard/models/widget.model';
+import { Component, OnInit, ElementRef, ViewChild, Input, Injectable } from '@angular/core';
+import { PieWidget } from 'src/app/dashboard/models/widget.model';
 
 declare var d3: any;
 
