@@ -45,14 +45,13 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy, AfterViewI
     public previewTitle: string = 'observation-norm-tr';
     private subscription: Subscription;
 
-    @ViewChild('svgContainerObservation', { static: false })
-    svgContainerObservation: ElementRef;
-    @ViewChild('lastCircle', { static: false }) lastCircle: ElementRef;
-    @ViewChild('lineAndCircle', { static: false }) lineAndCircle: ElementRef;
-    @ViewChild('activeLine', { static: false }) activeLine: ElementRef;
-    @ViewChild('activeCircle', { static: false }) activeCircle: ElementRef;
-    @ViewChild('warningCircle', { static: false }) warningCircle: ElementRef;
-    @ViewChild('warningPolygon', { static: false }) warningPolygon: ElementRef;
+    @ViewChild('svgContainerObservation') svgContainerObservation: ElementRef;
+    @ViewChild('lastCircle') lastCircle: ElementRef;
+    @ViewChild('lineAndCircle') lineAndCircle: ElementRef;
+    @ViewChild('activeLine') activeLine: ElementRef;
+    @ViewChild('activeCircle') activeCircle: ElementRef;
+    @ViewChild('warningCircle') warningCircle: ElementRef;
+    @ViewChild('warningPolygon') warningPolygon: ElementRef;
 
     constructor(
         public widgetService: NewWidgetService,

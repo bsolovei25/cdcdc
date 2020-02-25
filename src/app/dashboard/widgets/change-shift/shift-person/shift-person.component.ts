@@ -30,8 +30,8 @@ export class ShiftPersonComponent implements OnInit {
 
     isDropdownActive: boolean = false;
 
-    @ViewChild('dropdown', { static: false }) ddMenu: ElementRef;
-    @ViewChild('insideElement', { static: false }) insideElement: ElementRef;
+    @ViewChild('dropdown') ddMenu: ElementRef;
+    @ViewChild('insideElement') insideElement: ElementRef;
 
     mapPosition = [
         {

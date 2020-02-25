@@ -88,12 +88,13 @@ import { AdminComponent } from './widgets/admin/admin.component';
 import { AdminWorkspaceCardComponent } from './widgets/admin/admin-workspace-card/admin-workspace-card.component';
 import { AdminReferencesComponent } from './widgets/admin-references/admin-references.component';
 import { CardVerifierComponent } from './widgets/change-shift/card-verifier/card-verifier.component';
-import { ScrollingModule } from '@angular/cdk/scrolling';
 import { PetroleumProductsMovementComponent } from './widgets/petroleum-products-movement/petroleum-products-movement.component';
 import { PetroleumReferenceLeftComponent } from './widgets/petroleum-products-movement/petroleum-reference-left/petroleum-reference-left.component';
 import { PetroleumReferenceRightComponent } from './widgets/petroleum-products-movement/petroleum-reference-right/petroleum-reference-right.component';
 import { PetroleumReferenceComponent } from './widgets/petroleum-products-movement/petroleum-reference/petroleum-reference.component';
 import { PetroleumWorkspaceComponent } from './widgets/petroleum-products-movement/petroleum-workspace/petroleum-workspace.component';
+import { ScrollingModule } from '@angular/cdk-experimental/scrolling';
+import { ScrollingModule as OldScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
     declarations: [
@@ -243,6 +244,8 @@ import { PetroleumWorkspaceComponent } from './widgets/petroleum-products-moveme
         MatInputModule,
         MatNativeDateModule,
         ScrollingModule,
+        ScrollingModule,
+        OldScrollingModule,
     ],
     bootstrap: [],
     providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }],

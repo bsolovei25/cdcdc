@@ -42,8 +42,8 @@ export class ProductStocksComponent implements OnInit, OnDestroy, AfterViewInit 
 
     private liveSubscription: Subscription;
 
-    @ViewChild('svgContainer', { static: false }) svgContainer: ElementRef;
-    @ViewChild('svgContainers', { static: false }) svgContainers: ElementRef;
+    @ViewChild('svgContainer') svgContainer: ElementRef;
+    @ViewChild('svgContainers') svgContainers: ElementRef;
 
     constructor(
         public userSettings: NewUserSettingsService,
