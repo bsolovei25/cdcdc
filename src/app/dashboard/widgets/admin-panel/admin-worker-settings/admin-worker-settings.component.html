@@ -31,6 +31,23 @@
           <evj-aws-card class="card" [option]="option"></evj-aws-card>
         </ng-container>
       </div>
+      <div class="claims">
+        <div class="title">Права доступа</div>
+        <div
+          class="card"
+          [ngClass]="{'card-active':isClaimsShowing}"
+          (click)="isClaimsShowing=true"
+        >
+          Права
+        </div>
+        <div
+          class="card"
+          [ngClass]="{'card-active':!isClaimsShowing}"
+          (click)="isClaimsShowing=false"
+        >
+          Доступные рабочие области
+        </div>
+      </div>
     </div>
     <div class="worker__column worker__main"></div>
     <div class="worker__column worker__workspaces"></div>

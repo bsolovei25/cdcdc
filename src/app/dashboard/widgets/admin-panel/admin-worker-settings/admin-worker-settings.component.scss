@@ -89,7 +89,7 @@
           align-items: center;
 
           height: 280px;
-          width: 104%;
+          width: 100%;
 
           overflow-x: hidden;
           overflow-y: auto;
@@ -98,15 +98,68 @@
           padding-left: 5px;
 
           margin-top: 10px;
+          margin-left: -20px;
+
+          .card {
+            width: 100%;
+            height: 60px;
+
+            direction: ltr;
+
+            margin-bottom: 10px;
+          }
         }
 
-        .card {
-          width: 100%;
-          height: 60px;
+        .claims {
+          height: max-content;
+          width: 104%;
 
-          direction: ltr;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: center;
 
-          margin-bottom: 10px;
+          margin-top: 20px;
+
+          .title {
+            font-size: 14px;
+            color: var(--color-text-sub-heading);
+
+            width: 100%;
+            text-align: left;
+
+            margin-bottom: 10px;
+            margin-left: 20px;
+          }
+
+          .card {
+            width: 100%;
+            height: 60px;
+            margin-bottom: 10px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+
+            box-sizing: border-box;
+            padding-left: 30px;
+
+            color: var(--color-text-main-transparent);
+
+            background-image: url(../../../../../assets/icons/widgets/admin/option-card.svg);
+            background-repeat: no-repeat;
+            background-size: contain;
+
+            &-active {
+              background-image: url(../../../../../assets/icons/widgets/admin/option-card-active.svg);
+              color: var(--color-text-main);
+            }
+
+            &:hover{
+              cursor: pointer;
+            }
+          }
         }
       }
     }
