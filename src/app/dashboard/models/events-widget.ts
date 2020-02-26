@@ -126,6 +126,7 @@ export interface EventsWidgetOptions {
     categories: number[];
     filter: EventsWidgetFilterCode;
     dates: { fromDateTime: Date, toDateTime: Date };
+    placeNames: string[];
 }
 
 export interface EventsWidgetsStats {
