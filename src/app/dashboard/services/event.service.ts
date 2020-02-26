@@ -57,9 +57,7 @@ export class EventService {
     public async getPlaces(widgetId: string): Promise<string[]> {
         try {
             return this.http
-                .get<string[]>(
-                    this.restUrl + `/api/notifications/widget/places/${widgetId}`
-                )
+                .get<string[]>(this.restUrl + `/api/notifications/widget/places/${widgetId}`)
                 .toPromise();
         } catch (error) {
             console.error(error);
