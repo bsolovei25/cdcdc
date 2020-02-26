@@ -10,6 +10,9 @@ import { IWorkerOptionAdminPanel } from '../../../models/admin-panel';
 export class AdminWorkerSettingsComponent implements OnInit {
     public isChangingOption: boolean = false;
     public isClaimsShowing: boolean = false;
+    public isAlertShowing: boolean = false;
+
+    public isCheckBoxClicked: boolean = false;
 
     public searchIcon: string = 'assets/icons/search-icon.svg';
 

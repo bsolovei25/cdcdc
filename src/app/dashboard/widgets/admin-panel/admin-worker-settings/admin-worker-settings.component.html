@@ -49,7 +49,34 @@
         </div>
       </div>
     </div>
-    <div class="worker__column worker__main"></div>
+    <div class="worker__column worker__main">
+      <div class="avatar">
+        <div class="frame" [ngClass]="{'frame-moved':isAlertShowing}">
+          <img src="assets/icons/widgets/admin/default_avatar.svg" class="photo" />
+        </div>
+        <div class="alert" [ngClass]="{'alert-hidden':!isAlertShowing}">
+          <div
+            class="checkbox"
+            [ngClass]="{'checkbox-active':isCheckBoxClicked}"
+            (click)="isCheckBoxClicked=!isCheckBoxClicked"
+          ></div>
+          <div class="message">
+            Подтверждаю внесенные изменения и<br />
+            <span>высокий уровень</span> доступа<br />
+            для данного сотрудника
+          </div>
+        </div>
+      </div>
+      <div class="buttons">
+        <evj-button class="button" [textButton]="'Вернуться'"></evj-button>
+        <evj-button
+          class="button"
+          [textButton]="'Сохранить'"
+          [ngClass]="{'button-disabled':!isCheckBoxClicked}"
+          (click)="isAlertShowing=!isAlertShowing"
+        ></evj-button>
+      </div>
+    </div>
     <div class="worker__column worker__workspaces"></div>
   </div>
 </div>
