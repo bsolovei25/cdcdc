@@ -163,15 +163,15 @@
                 <div class="description__content_text" *ngIf="!isEditing">
                   {{event.description}}
                 </div>
-                <div class="description__content_text"  *ngIf="isEditing">
+                <div class="description__content_text" *ngIf="isEditing">
                   <textarea
-                  required
-                  class="gridster-item-content"
-                  placeholder="Введите значение..."
-                  minlength="3"
-                  [(ngModel)]="event.description"
-                >
-                </textarea>
+                    required
+                    class="gridster-item-content"
+                    placeholder="Введите значение..."
+                    minlength="3"
+                    [(ngModel)]="event.description"
+                  >
+                  </textarea>
                 </div>
               </div>
               <div class="frame_description_bottom"></div>

@@ -611,7 +611,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         this.userDescription = data.positionDescription;
     }
 
-    onEditShortInfo(){
+    onEditShortInfo() {
         this.isEditing = true;
     }
 }
