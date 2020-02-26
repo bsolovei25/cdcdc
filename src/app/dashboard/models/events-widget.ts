@@ -31,7 +31,7 @@ export interface EventsWidgetNotification {
     iconUrl?: string;
     iconUrlStatus?: string;
     status: IStatus;
-    facts?: { comment: string; createdBy?: number}[];
+    facts?: { comment: string; createdBy?: number }[];
     priority: IPriority;
     deviationReason: string; // Причина отклонения
     establishedFacts: string; // Установленные факты
@@ -50,7 +50,7 @@ export interface EventsWidgetNotification {
     source?: any;
 }
 
-export interface IRetrievalEvents{
+export interface IRetrievalEvents {
     id: number;
     innerNotification: EventsWidgetNotification;
     timerPercentage: number;
@@ -77,7 +77,6 @@ export type EventsWidgetFilterCode = 'all' | 'inWork' | 'closed';
 export type EventsWidgetCategoryCode = 'smotr' | 'safety' | 'tasks' | 'equipmentStatus' | 'drops';
 
 export type EventAction = 'add' | 'edit' | 'delete';
-
 
 export interface ICategory {
     id: number;

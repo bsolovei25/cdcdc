@@ -105,10 +105,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         { value: 'tacos-2', viewValue: 'Tacos' },
     ];
 
-    eventLegends = [
-        { isLegend: true },
-        { isLegend: false }
-    ];
+    eventLegends = [{ isLegend: true }, { isLegend: false }];
 
     idUser: number = 0;
 
@@ -486,7 +483,11 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         } else {
             // Если новый event то добавляем в массив
             //this.event.retrievalEvents[0].innerNotification = this.isNewRetrieval;
-            this.event.retrievalEvents.push({ id: 1, innerNotification: this.isNewRetrieval, timerPercentage: 50 });
+            this.event.retrievalEvents.push({
+                id: 1,
+                innerNotification: this.isNewRetrieval,
+                timerPercentage: 50,
+            });
             this.overlayClose();
         }
     }
