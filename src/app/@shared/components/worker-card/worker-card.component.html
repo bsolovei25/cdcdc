@@ -47,10 +47,22 @@
         xlink:href="assets/icons/widgets/admin/default_avatar.svg"
       />
 
-      <text x="20" y="14" text-anchor="start" class="svg__txt svg__txt-small">
+      <text
+        x="20"
+        y="15"
+        text-anchor="start"
+        class="svg__txt-small"
+        [ngClass]="{'svg__txt-small-active':isActiveCard}"
+      >
         {{person.name}}
       </text>
-      <text x="20" y="39" text-anchor="start" class="svg__txt svg__txt-small">
+      <text
+        x="20"
+        y="39"
+        text-anchor="start"
+        class="svg__txt-small"
+        [ngClass]="{'svg__txt-small-active':isActiveCard}"
+      >
         {{person.position}}
       </text>
     </svg>

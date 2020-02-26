@@ -280,8 +280,13 @@
     font-size: 2.7px;
     fill: var(--color-text-main);
 
-    &-small{
+    &-small {
       font-size: 5px;
+      fill: var(--color-text-main-transparent);
+
+      &-active {
+        fill: var(--color-text-main);
+      }
     }
   }
 }

@@ -2,7 +2,11 @@
   <div class="admin__header">
     <div class="header__search">
       <div class="search">
-        <evj-input class="insert-component" [placeholder]="'Введите название пункта'" [iconSrc]="searchIcon"></evj-input>
+        <evj-input
+          class="insert-component"
+          [placeholder]="'Введите название пункта'"
+          [iconSrc]="searchIcon"
+        ></evj-input>
       </div>
     </div>
     <div class="header__title">
@@ -12,10 +16,17 @@
     </div>
     <div class="header__search">
       <div class="search">
-        <evj-input class="insert-component" [placeholder]="'Введите название рабочей области'" [iconSrc]="searchIcon"></evj-input>
+        <evj-input
+          class="insert-component"
+          [placeholder]="'Введите название рабочей области'"
+          [iconSrc]="searchIcon"
+        ></evj-input>
       </div>
     </div>
   </div>
-  <div class="admin__employee"></div>
-  <div class="admin__workspace"></div>
+  <div class="admin__worker">
+    <div class="worker__column"></div>
+    <div class="worker__column"></div>
+    <div class="worker__column"></div>
+  </div>
 </div>
