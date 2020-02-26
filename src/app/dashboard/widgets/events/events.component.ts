@@ -41,6 +41,8 @@ export class EventsComponent implements OnInit, OnDestroy {
 
     public previewTitle: string;
 
+    public placeNames: string[] = [];
+
     categories: EventsWidgetCategory[] = [
         {
             id: 1001,
@@ -104,7 +106,6 @@ export class EventsComponent implements OnInit, OnDestroy {
         },
     ];
 
-    allNotifications: EventsWidgetNotification[] = [];
     notifications: EventsWidgetNotificationPreview[] = [];
 
     filters: EventsWidgetFilter[] = [
@@ -194,13 +195,14 @@ export class EventsComponent implements OnInit, OnDestroy {
         if (show) {
             // do nothing
         } else {
-            this.getData();
-            this.getStats();
+            // this.getData();
+            // this.getStats();
             this.wsConnect();
         }
     }
 
-    private wsConnect(): void {
+    private async wsConnect(): Promise<void> {
+        this.placeNames = await this.eventService.getPlaces(this.id);
         this.subscriptions.push(
             this.widgetService
                 .getWidgetLiveDataFromWS(this.id, 'events')
@@ -208,10 +210,10 @@ export class EventsComponent implements OnInit, OnDestroy {
                     this.wsHandler(ref);
                 })
         );
-
         this.subscriptions.push(
             this.widgetService.currentDatesObservable.subscribe((ref) => {
                 this.getData();
+                this.getStats();
             })
         );
     }
@@ -246,6 +248,7 @@ export class EventsComponent implements OnInit, OnDestroy {
             categories: this.categories.filter((c) => c.isActive).map((c) => c.id),
             filter: this.filters.find((f) => f.isActive).code,
             dates: this.widgetService.currentDatesObservable.getValue(),
+            placeNames: this.placeNames,
         };
         return options;
     }
@@ -255,6 +258,12 @@ export class EventsComponent implements OnInit, OnDestroy {
     }
 
     private wsHandler(data: EventsWidgetDataPreview): void {
+        for (const place of this.notifications) {
+            // if () {
+            //
+            // }
+        }
+
         switch (data.action) {
             case 'add':
                 this.addWsElement(data.notification);
