@@ -58,22 +58,22 @@
       <div class="title">Создать событие</div>
       <div class="icon-wrapper">
         <svg-icon
-        (click)="createEvent(true)"
-        src="./assets/icons/add_button.svg"
-        class="add_button_icon"
-        [svgStyle]="{ 'width.px':20, 'height.px':20 }"
-      ></svg-icon>
+          (click)="createEvent(true)"
+          src="./assets/icons/add_button.svg"
+          class="add_button_icon"
+          [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+        ></svg-icon>
       </div>
     </div>
-    <div class="header-workspace__container" *ngIf='CreateIcon === false'>
-      <div class="title" >Сохранить событие</div>
+    <div class="header-workspace__container" *ngIf="CreateIcon === false">
+      <div class="title">Сохранить событие</div>
       <div class="icon-wrapper">
         <svg-icon
-        (click)="createEvent(false)"
-        src="./assets/icons/widgets/widget-header/checkmark.svg"
-        class="add_button_icon"
-        [svgStyle]="{ 'width.px':20, 'height.px':20 }"
-      ></svg-icon>
+          (click)="createEvent(false)"
+          src="./assets/icons/widgets/widget-header/checkmark.svg"
+          class="add_button_icon"
+          [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+        ></svg-icon>
       </div>
     </div>
   </div>

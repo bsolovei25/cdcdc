@@ -108,22 +108,22 @@
       width: 130px;
       text-align: center;
       line-height: 35px;
-  
+
       &:before {
         z-index: 1;
         content: "";
         position: absolute;
-  
+
         top: -4px;
         left: -1px;
-  
+
         height: 9px;
         width: 9px;
         box-sizing: border-box;
-  
+
         transform-origin: 43% 0;
         transform: rotate(45deg);
-  
+
         background: var(--color-bg-main);
       }
     }
@@ -138,7 +138,7 @@
       margin-right: 10px;
       box-sizing: border-box;
       line-height: 25px;
-  
+
       &:hover svg-icon {
         ::ng-deep .cls-1 {
           fill: white !important;

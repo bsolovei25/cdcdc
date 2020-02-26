@@ -217,7 +217,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
     createdEvent(event: boolean) {
         console.log(event);
-        (event === true) ? this.createEvent() : this.saveItem();
+        event === true ? this.createEvent() : this.saveItem();
     }
 
     resetComponent(): void {

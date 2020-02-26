@@ -412,7 +412,7 @@
                       class="events_content"
                       [class.events_closed]="retrieval.status.name === 'closed'"
                     >
-                      <div class="events_container"  (click)="onLoadEvent(retrieval.id)">
+                      <div class="events_container" (click)="onLoadEvent(retrieval.id)">
                         <div class="events_info">
                           <div class="events_info_title">Кратное описание</div>
                           <div class="events_info_body">
@@ -470,41 +470,40 @@
                       </div>
                       <div ngClass="progress-line-{{retrieval.priority.name}}"></div>
 
-                             <!--DELETE EVENT-->
-                             <div
-                             (mousedown)="$event.stopPropagation()"
-                             (touchstart)="$event.stopPropagation()"
-                             id="overlay-confirmation"
-                           >
-                             <div class="overlay-confirmation__body" (click)="$event.stopPropagation()">
-                               <span>Вы действительно хотите удалить выбранное Мероприятие?</span>
-                               <div style="display: flex;">
-                                 <div class="workspace__submit">
-                                   <div class="submit__frame submit__frame-left"></div>
-                                   <div class="submit__frame submit__frame-right"></div>
-                                   <button
-                                     type="submit gridster-item-content"
-                                     (click)="deleteRetrieval(event.id, retrieval.id)"
-                                   >
-                                     Удалить
-                                   </button>
-                                 </div>
-                                 <div class="workspace__submit">
-                                   <div class="submit__frame submit__frame-left"></div>
-                                   <div class="submit__frame submit__frame-right"></div>
-                                   <button
-                                     type="submit gridster-item-content"
-                                     (click)="overlayConfirmationClose()"
-                                   >
-                                     Отменить
-                                   </button>
-                                 </div>
-                               </div>
-                             </div>
-                           </div>
-                           <!--DELETE EVENT-->
+                      <!--DELETE EVENT-->
+                      <div
+                        (mousedown)="$event.stopPropagation()"
+                        (touchstart)="$event.stopPropagation()"
+                        id="overlay-confirmation"
+                      >
+                        <div class="overlay-confirmation__body" (click)="$event.stopPropagation()">
+                          <span>Вы действительно хотите удалить выбранное Мероприятие?</span>
+                          <div style="display: flex;">
+                            <div class="workspace__submit">
+                              <div class="submit__frame submit__frame-left"></div>
+                              <div class="submit__frame submit__frame-right"></div>
+                              <button
+                                type="submit gridster-item-content"
+                                (click)="deleteRetrieval(event.id, retrieval.id)"
+                              >
+                                Удалить
+                              </button>
+                            </div>
+                            <div class="workspace__submit">
+                              <div class="submit__frame submit__frame-left"></div>
+                              <div class="submit__frame submit__frame-right"></div>
+                              <button
+                                type="submit gridster-item-content"
+                                (click)="overlayConfirmationClose()"
+                              >
+                                Отменить
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!--DELETE EVENT-->
                     </div>
-
                   </ng-container>
                 </div>
                 <div class="events_bottom_info">
