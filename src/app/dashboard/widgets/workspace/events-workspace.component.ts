@@ -250,19 +250,19 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
             };
             this.event.comments.push(commentInfo);
         } else {
-            if (this.input.nativeElement.value) {
+            if (this.input2.nativeElement.value) {
                 const commentInfo = {
-                    comment: this.input.nativeElement.value,
+                    comment: this.input2.nativeElement.value,
                 };
                 this.event.comments.push(commentInfo);
                 // this.comments.push(this.input.nativeElement.value);
-                this.input.nativeElement.value = '';
-            } else if (this.input2.nativeElement.value) {
+                this.input2.nativeElement.value = '';
+            } else if (this.input.nativeElement.value) {
                 const factInfo = {
-                    comment: this.input2.nativeElement.value,
+                    comment: this.input.nativeElement.value,
                 };
                 this.event.facts.push(factInfo);
-                this.input2.nativeElement.value = '';
+                this.input.nativeElement.value = '';
             }
         }
         setTimeout(() => {
