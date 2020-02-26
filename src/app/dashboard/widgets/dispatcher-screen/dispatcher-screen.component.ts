@@ -1,4 +1,4 @@
-import { Component, HostListener, Inject, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import {Component, HostListener, Inject, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
 import { UnityLoader } from './UnityLoader.js';
 import { PlatformLocation } from '@angular/common';
 import { NewWidgetService } from '../../services/new-widget.service';
@@ -28,6 +28,7 @@ export class DispatcherScreenComponent implements OnInit, AfterViewInit, OnDestr
     constructor(
         public widgetService: NewWidgetService,
         public widgetSettingsService: WidgetSettingsService,
+        @ViewChild('unityContainer') unityContainer: ElementRef,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
@@ -53,8 +54,8 @@ export class DispatcherScreenComponent implements OnInit, AfterViewInit, OnDestr
     ngOnDestroy(): void {
         console.log('destroy_unity');
         if (this.subscriptions) {
-            for (const i in this.subscriptions) {
-                this.subscriptions[i].unsubscribe();
+            for (const subscription of this.subscriptions) {
+                subscription.unsubscribe();
             }
         }
         if (this.unityInstance) {
