@@ -509,6 +509,13 @@ $border-size: 4px;
               fill: var(--color-text-sub);
               line-height: 40px;
             }
+
+            &:hover svg-icon{
+              cursor: pointer;
+              ::ng-deep .st0 {
+                fill: white !important;
+              }
+            }
           }
 
           &:before {
@@ -1521,6 +1528,7 @@ $border-size: 4px;
                 border-top-left-radius: 10px;
 
                 .events_info {
+                  cursor: pointer;
                   width: 70%;
                   margin-left: 10px;
 

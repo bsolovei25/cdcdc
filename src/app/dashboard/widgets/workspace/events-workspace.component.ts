@@ -70,6 +70,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     userDescription: string;
 
     saveEvent: boolean;
+    isEditing: boolean = false;
 
     isNewRetrieval: EventsWidgetNotification = null;
 
@@ -385,7 +386,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
     async saveItem(): Promise<void> {
         this.isLoading = true;
-
+        this.isEditing = false;
         if (this.isNew) {
             try {
                 const ev = await this.eventService.postEvent(this.event);
@@ -608,5 +609,9 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         this.chooseNameUser = data.firstName + ' ' + data.middleName + ' ' + data.lastName;
         this.userBrigade = data.brigade.number;
         this.userDescription = data.positionDescription;
+    }
+
+    onEditShortInfo(){
+        this.isEditing = true;
     }
 }

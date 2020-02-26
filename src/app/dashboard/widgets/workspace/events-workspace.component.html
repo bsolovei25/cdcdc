@@ -151,7 +151,7 @@
             <div class="description">
               <div class="description_nav">
                 <div class="description_title">Краткое описание</div>
-                <div class="description_button_update">
+                <div class="description_button_update" (click)="onEditShortInfo()">
                   <svg-icon
                     src="./assets/icons/edit.svg"
                     [svgStyle]="{ 'width.px':20, 'height.px':20 }"
@@ -160,8 +160,18 @@
                 </div>
               </div>
               <div class="description__content">
-                <div class="description__content_text">
+                <div class="description__content_text" *ngIf="!isEditing">
                   {{event.description}}
+                </div>
+                <div class="description__content_text"  *ngIf="isEditing">
+                  <textarea
+                  required
+                  class="gridster-item-content"
+                  placeholder="Введите значение..."
+                  minlength="3"
+                  [(ngModel)]="event.description"
+                >
+                </textarea>
                 </div>
               </div>
               <div class="frame_description_bottom"></div>
