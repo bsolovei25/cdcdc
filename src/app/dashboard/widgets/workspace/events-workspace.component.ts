@@ -42,7 +42,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     public widgetType: string;
     public icon: string = 'document';
     comments: string[] = [];
-    comments2: string[] = [];
+    fact: string[] = [];
     isNew: boolean = true;
 
     isEdit: boolean = false;
@@ -100,6 +100,11 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         { value: 'steak-0', viewValue: 'Steak' },
         { value: 'pizza-1', viewValue: 'Pizza' },
         { value: 'tacos-2', viewValue: 'Tacos' },
+    ];
+
+    eventLegends = [
+        { isLegend: true },
+        { isLegend: false }
     ];
 
     idUser: number = 0;
@@ -253,7 +258,10 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
                 // this.comments.push(this.input.nativeElement.value);
                 this.input.nativeElement.value = '';
             } else if (this.input2.nativeElement.value) {
-                this.comments2.push(this.input2.nativeElement.value);
+                const factInfo = {
+                    comment: this.input2.nativeElement.value,
+                };
+                this.event.facts.push(factInfo);
                 this.input2.nativeElement.value = '';
             }
         }
@@ -318,6 +326,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
             equipmentCategory: this.equipmentCategory ? this.equipmentCategory[0] : null,
             deadline: new Date(),
             graphValues: null,
+            isAcknowledged: false,
         };
     }
 
@@ -365,6 +374,12 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
                 this.equipmentCategory = data;
             })
         );
+        dataLoadQueue.push(
+            this.eventService.getEventType().then((data) => {
+                this.eventTypes = data;
+            })
+        );
+
         dataLoadQueue.push(
             this.eventService.getEventType().then((data) => {
                 this.eventTypes = data;
@@ -438,7 +453,8 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
             }
         } else {
             // Если новый event то добавляем в массив
-            this.event.retrievalEvents.push(this.isNewRetrieval);
+            //this.event.retrievalEvents[0].innerNotification = this.isNewRetrieval;
+            this.event.retrievalEvents.push({ id: 1, innerNotification: this.isNewRetrieval, timerPercentage: 50 });
             this.overlayClose();
         }
     }
@@ -478,6 +494,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
             severity: 'Critical',
             deadline: new Date(),
             graphValues: null,
+            isAcknowledged: false,
         };
     }
 
@@ -500,10 +517,10 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         this.isEdit = true;
         if (this.isNew) {
             const idx = this.event.retrievalEvents.findIndex(
-                (i) => i.id === this.isNewRetrieval.id
+                (i) => i.innerNotification.id === this.isNewRetrieval.id
             );
             if (idx !== -1) {
-                this.event.retrievalEvents[idx] = this.isNewRetrieval;
+                this.event.retrievalEvents[idx].innerNotification = this.isNewRetrieval;
             }
             this.isNewRetrieval = null;
             this.isEdit = false;
@@ -516,10 +533,10 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
                     this.isNewRetrieval
                 );
                 const idx = this.event.retrievalEvents.findIndex(
-                    (i) => i.id === this.isNewRetrieval.id
+                    (i) => i.innerNotification.id === this.isNewRetrieval.id
                 );
                 if (idx !== -1) {
-                    this.event.retrievalEvents[idx] = this.isNewRetrieval;
+                    this.event.retrievalEvents[idx].innerNotification = this.isNewRetrieval;
                 }
                 this.eventService.updateEvent$.next(true);
                 this.overlayClose();
@@ -536,7 +553,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     async deleteRetrieval(idEvent: number, idRetr: number): Promise<void> {
         const del = await this.eventService.deleteRetrievalEvents(idEvent, idRetr);
         this.eventService.updateEvent$.next(true);
-        const idx = this.event.retrievalEvents.findIndex((i) => i.id === idRetr);
+        const idx = this.event.retrievalEvents.findIndex((i) => i.innerNotification.id === idRetr);
         if (idx !== -1) {
             this.event.retrievalEvents.splice(idx, 1);
         }

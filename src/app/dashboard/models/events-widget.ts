@@ -31,6 +31,7 @@ export interface EventsWidgetNotification {
     iconUrl?: string;
     iconUrlStatus?: string;
     status: IStatus;
+    facts?: { comment: string; createdBy?: number}[];
     priority: IPriority;
     deviationReason: string; // Причина отклонения
     establishedFacts: string; // Установленные факты
@@ -41,11 +42,18 @@ export interface EventsWidgetNotification {
     category: ICategory;
     statusName?: string;
     severity: string;
-    retrievalEvents: EventsWidgetNotification[];
+    retrievalEvents: IRetrievalEvents[];
     equipmentCategory: { id: number; name: string; code: string };
     deadline?: Date;
     graphValues: LineChartData;
+    isAcknowledged: boolean;
     source?: any;
+}
+
+export interface IRetrievalEvents{
+    id: number;
+    innerNotification: EventsWidgetNotification;
+    timerPercentage: number;
 }
 
 export interface IUser {
@@ -69,6 +77,7 @@ export type EventsWidgetFilterCode = 'all' | 'inWork' | 'closed';
 export type EventsWidgetCategoryCode = 'smotr' | 'safety' | 'tasks' | 'equipmentStatus' | 'drops';
 
 export type EventAction = 'add' | 'edit' | 'delete';
+
 
 export interface ICategory {
     id: number;
