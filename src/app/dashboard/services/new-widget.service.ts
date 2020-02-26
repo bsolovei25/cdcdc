@@ -61,7 +61,9 @@ export class NewWidgetService {
     public offFilterWidget: any = [];
 
     private currentDates: IDatesInterval = null;
-    public currentDatesObservable: BehaviorSubject<IDatesInterval> = new BehaviorSubject<IDatesInterval>(null);
+    public currentDatesObservable: BehaviorSubject<IDatesInterval> = new BehaviorSubject<
+        IDatesInterval
+    >(null);
 
     public searchWidgetT: Observable<any> = this.searchWidget$.pipe(
         tap((val) => {
@@ -86,7 +88,7 @@ export class NewWidgetService {
 
         this.currentDatesObservable.subscribe((ref) => {
             this.wsSetParams(ref);
-        })
+        });
 
         setInterval(() => this.reloadPage(), 1800000);
     }

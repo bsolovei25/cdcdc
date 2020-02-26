@@ -11,7 +11,7 @@ export interface EventsWidgetNotificationPreview {
     category: ICategory;
     severity: string;
     description: string;
-    comments?: { comment: string, createdBy?: number}[];
+    comments?: { comment: string; createdBy?: number }[];
     sortIndex: number;
     iconUrl?: string;
     statusName?: string;
@@ -36,7 +36,7 @@ export interface EventsWidgetNotification {
     eventType: { id: number; name: string }; // Тип происшествия
     directReasons: string; // Непосредственные/прямые причины
     description: string; // Описание
-    comments?: { comment: string, createdBy?: number}[]; // Комментарий оператора
+    comments?: { comment: string; createdBy?: number }[]; // Комментарий оператора
     category: ICategory;
     statusName?: string;
     severity: string;
