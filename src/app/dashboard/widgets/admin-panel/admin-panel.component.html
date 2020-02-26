@@ -15,7 +15,7 @@
 
   <evj-frame-top></evj-frame-top>
 
-  <ng-container>
+  <ng-container *ngIf="!isWorkerSettingsShowed;else workerSettings">
     <div class="admin">
       <div class="admin__header">
         <div class="header__search">
@@ -70,6 +70,10 @@
       </div>
     </div>
   </ng-container>
+
+  <ng-template #workerSettings>
+    <evj-admin-worker-settings></evj-admin-worker-settings>
+  </ng-template>
 
   <evj-frame-bottom></evj-frame-bottom>
 </div>

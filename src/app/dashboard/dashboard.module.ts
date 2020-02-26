@@ -98,6 +98,7 @@ import { AdminEmployeeComponent } from './widgets/admin-panel/admin-employee/adm
 import { AdminWorkspaceComponent } from './widgets/admin-panel/admin-workspace/admin-workspace.component';
 import { AdminClaimsComponent } from './widgets/admin-panel/admin-workspace/admin-claims/admin-claims.component';
 import { AdminBrigadesComponent } from './widgets/admin-panel/admin-brigades/admin-brigades.component';
+import { AdminWorkerSettingsComponent } from './widgets/admin-panel/admin-worker-settings/admin-worker-settings.component';
 
 @NgModule({
     declarations: [
@@ -184,6 +185,7 @@ import { AdminBrigadesComponent } from './widgets/admin-panel/admin-brigades/adm
         AdminWorkspaceComponent,
         AdminClaimsComponent,
         AdminBrigadesComponent,
+        AdminWorkerSettingsComponent,
     ],
     entryComponents: [
         LineChartComponent,
