@@ -16,6 +16,7 @@ import {
 export class InputComponent implements OnInit {
     @Input() placeholder: string = '';
     @Input() iconSrc: string = '';
+    @Input() value: string = '';
     @Output() inputedValue: EventEmitter<string> = new EventEmitter<string>();
     @ViewChild('input') input: ElementRef;
 

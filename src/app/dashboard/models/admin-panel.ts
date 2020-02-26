@@ -33,3 +33,8 @@ export interface IWorkerAdminPanel {
     isActiveWorker: boolean;
     worker: IWorker;
 }
+
+export interface IWorkerOptionAdminPanel {
+    name: string;
+    value: string;
+}

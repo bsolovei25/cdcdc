@@ -99,6 +99,7 @@ import { AdminWorkspaceComponent } from './widgets/admin-panel/admin-workspace/a
 import { AdminClaimsComponent } from './widgets/admin-panel/admin-workspace/admin-claims/admin-claims.component';
 import { AdminBrigadesComponent } from './widgets/admin-panel/admin-brigades/admin-brigades.component';
 import { AdminWorkerSettingsComponent } from './widgets/admin-panel/admin-worker-settings/admin-worker-settings.component';
+import { AwsCardComponent } from './widgets/admin-panel/admin-worker-settings/aws-card/aws-card.component';
 
 @NgModule({
     declarations: [
@@ -186,6 +187,7 @@ import { AdminWorkerSettingsComponent } from './widgets/admin-panel/admin-worker
         AdminClaimsComponent,
         AdminBrigadesComponent,
         AdminWorkerSettingsComponent,
+        AwsCardComponent,
     ],
     entryComponents: [
         LineChartComponent,

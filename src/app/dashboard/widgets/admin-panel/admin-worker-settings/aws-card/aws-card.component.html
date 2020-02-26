@@ -1,0 +1,19 @@
+<div class="card" [ngClass]="{'card-active':isChangingOption}">
+  <div class="value" *ngIf="!isChangingOption;else input">{{option.value}}</div>
+  <ng-template #input>
+    <evj-input class="value" *ngIf="isChangingOption" [value]="option.value"></evj-input>
+  </ng-template>
+  <div class="name">{{option.name}}</div>
+  <div
+    class="button"
+    [ngClass]="{'button-active':isChangingOption}"
+    (click)="isChangingOption=!isChangingOption"
+  >
+    <img src="assets/icons/widgets/admin/edit-button.svg" />
+  </div>
+  <div
+    class="button button-x"
+    [ngClass]="{'button-hidden':!isChangingOption}"
+    (click)="isChangingOption=false"
+  ></div>
+</div>

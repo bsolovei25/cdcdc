@@ -25,8 +25,14 @@
     </div>
   </div>
   <div class="admin__worker">
-    <div class="worker__column"></div>
-    <div class="worker__column"></div>
-    <div class="worker__column"></div>
+    <div class="worker__column worker__info">
+      <div class="options scroll-bar">
+        <ng-container *ngFor="let option of options">
+          <evj-aws-card class="card" [option]="option"></evj-aws-card>
+        </ng-container>
+      </div>
+    </div>
+    <div class="worker__column worker__main"></div>
+    <div class="worker__column worker__workspaces"></div>
   </div>
 </div>
