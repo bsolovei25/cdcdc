@@ -61,6 +61,14 @@
       font-size: 16px;
       color: var(--color-text-main-transparent);
 
+      &-active {
+        background: linear-gradient(
+          to right,
+          var(--color-bg-active-gradient1) 0%,
+          var(--color-bg-main) 50%
+        );
+      }
+
       .card {
         &__position {
           margin-top: 5px;
@@ -149,7 +157,7 @@
 
         margin: 20px 0;
 
-        &:hover{
+        &:hover {
           cursor: pointer;
         }
       }

@@ -2,43 +2,28 @@
   <div class="brigades__list scroll-bar">
     <div class="brigades__cards">
       <ng-container *ngFor="let brigade of brigades">
-        <div class="brigades__card block__frame-left">
-          <div class="card__name">Бригада №{{brigade.number}}</div>
+        <div
+          class="brigades__card block__frame-left"
+          [ngClass]="{'brigades__card-active':brigade.isActiveBrigade}"
+          (click)="setActiveBrigade(brigade)"
+        >
+          <div class="card__name">
+            Бригада №{{brigade.brigade.number}}
+          </div>
         </div>
       </ng-container>
     </div>
   </div>
   <div class="brigades__persons scroll-bar">
     <div class="title">Состав бригады</div>
-    <div class="person">
-      <evj-worker-card [isSmallCard]="true" [person]="workers[0]"></evj-worker-card>
-    </div>
-    <div class="person">
-      <evj-worker-card [isSmallCard]="true" [person]="workers[0]"></evj-worker-card>
-    </div>
-    <div class="person">
-      <evj-worker-card [isSmallCard]="true" [person]="workers[0]"></evj-worker-card>
-    </div>
-    <div class="person">
-      <evj-worker-card [isSmallCard]="true" [person]="workers[0]"></evj-worker-card>
-    </div>
-    <div class="person">
-      <evj-worker-card [isSmallCard]="true" [person]="workers[0]"></evj-worker-card>
-    </div>
-    <div class="person">
-      <evj-worker-card [isSmallCard]="true" [person]="workers[0]"></evj-worker-card>
-    </div>
-    <div class="person">
-      <evj-worker-card [isSmallCard]="true" [person]="workers[0]"></evj-worker-card>
-    </div>
-    <div class="person">
-      <evj-worker-card [isSmallCard]="true" [person]="workers[0]"></evj-worker-card>
-    </div>
-    <div class="person">
-      <evj-worker-card [isSmallCard]="true" [person]="workers[0]"></evj-worker-card>
-    </div>
-    <div class="person">
-      <evj-worker-card [isSmallCard]="true" [person]="workers[0]"></evj-worker-card>
-    </div>
+    <ng-container *ngFor="let worker of workers">
+      <div class="person" (click)="setActiveWorker(worker.worker.id)">
+        <evj-worker-card
+          [isSmallCard]="true"
+          [person]="worker.worker"
+          [isActiveCard]="worker.isActiveWorker"
+        ></evj-worker-card>
+      </div>
+    </ng-container>
   </div>
 </div>

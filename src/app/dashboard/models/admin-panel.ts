@@ -1,5 +1,7 @@
 import { IUser } from './events-widget';
 import { IWidgets } from './widget.model';
+import { IBrigade } from './shift.model';
+import { IWorker } from './worker';
 
 export interface IAdminPanel {
     person: IUser;
@@ -20,4 +22,14 @@ export interface IClaim {
 
 export interface IButtonImgSrc {
     btnIconSrc: string;
+}
+
+export interface IBrigadeAdminPanel {
+    isActiveBrigade: boolean;
+    brigade: IBrigade;
+}
+
+export interface IWorkerAdminPanel {
+    isActiveWorker: boolean;
+    worker: IWorker;
 }

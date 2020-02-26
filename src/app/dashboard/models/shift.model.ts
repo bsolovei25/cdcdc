@@ -1,6 +1,6 @@
 import { IUser } from './events-widget';
 
-export interface Brigade {
+export interface IBrigade {
     id: number;
     number: number;
 }
@@ -9,7 +9,7 @@ export interface Employee {
     id: number;
     firstName: string;
     lastName: string;
-    brigade: Brigade;
+    brigade: IBrigade;
     position: string;
     positionDescription: string;
     main?: boolean;
@@ -25,7 +25,7 @@ export interface ShiftMember {
 export interface Shift {
     id: number;
     shiftMembers: ShiftMember[];
-    brigade: Brigade;
+    brigade: IBrigade;
     shiftPassingComments: ShiftComment[];
     shiftAcceptingComments: ShiftComment[];
     status: ShiftStatus;
