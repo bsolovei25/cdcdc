@@ -583,9 +583,9 @@
                   <div class="fact_content_create_event" #scroll>
                     <!--ngFor -->
                     <div class="fact_new" (click)="clickFact()" [class.activeFact]="isClickFact"
-                      *ngFor="let comment of event?.comments">
+                      *ngFor="let comment of this.newFact">
                       <div class="fact_text">
-                        <p>{{comment.comment}}</p>
+                        <p>{{comment}}</p>
                       </div>
                       <div class="fact_menu">
                         <div class="fact_button">
@@ -610,7 +610,7 @@
                   <div class="fact_comment">
                     <div class="comment__new">
                       <input type="text" class="comment__text gridster-item-content"
-                        placeholder="Напишите свой комментарий..." (keypress)="onEnterPush($event)" #input />
+                        placeholder="Напишите свой комментарий..." (keypress)="onEnterPush($event)" #newInput2 />
                       <button type="submit" class="button comment__file   gridster-item-content">
                         <svg-icon class="button__icon" src="./assets/icons/widgets/change-shift/add_file.svg">
                         </svg-icon>
@@ -689,7 +689,7 @@
                   <div class="comments_content_create_event">
                     <!--ngFor -->
                     <div class="comment_new" (click)="clickFact()" [class.activeFact]="isClickFact"
-                      *ngFor="let comment of comments">
+                      *ngFor="let comment of newComments">
                       <div class="comment_text">
                         {{comment}}
                       </div>
@@ -709,7 +709,7 @@
                   <div class="fact_comment">
                     <div class="comment__new">
                       <input type="text" class="comment__text gridster-item-content"
-                        placeholder="Напишите свой комментарий..." (keypress)="onEnterPush($event)" #input2 />
+                        placeholder="Напишите свой комментарий..." (keypress)="onEnterPush($event)" #newInput />
                       <button type="submit" class="button comment__file   gridster-item-content">
                         <svg-icon class="button__icon" src="./assets/icons/widgets/change-shift/add_file.svg">
                         </svg-icon>

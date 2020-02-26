@@ -45,6 +45,9 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     fact: string[] = [];
     isNew: boolean = true;
 
+    newComments: string[] = [];
+    newFact: string[] = [];
+
     isEdit: boolean = false;
 
     isClickFact: boolean = false;
@@ -114,6 +117,8 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
     @ViewChild('input', { static: false }) input: ElementRef;
     @ViewChild('input2', { static: false }) input2: ElementRef;
+    @ViewChild('newInput', { static: false }) newInput: ElementRef;
+    @ViewChild('newInput2', { static: false }) newInput2: ElementRef;
     @ViewChild('scroll', { static: false }) scroll: ElementRef;
     @ViewChild('scroll2', { static: false }) scroll2: ElementRef;
 
@@ -263,6 +268,33 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
                 };
                 this.event.facts.push(factInfo);
                 this.input.nativeElement.value = '';
+            }
+        }
+        setTimeout(() => {
+            this.scrollBottom();
+        }, 50);
+    }
+
+    onSendNewMessage(graph?): void {
+        if (graph === true) {
+            const commentInfo = {
+                comment: 'График',
+            };
+            this.event.retrievalEvents[0].innerNotification.comments.push(commentInfo);
+        } else {
+            if (this.newInput2.nativeElement.value) {
+                const commentInfo = {
+                    comment: this.newInput2.nativeElement.value,
+                };
+                this.event.retrievalEvents[0].innerNotification.comments.push(commentInfo);
+                // this.comments.push(this.input.nativeElement.value);
+                this.newInput2.nativeElement.value = '';
+            } else if (this.newInput.nativeElement.value) {
+                const factInfo = {
+                    comment: this.newInput.nativeElement.value,
+                };
+                this.event.retrievalEvents[0].innerNotification.facts.push(factInfo);
+                this.newInput.nativeElement.value = '';
             }
         }
         setTimeout(() => {
