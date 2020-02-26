@@ -33,38 +33,24 @@
   <ng-template #smallCard>
     <svg width="100%" height="100%" viewBox="0 0 50 50">
       <image
-        x="-40"
+        x="-74.4"
         y="0"
-        width="50"
+        width="200"
         height="50"
-        xlink:href="../../../../../assets/icons/widgets/admin/frame.svg"
+        [attr.xlink:href]="(isActiveCard)?srcCardActive:srcCardNormal"
       />
       <image
         x="-36"
         y="0.5"
         width="42"
         height="42"
-        xlink:href="../../../../../assets/icons/widgets/admin/default_avatar.svg"
+        xlink:href="assets/icons/widgets/admin/default_avatar.svg"
       />
 
-      <image
-        x="-7"
-        y="0"
-        width="110"
-        height="22"
-        xlink:href="../../../../../assets/icons/widgets/admin/double-line.svg"
-      />
-      <image
-        x="-7"
-        y="28"
-        width="110"
-        height="22"
-        xlink:href="../../../../../assets/icons/widgets/admin/double-bottom-line.svg"
-      />
-      <text x="25" y="12" text-anchor="start" class="svg__txt">
+      <text x="20" y="14" text-anchor="start" class="svg__txt svg__txt-small">
         {{person.name}}
       </text>
-      <text x="25" y="40" text-anchor="start" class="svg__txt">
+      <text x="20" y="39" text-anchor="start" class="svg__txt svg__txt-small">
         {{person.position}}
       </text>
     </svg>

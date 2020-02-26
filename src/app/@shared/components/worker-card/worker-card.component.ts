@@ -9,6 +9,10 @@ import { IWorker } from '../../../dashboard/models/worker';
 export class WorkerCardComponent implements OnInit {
     @Input() person: IWorker = null;
     @Input() isSmallCard: boolean = false;
+    @Input() isActiveCard: boolean = false;
+
+    public srcCardNormal: string = 'assets/icons/widgets/admin/card-small.svg';
+    public srcCardActive: string = 'assets/icons/widgets/admin/card-small-active.svg';
 
     constructor() {}
 

@@ -279,5 +279,9 @@
   &__txt {
     font-size: 2.7px;
     fill: var(--color-text-main);
+
+    &-small{
+      font-size: 5px;
+    }
   }
 }
