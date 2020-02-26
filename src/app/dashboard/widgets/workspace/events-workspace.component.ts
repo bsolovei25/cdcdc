@@ -73,6 +73,8 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
     isNewRetrieval: EventsWidgetNotification = null;
 
+    openEvent: boolean = true;
+
     statuses: { [id in EventsWidgetNotificationStatus]: string } = {
         new: 'Новое',
         inWork: 'В работе',
@@ -145,6 +147,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
             this.subscriptions.push(
                 this.eventService.event$.subscribe((value) => {
                     if (value) {
+                        this.openEvent = false;
                         this.setEventByInfo(value);
                     } else {
                         this.event = value;
@@ -214,7 +217,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
     createdEvent(event: boolean) {
         console.log(event);
-        this.createEvent();
+        (event === true) ? this.createEvent() : this.saveItem();
     }
 
     resetComponent(): void {

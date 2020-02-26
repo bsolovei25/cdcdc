@@ -98,6 +98,55 @@
   display: flex;
   justify-content: space-between;
 
+  &__container {
+    display: flex;
+    .title {
+      padding-left: 10px;
+      position: relative;
+      cursor: default;
+      font-size: 0.875rem;
+      width: 130px;
+      text-align: center;
+      line-height: 35px;
+  
+      &:before {
+        z-index: 1;
+        content: "";
+        position: absolute;
+  
+        top: -4px;
+        left: -1px;
+  
+        height: 9px;
+        width: 9px;
+        box-sizing: border-box;
+  
+        transform-origin: 43% 0;
+        transform: rotate(45deg);
+  
+        background: var(--color-bg-main);
+      }
+    }
+
+    .icon-wrapper {
+      pointer-events: fill;
+      cursor: pointer !important;
+      display: flex;
+      min-width: 44px;
+      height: 100%;
+      padding: 9px 15px;
+      margin-right: 10px;
+      box-sizing: border-box;
+      line-height: 25px;
+  
+      &:hover svg-icon {
+        ::ng-deep .cls-1 {
+          fill: white !important;
+        }
+      }
+    }
+  }
+
   &__content {
     cursor: move !important;
     width: 50%;
@@ -126,6 +175,7 @@
   }
 
   &__title {
+    padding-left: 10px;
     position: relative;
     cursor: default;
     font-size: 0.875rem;

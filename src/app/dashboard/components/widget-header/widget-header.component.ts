@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Inject, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Inject, Output, EventEmitter, OnChanges } from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { NewUserSettingsService } from '../../services/new-user-settings.service';
 
@@ -7,7 +7,7 @@ import { NewUserSettingsService } from '../../services/new-user-settings.service
     templateUrl: './widget-header.component.html',
     styleUrls: ['./widget-header.component.scss'],
 })
-export class WidgetHeaderComponent implements OnInit {
+export class WidgetHeaderComponent implements OnInit, OnChanges {
     @Input() isPreview: boolean;
     @Input() widgetType: string;
     @Input() title: string;
@@ -17,8 +17,11 @@ export class WidgetHeaderComponent implements OnInit {
     @Input() uniqId: string;
     @Input() icon: string = 'shedule';
 
+    @Input() isEventOpen: boolean;
     @Output() eventCreated = new EventEmitter<boolean>();
     public readonly iconRoute: string = './assets/icons/widget-title-icons/';
+
+    public CreateIcon: boolean = true;
 
     constructor(
         public widgetService: NewWidgetService,
@@ -27,12 +30,17 @@ export class WidgetHeaderComponent implements OnInit {
 
     ngOnInit() {}
 
+    ngOnChanges() {
+        this.CreateIcon = this.isEventOpen;
+    }
+
     onRemoveButton() {
         this.widgetService.removeItemService(this.uniqId);
         this.userSettings.removeItem(this.uniqId);
     }
 
-    createEvent(): void {
-        this.eventCreated.emit(true);
+    createEvent(event): void {
+        this.CreateIcon = false;
+        this.eventCreated.emit(event);
     }
 }

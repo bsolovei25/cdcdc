@@ -18,6 +18,7 @@
       [icon]="icon"
       [widgetType]="widgetType"
       (eventCreated)="createdEvent($event)"
+      [isEventOpen]="openEvent"
     >
     </evj-widget-header>
 
@@ -160,9 +161,6 @@
               </div>
               <div class="description__content">
                 <div class="description__content_text">
-                  <!-- Неисправность расходомера FIRCАHL-1008 «Расход МЭА в колонну К-2» в 8:20. Переход
-                  на ручное управление клапаном 12FV-1008 в 8:22 Остановка насоса Н-17А по
-                  блокировке поз. FISAL1043 на установке ГФУ-2 с БОР производства №1 -->
                   {{event.description}}
                 </div>
               </div>
@@ -338,6 +336,7 @@
                   <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
                   <mat-datepicker #myDatepicker></mat-datepicker>
                 </mat-form-field>
+                <div class="deadline_bottom_angles"></div>
               </div>
             </div>
             <div class="responsible">
@@ -411,10 +410,9 @@
                   <ng-container *ngFor="let retrieval of event.retrievalEvents">
                     <div
                       class="events_content"
-                      (click)="onLoadEvent(retrieval.id)"
                       [class.events_closed]="retrieval.status.name === 'closed'"
                     >
-                      <div class="events_container">
+                      <div class="events_container"  (click)="onLoadEvent(retrieval.id)">
                         <div class="events_info">
                           <div class="events_info_title">Кратное описание</div>
                           <div class="events_info_body">
@@ -472,40 +470,41 @@
                       </div>
                       <div ngClass="progress-line-{{retrieval.priority.name}}"></div>
 
-                      <!--DELETE EVENT-->
-                      <div
-                        (mousedown)="$event.stopPropagation()"
-                        (touchstart)="$event.stopPropagation()"
-                        id="overlay-confirmation"
-                      >
-                        <div class="overlay-confirmation__body" (click)="$event.stopPropagation()">
-                          <span>Вы действительно хотите удалить выбранное Мероприятие?</span>
-                          <div style="display: flex;">
-                            <div class="workspace__submit">
-                              <div class="submit__frame submit__frame-left"></div>
-                              <div class="submit__frame submit__frame-right"></div>
-                              <button
-                                type="submit gridster-item-content"
-                                (click)="deleteRetrieval(event.id, retrieval.id)"
-                              >
-                                Удалить
-                              </button>
-                            </div>
-                            <div class="workspace__submit">
-                              <div class="submit__frame submit__frame-left"></div>
-                              <div class="submit__frame submit__frame-right"></div>
-                              <button
-                                type="submit gridster-item-content"
-                                (click)="overlayConfirmationClose()"
-                              >
-                                Отменить
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <!--DELETE EVENT-->
+                             <!--DELETE EVENT-->
+                             <div
+                             (mousedown)="$event.stopPropagation()"
+                             (touchstart)="$event.stopPropagation()"
+                             id="overlay-confirmation"
+                           >
+                             <div class="overlay-confirmation__body" (click)="$event.stopPropagation()">
+                               <span>Вы действительно хотите удалить выбранное Мероприятие?</span>
+                               <div style="display: flex;">
+                                 <div class="workspace__submit">
+                                   <div class="submit__frame submit__frame-left"></div>
+                                   <div class="submit__frame submit__frame-right"></div>
+                                   <button
+                                     type="submit gridster-item-content"
+                                     (click)="deleteRetrieval(event.id, retrieval.id)"
+                                   >
+                                     Удалить
+                                   </button>
+                                 </div>
+                                 <div class="workspace__submit">
+                                   <div class="submit__frame submit__frame-left"></div>
+                                   <div class="submit__frame submit__frame-right"></div>
+                                   <button
+                                     type="submit gridster-item-content"
+                                     (click)="overlayConfirmationClose()"
+                                   >
+                                     Отменить
+                                   </button>
+                                 </div>
+                               </div>
+                             </div>
+                           </div>
+                           <!--DELETE EVENT-->
                     </div>
+
                   </ng-container>
                 </div>
                 <div class="events_bottom_info">
@@ -535,19 +534,6 @@
             </div>
           </div>
         </div>
-
-        <!-- <div class="workspace__submit" style="margin-left: 5px;">
-          <div class="submit__frame submit__frame-left"></div>
-          <div class="submit__frame submit__frame-right"></div>
-          <button
-            class="btn-disabled"
-            type="submit gridster-item-content"
-            (click)="saveItem()"
-            [disabled]="isLoading"
-          >
-            Сохранить
-          </button>
-          </div> -->
       </section>
       <div
         (mousedown)="$event.stopPropagation()"
@@ -577,11 +563,12 @@
         (touchstart)="$event.stopPropagation()"
       >
         <div class="workspace__submit">
-          <div class="submit__frame submit__frame-left"></div>
+          <!-- <div class="submit__frame submit__frame-left"></div>
           <div class="submit__frame submit__frame-right"></div>
           <button type="submit gridster-item-content" (click)="createEvent()">
             Создать событие
-          </button>
+          </button> -->
+          Создайте или выберите событие
         </div>
       </div>
     </ng-container>
