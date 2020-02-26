@@ -3,21 +3,20 @@ import {
     Inject,
     OnDestroy,
     ViewChild,
-    EventEmitter,
-    Output,
     ElementRef,
     Renderer2,
     OnInit,
 } from '@angular/core';
 import { NewWidgetService } from '../../../services/new-widget.service';
 import { Subscription } from 'rxjs';
-import { MatCalendar, MatCalendarCellCssClasses } from '@angular/material/datepicker';
 import * as moment from 'moment';
 import { DateAdapter } from '@angular/material/core';
 import { IWorker } from '../../../models/worker';
 import { IUser } from '../../../models/events-widget';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AdminShiftScheduleService } from '../../../services/admin-shift-schedule.service';
+import { IBrigadeWithUsersDto, IScheduleShiftDay } from '../../../models/admin-shift-schedule';
+import { fillDataShape } from '../../../../@shared/common-functions';
 
 export interface IAdminShiftSchedule {
     worker: IWorker[];
@@ -47,8 +46,8 @@ interface IBrigade {
 })
 export class AdminShiftScheduleComponent implements OnInit, OnDestroy {
     aboutWidget: string;
-    public previewTitle: string = 'calendar-plan';
-    public title: string = '';
+    previewTitle: string = 'calendar-plan';
+    title: string = '';
     defaultLocale: string = 'ru-RU';
 
     public subscription: Subscription;
@@ -61,205 +60,17 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy {
 
     size: number[] = [1, 2, 3, 4, 5, 6, 7, 3, 4, 5, 6, 6, 7, 7];
     now: moment.Moment = moment();
-    selectedDate: Date = this.now.toDate();
-    yesterday: IDay = {
-        date: new Date(this.now.subtract(1, 'days').toDate()),
-        isUnassigned: true,
-        shift: [
-            {
-                id: 1,
-                title: '1',
-                timeStart: new Date('2020-02-11T00:00:00'),
-                timeEnd: new Date('2020-02-12T03:03:00'),
-            },
-        ],
+    yesterday: IScheduleShiftDay;
+
+    selectedDay: IScheduleShiftDay = {
+        date: new Date(),
+        isAllShiftsSet: false,
+        items: [],
     };
+    selectedBrigade: IBrigadeWithUsersDto;
 
-    selectedDay: IDay;
-
-    dataMonth: IDay[] = [
-        {
-            date: new Date(),
-            isUnassigned: false,
-            shift: [
-                {
-                    id: 1,
-                    title: '1',
-                    timeStart: new Date('2020-02-11T00:00:00'),
-                    timeEnd: new Date('2020-02-12T03:03:00'),
-                },
-                {
-                    id: 2,
-                    title: '2',
-                    timeStart: new Date('2020-02-11T00:00:00'),
-                    timeEnd: new Date('2020-02-12T03:03:00'),
-                },
-                {
-                    id: 3,
-                    title: '3',
-                    timeStart: new Date('2020-02-11T00:00:00'),
-                    timeEnd: new Date('2020-02-12T03:03:00'),
-                },
-            ],
-        },
-        {
-            date: new Date('2020-02-13T00:00:00'),
-            isUnassigned: true,
-            shift: [
-                {
-                    id: 1,
-                    title: '1',
-                    timeStart: new Date(),
-                    timeEnd: new Date(),
-                },
-                {
-                    id: 2,
-                    title: '2',
-                    timeStart: new Date(),
-                    timeEnd: new Date(),
-                },
-                {
-                    id: 3,
-                    title: '3',
-                    timeStart: new Date(),
-                    timeEnd: new Date(),
-                },
-            ],
-        },
-    ];
-
-    dataBrigade: IBrigade[] = [
-        {
-            id: 1,
-            number: '1',
-            user: [
-                {
-                    firstName: 'Иван',
-                    middleName: 'Сергеевич',
-                    lastName: 'Иванов',
-                    phone: '+ 7 (925) 599-99-87',
-                    email: 'Ivanov@gazprom-neft.ru',
-                    positionDescription: 'Старший оператор | КИПиА',
-                    id: 1,
-                    login: 'fd',
-                },
-                {
-                    firstName: 'Иван',
-                    middleName: 'Сергеевич',
-                    lastName: 'Иванов',
-                    phone: '+ 7 (925) 599-99-87',
-                    email: 'Ivanov@gazprom-neft.ru',
-                    positionDescription: 'Старший оператор | КИПиА',
-                    id: 1,
-                    login: 'fd',
-                },
-            ],
-        },
-        {
-            id: 1,
-            number: '2',
-            user: [
-                {
-                    firstName: 'Иван',
-                    middleName: 'Сергеевич',
-                    lastName: 'Иванов',
-                    phone: '+ 7 (925) 599-99-87',
-                    email: 'Ivanov@gazprom-neft.ru',
-                    positionDescription: 'Старший оператор | КИПиА',
-                    id: 1,
-                    login: 'fd',
-                },
-                {
-                    firstName: 'Иван',
-                    middleName: 'Сергеевич',
-                    lastName: 'Иванов',
-                    phone: '+ 7 (925) 599-99-87',
-                    email: 'Ivanov@gazprom-neft.ru',
-                    positionDescription: 'Старший оператор | КИПиА',
-                    id: 1,
-                    login: 'fd',
-                },
-            ],
-        },
-        {
-            id: 1,
-            number: '3',
-            user: [
-                {
-                    firstName: 'Иван',
-                    middleName: 'Сергеевич',
-                    lastName: 'Иванов',
-                    phone: '+ 7 (925) 599-99-87',
-                    email: 'Ivanov@gazprom-neft.ru',
-                    positionDescription: 'Старший оператор | КИПиА',
-                    id: 1,
-                    login: 'fd',
-                },
-                {
-                    firstName: 'Иван',
-                    middleName: 'Сергеевич',
-                    lastName: 'Иванов',
-                    phone: '+ 7 (925) 599-99-87',
-                    email: 'Ivanov@gazprom-neft.ru',
-                    positionDescription: 'Старший оператор | КИПиА',
-                    id: 1,
-                    login: 'fd',
-                },
-            ],
-        },
-        {
-            id: 1,
-            number: '4',
-            user: [
-                {
-                    firstName: 'Иван',
-                    middleName: 'Сергеевич',
-                    lastName: 'Иванов',
-                    phone: '+ 7 (925) 599-99-87',
-                    email: 'Ivanov@gazprom-neft.ru',
-                    positionDescription: 'Старший оператор | КИПиА',
-                    id: 1,
-                    login: 'fd',
-                },
-                {
-                    firstName: 'Иван',
-                    middleName: 'Сергеевич',
-                    lastName: 'Иванов',
-                    phone: '+ 7 (925) 599-99-87',
-                    email: 'Ivanov@gazprom-neft.ru',
-                    positionDescription: 'Старший оператор | КИПиА',
-                    id: 1,
-                    login: 'fd',
-                },
-            ],
-        },
-        {
-            id: 1,
-            number: '5',
-            user: [
-                {
-                    firstName: 'Иван',
-                    middleName: 'Сергеевич',
-                    lastName: 'Иванов',
-                    phone: '+ 7 (925) 599-99-87',
-                    email: 'Ivanov@gazprom-neft.ru',
-                    positionDescription: 'Старший оператор | КИПиА',
-                    id: 1,
-                    login: 'fd',
-                },
-                {
-                    firstName: 'Иван',
-                    middleName: 'Сергеевич',
-                    lastName: 'Иванов',
-                    phone: '+ 7 (925) 599-99-87',
-                    email: 'Ivanov@gazprom-neft.ru',
-                    positionDescription: 'Старший оператор | КИПиА',
-                    id: 1,
-                    login: 'fd',
-                },
-            ],
-        },
-    ];
+    scheduleShiftMonth: IScheduleShiftDay[] = [];
+    allBrigade: IBrigadeWithUsersDto[] = [];
 
     @ViewChild('shiftOverlay', { static: false }) shiftOverlay: ElementRef;
 
@@ -290,20 +101,26 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy {
         }
     }
 
-    dateChanged(event: moment.Moment): void {
-        this.yesterday = {
-            date: new Date(
-                moment(this.selectedDate)
+    dateChanged(event: Date): void {
+        const idx = this.scheduleShiftMonth.findIndex(
+            (val) => new Date(val.date).getDate() === new Date(event).getDate()
+        );
+        if (idx !== -1) {
+            const day = fillDataShape(this.scheduleShiftMonth[idx]);
+            this.selectedDay = day;
+            const yesterdayLocal = new Date(
+                moment(this.selectedDay.date)
                     .subtract(1, 'days')
                     .toDate()
-            ),
-            isUnassigned: true,
-            shift: [],
-        };
-
-        const day = this.dataMonth.find((val) => moment(val.date).date() === moment(event).date());
-
-        this.selectedDay = day;
+            );
+            const idx2 = this.scheduleShiftMonth.findIndex(
+                (val) => new Date(val.date).getDate() === new Date(yesterdayLocal).getDate()
+            );
+            if (idx2) {
+                const yesterdayLocals = fillDataShape(this.scheduleShiftMonth[idx2]);
+                this.yesterday = yesterdayLocals;
+            }
+        }
     }
 
     onClickCard(i: IUser): void {
@@ -314,14 +131,18 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy {
         }
     }
 
-    dateClass() {
+    onChooseBrigade(brigade: IBrigadeWithUsersDto): void {
+        this.selectedBrigade = brigade;
+    }
+
+    dateClass(): (d: Date) => string {
         return (date: Date) => {
             let str: string = '';
-            this.dataMonth.forEach((value) => {
-                if (date.getDate() === value.date.getDate()) {
-                    str = 'special-date';
-                } else {
-                    return;
+            this.scheduleShiftMonth.forEach((value) => {
+                if (date.getDate() === new Date(value.date).getDate()) {
+                    if (!value.isAllShiftsSet) {
+                        str = 'special-date';
+                    }
                 }
             });
             return str;
@@ -334,16 +155,19 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy {
         const dataLoadQueue: Promise<void>[] = [];
 
         dataLoadQueue.push(
-            this.adminShiftScheduleService.getSchudele().then((data) => {
-                console.log(data);
+            this.adminShiftScheduleService.getSchudeleShiftsMonth().then((data) => {
+                this.scheduleShiftMonth = data;
+            })
+        );
+        dataLoadQueue.push(
+            this.adminShiftScheduleService.getBrigade().then((data) => {
+                this.allBrigade = data;
             })
         );
 
         if (dataLoadQueue.length > 0) {
             try {
-                // wait untill all data will be loaded (with parralel requests)
                 await Promise.all(dataLoadQueue);
-                // fill form data from source object
             } catch (err) {
                 console.error(err);
             }
