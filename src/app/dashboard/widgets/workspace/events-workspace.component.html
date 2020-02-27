@@ -228,7 +228,7 @@
                     </div>
                     <div class="fact_info">
                       <div class="fact_info_user">{{fact.displayName}}</div>
-                      <div class="fact_info_date">{{fact.createAt | date:'dd-MM-yyyy HH:mm'}}</div>
+                      <div class="fact_info_date">{{fact.createdAt | dateFormat:'DD-MM-YY hh:mm'}}</div>
                     </div>
                   </div>
                 </div>
@@ -300,7 +300,7 @@
                     <div class="comment_info">
                       <div class="comment_info_user">{{comment.displayName}}</div>
                       <div class="comment_info_date">
-                        {{ comment.createAt | date:'dd-MM-yyyy HH:mm'}}
+                        {{ comment.createAt | dateFormat:'DD-MM-YY hh:mm'}}
                       </div>
                     </div>
                   </div>
