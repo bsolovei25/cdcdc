@@ -8,23 +8,34 @@ import { IWorker } from '../../models/worker';
     styleUrls: ['./admin-panel.component.scss'],
 })
 export class AdminPanelComponent implements OnInit {
-    public isMock: boolean = false;
+    //#region WIDGET_PROPS
 
+    public isMock: boolean = false;
     public id: number = null;
     public uniqId: number = null;
-
     public title: string = 'Панель администратора';
     public previewTitle: string = 'Панель администратора';
     public units: string = '';
+
+    //#endregion
+
+    //#region WIDGET_ICONS
 
     public groupsButtonIcon: IButtonImgSrc = {
         btnIconSrc: 'assets/icons/widgets/admin/icon_group-active.svg',
     };
     public searchIcon: string = 'assets/icons/search-icon.svg';
 
-    public searchedWorker: string = '';
+    //#endregion
+
+    //#region WIDGET_FLAGS
+
     public isGroupShowed: boolean = false;
     public isWorkerSettingsShowed: boolean = false;
+
+    //#endregion
+
+    public searchedWorker: string = '';
 
     public man: IWorker = {
         id: 1,
