@@ -68,12 +68,12 @@
         </div>
       </div>
       <div class="buttons">
-        <evj-button class="button" [textButton]="'Вернуться'"></evj-button>
+        <evj-button class="button" [textButton]="'Вернуться'" (click)="onReturn()"></evj-button>
         <evj-button
           class="button"
           [textButton]="'Сохранить'"
           [ngClass]="{'button-disabled':!isCheckBoxClicked}"
-          (click)="isAlertShowing=!isAlertShowing"
+          (click)="onSave()"
         ></evj-button>
       </div>
     </div>

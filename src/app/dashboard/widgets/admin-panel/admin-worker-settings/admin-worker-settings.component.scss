@@ -338,6 +338,10 @@
           align-items: flex-start;
           flex-wrap: wrap;
         }
+
+        &::-webkit-scrollbar-track {
+          margin: 120px 0px;
+        }
       }
 
       &__claims {

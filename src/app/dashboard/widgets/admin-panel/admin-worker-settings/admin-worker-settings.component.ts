@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { IWorker } from '../../../models/worker';
 import { IWorkerOptionAdminPanel, IWorkspace } from '../../../models/admin-panel';
 
@@ -8,6 +8,8 @@ import { IWorkerOptionAdminPanel, IWorkspace } from '../../../models/admin-panel
     styleUrls: ['./admin-worker-settings.component.scss'],
 })
 export class AdminWorkerSettingsComponent implements OnInit {
+    @Output() closeWorkerSettings: EventEmitter<IWorker> = new EventEmitter<IWorker>();
+
     public isChangingOption: boolean = false;
     public isClaimsShowing: boolean = true;
     public isAlertShowing: boolean = false;
@@ -127,5 +129,13 @@ export class AdminWorkerSettingsComponent implements OnInit {
                 value: this.worker.brigade,
             },
         ];
+    }
+
+    public onReturn(): void {
+        this.closeWorkerSettings.emit(null);
+    }
+
+    public onSave(): void {
+        this.closeWorkerSettings.emit(this.worker);
     }
 }

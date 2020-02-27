@@ -24,7 +24,7 @@ export class AdminPanelComponent implements OnInit {
 
     public searchedWorker: string = '';
     public isGroupShowed: boolean = false;
-    public isWorkerSettingsShowed: boolean = true;
+    public isWorkerSettingsShowed: boolean = false;
 
     public man: IWorker = {
         id: 1,
@@ -40,7 +40,13 @@ export class AdminPanelComponent implements OnInit {
 
     ngOnInit(): void {}
 
-    onClick(): void {}
+    public getMoreAboutWorker(): void {
+        this.isWorkerSettingsShowed = true;
+    }
+
+    public onCloseWorkerSettings(): void {
+        this.isWorkerSettingsShowed = false;
+    }
 
     public onSearchWorker(inputedValue: string): void {
         this.searchedWorker = inputedValue;
