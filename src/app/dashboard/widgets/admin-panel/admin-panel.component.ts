@@ -54,7 +54,9 @@ export class AdminPanelComponent implements OnInit {
     ngOnInit(): void {}
 
     public getMoreAboutWorker(): void {
-        this.isWorkerSettingsShowed = true;
+        if (this.adminPanel.activeWorker.id) {
+            this.isWorkerSettingsShowed = true;
+        }
     }
 
     public onCloseWorkerSettings(): void {

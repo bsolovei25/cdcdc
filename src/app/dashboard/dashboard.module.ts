@@ -102,6 +102,7 @@ import { AdminWorkerSettingsComponent } from './widgets/admin-panel/admin-worker
 import { AwsCardComponent } from './widgets/admin-panel/admin-worker-settings/aws-card/aws-card.component';
 import { AwsWorkspaceCardComponent } from './widgets/admin-panel/admin-worker-settings/aws-workspace-card/aws-workspace-card.component';
 import { AwsClaimCardComponent } from './widgets/admin-panel/admin-worker-settings/aws-claim-card/aws-claim-card.component';
+import { AdminPanelService } from './services/admin-panel/admin-panel.service';
 
 @NgModule({
     declarations: [
@@ -261,5 +262,6 @@ import { AwsClaimCardComponent } from './widgets/admin-panel/admin-worker-settin
         OldScrollingModule,
     ],
     bootstrap: [],
+    providers: [AdminPanelService],
 })
 export class DashboardModule {}

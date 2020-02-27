@@ -7,12 +7,12 @@ import { IButtonImgSrc } from '../../../dashboard/models/admin-panel';
     styleUrls: ['./button.component.scss'],
 })
 export class ButtonComponent implements OnInit {
-    @Input() isSmallButton: boolean = false;
-    @Input() textButton: string = '';
-    @Input() imgSrc: IButtonImgSrc = null;
+    @Input() public isSmallButton: boolean = false;
+    @Input() public textButton: string = '';
+    @Input() public imgSrc: IButtonImgSrc = null;
+    @Input() public isActive: boolean = false;
 
     public isButtonHover: boolean = false;
-    public isActive: boolean = false;
 
     constructor() {}
 

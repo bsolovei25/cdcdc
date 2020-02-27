@@ -5,10 +5,9 @@ import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '../../../services/appConfigService';
 import { IBrigadeAdminPanel, IWorkerAdminPanel } from '../../models/admin-panel';
 import { IBrigade } from '../../models/shift.model';
+import { mergeMap } from 'rxjs/operators';
 
-@Injectable({
-    providedIn: 'root',
-})
+@Injectable()
 export class AdminPanelService {
     private restUrl: string = '';
 
@@ -22,10 +21,13 @@ export class AdminPanelService {
         position: '',
     };
 
+    public activeWorker: IWorker = null;
+
     public activeWorker$: BehaviorSubject<IWorker> = new BehaviorSubject<IWorker>(
         this.defaultWorker
     );
     public activeBrigade$: BehaviorSubject<IBrigade> = new BehaviorSubject<IBrigade>(null);
+
     public workers: IWorker[] = [
         {
             id: 1,
@@ -234,6 +236,9 @@ export class AdminPanelService {
                 this.removeActiveWorker();
             }
         });
+        this.activeWorker$.subscribe((worker: IWorker) => {
+            this.activeWorker = worker;
+        });
     }
 
     //#region DATA_API
@@ -243,16 +248,22 @@ export class AdminPanelService {
         return this.httpService.get(url);
     }
 
+    // TODO
+    public getBrigades(): void {}
+
     public getBrigadeWorkers(brigadeId: number): Observable<any> {
         const url: string = this.restUrl;
         return this.httpService.get(url);
     }
 
+    public getWorkerData(workerId: number): Observable<any> {
+        const url: string = `${this.restUrl}/api/admin/${workerId}`;
+        return this.httpService.get(url);
+    }
+
     //#endregion
 
-    public selectActiveWorker(workerId: number): void {
-        this.activeWorker$.next(this.workers.find((item: IWorker) => item.id === workerId));
-    }
+    //#region WORKER_METHODS
 
     public setActiveWorker(worker: IWorker): void {
         this.activeWorker$.next(worker);
@@ -264,6 +275,10 @@ export class AdminPanelService {
         });
     }
 
+    //#endregion
+
+    //#region BRIGADE_METHODS
+
     public setActiveBrigade(brigade: IBrigade): void {
         this.activeBrigade$.next(brigade);
     }
@@ -273,4 +288,6 @@ export class AdminPanelService {
             brigade.isActiveBrigade = false;
         });
     }
+
+    //#endregion
 }

@@ -13,8 +13,6 @@ export class AdminBrigadesComponent implements OnInit, OnDestroy {
 
     public workers: IWorkerAdminPanel[] = [];
 
-    private subscriptions: Subscription[] = [];
-
     constructor(private adminPanel: AdminPanelService) {}
 
     public ngOnInit(): void {
