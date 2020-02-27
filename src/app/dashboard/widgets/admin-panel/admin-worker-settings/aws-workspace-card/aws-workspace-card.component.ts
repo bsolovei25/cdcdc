@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { IWorkspace } from '../../../../models/admin-panel';
 
 @Component({
@@ -7,14 +7,13 @@ import { IWorkspace } from '../../../../models/admin-panel';
     styleUrls: ['./aws-workspace-card.component.scss'],
 })
 export class AwsWorkspaceCardComponent implements OnInit {
-    public isActive: boolean = false;
-
-    public workspace: IWorkspace = {
-        name: 'Рабочая область №1',
-        authorId: 1,
+    @Input() public workspace: IWorkspace = {
+        name: '',
+        authorId: null,
     };
 
-    public author: string = 'Иванов Иван Иванович';
+    @Input() public author: string = '';
+    @Input() public isActive: boolean = false;
 
     constructor() {}
 

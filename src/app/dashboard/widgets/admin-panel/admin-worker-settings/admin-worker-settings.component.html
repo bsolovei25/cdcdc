@@ -77,8 +77,16 @@
         ></evj-button>
       </div>
     </div>
-    <div class="worker__column worker__workspaces">
-      <evj-aws-workspace-card></evj-aws-workspace-card>
+    <div class="worker__column worker__workspaces scroll-bar">
+      <div class="cards">
+        <ng-container *ngFor="let workspace of workspaces">
+          <evj-aws-workspace-card
+            [isActive]="true"
+            [workspace]="workspace"
+            [author]="worker.name"
+          ></evj-aws-workspace-card>
+        </ng-container>
+      </div>
     </div>
   </div>
 </div>

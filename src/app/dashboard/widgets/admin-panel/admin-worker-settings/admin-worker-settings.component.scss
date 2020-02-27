@@ -243,17 +243,22 @@
 
               box-sizing: border-box;
               border-radius: 50%;
-              border: 2px solid var(--color-warning);
+              border: 2px solid var(--color-danger);
 
               margin-bottom: 10px;
 
               &:hover {
                 cursor: pointer;
+                border-color: var(--color-warning);
               }
 
               &-active {
                 position: relative;
                 border-color: var(--color-active);
+
+                &:hover {
+                  border-color: var(--color-active);
+                }
 
                 &:after {
                   content: "";
@@ -314,6 +319,24 @@
               opacity: 0.3;
             }
           }
+        }
+      }
+
+      &__workspaces {
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        .cards {
+          margin-top: 10px;
+
+          width: 100%;
+          height: auto;
+
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+          align-items: flex-start;
+          flex-wrap: wrap;
         }
       }
     }

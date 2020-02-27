@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IWorker } from '../../../models/worker';
-import { IWorkerOptionAdminPanel } from '../../../models/admin-panel';
+import { IWorkerOptionAdminPanel, IWorkspace } from '../../../models/admin-panel';
 
 @Component({
     selector: 'evj-admin-worker-settings',
@@ -30,6 +30,57 @@ export class AdminWorkerSettingsComponent implements OnInit {
         accessLevel: null,
         position: 'Оператор АСУ ТП',
     };
+
+    public workspaces: IWorkspace[] = [
+        {
+            name: 'Рабочая область №1',
+            authorId: 1,
+        },
+        {
+            name: 'Рабочая область №1',
+            authorId: 1,
+        },
+        {
+            name: 'Рабочая область №1',
+            authorId: 1,
+        },
+        {
+            name: 'Рабочая область №1',
+            authorId: 1,
+        },
+        {
+            name: 'Рабочая область №1',
+            authorId: 1,
+        },
+        {
+            name: 'Рабочая область №1',
+            authorId: 1,
+        },
+        {
+            name: 'Рабочая область №1',
+            authorId: 1,
+        },
+        {
+            name: 'Рабочая область №1',
+            authorId: 1,
+        },
+        {
+            name: 'Рабочая область №1',
+            authorId: 1,
+        },
+        {
+            name: 'Рабочая область №1',
+            authorId: 1,
+        },
+        {
+            name: 'Рабочая область №1',
+            authorId: 1,
+        },
+        {
+            name: 'Рабочая область №1',
+            authorId: 1,
+        },
+    ];
 
     constructor() {}
 
