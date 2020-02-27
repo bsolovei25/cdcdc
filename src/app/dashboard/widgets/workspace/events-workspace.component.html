@@ -197,15 +197,15 @@
                 <div
                   class="fact_new"
                   [class.activeFact]="isClickFact"
-                  *ngFor="let comment of event.facts"
+                  *ngFor="let fact of event.facts"
                   (click)="clickFact()"
                 >
-                  <div class="fact_text" *ngIf="comment.comment !== 'График'">
-                    <p>{{comment.comment}}</p>
+                  <div class="fact_text" *ngIf="fact.comment !== 'График'">
+                    <p>{{fact.comment}}</p>
                   </div>
                   <div
                     class="fact_img"
-                    *ngIf="comment.comment === 'График'"
+                    *ngIf="fact.comment === 'График'"
                     (click)="openLineChart()"
                   >
                     <svg-icon
@@ -231,8 +231,8 @@
                       </div>
                     </div>
                     <div class="fact_info">
-                      <div class="fact_info_user">Иванов И.В.</div>
-                      <div class="fact_info_date">25.05.2020 | 13:23:23</div>
+                      <div class="fact_info_user"> {{fact.displayName}} </div>
+                      <div class="fact_info_date">{{fact.createAt | date:'dd-MM-yyyy HH:mm'}}</div>
                     </div>
                   </div>
                 </div>
@@ -286,16 +286,25 @@
                   </div>
                   <div class="comment_menu">
                     <div class="comment_button">
-                      <div class="comment_button_update">
+                      <div class="comment_button_update" *ngIf="isClickFact">
                         <svg-icon
-                          src="./assets/icons/edit.svg"
-                          [svgStyle]="{ 'width.px':15, 'height.px':15 }"
+                          src="./assets/pic/AdminReferences/delete.svg"
+                          [svgStyle]="{ 'width.px':16, 'height.px':16 }"
                         >
                         </svg-icon>
                       </div>
-                      <div class="comment_button_delete"></div>
+                      <div class="comment_button_delete" *ngIf="isClickFact">
+                        <svg-icon
+                          src="./assets/icons/edit.svg"
+                          [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+                        >
+                        </svg-icon>
+                      </div>
                     </div>
-                    <div class="comment_info"></div>
+                    <div class="comment_info">
+                      <div class="comment_info_user">  {{comment.displayName}} </div>
+                      <div class="comment_info_date">{{comment.createAt | date:'dd-MM-yyyy HH:mm'}}</div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -436,7 +445,16 @@
                         (click)="onLoadEvent(retrieval.innerNotification.id)"
                       >
                         <div class="events_info">
-                          <div class="events_info_title">Кратное описание</div>
+                          <div class="events_info_title">
+                            <div>Кратное описание</div>
+                            <div style="margin-left: 10px">
+                              <svg-icon
+                              *ngIf="retrieval.timerPercentage > 100"
+                              src="./assets/icons/widgets/workspace/attantion.svg"
+                              [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+                            ></svg-icon>
+                            </div>
+                          </div>
                           <div class="events_info_body">
                             {{ retrieval.innerNotification.description }}
                           </div>
@@ -499,7 +517,7 @@
                       </div>
                       <div
                         ngClass="progress-line-{{retrieval.innerNotification.priority.name}}"
-                        [style.height.%]="retrieval.timerPercentage"
+                        [style.width.%]="retrieval.timerPercentage - 2"
                       ></div>
 
                       <!--DELETE EVENT-->
@@ -653,12 +671,21 @@
                   </mat-select>
                 </mat-form-field>
               </evj-ui-block>
-              <evj-ui-block class="workspace__header__block" status="accept">
-                <mat-form-field class="accept">
+              <evj-ui-block class="workspace__header__block" status="{{isNewRetrieval.isAcknowledged}}">
+                <mat-form-field class="card-{{isNewRetrieval.isAcknowledged}}">
                   <mat-label>Событие</mat-label>
-                  <mat-select panelClass="mat-select-custom">
-                    <mat-option *ngFor="let food of foods" [value]="food.value">
-                      {{food.viewValue}}
+                  <mat-select
+                    panelClass="mat-select-custom"
+                    [(ngModel)]="isNewRetrieval.isAcknowledged"
+                    [compareWith]="compareFn"
+                  >
+                    <mat-option *ngFor="let l of this.eventLegends" [value]="l.isLegend">
+                      <ng-container *ngIf="l.isLegend">
+                        Квитировано
+                      </ng-container>
+                      <ng-container *ngIf="!l.isLegend">
+                        Не квитировано
+                      </ng-container>
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
@@ -1239,7 +1266,7 @@
                 >
                   <div class="event__header">
                     <span>
-                      {{ getIndex(i) }}. <span class="event__sub">Ответственный</span>
+                      <span class="event__sub">Ответственный</span>
                       <span style="padding-left:10px;" *ngIf="retrieval.responsibleOperator">
                         {{ retrieval.responsibleOperator.lastName }} {{
                         retrieval.responsibleOperator.firstName }}</span

@@ -58,7 +58,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     equipmentCategory;
     eventTypes;
 
-    nameUser;
+    nameUser: string;
 
     nameUserFirstName: string;
     nameUserLastName: string;
@@ -71,6 +71,8 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
     saveEvent: boolean;
     isEditing: boolean = false;
+
+    dateComment: Date;
 
     isNewRetrieval: EventsWidgetNotification = null;
 
@@ -246,22 +248,29 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         if (graph === true) {
             const commentInfo = {
                 comment: 'График',
+                createAt: new Date(),
+                displayName: this.nameUser,
             };
             this.event.comments.push(commentInfo);
         } else {
             if (this.input2.nativeElement.value) {
                 const commentInfo = {
                     comment: this.input2.nativeElement.value,
+                    createAt: new Date(),
+                    displayName: this.nameUser,
                 };
                 this.event.comments.push(commentInfo);
                 // this.comments.push(this.input.nativeElement.value);
                 this.input2.nativeElement.value = '';
+                this.dateComment = new Date();
                 setTimeout(() => {
                     this.scrollCommentBottom();
                 }, 50);
             } else if (this.input.nativeElement.value) {
                 const factInfo = {
                     comment: this.input.nativeElement.value,
+                    createAt: new Date(),
+                    displayName: this.nameUser,
                 };
                 this.event.facts.push(factInfo);
                 this.input.nativeElement.value = '';
@@ -276,12 +285,16 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         if (graph === true) {
             const commentInfo = {
                 comment: 'График',
+                createAt: new Date(),
+                displayName: this.nameUser,
             };
             this.isNewRetrieval.comments.push(commentInfo);
         } else {
             if (this.newInput2.nativeElement.value) {
                 const factInfo = {
                     comment: this.newInput2.nativeElement.value,
+                    createAt: new Date(),
+                    displayName: this.nameUser,
                 };
                 this.isNewRetrieval.facts.push(factInfo);
                 // this.comments.push(this.input.nativeElement.value);
@@ -292,6 +305,8 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
             } else if (this.newInput.nativeElement.value) {
                 const commentInfo = {
                     comment: this.newInput.nativeElement.value,
+                    createAt: new Date(),
+                    displayName: this.nameUser,
                 };
                 this.isNewRetrieval.comments.push(commentInfo);
                 this.newInput.nativeElement.value = '';
