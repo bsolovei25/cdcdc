@@ -28,7 +28,6 @@ export class DispatcherScreenComponent implements OnInit, AfterViewInit, OnDestr
     constructor(
         public widgetService: NewWidgetService,
         public widgetSettingsService: WidgetSettingsService,
-        @ViewChild('unityContainer') unityContainer: ElementRef,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
