@@ -248,7 +248,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         if (graph === true) {
             const commentInfo = {
                 comment: 'График',
-                createdAt: Date().toString(),
+                createdAt: new Date(),
                 displayName: this.nameUser,
             };
             this.event.comments.push(commentInfo);
@@ -256,7 +256,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
             if (this.input2.nativeElement.value) {
                 const commentInfo = {
                     comment: this.input2.nativeElement.value,
-                    createdAt: Date().toString(),
+                    createdAt: new Date(),
                     displayName: this.nameUser,
                 };
                 this.event.comments.push(commentInfo);
@@ -269,7 +269,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
             } else if (this.input.nativeElement.value) {
                 const factInfo = {
                     comment: this.input.nativeElement.value,
-                    createdAt: Date().toString(),
+                    createdAt: new Date(),
                     displayName: this.nameUser,
                 };
                 this.event.facts.push(factInfo);
@@ -285,7 +285,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         if (graph === true) {
             const commentInfo = {
                 comment: 'График',
-                createdAt: Date().toString(),
+                createdAt: new Date(),
                 displayName: this.nameUser,
             };
             this.isNewRetrieval.comments.push(commentInfo);
@@ -293,7 +293,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
             if (this.newInput2.nativeElement.value) {
                 const factInfo = {
                     comment: this.newInput2.nativeElement.value,
-                    createdAt: Date().toString(),
+                    createdAt: new Date(),
                     displayName: this.nameUser,
                 };
                 this.isNewRetrieval.facts.push(factInfo);
@@ -305,7 +305,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
             } else if (this.newInput.nativeElement.value) {
                 const commentInfo = {
                     comment: this.newInput.nativeElement.value,
-                    createdAt: Date().toString(),
+                    createdAt: new Date(),
                     displayName: this.nameUser,
                 };
                 this.isNewRetrieval.comments.push(commentInfo);
