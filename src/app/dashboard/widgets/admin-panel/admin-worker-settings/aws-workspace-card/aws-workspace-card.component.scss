@@ -1,0 +1,35 @@
+.card {
+  height: 80px;
+  width: 190px;
+
+  box-sizing: border-box;
+  background: url(../../../../../../assets/icons/widgets/admin/aws-workspace-card.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .text {
+    font-size: 10px;
+    color: var(--color-text-main-transparent);
+    text-align: center;
+    line-height: 120%;
+  }
+
+  &-active {
+    background: url(../../../../../../assets/icons/widgets/admin/aws-workspace-card-active.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    .text {
+      color: var(--color-text-main);
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}
