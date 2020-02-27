@@ -31,7 +31,7 @@ export interface EventsWidgetNotification {
     iconUrl?: string;
     iconUrlStatus?: string;
     status: IStatus;
-    facts?: { comment: string; createdBy?: number; createAt?: Date; displayName: string }[];
+    facts?: { comment: string; createdBy?: number; createAt: Date; displayName: string }[];
     priority: IPriority;
     deviationReason: string; // Причина отклонения
     establishedFacts: string; // Установленные факты
