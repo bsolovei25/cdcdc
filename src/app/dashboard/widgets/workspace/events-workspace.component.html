@@ -203,11 +203,7 @@
                   <div class="fact_text" *ngIf="fact.comment !== 'График'">
                     <p>{{fact.comment}}</p>
                   </div>
-                  <div
-                    class="fact_img"
-                    *ngIf="fact.comment === 'График'"
-                    (click)="openLineChart()"
-                  >
+                  <div class="fact_img" *ngIf="fact.comment === 'График'" (click)="openLineChart()">
                     <svg-icon
                       src="./assets/icons/widgets/workspace/graph.svg"
                       [svgStyle]="{ 'width.px':250, 'height.px':70 }"
@@ -231,7 +227,7 @@
                       </div>
                     </div>
                     <div class="fact_info">
-                      <div class="fact_info_user"> {{fact.displayName}} </div>
+                      <div class="fact_info_user">{{fact.displayName}}</div>
                       <div class="fact_info_date">{{fact.createAt | date:'dd-MM-yyyy HH:mm'}}</div>
                     </div>
                   </div>
@@ -302,8 +298,10 @@
                       </div>
                     </div>
                     <div class="comment_info">
-                      <div class="comment_info_user">  {{comment.displayName}} </div>
-                      <div class="comment_info_date">{{ comment.createAt | date:'dd-MM-yyyy HH:mm'}}</div>
+                      <div class="comment_info_user">{{comment.displayName}}</div>
+                      <div class="comment_info_date">
+                        {{ comment.createAt | date:'dd-MM-yyyy HH:mm'}}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -449,10 +447,10 @@
                             <div>Кратное описание</div>
                             <div style="margin-left: 10px">
                               <svg-icon
-                              *ngIf="retrieval.timerPercentage > 100"
-                              src="./assets/icons/widgets/workspace/attantion.svg"
-                              [svgStyle]="{ 'width.px':20, 'height.px':20 }"
-                            ></svg-icon>
+                                *ngIf="retrieval.timerPercentage > 100"
+                                src="./assets/icons/widgets/workspace/attantion.svg"
+                                [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+                              ></svg-icon>
                             </div>
                           </div>
                           <div class="events_info_body">
@@ -671,7 +669,10 @@
                   </mat-select>
                 </mat-form-field>
               </evj-ui-block>
-              <evj-ui-block class="workspace__header__block" status="{{isNewRetrieval.isAcknowledged}}">
+              <evj-ui-block
+                class="workspace__header__block"
+                status="{{isNewRetrieval.isAcknowledged}}"
+              >
                 <mat-form-field class="card-{{isNewRetrieval.isAcknowledged}}">
                   <mat-label>Событие</mat-label>
                   <mat-select
