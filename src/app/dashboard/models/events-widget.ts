@@ -27,24 +27,33 @@ export interface EventsWidgetNotification {
     responsibleOperator: IUser;
     fixedBy: IUser;
     eventDateTime: Date;
+    eventEndDateTime?: Date;
     iconUrl?: string;
     iconUrlStatus?: string;
     status: IStatus;
+    facts?: { comment: string; createdBy?: number; createdAt: Date; displayName: string }[];
     priority: IPriority;
     deviationReason: string; // Причина отклонения
     establishedFacts: string; // Установленные факты
     eventType: { id: number; name: string }; // Тип происшествия
     directReasons: string; // Непосредственные/прямые причины
     description: string; // Описание
-    comments?: { comment: string; createdBy?: number }[]; // Комментарий оператора
+    comments?: { comment: string; createdBy?: number; createdAt: Date; displayName: string }[]; // Комментарий оператора
     category: ICategory;
     statusName?: string;
     severity: string;
-    retrievalEvents: EventsWidgetNotification[];
+    retrievalEvents: IRetrievalEvents[];
     equipmentCategory: { id: number; name: string; code: string };
     deadline?: Date;
     graphValues: LineChartData;
+    isAcknowledged: boolean;
     source?: any;
+}
+
+export interface IRetrievalEvents {
+    id: number;
+    innerNotification: EventsWidgetNotification;
+    timerPercentage: number;
 }
 
 export interface IUser {
@@ -125,7 +134,7 @@ export interface EventsWidgetData {
 export interface EventsWidgetOptions {
     categories: number[];
     filter: EventsWidgetFilterCode;
-    dates: { fromDateTime: Date, toDateTime: Date };
+    dates: { fromDateTime: Date; toDateTime: Date };
     placeNames: string[];
 }
 
