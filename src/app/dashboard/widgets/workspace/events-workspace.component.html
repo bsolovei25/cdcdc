@@ -1,311 +1,526 @@
-<evj-widget-preview
-  [title]="title"
-  [icon]="icon"
-  [previewTitle]="previewTitle"
-  *ngIf="isMock"
-></evj-widget-preview>
+<evj-widget-preview [title]="title" [icon]="icon" [previewTitle]="previewTitle" *ngIf="isMock">
+</evj-widget-preview>
 
 <ng-container *ngIf="!isMock">
-  <div id="snackbar-workspace"></div>
-
   <div class="container pointer-event">
     <!-- loading data -->
-    <div class="loading-shade" *ngIf="isLoading">
+    <!-- <div class="loading-shade" *ngIf="isLoading">
       <div class="item loading-6">
         <svg viewBox="25 25 50 50">
           <circle cx="50" cy="50" r="20"></circle>
         </svg>
       </div>
-    </div>
+    </div> -->
     <evj-widget-header
       [title]="title"
       [id]="id"
       [uniqId]="uniqId"
       [icon]="icon"
-    ></evj-widget-header>
+      [widgetType]="widgetType"
+      (eventCreated)="createdEvent($event)"
+      [isEventOpen]="openEvent"
+    >
+    </evj-widget-header>
 
     <evj-frame-top></evj-frame-top>
 
+    <!--  Event -->
+    <!-- <ng-container *ngIf="!isMock && event"> -->
+
+    <!--NEW EVENT KP-->
     <ng-container *ngIf="!isMock && event">
-      <div
-        *ngIf="event"
-        class="change-shift"
+      <section
+        class="workspace"
         (mousedown)="$event.stopPropagation()"
         (touchstart)="$event.stopPropagation()"
       >
-        <div class="workspace__header__block">
-          <section class="workspace__blocks" style="margin-right: 10px;">
-            <div class="workspace__block">
-              <div class="workspace__block__title">
-                Дата / время:
-              </div>
-              <div class="workspace__block__body">
-                {{ event.eventDateTime | date:'dd-MM-yyyy HH:mm' }}
-              </div>
-            </div>
-
-            <div class="workspace__block">
-              <div class="workspace__block__title">
-                Организация:
-              </div>
-              <div class="workspace__block__body">
-                {{ event.organization }}
-              </div>
-            </div>
-
-            <div class="workspace__block">
-              <div class="workspace__block__title">
-                Смена:
-              </div>
-              <div class="workspace__block__body">
-                Бригада-3
-              </div>
-            </div>
-
-            <div class="workspace__block">
-              <div class="workspace__block__title">
-                Подразделение:
-              </div>
-              <div class="workspace__block__body">
-                {{ event.branch }}
-              </div>
-            </div>
-
-            <div class="workspace__block">
-              <div class="workspace__block__title">
-                Место:
-              </div>
-              <div class="workspace__block__body">
-                ГФУ-2 с БОР
-              </div>
-            </div>
-
-            <div class="workspace__block">
-              <div class="workspace__block__title">
-                Старший оператор:
-              </div>
-              <div class="workspace__block__body" *ngIf="event.responsibleOperator">
-                {{ event.responsibleOperator.lastName }} {{ event.responsibleOperator.firstName }}
-              </div>
-            </div>
-
-            <div class="workspace__block" *ngIf="user">
-              <div class="workspace__block__title">
-                Ответственный:
-              </div>
-              <div class="workspace__block__body">
-                {{ user[idUser].lastName }} {{ user[idUser].firstName }}
-              </div>
-            </div>
-          </section>
-
-          <section class="workspace__blocks">
-            <div class="workspace__block__right">
-              <div class="workspace__block__title">
-                Статус:
-              </div>
-              <div class="workspace__block__body__drop-down">
-                <div class="dropdown dropdown-dark">
-                  <select
-                    name="contactMethod"
-                    class="dropdown-select"
-                    [(ngModel)]="event.status"
-                    [compareWith]="compareFn"
-                  >
-                    <option *ngFor="let p of status" [ngValue]="p">{{ statuses[p.name] }}</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div class="workspace__block__right">
-              <div class="workspace__block__title">
-                Приоритет:
-              </div>
-              <div class="workspace__block__body__drop-down">
-                <div class="dropdown dropdown-dark">
-                  <select
-                    name="contactMethod"
-                    class="dropdown-select"
-                    [(ngModel)]="event.priority"
-                    [compareWith]="compareFn"
-                  >
-                    <option *ngFor="let p of priority" [ngValue]="p"
-                      >{{ priorities[p.name] }}</option
-                    >
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div class="workspace__block__right">
-              <div class="workspace__block__title">
-                Система источник:
-              </div>
-              <div class="workspace__block__body__drop-down">
-                <div class="dropdown dropdown-dark">
-                  <select
-                    name="contactMethod"
-                    class="dropdown-select"
-                    [(ngModel)]="event.category"
-                    [compareWith]="compareFn"
-                    (change)="changeCategory()"
-                  >
-                    <option *ngFor="let p of category" [ngValue]="p"
-                      >{{ categories[p.name] }}
-                    </option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div class="workspace__block__right">
-              <div class="workspace__block__title">
-                Зафиксировал:
-              </div>
-              <div class="workspace__block__body__drop-down" style="max-width: 120px;">
-                <div class="dropdown dropdown-dark">
-                  <select
-                    name="contactMethod"
-                    class="dropdown-select"
-                    [(ngModel)]="event.fixedBy"
-                    [compareWith]="compareFn"
-                  >
-                    <option *ngFor="let p of user" [ngValue]="p"
-                      >{{ p.lastName }} {{ p.firstName }}</option
-                    >
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div class="workspace__block__right">
-              <div class="workspace__block__title">
-                Тип происшествия:
-              </div>
-              <div class="workspace__block__body__drop-down">
-                <div class="dropdown dropdown-dark">
-                  <select
-                    name="contactMethod"
-                    class="dropdown-select"
-                    [(ngModel)]="event.eventType"
-                    [compareWith]="compareFn"
-                    (change)="changeCategory()"
-                  >
-                    <option *ngFor="let p of eventTypes" [ngValue]="p">{{ p.name }} </option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div class="workspace__block__right">
-              <div class="workspace__block__title">
-                Тип оборудования:
-              </div>
-              <div class="workspace__block__body__drop-down">
-                <div class="dropdown dropdown-dark">
-                  <select
-                    name="contactMethod"
-                    class="dropdown-select"
-                    [(ngModel)]="event.equipmentCategory"
-                    [compareWith]="compareFn"
-                    (change)="changeCategory()"
-                  >
-                    <option *ngFor="let p of equipmentCategory" [ngValue]="p">{{ p.name }} </option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </section>
+        <div class="workspace__header">
+          <evj-ui-block class="workspace__header__block" status="normal">
+            <mat-form-field class="status">
+              <mat-label>Статус</mat-label>
+              <mat-select
+                panelClass="mat-select-custom"
+                [(ngModel)]="event.status"
+                [compareWith]="compareFn"
+              >
+                <mat-option *ngFor="let p of status" [value]="p"
+                  >{{ statuses[p.name] }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </evj-ui-block>
+          <evj-ui-block class="workspace__header__block" status="{{event.priority.name}}">
+            <mat-form-field class="{{event.priority.name}}">
+              <mat-label>Приоритет</mat-label>
+              <mat-select
+                panelClass="mat-select-custom"
+                [(ngModel)]="event.priority"
+                [compareWith]="compareFn"
+              >
+                <mat-option *ngFor="let p of priority" [value]="p"
+                  >{{ priorities[p.name] }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </evj-ui-block>
+          <evj-ui-block class="workspace__header__block" status="{{event.isAcknowledged}}">
+            <mat-form-field class="card-{{event.isAcknowledged}}">
+              <mat-label>Событие</mat-label>
+              <mat-select
+                panelClass="mat-select-custom"
+                [(ngModel)]="event.isAcknowledged"
+                [compareWith]="compareFn"
+              >
+                <mat-option *ngFor="let l of this.eventLegends" [value]="l.isLegend">
+                  <ng-container *ngIf="l.isLegend">
+                    Квитировано
+                  </ng-container>
+                  <ng-container *ngIf="!l.isLegend">
+                    Не квитировано
+                  </ng-container>
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </evj-ui-block>
         </div>
 
-        <div class="incidents">
-          <div class="workspace__block-border">
-            <div class="block-border__title">
-              Установленные факты:
-            </div>
-            <div class="block-border__body">
-              <textarea
-                class="gridster-item-content"
-                placeholder="Введите значение..."
-                minlength="6"
-                [(ngModel)]="event.establishedFacts"
-              >
-              </textarea>
-              <div class="block-border__footer"></div>
-            </div>
-          </div>
-          <div class="workspace__block-border" style="margin-left: 10px;">
-            <div class="block-border__title">
-              Краткое описание причины
-            </div>
-            <div class="block-border__body">
-              <textarea
-                required
-                class="gridster-item-content"
-                placeholder="Введите значение..."
-                minlength="3"
-                [(ngModel)]="event.description"
-              >
-              </textarea>
-              <div class="block-border__footer"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="blocks-bottom">
-          <div class="block-bottom">
-            <div class="change-shift__comment" style="height: 120px; min-height: 120px;">
-              <div class="comment__title">
-                Корректирующие мероприятия
+        <div class="workspace__body">
+          <div class="workspace__body__left">
+            <div class="select__block">
+              <div class="first_block">
+                <div class="categories">
+                  <evj-ui-block class="workspace__body__categories" status="normal">
+                    <mat-form-field class="categories_selectbox">
+                      <mat-label>Категория</mat-label>
+                      <mat-select
+                        panelClass="mat-select-custom"
+                        [(ngModel)]="event.category"
+                        [compareWith]="compareFn"
+                      >
+                        <mat-option *ngFor="let cat of this.category" [value]="cat">
+                          {{ categories[cat.name] }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </evj-ui-block>
+                </div>
+                <div class="type">
+                  <evj-ui-block class="workspace__body__categories" status="normal">
+                    <mat-form-field class="categories_selectbox">
+                      <mat-label>Тип оборудования</mat-label>
+                      <mat-select
+                        panelClass="mat-select-custom"
+                        [(ngModel)]="event.equipmentCategory"
+                        [compareWith]="compareFn"
+                      >
+                        <mat-option *ngFor="let p of equipmentCategory" [value]="p"
+                          >{{ p.name }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </evj-ui-block>
+                </div>
               </div>
-              <div class="comment__body">
-                <div class="comment__display">
-                  <ul class="messages scroll-bar events" #scroll2>
-                    <li
-                      class="message event"
-                      *ngFor="let retrieval of event.retrievalEvents; let i = index"
-                    >
-                      <div class="event__header">
-                        <span>
-                          {{ getIndex(i) }}. <span class="event__sub">Ответственный</span>
-                          <span style="padding-left:10px;" *ngIf="retrieval.responsibleOperator">
-                            {{ retrieval.responsibleOperator.lastName }} {{
-                            retrieval.responsibleOperator.firstName }}</span
-                          >
-                        </span>
+              <div class="second_block" *ngIf="event.category.name === 'equipmentStatus'">
+                <div class="type_incident">
+                  <evj-ui-block class="workspace__header__block" status="normal">
+                    <mat-form-field>
+                      <mat-label>Тип происшествия</mat-label>
+                      <mat-select
+                        panelClass="mat-select-custom"
+                        [(ngModel)]="event.eventType"
+                        [compareWith]="compareFn"
+                      >
+                        <mat-option *ngFor="let p of eventTypes" [value]="p"
+                          >{{ p.name }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </evj-ui-block>
+                </div>
+                <div class="number_position">
+                  <evj-ui-block class="workspace__header__block" status="normal">
+                    <div class="input_position">
+                      <mat-form-field class="example-full-width">
+                        <mat-label>Номер позиции</mat-label>
+                        <input matInput placeholder="Текст..." />
+                      </mat-form-field>
+                    </div>
+                    <div class="position_icon">
+                      <svg-icon
+                        src="./assets/icons/edit.svg"
+                        [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+                      ></svg-icon>
+                    </div>
+                  </evj-ui-block>
+                </div>
+              </div>
+            </div>
 
-                        <span class="event__sub-right">
-                          <span *ngIf="retrieval.status"
-                            >{{ statuses[retrieval.status.name] }}</span
+            <div class="description">
+              <div class="description_nav">
+                <div class="description_title">Краткое описание</div>
+                <div class="description_button_update" (click)="onEditShortInfo()">
+                  <svg-icon
+                    src="./assets/icons/edit.svg"
+                    [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+                  >
+                  </svg-icon>
+                </div>
+              </div>
+              <div class="description__content">
+                <div class="description__content_text" *ngIf="!isEditing">
+                  {{event.description}}
+                </div>
+                <div class="description__content_text" *ngIf="isEditing">
+                  <textarea
+                    required
+                    class="gridster-item-content"
+                    placeholder="Введите значение..."
+                    minlength="3"
+                    [(ngModel)]="event.description"
+                  >
+                  </textarea>
+                </div>
+              </div>
+              <div class="frame_description_bottom"></div>
+            </div>
+
+            <div class="fact_block">
+              <div class="title_fact_block">
+                <div class="title_fact_block_text">
+                  Установленные факты
+                </div>
+              </div>
+              <div class="fact_content" #scroll2>
+                <!--ngFor -->
+                <div
+                  class="fact_new"
+                  [class.activeFact]="isClickFact"
+                  *ngFor="let fact of event.facts"
+                  (click)="clickFact()"
+                >
+                  <div class="fact_text" *ngIf="fact.comment !== 'График'">
+                    <p>{{fact.comment}}</p>
+                  </div>
+                  <div class="fact_img" *ngIf="fact.comment === 'График'" (click)="openLineChart()">
+                    <svg-icon
+                      src="./assets/icons/widgets/workspace/graph.svg"
+                      [svgStyle]="{ 'width.px':250, 'height.px':70 }"
+                    ></svg-icon>
+                  </div>
+                  <div class="fact_menu">
+                    <div class="fact_button">
+                      <div class="fact_button_update" *ngIf="isClickFact">
+                        <svg-icon
+                          src="./assets/pic/AdminReferences/delete.svg"
+                          [svgStyle]="{ 'width.px':16, 'height.px':16 }"
+                        >
+                        </svg-icon>
+                      </div>
+                      <div class="fact_button_delete" *ngIf="isClickFact">
+                        <svg-icon
+                          src="./assets/icons/edit.svg"
+                          [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+                        >
+                        </svg-icon>
+                      </div>
+                    </div>
+                    <div class="fact_info">
+                      <div class="fact_info_user">{{fact.displayName}}</div>
+                      <div class="fact_info_date">
+                        {{fact.createdAt | dateFormat:'DD-MM-YY hh:mm'}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="empty"></div>
+              <div class="fact_comment">
+                <div class="comment__new">
+                  <input
+                    type="text"
+                    class="comment__text gridster-item-content"
+                    placeholder="Напишите свой комментарий..."
+                    (keypress)="onEnterPush($event)"
+                    #input
+                  />
+                  <button type="submit" class="button comment__file   gridster-item-content">
+                    <svg-icon
+                      class="button__icon"
+                      src="./assets/icons/widgets/change-shift/add_file.svg"
+                    ></svg-icon>
+                  </button>
+                  <button
+                    type="submit"
+                    class="button comment__submit  gridster-item-content"
+                    (click)="onSendMessage()"
+                  >
+                    <svg-icon
+                      class="button__icon"
+                      src="./assets/icons/widgets/change-shift/send.svg"
+                    ></svg-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="comments_block">
+              <div class="title_comments_block">
+                <div class="title_comments_block_text">
+                  Комментарии
+                </div>
+              </div>
+              <div class="comments_content" #scroll>
+                <!--ngFor -->
+                <div
+                  class="comment_new"
+                  (click)="clickFact()"
+                  [class.activeFact]="isClickFact"
+                  *ngFor="let comment of event.comments"
+                >
+                  <div class="comment_text">
+                    {{comment.comment}}
+                  </div>
+                  <div class="comment_menu">
+                    <div class="comment_button">
+                      <div class="comment_button_update" *ngIf="isClickFact">
+                        <svg-icon
+                          src="./assets/pic/AdminReferences/delete.svg"
+                          [svgStyle]="{ 'width.px':16, 'height.px':16 }"
+                        >
+                        </svg-icon>
+                      </div>
+                      <div class="comment_button_delete" *ngIf="isClickFact">
+                        <svg-icon
+                          src="./assets/icons/edit.svg"
+                          [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+                        >
+                        </svg-icon>
+                      </div>
+                    </div>
+                    <div class="comment_info">
+                      <div class="comment_info_user">{{comment.displayName}}</div>
+                      <div class="comment_info_date">
+                        {{ comment.createdAt | dateFormat:'DD-MM-YY hh:mm'}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="empty"></div>
+              <div class="fact_comment">
+                <div class="comment__new">
+                  <input
+                    type="text"
+                    class="comment__text gridster-item-content"
+                    placeholder="Напишите свой комментарий..."
+                    (keypress)="onEnterPush($event)"
+                    #input2
+                  />
+                  <button type="submit" class="button comment__file   gridster-item-content">
+                    <svg-icon
+                      class="button__icon"
+                      src="./assets/icons/widgets/change-shift/add_file.svg"
+                    ></svg-icon>
+                  </button>
+                  <button
+                    type="submit"
+                    class="button comment__submit  gridster-item-content"
+                    (click)="onSendMessage()"
+                  >
+                    <svg-icon
+                      class="button__icon"
+                      src="./assets/icons/widgets/change-shift/send.svg"
+                    ></svg-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="workspace__body__right">
+            <div class="info_block">
+              <div class="place">
+                <div class="place_title">
+                  Место:
+                </div>
+                <div class="place_body">
+                  ГФУ-2 с БОР
+                </div>
+              </div>
+              <div class="creator">
+                <div class="creator_title">
+                  Автор
+                </div>
+                <div class="creator_body">
+                  {{ event.responsibleOperator.lastName }} {{ event.responsibleOperator.firstName }}
+                </div>
+              </div>
+              <div class="deadline">
+                <mat-form-field>
+                  <mat-label>Срок выполнения</mat-label>
+                  <input matInput [matDatepicker]="myDatepicker" [value]="event.eventEndDateTime" />
+                  <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+                  <mat-datepicker #myDatepicker></mat-datepicker>
+                </mat-form-field>
+                <div class="deadline_bottom_angles"></div>
+              </div>
+            </div>
+            <div class="responsible">
+              <div *ngIf="userChoosen && event.fixedBy.login === ''" class="choosenUser">
+                <div class="name_user">
+                  <div class="name_user_responsible">
+                    Ответственный
+                  </div>
+                  <div class="name_user_info" *ngIf="event.fixedBy">
+                    <div>
+                      {{this.chooseNameUser}}
+                    </div>
+                    <!-- <div>{{ event.fixedBy.positionDescription }}</div> -->
+                    <div>{{this.userDescription}}</div>
+                  </div>
+                </div>
+                <div class="brigade_user">
+                  <div class="brigade_user_text">
+                    Бригада № {{ event.fixedBy.id }}
+                  </div>
+                </div>
+                <div class="avatar_user">
+                  <div class="avatar_user_img"><img src="../assets/pic/avatar_temp.jpg" /></div>
+                </div>
+              </div>
+              <div *ngIf="event.fixedBy.login !== ''" class="choosenUser">
+                <div class="name_user">
+                  <div class="name_user_responsible">
+                    Ответственный
+                  </div>
+                  <div class="name_user_info" *ngIf="event.fixedBy">
+                    <div>
+                      {{ event.fixedBy.firstName }} {{ event.fixedBy.middleName }} {{
+                      event.fixedBy.lastName }}
+                    </div>
+                    <div>{{ event.fixedBy.positionDescription }}</div>
+                  </div>
+                </div>
+                <div class="brigade_user">
+                  <div class="brigade_user_text">
+                    Бригада № {{ event.fixedBy.id }}
+                  </div>
+                </div>
+                <div class="avatar_user">
+                  <div class="avatar_user_img"><img src="../assets/pic/avatar_temp.jpg" /></div>
+                </div>
+              </div>
+              <evj-ui-block class="workspace__header__block" status="normal">
+                <mat-form-field>
+                  <mat-label>Отвественный</mat-label>
+                  <mat-select panelClass="mat-select-custom">
+                    <mat-option *ngFor="let p of user" [value]="p" (click)="chooseRespons(p)"
+                      >{{ p.lastName }} {{ p.firstName }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </evj-ui-block>
+            </div>
+            <div class="events-correct">
+              <div class="events-correct-block">
+                <div class="event_info">
+                  <div class="event_info_title">Корректирующие мероприятия</div>
+                  <div class="event_info_date">
+                    <div class="event_info_date_title">Начало события</div>
+                    <div class="event_info_date_body">
+                      {{event.eventDateTime | date:'dd-MM-yyyy HH:mm' }}
+                    </div>
+                  </div>
+                </div>
+                <div class="events">
+                  <ng-container *ngFor="let retrieval of event.retrievalEvents">
+                    <div
+                      class="events_content"
+                      [class.events_closed]="retrieval.innerNotification.status.name === 'closed'"
+                    >
+                      <div
+                        class="events_container"
+                        (click)="onLoadEvent(retrieval.innerNotification.id)"
+                      >
+                        <div class="events_info">
+                          <div class="events_info_title">
+                            <div>Кратное описание</div>
+                            <div style="margin-left: 10px">
+                              <svg-icon
+                                *ngIf="retrieval.timerPercentage > 100"
+                                src="./assets/icons/widgets/workspace/attantion.svg"
+                                [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+                              ></svg-icon>
+                            </div>
+                          </div>
+                          <div class="events_info_body">
+                            {{ retrieval.innerNotification.description }}
+                          </div>
+                        </div>
+                        <div class="events_status">
+                          <div
+                            class="events_status-{{retrieval.innerNotification.priority.name}}"
+                            *ngIf="retrieval.innerNotification.status"
                           >
+                            {{ statuses[retrieval.innerNotification.status.name] }}
+                          </div>
+                          <div class="events_status_datetime">
+                            <div class="datetime_title">Срок исполнения</div>
+                            <div class="datetime_body">
+                              {{ retrieval.innerNotification.deadline | date:'dd-MM-yyyy HH:mm' }}
+                            </div>
+                          </div>
+                          <div class="events_status_responsible">
+                            <div class="responsible_title">Ответственный</div>
+                            <div
+                              class="responsible_body"
+                              *ngIf="retrieval.innerNotification.fixedBy"
+                            >
+                              {{ retrieval.innerNotification.fixedBy.lastName }} {{
+                              retrieval.innerNotification.fixedBy.firstName }} {{
+                              retrieval.innerNotification.fixedBy.middleName }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="events_menu">
+                        <div
+                          class="events_check"
+                          *ngIf="retrieval.innerNotification.isAcknowledged"
+                        >
                           <svg-icon
-                            *ngIf="!retrieval.source"
-                            class="event__delete"
-                            [applyCss]="true"
-                            src="./assets/edit.svg"
-                            (click)="onEditRetrieval(retrieval)"
-                            (mousedown)="$event.stopPropagation()"
-                            (touchstart)="$event.stopPropagation()"
-                          ></svg-icon>
-                          <svg-icon
-                            *ngIf="!retrieval.source"
-                            class="event__delete"
-                            [applyCss]="true"
-                            src="./assets/garbage_bad_pic.svg"
-                            (click)="overlayConfirmationOpen()"
-                          ></svg-icon>
-                        </span>
+                            src="./assets/icons/widgets/workspace/accept.svg"
+                            [svgStyle]="{ 'width.px':15, 'height.px':15 }"
+                          >
+                          </svg-icon>
+                        </div>
+                        <div class="events_button">
+                          <div clas="events_button_delete" (click)="overlayConfirmationOpen()">
+                            <svg-icon
+                              class="delete_button_icon"
+                              src="./assets/icons/widgets/workspace/delete.svg"
+                              [svgStyle]="{ 'width.px':16, 'height.px':16 }"
+                            >
+                            </svg-icon>
+                          </div>
+                          <div clas="events_button_update">
+                            <svg-icon
+                              class="edit_button_icon"
+                              src="./assets/icons/widgets/workspace/edit.svg"
+                              [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+                            >
+                            </svg-icon>
+                          </div>
+                        </div>
                       </div>
-                      <div class="event__body">
-                        <span>{{ retrieval.description }}</span>
-                      </div>
-                      <div class="event__footer">
-                        <span class="event__sub">Срок исполнения</span>
-                        <span class="event__date">
-                          <span>{{ retrieval.deadline | date:'dd-MM-yyyy HH:mm' }}</span>
-                        </span>
-                      </div>
+                      <div
+                        ngClass="progress-line-{{retrieval.innerNotification.priority.name}}"
+                        [style.width.%]="retrieval.timerPercentage - 2"
+                      ></div>
+
+                      <!--DELETE EVENT-->
                       <div
                         (mousedown)="$event.stopPropagation()"
                         (touchstart)="$event.stopPropagation()"
@@ -337,380 +552,38 @@
                           </div>
                         </div>
                       </div>
-                    </li>
-                  </ul>
+                      <!--DELETE EVENT-->
+                    </div>
+                  </ng-container>
                 </div>
-                <div class="comment__new">
-                  <div class="workspace__submit">
-                    <div class="submit__frame submit__frame-left"></div>
-                    <div class="submit__frame submit__frame-right"></div>
-                    <button type="submit gridster-item-content" (click)="addRetrieval()">
-                      Добавить мероприятие
-                    </button>
+                <div class="events_bottom_info">
+                  <div class="add_events">
+                    <svg-icon
+                      src="./assets/icons/add_button.svg"
+                      class="add_button_icon"
+                      [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+                      (click)="addRetrieval()"
+                    ></svg-icon>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="block-bottom" style="margin-left: 10px">
-            <div class="workspace__block-border media">
-              <div class="block-border__title">
-                Медиа контент
-              </div>
-              <div class="media__items">
-                <div *ngIf="event.graphValues" class="media__item" (click)="openLineChart()">
-                  <svg-icon class="button__icon" src="./assets/line-chart.svg"> </svg-icon>
-                </div>
-                <div class="media__item">
-                  <svg-icon class="button__icon" src="./assets/round-add-button.svg"> </svg-icon>
-                </div>
-              </div>
-            </div>
-
-            <div class="change-shift__comment" style="height: 100px; min-height: 100px;">
-              <div class="comment__title">
-                Комментарий оператора
-              </div>
-              <div class="comment__body">
-                <div class="comment__display">
-                  <div class="messages scroll-bar" #scroll>
-                    <div class="message" *ngFor="let comment of comments">
-                      {{ comment }}
+                  <div class="end_events">
+                    <div class="end_events_title">Завершение события</div>
+                    <div class="end_events_body" *ngIf="event.eventEndDateTime">
+                      {{event.eventEndDateTime | date:'dd-MM-yyyy HH:mm'}}
                     </div>
                   </div>
                 </div>
-                <div class="comment__new">
-                  <input
-                    type="text"
-                    class="comment__text gridster-item-content"
-                    placeholder="Напишите свой комментарий..."
-                    (keypress)="onEnterPush($event)"
-                    #input
-                  />
-                  <button type="submit" class="button comment__file   gridster-item-content">
-                    <svg-icon
-                      class="button__icon"
-                      src="./assets/icons/widgets/change-shift/add_file.svg"
-                    ></svg-icon>
-                  </button>
-                  <button
-                    type="submit"
-                    class="button comment__submit  gridster-item-content"
-                    (click)="onSendMessage()"
-                  >
-                    <svg-icon
-                      class="button__icon"
-                      src="./assets/icons/widgets/change-shift/send.svg"
-                    ></svg-icon>
-                  </button>
+              </div>
+              <div class="events-correct-progress">
+                <div class="line_progress">
+                  <div class="top_frame_line"></div>
+                  <div class="middle_line"></div>
+                  <div class="bottom_frame_line"></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-        <div class="workspace__save">
-          <div class="workspace__submit">
-            <div class="submit__frame submit__frame-left"></div>
-            <div class="submit__frame submit__frame-right"></div>
-            <button
-              type="submit gridster-item-content"
-              (click)="createEvent()"
-              [disabled]="isLoading"
-            >
-              Создать событие
-            </button>
-          </div>
-          <div class="workspace__submit">
-            <div class="submit__frame submit__frame-left"></div>
-            <div class="submit__frame submit__frame-right"></div>
-            <button
-              class="btn-disabled"
-              type="submit gridster-item-content"
-              (click)="saveItem()"
-              [disabled]="isLoading"
-            >
-              Сохранить
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div
-        (mousedown)="$event.stopPropagation()"
-        (touchstart)="$event.stopPropagation()"
-        id="overlay-retrieval"
-        (click)="overlayClose()"
-      >
-        <div class="overlay-retrieval__body" (click)="$event.stopPropagation()">
-          <div *ngIf="isNewRetrieval" class="overlay-retrieval__header__block">
-            <section class="overlay-retrieval__blocks">
-              <div class="overlay-retrieval__block">
-                <div class="overlay-retrieval__block__title">
-                  Дата / время:
-                </div>
-                <div class="overlay-retrieval__block__body">
-                  {{ isNewRetrieval.eventDateTime | date:'dd-MM-yyyy HH:mm' }}
-                </div>
-              </div>
-
-              <div class="overlay-retrieval__block">
-                <div class="overlay-retrieval__block__title">
-                  Организация:
-                </div>
-                <div class="overlay-retrieval__block__body">
-                  {{ isNewRetrieval.organization }}
-                </div>
-              </div>
-
-              <div class="overlay-retrieval__block">
-                <div class="overlay-retrieval__block__title">
-                  Смена:
-                </div>
-                <div class="overlay-retrieval__block__body">
-                  Бригада-3
-                </div>
-              </div>
-
-              <div class="overlay-retrieval__block">
-                <div class="overlay-retrieval__block__title">
-                  Подразделение:
-                </div>
-                <div class="overlay-retrieval__block__body">
-                  {{ isNewRetrieval.branch }}
-                </div>
-              </div>
-
-              <div class="overlay-retrieval__block">
-                <div class="overlay-retrieval__block__title">
-                  Место:
-                </div>
-                <div class="overlay-retrieval__block__body">
-                  <!-- {{ event.place.name }} -->
-                  ГФУ-2 с БОР
-                </div>
-              </div>
-
-              <div class="overlay-retrieval__block">
-                <div class="overlay-retrieval__block__title">
-                  Старший оператор:
-                </div>
-                <div
-                  class="overlay-retrieval__block__body"
-                  *ngIf="isNewRetrieval.responsibleOperator"
-                >
-                  {{ isNewRetrieval.responsibleOperator.lastName }} {{
-                  isNewRetrieval.responsibleOperator.firstName }}
-                </div>
-              </div>
-
-              <div class="overlay-retrieval__block">
-                <div class="overlay-retrieval__block__title">
-                  Зафиксировал:
-                </div>
-                <div class="overlay-retrieval__block__body select">
-                  <div class="dropdown dropdown-dark">
-                    <select
-                      name="contactMethod"
-                      class="dropdown-select"
-                      [(ngModel)]="isNewRetrieval.fixedBy"
-                      [compareWith]="compareFn"
-                    >
-                      <option *ngFor="let p of user" [ngValue]="p"
-                        >{{ p.lastName }} {{ p.firstName }}</option
-                      >
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              <div class="overlay-retrieval__block">
-                <div class="overlay-retrieval__block__title">
-                  Статус:
-                </div>
-                <div class="overlay-retrieval__block__body select">
-                  <div class="dropdown dropdown-dark">
-                    <select
-                      name="contactMethod"
-                      class="dropdown-select"
-                      [(ngModel)]="isNewRetrieval.status"
-                      [compareWith]="compareFn"
-                    >
-                      <option *ngFor="let p of status" [ngValue]="p">{{ statuses[p.name] }}</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              <div class="overlay-retrieval__block">
-                <div class="overlay-retrieval__block__title">
-                  Приоритет:
-                </div>
-                <div class="overlay-retrieval__block__body select">
-                  <div class="dropdown dropdown-dark">
-                    <select
-                      name="contactMethod"
-                      class="dropdown-select"
-                      [(ngModel)]="isNewRetrieval.priority"
-                      [compareWith]="compareFn"
-                    >
-                      <option *ngFor="let p of priority" [ngValue]="p"
-                        >{{ priorities[p.name] }}</option
-                      >
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              <div class="overlay-retrieval__block">
-                <div class="overlay-retrieval__block__title">
-                  Система источник:
-                </div>
-                <div class="overlay-retrieval__block__body select">
-                  <div class="dropdown dropdown-dark">
-                    <select
-                      name="contactMethod"
-                      class="dropdown-select"
-                      [(ngModel)]="isNewRetrieval.category"
-                      [compareWith]="compareFn"
-                      (change)="changeCategory()"
-                    >
-                      <option *ngFor="let p of category" [ngValue]="p"
-                        >{{ categories[p.name] }}
-                      </option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              <div class="overlay-retrieval__block">
-                <div class="overlay-retrieval__block__title">
-                  Тип происшествия:
-                </div>
-                <div class="overlay-retrieval__block__body select">
-                  <div class="dropdown dropdown-dark">
-                    <select
-                      name="contactMethod"
-                      class="dropdown-select"
-                      [(ngModel)]="isNewRetrieval.eventType"
-                      [compareWith]="compareFn"
-                      (change)="changeCategory()"
-                    >
-                      <option *ngFor="let p of eventTypes" [ngValue]="p">{{ p.name }} </option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              <div class="overlay-retrieval__block">
-                <div class="overlay-retrieval__block__title">
-                  Тип оборудования:
-                </div>
-                <div class="overlay-retrieval__block__body select">
-                  <div class="dropdown dropdown-dark">
-                    <select
-                      name="contactMethod"
-                      class="dropdown-select"
-                      [(ngModel)]="isNewRetrieval.equipmentCategory"
-                      [compareWith]="compareFn"
-                      (change)="changeCategory()"
-                    >
-                      <option *ngFor="let p of equipmentCategory" [ngValue]="p"
-                        >{{ p.name }}
-                      </option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              <div *ngIf="user" class="overlay-retrieval__block">
-                <div class="overlay-retrieval__block__title">
-                  Ответственный:
-                </div>
-                <div class="overlay-retrieval__block__body">
-                  {{ user[idUser].lastName }} {{ user[idUser].firstName }}
-                </div>
-              </div>
-
-              <div class="overlay-retrieval__block">
-                <div class="overlay-retrieval__block__title">
-                  Срок исполнения
-                </div>
-                <div class="overlay-retrieval__block__body">
-                  <input
-                    type="datetime-local"
-                    class="dates-selector__date-input"
-                    [ngModel]="isNewRetrieval.deadline | date:'yyyy-MM-ddTHH:mm'"
-                    (ngModelChange)="isNewRetrieval.deadline=$event"
-                  />
-                </div>
-              </div>
-
-              <div class="overlay-retrieval__block overlay-retrieval__block-border">
-                <div class="block-border__title">
-                  Краткое описание причины
-                </div>
-                <div class="block-border__body">
-                  <textarea
-                    class="gridster-item-content"
-                    placeholder="Введите значение..."
-                    minlength="3"
-                    [(ngModel)]="isNewRetrieval.description"
-                  >
-                  </textarea>
-                  <div class="block-border__footer"></div>
-                </div>
-              </div>
-
-              <div class="overlay-retrieval__block-border overlay-retrieval__block-border">
-                <div class="block-border__title">
-                  Непосредственные / прямые причины:
-                </div>
-                <div class="block-border__body">
-                  <textarea
-                    class="gridster-item-content"
-                    placeholder="Введите значение..."
-                    minlength="6"
-                    [(ngModel)]="isNewRetrieval.directReasons"
-                  >
-                  </textarea>
-                  <div class="block-border__footer"></div>
-                </div>
-              </div>
-            </section>
-          </div>
-
-          <div class="overlay-retrieval__footer">
-            <div class="workspace__submit">
-              <div class="submit__frame submit__frame-left"></div>
-              <div class="submit__frame submit__frame-right"></div>
-              <button type="submit gridster-item-content" (click)="overlayClose()">
-                Отменить
-              </button>
-            </div>
-            <div class="workspace__submit">
-              <div class="submit__frame submit__frame-left"></div>
-              <div class="submit__frame submit__frame-right"></div>
-              <button
-                *ngIf="!isEdit"
-                type="submit gridster-item-content"
-                (click)="saveRetrieval(event.id)"
-              >
-                Сохранить
-              </button>
-              <button
-                *ngIf="isEdit"
-                type="submit gridster-item-content"
-                (click)="editSaveRetrieval()"
-              >
-                Изменить и сохранить
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      </section>
       <div
         (mousedown)="$event.stopPropagation()"
         (touchstart)="$event.stopPropagation()"
@@ -722,13 +595,16 @@
           (click)="$event.stopPropagation()"
           *ngIf="event.graphValues"
         >
-          <!--          <evj-line-chart-workspace-->
-          <!--            [dataChartAttribute]="event.graphValues"-->
-          <!--          ></evj-line-chart-workspace>-->
+          <evj-line-chart-workspace
+            [dataChartAttribute]="event.graphValues"
+          ></evj-line-chart-workspace>
         </div>
       </div>
     </ng-container>
+    <!---->
 
+    <!--  Create Event -->
+    <!-- <ng-container *ngIf="!isMock && !event"> -->
     <ng-container *ngIf="!isMock && !event">
       <div
         class="workspace__mock"
@@ -736,15 +612,1099 @@
         (touchstart)="$event.stopPropagation()"
       >
         <div class="workspace__submit">
-          <div class="submit__frame submit__frame-left"></div>
+          <!-- <div class="submit__frame submit__frame-left"></div>
           <div class="submit__frame submit__frame-right"></div>
           <button type="submit gridster-item-content" (click)="createEvent()">
             Создать событие
-          </button>
+          </button> -->
+          Создайте или выберите событие
         </div>
       </div>
     </ng-container>
 
     <evj-frame-bottom></evj-frame-bottom>
+
+    <!--NEW CREATE EVENT KP-->
+    <div
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+      id="overlay-retrieval"
+      (click)="overlayClose()"
+    >
+      <div class="overlay-retrieval__body" (click)="$event.stopPropagation()">
+        <ng-container>
+          <section
+            *ngIf="isNewRetrieval"
+            class="workspace"
+            (mousedown)="$event.stopPropagation()"
+            (touchstart)="$event.stopPropagation()"
+          >
+            <div class="workspace__header">
+              <evj-ui-block class="workspace__header__block" status="normal">
+                <mat-form-field class="status">
+                  <mat-label>Статус</mat-label>
+                  <mat-select
+                    panelClass="mat-select-custom"
+                    [(ngModel)]="isNewRetrieval.status"
+                    [compareWith]="compareFn"
+                  >
+                    <mat-option *ngFor="let p of status" [value]="p"
+                      >{{ statuses[p.name] }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </evj-ui-block>
+              <evj-ui-block
+                class="workspace__header__block"
+                status="{{isNewRetrieval.priority.name}}"
+              >
+                <mat-form-field class="{{isNewRetrieval.priority.name}}">
+                  <mat-label>Приоритет</mat-label>
+                  <mat-select
+                    panelClass="mat-select-custom"
+                    [(ngModel)]="isNewRetrieval.priority"
+                    [compareWith]="compareFn"
+                  >
+                    <mat-option *ngFor="let p of priority" [value]="p"
+                      >{{ priorities[p.name] }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </evj-ui-block>
+              <evj-ui-block
+                class="workspace__header__block"
+                status="{{isNewRetrieval.isAcknowledged}}"
+              >
+                <mat-form-field class="card-{{isNewRetrieval.isAcknowledged}}">
+                  <mat-label>Событие</mat-label>
+                  <mat-select
+                    panelClass="mat-select-custom"
+                    [(ngModel)]="isNewRetrieval.isAcknowledged"
+                    [compareWith]="compareFn"
+                  >
+                    <mat-option *ngFor="let l of this.eventLegends" [value]="l.isLegend">
+                      <ng-container *ngIf="l.isLegend">
+                        Квитировано
+                      </ng-container>
+                      <ng-container *ngIf="!l.isLegend">
+                        Не квитировано
+                      </ng-container>
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </evj-ui-block>
+            </div>
+
+            <div class="workspace__body">
+              <div class="workspace__body__left">
+                <div class="select__block">
+                  <div class="first_block">
+                    <div class="categories">
+                      <evj-ui-block class="workspace__body__categories" status="normal">
+                        <mat-form-field class="categories_selectbox">
+                          <mat-label>Категория</mat-label>
+                          <mat-select
+                            panelClass="mat-select-custom"
+                            [(ngModel)]="isNewRetrieval.category"
+                            [compareWith]="compareFn"
+                            (change)="changeCategory()"
+                          >
+                            <mat-option *ngFor="let cat of this.category" [value]="cat">
+                              {{ categories[cat.name] }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </evj-ui-block>
+                    </div>
+                    <div class="type">
+                      <evj-ui-block class="workspace__body__categories" status="normal">
+                        <mat-form-field class="categories_selectbox">
+                          <mat-label>Тип оборудования</mat-label>
+                          <mat-select
+                            panelClass="mat-select-custom"
+                            [(ngModel)]="isNewRetrieval.equipmentCategory"
+                            [compareWith]="compareFn"
+                          >
+                            <mat-option *ngFor="let p of equipmentCategory" [value]="p"
+                              >{{ p.name }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </evj-ui-block>
+                    </div>
+                  </div>
+                  <div class="second_block" *ngIf="isClickFact">
+                    <div class="type_incident">
+                      <evj-ui-block class="workspace__header__block" status="normal">
+                        <mat-form-field>
+                          <mat-label>Тип происшествия</mat-label>
+                          <mat-select
+                            panelClass="mat-select-custom"
+                            [(ngModel)]="isNewRetrieval.eventType"
+                            [compareWith]="compareFn"
+                          >
+                            <mat-option *ngFor="let p of eventTypes" [value]="p"
+                              >{{ p.name }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </evj-ui-block>
+                    </div>
+                    <div class="number_position">
+                      <evj-ui-block class="workspace__header__block" status="normal">
+                        <div class="input_position">
+                          <mat-form-field class="example-full-width">
+                            <mat-label>Номер позиции</mat-label>
+                            <input matInput placeholder="Текст..." />
+                          </mat-form-field>
+                        </div>
+                        <div class="position_icon">
+                          <svg-icon
+                            src="./assets/icons/edit.svg"
+                            [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+                          >
+                          </svg-icon>
+                        </div>
+                      </evj-ui-block>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="description">
+                  <div class="description_nav">
+                    <div class="description_title">Краткое описание</div>
+                    <div class="description_button_update">
+                      <svg-icon
+                        src="./assets/icons/edit.svg"
+                        [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+                      >
+                      </svg-icon>
+                    </div>
+                  </div>
+                  <div class="description__content">
+                    <div class="description__content_text">
+                      <textarea
+                        required
+                        class="gridster-item-content"
+                        placeholder="Введите значение..."
+                        minlength="3"
+                        [(ngModel)]="isNewRetrieval.description"
+                      >
+                      </textarea>
+                    </div>
+                  </div>
+                  <div class="frame_description_bottom"></div>
+                </div>
+
+                <div class="fact_block">
+                  <div class="title_fact_block">
+                    <div class="title_fact_block_text">
+                      Установленные факты
+                    </div>
+                  </div>
+                  <div class="fact_content_create_event" #scroll>
+                    <!--ngFor -->
+                    <div
+                      class="fact_new"
+                      (click)="clickFact()"
+                      [class.activeFact]="isClickFact"
+                      *ngFor="let comment of isNewRetrieval.facts"
+                    >
+                      <div class="fact_text">
+                        <p>{{comment.comment}}</p>
+                      </div>
+                      <div class="fact_menu">
+                        <div class="fact_button">
+                          <div class="fact_button_update" *ngIf="isClickFact">
+                            <svg-icon
+                              src="./assets/pic/AdminReferences/delete.svg"
+                              [svgStyle]="{ 'width.px':16, 'height.px':16 }"
+                            >
+                            </svg-icon>
+                          </div>
+                          <div class="fact_button_delete" *ngIf="isClickFact">
+                            <svg-icon
+                              src="./assets/icons/edit.svg"
+                              [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+                            >
+                            </svg-icon>
+                          </div>
+                        </div>
+                        <div class="fact_info">
+                          <div class="fact_info_user">Иванов И.В.</div>
+                          <div class="fact_info_date">25.05.2020 | 13:23:23</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="empty"></div>
+                  <div class="fact_comment">
+                    <div class="comment__new">
+                      <input
+                        type="text"
+                        class="comment__text gridster-item-content"
+                        placeholder="Напишите свой комментарий..."
+                        (keypress)="onEnterPush($event)"
+                        #newInput2
+                      />
+                      <button type="submit" class="button comment__file   gridster-item-content">
+                        <svg-icon
+                          class="button__icon"
+                          src="./assets/icons/widgets/change-shift/add_file.svg"
+                        >
+                        </svg-icon>
+                      </button>
+                      <button
+                        type="submit"
+                        class="button comment__submit  gridster-item-content"
+                        (click)="onSendNewMessage()"
+                      >
+                        <svg-icon
+                          class="button__icon"
+                          src="./assets/icons/widgets/change-shift/send.svg"
+                        ></svg-icon>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="workspace__body__right">
+                <div class="info_block">
+                  <div class="place">
+                    <div class="place_title">
+                      Место:
+                    </div>
+                    <div class="place_body">
+                      ГФУ-2 с БОР
+                    </div>
+                  </div>
+                  <div class="creator">
+                    <div class="creator_title">
+                      Автор
+                    </div>
+                    <div class="creator_body">{{this.nameUser}}</div>
+                  </div>
+                  <div class="deadline">
+                    <mat-form-field>
+                      <mat-label>Срок выполнения</mat-label>
+                      <input matInput [matDatepicker]="myDatepicker" />
+                      <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+                      <mat-datepicker #myDatepicker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="responsible">
+                  <div *ngIf="userMeropChoosen" class="choosenUser">
+                    <div class="name_user">
+                      <div class="name_user_responsible">
+                        Ответственный
+                      </div>
+                      <div class="name_user_info">
+                        <div>{{ chooseNameUser }}</div>
+                        <div>{{ userDescription }}</div>
+                      </div>
+                    </div>
+                    <div class="brigade_user">
+                      <div class="brigade_user_text">
+                        Бригада № {{ isNewRetrieval.fixedBy.id }}
+                      </div>
+                    </div>
+                    <div class="avatar_user">
+                      <div class="avatar_user_img"><img src="../assets/pic/avatar_temp.jpg" /></div>
+                    </div>
+                  </div>
+                  <evj-ui-block class="workspace__header__block" status="normal">
+                    <mat-form-field>
+                      <mat-label>Отвественный</mat-label>
+                      <mat-select
+                        panelClass="mat-select-custom"
+                        [(ngModel)]="isNewRetrieval.fixedBy"
+                      >
+                        <mat-option
+                          *ngFor="let p of user"
+                          [value]="p"
+                          (click)="chooseMeropRespons(p)"
+                          >{{ p.lastName }} {{ p.firstName }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </evj-ui-block>
+                </div>
+                <div class="comments_block">
+                  <div class="title_comments_block">
+                    <div class="title_comments_block_text">
+                      Комментарии
+                    </div>
+                  </div>
+                  <div class="comments_content_create_event">
+                    <!--ngFor -->
+                    <div
+                      class="comment_new"
+                      (click)="clickFact()"
+                      [class.activeFact]="isClickFact"
+                      *ngFor="let comment of isNewRetrieval.comments"
+                    >
+                      <div class="comment_text">
+                        {{comment.comment}}
+                      </div>
+                      <div class="comment_menu">
+                        <div class="comment_button">
+                          <div class="comment_button_update">
+                            <svg-icon
+                              src="./assets/icons/edit.svg"
+                              [svgStyle]="{ 'width.px':15, 'height.px':15 }"
+                            >
+                            </svg-icon>
+                          </div>
+                          <div class="comment_button_delete"></div>
+                        </div>
+                        <div class="comment_info"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="empty"></div>
+                  <div class="fact_comment">
+                    <div class="comment__new">
+                      <input
+                        type="text"
+                        class="comment__text gridster-item-content"
+                        placeholder="Напишите свой комментарий..."
+                        (keypress)="onEnterPush($event)"
+                        #newInput
+                      />
+                      <button type="submit" class="button comment__file   gridster-item-content">
+                        <svg-icon
+                          class="button__icon"
+                          src="./assets/icons/widgets/change-shift/add_file.svg"
+                        >
+                        </svg-icon>
+                      </button>
+                      <button
+                        type="submit"
+                        class="button comment__submit  gridster-item-content"
+                        (click)="onSendNewMessage()"
+                      >
+                        <svg-icon
+                          class="button__icon"
+                          src="./assets/icons/widgets/change-shift/send.svg"
+                        ></svg-icon>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="overlay-retrieval__footer">
+              <div class="workspace__submit">
+                <div class="submit__frame submit__frame-left"></div>
+                <div class="submit__frame submit__frame-right"></div>
+                <button type="submit gridster-item-content" (click)="overlayClose()">
+                  Отменить
+                </button>
+              </div>
+              <div class="workspace__submit" style="margin-left: 5px;">
+                <div class="submit__frame submit__frame-left"></div>
+                <div class="submit__frame submit__frame-right"></div>
+                <button
+                  *ngIf="!isEdit"
+                  type="submit gridster-item-content"
+                  (click)="saveRetrieval(event.id)"
+                >
+                  Сохранить
+                </button>
+                <button
+                  *ngIf="isEdit"
+                  type="submit gridster-item-content"
+                  (click)="editSaveRetrieval()"
+                >
+                  Изменить и сохранить
+                </button>
+              </div>
+            </div>
+          </section>
+        </ng-container>
+      </div>
+    </div>
+    <!---->
+  </div>
+</ng-container>
+
+<ng-container *ngIf="false">
+  <div
+    *ngIf="event"
+    class="change-shift"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="workspace__header__block">
+      <section class="workspace__blocks" style="margin-right: 10px;">
+        <div class="workspace__block">
+          <div class="workspace__block__title">
+            Дата / время:
+          </div>
+          <div class="workspace__block__body">
+            {{ event.eventDateTime | date:'dd-MM-yyyy HH:mm' }}
+          </div>
+        </div>
+
+        <div class="workspace__block">
+          <div class="workspace__block__title">
+            Организация:
+          </div>
+          <div class="workspace__block__body">
+            {{ event.organization }}
+          </div>
+        </div>
+
+        <div class="workspace__block">
+          <div class="workspace__block__title">
+            Смена:
+          </div>
+          <div class="workspace__block__body">
+            Бригада-3
+          </div>
+        </div>
+
+        <div class="workspace__block">
+          <div class="workspace__block__title">
+            Подразделение:
+          </div>
+          <div class="workspace__block__body">
+            {{ event.branch }}
+          </div>
+        </div>
+
+        <div class="workspace__block">
+          <div class="workspace__block__title">
+            Место:
+          </div>
+          <div class="workspace__block__body">
+            ГФУ-2 с БОР
+          </div>
+        </div>
+
+        <div class="workspace__block">
+          <div class="workspace__block__title">
+            Старший оператор:
+          </div>
+          <div class="workspace__block__body" *ngIf="event.responsibleOperator">
+            {{ event.responsibleOperator.lastName }} {{ event.responsibleOperator.firstName }}
+          </div>
+        </div>
+
+        <div class="workspace__block" *ngIf="user">
+          <div class="workspace__block__title">
+            Ответственный:
+          </div>
+          <div class="workspace__block__body">
+            {{ user[idUser].lastName }} {{ user[idUser].firstName }}
+          </div>
+        </div>
+      </section>
+
+      <section class="workspace__blocks">
+        <div class="workspace__block__right">
+          <div class="workspace__block__title">
+            Статус:
+          </div>
+          <div class="workspace__block__body__drop-down">
+            <div class="dropdown dropdown-dark">
+              <select
+                name="contactMethod"
+                class="dropdown-select"
+                [(ngModel)]="event.status"
+                [compareWith]="compareFn"
+              >
+                <option *ngFor="let p of status" [ngValue]="p">{{ statuses[p.name] }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="workspace__block__right">
+          <div class="workspace__block__title">
+            Приоритет:
+          </div>
+          <div class="workspace__block__body__drop-down">
+            <div class="dropdown dropdown-dark">
+              <select
+                name="contactMethod"
+                class="dropdown-select"
+                [(ngModel)]="event.priority"
+                [compareWith]="compareFn"
+              >
+                <option *ngFor="let p of priority" [ngValue]="p">{{ priorities[p.name] }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="workspace__block__right">
+          <div class="workspace__block__title">
+            Система источник:
+          </div>
+          <div class="workspace__block__body__drop-down">
+            <div class="dropdown dropdown-dark">
+              <select
+                name="contactMethod"
+                class="dropdown-select"
+                [(ngModel)]="event.category"
+                [compareWith]="compareFn"
+                (change)="changeCategory()"
+              >
+                <option *ngFor="let p of category" [ngValue]="p">{{ categories[p.name] }} </option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="workspace__block__right">
+          <div class="workspace__block__title">
+            Зафиксировал:
+          </div>
+          <div class="workspace__block__body__drop-down" style="max-width: 120px;">
+            <div class="dropdown dropdown-dark">
+              <select
+                name="contactMethod"
+                class="dropdown-select"
+                [(ngModel)]="event.fixedBy"
+                [compareWith]="compareFn"
+              >
+                <option *ngFor="let p of user" [ngValue]="p"
+                  >{{ p.lastName }} {{ p.firstName }}</option
+                >
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="workspace__block__right">
+          <div class="workspace__block__title">
+            Тип происшествия:
+          </div>
+          <div class="workspace__block__body__drop-down">
+            <div class="dropdown dropdown-dark">
+              <select
+                name="contactMethod"
+                class="dropdown-select"
+                [(ngModel)]="event.eventType"
+                [compareWith]="compareFn"
+                (change)="changeCategory()"
+              >
+                <option *ngFor="let p of eventTypes" [ngValue]="p">{{ p.name }} </option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="workspace__block__right">
+          <div class="workspace__block__title">
+            Тип оборудования:
+          </div>
+          <div class="workspace__block__body__drop-down">
+            <div class="dropdown dropdown-dark">
+              <select
+                name="contactMethod"
+                class="dropdown-select"
+                [(ngModel)]="event.equipmentCategory"
+                [compareWith]="compareFn"
+                (change)="changeCategory()"
+              >
+                <option *ngFor="let p of equipmentCategory" [ngValue]="p">{{ p.name }} </option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="incidents">
+      <div class="workspace__block-border">
+        <div class="block-border__title">
+          Установленные факты:
+        </div>
+        <div class="block-border__body">
+          <textarea
+            class="gridster-item-content"
+            placeholder="Введите значение..."
+            minlength="6"
+            [(ngModel)]="event.establishedFacts"
+          >
+          </textarea>
+          <div class="block-border__footer"></div>
+        </div>
+      </div>
+      <div class="workspace__block-border" style="margin-left: 10px;">
+        <div class="block-border__title">
+          Краткое описание причины
+        </div>
+        <div class="block-border__body">
+          <textarea
+            required
+            class="gridster-item-content"
+            placeholder="Введите значение..."
+            minlength="3"
+            [(ngModel)]="event.description"
+          >
+          </textarea>
+          <div class="block-border__footer"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="blocks-bottom">
+      <div class="block-bottom">
+        <div class="change-shift__comment" style="height: 120px; min-height: 120px;">
+          <div class="comment__title">
+            Корректирующие мероприятия
+          </div>
+          <div class="comment__body">
+            <div class="comment__display">
+              <ul class="messages scroll-bar events" #scroll2>
+                <li
+                  class="message event"
+                  *ngFor="let retrieval of event.retrievalEvents[0].innerNotification; let i = index"
+                >
+                  <div class="event__header">
+                    <span>
+                      <span class="event__sub">Ответственный</span>
+                      <span style="padding-left:10px;" *ngIf="retrieval.responsibleOperator">
+                        {{ retrieval.responsibleOperator.lastName }} {{
+                        retrieval.responsibleOperator.firstName }}</span
+                      >
+                    </span>
+
+                    <span class="event__sub-right">
+                      <span *ngIf="retrieval.status">{{ statuses[retrieval.status.name] }}</span>
+                      <svg-icon
+                        *ngIf="!retrieval.source"
+                        class="event__delete"
+                        [applyCss]="true"
+                        src="./assets/edit.svg"
+                        (click)="onEditRetrieval(retrieval)"
+                        (mousedown)="$event.stopPropagation()"
+                        (touchstart)="$event.stopPropagation()"
+                      ></svg-icon>
+                      <svg-icon
+                        *ngIf="!retrieval.source"
+                        class="event__delete"
+                        [applyCss]="true"
+                        src="./assets/garbage_bad_pic.svg"
+                        (click)="overlayConfirmationOpen()"
+                      ></svg-icon>
+                    </span>
+                  </div>
+                  <div class="event__body">
+                    <span>{{ retrieval.description }}</span>
+                  </div>
+                  <div class="event__footer">
+                    <span class="event__sub"
+                      >{{ retrieval.deadline | date:'dd-MM-yyyy HH:mm' }}</span
+                    >
+                    <span class="event__date">
+                      <span>{{ retrieval.deadline | date:'dd-MM-yyyy HH:mm' }}</span>
+                    </span>
+                  </div>
+                  <div
+                    (mousedown)="$event.stopPropagation()"
+                    (touchstart)="$event.stopPropagation()"
+                    id="overlay-confirmation"
+                  >
+                    <div class="overlay-confirmation__body" (click)="$event.stopPropagation()">
+                      <span>Вы действительно хотите удалить выбранное Мероприятие?</span>
+                      <div style="display: flex;">
+                        <div class="workspace__submit">
+                          <div class="submit__frame submit__frame-left"></div>
+                          <div class="submit__frame submit__frame-right"></div>
+                          <button
+                            type="submit gridster-item-content"
+                            (click)="deleteRetrieval(event.id, retrieval.id)"
+                          >
+                            Удалить
+                          </button>
+                        </div>
+                        <div class="workspace__submit">
+                          <div class="submit__frame submit__frame-left"></div>
+                          <div class="submit__frame submit__frame-right"></div>
+                          <button
+                            type="submit gridster-item-content"
+                            (click)="overlayConfirmationClose()"
+                          >
+                            Отменить
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="comment__new">
+              <div class="workspace__submit">
+                <div class="submit__frame submit__frame-left"></div>
+                <div class="submit__frame submit__frame-right"></div>
+                <button type="submit gridster-item-content" (click)="addRetrieval()">
+                  Добавить мероприятие
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block-bottom" style="margin-left: 10px">
+        <div class="workspace__block-border media">
+          <div class="block-border__title">
+            Медиа контент
+          </div>
+          <div class="media__items">
+            <div *ngIf="event.graphValues" class="media__item" (click)="openLineChart()">
+              <svg-icon class="button__icon" src="./assets/line-chart.svg"> </svg-icon>
+            </div>
+            <div class="media__item">
+              <svg-icon class="button__icon" src="./assets/round-add-button.svg"> </svg-icon>
+            </div>
+          </div>
+        </div>
+
+        <div class="change-shift__comment" style="height: 100px; min-height: 100px;">
+          <div class="comment__title">
+            Комментарий оператора
+          </div>
+          <div class="comment__body">
+            <div class="comment__display">
+              <div class="messages scroll-bar" #scroll>
+                <div class="message" *ngFor="let comment of comments">
+                  {{ comment }}
+                </div>
+              </div>
+            </div>
+            <div class="comment__new">
+              <input
+                type="text"
+                class="comment__text gridster-item-content"
+                placeholder="Напишите свой комментарий..."
+                (keypress)="onEnterPush($event)"
+                #input
+              />
+              <button type="submit" class="button comment__file   gridster-item-content">
+                <svg-icon
+                  class="button__icon"
+                  src="./assets/icons/widgets/change-shift/add_file.svg"
+                ></svg-icon>
+              </button>
+              <button
+                type="submit"
+                class="button comment__submit  gridster-item-content"
+                (click)="onSendMessage()"
+              >
+                <svg-icon
+                  class="button__icon"
+                  src="./assets/icons/widgets/change-shift/send.svg"
+                ></svg-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="workspace__save">
+      <div class="workspace__submit">
+        <div class="submit__frame submit__frame-left"></div>
+        <div class="submit__frame submit__frame-right"></div>
+        <button type="submit gridster-item-content" (click)="createEvent()" [disabled]="isLoading">
+          Создать событие
+        </button>
+      </div>
+      <div class="workspace__submit" style="margin-left: 5px;">
+        <div class="submit__frame submit__frame-left"></div>
+        <div class="submit__frame submit__frame-right"></div>
+        <button
+          class="btn-disabled"
+          type="submit gridster-item-content"
+          (click)="saveItem()"
+          [disabled]="isLoading"
+        >
+          Сохранить
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+    id="overlay-retrieval"
+    (click)="overlayClose()"
+  >
+    <div class="overlay-retrieval__body" (click)="$event.stopPropagation()">
+      <div *ngIf="isNewRetrieval" class="overlay-retrieval__header__block">
+        <section class="overlay-retrieval__blocks">
+          <div class="overlay-retrieval__block">
+            <div class="overlay-retrieval__block__title">
+              Дата / время:
+            </div>
+            <div class="overlay-retrieval__block__body">
+              {{ isNewRetrieval.eventDateTime | date:'dd-MM-yyyy HH:mm' }}
+            </div>
+          </div>
+
+          <div class="overlay-retrieval__block">
+            <div class="overlay-retrieval__block__title">
+              Организация:
+            </div>
+            <div class="overlay-retrieval__block__body">
+              {{ isNewRetrieval.organization }}
+            </div>
+          </div>
+
+          <div class="overlay-retrieval__block">
+            <div class="overlay-retrieval__block__title">
+              Смена:
+            </div>
+            <div class="overlay-retrieval__block__body">
+              Бригада-3
+            </div>
+          </div>
+
+          <div class="overlay-retrieval__block">
+            <div class="overlay-retrieval__block__title">
+              Подразделение:
+            </div>
+            <div class="overlay-retrieval__block__body">
+              {{ isNewRetrieval.branch }}
+            </div>
+          </div>
+
+          <div class="overlay-retrieval__block">
+            <div class="overlay-retrieval__block__title">
+              Место:
+            </div>
+            <div class="overlay-retrieval__block__body">
+              <!-- {{ event.place.name }} -->
+              ГФУ-2 с БОР
+            </div>
+          </div>
+
+          <div class="overlay-retrieval__block">
+            <div class="overlay-retrieval__block__title">
+              Старший оператор:
+            </div>
+            <div class="overlay-retrieval__block__body" *ngIf="isNewRetrieval.responsibleOperator">
+              {{ isNewRetrieval.responsibleOperator.lastName }} {{
+              isNewRetrieval.responsibleOperator.firstName }}
+            </div>
+          </div>
+
+          <div class="overlay-retrieval__block">
+            <div class="overlay-retrieval__block__title">
+              Зафиксировал:
+            </div>
+            <div class="overlay-retrieval__block__body select">
+              <div class="dropdown dropdown-dark">
+                <select
+                  name="contactMethod"
+                  class="dropdown-select"
+                  [(ngModel)]="isNewRetrieval.fixedBy"
+                  [compareWith]="compareFn"
+                >
+                  <option *ngFor="let p of user" [ngValue]="p"
+                    >{{ p.lastName }} {{ p.firstName }}</option
+                  >
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="overlay-retrieval__block">
+            <div class="overlay-retrieval__block__title">
+              Статус:
+            </div>
+            <div class="overlay-retrieval__block__body select">
+              <div class="dropdown dropdown-dark">
+                <select
+                  name="contactMethod"
+                  class="dropdown-select"
+                  [(ngModel)]="isNewRetrieval.status"
+                  [compareWith]="compareFn"
+                >
+                  <option *ngFor="let p of status" [ngValue]="p">{{ statuses[p.name] }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="overlay-retrieval__block">
+            <div class="overlay-retrieval__block__title">
+              Приоритет:
+            </div>
+            <div class="overlay-retrieval__block__body select">
+              <div class="dropdown dropdown-dark">
+                <select
+                  name="contactMethod"
+                  class="dropdown-select"
+                  [(ngModel)]="isNewRetrieval.priority"
+                  [compareWith]="compareFn"
+                >
+                  <option *ngFor="let p of priority" [ngValue]="p">{{ priorities[p.name] }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="overlay-retrieval__block">
+            <div class="overlay-retrieval__block__title">
+              Система источник:
+            </div>
+            <div class="overlay-retrieval__block__body select">
+              <div class="dropdown dropdown-dark">
+                <select
+                  name="contactMethod"
+                  class="dropdown-select"
+                  [(ngModel)]="isNewRetrieval.category"
+                  [compareWith]="compareFn"
+                  (change)="changeCategory()"
+                >
+                  <option *ngFor="let p of category" [ngValue]="p"
+                    >{{ categories[p.name] }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="overlay-retrieval__block">
+            <div class="overlay-retrieval__block__title">
+              Тип происшествия:
+            </div>
+            <div class="overlay-retrieval__block__body select">
+              <div class="dropdown dropdown-dark">
+                <select
+                  name="contactMethod"
+                  class="dropdown-select"
+                  [(ngModel)]="isNewRetrieval.eventType"
+                  [compareWith]="compareFn"
+                  (change)="changeCategory()"
+                >
+                  <option *ngFor="let p of eventTypes" [ngValue]="p">{{ p.name }} </option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="overlay-retrieval__block">
+            <div class="overlay-retrieval__block__title">
+              Тип оборудования:
+            </div>
+            <div class="overlay-retrieval__block__body select">
+              <div class="dropdown dropdown-dark">
+                <select
+                  name="contactMethod"
+                  class="dropdown-select"
+                  [(ngModel)]="isNewRetrieval.equipmentCategory"
+                  [compareWith]="compareFn"
+                  (change)="changeCategory()"
+                >
+                  <option *ngFor="let p of equipmentCategory" [ngValue]="p">{{ p.name }} </option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="user" class="overlay-retrieval__block">
+            <div class="overlay-retrieval__block__title">
+              Ответственный:
+            </div>
+            <div class="overlay-retrieval__block__body">
+              {{ user[idUser].lastName }} {{ user[idUser].firstName }}
+            </div>
+          </div>
+
+          <div class="overlay-retrieval__block">
+            <div class="overlay-retrieval__block__title">
+              Срок исполнения
+            </div>
+            <div class="overlay-retrieval__block__body">
+              <input
+                type="datetime-local"
+                class="dates-selector__date-input"
+                [ngModel]="isNewRetrieval.deadline | date:'yyyy-MM-ddTHH:mm'"
+                (ngModelChange)="isNewRetrieval.deadline=$event"
+              />
+            </div>
+          </div>
+
+          <div class="overlay-retrieval__block overlay-retrieval__block-border">
+            <div class="block-border__title">
+              Краткое описание причины
+            </div>
+            <div class="block-border__body">
+              <textarea
+                class="gridster-item-content"
+                placeholder="Введите значение..."
+                minlength="3"
+                [(ngModel)]="isNewRetrieval.description"
+              >
+              </textarea>
+              <div class="block-border__footer"></div>
+            </div>
+          </div>
+
+          <div class="overlay-retrieval__block-border overlay-retrieval__block-border">
+            <div class="block-border__title">
+              Непосредственные / прямые причины:
+            </div>
+            <div class="block-border__body">
+              <textarea
+                class="gridster-item-content"
+                placeholder="Введите значение..."
+                minlength="6"
+                [(ngModel)]="isNewRetrieval.directReasons"
+              >
+              </textarea>
+              <div class="block-border__footer"></div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="overlay-retrieval__footer">
+        <div class="workspace__submit">
+          <div class="submit__frame submit__frame-left"></div>
+          <div class="submit__frame submit__frame-right"></div>
+          <button type="submit gridster-item-content" (click)="overlayClose()">
+            Отменить
+          </button>
+        </div>
+        <div class="workspace__submit">
+          <div class="submit__frame submit__frame-left"></div>
+          <div class="submit__frame submit__frame-right"></div>
+          <button
+            *ngIf="!isEdit"
+            type="submit gridster-item-content"
+            (click)="saveRetrieval(event.id)"
+          >
+            Сохранить
+          </button>
+          <button *ngIf="isEdit" type="submit gridster-item-content" (click)="editSaveRetrieval()">
+            Изменить и сохранить
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+    id="overlay-chart"
+    (click)="overlayChartClose()"
+  >
+    <div class="overlay-chart__body" (click)="$event.stopPropagation()" *ngIf="event.graphValues">
+      <evj-line-chart-workspace [dataChartAttribute]="event.graphValues"></evj-line-chart-workspace>
+    </div>
   </div>
 </ng-container>

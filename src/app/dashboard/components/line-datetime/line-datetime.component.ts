@@ -18,7 +18,7 @@ import { HeaderDate } from '../../models/header-date';
     styleUrls: ['./line-datetime.component.scss'],
 })
 export class LineDatetimeComponent implements OnInit, AfterViewInit, OnDestroy {
-    @ViewChild('startLine', { static: false }) startLine: ElementRef;
+    @ViewChild('startLine') startLine: ElementRef;
 
     private subscription: Subscription;
 

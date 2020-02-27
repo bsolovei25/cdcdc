@@ -51,7 +51,10 @@
     </div>
   </div>
   <div class="shortReference" *ngIf="!shortHeight" [@enterAnimation]>
-    <div class="illustration_widget"></div>
+    <div class="illustration_widget">
+      <evj-petroleum-unity></evj-petroleum-unity>
+<!--      unity-->
+    </div>
     <div class="table_widget">
       <div class="reference_title">
         <ng-container *ngFor="let item of title">

@@ -1,8 +1,8 @@
-import { Component, Input, OnDestroy, OnInit, Inject } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, Inject, ViewChild } from '@angular/core';
 import {
     EventsWidgetCategory,
     EventsWidgetCategoryCode,
-    EventsWidgetData,
+    EventsWidgetDataPreview,
     EventsWidgetNotificationPreview,
     EventsWidgetOptions,
     ICategory,
@@ -17,6 +17,7 @@ import { NewWidgetService } from '../../services/new-widget.service';
 import { NewUserSettingsService } from '../../services/new-user-settings.service';
 import { EventService } from '../../services/event.service';
 import { MaterialControllerService } from '../../services/material-controller.service';
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 
 @Component({
     selector: 'evj-events',
@@ -24,6 +25,8 @@ import { MaterialControllerService } from '../../services/material-controller.se
     styleUrls: ['./events.component.scss'],
 })
 export class EventsComponent implements OnInit, OnDestroy {
+    @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
+
     isList: boolean = false;
     title: string = '';
     isDeleteRetrieval: boolean = false;
@@ -37,6 +40,8 @@ export class EventsComponent implements OnInit, OnDestroy {
     static itemRows: number = 20;
 
     public previewTitle: string;
+
+    public placeNames: string[] = [];
 
     categories: EventsWidgetCategory[] = [
         {
@@ -101,7 +106,6 @@ export class EventsComponent implements OnInit, OnDestroy {
         },
     ];
 
-    allNotifications: EventsWidgetNotification[] = [];
     notifications: EventsWidgetNotificationPreview[] = [];
 
     filters: EventsWidgetFilter[] = [
@@ -191,19 +195,26 @@ export class EventsComponent implements OnInit, OnDestroy {
         if (show) {
             // do nothing
         } else {
-            this.getData();
-            this.getStats();
+            // this.getData();
+            // this.getStats();
             this.wsConnect();
         }
     }
 
-    private wsConnect(): void {
+    private async wsConnect(): Promise<void> {
+        this.placeNames = await this.eventService.getPlaces(this.id);
         this.subscriptions.push(
             this.widgetService
                 .getWidgetLiveDataFromWS(this.id, 'events')
-                .subscribe((ref: EventsWidgetData) => {
+                .subscribe((ref: EventsWidgetDataPreview) => {
                     this.wsHandler(ref);
                 })
+        );
+        this.subscriptions.push(
+            this.widgetService.currentDatesObservable.subscribe((ref) => {
+                this.getData();
+                this.getStats();
+            })
         );
     }
 
@@ -236,6 +247,8 @@ export class EventsComponent implements OnInit, OnDestroy {
         const options: EventsWidgetOptions = {
             categories: this.categories.filter((c) => c.isActive).map((c) => c.id),
             filter: this.filters.find((f) => f.isActive).code,
+            dates: this.widgetService.currentDatesObservable.getValue(),
+            placeNames: this.placeNames,
         };
         return options;
     }
@@ -244,7 +257,13 @@ export class EventsComponent implements OnInit, OnDestroy {
         this.notifications = [];
     }
 
-    private wsHandler(data: EventsWidgetData): void {
+    private wsHandler(data: EventsWidgetDataPreview): void {
+        for (const place of this.notifications) {
+            // if () {
+            //
+            // }
+        }
+
         switch (data.action) {
             case 'add':
                 this.addWsElement(data.notification);
@@ -261,7 +280,12 @@ export class EventsComponent implements OnInit, OnDestroy {
     private addWsElement(notification: EventsWidgetNotificationPreview): void {
         const idx = this.notifications.findIndex((n) => notification.sortIndex <= n.sortIndex);
         console.log(idx);
-        if (idx) {
+        if (idx >= 0) {
+            if (notification.category && notification.category.name) {
+                notification.iconUrl = this.getNotificationIcon(notification.category.name);
+                notification.iconUrlStatus = this.getStatusIcon(notification.status.name);
+                notification.statusName = this.statuses[notification.status.name]; // TODO check
+            }
             this.notifications.splice(idx, 0, notification);
             this.notifications = this.notifications.slice();
         }
@@ -431,8 +455,9 @@ export class EventsComponent implements OnInit, OnDestroy {
     }
 
     public async scrollHandler(event: any): Promise<void> {
+        this.viewport.checkViewportSize();
         if (
-            event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight &&
+            event.target.offsetHeight + event.target.scrollTop + 100 >= event.target.scrollHeight &&
             this.notifications.length &&
             this.isAllowScrollLoading
         ) {
@@ -453,6 +478,7 @@ export class EventsComponent implements OnInit, OnDestroy {
         this.isAllowScrollLoading = true;
         console.log(lastId);
         console.log(ans);
+        this.viewport.checkViewportSize();
     }
 
     private async getStats(): Promise<void> {

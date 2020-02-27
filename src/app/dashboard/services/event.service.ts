@@ -5,7 +5,7 @@ import {
     EventsWidgetNotification,
     IStatus,
     ICategory,
-    EventsWidgetData,
+    EventsWidgetDataPreview,
     EventsWidgetOptions,
     EventsWidgetsStats,
     EventsWidgetNotificationPreview,
@@ -48,6 +48,16 @@ export class EventService {
                 .get<EventsWidgetsStats>(
                     this.restUrl + `/api/notifications/stats?${this.getOptionString(0, options)}`
                 )
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    public async getPlaces(widgetId: string): Promise<string[]> {
+        try {
+            return this.http
+                .get<string[]>(this.restUrl + `/api/notifications/widget/places/${widgetId}`)
                 .toPromise();
         } catch (error) {
             console.error(error);
@@ -204,9 +214,15 @@ export class EventService {
     }
 
     private getOptionString(lastId: number, options: EventsWidgetOptions): string {
-        let res = `take=${this.batchSize}&lastId=${lastId}`;
+        let res = `take=${this.batchSize}&lastId=${lastId}&`;
+        if (options.dates) {
+            res += `fromDateTime=${options.dates?.fromDateTime.toISOString()}&toDateTime=${options.dates?.toDateTime.toISOString()}`;
+        }
         for (const category of options.categories) {
             res += `&categoryIds=${category}`;
+        }
+        for (const place of options.placeNames) {
+            res += `&placeNames=${place}`;
         }
         switch (options.filter) {
             case 'all':

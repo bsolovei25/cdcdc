@@ -22,10 +22,10 @@ declare var d3: any;
     styleUrls: ['./ring-factory-diagram.component.scss'],
 })
 export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
-    @ViewChild('ringFactory', { static: false }) ringFactory: ElementRef;
+    @ViewChild('ringFactory') ringFactory: ElementRef;
 
-    @ViewChild('test1', { static: false }) test1: ElementRef;
-    @ViewChild('test2', { static: false }) test2: ElementRef;
+    @ViewChild('test1') test1: ElementRef;
+    @ViewChild('test2') test2: ElementRef;
 
     @Input() public data: RingFactoryWidget;
 
