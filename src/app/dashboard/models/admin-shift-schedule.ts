@@ -23,6 +23,8 @@ export interface IScheduleShift {
     end: Date;
     status: EnumShiftStatus;
     brigadeId: number;
+    brigade: { id: number; number: string };
+    brigadeNumber: string;
     isBrigadeSet: boolean;
     isAccepted: boolean;
     isPassed: boolean;

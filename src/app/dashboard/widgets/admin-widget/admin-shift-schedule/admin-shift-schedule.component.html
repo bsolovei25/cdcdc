@@ -26,15 +26,18 @@
           locale="ru"
         ></mat-calendar>
       </section>
-      <section class="main-team" *ngIf="selectedBrigade">
+      <section
+        class="main-team"
+        *ngIf="selectedShift && selectedShift.shiftMembers && selectedShift.shiftMembers.length > 0"
+      >
         <p class="title">Основной состав бригады</p>
         <div class="main-team__container">
           <ul class="list">
-            <li *ngFor="let i of allBrigade[0].users;">
+            <li *ngFor="let i of selectedShift.shiftMembers;">
               <evj-worker-card
                 class="insert-component"
                 [isSmallCard]="true"
-                [person]="i"
+                [person]="i.employee"
               ></evj-worker-card>
             </li>
           </ul>
@@ -46,23 +49,36 @@
         <div class="title"><p>График дежурств</p></div>
         <div class="date-yesterday">
           <p>
-            {{ yesterday.date | date:'d MMMM yyyy' }} - {{ selectedDay.date | date:'d MMMM yyyy' }}
+            {{ yesterday.date | date:'d MMMM' }} - {{ selectedDay.date | date:'d MMMM yyyy' }}
           </p>
         </div>
-        <div class="shift-yesterday" *ngFor="let i of yesterday.items">
-          <p>I смена</p>
-          <p>{{ i.start | date:'HH' }} - {{ i.end | date:'HH' }}</p>
-          <p>Бригада 1</p>
-        </div>
-        <div class="date-today"><p>{{ selectedDay.date | date:'d MMMM yyyy' }}</p></div>
-        <div class="shift-today" *ngFor="let i of selectedDay.items; let idx = index">
+        <div class="shift-yesterday" *ngFor="let i of yesterday.items; let idx = index">
           <p>{{ idx + 1 }} смена</p>
           <p>{{ i.start | date:'HH' }} - {{ i.end | date:'HH' }}</p>
-          <p class="btn" (click)="openOverlay($event, i, true)">
+          <p class="shift-today-item">Бригада {{ i.brigadeNumber }}</p>
+        </div>
+        <div class="date-today"><p>{{ selectedDay.date | date:'d MMMM yyyy' }}</p></div>
+        <div
+          class="shift-today"
+          [class.shift-today--active]="selectedShift === shift"
+          *ngFor="let shift of selectedDay.items; let idx = index"
+          (click)="selectShift(shift)"
+        >
+          <p>{{ idx + 1 }} смена</p>
+          <p>{{ shift.start | date:'HH' }} - {{ shift.end | date:'HH' }}</p>
+          <p
+            *ngIf="!shift.brigadeId"
+            class="btn shift-today-item"
+            (click)="openOverlay($event, shift, true)"
+          >
             Назначить
           </p>
-          <p class="btn" (click)="openOverlay($event, i, true)" *ngIf="i">
-            Бригада
+          <p
+            *ngIf="shift.brigadeId"
+            class="btn shift-today-item"
+            (click)="openOverlay($event, shift, true)"
+          >
+            Бригада {{ shift.brigadeNumber }}
           </p>
         </div>
         <div class="shift-overlay" #shiftOverlay>
@@ -74,23 +90,26 @@
                 src="./assets/icons/widgets/admin-shift-schedule/close.svg"
               ></svg-icon>
             </li>
-            <li *ngFor="let b of allBrigade;" (click)="onChooseBrigade(b, selectedDay)">
+            <li
+              *ngFor="let b of filterBrigade(allBrigade);"
+              (click)="onChooseBrigade(b, selectedDay)"
+            >
               Бригада {{ b.brigadeNumber }}
             </li>
           </ul>
         </div>
       </section>
-      <section class="additional-team" *ngIf="selectedBrigade">
+      <section class="additional-team" *ngIf="selectedBrigade && allBrigade && allBrigade[4] ">
         <p class="title">Дополнительный состав бригады</p>
         <div class="additional-team__container">
           <ul class="list">
-            <li *ngFor="let i of allBrigade[0].users">
+            <li *ngFor="let user of allBrigade[4].users">
               <evj-worker-card
-                (click)="onClickCard(i)"
-                [active]="activeUsers.isSelected(i)"
+                (click)="onClickCard(user)"
+                [active]="activeUsers.isSelected(user)"
                 class="insert-component"
                 [isSmallCard]="true"
-                [person]="i"
+                [person]="user"
               ></evj-worker-card>
             </li>
           </ul>

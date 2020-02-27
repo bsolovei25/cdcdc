@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from 'src/app/services/appConfigService';
-import { IScheduleShift, IBrigadeWithUsersDto, IScheduleShiftDay } from '../models/admin-shift-schedule';
+import {
+    IScheduleShift,
+    IBrigadeWithUsersDto,
+    IScheduleShiftDay,
+} from '../models/admin-shift-schedule';
 
 @Injectable({
     providedIn: 'root',
@@ -43,28 +47,33 @@ export class AdminShiftScheduleService {
         }
     }
 
-    async postSelectBrigade(body: { shiftId: number; brigadeId: number }): Promise<object> {
-        try {
-            return this.http.post(this.restUrl + '/api/schedule-shifts/shift', body).toPromise();
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    async postMemberFromBrigade(body: { shiftId: number; userId: number }): Promise<object> {
+    async postSelectBrigade(shiftId: number, brigadeId: number): Promise<any> {
         try {
             return this.http
-                .post(this.restUrl + '/api/schedule-shifts/shift/1033/member', body)
+                .post(this.restUrl + '/api/schedule-shifts/shift', { shiftId, brigadeId })
                 .toPromise();
         } catch (error) {
             console.error(error);
         }
     }
 
-    async deleteBrigade(id: number): Promise<void> {
+    async postMemberFromBrigade(shiftId: number, userId: number): Promise<any> {
+        try {
+            return this.http
+                .post(this.restUrl + `/api/schedule-shifts/shift/${shiftId}/member`, {
+                    shiftId,
+                    userId,
+                })
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async deleteBrigade(shiftId: number): Promise<void> {
         try {
             return await this.http
-                .delete<void>(this.restUrl + `/api/schedule-shifts/shift/${id}`)
+                .delete<void>(this.restUrl + `/api/schedule-shifts/shift/${shiftId}`)
                 .toPromise();
         } catch (error) {
             console.error(error);

@@ -100,12 +100,12 @@ p {
       color: var(--color-text-sub);
       display: flex;
       justify-content: space-between;
-      padding: 0px 18px;
-      &:hover {
-        background: url("./../../../../../assets/icons/widgets/admin-shift-schedule/border-shift.svg")
-          no-repeat;
-        background-size: cover;
-      }
+      //   &:hover {
+      //     background: url("./../../../../../assets/icons/widgets/admin-shift-schedule/border-shift.svg")
+      //       no-repeat;
+      //     // background-size: cover;
+      //   }
+      padding: 10px 18px;
     }
 
     .date-yesterday {
@@ -119,11 +119,19 @@ p {
     .shift-today {
       display: flex;
       justify-content: space-between;
+      padding: 10px 18px;
+      &-item {
+        width: 80px;
+        text-align: end;
+      }
+      &--active {
+        background: url("./../../../../../assets/icons/widgets/admin-shift-schedule/border-shift.svg")
+          no-repeat;
+      }
       &:hover {
         background: url("./../../../../../assets/icons/widgets/admin-shift-schedule/border-shift.svg")
           no-repeat;
       }
-      padding: 10px 18px;
     }
 
     .title {
@@ -140,8 +148,10 @@ p {
     .shift-overlay {
       display: none;
       position: absolute;
-      right: 0;
-      top: 10px;
+      right: 3px;
+      top: 33px;
+      width: 94px;
+      height: 231px;
       opacity: 0;
       animation: slide 200ms ease forwards;
 
@@ -151,6 +161,8 @@ p {
 
       background-image: url("./../../../../../assets/icons/widgets/admin-shift-schedule/border-hover-block-list.svg");
       background-repeat: no-repeat;
+
+      box-shadow: 20px 0px 82px -34px #42a5f51f;
       .icon {
         width: 20px;
         height: 20px;
@@ -218,7 +230,7 @@ p {
 
 .insert-component {
   display: block;
-  width: 340px;
+  width: 350px;
   height: 95px;
   margin: 5px 0;
 }

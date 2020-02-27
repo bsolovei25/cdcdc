@@ -15,7 +15,11 @@ import { IWorker } from '../../../models/worker';
 import { IUser } from '../../../models/events-widget';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AdminShiftScheduleService } from '../../../services/admin-shift-schedule.service';
-import { IBrigadeWithUsersDto, IScheduleShiftDay } from '../../../models/admin-shift-schedule';
+import {
+    IBrigadeWithUsersDto,
+    IScheduleShiftDay,
+    IScheduleShift,
+} from '../../../models/admin-shift-schedule';
 import { fillDataShape } from '../../../../@shared/common-functions';
 
 export interface IAdminShiftSchedule {
@@ -56,17 +60,14 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy {
 
     activeUsers: SelectionModel<IUser> = new SelectionModel(true);
 
-    active: boolean = true;
-
-    size: number[] = [1, 2, 3, 4, 5, 6, 7, 3, 4, 5, 6, 6, 7, 7];
-    now: moment.Moment = moment();
-    yesterday: IScheduleShiftDay;
-
     selectedDay: IScheduleShiftDay = {
         date: new Date(),
         isAllShiftsSet: false,
         items: [],
     };
+    yesterday: IScheduleShiftDay;
+
+    selectedShift: IScheduleShift;
     selectedBrigade: IBrigadeWithUsersDto;
 
     scheduleShiftMonth: IScheduleShiftDay[] = [];
@@ -88,11 +89,11 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy {
             this.previewTitle = data.widgetType;
         });
         this.setRus();
-        this.activeUsers.select();
     }
 
     ngOnInit(): void {
         this.loadItem();
+        this.dateChanged(this.selectedDay.date);
     }
 
     ngOnDestroy(): void {
@@ -101,7 +102,16 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy {
         }
     }
 
+    resetComponent(): void {
+        this.yesterday = null;
+        this.selectedShift = null;
+        this.selectedBrigade = null;
+        this.activeUsers.clear();
+    }
+
     dateChanged(event: Date): void {
+        this.resetComponent();
+
         const idx = this.scheduleShiftMonth.findIndex(
             (val) => new Date(val.date).getDate() === new Date(event).getDate()
         );
@@ -113,26 +123,55 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy {
                     .subtract(1, 'days')
                     .toDate()
             );
-            const idx2 = this.scheduleShiftMonth.findIndex(
+            const idxYesterday = this.scheduleShiftMonth.findIndex(
                 (val) => new Date(val.date).getDate() === new Date(yesterdayLocal).getDate()
             );
-            if (idx2) {
-                const yesterdayLocals = fillDataShape(this.scheduleShiftMonth[idx2]);
+            if (idxYesterday) {
+                const yesterdayLocals = fillDataShape(this.scheduleShiftMonth[idxYesterday]);
                 this.yesterday = yesterdayLocals;
             }
         }
     }
 
-    onClickCard(i: IUser): void {
-        if (this.activeUsers.isSelected(i)) {
-            this.activeUsers.deselect(i);
+    onClickCard(user: IUser): void {
+        if (this.activeUsers.isSelected(user)) {
+            this.activeUsers.deselect(user);
         } else {
-            this.activeUsers.select(i);
+            this.activeUsers.select(user);
+            console.log(user);
+
+            this.adminShiftScheduleService.postMemberFromBrigade(this.selectedShift.id, user.id);
         }
     }
 
-    onChooseBrigade(brigade: IBrigadeWithUsersDto): void {
+    onChooseBrigade(brigade: IBrigadeWithUsersDto, selectedDay: IScheduleShiftDay): void {
         this.selectedBrigade = brigade;
+
+        this.adminShiftScheduleService.postSelectBrigade(this.selectedShift.id, brigade.brigadeId);
+        this.selectShift(this.selectedShift);
+        selectedDay.items.find((value) => {
+            if (value.id === this.selectedShift.id) {
+                value.brigadeId = brigade.brigadeId;
+                value.brigadeNumber = brigade.brigadeNumber;
+                this.openOverlay(null, null, false);
+            }
+        });
+    }
+
+    openOverlay(event: MouseEvent, shift: IScheduleShift, isOpen: boolean): void {
+        if (this.shiftOverlay?.nativeElement) {
+            if (isOpen) {
+                this.selectedShift = shift;
+                this.renderer.setStyle(this.shiftOverlay.nativeElement, 'display', 'block');
+            } else {
+                if (event && !shift) {
+                    this.adminShiftScheduleService.deleteBrigade(this.selectedShift.id);
+                    this.selectedShift.brigadeId = null;
+                    this.selectedShift.brigadeNumber = null;
+                }
+                this.renderer.setStyle(this.shiftOverlay.nativeElement, 'display', 'none');
+            }
+        }
     }
 
     dateClass(): (d: Date) => string {
@@ -176,14 +215,20 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy {
 
     // #endregion
 
-    openOverlay(event: MouseEvent, shift: any, isOpen: boolean): void {
-        if (this.shiftOverlay && this.shiftOverlay.nativeElement) {
-            if (isOpen) {
-                this.renderer.setStyle(this.shiftOverlay.nativeElement, 'display', 'block');
-            } else {
-                this.renderer.setStyle(this.shiftOverlay.nativeElement, 'display', 'none');
-            }
-        }
+    selectShift(shift: IScheduleShift): void {
+        this.adminShiftScheduleService.getSchudeleShift(shift.id).then((data) => {
+            this.selectedShift = data;
+        });
+    }
+
+    filterBrigade(brigadeUsers: IBrigadeWithUsersDto[]): IBrigadeWithUsersDto[] {
+        this.selectedDay.items.forEach((shift) => {
+            brigadeUsers = brigadeUsers.filter(
+                // TOFIX  игнорит 5 бригаду
+                (val) => val.brigadeId !== shift.brigadeId && val.brigadeNumber !== '5'
+            );
+        });
+        return brigadeUsers;
     }
 
     setRus(): void {
