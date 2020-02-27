@@ -45,9 +45,6 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     fact: string[] = [];
     isNew: boolean = true;
 
-    newComments: string[] = [];
-    newFact: string[] = [];
-
     isEdit: boolean = false;
 
     isClickFact: boolean = false;
@@ -259,17 +256,20 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
                 this.event.comments.push(commentInfo);
                 // this.comments.push(this.input.nativeElement.value);
                 this.input2.nativeElement.value = '';
+                setTimeout(() => {
+                    this.scrollCommentBottom();
+                }, 50);
             } else if (this.input.nativeElement.value) {
                 const factInfo = {
                     comment: this.input.nativeElement.value,
                 };
                 this.event.facts.push(factInfo);
                 this.input.nativeElement.value = '';
+                setTimeout(() => {
+                    this.scrollFactBottom();
+                }, 50);
             }
         }
-        setTimeout(() => {
-            this.scrollBottom();
-        }, 50);
     }
 
     onSendNewMessage(graph?): void {
@@ -277,34 +277,40 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
             const commentInfo = {
                 comment: 'График',
             };
-            this.event.retrievalEvents[0].innerNotification.comments.push(commentInfo);
+            this.isNewRetrieval.comments.push(commentInfo);
         } else {
             if (this.newInput2.nativeElement.value) {
-                const commentInfo = {
+                const factInfo = {
                     comment: this.newInput2.nativeElement.value,
                 };
-                this.event.retrievalEvents[0].innerNotification.comments.push(commentInfo);
+                this.isNewRetrieval.facts.push(factInfo);
                 // this.comments.push(this.input.nativeElement.value);
                 this.newInput2.nativeElement.value = '';
+                setTimeout(() => {
+                    this.scrollFactBottom();
+                }, 50);
             } else if (this.newInput.nativeElement.value) {
-                const factInfo = {
+                const commentInfo = {
                     comment: this.newInput.nativeElement.value,
                 };
-                this.event.retrievalEvents[0].innerNotification.facts.push(factInfo);
+                this.isNewRetrieval.comments.push(commentInfo);
                 this.newInput.nativeElement.value = '';
+                setTimeout(() => {
+                    this.scrollCommentBottom();
+                }, 50);
             }
         }
-        setTimeout(() => {
-            this.scrollBottom();
-        }, 50);
     }
 
     clickFact(): void {
         this.isClickFact = !this.isClickFact;
     }
 
-    scrollBottom() {
+    scrollCommentBottom() {
         this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
+    }
+    scrollFactBottom() {
+        this.scroll2.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
     }
 
     onEnterPush(event?: any): void {
@@ -515,6 +521,8 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
                 email: 'test@test',
                 phone: '00123456789',
             },
+            comments: [],
+            facts: [],
             organization: 'АО Газпромнефть',
             place: { id: 5001, name: 'ГФУ-1' },
             priority: { id: 2003, name: 'standard', code: '2' },

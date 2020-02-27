@@ -192,7 +192,7 @@
                   Установленные факты
                 </div>
               </div>
-              <div class="fact_content" #scroll>
+              <div class="fact_content" #scroll2>
                 <!--ngFor -->
                 <div
                   class="fact_new"
@@ -273,7 +273,7 @@
                   Комментарии
                 </div>
               </div>
-              <div class="comments_content">
+              <div class="comments_content" #scroll>
                 <!--ngFor -->
                 <div
                   class="comment_new"
@@ -499,6 +499,7 @@
                       </div>
                       <div
                         ngClass="progress-line-{{retrieval.innerNotification.priority.name}}"
+                        [style.height.%]="retrieval.timerPercentage"
                       ></div>
 
                       <!--DELETE EVENT-->
@@ -777,10 +778,10 @@
                       class="fact_new"
                       (click)="clickFact()"
                       [class.activeFact]="isClickFact"
-                      *ngFor="let comment of this.newFact"
+                      *ngFor="let comment of isNewRetrieval.facts"
                     >
                       <div class="fact_text">
-                        <p>{{comment}}</p>
+                        <p>{{comment.comment}}</p>
                       </div>
                       <div class="fact_menu">
                         <div class="fact_button">
@@ -826,7 +827,7 @@
                       <button
                         type="submit"
                         class="button comment__submit  gridster-item-content"
-                        (click)="onSendMessage()"
+                        (click)="onSendNewMessage()"
                       >
                         <svg-icon
                           class="button__icon"
@@ -912,10 +913,10 @@
                       class="comment_new"
                       (click)="clickFact()"
                       [class.activeFact]="isClickFact"
-                      *ngFor="let comment of newComments"
+                      *ngFor="let comment of isNewRetrieval.comments"
                     >
                       <div class="comment_text">
-                        {{comment}}
+                        {{comment.comment}}
                       </div>
                       <div class="comment_menu">
                         <div class="comment_button">
@@ -952,7 +953,7 @@
                       <button
                         type="submit"
                         class="button comment__submit  gridster-item-content"
-                        (click)="onSendMessage()"
+                        (click)="onSendNewMessage()"
                       >
                         <svg-icon
                           class="button__icon"

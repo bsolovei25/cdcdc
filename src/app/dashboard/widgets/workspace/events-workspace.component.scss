@@ -1647,24 +1647,22 @@ $border-size: 4px;
               }
 
               .progress-line-danger {
-                width: 97%;
-                margin: 0 auto;
+                margin-left: 0;
+
                 height: 3px;
                 border-radius: 5px;
                 background: var(--color-danger);
               }
 
               .progress-line-standard {
-                width: 97%;
-                margin: 0 auto;
+                margin-left: 0;
                 height: 3px;
                 border-radius: 5px;
                 background: var(--color-standard);
               }
 
               .progress-line-warning {
-                width: 97%;
-                margin: 0 auto;
+                margin-left: 0;
                 height: 3px;
                 border-radius: 5px;
                 background: var(--color-warning);
