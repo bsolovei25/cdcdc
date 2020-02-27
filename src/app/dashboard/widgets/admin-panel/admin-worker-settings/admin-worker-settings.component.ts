@@ -9,7 +9,7 @@ import { IWorkerOptionAdminPanel, IWorkspace } from '../../../models/admin-panel
 })
 export class AdminWorkerSettingsComponent implements OnInit {
     public isChangingOption: boolean = false;
-    public isClaimsShowing: boolean = false;
+    public isClaimsShowing: boolean = true;
     public isAlertShowing: boolean = false;
 
     public isCheckBoxClicked: boolean = false;

@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AwsWorkspaceCardComponent } from './aws-workspace-card.component';
+import { AwsClaimCardComponent } from './aws-claim-card.component';
 
-describe('AwsWorkspaceCardComponent', () => {
-    let component: AwsWorkspaceCardComponent;
-    let fixture: ComponentFixture<AwsWorkspaceCardComponent>;
+describe('AwsClaimCardComponent', () => {
+    let component: AwsClaimCardComponent;
+    let fixture: ComponentFixture<AwsClaimCardComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [AwsWorkspaceCardComponent],
+            declarations: [AwsClaimCardComponent],
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(AwsWorkspaceCardComponent);
+        fixture = TestBed.createComponent(AwsClaimCardComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
