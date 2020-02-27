@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IButtonImgSrc } from '../../models/admin-panel';
 import { IWorker } from '../../models/worker';
+import { AdminPanelService } from '../../services/admin-panel/admin-panel.service';
 
 @Component({
     selector: 'evj-admin-panel',
@@ -47,7 +48,9 @@ export class AdminPanelComponent implements OnInit {
         position: 'Старший оператор | КИПиА',
     };
 
-    constructor() {}
+    constructor(
+        private adminPanel: AdminPanelService,
+    ) {}
 
     ngOnInit(): void {}
 
