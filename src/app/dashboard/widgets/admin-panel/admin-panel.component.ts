@@ -36,6 +36,7 @@ export class AdminPanelComponent implements OnInit {
 
     //#endregion
 
+    public searchPlaceholder: string = 'Введите ФИО сотрудника';
     public searchedWorker: string = '';
 
     public man: IWorker = {
@@ -48,9 +49,7 @@ export class AdminPanelComponent implements OnInit {
         position: 'Старший оператор | КИПиА',
     };
 
-    constructor(
-        private adminPanel: AdminPanelService,
-    ) {}
+    constructor(private adminPanel: AdminPanelService) {}
 
     ngOnInit(): void {}
 
@@ -64,5 +63,12 @@ export class AdminPanelComponent implements OnInit {
 
     public onSearchWorker(inputedValue: string): void {
         this.searchedWorker = inputedValue;
+    }
+
+    public onShowBrigades(): void {
+        this.isGroupShowed = !this.isGroupShowed;
+        this.searchPlaceholder = this.isGroupShowed
+            ? 'Введите номер бригады или ФИО сотрудника'
+            : 'Введите ФИО сотрудника';
     }
 }
