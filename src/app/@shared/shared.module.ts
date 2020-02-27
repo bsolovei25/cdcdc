@@ -18,7 +18,14 @@ import { UiBlockComponent } from './layout/ui-block/ui-block.component';
         UiElementsComponent,
         UiBlockComponent,
     ],
-    exports: [HeaderComponent, ContentComponent, FnPipe, DateFormatPipe, PreLoaderComponent, UiBlockComponent],
+    exports: [
+        HeaderComponent,
+        ContentComponent,
+        FnPipe,
+        DateFormatPipe,
+        PreLoaderComponent,
+        UiBlockComponent,
+    ],
     imports: [CommonModule],
 })
 export class SharedModule {}
