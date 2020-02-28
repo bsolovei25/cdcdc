@@ -6,7 +6,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
     styleUrls: ['./petroleum-workspace.component.scss'],
 })
 export class PetroleumWorkspaceComponent implements OnInit {
-    @Output() isClick = new EventEmitter<boolean>();
+    @Output() isClick = new EventEmitter<string>();
     public data = [
         'Баланс по продуктам',
         'Накопительный баланс',
@@ -21,7 +21,11 @@ export class PetroleumWorkspaceComponent implements OnInit {
 
     ngOnInit() {}
 
-    createOperation(el: boolean): void {
-        this.isClick.emit(el);
+    createOperation(type: string): void {
+        this.isClick.emit(type);
+    }
+
+    updateParam(type: string): void {
+        this.isClick.emit(type);
     }
 }

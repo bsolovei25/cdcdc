@@ -19,11 +19,11 @@
         <div class="components">
           <div class="left_block">
             <evj-petroleum-reference-left
-              [shortHeight]="isWorkspace"
+              [shortHeight]="isShort"
             ></evj-petroleum-reference-left>
           </div>
           <div class="middle_block">
-            <evj-petroleum-reference [shortHeight]="isWorkspace"></evj-petroleum-reference>
+            <evj-petroleum-reference [shortHeight]="isWorkspace" [updateParamBlock]="isUpdateParamButton" (exitBlock)="onReturn($event)"></evj-petroleum-reference>
           </div>
           <div class="right_block">
             <evj-petroleum-workspace (isClick)="onChanged($event)" *ngIf="isWorkspace">
