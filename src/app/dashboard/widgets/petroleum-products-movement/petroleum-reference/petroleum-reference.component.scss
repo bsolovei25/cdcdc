@@ -270,7 +270,7 @@
     width: 49%;
     border: 1px solid #a2e2ff;
     .reference_values_short {
-      background-color:var(--color-bg-main);
+      background-color: var(--color-bg-main);
       width: 100%;
       float: left;
       .values_block {
@@ -320,7 +320,7 @@
       background: var(--color-bg-main);
     }
 
-    .before_after_left{
+    .before_after_left {
       &::after {
         z-index: 2;
         content: "";
@@ -332,12 +332,12 @@
         box-sizing: border-box;
         transform-origin: 43% 0;
         transform: rotate(-45deg);
-  
+
         border-bottom: 1px solid #a2e2ff;
-  
+
         background: var(--color-bg-main);
       }
-  
+
       &::before {
         z-index: 2;
         content: "";
@@ -349,9 +349,9 @@
         box-sizing: border-box;
         transform-origin: 43% 0;
         transform: rotate(-45deg);
-  
+
         border-right: 1px solid #a2e2ff;
-  
+
         background: var(--color-bg-main);
       }
     }
@@ -372,7 +372,6 @@
         display: flex;
         justify-content: space-evenly;
 
-        
         &:nth-child(2n) {
           background: #a2e2ff;
           margin-top: 10px;
@@ -414,7 +413,7 @@
       background: var(--color-bg-main);
     }
 
-    .before_after_right{
+    .before_after_right {
       &::after {
         z-index: 2;
         content: "";
@@ -426,12 +425,12 @@
         box-sizing: border-box;
         transform-origin: 43% 0;
         transform: rotate(-45deg);
-  
+
         border-bottom: 1px solid #a2e2ff;
-  
+
         background: var(--color-bg-main);
       }
-  
+
       &::before {
         z-index: 2;
         content: "";
@@ -443,9 +442,9 @@
         box-sizing: border-box;
         transform-origin: 43% 0;
         transform: rotate(-45deg);
-  
+
         border-right: 1px solid #a2e2ff;
-  
+
         background: var(--color-bg-main);
       }
     }

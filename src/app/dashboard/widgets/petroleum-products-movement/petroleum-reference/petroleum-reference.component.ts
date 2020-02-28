@@ -308,54 +308,54 @@ export class PetroleumReferenceComponent implements OnInit {
             {
                 name: 'Продукт',
                 type: 'кг/м3',
-                value: 0.5
+                value: 0.5,
             },
             {
                 name: 'Продукт',
                 type: 'кг/м3',
-                value: 0.5
+                value: 0.5,
             },
             {
                 name: 'Продукт',
                 type: 'кг/м3',
-                value: 0.5
+                value: 0.5,
             },
             {
                 name: 'Продукт',
                 type: 'кг/м3',
-                value: 0.5
-            }
+                value: 0.5,
+            },
         ],
         rightTable: [
             {
                 name: 'Продукт',
                 type: 'кг/м3',
-                value: 0.5
+                value: 0.5,
             },
             {
                 name: 'Продукт',
                 type: 'кг/м3',
-                value: 0.5
+                value: 0.5,
             },
             {
                 name: 'Продукт',
                 type: 'кг/м3',
-                value: 0.5
+                value: 0.5,
             },
             {
                 name: 'Продукт',
                 type: 'кг/м3',
-                value: 0.5
+                value: 0.5,
             },
-        ]
-    }
+        ],
+    };
 
     objectKeys = Object.keys;
     objectEntries = Object.entries;
 
-    constructor() { }
+    constructor() {}
 
-    ngOnInit() { }
+    ngOnInit() {}
 
     returnMenu() {
         this.shortHeight = true;

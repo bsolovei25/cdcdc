@@ -30,7 +30,7 @@ export class PetroleumProductsMovementComponent implements OnInit, OnDestroy {
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         this.subscriptions.push(
@@ -78,7 +78,7 @@ export class PetroleumProductsMovementComponent implements OnInit, OnDestroy {
         }
     }
 
-    onReturn(el:boolean): void{
+    onReturn(el: boolean): void {
         this.isWorkspace = el;
     }
 }

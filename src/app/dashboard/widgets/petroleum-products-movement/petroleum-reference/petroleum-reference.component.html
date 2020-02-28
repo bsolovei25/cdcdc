@@ -29,8 +29,10 @@
               <ng-container *ngIf="objectEntries(item[key]).length === 0">
                 <div class="values">
                   <div class="value">
-                    <svg-icon src="./assets/icons/widgets/petroleum-products-movement/Voskl.svg"
-                      [svgStyle]="{ 'width.px':15, 'height.px':15 }">
+                    <svg-icon
+                      src="./assets/icons/widgets/petroleum-products-movement/Voskl.svg"
+                      [svgStyle]="{ 'width.px':15, 'height.px':15 }"
+                    >
                     </svg-icon>
                   </div>
                 </div>
@@ -50,7 +52,10 @@
   </div>
   <div class="shortReference" *ngIf="!shortHeight" [@enterAnimation]>
     <div class="return_button" (click)="returnMenu()">
-      <svg-icon src="./assets/icons/widgets/workspace/attantion.svg" [svgStyle]="{ 'width.px':25, 'height.px':25 }">
+      <svg-icon
+        src="./assets/icons/widgets/workspace/attantion.svg"
+        [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+      >
       </svg-icon>
     </div>
     <div class="illustration_widget">
@@ -87,8 +92,10 @@
                 <ng-container *ngIf="objectEntries(item[key]).length === 0">
                   <div class="values">
                     <div class="value">
-                      <svg-icon src="./assets/icons/widgets/petroleum-products-movement/Voskl.svg"
-                        [svgStyle]="{ 'width.px':15, 'height.px':15 }">
+                      <svg-icon
+                        src="./assets/icons/widgets/petroleum-products-movement/Voskl.svg"
+                        [svgStyle]="{ 'width.px':15, 'height.px':15 }"
+                      >
                       </svg-icon>
                     </div>
                   </div>
@@ -123,13 +130,16 @@
   </div>
   <div class="shortReference" *ngIf="updateParamBlock" [@enterAnimation]>
     <div class="return_button" (click)="returnMenu()">
-      <svg-icon src="./assets/icons/widgets/workspace/attantion.svg" [svgStyle]="{ 'width.px':25, 'height.px':25 }">
+      <svg-icon
+        src="./assets/icons/widgets/workspace/attantion.svg"
+        [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+      >
       </svg-icon>
     </div>
     <!---UNITY--->
     <div class="illustration_widget">
       <evj-petroleum-unity></evj-petroleum-unity>
-    </div> 
+    </div>
     <div class="table_update_button">
       <div class="left_table">
         <div class="reference_values_short">
@@ -146,9 +156,9 @@
               </div>
               <div>
                 <svg-icon
-                class="indicator-selector__collapse"
-                src="./assets/icons/edit.svg"
-              ></svg-icon>
+                  class="indicator-selector__collapse"
+                  src="./assets/icons/edit.svg"
+                ></svg-icon>
               </div>
             </div>
           </ng-container>
@@ -171,9 +181,9 @@
               </div>
               <div>
                 <svg-icon
-                class="indicator-selector__collapse"
-                src="./assets/icons/edit.svg"
-              ></svg-icon>
+                  class="indicator-selector__collapse"
+                  src="./assets/icons/edit.svg"
+                ></svg-icon>
               </div>
             </div>
           </ng-container>
