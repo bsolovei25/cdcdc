@@ -306,7 +306,5 @@ export class PetroleumReferenceComponent implements OnInit {
 
     ngOnInit() {}
 
-    returnMenu(){
-
-    }
+    returnMenu() {}
 }

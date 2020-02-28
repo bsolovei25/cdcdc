@@ -1,4 +1,13 @@
-import {Component, HostListener, Inject, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
+import {
+    Component,
+    HostListener,
+    Inject,
+    OnInit,
+    OnDestroy,
+    AfterViewInit,
+    ViewChild,
+    ElementRef,
+} from '@angular/core';
 import { UnityLoader } from './UnityLoader.js';
 import { PlatformLocation } from '@angular/common';
 import { NewWidgetService } from '../../services/new-widget.service';

@@ -86,7 +86,7 @@
 .reference_values_short {
   //height: 280px;
   height: 100%;
- // max-height: 300px;
+  // max-height: 300px;
   overflow: auto;
 }
 
@@ -249,13 +249,13 @@
 }
 
 .table_widget {
- // bottom: 0;
- // position: absolute;
+  // bottom: 0;
+  // position: absolute;
   width: 100%;
   height: calc(100% - 530px);
 }
 
-.return_button{
+.return_button {
   position: absolute;
   left: 1000px;
   top: 40px;

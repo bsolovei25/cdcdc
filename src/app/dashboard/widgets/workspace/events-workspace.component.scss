@@ -610,7 +610,7 @@ $border-size: 4px;
         }
       }
 
-      .description_small{
+      .description_small {
         height: 140px;
       }
 
@@ -1923,7 +1923,7 @@ $border-size: 4px;
               .first_block {
                 flex-wrap: nowrap;
               }
-              .second_block{
+              .second_block {
                 flex-wrap: nowrap;
               }
             }
@@ -1933,9 +1933,9 @@ $border-size: 4px;
               .fact_content_create_event {
                 height: calc(100% - 410px);
 
-                .fact_new{
-                  .fact_menu{
-                    .fact_info{
+                .fact_new {
+                  .fact_menu {
+                    .fact_info {
                       bottom: -7px;
                     }
                   }
@@ -1946,11 +1946,11 @@ $border-size: 4px;
               }
             }
 
-            .description{
+            .description {
               height: 200px;
             }
 
-            .description_small{
+            .description_small {
               height: 140px;
             }
           }
@@ -2029,11 +2029,11 @@ $border-size: 4px;
                   position: relative;
                   display: flex;
                   padding-bottom: 10px;
-      
+
                   &:nth-child(2n) {
                     background: var(--color-bg-card);
                   }
-      
+
                   .comment_text {
                     overflow-wrap: break-word;
                     padding-top: 15px;
@@ -2042,14 +2042,14 @@ $border-size: 4px;
                     color: white;
                     font-size: 10px;
                   }
-      
+
                   .comment_img {
                     padding-top: 10px;
                     margin-left: 26px;
                     width: 70%;
                     cursor: pointer;
                   }
-      
+
                   .comment_menu {
                     display: flex;
                     align-items: center;
@@ -2059,38 +2059,38 @@ $border-size: 4px;
                       display: flex;
                       bottom: 3px;
                       left: 45px;
-      
+
                       .comment_button_update {
                         margin-left: 10px;
                       }
-      
+
                       .comment_button_update ::ng-deep svg {
                         fill: var(--color-text-sub);
-      
+
                         &:hover {
                           fill: white;
                         }
                       }
-      
+
                       .comment_button_delete ::ng-deep svg {
                         fill: var(--color-text-sub);
-      
+
                         &:hover {
                           fill: white;
                         }
                       }
                     }
-      
+
                     .comment_info {
                       position: absolute;
                       bottom: -7px;
                       font-size: 9px;
-      
+
                       .comment_info_user {
                         text-align: end;
                         height: 10px;
                       }
-      
+
                       .comment_info_date {
                       }
                     }
@@ -2739,27 +2739,25 @@ textarea {
 
   color: white;
 
-  .fact_menu{
-    .fact_button{
-      .fact_button_update ::ng-deep svg{
+  .fact_menu {
+    .fact_button {
+      .fact_button_update ::ng-deep svg {
         fill: white !important;
 
-        &:hover{
+        &:hover {
           fill: orange !important;
         }
       }
 
-      .fact_button_delete ::ng-deep svg{
+      .fact_button_delete ::ng-deep svg {
         fill: white !important;
 
-        &:hover{
+        &:hover {
           fill: orange !important;
         }
       }
     }
   }
-
-
 }
 
 ::ng-deep {
