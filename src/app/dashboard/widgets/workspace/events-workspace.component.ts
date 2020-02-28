@@ -465,14 +465,8 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         }, 500);
     }
 
-    formatDate(date): Date {
-        let day = date.getUTCDate();
-        let month = date.getUTCMonth();
-        let year = date.getUTCFullYear();
-        let hours = date.getUTCHours() + 6;
-        let newDate = new Date(year, month, day, hours);
-        console.log(newDate);
-        return newDate;
+    formatDate(date: Date): Date {
+        return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
     }
 
     async saveItem(): Promise<void> {
