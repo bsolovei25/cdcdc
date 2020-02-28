@@ -478,7 +478,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     async saveItem(): Promise<void> {
         this.isLoading = true;
         this.isEditing = false;
-        this.event.deadline = this.formatDate(this.event.deadline);
+        this.event.deadline = this.formatDate(new Date(this.event.deadline));
         console.log(this.event.deadline);
         if (this.isNew) {
             try {
