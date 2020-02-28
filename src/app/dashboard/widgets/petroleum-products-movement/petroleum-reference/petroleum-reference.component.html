@@ -51,6 +51,12 @@
     </div>
   </div>
   <div class="shortReference" *ngIf="!shortHeight" [@enterAnimation]>
+    <div class="return_button" (click)="returnMenu()">
+      <svg-icon
+      src="./assets/icons/widgets/workspace/attantion.svg"
+      [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+    ></svg-icon>
+    </div>
     <div class="illustration_widget">
       <evj-petroleum-unity></evj-petroleum-unity>
 <!--      unity-->

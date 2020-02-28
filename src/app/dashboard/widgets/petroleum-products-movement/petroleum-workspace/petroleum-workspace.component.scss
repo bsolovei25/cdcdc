@@ -31,14 +31,10 @@
 
 .top-frame {
   position: relative;
-  background: linear-gradient(
-    to bottom,
-    var(--color-border-active) -60%,
-    rgba(34, 36, 47, 0.5) 80%
-  );
+ // background: linear-gradient(to bottom, var(--color-border-active) -60%, rgba(34, 36, 47, 0.5) 80%);
   height: 10px;
-  border-right: 0.5px solid var(--color-border-active);
-  border-top: 0.5px solid var(--color-border-active);
+ // border-right: 0.5px solid var(--color-border-active);
+ // border-top: 0.5px solid var(--color-border-active);
 
   &:before {
     content: "";
@@ -60,14 +56,14 @@
     right: -8px;
     transform: rotate(136deg);
     background: var(--color-bg-main);
-    border-right: 1px solid var(--color-border-active);
+  //  border-right: 1px solid var(--color-border-active);
   }
 }
 
 .middle {
-  background: rgba(34, 36, 47, 0.5);
+ // background: rgba(34, 36, 47, 0.5);
   height: calc(100% - 25px);
-  border-right: 0.5px solid var(--color-border-active);
+ // border-right: 0.5px solid var(--color-border-active);
   width: calc(100% - 12px);
   margin-left: 12px;
 }
@@ -82,11 +78,11 @@
 
 .bottom_frame {
   position: relative;
-  background: rgba(34, 36, 47, 0.5);
+ // background: rgba(34, 36, 47, 0.5);
   width: calc(100% - 12px);
   height: 10px;
-  border-right: 0.5px solid var(--color-border-active);
-  border-bottom: 0.5px solid var(--color-border-active);
+ // border-right: 0.5px solid var(--color-border-active);
+ // border-bottom: 0.5px solid var(--color-border-active);
   margin-left: 12px;
 
   &:after {
@@ -98,12 +94,13 @@
     right: -8px;
     transform: rotate(219deg);
     background: var(--color-bg-main);
-    border-right: 0.5px solid var(--color-border-active);
+   // border-right: 0.5px solid var(--color-border-active);
   }
 }
 
 .workspace {
-  height: 185px;
+  height: 26%;
+  min-height: 185px;
   padding-top: 25px;
 }
 
@@ -151,7 +148,9 @@
 }
 
 .filter {
-  height: 185px;
+  height: 26%;
+  min-height: 185px;
+   padding-top: 25px;
 }
 
 .filter_title {
@@ -197,7 +196,8 @@
 }
 
 .reports {
-  height: 430px;
+  min-height: 300px;
+  height: 40%;
   overflow: auto;
 }
 
@@ -225,4 +225,10 @@
       background-repeat: no-repeat;
     }
   }
+}
+
+
+.buttons{
+  width: 85%;
+  text-align: end;
 }
