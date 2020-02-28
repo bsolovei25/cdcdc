@@ -12,12 +12,12 @@
         </div>
       </div>
       <div class="workspace_button">
-        <div class="button_operation" (click)="createOperation(true)">
+        <div class="button_operation" (click)="createOperation('create')">
           <div class="buttons">
             Создание операций
           </div>
         </div>
-        <div class="button_edit_param">
+        <div class="button_edit_param" (click)="updateParam('update')">
           <div class="buttons">
             Редактирование параметров
           </div>
