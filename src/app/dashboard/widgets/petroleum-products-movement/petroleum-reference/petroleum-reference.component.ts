@@ -9,7 +9,7 @@ import { transition, trigger, animate, style } from '@angular/animations';
         trigger('leaveAnimation', [
             transition(':leave', [
                 style({ transform: 'translateY(0%)' }),
-                animate('1000ms', style({ transform: 'translateY(468px)' })),
+                animate('1000ms', style({ transform: 'translateY(55%)' })),
             ]),
         ]),
         trigger('enterAnimation', [
@@ -305,4 +305,6 @@ export class PetroleumReferenceComponent implements OnInit {
     constructor() {}
 
     ngOnInit() {}
+
+    returnMenu() {}
 }

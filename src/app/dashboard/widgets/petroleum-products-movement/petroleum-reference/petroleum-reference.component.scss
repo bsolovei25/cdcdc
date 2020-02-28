@@ -29,9 +29,10 @@
   position: relative;
   // background: rgba(34, 36, 47, 0.5);
   background: var(--color-bg-main);
-  width: 1110px;
+  width: 100%;
   margin: 0 auto;
   height: 100%;
+  min-width: 1000px;
 }
 
 .reference_title {
@@ -85,7 +86,7 @@
 .reference_values_short {
   //height: 280px;
   height: 100%;
-  max-height: 300px;
+  // max-height: 300px;
   overflow: auto;
 }
 
@@ -117,12 +118,13 @@
 
 .illustration_widget {
   height: 430px;
+  min-height: 430px;
 }
 
 .shortReference {
   // background: rgba(34, 36, 47, 0.5);
   background: var(--color-bg-main);
-  width: 1110px;
+  width: 100%;
   margin: 0 auto;
   height: 100%;
   position: relative;
@@ -247,8 +249,16 @@
 }
 
 .table_widget {
-  bottom: 0;
-  position: absolute;
+  // bottom: 0;
+  // position: absolute;
   width: 100%;
-  //height: calc(100% - 468px);
+  height: calc(100% - 530px);
+}
+
+.return_button {
+  position: absolute;
+  left: 1000px;
+  top: 40px;
+  z-index: 999;
+  cursor: pointer;
 }
