@@ -147,7 +147,11 @@
       <div class="left_table">
         <div class="reference_values_short">
           <ng-container *ngFor="let item of data2.leftTable; let i = index">
-            <div class="values_block"  [ngClass]="{'active': item.active}" (click)="clickActive(item)">
+            <div
+              class="values_block"
+              [ngClass]="{'active': item.active}"
+              (click)="clickActive(item)"
+            >
               <div>
                 {{item.name}}
               </div>
@@ -172,7 +176,11 @@
       <div class="right_table">
         <div class="reference_values_short">
           <ng-container *ngFor="let item of data2.rightTable; let i = index">
-            <div class="values_block" [ngClass]="{'active': item.active}" (click)="clickActive(item)">
+            <div
+              class="values_block"
+              [ngClass]="{'active': item.active}"
+              (click)="clickActive(item)"
+            >
               <div>
                 {{item.name}}
               </div>

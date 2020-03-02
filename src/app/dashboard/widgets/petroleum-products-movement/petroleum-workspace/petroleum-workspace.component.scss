@@ -239,12 +239,12 @@
   justify-content: space-around;
 }
 
-.additionally{
+.additionally {
   min-height: 300px;
   height: 40%;
   overflow: auto;
 
-  .additionally_button{
+  .additionally_button {
     .button_additionally {
       font-size: 12px;
       background: url(../../../../../assets/icons/widgets/petroleum-products-movement/right-button.svg);
@@ -255,7 +255,7 @@
       text-align: center;
       line-height: 70px;
       cursor: pointer;
-  
+
       &:hover {
         background: url(../../../../../assets/icons/widgets/petroleum-products-movement/active-background-button-right.svg);
         background-repeat: no-repeat;

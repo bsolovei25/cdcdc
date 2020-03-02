@@ -19,10 +19,7 @@ export class PetroleumWorkspaceComponent implements OnInit {
         'Список операций',
     ];
 
-    public dataAdditionally = [
-        'Экспортировать в Excel',
-        'Печать',
-    ]
+    public dataAdditionally = ['Экспортировать в Excel', 'Печать'];
 
     constructor() {}
 
