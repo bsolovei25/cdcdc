@@ -1,5 +1,3 @@
-
-
 .table-container {
   min-width: 950px;
   // position: absolute;
@@ -133,7 +131,7 @@
       display: flex;
       overflow-x: auto;
       overflow-y: hidden;
-      .set-button{
+      .set-button {
         position: relative;
         min-width: 120px;
         max-width: 120px;
@@ -141,46 +139,46 @@
         margin-left: 10px;
         height: 100%;
         background-color: #1b1f2c;
-  
+
         &:hover {
           cursor: pointer;
           background-color: var(--color-border-active);
         }
-  
+
         &:before {
           z-index: 1;
           content: "";
           position: absolute;
-  
+
           top: -3px;
           left: -7px;
-  
+
           height: 7px;
           width: 10px;
-  
+
           box-sizing: border-box;
           transform-origin: 43% 0;
           transform: rotate(-45deg);
-  
+
           border-bottom: 2px solid #1b1f2c;
           background: var(--color-bg-main);
         }
-  
+
         &:after {
           z-index: 1;
           content: "";
           position: absolute;
-  
+
           top: 2px;
           right: -3px;
-  
+
           height: 10px;
           width: 10px;
-  
+
           box-sizing: border-box;
           transform-origin: 43% 0;
           transform: rotate(-135deg);
-  
+
           border-top: 2px solid #1b1f2c;
           background: var(--color-bg-main);
         }
@@ -204,7 +202,7 @@
     }
     ::-webkit-scrollbar-thumb {
       height: 50px;
-      background-color:  var(--color-bg-main);
+      background-color: var(--color-bg-main);
       border-radius: 10px;
     }
     ::-webkit-scrollbar-corner {
@@ -215,7 +213,6 @@
     }
 
     .scroll-button {
-      
       width: 210px;
       position: relative;
       ::-webkit-scrollbar {
@@ -237,7 +234,7 @@
       }
       ::-webkit-scrollbar-thumb {
         height: 50px;
-        background-color:  white;
+        background-color: white;
         border-radius: 10px;
       }
       ::-webkit-scrollbar-corner {
@@ -248,7 +245,6 @@
       }
 
       .topscroll {
-        
         z-index: 999;
         position: absolute;
         width: 90%;
@@ -314,8 +310,8 @@
         background: var(--color-bg-main);
       }
 
-      .b-a{
-        &:after{
+      .b-a {
+        &:after {
           border-top: 1px solid var(--color-border-active);
           right: -2px;
         }

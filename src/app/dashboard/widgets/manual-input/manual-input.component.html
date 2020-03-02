@@ -1,11 +1,19 @@
-<evj-widget-preview [title]="title" [previewTitle]="previewTitle" *ngIf="isMock"></evj-widget-preview>
+<evj-widget-preview
+  [title]="title"
+  [previewTitle]="previewTitle"
+  *ngIf="isMock"
+></evj-widget-preview>
 
 <ng-container *ngIf="!this.isMock">
   <evj-widget-header [title]="title" [id]="id" [uniqId]="uniqId"></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
 
-  <div class="table-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+  <div
+    class="table-container"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
     <div class="table">
       <div class="table__menu">
         <div class="all-settings-button">
@@ -136,6 +144,10 @@
     </div> -->
   </div>
 
-  <evj-frame-bottom class="frame-bottom" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+  <evj-frame-bottom
+    class="frame-bottom"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
   </evj-frame-bottom>
 </ng-container>

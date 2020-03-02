@@ -1,4 +1,15 @@
-import { Component, OnDestroy, OnInit, Input, Output, Inject, Injector, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import {
+    Component,
+    OnDestroy,
+    OnInit,
+    Input,
+    Output,
+    Inject,
+    Injector,
+    ViewChild,
+    ElementRef,
+    AfterViewInit,
+} from '@angular/core';
 import { ManualInputService } from '../../services/manual-input.service';
 import { HttpClient } from '@angular/common/http';
 import { Machine_MI, ManualInputData } from '../../models/manual-input.model';
@@ -79,7 +90,7 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
                 if (
                     item.name === name &&
                     event.currentTarget.parentElement.lastElementChild.className ===
-                    'table-container-2-none'
+                        'table-container-2-none'
                 ) {
                     for (let i of event.currentTarget.parentElement.children) {
                         i.classList.remove('ng-star-inserted');
@@ -91,7 +102,7 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
                 } else if (
                     item.name === name &&
                     event.currentTarget.parentElement.lastElementChild.className ===
-                    'table-container-2'
+                        'table-container-2'
                 ) {
                     for (let i of event.currentTarget.parentElement.children) {
                         i.classList.remove('ng-star-inserted');
@@ -112,7 +123,7 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
                     if (
                         i.name === name &&
                         event.currentTarget.parentElement.lastElementChild.className ===
-                        'd-table-none'
+                            'd-table-none'
                     ) {
                         for (let i of event.currentTarget.parentElement.children) {
                             if (i.className === 'd-table-none') {
