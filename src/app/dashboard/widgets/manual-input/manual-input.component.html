@@ -1,11 +1,19 @@
-<evj-widget-preview [title]="title" [previewTitle]="previewTitle" *ngIf="isMock"></evj-widget-preview>
+<evj-widget-preview
+  [title]="title"
+  [previewTitle]="previewTitle"
+  *ngIf="isMock"
+></evj-widget-preview>
 
 <ng-container *ngIf="!this.isMock">
   <evj-widget-header [title]="title" [id]="id" [uniqId]="uniqId"></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
 
-  <div class="table-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+  <div
+    class="table-container"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
     <div class="table">
       <div class="table__menu">
         <div class="all-settings-button">
@@ -31,8 +39,10 @@
       <div class="table__container">
         <div class="container-header">
           <div class="container-header__button-list">
-            <svg-icon src="./assets/icons/widgets/manual-input/arrow_down.svg"
-              [svgStyle]="{ 'width.px':10, 'height.px':10 }"></svg-icon>
+            <svg-icon
+              src="./assets/icons/widgets/manual-input/arrow_down.svg"
+              [svgStyle]="{ 'width.px':10, 'height.px':10 }"
+            ></svg-icon>
           </div>
           <div class="container-header__info-blocks">
             <div class="block-param">
@@ -73,8 +83,10 @@
           <ng-container *ngFor="let machine of Data">
             <div class="machine-name">
               <div class="machine-name__button">
-                <svg-icon src="./assets/icons/widgets/manual-input/arrow_down.svg"
-                  [svgStyle]="{ 'width.px':10, 'height.px':10 }"></svg-icon>
+                <svg-icon
+                  src="./assets/icons/widgets/manual-input/arrow_down.svg"
+                  [svgStyle]="{ 'width.px':10, 'height.px':10 }"
+                ></svg-icon>
               </div>
               <div class="machine-name__title">{{machine.name}}</div>
             </div>
@@ -82,8 +94,10 @@
               <div class="machine-container">
                 <div class="item-name">
                   <div class="item-name__button">
-                    <svg-icon src="./assets/icons/widgets/manual-input/arrow_down.svg"
-                      [svgStyle]="{ 'width.px':10, 'height.px':10 }"></svg-icon>
+                    <svg-icon
+                      src="./assets/icons/widgets/manual-input/arrow_down.svg"
+                      [svgStyle]="{ 'width.px':10, 'height.px':10 }"
+                    ></svg-icon>
                   </div>
                   <div class="item-name__title">{{item.name}}</div>
                 </div>
@@ -93,16 +107,22 @@
                       <div class="item-block">
                         <div class="item-block__value name">{{i.name}}</div>
                         <div class="item-block__value">{{i.unit}}.</div>
-                        <div class="item-block__value">{{i.lastTime | date: 'dd.MM.yyyy HH:mm'}}</div>
+                        <div class="item-block__value">
+                          {{i.lastTime | date: 'dd.MM.yyyy HH:mm'}}
+                        </div>
                         <div class="item-block__value">{{i.lastValue}}</div>
-                        <div class="item-block__value">{{i.curTime | date: 'dd.MM.yyyy HH:mm'}}</div>
+                        <div class="item-block__value">
+                          {{i.curTime | date: 'dd.MM.yyyy HH:mm'}}
+                        </div>
                         <div class="item-block__value">{{i.curValue}}</div>
                         <div class="item-block__value">{{i.minValue}}</div>
                         <div class="item-block__value">{{i.maxValue}}</div>
                       </div>
                       <div class="massage">
-                        <svg-icon src="./assets/icons/widgets/manual-input/arrow_down.svg"
-                          [svgStyle]="{ 'width.px':10, 'height.px':10 }"></svg-icon>
+                        <svg-icon
+                          src="./assets/icons/widgets/manual-input/arrow_down.svg"
+                          [svgStyle]="{ 'width.px':10, 'height.px':10 }"
+                        ></svg-icon>
                       </div>
                     </div>
                   </ng-container>
@@ -216,6 +236,10 @@
     </div> -->
   </div>
 
-  <evj-frame-bottom class="frame-bottom" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+  <evj-frame-bottom
+    class="frame-bottom"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
   </evj-frame-bottom>
 </ng-container>
