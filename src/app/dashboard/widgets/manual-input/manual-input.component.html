@@ -1,15 +1,42 @@
-<evj-widget-preview
-  [title]="title"
-  [previewTitle]="previewTitle"
-  *ngIf="isMock"
-></evj-widget-preview>
+<evj-widget-preview [title]="title" [previewTitle]="previewTitle" *ngIf="isMock"></evj-widget-preview>
 
 <ng-container *ngIf="!this.isMock">
   <evj-widget-header [title]="title" [id]="id" [uniqId]="uniqId"></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
 
-  <div
+  <div class="table-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+    <div class="table">
+      <div class="table__menu">
+        <div class="all-settings-button">
+          Все установки
+          <div class="b-a"></div>
+        </div>
+        <div class="settings-button" #scroll>
+          <div class="set-button" *ngFor="let machine of Data">
+            {{machine.name}}
+            <div class="b-a"></div>
+          </div>
+        </div>
+        <div class="scroll-button">
+          <div id="topscroll" class="topscroll" (scroll)="onScroll($event)">
+            <div class="fake" [style.width.px]="scrollWidth"></div>
+          </div>
+        </div>
+        <div class="save-button">
+          Сохранить
+          <div class="b-a"></div>
+        </div>
+      </div>
+      <div class="table__container">
+        <div class="container-header"></div>
+        <div class="container"></div>
+        <div class="container-footer"></div>
+      </div>
+    </div>
+
+    <!--OLD VERSION-->
+    <!-- <div
     class="button-bar"
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
@@ -19,14 +46,8 @@
         Сохранить значение
       </div>
     </div>
-  </div>
-
-  <div
-    class="table-container"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
-    <div class="table">
+  </div> -->
+    <!-- <div class="table">
       <div id="saveBarBlock">
         <div class="loader">
           <svg viewBox="25 25 50 50">
@@ -112,13 +133,9 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 
-  <evj-frame-bottom
-    class="frame-bottom"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-    >></evj-frame-bottom
-  >
+  <evj-frame-bottom class="frame-bottom" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+  </evj-frame-bottom>
 </ng-container>
