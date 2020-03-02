@@ -259,30 +259,38 @@
 }
 
 .table_update_button {
+  height: calc(100% - 581px);
   display: flex;
   justify-content: space-evenly;
   width: 100%;
   font-size: 12px;
-  //  height: calc(100% - 530px);
 
   .left_table {
     position: relative;
     width: 49%;
-    border: 1px solid #a2e2ff;
+    border: 1px solid rgba(34, 36, 47, 0.5);
     .reference_values_short {
-      background-color: var(--color-bg-main);
+      background-color: rgba(34, 36, 47, 0.5);
       width: 100%;
       float: left;
       .values_block {
-        margin-top: 10px;
+        cursor: pointer;
         display: flex;
         justify-content: space-evenly;
-        margin-bottom: 10px;
+        height: 40px;
+        align-items: center;
 
         &:nth-child(2n) {
-          background: #a2e2ff;
-          margin-top: 10px;
-          margin-bottom: 10px;
+          background: var(--color-bg-main);
+          height: 40px;
+        }
+
+        .icon-wrapper {
+          &:hover svg-icon {
+            ::ng-deep .st0 {
+              fill: var(--color-border-active) !important;
+            }
+          }
         }
       }
     }
@@ -298,7 +306,7 @@
       transform-origin: 43% 0;
       transform: rotate(45deg);
 
-      border-bottom: 1px solid #a2e2ff;
+      border-bottom: 1px solid rgba(34, 36, 47, 0.5);
 
       background: var(--color-bg-main);
     }
@@ -315,7 +323,7 @@
       transform-origin: 43% 0;
       transform: rotate(-135deg);
 
-      border-right: 1px solid #a2e2ff;
+      border-right: 1px solid rgba(34, 36, 47, 0.5);
 
       background: var(--color-bg-main);
     }
@@ -333,7 +341,7 @@
         transform-origin: 43% 0;
         transform: rotate(-45deg);
 
-        border-bottom: 1px solid #a2e2ff;
+        border-bottom: 1px solid rgba(34, 36, 47, 0.5);
 
         background: var(--color-bg-main);
       }
@@ -350,7 +358,7 @@
         transform-origin: 43% 0;
         transform: rotate(-45deg);
 
-        border-right: 1px solid #a2e2ff;
+        border-right: 1px solid rgba(34, 36, 47, 0.5);
 
         background: var(--color-bg-main);
       }
@@ -359,23 +367,32 @@
 
   .right_table {
     position: relative;
-    border: 1px solid #a2e2ff;
+    border: 1px solid rgba(34, 36, 47, 0.5);
     width: 49%;
+    font-size: 12px;
     .reference_values_short {
-      background-color: var(--color-bg-main);
+      background-color: rgba(34, 36, 47, 0.5);
       width: 100%;
       float: right;
 
       .values_block {
-        margin-bottom: 10px;
-        margin-top: 10px;
+        cursor: pointer;
         display: flex;
+        height: 40px;
         justify-content: space-evenly;
+        align-items: center;
 
         &:nth-child(2n) {
-          background: #a2e2ff;
-          margin-top: 10px;
-          margin-bottom: 10px;
+          background: var(--color-bg-main);
+          height: 40px;
+        }
+
+        .icon-wrapper {
+          &:hover svg-icon {
+            ::ng-deep .st0 {
+              fill: var(--color-border-active) !important;
+            }
+          }
         }
       }
     }
@@ -391,7 +408,7 @@
       transform-origin: 43% 0;
       transform: rotate(45deg);
 
-      border-bottom: 1px solid #a2e2ff;
+      border-bottom: 1px solid rgba(34, 36, 47, 0.5);
 
       background: var(--color-bg-main);
     }
@@ -408,7 +425,7 @@
       transform-origin: 43% 0;
       transform: rotate(-135deg);
 
-      border-right: 1px solid #a2e2ff;
+      border-right: 1px solid rgba(34, 36, 47, 0.5);
 
       background: var(--color-bg-main);
     }
@@ -426,7 +443,7 @@
         transform-origin: 43% 0;
         transform: rotate(-45deg);
 
-        border-bottom: 1px solid #a2e2ff;
+        border-bottom: 1px solid rgba(34, 36, 47, 0.5);
 
         background: var(--color-bg-main);
       }
@@ -443,10 +460,40 @@
         transform-origin: 43% 0;
         transform: rotate(-45deg);
 
-        border-right: 1px solid #a2e2ff;
+        border-right: 1px solid rgba(34, 36, 47, 0.5);
 
         background: var(--color-bg-main);
       }
     }
   }
+}
+
+.illustration_widget_param {
+  height: 581px;
+  min-height: 581px;
+
+  &__title {
+    height: 20px;
+    font-size: 10px;
+    color: var(--color-text-sub-heading);
+  }
+
+  &__unity {
+    height: calc(100% - 20px);
+  }
+}
+
+.active {
+  background-image: linear-gradient(
+    to right,
+    rgba(107, 166, 241, 0.7) 2%,
+    rgba(107, 166, 241, 0.63) 6%,
+    rgba(107, 166, 241, 0.46) 16%,
+    rgba(107, 166, 241, 0.32) 26%,
+    rgba(107, 166, 241, 0.2) 38%,
+    rgba(107, 166, 241, 0.11) 50%,
+    rgba(107, 166, 241, 0.05) 63%,
+    rgba(107, 166, 241, 0.01) 79%,
+    rgba(107, 166, 241, 0) 102%
+  ) !important;
 }
