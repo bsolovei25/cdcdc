@@ -1,16 +1,15 @@
-import {AfterViewInit, Component, HostListener, Inject, OnDestroy, OnInit} from '@angular/core';
-import {Subscription} from "rxjs";
-import {NewWidgetService} from "../../../services/new-widget.service";
-import {WidgetSettingsService} from "../../../services/widget-settings.service";
-import {PlatformLocation} from "@angular/common";
-import {UnityLoader} from "../../dispatcher-screen/UnityLoader";
+import { AfterViewInit, Component, HostListener, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { NewWidgetService } from '../../../services/new-widget.service';
+import { WidgetSettingsService } from '../../../services/widget-settings.service';
+import { PlatformLocation } from '@angular/common';
+import { UnityLoader } from '../../dispatcher-screen/UnityLoader';
 
 @Component({
     selector: 'evj-petroleum-unity',
     templateUrl: './petroleum-unity.component.html',
-    styleUrls: ['./petroleum-unity.component.scss']
+    styleUrls: ['./petroleum-unity.component.scss'],
 })
-
 export class PetroleumUnityComponent implements OnInit, AfterViewInit, OnDestroy {
     private baseUrl: string;
     private unityInstance: any;
@@ -26,10 +25,7 @@ export class PetroleumUnityComponent implements OnInit, AfterViewInit, OnDestroy
 
     public previewTitle: string;
 
-    constructor(
-        public widgetService: NewWidgetService,
-        platformLocation: PlatformLocation
-    ) {
+    constructor(public widgetService: NewWidgetService, platformLocation: PlatformLocation) {
         const location = (platformLocation as any).location;
         this.baseUrl = location.origin + location.pathname.replace('dashboard', '');
     }
@@ -66,12 +62,10 @@ export class PetroleumUnityComponent implements OnInit, AfterViewInit, OnDestroy
         this.wsConnect();
     }
 
-    private wsConnect(): void {
-
-    }
+    private wsConnect(): void {}
 
     private async InitUnity(): Promise<void> {
-        console.log('unity start')
+        console.log('unity start');
         window['UnityLoader'] = UnityLoader;
         this.loadProject(`${this.baseUrl}assets/unity/motion-accounting/web_build.json`);
     }

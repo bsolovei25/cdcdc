@@ -24,7 +24,7 @@ import {
 } from '../../models/events-widget';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NewWidgetService } from '../../services/new-widget.service';
-import { DateAdapter } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { AuthService } from '@core/service/auth.service';
 
 @Component({
@@ -47,7 +47,8 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
     isEdit: boolean = false;
 
-    isClickFact: boolean = false;
+    isClickFact: number;
+    isClickComment: number;
 
     priority: IPriority[];
     status: IStatus[];
@@ -77,6 +78,8 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     isNewRetrieval: EventsWidgetNotification = null;
 
     openEvent: boolean = true;
+
+    timeZone: any;
 
     statuses: { [id in EventsWidgetNotificationStatus]: string } = {
         new: 'Новое',
@@ -317,10 +320,23 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         }
     }
 
-    clickFact(): void {
-        this.isClickFact = !this.isClickFact;
+    clickFact(fact, index): void {
+        fact.active = !fact.active;
+        if (fact.active === true) {
+            this.isClickFact = index;
+        } else {
+            this.isClickFact = null;
+        }
     }
 
+    clickComment(comment, index): void {
+        comment.active = !comment.active;
+        if (comment.active === true) {
+            this.isClickComment = index;
+        } else {
+            this.isClickComment = null;
+        }
+    }
     scrollCommentBottom() {
         this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
     }
@@ -449,9 +465,15 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         }, 500);
     }
 
+    formatDate(date: Date): Date {
+        return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+    }
+
     async saveItem(): Promise<void> {
         this.isLoading = true;
         this.isEditing = false;
+        this.event.deadline = this.formatDate(new Date(this.event.deadline));
+        console.log(this.event.deadline);
         if (this.isNew) {
             try {
                 const ev = await this.eventService.postEvent(this.event);
@@ -606,10 +628,10 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         }
     }
 
-    async deleteRetrieval(idEvent: number, idRetr: number): Promise<void> {
-        const del = await this.eventService.deleteRetrievalEvents(idEvent, idRetr);
+    async deleteRetrieval(idEvent: number, idRetrNotif: number, idRetr): Promise<void> {
+        const del = await this.eventService.deleteRetrievalEvents(idEvent, idRetrNotif);
         this.eventService.updateEvent$.next(true);
-        const idx = this.event.retrievalEvents.findIndex((i) => i.innerNotification.id === idRetr);
+        const idx = this.event.retrievalEvents.findIndex((i) => i.id === idRetr);
         if (idx !== -1) {
             this.event.retrievalEvents.splice(idx, 1);
         }
