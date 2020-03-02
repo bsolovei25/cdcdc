@@ -231,3 +231,35 @@
   width: 85%;
   text-align: end;
 }
+
+.additionally_title {
+  color: var(--color-text-sub);
+  font-size: 10px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.additionally{
+  min-height: 300px;
+  height: 40%;
+  overflow: auto;
+
+  .additionally_button{
+    .button_additionally {
+      font-size: 12px;
+      background: url(../../../../../assets/icons/widgets/petroleum-products-movement/right-button.svg);
+      background-repeat: no-repeat;
+      height: 71px;
+      width: 260px;
+      margin: 8px auto;
+      text-align: center;
+      line-height: 70px;
+      cursor: pointer;
+  
+      &:hover {
+        background: url(../../../../../assets/icons/widgets/petroleum-products-movement/active-background-button-right.svg);
+        background-repeat: no-repeat;
+      }
+    }
+  }
+}

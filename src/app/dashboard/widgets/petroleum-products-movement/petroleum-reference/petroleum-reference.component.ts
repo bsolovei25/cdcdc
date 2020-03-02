@@ -362,4 +362,8 @@ export class PetroleumReferenceComponent implements OnInit {
         this.updateParamBlock = false;
         this.exitBlock.emit(true);
     }
+
+    clickActive(item): void {
+        item.active = !item.active;
+    }
 }
