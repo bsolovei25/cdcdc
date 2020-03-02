@@ -64,22 +64,23 @@
   width: 100%;
   overflow: hidden;
 
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
   &__menu {
     display: flex;
     justify-content: space-evenly;
-    width: 100%;
+    width: 90%;
     height: 50px;
     font-size: 16px;
     text-align: center;
     line-height: 50px;
-
+    margin: 0 auto;
     .all-settings-button {
       min-width: 120px;
       position: relative;
       width: 150px;
       height: 100%;
       background-color: #1b1f2c;
-      margin-left: 10px;
       &:hover {
         cursor: pointer;
         background-color: var(--color-border-active);
@@ -266,7 +267,7 @@
       border: 1px solid;
       border-image: linear-gradient(90deg, transparent 0%, var(--color-border-active) 100%);
       border-image-slice: 1;
-      margin-right: 20px;
+      min-width: 130px;
       &:hover {
         cursor: pointer;
         background-color: rgba(63, 169, 245, 0.3);
@@ -315,6 +316,235 @@
           border-top: 1px solid var(--color-border-active);
           right: -2px;
         }
+      }
+    }
+  }
+
+  &__container {
+    margin: 0 auto;
+    width: 100%;
+    margin-top: 20px;
+    height: calc(100% - 70px);
+
+    .container-header {
+      background-color: #1b1f2c;
+      display: flex;
+      width: 90%;
+      height: 50px;
+      margin: 0 auto;
+      //line-height: 50px;
+      font-size: 11px;
+      color: var(--color-text-sub);
+      &__button-list {
+        width: 30px;
+        line-height: 53px;
+        text-align: center;
+      }
+
+      &__info-blocks {
+        width: calc(100% - 10px);
+        display: flex;
+        justify-content: space-between;
+        //  align-items: center;
+
+        .block-param {
+          align-items: center;
+          display: flex;
+          width: 100%;
+          word-wrap: break-word;
+          border-left: 2px solid var(--color-bg-main);
+        }
+
+        .p1 {
+          text-align: left;
+          width: 100%;
+        }
+        .p2 {
+          text-align: center;
+          width: 100%;
+        }
+        .p3 {
+          text-align: center;
+          width: 100%;
+        }
+        .p4 {
+          text-align: center;
+          width: 100%;
+        }
+        .p5 {
+          text-align: center;
+          width: 100%;
+        }
+        .p6 {
+          text-align: center;
+          width: 100%;
+        }
+        .p7 {
+          text-align: center;
+          width: 100%;
+        }
+        .p8 {
+          text-align: center;
+          width: 100%;
+        }
+      }
+    }
+
+    ::-webkit-scrollbar {
+      width: 1px;
+      height: 4px;
+    }
+    ::-webkit-scrollbar:vertical {
+      width: 4px;
+      height: 100%;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background-color: white;
+      box-shadow: inset 0 0 5px white;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-track-piece {
+      background-color: var(--color-bg-main);
+      border: 1px solid white;
+    }
+    ::-webkit-scrollbar-thumb {
+      height: 50px;
+      background-color: white;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-corner {
+      background-color: #999;
+    }
+    ::-webkit-resizer {
+      background-color: #666;
+    }
+
+    .container {
+      height: calc(100% - 100px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      font-size: 12px;
+      width: 90%;
+      margin: 0 auto;
+      padding-left: 15px;
+
+      .machine-name {
+        margin-top: 10px;
+        height: 20px;
+        display: flex;
+        width: 100%;
+        background-color: var(--color-bg-main);
+
+        &__button {
+          width: 20px;
+        }
+
+        &__title {
+          width: calc(100% - 20px);
+        }
+      }
+
+      .machine-container {
+        background-color: var(--color-bg-main);
+        width: 100%;
+        .item-name {
+          padding-left: 20px;
+          box-shadow: inset -6px 3px 7px 1px rgba(0, 0, 0, 0.55);
+          display: flex;
+          width: 100%;
+          height: 40px;
+          line-height: 40px;
+
+          &__button {
+            width: 20px;
+          }
+
+          &__title {
+            width: calc(100% - 20px);
+          }
+        }
+
+        .item-container {
+          padding-left: 30px;
+          box-shadow: inset -6px 3px 7px 1px rgba(0, 0, 0, 0.55);
+          background-color: var(--color-bg-main-dark);
+
+          .items {
+            display: flex;
+            width: 100%;
+            .item-block {
+              width: calc(100% - 20px);
+              border-bottom: 2px solid var(--color-bg-main);
+              height: 40px;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+
+              &__value {
+                width: 30%;
+                text-align: center;
+              }
+
+              .name {
+                color: var(--color-text-sub-heading);
+              }
+            }
+
+            .massage {
+              background-color: var(--color-bg-main);
+              width: 20px;
+              height: 100%;
+              position: absolute;
+              right: 40px;
+            }
+          }
+        }
+      }
+    }
+
+    .container-footer {
+      width: 90%;
+      margin: 0 auto;
+      background-color: #1b1f2c;
+      height: 30px;
+      position: relative;
+      &:before {
+        z-index: 1;
+        content: "";
+        position: absolute;
+
+        bottom: -10px;
+        left: -6px;
+
+        height: 7px;
+        width: 10px;
+
+        box-sizing: border-box;
+        transform-origin: 43% 0;
+        transform: rotate(-135deg);
+
+        border-bottom: 2px solid #1b1f2c;
+        background: var(--color-bg-main);
+      }
+
+      &:after {
+        z-index: 1;
+        content: "";
+        position: absolute;
+
+        bottom: -7px;
+        right: -3px;
+
+        height: 10px;
+        width: 10px;
+
+        box-sizing: border-box;
+        transform-origin: 43% 0;
+        transform: rotate(-45deg);
+
+        border-top: 2px solid #1b1f2c;
+        background: var(--color-bg-main);
       }
     }
   }
