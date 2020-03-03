@@ -477,16 +477,15 @@
       background-color: #666;
     }
 
-    .container-none{
-    
+    .container-none {
       height: calc(100% - 100px);
 
-      .machine-name{
+      .machine-name {
         cursor: pointer;
         display: none;
       }
 
-      .machine-container{
+      .machine-container {
         display: none;
       }
     }
@@ -574,7 +573,7 @@
           }
         }
 
-        .item-container-none{
+        .item-container-none {
           display: none;
         }
 
@@ -629,7 +628,7 @@
         }
       }
 
-      .machine-container-none{
+      .machine-container-none {
         display: none;
       }
     }

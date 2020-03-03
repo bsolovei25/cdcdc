@@ -98,7 +98,7 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
                 if (
                     item.name === name &&
                     event.currentTarget.parentElement.lastElementChild.className ===
-                    'table-container-2-none'
+                        'table-container-2-none'
                 ) {
                     for (let i of event.currentTarget.parentElement.children) {
                         i.classList.remove('ng-star-inserted');
@@ -110,7 +110,7 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
                 } else if (
                     item.name === name &&
                     event.currentTarget.parentElement.lastElementChild.className ===
-                    'table-container-2'
+                        'table-container-2'
                 ) {
                     for (let i of event.currentTarget.parentElement.children) {
                         i.classList.remove('ng-star-inserted');
@@ -131,7 +131,7 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
                     if (
                         i.name === name &&
                         event.currentTarget.parentElement.lastElementChild.className ===
-                        'd-table-none'
+                            'd-table-none'
                     ) {
                         for (let i of event.currentTarget.parentElement.children) {
                             if (i.className === 'd-table-none') {
@@ -219,7 +219,9 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
         const container = document.getElementById('container');
         if (this.openAllSettings) {
             container.className = 'container';
-        } else { container.className = 'container-none'; }
+        } else {
+            container.className = 'container-none';
+        }
     }
 
     onShowMachine(machine): void {
@@ -239,6 +241,8 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
         const machine = document.getElementById('itemMachine');
         if (this.openItemMachine) {
             machine.className = 'items';
-        } else { machine.className = 'item-container-none'; }
+        } else {
+            machine.className = 'item-container-none';
+        }
     }
 }
