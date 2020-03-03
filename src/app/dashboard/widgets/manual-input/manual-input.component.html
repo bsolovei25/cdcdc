@@ -51,7 +51,7 @@
       </div>
       <div class="table__container">
         <div class="container-header">
-          <div class="container-header__button-list">
+          <div class="container-header__button-list" (click)="onShowAllSettings()">
             <svg-icon
               src="./assets/icons/widgets/manual-input/arrow_down.svg"
               [svgStyle]="{ 'width.px':10, 'height.px':10 }"
@@ -84,10 +84,10 @@
             </div>
           </div>
         </div>
-        <div class="container">
+        <div class="container" id="container">
           <ng-container *ngIf="allSettings">
             <ng-container *ngFor="let machine of Data">
-              <div class="machine-name">
+              <div class="machine-name" (click)="onShowMachine(machine.groups)">
                 <div class="machine-name__button">
                   <svg-icon
                     src="./assets/icons/widgets/manual-input/arrow_down.svg"
@@ -97,8 +97,8 @@
                 <div class="machine-name__title">{{machine.name}}</div>
               </div>
               <ng-container *ngFor="let item of machine.groups">
-                <div class="machine-container">
-                  <div class="item-name">
+                <div class="machine-container" id="{{item.name}}">
+                  <div class="item-name" (click)="onShowItemMachine()">
                     <div class="item-name__button">
                       <svg-icon
                         src="./assets/icons/widgets/manual-input/arrow_down.svg"
@@ -109,7 +109,7 @@
                   </div>
                   <div class="item-container">
                     <ng-container *ngFor="let i of item.params">
-                      <div class="items">
+                      <div class="items" id="itemMachine">
                         <div class="item-block">
                           <div class="item-block__value name">{{i.name}}</div>
                           <div class="item-block__value">{{i.unit}}.</div>

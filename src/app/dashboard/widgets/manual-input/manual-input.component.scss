@@ -392,6 +392,7 @@
       font-size: 11px;
       color: var(--color-text-sub);
       &__button-list {
+        cursor: pointer;
         width: 30px;
         line-height: 53px;
         text-align: center;
@@ -476,6 +477,20 @@
       background-color: #666;
     }
 
+    .container-none{
+    
+      height: calc(100% - 100px);
+
+      .machine-name{
+        cursor: pointer;
+        display: none;
+      }
+
+      .machine-container{
+        display: none;
+      }
+    }
+
     .container {
       height: calc(100% - 100px);
       overflow-y: auto;
@@ -493,6 +508,7 @@
         background-color: var(--color-bg-main);
 
         &__button {
+          cursor: pointer;
           width: 20px;
         }
 
@@ -513,6 +529,7 @@
           line-height: 40px;
 
           &__button {
+            cursor: pointer;
             width: 20px;
           }
 
@@ -555,6 +572,10 @@
               right: 40px;
             }
           }
+        }
+
+        .item-container-none{
+          display: none;
         }
 
         .item-name-short {
@@ -606,6 +627,10 @@
             }
           }
         }
+      }
+
+      .machine-container-none{
+        display: none;
       }
     }
 
