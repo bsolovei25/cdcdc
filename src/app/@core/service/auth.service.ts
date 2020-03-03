@@ -90,7 +90,7 @@ export class AuthService {
                 })
                 .toPromise();
 
-            this.configureUserAuth(current[0]);
+            this.configureUserAuth(current);
             return current;
         } catch (error) {
             this.router.navigate(['login']);
