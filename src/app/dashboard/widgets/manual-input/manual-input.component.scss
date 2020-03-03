@@ -1,6 +1,62 @@
+#saveBarBlock {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 3px;
+  bottom: 40px;
+  background-color: var(--color-bg-main-opacity);
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+  border-radius: inherit;
+  display: none;
+}
+#saveBarBlock.show {
+  display: flex;
+}
+
+.loader {
+  position: absolute;
+  width: 7em;
+  height: 7em;
+  z-index: 10;
+  display: block;
+  svg {
+    width: 7em;
+    transform-origin: center;
+    animation: rotate 2s linear infinite;
+  }
+  circle {
+    fill: none;
+    stroke: var(--color-border-active);
+    stroke-width: 4;
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+    animation: dash 1s ease-in-out infinite;
+  }
+  @keyframes rotate {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes dash {
+    0% {
+      stroke-dasharray: 1, 200;
+      stroke-dashoffset: 0;
+    }
+    50% {
+      stroke-dasharray: 90, 200;
+      stroke-dashoffset: -35px;
+    }
+    100% {
+      stroke-dashoffset: -125px;
+    }
+  }
+}
+
 .table-container {
   min-width: 950px;
-  // position: absolute;
   right: -1px;
   width: calc(100% - 1px);
   height: calc(100% - 56px);
@@ -500,6 +556,56 @@
             }
           }
         }
+
+        .item-name-short {
+          display: flex;
+          width: 100%;
+          height: 40px;
+          line-height: 40px;
+
+          &__button {
+            width: 20px;
+          }
+
+          &__title {
+            width: calc(100% - 20px);
+          }
+        }
+
+        .item-container-short {
+          box-shadow: inset -6px 3px 7px 1px rgba(0, 0, 0, 0.55);
+          background-color: var(--color-bg-main-dark);
+
+          .items {
+            display: flex;
+            width: 100%;
+            .item-block {
+              width: calc(100% - 20px);
+              border-bottom: 2px solid var(--color-bg-main);
+              height: 40px;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+
+              &__value {
+                width: 30%;
+                text-align: center;
+              }
+
+              .name {
+                color: var(--color-text-sub-heading);
+              }
+            }
+
+            .massage {
+              background-color: var(--color-bg-main);
+              width: 20px;
+              height: 100%;
+              position: absolute;
+              right: 40px;
+            }
+          }
+        }
       }
     }
 
@@ -548,6 +654,10 @@
       }
     }
   }
+}
+
+.active {
+  background-color: var(--color-border-active) !important;
 }
 
 /// OLD VERSION !!!!

@@ -56,6 +56,7 @@ export interface ManualInputData {
 export interface Machine_MI {
     name: string;
     groups: Group_MI[];
+    active?: boolean;
 }
 
 export interface TestPostClass {

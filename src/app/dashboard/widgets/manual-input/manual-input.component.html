@@ -15,13 +15,22 @@
     (touchstart)="$event.stopPropagation()"
   >
     <div class="table">
+
+      <div id="saveBarBlock">
+        <div class="loader">
+          <svg viewBox="25 25 50 50">
+            <circle cx="50" cy="50" r="20"></circle>
+          </svg>
+        </div>
+      </div>
+      <div id="saveBar"></div>
       <div class="table__menu">
-        <div class="all-settings-button">
+        <div class="all-settings-button" (click)="onAllSettings()" [class.active]="allSettings">
           Все установки
           <div class="b-a"></div>
         </div>
         <div class="settings-button" #scroll>
-          <div class="set-button" *ngFor="let machine of Data">
+          <div class="set-button" *ngFor="let machine of Data" (click)="onSettings(machine)"   [ngClass]="{'active': machine.active}">
             {{machine.name}}
             <div class="b-a"></div>
           </div>
@@ -31,7 +40,7 @@
             <div class="fake" [style.width.px]="scrollWidth"></div>
           </div>
         </div>
-        <div class="save-button">
+        <div class="save-button" (click)="onButtonSave()">
           Сохранить
           <div class="b-a"></div>
         </div>
@@ -69,30 +78,65 @@
             <div class="block-param">
               <div class="p8">Максимальная граница</div>
             </div>
-            <!-- <div class="p1">Параметры</div>
-            <div class="p2">Единица Измерения</div>
-            <div class="p3">Предыдущая дата</div> -->
-            <!-- <div class="p4">Предыдущее значение</div>
-            <div class="p5">Текущая дата</div>
-            <div class="p6">Текущее значение</div>
-            <div class="p7">Минимальная граница</div>
-            <div class="p8">Максимальная граница</div> -->
           </div>
         </div>
         <div class="container">
-          <ng-container *ngFor="let machine of Data">
-            <div class="machine-name">
-              <div class="machine-name__button">
-                <svg-icon
-                  src="./assets/icons/widgets/manual-input/arrow_down.svg"
-                  [svgStyle]="{ 'width.px':10, 'height.px':10 }"
-                ></svg-icon>
+          <ng-container *ngIf="allSettings">
+            <ng-container *ngFor="let machine of Data">
+              <div class="machine-name">
+                <div class="machine-name__button">
+                  <svg-icon
+                    src="./assets/icons/widgets/manual-input/arrow_down.svg"
+                    [svgStyle]="{ 'width.px':10, 'height.px':10 }"
+                  ></svg-icon>
+                </div>
+                <div class="machine-name__title">{{machine.name}}</div>
               </div>
-              <div class="machine-name__title">{{machine.name}}</div>
-            </div>
-            <ng-container *ngFor="let item of machine.groups">
+              <ng-container *ngFor="let item of machine.groups">
+                <div class="machine-container">
+                  <div class="item-name">
+                    <div class="item-name__button">
+                      <svg-icon
+                        src="./assets/icons/widgets/manual-input/arrow_down.svg"
+                        [svgStyle]="{ 'width.px':10, 'height.px':10 }"
+                      ></svg-icon>
+                    </div>
+                    <div class="item-name__title">{{item.name}}</div>
+                  </div>
+                  <div class="item-container">
+                    <ng-container *ngFor="let i of item.params">
+                      <div class="items">
+                        <div class="item-block">
+                          <div class="item-block__value name">{{i.name}}</div>
+                          <div class="item-block__value">{{i.unit}}.</div>
+                          <div class="item-block__value">
+                            {{i.lastTime | date: 'dd.MM.yyyy HH:mm'}}
+                          </div>
+                          <div class="item-block__value">{{i.lastValue}}</div>
+                          <div class="item-block__value">
+                            {{i.curTime | date: 'dd.MM.yyyy HH:mm'}}
+                          </div>
+                          <div class="item-block__value">{{i.curValue}}</div>
+                          <div class="item-block__value">{{i.minValue}}</div>
+                          <div class="item-block__value">{{i.maxValue}}</div>
+                        </div>
+                        <div class="massage">
+                          <svg-icon
+                            src="./assets/icons/widgets/manual-input/arrow_down.svg"
+                            [svgStyle]="{ 'width.px':10, 'height.px':10 }"
+                          ></svg-icon>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!allSettings">
+            <ng-container *ngFor="let item of chooseSetting.groups">
               <div class="machine-container">
-                <div class="item-name">
+                <div class="item-name-short">
                   <div class="item-name__button">
                     <svg-icon
                       src="./assets/icons/widgets/manual-input/arrow_down.svg"
@@ -101,7 +145,7 @@
                   </div>
                   <div class="item-name__title">{{item.name}}</div>
                 </div>
-                <div class="item-container">
+                <div class="item-container-short">
                   <ng-container *ngFor="let i of item.params">
                     <div class="items">
                       <div class="item-block">

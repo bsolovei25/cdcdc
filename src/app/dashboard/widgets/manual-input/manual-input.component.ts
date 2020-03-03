@@ -16,6 +16,7 @@ import { Machine_MI, ManualInputData } from '../../models/manual-input.model';
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { AppConfigService } from 'src/app/services/appConfigService';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
     selector: 'evj-manual-input',
@@ -34,6 +35,10 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
 
     public title: string;
     public previewTitle: string;
+
+    allSettings: boolean = true;
+
+    chooseSetting: Machine_MI;
 
     constructor(
         public manualInputService: ManualInputService,
@@ -90,7 +95,7 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
                 if (
                     item.name === name &&
                     event.currentTarget.parentElement.lastElementChild.className ===
-                        'table-container-2-none'
+                    'table-container-2-none'
                 ) {
                     for (let i of event.currentTarget.parentElement.children) {
                         i.classList.remove('ng-star-inserted');
@@ -102,7 +107,7 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
                 } else if (
                     item.name === name &&
                     event.currentTarget.parentElement.lastElementChild.className ===
-                        'table-container-2'
+                    'table-container-2'
                 ) {
                     for (let i of event.currentTarget.parentElement.children) {
                         i.classList.remove('ng-star-inserted');
@@ -123,7 +128,7 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
                     if (
                         i.name === name &&
                         event.currentTarget.parentElement.lastElementChild.className ===
-                            'd-table-none'
+                        'd-table-none'
                     ) {
                         for (let i of event.currentTarget.parentElement.children) {
                             if (i.className === 'd-table-none') {
@@ -188,5 +193,21 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
 
     onScroll(event) {
         this.scroll.nativeElement.scrollLeft = event.currentTarget.scrollLeft;
+    }
+
+    onAllSettings(): void {
+        this.allSettings = !this.allSettings;
+        for (let i of this.Data) {
+            i.active = false;
+        }
+    }
+
+    onSettings(item: Machine_MI): void {
+        for (let i of this.Data) {
+            i.active = false;
+        }
+        item.active = !item.active;
+        this.chooseSetting = item;
+        this.allSettings = false;
     }
 }
