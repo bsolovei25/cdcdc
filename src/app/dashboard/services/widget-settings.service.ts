@@ -8,10 +8,6 @@ To save settings:
     await this.widgetSettingsService
         .saveSettings('4fdeb1ee-60d6-4430-9999-64c0af141ea4', {asd: 'dsa', zxc: 'cxz'});
 
-To save single setting:
-    await this.widgetSettingsService
-        .saveSingleSetting('4fdeb1ee-60d6-4430-9999-64c0af141ea4', 'asd', 'dsa');
-
 To load settings
     const settings = await this.widgetSettingsService
         .getSettings<{asd: string, zxc: string}>('4fdeb1ee-60d6-4430-9999-64c0af141ea4');
@@ -40,15 +36,6 @@ export class WidgetSettingsService {
         const url = `${this.restUrl}/api/user-management/widgetsettings/${widgetUniqueId}`;
         const json = this.jsonStringify(settings);
         await this.http.post(url, json).toPromise();
-    }
-
-    public async saveSingleSetting(
-        widgetUniqueId: string,
-        key: string,
-        value: string
-    ): Promise<void> {
-        const url = `${this.restUrl}/api/user-management/widgetsettings/${widgetUniqueId}/${key}`;
-        await this.http.post(url, `"${value}"`).toPromise();
     }
 
     private jsonStringify<T>(data: T): string {
