@@ -15,7 +15,6 @@
     (touchstart)="$event.stopPropagation()"
   >
     <div class="table">
-
       <div id="saveBarBlock">
         <div class="loader">
           <svg viewBox="25 25 50 50">
@@ -30,7 +29,12 @@
           <div class="b-a"></div>
         </div>
         <div class="settings-button" #scroll>
-          <div class="set-button" *ngFor="let machine of Data" (click)="onSettings(machine)"   [ngClass]="{'active': machine.active}">
+          <div
+            class="set-button"
+            *ngFor="let machine of Data"
+            (click)="onSettings(machine)"
+            [ngClass]="{'active': machine.active}"
+          >
             {{machine.name}}
             <div class="b-a"></div>
           </div>
