@@ -103,10 +103,11 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
     }
 
     ngAfterContentChecked(): void {
-        const buttons = document
-            .querySelectorAll('.mat-calendar-previous-button, .mat-calendar-next-button');
+        const buttons = document.querySelectorAll(
+            '.mat-calendar-previous-button, .mat-calendar-next-button'
+        );
         if (buttons) {
-            buttons.forEach(button => {
+            buttons.forEach((button) => {
                 this.renderer.listen(button, 'click', () => {
                     if (this.calendar?.activeDate) {
                         if (button.getAttribute('aria-label') === 'Next month') {
@@ -136,10 +137,13 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
     nextMonth(): void {
         if (this.calendar.activeDate !== this.dateNow) {
             this.adminShiftScheduleService
-                .getSchudeleShiftsMonth(this.calendar.activeDate.getMonth() + 1,
-                    this.calendar.activeDate.getFullYear()).then((data) => {
-                        this.scheduleShiftMonth = data;
-                    });
+                .getSchudeleShiftsMonth(
+                    this.calendar.activeDate.getMonth() + 1,
+                    this.calendar.activeDate.getFullYear()
+                )
+                .then((data) => {
+                    this.scheduleShiftMonth = data;
+                });
             this.dateNow = this.calendar.activeDate;
         }
     }
@@ -147,10 +151,13 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
     nextPrevious(): void {
         if (this.calendar.activeDate !== this.dateNow) {
             this.adminShiftScheduleService
-                .getSchudeleShiftsMonth(this.calendar.activeDate.getMonth() + 1,
-                    this.calendar.activeDate.getFullYear()).then((data) => {
-                        this.scheduleShiftMonth = data;
-                    });
+                .getSchudeleShiftsMonth(
+                    this.calendar.activeDate.getMonth() + 1,
+                    this.calendar.activeDate.getFullYear()
+                )
+                .then((data) => {
+                    this.scheduleShiftMonth = data;
+                });
             this.dateNow = this.calendar.activeDate;
             // console.log(this.calendar.dateClass);
             // this.dateClass(this.calendar.dateClass);
@@ -196,8 +203,9 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
 
         this.adminShiftScheduleService.postSelectBrigade(this.selectedShift.id, brigade.brigadeId);
         this.selectShift(this.selectedShift);
-        this.adminShiftScheduleService.getSchudeleShiftsMonth(this.dateNow.getMonth() + 1,
-            this.dateNow.getFullYear()).then((data) => {
+        this.adminShiftScheduleService
+            .getSchudeleShiftsMonth(this.dateNow.getMonth() + 1, this.dateNow.getFullYear())
+            .then((data) => {
                 this.scheduleShiftMonth = data;
                 this.calendar.dateClass = this.dateClass;
             });
@@ -207,7 +215,6 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
                 value.brigadeName = brigade.brigadeNumber;
                 this.openOverlay(null, null, false);
                 this.calendar.dateClass = this.dateClass;
-
             }
         });
     }
@@ -220,8 +227,9 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
             } else {
                 if (event && !shift) {
                     this.adminShiftScheduleService.deleteBrigade(this.selectedShift.id);
-                    const sh = this.selectedDay
-                        .items.find((val) => val.id === this.selectedShift.id);
+                    const sh = this.selectedDay.items.find(
+                        (val) => val.id === this.selectedShift.id
+                    );
                     sh.brigadeName = null;
                     this.selectedShift.brigadeId = null;
                     this.selectedShift.brigadeName = null;
@@ -252,8 +260,9 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
         const dataLoadQueue: Promise<void>[] = [];
         const dateNow = new Date();
         dataLoadQueue.push(
-            this.adminShiftScheduleService.getSchudeleShiftsMonth(dateNow.getMonth() + 1,
-                dateNow.getFullYear()).then((data) => {
+            this.adminShiftScheduleService
+                .getSchudeleShiftsMonth(dateNow.getMonth() + 1, dateNow.getFullYear())
+                .then((data) => {
                     this.scheduleShiftMonth = data;
                 })
         );

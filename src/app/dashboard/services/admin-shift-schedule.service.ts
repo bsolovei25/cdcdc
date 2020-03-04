@@ -20,8 +20,9 @@ export class AdminShiftScheduleService {
     async getSchudeleShiftsMonth(month: number, year: number): Promise<IScheduleShiftDay[]> {
         try {
             return this.http
-                .get<IScheduleShiftDay[]>
-                (this.restUrl + `/api/schedule-shifts/month/${month}/${year}`)
+                .get<IScheduleShiftDay[]>(
+                    this.restUrl + `/api/schedule-shifts/month/${month}/${year}`
+                )
                 .toPromise();
         } catch (error) {
             console.error(error);
