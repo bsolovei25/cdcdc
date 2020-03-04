@@ -47,6 +47,7 @@ export interface Param_MI {
 export interface Group_MI {
     name: string;
     params: Param_MI[];
+    open?: boolean;
 }
 
 export interface ManualInputData {
@@ -57,6 +58,7 @@ export interface Machine_MI {
     name: string;
     groups: Group_MI[];
     active?: boolean;
+    open?: boolean;
 }
 
 export interface TestPostClass {

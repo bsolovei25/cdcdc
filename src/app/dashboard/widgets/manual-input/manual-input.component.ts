@@ -12,11 +12,13 @@ import {
 } from '@angular/core';
 import { ManualInputService } from '../../services/manual-input.service';
 import { HttpClient } from '@angular/common/http';
-import { Machine_MI, ManualInputData } from '../../models/manual-input.model';
+import { Machine_MI, ManualInputData, Group_MI } from '../../models/manual-input.model';
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { AppConfigService } from 'src/app/services/appConfigService';
 import { ThrowStmt } from '@angular/compiler';
+import { ItemSizeAverager } from '@angular/cdk-experimental/scrolling';
+import { WidgetSettingsService } from '../../services/widget-settings.service';
 
 @Component({
     selector: 'evj-manual-input',
@@ -46,6 +48,7 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
     constructor(
         public manualInputService: ManualInputService,
         public widgetService: NewWidgetService,
+        public widgetSettingsService: WidgetSettingsService,
         private http: HttpClient,
         configService: AppConfigService,
         @Inject('isMock') public isMock: boolean,
@@ -69,6 +72,8 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
     Data: Machine_MI[] = [];
 
     private flag: boolean = true;
+
+    saveData: Machine_MI[] = [];
 
     ngOnInit() {
         this.showMock(this.isMock);
@@ -98,7 +103,7 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
                 if (
                     item.name === name &&
                     event.currentTarget.parentElement.lastElementChild.className ===
-                        'table-container-2-none'
+                    'table-container-2-none'
                 ) {
                     for (let i of event.currentTarget.parentElement.children) {
                         i.classList.remove('ng-star-inserted');
@@ -110,7 +115,7 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
                 } else if (
                     item.name === name &&
                     event.currentTarget.parentElement.lastElementChild.className ===
-                        'table-container-2'
+                    'table-container-2'
                 ) {
                     for (let i of event.currentTarget.parentElement.children) {
                         i.classList.remove('ng-star-inserted');
@@ -131,7 +136,7 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
                     if (
                         i.name === name &&
                         event.currentTarget.parentElement.lastElementChild.className ===
-                            'd-table-none'
+                        'd-table-none'
                     ) {
                         for (let i of event.currentTarget.parentElement.children) {
                             if (i.className === 'd-table-none') {
@@ -183,6 +188,8 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
     private wsConnect() {
         this.widgetService.getWidgetLiveDataFromWS(this.id, 'manual-input').subscribe((ref) => {
             this.Data = this.manualInputService.LoadData(this.Data, ref);
+            const params = this.widgetSettingsService.getSettings(this.uniqId);
+            //   this.CallMIScript(JSON.stringify(params));
         });
     }
 
@@ -225,24 +232,43 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     onShowMachine(machine): void {
-        this.openMachine = !this.openMachine;
-        for (let item of machine) {
-            const machines = document.getElementById(item.name);
-            if (this.openMachine) {
-                machines.className = 'machine-container';
-            } else {
-                machines.className = 'machine-container-none';
-            }
-        }
+        machine.open = !machine.open;
+        this.saveDataObj();
+        // const jsonObj = JSON.stringify({ data: this.Data });
+        this.OnManualInputSendSettings(this.saveData);
+        this.saveData = [];
     }
 
-    onShowItemMachine(): void {
-        this.openItemMachine = !this.openItemMachine;
-        const machine = document.getElementById('itemMachine');
-        if (this.openItemMachine) {
-            machine.className = 'items';
-        } else {
-            machine.className = 'item-container-none';
+    onShowItemMachine(item): void {
+        item.open = !item.open;
+    }
+
+    public async OnManualInputSendSettings(param): Promise<void> {
+        await this.widgetSettingsService.saveSettings(this.uniqId, param);
+    }
+
+    private CallMIScript(json): void {
+
+    }
+
+    saveDataObj(): void {
+        for (let machine of this.Data) {
+            let machineObj = {};
+            machineObj.name = machine.name;
+            machineObj.active = machine.active;
+            machineObj.open = machine.open;
+            machineObj.groups = [];
+            for (let item of machine.groups) {
+                let itemObj = {};
+                itemObj.name = item.name;
+                if(item.open === undefined){
+                    itemObj.open = true;
+                } else {
+                    itemObj.open = item.open;
+                }
+                machineObj.groups.push(itemObj);
+            }
+            this.saveData.push(machineObj);
         }
     }
 }

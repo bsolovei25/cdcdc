@@ -87,7 +87,7 @@
         <div class="container" id="container">
           <ng-container *ngIf="allSettings">
             <ng-container *ngFor="let machine of Data">
-              <div class="machine-name" (click)="onShowMachine(machine.groups)">
+              <div class="machine-name" (click)="onShowMachine(machine)">
                 <div class="machine-name__button">
                   <svg-icon
                     src="./assets/icons/widgets/manual-input/arrow_down.svg"
@@ -97,8 +97,8 @@
                 <div class="machine-name__title">{{machine.name}}</div>
               </div>
               <ng-container *ngFor="let item of machine.groups">
-                <div class="machine-container" id="{{item.name}}">
-                  <div class="item-name" (click)="onShowItemMachine()">
+                <div class="machine-container"     [ngClass]="{'machine-container-none': machine.open}">
+                  <div class="item-name" (click)="onShowItemMachine(item)">
                     <div class="item-name__button">
                       <svg-icon
                         src="./assets/icons/widgets/manual-input/arrow_down.svg"
@@ -107,9 +107,9 @@
                     </div>
                     <div class="item-name__title">{{item.name}}</div>
                   </div>
-                  <div class="item-container">
+                  <div class="item-container" [ngClass]="{'item-container-none': item.open}">
                     <ng-container *ngFor="let i of item.params">
-                      <div class="items" id="itemMachine">
+                      <div class="items">
                         <div class="item-block">
                           <div class="item-block__value name">{{i.name}}</div>
                           <div class="item-block__value">{{i.unit}}.</div>
@@ -120,7 +120,19 @@
                           <div class="item-block__value">
                             {{i.curTime | date: 'dd.MM.yyyy HH:mm'}}
                           </div>
-                          <div class="item-block__value">{{i.curValue}}</div>
+                          <div class="item-block__value">
+                            <input
+                            class="data"
+                            type="text"
+                            placeholder="--------"
+                            [(ngModel)]="i.curValue"
+                            [class.data_active]="i.isActive"
+                            [class.data_active__saving]="i.isActive && i.isSave"
+                            [class.data_active__warning]="i.isWarning && !i.isSave && i.isActive && !i.isError"
+                            [class.data_active__error]="i.isError && !i.isSave"
+                            (change)="onChangeValue(i.id)"
+                            (focusout)="onUnfocusValue(i.id)"
+                          /></div>
                           <div class="item-block__value">{{i.minValue}}</div>
                           <div class="item-block__value">{{i.maxValue}}</div>
                         </div>
