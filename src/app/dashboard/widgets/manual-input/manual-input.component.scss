@@ -1,19 +1,19 @@
 :host {
-    position: relative;
-    display: block;
-    height: 100%;
-    width: 100%;
-  
-    --border-style-dashed: dashed 3px var(--color-border-main);
-    --border-style-solid: solid 1px var(--color-border-main);
-    --space-top: 50px;
-  
-    --tree-width-1: 1%;
-    --tree-width-2: 1%;
-    --tree-width-3: 1%;
-  }
+  position: relative;
+  display: block;
+  height: 100%;
+  width: 100%;
 
-  #saveBar {
+  --border-style-dashed: dashed 3px var(--color-border-main);
+  --border-style-solid: solid 1px var(--color-border-main);
+  --space-top: 50px;
+
+  --tree-width-1: 1%;
+  --tree-width-2: 1%;
+  --tree-width-3: 1%;
+}
+
+#saveBar {
   visibility: hidden; /* Hidden by default. Visible on click */
   min-width: 250px; /* Set a default minimum width */
   margin-left: -135px;
@@ -558,7 +558,7 @@
       width: 99%;
       margin: 0 auto;
       margin-right: 2px;
-    //  padding-left: 5px;
+      //  padding-left: 5px;
 
       .machine-name {
         cursor: pointer;
@@ -582,7 +582,7 @@
           width: calc(100% - 20px);
         }
 
-        &__icon{
+        &__icon {
           margin-left: -26px;
         }
       }
@@ -636,8 +636,8 @@
                 text-align: left;
               }
 
-              .input_value{
-             //   margin-top: 5px;
+              .input_value {
+                //   margin-top: 5px;
               }
             }
 
@@ -645,19 +645,19 @@
               cursor: pointer;
               width: 20px;
               height: 100%;
-              &:hover svg-icon{
-                ::ng-deep .cls-1{
+              &:hover svg-icon {
+                ::ng-deep .cls-1 {
                   fill: var(--color-border-active);
                   stroke: white;
                 }
               }
             }
 
-            .input-message-none{
+            .input-message-none {
               display: none;
             }
 
-            .input-message{
+            .input-message {
               border: 1px solid var(--color-border-active) !important;
               border-radius: 20px;
               display: block;
@@ -668,7 +668,7 @@
               top: 0px;
               right: 40px;
 
-              input.data{
+              input.data {
                 pointer-events: fill;
                 width: 90%;
                 margin-top: 10px;
@@ -720,10 +720,9 @@
               .name {
                 color: var(--color-text-sub-heading);
               }
-              .input_value{
+              .input_value {
                 margin-top: 5px;
               }
-             
             }
 
             .massage {
