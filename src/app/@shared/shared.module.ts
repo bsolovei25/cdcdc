@@ -12,30 +12,30 @@ import { WorkerCardComponent } from './components/worker-card/worker-card.compon
 import { UiBlockComponent } from './layout/ui-block/ui-block.component';
 
 @NgModule({
-        declarations: [
-                HeaderComponent,
-                ContentComponent,
-                FnPipe,
-                DateFormatPipe,
-                PreLoaderComponent,
-                UiElementsComponent,
-                ButtonComponent,
-                InputComponent,
-                WorkerCardComponent,
-                UiBlockComponent,
-        ],
-        exports: [
-                HeaderComponent,
-                ContentComponent,
-                FnPipe,
-                PreLoaderComponent,
-                ButtonComponent,
-                InputComponent,
-                WorkerCardComponent,
-                DateFormatPipe,
-                PreLoaderComponent,
-                UiBlockComponent,
-        ],
-        imports: [CommonModule],
+    declarations: [
+        HeaderComponent,
+        ContentComponent,
+        FnPipe,
+        DateFormatPipe,
+        PreLoaderComponent,
+        UiElementsComponent,
+        ButtonComponent,
+        InputComponent,
+        WorkerCardComponent,
+        UiBlockComponent,
+    ],
+    exports: [
+        HeaderComponent,
+        ContentComponent,
+        FnPipe,
+        PreLoaderComponent,
+        ButtonComponent,
+        InputComponent,
+        WorkerCardComponent,
+        DateFormatPipe,
+        PreLoaderComponent,
+        UiBlockComponent,
+    ],
+    imports: [CommonModule],
 })
-export class SharedModule { }
+export class SharedModule {}

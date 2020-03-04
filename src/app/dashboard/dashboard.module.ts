@@ -254,4 +254,4 @@ import { PetroleumUnityComponent } from './widgets/petroleum-products-movement/p
     bootstrap: [],
     providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }],
 })
-export class DashboardModule { }
+export class DashboardModule {}
