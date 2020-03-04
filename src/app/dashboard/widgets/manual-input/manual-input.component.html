@@ -97,7 +97,7 @@
                 <div class="machine-name__title">{{machine.name}}</div>
               </div>
               <ng-container *ngFor="let item of machine.groups">
-                <div class="machine-container"     [ngClass]="{'machine-container-none': machine.open}">
+                <div class="machine-container" [ngClass]="{'machine-container-none': machine.open}">
                   <div class="item-name" (click)="onShowItemMachine(item)">
                     <div class="item-name__button">
                       <svg-icon
@@ -122,17 +122,18 @@
                           </div>
                           <div class="item-block__value">
                             <input
-                            class="data"
-                            type="text"
-                            placeholder="--------"
-                            [(ngModel)]="i.curValue"
-                            [class.data_active]="i.isActive"
-                            [class.data_active__saving]="i.isActive && i.isSave"
-                            [class.data_active__warning]="i.isWarning && !i.isSave && i.isActive && !i.isError"
-                            [class.data_active__error]="i.isError && !i.isSave"
-                            (change)="onChangeValue(i.id)"
-                            (focusout)="onUnfocusValue(i.id)"
-                          /></div>
+                              class="data"
+                              type="text"
+                              placeholder="--------"
+                              [(ngModel)]="i.curValue"
+                              [class.data_active]="i.isActive"
+                              [class.data_active__saving]="i.isActive && i.isSave"
+                              [class.data_active__warning]="i.isWarning && !i.isSave && i.isActive && !i.isError"
+                              [class.data_active__error]="i.isError && !i.isSave"
+                              (change)="onChangeValue(i.id)"
+                              (focusout)="onUnfocusValue(i.id)"
+                            />
+                          </div>
                           <div class="item-block__value">{{i.minValue}}</div>
                           <div class="item-block__value">{{i.maxValue}}</div>
                         </div>
