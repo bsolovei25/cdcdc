@@ -29,9 +29,10 @@
   position: relative;
   // background: rgba(34, 36, 47, 0.5);
   background: var(--color-bg-main);
-  width: 1110px;
+  width: 100%;
   margin: 0 auto;
   height: 100%;
+  min-width: 1000px;
 }
 
 .reference_title {
@@ -85,7 +86,7 @@
 .reference_values_short {
   //height: 280px;
   height: 100%;
-  max-height: 300px;
+  // max-height: 300px;
   overflow: auto;
 }
 
@@ -116,18 +117,16 @@
 }
 
 .illustration_widget {
-  height: 468px;
+  height: 430px;
+  min-height: 430px;
 }
 
 .shortReference {
-  // background: rgba(34, 36, 47, 0.5);
   background: var(--color-bg-main);
-  width: 1110px;
+  width: 100%;
   margin: 0 auto;
   height: 100%;
   position: relative;
-  //  overflow: auto;
-  // transform: translateY(80%);
 }
 
 .test {
@@ -247,8 +246,254 @@
 }
 
 .table_widget {
-  bottom: 0;
-  position: absolute;
   width: 100%;
-  //height: calc(100% - 468px);
+  height: calc(100% - 530px);
+}
+
+.return_button {
+  position: absolute;
+  left: 1000px;
+  top: 40px;
+  z-index: 999;
+  cursor: pointer;
+}
+
+.table_update_button {
+  height: calc(100% - 581px);
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  font-size: 12px;
+
+  .left_table {
+    position: relative;
+    width: 49%;
+    border: 1px solid rgba(34, 36, 47, 0.5);
+    .reference_values_short {
+      background-color: rgba(34, 36, 47, 0.5);
+      width: 100%;
+      float: left;
+      .values_block {
+        cursor: pointer;
+        display: flex;
+        justify-content: space-evenly;
+        height: 40px;
+        align-items: center;
+
+        &:nth-child(2n) {
+          background: var(--color-bg-main);
+          height: 40px;
+        }
+
+        .icon-wrapper {
+          &:hover svg-icon {
+            ::ng-deep .st0 {
+              fill: var(--color-border-active) !important;
+            }
+          }
+        }
+      }
+    }
+    &::after {
+      z-index: 2;
+      content: "";
+      position: absolute;
+      top: -4px;
+      right: -9px;
+      height: 10px;
+      width: 14px;
+      box-sizing: border-box;
+      transform-origin: 43% 0;
+      transform: rotate(45deg);
+
+      border-bottom: 1px solid rgba(34, 36, 47, 0.5);
+
+      background: var(--color-bg-main);
+    }
+
+    &::before {
+      z-index: 2;
+      content: "";
+      position: absolute;
+      bottom: -19px;
+      right: 0px;
+      height: 14px;
+      width: 10px;
+      box-sizing: border-box;
+      transform-origin: 43% 0;
+      transform: rotate(-135deg);
+
+      border-right: 1px solid rgba(34, 36, 47, 0.5);
+
+      background: var(--color-bg-main);
+    }
+
+    .before_after_left {
+      &::after {
+        z-index: 2;
+        content: "";
+        position: absolute;
+        top: -2px;
+        left: -9px;
+        height: 10px;
+        width: 14px;
+        box-sizing: border-box;
+        transform-origin: 43% 0;
+        transform: rotate(-45deg);
+
+        border-bottom: 1px solid rgba(34, 36, 47, 0.5);
+
+        background: var(--color-bg-main);
+      }
+
+      &::before {
+        z-index: 2;
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: -9px;
+        height: 14px;
+        width: 10px;
+        box-sizing: border-box;
+        transform-origin: 43% 0;
+        transform: rotate(-45deg);
+
+        border-right: 1px solid rgba(34, 36, 47, 0.5);
+
+        background: var(--color-bg-main);
+      }
+    }
+  }
+
+  .right_table {
+    position: relative;
+    border: 1px solid rgba(34, 36, 47, 0.5);
+    width: 49%;
+    font-size: 12px;
+    .reference_values_short {
+      background-color: rgba(34, 36, 47, 0.5);
+      width: 100%;
+      float: right;
+
+      .values_block {
+        cursor: pointer;
+        display: flex;
+        height: 40px;
+        justify-content: space-evenly;
+        align-items: center;
+
+        &:nth-child(2n) {
+          background: var(--color-bg-main);
+          height: 40px;
+        }
+
+        .icon-wrapper {
+          &:hover svg-icon {
+            ::ng-deep .st0 {
+              fill: var(--color-border-active) !important;
+            }
+          }
+        }
+      }
+    }
+    &::after {
+      z-index: 2;
+      content: "";
+      position: absolute;
+      top: -4px;
+      right: -9px;
+      height: 10px;
+      width: 14px;
+      box-sizing: border-box;
+      transform-origin: 43% 0;
+      transform: rotate(45deg);
+
+      border-bottom: 1px solid rgba(34, 36, 47, 0.5);
+
+      background: var(--color-bg-main);
+    }
+
+    &::before {
+      z-index: 2;
+      content: "";
+      position: absolute;
+      bottom: -19px;
+      right: 0px;
+      height: 14px;
+      width: 10px;
+      box-sizing: border-box;
+      transform-origin: 43% 0;
+      transform: rotate(-135deg);
+
+      border-right: 1px solid rgba(34, 36, 47, 0.5);
+
+      background: var(--color-bg-main);
+    }
+
+    .before_after_right {
+      &::after {
+        z-index: 2;
+        content: "";
+        position: absolute;
+        top: -2px;
+        left: -9px;
+        height: 10px;
+        width: 14px;
+        box-sizing: border-box;
+        transform-origin: 43% 0;
+        transform: rotate(-45deg);
+
+        border-bottom: 1px solid rgba(34, 36, 47, 0.5);
+
+        background: var(--color-bg-main);
+      }
+
+      &::before {
+        z-index: 2;
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: -9px;
+        height: 14px;
+        width: 10px;
+        box-sizing: border-box;
+        transform-origin: 43% 0;
+        transform: rotate(-45deg);
+
+        border-right: 1px solid rgba(34, 36, 47, 0.5);
+
+        background: var(--color-bg-main);
+      }
+    }
+  }
+}
+
+.illustration_widget_param {
+  height: 581px;
+  min-height: 581px;
+
+  &__title {
+    height: 20px;
+    font-size: 10px;
+    color: var(--color-text-sub-heading);
+  }
+
+  &__unity {
+    height: calc(100% - 20px);
+  }
+}
+
+.active {
+  background-image: linear-gradient(
+    to right,
+    rgba(107, 166, 241, 0.7) 2%,
+    rgba(107, 166, 241, 0.63) 6%,
+    rgba(107, 166, 241, 0.46) 16%,
+    rgba(107, 166, 241, 0.32) 26%,
+    rgba(107, 166, 241, 0.2) 38%,
+    rgba(107, 166, 241, 0.11) 50%,
+    rgba(107, 166, 241, 0.05) 63%,
+    rgba(107, 166, 241, 0.01) 79%,
+    rgba(107, 166, 241, 0) 102%
+  ) !important;
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
     selector: 'evj-petroleum-workspace',
@@ -6,7 +6,9 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
     styleUrls: ['./petroleum-workspace.component.scss'],
 })
 export class PetroleumWorkspaceComponent implements OnInit {
-    @Output() isClick = new EventEmitter<boolean>();
+    @Output() isClick = new EventEmitter<string>();
+    public isChangeParam: boolean = false;
+
     public data = [
         'Баланс по продуктам',
         'Накопительный баланс',
@@ -17,11 +19,18 @@ export class PetroleumWorkspaceComponent implements OnInit {
         'Список операций',
     ];
 
+    public dataAdditionally = ['Экспортировать в Excel', 'Печать'];
+
     constructor() {}
 
     ngOnInit() {}
 
-    createOperation(el: boolean): void {
-        this.isClick.emit(el);
+    createOperation(type: string): void {
+        this.isClick.emit(type);
+    }
+
+    updateParam(type: string): void {
+        this.isChangeParam = true;
+        this.isClick.emit(type);
     }
 }

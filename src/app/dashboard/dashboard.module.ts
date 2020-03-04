@@ -93,8 +93,10 @@ import { PetroleumReferenceLeftComponent } from './widgets/petroleum-products-mo
 import { PetroleumReferenceRightComponent } from './widgets/petroleum-products-movement/petroleum-reference-right/petroleum-reference-right.component';
 import { PetroleumReferenceComponent } from './widgets/petroleum-products-movement/petroleum-reference/petroleum-reference.component';
 import { PetroleumWorkspaceComponent } from './widgets/petroleum-products-movement/petroleum-workspace/petroleum-workspace.component';
+import { MatSelectModule } from '@angular/material/select';
 import { ScrollingModule } from '@angular/cdk-experimental/scrolling';
 import { ScrollingModule as OldScrollingModule } from '@angular/cdk/scrolling';
+import { PetroleumUnityComponent } from './widgets/petroleum-products-movement/petroleum-unity/petroleum-unity.component';
 
 @NgModule({
     declarations: [
@@ -178,6 +180,7 @@ import { ScrollingModule as OldScrollingModule } from '@angular/cdk/scrolling';
         PetroleumReferenceRightComponent,
         PetroleumReferenceComponent,
         PetroleumWorkspaceComponent,
+        PetroleumUnityComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -244,10 +247,11 @@ import { ScrollingModule as OldScrollingModule } from '@angular/cdk/scrolling';
         MatInputModule,
         MatNativeDateModule,
         ScrollingModule,
+        MatSelectModule,
         ScrollingModule,
         OldScrollingModule,
     ],
     bootstrap: [],
     providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }],
 })
-export class DashboardModule {}
+export class DashboardModule { }

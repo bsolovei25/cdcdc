@@ -114,6 +114,7 @@ export class NewWidgetsGridComponent implements OnInit {
     public onResize(event: any): void {
         clearTimeout(this.sizeTimeout);
         this.sizeTimeout = setTimeout(() => this.sizeGrid(), 1000);
+        this.resizeGridsterElement();
     }
 
     public sizeGrid(): void {

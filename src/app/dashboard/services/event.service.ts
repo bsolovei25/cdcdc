@@ -54,6 +54,16 @@ export class EventService {
         }
     }
 
+    public async getPlaces(widgetId: string): Promise<string[]> {
+        try {
+            return this.http
+                .get<string[]>(this.restUrl + `/api/notifications/widget/places/${widgetId}`)
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     async getEvent(id: number): Promise<EventsWidgetNotification> {
         try {
             return this.http
@@ -199,13 +209,16 @@ export class EventService {
     }
 
     private getOptionString(lastId: number, options: EventsWidgetOptions): string {
-        let res = `take=${this.batchSize}&lastId=${lastId}&placeNames=ГФУ-2,ГФУ-1?`;
+        let res = `take=${this.batchSize}&lastId=${lastId}&`;
         if (options.dates) {
             res += `fromDateTime=${options.dates?.fromDateTime.toISOString()}&
             toDateTime=${options.dates?.toDateTime.toISOString()}`;
         }
         for (const category of options.categories) {
-            res += `categoryIds=${category}`;
+            res += `&categoryIds=${category}`;
+        }
+        for (const place of options.placeNames) {
+            res += `&placeNames=${place}`;
         }
         switch (options.filter) {
             case 'all':
