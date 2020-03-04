@@ -62,20 +62,20 @@ export class AuthService {
         }
     }
 
-    async getUserAuth(): Promise<ITokenData[]> | null {
+    async getUserAuth(): Promise<ITokenData> | null {
         if (!this.restUrl) {
             return null;
         }
 
-        let current: ITokenData[];
+        let current: ITokenData;
 
         // Try get current by token
         try {
             if (this.userSessionToken) {
                 current = await this.http
-                    .get<ITokenData[]>(this.restUrl + '/api/user-management/current')
+                    .get<ITokenData>(this.restUrl + '/api/user-management/current')
                     .toPromise();
-                this.configureUserAuth(current[0]);
+                this.configureUserAuth(current);
                 return current;
             }
         } catch (error) {
@@ -85,12 +85,12 @@ export class AuthService {
         // If not loaded by token, try with Windows auth
         try {
             current = await this.http
-                .get<ITokenData[]>(this.restUrl + '/api/user-management/windows-current', {
+                .get<ITokenData>(this.restUrl + '/api/user-management/windows-current', {
                     withCredentials: true,
                 })
                 .toPromise();
 
-            this.configureUserAuth(current[0]);
+            this.configureUserAuth(current);
             return current;
         } catch (error) {
             this.router.navigate(['login']);
