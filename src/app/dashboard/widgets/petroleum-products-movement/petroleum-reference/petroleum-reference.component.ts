@@ -355,9 +355,9 @@ export class PetroleumReferenceComponent implements OnInit {
 
     constructor() {}
 
-    ngOnInit() {}
+    ngOnInit(): void {}
 
-    returnMenu() {
+    returnMenu(): void {
         this.shortHeight = true;
         this.updateParamBlock = false;
         this.exitBlock.emit(true);
