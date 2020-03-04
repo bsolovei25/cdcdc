@@ -176,14 +176,12 @@ export class NewUserSettingsService {
             updateScreen;
             widgets;
         })();
-        return this.http
-            .post(this.restUrl + '/api/user-management/screen', userScreen)
-            .subscribe(
-                (ans) => {
-                    this.GetScreen();
-                },
-                (error) => console.log(error)
-            );
+        return this.http.post(this.restUrl + '/api/user-management/screen', userScreen).subscribe(
+            (ans) => {
+                this.GetScreen();
+            },
+            (error) => console.log(error)
+        );
     }
 
     public deleteScreen(id: string) {
