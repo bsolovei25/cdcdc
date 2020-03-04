@@ -223,11 +223,8 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
 
     onShowAllSettings(): void {
         this.openAllSettings = !this.openAllSettings;
-        const container = document.getElementById('container');
-        if (this.openAllSettings) {
-            container.className = 'container';
-        } else {
-            container.className = 'container-none';
+        for (let i of this.Data) {
+            i.open = this.openAllSettings;
         }
     }
 
@@ -241,6 +238,10 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
 
     onShowItemMachine(item): void {
         item.open = !item.open;
+    }
+
+    onInputMessage(i): void {
+        i.openInput = !i.openInput;
     }
 
     public async OnManualInputSendSettings(param): Promise<void> {
