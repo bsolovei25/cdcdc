@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { ManualInputService } from '../../services/manual-input.service';
 import { HttpClient } from '@angular/common/http';
-import { Machine_MI, ManualInputData, Group_MI } from '../../models/manual-input.model';
+import { IMachine_MI, ManualInputData, IGroup_MI } from '../../models/manual-input.model';
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { AppConfigService } from 'src/app/services/appConfigService';
@@ -43,7 +43,7 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
     openMachine: boolean = true;
     openItemMachine: boolean = true;
 
-    chooseSetting: Machine_MI;
+    chooseSetting: IMachine_MI;
 
     constructor(
         public manualInputService: ManualInputService,
@@ -69,11 +69,11 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
 
     private restUrl: string;
 
-    Data: Machine_MI[] = [];
+    Data: IMachine_MI[] = [];
 
     private flag: boolean = true;
 
-    saveData: Machine_MI[] = [];
+    saveData: IMachine_MI[] = [];
 
     ngOnInit() {
         this.showMock(this.isMock);
@@ -103,7 +103,7 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
                 if (
                     item.name === name &&
                     event.currentTarget.parentElement.lastElementChild.className ===
-                        'table-container-2-none'
+                    'table-container-2-none'
                 ) {
                     for (let i of event.currentTarget.parentElement.children) {
                         i.classList.remove('ng-star-inserted');
@@ -115,7 +115,7 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
                 } else if (
                     item.name === name &&
                     event.currentTarget.parentElement.lastElementChild.className ===
-                        'table-container-2'
+                    'table-container-2'
                 ) {
                     for (let i of event.currentTarget.parentElement.children) {
                         i.classList.remove('ng-star-inserted');
@@ -136,7 +136,7 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
                     if (
                         i.name === name &&
                         event.currentTarget.parentElement.lastElementChild.className ===
-                            'd-table-none'
+                        'd-table-none'
                     ) {
                         for (let i of event.currentTarget.parentElement.children) {
                             if (i.className === 'd-table-none') {
@@ -168,7 +168,7 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
     setInitData() {
         this.http
             .get(this.restUrl + '/api/manualinput/ManualInputData/' + this.id)
-            .subscribe((ref: Machine_MI[]) => {
+            .subscribe((ref: IMachine_MI[]) => {
                 this.Data = this.manualInputService.LoadData(this.Data, ref);
             });
     }
@@ -212,7 +212,7 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
         }
     }
 
-    onSettings(item: Machine_MI): void {
+    onSettings(item: IMachine_MI): void {
         for (let i of this.Data) {
             i.active = false;
         }
@@ -247,17 +247,18 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
         await this.widgetSettingsService.saveSettings(this.uniqId, param);
     }
 
-    private CallMIScript(json): void {}
+    private CallMIScript(json): void { }
 
     saveDataObj(): void {
-        for (let machine of this.Data) {
-            let machineObj = {};
-            machineObj.name = machine.name;
-            machineObj.active = machine.active;
-            machineObj.open = machine.open;
-            machineObj.groups = [];
-            for (let item of machine.groups) {
-                let itemObj = {};
+        for (const machine of this.Data) {
+            const machineObj: IMachine_MI = {
+                name: machine.name,
+                active: machine.active,
+                open: machine.open,
+                groups: [],
+            };
+            for (const item of machine.groups) {
+                let itemObj: IGroup_MI;
                 itemObj.name = item.name;
                 if (item.open === undefined) {
                     itemObj.open = true;

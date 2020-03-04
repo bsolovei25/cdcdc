@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
-    Machine_MI,
+    IMachine_MI,
     MI_DataGet,
     MI_DataSend,
     MI_ParamSend,
@@ -19,12 +19,12 @@ export class ManualInputService {
 
     private restUrl: string;
 
-    ChangeField(id: string, data: Machine_MI[]) {
+    ChangeField(id: string, data: IMachine_MI[]) {
         const param = this.GetElementById(id, data);
         param.isSave = false;
     }
 
-    CheckLastValue(id: string, data: Machine_MI[]) {
+    CheckLastValue(id: string, data: IMachine_MI[]) {
         const param = this.GetElementById(id, data);
         if (param.curValue === '' && param.saveValue && param.saveValue !== '') {
             param.curValue = param.saveValue;
@@ -33,7 +33,7 @@ export class ManualInputService {
         }
     }
 
-    LoadData(data: Machine_MI[], newData: Machine_MI[]): Machine_MI[] {
+    LoadData(data: IMachine_MI[], newData: IMachine_MI[]): IMachine_MI[] {
         const tempData = this.GetFlatData(data);
         const newFlatData = this.GetFlatData(newData);
         if (tempData.length === 0) {
@@ -66,7 +66,7 @@ export class ManualInputService {
         return newData;
     }
 
-    BtnSaveValues(data: Machine_MI[]) {
+    BtnSaveValues(data: IMachine_MI[]) {
         this.saveBar('Сохранение', true);
         this.statusLoading = true;
         let elsToSave: Param_MI[] = [];
@@ -83,7 +83,7 @@ export class ManualInputService {
         this.SendData(elsToSave, data);
     }
 
-    SendData(elsToSave: Param_MI[], data: Machine_MI[]) {
+    SendData(elsToSave: Param_MI[], data: IMachine_MI[]) {
         const params: MI_ParamSend[] = [];
         for (let i in elsToSave) {
             let param = elsToSave[i];
@@ -104,14 +104,14 @@ export class ManualInputService {
         this.PostData(req, data);
     }
 
-    PostData(Params: MI_DataSend, data: Machine_MI[]) {
+    PostData(Params: MI_DataSend, data: IMachine_MI[]) {
         this.http.post(this.restUrl + '/manualinput/post', Params).subscribe((ans: MI_DataGet) => {
             this.saveBar('Пустой ввод', false);
             this.SaveValues(ans, data);
         });
     }
 
-    SaveValues(ids: MI_DataGet, data: Machine_MI[]) {
+    SaveValues(ids: MI_DataGet, data: IMachine_MI[]) {
         for (const i in ids.trueValues) {
             let el = this.GetElementById(ids.trueValues[i], data);
             el.isEdit = true;
@@ -126,7 +126,7 @@ export class ManualInputService {
         }
     }
 
-    GetFlatData(root: Machine_MI[]): Param_MI[] {
+    GetFlatData(root: IMachine_MI[]): Param_MI[] {
         const ans: Param_MI[] = [];
         for (const i in root) {
             for (const j in root[i].groups) {
@@ -139,7 +139,7 @@ export class ManualInputService {
         return ans;
     }
 
-    GetElementById(id: string, data: Machine_MI[]): Param_MI {
+    GetElementById(id: string, data: IMachine_MI[]): Param_MI {
         for (const i in data) {
             for (const j in data[i].groups) {
                 for (const k in data[i].groups[j].params) {
