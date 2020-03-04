@@ -6,6 +6,8 @@ import {
     ElementRef,
     Renderer2,
     OnInit,
+    AfterViewInit,
+    AfterContentChecked,
 } from '@angular/core';
 import { NewWidgetService } from '../../../services/new-widget.service';
 import { Subscription } from 'rxjs';
@@ -21,6 +23,7 @@ import {
     IScheduleShift,
 } from '../../../models/admin-shift-schedule';
 import { fillDataShape } from '../../../../@shared/common-functions';
+import { MatCalendar } from '@angular/material/datepicker';
 
 export interface IAdminShiftSchedule {
     worker: IWorker[];
@@ -48,7 +51,7 @@ interface IBrigade {
     templateUrl: './admin-shift-schedule.component.html',
     styleUrls: ['./admin-shift-schedule.component.scss'],
 })
-export class AdminShiftScheduleComponent implements OnInit, OnDestroy {
+export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterContentChecked {
     aboutWidget: string;
     previewTitle: string = 'calendar-plan';
     title: string = '';
@@ -59,6 +62,8 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy {
     static itemRows: number = 20;
 
     activeUsers: SelectionModel<IUser> = new SelectionModel(true);
+
+    dateNow: Date = new Date();
 
     selectedDay: IScheduleShiftDay = {
         date: new Date(),
@@ -74,6 +79,7 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy {
     allBrigade: IBrigadeWithUsersDto[] = [];
 
     @ViewChild('shiftOverlay', { static: false }) shiftOverlay: ElementRef;
+    @ViewChild('calendar') calendar: MatCalendar<Date>;
 
     constructor(
         private widgetService: NewWidgetService,
@@ -96,6 +102,24 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy {
         this.dateChanged(this.selectedDay.date);
     }
 
+    ngAfterContentChecked(): void {
+        const buttons = document
+            .querySelectorAll('.mat-calendar-previous-button, .mat-calendar-next-button');
+        if (buttons) {
+            buttons.forEach(button => {
+                this.renderer.listen(button, 'click', () => {
+                    if (this.calendar?.activeDate) {
+                        if (button.getAttribute('aria-label') === 'Next month') {
+                            this.nextMonth();
+                        } else {
+                            this.nextPrevious();
+                        }
+                    }
+                });
+            });
+        }
+    }
+
     ngOnDestroy(): void {
         if (this.subscription) {
             this.subscription.unsubscribe();
@@ -109,9 +133,33 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy {
         this.activeUsers.clear();
     }
 
+    nextMonth(): void {
+        if (this.calendar.activeDate !== this.dateNow) {
+            this.adminShiftScheduleService
+                .getSchudeleShiftsMonth(this.calendar.activeDate.getMonth() + 1,
+                    this.calendar.activeDate.getFullYear()).then((data) => {
+                        this.scheduleShiftMonth = data;
+                    });
+            this.dateNow = this.calendar.activeDate;
+        }
+    }
+
+    nextPrevious(): void {
+        if (this.calendar.activeDate !== this.dateNow) {
+            this.adminShiftScheduleService
+                .getSchudeleShiftsMonth(this.calendar.activeDate.getMonth() + 1,
+                    this.calendar.activeDate.getFullYear()).then((data) => {
+                        this.scheduleShiftMonth = data;
+                    });
+            this.dateNow = this.calendar.activeDate;
+            // console.log(this.calendar.dateClass);
+            // this.dateClass(this.calendar.dateClass);
+        }
+    }
+
     dateChanged(event: Date): void {
         this.resetComponent();
-
+        this.loadItem();
         const idx = this.scheduleShiftMonth.findIndex(
             (val) => new Date(val.date).getDate() === new Date(event).getDate()
         );
@@ -129,6 +177,7 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy {
             if (idxYesterday) {
                 const yesterdayLocals = fillDataShape(this.scheduleShiftMonth[idxYesterday]);
                 this.yesterday = yesterdayLocals;
+                this.yesterday.items = [this.yesterday.items[this.yesterday.items.length - 1]];
             }
         }
     }
@@ -138,8 +187,6 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy {
             this.activeUsers.deselect(user);
         } else {
             this.activeUsers.select(user);
-            console.log(user);
-
             this.adminShiftScheduleService.postMemberFromBrigade(this.selectedShift.id, user.id);
         }
     }
@@ -149,11 +196,18 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy {
 
         this.adminShiftScheduleService.postSelectBrigade(this.selectedShift.id, brigade.brigadeId);
         this.selectShift(this.selectedShift);
+        this.adminShiftScheduleService.getSchudeleShiftsMonth(this.dateNow.getMonth() + 1,
+            this.dateNow.getFullYear()).then((data) => {
+                this.scheduleShiftMonth = data;
+                this.calendar.dateClass = this.dateClass;
+            });
         selectedDay.items.find((value) => {
             if (value.id === this.selectedShift.id) {
                 value.brigadeId = brigade.brigadeId;
-                value.brigadeNumber = brigade.brigadeNumber;
+                value.brigadeName = brigade.brigadeNumber;
                 this.openOverlay(null, null, false);
+                this.calendar.dateClass = this.dateClass;
+
             }
         });
     }
@@ -166,8 +220,12 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy {
             } else {
                 if (event && !shift) {
                     this.adminShiftScheduleService.deleteBrigade(this.selectedShift.id);
+                    const sh = this.selectedDay
+                        .items.find((val) => val.id === this.selectedShift.id);
+                    sh.brigadeName = null;
                     this.selectedShift.brigadeId = null;
-                    this.selectedShift.brigadeNumber = null;
+                    this.selectedShift.brigadeName = null;
+                    this.calendar.dateClass = this.dateClass;
                 }
                 this.renderer.setStyle(this.shiftOverlay.nativeElement, 'display', 'none');
             }
@@ -192,11 +250,12 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy {
 
     async loadItem(): Promise<void> {
         const dataLoadQueue: Promise<void>[] = [];
-
+        const dateNow = new Date();
         dataLoadQueue.push(
-            this.adminShiftScheduleService.getSchudeleShiftsMonth().then((data) => {
-                this.scheduleShiftMonth = data;
-            })
+            this.adminShiftScheduleService.getSchudeleShiftsMonth(dateNow.getMonth() + 1,
+                dateNow.getFullYear()).then((data) => {
+                    this.scheduleShiftMonth = data;
+                })
         );
         dataLoadQueue.push(
             this.adminShiftScheduleService.getBrigade().then((data) => {

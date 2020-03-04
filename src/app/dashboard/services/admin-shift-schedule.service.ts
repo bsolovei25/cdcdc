@@ -17,16 +17,16 @@ export class AdminShiftScheduleService {
         this.restUrl = configService.restUrl;
     }
 
-    async getSchudeleShiftsMonth(): Promise<IScheduleShiftDay[]> {
+    async getSchudeleShiftsMonth(month: number, year: number): Promise<IScheduleShiftDay[]> {
         try {
             return this.http
-                .get<IScheduleShiftDay[]>(this.restUrl + '/api/schedule-shifts/month')
+                .get<IScheduleShiftDay[]>
+                (this.restUrl + `/api/schedule-shifts/month/${month}/${year}`)
                 .toPromise();
         } catch (error) {
             console.error(error);
         }
     }
-
     async getSchudeleShift(id: number): Promise<IScheduleShift> {
         try {
             return this.http

@@ -19,9 +19,11 @@
     <div class="block-top" *ngIf="scheduleShiftMonth.length > 0">
       <section class="calendar">
         <mat-calendar
+          #calendar
           [dateClass]="dateClass()"
           [(selected)]="selectedDay.date"
           (selectedChange)="dateChanged($event)"
+          (monthSelected)="dateChanged($event)"
           ngClass="calendar-red"
           locale="ru"
         ></mat-calendar>
@@ -55,7 +57,8 @@
         <div class="shift-yesterday" *ngFor="let i of yesterday.items; let idx = index">
           <p>{{ idx + 1 }} смена</p>
           <p>{{ i.start | date:'HH' }} - {{ i.end | date:'HH' }}</p>
-          <p class="shift-today-item">Бригада {{ i.brigadeNumber }}</p>
+          <p *ngIf="i.brigadeName" class="shift-today-item">Бригада {{ i.brigadeName }}</p>
+          <p *ngIf="!i.brigadeName" class="shift-today-item">Назначить</p>
         </div>
         <div class="date-today"><p>{{ selectedDay.date | date:'d MMMM yyyy' }}</p></div>
         <div
@@ -78,7 +81,7 @@
             class="btn shift-today-item"
             (click)="openOverlay($event, shift, true)"
           >
-            Бригада {{ shift.brigadeNumber }}
+            Бригада {{ shift.brigadeName }}
           </p>
         </div>
         <div class="shift-overlay" #shiftOverlay>
