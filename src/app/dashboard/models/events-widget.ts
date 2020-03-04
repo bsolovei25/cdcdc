@@ -31,14 +31,14 @@ export interface EventsWidgetNotification {
     iconUrl?: string;
     iconUrlStatus?: string;
     status: IStatus;
-    facts?: { comment: string; createdBy?: number; createdAt: Date; displayName: string }[];
+    facts?: { comment: string; createdBy?: number; createdAt: Date; displayName: string; active?: boolean; }[];
     priority: IPriority;
     deviationReason: string; // Причина отклонения
     establishedFacts: string; // Установленные факты
     eventType: { id: number; name: string }; // Тип происшествия
     directReasons: string; // Непосредственные/прямые причины
     description: string; // Описание
-    comments?: { comment: string; createdBy?: number; createdAt: Date; displayName: string }[]; // Комментарий оператора
+    comments?: { comment: string; createdBy?: number; createdAt: Date; displayName: string; active?: boolean;  }[]; // Комментарий оператора
     category: ICategory;
     statusName?: string;
     severity: string;

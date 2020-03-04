@@ -321,6 +321,9 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     clickFact(fact, index): void {
+        for (let i of this.event.facts) {
+            i.active = false;
+        }
         fact.active = !fact.active;
         if (fact.active === true) {
             this.isClickFact = index;
@@ -330,6 +333,9 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     clickComment(comment, index): void {
+        for (let i of this.event.comments) {
+            i.active = false;
+        }
         comment.active = !comment.active;
         if (comment.active === true) {
             this.isClickComment = index;
