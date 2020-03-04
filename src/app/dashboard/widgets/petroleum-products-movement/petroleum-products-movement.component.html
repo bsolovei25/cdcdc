@@ -28,7 +28,9 @@
             ></evj-petroleum-reference>
           </div>
           <div class="right_block">
-            <evj-petroleum-workspace (isClick)="onChanged($event)" *ngIf="isWorkspace">
+            <evj-petroleum-workspace
+                    (isClick)="onChanged($event)"
+                    *ngIf="isWorkspace">
             </evj-petroleum-workspace>
             <evj-petroleum-reference-right *ngIf="!isWorkspace"></evj-petroleum-reference-right>
           </div>

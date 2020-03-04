@@ -6,10 +6,10 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
     styleUrls: ['./petroleum-workspace.component.scss'],
 })
 export class PetroleumWorkspaceComponent implements OnInit {
-    @Output() isClick = new EventEmitter<string>();
+    @Output() isClick: EventEmitter<string> = new EventEmitter<string>();
     public isChangeParam: boolean = false;
 
-    public data = [
+    public data: string[] = [
         'Баланс по продуктам',
         'Накопительный баланс',
         'Оперативный лист',
@@ -19,11 +19,11 @@ export class PetroleumWorkspaceComponent implements OnInit {
         'Список операций',
     ];
 
-    public dataAdditionally = ['Экспортировать в Excel', 'Печать'];
+    public dataAdditionally: string[] = ['Экспортировать в Excel', 'Печать'];
 
     constructor() {}
 
-    ngOnInit() {}
+    ngOnInit(): void {}
 
     createOperation(type: string): void {
         this.isClick.emit(type);

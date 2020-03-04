@@ -94,6 +94,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ScrollingModule } from '@angular/cdk-experimental/scrolling';
 import { ScrollingModule as OldScrollingModule } from '@angular/cdk/scrolling';
 import { PetroleumUnityComponent } from './widgets/petroleum-products-movement/petroleum-unity/petroleum-unity.component';
+import { PetroleumUnityInfoComponent } from './widgets/petroleum-products-movement/petroleum-unity-info/petroleum-unity-info.component';
 
 @NgModule({
     declarations: [
@@ -175,6 +176,7 @@ import { PetroleumUnityComponent } from './widgets/petroleum-products-movement/p
         PetroleumReferenceComponent,
         PetroleumWorkspaceComponent,
         PetroleumUnityComponent,
+        PetroleumUnityInfoComponent,
     ],
     entryComponents: [
         LineChartComponent,

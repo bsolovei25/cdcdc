@@ -25,7 +25,7 @@ export class PetroleumReferenceComponent implements OnInit {
 
     @Input() updateParamBlock: boolean;
 
-    @Output() exitBlock = new EventEmitter<boolean>();
+    @Output() exitBlock: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     public title = [
         {

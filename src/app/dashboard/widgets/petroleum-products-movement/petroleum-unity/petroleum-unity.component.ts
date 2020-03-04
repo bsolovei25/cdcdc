@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, HostListener, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../../services/new-widget.service';
-import { WidgetSettingsService } from '../../../services/widget-settings.service';
 import { PlatformLocation } from '@angular/common';
 import { UnityLoader } from '../../dispatcher-screen/UnityLoader';
 
