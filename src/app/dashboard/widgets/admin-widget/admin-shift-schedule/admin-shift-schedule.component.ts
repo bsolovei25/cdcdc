@@ -41,6 +41,8 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
     title: string = '';
     defaultLocale: string = 'ru-RU';
 
+    isLoading: boolean = false;
+
     public subscription: Subscription;
     static itemCols: number = 30;
     static itemRows: number = 20;
@@ -159,6 +161,7 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
     }
 
     public async onClickCard(user: IUser): Promise<void> {
+        this.isLoading = true;
         if (this.activeUsers.isSelected(user)) {
             await this.adminShiftScheduleService.deleteMemberFromBrigade(
                 this.selectedShift.id,
@@ -171,21 +174,24 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
                 user.id
             );
             this.activeUsers.select(user);
+
         }
+        this.isLoading = false;
     }
 
     public async onChooseBrigade(
         brigade: IBrigadeWithUsersDto,
         selectedDay: IScheduleShiftDay
     ): Promise<void> {
+        this.isLoading = true;
         this.openOverlay(null, null, false);
         this.selectedBrigade = brigade;
-        this.selectShift(this.selectedShift);
         await this.adminShiftScheduleService.postSelectBrigade(
             this.selectedShift.id,
             brigade.brigadeId
         );
         this.reLoadDataMonth();
+        this.selectShift(this.selectedShift);
         selectedDay.items.find((value) => {
             if (value.id === this.selectedShift.id) {
                 value.brigadeId = brigade.brigadeId;
@@ -195,17 +201,21 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
                 }
             }
         });
+        this.isLoading = false;
     }
 
     async deleteBrigadeFromShift(): Promise<void> {
+        this.isLoading = true;
         await this.adminShiftScheduleService.deleteBrigade(this.selectedShift.id);
         const sh = this.selectedDay.items.find((val) => val.id === this.selectedShift.id);
         this.openOverlay(null, null, false);
         if (sh) {
             sh.brigadeName = null;
             sh.brigadeId = null;
+            this.selectedShift = null;
             this.reLoadDataMonth();
         }
+        this.isLoading = true;
     }
 
     public openOverlay(event: MouseEvent, shift: IScheduleShift, isOpen: boolean): void {
@@ -245,6 +255,7 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
     }
 
     private async reLoadDataMonth(): Promise<void> {
+        this.isLoading = true;
         await this.adminShiftScheduleService
             .getSchudeleShiftsMonth(this.dateNow.getMonth() + 1, this.dateNow.getFullYear())
             .then((data) => {
@@ -257,6 +268,7 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
                     this.resetComponent();
                 }
             });
+        this.isLoading = false;
     }
 
     // #region DATA API
@@ -274,11 +286,13 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
                 this.brigadesSubstitution = data;
             })
         );
-
         if (dataLoadQueue.length > 0) {
             try {
+                this.isLoading = true;
                 await Promise.all(dataLoadQueue);
+                this.isLoading = false;
             } catch (err) {
+                this.isLoading = false;
                 console.error(err);
             }
         }
@@ -287,8 +301,10 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
     // #endregion
 
     public async selectShift(shift: IScheduleShift): Promise<void> {
+        this.activeUsers.clear();
         await this.adminShiftScheduleService.getSchudeleShift(shift.id).then((data) => {
             this.selectedShift = data;
+
         });
         this.selectedShift.shiftMembers.forEach((member) => {
             this.brigadesSubstitution.users.forEach((user) => {

@@ -5,6 +5,14 @@
 ></evj-widget-preview>
 
 <div class="container pointer-event" *ngIf="!isMock">
+  <!-- loading data -->
+  <div class="loading-shade" *ngIf="isLoading">
+    <div class="item loading-6">
+      <svg viewBox="25 25 50 50">
+        <circle cx="50" cy="50" r="20"></circle>
+      </svg>
+    </div>
+  </div>
   <evj-widget-header [title]="title" [id]="id" [units]="" [uniqId]="uniqId"></evj-widget-header>
 
   <div></div>
@@ -103,8 +111,7 @@
       </section>
       <section
         class="additional-team"
-        *ngIf="selectedShift && selectedShift.shiftMembers 
-        && selectedShift.shiftMembers.length > 0 && brigadesSubstitution"
+        *ngIf="selectedShift && selectedShift.shiftMembers && selectedShift.shiftMembers.length > 0 && brigadesSubstitution"
       >
         <p class="title">Дополнительный состав бригады</p>
         <div class="additional-team__container">
