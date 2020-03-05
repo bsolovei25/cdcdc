@@ -104,21 +104,26 @@
 }
 
 .title_park {
-  justify-content: space-evenly;
+  cursor: pointer;
+  justify-content: space-between;
   display: flex;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .title_sett {
   cursor: pointer;
-  justify-content: space-evenly;
+  justify-content: space-between;
   display: flex;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .title_parks {
   cursor: pointer;
-  margin-right: 40px;
   color: white;
   font-size: 12px;
+  text-align: left;
 }
 
 .park {

@@ -67,14 +67,17 @@ export class PetroleumProductsMovementComponent implements OnInit, OnDestroy {
     }
 
     onChanged(type: string): void {
-        if (type === 'create') {
-            this.isWorkspace = false;
-            this.isShort = false;
-            this.isUpdateParamButton = false;
-        } else if (type === 'update') {
-            this.isUpdateParamButton = true;
-            this.isWorkspace = true;
-            this.isShort = false;
+        switch (type) {
+            case 'create':
+                this.isWorkspace = false;
+                this.isShort = false;
+                this.isUpdateParamButton = false;
+                break;
+            case 'update':
+                this.isUpdateParamButton = true;
+                this.isWorkspace = true;
+                this.isShort = false;
+                break;
         }
     }
 

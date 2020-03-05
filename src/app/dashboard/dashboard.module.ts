@@ -95,6 +95,7 @@ import { ScrollingModule } from '@angular/cdk-experimental/scrolling';
 import { ScrollingModule as OldScrollingModule } from '@angular/cdk/scrolling';
 import { PetroleumUnityComponent } from './widgets/petroleum-products-movement/petroleum-unity/petroleum-unity.component';
 import { PetroleumUnityInfoComponent } from './widgets/petroleum-products-movement/petroleum-unity-info/petroleum-unity-info.component';
+import { PetroleumMotionAccountingComponent } from './widgets/petroleum-motion-accounting/petroleum-motion-accounting.component';
 
 @NgModule({
     declarations: [
@@ -177,6 +178,7 @@ import { PetroleumUnityInfoComponent } from './widgets/petroleum-products-moveme
         PetroleumWorkspaceComponent,
         PetroleumUnityComponent,
         PetroleumUnityInfoComponent,
+        PetroleumMotionAccountingComponent,
     ],
     entryComponents: [
         LineChartComponent,

@@ -1,43 +1,54 @@
 export interface IOperation {
-    id: number; // maybe GUID
+    id?: number; // maybe GUID
     source: string;
     receiver: string;
     productSource: string;
     productReceiver: string;
     startOperation: {
-        datetime: Date;
-        operator: string;
+        datetime?: Date;
+        operator?: string;
     };
     finishOperation: {
-        datetime: Date;
-        operator: string;
+        datetime?: Date;
+        operator?: string;
     };
     massSource: number;
     massReceiver: number;
     deviation: number;
-    isOpen: boolean;
-    isActive?: boolean;
+    isOpen?: boolean;
+    isActive?: boolean; // no back
 }
 
 export interface IFacilityInfo {
-    parameters: IFacilityInfoParam[];
+    id?: number;
+    title: string;
+    state: ObjectState;
+    parameters?: IFacilityInfoParam[];
+    isActive?: boolean; // no back
 }
 
 export interface ITankInfo {
-    parameters: ITankInfoParam[];
+    id?: number;
+    title: string;
+    state: ObjectState;
+    parameters?: ITankInfoParam[];
+    isActive?: boolean; // no back
 }
 
 export interface ITankInfoParam {
     title: string;
     value: string;
     unit: string;
-    priority?: number;
+    priority?: number; // no back
 }
 
 export interface IFacilityInfoParam {
     id: number;
     title: string;
-    isActive?: boolean;
+    isActive?: boolean; // no back
 }
+
+// TODO add real list
+export type ObjectState = 'vverh-arrow' | 'Remont' | 'Otstoy' | 'two-arrow' | 'vniz-arrow';
 
 

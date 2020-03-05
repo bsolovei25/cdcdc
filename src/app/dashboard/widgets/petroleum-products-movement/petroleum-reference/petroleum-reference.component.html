@@ -4,13 +4,13 @@
       <ng-container *ngFor="let item of title">
         <div class="title_block">
           <div class="title">
-            {{ item.name }}
+            {{ item }}
           </div>
         </div>
       </ng-container>
     </div>
     <div class="reference_values">
-      <ng-container *ngFor="let item of data">
+      <ng-container *ngFor="let item of operations">
         <div class="values_block">
           <ng-container *ngFor="let key of objectKeys(item)">
             <ng-container *ngIf="(key === 'finishOperation') || (key === 'startOperation')">
@@ -18,7 +18,7 @@
                 <div class="values">
                   <div class="value">
                     <div class="date">
-                      {{ item[key].date }} | {{ item[key].time }}
+                      {{ item[key].datetime | date:'dd.MM.yyyy | hh:mm:ss' }}
                     </div>
                     <div class="operator">
                       {{ item[key].operator }}
@@ -66,13 +66,13 @@
         <ng-container *ngFor="let item of title">
           <div class="title_block">
             <div class="title">
-              {{ item.name }}
+              {{ item }}
             </div>
           </div>
         </ng-container>
       </div>
       <div class="reference_values_short">
-        <ng-container *ngFor="let item of data">
+        <ng-container *ngFor="let item of operations">
           <div class="values_block">
             <ng-container *ngFor="let key of objectKeys(item)">
               <ng-container *ngIf="(key === 'finishOperation') || (key === 'startOperation')">
@@ -80,7 +80,7 @@
                   <div class="values">
                     <div class="value">
                       <div class="date">
-                        {{ item[key].date }} | {{ item[key].time }}
+                        {{ item[key].datetime | date:'dd.MM.yyyy | hh:mm:ss' }}
                       </div>
                       <div class="operator">
                         {{ item[key].operator }}
@@ -135,7 +135,6 @@
       >
       </svg-icon>
     </div>
-    <!---UNITY--->
     <div class="illustration_widget_param">
       <div class="illustration_widget_param__title">Характеритики резервуара</div>
       <div class="illustration_widget_param__unity">
@@ -203,55 +202,3 @@
     </div>
   </div>
 </div>
-
-<!-- <div class="shortReference" *ngIf="!shortHeight">
-  <div class="reference_title">
-    <ng-container *ngFor="let item of title">
-      <div class="title_block">
-        <div class="title">
-          {{ item.name }}
-        </div>
-      </div>
-    </ng-container>
-  </div>
-  <div class="reference_values">
-    <ng-container *ngFor="let item of data">
-      <div class="values_block">
-        <ng-container *ngFor="let key of objectKeys(item)">
-          <ng-container *ngIf="(key === 'finishOperation') || (key === 'startOperation')">
-            <ng-container *ngIf="objectEntries(item[key]).length !== 0">
-              <div class="values">
-                <div class="value">
-                  <div class="date">
-                    {{ item[key].date }} | {{ item[key].time }}
-                  </div>
-                  <div class="operator">
-                    {{ item[key].operator }}
-                  </div>
-                </div>
-              </div>
-            </ng-container>
-            <ng-container *ngIf="objectEntries(item[key]).length === 0">
-              <div class="values">
-                <div class="value">
-                  <svg-icon
-                    src="./assets/icons/widgets/petroleum-products-movement/Voskl.svg"
-                    [svgStyle]="{ 'width.px':15, 'height.px':15 }"
-                  >
-                  </svg-icon>
-                </div>
-              </div>
-            </ng-container>
-          </ng-container>
-          <ng-container *ngIf="(key !== 'finishOperation') && (key !== 'startOperation')">
-            <div class="values">
-              <div class="value">
-                {{ item[key] }}
-              </div>
-            </div>
-          </ng-container>
-        </ng-container>
-      </div>
-    </ng-container>
-  </div>
-</div> -->

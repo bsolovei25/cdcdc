@@ -32,7 +32,8 @@ export class PetroleumUnityComponent implements OnInit, AfterViewInit, OnDestroy
     ngOnInit(): void {}
 
     ngAfterViewInit(): void {
-        this.InitUnity();
+        // for animation no lags
+        setTimeout(() => this.InitUnity(), 200);
     }
 
     ngOnDestroy(): void {

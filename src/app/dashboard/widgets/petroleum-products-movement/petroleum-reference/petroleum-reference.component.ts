@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { transition, trigger, animate, style } from '@angular/animations';
+import {IOperation} from '../../../models/petroleum-products-movement.model';
 
 @Component({
     selector: 'evj-petroleum-reference',
@@ -9,13 +10,13 @@ import { transition, trigger, animate, style } from '@angular/animations';
         trigger('leaveAnimation', [
             transition(':leave', [
                 style({ transform: 'translateY(0%)' }),
-                animate('1000ms', style({ transform: 'translateY(55%)' })),
+                animate('200ms', style({ transform: 'translateY(60%)' })),
             ]),
         ]),
         trigger('enterAnimation', [
             transition(':enter', [
                 style({ transform: 'translateY(20%)' }),
-                animate('1000ms', style({ transform: 'translateY(0%)' })),
+                animate('200ms', style({ transform: 'translateY(0%)' })),
             ]),
         ]),
     ],
@@ -27,45 +28,26 @@ export class PetroleumReferenceComponent implements OnInit {
 
     @Output() exitBlock: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    public title = [
-        {
-            name: 'Источник',
-        },
-        {
-            name: 'Приемник',
-        },
-        {
-            name: 'Продукт по источнику',
-        },
-        {
-            name: 'Продукт по приемнику',
-        },
-        {
-            name: 'Начало операции',
-        },
-        {
-            name: 'Конец операции',
-        },
-        {
-            name: 'Масса операции по источнику',
-        },
-        {
-            name: 'Масса операции по приемнику',
-        },
-        {
-            name: 'Отклонение',
-        },
+    public title: string[] = [
+        'Источник',
+        'Приемник',
+        'Продукт по источнику',
+        'Продукт по приемнику',
+        'Начало операции',
+        'Конец операции',
+        'Масса операции по источнику',
+        'Масса операции по приемнику',
+        'Отклонение',
     ];
 
-    public data = [
+    public operations: IOperation[] = [
         {
             source: 'Резервуар 503',
             receiver: 'ЭЛОУ-2',
             productSource: 'Нефть сырая',
             productReceiver: 'Нефть сырая',
             startOperation: {
-                date: '02.09.2018',
-                time: '0:01:01',
+                datetime: new Date(),
                 operator: 'Иванов И.В.',
             },
             finishOperation: {},
@@ -79,13 +61,11 @@ export class PetroleumReferenceComponent implements OnInit {
             productSource: 'Нефть сырая',
             productReceiver: 'Нефть сырая',
             startOperation: {
-                date: '02.09.2018',
-                time: '0:01:01',
+                datetime: new Date(),
                 operator: 'Иванов И.В.',
             },
             finishOperation: {
-                date: '02.09.2018',
-                time: '0:02:00',
+                datetime: new Date(),
                 operator: 'Иванов И.В.',
             },
             massSource: 47.32,
@@ -98,13 +78,11 @@ export class PetroleumReferenceComponent implements OnInit {
             productSource: 'Нефть сырая',
             productReceiver: 'Нефть сырая',
             startOperation: {
-                date: '02.09.2018',
-                time: '0:01:01',
+                datetime: new Date(),
                 operator: 'Иванов И.В.',
             },
             finishOperation: {
-                date: '02.09.2018',
-                time: '0:02:00',
+                datetime: new Date(),
                 operator: 'Иванов И.В.',
             },
             massSource: 47.32,
@@ -117,13 +95,11 @@ export class PetroleumReferenceComponent implements OnInit {
             productSource: 'Нефть сырая',
             productReceiver: 'Нефть сырая',
             startOperation: {
-                date: '02.09.2018',
-                time: '0:01:01',
+                datetime: new Date(),
                 operator: 'Иванов И.В.',
             },
             finishOperation: {
-                date: '02.09.2018',
-                time: '0:02:00',
+                datetime: new Date(),
                 operator: 'Иванов И.В.',
             },
             massSource: 47.32,
@@ -136,13 +112,11 @@ export class PetroleumReferenceComponent implements OnInit {
             productSource: 'Нефть сырая',
             productReceiver: 'Нефть сырая',
             startOperation: {
-                date: '02.09.2018',
-                time: '0:01:01',
+                datetime: new Date(),
                 operator: 'Иванов И.В.',
             },
             finishOperation: {
-                date: '02.09.2018',
-                time: '0:02:00',
+                datetime: new Date(),
                 operator: 'Иванов И.В.',
             },
             massSource: 47.32,
@@ -155,13 +129,11 @@ export class PetroleumReferenceComponent implements OnInit {
             productSource: 'Нефть сырая',
             productReceiver: 'Нефть сырая',
             startOperation: {
-                date: '02.09.2018',
-                time: '0:01:01',
+                datetime: new Date(),
                 operator: 'Иванов И.В.',
             },
             finishOperation: {
-                date: '02.09.2018',
-                time: '0:02:00',
+                datetime: new Date(),
                 operator: 'Иванов И.В.',
             },
             massSource: 47.32,
@@ -174,13 +146,11 @@ export class PetroleumReferenceComponent implements OnInit {
             productSource: 'Нефть сырая',
             productReceiver: 'Нефть сырая',
             startOperation: {
-                date: '02.09.2018',
-                time: '0:01:01',
+                datetime: new Date(),
                 operator: 'Иванов И.В.',
             },
             finishOperation: {
-                date: '02.09.2018',
-                time: '0:02:00',
+                datetime: new Date(),
                 operator: 'Иванов И.В.',
             },
             massSource: 47.32,
@@ -193,13 +163,11 @@ export class PetroleumReferenceComponent implements OnInit {
             productSource: 'Нефть сырая',
             productReceiver: 'Нефть сырая',
             startOperation: {
-                date: '02.09.2018',
-                time: '0:01:01',
+                datetime: new Date(),
                 operator: 'Иванов И.В.',
             },
             finishOperation: {
-                date: '02.09.2018',
-                time: '0:02:00',
+                datetime: new Date(),
                 operator: 'Иванов И.В.',
             },
             massSource: 47.32,
@@ -212,13 +180,11 @@ export class PetroleumReferenceComponent implements OnInit {
             productSource: 'Нефть сырая',
             productReceiver: 'Нефть сырая',
             startOperation: {
-                date: '02.09.2018',
-                time: '0:01:01',
+                datetime: new Date(),
                 operator: 'Иванов И.В.',
             },
             finishOperation: {
-                date: '02.09.2018',
-                time: '0:02:00',
+                datetime: new Date(),
                 operator: 'Иванов И.В.',
             },
             massSource: 47.32,
@@ -231,13 +197,11 @@ export class PetroleumReferenceComponent implements OnInit {
             productSource: 'Нефть сырая',
             productReceiver: 'Нефть сырая',
             startOperation: {
-                date: '02.09.2018',
-                time: '0:01:01',
+                datetime: new Date(),
                 operator: 'Иванов И.В.',
             },
             finishOperation: {
-                date: '02.09.2018',
-                time: '0:02:00',
+                datetime: new Date(),
                 operator: 'Иванов И.В.',
             },
             massSource: 47.32,
@@ -250,13 +214,11 @@ export class PetroleumReferenceComponent implements OnInit {
             productSource: 'Нефть сырая',
             productReceiver: 'Нефть сырая',
             startOperation: {
-                date: '02.09.2018',
-                time: '0:01:01',
+                datetime: new Date(),
                 operator: 'Иванов И.В.',
             },
             finishOperation: {
-                date: '02.09.2018',
-                time: '0:02:00',
+                datetime: new Date(),
                 operator: 'Иванов И.В.',
             },
             massSource: 47.32,
@@ -269,13 +231,11 @@ export class PetroleumReferenceComponent implements OnInit {
             productSource: 'Нефть сырая',
             productReceiver: 'Нефть сырая',
             startOperation: {
-                date: '02.09.2018',
-                time: '0:01:01',
+                datetime: new Date(),
                 operator: 'Иванов И.В.',
             },
             finishOperation: {
-                date: '02.09.2018',
-                time: '0:02:00',
+                datetime: new Date(),
                 operator: 'Иванов И.В.',
             },
             massSource: 47.32,
@@ -288,13 +248,11 @@ export class PetroleumReferenceComponent implements OnInit {
             productSource: 'Нефть сырая',
             productReceiver: 'Нефть сырая',
             startOperation: {
-                date: '02.09.2018',
-                time: '0:01:01',
+                datetime: new Date(),
                 operator: 'Иванов И.В.',
             },
             finishOperation: {
-                date: '02.09.2018',
-                time: '0:02:00',
+                datetime: new Date(),
                 operator: 'Иванов И.В.',
             },
             massSource: 47.32,
@@ -350,8 +308,8 @@ export class PetroleumReferenceComponent implements OnInit {
         ],
     };
 
-    objectKeys = Object.keys;
-    objectEntries = Object.entries;
+    objectKeys: any = Object.keys;
+    objectEntries: any = Object.entries;
 
     constructor() {}
 
