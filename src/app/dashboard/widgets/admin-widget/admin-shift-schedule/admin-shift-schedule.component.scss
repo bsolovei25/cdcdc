@@ -121,16 +121,14 @@ p {
       justify-content: space-between;
       padding: 10px 18px;
       &-item {
-        width: 80px;
+        width: 102px;
         text-align: end;
       }
       &--active {
-        background: url("./../../../../../assets/icons/widgets/admin-shift-schedule/border-shift.svg")
-          no-repeat;
+        background: url("./../../../../../assets/icons/widgets/admin-shift-schedule/border-shift.svg") no-repeat;
       }
       &:hover {
-        background: url("./../../../../../assets/icons/widgets/admin-shift-schedule/border-shift.svg")
-          no-repeat;
+        background: url("./../../../../../assets/icons/widgets/admin-shift-schedule/border-shift.svg") no-repeat;
       }
     }
 
@@ -248,11 +246,11 @@ p {
   margin: 20px;
 }
 ::-webkit-scrollbar-track-piece {
-  border: solid 1px var(--color-border-active);
+  border: solid 0.5px var(--color-border-main);
   border-radius: 25px;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: var(--color-border-active);
+  background-color: var(--color-border-main);
   border-radius: 25px;
 }
 ::-webkit-scrollbar-corner {
@@ -260,6 +258,6 @@ p {
   border-radius: 25px;
 }
 ::-webkit-resizer {
-  background-color: var(--color-border-active);
+  background-color: var(--color-border-main);
   border-radius: 25px;
 }

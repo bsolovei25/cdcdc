@@ -38,10 +38,21 @@ export class AdminShiftScheduleService {
         }
     }
 
-    async getBrigade(): Promise<IBrigadeWithUsersDto[]> {
+    async getBrigades(): Promise<IBrigadeWithUsersDto[]> {
         try {
             return this.http
                 .get<IBrigadeWithUsersDto[]>(this.restUrl + `/api/user-management/brigades`)
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async getBrigadesSubstitution(): Promise<IBrigadeWithUsersDto> {
+        try {
+            return this.http
+                .get<IBrigadeWithUsersDto>(this.restUrl
+                    + `/api/user-management/brigade/substitution`)
                 .toPromise();
         } catch (error) {
             console.error(error);

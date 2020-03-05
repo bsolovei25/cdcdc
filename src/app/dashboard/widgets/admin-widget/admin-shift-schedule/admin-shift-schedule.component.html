@@ -16,14 +16,13 @@
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
   >
-    <div class="block-top" *ngIf="scheduleShiftMonth.length > 0">
+    <div class="block-top" *ngIf="scheduleShiftMonth.length">
       <section class="calendar">
         <mat-calendar
           #calendar
           [dateClass]="dateClass()"
           [(selected)]="selectedDay.date"
           (selectedChange)="dateChanged($event)"
-          (monthSelected)="dateChanged($event)"
           ngClass="calendar-red"
           locale="ru"
         ></mat-calendar>
@@ -35,7 +34,7 @@
         <p class="title">Основной состав бригады</p>
         <div class="main-team__container">
           <ul class="list">
-            <li *ngFor="let i of selectedShift.shiftMembers;">
+            <li *ngFor="let i of filterShiftMembers(selectedShift.shiftMembers);">
               <evj-worker-card
                 class="insert-component"
                 [isSmallCard]="true"
@@ -55,16 +54,16 @@
           </p>
         </div>
         <div class="shift-yesterday" *ngFor="let i of yesterday.items; let idx = index">
-          <p>{{ idx + 1 }} смена</p>
+          <p>3 смена</p>
           <p>{{ i.start | date:'HH' }} - {{ i.end | date:'HH' }}</p>
           <p *ngIf="i.brigadeName" class="shift-today-item">Бригада {{ i.brigadeName }}</p>
-          <p *ngIf="!i.brigadeName" class="shift-today-item">Назначить</p>
+          <p *ngIf="!i.brigadeName" class="shift-today-item">Не назначено</p>
         </div>
         <div class="date-today"><p>{{ selectedDay.date | date:'d MMMM yyyy' }}</p></div>
         <div
-          class="shift-today"
-          [class.shift-today--active]="selectedShift === shift"
           *ngFor="let shift of selectedDay.items; let idx = index"
+          class="shift-today"
+          [class.shift-today--active]="selectedShift?.id === shift.id"
           (click)="selectShift(shift)"
         >
           <p>{{ idx + 1 }} смена</p>
@@ -86,7 +85,7 @@
         </div>
         <div class="shift-overlay" #shiftOverlay>
           <ul>
-            <li (click)="openOverlay($event, null, false)">
+            <li (click)="deleteBrigadeFromShift()">
               <svg-icon
                 class="icon"
                 [svgStyle]="{'width.px':10,'fill':'rgb(150,50,255)','padding.px':1,'margin.px':3}"
@@ -102,11 +101,15 @@
           </ul>
         </div>
       </section>
-      <section class="additional-team" *ngIf="selectedBrigade && allBrigade && allBrigade[4] ">
+      <section
+        class="additional-team"
+        *ngIf="selectedShift && selectedShift.shiftMembers 
+        && selectedShift.shiftMembers.length > 0 && brigadesSubstitution"
+      >
         <p class="title">Дополнительный состав бригады</p>
         <div class="additional-team__container">
           <ul class="list">
-            <li *ngFor="let user of allBrigade[4].users">
+            <li *ngFor="let user of brigadesSubstitution.users">
               <evj-worker-card
                 (click)="onClickCard(user)"
                 [active]="activeUsers.isSelected(user)"

@@ -21,29 +21,13 @@ import {
     IBrigadeWithUsersDto,
     IScheduleShiftDay,
     IScheduleShift,
+    IShiftMember,
 } from '../../../models/admin-shift-schedule';
 import { fillDataShape } from '../../../../@shared/common-functions';
 import { MatCalendar } from '@angular/material/datepicker';
 
 export interface IAdminShiftSchedule {
     worker: IWorker[];
-}
-
-interface IDay {
-    date: Date;
-    isUnassigned: boolean;
-    shift: {
-        id: number;
-        title: string;
-        timeStart: Date;
-        timeEnd: Date;
-    }[];
-}
-
-interface IBrigade {
-    id: number;
-    number: string;
-    user: IUser[];
 }
 
 @Component({
@@ -67,16 +51,21 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
 
     selectedDay: IScheduleShiftDay = {
         date: new Date(),
-        isAllShiftsSet: false,
+        isAllShiftsSet: true,
         items: [],
     };
     yesterday: IScheduleShiftDay;
 
     selectedShift: IScheduleShift;
     selectedBrigade: IBrigadeWithUsersDto;
+    buttons;
 
     scheduleShiftMonth: IScheduleShiftDay[] = [];
+
     allBrigade: IBrigadeWithUsersDto[] = [];
+    brigadesSubstitution: IBrigadeWithUsersDto;
+
+    nextAndPreviousMonthVar;
 
     @ViewChild('shiftOverlay', { static: false }) shiftOverlay: ElementRef;
     @ViewChild('calendar') calendar: MatCalendar<Date>;
@@ -103,23 +92,23 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
     }
 
     ngAfterContentChecked(): void {
-        const buttons = document.querySelectorAll(
+        this.buttons = document.querySelectorAll(
             '.mat-calendar-previous-button, .mat-calendar-next-button'
         );
-        if (buttons) {
-            buttons.forEach((button) => {
-                this.renderer.listen(button, 'click', () => {
-                    if (this.calendar?.activeDate) {
-                        if (button.getAttribute('aria-label') === 'Next month') {
-                            this.nextMonth();
-                        } else {
-                            this.nextPrevious();
+        if (this.buttons && !this.nextAndPreviousMonthVar) {
+            this.buttons.forEach((button) => {
+                if (button.getAttribute('aria-label') === 'Previous month'
+                    || button.getAttribute('aria-label') === 'Next month') {
+                    this.nextAndPreviousMonthVar = this.renderer.listen(button, 'click', () => {
+                        if (this.calendar?.activeDate) {
+                            this.nextAndPreviousMonth();
                         }
-                    }
-                });
+                    });
+                }
             });
         }
     }
+
 
     ngOnDestroy(): void {
         if (this.subscription) {
@@ -127,46 +116,22 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
         }
     }
 
-    resetComponent(): void {
+    private resetComponent(): void {
         this.yesterday = null;
         this.selectedShift = null;
         this.selectedBrigade = null;
         this.activeUsers.clear();
     }
 
-    nextMonth(): void {
+    private async nextAndPreviousMonth(): Promise<void> {
         if (this.calendar.activeDate !== this.dateNow) {
-            this.adminShiftScheduleService
-                .getSchudeleShiftsMonth(
-                    this.calendar.activeDate.getMonth() + 1,
-                    this.calendar.activeDate.getFullYear()
-                )
-                .then((data) => {
-                    this.scheduleShiftMonth = data;
-                });
             this.dateNow = this.calendar.activeDate;
+            this.reLoadDataMonth();
         }
     }
 
-    nextPrevious(): void {
-        if (this.calendar.activeDate !== this.dateNow) {
-            this.adminShiftScheduleService
-                .getSchudeleShiftsMonth(
-                    this.calendar.activeDate.getMonth() + 1,
-                    this.calendar.activeDate.getFullYear()
-                )
-                .then((data) => {
-                    this.scheduleShiftMonth = data;
-                });
-            this.dateNow = this.calendar.activeDate;
-            // console.log(this.calendar.dateClass);
-            // this.dateClass(this.calendar.dateClass);
-        }
-    }
-
-    dateChanged(event: Date): void {
+    public dateChanged(event: Date): void {
         this.resetComponent();
-        this.loadItem();
         const idx = this.scheduleShiftMonth.findIndex(
             (val) => new Date(val.date).getDate() === new Date(event).getDate()
         );
@@ -181,94 +146,127 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
             const idxYesterday = this.scheduleShiftMonth.findIndex(
                 (val) => new Date(val.date).getDate() === new Date(yesterdayLocal).getDate()
             );
-            if (idxYesterday) {
+            if (idxYesterday !== -1) {
                 const yesterdayLocals = fillDataShape(this.scheduleShiftMonth[idxYesterday]);
                 this.yesterday = yesterdayLocals;
                 this.yesterday.items = [this.yesterday.items[this.yesterday.items.length - 1]];
             }
         }
-    }
-
-    onClickCard(user: IUser): void {
-        if (this.activeUsers.isSelected(user)) {
-            this.activeUsers.deselect(user);
-        } else {
-            this.activeUsers.select(user);
-            this.adminShiftScheduleService.postMemberFromBrigade(this.selectedShift.id, user.id);
+        if (this.calendar) {
+            this.calendar.updateTodaysDate();
         }
     }
 
-    onChooseBrigade(brigade: IBrigadeWithUsersDto, selectedDay: IScheduleShiftDay): void {
-        this.selectedBrigade = brigade;
+    public async onClickCard(user: IUser): Promise<void> {
+        if (this.activeUsers.isSelected(user)) {
+            await this.adminShiftScheduleService
+                .deleteMemberFromBrigade(this.selectedShift.id, user.id);
+            this.activeUsers.deselect(user);
+        } else {
+            await this.adminShiftScheduleService
+                .postMemberFromBrigade(this.selectedShift.id, user.id);
+            this.activeUsers.select(user);
+        }
+    }
 
-        this.adminShiftScheduleService.postSelectBrigade(this.selectedShift.id, brigade.brigadeId);
+    public async onChooseBrigade(brigade: IBrigadeWithUsersDto, selectedDay: IScheduleShiftDay)
+        : Promise<void> {
+        this.openOverlay(null, null, false);
+        this.selectedBrigade = brigade;
         this.selectShift(this.selectedShift);
-        this.adminShiftScheduleService
-            .getSchudeleShiftsMonth(this.dateNow.getMonth() + 1, this.dateNow.getFullYear())
-            .then((data) => {
-                this.scheduleShiftMonth = data;
-                this.calendar.dateClass = this.dateClass;
-            });
+        await this.adminShiftScheduleService
+            .postSelectBrigade(this.selectedShift.id, brigade.brigadeId);
+        this.reLoadDataMonth();
         selectedDay.items.find((value) => {
             if (value.id === this.selectedShift.id) {
                 value.brigadeId = brigade.brigadeId;
                 value.brigadeName = brigade.brigadeNumber;
-                this.openOverlay(null, null, false);
-                this.calendar.dateClass = this.dateClass;
+                if (this.calendar) {
+                    this.calendar.updateTodaysDate();
+                }
             }
         });
     }
 
-    openOverlay(event: MouseEvent, shift: IScheduleShift, isOpen: boolean): void {
+    async deleteBrigadeFromShift(): Promise<void> {
+        await this.adminShiftScheduleService.deleteBrigade(this.selectedShift.id);
+        const sh = this.selectedDay.items.find(
+            (val) => val.id === this.selectedShift.id
+        );
+        this.openOverlay(null, null, false);
+        if (sh) {
+            sh.brigadeName = null;
+            sh.brigadeId = null;
+            this.reLoadDataMonth();
+        }
+    }
+
+    public openOverlay(event: MouseEvent, shift: IScheduleShift, isOpen: boolean): void {
         if (this.shiftOverlay?.nativeElement) {
             if (isOpen) {
                 this.selectedShift = shift;
                 this.renderer.setStyle(this.shiftOverlay.nativeElement, 'display', 'block');
             } else {
-                if (event && !shift) {
-                    this.adminShiftScheduleService.deleteBrigade(this.selectedShift.id);
-                    const sh = this.selectedDay.items.find(
-                        (val) => val.id === this.selectedShift.id
-                    );
-                    sh.brigadeName = null;
-                    this.selectedShift.brigadeId = null;
-                    this.selectedShift.brigadeName = null;
-                    this.calendar.dateClass = this.dateClass;
-                }
                 this.renderer.setStyle(this.shiftOverlay.nativeElement, 'display', 'none');
             }
         }
     }
 
-    dateClass(): (d: Date) => string {
+    public dateClass(): (d: Date) => string {
         return (date: Date) => {
             let str: string = '';
             this.scheduleShiftMonth.forEach((value) => {
-                if (date.getDate() === new Date(value.date).getDate()) {
+                if (date.getMonth() === new Date(value.date).getMonth()
+                    && date.getDate() === new Date(value.date).getDate()
+                    && date.getFullYear() === new Date(value.date).getFullYear()) {
                     if (!value.isAllShiftsSet) {
                         str = 'special-date';
                     }
                 }
             });
             return str;
+
         };
+    }
+
+    public filterShiftMembers(shiftMembers: IShiftMember[]): IShiftMember[] {
+        this.brigadesSubstitution.users.forEach(user => {
+            shiftMembers = shiftMembers.filter((member) => member.employee.id !== user.id);
+        });
+        return shiftMembers;
+    }
+
+
+    private async reLoadDataMonth(): Promise<void> {
+        await this.adminShiftScheduleService
+            .getSchudeleShiftsMonth(this.dateNow.getMonth() + 1, this.dateNow.getFullYear())
+            .then((data) => {
+                if (data && data.length > 0) {
+                    this.scheduleShiftMonth = data;
+                    if (this.calendar) {
+                        this.calendar.updateTodaysDate();
+                    }
+                } else {
+                    this.resetComponent();
+                }
+            });
     }
 
     // #region DATA API
 
-    async loadItem(): Promise<void> {
+    public async loadItem(): Promise<void> {
         const dataLoadQueue: Promise<void>[] = [];
-        const dateNow = new Date();
         dataLoadQueue.push(
-            this.adminShiftScheduleService
-                .getSchudeleShiftsMonth(dateNow.getMonth() + 1, dateNow.getFullYear())
-                .then((data) => {
-                    this.scheduleShiftMonth = data;
-                })
+            this.reLoadDataMonth()
         );
         dataLoadQueue.push(
-            this.adminShiftScheduleService.getBrigade().then((data) => {
+            this.adminShiftScheduleService.getBrigades().then((data) => {
                 this.allBrigade = data;
+            })
+        );
+        dataLoadQueue.push(
+            this.adminShiftScheduleService.getBrigadesSubstitution().then((data) => {
+                this.brigadesSubstitution = data;
             })
         );
 
@@ -283,23 +281,29 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
 
     // #endregion
 
-    selectShift(shift: IScheduleShift): void {
-        this.adminShiftScheduleService.getSchudeleShift(shift.id).then((data) => {
+    public async selectShift(shift: IScheduleShift): Promise<void> {
+        await this.adminShiftScheduleService.getSchudeleShift(shift.id).then((data) => {
             this.selectedShift = data;
+        });
+        this.selectedShift.shiftMembers.forEach(member => {
+            this.brigadesSubstitution.users.forEach(user => {
+                if (user.id === member.employeeId) {
+                    this.activeUsers.select(user);
+                }
+            });
         });
     }
 
-    filterBrigade(brigadeUsers: IBrigadeWithUsersDto[]): IBrigadeWithUsersDto[] {
+    public filterBrigade(brigadeUsers: IBrigadeWithUsersDto[]): IBrigadeWithUsersDto[] {
         this.selectedDay.items.forEach((shift) => {
             brigadeUsers = brigadeUsers.filter(
-                // TOFIX  игнорит 5 бригаду
-                (val) => val.brigadeId !== shift.brigadeId && val.brigadeNumber !== '5'
+                (val) => val.brigadeId !== shift.brigadeId
             );
         });
         return brigadeUsers;
     }
 
-    setRus(): void {
+    public setRus(): void {
         this.dateAdapter.setLocale('ru');
         this.dateAdapter.getFirstDayOfWeek = () => {
             return 1;
