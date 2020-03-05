@@ -116,6 +116,7 @@ export class ManualInputService {
             let el = this.GetElementById(ids.trueValues[i], data);
             el.isEdit = true;
             el.isSave = true;
+            el.isError = false;
             el.saveValue = el.curValue;
             this.saveBar('Сохранено', false);
         }
