@@ -1,0 +1,128 @@
+<evj-widget-preview
+  [title]="title"
+  [previewTitle]="previewTitle"
+  *ngIf="isMock"
+></evj-widget-preview>
+
+<div class="container pointer-event" *ngIf="!isMock">
+  <evj-widget-header [title]="title" [id]="id" [units]="" [uniqId]="uniqId"></evj-widget-header>
+
+  <div></div>
+
+  <evj-frame-top></evj-frame-top>
+
+  <div
+    class="content"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="block-top" *ngIf="scheduleShiftMonth.length">
+      <section class="calendar">
+        <mat-calendar
+          #calendar
+          [dateClass]="dateClass()"
+          [(selected)]="selectedDay.date"
+          (selectedChange)="dateChanged($event)"
+          ngClass="calendar-red"
+          locale="ru"
+        ></mat-calendar>
+      </section>
+      <section
+        class="main-team"
+        *ngIf="selectedShift && selectedShift.shiftMembers && selectedShift.shiftMembers.length > 0"
+      >
+        <p class="title">Основной состав бригады</p>
+        <div class="main-team__container">
+          <ul class="list">
+            <li *ngFor="let i of filterShiftMembers(selectedShift.shiftMembers);">
+              <evj-worker-card
+                class="insert-component"
+                [isSmallCard]="true"
+                [person]="i.employee"
+              ></evj-worker-card>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </div>
+    <div class="block-bottom" *ngIf="selectedDay && yesterday">
+      <section class="duty-schedule">
+        <div class="title"><p>График дежурств</p></div>
+        <div class="date-yesterday">
+          <p>
+            {{ yesterday.date | date:'d MMMM' }} - {{ selectedDay.date | date:'d MMMM yyyy' }}
+          </p>
+        </div>
+        <div class="shift-yesterday" *ngFor="let i of yesterday.items; let idx = index">
+          <p>3 смена</p>
+          <p>{{ i.start | date:'HH' }} - {{ i.end | date:'HH' }}</p>
+          <p *ngIf="i.brigadeName" class="shift-today-item">Бригада {{ i.brigadeName }}</p>
+          <p *ngIf="!i.brigadeName" class="shift-today-item">Не назначено</p>
+        </div>
+        <div class="date-today"><p>{{ selectedDay.date | date:'d MMMM yyyy' }}</p></div>
+        <div
+          *ngFor="let shift of selectedDay.items; let idx = index"
+          class="shift-today"
+          [class.shift-today--active]="selectedShift?.id === shift.id"
+          (click)="selectShift(shift)"
+        >
+          <p>{{ idx + 1 }} смена</p>
+          <p>{{ shift.start | date:'HH' }} - {{ shift.end | date:'HH' }}</p>
+          <p
+            *ngIf="!shift.brigadeId"
+            class="btn shift-today-item"
+            (click)="openOverlay($event, shift, true)"
+          >
+            Назначить
+          </p>
+          <p
+            *ngIf="shift.brigadeId"
+            class="btn shift-today-item"
+            (click)="openOverlay($event, shift, true)"
+          >
+            Бригада {{ shift.brigadeName }}
+          </p>
+        </div>
+        <div class="shift-overlay" #shiftOverlay>
+          <ul>
+            <li (click)="deleteBrigadeFromShift()">
+              <svg-icon
+                class="icon"
+                [svgStyle]="{'width.px':10,'fill':'rgb(150,50,255)','padding.px':1,'margin.px':3}"
+                src="./assets/icons/widgets/admin-shift-schedule/close.svg"
+              ></svg-icon>
+            </li>
+            <li
+              *ngFor="let b of filterBrigade(allBrigade);"
+              (click)="onChooseBrigade(b, selectedDay)"
+            >
+              Бригада {{ b.brigadeNumber }}
+            </li>
+          </ul>
+        </div>
+      </section>
+      <section
+        class="additional-team"
+        *ngIf="selectedShift && selectedShift.shiftMembers 
+        && selectedShift.shiftMembers.length > 0 && brigadesSubstitution"
+      >
+        <p class="title">Дополнительный состав бригады</p>
+        <div class="additional-team__container">
+          <ul class="list">
+            <li *ngFor="let user of brigadesSubstitution.users">
+              <evj-worker-card
+                (click)="onClickCard(user)"
+                [active]="activeUsers.isSelected(user)"
+                class="insert-component"
+                [isSmallCard]="true"
+                [person]="user"
+              ></evj-worker-card>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <evj-frame-bottom></evj-frame-bottom>
+</div>

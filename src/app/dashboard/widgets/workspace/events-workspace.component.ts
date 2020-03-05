@@ -653,8 +653,10 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         msgDuration: number = 500,
         actionText?: string,
         actionFunction?: () => void
-    ): void {
-        const snackBarInstance = this.snackBar.open(msg, actionText, { duration: msgDuration });
+    ) {
+        const snackBarInstance = this.snackBar.open(msg, actionText, {
+            duration: msgDuration,
+        });
         if (actionFunction) {
             snackBarInstance.onAction().subscribe(() => actionFunction());
         }

@@ -17,7 +17,11 @@ const routes: Routes = [
                 canActivateChild: [AuthenticationGuard],
                 data: { animation: 'dashboard' },
             },
-            { path: 'login', component: LoginComponent, data: { animation: 'login' } },
+            {
+                path: 'login',
+                component: LoginComponent,
+                data: { animation: 'login' },
+            },
             { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
         ],
     },
