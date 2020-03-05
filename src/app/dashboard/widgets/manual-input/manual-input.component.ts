@@ -107,7 +107,7 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
         this.http
             .get(this.restUrl + '/api/manualinput/ManualInputData/' + this.id)
             .subscribe((ref: IMachine_MI[]) => {
-                this.Data = this.manualInputService.LoadData(this.Data, ref);
+                this.loadSaveData(ref);
             });
     }
 
@@ -139,18 +139,20 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
         }
     }
 
-    async loadSaveData(param) {
-        let indexMachine: number = 0;
-        //const param = await this.widgetSettingsService.getSettings(this.uniqId);
-        for (let itemDate of this.Data) {
-            indexMachine++;
-            for (let itemSaveDate of param) {
-                if (itemDate.name === itemSaveDate.name) {
-                    this.Data[indexMachine - 1].open = itemSaveDate.open;
-                    this.Data[indexMachine - 1].active = itemSaveDate.active;
-                }
-            }
+    async loadSaveData(data: IMachine_MI[]): Promise<void> {
+        const settings: IMachine_MI[] = await this.widgetSettingsService.getSettings(this.uniqId);
+        for (const itemDate of data) {
+            itemDate.open = settings.find(el => el.name === itemDate.name).open;
+            itemDate.active = settings.find(el => el.name === itemDate.name).active;
+            // for (const itemSaveDate of settings) {
+            //     if (itemDate.name === itemSaveDate.name) {
+            //         itemDate.open = itemSaveDate.open;
+            //         itemDate.active = itemSaveDate.active;
+            //     }
+            // }
         }
+        this.Data = this.manualInputService.LoadData(this.Data, data);
+        console.log(this.Data);
     }
 
     onScroll(event) {
