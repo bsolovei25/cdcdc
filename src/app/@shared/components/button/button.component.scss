@@ -1,0 +1,340 @@
+.button {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  padding: 0;
+  background: transparent;
+
+  position: relative;
+  color: var(--color-border-search);
+  border: 1px solid var(--color-border-search);
+  padding: 0 10px;
+
+  &__frame {
+    position: absolute;
+    z-index: 2;
+    height: 100%;
+    width: 10px;
+    box-sizing: border-box;
+    top: 0px;
+    background: transparent;
+
+    &-left {
+      left: 0px;
+
+      &::after {
+        content: "";
+
+        width: 10px;
+        height: 10px;
+
+        box-sizing: border-box;
+        border-bottom: 1px solid var(--color-border-search);
+
+        background: var(--color-bg-main);
+
+        position: absolute;
+        left: -5px;
+        top: -5px;
+
+        transform: rotate(-45deg);
+      }
+
+      &::before {
+        content: "";
+
+        width: 10px;
+        height: 10px;
+
+        box-sizing: border-box;
+        border-top: 1px solid var(--color-border-search);
+
+        background: var(--color-bg-main);
+
+        position: absolute;
+        left: -5px;
+        bottom: -5px;
+
+        transform: rotate(45deg);
+      }
+    }
+
+    &-right {
+      right: 0px;
+
+      &::after {
+        content: "";
+
+        width: 10px;
+        height: 10px;
+
+        box-sizing: border-box;
+        border-bottom: 1px solid var(--color-border-search);
+
+        background: var(--color-bg-main);
+
+        position: absolute;
+        right: -5px;
+        top: -5px;
+
+        transform: rotate(45deg);
+      }
+
+      &::before {
+        content: "";
+
+        width: 10px;
+        height: 10px;
+
+        box-sizing: border-box;
+        border-top: 1px solid var(--color-border-search);
+
+        background: var(--color-bg-main);
+
+        position: absolute;
+        right: -5px;
+        bottom: -5px;
+
+        transform: rotate(-45deg);
+      }
+    }
+
+    &-normal {
+      position: absolute;
+      z-index: 3;
+      height: 100%;
+      width: 20px;
+      box-sizing: border-box;
+      top: 0px;
+      background: transparent;
+      border: 2px solid var(--color-border-search);
+
+      &-left {
+        left: 0px;
+        border-right: none;
+
+        &::after {
+          content: "";
+
+          width: 10px;
+          height: 10px;
+
+          box-sizing: border-box;
+          border-bottom: 3px solid var(--color-border-search);
+
+          background: var(--color-bg-main);
+
+          position: absolute;
+          left: -6px;
+          top: -6px;
+
+          transform: rotate(-45deg);
+        }
+
+        &::before {
+          content: "";
+
+          width: 10px;
+          height: 10px;
+
+          box-sizing: border-box;
+          border-top: 3px solid var(--color-border-search);
+
+          background: var(--color-bg-main);
+
+          position: absolute;
+          left: -6px;
+          bottom: -6px;
+
+          transform: rotate(45deg);
+        }
+      }
+
+      &-right {
+        right: 0px;
+        border-left: none;
+
+        &::after {
+          content: "";
+
+          width: 10px;
+          height: 10px;
+
+          box-sizing: border-box;
+          border-bottom: 3px solid var(--color-border-search);
+
+          background: var(--color-bg-main);
+
+          position: absolute;
+          right: -6px;
+          top: -6px;
+
+          transform: rotate(45deg);
+        }
+
+        &::before {
+          content: "";
+
+          width: 10px;
+          height: 10px;
+
+          box-sizing: border-box;
+          border-top: 3px solid var(--color-border-search);
+
+          background: var(--color-bg-main);
+
+          position: absolute;
+          right: -6px;
+          bottom: -6px;
+
+          transform: rotate(-45deg);
+        }
+      }
+    }
+  }
+
+  // &__normal {
+  //   .button {
+  //     &__frame {
+  //       position: absolute;
+  //       z-index: 3;
+  //       height: 100%;
+  //       width: 20px;
+  //       box-sizing: border-box;
+  //       top: 0px;
+  //       background: transparent;
+  //       border: 2px solid var(--color-border-search);
+
+  //       &-left {
+  //         left: 0px;
+  //         border-right: none;
+
+  //         &::after {
+  //           content: "";
+
+  //           width: 10px;
+  //           height: 10px;
+
+  //           box-sizing: border-box;
+  //           border-bottom: 3px solid var(--color-border-search);
+
+  //           background: var(--color-bg-main);
+
+  //           position: absolute;
+  //           left: -6px;
+  //           top: -6px;
+
+  //           transform: rotate(-45deg);
+  //         }
+
+  //         &::before {
+  //           content: "";
+
+  //           width: 10px;
+  //           height: 10px;
+
+  //           box-sizing: border-box;
+  //           border-top: 3px solid var(--color-border-search);
+
+  //           background: var(--color-bg-main);
+
+  //           position: absolute;
+  //           left: -6px;
+  //           bottom: -6px;
+
+  //           transform: rotate(45deg);
+  //         }
+  //       }
+
+  //       &-right {
+  //         right: 0px;
+  //         border-left: none;
+
+  //         &::after {
+  //           content: "";
+
+  //           width: 10px;
+  //           height: 10px;
+
+  //           box-sizing: border-box;
+  //           border-bottom: 3px solid var(--color-border-search);
+
+  //           background: var(--color-bg-main);
+
+  //           position: absolute;
+  //           right: -6px;
+  //           top: -6px;
+
+  //           transform: rotate(45deg);
+  //         }
+
+  //         &::before {
+  //           content: "";
+
+  //           width: 10px;
+  //           height: 10px;
+
+  //           box-sizing: border-box;
+  //           border-top: 3px solid var(--color-border-search);
+
+  //           background: var(--color-bg-main);
+
+  //           position: absolute;
+  //           right: -6px;
+  //           bottom: -6px;
+
+  //           transform: rotate(-45deg);
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
+
+  &__icon {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      height: 27px;
+      width: 27px;
+    }
+  }
+
+  &-active {
+    cursor: pointer;
+    color: var(--color-text-main);
+    border-color: var(--color-border-active);
+    background: var(--color-bg-active);
+
+    .button {
+      &__frame {
+        &-left,
+        &-right {
+          &::after,
+          &::before {
+            border-color: var(--color-border-active);
+          }
+        }
+      }
+
+      &__frame-normal {
+        border-color: var(--color-border-active);
+
+        &-left,
+        &-right {
+          &::after,
+          &::before {
+            border-color: var(--color-border-active);
+          }
+        }
+      }
+    }
+  }
+
+  &:focus {
+    outline: none;
+  }
+}

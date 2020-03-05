@@ -1,0 +1,120 @@
+<evj-widget-preview
+  [title]="title"
+  [previewTitle]="previewTitle"
+  *ngIf="isMock"
+></evj-widget-preview>
+
+<div class="container pointer-event" *ngIf="!isMock">
+  <evj-widget-header
+    [title]="title"
+    [units]="units"
+    [code]=""
+    [id]="id"
+    [uniqId]="uniqId"
+  ></evj-widget-header>
+
+  <evj-frame-top></evj-frame-top>
+
+  <ng-container>
+    <div class="admin">
+      <div class="admin__header">
+        <div class="header__search">
+          <div class="search">
+            <evj-input
+              class="insert-component"
+              [placeholder]="'Введите ФИО сотрудника'"
+            ></evj-input>
+          </div>
+          <div class="group__button">
+            <evj-button
+              class="insert-component"
+              [isSmallButton]="true"
+              [imgSrc]="groupsButtonIcon"
+            ></evj-button>
+          </div>
+
+          <div class="group__button">
+            <evj-button
+              class="insert-component"
+              [isSmallButton]="true"
+              [imgSrc]="newHumanButtonIcon"
+            ></evj-button>
+          </div>
+        </div>
+        <div class="header__title">
+          <div class="line"></div>
+          <div class="title">Основная информация</div>
+          <div class="line"></div>
+        </div>
+        <div class="header__more">
+          <div class="more__button">
+            <evj-button
+              class="insert-component"
+              [isSmallButton]="false"
+              [textButton]="'Подробнее'"
+            ></evj-button>
+          </div>
+        </div>
+      </div>
+      <div class="admin__employee">
+        <div class="employee__list">
+          <div class="employee__humans">
+            <div class="employee__human block__frame-left">
+              <div class="human__name">Синявский Игорь Олегович</div>
+              <div class="human__position">Слесарь | КИПиА</div>
+            </div>
+            <div class="employee__human block__frame-left">
+              <div class="human__name">Синявский Игорь Олегович</div>
+              <div class="human__position">Слесарь | КИПиА</div>
+            </div>
+            <div class="employee__human block__frame-left">
+              <div class="human__name">Синявский Игорь Олегович</div>
+              <div class="human__position">Слесарь | КИПиА</div>
+            </div>
+            <div class="employee__human block__frame-left">
+              <div class="human__name">Синявский Игорь Олегович</div>
+              <div class="human__position">Слесарь | КИПиА</div>
+            </div>
+            <div class="employee__human block__frame-left">
+              <div class="human__name">Синявский Игорь Олегович</div>
+              <div class="human__position">Слесарь | КИПиА</div>
+            </div>
+          </div>
+        </div>
+        <div class="employee__person">
+          <evj-worker-card
+            class="insert-component"
+            [isSmallCard]="false"
+            [person]="man"
+          ></evj-worker-card>
+        </div>
+      </div>
+      <div class="admin__workspace">
+        <div class="workspace__header">
+          <div class="workspace__search">
+            <evj-input
+              class="insert-component"
+              [placeholder]="'Введите название рабочей области'"
+            ></evj-input>
+          </div>
+          <div class="workspace__links">
+            <a class="active-link">Доступные рабочие области</a>
+            |
+            <a>Права</a>
+          </div>
+        </div>
+        <div class="workspace__list">
+          <div class="cards">
+            <div class="card">
+              <evj-admin-workspace-card></evj-admin-workspace-card>
+            </div>
+            <div class="card card-active"></div>
+            <div class="card"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <evj-frame-bottom></evj-frame-bottom>
+</div>

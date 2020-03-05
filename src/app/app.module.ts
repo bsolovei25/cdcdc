@@ -35,7 +35,11 @@ import { AuthenticationInterceptor } from '@core/interceptors/authentication.int
             },
         },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthenticationInterceptor,
+            multi: true,
+        },
     ],
     bootstrap: [AppComponent],
 })

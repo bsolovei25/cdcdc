@@ -72,7 +72,9 @@
                     </div>
                     <div class="d-td d-td_content__col-2">{{ param.name }}</div>
                     <div class="d-td d-td_content__col-3">{{ param.unit }}</div>
-                    <div class="d-td d-td_content__col-4">{{ param.lastValue }}</div>
+                    <div class="d-td d-td_content__col-4">
+                      {{ param.lastValue }}
+                    </div>
                     <div class="d-td d-td_content__col-5">
                       {{ param.lastTime | date: 'dd.MM.yyyy HH:mm' }}
                     </div>
@@ -93,8 +95,12 @@
                     <div class="d-td d-td_content__col-7">
                       {{ param.curTime | date: 'dd.MM.yyyy HH:mm' }}
                     </div>
-                    <div class="d-td d-td_content__col-8">{{ param.minValue }}</div>
-                    <div class="d-td d-td_content__col-9">{{ param.maxValue }}</div>
+                    <div class="d-td d-td_content__col-8">
+                      {{ param.minValue }}
+                    </div>
+                    <div class="d-td d-td_content__col-9">
+                      {{ param.maxValue }}
+                    </div>
                     <div class="d-td d-td_content__col-10">
                       <input
                         class="data data_comment gridster-item-content"
