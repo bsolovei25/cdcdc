@@ -31,23 +31,13 @@ export class WidgetSettingsService {
         return settings;
     }
 
-    public getSettingsMI(widgetUniqueId: string) {
-        let test;
-        this.http
-            .get(this.restUrl + '/api/user-management/widgetsettings/' + widgetUniqueId)
-            .subscribe((data) => {
-                test = data;
-            });
-        return test;
-    }
-
     public async saveSettings<TSettings>(
         widgetUniqueId: string,
         settings: TSettings
     ): Promise<void> {
         const url = `${this.restUrl}/api/user-management/widgetsettings/${widgetUniqueId}`;
-        const json = this.jsonStringify(settings);
-        await this.http.post(url, json).toPromise();
+        // const json = this.jsonStringify(settings);
+        await this.http.post(url, settings).toPromise();
     }
 
     public async saveSingleSetting(

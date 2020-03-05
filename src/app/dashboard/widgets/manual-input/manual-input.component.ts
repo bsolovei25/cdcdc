@@ -1,25 +1,20 @@
 import {
     Component,
-    OnDestroy,
-    OnInit,
-    Input,
     Output,
     Inject,
-    Injector,
     ViewChild,
     ElementRef,
+    OnDestroy,
+    OnInit,
     AfterViewInit,
 } from '@angular/core';
 import { ManualInputService } from '../../services/manual-input.service';
 import { HttpClient } from '@angular/common/http';
-import { IMachine_MI, ManualInputData, IGroup_MI } from '../../models/manual-input.model';
+import { IMachine_MI, IGroup_MI } from '../../models/manual-input.model';
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { AppConfigService } from 'src/app/services/appConfigService';
-import { ThrowStmt } from '@angular/compiler';
-import { ItemSizeAverager } from '@angular/cdk-experimental/scrolling';
 import { WidgetSettingsService } from '../../services/widget-settings.service';
-import { FORMERR } from 'dns';
 
 @Component({
     selector: 'evj-manual-input',
@@ -31,8 +26,8 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
 
     scrollWidth: number;
 
-    static itemCols = 30;
-    static itemRows = 20;
+    static itemCols: number = 30;
+    static itemRows: number = 20;
 
     private subscriptions: Subscription[] = [];
 
@@ -41,8 +36,6 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
 
     allSettings: boolean = true;
     openAllSettings: boolean = true;
-    openMachine: boolean = true;
-    openItemMachine: boolean = true;
 
     chooseSetting: IMachine_MI;
 
@@ -51,7 +44,7 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
         public widgetService: NewWidgetService,
         public widgetSettingsService: WidgetSettingsService,
         private http: HttpClient,
-        configService: AppConfigService,
+        private configService: AppConfigService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -71,19 +64,14 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
     private restUrl: string;
 
     Data: IMachine_MI[] = [];
-    Datas: IMachine_MI[] = [];
-
-    saveStateDate: IMachine_MI[] = [];
-
-    private flag: boolean = true;
 
     saveData: IMachine_MI[] = [];
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.showMock(this.isMock);
     }
 
-    ngAfterViewInit() {
+    ngAfterViewInit(): void {
         if (!this.isMock) {
             setTimeout(() => {
                 this.scrollWidth = this.scroll.nativeElement.scrollWidth;
@@ -91,7 +79,7 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
         }
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         for (const subscription of this.subscriptions) {
             subscription.unsubscribe();
         }
@@ -111,23 +99,21 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
             });
     }
 
-    onButtonSave() {
+    onButtonSave(): void {
         this.manualInputService.BtnSaveValues(this.Data);
     }
 
-    onChangeValue(id: string) {
+    onChangeValue(id: string): void {
         this.manualInputService.ChangeField(id, this.Data);
     }
 
-    onUnfocusValue(id: string) {
+    onUnfocusValue(id: string): void {
         this.manualInputService.CheckLastValue(id, this.Data);
     }
 
     private wsConnect(): void {
         this.widgetService.getWidgetLiveDataFromWS(this.id, 'manual-input').subscribe((ref) => {
-            this.Data = this.manualInputService.LoadData(this.Data, ref);
-            const param = this.widgetSettingsService.getSettingsMI(this.uniqId);
-            this.loadSaveData(param);
+            this.loadSaveData(ref);
         });
     }
 
@@ -144,18 +130,12 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
         for (const itemDate of data) {
             itemDate.open = settings.find(el => el.name === itemDate.name).open;
             itemDate.active = settings.find(el => el.name === itemDate.name).active;
-            // for (const itemSaveDate of settings) {
-            //     if (itemDate.name === itemSaveDate.name) {
-            //         itemDate.open = itemSaveDate.open;
-            //         itemDate.active = itemSaveDate.active;
-            //     }
-            // }
         }
         this.Data = this.manualInputService.LoadData(this.Data, data);
         console.log(this.Data);
     }
 
-    onScroll(event) {
+    onScroll(event): void {
         this.scroll.nativeElement.scrollLeft = event.currentTarget.scrollLeft;
     }
 
@@ -200,11 +180,9 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
         i.openInput = !i.openInput;
     }
 
-    public async OnManualInputSendSettings(param): Promise<void> {
-        await this.widgetSettingsService.saveSettings(this.uniqId, param);
+    public async OnManualInputSendSettings(settings): Promise<void> {
+        await this.widgetSettingsService.saveSettings(this.uniqId, settings);
     }
-
-    private CallMIScript(json): void {}
 
     saveDataObj(): void {
         for (const machine of this.Data) {
@@ -215,15 +193,9 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
                 groups: [],
             };
             for (const item of machine.groups) {
-                let valueOpen: boolean;
-                if (item.open === undefined) {
-                    valueOpen = true;
-                } else {
-                    valueOpen = item.open;
-                }
                 const itemObj: IGroup_MI = {
                     name: item.name,
-                    open: valueOpen,
+                    open: item.open === item?.open ?? true,
                 };
                 machineObj.groups.push(itemObj);
             }

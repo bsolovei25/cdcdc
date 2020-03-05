@@ -107,7 +107,7 @@
               <ng-container *ngFor="let item of machine.groups">
                 <div
                   class="machine-container"
-                  [ngClass]="{'machine-container-none': machine.open}"
+                  [class.machine-container-none]="machine.open === false"
                 >
                   <div class="item-name" (click)="onShowItemMachine(item)">
                     <div class="item-name__button">
