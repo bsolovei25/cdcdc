@@ -4,9 +4,9 @@
   height: 100%;
   width: 100%;
 
- // --border-style-dashed: dashed 3px var(--color-border-main);
- // --border-style-solid: solid 1px var(--color-border-main);
- // --space-top: 50px;
+  // --border-style-dashed: dashed 3px var(--color-border-main);
+  // --border-style-solid: solid 1px var(--color-border-main);
+  // --space-top: 50px;
 
   --tree-width-1: 1%;
   --tree-width-2: 1%;
@@ -582,8 +582,6 @@
           color: var(--color-border-active);
           width: calc(100% - 20px);
         }
-
- 
 
         &__icon {
           margin-left: -26px;

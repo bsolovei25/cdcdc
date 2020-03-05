@@ -94,9 +94,7 @@
                     [svgStyle]="{ 'width.px':10, 'height.px':10 }"
                   ></svg-icon>
                 </div>
-                <div
-                  class="machine-name__title"
-                >
+                <div class="machine-name__title">
                   {{machine.name}}
                 </div>
                 <div class="machine-name__icon">
@@ -166,7 +164,6 @@
                             class="data"
                             type="text"
                             placeholder="Напишите свой комментарий..."
-                            
                             [class.data_active__saving]="i.isActive"
                           />
                         </div>
@@ -219,8 +216,11 @@
                         <div class="item-block__value">{{i.minValue}}</div>
                         <div class="item-block__value">{{i.maxValue}}</div>
                       </div>
-                      <div class="message"    (click)="onInputMessage(i)"
-                      [ngClass]="{'activeIcon': i.openInput}">
+                      <div
+                        class="message"
+                        (click)="onInputMessage(i)"
+                        [ngClass]="{'activeIcon': i.openInput}"
+                      >
                         <svg-icon
                           src="./assets/icons/widgets/manual-input/message.svg"
                           [svgStyle]="{ 'width.px':27, 'height.px':25, 'margin-left.px': -13, 'margin-top.px': 8}"
