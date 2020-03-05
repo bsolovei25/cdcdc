@@ -583,10 +583,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         };
     }
 
-
-    isRetrievel() {
-
-    }
+    isRetrievel() {}
     overlayClose(): void {
         document.getElementById('overlay-retrieval').style.display = 'none';
         this.isNewRetrieval = null;

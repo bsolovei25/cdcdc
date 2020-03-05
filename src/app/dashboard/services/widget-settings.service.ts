@@ -33,9 +33,11 @@ export class WidgetSettingsService {
 
     public getSettingsMI(widgetUniqueId: string) {
         let test;
-        this.http.get(this.restUrl + '/api/user-management/widgetsettings/' + widgetUniqueId).subscribe((data) => {
-            test = data;
-        });
+        this.http
+            .get(this.restUrl + '/api/user-management/widgetsettings/' + widgetUniqueId)
+            .subscribe((data) => {
+                test = data;
+            });
         return test;
     }
 

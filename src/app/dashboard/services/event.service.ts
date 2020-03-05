@@ -35,7 +35,7 @@ export class EventService {
             return this.http
                 .get<EventsWidgetNotificationPreview[]>(
                     this.restUrl +
-                    `/api/notifications/getbyfilter?${this.getOptionString(lastId, options)}`
+                        `/api/notifications/getbyfilter?${this.getOptionString(lastId, options)}`
                 )
                 .toPromise();
         } catch (error) {
@@ -171,14 +171,12 @@ export class EventService {
         }
     }
 
-    async editRetrievalEvents(
-        retrievalEvents: IRetrievalEvents
-    ): Promise<any> {
+    async editRetrievalEvents(retrievalEvents: IRetrievalEvents): Promise<any> {
         try {
             return this.http
                 .put(
                     this.restUrl +
-                    `/api/notification-retrieval/retrievalevents/${retrievalEvents.innerNotification.id}`,
+                        `/api/notification-retrieval/retrievalevents/${retrievalEvents.innerNotification.id}`,
                     retrievalEvents
                 )
                 .toPromise();
@@ -205,7 +203,7 @@ export class EventService {
             return await this.http
                 .delete<any>(
                     this.restUrl +
-                    `/api/notification-retrieval/${idEvent}/retrievalevents/${idRetr}`
+                        `/api/notification-retrieval/${idEvent}/retrievalevents/${idRetr}`
                 )
                 .toPromise();
         } catch (error) {

@@ -107,7 +107,7 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
                 if (
                     item.name === name &&
                     event.currentTarget.parentElement.lastElementChild.className ===
-                    'table-container-2-none'
+                        'table-container-2-none'
                 ) {
                     for (let i of event.currentTarget.parentElement.children) {
                         i.classList.remove('ng-star-inserted');
@@ -119,7 +119,7 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
                 } else if (
                     item.name === name &&
                     event.currentTarget.parentElement.lastElementChild.className ===
-                    'table-container-2'
+                        'table-container-2'
                 ) {
                     for (let i of event.currentTarget.parentElement.children) {
                         i.classList.remove('ng-star-inserted');
@@ -140,7 +140,7 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
                     if (
                         i.name === name &&
                         event.currentTarget.parentElement.lastElementChild.className ===
-                        'd-table-none'
+                            'd-table-none'
                     ) {
                         for (let i of event.currentTarget.parentElement.children) {
                             if (i.className === 'd-table-none') {
@@ -195,7 +195,6 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
             const param = this.widgetSettingsService.getSettingsMI(this.uniqId);
             this.loadSaveData(param);
         });
-
     }
 
     async showMock(show) {
@@ -218,7 +217,6 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
                 }
             }
         }
-
     }
 
     onScroll(event) {
@@ -270,7 +268,7 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
         await this.widgetSettingsService.saveSettings(this.uniqId, param);
     }
 
-    private CallMIScript(json): void { }
+    private CallMIScript(json): void {}
 
     saveDataObj(): void {
         for (const machine of this.Data) {
@@ -290,7 +288,7 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
                 const itemObj: IGroup_MI = {
                     name: item.name,
                     open: valueOpen,
-                }
+                };
                 machineObj.groups.push(itemObj);
             }
             this.saveData.push(machineObj);
