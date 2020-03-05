@@ -177,10 +177,12 @@ p {
         text-align: end;
       }
       &--active {
-        background: url("./../../../../../assets/icons/widgets/admin-shift-schedule/border-shift.svg") no-repeat;
+        background: url("./../../../../../assets/icons/widgets/admin-shift-schedule/border-shift.svg")
+          no-repeat;
       }
       &:hover {
-        background: url("./../../../../../assets/icons/widgets/admin-shift-schedule/border-shift.svg") no-repeat;
+        background: url("./../../../../../assets/icons/widgets/admin-shift-schedule/border-shift.svg")
+          no-repeat;
       }
     }
 

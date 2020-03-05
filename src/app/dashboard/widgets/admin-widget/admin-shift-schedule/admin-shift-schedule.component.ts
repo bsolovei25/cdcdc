@@ -174,7 +174,6 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
                 user.id
             );
             this.activeUsers.select(user);
-
         }
         this.isLoading = false;
     }
@@ -304,7 +303,6 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
         this.activeUsers.clear();
         await this.adminShiftScheduleService.getSchudeleShift(shift.id).then((data) => {
             this.selectedShift = data;
-
         });
         this.selectedShift.shiftMembers.forEach((member) => {
             this.brigadesSubstitution.users.forEach((user) => {
