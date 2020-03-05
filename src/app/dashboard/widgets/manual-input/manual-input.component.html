@@ -96,7 +96,6 @@
                 </div>
                 <div
                   class="machine-name__title"
-                  [ngClass]="{'machine-name__active-title': machine.open === true}"
                 >
                   {{machine.name}}
                 </div>
@@ -154,7 +153,7 @@
                         <div
                           class="message"
                           (click)="onInputMessage(i)"
-                          [ngClass]="{'activeIcon': i.openInput || i.comment !== undefined}"
+                          [ngClass]="{'activeIcon': i.openInput}"
                         >
                           <svg-icon
                             src="./assets/icons/widgets/manual-input/message.svg"
@@ -167,7 +166,7 @@
                             class="data"
                             type="text"
                             placeholder="Напишите свой комментарий..."
-                            [(ngModel)]="i.comment"
+                            
                             [class.data_active__saving]="i.isActive"
                           />
                         </div>
@@ -220,12 +219,21 @@
                         <div class="item-block__value">{{i.minValue}}</div>
                         <div class="item-block__value">{{i.maxValue}}</div>
                       </div>
-                      <div class="message">
+                      <div class="message"    (click)="onInputMessage(i)"
+                      [ngClass]="{'activeIcon': i.openInput}">
                         <svg-icon
                           src="./assets/icons/widgets/manual-input/message.svg"
-                          [svgStyle]="{ 'width.px':27, 'height.px':25, 'margin-left.px': -13}"
+                          [svgStyle]="{ 'width.px':27, 'height.px':25, 'margin-left.px': -13, 'margin-top.px': 8}"
                         >
                         </svg-icon>
+                      </div>
+                      <div class="input-message-none" [ngClass]="{'input-message': i.openInput }">
+                        <input
+                          class="data"
+                          type="text"
+                          placeholder="Напишите свой комментарий..."
+                          [class.data_active__saving]="i.isActive"
+                        />
                       </div>
                     </div>
                   </ng-container>
