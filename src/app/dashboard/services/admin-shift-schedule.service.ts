@@ -51,8 +51,9 @@ export class AdminShiftScheduleService {
     async getBrigadesSubstitution(): Promise<IBrigadeWithUsersDto> {
         try {
             return this.http
-                .get<IBrigadeWithUsersDto>(this.restUrl
-                    + `/api/user-management/brigade/substitution`)
+                .get<IBrigadeWithUsersDto>(
+                    this.restUrl + `/api/user-management/brigade/substitution`
+                )
                 .toPromise();
         } catch (error) {
             console.error(error);

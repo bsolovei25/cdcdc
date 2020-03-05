@@ -97,8 +97,10 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
         );
         if (this.buttons && !this.nextAndPreviousMonthVar) {
             this.buttons.forEach((button) => {
-                if (button.getAttribute('aria-label') === 'Previous month'
-                    || button.getAttribute('aria-label') === 'Next month') {
+                if (
+                    button.getAttribute('aria-label') === 'Previous month' ||
+                    button.getAttribute('aria-label') === 'Next month'
+                ) {
                     this.nextAndPreviousMonthVar = this.renderer.listen(button, 'click', () => {
                         if (this.calendar?.activeDate) {
                             this.nextAndPreviousMonth();
@@ -108,7 +110,6 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
             });
         }
     }
-
 
     ngOnDestroy(): void {
         if (this.subscription) {
@@ -159,23 +160,31 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
 
     public async onClickCard(user: IUser): Promise<void> {
         if (this.activeUsers.isSelected(user)) {
-            await this.adminShiftScheduleService
-                .deleteMemberFromBrigade(this.selectedShift.id, user.id);
+            await this.adminShiftScheduleService.deleteMemberFromBrigade(
+                this.selectedShift.id,
+                user.id
+            );
             this.activeUsers.deselect(user);
         } else {
-            await this.adminShiftScheduleService
-                .postMemberFromBrigade(this.selectedShift.id, user.id);
+            await this.adminShiftScheduleService.postMemberFromBrigade(
+                this.selectedShift.id,
+                user.id
+            );
             this.activeUsers.select(user);
         }
     }
 
-    public async onChooseBrigade(brigade: IBrigadeWithUsersDto, selectedDay: IScheduleShiftDay)
-        : Promise<void> {
+    public async onChooseBrigade(
+        brigade: IBrigadeWithUsersDto,
+        selectedDay: IScheduleShiftDay
+    ): Promise<void> {
         this.openOverlay(null, null, false);
         this.selectedBrigade = brigade;
         this.selectShift(this.selectedShift);
-        await this.adminShiftScheduleService
-            .postSelectBrigade(this.selectedShift.id, brigade.brigadeId);
+        await this.adminShiftScheduleService.postSelectBrigade(
+            this.selectedShift.id,
+            brigade.brigadeId
+        );
         this.reLoadDataMonth();
         selectedDay.items.find((value) => {
             if (value.id === this.selectedShift.id) {
@@ -190,9 +199,7 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
 
     async deleteBrigadeFromShift(): Promise<void> {
         await this.adminShiftScheduleService.deleteBrigade(this.selectedShift.id);
-        const sh = this.selectedDay.items.find(
-            (val) => val.id === this.selectedShift.id
-        );
+        const sh = this.selectedDay.items.find((val) => val.id === this.selectedShift.id);
         this.openOverlay(null, null, false);
         if (sh) {
             sh.brigadeName = null;
@@ -216,26 +223,26 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
         return (date: Date) => {
             let str: string = '';
             this.scheduleShiftMonth.forEach((value) => {
-                if (date.getMonth() === new Date(value.date).getMonth()
-                    && date.getDate() === new Date(value.date).getDate()
-                    && date.getFullYear() === new Date(value.date).getFullYear()) {
+                if (
+                    date.getMonth() === new Date(value.date).getMonth() &&
+                    date.getDate() === new Date(value.date).getDate() &&
+                    date.getFullYear() === new Date(value.date).getFullYear()
+                ) {
                     if (!value.isAllShiftsSet) {
                         str = 'special-date';
                     }
                 }
             });
             return str;
-
         };
     }
 
     public filterShiftMembers(shiftMembers: IShiftMember[]): IShiftMember[] {
-        this.brigadesSubstitution.users.forEach(user => {
+        this.brigadesSubstitution.users.forEach((user) => {
             shiftMembers = shiftMembers.filter((member) => member.employee.id !== user.id);
         });
         return shiftMembers;
     }
-
 
     private async reLoadDataMonth(): Promise<void> {
         await this.adminShiftScheduleService
@@ -256,9 +263,7 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
 
     public async loadItem(): Promise<void> {
         const dataLoadQueue: Promise<void>[] = [];
-        dataLoadQueue.push(
-            this.reLoadDataMonth()
-        );
+        dataLoadQueue.push(this.reLoadDataMonth());
         dataLoadQueue.push(
             this.adminShiftScheduleService.getBrigades().then((data) => {
                 this.allBrigade = data;
@@ -285,8 +290,8 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
         await this.adminShiftScheduleService.getSchudeleShift(shift.id).then((data) => {
             this.selectedShift = data;
         });
-        this.selectedShift.shiftMembers.forEach(member => {
-            this.brigadesSubstitution.users.forEach(user => {
+        this.selectedShift.shiftMembers.forEach((member) => {
+            this.brigadesSubstitution.users.forEach((user) => {
                 if (user.id === member.employeeId) {
                     this.activeUsers.select(user);
                 }
@@ -296,9 +301,7 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
 
     public filterBrigade(brigadeUsers: IBrigadeWithUsersDto[]): IBrigadeWithUsersDto[] {
         this.selectedDay.items.forEach((shift) => {
-            brigadeUsers = brigadeUsers.filter(
-                (val) => val.brigadeId !== shift.brigadeId
-            );
+            brigadeUsers = brigadeUsers.filter((val) => val.brigadeId !== shift.brigadeId);
         });
         return brigadeUsers;
     }
