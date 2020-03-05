@@ -653,6 +653,15 @@
               }
             }
 
+            .activeIcon{
+              svg-icon {
+                ::ng-deep .cls-1 {
+                  fill: var(--color-border-active);
+                  stroke: white;
+                }
+              }
+            }
+
             .input-message-none {
               display: none;
             }

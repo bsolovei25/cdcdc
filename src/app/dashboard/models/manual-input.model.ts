@@ -46,7 +46,7 @@ export interface Param_MI {
 
 export interface IGroup_MI {
     name: string;
-    params: Param_MI[];
+    params?: Param_MI[];
     open?: boolean;
 }
 

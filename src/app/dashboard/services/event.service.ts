@@ -9,6 +9,7 @@ import {
     EventsWidgetOptions,
     EventsWidgetsStats,
     EventsWidgetNotificationPreview,
+    IRetrievalEvents,
 } from '../models/events-widget';
 import { AppConfigService } from 'src/app/services/appConfigService';
 
@@ -34,7 +35,7 @@ export class EventService {
             return this.http
                 .get<EventsWidgetNotificationPreview[]>(
                     this.restUrl +
-                        `/api/notifications/getbyfilter?${this.getOptionString(lastId, options)}`
+                    `/api/notifications/getbyfilter?${this.getOptionString(lastId, options)}`
                 )
                 .toPromise();
         } catch (error) {
@@ -171,14 +172,13 @@ export class EventService {
     }
 
     async editRetrievalEvents(
-        eventId: number,
-        retrievalEvents: EventsWidgetNotification
+        retrievalEvents: IRetrievalEvents
     ): Promise<any> {
         try {
             return this.http
                 .put(
                     this.restUrl +
-                        `/api/notification-retrieval/${eventId}/retrievalevents/${retrievalEvents.id}`,
+                    `/api/notification-retrieval/retrievalevents/${retrievalEvents.innerNotification.id}`,
                     retrievalEvents
                 )
                 .toPromise();
@@ -205,7 +205,7 @@ export class EventService {
             return await this.http
                 .delete<any>(
                     this.restUrl +
-                        `/api/notification-retrieval/${idEvent}/retrievalevents/${idRetr}`
+                    `/api/notification-retrieval/${idEvent}/retrievalevents/${idRetr}`
                 )
                 .toPromise();
         } catch (error) {

@@ -53,6 +53,7 @@ export interface EventsWidgetNotification {
     }[]; // Комментарий оператора
     category: ICategory;
     statusName?: string;
+    positionNumber?: string;
     severity: string;
     retrievalEvents: IRetrievalEvents[];
     equipmentCategory: { id: number; name: string; code: string };
