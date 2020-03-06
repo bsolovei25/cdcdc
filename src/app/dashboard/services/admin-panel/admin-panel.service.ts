@@ -6,10 +6,11 @@ import { AppConfigService } from '../../../services/appConfigService';
 import { IBrigadeAdminPanel, IWorkerAdminPanel } from '../../models/admin-panel';
 import { IBrigade } from '../../models/shift.model';
 import { mergeMap } from 'rxjs/operators';
+import { IUser } from '../../models/events-widget';
 
 @Injectable()
 export class AdminPanelService {
-    private restUrl: string = '';
+    private restUrl: string = `/api/user-management`;
 
     private defaultWorker: IWorker = {
         id: null,
@@ -227,7 +228,7 @@ export class AdminPanelService {
     ];
 
     constructor(private httpService: HttpClient, private configService: AppConfigService) {
-        this.configService.restUrl$.subscribe((urls) => (this.restUrl = urls.restUrl));
+        this.configService.restUrl$.subscribe((urls) => (this.restUrl = `${urls}${this.restUrl}`));
         this.activeBrigade$.subscribe((brigade: IBrigade) => {
             if (brigade) {
                 this.getBrigadeWorkers(brigade.id);
@@ -243,23 +244,79 @@ export class AdminPanelService {
 
     //#region DATA_API
 
+    //#region WORKERS
     public getAllWorkers(): Observable<any> {
-        const url: string = `${this.restUrl}/api/admin`;
-        return this.httpService.get(url);
-    }
-
-    // TODO
-    public getBrigades(): void {}
-
-    public getBrigadeWorkers(brigadeId: number): Observable<any> {
-        const url: string = this.restUrl;
-        return this.httpService.get(url);
+        const url: string = `${this.restUrl}/users`;
+        return this.httpService.get<any>(url);
     }
 
     public getWorkerData(workerId: number): Observable<any> {
-        const url: string = `${this.restUrl}/api/admin/${workerId}`;
-        return this.httpService.get(url);
+        const url: string = `${this.restUrl}/user/${workerId}`;
+        return this.httpService.get<any>(url);
     }
+
+    public editWorkerData(worker: IUser): Observable<any> {
+        const url: string = `${this.restUrl}/user/${worker.id}`;
+        const body: string = JSON.stringify(worker);
+        return this.httpService.put<any>(url, body);
+    }
+
+    public createNewWorker(worker: IUser): Observable<any> {
+        const url: string = `${this.restUrl}/user`;
+        const body: string = JSON.stringify(worker);
+        return this.httpService.post<any>(url, body);
+    }
+    //#endregion
+
+    //#region BRIGADES
+    public getBrigades(): Observable<any> {
+        const url: string = `${this.restUrl}/brigades`;
+        return this.httpService.get<any>(url);
+    }
+
+    public getBrigadeWorkers(brigadeId: number): Observable<any> {
+        const url: string = `${this.restUrl}/brigade/${brigadeId}`;
+        return this.httpService.get<any>(url);
+    }
+    //#endregion
+
+    //#region CLAIMS_AND_WORKSPACES
+    public getAllScreens(): Observable<any> {
+        const url: string = `${this.restUrl}/allscreens`;
+        return this.httpService.get<any>(url);
+    }
+
+    public getWorkerScreens(workerId: number): Observable<any> {
+        const url: string = `${this.restUrl}/user/${workerId}/screens`;
+        return this.httpService.get<any>(url);
+    }
+
+    public getAllScreenClaims(): Observable<any> {
+        const url: string = `${this.restUrl}/screenclaims`;
+        return this.httpService.get<any>(url);
+    }
+
+    public getWorkerScreenClaims(screenWorkerId: number): Observable<any> {
+        const url: string = `${this.restUrl}/userscreen/${screenWorkerId}`;
+        return this.httpService.get<any>(url);
+    }
+
+    public addScreenClaimToWorker(screenWorkerId: number, claimId: number): Observable<any> {
+        const url: string = `${this.restUrl}/userscreen/${screenWorkerId}/claim/${claimId}`;
+        return this.httpService.post<any>(url, null);
+    }
+
+    public removeScreenClaimFromWorker(screenWorkerId: number, claimId: number): Observable<any> {
+        const url: string = `${this.restUrl}/userscreen/${screenWorkerId}/claim/${claimId}`;
+        return this.httpService.delete<any>(url);
+    }
+    //#endregion
+
+    // TODO RESERVE WORKER METHOD
+    // public getUserByLogin(workerLogin:string):Observable<any>{
+    //     const url: string = `${this.restUrl}api/user-management/user?login=${workerLogin}`;
+    //     return this.httpService.get<any>(url);
+    // }
 
     //#endregion
 
