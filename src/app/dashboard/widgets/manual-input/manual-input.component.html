@@ -31,18 +31,18 @@
         <div class="settings-button" #scroll>
           <div class="set-buttons" #truckScroll>
             <div
-            class="set-button"
-            *ngFor="let machine of Data"
-            (click)="onSettings(machine)"
-            [ngClass]="{'active': machine.active}"
-          >
-            {{machine.name}}
-            <div class="b-a"></div>
-          </div>
+              class="set-button"
+              *ngFor="let machine of Data"
+              (click)="onSettings(machine)"
+              [ngClass]="{'active': machine.active}"
+            >
+              {{machine.name}}
+              <div class="b-a"></div>
+            </div>
           </div>
         </div>
         <div class="scroll-button">
-          <div id="topscroll" class="topscroll" (scroll)="onScroll($event)" >
+          <div id="topscroll" class="topscroll" (scroll)="onScroll($event)">
             <div class="fake" [style.width.px]="widthTruckScroll"></div>
           </div>
         </div>
@@ -120,8 +120,7 @@
                     </div>
                     <div class="item-name__title">{{item.name}}</div>
                   </div>
-                  <div class="item-container"
-                  [class.item-container-none]="item.open === false">
+                  <div class="item-container" [class.item-container-none]="item.open === false">
                     <ng-container *ngFor="let i of item.params">
                       <div class="items">
                         <div class="item-block">
