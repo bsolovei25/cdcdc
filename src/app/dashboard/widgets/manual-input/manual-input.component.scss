@@ -591,6 +591,11 @@
         }
       }
 
+      .machine-name-none {
+        cursor: pointer;
+        display: none;
+      }
+
       .machine-container {
         background-color: var(--color-bg-main);
         width: 100%;
@@ -719,6 +724,7 @@
             width: 100%;
             position: relative;
             .item-block {
+              padding-left: 35px;
               width: calc(100% - 20px);
               border-bottom: 2px solid var(--color-bg-main);
               height: 40px;
@@ -733,6 +739,7 @@
 
               .name {
                 color: var(--color-text-sub-heading);
+                text-align: left;
               }
               .input_value {
                 margin-top: 5px;
