@@ -126,8 +126,8 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
     async loadSaveData(data: IMachine_MI[]): Promise<void> {
         const settings: IMachine_MI[] = await this.widgetSettingsService.getSettings(this.uniqId);
         for (const itemDate of data) {
-            itemDate.open = settings.find(el => el.name === itemDate.name).open;
-            itemDate.active = settings.find(el => el.name === itemDate.name).active;
+            itemDate.open = settings?.find(el => el.name === itemDate.name)?.open ?? true;
+            itemDate.active = settings?.find(el => el.name === itemDate.name)?.active ?? false;
         }
         this.Data = this.manualInputService.LoadData(this.Data, data);
         console.log(this.Data);
