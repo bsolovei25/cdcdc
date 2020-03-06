@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
         private router: Router,
         private materialController: MaterialControllerService,
         private preLoaderService: PreloaderService
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         this.isLoadingData = true;

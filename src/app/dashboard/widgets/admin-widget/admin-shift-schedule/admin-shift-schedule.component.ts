@@ -81,7 +81,7 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
         private dateAdapter: DateAdapter<Date>,
         private renderer: Renderer2,
         private adminShiftScheduleService: AdminShiftScheduleService,
-        private materialController: MaterialControllerService,
+        private materialController: MaterialControllerService
     ) {
         this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
             this.title = data.title;
@@ -171,16 +171,18 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
                 user.id
             );
             this.activeUsers.deselect(user);
-            this.materialController
-                .openSnackBar(`${user.lastName} ${user.firstName} удален из смены`);
+            this.materialController.openSnackBar(
+                `${user.lastName} ${user.firstName} удален из смены`
+            );
         } else {
             await this.adminShiftScheduleService.postMemberFromBrigade(
                 this.selectedShift.id,
                 user.id
             );
             this.activeUsers.select(user);
-            this.materialController
-                .openSnackBar(`${user.lastName} ${user.firstName} добавлен в смену`);
+            this.materialController.openSnackBar(
+                `${user.lastName} ${user.firstName} добавлен в смену`
+            );
         }
         this.isLoading = false;
     }
