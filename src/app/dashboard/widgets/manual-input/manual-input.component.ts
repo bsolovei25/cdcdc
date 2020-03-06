@@ -65,8 +65,6 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
 
     Data: IMachine_MI[] = [];
 
-    saveData: IMachine_MI[] = [];
-
     ngOnInit(): void {
         this.showMock(this.isMock);
     }
@@ -167,9 +165,7 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
             machine.open = true;
         }
         machine.open = !machine.open;
-        this.saveDataObj();
-        this.OnManualInputSendSettings(this.saveData);
-        this.saveData = [];
+        this.OnManualInputSendSettings(this.saveDataObj());
     }
 
     onShowItemMachine(item): void {
@@ -184,12 +180,13 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
         await this.widgetSettingsService.saveSettings(this.uniqId, settings);
     }
 
-    saveDataObj(): void {
+    saveDataObj(): IMachine_MI[] {
+        const saveDataTemp: IMachine_MI[] = []
         for (const machine of this.Data) {
             const machineObj: IMachine_MI = {
                 name: machine.name,
                 active: machine.active,
-                open: machine.open,
+                open: machine?.open ?? true,
                 groups: [],
             };
             for (const item of machine.groups) {
@@ -199,7 +196,8 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
                 };
                 machineObj.groups.push(itemObj);
             }
-            this.saveData.push(machineObj);
+            saveDataTemp.push(machineObj);
         }
+        return saveDataTemp;
     }
 }
