@@ -21,6 +21,10 @@ export class PetroleumProductsMovementComponent implements OnInit, OnDestroy {
 
     public isWorkspace: boolean = true;
 
+    public isShort: boolean = true;
+
+    public isUpdateParamButton: boolean = false;
+
     constructor(
         private widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,
@@ -62,7 +66,19 @@ export class PetroleumProductsMovementComponent implements OnInit, OnDestroy {
         }
     }
 
-    onChanged(el: boolean): void {
-        this.isWorkspace = !el;
+    onChanged(type: string): void {
+        if (type === 'create') {
+            this.isWorkspace = false;
+            this.isShort = false;
+            this.isUpdateParamButton = false;
+        } else if (type === 'update') {
+            this.isUpdateParamButton = true;
+            this.isWorkspace = true;
+            this.isShort = false;
+        }
+    }
+
+    onReturn(el: boolean): void {
+        this.isWorkspace = el;
     }
 }

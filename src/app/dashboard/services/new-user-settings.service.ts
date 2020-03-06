@@ -122,7 +122,7 @@ export class NewUserSettingsService {
     public GetScreen() {
         try {
             this.http
-                .get<ScreenSettings[]>(this.restUrl + '/api/user-management/user/1/screens')
+                .get<ScreenSettings[]>(this.restUrl + '/api/user-management/screens')
                 .subscribe((data) => {
                     this._screens$.next(data);
                     if (!this.ScreenId && data[0]) {
@@ -176,14 +176,12 @@ export class NewUserSettingsService {
             updateScreen;
             widgets;
         })();
-        return this.http
-            .post(this.restUrl + '/api/user-management/user/1/screen', userScreen)
-            .subscribe(
-                (ans) => {
-                    this.GetScreen();
-                },
-                (error) => console.log(error)
-            );
+        return this.http.post(this.restUrl + '/api/user-management/screen', userScreen).subscribe(
+            (ans) => {
+                this.GetScreen();
+            },
+            (error) => console.log(error)
+        );
     }
 
     public deleteScreen(id: string) {
@@ -208,7 +206,7 @@ export class NewUserSettingsService {
             widgets;
         })();
         return this.http
-            .put(this.restUrl + '/api/user-management/user/1/screen/' + id, userScreen)
+            .put(this.restUrl + '/api/user-management/screen/' + id, userScreen)
             .subscribe(
                 (ans) => {
                     this.GetScreen();

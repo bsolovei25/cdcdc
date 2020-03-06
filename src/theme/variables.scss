@@ -9,12 +9,15 @@
   --color-bg-active-bright: #3fa9f5;
   --color-bg-diagram: rgba(34, 37, 46, 0.34);
   --color-bg-line-diagram: #0d1014;
+  --color-bg-search: rgba(142, 151, 175, 0.12);
   --color-bg-card: #20222d;
 
   --color-border-main: #5b607d;
   --color-border-main-transparrent: rgba(91, 96, 125, 0.9);
   --color-border-active: #3fa9f5;
   --color-border-unactive: #8c99b2;
+  --color-border-search: rgba(142, 151, 175, 0.8);
+  --color-border-search-line: rgba(142, 151, 175, 1);
 
   --color-border-light: #9ed7f5;
 
@@ -43,12 +46,17 @@
   --color-standard: #6fcf97;
   --color-circle: #00ffff;
   --color-aqua: #00ffff;
+  --color-orange: #f28b4a;
 
   --color-danger-transparent: rgba(234, 31, 31, 0.2);
   --color-warning-transparent: rgba(244, 163, 33, 0.2);
   --color-disable-transparent: rgba(91, 96, 125, 0.2);
   --color-active-transparent: rgba(63, 169, 245, 0.2);
 
+  --color-bg-active-gradient: rgba(63, 169, 245, 0.2);
+  --color-bg-active-gradient1: rgba(63, 169, 245, 0.6);
+
+  --color-bg-human-disable: #2c2f38;
   // Цвета статусов передачи смены
   --color-shift-status-init: #6fcf97;
   --color-shift-status-missing: #eb5757;

@@ -24,8 +24,9 @@ import {
 } from '../../models/events-widget';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NewWidgetService } from '../../services/new-widget.service';
-import { DateAdapter } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { AuthService } from '@core/service/auth.service';
+import { TestBed } from '@angular/core/testing';
 
 @Component({
     selector: 'evj-events-workspace',
@@ -47,7 +48,8 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
     isEdit: boolean = false;
 
-    isClickFact: boolean = false;
+    isClickFact: number;
+    isClickComment: number;
 
     priority: IPriority[];
     status: IStatus[];
@@ -77,6 +79,8 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     isNewRetrieval: EventsWidgetNotification = null;
 
     openEvent: boolean = true;
+
+    timeZone: any;
 
     statuses: { [id in EventsWidgetNotificationStatus]: string } = {
         new: 'Новое',
@@ -177,7 +181,9 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
 
         this.resetComponent();
         this.isNew = false;
+
         if (typeof value !== 'number') {
+            this.chooseNameUser = value.fixedBy.firstName + ' ' + value.fixedBy.middleName + ' ' + value.fixedBy.lastName;
             this.event = value;
         }
 
@@ -317,10 +323,29 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         }
     }
 
-    clickFact(): void {
-        this.isClickFact = !this.isClickFact;
+    clickFact(fact, index): void {
+        for (let i of this.event.facts) {
+            i.active = false;
+        }
+        fact.active = !fact.active;
+        if (fact.active === true) {
+            this.isClickFact = index;
+        } else {
+            this.isClickFact = null;
+        }
     }
 
+    clickComment(comment, index): void {
+        for (let i of this.event.comments) {
+            i.active = false;
+        }
+        comment.active = !comment.active;
+        if (comment.active === true) {
+            this.isClickComment = index;
+        } else {
+            this.isClickComment = null;
+        }
+    }
     scrollCommentBottom() {
         this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
     }
@@ -449,9 +474,15 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         }, 500);
     }
 
+    formatDate(date: Date): Date {
+        return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+    }
+
     async saveItem(): Promise<void> {
         this.isLoading = true;
         this.isEditing = false;
+        this.event.deadline = this.formatDate(new Date(this.event.deadline));
+        console.log(this.event.deadline);
         if (this.isNew) {
             try {
                 const ev = await this.eventService.postEvent(this.event);
@@ -554,6 +585,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         };
     }
 
+    isRetrievel() {}
     overlayClose(): void {
         document.getElementById('overlay-retrieval').style.display = 'none';
         this.isNewRetrieval = null;
@@ -563,9 +595,9 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         this.event.retrievalEvents.pop();
     }
 
-    onEditRetrieval(retrieval: EventsWidgetNotification): void {
+    onEditRetrieval(retNotid: EventsWidgetNotification): void {
         this.isEdit = true;
-        this.isNewRetrieval = retrieval;
+        this.isNewRetrieval = retNotid;
         document.getElementById('overlay-retrieval').style.display = 'block';
     }
 
@@ -583,17 +615,16 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
             this.overlayClose();
         } else {
             try {
-                this.isLoading = true;
-                const put = await this.eventService.editRetrievalEvents(
-                    this.event.id,
-                    this.isNewRetrieval
-                );
                 const idx = this.event.retrievalEvents.findIndex(
                     (i) => i.innerNotification.id === this.isNewRetrieval.id
                 );
                 if (idx !== -1) {
                     this.event.retrievalEvents[idx].innerNotification = this.isNewRetrieval;
                 }
+                this.isLoading = true;
+                const put = await this.eventService.editRetrievalEvents(
+                    this.event.retrievalEvents[idx]
+                );
                 this.eventService.updateEvent$.next(true);
                 this.overlayClose();
                 this.isLoading = false;
@@ -606,10 +637,10 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         }
     }
 
-    async deleteRetrieval(idEvent: number, idRetr: number): Promise<void> {
-        const del = await this.eventService.deleteRetrievalEvents(idEvent, idRetr);
+    async deleteRetrieval(idEvent: number, idRetrNotif: number, idRetr): Promise<void> {
+        const del = await this.eventService.deleteRetrievalEvents(idEvent, idRetrNotif);
         this.eventService.updateEvent$.next(true);
-        const idx = this.event.retrievalEvents.findIndex((i) => i.innerNotification.id === idRetr);
+        const idx = this.event.retrievalEvents.findIndex((i) => i.id === idRetr);
         if (idx !== -1) {
             this.event.retrievalEvents.splice(idx, 1);
         }
@@ -624,8 +655,10 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         msgDuration: number = 500,
         actionText?: string,
         actionFunction?: () => void
-    ): void {
-        const snackBarInstance = this.snackBar.open(msg, actionText, { duration: msgDuration });
+    ) {
+        const snackBarInstance = this.snackBar.open(msg, actionText, {
+            duration: msgDuration,
+        });
         if (actionFunction) {
             snackBarInstance.onAction().subscribe(() => actionFunction());
         }

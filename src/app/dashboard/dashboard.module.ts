@@ -1,5 +1,5 @@
 import { ChangeShiftComponent } from './widgets/change-shift/change-shift.component';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './pages/home/home.component';
 import { SharedModule } from '../@shared/shared.module';
@@ -79,6 +79,13 @@ import { SearchListComponent } from './components/search/search-list/search-list
 import { TimeLineDiagramComponent } from './widgets/time-line-diagram/time-line-diagram.component';
 import { TimeDiagramComponent } from './widgets/time-line-diagram/time-diagram/time-diagram.component';
 import { ObservationNormTRComponent } from './widgets/observation-norm-tr/observation-norm-tr.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { AdminShiftScheduleComponent } from './widgets/admin-widget/admin-shift-schedule/admin-shift-schedule.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+import { AdminComponent } from './widgets/admin/admin.component';
+import { AdminWorkspaceCardComponent } from './widgets/admin/admin-workspace-card/admin-workspace-card.component';
 import { AdminReferencesComponent } from './widgets/admin-references/admin-references.component';
 import { CardVerifierComponent } from './widgets/change-shift/card-verifier/card-verifier.component';
 import { PetroleumProductsMovementComponent } from './widgets/petroleum-products-movement/petroleum-products-movement.component';
@@ -86,10 +93,6 @@ import { PetroleumReferenceLeftComponent } from './widgets/petroleum-products-mo
 import { PetroleumReferenceRightComponent } from './widgets/petroleum-products-movement/petroleum-reference-right/petroleum-reference-right.component';
 import { PetroleumReferenceComponent } from './widgets/petroleum-products-movement/petroleum-reference/petroleum-reference.component';
 import { PetroleumWorkspaceComponent } from './widgets/petroleum-products-movement/petroleum-workspace/petroleum-workspace.component';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { ScrollingModule } from '@angular/cdk-experimental/scrolling';
 import { ScrollingModule as OldScrollingModule } from '@angular/cdk/scrolling';
@@ -167,6 +170,9 @@ import { PetroleumUnityComponent } from './widgets/petroleum-products-movement/p
         SearchInputComponent,
         SearchListComponent,
         ObservationNormTRComponent,
+        AdminShiftScheduleComponent,
+        AdminComponent,
+        AdminWorkspaceCardComponent,
         AdminReferencesComponent,
         CardVerifierComponent,
         PetroleumProductsMovementComponent,
@@ -220,6 +226,7 @@ import { PetroleumUnityComponent } from './widgets/petroleum-products-movement/p
         TimeLineDiagramComponent,
         SolidGaugesComponent,
         ObservationNormTRComponent,
+        AdminShiftScheduleComponent,
         AdminReferencesComponent,
         PetroleumProductsMovementComponent,
     ],
@@ -235,15 +242,16 @@ import { PetroleumUnityComponent } from './widgets/petroleum-products-movement/p
         ClickOutsideModule,
         DashboardRoutingModule,
         MatSnackBarModule,
-        ScrollingModule,
         MatDatepickerModule,
-        MatNativeDateModule,
-        MatInputModule,
         MatFormFieldModule,
+        MatInputModule,
+        MatNativeDateModule,
+        ScrollingModule,
         MatSelectModule,
         ScrollingModule,
         OldScrollingModule,
     ],
     bootstrap: [],
+    providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }],
 })
 export class DashboardModule {}

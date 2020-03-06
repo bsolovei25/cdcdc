@@ -6,6 +6,9 @@ import { FnPipe } from './pipes/fn_pipe';
 import { DateFormatPipe } from './pipes/data-format.pipe';
 import { PreLoaderComponent } from './preloader/preloader.component';
 import { UiElementsComponent } from './layout/ui-elements.component';
+import { ButtonComponent } from './components/button/button.component';
+import { InputComponent } from './components/input/input.component';
+import { WorkerCardComponent } from './components/worker-card/worker-card.component';
 import { UiBlockComponent } from './layout/ui-block/ui-block.component';
 
 @NgModule({
@@ -16,12 +19,19 @@ import { UiBlockComponent } from './layout/ui-block/ui-block.component';
         DateFormatPipe,
         PreLoaderComponent,
         UiElementsComponent,
+        ButtonComponent,
+        InputComponent,
+        WorkerCardComponent,
         UiBlockComponent,
     ],
     exports: [
         HeaderComponent,
         ContentComponent,
         FnPipe,
+        PreLoaderComponent,
+        ButtonComponent,
+        InputComponent,
+        WorkerCardComponent,
         DateFormatPipe,
         PreLoaderComponent,
         UiBlockComponent,

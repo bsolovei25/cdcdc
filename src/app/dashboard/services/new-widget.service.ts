@@ -7,7 +7,7 @@ import { IWidgets } from '../models/widget.model';
 import { AppConfigService } from 'src/app/services/appConfigService';
 import { EventsWidgetDataPreview } from '../models/events-widget';
 import { LineChartData } from '../models/line-chart';
-import { Machine_MI } from '../models/manual-input.model';
+import { IMachine_MI } from '../models/manual-input.model';
 import { WebSocketSubject } from 'rxjs/internal/observable/dom/WebSocketSubject';
 import { webSocket } from 'rxjs/internal/observable/dom/webSocket';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -240,7 +240,7 @@ export class NewWidgetService {
         return data;
     }
 
-    private mapManualInput(data: Machine_MI[]): Machine_MI[] {
+    private mapManualInput(data: IMachine_MI[]): IMachine_MI[] {
         return data;
     }
 

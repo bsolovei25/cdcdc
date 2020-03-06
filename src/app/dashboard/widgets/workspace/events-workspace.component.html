@@ -143,13 +143,18 @@
                     <div class="input_position">
                       <mat-form-field class="example-full-width">
                         <mat-label>Номер позиции</mat-label>
-                        <input matInput placeholder="Текст..." />
+                        <input
+                          matInput
+                          placeholder="Текст..."
+                          [value]="event.positionNumber"
+                          [(ngModel)]="event.positionNumber"
+                        />
                       </mat-form-field>
                     </div>
                     <div class="position_icon">
                       <svg-icon
                         src="./assets/icons/edit.svg"
-                        [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+                        [svgStyle]="{ 'width.px':25, 'height.px':20 }"
                       ></svg-icon>
                     </div>
                   </evj-ui-block>
@@ -157,7 +162,10 @@
               </div>
             </div>
 
-            <div class="description">
+            <div
+              class="description"
+              [class.description_small]="event.category.name === 'equipmentStatus'"
+            >
               <div class="description_nav">
                 <div class="description_title">Краткое описание</div>
                 <div class="description_button_update" (click)="onEditShortInfo()">
@@ -196,9 +204,9 @@
                 <!--ngFor -->
                 <div
                   class="fact_new"
-                  [class.activeFact]="isClickFact"
-                  *ngFor="let fact of event.facts"
-                  (click)="clickFact()"
+                  (click)="clickFact(fact, i)"
+                  [ngClass]="{'activeFact': fact.active}"
+                  *ngFor="let fact of event.facts; let i = index"
                 >
                   <div class="fact_text" *ngIf="fact.comment !== 'График'">
                     <p>{{fact.comment}}</p>
@@ -210,18 +218,18 @@
                     ></svg-icon>
                   </div>
                   <div class="fact_menu">
-                    <div class="fact_button">
-                      <div class="fact_button_update" *ngIf="isClickFact">
+                    <div class="fact_button" *ngIf="(isClickFact === i)">
+                      <div class="fact_button_update">
                         <svg-icon
                           src="./assets/pic/AdminReferences/delete.svg"
                           [svgStyle]="{ 'width.px':16, 'height.px':16 }"
                         >
                         </svg-icon>
                       </div>
-                      <div class="fact_button_delete" *ngIf="isClickFact">
+                      <div class="fact_button_delete">
                         <svg-icon
                           src="./assets/icons/edit.svg"
-                          [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+                          [svgStyle]="{ 'width.px':25, 'height.px':20 }"
                         >
                         </svg-icon>
                       </div>
@@ -233,6 +241,14 @@
                       </div>
                     </div>
                   </div>
+                  <!-- <div class="fact_menu">
+                    <div class="fact_info_notActive">
+                      <div class="fact_info_user">{{fact.displayName}}</div>
+                      <div class="fact_info_date">
+                        {{fact.createdAt | dateFormat:'DD-MM-YY hh:mm'}}
+                      </div>
+                    </div>
+                  </div> -->
                 </div>
               </div>
               <div class="empty"></div>
@@ -241,7 +257,7 @@
                   <input
                     type="text"
                     class="comment__text gridster-item-content"
-                    placeholder="Напишите свой комментарий..."
+                    placeholder="Укажите факты..."
                     (keypress)="onEnterPush($event)"
                     #input
                   />
@@ -275,26 +291,26 @@
                 <!--ngFor -->
                 <div
                   class="comment_new"
-                  (click)="clickFact()"
-                  [class.activeFact]="isClickFact"
-                  *ngFor="let comment of event.comments"
+                  (click)="clickComment(comment, i)"
+                  [ngClass]="{'activeFact': comment.active}"
+                  *ngFor="let comment of event.comments; let i = index"
                 >
                   <div class="comment_text">
-                    {{comment.comment}}
+                    <p>{{comment.comment}}</p>
                   </div>
                   <div class="comment_menu">
-                    <div class="comment_button">
-                      <div class="comment_button_update" *ngIf="isClickFact">
+                    <div class="comment_button" *ngIf="isClickComment === i">
+                      <div class="comment_button_update">
                         <svg-icon
                           src="./assets/pic/AdminReferences/delete.svg"
                           [svgStyle]="{ 'width.px':16, 'height.px':16 }"
                         >
                         </svg-icon>
                       </div>
-                      <div class="comment_button_delete" *ngIf="isClickFact">
+                      <div class="comment_button_delete">
                         <svg-icon
                           src="./assets/icons/edit.svg"
-                          [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+                          [svgStyle]="{ 'width.px':25, 'height.px':20 }"
                         >
                         </svg-icon>
                       </div>
@@ -354,13 +370,18 @@
                   Автор
                 </div>
                 <div class="creator_body">
-                  {{ event.responsibleOperator.lastName }} {{ event.responsibleOperator.firstName }}
+                  {{ event.responsibleOperator?.lastName }} {{ event.responsibleOperator?.firstName }}
                 </div>
               </div>
               <div class="deadline">
                 <mat-form-field>
                   <mat-label>Срок выполнения</mat-label>
-                  <input matInput [matDatepicker]="myDatepicker" [value]="event.eventEndDateTime" />
+                  <input
+                    matInput
+                    [matDatepicker]="myDatepicker"
+                    [value]="event.deadline"
+                    [(ngModel)]="event.deadline"
+                  />
                   <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
                   <mat-datepicker #myDatepicker></mat-datepicker>
                 </mat-form-field>
@@ -395,10 +416,9 @@
                   <div class="name_user_responsible">
                     Ответственный
                   </div>
-                  <div class="name_user_info" *ngIf="event.fixedBy">
+                  <div class="name_user_info" >
                     <div>
-                      {{ event.fixedBy.firstName }} {{ event.fixedBy.middleName }} {{
-                      event.fixedBy.lastName }}
+                      {{ this.chooseNameUser }}
                     </div>
                     <div>{{ event.fixedBy.positionDescription }}</div>
                   </div>
@@ -415,7 +435,7 @@
               <evj-ui-block class="workspace__header__block" status="normal">
                 <mat-form-field>
                   <mat-label>Отвественный</mat-label>
-                  <mat-select panelClass="mat-select-custom">
+                  <mat-select panelClass="mat-select-custom"  [(ngModel)]="event.fixedBy">
                     <mat-option *ngFor="let p of user" [value]="p" (click)="chooseRespons(p)"
                       >{{ p.lastName }} {{ p.firstName }}
                     </mat-option>
@@ -446,12 +466,12 @@
                       >
                         <div class="events_info">
                           <div class="events_info_title">
-                            <div>Кратное описание</div>
+                            <div>Краткое описание</div>
                             <div style="margin-left: 10px">
                               <svg-icon
-                                *ngIf="retrieval.timerPercentage > 100"
+                                *ngIf="retrieval.timerPercentage > 99"
                                 src="./assets/icons/widgets/workspace/attantion.svg"
-                                [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+                                [svgStyle]="{ 'width.px':18, 'height.px':18, 'margin-top.px': 2 }"
                               ></svg-icon>
                             </div>
                           </div>
@@ -505,7 +525,10 @@
                             >
                             </svg-icon>
                           </div>
-                          <div clas="events_button_update">
+                          <div
+                            clas="events_button_update"
+                            (click)="onEditRetrieval(retrieval.innerNotification)"
+                          >
                             <svg-icon
                               class="edit_button_icon"
                               src="./assets/icons/widgets/workspace/edit.svg"
@@ -517,43 +540,43 @@
                       </div>
                       <div
                         ngClass="progress-line-{{retrieval.innerNotification.priority.name}}"
-                        [style.width.%]="retrieval.timerPercentage - 2"
+                        [style.width.%]="retrieval.timerPercentage"
                       ></div>
+                    </div>
 
-                      <!--DELETE EVENT-->
-                      <div
-                        (mousedown)="$event.stopPropagation()"
-                        (touchstart)="$event.stopPropagation()"
-                        id="overlay-confirmation"
-                      >
-                        <div class="overlay-confirmation__body" (click)="$event.stopPropagation()">
-                          <span>Вы действительно хотите удалить выбранное Мероприятие?</span>
-                          <div style="display: flex;">
-                            <div class="workspace__submit">
-                              <div class="submit__frame submit__frame-left"></div>
-                              <div class="submit__frame submit__frame-right"></div>
-                              <button
-                                type="submit gridster-item-content"
-                                (click)="deleteRetrieval(event.id, retrieval.id)"
-                              >
-                                Удалить
-                              </button>
-                            </div>
-                            <div class="workspace__submit">
-                              <div class="submit__frame submit__frame-left"></div>
-                              <div class="submit__frame submit__frame-right"></div>
-                              <button
-                                type="submit gridster-item-content"
-                                (click)="overlayConfirmationClose()"
-                              >
-                                Отменить
-                              </button>
-                            </div>
+                    <!--DELETE EVENT-->
+                    <div
+                      (mousedown)="$event.stopPropagation()"
+                      (touchstart)="$event.stopPropagation()"
+                      id="overlay-confirmation"
+                    >
+                      <div class="overlay-confirmation__body" (click)="$event.stopPropagation()">
+                        <span>Вы действительно хотите удалить выбранное Мероприятие?</span>
+                        <div style="display: flex;">
+                          <div class="workspace__submit">
+                            <div class="submit__frame submit__frame-left"></div>
+                            <div class="submit__frame submit__frame-right"></div>
+                            <button
+                              type="submit gridster-item-content"
+                              (click)="deleteRetrieval(event.id, retrieval.innerNotification.id, retrieval.id)"
+                            >
+                              Удалить
+                            </button>
+                          </div>
+                          <div class="workspace__submit">
+                            <div class="submit__frame submit__frame-left"></div>
+                            <div class="submit__frame submit__frame-right"></div>
+                            <button
+                              type="submit gridster-item-content"
+                              (click)="overlayConfirmationClose()"
+                            >
+                              Отменить
+                            </button>
                           </div>
                         </div>
                       </div>
-                      <!--DELETE EVENT-->
                     </div>
+                    <!--DELETE EVENT-->
                   </ng-container>
                 </div>
                 <div class="events_bottom_info">
@@ -733,7 +756,10 @@
                       </evj-ui-block>
                     </div>
                   </div>
-                  <div class="second_block" *ngIf="isClickFact">
+                  <div
+                    class="second_block"
+                    *ngIf="isNewRetrieval.category.name === 'equipmentStatus'"
+                  >
                     <div class="type_incident">
                       <evj-ui-block class="workspace__header__block" status="normal">
                         <mat-form-field>
@@ -755,13 +781,18 @@
                         <div class="input_position">
                           <mat-form-field class="example-full-width">
                             <mat-label>Номер позиции</mat-label>
-                            <input matInput placeholder="Текст..." />
+                            <input
+                              matInput
+                              placeholder="Текст..."
+                              [value]="isNewRetrieval.positionNumber"
+                              [(ngModel)]="isNewRetrieval.positionNumber"
+                            />
                           </mat-form-field>
                         </div>
                         <div class="position_icon">
                           <svg-icon
                             src="./assets/icons/edit.svg"
-                            [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+                            [svgStyle]="{ 'width.px':25, 'height.px':20 }"
                           >
                           </svg-icon>
                         </div>
@@ -770,7 +801,10 @@
                   </div>
                 </div>
 
-                <div class="description">
+                <div
+                  class="description"
+                  [class.description_small]="isNewRetrieval.category.name === 'equipmentStatus'"
+                >
                   <div class="description_nav">
                     <div class="description_title">Краткое описание</div>
                     <div class="description_button_update">
@@ -806,33 +840,45 @@
                     <!--ngFor -->
                     <div
                       class="fact_new"
-                      (click)="clickFact()"
-                      [class.activeFact]="isClickFact"
-                      *ngFor="let comment of isNewRetrieval.facts"
+                      (click)="clickFact(fact, i)"
+                      [ngClass]="{'activeFact': fact.active}"
+                      *ngFor="let fact of isNewRetrieval.facts; let i = index"
                     >
-                      <div class="fact_text">
-                        <p>{{comment.comment}}</p>
+                      <div class="fact_text" *ngIf="fact.comment !== 'График'">
+                        <p>{{fact.comment}}</p>
+                      </div>
+                      <div
+                        class="fact_img"
+                        *ngIf="fact.comment === 'График'"
+                        (click)="openLineChart()"
+                      >
+                        <svg-icon
+                          src="./assets/icons/widgets/workspace/graph.svg"
+                          [svgStyle]="{ 'width.px':250, 'height.px':70 }"
+                        ></svg-icon>
                       </div>
                       <div class="fact_menu">
-                        <div class="fact_button">
-                          <div class="fact_button_update" *ngIf="isClickFact">
+                        <div class="fact_button" *ngIf="(isClickFact === i)">
+                          <div class="fact_button_update">
                             <svg-icon
                               src="./assets/pic/AdminReferences/delete.svg"
                               [svgStyle]="{ 'width.px':16, 'height.px':16 }"
                             >
                             </svg-icon>
                           </div>
-                          <div class="fact_button_delete" *ngIf="isClickFact">
+                          <div class="fact_button_delete">
                             <svg-icon
                               src="./assets/icons/edit.svg"
-                              [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+                              [svgStyle]="{ 'width.px':25, 'height.px':20 }"
                             >
                             </svg-icon>
                           </div>
                         </div>
                         <div class="fact_info">
-                          <div class="fact_info_user">Иванов И.В.</div>
-                          <div class="fact_info_date">25.05.2020 | 13:23:23</div>
+                          <div class="fact_info_user">{{fact.displayName}}</div>
+                          <div class="fact_info_date">
+                            {{fact.createdAt | dateFormat:'DD-MM-YY hh:mm'}}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -843,7 +889,7 @@
                       <input
                         type="text"
                         class="comment__text gridster-item-content"
-                        placeholder="Напишите свой комментарий..."
+                        placeholder="Укажите факты..."
                         (keypress)="onEnterPush($event)"
                         #newInput2
                       />
@@ -888,7 +934,11 @@
                   <div class="deadline">
                     <mat-form-field>
                       <mat-label>Срок выполнения</mat-label>
-                      <input matInput [matDatepicker]="myDatepicker" />
+                      <input
+                        matInput
+                        [matDatepicker]="myDatepicker"
+                        [(ngModel)]="isNewRetrieval.deadline"
+                      />
                       <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
                       <mat-datepicker #myDatepicker></mat-datepicker>
                     </mat-form-field>
@@ -941,25 +991,36 @@
                     <!--ngFor -->
                     <div
                       class="comment_new"
-                      (click)="clickFact()"
-                      [class.activeFact]="isClickFact"
-                      *ngFor="let comment of isNewRetrieval.comments"
+                      (click)="clickComment(comment, i)"
+                      [ngClass]="{'activeFact': comment.active}"
+                      *ngFor="let comment of isNewRetrieval.comments; let i = index"
                     >
                       <div class="comment_text">
-                        {{comment.comment}}
+                        <p>{{comment.comment}}</p>
                       </div>
                       <div class="comment_menu">
-                        <div class="comment_button">
+                        <div class="comment_button" *ngIf="(isClickComment === i)">
                           <div class="comment_button_update">
                             <svg-icon
-                              src="./assets/icons/edit.svg"
-                              [svgStyle]="{ 'width.px':15, 'height.px':15 }"
+                              src="./assets/pic/AdminReferences/delete.svg"
+                              [svgStyle]="{ 'width.px':16, 'height.px':16 }"
                             >
                             </svg-icon>
                           </div>
-                          <div class="comment_button_delete"></div>
+                          <div class="comment_button_delete">
+                            <svg-icon
+                              src="./assets/icons/edit.svg"
+                              [svgStyle]="{ 'width.px':25, 'height.px':20 }"
+                            >
+                            </svg-icon>
+                          </div>
                         </div>
-                        <div class="comment_info"></div>
+                        <div class="comment_info">
+                          <div class="comment_info_user">{{comment.displayName}}</div>
+                          <div class="comment_info_date">
+                            {{ comment.createdAt | dateFormat:'DD-MM-YY hh:mm'}}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1320,7 +1381,7 @@
                           <div class="submit__frame submit__frame-right"></div>
                           <button
                             type="submit gridster-item-content"
-                            (click)="deleteRetrieval(event.id, retrieval.id)"
+                            (click)="deleteRetrieval(event.id, retrieval.innerNotification.id, retrieval.id)"
                           >
                             Удалить
                           </button>
