@@ -8,12 +8,15 @@ import { Component, OnInit, Input } from '@angular/core';
 export class AwsClaimCardComponent implements OnInit {
     @Input() public name: string = '';
     @Input() public isActive: boolean = false;
+    @Input() public isChangingCardState: boolean = false;
 
     constructor() {}
 
     public ngOnInit(): void {}
 
     public changeCardState(): void {
-        this.isActive = !this.isActive;
+        if (this.isChangingCardState) {
+            this.isActive = !this.isActive;
+        }
     }
 }

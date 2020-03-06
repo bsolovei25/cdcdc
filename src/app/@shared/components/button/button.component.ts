@@ -11,6 +11,7 @@ export class ButtonComponent implements OnInit {
     @Input() public textButton: string = '';
     @Input() public imgSrc: IButtonImgSrc = null;
     @Input() public isActive: boolean = false;
+    @Input() public isChangingState: boolean = false;
 
     public isButtonHover: boolean = false;
 
@@ -38,6 +39,8 @@ export class ButtonComponent implements OnInit {
     }
 
     public onClick(): void {
-        this.isActive = !this.isActive;
+        if (this.isChangingState) {
+            this.isActive = !this.isActive;
+        }
     }
 }

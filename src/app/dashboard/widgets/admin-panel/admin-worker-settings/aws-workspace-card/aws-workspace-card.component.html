@@ -1,3 +1,7 @@
-<div class="card" [ngClass]="{'card-active':isActive}" (click)="changeCardState()">
+<div
+  class="card"
+  [ngClass]="{'card-active':isActive, 'hover':isChangingCardState}"
+  (click)="changeCardState()"
+>
   <div class="text">{{workspace.name}}<br />{{author}}</div>
 </div>

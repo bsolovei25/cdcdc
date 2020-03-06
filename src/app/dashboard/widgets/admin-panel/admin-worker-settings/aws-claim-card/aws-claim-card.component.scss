@@ -21,11 +21,15 @@
 
   transition: 0.5s;
 
+  user-select: none;
+
   &-active {
     color: var(--color-text-main);
     border-color: var(--color-active);
   }
+}
 
+.hover {
   &:hover {
     cursor: pointer;
   }

@@ -84,6 +84,7 @@
             [isActive]="true"
             [workspace]="workspace"
             [author]="worker.name"
+            [isChangingCardState]="true"
           ></evj-aws-workspace-card>
         </ng-container>
       </div>
@@ -94,11 +95,17 @@
         <evj-aws-claim-card
           [name]="'Высокий уровень доступа'"
           [isActive]="false"
+          [isChangingCardState]="true"
         ></evj-aws-claim-card>
-        <evj-aws-claim-card [name]="'Открытый доступ'" [isActive]="true"></evj-aws-claim-card>
+        <evj-aws-claim-card
+          [name]="'Открытый доступ'"
+          [isActive]="true"
+          [isChangingCardState]="true"
+        ></evj-aws-claim-card>
         <evj-aws-claim-card
           [name]="'Доступ с ограничениями'"
           [isActive]="false"
+          [isChangingCardState]="true"
         ></evj-aws-claim-card>
       </div>
     </div>

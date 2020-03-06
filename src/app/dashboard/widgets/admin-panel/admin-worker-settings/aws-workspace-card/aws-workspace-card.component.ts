@@ -13,12 +13,15 @@ export class AwsWorkspaceCardComponent implements OnInit {
     };
     @Input() public author: string = '';
     @Input() public isActive: boolean = false;
+    @Input() public isChangingCardState: boolean = false;
 
     constructor() {}
 
-    public ngOnInit(): void {}
+    ngOnInit(): void {}
 
     public changeCardState(): void {
-        this.isActive = !this.isActive;
+        if (this.isChangingCardState) {
+            this.isActive = !this.isActive;
+        }
     }
 }

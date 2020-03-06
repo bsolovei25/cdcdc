@@ -11,6 +11,10 @@
 
   box-sizing: border-box;
 
+  .small {
+    user-select: none;
+  }
+
   &__photo {
     position: absolute;
     z-index: 1;

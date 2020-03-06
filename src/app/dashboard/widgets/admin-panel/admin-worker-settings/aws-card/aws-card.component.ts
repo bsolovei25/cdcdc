@@ -16,5 +16,5 @@ export class AwsCardComponent implements OnInit {
 
     constructor() {}
 
-    ngOnInit(): void {}
+    public ngOnInit(): void {}
 }
