@@ -23,6 +23,7 @@ import { WidgetSettingsService } from '../../services/widget-settings.service';
 })
 export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild('scroll') scroll: ElementRef;
+    @ViewChild('blockScroll') blockScroll: ElementRef;
 
     scrollWidth: number;
 
@@ -128,8 +129,16 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
     async loadSaveData(data: IMachine_MI[]): Promise<void> {
         const settings: IMachine_MI[] = await this.widgetSettingsService.getSettings(this.uniqId);
         for (const itemDate of data) {
-            itemDate.open = settings.find(el => el.name === itemDate.name).open;
-            itemDate.active = settings.find(el => el.name === itemDate.name).active;
+            try{
+                itemDate.open = settings.find(el => el.name === itemDate.name).open;
+                itemDate.active = settings.find(el => el.name === itemDate.name).active;
+            }
+            catch{
+            //    itemDate.open = true;
+             //   itemDate.active = false;
+            }
+            // itemDate.open = settings.find(el => el.name === itemDate.name).open;
+            // itemDate.active = settings.find(el => el.name === itemDate.name).active;
         }
         this.Data = this.manualInputService.LoadData(this.Data, data);
         console.log(this.Data);
