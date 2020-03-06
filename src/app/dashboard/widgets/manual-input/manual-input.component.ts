@@ -133,11 +133,11 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
     async loadSaveData(data: IMachine_MI[]): Promise<void> {
         const settings: IMachine_MI[] = await this.widgetSettingsService.getSettings(this.uniqId);
         for (const itemDate of data) {
-            itemDate.open = settings?.find(el => el.name === itemDate.name).open ?? true;
-            itemDate.active = settings?.find(el => el.name === itemDate.name).active ?? false;
+            itemDate.open = settings?.find(el => el.name === itemDate.name)?.open ?? true;
+            itemDate.active = settings?.find(el => el.name === itemDate.name)?.active ?? false;
             for (const item of itemDate.groups) {
                 const setGroups = settings?.find(el => el.name === itemDate.name);
-                item.open = setGroups.groups?.find(el => el.name === item.name).open ?? true;
+                item.open = setGroups.groups?.find(el => el.name === item.name)?.open ?? true;
             }
 
         }
@@ -204,7 +204,7 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
             for (const item of machine.groups) {
                 const itemObj: IGroup_MI = {
                     name: item.name,
-                    open: item.open === item?.open ?? true,
+                    open: item?.open ?? true,
                 };
                 machineObj.groups.push(itemObj);
             }
