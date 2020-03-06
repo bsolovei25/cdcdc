@@ -138,7 +138,7 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
             itemDate.active = settings?.find((el) => el.name === itemDate.name)?.active ?? false;
             for (const item of itemDate.groups) {
                 const setGroups = settings?.find((el) => el.name === itemDate.name);
-                item.open = setGroups.groups?.find((el) => el.name === item.name)?.open ?? true;
+                item.open = setGroups?.groups?.find((el) => el.name === item.name)?.open ?? true;
             }
         }
         this.Data = this.manualInputService.LoadData(this.Data, data);
