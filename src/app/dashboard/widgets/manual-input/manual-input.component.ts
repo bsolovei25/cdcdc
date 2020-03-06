@@ -22,10 +22,14 @@ import { WidgetSettingsService } from '../../services/widget-settings.service';
     styleUrls: ['./manual-input.component.scss'],
 })
 export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
+    @ViewChild('truckScroll') truckScroll: ElementRef;
     @ViewChild('scroll') scroll: ElementRef;
-    @ViewChild('blockScroll') blockScroll: ElementRef;
 
-    scrollWidth: number;
+    scrollBlockWidth: number;
+    scrollTruckWidth: number;
+
+
+    widthTruckScroll: number;
 
     static itemCols: number = 30;
     static itemRows: number = 20;
@@ -72,9 +76,11 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
 
     ngAfterViewInit(): void {
         if (!this.isMock) {
-            setTimeout(() => {
-                this.scrollWidth = this.scroll.nativeElement.scrollWidth;
-            }, 1);
+            setInterval(() => {
+                this.scrollBlockWidth = this.scroll.nativeElement.scrollWidth;
+                this.scrollTruckWidth = this.truckScroll.nativeElement.clientWidth;
+                (this.scrollBlockWidth - this.scrollTruckWidth === 0) ? this.widthTruckScroll = 0 : this.widthTruckScroll = this.scrollBlockWidth;
+            }, 1000);
         }
     }
 
@@ -127,16 +133,13 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
     async loadSaveData(data: IMachine_MI[]): Promise<void> {
         const settings: IMachine_MI[] = await this.widgetSettingsService.getSettings(this.uniqId);
         for (const itemDate of data) {
-            try{
-                itemDate.open = settings.find(el => el.name === itemDate.name).open;
-                itemDate.active = settings.find(el => el.name === itemDate.name).active;
+            itemDate.open = settings?.find(el => el.name === itemDate.name).open ?? true;
+            itemDate.active = settings?.find(el => el.name === itemDate.name).active ?? false;
+            for (const item of itemDate.groups) {
+                const setGroups = settings?.find(el => el.name === itemDate.name);
+                item.open = setGroups.groups?.find(el => el.name === item.name).open ?? true;
             }
-            catch{
-            //    itemDate.open = true;
-             //   itemDate.active = false;
-            }
-            // itemDate.open = settings.find(el => el.name === itemDate.name).open;
-            // itemDate.active = settings.find(el => el.name === itemDate.name).active;
+
         }
         this.Data = this.manualInputService.LoadData(this.Data, data);
         console.log(this.Data);
@@ -160,6 +163,7 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
         item.active = !item.active;
         this.chooseSetting = item;
         this.allSettings = false;
+        this.OnManualInputSendSettings(this.saveDataObj());
     }
 
     onShowAllSettings(): void {
@@ -167,18 +171,17 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
         for (let i of this.Data) {
             i.open = this.openAllSettings;
         }
+        this.OnManualInputSendSettings(this.saveDataObj());
     }
 
     onShowMachine(machine): void {
-        if (machine.open === undefined) {
-            machine.open = true;
-        }
         machine.open = !machine.open;
         this.OnManualInputSendSettings(this.saveDataObj());
     }
 
     onShowItemMachine(item): void {
         item.open = !item.open;
+        this.OnManualInputSendSettings(this.saveDataObj());
     }
 
     onInputMessage(i): void {
