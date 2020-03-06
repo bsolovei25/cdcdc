@@ -25,6 +25,7 @@ import {
 } from '../../../models/admin-shift-schedule';
 import { fillDataShape } from '../../../../@shared/common-functions';
 import { MatCalendar } from '@angular/material/datepicker';
+import { MaterialControllerService } from '../../../services/material-controller.service';
 
 export interface IAdminShiftSchedule {
     worker: IWorker[];
@@ -79,7 +80,8 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
         @Inject('uniqId') public uniqId: string,
         private dateAdapter: DateAdapter<Date>,
         private renderer: Renderer2,
-        private adminShiftScheduleService: AdminShiftScheduleService
+        private adminShiftScheduleService: AdminShiftScheduleService,
+        private materialController: MaterialControllerService,
     ) {
         this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
             this.title = data.title;
@@ -135,6 +137,7 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
 
     public dateChanged(event: Date): void {
         this.resetComponent();
+        this.openOverlay(null, null, false);
         const idx = this.scheduleShiftMonth.findIndex(
             (val) => new Date(val.date).getDate() === new Date(event).getDate()
         );
@@ -168,12 +171,16 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
                 user.id
             );
             this.activeUsers.deselect(user);
+            this.materialController
+                .openSnackBar(`${user.lastName} ${user.firstName} удален из смены`);
         } else {
             await this.adminShiftScheduleService.postMemberFromBrigade(
                 this.selectedShift.id,
                 user.id
             );
             this.activeUsers.select(user);
+            this.materialController
+                .openSnackBar(`${user.lastName} ${user.firstName} добавлен в смену`);
         }
         this.isLoading = false;
     }
@@ -191,6 +198,7 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
         );
         this.reLoadDataMonth();
         this.selectShift(this.selectedShift);
+        this.materialController.openSnackBar(`Бригада ${brigade.brigadeNumber} сохранена`);
         selectedDay.items.find((value) => {
             if (value.id === this.selectedShift.id) {
                 value.brigadeId = brigade.brigadeId;
@@ -206,6 +214,7 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
     async deleteBrigadeFromShift(): Promise<void> {
         this.isLoading = true;
         await this.adminShiftScheduleService.deleteBrigade(this.selectedShift.id);
+        this.materialController.openSnackBar(`Бригада удалена`);
         const sh = this.selectedDay.items.find((val) => val.id === this.selectedShift.id);
         this.openOverlay(null, null, false);
         if (sh) {
@@ -273,6 +282,7 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
     // #region DATA API
 
     public async loadItem(): Promise<void> {
+        this.isLoading = true;
         const dataLoadQueue: Promise<void>[] = [];
         dataLoadQueue.push(this.reLoadDataMonth());
         dataLoadQueue.push(
@@ -287,19 +297,19 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
         );
         if (dataLoadQueue.length > 0) {
             try {
-                this.isLoading = true;
                 await Promise.all(dataLoadQueue);
-                this.isLoading = false;
+                this.dateChanged(this.dateNow);
             } catch (err) {
-                this.isLoading = false;
                 console.error(err);
             }
         }
+        this.isLoading = false;
     }
 
     // #endregion
 
     public async selectShift(shift: IScheduleShift): Promise<void> {
+        this.isLoading = true;
         this.activeUsers.clear();
         await this.adminShiftScheduleService.getSchudeleShift(shift.id).then((data) => {
             this.selectedShift = data;
@@ -311,6 +321,7 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
                 }
             });
         });
+        this.isLoading = false;
     }
 
     public filterBrigade(brigadeUsers: IBrigadeWithUsersDto[]): IBrigadeWithUsersDto[] {
