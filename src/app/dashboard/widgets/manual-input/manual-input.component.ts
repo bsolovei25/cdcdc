@@ -28,7 +28,6 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
     scrollBlockWidth: number;
     scrollTruckWidth: number;
 
-
     widthTruckScroll: number;
 
     static itemCols: number = 30;
@@ -79,7 +78,9 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
             setInterval(() => {
                 this.scrollBlockWidth = this.scroll.nativeElement.scrollWidth;
                 this.scrollTruckWidth = this.truckScroll.nativeElement.clientWidth;
-                (this.scrollBlockWidth - this.scrollTruckWidth === 0) ? this.widthTruckScroll = 0 : this.widthTruckScroll = this.scrollBlockWidth;
+                this.scrollBlockWidth - this.scrollTruckWidth === 0
+                    ? (this.widthTruckScroll = 0)
+                    : (this.widthTruckScroll = this.scrollBlockWidth);
             }, 1000);
         }
     }
@@ -133,13 +134,12 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
     async loadSaveData(data: IMachine_MI[]): Promise<void> {
         const settings: IMachine_MI[] = await this.widgetSettingsService.getSettings(this.uniqId);
         for (const itemDate of data) {
-            itemDate.open = settings?.find(el => el.name === itemDate.name)?.open ?? true;
-            itemDate.active = settings?.find(el => el.name === itemDate.name)?.active ?? false;
+            itemDate.open = settings?.find((el) => el.name === itemDate.name)?.open ?? true;
+            itemDate.active = settings?.find((el) => el.name === itemDate.name)?.active ?? false;
             for (const item of itemDate.groups) {
-                const setGroups = settings?.find(el => el.name === itemDate.name);
-                item.open = setGroups.groups?.find(el => el.name === item.name)?.open ?? true;
+                const setGroups = settings?.find((el) => el.name === itemDate.name);
+                item.open = setGroups.groups?.find((el) => el.name === item.name)?.open ?? true;
             }
-
         }
         this.Data = this.manualInputService.LoadData(this.Data, data);
         console.log(this.Data);
@@ -154,6 +154,7 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
         for (let i of this.Data) {
             i.active = false;
         }
+        this.OnManualInputSendSettings(this.saveDataObj());
     }
 
     onSettings(item: IMachine_MI): void {
@@ -193,7 +194,7 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     saveDataObj(): IMachine_MI[] {
-        const saveDataTemp: IMachine_MI[] = []
+        const saveDataTemp: IMachine_MI[] = [];
         for (const machine of this.Data) {
             const machineObj: IMachine_MI = {
                 name: machine.name,
