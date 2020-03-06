@@ -99,11 +99,12 @@
   justify-content: space-between;
 
   &__container {
+    pointer-events: fill;
+    cursor: pointer;
     display: flex;
     .title {
       padding-left: 10px;
       position: relative;
-      cursor: default;
       font-size: 0.875rem;
       width: 130px;
       text-align: center;

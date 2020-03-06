@@ -143,7 +143,12 @@
                     <div class="input_position">
                       <mat-form-field class="example-full-width">
                         <mat-label>Номер позиции</mat-label>
-                        <input matInput placeholder="Текст..." />
+                        <input
+                          matInput
+                          placeholder="Текст..."
+                          [value]="event.positionNumber"
+                          [(ngModel)]="event.positionNumber"
+                        />
                       </mat-form-field>
                     </div>
                     <div class="position_icon">
@@ -462,7 +467,7 @@
                       >
                         <div class="events_info">
                           <div class="events_info_title">
-                            <div>Кратное описание</div>
+                            <div>Краткое описание</div>
                             <div style="margin-left: 10px">
                               <svg-icon
                                 *ngIf="retrieval.timerPercentage > 99"
@@ -521,7 +526,10 @@
                             >
                             </svg-icon>
                           </div>
-                          <div clas="events_button_update">
+                          <div
+                            clas="events_button_update"
+                            (click)="onEditRetrieval(retrieval.innerNotification)"
+                          >
                             <svg-icon
                               class="edit_button_icon"
                               src="./assets/icons/widgets/workspace/edit.svg"
@@ -774,7 +782,12 @@
                         <div class="input_position">
                           <mat-form-field class="example-full-width">
                             <mat-label>Номер позиции</mat-label>
-                            <input matInput placeholder="Текст..." />
+                            <input
+                              matInput
+                              placeholder="Текст..."
+                              [value]="isNewRetrieval.positionNumber"
+                              [(ngModel)]="isNewRetrieval.positionNumber"
+                            />
                           </mat-form-field>
                         </div>
                         <div class="position_icon">

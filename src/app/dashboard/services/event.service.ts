@@ -9,6 +9,7 @@ import {
     EventsWidgetOptions,
     EventsWidgetsStats,
     EventsWidgetNotificationPreview,
+    IRetrievalEvents,
 } from '../models/events-widget';
 import { AppConfigService } from 'src/app/services/appConfigService';
 
@@ -164,16 +165,12 @@ export class EventService {
         }
     }
 
-    async editRetrievalEvents(
-        eventId: number,
-        retrievalEvents: EventsWidgetNotification
-    ): Promise<any> {
+    async editRetrievalEvents(retrievalEvents: IRetrievalEvents): Promise<any> {
         try {
             return this.http
                 .put(
                     this.restUrl +
-                        `/api/notification-retrieval/${eventId}/retrievalevents/
-                        ${retrievalEvents.id}`,
+                        `/api/notification-retrieval/retrievalevents/${retrievalEvents.innerNotification.id}`,
                     retrievalEvents
                 )
                 .toPromise();

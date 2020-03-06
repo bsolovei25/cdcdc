@@ -26,6 +26,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { AuthService } from '@core/service/auth.service';
+import { TestBed } from '@angular/core/testing';
 
 @Component({
     selector: 'evj-events-workspace',
@@ -321,6 +322,9 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     clickFact(fact, index): void {
+        for (let i of this.event.facts) {
+            i.active = false;
+        }
         fact.active = !fact.active;
         if (fact.active === true) {
             this.isClickFact = index;
@@ -330,6 +334,9 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     clickComment(comment, index): void {
+        for (let i of this.event.comments) {
+            i.active = false;
+        }
         comment.active = !comment.active;
         if (comment.active === true) {
             this.isClickComment = index;
@@ -576,6 +583,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         };
     }
 
+    isRetrievel() {}
     overlayClose(): void {
         document.getElementById('overlay-retrieval').style.display = 'none';
         this.isNewRetrieval = null;
@@ -585,9 +593,9 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         this.event.retrievalEvents.pop();
     }
 
-    onEditRetrieval(retrieval: EventsWidgetNotification): void {
+    onEditRetrieval(retNotid: EventsWidgetNotification): void {
         this.isEdit = true;
-        this.isNewRetrieval = retrieval;
+        this.isNewRetrieval = retNotid;
         document.getElementById('overlay-retrieval').style.display = 'block';
     }
 
@@ -605,17 +613,16 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
             this.overlayClose();
         } else {
             try {
-                this.isLoading = true;
-                const put = await this.eventService.editRetrievalEvents(
-                    this.event.id,
-                    this.isNewRetrieval
-                );
                 const idx = this.event.retrievalEvents.findIndex(
                     (i) => i.innerNotification.id === this.isNewRetrieval.id
                 );
                 if (idx !== -1) {
                     this.event.retrievalEvents[idx].innerNotification = this.isNewRetrieval;
                 }
+                this.isLoading = true;
+                const put = await this.eventService.editRetrievalEvents(
+                    this.event.retrievalEvents[idx]
+                );
                 this.eventService.updateEvent$.next(true);
                 this.overlayClose();
                 this.isLoading = false;

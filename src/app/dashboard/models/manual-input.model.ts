@@ -44,18 +44,21 @@ export interface Param_MI {
     saveValue?: string;
 }
 
-export interface Group_MI {
+export interface IGroup_MI {
     name: string;
-    params: Param_MI[];
+    params?: Param_MI[];
+    open?: boolean;
 }
 
 export interface ManualInputData {
-    items: Machine_MI[];
+    items: IMachine_MI[];
 }
 
-export interface Machine_MI {
+export interface IMachine_MI {
     name: string;
-    groups: Group_MI[];
+    groups: IGroup_MI[];
+    active?: boolean;
+    open?: boolean;
 }
 
 export interface TestPostClass {
