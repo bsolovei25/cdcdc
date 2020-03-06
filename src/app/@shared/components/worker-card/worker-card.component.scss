@@ -6,8 +6,8 @@
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  //   align-items: center;
 
   box-sizing: border-box;
 
@@ -278,6 +278,7 @@
 .svg {
   &__txt {
     font-size: 2.7px;
+    // font-size: 7px;
     fill: var(--color-text-main);
 
     &-small {
@@ -288,5 +289,9 @@
         fill: var(--color-text-main);
       }
     }
+  }
+
+  &__unactive {
+    fill: var(--color-text-sub-heading);
   }
 }

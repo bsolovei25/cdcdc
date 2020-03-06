@@ -1,7 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { NewUserSettingsService } from '../../services/new-user-settings.service';
 import { Subscription } from 'rxjs';
-import { timingSafeEqual } from 'crypto';
 import { ScreenSettings } from '../../models/user-settings.model';
 
 @Component({

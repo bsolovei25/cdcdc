@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { slideInAnimation } from 'src/app/animations';
 import { RouterOutlet } from '@angular/router';
+import ru from '@angular/common/locales/ru';
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(ru);
 
 @Component({
     selector: 'evj-root',

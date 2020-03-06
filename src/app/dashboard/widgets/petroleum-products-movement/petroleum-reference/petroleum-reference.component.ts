@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { transition, trigger, animate, style } from '@angular/animations';
 
 @Component({
@@ -9,7 +9,7 @@ import { transition, trigger, animate, style } from '@angular/animations';
         trigger('leaveAnimation', [
             transition(':leave', [
                 style({ transform: 'translateY(0%)' }),
-                animate('1000ms', style({ transform: 'translateY(468px)' })),
+                animate('1000ms', style({ transform: 'translateY(55%)' })),
             ]),
         ]),
         trigger('enterAnimation', [
@@ -22,6 +22,10 @@ import { transition, trigger, animate, style } from '@angular/animations';
 })
 export class PetroleumReferenceComponent implements OnInit {
     @Input() shortHeight: boolean;
+
+    @Input() updateParamBlock: boolean;
+
+    @Output() exitBlock = new EventEmitter<boolean>();
 
     public title = [
         {
@@ -299,10 +303,67 @@ export class PetroleumReferenceComponent implements OnInit {
         },
     ];
 
+    public data2 = {
+        leftTable: [
+            {
+                name: 'Продукт',
+                type: 'кг/м3',
+                value: 0.5,
+            },
+            {
+                name: 'Продукт',
+                type: 'кг/м3',
+                value: 0.5,
+            },
+            {
+                name: 'Продукт',
+                type: 'кг/м3',
+                value: 0.5,
+            },
+            {
+                name: 'Продукт',
+                type: 'кг/м3',
+                value: 0.5,
+            },
+        ],
+        rightTable: [
+            {
+                name: 'Продукт',
+                type: 'кг/м3',
+                value: 0.5,
+            },
+            {
+                name: 'Продукт',
+                type: 'кг/м3',
+                value: 0.5,
+            },
+            {
+                name: 'Продукт',
+                type: 'кг/м3',
+                value: 0.5,
+            },
+            {
+                name: 'Продукт',
+                type: 'кг/м3',
+                value: 0.5,
+            },
+        ],
+    };
+
     objectKeys = Object.keys;
     objectEntries = Object.entries;
 
     constructor() {}
 
     ngOnInit() {}
+
+    returnMenu() {
+        this.shortHeight = true;
+        this.updateParamBlock = false;
+        this.exitBlock.emit(true);
+    }
+
+    clickActive(item): void {
+        item.active = !item.active;
+    }
 }

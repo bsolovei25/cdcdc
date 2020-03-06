@@ -25,20 +25,29 @@
         {{person.brigade}}
       </text>
       <text x="33" y="43" text-anchor="start" class="svg__txt">
-        {{person.accessLevel}}
+        <!-- {{person.accessLevel}} -->
       </text>
     </svg>
   </ng-container>
 
   <ng-template #smallCard>
-    <svg width="100%" height="100%" viewBox="0 0 50 50">
+    <svg width="100%" height="100%" viewBox="0 0 100 50">
       <image
-        x="-74.4"
+        *ngIf="active"
+        x="-40"
         y="0"
         width="200"
         height="50"
         [attr.xlink:href]="(isActiveCard)?srcCardActive:srcCardNormal"
       />
+      <!-- <image
+        *ngIf="!active"
+        x="-40"
+        y="0"
+        width="50"
+        height="50"
+        xlink:href="../../../../../assets/icons/widgets/admin/border-no-active.svg"
+      /> -->
       <image
         x="-36"
         y="0.5"

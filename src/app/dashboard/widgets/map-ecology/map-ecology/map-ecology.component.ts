@@ -9,11 +9,8 @@ import {
 } from '@angular/core';
 import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
 import { Subscription } from 'rxjs';
-import { runInThisContext } from 'vm';
-import { ThrowStmt } from '@angular/compiler';
 
 declare var d3: any;
-declare var namePoint;
 
 @Component({
     selector: 'evj-map-ecology',
