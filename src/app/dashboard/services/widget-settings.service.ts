@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from 'src/app/services/appConfigService';
+import { Observable } from 'rxjs';
 
 /*
 
@@ -26,6 +27,7 @@ export class WidgetSettingsService {
     public async getSettings<TSettings>(widgetUniqueId: string): Promise<TSettings> {
         const url = `${this.restUrl}/api/user-management/widgetsettings/${widgetUniqueId}`;
         const settings = await this.http.get<TSettings>(url).toPromise();
+        console.log(settings);
         return settings;
     }
 
@@ -34,8 +36,17 @@ export class WidgetSettingsService {
         settings: TSettings
     ): Promise<void> {
         const url = `${this.restUrl}/api/user-management/widgetsettings/${widgetUniqueId}`;
-        const json = this.jsonStringify(settings);
-        await this.http.post(url, json).toPromise();
+        // const json = this.jsonStringify(settings);
+        await this.http.post(url, settings).toPromise();
+    }
+
+    public async saveSingleSetting(
+        widgetUniqueId: string,
+        key: string,
+        value: string
+    ): Promise<void> {
+        const url = `${this.restUrl}/api/user-management/widgetsettings/${widgetUniqueId}/${key}`;
+        await this.http.post(url, `${value}`).toPromise();
     }
 
     private jsonStringify<T>(data: T): string {
