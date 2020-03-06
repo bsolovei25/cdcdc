@@ -56,7 +56,7 @@ export interface ManualInputData {
 
 export interface IMachine_MI {
     name: string;
-    groups: IGroup_MI[];
+    groups?: IGroup_MI[];
     active?: boolean;
     open?: boolean;
 }
