@@ -40,6 +40,7 @@ export class WidgetHeaderComponent implements OnInit, OnChanges {
     }
 
     createEvent(event): void {
+        console.log('1');
         this.CreateIcon = false;
         this.eventCreated.emit(event);
     }

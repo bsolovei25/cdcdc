@@ -22,10 +22,16 @@
               <th class="header header__date">Дата</th>
               <th class="header header__production">Производство</th>
               <th class="header header__equipment">Установка</th>
-              <th class="header header__suspenseBreakpoint">Простой останова</th>
-              <th class="header header__suspenseDuration">Длительность простоя</th>
+              <th class="header header__suspenseBreakpoint">
+                Простой останова
+              </th>
+              <th class="header header__suspenseDuration">
+                Длительность простоя
+              </th>
               <th class="header header__suspenseCause">Причина простоя</th>
-              <th class="header header__suspenseRelated">Причина сопутствующая</th>
+              <th class="header header__suspenseRelated">
+                Причина сопутствующая
+              </th>
             </tr>
           </thead>
         </table>
@@ -39,13 +45,21 @@
         <table>
           <tbody>
             <tr *ngFor="let item of data" class="table__item">
-              <td class="item item__date">{{ item.date | date:'dd-mm-yyyy' }}</td>
+              <td class="item item__date">
+                {{ item.date | date:'dd-mm-yyyy' }}
+              </td>
               <td class="item item__production">{{ item.production }}</td>
               <td class="item item__equipment">{{ item.equipment }}</td>
-              <td class="item item__suspenseBreakpoint">{{ item.suspenseBreakpoint }}</td>
-              <td class="item item__suspenseDuration">{{ item.suspenseDuration }}</td>
+              <td class="item item__suspenseBreakpoint">
+                {{ item.suspenseBreakpoint }}
+              </td>
+              <td class="item item__suspenseDuration">
+                {{ item.suspenseDuration }}
+              </td>
               <td class="item item__suspenseCause">{{ item.suspenseCause }}</td>
-              <td class="item item__suspenseRelated">{{ item.suspenseRelated }}</td>
+              <td class="item item__suspenseRelated">
+                {{ item.suspenseRelated }}
+              </td>
             </tr>
           </tbody>
         </table>
