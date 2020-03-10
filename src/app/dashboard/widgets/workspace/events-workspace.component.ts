@@ -183,7 +183,12 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         this.isNew = false;
 
         if (typeof value !== 'number') {
-            this.chooseNameUser = value.fixedBy.firstName + ' ' + value.fixedBy.middleName + ' ' + value.fixedBy.lastName;
+            this.chooseNameUser =
+                value.fixedBy.firstName +
+                ' ' +
+                value.fixedBy.middleName +
+                ' ' +
+                value.fixedBy.lastName;
             this.event = value;
         }
 
