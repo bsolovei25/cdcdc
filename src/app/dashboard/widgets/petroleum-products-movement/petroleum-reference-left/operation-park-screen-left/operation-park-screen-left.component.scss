@@ -30,7 +30,7 @@
   margin: 0 auto;
   height: 41.5px;
   width: 260px;
-  background: url(../../../../../assets/icons/widgets/petroleum-products-movement/Background-blue.svg);
+  background: url(../../../../../../assets/icons/widgets/petroleum-products-movement/Background-blue.svg);
   background-repeat: no-repeat;
   text-align: center;
   line-height: 40px;
@@ -40,7 +40,7 @@
 .unclick_button {
   cursor: default;
   font-size: 12px;
-  background: url(../../../../../assets/icons/widgets/petroleum-products-movement/active-background-button-left.svg);
+  background: url(../../../../../../assets/icons/widgets/petroleum-products-movement/active-background-button-left.svg);
   background-repeat: no-repeat;
   display: flex;
   height: 71px;
@@ -50,7 +50,7 @@
 
 .click_button {
   font-size: 12px;
-  background: url(../../../../../assets/icons/widgets/petroleum-products-movement/left-button.svg);
+  background: url(../../../../../../assets/icons/widgets/petroleum-products-movement/left-button.svg);
   background-repeat: no-repeat;
   display: flex;
   height: 71px;
@@ -59,7 +59,7 @@
   cursor: pointer;
 
   &:hover {
-    background: url(../../../../../assets/icons/widgets/petroleum-products-movement/active-background-button-left.svg);
+    background: url(../../../../../../assets/icons/widgets/petroleum-products-movement/active-background-button-left.svg);
     background-repeat: no-repeat;
   }
 
@@ -97,6 +97,6 @@
 }
 
 .active_button {
-  background: url(../../../../../assets/icons/widgets/petroleum-products-movement/active-background-button-left.svg);
+  background: url(../../../../../../assets/icons/widgets/petroleum-products-movement/active-background-button-left.svg);
   background-repeat: no-repeat;
 }

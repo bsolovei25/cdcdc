@@ -12,12 +12,12 @@
         </div>
       </div>
       <div class="workspace_button">
-        <div class="button_operation">
+        <div class="button_operation" (click)="createOperation()">
           <div class="buttons">
             Создание операций
           </div>
         </div>
-        <div class="button_edit_param">
+        <div class="button_edit_param" (click)="changeParam()">
           <div class="buttons">
             Редактирование параметров
           </div>
@@ -47,50 +47,27 @@
         </div>
       </div>
     </div>
-    <!-- <ng-container *ngIf="!isChangeParam">
-        <div class="reports_title">
-          <div>Отчеты</div>
-          <div>
-            <svg-icon
-              src="./assets/icons/widgets/petroleum-products-movement/Analytic.svg"
-              [svgStyle]="{ 'width.px':15, 'height.px':15 }"
-            ></svg-icon>
-          </div>
+
+      <div class="reports_title">
+        <div>Отчеты</div>
+        <div>
+          <svg-icon
+            src="./assets/icons/widgets/petroleum-products-movement/Analytic.svg"
+            [svgStyle]="{ 'width.px':15, 'height.px':15 }"
+          ></svg-icon>
         </div>
-        <div class="reports">
-          <div class="reports_button">
-            <ng-container *ngFor="let item of data">
-              <div class="button_rep">
-                <div class="buttons">
-                  {{item}}
-                </div>
+      </div>
+      <div class="reports">
+        <div class="reports_button">
+          <ng-container *ngFor="let item of data">
+            <div class="button_rep">
+              <div class="buttons">
+                {{item}}
               </div>
-            </ng-container>
-          </div>
+            </div>
+          </ng-container>
         </div>
-      </ng-container>
-      <ng-container>
-        <div class="additionally_title">
-          <div>Дополнительно</div>
-          <div>
-            <svg-icon
-              src="./assets/icons/widgets/petroleum-products-movement/additionally.svg"
-              [svgStyle]="{ 'width.px':15, 'height.px':15 }"
-            ></svg-icon>
-          </div>
-        </div>
-        <div class="additionally">
-          <div class="additionally_button">
-            <ng-container *ngFor="let item of dataAdditionally">
-              <div class="button_additionally">
-                <div class="buttons">
-                  {{item}}
-                </div>
-              </div>
-            </ng-container>
-          </div>
-        </div>
-      </ng-container> -->
+      </div>
   </div>
   <div class="bottom_frame"></div>
 </div>

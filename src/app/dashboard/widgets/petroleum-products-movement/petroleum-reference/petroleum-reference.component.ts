@@ -23,6 +23,7 @@ import { IOperation } from '../../../models/petroleum-products-movement.model';
 })
 export class PetroleumReferenceComponent implements OnInit {
     @Input() typeScreen: string;
+    @Input() data: any;
 
     @Input() updateParamBlock: boolean;
 
@@ -261,67 +262,55 @@ export class PetroleumReferenceComponent implements OnInit {
         },
     ];
 
-    public data2 = {
-        leftTable: [
-            {
-                name: 'Продукт',
-                type: 'кг/м3',
-                value: 0.5,
-            },
-            {
-                name: 'Продукт',
-                type: 'кг/м3',
-                value: 0.5,
-            },
-            {
-                name: 'Продукт',
-                type: 'кг/м3',
-                value: 0.5,
-            },
-            {
-                name: 'Продукт',
-                type: 'кг/м3',
-                value: 0.5,
-            },
-        ],
-        rightTable: [
-            {
-                name: 'Продукт',
-                type: 'кг/м3',
-                value: 0.5,
-            },
-            {
-                name: 'Продукт',
-                type: 'кг/м3',
-                value: 0.5,
-            },
-            {
-                name: 'Продукт',
-                type: 'кг/м3',
-                value: 0.5,
-            },
-            {
-                name: 'Продукт',
-                type: 'кг/м3',
-                value: 0.5,
-            },
-        ],
-    };
-
-    objectKeys: any = Object.keys;
-    objectEntries: any = Object.entries;
+    // public data2 = {
+    //     leftTable: [
+    //         {
+    //             name: 'Продукт',
+    //             type: 'кг/м3',
+    //             value: 0.5,
+    //         },
+    //         {
+    //             name: 'Продукт',
+    //             type: 'кг/м3',
+    //             value: 0.5,
+    //         },
+    //         {
+    //             name: 'Продукт',
+    //             type: 'кг/м3',
+    //             value: 0.5,
+    //         },
+    //         {
+    //             name: 'Продукт',
+    //             type: 'кг/м3',
+    //             value: 0.5,
+    //         },
+    //     ],
+    //     rightTable: [
+    //         {
+    //             name: 'Продукт',
+    //             type: 'кг/м3',
+    //             value: 0.5,
+    //         },
+    //         {
+    //             name: 'Продукт',
+    //             type: 'кг/м3',
+    //             value: 0.5,
+    //         },
+    //         {
+    //             name: 'Продукт',
+    //             type: 'кг/м3',
+    //             value: 0.5,
+    //         },
+    //         {
+    //             name: 'Продукт',
+    //             type: 'кг/м3',
+    //             value: 0.5,
+    //         },
+    //     ],
+    // };
 
     constructor() {}
 
     ngOnInit(): void {}
 
-    returnMenu(): void {
-        //   this.shortHeight = true;
-        this.updateParamBlock = false;
-        this.exitBlock.emit(true);
-    }
-
-    clickActive(item): void {
-        item.active = !item.active;
-    }
 }

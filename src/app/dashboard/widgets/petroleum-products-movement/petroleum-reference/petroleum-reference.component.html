@@ -1,11 +1,11 @@
 <div class="reference">
   <div *ngIf="typeScreen === 'info'" class="test" [@leaveAnimation]>
-    <evj-info-screen [data]="data"></evj-info-screen>
+    <evj-info-screen [title]="title" [data]="operations"></evj-info-screen>
   </div>
   <div class="shortReference" *ngIf="typeScreen === 'operation'" [@enterAnimation]>
-    <evj-operation-screen [data]="data"></evj-operation-screen>
+    <evj-operation-screen  [title]="title" [data]="operations"></evj-operation-screen>
   </div>
   <div class="shortReference" *ngIf="typeScreen === 'park-operation'" [@enterAnimation]>
-    <evj-operation-park-screen [data]="data"></evj-operation-park-screen>
+    <evj-operation-park-screen  [title]="title" [data]="operations"></evj-operation-park-screen>
   </div>
 </div>

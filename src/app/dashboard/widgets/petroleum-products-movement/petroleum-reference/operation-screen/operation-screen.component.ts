@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { PetroleumScreenService } from 'src/app/dashboard/services/petroleum-screen.service';
 
 @Component({
     selector: 'evj-operation-screen',
@@ -7,8 +8,17 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class OperationScreenComponent implements OnInit {
     @Input() data: any;
+    @Input() title: string[];
 
-    constructor() {}
+    constructor(private petroleumService: PetroleumScreenService) {}
+
+    
+    objectKeys: any = Object.keys;
+    objectEntries: any = Object.entries;
 
     ngOnInit(): void {}
+
+    returnMenu(): void {
+        this.petroleumService.openScreen('info');
+    }
 }

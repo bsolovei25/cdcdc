@@ -108,13 +108,15 @@
   color: var(--color-text-sub);
   font-size: 10px;
   display: flex;
-  justify-content: space-around;
+  width: 80%;
+  margin: 0 auto;
+  justify-content: space-between;
 }
 
 .workspace_button {
   .button_operation {
     font-size: 12px;
-    background: url(../../../../../assets/icons/widgets/petroleum-products-movement/right-button.svg);
+    background: url(../../../../../../assets/icons/widgets/petroleum-products-movement/right-button.svg);
     background-repeat: no-repeat;
     height: 71px;
     width: 260px;
@@ -124,14 +126,14 @@
     cursor: pointer;
 
     &:hover {
-      background: url(../../../../../assets/icons/widgets/petroleum-products-movement/active-background-button-right.svg);
+      background: url(../../../../../../assets/icons/widgets/petroleum-products-movement/active-background-button-right.svg);
       background-repeat: no-repeat;
     }
   }
 
   .button_edit_param {
     font-size: 12px;
-    background: url(../../../../../assets/icons/widgets/petroleum-products-movement/right-button.svg);
+    background: url(../../../../../../assets/icons/widgets/petroleum-products-movement/right-button.svg);
     background-repeat: no-repeat;
     height: 71px;
     width: 260px;
@@ -141,7 +143,7 @@
     cursor: pointer;
 
     &:hover {
-      background: url(../../../../../assets/icons/widgets/petroleum-products-movement/active-background-button-right.svg);
+      background: url(../../../../../../assets/icons/widgets/petroleum-products-movement/active-background-button-right.svg);
       background-repeat: no-repeat;
     }
   }
@@ -157,29 +159,32 @@
   color: var(--color-text-sub);
   font-size: 10px;
   display: flex;
-  justify-content: space-around;
+  width: 80%;
+  margin: 0 auto;
+  justify-content: space-between;
 }
 
 .filter_button {
   .button_all_period_operation {
     font-size: 12px;
-    background: url(../../../../../assets/icons/widgets/petroleum-products-movement/right-button.svg);
+    background: url(../../../../../../assets/icons/widgets/petroleum-products-movement/right-button.svg);
     background-repeat: no-repeat;
     height: 71px;
     width: 260px;
     margin: 8px auto;
     text-align: center;
+    cursor: pointer;
     line-height: 70px;
 
     &:hover {
-      background: url(../../../../../assets/icons/widgets/petroleum-products-movement/active-background-button-right.svg);
+      background: url(../../../../../../assets/icons/widgets/petroleum-products-movement/active-background-button-right.svg);
       background-repeat: no-repeat;
     }
   }
 
   .button_open_operation {
     font-size: 12px;
-    background: url(../../../../../assets/icons/widgets/petroleum-products-movement/right-button.svg);
+    background: url(../../../../../../assets/icons/widgets/petroleum-products-movement/right-button.svg);
     background-repeat: no-repeat;
     height: 71px;
     width: 260px;
@@ -189,7 +194,7 @@
     cursor: pointer;
 
     &:hover {
-      background: url(../../../../../assets/icons/widgets/petroleum-products-movement/active-background-button-right.svg);
+      background: url(../../../../../../assets/icons/widgets/petroleum-products-movement/active-background-button-right.svg);
       background-repeat: no-repeat;
     }
   }
@@ -205,13 +210,15 @@
   color: var(--color-text-sub);
   font-size: 10px;
   display: flex;
-  justify-content: space-around;
+  width: 80%;
+  margin: 0 auto;
+  justify-content: space-between;
 }
 
 .reports_button {
   .button_rep {
     font-size: 12px;
-    background: url(../../../../../assets/icons/widgets/petroleum-products-movement/right-button.svg);
+    background: url(../../../../../../assets/icons/widgets/petroleum-products-movement/right-button.svg);
     background-repeat: no-repeat;
     height: 71px;
     width: 260px;
@@ -221,7 +228,7 @@
     cursor: pointer;
 
     &:hover {
-      background: url(../../../../../assets/icons/widgets/petroleum-products-movement/active-background-button-right.svg);
+      background: url(../../../../../../assets/icons/widgets/petroleum-products-movement/active-background-button-right.svg);
       background-repeat: no-repeat;
     }
   }
@@ -247,7 +254,7 @@
   .additionally_button {
     .button_additionally {
       font-size: 12px;
-      background: url(../../../../../assets/icons/widgets/petroleum-products-movement/right-button.svg);
+      background: url(../../../../../../assets/icons/widgets/petroleum-products-movement/right-button.svg);
       background-repeat: no-repeat;
       height: 71px;
       width: 260px;
@@ -257,7 +264,7 @@
       cursor: pointer;
 
       &:hover {
-        background: url(../../../../../assets/icons/widgets/petroleum-products-movement/active-background-button-right.svg);
+        background: url(../../../../../../assets/icons/widgets/petroleum-products-movement/active-background-button-right.svg);
         background-repeat: no-repeat;
       }
     }

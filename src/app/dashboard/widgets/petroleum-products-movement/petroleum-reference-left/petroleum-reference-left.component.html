@@ -2,12 +2,10 @@
   <div class="top-frame"></div>
   <div class="middle">
     <evj-operation-screen-left
-      [data]="data"
       *ngIf="typeScreen === 'operation'"
     ></evj-operation-screen-left>
-    <evj-info-screen-left [data]="data" *ngIf="typeScreen === 'info'"></evj-info-screen-left>
+    <evj-info-screen-left *ngIf="typeScreen === 'info'"></evj-info-screen-left>
     <evj-operation-park-screen-left
-      [data]="data"
       *ngIf="typeScreen === 'park-operation'"
     ></evj-operation-park-screen-left>
   </div>
