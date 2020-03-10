@@ -1,14 +1,14 @@
-import {Component, Inject, OnDestroy, AfterViewInit} from '@angular/core';
+import { Component, Inject, OnDestroy, AfterViewInit, OnInit } from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { ICalendarPlanGraph, ICalendarPlanData } from '../../models/calendar-plan';
-import {WidgetPlatform} from '../../models/widget-platform';
+import { WidgetPlatform } from '../../models/widget-platform';
 
 @Component({
     selector: 'evj-calendar-plan',
     templateUrl: './calendar-plan.component.html',
     styleUrls: ['./calendar-plan.component.scss'],
 })
-export class CalendarPlanComponent extends WidgetPlatform implements AfterViewInit, OnDestroy {
+export class CalendarPlanComponent extends WidgetPlatform implements OnInit, OnDestroy {
     public data: ICalendarPlanGraph = {
         plan: 1000,
         lowerBorder: 0.03,
@@ -119,8 +119,8 @@ export class CalendarPlanComponent extends WidgetPlatform implements AfterViewIn
         this.itemRows = 10;
     }
 
-    ngAfterViewInit(): void {
-        super.ngAfterViewInit();
+    ngOnInit(): void {
+        super.widgetInit();
     }
 
     ngOnDestroy(): void {

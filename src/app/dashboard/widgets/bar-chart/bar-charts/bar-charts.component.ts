@@ -1,14 +1,14 @@
-import {Component, Inject, OnDestroy, AfterViewInit} from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
 import { NewUserSettingsService } from 'src/app/dashboard/services/new-user-settings.service';
-import {WidgetPlatform} from '../../../models/widget-platform';
+import { WidgetPlatform } from '../../../models/widget-platform';
 
 @Component({
     selector: 'evj-bar-charts',
     templateUrl: './bar-charts.component.html',
     styleUrls: ['./bar-charts.component.scss'],
 })
-export class BarChartsComponent extends WidgetPlatform implements AfterViewInit, OnDestroy {
+export class BarChartsComponent extends WidgetPlatform implements OnInit, OnDestroy {
 
     public data: any[] = [];
 
@@ -26,8 +26,8 @@ export class BarChartsComponent extends WidgetPlatform implements AfterViewInit,
         this.itemRows = 10;
     }
 
-    ngAfterViewInit(): void {
-        super.ngAfterViewInit();
+    ngOnInit(): void {
+        super.widgetInit();
     }
 
     ngOnDestroy(): void {

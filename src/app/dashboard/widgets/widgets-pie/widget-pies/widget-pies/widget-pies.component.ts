@@ -1,66 +1,51 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject, AfterViewInit, OnDestroy, ChangeDetectorRef, OnInit } from '@angular/core';
 import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
-import { Subscription } from 'rxjs';
-import { WebSocketSubject } from 'rxjs/internal/observable/dom/WebSocketSubject';
-import { NewUserSettingsService } from 'src/app/dashboard/services/new-user-settings.service';
+import { WidgetPlatform } from '../../../../models/widget-platform';
 
 @Component({
     selector: 'evj-widget-pies',
     templateUrl: './widget-pies.component.html',
     styleUrls: ['./widget-pies.component.scss'],
 })
-export class WidgetPiesComponent implements OnInit {
-    static itemCols = 16;
-    static itemRows = 10;
-
-    private subscription: Subscription;
-
-    public title = 'Статическое Оборудование';
-    public code;
-    public units = 'шт.';
-    public name;
-    public icon: string = 'tools';
+export class WidgetPiesComponent extends WidgetPlatform implements OnInit, OnDestroy {
     public previewTitle: string = 'widget-pies';
 
     public uniqal;
 
-    public datas = [{ name: 'Статическое Оборудование', critical: 5, nonCritical: 2 }];
+    public datas = [];
 
     constructor(
         public widgetService: NewWidgetService,
+        // private cdref: ChangeDetectorRef,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-            this.title = data.title;
-            this.code = data.code;
-            this.name = data.name;
-        });
+        super(widgetService, isMock, id, uniqId);
+        this.widgetIcon = 'tools';
+        this.widgetUnits = 'шт.';
+        this.itemCols = 16;
+        this.itemRows = 10;
     }
 
-    ngOnInit() {
-        this.showMock(this.isMock);
+    ngOnInit(): void {
+        super.widgetInit();
     }
 
-    ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
+    ngOnDestroy(): void {
+        super.ngOnDestroy();
     }
+
+    protected dataHandler(ref: any): void {
+        this.datas = ref.items;
+    }
+
 
     private wsConnect() {
         this.widgetService.getWidgetLiveDataFromWS(this.id, 'pie-diagram').subscribe((ref) => {
             this.datas = ref.items;
         });
     }
-    private wsDisconnect() {}
+    private wsDisconnect() { }
 
-    showMock(show) {
-        if (show) {
-            this.wsDisconnect();
-        } else {
-            this.wsConnect();
-        }
-    }
 }

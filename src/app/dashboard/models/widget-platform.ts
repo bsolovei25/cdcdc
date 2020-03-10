@@ -1,8 +1,8 @@
-import {NewWidgetService} from '../services/new-widget.service';
-import {AfterViewInit, Inject, OnDestroy} from '@angular/core';
-import {Subscription} from 'rxjs';
+import { NewWidgetService } from '../services/new-widget.service';
+import { AfterViewInit, Inject, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Subscription } from 'rxjs';
 
-export abstract class WidgetPlatform implements AfterViewInit, OnDestroy {
+export abstract class WidgetPlatform implements OnDestroy {
     public widgetCode: string;
     public widgetTitle: string;
     public widgetUnits: string;
@@ -16,6 +16,7 @@ export abstract class WidgetPlatform implements AfterViewInit, OnDestroy {
 
     protected constructor(
         protected widgetService: NewWidgetService,
+        // protected cdref: ChangeDetectorRef,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public widgetId: string,
         @Inject('uniqId') public widgetUniqId: string,
@@ -23,18 +24,33 @@ export abstract class WidgetPlatform implements AfterViewInit, OnDestroy {
 
     }
 
-    public ngAfterViewInit(): void {
-        this.subscriptions.push(
-            this.widgetService.getWidgetChannel(this.widgetId).subscribe((ref) => {
-                this.widgetTitle = ref?.title;
-                this.widgetType = ref?.widgetType;
-                this.showMock(this.isMock);
-            })
-        );
-    }
+    // public ngAfterViewInit(): void {
+    //     this.subscriptions.push(
+    //         this.widgetService.getWidgetChannel(this.widgetId).subscribe((ref) => {
+    //             if (ref) {
+    //                 this.widgetTitle = ref?.title;
+    //                 this.widgetType = ref?.widgetType;
+    //                 this.showMock(this.isMock);
+    //             }
+    //         })
+    //     );
+    //     this.cdref.detectChanges();
+    // }
 
     public ngOnDestroy(): void {
         this.subscriptions.forEach((el) => el.unsubscribe());
+    }
+
+    protected widgetInit(): void {
+        this.subscriptions.push(
+            this.widgetService.getWidgetChannel(this.widgetId).subscribe((ref) => {
+                if (ref) {
+                    this.widgetTitle = ref?.title;
+                    this.widgetType = ref?.widgetType;
+                    this.showMock(this.isMock);
+                }
+            })
+        );
     }
 
     private showMock(show: boolean): void {
