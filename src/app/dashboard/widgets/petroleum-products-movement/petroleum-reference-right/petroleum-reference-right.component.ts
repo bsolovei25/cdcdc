@@ -6,8 +6,8 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./petroleum-reference-right.component.scss'],
 })
 export class PetroleumReferenceRightComponent implements OnInit {
-    clickPark: boolean = false;
-    clickSettings: boolean = false;
+    isShowFacilities: boolean = true;
+    isShowTank: boolean = true;
 
     public data = [
         {
@@ -34,15 +34,5 @@ export class PetroleumReferenceRightComponent implements OnInit {
 
     constructor() {}
 
-    ngOnInit() {}
-
-    onPark(): void {
-        this.clickPark = !this.clickPark;
-        this.clickSettings = false;
-    }
-
-    onSettings(): void {
-        this.clickSettings = !this.clickSettings;
-        this.clickPark = false;
-    }
+    ngOnInit(): void {}
 }
