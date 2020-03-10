@@ -72,7 +72,7 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
-    ) {}
+    ) { }
 
     private wsConnect(): void {
         this.subscriptions.push(
@@ -93,40 +93,42 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.subscriptions.push(
-            this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-                this.aboutWidget = data;
-                this.title = this.aboutWidget.title;
-                if (!this.isMock) {
-                    try {
-                        this.setRealtimeData(
-                            this.aboutWidget.widgetType,
-                            this.shiftService.shiftPass.getValue()
-                        );
-                    } catch {}
-                    this.showMock(this.isMock);
-                }
-            })
-        );
-        if (!this.isMock) {
+        if (this.id) {
             this.subscriptions.push(
-                this.shiftService.shiftPass.subscribe((data) => {
-                    if (this.aboutWidget) {
-                        this.setRealtimeData(this.aboutWidget.widgetType, data);
+                this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
+                    this.aboutWidget = data;
+                    this.title = this.aboutWidget.title;
+                    if (!this.isMock) {
+                        try {
+                            this.setRealtimeData(
+                                this.aboutWidget.widgetType,
+                                this.shiftService.shiftPass.getValue()
+                            );
+                        } catch { }
+                        this.showMock(this.isMock);
                     }
                 })
             );
-            this.subscriptions.push(
-                this.shiftService.verifyWindowObservable(this.id).subscribe((obj) => {
-                    if (obj.action === 'close') {
-                        setTimeout(() => (this.isWindowVerifyActive = false), 1000);
-                    } else if (obj.action === 'open') {
-                        this.verifyInfo = obj;
-                        this.isWindowVerifyActive = true;
-                    }
-                    this.verifyInfo.result = obj.result;
-                })
-            );
+            if (!this.isMock) {
+                this.subscriptions.push(
+                    this.shiftService.shiftPass.subscribe((data) => {
+                        if (this.aboutWidget) {
+                            this.setRealtimeData(this.aboutWidget.widgetType, data);
+                        }
+                    })
+                );
+                this.subscriptions.push(
+                    this.shiftService.verifyWindowObservable(this.id).subscribe((obj) => {
+                        if (obj.action === 'close') {
+                            setTimeout(() => (this.isWindowVerifyActive = false), 1000);
+                        } else if (obj.action === 'open') {
+                            this.verifyInfo = obj;
+                            this.isWindowVerifyActive = true;
+                        }
+                        this.verifyInfo.result = obj.result;
+                    })
+                );
+            }
         }
     }
 
@@ -160,7 +162,7 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
                 (item) => item.position === 'responsible'
             );
             if (index === -1) {
-                console.warn('No responsible found in shift: ' + JSON.stringify(this.currentShift));
+                console.warn('No responsible found in shift');
                 index = 0;
             }
 
@@ -221,7 +223,7 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
         this.setRequireComment(comment.comment);
         try {
             this.input.nativeElement.value = '';
-        } catch {}
+        } catch { }
     }
 
     onEnterPush(event?: any): void {

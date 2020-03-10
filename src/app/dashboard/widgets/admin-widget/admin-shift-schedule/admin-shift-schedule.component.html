@@ -63,7 +63,7 @@
         </div>
         <div class="shift-yesterday" *ngFor="let i of yesterday.items; let idx = index">
           <p>3 смена</p>
-          <p>{{ i.start | date:'HH' }} - {{ i.end | date:'HH' }}</p>
+          <p>{{ i.start | date:'HH.mm' }} - {{ i.end | date:'HH.mm' }}</p>
           <p *ngIf="i.brigadeName" class="shift-today-item">Бригада {{ i.brigadeName }}</p>
           <p *ngIf="!i.brigadeName" class="shift-today-item">Не назначено</p>
         </div>
@@ -75,7 +75,7 @@
           (click)="selectShift(shift)"
         >
           <p>{{ idx + 1 }} смена</p>
-          <p>{{ shift.start | date:'HH' }} - {{ shift.end | date:'HH' }}</p>
+          <p>{{ shift.start | date:'HH.mm' }} - {{ shift.end | date:'HH.mm' }}</p>
           <p
             *ngIf="!shift.brigadeId"
             class="btn shift-today-item"
