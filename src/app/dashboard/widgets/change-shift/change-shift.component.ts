@@ -72,7 +72,7 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
-    ) { }
+    ) {}
 
     private wsConnect(): void {
         this.subscriptions.push(
@@ -104,7 +104,7 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
                                 this.aboutWidget.widgetType,
                                 this.shiftService.shiftPass.getValue()
                             );
-                        } catch { }
+                        } catch {}
                         this.showMock(this.isMock);
                     }
                 })
@@ -223,7 +223,7 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
         this.setRequireComment(comment.comment);
         try {
             this.input.nativeElement.value = '';
-        } catch { }
+        } catch {}
     }
 
     onEnterPush(event?: any): void {
