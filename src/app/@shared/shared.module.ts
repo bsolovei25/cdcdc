@@ -24,7 +24,7 @@ import { LoadingShadeComponent } from './components/loading-shade/loading-shade.
         InputComponent,
         WorkerCardComponent,
         UiBlockComponent,
-        LoadingShadeComponent
+        LoadingShadeComponent,
     ],
     exports: [
         HeaderComponent,
@@ -37,8 +37,8 @@ import { LoadingShadeComponent } from './components/loading-shade/loading-shade.
         DateFormatPipe,
         PreLoaderComponent,
         UiBlockComponent,
-        LoadingShadeComponent
+        LoadingShadeComponent,
     ],
     imports: [CommonModule],
 })
-export class SharedModule { }
+export class SharedModule {}

@@ -368,5 +368,4 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
     }
 
     // #endregion
-
 }
