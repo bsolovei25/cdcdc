@@ -370,7 +370,7 @@
                   Автор
                 </div>
                 <div class="creator_body">
-                  {{ event.responsibleOperator.lastName }} {{ event.responsibleOperator.firstName }}
+                  {{ event.responsibleOperator?.lastName }} {{ event.responsibleOperator?.firstName }}
                 </div>
               </div>
               <div class="deadline">
@@ -416,10 +416,9 @@
                   <div class="name_user_responsible">
                     Ответственный
                   </div>
-                  <div class="name_user_info" *ngIf="event.fixedBy">
+                  <div class="name_user_info" >
                     <div>
-                      {{ event.fixedBy.firstName }} {{ event.fixedBy.middleName }} {{
-                      event.fixedBy.lastName }}
+                      {{ this.chooseNameUser }}
                     </div>
                     <div>{{ event.fixedBy.positionDescription }}</div>
                   </div>
@@ -436,7 +435,7 @@
               <evj-ui-block class="workspace__header__block" status="normal">
                 <mat-form-field>
                   <mat-label>Отвественный</mat-label>
-                  <mat-select panelClass="mat-select-custom">
+                  <mat-select panelClass="mat-select-custom"  [(ngModel)]="event.fixedBy">
                     <mat-option *ngFor="let p of user" [value]="p" (click)="chooseRespons(p)"
                       >{{ p.lastName }} {{ p.firstName }}
                     </mat-option>
