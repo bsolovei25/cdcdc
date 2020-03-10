@@ -8,7 +8,6 @@ import {
     OnDestroy,
 } from '@angular/core';
 import { ShiftService } from '../../services/shift.service';
-import { BehaviorSubject, Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
 import {
     ICommentRequired,
@@ -17,25 +16,22 @@ import {
     ShiftComment,
     ShiftMember,
 } from '../../models/shift.model';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { IWidgets } from '../../models/widget.model';
-import { tryCatch } from 'rxjs/internal-compatibility';
 import { MaterialControllerService } from '../../services/material-controller.service';
-import { IUser } from '../../models/events-widget';
-import set = Reflect.set;
+import {WidgetPlatform} from "../../models/widget-platform";
 
 @Component({
     selector: 'evj-change-shift',
     templateUrl: './change-shift.component.html',
     styleUrls: ['./change-shift.component.scss'],
 })
-export class ChangeShiftComponent implements OnInit, OnDestroy {
+export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDestroy {
     @ViewChild('input') input: ElementRef;
     @ViewChild('scroll') scroll: ElementRef;
     @ViewChild('allPeople') allPeople: ElementRef;
     @ViewChild('addShift') addShift: ElementRef;
 
-    mapPosition = [
+    mapPosition: { code: string, name: string}[] = [
         {
             code: 'responsible',
             name: 'Старший оператор',
@@ -60,90 +56,114 @@ export class ChangeShiftComponent implements OnInit, OnDestroy {
     public isWindowVerifyActive: boolean = false;
     public verifyInfo: IVerifyWindow = null;
 
-    private subscriptions: Subscription[] = [];
-
     static itemCols: number = 16;
     static itemRows: number = 30;
 
     constructor(
-        private widgetService: NewWidgetService,
+        protected widgetService: NewWidgetService,
         public shiftService: ShiftService,
         private materialController: MaterialControllerService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
-    ) {}
-
-    private wsConnect(): void {
-        this.subscriptions.push(
-            this.widgetService
-                .getWidgetLiveDataFromWS(this.id, this.aboutWidget.widgetType)
-                .subscribe((ref) => {
-                    this.socketHandler(ref);
-                })
-        );
-    }
-
-    private showMock(show: boolean): void {
-        if (show) {
-            // do nothing
-        } else {
-            this.wsConnect();
-        }
+    ) {
+        super(widgetService, isMock, id, uniqId);
     }
 
     ngOnInit(): void {
-        this.subscriptions.push(
-            this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-                this.aboutWidget = data;
-                this.title = this.aboutWidget.title;
-                if (!this.isMock) {
-                    try {
-                        this.setRealtimeData(
-                            this.aboutWidget.widgetType,
-                            this.shiftService.shiftPass.getValue()
-                        );
-                    } catch {}
-                    this.showMock(this.isMock);
-                }
-            })
-        );
-        if (!this.isMock) {
-            this.subscriptions.push(
-                this.shiftService.shiftPass.subscribe((data) => {
-                    if (this.aboutWidget) {
-                        this.setRealtimeData(this.aboutWidget.widgetType, data);
-                    }
-                })
-            );
-            this.subscriptions.push(
-                this.shiftService.verifyWindowObservable(this.id).subscribe((obj) => {
-                    if (obj.action === 'close') {
-                        setTimeout(() => (this.isWindowVerifyActive = false), 1000);
-                    } else if (obj.action === 'open') {
-                        this.verifyInfo = obj;
-                        this.isWindowVerifyActive = true;
-                    }
-                    this.verifyInfo.result = obj.result;
-                })
-            );
-        }
+        super.widgetInit();
+        // this.subscriptions.push(
+        //     this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
+        //         this.aboutWidget = data;
+        //         this.title = this.aboutWidget.title;
+        //         if (!this.isMock) {
+        //             try {
+        //                 this.setRealtimeData(
+        //                     this.aboutWidget.widgetType,
+        //                     this.shiftService.shiftPass.getValue()
+        //                 );
+        //             } catch {}
+        //             this.showMock(this.isMock);
+        //         }
+        //     })
+        // );
+        // if (!this.isMock) {
+        //     this.subscriptions.push(
+        //         this.shiftService.shiftPass.subscribe((data) => {
+        //             if (this.aboutWidget) {
+        //                 this.setRealtimeData(this.aboutWidget.widgetType, data);
+        //             }
+        //         })
+        //     );
+        //     this.subscriptions.push(
+        //         this.shiftService.verifyWindowObservable(this.id).subscribe((obj) => {
+        //             if (obj.action === 'close') {
+        //                 setTimeout(() => (this.isWindowVerifyActive = false), 1000);
+        //             } else if (obj.action === 'open') {
+        //                 this.verifyInfo = obj;
+        //                 this.isWindowVerifyActive = true;
+        //             }
+        //             this.verifyInfo.result = obj.result;
+        //         })
+        //     );
+        // }
     }
 
     ngOnDestroy(): void {
-        if (this.subscriptions) {
-            for (const subscribe of this.subscriptions) {
-                subscribe.unsubscribe();
-            }
-        }
+        super.ngOnDestroy();
     }
 
-    private socketHandler(data: any): void {
-        console.log(data);
-        this.shiftService.resultVerify(this.id, data.isConfirm);
+    protected dataConnect(): void {
+        super.dataConnect();
+        this.subscriptions.push(
+            this.shiftService.shiftPass.subscribe((data) => {
+                if (this.widgetType) {
+                    this.setRealtimeData(this.widgetType, data);
+                }
+            })
+        );
+        this.subscriptions.push(
+            this.shiftService.verifyWindowObservable(this.id).subscribe((obj) => {
+                if (obj.action === 'close') {
+                    setTimeout(() => (this.isWindowVerifyActive = false), 1000);
+                } else if (obj.action === 'open') {
+                    this.verifyInfo = obj;
+                    this.isWindowVerifyActive = true;
+                }
+                this.verifyInfo.result = obj.result;
+            })
+        );
     }
 
-    private setRealtimeData(widgetType, data): void {
+    // private wsConnect(): void {
+    //     this.subscriptions.push(
+    //         this.widgetService
+    //             .getWidgetLiveDataFromWS(this.id, this.aboutWidget.widgetType)
+    //             .subscribe((ref) => {
+    //                 this.socketHandler(ref);
+    //             })
+    //     );
+    // }
+    //
+    // private showMock(show: boolean): void {
+    //     if (show) {
+    //         // do nothing
+    //     } else {
+    //         this.wsConnect();
+    //     }
+    // }
+
+    protected dataHandler(ref: any): void {
+        this.shiftService.resultVerify(this.id, ref.isConfirm);
+    }
+
+
+    // private socketHandler(data: any): void {
+    //     console.log(data);
+    //     this.shiftService.resultVerify(this.id, data.isConfirm);
+    // }
+
+    private setRealtimeData(widgetType: string, data): void {
         if (!widgetType || !data) {
             return;
         }

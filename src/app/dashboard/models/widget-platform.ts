@@ -9,31 +9,19 @@ export abstract class WidgetPlatform implements OnDestroy {
     public widgetType: string;
     public widgetIcon: string;
 
-    protected itemCols: number = 30;
-    protected itemRows: number = 20;
+    protected isRealtimeData: boolean = true;
 
-    private subscriptions: Subscription[] = [];
+    public itemCols: number = 30;
+    public itemRows: number = 20;
+
+    protected subscriptions: Subscription[] = [];
 
     protected constructor(
         protected widgetService: NewWidgetService,
-        // protected cdref: ChangeDetectorRef,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public widgetId: string,
         @Inject('uniqId') public widgetUniqId: string
     ) {}
-
-    // public ngAfterViewInit(): void {
-    //     this.subscriptions.push(
-    //         this.widgetService.getWidgetChannel(this.widgetId).subscribe((ref) => {
-    //             if (ref) {
-    //                 this.widgetTitle = ref?.title;
-    //                 this.widgetType = ref?.widgetType;
-    //                 this.showMock(this.isMock);
-    //             }
-    //         })
-    //     );
-    //     this.cdref.detectChanges();
-    // }
 
     public ngOnDestroy(): void {
         this.subscriptions.forEach((el) => el.unsubscribe());
@@ -55,11 +43,11 @@ export abstract class WidgetPlatform implements OnDestroy {
         if (show) {
             this.dataDisconnect();
         } else {
-            this.dataConnect();
+            if (this.isRealtimeData) { this.dataConnect(); }
         }
     }
 
-    private dataConnect(): void {
+    protected dataConnect(): void {
         this.subscriptions.push(
             this.widgetService
                 .getWidgetLiveDataFromWS(this.widgetId, this.widgetType)
