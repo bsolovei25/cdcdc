@@ -1,4 +1,11 @@
-import { Component, Inject, AfterViewInit, OnDestroy, ChangeDetectorRef, OnInit } from '@angular/core';
+import {
+    Component,
+    Inject,
+    AfterViewInit,
+    OnDestroy,
+    ChangeDetectorRef,
+    OnInit,
+} from '@angular/core';
 import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
 import { WidgetPlatform } from '../../../../models/widget-platform';
 
@@ -40,12 +47,10 @@ export class WidgetPiesComponent extends WidgetPlatform implements OnInit, OnDes
         this.datas = ref.items;
     }
 
-
     private wsConnect() {
         this.widgetService.getWidgetLiveDataFromWS(this.id, 'pie-diagram').subscribe((ref) => {
             this.datas = ref.items;
         });
     }
-    private wsDisconnect() { }
-
+    private wsDisconnect() {}
 }

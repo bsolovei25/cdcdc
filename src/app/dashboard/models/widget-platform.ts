@@ -19,10 +19,8 @@ export abstract class WidgetPlatform implements OnDestroy {
         // protected cdref: ChangeDetectorRef,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public widgetId: string,
-        @Inject('uniqId') public widgetUniqId: string,
-    ) {
-
-    }
+        @Inject('uniqId') public widgetUniqId: string
+    ) {}
 
     // public ngAfterViewInit(): void {
     //     this.subscriptions.push(
@@ -71,9 +69,7 @@ export abstract class WidgetPlatform implements OnDestroy {
         );
     }
 
-    private dataDisconnect(): void {
-
-    }
+    private dataDisconnect(): void {}
 
     protected abstract dataHandler(ref: any): void;
 }
