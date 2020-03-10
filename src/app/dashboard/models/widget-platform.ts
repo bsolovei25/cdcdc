@@ -1,8 +1,8 @@
 import {NewWidgetService} from '../services/new-widget.service';
-import {Inject, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, Inject, OnDestroy} from '@angular/core';
 import {Subscription} from 'rxjs';
 
-export abstract class WidgetPlatform implements OnInit, OnDestroy {
+export abstract class WidgetPlatform implements AfterViewInit, OnDestroy {
     public widgetCode: string;
     public widgetTitle: string;
     public widgetUnits: string;
@@ -14,7 +14,7 @@ export abstract class WidgetPlatform implements OnInit, OnDestroy {
 
     private subscriptions: Subscription[] = [];
 
-    constructor(
+    protected constructor(
         protected widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public widgetId: string,
@@ -23,7 +23,7 @@ export abstract class WidgetPlatform implements OnInit, OnDestroy {
 
     }
 
-    public ngOnInit(): void {
+    public ngAfterViewInit(): void {
         this.subscriptions.push(
             this.widgetService.getWidgetChannel(this.widgetId).subscribe((ref) => {
                 this.widgetTitle = ref?.title;

@@ -1,4 +1,4 @@
-import {Component, OnInit, Inject, OnDestroy} from '@angular/core';
+import {Component, Inject, OnDestroy, AfterViewInit} from '@angular/core';
 import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
 import { NewUserSettingsService } from 'src/app/dashboard/services/new-user-settings.service';
 import {WidgetPlatform} from '../../../models/widget-platform';
@@ -8,7 +8,7 @@ import {WidgetPlatform} from '../../../models/widget-platform';
     templateUrl: './bar-charts.component.html',
     styleUrls: ['./bar-charts.component.scss'],
 })
-export class BarChartsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class BarChartsComponent extends WidgetPlatform implements AfterViewInit, OnDestroy {
 
     public data: any[] = [];
 
@@ -26,8 +26,8 @@ export class BarChartsComponent extends WidgetPlatform implements OnInit, OnDest
         this.itemRows = 10;
     }
 
-    ngOnInit(): void {
-        super.ngOnInit();
+    ngAfterViewInit(): void {
+        super.ngAfterViewInit();
     }
 
     ngOnDestroy(): void {

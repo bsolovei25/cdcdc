@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import {Component, Inject, OnDestroy, AfterViewInit} from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { ICalendarPlanGraph, ICalendarPlanData } from '../../models/calendar-plan';
 import {WidgetPlatform} from '../../models/widget-platform';
@@ -8,7 +8,7 @@ import {WidgetPlatform} from '../../models/widget-platform';
     templateUrl: './calendar-plan.component.html',
     styleUrls: ['./calendar-plan.component.scss'],
 })
-export class CalendarPlanComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class CalendarPlanComponent extends WidgetPlatform implements AfterViewInit, OnDestroy {
     public data: ICalendarPlanGraph = {
         plan: 1000,
         lowerBorder: 0.03,
@@ -119,8 +119,8 @@ export class CalendarPlanComponent extends WidgetPlatform implements OnInit, OnD
         this.itemRows = 10;
     }
 
-    ngOnInit(): void {
-        super.ngOnInit();
+    ngAfterViewInit(): void {
+        super.ngAfterViewInit();
     }
 
     ngOnDestroy(): void {
