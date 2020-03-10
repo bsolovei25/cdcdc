@@ -1,9 +1,15 @@
 <div class="reference-left">
   <div class="top-frame"></div>
   <div class="middle">
-   <evj-operation-screen-left [data]="data" *ngIf="typeScreen === 'operation'"></evj-operation-screen-left>
-   <evj-info-screen-left [data]="data" *ngIf="typeScreen === 'info'"></evj-info-screen-left>
-   <evj-operation-park-screen-left [data]="data" *ngIf="typeScreen === 'park-operation'"></evj-operation-park-screen-left>
+    <evj-operation-screen-left
+      [data]="data"
+      *ngIf="typeScreen === 'operation'"
+    ></evj-operation-screen-left>
+    <evj-info-screen-left [data]="data" *ngIf="typeScreen === 'info'"></evj-info-screen-left>
+    <evj-operation-park-screen-left
+      [data]="data"
+      *ngIf="typeScreen === 'park-operation'"
+    ></evj-operation-park-screen-left>
   </div>
   <div class="bottom_frame"></div>
 </div>

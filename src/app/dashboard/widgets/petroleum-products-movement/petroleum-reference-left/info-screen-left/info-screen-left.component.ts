@@ -1,16 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'evj-info-screen-left',
-  templateUrl: './info-screen-left.component.html',
-  styleUrls: ['./info-screen-left.component.scss']
+    selector: 'evj-info-screen-left',
+    templateUrl: './info-screen-left.component.html',
+    styleUrls: ['./info-screen-left.component.scss'],
 })
 export class InfoScreenLeftComponent implements OnInit {
-  @Input() data: any;
+    @Input() data: any;
 
-  constructor() { }
+    constructor() {}
 
-  ngOnInit(): void {
-  }
-
+    ngOnInit(): void {}
 }
