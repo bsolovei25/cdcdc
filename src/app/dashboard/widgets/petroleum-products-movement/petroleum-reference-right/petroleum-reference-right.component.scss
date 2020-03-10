@@ -67,6 +67,7 @@
   width: calc(100% - 12px);
   margin-left: 12px;
   overflow: auto;
+  overflow-x: hidden;
 }
 
 .top_block_middle {

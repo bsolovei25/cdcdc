@@ -103,3 +103,45 @@
   background: url(../../../../../../assets/icons/widgets/petroleum-products-movement/active-background-button-left.svg);
   background-repeat: no-repeat;
 }
+
+.reference_notActive{
+  display: none;
+}
+
+
+.title_park {
+  cursor: pointer;
+  justify-content: space-between;
+  display: flex;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.title_sett {
+  cursor: pointer;
+  justify-content: space-between;
+  display: flex;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.title_parks {
+  cursor: pointer;
+  color: white;
+  font-size: 12px;
+  text-align: left;
+}
+
+.park {
+  cursor: pointer;
+}
+.settings {
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.title_settings {
+  color: white;
+  font-size: 12px;
+  margin-right: 88px;
+}

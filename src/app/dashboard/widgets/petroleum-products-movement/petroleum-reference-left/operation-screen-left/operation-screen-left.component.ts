@@ -11,6 +11,8 @@ import {
 })
 export class OperationScreenLeftComponent implements OnInit {
     titlePark: string = 'Источник';
+    isShowFacilities: boolean = true;
+    isShowTank: boolean = true;
 
     dataTank: ITankInfo[] = [
         {

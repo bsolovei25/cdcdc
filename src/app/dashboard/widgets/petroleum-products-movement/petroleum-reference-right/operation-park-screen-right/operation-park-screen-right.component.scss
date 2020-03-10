@@ -242,6 +242,7 @@
 .additionally {
   min-height: 300px;
   height: 40%;
+  overflow-x: hidden;
   overflow: auto;
 
   .additionally_button {

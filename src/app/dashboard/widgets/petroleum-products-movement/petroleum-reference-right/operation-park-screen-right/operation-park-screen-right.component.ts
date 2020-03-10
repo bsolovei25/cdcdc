@@ -7,7 +7,7 @@ import { PetroleumScreenService } from 'src/app/dashboard/services/petroleum-scr
     styleUrls: ['./operation-park-screen-right.component.scss'],
 })
 export class OperationParkScreenRightComponent implements OnInit {
-    @Input() data: any;
+    dataAdditionally: any = [ 'Экспортировать в Excel', 'Печать'];
 
     constructor(private petroleumService: PetroleumScreenService) {}
 

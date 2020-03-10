@@ -4,6 +4,7 @@
 }
 
 .bottom_block_middle {
+  direction: ltr;
 }
 
 .bottom_frame {
@@ -54,6 +55,7 @@
   background-repeat: no-repeat;
   display: flex;
   height: 71px;
+  color: var(--color-text-sub-heading);
   width: 260px;
   margin: 8px auto;
   cursor: pointer;
@@ -63,11 +65,11 @@
     background-repeat: no-repeat;
   }
 
-  &:hover .button_name_short {
+  &:hover .button_name {
     color: white;
   }
 
-  &:hover .button_icon_short {
+  &:hover .button_icon {
     opacity: 1;
   }
 }
@@ -79,22 +81,12 @@
 }
 
 .button_icon {
-  width: 20%;
-  line-height: 85px;
-}
-
-.button_name_short {
-  color: var(--color-text-sub-heading);
-  width: 80%;
-  text-align: center;
-  line-height: 70px;
-}
-
-.button_icon_short {
   opacity: 0.5;
   width: 20%;
   line-height: 85px;
 }
+
+
 
 .active_button {
   background: url(../../../../../../assets/icons/widgets/petroleum-products-movement/active-background-button-left.svg);
