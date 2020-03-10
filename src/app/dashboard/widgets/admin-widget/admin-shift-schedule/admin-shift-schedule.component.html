@@ -5,18 +5,8 @@
 ></evj-widget-preview>
 
 <div class="container pointer-event" *ngIf="!isMock">
-  <!-- loading data -->
-  <div class="loading-shade" *ngIf="isLoading">
-    <div class="item loading-6">
-      <svg viewBox="25 25 50 50">
-        <circle cx="50" cy="50" r="20"></circle>
-      </svg>
-    </div>
-  </div>
+  <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
   <evj-widget-header [title]="title" [id]="id" [units]="" [uniqId]="uniqId"></evj-widget-header>
-
-  <div></div>
-
   <evj-frame-top></evj-frame-top>
 
   <div
@@ -118,7 +108,7 @@
           <ul class="list">
             <li *ngFor="let user of brigadesSubstitution.users">
               <evj-worker-card
-                (click)="onClickCard(user)"
+                (click)="onClickWorkerCard(user)"
                 [active]="activeUsers.isSelected(user)"
                 class="insert-component"
                 [isSmallCard]="true"
