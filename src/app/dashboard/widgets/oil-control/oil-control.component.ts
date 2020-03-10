@@ -395,7 +395,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit() {
         if (!this.isMock) {
-            //this.drawOilControl(this.data);
+           
             this.showMock(this.isMock);
 
             this.subscriptions.push(
