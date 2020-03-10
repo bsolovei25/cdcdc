@@ -1,7 +1,7 @@
 <evj-widget-preview
-  [title]="title"
-  [icon]="icon"
-  [previewTitle]="previewTitle"
+  [title]="widgetTitle"
+  [icon]="widgetIcon"
+  [previewTitle]="widgetType"
   *ngIf="isMock"
 ></evj-widget-preview>
 
@@ -9,14 +9,14 @@
   <div class="header">
     <div class="header__content drag handle">
       <div class="header__icon-wrapper">
-        <img src="./assets/icons/widget-title-icons/valve.png" *ngIf="!code" />
+        <img src="./assets/icons/widget-title-icons/valve.png" *ngIf="!widgetCode" />
       </div>
 
       <div class="header__name">
-        {{title}}
+        {{widgetTitle}}
       </div>
       <div class="header__units">
-        {{units}}
+        {{widgetUnits}}
       </div>
       <div
         class="delete_widget"
@@ -47,8 +47,8 @@
     >
       <div class="blocks">
         <div class="contant">
-          <div *ngFor="let data of datas;" class="block">
-            <evj-bar-chart [data]="data"></evj-bar-chart>
+          <div *ngFor="let item of data;" class="block">
+            <evj-bar-chart [data]="item"></evj-bar-chart>
           </div>
         </div>
       </div>
