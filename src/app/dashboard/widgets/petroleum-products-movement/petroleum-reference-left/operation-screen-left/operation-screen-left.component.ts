@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ITankInfo, IFacilityInfo } from 'src/app/dashboard/models/petroleum-products-movement.model';
+import {
+    ITankInfo,
+    IFacilityInfo,
+} from 'src/app/dashboard/models/petroleum-products-movement.model';
 
 @Component({
     selector: 'evj-operation-screen-left',

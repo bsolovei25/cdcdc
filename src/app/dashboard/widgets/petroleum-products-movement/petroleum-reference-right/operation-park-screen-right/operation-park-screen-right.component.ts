@@ -14,10 +14,10 @@ export class OperationParkScreenRightComponent implements OnInit {
     ngOnInit(): void {}
 
     createOperation(): void {
-        this.petroleumService.openScreen("operation");
+        this.petroleumService.openScreen('operation');
     }
 
     changeParam(): void {
-        this.petroleumService.openScreen("park-operation");
+        this.petroleumService.openScreen('park-operation');
     }
 }

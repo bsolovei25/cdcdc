@@ -10,15 +10,15 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 export class InfoScreenRightComponent implements OnInit {
     @Input() data: any;
 
-    constructor(private petroleumService: PetroleumScreenService) { }
+    constructor(private petroleumService: PetroleumScreenService) {}
 
-    ngOnInit(): void { }
+    ngOnInit(): void {}
 
     createOperation(): void {
-        this.petroleumService.openScreen("operation");
+        this.petroleumService.openScreen('operation');
     }
 
     changeParam(): void {
-        this.petroleumService.openScreen("park-operation");
+        this.petroleumService.openScreen('park-operation');
     }
 }

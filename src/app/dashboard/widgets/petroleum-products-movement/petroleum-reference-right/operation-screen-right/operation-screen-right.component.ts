@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ITankInfo, IFacilityInfo } from 'src/app/dashboard/models/petroleum-products-movement.model';
+import {
+    ITankInfo,
+    IFacilityInfo,
+} from 'src/app/dashboard/models/petroleum-products-movement.model';
 
 @Component({
     selector: 'evj-operation-screen-right',
@@ -7,7 +10,6 @@ import { ITankInfo, IFacilityInfo } from 'src/app/dashboard/models/petroleum-pro
     styleUrls: ['./operation-screen-right.component.scss'],
 })
 export class OperationScreenRightComponent implements OnInit {
-    
     dataTank: ITankInfo[] = [
         {
             title: 'Резервуар 201',
@@ -65,7 +67,7 @@ export class OperationScreenRightComponent implements OnInit {
             state: 'two-arrow',
         },
     ];
-    
+
     isShowFacilities: boolean = true;
     isShowTank: boolean = true;
 

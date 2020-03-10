@@ -12,7 +12,6 @@ export class OperationScreenComponent implements OnInit {
 
     constructor(private petroleumService: PetroleumScreenService) {}
 
-    
     objectKeys: any = Object.keys;
     objectEntries: any = Object.entries;
 

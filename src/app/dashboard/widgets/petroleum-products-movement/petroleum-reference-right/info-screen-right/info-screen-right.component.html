@@ -48,26 +48,26 @@
       </div>
     </div>
 
-      <div class="reports_title">
-        <div>Отчеты</div>
-        <div>
-          <svg-icon
-            src="./assets/icons/widgets/petroleum-products-movement/Analytic.svg"
-            [svgStyle]="{ 'width.px':15, 'height.px':15 }"
-          ></svg-icon>
-        </div>
+    <div class="reports_title">
+      <div>Отчеты</div>
+      <div>
+        <svg-icon
+          src="./assets/icons/widgets/petroleum-products-movement/Analytic.svg"
+          [svgStyle]="{ 'width.px':15, 'height.px':15 }"
+        ></svg-icon>
       </div>
-      <div class="reports">
-        <div class="reports_button">
-          <ng-container *ngFor="let item of data">
-            <div class="button_rep">
-              <div class="buttons">
-                {{item}}
-              </div>
+    </div>
+    <div class="reports">
+      <div class="reports_button">
+        <ng-container *ngFor="let item of data">
+          <div class="button_rep">
+            <div class="buttons">
+              {{item}}
             </div>
-          </ng-container>
-        </div>
+          </div>
+        </ng-container>
       </div>
+    </div>
   </div>
   <div class="bottom_frame"></div>
 </div>

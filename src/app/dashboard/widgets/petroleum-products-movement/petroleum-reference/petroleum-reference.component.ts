@@ -312,5 +312,4 @@ export class PetroleumReferenceComponent implements OnInit {
     constructor() {}
 
     ngOnInit(): void {}
-
 }

@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ITankInfo, IFacilityInfo } from 'src/app/dashboard/models/petroleum-products-movement.model';
+import {
+    ITankInfo,
+    IFacilityInfo,
+} from 'src/app/dashboard/models/petroleum-products-movement.model';
 
 @Component({
     selector: 'evj-operation-park-screen-left',
@@ -8,7 +11,7 @@ import { ITankInfo, IFacilityInfo } from 'src/app/dashboard/models/petroleum-pro
 })
 export class OperationParkScreenLeftComponent implements OnInit {
     titlePark: string = 'Источник';
-    
+
     dataTank: ITankInfo[] = [
         {
             title: 'Резервуар 201',

@@ -8,7 +8,7 @@ import { ITankInfo } from 'src/app/dashboard/models/petroleum-products-movement.
 })
 export class InfoScreenLeftComponent implements OnInit {
     titlePark: string = 'Парк сырой нефти';
-    
+
     data: ITankInfo[] = [
         {
             title: 'Резервуар 201',

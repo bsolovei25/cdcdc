@@ -3,15 +3,15 @@
 </div>
 <div class="bottom_block_middle">
   <ng-container *ngFor="let item of dataTank">
-
     <div class="click_button">
       <div class="button_name">{{item.title}}</div>
       <div class="button_icon">
-        <svg-icon src="./assets/icons/widgets/petroleum-products-movement/{{item.state}}.svg"
-          [svgStyle]="{ 'width.px':25, 'height.px':25 }">
+        <svg-icon
+          src="./assets/icons/widgets/petroleum-products-movement/{{item.state}}.svg"
+          [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+        >
         </svg-icon>
       </div>
     </div>
   </ng-container>
-
 </div>

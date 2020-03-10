@@ -1,9 +1,7 @@
 <div class="reference-left">
   <div class="top-frame"></div>
   <div class="middle">
-    <evj-operation-screen-left
-      *ngIf="typeScreen === 'operation'"
-    ></evj-operation-screen-left>
+    <evj-operation-screen-left *ngIf="typeScreen === 'operation'"></evj-operation-screen-left>
     <evj-info-screen-left *ngIf="typeScreen === 'info'"></evj-info-screen-left>
     <evj-operation-park-screen-left
       *ngIf="typeScreen === 'park-operation'"

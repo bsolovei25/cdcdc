@@ -3,22 +3,19 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root',
 })
 export class PetroleumScreenService {
+    constructor() {}
 
-  constructor() { }
+    private localDate$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
-  private localDate$: BehaviorSubject<string> = new BehaviorSubject<string>(
-    null
-  );
+    public date$: Observable<string> = this.localDate$
+        .asObservable()
+        .pipe(filter((item) => item !== null));
 
-  public date$: Observable<string> = this.localDate$
-    .asObservable()
-    .pipe(filter((item) => item !== null));
-
-  openScreen(screen) {
-    this.localDate$.next(screen);
-    console.log(screen);
-  }
+    openScreen(screen) {
+        this.localDate$.next(screen);
+        console.log(screen);
+    }
 }

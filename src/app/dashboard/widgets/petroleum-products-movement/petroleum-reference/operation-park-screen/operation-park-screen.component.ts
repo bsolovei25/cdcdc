@@ -10,9 +10,9 @@ export class OperationParkScreenComponent implements OnInit {
     @Input() data: any;
     @Input() title: string[];
 
-    constructor(private petroleumService: PetroleumScreenService) { }
+    constructor(private petroleumService: PetroleumScreenService) {}
 
-    ngOnInit(): void { }
+    ngOnInit(): void {}
 
     clickActive(item): void {
         item.active = !item.active;
