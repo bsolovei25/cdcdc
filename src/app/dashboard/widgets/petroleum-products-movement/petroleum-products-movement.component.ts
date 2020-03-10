@@ -25,6 +25,8 @@ export class PetroleumProductsMovementComponent implements OnInit, OnDestroy {
 
     public isUpdateParamButton: boolean = false;
 
+    typeScreen: string = 'info';
+
     constructor(
         private widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
     selector: 'evj-petroleum-reference-right',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./petroleum-reference-right.component.scss'],
 })
 export class PetroleumReferenceRightComponent implements OnInit {
+    @Input() typeScreen: string;
     clickPark: boolean = false;
     clickSettings: boolean = false;
 

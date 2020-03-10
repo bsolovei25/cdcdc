@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
     styleUrls: ['./petroleum-reference-left.component.scss'],
 })
 export class PetroleumReferenceLeftComponent implements OnInit {
-    @Input() shortHeight: boolean;
+    @Input() typeScreen: string;
 
     public data = {
         nameReference1: 'Парк сырой нефти',

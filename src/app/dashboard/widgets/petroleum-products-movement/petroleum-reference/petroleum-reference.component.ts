@@ -21,7 +21,7 @@ import { transition, trigger, animate, style } from '@angular/animations';
     ],
 })
 export class PetroleumReferenceComponent implements OnInit {
-    @Input() shortHeight: boolean;
+    @Input() typeScreen: string;
 
     @Input() updateParamBlock: boolean;
 
@@ -358,9 +358,9 @@ export class PetroleumReferenceComponent implements OnInit {
     ngOnInit() {}
 
     returnMenu() {
-        this.shortHeight = true;
-        this.updateParamBlock = false;
-        this.exitBlock.emit(true);
+        // this.shortHeight = true;
+        // this.updateParamBlock = false;
+        // this.exitBlock.emit(true);
     }
 
     clickActive(item): void {

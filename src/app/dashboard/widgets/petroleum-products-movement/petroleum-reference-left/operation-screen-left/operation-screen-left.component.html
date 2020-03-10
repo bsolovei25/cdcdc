@@ -1,0 +1,15 @@
+<div class="top_block_middle">
+  <div class="title_block">{{data.nameReference2}}</div>
+</div>
+<div class="bottom_block_middle">
+  <ng-container *ngFor="let item of data.reference2">
+    <div class="unclick_button">
+      <div class="button_name">{{item.name}}</div>
+      <div class="button_icon">
+        <svg-icon src="./assets/icons/widgets/petroleum-products-movement/{{item.status}}.svg"
+          [svgStyle]="{ 'width.px':25, 'height.px':25 }">
+        </svg-icon>
+      </div>
+    </div>
+  </ng-container>
+</div>

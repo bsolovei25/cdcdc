@@ -1,0 +1,57 @@
+<div class="top_block_middle">
+    <div class="title_block">Приемник</div>
+  </div>
+  <div class="bottom_block_middle">
+    <div class="park">
+      <div class="title_park" >
+        <div class="title_parks">Парк Сырой нефти</div>
+        <div class="button">
+          <svg-icon
+            src="./assets/icons/widgets/petroleum-products-movement/arrow_bottom.svg"
+            [svgStyle]="{ 'width.px':15, 'height.px':15 }"
+          >
+          </svg-icon>
+        </div>
+      </div>
+      <div class="reference" [class.reference_active]="clickPark">
+        <ng-container *ngFor="let item of data">
+          <div class="ref_items">
+            <div class="item_icon">
+              <svg-icon
+                src="./assets/icons/widgets/petroleum-products-movement/{{item.status}}.svg"
+                [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+              >
+              </svg-icon>
+            </div>
+            <div class="item_name">{{ item.name }}</div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div class="settings">
+      <div class="title_sett">
+        <div class="title_settings">Установки</div>
+        <div class="button">
+          <svg-icon
+            src="./assets/icons/widgets/petroleum-products-movement/arrow_bottom.svg"
+            [svgStyle]="{ 'width.px':15, 'height.px':15 }"
+          >
+          </svg-icon>
+        </div>
+      </div>
+      <div class="reference" [class.reference_active]="clickSettings">
+        <ng-container *ngFor="let item of data">
+          <div class="ref_items">
+            <div class="item_icon">
+              <svg-icon
+                src="./assets/icons/widgets/petroleum-products-movement/{{item.status}}.svg"
+                [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+              >
+              </svg-icon>
+            </div>
+            <div class="item_name">{{ item.name }}</div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>

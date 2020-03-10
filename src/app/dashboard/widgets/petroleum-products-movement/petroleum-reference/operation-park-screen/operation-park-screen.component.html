@@ -1,0 +1,73 @@
+<div class="return_button" (click)="returnMenu()">
+    <svg-icon
+      src="./assets/icons/widgets/workspace/attantion.svg"
+      [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+    >
+    </svg-icon>
+  </div>
+  <!---UNITY--->
+  <div class="illustration_widget_param">
+    <div class="illustration_widget_param__title">Характеритики резервуара</div>
+    <div class="illustration_widget_param__unity">
+      <evj-petroleum-unity></evj-petroleum-unity>
+    </div>
+  </div>
+  <div class="table_update_button">
+    <div class="left_table">
+      <div class="reference_values_short">
+        <ng-container *ngFor="let item of data2.leftTable; let i = index">
+          <div
+            class="values_block"
+            [ngClass]="{'active': item.active}"
+            (click)="clickActive(item)"
+          >
+            <div>
+              {{item.name}}
+            </div>
+            <div>
+              {{item.type}}
+            </div>
+            <div>
+              {{item.value}}
+            </div>
+            <div class="icon-wrapper">
+              <svg-icon
+                class="indicator-selector__collapse"
+                src="./assets/icons/widgets/petroleum-products-movement/edit.svg"
+              ></svg-icon>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <div class="before_after_left"></div>
+    </div>
+
+    <div class="right_table">
+      <div class="reference_values_short">
+        <ng-container *ngFor="let item of data2.rightTable; let i = index">
+          <div
+            class="values_block"
+            [ngClass]="{'active': item.active}"
+            (click)="clickActive(item)"
+          >
+            <div>
+              {{item.name}}
+            </div>
+            <div>
+              {{item.type}}
+            </div>
+            <div>
+              {{item.value}}
+            </div>
+            <div class="icon-wrapper">
+              <svg-icon
+                class="indicator-selector__collapse"
+                src="./assets/icons/widgets/petroleum-products-movement/edit.svg"
+              ></svg-icon>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <div class="before_after_right"></div>
+    </div>
+  </div>
