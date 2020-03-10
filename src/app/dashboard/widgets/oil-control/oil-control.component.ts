@@ -1198,12 +1198,11 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             if (item.name === el) {
                 if (indexProduct > 2) {
                     move = 'next';
-                    if (data.length === 5) {
-                        lengthData = lengthData - 1;
-                    }
-                    newIndexProduct = lengthData - indexProduct;
                     if (indexProduct === 4) {
                         newIndexProduct = 1;
+                        this.shiftMassiv(newIndexProduct, move);
+                    } else if(indexProduct > 5){
+                        newIndexProduct = indexProduct - 3;
                         this.shiftMassiv(newIndexProduct, move);
                     } else {
                         newIndexProduct = 2;
@@ -1211,10 +1210,6 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                     }
                 } else {
                     move = 'prev';
-                    if (data.length === 1) {
-                        lengthData = lengthData - 1;
-                    }
-                    newIndexProduct = lengthData - indexProduct;
                     if (indexProduct === 2) {
                         newIndexProduct = 1;
                         this.shiftMassiv(newIndexProduct, move);
