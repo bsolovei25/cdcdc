@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import {ITankInfo} from "../../../models/petroleum-products-movement.model";
 
 @Component({
     selector: 'evj-petroleum-reference-left',
@@ -8,28 +9,52 @@ import { Component, OnInit, Input } from '@angular/core';
 export class PetroleumReferenceLeftComponent implements OnInit {
     @Input() shortHeight: boolean;
 
+    titlePark: string = 'Парк сырой нефти';
+    listTankStates: ITankInfo[] = [
+        {
+            title: 'Резервуар 201',
+            state: 'vverh-arrow',
+        },
+        {
+            title: 'Резервуар 202',
+            state: 'Remont',
+        },
+        {
+            title: 'Резервуар 203',
+            state: 'vniz-arrow',
+        },
+        {
+            title: 'Резервуар 204',
+            state: 'Otstoy',
+        },
+        {
+            title: 'Резервуар 205',
+            state: 'two-arrow',
+        }
+    ];
+
     public data = {
         nameReference1: 'Парк сырой нефти',
         nameReference2: 'Источник',
         reference1: [
             {
-                name: 'Резервуар 501',
+                name: 'Резервуар 201',
                 status: 'vverh-arrow',
             },
             {
-                name: 'Резервуар 502',
+                name: 'Резервуар 202',
                 status: 'Remont',
             },
             {
-                name: 'Резервуар 503',
+                name: 'Резервуар 203',
                 status: 'vniz-arrow',
             },
             {
-                name: 'Резервуар 504',
+                name: 'Резервуар 204',
                 status: 'Otstoy',
             },
             {
-                name: 'Резервуар 505',
+                name: 'Резервуар 205',
                 status: 'two-arrow',
             },
         ],
@@ -59,5 +84,5 @@ export class PetroleumReferenceLeftComponent implements OnInit {
 
     constructor() {}
 
-    ngOnInit() {}
+    ngOnInit(): void {}
 }

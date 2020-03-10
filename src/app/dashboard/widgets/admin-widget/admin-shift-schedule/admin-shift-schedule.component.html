@@ -5,10 +5,8 @@
 ></evj-widget-preview>
 
 <div class="container pointer-event" *ngIf="!isMock">
+  <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
   <evj-widget-header [title]="title" [id]="id" [units]="" [uniqId]="uniqId"></evj-widget-header>
-
-  <div></div>
-
   <evj-frame-top></evj-frame-top>
 
   <div
@@ -55,7 +53,7 @@
         </div>
         <div class="shift-yesterday" *ngFor="let i of yesterday.items; let idx = index">
           <p>3 смена</p>
-          <p>{{ i.start | date:'HH' }} - {{ i.end | date:'HH' }}</p>
+          <p>{{ i.start | date:'HH.mm' }} - {{ i.end | date:'HH.mm' }}</p>
           <p *ngIf="i.brigadeName" class="shift-today-item">Бригада {{ i.brigadeName }}</p>
           <p *ngIf="!i.brigadeName" class="shift-today-item">Не назначено</p>
         </div>
@@ -67,7 +65,7 @@
           (click)="selectShift(shift)"
         >
           <p>{{ idx + 1 }} смена</p>
-          <p>{{ shift.start | date:'HH' }} - {{ shift.end | date:'HH' }}</p>
+          <p>{{ shift.start | date:'HH.mm' }} - {{ shift.end | date:'HH.mm' }}</p>
           <p
             *ngIf="!shift.brigadeId"
             class="btn shift-today-item"
@@ -103,15 +101,14 @@
       </section>
       <section
         class="additional-team"
-        *ngIf="selectedShift && selectedShift.shiftMembers 
-        && selectedShift.shiftMembers.length > 0 && brigadesSubstitution"
+        *ngIf="selectedShift && selectedShift.shiftMembers && selectedShift.shiftMembers.length > 0 && brigadesSubstitution"
       >
         <p class="title">Дополнительный состав бригады</p>
         <div class="additional-team__container">
           <ul class="list">
             <li *ngFor="let user of brigadesSubstitution.users">
               <evj-worker-card
-                (click)="onClickCard(user)"
+                (click)="onClickWorkerCard(user)"
                 [active]="activeUsers.isSelected(user)"
                 class="insert-component"
                 [isSmallCard]="true"

@@ -241,9 +241,7 @@ p {
   border-radius: 25px;
   z-index: 999;
 }
-
 ::-webkit-scrollbar-track {
-  // background-color:var(--color-border-active);
   border-radius: 25px;
   margin: 20px;
 }
@@ -251,15 +249,22 @@ p {
   border: solid 0.5px var(--color-border-main);
   border-radius: 25px;
 }
+:hover::-webkit-scrollbar-track-piece {
+  border: solid 0.5px var(--color-border-active);
+  border-radius: 25px;
+}
 ::-webkit-scrollbar-thumb {
   background-color: var(--color-border-main);
   border-radius: 25px;
 }
+:hover::-webkit-scrollbar-thumb {
+  background-color: var(--color-border-active);
+  border-radius: 25px;
+}
 ::-webkit-scrollbar-corner {
-  //background-color: var(--color-border-active);
   border-radius: 25px;
 }
 ::-webkit-resizer {
-  background-color: var(--color-border-main);
+  background-color: var(--color-border-active);
   border-radius: 25px;
 }

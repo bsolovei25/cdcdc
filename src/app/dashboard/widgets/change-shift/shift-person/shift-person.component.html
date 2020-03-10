@@ -1,4 +1,5 @@
 <div
+  *ngIf="widgetId"
   class="onShift__person  gridster-item-content"
   (click)="addToShift(person.employee.id)"
   [class.disable-person]="!isPresent && onShift"

@@ -180,7 +180,7 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
                 (item) => item.position === 'responsible'
             );
             if (index === -1) {
-                console.warn('No responsible found in shift: ' + JSON.stringify(this.currentShift));
+                console.warn('No responsible found in shift');
                 index = 0;
             }
 

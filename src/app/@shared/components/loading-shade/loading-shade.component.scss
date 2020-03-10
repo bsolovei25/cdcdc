@@ -1,43 +1,10 @@
-:host {
-  position: relative;
-  display: block;
-  height: 100%;
-  width: 100%;
-  box-sizing: border-box;
-}
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-}
-.unity-body-container {
-  margin-left: 5px;
-  margin-right: 5px;
-  width: calc(100% - 10px);
-  height: calc(100%);
-  position: relative;
-}
-#unityContainer_unity-movement-accounting {
-  width: 100%;
-  height: 100%;
-  outline: none;
-}
-canvas {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-canvas + * {
-  z-index: 2;
-}
-
 .loading-shade {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 100%;
-  background-color: var(--color-bg-main);
+  background: rgba(0, 0, 0, 0.15);
   z-index: 9999;
   display: flex;
   align-items: center;
@@ -45,16 +12,9 @@ canvas + * {
   border-radius: inherit;
 }
 
-.loader {
-  position: absolute;
-  width: 7em;
-  height: 7em;
-  background-color: var(--color-bg-main);
-  z-index: 10;
-  display: block;
-
+.loading-6 {
   svg {
-    width: 7em;
+    width: 8.75em;
     transform-origin: center;
     animation: rotate 2s linear infinite;
   }
