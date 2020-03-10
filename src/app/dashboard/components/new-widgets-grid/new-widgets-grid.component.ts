@@ -32,7 +32,7 @@ export class NewWidgetsGridComponent implements OnInit {
 
     public nameWidget;
 
-    public resizeWidget = new EventEmitter<MouseEvent>();
+    public resizeWidget = new EventEmitter<any>();
 
     private sizeTimeout: any;
 
@@ -47,7 +47,7 @@ export class NewWidgetsGridComponent implements OnInit {
         public widgetService: NewWidgetService,
         public injector: Injector,
         public userSettings: NewUserSettingsService
-    ) {}
+    ) { }
 
     ngOnInit(): void {
         document.addEventListener('fullscreenchange', () => {
@@ -185,7 +185,8 @@ export class NewWidgetsGridComponent implements OnInit {
         itemComponent: GridsterItemComponentInterface,
         event: MouseEvent
     ) {
-        this.resizeWidget.emit(event);
+        let widget: any = { item, event }
+        this.resizeWidget.emit(widget);
     }
 
     public dragStart(e: DragEvent, item: GridsterItem): void {
@@ -216,9 +217,9 @@ export class NewWidgetsGridComponent implements OnInit {
         this.widgetService.dashboard.push(item);
     }
 
-    emptyCellMenuClick() {}
+    emptyCellMenuClick() { }
 
-    emptyCellDragClick() {}
+    emptyCellDragClick() { }
 
     emptyCellDropClick(event: DragEvent, param) {
         const idWidget = event.dataTransfer.getData('text');
