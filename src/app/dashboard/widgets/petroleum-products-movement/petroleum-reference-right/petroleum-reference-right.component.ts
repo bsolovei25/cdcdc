@@ -7,8 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class PetroleumReferenceRightComponent implements OnInit {
     @Input() typeScreen: string;
-    clickPark: boolean = false;
-    clickSettings: boolean = false;
+
 
     public data = [
         {
@@ -35,15 +34,5 @@ export class PetroleumReferenceRightComponent implements OnInit {
 
     constructor() {}
 
-    ngOnInit() {}
-
-    onPark(): void {
-        this.clickPark = !this.clickPark;
-        this.clickSettings = false;
-    }
-
-    onSettings(): void {
-        this.clickSettings = !this.clickSettings;
-        this.clickPark = false;
-    }
+    ngOnInit(): void {}
 }
