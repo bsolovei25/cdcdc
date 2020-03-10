@@ -205,7 +205,7 @@
                 <div
                   class="fact_new"
                   (click)="clickFact(fact, i)"
-                  [ngClass]="{'activeFact': fact.active}"
+                
                   *ngFor="let fact of event.facts; let i = index"
                 >
                   <div class="fact_text" *ngIf="fact.comment !== 'График'">
@@ -218,7 +218,7 @@
                     ></svg-icon>
                   </div>
                   <div class="fact_menu">
-                    <div class="fact_button" *ngIf="(isClickFact === i)">
+                    <!-- <div class="fact_button" *ngIf="(isClickFact === i)">
                       <div class="fact_button_update">
                         <svg-icon
                           src="./assets/pic/AdminReferences/delete.svg"
@@ -233,7 +233,7 @@
                         >
                         </svg-icon>
                       </div>
-                    </div>
+                    </div> -->
                     <div class="fact_info">
                       <div class="fact_info_user">{{fact.displayName}}</div>
                       <div class="fact_info_date">
@@ -292,14 +292,14 @@
                 <div
                   class="comment_new"
                   (click)="clickComment(comment, i)"
-                  [ngClass]="{'activeFact': comment.active}"
+                 
                   *ngFor="let comment of event.comments; let i = index"
                 >
                   <div class="comment_text">
                     <p>{{comment.comment}}</p>
                   </div>
                   <div class="comment_menu">
-                    <div class="comment_button" *ngIf="isClickComment === i">
+                    <!-- <div class="comment_button" *ngIf="isClickComment === i">
                       <div class="comment_button_update">
                         <svg-icon
                           src="./assets/pic/AdminReferences/delete.svg"
@@ -314,7 +314,7 @@
                         >
                         </svg-icon>
                       </div>
-                    </div>
+                    </div> -->
                     <div class="comment_info">
                       <div class="comment_info_user">{{comment.displayName}}</div>
                       <div class="comment_info_date">
@@ -842,7 +842,7 @@
                     <div
                       class="fact_new"
                       (click)="clickFact(fact, i)"
-                      [ngClass]="{'activeFact': fact.active}"
+                    
                       *ngFor="let fact of isNewRetrieval.facts; let i = index"
                     >
                       <div class="fact_text" *ngIf="fact.comment !== 'График'">
@@ -859,7 +859,7 @@
                         ></svg-icon>
                       </div>
                       <div class="fact_menu">
-                        <div class="fact_button" *ngIf="(isClickFact === i)">
+                        <!-- <div class="fact_button" *ngIf="(isClickFact === i)">
                           <div class="fact_button_update">
                             <svg-icon
                               src="./assets/pic/AdminReferences/delete.svg"
@@ -874,7 +874,7 @@
                             >
                             </svg-icon>
                           </div>
-                        </div>
+                        </div> -->
                         <div class="fact_info">
                           <div class="fact_info_user">{{fact.displayName}}</div>
                           <div class="fact_info_date">
@@ -993,14 +993,14 @@
                     <div
                       class="comment_new"
                       (click)="clickComment(comment, i)"
-                      [ngClass]="{'activeFact': comment.active}"
+                   
                       *ngFor="let comment of isNewRetrieval.comments; let i = index"
                     >
                       <div class="comment_text">
                         <p>{{comment.comment}}</p>
                       </div>
                       <div class="comment_menu">
-                        <div class="comment_button" *ngIf="(isClickComment === i)">
+                        <!-- <div class="comment_button" *ngIf="(isClickComment === i)">
                           <div class="comment_button_update">
                             <svg-icon
                               src="./assets/pic/AdminReferences/delete.svg"
@@ -1015,7 +1015,7 @@
                             >
                             </svg-icon>
                           </div>
-                        </div>
+                        </div> -->
                         <div class="comment_info">
                           <div class="comment_info_user">{{comment.displayName}}</div>
                           <div class="comment_info_date">
