@@ -1201,7 +1201,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
                     if (indexProduct === 4) {
                         newIndexProduct = 1;
                         this.shiftMassiv(newIndexProduct, move);
-                    } else if(indexProduct > 5){
+                    } else if (indexProduct > 5) {
                         newIndexProduct = indexProduct - 3;
                         this.shiftMassiv(newIndexProduct, move);
                     } else {
