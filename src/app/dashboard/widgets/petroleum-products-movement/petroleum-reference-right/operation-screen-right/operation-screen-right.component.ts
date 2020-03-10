@@ -7,8 +7,8 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class OperationScreenRightComponent implements OnInit {
     @Input() data: any;
-    clickPark: boolean = false;
-    clickSettings: boolean = false;
+    isShowFacilities: boolean = true;
+    isShowTank: boolean = true;
 
     constructor() {}
 

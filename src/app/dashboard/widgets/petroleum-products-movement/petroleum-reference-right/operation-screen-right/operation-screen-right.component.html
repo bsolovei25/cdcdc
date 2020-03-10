@@ -3,8 +3,8 @@
 </div>
 <div class="bottom_block_middle">
   <div class="park">
-    <div class="title_park">
-      <div class="title_parks">Парк Сырой нефти</div>
+    <div class="title_park" (click)="isShowTank = !isShowTank">
+      <div class="title_parks">Резервуары</div>
       <div class="button">
         <svg-icon
           src="./assets/icons/widgets/petroleum-products-movement/arrow_bottom.svg"
@@ -13,7 +13,7 @@
         </svg-icon>
       </div>
     </div>
-    <div class="reference" [class.reference_active]="clickPark">
+    <div class="reference" [class.reference_active]="isShowTank">
       <ng-container *ngFor="let item of data">
         <div class="ref_items">
           <div class="item_icon">
@@ -29,7 +29,7 @@
     </div>
   </div>
   <div class="settings">
-    <div class="title_sett">
+    <div class="title_sett" (click)="isShowFacilities = !isShowFacilities">
       <div class="title_settings">Установки</div>
       <div class="button">
         <svg-icon
@@ -39,7 +39,7 @@
         </svg-icon>
       </div>
     </div>
-    <div class="reference" [class.reference_active]="clickSettings">
+    <div class="reference" [class.reference_active]="isShowFacilities">
       <ng-container *ngFor="let item of data">
         <div class="ref_items">
           <div class="item_icon">
