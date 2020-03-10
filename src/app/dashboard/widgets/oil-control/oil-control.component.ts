@@ -395,14 +395,8 @@ export class OilControlComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit() {
         if (!this.isMock) {
-            //this.drawOilControl(this.data);
             this.showMock(this.isMock);
-            /*
-            this.onResize(document.getElementById("test").clientWidth);
-            if ( this.checkWidth ) {
-                this.clearProduct();
-                this.drawOilControl();
-            } */
+
             this.subscriptions.push(
                 this.resizeWidget.subscribe((data) => {
                     if (data.item.uniqid === this.uniqId) {
