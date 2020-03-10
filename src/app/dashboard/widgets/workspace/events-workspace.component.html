@@ -205,7 +205,6 @@
                 <div
                   class="fact_new"
                   (click)="clickFact(fact, i)"
-                
                   *ngFor="let fact of event.facts; let i = index"
                 >
                   <div class="fact_text" *ngIf="fact.comment !== 'График'">
@@ -292,7 +291,6 @@
                 <div
                   class="comment_new"
                   (click)="clickComment(comment, i)"
-                 
                   *ngFor="let comment of event.comments; let i = index"
                 >
                   <div class="comment_text">
@@ -842,7 +840,6 @@
                     <div
                       class="fact_new"
                       (click)="clickFact(fact, i)"
-                    
                       *ngFor="let fact of isNewRetrieval.facts; let i = index"
                     >
                       <div class="fact_text" *ngIf="fact.comment !== 'График'">
@@ -993,7 +990,6 @@
                     <div
                       class="comment_new"
                       (click)="clickComment(comment, i)"
-                   
                       *ngFor="let comment of isNewRetrieval.comments; let i = index"
                     >
                       <div class="comment_text">
