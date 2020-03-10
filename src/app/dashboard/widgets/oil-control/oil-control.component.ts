@@ -405,7 +405,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
             } */
             this.subscriptions.push(
                 this.resizeWidget.subscribe((data) => {
-                    if(data.item.uniqid === this.uniqId){
+                    if (data.item.uniqid === this.uniqId) {
                         this.newWidth = data.event.clientX;
                         this.onResize(data.event.clientX);
                     }
