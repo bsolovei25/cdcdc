@@ -8,7 +8,6 @@ import { Component, OnInit, Input } from '@angular/core';
 export class PetroleumReferenceRightComponent implements OnInit {
     @Input() typeScreen: string;
 
-
     public data = [
         {
             name: 'Резервуар 501',

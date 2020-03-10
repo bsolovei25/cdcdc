@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { transition, trigger, animate, style } from '@angular/animations';
-import {IOperation} from '../../../models/petroleum-products-movement.model';
+import { IOperation } from '../../../models/petroleum-products-movement.model';
 
 @Component({
     selector: 'evj-petroleum-reference',
@@ -316,7 +316,7 @@ export class PetroleumReferenceComponent implements OnInit {
     ngOnInit(): void {}
 
     returnMenu(): void {
-     //   this.shortHeight = true;
+        //   this.shortHeight = true;
         this.updateParamBlock = false;
         this.exitBlock.emit(true);
     }
