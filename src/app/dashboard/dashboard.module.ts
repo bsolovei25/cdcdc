@@ -97,6 +97,15 @@ import { MatSelectModule } from '@angular/material/select';
 import { ScrollingModule } from '@angular/cdk-experimental/scrolling';
 import { ScrollingModule as OldScrollingModule } from '@angular/cdk/scrolling';
 import { PetroleumUnityComponent } from './widgets/petroleum-products-movement/petroleum-unity/petroleum-unity.component';
+import { OperationScreenLeftComponent } from './widgets/petroleum-products-movement/petroleum-reference-left/operation-screen-left/operation-screen-left.component';
+import { InfoScreenLeftComponent } from './widgets/petroleum-products-movement/petroleum-reference-left/info-screen-left/info-screen-left.component';
+import { OperationParkScreenLeftComponent } from './widgets/petroleum-products-movement/petroleum-reference-left/operation-park-screen-left/operation-park-screen-left.component';
+import { OperationScreenRightComponent } from './widgets/petroleum-products-movement/petroleum-reference-right/operation-screen-right/operation-screen-right.component';
+import { InfoScreenRightComponent } from './widgets/petroleum-products-movement/petroleum-reference-right/info-screen-right/info-screen-right.component';
+import { OperationParkScreenRightComponent } from './widgets/petroleum-products-movement/petroleum-reference-right/operation-park-screen-right/operation-park-screen-right.component';
+import { OperationScreenComponent } from './widgets/petroleum-products-movement/petroleum-reference/operation-screen/operation-screen.component';
+import { OperationParkScreenComponent } from './widgets/petroleum-products-movement/petroleum-reference/operation-park-screen/operation-park-screen.component';
+import { InfoScreenComponent } from './widgets/petroleum-products-movement/petroleum-reference/info-screen/info-screen.component';
 import { PetroleumUnityInfoComponent } from './widgets/petroleum-products-movement/petroleum-unity-info/petroleum-unity-info.component';
 import { PetroleumMotionAccountingComponent } from './widgets/petroleum-motion-accounting/petroleum-motion-accounting.component';
 
@@ -183,6 +192,15 @@ import { PetroleumMotionAccountingComponent } from './widgets/petroleum-motion-a
         PetroleumReferenceComponent,
         PetroleumWorkspaceComponent,
         PetroleumUnityComponent,
+        OperationScreenLeftComponent,
+        InfoScreenLeftComponent,
+        OperationParkScreenLeftComponent,
+        OperationScreenRightComponent,
+        InfoScreenRightComponent,
+        OperationParkScreenRightComponent,
+        OperationScreenComponent,
+        OperationParkScreenComponent,
+        InfoScreenComponent,
         PetroleumUnityInfoComponent,
         PetroleumMotionAccountingComponent,
     ],

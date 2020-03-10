@@ -2,6 +2,8 @@ import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { transition, style, animate, trigger } from '@angular/animations';
+import { IOperation } from '../../models/petroleum-products-movement.model';
+import { PetroleumScreenService } from '../../services/petroleum-screen.service';
 
 @Component({
     selector: 'evj-petroleum-products-movement',
@@ -25,8 +27,11 @@ export class PetroleumProductsMovementComponent implements OnInit, OnDestroy {
 
     public isUpdateParamButton: boolean = false;
 
+    typeScreen: string = 'info';
+
     constructor(
         private widgetService: NewWidgetService,
+        private petroleumService: PetroleumScreenService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -40,6 +45,10 @@ export class PetroleumProductsMovementComponent implements OnInit, OnDestroy {
                 this.units = data.units;
                 // this.name = data.name;
                 this.previewTitle = data.widgetType;
+            }),
+
+            this.petroleumService.date$.subscribe((data) => {
+                this.typeScreen = data;
             })
         );
 
@@ -47,16 +56,6 @@ export class PetroleumProductsMovementComponent implements OnInit, OnDestroy {
             //  this.wsConnect();
         }
     }
-
-    // private wsConnect(): void {
-    //     this.subscriptions.push(
-    //         this.widgetService
-    //             .getWidgetLiveDataFromWS(this.id, 'point-diagram')
-    //             .subscribe((ref) => {
-    //                 this.pointDiagramElements = ref.chartItems;
-    //             })
-    //     );
-    // }
 
     ngOnDestroy(): void {
         if (this.subscriptions) {

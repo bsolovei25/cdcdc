@@ -18,21 +18,19 @@
       <div class="blocks">
         <div class="components">
           <div class="left_block">
-            <evj-petroleum-reference-left [shortHeight]="isShort"></evj-petroleum-reference-left>
+            <evj-petroleum-reference-left [typeScreen]="typeScreen"></evj-petroleum-reference-left>
           </div>
           <div class="middle_block">
             <evj-petroleum-reference
-              [shortHeight]="isWorkspace"
+              [typeScreen]="typeScreen"
               [updateParamBlock]="isUpdateParamButton"
               (exitBlock)="onReturn($event)"
             ></evj-petroleum-reference>
           </div>
           <div class="right_block">
-            <evj-petroleum-workspace
-                    (isClick)="onChanged($event)"
-                    *ngIf="isWorkspace">
-            </evj-petroleum-workspace>
-            <evj-petroleum-reference-right *ngIf="!isWorkspace"></evj-petroleum-reference-right>
+            <evj-petroleum-reference-right
+              [typeScreen]="typeScreen"
+            ></evj-petroleum-reference-right>
           </div>
         </div>
       </div>

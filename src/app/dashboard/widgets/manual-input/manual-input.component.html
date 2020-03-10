@@ -165,6 +165,7 @@
                           <input
                             class="data"
                             type="text"
+                            [(ngModel)]="i.comment"
                             placeholder="Напишите свой комментарий..."
                             [class.data_active__saving]="i.isActive"
                           />
@@ -234,6 +235,7 @@
                           class="data"
                           type="text"
                           placeholder="Напишите свой комментарий..."
+                          [(ngModel)]="i.comment"
                           [class.data_active__saving]="i.isActive"
                         />
                       </div>

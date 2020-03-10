@@ -50,5 +50,3 @@ export interface IFacilityInfoParam {
 
 // TODO add real list
 export type ObjectState = 'vverh-arrow' | 'Remont' | 'Otstoy' | 'two-arrow' | 'vniz-arrow';
-
-
