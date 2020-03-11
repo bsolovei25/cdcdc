@@ -1,17 +1,18 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
+import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 
 @Component({
     selector: 'evj-truncated-pie-s-first',
     templateUrl: './truncated-pie-s-first.component.html',
     styleUrls: ['./truncated-pie-s-first.component.scss'],
 })
-export class TruncatedPieSFirstComponent implements OnInit {
+export class TruncatedPieSFirstComponent extends WidgetPlatform implements OnInit {
     static itemCols = 15;
     static itemRows = 17;
 
-    private subscription: Subscription;
+    //private subscription: Subscription;
 
     public title;
     public code;
@@ -32,38 +33,43 @@ export class TruncatedPieSFirstComponent implements OnInit {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-            this.title = data.title;
-            this.code = data.code;
-            //  this.units = data.units;
-            this.name = data.name;
-        });
+
+        super(widgetService, isMock, id, uniqId);
+        // this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
+        //     this.title = data.title;
+        //     this.code = data.code;
+        //     //  this.units = data.units;
+        //     this.name = data.name;
+        // });
     }
 
     ngOnInit() {
-        this.showMock(this.isMock);
+        super.widgetInit();
+       // this.showMock(this.isMock);
     }
 
-    showMock(show) {
-        if (show) {
-            this.wsDisconnect();
-        } else {
-            this.wsConnect();
-        }
+    protected dataHandler(ref: any): void {
+        this.datas = ref.values;
     }
 
-    private wsConnect() {
-        this.widgetService
-            .getWidgetLiveDataFromWS(this.id, 'truncated-diagram-percentage')
-            .subscribe((ref) => {
-                this.datas = ref.values;
-            });
-    }
-    private wsDisconnect() {}
+    // showMock(show) {
+    //     if (show) {
+    //         this.wsDisconnect();
+    //     } else {
+    //         this.wsConnect();
+    //     }
+    // }
+
+    // private wsConnect() {
+    //     this.widgetService
+    //         .getWidgetLiveDataFromWS(this.id, 'truncated-diagram-percentage')
+    //         .subscribe((ref) => {
+    //             this.datas = ref.values;
+    //         });
+    // }
+    // private wsDisconnect() {}
 
     ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
+        super.ngOnDestroy();
     }
 }

@@ -27,14 +27,15 @@ import { NewWidgetService } from '../../services/new-widget.service';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { AuthService } from '@core/service/auth.service';
 import { TestBed } from '@angular/core/testing';
+import { WidgetPlatform } from '../../models/widget-platform';
 
 @Component({
     selector: 'evj-events-workspace',
     templateUrl: './events-workspace.component.html',
     styleUrls: ['./events-workspace.component.scss'],
 })
-export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewInit {
-    private subscriptions: Subscription[] = [];
+export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, OnDestroy {
+  //  private subscriptions: Subscription[] = [];
     event: EventsWidgetNotification;
     isLoading: boolean = true;
 
@@ -133,12 +134,15 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscriptions.push(
-            this.widgetService.getWidgetChannel(id).subscribe((data) => {
-                this.title = data.title;
-                this.widgetType = data.widgetType;
-            })
-        );
+
+        super(widgetService, isMock, id, uniqId);
+
+        // this.subscriptions.push(
+        //     this.widgetService.getWidgetChannel(id).subscribe((data) => {
+        //         this.title = data.title;
+        //         this.widgetType = data.widgetType;
+        //     })
+        // );
 
         this.subscriptions.push(
             this.authService.user$.subscribe((data: IUser) => {
@@ -154,26 +158,45 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     ngOnInit(): void {
-        if (!this.isMock) {
-            this.subscriptions.push(
-                this.eventService.event$.subscribe((value) => {
-                    if (value) {
-                        this.openEvent = false;
-                        this.setEventByInfo(value);
-                    } else {
-                        this.event = value;
-                    }
-                })
-            );
-            this.subscriptions.push(
-                this.widgetService
-                    .getWidgetLiveDataFromWS(this.id, 'events-workspace')
-                    .subscribe((value) => {
-                        this.wsHandler(value);
-                    })
-            );
-        }
+        // if (!this.isMock) {
+        //     this.subscriptions.push(
+        //         this.eventService.event$.subscribe((value) => {
+        //             if (value) {
+        //                 this.openEvent = false;
+        //                 this.setEventByInfo(value);
+        //             } else {
+        //                 this.event = value;
+        //             }
+        //         })
+        //     );
+        //     this.subscriptions.push(
+        //         this.widgetService
+        //             .getWidgetLiveDataFromWS(this.id, 'events-workspace')
+        //             .subscribe((value) => {
+        //                 this.wsHandler(value);
+        //             })
+        //     );
+        // }
+        super.widgetInit();
         this.isLoading = false;
+    }
+
+    protected dataConnect(): void {
+        super.dataConnect();
+        this.subscriptions.push(
+                    this.eventService.event$.subscribe((value) => {
+                        if (value) {
+                            this.openEvent = false;
+                            this.setEventByInfo(value);
+                        } else {
+                            this.event = value;
+                        }
+                    })
+         );
+    }
+
+    protected dataHandler(ref: any): void {
+        this.wsHandler(ref);
     }
 
     private async setEventByInfo(value: EventsWidgetNotification | number): Promise<void> {
@@ -199,16 +222,8 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         await this.loadItem(typeof value === 'number' ? value : undefined);
     }
 
-    ngAfterViewInit(): void {
-        // this.isLoading = false;
-    }
-
     ngOnDestroy(): void {
-        if (this.subscriptions) {
-            for (const subscription of this.subscriptions) {
-                subscription.unsubscribe();
-            }
-        }
+        super.ngOnDestroy();
     }
 
     private wsHandler(data: EventsWidgetData): void {

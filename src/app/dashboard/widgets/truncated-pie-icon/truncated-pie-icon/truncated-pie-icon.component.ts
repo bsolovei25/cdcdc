@@ -46,9 +46,10 @@ export class TruncatedPieIconComponent implements OnInit {
     }
 
     private d3Circle(data, el): void {
-        this.procent = (data.count * 34) / 100;
+        (data.plan === 0 ) ? data.plan = 100 : data.plan;
+        this.procent = (data.plan * 34) / 100;
 
-        const mass = [data.count - data.critical + this.procent, data.critical];
+        const mass = [data.plan - data.value + this.procent, data.value];
 
         let color: any;
 
@@ -63,7 +64,7 @@ export class TruncatedPieIconComponent implements OnInit {
 
         let group = canvas.append('g').attr('transform', 'translate(100 ,100)');
 
-        if (data.critical === 0) {
+        if (data.value === 0) {
             color = d3.scaleOrdinal().range(['rgb(140,153,178)', 'rgb(140,153,178)']);
             this.RADIUS = 46;
         } else {
@@ -95,7 +96,7 @@ export class TruncatedPieIconComponent implements OnInit {
 
             .attr('fill', (d) => color(d.index));
 
-        if (data.critical === 0) {
+        if (data.value === 0) {
             this.pic = '/assets/pic/' + data.image + '.svg';
         } else {
             this.pic = '/assets/pic/' + data.image + 'act.svg';
@@ -124,8 +125,8 @@ export class TruncatedPieIconComponent implements OnInit {
             .attr('x', '96')
             .attr('y', '135')
             .attr('z-index', '100')
-            .attr('fill', data.critical === 0 ? 'rgb(140,153,178)' : 'white')
-            .text(data.critical);
+            .attr('fill', data.value === 0 ? 'rgb(140,153,178)' : 'white')
+            .text(data.value);
 
         let text = canvas.append('text');
 
