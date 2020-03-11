@@ -1,7 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
-import { Subscription } from 'rxjs';
-import { SolidGaugeWithMarker } from 'src/app/dashboard/models/solid-gauge-with-marker';
 import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 
 @Component({
@@ -13,22 +11,12 @@ export class SolidGaugesComponent extends WidgetPlatform implements OnInit {
     static itemCols = 16;
     static itemRows = 10;
 
-    //private subscription: Subscription;
-
-    public title = 'Статическое Оборудование';
-    public code;
-    public units = 'шт.';
-    public name;
-    public icon: string = 'tools';
-
     public uniqal;
 
     public datas = [
         { name: 'СУГ', fact: 11.5, percent: 50, value: 14.5 },
         { name: 'Висбрекинг', fact: 3.07, percent: 70, value: 2.67 },
     ];
-
-    //  public datas;
 
     constructor(
         public widgetService: NewWidgetService,
@@ -37,40 +25,21 @@ export class SolidGaugesComponent extends WidgetPlatform implements OnInit {
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
-        // this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-        //     this.title = data.title;
-        //     this.code = data.code;
-        //     this.name = data.name;
-        // });
+        this.widgetUnits = 'шт.';
+        this.widgetIcon = 'tools';
     }
 
     public check;
-    ngOnInit() {
+
+    ngOnInit(): void {
         super.widgetInit();
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         super.ngOnDestroy();
     }
 
     protected dataHandler(ref: any): void {
         this.datas = ref.values;
     }
-
-    // private wsConnect() {
-    //     this.widgetService
-    //         .getWidgetLiveDataFromWS(this.id, 'solid-gauge-with-marker')
-    //         .subscribe((ref) => {
-    //             this.datas = ref.values;
-    //         });
-    // }
-    // private wsDisconnect() {}
-
-    // showMock(show) {
-    //     if (show) {
-    //         this.wsDisconnect();
-    //     } else {
-    //         this.wsConnect();
-    //     }
-    // }
 }
