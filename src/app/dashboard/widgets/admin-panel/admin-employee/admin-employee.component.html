@@ -4,12 +4,12 @@
       <ng-container *ngFor="let worker of workers">
         <div
           class="employee__human block__frame-left"
-          *ngIf="onSearchWorker(worker.name)"
+          *ngIf="onSearchWorker(getWorkerFullName(worker))"
           (click)="onSelectWorker(worker.id)"
           [ngClass]="{'employee__human-active':showActiveWorker(worker.id)}"
         >
-          <div class="human__name">{{worker.name}}</div>
-          <div class="human__position">{{worker.position}}</div>
+          <div class="human__name">{{getWorkerFullName(worker)}}</div>
+          <div class="human__position">{{worker.positionDescription}}</div>
         </div>
       </ng-container>
     </div>
@@ -18,7 +18,7 @@
     <evj-worker-card
       class="insert-component"
       [isSmallCard]="false"
-      [personWorker]="activeWorker"
+      [person]="activeWorker"
     ></evj-worker-card>
   </div>
 </div>

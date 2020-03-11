@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { IWorker } from '../../../models/worker';
 import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
 import { Subscription } from 'rxjs';
+import { IUser } from '../../../models/events-widget';
 
 @Component({
     selector: 'evj-admin-employee',
@@ -10,8 +11,8 @@ import { Subscription } from 'rxjs';
 })
 export class AdminEmployeeComponent implements OnInit, OnDestroy {
     @Input() searchedWorker: string = '';
-    public activeWorker: IWorker = null;
-    public workers: IWorker[];
+    public activeWorker: IUser = null;
+    @Input() public workers: IUser[] = null;
 
     private subsriptions: Subscription[] = [];
 
@@ -20,10 +21,9 @@ export class AdminEmployeeComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.subsriptions.push(
             this.adminPanel.activeWorker$.subscribe(
-                (activeWorker: IWorker) => (this.activeWorker = activeWorker)
+                (activeWorker: IUser) => (this.activeWorker = activeWorker)
             )
         );
-        this.workers = this.adminPanel.workers;
     }
 
     public ngOnDestroy(): void {
@@ -31,7 +31,7 @@ export class AdminEmployeeComponent implements OnInit, OnDestroy {
     }
 
     public onSelectWorker(workerId: number): void {
-        this.adminPanel.setActiveWorker(this.workers.find((item: IWorker) => item.id === workerId));
+        this.adminPanel.setActiveWorker(this.workers.find((item: IUser) => item.id === workerId));
     }
 
     public showActiveWorker(workerId: number): boolean {
@@ -41,5 +41,9 @@ export class AdminEmployeeComponent implements OnInit, OnDestroy {
     public onSearchWorker(workerName: string): boolean {
         const name: string = workerName.toLowerCase();
         return name.includes(this.searchedWorker.toLowerCase());
+    }
+
+    public getWorkerFullName(worker: IUser): string {
+        return `${worker.lastName} ${worker.firstName} ${worker.middleName}`;
     }
 }

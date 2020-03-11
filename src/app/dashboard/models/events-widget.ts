@@ -79,6 +79,8 @@ export interface IUser {
     phone?: string;
     brigade?: { id: number; number: string };
     positionDescription?: string;
+    displayName?: string;
+    position?: string;
 }
 
 export type EventsWidgetNotificationPriority = 'danger' | 'warning' | 'standard';

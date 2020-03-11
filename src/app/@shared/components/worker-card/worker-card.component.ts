@@ -24,17 +24,11 @@ export class WorkerCardComponent implements OnInit {
         if (this.person) {
             return `${this.person.firstName} ${this.person.middleName} ${this.person.lastName}`;
         }
-        if (this.personWorker) {
-            return this.personWorker.name;
-        }
     }
 
     public getPersonPosition(): string {
         if (this.person) {
             return `${this.person.positionDescription}`;
-        }
-        if (this.personWorker) {
-            return this.personWorker.position;
         }
     }
 }

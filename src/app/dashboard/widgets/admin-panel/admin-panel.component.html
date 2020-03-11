@@ -64,6 +64,7 @@
       <div class="admin__employee">
         <evj-admin-employee
           [searchedWorker]="searchedWorker"
+          [workers]="workers"
           *ngIf="!isGroupShowed"
         ></evj-admin-employee>
         <evj-admin-brigades *ngIf="isGroupShowed"></evj-admin-brigades>

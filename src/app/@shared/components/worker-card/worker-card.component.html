@@ -1,4 +1,4 @@
-<div class="person">
+<div class="person" *ngIf="person">
   <ng-container *ngIf="!isSmallCard; else smallCard">
     <svg width="100%" height="100%" viewBox="0 0 50 50">
       <image
@@ -16,16 +16,16 @@
         xlink:href="../../../../../assets/icons/widgets/admin/default_avatar.svg"
       />
       <text x="33" y="9" text-anchor="start" class="svg__txt">
-        {{personWorker.phone}}
+        {{person.phone}}
       </text>
       <text x="33" y="20" text-anchor="start" class="svg__txt">
-        {{personWorker.email}}
+        {{person.email}}
       </text>
       <text x="33" y="32" text-anchor="start" class="svg__txt">
-        {{personWorker.brigade}}
+        Бригада№{{person.brigade.number}}
       </text>
       <text x="33" y="43" text-anchor="start" class="svg__txt">
-        {{personWorker.accessLevel}}
+        {{1}}
       </text>
     </svg>
   </ng-container>

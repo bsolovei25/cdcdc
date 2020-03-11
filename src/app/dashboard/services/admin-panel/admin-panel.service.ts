@@ -5,97 +5,47 @@ import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '../../../services/appConfigService';
 import { IBrigadeAdminPanel, IWorkerAdminPanel } from '../../models/admin-panel';
 import { IBrigade } from '../../models/shift.model';
-import { mergeMap } from 'rxjs/operators';
 import { IUser } from '../../models/events-widget';
 
 @Injectable()
 export class AdminPanelService {
     private restUrl: string = `/api/user-management`;
 
-    private defaultWorker: IWorker = {
+    // private defaultWorker: IWorker = {
+    //     id: null,
+    //     name: '',
+    //     phone: 'Номер телефона',
+    //     email: 'Электронная почта',
+    //     brigade: 'Номер бригады',
+    //     accessLevel: 'Уровень доступа',
+    //     position: '',
+    // };
+
+    private defaultWorker: IUser = {
         id: null,
-        name: '',
-        phone: 'Номер телефона',
-        email: 'Электронная почта',
-        brigade: 'Номер бригады',
-        accessLevel: 'Уровень доступа',
+        login: '',
+        firstName: '',
+        lastName: '',
+        middleName: '',
+        phone: '',
+        email: '',
+        brigade: {
+            id: null,
+            number: '',
+        },
         position: '',
+        positionDescription: '',
+        displayName: '',
     };
 
-    public activeWorker: IWorker = null;
+    public activeWorker: IUser = null;
 
-    public activeWorker$: BehaviorSubject<IWorker> = new BehaviorSubject<IWorker>(
-        this.defaultWorker
-    );
+    public activeWorker$: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(this.defaultWorker);
     public activeBrigade$: BehaviorSubject<IBrigade> = new BehaviorSubject<IBrigade>(null);
 
-    public workers: IWorker[] = [
-        {
-            id: 1,
-            name: 'Иванов Иван Сергеевич',
-            phone: '+ 7 (925) 599-99-87',
-            email: 'Ivanov@gazprom-neft.ru',
-            brigade: 'Бригада №1',
-            accessLevel: 'Высокий уровень доступа',
-            position: 'Старший оператор | КИПиА',
-        },
-        {
-            id: 2,
-            name: 'Петров Иван Сергеевич',
-            phone: '+ 7 (925) 599-99-87',
-            email: 'Petrov@gazprom-neft.ru',
-            brigade: 'Бригада №1',
-            accessLevel: 'Высокий уровень доступа',
-            position: 'Старший оператор | КИПиА',
-        },
-        {
-            id: 3,
-            name: 'Сидоров Иван Сергеевич',
-            phone: '+ 7 (925) 599-99-87',
-            email: 'Sidorov@gazprom-neft.ru',
-            brigade: 'Бригада №1',
-            accessLevel: 'Высокий уровень доступа',
-            position: 'Старший оператор | КИПиА',
-        },
-        {
-            id: 4,
-            name: 'Соколов Иван Сергеевич',
-            phone: '+ 7 (925) 599-99-87',
-            email: 'Sokolov@gazprom-neft.ru',
-            brigade: 'Бригада №1',
-            accessLevel: 'Высокий уровень доступа',
-            position: 'Старший оператор | КИПиА',
-        },
-        {
-            id: 5,
-            name: 'Деев Иван Сергеевич',
-            phone: '+ 7 (925) 599-99-87',
-            email: 'Deev@gazprom-neft.ru',
-            brigade: 'Бригада №1',
-            accessLevel: 'Высокий уровень доступа',
-            position: 'Старший оператор | КИПиА',
-        },
-        {
-            id: 6,
-            name: 'Пирогов Иван Сергеевич',
-            phone: '+ 7 (925) 599-99-87',
-            email: 'Pirogov@gazprom-neft.ru',
-            brigade: 'Бригада №1',
-            accessLevel: 'Высокий уровень доступа',
-            position: 'Старший оператор | КИПиА',
-        },
-        {
-            id: 7,
-            name: 'Андреев Иван Сергеевич',
-            phone: '+ 7 (925) 599-99-87',
-            email: 'Andreev@gazprom-neft.ru',
-            brigade: 'Бригада №1',
-            accessLevel: 'Высокий уровень доступа',
-            position: 'Старший оператор | КИПиА',
-        },
-    ];
+    public workers: IUser[] = [];
 
-    public brigades: IBrigadeAdminPanel[] = [
+    public brigades: IBrigade[] = [
         {
             isActiveBrigade: false,
             brigade: {
@@ -237,7 +187,7 @@ export class AdminPanelService {
                 this.removeActiveWorker();
             }
         });
-        this.activeWorker$.subscribe((worker: IWorker) => {
+        this.activeWorker$.subscribe((worker: IUser) => {
             this.activeWorker = worker;
         });
     }
@@ -245,9 +195,9 @@ export class AdminPanelService {
     //#region DATA_API
 
     //#region WORKERS
-    public getAllWorkers(): Observable<any> {
+    public getAllWorkers(): Observable<IUser[]> {
         const url: string = `${this.restUrl}/users`;
-        return this.httpService.get<any>(url);
+        return this.httpService.get<IUser[]>(url);
     }
 
     public getWorkerData(workerId: number): Observable<any> {
@@ -322,7 +272,7 @@ export class AdminPanelService {
 
     //#region WORKER_METHODS
 
-    public setActiveWorker(worker: IWorker): void {
+    public setActiveWorker(worker: IUser): void {
         this.activeWorker$.next(worker);
     }
 
@@ -340,11 +290,11 @@ export class AdminPanelService {
         this.activeBrigade$.next(brigade);
     }
 
-    public removeActiveBrigade(): void {
-        this.brigades.forEach((brigade: IBrigadeAdminPanel) => {
-            brigade.isActiveBrigade = false;
-        });
-    }
+    // public removeActiveBrigade(): void {
+    //     this.brigades.forEach((brigade: IBrigade) => {
+    //         brigade.isActiveBrigade = false;
+    //     });
+    // }
 
     //#endregion
 }
