@@ -3,13 +3,14 @@ import { Subscription } from 'rxjs';
 import { NewUserSettingsService } from 'src/app/dashboard/services/new-user-settings.service';
 import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
 import { RingFactoryWidget } from '../../../models/widget.model';
+import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 
 @Component({
     selector: 'evj-ring-s-factory-diagram',
     templateUrl: './ring-s-factory-diagram.component.html',
     styleUrls: ['./ring-s-factory-diagram.component.scss'],
 })
-export class RingSFactoryDiagramComponent implements OnInit {
+export class RingSFactoryDiagramComponent extends WidgetPlatform implements OnInit {
     static itemCols = 34;
     static itemRows = 16;
 
@@ -96,7 +97,7 @@ export class RingSFactoryDiagramComponent implements OnInit {
         },
     ];
 
-    private subscriptions: Subscription[] = [];
+    //  private subscriptions: Subscription[] = [];
 
     public title;
     public code;
@@ -111,36 +112,38 @@ export class RingSFactoryDiagramComponent implements OnInit {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscriptions.push(
-            this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-                if (data) {
-                    this.title = data.title;
-                    this.code = data.code;
-                    this.units = data.units;
-                    this.name = data.name;
-                    this.previewTitle = data.widgetType;
-                }
-            })
-        );
+        super(widgetService, isMock, id, uniqId);
+        // this.subscriptions.push(
+        //     this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
+        //         if (data) {
+        //             this.title = data.title;
+        //             this.code = data.code;
+        //             this.units = data.units;
+        //             this.name = data.name;
+        //             this.previewTitle = data.widgetType;
+        //         }
+        //     })
+        // );
     }
 
     ngOnInit() {
-        if (!this.isMock) {
-            this.subscriptions.push(
-                this.widgetService
-                    .getWidgetLiveDataFromWS(this.id, 'ring-factory-diagram')
-                    .subscribe((ref) => {
-                        this.datas = ref.items;
-                    })
-            );
-        }
+        super.widgetInit();
+        // if (!this.isMock) {
+        //     this.subscriptions.push(
+        //         this.widgetService
+        //             .getWidgetLiveDataFromWS(this.id, 'ring-factory-diagram')
+        //             .subscribe((ref) => {
+        //                 this.datas = ref.items;
+        //             })
+        //     );
+        // }
     }
 
     ngOnDestroy() {
-        if (this.subscriptions) {
-            for (const subscription of this.subscriptions) {
-                subscription.unsubscribe();
-            }
-        }
+        super.ngOnDestroy();
+    }
+
+    protected dataHandler(ref: any): void {
+        this.datas = ref.items;
     }
 }

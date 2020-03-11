@@ -1,24 +1,15 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
-import { Subscription } from 'rxjs';
-import { SolidGaugeWithMarker } from 'src/app/dashboard/models/solid-gauge-with-marker';
+import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 
 @Component({
     selector: 'evj-solid-gauges',
     templateUrl: './solid-gauges.component.html',
     styleUrls: ['./solid-gauges.component.scss'],
 })
-export class SolidGaugesComponent implements OnInit {
+export class SolidGaugesComponent extends WidgetPlatform implements OnInit, OnDestroy {
     static itemCols = 16;
     static itemRows = 10;
-
-    private subscription: Subscription;
-
-    public title = 'Статическое Оборудование';
-    public code;
-    public units = 'шт.';
-    public name;
-    public icon: string = 'tools';
 
     public uniqal;
 
@@ -27,46 +18,28 @@ export class SolidGaugesComponent implements OnInit {
         { name: 'Висбрекинг', fact: 3.07, percent: 70, value: 2.67 },
     ];
 
-    //  public datas;
-
     constructor(
         public widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-            this.title = data.title;
-            this.code = data.code;
-            this.name = data.name;
-        });
+        super(widgetService, isMock, id, uniqId);
+        this.widgetUnits = 'шт.';
+        this.widgetIcon = 'tools';
     }
 
     public check;
-    ngOnInit() {
-        this.showMock(this.isMock);
+
+    ngOnInit(): void {
+        super.widgetInit();
     }
 
-    ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
+    ngOnDestroy(): void {
+        super.ngOnDestroy();
     }
 
-    private wsConnect() {
-        this.widgetService
-            .getWidgetLiveDataFromWS(this.id, 'solid-gauge-with-marker')
-            .subscribe((ref) => {
-                this.datas = ref.values;
-            });
-    }
-    private wsDisconnect() {}
-
-    showMock(show) {
-        if (show) {
-            this.wsDisconnect();
-        } else {
-            this.wsConnect();
-        }
+    protected dataHandler(ref: any): void {
+        this.datas = ref.values;
     }
 }

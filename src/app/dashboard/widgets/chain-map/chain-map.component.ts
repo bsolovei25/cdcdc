@@ -264,13 +264,14 @@ export class ChainMapComponent extends WidgetPlatform implements AfterViewInit, 
 
     ngAfterViewInit(): void {
         super.widgetInit();
-        if (!this.isMock) {
-            this.drawChain();
-        }
     }
 
     ngOnDestroy(): void {
         super.ngOnDestroy();
+    }
+
+    protected dataConnect(): void {
+        this.drawChain();
     }
 
     protected dataHandler(ref: any): void {}

@@ -1,14 +1,6 @@
-import {
-    Component,
-    OnInit,
-    ElementRef,
-    ViewChild,
-    AfterViewInit,
-    Inject,
-    OnDestroy,
-} from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit, Inject, OnDestroy } from '@angular/core';
 import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
-import { Subscription } from 'rxjs';
+import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 
 declare var d3: any;
 
@@ -17,7 +9,7 @@ declare var d3: any;
     templateUrl: './map-ecology.component.html',
     styleUrls: ['./map-ecology.component.scss'],
 })
-export class MapEcologyComponent implements AfterViewInit, OnInit, OnDestroy {
+export class MapEcologyComponent extends WidgetPlatform implements AfterViewInit, OnDestroy {
     static itemCols = 32;
     static itemRows = 12;
 
@@ -45,7 +37,7 @@ export class MapEcologyComponent implements AfterViewInit, OnInit, OnDestroy {
 
     public isActive = false;
 
-    private subscription: Subscription;
+    // private subscription: Subscription;
 
     @ViewChild('myCircle') myCircle: ElementRef;
 
@@ -57,25 +49,27 @@ export class MapEcologyComponent implements AfterViewInit, OnInit, OnDestroy {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-            this.title = data.title;
-            this.code = data.code;
-            this.units = data.units;
-            this.name = data.name;
-            this.previewTitle = data.widgetType;
-        });
+        // this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
+        //     this.title = data.title;
+        //     this.code = data.code;
+        //     this.units = data.units;
+        //     this.name = data.name;
+        //     this.previewTitle = data.widgetType;
+        // });
+        super(widgetService, isMock, id, uniqId);
     }
 
-    ngOnInit() {}
-
     ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
+        super.ngOnDestroy();
     }
 
     ngAfterViewInit() {
-        this.showMock(this.isMock);
+        super.widgetInit();
+        //  this.showMock(this.isMock);
+    }
+
+    protected dataHandler(ref: any): void {
+        this.drawMapSocket(ref);
     }
 
     private wsConnect() {
@@ -95,11 +89,25 @@ export class MapEcologyComponent implements AfterViewInit, OnInit, OnDestroy {
     }
     private wsDisconnect() {}
 
-    showMock(show) {
-        if (show) {
-            this.wsDisconnect();
+    // showMock(show) {
+    //     if (show) {
+    //         this.wsDisconnect();
+    //     } else {
+    //         this.wsConnect();
+    //     }
+    // }
+
+    public drawMapSocket(ref) {
+        if (this.datas == null) {
+            this.datas = ref.points;
+            this.regexText(this.datas);
+            this.drawMap(this.myCircle.nativeElement, this.datas);
+            this.namePoint = this.datas[0].name;
         } else {
-            this.wsConnect();
+            this.clearMap();
+            this.datas = ref.points;
+            this.regexText(this.datas);
+            this.drawMap(this.myCircle.nativeElement, this.datas);
         }
     }
 

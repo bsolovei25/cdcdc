@@ -43,13 +43,14 @@ export abstract class WidgetPlatform implements OnDestroy {
         if (show) {
             this.dataDisconnect();
         } else {
-            if (this.isRealtimeData) {
-                this.dataConnect();
-            }
+            this.dataConnect();
         }
     }
 
     protected dataConnect(): void {
+        if (!this.isRealtimeData) {
+            return;
+        }
         this.subscriptions.push(
             this.widgetService
                 .getWidgetLiveDataFromWS(this.widgetId, this.widgetType)
