@@ -1,14 +1,15 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { DeviationCircleDiagram, ICenterOfPoint } from '../../models/deviation-circle-diagram';
+import { WidgetPlatform } from '../../models/widget-platform';
 
 @Component({
     selector: 'evj-deviation-circle-diagram',
     templateUrl: './deviation-circle-diagram.component.html',
     styleUrls: ['./deviation-circle-diagram.component.scss'],
 })
-export class DeviationCircleDiagramComponent implements OnInit, OnDestroy {
+export class DeviationCircleDiagramComponent extends WidgetPlatform implements OnInit, OnDestroy {
+
     public deviationCircleDiagram: DeviationCircleDiagram = {
         deviation: 0, // отклонение в %
         improvement: 0, // улучшение в %
@@ -37,48 +38,29 @@ export class DeviationCircleDiagramComponent implements OnInit, OnDestroy {
     public radius: string = '19';
     public radPoint: string = '0.8';
 
-    public title: string;
-    public units: string = '%';
-    public previewTitle: string = 'deviation-circle-diagram';
-
-    subscriptions: Subscription[] = [];
-
-    static itemCols: number = 10;
-    static itemRows: number = 8;
+    protected static itemCols: number = 10;
+    protected static itemRows: number = 8;
 
     constructor(
-        private widgetService: NewWidgetService,
+        protected widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscriptions.push(
-            this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-                this.title = data.title;
-                this.previewTitle = data.widgetType;
-                // this.code = data.code;
-                // this.units = data.units;
-                // this.name = data.name;
-            })
-        );
+        super(widgetService, isMock, id, uniqId);
+        this.widgetUnits = '%';
     }
 
     ngOnInit(): void {
-        if (!this.isMock) {
-            this.subscriptions.push(
-                this.widgetService
-                    .getWidgetLiveDataFromWS(this.id, this.previewTitle)
-                    .subscribe((data: DeviationCircleDiagram) => {
-                        this.copyAbsoluteData(data);
-                    })
-            );
-        }
+        super.widgetInit();
     }
 
     ngOnDestroy(): void {
-        if (this.subscriptions) {
-            this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
-        }
+        super.ngOnDestroy();
+    }
+
+    protected dataHandler(ref: DeviationCircleDiagram): void {
+        this.copyAbsoluteData(ref);
     }
 
     copyAbsoluteData(data: DeviationCircleDiagram): void {
