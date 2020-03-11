@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { EventService } from '../../services/event.service';
 import { NewWidgetService } from '../../services/new-widget.service';
+import { WidgetPlatform } from '../../models/widget-platform';
 
 export interface IDeviationsTable {
     equipment: string;
@@ -16,11 +15,7 @@ export interface IDeviationsTable {
     templateUrl: './deviations-table.component.html',
     styleUrls: ['./deviations-table.component.scss'],
 })
-export class DeviationsTableComponent implements OnInit, OnDestroy {
-    isLoading: boolean = false;
-
-    public title = '';
-    private subscription: Subscription;
+export class DeviationsTableComponent extends WidgetPlatform implements OnInit, OnDestroy {
 
     data: IDeviationsTable[] = [
         {
@@ -235,36 +230,29 @@ export class DeviationsTableComponent implements OnInit, OnDestroy {
         },
     ];
 
-    static itemCols = 15;
-    static itemRows = 18;
+    protected static itemCols: number = 15;
+    protected static itemRows: number = 18;
 
     public previewTitle: string;
 
     constructor(
-        private eventService: EventService,
-        public widgetService: NewWidgetService,
+        protected widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-            this.title = data.title;
-            this.previewTitle = data.widgetType;
-        });
+        super(widgetService, isMock, id, uniqId);
     }
 
-    ngOnInit() {
-        if (!this.isMock) {
-            this.subscription = this.eventService.event$.subscribe((value) => {
-                if (value) {
-                }
-            });
-        }
+    ngOnInit(): void {
+        super.widgetInit();
     }
 
-    ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
+    ngOnDestroy(): void {
+        super.ngOnDestroy();
+    }
+
+    protected dataHandler(ref: any): void {
+        // this.data = ref;
     }
 }

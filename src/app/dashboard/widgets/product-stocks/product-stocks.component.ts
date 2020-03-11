@@ -8,9 +8,9 @@ import {
     AfterViewInit,
     Renderer2,
 } from '@angular/core';
-import { Subscription } from 'rxjs/index';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { NewUserSettingsService } from '../../services/new-user-settings.service';
+import { WidgetPlatform } from '../../models/widget-platform';
 
 export interface IProductStocks {
     stocks: number;
@@ -24,9 +24,11 @@ export interface IProductStocks {
     templateUrl: './product-stocks.component.html',
     styleUrls: ['./product-stocks.component.scss'],
 })
-export class ProductStocksComponent implements OnInit, OnDestroy, AfterViewInit {
-    title: string = '';
-    public previewTitle: string;
+export class ProductStocksComponent extends WidgetPlatform implements OnInit, OnDestroy, AfterViewInit {
+
+
+    protected static itemCols: number = 17;
+    protected static itemRows: number = 5;
 
     data: IProductStocks = {
         stocks: 1667,
@@ -34,13 +36,7 @@ export class ProductStocksComponent implements OnInit, OnDestroy, AfterViewInit 
         shipment: 7.5,
         typeShipment: 'pipe',
     };
-
-    static itemCols = 17;
-    static itemRows = 5;
-
     isActive: boolean = false;
-
-    private liveSubscription: Subscription;
 
     @ViewChild('svgContainer') svgContainer: ElementRef;
     @ViewChild('svgContainers') svgContainers: ElementRef;
@@ -53,23 +49,22 @@ export class ProductStocksComponent implements OnInit, OnDestroy, AfterViewInit 
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.liveSubscription = this.widgetService.getWidgetChannel(id).subscribe((data) => {
-            this.title = data.title;
-            this.previewTitle = data.widgetType;
-        });
+        super(widgetService, isMock, id, uniqId);
     }
 
-    ngOnInit() {
-        // this.dataSvgSize();
+    ngOnInit(): void {
+        super.widgetInit();
     }
 
-    ngOnDestroy() {
-        if (this.liveSubscription) {
-            this.liveSubscription.unsubscribe();
-        }
+    ngOnDestroy(): void {
+        super.ngOnDestroy();
     }
 
-    ngAfterViewInit() {
+    protected dataHandler(ref: any): void {
+        // this.datas = ref.items;
+    }
+
+    ngAfterViewInit(): void {
         if (this.svgContainers && this.svgContainers.nativeElement) {
             const rect = this.renderer.createElement('rect', 'svg');
             this.renderer.setAttribute(rect, 'x', '1.24');
@@ -91,7 +86,7 @@ export class ProductStocksComponent implements OnInit, OnDestroy, AfterViewInit 
         }
     }
 
-    dataSvgSize() {
+    dataSvgSize(): void {
         const passportizationHeight = (
             (this.data.passportization / this.data.stocks) *
             100
@@ -99,7 +94,7 @@ export class ProductStocksComponent implements OnInit, OnDestroy, AfterViewInit 
         const shipmentHeight = ((this.data.shipment / this.data.stocks) * 100).toFixed(2);
     }
 
-    onActive() {
+    onActive(): void {
         this.isActive ? (this.isActive = false) : (this.isActive = true);
     }
 }

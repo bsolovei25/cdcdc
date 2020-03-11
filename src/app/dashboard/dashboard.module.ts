@@ -20,8 +20,8 @@ import { NewWidgetsPanelComponent } from './components/new-widgets-panel/new-wid
 import { NewWidgetsGridComponent } from './components/new-widgets-grid/new-widgets-grid.component';
 import { GridsterModule } from 'angular-gridster2';
 import { UserInfoComponent } from './components/user-info/user-info.component';
-import { WidgetPiesComponent } from './widgets/widgets-pie/widget-pies/widget-pies/widget-pies.component';
-import { WidgetsPieComponent } from './widgets/widgets-pie/widget-pie-circle/widget-pie/widget-pie.component';
+import { WidgetPiesComponent } from './widgets/widgets-pie/widget-pies/widget-pies.component';
+import { WidgetsPieComponent } from './widgets/widgets-pie/widget-pie-circle/widget-pie.component';
 import { WidgetHeaderComponent } from './components/widget-header/widget-header.component';
 import { EventsWorkSpaceComponent } from './widgets/workspace/events-workspace.component';
 import { FrameTopComponent } from './components/frame-top/frame-top.component';

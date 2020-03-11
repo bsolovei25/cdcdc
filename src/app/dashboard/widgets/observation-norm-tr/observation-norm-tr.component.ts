@@ -11,15 +11,18 @@ import {
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { IObservationNormTR } from '../../models/observation-norm-tr';
+import { WidgetPlatform } from '../../models/widget-platform';
 
 @Component({
     selector: 'evj-observation-norm-tr',
     templateUrl: './observation-norm-tr.component.html',
     styleUrls: ['./observation-norm-tr.component.scss'],
 })
-export class ObservationNormTRComponent implements OnInit, OnDestroy, AfterViewInit {
-    static itemCols: number = 15;
-    static itemRows: number = 10;
+export class ObservationNormTRComponent extends WidgetPlatform
+    implements OnInit, OnDestroy, AfterViewInit {
+
+    protected static itemCols: number = 15;
+    protected static itemRows: number = 10;
 
     circleRadius: string = (35).toString();
     minRadius: number = 47;
@@ -38,12 +41,7 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy, AfterViewI
     maxArray: number = 0;
     factArray: number = 0;
     minArray: number = 0;
-
     middleRadius: number = 60;
-
-    public title: string = '';
-    public previewTitle: string = 'observation-norm-tr';
-    private subscription: Subscription;
 
     @ViewChild('svgContainerObservation') svgContainerObservation: ElementRef;
     @ViewChild('lastCircle') lastCircle: ElementRef;
@@ -54,23 +52,21 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy, AfterViewI
     @ViewChild('warningPolygon') warningPolygon: ElementRef;
 
     constructor(
-        public widgetService: NewWidgetService,
+        protected widgetService: NewWidgetService,
         private renderer: Renderer2,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
-    ) {}
+    ) {
+        super(widgetService, isMock, id, uniqId);
+    }
 
     ngOnInit(): void {
-        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-            this.title = data.title;
-        });
+        super.widgetInit();
     }
 
     ngOnDestroy(): void {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
+        super.ngOnDestroy();
     }
 
     ngAfterViewInit(): void {
@@ -78,6 +74,10 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy, AfterViewI
             this.drawMinAndMax();
             this.drawCircle();
         }
+    }
+
+    protected dataHandler(ref: any): void {
+        // this.data = ref;
     }
 
     drawMinAndMax(): void {
@@ -141,7 +141,7 @@ export class ObservationNormTRComponent implements OnInit, OnDestroy, AfterViewI
         return (
             this.minRadius +
             ((value - this.data.minValue) * (this.maxRadius - this.minRadius)) /
-                (this.data.maxValue - this.data.minValue)
+            (this.data.maxValue - this.data.minValue)
         );
     }
 
