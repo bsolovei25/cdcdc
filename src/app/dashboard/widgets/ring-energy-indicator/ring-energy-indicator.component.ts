@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { count } from 'rxjs/operators';
 import { RingEnegryIndicatorModel } from '../../models/ring-energy-indicator';
+import { WidgetPlatform } from '../../models/widget-platform';
 
 declare var d3: any;
 
@@ -11,7 +12,7 @@ declare var d3: any;
     templateUrl: './ring-energy-indicator.component.html',
     styleUrls: ['./ring-energy-indicator.component.scss'],
 })
-export class RingEnergyIndicatorComponent implements AfterViewInit {
+export class RingEnergyIndicatorComponent extends WidgetPlatform implements AfterViewInit {
     @ViewChild('circleFactory') CircleFactory: ElementRef;
 
     public readonly RADIUS = 50;
@@ -31,8 +32,6 @@ export class RingEnergyIndicatorComponent implements AfterViewInit {
 
     public data: RingEnegryIndicatorModel;
 
-    private subscription: Subscription;
-
     /*  public data = {
         isCritical: true,
         iconId: 4,
@@ -51,7 +50,7 @@ export class RingEnergyIndicatorComponent implements AfterViewInit {
         ],
     };*/
 
-    private subscriptions: Subscription[] = [];
+    //private subscriptions: Subscription[] = [];
 
     constructor(
         public widgetService: NewWidgetService,
@@ -59,49 +58,55 @@ export class RingEnergyIndicatorComponent implements AfterViewInit {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscriptions.push(
-            this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-                this.title = data.title;
-                this.code = data.code;
-                this.units = data.units;
-                this.name = data.name;
-                this.previewTitle = data.widgetType;
-            })
-        );
+        super(widgetService, isMock, id, uniqId);
+        // this.subscriptions.push(
+        //     this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
+        //         this.title = data.title;
+        //         this.code = data.code;
+        //         this.units = data.units;
+        //         this.name = data.name;
+        //         this.previewTitle = data.widgetType;
+        //     })
+        // );
     }
 
     ngAfterViewInit() {
-        this.showMock(this.isMock);
+        super.widgetInit();
+        // this.showMock(this.isMock);
     }
 
     ngOnDestroy() {
-        if (this.subscriptions) {
-            for (const subscription of this.subscriptions) {
-                subscription.unsubscribe();
-            }
-        }
+        super.ngOnDestroy();
     }
 
-    private wsConnect() {
-        this.widgetService
-            .getWidgetLiveDataFromWS(this.id, 'ring-energy-indicator')
-            .subscribe((ref) => {
-                this.data = ref;
-                if (this.svg) {
-                    this.svg.remove();
-                }
-                this.d3Circle(this.data, this.CircleFactory.nativeElement);
-            });
-    }
-    private wsDisconnect() {}
-
-    showMock(show) {
-        if (show) {
-            this.wsDisconnect();
-        } else {
-            this.wsConnect();
+    protected dataHandler(ref: any): void {
+        this.data = ref;
+        if (this.svg) {
+            this.svg.remove();
         }
+        this.d3Circle(this.data, this.CircleFactory.nativeElement);
     }
+
+    // private wsConnect() {
+    //     this.widgetService
+    //         .getWidgetLiveDataFromWS(this.id, 'ring-energy-indicator')
+    //         .subscribe((ref) => {
+    //             this.data = ref;
+    //             if (this.svg) {
+    //                 this.svg.remove();
+    //             }
+    //             this.d3Circle(this.data, this.CircleFactory.nativeElement);
+    //         });
+    // }
+    // private wsDisconnect() {}
+
+    // showMock(show) {
+    //     if (show) {
+    //         this.wsDisconnect();
+    //     } else {
+    //         this.wsConnect();
+    //     }
+    // }
 
     public d3Circle(data, el): void {
         this.pic = data.isCritical

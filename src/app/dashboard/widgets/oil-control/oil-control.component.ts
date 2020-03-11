@@ -419,13 +419,13 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
     protected dataConnect(): void {
         super.dataConnect();
         this.subscriptions.push(
-                    this.resizeWidget.subscribe((data) => {
-                        if (data.item.uniqid === this.uniqId) {
-                            this.newWidth = data.event.clientX;
-                            this.onResize(data.event.clientX);
-                        }
-                    })
-                );
+            this.resizeWidget.subscribe((data) => {
+                if (data.item.uniqid === this.uniqId) {
+                    this.newWidth = data.event.clientX;
+                    this.onResize(data.event.clientX);
+                }
+            })
+        );
     }
 
     protected dataHandler(ref: any): void {

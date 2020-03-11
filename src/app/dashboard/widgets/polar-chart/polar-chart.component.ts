@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild, Inject, AfterViewInit } from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { Subscription } from 'rxjs';
+import { WidgetPlatform } from '../../models/widget-platform';
 
 declare var d3: any;
 
@@ -9,7 +10,7 @@ declare var d3: any;
     templateUrl: './polar-chart.component.html',
     styleUrls: ['./polar-chart.component.scss'],
 })
-export class PolarChartComponent implements AfterViewInit {
+export class PolarChartComponent extends WidgetPlatform implements AfterViewInit {
     @ViewChild('polar') Polar: ElementRef;
 
     static itemCols = 12;
@@ -122,7 +123,7 @@ export class PolarChartComponent implements AfterViewInit {
     public shortLine = [];
     public valueLine = [];
 
-    private subscriptions: Subscription[] = [];
+    //private subscriptions: Subscription[] = [];
 
     constructor(
         public widgetService: NewWidgetService,
@@ -130,37 +131,39 @@ export class PolarChartComponent implements AfterViewInit {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscriptions.push(
-            this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-                this.title = data.title;
-                this.code = data.code;
-                this.units = data.units;
-                this.name = data.name;
-                this.previewTitle = data.widgetType;
-            })
-        );
+        super(widgetService, isMock, id, uniqId);
+        // this.subscriptions.push(
+        //     this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
+        //         this.title = data.title;
+        //         this.code = data.code;
+        //         this.units = data.units;
+        //         this.name = data.name;
+        //         this.previewTitle = data.widgetType;
+        //     })
+        // );
     }
 
     ngAfterViewInit() {
-        if (!this.isMock) {
-            this.subscriptions.push(
-                this.widgetService
-                    .getWidgetLiveDataFromWS(this.id, 'polar-chart')
-                    .subscribe((ref) => {
-                        console.log(ref);
-                        this.data = ref.items;
-                        this.draw();
-                    })
-            );
-        }
+        super.widgetInit();
+        // if (!this.isMock) {
+        //     this.subscriptions.push(
+        //         this.widgetService
+        //             .getWidgetLiveDataFromWS(this.id, 'polar-chart')
+        //             .subscribe((ref) => {
+        //                 this.data = ref.items;
+        //                 this.draw();
+        //             })
+        //     );
+        // }
     }
 
     ngOnDestroy() {
-        if (this.subscriptions) {
-            for (const subscription of this.subscriptions) {
-                subscription.unsubscribe();
-            }
-        }
+        super.ngOnDestroy();
+    }
+
+    protected dataHandler(ref: any): void {
+        this.data = ref.items;
+        this.draw();
     }
 
     private draw() {
