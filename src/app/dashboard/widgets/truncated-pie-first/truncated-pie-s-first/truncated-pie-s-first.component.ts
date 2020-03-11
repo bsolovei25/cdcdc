@@ -33,7 +33,6 @@ export class TruncatedPieSFirstComponent extends WidgetPlatform implements OnIni
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-
         super(widgetService, isMock, id, uniqId);
         // this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
         //     this.title = data.title;
@@ -45,7 +44,7 @@ export class TruncatedPieSFirstComponent extends WidgetPlatform implements OnIni
 
     ngOnInit() {
         super.widgetInit();
-       // this.showMock(this.isMock);
+        // this.showMock(this.isMock);
     }
 
     protected dataHandler(ref: any): void {

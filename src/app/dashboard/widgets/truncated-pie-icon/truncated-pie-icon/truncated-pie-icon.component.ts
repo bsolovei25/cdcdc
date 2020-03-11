@@ -46,7 +46,7 @@ export class TruncatedPieIconComponent implements OnInit {
     }
 
     private d3Circle(data, el): void {
-        (data.plan === 0 ) ? data.plan = 100 : data.plan;
+        data.plan === 0 ? (data.plan = 100) : data.plan;
         this.procent = (data.plan * 34) / 100;
 
         const mass = [data.plan - data.value + this.procent, data.value];

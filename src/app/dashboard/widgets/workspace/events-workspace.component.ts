@@ -35,7 +35,7 @@ import { WidgetPlatform } from '../../models/widget-platform';
     styleUrls: ['./events-workspace.component.scss'],
 })
 export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, OnDestroy {
-  //  private subscriptions: Subscription[] = [];
+    //  private subscriptions: Subscription[] = [];
     event: EventsWidgetNotification;
     isLoading: boolean = true;
 
@@ -134,7 +134,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-
         super(widgetService, isMock, id, uniqId);
 
         // this.subscriptions.push(
@@ -184,15 +183,15 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     protected dataConnect(): void {
         super.dataConnect();
         this.subscriptions.push(
-                    this.eventService.event$.subscribe((value) => {
-                        if (value) {
-                            this.openEvent = false;
-                            this.setEventByInfo(value);
-                        } else {
-                            this.event = value;
-                        }
-                    })
-         );
+            this.eventService.event$.subscribe((value) => {
+                if (value) {
+                    this.openEvent = false;
+                    this.setEventByInfo(value);
+                } else {
+                    this.event = value;
+                }
+            })
+        );
     }
 
     protected dataHandler(ref: any): void {
