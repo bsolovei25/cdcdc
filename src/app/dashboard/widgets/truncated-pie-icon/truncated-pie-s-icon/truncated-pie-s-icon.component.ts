@@ -11,7 +11,7 @@ export class TruncatedPieSIconComponent extends WidgetPlatform implements OnInit
     protected static itemCols: number = 26;
     protected static itemRows: number = 10;
 
-    public datas;
+    public datas: any;
     constructor(
         public widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,

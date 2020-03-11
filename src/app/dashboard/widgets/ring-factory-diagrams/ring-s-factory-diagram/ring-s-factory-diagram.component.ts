@@ -1,5 +1,4 @@
-import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, OnInit, Inject } from '@angular/core';
 import { NewUserSettingsService } from 'src/app/dashboard/services/new-user-settings.service';
 import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
 import { RingFactoryWidget } from '../../../models/widget.model';
@@ -11,8 +10,8 @@ import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
     styleUrls: ['./ring-s-factory-diagram.component.scss'],
 })
 export class RingSFactoryDiagramComponent extends WidgetPlatform implements OnInit {
-    static itemCols = 34;
-    static itemRows = 16;
+    static itemCols: number = 34;
+    static itemRows: number = 16;
 
     datas: RingFactoryWidget[] = [
         {
@@ -97,14 +96,6 @@ export class RingSFactoryDiagramComponent extends WidgetPlatform implements OnIn
         },
     ];
 
-    //  private subscriptions: Subscription[] = [];
-
-    public title;
-    public code;
-    public units;
-    public name;
-    public previewTitle: string;
-
     constructor(
         public widgetService: NewWidgetService,
         public service: NewUserSettingsService,
@@ -113,33 +104,13 @@ export class RingSFactoryDiagramComponent extends WidgetPlatform implements OnIn
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
-        // this.subscriptions.push(
-        //     this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-        //         if (data) {
-        //             this.title = data.title;
-        //             this.code = data.code;
-        //             this.units = data.units;
-        //             this.name = data.name;
-        //             this.previewTitle = data.widgetType;
-        //         }
-        //     })
-        // );
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         super.widgetInit();
-        // if (!this.isMock) {
-        //     this.subscriptions.push(
-        //         this.widgetService
-        //             .getWidgetLiveDataFromWS(this.id, 'ring-factory-diagram')
-        //             .subscribe((ref) => {
-        //                 this.datas = ref.items;
-        //             })
-        //     );
-        // }
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         super.ngOnDestroy();
     }
 

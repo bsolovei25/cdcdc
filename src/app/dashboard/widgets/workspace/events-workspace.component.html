@@ -17,10 +17,11 @@
       </div>
     </div> -->
     <evj-widget-header
-      [title]="title"
-      [id]="id"
-      [uniqId]="uniqId"
-      [icon]="icon"
+      [title]="widgetTitle"
+      [units]="widgetUnits"
+      [code]="widgetCode"
+      [id]="widgetId"
+      [uniqId]="widgetUniqId"
       [widgetType]="widgetType"
       (eventCreated)="createdEvent($event)"
       [isEventOpen]="openEvent"

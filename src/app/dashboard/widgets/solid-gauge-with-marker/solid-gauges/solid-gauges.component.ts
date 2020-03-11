@@ -8,12 +8,10 @@ import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
     styleUrls: ['./solid-gauges.component.scss'],
 })
 export class SolidGaugesComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    static itemCols = 16;
-    static itemRows = 10;
+    static itemCols: number = 16;
+    static itemRows: number = 10;
 
-    public uniqal;
-
-    public datas = [
+    public datas: any = [
         { name: 'СУГ', fact: 11.5, percent: 50, value: 14.5 },
         { name: 'Висбрекинг', fact: 3.07, percent: 70, value: 2.67 },
     ];
@@ -28,8 +26,6 @@ export class SolidGaugesComponent extends WidgetPlatform implements OnInit, OnDe
         this.widgetUnits = 'шт.';
         this.widgetIcon = 'tools';
     }
-
-    public check;
 
     ngOnInit(): void {
         super.widgetInit();

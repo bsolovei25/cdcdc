@@ -1,6 +1,5 @@
-import { Component, OnInit, ElementRef, ViewChild, Inject, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, Inject, AfterViewInit } from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
-import { Subscription } from 'rxjs';
 import { WidgetPlatform } from '../../models/widget-platform';
 
 declare var d3: any;
@@ -13,20 +12,14 @@ declare var d3: any;
 export class PolarChartComponent extends WidgetPlatform implements AfterViewInit {
     @ViewChild('polar') Polar: ElementRef;
 
-    static itemCols = 12;
-    static itemRows = 12;
+    static itemCols: number = 12;
+    static itemRows: number = 12;
 
     private canvas: any;
 
-    public title: string;
-    public code: string;
-    public units: string;
-    public name: string;
-    public previewTitle: string;
+    public index: number = 0;
 
-    public index = 0;
-
-    public points = [
+    public points: any = [
         { line: 1, point: 1, x: 75, y: 30 },
         { line: 2, point: 2, x: 96.5, y: 42.5 },
         { line: 3, point: 3, x: 96.5, y: 67.5 },
@@ -35,7 +28,7 @@ export class PolarChartComponent extends WidgetPlatform implements AfterViewInit
         { line: 6, point: 6, x: 53.5, y: 42.5 },
     ];
 
-    public pointTop = [
+    public pointTop: any = [
         { line: 1, x: 75, y: 15 },
         { line: 2, x: 115, y: 32 },
         { line: 3, x: 115, y: 78 },
@@ -44,7 +37,7 @@ export class PolarChartComponent extends WidgetPlatform implements AfterViewInit
         { line: 6, x: 35, y: 32 },
     ];
 
-    public pointBottom = [
+    public pointBottom: any = [
         { line: 1, x: 75, y: 46 },
         { line: 2, x: 83, y: 50.5 },
         { line: 3, x: 82.74, y: 59.5 },
@@ -53,7 +46,7 @@ export class PolarChartComponent extends WidgetPlatform implements AfterViewInit
         { line: 6, x: 67, y: 50.5 },
     ];
 
-    public imageBorder = [
+    public imageBorder: any = [
         { block: 1, x: 58, y: -26 },
         { block: 2, x: 98, y: -9 },
         { block: 3, x: 98, y: 47.2 },
@@ -62,7 +55,7 @@ export class PolarChartComponent extends WidgetPlatform implements AfterViewInit
         { block: 6, x: 18, y: -9 },
     ];
 
-    public data = [
+    public data: any = [
         {
             line: 1,
             value: 100,
@@ -119,11 +112,9 @@ export class PolarChartComponent extends WidgetPlatform implements AfterViewInit
         },
     ];
 
-    public longLine = [];
-    public shortLine = [];
-    public valueLine = [];
-
-    //private subscriptions: Subscription[] = [];
+    public longLine: any = [];
+    public shortLine: any = [];
+    public valueLine: any = [];
 
     constructor(
         public widgetService: NewWidgetService,
@@ -132,32 +123,13 @@ export class PolarChartComponent extends WidgetPlatform implements AfterViewInit
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
-        // this.subscriptions.push(
-        //     this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-        //         this.title = data.title;
-        //         this.code = data.code;
-        //         this.units = data.units;
-        //         this.name = data.name;
-        //         this.previewTitle = data.widgetType;
-        //     })
-        // );
     }
 
-    ngAfterViewInit() {
+    ngAfterViewInit(): void {
         super.widgetInit();
-        // if (!this.isMock) {
-        //     this.subscriptions.push(
-        //         this.widgetService
-        //             .getWidgetLiveDataFromWS(this.id, 'polar-chart')
-        //             .subscribe((ref) => {
-        //                 this.data = ref.items;
-        //                 this.draw();
-        //             })
-        //     );
-        // }
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         super.ngOnDestroy();
     }
 
@@ -166,7 +138,7 @@ export class PolarChartComponent extends WidgetPlatform implements AfterViewInit
         this.draw();
     }
 
-    private draw() {
+    private draw(): void {
         if (this.canvas) {
             this.canvas.remove();
         }
@@ -177,7 +149,7 @@ export class PolarChartComponent extends WidgetPlatform implements AfterViewInit
         this.drawPolar(this.data, this.Polar.nativeElement);
     }
 
-    public drawPolar(data, el) {
+    public drawPolar(data, el): void {
         let indexBorder = 0;
         let indexLine = 0;
 
@@ -653,7 +625,7 @@ export class PolarChartComponent extends WidgetPlatform implements AfterViewInit
             );
     }
 
-    public drawNewLine(data) {
+    public drawNewLine(data): void {
         let index;
         for (let item of data) {
             if (item.value > 100) {
@@ -671,7 +643,7 @@ export class PolarChartComponent extends WidgetPlatform implements AfterViewInit
         }
     }
 
-    public longLines(pointTop, pointBottom) {
+    public longLines(pointTop, pointBottom): void {
         for (let itemTop of pointTop) {
             for (let itemBottom of pointBottom) {
                 if (itemTop.line === itemBottom.line) {
@@ -683,7 +655,7 @@ export class PolarChartComponent extends WidgetPlatform implements AfterViewInit
         }
     }
 
-    public shortLines(point, pointBottom) {
+    public shortLines(point, pointBottom): void {
         for (let itemPoint of point) {
             for (let itemBottom of pointBottom) {
                 if (itemPoint.line === itemBottom.line) {
@@ -698,7 +670,7 @@ export class PolarChartComponent extends WidgetPlatform implements AfterViewInit
         }
     }
 
-    public valueLines(data, longLine, short) {
+    public valueLines(data, longLine, short): void {
         for (let itemData of data) {
             let index = 0;
             if (itemData.value <= 100) {
@@ -719,25 +691,25 @@ export class PolarChartComponent extends WidgetPlatform implements AfterViewInit
         }
     }
 
-    public changePointsTop(long, short, value, index) {
+    public changePointsTop(long, short, value, index): void {
         let line1 = long - short;
         let K = value / line1;
         this.newPoints(this.pointTop[index], this.points[index], K, index);
     }
 
-    public changePointsBottom(long, value, index) {
+    public changePointsBottom(long, value, index): void {
         let line1 = long - value;
         let K = value / line1;
         this.newPoints(this.pointTop[index], this.pointBottom[index], K, index);
     }
 
-    public newPoints(pointTop, pointBottom, K, index) {
+    public newPoints(pointTop, pointBottom, K, index): void {
         let x = (pointBottom.x + K * pointTop.x) / (1 + K);
         let y = (pointBottom.y + K * pointTop.y) / (1 + K);
         this.newLine(this.points[index], x, y);
     }
 
-    public newLine(points, newX, newY) {
+    public newLine(points, newX, newY): void {
         points.x = newX;
         points.y = newY;
     }

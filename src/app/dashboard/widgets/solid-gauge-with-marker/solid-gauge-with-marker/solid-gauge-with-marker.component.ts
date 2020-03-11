@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, Input, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { SolidGaugeWithMarkerItem } from 'src/app/dashboard/models/solid-gauge-with-marker';
 
 declare var d3: any;
@@ -17,23 +17,22 @@ export class SolidGaugeWithMarkerComponent implements AfterViewInit {
 
     constructor() {}
 
-    public check;
-    public criticalValue = 64;
-    public criticalPie = 16;
-    public indicator;
-    public pie = 25;
+    public criticalValue: number = 64;
+    public criticalPie: number = 16;
+    public indicator: number;
+    public pie: number = 25;
 
-    ngAfterViewInit() {
+    ngAfterViewInit(): void {
         this.indicator = this.indicatorGauge(this.data);
         this.draw(this.data, this.myCircle.nativeElement, this.gaugemap, this.indicator);
     }
 
-    indicatorGauge(data) {
-        let percent = data.percent > 100 ? 100 : data.percent < 0 ? 0 : data.percent;
+    indicatorGauge(data): number {
+        const percent = data.percent > 100 ? 100 : data.percent < 0 ? 0 : data.percent;
         return (this.pie * percent) / 100;
     }
 
-    draw(data, el, gaugemap, indicator) {
+    draw(data, el, gaugemap, indicator): void {
         var gauge = function(container, configuration) {
             var config = {
                 size: 710,

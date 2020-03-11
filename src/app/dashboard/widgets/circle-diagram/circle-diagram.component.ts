@@ -1,5 +1,4 @@
 import { Component, OnDestroy, Inject, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-
 import { NewWidgetService } from '../../services/new-widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 

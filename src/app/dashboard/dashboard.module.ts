@@ -40,7 +40,7 @@ import { SuspenseMachineComponent } from './widgets/suspense-machine/suspense-ma
 import { EnterpriseMapComponent } from './widgets/map-enterprise/enterprise-map.component';
 import { DetailedLineDiagramComponent } from './components/detailed-line-diagram/detailed-line-diagram.component';
 import { OperationEfficiencyComponent } from './widgets/operation-efficiency/operation-efficiency.component';
-import { MapEcologyComponent } from './widgets/map-ecology/map-ecology/map-ecology.component';
+import { MapEcologyComponent } from './widgets/map-ecology/map-ecology.component';
 import { UnityTemplateComponent } from './widgets/unity-template/unity-template.component';
 import { PowIndexPipe } from './pipes/pow-index.pipe';
 import { RingFactoryDiagramComponent } from './widgets/ring-factory-diagrams/ring-factory-diagram/ring-factory-diagram.component';

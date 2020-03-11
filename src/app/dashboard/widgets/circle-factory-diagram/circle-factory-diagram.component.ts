@@ -13,17 +13,12 @@ export class CircleFactoryDiagramComponent extends WidgetPlatform
     implements AfterViewInit, OnDestroy {
     @ViewChild('circleFactory') CircleFactory: ElementRef;
 
-    public readonly RADIUS = 42;
+    public readonly RADIUS: number = 42;
 
-    // public title = 'Производство';
-    // public code;
-    // public units;
-    // public name;
+    protected static itemCols: number = 12;
+    protected static itemRows: number = 8;
 
-    protected static itemCols = 12;
-    protected static itemRows = 8;
-
-    public clicked = false;
+    public clicked: boolean = false;
 
     public data = {
         value: 100,
@@ -39,8 +34,6 @@ export class CircleFactoryDiagramComponent extends WidgetPlatform
         ],
     };
 
-    //private subscriptions: Subscription[] = [];
-
     public previewTitle: string;
 
     constructor(
@@ -52,11 +45,11 @@ export class CircleFactoryDiagramComponent extends WidgetPlatform
         super(widgetService, isMock, id, uniqId);
     }
 
-    ngAfterViewInit() {
+    ngAfterViewInit(): void {
         super.widgetInit();
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         super.ngOnDestroy();
     }
 
@@ -64,11 +57,9 @@ export class CircleFactoryDiagramComponent extends WidgetPlatform
         this.d3Circle(this.data, this.CircleFactory.nativeElement);
     }
 
-    protected dataHandler(ref: any): void {
-        //  this.data = ref.chartItems;
-    }
+    protected dataHandler(ref: any): void {}
 
-    public onChangeBackground() {
+    public onChangeBackground(): void {
         if (!this.isMock) {
             this.clicked = !this.clicked;
         }
