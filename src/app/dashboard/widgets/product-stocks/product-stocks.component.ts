@@ -24,9 +24,8 @@ export interface IProductStocks {
     templateUrl: './product-stocks.component.html',
     styleUrls: ['./product-stocks.component.scss'],
 })
-export class ProductStocksComponent extends WidgetPlatform implements OnInit, OnDestroy, AfterViewInit {
-
-
+export class ProductStocksComponent extends WidgetPlatform
+    implements OnInit, OnDestroy, AfterViewInit {
     protected static itemCols: number = 17;
     protected static itemRows: number = 5;
 

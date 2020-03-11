@@ -24,23 +24,22 @@ import {
 import { fillDataShape } from '../../../../@shared/common-functions';
 import { MatCalendar } from '@angular/material/datepicker';
 import { MaterialControllerService } from '../../../services/material-controller.service';
+import { WidgetPlatform } from '../../../models/widget-platform';
 
 @Component({
     selector: 'evj-admin-shift-schedule',
     templateUrl: './admin-shift-schedule.component.html',
     styleUrls: ['./admin-shift-schedule.component.scss'],
 })
-export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterContentChecked {
-    aboutWidget: string;
-    previewTitle: string = 'calendar-plan';
-    title: string = '';
+export class AdminShiftScheduleComponent extends WidgetPlatform implements OnInit, OnDestroy, AfterContentChecked {
+
+
     defaultLocale: string = 'ru-RU';
 
     isLoading: boolean = true;
 
-    public subscription: Subscription;
-    static itemCols: number = 30;
-    static itemRows: number = 20;
+    protected static itemCols: number = 48;
+    protected static itemRows: number = 24;
 
     activeUsers: SelectionModel<IUser> = new SelectionModel(true);
 
@@ -67,25 +66,31 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
     @ViewChild('calendar') calendar: MatCalendar<Date>;
 
     constructor(
-        private widgetService: NewWidgetService,
-        @Inject('isMock') public isMock: boolean,
-        @Inject('widgetId') public id: string,
-        @Inject('uniqId') public uniqId: string,
         private dateAdapter: DateAdapter<Date>,
         private renderer: Renderer2,
         private adminShiftScheduleService: AdminShiftScheduleService,
-        private materialController: MaterialControllerService
+        private materialController: MaterialControllerService,
+        protected widgetService: NewWidgetService,
+        @Inject('isMock') public isMock: boolean,
+        @Inject('widgetId') public id: string,
+        @Inject('uniqId') public uniqId: string
     ) {
-        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-            this.title = data.title;
-            this.previewTitle = data.widgetType;
-        });
+        super(widgetService, isMock, id, uniqId);
     }
 
     ngOnInit(): void {
+        super.widgetInit();
         this.setRus();
         this.loadItem();
         this.dateChanged(this.selectedDay.date);
+    }
+
+    ngOnDestroy(): void {
+        super.ngOnDestroy();
+    }
+
+    protected dataHandler(ref: any): void {
+        // this.data = ref.chartItems;
     }
 
     ngAfterContentChecked(): void {
@@ -105,12 +110,6 @@ export class AdminShiftScheduleComponent implements OnInit, OnDestroy, AfterCont
                     });
                 }
             });
-        }
-    }
-
-    ngOnDestroy(): void {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
         }
     }
 

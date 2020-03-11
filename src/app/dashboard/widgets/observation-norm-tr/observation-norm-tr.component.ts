@@ -20,7 +20,6 @@ import { WidgetPlatform } from '../../models/widget-platform';
 })
 export class ObservationNormTRComponent extends WidgetPlatform
     implements OnInit, OnDestroy, AfterViewInit {
-
     protected static itemCols: number = 15;
     protected static itemRows: number = 10;
 
@@ -141,7 +140,7 @@ export class ObservationNormTRComponent extends WidgetPlatform
         return (
             this.minRadius +
             ((value - this.data.minValue) * (this.maxRadius - this.minRadius)) /
-            (this.data.maxValue - this.data.minValue)
+                (this.data.maxValue - this.data.minValue)
         );
     }
 

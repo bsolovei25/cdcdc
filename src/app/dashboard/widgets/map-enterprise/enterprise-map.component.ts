@@ -262,7 +262,6 @@ const bulds: IBuilding[] = [
 })
 export class EnterpriseMapComponent extends WidgetPlatform
     implements OnInit, OnDestroy, AfterViewInit {
-
     values: IValue[] = [];
     data: IEnterpriseMap = {
         build: [

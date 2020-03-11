@@ -18,7 +18,6 @@ export interface ISuspenseMachine {
     styleUrls: ['./suspense-machine.component.scss'],
 })
 export class SuspenseMachineComponent extends WidgetPlatform implements OnInit, OnDestroy {
-
     data: ISuspenseMachine[] = [
         {
             date: new Date('2019-11-01T12:01:05'),
