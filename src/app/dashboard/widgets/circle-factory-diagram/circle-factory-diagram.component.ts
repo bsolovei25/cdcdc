@@ -1,6 +1,6 @@
-import { Component, OnInit, Inject, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, Inject, ElementRef, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
+import { WidgetPlatform } from '../../models/widget-platform';
 
 declare var d3: any;
 
@@ -9,18 +9,18 @@ declare var d3: any;
     templateUrl: './circle-factory-diagram.component.html',
     styleUrls: ['./circle-factory-diagram.component.scss'],
 })
-export class CircleFactoryDiagramComponent implements AfterViewInit {
+export class CircleFactoryDiagramComponent extends WidgetPlatform implements AfterViewInit, OnDestroy {
     @ViewChild('circleFactory') CircleFactory: ElementRef;
 
     public readonly RADIUS = 42;
 
-    public title = 'Производство';
-    public code;
-    public units;
-    public name;
+    // public title = 'Производство';
+    // public code;
+    // public units;
+    // public name;
 
-    static itemCols = 12;
-    static itemRows = 8;
+    protected static itemCols = 12;
+    protected static itemRows = 8;
 
     public clicked = false;
 
@@ -38,7 +38,7 @@ export class CircleFactoryDiagramComponent implements AfterViewInit {
         ],
     };
 
-    private subscriptions: Subscription[] = [];
+    //private subscriptions: Subscription[] = [];
 
     public previewTitle: string;
 
@@ -48,29 +48,23 @@ export class CircleFactoryDiagramComponent implements AfterViewInit {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscriptions.push(
-            this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-                this.title = data.title;
-                this.code = data.code;
-                this.units = data.units;
-                this.name = data.name;
-                this.previewTitle = data.widgetType;
-            })
-        );
+        super(widgetService, isMock, id, uniqId);
     }
 
     ngAfterViewInit() {
-        if (!this.isMock) {
-            this.d3Circle(this.data, this.CircleFactory.nativeElement);
-        }
+        super.widgetInit();
     }
 
     ngOnDestroy() {
-        if (this.subscriptions) {
-            for (const subscription of this.subscriptions) {
-                subscription.unsubscribe();
-            }
-        }
+        super.ngOnDestroy();
+    }
+
+    protected dataConnect(): void {
+        this.d3Circle(this.data, this.CircleFactory.nativeElement);
+    }
+
+    protected dataHandler(ref: any): void {
+        //  this.data = ref.chartItems;
     }
 
     public onChangeBackground() {

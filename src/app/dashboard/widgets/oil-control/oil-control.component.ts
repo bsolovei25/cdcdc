@@ -12,6 +12,7 @@ import { Subscription, pipe, VirtualTimeScheduler } from 'rxjs';
 import 'leader-line';
 import { EventEmitter } from '@angular/core';
 import { OilControls } from '../../models/oil-control';
+import { WidgetPlatform } from '../../models/widget-platform';
 
 declare var LeaderLine: any;
 
@@ -22,7 +23,7 @@ declare var d3: any;
     templateUrl: './oil-control.component.html',
     styleUrls: ['./oil-control.component.scss'],
 })
-export class OilControlComponent implements OnInit, AfterViewInit {
+export class OilControlComponent extends WidgetPlatform implements OnInit, AfterViewInit {
     @ViewChild('oilIcon') oilIcon: ElementRef;
     @ViewChild('oilBak') oilBak: ElementRef;
     @ViewChild('oilCircle') oilCircle: ElementRef;
@@ -34,7 +35,7 @@ export class OilControlComponent implements OnInit, AfterViewInit {
 
     public isVertical = false;
 
-    private subscriptions: Subscription[] = [];
+    //  private subscriptions: Subscription[] = [];
 
     public previewTitle: string;
 
@@ -368,15 +369,16 @@ export class OilControlComponent implements OnInit, AfterViewInit {
         @Inject('uniqId') public uniqId: string,
         @Inject('resizeWidget') public resizeWidget: EventEmitter<MouseEvent>
     ) {
-        this.subscriptions.push(
-            this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-                this.title = data.title;
-                this.code = data.code;
-                this.units = data.units;
-                this.name = data.name;
-                this.previewTitle = data.widgetType;
-            })
-        );
+        super(widgetService, isMock, id, uniqId);
+        // this.subscriptions.push(
+        //     this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
+        //         this.title = data.title;
+        //         this.code = data.code;
+        //         this.units = data.units;
+        //         this.name = data.name;
+        //         this.previewTitle = data.widgetType;
+        //     })
+        // );
         this.currentPage = 3;
         this.maxPage = this.data.products[0].storages.length;
         this.activeProduct = this.data.products;
@@ -391,77 +393,108 @@ export class OilControlComponent implements OnInit, AfterViewInit {
 
     public test = false;
 
-    ngOnInit() {}
+    ngOnInit() { }
 
     ngAfterViewInit() {
-        if (!this.isMock) {
-            //this.drawOilControl(this.data);
-            this.showMock(this.isMock);
-            /*
-            this.onResize(document.getElementById("test").clientWidth);
-            if ( this.checkWidth ) {
-                this.clearProduct();
-                this.drawOilControl();
-            } */
-            this.subscriptions.push(
-                this.resizeWidget.subscribe((data) => {
-                    this.newWidth = data.clientX;
-                    this.onResize(data.clientX);
-                    //     if ( this.checkWidth ) {
-                    //         this.clearProduct();
-                    //         this.drawOilControl();
-                    //     }
-                })
-            );
-        }
+        super.widgetInit();
+        // if (!this.isMock) {
+
+        //    // this.showMock(this.isMock);
+
+        //     this.subscriptions.push(
+        //         this.resizeWidget.subscribe((data) => {
+        //             this.newWidth = data.clientX;
+        //             this.onResize(data.clientX);
+
+        //         })
+        //     );
+        // }
     }
 
     ngOnDestroy(): void {
-        if (this.subscriptions) {
-            for (const subscribe of this.subscriptions) {
-                subscribe.unsubscribe();
+        super.ngOnDestroy();
+    }
+
+    protected dataConnect(): void {
+        super.dataConnect();
+        this.subscriptions.push(
+            this.resizeWidget.subscribe((data) => {
+                this.newWidth = data.clientX;
+                this.onResize(data.clientX);
+
+            })
+        );
+    }
+
+    protected dataHandler(ref: any): void {
+        this.drawOilControlSocket(ref);
+    }
+
+    // private wsConnect() {
+    //     this.widgetService.getWidgetLiveDataFromWS(this.id, 'oil-control').subscribe((ref) => {
+    //         this.checkSocket = true;
+    //         this.data = ref;
+    //         if (this.svgMenu) {
+    //             this.clearProduct();
+    //             this.tankersPicture.remove();
+    //             this.tankPicture.remove();
+    //             this.svgLine.remove();
+    //         }
+    //         let count = 0;
+    //         for (let i of this.data.products) {
+    //             count++;
+    //         }
+    //         this.indexTestProduct = count - 1;
+    //         this.drawOilControl(this.data);
+    //         if (this.checkSocket === true && this.savePositionProduct !== undefined) {
+    //             this.onButtonChangeProduct(this.savePositionProduct);
+    //             if (this.saveDataStorage.length !== 0) {
+    //                 this.onButtonChangeStorage(this.savePositionStorage, this.saveDataStorage);
+    //                 this.currentPage = this.saveCurrentPage;
+    //             }
+    //         }
+
+    //         this.savePosition = true;
+    //         this.checkSocket = false;
+    //     });
+    // }
+
+    drawOilControlSocket(ref){
+        this.checkSocket = true;
+        this.data = ref;
+        if (this.svgMenu) {
+            this.clearProduct();
+            this.tankersPicture.remove();
+            this.tankPicture.remove();
+            this.svgLine.remove();
+        }
+        let count = 0;
+        for (let i of this.data.products) {
+            count++;
+        }
+        this.indexTestProduct = count - 1;
+        this.drawOilControl(this.data);
+        if (this.checkSocket === true && this.savePositionProduct !== undefined) {
+            this.onButtonChangeProduct(this.savePositionProduct);
+            if (this.saveDataStorage.length !== 0) {
+                this.onButtonChangeStorage(this.savePositionStorage, this.saveDataStorage);
+                this.currentPage = this.saveCurrentPage;
             }
         }
+
+        this.savePosition = true;
+        this.checkSocket = false;
     }
 
-    private wsConnect() {
-        this.widgetService.getWidgetLiveDataFromWS(this.id, 'oil-control').subscribe((ref) => {
-            this.checkSocket = true;
-            this.data = ref;
-            if (this.svgMenu) {
-                this.clearProduct();
-                this.tankersPicture.remove();
-                this.tankPicture.remove();
-                this.svgLine.remove();
-            }
-            let count = 0;
-            for (let i of this.data.products) {
-                count++;
-            }
-            this.indexTestProduct = count - 1;
-            this.drawOilControl(this.data);
-            if (this.checkSocket === true && this.savePositionProduct !== undefined) {
-                this.onButtonChangeProduct(this.savePositionProduct);
-                if (this.saveDataStorage.length !== 0) {
-                    this.onButtonChangeStorage(this.savePositionStorage, this.saveDataStorage);
-                    this.currentPage = this.saveCurrentPage;
-                }
-            }
+    // private wsDisconnect() { }
 
-            this.savePosition = true;
-            this.checkSocket = false;
-        });
-    }
-
-    private wsDisconnect() {}
-
-    showMock(show) {
-        if (show) {
-            this.wsDisconnect();
-        } else {
-            this.wsConnect();
-        }
-    }
+    // showMock(show) {
+    //     if (show) {
+    //         this.wsDisconnect();
+    //     } else {
+    //         this.wsConnect();
+    //     }
+    // }
 
     public onResize(width) {
         this.checkWidth = width < 600;
@@ -470,11 +503,6 @@ export class OilControlComponent implements OnInit, AfterViewInit {
     public drawOilControl(data) {
         this.drawPicture(this.oilIcon.nativeElement);
         this.drawBak(this.oilBak.nativeElement);
-        /* if (this.newArrayProduct.length === 0) {
-            this.FilterCircle(data.products, this.indexTestProduct);
-        } else {
-            this.FilterCircle(this.newArrayProduct, this.indexTestProduct);
-        } */
         this.FilterCircle(data.products, this.indexTestProduct);
     }
 

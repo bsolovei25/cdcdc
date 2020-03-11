@@ -15,13 +15,14 @@ import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { AppConfigService } from 'src/app/services/appConfigService';
 import { WidgetSettingsService } from '../../services/widget-settings.service';
+import { WidgetPlatform } from '../../models/widget-platform';
 
 @Component({
     selector: 'evj-manual-input',
     templateUrl: './manual-input.component.html',
     styleUrls: ['./manual-input.component.scss'],
 })
-export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
+export class ManualInputComponent extends WidgetPlatform implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild('truckScroll') truckScroll: ElementRef;
     @ViewChild('scroll') scroll: ElementRef;
 
@@ -33,7 +34,7 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
     static itemCols: number = 30;
     static itemRows: number = 20;
 
-    private subscriptions: Subscription[] = [];
+    //   private subscriptions: Subscription[] = [];
 
     public title: string;
     public previewTitle: string;
@@ -53,14 +54,15 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.restUrl = configService.restUrl;
-        this.isLoading = true;
-        this.subscriptions.push(
-            this.widgetService.getWidgetChannel(id).subscribe((data) => {
-                this.title = data.title;
-                this.previewTitle = data.widgetType;
-            })
-        );
+        // this.restUrl = configService.restUrl;
+        // this.isLoading = true;
+        super(widgetService, isMock, id, uniqId);
+        // this.subscriptions.push(
+        //     this.widgetService.getWidgetChannel(id).subscribe((data) => {
+        //         this.title = data.title;
+        //         this.previewTitle = data.widgetType;
+        //     })
+        // );
     }
 
     public isLoading: boolean;
@@ -70,7 +72,10 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
     Data: IMachine_MI[] = [];
 
     ngOnInit(): void {
-        this.showMock(this.isMock);
+        //  this.showMock(this.isMock);
+        super.widgetInit();
+        this.restUrl = this.configService.restUrl;
+        this.isLoading = true;
     }
 
     ngAfterViewInit(): void {
@@ -86,10 +91,16 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     ngOnDestroy(): void {
-        for (const subscription of this.subscriptions) {
-            subscription.unsubscribe();
-        }
-        this.subscriptions = [];
+        super.ngOnDestroy();
+    }
+
+    protected dataConnect(): void {
+        super.dataConnect();
+        this.setInitData();
+    }
+
+    protected dataHandler(ref: any): void {
+        this.loadSaveData(ref);
     }
 
     @Output()
@@ -123,13 +134,13 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
         });
     }
 
-    showMock(show: boolean): void {
-        if (show) {
-        } else {
-            this.setInitData();
-            this.wsConnect();
-        }
-    }
+    // showMock(show: boolean): void {
+    //     if (show) {
+    //     } else {
+    //         this.setInitData();
+    //         this.wsConnect();
+    //     }
+    // }
 
     async loadSaveData(data: IMachine_MI[]): Promise<void> {
         const settings: IMachine_MI[] = await this.widgetSettingsService.getSettings(this.uniqId);
