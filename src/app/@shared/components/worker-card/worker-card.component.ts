@@ -9,7 +9,6 @@ import { IUser } from '../../../dashboard/models/events-widget';
 })
 export class WorkerCardComponent implements OnInit {
     @Input() person: IUser = null;
-    @Input() personWorker: IWorker = null;
     @Input() isSmallCard: boolean = false;
     @Input() isActiveCard: boolean = false;
 

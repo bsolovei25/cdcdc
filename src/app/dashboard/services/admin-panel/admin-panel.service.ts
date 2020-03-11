@@ -1,25 +1,13 @@
 import { Injectable } from '@angular/core';
-import { IWorker } from '../../models/worker';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '../../../services/appConfigService';
 import { IBrigadeAdminPanel, IWorkerAdminPanel } from '../../models/admin-panel';
-import { IBrigade } from '../../models/shift.model';
 import { IUser } from '../../models/events-widget';
 
 @Injectable()
 export class AdminPanelService {
     private restUrl: string = `/api/user-management`;
-
-    // private defaultWorker: IWorker = {
-    //     id: null,
-    //     name: '',
-    //     phone: 'Номер телефона',
-    //     email: 'Электронная почта',
-    //     brigade: 'Номер бригады',
-    //     accessLevel: 'Уровень доступа',
-    //     position: '',
-    // };
 
     private defaultWorker: IUser = {
         id: null,
@@ -41,54 +29,10 @@ export class AdminPanelService {
     public activeWorker: IUser = null;
 
     public activeWorker$: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(this.defaultWorker);
-    public activeBrigade$: BehaviorSubject<IBrigade> = new BehaviorSubject<IBrigade>(null);
 
     public workers: IUser[] = [];
 
-    public brigades: IBrigade[] = [
-        {
-            isActiveBrigade: false,
-            brigade: {
-                id: 1,
-                number: 0,
-            },
-        },
-        {
-            isActiveBrigade: false,
-            brigade: {
-                id: 2,
-                number: 1,
-            },
-        },
-        {
-            isActiveBrigade: false,
-            brigade: {
-                id: 3,
-                number: 2,
-            },
-        },
-        {
-            isActiveBrigade: false,
-            brigade: {
-                id: 4,
-                number: 3,
-            },
-        },
-        {
-            isActiveBrigade: false,
-            brigade: {
-                id: 5,
-                number: 4,
-            },
-        },
-        {
-            isActiveBrigade: false,
-            brigade: {
-                id: 6,
-                number: 5,
-            },
-        },
-    ];
+    public brigades: IBrigadeAdminPanel[] = [];
 
     public activeBrigadeWorkers: IWorkerAdminPanel[] = [
         {
@@ -179,14 +123,6 @@ export class AdminPanelService {
 
     constructor(private httpService: HttpClient, private configService: AppConfigService) {
         this.configService.restUrl$.subscribe((urls) => (this.restUrl = `${urls}${this.restUrl}`));
-        this.activeBrigade$.subscribe((brigade: IBrigade) => {
-            if (brigade) {
-                this.getBrigadeWorkers(brigade.id);
-            } else {
-                this.removeActiveBrigade();
-                this.removeActiveWorker();
-            }
-        });
         this.activeWorker$.subscribe((worker: IUser) => {
             this.activeWorker = worker;
         });
@@ -285,10 +221,6 @@ export class AdminPanelService {
     //#endregion
 
     //#region BRIGADE_METHODS
-
-    public setActiveBrigade(brigade: IBrigade): void {
-        this.activeBrigade$.next(brigade);
-    }
 
     // public removeActiveBrigade(): void {
     //     this.brigades.forEach((brigade: IBrigade) => {

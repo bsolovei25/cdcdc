@@ -4,11 +4,11 @@
       <ng-container *ngFor="let brigade of brigades">
         <div
           class="brigades__card block__frame-left"
-          [ngClass]="{'brigades__card-active':brigade.isActiveBrigade}"
           (click)="setActiveBrigade(brigade)"
+          [ngClass]="{'brigades__card-active':selectBrigade.isSelected(brigade)}"
         >
           <div class="card__name">
-            Бригада №{{brigade.brigade.number}}
+            Бригада №{{brigade.brigadeNumber}}
           </div>
         </div>
       </ng-container>
@@ -17,11 +17,11 @@
   <div class="brigades__persons scroll-bar">
     <div class="title">Состав бригады</div>
     <ng-container *ngFor="let worker of workers">
-      <div class="person" (click)="setActiveWorker(worker.worker.id)">
+      <div class="person" (click)="setActiveWorker(worker)">
         <evj-worker-card
           [isSmallCard]="true"
-          [personWorker]="worker.worker"
-          [isActiveCard]="worker.isActiveWorker"
+          [person]="worker"
+          [isActiveCard]="selectWorker.isSelected(worker)"
         ></evj-worker-card>
       </div>
     </ng-container>

@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { IButtonImgSrc } from '../../models/admin-panel';
+import { IButtonImgSrc, IBrigadeAdminPanel } from '../../models/admin-panel';
 import { IWorker } from '../../models/worker';
 import { AdminPanelService } from '../../services/admin-panel/admin-panel.service';
 import { IUser } from '../../models/events-widget';
 import { Subscription } from 'rxjs';
+import { IBrigade } from '../../models/shift.model';
 
 @Component({
     selector: 'evj-admin-panel',
@@ -42,6 +43,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     public searchedWorker: string = '';
 
     public workers: IUser[] = null;
+    public brigades: IBrigadeAdminPanel[] = null;
 
     public man: IUser = {
         id: 1,
@@ -62,16 +64,6 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
 
     private subscriptions: Subscription[] = [];
 
-    // public man: IWorker = {
-    //     id: 1,
-    //     name: 'Иванов Иван Сергеевич',
-    //     phone: '+ 7 (925) 599-99-87',
-    //     email: 'Ivanov@gazprom-neft.ru',
-    //     brigade: 'Бригада №1',
-    //     accessLevel: 'Высокий уровень доступа',
-    //     position: 'Старший оператор | КИПиА',
-    // };
-
     constructor(private adminPanel: AdminPanelService) {}
 
     public ngOnInit(): void {
@@ -80,7 +72,10 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
                 this.adminPanel.workers = data;
                 this.workers = this.adminPanel.workers;
             }),
-            this.adminPanel.getBrigades().subscribe((data) => console.log(`brigades:`, data))
+            this.adminPanel.getBrigades().subscribe((data: IBrigadeAdminPanel[]) => {
+                this.adminPanel.brigades = data;
+                this.brigades = this.adminPanel.brigades;
+            })
         );
     }
 

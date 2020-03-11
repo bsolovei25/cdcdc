@@ -25,8 +25,9 @@ export interface IButtonImgSrc {
 }
 
 export interface IBrigadeAdminPanel {
-    isActiveBrigade: boolean;
-    brigade: IBrigade;
+    brigadeId: number;
+    brigadeNumber: string;
+    users: IUser[];
 }
 
 export interface IWorkerAdminPanel {
