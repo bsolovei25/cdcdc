@@ -201,7 +201,6 @@ import { PetroleumUnityInfoComponent } from './widgets/petroleum-products-moveme
         OperationParkScreenComponent,
         InfoScreenComponent,
         PetroleumUnityInfoComponent,
-        PetroleumMotionAccountingComponent,
     ],
     entryComponents: [
         LineChartComponent,
