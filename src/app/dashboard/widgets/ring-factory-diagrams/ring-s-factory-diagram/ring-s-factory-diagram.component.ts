@@ -97,7 +97,7 @@ export class RingSFactoryDiagramComponent extends WidgetPlatform implements OnIn
         },
     ];
 
-  //  private subscriptions: Subscription[] = [];
+    //  private subscriptions: Subscription[] = [];
 
     public title;
     public code;
