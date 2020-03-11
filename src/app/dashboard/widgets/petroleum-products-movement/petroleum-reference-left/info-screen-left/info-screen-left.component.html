@@ -1,0 +1,17 @@
+<div class="top_block_middle">
+  <div class="title_block">{{titlePark}}</div>
+</div>
+<div class="bottom_block_middle">
+  <ng-container *ngFor="let item of data">
+    <div class="unclick_button">
+      <div class="button_name_short">{{item.title}}</div>
+      <div class="button_icon_short">
+        <svg-icon
+          src="./assets/icons/widgets/petroleum-products-movement/{{item.state}}.svg"
+          [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+        >
+        </svg-icon>
+      </div>
+    </div>
+  </ng-container>
+</div>

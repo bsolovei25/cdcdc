@@ -397,15 +397,16 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
 
     ngAfterViewInit() {
         super.widgetInit();
-        // if (!this.isMock) {
 
-        //    // this.showMock(this.isMock);
+        // if (!this.isMock) {
+        //     this.showMock(this.isMock);
 
         //     this.subscriptions.push(
         //         this.resizeWidget.subscribe((data) => {
-        //             this.newWidth = data.clientX;
-        //             this.onResize(data.clientX);
-
+        //             if (data.item.uniqid === this.uniqId) {
+        //                 this.newWidth = data.event.clientX;
+        //                 this.onResize(data.event.clientX);
+        //             }
         //         })
         //     );
         // }
@@ -418,11 +419,13 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
     protected dataConnect(): void {
         super.dataConnect();
         this.subscriptions.push(
-            this.resizeWidget.subscribe((data) => {
-                this.newWidth = data.clientX;
-                this.onResize(data.clientX);
-            })
-        );
+                    this.resizeWidget.subscribe((data) => {
+                        if (data.item.uniqid === this.uniqId) {
+                            this.newWidth = data.event.clientX;
+                            this.onResize(data.event.clientX);
+                        }
+                    })
+                );
     }
 
     protected dataHandler(ref: any): void {
@@ -1225,12 +1228,11 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
             if (item.name === el) {
                 if (indexProduct > 2) {
                     move = 'next';
-                    if (data.length === 5) {
-                        lengthData = lengthData - 1;
-                    }
-                    newIndexProduct = lengthData - indexProduct;
                     if (indexProduct === 4) {
                         newIndexProduct = 1;
+                        this.shiftMassiv(newIndexProduct, move);
+                    } else if (indexProduct > 5) {
+                        newIndexProduct = indexProduct - 3;
                         this.shiftMassiv(newIndexProduct, move);
                     } else {
                         newIndexProduct = 2;
@@ -1238,10 +1240,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                     }
                 } else {
                     move = 'prev';
-                    if (data.length === 1) {
-                        lengthData = lengthData - 1;
-                    }
-                    newIndexProduct = lengthData - indexProduct;
                     if (indexProduct === 2) {
                         newIndexProduct = 1;
                         this.shiftMassiv(newIndexProduct, move);

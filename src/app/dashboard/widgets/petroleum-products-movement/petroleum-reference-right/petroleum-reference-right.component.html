@@ -1,63 +1,11 @@
 <div class="reference-left">
   <div class="top-frame"></div>
   <div class="middle">
-    <div class="top_block_middle">
-      <div class="title_block">Приемник</div>
-    </div>
-    <div class="bottom_block_middle">
-      <div class="park">
-        <div class="title_park" (click)="isShowTank = !isShowTank">
-          <div class="title_parks">Резервуары</div>
-          <div class="button">
-            <svg-icon
-              src="./assets/icons/widgets/petroleum-products-movement/arrow_bottom.svg"
-              [svgStyle]="{ 'width.px':15, 'height.px':15 }"
-            >
-            </svg-icon>
-          </div>
-        </div>
-        <div class="reference" [class.reference_active]="isShowTank">
-          <ng-container *ngFor="let item of data">
-            <div class="ref_items">
-              <div class="item_icon">
-                <svg-icon
-                  src="./assets/icons/widgets/petroleum-products-movement/{{item.status}}.svg"
-                  [svgStyle]="{ 'width.px':25, 'height.px':25 }"
-                >
-                </svg-icon>
-              </div>
-              <div class="item_name">{{ item.name }}</div>
-            </div>
-          </ng-container>
-        </div>
-      </div>
-      <div class="settings">
-        <div class="title_sett" (click)="isShowFacilities = !isShowFacilities">
-          <div class="title_settings">Установки</div>
-          <div class="button">
-            <svg-icon
-              src="./assets/icons/widgets/petroleum-products-movement/arrow_bottom.svg"
-              [svgStyle]="{ 'width.px':15, 'height.px':15 }"
-            >
-            </svg-icon>
-          </div>
-        </div>
-        <div class="reference" [class.reference_active]="isShowFacilities">
-          <ng-container *ngFor="let item of data">
-            <div class="ref_items">
-              <div class="item_icon">
-                <svg-icon
-                  src="./assets/icons/widgets/petroleum-products-movement/{{item.status}}.svg"
-                  [svgStyle]="{ 'width.px':25, 'height.px':25 }"
-                >
-                </svg-icon>
-              </div>
-              <div class="item_name">{{ item.name }}</div>
-            </div>
-          </ng-container>
-        </div>
-      </div>
-    </div>
+    <evj-operation-screen-right *ngIf="typeScreen === 'operation'"></evj-operation-screen-right>
+    <evj-info-screen-right *ngIf="typeScreen === 'info'"></evj-info-screen-right>
+    <evj-operation-park-screen-right
+      *ngIf="typeScreen === 'park-operation'"
+    ></evj-operation-park-screen-right>
   </div>
   <div class="bottom_frame"></div>
 </div>

@@ -16,11 +16,24 @@ import { NewWidgetService } from '../../services/new-widget.service';
 import { AppConfigService } from 'src/app/services/appConfigService';
 import { WidgetSettingsService } from '../../services/widget-settings.service';
 import { WidgetPlatform } from '../../models/widget-platform';
+import { trigger, style, state, transition, animate } from '@angular/animations';
 
 @Component({
     selector: 'evj-manual-input',
     templateUrl: './manual-input.component.html',
     styleUrls: ['./manual-input.component.scss'],
+    animations: [
+        trigger('machineBranch', [
+            state('collapsed', style({ height: '40px', minHeight: '40px' })),
+            state('expanded', style({ height: '*' })),
+            transition('collapsed <=> expanded', animate('200ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+        ]),
+        trigger('itemBranch', [
+            state('collapsed', style({ height: '40px', minHeight: '40px' })),
+            state('expanded', style({ height: '*' })),
+            transition('collapsed <=> expanded', animate('200ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+        ]),
+    ],
 })
 export class ManualInputComponent extends WidgetPlatform
     implements OnInit, OnDestroy, AfterViewInit {
@@ -152,7 +165,11 @@ export class ManualInputComponent extends WidgetPlatform
                 const setGroups = settings?.find((el) => el.name === itemDate.name);
                 item.open = setGroups?.groups?.find((el) => el.name === item.name)?.open ?? true;
             }
+            if (itemDate.active) {
+                this.allSettings = false;
+            }
         }
+
         this.Data = this.manualInputService.LoadData(this.Data, data);
         console.log(this.Data);
     }
