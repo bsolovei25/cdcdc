@@ -9,7 +9,6 @@ import { WidgetPlatform } from '../../models/widget-platform';
     styleUrls: ['./time-line-diagram.component.scss'],
 })
 export class TimeLineDiagramComponent extends WidgetPlatform implements OnInit, OnDestroy {
-
     public data: TimeLineDataInput = {
         values: [],
     };
@@ -53,6 +52,4 @@ export class TimeLineDiagramComponent extends WidgetPlatform implements OnInit, 
     protected dataHandler(ref: TimeLineDataInput): void {
         this.data = ref;
     }
-
 }
-
