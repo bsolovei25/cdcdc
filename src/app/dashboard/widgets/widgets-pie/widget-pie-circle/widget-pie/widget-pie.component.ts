@@ -1,15 +1,6 @@
-import {
-    Component,
-    OnInit,
-    ElementRef,
-    ViewChild,
-    Input,
-    Injectable,
-} from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Input, Injectable } from '@angular/core';
 import { element } from 'protractor';
-import {
-    PieWidget,
-} from 'src/app/dashboard/models/widget.model';
+import { PieWidget } from 'src/app/dashboard/models/widget.model';
 
 declare var d3: any;
 
@@ -26,7 +17,7 @@ export class WidgetsPieComponent implements OnInit {
 
     @ViewChild('myCircle', { static: true }) myCircle: ElementRef;
 
-    constructor() { }
+    constructor() {}
 
     ngOnInit() {
         this.d3Circle(this.data, this.myCircle.nativeElement);

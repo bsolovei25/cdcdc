@@ -1,9 +1,4 @@
-import {
-    Component,
-    Inject,
-    OnDestroy,
-    OnInit,
-} from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
 import { WidgetPlatform } from '../../../../models/widget-platform';
 
@@ -13,7 +8,6 @@ import { WidgetPlatform } from '../../../../models/widget-platform';
     styleUrls: ['./widget-pies.component.scss'],
 })
 export class WidgetPiesComponent extends WidgetPlatform implements OnInit, OnDestroy {
-
     public datas = [];
 
     protected static itemCols: number = 16;
@@ -41,5 +35,4 @@ export class WidgetPiesComponent extends WidgetPlatform implements OnInit, OnDes
     protected dataHandler(ref: any): void {
         this.datas = ref.items;
     }
-
 }

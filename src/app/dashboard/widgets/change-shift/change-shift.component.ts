@@ -18,7 +18,7 @@ import {
 } from '../../models/shift.model';
 import { IWidgets } from '../../models/widget.model';
 import { MaterialControllerService } from '../../services/material-controller.service';
-import {WidgetPlatform} from "../../models/widget-platform";
+import { WidgetPlatform } from '../../models/widget-platform';
 
 @Component({
     selector: 'evj-change-shift',
@@ -31,7 +31,7 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
     @ViewChild('allPeople') allPeople: ElementRef;
     @ViewChild('addShift') addShift: ElementRef;
 
-    mapPosition: { code: string, name: string}[] = [
+    mapPosition: { code: string; name: string }[] = [
         {
             code: 'responsible',
             name: 'Старший оператор',
@@ -238,8 +238,7 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
 
     shiftApply(): void {
         // TODO
-        const typeOfChangingShift: string =
-            this.widgetType === 'shift-pass' ? 'pass' : 'accept';
+        const typeOfChangingShift: string = this.widgetType === 'shift-pass' ? 'pass' : 'accept';
         this.shiftService
             .applyShift(this.currentShift.id, typeOfChangingShift)
             .then((res) => {

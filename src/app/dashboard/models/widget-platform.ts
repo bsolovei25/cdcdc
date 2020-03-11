@@ -21,7 +21,7 @@ export abstract class WidgetPlatform implements OnDestroy {
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public widgetId: string,
         @Inject('uniqId') public widgetUniqId: string
-    ) { }
+    ) {}
 
     public ngOnDestroy(): void {
         this.subscriptions.forEach((el) => el.unsubscribe());
@@ -43,7 +43,9 @@ export abstract class WidgetPlatform implements OnDestroy {
         if (show) {
             this.dataDisconnect();
         } else {
-            if (this.isRealtimeData) { this.dataConnect(); }
+            if (this.isRealtimeData) {
+                this.dataConnect();
+            }
         }
     }
 
@@ -57,7 +59,7 @@ export abstract class WidgetPlatform implements OnDestroy {
         );
     }
 
-    private dataDisconnect(): void { }
+    private dataDisconnect(): void {}
 
     protected abstract dataHandler(ref: any): void;
 }
