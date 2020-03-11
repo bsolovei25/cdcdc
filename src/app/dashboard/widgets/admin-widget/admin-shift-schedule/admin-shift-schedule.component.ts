@@ -31,9 +31,8 @@ import { WidgetPlatform } from '../../../models/widget-platform';
     templateUrl: './admin-shift-schedule.component.html',
     styleUrls: ['./admin-shift-schedule.component.scss'],
 })
-export class AdminShiftScheduleComponent extends WidgetPlatform implements OnInit, OnDestroy, AfterContentChecked {
-
-
+export class AdminShiftScheduleComponent extends WidgetPlatform
+    implements OnInit, OnDestroy, AfterContentChecked {
     defaultLocale: string = 'ru-RU';
 
     isLoading: boolean = true;
