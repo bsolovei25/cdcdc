@@ -8,9 +8,9 @@ import { IUser } from '../../../dashboard/models/events-widget';
     styleUrls: ['./worker-card.component.scss'],
 })
 export class WorkerCardComponent implements OnInit {
-    @Input() person: IUser = null;
-    @Input() isSmallCard: boolean = false;
-    @Input() isActiveCard: boolean = false;
+    @Input() public person: IUser = null;
+    @Input() public isSmallCard: boolean = false;
+    @Input() public isActiveCard: boolean = false;
 
     public srcCardNormal: string = 'assets/icons/widgets/admin/card-small.svg';
     public srcCardActive: string = 'assets/icons/widgets/admin/card-small-active.svg';

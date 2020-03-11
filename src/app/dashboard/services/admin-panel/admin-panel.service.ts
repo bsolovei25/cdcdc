@@ -15,11 +15,11 @@ export class AdminPanelService {
         firstName: '',
         lastName: '',
         middleName: '',
-        phone: '',
-        email: '',
+        phone: 'Номер телефона',
+        email: 'Электронная почта',
         brigade: {
             id: null,
-            number: '',
+            number: 'Номер бригады',
         },
         position: '',
         positionDescription: '',
@@ -33,93 +33,6 @@ export class AdminPanelService {
     public workers: IUser[] = [];
 
     public brigades: IBrigadeAdminPanel[] = [];
-
-    public activeBrigadeWorkers: IWorkerAdminPanel[] = [
-        {
-            isActiveWorker: false,
-            worker: {
-                id: 1,
-                name: 'Иванов Иван Сергеевич',
-                phone: '+ 7 (925) 599-99-87',
-                email: 'Ivanov@gazprom-neft.ru',
-                brigade: '1',
-                accessLevel: 'Высокий уровень доступа',
-                position: 'Старший оператор | КИПиА',
-            },
-        },
-        {
-            isActiveWorker: false,
-            worker: {
-                id: 2,
-                name: 'Петров Иван Сергеевич',
-                phone: '+ 7 (925) 599-99-87',
-                email: 'Petrov@gazprom-neft.ru',
-                brigade: '1',
-                accessLevel: 'Высокий уровень доступа',
-                position: 'Старший оператор | КИПиА',
-            },
-        },
-        {
-            isActiveWorker: false,
-            worker: {
-                id: 3,
-                name: 'Сидоров Иван Сергеевич',
-                phone: '+ 7 (925) 599-99-87',
-                email: 'Sidorov@gazprom-neft.ru',
-                brigade: '1',
-                accessLevel: 'Высокий уровень доступа',
-                position: 'Старший оператор | КИПиА',
-            },
-        },
-        {
-            isActiveWorker: false,
-            worker: {
-                id: 4,
-                name: 'Соколов Иван Сергеевич',
-                phone: '+ 7 (925) 599-99-87',
-                email: 'Sokolov@gazprom-neft.ru',
-                brigade: '1',
-                accessLevel: 'Высокий уровень доступа',
-                position: 'Старший оператор | КИПиА',
-            },
-        },
-        {
-            isActiveWorker: false,
-            worker: {
-                id: 5,
-                name: 'Деев Иван Сергеевич',
-                phone: '+ 7 (925) 599-99-87',
-                email: 'Deev@gazprom-neft.ru',
-                brigade: '1',
-                accessLevel: 'Высокий уровень доступа',
-                position: 'Старший оператор | КИПиА',
-            },
-        },
-        {
-            isActiveWorker: false,
-            worker: {
-                id: 6,
-                name: 'Пирогов Иван Сергеевич',
-                phone: '+ 7 (925) 599-99-87',
-                email: 'Pirogov@gazprom-neft.ru',
-                brigade: '1',
-                accessLevel: 'Высокий уровень доступа',
-                position: 'Старший оператор | КИПиА',
-            },
-        },
-        {
-            isActiveWorker: false,
-            worker: {
-                id: 7,
-                name: 'Андреев Иван Сергеевич',
-                phone: '+ 7 (925) 599-99-87',
-                email: 'Andreev@gazprom-neft.ru',
-                brigade: '1',
-                accessLevel: 'Высокий уровень доступа',
-                position: 'Старший оператор | КИПиА',
-            },
-        },
-    ];
 
     constructor(private httpService: HttpClient, private configService: AppConfigService) {
         this.configService.restUrl$.subscribe((urls) => (this.restUrl = `${urls}${this.restUrl}`));
@@ -210,12 +123,6 @@ export class AdminPanelService {
 
     public setActiveWorker(worker: IUser): void {
         this.activeWorker$.next(worker);
-    }
-
-    public removeActiveWorker(): void {
-        this.activeBrigadeWorkers.forEach((worker: IWorkerAdminPanel) => {
-            worker.isActiveWorker = false;
-        });
     }
 
     //#endregion

@@ -10,9 +10,9 @@ import { IUser } from '../../../models/events-widget';
     styleUrls: ['./admin-employee.component.scss'],
 })
 export class AdminEmployeeComponent implements OnInit, OnDestroy {
-    @Input() searchedWorker: string = '';
-    public activeWorker: IUser = null;
+    @Input() public searchedWorker: string = '';
     @Input() public workers: IUser[] = null;
+    public activeWorker: IUser = null;
 
     private subsriptions: Subscription[] = [];
 
