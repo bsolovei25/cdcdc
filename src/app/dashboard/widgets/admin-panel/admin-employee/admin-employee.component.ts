@@ -3,6 +3,7 @@ import { IWorker } from '../../../models/worker';
 import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
 import { Subscription } from 'rxjs';
 import { IUser } from '../../../models/events-widget';
+import { IScreen } from '../../../models/admin-panel';
 
 @Component({
     selector: 'evj-admin-employee',
@@ -14,12 +15,13 @@ export class AdminEmployeeComponent implements OnInit, OnDestroy {
     @Input() public workers: IUser[] = null;
     public activeWorker: IUser = null;
 
-    private subsriptions: Subscription[] = [];
+    private subscriptions: Subscription[] = [];
+    private subsSelectedWorker: Subscription = null;
 
     constructor(private adminPanel: AdminPanelService) {}
 
     public ngOnInit(): void {
-        this.subsriptions.push(
+        this.subscriptions.push(
             this.adminPanel.activeWorker$.subscribe(
                 (activeWorker: IUser) => (this.activeWorker = activeWorker)
             )
@@ -27,11 +29,19 @@ export class AdminEmployeeComponent implements OnInit, OnDestroy {
     }
 
     public ngOnDestroy(): void {
-        this.subsriptions.forEach((subs: Subscription) => subs.unsubscribe());
+        this.subscriptions.forEach((subs: Subscription) => subs.unsubscribe());
     }
 
     public onSelectWorker(workerId: number): void {
         this.adminPanel.setActiveWorker(this.workers.find((item: IUser) => item.id === workerId));
+        if (this.subsSelectedWorker) {
+            this.subsSelectedWorker.unsubscribe();
+        }
+        this.subsSelectedWorker = this.adminPanel
+            .getWorkerScreens(workerId)
+            .subscribe((data: IScreen[]) => {
+                this.adminPanel.activeWorkerScreens$.next(data);
+            });
     }
 
     public showActiveWorker(workerId: number): boolean {

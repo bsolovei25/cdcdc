@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '../../../services/appConfigService';
-import { IBrigadeAdminPanel, IClaim } from '../../models/admin-panel';
+import { IBrigadeAdminPanel, IClaim, IWorkspace, IScreen } from '../../models/admin-panel';
 import { IUser } from '../../models/events-widget';
+import { mergeMap } from 'rxjs/operators';
 
 @Injectable()
 export class AdminPanelService {
@@ -29,6 +30,7 @@ export class AdminPanelService {
     public activeWorker: IUser = null;
 
     public activeWorker$: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(this.defaultWorker);
+    public activeWorkerScreens$: BehaviorSubject<IScreen[]> = new BehaviorSubject<IScreen[]>(null);
 
     public workers: IUser[] = [];
 
@@ -89,9 +91,11 @@ export class AdminPanelService {
         return this.httpService.get<any>(url, { headers: header });
     }
 
-    public getWorkerScreens(workerId: number): Observable<any> {
+    public getWorkerScreens(workerId: number): Observable<IScreen[]> {
         const url: string = `${this.restUrl}/user/${workerId}/screens`;
-        return this.httpService.get<any>(url);
+        const authKey: string = localStorage.getItem('authentication-token');
+        const header = { Authorization: `Bearer ${authKey}` };
+        return this.httpService.get<IScreen[]>(url, { headers: header });
     }
 
     public getAllScreenClaims(): Observable<any> {

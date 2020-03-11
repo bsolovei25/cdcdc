@@ -23,6 +23,12 @@ export interface IClaim {
     id: number;
 }
 
+export interface IScreen {
+    id: number;
+    screen: IWorkspace;
+    claims: IClaim;
+}
+
 export interface IButtonImgSrc {
     btnIconSrc: string;
 }
