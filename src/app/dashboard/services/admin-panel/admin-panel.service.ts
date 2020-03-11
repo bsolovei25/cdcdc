@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '../../../services/appConfigService';
-import { IBrigadeAdminPanel, IWorkerAdminPanel } from '../../models/admin-panel';
+import { IBrigadeAdminPanel, IClaim } from '../../models/admin-panel';
 import { IUser } from '../../models/events-widget';
 
 @Injectable()
@@ -33,6 +33,8 @@ export class AdminPanelService {
     public workers: IUser[] = [];
 
     public brigades: IBrigadeAdminPanel[] = [];
+
+    public screenClaims: IClaim[] = [];
 
     constructor(private httpService: HttpClient, private configService: AppConfigService) {
         this.configService.restUrl$.subscribe((urls) => (this.restUrl = `${urls}${this.restUrl}`));
@@ -94,7 +96,9 @@ export class AdminPanelService {
 
     public getAllScreenClaims(): Observable<any> {
         const url: string = `${this.restUrl}/screenclaims`;
-        return this.httpService.get<any>(url);
+        const authKey: string = localStorage.getItem('authentication-token');
+        const header = { Authorization: `Bearer ${authKey}` };
+        return this.httpService.get<any>(url, { headers: header });
     }
 
     public getWorkerScreenClaims(screenWorkerId: number): Observable<any> {

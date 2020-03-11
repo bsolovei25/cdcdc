@@ -10,15 +10,15 @@ import { IWidgets } from '../../../../models/widget.model';
 export class AdminClaimsComponent implements OnInit {
     public claims: IClaim[] = [
         {
-            name: 'Открытые',
+            type: 'Открытые',
             id: 1,
         },
         {
-            name: 'Открытые и доступные',
+            type: 'Открытые и доступные',
             id: 2,
         },
         {
-            name: 'Открытые и доступные',
+            type: 'Открытые и доступные',
             id: 3,
         },
     ];

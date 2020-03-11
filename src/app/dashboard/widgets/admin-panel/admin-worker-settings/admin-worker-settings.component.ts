@@ -89,15 +89,13 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         } else {
             this.worker[event.key] = event.value;
         }
-
-        console.log(this.worker);
     }
 
     public onReturn(): void {
         this.closeWorkerSettings.emit(null);
     }
 
-    public onSave(): void {
+    public async onSave(): Promise<void> {
         this.closeWorkerSettings.emit(this.worker);
     }
 }

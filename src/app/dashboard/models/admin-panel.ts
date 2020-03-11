@@ -18,7 +18,8 @@ export interface IWorkspace {
 }
 
 export interface IClaim {
-    name: string;
+    type: string;
+    comment?: string;
     id: number;
 }
 
