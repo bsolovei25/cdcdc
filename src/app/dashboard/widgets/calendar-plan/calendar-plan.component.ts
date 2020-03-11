@@ -51,6 +51,9 @@ export class CalendarPlanComponent extends WidgetPlatform implements OnInit, OnD
         },
     ];
 
+    protected static itemCols: number = 18;
+    protected static itemRows: number = 10;
+
     constructor(
         protected widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,
@@ -58,9 +61,6 @@ export class CalendarPlanComponent extends WidgetPlatform implements OnInit, OnD
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
-
-        this.itemCols = 18;
-        this.itemRows = 10;
     }
 
     ngOnInit(): void {

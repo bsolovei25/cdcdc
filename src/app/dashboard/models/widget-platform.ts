@@ -1,5 +1,5 @@
 import { NewWidgetService } from '../services/new-widget.service';
-import { AfterViewInit, Inject, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Inject, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 export abstract class WidgetPlatform implements OnDestroy {
@@ -11,8 +11,8 @@ export abstract class WidgetPlatform implements OnDestroy {
 
     protected isRealtimeData: boolean = true;
 
-    public itemCols: number = 30;
-    public itemRows: number = 20;
+    protected static itemCols: number = 30;
+    protected static itemRows: number = 20;
 
     protected subscriptions: Subscription[] = [];
 

@@ -248,6 +248,9 @@ export class ChainMapComponent extends WidgetPlatform implements AfterViewInit, 
     public mass2;
     public check = true;
 
+    protected static itemCols: number = 30;
+    protected static itemRows: number = 20;
+
     constructor(
         public widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,
@@ -255,9 +258,6 @@ export class ChainMapComponent extends WidgetPlatform implements AfterViewInit, 
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
-
-        this.itemCols = 30;
-        this.itemRows = 20;
 
         this.isRealtimeData = false;
     }

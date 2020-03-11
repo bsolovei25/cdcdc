@@ -1,14 +1,15 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import {Component, OnInit, Inject, OnDestroy} from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { Subscription } from 'rxjs';
 import { IBlockDiagram, IBlockDiagramMock } from '../../models/circle-block-diagram';
+import {WidgetPlatform} from "../../models/widget-platform";
 
 @Component({
     selector: 'evj-circle-block-diagram',
     templateUrl: './circle-block-diagram.component.html',
     styleUrls: ['./circle-block-diagram.component.scss'],
 })
-export class CircleBlockDiagramComponent implements OnInit {
+export class CircleBlockDiagramComponent extends  WidgetPlatform implements OnInit, OnDestroy {
     public blockDiagram: IBlockDiagram = {
         improvement: 0, // улучшение в %
         disabled: 0, // отключенные блокировки в %
@@ -36,48 +37,30 @@ export class CircleBlockDiagramComponent implements OnInit {
 
     public radius: string = '12';
 
-    public subscription: Subscription;
-
-    public title: string;
-    public units: string = '%';
-    public widgetType: string = 'circle-block-diagram';
-
-    static itemCols: number = 15;
-    static itemRows: number = 17;
-
-    public previewTitle: string;
+    protected static itemCols: number = 15;
+    protected static itemRows: number = 17;
 
     constructor(
-        private widgetService: NewWidgetService,
+        protected widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-            this.title = data.title;
-            this.previewTitle = data.widgetType;
-            // this.code = data.code;
-            // this.units = data.units;
-            // this.name = data.name;
-        });
+        super(widgetService, isMock, id, uniqId);
     }
 
     ngOnInit(): void {
-        if (!this.isMock) {
-            this.widgetService
-                .getWidgetLiveDataFromWS(this.id, this.widgetType)
-                .subscribe((data) => {
-                    this.blockDiagram.disabled = data.disabled;
-                    this.blockDiagram.improvement = data.improvement;
-                    this.blockDiagram.noReason = data.noReason;
-                });
-        }
+        super.widgetInit();
     }
 
-    ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
+    ngOnDestroy(): void {
+        super.ngOnDestroy();
+    }
+
+    protected dataHandler(ref: any): void {
+        this.blockDiagram.disabled = ref.disabled;
+        this.blockDiagram.improvement = ref.improvement;
+        this.blockDiagram.noReason = ref.noReason;
     }
 
     /* Отрисовка дуговых диаграмм */

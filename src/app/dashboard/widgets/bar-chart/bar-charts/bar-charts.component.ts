@@ -11,6 +11,9 @@ import { WidgetPlatform } from '../../../models/widget-platform';
 export class BarChartsComponent extends WidgetPlatform implements OnInit, OnDestroy {
     public data: any[] = [];
 
+    protected static itemCols: number = 24;
+    protected static itemRows: number = 10;
+
     constructor(
         private userSettings: NewUserSettingsService,
         protected widgetService: NewWidgetService,
@@ -19,10 +22,7 @@ export class BarChartsComponent extends WidgetPlatform implements OnInit, OnDest
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
-
         this.widgetIcon = 'valve';
-        this.itemCols = 24;
-        this.itemRows = 10;
     }
 
     ngOnInit(): void {

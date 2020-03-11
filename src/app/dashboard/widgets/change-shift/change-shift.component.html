@@ -79,9 +79,9 @@
             <div class="onShift__people scroll-bar">
               <div *ngFor="let person of this.presentMembers; let i = index">
                 <evj-shift-person
-                  [widgetId]="id"
+                  [widgetId]="widgetId"
                   [person]="person"
-                  [shiftType]="this.aboutWidget.widgetType"
+                  [shiftType]="widgetType"
                   [shiftId]="currentShift.id"
                   [currentBrigade]="currentShift?.brigade?.id"
                   [onShift]="true"
@@ -109,9 +109,9 @@
             <div class="absent__people scroll-bar">
               <div class="absent__person" *ngFor="let person of absentMembers">
                 <evj-shift-person
-                  [widgetId]="id"
+                  [widgetId]="widgetId"
                   [person]="person"
-                  [shiftType]="aboutWidget.widgetType"
+                  [shiftType]="widgetType"
                   [shiftId]="currentShift.id"
                   [onShift]="true"
                   [currentBrigade]="currentShift?.brigade?.id"
@@ -156,7 +156,7 @@
           </div>
         </div>
         <ng-container
-          *ngIf="aboutWidget && aboutWidget?.widgetType === 'shift-pass' && !this.shiftService.getIsCommentRequired(aboutWidget?.widgetType)"
+          *ngIf="widgetType === 'shift-pass' && !this.shiftService.getIsCommentRequired(widgetType)"
         >
           <div class="buttons">
             <div class="change-shift__submit">
@@ -170,7 +170,7 @@
         </ng-container>
 
         <ng-container
-          *ngIf="aboutWidget?.widgetType !== 'shift-pass' && !this.shiftService.getIsCommentRequired(aboutWidget?.widgetType)"
+          *ngIf="widgetType !== 'shift-pass' && !this.shiftService.getIsCommentRequired(widgetType)"
         >
           <div class="buttons">
             <div class="change-shift__submit">
@@ -191,7 +191,7 @@
           </div>
         </ng-container>
 
-        <ng-container *ngIf="this.shiftService.getIsCommentRequired(aboutWidget?.widgetType)">
+        <ng-container *ngIf="this.shiftService.getIsCommentRequired(widgetType)">
           <div class="buttons">
             <div class="change-shift__submit">
               <div class="submit__frame submit__frame-left"></div>

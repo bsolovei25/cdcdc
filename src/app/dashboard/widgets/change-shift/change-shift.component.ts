@@ -42,12 +42,7 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
         },
     ];
 
-    public icon: string = 'peoples';
-    public previewTitle: string = 'change-shift';
-    public title: string = '';
-
     public comments: ShiftComment[] = [];
-    public aboutWidget: IWidgets = null;
     public currentShift: Shift = null;
     public presentMembers: ShiftMember[] = null;
     public absentMembers: ShiftMember[] = null;
@@ -56,8 +51,8 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
     public isWindowVerifyActive: boolean = false;
     public verifyInfo: IVerifyWindow = null;
 
-    static itemCols: number = 16;
-    static itemRows: number = 30;
+    protected static itemCols: number = 16;
+    protected static itemRows: number = 30;
 
     constructor(
         protected widgetService: NewWidgetService,
@@ -68,45 +63,11 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
+        this.widgetIcon = 'peoples';
     }
 
     ngOnInit(): void {
         super.widgetInit();
-        // this.subscriptions.push(
-        //     this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-        //         this.aboutWidget = data;
-        //         this.title = this.aboutWidget.title;
-        //         if (!this.isMock) {
-        //             try {
-        //                 this.setRealtimeData(
-        //                     this.aboutWidget.widgetType,
-        //                     this.shiftService.shiftPass.getValue()
-        //                 );
-        //             } catch {}
-        //             this.showMock(this.isMock);
-        //         }
-        //     })
-        // );
-        // if (!this.isMock) {
-        //     this.subscriptions.push(
-        //         this.shiftService.shiftPass.subscribe((data) => {
-        //             if (this.aboutWidget) {
-        //                 this.setRealtimeData(this.aboutWidget.widgetType, data);
-        //             }
-        //         })
-        //     );
-        //     this.subscriptions.push(
-        //         this.shiftService.verifyWindowObservable(this.id).subscribe((obj) => {
-        //             if (obj.action === 'close') {
-        //                 setTimeout(() => (this.isWindowVerifyActive = false), 1000);
-        //             } else if (obj.action === 'open') {
-        //                 this.verifyInfo = obj;
-        //                 this.isWindowVerifyActive = true;
-        //             }
-        //             this.verifyInfo.result = obj.result;
-        //         })
-        //     );
-        // }
     }
 
     ngOnDestroy(): void {
@@ -135,33 +96,9 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
         );
     }
 
-    // private wsConnect(): void {
-    //     this.subscriptions.push(
-    //         this.widgetService
-    //             .getWidgetLiveDataFromWS(this.id, this.aboutWidget.widgetType)
-    //             .subscribe((ref) => {
-    //                 this.socketHandler(ref);
-    //             })
-    //     );
-    // }
-    //
-    // private showMock(show: boolean): void {
-    //     if (show) {
-    //         // do nothing
-    //     } else {
-    //         this.wsConnect();
-    //     }
-    // }
-
     protected dataHandler(ref: any): void {
         this.shiftService.resultVerify(this.id, ref.isConfirm);
     }
-
-
-    // private socketHandler(data: any): void {
-    //     console.log(data);
-    //     this.shiftService.resultVerify(this.id, data.isConfirm);
-    // }
 
     private setRealtimeData(widgetType: string, data): void {
         if (!widgetType || !data) {
@@ -227,7 +164,7 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
                     .id,
                 this.currentShift.id,
                 this.input.nativeElement.value,
-                this.aboutWidget.widgetType
+                this.widgetType
             );
             this.setMessage(comment);
         }
@@ -299,15 +236,15 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
         }
     }
 
-    shiftApply() {
+    shiftApply(): void {
         // TODO
         const typeOfChangingShift: string =
-            this.aboutWidget.widgetType === 'shift-pass' ? 'pass' : 'accept';
+            this.widgetType === 'shift-pass' ? 'pass' : 'accept';
         this.shiftService
             .applyShift(this.currentShift.id, typeOfChangingShift)
             .then((res) => {
                 console.log(res);
-                if (this.aboutWidget.widgetType === 'shift-pass') {
+                if (this.widgetType === 'shift-pass') {
                     this.materialController.openSnackBar('Смена передана');
                 } else {
                     this.materialController.openSnackBar('Смена принята');
@@ -320,8 +257,8 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
 
     public shiftCancel(): void {
         this.materialController.openSnackBar('Для продолжения оставьте комментарий');
-        this.shiftService.setIsCommentRequired(true, this.aboutWidget.widgetType);
-        console.log(this.shiftService.getIsCommentRequired(this.aboutWidget.widgetType));
+        this.shiftService.setIsCommentRequired(true, this.widgetType);
+        console.log(this.shiftService.getIsCommentRequired(this.widgetType));
         const subscription = this.shiftService
             .getRequiredComment(this.currentShift.id)
             .asObservable()
@@ -333,7 +270,7 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
                 } else {
                     console.log('cancel');
                 }
-                this.shiftService.setIsCommentRequired(false, this.aboutWidget.widgetType);
+                this.shiftService.setIsCommentRequired(false, this.widgetType);
                 if (subscription) {
                     subscription.unsubscribe();
                 }

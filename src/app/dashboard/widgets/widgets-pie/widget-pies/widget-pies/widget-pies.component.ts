@@ -21,6 +21,9 @@ export class WidgetPiesComponent extends WidgetPlatform implements OnInit, OnDes
 
     public datas = [];
 
+    protected static itemCols: number = 16;
+    protected static itemRows: number = 10;
+
     constructor(
         public widgetService: NewWidgetService,
         // private cdref: ChangeDetectorRef,
@@ -31,8 +34,6 @@ export class WidgetPiesComponent extends WidgetPlatform implements OnInit, OnDes
         super(widgetService, isMock, id, uniqId);
         this.widgetIcon = 'tools';
         this.widgetUnits = 'шт.';
-        this.itemCols = 16;
-        this.itemRows = 10;
     }
 
     ngOnInit(): void {
