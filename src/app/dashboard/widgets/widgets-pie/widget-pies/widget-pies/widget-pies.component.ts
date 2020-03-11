@@ -1,9 +1,7 @@
 import {
     Component,
     Inject,
-    AfterViewInit,
     OnDestroy,
-    ChangeDetectorRef,
     OnInit,
 } from '@angular/core';
 import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
@@ -15,9 +13,6 @@ import { WidgetPlatform } from '../../../../models/widget-platform';
     styleUrls: ['./widget-pies.component.scss'],
 })
 export class WidgetPiesComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    public previewTitle: string = 'widget-pies';
-
-    public uniqal;
 
     public datas = [];
 
@@ -26,7 +21,6 @@ export class WidgetPiesComponent extends WidgetPlatform implements OnInit, OnDes
 
     constructor(
         public widgetService: NewWidgetService,
-        // private cdref: ChangeDetectorRef,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -48,10 +42,4 @@ export class WidgetPiesComponent extends WidgetPlatform implements OnInit, OnDes
         this.datas = ref.items;
     }
 
-    private wsConnect() {
-        this.widgetService.getWidgetLiveDataFromWS(this.id, 'pie-diagram').subscribe((ref) => {
-            this.datas = ref.items;
-        });
-    }
-    private wsDisconnect() {}
 }

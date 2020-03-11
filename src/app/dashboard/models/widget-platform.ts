@@ -3,11 +3,11 @@ import { Inject, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 export abstract class WidgetPlatform implements OnDestroy {
-    public widgetCode: string;
-    public widgetTitle: string;
-    public widgetUnits: string;
-    public widgetType: string;
-    public widgetIcon: string;
+    public widgetCode?: string;
+    public widgetTitle?: string;
+    public widgetUnits?: string;
+    public widgetType?: string;
+    public widgetIcon?: string;
 
     protected isRealtimeData: boolean = true;
 
@@ -21,7 +21,7 @@ export abstract class WidgetPlatform implements OnDestroy {
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public widgetId: string,
         @Inject('uniqId') public widgetUniqId: string
-    ) {}
+    ) { }
 
     public ngOnDestroy(): void {
         this.subscriptions.forEach((el) => el.unsubscribe());
@@ -57,7 +57,7 @@ export abstract class WidgetPlatform implements OnDestroy {
         );
     }
 
-    private dataDisconnect(): void {}
+    private dataDisconnect(): void { }
 
     protected abstract dataHandler(ref: any): void;
 }

@@ -3,22 +3,13 @@ import {
     OnInit,
     ElementRef,
     ViewChild,
-    ViewChildren,
-    QueryList,
     Input,
-    AfterViewInit,
     Injectable,
-    Inject,
 } from '@angular/core';
 import { element } from 'protractor';
 import {
-    WidgetGridsterSettings,
-    WidgetModel,
     PieWidget,
 } from 'src/app/dashboard/models/widget.model';
-import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
-import { Subscription } from 'rxjs';
-import { ThrowStmt } from '@angular/compiler';
 
 declare var d3: any;
 
@@ -35,7 +26,7 @@ export class WidgetsPieComponent implements OnInit {
 
     @ViewChild('myCircle', { static: true }) myCircle: ElementRef;
 
-    constructor() {}
+    constructor() { }
 
     ngOnInit() {
         this.d3Circle(this.data, this.myCircle.nativeElement);
