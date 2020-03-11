@@ -28,7 +28,11 @@
     <div class="worker__column worker__info">
       <div class="options scroll-bar">
         <ng-container *ngFor="let option of options">
-          <evj-aws-card class="card" [option]="option"></evj-aws-card>
+          <evj-aws-card
+            class="card"
+            [option]="option"
+            (saveChanging)="onFieldChanging($event)"
+          ></evj-aws-card>
         </ng-container>
       </div>
       <div class="claims">
@@ -83,7 +87,6 @@
           <evj-aws-workspace-card
             [isActive]="true"
             [workspace]="workspace"
-            [author]="worker.name"
             [isChangingCardState]="true"
           ></evj-aws-workspace-card>
         </ng-container>

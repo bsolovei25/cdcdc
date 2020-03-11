@@ -23,6 +23,11 @@
     margin-bottom: 5px;
     font-size: 14px;
     color: var(--color-text-main-transparent);
+
+    &__input{
+      margin-bottom: 18px;
+      margin-top: -10px;
+    }
   }
 
   .name {

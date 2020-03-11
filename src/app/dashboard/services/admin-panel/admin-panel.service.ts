@@ -82,7 +82,9 @@ export class AdminPanelService {
     //#region CLAIMS_AND_WORKSPACES
     public getAllScreens(): Observable<any> {
         const url: string = `${this.restUrl}/allscreens`;
-        return this.httpService.get<any>(url);
+        const authKey: string = localStorage.getItem('authentication-token');
+        const header = { Authorization: `Bearer ${authKey}` };
+        return this.httpService.get<any>(url, { headers: header });
     }
 
     public getWorkerScreens(workerId: number): Observable<any> {
@@ -136,4 +138,8 @@ export class AdminPanelService {
     // }
 
     //#endregion
+
+    public getFullName(worker: IUser): string {
+        return `${worker.lastName} ${worker.firstName} ${worker.middleName}`;
+    }
 }

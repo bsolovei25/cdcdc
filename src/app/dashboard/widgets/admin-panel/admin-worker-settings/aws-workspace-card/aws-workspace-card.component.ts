@@ -8,8 +8,8 @@ import { IWorkspace } from '../../../../models/admin-panel';
 })
 export class AwsWorkspaceCardComponent implements OnInit {
     @Input() public workspace: IWorkspace = {
-        name: '',
-        authorId: null,
+        id: null,
+        screenName: '',
     };
     @Input() public author: string = '';
     @Input() public isActive: boolean = false;
@@ -17,7 +17,7 @@ export class AwsWorkspaceCardComponent implements OnInit {
 
     constructor() {}
 
-    ngOnInit(): void {}
+    public ngOnInit(): void {}
 
     public changeCardState(): void {
         if (this.isChangingCardState) {

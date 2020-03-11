@@ -1,19 +1,20 @@
-<div class="card" [ngClass]="{'card-active':isChangingOption}">
-  <div class="value" *ngIf="!isChangingOption;else input">{{option.value}}</div>
+<div class="card" [ngClass]="{'card-active':selectEdit.hasValue()}">
+  <div class="value" *ngIf="selectEdit.isEmpty();else input">{{option.value}}</div>
   <ng-template #input>
-    <evj-input class="value" *ngIf="isChangingOption" [value]="option.value"></evj-input>
+    <evj-input
+      class="value value__input"
+      *ngIf="selectEdit.hasValue()"
+      [value]="option.value"
+      (inputedValue)="onInput($event)"
+    ></evj-input>
   </ng-template>
   <div class="name">{{option.name}}</div>
-  <div
-    class="button"
-    [ngClass]="{'button-active':isChangingOption}"
-    (click)="isChangingOption=!isChangingOption"
-  >
+  <div class="button" [ngClass]="{'button-active':selectEdit.hasValue()}" (click)="onEditClick()">
     <img src="assets/icons/widgets/admin/edit-button.svg" />
   </div>
   <div
     class="button button-x"
-    [ngClass]="{'button-hidden':!isChangingOption}"
-    (click)="isChangingOption=false"
+    [ngClass]="{'button-hidden':selectEdit.isEmpty()}"
+    (click)="onCloseClick()"
   ></div>
 </div>

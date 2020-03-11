@@ -1,6 +1,5 @@
 import { IUser } from './events-widget';
 import { IWidgets } from './widget.model';
-import { IBrigade } from './shift.model';
 import { IWorker } from './worker';
 
 export interface IAdminPanel {
@@ -11,8 +10,11 @@ export interface IAdminPanel {
 }
 
 export interface IWorkspace {
-    name: string;
-    authorId: number;
+    // name: string;
+    // authorId: number;
+    id: number;
+    screenName: string;
+    widgets?: any;
 }
 
 export interface IClaim {
@@ -36,6 +38,7 @@ export interface IWorkerAdminPanel {
 }
 
 export interface IWorkerOptionAdminPanel {
-    name: string;
+    name?: string;
     value: string;
+    key: string;
 }
