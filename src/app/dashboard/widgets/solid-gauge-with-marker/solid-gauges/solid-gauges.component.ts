@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
 import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 
@@ -7,7 +7,7 @@ import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
     templateUrl: './solid-gauges.component.html',
     styleUrls: ['./solid-gauges.component.scss'],
 })
-export class SolidGaugesComponent extends WidgetPlatform implements OnInit {
+export class SolidGaugesComponent extends WidgetPlatform implements OnInit, OnDestroy {
     static itemCols = 16;
     static itemRows = 10;
 
