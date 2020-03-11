@@ -244,6 +244,7 @@ import { PetroleumUnityComponent } from './widgets/petroleum-products-movement/p
         AdminShiftScheduleComponent,
         AdminReferencesComponent,
         PetroleumProductsMovementComponent,
+        AdminPanelComponent,
     ],
     exports: [HomeComponent],
     imports: [

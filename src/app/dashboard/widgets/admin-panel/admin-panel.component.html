@@ -16,61 +16,67 @@
   <evj-frame-top></evj-frame-top>
 
   <ng-container *ngIf="!isWorkerSettingsShowed;else workerSettings">
-    <div class="admin">
-      <div class="admin__header">
-        <div class="header__search">
-          <div class="search">
-            <evj-input
-              class="insert-component"
-              [placeholder]="searchPlaceholder"
-              [iconSrc]="searchIcon"
-              (inputedValue)="onSearchWorker($event)"
-            ></evj-input>
+    <div class="admin-container">
+      <div
+        class="admin"
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
+      >
+        <div class="admin__header">
+          <div class="header__search">
+            <div class="search">
+              <evj-input
+                class="insert-component"
+                [placeholder]="searchPlaceholder"
+                [iconSrc]="searchIcon"
+                (inputedValue)="onSearchWorker($event)"
+              ></evj-input>
+            </div>
+            <div class="group__button">
+              <evj-button
+                class="insert-component"
+                [isSmallButton]="true"
+                [imgSrc]="groupsButtonIcon"
+                [isActive]="isGroupShowed"
+                [isChangingState]="true"
+                (click)="onShowBrigades()"
+              ></evj-button>
+            </div>
           </div>
-          <div class="group__button">
-            <evj-button
-              class="insert-component"
-              [isSmallButton]="true"
-              [imgSrc]="groupsButtonIcon"
-              [isActive]="isGroupShowed"
-              [isChangingState]="true"
-              (click)="onShowBrigades()"
-            ></evj-button>
+          <div class="header__title">
+            <div class="title">Основная информация</div>
+            <div class="line"></div>
           </div>
-        </div>
-        <div class="header__title">
-          <div class="title">Основная информация</div>
-          <div class="line"></div>
-        </div>
-        <div class="header__more">
-          <div class="add__button">
-            <evj-button
-              class="insert-component"
-              [isSmallButton]="false"
-              [textButton]="'Добавить сотрудника'"
-            ></evj-button>
-          </div>
+          <div class="header__more">
+            <div class="add__button">
+              <evj-button
+                class="insert-component"
+                [isSmallButton]="false"
+                [textButton]="'Добавить сотрудника'"
+              ></evj-button>
+            </div>
 
-          <div class="more__button">
-            <evj-button
-              class="insert-component"
-              [isSmallButton]="false"
-              [textButton]="'Подробнее'"
-              (click)="getMoreAboutWorker()"
-            ></evj-button>
+            <div class="more__button">
+              <evj-button
+                class="insert-component"
+                [isSmallButton]="false"
+                [textButton]="'Подробнее'"
+                (click)="getMoreAboutWorker()"
+              ></evj-button>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="admin__employee">
-        <evj-admin-employee
-          [searchedWorker]="searchedWorker"
-          [workers]="workers"
-          *ngIf="!isGroupShowed"
-        ></evj-admin-employee>
-        <evj-admin-brigades *ngIf="isGroupShowed" [brigades]="brigades"></evj-admin-brigades>
-      </div>
-      <div class="admin__workspace">
-        <evj-admin-workspace></evj-admin-workspace>
+        <div class="admin__employee">
+          <evj-admin-employee
+            [searchedWorker]="searchedWorker"
+            [workers]="workers"
+            *ngIf="!isGroupShowed"
+          ></evj-admin-employee>
+          <evj-admin-brigades *ngIf="isGroupShowed" [brigades]="brigades"></evj-admin-brigades>
+        </div>
+        <div class="admin__workspace">
+          <evj-admin-workspace></evj-admin-workspace>
+        </div>
       </div>
     </div>
   </ng-container>

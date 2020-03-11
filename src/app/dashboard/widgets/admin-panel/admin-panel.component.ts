@@ -1,10 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { IButtonImgSrc, IBrigadeAdminPanel } from '../../models/admin-panel';
-import { IWorker } from '../../models/worker';
 import { AdminPanelService } from '../../services/admin-panel/admin-panel.service';
 import { IUser } from '../../models/events-widget';
 import { Subscription } from 'rxjs';
-import { IBrigade } from '../../models/shift.model';
+import { NewWidgetService } from '../../services/new-widget.service';
 
 @Component({
     selector: 'evj-admin-panel',
@@ -14,11 +13,8 @@ import { IBrigade } from '../../models/shift.model';
 export class AdminPanelComponent implements OnInit, OnDestroy {
     //#region WIDGET_PROPS
 
-    public isMock: boolean = false;
-    public id: number = null;
-    public uniqId: number = null;
     public title: string = 'Панель администратора';
-    public previewTitle: string = 'Панель администратора';
+    public previewTitle: string = 'admin-panel';
     public units: string = '';
 
     //#endregion
@@ -62,9 +58,18 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
         displayName: 'Петров П. П.',
     };
 
+    static itemCols: number = 45;
+    static itemRows: number = 25;
+
     private subscriptions: Subscription[] = [];
 
-    constructor(private adminPanel: AdminPanelService) {}
+    constructor(
+        private widgetService: NewWidgetService,
+        @Inject('isMock') public isMock: boolean,
+        @Inject('widgetId') public id: string,
+        @Inject('uniqId') public uniqId: string,
+        private adminPanel: AdminPanelService
+    ) {}
 
     public ngOnInit(): void {
         this.subscriptions.push(

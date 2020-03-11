@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { IWorker } from '../../../models/worker';
 import { IWorkerOptionAdminPanel, IWorkspace } from '../../../models/admin-panel';
+import { IUser } from '../../../models/events-widget';
+import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
 
 @Component({
     selector: 'evj-admin-worker-settings',
@@ -8,7 +10,7 @@ import { IWorkerOptionAdminPanel, IWorkspace } from '../../../models/admin-panel
     styleUrls: ['./admin-worker-settings.component.scss'],
 })
 export class AdminWorkerSettingsComponent implements OnInit {
-    @Output() closeWorkerSettings: EventEmitter<IWorker> = new EventEmitter<IWorker>();
+    @Output() public closeWorkerSettings: EventEmitter<IUser> = new EventEmitter<IUser>();
 
     public isChangingOption: boolean = false;
     public isClaimsShowing: boolean = true;
@@ -23,15 +25,7 @@ export class AdminWorkerSettingsComponent implements OnInit {
 
     public options: IWorkerOptionAdminPanel[];
 
-    public worker: IWorker = {
-        id: 1,
-        name: 'Иванов Иван Иванович',
-        phone: '+7 (925) 599-99-97',
-        email: 'Ivanov.II@ya.ru',
-        brigade: '1',
-        accessLevel: null,
-        position: 'Оператор АСУ ТП',
-    };
+    public worker: IUser = null;
 
     public workspaces: IWorkspace[] = [
         {
@@ -84,51 +78,52 @@ export class AdminWorkerSettingsComponent implements OnInit {
         },
     ];
 
-    constructor() {}
+    constructor(private adminService: AdminPanelService) {}
 
     public ngOnInit(): void {
         this.options = [
-            {
-                name: 'ФИО',
-                value: this.worker.name,
-            },
-            {
-                name: 'Должность',
-                value: this.worker.position,
-            },
-            {
-                name: 'Телефон',
-                value: this.worker.phone,
-            },
-            {
-                name: 'Почта',
-                value: this.worker.email,
-            },
-            {
-                name: 'Бригада',
-                value: this.worker.brigade,
-            },
-            {
-                name: 'ФИО',
-                value: this.worker.name,
-            },
-            {
-                name: 'Должность',
-                value: this.worker.position,
-            },
-            {
-                name: 'Телефон',
-                value: this.worker.phone,
-            },
-            {
-                name: 'Почта',
-                value: this.worker.email,
-            },
-            {
-                name: 'Бригада',
-                value: this.worker.brigade,
-            },
+            // {
+            //     name: 'ФИО',
+            //     value: this.worker.name,
+            // },
+            // {
+            //     name: 'Должность',
+            //     value: this.worker.position,
+            // },
+            // {
+            //     name: 'Телефон',
+            //     value: this.worker.phone,
+            // },
+            // {
+            //     name: 'Почта',
+            //     value: this.worker.email,
+            // },
+            // {
+            //     name: 'Бригада',
+            //     value: this.worker.brigade,
+            // },
+            // {
+            //     name: 'ФИО',
+            //     value: this.worker.name,
+            // },
+            // {
+            //     name: 'Должность',
+            //     value: this.worker.position,
+            // },
+            // {
+            //     name: 'Телефон',
+            //     value: this.worker.phone,
+            // },
+            // {
+            //     name: 'Почта',
+            //     value: this.worker.email,
+            // },
+            // {
+            //     name: 'Бригада',
+            //     value: this.worker.brigade,
+            // },
         ];
+        this.adminService.getAllScreens().subscribe(console.log);
     }
 
     public onReturn(): void {

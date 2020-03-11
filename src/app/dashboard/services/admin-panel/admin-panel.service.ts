@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppConfigService } from '../../../services/appConfigService';
 import { IBrigadeAdminPanel, IWorkerAdminPanel } from '../../models/admin-panel';
 import { IUser } from '../../models/events-widget';
