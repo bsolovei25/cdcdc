@@ -2,13 +2,15 @@ import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { Subscription } from 'rxjs';
 import { IPointDiagramElement } from '../../models/point-diagram';
+import { WidgetPlatform } from '../../models/widget-platform';
 
 @Component({
     selector: 'evj-point-diagram',
     templateUrl: './point-diagram.component.html',
     styleUrls: ['./point-diagram.component.scss'],
 })
-export class PointDiagramComponent implements OnInit, OnDestroy {
+export class PointDiagramComponent extends WidgetPlatform implements OnInit, OnDestroy {
+
     pointDiagramElements: IPointDiagramElement[] = [
         {
             norm: 0.2,
@@ -54,54 +56,29 @@ export class PointDiagramComponent implements OnInit, OnDestroy {
         },
     ];
 
-    static itemCols: number = 23;
-    static itemRows: number = 16;
-
-    public units: string = '%';
-    public title: string;
-    public previewTitle: string;
-
-    private subscriptions: Subscription[] = [];
+    protected static itemCols: number = 23;
+    protected static itemRows: number = 16;
 
     constructor(
-        private widgetService: NewWidgetService,
+        protected widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscriptions.push(
-            this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-                this.title = data.title;
-                // this.code = data.code;
-                this.units = data.units;
-                // this.name = data.name;
-                this.previewTitle = data.widgetType;
-            })
-        );
+        super(widgetService, isMock, id, uniqId);
+        this.widgetUnits = '%';
     }
 
     ngOnInit(): void {
-        if (!this.isMock) {
-            this.wsConnect();
-        }
-    }
-
-    private wsConnect(): void {
-        this.subscriptions.push(
-            this.widgetService
-                .getWidgetLiveDataFromWS(this.id, 'point-diagram')
-                .subscribe((ref) => {
-                    this.pointDiagramElements = ref.chartItems;
-                })
-        );
+        super.widgetInit();
     }
 
     ngOnDestroy(): void {
-        if (this.subscriptions) {
-            for (const subscription of this.subscriptions) {
-                subscription.unsubscribe();
-            }
-        }
+        super.ngOnDestroy();
+    }
+
+    protected dataHandler(ref: any): void {
+        this.pointDiagramElements = ref.chartItems;
     }
 
     containerIsMock(): string {
