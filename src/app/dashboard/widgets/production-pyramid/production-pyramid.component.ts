@@ -10,7 +10,6 @@ import { WidgetPlatform } from '../../models/widget-platform';
     styleUrls: ['./production-pyramid.component.scss'],
 })
 export class ProductionPyramidComponent extends WidgetPlatform implements OnInit, OnDestroy {
-
     public array: IProductionPyramid[] = [
         {
             cardTitle: 'Без пожара',
@@ -49,5 +48,4 @@ export class ProductionPyramidComponent extends WidgetPlatform implements OnInit
     protected dataHandler(ref: any): void {
         // this.data = ref.chartItems;
     }
-
 }

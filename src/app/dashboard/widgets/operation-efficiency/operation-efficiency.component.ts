@@ -10,7 +10,6 @@ import { WidgetPlatform } from '../../models/widget-platform';
     styleUrls: ['./operation-efficiency.component.scss'],
 })
 export class OperationEfficiencyComponent extends WidgetPlatform implements OnInit, OnDestroy {
-
     protected static itemCols: number = 18;
     protected static itemRows: number = 6;
     /* Приблизительная структура, получаемая с бека */
@@ -49,13 +48,10 @@ export class OperationEfficiencyComponent extends WidgetPlatform implements OnIn
     dataHandler(ref: any): void {
         this.data = ref;
         this.data.curValue = ref.currentValue;
-        this.data.lowerBorder =
-            Math.abs(this.data.lowerBorder - this.data.plan) / this.data.plan;
-        this.data.higherBorder =
-            (this.data.higherBorder - this.data.plan) / this.data.plan;
+        this.data.lowerBorder = Math.abs(this.data.lowerBorder - this.data.plan) / this.data.plan;
+        this.data.higherBorder = (this.data.higherBorder - this.data.plan) / this.data.plan;
         this.data.lowerValue = this.data.plan * (1 - this.data.lowerBorder);
         this.data.higherValue = this.data.plan * (1 + this.data.higherBorder);
         console.log(this.data);
     }
-
 }

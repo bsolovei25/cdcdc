@@ -164,7 +164,7 @@ export class EventsComponent implements OnInit, OnDestroy {
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
-    ) { }
+    ) {}
 
     public ngOnInit(): void {
         this.subscriptions.push(

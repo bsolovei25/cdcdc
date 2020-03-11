@@ -10,7 +10,6 @@ import { WidgetPlatform } from '../../models/widget-platform';
     styleUrls: ['./point-diagram.component.scss'],
 })
 export class PointDiagramComponent extends WidgetPlatform implements OnInit, OnDestroy {
-
     pointDiagramElements: IPointDiagramElement[] = [
         {
             norm: 0.2,
