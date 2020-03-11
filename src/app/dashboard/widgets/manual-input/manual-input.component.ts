@@ -31,8 +31,8 @@ import { trigger, style, state, transition, animate } from '@angular/animations'
             state('collapsed', style({ height: '40px', minHeight: '40px' })),
             state('expanded', style({ height: '*' })),
             transition('collapsed <=> expanded', animate('200ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-        ])
-    ]
+        ]),
+    ],
 })
 export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild('truckScroll') truckScroll: ElementRef;
