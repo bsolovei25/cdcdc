@@ -3,11 +3,11 @@ import { Inject, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 export abstract class WidgetPlatform implements OnDestroy {
-    public widgetCode: string;
-    public widgetTitle: string;
-    public widgetUnits: string;
-    public widgetType: string;
-    public widgetIcon: string;
+    public widgetCode?: string;
+    public widgetTitle?: string;
+    public widgetUnits?: string;
+    public widgetType?: string;
+    public widgetIcon?: string;
 
     protected isRealtimeData: boolean = true;
 

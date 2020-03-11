@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
+import { WidgetPlatform } from '../../models/widget-platform';
 
 export interface ISuspenseMachine {
     date: Date;
@@ -17,13 +17,7 @@ export interface ISuspenseMachine {
     templateUrl: './suspense-machine.component.html',
     styleUrls: ['./suspense-machine.component.scss'],
 })
-export class SuspenseMachineComponent implements OnInit, OnDestroy {
-    subscription: Subscription;
-    isLoading: boolean = false;
-
-    public title = 'Простой установки';
-    public previewTitle: string = 'suspense-machine';
-
+export class SuspenseMachineComponent extends WidgetPlatform implements OnInit, OnDestroy {
     data: ISuspenseMachine[] = [
         {
             date: new Date('2019-11-01T12:01:05'),
@@ -126,25 +120,28 @@ export class SuspenseMachineComponent implements OnInit, OnDestroy {
         },
     ];
 
-    static itemCols = 20;
-    static itemRows = 5;
+    protected static itemCols: number = 20;
+    protected static itemRows: number = 5;
 
     constructor(
         public widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
-    ) {}
-
-    ngOnInit() {
-        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-            this.title = data.title;
-        });
+    ) {
+        super(widgetService, isMock, id, uniqId);
+        this.widgetIcon = 'tools';
     }
 
-    ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
+    ngOnInit(): void {
+        super.widgetInit();
+    }
+
+    ngOnDestroy(): void {
+        super.ngOnDestroy();
+    }
+
+    protected dataHandler(ref: any): void {
+        this.data = ref.items;
     }
 }

@@ -1,24 +1,6 @@
-import {
-    Component,
-    OnInit,
-    ElementRef,
-    ViewChild,
-    ViewChildren,
-    QueryList,
-    Input,
-    AfterViewInit,
-    Injectable,
-    Inject,
-} from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Input, Injectable } from '@angular/core';
 import { element } from 'protractor';
-import {
-    WidgetGridsterSettings,
-    WidgetModel,
-    PieWidget,
-} from 'src/app/dashboard/models/widget.model';
-import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
-import { Subscription } from 'rxjs';
-import { ThrowStmt } from '@angular/compiler';
+import { PieWidget } from 'src/app/dashboard/models/widget.model';
 
 declare var d3: any;
 
