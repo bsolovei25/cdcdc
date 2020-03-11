@@ -9,6 +9,7 @@ import { WidgetPlatform } from '../../../models/widget-platform';
     styleUrls: ['./bar-charts.component.scss'],
 })
 export class BarChartsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+
     public data: any[] = [];
 
     protected static itemCols: number = 24;
