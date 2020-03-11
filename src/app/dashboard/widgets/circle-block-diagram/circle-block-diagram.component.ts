@@ -1,15 +1,15 @@
-import {Component, OnInit, Inject, OnDestroy} from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { Subscription } from 'rxjs';
 import { IBlockDiagram, IBlockDiagramMock } from '../../models/circle-block-diagram';
-import {WidgetPlatform} from "../../models/widget-platform";
+import { WidgetPlatform } from '../../models/widget-platform';
 
 @Component({
     selector: 'evj-circle-block-diagram',
     templateUrl: './circle-block-diagram.component.html',
     styleUrls: ['./circle-block-diagram.component.scss'],
 })
-export class CircleBlockDiagramComponent extends  WidgetPlatform implements OnInit, OnDestroy {
+export class CircleBlockDiagramComponent extends WidgetPlatform implements OnInit, OnDestroy {
     public blockDiagram: IBlockDiagram = {
         improvement: 0, // улучшение в %
         disabled: 0, // отключенные блокировки в %

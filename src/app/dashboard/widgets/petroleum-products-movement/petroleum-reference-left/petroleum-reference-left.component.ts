@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {ITankInfo} from "../../../models/petroleum-products-movement.model";
+import { ITankInfo } from '../../../models/petroleum-products-movement.model';
 
 @Component({
     selector: 'evj-petroleum-reference-left',
@@ -30,7 +30,7 @@ export class PetroleumReferenceLeftComponent implements OnInit {
         {
             title: 'Резервуар 205',
             state: 'two-arrow',
-        }
+        },
     ];
 
     public data = {

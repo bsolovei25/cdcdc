@@ -1,7 +1,7 @@
-import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { ICalendarPlanGraph, ICalendarPlanData } from '../../models/calendar-plan';
-import {WidgetPlatform} from '../../models/widget-platform';
+import { WidgetPlatform } from '../../models/widget-platform';
 
 @Component({
     selector: 'evj-calendar-plan',
@@ -74,10 +74,8 @@ export class CalendarPlanComponent extends WidgetPlatform implements OnInit, OnD
     protected dataHandler(ref: any): void {
         this.data = ref;
         this.data.curValue = ref.currentValue;
-        this.data.lowerBorder =
-            Math.abs(this.data.lowerBorder - this.data.plan) / this.data.plan;
-        this.data.higherBorder =
-            (this.data.higherBorder - this.data.plan) / this.data.plan;
+        this.data.lowerBorder = Math.abs(this.data.lowerBorder - this.data.plan) / this.data.plan;
+        this.data.higherBorder = (this.data.higherBorder - this.data.plan) / this.data.plan;
         this.data.lowerValue = this.data.plan * (1 - this.data.lowerBorder);
         this.data.higherValue = this.data.plan * (1 + this.data.higherBorder);
         this.array = ref.items;

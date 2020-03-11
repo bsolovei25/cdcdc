@@ -9,7 +9,8 @@ declare var d3: any;
     templateUrl: './circle-factory-diagram.component.html',
     styleUrls: ['./circle-factory-diagram.component.scss'],
 })
-export class CircleFactoryDiagramComponent extends WidgetPlatform implements AfterViewInit, OnDestroy {
+export class CircleFactoryDiagramComponent extends WidgetPlatform
+    implements AfterViewInit, OnDestroy {
     @ViewChild('circleFactory') CircleFactory: ElementRef;
 
     public readonly RADIUS = 42;

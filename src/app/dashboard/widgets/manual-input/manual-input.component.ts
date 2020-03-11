@@ -22,7 +22,8 @@ import { WidgetPlatform } from '../../models/widget-platform';
     templateUrl: './manual-input.component.html',
     styleUrls: ['./manual-input.component.scss'],
 })
-export class ManualInputComponent extends WidgetPlatform implements OnInit, OnDestroy, AfterViewInit {
+export class ManualInputComponent extends WidgetPlatform
+    implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild('truckScroll') truckScroll: ElementRef;
     @ViewChild('scroll') scroll: ElementRef;
 

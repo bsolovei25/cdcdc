@@ -1,6 +1,6 @@
-import {Component, AfterViewInit, Inject, ElementRef, ViewChild, OnDestroy} from '@angular/core';
+import { Component, AfterViewInit, Inject, ElementRef, ViewChild, OnDestroy } from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
-import {WidgetPlatform} from "../../models/widget-platform";
+import { WidgetPlatform } from '../../models/widget-platform';
 declare var d3: any;
 
 @Component({
@@ -274,8 +274,7 @@ export class ChainMapComponent extends WidgetPlatform implements AfterViewInit, 
         this.drawChain();
     }
 
-    protected dataHandler(ref: any): void {
-    }
+    protected dataHandler(ref: any): void {}
 
     public drawChain(): void {
         this.mass1 = this.data[0];

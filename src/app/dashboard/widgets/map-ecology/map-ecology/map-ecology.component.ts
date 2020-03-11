@@ -1,11 +1,4 @@
-import {
-    Component,
-    ElementRef,
-    ViewChild,
-    AfterViewInit,
-    Inject,
-    OnDestroy,
-} from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit, Inject, OnDestroy } from '@angular/core';
 import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
 import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 
@@ -44,7 +37,7 @@ export class MapEcologyComponent extends WidgetPlatform implements AfterViewInit
 
     public isActive = false;
 
-   // private subscription: Subscription;
+    // private subscription: Subscription;
 
     @ViewChild('myCircle') myCircle: ElementRef;
 
@@ -72,11 +65,11 @@ export class MapEcologyComponent extends WidgetPlatform implements AfterViewInit
 
     ngAfterViewInit() {
         super.widgetInit();
-      //  this.showMock(this.isMock);
+        //  this.showMock(this.isMock);
     }
 
     protected dataHandler(ref: any): void {
-      this.drawMapSocket(ref);
+        this.drawMapSocket(ref);
     }
 
     private wsConnect() {
@@ -104,7 +97,7 @@ export class MapEcologyComponent extends WidgetPlatform implements AfterViewInit
     //     }
     // }
 
-    public drawMapSocket(ref){
+    public drawMapSocket(ref) {
         if (this.datas == null) {
             this.datas = ref.points;
             this.regexText(this.datas);

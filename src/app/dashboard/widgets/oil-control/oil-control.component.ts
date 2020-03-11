@@ -393,7 +393,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
 
     public test = false;
 
-    ngOnInit() { }
+    ngOnInit() {}
 
     ngAfterViewInit() {
         super.widgetInit();
@@ -421,7 +421,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
             this.resizeWidget.subscribe((data) => {
                 this.newWidth = data.clientX;
                 this.onResize(data.clientX);
-
             })
         );
     }
@@ -459,7 +458,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
     //     });
     // }
 
-    drawOilControlSocket(ref){
+    drawOilControlSocket(ref) {
         this.checkSocket = true;
         this.data = ref;
         if (this.svgMenu) {
