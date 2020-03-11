@@ -1,19 +1,12 @@
 import {
     Component,
     OnInit,
-    Inject,
     AfterViewInit,
     Input,
     ViewChild,
     ElementRef,
-    Renderer2,
 } from '@angular/core';
 import { RingFactoryWidget } from 'src/app/dashboard/models/widget.model';
-import { DOCUMENT } from '@angular/common';
-import { map } from 'rxjs/operators';
-import 'leader-line';
-
-declare var LeaderLine: any;
 declare var d3: any;
 
 @Component({
@@ -29,27 +22,23 @@ export class RingFactoryDiagramComponent implements OnInit, AfterViewInit {
 
     @Input() public data: RingFactoryWidget;
 
-    public stateRing;
+    public stateRing: number;
 
-    public dataStyle = {
+    public dataStyle: any = {
         id_0: { status: 'critical' },
         id_1: { status: 'notCritical' },
     };
 
-    constructor(@Inject(DOCUMENT) private document, private renderer: Renderer2) {}
+    constructor() {}
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.stateRing = this.data.buttons.length;
     }
-    ngAfterViewInit() {
+    ngAfterViewInit(): void {
         this.draw(this.ringFactory.nativeElement);
     }
 
-    public drawLine(el1, el2) {
-        return new LeaderLine(el1, el2);
-    }
-
-    public draw(el) {
+    public draw(el): void {
         const svg = d3.select(el);
         svg.append('image')
             .attr('xlink:href', '/assets/pic/Icons3D/' + this.data.typeFabric + '.png')

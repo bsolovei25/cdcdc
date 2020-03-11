@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
 import { TruncPieWidget } from 'src/app/dashboard/models/widget.model';
-import { VirtualTimeScheduler } from 'rxjs';
 
 declare var d3: any;
 
@@ -10,19 +9,17 @@ declare var d3: any;
     styleUrls: ['./truncated-pie-icon.component.scss'],
 })
 export class TruncatedPieIconComponent implements OnInit {
-    public RADIUS;
+    public RADIUS: number;
 
-    public procent;
+    public procent: number;
 
-    public pic;
+    public pic: string;
 
-    public textcolor;
-
-    public arrayWord = [];
-    public text1;
-    public text2;
-    public text3;
-    public space = ' ';
+    public arrayWord: any = [];
+    public text1: string;
+    public text2: string;
+    public text3: string;
+    public space: string = ' ';
 
     @Input() public data: TruncPieWidget;
 
@@ -30,19 +27,15 @@ export class TruncatedPieIconComponent implements OnInit {
 
     constructor() {}
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.d3Circle(this.data, this.myCircle.nativeElement);
     }
 
-    public splitWord(word, space) {
+    public splitWord(word, space): void {
         this.arrayWord = word.split(space);
         this.text1 = this.arrayWord[0];
         this.text2 = this.arrayWord[1];
         this.text3 = this.arrayWord[2];
-    }
-
-    public dataById(index, item): number {
-        return item.id;
     }
 
     private d3Circle(data, el): void {

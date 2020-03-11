@@ -5,9 +5,7 @@ import {
     ElementRef,
     Inject,
     OnDestroy,
-    AfterViewInit,
 } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { EventService } from '../../services/event.service';
 import {
     EventsWidgetNotification,
@@ -17,16 +15,13 @@ import {
     IPriority,
     IUser,
     ICategory,
-    EventsWidgetCategory,
     EventsWidgetCategoryCode,
-    EventsWidgetDataPreview,
     EventsWidgetData,
 } from '../../models/events-widget';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NewWidgetService } from '../../services/new-widget.service';
-import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
+import { DateAdapter } from '@angular/material/core';
 import { AuthService } from '@core/service/auth.service';
-import { TestBed } from '@angular/core/testing';
 import { WidgetPlatform } from '../../models/widget-platform';
 
 @Component({
@@ -35,14 +30,9 @@ import { WidgetPlatform } from '../../models/widget-platform';
     styleUrls: ['./events-workspace.component.scss'],
 })
 export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    //  private subscriptions: Subscription[] = [];
     event: EventsWidgetNotification;
     isLoading: boolean = true;
 
-    public previewTitle: string = 'events-workspace';
-    public title: string = 'Рабочая область';
-    public widgetType: string;
-    public icon: string = 'document';
     comments: string[] = [];
     fact: string[] = [];
     isNew: boolean = true;
@@ -55,11 +45,10 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     priority: IPriority[];
     status: IStatus[];
     user: IUser[];
-    code;
     category: ICategory[];
-    place;
-    equipmentCategory;
-    eventTypes;
+    place: string;
+    equipmentCategory: any;
+    eventTypes: any;
 
     nameUser: string;
 
@@ -103,13 +92,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         drops: 'Сбросы',
     };
 
-    foods = [
-        { value: 'steak-0', viewValue: 'Steak' },
-        { value: 'pizza-1', viewValue: 'Pizza' },
-        { value: 'tacos-2', viewValue: 'Tacos' },
-    ];
-
-    eventLegends = [{ isLegend: true }, { isLegend: false }];
+    eventLegends: any = [{ isLegend: true }, { isLegend: false }];
 
     idUser: number = 0;
 
@@ -129,20 +112,11 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         public widgetService: NewWidgetService,
         private dateAdapter: DateAdapter<Date>,
         private authService: AuthService,
-        // private formBuilder: FormBuilder,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
-
-        // this.subscriptions.push(
-        //     this.widgetService.getWidgetChannel(id).subscribe((data) => {
-        //         this.title = data.title;
-        //         this.widgetType = data.widgetType;
-        //     })
-        // );
-
         this.subscriptions.push(
             this.authService.user$.subscribe((data: IUser) => {
                 if (data) {
@@ -157,25 +131,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     }
 
     ngOnInit(): void {
-        // if (!this.isMock) {
-        //     this.subscriptions.push(
-        //         this.eventService.event$.subscribe((value) => {
-        //             if (value) {
-        //                 this.openEvent = false;
-        //                 this.setEventByInfo(value);
-        //             } else {
-        //                 this.event = value;
-        //             }
-        //         })
-        //     );
-        //     this.subscriptions.push(
-        //         this.widgetService
-        //             .getWidgetLiveDataFromWS(this.id, 'events-workspace')
-        //             .subscribe((value) => {
-        //                 this.wsHandler(value);
-        //             })
-        //     );
-        // }
         super.widgetInit();
         this.isLoading = false;
     }
@@ -247,7 +202,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.event = null;
     }
 
-    createdEvent(event: boolean) {
+    createdEvent(event: boolean): void {
         console.log(event);
         event === true ? this.createEvent() : this.saveItem();
     }
@@ -365,10 +320,10 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
             this.isClickComment = null;
         }
     }
-    scrollCommentBottom() {
+    scrollCommentBottom(): void {
         this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
     }
-    scrollFactBottom() {
+    scrollFactBottom(): void {
         this.scroll2.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
     }
 
@@ -526,7 +481,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.isLoading = false;
     }
 
-    onLoadEvent(id) {
+    onLoadEvent(id): void {
         this.setEventByInfo(id);
     }
 
@@ -604,7 +559,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         };
     }
 
-    isRetrievel() {}
     overlayClose(): void {
         document.getElementById('overlay-retrieval').style.display = 'none';
         this.isNewRetrieval = null;
@@ -674,7 +628,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         msgDuration: number = 500,
         actionText?: string,
         actionFunction?: () => void
-    ) {
+    ): void {
         const snackBarInstance = this.snackBar.open(msg, actionText, {
             duration: msgDuration,
         });
@@ -722,21 +676,21 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         document.getElementById('overlay-chart').style.display = 'none';
     }
 
-    chooseRespons(data) {
+    chooseRespons(data): void {
         this.userChoosen = true;
         this.chooseNameUser = data.firstName + ' ' + data.middleName + ' ' + data.lastName;
         this.userBrigade = data.brigade.number;
         this.userDescription = data.positionDescription;
     }
 
-    chooseMeropRespons(data) {
+    chooseMeropRespons(data): void {
         this.userMeropChoosen = true;
         this.chooseNameUser = data.firstName + ' ' + data.middleName + ' ' + data.lastName;
         this.userBrigade = data.brigade.number;
         this.userDescription = data.positionDescription;
     }
 
-    onEditShortInfo() {
+    onEditShortInfo(): void {
         this.isEditing = true;
     }
 }

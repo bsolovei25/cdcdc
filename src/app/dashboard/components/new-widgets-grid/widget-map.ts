@@ -14,7 +14,7 @@ import { BarChartsComponent } from '../../widgets/bar-chart/bar-charts/bar-chart
 import { SuspenseMachineComponent } from '../../widgets/suspense-machine/suspense-machine.component';
 import { EnterpriseMapComponent } from '../../widgets/map-enterprise/enterprise-map.component';
 import { CircleDiagramComponent } from '../../widgets/circle-diagram/circle-diagram.component';
-import { MapEcologyComponent } from '../../widgets/map-ecology/map-ecology/map-ecology.component';
+import { MapEcologyComponent } from '../../widgets/map-ecology/map-ecology.component';
 import { UnityTemplateComponent } from '../../widgets/unity-template/unity-template.component';
 import { RingSFactoryDiagramComponent } from '../../widgets/ring-factory-diagrams/ring-s-factory-diagram/ring-s-factory-diagram.component';
 import { OperationEfficiencyComponent } from '../../widgets/operation-efficiency/operation-efficiency.component';
