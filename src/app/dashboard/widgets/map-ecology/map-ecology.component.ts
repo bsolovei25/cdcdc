@@ -44,7 +44,7 @@ export class MapEcologyComponent extends WidgetPlatform implements AfterViewInit
         super(widgetService, isMock, id, uniqId);
     }
 
-    ngOnDestroy(): void{
+    ngOnDestroy(): void {
         super.ngOnDestroy();
     }
 
@@ -55,7 +55,6 @@ export class MapEcologyComponent extends WidgetPlatform implements AfterViewInit
     protected dataHandler(ref: any): void {
         this.drawMapSocket(ref);
     }
-
 
     public drawMapSocket(ref): void {
         if (this.datas == null) {

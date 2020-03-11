@@ -96,7 +96,6 @@ export class RingSFactoryDiagramComponent extends WidgetPlatform implements OnIn
         },
     ];
 
-
     constructor(
         public widgetService: NewWidgetService,
         public service: NewUserSettingsService,

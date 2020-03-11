@@ -1,16 +1,8 @@
-import {
-    Component,
-    OnInit,
-    Inject,
-    ViewChild,
-    AfterViewInit,
-    ElementRef,
-} from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { EventEmitter } from '@angular/core';
 import { OilControls } from '../../models/oil-control';
 import { WidgetPlatform } from '../../models/widget-platform';
-
 
 declare var d3: any;
 
@@ -372,7 +364,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
         }
     }
 
-    ngOnInit(): void { }
+    ngOnInit(): void {}
 
     ngAfterViewInit(): void {
         super.widgetInit();
@@ -397,7 +389,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
     protected dataHandler(ref: any): void {
         this.drawOilControlSocket(ref);
     }
-
 
     drawOilControlSocket(ref): void {
         this.checkSocket = true;
@@ -425,7 +416,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
         this.savePosition = true;
         this.checkSocket = false;
     }
-
 
     public onResize(width): void {
         this.checkWidth = width < 600;
@@ -587,7 +577,15 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
         }
     }
 
-    public drawOnCircle(el, pieStart, pieEnd, pieStartStorage, pieEndStorage, data, dataStorage): void {
+    public drawOnCircle(
+        el,
+        pieStart,
+        pieEnd,
+        pieStartStorage,
+        pieEndStorage,
+        data,
+        dataStorage
+    ): void {
         this.criticalPage = [];
         this.svgMenu = d3.select(el.firstElementChild);
         let svgMenu = this.svgMenu;

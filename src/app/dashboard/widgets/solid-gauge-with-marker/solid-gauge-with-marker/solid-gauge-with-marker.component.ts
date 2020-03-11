@@ -15,7 +15,7 @@ export class SolidGaugeWithMarkerComponent implements AfterViewInit {
 
     gaugemap: any = {};
 
-    constructor() { }
+    constructor() {}
 
     public criticalValue: number = 64;
     public criticalPie: number = 16;
@@ -33,7 +33,7 @@ export class SolidGaugeWithMarkerComponent implements AfterViewInit {
     }
 
     draw(data, el, gaugemap, indicator): void {
-        var gauge = function (container, configuration) {
+        var gauge = function(container, configuration) {
             var config = {
                 size: 710,
                 clipWidth: 200,
@@ -100,7 +100,7 @@ export class SolidGaugeWithMarkerComponent implements AfterViewInit {
                     .domain([config.minValue, config.maxValue]);
 
                 ticks = scale.ticks(config.majorTicks);
-                tickData = d3.range(config.majorTicks).map(function () {
+                tickData = d3.range(config.majorTicks).map(function() {
                     return 1 / config.majorTicks;
                 });
 
@@ -108,11 +108,11 @@ export class SolidGaugeWithMarkerComponent implements AfterViewInit {
                     .arc()
                     .innerRadius(r + 50 - config.ringWidth - config.ringInset)
                     .outerRadius(r - config.ringInset)
-                    .startAngle(function (d, i) {
+                    .startAngle(function(d, i) {
                         var ratio = d * i;
                         return deg2rad(config.minAngle + ratio * range);
                     })
-                    .endAngle(function (d, i) {
+                    .endAngle(function(d, i) {
                         var ratio = d * (i + 1);
                         return deg2rad(config.minAngle + ratio * range);
                     });
@@ -148,7 +148,7 @@ export class SolidGaugeWithMarkerComponent implements AfterViewInit {
                         .enter()
                         .append('path')
                         .attr('stroke', 'black')
-                        .attr('fill', function (d, i) {
+                        .attr('fill', function(d, i) {
                             if (i + 1 > criticalPie) {
                                 return 'rgba(244,163,33, 0.5)';
                             } else if (i + 1 <= newValue + 1 && newValue !== 0) {
@@ -164,7 +164,7 @@ export class SolidGaugeWithMarkerComponent implements AfterViewInit {
                         .enter()
                         .append('path')
                         .attr('stroke', 'black')
-                        .attr('fill', function (d, i) {
+                        .attr('fill', function(d, i) {
                             if (i + 1 <= newValue + 1 && i + 1 > criticalPie) {
                                 return 'orange';
                             } else if (i + 1 <= criticalPie) {

@@ -10,7 +10,8 @@ declare var d3: any;
     templateUrl: './ring-energy-indicator.component.html',
     styleUrls: ['./ring-energy-indicator.component.scss'],
 })
-export class RingEnergyIndicatorComponent extends WidgetPlatform implements AfterViewInit, OnDestroy {
+export class RingEnergyIndicatorComponent extends WidgetPlatform
+    implements AfterViewInit, OnDestroy {
     @ViewChild('circleFactory') CircleFactory: ElementRef;
 
     public readonly RADIUS: number = 50;

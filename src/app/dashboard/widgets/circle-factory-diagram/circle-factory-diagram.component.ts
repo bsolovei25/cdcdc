@@ -57,10 +57,9 @@ export class CircleFactoryDiagramComponent extends WidgetPlatform
         this.d3Circle(this.data, this.CircleFactory.nativeElement);
     }
 
-    protected dataHandler(ref: any): void {
-    }
+    protected dataHandler(ref: any): void {}
 
-    public onChangeBackground() : void {
+    public onChangeBackground(): void {
         if (!this.isMock) {
             this.clicked = !this.clicked;
         }

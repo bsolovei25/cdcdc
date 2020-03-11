@@ -216,8 +216,8 @@ export class PolarChartComponent extends WidgetPlatform implements AfterViewInit
                                 data[indexLine].state === 'default'
                                     ? 'gray'
                                     : data[indexLine].state === 'normal'
-                                        ? 'white'
-                                        : 'orange'
+                                    ? 'white'
+                                    : 'orange'
                             )
                             .attr('stroke-dasharray', '0.3')
                             .attr('stroke-width', '0.2');
@@ -234,8 +234,8 @@ export class PolarChartComponent extends WidgetPlatform implements AfterViewInit
                                 data[indexLine].state === 'default'
                                     ? 'gray'
                                     : data[indexLine].state === 'normal'
-                                        ? 'white'
-                                        : 'orange'
+                                    ? 'white'
+                                    : 'orange'
                             )
                             .attr('stroke-dasharray', '0.3')
                             .attr('stroke-width', '0.3');
@@ -253,8 +253,8 @@ export class PolarChartComponent extends WidgetPlatform implements AfterViewInit
                     data[indexBorder].state === 'default'
                         ? './assets/pic/PolarWidget/polar_border2.svg'
                         : data[indexBorder].state === 'normal'
-                            ? './assets/pic/PolarWidget/polar_border1.svg'
-                            : './assets/pic/PolarWidget/polar_border3.svg'
+                        ? './assets/pic/PolarWidget/polar_border1.svg'
+                        : './assets/pic/PolarWidget/polar_border3.svg'
                 )
                 .attr('height', '80px')
                 .attr('width', '50px')
@@ -303,8 +303,8 @@ export class PolarChartComponent extends WidgetPlatform implements AfterViewInit
                 data[0].valueType === 'procent'
                     ? data[0].forecast + ' %'
                     : data[0].valueType === 'mln'
-                        ? data[0].forecast + ' млн.т'
-                        : data[0].forecast + ' EII'
+                    ? data[0].forecast + ' млн.т'
+                    : data[0].forecast + ' EII'
             );
 
         let planTextData1 = this.canvas
@@ -319,8 +319,8 @@ export class PolarChartComponent extends WidgetPlatform implements AfterViewInit
                 data[0].valueType === 'procent'
                     ? data[0].plan + ' %'
                     : data[0].valueType === 'mln'
-                        ? data[0].plan + ' млн.т'
-                        : data[0].plan + ' EII'
+                    ? data[0].plan + ' млн.т'
+                    : data[0].plan + ' EII'
             );
 
         let titleText2 = this.canvas
@@ -363,8 +363,8 @@ export class PolarChartComponent extends WidgetPlatform implements AfterViewInit
                 data[1].valueType === 'procent'
                     ? data[1].forecast + ' %'
                     : data[1].valueType === 'mln'
-                        ? data[1].forecast + ' млн.т'
-                        : data[1].forecast + ' EII'
+                    ? data[1].forecast + ' млн.т'
+                    : data[1].forecast + ' EII'
             );
 
         let planTextData2 = this.canvas
@@ -379,8 +379,8 @@ export class PolarChartComponent extends WidgetPlatform implements AfterViewInit
                 data[1].valueType === 'procent'
                     ? data[1].plan + ' %'
                     : data[1].valueType === 'mln'
-                        ? data[1].plan + ' млн.т'
-                        : data[1].plan + ' EII'
+                    ? data[1].plan + ' млн.т'
+                    : data[1].plan + ' EII'
             );
 
         let titleText3 = this.canvas
@@ -423,8 +423,8 @@ export class PolarChartComponent extends WidgetPlatform implements AfterViewInit
                 data[2].valueType === 'procent'
                     ? data[2].forecast + ' %'
                     : data[2].valueType === 'mln'
-                        ? data[2].forecast + ' млн.т'
-                        : data[2].forecast + ' EII'
+                    ? data[2].forecast + ' млн.т'
+                    : data[2].forecast + ' EII'
             );
 
         let planTextData3 = this.canvas
@@ -439,8 +439,8 @@ export class PolarChartComponent extends WidgetPlatform implements AfterViewInit
                 data[2].valueType === 'procent'
                     ? data[2].plan + ' %'
                     : data[2].valueType === 'mln'
-                        ? data[2].plan + ' млн.т'
-                        : data[2].plan + ' EII'
+                    ? data[2].plan + ' млн.т'
+                    : data[2].plan + ' EII'
             );
 
         let titleText4 = this.canvas
@@ -483,8 +483,8 @@ export class PolarChartComponent extends WidgetPlatform implements AfterViewInit
                 data[3].valueType === 'procent'
                     ? data[3].forecast + ' %'
                     : data[3].valueType === 'mln'
-                        ? data[3].forecast + ' млн.т'
-                        : data[3].forecast + ' EII'
+                    ? data[3].forecast + ' млн.т'
+                    : data[3].forecast + ' EII'
             );
 
         let planTextData4 = this.canvas
@@ -499,8 +499,8 @@ export class PolarChartComponent extends WidgetPlatform implements AfterViewInit
                 data[3].valueType === 'procent'
                     ? data[3].plan + ' %'
                     : data[3].valueType === 'mln'
-                        ? data[3].plan + ' млн.т'
-                        : data[3].plan + ' EII'
+                    ? data[3].plan + ' млн.т'
+                    : data[3].plan + ' EII'
             );
 
         let titleText5 = this.canvas
@@ -543,8 +543,8 @@ export class PolarChartComponent extends WidgetPlatform implements AfterViewInit
                 data[4].valueType === 'procent'
                     ? data[4].forecast + ' %'
                     : data[4].valueType === 'mln'
-                        ? data[4].forecast + ' млн.т'
-                        : data[4].forecast + ' EII'
+                    ? data[4].forecast + ' млн.т'
+                    : data[4].forecast + ' EII'
             );
 
         let planTextData5 = this.canvas
@@ -559,8 +559,8 @@ export class PolarChartComponent extends WidgetPlatform implements AfterViewInit
                 data[4].valueType === 'procent'
                     ? data[4].plan + ' %'
                     : data[4].valueType === 'mln'
-                        ? data[4].plan + ' млн.т'
-                        : data[4].plan + ' EII'
+                    ? data[4].plan + ' млн.т'
+                    : data[4].plan + ' EII'
             );
 
         let titleText6 = this.canvas
@@ -595,8 +595,8 @@ export class PolarChartComponent extends WidgetPlatform implements AfterViewInit
                 data[5].valueType === 'procent'
                     ? data[5].forecast + ' %'
                     : data[5].valueType === 'mln'
-                        ? data[5].forecast + ' млн.т'
-                        : data[5].forecast + ' EII'
+                    ? data[5].forecast + ' млн.т'
+                    : data[5].forecast + ' EII'
             );
 
         let planText6 = this.canvas
@@ -620,8 +620,8 @@ export class PolarChartComponent extends WidgetPlatform implements AfterViewInit
                 data[5].valueType === 'procent'
                     ? data[5].plan + ' %'
                     : data[5].valueType === 'mln'
-                        ? data[5].plan + ' млн.т'
-                        : data[5].plan + ' EII'
+                    ? data[5].plan + ' млн.т'
+                    : data[5].plan + ' EII'
             );
     }
 

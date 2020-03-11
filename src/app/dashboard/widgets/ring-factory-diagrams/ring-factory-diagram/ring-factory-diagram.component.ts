@@ -1,11 +1,4 @@
-import {
-    Component,
-    OnInit,
-    AfterViewInit,
-    Input,
-    ViewChild,
-    ElementRef,
-} from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { RingFactoryWidget } from 'src/app/dashboard/models/widget.model';
 declare var d3: any;
 
