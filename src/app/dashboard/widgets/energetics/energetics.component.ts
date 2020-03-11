@@ -16,7 +16,6 @@ import { WidgetPlatform } from '../../models/widget-platform';
     styleUrls: ['./energetics.component.scss'],
 })
 export class EnergeticsComponent extends WidgetPlatform implements OnInit, OnDestroy {
-
     protected static itemCols: number = 18;
     protected static itemRows: number = 14;
 
@@ -114,7 +113,7 @@ export class EnergeticsComponent extends WidgetPlatform implements OnInit, OnDes
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: any): void { }
+    protected dataHandler(ref: any): void {}
 
     wsConnect(): void {
         this.subscriptions.push(

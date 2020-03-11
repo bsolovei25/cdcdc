@@ -9,7 +9,6 @@ import { WidgetPlatform } from '../../models/widget-platform';
     styleUrls: ['./column-chart-stacked.component.scss'],
 })
 export class ColumnChartStackedComponent extends WidgetPlatform implements OnInit, OnDestroy {
-
     public cols: IColumnChartStacked[] = [];
 
     protected static itemCols: number = 26;

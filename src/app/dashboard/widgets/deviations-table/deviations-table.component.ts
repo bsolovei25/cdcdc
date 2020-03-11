@@ -16,7 +16,6 @@ export interface IDeviationsTable {
     styleUrls: ['./deviations-table.component.scss'],
 })
 export class DeviationsTableComponent extends WidgetPlatform implements OnInit, OnDestroy {
-
     data: IDeviationsTable[] = [
         {
             equipment: 'ЭЛОУ-АВТ-6',
@@ -252,5 +251,5 @@ export class DeviationsTableComponent extends WidgetPlatform implements OnInit, 
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: any): void { }
+    protected dataHandler(ref: any): void {}
 }

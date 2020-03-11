@@ -9,7 +9,6 @@ declare var d3: any;
     styleUrls: ['./chain-map.component.scss'],
 })
 export class ChainMapComponent extends WidgetPlatform implements AfterViewInit, OnDestroy {
-
     @ViewChild('chain') chain: ElementRef;
 
     public dataStyle = {
@@ -275,7 +274,7 @@ export class ChainMapComponent extends WidgetPlatform implements AfterViewInit, 
         this.drawChain();
     }
 
-    protected dataHandler(ref: any): void { }
+    protected dataHandler(ref: any): void {}
 
     public drawChain(): void {
         this.mass1 = this.data[0];

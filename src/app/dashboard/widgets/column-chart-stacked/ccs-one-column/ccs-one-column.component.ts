@@ -8,7 +8,6 @@ import { IBlockDiagramColumn } from '../../../models/circle-block-diagram';
     styleUrls: ['./ccs-one-column.component.scss'],
 })
 export class CcsOneColumnComponent implements OnInit, AfterViewInit {
-
     @Input() data: IColumnChartStacked;
 
     public colorActive: string = '#8c99b2';
@@ -19,9 +18,9 @@ export class CcsOneColumnComponent implements OnInit, AfterViewInit {
 
     public defaultIconPath: string = '../../../../../assets/icons/widgets/column-chart-stacked/';
 
-    constructor() { }
+    constructor() {}
 
-    public ngOnInit(): void { }
+    public ngOnInit(): void {}
 
     public ngAfterViewInit(): void {
         this.graphIcon();

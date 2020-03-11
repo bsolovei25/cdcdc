@@ -11,7 +11,6 @@ import { WidgetPlatform } from '../../models/widget-platform';
     styleUrls: ['./ecology-safety.component.scss'],
 })
 export class EcologySafetyComponent extends WidgetPlatform implements OnInit, OnDestroy {
-
     protected static itemCols: number = 18;
     protected static itemRows: number = 2;
 
@@ -47,7 +46,7 @@ export class EcologySafetyComponent extends WidgetPlatform implements OnInit, On
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: any): void { }
+    protected dataHandler(ref: any): void {}
 
     wsConnect(): void {
         this.subscriptions.push(

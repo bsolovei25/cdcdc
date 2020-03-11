@@ -9,7 +9,6 @@ import { WidgetPlatform } from '../../models/widget-platform';
     styleUrls: ['./flame-diagram.component.scss'],
 })
 export class FlameDiagramComponent extends WidgetPlatform implements OnInit, OnDestroy {
-
     protected static itemCols: number = 20;
     protected static itemRows: number = 16;
 

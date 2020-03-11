@@ -9,7 +9,6 @@ import { WidgetPlatform } from '../../models/widget-platform';
     styleUrls: ['./deviation-circle-diagram.component.scss'],
 })
 export class DeviationCircleDiagramComponent extends WidgetPlatform implements OnInit, OnDestroy {
-
     public deviationCircleDiagram: DeviationCircleDiagram = {
         deviation: 0, // отклонение в %
         improvement: 0, // улучшение в %
