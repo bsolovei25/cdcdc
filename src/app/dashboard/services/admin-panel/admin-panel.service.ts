@@ -30,6 +30,8 @@ export class AdminPanelService {
 
     public activeWorker: IUser = null;
 
+    public allWorkers$: BehaviorSubject<IUser[]> = new BehaviorSubject<IUser[]>(null);
+
     public activeWorker$: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(this.defaultWorker);
     public activeWorkerScreens$: BehaviorSubject<IScreen[]> = new BehaviorSubject<IScreen[]>(null);
 
@@ -114,6 +116,28 @@ export class AdminPanelService {
         const url: string = `${this.restUrl}/userscreen/${screenWorkerId}/claim/${claimId}`;
         return this.http.delete<any>(url);
     }
+
+    public addWorkerScreen(
+        userId: number,
+        screenId: number,
+        maxClaimId: number = 1
+    ): Observable<any> {
+        const url: string = `${this.restUrl}/userscreen`;
+        const body = {
+            screen: { id: screenId },
+            user: { id: userId },
+            claims: [],
+        };
+        for (let i = 1; i <= maxClaimId; i++) {
+            body.claims.push({ id: i });
+        }
+        return this.http.post<any>(url, body);
+    }
+
+    public removeWorkerScreen(relationId: number): Observable<any> {
+        const url: string = `${this.restUrl}/userscreen/${relationId}`;
+        return this.http.delete<any>(url);
+    }
     //#endregion
 
     // TODO RESERVE WORKER METHOD
@@ -128,6 +152,14 @@ export class AdminPanelService {
 
     public setActiveWorker(worker: IUser): void {
         this.activeWorker$.next(worker);
+    }
+
+    public updateAllWorkers(): void {
+        this.getAllWorkers()
+            .toPromise()
+            .then((data: IUser[]) => {
+                this.allWorkers$.next(data);
+            });
     }
 
     //#endregion

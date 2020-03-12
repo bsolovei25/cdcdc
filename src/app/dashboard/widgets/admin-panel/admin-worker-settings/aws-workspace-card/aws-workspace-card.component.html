@@ -1,7 +1,14 @@
 <div
   class="card"
-  [ngClass]="{'card-active':isActive, 'hover':isChangingCardState}"
+  [ngClass]="{'card-active':select.hasValue(), 'hover':isChangingCardState}"
   (click)="changeCardState()"
 >
   <div class="text">{{workspace.screenName}}</div>
+  <div class="select" *ngIf="isActive">
+    <mat-form-field>
+      <mat-select>
+        <mat-option *ngFor="let item of getValuesSelect()" [value]="item">{{item}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 </div>

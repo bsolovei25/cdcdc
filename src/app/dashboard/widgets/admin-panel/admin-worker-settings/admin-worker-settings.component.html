@@ -85,9 +85,10 @@
       <div class="cards">
         <ng-container *ngFor="let workspace of workspaces">
           <evj-aws-workspace-card
-            [isActive]="true"
+            [isActive]="defineIsWorkspaceActive(workspace)"
             [workspace]="workspace"
             [isChangingCardState]="true"
+            (selectedWorkspace)="onSelectWorkspace($event)"
           ></evj-aws-workspace-card>
         </ng-container>
       </div>
@@ -99,6 +100,7 @@
           [name]="'Высокий уровень доступа'"
           [isActive]="false"
           [isChangingCardState]="true"
+          (click)="onSelectClaim()"
         ></evj-aws-claim-card>
         <evj-aws-claim-card
           [name]="'Открытый доступ'"
@@ -109,6 +111,7 @@
           [name]="'Доступ с ограничениями'"
           [isActive]="false"
           [isChangingCardState]="true"
+          (click)="onSelectClaim()"
         ></evj-aws-claim-card>
       </div>
     </div>

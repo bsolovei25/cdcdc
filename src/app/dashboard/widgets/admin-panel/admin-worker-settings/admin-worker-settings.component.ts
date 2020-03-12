@@ -1,9 +1,10 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { IWorkerOptionAdminPanel, IWorkspace } from '../../../models/admin-panel';
+import { IWorkerOptionAdminPanel, IWorkspace, IScreen } from '../../../models/admin-panel';
 import { IUser } from '../../../models/events-widget';
 import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
 import { Subscription } from 'rxjs';
 import { fillDataShape } from '../../../../@shared/common-functions';
+import { async } from '@angular/core/testing';
 
 @Component({
     selector: 'evj-admin-worker-settings',
@@ -14,6 +15,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     @Output() public closeWorkerSettings: EventEmitter<IUser> = new EventEmitter<IUser>();
 
     public isChangingOption: boolean = false;
+
     public isClaimsShowing: boolean = true;
     public isAlertShowing: boolean = false;
 
@@ -21,14 +23,13 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     public searchIcon: string = 'assets/icons/search-icon.svg';
 
-    public value: string = 'Иванов Иван Иванович';
-    public name: string = 'ФИО';
-
     public options: IWorkerOptionAdminPanel[];
 
     public worker: IUser = null;
 
     public workspaces: IWorkspace[] = [];
+    public workerScreens: IWorkspace[] = [];
+    public workerScreensDetached: IScreen[] = [];
 
     private subscriptions: Subscription[] = [];
 
@@ -66,6 +67,12 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                     },
                 ];
             }),
+            this.adminService.activeWorkerScreens$.subscribe((workerScreens: IScreen[]) => {
+                workerScreens.forEach((item: IScreen) => {
+                    this.workerScreens.push(item.screen);
+                });
+                this.workerScreensDetached = workerScreens;
+            }),
             this.adminService.getAllScreens().subscribe((data: IWorkspace[]) => {
                 this.workspaces = data;
             })
@@ -74,6 +81,71 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     public ngOnDestroy(): void {
         this.subscriptions.forEach((subs: Subscription) => subs.unsubscribe());
+    }
+
+    public defineIsWorkspaceActive(workspace: IWorkspace): boolean {
+        return !!this.workerScreens.find((item: IWorkspace) => item.id === workspace.id);
+    }
+
+    public onSelectWorkspace(event: IWorkspace): void {
+        this.isAlertShowing = true;
+        if (!this.defineIsWorkspaceActive(event)) {
+            this.workerScreens.push(event);
+        } else {
+            const index: number = this.workerScreens.findIndex(
+                (item: IWorkspace) => item.id === event.id
+            );
+            this.workerScreens.splice(index, 1);
+        }
+    }
+
+    // private async sendDataWorkspaces(): Promise<void> {
+    //     this.workerScreens.forEach((item: IWorkspace) => {
+    //         const addingFlag: boolean = !!this.workerScreensDetached.find(
+    //             (wsd: IScreen) => wsd.screen.id === item.id
+    //         );
+    //         if (!addingFlag) {
+    //             await this.adminService.addWorkerScreen(this.worker.id, item.id).toPromise();
+    //         }
+    //     });
+    //     this.workerScreensDetached.forEach((item: IScreen) => {
+    //         const addingFlag: boolean = !!this.workerScreens.find(
+    //             (wsd: IWorkspace) => wsd.id === item.screen.id
+    //         );
+    //         if (!addingFlag) {
+    //             await this.adminService.removeWorkerScreen(item.id).toPromise();
+    //         }
+    //     });
+    // }
+
+    private addWorkspacesToWorker(): number[] {
+        const idArray: number[] = [];
+        this.workerScreens.forEach((item: IWorkspace) => {
+            const addingFlag: boolean = !!this.workerScreensDetached.find(
+                (wsd: IScreen) => wsd.screen.id === item.id
+            );
+            if (!addingFlag) {
+                idArray.push(item.id);
+            }
+        });
+        return idArray;
+    }
+
+    private removeWorkspacesFromWorker(): number[] {
+        const idArray: number[] = [];
+        this.workerScreensDetached.forEach((item: IScreen) => {
+            const addingFlag: boolean = !!this.workerScreens.find(
+                (wsd: IWorkspace) => wsd.id === item.screen.id
+            );
+            if (!addingFlag) {
+                idArray.push(item.id);
+            }
+        });
+        return idArray;
+    }
+
+    public onSelectClaim(): void {
+        this.isAlertShowing = true;
     }
 
     public onFieldChanging(event: IWorkerOptionAdminPanel): void {
@@ -89,6 +161,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         } else {
             this.worker[event.key] = event.value;
         }
+        this.isAlertShowing = true;
     }
 
     public onReturn(): void {
@@ -96,6 +169,22 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public async onSave(): Promise<void> {
-        this.closeWorkerSettings.emit(this.worker);
+        if (this.isCheckBoxClicked) {
+            await this.adminService.editWorkerData(this.worker).toPromise();
+            this.addWorkspacesToWorker().forEach(async (index: number) => {
+                await this.adminService.addWorkerScreen(this.worker.id, index).toPromise();
+            });
+            this.removeWorkspacesFromWorker().forEach(async (index: number) => {
+                await this.adminService.removeWorkerScreen(index).toPromise();
+            });
+            this.adminService.updateAllWorkers();
+            const userScreens: IScreen[] = await this.adminService
+                .getWorkerScreens(this.worker.id)
+                .toPromise();
+            this.adminService.activeWorkerScreens$.next(userScreens);
+            this.adminService.activeWorker$.next(this.worker);
+
+            this.closeWorkerSettings.emit(this.worker);
+        }
     }
 }
