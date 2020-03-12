@@ -1,14 +1,15 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { Subscription } from 'rxjs';
 import { IProductionPyramid } from '../../models/production-pyramid';
+import { WidgetPlatform } from '../../models/widget-platform';
 
 @Component({
     selector: 'evj-production-pyramid',
     templateUrl: './production-pyramid.component.html',
     styleUrls: ['./production-pyramid.component.scss'],
 })
-export class ProductionPyramidComponent implements OnInit {
+export class ProductionPyramidComponent extends WidgetPlatform implements OnInit, OnDestroy {
     public array: IProductionPyramid[] = [
         {
             cardTitle: 'Без пожара',
@@ -24,31 +25,27 @@ export class ProductionPyramidComponent implements OnInit {
         },
     ];
 
-    static itemCols: number = 20;
-    static itemRows: number = 16;
-
-    public title: string;
-    public previewTitle: string;
-
-    public subscription: Subscription;
+    protected static itemCols: number = 35;
+    protected static itemRows: number = 16;
 
     constructor(
-        private widgetService: NewWidgetService,
+        protected widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-            this.title = data.title;
-            this.previewTitle = data.widgetType;
-        });
+        super(widgetService, isMock, id, uniqId);
     }
 
-    ngOnInit() {}
+    ngOnInit(): void {
+        super.widgetInit();
+    }
 
-    ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
+    ngOnDestroy(): void {
+        super.ngOnDestroy();
+    }
+
+    protected dataHandler(ref: any): void {
+        // this.data = ref.chartItems;
     }
 }

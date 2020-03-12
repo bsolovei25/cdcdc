@@ -1,26 +1,17 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
+import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 
 @Component({
     selector: 'evj-truncated-pie-s-first',
     templateUrl: './truncated-pie-s-first.component.html',
     styleUrls: ['./truncated-pie-s-first.component.scss'],
 })
-export class TruncatedPieSFirstComponent implements OnInit {
-    static itemCols = 15;
-    static itemRows = 17;
+export class TruncatedPieSFirstComponent extends WidgetPlatform implements OnInit, OnDestroy {
+    static itemCols: number = 15;
+    static itemRows: number = 17;
 
-    private subscription: Subscription;
-
-    public title;
-    public code;
-    public units = '%';
-    public name;
-    public icon = 'flask';
-    public previewTitle: string = 'truncated-pie-s-first';
-
-    public datas = [
+    public datas: any = [
         { name: 'Статическое Оборудование 1', plan: 5, value: 28 },
         { name: 'Статическое Оборудование 2', plan: 32, value: 5 },
         { name: 'Статическое Оборудование 3', plan: 100, value: 67 },
@@ -32,38 +23,20 @@ export class TruncatedPieSFirstComponent implements OnInit {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-            this.title = data.title;
-            this.code = data.code;
-            //  this.units = data.units;
-            this.name = data.name;
-        });
+        super(widgetService, isMock, id, uniqId);
+        this.widgetIcon = 'flask';
+        this.widgetUnits = '%';
     }
 
-    ngOnInit() {
-        this.showMock(this.isMock);
+    ngOnInit(): void {
+        super.widgetInit();
     }
 
-    showMock(show) {
-        if (show) {
-            this.wsDisconnect();
-        } else {
-            this.wsConnect();
-        }
+    protected dataHandler(ref: any): void {
+        this.datas = ref.values;
     }
 
-    private wsConnect() {
-        this.widgetService
-            .getWidgetLiveDataFromWS(this.id, 'truncated-diagram-percentage')
-            .subscribe((ref) => {
-                this.datas = ref.values;
-            });
-    }
-    private wsDisconnect() {}
-
-    ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
+    ngOnDestroy(): void {
+        super.ngOnDestroy();
     }
 }

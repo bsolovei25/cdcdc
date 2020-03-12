@@ -8,13 +8,14 @@ import {
     CenterCoords,
     LimitLine,
 } from '../../models/semicircle-energy';
+import { WidgetPlatform } from '../../models/widget-platform';
 
 @Component({
     selector: 'evj-semicircle-energy',
     templateUrl: './semicircle-energy.component.html',
     styleUrls: ['./semicircle-energy.component.scss'],
 })
-export class SemicircleEnergyComponent implements OnInit, OnDestroy {
+export class SemicircleEnergyComponent extends WidgetPlatform implements OnInit, OnDestroy {
     /* Параметры для круговых диаграмм */
 
     energyCircleDiagram: EnergyCircleDiagram = {
@@ -79,54 +80,32 @@ export class SemicircleEnergyComponent implements OnInit, OnDestroy {
     public diagramLogoDanger: string;
     public isWarning: boolean = false;
 
-    public title: string;
-    public units: string = 'кг/м^3';
-    public widgetType: string = 'semicircle-energy';
-    public previewTitle: string = 'semicircle-energy';
-    public code: string = '';
-
-    subscriptions: Subscription[] = [];
-
-    static itemCols: number = 14;
-    static itemRows: number = 11;
+    protected static itemCols: number = 14;
+    protected static itemRows: number = 11;
 
     constructor(
-        private widgetService: NewWidgetService,
+        protected widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscriptions.push(
-            this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-                if (data) {
-                    this.title = data.title;
-                    this.code = data.code;
-                    // this.units = data.units;
-                    // this.name = data.name;
-                }
-            })
-        );
+        super(widgetService, isMock, id, uniqId);
+        this.widgetUnits = 'кг/м^3';
     }
 
     ngOnInit(): void {
-        if (!this.isMock) {
-            this.subscriptions.push(
-                this.widgetService
-                    .getWidgetLiveDataFromWS(this.id, this.widgetType)
-                    .subscribe((data: SemicircleEnergy) => {
-                        this.copyData(data);
-                        this.logoType();
-                        this.warningControl();
-                        this.drawDiagram();
-                    })
-            );
-        }
+        super.widgetInit();
     }
 
     ngOnDestroy(): void {
-        if (this.subscriptions) {
-            this.subscriptions.forEach((subscription) => subscription.unsubscribe());
-        }
+        super.ngOnDestroy();
+    }
+
+    dataHandler(ref: SemicircleEnergy): void {
+        this.copyData(ref);
+        this.logoType();
+        this.warningControl();
+        this.drawDiagram();
     }
 
     copyData(data: SemicircleEnergy): void {
