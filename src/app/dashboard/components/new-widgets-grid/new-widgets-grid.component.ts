@@ -61,8 +61,8 @@ export class NewWidgetsGridComponent implements OnInit {
         this.options = {
             gridType: GridType.Fixed,
             displayGrid: 'none',
-            // swap: true,
-            // swapWhileDragging: false,
+            //swap: true,
+            //swapWhileDragging: false,
             itemChangeCallback: this.itemChange.bind(this),
             enableEmptyCellClick: false,
             enableEmptyCellContextMenu: false,

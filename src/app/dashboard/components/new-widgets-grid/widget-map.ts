@@ -4,7 +4,7 @@ import { LineDiagramComponent } from '../../widgets/line-diagram/line-diagram.co
 import { ManualInputComponent } from '../../widgets/manual-input/manual-input.component';
 import { ChangeShiftComponent } from '../../widgets/change-shift/change-shift.component';
 import { EnergeticsComponent } from '../../widgets/energetics/energetics.component';
-import { WidgetPiesComponent } from '../../widgets/widgets-pie/widget-pies/widget-pies.component';
+import { WidgetPiesComponent } from '../../widgets/widgets-pie/widget-pies/widget-pies/widget-pies.component';
 import { EventsWorkSpaceComponent } from '../../widgets/workspace/events-workspace.component';
 import { TruncatedPieSFirstComponent } from '../../widgets/truncated-pie-first/truncated-pie-s-first/truncated-pie-s-first.component';
 import { TruncatedPieSIconComponent } from '../../widgets/truncated-pie-icon/truncated-pie-s-icon/truncated-pie-s-icon.component';
@@ -14,7 +14,7 @@ import { BarChartsComponent } from '../../widgets/bar-chart/bar-charts/bar-chart
 import { SuspenseMachineComponent } from '../../widgets/suspense-machine/suspense-machine.component';
 import { EnterpriseMapComponent } from '../../widgets/map-enterprise/enterprise-map.component';
 import { CircleDiagramComponent } from '../../widgets/circle-diagram/circle-diagram.component';
-import { MapEcologyComponent } from '../../widgets/map-ecology/map-ecology.component';
+import { MapEcologyComponent } from '../../widgets/map-ecology/map-ecology/map-ecology.component';
 import { UnityTemplateComponent } from '../../widgets/unity-template/unity-template.component';
 import { RingSFactoryDiagramComponent } from '../../widgets/ring-factory-diagrams/ring-s-factory-diagram/ring-s-factory-diagram.component';
 import { OperationEfficiencyComponent } from '../../widgets/operation-efficiency/operation-efficiency.component';

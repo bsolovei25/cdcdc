@@ -1,35 +1,41 @@
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { Subscription } from 'rxjs';
-import { WidgetPlatform } from '../../models/widget-platform';
 
 @Component({
     selector: 'evj-flame-diagram',
     templateUrl: './flame-diagram.component.html',
     styleUrls: ['./flame-diagram.component.scss'],
 })
-export class FlameDiagramComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    protected static itemCols: number = 20;
-    protected static itemRows: number = 16;
+export class FlameDiagramComponent implements OnInit, OnDestroy {
+    private subscription: Subscription;
+    public title: string;
+    public previewTitle: string = 'flame-diagram';
+    static itemCols = 20;
+    static itemRows = 16;
 
     constructor(
-        protected widgetService: NewWidgetService,
+        public widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        this.subscription = this.widgetService.getWidgetChannel(id).subscribe((data) => {
+            this.title = data.title;
+        });
     }
 
-    ngOnInit(): void {
-        super.widgetInit();
+    ngOnInit() {
+        this.showMock();
     }
 
-    ngOnDestroy(): void {
-        super.ngOnDestroy();
+    private showMock(): void {
+        // do subscribe
     }
 
-    protected dataHandler(ref: any): void {
-        // this.data = ref.chartItems;
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
 import {
     IEnergeticsEndsLine,
@@ -8,16 +9,17 @@ import {
     IEnergeticsCard,
     IEnergeticsCircleDiagram,
 } from '../../models/energetics';
-import { WidgetPlatform } from '../../models/widget-platform';
 
 @Component({
     selector: 'evj-energetics',
     templateUrl: './energetics.component.html',
     styleUrls: ['./energetics.component.scss'],
 })
-export class EnergeticsComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    protected static itemCols: number = 18;
-    protected static itemRows: number = 14;
+export class EnergeticsComponent implements OnInit, OnDestroy {
+    static itemCols: number = 18;
+    static itemRows: number = 14;
+
+    public subscriptions: Subscription[] = [];
 
     /* Приблизительная структура, получаемая с бека */
 
@@ -92,28 +94,35 @@ export class EnergeticsComponent extends WidgetPlatform implements OnInit, OnDes
     public termoRadius: string = (15.91549430918954 + 6).toString();
     public radPoint: string = '0.8';
 
+    public title: string;
+    public previewTitle: string;
+
     constructor(
-        protected widgetService: NewWidgetService,
+        private widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
-        this.widgetUnits = 'гДж';
+        this.subscriptions.push(
+            this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
+                this.title = data.title;
+                this.previewTitle = data.widgetType;
+                // this.code = data.code;
+                // this.units = data.units;
+                // this.name = data.name;
+            })
+        );
     }
 
     ngOnInit(): void {
-        super.widgetInit();
         if (!this.isMock) {
             this.wsConnect();
         }
     }
 
     ngOnDestroy(): void {
-        super.ngOnDestroy();
+        this.subscriptions.forEach((el) => el.unsubscribe());
     }
-
-    protected dataHandler(ref: any): void {}
 
     wsConnect(): void {
         this.subscriptions.push(

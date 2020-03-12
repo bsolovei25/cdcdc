@@ -1,6 +1,16 @@
-import { Component, OnDestroy, Inject, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import {
+    Component,
+    OnDestroy,
+    OnInit,
+    Inject,
+    ElementRef,
+    ViewChild,
+    Input,
+    AfterViewInit,
+} from '@angular/core';
+
 import { NewWidgetService } from '../../services/new-widget.service';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { Subscription } from 'rxjs';
 
 declare var d3: any;
 
@@ -9,9 +19,18 @@ declare var d3: any;
     templateUrl: './circle-diagram.component.html',
     styleUrls: ['./circle-diagram.component.scss'],
 })
-export class CircleDiagramComponent extends WidgetPlatform implements OnDestroy, AfterViewInit {
+export class CircleDiagramComponent implements OnInit, OnDestroy, AfterViewInit {
     private x: number = 175;
     private y: number = 40;
+
+    static itemCols = 18;
+    static itemRows = 14;
+
+    public code: string;
+    public title: string;
+    public units: string = 'шт.';
+    public previewTitle: string = 'circle-diagram';
+    public options;
 
     public svg: any;
 
@@ -22,10 +41,8 @@ export class CircleDiagramComponent extends WidgetPlatform implements OnDestroy,
         prognosis: 0,
     };
 
-    public readonly RADIUS: number = 40;
-
-    protected static itemCols: number = 18;
-    protected static itemRows: number = 14;
+    public readonly RADIUS = 40;
+    private subscriptions: Subscription[] = [];
 
     @ViewChild('myCircle') myCircle: ElementRef;
 
@@ -35,23 +52,42 @@ export class CircleDiagramComponent extends WidgetPlatform implements OnDestroy,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        this.subscriptions.push(
+            this.widgetService.getWidgetChannel(id).subscribe((data) => {
+                (this.code = data.code),
+                    (this.title = data.title),
+                    //    this.units = data.units,
+                    (this.options = data.widgetOptions);
+            })
+        );
     }
 
+    ngOnInit(): void {}
+
     ngAfterViewInit(): void {
-        this.widgetInit();
+        try {
+            if (!this.isMock) {
+                this.subscriptions.push(
+                    this.widgetService
+                        .getWidgetLiveDataFromWS(this.id, 'circle-diagram')
+                        .subscribe((ref) => {
+                            this.data = ref;
+                            if (this.svg) {
+                                this.svg.remove();
+                            }
+                            this.d3Circle(this.data, this.myCircle.nativeElement);
+                        })
+                );
+            }
+        } catch {}
     }
 
     ngOnDestroy(): void {
-        super.ngOnDestroy();
-    }
-
-    protected dataHandler(ref: any): void {
-        this.data = ref;
-        if (this.svg) {
-            this.svg.remove();
+        if (this.subscriptions) {
+            for (const subscribe of this.subscriptions) {
+                subscribe.unsubscribe();
+            }
         }
-        this.d3Circle(this.data, this.myCircle.nativeElement);
     }
 
     public d3Circle(data, el): void {
@@ -107,7 +143,7 @@ export class CircleDiagramComponent extends WidgetPlatform implements OnDestroy,
             .attr('dominant-baseline', 'middle')
             .text(summ);
 
-        const acknowledgedl = this.svg
+        let acknowledgedl = this.svg
             .append('text')
             .attr('font-size', '8px')
             .attr('x', this.x)
@@ -115,7 +151,7 @@ export class CircleDiagramComponent extends WidgetPlatform implements OnDestroy,
             .attr('fill', 'orange')
             .text('Не квитировано', data.acknowledgedl);
 
-        const acknowledgedl_num = this.svg
+        let acknowledgedl_num = this.svg
             .append('text')
             .attr('font-size', '10px')
             .attr('x', this.x)
@@ -123,7 +159,7 @@ export class CircleDiagramComponent extends WidgetPlatform implements OnDestroy,
             .attr('fill', !data.acknowledged ? 'gray' : 'orange')
             .text(data.acknowledged);
 
-        const nonAcknowledged = this.svg
+        let nonAcknowledged = this.svg
             .append('text')
             .attr('font-size', '8px')
             .attr('x', this.x)
@@ -131,7 +167,7 @@ export class CircleDiagramComponent extends WidgetPlatform implements OnDestroy,
             .attr('fill', 'white')
             .text('Квитировано', data.nonAcknowledged);
 
-        const nonAcknowledged_num = this.svg
+        let nonAcknowledged_num = this.svg
             .append('text')
             .attr('font-size', '10px')
             .attr('x', this.x)
@@ -139,7 +175,7 @@ export class CircleDiagramComponent extends WidgetPlatform implements OnDestroy,
             .attr('fill', !data.nonAcknowledged ? 'gray' : 'white')
             .text(data.nonAcknowledged);
 
-        const diagnostic = this.svg
+        let diagnostic = this.svg
             .append('text')
             .attr('font-size', '8px')
             .attr('x', this.x)
@@ -147,7 +183,7 @@ export class CircleDiagramComponent extends WidgetPlatform implements OnDestroy,
             .attr('fill', 'var(--color-border-active)')
             .text('Диагностика', data.nonAcknowledged);
 
-        const diagnostic_num = this.svg
+        let diagnostic_num = this.svg
             .append('text')
             .attr('font-size', '10px')
             .attr('x', this.x)
@@ -155,7 +191,7 @@ export class CircleDiagramComponent extends WidgetPlatform implements OnDestroy,
             .attr('fill', !data.diagnostics ? 'gray' : 'var(--color-border-active)')
             .text(data.diagnostics);
 
-        const prognosis = this.svg
+        let prognosis = this.svg
             .append('text')
             .attr('font-size', '8px')
             .attr('x', this.x)
@@ -163,7 +199,7 @@ export class CircleDiagramComponent extends WidgetPlatform implements OnDestroy,
             .attr('fill', 'var(--color-circle)')
             .text('Прогноз', data.prognosis);
 
-        const prognosis_num = this.svg
+        let prognosis_num = this.svg
             .append('text')
             .attr('font-size', '10px')
             .attr('x', this.x)
@@ -171,7 +207,7 @@ export class CircleDiagramComponent extends WidgetPlatform implements OnDestroy,
             .attr('fill', !data.prognosis ? 'gray' : 'var(--color-circle)')
             .text(data.prognosis);
 
-        const pie_back = this.svg
+        let pie_back = this.svg
             .append('image')
             .attr(
                 'xlink:href',

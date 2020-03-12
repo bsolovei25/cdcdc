@@ -1,6 +1,7 @@
-import { Component, AfterViewInit, Inject, ElementRef, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { format } from 'url';
+import { Subscription } from 'rxjs';
 declare var d3: any;
 
 @Component({
@@ -8,8 +9,13 @@ declare var d3: any;
     templateUrl: './chain-map.component.html',
     styleUrls: ['./chain-map.component.scss'],
 })
-export class ChainMapComponent extends WidgetPlatform implements AfterViewInit, OnDestroy {
+export class ChainMapComponent implements AfterViewInit {
     @ViewChild('chain') chain: ElementRef;
+
+    static itemCols = 30;
+    static itemRows = 20;
+
+    public previewTitle: string = 'chain-map';
 
     public dataStyle = {
         id_0: { status: 'pipeActive' },
@@ -27,6 +33,7 @@ export class ChainMapComponent extends WidgetPlatform implements AfterViewInit, 
         id_12: { status: 'nText' },
         id_13: { status: 'cText' },
     };
+
     public data = [
         {
             mapLine: [
@@ -244,12 +251,16 @@ export class ChainMapComponent extends WidgetPlatform implements AfterViewInit, 
         },
     ];
 
+    public title;
+    public code;
+    public units;
+    public name;
+
     public mass1;
     public mass2;
     public check = true;
 
-    protected static itemCols: number = 30;
-    protected static itemRows: number = 20;
+    private subscriptions: Subscription[] = [];
 
     constructor(
         public widgetService: NewWidgetService,
@@ -257,26 +268,30 @@ export class ChainMapComponent extends WidgetPlatform implements AfterViewInit, 
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
-
-        this.isRealtimeData = false;
+        this.subscriptions.push(
+            this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
+                this.title = data.title;
+                this.code = data.code;
+                this.name = data.name;
+            })
+        );
     }
 
-    ngAfterViewInit(): void {
-        super.widgetInit();
+    ngAfterViewInit() {
+        if (!this.isMock) {
+            this.drowChain();
+        }
     }
 
-    ngOnDestroy(): void {
-        super.ngOnDestroy();
+    ngOnDestroy() {
+        if (this.subscriptions) {
+            for (const subscribe of this.subscriptions) {
+                subscribe.unsubscribe();
+            }
+        }
     }
 
-    protected dataConnect(): void {
-        this.drawChain();
-    }
-
-    protected dataHandler(ref: any): void {}
-
-    public drawChain(): void {
+    public drowChain() {
         this.mass1 = this.data[0];
         this.mass2 = this.data[1];
         this.changeLine(this.chain.nativeElement, this.mass1);
@@ -294,7 +309,7 @@ export class ChainMapComponent extends WidgetPlatform implements AfterViewInit, 
         }, 3000);
     }
 
-    public changeLine(el, mass): void {
+    public changeLine(el, mass) {
         const activeLine: any = el.querySelectorAll('.st3');
 
         const arrow: any = el.querySelectorAll('.st5');
@@ -351,7 +366,7 @@ export class ChainMapComponent extends WidgetPlatform implements AfterViewInit, 
         }
     }
 
-    public changeCircle(el, mass): void {
+    public changeCircle(el, mass) {
         const bigPoint: any = el.querySelectorAll('.st38');
 
         const activeLine: any = el.querySelectorAll('.st50');

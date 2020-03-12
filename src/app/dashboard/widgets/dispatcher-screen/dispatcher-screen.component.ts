@@ -2,29 +2,37 @@ import {
     Component,
     HostListener,
     Inject,
+    OnInit,
     OnDestroy,
     AfterViewInit,
+    ViewChild,
+    ElementRef,
 } from '@angular/core';
 import { UnityLoader } from './UnityLoader.js';
 import { PlatformLocation } from '@angular/common';
 import { NewWidgetService } from '../../services/new-widget.service';
+import { Subscription } from 'rxjs';
 import { WidgetSettingsService } from '../../services/widget-settings.service';
-import {WidgetPlatform} from '../../models/widget-platform';
 
 @Component({
     selector: 'evj-dispatcher-screen',
     templateUrl: './dispatcher-screen.component.html',
     styleUrls: ['./dispatcher-screen.component.scss'],
 })
-export class DispatcherScreenComponent extends WidgetPlatform implements AfterViewInit, OnDestroy {
+export class DispatcherScreenComponent implements OnInit, AfterViewInit, OnDestroy {
     private baseUrl: string;
     private unityInstance: any;
     isStart: boolean;
 
+    title: string;
+    private subscriptions: Subscription[] = [];
+
     private canvas: HTMLCanvasElement;
 
-    protected static itemCols: number = 15;
-    protected static itemRows: number = 15;
+    static itemCols: number = 15;
+    static itemRows: number = 15;
+
+    public previewTitle: string;
 
     constructor(
         public widgetService: NewWidgetService,
@@ -34,28 +42,40 @@ export class DispatcherScreenComponent extends WidgetPlatform implements AfterVi
         @Inject('uniqId') public uniqId: string,
         platformLocation: PlatformLocation
     ) {
-        super(widgetService, isMock, id, uniqId);
         const location = (platformLocation as any).location;
         this.baseUrl = location.origin + location.pathname.replace('dashboard', '');
+        this.subscriptions.push(
+            this.widgetService.getWidgetChannel(id).subscribe((data) => {
+                this.title = data.title;
+                this.previewTitle = data.widgetType.toString();
+                console.log(data.widgetType);
+            })
+        );
     }
 
+    ngOnInit(): void {}
+
     ngAfterViewInit(): void {
-        super.widgetInit();
+        this.showMock(this.isMock);
     }
 
     ngOnDestroy(): void {
-        super.ngOnDestroy();
         console.log('destroy_unity');
+        if (this.subscriptions) {
+            for (const subscription of this.subscriptions) {
+                subscription.unsubscribe();
+            }
+        }
         if (this.unityInstance) {
             this.unityInstance.Quit(() => console.log('destroy'));
         }
     }
 
-    protected dataConnect(): void {
-        this.InitUnity();
-    }
-
-    protected dataHandler(ref: any): void {
+    private showMock(show: boolean): void {
+        if (!show) {
+            this.InitUnity();
+            console.log('init_u');
+        }
     }
 
     @HostListener('document:resize', ['$event'])

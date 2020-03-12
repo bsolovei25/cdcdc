@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { EventService } from '../../services/event.service';
 import { NewWidgetService } from '../../services/new-widget.service';
-import { WidgetPlatform } from '../../models/widget-platform';
 
 export interface IDeviationsTable {
     equipment: string;
@@ -15,7 +16,12 @@ export interface IDeviationsTable {
     templateUrl: './deviations-table.component.html',
     styleUrls: ['./deviations-table.component.scss'],
 })
-export class DeviationsTableComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class DeviationsTableComponent implements OnInit, OnDestroy {
+    isLoading: boolean = false;
+
+    public title = '';
+    private subscription: Subscription;
+
     data: IDeviationsTable[] = [
         {
             equipment: 'ЭЛОУ-АВТ-6',
@@ -229,25 +235,36 @@ export class DeviationsTableComponent extends WidgetPlatform implements OnInit, 
         },
     ];
 
-    protected static itemCols: number = 15;
-    protected static itemRows: number = 18;
+    static itemCols = 15;
+    static itemRows = 18;
+
+    public previewTitle: string;
 
     constructor(
-        protected widgetService: NewWidgetService,
+        private eventService: EventService,
+        public widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
+            this.title = data.title;
+            this.previewTitle = data.widgetType;
+        });
     }
 
-    ngOnInit(): void {
-        super.widgetInit();
+    ngOnInit() {
+        if (!this.isMock) {
+            this.subscription = this.eventService.event$.subscribe((value) => {
+                if (value) {
+                }
+            });
+        }
     }
 
-    ngOnDestroy(): void {
-        super.ngOnDestroy();
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
-
-    protected dataHandler(ref: any): void {}
 }

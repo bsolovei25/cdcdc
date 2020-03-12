@@ -1,15 +1,15 @@
 <evj-widget-preview
-  [title]="widgetTitle"
-  [previewTitle]="widgetType"
+  [title]="title"
+  [previewTitle]="previewTitle"
   *ngIf="isMock"
 ></evj-widget-preview>
 
 <div class="container pointer-event" *ngIf="!isMock">
   <evj-widget-header
-    [title]="widgetTitle"
-    [id]="widgetId"
-    [units]="widgetUnits"
-    [uniqId]="widgetUniqId"
+    [title]="title"
+    [id]="id"
+    [units]="units"
+    [uniqId]="uniqId"
   ></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>

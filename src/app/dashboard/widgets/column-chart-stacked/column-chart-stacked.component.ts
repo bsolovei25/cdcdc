@@ -1,40 +1,61 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
+import { Subscription } from 'rxjs';
 import { IColumnChartStacked, IColumnChartStackedDataWS } from '../../models/column-chart-stacked';
-import { WidgetPlatform } from '../../models/widget-platform';
+import { IWidgets } from '../../models/widget.model';
 
 @Component({
     selector: 'evj-column-chart-stacked',
     templateUrl: './column-chart-stacked.component.html',
     styleUrls: ['./column-chart-stacked.component.scss'],
 })
-export class ColumnChartStackedComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class ColumnChartStackedComponent implements OnInit, OnDestroy {
+    public icon: string = 'columns';
+
     public cols: IColumnChartStacked[] = [];
 
-    protected static itemCols: number = 26;
-    protected static itemRows: number = 20;
+    public title: string;
+    public units: string = '';
+    public previewTitle: string;
+    public widgetType: string = 'column-chart-stacked';
+
+    public subscriptions: Subscription[] = [];
+
+    static itemCols: number = 26;
+    static itemRows: number = 20;
 
     constructor(
-        protected widgetService: NewWidgetService,
+        private widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
-        this.widgetIcon = 'columns';
+        this.subscriptions.push(
+            this.widgetService.getWidgetChannel(this.id).subscribe((data: IWidgets) => {
+                this.title = data.title;
+                this.previewTitle = data.widgetType;
+                this.units = data.units;
+                // this.code = data.code;
+                // this.name = data.name;
+            })
+        );
     }
 
-    ngOnInit(): void {
-        super.widgetInit();
+    public ngOnInit(): void {
+        if (!this.isMock) {
+            this.subscriptions.push(
+                this.widgetService
+                    .getWidgetLiveDataFromWS(this.id, this.widgetType)
+                    .subscribe((data: IColumnChartStackedDataWS) => {
+                        this.cols = data.items;
+                        this.findMax();
+                    })
+            );
+        }
     }
 
-    ngOnDestroy(): void {
-        super.ngOnDestroy();
-    }
-
-    protected dataHandler(ref: IColumnChartStackedDataWS): void {
-        this.cols = ref.items;
-        this.findMax();
+    public ngOnDestroy(): void {
+        this.subscriptions.forEach((subs: Subscription) => subs.unsubscribe());
     }
 
     public findMax(): void {

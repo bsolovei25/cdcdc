@@ -20,8 +20,8 @@ import { NewWidgetsPanelComponent } from './components/new-widgets-panel/new-wid
 import { NewWidgetsGridComponent } from './components/new-widgets-grid/new-widgets-grid.component';
 import { GridsterModule } from 'angular-gridster2';
 import { UserInfoComponent } from './components/user-info/user-info.component';
-import { WidgetPiesComponent } from './widgets/widgets-pie/widget-pies/widget-pies.component';
-import { WidgetsPieComponent } from './widgets/widgets-pie/widget-pie-circle/widget-pie.component';
+import { WidgetPiesComponent } from './widgets/widgets-pie/widget-pies/widget-pies/widget-pies.component';
+import { WidgetsPieComponent } from './widgets/widgets-pie/widget-pie-circle/widget-pie/widget-pie.component';
 import { WidgetHeaderComponent } from './components/widget-header/widget-header.component';
 import { EventsWorkSpaceComponent } from './widgets/workspace/events-workspace.component';
 import { FrameTopComponent } from './components/frame-top/frame-top.component';
@@ -40,7 +40,7 @@ import { SuspenseMachineComponent } from './widgets/suspense-machine/suspense-ma
 import { EnterpriseMapComponent } from './widgets/map-enterprise/enterprise-map.component';
 import { DetailedLineDiagramComponent } from './components/detailed-line-diagram/detailed-line-diagram.component';
 import { OperationEfficiencyComponent } from './widgets/operation-efficiency/operation-efficiency.component';
-import { MapEcologyComponent } from './widgets/map-ecology/map-ecology.component';
+import { MapEcologyComponent } from './widgets/map-ecology/map-ecology/map-ecology.component';
 import { UnityTemplateComponent } from './widgets/unity-template/unity-template.component';
 import { PowIndexPipe } from './pipes/pow-index.pipe';
 import { RingFactoryDiagramComponent } from './widgets/ring-factory-diagrams/ring-factory-diagram/ring-factory-diagram.component';

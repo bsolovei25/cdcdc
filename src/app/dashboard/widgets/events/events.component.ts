@@ -18,28 +18,32 @@ import { NewUserSettingsService } from '../../services/new-user-settings.service
 import { EventService } from '../../services/event.service';
 import { MaterialControllerService } from '../../services/material-controller.service';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import {WidgetPlatform} from "../../models/widget-platform";
 
 @Component({
     selector: 'evj-events',
     templateUrl: './events.component.html',
     styleUrls: ['./events.component.scss'],
 })
-export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class EventsComponent implements OnInit, OnDestroy {
     @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
 
     isList: boolean = false;
+    title: string = '';
     isDeleteRetrieval: boolean = false;
+
     selectedId: number = 0;
     eventOverlayId: number;
 
     private isAllowScrollLoading: boolean = true;
 
+    static itemCols: number = 30;
+    static itemRows: number = 20;
+
     public previewTitle: string;
 
     public placeNames: string[] = [];
 
-    public categories: EventsWidgetCategory[] = [
+    categories: EventsWidgetCategory[] = [
         {
             id: 1001,
             code: 'smotr',
@@ -102,9 +106,9 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         },
     ];
 
-    public notifications: EventsWidgetNotificationPreview[] = [];
+    notifications: EventsWidgetNotificationPreview[] = [];
 
-    public filters: EventsWidgetFilter[] = [
+    filters: EventsWidgetFilter[] = [
         {
             id: 3001,
             code: 'all',
@@ -128,7 +132,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         },
     ];
 
-    public iconStatus: {name: string, iconUrl: string}[] = [
+    iconStatus = [
         {
             name: 'inWork',
             iconUrl: './assets/icons/widgets/process/in-work.svg',
@@ -150,9 +154,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     };
 
     private readonly defaultIconPath: string = './assets/icons/widgets/events/smotr.svg';
-
-    protected static itemCols: number = 30;
-    protected static itemRows: number = 20;
+    private subscriptions: Subscription[] = [];
 
     constructor(
         private eventService: EventService,
@@ -162,21 +164,52 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
-    ) {
-        super(widgetService, isMock, id, uniqId);
-    }
+    ) {}
 
     public ngOnInit(): void {
-        super.widgetInit();
+        this.subscriptions.push(
+            this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
+                if (data) {
+                    this.title = data.title;
+                    this.previewTitle = data.widgetType;
+                }
+            })
+        );
+        // this.subscriptions.push(
+        //     this.eventService.updateEvent$.subscribe((value) => {
+        //         if (value) {
+        //             this.wsConnect();
+        //         }
+        //     })
+        // );
+        this.showMock(this.isMock);
     }
 
     public ngOnDestroy(): void {
-        super.ngOnDestroy();
+        for (const subscription of this.subscriptions) {
+            subscription.unsubscribe();
+        }
     }
 
-    protected async dataConnect(): Promise<void> {
-        super.dataConnect();
+    private showMock(show: boolean): void {
+        if (show) {
+            // do nothing
+        } else {
+            // this.getData();
+            // this.getStats();
+            this.wsConnect();
+        }
+    }
+
+    private async wsConnect(): Promise<void> {
         this.placeNames = await this.eventService.getPlaces(this.id);
+        this.subscriptions.push(
+            this.widgetService
+                .getWidgetLiveDataFromWS(this.id, 'events')
+                .subscribe((ref: EventsWidgetDataPreview) => {
+                    this.wsHandler(ref);
+                })
+        );
         this.subscriptions.push(
             this.widgetService.currentDatesObservable.subscribe((ref) => {
                 this.getData();
@@ -185,48 +218,25 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         );
     }
 
-    protected dataHandler(ref: any): void {
-        for (const place of this.notifications) {
-            // TODO что то надо сделать
-        }
-
-        switch (ref.action) {
-            case 'add':
-                this.addWsElement(ref.notification);
-                break;
-            case 'edit':
-                this.editWsElement(ref.notification);
-                break;
-            case 'delete':
-                this.deleteWsElement(ref.notification);
-                break;
-        }
-    }
-
-    // private async wsConnect(): Promise<void> {
-    //     this.placeNames = await this.eventService.getPlaces(this.id);
-    //     this.subscriptions.push(
-    //         this.widgetService
-    //             .getWidgetLiveDataFromWS(this.id, 'events')
-    //             .subscribe((ref: EventsWidgetDataPreview) => {
-    //                 this.wsHandler(ref);
-    //             })
-    //     );
-    //     this.subscriptions.push(
-    //         this.widgetService.currentDatesObservable.subscribe((ref) => {
-    //             this.getData();
-    //             this.getStats();
-    //         })
-    //     );
-    // }
-
     public onCategoryClick(category: EventsWidgetCategory): void {
+        // category.isActive = !category.isActive;
+        // this.appendOptions();
+        // const idx = this.filters.findIndex((i) => i.isActive === true);
+        // if (idx !== -1) {
+        //     this.onFilterClick(this.filters[idx]);
+        // }
+
         category.isActive = !category.isActive;
         this.getData();
         this.getStats();
     }
 
     public onFilterClick(filter: EventsWidgetFilter): void {
+        // this.filters.forEach((f) => (f.isActive = false));
+        // filter.isActive = true;
+        // this.appendOptions();
+        // filter.notificationsCount = this.notifications.length;
+
         this.filters.forEach((f) => (f.isActive = false));
         filter.isActive = true;
         this.getData();
@@ -248,7 +258,23 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     }
 
     private wsHandler(data: EventsWidgetDataPreview): void {
+        for (const place of this.notifications) {
+            // if () {
+            //
+            // }
+        }
 
+        switch (data.action) {
+            case 'add':
+                this.addWsElement(data.notification);
+                break;
+            case 'edit':
+                this.editWsElement(data.notification);
+                break;
+            case 'delete':
+                this.deleteWsElement(data.notification);
+                break;
+        }
     }
 
     private addWsElement(notification: EventsWidgetNotificationPreview): void {
@@ -288,6 +314,43 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         }
     }
 
+    // private appendOptions(): void {
+    //     this.clearNotifications();
+    //     const options = this.getCurrentOptions();
+    //     console.log(options);
+    //     this.notifications = this.applyFilter(this.allNotifications, options);
+    //     // filtering only at front-end
+    // }
+
+    // sortByPriority(): void {
+    //     const danger = this.notifications.filter((n) => n.priority.code === '0');
+    //     const warning = this.notifications.filter((n) => n.priority.code === '1');
+    //     const standard = this.notifications.filter((n) => n.priority.code === '2');
+    //     this.notifications = [...danger, ...warning, ...standard];
+    // }
+
+    // Фильтрация
+    // private applyFilter(
+    //     allNotifications: EventsWidgetNotification[],
+    //     filterOptions: EventsWidgetOptions
+    // ): EventsWidgetNotification[] {
+    //     let notifications = allNotifications;
+    //     //
+    //     // if (filterOptions.filter && filterOptions.filter === 'all') {
+    //     //     notifications = notifications.filter((x) => x.status.name !== 'closed');
+    //     // }
+    //     //
+    //     // if (filterOptions.filter && filterOptions.filter !== 'all') {
+    //     //     notifications = notifications.filter((x) => x.status.name === filterOptions.filter);
+    //     // }
+    //     // if (filterOptions.categories && filterOptions.categories.length > 0) {
+    //     //     notifications = notifications.filter((x) =>
+    //     //         filterOptions.categories.some((c) => c === x.category.name)
+    //     //     );
+    //     // }
+    //     return notifications;
+    // }
+
     private getStatusIcon(name: string): string {
         const idx = this.iconStatus.findIndex((s) => s.name === name);
         if (idx !== -1) {
@@ -306,7 +369,29 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         });
 
         this.notifications = this.notifications.concat(notifications);
+        // this.allNotifications = notifications;
+        // this.notifications = this.applyFilter(this.allNotifications, this.getCurrentOptions());
+        // this.filters.map((f) => {
+        //     const options: EventsWidgetOptions = {
+        //         categories: this.categories.filter((c) => c.isActive).map((c) => c.code),
+        //         filter: f.code,
+        //     };
+        //     f.notificationsCount = this.applyFilter(this.allNotifications, options).length;
+        // });
+        // this.sortByPriority();
     }
+
+    // private appendCategoriesCounters() {
+    //     this.categories.map((c) => {
+    //         c.notificationsCounts.all = this.allNotifications.filter(
+    //             (v) => v.category.name === c.code
+    //         ).length;
+    //         c.notificationsCounts.open = this.allNotifications.filter(
+    //             (v) =>
+    //                 v.category.name === c.code && (v.status.code === '0' || v.status.code === '1')
+    //         ).length;
+    //     });
+    // }
 
     private getNotificationIcon(categoryId: EventsWidgetCategoryCode): string {
         const category = this.categories.find((c) => c.code === categoryId);

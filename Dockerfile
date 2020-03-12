@@ -20,7 +20,7 @@ ENV NG_CLI_ANALYTICS=ci
 #RUN npm install @angular/cli@9.0.1
 
 # add app
-COPY ./ /app
+#COPY ./ /app
 
 # start app
-CMD ng serve --host 0.0.0.0 --disableHostCheck
+#CMD ng serve --host 0.0.0.0 --disableHostCheck

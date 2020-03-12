@@ -1,9 +1,14 @@
 import {
+    AfterContentInit,
     Component,
     ElementRef,
+    Input,
+    OnChanges,
     OnDestroy,
+    OnInit,
     AfterViewInit,
     ViewChild,
+    ViewEncapsulation,
     Inject,
     HostListener,
 } from '@angular/core';
@@ -19,24 +24,28 @@ import { Mock } from 'src/app/dashboard/widgets/line-chart/mock';
 import { Subscription } from 'rxjs';
 import { LineChartData, LineChartGraph, LineChartGraphValue } from '../../models/line-chart';
 import { NewWidgetService } from '../../services/new-widget.service';
-import {WidgetPlatform} from "../../models/widget-platform";
 
 @Component({
     selector: 'evj-line-chart',
     templateUrl: './line-chart.component.html',
     styleUrls: ['./line-chart.component.scss'],
 })
-export class LineChartComponent extends WidgetPlatform implements AfterViewInit, OnDestroy {
+export class LineChartComponent implements OnInit, OnDestroy {
+    code;
+    public title;
+    units = '';
+    options;
     position?: string = 'default';
 
     data: LineChartData;
 
-    protected static itemCols: number = 20;
-    protected static itemRows: number = 12;
+    static itemCols = 20;
+    static itemRows = 12;
 
     @ViewChild('chart', { static: true }) private chartContainer: ElementRef;
 
     margin = { top: 10, right: -50, bottom: 20, left: 50 };
+
     svg;
     g: any;
     width: number;
@@ -44,10 +53,19 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
     heightNoMargins: number; // use it for to build deviation area
     x;
     y;
+
     line;
     lines: any;
+
     dataLine;
+
+    public minHeight;
+    public elem2;
+
     deviationMode = 'planFact';
+
+    public previewTitle: string = 'line-chart';
+
     private readonly trendsStyle: any = {
         plan: {
             point: {
@@ -114,38 +132,49 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
     };
     deviationPoints: any;
 
+    private subscriptions: Subscription[] = [];
+
     constructor(
         public widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        super(widgetService, isMock, id, uniqId);
+        this.subscriptions.push(
+            this.widgetService.getWidgetChannel(id).subscribe((data) => {
+                (this.code = data.code),
+                    (this.title = data.title),
+                    // this.units = data.units,
+                    (this.options = data.widgetOptions);
+            })
+        );
     }
 
-    ngAfterViewInit(): void {
-        super.widgetInit();
-    }
+    ngOnInit() {}
 
-    ngOnDestroy(): void {
-        super.ngOnDestroy();
-    }
-
-    protected dataConnect(): void {
-        super.dataConnect();
-        if (this.dataLine) {
-            this.draw(this.dataLine);
+    ngAfterViewInit() {
+        this.showMock(this.isMock);
+        if (!this.isMock) {
+            if (this.dataLine) {
+                this.draw(this.dataLine);
+            }
         }
     }
 
-    protected dataDisconnect(): void {
-        this.disableLiveData();
+    ngOnDestroy(): void {
+        if (this.subscriptions) {
+            for (const subscribe of this.subscriptions) {
+                subscribe.unsubscribe();
+            }
+        }
     }
 
-    protected dataHandler(ref: any): void {
-        this.dataLine = ref;
-        this.dataLine.graphs.map((x) => x.values.map((z) => (z.date = new Date(z.date))));
-        this.draw(this.dataLine);
+    showMock(show) {
+        if (show) {
+            this.disableLiveData();
+        } else {
+            this.enableLiveData();
+        }
     }
 
     @HostListener('document:resize', ['$event'])
@@ -166,12 +195,12 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
         );
     }
 
-    private disableLiveData(): void {
+    private disableLiveData() {
         this.draw(Mock);
     }
 
-    private draw(data): void {
-        if (!this.widgetOptions) return;
+    private draw(data) {
+        if (!this.options) return;
 
         if (this.svg) {
             this.svg.remove();
@@ -331,27 +360,27 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
     }
 
     private refreshLines() {
-        if (!this.widgetOptions) return;
+        if (!this.options) return;
 
         this.lines = {
             plan: d3Shape
                 .line()
-                .curve(d3Shape[this.widgetOptions.planLineType])
+                .curve(d3Shape[this.options.planLineType])
                 .x((d: any) => this.x(d.date))
                 .y((d: any) => this.y(d.value)),
             fact: d3Shape
                 .line()
-                .curve(d3Shape[this.widgetOptions.factLineType])
+                .curve(d3Shape[this.options.factLineType])
                 .x((d: any) => this.x(d.date))
                 .y((d: any) => this.y(d.value)),
             upperLimit: d3Shape
                 .line()
-                .curve(d3Shape[this.widgetOptions.lowerLimitLineType])
+                .curve(d3Shape[this.options.lowerLimitLineType])
                 .x((d: any) => this.x(d.date))
                 .y((d: any) => this.y(d.value)),
             lowerLimit: d3Shape
                 .line()
-                .curve(d3Shape[this.widgetOptions.upperLimitLineType])
+                .curve(d3Shape[this.options.upperLimitLineType])
                 .x((d: any) => this.x(d.date))
                 .y((d: any) => this.y(d.value)),
         };
@@ -568,7 +597,7 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
     private drawLimitsAreas(upperLimit, lowerLimit) {
         const upperLimitArea = d3Shape
             .area()
-            .curve(d3Shape[this.widgetOptions['upperLimitLineType']])
+            .curve(d3Shape[this.options['upperLimitLineType']])
             .x((d) => this.x(d.date))
             .y0((d) => 0)
             .y1((d) => this.y(d.value));
@@ -609,7 +638,7 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
 
         const lowerLimitArea = d3Shape
             .area()
-            .curve(d3Shape[this.widgetOptions['lowerLimitLineType']])
+            .curve(d3Shape[this.options['lowerLimitLineType']])
             .x((d) => this.x(d.date))
             .y0((d) => this.height)
             .y1((d) => this.y(d.value));
@@ -651,7 +680,7 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
     // private drawLimitsDeviationAreas(upperLimit, lowerLimit, fact) {
     //
     //   const upperLimitClipPathArea = d3Shape.area()
-    //     .curve(d3Shape[this.widgetOptions['upperLimitLineType']])
+    //     .curve(d3Shape[this.options['upperLimitLineType']])
     //     .x(d => this.x(d.date))
     //     .y0(d => {
     //       return this.y(this.heightNoMargins);
@@ -674,7 +703,7 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
     //     });
     //
     //   const upperLimitArea = d3Shape.area()
-    //     .curve(d3Shape[this.widgetOptions['factLineType']])
+    //     .curve(d3Shape[this.options['factLineType']])
     //     .x(d => this.x(d.date))
     //     .y0(d => {
     //       return this.y(0);
@@ -718,7 +747,7 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
     //
     //
     //   const lowerLimitClipPathArea = d3Shape.area()
-    //     .curve(d3Shape[this.widgetOptions['lowerLimitLineType']])
+    //     .curve(d3Shape[this.options['lowerLimitLineType']])
     //     .x(d => this.x(d.date))
     //     .y0(d => {
     //       return this.y(0);
@@ -742,7 +771,7 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
     //
     //
     //   const lowerLimitArea = d3Shape.area()
-    //     .curve(d3Shape[this.widgetOptions['factLineType']])
+    //     .curve(d3Shape[this.options['factLineType']])
     //     .x(d => this.x(d.date))
     //     .y0(d => 0)
     //     .y1(d => this.y(d.value));
@@ -782,7 +811,7 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
     // private drawLimitsDeviationAreas(upperLimit, lowerLimit, fact) {
     //
     //   const upperLimitClipPathArea = d3Shape.area()
-    //     .curve(d3Shape[this.widgetOptions['upperLimitLineType']])
+    //     .curve(d3Shape[this.options['upperLimitLineType']])
     //     .x(d => this.x(d.date))
     //     .y0(d => {
     //       return this.y(this.heightNoMargins);
@@ -805,7 +834,7 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
     //     });
     //
     //   const upperLimitArea = d3Shape.area()
-    //     .curve(d3Shape[this.widgetOptions['factLineType']])
+    //     .curve(d3Shape[this.options['factLineType']])
     //     .x(d => this.x(d.date))
     //     .y0(d => {
     //       return this.y(0);
@@ -849,7 +878,7 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
     //
     //
     //   const lowerLimitClipPathArea = d3Shape.area()
-    //     .curve(d3Shape[this.widgetOptions['lowerLimitLineType']])
+    //     .curve(d3Shape[this.options['lowerLimitLineType']])
     //     .x(d => this.x(d.date))
     //     .y0(d => {
     //       return this.y(0);
@@ -873,7 +902,7 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
     //
     //
     //   const lowerLimitArea = d3Shape.area()
-    //     .curve(d3Shape[this.widgetOptions['factLineType']])
+    //     .curve(d3Shape[this.options['factLineType']])
     //     .x(d => this.x(d.date))
     //     .y0(d => 0)
     //     .y1(d => this.y(d.value));
@@ -913,7 +942,7 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
 
     // private drawDeviationAreas(planData, factData) {
     //   let clipPathArea = d3Shape.area()
-    //     .curve(d3Shape[this.widgetOptions['planLineType']])
+    //     .curve(d3Shape[this.options['planLineType']])
     //     .x(d => this.x(d.date))
     //     .y0(d => {
     //       return this.y(this.heightNoMargins);
@@ -941,7 +970,7 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
     //
     //
     //   const deviationArea = d3Shape.area()
-    //     .curve(d3Shape[this.widgetOptions['factLineType']])
+    //     .curve(d3Shape[this.options['factLineType']])
     //     .x(d => this.x(d.date))
     //     .y0(d => {
     //       return this.y(0);

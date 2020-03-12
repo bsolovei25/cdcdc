@@ -656,6 +656,15 @@
                     stroke: white;
                   }
                 }
+
+                .activeIcon {
+                  svg-icon {
+                    ::ng-deep .cls-1 {
+                      fill: var(--color-border-active);
+                      stroke: white;
+                    }
+                  }
+                }
               }
 
               .activeIcon {
@@ -878,7 +887,7 @@ input.data {
 
     &__saving {
       border-color: transparent;
-      //border-bottom: solid 0.5px var(--color-warning);
+      border-bottom: solid 2px var(--color-border-active);
       //  border-color: transparent;
     }
 
