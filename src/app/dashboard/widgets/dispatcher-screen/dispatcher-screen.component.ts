@@ -2,18 +2,14 @@ import {
     Component,
     HostListener,
     Inject,
-    OnInit,
     OnDestroy,
     AfterViewInit,
-    ViewChild,
-    ElementRef,
 } from '@angular/core';
 import { UnityLoader } from './UnityLoader.js';
 import { PlatformLocation } from '@angular/common';
 import { NewWidgetService } from '../../services/new-widget.service';
-import { Subscription } from 'rxjs';
 import { WidgetSettingsService } from '../../services/widget-settings.service';
-import {WidgetPlatform} from "../../models/widget-platform";
+import {WidgetPlatform} from '../../models/widget-platform';
 
 @Component({
     selector: 'evj-dispatcher-screen',
