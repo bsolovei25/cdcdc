@@ -19,7 +19,7 @@ import { Mock } from 'src/app/dashboard/widgets/line-chart/mock';
 import { Subscription } from 'rxjs';
 import { LineChartData, LineChartGraph, LineChartGraphValue } from '../../models/line-chart';
 import { NewWidgetService } from '../../services/new-widget.service';
-import {WidgetPlatform} from "../../models/widget-platform";
+import { WidgetPlatform } from '../../models/widget-platform';
 
 @Component({
     selector: 'evj-line-chart',
