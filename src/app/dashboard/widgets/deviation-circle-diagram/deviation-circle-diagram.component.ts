@@ -15,12 +15,6 @@ export class DeviationCircleDiagramComponent extends WidgetPlatform implements O
         maxValue: 0,
     };
 
-    public isMockData: DeviationCircleDiagram = {
-        deviation: 60, // отклонение в %
-        improvement: 45, // улучшение в %
-        maxValue: 80,
-    };
-
     /* Цвета для диаграмм */
 
     public colorMain: string = '#1b1e27';

@@ -232,8 +232,6 @@ export class DeviationsTableComponent extends WidgetPlatform implements OnInit, 
     protected static itemCols: number = 15;
     protected static itemRows: number = 18;
 
-    public previewTitle: string;
-
     constructor(
         protected widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,
