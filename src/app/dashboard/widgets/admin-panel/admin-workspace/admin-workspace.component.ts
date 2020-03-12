@@ -17,21 +17,23 @@ export class AdminWorkspaceComponent implements OnInit, OnDestroy {
 
     public workspaces: IScreen[] = [];
 
-    private subscription: Subscription[] = [];
+    private subscriptions: Subscription[] = [];
 
     constructor(private adminPanel: AdminPanelService) {}
 
     public ngOnInit(): void {
-        this.subscription.push(
+        this.subscriptions.push(
             this.adminPanel.activeWorkerScreens$.subscribe((data: IScreen[]) => {
-                console.log(data);
+                console.log('activeworker screens: ', data);
 
                 this.workspaces = data;
             })
         );
     }
 
-    public ngOnDestroy(): void {}
+    public ngOnDestroy(): void {
+        this.subscriptions.forEach((subs: Subscription) => subs.unsubscribe());
+    }
 
     public onInput(inputVal: string): void {
         this.searchValue = inputVal;

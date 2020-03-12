@@ -26,7 +26,7 @@ export interface IClaim {
 export interface IScreen {
     id: number;
     screen: IWorkspace;
-    claims: IClaim;
+    claims: IClaim[];
 }
 
 export interface IButtonImgSrc {
@@ -48,4 +48,11 @@ export interface IWorkerOptionAdminPanel {
     name?: string;
     value: string;
     key: string;
+}
+
+export enum EnumClaims {
+    'Только чтение' = 1,
+    'Модификация',
+    'Ручной ввод',
+    'Администратор',
 }

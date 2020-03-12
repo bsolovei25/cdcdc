@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { IWorker } from '../../../models/worker';
 import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
 import { Subscription } from 'rxjs';
 import { IUser } from '../../../models/events-widget';
@@ -30,6 +29,9 @@ export class AdminEmployeeComponent implements OnInit, OnDestroy {
 
     public ngOnDestroy(): void {
         this.subscriptions.forEach((subs: Subscription) => subs.unsubscribe());
+        if (this.subsSelectedWorker) {
+            this.subsSelectedWorker.unsubscribe();
+        }
     }
 
     public onSelectWorker(workerId: number): void {
@@ -37,11 +39,9 @@ export class AdminEmployeeComponent implements OnInit, OnDestroy {
         if (this.subsSelectedWorker) {
             this.subsSelectedWorker.unsubscribe();
         }
-        this.subsSelectedWorker = this.adminPanel
-            .getWorkerScreens(workerId)
-            .subscribe((data: IScreen[]) => {
-                this.adminPanel.activeWorkerScreens$.next(data);
-            });
+        this.adminPanel.getWorkerScreens(workerId).subscribe((data: IScreen[]) => {
+            this.adminPanel.activeWorkerScreens$.next(data);
+        });
     }
 
     public showActiveWorker(workerId: number): boolean {

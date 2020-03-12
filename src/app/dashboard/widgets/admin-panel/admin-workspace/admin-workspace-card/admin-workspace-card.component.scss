@@ -17,6 +17,10 @@
   .text {
     font-size: 7px;
     fill: var(--color-text-main);
+
+    &-claim {
+      fill: var(--color-text-sub);
+    }
   }
 
   &:first-child {

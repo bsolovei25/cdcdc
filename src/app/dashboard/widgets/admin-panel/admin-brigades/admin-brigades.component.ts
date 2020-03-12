@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { IBrigadeAdminPanel, IWorkerAdminPanel } from '../../../models/admin-panel';
+import { IBrigadeAdminPanel, IWorkerAdminPanel, IScreen } from '../../../models/admin-panel';
 import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
 import { Subscription } from 'rxjs';
 import { IBrigade } from '../../../models/shift.model';
@@ -22,13 +22,19 @@ export class AdminBrigadesComponent implements OnInit, OnDestroy {
 
     public selectWorker: SelectionModel<IUser> = new SelectionModel<IUser>(true);
 
+    public subsSelectedWorker: Subscription = null;
+
     constructor(private adminPanel: AdminPanelService) {}
 
     public ngOnInit(): void {
         // this.adminPanel.activeWorker$.next(this.workers[0]);
     }
 
-    public ngOnDestroy(): void {}
+    public ngOnDestroy(): void {
+        if (this.subsSelectedWorker) {
+            this.subsSelectedWorker.unsubscribe();
+        }
+    }
 
     public setActiveBrigade(brigade: IBrigadeAdminPanel): void {
         if (!this.selectBrigade.isSelected(brigade)) {
@@ -43,6 +49,16 @@ export class AdminBrigadesComponent implements OnInit, OnDestroy {
             this.selectWorker.clear();
             this.selectWorker.select(worker);
             this.adminPanel.activeWorker$.next(worker);
+
+            if (this.subsSelectedWorker) {
+                this.subsSelectedWorker.unsubscribe();
+            }
+
+            this.subsSelectedWorker = this.adminPanel
+                .getWorkerScreens(worker.id)
+                .subscribe((data: IScreen[]) => {
+                    this.adminPanel.activeWorkerScreens$.next(data);
+                });
         }
     }
 }

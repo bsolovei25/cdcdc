@@ -8,10 +8,10 @@
       xlink:href="../../../../../assets/icons/widgets/admin/workspace-card.svg"
     />
     <text x="75" y="40" text-anchor="middle" class="text">
-      {{workspace.name}}
+      {{workspace.screen.screenName}}
     </text>
-    <text x="75" y="50" text-anchor="middle" class="text">
-      Иванов Иван Иванович
+    <text x="75" y="55" text-anchor="middle" class="text text-claim" *ngIf="workspace.claims[0]">
+      {{getClaim()}}
     </text>
   </svg>
 </div>

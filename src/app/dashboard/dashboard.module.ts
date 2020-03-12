@@ -105,6 +105,7 @@ import { AwsWorkspaceCardComponent } from './widgets/admin-panel/admin-worker-se
 import { AwsClaimCardComponent } from './widgets/admin-panel/admin-worker-settings/aws-claim-card/aws-claim-card.component';
 import { AdminPanelService } from './services/admin-panel/admin-panel.service';
 import { PetroleumUnityComponent } from './widgets/petroleum-products-movement/petroleum-unity/petroleum-unity.component';
+import { AdminWorkspaceCardComponent } from './widgets/admin-panel/admin-workspace/admin-workspace-card/admin-workspace-card.component';
 
 @NgModule({
     declarations: [
@@ -189,6 +190,7 @@ import { PetroleumUnityComponent } from './widgets/petroleum-products-movement/p
         PetroleumWorkspaceComponent,
         AdminEmployeeComponent,
         AdminWorkspaceComponent,
+        AdminWorkspaceCardComponent,
         AdminClaimsComponent,
         AdminBrigadesComponent,
         AdminWorkerSettingsComponent,
@@ -268,6 +270,6 @@ import { PetroleumUnityComponent } from './widgets/petroleum-products-movement/p
         OldScrollingModule,
     ],
     bootstrap: [],
-    providers: [AdminPanelService, { provide: LOCALE_ID, useValue: 'ru-RU' }],
+    providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }],
 })
 export class DashboardModule {}
