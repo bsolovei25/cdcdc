@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { ManualInputService } from '../../services/manual-input.service';
 import { HttpClient } from '@angular/common/http';
-import { IMachine_MI, IGroup_MI } from '../../models/manual-input.model';
+import { IMachine_MI, IGroup_MI, IValue } from '../../models/manual-input.model';
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { AppConfigService } from 'src/app/services/appConfigService';

@@ -174,6 +174,8 @@
                             <input
                               class="data"
                               type="text"
+                              (change)="onChangeValue(i.id)"
+                              (focusout)="onUnfocusValue(i.id)"
                               [(ngModel)]="i.comment"
                               placeholder="Напишите свой комментарий..."
                               [class.data_active__saving]="i.isActive"
@@ -243,11 +245,13 @@
                         </div>
                         <div class="input-message-none" [ngClass]="{'input-message': i.openInput }">
                           <input
-                            class="data"
-                            type="text"
-                            placeholder="Напишите свой комментарий..."
-                            [(ngModel)]="i.comment"
-                            [class.data_active__saving]="i.isActive"
+                          class="data"
+                          type="text"
+                          (change)="onChangeValue(i.id)"
+                          (focusout)="onUnfocusValue(i.id)"
+                          placeholder="Напишите свой комментарий..."
+                          [(ngModel)]="i.comment"
+                          [class.data_active__saving]="i.isActive"
                           />
                         </div>
                       </div>
