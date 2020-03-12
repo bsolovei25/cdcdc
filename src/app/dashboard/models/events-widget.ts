@@ -81,6 +81,7 @@ export interface IUser {
     positionDescription?: string;
     displayName?: string;
     position?: string;
+    photoId?: string;
 }
 
 export type EventsWidgetNotificationPriority = 'danger' | 'warning' | 'standard';

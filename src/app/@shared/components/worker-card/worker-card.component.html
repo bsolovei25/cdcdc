@@ -6,15 +6,9 @@
         y="-0.5"
         width="120"
         height="50"
-        xlink:href="../../../../../assets/icons/widgets/admin/worker-card.svg"
+        xlink:href="assets/icons/widgets/admin/worker-card.svg"
       />
-      <image
-        x="-36"
-        y="0"
-        width="42"
-        height="42"
-        xlink:href="../../../../../assets/icons/widgets/admin/default_avatar.svg"
-      />
+      <image x="-36" y="0" width="42" height="42" [attr.xlink:href]="photoPath" />
       <text x="33" y="9" text-anchor="start" class="svg__txt">
         {{person.phone}}
       </text>
@@ -44,13 +38,7 @@
         height="100"
         [attr.xlink:href]="(isActiveCard)?srcCardActive:srcCardNormal"
       />
-      <image
-        x="-36"
-        y="3"
-        width="80"
-        height="80"
-        xlink:href="assets/icons/widgets/admin/default_avatar.svg"
-      />
+      <image x="-36" y="3" width="80" height="80" [attr.xlink:href]="photoPath" />
 
       <text
         x="65"

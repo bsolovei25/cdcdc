@@ -11,6 +11,7 @@ export class WorkerCardComponent implements OnInit {
     @Input() public person: IUser = null;
     @Input() public isSmallCard: boolean = false;
     @Input() public isActiveCard: boolean = false;
+    @Input() public photoPath: string = '';
 
     public srcCardNormal: string = 'assets/icons/widgets/admin/card-small.svg';
     public srcCardActive: string = 'assets/icons/widgets/admin/card-small-active.svg';

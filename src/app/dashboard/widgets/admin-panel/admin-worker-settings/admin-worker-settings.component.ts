@@ -99,25 +99,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         }
     }
 
-    // private async sendDataWorkspaces(): Promise<void> {
-    //     this.workerScreens.forEach((item: IWorkspace) => {
-    //         const addingFlag: boolean = !!this.workerScreensDetached.find(
-    //             (wsd: IScreen) => wsd.screen.id === item.id
-    //         );
-    //         if (!addingFlag) {
-    //             await this.adminService.addWorkerScreen(this.worker.id, item.id).toPromise();
-    //         }
-    //     });
-    //     this.workerScreensDetached.forEach((item: IScreen) => {
-    //         const addingFlag: boolean = !!this.workerScreens.find(
-    //             (wsd: IWorkspace) => wsd.id === item.screen.id
-    //         );
-    //         if (!addingFlag) {
-    //             await this.adminService.removeWorkerScreen(item.id).toPromise();
-    //         }
-    //     });
-    // }
-
     private addWorkspacesToWorker(): number[] {
         const idArray: number[] = [];
         this.workerScreens.forEach((item: IWorkspace) => {
@@ -162,6 +143,10 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             this.worker[event.key] = event.value;
         }
         this.isAlertShowing = true;
+    }
+
+    public returnPhotoPath(): string {
+        return this.adminService.getPhotoLink(this.worker);
     }
 
     public onReturn(): void {

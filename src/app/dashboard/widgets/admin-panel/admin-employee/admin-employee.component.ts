@@ -17,11 +17,11 @@ export class AdminEmployeeComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
     private subsSelectedWorker: Subscription = null;
 
-    constructor(private adminPanel: AdminPanelService) {}
+    constructor(private adminService: AdminPanelService) {}
 
     public ngOnInit(): void {
         this.subscriptions.push(
-            this.adminPanel.activeWorker$.subscribe(
+            this.adminService.activeWorker$.subscribe(
                 (activeWorker: IUser) => (this.activeWorker = activeWorker)
             )
         );
@@ -35,12 +35,12 @@ export class AdminEmployeeComponent implements OnInit, OnDestroy {
     }
 
     public onSelectWorker(workerId: number): void {
-        this.adminPanel.setActiveWorker(this.workers.find((item: IUser) => item.id === workerId));
+        this.adminService.setActiveWorker(this.workers.find((item: IUser) => item.id === workerId));
         if (this.subsSelectedWorker) {
             this.subsSelectedWorker.unsubscribe();
         }
-        this.adminPanel.getWorkerScreens(workerId).subscribe((data: IScreen[]) => {
-            this.adminPanel.activeWorkerScreens$.next(data);
+        this.adminService.getWorkerScreens(workerId).subscribe((data: IScreen[]) => {
+            this.adminService.activeWorkerScreens$.next(data);
         });
     }
 
@@ -55,5 +55,9 @@ export class AdminEmployeeComponent implements OnInit, OnDestroy {
 
     public getWorkerFullName(worker: IUser): string {
         return `${worker.lastName} ${worker.firstName} ${worker.middleName}`;
+    }
+
+    public returnPhotoPath(): string {
+        return this.adminService.getPhotoLink(this.activeWorker);
     }
 }

@@ -24,7 +24,7 @@ export class AdminBrigadesComponent implements OnInit, OnDestroy {
 
     public subsSelectedWorker: Subscription = null;
 
-    constructor(private adminPanel: AdminPanelService) {}
+    constructor(private adminService: AdminPanelService) {}
 
     public ngOnInit(): void {
         // this.adminPanel.activeWorker$.next(this.workers[0]);
@@ -48,17 +48,21 @@ export class AdminBrigadesComponent implements OnInit, OnDestroy {
         if (!this.selectWorker.isSelected(worker)) {
             this.selectWorker.clear();
             this.selectWorker.select(worker);
-            this.adminPanel.activeWorker$.next(worker);
+            this.adminService.activeWorker$.next(worker);
 
             if (this.subsSelectedWorker) {
                 this.subsSelectedWorker.unsubscribe();
             }
 
-            this.subsSelectedWorker = this.adminPanel
+            this.subsSelectedWorker = this.adminService
                 .getWorkerScreens(worker.id)
                 .subscribe((data: IScreen[]) => {
-                    this.adminPanel.activeWorkerScreens$.next(data);
+                    this.adminService.activeWorkerScreens$.next(data);
                 });
         }
+    }
+
+    public returnPhotoPath(worker: IUser): string {
+        return this.adminService.getPhotoLink(worker);
     }
 }

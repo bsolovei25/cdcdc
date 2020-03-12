@@ -177,4 +177,13 @@ export class AdminPanelService {
     public getFullName(worker: IUser): string {
         return `${worker.lastName} ${worker.firstName} ${worker.middleName}`;
     }
+
+    public getPhotoLink(worker: IUser): string {
+        // if (worker.photoId) {
+        //     return `${this.configService.fsUrl}/${worker.photoId}`;
+        // } else {
+        //     return 'assets/icons/widgets/admin/default_avatar.svg';
+        // }
+        return 'assets/icons/widgets/admin/default_avatar.svg';
+    }
 }
