@@ -68,22 +68,21 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
-        private adminPanel: AdminPanelService
+        private adminService: AdminPanelService
     ) {}
 
     public ngOnInit(): void {
-        this.adminPanel.updateAllWorkers();
+        this.adminService.updateAllWorkers().then();
         this.subscriptions.push(
-            this.adminPanel.allWorkers$.subscribe((workers: IUser[]) => {
+            this.adminService.allWorkers$.subscribe((workers: IUser[]) => {
                 this.workers = workers;
-                console.log(workers);
             }),
-            this.adminPanel.getBrigades().subscribe((data: IBrigadeAdminPanel[]) => {
-                this.adminPanel.brigades = data;
-                this.brigades = this.adminPanel.brigades;
+            this.adminService.getBrigades().subscribe((data: IBrigadeAdminPanel[]) => {
+                this.adminService.brigades = data;
+                this.brigades = this.adminService.brigades;
             }),
-            this.adminPanel.getAllScreenClaims().subscribe((data: IClaim[]) => {
-                this.adminPanel.screenClaims = data;
+            this.adminService.getAllScreenClaims().subscribe((data: IClaim[]) => {
+                this.adminService.screenClaims = data;
             })
         );
     }
@@ -93,7 +92,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     }
 
     public getMoreAboutWorker(): void {
-        if (this.adminPanel.activeWorker.id) {
+        if (this.adminService.activeWorker.id) {
             this.isWorkerSettingsShowed = true;
         }
     }

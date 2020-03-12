@@ -155,19 +155,28 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     public async onSave(): Promise<void> {
         if (this.isCheckBoxClicked) {
-            await this.adminService.editWorkerData(this.worker).toPromise();
-            this.addWorkspacesToWorker().forEach(async (index: number) => {
-                await this.adminService.addWorkerScreen(this.worker.id, index).toPromise();
-            });
-            this.removeWorkspacesFromWorker().forEach(async (index: number) => {
-                await this.adminService.removeWorkerScreen(index).toPromise();
-            });
-            this.adminService.updateAllWorkers();
-            const userScreens: IScreen[] = await this.adminService
-                .getWorkerScreens(this.worker.id)
-                .toPromise();
-            this.adminService.activeWorkerScreens$.next(userScreens);
-            this.adminService.activeWorker$.next(this.worker);
+            try {
+                const promises: Promise<any>[] = [];
+                promises.push(this.adminService.editWorkerData(this.worker).toPromise());
+                this.addWorkspacesToWorker().forEach(async (index: number) => {
+                    promises.push(
+                        this.adminService.addWorkerScreen(this.worker.id, index).toPromise()
+                    );
+                });
+                this.removeWorkspacesFromWorker().forEach(async (index: number) => {
+                    promises.push(this.adminService.removeWorkerScreen(index).toPromise());
+                });
+                await Promise.all(promises);
+                await this.adminService.updateAllWorkers();
+                await this.adminService.updateAllBrigades();
+                const userScreens: IScreen[] = await this.adminService
+                    .getWorkerScreens(this.worker.id)
+                    .toPromise();
+                this.adminService.activeWorkerScreens$.next(userScreens);
+                this.adminService.activeWorker$.next(this.worker);
+            } catch (error) {
+                throw new Error(error);
+            }
 
             this.closeWorkerSettings.emit(this.worker);
         }
