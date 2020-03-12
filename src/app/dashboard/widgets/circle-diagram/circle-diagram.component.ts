@@ -36,6 +36,7 @@ export class CircleDiagramComponent extends WidgetPlatform implements OnDestroy,
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
+        this.widgetIcon = 'tools';
     }
 
     ngAfterViewInit(): void {

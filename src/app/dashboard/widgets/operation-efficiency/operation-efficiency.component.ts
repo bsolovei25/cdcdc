@@ -35,6 +35,7 @@ export class OperationEfficiencyComponent extends WidgetPlatform implements OnIn
     ) {
         super(widgetService, isMock, id, uniqId);
         this.widgetUnits = 'млн.руб.';
+        this.widgetIcon = 'money';
     }
 
     ngOnInit(): void {

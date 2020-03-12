@@ -61,6 +61,7 @@ export class CalendarPlanComponent extends WidgetPlatform implements OnInit, OnD
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
+        this.widgetIcon = 'graph';
     }
 
     ngOnInit(): void {

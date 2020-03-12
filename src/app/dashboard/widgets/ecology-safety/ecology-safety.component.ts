@@ -33,31 +33,20 @@ export class EcologySafetyComponent extends WidgetPlatform implements OnInit, On
     ) {
         super(widgetService, isMock, id, uniqId);
         this.widgetUnits = 'индекс';
+        this.widgetIcon = 'eco-shield';
     }
 
     ngOnInit(): void {
         super.widgetInit();
-        if (!this.isMock) {
-            this.wsConnect();
-        }
     }
 
     ngOnDestroy(): void {
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: any): void {}
-
-    wsConnect(): void {
-        this.subscriptions.push(
-            this.widgetService
-                .getWidgetLiveDataFromWS(this.id, 'ecology-safety')
-                .subscribe((ref) => {
-                    this.data = ref;
-                    this.data.curValue = ref.currentValue;
-                    console.log(this.data);
-                })
-        );
+    protected dataHandler(ref: any): void {
+        this.data = ref;
+        this.data.curValue = ref.currentValue;
     }
 
     drawGraph(count: number): string {

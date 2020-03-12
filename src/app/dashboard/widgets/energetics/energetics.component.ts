@@ -99,6 +99,7 @@ export class EnergeticsComponent extends WidgetPlatform implements OnInit, OnDes
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
+        this.widgetIcon = 'energetics';
         this.widgetUnits = 'гДж';
     }
 

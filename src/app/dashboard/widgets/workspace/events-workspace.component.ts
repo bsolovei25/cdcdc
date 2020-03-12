@@ -118,6 +118,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
             })
         );
 
+        this.widgetIcon = 'document';
         this.dateAdapter.setLocale('ru');
     }
 

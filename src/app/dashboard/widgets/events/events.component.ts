@@ -164,6 +164,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
+        this.widgetIcon = 'letter';
     }
 
     public ngOnInit(): void {
