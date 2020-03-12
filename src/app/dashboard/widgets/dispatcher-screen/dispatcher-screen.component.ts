@@ -1,15 +1,9 @@
-import {
-    Component,
-    HostListener,
-    Inject,
-    OnDestroy,
-    AfterViewInit,
-} from '@angular/core';
+import { Component, HostListener, Inject, OnDestroy, AfterViewInit } from '@angular/core';
 import { UnityLoader } from './UnityLoader.js';
 import { PlatformLocation } from '@angular/common';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { WidgetSettingsService } from '../../services/widget-settings.service';
-import {WidgetPlatform} from '../../models/widget-platform';
+import { WidgetPlatform } from '../../models/widget-platform';
 
 @Component({
     selector: 'evj-dispatcher-screen',
@@ -56,8 +50,7 @@ export class DispatcherScreenComponent extends WidgetPlatform implements AfterVi
         this.InitUnity();
     }
 
-    protected dataHandler(ref: any): void {
-    }
+    protected dataHandler(ref: any): void {}
 
     @HostListener('document:resize', ['$event'])
     public OnResize(event): void {

@@ -6,6 +6,7 @@
         [class.calendar-column_date__last]="data.isLast"
         [class.calendar-column_date__current]="data.isActive"
         [class.calendar-column_date__future]="data.isFuture"
+        [class.calendar-column_date__period]="!dateFromSelector.status && data.day >= dateFromSelector.start && data.day <= dateFromSelector.end"
         id="dateLine"
       >
         {{data.day}}

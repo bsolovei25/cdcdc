@@ -4,8 +4,8 @@ export interface MI_TempValues {
 }
 
 export interface MI_DataGet {
-    trueValues: string[];
-    falseValues: string[];
+    trueValues: IValue[];
+    falseValues: IValue[];
 }
 
 export interface MI_DataSend {
@@ -35,12 +35,15 @@ export interface Param_MI {
     minValue: string;
     maxValue: string;
     comment?: string;
+    curComment?: string;
+    prevComment?: string;
     isCommentRequired: boolean;
     isActive: boolean;
     isWarning: boolean;
     isSave?: boolean;
     isError?: boolean;
     isEdit?: boolean;
+    openInput?: boolean;
     saveValue?: string;
 }
 
@@ -64,4 +67,9 @@ export interface IMachine_MI {
 export interface TestPostClass {
     id: number;
     msg: string;
+}
+
+export interface IValue {
+    id: string;
+    value: string;
 }

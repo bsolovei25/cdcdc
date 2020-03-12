@@ -6,7 +6,12 @@
 ></evj-widget-preview>
 
 <ng-container *ngIf="!isMock">
-  <evj-widget-header [title]="widgetTitle" [icon]="widgetIcon" [id]="widgetId" [uniqId]="widgetUniqId"></evj-widget-header>
+  <evj-widget-header
+    [title]="widgetTitle"
+    [id]="widgetId"
+    [icon]="widgetIcon"
+    [uniqId]="widgetUniqId"
+  ></evj-widget-header>
   <evj-frame-top></evj-frame-top>
   <div
     class="body-container"

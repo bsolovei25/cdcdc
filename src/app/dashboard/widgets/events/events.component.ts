@@ -18,7 +18,7 @@ import { NewUserSettingsService } from '../../services/new-user-settings.service
 import { EventService } from '../../services/event.service';
 import { MaterialControllerService } from '../../services/material-controller.service';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import {WidgetPlatform} from "../../models/widget-platform";
+import { WidgetPlatform } from '../../models/widget-platform';
 
 @Component({
     selector: 'evj-events',
@@ -128,7 +128,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         },
     ];
 
-    public iconStatus: {name: string, iconUrl: string}[] = [
+    public iconStatus: { name: string; iconUrl: string }[] = [
         {
             name: 'inWork',
             iconUrl: './assets/icons/widgets/process/in-work.svg',
@@ -248,9 +248,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         this.notifications = [];
     }
 
-    private wsHandler(data: EventsWidgetDataPreview): void {
-
-    }
+    private wsHandler(data: EventsWidgetDataPreview): void {}
 
     private addWsElement(notification: EventsWidgetNotificationPreview): void {
         const idx = this.notifications.findIndex((n) => notification.sortIndex <= n.sortIndex);
