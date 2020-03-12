@@ -160,6 +160,7 @@
                             class="message"
                             (click)="onInputMessage(i)"
                             [ngClass]="{'activeIcon': i.openInput}"
+                            [ngClass]="{'activeIcon': i.curComment}"
                           >
                             <svg-icon
                               src="./assets/icons/widgets/manual-input/message.svg"
@@ -176,7 +177,7 @@
                               type="text"
                               (change)="onChangeValue(i.id)"
                               (focusout)="onUnfocusValue(i.id)"
-                              [(ngModel)]="i.comment"
+                              [(ngModel)]="i.curComment"
                               placeholder="Напишите свой комментарий..."
                               [class.data_active__saving]="i.isActive"
                             />
@@ -236,6 +237,7 @@
                           class="message"
                           (click)="onInputMessage(i)"
                           [ngClass]="{'activeIcon': i.openInput}"
+                          [class.activeIcon]="i.comment !== undefined"
                         >
                           <svg-icon
                             src="./assets/icons/widgets/manual-input/message.svg"
@@ -245,13 +247,13 @@
                         </div>
                         <div class="input-message-none" [ngClass]="{'input-message': i.openInput }">
                           <input
-                          class="data"
-                          type="text"
-                          (change)="onChangeValue(i.id)"
-                          (focusout)="onUnfocusValue(i.id)"
-                          placeholder="Напишите свой комментарий..."
-                          [(ngModel)]="i.comment"
-                          [class.data_active__saving]="i.isActive"
+                            class="data"
+                            type="text"
+                            (change)="onChangeValue(i.id)"
+                            (focusout)="onUnfocusValue(i.id)"
+                            placeholder="Напишите свой комментарий..."
+                            [(ngModel)]="i.curComment"
+                            [class.data_active__saving]="i.isActive"
                           />
                         </div>
                       </div>

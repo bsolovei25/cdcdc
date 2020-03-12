@@ -69,7 +69,7 @@ export interface TestPostClass {
     msg: string;
 }
 
-export interface IValue{
+export interface IValue {
     id: string;
     value: string;
 }
