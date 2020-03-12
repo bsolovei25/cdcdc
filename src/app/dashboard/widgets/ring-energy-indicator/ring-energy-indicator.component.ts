@@ -1,8 +1,7 @@
-import { Component, OnInit, ElementRef, AfterViewInit, ViewChild, Inject } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, ElementRef, AfterViewInit, ViewChild, Inject, OnDestroy } from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
-import { count } from 'rxjs/operators';
 import { RingEnegryIndicatorModel } from '../../models/ring-energy-indicator';
+import { WidgetPlatform } from '../../models/widget-platform';
 
 declare var d3: any;
 
@@ -11,47 +10,20 @@ declare var d3: any;
     templateUrl: './ring-energy-indicator.component.html',
     styleUrls: ['./ring-energy-indicator.component.scss'],
 })
-export class RingEnergyIndicatorComponent implements AfterViewInit {
+export class RingEnergyIndicatorComponent extends WidgetPlatform
+    implements AfterViewInit, OnDestroy {
     @ViewChild('circleFactory') CircleFactory: ElementRef;
 
-    public readonly RADIUS = 50;
+    public readonly RADIUS: number = 50;
 
-    public title: string = 'Производство';
-    public code: string;
-    public units: string;
-    public name: string;
-    public previewTitle: string;
+    static itemCols: number = 12;
+    static itemRows: number = 8;
 
-    static itemCols = 12;
-    static itemRows = 8;
+    public pic: string;
 
-    public pic;
-
-    public svg;
+    public svg: any;
 
     public data: RingEnegryIndicatorModel;
-
-    private subscription: Subscription;
-
-    /*  public data = {
-        isCritical: true,
-        iconId: 4,
-        procent: 10,
-        value: [
-            {
-                name: 'тм',
-                plan: 67.7,
-                fact: 138.2,
-            },
-            {
-                name: 'т.у.т',
-                plan: 108.6,
-                fact: 221.6,
-            },
-        ],
-    };*/
-
-    private subscriptions: Subscription[] = [];
 
     constructor(
         public widgetService: NewWidgetService,
@@ -59,48 +31,23 @@ export class RingEnergyIndicatorComponent implements AfterViewInit {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscriptions.push(
-            this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-                this.title = data.title;
-                this.code = data.code;
-                this.units = data.units;
-                this.name = data.name;
-                this.previewTitle = data.widgetType;
-            })
-        );
+        super(widgetService, isMock, id, uniqId);
     }
 
-    ngAfterViewInit() {
-        this.showMock(this.isMock);
+    ngAfterViewInit(): void {
+        super.widgetInit();
     }
 
-    ngOnDestroy() {
-        if (this.subscriptions) {
-            for (const subscription of this.subscriptions) {
-                subscription.unsubscribe();
-            }
+    ngOnDestroy(): void {
+        super.ngOnDestroy();
+    }
+
+    protected dataHandler(ref: any): void {
+        this.data = ref;
+        if (this.svg) {
+            this.svg.remove();
         }
-    }
-
-    private wsConnect() {
-        this.widgetService
-            .getWidgetLiveDataFromWS(this.id, 'ring-energy-indicator')
-            .subscribe((ref) => {
-                this.data = ref;
-                if (this.svg) {
-                    this.svg.remove();
-                }
-                this.d3Circle(this.data, this.CircleFactory.nativeElement);
-            });
-    }
-    private wsDisconnect() {}
-
-    showMock(show) {
-        if (show) {
-            this.wsDisconnect();
-        } else {
-            this.wsConnect();
-        }
+        this.d3Circle(this.data, this.CircleFactory.nativeElement);
     }
 
     public d3Circle(data, el): void {

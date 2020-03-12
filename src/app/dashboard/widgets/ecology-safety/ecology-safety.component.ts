@@ -3,17 +3,16 @@ import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { IEcologySafety } from '../../models/ecology-safety';
 import { IWidgets } from '../../models/widget.model';
+import { WidgetPlatform } from '../../models/widget-platform';
 
 @Component({
     selector: 'evj-ecology-safety',
     templateUrl: './ecology-safety.component.html',
     styleUrls: ['./ecology-safety.component.scss'],
 })
-export class EcologySafetyComponent implements OnInit, OnDestroy {
-    static itemCols: number = 18;
-    static itemRows: number = 2;
-
-    public subscriptions: Subscription[] = [];
+export class EcologySafetyComponent extends WidgetPlatform implements OnInit, OnDestroy {
+    protected static itemCols: number = 18;
+    protected static itemRows: number = 2;
 
     /* Приблизительная структура, получаемая с бека */
 
@@ -26,34 +25,28 @@ export class EcologySafetyComponent implements OnInit, OnDestroy {
     public colorNormal: string = '#FFFFFF';
     public colorDeviation: string = '#F4A321';
 
-    public title: string;
-    public previewTitle: string;
-
     constructor(
-        private widgetService: NewWidgetService,
+        protected widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscriptions.push(
-            this.widgetService.getWidgetChannel(this.id).subscribe((data: IWidgets) => {
-                this.title = data.title;
-                this.previewTitle = data.widgetType;
-            })
-        );
+        super(widgetService, isMock, id, uniqId);
+        this.widgetUnits = 'индекс';
     }
 
     ngOnInit(): void {
+        super.widgetInit();
         if (!this.isMock) {
             this.wsConnect();
         }
     }
 
     ngOnDestroy(): void {
-        for (const subscription of this.subscriptions) {
-            subscription.unsubscribe();
-        }
+        super.ngOnDestroy();
     }
+
+    protected dataHandler(ref: any): void {}
 
     wsConnect(): void {
         this.subscriptions.push(
