@@ -63,8 +63,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
     openEvent: boolean = true;
 
-    timeZone: any;
-
     statuses: { [id in EventsWidgetNotificationStatus]: string } = {
         new: 'Новое',
         inWork: 'В работе',

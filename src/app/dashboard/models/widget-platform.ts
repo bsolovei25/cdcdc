@@ -8,6 +8,7 @@ export abstract class WidgetPlatform implements OnDestroy {
     public widgetUnits?: string;
     public widgetType?: string;
     public widgetIcon?: string;
+    public widgetOptions?: any; // TODO line-chart
 
     protected isRealtimeData: boolean = true;
 
@@ -33,6 +34,7 @@ export abstract class WidgetPlatform implements OnDestroy {
                 if (ref) {
                     this.widgetTitle = ref?.title;
                     this.widgetType = ref?.widgetType;
+                    this.widgetOptions = ref.widgetOptions;
                     this.showMock(this.isMock);
                 }
             })
@@ -60,7 +62,7 @@ export abstract class WidgetPlatform implements OnDestroy {
         );
     }
 
-    private dataDisconnect(): void {}
+    protected dataDisconnect(): void {}
 
     protected abstract dataHandler(ref: any): void;
 }
