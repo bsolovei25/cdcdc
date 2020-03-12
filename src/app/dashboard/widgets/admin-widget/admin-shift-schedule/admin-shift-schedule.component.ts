@@ -9,7 +9,6 @@ import {
     AfterContentChecked,
 } from '@angular/core';
 import { NewWidgetService } from '../../../services/new-widget.service';
-import { Subscription } from 'rxjs';
 import * as moment from 'moment';
 import { DateAdapter } from '@angular/material/core';
 import { IUser } from '../../../models/events-widget';
@@ -75,6 +74,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
+        this.widgetIcon = 'peoples';
     }
 
     ngOnInit(): void {

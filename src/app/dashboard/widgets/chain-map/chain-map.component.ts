@@ -259,6 +259,7 @@ export class ChainMapComponent extends WidgetPlatform implements AfterViewInit, 
     ) {
         super(widgetService, isMock, id, uniqId);
 
+        this.widgetIcon = 'map';
         this.isRealtimeData = false;
     }
 

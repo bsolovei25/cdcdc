@@ -35,6 +35,7 @@ export class DispatcherScreenComponent extends WidgetPlatform implements AfterVi
         platformLocation: PlatformLocation
     ) {
         super(widgetService, isMock, id, uniqId);
+        this.widgetIcon = 'map';
         const location = (platformLocation as any).location;
         this.baseUrl = location.origin + location.pathname.replace('dashboard', '');
     }

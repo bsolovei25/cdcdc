@@ -39,6 +39,7 @@ export class TimeLineDiagramComponent extends WidgetPlatform implements OnInit, 
     ) {
         super(widgetService, isMock, id, uniqId);
         this.widgetUnits = 'час';
+        this.widgetIcon = 'drop';
     }
 
     ngOnInit(): void {

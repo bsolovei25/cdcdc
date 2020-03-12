@@ -1,6 +1,8 @@
 <evj-widget-preview
   [title]="widgetTitle"
   [previewTitle]="widgetType"
+  [icon]="widgetIcon"
+  [code]="widgetCode"
   *ngIf="isMock"
 ></evj-widget-preview>
 
@@ -9,6 +11,7 @@
     [title]="widgetTitle"
     [units]="widgetUnits"
     [code]="widgetCode"
+    [icon]="widgetIcon"
     [id]="widgetId"
     [uniqId]="widgetUniqId"
   ></evj-widget-header>

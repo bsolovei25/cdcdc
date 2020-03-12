@@ -1,5 +1,6 @@
 <evj-widget-preview
   [title]="widgetTitle"
+  [icon]="widgetIcon"
   [previewTitle]="widgetType"
   *ngIf="isMock"
 ></evj-widget-preview>
@@ -7,6 +8,7 @@
 <ng-container *ngIf="!this.isMock">
   <evj-widget-header
     [title]="widgetTitle"
+    [icon]="widgetIcon"
     [id]="widgetId"
     [uniqId]="widgetUniqId"
   ></evj-widget-header>

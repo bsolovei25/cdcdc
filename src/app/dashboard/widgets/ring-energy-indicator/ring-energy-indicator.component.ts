@@ -32,6 +32,7 @@ export class RingEnergyIndicatorComponent extends WidgetPlatform
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
+        this.widgetIcon = 'zipper';
     }
 
     ngAfterViewInit(): void {

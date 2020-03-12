@@ -9,8 +9,6 @@ import {
 } from '@angular/core';
 
 import { NewWidgetService } from '../../services/new-widget.service';
-import { NewUserSettingsService } from '../../services/new-user-settings.service';
-import { Subscription } from 'rxjs';
 import { IEnterpriseMap } from '../../models/enterprise-map';
 import { WidgetPlatform } from '../../models/widget-platform';
 
@@ -308,6 +306,7 @@ export class EnterpriseMapComponent extends WidgetPlatform
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
+        this.widgetIcon = 'map';
     }
 
     ngOnInit(): void {
