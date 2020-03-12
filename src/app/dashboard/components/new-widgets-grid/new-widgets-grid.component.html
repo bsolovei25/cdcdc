@@ -11,7 +11,7 @@
     [item]="item"
     *ngFor="let item of widgetService.dashboard; let i = index"
     (dragstart)="dragStart($event, item)"
-    (dragstop)="dragStop($event,item)"
+    (dragstop)="dragStop($event, item)"
     style="height: 1600px;"
   >
     <ng-container

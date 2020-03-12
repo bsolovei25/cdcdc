@@ -1,75 +1,43 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
-import { Subscription } from 'rxjs';
 import { NewUserSettingsService } from 'src/app/dashboard/services/new-user-settings.service';
+import { WidgetPlatform } from '../../../models/widget-platform';
 
 @Component({
     selector: 'evj-bar-charts',
     templateUrl: './bar-charts.component.html',
     styleUrls: ['./bar-charts.component.scss'],
 })
-export class BarChartsComponent implements OnInit {
-    static itemCols = 24;
-    static itemRows = 10;
+export class BarChartsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+    public data: any[] = [];
 
-    private subscription: Subscription;
-
-    public title = 'Отклонения по качеству';
-    public code;
-    public units = 'шт.';
-    public name;
-
-    public datas = [];
-
-    public previewTitle: string;
-
-    public icon: string = 'valve';
+    protected static itemCols: number = 24;
+    protected static itemRows: number = 10;
 
     constructor(
-        public widgetService: NewWidgetService,
-        public userSettings: NewUserSettingsService,
+        private userSettings: NewUserSettingsService,
+        protected widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-            this.title = data.title;
-            this.code = data.code;
-            //   this.units = data.units;
-            this.name = data.name;
-            this.previewTitle = data.widgetType;
-            console.log(data.widgetType);
-        });
+        super(widgetService, isMock, id, uniqId);
+        this.widgetIcon = 'valve';
     }
 
-    ngOnInit() {
-        this.showMock(this.isMock);
+    ngOnInit(): void {
+        super.widgetInit();
     }
 
-    showMock(show) {
-        if (show) {
-            this.wsDisconnect();
-        } else {
-            this.wsConnect();
-        }
+    ngOnDestroy(): void {
+        super.ngOnDestroy();
     }
 
-    private wsConnect() {
-        this.widgetService.getWidgetLiveDataFromWS(this.id, 'bar-chart').subscribe((ref) => {
-            if (this.datas.length === 0) {
-                this.datas = ref.chartItems;
-            }
-        });
-    }
-    private wsDisconnect() {}
-
-    ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
+    protected dataHandler(ref: any): void {
+        this.data = ref.chartItems;
     }
 
-    onRemoveButton() {
+    public onRemoveButton(): void {
         this.widgetService.removeItemService(this.uniqId);
         this.userSettings.removeItem(this.uniqId);
     }

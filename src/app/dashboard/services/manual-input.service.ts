@@ -6,7 +6,6 @@ import {
     MI_DataSend,
     MI_ParamSend,
     Param_MI,
-    IValue,
 } from '../models/manual-input.model';
 import { AppConfigService } from 'src/app/services/appConfigService';
 
@@ -114,7 +113,7 @@ export class ManualInputService {
 
     SaveValues(ids: MI_DataGet, data: IMachine_MI[]) {
         for (const i in ids.trueValues) {
-            let el = this.GetElementById(ids.trueValues[i].id, data);
+            let el = this.GetElementById(ids.trueValues[i], data);
             el.isEdit = true;
             el.isSave = true;
             el.isError = false;
@@ -122,7 +121,7 @@ export class ManualInputService {
             this.saveBar('Сохранено', false);
         }
         for (const i in ids.falseValues) {
-            let el = this.GetElementById(ids.falseValues[i].id, data);
+            let el = this.GetElementById(ids.falseValues[i], data);
             el.isError = true;
             this.saveBar('Сохранено с ошибкой', false);
         }

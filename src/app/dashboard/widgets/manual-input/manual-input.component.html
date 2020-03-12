@@ -1,11 +1,15 @@
 <evj-widget-preview
-  [title]="title"
-  [previewTitle]="previewTitle"
+  [title]="widgetTitle"
+  [previewTitle]="widgetType"
   *ngIf="isMock"
 ></evj-widget-preview>
 
 <ng-container *ngIf="!this.isMock">
-  <evj-widget-header [title]="title" [id]="id" [uniqId]="uniqId"></evj-widget-header>
+  <evj-widget-header
+    [title]="widgetTitle"
+    [id]="widgetId"
+    [uniqId]="widgetUniqId"
+  ></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
 
@@ -160,7 +164,6 @@
                             class="message"
                             (click)="onInputMessage(i)"
                             [ngClass]="{'activeIcon': i.openInput}"
-                            [ngClass]="{'activeIcon': i.curComment}"
                           >
                             <svg-icon
                               src="./assets/icons/widgets/manual-input/message.svg"
@@ -175,9 +178,7 @@
                             <input
                               class="data"
                               type="text"
-                              (change)="onChangeValue(i.id)"
-                              (focusout)="onUnfocusValue(i.id)"
-                              [(ngModel)]="i.curComment"
+                              [(ngModel)]="i.comment"
                               placeholder="Напишите свой комментарий..."
                               [class.data_active__saving]="i.isActive"
                             />
@@ -191,188 +192,77 @@
             </ng-container>
           </ng-container>
           <ng-container *ngIf="!allSettings">
-            <div class="machines-container">
-              <ng-container *ngFor="let item of chooseSetting.groups">
-                <div class="machine-container">
-                  <div class="item-name-short">
-                    <div class="item-name__button">
-                      <svg-icon
-                        src="./assets/icons/widgets/manual-input/arrow_down.svg"
-                        [svgStyle]="{ 'width.px':10, 'height.px':10 }"
-                      ></svg-icon>
-                    </div>
-                    <div class="item-name__title">{{item.name}}</div>
+            <ng-container *ngFor="let item of chooseSetting.groups">
+              <div class="machine-container">
+                <div class="item-name-short">
+                  <div class="item-name__button">
+                    <svg-icon
+                      src="./assets/icons/widgets/manual-input/arrow_down.svg"
+                      [svgStyle]="{ 'width.px':10, 'height.px':10 }"
+                    ></svg-icon>
                   </div>
-                  <div class="item-container-short">
-                    <ng-container *ngFor="let i of item.params">
-                      <div class="items">
-                        <div class="item-block">
-                          <div class="item-block__value name">{{i.name}}</div>
-                          <div class="item-block__value">{{i.unit}}.</div>
-                          <div class="item-block__value">
-                            {{i.lastTime | date: 'dd.MM.yyyy HH:mm'}}
-                          </div>
-                          <div class="item-block__value">{{i.lastValue}}</div>
-                          <div class="item-block__value">
-                            {{i.curTime | date: 'dd.MM.yyyy HH:mm'}}
-                          </div>
-                          <div class="item-block__value input_value">
-                            <input
-                              class="data"
-                              type="text"
-                              placeholder="--------"
-                              [(ngModel)]="i.curValue"
-                              [class.data_active]="i.isActive"
-                              [class.data_active__saving]="i.isActive && i.isSave"
-                              [class.data_active__warning]="i.isWarning && !i.isSave && i.isActive && !i.isError"
-                              [class.data_active__error]="i.isError && !i.isSave"
-                              (change)="onChangeValue(i.id)"
-                              (focusout)="onUnfocusValue(i.id)"
-                            />
-                          </div>
-                          <div class="item-block__value">{{i.minValue}}</div>
-                          <div class="item-block__value">{{i.maxValue}}</div>
+                  <div class="item-name__title">{{item.name}}</div>
+                </div>
+                <div class="item-container-short">
+                  <ng-container *ngFor="let i of item.params">
+                    <div class="items">
+                      <div class="item-block">
+                        <div class="item-block__value name">{{i.name}}</div>
+                        <div class="item-block__value">{{i.unit}}.</div>
+                        <div class="item-block__value">
+                          {{i.lastTime | date: 'dd.MM.yyyy HH:mm'}}
                         </div>
-                        <div
-                          class="message"
-                          (click)="onInputMessage(i)"
-                          [ngClass]="{'activeIcon': i.openInput}"
-                          [class.activeIcon]="i.comment !== undefined"
-                        >
-                          <svg-icon
-                            src="./assets/icons/widgets/manual-input/message.svg"
-                            [svgStyle]="{ 'width.px':27, 'height.px':25, 'margin-left.px': -13, 'margin-top.px': 8}"
-                          >
-                          </svg-icon>
+                        <div class="item-block__value">{{i.lastValue}}</div>
+                        <div class="item-block__value">
+                          {{i.curTime | date: 'dd.MM.yyyy HH:mm'}}
                         </div>
-                        <div class="input-message-none" [ngClass]="{'input-message': i.openInput }">
+                        <div class="item-block__value input_value">
                           <input
                             class="data"
                             type="text"
+                            placeholder="--------"
+                            [(ngModel)]="i.curValue"
+                            [class.data_active]="i.isActive"
+                            [class.data_active__saving]="i.isActive && i.isSave"
+                            [class.data_active__warning]="i.isWarning && !i.isSave && i.isActive && !i.isError"
+                            [class.data_active__error]="i.isError && !i.isSave"
                             (change)="onChangeValue(i.id)"
                             (focusout)="onUnfocusValue(i.id)"
-                            placeholder="Напишите свой комментарий..."
-                            [(ngModel)]="i.curComment"
-                            [class.data_active__saving]="i.isActive"
                           />
                         </div>
+                        <div class="item-block__value">{{i.minValue}}</div>
+                        <div class="item-block__value">{{i.maxValue}}</div>
                       </div>
-                    </ng-container>
-                  </div>
+                      <div
+                        class="message"
+                        (click)="onInputMessage(i)"
+                        [ngClass]="{'activeIcon': i.openInput}"
+                      >
+                        <svg-icon
+                          src="./assets/icons/widgets/manual-input/message.svg"
+                          [svgStyle]="{ 'width.px':27, 'height.px':25, 'margin-left.px': -13, 'margin-top.px': 8}"
+                        >
+                        </svg-icon>
+                      </div>
+                      <div class="input-message-none" [ngClass]="{'input-message': i.openInput }">
+                        <input
+                          class="data"
+                          type="text"
+                          placeholder="Напишите свой комментарий..."
+                          [(ngModel)]="i.comment"
+                          [class.data_active__saving]="i.isActive"
+                        />
+                      </div>
+                    </div>
+                  </ng-container>
                 </div>
-              </ng-container>
-            </div>
+              </div>
+            </ng-container>
           </ng-container>
         </div>
         <div class="container-footer"></div>
       </div>
     </div>
-
-    <!--OLD VERSION-->
-    <!-- <div
-    class="button-bar"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
-    <div class="buttons">
-      <div class="button buttons__item  gridster-item-content" (click)="onButtonSave()">
-        Сохранить значение
-      </div>
-    </div>
-  </div> -->
-    <!-- <div class="table">
-      <div id="saveBarBlock">
-        <div class="loader">
-          <svg viewBox="25 25 50 50">
-            <circle cx="50" cy="50" r="20"></circle>
-          </svg>
-        </div>
-      </div>
-      <div id="saveBar"></div>
-
-      <div class="table-header">
-        <div class="d-table">
-          <div class="d-tr_header">
-            <div class="d-td d-td_header__col-1">Параметры</div>
-            <div class="d-td d-td_header__col-2">Ед.Изм.</div>
-            <div class="d-td d-td_header__col-3">Предыдущее значение</div>
-            <div class="d-td d-td_header__col-4">Текущее значение</div>
-            <div class="d-td d-td_header__col-5">Мин. граница</div>
-            <div class="d-td d-td_header__col-6">Макс. граница</div>
-            <div class="d-td d-td_header__col-7">Комментарии</div>
-          </div>
-        </div>
-      </div>
-      <div class="line-horizontal"></div>
-
-      <div class="table-body">
-        <div class="table-body_list scroll-bar">
-          <div class="table-container-1" *ngFor="let machine of Data">
-            <div class="table-header-1" (click)="onActiveBlock(machine.name, $event)">
-              {{ machine.name }}
-            </div>
-
-            <div class="vertical-line-1"></div>
-            <div class="table-container-2" *ngFor="let group of machine.groups">
-              <div class="table-header-2" (click)="onActiveBottomBlock(group.name, $event)">
-                {{ group.name }}
-              </div>
-              <div class="vertical-line-2"></div>
-              <div class="d-table">
-                <ng-container *ngFor="let param of group.params">
-                  <div class="d-tr">
-                    <div class="d-td d-td_content__col-1">
-                      <div class="table-container-3"></div>
-                    </div>
-                    <div class="d-td d-td_content__col-2">{{ param.name }}</div>
-                    <div class="d-td d-td_content__col-3">{{ param.unit }}</div>
-                    <div class="d-td d-td_content__col-4">
-                      {{ param.lastValue }}
-                    </div>
-                    <div class="d-td d-td_content__col-5">
-                      {{ param.lastTime | date: 'dd.MM.yyyy HH:mm' }}
-                    </div>
-                    <div class="d-td d-td_content__col-6">
-                      <input
-                        class="data gridster-item-content"
-                        type="text"
-                        placeholder="--------"
-                        [(ngModel)]="param.curValue"
-                        [class.data_active]="param.isActive"
-                        [class.data_active__saving]="param.isActive && param.isSave"
-                        [class.data_active__warning]="param.isWarning && !param.isSave && param.isActive && !param.isError"
-                        [class.data_active__error]="param.isError && !param.isSave"
-                        (change)="onChangeValue(param.id)"
-                        (focusout)="onUnfocusValue(param.id)"
-                      />
-                    </div>
-                    <div class="d-td d-td_content__col-7">
-                      {{ param.curTime | date: 'dd.MM.yyyy HH:mm' }}
-                    </div>
-                    <div class="d-td d-td_content__col-8">
-                      {{ param.minValue }}
-                    </div>
-                    <div class="d-td d-td_content__col-9">
-                      {{ param.maxValue }}
-                    </div>
-                    <div class="d-td d-td_content__col-10">
-                      <input
-                        class="data data_comment gridster-item-content"
-                        type="text"
-                        placeholder="--------"
-                        [(ngModel)]="param.comment"
-                      />
-                    </div>
-                    <div class="d-td d-td_content__col-11"></div>
-                  </div>
-                  <div class="space"></div>
-                </ng-container>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
   </div>
 
   <evj-frame-bottom
