@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IWorkspace, EnumClaims } from '../../../../models/admin-panel';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AdminPanelService } from '../../../../services/admin-panel/admin-panel.service';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
     selector: 'evj-aws-workspace-card',
@@ -19,6 +20,7 @@ export class AwsWorkspaceCardComponent implements OnInit {
     @Output() public selectedWorkspace: EventEmitter<IWorkspace> = new EventEmitter<IWorkspace>();
 
     public claims = EnumClaims;
+    public selectedValue: string = EnumClaims[0];
     public select: SelectionModel<IWorkspace> = new SelectionModel<IWorkspace>(true);
 
     constructor(private adminService: AdminPanelService) {}
@@ -42,5 +44,10 @@ export class AwsWorkspaceCardComponent implements OnInit {
             claimsArray.push(EnumClaims[i]);
         }
         return claimsArray;
+    }
+
+    public onChangeSelect(event: MatSelectChange): void {
+        console.log(event);
+        console.log(this.selectedValue);
     }
 }

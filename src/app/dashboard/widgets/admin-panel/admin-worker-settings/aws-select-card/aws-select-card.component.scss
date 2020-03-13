@@ -111,11 +111,20 @@
       color: var(--color-text-main);
     }
   }
+  mat-form-field {
+    margin-top: -15px;
+    width: 130px;
+    height: 25px;
+  }
 }
 
 ::ng-deep {
   .mat-form-field {
     font-size: 14px;
+
+    &-infix {
+      border-top: none;
+    }
   }
 
   .mat-select-panel:not([class*="mat-elevation-z"]) {
