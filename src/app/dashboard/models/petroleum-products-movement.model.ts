@@ -19,6 +19,10 @@ export interface IOperation {
     isActive?: boolean; // no back
 }
 
+export interface ITransfer {
+    guid?: string;
+}
+
 export interface IFacilityInfo {
     id?: number;
     title: string;
