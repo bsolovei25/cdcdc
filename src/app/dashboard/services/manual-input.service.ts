@@ -55,7 +55,7 @@ export class ManualInputService {
                 el.saveValue = el.curValue;
             }
 
-            if(el.comment !== ''){
+            if (el.comment !== '') {
                 el.isEdit = true;
                 el.comment = el.comment;
             }
