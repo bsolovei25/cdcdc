@@ -169,7 +169,7 @@
                           </div>
                           <div
                             class="input-message-none"
-                            [ngClass]="{'input-message': i.openInput }"
+                            [ngClass]="{'input-message': i.openInput === true }"
                           >
                             <input
                               class="data"
@@ -248,7 +248,7 @@
                           >
                           </svg-icon>
                         </div>
-                        <div class="input-message-none" [ngClass]="{'input-message': i.openInput }">
+                        <div class="input-message-none" [ngClass]="{'input-message': i.openInput === true }">
                           <input
                             class="data"
                             type="text"
