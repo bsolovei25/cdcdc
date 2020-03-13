@@ -371,7 +371,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
             deadline: new Date(),
             graphValues: null,
             isAcknowledged: false,
-            unitsName: null,
+            unitName: null,
         };
     }
 
@@ -558,7 +558,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
             deadline: new Date(),
             graphValues: null,
             isAcknowledged: false,
-            unitsName: null,
+            unitName: null,
         };
     }
 
