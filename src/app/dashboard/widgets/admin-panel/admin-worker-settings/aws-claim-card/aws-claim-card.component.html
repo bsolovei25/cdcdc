@@ -1,0 +1,7 @@
+<div
+  class="item"
+  [ngClass]="{'item-active':isActive,'hover':isChangingCardState}"
+  (click)="changeCardState()"
+>
+  {{name}}
+</div>

@@ -9,6 +9,8 @@ import { UiElementsComponent } from './layout/ui-elements.component';
 import { ButtonComponent } from './components/button/button.component';
 import { InputComponent } from './components/input/input.component';
 import { WorkerCardComponent } from './components/worker-card/worker-card.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 import { UiBlockComponent } from './layout/ui-block/ui-block.component';
 import { LoadingShadeComponent } from './components/loading-shade/loading-shade.component';
 
@@ -39,6 +41,6 @@ import { LoadingShadeComponent } from './components/loading-shade/loading-shade.
         UiBlockComponent,
         LoadingShadeComponent,
     ],
-    imports: [CommonModule],
+    imports: [CommonModule, MatInputModule, MatIconModule],
 })
 export class SharedModule {}

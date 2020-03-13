@@ -1,0 +1,140 @@
+.container {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  .employee {
+    &__list {
+      flex-basis: 35%;
+      height: 100%;
+
+      box-sizing: border-box;
+      padding-left: 20px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+
+      overflow-y: auto;
+      overflow-x: hidden;
+
+      direction: rtl;
+    }
+
+    &__humans {
+      width: 100%;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+
+      direction: ltr;
+    }
+
+    &__human {
+      position: relative;
+
+      width: 100%;
+      height: 65px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+
+      box-sizing: border-box;
+      margin-top: 10px;
+      padding-left: 60px;
+
+      background: linear-gradient(
+        to right,
+        var(--color-bg-human-disable) 0%,
+        var(--color-bg-main) 50%
+      );
+
+      font-size: 16px;
+      color: var(--color-text-main-transparent);
+
+      user-select: none;
+
+      .human {
+        &__position {
+          margin-top: 5px;
+          font-size: 12px;
+        }
+      }
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      &-active {
+        background: linear-gradient(
+          to right,
+          var(--color-bg-active-gradient1) 0%,
+          var(--color-bg-main) 50%
+        );
+
+        color: var(--color-text-main);
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+
+        width: 10px;
+        height: 10px;
+
+        background: var(--color-bg-main);
+
+        transform: rotate(45deg);
+
+        top: -5px;
+        left: -5px;
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+
+        width: 10px;
+        height: 10px;
+
+        background: var(--color-bg-main);
+
+        transform: rotate(45deg);
+
+        bottom: -5px;
+        left: -5px;
+      }
+    }
+
+    &__person {
+      flex-basis: 60%;
+      height: 100%;
+    }
+  }
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-axis);
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 25px;
+  margin: 15px 0px;
+
+  &-piece {
+    background: var(--color-bg-sub);
+  }
+}

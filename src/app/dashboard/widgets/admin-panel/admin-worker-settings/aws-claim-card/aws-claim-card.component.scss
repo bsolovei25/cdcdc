@@ -1,0 +1,36 @@
+.item {
+  height: 35px;
+  width: max-content;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  box-sizing: border-box;
+  padding: 0px 10px;
+  border: 0.5px solid;
+  border-color: var(--color-border-main-transparrent);
+  border-radius: 35px;
+
+  margin-bottom: 5px;
+  margin-right: 5px;
+
+  color: var(--color-text-main-transparent);
+  font-size: 12px;
+
+  transition: 0.5s;
+
+  user-select: none;
+
+  &-active {
+    color: var(--color-text-main);
+    border-color: var(--color-active);
+  }
+}
+
+.hover {
+  &:hover {
+    cursor: pointer;
+  }
+}

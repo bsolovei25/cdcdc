@@ -79,13 +79,12 @@ import { SearchListComponent } from './components/search/search-list/search-list
 import { TimeLineDiagramComponent } from './widgets/time-line-diagram/time-line-diagram.component';
 import { TimeDiagramComponent } from './widgets/time-line-diagram/time-diagram/time-diagram.component';
 import { ObservationNormTRComponent } from './widgets/observation-norm-tr/observation-norm-tr.component';
+import { AdminPanelComponent } from './widgets/admin-panel/admin-panel.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AdminShiftScheduleComponent } from './widgets/admin-widget/admin-shift-schedule/admin-shift-schedule.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
-import { AdminComponent } from './widgets/admin/admin.component';
-import { AdminWorkspaceCardComponent } from './widgets/admin/admin-workspace-card/admin-workspace-card.component';
 import { AdminReferencesComponent } from './widgets/admin-references/admin-references.component';
 import { CardVerifierComponent } from './widgets/change-shift/card-verifier/card-verifier.component';
 import { PetroleumProductsMovementComponent } from './widgets/petroleum-products-movement/petroleum-products-movement.component';
@@ -96,7 +95,17 @@ import { PetroleumWorkspaceComponent } from './widgets/petroleum-products-moveme
 import { MatSelectModule } from '@angular/material/select';
 import { ScrollingModule } from '@angular/cdk-experimental/scrolling';
 import { ScrollingModule as OldScrollingModule } from '@angular/cdk/scrolling';
+import { AdminEmployeeComponent } from './widgets/admin-panel/admin-employee/admin-employee.component';
+import { AdminWorkspaceComponent } from './widgets/admin-panel/admin-workspace/admin-workspace.component';
+import { AdminClaimsComponent } from './widgets/admin-panel/admin-workspace/admin-claims/admin-claims.component';
+import { AdminBrigadesComponent } from './widgets/admin-panel/admin-brigades/admin-brigades.component';
+import { AdminWorkerSettingsComponent } from './widgets/admin-panel/admin-worker-settings/admin-worker-settings.component';
+import { AwsCardComponent } from './widgets/admin-panel/admin-worker-settings/aws-card/aws-card.component';
+import { AwsWorkspaceCardComponent } from './widgets/admin-panel/admin-worker-settings/aws-workspace-card/aws-workspace-card.component';
+import { AwsClaimCardComponent } from './widgets/admin-panel/admin-worker-settings/aws-claim-card/aws-claim-card.component';
 import { PetroleumUnityComponent } from './widgets/petroleum-products-movement/petroleum-unity/petroleum-unity.component';
+import { AdminWorkspaceCardComponent } from './widgets/admin-panel/admin-workspace/admin-workspace-card/admin-workspace-card.component';
+import { AwsSelectCardComponent } from './widgets/admin-panel/admin-worker-settings/aws-select-card/aws-select-card.component';
 import { OperationScreenLeftComponent } from './widgets/petroleum-products-movement/petroleum-reference-left/operation-screen-left/operation-screen-left.component';
 import { InfoScreenLeftComponent } from './widgets/petroleum-products-movement/petroleum-reference-left/info-screen-left/info-screen-left.component';
 import { OperationParkScreenLeftComponent } from './widgets/petroleum-products-movement/petroleum-reference-left/operation-park-screen-left/operation-park-screen-left.component';
@@ -180,9 +189,8 @@ import { PetroleumUnityInfoComponent } from './widgets/petroleum-products-moveme
         SearchInputComponent,
         SearchListComponent,
         ObservationNormTRComponent,
+        AdminPanelComponent,
         AdminShiftScheduleComponent,
-        AdminComponent,
-        AdminWorkspaceCardComponent,
         AdminReferencesComponent,
         CardVerifierComponent,
         PetroleumProductsMovementComponent,
@@ -190,7 +198,17 @@ import { PetroleumUnityInfoComponent } from './widgets/petroleum-products-moveme
         PetroleumReferenceRightComponent,
         PetroleumReferenceComponent,
         PetroleumWorkspaceComponent,
+        AdminEmployeeComponent,
+        AdminWorkspaceComponent,
+        AdminWorkspaceCardComponent,
+        AdminClaimsComponent,
+        AdminBrigadesComponent,
+        AdminWorkerSettingsComponent,
+        AwsCardComponent,
+        AwsWorkspaceCardComponent,
+        AwsClaimCardComponent,
         PetroleumUnityComponent,
+        AwsSelectCardComponent,
         OperationScreenLeftComponent,
         InfoScreenLeftComponent,
         OperationParkScreenLeftComponent,
@@ -249,6 +267,7 @@ import { PetroleumUnityInfoComponent } from './widgets/petroleum-products-moveme
         AdminShiftScheduleComponent,
         AdminReferencesComponent,
         PetroleumProductsMovementComponent,
+        AdminPanelComponent,
     ],
     exports: [HomeComponent],
     imports: [
