@@ -1939,7 +1939,7 @@ $border-size: 4px;
             .fact_block {
               height: 100%;
               .fact_content_create_event {
-                height: calc(100% - 410px);
+                height: calc(100% - 415px);
 
                 .fact_new {
                   .fact_menu {
@@ -1973,22 +1973,23 @@ $border-size: 4px;
             border-bottom-right-radius: 10px;
 
             .info_block {
-               display: contents;
+              display: contents;
               .deadline {
-               // width: 50%;
-               width: 100%;
-              }
-
-              .place{
+                margin-top: 10px;
+                // width: 50%;
                 width: 100%;
-               // width: 120px;
               }
 
-              .creator{
+              .place {
+                width: 100%;
+                // width: 120px;
+              }
+
+              .creator {
                 display: flex;
                 justify-content: space-around;
                 width: 100%;
-              //  width: 90px;
+                //  width: 90px;
                 //padding-left: 2px;
               }
             }
@@ -2045,7 +2046,7 @@ $border-size: 4px;
                 }
               }
               .comments_content_create_event {
-                height: calc(100% - 375px);
+                height: calc(100% - 383px);
                 overflow: auto;
                 background: #1d202a;
                 .comment_new {
