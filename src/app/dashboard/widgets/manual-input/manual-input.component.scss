@@ -307,25 +307,25 @@
 
     ::-webkit-scrollbar {
       width: 1px;
-      height: 4px;
+      height: 5px;
     }
     ::-webkit-scrollbar:vertical {
       width: 10px;
       height: 100%;
     }
     ::-webkit-scrollbar-track {
-      margin-top: 5px;
-      margin-bottom: 5px;
+      margin-left: 10px;
+      margin-right: 10px;
       background-color: var(--color-bg-main);
       border-radius: 10px;
     }
     ::-webkit-scrollbar-track-piece {
-      border: 1px solid white;
+      border: 1px solid #8c99b2;
       border-radius: 10px;
     }
     ::-webkit-scrollbar-thumb {
       height: 20px;
-      background-color: white;
+      background-color: #8c99b2;
       border-radius: 10px;
     }
     ::-webkit-scrollbar-corner {
@@ -533,13 +533,12 @@
         }
       }
     }
-
+    //// VERTICAL SCROLL
     ::-webkit-scrollbar {
-      width: 1px;
       height: 5px;
     }
     ::-webkit-scrollbar:vertical {
-      width: 4px;
+      width: 5px;
       height: 50%;
       border-radius: 10px;
     }
@@ -550,12 +549,12 @@
       border-radius: 10px;
     }
     ::-webkit-scrollbar-track-piece {
-      border: 1px solid white;
+      border: 1px solid #8c99b2;
       border-radius: 10px;
     }
     ::-webkit-scrollbar-thumb {
       height: 20px;
-      background-color: white;
+      background-color: #8c99b2;
       border-radius: 10px;
     }
     ::-webkit-scrollbar-corner {
