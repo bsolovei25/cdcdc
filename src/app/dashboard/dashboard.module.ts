@@ -103,7 +103,6 @@ import { AdminWorkerSettingsComponent } from './widgets/admin-panel/admin-worker
 import { AwsCardComponent } from './widgets/admin-panel/admin-worker-settings/aws-card/aws-card.component';
 import { AwsWorkspaceCardComponent } from './widgets/admin-panel/admin-worker-settings/aws-workspace-card/aws-workspace-card.component';
 import { AwsClaimCardComponent } from './widgets/admin-panel/admin-worker-settings/aws-claim-card/aws-claim-card.component';
-import { AdminPanelService } from './services/admin-panel/admin-panel.service';
 import { PetroleumUnityComponent } from './widgets/petroleum-products-movement/petroleum-unity/petroleum-unity.component';
 import { AdminWorkspaceCardComponent } from './widgets/admin-panel/admin-workspace/admin-workspace-card/admin-workspace-card.component';
 

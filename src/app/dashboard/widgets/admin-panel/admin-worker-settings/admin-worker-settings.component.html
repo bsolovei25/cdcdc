@@ -86,7 +86,7 @@
     </div>
     <div class="worker__column worker__workspaces scroll-bar" *ngIf="!isClaimsShowing">
       <div class="cards">
-        <ng-container *ngFor="let workspace of workspaces">
+        <ng-container *ngFor="let workspace of allWorkspaces">
           <evj-aws-workspace-card
             *ngIf="isValidWorkspaceName(workspace.screenName)"
             [isActive]="defineIsWorkspaceActive(workspace)"

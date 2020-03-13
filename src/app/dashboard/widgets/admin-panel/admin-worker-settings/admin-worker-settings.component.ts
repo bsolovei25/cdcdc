@@ -15,8 +15,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     @Input() public isCreateNewUser: boolean = false;
     @Output() public closeWorkerSettings: EventEmitter<IUser> = new EventEmitter<IUser>();
 
-    public isChangingOption: boolean = false;
-
     public isClaimsShowing: boolean = true;
     public isAlertShowing: boolean = false;
 
@@ -31,7 +29,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     public worker: IUser = null;
 
-    public workspaces: IWorkspace[] = [];
+    public allWorkspaces: IWorkspace[] = [];
     public workerScreens: IWorkspace[] = [];
     public workerScreensDetached: IScreen[] = [];
 
@@ -44,6 +42,11 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             this.adminService.activeWorker$.subscribe((worker: IUser) => {
                 this.worker = fillDataShape(worker);
                 this.options = [
+                    {
+                        name: 'Логин',
+                        value: this.worker.login,
+                        key: 'login',
+                    },
                     {
                         name: 'ФИО',
                         value: this.adminService.getFullName(this.worker),
@@ -78,7 +81,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                 this.workerScreensDetached = workerScreens;
             }),
             this.adminService.getAllScreens().subscribe((data: IWorkspace[]) => {
-                this.workspaces = data;
+                this.allWorkspaces = data;
             })
         );
     }
@@ -208,6 +211,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             try {
                 this.isCreateNewUser ? await this.onCreateNewWorker() : await this.onEditWorker();
 
+                this.worker.displayName = this.adminService.generateDisplayName(this.worker);
                 await this.adminService.updateAllWorkers();
                 await this.adminService.updateAllBrigades();
                 const userScreens: IScreen[] = await this.adminService

@@ -187,6 +187,16 @@ export class AdminPanelService {
     //#endregion
 
     public getFullName(worker: IUser): string {
-        return `${worker.lastName} ${worker.firstName} ${worker.middleName}`;
+        if (worker.lastName && worker.firstName && worker.middleName) {
+            return `${worker.lastName} ${worker.firstName} ${worker.middleName}`;
+        }
+        return '';
+    }
+
+    public generateDisplayName(worker: IUser): string {
+        if (worker.lastName && worker.firstName && worker.middleName) {
+            return `${worker.lastName} ${worker.firstName[0]}. ${worker.middleName[0]}.`;
+        }
+        return '';
     }
 }
