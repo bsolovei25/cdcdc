@@ -240,8 +240,8 @@
     }
 
     .settings-button {
-     margin-left: 10px;
-     margin-right: 10px;
+      margin-left: 10px;
+      margin-right: 10px;
       padding-bottom: 5px;
       height: 110%;
       overflow-x: auto;
@@ -320,8 +320,8 @@
       border-radius: 10px;
     }
     ::-webkit-scrollbar-track-piece {
-       border: 1px solid white;
-       border-radius: 10px;
+      border: 1px solid white;
+      border-radius: 10px;
     }
     ::-webkit-scrollbar-thumb {
       height: 20px;
@@ -352,12 +352,12 @@
         margin-left: 5px;
         margin-right: 5px;
         background-color: rgba(255, 255, 255, 0.5);
-       // box-shadow: inset 0 0 5px #8c99b2;
+        // box-shadow: inset 0 0 5px #8c99b2;
         border-radius: 10px;
       }
       ::-webkit-scrollbar-track-piece {
         background-color: var(--color-bg-main);
-       // border: 1px solid #8c99b2;
+        // border: 1px solid #8c99b2;
       }
       ::-webkit-scrollbar-thumb {
         height: 50px;
@@ -516,22 +516,21 @@
           }
         }
 
-        .unit{
+        .unit {
           width: 100px;
         }
 
-        .lastValue{
+        .lastValue {
           width: 100px;
         }
 
-        .minValue{
+        .minValue {
           width: 100px;
         }
 
-        .maxValue{
+        .maxValue {
           width: 100px;
         }
-
       }
     }
 
@@ -551,8 +550,8 @@
       border-radius: 10px;
     }
     ::-webkit-scrollbar-track-piece {
-       border: 1px solid white;
-       border-radius: 10px;
+      border: 1px solid white;
+      border-radius: 10px;
     }
     ::-webkit-scrollbar-thumb {
       height: 20px;
@@ -650,7 +649,7 @@
                 border-bottom: 2px solid var(--color-bg-main);
                 height: 40px;
                 display: flex;
-             //   justify-content: space-between;
+                //   justify-content: space-between;
                 align-items: center;
 
                 &__value {
@@ -658,19 +657,19 @@
                   text-align: center;
                 }
 
-                .unit{
+                .unit {
                   width: 100px;
                 }
-        
-                .lastValue{
+
+                .lastValue {
                   width: 100px;
                 }
-        
-                .minValue{
+
+                .minValue {
                   width: 100px;
                 }
-        
-                .maxValue{
+
+                .maxValue {
                   width: 100px;
                 }
 
@@ -789,19 +788,19 @@
                   margin-top: 5px;
                 }
 
-                .unit{
+                .unit {
                   width: 100px;
                 }
-        
-                .lastValue{
+
+                .lastValue {
                   width: 100px;
                 }
-        
-                .minValue{
+
+                .minValue {
                   width: 100px;
                 }
-        
-                .maxValue{
+
+                .maxValue {
                   width: 100px;
                 }
               }
@@ -970,7 +969,7 @@ input.data {
     color: var(--color-text-sub);
   }
 
-  &:focus{
+  &:focus {
     outline: none;
   }
 }

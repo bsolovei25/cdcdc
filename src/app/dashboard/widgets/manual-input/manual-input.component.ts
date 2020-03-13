@@ -150,9 +150,9 @@ export class ManualInputComponent extends WidgetPlatform
                 item.open = setGroups?.groups?.find((el) => el.name === item.name)?.open ?? true;
             }
             if (itemDate.active) {
-                (this.chooseSetting === undefined)
-                    ? this.chooseSetting = itemDate
-                    : this.chooseSetting = this.chooseSetting;
+                this.chooseSetting === undefined
+                    ? (this.chooseSetting = itemDate)
+                    : (this.chooseSetting = this.chooseSetting);
                 this.allSettings = false;
             }
         }

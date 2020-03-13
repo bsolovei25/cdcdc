@@ -110,10 +110,7 @@
                   ></svg-icon>
                 </div>
               </div>
-              <div
-                class="machines-container"
-                [@Branch]="(machine.open) ? 'expanded' : 'collapsed'"
-              >
+              <div class="machines-container" [@Branch]="(machine.open) ? 'expanded' : 'collapsed'">
                 <ng-container *ngFor="let item of machine.groups">
                   <div class="machine-container">
                     <div class="item-name" (click)="onShowItemMachine(item)">
@@ -125,10 +122,7 @@
                       </div>
                       <div class="item-name__title">{{item.name}}</div>
                     </div>
-                    <div
-                      class="item-container"
-                      [@Branch]="(item.open) ? 'expanded' : 'collapsed'"
-                    >
+                    <div class="item-container" [@Branch]="(item.open) ? 'expanded' : 'collapsed'">
                       <ng-container *ngFor="let i of item.params">
                         <div class="items">
                           <div class="item-block">
@@ -205,7 +199,10 @@
                     </div>
                     <div class="item-name__title">{{item.name}}</div>
                   </div>
-                  <div class="item-container-short" [@Branch]="(item.open) ? 'expanded' : 'collapsed'">
+                  <div
+                    class="item-container-short"
+                    [@Branch]="(item.open) ? 'expanded' : 'collapsed'"
+                  >
                     <ng-container *ngFor="let i of item.params">
                       <div class="items">
                         <div class="item-block">
