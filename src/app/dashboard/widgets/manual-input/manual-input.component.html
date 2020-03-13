@@ -179,6 +179,7 @@
                               [(ngModel)]="i.comment"
                               placeholder="Напишите свой комментарий..."
                               [class.data_active__saving]="i.isActive"
+                              [class.data_notActive]="!i.isActive"
                             />
                           </div>
                         </div>
@@ -256,6 +257,7 @@
                             placeholder="Напишите свой комментарий..."
                             [(ngModel)]="i.comment"
                             [class.data_active__saving]="i.isActive"
+                            [class.data_notActive]="!i.isActive"
                           />
                         </div>
                       </div>
