@@ -1382,7 +1382,7 @@ $border-size: 4px;
         margin-top: 10px;
         line-height: 25px;
         .place {
-          margin-left: 15px;
+          width: 35%;
           .place_title {
             color: var(--color-text-sub);
             font-size: 10px;
@@ -1395,6 +1395,7 @@ $border-size: 4px;
         }
 
         .creator {
+          width: 20%;
           .creator_title {
             color: var(--color-text-sub);
             font-size: 10px;
@@ -1407,6 +1408,7 @@ $border-size: 4px;
         }
 
         .deadline {
+          width: 40%;
           position: relative;
           background: var(--color-bg-card);
 

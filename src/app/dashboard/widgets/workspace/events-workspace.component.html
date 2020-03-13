@@ -363,12 +363,20 @@
           <div class="workspace__body__right">
             <div class="info_block">
               <div class="place">
-                <div class="place_title">
-                  Место:
-                </div>
-                <div class="place_body">
-                  ГФУ-2 с БОР
-                </div>
+                <evj-ui-block class="workspace__body__categories" status="normal">
+                  <mat-form-field class="categories_selectbox">
+                    <mat-label>Место</mat-label>
+                    <mat-select
+                      panelClass="mat-select-custom"
+                      [(ngModel)]="event.unitName"
+                      [compareWith]="compareFn"
+                    >
+                      <mat-option *ngFor="let cat of this.units" [value]="cat.name">
+                        {{ cat.name }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </evj-ui-block>
               </div>
               <div class="creator">
                 <div class="creator_title">
@@ -923,12 +931,20 @@
               <div class="workspace__body__right">
                 <div class="info_block">
                   <div class="place">
-                    <div class="place_title">
-                      Место:
-                    </div>
-                    <div class="place_body">
-                      ГФУ-2 с БОР
-                    </div>
+                    <evj-ui-block class="workspace__body__categories" status="normal">
+                      <mat-form-field class="categories_selectbox">
+                        <mat-label>Место</mat-label>
+                        <mat-select
+                          panelClass="mat-select-custom"
+                          [(ngModel)]="isNewRetrieval.unitsName"
+                          [compareWith]="compareFn"
+                        >
+                          <mat-option *ngFor="let cat of this.units" [value]="cat">
+                            {{ cat.name }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </evj-ui-block>
                   </div>
                   <div class="creator">
                     <div class="creator_title">
