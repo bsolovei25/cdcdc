@@ -61,7 +61,7 @@ export interface EventsWidgetNotification {
     graphValues: LineChartData;
     isAcknowledged: boolean;
     source?: any;
-    units?: IUnitEvents[];
+    unit?: IUnitEvents;
     unitName?: string;
 }
 
@@ -70,7 +70,6 @@ export interface IUnitEvents {
     name: string;
     createdAt: Date;
     createdById: number;
-    synonyms: IUnitEvents[];
 }
 
 export interface IRetrievalEvents {

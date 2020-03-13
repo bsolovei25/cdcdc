@@ -368,10 +368,10 @@
                     <mat-label>Место</mat-label>
                     <mat-select
                       panelClass="mat-select-custom"
-                      [(ngModel)]="event.unitName"
+                      [(ngModel)]="event.unit"
                       [compareWith]="compareFn"
                     >
-                      <mat-option *ngFor="let cat of this.units" [value]="cat.name">
+                      <mat-option *ngFor="let cat of this.units" [value]="cat">
                         {{ cat.name }}
                       </mat-option>
                     </mat-select>
@@ -936,7 +936,7 @@
                         <mat-label>Место</mat-label>
                         <mat-select
                           panelClass="mat-select-custom"
-                          [(ngModel)]="isNewRetrieval.unitsName"
+                          [(ngModel)]="isNewRetrieval.unit"
                           [compareWith]="compareFn"
                         >
                           <mat-option *ngFor="let cat of this.units" [value]="cat">
