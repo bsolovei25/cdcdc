@@ -363,12 +363,20 @@
           <div class="workspace__body__right">
             <div class="info_block">
               <div class="place">
-                <div class="place_title">
-                  Место:
-                </div>
-                <div class="place_body">
-                  ГФУ-2 с БОР
-                </div>
+                <evj-ui-block class="workspace__body__categories" status="normal">
+                  <mat-form-field class="categories_selectbox">
+                    <mat-label>Место</mat-label>
+                    <mat-select
+                      panelClass="mat-select-custom"
+                      [(ngModel)]="event.unit"
+                      [compareWith]="compareFn"
+                    >
+                      <mat-option *ngFor="let cat of this.units" [value]="cat">
+                        {{ cat.name }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </evj-ui-block>
               </div>
               <div class="creator">
                 <div class="creator_title">
@@ -922,20 +930,29 @@
 
               <div class="workspace__body__right">
                 <div class="info_block">
-                  <div class="place">
-                    <div class="place_title">
-                      Место:
-                    </div>
-                    <div class="place_body">
-                      ГФУ-2 с БОР
-                    </div>
-                  </div>
                   <div class="creator">
                     <div class="creator_title">
                       Автор
                     </div>
                     <div class="creator_body">{{this.nameUser}}</div>
                   </div>
+                  <div class="place">
+                    <evj-ui-block class="workspace__body__categories" status="normal">
+                      <mat-form-field class="categories_selectbox">
+                        <mat-label>Место</mat-label>
+                        <mat-select
+                          panelClass="mat-select-custom"
+                          [(ngModel)]="isNewRetrieval.unit"
+                          [compareWith]="compareFn"
+                        >
+                          <mat-option *ngFor="let cat of this.units" [value]="cat">
+                            {{ cat.name }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </evj-ui-block>
+                  </div>
+
                   <div class="deadline">
                     <mat-form-field>
                       <mat-label>Срок выполнения</mat-label>

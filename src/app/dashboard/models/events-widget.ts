@@ -23,7 +23,7 @@ export interface EventsWidgetNotification {
     itemNumber: number;
     organization: string;
     branch: string;
-    place: { id: number; name: string };
+    //place?: { id: number; name: string };
     responsibleOperator: IUser;
     fixedBy: IUser;
     eventDateTime: Date;
@@ -61,6 +61,15 @@ export interface EventsWidgetNotification {
     graphValues: LineChartData;
     isAcknowledged: boolean;
     source?: any;
+    unit?: IUnitEvents;
+    unitName?: string;
+}
+
+export interface IUnitEvents {
+    id: number;
+    name: string;
+    createdAt: Date;
+    createdById: number;
 }
 
 export interface IRetrievalEvents {
