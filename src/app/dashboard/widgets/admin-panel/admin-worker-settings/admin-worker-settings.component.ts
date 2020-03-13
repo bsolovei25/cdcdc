@@ -1,5 +1,10 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy, Input } from '@angular/core';
-import { IWorkerOptionAdminPanel, IWorkspace, IScreen } from '../../../models/admin-panel';
+import {
+    IWorkerOptionAdminPanel,
+    IWorkspace,
+    IScreen,
+    IBrigadeAdminPanel,
+} from '../../../models/admin-panel';
 import { IUser } from '../../../models/events-widget';
 import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
 import { Subscription } from 'rxjs';
@@ -150,8 +155,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public onSelectBrigade(brigade: IBrigade): void {
-        console.log(brigade);
-
         this.isCheckBoxClicked = false;
         this.isAlertShowing = true;
         this.worker.brigade = { id: brigade.id, number: brigade.number.toString() };
@@ -221,6 +224,10 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                 const userScreens: IScreen[] = await this.adminService
                     .getWorkerScreens(this.worker.id)
                     .toPromise();
+                const newActiveBrigade = this.adminService.brigades.find(
+                    (brigade) => brigade.brigadeId === this.worker.brigade.id
+                );
+                this.adminService.activeBrigade$.next(newActiveBrigade);
                 this.adminService.activeWorkerScreens$.next(userScreens);
                 this.adminService.activeWorker$.next(this.worker);
 
