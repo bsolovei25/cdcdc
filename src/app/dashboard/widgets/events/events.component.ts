@@ -296,7 +296,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
 
     private appendNotifications(remoteNotifications: EventsWidgetNotificationPreview[]): void {
         const notifications = remoteNotifications
-            .filter(n => n.category && n.category.name)
+            .filter((n) => n.category && n.category.name)
             .map((n) => {
                 const iconUrl = this.getNotificationIcon(n.category.name);
                 const iconUrlStatus = this.getStatusIcon(n.status.name);
