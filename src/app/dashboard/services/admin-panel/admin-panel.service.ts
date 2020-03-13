@@ -12,26 +12,25 @@ export class AdminPanelService {
     private restUrl: string = `/api/user-management`;
 
     private defaultWorker: IUser = {
-        id: null,
-        login: '',
-        firstName: '',
-        lastName: '',
-        middleName: '',
-        phone: 'Номер телефона',
-        email: 'Электронная почта',
+        id: undefined,
+        login: 'o2',
+        firstName: 'o',
+        lastName: 'o',
+        middleName: 'o',
+        phone: '123',
+        email: 'e@e',
         brigade: {
             id: null,
-            number: 'Номер бригады',
+            number: '',
         },
-        position: '',
-        positionDescription: '',
-        displayName: '',
+        position: 'common',
+        positionDescription: 'wqrqr',
+        displayName: 'wqewq',
     };
 
     public activeWorker: IUser = null;
 
     public allWorkers$: BehaviorSubject<IUser[]> = new BehaviorSubject<IUser[]>(null);
-
     public activeBrigade$: BehaviorSubject<IBrigadeAdminPanel> = new BehaviorSubject<
         IBrigadeAdminPanel
     >(null);
@@ -158,6 +157,11 @@ export class AdminPanelService {
         this.activeWorker$.next(worker);
     }
 
+    public setDefaultActiveWorker(): void {
+        this.activeWorker$.next(this.defaultWorker);
+        this.activeWorkerScreens$.next([]);
+    }
+
     public async updateAllWorkers(): Promise<void> {
         const data: IUser[] = await this.getAllWorkers().toPromise();
         this.allWorkers$.next(data);
@@ -168,22 +172,6 @@ export class AdminPanelService {
         this.brigades = data;
     }
 
-    //#endregion
-
-    //#region BRIGADE_METHODS
-
-    // public removeActiveBrigade(): void {
-    //     this.brigades.forEach((brigade: IBrigade) => {
-    //         brigade.isActiveBrigade = false;
-    //     });
-    // }
-
-    //#endregion
-
-    public getFullName(worker: IUser): string {
-        return `${worker.lastName} ${worker.firstName} ${worker.middleName}`;
-    }
-
     public getPhotoLink(worker: IUser): string {
         // if (worker.photoId) {
         //     return `${this.configService.fsUrl}/${worker.photoId}`;
@@ -191,5 +179,14 @@ export class AdminPanelService {
         //     return 'assets/icons/widgets/admin/default_avatar.svg';
         // }
         return 'assets/icons/widgets/admin/default_avatar.svg';
+    }
+
+    //#endregion
+
+    //#region BRIGADE_METHODS
+    //#endregion
+
+    public getFullName(worker: IUser): string {
+        return `${worker.lastName} ${worker.firstName} ${worker.middleName}`;
     }
 }

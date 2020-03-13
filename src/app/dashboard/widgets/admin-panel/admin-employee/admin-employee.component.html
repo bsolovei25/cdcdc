@@ -18,7 +18,7 @@
     <evj-worker-card
       class="insert-component"
       [isSmallCard]="false"
-      [person]="activeWorker"
+      [person]="(activeWorker.id)?activeWorker:defaultActiveWorker"
       [photoPath]="returnPhotoPath()"
     ></evj-worker-card>
   </div>

@@ -20,6 +20,7 @@
           class="insert-component"
           [placeholder]="'Введите название рабочей области'"
           [iconSrc]="searchIcon"
+          (inputedValue)="onSearchWorkspace($event)"
         ></evj-input>
       </div>
     </div>

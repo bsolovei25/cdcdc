@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { IBrigadeAdminPanel, IWorkerAdminPanel, IScreen } from '../../../models/admin-panel';
 import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
-import { Subscription } from 'rxjs';
+import { Subscription, zip } from 'rxjs';
 import { SelectionModel } from '@angular/cdk/collections';
 import { IUser } from '../../../models/events-widget';
 
@@ -29,24 +29,13 @@ export class AdminBrigadesComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         // this.adminPanel.activeWorker$.next(this.workers[0]);
-        this.adminService.activeBrigade$.subscribe((data: IBrigadeAdminPanel) => {
-            if (data) {
-                this.setActiveBrigade(data);
-            }
+        const combine = zip(this.adminService.activeBrigade$, this.adminService.activeWorker$);
+        combine.subscribe((data: [IBrigadeAdminPanel, IUser]) => {
+            const worker: IUser = data[0].users.find((user: IUser) => user.id === data[1].id);
+            this.setActiveBrigade(data[0]);
+            this.setActiveWorker(worker);
         });
     }
-
-    // private async findActiveUser(): Promise<void> {
-    //     const brigade: IBrigadeAdminPanel = await this.adminService.activeBrigade$.toPromise();
-    //     const worker: IUser = await this.adminService.activeWorker$.toPromise();
-    //     if (brigade) {
-    //         this.setActiveBrigade(brigade);
-    //     }
-    //     const workerInBrigade: IUser = brigade.users.find((user: IUser) => user.id === worker.id);
-    //     if (workerInBrigade) {
-    //         this.setActiveWorker(workerInBrigade);
-    //     }
-    // }
 
     public ngOnDestroy(): void {
         if (this.subsSelectedWorker) {

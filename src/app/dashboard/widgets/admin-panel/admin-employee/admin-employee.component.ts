@@ -12,6 +12,24 @@ import { IScreen } from '../../../models/admin-panel';
 export class AdminEmployeeComponent implements OnInit, OnDestroy {
     @Input() public searchedWorker: string = '';
     @Input() public workers: IUser[] = null;
+
+    public defaultActiveWorker: IUser = {
+        id: null,
+        login: '',
+        firstName: '',
+        lastName: '',
+        middleName: '',
+        phone: 'Номер телефона',
+        email: 'Электронная почта',
+        brigade: {
+            id: null,
+            number: 'Номер бригады',
+        },
+        position: '',
+        positionDescription: '',
+        displayName: '',
+    };
+
     public activeWorker: IUser = null;
 
     private subscriptions: Subscription[] = [];

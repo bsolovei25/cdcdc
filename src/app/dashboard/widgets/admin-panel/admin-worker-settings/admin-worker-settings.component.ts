@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy, Input } from '@angular/core';
 import { IWorkerOptionAdminPanel, IWorkspace, IScreen } from '../../../models/admin-panel';
 import { IUser } from '../../../models/events-widget';
 import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
@@ -12,6 +12,7 @@ import { async } from '@angular/core/testing';
     styleUrls: ['./admin-worker-settings.component.scss'],
 })
 export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
+    @Input() public isCreateNewUser: boolean = false;
     @Output() public closeWorkerSettings: EventEmitter<IUser> = new EventEmitter<IUser>();
 
     public isChangingOption: boolean = false;
@@ -83,11 +84,18 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         this.subscriptions.forEach((subs: Subscription) => subs.unsubscribe());
     }
 
+    public onSearchWorkspace(searchedWorkspace: string): boolean {
+        // const workspace: string = searchedWorkspace.toLowerCase();
+        // return workspace.includes(this.sear)
+        return;
+    }
+
     public defineIsWorkspaceActive(workspace: IWorkspace): boolean {
         return !!this.workerScreens.find((item: IWorkspace) => item.id === workspace.id);
     }
 
     public onSelectWorkspace(event: IWorkspace): void {
+        this.isCheckBoxClicked = false;
         this.isAlertShowing = true;
         if (!this.defineIsWorkspaceActive(event)) {
             this.workerScreens.push(event);
@@ -126,6 +134,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public onSelectClaim(): void {
+        this.isCheckBoxClicked = false;
         this.isAlertShowing = true;
     }
 
@@ -142,11 +151,39 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         } else {
             this.worker[event.key] = event.value;
         }
+        this.isCheckBoxClicked = false;
         this.isAlertShowing = true;
     }
 
     public returnPhotoPath(): string {
         return this.adminService.getPhotoLink(this.worker);
+    }
+
+    private async onCreateNewWorker(): Promise<void> {
+        this.worker.brigade = {
+            id: this.adminService.brigades[0].brigadeId,
+            number: this.adminService.brigades[0].brigadeNumber,
+        };
+        this.worker = await this.adminService.createNewWorker(this.worker).toPromise();
+        const promises: Promise<void>[] = [];
+        this.addWorkspacesToWorker().forEach((index: number) => {
+            promises.push(this.adminService.addWorkerScreen(this.worker.id, index).toPromise());
+        });
+        Promise.all(promises);
+    }
+
+    private async onEditWorker(): Promise<void> {
+        const promises: Promise<void>[] = [];
+
+        promises.push(this.adminService.editWorkerData(this.worker).toPromise());
+        this.addWorkspacesToWorker().forEach((index: number) => {
+            promises.push(this.adminService.addWorkerScreen(this.worker.id, index).toPromise());
+        });
+        this.removeWorkspacesFromWorker().forEach((index: number) => {
+            promises.push(this.adminService.removeWorkerScreen(index).toPromise());
+        });
+
+        await Promise.all(promises);
     }
 
     public onReturn(): void {
@@ -156,17 +193,8 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     public async onSave(): Promise<void> {
         if (this.isCheckBoxClicked) {
             try {
-                const promises: Promise<any>[] = [];
-                promises.push(this.adminService.editWorkerData(this.worker).toPromise());
-                this.addWorkspacesToWorker().forEach(async (index: number) => {
-                    promises.push(
-                        this.adminService.addWorkerScreen(this.worker.id, index).toPromise()
-                    );
-                });
-                this.removeWorkspacesFromWorker().forEach(async (index: number) => {
-                    promises.push(this.adminService.removeWorkerScreen(index).toPromise());
-                });
-                await Promise.all(promises);
+                this.isCreateNewUser ? await this.onCreateNewWorker() : await this.onEditWorker();
+
                 await this.adminService.updateAllWorkers();
                 await this.adminService.updateAllBrigades();
                 const userScreens: IScreen[] = await this.adminService
@@ -174,11 +202,11 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                     .toPromise();
                 this.adminService.activeWorkerScreens$.next(userScreens);
                 this.adminService.activeWorker$.next(this.worker);
+
+                this.closeWorkerSettings.emit(this.worker);
             } catch (error) {
                 throw new Error(error);
             }
-
-            this.closeWorkerSettings.emit(this.worker);
         }
     }
 }

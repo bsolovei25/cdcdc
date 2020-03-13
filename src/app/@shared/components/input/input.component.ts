@@ -14,11 +14,11 @@ import {
     styleUrls: ['./input.component.scss'],
 })
 export class InputComponent implements OnInit {
-    @Input() placeholder: string = '';
-    @Input() iconSrc: string = '';
-    @Input() value: string = '';
-    @Output() inputedValue: EventEmitter<string> = new EventEmitter<string>();
-    @ViewChild('input') input: ElementRef;
+    @Input() public placeholder: string = '';
+    @Input() public iconSrc: string = '';
+    @Input() public value: string = '';
+    @Output() public inputedValue: EventEmitter<string> = new EventEmitter<string>();
+    @ViewChild('input') public input: ElementRef;
 
     public isFocused: boolean = false;
 

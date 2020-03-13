@@ -32,6 +32,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
 
     public isGroupShowed: boolean = false;
     public isWorkerSettingsShowed: boolean = false;
+    public isCreateNewWorker: boolean = false;
 
     //#endregion
 
@@ -91,6 +92,12 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
         this.subscriptions.forEach((subs: Subscription) => subs.unsubscribe());
     }
 
+    public createNewWorker(): void {
+        this.adminService.setDefaultActiveWorker();
+        this.isCreateNewWorker = true;
+        this.isWorkerSettingsShowed = true;
+    }
+
     public getMoreAboutWorker(): void {
         if (this.adminService.activeWorker.id) {
             this.isWorkerSettingsShowed = true;
@@ -98,6 +105,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     }
 
     public onCloseWorkerSettings(): void {
+        this.isCreateNewWorker = false;
         this.isWorkerSettingsShowed = false;
     }
 
