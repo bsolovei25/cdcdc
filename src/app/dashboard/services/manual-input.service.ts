@@ -49,14 +49,14 @@ export class ManualInputService {
         }
         for (const i in tempData) {
             const el = this.GetElementById(tempData[i].id, newData);
-        //    const commentEl = newData.find(el;)
+            //    const commentEl = newData.find(el;)
             el.isError = tempData[i].isError;
             if (el.curValue !== '') {
                 el.isEdit = true;
                 el.saveValue = el.curValue;
             }
 
-            if(el.comment !== ''){
+            if (el.comment !== '') {
                 el.isEdit = true;
                 el.comment = el.comment;
             }
