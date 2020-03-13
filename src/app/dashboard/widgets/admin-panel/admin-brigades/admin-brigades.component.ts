@@ -11,35 +11,57 @@ import { IUser } from '../../../models/events-widget';
     styleUrls: ['./admin-brigades.component.scss'],
 })
 export class AdminBrigadesComponent implements OnInit, OnDestroy {
+    //#region INPUTS
+
     @Input() public brigades: IBrigadeAdminPanel[] = [];
 
-    public workers: IUser[] = [];
+    //#endregion
+
+    //#region SELECTION_MODELS
 
     public selectBrigade: SelectionModel<IBrigadeAdminPanel> = new SelectionModel<
         IBrigadeAdminPanel
     >(true);
-
     public selectWorker: SelectionModel<IUser> = new SelectionModel<IUser>(true);
 
+    //#endregion
+
+    //#region SUBSCRIPTIONS
+
     public subsSelectedWorker: Subscription = null;
+    public subsActiveBrigadeWorker: Subscription = null;
+
+    //#endregion
+
+    public workers: IUser[] = [];
 
     constructor(private adminService: AdminPanelService) {}
 
-    // TODO
-
     public ngOnInit(): void {
-        // this.adminPanel.activeWorker$.next(this.workers[0]);
         const combine = zip(this.adminService.activeBrigade$, this.adminService.activeWorker$);
-        combine.subscribe((data: [IBrigadeAdminPanel, IUser]) => {
-            const worker: IUser = data[0].users.find((user: IUser) => user.id === data[1].id);
-            this.setActiveBrigade(data[0]);
-            this.setActiveWorker(worker);
+        this.subsActiveBrigadeWorker = combine.subscribe((data: [IBrigadeAdminPanel, IUser]) => {
+            if (data[0]) {
+                this.setActiveBrigade(data[0]);
+            }
+            if (data[1]) {
+                this.brigades.forEach((brigade) => {
+                    const worker: IUser = brigade.users.find(
+                        (user: IUser) => user.id === data[1].id
+                    );
+                    if (worker) {
+                        this.setActiveWorker(worker);
+                    }
+                });
+            }
         });
     }
 
     public ngOnDestroy(): void {
         if (this.subsSelectedWorker) {
             this.subsSelectedWorker.unsubscribe();
+        }
+        if (this.subsActiveBrigadeWorker) {
+            this.subsActiveBrigadeWorker.unsubscribe();
         }
     }
 

@@ -13,19 +13,19 @@ export class AdminPanelService {
 
     private defaultWorker: IUser = {
         id: undefined,
-        login: 'o2',
-        firstName: 'o',
-        lastName: 'o',
-        middleName: 'o',
-        phone: '123',
-        email: 'e@e',
+        login: '',
+        firstName: '',
+        lastName: '',
+        middleName: '',
+        phone: '',
+        email: '',
         brigade: {
             id: null,
             number: '',
         },
         position: 'common',
-        positionDescription: 'wqrqr',
-        displayName: 'wqewq',
+        positionDescription: '',
+        displayName: '',
     };
 
     public activeWorker: IUser = null;
