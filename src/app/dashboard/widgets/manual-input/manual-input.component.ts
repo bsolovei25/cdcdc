@@ -11,17 +11,31 @@ import {
 import { ManualInputService } from '../../services/manual-input.service';
 import { HttpClient } from '@angular/common/http';
 import { IMachine_MI, IGroup_MI } from '../../models/manual-input.model';
-import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { AppConfigService } from 'src/app/services/appConfigService';
 import { WidgetSettingsService } from '../../services/widget-settings.service';
+import { WidgetPlatform } from '../../models/widget-platform';
+import { trigger, style, state, transition, animate } from '@angular/animations';
 
 @Component({
     selector: 'evj-manual-input',
     templateUrl: './manual-input.component.html',
     styleUrls: ['./manual-input.component.scss'],
+    animations: [
+        trigger('machineBranch', [
+            state('collapsed', style({ height: '40px', minHeight: '40px' })),
+            state('expanded', style({ height: '*' })),
+            transition('collapsed <=> expanded', animate('200ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+        ]),
+        trigger('itemBranch', [
+            state('collapsed', style({ height: '40px', minHeight: '40px' })),
+            state('expanded', style({ height: '*' })),
+            transition('collapsed <=> expanded', animate('200ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+        ]),
+    ],
 })
-export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
+export class ManualInputComponent extends WidgetPlatform
+    implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild('truckScroll') truckScroll: ElementRef;
     @ViewChild('scroll') scroll: ElementRef;
 
@@ -33,8 +47,6 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
     static itemCols: number = 30;
     static itemRows: number = 20;
 
-    private subscriptions: Subscription[] = [];
-
     public title: string;
     public previewTitle: string;
 
@@ -42,6 +54,12 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
     openAllSettings: boolean = true;
 
     chooseSetting: IMachine_MI;
+
+    public isLoading: boolean;
+
+    private restUrl: string;
+
+    Data: IMachine_MI[] = [];
 
     constructor(
         public manualInputService: ManualInputService,
@@ -53,24 +71,14 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.restUrl = configService.restUrl;
-        this.isLoading = true;
-        this.subscriptions.push(
-            this.widgetService.getWidgetChannel(id).subscribe((data) => {
-                this.title = data.title;
-                this.previewTitle = data.widgetType;
-            })
-        );
+        super(widgetService, isMock, id, uniqId);
+        this.widgetIcon = 'peoples';
     }
 
-    public isLoading: boolean;
-
-    private restUrl: string;
-
-    Data: IMachine_MI[] = [];
-
     ngOnInit(): void {
-        this.showMock(this.isMock);
+        super.widgetInit();
+        this.restUrl = this.configService.restUrl;
+        this.isLoading = true;
     }
 
     ngAfterViewInit(): void {
@@ -86,10 +94,16 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     ngOnDestroy(): void {
-        for (const subscription of this.subscriptions) {
-            subscription.unsubscribe();
-        }
-        this.subscriptions = [];
+        super.ngOnDestroy();
+    }
+
+    protected dataConnect(): void {
+        super.dataConnect();
+        this.setInitData();
+    }
+
+    protected dataHandler(ref: any): void {
+        this.loadSaveData(ref);
     }
 
     @Output()
@@ -117,20 +131,6 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
         this.manualInputService.CheckLastValue(id, this.Data);
     }
 
-    private wsConnect(): void {
-        this.widgetService.getWidgetLiveDataFromWS(this.id, 'manual-input').subscribe((ref) => {
-            this.loadSaveData(ref);
-        });
-    }
-
-    showMock(show: boolean): void {
-        if (show) {
-        } else {
-            this.setInitData();
-            this.wsConnect();
-        }
-    }
-
     async loadSaveData(data: IMachine_MI[]): Promise<void> {
         const settings: IMachine_MI[] = await this.widgetSettingsService.getSettings(this.uniqId);
         for (const itemDate of data) {
@@ -140,7 +140,11 @@ export class ManualInputComponent implements OnInit, OnDestroy, AfterViewInit {
                 const setGroups = settings?.find((el) => el.name === itemDate.name);
                 item.open = setGroups?.groups?.find((el) => el.name === item.name)?.open ?? true;
             }
+            if (itemDate.active) {
+                this.allSettings = false;
+            }
         }
+
         this.Data = this.manualInputService.LoadData(this.Data, data);
         console.log(this.Data);
     }

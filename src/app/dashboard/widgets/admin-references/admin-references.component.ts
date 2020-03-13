@@ -16,7 +16,7 @@ export class AdminReferencesComponent implements OnInit {
     public code: string;
     public title: string;
     public units: string = ' ';
-    public previewTitle: string = 'circle-diagram';
+    public previewTitle: string = 'default';
     public options;
 
     isReference: boolean = false;

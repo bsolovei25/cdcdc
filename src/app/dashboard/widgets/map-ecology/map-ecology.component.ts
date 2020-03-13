@@ -1,14 +1,6 @@
-import {
-    Component,
-    OnInit,
-    ElementRef,
-    ViewChild,
-    AfterViewInit,
-    Inject,
-    OnDestroy,
-} from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit, Inject, OnDestroy } from '@angular/core';
 import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
-import { Subscription } from 'rxjs';
+import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 
 declare var d3: any;
 
@@ -17,39 +9,31 @@ declare var d3: any;
     templateUrl: './map-ecology.component.html',
     styleUrls: ['./map-ecology.component.scss'],
 })
-export class MapEcologyComponent implements AfterViewInit, OnInit, OnDestroy {
-    static itemCols = 32;
-    static itemRows = 12;
+export class MapEcologyComponent extends WidgetPlatform implements AfterViewInit, OnDestroy {
+    static itemCols: number = 32;
+    static itemRows: number = 12;
 
-    public startY = 55.6611;
-    public startX = 37.7726;
+    public startY: number = 55.6611;
+    public startX: number = 37.7726;
 
-    public startImgY = 55.6611;
-    public startImgX = 37.7395;
+    public startImgY: number = 55.6611;
+    public startImgX: number = 37.7395;
 
-    public clat;
-    public clon;
+    public clat: number;
+    public clon: number;
 
-    public namePoint;
-    public idPoint;
+    public namePoint: string;
+    public idPoint: number;
 
-    public title;
-    public code;
-    public units;
-    public name;
-    public previewTitle: string;
+    public svgimg: any;
 
-    public svgimg;
+    public indexS: number;
 
-    public indexS;
-
-    public isActive = false;
-
-    private subscription: Subscription;
-
-    @ViewChild('myCircle') myCircle: ElementRef;
+    public isActive: boolean = false;
 
     public datas;
+
+    @ViewChild('myCircle') myCircle: ElementRef;
 
     constructor(
         public widgetService: NewWidgetService,
@@ -57,60 +41,43 @@ export class MapEcologyComponent implements AfterViewInit, OnInit, OnDestroy {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-            this.title = data.title;
-            this.code = data.code;
-            this.units = data.units;
-            this.name = data.name;
-            this.previewTitle = data.widgetType;
-        });
+        super(widgetService, isMock, id, uniqId);
     }
 
-    ngOnInit() {}
-
-    ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
+    ngOnDestroy(): void {
+        super.ngOnDestroy();
     }
 
-    ngAfterViewInit() {
-        this.showMock(this.isMock);
+    ngAfterViewInit(): void {
+        super.widgetInit();
     }
 
-    private wsConnect() {
-        this.widgetService.getWidgetLiveDataFromWS(this.id, 'map-ecology').subscribe((ref) => {
-            if (this.datas == null) {
-                this.datas = ref.points;
-                this.regexText(this.datas);
-                this.drawMap(this.myCircle.nativeElement, this.datas);
-                this.namePoint = this.datas[0].name;
-            } else {
-                this.clearMap();
-                this.datas = ref.points;
-                this.regexText(this.datas);
-                this.drawMap(this.myCircle.nativeElement, this.datas);
-            }
-        });
+    protected dataHandler(ref: any): void {
+        this.drawMapSocket(ref);
     }
-    private wsDisconnect() {}
 
-    showMock(show) {
-        if (show) {
-            this.wsDisconnect();
+    public drawMapSocket(ref): void {
+        if (this.datas == null) {
+            this.datas = ref.points;
+            this.regexText(this.datas);
+            this.drawMap(this.myCircle.nativeElement, this.datas);
+            this.namePoint = this.datas[0].name;
         } else {
-            this.wsConnect();
+            this.clearMap();
+            this.datas = ref.points;
+            this.regexText(this.datas);
+            this.drawMap(this.myCircle.nativeElement, this.datas);
         }
     }
 
-    public clearMap() {
+    public clearMap(): void {
         try {
             let getSvg = document.getElementById('svg1');
             getSvg.remove();
         } catch (error) {}
     }
 
-    public drawMap(el, data) {
+    public drawMap(el, data): void {
         const svg = d3
             .select(el)
             .append('svg')
@@ -131,7 +98,7 @@ export class MapEcologyComponent implements AfterViewInit, OnInit, OnDestroy {
         for (let item of data) {
             this.clat = 2.15 * (this.startImgY - item.latitude) + this.startY;
             this.clon = this.startImgX + (item.longitude - this.startX) * 1.2;
-            if (this.namePoint == item.name) {
+            if (this.namePoint === item.name) {
                 if (item.isCritical) {
                     svg.append('image')
                         .attr('xlink:href', '/assets/pic/point2.svg')
@@ -152,7 +119,6 @@ export class MapEcologyComponent implements AfterViewInit, OnInit, OnDestroy {
                                 '/assets/pic/point2.svg'
                             );
                             return (this.namePoint = item.name);
-                            //this.infoPoint(item.name);
                         });
                 } else {
                     svg.append('image')
@@ -174,7 +140,6 @@ export class MapEcologyComponent implements AfterViewInit, OnInit, OnDestroy {
                                 '/assets/pic/point2.svg'
                             );
                             return (this.namePoint = item.name);
-                            //this.infoPoint(item.name);
                         });
                 }
             } else {
@@ -198,7 +163,6 @@ export class MapEcologyComponent implements AfterViewInit, OnInit, OnDestroy {
                                 '/assets/pic/point2.svg'
                             );
                             return (this.namePoint = item.name);
-                            //this.infoPoint(item.name);
                         });
                 } else {
                     svg.append('image')
@@ -220,14 +184,13 @@ export class MapEcologyComponent implements AfterViewInit, OnInit, OnDestroy {
                                 '/assets/pic/point2.svg'
                             );
                             return (this.namePoint = item.name);
-                            //infoPoint(item.name);
                         });
                 }
             }
         }
     }
 
-    public regexText(data) {
+    public regexText(data): void {
         for (let dat of data) {
             for (let item of dat.attributes) {
                 let regex = /\d+/gi;
@@ -237,11 +200,11 @@ export class MapEcologyComponent implements AfterViewInit, OnInit, OnDestroy {
         }
     }
 
-    public infoPoint(name) {
+    public infoPoint(name): void {
         this.namePoint = name;
     }
 
-    public nextPoint(name) {
+    public nextPoint(name): void {
         try {
             for (let [index, item] of this.datas.entries()) {
                 if (name === item.name) {
@@ -255,7 +218,7 @@ export class MapEcologyComponent implements AfterViewInit, OnInit, OnDestroy {
         } catch (error) {}
     }
 
-    public backPoint(name) {
+    public backPoint(name): void {
         try {
             for (let [index, item] of this.datas.entries()) {
                 if (name === item.name) {

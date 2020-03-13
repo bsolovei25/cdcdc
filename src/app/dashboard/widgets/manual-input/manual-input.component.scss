@@ -591,206 +591,217 @@
         }
       }
 
+      .machines-container {
+        .machine-container {
+          background-color: var(--color-bg-main);
+          width: 100%;
+          .item-name {
+            cursor: pointer;
+            padding-left: 20px;
+            box-shadow: inset -6px 3px 7px 1px rgba(0, 0, 0, 0.55);
+            display: flex;
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+
+            &__button {
+              cursor: pointer;
+              width: 20px;
+            }
+
+            &__title {
+              width: calc(100% - 20px);
+            }
+          }
+
+          .item-container {
+            padding-left: 30px;
+            box-shadow: inset -6px 3px 7px 1px rgba(0, 0, 0, 0.55);
+            background-color: var(--color-bg-main-dark);
+
+            .items {
+              display: flex;
+              width: 100%;
+              position: relative;
+              .item-block {
+                width: calc(100% - 20px);
+                border-bottom: 2px solid var(--color-bg-main);
+                height: 40px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                &__value {
+                  width: 30%;
+                  text-align: center;
+                }
+
+                .name {
+                  color: var(--color-text-sub-heading);
+                  text-align: left;
+                }
+
+                .input_value {
+                  //   margin-top: 5px;
+                }
+              }
+
+              .message {
+                cursor: pointer;
+                width: 20px;
+                height: 100%;
+                &:hover svg-icon {
+                  ::ng-deep .cls-1 {
+                    fill: var(--color-border-active);
+                    stroke: white;
+                  }
+                }
+
+                .activeIcon {
+                  svg-icon {
+                    ::ng-deep .cls-1 {
+                      fill: var(--color-border-active);
+                      stroke: white;
+                    }
+                  }
+                }
+              }
+
+              .activeIcon {
+                svg-icon {
+                  ::ng-deep .cls-1 {
+                    fill: var(--color-border-active);
+                    stroke: white;
+                  }
+                }
+              }
+
+              .input-message-none {
+                display: none;
+              }
+
+              .input-message {
+                border: 1px solid var(--color-border-active) !important;
+                border-radius: 20px;
+                display: block;
+                height: 40px;
+                width: 300px;
+                position: absolute;
+                background-color: var(--color-bg-main);
+                top: 0px;
+                right: 40px;
+
+                input.data {
+                  pointer-events: fill;
+                  width: 90%;
+                  margin-top: 10px;
+                  margin-left: 10px;
+                }
+              }
+            }
+          }
+
+          .item-container-none {
+            display: none;
+          }
+
+          .item-name-short {
+            display: flex;
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+
+            &__button {
+              width: 20px;
+            }
+
+            &__title {
+              width: calc(100% - 20px);
+            }
+          }
+
+          .item-container-short {
+            box-shadow: inset -6px 3px 7px 1px rgba(0, 0, 0, 0.55);
+            background-color: var(--color-bg-main-dark);
+
+            .items {
+              display: flex;
+              width: 100%;
+              position: relative;
+              .item-block {
+                padding-left: 35px;
+                width: calc(100% - 20px);
+                border-bottom: 2px solid var(--color-bg-main);
+                height: 40px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                &__value {
+                  width: 30%;
+                  text-align: center;
+                }
+
+                .name {
+                  color: var(--color-text-sub-heading);
+                  text-align: left;
+                }
+                .input_value {
+                  margin-top: 5px;
+                }
+              }
+
+              .message {
+                cursor: pointer;
+                width: 20px;
+                height: 100%;
+                &:hover svg-icon {
+                  ::ng-deep .cls-1 {
+                    fill: var(--color-border-active);
+                    stroke: white;
+                  }
+                }
+              }
+
+              .activeIcon {
+                svg-icon {
+                  ::ng-deep .cls-1 {
+                    fill: var(--color-border-active);
+                    stroke: white;
+                  }
+                }
+              }
+
+              .input-message-none {
+                display: none;
+              }
+
+              .input-message {
+                border: 1px solid var(--color-border-active) !important;
+                border-radius: 20px;
+                display: block;
+                height: 40px;
+                width: 300px;
+                position: absolute;
+                background-color: var(--color-bg-main);
+                top: 0px;
+                right: 40px;
+
+                input.data {
+                  pointer-events: fill;
+                  width: 90%;
+                  margin-top: 10px;
+                  margin-left: 10px;
+                }
+              }
+            }
+          }
+        }
+      }
+
       .machine-name-none {
         cursor: pointer;
         display: none;
-      }
-
-      .machine-container {
-        background-color: var(--color-bg-main);
-        width: 100%;
-        .item-name {
-          cursor: pointer;
-          padding-left: 20px;
-          box-shadow: inset -6px 3px 7px 1px rgba(0, 0, 0, 0.55);
-          display: flex;
-          width: 100%;
-          height: 40px;
-          line-height: 40px;
-
-          &__button {
-            cursor: pointer;
-            width: 20px;
-          }
-
-          &__title {
-            width: calc(100% - 20px);
-          }
-        }
-
-        .item-container {
-          padding-left: 30px;
-          box-shadow: inset -6px 3px 7px 1px rgba(0, 0, 0, 0.55);
-          background-color: var(--color-bg-main-dark);
-
-          .items {
-            display: flex;
-            width: 100%;
-            position: relative;
-            .item-block {
-              width: calc(100% - 20px);
-              border-bottom: 2px solid var(--color-bg-main);
-              height: 40px;
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-
-              &__value {
-                width: 30%;
-                text-align: center;
-              }
-
-              .name {
-                color: var(--color-text-sub-heading);
-                text-align: left;
-              }
-
-              .input_value {
-                //   margin-top: 5px;
-              }
-            }
-
-            .message {
-              cursor: pointer;
-              width: 20px;
-              height: 100%;
-              &:hover svg-icon {
-                ::ng-deep .cls-1 {
-                  fill: var(--color-border-active);
-                  stroke: white;
-                }
-              }
-            }
-
-            .activeIcon {
-              svg-icon {
-                ::ng-deep .cls-1 {
-                  fill: var(--color-border-active);
-                  stroke: white;
-                }
-              }
-            }
-
-            .input-message-none {
-              display: none;
-            }
-
-            .input-message {
-              border: 1px solid var(--color-border-active) !important;
-              border-radius: 20px;
-              display: block;
-              height: 40px;
-              width: 300px;
-              position: absolute;
-              background-color: var(--color-bg-main);
-              top: 0px;
-              right: 40px;
-
-              input.data {
-                pointer-events: fill;
-                width: 90%;
-                margin-top: 10px;
-                margin-left: 10px;
-              }
-            }
-          }
-        }
-
-        .item-container-none {
-          display: none;
-        }
-
-        .item-name-short {
-          display: flex;
-          width: 100%;
-          height: 40px;
-          line-height: 40px;
-
-          &__button {
-            width: 20px;
-          }
-
-          &__title {
-            width: calc(100% - 20px);
-          }
-        }
-
-        .item-container-short {
-          box-shadow: inset -6px 3px 7px 1px rgba(0, 0, 0, 0.55);
-          background-color: var(--color-bg-main-dark);
-
-          .items {
-            display: flex;
-            width: 100%;
-            position: relative;
-            .item-block {
-              padding-left: 35px;
-              width: calc(100% - 20px);
-              border-bottom: 2px solid var(--color-bg-main);
-              height: 40px;
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-
-              &__value {
-                width: 30%;
-                text-align: center;
-              }
-
-              .name {
-                color: var(--color-text-sub-heading);
-                text-align: left;
-              }
-              .input_value {
-                margin-top: 5px;
-              }
-            }
-
-            .message {
-              cursor: pointer;
-              width: 20px;
-              height: 100%;
-              &:hover svg-icon {
-                ::ng-deep .cls-1 {
-                  fill: var(--color-border-active);
-                  stroke: white;
-                }
-              }
-            }
-
-            .activeIcon {
-              svg-icon {
-                ::ng-deep .cls-1 {
-                  fill: var(--color-border-active);
-                  stroke: white;
-                }
-              }
-            }
-
-            .input-message-none {
-              display: none;
-            }
-
-            .input-message {
-              border: 1px solid var(--color-border-active) !important;
-              border-radius: 20px;
-              display: block;
-              height: 40px;
-              width: 300px;
-              position: absolute;
-              background-color: var(--color-bg-main);
-              top: 0px;
-              right: 40px;
-
-              input.data {
-                pointer-events: fill;
-                width: 90%;
-                margin-top: 10px;
-                margin-left: 10px;
-              }
-            }
-          }
-        }
       }
 
       .machine-container-none {
@@ -876,7 +887,7 @@ input.data {
 
     &__saving {
       border-color: transparent;
-      //border-bottom: solid 0.5px var(--color-warning);
+      border-bottom: solid 2px var(--color-border-active);
       //  border-color: transparent;
     }
 

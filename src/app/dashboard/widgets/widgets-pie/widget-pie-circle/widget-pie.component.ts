@@ -1,24 +1,5 @@
-import {
-    Component,
-    OnInit,
-    ElementRef,
-    ViewChild,
-    ViewChildren,
-    QueryList,
-    Input,
-    AfterViewInit,
-    Injectable,
-    Inject,
-} from '@angular/core';
-import { element } from 'protractor';
-import {
-    WidgetGridsterSettings,
-    WidgetModel,
-    PieWidget,
-} from 'src/app/dashboard/models/widget.model';
-import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
-import { Subscription } from 'rxjs';
-import { ThrowStmt } from '@angular/compiler';
+import { Component, OnInit, ElementRef, ViewChild, Input, Injectable } from '@angular/core';
+import { PieWidget } from 'src/app/dashboard/models/widget.model';
 
 declare var d3: any;
 
@@ -29,7 +10,7 @@ declare var d3: any;
     styleUrls: ['./widget-pie.component.scss'],
 })
 export class WidgetsPieComponent implements OnInit {
-    public readonly RADIUS = 40;
+    public readonly RADIUS: number = 40;
 
     @Input() public data: PieWidget;
 
@@ -37,7 +18,7 @@ export class WidgetsPieComponent implements OnInit {
 
     constructor() {}
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.d3Circle(this.data, this.myCircle.nativeElement);
     }
 
@@ -59,7 +40,6 @@ export class WidgetsPieComponent implements OnInit {
             .attr('viewBox', '0 -10 200 200');
 
         let group = canvas.append('g').attr('transform', 'translate(102 ,88)');
-        // .attr("viewBox", "0 20 280 200");
 
         const arc = d3
             .arc()
