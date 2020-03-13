@@ -56,8 +56,9 @@ export class ManualInputService {
             }
 
             el.comment = el.curComment;
+
             el.openInput = false;
-            if (tempData[i].comment !== undefined && tempData[i].isSave === undefined) {
+            if ((tempData[i].comment !== undefined && tempData[i].comment !== null) && tempData[i].isSave === undefined) {
                 el.isEdit = true;
                 el.comment = tempData[i].comment;
                 el.openInput = true;
@@ -126,6 +127,7 @@ export class ManualInputService {
             el.isEdit = true;
             el.isSave = true;
             el.isError = false;
+            el.curComment = el.comment;
             el.saveValue = el.curValue;
             this.saveBar('Сохранено', false);
         }

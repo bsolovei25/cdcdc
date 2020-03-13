@@ -126,6 +126,7 @@ export class ManualInputComponent extends WidgetPlatform
             .get(this.restUrl + '/api/manualinput/ManualInputData/' + this.id)
             .subscribe((ref: IMachine_MI[]) => {
                 this.loadSaveData(ref);
+                this.loadSaveData(ref);
             });
     }
 
