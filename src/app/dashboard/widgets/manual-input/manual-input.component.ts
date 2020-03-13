@@ -23,16 +23,22 @@ import { trigger, style, state, transition, animate } from '@angular/animations'
     styleUrls: ['./manual-input.component.scss'],
     animations: [
         trigger('Branch', [
-            state('collapsed', style({
-                height: 0,
-                transform: 'translateY(-8px)',
-                opacity: 0,
-                overflow: 'hidden',
-            })),
-            state('expanded', style({
-                height: '*',
-                opacity: 1
-            })),
+            state(
+                'collapsed',
+                style({
+                    height: 0,
+                    transform: 'translateY(-8px)',
+                    opacity: 0,
+                    overflow: 'hidden',
+                })
+            ),
+            state(
+                'expanded',
+                style({
+                    height: '*',
+                    opacity: 1,
+                })
+            ),
             transition('collapsed => expanded', animate('150ms ease-in')),
             transition('expanded => collapsed', animate('150ms ease-out')),
         ]),
@@ -144,7 +150,9 @@ export class ManualInputComponent extends WidgetPlatform
                 item.open = setGroups?.groups?.find((el) => el.name === item.name)?.open ?? true;
             }
             if (itemDate.active) {
-                this.chooseSetting = itemDate;
+                (this.chooseSetting === undefined)
+                    ? this.chooseSetting = itemDate
+                    : this.chooseSetting = this.chooseSetting;
                 this.allSettings = false;
             }
         }
