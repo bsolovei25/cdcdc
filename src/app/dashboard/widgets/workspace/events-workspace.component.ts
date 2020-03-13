@@ -10,6 +10,7 @@ import {
     ICategory,
     EventsWidgetCategoryCode,
     EventsWidgetData,
+    IUnitEvents,
 } from '../../models/events-widget';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NewWidgetService } from '../../services/new-widget.service';
@@ -82,6 +83,8 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         equipmentStatus: 'Состояния оборудования',
         drops: 'Сбросы',
     };
+
+    units: IUnitEvents;
 
     eventLegends: any = [{ isLegend: true }, { isLegend: false }];
 
@@ -350,7 +353,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
                 middleName: '',
                 phone: '00123456789',
             },
-            place: { id: 5001, name: 'ГФУ-2 с БОР' },
+            //place: { id: 5001, name: 'ГФУ-2 с БОР' },
             organization: 'АО Газпромнефть',
             priority: this.priority
                 ? this.priority[2]
@@ -368,6 +371,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
             deadline: new Date(),
             graphValues: null,
             isAcknowledged: false,
+            unitName: null,
         };
     }
 
@@ -399,17 +403,23 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
                 this.status = data;
             })
         );
+
+        dataLoadQueue.push(
+            this.eventService.getUnits().then((data) => {
+                this.units = data;
+            })
+        );
         dataLoadQueue.push(
             this.eventService.getPriority().then((data) => {
                 this.priority = data;
             })
         );
 
-        dataLoadQueue.push(
-            this.eventService.getPlace().then((data) => {
-                this.place = data;
-            })
-        );
+        // dataLoadQueue.push(
+        //     this.eventService.getPlace().then((data) => {
+        //         this.place = data;
+        //     })
+        // );
         dataLoadQueue.push(
             this.eventService.getEquipmentCategory().then((data) => {
                 this.equipmentCategory = data;
@@ -536,7 +546,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
             comments: [],
             facts: [],
             organization: 'АО Газпромнефть',
-            place: { id: 5001, name: 'ГФУ-1' },
+            //  place: { id: 5001, name: 'ГФУ-1' },
             priority: { id: 2003, name: 'standard', code: '2' },
             //     responsibleOperator: this.user ? this.user[0] : null,
             responsibleOperator: this.user[this.idUser - 1],
@@ -548,6 +558,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
             deadline: new Date(),
             graphValues: null,
             isAcknowledged: false,
+            unitName: null,
         };
     }
 

@@ -79,7 +79,7 @@ $border-size: 4px;
   padding: 0 25px;
   margin: 5px 0 2px;
   box-sizing: border-box;
-  border-right: 0.5px dashed var(--color-border-main-transparrent);
+  border-right: 1px dashed var(--color-border-main-transparrent);
   border-left: 0.5px dashed var(--color-border-main-transparrent);
   display: flex;
   flex-direction: column;
@@ -1382,7 +1382,7 @@ $border-size: 4px;
         margin-top: 10px;
         line-height: 25px;
         .place {
-          margin-left: 15px;
+          width: 35%;
           .place_title {
             color: var(--color-text-sub);
             font-size: 10px;
@@ -1395,6 +1395,7 @@ $border-size: 4px;
         }
 
         .creator {
+          width: 20%;
           .creator_title {
             color: var(--color-text-sub);
             font-size: 10px;
@@ -1407,6 +1408,7 @@ $border-size: 4px;
         }
 
         .deadline {
+          width: 40%;
           position: relative;
           background: var(--color-bg-card);
 
@@ -1937,7 +1939,7 @@ $border-size: 4px;
             .fact_block {
               height: 100%;
               .fact_content_create_event {
-                height: calc(100% - 410px);
+                height: calc(100% - 415px);
 
                 .fact_new {
                   .fact_menu {
@@ -1971,8 +1973,24 @@ $border-size: 4px;
             border-bottom-right-radius: 10px;
 
             .info_block {
+              display: contents;
               .deadline {
-                width: 50%;
+                margin-top: 10px;
+                // width: 50%;
+                width: 100%;
+              }
+
+              .place {
+                width: 100%;
+                // width: 120px;
+              }
+
+              .creator {
+                display: flex;
+                justify-content: space-around;
+                width: 100%;
+                //  width: 90px;
+                //padding-left: 2px;
               }
             }
 
@@ -2028,7 +2046,7 @@ $border-size: 4px;
                 }
               }
               .comments_content_create_event {
-                height: calc(100% - 302px);
+                height: calc(100% - 383px);
                 overflow: auto;
                 background: #1d202a;
                 .comment_new {
