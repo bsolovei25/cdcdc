@@ -55,14 +55,16 @@ export class ManualInputService {
                 el.saveValue = el.curValue;
             }
 
-           // el.comment = el.curComment;
+            // el.comment = el.curComment;
 
-            if ((tempData[i].comment !== undefined || tempData[i].comment !== null) && (tempData[i].isSave === undefined || tempData[i].isSave !== true)) {
+            if (
+                (tempData[i].comment !== undefined || tempData[i].comment !== null) &&
+                (tempData[i].isSave === undefined || tempData[i].isSave !== true)
+            ) {
                 el.isEdit = true;
                 el.comment = tempData[i].comment;
                 el.openInput = true;
             }
-
 
             if (tempData[i].curValue !== '' && tempData[i].isSave === false) {
                 el.curValue = tempData[i].curValue;
