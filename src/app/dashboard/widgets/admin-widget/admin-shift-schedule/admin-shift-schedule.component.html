@@ -87,12 +87,19 @@
             (click)="openOverlay($event, shift, true)"
           >
             Бригада {{ shift.brigadeName }}
+            <svg-icon
+              (click)="deleteBrigadeFromShift($event, shift)"
+              class="icon-storage"
+              [svgStyle]="{'width.px':25}"
+              src="./assets/icons/garbage_bad_pic.svg"
+            ></svg-icon>
           </p>
         </div>
         <div class="shift-overlay" #shiftOverlay>
           <ul>
-            <li (click)="deleteBrigadeFromShift()">
+            <li>
               <svg-icon
+                (click)="openOverlay(null, null, false)"
                 class="icon"
                 [svgStyle]="{'width.px':10,'fill':'rgb(150,50,255)','padding.px':1,'margin.px':3}"
                 src="./assets/icons/widgets/admin-shift-schedule/close.svg"
