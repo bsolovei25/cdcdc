@@ -55,8 +55,8 @@ export class ManualInputService {
                 el.saveValue = el.curValue;
             }
 
-                el.comment = el.curComment;
-                el.openInput = false;
+            el.comment = el.curComment;
+            el.openInput = false;
             if (tempData[i].comment !== undefined && tempData[i].isSave === undefined) {
                 el.isEdit = true;
                 el.comment = tempData[i].comment;
