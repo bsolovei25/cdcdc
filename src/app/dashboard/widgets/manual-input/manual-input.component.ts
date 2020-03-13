@@ -22,15 +22,19 @@ import { trigger, style, state, transition, animate } from '@angular/animations'
     templateUrl: './manual-input.component.html',
     styleUrls: ['./manual-input.component.scss'],
     animations: [
-        trigger('machineBranch', [
-            state('collapsed', style({ height: '40px', minHeight: '40px' })),
-            state('expanded', style({ height: '*' })),
-            transition('collapsed <=> expanded', animate('200ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-        ]),
-        trigger('itemBranch', [
-            state('collapsed', style({ height: '40px', minHeight: '40px' })),
-            state('expanded', style({ height: '*' })),
-            transition('collapsed <=> expanded', animate('200ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+        trigger('Branch', [
+            state('collapsed', style({
+                height: 0,
+                transform: 'translateY(-8px)',
+                opacity: 0,
+                overflow: 'hidden',
+            })),
+            state('expanded', style({
+                height: '*',
+                opacity: 1
+            })),
+            transition('collapsed => expanded', animate('150ms ease-in')),
+            transition('expanded => collapsed', animate('150ms ease-out')),
         ]),
     ],
 })
@@ -140,6 +144,7 @@ export class ManualInputComponent extends WidgetPlatform
                 item.open = setGroups?.groups?.find((el) => el.name === item.name)?.open ?? true;
             }
             if (itemDate.active) {
+                this.chooseSetting = itemDate;
                 this.allSettings = false;
             }
         }
