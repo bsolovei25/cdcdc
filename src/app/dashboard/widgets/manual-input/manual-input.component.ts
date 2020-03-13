@@ -82,6 +82,7 @@ export class ManualInputComponent extends WidgetPlatform
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
+        this.widgetIcon = 'peoples';
     }
 
     ngOnInit(): void {

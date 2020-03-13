@@ -24,7 +24,7 @@ export class SolidGaugesComponent extends WidgetPlatform implements OnInit, OnDe
     ) {
         super(widgetService, isMock, id, uniqId);
         this.widgetUnits = 'шт.';
-        this.widgetIcon = 'tools';
+        this.widgetIcon = 'speedo';
     }
 
     ngOnInit(): void {

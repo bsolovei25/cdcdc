@@ -43,6 +43,7 @@ export class CircleFactoryDiagramComponent extends WidgetPlatform
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
+        this.widgetIcon = 'unit';
     }
 
     ngAfterViewInit(): void {
