@@ -546,7 +546,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
             comments: [],
             facts: [],
             organization: 'АО Газпромнефть',
-          //  place: { id: 5001, name: 'ГФУ-1' },
+            //  place: { id: 5001, name: 'ГФУ-1' },
             priority: { id: 2003, name: 'standard', code: '2' },
             //     responsibleOperator: this.user ? this.user[0] : null,
             responsibleOperator: this.user[this.idUser - 1],
@@ -558,7 +558,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
             deadline: new Date(),
             graphValues: null,
             isAcknowledged: false,
-            unitsName: null
+            unitsName: null,
         };
     }
 
