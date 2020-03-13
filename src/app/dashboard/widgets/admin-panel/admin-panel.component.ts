@@ -74,13 +74,13 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         this.adminService.updateAllWorkers().then();
+        this.adminService.updateAllBrigades().then();
         this.subscriptions.push(
             this.adminService.allWorkers$.subscribe((workers: IUser[]) => {
                 this.workers = workers;
             }),
-            this.adminService.getBrigades().subscribe((data: IBrigadeAdminPanel[]) => {
-                this.adminService.brigades = data;
-                this.brigades = this.adminService.brigades;
+            this.adminService.allBrigades$.subscribe((brigades: IBrigadeAdminPanel[]) => {
+                this.brigades = brigades;
             }),
             this.adminService.getAllScreenClaims().subscribe((data: IClaim[]) => {
                 this.adminService.screenClaims = data;

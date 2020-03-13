@@ -31,6 +31,9 @@ export class AdminPanelService {
     public activeWorker: IUser = null;
 
     public allWorkers$: BehaviorSubject<IUser[]> = new BehaviorSubject<IUser[]>(null);
+    public allBrigades$: BehaviorSubject<IBrigadeAdminPanel[]> = new BehaviorSubject<
+        IBrigadeAdminPanel[]
+    >(null);
     public activeBrigade$: BehaviorSubject<IBrigadeAdminPanel> = new BehaviorSubject<
         IBrigadeAdminPanel
     >(null);
@@ -169,6 +172,7 @@ export class AdminPanelService {
 
     public async updateAllBrigades(): Promise<void> {
         const data: IBrigadeAdminPanel[] = await this.getBrigades().toPromise();
+        this.allBrigades$.next(data);
         this.brigades = data;
     }
 

@@ -4,7 +4,7 @@ import { IUser } from '../../../models/events-widget';
 import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
 import { Subscription } from 'rxjs';
 import { fillDataShape } from '../../../../@shared/common-functions';
-import { async } from '@angular/core/testing';
+import { IBrigade } from '../../../models/shift.model';
 
 @Component({
     selector: 'evj-admin-worker-settings',
@@ -149,6 +149,14 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         return idArray;
     }
 
+    public onSelectBrigade(brigade: IBrigade): void {
+        console.log(brigade);
+
+        this.isCheckBoxClicked = false;
+        this.isAlertShowing = true;
+        this.worker.brigade = { id: brigade.id, number: brigade.number.toString() };
+    }
+
     public onSelectClaim(): void {
         this.isCheckBoxClicked = false;
         this.isAlertShowing = true;
@@ -176,10 +184,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     private async onCreateNewWorker(): Promise<void> {
-        this.worker.brigade = {
-            id: this.adminService.brigades[0].brigadeId,
-            number: this.adminService.brigades[0].brigadeNumber,
-        };
         this.worker = await this.adminService.createNewWorker(this.worker).toPromise();
         const promises: Promise<void>[] = [];
         this.addWorkspacesToWorker().forEach((index: number) => {

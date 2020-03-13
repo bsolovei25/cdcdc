@@ -105,6 +105,7 @@ import { AwsWorkspaceCardComponent } from './widgets/admin-panel/admin-worker-se
 import { AwsClaimCardComponent } from './widgets/admin-panel/admin-worker-settings/aws-claim-card/aws-claim-card.component';
 import { PetroleumUnityComponent } from './widgets/petroleum-products-movement/petroleum-unity/petroleum-unity.component';
 import { AdminWorkspaceCardComponent } from './widgets/admin-panel/admin-workspace/admin-workspace-card/admin-workspace-card.component';
+import { AwsSelectCardComponent } from './widgets/admin-panel/admin-worker-settings/aws-select-card/aws-select-card.component';
 
 @NgModule({
     declarations: [
@@ -197,6 +198,7 @@ import { AdminWorkspaceCardComponent } from './widgets/admin-panel/admin-workspa
         AwsWorkspaceCardComponent,
         AwsClaimCardComponent,
         PetroleumUnityComponent,
+        AwsSelectCardComponent,
     ],
     entryComponents: [
         LineChartComponent,

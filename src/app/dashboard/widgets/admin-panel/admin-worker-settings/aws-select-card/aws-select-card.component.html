@@ -1,0 +1,27 @@
+<div class="card" [ngClass]="{'card-active':selectEdit.hasValue()}">
+  <ng-container *ngIf="selectEdit.isEmpty();else input">
+    <div class="value">Бригада №{{option.value}}</div>
+    <div class="name">{{option.name}}</div>
+  </ng-container>
+
+  <ng-template #input>
+    <mat-form-field>
+      <mat-label>{{option.name}}</mat-label>
+      <mat-select (selectionChange)="onChangeSelect($event)">
+        <mat-option [value]="null">Не выбрано</mat-option>
+        <mat-option *ngFor="let item of allBrigades" [value]="item.brigadeNumber">
+          Бригада №{{item.brigadeNumber}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </ng-template>
+
+  <div class="button" [ngClass]="{'button-active':selectEdit.hasValue()}" (click)="onEditClick()">
+    <img src="assets/icons/widgets/admin/edit-button.svg" />
+  </div>
+  <div
+    class="button button-x"
+    [ngClass]="{'button-hidden':selectEdit.isEmpty()}"
+    (click)="onCloseClick()"
+  ></div>
+</div>
