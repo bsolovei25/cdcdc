@@ -144,6 +144,7 @@
                                 placeholder="--------"
                                 [(ngModel)]="i.curValue"
                                 [class.data_active]="i.isActive"
+                                [class.data_notActive]="!i.isActive"
                                 [class.data_active__saving]="i.isActive && i.isSave"
                                 [class.data_active__warning]="i.isWarning && !i.isSave && i.isActive && !i.isError"
                                 [class.data_active__error]="i.isError && !i.isSave"

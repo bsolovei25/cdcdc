@@ -936,7 +936,7 @@ input.data {
     pointer-events: fill;
     border-radius: 3px;
     border-color: transparent;
-    border-bottom: solid 2px var(--color-border-active);
+    border-bottom: solid 2px var(--color-warning);
 
     &__saving {
       border-color: transparent;
@@ -962,6 +962,9 @@ input.data {
         border-color: transparent;
       }
     }
+  }
+  &_notActive {
+    border-color: transparent;
   }
 
   &::placeholder {
