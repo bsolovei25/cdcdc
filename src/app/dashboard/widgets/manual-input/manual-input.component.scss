@@ -182,7 +182,7 @@
 
   &__menu {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     width: 99%;
     height: 50px;
     font-size: 16px;
@@ -240,6 +240,9 @@
     }
 
     .settings-button {
+      margin-left: 10px;
+      margin-right: 10px;
+      padding-bottom: 5px;
       height: 110%;
       overflow-x: auto;
       overflow-y: hidden;
@@ -311,15 +314,18 @@
       height: 100%;
     }
     ::-webkit-scrollbar-track {
+      margin-left: 10px;
+      margin-right: 10px;
       background-color: var(--color-bg-main);
+      border-radius: 10px;
     }
     ::-webkit-scrollbar-track-piece {
-      background-color: var(--color-bg-main);
-      border-radius: 20px;
+      border: 1px solid #8c99b2;
+      border-radius: 10px;
     }
     ::-webkit-scrollbar-thumb {
-      height: 50px;
-      background-color: var(--color-bg-main);
+      height: 20px;
+      background-color: #8c99b2;
       border-radius: 10px;
     }
     ::-webkit-scrollbar-corner {
@@ -346,12 +352,12 @@
         margin-left: 5px;
         margin-right: 5px;
         background-color: rgba(255, 255, 255, 0.5);
-        box-shadow: inset 0 0 5px #8c99b2;
+        // box-shadow: inset 0 0 5px #8c99b2;
         border-radius: 10px;
       }
       ::-webkit-scrollbar-track-piece {
         background-color: var(--color-bg-main);
-        border: 1px solid #8c99b2;
+        // border: 1px solid #8c99b2;
       }
       ::-webkit-scrollbar-thumb {
         height: 50px;
@@ -464,56 +470,71 @@
       }
 
       &__info-blocks {
-        width: calc(100% - 10px);
+        width: calc(100% - 55px);
         display: flex;
-        justify-content: space-between;
+        //justify-content: space-between;
         //  align-items: center;
 
         .block-param {
           align-items: center;
           display: flex;
-          width: 100%;
+          width: 20%;
           word-wrap: break-word;
           border-left: 2px solid var(--color-bg-main);
+
+          .p1 {
+            text-align: left;
+            width: 100%;
+          }
+          .p2 {
+            text-align: center;
+            width: 100%;
+          }
+          .p3 {
+            text-align: center;
+            width: 100%;
+          }
+          .p4 {
+            text-align: center;
+            width: 100%;
+          }
+          .p5 {
+            text-align: center;
+            width: 100%;
+          }
+          .p6 {
+            text-align: center;
+            width: 100%;
+          }
+          .p7 {
+            text-align: center;
+            width: 100%;
+          }
+          .p8 {
+            text-align: center;
+            width: 100%;
+          }
         }
 
-        .p1 {
-          text-align: left;
-          width: 100%;
+        .unit {
+          width: 100px;
         }
-        .p2 {
-          text-align: center;
-          width: 100%;
+
+        .lastValue {
+          width: 100px;
         }
-        .p3 {
-          text-align: center;
-          width: 100%;
+
+        .minValue {
+          width: 100px;
         }
-        .p4 {
-          text-align: center;
-          width: 100%;
-        }
-        .p5 {
-          text-align: center;
-          width: 100%;
-        }
-        .p6 {
-          text-align: center;
-          width: 100%;
-        }
-        .p7 {
-          text-align: center;
-          width: 100%;
-        }
-        .p8 {
-          text-align: center;
-          width: 100%;
+
+        .maxValue {
+          width: 100px;
         }
       }
     }
-
+    //// VERTICAL SCROLL
     ::-webkit-scrollbar {
-      width: 1px;
       height: 5px;
     }
     ::-webkit-scrollbar:vertical {
@@ -524,13 +545,12 @@
     ::-webkit-scrollbar-track {
       margin-top: 5px;
       margin-bottom: 5px;
-      background-color: rgba(255, 255, 255, 0.5);
-      box-shadow: inset 0 0 5px #8c99b2;
+      background-color: var(--color-bg-main);
       border-radius: 10px;
     }
     ::-webkit-scrollbar-track-piece {
-      background-color: var(--color-bg-main);
       border: 1px solid #8c99b2;
+      border-radius: 10px;
     }
     ::-webkit-scrollbar-thumb {
       height: 20px;
@@ -615,7 +635,7 @@
           }
 
           .item-container {
-            padding-left: 30px;
+            padding-left: 20px;
             box-shadow: inset -6px 3px 7px 1px rgba(0, 0, 0, 0.55);
             background-color: var(--color-bg-main-dark);
 
@@ -628,12 +648,28 @@
                 border-bottom: 2px solid var(--color-bg-main);
                 height: 40px;
                 display: flex;
-                justify-content: space-between;
+                //   justify-content: space-between;
                 align-items: center;
 
                 &__value {
-                  width: 30%;
+                  width: 20%;
                   text-align: center;
+                }
+
+                .unit {
+                  width: 100px;
+                }
+
+                .lastValue {
+                  width: 100px;
+                }
+
+                .minValue {
+                  width: 100px;
+                }
+
+                .maxValue {
+                  width: 100px;
                 }
 
                 .name {
@@ -710,6 +746,7 @@
             width: 100%;
             height: 40px;
             line-height: 40px;
+            cursor: pointer;
 
             &__button {
               width: 20px;
@@ -729,7 +766,7 @@
               width: 100%;
               position: relative;
               .item-block {
-                padding-left: 35px;
+                padding-left: 25px;
                 width: calc(100% - 20px);
                 border-bottom: 2px solid var(--color-bg-main);
                 height: 40px;
@@ -738,7 +775,7 @@
                 align-items: center;
 
                 &__value {
-                  width: 30%;
+                  width: 20%;
                   text-align: center;
                 }
 
@@ -748,6 +785,22 @@
                 }
                 .input_value {
                   margin-top: 5px;
+                }
+
+                .unit {
+                  width: 100px;
+                }
+
+                .lastValue {
+                  width: 100px;
+                }
+
+                .minValue {
+                  width: 100px;
+                }
+
+                .maxValue {
+                  width: 100px;
                 }
               }
 
@@ -883,7 +936,7 @@ input.data {
     pointer-events: fill;
     border-radius: 3px;
     border-color: transparent;
-    border-bottom: solid 2px var(--color-border-active);
+    border-bottom: solid 2px var(--color-warning);
 
     &__saving {
       border-color: transparent;
@@ -910,9 +963,16 @@ input.data {
       }
     }
   }
+  &_notActive {
+    border-color: transparent;
+  }
 
   &::placeholder {
     color: var(--color-text-sub);
+  }
+
+  &:focus {
+    outline: none;
   }
 }
 

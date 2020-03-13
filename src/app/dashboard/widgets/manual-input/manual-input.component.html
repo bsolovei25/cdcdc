@@ -47,11 +47,11 @@
             </div>
           </div>
         </div>
-        <div class="scroll-button">
+        <!-- <div class="scroll-button">
           <div id="topscroll" class="topscroll" (scroll)="onScroll($event)">
             <div class="fake" [style.width.px]="widthTruckScroll"></div>
           </div>
-        </div>
+        </div> -->
         <div class="save-button" (click)="onButtonSave()">
           Сохранить
           <div class="b-a"></div>
@@ -69,13 +69,13 @@
             <div class="block-param">
               <div class="p1">Параметры</div>
             </div>
-            <div class="block-param">
+            <div class="block-param unit">
               <div class="p2">Единица Измерения</div>
             </div>
             <div class="block-param">
               <div class="p3">Предыдущая дата</div>
             </div>
-            <div class="block-param">
+            <div class="block-param lastValue">
               <div class="p4">Предыдущее значение</div>
             </div>
             <div class="block-param">
@@ -84,10 +84,10 @@
             <div class="block-param">
               <div class="p6">Текущее значение</div>
             </div>
-            <div class="block-param">
+            <div class="block-param minValue">
               <div class="p7">Минимальная граница</div>
             </div>
-            <div class="block-param">
+            <div class="block-param maxValue">
               <div class="p8">Максимальная граница</div>
             </div>
           </div>
@@ -112,11 +112,7 @@
                   ></svg-icon>
                 </div>
               </div>
-              <div
-                class="machines-container"
-                [class.machine-container-none]="machine.open === false"
-                [@machineBranch]="(machine.open) ? 'expanded' : 'collapsed'"
-              >
+              <div class="machines-container" [@Branch]="(machine.open) ? 'expanded' : 'collapsed'">
                 <ng-container *ngFor="let item of machine.groups">
                   <div class="machine-container">
                     <div class="item-name" (click)="onShowItemMachine(item)">
@@ -128,20 +124,16 @@
                       </div>
                       <div class="item-name__title">{{item.name}}</div>
                     </div>
-                    <div
-                      class="item-container"
-                      [class.item-container-none]="item.open === false"
-                      [@itemBranch]="(item.open) ? 'expanded' : 'collapsed'"
-                    >
+                    <div class="item-container" [@Branch]="(item.open) ? 'expanded' : 'collapsed'">
                       <ng-container *ngFor="let i of item.params">
                         <div class="items">
                           <div class="item-block">
                             <div class="item-block__value name">{{i.name}}</div>
-                            <div class="item-block__value">{{i.unit}}.</div>
+                            <div class="item-block__value unit">{{i.unit}}.</div>
                             <div class="item-block__value">
                               {{i.lastTime | date: 'dd.MM.yyyy HH:mm'}}
                             </div>
-                            <div class="item-block__value">{{i.lastValue}}</div>
+                            <div class="item-block__value lastValue">{{i.lastValue}}</div>
                             <div class="item-block__value">
                               {{i.curTime | date: 'dd.MM.yyyy HH:mm'}}
                             </div>
@@ -152,6 +144,7 @@
                                 placeholder="--------"
                                 [(ngModel)]="i.curValue"
                                 [class.data_active]="i.isActive"
+                                [class.data_notActive]="!i.isActive"
                                 [class.data_active__saving]="i.isActive && i.isSave"
                                 [class.data_active__warning]="i.isWarning && !i.isSave && i.isActive && !i.isError"
                                 [class.data_active__error]="i.isError && !i.isSave"
@@ -159,14 +152,14 @@
                                 (focusout)="onUnfocusValue(i.id)"
                               />
                             </div>
-                            <div class="item-block__value">{{i.minValue}}</div>
-                            <div class="item-block__value">{{i.maxValue}}</div>
+                            <div class="item-block__value minValue">{{i.minValue}}</div>
+                            <div class="item-block__value maxValue">{{i.maxValue}}</div>
                           </div>
                           <div
                             class="message"
                             (click)="onInputMessage(i)"
                             [ngClass]="{'activeIcon': i.openInput}"
-                            [ngClass]="{'activeIcon': i.curComment}"
+                            [ngClass]="{'activeIcon': i.comment}"
                           >
                             <svg-icon
                               src="./assets/icons/widgets/manual-input/message.svg"
@@ -176,16 +169,17 @@
                           </div>
                           <div
                             class="input-message-none"
-                            [ngClass]="{'input-message': i.openInput }"
+                            [ngClass]="{'input-message': i.openInput === true }"
                           >
                             <input
                               class="data"
                               type="text"
                               (change)="onChangeValue(i.id)"
                               (focusout)="onUnfocusValue(i.id)"
-                              [(ngModel)]="i.curComment"
+                              [(ngModel)]="i.comment"
                               placeholder="Напишите свой комментарий..."
                               [class.data_active__saving]="i.isActive"
+                              [class.data_notActive]="!i.isActive"
                             />
                           </div>
                         </div>
@@ -200,7 +194,7 @@
             <div class="machines-container">
               <ng-container *ngFor="let item of chooseSetting.groups">
                 <div class="machine-container">
-                  <div class="item-name-short">
+                  <div class="item-name-short" (click)="onShowItemMachine(item)">
                     <div class="item-name__button">
                       <svg-icon
                         src="./assets/icons/widgets/manual-input/arrow_down.svg"
@@ -209,16 +203,19 @@
                     </div>
                     <div class="item-name__title">{{item.name}}</div>
                   </div>
-                  <div class="item-container-short">
+                  <div
+                    class="item-container-short"
+                    [@Branch]="(item.open) ? 'expanded' : 'collapsed'"
+                  >
                     <ng-container *ngFor="let i of item.params">
                       <div class="items">
                         <div class="item-block">
                           <div class="item-block__value name">{{i.name}}</div>
-                          <div class="item-block__value">{{i.unit}}.</div>
+                          <div class="item-block__value unit">{{i.unit}}.</div>
                           <div class="item-block__value">
                             {{i.lastTime | date: 'dd.MM.yyyy HH:mm'}}
                           </div>
-                          <div class="item-block__value">{{i.lastValue}}</div>
+                          <div class="item-block__value lastValue">{{i.lastValue}}</div>
                           <div class="item-block__value">
                             {{i.curTime | date: 'dd.MM.yyyy HH:mm'}}
                           </div>
@@ -236,14 +233,14 @@
                               (focusout)="onUnfocusValue(i.id)"
                             />
                           </div>
-                          <div class="item-block__value">{{i.minValue}}</div>
-                          <div class="item-block__value">{{i.maxValue}}</div>
+                          <div class="item-block__value minValue">{{i.minValue}}</div>
+                          <div class="item-block__value maxValue">{{i.maxValue}}</div>
                         </div>
                         <div
                           class="message"
                           (click)="onInputMessage(i)"
                           [ngClass]="{'activeIcon': i.openInput}"
-                          [class.activeIcon]="i.comment !== undefined"
+                          [class.activeIcon]="i.comment"
                         >
                           <svg-icon
                             src="./assets/icons/widgets/manual-input/message.svg"
@@ -251,15 +248,19 @@
                           >
                           </svg-icon>
                         </div>
-                        <div class="input-message-none" [ngClass]="{'input-message': i.openInput }">
+                        <div
+                          class="input-message-none"
+                          [ngClass]="{'input-message': i.openInput === true }"
+                        >
                           <input
                             class="data"
                             type="text"
                             (change)="onChangeValue(i.id)"
                             (focusout)="onUnfocusValue(i.id)"
                             placeholder="Напишите свой комментарий..."
-                            [(ngModel)]="i.curComment"
+                            [(ngModel)]="i.comment"
                             [class.data_active__saving]="i.isActive"
+                            [class.data_notActive]="!i.isActive"
                           />
                         </div>
                       </div>
