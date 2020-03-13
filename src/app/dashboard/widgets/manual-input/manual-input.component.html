@@ -158,7 +158,7 @@
                             class="message"
                             (click)="onInputMessage(i)"
                             [ngClass]="{'activeIcon': i.openInput}"
-                            [ngClass]="{'activeIcon': i.curComment}"
+                            [ngClass]="{'activeIcon': i.comment}"
                           >
                             <svg-icon
                               src="./assets/icons/widgets/manual-input/message.svg"
@@ -175,7 +175,7 @@
                               type="text"
                               (change)="onChangeValue(i.id)"
                               (focusout)="onUnfocusValue(i.id)"
-                              [(ngModel)]="i.curComment"
+                              [(ngModel)]="i.comment"
                               placeholder="Напишите свой комментарий..."
                               [class.data_active__saving]="i.isActive"
                             />
@@ -238,7 +238,7 @@
                           class="message"
                           (click)="onInputMessage(i)"
                           [ngClass]="{'activeIcon': i.openInput}"
-                          [class.activeIcon]="i.comment !== undefined"
+                          [class.activeIcon]="i.comment"
                         >
                           <svg-icon
                             src="./assets/icons/widgets/manual-input/message.svg"
@@ -253,7 +253,7 @@
                             (change)="onChangeValue(i.id)"
                             (focusout)="onUnfocusValue(i.id)"
                             placeholder="Напишите свой комментарий..."
-                            [(ngModel)]="i.curComment"
+                            [(ngModel)]="i.comment"
                             [class.data_active__saving]="i.isActive"
                           />
                         </div>

@@ -50,10 +50,14 @@ export class ManualInputService {
         for (const i in tempData) {
             const el = this.GetElementById(tempData[i].id, newData);
             el.isError = tempData[i].isError;
-            el.comment = tempData[i].comment;
             if (el.curValue !== '') {
                 el.isEdit = true;
                 el.saveValue = el.curValue;
+            }
+
+            if(el.comment !== ''){
+                el.isEdit = true;
+                el.comment = el.comment;
             }
             if (tempData[i].curValue !== '' && tempData[i].isSave === false) {
                 el.curValue = tempData[i].curValue;
