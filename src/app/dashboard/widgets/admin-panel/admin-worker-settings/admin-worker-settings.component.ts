@@ -22,6 +22,9 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     public isCheckBoxClicked: boolean = false;
 
+    private searchingWorkspaceValue: string = '';
+    private searchingFieldName: string = '';
+
     public searchIcon: string = 'assets/icons/search-icon.svg';
 
     public options: IWorkerOptionAdminPanel[];
@@ -84,10 +87,20 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         this.subscriptions.forEach((subs: Subscription) => subs.unsubscribe());
     }
 
-    public onSearchWorkspace(searchedWorkspace: string): boolean {
-        // const workspace: string = searchedWorkspace.toLowerCase();
-        // return workspace.includes(this.sear)
-        return;
+    public onSearchWorkspace(searchedWorkspace: string): void {
+        this.searchingWorkspaceValue = searchedWorkspace.toLowerCase();
+    }
+
+    public onSearchField(searchedField: string): void {
+        this.searchingFieldName = searchedField.toLowerCase();
+    }
+
+    public isValidFieldName(fieldName: string): boolean {
+        return fieldName.toLowerCase().includes(this.searchingFieldName);
+    }
+
+    public isValidWorkspaceName(workspaceName: string): boolean {
+        return workspaceName.toLowerCase().includes(this.searchingWorkspaceValue);
     }
 
     public defineIsWorkspaceActive(workspace: IWorkspace): boolean {

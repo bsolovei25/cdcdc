@@ -6,6 +6,7 @@
           class="insert-component"
           [placeholder]="'Введите название пункта'"
           [iconSrc]="searchIcon"
+          (inputedValue)="onSearchField($event)"
         ></evj-input>
       </div>
     </div>
@@ -31,6 +32,7 @@
         <ng-container *ngFor="let option of options">
           <evj-aws-card
             class="card"
+            *ngIf="isValidFieldName(option.name)"
             [option]="option"
             (saveChanging)="onFieldChanging($event)"
           ></evj-aws-card>
@@ -86,6 +88,7 @@
       <div class="cards">
         <ng-container *ngFor="let workspace of workspaces">
           <evj-aws-workspace-card
+            *ngIf="isValidWorkspaceName(workspace.screenName)"
             [isActive]="defineIsWorkspaceActive(workspace)"
             [workspace]="workspace"
             [isChangingCardState]="true"
