@@ -124,10 +124,8 @@
           <ul class="list">
             <li *ngFor="let user of brigadesSubstitution.users">
               <evj-worker-card
-                (click)="onClickCard(user)"
                 [isActiveCard]="activeUsers.isSelected(user)"
                 (click)="onClickWorkerCard(user)"
-                [active]="activeUsers.isSelected(user)"
                 class="insert-component"
                 [isSmallCard]="true"
                 [person]="user"
