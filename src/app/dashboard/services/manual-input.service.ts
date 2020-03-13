@@ -49,16 +49,16 @@ export class ManualInputService {
         }
         for (const i in tempData) {
             const el = this.GetElementById(tempData[i].id, newData);
-            //    const commentEl = newData.find(el;)
             el.isError = tempData[i].isError;
             if (el.curValue !== '') {
                 el.isEdit = true;
                 el.saveValue = el.curValue;
             }
 
-            if (el.comment !== '') {
+            if (tempData[i].comment !== undefined && tempData[i].isSave === undefined) {
                 el.isEdit = true;
-                el.comment = el.comment;
+                el.comment = tempData[i].comment;
+                el.openInput = true;
             }
             if (tempData[i].curValue !== '' && tempData[i].isSave === false) {
                 el.curValue = tempData[i].curValue;
