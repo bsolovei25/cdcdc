@@ -1,4 +1,12 @@
-import { Component, OnInit, ViewChild, ElementRef, Inject, OnDestroy } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    ViewChild,
+    ElementRef,
+    Inject,
+    OnDestroy,
+    HostListener,
+} from '@angular/core';
 import { EventService } from '../../services/event.service';
 import {
     EventsWidgetNotification,
@@ -58,6 +66,8 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     saveEvent: boolean;
     isEditing: boolean = false;
 
+    progressLineHeight: number;
+
     dateComment: Date;
 
     isNewRetrieval: EventsWidgetNotification = null;
@@ -101,6 +111,8 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     @ViewChild('newInput2', { static: false }) newInput2: ElementRef;
     @ViewChild('scroll', { static: false }) scroll: ElementRef;
     @ViewChild('scroll2', { static: false }) scroll2: ElementRef;
+
+    @ViewChild('progress', { static: false }) progress: ElementRef;
 
     constructor(
         private eventService: EventService,
@@ -171,6 +183,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         }
 
         await this.loadItem(typeof value === 'number' ? value : undefined);
+        this.progressLine();
     }
 
     ngOnDestroy(): void {
@@ -197,6 +210,16 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
     private deleteWsElement(): void {
         this.event = null;
+    }
+
+    @HostListener('document:resize', ['$event'])
+    OnResize(event) {
+        // if (this.progress.nativeElement !== undefined) {
+        //     this.progressLine();
+        // }
+        try {
+            this.progressLine();
+        } catch (error) {}
     }
 
     createdEvent(event: boolean): void {
@@ -268,6 +291,9 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
             this.isNewRetrieval.comments.push(commentInfo);
         } else {
             if (this.newInput2.nativeElement.value) {
+                if (this.isNewRetrieval.facts === undefined) {
+                    this.isNewRetrieval.facts = [];
+                }
                 const factInfo = {
                     comment: this.newInput2.nativeElement.value,
                     createdAt: new Date(),
@@ -280,6 +306,9 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
                     this.scrollFactBottom();
                 }, 50);
             } else if (this.newInput.nativeElement.value) {
+                if (this.isNewRetrieval.comments === undefined) {
+                    this.isNewRetrieval.comments = [];
+                }
                 const commentInfo = {
                     comment: this.newInput.nativeElement.value,
                     createdAt: new Date(),
@@ -613,6 +642,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
             }
             this.isEdit = false;
         }
+        this.progressLine();
     }
 
     async deleteRetrieval(idEvent: number, idRetrNotif: number, idRetr): Promise<void> {
@@ -701,5 +731,17 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
     showDateBlock(): void {
         this.dataPicker = !this.dataPicker;
+    }
+    
+    progressLine(): void {
+        const heightMiddle = this.progress.nativeElement.offsetParent.offsetHeight - 103;
+        const countRetAll = this.event.retrievalEvents.length;
+        let countRetCompleate = 0;
+        for (let i of this.event.retrievalEvents) {
+            if (i.innerNotification.status.name === 'closed') {
+                countRetCompleate++;
+            }
+        }
+        this.progressLineHeight = (heightMiddle / countRetAll) * countRetCompleate;
     }
 }
