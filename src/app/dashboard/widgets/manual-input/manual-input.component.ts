@@ -187,16 +187,16 @@ export class ManualInputComponent extends WidgetPlatform
     }
 
     onShowAllSettings(): void {
-        if(this.allSettings === true){
+        if (this.allSettings === true) {
             this.openAllSettings = !this.openAllSettings;
             for (let i of this.Data) {
                 i.open = this.openAllSettings;
             }
             this.OnManualInputSendSettings(this.saveDataObj());
-        } else{
+        } else {
             this.openAllMachine = !this.openAllMachine;
-            let machines = this.Data.findIndex(el => el.name === this.chooseSetting.name);
-            for(let i of this.Data[machines].groups){
+            let machines = this.Data.findIndex((el) => el.name === this.chooseSetting.name);
+            for (let i of this.Data[machines].groups) {
                 i.open = this.openAllMachine;
             }
             this.OnManualInputSendSettings(this.saveDataObj());
