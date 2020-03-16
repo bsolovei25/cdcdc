@@ -1,4 +1,12 @@
-import { Component, OnInit, ViewChild, ElementRef, Inject, OnDestroy, HostListener } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    ViewChild,
+    ElementRef,
+    Inject,
+    OnDestroy,
+    HostListener,
+} from '@angular/core';
 import { EventService } from '../../services/event.service';
 import {
     EventsWidgetNotification,
