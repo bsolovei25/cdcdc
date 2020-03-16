@@ -1,25 +1,20 @@
 <div class="content">
   <div class="date">
     <mat-form-field>
-        <mat-label>Срок выполнения</mat-label>
-        <input
-          matInput
-          [matDatepicker]="myDatepicker"
-          [value]="data"
-          [(ngModel)]="data"
-        />
-        <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
-        <mat-datepicker #myDatepicker></mat-datepicker>
-      </mat-form-field>
+      <mat-label>Срок выполнения</mat-label>
+      <input matInput [matDatepicker]="myDatepicker" [value]="data" [(ngModel)]="data" />
+      <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+      <mat-datepicker #myDatepicker></mat-datepicker>
+    </mat-form-field>
   </div>
   <div class="time">
-      <input type="time" />
+    <input type="time" />
   </div>
   <div class="button-confirm">
     <svg-icon
-    src="./assets/icons/widgets/widget-header/checkmark.svg"
-    class="add_button_icon"
-    [svgStyle]="{ 'width.px':20, 'height.px':20 }"
-  ></svg-icon>
+      src="./assets/icons/widgets/widget-header/checkmark.svg"
+      class="add_button_icon"
+      [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+    ></svg-icon>
   </div>
 </div>

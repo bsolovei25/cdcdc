@@ -699,7 +699,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.isEditing = true;
     }
 
-    showDateBlock(): void{
+    showDateBlock(): void {
         this.dataPicker = !this.dataPicker;
     }
 }

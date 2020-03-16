@@ -1455,20 +1455,20 @@ $border-size: 4px;
             background: var(--color-bg-main);
           }
 
-          .date-info{
+          .date-info {
             width: 80%;
             padding-left: 10px;
-            .deadline-title{
+            .deadline-title {
               font-size: 10px;
             }
-            .date-deadLine{
+            .date-deadLine {
               color: white;
               width: 80%;
               height: 100%;
             }
           }
 
-          .date-button{
+          .date-button {
             width: 20%;
             height: 100%;
             top: 20px;
@@ -1476,10 +1476,10 @@ $border-size: 4px;
             position: absolute;
           }
 
-          .date-block{
+          .date-block {
             display: none;
           }
-          .date-block-open{
+          .date-block-open {
             display: block;
             background-color: red;
             width: 200px;
