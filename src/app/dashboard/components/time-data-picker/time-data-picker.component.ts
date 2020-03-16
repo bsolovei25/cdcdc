@@ -1,0 +1,15 @@
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'evj-time-data-picker',
+  templateUrl: './time-data-picker.component.html',
+  styleUrls: ['./time-data-picker.component.scss']
+})
+export class TimeDataPickerComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+}

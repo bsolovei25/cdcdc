@@ -116,6 +116,7 @@ import { OperationScreenComponent } from './widgets/petroleum-products-movement/
 import { OperationParkScreenComponent } from './widgets/petroleum-products-movement/petroleum-reference/operation-park-screen/operation-park-screen.component';
 import { InfoScreenComponent } from './widgets/petroleum-products-movement/petroleum-reference/info-screen/info-screen.component';
 import { PetroleumUnityInfoComponent } from './widgets/petroleum-products-movement/petroleum-unity-info/petroleum-unity-info.component';
+import { TimeDataPickerComponent } from './components/time-data-picker/time-data-picker.component';
 
 @NgModule({
     declarations: [
@@ -219,6 +220,7 @@ import { PetroleumUnityInfoComponent } from './widgets/petroleum-products-moveme
         OperationParkScreenComponent,
         InfoScreenComponent,
         PetroleumUnityInfoComponent,
+        TimeDataPickerComponent,
     ],
     entryComponents: [
         LineChartComponent,
