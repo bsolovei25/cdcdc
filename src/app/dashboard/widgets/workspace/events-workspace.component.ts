@@ -217,9 +217,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         // }
         try {
             this.progressLine();
-        } catch (error) {
-            
-        }
+        } catch (error) {}
     }
 
     createdEvent(event: boolean): void {
