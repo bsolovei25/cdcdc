@@ -764,15 +764,15 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         );
 
         this.dateChoose = new Date(
-            date.getFullYear(),
-            date.getMonth(),
-            date.getDate(),
-            date.getHours() - 3,
-            date.getMinutes(),
-            date.getSeconds()
+            date.getUTCFullYear(),
+            date.getUTCMonth(),
+            date.getUTCDate(),
+            date.getUTCHours(),
+            date.getUTCMinutes(),
+            date.getUTCSeconds()
         );
 
-        this.event.deadline = this.formatDate(date);
+        this.event.deadline = this.dateChoose;
         this.dataPicker = !data.close;
     }
 }

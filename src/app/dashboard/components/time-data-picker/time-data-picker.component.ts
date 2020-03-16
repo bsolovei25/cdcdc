@@ -5,7 +5,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
     templateUrl: './time-data-picker.component.html',
     styleUrls: ['./time-data-picker.component.scss'],
 })
-
 export class TimeDataPickerComponent implements OnInit {
     @Input() data: Date;
     @Output() dateTimePicker = new EventEmitter<ITime>();
@@ -20,7 +19,7 @@ export class TimeDataPickerComponent implements OnInit {
     }
 
     acceptDate(): void {
-        const object: ITime = { date: this.inputDate, time: this.inputTime, close: true}
+        const object: ITime = { date: this.inputDate, time: this.inputTime, close: true };
         this.dateTimePicker.emit(object);
     }
 }
