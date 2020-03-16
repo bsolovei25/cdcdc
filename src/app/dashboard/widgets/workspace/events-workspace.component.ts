@@ -732,7 +732,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     showDateBlock(): void {
         this.dataPicker = !this.dataPicker;
     }
-    
+
     progressLine(): void {
         const heightMiddle = this.progress.nativeElement.offsetParent.offsetHeight - 103;
         const countRetAll = this.event.retrievalEvents.length;
