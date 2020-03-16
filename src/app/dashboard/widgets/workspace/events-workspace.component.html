@@ -377,7 +377,7 @@
                   <input
                     matInput
                     [matDatepicker]="myDatepicker"
-                    [value]="event.deadline | date:'dd.MM.YYYY.HH'"
+                    [value]="event.deadline"
                     [(ngModel)]="event.deadline"
                   />
                   <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
