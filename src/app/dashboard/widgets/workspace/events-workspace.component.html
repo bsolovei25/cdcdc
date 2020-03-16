@@ -362,22 +362,6 @@
 
           <div class="workspace__body__right">
             <div class="info_block">
-              <div class="place">
-                <evj-ui-block class="workspace__body__categories" status="normal">
-                  <mat-form-field class="categories_selectbox">
-                    <mat-label>Место</mat-label>
-                    <mat-select
-                      panelClass="mat-select-custom"
-                      [(ngModel)]="event.unit"
-                      [compareWith]="compareFn"
-                    >
-                      <mat-option *ngFor="let cat of this.units" [value]="cat">
-                        {{ cat.name }}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </evj-ui-block>
-              </div>
               <div class="creator">
                 <div class="creator_title">
                   Автор
@@ -393,7 +377,7 @@
                   <input
                     matInput
                     [matDatepicker]="myDatepicker"
-                    [value]="event.deadline"
+                    [value]="event.deadline | date:'dd.MM.YYYY.HH'"
                     [(ngModel)]="event.deadline"
                   />
                   <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
@@ -401,6 +385,22 @@
                 </mat-form-field>
                 <div class="deadline_bottom_angles"></div>
               </div>
+            </div>
+            <div class="place">
+              <evj-ui-block class="workspace__body__categories" status="normal">
+                <mat-form-field class="categories_selectbox">
+                  <mat-label>Место</mat-label>
+                  <mat-select
+                    panelClass="mat-select-custom"
+                    [(ngModel)]="event.unit"
+                    [compareWith]="compareFn"
+                  >
+                    <mat-option *ngFor="let cat of this.units" [value]="cat">
+                      {{ cat.name }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </evj-ui-block>
             </div>
             <div class="responsible">
               <div *ngIf="userChoosen && event.fixedBy.login === ''" class="choosenUser">
@@ -613,7 +613,9 @@
               <div class="events-correct-progress">
                 <div class="line_progress">
                   <div class="top_frame_line"></div>
-                  <div class="middle_line"></div>
+                  <div class="middle_line" #progress>
+                    <div class="progress"></div>
+                  </div>
                   <div class="bottom_frame_line"></div>
                 </div>
               </div>
