@@ -212,7 +212,14 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
     @HostListener('document:resize', ['$event'])
     OnResize(event) {
-        this.progressLine();
+        // if (this.progress.nativeElement !== undefined) {
+        //     this.progressLine();
+        // }
+        try {
+            this.progressLine();
+        } catch (error) {
+            
+        }
     }
 
     createdEvent(event: boolean): void {
@@ -732,6 +739,5 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
             }
         }
         this.progressLineHeight = (heightMiddle / countRetAll) * countRetCompleate;
-        console.log(this.progressLineHeight);
     }
 }
