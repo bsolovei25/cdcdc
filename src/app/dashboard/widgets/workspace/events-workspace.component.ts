@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Inject, OnDestroy, HostListener } from '@angular/core';
 import { EventService } from '../../services/event.service';
 import {
     EventsWidgetNotification,
@@ -200,6 +200,11 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
     private deleteWsElement(): void {
         this.event = null;
+    }
+
+    @HostListener('document:resize', ['$event'])
+    OnResize(event) {
+        this.progressLine();
     }
 
     createdEvent(event: boolean): void {
@@ -622,6 +627,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
             }
             this.isEdit = false;
         }
+        this.progressLine();
     }
 
     async deleteRetrieval(idEvent: number, idRetrNotif: number, idRetr): Promise<void> {
@@ -709,7 +715,15 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     }
 
     progressLine(): void {
-        let heightMiddle = this.progress.nativeElement.offsetParent.offsetHeight;
-        console.log(heightMiddle);
+        const heightMiddle = this.progress.nativeElement.offsetParent.offsetHeight - 103;
+        const countRetAll = this.event.retrievalEvents.length;
+        let countRetCompleate = 0;
+        for (let i of this.event.retrievalEvents) {
+            if (i.innerNotification.status.name === 'closed') {
+                countRetCompleate++;
+            }
+        }
+        this.progressLineHeight = (heightMiddle / countRetAll) * countRetCompleate;
+        console.log(this.progressLineHeight);
     }
 }
