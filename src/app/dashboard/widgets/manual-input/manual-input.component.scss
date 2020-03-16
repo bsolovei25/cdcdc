@@ -516,6 +516,14 @@
           }
         }
 
+        .param {
+          cursor: pointer;
+        }
+
+        .curValue {
+          width: 10%;
+        }
+
         .unit {
           width: 100px;
         }
@@ -678,6 +686,7 @@
                 }
 
                 .input_value {
+                  width: 10%;
                   //   margin-top: 5px;
                 }
               }
@@ -784,6 +793,7 @@
                   text-align: left;
                 }
                 .input_value {
+                  width: 15%;
                   margin-top: 5px;
                 }
 

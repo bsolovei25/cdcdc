@@ -62,6 +62,7 @@ export class ManualInputComponent extends WidgetPlatform
 
     allSettings: boolean = true;
     openAllSettings: boolean = true;
+    openAllMachine: boolean = true;
 
     chooseSetting: IMachine_MI;
 
@@ -186,11 +187,20 @@ export class ManualInputComponent extends WidgetPlatform
     }
 
     onShowAllSettings(): void {
-        this.openAllSettings = !this.openAllSettings;
-        for (let i of this.Data) {
-            i.open = this.openAllSettings;
+        if (this.allSettings === true) {
+            this.openAllSettings = !this.openAllSettings;
+            for (let i of this.Data) {
+                i.open = this.openAllSettings;
+            }
+            this.OnManualInputSendSettings(this.saveDataObj());
+        } else {
+            this.openAllMachine = !this.openAllMachine;
+            let machines = this.Data.findIndex((el) => el.name === this.chooseSetting.name);
+            for (let i of this.Data[machines].groups) {
+                i.open = this.openAllMachine;
+            }
+            this.OnManualInputSendSettings(this.saveDataObj());
         }
-        this.OnManualInputSendSettings(this.saveDataObj());
     }
 
     onShowMachine(machine): void {

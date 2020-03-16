@@ -66,7 +66,7 @@
             ></svg-icon>
           </div>
           <div class="container-header__info-blocks">
-            <div class="block-param">
+            <div class="block-param param" (click)="onShowAllSettings()">
               <div class="p1">Параметры</div>
             </div>
             <div class="block-param unit">
@@ -81,7 +81,7 @@
             <div class="block-param">
               <div class="p5">Текущая дата</div>
             </div>
-            <div class="block-param">
+            <div class="block-param curValue">
               <div class="p6">Текущее значение</div>
             </div>
             <div class="block-param minValue">
@@ -226,6 +226,7 @@
                               placeholder="--------"
                               [(ngModel)]="i.curValue"
                               [class.data_active]="i.isActive"
+                              [class.data_notActive]="!i.isActive"
                               [class.data_active__saving]="i.isActive && i.isSave"
                               [class.data_active__warning]="i.isWarning && !i.isSave && i.isActive && !i.isError"
                               [class.data_active__error]="i.isError && !i.isSave"
