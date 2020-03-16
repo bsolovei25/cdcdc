@@ -1465,6 +1465,7 @@ $border-size: 4px;
             top: 20px;
             right: 0px;
             position: absolute;
+            cursor: pointer;
           }
 
           .date-block {
@@ -1472,11 +1473,16 @@ $border-size: 4px;
           }
           .date-block-open {
             display: block;
-            background-color: red;
-            width: 200px;
+            background-color: var(--color-bg-card);
+            border: 1px solid var(--color-text-sub);
+            width: 100px;
             position: absolute;
             z-index: 5;
+            border-radius: 20px;
             height: 100px;
+            padding-right: 10px;
+            padding-left: 10px;
+            top: 55px;
           }
 
           .deadline_bottom_angles {

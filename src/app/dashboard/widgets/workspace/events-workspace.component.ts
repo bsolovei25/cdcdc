@@ -105,6 +105,8 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
     dataPicker: boolean = false;
 
+    dateChoose: Date;
+
     @ViewChild('input', { static: false }) input: ElementRef;
     @ViewChild('input2', { static: false }) input2: ElementRef;
     @ViewChild('newInput', { static: false }) newInput: ElementRef;
@@ -166,6 +168,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.isLoading = true;
 
         this.resetComponent();
+        this.dataPicker = false;
         this.isNew = false;
 
         if (typeof value !== 'number') {
@@ -176,6 +179,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
                 ' ' +
                 value.fixedBy.lastName;
             this.event = value;
+            this.dateChoose = value.deadline;
         }
 
         if (this.event.graphValues) {
@@ -482,13 +486,22 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     }
 
     formatDate(date: Date): Date {
-        return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+        return new Date(
+            Date.UTC(
+                date.getFullYear(),
+                date.getMonth(),
+                date.getDate(),
+                date.getHours(),
+                date.getMinutes(),
+                date.getSeconds()
+            )
+        );
     }
 
     async saveItem(): Promise<void> {
         this.isLoading = true;
         this.isEditing = false;
-        this.event.deadline = this.formatDate(new Date(this.event.deadline));
+      //  this.event.deadline = this.formatDate(new Date(this.event.deadline));
         console.log(this.event.deadline);
         if (this.isNew) {
             try {
@@ -743,5 +756,23 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
             }
         }
         this.progressLineHeight = (heightMiddle / countRetAll) * countRetCompleate;
+    }
+
+    dateTimePicker(data: ITime): void {
+        let date = new Date(
+            data.date.toString().replace(/[0-9][0-9]:[0-9][0-9]:[0-9][0-9]/, data.time.toString())
+        );
+
+        this.dateChoose = new Date(
+            date.getFullYear(),
+            date.getMonth(),
+            date.getDate(),
+            date.getHours() - 3,
+            date.getMinutes(),
+            date.getSeconds()
+        );
+
+        this.event.deadline = this.formatDate(date);
+        this.dataPicker = !data.close;
     }
 }

@@ -371,7 +371,7 @@
                   }}
                 </div>
               </div>
-              <div class="deadline" (click)="showDateBlock()">
+              <div class="deadline">
                 <!-- <mat-form-field>
                   <mat-label>Срок выполнения</mat-label>
                   <input
@@ -385,9 +385,9 @@
                 </mat-form-field> -->
                 <div class="date-info">
                   <div class="deadline-title">Срок выполнения</div>
-                  <div class="date-deadLine">12.02.20 | 13:11:00</div>
+                  <div class="date-deadLine">{{dateChoose | date: 'dd.MM.yyyy'}} | {{dateChoose | date: 'HH:mm:ss' }}</div>
                 </div>
-                <div class="date-button">
+                <div class="date-button" (click)="showDateBlock()">
                   <svg-icon
                     src="./assets/icons/add_button.svg"
                     class="add_button_icon"
@@ -395,7 +395,7 @@
                   ></svg-icon>
                 </div>
                 <div class="date-block" [class.date-block-open]="dataPicker">
-                  <evj-time-data-picker [data]="event.deadline"></evj-time-data-picker>
+                  <evj-time-data-picker [data]="event.deadline" (dateTimePicker)="dateTimePicker($event)"></evj-time-data-picker>
                 </div>
                 <div class="deadline_bottom_angles"></div>
               </div>
