@@ -1411,6 +1411,7 @@ $border-size: 4px;
           width: 40%;
           position: relative;
           background: var(--color-bg-card);
+          display: flex;
 
           ::ng-deep .mat-input-element {
             color: white;
@@ -1452,6 +1453,39 @@ $border-size: 4px;
 
             border-bottom: 0.5px solid var(--color-bg-card);
             background: var(--color-bg-main);
+          }
+
+          .date-info{
+            width: 80%;
+            padding-left: 10px;
+            .deadline-title{
+              font-size: 10px;
+            }
+            .date-deadLine{
+              color: white;
+              width: 80%;
+              height: 100%;
+            }
+          }
+
+          .date-button{
+            width: 20%;
+            height: 100%;
+            top: 20px;
+            right: 0px;
+            position: absolute;
+          }
+
+          .date-block{
+            display: none;
+          }
+          .date-block-open{
+            display: block;
+            background-color: red;
+            width: 200px;
+            position: absolute;
+            z-index: 5;
+            height: 100px;
           }
 
           .deadline_bottom_angles {
@@ -1855,7 +1889,7 @@ $border-size: 4px;
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 2;
+  z-index: 6;
   cursor: pointer;
 
   .dropdown-dark .dropdown-select {

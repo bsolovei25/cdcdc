@@ -93,6 +93,8 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     static itemCols: number = 20;
     static itemRows: number = 5;
 
+    dataPicker: boolean = false;
+
     @ViewChild('input', { static: false }) input: ElementRef;
     @ViewChild('input2', { static: false }) input2: ElementRef;
     @ViewChild('newInput', { static: false }) newInput: ElementRef;
@@ -695,5 +697,9 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
     onEditShortInfo(): void {
         this.isEditing = true;
+    }
+
+    showDateBlock(): void{
+        this.dataPicker = !this.dataPicker;
     }
 }

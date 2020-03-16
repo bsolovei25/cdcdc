@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'evj-time-data-picker',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./time-data-picker.component.scss']
 })
 export class TimeDataPickerComponent implements OnInit {
+
+  @Input() data: Date;
 
   constructor() { }
 
