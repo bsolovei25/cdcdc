@@ -784,7 +784,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
         this.dateChooseNew = new Date(date.setHours(+time[0], +time[1], +time[2]));
 
-
         this.isNewRetrieval.deadline = this.dateChoose;
         this.dataPicker = !data.close;
     }
