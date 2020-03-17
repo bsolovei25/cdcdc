@@ -1,18 +1,16 @@
-import { Component, Input, OnDestroy, OnInit, Inject, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, Inject, ViewChild } from '@angular/core';
 import {
     EventsWidgetCategory,
     EventsWidgetCategoryCode,
     EventsWidgetDataPreview,
     EventsWidgetNotificationPreview,
     EventsWidgetOptions,
-    ICategory,
 } from '../../models/events-widget';
 import { EventsWidgetFilter } from '../../models/events-widget';
 import {
     EventsWidgetNotification,
     EventsWidgetNotificationStatus,
 } from '../../models/events-widget';
-import { Subscription } from 'rxjs/index';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { NewUserSettingsService } from '../../services/new-user-settings.service';
 import { EventService } from '../../services/event.service';
@@ -143,7 +141,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         },
     ];
 
-    statuses: { [id in EventsWidgetNotificationStatus]: string } = {
+    public statuses: { [id in EventsWidgetNotificationStatus]: string } = {
         new: 'Новое',
         inWork: 'В работе',
         closed: 'Завершено',
