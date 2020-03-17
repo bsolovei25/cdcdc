@@ -41,6 +41,8 @@ export class AwsCardComponent implements OnInit {
     }
 
     public onInput(event: string): void {
+        this.selectEdit.clear();
+
         this.inputedValue = event;
     }
 }
