@@ -960,7 +960,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
             .attr('height', '100%')
             .attr('width', '100%')
             .attr('class', 'textProduct')
-            .attr('viewBox', '0 0 350 450');
+            .attr('viewBox', '0 40 350 380');
 
         let pictureContainer = this.tankPicture
             .append('image')

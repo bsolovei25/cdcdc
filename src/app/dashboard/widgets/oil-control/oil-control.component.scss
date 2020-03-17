@@ -280,7 +280,8 @@
   background-image: url(../../../../assets/pic/OilControl/border_new.svg);
   background-repeat: no-repeat;
   height: 100%;
-  background-size: 99% 95%;
+  min-height: 130px;
+  background-size: 99% 85%;
 }
 
 .oil_picture {
@@ -347,13 +348,13 @@
 }
 
 .data {
-  margin: auto;
+  margin: 10px auto;
   color: #8c99b2;
   font-size: 12px;
   width: 25%;
   min-width: 145px;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
 .data_short {
@@ -394,7 +395,7 @@
   margin-left: 30px;
   width: 25%;
   min-width: 140px;
-  font-size: 14px;
+  font-size: 13px;
   color: #8c99b2;
 }
 
@@ -406,7 +407,7 @@
   margin-left: 30px;
   width: 25%;
   min-width: 140px;
-  font-size: 14px;
+  font-size: 13px;
   color: #8c99b2;
 }
 
@@ -433,7 +434,8 @@
   margin-top: 1px;
   display: flex;
   // justify-content: space-around;
-  height: 30%;
+  height: 25%;
+  min-height: 33px;
   //  min-width: 705px;
 }
 
