@@ -39,18 +39,17 @@ export class ShiftService {
         return this.http.get(this.restUrl + '/api/shift').toPromise();
     }
 
-    private async getFreeMembersAsync(id: number): Promise<any> {
-        const i: number = 0;
+    private async getFreeMembersAsync(idShift: number): Promise<any> {
         switch (this.shiftFreeStatus) {
             case 'all':
                 console.log('all');
                 return this.http
-                    .get(this.restUrl + '/api/shift/users/free/' + id.toString()).toPromise();
+                    .get(`${this.restUrl}/api/shift/users/free-users/${idShift}`).toPromise();
                 break;
             default:
                 console.log('not all');
                 return this.http
-                    .get(this.restUrl + '/api/shift/users/free/' + id.toString()).toPromise();
+                    .get(`${this.restUrl}/api/shift/users/free-brigade/${idShift}`).toPromise();
                 break;
         }
     }
