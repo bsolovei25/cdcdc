@@ -19,6 +19,7 @@ import {
     IScheduleShiftDay,
     IScheduleShift,
     IShiftMember,
+    IUnits,
 } from '../../../models/admin-shift-schedule';
 import { fillDataShape } from '../../../../@shared/common-functions';
 import { MatCalendar } from '@angular/material/datepicker';
@@ -51,6 +52,8 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
     };
     selectedShift: IScheduleShift;
     selectedBrigade: IBrigadeWithUsersDto;
+    allUnits: IUnits[] = [];
+    selectedUnit: IUnits;
 
     scheduleShiftMonth: IScheduleShiftDay[] = [];
 
@@ -112,21 +115,35 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         }
     }
 
-    private resetComponent(): void {
+    private resetComponent(factory: boolean = false): void {
         this.yesterday = null;
         this.selectedShift = null;
         this.selectedBrigade = null;
         this.activeUsers.clear();
+        if (factory) {
+            this.scheduleShiftMonth = [];
+        }
     }
 
     // #region DATA API
 
     private async loadItem(): Promise<void> {
         this.isLoading = true;
+        if (!this.selectedUnit) {
+            try {
+                await this.adminShiftScheduleService.getUnits().then((data) => {
+                    this.allUnits = data;
+                    this.selectedUnit = data?.[0];
+                });
+            } catch (error) {
+                console.error(error);
+                this.isLoading = false;
+            }
+        }
         const dataLoadQueue: Promise<void>[] = [];
         dataLoadQueue.push(this.reLoadDataMonth());
         dataLoadQueue.push(
-            this.adminShiftScheduleService.getBrigades().then((data) => {
+            this.adminShiftScheduleService.getBrigades(this.allUnits[0].id).then((data) => {
                 this.allBrigade = data;
             })
         );
@@ -134,6 +151,9 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             this.adminShiftScheduleService.getBrigadesSubstitution().then((data) => {
                 this.brigadesSubstitution = data;
             })
+        );
+        dataLoadQueue.push(
+
         );
         if (dataLoadQueue.length > 0) {
             try {
@@ -145,6 +165,15 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             }
         }
         this.isLoading = false;
+    }
+
+    public async selectedUnits(event: IUnits): Promise<void> {
+        if (event) {
+            this.selectedUnit = event;
+            this.resetComponent(true);
+            await this.loadItem();
+            // await this.reLoadDataMonth();
+        }
     }
 
     public async selectShift(shift: IScheduleShift): Promise<void> {
@@ -174,7 +203,8 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         this.isLoading = true;
         try {
             await this.adminShiftScheduleService
-                .getSchudeleShiftsMonth(this.dateNow.getMonth() + 1, this.dateNow.getFullYear())
+                .getSchudeleShiftsMonth(this.selectedUnit.id, this.dateNow.getMonth() + 1,
+                    this.dateNow.getFullYear())
                 .then((data) => {
                     if (data && data.length > 0) {
                         this.scheduleShiftMonth = data;
@@ -198,7 +228,6 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             await this.adminShiftScheduleService.deleteBrigade(shift.id);
             this.materialController.openSnackBar(`Бригада удалена`);
             const sh = this.selectedDay.items.find((val) => val.id === shift.id);
-            // this.openOverlay(null, null, false);
             if (sh) {
                 sh.brigadeName = null;
                 sh.brigadeId = null;

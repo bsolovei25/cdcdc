@@ -5,6 +5,7 @@ import {
     IScheduleShift,
     IBrigadeWithUsersDto,
     IScheduleShiftDay,
+    IUnits,
 } from '../models/admin-shift-schedule';
 
 @Injectable({
@@ -17,11 +18,13 @@ export class AdminShiftScheduleService {
         this.restUrl = configService.restUrl;
     }
 
-    async getSchudeleShiftsMonth(month: number, year: number): Promise<IScheduleShiftDay[]> {
+    async getSchudeleShiftsMonth(unitId: number, month: number, year: number):
+        Promise<IScheduleShiftDay[]> {
         try {
             return this.http
                 .get<IScheduleShiftDay[]>(
-                    this.restUrl + `/api/schedule-shifts/month/${month}/${year}`
+                    this.restUrl
+                    + `/api/schedule-shifts/unit/${unitId}/month/${month}/${year}`
                 )
                 .toPromise();
         } catch (error) {
@@ -38,10 +41,21 @@ export class AdminShiftScheduleService {
         }
     }
 
-    async getBrigades(): Promise<IBrigadeWithUsersDto[]> {
+    async getBrigades(unitId: number): Promise<IBrigadeWithUsersDto[]> {
         try {
             return this.http
-                .get<IBrigadeWithUsersDto[]>(this.restUrl + `/api/user-management/brigades`)
+                .get<IBrigadeWithUsersDto[]>(this.restUrl
+                    + `/api/user-management/brigades/unit/${unitId}`)
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async getUnits(): Promise<IUnits[]> {
+        try {
+            return this.http
+                .get<IUnits[]>(this.restUrl + `/api/user-management/units/all`)
                 .toPromise();
         } catch (error) {
             console.error(error);

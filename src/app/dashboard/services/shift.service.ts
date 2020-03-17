@@ -38,7 +38,7 @@ export class ShiftService {
     }
 
     private async getShiftPassAsync(): Promise<any> {
-        return this.http.get(this.restUrl + '/api/shift').toPromise();
+        return this.http.get(this.restUrl + '/api/shift/unit/22').toPromise();
     }
 
     private async getFreeMembersAsync(id: number): Promise<any> {

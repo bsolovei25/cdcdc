@@ -2806,70 +2806,6 @@ textarea {
   }
 }
 
-::ng-deep {
-  .cdk-overlay-container {
-    ::-webkit-scrollbar {
-      width: 1px;
-      height: 10px;
-    }
-    ::-webkit-scrollbar:vertical {
-      width: 5px;
-      height: 100%;
-    }
-    ::-webkit-scrollbar-track {
-      background-color: #999;
-    }
-    ::-webkit-scrollbar-track-piece {
-      background-color: rgb(27, 30, 39);
-    }
-    ::-webkit-scrollbar-thumb {
-      height: 50px;
-      background-color: #666;
-      border-radius: 10px;
-    }
-    ::-webkit-scrollbar-corner {
-      background-color: #999;
-    }
-    ::-webkit-resizer {
-      background-color: #666;
-    }
-  }
-
-  .mat-form-field-appearance-legacy .mat-form-field-wrapper {
-    padding-bottom: 0.7em !important;
-  }
-
-  .mat-calendar-body-cell-content {
-    &:hover {
-      background-color: var(--color-border-active);
-    }
-  }
-  .mat-form-field-wrapper {
-    padding-bottom: 1.04375em;
-  }
-
-  .mat-form-field-flex {
-    margin-top: 10px;
-  }
-  .cdk-overlay-pane {
-    margin-top: 45px;
-  }
-
-  .mat-option:hover {
-    background: var(--color-text-sub);
-  }
-
-  .ng-tns-c39-2 {
-    font-size: 15px;
-  }
-
-  .mat-datepicker-popup {
-    background-color: rgb(27, 30, 39);
-    margin-left: -73px;
-    margin-top: 9px;
-  }
-}
-
 .categories ::ng-deep .cdk-overlay-pane {
   top: 295px !important;
 }
@@ -2906,6 +2842,72 @@ textarea {
       border-radius: 5px;
       border: 1px solid var(--color-border-main);
       padding: 10px;
+    }
+  }
+}
+
+.container {
+  ::ng-deep {
+    .cdk-overlay-container {
+      ::-webkit-scrollbar {
+        width: 1px;
+        height: 10px;
+      }
+      ::-webkit-scrollbar:vertical {
+        width: 5px;
+        height: 100%;
+      }
+      ::-webkit-scrollbar-track {
+        background-color: #999;
+      }
+      ::-webkit-scrollbar-track-piece {
+        background-color: rgb(27, 30, 39);
+      }
+      ::-webkit-scrollbar-thumb {
+        height: 50px;
+        background-color: #666;
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-corner {
+        background-color: #999;
+      }
+      ::-webkit-resizer {
+        background-color: #666;
+      }
+    }
+
+    .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+      padding-bottom: 0.7em !important;
+    }
+
+    .mat-calendar-body-cell-content {
+      &:hover {
+        background-color: var(--color-border-active);
+      }
+    }
+    .mat-form-field-wrapper {
+      padding-bottom: 1.04375em;
+    }
+
+    .mat-form-field-flex {
+      margin-top: 10px;
+    }
+    .cdk-overlay-pane {
+      margin-top: 45px;
+    }
+
+    .mat-option:hover {
+      background: var(--color-text-sub);
+    }
+
+    .ng-tns-c39-2 {
+      font-size: 15px;
+    }
+
+    .mat-datepicker-popup {
+      background-color: rgb(27, 30, 39);
+      margin-left: -73px;
+      margin-top: 9px;
     }
   }
 }

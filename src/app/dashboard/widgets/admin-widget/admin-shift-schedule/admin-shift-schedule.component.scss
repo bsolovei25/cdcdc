@@ -131,12 +131,10 @@ p {
         }
       }
       &--active {
-        background: url("./../../../../../assets/icons/widgets/admin-shift-schedule/border-shift.svg")
-          no-repeat;
+        background: url("./../../../../../assets/icons/widgets/admin-shift-schedule/border-shift.svg") no-repeat;
       }
       &:hover {
-        background: url("./../../../../../assets/icons/widgets/admin-shift-schedule/border-shift.svg")
-          no-repeat;
+        background: url("./../../../../../assets/icons/widgets/admin-shift-schedule/border-shift.svg") no-repeat;
       }
     }
 
@@ -243,6 +241,12 @@ p {
 
 ::-webkit-scrollbar {
   width: 5px;
+  height: 5px;
+  border-radius: 25px;
+  z-index: 999;
+}
+:hover::-webkit-scrollbar {
+  width: 8px;
   height: 5px;
   border-radius: 25px;
   z-index: 999;
