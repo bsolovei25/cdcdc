@@ -73,7 +73,9 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                     },
                     {
                         name: 'Бригада',
-                        value: this.worker.brigade.number,
+                        value: this.worker.hasOwnProperty('brigade')
+                            ? this.worker.brigade.number
+                            : null,
                         key: 'brigade',
                     },
                 ];
@@ -156,7 +158,15 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     public onSelectBrigade(brigade: IBrigade): void {
         this.isCheckBoxClicked = false;
         this.isAlertShowing = true;
-        this.worker.brigade = { id: brigade.id, number: brigade.number.toString() };
+
+        if (brigade) {
+            this.worker.brigade = { id: brigade.id, number: brigade.number.toString() };
+            return;
+        }
+
+        if (this.worker.hasOwnProperty('brigade')) {
+            delete this.worker.brigade;
+        }
     }
 
     public onSelectClaim(): void {
@@ -196,7 +206,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     private async onEditWorker(): Promise<void> {
         const promises: Promise<void>[] = [];
-
         promises.push(this.adminService.editWorkerData(this.worker).toPromise());
         this.addWorkspacesToWorker().forEach((index: number) => {
             promises.push(this.adminService.addWorkerScreen(this.worker.id, index).toPromise());
@@ -217,7 +226,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             email: 'Эл.почта',
         };
 
-        let snackbarMessage: string = 'Обязательные поля:';
+        let snackbarMessage: string = '';
 
         for (const key in messages) {
             if (!this.worker[key]) {
@@ -226,7 +235,10 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         }
 
         if (snackbarMessage) {
-            this.materialController.openSnackBar(snackbarMessage, 'snackbar-red');
+            this.materialController.openSnackBar(
+                `Обязательные поля: ${snackbarMessage}`,
+                'snackbar-red'
+            );
         }
 
         return (
@@ -253,10 +265,12 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                 const userScreens: IScreen[] = await this.adminService
                     .getWorkerScreens(this.worker.id)
                     .toPromise();
-                const newActiveBrigade = this.adminService.brigades.find(
-                    (brigade) => brigade.brigadeId === this.worker.brigade.id
-                );
-                this.adminService.activeBrigade$.next(newActiveBrigade);
+                if (this.worker.hasOwnProperty('brigade')) {
+                    const newActiveBrigade = this.adminService.brigades.find(
+                        (brigade) => brigade.brigadeId === this.worker.brigade.id
+                    );
+                    this.adminService.activeBrigade$.next(newActiveBrigade);
+                }
                 this.adminService.activeWorkerScreens$.next(userScreens);
                 this.adminService.activeWorker$.next(this.worker);
 

@@ -32,14 +32,15 @@ export class AwsSelectCardComponent implements OnInit {
     public onEditClick(): void {
         if (this.selectEdit.isEmpty()) {
             this.selectEdit.select(true);
-        } else if (this.inputedValue) {
+        } else {
             const brigade: IBrigadeAdminPanel = this.adminService.brigades.find(
                 (item) => item.brigadeNumber === this.inputedValue
             );
-            this.saveChanging.emit({ id: brigade.brigadeId, number: +brigade.brigadeNumber });
+            const returnedData = brigade
+                ? { id: brigade.brigadeId, number: +brigade.brigadeNumber }
+                : null;
+            this.saveChanging.emit(returnedData);
             this.option.value = this.inputedValue;
-            this.selectEdit.clear();
-        } else {
             this.selectEdit.clear();
         }
     }

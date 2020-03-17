@@ -31,4 +31,11 @@ export class WorkerCardComponent implements OnInit {
             return `${this.person.positionDescription}`;
         }
     }
+
+    public getPersonBrigade(): string {
+        if (this.person.hasOwnProperty('brigade')) {
+            return `Бригада №${this.person.brigade.number}`;
+        }
+        return `Нет бригады`;
+    }
 }
