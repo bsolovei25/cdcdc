@@ -373,7 +373,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
         this.dataPicker = false;
 
-        this.dateChooseNew = new Date();
+        this.dateChoose = new Date();
 
         this.event = {
             itemNumber: 0,
