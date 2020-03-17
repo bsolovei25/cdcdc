@@ -2,7 +2,6 @@ import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit } from '@
 import { IWorkspace, EnumClaims, IScreen, IClaim } from '../../../../models/admin-panel';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AdminPanelService } from '../../../../services/admin-panel/admin-panel.service';
-import { MatSelectChange } from '@angular/material/select';
 import { FormControl } from '@angular/forms';
 
 @Component({

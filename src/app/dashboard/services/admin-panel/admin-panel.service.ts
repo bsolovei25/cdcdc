@@ -74,6 +74,11 @@ export class AdminPanelService {
         const body: string = JSON.stringify(worker);
         return this.http.post<any>(url, body);
     }
+
+    public setUserResponsible(userId: number): Observable<void> {
+        const url: string = `${this.restUrl}/user/${userId}/SetResponsible`;
+        return this.http.post<void>(url, null);
+    }
     //#endregion
 
     //#region BRIGADES
@@ -109,21 +114,22 @@ export class AdminPanelService {
         return this.http.get<any>(url);
     }
 
-    public addScreenClaimToWorker(screenWorkerId: number, claimId: number): Observable<any> {
-        const url: string = `${this.restUrl}/userscreen/${screenWorkerId}/claim/${claimId}`;
-        return this.http.post<any>(url, null);
-    }
+    // TOFIX
+    // public addScreenClaimToWorker(screenWorkerId: number, claimId: number): Observable<any> {
+    //     const url: string = `${this.restUrl}/userscreen/${screenWorkerId}/claim/${claimId}`;
+    //     return this.http.post<any>(url, null);
+    // }
 
-    public removeScreenClaimFromWorker(screenWorkerId: number, claimId: number): Observable<any> {
-        const url: string = `${this.restUrl}/userscreen/${screenWorkerId}/claim/${claimId}`;
-        return this.http.delete<any>(url);
-    }
+    // public removeScreenClaimFromWorker(screenWorkerId: number, claimId: number): Observable<any> {
+    //     const url: string = `${this.restUrl}/userscreen/${screenWorkerId}/claim/${claimId}`;
+    //     return this.http.delete<any>(url);
+    // }
 
     public addWorkerScreen(
         userId: number,
         screenId: number,
         claims: IClaim[] = [{ id: 1 }]
-    ): Observable<any> {
+    ): Observable<void> {
         const url: string = `${this.restUrl}/userscreen`;
         const body = {
             screen: { id: screenId },
@@ -132,7 +138,7 @@ export class AdminPanelService {
         };
         console.log('service: ', body);
 
-        return this.http.post<any>(url, body);
+        return this.http.post<void>(url, body);
     }
 
     public removeWorkerScreen(relationId: number): Observable<any> {
