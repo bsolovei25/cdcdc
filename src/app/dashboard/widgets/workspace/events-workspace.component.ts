@@ -25,7 +25,6 @@ import { NewWidgetService } from '../../services/new-widget.service';
 import { DateAdapter } from '@angular/material/core';
 import { AuthService } from '@core/service/auth.service';
 import { WidgetPlatform } from '../../models/widget-platform';
-
 @Component({
     selector: 'evj-events-workspace',
     templateUrl: './events-workspace.component.html',
