@@ -91,7 +91,7 @@
               </mat-form-field>
             </evj-ui-block>
           </div>
-  
+
           <div class="workspace__body">
             <div class="workspace__body__left">
               <div class="select__block">
@@ -169,7 +169,7 @@
                   </div>
                 </div>
               </div>
-  
+
               <div
                 class="description"
                 [class.description_small]="event.category.name === 'equipmentStatus'"
@@ -201,7 +201,7 @@
                 </div>
                 <div class="frame_description_bottom"></div>
               </div>
-  
+
               <div class="fact_block">
                 <div class="title_fact_block">
                   <div class="title_fact_block_text">
@@ -218,7 +218,11 @@
                     <div class="fact_text" *ngIf="fact.comment !== 'График'">
                       <p>{{fact.comment}}</p>
                     </div>
-                    <div class="fact_img" *ngIf="fact.comment === 'График'" (click)="openLineChart()">
+                    <div
+                      class="fact_img"
+                      *ngIf="fact.comment === 'График'"
+                      (click)="openLineChart()"
+                    >
                       <svg-icon
                         src="./assets/icons/widgets/workspace/graph.svg"
                         [svgStyle]="{ 'width.px':250, 'height.px':70 }"
@@ -287,7 +291,7 @@
                   </div>
                 </div>
               </div>
-  
+
               <div class="comments_block">
                 <div class="title_comments_block">
                   <div class="title_comments_block_text">
@@ -360,7 +364,7 @@
                 </div>
               </div>
             </div>
-  
+
             <div class="workspace__body__right">
               <div class="info_block">
                 <div class="creator">
@@ -368,8 +372,8 @@
                     Автор
                   </div>
                   <div class="creator_body">
-                    {{ event.responsibleOperator?.lastName }} {{ event.responsibleOperator?.firstName
-                    }}
+                    {{ event.responsibleOperator?.lastName }} {{
+                    event.responsibleOperator?.firstName }}
                   </div>
                 </div>
                 <div class="deadline">
@@ -577,7 +581,7 @@
                           [style.width.%]="retrieval.timerPercentage"
                         ></div>
                       </div>
-  
+
                       <!--DELETE EVENT-->
                       <div
                         (mousedown)="$event.stopPropagation()"
