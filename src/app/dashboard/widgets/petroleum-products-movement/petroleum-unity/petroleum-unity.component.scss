@@ -11,9 +11,7 @@
   box-sizing: inherit;
 }
 .unity-body-container {
-  margin-left: 5px;
-  margin-right: 5px;
-  width: calc(100% - 10px);
+  width: calc(100%);
   height: calc(100%);
   position: relative;
 }
