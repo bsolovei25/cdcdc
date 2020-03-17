@@ -197,7 +197,7 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
         }
     }
 
-    showPeople(): void {
+    public async showPeople(): Promise<void> {
         if (this.currentShift.status !== 'inProgressAccepted') {
             return;
         }
@@ -206,7 +206,7 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
             classes.remove('onShift__add-active');
             this.allPeople.nativeElement.classList.remove('onShift__allPeople-active');
         } else {
-            this.showFreeShiftMembers();
+            await this.showFreeShiftMembers();
             classes.add('onShift__add-active');
             this.allPeople.nativeElement.classList.add('onShift__allPeople-active');
         }
@@ -221,7 +221,7 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
         }
     }
 
-    async showFreeShiftMembers(): Promise<void> {
+    private async showFreeShiftMembers(): Promise<void> {
         const tempShiftMembers = await this.shiftService.getFreeShiftMembers(this.currentShift.id);
         this.addingShiftMembers.splice(0, this.addingShiftMembers.length);
         for (const i in tempShiftMembers) {
