@@ -22,6 +22,7 @@ export class CardVerifierComponent implements OnInit {
     public closeVerifyWindow(): void {
         this.shiftService.actionVerifyWindow(
             'close',
+            null,
             this.verifyInfo.widgetId,
             false,
             this.verifyInfo.verifyId

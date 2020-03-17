@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {IVerifyWindow} from "../../../models/shift.model";
+import {ShiftService} from "../../../services/shift.service";
 
 @Component({
   selector: 'evj-usb-verifier',
@@ -7,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UsbVerifierComponent implements OnInit {
 
-  constructor() { }
+  @Input() public verifyInfo: IVerifyWindow;
 
-  ngOnInit(): void {
+  constructor(
+      private shiftService: ShiftService
+  ) { }
+
+  public ngOnInit(): void {
+  }
+
+  public closeVerifyWindow(): void {
+    this.shiftService.actionVerifyWindow(
+        'close',
+        null,
+        this.verifyInfo.widgetId,
+        false,
+        this.verifyInfo.verifyId
+    );
   }
 
 }

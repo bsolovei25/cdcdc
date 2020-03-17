@@ -16,7 +16,6 @@ import {
     ShiftComment,
     ShiftMember,
 } from '../../models/shift.model';
-import { IWidgets } from '../../models/widget.model';
 import { MaterialControllerService } from '../../services/material-controller.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 
@@ -31,7 +30,7 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
     @ViewChild('allPeople') allPeople: ElementRef;
     @ViewChild('addShift') addShift: ElementRef;
 
-    mapPosition: { code: string; name: string }[] = [
+    public mapPosition: { code: string; name: string }[] = [
         {
             code: 'responsible',
             name: 'Старший оператор',
@@ -48,7 +47,8 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
     public absentMembers: ShiftMember[] = null;
     public addingShiftMembers: ShiftMember[] = [];
 
-    public isWindowVerifyActive: boolean = false;
+    public isWindowCardVerifyActive: boolean = false;
+    public isWindowUsbVerifyActive: boolean = false;
     public verifyInfo: IVerifyWindow = null;
 
     protected static itemCols: number = 16;
@@ -66,11 +66,11 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
         this.widgetIcon = 'peoples';
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         super.widgetInit();
     }
 
-    ngOnDestroy(): void {
+    public ngOnDestroy(): void {
         super.ngOnDestroy();
     }
 
@@ -86,10 +86,20 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
         this.subscriptions.push(
             this.shiftService.verifyWindowObservable(this.id).subscribe((obj) => {
                 if (obj.action === 'close') {
-                    setTimeout(() => (this.isWindowVerifyActive = false), 1000);
+                    setTimeout(() => {
+                        this.isWindowCardVerifyActive = false;
+                        this.isWindowUsbVerifyActive = false;
+                    }, 1000);
                 } else if (obj.action === 'open') {
                     this.verifyInfo = obj;
-                    this.isWindowVerifyActive = true;
+                    switch (obj.type) {
+                        case 'card':
+                            this.isWindowCardVerifyActive = true;
+                            break;
+                        case 'usb':
+                            this.isWindowUsbVerifyActive = true;
+                            break;
+                    }
                 }
                 this.verifyInfo.result = obj.result;
             })
@@ -106,10 +116,8 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
         }
         if (widgetType === 'shift-pass') {
             this.currentShift = data.passingShift;
-            console.log(this.currentShift);
         } else {
             this.currentShift = data.acceptingShift;
-            console.log(this.currentShift);
         }
 
         if (this.currentShift.shiftMembers) {
@@ -142,13 +150,10 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
             (el) =>
                 el.status !== 'absent' && el.status !== 'initialization' && el.status !== 'missing'
         );
-
         this.absentMembers = this.currentShift.shiftMembers.filter(
             (el) =>
                 el.status === 'absent' || el.status === 'initialization' || el.status === 'missing'
         );
-
-        console.log();
     }
 
     public getDisplayPosition(code): string {
@@ -223,24 +228,26 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
 
     private async showFreeShiftMembers(): Promise<void> {
         const tempShiftMembers = await this.shiftService.getFreeShiftMembers(this.currentShift.id);
-        this.addingShiftMembers.splice(0, this.addingShiftMembers.length);
-        for (const i in tempShiftMembers) {
+        console.log(tempShiftMembers);
+        this.addingShiftMembers = [];
+        for (const tempShiftMember of tempShiftMembers) {
             const addingShiftMember: ShiftMember = new (class implements ShiftMember {
                 employee = null;
                 shiftType = null;
                 status = null;
                 position = 'common';
             })();
-            addingShiftMember.employee = tempShiftMembers[i];
+            addingShiftMember.employee = tempShiftMember;
             this.addingShiftMembers.push(addingShiftMember);
         }
+        console.log(this.addingShiftMembers);
     }
 
     shiftApply(): void {
         // TODO
         const typeOfChangingShift: string = this.widgetType === 'shift-pass' ? 'pass' : 'accept';
         this.shiftService
-            .applyShift(this.currentShift.id, typeOfChangingShift)
+            .applyShift(this.currentShift.id, typeOfChangingShift, this.widgetId)
             .then((res) => {
                 console.log(res);
                 if (this.widgetType === 'shift-pass') {
@@ -264,7 +271,7 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
             .subscribe((ans) => {
                 if (ans.result) {
                     console.log('continue');
-                    this.shiftService.cancelShift(this.currentShift.id, ans.comment);
+                    this.shiftService.cancelShift(this.currentShift.id, ans.comment, this.widgetId);
                     this.materialController.openSnackBar('Отказ от смены');
                 } else {
                     console.log('cancel');

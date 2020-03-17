@@ -53,6 +53,7 @@ export interface ICommentRequired {
 export interface IVerifyWindow {
     action: VerifyWindowActions;
     widgetId: string;
+    type?: VerifyWindowType;
     verifyId?: number;
     user?: IUser;
     result?: boolean;
@@ -76,3 +77,4 @@ export type ShiftStatus =
     | 'passedConfirm';
 
 export type VerifyWindowActions = 'open' | 'close';
+export type VerifyWindowType = 'usb' | 'card' | null;
