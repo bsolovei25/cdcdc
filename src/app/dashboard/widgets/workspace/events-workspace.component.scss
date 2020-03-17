@@ -332,7 +332,7 @@ $border-size: 4px;
   mat-form-field {
     box-sizing: border-box;
     width: 100%;
-    padding: 0px 25px;
+    padding: 0px 15px;
     padding-bottom: 0px;
   }
 
@@ -631,7 +631,7 @@ $border-size: 4px;
 
       .fact_block {
         height: 30%;
-        min-height: 270px;
+        min-height: 100px;
         margin-top: 15px;
         width: calc(100% - 24px);
         position: relative;
@@ -679,7 +679,7 @@ $border-size: 4px;
         }
         .fact_content {
           background: #1d202a;
-          height: 60%;
+          height: calc(100% - 100px);
           overflow: auto;
 
           .fact_new {
@@ -1044,9 +1044,9 @@ $border-size: 4px;
       }
 
       .comments_block {
-        height: 37%;
-        min-height: 170px;
-        margin-top: 7px;
+        height: 35%;
+        min-height: 100px;
+        margin-top: 15px;
         width: calc(100% - 24px);
         position: relative;
         .title_comments_block {
@@ -1092,7 +1092,7 @@ $border-size: 4px;
         }
 
         .comments_content {
-          height: 70%;
+          height: calc(100% - 100px);
           overflow: auto;
           background: #1d202a;
           .comment_new {
@@ -1624,7 +1624,7 @@ $border-size: 4px;
       .events-correct {
         height: calc(100% - 200px);
         display: flex;
-        min-height: 550px;
+        min-height: 200px;
 
         .events-correct-block {
           padding-right: 10px;
@@ -1657,7 +1657,7 @@ $border-size: 4px;
 
           .events {
             //  max-height: 490px;
-            height: 85%;
+            height: calc(100% - 90px);
             overflow: auto;
             direction: rtl;
             padding-left: 5px;
