@@ -178,7 +178,21 @@
 
 .container_oil {
   height: 100%;
+  position: relative;
   display: flex;
+  overflow: auto;
+  overflow-y: hidden;
+}
+
+.svg-circle {
+  max-height: 100%;
+  height: 100%;
+}
+
+.svg-circle-short {
+  width: 100%;
+  max-height: auto;
+  height: auto;
 }
 
 .container_oil_short {
@@ -191,16 +205,21 @@
   height: 100%;
 }
 
+.container_oils {
+  height: 100%;
+  width: 100%;
+}
+
 .oilCircle {
-  min-height: 180px;
-  min-width: 240px;
-  width: 40%;
+  width: 100%;
+  height: 100%;
 }
 
 .oilCircle_short {
   min-height: 180px;
   min-width: 240px;
   width: auto;
+  height: auto;
 }
 
 .oil_info {
@@ -229,8 +248,8 @@
 
 .oil_block_info {
   min-height: 80px;
-  height: 40%;
-  width: 95%;
+  height: 130px;
+  width: 100%;
   margin: 0 auto;
   max-height: 170px;
   min-width: 650px;
@@ -255,14 +274,15 @@
 }
 
 .oil_block_inter_info {
-  min-width: 685px;
-  min-height: 70px;
-  width: 100%;
-  height: 100%;
+  //min-width: 685px;
+  //min-height: 70px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-image: url(../../../../assets/pic/OilControl/border_new.svg);
   background-repeat: no-repeat;
-  background-size: 100% 100%;
+  height: 100%;
+  width: calc(100% - 50px);
+  background-size: 100% 95%;
+  
 }
 
 .oil_picture {
@@ -420,7 +440,7 @@
   display: flex;
   // justify-content: space-around;
   height: 30%;
-  min-width: 705px;
+//  min-width: 705px;
 }
 
 .row_short {
