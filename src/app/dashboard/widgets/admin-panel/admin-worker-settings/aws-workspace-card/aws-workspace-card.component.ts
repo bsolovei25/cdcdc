@@ -3,6 +3,7 @@ import { IWorkspace, EnumClaims } from '../../../../models/admin-panel';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AdminPanelService } from '../../../../services/admin-panel/admin-panel.service';
 import { MatSelectChange } from '@angular/material/select';
+import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'evj-aws-workspace-card',
@@ -22,6 +23,8 @@ export class AwsWorkspaceCardComponent implements OnInit {
     public claims = EnumClaims;
     public selectedValue: string = EnumClaims[0];
     public select: SelectionModel<IWorkspace> = new SelectionModel<IWorkspace>(true);
+
+    public selectFormControl: FormControl = new FormControl();
 
     constructor(private adminService: AdminPanelService) {}
 

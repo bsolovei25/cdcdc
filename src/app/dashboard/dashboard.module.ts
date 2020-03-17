@@ -12,7 +12,7 @@ import { DashboardComponent } from './pages/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 import { EventsComponent } from './widgets/events/events.component';
 import { ManualInputComponent } from './widgets/manual-input/manual-input.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LineDiagramComponent } from './widgets/line-diagram/line-diagram.component';
 import { LineDatetimeComponent } from './components/line-datetime/line-datetime.component';
 import { ShiftPersonComponent } from './widgets/change-shift/shift-person/shift-person.component';
@@ -289,6 +289,7 @@ import { PetroleumUnityInfoComponent } from './widgets/petroleum-products-moveme
         MatSelectModule,
         ScrollingModule,
         OldScrollingModule,
+        ReactiveFormsModule,
     ],
     bootstrap: [],
     providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }],

@@ -112,6 +112,11 @@
   }
 }
 
+.example-additional-selection {
+  opacity: 0.75;
+  font-size: 0.75em;
+}
+
 ::ng-deep {
   .mat-form-field,
   .mat-form-field-wrapper {
