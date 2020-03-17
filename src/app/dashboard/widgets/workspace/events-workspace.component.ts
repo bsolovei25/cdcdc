@@ -25,7 +25,6 @@ import { NewWidgetService } from '../../services/new-widget.service';
 import { DateAdapter } from '@angular/material/core';
 import { AuthService } from '@core/service/auth.service';
 import { WidgetPlatform } from '../../models/widget-platform';
-
 @Component({
     selector: 'evj-events-workspace',
     templateUrl: './events-workspace.component.html',
@@ -103,6 +102,11 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     static itemCols: number = 20;
     static itemRows: number = 5;
 
+    dataPicker: boolean = false;
+
+    dateChoose: Date;
+    dateChooseNew: Date;
+
     @ViewChild('input', { static: false }) input: ElementRef;
     @ViewChild('input2', { static: false }) input2: ElementRef;
     @ViewChild('newInput', { static: false }) newInput: ElementRef;
@@ -164,6 +168,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.isLoading = true;
 
         this.resetComponent();
+        this.dataPicker = false;
         this.isNew = false;
 
         if (typeof value !== 'number') {
@@ -174,6 +179,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
                 ' ' +
                 value.fixedBy.lastName;
             this.event = value;
+            this.dateChoose = value.deadline;
         }
 
         if (this.event.graphValues) {
@@ -362,6 +368,10 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.changeCategory();
         this.isNew = true;
 
+        this.dataPicker = false;
+
+        this.dateChooseNew = new Date();
+
         this.event = {
             itemNumber: 0,
             branch: 'Производство',
@@ -401,6 +411,8 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
             graphValues: null,
             isAcknowledged: false,
             unitName: null,
+            facts: [],
+            comments: [],
         };
     }
 
@@ -480,13 +492,22 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     }
 
     formatDate(date: Date): Date {
-        return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+        return new Date(
+            Date.UTC(
+                date.getFullYear(),
+                date.getMonth(),
+                date.getDate(),
+                date.getHours(),
+                date.getMinutes(),
+                date.getSeconds()
+            )
+        );
     }
 
     async saveItem(): Promise<void> {
         this.isLoading = true;
         this.isEditing = false;
-        this.event.deadline = this.formatDate(new Date(this.event.deadline));
+        //  this.event.deadline = this.formatDate(new Date(this.event.deadline));
         console.log(this.event.deadline);
         if (this.isNew) {
             try {
@@ -552,6 +573,10 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     addRetrieval(): void {
         this.changeCategory();
         document.getElementById('overlay-retrieval').style.display = 'block';
+
+        this.dataPicker = false;
+
+        this.dateChooseNew = new Date();
 
         this.isNewRetrieval = {
             itemNumber: 0,
@@ -727,6 +752,10 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.isEditing = true;
     }
 
+    showDateBlock(): void {
+        this.dataPicker = !this.dataPicker;
+    }
+
     progressLine(): void {
         const heightMiddle = this.progress.nativeElement.offsetParent.offsetHeight - 103;
         const countRetAll = this.event.retrievalEvents.length;
@@ -737,5 +766,25 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
             }
         }
         this.progressLineHeight = (heightMiddle / countRetAll) * countRetCompleate;
+    }
+
+    dateTimePicker(data: ITime): void {
+        const time = data.time.split(':');
+        const date = new Date(data.date);
+
+        this.dateChoose = new Date(date.setHours(+time[0], +time[1], +time[2]));
+
+        this.event.deadline = this.dateChoose;
+        this.dataPicker = !data.close;
+    }
+
+    dateTimePickerNew(data: ITime): void {
+        const time = data.time.split(':');
+        const date = new Date(data.date);
+
+        this.dateChooseNew = new Date(date.setHours(+time[0], +time[1], +time[2]));
+
+        this.isNewRetrieval.deadline = this.dateChoose;
+        this.dataPicker = !data.close;
     }
 }
