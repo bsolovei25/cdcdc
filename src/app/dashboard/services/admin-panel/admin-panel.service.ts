@@ -185,22 +185,30 @@ export class AdminPanelService {
         return 'assets/icons/widgets/admin/default_avatar.svg';
     }
 
+    public getFullName(worker: IUser): string {
+        let returnedString: string = '';
+        if (worker.lastName && worker.firstName) {
+            returnedString = `${worker.lastName} ${worker.firstName}`;
+        }
+        if (worker.middleName) {
+            returnedString = `${returnedString} ${worker.middleName}`;
+        }
+        return returnedString;
+    }
+
+    public generateDisplayName(worker: IUser): string {
+        let returnedString: string = '';
+        if (worker.lastName && worker.firstName) {
+            returnedString = `${worker.lastName} ${worker.firstName[0]}.`;
+        }
+        if (worker.middleName) {
+            returnedString = `${returnedString} ${worker.middleName[0]}.`;
+        }
+        return returnedString;
+    }
+
     //#endregion
 
     //#region BRIGADE_METHODS
     //#endregion
-
-    public getFullName(worker: IUser): string {
-        if (worker.lastName && worker.firstName && worker.middleName) {
-            return `${worker.lastName} ${worker.firstName} ${worker.middleName}`;
-        }
-        return '';
-    }
-
-    public generateDisplayName(worker: IUser): string {
-        if (worker.lastName && worker.firstName && worker.middleName) {
-            return `${worker.lastName} ${worker.firstName[0]}. ${worker.middleName[0]}.`;
-        }
-        return '';
-    }
 }

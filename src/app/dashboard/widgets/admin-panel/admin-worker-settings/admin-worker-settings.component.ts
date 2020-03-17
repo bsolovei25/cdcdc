@@ -1,15 +1,11 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy, Input } from '@angular/core';
-import {
-    IWorkerOptionAdminPanel,
-    IWorkspace,
-    IScreen,
-    IBrigadeAdminPanel,
-} from '../../../models/admin-panel';
+import { IWorkerOptionAdminPanel, IWorkspace, IScreen } from '../../../models/admin-panel';
 import { IUser } from '../../../models/events-widget';
 import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
 import { Subscription } from 'rxjs';
 import { fillDataShape } from '../../../../@shared/common-functions';
 import { IBrigade } from '../../../models/shift.model';
+import { MaterialControllerService } from '../../../services/material-controller.service';
 
 @Component({
     selector: 'evj-admin-worker-settings',
@@ -40,7 +36,10 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     private subscriptions: Subscription[] = [];
 
-    constructor(private adminService: AdminPanelService) {}
+    constructor(
+        private adminService: AdminPanelService,
+        private materialController: MaterialControllerService
+    ) {}
 
     public ngOnInit(): void {
         this.subscriptions.push(
@@ -209,12 +208,42 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         await Promise.all(promises);
     }
 
+    private checkForRequiredFields(): boolean {
+        const messages = {
+            firstName: 'Имя',
+            lastName: 'Фамилия',
+            login: 'Логин',
+            phone: 'Телефон',
+            email: 'Эл.почта',
+        };
+
+        let snackbarMessage: string = '';
+
+        for (const key in messages) {
+            if (!this.worker[key]) {
+                snackbarMessage = `${snackbarMessage} ${messages[key]}`;
+            }
+        }
+
+        if (snackbarMessage) {
+            this.materialController.openSnackBar(snackbarMessage, 'snackbar-red');
+        }
+
+        return (
+            !!this.worker.firstName &&
+            !!this.worker.lastName &&
+            !!this.worker.login &&
+            !!this.worker.phone &&
+            !!this.worker.email
+        );
+    }
+
     public onReturn(): void {
         this.closeWorkerSettings.emit(null);
     }
 
     public async onSave(): Promise<void> {
-        if (this.isCheckBoxClicked) {
+        if (this.isCheckBoxClicked && this.checkForRequiredFields()) {
             try {
                 this.isCreateNewUser ? await this.onCreateNewWorker() : await this.onEditWorker();
 
@@ -231,9 +260,11 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                 this.adminService.activeWorkerScreens$.next(userScreens);
                 this.adminService.activeWorker$.next(this.worker);
 
+                this.materialController.openSnackBar('Данные сохранены');
                 this.closeWorkerSettings.emit(this.worker);
             } catch (error) {
-                throw new Error(error);
+                console.log(error.error);
+                this.materialController.openSnackBar('Ошибка', 'snackbar-red');
             }
         }
     }
