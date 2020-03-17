@@ -224,7 +224,7 @@
 
 .oil_info {
   position: relative;
-  width: 100%;
+  width: calc(100% - 315px);
 }
 
 .critical {
@@ -251,9 +251,9 @@
   height: 130px;
   width: 100%;
   margin: 0 auto;
-  max-height: 170px;
-  min-width: 650px;
-  max-width: 900px;
+  // max-height: 170px;
+  // min-width: 650px;
+  // max-width: 900px;
 }
 
 .oil_block_info_short {
@@ -280,13 +280,12 @@
   background-image: url(../../../../assets/pic/OilControl/border_new.svg);
   background-repeat: no-repeat;
   height: 100%;
-  width: calc(100% - 50px);
-  background-size: 100% 95%;
+  background-size: 99% 95%;
   
 }
 
 .oil_picture {
-  margin-top: 5px;
+  margin-top: -20px;
   margin-left: 20px;
   height: 60%;
   display: flex;
@@ -400,7 +399,7 @@
   min-width: 140px;
   font-size: 14px;
   color: #8c99b2;
-  margin-top: 5px;
+  margin-top: 0px;
 }
 
 .name_value_debalance {
