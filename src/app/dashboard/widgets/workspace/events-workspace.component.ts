@@ -1,4 +1,12 @@
-import { Component, OnInit, ViewChild, ElementRef, Inject, OnDestroy } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    ViewChild,
+    ElementRef,
+    Inject,
+    OnDestroy,
+    HostListener,
+} from '@angular/core';
 import { EventService } from '../../services/event.service';
 import {
     EventsWidgetNotification,
@@ -10,6 +18,7 @@ import {
     ICategory,
     EventsWidgetCategoryCode,
     EventsWidgetData,
+    IUnitEvents,
 } from '../../models/events-widget';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NewWidgetService } from '../../services/new-widget.service';
@@ -57,6 +66,8 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     saveEvent: boolean;
     isEditing: boolean = false;
 
+    progressLineHeight: number;
+
     dateComment: Date;
 
     isNewRetrieval: EventsWidgetNotification = null;
@@ -83,6 +94,8 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         drops: 'Сбросы',
     };
 
+    units: IUnitEvents;
+
     eventLegends: any = [{ isLegend: true }, { isLegend: false }];
 
     idUser: number = 0;
@@ -96,6 +109,8 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     @ViewChild('newInput2', { static: false }) newInput2: ElementRef;
     @ViewChild('scroll', { static: false }) scroll: ElementRef;
     @ViewChild('scroll2', { static: false }) scroll2: ElementRef;
+
+    @ViewChild('progress', { static: false }) progress: ElementRef;
 
     constructor(
         private eventService: EventService,
@@ -166,6 +181,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         }
 
         await this.loadItem(typeof value === 'number' ? value : undefined);
+        this.progressLine();
     }
 
     ngOnDestroy(): void {
@@ -192,6 +208,16 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
     private deleteWsElement(): void {
         this.event = null;
+    }
+
+    @HostListener('document:resize', ['$event'])
+    OnResize(event) {
+        // if (this.progress.nativeElement !== undefined) {
+        //     this.progressLine();
+        // }
+        try {
+            this.progressLine();
+        } catch (error) {}
     }
 
     createdEvent(event: boolean): void {
@@ -263,6 +289,9 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
             this.isNewRetrieval.comments.push(commentInfo);
         } else {
             if (this.newInput2.nativeElement.value) {
+                if (this.isNewRetrieval.facts === undefined) {
+                    this.isNewRetrieval.facts = [];
+                }
                 const factInfo = {
                     comment: this.newInput2.nativeElement.value,
                     createdAt: new Date(),
@@ -275,6 +304,9 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
                     this.scrollFactBottom();
                 }, 50);
             } else if (this.newInput.nativeElement.value) {
+                if (this.isNewRetrieval.comments === undefined) {
+                    this.isNewRetrieval.comments = [];
+                }
                 const commentInfo = {
                     comment: this.newInput.nativeElement.value,
                     createdAt: new Date(),
@@ -350,7 +382,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
                 middleName: '',
                 phone: '00123456789',
             },
-            place: { id: 5001, name: 'ГФУ-2 с БОР' },
+            //place: { id: 5001, name: 'ГФУ-2 с БОР' },
             organization: 'АО Газпромнефть',
             priority: this.priority
                 ? this.priority[2]
@@ -368,6 +400,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
             deadline: new Date(),
             graphValues: null,
             isAcknowledged: false,
+            unitName: null,
         };
     }
 
@@ -399,17 +432,23 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
                 this.status = data;
             })
         );
+
+        dataLoadQueue.push(
+            this.eventService.getUnits().then((data) => {
+                this.units = data;
+            })
+        );
         dataLoadQueue.push(
             this.eventService.getPriority().then((data) => {
                 this.priority = data;
             })
         );
 
-        dataLoadQueue.push(
-            this.eventService.getPlace().then((data) => {
-                this.place = data;
-            })
-        );
+        // dataLoadQueue.push(
+        //     this.eventService.getPlace().then((data) => {
+        //         this.place = data;
+        //     })
+        // );
         dataLoadQueue.push(
             this.eventService.getEquipmentCategory().then((data) => {
                 this.equipmentCategory = data;
@@ -536,7 +575,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
             comments: [],
             facts: [],
             organization: 'АО Газпромнефть',
-            place: { id: 5001, name: 'ГФУ-1' },
+            //  place: { id: 5001, name: 'ГФУ-1' },
             priority: { id: 2003, name: 'standard', code: '2' },
             //     responsibleOperator: this.user ? this.user[0] : null,
             responsibleOperator: this.user[this.idUser - 1],
@@ -548,6 +587,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
             deadline: new Date(),
             graphValues: null,
             isAcknowledged: false,
+            unitName: null,
         };
     }
 
@@ -600,6 +640,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
             }
             this.isEdit = false;
         }
+        this.progressLine();
     }
 
     async deleteRetrieval(idEvent: number, idRetrNotif: number, idRetr): Promise<void> {
@@ -684,5 +725,17 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
     onEditShortInfo(): void {
         this.isEditing = true;
+    }
+
+    progressLine(): void {
+        const heightMiddle = this.progress.nativeElement.offsetParent.offsetHeight - 103;
+        const countRetAll = this.event.retrievalEvents.length;
+        let countRetCompleate = 0;
+        for (let i of this.event.retrievalEvents) {
+            if (i.innerNotification.status.name === 'closed') {
+                countRetCompleate++;
+            }
+        }
+        this.progressLineHeight = (heightMiddle / countRetAll) * countRetCompleate;
     }
 }

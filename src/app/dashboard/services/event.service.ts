@@ -147,6 +147,16 @@ export class EventService {
         }
     }
 
+    async getUnits(): Promise<any> {
+        try {
+            return this.http
+                .get<any>(this.restUrl + '/api/notification-reference/units')
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     async getUser(): Promise<any> {
         try {
             return this.http.get<any>(this.restUrl + '/api/user-management/users').toPromise();
