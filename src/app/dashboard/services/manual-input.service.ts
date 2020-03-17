@@ -50,11 +50,24 @@ export class ManualInputService {
         for (const i in tempData) {
             const el = this.GetElementById(tempData[i].id, newData);
             el.isError = tempData[i].isError;
-            el.comment = tempData[i].comment;
             if (el.curValue !== '') {
                 el.isEdit = true;
                 el.saveValue = el.curValue;
             }
+
+            el.comment = el.curComment;
+
+            el.openInput = false;
+            if (
+                tempData[i].comment !== undefined &&
+                tempData[i].comment !== null &&
+                tempData[i].isSave === undefined
+            ) {
+                el.isEdit = true;
+                el.comment = tempData[i].comment;
+                el.openInput = true;
+            }
+
             if (tempData[i].curValue !== '' && tempData[i].isSave === false) {
                 el.curValue = tempData[i].curValue;
             } else {
@@ -118,6 +131,7 @@ export class ManualInputService {
             el.isEdit = true;
             el.isSave = true;
             el.isError = false;
+            el.curComment = el.comment;
             el.saveValue = el.curValue;
             this.saveBar('Сохранено', false);
         }

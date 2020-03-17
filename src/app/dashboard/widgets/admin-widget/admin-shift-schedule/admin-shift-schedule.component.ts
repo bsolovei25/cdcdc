@@ -191,13 +191,14 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         this.isLoading = false;
     }
 
-    public async deleteBrigadeFromShift(): Promise<void> {
+    public async deleteBrigadeFromShift(event: MouseEvent, shift: IScheduleShift): Promise<void> {
+        event.stopPropagation();
         this.isLoading = true;
         try {
-            await this.adminShiftScheduleService.deleteBrigade(this.selectedShift.id);
+            await this.adminShiftScheduleService.deleteBrigade(shift.id);
             this.materialController.openSnackBar(`Бригада удалена`);
-            const sh = this.selectedDay.items.find((val) => val.id === this.selectedShift.id);
-            this.openOverlay(null, null, false);
+            const sh = this.selectedDay.items.find((val) => val.id === shift.id);
+            // this.openOverlay(null, null, false);
             if (sh) {
                 sh.brigadeName = null;
                 sh.brigadeId = null;
@@ -224,7 +225,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             );
             this.reLoadDataMonth();
             this.selectShift(this.selectedShift);
-            this.materialController.openSnackBar(`Бригада ${brigade.brigadeNumber} сохранена`);
+            this.materialController.openSnackBar(`Бригада ${brigade.brigadeNumber} назначена`);
             selectedDay.items.find((value) => {
                 if (value.id === this.selectedShift.id) {
                     value.brigadeId = brigade.brigadeId;

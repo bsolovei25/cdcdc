@@ -22,15 +22,25 @@ import { trigger, style, state, transition, animate } from '@angular/animations'
     templateUrl: './manual-input.component.html',
     styleUrls: ['./manual-input.component.scss'],
     animations: [
-        trigger('machineBranch', [
-            state('collapsed', style({ height: '40px', minHeight: '40px' })),
-            state('expanded', style({ height: '*' })),
-            transition('collapsed <=> expanded', animate('200ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-        ]),
-        trigger('itemBranch', [
-            state('collapsed', style({ height: '40px', minHeight: '40px' })),
-            state('expanded', style({ height: '*' })),
-            transition('collapsed <=> expanded', animate('200ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+        trigger('Branch', [
+            state(
+                'collapsed',
+                style({
+                    height: 0,
+                    transform: 'translateY(-8px)',
+                    opacity: 0,
+                    overflow: 'hidden',
+                })
+            ),
+            state(
+                'expanded',
+                style({
+                    height: '*',
+                    opacity: 1,
+                })
+            ),
+            transition('collapsed => expanded', animate('150ms ease-in')),
+            transition('expanded => collapsed', animate('150ms ease-out')),
         ]),
     ],
 })
@@ -52,6 +62,7 @@ export class ManualInputComponent extends WidgetPlatform
 
     allSettings: boolean = true;
     openAllSettings: boolean = true;
+    openAllMachine: boolean = true;
 
     chooseSetting: IMachine_MI;
 
@@ -116,6 +127,7 @@ export class ManualInputComponent extends WidgetPlatform
             .get(this.restUrl + '/api/manualinput/ManualInputData/' + this.id)
             .subscribe((ref: IMachine_MI[]) => {
                 this.loadSaveData(ref);
+                this.loadSaveData(ref);
             });
     }
 
@@ -141,6 +153,9 @@ export class ManualInputComponent extends WidgetPlatform
                 item.open = setGroups?.groups?.find((el) => el.name === item.name)?.open ?? true;
             }
             if (itemDate.active) {
+                this.chooseSetting === undefined
+                    ? (this.chooseSetting = itemDate)
+                    : (this.chooseSetting = this.chooseSetting);
                 this.allSettings = false;
             }
         }
@@ -172,11 +187,20 @@ export class ManualInputComponent extends WidgetPlatform
     }
 
     onShowAllSettings(): void {
-        this.openAllSettings = !this.openAllSettings;
-        for (let i of this.Data) {
-            i.open = this.openAllSettings;
+        if (this.allSettings === true) {
+            this.openAllSettings = !this.openAllSettings;
+            for (let i of this.Data) {
+                i.open = this.openAllSettings;
+            }
+            this.OnManualInputSendSettings(this.saveDataObj());
+        } else {
+            this.openAllMachine = !this.openAllMachine;
+            let machines = this.Data.findIndex((el) => el.name === this.chooseSetting.name);
+            for (let i of this.Data[machines].groups) {
+                i.open = this.openAllMachine;
+            }
+            this.OnManualInputSendSettings(this.saveDataObj());
         }
-        this.OnManualInputSendSettings(this.saveDataObj());
     }
 
     onShowMachine(machine): void {

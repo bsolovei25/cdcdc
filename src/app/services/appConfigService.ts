@@ -36,6 +36,13 @@ export class AppConfigService {
         return this.appConfig.restUrl;
     }
 
+    get fsUrl(): string {
+        if (!this.appConfig) {
+            throw Error('Config file not loaded!');
+        }
+        return this.appConfig.fileStorage;
+    }
+
     get reconnectInterval(): number {
         if (!this.appConfig) {
             throw Error('Config file not loaded!');

@@ -40,6 +40,7 @@ import { SolidGaugesComponent } from '../../widgets/solid-gauge-with-marker/soli
 import { AdminShiftScheduleComponent } from '../../widgets/admin-widget/admin-shift-schedule/admin-shift-schedule.component';
 import { AdminReferencesComponent } from '../../widgets/admin-references/admin-references.component';
 import { PetroleumProductsMovementComponent } from '../../widgets/petroleum-products-movement/petroleum-products-movement.component';
+import { AdminPanelComponent } from '../../widgets/admin-panel/admin-panel.component';
 
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
@@ -85,4 +86,5 @@ export const WIDGETS = {
     'admin-shift-schedule': AdminShiftScheduleComponent,
     'admin-references': AdminReferencesComponent,
     'petroleum-products-movement': PetroleumProductsMovementComponent,
+    'admin-panel': AdminPanelComponent,
 };
