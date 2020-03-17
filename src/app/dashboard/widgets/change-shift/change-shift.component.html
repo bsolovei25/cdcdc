@@ -17,6 +17,15 @@
 
   <evj-frame-top></evj-frame-top>
   <div style="position: relative; height: 100%">
+
+    <div
+            (mousedown)="$event.stopPropagation()"
+            (touchstart)="$event.stopPropagation()"
+    >
+      <div class="shadow-panel"></div>
+      <evj-usb-verifier></evj-usb-verifier>
+    </div>
+
     <ng-container *ngIf="currentShift">
       <div
         *ngIf="isWindowVerifyActive"
