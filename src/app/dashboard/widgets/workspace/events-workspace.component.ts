@@ -368,6 +368,11 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.changeCategory();
         this.isNew = true;
 
+        this.dataPicker = false;
+
+        this.dateChooseNew = new Date();
+
+
         this.event = {
             itemNumber: 0,
             branch: 'Производство',
@@ -407,6 +412,8 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
             graphValues: null,
             isAcknowledged: false,
             unitName: null,
+            facts: [],
+            comments: [],
         };
     }
 
