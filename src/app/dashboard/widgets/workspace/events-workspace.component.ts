@@ -772,14 +772,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         const time = data.time.split(':');
         const date = new Date(data.date);
 
-        this.dateChoose = new Date(
-            date.getUTCFullYear(),
-            date.getUTCMonth(),
-            date.getUTCDate(),
-            +time[0],
-            +time[1],
-            +time[2]
-        );
+        this.dateChoose = new Date(date.setHours(+time[0], +time[1], +time[2]));
 
         this.event.deadline = this.dateChoose;
         this.dataPicker = !data.close;
@@ -789,14 +782,8 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         const time = data.time.split(':');
         const date = new Date(data.date);
 
-        this.dateChooseNew = new Date(
-            date.getUTCFullYear(),
-            date.getUTCMonth(),
-            date.getUTCDate(),
-            +time[0],
-            +time[1],
-            +time[2]
-        );
+        this.dateChooseNew = new Date(date.setHours(+time[0], +time[1], +time[2]));
+
 
         this.isNewRetrieval.deadline = this.dateChoose;
         this.dataPicker = !data.close;
