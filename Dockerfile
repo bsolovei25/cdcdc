@@ -1,5 +1,6 @@
 # base image
-FROM node:lts-buster
+FROM gitlab.funcoff.club:4567/oaovd/osspu/evj/front/caches:16.03.2020
+#FROM node:lts-buster
 
 # install chrome for protractor tests
 #RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
@@ -8,15 +9,15 @@ FROM node:lts-buster
 
 
 # set working directory
-WORKDIR /app
+#WORKDIR /app
 
 # add '/app/node_moudles/.bin' to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
+#ENV PATH /app/node_modules/.bin:$PATH
 
 # install and cache app dependencies
-COPY ./package.json /app/package.json
-RUN npm install
-ENV NG_CLI_ANALYTICS=ci
+#COPY ./package.json /app/package.json
+#RUN npm install
+#ENV NG_CLI_ANALYTICS=ci
 #RUN npm install @angular/cli@9.0.1
 
 # add app
