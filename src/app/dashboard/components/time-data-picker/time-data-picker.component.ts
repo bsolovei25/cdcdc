@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ITime } from '../../models/time-data-picker';
 
 @Component({
     selector: 'evj-time-data-picker',
