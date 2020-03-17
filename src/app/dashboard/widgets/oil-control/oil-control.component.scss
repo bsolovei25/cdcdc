@@ -178,7 +178,21 @@
 
 .container_oil {
   height: 100%;
+  position: relative;
   display: flex;
+  overflow: auto;
+  overflow-y: hidden;
+}
+
+.svg-circle {
+  max-height: 100%;
+  height: 100%;
+}
+
+.svg-circle-short {
+  width: 100%;
+  max-height: auto;
+  height: auto;
 }
 
 .container_oil_short {
@@ -191,21 +205,26 @@
   height: 100%;
 }
 
+.container_oils {
+  height: 100%;
+  width: 100%;
+}
+
 .oilCircle {
-  min-height: 180px;
-  min-width: 240px;
-  width: 40%;
+  width: 100%;
+  height: 100%;
 }
 
 .oilCircle_short {
   min-height: 180px;
   min-width: 240px;
   width: auto;
+  height: auto;
 }
 
 .oil_info {
   position: relative;
-  width: 100%;
+  width: calc(100% - 315px);
 }
 
 .critical {
@@ -229,12 +248,12 @@
 
 .oil_block_info {
   min-height: 80px;
-  height: 40%;
-  width: 95%;
+  height: 130px;
+  width: 100%;
   margin: 0 auto;
-  max-height: 170px;
-  min-width: 650px;
-  max-width: 900px;
+  // max-height: 170px;
+  // min-width: 650px;
+  // max-width: 900px;
 }
 
 .oil_block_info_short {
@@ -255,18 +274,18 @@
 }
 
 .oil_block_inter_info {
-  min-width: 685px;
-  min-height: 70px;
-  width: 100%;
-  height: 100%;
+  //min-width: 685px;
+  //min-height: 70px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-image: url(../../../../assets/pic/OilControl/border_new.svg);
   background-repeat: no-repeat;
-  background-size: 100% 100%;
+  height: 100%;
+  min-height: 130px;
+  background-size: 99% 85%;
 }
 
 .oil_picture {
-  margin-top: 5px;
+  margin-top: -20px;
   margin-left: 20px;
   height: 60%;
   display: flex;
@@ -318,7 +337,6 @@
   min-width: 140px;
   display: flex;
   margin-left: 30px;
-  margin-top: 5px;
 }
 
 .page_short {
@@ -330,14 +348,13 @@
 }
 
 .data {
-  margin: auto;
+  margin: 10px auto;
   color: #8c99b2;
   font-size: 12px;
   width: 25%;
   min-width: 145px;
   display: flex;
-  justify-content: center;
-  margin-top: 17px;
+  justify-content: space-evenly;
 }
 
 .data_short {
@@ -352,7 +369,7 @@
 
 .value_oil {
   font-size: 12px;
-  // margin: auto;
+  margin: auto;
   margin-top: 6px;
   justify-content: space-around;
   width: 25%;
@@ -378,9 +395,8 @@
   margin-left: 30px;
   width: 25%;
   min-width: 140px;
-  font-size: 14px;
+  font-size: 13px;
   color: #8c99b2;
-  margin-top: 5px;
 }
 
 .name_value_debalance {
@@ -391,9 +407,8 @@
   margin-left: 30px;
   width: 25%;
   min-width: 140px;
-  font-size: 14px;
+  font-size: 13px;
   color: #8c99b2;
-  margin-top: 15px;
 }
 
 .name_value_debalance_short {
@@ -419,8 +434,9 @@
   margin-top: 1px;
   display: flex;
   // justify-content: space-around;
-  height: 30%;
-  min-width: 705px;
+  height: 25%;
+  min-height: 33px;
+  //  min-width: 705px;
 }
 
 .row_short {

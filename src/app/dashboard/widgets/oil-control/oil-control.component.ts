@@ -542,10 +542,10 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
             .select(el)
             .append('svg')
             .attr('min-width', '300px')
-            .attr('height', '55px')
+            .attr('height', '45px')
             .attr('width', '100%')
             .attr('class', 'textProduct')
-            .attr('viewBox', '0 0 1200 200');
+            .attr('viewBox', '-30 70 1200 200');
 
         if (count === 1) {
             let lineOne = this.svgLine
@@ -960,7 +960,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
             .attr('height', '100%')
             .attr('width', '100%')
             .attr('class', 'textProduct')
-            .attr('viewBox', '0 0 350 450');
+            .attr('viewBox', '0 40 350 380');
 
         let pictureContainer = this.tankPicture
             .append('image')
