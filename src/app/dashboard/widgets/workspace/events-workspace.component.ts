@@ -106,6 +106,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     dataPicker: boolean = false;
 
     dateChoose: Date;
+    dateChooseNew: Date;
 
     @ViewChild('input', { static: false }) input: ElementRef;
     @ViewChild('input2', { static: false }) input2: ElementRef;
@@ -501,7 +502,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     async saveItem(): Promise<void> {
         this.isLoading = true;
         this.isEditing = false;
-      //  this.event.deadline = this.formatDate(new Date(this.event.deadline));
+        //  this.event.deadline = this.formatDate(new Date(this.event.deadline));
         console.log(this.event.deadline);
         if (this.isNew) {
             try {
@@ -567,6 +568,10 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     addRetrieval(): void {
         this.changeCategory();
         document.getElementById('overlay-retrieval').style.display = 'block';
+
+        this.dataPicker = false;
+
+        this.dateChooseNew = new Date();
 
         this.isNewRetrieval = {
             itemNumber: 0,
@@ -759,20 +764,36 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     }
 
     dateTimePicker(data: ITime): void {
-        let date = new Date(
-            data.date.toString().replace(/[0-9][0-9]:[0-9][0-9]:[0-9][0-9]/, data.time.toString())
-        );
+        const time = data.time.split(':');
+        const date = new Date(data.date);
 
         this.dateChoose = new Date(
             date.getUTCFullYear(),
             date.getUTCMonth(),
             date.getUTCDate(),
-            date.getUTCHours(),
-            date.getUTCMinutes(),
-            date.getUTCSeconds()
+            +time[0],
+            +time[1],
+            +time[2]
         );
 
         this.event.deadline = this.dateChoose;
+        this.dataPicker = !data.close;
+    }
+
+    dateTimePickerNew(data: ITime): void {
+        const time = data.time.split(':');
+        const date = new Date(data.date);
+
+        this.dateChooseNew = new Date(
+            date.getUTCFullYear(),
+            date.getUTCMonth(),
+            date.getUTCDate(),
+            +time[0],
+            +time[1],
+            +time[2]
+        );
+
+        this.isNewRetrieval.deadline = this.dateChoose;
         this.dataPicker = !data.close;
     }
 }

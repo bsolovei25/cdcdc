@@ -10,7 +10,7 @@ export class TimeDataPickerComponent implements OnInit {
     @Output() dateTimePicker = new EventEmitter<ITime>();
 
     public inputDate: Date = new Date();
-    public inputTime: Date = new Date();
+    public inputTime: string = '00:00:00';
 
     constructor() {}
 
@@ -19,6 +19,7 @@ export class TimeDataPickerComponent implements OnInit {
     }
 
     acceptDate(): void {
+        (this.inputTime === '') ? '00:00:00' : this.inputTime;
         const object: ITime = { date: this.inputDate, time: this.inputTime, close: true };
         this.dateTimePicker.emit(object);
     }

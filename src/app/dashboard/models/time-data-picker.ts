@@ -1,5 +1,5 @@
 interface ITime {
     date: Date;
-    time: Date;
+    time: string;
     close: boolean;
 }
