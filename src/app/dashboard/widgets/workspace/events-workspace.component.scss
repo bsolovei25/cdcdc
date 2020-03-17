@@ -2804,7 +2804,13 @@ textarea {
       }
     }
   }
+}
 
+.categories ::ng-deep .cdk-overlay-pane {
+  top: 295px !important;
+}
+
+.container {
   ::ng-deep {
     .cdk-overlay-container {
       ::-webkit-scrollbar {
@@ -2868,10 +2874,6 @@ textarea {
       margin-top: 9px;
     }
   }
-}
-
-.categories ::ng-deep .cdk-overlay-pane {
-  top: 295px !important;
 }
 
 /// GRAPH OPEN

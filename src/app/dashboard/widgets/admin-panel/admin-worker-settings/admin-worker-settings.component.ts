@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy, Input } from '@angular/core';
-import { IWorkerOptionAdminPanel, IWorkspace, IScreen } from '../../../models/admin-panel';
+import { IWorkerOptionAdminPanel, IWorkspace, IScreen, IClaim } from '../../../models/admin-panel';
 import { IUser } from '../../../models/events-widget';
 import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
 import { Subscription } from 'rxjs';
@@ -33,6 +33,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     public allWorkspaces: IWorkspace[] = [];
     public workerScreens: IWorkspace[] = [];
     public workerScreensDetached: IScreen[] = [];
+    private workspacesClaims: { workspaceId: number; claims: IClaim[] }[] = [];
 
     private subscriptions: Subscription[] = [];
 
@@ -96,6 +97,8 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         this.subscriptions.forEach((subs: Subscription) => subs.unsubscribe());
     }
 
+    //#region SEARCH
+
     public onSearchWorkspace(searchedWorkspace: string): void {
         this.searchingWorkspaceValue = searchedWorkspace.toLowerCase();
     }
@@ -112,8 +115,20 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         return workspaceName.toLowerCase().includes(this.searchingWorkspaceValue);
     }
 
+    //#endregion
+
     public defineIsWorkspaceActive(workspace: IWorkspace): boolean {
         return !!this.workerScreens.find((item: IWorkspace) => item.id === workspace.id);
+    }
+
+    public defineWorkerScreenId(workspace: IWorkspace): number {
+        const screen = this.workerScreensDetached.find(
+            (item: IScreen) => item.screen.id === workspace.id
+        );
+        if (screen) {
+            return screen.id;
+        }
+        return null;
     }
 
     public onSelectWorkspace(event: IWorkspace): void {
@@ -126,6 +141,19 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                 (item: IWorkspace) => item.id === event.id
             );
             this.workerScreens.splice(index, 1);
+        }
+    }
+
+    public onSelectWorkspaceClaims(event: { workspaceId: number; claims: IClaim[] }): void {
+        console.log(event);
+        const index: number = this.workspacesClaims.findIndex(
+            (item) => item.workspaceId === event.workspaceId
+        );
+        if (index === -1) {
+            this.workspacesClaims.push(event);
+        } else {
+            this.workspacesClaims.splice(index, 1);
+            this.workspacesClaims.push(event);
         }
     }
 
@@ -199,7 +227,15 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         this.worker = await this.adminService.createNewWorker(this.worker).toPromise();
         const promises: Promise<void>[] = [];
         this.addWorkspacesToWorker().forEach((index: number) => {
-            promises.push(this.adminService.addWorkerScreen(this.worker.id, index).toPromise());
+            const workspaceClaims = this.workspacesClaims.find(
+                (item) => item.workspaceId === index
+            );
+
+            promises.push(
+                this.adminService
+                    .addWorkerScreen(this.worker.id, index, workspaceClaims.claims)
+                    .toPromise()
+            );
         });
         Promise.all(promises);
     }
@@ -208,7 +244,15 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         const promises: Promise<void>[] = [];
         promises.push(this.adminService.editWorkerData(this.worker).toPromise());
         this.addWorkspacesToWorker().forEach((index: number) => {
-            promises.push(this.adminService.addWorkerScreen(this.worker.id, index).toPromise());
+            const workspaceClaims = this.workspacesClaims.find(
+                (item) => item.workspaceId === index
+            );
+
+            promises.push(
+                this.adminService
+                    .addWorkerScreen(this.worker.id, index, workspaceClaims.claims)
+                    .toPromise()
+            );
         });
         this.removeWorkspacesFromWorker().forEach((index: number) => {
             promises.push(this.adminService.removeWorkerScreen(index).toPromise());

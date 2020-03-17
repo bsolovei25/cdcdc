@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '../../../services/appConfigService';
-import { IBrigadeAdminPanel, IClaim, IScreen } from '../../models/admin-panel';
+import { IBrigadeAdminPanel, IClaim, IScreen, EnumClaims } from '../../models/admin-panel';
 import { IUser } from '../../models/events-widget';
 
 @Injectable({
@@ -19,10 +19,6 @@ export class AdminPanelService {
         middleName: '',
         phone: '',
         email: '',
-        brigade: {
-            id: null,
-            number: '',
-        },
         position: 'common',
         positionDescription: '',
         displayName: '',
@@ -126,17 +122,16 @@ export class AdminPanelService {
     public addWorkerScreen(
         userId: number,
         screenId: number,
-        maxClaimId: number = 1
+        claims: IClaim[] = [{ id: 1 }]
     ): Observable<any> {
         const url: string = `${this.restUrl}/userscreen`;
         const body = {
             screen: { id: screenId },
             user: { id: userId },
-            claims: [],
+            claims,
         };
-        for (let i = 1; i <= maxClaimId; i++) {
-            body.claims.push({ id: i });
-        }
+        console.log('service: ', body);
+
         return this.http.post<any>(url, body);
     }
 

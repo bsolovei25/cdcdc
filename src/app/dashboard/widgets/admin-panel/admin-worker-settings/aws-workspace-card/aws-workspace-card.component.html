@@ -9,7 +9,11 @@
   <div class="select" *ngIf="isActive">
     <mat-form-field>
       <mat-label>Права</mat-label>
-      <mat-select [formControl]="selectFormControl" multiple>
+      <mat-select
+        [formControl]="selectFormControl"
+        multiple
+        (selectionChange)="onChangeSelect()"
+      >
         <mat-select-trigger>
           {{selectFormControl.value ? selectFormControl.value[selectFormControl.value.length - 1] :
           ''}}
