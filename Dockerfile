@@ -1,5 +1,5 @@
 # base image
-FROM gitlab.funcoff.club:4567/oaovd/osspu/evj/front/caches:16.03.2020
+FROM gitlab.funcoff.club:4567/oaovd/osspu/evj/front/caches:17.03.2020
 #FROM node:lts-buster
 
 # install chrome for protractor tests
