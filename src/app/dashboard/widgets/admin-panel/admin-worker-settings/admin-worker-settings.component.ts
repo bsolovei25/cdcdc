@@ -217,7 +217,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             email: 'Эл.почта',
         };
 
-        let snackbarMessage: string = '';
+        let snackbarMessage: string = 'Обязательные поля:';
 
         for (const key in messages) {
             if (!this.worker[key]) {

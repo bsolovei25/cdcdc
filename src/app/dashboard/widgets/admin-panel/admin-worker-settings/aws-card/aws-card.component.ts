@@ -42,7 +42,7 @@ export class AwsCardComponent implements OnInit {
 
     public onInput(event: string): void {
         this.inputedValue = event;
-        if (!this.isCloseClick && this.inputedValue) {
+        if (!this.isCloseClick) {
             this.saveChanging.emit({ value: this.inputedValue, key: this.option.key });
             this.option.value = this.inputedValue;
             this.selectEdit.clear();
