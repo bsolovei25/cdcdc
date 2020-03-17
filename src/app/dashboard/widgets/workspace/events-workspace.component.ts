@@ -372,7 +372,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
         this.dateChooseNew = new Date();
 
-
         this.event = {
             itemNumber: 0,
             branch: 'Производство',
