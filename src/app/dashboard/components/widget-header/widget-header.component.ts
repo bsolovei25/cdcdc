@@ -18,7 +18,7 @@ export class WidgetHeaderComponent implements OnChanges {
     @Input() icon: string = 'shedule';
 
     @Input() isEventOpen: boolean;
-    public localeSelect: { name: string, id: number }[];
+    public localeSelect: { name: string; id: number }[];
     @Input() set select(data) {
         if (data) {
             this.localeSelect = data;
@@ -29,14 +29,14 @@ export class WidgetHeaderComponent implements OnChanges {
     @Output() eventCreated = new EventEmitter<boolean>();
     @Output() public selected = new EventEmitter<any>();
     public readonly iconRoute: string = './assets/icons/widget-title-icons/';
-    public selectValue: { name: string, id: number };
+    public selectValue: { name: string; id: number };
 
     public CreateIcon: boolean = true;
 
     constructor(
         public widgetService: NewWidgetService,
         public userSettings: NewUserSettingsService
-    ) { }
+    ) {}
 
     public ngOnChanges(): void {
         this.CreateIcon = this.isEventOpen;

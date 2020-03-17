@@ -152,9 +152,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                 this.brigadesSubstitution = data;
             })
         );
-        dataLoadQueue.push(
-
-        );
+        dataLoadQueue.push();
         if (dataLoadQueue.length > 0) {
             try {
                 await Promise.all(dataLoadQueue);
@@ -203,8 +201,11 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         this.isLoading = true;
         try {
             await this.adminShiftScheduleService
-                .getSchudeleShiftsMonth(this.selectedUnit.id, this.dateNow.getMonth() + 1,
-                    this.dateNow.getFullYear())
+                .getSchudeleShiftsMonth(
+                    this.selectedUnit.id,
+                    this.dateNow.getMonth() + 1,
+                    this.dateNow.getFullYear()
+                )
                 .then((data) => {
                     if (data && data.length > 0) {
                         this.scheduleShiftMonth = data;

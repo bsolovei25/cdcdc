@@ -18,13 +18,15 @@ export class AdminShiftScheduleService {
         this.restUrl = configService.restUrl;
     }
 
-    async getSchudeleShiftsMonth(unitId: number, month: number, year: number):
-        Promise<IScheduleShiftDay[]> {
+    async getSchudeleShiftsMonth(
+        unitId: number,
+        month: number,
+        year: number
+    ): Promise<IScheduleShiftDay[]> {
         try {
             return this.http
                 .get<IScheduleShiftDay[]>(
-                    this.restUrl
-                    + `/api/schedule-shifts/unit/${unitId}/month/${month}/${year}`
+                    this.restUrl + `/api/schedule-shifts/unit/${unitId}/month/${month}/${year}`
                 )
                 .toPromise();
         } catch (error) {
@@ -44,8 +46,9 @@ export class AdminShiftScheduleService {
     async getBrigades(unitId: number): Promise<IBrigadeWithUsersDto[]> {
         try {
             return this.http
-                .get<IBrigadeWithUsersDto[]>(this.restUrl
-                    + `/api/user-management/brigades/unit/${unitId}`)
+                .get<IBrigadeWithUsersDto[]>(
+                    this.restUrl + `/api/user-management/brigades/unit/${unitId}`
+                )
                 .toPromise();
         } catch (error) {
             console.error(error);
