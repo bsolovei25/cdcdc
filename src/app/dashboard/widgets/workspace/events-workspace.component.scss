@@ -700,13 +700,6 @@ $border-size: 4px;
               font-size: 10px;
             }
 
-            .fact_img {
-              padding-top: 10px;
-              margin-left: 26px;
-              width: 70%;
-              cursor: pointer;
-            }
-
             .fact_menu {
               display: flex;
               align-items: center;
@@ -770,6 +763,13 @@ $border-size: 4px;
                 }
               }
             }
+          }
+
+          .fact_img {
+            padding-top: 10px;
+            margin-left: 26px;
+            width: 70%;
+            cursor: pointer;
           }
         }
         .empty {

@@ -19,6 +19,7 @@ import {
     EventsWidgetCategoryCode,
     EventsWidgetData,
     IUnitEvents,
+    IUnitFact,
 } from '../../models/events-widget';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NewWidgetService } from '../../services/new-widget.service';
@@ -185,9 +186,9 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
             this.dateChoose = value.deadline;
         }
 
-        if (this.event.graphValues) {
-            this.onSendMessage(this.event.graphValues);
-        }
+        // if (this.event.graphValues) {
+        //     this.onSendMessage(this.event.graphValues);
+        // }
 
         await this.loadItem(typeof value === 'number' ? value : undefined);
         this.progressLine();
@@ -251,89 +252,64 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.isNewRetrieval = null;
     }
 
-    onSendMessage(graph?): void {
-        if (graph) {
-            const graph = {
-                comment: 'График',
-                createdAt: null,
-                displayName: null,
+    onSendMessage(): void {
+        if (this.input2.nativeElement.value) {
+            const commentInfo = {
+                comment: this.input2.nativeElement.value,
+                createdAt: new Date(),
+                displayName: this.nameUser,
             };
-
-            // const graphInfo = {
-            //     comment: '',
-            //     createdAt: new Date(),
-            //     displayName: this.nameUser,
-            // }
-            this.event.facts.push(graph);
-            // this.event.facts.push(graphInfo);
-        } else {
-            if (this.input2.nativeElement.value) {
-                const commentInfo = {
-                    comment: this.input2.nativeElement.value,
-                    createdAt: new Date(),
-                    displayName: this.nameUser,
-                };
-                this.event.comments.push(commentInfo);
-                // this.comments.push(this.input.nativeElement.value);
-                this.input2.nativeElement.value = '';
-                this.dateComment = new Date();
-                setTimeout(() => {
-                    this.scrollCommentBottom();
-                }, 50);
-            } else if (this.input.nativeElement.value) {
-                const factInfo = {
-                    comment: this.input.nativeElement.value,
-                    createdAt: new Date(),
-                    displayName: this.nameUser,
-                };
-                this.event.facts.push(factInfo);
-                this.input.nativeElement.value = '';
-                setTimeout(() => {
-                    this.scrollFactBottom();
-                }, 50);
-            }
+            this.event.comments.push(commentInfo);
+            // this.comments.push(this.input.nativeElement.value);
+            this.input2.nativeElement.value = '';
+            this.dateComment = new Date();
+            setTimeout(() => {
+                this.scrollCommentBottom();
+            }, 50);
+        } else if (this.input.nativeElement.value) {
+            const factInfo = {
+                comment: this.input.nativeElement.value,
+                createdAt: new Date(),
+                displayName: this.nameUser,
+            };
+            this.event.facts.push(factInfo);
+            this.input.nativeElement.value = '';
+            setTimeout(() => {
+                this.scrollFactBottom();
+            }, 50);
         }
     }
 
-    onSendNewMessage(graph?): void {
-        if (graph === true) {
+    onSendNewMessage(): void {
+        if (this.newInput2.nativeElement.value) {
+            if (this.isNewRetrieval.facts === undefined) {
+                this.isNewRetrieval.facts = [];
+            }
+            const factInfo = {
+                comment: this.newInput2.nativeElement.value,
+                createdAt: new Date(),
+                displayName: this.nameUser,
+            };
+            this.isNewRetrieval.facts.push(factInfo);
+            // this.comments.push(this.input.nativeElement.value);
+            this.newInput2.nativeElement.value = '';
+            setTimeout(() => {
+                this.scrollFactBottom();
+            }, 50);
+        } else if (this.newInput.nativeElement.value) {
+            if (this.isNewRetrieval.comments === undefined) {
+                this.isNewRetrieval.comments = [];
+            }
             const commentInfo = {
-                comment: 'График',
+                comment: this.newInput.nativeElement.value,
                 createdAt: new Date(),
                 displayName: this.nameUser,
             };
             this.isNewRetrieval.comments.push(commentInfo);
-        } else {
-            if (this.newInput2.nativeElement.value) {
-                if (this.isNewRetrieval.facts === undefined) {
-                    this.isNewRetrieval.facts = [];
-                }
-                const factInfo = {
-                    comment: this.newInput2.nativeElement.value,
-                    createdAt: new Date(),
-                    displayName: this.nameUser,
-                };
-                this.isNewRetrieval.facts.push(factInfo);
-                // this.comments.push(this.input.nativeElement.value);
-                this.newInput2.nativeElement.value = '';
-                setTimeout(() => {
-                    this.scrollFactBottom();
-                }, 50);
-            } else if (this.newInput.nativeElement.value) {
-                if (this.isNewRetrieval.comments === undefined) {
-                    this.isNewRetrieval.comments = [];
-                }
-                const commentInfo = {
-                    comment: this.newInput.nativeElement.value,
-                    createdAt: new Date(),
-                    displayName: this.nameUser,
-                };
-                this.isNewRetrieval.comments.push(commentInfo);
-                this.newInput.nativeElement.value = '';
-                setTimeout(() => {
-                    this.scrollCommentBottom();
-                }, 50);
-            }
+            this.newInput.nativeElement.value = '';
+            setTimeout(() => {
+                this.scrollCommentBottom();
+            }, 50);
         }
     }
 
