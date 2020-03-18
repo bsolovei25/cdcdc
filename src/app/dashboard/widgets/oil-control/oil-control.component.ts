@@ -376,14 +376,14 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
 
     protected dataConnect(): void {
         super.dataConnect();
-        this.subscriptions.push(
-            this.resizeWidget.subscribe((data) => {
-                if (data.item.uniqid === this.uniqId) {
-                    this.newWidth = data.event.clientX;
-                    this.onResize(data.event.clientX);
-                }
-            })
-        );
+        // this.subscriptions.push(
+        //     this.resizeWidget.subscribe((data) => {
+        //         if (data.item.uniqid === this.uniqId) {
+        //             this.newWidth = data.event.clientX;
+        //             this.onResize(data.event.clientX);
+        //         }
+        //     })
+        // );
     }
 
     protected dataHandler(ref: any): void {
@@ -545,7 +545,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
             .attr('height', '45px')
             .attr('width', '100%')
             .attr('class', 'textProduct')
-            .attr('viewBox', '-30 70 1200 200');
+            .attr('viewBox', '-30 20 1200 200');
 
         if (count === 1) {
             let lineOne = this.svgLine
@@ -1111,14 +1111,22 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
         this.drawPicture(this.oilIcon.nativeElement);
     }
 
+    ///Возможно зачищение всех нефтеконтролей
+
     public clearStorage(): void {
-        let clears = document.querySelectorAll('.textValues');
+        const clears = this.oilCircle.nativeElement.querySelectorAll('.textValues');
         clears.forEach((el) => el.remove());
+        this.clearBak();
     }
 
     public clearProduct(): void {
         this.clearStorage();
-        let clears = document.querySelectorAll('.textProduct');
+        const clears = this.oilCircle.nativeElement.querySelectorAll('.textProduct');
+        clears.forEach((el) => el.remove());
+    }
+
+    public clearBak(): void {
+        const clears = this.oilBak.nativeElement.querySelectorAll('.textProduct');
         clears.forEach((el) => el.remove());
     }
 
