@@ -6,6 +6,7 @@ import { WIDGETS } from '../components/new-widgets-grid/widget-map';
 import { AppConfigService } from 'src/app/services/appConfigService';
 import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { filter, catchError } from 'rxjs/operators';
+import { IParamWidgetsGrid } from '../components/new-widgets-grid/new-widgets-grid.component';
 
 @Injectable({
     providedIn: 'root',
@@ -36,7 +37,7 @@ export class NewUserSettingsService {
 
     public widgetInfo: NewUserGrid;
 
-    public addCellByPosition(idWidget, nameWidget, param) {
+    public addCellByPosition(idWidget: string, nameWidget: string, param: IParamWidgetsGrid) {
         const uniqId = this.create_UUID();
         this.widgetService.dashboard.push({
             x: param.x,
@@ -66,7 +67,7 @@ export class NewUserSettingsService {
         this.http
             .post(this.restUrl + '/api/user-management/widget/' + this.ScreenId, updateWidget)
             .subscribe(
-                (ans) => {},
+                (ans) => { },
                 (error) => console.log(error)
             );
     }
@@ -95,7 +96,7 @@ export class NewUserSettingsService {
         this.http
             .put(this.restUrl + '/api/user-management/widget/' + uniqId, updateWidget)
             .subscribe(
-                (ans) => {},
+                (ans) => { },
                 (error) => console.log(error)
             );
     }
@@ -112,14 +113,11 @@ export class NewUserSettingsService {
         this.updateWidgetApi(oldItem.uniqid);
     }
 
-    public removeItem(widgetId: string) {
-        this.http.delete(this.restUrl + '/api/user-management/widget/' + widgetId).subscribe(
-            (ans) => {},
-            (error) => console.log(error)
-        );
+    public removeItem(widgetId: string): void {
+        this.http.delete(this.restUrl + '/api/user-management/widget/' + widgetId).toPromise();
     }
 
-    public GetScreen() {
+    public GetScreen(): void {
         try {
             this.http
                 .get<ScreenSettings[]>(this.restUrl + '/api/user-management/screens')
@@ -134,7 +132,7 @@ export class NewUserSettingsService {
         }
     }
 
-    private LoadScreenAsync(id: any, loadDefault: boolean): Observable<any> {
+    private LoadScreenAsync(id: number, loadDefault: boolean): Observable<any> {
         return this.http.get(this.restUrl + '/api/user-management/screen/' + id).pipe(
             catchError((err) => {
                 this.dataScreen = this._screens$.getValue();

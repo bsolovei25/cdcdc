@@ -5,14 +5,14 @@ import {
     ChangeDetectionStrategy,
     Output,
     EventEmitter,
+    OnDestroy,
 } from '@angular/core';
 import { GridsterItem, GridsterConfig, GridType } from 'angular-gridster2';
 import { NewWidgetService } from '../../services/new-widget.service';
-import { Observable, Subscription, BehaviorSubject } from 'rxjs';
+import { Subscription, BehaviorSubject } from 'rxjs';
 import { WIDGETS } from '../new-widgets-grid/widget-map';
 import { WidgetModel } from '../../models/widget.model';
 import { IWidgets } from '../../models/widget.model';
-import { tick } from '@angular/core/testing';
 import { NewUserSettingsService } from '../../services/new-user-settings.service';
 
 @Component({
@@ -21,32 +21,23 @@ import { NewUserSettingsService } from '../../services/new-user-settings.service
     templateUrl: './new-widgets-panel.component.html',
     styleUrls: ['./new-widgets-panel.component.scss'],
 })
-export class NewWidgetsPanelComponent implements OnInit {
-    private subscriptions: Subscription[] = [];
-
-    public event;
-    public item;
-
-    active = false;
+export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
 
     public readonly WIDGETS = WIDGETS;
+    private subscriptions: Subscription[] = [];
 
+    public active: boolean = false;
     public options: GridsterConfig;
 
-    dataW: IWidgets;
+    public widgets$: BehaviorSubject<IWidgets[]> = new BehaviorSubject<IWidgets[]>([]);
 
-    widgets: BehaviorSubject<IWidgets[]> = new BehaviorSubject<IWidgets[]>([]);
+    public model: WidgetModel;
 
-    model: WidgetModel;
+    _injector: Injector; // TOFIX   Если не нужно то удалить
 
-    _injector: Injector;
+    public gridWidget: boolean = true;
+    public fixWidget: boolean = true;
 
-    public gridWidget = true;
-    public fixWidget = true;
-
-    massWidg = [WIDGETS];
-
-    public test = [];
     constructor(
         public widgetService: NewWidgetService,
         public injector: Injector,
@@ -54,15 +45,15 @@ export class NewWidgetsPanelComponent implements OnInit {
     ) {
         this.subscriptions.push(
             this.widgetService.widgets$.subscribe((dataW) => {
-                this.widgets.next(dataW);
+                this.widgets$.next(dataW);
             })
         );
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         this.subscriptions.push(
             this.widgetService.searchWidgetT.subscribe((data) => {
-                this.widgets.next(data);
+                this.widgets$.next(data);
             })
         );
         this.options = {
@@ -90,13 +81,11 @@ export class NewWidgetsPanelComponent implements OnInit {
         };
     }
 
-    ngAfterViewInit() {}
-
     @Output() onSwap = new EventEmitter<boolean>();
     @Output() onGrid = new EventEmitter<boolean>();
     @Output() onViewSise = new EventEmitter<boolean>();
 
-    changeSwap() {
+    changeSwap(): void {
         let check = <HTMLInputElement>document.getElementById('checkBoxFix');
         if (check.checked) {
             this.fixWidget = false;
@@ -107,7 +96,7 @@ export class NewWidgetsPanelComponent implements OnInit {
         }
     }
 
-    getGridView() {
+    getGridView(): void {
         let check = <HTMLInputElement>document.getElementById('checkBoxGrid');
         if (check.checked) {
             this.gridWidget = false;
@@ -159,13 +148,13 @@ export class NewWidgetsPanelComponent implements OnInit {
         }
     }
 
-    emptyCellClick(event: MouseEvent, item: GridsterItem) {}
+    emptyCellClick(event: MouseEvent, item: GridsterItem) { }
 
-    emptyCellMenuClick() {}
+    emptyCellMenuClick() { }
 
-    emptyCellDragClick() {}
+    emptyCellDragClick() { }
 
-    emptyCellDropClick(event: DragEvent, item: GridsterItem) {}
+    emptyCellDropClick(event: DragEvent, item: GridsterItem) { }
 
     public getInjector = (idWidget: string): Injector => {
         return Injector.create({
