@@ -19,7 +19,7 @@ check_online()
 	echo "Waiting for server to be up (attempt: $attempt)..."
 	docker logs ${CI_PROJECT_NAME}
 	result=$(docker logs ${CI_PROJECT_NAME}-mbo)
-	if grep -q 'Angular Live Development Server is listening' <<< $result ; then
+	if grep -q 'Compilled successfully' <<< $result ; then
 	    echo "Server is up"
     	    docker logs ${CI_PROJECT_NAME}
 	    exit 0
