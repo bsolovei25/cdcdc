@@ -2,8 +2,8 @@ import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { IWorkerOptionAdminPanel, IBrigadeAdminPanel } from '../../../../models/admin-panel';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AdminPanelService } from '../../../../services/admin-panel/admin-panel.service';
-import { MatSelectChange } from '@angular/material/select';
 import { IBrigade } from '../../../../models/shift.model';
+import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'evj-aws-select-card',
@@ -23,33 +23,38 @@ export class AwsSelectCardComponent implements OnInit {
 
     public selectEdit: SelectionModel<boolean> = new SelectionModel<boolean>(true);
 
+    public select: FormControl = new FormControl();
+
     constructor(private adminService: AdminPanelService) {}
 
     public ngOnInit(): void {
         this.allBrigades = this.adminService.brigades;
+        this.select.setValue(this.option.value);
+        this.select.disable();
     }
 
     public onEditClick(): void {
         if (this.selectEdit.isEmpty()) {
             this.selectEdit.select(true);
-        } else {
-            const brigade: IBrigadeAdminPanel = this.adminService.brigades.find(
-                (item) => item.brigadeNumber === this.inputedValue
-            );
-            const returnedData = brigade
-                ? { id: brigade.brigadeId, number: +brigade.brigadeNumber }
-                : null;
-            this.saveChanging.emit(returnedData);
-            this.option.value = this.inputedValue;
-            this.selectEdit.clear();
+            this.select.enable();
         }
     }
 
-    public onChangeSelect(event: MatSelectChange): void {
-        this.inputedValue = event.value;
+    public onChangeSelect(): void {
+        const brigade: IBrigadeAdminPanel = this.adminService.brigades.find(
+            (item) => item.brigadeNumber === this.select.value
+        );
+        const returnedData = brigade
+            ? { id: brigade.brigadeId, number: +brigade.brigadeNumber }
+            : null;
+        this.saveChanging.emit(returnedData);
+        this.option.value = this.select.value;
+        this.select.disable();
+        this.selectEdit.clear();
     }
 
     public onCloseClick(): void {
+        this.select.disable();
         this.selectEdit.clear();
     }
 }
