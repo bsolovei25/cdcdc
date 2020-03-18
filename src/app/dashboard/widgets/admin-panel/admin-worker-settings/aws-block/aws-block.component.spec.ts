@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AwsCheckboxCardComponent } from './aws-checkbox-card.component';
+import { AwsBlockComponent } from './aws-block.component';
 
-describe('AwsCheckboxCardComponent', () => {
-    let component: AwsCheckboxCardComponent;
-    let fixture: ComponentFixture<AwsCheckboxCardComponent>;
+describe('AwsBlockComponent', () => {
+    let component: AwsBlockComponent;
+    let fixture: ComponentFixture<AwsBlockComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [AwsCheckboxCardComponent],
+            declarations: [AwsBlockComponent],
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(AwsCheckboxCardComponent);
+        fixture = TestBed.createComponent(AwsBlockComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

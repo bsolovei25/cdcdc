@@ -118,6 +118,7 @@ import { InfoScreenComponent } from './widgets/petroleum-products-movement/petro
 import { PetroleumUnityInfoComponent } from './widgets/petroleum-products-movement/petroleum-unity-info/petroleum-unity-info.component';
 import { AwsCheckboxCardComponent } from './widgets/admin-panel/admin-worker-settings/aws-checkbox-card/aws-checkbox-card.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { AwsBlockComponent } from './widgets/admin-panel/admin-worker-settings/aws-block/aws-block.component';
 
 @NgModule({
     declarations: [
@@ -222,6 +223,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         InfoScreenComponent,
         PetroleumUnityInfoComponent,
         AwsCheckboxCardComponent,
+        AwsBlockComponent,
     ],
     entryComponents: [
         LineChartComponent,
