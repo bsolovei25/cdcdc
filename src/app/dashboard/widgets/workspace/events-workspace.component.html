@@ -228,7 +228,7 @@
                         [svgStyle]="{ 'width.px':250, 'height.px':70 }"
                       ></svg-icon>
                     </div>
-                    <div class="fact_menu">
+                    <div class="fact_menu"  *ngIf="fact.comment !== 'График'">
                       <!-- <div class="fact_button" *ngIf="(isClickFact === i)">
                         <div class="fact_button_update">
                           <svg-icon
@@ -272,11 +272,7 @@
                       (keypress)="onEnterPush($event)"
                       #input
                     />
-                    <button
-                      type="submit"
-                      class="button comment__file   gridster-item-content"
-                      (click)="pushGraf('fact')"
-                    >
+                    <button type="submit" class="button comment__file   gridster-item-content">
                       <svg-icon
                         class="button__icon"
                         src="./assets/icons/widgets/change-shift/add_file.svg"
@@ -308,11 +304,12 @@
                     class="comment_new"
                     (click)="clickComment(comment, i)"
                     *ngFor="let comment of event.comments; let i = index"
+                    
                   >
-                    <div class="comment_text" *ngIf="comment.comment !== 'График'">
+                    <div class="comment_text">
                       <p>{{comment.comment}}</p>
                     </div>
-                    <div
+                    <!-- <div
                       class="comment_img"
                       *ngIf="comment.comment === 'График'"
                       (click)="openLineChart()"
@@ -321,7 +318,7 @@
                         src="./assets/icons/widgets/workspace/graph.svg"
                         [svgStyle]="{ 'width.px':250, 'height.px':70 }"
                       ></svg-icon>
-                    </div>
+                    </div> -->
                     <div class="comment_menu">
                       <!-- <div class="comment_button" *ngIf="isClickComment === i">
                         <div class="comment_button_update">
@@ -358,11 +355,7 @@
                       (keypress)="onEnterPush($event)"
                       #input2
                     />
-                    <button
-                      type="submit"
-                      class="button comment__file   gridster-item-content"
-                      (click)="pushGraf('comment')"
-                    >
+                    <button type="submit" class="button comment__file   gridster-item-content">
                       <svg-icon
                         class="button__icon"
                         src="./assets/icons/widgets/change-shift/add_file.svg"
@@ -907,7 +900,7 @@
                       <div class="fact_text" *ngIf="fact.comment !== 'График'">
                         <p>{{fact.comment}}</p>
                       </div>
-                      <div
+                      <!-- <div
                         class="fact_img"
                         *ngIf="fact.comment === 'График'"
                         (click)="openLineChart()"
@@ -916,8 +909,8 @@
                           src="./assets/icons/widgets/workspace/graph.svg"
                           [svgStyle]="{ 'width.px':250, 'height.px':70 }"
                         ></svg-icon>
-                      </div>
-                      <div class="fact_menu">
+                      </div> -->
+                      <div class="fact_menu" *ngIf="fact.comment !== 'График'">
                         <!-- <div class="fact_button" *ngIf="(isClickFact === i)">
                           <div class="fact_button_update">
                             <svg-icon
@@ -953,11 +946,7 @@
                         (keypress)="onEnterPush($event)"
                         #newInput2
                       />
-                      <button
-                        type="submit"
-                        class="button comment__file   gridster-item-content"
-                        (click)="pushNewGraf('fact')"
-                      >
+                      <button type="submit" class="button comment__file   gridster-item-content">
                         <svg-icon
                           class="button__icon"
                           src="./assets/icons/widgets/change-shift/add_file.svg"
@@ -1092,7 +1081,7 @@
                         <p>{{comment.comment}}</p>
                       </div>
 
-                      <div
+                      <!-- <div
                         class="comment_img"
                         *ngIf="comment.comment === 'График'"
                         (click)="openLineChart()"
@@ -1101,7 +1090,7 @@
                           src="./assets/icons/widgets/workspace/graph.svg"
                           [svgStyle]="{ 'width.px':250, 'height.px':70 }"
                         ></svg-icon>
-                      </div>
+                      </div> -->
                       <div class="comment_menu">
                         <!-- <div class="comment_button" *ngIf="(isClickComment === i)">
                           <div class="comment_button_update">
@@ -1138,11 +1127,7 @@
                         (keypress)="onEnterPush($event)"
                         #newInput
                       />
-                      <button
-                        type="submit"
-                        class="button comment__file   gridster-item-content"
-                        (click)="pushNewGraf('comment')"
-                      >
+                      <button type="submit" class="button comment__file   gridster-item-content">
                         <svg-icon
                           class="button__icon"
                           src="./assets/icons/widgets/change-shift/add_file.svg"

@@ -745,6 +745,7 @@ $border-size: 4px;
                 position: absolute;
                 bottom: 0px;
                 font-size: 9px;
+                right: 10px;
 
                 .fact_info_user {
                   text-align: end;
@@ -758,6 +759,7 @@ $border-size: 4px;
               .fact_info_notActive {
                 position: absolute;
                 font-size: 9px;
+                right: 10px;
 
                 .fact_info_user {
                   text-align: end;
@@ -844,6 +846,7 @@ $border-size: 4px;
                 position: absolute;
                 bottom: 0px;
                 font-size: 9px;
+                right: 10px;
 
                 .fact_info_user {
                   text-align: end;
@@ -1101,6 +1104,7 @@ $border-size: 4px;
           overflow: auto;
           background: #1d202a;
           .comment_new {
+            min-height: 18px;
             position: relative;
             display: flex;
             padding-bottom: 10px;
@@ -1165,6 +1169,7 @@ $border-size: 4px;
                 position: absolute;
                 bottom: 0px;
                 font-size: 9px;
+                right: 10px;
 
                 .comment_info_user {
                   text-align: end;
@@ -2252,6 +2257,7 @@ $border-size: 4px;
                 overflow: auto;
                 background: #1d202a;
                 .comment_new {
+                  min-height: 18px;
                   position: relative;
                   display: flex;
                   padding-bottom: 10px;
@@ -2311,6 +2317,7 @@ $border-size: 4px;
                       position: absolute;
                       bottom: 0px;
                       font-size: 9px;
+                      right: 10px;
 
                       .comment_info_user {
                         text-align: end;

@@ -186,7 +186,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         }
 
         if (this.event.graphValues) {
-            this.onSendMessage(true);
+            this.onSendMessage(this.event.graphValues);
         }
 
         await this.loadItem(typeof value === 'number' ? value : undefined);
@@ -252,13 +252,20 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     }
 
     onSendMessage(graph?): void {
-        if (graph === true) {
-            const commentInfo = {
+        if (graph) {
+            const graph = {
                 comment: 'График',
-                createdAt: new Date(),
-                displayName: this.nameUser,
+                createdAt: null,
+                displayName: null,
             };
-            this.event.comments.push(commentInfo);
+
+            // const graphInfo = {
+            //     comment: '',
+            //     createdAt: new Date(),
+            //     displayName: this.nameUser,
+            // }
+            this.event.facts.push(graph);
+            // this.event.facts.push(graphInfo);
         } else {
             if (this.input2.nativeElement.value) {
                 const commentInfo = {
