@@ -45,6 +45,8 @@ testing website:
     stage: test
     script:
         - echo "Doing some tests... Someone should add unit tests or whatever here"
+          #- docker run -v $(pwd):/app -v /app/node_modules -d  --rm --name ${CI_PROJECT_NAME} -it ${CI_PROJECT_NAME}
+
         - docker run --rm --name ${CI_PROJECT_NAME} -d ${CI_PROJECT_NAME}
         - ./init-docker.sh
     only:
@@ -63,7 +65,7 @@ build artifact:
     only:
         - master
         - develop
-          #- merge_requests
+        - merge_requests
     artifacts:
         paths:
             - ./public
