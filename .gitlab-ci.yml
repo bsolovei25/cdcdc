@@ -24,7 +24,7 @@ stages:
 
 .init_template: &init
     tags:
-        - evj-front
+        - build2-cup-front
 
 
 docker build:
