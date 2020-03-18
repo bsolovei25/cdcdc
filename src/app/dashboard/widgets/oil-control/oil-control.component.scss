@@ -31,8 +31,14 @@
   fill-rule: evenodd;
   clip-rule: evenodd;
   fill: url(#XMLID_60_);
+  
   //  cursor: pointer;
 }
+
+// .st4 > ::ng-deep .textValues:hover{
+//   fill: white;
+// }
+
 .st5 {
   fill: none;
   stroke: #636680;
@@ -103,21 +109,26 @@
   fill-rule: evenodd;
 }
 
-.st0:hover {
-  fill: #474a5e;
-}
-.st1:hover {
-  fill: #474a5e;
-}
-.st2:hover {
-  fill: #474a5e;
-}
-.st3:hover {
-  fill: #474a5e;
-}
-.st4:hover {
-  fill: #474a5e;
-}
+// .st0:hover {
+//   fill: #474a5e;
+//   cursor: pointer;
+// }
+// .st1:hover {
+//   fill: #474a5e;
+//   cursor: pointer;
+// }
+// .st2:hover {
+//   fill: #474a5e;
+//   cursor: pointer;
+// }
+// .st3:hover {
+//   fill: #474a5e;
+//   cursor: pointer;
+// }
+// .st4:hover {
+//   fill: #474a5e;
+//   cursor: pointer;
+// }
 
 .st20 {
   fill-rule: evenodd;
@@ -308,6 +319,13 @@
     transform: rotate(-45deg);
     border-top: 2px solid var(--color-border-unactive);
     background: var(--color-bg-main);
+  }
+}
+
+.textValues :hover {
+  .st4 {
+    fill: #474a5e;
+    cursor: pointer;
   }
 }
 
