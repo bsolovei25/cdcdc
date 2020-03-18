@@ -51,6 +51,8 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
     public isWindowUsbVerifyActive: boolean = false;
     public verifyInfo: IVerifyWindow = null;
 
+    public unitId: number = null;
+
     protected static itemCols: number = 16;
     protected static itemRows: number = 30;
 
@@ -74,40 +76,60 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
         super.ngOnDestroy();
     }
 
-    protected dataConnect(): void {
+    protected async dataConnect(): Promise<void> {
         super.dataConnect();
+        this.unitId = await this.shiftService.getUnitId(this.widgetId);
+        if (!this.shiftService.checkShiftByUnit(this.unitId)) {
+            this.shiftService.getShiftInfo(this.unitId);
+        }
         this.subscriptions.push(
-            this.shiftService.shiftPass.subscribe((data) => {
+            this.shiftService.getShiftByUnit(this.unitId).subscribe((data) => {
                 if (this.widgetType) {
                     this.setRealtimeData(this.widgetType, data);
                 }
             })
         );
         this.subscriptions.push(
-            this.shiftService.verifyWindowObservable(this.id).subscribe((obj) => {
-                if (obj.action === 'close') {
-                    setTimeout(() => {
-                        this.isWindowCardVerifyActive = false;
-                        this.isWindowUsbVerifyActive = false;
-                    }, 1000);
-                } else if (obj.action === 'open') {
-                    this.verifyInfo = obj;
-                    switch (obj.type) {
-                        case 'card':
-                            this.isWindowCardVerifyActive = true;
-                            break;
-                        case 'usb':
-                            this.isWindowUsbVerifyActive = true;
-                            break;
-                    }
-                }
-                this.verifyInfo.result = obj.result;
+            this.shiftService.verifyWindowObservable(this.id).subscribe((obj: IVerifyWindow) => {
+                this.verifyHandler(obj);
             })
         );
     }
 
     protected dataHandler(ref: any): void {
-        this.shiftService.resultVerify(this.id, ref.isConfirm);
+        this.shiftService.resultVerify(this.id, ref, this.unitId);
+    }
+
+    private async verifyHandler(obj: IVerifyWindow): Promise<void> {
+        console.log(obj);
+        if (obj.action === 'close') {
+            switch (obj.type) {
+                case 'card':
+                    // TODO close card request
+                    await this.shiftService.cancelCardAction(obj.verifyId);
+                    break;
+                case 'usb':
+                    // TODO close usb request
+                    await this.shiftService.cancelUsbAction(obj.verifyId);
+                    break;
+            }
+            this.materialController.openSnackBar(obj?.message);
+            setTimeout(() => {
+                this.isWindowCardVerifyActive = false;
+                this.isWindowUsbVerifyActive = false;
+            }, 1000);
+        } else if (obj.action === 'open') {
+            this.verifyInfo = obj;
+            switch (obj.type) {
+                case 'card':
+                    this.isWindowCardVerifyActive = true;
+                    break;
+                case 'usb':
+                    this.isWindowUsbVerifyActive = true;
+                    break;
+            }
+        }
+        this.verifyInfo.result = obj.result;
     }
 
     private setRealtimeData(widgetType: string, data): void {
@@ -206,7 +228,7 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
         if (this.currentShift.status !== 'inProgressAccepted') {
             return;
         }
-        const classes: DOMTokenList = this.addShift.nativeElement.classList;
+        const classes: DOMTokenList = this.addShift?.nativeElement.classList;
         if (classes.contains('onShift__add-active')) {
             classes.remove('onShift__add-active');
             this.allPeople.nativeElement.classList.remove('onShift__allPeople-active');
@@ -219,8 +241,8 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
 
     @HostListener('document:changeShift_clickAddBtn', ['$event'])
     removeAddPeople(event): void {
-        const classes: DOMTokenList = this.addShift.nativeElement.classList;
-        if (classes.contains('onShift__add-active')) {
+        const classes: DOMTokenList = this.addShift?.nativeElement.classList;
+        if (classes?.contains('onShift__add-active')) {
             classes.remove('onShift__add-active');
             this.allPeople.nativeElement.classList.remove('onShift__allPeople-active');
         }
@@ -247,15 +269,7 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
         // TODO
         const typeOfChangingShift: string = this.widgetType === 'shift-pass' ? 'pass' : 'accept';
         this.shiftService
-            .applyShift(this.currentShift.id, typeOfChangingShift, this.widgetId)
-            .then((res) => {
-                console.log(res);
-                if (this.widgetType === 'shift-pass') {
-                    this.materialController.openSnackBar('Смена передана');
-                } else {
-                    this.materialController.openSnackBar('Смена принята');
-                }
-            })
+            .applyShift(this.currentShift.id, typeOfChangingShift, this.widgetId, this.unitId)
             .catch((err) => {
                 console.log(err);
             });
@@ -271,7 +285,7 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
             .subscribe((ans) => {
                 if (ans.result) {
                     console.log('continue');
-                    this.shiftService.cancelShift(this.currentShift.id, ans.comment, this.widgetId);
+                    this.shiftService.cancelShift(this.currentShift.id, ans.comment, this.widgetId, this.unitId);
                     this.materialController.openSnackBar('Отказ от смены');
                 } else {
                     console.log('cancel');

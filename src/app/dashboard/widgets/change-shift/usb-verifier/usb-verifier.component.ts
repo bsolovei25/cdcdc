@@ -21,8 +21,9 @@ export class UsbVerifierComponent implements OnInit {
   public closeVerifyWindow(): void {
     this.shiftService.actionVerifyWindow(
         'close',
-        null,
+        'usb',
         this.verifyInfo.widgetId,
+        'Отмена операции',
         false,
         this.verifyInfo.verifyId
     );

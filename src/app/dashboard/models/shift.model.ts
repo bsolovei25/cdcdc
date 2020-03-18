@@ -35,6 +35,7 @@ export interface ShiftPass {
     id: number;
     passingShift: Shift;
     acceptingShift: Shift;
+    unitId: number;
 }
 
 export interface ShiftComment {
@@ -56,6 +57,7 @@ export interface IVerifyWindow {
     type?: VerifyWindowType;
     verifyId?: number;
     user?: IUser;
+    message?: string;
     result?: boolean;
 }
 

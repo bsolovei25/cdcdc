@@ -97,6 +97,7 @@
                   [onShift]="true"
                   [isPresent]="true"
                   [currentShift]="this.currentShift"
+                  [unitId]="unitId"
                 ></evj-shift-person>
               </div>
             </div>
@@ -108,6 +109,7 @@
                     [person]="person"
                     [shiftId]="currentShift.id"
                     [onShift]="false"
+                    [unitId]="unitId"
                   ></evj-shift-person>
                 </div>
               </div>
@@ -128,6 +130,7 @@
                   [currentBrigade]="currentShift?.brigade?.id"
                   [currentShift]="currentShift"
                   [isPresent]="false"
+                  [unitId]="unitId"
                 ></evj-shift-person>
               </div>
             </div>
