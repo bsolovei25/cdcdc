@@ -173,6 +173,8 @@ export class AdminPanelService {
 
     public async updateAllBrigades(): Promise<void> {
         const data: IBrigadeAdminPanel[] = await this.getBrigades().toPromise();
+        console.log('all-brigades', data);
+
         this.allBrigades$.next(data);
         this.brigades = data;
     }

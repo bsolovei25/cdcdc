@@ -30,7 +30,7 @@
     <div class="worker__column worker__info">
       <div class="options scroll-bar">
         <ng-container *ngFor="let option of options">
-          <ng-container *ngIf="!(option.key==='brigade')"
+          <ng-container *ngIf="!(option.key==='brigade' )"
             ><evj-aws-card
               class="card"
               *ngIf="isValidFieldName(option.name)"
@@ -38,7 +38,7 @@
               (saveChanging)="onFieldChanging($event)"
             ></evj-aws-card
           ></ng-container>
-          <ng-container r *ngIf="option.key==='brigade'">
+          <ng-container *ngIf="option.key==='brigade'">
             <evj-aws-select-card
               class="card"
               [option]="option"
@@ -46,6 +46,10 @@
             ></evj-aws-select-card>
           </ng-container>
         </ng-container>
+        <evj-aws-checkbox-card
+          class="card"
+          (checked)="onSetResponsible($event)"
+        ></evj-aws-checkbox-card>
       </div>
       <div class="claims">
         <div class="title">Права доступа</div>

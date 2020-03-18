@@ -21,6 +21,8 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     public isCheckBoxClicked: boolean = false;
 
+    public isWorkerResponsible: boolean = false;
+
     private searchingWorkspaceValue: string = '';
     private searchingFieldName: string = '';
 
@@ -71,6 +73,11 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                         name: 'Почта',
                         value: this.worker.email,
                         key: 'email',
+                    },
+                    {
+                        name: 'Установка',
+                        value: '',
+                        key: 'unit',
                     },
                     {
                         name: 'Бригада',
@@ -197,6 +204,11 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         }
     }
 
+    public onSetResponsible(event: boolean): void {
+        this.isWorkerResponsible = event;
+        this.isAlertShowing = true;
+    }
+
     public onSelectClaim(): void {
         this.isCheckBoxClicked = false;
         this.isAlertShowing = true;
@@ -301,9 +313,11 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     public async onSave(): Promise<void> {
         if (this.isCheckBoxClicked && this.checkForRequiredFields()) {
             try {
-                this.isCreateNewUser ? await this.onCreateNewWorker() : await this.onEditWorker();
-
                 this.worker.displayName = this.adminService.generateDisplayName(this.worker);
+                this.isCreateNewUser ? await this.onCreateNewWorker() : await this.onEditWorker();
+                if (this.isWorkerResponsible) {
+                    await this.adminService.setUserResponsible(this.worker.id).toPromise();
+                }
                 await this.adminService.updateAllWorkers();
                 await this.adminService.updateAllBrigades();
                 const userScreens: IScreen[] = await this.adminService

@@ -116,6 +116,8 @@ import { OperationScreenComponent } from './widgets/petroleum-products-movement/
 import { OperationParkScreenComponent } from './widgets/petroleum-products-movement/petroleum-reference/operation-park-screen/operation-park-screen.component';
 import { InfoScreenComponent } from './widgets/petroleum-products-movement/petroleum-reference/info-screen/info-screen.component';
 import { PetroleumUnityInfoComponent } from './widgets/petroleum-products-movement/petroleum-unity-info/petroleum-unity-info.component';
+import { AwsCheckboxCardComponent } from './widgets/admin-panel/admin-worker-settings/aws-checkbox-card/aws-checkbox-card.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
     declarations: [
@@ -219,6 +221,7 @@ import { PetroleumUnityInfoComponent } from './widgets/petroleum-products-moveme
         OperationParkScreenComponent,
         InfoScreenComponent,
         PetroleumUnityInfoComponent,
+        AwsCheckboxCardComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -290,6 +293,7 @@ import { PetroleumUnityInfoComponent } from './widgets/petroleum-products-moveme
         ScrollingModule,
         OldScrollingModule,
         ReactiveFormsModule,
+        MatCheckboxModule,
     ],
     bootstrap: [],
     providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }],
