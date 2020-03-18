@@ -742,7 +742,6 @@ $border-size: 4px;
               }
 
               .fact_info {
-                right: 6px;
                 position: absolute;
                 bottom: 0px;
                 font-size: 9px;
@@ -757,7 +756,6 @@ $border-size: 4px;
               }
 
               .fact_info_notActive {
-                right: 6px;
                 position: absolute;
                 font-size: 9px;
 
@@ -802,6 +800,13 @@ $border-size: 4px;
               width: 70%;
               color: white;
               font-size: 10px;
+            }
+
+            .fact_img {
+              padding-top: 10px;
+              margin-left: 26px;
+              width: 70%;
+              cursor: pointer;
             }
 
             .fact_menu {
@@ -1114,9 +1119,12 @@ $border-size: 4px;
             }
 
             .comment_img {
-              padding-top: 10px;
+              overflow-wrap: break-word;
+              padding-top: 15px;
               margin-left: 26px;
               width: 70%;
+              color: white;
+              font-size: 10px;
               cursor: pointer;
             }
 

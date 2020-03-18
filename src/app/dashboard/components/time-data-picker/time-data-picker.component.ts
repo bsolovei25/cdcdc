@@ -19,6 +19,7 @@ export class TimeDataPickerComponent implements OnInit {
         this.inputDate = this.data;
     }
 
+
     acceptDate(): void {
         this.inputTime === '' ? '00:00:00' : this.inputTime;
         const object: ITime = { date: this.inputDate, time: this.inputTime, close: true };

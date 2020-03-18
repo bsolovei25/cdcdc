@@ -272,7 +272,7 @@
                       (keypress)="onEnterPush($event)"
                       #input
                     />
-                    <button type="submit" class="button comment__file   gridster-item-content">
+                    <button type="submit" class="button comment__file   gridster-item-content" (click)="pushGraf('fact')">
                       <svg-icon
                         class="button__icon"
                         src="./assets/icons/widgets/change-shift/add_file.svg"
@@ -305,8 +305,18 @@
                     (click)="clickComment(comment, i)"
                     *ngFor="let comment of event.comments; let i = index"
                   >
-                    <div class="comment_text">
+                    <div class="comment_text" *ngIf="comment.comment !== 'График'">
                       <p>{{comment.comment}}</p>
+                    </div>
+                    <div
+                      class="comment_img"
+                      *ngIf="comment.comment === 'График'"
+                      (click)="openLineChart()"
+                    >
+                      <svg-icon
+                        src="./assets/icons/widgets/workspace/graph.svg"
+                        [svgStyle]="{ 'width.px':250, 'height.px':70 }"
+                      ></svg-icon>
                     </div>
                     <div class="comment_menu">
                       <!-- <div class="comment_button" *ngIf="isClickComment === i">
@@ -344,7 +354,7 @@
                       (keypress)="onEnterPush($event)"
                       #input2
                     />
-                    <button type="submit" class="button comment__file   gridster-item-content">
+                    <button type="submit" class="button comment__file   gridster-item-content" (click)="pushGraf('comment')">
                       <svg-icon
                         class="button__icon"
                         src="./assets/icons/widgets/change-shift/add_file.svg"
@@ -935,7 +945,7 @@
                         (keypress)="onEnterPush($event)"
                         #newInput2
                       />
-                      <button type="submit" class="button comment__file   gridster-item-content">
+                      <button type="submit" class="button comment__file   gridster-item-content" (click)="pushNewGraf('fact')">
                         <svg-icon
                           class="button__icon"
                           src="./assets/icons/widgets/change-shift/add_file.svg"
@@ -1066,9 +1076,20 @@
                       (click)="clickComment(comment, i)"
                       *ngFor="let comment of isNewRetrieval.comments; let i = index"
                     >
-                      <div class="comment_text">
+                      <div class="comment_text"  *ngIf="comment.comment !== 'График'">
                         <p>{{comment.comment}}</p>
                       </div>
+
+                      <div
+                      class="comment_img"
+                      *ngIf="comment.comment === 'График'"
+                      (click)="openLineChart()"
+                    >
+                      <svg-icon
+                        src="./assets/icons/widgets/workspace/graph.svg"
+                        [svgStyle]="{ 'width.px':250, 'height.px':70 }"
+                      ></svg-icon>
+                    </div>
                       <div class="comment_menu">
                         <!-- <div class="comment_button" *ngIf="(isClickComment === i)">
                           <div class="comment_button_update">
@@ -1105,7 +1126,7 @@
                         (keypress)="onEnterPush($event)"
                         #newInput
                       />
-                      <button type="submit" class="button comment__file   gridster-item-content">
+                      <button type="submit" class="button comment__file   gridster-item-content" (click)="pushNewGraf('comment')">
                         <svg-icon
                           class="button__icon"
                           src="./assets/icons/widgets/change-shift/add_file.svg"
