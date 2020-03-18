@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="brigades__list scroll-bar">
+    <div class="brigades__cards">
+      <ng-container *ngFor="let brigade of brigades">
+        <div
+          class="brigades__card block__frame-left"
+          (click)="setActiveBrigade(brigade)"
+          [ngClass]="{'brigades__card-active':selectBrigade.isSelected(brigade)}"
+        >
+          <div class="card__name">
+            Бригада №{{brigade.brigadeNumber}}
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="brigades__persons scroll-bar">
+    <div class="title">Состав бригады</div>
+    <ng-container *ngFor="let worker of workers">
+      <div class="person" (click)="setActiveWorker(worker)">
+        <evj-worker-card
+          [isSmallCard]="true"
+          [person]="worker"
+          [isActiveCard]="selectWorker.isSelected(worker)"
+          [photoPath]="returnPhotoPath(worker)"
+        ></evj-worker-card>
+      </div>
+    </ng-container>
+  </div>
+</div>

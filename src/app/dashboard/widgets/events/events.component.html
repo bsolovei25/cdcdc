@@ -1,6 +1,7 @@
 <evj-widget-preview
-  [title]="title"
-  [previewTitle]="previewTitle"
+  [title]="widgetTitle"
+  [previewTitle]="widgetType"
+  [icon]="widgetIcon"
   *ngIf="isMock"
 ></evj-widget-preview>
 
@@ -25,7 +26,7 @@
           ></svg-icon>
         </div>
         <span class="header__name">
-          {{ title }}
+          {{ widgetTitle }}
         </span>
         <div
           class="delete_widget"

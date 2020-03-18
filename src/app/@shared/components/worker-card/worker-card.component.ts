@@ -8,11 +8,27 @@ import { IUser } from '../../../dashboard/models/events-widget';
     styleUrls: ['./worker-card.component.scss'],
 })
 export class WorkerCardComponent implements OnInit {
-    @Input() person: IUser = null;
-    @Input() isSmallCard: boolean = false;
-    @Input() active: boolean = true;
+    @Input() public person: IUser = null;
+    @Input() public isSmallCard: boolean = false;
+    @Input() public isActiveCard: boolean = false;
+    @Input() public photoPath: string = '';
+
+    public srcCardNormal: string = 'assets/icons/widgets/admin/card-small.svg';
+    public srcCardActive: string = 'assets/icons/widgets/admin/card-small-active.svg';
 
     constructor() {}
 
-    ngOnInit() {}
+    public ngOnInit(): void {}
+
+    public getPersonName(): string {
+        if (this.person) {
+            return `${this.person.firstName} ${this.person.middleName} ${this.person.lastName}`;
+        }
+    }
+
+    public getPersonPosition(): string {
+        if (this.person) {
+            return `${this.person.positionDescription}`;
+        }
+    }
 }

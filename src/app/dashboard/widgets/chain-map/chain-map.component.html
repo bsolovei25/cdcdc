@@ -1,16 +1,19 @@
 <evj-widget-preview
-  [title]="title"
-  [previewTitle]="previewTitle"
+  [title]="widgetTitle"
+  [previewTitle]="widgetType"
+  [icon]="widgetIcon"
+  [code]="widgetCode"
   *ngIf="isMock"
 ></evj-widget-preview>
 
 <div style="height: 100%; width: 100%;" *ngIf="!isMock">
   <evj-widget-header
-    [title]="title"
-    [units]="units"
-    [code]="code"
-    [id]="id"
-    [uniqId]="uniqId"
+    [title]="widgetTitle"
+    [units]="widgetUnits"
+    [code]="widgetCode"
+    [id]="widgetId"
+    [uniqId]="widgetUniqId"
+    [icon]="widgetIcon"
   ></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>

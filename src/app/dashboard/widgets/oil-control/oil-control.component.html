@@ -1,16 +1,16 @@
 <evj-widget-preview
-  [title]="title"
-  [previewTitle]="previewTitle"
+  [title]="widgetTitle"
+  [previewTitle]="widgetType"
   *ngIf="isMock"
 ></evj-widget-preview>
 
 <div style="height: 100%; width: 100%;" class="container" *ngIf="!isMock">
   <evj-widget-header
-    [title]="title"
-    [units]="units"
-    [code]="code"
-    [id]="id"
-    [uniqId]="uniqId"
+    [title]="widgetTitle"
+    [units]="widgetUnits"
+    [code]="widgetCode"
+    [id]="widgetId"
+    [uniqId]="widgetUniqId"
   ></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
@@ -34,7 +34,9 @@
                 x="0px"
                 y="0px"
                 viewBox="0 180 600 530"
-                style="enable-background:new 0 0 595.3 841.9; height: 100%; width: 100%;"
+                style="enable-background:new 0 0 595.3 841.9;"
+                class="svg-circle"
+                [class.svg-circle-short]="checkWidth"
               >
                 <linearGradient
                   id="XMLID_55_"

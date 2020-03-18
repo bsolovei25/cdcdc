@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="employee__list scroll-bar">
+    <div class="employee__humans">
+      <ng-container *ngFor="let worker of workers">
+        <div
+          class="employee__human block__frame-left"
+          *ngIf="onSearchWorker(getWorkerFullName(worker))"
+          (click)="onSelectWorker(worker.id)"
+          [ngClass]="{'employee__human-active':showActiveWorker(worker.id)}"
+        >
+          <div class="human__name">{{getWorkerFullName(worker)}}</div>
+          <div class="human__position">{{worker.positionDescription}}</div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="employee__person">
+    <evj-worker-card
+      class="insert-component"
+      [isSmallCard]="false"
+      [person]="(activeWorker.id)?activeWorker:defaultActiveWorker"
+      [photoPath]="returnPhotoPath()"
+    ></evj-worker-card>
+  </div>
+</div>

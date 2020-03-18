@@ -1,0 +1,19 @@
+<div class="content">
+  <div class="date">
+    <mat-form-field>
+      <input matInput [matDatepicker]="myDatepicker" [value]="inputDate" [(ngModel)]="inputDate" />
+      <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+      <mat-datepicker #myDatepicker></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div class="time">
+    <input type="time" step="2" [(ngModel)]="inputTime" required />
+  </div>
+  <div class="button-confirm" (click)="acceptDate()">
+    <svg-icon
+      src="./assets/icons/widgets/widget-header/checkmark.svg"
+      class="add_button_icon"
+      [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+    ></svg-icon>
+  </div>
+</div>

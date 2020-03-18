@@ -1,5 +1,6 @@
 import { IUser } from './events-widget';
 import { IWidgets } from './widget.model';
+import { IWorker } from './worker';
 
 export interface IAdminPanel {
     person: IUser;
@@ -9,11 +10,49 @@ export interface IAdminPanel {
 }
 
 export interface IWorkspace {
-    name: string;
-    authorId: number;
+    // name: string;
+    // authorId: number;
+    id: number;
+    screenName: string;
+    widgets?: any;
 }
 
 export interface IClaim {
-    name: string;
+    type: string;
+    comment?: string;
     id: number;
+}
+
+export interface IScreen {
+    id: number;
+    screen: IWorkspace;
+    claims: IClaim[];
+}
+
+export interface IButtonImgSrc {
+    btnIconSrc: string;
+}
+
+export interface IBrigadeAdminPanel {
+    brigadeId: number;
+    brigadeNumber: string;
+    users: IUser[];
+}
+
+export interface IWorkerAdminPanel {
+    isActiveWorker: boolean;
+    worker: IWorker;
+}
+
+export interface IWorkerOptionAdminPanel {
+    name?: string;
+    value: string;
+    key: string;
+}
+
+export enum EnumClaims {
+    'Только чтение' = 1,
+    'Модификация',
+    'Ручной ввод',
+    'Администратор',
 }

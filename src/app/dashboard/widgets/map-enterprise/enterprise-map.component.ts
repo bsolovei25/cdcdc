@@ -9,9 +9,8 @@ import {
 } from '@angular/core';
 
 import { NewWidgetService } from '../../services/new-widget.service';
-import { NewUserSettingsService } from '../../services/new-user-settings.service';
-import { Subscription } from 'rxjs';
 import { IEnterpriseMap } from '../../models/enterprise-map';
+import { WidgetPlatform } from '../../models/widget-platform';
 
 export interface IBuilding {
     id: number;
@@ -259,13 +258,9 @@ const bulds: IBuilding[] = [
     templateUrl: './enterprise-map.component.html',
     styleUrls: ['./enterprise-map.component.scss'],
 })
-export class EnterpriseMapComponent implements OnDestroy, AfterViewInit {
-    title: string = '';
-
+export class EnterpriseMapComponent extends WidgetPlatform
+    implements OnInit, OnDestroy, AfterViewInit {
     values: IValue[] = [];
-
-    public previewTitle: string;
-
     data: IEnterpriseMap = {
         build: [
             { id: 58, name: 'УУГ', options: { nonCritical: 200, diagnostics: 6, prognosis: 2 } },
@@ -301,33 +296,35 @@ export class EnterpriseMapComponent implements OnDestroy, AfterViewInit {
 
     @ViewChild('maps') maps: ElementRef;
 
-    static itemCols: number = 30;
-    static itemRows: number = 21;
-    private subscription: Subscription;
+    protected static itemCols: number = 30;
+    protected static itemRows: number = 21;
 
     constructor(
-        public userSettings: NewUserSettingsService,
-        public widgetService: NewWidgetService,
+        protected widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscription = this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-            this.title = data.title;
-            this.previewTitle = data.widgetType;
-        });
+        super(widgetService, isMock, id, uniqId);
+        this.widgetIcon = 'map';
+    }
+
+    ngOnInit(): void {
+        super.widgetInit();
     }
 
     ngOnDestroy(): void {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
+        super.ngOnDestroy();
     }
 
     ngAfterViewInit(): void {
         if (!this.isMock) {
             this.draw();
         }
+    }
+
+    protected dataHandler(ref: any): void {
+        // this.data = ref;
     }
 
     private draw(): void {

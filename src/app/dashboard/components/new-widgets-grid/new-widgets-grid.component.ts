@@ -32,7 +32,7 @@ export class NewWidgetsGridComponent implements OnInit {
 
     public nameWidget;
 
-    public resizeWidget = new EventEmitter<MouseEvent>();
+    public resizeWidget = new EventEmitter<any>();
 
     private sizeTimeout: any;
 
@@ -61,8 +61,8 @@ export class NewWidgetsGridComponent implements OnInit {
         this.options = {
             gridType: GridType.Fixed,
             displayGrid: 'none',
-            //swap: true,
-            //swapWhileDragging: false,
+            // swap: true,
+            // swapWhileDragging: false,
             itemChangeCallback: this.itemChange.bind(this),
             enableEmptyCellClick: false,
             enableEmptyCellContextMenu: false,
@@ -185,7 +185,8 @@ export class NewWidgetsGridComponent implements OnInit {
         itemComponent: GridsterItemComponentInterface,
         event: MouseEvent
     ) {
-        this.resizeWidget.emit(event);
+        let widget: any = { item, event };
+        this.resizeWidget.emit(widget);
     }
 
     public dragStart(e: DragEvent, item: GridsterItem): void {

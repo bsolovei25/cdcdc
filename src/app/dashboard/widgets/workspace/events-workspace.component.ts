@@ -5,9 +5,8 @@ import {
     ElementRef,
     Inject,
     OnDestroy,
-    AfterViewInit,
+    HostListener,
 } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { EventService } from '../../services/event.service';
 import {
     EventsWidgetNotification,
@@ -17,31 +16,27 @@ import {
     IPriority,
     IUser,
     ICategory,
-    EventsWidgetCategory,
     EventsWidgetCategoryCode,
-    EventsWidgetDataPreview,
     EventsWidgetData,
+    IUnitEvents,
 } from '../../models/events-widget';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NewWidgetService } from '../../services/new-widget.service';
-import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
+import { DateAdapter } from '@angular/material/core';
 import { AuthService } from '@core/service/auth.service';
-import { TestBed } from '@angular/core/testing';
+import { WidgetPlatform } from '../../models/widget-platform';
+
+import { ITime } from '../../models/time-data-picker';
 
 @Component({
     selector: 'evj-events-workspace',
     templateUrl: './events-workspace.component.html',
     styleUrls: ['./events-workspace.component.scss'],
 })
-export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewInit {
-    private subscriptions: Subscription[] = [];
+export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, OnDestroy {
     event: EventsWidgetNotification;
     isLoading: boolean = true;
 
-    public previewTitle: string = 'events-workspace';
-    public title: string = 'Рабочая область';
-    public widgetType: string;
-    public icon: string = 'document';
     comments: string[] = [];
     fact: string[] = [];
     isNew: boolean = true;
@@ -54,11 +49,10 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     priority: IPriority[];
     status: IStatus[];
     user: IUser[];
-    code;
     category: ICategory[];
-    place;
-    equipmentCategory;
-    eventTypes;
+    place: string;
+    equipmentCategory: any;
+    eventTypes: any;
 
     nameUser: string;
 
@@ -74,13 +68,13 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     saveEvent: boolean;
     isEditing: boolean = false;
 
+    progressLineHeight: number;
+
     dateComment: Date;
 
     isNewRetrieval: EventsWidgetNotification = null;
 
     openEvent: boolean = true;
-
-    timeZone: any;
 
     statuses: { [id in EventsWidgetNotificationStatus]: string } = {
         new: 'Новое',
@@ -102,18 +96,19 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         drops: 'Сбросы',
     };
 
-    foods = [
-        { value: 'steak-0', viewValue: 'Steak' },
-        { value: 'pizza-1', viewValue: 'Pizza' },
-        { value: 'tacos-2', viewValue: 'Tacos' },
-    ];
+    units: IUnitEvents;
 
-    eventLegends = [{ isLegend: true }, { isLegend: false }];
+    eventLegends: any = [{ isLegend: true }, { isLegend: false }];
 
     idUser: number = 0;
 
     static itemCols: number = 20;
     static itemRows: number = 5;
+
+    dataPicker: boolean = false;
+
+    dateChoose: Date;
+    dateChooseNew: Date;
 
     @ViewChild('input', { static: false }) input: ElementRef;
     @ViewChild('input2', { static: false }) input2: ElementRef;
@@ -121,6 +116,8 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     @ViewChild('newInput2', { static: false }) newInput2: ElementRef;
     @ViewChild('scroll', { static: false }) scroll: ElementRef;
     @ViewChild('scroll2', { static: false }) scroll2: ElementRef;
+    @ViewChild('graph') graphWidht: ElementRef;
+    @ViewChild('progress', { static: false }) progress: ElementRef;
 
     constructor(
         private eventService: EventService,
@@ -128,18 +125,11 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         public widgetService: NewWidgetService,
         private dateAdapter: DateAdapter<Date>,
         private authService: AuthService,
-        // private formBuilder: FormBuilder,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscriptions.push(
-            this.widgetService.getWidgetChannel(id).subscribe((data) => {
-                this.title = data.title;
-                this.widgetType = data.widgetType;
-            })
-        );
-
+        super(widgetService, isMock, id, uniqId);
         this.subscriptions.push(
             this.authService.user$.subscribe((data: IUser) => {
                 if (data) {
@@ -150,60 +140,57 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
             })
         );
 
+        this.widgetIcon = 'document';
         this.dateAdapter.setLocale('ru');
     }
 
     ngOnInit(): void {
-        if (!this.isMock) {
-            this.subscriptions.push(
-                this.eventService.event$.subscribe((value) => {
-                    if (value) {
-                        this.openEvent = false;
-                        this.setEventByInfo(value);
-                    } else {
-                        this.event = value;
-                    }
-                })
-            );
-            this.subscriptions.push(
-                this.widgetService
-                    .getWidgetLiveDataFromWS(this.id, 'events-workspace')
-                    .subscribe((value) => {
-                        this.wsHandler(value);
-                    })
-            );
-        }
+        super.widgetInit();
         this.isLoading = false;
+    }
+
+    protected dataConnect(): void {
+        super.dataConnect();
+        this.subscriptions.push(
+            this.eventService.event$.subscribe((value) => {
+                if (value) {
+                    this.openEvent = false;
+                    this.setEventByInfo(value);
+                } else {
+                    this.event = value;
+                }
+            })
+        );
+    }
+
+    protected dataHandler(ref: any): void {
+        this.wsHandler(ref);
     }
 
     private async setEventByInfo(value: EventsWidgetNotification | number): Promise<void> {
         this.isLoading = true;
 
         this.resetComponent();
+        this.dataPicker = false;
         this.isNew = false;
 
         if (typeof value !== 'number') {
-            this.chooseNameUser = value.fixedBy.firstName + ' ' + value.fixedBy.middleName + ' ' + value.fixedBy.lastName;
+            this.chooseNameUser =
+                value.fixedBy.firstName +
+                ' ' +
+                value.fixedBy.middleName +
+                ' ' +
+                value.fixedBy.lastName;
             this.event = value;
-        }
-
-        if (this.event.graphValues) {
-            this.onSendMessage(true);
+            this.dateChoose = value.deadline;
         }
 
         await this.loadItem(typeof value === 'number' ? value : undefined);
-    }
-
-    ngAfterViewInit(): void {
-        // this.isLoading = false;
+        this.progressLine();
     }
 
     ngOnDestroy(): void {
-        if (this.subscriptions) {
-            for (const subscription of this.subscriptions) {
-                subscription.unsubscribe();
-            }
-        }
+        super.ngOnDestroy();
     }
 
     private wsHandler(data: EventsWidgetData): void {
@@ -228,7 +215,17 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         this.event = null;
     }
 
-    createdEvent(event: boolean) {
+    @HostListener('document:resize', ['$event'])
+    OnResize(event) {
+        // if (this.progress.nativeElement !== undefined) {
+        //     this.progressLine();
+        // }
+        try {
+            this.progressLine();
+        } catch (error) {}
+    }
+
+    createdEvent(event: boolean): void {
         console.log(event);
         event === true ? this.createEvent() : this.saveItem();
     }
@@ -250,76 +247,64 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         this.isNewRetrieval = null;
     }
 
-    onSendMessage(graph?): void {
-        if (graph === true) {
+    onSendMessage(): void {
+        if (this.input2.nativeElement.value) {
             const commentInfo = {
-                comment: 'График',
+                comment: this.input2.nativeElement.value,
                 createdAt: new Date(),
                 displayName: this.nameUser,
             };
             this.event.comments.push(commentInfo);
-        } else {
-            if (this.input2.nativeElement.value) {
-                const commentInfo = {
-                    comment: this.input2.nativeElement.value,
-                    createdAt: new Date(),
-                    displayName: this.nameUser,
-                };
-                this.event.comments.push(commentInfo);
-                // this.comments.push(this.input.nativeElement.value);
-                this.input2.nativeElement.value = '';
-                this.dateComment = new Date();
-                setTimeout(() => {
-                    this.scrollCommentBottom();
-                }, 50);
-            } else if (this.input.nativeElement.value) {
-                const factInfo = {
-                    comment: this.input.nativeElement.value,
-                    createdAt: new Date(),
-                    displayName: this.nameUser,
-                };
-                this.event.facts.push(factInfo);
-                this.input.nativeElement.value = '';
-                setTimeout(() => {
-                    this.scrollFactBottom();
-                }, 50);
-            }
+            // this.comments.push(this.input.nativeElement.value);
+            this.input2.nativeElement.value = '';
+            this.dateComment = new Date();
+            setTimeout(() => {
+                this.scrollCommentBottom();
+            }, 50);
+        } else if (this.input.nativeElement.value) {
+            const factInfo = {
+                comment: this.input.nativeElement.value,
+                createdAt: new Date(),
+                displayName: this.nameUser,
+            };
+            this.event.facts.push(factInfo);
+            this.input.nativeElement.value = '';
+            setTimeout(() => {
+                this.scrollFactBottom();
+            }, 50);
         }
     }
 
-    onSendNewMessage(graph?): void {
-        if (graph === true) {
+    onSendNewMessage(): void {
+        if (this.newInput2.nativeElement.value) {
+            if (this.isNewRetrieval.facts === undefined) {
+                this.isNewRetrieval.facts = [];
+            }
+            const factInfo = {
+                comment: this.newInput2.nativeElement.value,
+                createdAt: new Date(),
+                displayName: this.nameUser,
+            };
+            this.isNewRetrieval.facts.push(factInfo);
+            // this.comments.push(this.input.nativeElement.value);
+            this.newInput2.nativeElement.value = '';
+            setTimeout(() => {
+                this.scrollFactBottom();
+            }, 50);
+        } else if (this.newInput.nativeElement.value) {
+            if (this.isNewRetrieval.comments === undefined) {
+                this.isNewRetrieval.comments = [];
+            }
             const commentInfo = {
-                comment: 'График',
+                comment: this.newInput.nativeElement.value,
                 createdAt: new Date(),
                 displayName: this.nameUser,
             };
             this.isNewRetrieval.comments.push(commentInfo);
-        } else {
-            if (this.newInput2.nativeElement.value) {
-                const factInfo = {
-                    comment: this.newInput2.nativeElement.value,
-                    createdAt: new Date(),
-                    displayName: this.nameUser,
-                };
-                this.isNewRetrieval.facts.push(factInfo);
-                // this.comments.push(this.input.nativeElement.value);
-                this.newInput2.nativeElement.value = '';
-                setTimeout(() => {
-                    this.scrollFactBottom();
-                }, 50);
-            } else if (this.newInput.nativeElement.value) {
-                const commentInfo = {
-                    comment: this.newInput.nativeElement.value,
-                    createdAt: new Date(),
-                    displayName: this.nameUser,
-                };
-                this.isNewRetrieval.comments.push(commentInfo);
-                this.newInput.nativeElement.value = '';
-                setTimeout(() => {
-                    this.scrollCommentBottom();
-                }, 50);
-            }
+            this.newInput.nativeElement.value = '';
+            setTimeout(() => {
+                this.scrollCommentBottom();
+            }, 50);
         }
     }
 
@@ -346,11 +331,11 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
             this.isClickComment = null;
         }
     }
-    scrollCommentBottom() {
+    scrollCommentBottom(): void {
         this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
     }
-    scrollFactBottom() {
-        this.scroll2.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
+    scrollFactBottom(): void {
+        this.scroll2.nativeElement.scrollTop = this.scroll2.nativeElement.scrollHeight;
     }
 
     onEnterPush(event?: any): void {
@@ -363,6 +348,10 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         await this.loadItem();
         this.changeCategory();
         this.isNew = true;
+
+        this.dataPicker = false;
+
+        this.dateChoose = new Date();
 
         this.event = {
             itemNumber: 0,
@@ -384,7 +373,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
                 middleName: '',
                 phone: '00123456789',
             },
-            place: { id: 5001, name: 'ГФУ-2 с БОР' },
+            //place: { id: 5001, name: 'ГФУ-2 с БОР' },
             organization: 'АО Газпромнефть',
             priority: this.priority
                 ? this.priority[2]
@@ -402,6 +391,9 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
             deadline: new Date(),
             graphValues: null,
             isAcknowledged: false,
+            unitName: null,
+            facts: [],
+            comments: [],
         };
     }
 
@@ -433,17 +425,23 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
                 this.status = data;
             })
         );
+
+        dataLoadQueue.push(
+            this.eventService.getUnits().then((data) => {
+                this.units = data;
+            })
+        );
         dataLoadQueue.push(
             this.eventService.getPriority().then((data) => {
                 this.priority = data;
             })
         );
 
-        dataLoadQueue.push(
-            this.eventService.getPlace().then((data) => {
-                this.place = data;
-            })
-        );
+        // dataLoadQueue.push(
+        //     this.eventService.getPlace().then((data) => {
+        //         this.place = data;
+        //     })
+        // );
         dataLoadQueue.push(
             this.eventService.getEquipmentCategory().then((data) => {
                 this.equipmentCategory = data;
@@ -475,13 +473,22 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     formatDate(date: Date): Date {
-        return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+        return new Date(
+            Date.UTC(
+                date.getFullYear(),
+                date.getMonth(),
+                date.getDate(),
+                date.getHours(),
+                date.getMinutes(),
+                date.getSeconds()
+            )
+        );
     }
 
     async saveItem(): Promise<void> {
         this.isLoading = true;
         this.isEditing = false;
-        this.event.deadline = this.formatDate(new Date(this.event.deadline));
+        //  this.event.deadline = this.formatDate(new Date(this.event.deadline));
         console.log(this.event.deadline);
         if (this.isNew) {
             try {
@@ -507,7 +514,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         this.isLoading = false;
     }
 
-    onLoadEvent(id) {
+    onLoadEvent(id): void {
         this.setEventByInfo(id);
     }
 
@@ -548,6 +555,10 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         this.changeCategory();
         document.getElementById('overlay-retrieval').style.display = 'block';
 
+        this.dataPicker = false;
+
+        this.dateChooseNew = new Date();
+
         this.isNewRetrieval = {
             itemNumber: 0,
             branch: 'Производство',
@@ -570,7 +581,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
             comments: [],
             facts: [],
             organization: 'АО Газпромнефть',
-            place: { id: 5001, name: 'ГФУ-1' },
+            //  place: { id: 5001, name: 'ГФУ-1' },
             priority: { id: 2003, name: 'standard', code: '2' },
             //     responsibleOperator: this.user ? this.user[0] : null,
             responsibleOperator: this.user[this.idUser - 1],
@@ -582,10 +593,10 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
             deadline: new Date(),
             graphValues: null,
             isAcknowledged: false,
+            unitName: null,
         };
     }
 
-    isRetrievel() {}
     overlayClose(): void {
         document.getElementById('overlay-retrieval').style.display = 'none';
         this.isNewRetrieval = null;
@@ -635,6 +646,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
             }
             this.isEdit = false;
         }
+        this.progressLine();
     }
 
     async deleteRetrieval(idEvent: number, idRetrNotif: number, idRetr): Promise<void> {
@@ -655,7 +667,7 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         msgDuration: number = 500,
         actionText?: string,
         actionFunction?: () => void
-    ) {
+    ): void {
         const snackBarInstance = this.snackBar.open(msg, actionText, {
             duration: msgDuration,
         });
@@ -703,21 +715,57 @@ export class EventsWorkSpaceComponent implements OnInit, OnDestroy, AfterViewIni
         document.getElementById('overlay-chart').style.display = 'none';
     }
 
-    chooseRespons(data) {
+    chooseRespons(data): void {
         this.userChoosen = true;
         this.chooseNameUser = data.firstName + ' ' + data.middleName + ' ' + data.lastName;
         this.userBrigade = data.brigade.number;
         this.userDescription = data.positionDescription;
     }
 
-    chooseMeropRespons(data) {
+    chooseMeropRespons(data): void {
         this.userMeropChoosen = true;
         this.chooseNameUser = data.firstName + ' ' + data.middleName + ' ' + data.lastName;
         this.userBrigade = data.brigade.number;
         this.userDescription = data.positionDescription;
     }
 
-    onEditShortInfo() {
+    onEditShortInfo(): void {
         this.isEditing = true;
+    }
+
+    showDateBlock(): void {
+        this.dataPicker = !this.dataPicker;
+    }
+
+    progressLine(): void {
+        const heightMiddle = this.progress.nativeElement.offsetParent.offsetHeight - 103;
+        const countRetAll = this.event.retrievalEvents.length;
+        let countRetCompleate = 0;
+        for (let i of this.event.retrievalEvents) {
+            if (i.innerNotification.status.name === 'closed') {
+                countRetCompleate++;
+            }
+        }
+        this.progressLineHeight = (heightMiddle / countRetAll) * countRetCompleate;
+    }
+
+    dateTimePicker(data: ITime): void {
+        const time = data.time.split(':');
+        const date = new Date(data.date);
+
+        this.dateChoose = new Date(date.setHours(+time[0], +time[1], +time[2]));
+
+        this.event.deadline = this.dateChoose;
+        this.dataPicker = !data.close;
+    }
+
+    dateTimePickerNew(data: ITime): void {
+        const time = data.time.split(':');
+        const date = new Date(data.date);
+
+        this.dateChooseNew = new Date(date.setHours(+time[0], +time[1], +time[2]));
+
+        this.isNewRetrieval.deadline = this.dateChoose;
+        this.dataPicker = !data.close;
     }
 }

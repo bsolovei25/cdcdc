@@ -1,4 +1,4 @@
-import { NgModule, Pipe } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './layout/header/header.component';
 import { ContentComponent } from './layout/content/content.component';
@@ -9,7 +9,10 @@ import { UiElementsComponent } from './layout/ui-elements.component';
 import { ButtonComponent } from './components/button/button.component';
 import { InputComponent } from './components/input/input.component';
 import { WorkerCardComponent } from './components/worker-card/worker-card.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 import { UiBlockComponent } from './layout/ui-block/ui-block.component';
+import { LoadingShadeComponent } from './components/loading-shade/loading-shade.component';
 
 @NgModule({
     declarations: [
@@ -23,6 +26,7 @@ import { UiBlockComponent } from './layout/ui-block/ui-block.component';
         InputComponent,
         WorkerCardComponent,
         UiBlockComponent,
+        LoadingShadeComponent,
     ],
     exports: [
         HeaderComponent,
@@ -35,7 +39,8 @@ import { UiBlockComponent } from './layout/ui-block/ui-block.component';
         DateFormatPipe,
         PreLoaderComponent,
         UiBlockComponent,
+        LoadingShadeComponent,
     ],
-    imports: [CommonModule],
+    imports: [CommonModule, MatInputModule, MatIconModule],
 })
 export class SharedModule {}

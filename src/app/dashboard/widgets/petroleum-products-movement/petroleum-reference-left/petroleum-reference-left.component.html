@@ -1,41 +1,11 @@
 <div class="reference-left">
   <div class="top-frame"></div>
   <div class="middle">
-    <div class="top_block_middle">
-      <div class="title_block" *ngIf="shortHeight">{{data.nameReference1}}</div>
-      <div class="title_block" *ngIf="!shortHeight">{{data.nameReference2}}</div>
-    </div>
-    <div class="bottom_block_middle">
-      <ng-container *ngIf="!shortHeight">
-        <ng-container *ngFor="let item of data.reference1">
-          <div class="click_button">
-            <div class="button_name_short">{{item.name}}</div>
-            <div class="button_icon_short">
-              <svg-icon
-                src="./assets/icons/widgets/petroleum-products-movement/{{item.status}}.svg"
-                [svgStyle]="{ 'width.px':25, 'height.px':25 }"
-              >
-              </svg-icon>
-            </div>
-          </div>
-        </ng-container>
-      </ng-container>
-
-      <ng-container *ngIf="shortHeight">
-        <ng-container *ngFor="let item of data.reference2">
-          <div class="unclick_button">
-            <div class="button_name">{{item.name}}</div>
-            <div class="button_icon">
-              <svg-icon
-                src="./assets/icons/widgets/petroleum-products-movement/{{item.status}}.svg"
-                [svgStyle]="{ 'width.px':25, 'height.px':25 }"
-              >
-              </svg-icon>
-            </div>
-          </div>
-        </ng-container>
-      </ng-container>
-    </div>
+    <evj-operation-screen-left *ngIf="typeScreen === 'operation'"></evj-operation-screen-left>
+    <evj-info-screen-left *ngIf="typeScreen === 'info'"></evj-info-screen-left>
+    <evj-operation-park-screen-left
+      *ngIf="typeScreen === 'park-operation'"
+    ></evj-operation-park-screen-left>
   </div>
   <div class="bottom_frame"></div>
 </div>

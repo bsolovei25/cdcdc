@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="workspace__header">
+    <div class="workspace__search">
+      <evj-input
+        class="insert-component"
+        [placeholder]="'Введите название рабочей области'"
+        [iconSrc]="searchIcon"
+        (inputedValue)="onInput($event)"
+        *ngIf="isWorkspaceActive"
+      ></evj-input>
+    </div>
+    <div class="workspace__links">
+      <a [ngClass]="{'active-link':isWorkspaceActive}" (click)="isWorkspaceActive=true"
+        >Доступные рабочие области</a
+      >
+      |
+      <a [ngClass]="{'active-link':!isWorkspaceActive}" (click)="isWorkspaceActive=false">Права</a>
+    </div>
+  </div>
+  <ng-container *ngIf="isWorkspaceActive">
+    <div class="workspace__list scroll-bar">
+      <div class="cards">
+        <ng-container *ngFor="let workspace of workspaces">
+          <div class="card" *ngIf="onSearchWorkspace(workspace.screen.screenName)">
+            <evj-admin-workspace-card [workspace]="workspace"></evj-admin-workspace-card>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+
+  <evj-admin-claims class="workspace__claims" *ngIf="!isWorkspaceActive"></evj-admin-claims>
+</div>

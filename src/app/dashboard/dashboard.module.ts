@@ -20,8 +20,8 @@ import { NewWidgetsPanelComponent } from './components/new-widgets-panel/new-wid
 import { NewWidgetsGridComponent } from './components/new-widgets-grid/new-widgets-grid.component';
 import { GridsterModule } from 'angular-gridster2';
 import { UserInfoComponent } from './components/user-info/user-info.component';
-import { WidgetPiesComponent } from './widgets/widgets-pie/widget-pies/widget-pies/widget-pies.component';
-import { WidgetsPieComponent } from './widgets/widgets-pie/widget-pie-circle/widget-pie/widget-pie.component';
+import { WidgetPiesComponent } from './widgets/widgets-pie/widget-pies/widget-pies.component';
+import { WidgetsPieComponent } from './widgets/widgets-pie/widget-pie-circle/widget-pie.component';
 import { WidgetHeaderComponent } from './components/widget-header/widget-header.component';
 import { EventsWorkSpaceComponent } from './widgets/workspace/events-workspace.component';
 import { FrameTopComponent } from './components/frame-top/frame-top.component';
@@ -40,7 +40,7 @@ import { SuspenseMachineComponent } from './widgets/suspense-machine/suspense-ma
 import { EnterpriseMapComponent } from './widgets/map-enterprise/enterprise-map.component';
 import { DetailedLineDiagramComponent } from './components/detailed-line-diagram/detailed-line-diagram.component';
 import { OperationEfficiencyComponent } from './widgets/operation-efficiency/operation-efficiency.component';
-import { MapEcologyComponent } from './widgets/map-ecology/map-ecology/map-ecology.component';
+import { MapEcologyComponent } from './widgets/map-ecology/map-ecology.component';
 import { UnityTemplateComponent } from './widgets/unity-template/unity-template.component';
 import { PowIndexPipe } from './pipes/pow-index.pipe';
 import { RingFactoryDiagramComponent } from './widgets/ring-factory-diagrams/ring-factory-diagram/ring-factory-diagram.component';
@@ -79,13 +79,12 @@ import { SearchListComponent } from './components/search/search-list/search-list
 import { TimeLineDiagramComponent } from './widgets/time-line-diagram/time-line-diagram.component';
 import { TimeDiagramComponent } from './widgets/time-line-diagram/time-diagram/time-diagram.component';
 import { ObservationNormTRComponent } from './widgets/observation-norm-tr/observation-norm-tr.component';
+import { AdminPanelComponent } from './widgets/admin-panel/admin-panel.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AdminShiftScheduleComponent } from './widgets/admin-widget/admin-shift-schedule/admin-shift-schedule.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
-import { AdminComponent } from './widgets/admin/admin.component';
-import { AdminWorkspaceCardComponent } from './widgets/admin/admin-workspace-card/admin-workspace-card.component';
 import { AdminReferencesComponent } from './widgets/admin-references/admin-references.component';
 import { CardVerifierComponent } from './widgets/change-shift/card-verifier/card-verifier.component';
 import { PetroleumProductsMovementComponent } from './widgets/petroleum-products-movement/petroleum-products-movement.component';
@@ -96,7 +95,28 @@ import { PetroleumWorkspaceComponent } from './widgets/petroleum-products-moveme
 import { MatSelectModule } from '@angular/material/select';
 import { ScrollingModule } from '@angular/cdk-experimental/scrolling';
 import { ScrollingModule as OldScrollingModule } from '@angular/cdk/scrolling';
+import { AdminEmployeeComponent } from './widgets/admin-panel/admin-employee/admin-employee.component';
+import { AdminWorkspaceComponent } from './widgets/admin-panel/admin-workspace/admin-workspace.component';
+import { AdminClaimsComponent } from './widgets/admin-panel/admin-workspace/admin-claims/admin-claims.component';
+import { AdminBrigadesComponent } from './widgets/admin-panel/admin-brigades/admin-brigades.component';
+import { AdminWorkerSettingsComponent } from './widgets/admin-panel/admin-worker-settings/admin-worker-settings.component';
+import { AwsCardComponent } from './widgets/admin-panel/admin-worker-settings/aws-card/aws-card.component';
+import { AwsWorkspaceCardComponent } from './widgets/admin-panel/admin-worker-settings/aws-workspace-card/aws-workspace-card.component';
+import { AwsClaimCardComponent } from './widgets/admin-panel/admin-worker-settings/aws-claim-card/aws-claim-card.component';
 import { PetroleumUnityComponent } from './widgets/petroleum-products-movement/petroleum-unity/petroleum-unity.component';
+import { AdminWorkspaceCardComponent } from './widgets/admin-panel/admin-workspace/admin-workspace-card/admin-workspace-card.component';
+import { AwsSelectCardComponent } from './widgets/admin-panel/admin-worker-settings/aws-select-card/aws-select-card.component';
+import { OperationScreenLeftComponent } from './widgets/petroleum-products-movement/petroleum-reference-left/operation-screen-left/operation-screen-left.component';
+import { InfoScreenLeftComponent } from './widgets/petroleum-products-movement/petroleum-reference-left/info-screen-left/info-screen-left.component';
+import { OperationParkScreenLeftComponent } from './widgets/petroleum-products-movement/petroleum-reference-left/operation-park-screen-left/operation-park-screen-left.component';
+import { OperationScreenRightComponent } from './widgets/petroleum-products-movement/petroleum-reference-right/operation-screen-right/operation-screen-right.component';
+import { InfoScreenRightComponent } from './widgets/petroleum-products-movement/petroleum-reference-right/info-screen-right/info-screen-right.component';
+import { OperationParkScreenRightComponent } from './widgets/petroleum-products-movement/petroleum-reference-right/operation-park-screen-right/operation-park-screen-right.component';
+import { OperationScreenComponent } from './widgets/petroleum-products-movement/petroleum-reference/operation-screen/operation-screen.component';
+import { OperationParkScreenComponent } from './widgets/petroleum-products-movement/petroleum-reference/operation-park-screen/operation-park-screen.component';
+import { InfoScreenComponent } from './widgets/petroleum-products-movement/petroleum-reference/info-screen/info-screen.component';
+import { PetroleumUnityInfoComponent } from './widgets/petroleum-products-movement/petroleum-unity-info/petroleum-unity-info.component';
+import { TimeDataPickerComponent } from './components/time-data-picker/time-data-picker.component';
 
 @NgModule({
     declarations: [
@@ -170,9 +190,8 @@ import { PetroleumUnityComponent } from './widgets/petroleum-products-movement/p
         SearchInputComponent,
         SearchListComponent,
         ObservationNormTRComponent,
+        AdminPanelComponent,
         AdminShiftScheduleComponent,
-        AdminComponent,
-        AdminWorkspaceCardComponent,
         AdminReferencesComponent,
         CardVerifierComponent,
         PetroleumProductsMovementComponent,
@@ -180,7 +199,28 @@ import { PetroleumUnityComponent } from './widgets/petroleum-products-movement/p
         PetroleumReferenceRightComponent,
         PetroleumReferenceComponent,
         PetroleumWorkspaceComponent,
+        AdminEmployeeComponent,
+        AdminWorkspaceComponent,
+        AdminWorkspaceCardComponent,
+        AdminClaimsComponent,
+        AdminBrigadesComponent,
+        AdminWorkerSettingsComponent,
+        AwsCardComponent,
+        AwsWorkspaceCardComponent,
+        AwsClaimCardComponent,
         PetroleumUnityComponent,
+        AwsSelectCardComponent,
+        OperationScreenLeftComponent,
+        InfoScreenLeftComponent,
+        OperationParkScreenLeftComponent,
+        OperationScreenRightComponent,
+        InfoScreenRightComponent,
+        OperationParkScreenRightComponent,
+        OperationScreenComponent,
+        OperationParkScreenComponent,
+        InfoScreenComponent,
+        PetroleumUnityInfoComponent,
+        TimeDataPickerComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -229,6 +269,7 @@ import { PetroleumUnityComponent } from './widgets/petroleum-products-movement/p
         AdminShiftScheduleComponent,
         AdminReferencesComponent,
         PetroleumProductsMovementComponent,
+        AdminPanelComponent,
     ],
     exports: [HomeComponent],
     imports: [
