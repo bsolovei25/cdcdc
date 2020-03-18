@@ -863,8 +863,9 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
         for (let pie of newStorageXY) {
             let indexStorage = this.indexStorage;
             for (let textStorage of dataStorage) {
-
-                let test = d3.select(el.firstElementChild.getElementById((indexStorage + 1).toString()));
+                let test = d3.select(
+                    el.firstElementChild.getElementById((indexStorage + 1).toString())
+                );
                 if (indexPies1 === indexStorage) {
                     if (pie.point === 3) {
                         if (textStorage.status === 'critical') {
