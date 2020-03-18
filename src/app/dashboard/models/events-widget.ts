@@ -65,7 +65,6 @@ export interface EventsWidgetNotification {
     unitName?: string;
 }
 
-
 export interface IUnitEvents {
     id: number;
     name: string;

@@ -209,17 +209,12 @@
                   </div>
                 </div>
                 <div class="fact_content" #scroll2>
-                  <div
-                  class="fact_img"
-                  *ngIf="event.graphValues"
-                  (click)="openLineChart()"
-                  #graph
-                >
-                  <svg-icon
-                    src="./assets/icons/widgets/workspace/graph.svg"
-                    [svgStyle]="{ 'width.px':250, 'height.px':70 }"
-                  ></svg-icon>
-                </div>
+                  <div class="fact_img" *ngIf="event.graphValues" (click)="openLineChart()" #graph>
+                    <svg-icon
+                      src="./assets/icons/widgets/workspace/graph.svg"
+                      [svgStyle]="{ 'width.px':250, 'height.px':70 }"
+                    ></svg-icon>
+                  </div>
                   <!--ngFor -->
                   <div
                     class="fact_new"

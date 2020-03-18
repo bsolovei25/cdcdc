@@ -339,7 +339,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
     }
     scrollFactBottom(): void {
-            this.scroll2.nativeElement.scrollTop = this.scroll2.nativeElement.scrollHeight;
+        this.scroll2.nativeElement.scrollTop = this.scroll2.nativeElement.scrollHeight;
     }
 
     onEnterPush(event?: any): void {
