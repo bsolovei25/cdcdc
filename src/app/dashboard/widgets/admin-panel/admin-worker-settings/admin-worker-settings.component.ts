@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { fillDataShape } from '../../../../@shared/common-functions';
 import { IBrigade } from '../../../models/shift.model';
 import { MaterialControllerService } from '../../../services/material-controller.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
     selector: 'evj-admin-worker-settings',
@@ -162,7 +163,8 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public onSelectWorkspaceClaims(event: { workspaceId: number; claims: IClaim[] }): void {
-        console.log(event);
+        this.isAlertShowing = true;
+        this.isCheckBoxClicked = false;
         const index: number = this.workspacesClaims.findIndex(
             (item) => item.workspaceId === event.workspaceId
         );
@@ -172,6 +174,20 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             this.workspacesClaims.splice(index, 1);
             this.workspacesClaims.push(event);
         }
+    }
+
+    private async changeWorkspaceClaims(): Promise<void> {
+        this.workspacesClaims.forEach(async (wsClaim) => {
+            const screen: IScreen = this.workerScreensDetached.find(
+                (item: IScreen) => item.screen.id === wsClaim.workspaceId
+            );
+
+            if (screen) {
+                await this.adminService
+                    .setWorkerScreenClaims(screen.id, wsClaim.claims)
+                    .toPromise();
+            }
+        });
     }
 
     private addWorkspacesToWorker(): number[] {
@@ -259,6 +275,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     private async onEditWorker(): Promise<void> {
         const promises: Promise<void>[] = [];
         promises.push(this.adminService.editWorkerData(this.worker).toPromise());
+        await this.changeWorkspaceClaims();
         this.addWorkspacesToWorker().forEach((index: number) => {
             const workspaceClaims = this.workspacesClaims.find(
                 (item) => item.workspaceId === index

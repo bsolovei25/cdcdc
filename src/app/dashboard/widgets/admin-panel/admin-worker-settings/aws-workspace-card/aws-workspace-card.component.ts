@@ -66,8 +66,11 @@ export class AwsWorkspaceCardComponent implements OnInit, AfterViewInit {
     public onChangeSelect(): void {
         const claims: IClaim[] = [];
         this.selectFormControl.value.forEach((claim: string) =>
-            claims.push({ id: EnumClaims[claim] })
+            claims.push(
+                this.adminService.screenClaims.find((item: IClaim) => item.id === EnumClaims[claim])
+            )
         );
+
         this.selectedWorkspaceClaims.emit({ workspaceId: this.workspace.id, claims });
     }
 }

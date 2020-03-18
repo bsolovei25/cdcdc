@@ -2,7 +2,13 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '../../../services/appConfigService';
-import { IBrigadeAdminPanel, IClaim, IScreen, EnumClaims } from '../../models/admin-panel';
+import {
+    IBrigadeAdminPanel,
+    IClaim,
+    IScreen,
+    EnumClaims,
+    IWorkspace,
+} from '../../models/admin-panel';
 import { IUser } from '../../models/events-widget';
 
 @Injectable({
@@ -58,21 +64,22 @@ export class AdminPanelService {
         return this.http.get<IUser[]>(url);
     }
 
-    public getWorkerData(workerId: number): Observable<any> {
+    // TOFIX UNUSED
+    public getWorkerData(workerId: number): Observable<IUser> {
         const url: string = `${this.restUrl}/user/${workerId}`;
-        return this.http.get<any>(url);
+        return this.http.get<IUser>(url);
     }
 
-    public editWorkerData(worker: IUser): Observable<any> {
+    public editWorkerData(worker: IUser): Observable<void> {
         const url: string = `${this.restUrl}/user/${worker.id}`;
         const body: string = JSON.stringify(worker);
-        return this.http.put<any>(url, body);
+        return this.http.put<void>(url, body);
     }
 
-    public createNewWorker(worker: IUser): Observable<any> {
+    public createNewWorker(worker: IUser): Observable<IUser> {
         const url: string = `${this.restUrl}/user`;
         const body: string = JSON.stringify(worker);
-        return this.http.post<any>(url, body);
+        return this.http.post<IUser>(url, body);
     }
 
     public setUserResponsible(userId: number): Observable<void> {
@@ -82,21 +89,22 @@ export class AdminPanelService {
     //#endregion
 
     //#region BRIGADES
-    public getBrigades(): Observable<any> {
+    public getBrigades(): Observable<IBrigadeAdminPanel[]> {
         const url: string = `${this.restUrl}/brigades`;
-        return this.http.get<any>(url);
+        return this.http.get<IBrigadeAdminPanel[]>(url);
     }
 
-    public getBrigadeWorkers(brigadeId: number): Observable<any> {
+    // TOFIX UNUSED
+    public getBrigadeWorkers(brigadeId: number): Observable<IUser[]> {
         const url: string = `${this.restUrl}/brigade/${brigadeId}`;
-        return this.http.get<any>(url);
+        return this.http.get<IUser[]>(url);
     }
     //#endregion
 
     //#region CLAIMS_AND_WORKSPACES
-    public getAllScreens(): Observable<any> {
+    public getAllScreens(): Observable<IWorkspace[]> {
         const url: string = `${this.restUrl}/allscreens`;
-        return this.http.get<any>(url);
+        return this.http.get<IWorkspace[]>(url);
     }
 
     public getWorkerScreens(workerId: number): Observable<IScreen[]> {
@@ -104,9 +112,9 @@ export class AdminPanelService {
         return this.http.get<IScreen[]>(url);
     }
 
-    public getAllScreenClaims(): Observable<any> {
+    public getAllScreenClaims(): Observable<IClaim[]> {
         const url: string = `${this.restUrl}/screenclaims`;
-        return this.http.get<any>(url);
+        return this.http.get<IClaim[]>(url);
     }
 
     public getWorkerScreenClaims(screenWorkerId: number): Observable<any> {
@@ -114,16 +122,10 @@ export class AdminPanelService {
         return this.http.get<any>(url);
     }
 
-    // TOFIX
-    // public addScreenClaimToWorker(screenWorkerId: number, claimId: number): Observable<any> {
-    //     const url: string = `${this.restUrl}/userscreen/${screenWorkerId}/claim/${claimId}`;
-    //     return this.http.post<any>(url, null);
-    // }
-
-    // public removeScreenClaimFromWorker(screenWorkerId: number, claimId: number): Observable<any> {
-    //     const url: string = `${this.restUrl}/userscreen/${screenWorkerId}/claim/${claimId}`;
-    //     return this.http.delete<any>(url);
-    // }
+    public setWorkerScreenClaims(screenWorkerId: number, claims: IClaim[]): Observable<void> {
+        const url: string = `${this.restUrl}/userscreen/${screenWorkerId}/claim`;
+        return this.http.put<void>(url, claims);
+    }
 
     public addWorkerScreen(
         userId: number,
@@ -136,14 +138,13 @@ export class AdminPanelService {
             user: { id: userId },
             claims,
         };
-        console.log('service: ', body);
 
         return this.http.post<void>(url, body);
     }
 
-    public removeWorkerScreen(relationId: number): Observable<any> {
+    public removeWorkerScreen(relationId: number): Observable<void> {
         const url: string = `${this.restUrl}/userscreen/${relationId}`;
-        return this.http.delete<any>(url);
+        return this.http.delete<void>(url);
     }
     //#endregion
 
