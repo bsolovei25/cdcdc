@@ -241,7 +241,7 @@
 .line_on_picture {
   width: 100%;
   height: 15%;
- // position: absolute;
+  // position: absolute;
   //  left: calc(52% + 7px);
   //margin-top: -23px;
 }
@@ -259,24 +259,22 @@
   margin: 0 auto;
   border: 1px solid var(--color-text-sub);
   min-width: 618px;
-
 }
 
-.frame{
+.frame {
   position: absolute;
-    z-index: 1;
-    height: 101%;
-    width: 20px;
-    border: 2px solid var(--color-border-unactive);
-    box-sizing: border-box;
-    background: transparent;
+  z-index: 1;
+  height: 101%;
+  width: 20px;
+  border: 2px solid var(--color-border-unactive);
+  box-sizing: border-box;
+  background: transparent;
 }
 
-.frame-right{
+.frame-right {
   right: 0px;
   top: -1px;
   border-left: none;
-
 
   &:before {
     z-index: 1;
@@ -313,7 +311,7 @@
   }
 }
 
-.frame-left{
+.frame-left {
   left: 0px;
   top: -1px;
   border-right: none;
@@ -531,10 +529,9 @@
   margin-top: 1px;
   display: flex;
   height: 34%;
-
 }
 
-.row_short { 
+.row_short {
   height: 70px;
   flex-flow: wrap;
   min-width: 315px;
