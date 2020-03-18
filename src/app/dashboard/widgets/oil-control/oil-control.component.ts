@@ -1120,6 +1120,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
         const clears = this.oilCircle.nativeElement.querySelectorAll('.textValues');
         clears.forEach((el) => el.remove());
         this.clearBak();
+        this.clearLine();
     }
 
     public clearProduct(): void {
@@ -1130,6 +1131,11 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
 
     public clearBak(): void {
         const clears = this.oilBak.nativeElement.querySelectorAll('.textProduct');
+        clears.forEach((el) => el.remove());
+    }
+
+    public clearLine(): void {
+        const clears = this.line.nativeElement.querySelectorAll('.textProduct');
         clears.forEach((el) => el.remove());
     }
 
