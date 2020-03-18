@@ -19,7 +19,6 @@ import {
     EventsWidgetCategoryCode,
     EventsWidgetData,
     IUnitEvents,
-    IUnitFact,
 } from '../../models/events-widget';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NewWidgetService } from '../../services/new-widget.service';
@@ -117,7 +116,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     @ViewChild('newInput2', { static: false }) newInput2: ElementRef;
     @ViewChild('scroll', { static: false }) scroll: ElementRef;
     @ViewChild('scroll2', { static: false }) scroll2: ElementRef;
-
+    @ViewChild('graph') graphWidht: ElementRef;
     @ViewChild('progress', { static: false }) progress: ElementRef;
 
     constructor(
@@ -340,7 +339,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
     }
     scrollFactBottom(): void {
-        this.scroll2.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
+            this.scroll2.nativeElement.scrollTop = this.scroll2.nativeElement.scrollHeight;
     }
 
     onEnterPush(event?: any): void {

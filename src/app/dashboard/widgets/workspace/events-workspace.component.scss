@@ -517,8 +517,8 @@ $border-size: 4px;
           display: flex;
           .description_title {
             font-size: 10px;
-            width: 85%;
-            margin-left: 26px;
+            width: 90%;
+            margin-left: 15px;
           }
           .description_button_update {
             margin-left: 5x;
@@ -576,8 +576,8 @@ $border-size: 4px;
             word-wrap: break-word;
             color: white;
             font-size: 12px;
-            margin-left: 26px;
-            width: 80%;
+            margin-left: 15px;
+            width: 90%;
             height: 100%;
 
             textarea {
@@ -639,8 +639,8 @@ $border-size: 4px;
         .title_fact_block {
           .title_fact_block_text {
             font-size: 10px;
-            width: 80%;
-            margin-left: 26px;
+            width: 100%;
+            margin-left: 15px;
           }
           height: 30px;
           background: var(--color-bg-card);
@@ -1060,8 +1060,8 @@ $border-size: 4px;
         .title_comments_block {
           .title_comments_block_text {
             font-size: 10px;
-            width: 80%;
-            margin-left: 26px;
+            width: 100%;
+            margin-left: 15px;
           }
           height: 30px;
           background: var(--color-bg-card);

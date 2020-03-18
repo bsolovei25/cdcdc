@@ -37,7 +37,6 @@ export interface EventsWidgetNotification {
         createdAt: Date;
         displayName: string;
         active?: boolean;
-        type?: EventsWidgetNotificationFacts;
     }[];
     priority: IPriority;
     deviationReason: string; // Причина отклонения
@@ -66,14 +65,6 @@ export interface EventsWidgetNotification {
     unitName?: string;
 }
 
-export interface IUnitFact{
-    comment: string;
-    createdBy?: number;
-    createdAt: Date;
-    displayName: string;
-    active?: boolean;
-    type?: EventsWidgetNotificationFacts;
-}
 
 export interface IUnitEvents {
     id: number;
@@ -104,8 +95,6 @@ export interface IUser {
 }
 
 export type EventsWidgetNotificationPriority = 'danger' | 'warning' | 'standard';
-
-export type EventsWidgetNotificationFacts = 'text' | 'graph';
 
 export type EventsWidgetNotificationStatus = 'new' | 'inWork' | 'closed';
 
