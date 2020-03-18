@@ -228,7 +228,7 @@
                         [svgStyle]="{ 'width.px':250, 'height.px':70 }"
                       ></svg-icon>
                     </div>
-                    <div class="fact_menu"  *ngIf="fact.comment !== 'График'">
+                    <div class="fact_menu" *ngIf="fact.comment !== 'График'">
                       <!-- <div class="fact_button" *ngIf="(isClickFact === i)">
                         <div class="fact_button_update">
                           <svg-icon
@@ -304,7 +304,6 @@
                     class="comment_new"
                     (click)="clickComment(comment, i)"
                     *ngFor="let comment of event.comments; let i = index"
-                    
                   >
                     <div class="comment_text">
                       <p>{{comment.comment}}</p>
