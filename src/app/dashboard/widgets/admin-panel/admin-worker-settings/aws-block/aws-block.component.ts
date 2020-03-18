@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
@@ -7,6 +7,9 @@ import { SelectionModel } from '@angular/cdk/collections';
     styleUrls: ['./aws-block.component.scss'],
 })
 export class AwsBlockComponent implements OnInit {
+    @Input() private isLockedUser: boolean = false;
+    @Output() private changeLockUser: EventEmitter<boolean> = new EventEmitter<boolean>();
+
     public selected: SelectionModel<boolean> = new SelectionModel<boolean>();
 
     private readonly lockedIcon: string = 'assets/icons/widgets/admin/lock_1.svg';
@@ -19,7 +22,11 @@ export class AwsBlockComponent implements OnInit {
 
     constructor() {}
 
-    public ngOnInit(): void {}
+    public ngOnInit(): void {
+        if (this.isLockedUser) {
+            this.selected.toggle(true);
+        }
+    }
 
     public getIconPath(): string {
         if (this.selected.hasValue()) {
@@ -34,6 +41,7 @@ export class AwsBlockComponent implements OnInit {
 
     public onClick(): void {
         this.selected.toggle(true);
+        this.changeLockUser.emit(this.selected.hasValue());
     }
 
     public onMouseEnter(): void {

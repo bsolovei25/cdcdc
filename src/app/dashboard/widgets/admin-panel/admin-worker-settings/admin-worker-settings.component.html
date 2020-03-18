@@ -69,7 +69,11 @@
         </div>
       </div>
       <div class="block">
-        <evj-aws-block class="block__component"></evj-aws-block>
+        <evj-aws-block
+          class="block__component"
+          [isLockedUser]="false"
+          (changeLockUser)="onChangeLockWorker()"
+        ></evj-aws-block>
       </div>
     </div>
     <div class="worker__column worker__main">

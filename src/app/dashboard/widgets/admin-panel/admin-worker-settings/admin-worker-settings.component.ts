@@ -55,9 +55,19 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                         key: 'login',
                     },
                     {
-                        name: 'ФИО',
-                        value: this.adminService.getFullName(this.worker),
-                        key: 'name',
+                        name: 'Фамилия',
+                        value: this.worker.lastName,
+                        key: 'lastName',
+                    },
+                    {
+                        name: 'Имя',
+                        value: this.worker.firstName,
+                        key: 'firstName',
+                    },
+                    {
+                        name: 'Отчество',
+                        value: this.worker.middleName,
+                        key: 'middleName',
                     },
                     {
                         name: 'Должность',
@@ -206,6 +216,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     public onSetResponsible(event: boolean): void {
         this.isWorkerResponsible = event;
+        this.isCheckBoxClicked = false;
         this.isAlertShowing = true;
     }
 
@@ -215,20 +226,13 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public onFieldChanging(event: IWorkerOptionAdminPanel): void {
-        if (event.key === 'name') {
-            const nameArray: string[] = event.value.split(' ');
-            if (nameArray.length > 3) {
-                console.error('INVALID WORKER NAME');
-            } else {
-                this.worker.lastName = nameArray[0] ? nameArray[0] : '';
-                this.worker.firstName = nameArray[1] ? nameArray[1] : '';
-                this.worker.middleName = nameArray[2] ? nameArray[2] : '';
-            }
-        } else {
-            this.worker[event.key] = event.value;
-        }
+        this.worker[event.key] = event.value;
         this.isCheckBoxClicked = false;
         this.isAlertShowing = true;
+    }
+
+    public onChangeLockWorker(): void {
+        console.log('CHANGE LOCK STATUS');
     }
 
     public returnPhotoPath(): string {

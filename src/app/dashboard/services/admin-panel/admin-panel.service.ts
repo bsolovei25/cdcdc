@@ -188,16 +188,16 @@ export class AdminPanelService {
         return 'assets/icons/widgets/admin/default_avatar.svg';
     }
 
-    public getFullName(worker: IUser): string {
-        let returnedString: string = '';
-        if (worker.lastName && worker.firstName) {
-            returnedString = `${worker.lastName} ${worker.firstName}`;
-        }
-        if (worker.middleName) {
-            returnedString = `${returnedString} ${worker.middleName}`;
-        }
-        return returnedString;
-    }
+    // public getFullName(worker: IUser): string {
+    //     let returnedString: string = '';
+    //     if (worker.lastName && worker.firstName) {
+    //         returnedString = `${worker.lastName} ${worker.firstName}`;
+    //     }
+    //     if (worker.middleName) {
+    //         returnedString = `${returnedString} ${worker.middleName}`;
+    //     }
+    //     return returnedString;
+    // }
 
     public generateDisplayName(worker: IUser): string {
         let returnedString: string = '';
