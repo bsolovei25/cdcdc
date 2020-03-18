@@ -191,6 +191,8 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
         await this.loadItem(typeof value === 'number' ? value : undefined);
         this.progressLine();
+        this.scrollCommentBottom();
+        this.scrollFactBottom();
     }
 
     ngOnDestroy(): void {
@@ -771,41 +773,5 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
         this.isNewRetrieval.deadline = this.dateChoose;
         this.dataPicker = !data.close;
-    }
-
-    pushGraf(typeComment: string): void {
-        if (typeComment === 'fact') {
-            const commentInfo = {
-                comment: 'График',
-                createdAt: new Date(),
-                displayName: this.nameUser,
-            };
-            this.event.facts.push(commentInfo);
-        } else if (typeComment === 'comment') {
-            const commentInfo = {
-                comment: 'График',
-                createdAt: new Date(),
-                displayName: this.nameUser,
-            };
-            this.event.comments.push(commentInfo);
-        }
-    }
-
-    pushNewGraf(typeComment: string): void {
-        if (typeComment === 'fact') {
-            const commentInfo = {
-                comment: 'График',
-                createdAt: new Date(),
-                displayName: this.nameUser,
-            };
-            this.isNewRetrieval.facts.push(commentInfo);
-        } else if (typeComment === 'comment') {
-            const commentInfo = {
-                comment: 'График',
-                createdAt: new Date(),
-                displayName: this.nameUser,
-            };
-            this.isNewRetrieval.comments.push(commentInfo);
-        }
     }
 }
