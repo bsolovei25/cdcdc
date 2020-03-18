@@ -517,8 +517,8 @@ $border-size: 4px;
           display: flex;
           .description_title {
             font-size: 10px;
-            width: 85%;
-            margin-left: 26px;
+            width: 90%;
+            margin-left: 15px;
           }
           .description_button_update {
             margin-left: 5x;
@@ -576,8 +576,8 @@ $border-size: 4px;
             word-wrap: break-word;
             color: white;
             font-size: 12px;
-            margin-left: 26px;
-            width: 80%;
+            margin-left: 15px;
+            width: 90%;
             height: 100%;
 
             textarea {
@@ -639,8 +639,8 @@ $border-size: 4px;
         .title_fact_block {
           .title_fact_block_text {
             font-size: 10px;
-            width: 80%;
-            margin-left: 26px;
+            width: 100%;
+            margin-left: 15px;
           }
           height: 30px;
           background: var(--color-bg-card);
@@ -700,13 +700,6 @@ $border-size: 4px;
               font-size: 10px;
             }
 
-            .fact_img {
-              padding-top: 10px;
-              margin-left: 26px;
-              width: 70%;
-              cursor: pointer;
-            }
-
             .fact_menu {
               display: flex;
               align-items: center;
@@ -742,10 +735,10 @@ $border-size: 4px;
               }
 
               .fact_info {
-                right: 6px;
                 position: absolute;
                 bottom: 0px;
                 font-size: 9px;
+                right: 10px;
 
                 .fact_info_user {
                   text-align: end;
@@ -757,9 +750,9 @@ $border-size: 4px;
               }
 
               .fact_info_notActive {
-                right: 6px;
                 position: absolute;
                 font-size: 9px;
+                right: 10px;
 
                 .fact_info_user {
                   text-align: end;
@@ -770,6 +763,13 @@ $border-size: 4px;
                 }
               }
             }
+          }
+
+          .fact_img {
+            padding-top: 10px;
+            margin-left: 26px;
+            width: 70%;
+            cursor: pointer;
           }
         }
         .empty {
@@ -802,6 +802,13 @@ $border-size: 4px;
               width: 70%;
               color: white;
               font-size: 10px;
+            }
+
+            .fact_img {
+              padding-top: 10px;
+              margin-left: 26px;
+              width: 70%;
+              cursor: pointer;
             }
 
             .fact_menu {
@@ -839,6 +846,7 @@ $border-size: 4px;
                 position: absolute;
                 bottom: 0px;
                 font-size: 9px;
+                right: 10px;
 
                 .fact_info_user {
                   text-align: end;
@@ -1052,8 +1060,8 @@ $border-size: 4px;
         .title_comments_block {
           .title_comments_block_text {
             font-size: 10px;
-            width: 80%;
-            margin-left: 26px;
+            width: 100%;
+            margin-left: 15px;
           }
           height: 30px;
           background: var(--color-bg-card);
@@ -1096,6 +1104,7 @@ $border-size: 4px;
           overflow: auto;
           background: #1d202a;
           .comment_new {
+            min-height: 18px;
             position: relative;
             display: flex;
             padding-bottom: 10px;
@@ -1114,9 +1123,12 @@ $border-size: 4px;
             }
 
             .comment_img {
-              padding-top: 10px;
+              overflow-wrap: break-word;
+              padding-top: 15px;
               margin-left: 26px;
               width: 70%;
+              color: white;
+              font-size: 10px;
               cursor: pointer;
             }
 
@@ -1157,6 +1169,7 @@ $border-size: 4px;
                 position: absolute;
                 bottom: 0px;
                 font-size: 9px;
+                right: 10px;
 
                 .comment_info_user {
                   text-align: end;
@@ -1584,6 +1597,7 @@ $border-size: 4px;
 
             .name_user_info {
               margin-left: 15px;
+              min-width: 150px;
               height: 100%;
               color: white;
               font-size: 11px;
@@ -2244,6 +2258,7 @@ $border-size: 4px;
                 overflow: auto;
                 background: #1d202a;
                 .comment_new {
+                  min-height: 18px;
                   position: relative;
                   display: flex;
                   padding-bottom: 10px;
@@ -2303,6 +2318,7 @@ $border-size: 4px;
                       position: absolute;
                       bottom: 0px;
                       font-size: 9px;
+                      right: 10px;
 
                       .comment_info_user {
                         text-align: end;

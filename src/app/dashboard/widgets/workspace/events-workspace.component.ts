@@ -116,7 +116,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     @ViewChild('newInput2', { static: false }) newInput2: ElementRef;
     @ViewChild('scroll', { static: false }) scroll: ElementRef;
     @ViewChild('scroll2', { static: false }) scroll2: ElementRef;
-
+    @ViewChild('graph') graphWidht: ElementRef;
     @ViewChild('progress', { static: false }) progress: ElementRef;
 
     constructor(
@@ -185,10 +185,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
             this.dateChoose = value.deadline;
         }
 
-        if (this.event.graphValues) {
-            this.onSendMessage(true);
-        }
-
         await this.loadItem(typeof value === 'number' ? value : undefined);
         this.progressLine();
     }
@@ -251,82 +247,64 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.isNewRetrieval = null;
     }
 
-    onSendMessage(graph?): void {
-        if (graph === true) {
+    onSendMessage(): void {
+        if (this.input2.nativeElement.value) {
             const commentInfo = {
-                comment: 'График',
+                comment: this.input2.nativeElement.value,
                 createdAt: new Date(),
                 displayName: this.nameUser,
             };
             this.event.comments.push(commentInfo);
-        } else {
-            if (this.input2.nativeElement.value) {
-                const commentInfo = {
-                    comment: this.input2.nativeElement.value,
-                    createdAt: new Date(),
-                    displayName: this.nameUser,
-                };
-                this.event.comments.push(commentInfo);
-                // this.comments.push(this.input.nativeElement.value);
-                this.input2.nativeElement.value = '';
-                this.dateComment = new Date();
-                setTimeout(() => {
-                    this.scrollCommentBottom();
-                }, 50);
-            } else if (this.input.nativeElement.value) {
-                const factInfo = {
-                    comment: this.input.nativeElement.value,
-                    createdAt: new Date(),
-                    displayName: this.nameUser,
-                };
-                this.event.facts.push(factInfo);
-                this.input.nativeElement.value = '';
-                setTimeout(() => {
-                    this.scrollFactBottom();
-                }, 50);
-            }
+            // this.comments.push(this.input.nativeElement.value);
+            this.input2.nativeElement.value = '';
+            this.dateComment = new Date();
+            setTimeout(() => {
+                this.scrollCommentBottom();
+            }, 50);
+        } else if (this.input.nativeElement.value) {
+            const factInfo = {
+                comment: this.input.nativeElement.value,
+                createdAt: new Date(),
+                displayName: this.nameUser,
+            };
+            this.event.facts.push(factInfo);
+            this.input.nativeElement.value = '';
+            setTimeout(() => {
+                this.scrollFactBottom();
+            }, 50);
         }
     }
 
-    onSendNewMessage(graph?): void {
-        if (graph === true) {
+    onSendNewMessage(): void {
+        if (this.newInput2.nativeElement.value) {
+            if (this.isNewRetrieval.facts === undefined) {
+                this.isNewRetrieval.facts = [];
+            }
+            const factInfo = {
+                comment: this.newInput2.nativeElement.value,
+                createdAt: new Date(),
+                displayName: this.nameUser,
+            };
+            this.isNewRetrieval.facts.push(factInfo);
+            // this.comments.push(this.input.nativeElement.value);
+            this.newInput2.nativeElement.value = '';
+            setTimeout(() => {
+                this.scrollFactBottom();
+            }, 50);
+        } else if (this.newInput.nativeElement.value) {
+            if (this.isNewRetrieval.comments === undefined) {
+                this.isNewRetrieval.comments = [];
+            }
             const commentInfo = {
-                comment: 'График',
+                comment: this.newInput.nativeElement.value,
                 createdAt: new Date(),
                 displayName: this.nameUser,
             };
             this.isNewRetrieval.comments.push(commentInfo);
-        } else {
-            if (this.newInput2.nativeElement.value) {
-                if (this.isNewRetrieval.facts === undefined) {
-                    this.isNewRetrieval.facts = [];
-                }
-                const factInfo = {
-                    comment: this.newInput2.nativeElement.value,
-                    createdAt: new Date(),
-                    displayName: this.nameUser,
-                };
-                this.isNewRetrieval.facts.push(factInfo);
-                // this.comments.push(this.input.nativeElement.value);
-                this.newInput2.nativeElement.value = '';
-                setTimeout(() => {
-                    this.scrollFactBottom();
-                }, 50);
-            } else if (this.newInput.nativeElement.value) {
-                if (this.isNewRetrieval.comments === undefined) {
-                    this.isNewRetrieval.comments = [];
-                }
-                const commentInfo = {
-                    comment: this.newInput.nativeElement.value,
-                    createdAt: new Date(),
-                    displayName: this.nameUser,
-                };
-                this.isNewRetrieval.comments.push(commentInfo);
-                this.newInput.nativeElement.value = '';
-                setTimeout(() => {
-                    this.scrollCommentBottom();
-                }, 50);
-            }
+            this.newInput.nativeElement.value = '';
+            setTimeout(() => {
+                this.scrollCommentBottom();
+            }, 50);
         }
     }
 
@@ -357,7 +335,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
     }
     scrollFactBottom(): void {
-        this.scroll2.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
+        this.scroll2.nativeElement.scrollTop = this.scroll2.nativeElement.scrollHeight;
     }
 
     onEnterPush(event?: any): void {
