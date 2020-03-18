@@ -36,8 +36,8 @@ docker build:
         - env
         - docker build -t ${CI_PROJECT_NAME} .
     only:
-        - master
-        - develop
+          #- master
+          #- develop
         - merge_requests
 
 testing website:
@@ -45,7 +45,7 @@ testing website:
     stage: test
     script:
         - echo "Doing some tests... Someone should add unit tests or whatever here"
-        - docker run --rm --name ${CI_PROJECT_NAME} -p 8000:4200 -d ${CI_PROJECT_NAME}
+        - docker run --rm --name ${CI_PROJECT_NAME} -d ${CI_PROJECT_NAME}
         - ./init-docker.sh
     only:
         - merge_requests
