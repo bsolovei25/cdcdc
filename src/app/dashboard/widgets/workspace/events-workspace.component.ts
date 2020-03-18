@@ -185,14 +185,8 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
             this.dateChoose = value.deadline;
         }
 
-        // if (this.event.graphValues) {
-        //     this.onSendMessage(this.event.graphValues);
-        // }
-
         await this.loadItem(typeof value === 'number' ? value : undefined);
         this.progressLine();
-        this.scrollCommentBottom();
-        this.scrollFactBottom();
     }
 
     ngOnDestroy(): void {

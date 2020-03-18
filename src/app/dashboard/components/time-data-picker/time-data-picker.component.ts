@@ -10,12 +10,13 @@ export class TimeDataPickerComponent implements OnInit {
     @Input() data: Date;
     @Output() dateTimePicker = new EventEmitter<ITime>();
 
-    public inputDate: Date = new Date();
-    public inputTime: string = '00:00:00';
+    public inputDate: Date;
+    public inputTime: string;
 
     constructor() {}
 
     ngOnInit(): void {
+        this.inputDate = new Date();
         this.inputDate = this.data;
     }
 
