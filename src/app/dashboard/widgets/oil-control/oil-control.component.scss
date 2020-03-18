@@ -237,7 +237,7 @@
 
 .line_on_picture {
   width: 100%;
-  position: absolute;
+ // position: absolute;
   //  left: calc(52% + 7px);
   margin-top: -23px;
 }
@@ -248,7 +248,8 @@
 
 .oil_block_info {
   min-height: 80px;
-  height: 130px;
+  //height: 130px;
+  height: 50%;
   width: 100%;
   margin: 0 auto;
   // max-height: 170px;
@@ -287,7 +288,8 @@
 .oil_picture {
   margin-top: -20px;
   margin-left: 20px;
-  height: 60%;
+  //height: 60%;
+  height: 50%;
   display: flex;
   min-height: 125px;
 }
