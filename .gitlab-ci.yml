@@ -65,7 +65,7 @@ build artifact:
     only:
         - master
         - develop
-        - merge_requests
+          #- merge_requests
     artifacts:
         paths:
             - ./public
