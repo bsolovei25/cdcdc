@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ITime } from '../../models/time-data-picker';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
     selector: 'evj-time-data-picker',
@@ -17,11 +18,19 @@ export class TimeDataPickerComponent implements OnInit {
 
     ngOnInit(): void {
         this.inputDate = new Date();
-        this.inputDate = this.data;
+        this.inputTime = '00:00:00';
+        if (this.data !== undefined) {
+            this.inputDate = this.data;
+        }
     }
 
     acceptDate(): void {
-        this.inputTime === '' ? '00:00:00' : this.inputTime;
+        this.inputTime =
+            this.inputTime.length === 5
+                ? this.inputTime + ':00'
+                : this.inputTime === ''
+                ? '00:00:00'
+                : this.inputTime;
         const object: ITime = { date: this.inputDate, time: this.inputTime, close: true };
         this.dateTimePicker.emit(object);
     }
