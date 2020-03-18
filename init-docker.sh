@@ -18,7 +18,7 @@ check_online()
 	attempt=$(( $attempt + 1 ))
 	echo "Waiting for server to be up (attempt: $attempt)..."
 	docker logs ${CI_PROJECT_NAME}
-	result=$(docker logs ${CI_PROJECT_NAME}-mbo)
+	result=$(docker logs ${CI_PROJECT_NAME})
 	if grep -q 'Compilled successfully' <<< $result ; then
 	    echo "Server is up"
     	    docker logs ${CI_PROJECT_NAME}
