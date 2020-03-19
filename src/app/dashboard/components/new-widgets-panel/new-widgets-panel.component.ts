@@ -42,7 +42,7 @@ export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
         public injector: Injector,
         public userSettings: NewUserSettingsService,
         private claimService: ClaimService
-    ) { }
+    ) {}
 
     public ngOnInit(): void {
         this.subscriptions.push(

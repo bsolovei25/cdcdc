@@ -1,4 +1,13 @@
-import { Component, OnInit, Input, Inject, Output, EventEmitter, OnChanges, OnDestroy } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    Input,
+    Inject,
+    Output,
+    EventEmitter,
+    OnChanges,
+    OnDestroy,
+} from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { NewUserSettingsService } from '../../services/new-user-settings.service';
 import { ClaimService, EnumClaimWidgets } from '../../services/claim.service';
@@ -31,11 +40,11 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
         public widgetService: NewWidgetService,
         public userSettings: NewUserSettingsService,
         private claimService: ClaimService
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         this.subscriptions.push(
-            this.claimService.claimWidgets$.subscribe(data => {
+            this.claimService.claimWidgets$.subscribe((data) => {
                 this.claimWidgets = data;
             })
         );

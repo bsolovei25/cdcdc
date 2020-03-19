@@ -25,10 +25,7 @@ export class ShiftService {
 
     private restUrl: string;
 
-    constructor(
-        private http: HttpClient,
-        configService: AppConfigService,
-    ) {
+    constructor(private http: HttpClient, configService: AppConfigService) {
         this.restUrl = configService.restUrl;
         this.getShiftInfo();
     }
@@ -43,8 +40,9 @@ export class ShiftService {
 
     private async getFreeMembersAsync(id: number): Promise<any> {
         try {
-            return await this.http.get(this.restUrl +
-                '/api/shift/users/free/' + id.toString()).toPromise();
+            return await this.http
+                .get(this.restUrl + '/api/shift/users/free/' + id.toString())
+                .toPromise();
         } catch (error) {
             console.error(error);
         }
@@ -54,11 +52,11 @@ export class ShiftService {
         return this.http
             .post(
                 this.restUrl +
-                '/api/shift/' +
-                idShift +
-                '/employee/' +
-                id.toString() +
-                '/setresponsible',
+                    '/api/shift/' +
+                    idShift +
+                    '/employee/' +
+                    id.toString() +
+                    '/setresponsible',
                 null
             )
             .toPromise();
@@ -77,14 +75,14 @@ export class ShiftService {
         return this.http
             .post(
                 this.restUrl +
-                '/api/shift/' +
-                idShift +
-                '/Employee/' +
-                id +
-                '/WidgetId/' +
-                widgetId +
-                '/ChangeStatus/' +
-                status,
+                    '/api/shift/' +
+                    idShift +
+                    '/Employee/' +
+                    id +
+                    '/WidgetId/' +
+                    widgetId +
+                    '/ChangeStatus/' +
+                    status,
                 body
             )
             .toPromise();

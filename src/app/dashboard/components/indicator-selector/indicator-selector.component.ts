@@ -10,7 +10,6 @@ import { ClaimService, EnumClaimScreens } from '../../services/claim.service';
     styleUrls: ['./indicator-selector.component.scss'],
 })
 export class IndicatorSelectorComponent implements OnInit, OnDestroy {
-
     public dataScreen: ScreenSettings[] = [];
 
     private subscriptions: Subscription[] = [];
@@ -33,11 +32,7 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
 
     isShowScreens: boolean = false;
 
-    constructor(
-        private userSettings: NewUserSettingsService,
-        private claimService: ClaimService) {
-
-    }
+    constructor(private userSettings: NewUserSettingsService, private claimService: ClaimService) {}
 
     ngOnInit(): void {
         this.subscriptions.push(
@@ -99,7 +94,7 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
         }
 
         if (this.dataScreen[0]) return this.dataScreen[0].screenName;
-    }
+    };
 
     setActiveScreen(screen) {
         this.nameScreen = screen.screenName;
@@ -163,5 +158,5 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
             item.updateScreen = false;
         }
     }
-    isOverScreen(e) { }
+    isOverScreen(e) {}
 }

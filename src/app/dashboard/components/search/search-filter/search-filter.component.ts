@@ -18,9 +18,9 @@ export class SearchFilterComponent implements OnInit {
 
     @Output() onFilterMass = new EventEmitter<any>();
 
-    constructor(public widgetService: NewWidgetService) { }
+    constructor(public widgetService: NewWidgetService) {}
 
-    ngOnInit() { }
+    ngOnInit() {}
 
     public choosenType(value, i) {
         let type = 'filter';

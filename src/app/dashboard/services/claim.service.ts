@@ -17,10 +17,12 @@ export enum EnumClaimScreens {
     providedIn: 'root',
 })
 export class ClaimService {
-    public claimWidgets$: BehaviorSubject<EnumClaimWidgets[]> =
-        new BehaviorSubject<EnumClaimWidgets[]>([]);
-    public claimScreens$: BehaviorSubject<EnumClaimScreens[]> =
-        new BehaviorSubject<EnumClaimScreens[]>([]);
+    public claimWidgets$: BehaviorSubject<EnumClaimWidgets[]> = new BehaviorSubject<
+        EnumClaimWidgets[]
+    >([]);
+    public claimScreens$: BehaviorSubject<EnumClaimScreens[]> = new BehaviorSubject<
+        EnumClaimScreens[]
+    >([]);
 
     constructor(public http: HttpClient) {
         this.getCliam();
@@ -31,12 +33,12 @@ export class ClaimService {
             EnumClaimWidgets.delete,
             EnumClaimWidgets.move,
             EnumClaimWidgets.resize,
-            EnumClaimWidgets.add
+            EnumClaimWidgets.add,
         ]);
         this.claimScreens$.next([
             EnumClaimScreens.add,
             EnumClaimScreens.edit,
-            EnumClaimScreens.delete
+            EnumClaimScreens.delete,
         ]);
     }
 }
