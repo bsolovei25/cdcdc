@@ -17,11 +17,11 @@
         {{person.email}}
       </text>
       <text x="33" y="32" text-anchor="start" class="svg__txt" *ngIf="person.id; else noselected">
-        {{getPersonBrigade()}}
+        {{getPersonUnit()}}{{getPersonBrigade()}}
       </text>
       <ng-template #noselected>
         <text x="33" y="32" text-anchor="start" class="svg__txt">
-          {{getPersonBrigade()}}
+          {{getPersonUnit()}}{{getPersonBrigade()}}
         </text>
       </ng-template>
       <text x="33" y="43" text-anchor="start" class="svg__txt">

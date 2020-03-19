@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IWorker } from '../../../dashboard/models/worker';
-import { IUser } from '../../../dashboard/models/events-widget';
+import { IUser, IUnitEvents } from '../../../dashboard/models/events-widget';
+import { AdminPanelService } from '../../../dashboard/services/admin-panel/admin-panel.service';
 
 @Component({
     selector: 'evj-worker-card',
@@ -20,9 +21,15 @@ export class WorkerCardComponent implements OnInit {
     public mainWorkerPathDisable: string =
         'assets/icons/widgets/admin/responsible_icon-disable.svg';
 
-    constructor() {}
+    public personsUnit: IUnitEvents = null;
 
-    public ngOnInit(): void {}
+    constructor(private adminService: AdminPanelService) {}
+
+    public ngOnInit(): void {
+        if (!this.isSmallCard) {
+            this.adminService.activeWorkerUnit$.subscribe((unit) => (this.personsUnit = unit));
+        }
+    }
 
     public getPersonName(): string {
         if (this.person) {
@@ -45,5 +52,12 @@ export class WorkerCardComponent implements OnInit {
 
     public checkPersonResponsibility(): boolean {
         return this.person.position === 'responsible';
+    }
+
+    public getPersonUnit(): string {
+        if (this.personsUnit) {
+            return `${this.personsUnit.name} | `;
+        }
+        return '';
     }
 }
