@@ -2994,73 +2994,49 @@ textarea {
   }
 }
 
-::ng-deep {
-  .cdk-overlay-container {
-    ::-webkit-scrollbar {
-      width: 1px;
-      height: 10px;
-    }
-    ::-webkit-scrollbar:vertical {
-      width: 5px;
-      height: 100%;
-    }
-    ::-webkit-scrollbar-track {
-      background-color: var(--color-border-unactive);
-    }
-    ::-webkit-scrollbar-track-piece {
-      background-color: rgb(27, 30, 39);
-    }
-    ::-webkit-scrollbar-thumb {
-      height: 50px;
-      background-color: var(--color-border-unactive);
-      border-radius: 10px;
-    }
-    ::-webkit-scrollbar-corner {
-      background-color: var(--color-border-unactive);
-    }
-    ::-webkit-resizer {
-      background-color: var(--color-border-unactive);
-    }
-  }
-
-  .mat-form-field-appearance-legacy .mat-form-field-wrapper {
-    padding-bottom: 0.7em !important;
-  }
-
-  .mat-calendar-body-cell-content {
-    &:hover {
-      background-color: var(--color-border-active);
-    }
-  }
-  .mat-form-field-wrapper {
-    padding-bottom: 1.04375em;
-  }
-
-  .mat-form-field-flex {
-    margin-top: 10px;
-  }
-  .cdk-overlay-pane {
-    margin-top: 45px;
-  }
-
-  .mat-option:hover {
-    background: var(--color-text-sub);
-  }
-
-  .ng-tns-c39-2 {
-    font-size: 15px;
-  }
-
-  .mat-datepicker-popup {
-    background-color: rgb(27, 30, 39);
-    margin-left: -73px;
-    margin-top: 9px;
-  }
-}
-
 .categories ::ng-deep .cdk-overlay-pane {
   top: 295px !important;
 }
+
+.container {
+  ::ng-deep {
+
+    .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+      padding-bottom: 0.7em !important;
+    }
+
+    .mat-calendar-body-cell-content {
+      &:hover {
+        background-color: var(--color-border-active);
+      }
+    }
+    .mat-form-field-wrapper {
+      padding-bottom: 1.04375em;
+    }
+
+    .mat-form-field-flex {
+      margin-top: 10px;
+    }
+    .cdk-overlay-pane {
+      margin-top: 45px;
+    }
+
+    .mat-option:hover {
+      background: var(--color-text-sub);
+    }
+
+    .ng-tns-c39-2 {
+      font-size: 15px;
+    }
+
+    .mat-datepicker-popup {
+      background-color: rgb(27, 30, 39);
+      margin-left: -73px;
+      margin-top: 9px;
+    }
+  }
+}
+
 
 /// GRAPH OPEN
 #overlay-chart {
