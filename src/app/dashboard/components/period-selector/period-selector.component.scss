@@ -133,11 +133,11 @@
     margin-right: 5px;
   }
 
-  &__picker{
+  &__picker {
     display: none;
   }
 
-  &__picker-open{
+  &__picker-open {
     display: block;
     margin-top: 15px;
     right: -11px;
@@ -151,7 +151,7 @@
       .mat-form-field-appearance-legacy .mat-form-field-wrapper {
         padding-bottom: 0.7em !important;
       }
-    
+
       .mat-calendar-body-cell-content {
         &:hover {
           background-color: var(--color-border-active);
@@ -160,55 +160,54 @@
       .mat-form-field-wrapper {
         padding-bottom: 1.04375em;
       }
-    
+
       .mat-form-field-flex {
         margin-top: 10px;
       }
       .cdk-overlay-pane {
         margin-top: 45px;
       }
-    
+
       .mat-option:hover {
         background: var(--color-text-sub);
       }
-    
+
       .ng-tns-c39-2 {
         font-size: 15px;
       }
 
-      .mat-form-field-underline{
+      .mat-form-field-underline {
         display: none;
       }
 
-      .mat-form-field-underline{
+      .mat-form-field-underline {
         border-top: none;
       }
 
-      .time{
-        input{
+      .time {
+        input {
           width: 90% !important;
           background-color: var(--color-bg-sub) !important;
         }
-      } 
-
-      .date{
-        color: white;
       }
 
+      .date {
+        color: white;
+      }
     }
   }
 
-  &__date-choose{
+  &__date-choose {
     min-width: 85px;
     margin-top: 5px;
     margin-right: 5px;
     cursor: pointer;
 
-    &:hover{
+    &:hover {
       color: white;
     }
 
-    &__disabled{
+    &__disabled {
       pointer-events: none;
       color: var(--color-text-sub-heading);
     }
@@ -267,7 +266,6 @@
       border-top: 0.5px solid var(--color-border-active);
     }
   }
-
 }
 
 ::-webkit-inner-spin-button {
@@ -288,4 +286,3 @@
 ::ng-deep .mat-datepicker-popup {
   margin-top: -5px !important;
 }
-
