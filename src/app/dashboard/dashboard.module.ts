@@ -117,6 +117,7 @@ import { OperationParkScreenComponent } from './widgets/petroleum-products-movem
 import { InfoScreenComponent } from './widgets/petroleum-products-movement/petroleum-reference/info-screen/info-screen.component';
 import { PetroleumUnityInfoComponent } from './widgets/petroleum-products-movement/petroleum-unity-info/petroleum-unity-info.component';
 import { UsbVerifierComponent } from './widgets/change-shift/usb-verifier/usb-verifier.component';
+import { TimeDataPickerComponent } from './components/time-data-picker/time-data-picker.component';
 
 @NgModule({
     declarations: [
@@ -221,6 +222,7 @@ import { UsbVerifierComponent } from './widgets/change-shift/usb-verifier/usb-ve
         InfoScreenComponent,
         PetroleumUnityInfoComponent,
         UsbVerifierComponent,
+        TimeDataPickerComponent,
     ],
     entryComponents: [
         LineChartComponent,
