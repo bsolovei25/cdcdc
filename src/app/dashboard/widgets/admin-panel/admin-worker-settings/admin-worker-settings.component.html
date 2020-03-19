@@ -29,23 +29,27 @@
   <div class="admin__worker">
     <div class="worker__column worker__info">
       <div class="options scroll-bar">
-        <ng-container *ngFor="let option of options">
-          <ng-container *ngIf="!(option.key==='brigade' )"
-            ><evj-aws-card
-              class="card"
-              *ngIf="isValidFieldName(option.name)"
-              [option]="option"
-              (saveChanging)="onFieldChanging($event)"
-            ></evj-aws-card
-          ></ng-container>
-          <ng-container *ngIf="option.key==='brigade'">
-            <evj-aws-select-card
-              class="card"
-              [option]="option"
-              (saveChanging)="onSelectBrigade($event)"
-            ></evj-aws-select-card>
-          </ng-container>
+        <ng-container *ngFor="let option of inputOptions">
+          <evj-aws-card
+            class="card"
+            *ngIf="isValidFieldName(option.name)"
+            [option]="option"
+            (saveChanging)="onFieldChanging($event)"
+          ></evj-aws-card>
         </ng-container>
+
+        <evj-aws-select-card
+          class="card"
+          [option]="selectOptions[0]"
+          (saveChanging)="onSelectUnit($event)"
+        ></evj-aws-select-card>
+        <evj-aws-select-card
+          class="card"
+          *ngIf="!!workerUnit"
+          [option]="selectOptions[1]"
+          (saveChanging)="onSelectBrigade($event)"
+        ></evj-aws-select-card>
+
         <evj-aws-checkbox-card
           class="card"
           (checked)="onSetResponsible($event)"

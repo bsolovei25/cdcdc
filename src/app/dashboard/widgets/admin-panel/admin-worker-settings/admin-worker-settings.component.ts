@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy, Input } from '@angular/core';
 import { IWorkerOptionAdminPanel, IWorkspace, IScreen, IClaim } from '../../../models/admin-panel';
-import { IUser } from '../../../models/events-widget';
+import { IUser, IUnitEvents } from '../../../models/events-widget';
 import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
 import { Subscription } from 'rxjs';
 import { fillDataShape } from '../../../../@shared/common-functions';
@@ -29,9 +29,11 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     public searchIcon: string = 'assets/icons/search-icon.svg';
 
-    public options: IWorkerOptionAdminPanel[];
+    public inputOptions: IWorkerOptionAdminPanel[];
+    public selectOptions: IWorkerOptionAdminPanel[];
 
     public worker: IUser = null;
+    public workerUnit: IUnitEvents = null;
 
     public allWorkspaces: IWorkspace[] = [];
     public workerScreens: IWorkspace[] = [];
@@ -49,7 +51,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         this.subscriptions.push(
             this.adminService.activeWorker$.subscribe((worker: IUser) => {
                 this.worker = fillDataShape(worker);
-                this.options = [
+                this.inputOptions = [
                     {
                         name: 'Логин',
                         value: this.worker.login,
@@ -85,9 +87,13 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                         value: this.worker.email,
                         key: 'email',
                     },
+                ];
+                this.selectOptions = [
                     {
                         name: 'Установка',
-                        value: '',
+                        value: this.worker.hasOwnProperty('brigade')
+                            ? this.adminService.getUnitByBrigadeId(this.worker.brigade.id).name
+                            : null,
                         key: 'unit',
                     },
                     {
@@ -105,6 +111,9 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                 });
                 this.workerScreensDetached = workerScreens;
             }),
+            this.adminService.activeWorkerUnit$.subscribe(
+                (unit: IUnitEvents) => (this.workerUnit = unit)
+            ),
             this.adminService.getAllScreens().subscribe((data: IWorkspace[]) => {
                 this.allWorkspaces = data;
             })
@@ -214,6 +223,18 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             }
         });
         return idArray;
+    }
+
+    public onSelectUnit(unit: IUnitEvents): void {
+        this.isCheckBoxClicked = false;
+        this.isAlertShowing = true;
+
+        this.workerUnit = unit;
+        if (unit) {
+            this.adminService.updateUnitBrigades(unit.id);
+        } else {
+            this.onSelectBrigade(null);
+        }
     }
 
     public onSelectBrigade(brigade: IBrigade): void {
@@ -352,6 +373,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                 }
                 this.adminService.activeWorkerScreens$.next(userScreens);
                 this.adminService.activeWorker$.next(this.worker);
+                this.adminService.activeWorkerUnit$.next(this.workerUnit);
 
                 this.materialController.openSnackBar('Данные сохранены');
                 this.closeWorkerSettings.emit(this.worker);

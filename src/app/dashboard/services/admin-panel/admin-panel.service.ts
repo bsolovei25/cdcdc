@@ -36,6 +36,9 @@ export class AdminPanelService {
     public allBrigades$: BehaviorSubject<IBrigadeAdminPanel[]> = new BehaviorSubject<
         IBrigadeAdminPanel[]
     >(null);
+    public activeUnitBrigades$: BehaviorSubject<IBrigadeAdminPanel[]> = new BehaviorSubject<
+        IBrigadeAdminPanel[]
+    >(null);
     public activeBrigade$: BehaviorSubject<IBrigadeAdminPanel> = new BehaviorSubject<
         IBrigadeAdminPanel
     >(null);
@@ -175,6 +178,14 @@ export class AdminPanelService {
 
     public setActiveWorker(worker: IUser): void {
         this.activeWorker$.next(worker);
+        if (worker.brigade) {
+            const unit = this.getUnitByBrigadeId(worker.brigade.id);
+            this.activeWorkerUnit$.next(unit);
+            this.updateUnitBrigades(unit.id);
+        } else {
+            this.activeWorkerUnit$.next(null);
+            this.activeUnitBrigades$.next([]);
+        }
     }
 
     public setDefaultActiveWorker(): void {
@@ -230,5 +241,22 @@ export class AdminPanelService {
     //#endregion
 
     //#region BRIGADE_METHODS
+
+    public getUnitByBrigadeId(brigadeId: number): IUnitEvents {
+        const brigade: IBrigadeAdminPanel = this.brigades.find(
+            (item: IBrigadeAdminPanel) => item.brigadeId === brigadeId
+        );
+        return brigade.unit;
+    }
+
+    public async updateUnitBrigades(unitId: number): Promise<void> {
+        try {
+            const brigades = await this.getUnitBrigades(unitId).toPromise();
+            this.activeUnitBrigades$.next(brigades);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     //#endregion
 }
