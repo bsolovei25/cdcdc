@@ -285,7 +285,12 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
             .subscribe((ans) => {
                 if (ans.result) {
                     console.log('continue');
-                    this.shiftService.cancelShift(this.currentShift.id, ans.comment, this.widgetId, this.unitId);
+                    this.shiftService.cancelShift(
+                        this.currentShift.id,
+                        ans.comment,
+                        this.widgetId,
+                        this.unitId
+                    );
                     this.materialController.openSnackBar('Отказ от смены');
                 } else {
                     console.log('cancel');
