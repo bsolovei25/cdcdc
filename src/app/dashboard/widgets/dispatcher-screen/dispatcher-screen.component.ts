@@ -18,7 +18,9 @@ export class DispatcherScreenComponent extends WidgetPlatform implements AfterVi
     private canvas: HTMLCanvasElement;
 
     protected static itemCols: number = 15;
-    protected static itemRows: number = 15;
+    protected static itemRows: number = 10;
+    public static minItemCols: number = 10;
+    public static minItemRows: number = 10;
 
     constructor(
         public widgetService: NewWidgetService,

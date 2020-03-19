@@ -36,6 +36,13 @@ export class AppConfigService {
         return this.appConfig.restUrl;
     }
 
+    get shiftFree(): string {
+        if (!this.appConfig) {
+            throw Error('Config file not loaded!');
+        }
+        return this.appConfig.shiftFree;
+    }
+
     get fsUrl(): string {
         if (!this.appConfig) {
             throw Error('Config file not loaded!');
