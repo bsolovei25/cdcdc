@@ -12,6 +12,8 @@ import { WidgetPlatform } from '../../models/widget-platform';
 export class OperationEfficiencyComponent extends WidgetPlatform implements OnInit, OnDestroy {
     protected static itemCols: number = 18;
     protected static itemRows: number = 6;
+    public static minItemCols: number = 5;
+    public static minItemRows: number = 5;
     /* Приблизительная структура, получаемая с бека */
 
     public data: IOperationEfficiency = {

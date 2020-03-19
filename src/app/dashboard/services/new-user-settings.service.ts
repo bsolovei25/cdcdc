@@ -166,6 +166,8 @@ export class NewUserSettingsService {
             this.ScreenName = item.screenName;
             this.widgetService.dashboard = item.widgets.map((widget) => {
                 const nameWidget = this.widgetService.getName(widget.widgetId);
+                const _minItemCols = WIDGETS[nameWidget]?.minItemCols;
+                const _minItemRows = WIDGETS[nameWidget]?.minItemRows;
                 const result = {
                     x: widget.posX,
                     y: widget.posY,
@@ -179,7 +181,7 @@ export class NewUserSettingsService {
                 };
                 return result;
             });
-            // console.log(this.widgetService.dashboard);
+            console.log(this.widgetService.dashboard);
         });
     }
 

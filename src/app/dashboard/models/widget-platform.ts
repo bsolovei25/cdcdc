@@ -14,8 +14,8 @@ export abstract class WidgetPlatform implements OnDestroy {
 
     protected static itemCols: number = 30;
     protected static itemRows: number = 20;
-    public static minItemCols: number = 5;
-    public static minItemRows: number = 5;
+    protected minItemCols: number = 5;
+    protected minItemRows: number = 5;
 
     protected subscriptions: Subscription[] = [];
 
@@ -31,6 +31,9 @@ export abstract class WidgetPlatform implements OnDestroy {
     }
 
     protected widgetInit(): void {
+
+        this.widgetService.dashboard.find(el => el.widgetUniqId).minItemCols = this.minItemCols;
+        this.widgetService.dashboard.find(el => el.widgetUniqId).minItemRows = this.minItemRows;
         this.subscriptions.push(
             this.widgetService.getWidgetChannel(this.widgetId).subscribe((ref) => {
                 if (ref) {

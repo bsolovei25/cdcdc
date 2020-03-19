@@ -12,7 +12,6 @@ import {
 import { Subscription } from 'rxjs';
 import { NewUserSettingsService } from '../../services/new-user-settings.service';
 import { EventEmitter } from '@angular/core';
-import { Time } from '@angular/common';
 
 @Component({
     selector: 'evj-new-widgets-grid',
