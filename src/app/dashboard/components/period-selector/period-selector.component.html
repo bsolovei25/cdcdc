@@ -12,43 +12,45 @@
     <div class="dates-selector__body">
       <div class="dates-selector__dates">
         <span class="dates-selector__label">c</span>
-        <input
+        <!-- <input
           type="datetime-local"
           class="dates-selector__date-input"
           [class.dates-selector__date-input___disabled]="isCurrent"
           (ngModelChange)="setDateTime($event, 0)"
           [ngModel]="fromDate | date:'yyyy-MM-ddTHH:mm'"
-        />
-        <!-- <mat-form-field>
-          <input matInput [matDatepicker]="dp1" 
-          (dateChange)="setDateTime($event, 0)" 
-          [ngModel]="fromDate" required
-          >
-          <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
-          <mat-datepicker #dp1 ></mat-datepicker>
-        </mat-form-field> -->
+        /> -->
+        <div
+          class="dates-selector__date-choose"
+          [class.dates-selector__date-choose__disabled]="isCurrent"
+          (click)="openDatePicker(0)"
+        >
+          {{ fromDate | date:'yyyy-MM-dd HH:mm' }}
+        </div>
       </div>
 
       <div class="dates-selector__dates">
-        <!--        <input type="date"-->
-        <!--               class="dates-selector__date-input"-->
-        <!--               [class.dates-selector__date-input___disabled]="isCurrent"-->
-        <!--               [ngModel]="fromDate | date:'yyyy-MM-dd'"-->
-        <!--               (ngModelChange)="toDate = $event">-->
-        <!--        <svg-icon class="dates-selector__separator" src="./assets/icons/separator.svg"></svg-icon>-->
         <span class="dates-selector__label">по</span>
-        <input
+        <!-- <input
           type="datetime-local"
           class="dates-selector__date-input"
           [class.dates-selector__date-input___disabled]="isCurrent"
           [ngModel]="toDate | date:'yyyy-MM-ddTHH:mm'"
           (ngModelChange)="setDateTime($event, 1)"
-        />
-        <!-- <mat-form-field>
-          <input matInput [matDatepicker]="dp2" (dateChange)="setDateTime($event, 1)" [ngModel]="toDate" required>
-          <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
-          <mat-datepicker #dp2></mat-datepicker>
-        </mat-form-field> -->
+        /> -->
+        <div
+          class="dates-selector__date-choose"
+          [class.dates-selector__date-choose__disabled]="isCurrent"
+          (click)="openDatePicker(1)"
+        >
+          {{ toDate | date:'yyyy-MM-dd HH:mm' }}
+        </div>
+      </div>
+
+      <div class="dates-selector__picker" [class.dates-selector__picker-open]="datePicker">
+        <evj-time-data-picker
+          [data]="dateNow"
+          (dateTimePicker)="dateTimePickerNew($event)"
+        ></evj-time-data-picker>
       </div>
     </div>
 
