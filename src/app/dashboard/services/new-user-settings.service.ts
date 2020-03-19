@@ -67,7 +67,7 @@ export class NewUserSettingsService {
         this.http
             .post(this.restUrl + '/api/user-management/widget/' + this.ScreenId, updateWidget)
             .subscribe(
-                (ans) => { },
+                (ans) => {},
                 (error) => console.log(error)
             );
     }
@@ -96,7 +96,7 @@ export class NewUserSettingsService {
         this.http
             .put(this.restUrl + '/api/user-management/widget/' + uniqId, updateWidget)
             .subscribe(
-                (ans) => { },
+                (ans) => {},
                 (error) => console.log(error)
             );
     }

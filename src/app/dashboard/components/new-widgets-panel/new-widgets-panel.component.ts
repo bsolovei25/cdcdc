@@ -7,13 +7,14 @@ import {
     EventEmitter,
     OnDestroy,
 } from '@angular/core';
-import { GridsterItem, GridsterConfig, GridType } from 'angular-gridster2';
+import { GridsterConfig, GridType } from 'angular-gridster2';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { Subscription, BehaviorSubject } from 'rxjs';
 import { WIDGETS } from '../new-widgets-grid/widget-map';
 import { WidgetModel } from '../../models/widget.model';
 import { IWidgets } from '../../models/widget.model';
 import { NewUserSettingsService } from '../../services/new-user-settings.service';
+import { ClaimService, EnumClaimWidgets } from '../../services/claim.service';
 
 @Component({
     selector: 'evj-new-widgets-panel',
@@ -22,7 +23,6 @@ import { NewUserSettingsService } from '../../services/new-user-settings.service
     styleUrls: ['./new-widgets-panel.component.scss'],
 })
 export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
-
     public readonly WIDGETS = WIDGETS;
     private subscriptions: Subscription[] = [];
 
@@ -30,8 +30,7 @@ export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
     public options: GridsterConfig;
 
     public widgets$: BehaviorSubject<IWidgets[]> = new BehaviorSubject<IWidgets[]>([]);
-
-    public model: WidgetModel;
+    private claimSettingsWidgets: EnumClaimWidgets[] = [];
 
     _injector: Injector; // TOFIX   Если не нужно то удалить
 
@@ -41,19 +40,20 @@ export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
     constructor(
         public widgetService: NewWidgetService,
         public injector: Injector,
-        public userSettings: NewUserSettingsService
-    ) {
-        this.subscriptions.push(
-            this.widgetService.widgets$.subscribe((dataW) => {
-                this.widgets$.next(dataW);
-            })
-        );
-    }
+        public userSettings: NewUserSettingsService,
+        private claimService: ClaimService
+    ) { }
 
     public ngOnInit(): void {
         this.subscriptions.push(
-            this.widgetService.searchWidgetT.subscribe((data) => {
-                this.widgets$.next(data);
+            this.widgetService.widgets$.subscribe((dataW) => {
+                this.widgets$.next(dataW);
+            }),
+            this.widgetService.searchWidgetT.subscribe((dataW) => {
+                this.widgets$.next(dataW);
+            }),
+            this.claimService.claimWidgets$.subscribe((set) => {
+                this.claimSettingsWidgets = set;
             })
         );
         this.options = {
@@ -64,10 +64,10 @@ export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
             enableEmptyCellDrop: true,
             enableEmptyCellDrag: false,
             enableOccupiedCellDrop: false,
-            emptyCellClickCallback: this.emptyCellClick.bind(this),
-            emptyCellContextMenuCallback: this.emptyCellMenuClick.bind(this),
-            emptyCellDragCallback: this.emptyCellDragClick.bind(this),
-            emptyCellDropCallback: this.emptyCellDropClick.bind(this),
+            // emptyCellClickCallback: this.emptyCellClick.bind(this),
+            // emptyCellContextMenuCallback: this.emptyCellMenuClick.bind(this),
+            // emptyCellDragCallback: this.emptyCellDragClick.bind(this),
+            // emptyCellDropCallback: this.emptyCellDropClick.bind(this),
             emptyCellDragMaxCols: 5000,
             emptyCellDragMaxRows: 1000,
 
@@ -81,42 +81,31 @@ export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
         };
     }
 
-    @Output() onSwap = new EventEmitter<boolean>();
-    @Output() onGrid = new EventEmitter<boolean>();
-    @Output() onViewSise = new EventEmitter<boolean>();
+    @Output() swap: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() grid: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() viewSise: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     changeSwap(): void {
-        let check = <HTMLInputElement>document.getElementById('checkBoxFix');
+        const check = document.getElementById('checkBoxFix') as HTMLInputElement;
         if (check.checked) {
             this.fixWidget = false;
-            this.onSwap.emit(this.fixWidget);
+            this.swap.emit(this.fixWidget);
         } else {
             this.fixWidget = true;
-            this.onSwap.emit(this.fixWidget);
+            this.swap.emit(this.fixWidget);
         }
     }
 
     getGridView(): void {
-        let check = <HTMLInputElement>document.getElementById('checkBoxGrid');
+        const check = document.getElementById('checkBoxGrid') as HTMLInputElement;
         if (check.checked) {
             this.gridWidget = false;
-            this.onGrid.emit(this.gridWidget);
+            this.grid.emit(this.gridWidget);
         } else {
             this.gridWidget = true;
-            this.onGrid.emit(this.gridWidget);
+            this.grid.emit(this.gridWidget);
         }
     }
-
-    /* bigSize() {
-        let check = <HTMLInputElement>document.getElementById('checkBoxView');
-        if (check.checked) {
-            this.swapWidget = false;
-            this.onGrid.emit(this.swapWidget);
-        } else {
-            this.swapWidget = true;
-            this.onGrid.emit(this.swapWidget);
-        }
-    } */
 
     ngOnDestroy(): void {
         if (this.subscriptions) {
@@ -126,35 +115,27 @@ export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
         }
     }
 
-    onToggleClick() {
+    onToggleClick(): void {
         this.active = !this.active;
     }
 
-    dragStartHandler(ev, item) {
-        ev.dataTransfer.setData('text/plain', item);
+    dragStartHandler(event: DragEvent, item: string): void {
+        event.dataTransfer.setData('text/plain', item);
 
-        ev.dataTransfer.dropEffect = 'copy';
+        event.dataTransfer.dropEffect = 'copy';
 
         this.onToggleClick();
     }
 
-    public dataById(index, item): string {
+    public dataById(item): string {
         return item.id;
     }
 
-    changedOptions() {
+    changedOptions(): void {
         if (this.options.api && this.options.api.optionsChanged) {
             this.options.api.optionsChanged();
         }
     }
-
-    emptyCellClick(event: MouseEvent, item: GridsterItem) { }
-
-    emptyCellMenuClick() { }
-
-    emptyCellDragClick() { }
-
-    emptyCellDropClick(event: DragEvent, item: GridsterItem) { }
 
     public getInjector = (idWidget: string): Injector => {
         return Injector.create({
@@ -168,7 +149,7 @@ export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
         });
     };
 
-    removeItem(widgetId: string) {
+    removeItem(widgetId: string): void {
         this.userSettings.removeItem(widgetId);
     }
 }

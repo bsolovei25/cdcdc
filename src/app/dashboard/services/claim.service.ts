@@ -1,40 +1,42 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AppConfigService } from 'src/app/services/appConfigService';
 import { BehaviorSubject } from 'rxjs';
 
 export enum EnumClaimWidgets {
     add = 'add',
-    delete = 'delete',
+    move = 'move',
     resize = 'resize',
-    move = 'move'
+    delete = 'delete',
 }
 export enum EnumClaimScreens {
     add = 'add',
-    delete = 'delete',
     edit = 'edit',
+    delete = 'delete',
 }
-
 @Injectable({
     providedIn: 'root',
 })
 export class ClaimService {
-    private readonly restUrl: string;
-
     public claimWidgets$: BehaviorSubject<EnumClaimWidgets[]> =
         new BehaviorSubject<EnumClaimWidgets[]>([]);
     public claimScreens$: BehaviorSubject<EnumClaimScreens[]> =
         new BehaviorSubject<EnumClaimScreens[]>([]);
 
-    constructor(public http: HttpClient, configService: AppConfigService) {
-        this.restUrl = configService.restUrl;
+    constructor(public http: HttpClient) {
         this.getCliam();
     }
 
     private getCliam(): void {
-        this.claimWidgets$.next([EnumClaimWidgets.add, EnumClaimWidgets.delete,
-        EnumClaimWidgets.move]);
-        this.claimScreens$.next([EnumClaimScreens.add, EnumClaimScreens.delete]);
+        this.claimWidgets$.next([
+            EnumClaimWidgets.delete,
+            EnumClaimWidgets.move,
+            EnumClaimWidgets.resize,
+            EnumClaimWidgets.add
+        ]);
+        this.claimScreens$.next([
+            EnumClaimScreens.add,
+            EnumClaimScreens.edit,
+            EnumClaimScreens.delete
+        ]);
     }
-
 }

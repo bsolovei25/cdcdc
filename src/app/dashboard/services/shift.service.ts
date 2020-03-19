@@ -3,16 +3,13 @@ import {
     Employee,
     ICommentRequired,
     IVerifyWindow,
-    ShiftMember,
     ShiftPass,
     VerifyWindowActions,
 } from '../models/shift.model';
-import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '../../services/appConfigService';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { IUser } from '../models/events-widget';
 
 @Injectable({
@@ -31,29 +28,37 @@ export class ShiftService {
     constructor(
         private http: HttpClient,
         configService: AppConfigService,
-        private snackBar: MatSnackBar
     ) {
         this.restUrl = configService.restUrl;
         this.getShiftInfo();
     }
 
     private async getShiftPassAsync(): Promise<any> {
-        return this.http.get(this.restUrl + '/api/shift').toPromise();
+        try {
+            return await this.http.get(this.restUrl + '/api/shift').toPromise();
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     private async getFreeMembersAsync(id: number): Promise<any> {
-        return this.http.get(this.restUrl + '/api/shift/users/free/' + id.toString()).toPromise();
+        try {
+            return await this.http.get(this.restUrl +
+                '/api/shift/users/free/' + id.toString()).toPromise();
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     private async changePositionAsync(id, idShift): Promise<any> {
         return this.http
             .post(
                 this.restUrl +
-                    '/api/shift/' +
-                    idShift +
-                    '/employee/' +
-                    id.toString() +
-                    '/setresponsible',
+                '/api/shift/' +
+                idShift +
+                '/employee/' +
+                id.toString() +
+                '/setresponsible',
                 null
             )
             .toPromise();
@@ -72,14 +77,14 @@ export class ShiftService {
         return this.http
             .post(
                 this.restUrl +
-                    '/api/shift/' +
-                    idShift +
-                    '/Employee/' +
-                    id +
-                    '/WidgetId/' +
-                    widgetId +
-                    '/ChangeStatus/' +
-                    status,
+                '/api/shift/' +
+                idShift +
+                '/Employee/' +
+                id +
+                '/WidgetId/' +
+                widgetId +
+                '/ChangeStatus/' +
+                status,
                 body
             )
             .toPromise();

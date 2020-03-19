@@ -26,19 +26,23 @@ export interface IParamWidgetsGrid {
     styleUrls: ['./new-widgets-grid.component.scss'],
 })
 export class NewWidgetsGridComponent implements OnInit {
-
     public readonly WIDGETS = WIDGETS;
 
     public fullscreen: boolean = false;
+
+    public isVisiblePanel: boolean = true;
 
     public options: GridsterConfig;
 
     public model: WidgetModel;
 
+    public indexWidget;
     public nameWidget: string;
 
-    public resizeWidget: EventEmitter<{ item: GridsterItem, event: MouseEvent }> =
-        new EventEmitter<{ item: GridsterItem, event: MouseEvent }>();
+    public resizeWidget: EventEmitter<{
+        item: GridsterItem;
+        event: MouseEvent;
+    }> = new EventEmitter<{ item: GridsterItem; event: MouseEvent }>();
 
     private sizeTimeout: any;
 
@@ -56,11 +60,13 @@ export class NewWidgetsGridComponent implements OnInit {
 
     public ngOnInit(): void {
         document.addEventListener('fullscreenchange', () => {
+            console.log(document.fullscreenElement);
             this.fullscreen = document.fullscreenElement ? true : false;
         });
         this.claimService.claimWidgets$.subscribe((value) => {
             if (value) {
                 this.claimSettings = value;
+                this.isVisiblePanel = this.claimSettings.includes(EnumClaimWidgets.add);
                 this.options = null;
                 this.loaditem();
             }
@@ -70,108 +76,53 @@ export class NewWidgetsGridComponent implements OnInit {
 
     private loaditem(): void {
         this.userSettings.GetScreen();
-        if (this.claimSettings.length > 0) {
-            this.options = {
-                gridType: GridType.Fixed,
-                displayGrid: 'none',
-                // swap: true,
-                // swapWhileDragging: false,
-                itemChangeCallback: this.itemChange.bind(this),
-                enableEmptyCellClick: false,
-                enableEmptyCellContextMenu: false,
-                enableEmptyCellDrop: true,
-                enableEmptyCellDrag: false,
-                enableOccupiedCellDrop: false,
-                emptyCellClickCallback: this.emptyCellClick.bind(this),
-                emptyCellContextMenuCallback: this.emptyCellMenuClick.bind(this),
-                emptyCellDragCallback: this.emptyCellDragClick.bind(this),
-                emptyCellDropCallback: this.emptyCellDropClick.bind(this),
-                emptyCellDragMaxCols: 100000,
-                emptyCellDragMaxRows: 100000,
-                itemResizeCallback: this.resizeGridsterElement.bind(this),
-                fixedColWidth: this.ColWidth,
-                fixedRowHeight: this.RowHeight,
-                maxItemCols: 10000,
-                maxItemRows: 10000,
-                minItemCols: 1,
-                minItemRows: 1,
-                maxRows: 100000,
-                maxCols: 100000,
-                pushItems: true,
-                draggable: {
-                    enabled: this.claimSettings.includes(EnumClaimWidgets.move),
-                    stop: this.dragStop.bind(this),
-                    start: this.eventStart.bind(this),
+        this.options = {
+            gridType: GridType.Fixed,
+            displayGrid: 'none',
+            itemChangeCallback: this.itemChange.bind(this),
+            enableEmptyCellClick: false,
+            enableEmptyCellContextMenu: false,
+            enableEmptyCellDrop: this.claimSettings.includes(EnumClaimWidgets.add),
+            enableEmptyCellDrag: false,
+            enableOccupiedCellDrop: false,
+            emptyCellClickCallback: this.emptyCellClick.bind(this),
+            emptyCellContextMenuCallback: this.emptyCellMenuClick.bind(this),
+            emptyCellDragCallback: this.emptyCellDragClick.bind(this),
+            emptyCellDropCallback: this.emptyCellDropClick.bind(this),
+            emptyCellDragMaxCols: 100000,
+            emptyCellDragMaxRows: 100000,
+            itemResizeCallback: this.resizeGridsterElement.bind(this),
+            fixedColWidth: this.ColWidth,
+            fixedRowHeight: this.RowHeight,
+            maxItemCols: 10000,
+            maxItemRows: 10000,
+            minItemCols: 1,
+            minItemRows: 1,
+            maxRows: 100000,
+            maxCols: 100000,
+            pushItems: true,
+            draggable: {
+                enabled: this.claimSettings.includes(EnumClaimWidgets.move),
+                stop: this.dragStop.bind(this),
+                start: this.eventStart.bind(this),
+            },
+            resizable: {
+                delayStart: 0,
+                enabled: this.claimSettings.includes(EnumClaimWidgets.resize),
+                start: this.eventStart.bind(this),
+                stop: this.resizeStop.bind(this),
+                handles: {
+                    s: true,
+                    e: true,
+                    n: true,
+                    w: true,
+                    se: true,
+                    ne: true,
+                    sw: true,
+                    nw: true,
                 },
-                resizable: {
-                    delayStart: 0,
-                    enabled: this.claimSettings.includes(EnumClaimWidgets.resize),
-                    start: this.eventStart.bind(this),
-                    stop: this.resizeStop.bind(this),
-                    handles: {
-                        s: true,
-                        e: true,
-                        n: true,
-                        w: true,
-                        se: true,
-                        ne: true,
-                        sw: true,
-                        nw: true,
-                    },
-                },
-            };
-        } else {
-            this.options = {
-                gridType: GridType.Fixed,
-                displayGrid: 'none',
-                // swap: true,
-                // swapWhileDragging: false,
-                itemChangeCallback: this.itemChange.bind(this),
-                enableEmptyCellClick: false,
-                enableEmptyCellContextMenu: false,
-                enableEmptyCellDrop: true,
-                enableEmptyCellDrag: false,
-                enableOccupiedCellDrop: false,
-                emptyCellClickCallback: this.emptyCellClick.bind(this),
-                emptyCellContextMenuCallback: this.emptyCellMenuClick.bind(this),
-                emptyCellDragCallback: this.emptyCellDragClick.bind(this),
-                emptyCellDropCallback: this.emptyCellDropClick.bind(this),
-                emptyCellDragMaxCols: 100000,
-                emptyCellDragMaxRows: 100000,
-                itemResizeCallback: this.resizeGridsterElement.bind(this),
-                fixedColWidth: this.ColWidth,
-                fixedRowHeight: this.RowHeight,
-                maxItemCols: 10000,
-                maxItemRows: 10000,
-                minItemCols: 1,
-                minItemRows: 1,
-                maxRows: 100000,
-                maxCols: 100000,
-                pushItems: true,
-                draggable: {
-                    enabled: true,
-                    stop: this.dragStop.bind(this),
-                    start: this.eventStart.bind(this),
-                },
-                resizable: {
-                    delayStart: 0,
-                    enabled: true,
-                    start: this.eventStart.bind(this),
-                    stop: this.resizeStop.bind(this),
-                    handles: {
-                        s: true,
-                        e: true,
-                        n: true,
-                        w: true,
-                        se: true,
-                        ne: true,
-                        sw: true,
-                        nw: true,
-                    },
-                },
-            };
-        }
-
+            },
+        };
 
         this.sizeGrid();
     }
@@ -252,7 +203,7 @@ export class NewWidgetsGridComponent implements OnInit {
         itemComponent: GridsterItemComponentInterface,
         event: MouseEvent
     ): void {
-        const widget: { item: GridsterItem, event: MouseEvent } = { item, event };
+        const widget: { item: GridsterItem; event: MouseEvent } = { item, event };
         this.resizeWidget.emit(widget);
     }
 
