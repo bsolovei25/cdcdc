@@ -71,7 +71,7 @@ export class HeaderDataService {
             start: this.startDate,
             end: this.endDate,
             otherMonth: this.otherMonth,
-            hoursStart:  this.hoursStart,
+            hoursStart: this.hoursStart,
             hoursEnd: this.hoursEnd,
             status: this.statusButton,
         };

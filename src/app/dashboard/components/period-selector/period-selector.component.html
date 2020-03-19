@@ -47,7 +47,10 @@
       </div>
 
       <div class="dates-selector__picker" [class.dates-selector__picker-open]="datePicker">
-        <evj-time-data-picker [data]="dateNow" (dateTimePicker)="dateTimePickerNew($event)"></evj-time-data-picker>
+        <evj-time-data-picker
+          [data]="dateNow"
+          (dateTimePicker)="dateTimePickerNew($event)"
+        ></evj-time-data-picker>
       </div>
     </div>
 
