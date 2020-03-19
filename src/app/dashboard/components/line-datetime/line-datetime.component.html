@@ -21,7 +21,9 @@
       <div
         class="line-start"
         [class.eline-not-finish]="(dateFromSelector.otherMonth === 'past') || (dateFromSelector.otherMonth === 'all')"
-      ></div>
+      >
+        <div class="rectangle"></div>
+      </div>
       <div
         class="middle-line"
         [class.mline-not-finish]="(dateFromSelector.otherMonth === 'past') || (dateFromSelector.otherMonth === 'all')"
@@ -30,7 +32,9 @@
       <div
         class="line-end"
         [class.eline-not-finish]="(dateFromSelector.otherMonth === 'future') || (dateFromSelector.otherMonth === 'all')"
-      ></div>
+      >
+      <div class="rectangle"></div>
+    </div>
     </div>
   </ng-container>
 </div>

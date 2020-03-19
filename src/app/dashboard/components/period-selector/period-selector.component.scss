@@ -139,12 +139,13 @@
 
   &__picker-open {
     display: block;
-    margin-top: 15px;
-    right: -11px;
+    margin-top: 7px;
+    right: -10px;
     z-index: 999;
     position: absolute;
     background-color: var(--color-bg-sub);
-    padding: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
     width: 140px;
 
     ::ng-deep {
@@ -185,6 +186,7 @@
       }
 
       .time {
+        font-size: 12px;
         input {
           width: 90% !important;
           background-color: var(--color-bg-sub) !important;
@@ -193,6 +195,7 @@
 
       .date {
         color: white;
+        font-size: 12px;
       }
     }
   }

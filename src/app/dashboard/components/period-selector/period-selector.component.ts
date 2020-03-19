@@ -17,13 +17,17 @@ export class PeriodSelectorComponent implements OnInit {
     public datePicker: boolean = false;
     public datePickerOpen: number;
 
+    public dateNow: Date;
+
     // date = new FormControl();
 
     constructor(private headerData: HeaderDataService, private widgetService: NewWidgetService) {
         this.setDefault();
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.dateNow = new Date();
+    }
 
     setDefault(): void {
         let defaultTime: Date = new Date(Date.now());
@@ -107,6 +111,11 @@ export class PeriodSelectorComponent implements OnInit {
     }
 
     openDatePicker(selectBlock: number): void {
+        if (selectBlock === 0) {
+            this.dateNow = this.fromDate;
+        } else if (selectBlock === 1) {
+            this.dateNow = this.toDate;
+        }
         this.datePicker = !this.datePicker;
         this.datePickerOpen = selectBlock;
     }

@@ -98,26 +98,44 @@ export class LineDatetimeComponent implements OnInit, AfterViewInit, OnDestroy {
         return widthBlock.offsetWidth;
     }
 
-    public searchDate(data, elStart) {
-        let widthBlock = this.widthBlockDataLine();
+    public searchDate(data, elStart): void {
+        const widthBlock = this.widthBlockDataLine();
         let end: number;
+        let onePieLineStart: number;
+        let onePieLineEnd: number;
         if (data.end > this.dates.length) {
             end = this.dates.length;
         } else {
             end = data.end;
         }
 
-        let count = this.dates.length / 100;
-        let countLine = end - data.start + 1;
+        if (data.hoursStart > data.hoursEnd && data.start === data.end) {
+            data.hoursStart = data.hoursEnd;
+        }
 
-        let lineLength = widthBlock * this.dates.length;
-        let pieLine = (widthBlock * 100) / lineLength;
+        const count = this.dates.length / 100;
 
-        let start = end > data.start ? data.start : end;
+        const countLine = end - data.start + 1;
 
-        let positionStartLine = (start - 1) / count - 0.45;
+        const lineLength = widthBlock * this.dates.length;
+        const pieLine = (widthBlock * 100) / lineLength;
+        if (data.hoursStart === '00') {
+            onePieLineStart = 0;
+        } else {
+            onePieLineStart = (pieLine / 24) * +data.hoursStart;
+        }
 
-        let width = pieLine * countLine + 1.1;
+        if (data.hoursEnd === '00') {
+            onePieLineEnd = 0;
+        } else {
+            onePieLineEnd = pieLine - (pieLine / 24) * +data.hoursEnd;
+        }
+
+        const start = end > data.start ? data.start : end;
+
+        const positionStartLine = (start - 1) / count - 0.6 + onePieLineStart;
+
+        const width = pieLine * countLine + 1.2 - onePieLineEnd - onePieLineStart;
 
         this.renderer.removeStyle(elStart.nativeElement, 'left');
         this.renderer.setStyle(elStart.nativeElement, 'left', `${positionStartLine}%`);
