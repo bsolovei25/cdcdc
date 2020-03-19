@@ -1,4 +1,4 @@
-import { IUser } from './events-widget';
+import { IUser, IUnitEvents } from './events-widget';
 import { IWidgets } from './widget.model';
 import { IWorker } from './worker';
 
@@ -37,6 +37,7 @@ export interface IBrigadeAdminPanel {
     brigadeId: number;
     brigadeNumber: string;
     users: IUser[];
+    unit?: IUnitEvents;
 }
 
 export interface IWorkerAdminPanel {

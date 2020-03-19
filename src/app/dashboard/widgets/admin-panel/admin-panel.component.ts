@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { IButtonImgSrc, IBrigadeAdminPanel, IClaim } from '../../models/admin-panel';
 import { AdminPanelService } from '../../services/admin-panel/admin-panel.service';
-import { IUser } from '../../models/events-widget';
+import { IUser, IUnitEvents } from '../../models/events-widget';
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
 
@@ -84,7 +84,10 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
             }),
             this.adminService.getAllScreenClaims().subscribe((data: IClaim[]) => {
                 this.adminService.screenClaims = data;
-            })
+            }),
+            this.adminService
+                .getAllUnits()
+                .subscribe((data: IUnitEvents[]) => (this.adminService.units = data))
         );
     }
 

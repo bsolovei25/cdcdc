@@ -9,7 +9,7 @@ import {
     EnumClaims,
     IWorkspace,
 } from '../../models/admin-panel';
-import { IUser } from '../../models/events-widget';
+import { IUser, IUnitEvents } from '../../models/events-widget';
 
 @Injectable({
     providedIn: 'root',
@@ -42,10 +42,13 @@ export class AdminPanelService {
 
     public activeWorker$: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(this.defaultWorker);
     public activeWorkerScreens$: BehaviorSubject<IScreen[]> = new BehaviorSubject<IScreen[]>(null);
+    public activeWorkerUnit$: BehaviorSubject<IUnitEvents> = new BehaviorSubject<IUnitEvents>(null);
 
     public workers: IUser[] = [];
 
     public brigades: IBrigadeAdminPanel[] = [];
+
+    public units: IUnitEvents[] = [];
 
     public screenClaims: IClaim[] = [];
 
@@ -148,6 +151,18 @@ export class AdminPanelService {
     }
     //#endregion
 
+    //#region UNITS
+    public getAllUnits(): Observable<IUnitEvents[]> {
+        const url: string = `${this.restUrl}/units/all`;
+        return this.http.get<IUnitEvents[]>(url);
+    }
+
+    public getUnitBrigades(unitId: number): Observable<IBrigadeAdminPanel[]> {
+        const url: string = `${this.restUrl}/brigades/unit/${unitId}`;
+        return this.http.get<IBrigadeAdminPanel[]>(url);
+    }
+    //#endregion
+
     // TODO RESERVE WORKER METHOD
     // public getUserByLogin(workerLogin:string):Observable<any>{
     //     const url: string = `${this.restUrl}api/user-management/user?login=${workerLogin}`;
@@ -189,6 +204,7 @@ export class AdminPanelService {
         return 'assets/icons/widgets/admin/default_avatar.svg';
     }
 
+    // TOFIX UNUSED
     // public getFullName(worker: IUser): string {
     //     let returnedString: string = '';
     //     if (worker.lastName && worker.firstName) {
