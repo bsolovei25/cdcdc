@@ -68,7 +68,7 @@
           Доступные рабочие области
         </div>
       </div>
-      <div class="block">
+      <div class="block" *ngIf="!isCreateNewUser">
         <evj-aws-block
           class="block__component"
           [isLockedUser]="false"

@@ -58,5 +58,11 @@
         margin-bottom: 3px;
       }
     }
+
+    &.mat-form-field-disabled {
+      & .mat-form-field-underline {
+        display: none !important;
+      }
+    }
   }
 }

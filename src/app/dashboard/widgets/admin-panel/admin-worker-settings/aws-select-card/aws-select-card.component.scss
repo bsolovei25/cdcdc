@@ -145,11 +145,16 @@
       font-style: italic;
       font-size: 12px;
     }
-  }
-}
 
-::ng-deep {
-  .mat-select-panel:not([class*="mat-elevation-z"]) {
-    background: var(--color-bg-main);
+    &.mat-form-field-disabled {
+      .mat-form-field-underline,
+      .mat-select-arrow {
+        display: none;
+      }
+
+      .mat-select-value {
+        overflow: visible;
+      }
+    }
   }
 }
