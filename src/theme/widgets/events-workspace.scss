@@ -1,9 +1,7 @@
 .mat-select-custom {
   &.mat-select-panel {
     background: var(--color-bg-main) !important;
-
   }
-
 }
 .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
   color: var(--color-text-main) !important;
@@ -46,5 +44,3 @@
 ::-webkit-resizer {
   background-color: #666;
 }
-
-
