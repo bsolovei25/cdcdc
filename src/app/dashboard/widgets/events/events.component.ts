@@ -18,7 +18,7 @@ import { EventService } from '../../services/event.service';
 import { MaterialControllerService } from '../../services/material-controller.service';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { WidgetPlatform } from '../../models/widget-platform';
-import {throttle} from "rxjs/operators";
+import { throttle } from 'rxjs/operators';
 
 @Component({
     selector: 'evj-events',
