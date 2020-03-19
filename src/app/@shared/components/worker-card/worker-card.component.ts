@@ -16,6 +16,10 @@ export class WorkerCardComponent implements OnInit {
     public srcCardNormal: string = 'assets/icons/widgets/admin/card-small.svg';
     public srcCardActive: string = 'assets/icons/widgets/admin/card-small-active.svg';
 
+    public mainWorkerPath: string = 'assets/icons/widgets/admin/responsible_icon.svg';
+    public mainWorkerPathDisable: string =
+        'assets/icons/widgets/admin/responsible_icon-disable.svg';
+
     constructor() {}
 
     public ngOnInit(): void {}
@@ -30,5 +34,16 @@ export class WorkerCardComponent implements OnInit {
         if (this.person) {
             return `${this.person.positionDescription}`;
         }
+    }
+
+    public getPersonBrigade(): string {
+        if (this.person.hasOwnProperty('brigade')) {
+            return `Бригада ${this.person.brigade.number}`;
+        }
+        return `Нет бригады`;
+    }
+
+    public checkPersonResponsibility(): boolean {
+        return this.person.position === 'responsible';
     }
 }
