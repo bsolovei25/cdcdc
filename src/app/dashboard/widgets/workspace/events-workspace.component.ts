@@ -26,6 +26,8 @@ import { DateAdapter } from '@angular/material/core';
 import { AuthService } from '@core/service/auth.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 
+import { ITime } from '../../models/time-data-picker';
+
 @Component({
     selector: 'evj-events-workspace',
     templateUrl: './events-workspace.component.html',
@@ -103,13 +105,18 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     static itemCols: number = 20;
     static itemRows: number = 5;
 
+    dataPicker: boolean = false;
+
+    dateChoose: Date;
+    dateChooseNew: Date;
+
     @ViewChild('input', { static: false }) input: ElementRef;
     @ViewChild('input2', { static: false }) input2: ElementRef;
     @ViewChild('newInput', { static: false }) newInput: ElementRef;
     @ViewChild('newInput2', { static: false }) newInput2: ElementRef;
     @ViewChild('scroll', { static: false }) scroll: ElementRef;
     @ViewChild('scroll2', { static: false }) scroll2: ElementRef;
-
+    @ViewChild('graph') graphWidht: ElementRef;
     @ViewChild('progress', { static: false }) progress: ElementRef;
 
     constructor(
@@ -164,6 +171,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.isLoading = true;
 
         this.resetComponent();
+        this.dataPicker = false;
         this.isNew = false;
 
         if (typeof value !== 'number') {
@@ -174,10 +182,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
                 ' ' +
                 value.fixedBy.lastName;
             this.event = value;
-        }
-
-        if (this.event.graphValues) {
-            this.onSendMessage(true);
+            this.dateChoose = value.deadline;
         }
 
         await this.loadItem(typeof value === 'number' ? value : undefined);
@@ -242,82 +247,64 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.isNewRetrieval = null;
     }
 
-    onSendMessage(graph?): void {
-        if (graph === true) {
+    onSendMessage(): void {
+        if (this.input2.nativeElement.value) {
             const commentInfo = {
-                comment: 'График',
+                comment: this.input2.nativeElement.value,
                 createdAt: new Date(),
                 displayName: this.nameUser,
             };
             this.event.comments.push(commentInfo);
-        } else {
-            if (this.input2.nativeElement.value) {
-                const commentInfo = {
-                    comment: this.input2.nativeElement.value,
-                    createdAt: new Date(),
-                    displayName: this.nameUser,
-                };
-                this.event.comments.push(commentInfo);
-                // this.comments.push(this.input.nativeElement.value);
-                this.input2.nativeElement.value = '';
-                this.dateComment = new Date();
-                setTimeout(() => {
-                    this.scrollCommentBottom();
-                }, 50);
-            } else if (this.input.nativeElement.value) {
-                const factInfo = {
-                    comment: this.input.nativeElement.value,
-                    createdAt: new Date(),
-                    displayName: this.nameUser,
-                };
-                this.event.facts.push(factInfo);
-                this.input.nativeElement.value = '';
-                setTimeout(() => {
-                    this.scrollFactBottom();
-                }, 50);
-            }
+            // this.comments.push(this.input.nativeElement.value);
+            this.input2.nativeElement.value = '';
+            this.dateComment = new Date();
+            setTimeout(() => {
+                this.scrollCommentBottom();
+            }, 50);
+        } else if (this.input.nativeElement.value) {
+            const factInfo = {
+                comment: this.input.nativeElement.value,
+                createdAt: new Date(),
+                displayName: this.nameUser,
+            };
+            this.event.facts.push(factInfo);
+            this.input.nativeElement.value = '';
+            setTimeout(() => {
+                this.scrollFactBottom();
+            }, 50);
         }
     }
 
-    onSendNewMessage(graph?): void {
-        if (graph === true) {
+    onSendNewMessage(): void {
+        if (this.newInput2.nativeElement.value) {
+            if (this.isNewRetrieval.facts === undefined) {
+                this.isNewRetrieval.facts = [];
+            }
+            const factInfo = {
+                comment: this.newInput2.nativeElement.value,
+                createdAt: new Date(),
+                displayName: this.nameUser,
+            };
+            this.isNewRetrieval.facts.push(factInfo);
+            // this.comments.push(this.input.nativeElement.value);
+            this.newInput2.nativeElement.value = '';
+            setTimeout(() => {
+                this.scrollFactBottom();
+            }, 50);
+        } else if (this.newInput.nativeElement.value) {
+            if (this.isNewRetrieval.comments === undefined) {
+                this.isNewRetrieval.comments = [];
+            }
             const commentInfo = {
-                comment: 'График',
+                comment: this.newInput.nativeElement.value,
                 createdAt: new Date(),
                 displayName: this.nameUser,
             };
             this.isNewRetrieval.comments.push(commentInfo);
-        } else {
-            if (this.newInput2.nativeElement.value) {
-                if (this.isNewRetrieval.facts === undefined) {
-                    this.isNewRetrieval.facts = [];
-                }
-                const factInfo = {
-                    comment: this.newInput2.nativeElement.value,
-                    createdAt: new Date(),
-                    displayName: this.nameUser,
-                };
-                this.isNewRetrieval.facts.push(factInfo);
-                // this.comments.push(this.input.nativeElement.value);
-                this.newInput2.nativeElement.value = '';
-                setTimeout(() => {
-                    this.scrollFactBottom();
-                }, 50);
-            } else if (this.newInput.nativeElement.value) {
-                if (this.isNewRetrieval.comments === undefined) {
-                    this.isNewRetrieval.comments = [];
-                }
-                const commentInfo = {
-                    comment: this.newInput.nativeElement.value,
-                    createdAt: new Date(),
-                    displayName: this.nameUser,
-                };
-                this.isNewRetrieval.comments.push(commentInfo);
-                this.newInput.nativeElement.value = '';
-                setTimeout(() => {
-                    this.scrollCommentBottom();
-                }, 50);
-            }
+            this.newInput.nativeElement.value = '';
+            setTimeout(() => {
+                this.scrollCommentBottom();
+            }, 50);
         }
     }
 
@@ -348,7 +335,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
     }
     scrollFactBottom(): void {
-        this.scroll2.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
+        this.scroll2.nativeElement.scrollTop = this.scroll2.nativeElement.scrollHeight;
     }
 
     onEnterPush(event?: any): void {
@@ -361,6 +348,10 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         await this.loadItem();
         this.changeCategory();
         this.isNew = true;
+
+        this.dataPicker = false;
+
+        this.dateChoose = new Date();
 
         this.event = {
             itemNumber: 0,
@@ -401,6 +392,8 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
             graphValues: null,
             isAcknowledged: false,
             unitName: null,
+            facts: [],
+            comments: [],
         };
     }
 
@@ -480,13 +473,22 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     }
 
     formatDate(date: Date): Date {
-        return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+        return new Date(
+            Date.UTC(
+                date.getFullYear(),
+                date.getMonth(),
+                date.getDate(),
+                date.getHours(),
+                date.getMinutes(),
+                date.getSeconds()
+            )
+        );
     }
 
     async saveItem(): Promise<void> {
         this.isLoading = true;
         this.isEditing = false;
-        this.event.deadline = this.formatDate(new Date(this.event.deadline));
+        //  this.event.deadline = this.formatDate(new Date(this.event.deadline));
         console.log(this.event.deadline);
         if (this.isNew) {
             try {
@@ -552,6 +554,10 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     addRetrieval(): void {
         this.changeCategory();
         document.getElementById('overlay-retrieval').style.display = 'block';
+
+        this.dataPicker = false;
+
+        this.dateChooseNew = new Date();
 
         this.isNewRetrieval = {
             itemNumber: 0,
@@ -727,6 +733,10 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.isEditing = true;
     }
 
+    showDateBlock(): void {
+        this.dataPicker = !this.dataPicker;
+    }
+
     progressLine(): void {
         const heightMiddle = this.progress.nativeElement.offsetParent.offsetHeight - 103;
         const countRetAll = this.event.retrievalEvents.length;
@@ -737,5 +747,25 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
             }
         }
         this.progressLineHeight = (heightMiddle / countRetAll) * countRetCompleate;
+    }
+
+    dateTimePicker(data: ITime): void {
+        const time = data.time.split(':');
+        const date = new Date(data.date);
+
+        this.dateChoose = new Date(date.setHours(+time[0], +time[1], +time[2]));
+
+        this.event.deadline = this.dateChoose;
+        this.dataPicker = !data.close;
+    }
+
+    dateTimePickerNew(data: ITime): void {
+        const time = data.time.split(':');
+        const date = new Date(data.date);
+
+        this.dateChooseNew = new Date(date.setHours(+time[0], +time[1], +time[2]));
+
+        this.isNewRetrieval.deadline = this.dateChoose;
+        this.dataPicker = !data.close;
     }
 }

@@ -1,27 +1,33 @@
 ::-webkit-scrollbar {
   width: 1px;
-  height: 3px;
+  height: 4px;
 }
 ::-webkit-scrollbar:vertical {
-  width: 3px;
+  width: 4px;
   height: 100%;
+  border-radius: 40px;
 }
 ::-webkit-scrollbar-track {
-  background-color: #999;
+  border-radius: 40px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  background-color: var(--color-border-unactive);
 }
 ::-webkit-scrollbar-track-piece {
+  border: 1px solid #8c99b2;
+  border-radius: 40px;
   background-color: rgb(27, 30, 39);
 }
 ::-webkit-scrollbar-thumb {
   height: 50px;
-  background-color: #666;
-  border-radius: 10px;
+  background-color: var(--color-border-unactive);
+  border-radius: 40px;
 }
 ::-webkit-scrollbar-corner {
-  background-color: #999;
+  background-color: var(--color-border-unactive);
 }
 ::-webkit-resizer {
-  background-color: #666;
+  background-color: var(--color-border-unactive);
 }
 
 $border-size: 4px;
@@ -47,18 +53,20 @@ $border-size: 4px;
 .container {
   position: relative;
   width: 100%;
-  // height: 100%;
-  // min-width: 970px;
   height: 100%;
   box-sizing: border-box;
-  // padding: 5px;
   margin-bottom: 20px;
-  // padding-right: 7px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   line-height: 24px;
-  // height: 100%;
+}
+
+.container-widget {
+  height: calc(100% - 56px);
+  width: calc(100% - 2px);
+  border-right: 1px dashed var(--color-border-main-transparrent);
+  border-left: 0.5px dashed var(--color-border-main-transparrent);
 }
 
 .mock {
@@ -70,17 +78,16 @@ $border-size: 4px;
 }
 
 .workspace {
+  height: 100%;
   font-family: Tahoma, sans-serif;
   font-size: 12px;
   font-weight: 100;
   color: var(--color-text-sub);
-  width: 100%;
-  height: 100%;
-  padding: 0 25px;
-  margin: 5px 0 2px;
+  width: 99%;
+  width: calc(100% - 15px);
+  padding: 0 8px;
+  margin: 0 auto;
   box-sizing: border-box;
-  border-right: 1px dashed var(--color-border-main-transparrent);
-  border-left: 0.5px dashed var(--color-border-main-transparrent);
   display: flex;
   flex-direction: column;
   position: relative;
@@ -310,6 +317,7 @@ $border-size: 4px;
   }
 
   &__mock {
+    height: 100%;
     display: flex;
     flex: 1;
     border-right: 0.5px dashed var(--color-border-main-transparrent);
@@ -324,7 +332,7 @@ $border-size: 4px;
   mat-form-field {
     box-sizing: border-box;
     width: 100%;
-    padding: 0px 25px;
+    padding: 0px 15px;
     padding-bottom: 0px;
   }
 
@@ -509,8 +517,8 @@ $border-size: 4px;
           display: flex;
           .description_title {
             font-size: 10px;
-            width: 85%;
-            margin-left: 26px;
+            width: 90%;
+            margin-left: 15px;
           }
           .description_button_update {
             margin-left: 5x;
@@ -568,8 +576,8 @@ $border-size: 4px;
             word-wrap: break-word;
             color: white;
             font-size: 12px;
-            margin-left: 26px;
-            width: 80%;
+            margin-left: 15px;
+            width: 90%;
             height: 100%;
 
             textarea {
@@ -623,7 +631,7 @@ $border-size: 4px;
 
       .fact_block {
         height: 30%;
-        min-height: 270px;
+        min-height: 100px;
         margin-top: 15px;
         width: calc(100% - 24px);
         position: relative;
@@ -631,8 +639,8 @@ $border-size: 4px;
         .title_fact_block {
           .title_fact_block_text {
             font-size: 10px;
-            width: 80%;
-            margin-left: 26px;
+            width: 100%;
+            margin-left: 15px;
           }
           height: 30px;
           background: var(--color-bg-card);
@@ -671,7 +679,7 @@ $border-size: 4px;
         }
         .fact_content {
           background: #1d202a;
-          height: 60%;
+          height: calc(100% - 100px);
           overflow: auto;
 
           .fact_new {
@@ -690,13 +698,6 @@ $border-size: 4px;
               width: 70%;
               color: white;
               font-size: 10px;
-            }
-
-            .fact_img {
-              padding-top: 10px;
-              margin-left: 26px;
-              width: 70%;
-              cursor: pointer;
             }
 
             .fact_menu {
@@ -734,10 +735,10 @@ $border-size: 4px;
               }
 
               .fact_info {
-                right: 6px;
                 position: absolute;
                 bottom: 0px;
                 font-size: 9px;
+                right: 10px;
 
                 .fact_info_user {
                   text-align: end;
@@ -749,9 +750,9 @@ $border-size: 4px;
               }
 
               .fact_info_notActive {
-                right: 6px;
                 position: absolute;
                 font-size: 9px;
+                right: 10px;
 
                 .fact_info_user {
                   text-align: end;
@@ -762,6 +763,13 @@ $border-size: 4px;
                 }
               }
             }
+          }
+
+          .fact_img {
+            padding-top: 10px;
+            margin-left: 26px;
+            width: 70%;
+            cursor: pointer;
           }
         }
         .empty {
@@ -794,6 +802,13 @@ $border-size: 4px;
               width: 70%;
               color: white;
               font-size: 10px;
+            }
+
+            .fact_img {
+              padding-top: 10px;
+              margin-left: 26px;
+              width: 70%;
+              cursor: pointer;
             }
 
             .fact_menu {
@@ -831,6 +846,7 @@ $border-size: 4px;
                 position: absolute;
                 bottom: 0px;
                 font-size: 9px;
+                right: 10px;
 
                 .fact_info_user {
                   text-align: end;
@@ -1036,16 +1052,16 @@ $border-size: 4px;
       }
 
       .comments_block {
-        height: 37%;
-        min-height: 170px;
-        margin-top: 7px;
+        height: 35%;
+        min-height: 100px;
+        margin-top: 15px;
         width: calc(100% - 24px);
         position: relative;
         .title_comments_block {
           .title_comments_block_text {
             font-size: 10px;
-            width: 80%;
-            margin-left: 26px;
+            width: 100%;
+            margin-left: 15px;
           }
           height: 30px;
           background: var(--color-bg-card);
@@ -1084,10 +1100,11 @@ $border-size: 4px;
         }
 
         .comments_content {
-          height: 70%;
+          height: calc(100% - 100px);
           overflow: auto;
           background: #1d202a;
           .comment_new {
+            min-height: 18px;
             position: relative;
             display: flex;
             padding-bottom: 10px;
@@ -1106,9 +1123,12 @@ $border-size: 4px;
             }
 
             .comment_img {
-              padding-top: 10px;
+              overflow-wrap: break-word;
+              padding-top: 15px;
               margin-left: 26px;
               width: 70%;
+              color: white;
+              font-size: 10px;
               cursor: pointer;
             }
 
@@ -1149,6 +1169,7 @@ $border-size: 4px;
                 position: absolute;
                 bottom: 0px;
                 font-size: 9px;
+                right: 10px;
 
                 .comment_info_user {
                   text-align: end;
@@ -1402,6 +1423,7 @@ $border-size: 4px;
           width: 50%;
           position: relative;
           background: var(--color-bg-card);
+          display: flex;
 
           ::ng-deep .mat-input-element {
             color: white;
@@ -1443,6 +1465,45 @@ $border-size: 4px;
 
             border-bottom: 0.5px solid var(--color-bg-card);
             background: var(--color-bg-main);
+          }
+
+          .date-info {
+            width: 80%;
+            padding-left: 10px;
+            .deadline-title {
+              font-size: 10px;
+            }
+            .date-deadLine {
+              color: white;
+              width: 100%;
+              height: 100%;
+            }
+          }
+
+          .date-button {
+            width: 11%;
+            height: 100%;
+            top: 14px;
+            right: 4px;
+            position: absolute;
+            cursor: pointer;
+          }
+
+          .date-block {
+            display: none;
+          }
+          .date-block-open {
+            display: block;
+            background-color: var(--color-bg-card);
+            border: 1px solid var(--color-text-sub);
+            width: 100px;
+            position: absolute;
+            z-index: 5;
+            border-radius: 20px;
+            height: 100px;
+            padding-right: 10px;
+            padding-left: 10px;
+            top: 55px;
           }
 
           .deadline_bottom_angles {
@@ -1536,6 +1597,7 @@ $border-size: 4px;
 
             .name_user_info {
               margin-left: 15px;
+              min-width: 150px;
               height: 100%;
               color: white;
               font-size: 11px;
@@ -1576,7 +1638,7 @@ $border-size: 4px;
       .events-correct {
         height: calc(100% - 200px);
         display: flex;
-        min-height: 550px;
+        min-height: 200px;
 
         .events-correct-block {
           padding-right: 10px;
@@ -1609,7 +1671,7 @@ $border-size: 4px;
 
           .events {
             //  max-height: 490px;
-            height: 85%;
+            height: calc(100% - 90px);
             overflow: auto;
             direction: rtl;
             padding-left: 5px;
@@ -1868,14 +1930,17 @@ $border-size: 4px;
   position: fixed;
   display: none;
   width: 100%;
-  height: 100%;
+  height: calc(100% - 45px);
   top: 36px;
   left: 0;
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 2;
+  z-index: 6;
   cursor: pointer;
+
+  overflow: hidden;
+  overflow-x: auto;
 
   .dropdown-dark .dropdown-select {
     color: var(--color-text-main);
@@ -1902,22 +1967,19 @@ $border-size: 4px;
       font-size: 12px;
       font-weight: 100;
       color: var(--color-text-sub);
-      // background-color: var(--color-bg-main);
       min-height: 300px;
-      height: calc(100% - 60px);
-      width: 100%;
+      height: calc(100% - 10px);
+      width: calc(100% - 2px);
       margin: 0 auto;
       margin-top: 5px;
       cursor: default;
       border-radius: 5px;
-      // border: 1px solid var(--color-border-main);
       padding-top: 10px;
 
       section {
         overflow: hidden;
-        min-width: 810px;
+        min-width: 776px;
         min-height: 650px;
-        // overflow: auto;
       }
 
       .workspace {
@@ -1935,7 +1997,7 @@ $border-size: 4px;
         }
 
         &__body {
-          height: calc(100% - 200px);
+          height: calc(100% - 160px);
           &__left {
             padding-left: 20px;
             background-color: var(--color-bg-main);
@@ -1995,10 +2057,134 @@ $border-size: 4px;
 
             .info_block {
               display: contents;
+
               .deadline {
                 margin-top: 10px;
-                // width: 50%;
                 width: 100%;
+                position: relative;
+                background: var(--color-bg-card);
+                display: flex;
+
+                ::ng-deep .mat-input-element {
+                  color: white;
+                }
+
+                &:after {
+                  z-index: 1;
+                  content: "";
+                  position: absolute;
+
+                  top: -4px;
+                  right: -9px;
+
+                  height: 10px;
+                  width: 10px;
+
+                  box-sizing: border-box;
+                  transform-origin: 43% 0;
+                  transform: rotate(45deg);
+
+                  border-bottom: 0.5px solid var(--color-bg-card);
+                  background: var(--color-bg-main);
+                }
+
+                &:before {
+                  z-index: 1;
+                  content: "";
+                  position: absolute;
+
+                  top: -3px;
+                  left: -8px;
+
+                  height: 10px;
+                  width: 10px;
+
+                  box-sizing: border-box;
+                  transform-origin: 43% 0;
+                  transform: rotate(-45deg);
+
+                  border-bottom: 0.5px solid var(--color-bg-card);
+                  background: var(--color-bg-main);
+                }
+
+                .date-info {
+                  width: 100%;
+                  padding-left: 15px;
+                  .deadline-title {
+                    font-size: 10px;
+                  }
+                  .date-deadLine {
+                    color: white;
+                    width: 100%;
+                    height: 100%;
+                  }
+                }
+
+                .date-button {
+                  width: 6%;
+                  height: 100%;
+                  top: 14px;
+                  right: 4px;
+                  position: absolute;
+                  cursor: pointer;
+                }
+
+                .date-block {
+                  display: none;
+                }
+                .date-block-open {
+                  display: block;
+                  background-color: var(--color-bg-card);
+                  border: 1px solid var(--color-text-sub);
+                  width: 100px;
+                  position: absolute;
+                  z-index: 5;
+                  border-radius: 20px;
+                  height: 100px;
+                  padding-right: 10px;
+                  padding-left: 10px;
+                  top: 55px;
+                }
+
+                .deadline_bottom_angles {
+                  &:after {
+                    z-index: 1;
+                    content: "";
+                    position: absolute;
+
+                    bottom: -6px;
+                    right: -9px;
+
+                    height: 10px;
+                    width: 10px;
+
+                    box-sizing: border-box;
+                    transform-origin: 43% 0;
+                    transform: rotate(45deg);
+
+                    border-bottom: 0.5px solid var(--color-bg-card);
+                    background: var(--color-bg-main);
+                  }
+
+                  &:before {
+                    z-index: 1;
+                    content: "";
+                    position: absolute;
+
+                    bottom: -6px;
+                    left: -7px;
+
+                    height: 10px;
+                    width: 10px;
+
+                    box-sizing: border-box;
+                    transform-origin: 43% 0;
+                    transform: rotate(-45deg);
+
+                    border-left: 0.5px solid var(--color-bg-card);
+                    background: var(--color-bg-main);
+                  }
+                }
               }
 
               .place {
@@ -2072,6 +2258,7 @@ $border-size: 4px;
                 overflow: auto;
                 background: #1d202a;
                 .comment_new {
+                  min-height: 18px;
                   position: relative;
                   display: flex;
                   padding-bottom: 10px;
@@ -2131,6 +2318,7 @@ $border-size: 4px;
                       position: absolute;
                       bottom: 0px;
                       font-size: 9px;
+                      right: 10px;
 
                       .comment_info_user {
                         text-align: end;
@@ -2846,69 +3034,67 @@ textarea {
   }
 }
 
-.container {
-  ::ng-deep {
-    .cdk-overlay-container {
-      ::-webkit-scrollbar {
-        width: 1px;
-        height: 10px;
-      }
-      ::-webkit-scrollbar:vertical {
-        width: 5px;
-        height: 100%;
-      }
-      ::-webkit-scrollbar-track {
-        background-color: #999;
-      }
-      ::-webkit-scrollbar-track-piece {
-        background-color: rgb(27, 30, 39);
-      }
-      ::-webkit-scrollbar-thumb {
-        height: 50px;
-        background-color: #666;
-        border-radius: 10px;
-      }
-      ::-webkit-scrollbar-corner {
-        background-color: #999;
-      }
-      ::-webkit-resizer {
-        background-color: #666;
-      }
+::ng-deep {
+  .cdk-overlay-container {
+    ::-webkit-scrollbar {
+      width: 1px;
+      height: 10px;
     }
-
-    .mat-form-field-appearance-legacy .mat-form-field-wrapper {
-      padding-bottom: 0.7em !important;
+    ::-webkit-scrollbar:vertical {
+      width: 5px;
+      height: 100%;
     }
-
-    .mat-calendar-body-cell-content {
-      &:hover {
-        background-color: var(--color-border-active);
-      }
+    ::-webkit-scrollbar-track {
+      background-color: #999;
     }
-    .mat-form-field-wrapper {
-      padding-bottom: 1.04375em;
-    }
-
-    .mat-form-field-flex {
-      margin-top: 10px;
-    }
-    .cdk-overlay-pane {
-      margin-top: 45px;
-    }
-
-    .mat-option:hover {
-      background: var(--color-text-sub);
-    }
-
-    .ng-tns-c39-2 {
-      font-size: 15px;
-    }
-
-    .mat-datepicker-popup {
+    ::-webkit-scrollbar-track-piece {
       background-color: rgb(27, 30, 39);
-      margin-left: -73px;
-      margin-top: 9px;
     }
+    ::-webkit-scrollbar-thumb {
+      height: 50px;
+      background-color: #666;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-corner {
+      background-color: #999;
+    }
+    ::-webkit-resizer {
+      background-color: #666;
+    }
+  }
+
+  .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+    padding-bottom: 0.7em !important;
+  }
+
+  .mat-calendar-body-cell-content {
+    &:hover {
+      background-color: var(--color-border-active);
+    }
+  }
+  .mat-form-field-wrapper {
+    padding-bottom: 1.04375em;
+  }
+
+  .mat-form-field-flex {
+    margin-top: 10px;
+  }
+  .cdk-overlay-pane {
+    margin-top: 45px;
+  }
+
+  .mat-option:hover {
+    background: var(--color-text-sub);
+  }
+
+  .ng-tns-c39-2 {
+    font-size: 15px;
+  }
+
+  .mat-datepicker-popup {
+    background-color: rgb(27, 30, 39);
+    margin-left: -73px;
+    margin-top: 9px;
   }
 }
 
