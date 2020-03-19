@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HeaderDataService } from '../../services/header-data.service';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { FormControl } from '@angular/forms';
+import { ITime } from '../../models/time-data-picker';
 
 @Component({
     selector: 'evj-period-selector',
@@ -12,6 +13,9 @@ export class PeriodSelectorComponent implements OnInit {
     public toDate: Date;
     public fromDate: Date;
     public isCurrent: boolean;
+
+    public datePicker: boolean = false;
+    public datePickerOpen: number;
 
     // date = new FormControl();
 
@@ -100,5 +104,25 @@ export class PeriodSelectorComponent implements OnInit {
             console.log(dates);
             this.widgetService.currentDatesObservable.next(dates);
         }
+    }
+
+    openDatePicker(selectBlock: number): void {
+        this.datePicker = !this.datePicker;
+        this.datePickerOpen = selectBlock;
+    }
+
+    dateTimePickerNew(data: ITime): void {
+        const time = data.time.split(':');
+        const date = new Date(data.date);
+
+        if (this.datePickerOpen === 0) {
+            this.fromDate = new Date(date.setHours(+time[0], +time[1], +time[2]));
+        } else if (this.datePickerOpen === 1) {
+            this.toDate = new Date(date.setHours(+time[0], +time[1], +time[2]));
+        }
+
+        this.datePicker = !data.close;
+
+        this.headerData.catchDefaultDate(this.fromDate, this.toDate, this.isCurrent);
     }
 }

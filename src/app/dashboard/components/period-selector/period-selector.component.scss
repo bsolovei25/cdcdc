@@ -80,7 +80,6 @@
   position: relative;
   display: flex;
   align-items: center;
-
   height: 43px;
   padding: 6px 10px 7.8px 7.5px;
   font-size: 0.625rem;
@@ -93,7 +92,7 @@
     //new
     // height: 50px;
     //
-    margin-right: 17px;
+    //margin-right: 17px;
   }
 
   &__heading {
@@ -132,6 +131,87 @@
     //
     margin-top: 5px;
     margin-right: 5px;
+  }
+
+  &__picker{
+    display: none;
+  }
+
+  &__picker-open{
+    display: block;
+    margin-top: 15px;
+    right: -11px;
+    z-index: 999;
+    position: absolute;
+    background-color: var(--color-bg-sub);
+    padding: 5px;
+    width: 140px;
+
+    ::ng-deep {
+      .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+        padding-bottom: 0.7em !important;
+      }
+    
+      .mat-calendar-body-cell-content {
+        &:hover {
+          background-color: var(--color-border-active);
+        }
+      }
+      .mat-form-field-wrapper {
+        padding-bottom: 1.04375em;
+      }
+    
+      .mat-form-field-flex {
+        margin-top: 10px;
+      }
+      .cdk-overlay-pane {
+        margin-top: 45px;
+      }
+    
+      .mat-option:hover {
+        background: var(--color-text-sub);
+      }
+    
+      .ng-tns-c39-2 {
+        font-size: 15px;
+      }
+
+      .mat-form-field-underline{
+        display: none;
+      }
+
+      .mat-form-field-underline{
+        border-top: none;
+      }
+
+      .time{
+        input{
+          width: 90% !important;
+          background-color: var(--color-bg-sub) !important;
+        }
+      } 
+
+      .date{
+        color: white;
+      }
+
+    }
+  }
+
+  &__date-choose{
+    min-width: 85px;
+    margin-top: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+
+    &:hover{
+      color: white;
+    }
+
+    &__disabled{
+      pointer-events: none;
+      color: var(--color-text-sub-heading);
+    }
   }
 
   &__separator {
@@ -187,6 +267,7 @@
       border-top: 0.5px solid var(--color-border-active);
     }
   }
+
 }
 
 ::-webkit-inner-spin-button {
@@ -203,3 +284,8 @@
     background: transparent;
   }
 }
+
+::ng-deep .mat-datepicker-popup {
+  margin-top: -5px !important;
+}
+
