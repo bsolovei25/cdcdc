@@ -69,11 +69,11 @@ export class ShiftService {
         return this.http
             .post(
                 this.restUrl +
-                '/api/shift/' +
-                idShift +
-                '/employee/' +
-                id.toString() +
-                '/setresponsible',
+                    '/api/shift/' +
+                    idShift +
+                    '/employee/' +
+                    id.toString() +
+                    '/setresponsible',
                 null
             )
             .toPromise();
@@ -92,14 +92,14 @@ export class ShiftService {
         return this.http
             .post(
                 this.restUrl +
-                '/api/shift/' +
-                idShift +
-                '/Employee/' +
-                id +
-                '/WidgetId/' +
-                widgetId +
-                '/ChangeStatus/' +
-                status,
+                    '/api/shift/' +
+                    idShift +
+                    '/Employee/' +
+                    id +
+                    '/WidgetId/' +
+                    widgetId +
+                    '/ChangeStatus/' +
+                    status,
                 body
             )
             .toPromise();
