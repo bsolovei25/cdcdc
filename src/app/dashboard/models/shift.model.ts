@@ -36,6 +36,7 @@ export interface ShiftPass {
     id: number;
     passingShift: Shift;
     acceptingShift: Shift;
+    unitId: number;
 }
 
 export interface ShiftComment {
@@ -54,8 +55,10 @@ export interface ICommentRequired {
 export interface IVerifyWindow {
     action: VerifyWindowActions;
     widgetId: string;
+    type?: VerifyWindowType;
     verifyId?: number;
     user?: IUser;
+    message?: string;
     result?: boolean;
 }
 
@@ -77,3 +80,4 @@ export type ShiftStatus =
     | 'passedConfirm';
 
 export type VerifyWindowActions = 'open' | 'close';
+export type VerifyWindowType = 'usb' | 'card' | null;

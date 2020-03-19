@@ -119,6 +119,7 @@ import { PetroleumUnityInfoComponent } from './widgets/petroleum-products-moveme
 import { AwsCheckboxCardComponent } from './widgets/admin-panel/admin-worker-settings/aws-checkbox-card/aws-checkbox-card.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AwsBlockComponent } from './widgets/admin-panel/admin-worker-settings/aws-block/aws-block.component';
+import { UsbVerifierComponent } from './widgets/change-shift/usb-verifier/usb-verifier.component';
 import { TimeDataPickerComponent } from './components/time-data-picker/time-data-picker.component';
 
 @NgModule({
@@ -225,6 +226,7 @@ import { TimeDataPickerComponent } from './components/time-data-picker/time-data
         PetroleumUnityInfoComponent,
         AwsCheckboxCardComponent,
         AwsBlockComponent,
+        UsbVerifierComponent,
         TimeDataPickerComponent,
     ],
     entryComponents: [

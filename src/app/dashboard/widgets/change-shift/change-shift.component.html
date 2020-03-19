@@ -17,14 +17,23 @@
 
   <evj-frame-top></evj-frame-top>
   <div style="position: relative; height: 100%">
-    <ng-container *ngIf="currentShift">
+    <ng-container *ngIf="true">
       <div
-        *ngIf="isWindowVerifyActive"
+        *ngIf="isWindowCardVerifyActive"
         (mousedown)="$event.stopPropagation()"
         (touchstart)="$event.stopPropagation()"
       >
         <div class="shadow-panel"></div>
         <evj-card-verifier [verifyInfo]="verifyInfo"></evj-card-verifier>
+      </div>
+
+      <div
+        *ngIf="isWindowUsbVerifyActive"
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
+      >
+        <div class="shadow-panel"></div>
+        <evj-usb-verifier [verifyInfo]="verifyInfo"></evj-usb-verifier>
       </div>
 
       <div
@@ -87,6 +96,7 @@
                   [onShift]="true"
                   [isPresent]="true"
                   [currentShift]="this.currentShift"
+                  [unitId]="unitId"
                 ></evj-shift-person>
               </div>
             </div>
@@ -94,9 +104,11 @@
               <div class="allPeople__scroll scroll-bar">
                 <div *ngFor="let person of this.addingShiftMembers">
                   <evj-shift-person
+                    [widgetId]="widgetId"
                     [person]="person"
                     [shiftId]="currentShift.id"
                     [onShift]="false"
+                    [unitId]="unitId"
                   ></evj-shift-person>
                 </div>
               </div>
@@ -117,6 +129,7 @@
                   [currentBrigade]="currentShift?.brigade?.id"
                   [currentShift]="currentShift"
                   [isPresent]="false"
+                  [unitId]="unitId"
                 ></evj-shift-person>
               </div>
             </div>

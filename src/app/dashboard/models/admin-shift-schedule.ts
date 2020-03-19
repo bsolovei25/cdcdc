@@ -45,3 +45,11 @@ export interface IBrigadeWithUsersDto {
     brigadeNumber: string;
     users: IUser[];
 }
+
+export interface IUnits {
+    id: number;
+    name: string;
+    createdAt: Date;
+    createdById: number;
+    synonyms: IUnits[];
+}
