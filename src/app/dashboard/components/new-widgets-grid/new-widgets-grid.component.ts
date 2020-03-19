@@ -54,8 +54,6 @@ export class NewWidgetsGridComponent implements OnInit {
             this.fullscreen = document.fullscreenElement ? true : false;
         });
 
-        // document.getElementById('gridSize').onresize = console.log('resize');
-
         this.userSettings.GetScreen();
 
         this.options = {
@@ -80,6 +78,7 @@ export class NewWidgetsGridComponent implements OnInit {
             fixedRowHeight: this.RowHeight,
             maxItemCols: 10000,
             maxItemRows: 10000,
+            maxItemArea: 1000000, // FIX максимальный размер виджета
             minItemCols: 1,
             minItemRows: 1,
             maxRows: 100000,
@@ -136,22 +135,22 @@ export class NewWidgetsGridComponent implements OnInit {
         console.log(this.RowHeight + ' ' + this.ColWidth);
     }
 
-    public resizeGridsterElement() {
+    public resizeGridsterElement(): void {
         const event = new CustomEvent('resize');
         document.dispatchEvent(event);
     }
 
-    public itemChange(item: GridsterItem, itemComponent: GridsterItemComponentInterface) {
+    public itemChange(item: GridsterItem, itemComponent: GridsterItemComponentInterface): void {
         this.userSettings.updateByPosition(item, itemComponent.$item);
     }
 
-    public onSwap(swap: any) {
+    public onSwap(swap: any): void {
         swap === true ? (this.options.swap = true) : (this.options.swap = false);
         swap === true ? (this.options.pushItems = true) : (this.options.pushItems = false);
         this.changedOptions();
     }
 
-    public onGrid(grid: any) {
+    public onGrid(grid: any): void {
         grid === true
             ? (this.options.displayGrid = 'none')
             : (this.options.displayGrid = DisplayGrid.Always);
@@ -195,7 +194,7 @@ export class NewWidgetsGridComponent implements OnInit {
         this.widgetService.draggingItem = item;
     }
 
-    public dragStop(item: GridsterItem, e: MouseEvent) {
+    public dragStop(item: GridsterItem, e: MouseEvent): void {
         /*  if (!e) return;
     const dataTrasfer = new DataTransfer();
     e.currentTarget.dispatchEvent(new DragEvent('dragstop', { dataTransfer: dataTrasfer }));
