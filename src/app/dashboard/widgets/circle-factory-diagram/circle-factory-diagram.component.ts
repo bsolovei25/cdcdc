@@ -15,8 +15,8 @@ export class CircleFactoryDiagramComponent extends WidgetPlatform
 
     public readonly RADIUS: number = 42;
 
-    protected static itemCols: number = 12;
-    protected static itemRows: number = 8;
+    public static itemCols: number = 12;
+    public static itemRows: number = 8;
 
     public clicked: boolean = false;
 

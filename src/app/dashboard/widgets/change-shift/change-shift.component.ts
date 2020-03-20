@@ -53,8 +53,8 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
 
     public unitId: number = null;
 
-    protected static itemCols: number = 16;
-    protected static itemRows: number = 30;
+    public static itemCols: number = 16;
+    public static itemRows: number = 30;
 
     constructor(
         protected widgetService: NewWidgetService,
