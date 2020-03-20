@@ -8,8 +8,21 @@
   <div class="text">{{workspace.screenName}}</div>
   <div class="select" *ngIf="isActive">
     <mat-form-field>
-      <mat-select [value]="'Только чтение'">
-        <mat-option *ngFor="let item of getValuesSelect()" [value]="item">{{item}}</mat-option>
+      <mat-label>Права</mat-label>
+      <mat-select
+        [formControl]="selectFormControl"
+        multiple
+        (selectionChange)="onChangeSelect()"
+        panelClass="admin-panel-select"
+      >
+        <mat-select-trigger>
+          {{selectFormControl.value ? selectFormControl.value[selectFormControl.value.length - 1] :
+          ''}}
+          <span *ngIf="selectFormControl.value?.length > 1" class="example-additional-selection">
+            (+{{selectFormControl.value.length - 1}})
+          </span>
+        </mat-select-trigger>
+        <mat-option *ngFor="let claim of getValuesSelect()" [value]="claim">{{claim}}</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
