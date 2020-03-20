@@ -213,7 +213,7 @@ export class ShiftService {
     ): Promise<void> {
         const obj = await this.changeStatusAsync(status, id, idShift, widgetId, msg);
         this.getShiftInfo(unitId);
-        if (obj.actionType === 'confirmed') {
+        if (obj?.actionType === 'confirmed') {
             this.actionVerifyWindow('open', 'card', widgetId, null, null, obj.confirmId, obj.user);
         }
     }
