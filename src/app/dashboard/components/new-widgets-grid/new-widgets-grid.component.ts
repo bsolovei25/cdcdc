@@ -96,6 +96,7 @@ export class NewWidgetsGridComponent implements OnInit {
             fixedRowHeight: this.RowHeight,
             maxItemCols: 10000,
             maxItemRows: 10000,
+            maxItemArea: 1000000, // FIX максимальный размер виджета
             minItemCols: 1,
             minItemRows: 1,
             maxRows: 100000,

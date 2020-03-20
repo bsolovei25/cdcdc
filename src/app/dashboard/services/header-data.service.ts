@@ -21,6 +21,8 @@ export class HeaderDataService {
     public statusButton;
     public monthStart;
     public monthEnd;
+    public hoursStart;
+    public hoursEnd;
     public otherMonth: string;
 
     // public dateToLine = {};
@@ -45,6 +47,8 @@ export class HeaderDataService {
         this.endDate = datePipe.transform(end, 'dd');
         this.monthStart = datePipe.transform(start, 'yyyyMM');
         this.monthEnd = datePipe.transform(end, 'yyyyMM');
+        this.hoursStart = datePipe.transform(start, 'HH');
+        this.hoursEnd = datePipe.transform(end, 'HH');
 
         this.monthStart !== defaultMonth && this.monthEnd !== defaultMonth
             ? ((this.startDate = '01'), (this.endDate = '31'), (this.otherMonth = 'all'))
@@ -67,6 +71,8 @@ export class HeaderDataService {
             start: this.startDate,
             end: this.endDate,
             otherMonth: this.otherMonth,
+            hoursStart: this.hoursStart,
+            hoursEnd: this.hoursEnd,
             status: this.statusButton,
         };
         this.localDate$.next(dateTo);

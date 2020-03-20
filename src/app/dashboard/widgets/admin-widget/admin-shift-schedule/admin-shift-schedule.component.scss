@@ -247,6 +247,12 @@ p {
   border-radius: 25px;
   z-index: 999;
 }
+:hover::-webkit-scrollbar {
+  width: 8px;
+  height: 5px;
+  border-radius: 25px;
+  z-index: 999;
+}
 ::-webkit-scrollbar-track {
   border-radius: 25px;
   margin: 20px;

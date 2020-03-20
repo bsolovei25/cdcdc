@@ -38,16 +38,22 @@ export class NewUserSettingsService {
     public widgetInfo: NewUserGrid;
 
     public addCellByPosition(idWidget: string, nameWidget: string, param: IParamWidgetsGrid) {
+        console.log('widget: ' + WIDGETS[nameWidget]);
         const uniqId = this.create_UUID();
+        console.log(WIDGETS[nameWidget].minItemCols);
         this.widgetService.dashboard.push({
             x: param.x,
             y: param.y,
             cols: WIDGETS[nameWidget].itemCols,
             rows: WIDGETS[nameWidget].itemRows,
+            minItemCols: WIDGETS[nameWidget].minItemCols,
+            minItemRows: WIDGETS[nameWidget].minItemRows,
             id: idWidget,
             uniqid: uniqId,
             widgetType: nameWidget,
         });
+
+        console.log(WIDGETS[nameWidget]);
         this.addWidgetApi(uniqId);
     }
 
@@ -103,11 +109,13 @@ export class NewUserSettingsService {
 
     public updateByPosition(oldItem, newItem) {
         for (const item of this.widgetService.dashboard) {
-            if (item.uniqid == oldItem.uniqid) {
+            if (item.uniqid === oldItem.uniqid) {
                 item.x = newItem.x;
                 item.y = newItem.y;
                 item.rows = newItem.rows;
                 item.cols = newItem.cols;
+                item.minItemCols = newItem.minItemCols;
+                item.maxItemRows = newItem.maxItemRows;
             }
         }
         this.updateWidgetApi(oldItem.uniqid);
@@ -154,15 +162,22 @@ export class NewUserSettingsService {
         return this.LoadScreenAsync(id, true).subscribe((item: ScreenSettings) => {
             this.ScreenId = item.id;
             this.ScreenName = item.screenName;
-            this.widgetService.dashboard = item.widgets.map((x) => ({
-                x: x.posX,
-                y: x.posY,
-                cols: x.sizeX,
-                rows: x.sizeY,
-                id: x.widgetId,
-                widgetType: x.widgetType,
-                uniqid: x.uniqueId,
-            }));
+            this.widgetService.dashboard = item.widgets.map((widget) => {
+                const nameWidget = this.widgetService.getName(widget.widgetId);
+                const result = {
+                    x: widget.posX,
+                    y: widget.posY,
+                    cols: widget.sizeX,
+                    rows: widget.sizeY,
+                    minItemCols: WIDGETS[nameWidget]?.minItemCols,
+                    minItemRows: WIDGETS[nameWidget]?.minItemRows,
+                    id: widget.widgetId,
+                    widgetType: widget.widgetType,
+                    uniqid: widget.uniqueId,
+                };
+                return result;
+            });
+            // console.log(this.widgetService.dashboard);
         });
     }
 

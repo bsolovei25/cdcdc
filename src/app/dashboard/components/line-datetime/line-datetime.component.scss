@@ -65,15 +65,41 @@
 }
 
 .line-start {
+  position: relative;
   width: 8px;
-  background-image: url(/assets/pic/Header/start.svg);
-  background-repeat: no-repeat;
+  border-right: 1px solid var(--color-border-active);
+
+  .rectangle {
+    position: absolute;
+    &::after {
+      content: "";
+      position: absolute;
+      right: -6px;
+      top: 23px;
+      border: 10px solid transparent;
+      border: 8px solid transparent;
+      border-right: 5px solid var(--color-border-active);
+    }
+  }
 }
 
 .line-end {
+  position: relative;
   width: 8px;
-  background-image: url(/assets/pic/Header/end.svg);
-  background-repeat: no-repeat;
+  border-left: 1px solid var(--color-border-active);
+
+  .rectangle {
+    position: absolute;
+    &::after {
+      content: "";
+      position: absolute; /* Абсолютное позиционирование */
+      right: -13px;
+      top: 23px;
+      border: 10px solid transparent;
+      border: 8px solid transparent;
+      border-left: 5px solid var(--color-border-active);
+    }
+  }
 }
 
 .eline-not-finish {

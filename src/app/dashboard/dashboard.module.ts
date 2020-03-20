@@ -12,7 +12,7 @@ import { DashboardComponent } from './pages/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 import { EventsComponent } from './widgets/events/events.component';
 import { ManualInputComponent } from './widgets/manual-input/manual-input.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LineDiagramComponent } from './widgets/line-diagram/line-diagram.component';
 import { LineDatetimeComponent } from './components/line-datetime/line-datetime.component';
 import { ShiftPersonComponent } from './widgets/change-shift/shift-person/shift-person.component';
@@ -115,6 +115,10 @@ import { OperationScreenComponent } from './widgets/petroleum-products-movement/
 import { OperationParkScreenComponent } from './widgets/petroleum-products-movement/petroleum-reference/operation-park-screen/operation-park-screen.component';
 import { InfoScreenComponent } from './widgets/petroleum-products-movement/petroleum-reference/info-screen/info-screen.component';
 import { PetroleumUnityInfoComponent } from './widgets/petroleum-products-movement/petroleum-unity-info/petroleum-unity-info.component';
+import { AwsCheckboxCardComponent } from './widgets/admin-panel/admin-worker-settings/aws-checkbox-card/aws-checkbox-card.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { AwsBlockComponent } from './widgets/admin-panel/admin-worker-settings/aws-block/aws-block.component';
+import { UsbVerifierComponent } from './widgets/change-shift/usb-verifier/usb-verifier.component';
 import { TimeDataPickerComponent } from './components/time-data-picker/time-data-picker.component';
 
 @NgModule({
@@ -219,6 +223,9 @@ import { TimeDataPickerComponent } from './components/time-data-picker/time-data
         OperationParkScreenComponent,
         InfoScreenComponent,
         PetroleumUnityInfoComponent,
+        AwsCheckboxCardComponent,
+        AwsBlockComponent,
+        UsbVerifierComponent,
         TimeDataPickerComponent,
     ],
     entryComponents: [
@@ -289,6 +296,8 @@ import { TimeDataPickerComponent } from './components/time-data-picker/time-data
         MatSelectModule,
         ScrollingModule,
         OldScrollingModule,
+        ReactiveFormsModule,
+        MatCheckboxModule,
     ],
     bootstrap: [],
     providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }],
