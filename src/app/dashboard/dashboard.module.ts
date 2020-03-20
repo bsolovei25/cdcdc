@@ -26,7 +26,6 @@ import { WidgetHeaderComponent } from './components/widget-header/widget-header.
 import { EventsWorkSpaceComponent } from './widgets/workspace/events-workspace.component';
 import { FrameTopComponent } from './components/frame-top/frame-top.component';
 import { FrameBottomComponent } from './components/frame-bottom/frame-bottom.component';
-import { ClickOutsideModule } from 'ng-click-outside';
 import { TruncatedPieFirstComponent } from './widgets/truncated-pie-first/truncated-pie-first/truncated-pie-first.component';
 import { TruncatedPieSFirstComponent } from './widgets/truncated-pie-first/truncated-pie-s-first/truncated-pie-s-first.component';
 import { TruncatedPieSIconComponent } from './widgets/truncated-pie-icon/truncated-pie-s-icon/truncated-pie-s-icon.component';
@@ -287,7 +286,6 @@ import { TimeDataPickerComponent } from './components/time-data-picker/time-data
         HttpClientModule,
         FormsModule,
         GridsterModule,
-        ClickOutsideModule,
         DashboardRoutingModule,
         MatSnackBarModule,
         MatDatepickerModule,
