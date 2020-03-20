@@ -159,6 +159,6 @@
   <evj-aws-avatar
     class="admin__popup"
     [ngClass]="{'admin__popup_active':isPopUpShowing}"
-    (closePopUp)="isPopUpShowing=false"
+    (closePopUp)="onClosePopUp($event)"
   ></evj-aws-avatar>
 </div>

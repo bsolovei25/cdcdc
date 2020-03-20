@@ -7,6 +7,7 @@ import { fillDataShape } from '../../../../@shared/common-functions';
 import { IBrigade } from '../../../models/shift.model';
 import { MaterialControllerService } from '../../../services/material-controller.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { base64ToFile } from 'ngx-image-cropper';
 
 @Component({
     selector: 'evj-admin-worker-settings',
@@ -36,6 +37,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     public worker: IUser = null;
     public workerUnit: IUnitEvents = null;
+    private workerPhoto: Blob = null;
 
     public allWorkspaces: IWorkspace[] = [];
     public workerScreens: IWorkspace[] = [];
@@ -250,6 +252,13 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
         if (this.worker.hasOwnProperty('brigade')) {
             delete this.worker.brigade;
+        }
+    }
+
+    public onClosePopUp(event: string): void {
+        this.isPopUpShowing = false;
+        if (event) {
+            this.workerPhoto = base64ToFile(event);
         }
     }
 
