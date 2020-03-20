@@ -367,6 +367,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         if (this.isCheckBoxClicked && this.checkForRequiredFields()) {
             try {
                 this.worker.displayName = this.adminService.generateDisplayName(this.worker);
+                this.worker.photoId = await this.adminService.pushWorkerPhoto(this.workerPhoto); // TODO
                 this.isCreateNewUser ? await this.onCreateNewWorker() : await this.onEditWorker();
                 if (this.isWorkerResponsible) {
                     await this.adminService.setUserResponsible(this.worker.id).toPromise();
