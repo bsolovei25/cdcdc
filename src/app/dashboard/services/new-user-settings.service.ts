@@ -171,8 +171,8 @@ export class NewUserSettingsService {
                 const result = {
                     x: widget.posX,
                     y: widget.posY,
-                    cols: widget.sizeX,
-                    rows: widget.sizeY,
+                    cols: widget.sizeX < _minItemCols ? _minItemCols : widget.sizeX,
+                    rows: widget.sizeY < _minItemRows ? _minItemRows : widget.sizeY,
                     minItemCols: _minItemCols,
                     minItemRows: _minItemRows,
                     id: widget.widgetId,
