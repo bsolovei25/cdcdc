@@ -32,6 +32,8 @@ export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
     public widgets$: BehaviorSubject<IWidgets[]> = new BehaviorSubject<IWidgets[]>([]);
     private claimSettingsWidgets: EnumClaimWidgets[] = [];
 
+    isWidgets: boolean = true;
+
     _injector: Injector; // TOFIX   Если не нужно то удалить
 
     public gridWidget: boolean = true;
@@ -42,7 +44,7 @@ export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
         public injector: Injector,
         public userSettings: NewUserSettingsService,
         private claimService: ClaimService
-    ) {}
+    ) { }
 
     public ngOnInit(): void {
         this.subscriptions.push(
@@ -115,8 +117,11 @@ export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
         }
     }
 
-    onToggleClick(): void {
+    onToggleClick(buttonName?: string): void {
         this.active = !this.active;
+        if (buttonName) {
+            this.isWidgets = buttonName === 'widgets' && this.active ? true : false;
+        }
     }
 
     dragStartHandler(event: DragEvent, item: string): void {

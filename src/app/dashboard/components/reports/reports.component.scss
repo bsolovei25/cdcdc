@@ -1,0 +1,47 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 40px;
+
+  &-header {
+    width: 100%;
+    display: flex;
+    border-radius: 7px;
+    justify-content: space-between;
+    background: rgb(33, 36, 45);
+    background: linear-gradient(
+      90deg,
+      rgba(33, 36, 45, 1) 0%,
+      rgba(33, 36, 45, 0.5746673669467788) 47%,
+      rgba(20, 0, 10, 0) 85%,
+      rgba(20, 0, 0, 0) 100%
+    );
+    &--active {
+      background: rgb(63, 169, 245);
+      background: linear-gradient(
+        90deg,
+        rgba(63, 169, 245, 1) 0%,
+        rgba(40, 92, 133, 1) 31%,
+        rgba(22, 32, 48, 1) 79%,
+        rgba(19, 23, 34, 1) 100%
+      );
+    }
+    &__text {
+      margin-left: 20px;
+    }
+    &__icon {
+      margin: auto 0;
+      margin-right: 20px;
+      &__active {
+        fill: rgb(62, 170, 248);
+      }
+    }
+    &.mat-expanded:hover {
+      background-color: red;
+    }
+  }
+  &-body {
+    margin: 0px 35px;
+  }
+}

@@ -1,62 +1,91 @@
 <div class="widgets-panel" [class.widgets-panel_active]="active">
-  <div class="widgets-panel__toggle" (click)="onToggleClick()">
+  <div class="widgets-panel__toggle" (click)="onToggleClick('widgets')">
     <svg-icon
       class="widgets-panel__icon"
       src="./assets/icons/settings.svg"
+      [class.widgets-panel__icon--active]="active && isWidgets"
       [svgStyle]="{ 'width.px':20, 'height.px':20 }"
     ></svg-icon>
   </div>
 
-  <h4 class="widgets-panel__heading">
-    Доступные виджеты
-  </h4>
-  <div class="widget_menu">
-    <label class="mycheckbox">
-      <input
-        type="checkbox"
-        id="checkBoxFix"
-        value="Swap Items"
-        class="mycheckbox__default"
-        (click)="changeSwap()"
-      />
-      <div class="mycheckbox__new" [class.mycheckbox__checked]="!fixWidget"></div>
-      <div class="mycheckbox__descr">Зафиксировать виджеты</div>
-    </label>
-    <label class="mycheckbox">
-      <input
-        type="checkbox"
-        id="checkBoxGrid"
-        value="Swap Items"
-        class="mycheckbox__default"
-        (click)="getGridView()"
-      />
-      <div class="mycheckbox__new" [class.mycheckbox__checked]="!gridWidget"></div>
-      <div class="mycheckbox__descr">Сетка</div>
-    </label>
-    <!--   <label class="mycheckbox">
+  <div class="widgets-panel__toggle__reports" (click)="onToggleClick('reports')">
+    <svg-icon
+      class="widgets-panel__icon__reports"
+      [class.widgets-panel__icon__reports--active]="active && !isWidgets"
+      src="./assets/icons/widgets/widget-panel/reports.svg"
+      [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+    ></svg-icon>
+  </div>
+
+  <ng-container *ngIf="isWidgets">
+    <h4 class="widgets-panel__heading">
+      Доступные виджеты
+    </h4>
+    <div class="widget_menu">
+      <label class="mycheckbox">
+        <input
+          type="checkbox"
+          id="checkBoxFix"
+          value="Swap Items"
+          class="mycheckbox__default"
+          (click)="changeSwap()"
+        />
+        <div class="mycheckbox__new" [class.mycheckbox__checked]="!fixWidget"></div>
+        <div class="mycheckbox__descr">Зафиксировать виджеты</div>
+      </label>
+      <label class="mycheckbox">
+        <input
+          type="checkbox"
+          id="checkBoxGrid"
+          value="Swap Items"
+          class="mycheckbox__default"
+          (click)="getGridView()"
+        />
+        <div class="mycheckbox__new" [class.mycheckbox__checked]="!gridWidget"></div>
+        <div class="mycheckbox__descr">Сетка</div>
+      </label>
+      <!--   <label class="mycheckbox">
     <input type="checkbox" id="checkBoxView" value="Swap Items" class="mycheckbox__default" (click)="getGridView()">
     <div class="mycheckbox__new"></div>
     <div class="mycheckbox__descr">Увеличить экран</div>
     </label> -->
-  </div>
-  <div class="search_block">
-    <evj-search></evj-search>
-  </div>
-  <div class="widgets-panel__list scroll-bar">
-    <div class="options-header">
-      <ng-container *ngFor="let item of widgets$ | async; trackBy: dataById">
-        <div
-          *ngIf="WIDGETS[item.widgetType]"
-          draggable="true"
-          (dragstart)="dragStartHandler($event, item.id)"
-          class="widget"
-        >
-          <ng-container
-            *ngComponentOutlet="WIDGETS[item.widgetType]; injector: (item.id | fn:getInjector);"
-          >
-          </ng-container>
-        </div>
-      </ng-container>
     </div>
-  </div>
+    <div class="search_block">
+      <evj-search></evj-search>
+    </div>
+    <div class="widgets-panel__list scroll-bar">
+      <div class="options-header">
+        <ng-container *ngFor="let item of widgets$ | async; trackBy: dataById">
+          <div
+            *ngIf="WIDGETS[item.widgetType]"
+            draggable="true"
+            (dragstart)="dragStartHandler($event, item.id)"
+            class="widget"
+          >
+            <ng-container
+              *ngComponentOutlet="WIDGETS[item.widgetType]; injector: (item.id | fn:getInjector);"
+            >
+            </ng-container>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="!isWidgets">
+    <h4 class="widgets-panel__heading">
+      Доступные отчеты
+    </h4>
+    <div class="search_block">
+      <evj-search></evj-search>
+    </div>
+    <div class="widgets-panel__list scroll-bar">
+      <div class="options-header">
+        <evj-reports
+          *ngFor="let i of [1,2,3]"
+          style="width: 100%; margin: 10px auto;"
+        ></evj-reports>
+      </div>
+    </div>
+  </ng-container>
 </div>

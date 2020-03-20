@@ -120,6 +120,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AwsBlockComponent } from './widgets/admin-panel/admin-worker-settings/aws-block/aws-block.component';
 import { UsbVerifierComponent } from './widgets/change-shift/usb-verifier/usb-verifier.component';
 import { TimeDataPickerComponent } from './components/time-data-picker/time-data-picker.component';
+import { ReportsComponent } from './components/reports/reports.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
     declarations: [
@@ -227,6 +229,7 @@ import { TimeDataPickerComponent } from './components/time-data-picker/time-data
         AwsBlockComponent,
         UsbVerifierComponent,
         TimeDataPickerComponent,
+        ReportsComponent
     ],
     entryComponents: [
         LineChartComponent,
@@ -276,6 +279,7 @@ import { TimeDataPickerComponent } from './components/time-data-picker/time-data
         AdminReferencesComponent,
         PetroleumProductsMovementComponent,
         AdminPanelComponent,
+        ReportsComponent
     ],
     exports: [HomeComponent],
     imports: [
@@ -298,8 +302,9 @@ import { TimeDataPickerComponent } from './components/time-data-picker/time-data
         OldScrollingModule,
         ReactiveFormsModule,
         MatCheckboxModule,
+        MatExpansionModule
     ],
     bootstrap: [],
     providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }],
 })
-export class DashboardModule {}
+export class DashboardModule { }
