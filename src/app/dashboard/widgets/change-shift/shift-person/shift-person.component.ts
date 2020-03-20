@@ -1,12 +1,4 @@
-import {
-    Component,
-    OnInit,
-    Input,
-    ViewChild,
-    ElementRef,
-    HostListener,
-    Inject,
-} from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { Shift, ShiftMember } from 'src/app/dashboard/models/shift.model';
 import { ShiftService } from '../../../services/shift.service';
 import { MaterialControllerService } from '../../../services/material-controller.service';
@@ -19,21 +11,22 @@ import { MaterialControllerService } from '../../../services/material-controller
 export class ShiftPersonComponent implements OnInit {
     @Input() public widgetId: string;
 
-    @Input() person: ShiftMember;
-    @Input() currentBrigade: number;
-    @Input() shiftType: string;
-    @Input() shiftId: number;
-    @Input() onShift: boolean;
-    @Input() isPresent: boolean;
-    @Input() isMain: boolean;
-    @Input() currentShift: Shift;
+    @Input() public person: ShiftMember;
+    @Input() public currentBrigade: number;
+    @Input() public shiftType: string;
+    @Input() public shiftId: number;
+    @Input() public onShift: boolean;
+    @Input() public isPresent: boolean;
+    @Input() public isMain: boolean;
+    @Input() public currentShift: Shift;
+    @Input() public unitId: number;
 
-    isDropdownActive: boolean = false;
+    public isDropdownActive: boolean = false;
 
     @ViewChild('dropdown') ddMenu: ElementRef;
     @ViewChild('insideElement') insideElement: ElementRef;
 
-    mapPosition = [
+    public mapPosition = [
         {
             code: 'responsible',
             name: 'Старший оператор',
@@ -44,7 +37,7 @@ export class ShiftPersonComponent implements OnInit {
         },
     ];
 
-    mapStatus = [
+    public mapStatus = [
         {
             code: 'initialization',
             name: 'Ожидание',
@@ -82,17 +75,17 @@ export class ShiftPersonComponent implements OnInit {
         private materialController: MaterialControllerService
     ) {}
 
-    ngOnInit(): void {}
+    public ngOnInit(): void {}
 
-    getDisplayStatus(code): string {
+    public getDisplayStatus(code): string {
         return this.mapStatus.find((el) => el.code === code).name;
     }
 
-    getDisplayPosition(code): string {
+    public getDisplayPosition(code): string {
         return this.mapPosition.find((el) => el.code === code).name;
     }
 
-    onMouseOver(): void {
+    public onMouseOver(): void {
         if (!this.ddMenu) {
             return;
         }
@@ -104,7 +97,7 @@ export class ShiftPersonComponent implements OnInit {
         }
     }
 
-    onMouseOut(): void {
+    public onMouseOut(): void {
         if (this.ddMenu) {
             const classes: DOMTokenList = this.ddMenu.nativeElement.classList;
             if (!classes.contains('disable')) {
@@ -158,7 +151,8 @@ export class ShiftPersonComponent implements OnInit {
                     'accepted',
                     person.employee.id,
                     this.shiftId,
-                    this.widgetId
+                    this.widgetId,
+                    this.unitId
                 );
                 break;
             case 'Передать смену':
@@ -166,7 +160,8 @@ export class ShiftPersonComponent implements OnInit {
                     'passed',
                     person.employee.id,
                     this.shiftId,
-                    this.widgetId
+                    this.widgetId,
+                    this.unitId
                 );
                 break;
             case 'Отсутствует':
@@ -174,7 +169,8 @@ export class ShiftPersonComponent implements OnInit {
                     'absent',
                     person.employee.id,
                     this.shiftId,
-                    this.widgetId
+                    this.widgetId,
+                    this.unitId
                 );
                 break;
             case 'На месте':
@@ -182,7 +178,8 @@ export class ShiftPersonComponent implements OnInit {
                     'inProgressAccepted',
                     person.employee.id,
                     this.shiftId,
-                    this.widgetId
+                    this.widgetId,
+                    this.unitId
                 );
                 break;
             case 'Готов к передаче':
@@ -190,7 +187,8 @@ export class ShiftPersonComponent implements OnInit {
                     'inProgressPassed',
                     person.employee.id,
                     this.shiftId,
-                    this.widgetId
+                    this.widgetId,
+                    this.unitId
                 );
                 break;
             case 'Покинул смену':
@@ -198,14 +196,15 @@ export class ShiftPersonComponent implements OnInit {
                     'missing',
                     person.employee.id,
                     this.shiftId,
-                    this.widgetId
+                    this.widgetId,
+                    this.unitId
                 );
                 break;
             case 'Сделать главным':
-                this.shiftService.changePosition(person.employee.id, this.shiftId);
+                this.shiftService.changePosition(person.employee.id, this.shiftId, this.unitId);
                 break;
             case 'Удалить':
-                this.shiftService.delMember(person.employee.id, this.shiftId);
+                this.shiftService.delMember(person.employee.id, this.shiftId, this.unitId);
                 break;
             case 'Вернуть':
                 if (this.currentShift.status === 'inProgressAccepted') {
@@ -213,7 +212,8 @@ export class ShiftPersonComponent implements OnInit {
                         'initialization',
                         person.employee.id,
                         this.shiftId,
-                        this.widgetId
+                        this.widgetId,
+                        this.unitId
                     );
                 } else {
                     this.changeStatusAccepted(person);
@@ -255,7 +255,7 @@ export class ShiftPersonComponent implements OnInit {
 
     addToShift(id) {
         if (!this.onShift) {
-            this.shiftService.addMember(id, this.shiftId);
+            this.shiftService.addMember(id, this.shiftId, this.unitId);
             const event = new CustomEvent('changeShift_clickAddBtn');
             document.dispatchEvent(event);
         }

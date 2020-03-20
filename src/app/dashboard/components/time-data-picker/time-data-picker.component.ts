@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { ITime } from '../../models/time-data-picker';
 import { ThrowStmt } from '@angular/compiler';
 
@@ -7,7 +7,7 @@ import { ThrowStmt } from '@angular/compiler';
     templateUrl: './time-data-picker.component.html',
     styleUrls: ['./time-data-picker.component.scss'],
 })
-export class TimeDataPickerComponent implements OnInit {
+export class TimeDataPickerComponent implements OnInit, OnChanges {
     @Input() data: Date;
     @Output() dateTimePicker = new EventEmitter<ITime>();
 
@@ -22,6 +22,10 @@ export class TimeDataPickerComponent implements OnInit {
         if (this.data !== undefined) {
             this.inputDate = this.data;
         }
+    }
+
+    ngOnChanges() {
+        this.inputDate = this.data;
     }
 
     acceptDate(): void {

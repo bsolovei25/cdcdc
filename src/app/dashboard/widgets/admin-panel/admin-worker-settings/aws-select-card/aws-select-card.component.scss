@@ -112,22 +112,49 @@
     }
   }
   mat-form-field {
-    margin-top: -15px;
     width: 130px;
     height: 25px;
+
+    margin-bottom: -15px;
   }
-}
 
-::ng-deep {
-  .mat-form-field {
-    font-size: 14px;
+  ::ng-deep {
+    .mat-form-field {
+      font-size: 14px;
 
-    &-infix {
-      border-top: none;
+      &-infix {
+        padding: 0;
+        margin: 0;
+        border: none;
+      }
+
+      &-wrapper {
+        padding-bottom: 10px;
+      }
     }
-  }
 
-  .mat-select-panel:not([class*="mat-elevation-z"]) {
-    background: var(--color-bg-main);
+    .mat-form-field-appearance-legacy {
+      & .mat-form-field-underline {
+        background-color: var(--color-button-border);
+        margin-bottom: -10px;
+      }
+    }
+
+    .mat-form-field-label {
+      color: var(--color-button-border);
+      font-style: italic;
+      font-size: 12px;
+    }
+
+    &.mat-form-field-disabled {
+      .mat-form-field-underline,
+      .mat-select-arrow {
+        display: none;
+      }
+
+      .mat-select-value {
+        overflow: visible;
+      }
+    }
   }
 }

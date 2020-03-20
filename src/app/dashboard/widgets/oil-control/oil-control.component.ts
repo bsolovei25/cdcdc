@@ -376,14 +376,14 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
 
     protected dataConnect(): void {
         super.dataConnect();
-        this.subscriptions.push(
-            this.resizeWidget.subscribe((data) => {
-                if (data.item.uniqid === this.uniqId) {
-                    this.newWidth = data.event.clientX;
-                    this.onResize(data.event.clientX);
-                }
-            })
-        );
+        // this.subscriptions.push(
+        //     this.resizeWidget.subscribe((data) => {
+        //         if (data.item.uniqid === this.uniqId) {
+        //             this.newWidth = data.event.clientX;
+        //             this.onResize(data.event.clientX);
+        //         }
+        //     })
+        // );
     }
 
     protected dataHandler(ref: any): void {
@@ -545,7 +545,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
             .attr('height', '45px')
             .attr('width', '100%')
             .attr('class', 'textProduct')
-            .attr('viewBox', '-30 70 1200 200');
+            .attr('viewBox', '-30 20 1200 200');
 
         if (count === 1) {
             let lineOne = this.svgLine
@@ -588,6 +588,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
     ): void {
         this.criticalPage = [];
         this.svgMenu = d3.select(el.firstElementChild);
+
         let svgMenu = this.svgMenu;
         this.activeProduct = data;
 
@@ -862,12 +863,15 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
         for (let pie of newStorageXY) {
             let indexStorage = this.indexStorage;
             for (let textStorage of dataStorage) {
+                let test = d3.select(
+                    el.firstElementChild.getElementById((indexStorage + 1).toString())
+                );
                 if (indexPies1 === indexStorage) {
                     if (pie.point === 3) {
                         if (textStorage.status === 'critical') {
                             this.criticalPage.push(textStorage.id);
                         }
-                        let valueBadText = svgMenu
+                        let valueBadText = test
                             .append('text')
                             .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                             .attr('font-size', '25px')
@@ -878,7 +882,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                             .attr('class', 'textValues')
                             .text(textStorage.nameStorage);
 
-                        let middleText2 = svgMenu
+                        let middleText2 = test
                             .append('text')
                             .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
                             .attr('font-size', '25px')
@@ -891,7 +895,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                     } else {
                         if (textStorage.status === 'critical') {
                             this.criticalPage.push(textStorage.id);
-                            let valueGoodText = svgMenu
+                            let valueGoodText = test
                                 .append('text')
                                 .attr(
                                     'font-family',
@@ -916,7 +920,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                                     }
                                 });
                         } else {
-                            let valueGoodText = svgMenu
+                            let valueGoodText = test
                                 .append('text')
                                 .attr(
                                     'font-family',
@@ -1111,14 +1115,28 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
         this.drawPicture(this.oilIcon.nativeElement);
     }
 
+    ///Возможно зачищение всех нефтеконтролей
+
     public clearStorage(): void {
-        let clears = document.querySelectorAll('.textValues');
+        const clears = this.oilCircle.nativeElement.querySelectorAll('.textValues');
         clears.forEach((el) => el.remove());
+        this.clearBak();
+        this.clearLine();
     }
 
     public clearProduct(): void {
         this.clearStorage();
-        let clears = document.querySelectorAll('.textProduct');
+        const clears = this.oilCircle.nativeElement.querySelectorAll('.textProduct');
+        clears.forEach((el) => el.remove());
+    }
+
+    public clearBak(): void {
+        const clears = this.oilBak.nativeElement.querySelectorAll('.textProduct');
+        clears.forEach((el) => el.remove());
+    }
+
+    public clearLine(): void {
+        const clears = this.line.nativeElement.querySelectorAll('.textProduct');
         clears.forEach((el) => el.remove());
     }
 

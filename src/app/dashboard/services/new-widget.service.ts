@@ -10,7 +10,6 @@ import { LineChartData } from '../models/line-chart';
 import { IMachine_MI } from '../models/manual-input.model';
 import { WebSocketSubject } from 'rxjs/internal/observable/dom/WebSocketSubject';
 import { webSocket } from 'rxjs/internal/observable/dom/webSocket';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../@core/service/auth.service';
 import { MaterialControllerService } from './material-controller.service';
 import * as moment from 'moment';
@@ -365,8 +364,8 @@ export class NewWidgetService {
                 }
                 //  const filter = point.filter((point) => point.categories.indexOf(record) > -1);
                 //  arrFilter.push(filter);
-                for (let i of arrFilter) {
-                    for (let j of i) {
+                for (const i of arrFilter) {
+                    for (const j of i) {
                         arrFilterButton.push(j);
                     }
                 }
@@ -387,14 +386,6 @@ export class NewWidgetService {
 
     public wsSetParams(Dates: IDatesInterval = null): void {
         console.log(Dates);
-        // if (Dates !== null) {
-        //     this.currentDates = {
-        //         fromDateTime: Dates[0],
-        //         toDateTime: Dates[1],
-        //     };
-        // } else {
-        //     this.currentDates = null;
-        // }
         this.dashboard.forEach((el) => this.wsDisonnect(el.id));
         this.dashboard.forEach((el) => this.wsConnect(el.id));
     }

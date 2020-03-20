@@ -14,6 +14,9 @@
     [id]="id"
     [uniqId]="uniqId"
     [icon]="widgetIcon"
+    [widgetType]="widgetType"
+    [select]="allUnits"
+    (selected)="selectedUnits($event)"
   ></evj-widget-header>
   <evj-frame-top></evj-frame-top>
 

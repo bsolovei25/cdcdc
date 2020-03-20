@@ -12,13 +12,13 @@ import {
     EventsWidgetNotification,
     EventsWidgetNotificationStatus,
 } from '../../models/events-widget';
-import { Subscription } from 'rxjs/index';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { NewUserSettingsService } from '../../services/new-user-settings.service';
 import { EventService } from '../../services/event.service';
 import { MaterialControllerService } from '../../services/material-controller.service';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { WidgetPlatform } from '../../models/widget-platform';
+import { throttle } from 'rxjs/operators';
 
 @Component({
     selector: 'evj-events',
@@ -151,8 +151,8 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
 
     private readonly defaultIconPath: string = './assets/icons/widgets/events/smotr.svg';
 
-    protected static itemCols: number = 30;
-    protected static itemRows: number = 20;
+    public static itemCols: number = 30;
+    public static itemRows: number = 20;
 
     constructor(
         private eventService: EventService,
@@ -295,16 +295,18 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     }
 
     private appendNotifications(remoteNotifications: EventsWidgetNotificationPreview[]): void {
-        const notifications = remoteNotifications
-            .filter((n) => n.category && n.category.name)
-            .map((n) => {
-                const iconUrl = this.getNotificationIcon(n.category.name);
-                const iconUrlStatus = this.getStatusIcon(n.status.name);
-                const statusName = this.statuses[n.status.name]; // TODO check
-                return { ...n, iconUrl, statusName, iconUrlStatus };
-            });
+        if (remoteNotifications?.length > 0) {
+            const notifications = remoteNotifications
+                .filter((n) => n.category && n.category.name)
+                .map((n) => {
+                    const iconUrl = this.getNotificationIcon(n.category.name);
+                    const iconUrlStatus = this.getStatusIcon(n.status.name);
+                    const statusName = this.statuses[n.status.name]; // TODO check
+                    return { ...n, iconUrl, statusName, iconUrlStatus };
+                });
 
-        this.notifications = this.notifications.concat(notifications);
+            this.notifications = this.notifications.concat(notifications);
+        }
     }
 
     private getNotificationIcon(categoryId: EventsWidgetCategoryCode): string {
@@ -376,23 +378,22 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             this.isAllowScrollLoading
         ) {
             console.log('end scroll');
-            await this.getData(this.notifications[this.notifications.length - 1].id);
+            throttle(await this.getData(this.notifications[this.notifications.length - 1].id));
         }
     }
 
-    private async getData(lastId: number = 0): Promise<void> {
+    private async getData(lastId: number = 0): Promise<any> {
         this.isAllowScrollLoading = false;
         if (lastId === 0) {
             this.clearNotifications();
         }
         const options = this.getCurrentOptions();
-        console.log(options);
         const ans = await this.eventService.getBatchData(lastId, options);
         this.appendNotifications(ans);
         this.isAllowScrollLoading = true;
-        console.log(lastId);
-        console.log(ans);
-        this.viewport.checkViewportSize();
+        if (ans?.length > 0) {
+            this.viewport.checkViewportSize();
+        }
     }
 
     private async getStats(): Promise<void> {

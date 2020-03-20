@@ -55,8 +55,8 @@ export class PointDiagramComponent extends WidgetPlatform implements OnInit, OnD
         },
     ];
 
-    protected static itemCols: number = 23;
-    protected static itemRows: number = 16;
+    public static itemCols: number = 23;
+    public static itemRows: number = 16;
 
     constructor(
         protected widgetService: NewWidgetService,

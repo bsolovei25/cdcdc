@@ -5,6 +5,11 @@
 }
 .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
   color: var(--color-text-main) !important;
+  background-color: var(--color-bg-main) !important;
+}
+.mat-select-panel .mat-optgroup-label,
+.mat-select-panel .mat-option {
+  background-color: var(--color-bg-main);
 }
 
 .mat-select-arrow {
@@ -17,4 +22,30 @@
   margin: 0 !important;
   background-image: url("./assets/icons/widgets/workspace/arrow.svg");
   background-repeat: no-repeat;
+}
+
+::-webkit-scrollbar {
+  width: 1px;
+  height: 10px;
+}
+::-webkit-scrollbar:vertical {
+  width: 5px;
+  height: 100%;
+}
+::-webkit-scrollbar-track {
+  background-color: #999;
+}
+::-webkit-scrollbar-track-piece {
+  background-color: rgb(27, 30, 39);
+}
+::-webkit-scrollbar-thumb {
+  height: 50px;
+  background-color: #666;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-corner {
+  background-color: #999;
+}
+::-webkit-resizer {
+  background-color: #666;
 }
