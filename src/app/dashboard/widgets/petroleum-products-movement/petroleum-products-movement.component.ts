@@ -1,8 +1,5 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
-import { transition, style, animate, trigger } from '@angular/animations';
-import { IOperation } from '../../models/petroleum-products-movement.model';
 import { PetroleumScreenService } from '../../services/petroleum-screen.service';
 import {WidgetPlatform} from "../../models/widget-platform";
 
@@ -42,16 +39,9 @@ export class PetroleumProductsMovementComponent extends WidgetPlatform implement
 
     public ngOnInit(): void {
         super.widgetInit();
+        this.initPetroleumMovement();
         this.subscriptions.push(
-            // this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-            //     this.title = data.title;
-            //     // this.code = data.code;
-            //     this.units = data.units;
-            //     // this.name = data.name;
-            //     this.previewTitle = data.widgetType;
-            // }),
-
-            this.petroleumService.date$.subscribe((data) => {
+            this.petroleumService.screenState$.subscribe((data) => {
                 this.typeScreen = data;
             })
         );
@@ -62,6 +52,10 @@ export class PetroleumProductsMovementComponent extends WidgetPlatform implement
     }
 
     protected dataHandler(ref: any): void {
+    }
+
+    private async initPetroleumMovement(): Promise<void> {
+        console.log(await this.petroleumService.getClient());
     }
 
     onChanged(type: string): void {

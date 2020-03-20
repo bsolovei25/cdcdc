@@ -1,3 +1,7 @@
+export interface ITransfer {
+    uID: string;
+}
+
 export interface IOperation {
     id?: number; // maybe GUID
     source: string;
