@@ -29,23 +29,31 @@
   <div class="admin__worker">
     <div class="worker__column worker__info">
       <div class="options scroll-bar">
-        <ng-container *ngFor="let option of options">
-          <ng-container *ngIf="!(option.key==='brigade')"
-            ><evj-aws-card
-              class="card"
-              *ngIf="isValidFieldName(option.name)"
-              [option]="option"
-              (saveChanging)="onFieldChanging($event)"
-            ></evj-aws-card
-          ></ng-container>
-          <ng-container r *ngIf="option.key==='brigade'">
-            <evj-aws-select-card
-              class="card"
-              [option]="option"
-              (saveChanging)="onSelectBrigade($event)"
-            ></evj-aws-select-card>
-          </ng-container>
+        <ng-container *ngFor="let option of inputOptions">
+          <evj-aws-card
+            class="card"
+            *ngIf="isValidFieldName(option.name)"
+            [option]="option"
+            (saveChanging)="onFieldChanging($event)"
+          ></evj-aws-card>
         </ng-container>
+
+        <evj-aws-select-card
+          class="card"
+          [option]="selectOptions[0]"
+          (saveChanging)="onSelectUnit($event)"
+        ></evj-aws-select-card>
+        <evj-aws-select-card
+          class="card"
+          *ngIf="!!workerUnit"
+          [option]="selectOptions[1]"
+          (saveChanging)="onSelectBrigade($event)"
+        ></evj-aws-select-card>
+
+        <evj-aws-checkbox-card
+          class="card"
+          (checked)="onSetResponsible($event)"
+        ></evj-aws-checkbox-card>
       </div>
       <div class="claims">
         <div class="title">Права доступа</div>
@@ -63,6 +71,13 @@
         >
           Доступные рабочие области
         </div>
+      </div>
+      <div class="block" *ngIf="!isCreateNewUser">
+        <evj-aws-block
+          class="block__component"
+          [isLockedUser]="false"
+          (changeLockUser)="onChangeLockWorker()"
+        ></evj-aws-block>
       </div>
     </div>
     <div class="worker__column worker__main">
@@ -99,9 +114,11 @@
           <evj-aws-workspace-card
             *ngIf="isValidWorkspaceName(workspace.screenName)"
             [isActive]="defineIsWorkspaceActive(workspace)"
+            [screenId]="defineWorkerScreenId(workspace)"
             [workspace]="workspace"
             [isChangingCardState]="true"
             (selectedWorkspace)="onSelectWorkspace($event)"
+            (selectedWorkspaceClaims)="onSelectWorkspaceClaims($event)"
           ></evj-aws-workspace-card>
         </ng-container>
       </div>

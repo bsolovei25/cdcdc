@@ -332,7 +332,7 @@ $border-size: 4px;
   mat-form-field {
     box-sizing: border-box;
     width: 100%;
-    padding: 0px 25px;
+    padding: 0px 15px;
     padding-bottom: 0px;
   }
 
@@ -517,8 +517,8 @@ $border-size: 4px;
           display: flex;
           .description_title {
             font-size: 10px;
-            width: 85%;
-            margin-left: 26px;
+            width: 90%;
+            margin-left: 15px;
           }
           .description_button_update {
             margin-left: 5x;
@@ -576,8 +576,8 @@ $border-size: 4px;
             word-wrap: break-word;
             color: white;
             font-size: 12px;
-            margin-left: 26px;
-            width: 80%;
+            margin-left: 15px;
+            width: 90%;
             height: 100%;
 
             textarea {
@@ -631,7 +631,7 @@ $border-size: 4px;
 
       .fact_block {
         height: 30%;
-        min-height: 270px;
+        min-height: 100px;
         margin-top: 15px;
         width: calc(100% - 24px);
         position: relative;
@@ -639,8 +639,8 @@ $border-size: 4px;
         .title_fact_block {
           .title_fact_block_text {
             font-size: 10px;
-            width: 80%;
-            margin-left: 26px;
+            width: 100%;
+            margin-left: 15px;
           }
           height: 30px;
           background: var(--color-bg-card);
@@ -679,7 +679,7 @@ $border-size: 4px;
         }
         .fact_content {
           background: #1d202a;
-          height: 60%;
+          height: calc(100% - 100px);
           overflow: auto;
 
           .fact_new {
@@ -698,13 +698,6 @@ $border-size: 4px;
               width: 70%;
               color: white;
               font-size: 10px;
-            }
-
-            .fact_img {
-              padding-top: 10px;
-              margin-left: 26px;
-              width: 70%;
-              cursor: pointer;
             }
 
             .fact_menu {
@@ -742,10 +735,10 @@ $border-size: 4px;
               }
 
               .fact_info {
-                right: 6px;
                 position: absolute;
                 bottom: 0px;
                 font-size: 9px;
+                right: 10px;
 
                 .fact_info_user {
                   text-align: end;
@@ -757,9 +750,9 @@ $border-size: 4px;
               }
 
               .fact_info_notActive {
-                right: 6px;
                 position: absolute;
                 font-size: 9px;
+                right: 10px;
 
                 .fact_info_user {
                   text-align: end;
@@ -770,6 +763,13 @@ $border-size: 4px;
                 }
               }
             }
+          }
+
+          .fact_img {
+            padding-top: 10px;
+            margin-left: 26px;
+            width: 70%;
+            cursor: pointer;
           }
         }
         .empty {
@@ -802,6 +802,13 @@ $border-size: 4px;
               width: 70%;
               color: white;
               font-size: 10px;
+            }
+
+            .fact_img {
+              padding-top: 10px;
+              margin-left: 26px;
+              width: 70%;
+              cursor: pointer;
             }
 
             .fact_menu {
@@ -839,6 +846,7 @@ $border-size: 4px;
                 position: absolute;
                 bottom: 0px;
                 font-size: 9px;
+                right: 10px;
 
                 .fact_info_user {
                   text-align: end;
@@ -1044,16 +1052,16 @@ $border-size: 4px;
       }
 
       .comments_block {
-        height: 37%;
-        min-height: 170px;
-        margin-top: 7px;
+        height: 35%;
+        min-height: 100px;
+        margin-top: 15px;
         width: calc(100% - 24px);
         position: relative;
         .title_comments_block {
           .title_comments_block_text {
             font-size: 10px;
-            width: 80%;
-            margin-left: 26px;
+            width: 100%;
+            margin-left: 15px;
           }
           height: 30px;
           background: var(--color-bg-card);
@@ -1092,10 +1100,11 @@ $border-size: 4px;
         }
 
         .comments_content {
-          height: 70%;
+          height: calc(100% - 100px);
           overflow: auto;
           background: #1d202a;
           .comment_new {
+            min-height: 18px;
             position: relative;
             display: flex;
             padding-bottom: 10px;
@@ -1114,9 +1123,12 @@ $border-size: 4px;
             }
 
             .comment_img {
-              padding-top: 10px;
+              overflow-wrap: break-word;
+              padding-top: 15px;
               margin-left: 26px;
               width: 70%;
+              color: white;
+              font-size: 10px;
               cursor: pointer;
             }
 
@@ -1157,6 +1169,7 @@ $border-size: 4px;
                 position: absolute;
                 bottom: 0px;
                 font-size: 9px;
+                right: 10px;
 
                 .comment_info_user {
                   text-align: end;
@@ -1468,7 +1481,7 @@ $border-size: 4px;
           }
 
           .date-button {
-            width: 20%;
+            width: 11%;
             height: 100%;
             top: 14px;
             right: 4px;
@@ -1584,6 +1597,7 @@ $border-size: 4px;
 
             .name_user_info {
               margin-left: 15px;
+              min-width: 150px;
               height: 100%;
               color: white;
               font-size: 11px;
@@ -1624,7 +1638,7 @@ $border-size: 4px;
       .events-correct {
         height: calc(100% - 200px);
         display: flex;
-        min-height: 550px;
+        min-height: 200px;
 
         .events-correct-block {
           padding-right: 10px;
@@ -1657,7 +1671,7 @@ $border-size: 4px;
 
           .events {
             //  max-height: 490px;
-            height: 85%;
+            height: calc(100% - 90px);
             overflow: auto;
             direction: rtl;
             padding-left: 5px;
@@ -2095,7 +2109,7 @@ $border-size: 4px;
 
                 .date-info {
                   width: 100%;
-                  padding-left: 25px;
+                  padding-left: 15px;
                   .deadline-title {
                     font-size: 10px;
                   }
@@ -2107,7 +2121,7 @@ $border-size: 4px;
                 }
 
                 .date-button {
-                  width: 11%;
+                  width: 6%;
                   height: 100%;
                   top: 14px;
                   right: 4px;
@@ -2244,6 +2258,7 @@ $border-size: 4px;
                 overflow: auto;
                 background: #1d202a;
                 .comment_new {
+                  min-height: 18px;
                   position: relative;
                   display: flex;
                   padding-bottom: 10px;
@@ -2303,6 +2318,7 @@ $border-size: 4px;
                       position: absolute;
                       bottom: 0px;
                       font-size: 9px;
+                      right: 10px;
 
                       .comment_info_user {
                         text-align: end;
@@ -2978,72 +2994,46 @@ textarea {
   }
 }
 
-::ng-deep {
-  .cdk-overlay-container {
-    ::-webkit-scrollbar {
-      width: 1px;
-      height: 10px;
-    }
-    ::-webkit-scrollbar:vertical {
-      width: 5px;
-      height: 100%;
-    }
-    ::-webkit-scrollbar-track {
-      background-color: var(--color-border-unactive);
-    }
-    ::-webkit-scrollbar-track-piece {
-      background-color: rgb(27, 30, 39);
-    }
-    ::-webkit-scrollbar-thumb {
-      height: 50px;
-      background-color: var(--color-border-unactive);
-      border-radius: 10px;
-    }
-    ::-webkit-scrollbar-corner {
-      background-color: var(--color-border-unactive);
-    }
-    ::-webkit-resizer {
-      background-color: var(--color-border-unactive);
-    }
-  }
-
-  .mat-form-field-appearance-legacy .mat-form-field-wrapper {
-    padding-bottom: 0.7em !important;
-  }
-
-  .mat-calendar-body-cell-content {
-    &:hover {
-      background-color: var(--color-border-active);
-    }
-  }
-  .mat-form-field-wrapper {
-    padding-bottom: 1.04375em;
-  }
-
-  .mat-form-field-flex {
-    margin-top: 10px;
-  }
-  .cdk-overlay-pane {
-    margin-top: 45px;
-  }
-
-  .mat-option:hover {
-    background: var(--color-text-sub);
-  }
-
-  .ng-tns-c39-2 {
-    font-size: 15px;
-  }
-
-  .mat-datepicker-popup {
-    background-color: rgb(27, 30, 39);
-    margin-left: -73px;
-    margin-top: 9px;
-  }
-}
-
 .categories ::ng-deep .cdk-overlay-pane {
   top: 295px !important;
+}
+
+.container {
+  ::ng-deep {
+    .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+      padding-bottom: 0.7em !important;
+    }
+
+    .mat-calendar-body-cell-content {
+      &:hover {
+        background-color: var(--color-border-active);
+      }
+    }
+    .mat-form-field-wrapper {
+      padding-bottom: 1.04375em;
+    }
+
+    .mat-form-field-flex {
+      margin-top: 10px;
+    }
+    .cdk-overlay-pane {
+      margin-top: 45px;
+    }
+
+    .mat-option:hover {
+      background: var(--color-text-sub);
+    }
+
+    .ng-tns-c39-2 {
+      font-size: 15px;
+    }
+
+    .mat-datepicker-popup {
+      background-color: rgb(27, 30, 39);
+      margin-left: -73px;
+      margin-top: 9px;
+    }
+  }
 }
 
 /// GRAPH OPEN

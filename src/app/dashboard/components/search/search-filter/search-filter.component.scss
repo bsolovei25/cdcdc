@@ -5,7 +5,9 @@
 
 .result_search {
   color: white;
-  width: 140px;
+  min-width: 50px;
+  padding-left: 5px;
+  padding-right: 5px;
   height: 35px;
   background: rgb(33, 36, 45);
   border-radius: 25px;

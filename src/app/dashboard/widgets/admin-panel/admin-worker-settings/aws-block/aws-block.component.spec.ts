@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CardVerifierComponent } from './card-verifier.component';
+import { AwsBlockComponent } from './aws-block.component';
 
-describe('CardVerifierComponent', () => {
-    let component: CardVerifierComponent;
-    let fixture: ComponentFixture<CardVerifierComponent>;
+describe('AwsBlockComponent', () => {
+    let component: AwsBlockComponent;
+    let fixture: ComponentFixture<AwsBlockComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [CardVerifierComponent],
+            declarations: [AwsBlockComponent],
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(CardVerifierComponent);
+        fixture = TestBed.createComponent(AwsBlockComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

@@ -209,24 +209,20 @@
                   </div>
                 </div>
                 <div class="fact_content" #scroll2>
+                  <div class="fact_img" *ngIf="event.graphValues" (click)="openLineChart()" #graph>
+                    <svg-icon
+                      src="./assets/icons/widgets/workspace/graph.svg"
+                      [svgStyle]="{ 'width.px':250, 'height.px':70 }"
+                    ></svg-icon>
+                  </div>
                   <!--ngFor -->
                   <div
                     class="fact_new"
                     (click)="clickFact(fact, i)"
                     *ngFor="let fact of event.facts; let i = index"
                   >
-                    <div class="fact_text" *ngIf="fact.comment !== 'График'">
+                    <div class="fact_text">
                       <p>{{fact.comment}}</p>
-                    </div>
-                    <div
-                      class="fact_img"
-                      *ngIf="fact.comment === 'График'"
-                      (click)="openLineChart()"
-                    >
-                      <svg-icon
-                        src="./assets/icons/widgets/workspace/graph.svg"
-                        [svgStyle]="{ 'width.px':250, 'height.px':70 }"
-                      ></svg-icon>
                     </div>
                     <div class="fact_menu">
                       <!-- <div class="fact_button" *ngIf="(isClickFact === i)">
@@ -252,14 +248,6 @@
                         </div>
                       </div>
                     </div>
-                    <!-- <div class="fact_menu">
-                      <div class="fact_info_notActive">
-                        <div class="fact_info_user">{{fact.displayName}}</div>
-                        <div class="fact_info_date">
-                          {{fact.createdAt | dateFormat:'DD-MM-YY hh:mm'}}
-                        </div>
-                      </div>
-                    </div> -->
                   </div>
                 </div>
                 <div class="empty"></div>
@@ -390,7 +378,7 @@
                   </mat-form-field> -->
                   <div class="date-info">
                     <div class="deadline-title">Срок выполнения</div>
-                    <div class="date-deadLine">
+                    <div class="date-deadLine" *ngIf="dateChoose !== undefined">
                       {{dateChoose | date: 'dd.MM.yyyy'}} | {{dateChoose | date: 'HH:mm:ss' }}
                     </div>
                   </div>
@@ -886,36 +874,10 @@
                       (click)="clickFact(fact, i)"
                       *ngFor="let fact of isNewRetrieval.facts; let i = index"
                     >
-                      <div class="fact_text" *ngIf="fact.comment !== 'График'">
+                      <div class="fact_text">
                         <p>{{fact.comment}}</p>
                       </div>
-                      <div
-                        class="fact_img"
-                        *ngIf="fact.comment === 'График'"
-                        (click)="openLineChart()"
-                      >
-                        <svg-icon
-                          src="./assets/icons/widgets/workspace/graph.svg"
-                          [svgStyle]="{ 'width.px':250, 'height.px':70 }"
-                        ></svg-icon>
-                      </div>
                       <div class="fact_menu">
-                        <!-- <div class="fact_button" *ngIf="(isClickFact === i)">
-                          <div class="fact_button_update">
-                            <svg-icon
-                              src="./assets/pic/AdminReferences/delete.svg"
-                              [svgStyle]="{ 'width.px':16, 'height.px':16 }"
-                            >
-                            </svg-icon>
-                          </div>
-                          <div class="fact_button_delete">
-                            <svg-icon
-                              src="./assets/icons/edit.svg"
-                              [svgStyle]="{ 'width.px':25, 'height.px':20 }"
-                            >
-                            </svg-icon>
-                          </div>
-                        </div> -->
                         <div class="fact_info">
                           <div class="fact_info_user">{{fact.displayName}}</div>
                           <div class="fact_info_date">
@@ -995,8 +957,9 @@
                 </mat-form-field> -->
                     <div class="date-info">
                       <div class="deadline-title">Срок выполнения</div>
-                      <div class="date-deadLine">
-                        {{dateChoose | date: 'dd.MM.yyyy'}} | {{dateChooseNew | date: 'HH:mm:ss' }}
+                      <div class="date-deadLine" *ngIf="dateChooseNew !== undefined">
+                        {{dateChooseNew | date: 'dd.MM.yyyy'}} | {{dateChooseNew | date: 'HH:mm:ss'
+                        }}
                       </div>
                     </div>
                     <div class="date-button" (click)="showDateBlock()">

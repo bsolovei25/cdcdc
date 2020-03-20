@@ -1,4 +1,7 @@
-<div class="header" *ngIf="widgetType !== 'events-workspace'">
+<div
+  class="header"
+  *ngIf="widgetType !== 'events-workspace' && widgetType !== 'admin-shift-schedule'"
+>
   <div class="header__content drag handle">
     <div class="header__icon-wrapper">
       <img src="{{iconRoute}}{{icon}}.png" *ngIf="(!code && icon)" />
@@ -14,6 +17,32 @@
     </span>
     <span class="header__units">{{units}}</span>
     <div
+      *ngIf="!isPreview && claimWidgets.includes('delete')"
+      class="delete_widget"
+      (click)="onRemoveButton()"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
+      <svg-icon
+        style="width: 100%; height: 100%; fill: #8C99B2"
+        src="./assets/icons/close_bad.svg"
+      ></svg-icon>
+    </div>
+  </div>
+</div>
+
+<div class="header-schedule" *ngIf="widgetType === 'admin-shift-schedule'">
+  <div class="header-schedule__content">
+    <div class="header-schedule__icon-wrapper">
+      <img src="{{iconRoute}}{{icon}}.png" *ngIf="(!code && icon)" />
+      <img src="{{iconRoute}}shedule.png" *ngIf="(!code && !icon)" />
+      {{code}}
+    </div>
+    <span class="header-schedule__name">
+      {{title}}
+    </span>
+    <span class="header-schedule__units">{{units}}</span>
+    <div
       *ngIf="!isPreview"
       class="delete_widget"
       (click)="onRemoveButton()"
@@ -24,6 +53,26 @@
         style="width: 100%; height: 100%; fill: #8C99B2"
         src="./assets/icons/close_bad.svg"
       ></svg-icon>
+    </div>
+  </div>
+
+  <div
+    class="header-schedule__button"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="header-schedule__container">
+      <mat-form-field>
+        <mat-select
+          [compareWith]="compareFn"
+          (selectionChange)="onSelected($event)"
+          [(ngModel)]="selectValue"
+        >
+          <mat-option *ngFor="let value of localeSelect" [value]="value">
+            {{value.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
   </div>
 </div>
