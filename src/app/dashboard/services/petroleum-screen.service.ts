@@ -30,14 +30,19 @@ export class PetroleumScreenService {
     }
 
     public async getClient(): Promise<string> {
-        return this.http.get<string>(`${this.restUrl}/api/client/clients`).toPromise();
+        const clientArray: string[] = await this.getClientAsync();
+        return clientArray[0];
+    }
+
+    public async getClientAsync(): Promise<string[]> {
+        return this.http.get<string[]>(`${this.restUrl}/api/petrolium-flow-clients/clients`).toPromise();
     }
 
     public async getTransfers(startTme: Date, endTime: Date, isOpen: boolean): Promise<void> {
 
     }
 
-    private async getTransfersAsync(): Promise<void> {
+    private async getTransfersAsync(startTme: Date, endTime: Date, isOpen: boolean): Promise<void> {
 
     }
 }

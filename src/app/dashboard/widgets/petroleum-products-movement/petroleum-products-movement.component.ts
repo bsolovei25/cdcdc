@@ -12,19 +12,13 @@ export class PetroleumProductsMovementComponent extends WidgetPlatform implement
     public static itemCols: number = 23;
     public static itemRows: number = 16;
 
-    // public units: string = '%';
-    // public title: string;
-    // public code: string;
-    // public previewTitle: string;
-
-    public isWorkspace: boolean = true;
-
-    public isShort: boolean = true;
-
-    public isUpdateParamButton: boolean = false;
+    // public isWorkspace: boolean = true;
+    //
+    // public isShort: boolean = true;
+    //
+    // public isUpdateParamButton: boolean = false;
 
     public typeScreen: string = 'info';
-
     protected isRealtimeData: boolean = false;
 
     constructor(
@@ -39,7 +33,6 @@ export class PetroleumProductsMovementComponent extends WidgetPlatform implement
 
     public ngOnInit(): void {
         super.widgetInit();
-        this.initPetroleumMovement();
         this.subscriptions.push(
             this.petroleumService.screenState$.subscribe((data) => {
                 this.typeScreen = data;
@@ -51,6 +44,10 @@ export class PetroleumProductsMovementComponent extends WidgetPlatform implement
         super.ngOnDestroy();
     }
 
+    protected dataDisconnect(): void {
+        this.initPetroleumMovement();
+    }
+
     protected dataHandler(ref: any): void {
     }
 
@@ -58,22 +55,22 @@ export class PetroleumProductsMovementComponent extends WidgetPlatform implement
         console.log(await this.petroleumService.getClient());
     }
 
-    onChanged(type: string): void {
-        switch (type) {
-            case 'create':
-                this.isWorkspace = false;
-                this.isShort = false;
-                this.isUpdateParamButton = false;
-                break;
-            case 'update':
-                this.isUpdateParamButton = true;
-                this.isWorkspace = true;
-                this.isShort = false;
-                break;
-        }
-    }
-
-    public onReturn(el: boolean): void {
-        this.isWorkspace = el;
-    }
+    // onChanged(type: string): void {
+    //     switch (type) {
+    //         case 'create':
+    //             this.isWorkspace = false;
+    //             this.isShort = false;
+    //             this.isUpdateParamButton = false;
+    //             break;
+    //         case 'update':
+    //             this.isUpdateParamButton = true;
+    //             this.isWorkspace = true;
+    //             this.isShort = false;
+    //             break;
+    //     }
+    // }
+    //
+    // public onReturn(el: boolean): void {
+    //     this.isWorkspace = el;
+    // }
 }
