@@ -98,7 +98,8 @@ export class NewWidgetService {
         .pipe(filter((item) => item !== null));
 
     private getAvailableWidgets(): Observable<IWidgets[]> {
-        return this.http.get(this.restUrl + `/api/af-service/GetAvailableWidgets`).pipe(
+        // return this.http.get(this.restUrl + `/api/af-service/GetAvailableWidgets`).pipe(
+            return this.http.get('assets/GetAvailableWidgetsMock.json').pipe(
             map((data: IWidgets[]) => {
                 const localeData = this.mapData(data);
                 this.mass = this.mapData(data);
@@ -255,7 +256,7 @@ export class NewWidgetService {
             (err) => {
                 console.error('error rest', err);
                 if (this.authService.userIsAuthenticated) {
-                    this.reconnectRest();
+                   // this.reconnectRest();
                 } else {
                     if (this.reconnectRestTimer) {
                         clearInterval(this.reconnectRestTimer);

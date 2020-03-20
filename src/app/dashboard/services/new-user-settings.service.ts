@@ -69,12 +69,12 @@ export class NewUserSettingsService {
     private addWidgetApi(uniqId: string) {
         this.save(uniqId);
         const updateWidget = this.widgetInfo;
-        this.http
-            .post(this.restUrl + '/api/user-management/widget/' + this.ScreenId, updateWidget)
-            .subscribe(
-                (ans) => {},
-                (error) => console.log(error)
-            );
+        // this.http
+        //     .post(this.restUrl + '/api/user-management/widget/' + this.ScreenId, updateWidget)
+        //     .subscribe(
+        //         (ans) => {},
+        //         (error) => console.log(error)
+        //     );
     }
 
     private save(uniqId: string) {
@@ -98,12 +98,12 @@ export class NewUserSettingsService {
     private updateWidgetApi(uniqId) {
         this.save(uniqId);
         const updateWidget = this.widgetInfo;
-        this.http
-            .put(this.restUrl + '/api/user-management/widget/' + uniqId, updateWidget)
-            .subscribe(
-                (ans) => {},
-                (error) => console.log(error)
-            );
+        // this.http
+        //     .put(this.restUrl + '/api/user-management/widget/' + uniqId, updateWidget)
+        //     .subscribe(
+        //         (ans) => {},
+        //         (error) => console.log(error)
+        //     );
     }
 
     public updateByPosition(oldItem, newItem) {
@@ -130,7 +130,8 @@ export class NewUserSettingsService {
     public GetScreen() {
         try {
             this.http
-                .get<ScreenSettings[]>(this.restUrl + '/api/user-management/screens')
+                // .get<ScreenSettings[]>(this.restUrl + '/api/user-management/screens')
+                .get<ScreenSettings[]>('assets/GetScreensMock.json')
                 .subscribe((data) => {
                     this._screens$.next(data);
                     if (!this.ScreenId && data[0]) {
@@ -143,7 +144,8 @@ export class NewUserSettingsService {
     }
 
     private LoadScreenAsync(id: any, loadDefault: boolean): Observable<any> {
-        return this.http.get(this.restUrl + '/api/user-management/screen/' + id).pipe(
+        // return this.http.get(this.restUrl + '/api/user-management/screen/' + id).pipe(
+            return this.http.get(`assets/GetScreenMock_${id + 1}.json`).pipe(
             catchError((err) => {
                 this.dataScreen = this._screens$.getValue();
                 if (

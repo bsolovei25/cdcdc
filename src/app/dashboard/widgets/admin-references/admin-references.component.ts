@@ -28,6 +28,9 @@ export class AdminReferencesComponent implements OnInit {
 
     isChangeName: boolean = false;
 
+    valueCheck:boolean = true;
+    valueUniqCheck:boolean = true;
+
     data = [
         {
             name: 'Установка НПЗ',
@@ -151,4 +154,27 @@ export class AdminReferencesComponent implements OnInit {
     onChangeName() {
         this.isChangeName = !this.isChangeName;
     }
+
+    changeSwap() {
+        let check = <HTMLInputElement>document.getElementById('checkBoxValue');
+        if (check.checked) {
+            this.valueCheck = false
+          ;
+        } else {
+            this.valueCheck = true;
+            ;
+        }
+    }
+
+    changeUniqSwap() {
+        let check = <HTMLInputElement>document.getElementById('checkBoxUniqValue');
+        if (check.checked) {
+            this.valueUniqCheck = false
+          ;
+        } else {
+            this.valueUniqCheck = true;
+            ;
+        }
+    }
+
 }

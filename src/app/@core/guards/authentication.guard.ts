@@ -26,19 +26,20 @@ export class AuthenticationGuard implements CanLoad, CanActivate, CanActivateChi
         backAddress?: string,
         allow403?: boolean
     ): Promise<boolean> {
-        try {
-            const auth = await this.authService.getUserAuth();
-            if (auth) {
-                return true;
-            }
-        } catch (error) {
-            return false;
-        }
+        // try {
+        //     const auth = await this.authService.getUserAuth();
+        //     if (auth) {
+        //         return true;
+        //     }
+        // } catch (error) {
+        //     return false;
+        // }
         return true;
     }
 
     async canLoad(route: Route, segments: UrlSegment[]): Promise<boolean> {
-        return this.authenticationCheck(route, segments.join('/'), true);
+      //  return this.authenticationCheck(route, segments.join('/'), true);
+      return true;
     }
 
     async canActivate(

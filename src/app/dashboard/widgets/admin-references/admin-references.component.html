@@ -1,24 +1,11 @@
-<evj-widget-preview
-  [title]="title"
-  [previewTitle]="previewTitle"
-  *ngIf="isMock"
-></evj-widget-preview>
+<evj-widget-preview [title]="title" [previewTitle]="previewTitle" *ngIf="isMock"></evj-widget-preview>
 
 <div class="container" *ngIf="!isMock">
-  <evj-widget-header
-    [title]="title"
-    [id]="id"
-    [units]="units"
-    [uniqId]="uniqId"
-  ></evj-widget-header>
+  <evj-widget-header [title]="title" [id]="id" [units]="units" [uniqId]="uniqId"></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
 
-  <div
-    class="content"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
+  <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <!-- <div class="references">
       <div class="reference-input-block">
         <div class="reference-input">
@@ -120,64 +107,84 @@
         </ng-container>
       </div>
     </div> -->
+    <div class="references">
+      <div class="reference-left">
+        <div class="title-reference">Наименование справочника</div>
+        <div class="reference-container">
+              <ng-container *ngFor="let item of data">
+                <div class="reference-container__block">
+                  <div class="reference-container__block-info">
+                    <div class="reference-container__name">{{item.name}}</div>
+                    <div class="reference-container__button-edit"></div>
+                  </div>
+                  <div class="reference-container__button-remove"></div>
+                </div>
+              </ng-container>
 
-    <div class="reference-left">
-      <div class="title-reference"></div>
-      <div class="reference-container">
-        <ng-container>
-          <div class="reference-container__block">
-            <div class="reference-container__block-info">
-              <div class="reference-container__name"></div>
-              <div class="reference-container__button-edit"></div>
+        </div>
+        <div class="bottom-reference-left">
+          <div class="bottom-reference-left__block">
+            <div class="bottom-reference-left__button-add"></div>
+            <div class="bottom-reference-left__input-block">
+              <div class="bottom-reference-left__button-search"></div>
+              <div class="bottom-reference-left__input">
+                <input type="text" />
+              </div>
             </div>
-            <div class="reference-container__button-remove"></div>
           </div>
-        </ng-container>
+        </div>
       </div>
-      <div class="bottom-reference-left">
-        <div class="bottom-reference-left__block">
-          <div class="bottom-reference-left__button-add"></div>
-          <div class="bottom-reference-left__input-block">
-            <div class="bottom-reference-left__button-search"></div>
-            <div class="bottom-reference-left__input">
-              <input type="text" />
+      <div class="reference-right">
+        <div class="title-reference">
+          <div class="title-reference__title-name">Наименование колонны</div>
+          <div class="title-reference__title-type">Тип</div>
+          <div class="title-reference__title-value">Обязательное значение</div>
+          <div class="title-reference__title-uniqValue">Уникальное значение</div>
+        </div>
+        <div class="reference-container-value">
+          <ng-container *ngFor="let item of data">
+            <div class="reference-container-value__block">
+              <div class="reference-container-value__fio-block">
+                <div class="reference-container-value__fio">{{item.name}}</div>
+                <div class="reference-container-value__button-edit"></div>
+              </div>
+              <div class="reference-container-value__type">
+                <mat-form-field class="categories_selectbox">
+                  <mat-select panelClass="mat-select-custom">
+                    <mat-option *ngFor="let p of data" [value]="p">{{ p.name }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="reference-container-value__value">
+                <label class="mycheckbox">
+                  <input type="checkbox" id="checkBoxValue" class="mycheckbox__default" (click)="changeSwap()" />
+                  <div class="mycheckbox__new" [class.mycheckbox__checked]="!valueCheck"></div>
+                </label>
+              </div>
+              <div class="reference-container-value__uniqValue"> <label class="mycheckbox">
+                  <input type="checkbox" id="checkBoxUniqValue" class="mycheckbox__default"
+                    (click)="changeUniqSwap()" />
+                  <div class="mycheckbox__new" [class.mycheckbox__checked]="!valueUniqCheck"></div>
+                </label></div>
+            </div>
+          </ng-container>
+        </div>
+        <div class="bottom-reference-right">
+          <div class="bottom-reference-right__block">
+            <div class="bottom-reference-right__button-add"></div>
+            <div class="bottom-reference-right__input-block">
+              <div class="bottom-reference-right__button-search"></div>
+              <div class="bottom-reference-right__input">
+                <input type="text" />
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="reference-right">
-      <div class="title-reference">
-        <ng-container>
-          <div class="title-reference__title"></div>
-        </ng-container>
-      </div>
-      <div class="reference-container-value">
-        <ng-container>
-          <div class="reference-container-value__block">
-            <div class="reference-container-value__fio-block">
-              <div class="reference-container-value__fio-block">ФИО</div>
-              <div class="reference-container-value__button-edit"></div>
-            </div>
-            <div class="reference-container-value__type">Текст</div>
-            <div class="reference-container-value__value">(0)</div>
-            <div class="reference-container-value__uniqValue">(0)</div>
-          </div>
-        </ng-container>
-      </div>
-      <div class="bottom-reference-right">
-        <div class="bottom-reference-right__block">
-          <div class="bottom-reference-right__button-add"></div>
-          <div class="bottom-reference-right__input-block">
-            <div class="bottom-reference-right__button-search"></div>
-            <div class="bottom-reference-right__input">
-              <input type="text" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <evj-frame-bottom></evj-frame-bottom>
   </div>
+
+  <evj-frame-bottom></evj-frame-bottom>
 </div>
