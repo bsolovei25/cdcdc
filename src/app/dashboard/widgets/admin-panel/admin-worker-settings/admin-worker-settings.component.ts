@@ -1,15 +1,12 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy, Input } from '@angular/core';
-import {
-    IWorkerOptionAdminPanel,
-    IWorkspace,
-    IScreen,
-    IBrigadeAdminPanel,
-} from '../../../models/admin-panel';
-import { IUser } from '../../../models/events-widget';
+import { IWorkerOptionAdminPanel, IWorkspace, IScreen, IClaim } from '../../../models/admin-panel';
+import { IUser, IUnitEvents } from '../../../models/events-widget';
 import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
 import { Subscription } from 'rxjs';
 import { fillDataShape } from '../../../../@shared/common-functions';
 import { IBrigade } from '../../../models/shift.model';
+import { MaterialControllerService } from '../../../services/material-controller.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
     selector: 'evj-admin-worker-settings',
@@ -25,37 +22,55 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     public isCheckBoxClicked: boolean = false;
 
+    public isWorkerResponsible: boolean = false;
+
     private searchingWorkspaceValue: string = '';
     private searchingFieldName: string = '';
 
     public searchIcon: string = 'assets/icons/search-icon.svg';
 
-    public options: IWorkerOptionAdminPanel[];
+    public inputOptions: IWorkerOptionAdminPanel[];
+    public selectOptions: IWorkerOptionAdminPanel[];
 
     public worker: IUser = null;
+    public workerUnit: IUnitEvents = null;
 
     public allWorkspaces: IWorkspace[] = [];
     public workerScreens: IWorkspace[] = [];
     public workerScreensDetached: IScreen[] = [];
+    private workspacesClaims: { workspaceId: number; claims: IClaim[] }[] = [];
 
     private subscriptions: Subscription[] = [];
 
-    constructor(private adminService: AdminPanelService) {}
+    constructor(
+        private adminService: AdminPanelService,
+        private materialController: MaterialControllerService
+    ) {}
 
     public ngOnInit(): void {
         this.subscriptions.push(
             this.adminService.activeWorker$.subscribe((worker: IUser) => {
                 this.worker = fillDataShape(worker);
-                this.options = [
+                this.inputOptions = [
                     {
                         name: 'Логин',
                         value: this.worker.login,
                         key: 'login',
                     },
                     {
-                        name: 'ФИО',
-                        value: this.adminService.getFullName(this.worker),
-                        key: 'name',
+                        name: 'Фамилия',
+                        value: this.worker.lastName,
+                        key: 'lastName',
+                    },
+                    {
+                        name: 'Имя',
+                        value: this.worker.firstName,
+                        key: 'firstName',
+                    },
+                    {
+                        name: 'Отчество',
+                        value: this.worker.middleName,
+                        key: 'middleName',
                     },
                     {
                         name: 'Должность',
@@ -72,9 +87,20 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                         value: this.worker.email,
                         key: 'email',
                     },
+                ];
+                this.selectOptions = [
+                    {
+                        name: 'Установка',
+                        value: this.worker.hasOwnProperty('brigade')
+                            ? this.adminService.getUnitByBrigadeId(this.worker.brigade.id).name
+                            : null,
+                        key: 'unit',
+                    },
                     {
                         name: 'Бригада',
-                        value: this.worker.brigade.number,
+                        value: this.worker.hasOwnProperty('brigade')
+                            ? this.worker.brigade.number
+                            : null,
                         key: 'brigade',
                     },
                 ];
@@ -85,6 +111,9 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                 });
                 this.workerScreensDetached = workerScreens;
             }),
+            this.adminService.activeWorkerUnit$.subscribe(
+                (unit: IUnitEvents) => (this.workerUnit = unit)
+            ),
             this.adminService.getAllScreens().subscribe((data: IWorkspace[]) => {
                 this.allWorkspaces = data;
             })
@@ -94,6 +123,8 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     public ngOnDestroy(): void {
         this.subscriptions.forEach((subs: Subscription) => subs.unsubscribe());
     }
+
+    //#region SEARCH
 
     public onSearchWorkspace(searchedWorkspace: string): void {
         this.searchingWorkspaceValue = searchedWorkspace.toLowerCase();
@@ -111,8 +142,20 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         return workspaceName.toLowerCase().includes(this.searchingWorkspaceValue);
     }
 
+    //#endregion
+
     public defineIsWorkspaceActive(workspace: IWorkspace): boolean {
         return !!this.workerScreens.find((item: IWorkspace) => item.id === workspace.id);
+    }
+
+    public defineWorkerScreenId(workspace: IWorkspace): number {
+        const screen = this.workerScreensDetached.find(
+            (item: IScreen) => item.screen.id === workspace.id
+        );
+        if (screen) {
+            return screen.id;
+        }
+        return null;
     }
 
     public onSelectWorkspace(event: IWorkspace): void {
@@ -126,6 +169,34 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             );
             this.workerScreens.splice(index, 1);
         }
+    }
+
+    public onSelectWorkspaceClaims(event: { workspaceId: number; claims: IClaim[] }): void {
+        this.isAlertShowing = true;
+        this.isCheckBoxClicked = false;
+        const index: number = this.workspacesClaims.findIndex(
+            (item) => item.workspaceId === event.workspaceId
+        );
+        if (index === -1) {
+            this.workspacesClaims.push(event);
+        } else {
+            this.workspacesClaims.splice(index, 1);
+            this.workspacesClaims.push(event);
+        }
+    }
+
+    private async changeWorkspaceClaims(): Promise<void> {
+        this.workspacesClaims.forEach(async (wsClaim) => {
+            const screen: IScreen = this.workerScreensDetached.find(
+                (item: IScreen) => item.screen.id === wsClaim.workspaceId
+            );
+
+            if (screen) {
+                await this.adminService
+                    .setWorkerScreenClaims(screen.id, wsClaim.claims)
+                    .toPromise();
+            }
+        });
     }
 
     private addWorkspacesToWorker(): number[] {
@@ -154,10 +225,36 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         return idArray;
     }
 
+    public onSelectUnit(unit: IUnitEvents): void {
+        this.isCheckBoxClicked = false;
+        this.isAlertShowing = true;
+
+        this.workerUnit = unit;
+        if (unit) {
+            this.adminService.updateUnitBrigades(unit.id);
+        } else {
+            this.onSelectBrigade(null);
+        }
+    }
+
     public onSelectBrigade(brigade: IBrigade): void {
         this.isCheckBoxClicked = false;
         this.isAlertShowing = true;
-        this.worker.brigade = { id: brigade.id, number: brigade.number.toString() };
+
+        if (brigade) {
+            this.worker.brigade = { id: brigade.id, number: brigade.number.toString() };
+            return;
+        }
+
+        if (this.worker.hasOwnProperty('brigade')) {
+            delete this.worker.brigade;
+        }
+    }
+
+    public onSetResponsible(event: boolean): void {
+        this.isWorkerResponsible = event;
+        this.isCheckBoxClicked = false;
+        this.isAlertShowing = true;
     }
 
     public onSelectClaim(): void {
@@ -166,20 +263,13 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public onFieldChanging(event: IWorkerOptionAdminPanel): void {
-        if (event.key === 'name') {
-            const nameArray: string[] = event.value.split(' ');
-            if (nameArray.length > 3) {
-                console.error('INVALID WORKER NAME');
-            } else {
-                this.worker.lastName = nameArray[0] ? nameArray[0] : '';
-                this.worker.firstName = nameArray[1] ? nameArray[1] : '';
-                this.worker.middleName = nameArray[2] ? nameArray[2] : '';
-            }
-        } else {
-            this.worker[event.key] = event.value;
-        }
+        this.worker[event.key] = event.value;
         this.isCheckBoxClicked = false;
         this.isAlertShowing = true;
+    }
+
+    public onChangeLockWorker(): void {
+        console.log('CHANGE LOCK STATUS');
     }
 
     public returnPhotoPath(): string {
@@ -190,17 +280,33 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         this.worker = await this.adminService.createNewWorker(this.worker).toPromise();
         const promises: Promise<void>[] = [];
         this.addWorkspacesToWorker().forEach((index: number) => {
-            promises.push(this.adminService.addWorkerScreen(this.worker.id, index).toPromise());
+            const workspaceClaims = this.workspacesClaims.find(
+                (item) => item.workspaceId === index
+            );
+
+            promises.push(
+                this.adminService
+                    .addWorkerScreen(this.worker.id, index, workspaceClaims.claims)
+                    .toPromise()
+            );
         });
         Promise.all(promises);
     }
 
     private async onEditWorker(): Promise<void> {
         const promises: Promise<void>[] = [];
-
         promises.push(this.adminService.editWorkerData(this.worker).toPromise());
+        await this.changeWorkspaceClaims();
         this.addWorkspacesToWorker().forEach((index: number) => {
-            promises.push(this.adminService.addWorkerScreen(this.worker.id, index).toPromise());
+            const workspaceClaims = this.workspacesClaims.find(
+                (item) => item.workspaceId === index
+            );
+
+            promises.push(
+                this.adminService
+                    .addWorkerScreen(this.worker.id, index, workspaceClaims.claims)
+                    .toPromise()
+            );
         });
         this.removeWorkspacesFromWorker().forEach((index: number) => {
             promises.push(this.adminService.removeWorkerScreen(index).toPromise());
@@ -209,31 +315,71 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         await Promise.all(promises);
     }
 
+    private checkForRequiredFields(): boolean {
+        const messages = {
+            firstName: 'Имя',
+            lastName: 'Фамилия',
+            login: 'Логин',
+            phone: 'Телефон',
+            email: 'Эл.почта',
+        };
+
+        let snackbarMessage: string = '';
+
+        for (const key in messages) {
+            if (!this.worker[key]) {
+                snackbarMessage = `${snackbarMessage} ${messages[key]}`;
+            }
+        }
+
+        if (snackbarMessage) {
+            this.materialController.openSnackBar(
+                `Обязательные поля: ${snackbarMessage}`,
+                'snackbar-red'
+            );
+        }
+
+        return (
+            !!this.worker.firstName &&
+            !!this.worker.lastName &&
+            !!this.worker.login &&
+            !!this.worker.phone &&
+            !!this.worker.email
+        );
+    }
+
     public onReturn(): void {
         this.closeWorkerSettings.emit(null);
     }
 
     public async onSave(): Promise<void> {
-        if (this.isCheckBoxClicked) {
+        if (this.isCheckBoxClicked && this.checkForRequiredFields()) {
             try {
-                this.isCreateNewUser ? await this.onCreateNewWorker() : await this.onEditWorker();
-
                 this.worker.displayName = this.adminService.generateDisplayName(this.worker);
+                this.isCreateNewUser ? await this.onCreateNewWorker() : await this.onEditWorker();
+                if (this.isWorkerResponsible) {
+                    await this.adminService.setUserResponsible(this.worker.id).toPromise();
+                }
                 await this.adminService.updateAllWorkers();
                 await this.adminService.updateAllBrigades();
                 const userScreens: IScreen[] = await this.adminService
                     .getWorkerScreens(this.worker.id)
                     .toPromise();
-                const newActiveBrigade = this.adminService.brigades.find(
-                    (brigade) => brigade.brigadeId === this.worker.brigade.id
-                );
-                this.adminService.activeBrigade$.next(newActiveBrigade);
+                if (this.worker.hasOwnProperty('brigade')) {
+                    const newActiveBrigade = this.adminService.brigades.find(
+                        (brigade) => brigade.brigadeId === this.worker.brigade.id
+                    );
+                    this.adminService.activeBrigade$.next(newActiveBrigade);
+                }
                 this.adminService.activeWorkerScreens$.next(userScreens);
                 this.adminService.activeWorker$.next(this.worker);
+                this.adminService.activeWorkerUnit$.next(this.workerUnit);
 
+                this.materialController.openSnackBar('Данные сохранены');
                 this.closeWorkerSettings.emit(this.worker);
             } catch (error) {
-                throw new Error(error);
+                console.log(error.error);
+                this.materialController.openSnackBar('Ошибка', 'snackbar-red');
             }
         }
     }

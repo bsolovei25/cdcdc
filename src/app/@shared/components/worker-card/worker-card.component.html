@@ -9,6 +9,7 @@
         xlink:href="assets/icons/widgets/admin/worker-card.svg"
       />
       <image x="-36" y="0" width="42" height="42" [attr.xlink:href]="photoPath" />
+
       <text x="33" y="9" text-anchor="start" class="svg__txt">
         {{person.phone}}
       </text>
@@ -16,16 +17,24 @@
         {{person.email}}
       </text>
       <text x="33" y="32" text-anchor="start" class="svg__txt" *ngIf="person.id; else noselected">
-        Бригада№{{person.brigade.number}}
+        {{getPersonUnit()}}{{getPersonBrigade()}}
       </text>
       <ng-template #noselected>
         <text x="33" y="32" text-anchor="start" class="svg__txt">
-          {{person.brigade.number}}
+          {{getPersonUnit()}}{{getPersonBrigade()}}
         </text>
       </ng-template>
       <text x="33" y="43" text-anchor="start" class="svg__txt">
         {{1}}
       </text>
+      <image
+        x="-35"
+        y="40"
+        width="9"
+        height="9"
+        [attr.xlink:href]="mainWorkerPath"
+        *ngIf="checkPersonResponsibility()"
+      />
     </svg>
   </ng-container>
 
@@ -58,6 +67,22 @@
       >
         {{getPersonPosition()}}
       </text>
+      <image
+        x="-40"
+        y="75"
+        width="25"
+        height="25"
+        [attr.xlink:href]="mainWorkerPath"
+        *ngIf="checkPersonResponsibility() && isActiveCard"
+      />
+      <image
+        x="-40"
+        y="75"
+        width="25"
+        height="25"
+        [attr.xlink:href]="mainWorkerPathDisable"
+        *ngIf="checkPersonResponsibility() && !isActiveCard"
+      />
     </svg>
   </ng-template>
 </div>
