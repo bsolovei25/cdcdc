@@ -42,6 +42,8 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
     public readonly iconRoute: string = './assets/icons/widget-title-icons/';
     private subscriptions: Subscription[] = [];
     claimWidgets: EnumClaimWidgets[] = [];
+    EnumClaimWidgets = EnumClaimWidgets;
+
     public selectValue: { name: string; id: number };
 
     public CreateIcon: boolean = true;
