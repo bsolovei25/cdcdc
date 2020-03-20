@@ -14,7 +14,8 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
 
     private subscriptions: Subscription[] = [];
 
-    private claimScreens: EnumClaimScreens[] = [];
+    public claimScreens: EnumClaimScreens[] = [];
+    EnumClaimScreens = EnumClaimScreens;
 
     isReadyAdd: boolean = false;
 
@@ -32,7 +33,7 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
 
     isShowScreens: boolean = false;
 
-    constructor(private userSettings: NewUserSettingsService, private claimService: ClaimService) {}
+    constructor(private userSettings: NewUserSettingsService, private claimService: ClaimService) { }
 
     ngOnInit(): void {
         this.subscriptions.push(
@@ -158,5 +159,5 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
             item.updateScreen = false;
         }
     }
-    isOverScreen(e) {}
+    isOverScreen(e) { }
 }

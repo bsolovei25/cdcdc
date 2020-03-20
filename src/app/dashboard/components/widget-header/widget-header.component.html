@@ -17,7 +17,7 @@
     </span>
     <span class="header__units">{{units}}</span>
     <div
-      *ngIf="!isPreview && claimWidgets.includes('delete')"
+      *ngIf="!isPreview && claimWidgets.includes(EnumClaimWidgets.delete)"
       class="delete_widget"
       (click)="onRemoveButton()"
       (mousedown)="$event.stopPropagation()"
