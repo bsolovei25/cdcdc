@@ -82,8 +82,18 @@
     </div>
     <div class="worker__column worker__main">
       <div class="avatar">
-        <div class="frame" [ngClass]="{'frame-moved':isAlertShowing}">
+        <div
+          class="frame"
+          [ngClass]="{'frame-moved':isAlertShowing}"
+          (mouseenter)="isAvatarButtonShowing=true"
+          (mouseleave)="isAvatarButtonShowing=false"
+        >
           <img [src]="returnPhotoPath()" class="photo" />
+          <div
+            class="photo__add"
+            [ngClass]="{'photo__add_active':isAvatarButtonShowing}"
+            (click)="isPopUpShowing=true"
+          ></div>
         </div>
         <div class="alert" [ngClass]="{'alert-hidden':!isAlertShowing}">
           <div
@@ -146,4 +156,9 @@
       </div>
     </div>
   </div>
+  <evj-aws-avatar
+    class="admin__popup"
+    [ngClass]="{'admin__popup_active':isPopUpShowing}"
+    (closePopUp)="isPopUpShowing=false"
+  ></evj-aws-avatar>
 </div>

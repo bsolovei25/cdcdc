@@ -19,8 +19,10 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     public isClaimsShowing: boolean = true;
     public isAlertShowing: boolean = false;
-
     public isCheckBoxClicked: boolean = false;
+
+    public isPopUpShowing: boolean = false;
+    public isAvatarButtonShowing: boolean = false;
 
     public isWorkerResponsible: boolean = false;
 
