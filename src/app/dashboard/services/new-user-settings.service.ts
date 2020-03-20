@@ -95,7 +95,7 @@ export class NewUserSettingsService {
         }
     }
 
-    private updateWidgetApi(uniqId) {
+    private updateWidgetApi(uniqId: string): void {
         this.save(uniqId);
         const updateWidget = this.widgetInfo;
         this.http
@@ -106,7 +106,7 @@ export class NewUserSettingsService {
             );
     }
 
-    public updateByPosition(oldItem, newItem) {
+    public updateByPosition(oldItem, newItem): void {
         for (const item of this.widgetService.dashboard) {
             if (item.uniqid === oldItem.uniqid) {
                 item.x = newItem.x;

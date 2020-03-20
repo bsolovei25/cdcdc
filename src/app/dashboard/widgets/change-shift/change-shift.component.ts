@@ -113,7 +113,9 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
                     await this.shiftService.cancelUsbAction(obj.verifyId);
                     break;
             }
-            this.materialController.openSnackBar(obj?.message);
+            if (obj?.message) {
+                this.materialController.openSnackBar(obj?.message);
+            }
             setTimeout(() => {
                 this.isWindowCardVerifyActive = false;
                 this.isWindowUsbVerifyActive = false;
