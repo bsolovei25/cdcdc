@@ -168,7 +168,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     }
 
     public ngOnInit(): void {
-        // super.widgetInit();
+        super.widgetInit();
     }
 
     public ngOnDestroy(): void {
