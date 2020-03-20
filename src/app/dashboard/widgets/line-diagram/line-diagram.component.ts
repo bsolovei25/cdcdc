@@ -9,8 +9,8 @@ import { WidgetPlatform } from '../../models/widget-platform';
     styleUrls: ['./line-diagram.component.scss'],
 })
 export class LineDiagramComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    protected static itemCols: number = 15;
-    protected static itemRows: number = 7;
+    public static itemCols: number = 15;
+    public static itemRows: number = 7;
 
     public data: ILineDiagram[] = [
         {

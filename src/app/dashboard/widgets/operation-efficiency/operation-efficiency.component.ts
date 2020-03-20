@@ -10,8 +10,8 @@ import { WidgetPlatform } from '../../models/widget-platform';
     styleUrls: ['./operation-efficiency.component.scss'],
 })
 export class OperationEfficiencyComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    protected static itemCols: number = 18;
-    protected static itemRows: number = 6;
+    public static itemCols: number = 18;
+    public static itemRows: number = 6;
     public static minItemCols: number = 5;
     public static minItemRows: number = 5;
     /* Приблизительная структура, получаемая с бека */

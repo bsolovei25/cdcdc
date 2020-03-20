@@ -37,8 +37,8 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
 
     isLoading: boolean = true;
 
-    protected static itemCols: number = 48;
-    protected static itemRows: number = 24;
+    public static itemCols: number = 48;
+    public static itemRows: number = 24;
 
     activeUsers: SelectionModel<IUser> = new SelectionModel(true);
 
