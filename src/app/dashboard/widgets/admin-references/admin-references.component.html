@@ -1,11 +1,24 @@
-<evj-widget-preview [title]="title" [previewTitle]="previewTitle" *ngIf="isMock"></evj-widget-preview>
+<evj-widget-preview
+  [title]="title"
+  [previewTitle]="previewTitle"
+  *ngIf="isMock"
+></evj-widget-preview>
 
 <div class="container" *ngIf="!isMock">
-  <evj-widget-header [title]="title" [id]="id" [units]="units" [uniqId]="uniqId"></evj-widget-header>
+  <evj-widget-header
+    [title]="title"
+    [id]="id"
+    [units]="units"
+    [uniqId]="uniqId"
+  ></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
 
-  <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+  <div
+    class="content"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
     <!-- <div class="references">
       <div class="reference-input-block">
         <div class="reference-input">
@@ -116,30 +129,38 @@
               <div class="reference-container__block-info" [class.block-active]="item.open">
                 <div class="reference-container__name">{{item.name}}</div>
                 <div class="reference-container__button-edit">
-                  <svg-icon class="indicator-selector__collapse" src="./assets/icons/edit.svg"
-                  [svgStyle]="{ 'width.px':20, 'height.px':20 }"></svg-icon>
+                  <svg-icon
+                    class="indicator-selector__collapse"
+                    src="./assets/icons/edit.svg"
+                    [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+                  ></svg-icon>
                 </div>
               </div>
               <div class="reference-container__button-remove">
-                <svg-icon class="indicator-selector__collapse" src="./assets/icons/garbage_bad_pic.svg"
-                [svgStyle]="{ 'width.px':20, 'height.px':20 }"></svg-icon>
+                <svg-icon
+                  class="indicator-selector__collapse"
+                  src="./assets/icons/garbage_bad_pic.svg"
+                  [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+                ></svg-icon>
               </div>
             </div>
           </ng-container>
-
         </div>
         <div class="bottom-reference-left">
           <div class="bottom-reference-left__block">
             <div class="bottom-reference-left__button-add">
               <svg-icon
-              src="./assets/icons/widgets/widget-header/checkmark.svg"
-              class="add_button_icon"
-              [svgStyle]="{ 'width.px':20, 'height.px':20 }"
-            ></svg-icon>
+                src="./assets/icons/widgets/widget-header/checkmark.svg"
+                class="add_button_icon"
+                [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+              ></svg-icon>
             </div>
             <div class="bottom-reference-left__input-block">
               <div class="bottom-reference-left__button-search">
-                <svg-icon class="button_filter_icon" src="./assets/icons/SearchFilter.svg"></svg-icon>
+                <svg-icon
+                  class="button_filter_icon"
+                  src="./assets/icons/SearchFilter.svg"
+                ></svg-icon>
               </div>
               <div class="bottom-reference-left__input">
                 <input type="text" />
@@ -159,32 +180,51 @@
           <div class="reference-container-value">
             <ng-container *ngFor="let item of data">
               <div class="reference-container-value__block">
-                <div class="reference-container-value__fio-block" [class.block-active]="item.open" (click)="onClickItemReference(item)">
+                <div
+                  class="reference-container-value__fio-block"
+                  [class.block-active]="item.open"
+                  (click)="onClickItemReference(item)"
+                >
                   <div class="reference-container-value__fio">{{item.name}}</div>
                 </div>
                 <div class="reference-container-value__type">
                   <mat-form-field class="categories_selectbox">
                     <mat-select panelClass="mat-select-custom">
-                      <mat-option *ngFor="let p of data" [value]="p">{{ p.name }}
-                      </mat-option>
+                      <mat-option *ngFor="let p of data" [value]="p">{{ p.name }} </mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
                 <div class="reference-container-value__value">
                   <label class="mycheckbox">
-                    <input type="checkbox" id="checkBoxValue" class="mycheckbox__default" (click)="changeSwap()" />
+                    <input
+                      type="checkbox"
+                      id="checkBoxValue"
+                      class="mycheckbox__default"
+                      (click)="changeSwap()"
+                    />
                     <div class="mycheckbox__new" [class.mycheckbox__checked]="!valueCheck"></div>
                   </label>
                 </div>
-                <div class="reference-container-value__uniqValue"> <label class="mycheckbox">
-                    <input type="checkbox" id="checkBoxUniqValue" class="mycheckbox__default"
-                      (click)="changeUniqSwap()" />
-                    <div class="mycheckbox__new" [class.mycheckbox__checked]="!valueUniqCheck"></div>
+                <div class="reference-container-value__uniqValue">
+                  <label class="mycheckbox">
+                    <input
+                      type="checkbox"
+                      id="checkBoxUniqValue"
+                      class="mycheckbox__default"
+                      (click)="changeUniqSwap()"
+                    />
+                    <div
+                      class="mycheckbox__new"
+                      [class.mycheckbox__checked]="!valueUniqCheck"
+                    ></div>
                   </label>
                 </div>
                 <div class="reference-container-value__delete-button">
-                  <svg-icon class="indicator-selector__collapse" src="./assets/icons/garbage_bad_pic.svg"
-                  [svgStyle]="{ 'width.px':20, 'height.px':20 }"></svg-icon>
+                  <svg-icon
+                    class="indicator-selector__collapse"
+                    src="./assets/icons/garbage_bad_pic.svg"
+                    [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+                  ></svg-icon>
                 </div>
               </div>
             </ng-container>
@@ -194,14 +234,17 @@
           <div class="bottom-reference-right__block">
             <div class="bottom-reference-right__button-add">
               <svg-icon
-              src="./assets/icons/widgets/widget-header/checkmark.svg"
-              class="add_button_icon"
-              [svgStyle]="{ 'width.px':20, 'height.px':20 }"
-            ></svg-icon>
+                src="./assets/icons/widgets/widget-header/checkmark.svg"
+                class="add_button_icon"
+                [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+              ></svg-icon>
             </div>
             <div class="bottom-reference-right__input-block">
               <div class="bottom-reference-right__button-search">
-                <svg-icon class="button_filter_icon" src="./assets/icons/SearchFilter.svg"></svg-icon>
+                <svg-icon
+                  class="button_filter_icon"
+                  src="./assets/icons/SearchFilter.svg"
+                ></svg-icon>
               </div>
               <div class="bottom-reference-right__input">
                 <input type="text" />
@@ -211,7 +254,6 @@
         </div>
       </div>
     </div>
-
   </div>
 
   <evj-frame-bottom></evj-frame-bottom>

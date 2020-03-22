@@ -88,5 +88,5 @@ export const WIDGETS = {
     'admin-references': AdminReferencesComponent,
     'petroleum-products-movement': PetroleumProductsMovementComponent,
     'admin-panel': AdminPanelComponent,
-    'reference': ReferenceComponent
+    reference: ReferenceComponent,
 };

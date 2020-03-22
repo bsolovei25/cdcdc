@@ -274,7 +274,7 @@ import { ReferenceComponent } from './widgets/reference/reference.component';
         AdminReferencesComponent,
         PetroleumProductsMovementComponent,
         AdminPanelComponent,
-        ReferenceComponent
+        ReferenceComponent,
     ],
     exports: [HomeComponent],
     imports: [

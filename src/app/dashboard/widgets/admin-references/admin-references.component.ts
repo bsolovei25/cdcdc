@@ -28,8 +28,8 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
 
     isChangeName: boolean = false;
 
-    valueCheck:boolean = true;
-    valueUniqCheck:boolean = true;
+    valueCheck: boolean = true;
+    valueUniqCheck: boolean = true;
 
     data = [
         {
@@ -150,23 +150,18 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
     changeSwap() {
         let check = <HTMLInputElement>document.getElementById('checkBoxValue');
         if (check.checked) {
-            this.valueCheck = false
-          ;
+            this.valueCheck = false;
         } else {
             this.valueCheck = true;
-            ;
         }
     }
 
     changeUniqSwap() {
         let check = <HTMLInputElement>document.getElementById('checkBoxUniqValue');
         if (check.checked) {
-            this.valueUniqCheck = false
-          ;
+            this.valueUniqCheck = false;
         } else {
             this.valueUniqCheck = true;
-            ;
         }
     }
-
 }

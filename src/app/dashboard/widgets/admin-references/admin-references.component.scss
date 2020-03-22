@@ -446,7 +446,7 @@ input {
       direction: ltr;
       display: flex;
 
-      .block-active{
+      .block-active {
         border: 1px solid var(--color-bg-additional);
         border-left: 1px solid var(--color-border-active);
         border-top-right-radius: 20px;
@@ -460,7 +460,6 @@ input {
       width: 90%;
       justify-content: space-between;
     }
-
   }
 
   .bottom-reference-left {
@@ -529,7 +528,7 @@ input {
       border-radius: 20px;
       margin-top: 7px;
 
-      input{
+      input {
         border-bottom: none !important;
       }
     }
@@ -642,7 +641,7 @@ input {
         background-color: var(--color-bg-additional);
       }
 
-      .block-active{
+      .block-active {
         border-left: 1px solid var(--color-bg-additional);
         background: linear-gradient(180deg, rgba(8, 128, 207, 0.3), transparent) !important;
       }
@@ -729,7 +728,6 @@ input {
       background: var(--color-bg-main);
     }
 
-
     &__block {
       display: flex;
       padding-left: 20px;
@@ -756,7 +754,7 @@ input {
       border-radius: 20px;
       margin-top: 7px;
 
-      input{
+      input {
         border-bottom: none !important;
       }
     }
