@@ -15,7 +15,7 @@ export class PetroleumProductsMovementComponent extends WidgetPlatform implement
     // public isWorkspace: boolean = true;
     //
     // public isShort: boolean = true;
-    //
+    // asd
     // public isUpdateParamButton: boolean = false;
 
     public typeScreen: string = 'info';
