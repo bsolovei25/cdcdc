@@ -118,6 +118,7 @@ import { InfoScreenComponent } from './widgets/petroleum-products-movement/petro
 import { PetroleumUnityInfoComponent } from './widgets/petroleum-products-movement/petroleum-unity-info/petroleum-unity-info.component';
 import { UsbVerifierComponent } from './widgets/change-shift/usb-verifier/usb-verifier.component';
 import { TimeDataPickerComponent } from './components/time-data-picker/time-data-picker.component';
+import { ReferenceComponent } from './widgets/reference/reference.component';
 
 @NgModule({
     declarations: [
@@ -223,6 +224,7 @@ import { TimeDataPickerComponent } from './components/time-data-picker/time-data
         PetroleumUnityInfoComponent,
         UsbVerifierComponent,
         TimeDataPickerComponent,
+        ReferenceComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -272,6 +274,7 @@ import { TimeDataPickerComponent } from './components/time-data-picker/time-data
         AdminReferencesComponent,
         PetroleumProductsMovementComponent,
         AdminPanelComponent,
+        ReferenceComponent
     ],
     exports: [HomeComponent],
     imports: [

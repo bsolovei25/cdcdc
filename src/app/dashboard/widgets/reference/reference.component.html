@@ -1,0 +1,102 @@
+<evj-widget-preview [title]="title" [previewTitle]="previewTitle" *ngIf="isMock"></evj-widget-preview>
+
+<div class="container" *ngIf="!isMock">
+    <evj-widget-header [title]="title" [id]="id" [units]="units" [uniqId]="uniqId"></evj-widget-header>
+
+    <evj-frame-top></evj-frame-top>
+
+    <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+        <div class="references">
+            <div class="reference-left">
+                <div class="title-reference">Наименование справочника</div>
+                <div class="reference-container">
+                    <ng-container *ngFor="let item of data">
+                        <div class="reference-container__block" (click)="onClickReference(item)">
+                            <div class="reference-container__block-info" [class.block-active]="item.open">
+                                <div class="reference-container__name">{{item.name}}</div>
+                            </div>
+                        </div>
+                    </ng-container>
+
+                </div>
+                <div class="bottom-reference-left">
+                    <div class="bottom-reference-left__block">
+                        <div class="bottom-reference-left__input-block">
+                            <div class="bottom-reference-left__button-search">
+                                <svg-icon class="button_filter_icon" src="./assets/icons/SearchFilter.svg"></svg-icon>
+                            </div>
+                            <div class="bottom-reference-left__input">
+                                <input type="text" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="reference-right">
+                <div class="title-reference">
+                    <!--NG-CONTAINER FOR TITLE-->
+                    <div class="title-reference__title-name">
+                        <div>
+                            <label class="mycheckbox">
+                                <input type="checkbox" id="checkBoxValue" class="mycheckbox__default"
+                                    (click)="changeSwap()" />
+                                <div class="mycheckbox__new" [class.mycheckbox__checked]="!valueCheck"></div>
+                            </label>
+                        </div>
+                        <div>
+                            ФИО
+                        </div>
+                    </div>
+                    <div class="title-reference__title-type">
+                        <div>
+                            <label class="mycheckbox">
+                                <input type="checkbox" id="checkBoxValue" class="mycheckbox__default"
+                                    (click)="changeSwap()" />
+                                <div class="mycheckbox__new" [class.mycheckbox__checked]="!valueCheck"></div>
+                            </label>
+                        </div>
+                        <div>
+                            Дата рождения
+                        </div>
+                    </div>
+                </div>
+                <div class="references-container-scroll-block">
+                    <div class="reference-container-value">
+                        <ng-container *ngFor="let item of data">
+                            <div class="reference-container-value__block">
+                                <div class="reference-container-value__fio-block" [class.block-active]="item.open"
+                                    (click)="onClickItemReference(item)">
+                                    <div class="reference-container-value__fio">{{item.name}}</div>
+                                    <div class="reference-container-value__remove-button"></div>
+                                </div>
+                                <div class="reference-container-value__type">
+                                    <div class="reference-container-value__fio">{{item.name}}</div>
+                                    <div class="reference-container-value__remove-button"></div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="bottom-reference-right">
+                    <div class="bottom-reference-right__block">
+                        <div class="bottom-reference-right__button-add">
+                            <svg-icon src="./assets/icons/widgets/widget-header/checkmark.svg" class="add_button_icon"
+                                [svgStyle]="{ 'width.px':20, 'height.px':20 }"></svg-icon>
+                        </div>
+                        <div class="bottom-reference-right__input-block">
+                            <div class="bottom-reference-right__button-search">
+                                <svg-icon class="button_filter_icon" src="./assets/icons/SearchFilter.svg"></svg-icon>
+                            </div>
+                            <div class="bottom-reference-right__input">
+                                <input type="text" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <evj-frame-bottom></evj-frame-bottom>
+</div>

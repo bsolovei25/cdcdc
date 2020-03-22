@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
 
@@ -7,7 +7,7 @@ import { NewWidgetService } from '../../services/new-widget.service';
     templateUrl: './admin-references.component.html',
     styleUrls: ['./admin-references.component.scss'],
 })
-export class AdminReferencesComponent implements OnInit {
+export class AdminReferencesComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
 
     static itemCols = 18;
@@ -136,19 +136,11 @@ export class AdminReferencesComponent implements OnInit {
     }
 
     onClickReference(data) {
-        let index = 0;
-        this.isReference = !this.isReference;
-        for (let i of this.data) {
-            index++;
-            if (i === data) {
-                if (!this.isReference) {
-                    this.massCheck = [];
-                } else {
-                    this.referencesOn = index - 1;
-                    this.massCheck.push(i);
-                }
-            }
-        }
+        data.open = !data.open;
+    }
+
+    onClickItemReference(data) {
+        data.open = !data.open;
     }
 
     onChangeName() {

@@ -8,10 +8,10 @@
     },
     {
         "id": "83b83353-3dc8-11ea-b218-c8d9d2317222",
-        "name": "admin-references1",
+        "name": "references1",
         "title": "2",
         "categories": [],
-        "widgetType": "production-plan"
+        "widgetType": "reference"
     },
     {
         "id": "83b83353-3dc8-11ea-b218-c8d9d2317223",
