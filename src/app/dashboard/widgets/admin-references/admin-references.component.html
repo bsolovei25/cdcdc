@@ -19,7 +19,6 @@
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
   >
-
     <div class="references">
       <div class="reference-left">
         <div class="title-reference">Наименование справочника</div>
@@ -36,13 +35,16 @@
                   ></svg-icon>
                 </div>
               </div>
-              <div class="reference-container__button-remove" (click)="onClickDeleteReference(item)">
-                <svg-icon
-                class="indicator-selector__collapse"
-                src="./assets/icons/widgets/references/delete_red.svg"
-                *ngIf="item.open"
+              <div
+                class="reference-container__button-remove"
+                (click)="onClickDeleteReference(item)"
               >
-              </svg-icon>
+                <svg-icon
+                  class="indicator-selector__collapse"
+                  src="./assets/icons/widgets/references/delete_red.svg"
+                  *ngIf="item.open"
+                >
+                </svg-icon>
               </div>
             </div>
           </ng-container>
@@ -53,7 +55,6 @@
               <svg-icon
                 src="./assets/icons/widgets/references/add_white.svg"
                 class="add_button_icon"
-               
               ></svg-icon>
             </div>
             <div class="bottom-reference-left__input-block">
@@ -78,9 +79,9 @@
           <div class="title-reference__title-uniqValue">Уникальное значение</div>
         </div>
         <div class="references-container-scroll-block">
-          <div class="reference-container-value" cdkDropList (cdkDropListDropped)="drop($event)"> 
+          <div class="reference-container-value" cdkDropList (cdkDropListDropped)="drop($event)">
             <div *ngFor="let item of data" cdkDrag class="example-box">
-              <div class="reference-container-value__block" >
+              <div class="reference-container-value__block">
                 <div
                   class="reference-container-value__fio-block"
                   [class.block-active]="item.open"
@@ -88,14 +89,14 @@
                 >
                   <div class="reference-container-value__fio">{{item.name}}</div>
                 </div>
-                <div class="reference-container-value__type"   [class.block-active]="item.open">
+                <div class="reference-container-value__type" [class.block-active]="item.open">
                   <mat-form-field class="categories_selectbox">
                     <mat-select panelClass="mat-select-custom">
                       <mat-option *ngFor="let p of data" [value]="p">{{ p.name }} </mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
-                <div class="reference-container-value__value"   [class.block-active]="item.open">
+                <div class="reference-container-value__value" [class.block-active]="item.open">
                   <label class="mycheckbox">
                     <input
                       type="checkbox"
@@ -106,7 +107,7 @@
                     <div class="mycheckbox__new" [class.mycheckbox__checked]="!valueCheck"></div>
                   </label>
                 </div>
-                <div class="reference-container-value__uniqValue"   [class.block-active]="item.open">
+                <div class="reference-container-value__uniqValue" [class.block-active]="item.open">
                   <label class="mycheckbox">
                     <input
                       type="checkbox"
@@ -120,7 +121,10 @@
                     ></div>
                   </label>
                 </div>
-                <div class="reference-container-value__delete-button-none"  [class.reference-container-value__delete-button]="item.open">
+                <div
+                  class="reference-container-value__delete-button-none"
+                  [class.reference-container-value__delete-button]="item.open"
+                >
                   <svg-icon
                     class="indicator-selector__collapse"
                     src="./assets/icons/widgets/references/delete_blue.svg"
@@ -136,7 +140,6 @@
               <svg-icon
                 src="./assets/icons/widgets/references/add_white.svg"
                 class="add_button_icon"
-            
               ></svg-icon>
             </div>
             <div class="bottom-reference-right__input-block">

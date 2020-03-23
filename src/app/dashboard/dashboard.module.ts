@@ -119,7 +119,7 @@ import { PetroleumUnityInfoComponent } from './widgets/petroleum-products-moveme
 import { UsbVerifierComponent } from './widgets/change-shift/usb-verifier/usb-verifier.component';
 import { TimeDataPickerComponent } from './components/time-data-picker/time-data-picker.component';
 import { ReferenceComponent } from './widgets/reference/reference.component';
-import {DragDropModule} from '@angular/cdk/drag-drop';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
     declarations: [
@@ -297,7 +297,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
         MatSelectModule,
         ScrollingModule,
         OldScrollingModule,
-        DragDropModule
+        DragDropModule,
     ],
     bootstrap: [],
     providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }],

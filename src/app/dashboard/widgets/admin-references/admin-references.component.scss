@@ -154,7 +154,7 @@ input {
     position: relative;
     height: 50px;
     width: 100%;
-    background-color: rgba(93,96,123,0.2);
+    background-color: rgba(93, 96, 123, 0.2);
     color: white;
     text-align: center;
     line-height: 50px;
@@ -230,18 +230,18 @@ input {
       justify-content: space-between;
     }
 
-    &__button-remove{
+    &__button-remove {
       cursor: pointer;
       width: 40px;
     }
 
-    &__button-edit{
+    &__button-edit {
       pointer-events: fill;
       cursor: pointer;
       width: 15px;
-    position: absolute;
-    right: 10px;
-    top: 1px;
+      position: absolute;
+      right: 10px;
+      top: 1px;
     }
   }
 
@@ -249,7 +249,7 @@ input {
     position: relative;
     height: 50px;
     width: 100%;
-    background-color: rgba(93,96,123,0.2);
+    background-color: rgba(93, 96, 123, 0.2);
 
     &:before {
       z-index: 1;
@@ -294,7 +294,7 @@ input {
       cursor: pointer;
       height: 30px;
       width: 30px;
-     
+
       margin-top: 10px;
     }
 
@@ -304,7 +304,6 @@ input {
       cursor: pointer;
       margin-top: 10px;
     }
-
 
     &__input {
       border: 1px solid white;
@@ -341,7 +340,7 @@ input {
     position: relative;
     height: 50px;
     width: 90%;
-    background-color: rgba(93,96,123,0.2);
+    background-color: rgba(93, 96, 123, 0.2);
     display: flex;
     text-align: center;
     line-height: 50px;
@@ -480,7 +479,7 @@ input {
       }
 
       &__delete-button-none {
-       display: none;
+        display: none;
       }
     }
   }
@@ -489,7 +488,7 @@ input {
     position: relative;
     height: 50px;
     width: 90%;
-    background-color: rgba(93,96,123,0.2);
+    background-color: rgba(93, 96, 123, 0.2);
 
     &:before {
       z-index: 1;
@@ -534,7 +533,7 @@ input {
       cursor: pointer;
       height: 30px;
       width: 30px;
-   
+
       margin-top: 10px;
     }
 
@@ -542,7 +541,7 @@ input {
       cursor: pointer;
       height: 30px;
       width: 30px;
-    
+
       margin-top: 10px;
     }
 
@@ -673,6 +672,6 @@ input {
 
     &__delete-button-none {
       display: none;
-     }
+    }
   }
 }

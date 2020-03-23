@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
     selector: 'evj-admin-references',
@@ -168,14 +168,9 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
 
     drop(event: CdkDragDrop<string[]>) {
         moveItemInArray(this.data, event.previousIndex, event.currentIndex);
-      
     }
 
-    onClickEditReference(item): void{
+    onClickEditReference(item): void {}
 
-    }
-
-    onClickDeleteReference(item): void{
-
-    }
+    onClickDeleteReference(item): void {}
 }

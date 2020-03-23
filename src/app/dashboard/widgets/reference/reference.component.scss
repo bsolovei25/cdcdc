@@ -154,7 +154,7 @@ input {
     position: relative;
     height: 50px;
     width: 100%;
-    background-color: rgba(93,96,123,0.2);
+    background-color: rgba(93, 96, 123, 0.2);
     color: white;
     text-align: center;
     line-height: 50px;
@@ -192,8 +192,6 @@ input {
       border-top: 1px solid transparent;
       background: var(--color-bg-main);
     }
-
-
   }
 
   .reference-container {
@@ -233,7 +231,7 @@ input {
     position: relative;
     height: 50px;
     width: 100%;
-    background-color: rgba(93,96,123,0.2);
+    background-color: rgba(93, 96, 123, 0.2);
 
     &:before {
       z-index: 1;
@@ -278,7 +276,7 @@ input {
       cursor: pointer;
       height: 30px;
       width: 30px;
-     
+
       margin-top: 10px;
     }
 
@@ -286,7 +284,7 @@ input {
       cursor: pointer;
       height: 30px;
       width: 30px;
-    
+
       margin-top: 10px;
     }
 
@@ -325,7 +323,7 @@ input {
     position: relative;
     height: 50px;
     width: 90%;
-    background-color: rgba(93,96,123,0.2);
+    background-color: rgba(93, 96, 123, 0.2);
     display: flex;
     text-align: center;
     line-height: 50px;
@@ -370,7 +368,6 @@ input {
     }
 
     &__title-name-check {
-   
     }
 
     &__title-name-fio {
@@ -385,7 +382,6 @@ input {
     }
 
     &__title-type-check {
-    
     }
 
     &__title-type-date {
@@ -442,7 +438,7 @@ input {
         padding-left: 30px;
       }
 
-      &__edit-button{
+      &__edit-button {
         position: absolute;
         top: 5px;
         width: 16px;
@@ -494,7 +490,7 @@ input {
     position: relative;
     height: 50px;
     width: 90%;
-    background-color: rgba(93,96,123,0.2);
+    background-color: rgba(93, 96, 123, 0.2);
 
     &:before {
       z-index: 1;
@@ -539,7 +535,7 @@ input {
       cursor: pointer;
       height: 30px;
       width: 30px;
-     
+
       margin-top: 10px;
     }
 
@@ -547,7 +543,7 @@ input {
       cursor: pointer;
       height: 30px;
       width: 30px;
-    
+
       margin-top: 10px;
     }
 

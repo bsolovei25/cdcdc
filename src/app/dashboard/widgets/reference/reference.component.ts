@@ -145,14 +145,13 @@ export class ReferenceComponent implements OnInit, OnDestroy {
         }
     }
 
-    onClickTitle(item:string):void{
-        if (item === "fio"){
+    onClickTitle(item: string): void {
+        if (item === 'fio') {
             this.clickFio = true;
             this.clickDate = false;
-        } else if( item === "date"){
+        } else if (item === 'date') {
             this.clickFio = false;
             this.clickDate = true;
-         
         }
     }
 }
