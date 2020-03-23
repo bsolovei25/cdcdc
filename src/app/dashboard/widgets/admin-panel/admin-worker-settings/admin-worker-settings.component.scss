@@ -408,19 +408,6 @@
         overflow-x: hidden;
         overflow-y: auto;
 
-        .cards {
-          margin-top: 10px;
-
-          width: 100%;
-          height: auto;
-
-          display: flex;
-          flex-direction: row;
-          justify-content: flex-start;
-          align-items: flex-start;
-          flex-wrap: wrap;
-        }
-
         &::-webkit-scrollbar-track {
           margin: 120px 0px;
         }

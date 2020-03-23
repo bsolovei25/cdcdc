@@ -99,21 +99,15 @@
         ></evj-button>
       </div>
     </div>
-    <div class="worker__column worker__workspaces scroll-bar" *ngIf="!isClaimsShowing">
-      <div class="cards">
-        <ng-container *ngFor="let workspace of allWorkspaces">
-          <evj-aws-workspace-card
-            *ngIf="isValidWorkspaceName(workspace.screenName)"
-            [isActive]="defineIsWorkspaceActive(workspace)"
-            [screenId]="defineWorkerScreenId(workspace)"
-            [workspace]="workspace"
-            [isChangingCardState]="true"
-            (selectedWorkspace)="onSelectWorkspace($event)"
-            (selectedWorkspaceClaims)="onSelectWorkspaceClaims($event)"
-          ></evj-aws-workspace-card>
-        </ng-container>
-      </div>
-    </div>
+    <evj-aws-workspaces
+      class="worker__column worker__workspaces scroll-bar"
+      *ngIf="!isClaimsShowing"
+      [allWorkspaces]="allWorkspaces"
+      [workerScreens]="workerScreens"
+      [workerScreensDetached]="workerScreensDetached"
+      [searchingWorkspaceValue]="searchingWorkspaceValue"
+      (workspacesData)="onChangeWorkspacesData()"
+    ></evj-aws-workspaces>
     <div class="worker__column worker__claims scroll-bar" *ngIf="isClaimsShowing">
       <div class="title">Права</div>
       <div class="cards">

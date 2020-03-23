@@ -23,7 +23,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     public isPopUpShowing: boolean = false;
     public isAvatarButtonShowing: boolean = false;
 
-    private searchingWorkspaceValue: string = '';
+    public searchingWorkspaceValue: string = '';
     public searchingFieldName: string = '';
 
     public searchIcon: string = 'assets/icons/search-icon.svg';
@@ -77,62 +77,26 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     //#region SEARCH
 
-    public onSearchWorkspace(searchedWorkspace: string): void {
-        this.searchingWorkspaceValue = searchedWorkspace.toLowerCase();
-    }
-
     public onSearchField(searchedField: string): void {
         this.searchingFieldName = searchedField.toLowerCase();
     }
 
-    public isValidWorkspaceName(workspaceName: string): boolean {
-        return workspaceName.toLowerCase().includes(this.searchingWorkspaceValue);
+    public onSearchWorkspace(searchedWorkspace: string): void {
+        this.searchingWorkspaceValue = searchedWorkspace.toLowerCase();
     }
 
     //#endregion
-
-    public defineIsWorkspaceActive(workspace: IWorkspace): boolean {
-        return !!this.workerScreens.find((item: IWorkspace) => item.id === workspace.id);
-    }
-
-    public defineWorkerScreenId(workspace: IWorkspace): number {
-        const screen = this.workerScreensDetached.find(
-            (item: IScreen) => item.screen.id === workspace.id
-        );
-        if (screen) {
-            return screen.id;
-        }
-        return null;
-    }
 
     public onChangeWorkerData(data: IUnitEvents): void {
         this.showAlert();
         this.workerUnit = data;
     }
 
-    public onSelectWorkspace(event: IWorkspace): void {
+    // TODO простестить на изменение массивов
+    public onChangeWorkspacesData(): void {
         this.showAlert();
-        if (!this.defineIsWorkspaceActive(event)) {
-            this.workerScreens.push(event);
-        } else {
-            const index: number = this.workerScreens.findIndex(
-                (item: IWorkspace) => item.id === event.id
-            );
-            this.workerScreens.splice(index, 1);
-        }
-    }
-
-    public onSelectWorkspaceClaims(event: { workspaceId: number; claims: IClaim[] }): void {
-        this.showAlert();
-        const index: number = this.workspacesClaims.findIndex(
-            (item) => item.workspaceId === event.workspaceId
-        );
-        if (index === -1) {
-            this.workspacesClaims.push(event);
-        } else {
-            this.workspacesClaims.splice(index, 1);
-            this.workspacesClaims.push(event);
-        }
+        console.log(this.workerScreens);
+        console.log(this.workspacesClaims);
     }
 
     private async changeWorkspaceClaims(): Promise<void> {
