@@ -56,7 +56,10 @@ export class PetroleumProductsMovementComponent extends WidgetPlatform implement
 
     private async initPetroleumMovement(): Promise<void> {
         await this.petroleumService.setClient();
-        await this.petroleumService.getTransfers(null, null, true, this.petroleumService.client);
+        this.petroleumService.transfers$.next(
+          await this.petroleumService
+            .getTransfers(null, null, true, this.petroleumService.client)
+        );
     }
 
     // onChanged(type: string): void {

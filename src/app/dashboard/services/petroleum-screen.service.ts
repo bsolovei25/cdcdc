@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {AppConfigService} from '../../services/appConfigService';
+import { ITransfer } from '../models/petroleum-products-movement.model';
 
 @Injectable({
     providedIn: 'root',
@@ -12,6 +13,8 @@ export class PetroleumScreenService {
     private readonly restUrl: string;
 
     public client: string = null;
+
+    public transfers$: BehaviorSubject<ITransfer[]> = new BehaviorSubject<ITransfer[]>([]);
 
     constructor(
         public http: HttpClient,
@@ -44,20 +47,22 @@ export class PetroleumScreenService {
             .toPromise();
     }
 
-    public async getTransfers(startTme: Date, endTime: Date, isOpen: boolean, client: string): Promise<any> {
+    public async getTransfers(
+        startTme: Date,
+        endTime: Date,
+        isOpen: boolean,
+        client: string
+    ): Promise<ITransfer[]> {
         let requestUrl = `${this.restUrl}/api/petroleum-flow-transfers/transfer?`;
-        requestUrl += `startTime=${startTme ? '' : startTme}`;
-        requestUrl += `&endTime=${endTime ? endTime : ''}`;
-        // for (const object of objects) {
-        //     requestUrl += `&object=${object}`;
-        // }
-        requestUrl += `&object=${client}`;
+        if (startTme) { requestUrl += `startTime=${startTme}`; }
+        if (endTime) { requestUrl += `startTime=${endTime}`; }
+        requestUrl += `&client=${client}`;
         requestUrl += `&isOpen=${isOpen}`;
         return await this.getTransfersAsync(requestUrl);
     }
 
-    private async getTransfersAsync(requestUrl: string): Promise<any> {
+    private async getTransfersAsync(requestUrl: string): Promise<ITransfer[]> {
         console.log(requestUrl);
-        return this.http.get<any>(requestUrl).toPromise();
+        return this.http.get<ITransfer[]>(requestUrl).toPromise();
     }
 }

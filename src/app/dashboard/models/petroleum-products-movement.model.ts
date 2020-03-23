@@ -1,5 +1,17 @@
 export interface ITransfer {
-    uID: string;
+    uid?: string;
+    sourceName: string;
+    destinationName: string;
+    startTime: Date;
+    endTime: Date;
+    sourceProduct: string;
+    destinationProduct: string;
+    sourceMass: number;
+    destinationMass: number;
+    sourceClient: string;
+    destinationClient: string;
+    deltaMass: number;
+    isActive?: boolean;
 }
 
 export interface IOperation {

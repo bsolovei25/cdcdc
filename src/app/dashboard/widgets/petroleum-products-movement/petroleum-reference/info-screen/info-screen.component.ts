@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IOperation } from 'src/app/dashboard/models/petroleum-products-movement.model';
+import { IOperation, ITransfer } from 'src/app/dashboard/models/petroleum-products-movement.model';
 
 @Component({
     selector: 'evj-info-screen',
@@ -7,7 +7,7 @@ import { IOperation } from 'src/app/dashboard/models/petroleum-products-movement
     styleUrls: ['./info-screen.component.scss'],
 })
 export class InfoScreenComponent implements OnInit {
-    @Input() data: IOperation;
+    @Input() data: ITransfer[];
     @Input() title: string[];
 
     constructor() {}

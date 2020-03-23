@@ -23,20 +23,20 @@
     <ng-container *ngFor="let item of data">
       <div class="values_block">
         <ng-container *ngFor="let key of objectKeys(item)">
-          <ng-container *ngIf="(key === 'finishOperation') || (key === 'startOperation')">
-            <ng-container *ngIf="objectEntries(item[key]).length !== 0">
+          <ng-container *ngIf="((key === 'startTime') || (key === 'endTime')) && (key !== 'uid')">
+            <ng-container *ngIf="item[key]">
               <div class="values">
                 <div class="value">
                   <div class="date">
-                    {{ item[key].datetime | date:'dd.MM.yyyy | hh:mm:ss' }}
+                    {{ (key === 'startTime' ? item.startTime : item.endTime) | date:'dd.MM.yyyy | hh:mm:ss' }}
                   </div>
                   <div class="operator">
-                    {{ item[key].operator }}
+                    {{ (key === 'startTime' ? item.sourceClient : item.destinationClient) }}
                   </div>
                 </div>
               </div>
             </ng-container>
-            <ng-container *ngIf="objectEntries(item[key]).length === 0">
+            <ng-container *ngIf="!item[key]">
               <div class="values">
                 <div class="value">
                   <svg-icon
@@ -48,7 +48,13 @@
               </div>
             </ng-container>
           </ng-container>
-          <ng-container *ngIf="(key !== 'finishOperation') && (key !== 'startOperation')">
+          <ng-container *ngIf="
+            (key !== 'endTime') &&
+            (key !== 'startTime') &&
+            (key !== 'sourceClient') &&
+            (key !== 'destinationClient') &&
+            (key !== 'uid')"
+          >
             <div class="values">
               <div class="value">
                 {{ item[key] }}

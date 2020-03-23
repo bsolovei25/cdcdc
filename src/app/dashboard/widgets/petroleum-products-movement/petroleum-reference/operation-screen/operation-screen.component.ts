@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PetroleumScreenService } from 'src/app/dashboard/services/petroleum-screen.service';
+import { ITransfer } from '../../../../models/petroleum-products-movement.model';
 
 @Component({
     selector: 'evj-operation-screen',
@@ -7,7 +8,7 @@ import { PetroleumScreenService } from 'src/app/dashboard/services/petroleum-scr
     styleUrls: ['./operation-screen.component.scss'],
 })
 export class OperationScreenComponent implements OnInit {
-    @Input() data: any;
+    @Input() data: ITransfer[];
     @Input() title: string[];
 
     constructor(private petroleumService: PetroleumScreenService) {}
