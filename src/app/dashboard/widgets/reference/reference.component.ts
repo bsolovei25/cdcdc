@@ -19,6 +19,12 @@ export class ReferenceComponent implements OnInit, OnDestroy {
     public previewTitle: string = 'default';
     public options;
 
+    public valueCheck: boolean;
+    public valueUniqCheck: boolean;
+
+    public clickFio: boolean = true;
+    public clickDate: boolean = false;
+
     data = [
         {
             name: 'Установка НПЗ',
@@ -110,6 +116,43 @@ export class ReferenceComponent implements OnInit, OnDestroy {
             for (const subscribe of this.subscriptions) {
                 subscribe.unsubscribe();
             }
+        }
+    }
+
+    onClickReference(data) {
+        data.open = !data.open;
+    }
+
+    onClickItemReference(data) {
+        data.open = !data.open;
+    }
+
+    changeSwap() {
+        let check = <HTMLInputElement>document.getElementById('checkBoxValue');
+        if (check.checked) {
+            this.valueCheck = false;
+        } else {
+            this.valueCheck = true;
+        }
+    }
+
+    changeUniqSwap() {
+        let check = <HTMLInputElement>document.getElementById('checkBoxUniqValue');
+        if (check.checked) {
+            this.valueUniqCheck = false;
+        } else {
+            this.valueUniqCheck = true;
+        }
+    }
+
+    onClickTitle(item:string):void{
+        if (item === "fio"){
+            this.clickFio = true;
+            this.clickDate = false;
+        } else if( item === "date"){
+            this.clickFio = false;
+            this.clickDate = true;
+         
         }
     }
 }

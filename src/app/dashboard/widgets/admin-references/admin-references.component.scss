@@ -61,8 +61,8 @@
 }
 
 .mycheckbox__default:checked + .mycheckbox__new::after {
-  height: 10px;
-  width: 10px;
+  height: 14px;
+  width: 14px;
   border-radius: 25px;
 }
 
@@ -136,237 +136,6 @@ input {
   }
 }
 
-// .activeInputRef {
-//   border-bottom: 1px solid var(--color-border-active);
-//   &::placeholder {
-//     color: white;
-//   }
-// }
-
-// .activeInputName {
-//   border-bottom: 1px solid var(--color-border-active);
-//   &::placeholder {
-//     color: white;
-//   }
-// }
-
-// ::placeholder {
-//   color: rgba(255, 255, 255, 0.2);
-//   font-style: italic;
-//   font-size: 12px;
-// }
-
-// .references {
-//   margin-top: 20px;
-//   width: 100%;
-//   min-width: 490px;
-// }
-
-// .reference-input-block {
-//   line-height: 45px;
-//   margin: 0 auto;
-//   display: flex;
-//   height: 50px;
-//   width: 85%;
-//   margin-right: 0px;
-// }
-
-// .reference-input {
-//   height: 80px;
-//   width: 350px;
-// }
-
-// .reference-input-button {
-//   margin-left: 10px;
-//   height: 50px;
-//   width: 50px;
-
-//   &:hover .button_add_icon {
-//     stroke: var(--color-border-active);
-//   }
-
-//   &:hover .button_add_icon {
-//     fill: var(--color-border-active);
-//     fill-opacity: 0.1;
-//   }
-
-//   &:hover .button_add_icon ::ng-deep .st0 {
-//     fill: white;
-//     stroke: white;
-//     fill-opacity: 1;
-//   }
-// }
-
-// .button_add_icon {
-//   cursor: pointer;
-//   // stroke: var(--color-border-main);
-//   fill: none;
-//   stroke-miterlimit: 10;
-//   stroke-width: 0.5px;
-// }
-
-// .button_add_icon ::ng-deep .st0 {
-//   fill: #5b607d;
-// }
-
-// .reference-text-block {
-//   direction: rtl;
-//   overflow-y: auto;
-//   overflow-x: hidden;
-//   height: calc(100% - 100px);
-//   margin: 20px auto;
-//   margin-right: 0;
-//   width: 99%;
-//   min-width: 410px;
-// }
-
-// .reference-text {
-//   text-align: end;
-//   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-//   font-size: 12px;
-//   padding-left: 20px;
-//   color: rgba(255, 255, 255, 0.2);
-//   width: 100%;
-//   cursor: pointer;
-// }
-// .reference-text-button {
-//   display: flex;
-//   width: 40%;
-//   margin-right: 12px;
-//   padding-top: 2px;
-// }
-
-// .reference-text-container {
-//   position: relative;
-//   line-height: 48px;
-//   margin: 0 auto;
-//   margin-left: 13.5%;
-//   height: 50px;
-//   display: flex;
-//   width: 410px;
-//   background-image: url(../../../../assets/pic/AdminReferences/text-references.svg);
-//   background-repeat: no-repeat;
-//   background-size: 100% 100%;
-// }
-
-// .reference-name-input-block {
-//   line-height: 45px;
-//   width: 85%;
-//   height: 50px;
-//   display: flex;
-//   margin: 0 auto;
-// }
-
-// .reference-name-text-block {
-//   margin-top: 20px;
-//   width: 99%;
-//   overflow-y: auto;
-//   overflow-x: hidden;
-//   height: calc(100% - 100px);
-// }
-
-// .name-input {
-//   height: 80px;
-//   width: 350px;
-// }
-
-// .name-input-button {
-//   margin-top: 15px;
-//   margin-left: 10px;
-//   height: 50px;
-//   width: 50px;
-// }
-
-// .name-text-container {
-//   margin-top: 3px;
-//   line-height: 48px;
-//   margin: 0 auto;
-//   height: 45px;
-//   display: flex;
-//   width: 85%;
-//   // border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-// }
-
-// .name-text-button {
-//   padding-top: 2px;
-//   width: 30%;
-
-//   &:hover .delete-name-icon ::ng-deep .st0 {
-//     fill: var(--color-border-active);
-//   }
-// }
-
-// .name-text {
-//   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-//   font-size: 12px;
-//   padding-left: 20px;
-//   color: rgb(255, 255, 255);
-//   width: 330px;
-//   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-
-//   &:hover {
-//     color: var(--color-border-active);
-//   }
-// }
-
-// .input_name {
-//   width: 330px;
-//   color: white;
-//   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-//   height: 42px;
-
-//   &:hover {
-//   }
-// }
-
-// .name_button_add_block {
-//   width: 50px;
-//   margin-left: 30px;
-//   margin-top: 2px;
-
-//   &:hover .button_add_icon ::ng-deep .st0 {
-//     fill: var(--color-border-active);
-//   }
-// }
-
-// .delete-reference-icon {
-//   cursor: pointer;
-//   margin-left: 18px;
-// }
-
-// .delete-reference-icon ::ng-deep .st0 {
-//   fill: rgba(255, 255, 255, 0.2);
-// }
-
-// .button_delete {
-//   &:hover .delete-reference-icon ::ng-deep .st0 {
-//     fill: var(--color-border-active);
-//   }
-// }
-
-// .button_update {
-//   &:hover .delete-reference-icon ::ng-deep .st0 {
-//     fill: var(--color-border-active);
-//   }
-// }
-
-// .delete-name-icon {
-//   cursor: pointer;
-//   margin-left: 30px;
-// }
-
-// .delete-name-icon ::ng-deep .st0 {
-//   fill: rgba(255, 255, 255, 0.2);
-// }
-
-// .isActiveReference {
-//   background-image: url(../../../../assets/pic/AdminReferences/text-active.svg);
-// }
-
-// .isActiveReference ::ng-deep .reference-text {
-//   color: white;
-// }
-
 .references {
   display: flex;
   justify-content: space-between;
@@ -379,14 +148,14 @@ input {
   width: 30%;
   height: 100%;
   padding: 10px;
-  min-width: 202px;
+  min-width: 240px;
 
   .title-reference {
     position: relative;
     height: 50px;
     width: 100%;
-    background-color: var(--color-bg-sub);
-    color: var(--color-text-sub-heading);
+    background-color: rgba(93,96,123,0.2);
+    color: white;
     text-align: center;
     line-height: 50px;
 
@@ -438,27 +207,41 @@ input {
     direction: rtl;
 
     &__name {
-      height: 40px;
+      line-height: 35px;
       padding-left: 20px;
     }
 
     &__block {
       direction: ltr;
       display: flex;
+      height: 40px;
 
       .block-active {
-        border: 1px solid var(--color-bg-additional);
-        border-left: 1px solid var(--color-border-active);
-        border-top-right-radius: 20px;
-        border-bottom-right-radius: 20px;
-        background: linear-gradient(180deg, rgba(8, 128, 207, 0.3), transparent) !important;
+        //border: 1px solid var(--color-bg-additional);
+        border-radius: 15px;
+        background: var(--color-bg-active);
       }
     }
 
     &__block-info {
+      position: relative;
       display: flex;
       width: 90%;
       justify-content: space-between;
+    }
+
+    &__button-remove{
+      cursor: pointer;
+      width: 40px;
+    }
+
+    &__button-edit{
+      pointer-events: fill;
+      cursor: pointer;
+      width: 15px;
+    position: absolute;
+    right: 10px;
+    top: 1px;
     }
   }
 
@@ -466,7 +249,7 @@ input {
     position: relative;
     height: 50px;
     width: 100%;
-    background-color: var(--color-bg-sub);
+    background-color: rgba(93,96,123,0.2);
 
     &:before {
       z-index: 1;
@@ -475,7 +258,7 @@ input {
       bottom: -6px;
       left: -8px;
       height: 7px;
-      width: 17px;
+      width: 18px;
       box-sizing: border-box;
       -webkit-transform-origin: 43% 0;
       transform-origin: 43% 0;
@@ -508,25 +291,31 @@ input {
     }
 
     &__button-add {
-      border: 1px solid var(--color-border-active);
-      height: 25px;
-      width: 25px;
-      border-radius: 20px;
+      cursor: pointer;
+      height: 30px;
+      width: 30px;
+     
       margin-top: 10px;
     }
 
     &__button-search {
-      border: 1px solid var(--color-border-active);
-      height: 25px;
-      width: 25px;
-      border-radius: 20px;
+      height: 30px;
+      width: 30px;
+      cursor: pointer;
       margin-top: 10px;
     }
 
+
     &__input {
-      border: 1px solid var(--color-border-active);
-      border-radius: 20px;
-      margin-top: 7px;
+      border: 1px solid white;
+      border-left: none;
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
+      left: 25px;
+      top: 10px;
+      height: 28px;
+      position: absolute;
+      width: 150px;
 
       input {
         border-bottom: none !important;
@@ -535,6 +324,7 @@ input {
 
     &__input-block {
       display: flex;
+      position: relative;
       padding-left: 10px;
     }
   }
@@ -547,11 +337,11 @@ input {
   min-width: 500px;
 
   .title-reference {
-    color: var(--color-text-sub-heading);
+    color: white;
     position: relative;
     height: 50px;
     width: 90%;
-    background-color: var(--color-bg-sub);
+    background-color: rgba(93,96,123,0.2);
     display: flex;
     text-align: center;
     line-height: 50px;
@@ -627,7 +417,7 @@ input {
       position: relative;
 
       &__block {
-        display: flex;
+        display: flex !important;
         width: 100%;
         height: 40px;
         line-height: 40px;
@@ -642,8 +432,8 @@ input {
       }
 
       .block-active {
-        border-left: 1px solid var(--color-bg-additional);
-        background: linear-gradient(180deg, rgba(8, 128, 207, 0.3), transparent) !important;
+        //border-left: 1px solid var(--color-bg-additional);
+        background: var(--color-bg-active);
       }
 
       &__fio {
@@ -681,9 +471,16 @@ input {
       }
 
       &__delete-button {
+        cursor: pointer;
+        display: block !important;
         position: absolute;
         right: -45px;
+        width: 40px;
         background: var(--color-bg-main);
+      }
+
+      &__delete-button-none {
+       display: none;
       }
     }
   }
@@ -692,7 +489,7 @@ input {
     position: relative;
     height: 50px;
     width: 90%;
-    background-color: var(--color-bg-sub);
+    background-color: rgba(93,96,123,0.2);
 
     &:before {
       z-index: 1;
@@ -701,7 +498,7 @@ input {
       bottom: -6px;
       left: -8px;
       height: 7px;
-      width: 17px;
+      width: 18px;
       box-sizing: border-box;
       -webkit-transform-origin: 43% 0;
       transform-origin: 43% 0;
@@ -734,25 +531,31 @@ input {
     }
 
     &__button-add {
-      border: 1px solid var(--color-fact);
-      height: 25px;
-      width: 25px;
-      border-radius: 20px;
+      cursor: pointer;
+      height: 30px;
+      width: 30px;
+   
       margin-top: 10px;
     }
 
     &__button-search {
-      border: 1px solid var(--color-fact);
-      height: 25px;
-      width: 25px;
-      border-radius: 20px;
+      cursor: pointer;
+      height: 30px;
+      width: 30px;
+    
       margin-top: 10px;
     }
 
     &__input {
-      border: 1px solid var(--color-fact);
-      border-radius: 20px;
-      margin-top: 7px;
+      border: 1px solid var(--color-text-main);
+      border-left: none;
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
+      left: 25px;
+      top: 10px;
+      height: 28px;
+      position: absolute;
+      width: 200px;
 
       input {
         border-bottom: none !important;
@@ -762,20 +565,114 @@ input {
     &__input-block {
       display: flex;
       padding-left: 10px;
+      position: relative;
     }
   }
 }
 
-// .test{
-//   height: 100%;
-//   width: 100%;
-//   background-color: var(--color-bg-main);
-//   overflow: auto;
-// }
+.example-box {
+  cursor: move;
+}
 
-// .test2{
-//   height: 100%;
-//   width: 80%;
-//   background-color: var(--color-bg-additional);
-//   overflow: auto;
-// }
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14),
+    0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 1;
+  display: flex !important;
+  .reference-container-value__block {
+    display: flex !important;
+  }
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-box:last-child {
+  border: none;
+}
+
+.reference-container-value.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.cdk-drag-preview {
+  font-size: 11px !important;
+  .reference-container-value {
+    height: 100%;
+    background-color: var(--color-bg-additional);
+    width: 90%;
+    min-height: 40px;
+    direction: rtl;
+    position: relative;
+
+    &__block {
+      display: flex !important;
+      width: 100%;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      direction: ltr;
+    }
+
+    &__fio-block {
+      border-bottom: 2px solid var(--color-bg-main);
+      width: 50%;
+      background-color: var(--color-bg-additional);
+    }
+
+    .block-active {
+      //border-left: 1px solid var(--color-bg-additional);
+      background: var(--color-bg-active);
+    }
+
+    &__fio {
+      text-align: left;
+      padding-left: 30px;
+    }
+
+    &__type {
+      border-left: 2px solid var(--color-bg-main);
+      border-bottom: 2px solid var(--color-bg-main);
+      width: 20%;
+      background-color: var(--color-bg-additional);
+
+      .mat-form-field {
+        width: 90%;
+
+        ::ng-deep .mat-form-field-underline {
+          display: none;
+        }
+      }
+    }
+
+    &__value {
+      border-left: 2px solid var(--color-bg-main);
+      border-bottom: 2px solid var(--color-bg-main);
+      width: 15%;
+      background-color: var(--color-bg-additional);
+    }
+
+    &__uniqValue {
+      border-left: 2px solid var(--color-bg-main);
+      border-bottom: 2px solid var(--color-bg-main);
+      width: 15%;
+      background-color: var(--color-bg-additional);
+    }
+
+    &__delete-button {
+      position: absolute;
+      right: -45px;
+      background: var(--color-bg-main);
+    }
+
+    &__delete-button-none {
+      display: none;
+     }
+  }
+}

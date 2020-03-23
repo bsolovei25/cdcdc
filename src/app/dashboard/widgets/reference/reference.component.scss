@@ -154,8 +154,8 @@ input {
     position: relative;
     height: 50px;
     width: 100%;
-    background-color: var(--color-bg-sub);
-    color: var(--color-text-sub-heading);
+    background-color: rgba(93,96,123,0.2);
+    color: white;
     text-align: center;
     line-height: 50px;
 
@@ -192,6 +192,8 @@ input {
       border-top: 1px solid transparent;
       background: var(--color-bg-main);
     }
+
+
   }
 
   .reference-container {
@@ -216,17 +218,13 @@ input {
       display: flex;
 
       .block-active {
-        border: 1px solid var(--color-bg-additional);
-        border-left: 1px solid var(--color-border-active);
-        border-top-right-radius: 20px;
-        border-bottom-right-radius: 20px;
-        background: linear-gradient(180deg, rgba(8, 128, 207, 0.3), transparent) !important;
+        background: var(--color-bg-active);
       }
     }
 
     &__block-info {
       display: flex;
-      width: 90%;
+      width: 100%;
       justify-content: space-between;
     }
   }
@@ -235,7 +233,7 @@ input {
     position: relative;
     height: 50px;
     width: 100%;
-    background-color: var(--color-bg-sub);
+    background-color: rgba(93,96,123,0.2);
 
     &:before {
       z-index: 1;
@@ -244,7 +242,7 @@ input {
       bottom: -6px;
       left: -8px;
       height: 7px;
-      width: 17px;
+      width: 18px;
       box-sizing: border-box;
       -webkit-transform-origin: 43% 0;
       transform-origin: 43% 0;
@@ -277,25 +275,31 @@ input {
     }
 
     &__button-add {
-      border: 1px solid var(--color-border-active);
-      height: 25px;
-      width: 25px;
-      border-radius: 20px;
+      cursor: pointer;
+      height: 30px;
+      width: 30px;
+     
       margin-top: 10px;
     }
 
     &__button-search {
-      border: 1px solid var(--color-border-active);
-      height: 25px;
-      width: 25px;
-      border-radius: 20px;
+      cursor: pointer;
+      height: 30px;
+      width: 30px;
+    
       margin-top: 10px;
     }
 
     &__input {
-      border: 1px solid var(--color-border-active);
-      border-radius: 20px;
-      margin-top: 7px;
+      border: 1px solid white;
+      border-left: none;
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
+      left: 25px;
+      top: 10px;
+      height: 28px;
+      position: absolute;
+      width: 150px;
 
       input {
         border-bottom: none !important;
@@ -304,6 +308,7 @@ input {
 
     &__input-block {
       display: flex;
+      position: relative;
       padding-left: 10px;
     }
   }
@@ -316,11 +321,11 @@ input {
   min-width: 500px;
 
   .title-reference {
-    color: var(--color-text-sub-heading);
+    color: white;
     position: relative;
     height: 50px;
     width: 90%;
-    background-color: var(--color-bg-sub);
+    background-color: rgba(93,96,123,0.2);
     display: flex;
     text-align: center;
     line-height: 50px;
@@ -360,23 +365,37 @@ input {
     }
 
     &__title-name {
+      display: flex;
       width: 50%;
     }
 
+    &__title-name-check {
+   
+    }
+
+    &__title-name-fio {
+      cursor: pointer;
+      width: 100%;
+      font-size: 12px;
+    }
+
     &__title-type {
-      width: 20%;
+      width: 50%;
+      display: flex;
     }
 
-    &__title-value {
-      line-height: 20px;
-      padding-top: 6px;
-      width: 15%;
+    &__title-type-check {
+    
     }
 
-    &__title-uniqValue {
-      line-height: 20px;
-      padding-top: 6px;
-      width: 15%;
+    &__title-type-date {
+      cursor: pointer;
+      width: 100%;
+      font-size: 12px;
+    }
+
+    .block-active {
+      background: var(--color-bg-active);
     }
   }
 
@@ -405,25 +424,38 @@ input {
       }
 
       &__fio-block {
+        cursor: pointer;
+        position: relative;
+        display: flex;
         border-bottom: 2px solid var(--color-bg-main);
         width: 50%;
         background-color: var(--color-bg-additional);
       }
 
       .block-active {
-        border-left: 1px solid var(--color-bg-additional);
-        background: linear-gradient(180deg, rgba(8, 128, 207, 0.3), transparent) !important;
+        background: var(--color-bg-active);
       }
 
       &__fio {
+        width: 100%;
         text-align: left;
         padding-left: 30px;
       }
 
+      &__edit-button{
+        position: absolute;
+        top: 5px;
+        width: 16px;
+        right: 5px;
+      }
+
       &__type {
+        cursor: pointer;
+        position: relative;
+        display: flex;
         border-left: 2px solid var(--color-bg-main);
         border-bottom: 2px solid var(--color-bg-main);
-        width: 20%;
+        width: 50%;
         background-color: var(--color-bg-additional);
 
         .mat-form-field {
@@ -450,6 +482,7 @@ input {
       }
 
       &__delete-button {
+        width: 40px;
         position: absolute;
         right: -45px;
         background: var(--color-bg-main);
@@ -461,7 +494,7 @@ input {
     position: relative;
     height: 50px;
     width: 90%;
-    background-color: var(--color-bg-sub);
+    background-color: rgba(93,96,123,0.2);
 
     &:before {
       z-index: 1;
@@ -470,7 +503,7 @@ input {
       bottom: -6px;
       left: -8px;
       height: 7px;
-      width: 17px;
+      width: 18px;
       box-sizing: border-box;
       -webkit-transform-origin: 43% 0;
       transform-origin: 43% 0;
@@ -503,25 +536,31 @@ input {
     }
 
     &__button-add {
-      border: 1px solid var(--color-fact);
-      height: 25px;
-      width: 25px;
-      border-radius: 20px;
+      cursor: pointer;
+      height: 30px;
+      width: 30px;
+     
       margin-top: 10px;
     }
 
     &__button-search {
-      border: 1px solid var(--color-fact);
-      height: 25px;
-      width: 25px;
-      border-radius: 20px;
+      cursor: pointer;
+      height: 30px;
+      width: 30px;
+    
       margin-top: 10px;
     }
 
     &__input {
-      border: 1px solid var(--color-fact);
-      border-radius: 20px;
-      margin-top: 7px;
+      border: 1px solid var(--color-text-main);
+      border-left: none;
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
+      left: 25px;
+      top: 10px;
+      height: 28px;
+      position: absolute;
+      width: 200px;
 
       input {
         border-bottom: none !important;
@@ -531,6 +570,7 @@ input {
     &__input-block {
       display: flex;
       padding-left: 10px;
+      position: relative;
     }
   }
 }
