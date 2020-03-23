@@ -164,7 +164,7 @@ export class NewUserSettingsService {
             this.ScreenName = item.screenName;
             this.widgetService.dashboard = item.widgets.map((widget) => {
                 const _minItemCols = WIDGETS[widget.widgetType]?.minItemCols ?? 6;
-                const _minItemRows = (WIDGETS[widget.widgetType]?.minItemRows ?? 6);
+                const _minItemRows = WIDGETS[widget.widgetType]?.minItemRows ?? 6;
                 console.log(_minItemCols, _minItemRows);
                 const result = {
                     x: widget.posX,

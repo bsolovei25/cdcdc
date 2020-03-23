@@ -10,6 +10,6 @@
       (input)="onInput()"
       (blur)="onBlur()"
     />
-    <mat-icon matSuffix><img class="icon" [src]="iconSrc"/></mat-icon>
+    <mat-icon matSuffix *ngIf="!!iconSrc"><img class="icon" [src]="iconSrc"/></mat-icon>
   </mat-form-field>
 </div>

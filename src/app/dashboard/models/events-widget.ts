@@ -68,8 +68,8 @@ export interface EventsWidgetNotification {
 export interface IUnitEvents {
     id: number;
     name: string;
-    createdAt: Date;
-    createdById: number;
+    createdAt?: Date;
+    createdById?: number;
 }
 
 export interface IRetrievalEvents {
