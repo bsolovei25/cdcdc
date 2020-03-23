@@ -16,6 +16,7 @@ import { IUser, IUnitEvents } from '../../models/events-widget';
 })
 export class AdminPanelService {
     private restUrl: string = `/api/user-management`;
+    private restFileUrl: string = '';
 
     private defaultWorker: IUser = {
         id: undefined,
@@ -55,10 +56,9 @@ export class AdminPanelService {
 
     public screenClaims: IClaim[] = [];
 
-    private urlMockData: string = 'assets/admin-panel-mock/';
-
     constructor(private http: HttpClient, private configService: AppConfigService) {
         this.configService.restUrl$.subscribe((urls) => (this.restUrl = `${urls}${this.restUrl}`));
+        this.restFileUrl = this.configService.fsUrl;
         this.activeWorker$.subscribe((worker: IUser) => {
             this.activeWorker = worker;
         });
