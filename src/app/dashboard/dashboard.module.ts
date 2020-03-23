@@ -120,6 +120,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AwsBlockComponent } from './widgets/admin-panel/admin-worker-settings/aws-block/aws-block.component';
 import { UsbVerifierComponent } from './widgets/change-shift/usb-verifier/usb-verifier.component';
 import { TimeDataPickerComponent } from './components/time-data-picker/time-data-picker.component';
+import { AwsAvatarComponent } from './widgets/admin-panel/admin-worker-settings/aws-avatar/aws-avatar.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 @NgModule({
     declarations: [
@@ -227,6 +229,7 @@ import { TimeDataPickerComponent } from './components/time-data-picker/time-data
         AwsBlockComponent,
         UsbVerifierComponent,
         TimeDataPickerComponent,
+        AwsAvatarComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -298,6 +301,7 @@ import { TimeDataPickerComponent } from './components/time-data-picker/time-data
         OldScrollingModule,
         ReactiveFormsModule,
         MatCheckboxModule,
+        ImageCropperModule,
     ],
     bootstrap: [],
     providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }],

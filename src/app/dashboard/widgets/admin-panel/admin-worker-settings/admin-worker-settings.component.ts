@@ -7,6 +7,7 @@ import { fillDataShape } from '../../../../@shared/common-functions';
 import { IBrigade } from '../../../models/shift.model';
 import { MaterialControllerService } from '../../../services/material-controller.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { base64ToFile } from 'ngx-image-cropper';
 
 @Component({
     selector: 'evj-admin-worker-settings',
@@ -19,8 +20,10 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     public isClaimsShowing: boolean = true;
     public isAlertShowing: boolean = false;
-
     public isCheckBoxClicked: boolean = false;
+
+    public isPopUpShowing: boolean = false;
+    public isAvatarButtonShowing: boolean = false;
 
     public isWorkerResponsible: boolean = false;
 
@@ -34,6 +37,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     public worker: IUser = null;
     public workerUnit: IUnitEvents = null;
+    private workerPhoto: string = null;
 
     public allWorkspaces: IWorkspace[] = [];
     public workerScreens: IWorkspace[] = [];
@@ -251,6 +255,16 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         }
     }
 
+    public onClosePopUp(event: string): void {
+        this.isPopUpShowing = false;
+        if (event) {
+            this.isAlertShowing = true;
+            this.isCheckBoxClicked = false;
+
+            this.workerPhoto = event;
+        }
+    }
+
     public onSetResponsible(event: boolean): void {
         this.isWorkerResponsible = event;
         this.isCheckBoxClicked = false;
@@ -273,7 +287,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public returnPhotoPath(): string {
-        return this.adminService.getPhotoLink(this.worker);
+        return this.workerPhoto ? this.workerPhoto : this.adminService.getPhotoLink(this.worker);
     }
 
     private async onCreateNewWorker(): Promise<void> {
@@ -356,6 +370,13 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         if (this.isCheckBoxClicked && this.checkForRequiredFields()) {
             try {
                 this.worker.displayName = this.adminService.generateDisplayName(this.worker);
+
+                if (this.workerPhoto) {
+                    this.worker.photoId = await this.adminService.pushWorkerPhoto(
+                        base64ToFile(this.workerPhoto)
+                    );
+                }
+
                 this.isCreateNewUser ? await this.onCreateNewWorker() : await this.onEditWorker();
                 if (this.isWorkerResponsible) {
                     await this.adminService.setUserResponsible(this.worker.id).toPromise();

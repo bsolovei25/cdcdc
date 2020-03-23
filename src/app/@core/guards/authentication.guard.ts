@@ -34,7 +34,7 @@ export class AuthenticationGuard implements CanLoad, CanActivate, CanActivateChi
         } catch (error) {
             return false;
         }
-        return true;
+        // return true;
     }
 
     async canLoad(route: Route, segments: UrlSegment[]): Promise<boolean> {

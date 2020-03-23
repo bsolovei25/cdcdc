@@ -16,6 +16,7 @@ import { IUser, IUnitEvents } from '../../models/events-widget';
 })
 export class AdminPanelService {
     private restUrl: string = `/api/user-management`;
+    private restFileUrl: string = '';
 
     private defaultWorker: IUser = {
         id: undefined,
@@ -57,6 +58,7 @@ export class AdminPanelService {
 
     constructor(private http: HttpClient, private configService: AppConfigService) {
         this.configService.restUrl$.subscribe((urls) => (this.restUrl = `${urls}${this.restUrl}`));
+        this.restFileUrl = this.configService.fsUrl;
         this.activeWorker$.subscribe((worker: IUser) => {
             this.activeWorker = worker;
         });
@@ -91,6 +93,15 @@ export class AdminPanelService {
     public setUserResponsible(userId: number): Observable<void> {
         const url: string = `${this.restUrl}/user/${userId}/SetResponsible`;
         return this.http.post<void>(url, null);
+    }
+
+    // TODO
+    public async pushWorkerPhoto(file: Blob): Promise<any> {
+        const body: FormData = new FormData();
+        const now: number = Date.now();
+        body.append('uploadFile', file, `avatar_${now}.jpeg`);
+
+        return this.http.post(this.restFileUrl, body).toPromise();
     }
     //#endregion
 
@@ -166,7 +177,7 @@ export class AdminPanelService {
     }
     //#endregion
 
-    // TODO RESERVE WORKER METHOD
+    // RESERVE WORKER METHOD
     // public getUserByLogin(workerLogin:string):Observable<any>{
     //     const url: string = `${this.restUrl}api/user-management/user?login=${workerLogin}`;
     //     return this.httpService.get<any>(url);
@@ -206,12 +217,11 @@ export class AdminPanelService {
     }
 
     public getPhotoLink(worker: IUser): string {
-        // if (worker.photoId) {
-        //     return `${this.configService.fsUrl}/${worker.photoId}`;
-        // } else {
-        //     return 'assets/icons/widgets/admin/default_avatar.svg';
-        // }
-        return 'assets/icons/widgets/admin/default_avatar.svg';
+        if (worker.photoId) {
+            return `${this.configService.fsUrl}/${worker.photoId}`;
+        } else {
+            return 'assets/icons/widgets/admin/default_avatar2.svg';
+        }
     }
 
     // TOFIX UNUSED
