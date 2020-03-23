@@ -37,7 +37,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     public worker: IUser = null;
     public workerUnit: IUnitEvents = null;
-    private workerPhoto: Blob = null;
+    private workerPhoto: string = null;
 
     public allWorkspaces: IWorkspace[] = [];
     public workerScreens: IWorkspace[] = [];
@@ -258,7 +258,10 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     public onClosePopUp(event: string): void {
         this.isPopUpShowing = false;
         if (event) {
-            this.workerPhoto = base64ToFile(event);
+            this.isAlertShowing = true;
+            this.isCheckBoxClicked = false;
+
+            this.workerPhoto = event;
         }
     }
 
@@ -284,7 +287,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public returnPhotoPath(): string {
-        return this.adminService.getPhotoLink(this.worker);
+        return this.workerPhoto ? this.workerPhoto : this.adminService.getPhotoLink(this.worker);
     }
 
     private async onCreateNewWorker(): Promise<void> {
@@ -367,7 +370,11 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         if (this.isCheckBoxClicked && this.checkForRequiredFields()) {
             try {
                 this.worker.displayName = this.adminService.generateDisplayName(this.worker);
-                this.worker.photoId = await this.adminService.pushWorkerPhoto(this.workerPhoto); // TODO
+
+                const a = await this.adminService.pushWorkerPhoto(base64ToFile(this.workerPhoto));
+                // this.worker.photoId = a;
+                console.log(a);
+
                 this.isCreateNewUser ? await this.onCreateNewWorker() : await this.onEditWorker();
                 if (this.isWorkerResponsible) {
                     await this.adminService.setUserResponsible(this.worker.id).toPromise();
