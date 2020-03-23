@@ -32,6 +32,9 @@ export class PetroleumProductsMovementComponent extends WidgetPlatform implement
     }
 
     public ngOnInit(): void {
+        if(!this.isMock) {
+            console.warn('load');
+        }
         super.widgetInit();
         this.subscriptions.push(
             this.petroleumService.screenState$.subscribe((data) => {
@@ -44,7 +47,9 @@ export class PetroleumProductsMovementComponent extends WidgetPlatform implement
         super.ngOnDestroy();
     }
 
-    protected dataDisconnect(): void {
+    protected dataConnect(): void {
+        console.warn(this.widgetId + ' ' + this.isMock);
+        super.dataConnect();
         this.initPetroleumMovement();
     }
 
@@ -52,7 +57,8 @@ export class PetroleumProductsMovementComponent extends WidgetPlatform implement
     }
 
     private async initPetroleumMovement(): Promise<void> {
-        console.log(await this.petroleumService.getClient());
+        await this.petroleumService.setClient();
+        await this.petroleumService.getTransfers(null, null, true, this.petroleumService.client);
     }
 
     // onChanged(type: string): void {
