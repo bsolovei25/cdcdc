@@ -16,7 +16,6 @@ import { IUser, IUnitEvents } from '../../models/events-widget';
 })
 export class AdminPanelService {
     private restUrl: string = `/api/user-management`;
-    private restFileUrl: string = '';
 
     private defaultWorker: IUser = {
         id: undefined,
@@ -60,7 +59,6 @@ export class AdminPanelService {
 
     constructor(private http: HttpClient, private configService: AppConfigService) {
         this.configService.restUrl$.subscribe((urls) => (this.restUrl = `${urls}${this.restUrl}`));
-        this.restFileUrl = this.configService.fsUrl;
         this.activeWorker$.subscribe((worker: IUser) => {
             this.activeWorker = worker;
         });
@@ -71,8 +69,7 @@ export class AdminPanelService {
     //#region WORKERS
     public getAllWorkers(): Observable<IUser[]> {
         const url: string = `${this.restUrl}/users`;
-        // return this.http.get<IUser[]>(url);
-        return this.http.get<IUser[]>(`${this.urlMockData}allUsersMock.json`);
+        return this.http.get<IUser[]>(url);
     }
 
     // TOFIX UNUSED
@@ -111,8 +108,7 @@ export class AdminPanelService {
     //#region BRIGADES
     public getBrigades(): Observable<IBrigadeAdminPanel[]> {
         const url: string = `${this.restUrl}/brigades`;
-        // return this.http.get<IBrigadeAdminPanel[]>(url);
-        return this.http.get<IBrigadeAdminPanel[]>(`${this.urlMockData}allBrigadesMock.json`);
+        return this.http.get<IBrigadeAdminPanel[]>(url);
     }
 
     // TOFIX UNUSED
@@ -135,8 +131,7 @@ export class AdminPanelService {
 
     public getAllScreenClaims(): Observable<IClaim[]> {
         const url: string = `${this.restUrl}/screenclaims`;
-        // return this.http.get<IClaim[]>(url);
-        return this.http.get<IClaim[]>(`${this.urlMockData}allScreenclaims.json`);
+        return this.http.get<IClaim[]>(url);
     }
 
     public getWorkerScreenClaims(screenWorkerId: number): Observable<any> {
@@ -173,8 +168,7 @@ export class AdminPanelService {
     //#region UNITS
     public getAllUnits(): Observable<IUnitEvents[]> {
         const url: string = `${this.restUrl}/units/all`;
-        // return this.http.get<IUnitEvents[]>(url);
-        return this.http.get<IUnitEvents[]>(`${this.urlMockData}allUnitsMock.json`);
+        return this.http.get<IUnitEvents[]>(url);
     }
 
     public getUnitBrigades(unitId: number): Observable<IBrigadeAdminPanel[]> {

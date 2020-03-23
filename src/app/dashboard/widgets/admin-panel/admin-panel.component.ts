@@ -64,17 +64,11 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
 
     private subscriptions: Subscription[] = [];
 
-    //#region MOCK_DATA
-    isMock = false;
-    widgetId = '';
-    uniqId = '';
-    //#endregion
-
     constructor(
-        // private widgetService: NewWidgetService,
-        // @Inject('isMock') public isMock: boolean,
-        // @Inject('widgetId') public id: string,
-        // @Inject('uniqId') public uniqId: string,
+        private widgetService: NewWidgetService,
+        @Inject('isMock') public isMock: boolean,
+        @Inject('widgetId') public id: string,
+        @Inject('uniqId') public uniqId: string,
         private adminService: AdminPanelService
     ) {}
 
