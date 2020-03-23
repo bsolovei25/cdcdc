@@ -46,6 +46,8 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     private subscriptions: Subscription[] = [];
 
+    public isDataLoading: boolean = false;
+
     constructor(
         private adminService: AdminPanelService,
         private materialController: MaterialControllerService
@@ -368,6 +370,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     public async onSave(): Promise<void> {
         if (this.isCheckBoxClicked && this.checkForRequiredFields()) {
+            this.isDataLoading = true;
             try {
                 this.worker.displayName = this.adminService.generateDisplayName(this.worker);
 
@@ -396,11 +399,13 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                 this.adminService.activeWorker$.next(this.worker);
                 this.adminService.activeWorkerUnit$.next(this.workerUnit);
 
+                this.isDataLoading = false;
+
                 this.materialController.openSnackBar('Данные сохранены');
                 this.closeWorkerSettings.emit(this.worker);
             } catch (error) {
                 console.log(error.error);
-                this.materialController.openSnackBar('Ошибка', 'snackbar-red');
+                this.isDataLoading = false;
             }
         }
     }

@@ -1,5 +1,5 @@
 <div class="admin">
-  <evj-widget-preloader class="preloader" [isLoading]="true"></evj-widget-preloader>
+  <evj-widget-preloader *ngIf="isDataLoading" [isLoading]="isDataLoading"></evj-widget-preloader>
 
   <div class="admin__header">
     <div class="header__search">
