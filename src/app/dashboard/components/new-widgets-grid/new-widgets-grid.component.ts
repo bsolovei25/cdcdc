@@ -69,10 +69,9 @@ export class NewWidgetsGridComponent implements OnInit {
                 this.isVisiblePanel = this.claimSettings.includes(EnumClaimWidgets.add);
                 this.options = null;
                 this.loaditem();
-                
             }
         });
-        this.loaditem();
+        // this.loaditem();
     }
 
     private loaditem(): void {

@@ -32,9 +32,7 @@ export class PetroleumProductsMovementComponent extends WidgetPlatform implement
     }
 
     public ngOnInit(): void {
-        if(!this.isMock) {
-            console.warn('load');
-        }
+        console.warn(this.isMock);
         super.widgetInit();
         this.subscriptions.push(
             this.petroleumService.screenState$.subscribe((data) => {
