@@ -10,6 +10,7 @@ import { ITransfer } from '../../../../models/petroleum-products-movement.model'
 export class OperationScreenComponent implements OnInit {
     @Input() data: ITransfer[];
     @Input() title: string[];
+    @Input() keys: string[];
 
     constructor(private petroleumService: PetroleumScreenService) {}
 

@@ -10,7 +10,7 @@ import {
     styleUrls: ['./operation-park-screen-left.component.scss'],
 })
 export class OperationParkScreenLeftComponent implements OnInit {
-    titlePark: string = 'Источник';
+    @Input() titlePark: string = 'Парк';
 
     dataTank: ITankInfo[] = [
         {

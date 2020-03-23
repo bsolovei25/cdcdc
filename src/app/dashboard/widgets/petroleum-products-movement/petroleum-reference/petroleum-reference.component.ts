@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { transition, trigger, animate, style } from '@angular/animations';
-import { IOperation, ITransfer } from '../../../models/petroleum-products-movement.model';
+import { ITransfer } from '../../../models/petroleum-products-movement.model';
 import { PetroleumScreenService } from '../../../services/petroleum-screen.service';
 
 @Component({
@@ -42,51 +42,32 @@ export class PetroleumReferenceComponent implements OnInit {
         'Отклонение',
     ];
 
-    public operations: ITransfer[] = [
-        // {
-        //     sourceName: 'Резервуар 503',
-        //     destinationName: 'ЭЛОУ-2',
-        //     sourceProduct: 'Нефть сырая',
-        //     destinationProduct: 'Нефть сырая',
-        //     startTime: new Date(),
-        //     endTime: null,
-        //     sourceClient: 'Иванов И.В.',
-        //     destinationClient: null,
-        //     sourceMass: 47.32,
-        //     destinationMass: 45.299,
-        //     deltaMass: 2.021,
-        // },
-        // {
-        //     sourceName: 'Резервуар 503',
-        //     destinationName: 'ЭЛОУ-2',
-        //     sourceProduct: 'Нефть сырая',
-        //     destinationProduct: 'Нефть сырая',
-        //     startTime: new Date(),
-        //     endTime: null,
-        //     sourceClient: 'Иванов И.В.',
-        //     destinationClient: null,
-        //     sourceMass: 47.32,
-        //     destinationMass: 45.299,
-        //     deltaMass: 2.021,
-        // },
+    public keys: string[] = [
+        'sourceName',
+        'destinationName',
+        'sourceProduct',
+        'destinationProduct',
+        'startTime',
+        'endTime',
+        'sourceMass',
+        'destinationMass',
+        'deltaMass',
     ];
 
-    // public data2 = {
-    //     leftTable: [
-    //         {
-    //             name: 'Продукт',
-    //             type: 'кг/м3',
-    //             value: 0.5,
-    //         },
-    //     ],
-    //     rightTable: [
-    //         {
-    //             name: 'Продукт',
-    //             type: 'кг/м3',
-    //             value: 0.5,
-    //         },
-    //     ],
-    // };
+    public transfers: ITransfer[] = [];
+
+    public data2 = [
+        {
+            name: 'Продукт',
+            type: 'кг/м3',
+            value: 0.5,
+        },
+        {
+            name: 'Продукт',
+            type: 'кг/м3',
+            value: 0.5,
+        },
+    ];
 
     constructor(private petroleumScreenService: PetroleumScreenService) {
     }
@@ -94,7 +75,7 @@ export class PetroleumReferenceComponent implements OnInit {
 
     ngOnInit(): void {
         this.petroleumScreenService.transfers$.subscribe(
-            (ref) => this.operations = ref
+            (ref) => this.transfers = ref
         );
     }
 }

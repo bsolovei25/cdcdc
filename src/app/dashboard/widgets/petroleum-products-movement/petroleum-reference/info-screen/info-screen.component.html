@@ -10,7 +10,7 @@
 <div class="reference_values">
   <ng-container *ngFor="let item of data">
     <div class="values_block">
-      <ng-container *ngFor="let key of objectKeys(item)">
+      <ng-container *ngFor="let key of keys">
         <ng-container *ngIf="((key === 'startTime') || (key === 'endTime')) && (key !== 'uid')">
           <ng-container *ngIf="item[key]">
             <div class="values">

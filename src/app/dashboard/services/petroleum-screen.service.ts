@@ -3,7 +3,11 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {AppConfigService} from '../../services/appConfigService';
-import { ITransfer } from '../models/petroleum-products-movement.model';
+import {
+    IPetroleumObject,
+    ITransfer,
+    ObjectDirection
+} from '../models/petroleum-products-movement.model';
 
 @Injectable({
     providedIn: 'root',
@@ -61,8 +65,27 @@ export class PetroleumScreenService {
         return await this.getTransfersAsync(requestUrl);
     }
 
+    public async getObjects(client: string, object: string = null, direction: ObjectDirection = null): Promise<IPetroleumObject[]> {
+        if (!object || !direction) {
+            return await this.getObjectsAsync(client);
+        }
+        return await this.getReferencesAsync(client, object, direction);
+    }
+
     private async getTransfersAsync(requestUrl: string): Promise<ITransfer[]> {
         console.log(requestUrl);
         return this.http.get<ITransfer[]>(requestUrl).toPromise();
+    }
+
+    private async getObjectsAsync(client: string): Promise<IPetroleumObject[]> {
+        return this.http
+            .get<IPetroleumObject[]>(`${this.restUrl}/api/petroleum-flow-clients/clients/${client}/objects/`)
+            .toPromise();
+    }
+
+    private async getReferencesAsync(client: string, object: string, direction: ObjectDirection): Promise<IPetroleumObject[]> {
+        return this.http
+            .get<IPetroleumObject[]>(`${this.restUrl}/api/petroleum-flow-clients/clients/${client}/objects/${object}/relations/${direction}`)
+            .toPromise();
     }
 }
