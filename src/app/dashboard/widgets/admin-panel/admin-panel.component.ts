@@ -76,7 +76,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
         // @Inject('widgetId') public id: string,
         // @Inject('uniqId') public uniqId: string,
         private adminService: AdminPanelService
-    ) { }
+    ) {}
 
     public ngOnInit(): void {
         this.adminService.updateAllWorkers().then();
