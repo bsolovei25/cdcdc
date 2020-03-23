@@ -16,8 +16,8 @@ import { WidgetPlatform } from '../../models/widget-platform';
     styleUrls: ['./energetics.component.scss'],
 })
 export class EnergeticsComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    protected static itemCols: number = 18;
-    protected static itemRows: number = 14;
+    public static itemCols: number = 18;
+    public static itemRows: number = 14;
 
     /* Приблизительная структура, получаемая с бека */
 

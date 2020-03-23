@@ -120,8 +120,8 @@ export class SuspenseMachineComponent extends WidgetPlatform implements OnInit, 
         },
     ];
 
-    protected static itemCols: number = 20;
-    protected static itemRows: number = 5;
+    public static itemCols: number = 20;
+    public static itemRows: number = 5;
 
     constructor(
         public widgetService: NewWidgetService,

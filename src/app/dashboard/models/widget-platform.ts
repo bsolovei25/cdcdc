@@ -12,10 +12,10 @@ export abstract class WidgetPlatform implements OnDestroy {
 
     protected isRealtimeData: boolean = true;
 
-    protected static itemCols: number = 30;
-    protected static itemRows: number = 20;
-    public static minItemCols: number = 5;
-    public static minItemRows: number = 5;
+    public static itemCols: number = 30;
+    public static itemRows: number = 20;
+    public static minItemCols: number = 8;
+    public static minItemRows: number = 6;
 
     protected subscriptions: Subscription[] = [];
 
@@ -24,7 +24,7 @@ export abstract class WidgetPlatform implements OnDestroy {
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public widgetId: string,
         @Inject('uniqId') public widgetUniqId: string
-    ) {}
+    ) { }
 
     public ngOnDestroy(): void {
         this.subscriptions.forEach((el) => el.unsubscribe());

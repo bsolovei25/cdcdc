@@ -30,7 +30,7 @@
             </div>
             <div class="hover-button" *ngIf="screen.updateScreen === false">
               <div
-                *ngIf="claimScreens.includes('edit')"
+                *ngIf="claimScreens.includes(EnumClaimScreens.edit)"
                 class="update_screen"
                 (click)="onUpdateForm(screen.id)"
               >
@@ -40,7 +40,7 @@
                 ></svg-icon>
               </div>
               <div
-                *ngIf="claimScreens.includes('delete')"
+                *ngIf="claimScreens.includes(EnumClaimScreens.delete)"
                 class="delete_screen"
                 (click)="deleteScreen(screen.id)"
               >
@@ -52,7 +52,7 @@
             </div>
             <div class="hover-button" *ngIf="screen.updateScreen === true">
               <div
-                *ngIf="claimScreens.includes('edit')"
+                *ngIf="claimScreens.includes(EnumClaimScreens.edit)"
                 class="update_screen2"
                 (click)="updateScreen(screen.id, this.newNameScreen)"
               >
@@ -62,7 +62,7 @@
                 ></svg-icon>
               </div>
               <div
-                *ngIf="claimScreens.includes('delete')"
+                *ngIf="claimScreens.includes(EnumClaimScreens.delete)"
                 class="delete_screen2"
                 (click)="deleteScreen(screen.id)"
               >
@@ -76,7 +76,7 @@
         </div>
       </div>
     </ng-container>
-    <div class="dropdown-component" *ngIf="claimScreens.includes('add')">
+    <div class="dropdown-component" *ngIf="claimScreens.includes(EnumClaimScreens.add)">
       <input
         class="dropdown-component_input"
         [(ngModel)]="tempScreen"

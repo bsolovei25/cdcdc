@@ -46,8 +46,8 @@ export class NewUserSettingsService {
             y: param.y,
             cols: WIDGETS[nameWidget].itemCols,
             rows: WIDGETS[nameWidget].itemRows,
-            minItemCols: WIDGETS[nameWidget].minItemCols,
-            minItemRows: WIDGETS[nameWidget].minItemRows,
+            minItemCols: WIDGETS[nameWidget]?.minItemCols ?? 5,
+            minItemRows: WIDGETS[nameWidget]?.minItemRows ?? 5,
             id: idWidget,
             uniqid: uniqId,
             widgetType: nameWidget,
@@ -96,7 +96,7 @@ export class NewUserSettingsService {
         }
     }
 
-    private updateWidgetApi(uniqId) {
+    private updateWidgetApi(uniqId: string): void {
         this.save(uniqId);
         const updateWidget = this.widgetInfo;
         this.http
@@ -107,7 +107,7 @@ export class NewUserSettingsService {
             );
     }
 
-    public updateByPosition(oldItem, newItem) {
+    public updateByPosition(oldItem, newItem): void {
         for (const item of this.widgetService.dashboard) {
             if (item.uniqid === oldItem.uniqid) {
                 item.x = newItem.x;
@@ -163,21 +163,23 @@ export class NewUserSettingsService {
             this.ScreenId = item.id;
             this.ScreenName = item.screenName;
             this.widgetService.dashboard = item.widgets.map((widget) => {
-                const nameWidget = this.widgetService.getName(widget.widgetId);
+                const _minItemCols = WIDGETS[widget.widgetType]?.minItemCols ?? 6;
+                const _minItemRows = (WIDGETS[widget.widgetType]?.minItemRows ?? 6);
+                console.log(_minItemCols, _minItemRows);
                 const result = {
                     x: widget.posX,
                     y: widget.posY,
-                    cols: widget.sizeX,
-                    rows: widget.sizeY,
-                    minItemCols: WIDGETS[nameWidget]?.minItemCols,
-                    minItemRows: WIDGETS[nameWidget]?.minItemRows,
+                    cols: widget.sizeX < _minItemCols ? _minItemCols : widget.sizeX,
+                    rows: widget.sizeY < _minItemRows ? _minItemRows : widget.sizeY,
+                    minItemCols: _minItemCols,
+                    minItemRows: _minItemRows,
                     id: widget.widgetId,
                     widgetType: widget.widgetType,
                     uniqid: widget.uniqueId,
                 };
                 return result;
             });
-            // console.log(this.widgetService.dashboard);
+            console.log(this.widgetService.dashboard);
         });
     }
 
