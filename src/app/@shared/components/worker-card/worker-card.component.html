@@ -1,7 +1,14 @@
 <div class="person" *ngIf="person">
   <ng-container *ngIf="!isSmallCard; else smallCard">
     <svg width="100%" height="100%" viewBox="0 0 50 50">
-      <image x="-36" y="3.5" width="42" height="42" style="clip-path: circle(16px at center);" [attr.xlink:href]="photoPath" />
+      <image
+        x="-36"
+        y="3.5"
+        width="42"
+        height="42"
+        style="clip-path: circle(16px at center);"
+        [attr.xlink:href]="photoPath"
+      />
 
       <image
         x="-39"
@@ -41,8 +48,15 @@
 
   <ng-template #smallCard>
     <svg width="100%" height="100%" viewBox="0 0 200 100" class="small">
-      <image x="-36" y="10" width="80" height="80" style="clip-path: circle(32px at center);" [attr.xlink:href]="photoPath" />
-      
+      <image
+        x="-36"
+        y="10"
+        width="80"
+        height="80"
+        style="clip-path: circle(32px at center);"
+        [attr.xlink:href]="photoPath"
+      />
+
       <image
         x="-65"
         y="0"
