@@ -99,7 +99,7 @@ export class AdminPanelService {
     public async pushWorkerPhoto(file: Blob): Promise<any> {
         const body: FormData = new FormData();
         const now: number = Date.now();
-        body.append('photo', file, `avatar_${now}.jpeg`);
+        body.append('uploadFile', file, `avatar_${now}.jpeg`);
 
         return this.http.post(this.restFileUrl, body).toPromise();
     }
@@ -217,12 +217,11 @@ export class AdminPanelService {
     }
 
     public getPhotoLink(worker: IUser): string {
-        // if (worker.photoId) {
-        //     return `${this.configService.fsUrl}/${worker.photoId}`;
-        // } else {
-        //     return 'assets/icons/widgets/admin/default_avatar.svg';
-        // }
-        return 'assets/icons/widgets/admin/default_avatar.svg';
+        if (worker.photoId) {
+            return `${this.configService.fsUrl}/${worker.photoId}`;
+        } else {
+            return 'assets/icons/widgets/admin/default_avatar2.svg';
+        }
     }
 
     // TOFIX UNUSED
