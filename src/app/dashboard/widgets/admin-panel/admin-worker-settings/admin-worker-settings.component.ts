@@ -241,6 +241,13 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         }
     }
 
+    public setWorkerPosition(): string {
+        if (this.worker.position) {
+            return this.worker.position;
+        }
+        return 'common';
+    }
+
     public onSelectBrigade(brigade: IBrigade): void {
         this.isCheckBoxClicked = false;
         this.isAlertShowing = true;
