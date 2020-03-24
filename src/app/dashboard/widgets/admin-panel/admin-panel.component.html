@@ -15,7 +15,7 @@
 
   <evj-frame-top></evj-frame-top>
 
-  <ng-container *ngIf="!isWorkerSettingsShowed;else workerSettings">
+  <ng-container *ngIf="!isWorkerSettingsShowed && !isGroupsShowed">
     <div
       class="admin-container"
       (mousedown)="$event.stopPropagation()"
@@ -32,15 +32,31 @@
                 (inputedValue)="onSearchWorker($event)"
               ></evj-input>
             </div>
-            <div class="group__button">
+            <div class="brigades__button">
               <evj-button
                 class="insert-component"
                 [isSmallButton]="true"
                 [imgSrc]="groupsButtonIcon"
-                [isActive]="isGroupShowed"
+                [isActive]="isBrigadesShowed"
                 [isChangingState]="true"
                 (click)="onShowBrigades()"
               ></evj-button>
+            </div>
+            <div class="group__button">
+              <evj-button
+                class="insert-component"
+                [isSmallButton]="false"
+                [textButton]="'Группы'"
+                (click)="onShowGroups()"
+              ></evj-button>
+              <!-- <evj-button
+                class="insert-component"
+                [isSmallButton]="true"
+                [imgSrc]="groupsButtonIcon"
+                [isActive]="isBrigadesShowed"
+                [isChangingState]="true"
+                (click)="onShowGroups()"
+              ></evj-button> -->
             </div>
           </div>
           <div class="header__title">
@@ -71,9 +87,9 @@
           <evj-admin-employee
             [searchedWorker]="searchedWorker"
             [workers]="workers"
-            *ngIf="!isGroupShowed"
+            *ngIf="!isBrigadesShowed"
           ></evj-admin-employee>
-          <evj-admin-brigades *ngIf="isGroupShowed" [brigades]="brigades"></evj-admin-brigades>
+          <evj-admin-brigades *ngIf="isBrigadesShowed" [brigades]="brigades"></evj-admin-brigades>
         </div>
         <div class="admin__workspace">
           <evj-admin-workspace></evj-admin-workspace>
@@ -82,7 +98,7 @@
     </div>
   </ng-container>
 
-  <ng-template #workerSettings>
+  <ng-container *ngIf="isWorkerSettingsShowed">
     <evj-admin-worker-settings
       class="admin-container"
       [isCreateNewUser]="isCreateNewWorker"
@@ -90,7 +106,11 @@
       (mousedown)="$event.stopPropagation()"
       (touchstart)="$event.stopPropagation()"
     ></evj-admin-worker-settings>
-  </ng-template>
+  </ng-container>
+
+  <ng-container *ngIf="isGroupsShowed">
+    <evj-admin-groups class="admin-container"></evj-admin-groups>
+  </ng-container>
 
   <evj-frame-bottom></evj-frame-bottom>
 </div>

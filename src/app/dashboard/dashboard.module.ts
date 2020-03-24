@@ -124,6 +124,7 @@ import { AwsAvatarComponent } from './widgets/admin-panel/admin-worker-settings/
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { AwsFieldsComponent } from './widgets/admin-panel/admin-worker-settings/aws-fields/aws-fields.component';
 import { AwsWorkspacesComponent } from './widgets/admin-panel/admin-worker-settings/aws-workspaces/aws-workspaces.component';
+import { AdminGroupsComponent } from './widgets/admin-panel/admin-groups/admin-groups.component';
 
 @NgModule({
     declarations: [
@@ -234,6 +235,7 @@ import { AwsWorkspacesComponent } from './widgets/admin-panel/admin-worker-setti
         AwsAvatarComponent,
         AwsFieldsComponent,
         AwsWorkspacesComponent,
+        AdminGroupsComponent,
     ],
     entryComponents: [
         LineChartComponent,
