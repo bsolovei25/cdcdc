@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { IButtonImgSrc, IGroup } from '../../../models/admin-panel';
+import { IButtonImgSrc, IGroup, IWorkspace } from '../../../models/admin-panel';
 import { SelectionModel } from '@angular/cdk/collections';
+import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
+import { IUser } from '../../../models/events-widget';
 
 @Component({
     selector: 'evj-admin-groups',
@@ -14,6 +16,9 @@ export class AdminGroupsComponent implements OnInit {
     public plusIcon: IButtonImgSrc = {
         btnIconSrc: 'assets/icons/plus-icon.svg',
     };
+
+    public allWorkers: IUser[] = [];
+    public allWorkspaces: IWorkspace[] = [];
 
     // Mocked data
     public groups: IGroup[] = [
@@ -41,10 +46,14 @@ export class AdminGroupsComponent implements OnInit {
 
     public groupSelection: SelectionModel<IGroup> = new SelectionModel<IGroup>();
 
-    constructor() {}
+    constructor(private adminService: AdminPanelService) {}
 
     ngOnInit(): void {
-      this.groupSelection.select(this.groups[0]);
+        this.groupSelection.select(this.groups[0]);
+        this.adminService.allWorkers$.subscribe((workers: IUser[]) => (this.allWorkers = workers));
+        this.adminService
+            .getAllScreens()
+            .subscribe((screens: IWorkspace[]) => (this.allWorkspaces = screens));
     }
 
     public onSearchGroup(event: string): void {

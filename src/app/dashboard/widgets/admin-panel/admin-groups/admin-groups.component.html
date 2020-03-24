@@ -43,7 +43,12 @@
         ></evj-input>
       </div>
     </div>
-    <div class="column__body"></div>
+    <div class="column__body scroll scroll-bar">
+      <evj-ag-group-worker-card
+        *ngFor="let worker of allWorkers"
+        [worker]="worker"
+      ></evj-ag-group-worker-card>
+    </div>
   </div>
   <div class="column">
     <div class="column__header">
@@ -57,6 +62,37 @@
         ></evj-button>
       </div>
     </div>
-    <div class="column__body"></div>
+    <div class="column__body">
+      <div class="claims  scroll-bar">
+        <div class="title">Права</div>
+        <div class="cards">
+          <evj-aws-claim-card
+            [name]="'Высокий уровень доступа'"
+            [isActive]="false"
+            [isChangingCardState]="true"
+          ></evj-aws-claim-card>
+          <evj-aws-claim-card
+            [name]="'Открытый доступ'"
+            [isActive]="true"
+            [isChangingCardState]="true"
+          ></evj-aws-claim-card>
+          <evj-aws-claim-card
+            [name]="'Доступ с ограничениями'"
+            [isActive]="false"
+            [isChangingCardState]="true"
+          ></evj-aws-claim-card>
+        </div>
+      </div>
+      <div class="workspaces scroll-bar">
+        <div class="title">Доступные рабочие области</div>
+        <div class="cards">
+          <ng-container *ngFor="let workspace of allWorkspaces">
+            <evj-aws-workspace-card
+              [workspace]="workspace"
+            ></evj-aws-workspace-card>
+          </ng-container>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

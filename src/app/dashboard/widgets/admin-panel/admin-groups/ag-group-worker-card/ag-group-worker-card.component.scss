@@ -18,6 +18,10 @@
     color: var(--color-text-main-transparent);
   }
 
+  &_semiactive {
+    background-image: url(../../../../../../assets/icons/widgets/admin/admin-groups/group-card-semiactive.svg);
+  }
+
   &_active {
     background-image: url(../../../../../../assets/icons/widgets/admin/admin-groups/group-card-active.svg);
 
@@ -40,7 +44,7 @@
     position: absolute;
     z-index: 2;
 
-    width: 45px;
+    width: 16px;
     height: 16px;
 
     display: flex;

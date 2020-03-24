@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { IUser } from '../../../../models/events-widget';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'evj-ag-group-worker-card',
@@ -6,10 +8,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ag-group-worker-card.component.scss']
 })
 export class AgGroupWorkerCardComponent implements OnInit {
+  @Input() public worker: IUser = null;
+  @Input() public isInBrigade: boolean = true;
+
+  public cardSelection: SelectionModel<void> = new SelectionModel<void>();
 
   constructor() { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
+  }
+
+  public onClick(): void {
+    if (this.isInBrigade){
+      this.cardSelection.toggle();
+    }
   }
 
 }
