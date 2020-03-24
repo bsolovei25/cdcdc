@@ -87,9 +87,7 @@
         <div class="title">Доступные рабочие области</div>
         <div class="cards">
           <ng-container *ngFor="let workspace of allWorkspaces">
-            <evj-aws-workspace-card
-              [workspace]="workspace"
-            ></evj-aws-workspace-card>
+            <evj-aws-workspace-card [workspace]="workspace"></evj-aws-workspace-card>
           </ng-container>
         </div>
       </div>
