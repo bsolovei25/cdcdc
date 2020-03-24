@@ -126,6 +126,7 @@ import { AwsFieldsComponent } from './widgets/admin-panel/admin-worker-settings/
 import { AwsWorkspacesComponent } from './widgets/admin-panel/admin-worker-settings/aws-workspaces/aws-workspaces.component';
 import { AdminGroupsComponent } from './widgets/admin-panel/admin-groups/admin-groups.component';
 import { AgGroupCardComponent } from './widgets/admin-panel/admin-groups/ag-group-card/ag-group-card.component';
+import { AgGroupWorkerCardComponent } from './widgets/admin-panel/admin-groups/ag-group-worker-card/ag-group-worker-card.component';
 
 @NgModule({
     declarations: [
@@ -238,6 +239,7 @@ import { AgGroupCardComponent } from './widgets/admin-panel/admin-groups/ag-grou
         AwsWorkspacesComponent,
         AdminGroupsComponent,
         AgGroupCardComponent,
+        AgGroupWorkerCardComponent,
     ],
     entryComponents: [
         LineChartComponent,
