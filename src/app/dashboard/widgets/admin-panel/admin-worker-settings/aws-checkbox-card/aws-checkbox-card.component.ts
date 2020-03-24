@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { WorkerPositionType } from '../../../../models/events-widget';
 
 @Component({
     selector: 'evj-aws-checkbox-card',
@@ -6,7 +7,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
     styleUrls: ['./aws-checkbox-card.component.scss'],
 })
 export class AwsCheckboxCardComponent implements OnInit {
-    @Input() public workerPosition: 'responsible' | 'common' = 'common';
+    @Input() public workerPosition: WorkerPositionType = 'common';
     @Output() private checked: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     public isChecked: boolean = false;
