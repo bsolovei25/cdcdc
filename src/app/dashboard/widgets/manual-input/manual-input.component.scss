@@ -113,7 +113,7 @@
 .table-container {
   border-right: 1px dashed var(--color-border-main);
   border-left: 1px dashed var(--color-border-main);
-  min-width: 950px;
+  min-width: 450px;
   right: -1px;
   width: calc(100% - 2px);
   height: calc(100% - 56px);
@@ -653,7 +653,7 @@
               position: relative;
               .item-block {
                 width: calc(100% - 20px);
-                border-bottom: 2px solid var(--color-bg-main);
+               // border-bottom: 2px solid var(--color-bg-main);
                 height: 40px;
                 display: flex;
                 //   justify-content: space-between;
@@ -683,6 +683,9 @@
                 .name {
                   color: var(--color-text-sub-heading);
                   text-align: left;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                  overflow: hidden;
                 }
 
                 .input_value {
@@ -777,7 +780,7 @@
               .item-block {
                 padding-left: 25px;
                 width: calc(100% - 20px);
-                border-bottom: 2px solid var(--color-bg-main);
+               // border-bottom: 2px solid var(--color-bg-main);
                 height: 40px;
                 display: flex;
                 justify-content: space-between;
@@ -791,6 +794,9 @@
                 .name {
                   color: var(--color-text-sub-heading);
                   text-align: left;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                  overflow: hidden;
                 }
                 .input_value {
                   width: 15%;
