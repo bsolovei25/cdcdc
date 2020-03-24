@@ -98,7 +98,7 @@ export class NewWidgetService {
         .pipe(filter((item) => item !== null));
 
     private getAvailableWidgets(): Observable<IWidgets[]> {
-         return this.http.get(this.restUrl + `/api/af-service/GetAvailableWidgets`).pipe(
+        return this.http.get(this.restUrl + `/api/af-service/GetAvailableWidgets`).pipe(
             map((data: IWidgets[]) => {
                 const localeData = this.mapData(data);
                 this.mass = this.mapData(data);

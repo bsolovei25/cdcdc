@@ -34,11 +34,11 @@ export class AuthenticationGuard implements CanLoad, CanActivate, CanActivateChi
         } catch (error) {
             return false;
         }
-       // return true;
+        // return true;
     }
 
     async canLoad(route: Route, segments: UrlSegment[]): Promise<boolean> {
-         return this.authenticationCheck(route, segments.join('/'), true);
+        return this.authenticationCheck(route, segments.join('/'), true);
     }
 
     async canActivate(

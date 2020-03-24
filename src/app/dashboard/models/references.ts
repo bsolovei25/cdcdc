@@ -19,7 +19,7 @@ export interface IReferenceColumns {
     name: string;
     description?: string;
     columnTypeId: string; /// ВРЕМЕННЫЙ СТРИНГ
-    columnName: string;  /// В ЧЕМ ОТЛИЧИЕ ОТ name ???
+    columnName: string; /// В ЧЕМ ОТЛИЧИЕ ОТ name ???
     isRequred: boolean;
     isUnique: boolean;
 }

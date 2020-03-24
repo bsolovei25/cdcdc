@@ -345,7 +345,7 @@ input {
       }
     }
 
-    &__input-active{
+    &__input-active {
       border: 1px solid var(--color-border-active);
       border-left: none;
     }
@@ -511,19 +511,19 @@ input {
         display: none;
       }
 
-      &__add-block{
+      &__add-block {
         display: flex;
         direction: ltr;
 
-        .reference-container-value__fio{
-          input{
+        .reference-container-value__fio {
+          input {
             height: 35px;
             padding-left: 0;
           }
         }
 
-        .reference-container-value__type{
-          .mat-form-field{
+        .reference-container-value__type {
+          .mat-form-field {
             width: 95%;
           }
         }
@@ -618,7 +618,7 @@ input {
       }
     }
 
-    &__input-active{
+    &__input-active {
       border: 1px solid var(--color-border-active);
       border-left: none;
     }
@@ -631,12 +631,11 @@ input {
   }
 }
 
-
-.isLongBlock{
+.isLongBlock {
   width: 100% !important;
 }
 
-.isNotButton{
+.isNotButton {
   display: none;
 }
 

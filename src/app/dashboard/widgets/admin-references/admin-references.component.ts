@@ -103,7 +103,6 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
         },
     ];
 
-
     public data: IReferenceTypes[] = [];
 
     public dataType: IReferenceColumnsType[] = [
@@ -274,7 +273,7 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
             (e) => e.name.toLowerCase().indexOf(record.toLowerCase()) > -1
         );
 
-        this.data =  filterData;
+        this.data = filterData;
         if (!event.currentTarget.value) {
             this.data = this.datas;
         }
