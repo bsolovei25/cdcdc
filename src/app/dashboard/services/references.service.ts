@@ -11,7 +11,7 @@ import { map } from 'rxjs/operators';
 export class ReferencesService {
     private restUrl: string;
 
-    public testUrl: string = "http://deploy.funcoff.club:6880";
+    public testUrl: string = 'http://deploy.funcoff.club:6880';
 
     constructor(private http: HttpClient, configService: AppConfigService) {
         this.restUrl = configService.restUrl;
