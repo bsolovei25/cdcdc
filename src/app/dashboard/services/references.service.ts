@@ -11,14 +11,12 @@ import { map } from 'rxjs/operators';
 export class ReferencesService {
     private restUrl: string;
 
-    public testUrl: string = 'http://deploy.funcoff.club:6880';
-
     constructor(private http: HttpClient, configService: AppConfigService) {
         this.restUrl = configService.restUrl;
     }
 
     public getReference(): Observable<IReferenceTypes[]> {
-        return this.http.get(this.testUrl + `/api/ReferenceType`).pipe(
+        return this.http.get(this.restUrl + `/api/ReferenceType`).pipe(
             map((data: IReferenceTypes[]) => {
                 const localeData = this.mapData(data);
                 return localeData;
@@ -27,7 +25,7 @@ export class ReferencesService {
     }
 
     public removeReference(reference: string): void {
-        this.http.delete(this.testUrl + '/api/user-management/widget/' + reference).subscribe(
+        this.http.delete(this.restUrl + '/api/user-management/widget/' + reference).subscribe(
             (ans) => {},
             (error) => console.log(error)
         );
@@ -37,7 +35,7 @@ export class ReferencesService {
         const newReference: IReferenceTypes = new (class implements IReferenceTypes {
             name = reference.name;
         })();
-        return this.http.post(this.testUrl + '/api/ref-book/ReferenceType', newReference).subscribe(
+        return this.http.post(this.restUrl + '/api/ref-book/ReferenceType', newReference).subscribe(
             (ans) => {},
             (error) => console.log(error)
         );

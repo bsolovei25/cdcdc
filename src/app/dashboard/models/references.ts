@@ -7,6 +7,7 @@ export interface IReferenceTypes {
     name: string;
     description?: string;
     referenceColumns?: IReferenceColumns[];
+    open?: boolean;
 }
 
 export interface IReferenceColumns {
@@ -22,6 +23,7 @@ export interface IReferenceColumns {
     columnName: string; /// В ЧЕМ ОТЛИЧИЕ ОТ name ???
     isRequred: boolean;
     isUnique: boolean;
+    open?: boolean;
 }
 
 export interface IReferenceColumnsType {

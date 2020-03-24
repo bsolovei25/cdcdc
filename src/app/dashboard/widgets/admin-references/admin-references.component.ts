@@ -238,6 +238,7 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
 
     onPushBlockInRecord(): void {
         this.onClickPushRecord = true;
+        this.isLongBlock = false;
     }
 
     onPushReference(): void {

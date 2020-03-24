@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { Subscription } from 'rxjs';
+import { IReferenceTypes } from '../../models/references';
 
 @Component({
     selector: 'evj-reference',
@@ -25,70 +26,57 @@ export class ReferenceComponent implements OnInit, OnDestroy {
     public clickFio: boolean = true;
     public clickDate: boolean = false;
 
-    data = [
+    isLongBlock: boolean = true;
+
+    indexColumn: number = 0;
+
+    public data: IReferenceTypes[] = [
         {
-            name: 'Установка НПЗ',
-            referenceFIO: [
+            id: 1,
+            createdAt: new Date(),
+            createdBy: new Date(),
+            name: 'Професии',
+            referenceColumns: [
                 {
-                    name: 'Пупкин Иван Петрович',
+                    id: 1,
+                    createdAt: new Date(),
+                    createdBy: new Date(),
+                    referenceTypeId: 1,
+                    name: 'ФИО',
+                    columnTypeId: 'Текст',
+                    columnName: 'ФИО',
+                    isRequred: true,
+                    isUnique: false,
                 },
                 {
-                    name: 'Пупкин Иван Петрович',
-                },
-                {
-                    name: 'Пупкин Иван Петрович',
+                    id: 2,
+                    createdAt: new Date(),
+                    createdBy: new Date(),
+                    referenceTypeId: 1,
+                    name: 'Дата рождения',
+                    columnTypeId: 'Дата',
+                    columnName: 'Дата рождения',
+                    isRequred: false,
+                    isUnique: true,
                 },
             ],
         },
         {
-            name: 'Производственный персонал',
-            referenceFIO: [
+            id: 2,
+            createdAt: new Date(),
+            createdBy: new Date(),
+            name: 'Установки',
+            referenceColumns: [
                 {
-                    name: 'Горохов Иван Петрович',
-                },
-                {
-                    name: 'Горохов Иван Петрович',
-                },
-                {
-                    name: 'Горохов Иван Петрович',
-                },
-            ],
-        },
-        {
-            name: 'Климатические параметры',
-            referenceFIO: [
-                {
-                    name: 'Сардыков Иван Петрович',
-                },
-                {
-                    name: 'Сардыков Иван Петрович',
-                },
-                {
-                    name: 'Сардыков Иван Петрович',
-                },
-                {
-                    name: 'Сардыков Иван Петрович',
-                },
-                {
-                    name: 'Сардыков Иван Петрович',
-                },
-                {
-                    name: 'Сардыков Иван Петрович',
-                },
-                {
-                    name: 'Сардыков Иван Петрович',
-                },
-                {
-                    name: 'Сардыков Иван Петрович',
-                },
-                {
-                    name: 'Сардыков Иван Петрович',
-                },
-                {
-                    name: 'Сардыков Иван Петрович',
-                },
-                {
-                    name: 'Сардыков Иван Петрович',
+                    id: 1,
+                    createdAt: new Date(),
+                    createdBy: new Date(),
+                    referenceTypeId: 1,
+                    name: 'Дата рождения',
+                    columnTypeId: 'Дата',
+                    columnName: 'Дата рождения',
+                    isRequred: false,
+                    isUnique: false,
                 },
             ],
         },
@@ -119,12 +107,25 @@ export class ReferenceComponent implements OnInit, OnDestroy {
         }
     }
 
-    onClickReference(data) {
-        data.open = !data.open;
+    onClickReference(data, index) {
+
+        for (let item of this.data) {
+            item.open = false;
+        }
+
+        data.open = true;
+        this.indexColumn = index;
     }
 
     onClickItemReference(data) {
         data.open = !data.open;
+
+        this.isLongBlock = true;
+        for (let item of this.data[this.indexColumn].referenceColumns) {
+            if (item.open) {
+                this.isLongBlock = false;
+            }
+        }
     }
 
     changeSwap() {
