@@ -1,7 +1,64 @@
-.container{
+.container {
   width: 100%;
-  height: 100;
+  height: 100%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+
   box-sizing: border-box;
+  padding: 10px 20px;
 
   background: var(--color-bg-main);
+
+  .column {
+    height: 100%;
+    flex-basis: 33%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    box-sizing: border-box;
+    padding: 0px 10px;
+
+    &__header {
+      width: 100%;
+      height: 50px;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+
+      .search {
+        width: 350px;
+        height: 25px;
+      }
+
+      .button {
+        &__small {
+          width: 65px;
+          height: 100%;
+          margin-left: 20px;
+        }
+
+        &__back {
+          width: 100px;
+          height: 100%;
+        }
+      }
+    }
+
+    &__button {
+      justify-content: flex-end;
+    }
+  }
+}
+
+.insert-component {
+  width: 100%;
+  height: 100%;
 }

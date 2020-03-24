@@ -1,3 +1,52 @@
-<div class="container">
-  
+<div
+  class="container"
+  (mousedown)="$event.stopPropagation()"
+  (touchstart)="$event.stopPropagation()"
+>
+  <div class="column">
+    <div class="column__header">
+      <div class="search">
+        <evj-input
+          class="insert-component"
+          [placeholder]="'Введите наименование группы'"
+          [iconSrc]="searchIcon"
+          (inputedValue)="onSearchGroup($event)"
+        ></evj-input>
+      </div>
+      <div class="button__small">
+        <evj-button
+          class="insert-component"
+          [isSmallButton]="true"
+          [imgSrc]="plusIcon"
+          [isChangingState]="false"
+          (click)="createNewBrigade()"
+        ></evj-button>
+      </div>
+    </div>
+  </div>
+  <div class="column">
+    <div class="column__header">
+      <div class="search">
+        <evj-input
+          class="insert-component"
+          [placeholder]="'Введите ФИО'"
+          [iconSrc]="searchIcon"
+          (inputedValue)="onSearchUser($event)"
+        ></evj-input>
+      </div>
+    </div>
+  </div>
+  <div class="column">
+    <div class="column__header">
+      <div class="button__back">
+        <evj-button
+          class="insert-component"
+          [isSmallButton]="false"
+          [textButton]="'Назад'"
+          [isChangingState]="false"
+          (click)="createNewBrigade()"
+        ></evj-button>
+      </div>
+    </div>
+  </div>
 </div>
