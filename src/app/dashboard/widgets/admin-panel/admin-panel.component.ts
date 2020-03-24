@@ -121,4 +121,8 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
             ? 'Введите номер бригады или ФИО сотрудника'
             : 'Введите ФИО сотрудника';
     }
+
+    public onHideGroups(): void {
+        this.isGroupsShowed = false;
+    }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { IButtonImgSrc } from '../../../models/admin-panel';
 
 @Component({
@@ -7,6 +7,8 @@ import { IButtonImgSrc } from '../../../models/admin-panel';
     styleUrls: ['./admin-groups.component.scss'],
 })
 export class AdminGroupsComponent implements OnInit {
+    @Output() private hideGroups: EventEmitter<void> = new EventEmitter<void>();
+
     public searchIcon: string = 'assets/icons/search-icon.svg';
     public plusIcon: IButtonImgSrc = {
         btnIconSrc: 'assets/icons/plus-icon.svg',
@@ -49,4 +51,8 @@ export class AdminGroupsComponent implements OnInit {
     }
 
     public createNewBrigade(): void {}
+
+    public onClickBack(): void {
+        this.hideGroups.emit();
+    }
 }

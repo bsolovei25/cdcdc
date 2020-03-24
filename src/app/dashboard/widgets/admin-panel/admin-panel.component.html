@@ -101,7 +101,7 @@
   </ng-container>
 
   <ng-container *ngIf="isGroupsShowed">
-    <evj-admin-groups class="admin-container"></evj-admin-groups>
+    <evj-admin-groups class="admin-container" (hideGroups)="onHideGroups()"></evj-admin-groups>
   </ng-container>
 
   <evj-frame-bottom></evj-frame-bottom>
