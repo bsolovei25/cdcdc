@@ -35,7 +35,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     public allWorkspaces: IWorkspace[] = [];
     public workerScreens: IWorkspace[] = [];
     public workerScreensDetached: IScreen[] = [];
-    private workspacesClaims: { workspaceId: number; claims: IClaim[] }[] = [];
+    public workspacesClaims: { workspaceId: number; claims: IClaim[] }[] = [];
 
     private subscriptions: Subscription[] = [];
 
@@ -92,11 +92,8 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         this.workerUnit = data;
     }
 
-    // TODO простестить на изменение массивов
     public onChangeWorkspacesData(): void {
         this.showAlert();
-        console.log(this.workerScreens);
-        console.log(this.workspacesClaims);
     }
 
     private async changeWorkspaceClaims(): Promise<void> {
@@ -153,6 +150,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public onChangeLockWorker(): void {
+        this.showAlert();
         console.log('CHANGE LOCK STATUS');
     }
 

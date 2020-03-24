@@ -8,17 +8,15 @@ import { AdminPanelService } from '../../../../services/admin-panel/admin-panel.
     styleUrls: ['./aws-workspaces.component.scss'],
 })
 export class AwsWorkspacesComponent implements OnInit {
-    //  TODO
     @Input() public allWorkspaces: IWorkspace[] = null;
-    @Input() public workerScreens: IWorkspace[] = null;
+    @Input() private workerScreens: IWorkspace[] = null;
     @Input() private readonly workerScreensDetached: IScreen[] = null;
-    @Input() public searchingWorkspaceValue: string = '';
+    @Input() private searchingWorkspaceValue: string = '';
+    @Input() private workspacesClaims: { workspaceId: number; claims: IClaim[] }[] = [];
 
-    @Output() public workspacesData: EventEmitter<null> = new EventEmitter<null>();
+    @Output() private workspacesData: EventEmitter<null> = new EventEmitter<null>();
 
-    private workspacesClaims: { workspaceId: number; claims: IClaim[] }[] = [];
-
-    constructor(private adminService: AdminPanelService) {}
+    constructor() {}
 
     ngOnInit(): void {}
 

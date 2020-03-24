@@ -314,9 +314,9 @@ export class NewWidgetService {
         }
         return (
             new Date(incoming.fromDateTime).getTime() ===
-            new Date(this.currentDates.fromDateTime).getTime() &&
+                new Date(this.currentDates.fromDateTime).getTime() &&
             new Date(incoming.toDateTime).getTime() ===
-            new Date(this.currentDates.toDateTime).getTime()
+                new Date(this.currentDates.toDateTime).getTime()
         );
     }
 
