@@ -212,6 +212,7 @@ input {
     }
 
     &__block {
+      cursor: pointer;
       direction: ltr;
       display: flex;
       height: 40px;
@@ -242,6 +243,29 @@ input {
       position: absolute;
       right: 10px;
       top: 1px;
+    }
+
+    &__add-block {
+      display: flex;
+      width: 80%;
+      margin: 0 auto;
+      margin-left: 20px;
+      height: 40px;
+      direction: ltr;
+    }
+
+    &__add-block-input {
+      width: 100%;
+
+      input {
+        padding-left: 0;
+      }
+    }
+
+    &__add-block-icon {
+      cursor: pointer;
+      width: 20px;
+      margin-top: 5px;
     }
   }
 
@@ -319,6 +343,11 @@ input {
       input {
         border-bottom: none !important;
       }
+    }
+
+    &__input-active{
+      border: 1px solid var(--color-border-active);
+      border-left: none;
     }
 
     &__input-block {
@@ -481,6 +510,34 @@ input {
       &__delete-button-none {
         display: none;
       }
+
+      &__add-block{
+        display: flex;
+        direction: ltr;
+
+        .reference-container-value__fio{
+          input{
+            height: 35px;
+            padding-left: 0;
+          }
+        }
+
+        .reference-container-value__type{
+          .mat-form-field{
+            width: 95%;
+          }
+        }
+      }
+
+      &__add-button {
+        cursor: pointer;
+        display: block !important;
+        position: absolute;
+        right: -35px;
+        margin-top: 15px;
+        width: 20px;
+        background: var(--color-bg-main);
+      }
     }
   }
 
@@ -561,12 +618,26 @@ input {
       }
     }
 
+    &__input-active{
+      border: 1px solid var(--color-border-active);
+      border-left: none;
+    }
+
     &__input-block {
       display: flex;
       padding-left: 10px;
       position: relative;
     }
   }
+}
+
+
+.isLongBlock{
+  width: 100% !important;
+}
+
+.isNotButton{
+  display: none;
 }
 
 .example-box {

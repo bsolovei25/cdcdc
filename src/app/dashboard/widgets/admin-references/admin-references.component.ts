@@ -2,6 +2,8 @@ import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { ReferencesService } from '../../services/references.service';
+import { IReferenceTypes, IReferenceColumnsType } from '../../models/references';
 
 @Component({
     selector: 'evj-admin-references',
@@ -32,77 +34,96 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
     valueCheck: boolean = true;
     valueUniqCheck: boolean = true;
 
-    data = [
+    onClickPushReference: boolean = false;
+    onClickPushRecord: boolean = false;
+
+    isRefInput: boolean = false;
+    isRecInput: boolean = false;
+
+    newRecordInReference: string;
+
+    newFioRecord: string;
+    newType: string;
+    newValue: boolean;
+    newUniqValue: boolean;
+
+    indexColumn: number = 0;
+
+    isLongBlock: boolean = true;
+
+    public datas: IReferenceTypes[] = [
         {
-            name: 'Установка НПЗ',
-            referenceFIO: [
+            id: 1,
+            createdAt: new Date(),
+            createdBy: new Date(),
+            name: 'Професии',
+            referenceColumns: [
                 {
-                    name: 'Пупкин Иван Петрович',
+                    id: 1,
+                    createdAt: new Date(),
+                    createdBy: new Date(),
+                    referenceTypeId: 1,
+                    name: 'ФИО',
+                    columnTypeId: 'Текст',
+                    columnName: 'ФИО',
+                    isRequred: true,
+                    isUnique: false,
                 },
                 {
-                    name: 'Пупкин Иван Петрович',
-                },
-                {
-                    name: 'Пупкин Иван Петрович',
+                    id: 2,
+                    createdAt: new Date(),
+                    createdBy: new Date(),
+                    referenceTypeId: 1,
+                    name: 'Дата рождения',
+                    columnTypeId: 'Дата',
+                    columnName: 'Дата рождения',
+                    isRequred: false,
+                    isUnique: true,
                 },
             ],
         },
         {
-            name: 'Производственный персонал',
-            referenceFIO: [
+            id: 2,
+            createdAt: new Date(),
+            createdBy: new Date(),
+            name: 'Установки',
+            referenceColumns: [
                 {
-                    name: 'Горохов Иван Петрович',
-                },
-                {
-                    name: 'Горохов Иван Петрович',
-                },
-                {
-                    name: 'Горохов Иван Петрович',
-                },
-            ],
-        },
-        {
-            name: 'Климатические параметры',
-            referenceFIO: [
-                {
-                    name: 'Сардыков Иван Петрович',
-                },
-                {
-                    name: 'Сардыков Иван Петрович',
-                },
-                {
-                    name: 'Сардыков Иван Петрович',
-                },
-                {
-                    name: 'Сардыков Иван Петрович',
-                },
-                {
-                    name: 'Сардыков Иван Петрович',
-                },
-                {
-                    name: 'Сардыков Иван Петрович',
-                },
-                {
-                    name: 'Сардыков Иван Петрович',
-                },
-                {
-                    name: 'Сардыков Иван Петрович',
-                },
-                {
-                    name: 'Сардыков Иван Петрович',
-                },
-                {
-                    name: 'Сардыков Иван Петрович',
-                },
-                {
-                    name: 'Сардыков Иван Петрович',
+                    id: 1,
+                    createdAt: new Date(),
+                    createdBy: new Date(),
+                    referenceTypeId: 1,
+                    name: 'Дата рождения',
+                    columnTypeId: 'Дата',
+                    columnName: 'Дата рождения',
+                    isRequred: false,
+                    isUnique: false,
                 },
             ],
         },
     ];
 
+
+    public data: IReferenceTypes[] = [];
+
+    public dataType: IReferenceColumnsType[] = [
+        {
+            id: 1,
+            name: 'Tекст',
+        },
+        {
+            id: 2,
+            name: 'Дата',
+        },
+        {
+            id: 3,
+            name: 'Что-то там',
+        },
+    ];
+
     constructor(
         public widgetService: NewWidgetService,
+        public referencesService: ReferencesService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -116,7 +137,15 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
         );
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.subscriptions.push(
+            this.referencesService.getReference().subscribe((data) => {
+                // this.data = data;
+            })
+        );
+
+        this.data = this.datas;
+    }
 
     ngOnDestroy() {
         if (this.subscriptions) {
@@ -136,41 +165,118 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
         this.inputClickName = true;
     }
 
-    onClickReference(data) {
-        data.open = !data.open;
+    onClickReference(data, index) {
+        let checkUniq = <HTMLInputElement>document.getElementById('checkBoxUniqValue');
+        let checkValue = <HTMLInputElement>document.getElementById('checkBoxValue');
+
+        for (let item of this.data) {
+            item.open = false;
+        }
+
+        for (let item of data.referenceColumns) {
+            if (item.isRequred) {
+                item.checked;
+            }
+
+            if (item.isUnique) {
+                item.checked;
+            }
+        }
+
+        data.open = true;
+        this.indexColumn = index;
     }
 
     onClickItemReference(data) {
         data.open = !data.open;
+        this.isLongBlock = true;
+        for (let item of this.data[this.indexColumn].referenceColumns) {
+            if (item.open) {
+                this.isLongBlock = false;
+            }
+        }
     }
 
     onChangeName() {
         this.isChangeName = !this.isChangeName;
     }
 
-    changeSwap() {
-        let check = <HTMLInputElement>document.getElementById('checkBoxValue');
-        if (check.checked) {
-            this.valueCheck = false;
-        } else {
-            this.valueCheck = true;
-        }
+    changeSwap(item) {
+        this.data.find((el) =>
+            el.referenceColumns.find((e) => {
+                if (e === item) {
+                    e.isRequred = !e.isRequred;
+                }
+            })
+        );
     }
 
-    changeUniqSwap() {
-        let check = <HTMLInputElement>document.getElementById('checkBoxUniqValue');
-        if (check.checked) {
-            this.valueUniqCheck = false;
-        } else {
-            this.valueUniqCheck = true;
-        }
+    changeUniqSwap(item) {
+        this.data.find((el) =>
+            el.referenceColumns.find((e) => {
+                if (e === item) {
+                    e.isUnique = !e.isUnique;
+                }
+            })
+        );
     }
 
     drop(event: CdkDragDrop<string[]>) {
-        moveItemInArray(this.data, event.previousIndex, event.currentIndex);
+        moveItemInArray(
+            this.data[this.indexColumn].referenceColumns,
+            event.previousIndex,
+            event.currentIndex
+        );
     }
 
     onClickEditReference(item): void {}
 
     onClickDeleteReference(item): void {}
+
+    onPushBlockInReference(): void {
+        this.onClickPushReference = true;
+    }
+
+    onPushBlockInRecord(): void {
+        this.onClickPushRecord = true;
+    }
+
+    onPushReference(): void {
+        this.onClickPushReference = false;
+        let object = {
+            name: this.newRecordInReference,
+        };
+        if (
+            this.newRecordInReference.trim().length > 0 &&
+            this.newRecordInReference !== undefined
+        ) {
+            this.data.push(object);
+            this.referencesService.pushReference(object);
+            this.newRecordInReference = null;
+        }
+    }
+
+    onPushRecord(): void {
+        this.onClickPushRecord = false;
+        let object = {
+            name: this.newFioRecord,
+            referenceFIO: [],
+        };
+        if (this.newFioRecord.trim().length > 0 && this.newFioRecord !== undefined) {
+            this.data.push(object);
+            this.newFioRecord = null;
+        }
+    }
+
+    searchRecords(event: any) {
+        const record = event.currentTarget.value.toLowerCase();
+        const filterData = this.data.filter(
+            (e) => e.name.toLowerCase().indexOf(record.toLowerCase()) > -1
+        );
+
+        this.data =  filterData;
+        if (!event.currentTarget.value) {
+            this.data = this.datas;
+        }
+    }
 }
