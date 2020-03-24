@@ -108,7 +108,6 @@ export class ReferenceComponent implements OnInit, OnDestroy {
     }
 
     onClickReference(data, index) {
-
         for (let item of this.data) {
             item.open = false;
         }
