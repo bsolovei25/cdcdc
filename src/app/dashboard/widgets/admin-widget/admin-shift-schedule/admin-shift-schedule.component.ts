@@ -82,9 +82,11 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
 
     ngOnInit(): void {
         super.widgetInit();
-        this.setRus();
-        this.loadItem();
-        this.dateChanged(this.selectedDay.date);
+        if (!this.isMock) {
+            this.setRus();
+            this.loadItem();
+            this.dateChanged(this.selectedDay.date);
+        }
     }
 
     ngOnDestroy(): void {

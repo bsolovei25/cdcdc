@@ -1,5 +1,5 @@
-<div class="panel" (click)="toggle()">
-  <div class="panel-header" [class.panel-header--active]="active">
+<div class="panel">
+  <div class="panel-header" [class.panel-header--active]="active" (click)="toggle()">
     <p class="panel-header__text">22-4 Показатели качества выборки продукции</p>
     <svg-icon
       *ngIf="!active"
@@ -15,21 +15,32 @@
     ></svg-icon>
   </div>
   <div class="panel-body" *ngIf="active">
-    <div>
-      <p>начало периода</p>
-      <p>01.08.2019</p>
-      <p>02:00</p>
+    <div class="form">
+      <p class="form__title">Начало периода</p>
+
+      <div class="form__value">
+        01.08.2019
+        <svg-icon
+          [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+          src="./assets/icons/widgets/reports/date.svg"
+          (click)="openDatePicker(1)"
+        ></svg-icon>
+        <div class="dates-selector__picker" [class.dates-selector__picker-open]="datePicker">
+          <evj-time-data-picker (dateTimePicker)="dateTimePickerNew($event)"></evj-time-data-picker>
+        </div>
+        02:00
+      </div>
     </div>
     <mat-form-field>
       <mat-select>
-        <mat-option *ngFor="let food of [1]" [value]="food.value">
-          {{food.viewValue}}
+        <mat-option *ngFor="let food of [1]" [value]="food">
+          {{food}}
         </mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field class="example-full-width">
-      <mat-label>Favorite food</mat-label>
-      <input matInput placeholder="Ex. Pizza" value="Sushi" />
+      <mat-label class="form__title">Тип оборудование</mat-label>
+      <input matInput value="" />
     </mat-form-field>
     <svg-icon
       class="panel-header__icon"
