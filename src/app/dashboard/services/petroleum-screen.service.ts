@@ -8,6 +8,7 @@ import {
     ITransfer,
     ObjectDirection
 } from '../models/petroleum-products-movement.model';
+import { MaterialControllerService } from './material-controller.service';
 
 @Injectable({
     providedIn: 'root',
@@ -20,22 +21,68 @@ export class PetroleumScreenService {
 
     public transfers$: BehaviorSubject<ITransfer[]> = new BehaviorSubject<ITransfer[]>([]);
 
-    constructor(
-        public http: HttpClient,
-        configService: AppConfigService
-    ) {
-        this.restUrl = configService.restUrl;
-    }
+    public objectsAll$: BehaviorSubject<IPetroleumObject[]> = new BehaviorSubject<IPetroleumObject[]>([]);
+    public objectsSource$: BehaviorSubject<IPetroleumObject[]> = new BehaviorSubject<IPetroleumObject[]>([]);
+    public objectsReceiver$: BehaviorSubject<IPetroleumObject[]> = new BehaviorSubject<IPetroleumObject[]>([]);
+
+    private currentTransfer$: BehaviorSubject<ITransfer> = new BehaviorSubject<ITransfer>(null);
+    public currentTransfer: Observable<ITransfer> = this.currentTransfer$
+        .asObservable()
+        .pipe(filter(item => item != null));
 
     private localScreenState$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
-
     public screenState$: Observable<string> = this.localScreenState$
         .asObservable()
         .pipe(filter((item) => item !== null));
 
+    constructor(
+        private http: HttpClient,
+        private configService: AppConfigService,
+        private materialController: MaterialControllerService,
+    ) {
+        this.restUrl = configService.restUrl;
+    }
+
     public openScreen(screen: string): void {
         this.localScreenState$.next(screen);
         console.log(screen);
+    }
+
+    public async chooseTransfer(uid: string): Promise<void> {
+        if (this.localScreenState$.getValue() !== 'operation') {
+            this.openScreen('operation');
+        }
+        const chooseTransfer = this.transfers$.getValue().find(el => el.uid === uid);
+        this.currentTransfer$.next(chooseTransfer);
+        const tempTransfers = this.transfers$.getValue();
+        tempTransfers.forEach(item => item.isActive = false);
+        tempTransfers.find(item => item.uid === uid).isActive = true;
+        this.transfers$.next(tempTransfers);
+        const objectsReceiver = await this.getObjects(this.client, chooseTransfer.sourceName, 'enter');
+        const objectsSource = await this.getObjects(this.client, chooseTransfer.destinationName, 'exit');
+        objectsSource.forEach(item => item.isActive = false);
+        objectsReceiver.forEach(item => item.isActive = false);
+        if (
+            objectsSource.find(item => item.objectName === chooseTransfer.sourceName) &&
+            objectsReceiver.find(item => item.objectName === chooseTransfer.destinationName)
+        ) {
+            objectsSource
+                .find(item => item.objectName === chooseTransfer.sourceName)
+                .isActive = true;
+            objectsReceiver
+                .find(item => item.objectName === chooseTransfer.destinationName)
+                .isActive = true;
+        } else {
+            this.materialController.openSnackBar('Источник и приемник не совместимы!', 'snackbar-red');
+        }
+        this.objectsReceiver$.next(objectsReceiver);
+        this.objectsSource$.next(objectsSource);
+    }
+
+    public async createTransfer(): Promise<void> {
+        const objects = this.objectsAll$.getValue();
+        this.objectsSource$.next(objects);
+        this.objectsReceiver$.next(objects);
     }
 
     public async setClient(): Promise<void> {

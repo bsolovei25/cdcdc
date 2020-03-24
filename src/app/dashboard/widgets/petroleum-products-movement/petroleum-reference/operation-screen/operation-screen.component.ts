@@ -8,18 +8,19 @@ import { ITransfer } from '../../../../models/petroleum-products-movement.model'
     styleUrls: ['./operation-screen.component.scss'],
 })
 export class OperationScreenComponent implements OnInit {
-    @Input() data: ITransfer[];
     @Input() title: string[];
     @Input() keys: string[];
 
     constructor(private petroleumService: PetroleumScreenService) {}
 
-    objectKeys: any = Object.keys;
-    objectEntries: any = Object.entries;
-
     ngOnInit(): void {}
 
     returnMenu(): void {
         this.petroleumService.openScreen('info');
+    }
+
+    public transferClick(uid: string): void {
+        console.log(uid);
+        this.petroleumService.chooseTransfer(uid);
     }
 }

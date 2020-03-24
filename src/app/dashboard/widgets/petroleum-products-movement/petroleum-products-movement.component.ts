@@ -60,6 +60,8 @@ export class PetroleumProductsMovementComponent extends WidgetPlatform implement
           await this.petroleumService
             .getTransfers(null, null, true, this.petroleumService.client)
         );
+        const objects = await this.petroleumService.getObjects(this.petroleumService.client);
+        this.petroleumService.objectsAll$.next(objects);
     }
 
     // onChanged(type: string): void {

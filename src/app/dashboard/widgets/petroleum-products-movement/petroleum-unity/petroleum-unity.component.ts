@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../../services/new-widget.service';
 import { PlatformLocation } from '@angular/common';
 import { UnityLoader } from '../../dispatcher-screen/UnityLoader';
+import { PetroleumScreenService } from '../../../services/petroleum-screen.service';
 
 @Component({
     selector: 'evj-petroleum-unity',
@@ -24,7 +25,11 @@ export class PetroleumUnityComponent implements OnInit, AfterViewInit, OnDestroy
 
     public previewTitle: string;
 
-    constructor(public widgetService: NewWidgetService, platformLocation: PlatformLocation) {
+    constructor(
+        private widgetService: NewWidgetService,
+        private platformLocation: PlatformLocation,
+        private petroleumService: PetroleumScreenService,
+    ) {
         const location = (platformLocation as any).location;
         this.baseUrl = location.origin + location.pathname.replace('dashboard', '');
     }
@@ -59,10 +64,13 @@ export class PetroleumUnityComponent implements OnInit, AfterViewInit, OnDestroy
         if (!this.unityInstance) {
             return;
         }
-        this.wsConnect();
+        this.petroleumService.currentTransfer.subscribe(
+            ref => {
+                console.log('unity');
+                console.log(ref);
+            }
+        );
     }
-
-    private wsConnect(): void {}
 
     private async InitUnity(): Promise<void> {
         console.log('unity start');

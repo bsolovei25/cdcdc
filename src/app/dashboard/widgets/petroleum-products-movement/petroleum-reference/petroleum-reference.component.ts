@@ -1,7 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { transition, trigger, animate, style } from '@angular/animations';
 import { ITransfer } from '../../../models/petroleum-products-movement.model';
-import { PetroleumScreenService } from '../../../services/petroleum-screen.service';
 
 @Component({
     selector: 'evj-petroleum-reference',
@@ -22,7 +21,7 @@ import { PetroleumScreenService } from '../../../services/petroleum-screen.servi
         ]),
     ],
 })
-export class PetroleumReferenceComponent implements OnInit {
+export class PetroleumReferenceComponent {
     @Input() typeScreen: string;
     @Input() data: any;
 
@@ -54,9 +53,7 @@ export class PetroleumReferenceComponent implements OnInit {
         'deltaMass',
     ];
 
-    public transfers: ITransfer[] = [];
-
-    public data2 = [
+    public data2: { name: string; type: string; value: number }[] = [
         {
             name: 'Продукт',
             type: 'кг/м3',
@@ -68,14 +65,4 @@ export class PetroleumReferenceComponent implements OnInit {
             value: 0.5,
         },
     ];
-
-    constructor(private petroleumScreenService: PetroleumScreenService) {
-    }
-
-
-    ngOnInit(): void {
-        this.petroleumScreenService.transfers$.subscribe(
-            (ref) => this.transfers = ref
-        );
-    }
 }

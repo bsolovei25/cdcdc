@@ -1,8 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {
     ITankInfo,
-    IFacilityInfo,
+    IFacilityInfo, IPetroleumObject
 } from 'src/app/dashboard/models/petroleum-products-movement.model';
+import { PetroleumScreenService } from '../../../../services/petroleum-screen.service';
+import { filter } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'evj-operation-screen-left',
@@ -14,53 +17,63 @@ export class OperationScreenLeftComponent implements OnInit {
     isShowFacilities: boolean = true;
     isShowTank: boolean = true;
 
-    dataTank: ITankInfo[] = [
-        {
-            title: 'Резервуар 201',
-            state: 'vverh-arrow',
-        },
-        {
-            title: 'Резервуар 202',
-            state: 'Remont',
-        },
-        {
-            title: 'Резервуар 203',
-            state: 'vniz-arrow',
-        },
-        {
-            title: 'Резервуар 204',
-            state: 'Otstoy',
-        },
-        {
-            title: 'Резервуар 205',
-            state: 'two-arrow',
-        },
-    ];
+    // dataTank: ITankInfo[] = [
+    //     {
+    //         title: 'Резервуар 201',
+    //         state: 'in',
+    //     },
+    //     {
+    //         title: 'Резервуар 202',
+    //         state: 'in',
+    //     },
+    //     {
+    //         title: 'Резервуар 203',
+    //         state: 'in',
+    //     },
+    //     {
+    //         title: 'Резервуар 204',
+    //         state: 'in',
+    //     },
+    //     {
+    //         title: 'Резервуар 205',
+    //         state: 'in',
+    //     },
+    // ];
+    //
+    // dataFacil: IFacilityInfo[] = [
+    //     {
+    //         title: 'Резервуар 201',
+    //         state: 'in',
+    //     },
+    //     {
+    //         title: 'Резервуар 202',
+    //         state: 'in',
+    //     },
+    //     {
+    //         title: 'Резервуар 203',
+    //         state: 'in',
+    //     },
+    //     {
+    //         title: 'Резервуар 204',
+    //         state: 'in',
+    //     },
+    //     {
+    //         title: 'Резервуар 205',
+    //         state: 'in',
+    //     },
+    // ];
 
-    dataFacil: IFacilityInfo[] = [
-        {
-            title: 'Резервуар 201',
-            state: 'vverh-arrow',
-        },
-        {
-            title: 'Резервуар 202',
-            state: 'Remont',
-        },
-        {
-            title: 'Резервуар 203',
-            state: 'vniz-arrow',
-        },
-        {
-            title: 'Резервуар 204',
-            state: 'Otstoy',
-        },
-        {
-            title: 'Резервуар 205',
-            state: 'two-arrow',
-        },
-    ];
+    public tanks: IPetroleumObject[] = [];
+    public units: IPetroleumObject[] = [];
 
-    constructor() {}
+    constructor(public petroleumService: PetroleumScreenService) {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.petroleumService.objectsSource$.subscribe(
+            ref => {
+                this.tanks = ref.filter((item: IPetroleumObject) => item.objectType === 'Tank');
+                this.units = ref.filter((item: IPetroleumObject) => item.objectType === 'Unit');
+            }
+        );
+    }
 }

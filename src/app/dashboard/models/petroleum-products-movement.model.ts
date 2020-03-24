@@ -15,9 +15,10 @@ export interface ITransfer {
 }
 
 export interface IPetroleumObject {
-    name: string;
-    type: ObjectType;
-    status: ObjectStatus;
+    objectName: string;
+    objectType: ObjectType;
+    objectStatus: ObjectStatus;
+    isActive?: boolean;
 }
 
 export interface IFacilityInfo {
@@ -50,8 +51,8 @@ export interface IFacilityInfoParam {
 }
 
 // TODO add real list
-export type ObjectStatus = 'vverh-arrow' | 'Remont' | 'Otstoy' | 'two-arrow' | 'vniz-arrow';
+export type ObjectStatus = 'in' | 'out' | 'repair' | 'hold' | 'inout';
 
-export type ObjectType = 'unit' | 'tank';
+export type ObjectType = 'Unit' | 'Tank';
 
 export type ObjectDirection = 'enter' | 'exit';

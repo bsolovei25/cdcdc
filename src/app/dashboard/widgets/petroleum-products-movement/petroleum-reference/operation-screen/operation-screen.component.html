@@ -20,8 +20,8 @@
     </ng-container>
   </div>
   <div class="reference_values_short">
-    <ng-container *ngFor="let item of data">
-      <div class="values_block">
+    <ng-container *ngFor="let item of this.petroleumService.transfers$ | async">
+      <div class="values_block" [class.values_block__active]="item.isActive" (click)="transferClick(item.uid)">
         <ng-container *ngFor="let key of keys">
           <ng-container *ngIf="((key === 'startTime') || (key === 'endTime')) && (key !== 'uid')">
             <ng-container *ngIf="item[key]">

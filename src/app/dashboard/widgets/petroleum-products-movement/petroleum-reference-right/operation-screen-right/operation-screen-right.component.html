@@ -14,16 +14,16 @@
       </div>
     </div>
     <div class="reference" [class.reference_active]="isShowTank">
-      <ng-container *ngFor="let item of dataTank">
-        <div class="ref_items">
+      <ng-container *ngFor="let item of tanks">
+        <div class="ref_items" [class.ref_items__active]="item.isActive">
           <div class="item_icon">
             <svg-icon
-              src="./assets/icons/widgets/petroleum-products-movement/{{item.state}}.svg"
+              src="./assets/icons/widgets/petroleum-products-movement/{{item.objectStatus}}.svg"
               [svgStyle]="{ 'width.px':25, 'height.px':25 }"
             >
             </svg-icon>
           </div>
-          <div class="item_name">{{ item.title }}</div>
+          <div class="item_name">{{ item.objectName }}</div>
         </div>
       </ng-container>
     </div>
@@ -40,16 +40,16 @@
       </div>
     </div>
     <div class="reference" [class.reference_active]="isShowFacilities">
-      <ng-container *ngFor="let item of dataFacil">
-        <div class="ref_items">
+      <ng-container *ngFor="let item of units">
+        <div class="ref_items" [class.ref_items__active]="item.isActive">
           <div class="item_icon">
             <svg-icon
-              src="./assets/icons/widgets/petroleum-products-movement/{{item.state}}.svg"
+              src="./assets/icons/widgets/petroleum-products-movement/{{item.objectStatus}}.svg"
               [svgStyle]="{ 'width.px':25, 'height.px':25 }"
             >
             </svg-icon>
           </div>
-          <div class="item_name">{{ item.title }}</div>
+          <div class="item_name">{{ item.objectName }}</div>
         </div>
       </ng-container>
     </div>

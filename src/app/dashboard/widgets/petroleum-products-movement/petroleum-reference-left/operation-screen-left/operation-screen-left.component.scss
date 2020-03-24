@@ -59,7 +59,16 @@
   color: var(--color-text-sub-heading);
   margin: 8px auto;
   cursor: pointer;
-
+  &__active {
+    background: url(../../../../../../assets/icons/widgets/petroleum-products-movement/active-background-button-left.svg);
+    background-repeat: no-repeat;
+    .button_name {
+      color: white;
+    }
+    .button_icon {
+      opacity: 1;
+    }
+  }
   &:hover {
     background: url(../../../../../../assets/icons/widgets/petroleum-products-movement/active-background-button-left.svg);
     background-repeat: no-repeat;

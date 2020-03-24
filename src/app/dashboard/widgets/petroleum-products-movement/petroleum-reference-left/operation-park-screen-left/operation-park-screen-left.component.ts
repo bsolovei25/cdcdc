@@ -15,46 +15,46 @@ export class OperationParkScreenLeftComponent implements OnInit {
     dataTank: ITankInfo[] = [
         {
             title: 'Резервуар 201',
-            state: 'vverh-arrow',
+            state: 'in',
         },
         {
             title: 'Резервуар 202',
-            state: 'Remont',
+            state: 'in',
         },
         {
             title: 'Резервуар 203',
-            state: 'vniz-arrow',
+            state: 'in',
         },
         {
             title: 'Резервуар 204',
-            state: 'Otstoy',
+            state: 'in',
         },
         {
             title: 'Резервуар 205',
-            state: 'two-arrow',
+            state: 'in',
         },
     ];
 
     dataFacil: IFacilityInfo[] = [
         {
             title: 'Резервуар 201',
-            state: 'vverh-arrow',
+            state: 'in',
         },
         {
             title: 'Резервуар 202',
-            state: 'Remont',
+            state: 'in',
         },
         {
             title: 'Резервуар 203',
-            state: 'vniz-arrow',
+            state: 'in',
         },
         {
             title: 'Резервуар 204',
-            state: 'Otstoy',
+            state: 'in',
         },
         {
             title: 'Резервуар 205',
-            state: 'two-arrow',
+            state: 'in',
         },
     ];
     constructor() {}

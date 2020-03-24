@@ -95,6 +95,10 @@
   justify-content: space-around;
   font-size: 10px;
   color: white;
+  padding-bottom: 10px;
+  &__active {
+    background-color: var(--color-active-transparent);
+  }
   &:hover {
     background-color: var(--color-active-transparent);
   }

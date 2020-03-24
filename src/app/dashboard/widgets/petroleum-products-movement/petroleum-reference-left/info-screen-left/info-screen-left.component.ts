@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ITankInfo } from 'src/app/dashboard/models/petroleum-products-movement.model';
+import { PetroleumScreenService } from '../../../../services/petroleum-screen.service';
 
 @Component({
     selector: 'evj-info-screen-left',
@@ -9,30 +10,30 @@ import { ITankInfo } from 'src/app/dashboard/models/petroleum-products-movement.
 export class InfoScreenLeftComponent implements OnInit {
     @Input() titlePark: string = 'Парк';
 
-    data: ITankInfo[] = [
-        {
-            title: 'Резервуар 201',
-            state: 'vverh-arrow',
-        },
-        {
-            title: 'Резервуар 202',
-            state: 'Remont',
-        },
-        {
-            title: 'Резервуар 203',
-            state: 'vniz-arrow',
-        },
-        {
-            title: 'Резервуар 204',
-            state: 'Otstoy',
-        },
-        {
-            title: 'Резервуар 205',
-            state: 'two-arrow',
-        },
-    ];
+    // data: ITankInfo[] = [
+    //     {
+    //         title: 'Резервуар 201',
+    //         state: 'in',
+    //     },
+    //     {
+    //         title: 'Резервуар 202',
+    //         state: 'repair',
+    //     },
+    //     {
+    //         title: 'Резервуар 203',
+    //         state: 'hold',
+    //     },
+    //     {
+    //         title: 'Резервуар 204',
+    //         state: 'out',
+    //     },
+    //     {
+    //         title: 'Резервуар 205',
+    //         state: 'inout',
+    //     },
+    // ];
 
-    constructor() {}
+    constructor(public petroleumScreenService: PetroleumScreenService) {}
 
     ngOnInit(): void {}
 }
