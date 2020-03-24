@@ -1,11 +1,4 @@
-<div
-  class="card"
-  [ngClass]="{'card_semiactive':isInBrigade, 'card_active':isInBrigade && cardSelection.hasValue()}"
-  (click)="cardSelection.toggle()"
->
+<div class="card" [ngClass]="{ 'card_active':isInBrigade}">
   <div class="card__name text">{{worker.lastName}} {{worker.firstName}} {{worker.middleName}}</div>
   <div class="card__description text">{{worker.positionDescription}}</div>
-  <div class="buttons" *ngIf="isInBrigade && cardSelection.hasValue()">
-    <img class="button" src="assets/icons/widgets/admin/admin-groups/delete-icon.svg" />
-  </div>
 </div>

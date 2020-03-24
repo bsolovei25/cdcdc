@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IUser } from '../../../../models/events-widget';
 import { SelectionModel } from '@angular/cdk/collections';
 
@@ -10,6 +10,9 @@ import { SelectionModel } from '@angular/cdk/collections';
 export class AgGroupWorkerCardComponent implements OnInit {
   @Input() public worker: IUser = null;
   @Input() public isInBrigade: boolean = true;
+
+  // TODO
+  @Output() private changeGroup: EventEmitter<void> = new EventEmitter<void>();
 
   public cardSelection: SelectionModel<void> = new SelectionModel<void>();
 
