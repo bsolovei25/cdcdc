@@ -23,6 +23,14 @@
         ></evj-button>
       </div>
     </div>
+    <div class="column__body">
+      <evj-ag-group-card
+        *ngFor="let group of groups"
+        [group]="group"
+        [isCardActive]="groupSelection.isSelected(group)"
+        (click)="onSelectGroup(group)"
+      ></evj-ag-group-card>
+    </div>
   </div>
   <div class="column">
     <div class="column__header">
@@ -35,6 +43,7 @@
         ></evj-input>
       </div>
     </div>
+    <div class="column__body"></div>
   </div>
   <div class="column">
     <div class="column__header">
@@ -48,5 +57,6 @@
         ></evj-button>
       </div>
     </div>
+    <div class="column__body"></div>
   </div>
 </div>

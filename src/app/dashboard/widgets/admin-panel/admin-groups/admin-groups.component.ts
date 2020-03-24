@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { IButtonImgSrc } from '../../../models/admin-panel';
+import { IButtonImgSrc, IGroup } from '../../../models/admin-panel';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
     selector: 'evj-admin-groups',
@@ -15,7 +16,7 @@ export class AdminGroupsComponent implements OnInit {
     };
 
     // Mocked data
-    public groups = [
+    public groups: IGroup[] = [
         {
             id: 1,
             name: 'Группа №1',
@@ -38,9 +39,13 @@ export class AdminGroupsComponent implements OnInit {
         },
     ];
 
+    public groupSelection: SelectionModel<IGroup> = new SelectionModel<IGroup>();
+
     constructor() {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+      this.groupSelection.select(this.groups[0]);
+    }
 
     public onSearchGroup(event: string): void {
         console.log(event);
@@ -54,5 +59,9 @@ export class AdminGroupsComponent implements OnInit {
 
     public onClickBack(): void {
         this.hideGroups.emit();
+    }
+
+    public onSelectGroup(group: IGroup): void {
+        this.groupSelection.select(group);
     }
 }

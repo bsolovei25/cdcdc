@@ -1,0 +1,8 @@
+<div class="card" *ngIf="group" [ngClass]="{'card_active':isCardActive}">
+  <div class="card__name text">{{group.name}}</div>
+  <div class="card__description text">{{group.description}}</div>
+  <div class="buttons" *ngIf="isCardActive">
+    <img class="button" src="assets/icons/widgets/admin/admin-groups/delete-icon.svg">
+    <img class="button" src="assets/icons/widgets/admin/admin-groups/edit-icon.svg">
+  </div>
+</div>
