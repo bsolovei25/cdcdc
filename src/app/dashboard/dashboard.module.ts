@@ -122,6 +122,8 @@ import { UsbVerifierComponent } from './widgets/change-shift/usb-verifier/usb-ve
 import { TimeDataPickerComponent } from './components/time-data-picker/time-data-picker.component';
 import { AwsAvatarComponent } from './widgets/admin-panel/admin-worker-settings/aws-avatar/aws-avatar.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { AwsFieldsComponent } from './widgets/admin-panel/admin-worker-settings/aws-fields/aws-fields.component';
+import { AwsWorkspacesComponent } from './widgets/admin-panel/admin-worker-settings/aws-workspaces/aws-workspaces.component';
 
 @NgModule({
     declarations: [
@@ -230,6 +232,8 @@ import { ImageCropperModule } from 'ngx-image-cropper';
         UsbVerifierComponent,
         TimeDataPickerComponent,
         AwsAvatarComponent,
+        AwsFieldsComponent,
+        AwsWorkspacesComponent,
     ],
     entryComponents: [
         LineChartComponent,
