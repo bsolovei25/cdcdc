@@ -52,10 +52,12 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                 this.worker = fillDataShape(worker);
             }),
             this.adminService.activeWorkerScreens$.subscribe((workerScreens: IScreen[]) => {
-                workerScreens.forEach((item: IScreen) => {
-                    this.workerScreens.push(item.screen);
-                });
-                this.workerScreensDetached = workerScreens;
+                if (workerScreens) {
+                    workerScreens.forEach((item: IScreen) => {
+                        this.workerScreens.push(item.screen);
+                    });
+                    this.workerScreensDetached = workerScreens;
+                }
             }),
             this.adminService.activeWorkerUnit$.subscribe(
                 (unit: IUnitEvents) => (this.workerUnit = unit)
