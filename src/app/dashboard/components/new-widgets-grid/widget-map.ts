@@ -89,6 +89,6 @@ export const WIDGETS = {
     'admin-references': AdminReferencesComponent,
     'petroleum-products-movement': PetroleumProductsMovementComponent,
     'admin-panel': AdminPanelComponent,
-    'reference': ReferenceComponent,
-    'report-server-configurator': ReportServerConfiguratorComponent
+    reference: ReferenceComponent,
+    'report-server-configurator': ReportServerConfiguratorComponent,
 };
