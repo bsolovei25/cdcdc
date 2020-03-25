@@ -27,7 +27,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     //#region WIDGET_FLAGS
     public isBrigadesShowed: boolean = false;
     public isWorkerSettingsShowed: boolean = false;
-    public isGroupsShowed: boolean = true;
+    public isGroupsShowed: boolean = false;
     public isCreateNewWorker: boolean = false;
     //#endregion
 
