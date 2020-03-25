@@ -36,14 +36,14 @@ export class ReferenceComponent implements OnInit, OnDestroy {
             createdAt: new Date(),
             createdBy: new Date(),
             name: 'Професии',
-            referenceColumns: [
+            columns: [
                 {
                     id: 1,
                     createdAt: new Date(),
                     createdBy: new Date(),
                     referenceTypeId: 1,
                     name: 'ФИО',
-                    columnTypeId: 'Текст',
+                    columnTypeId: 1,
                     columnName: 'ФИО',
                     isRequred: true,
                     isUnique: false,
@@ -54,7 +54,7 @@ export class ReferenceComponent implements OnInit, OnDestroy {
                     createdBy: new Date(),
                     referenceTypeId: 1,
                     name: 'Дата рождения',
-                    columnTypeId: 'Дата',
+                    columnTypeId: 1,
                     columnName: 'Дата рождения',
                     isRequred: false,
                     isUnique: true,
@@ -66,14 +66,14 @@ export class ReferenceComponent implements OnInit, OnDestroy {
             createdAt: new Date(),
             createdBy: new Date(),
             name: 'Установки',
-            referenceColumns: [
+            columns: [
                 {
                     id: 1,
                     createdAt: new Date(),
                     createdBy: new Date(),
                     referenceTypeId: 1,
                     name: 'Дата рождения',
-                    columnTypeId: 'Дата',
+                    columnTypeId: 1,
                     columnName: 'Дата рождения',
                     isRequred: false,
                     isUnique: false,
@@ -120,7 +120,7 @@ export class ReferenceComponent implements OnInit, OnDestroy {
         data.open = !data.open;
 
         this.isLongBlock = true;
-        for (let item of this.data[this.indexColumn].referenceColumns) {
+        for (let item of this.data[this.indexColumn].columns) {
             if (item.open) {
                 this.isLongBlock = false;
             }

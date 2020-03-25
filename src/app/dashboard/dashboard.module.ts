@@ -119,6 +119,7 @@ import { UsbVerifierComponent } from './widgets/change-shift/usb-verifier/usb-ve
 import { TimeDataPickerComponent } from './components/time-data-picker/time-data-picker.component';
 import { ReferenceComponent } from './widgets/reference/reference.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ReportServerConfiguratorComponent } from './widgets/report-server-configurator/report-server-configurator.component';
 
 @NgModule({
     declarations: [
@@ -225,6 +226,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
         UsbVerifierComponent,
         TimeDataPickerComponent,
         ReferenceComponent,
+        ReportServerConfiguratorComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -275,6 +277,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
         PetroleumProductsMovementComponent,
         AdminPanelComponent,
         ReferenceComponent,
+        ReportServerConfiguratorComponent,
     ],
     exports: [HomeComponent],
     imports: [
