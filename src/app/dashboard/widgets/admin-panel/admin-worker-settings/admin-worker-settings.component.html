@@ -147,6 +147,7 @@
   ></evj-aws-responsible-alert>
   <evj-aws-password-alert
     class="admin__popup"
-    [ngClass]="{'admin__popup_active':true}"
+    [ngClass]="{'admin__popup_active':isPasswordAlertShowing}"
+    (confirmed)="onSetWorkerPassword($event)"
   ></evj-aws-password-alert>
 </div>
