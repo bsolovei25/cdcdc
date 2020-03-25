@@ -191,8 +191,10 @@ export class AdminPanelService {
         this.activeWorker$.next(worker);
         if (worker.brigade) {
             const unit = this.getUnitByBrigadeId(worker.brigade.id);
-            this.activeWorkerUnit$.next(unit);
-            this.updateUnitBrigades(unit.id);
+            if (unit) {
+                this.activeWorkerUnit$.next(unit);
+                this.updateUnitBrigades(unit.id);
+            }
         } else {
             this.activeWorkerUnit$.next(null);
             this.activeUnitBrigades$.next([]);
@@ -255,7 +257,7 @@ export class AdminPanelService {
         const brigade: IBrigadeAdminPanel = this.brigades.find(
             (item: IBrigadeAdminPanel) => item.brigadeId === brigadeId
         );
-        return brigade.unit;
+        return brigade ? brigade.unit : null;
     }
 
     public async updateUnitBrigades(unitId: number): Promise<void> {
