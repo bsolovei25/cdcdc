@@ -16,7 +16,7 @@ export class ReferencesService {
     }
 
     public getReference(): Observable<IReferenceTypes[]> {
-        return this.http.get(this.restUrl + `/api/ReferenceType`).pipe(
+        return this.http.get(this.restUrl + `/api/ref-book/ReferenceType`).pipe(
             map((data: IReferenceTypes[]) => {
                 const localeData = this.mapData(data);
                 return localeData;
@@ -24,8 +24,8 @@ export class ReferencesService {
         );
     }
 
-    public removeReference(reference: string): void {
-        this.http.delete(this.restUrl + '/api/user-management/widget/' + reference).subscribe(
+    public removeReference(id: number): void {
+        this.http.delete(this.restUrl + '/api/ref-book/ReferenceType/' + id).subscribe(
             (ans) => {},
             (error) => console.log(error)
         );
@@ -39,6 +39,13 @@ export class ReferencesService {
             (ans) => {},
             (error) => console.log(error)
         );
+    }
+
+    public pushColumnReference(id: number){
+        // return this.http.post(this.restUrl + '/api/ref-book/ReferenceType/', newReference).subscribe(
+        //     (ans) => {},
+        //     (error) => console.log(error)
+        // );
     }
 
     public mapData(data: IReferenceTypes[]): IReferenceTypes[] {

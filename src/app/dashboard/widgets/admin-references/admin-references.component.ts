@@ -139,11 +139,10 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.subscriptions.push(
             this.referencesService.getReference().subscribe((data) => {
-                // this.data = data;
+                this.datas = data;
+                this.data = this.datas;
             })
         );
-
-        this.data = this.datas;
     }
 
     ngOnDestroy() {
