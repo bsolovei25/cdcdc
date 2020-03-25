@@ -68,7 +68,7 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
                     createdBy: new Date(),
                     referenceTypeId: 1,
                     name: 'ФИО',
-                    columnTypeId: 'Текст',
+                    columnTypeId: 1,
                     columnName: 'ФИО',
                     isRequred: true,
                     isUnique: false,
@@ -79,7 +79,7 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
                     createdBy: new Date(),
                     referenceTypeId: 1,
                     name: 'Дата рождения',
-                    columnTypeId: 'Дата',
+                    columnTypeId: 2,
                     columnName: 'Дата рождения',
                     isRequred: false,
                     isUnique: true,
@@ -98,7 +98,7 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
                     createdBy: new Date(),
                     referenceTypeId: 1,
                     name: 'Дата рождения',
-                    columnTypeId: 'Дата',
+                    columnTypeId: 1,
                     columnName: 'Дата рождения',
                     isRequred: false,
                     isUnique: false,
@@ -174,12 +174,12 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
         for (let item of this.data) {
             item.open = false;
         }
-        if(data.columns !== undefined && data.columns !== null){
+        if (data.columns !== undefined && data.columns !== null) {
             for (let item of data.columns) {
                 if (item.isRequred) {
                     item.checked;
                 }
-    
+
                 if (item.isUnique) {
                     item.checked;
                 }
@@ -216,11 +216,11 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
     }
 
     changeNewSwap() {
-       this.valueNewCheck = !this.valueNewCheck;
+        this.valueNewCheck = !this.valueNewCheck;
     }
 
     changeNewUniqSwap() {
-       this.valueUniqNewCheck = !this.valueUniqNewCheck;
+        this.valueUniqNewCheck = !this.valueUniqNewCheck;
     }
 
     changeUniqSwap(item) {
@@ -296,7 +296,7 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
 
     deleteReference(item): void {
         this.referencesService.removeReference(item.id);
-        const indexDelete = this.data.indexOf(item)
+        const indexDelete = this.data.indexOf(item);
         this.data.splice(indexDelete, 1);
     }
 }

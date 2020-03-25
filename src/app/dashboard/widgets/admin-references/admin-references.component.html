@@ -35,10 +35,7 @@
                   ></svg-icon>
                 </div>
               </div>
-              <div
-                class="reference-container__button-remove"
-                (click)="deleteReference(item)"
-              >
+              <div class="reference-container__button-remove" (click)="deleteReference(item)">
                 <svg-icon
                   class="indicator-selector__collapse"
                   src="./assets/icons/widgets/references/delete_red.svg"
@@ -123,11 +120,7 @@
             [class.isLongBlock]="isLongBlock"
           >
             <ng-container *ngIf="data[this.indexColumn] !== undefined">
-              <div
-                *ngFor="let item of data[this.indexColumn].columns"
-                cdkDrag
-                class="example-box"
-              >
+              <div *ngFor="let item of data[this.indexColumn].columns" cdkDrag class="example-box">
                 <div class="reference-container-value__block">
                   <div
                     class="reference-container-value__fio-block"
@@ -213,9 +206,12 @@
                     id="checkBoxValue"
                     class="mycheckbox__default"
                     (click)="changeNewSwap()"
-                    [checked] = "valueNewCheck === true"
+                    [checked]="valueNewCheck === true"
                   />
-                  <div class="mycheckbox__new" [class.mycheckbox__checked]="valueNewCheck === true"></div>
+                  <div
+                    class="mycheckbox__new"
+                    [class.mycheckbox__checked]="valueNewCheck === true"
+                  ></div>
                 </label>
               </div>
               <div class="reference-container-value__uniqValue">
@@ -225,9 +221,12 @@
                     id="checkBoxUniqValue"
                     class="mycheckbox__default"
                     (click)="changeNewUniqSwap()"
-                    [checked] = "valueUniqNewCheck === true"
+                    [checked]="valueUniqNewCheck === true"
                   />
-                  <div class="mycheckbox__new" [class.mycheckbox__checked]="valueUniqNewCheck === true"></div>
+                  <div
+                    class="mycheckbox__new"
+                    [class.mycheckbox__checked]="valueUniqNewCheck === true"
+                  ></div>
                 </label>
               </div>
               <div class="reference-container-value__add-button" (click)="onPushRecord()">
