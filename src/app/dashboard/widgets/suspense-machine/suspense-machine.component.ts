@@ -67,6 +67,5 @@ export class SuspenseMachineComponent extends WidgetPlatform implements OnInit, 
             return `${a.getDay()}.${a.getMonth()}.${a.getFullYear()}`;
         }
         return value;
-
     }
 }
