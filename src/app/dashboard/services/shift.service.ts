@@ -162,7 +162,7 @@ export class ShiftService {
 
     public async getShiftInfo(unitId: number): Promise<void> {
         const tempData = await this.getShiftPassAsync(unitId);
-        tempData.unitId = 22;
+        tempData.unitId = unitId;
         this.shiftPass$.next(tempData);
     }
 
@@ -213,7 +213,7 @@ export class ShiftService {
     ): Promise<void> {
         const obj = await this.changeStatusAsync(status, id, idShift, widgetId, msg);
         this.getShiftInfo(unitId);
-        if (obj.actionType === 'confirmed') {
+        if (obj?.actionType === 'confirmed') {
             this.actionVerifyWindow('open', 'card', widgetId, null, null, obj.confirmId, obj.user);
         }
     }
@@ -299,7 +299,7 @@ export class ShiftService {
     }
 
     public resultVerify(widgetId: string, result: any, unitId: number): void {
-        this.actionVerifyWindow('close', null, widgetId, result.isConfirm, result.message);
+        this.actionVerifyWindow('close', null, widgetId, result.message, result.isConfirm);
         this.getShiftInfo(unitId);
     }
 

@@ -68,8 +68,8 @@ export interface EventsWidgetNotification {
 export interface IUnitEvents {
     id: number;
     name: string;
-    createdAt: Date;
-    createdById: number;
+    createdAt?: Date;
+    createdById?: number;
 }
 
 export interface IRetrievalEvents {
@@ -89,9 +89,11 @@ export interface IUser {
     brigade?: { id: number; number: string };
     positionDescription?: string;
     displayName?: string;
-    position?: string;
+    position?: WorkerPositionType;
     photoId?: string;
 }
+
+export type WorkerPositionType = 'common' | 'responsible';
 
 export type EventsWidgetNotificationPriority = 'danger' | 'warning' | 'standard';
 

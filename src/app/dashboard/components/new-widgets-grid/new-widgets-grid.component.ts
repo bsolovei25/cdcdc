@@ -9,10 +9,16 @@ import {
     GridsterItemComponentInterface,
     DisplayGrid,
 } from 'angular-gridster2';
-import { Subscription } from 'rxjs';
 import { NewUserSettingsService } from '../../services/new-user-settings.service';
 import { EventEmitter } from '@angular/core';
-import { Time } from '@angular/common';
+import { ClaimService, EnumClaimWidgets } from '../../services/claim.service';
+
+export interface IParamWidgetsGrid {
+    cols: number;
+    rows: number;
+    x: number;
+    y: number;
+}
 
 @Component({
     selector: 'evj-new-widgets-grid',
@@ -22,49 +28,61 @@ import { Time } from '@angular/common';
 export class NewWidgetsGridComponent implements OnInit {
     public readonly WIDGETS = WIDGETS;
 
-    fullscreen: boolean = false;
+    public fullscreen: boolean = false;
+
+    public isVisiblePanel: boolean = true;
 
     public options: GridsterConfig;
 
-    model: WidgetModel;
+    public model: WidgetModel;
 
     public indexWidget;
+    public nameWidget: string;
 
-    public nameWidget;
-
-    public resizeWidget = new EventEmitter<any>();
+    public resizeWidget: EventEmitter<{
+        item: GridsterItem;
+        event: MouseEvent;
+    }> = new EventEmitter<{ item: GridsterItem; event: MouseEvent }>();
 
     private sizeTimeout: any;
 
-    _injector: Injector;
+    public ColWidth: number;
+    public RowHeight: number;
 
-    private subscription: Subscription;
-
-    public ColWidth;
-    public RowHeight;
+    private claimSettings: EnumClaimWidgets[] = [];
 
     constructor(
         public widgetService: NewWidgetService,
         public injector: Injector,
-        public userSettings: NewUserSettingsService
+        public userSettings: NewUserSettingsService,
+        private claimService: ClaimService
     ) {}
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         document.addEventListener('fullscreenchange', () => {
+            console.log(document.fullscreenElement);
             this.fullscreen = document.fullscreenElement ? true : false;
         });
+        this.claimService.claimWidgets$.subscribe((value) => {
+            if (value) {
+                this.claimSettings = value;
+                this.isVisiblePanel = this.claimSettings.includes(EnumClaimWidgets.add);
+                this.options = null;
+                this.loaditem();
+            }
+        });
+        this.loaditem();
+    }
 
+    private loaditem(): void {
         this.userSettings.GetScreen();
-
         this.options = {
             gridType: GridType.Fixed,
             displayGrid: 'none',
-            // swap: true,
-            // swapWhileDragging: false,
             itemChangeCallback: this.itemChange.bind(this),
             enableEmptyCellClick: false,
             enableEmptyCellContextMenu: false,
-            enableEmptyCellDrop: true,
+            enableEmptyCellDrop: this.claimSettings.includes(EnumClaimWidgets.add),
             enableEmptyCellDrag: false,
             enableOccupiedCellDrop: false,
             emptyCellClickCallback: this.emptyCellClick.bind(this),
@@ -85,13 +103,13 @@ export class NewWidgetsGridComponent implements OnInit {
             maxCols: 100000,
             pushItems: true,
             draggable: {
-                enabled: true,
+                enabled: this.claimSettings.includes(EnumClaimWidgets.move),
                 stop: this.dragStop.bind(this),
                 start: this.eventStart.bind(this),
             },
             resizable: {
                 delayStart: 0,
-                enabled: true,
+                enabled: this.claimSettings.includes(EnumClaimWidgets.resize),
                 start: this.eventStart.bind(this),
                 stop: this.resizeStop.bind(this),
                 handles: {
@@ -110,7 +128,7 @@ export class NewWidgetsGridComponent implements OnInit {
         this.sizeGrid();
     }
 
-    public onResize(event: any): void {
+    public onResize(): void {
         clearTimeout(this.sizeTimeout);
         this.sizeTimeout = setTimeout(() => this.sizeGrid(), 1000);
         this.resizeGridsterElement();
@@ -173,8 +191,10 @@ export class NewWidgetsGridComponent implements OnInit {
         item: GridsterItem,
         itemComponent: GridsterItemComponentInterface,
         e: MouseEvent
-    ) {
-        if (!e) return;
+    ): void {
+        if (!e) {
+            return;
+        }
         const dataTrasfer = new DataTransfer();
         e.currentTarget.dispatchEvent(new DragEvent('dragstart', { dataTransfer: dataTrasfer }));
     }
@@ -183,8 +203,8 @@ export class NewWidgetsGridComponent implements OnInit {
         item: GridsterItem,
         itemComponent: GridsterItemComponentInterface,
         event: MouseEvent
-    ) {
-        let widget: any = { item, event };
+    ): void {
+        const widget: { item: GridsterItem; event: MouseEvent } = { item, event };
         this.resizeWidget.emit(widget);
     }
 
@@ -201,27 +221,27 @@ export class NewWidgetsGridComponent implements OnInit {
     this.widgetService.draggingItem = null; */
     }
 
-    dragStartHandler(ev, i) {
+    public dragStartHandler(ev, i): void {
         ev.dataTransfer.setData('text/plain', i);
         ev.dataTransfer.dropEffect = 'move';
     }
 
-    changedOptions() {
+    public changedOptions(): void {
         if (this.options.api && this.options.api.optionsChanged) {
             this.options.api.optionsChanged();
         }
     }
 
-    emptyCellClick(event: MouseEvent, item: GridsterItem) {
+    public emptyCellClick(event: MouseEvent, item: GridsterItem): void {
         this.widgetService.dashboard.push(item);
     }
 
-    emptyCellMenuClick() {}
+    public emptyCellMenuClick(): void {}
 
-    emptyCellDragClick() {}
+    public emptyCellDragClick(): void {}
 
-    emptyCellDropClick(event: DragEvent, param) {
-        const idWidget = event.dataTransfer.getData('text');
+    public emptyCellDropClick(event: DragEvent, param: IParamWidgetsGrid): void {
+        const idWidget: string = event.dataTransfer.getData('text');
 
         this.nameWidget = this.widgetService.getName(idWidget);
 

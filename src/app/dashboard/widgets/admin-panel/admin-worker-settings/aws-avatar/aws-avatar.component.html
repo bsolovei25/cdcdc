@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="cropper">
+    <div class="button-close" (click)="onClose()"></div>
+    <div class="cropper__settings">
+      <input type="file" id="file" (change)="fileChangeEvent($event)" />
+      <label for="file" class="button-inputfile">
+        Выбрать фото
+      </label>
+      <img [src]="croppedImage" *ngIf="isImageChosen" />
+      <div class="button-inputfile" *ngIf="isImageChosen" (click)="onSavePhoto()">Сохранить</div>
+    </div>
+    <div class="cropper__field" *ngIf="isImageChosen">
+      <image-cropper
+        [imageChangedEvent]="imageChangedEvent"
+        [maintainAspectRatio]="true"
+        [aspectRatio]="1 / 1"
+        [resizeToWidth]="sideSize"
+        format="jpeg"
+        (imageCropped)="imageCropped($event)"
+        (imageLoaded)="imageLoaded()"
+        (cropperReady)="cropperReady()"
+        (loadImageFailed)="loadImageFailed()"
+      ></image-cropper>
+    </div>
+  </div>
+</div>
