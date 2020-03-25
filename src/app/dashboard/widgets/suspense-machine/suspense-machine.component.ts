@@ -56,8 +56,18 @@ export class SuspenseMachineComponent extends WidgetPlatform implements OnInit, 
     }
 
     renderTable(data: ITableData) {
-        console.log(data.columns);
-
         this.displayedColumns = data.columns;
+    }
+
+    getValue(value) {
+        const a = new Date(value);
+        if (typeof value === 'number') {
+            return value;
+        }
+        if (a.getDate()) {
+            return `${a.getDay()}.${a.getMonth()}.${a.getFullYear()}`;
+        }
+        return value;
+
     }
 }
