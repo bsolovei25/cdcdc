@@ -101,7 +101,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public onSetResponsible(event: boolean): void {
-        console.log('resp', event);
         this.showAlert();
         this.isBrigadeResponsibleAlertShowing = true;
         this.isSetResponsible = event;

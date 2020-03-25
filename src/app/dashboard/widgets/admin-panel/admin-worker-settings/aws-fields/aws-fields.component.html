@@ -22,6 +22,7 @@
 
   <evj-aws-checkbox-card
     class="card"
+    *ngIf="worker.brigade"
     [workerPosition]="setWorkerPosition()"
     (checked)="onSetResponsible($event)"
   ></evj-aws-checkbox-card>

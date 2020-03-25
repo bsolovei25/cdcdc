@@ -15,6 +15,7 @@ export class AwsAlertComponent implements OnInit, OnDestroy {
 
     @Output() private choose: EventEmitter<void> = new EventEmitter<void>();
 
+    public workerBrigade: string = '';
     public lastResponsible: string = '';
     public newResponsible: string = '';
 
@@ -23,20 +24,24 @@ export class AwsAlertComponent implements OnInit, OnDestroy {
     constructor(private adminService: AdminPanelService) {}
 
     public ngOnInit(): void {
-        const workerBrigadeId: number = this.worker.brigade.id;
-        this.subscription = this.adminService.allBrigades$.subscribe((brigades) => {
-            const workerBrigade: IBrigadeAdminPanel = brigades.find(
-                (item) => item.brigadeId === workerBrigadeId
-            );
-            const responsible: IUser = workerBrigade.users.find(
-                (user) => user.position === 'responsible'
-            );
-            if (responsible) {
-                this.lastResponsible = `${responsible.lastName} ${responsible.firstName} ${responsible.middleName}`;
-            } else {
-                this.lastResponsible = '-';
-            }
-        });
+        if (this.worker.brigade) {
+            const workerBrigadeId: number = this.worker.brigade.id;
+            this.workerBrigade = this.worker.brigade.number;
+            this.subscription = this.adminService.allBrigades$.subscribe((brigades) => {
+                const workerBrigade: IBrigadeAdminPanel = brigades.find(
+                    (item) => item.brigadeId === workerBrigadeId
+                );
+                const responsible: IUser = workerBrigade.users.find(
+                    (user) => user.position === 'responsible'
+                );
+                if (responsible) {
+                    this.lastResponsible = `${responsible.lastName} ${responsible.firstName} ${responsible.middleName}`;
+                } else {
+                    this.lastResponsible = '-';
+                }
+            });
+        }
+
         this.newResponsible = `${this.worker.lastName} ${this.worker.firstName} ${this.worker.middleName}`;
     }
 

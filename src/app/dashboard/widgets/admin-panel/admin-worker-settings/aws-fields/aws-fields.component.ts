@@ -10,7 +10,7 @@ import { AdminPanelService } from '../../../../services/admin-panel/admin-panel.
     styleUrls: ['./aws-fields.component.scss'],
 })
 export class AwsFieldsComponent implements OnInit {
-    @Input() private worker: IUser = null;
+    @Input() public worker: IUser = null;
     @Input() public workerUnit: IUnitEvents = null;
     @Input() private searchingFieldName: string = '';
 
@@ -96,6 +96,7 @@ export class AwsFieldsComponent implements OnInit {
         this.workerUnit = unit;
         if (unit) {
             this.adminService.updateUnitBrigades(unit.id);
+            this.worker.position = 'common';
         } else {
             this.onSelectBrigade(null);
         }
@@ -110,6 +111,7 @@ export class AwsFieldsComponent implements OnInit {
 
         if (this.worker.hasOwnProperty('brigade')) {
             delete this.worker.brigade;
+            this.worker.position = 'common';
         }
         this.workerData.emit(this.workerUnit);
     }
