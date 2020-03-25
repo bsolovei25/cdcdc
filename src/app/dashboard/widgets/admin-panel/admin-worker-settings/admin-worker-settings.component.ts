@@ -26,7 +26,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     public isBrigadeResponsibleAlertShowing: boolean = false;
     public isSetResponsible: boolean = false;
 
-    public isPasswordAlertShowing: boolean = true;
+    public isPasswordAlertShowing: boolean = false;
 
     public searchingWorkspaceValue: string = '';
     public searchingFieldName: string = '';

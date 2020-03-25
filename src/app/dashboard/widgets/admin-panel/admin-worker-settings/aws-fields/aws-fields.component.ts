@@ -14,8 +14,9 @@ export class AwsFieldsComponent implements OnInit {
     @Input() public workerUnit: IUnitEvents = null;
     @Input() private searchingFieldName: string = '';
 
-    @Output() public workerData: EventEmitter<IUnitEvents> = new EventEmitter<IUnitEvents>();
+    @Output() private workerData: EventEmitter<IUnitEvents> = new EventEmitter<IUnitEvents>();
     @Output() private responsible: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() private password: EventEmitter<void> = new EventEmitter<void>();
 
     public inputOptions: IWorkerOptionAdminPanel[];
     public selectOptions: IWorkerOptionAdminPanel[];
@@ -23,57 +24,61 @@ export class AwsFieldsComponent implements OnInit {
     constructor(private adminService: AdminPanelService) {}
 
     public ngOnInit(): void {
-        this.inputOptions = [
-            {
-                name: 'Логин',
-                value: this.worker.login,
-                key: 'login',
-            },
-            {
-                name: 'Фамилия',
-                value: this.worker.lastName,
-                key: 'lastName',
-            },
-            {
-                name: 'Имя',
-                value: this.worker.firstName,
-                key: 'firstName',
-            },
-            {
-                name: 'Отчество',
-                value: this.worker.middleName,
-                key: 'middleName',
-            },
-            {
-                name: 'Должность',
-                value: this.worker.positionDescription,
-                key: 'positionDescription',
-            },
-            {
-                name: 'Телефон',
-                value: this.worker.phone,
-                key: 'phone',
-            },
-            {
-                name: 'Почта',
-                value: this.worker.email,
-                key: 'email',
-            },
-        ];
-        this.selectOptions = [
-            {
-                name: 'Установка',
-                value: this.worker.hasOwnProperty('brigade')
-                    ? this.adminService.getUnitByBrigadeId(this.worker.brigade.id).name
-                    : null,
-                key: 'unit',
-            },
-            {
-                name: 'Бригада',
-                value: this.worker.hasOwnProperty('brigade') ? this.worker.brigade.number : null,
-                key: 'brigade',
-            },
-        ];
+        if (this.worker) {
+            this.inputOptions = [
+                {
+                    name: 'Логин',
+                    value: this.worker.login,
+                    key: 'login',
+                },
+                {
+                    name: 'Фамилия',
+                    value: this.worker.lastName,
+                    key: 'lastName',
+                },
+                {
+                    name: 'Имя',
+                    value: this.worker.firstName,
+                    key: 'firstName',
+                },
+                {
+                    name: 'Отчество',
+                    value: this.worker.middleName,
+                    key: 'middleName',
+                },
+                {
+                    name: 'Должность',
+                    value: this.worker.positionDescription,
+                    key: 'positionDescription',
+                },
+                {
+                    name: 'Телефон',
+                    value: this.worker.phone,
+                    key: 'phone',
+                },
+                {
+                    name: 'Почта',
+                    value: this.worker.email,
+                    key: 'email',
+                },
+            ];
+            this.selectOptions = [
+                {
+                    name: 'Установка',
+                    value: this.worker.hasOwnProperty('brigade')
+                        ? this.adminService.getUnitByBrigadeId(this.worker.brigade.id).name
+                        : null,
+                    key: 'unit',
+                },
+                {
+                    name: 'Бригада',
+                    value: this.worker.hasOwnProperty('brigade')
+                        ? this.worker.brigade.number
+                        : null,
+                    key: 'brigade',
+                },
+            ];
+        }
     }
 
     public isValidFieldName(fieldName: string): boolean {
@@ -118,5 +123,9 @@ export class AwsFieldsComponent implements OnInit {
 
     public onSetResponsible(event: boolean): void {
         this.responsible.emit(event);
+    }
+
+    public onSetPassword(): void {
+        this.password.emit();
     }
 }
