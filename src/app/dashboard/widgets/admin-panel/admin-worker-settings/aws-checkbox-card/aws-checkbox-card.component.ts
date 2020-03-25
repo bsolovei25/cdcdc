@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { WorkerPositionType } from '../../../../models/events-widget';
 
 @Component({
@@ -6,13 +6,21 @@ import { WorkerPositionType } from '../../../../models/events-widget';
     templateUrl: './aws-checkbox-card.component.html',
     styleUrls: ['./aws-checkbox-card.component.scss'],
 })
-export class AwsCheckboxCardComponent implements OnInit {
+export class AwsCheckboxCardComponent implements OnInit, OnChanges {
     @Input() public workerPosition: WorkerPositionType = 'common';
     @Output() private checked: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     public isChecked: boolean = false;
 
     constructor() {}
+
+    public ngOnChanges(): void {
+        if (this.workerPosition === 'responsible') {
+            this.isChecked = true;
+        } else {
+            this.isChecked = false;
+        }
+    }
 
     public ngOnInit(): void {
         if (this.workerPosition === 'responsible') {

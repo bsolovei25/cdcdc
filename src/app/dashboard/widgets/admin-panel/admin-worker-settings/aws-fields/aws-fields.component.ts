@@ -10,11 +10,12 @@ import { AdminPanelService } from '../../../../services/admin-panel/admin-panel.
     styleUrls: ['./aws-fields.component.scss'],
 })
 export class AwsFieldsComponent implements OnInit {
-    @Input() private worker: IUser = null;
+    @Input() public worker: IUser = null;
     @Input() public workerUnit: IUnitEvents = null;
     @Input() private searchingFieldName: string = '';
 
     @Output() public workerData: EventEmitter<IUnitEvents> = new EventEmitter<IUnitEvents>();
+    @Output() private responsible: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     public inputOptions: IWorkerOptionAdminPanel[];
     public selectOptions: IWorkerOptionAdminPanel[];
@@ -95,6 +96,7 @@ export class AwsFieldsComponent implements OnInit {
         this.workerUnit = unit;
         if (unit) {
             this.adminService.updateUnitBrigades(unit.id);
+            this.worker.position = 'common';
         } else {
             this.onSelectBrigade(null);
         }
@@ -109,12 +111,12 @@ export class AwsFieldsComponent implements OnInit {
 
         if (this.worker.hasOwnProperty('brigade')) {
             delete this.worker.brigade;
+            this.worker.position = 'common';
         }
         this.workerData.emit(this.workerUnit);
     }
 
     public onSetResponsible(event: boolean): void {
-        this.worker.position = event ? 'responsible' : 'common';
-        this.workerData.emit(this.workerUnit);
+        this.responsible.emit(event);
     }
 }
