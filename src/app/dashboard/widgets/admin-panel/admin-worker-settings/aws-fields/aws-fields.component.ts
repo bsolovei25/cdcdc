@@ -13,6 +13,7 @@ export class AwsFieldsComponent implements OnInit {
     @Input() public worker: IUser = null;
     @Input() public workerUnit: IUnitEvents = null;
     @Input() private searchingFieldName: string = '';
+    @Input() public isCreateNewUser: boolean = false;
 
     @Output() private workerData: EventEmitter<IUnitEvents> = new EventEmitter<IUnitEvents>();
     @Output() private responsible: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -62,12 +63,13 @@ export class AwsFieldsComponent implements OnInit {
                     key: 'email',
                 },
             ];
+            const unit: IUnitEvents = this.worker.brigade
+                ? this.adminService.getUnitByBrigadeId(this.worker.brigade.id)
+                : null;
             this.selectOptions = [
                 {
                     name: 'Установка',
-                    value: this.worker.hasOwnProperty('brigade')
-                        ? this.adminService.getUnitByBrigadeId(this.worker.brigade.id).name
-                        : null,
+                    value: unit ? unit.name : null,
                     key: 'unit',
                 },
                 {

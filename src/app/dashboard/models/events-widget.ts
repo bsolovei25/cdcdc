@@ -80,6 +80,7 @@ export interface IRetrievalEvents {
 
 export interface IUser {
     login: string;
+    password?: string;
     id: number;
     firstName: string;
     lastName: string;

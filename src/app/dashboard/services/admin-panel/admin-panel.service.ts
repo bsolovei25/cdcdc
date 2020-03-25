@@ -2,13 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '../../../services/appConfigService';
-import {
-    IBrigadeAdminPanel,
-    IClaim,
-    IScreen,
-    EnumClaims,
-    IWorkspace,
-} from '../../models/admin-panel';
+import { IBrigadeAdminPanel, IClaim, IScreen, IWorkspace } from '../../models/admin-panel';
 import { IUser, IUnitEvents } from '../../models/events-widget';
 
 @Injectable({
