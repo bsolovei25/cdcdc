@@ -1,4 +1,10 @@
 .reports-panel {
+  &__heading {
+    margin: 0 0 20px 0;
+    min-width: 469px;
+    text-align: center;
+    overflow: hidden;
+  }
   &__list {
     margin-top: 15px;
   }

@@ -31,6 +31,10 @@
     }
     &__text {
       margin-left: 20px;
+      color: var(--color-text-sub);
+      &--active {
+        color: var(--color-text-main);
+      }
     }
     &__icon {
       margin: auto 0;
@@ -47,11 +51,13 @@
     display: flex;
     flex-wrap: wrap;
 
-    margin-left: 35px;
+    margin-left: 20px;
+    margin-top: 10px;
     .form {
       height: 60px;
       width: 204px;
 
+      padding-right: 10px;
       &__title {
         font-size: 10px;
         color: var(--color-text-sub);
@@ -59,11 +65,18 @@
       &__value {
         display: flex;
         position: relative;
-        min-height: 12px;
+        font-size: 12px;
       }
     }
     &__footer {
       width: 100%;
+      margin: 20px 0;
+
+      &__icon {
+        cursor: pointer;
+        margin: auto 0;
+        margin-right: 20px;
+      }
     }
   }
 }
