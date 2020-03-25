@@ -9,7 +9,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 })
 export class AgGroupWorkerCardComponent implements OnInit {
     @Input() public worker: IUser = null;
-    @Input() public isInBrigade: boolean = true;
+    @Input() public isInBrigade: boolean = false;
 
     // TODO
     @Output() private changeGroup: EventEmitter<void> = new EventEmitter<void>();
@@ -18,11 +18,13 @@ export class AgGroupWorkerCardComponent implements OnInit {
 
     constructor() {}
 
-    public ngOnInit(): void {}
-
-    public onClick(): void {
+    public ngOnInit(): void {
         if (this.isInBrigade) {
             this.cardSelection.toggle();
         }
+    }
+
+    public onClick(): void {
+        this.cardSelection.toggle();
     }
 }
