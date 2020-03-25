@@ -37,7 +37,7 @@
               </div>
               <div
                 class="reference-container__button-remove"
-                (click)="onClickDeleteReference(item)"
+                (click)="deleteReference(item)"
               >
                 <svg-icon
                   class="indicator-selector__collapse"
@@ -124,7 +124,7 @@
           >
             <ng-container *ngIf="data[this.indexColumn] !== undefined">
               <div
-                *ngFor="let item of data[this.indexColumn].referenceColumns"
+                *ngFor="let item of data[this.indexColumn].columns"
                 cdkDrag
                 class="example-box"
               >
@@ -212,9 +212,10 @@
                     type="checkbox"
                     id="checkBoxValue"
                     class="mycheckbox__default"
-                    (click)="changeSwap()"
+                    (click)="changeNewSwap()"
+                    [checked] = "valueNewCheck === true"
                   />
-                  <div class="mycheckbox__new" [class.mycheckbox__checked]="!valueCheck"></div>
+                  <div class="mycheckbox__new" [class.mycheckbox__checked]="valueNewCheck === true"></div>
                 </label>
               </div>
               <div class="reference-container-value__uniqValue">
@@ -223,9 +224,10 @@
                     type="checkbox"
                     id="checkBoxUniqValue"
                     class="mycheckbox__default"
-                    (click)="changeUniqSwap()"
+                    (click)="changeNewUniqSwap()"
+                    [checked] = "valueUniqNewCheck === true"
                   />
-                  <div class="mycheckbox__new" [class.mycheckbox__checked]="!valueUniqCheck"></div>
+                  <div class="mycheckbox__new" [class.mycheckbox__checked]="valueUniqNewCheck === true"></div>
                 </label>
               </div>
               <div class="reference-container-value__add-button" (click)="onPushRecord()">

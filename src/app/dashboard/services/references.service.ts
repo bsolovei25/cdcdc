@@ -41,11 +41,11 @@ export class ReferencesService {
         );
     }
 
-    public pushColumnReference(id: number){
-        // return this.http.post(this.restUrl + '/api/ref-book/ReferenceType/', newReference).subscribe(
-        //     (ans) => {},
-        //     (error) => console.log(error)
-        // );
+    public pushColumnReference(records){
+        return this.http.post(this.restUrl + '/api/ref-book/ReferenceColumn/', records).subscribe(
+            (ans) => {},
+            (error) => console.log(error)
+        );
     }
 
     public mapData(data: IReferenceTypes[]): IReferenceTypes[] {

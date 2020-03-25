@@ -34,6 +34,9 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
     valueCheck: boolean = true;
     valueUniqCheck: boolean = true;
 
+    valueNewCheck: boolean = false;
+    valueUniqNewCheck: boolean = false;
+
     onClickPushReference: boolean = false;
     onClickPushRecord: boolean = false;
 
@@ -48,6 +51,7 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
     newUniqValue: boolean;
 
     indexColumn: number = 0;
+    idReferenceClick: number;
 
     isLongBlock: boolean = true;
 
@@ -57,7 +61,7 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
             createdAt: new Date(),
             createdBy: new Date(),
             name: 'Професии',
-            referenceColumns: [
+            columns: [
                 {
                     id: 1,
                     createdAt: new Date(),
@@ -87,7 +91,7 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
             createdAt: new Date(),
             createdBy: new Date(),
             name: 'Установки',
-            referenceColumns: [
+            columns: [
                 {
                     id: 1,
                     createdAt: new Date(),
@@ -170,25 +174,27 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
         for (let item of this.data) {
             item.open = false;
         }
-
-        for (let item of data.referenceColumns) {
-            if (item.isRequred) {
-                item.checked;
-            }
-
-            if (item.isUnique) {
-                item.checked;
+        if(data.columns !== undefined && data.columns !== null){
+            for (let item of data.columns) {
+                if (item.isRequred) {
+                    item.checked;
+                }
+    
+                if (item.isUnique) {
+                    item.checked;
+                }
             }
         }
 
         data.open = true;
+        this.idReferenceClick = data.id;
         this.indexColumn = index;
     }
 
     onClickItemReference(data) {
         data.open = !data.open;
         this.isLongBlock = true;
-        for (let item of this.data[this.indexColumn].referenceColumns) {
+        for (let item of this.data[this.indexColumn].columns) {
             if (item.open) {
                 this.isLongBlock = false;
             }
@@ -201,7 +207,7 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
 
     changeSwap(item) {
         this.data.find((el) =>
-            el.referenceColumns.find((e) => {
+            el.columns.find((e) => {
                 if (e === item) {
                     e.isRequred = !e.isRequred;
                 }
@@ -209,9 +215,17 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
         );
     }
 
+    changeNewSwap() {
+       this.valueNewCheck = !this.valueNewCheck;
+    }
+
+    changeNewUniqSwap() {
+       this.valueUniqNewCheck = !this.valueUniqNewCheck;
+    }
+
     changeUniqSwap(item) {
         this.data.find((el) =>
-            el.referenceColumns.find((e) => {
+            el.columns.find((e) => {
                 if (e === item) {
                     e.isUnique = !e.isUnique;
                 }
@@ -221,15 +235,11 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
 
     drop(event: CdkDragDrop<string[]>) {
         moveItemInArray(
-            this.data[this.indexColumn].referenceColumns,
+            this.data[this.indexColumn].columns,
             event.previousIndex,
             event.currentIndex
         );
     }
-
-    onClickEditReference(item): void {}
-
-    onClickDeleteReference(item): void {}
 
     onPushBlockInReference(): void {
         this.onClickPushReference = true;
@@ -259,10 +269,15 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
         this.onClickPushRecord = false;
         let object = {
             name: this.newFioRecord,
-            referenceFIO: [],
+            referenceTypeId: this.idReferenceClick,
+            isRequred: this.valueNewCheck,
+            isUnique: this.valueUniqNewCheck,
+            columnTypeId: 1,
         };
         if (this.newFioRecord.trim().length > 0 && this.newFioRecord !== undefined) {
-            this.data.push(object);
+            this.referencesService.pushColumnReference(object);
+            this.data[this.indexColumn].columns = [];
+            this.data[this.indexColumn].columns.push(object);
             this.newFioRecord = null;
         }
     }
@@ -277,5 +292,11 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
         if (!event.currentTarget.value) {
             this.data = this.datas;
         }
+    }
+
+    deleteReference(item): void {
+        this.referencesService.removeReference(item.id);
+        const indexDelete = this.data.indexOf(item)
+        this.data.splice(indexDelete, 1);
     }
 }
