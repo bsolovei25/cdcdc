@@ -5,11 +5,11 @@ import { IBrigadeAdminPanel } from '../../../../models/admin-panel';
 import { Subscription } from 'rxjs';
 
 @Component({
-    selector: 'evj-aws-alert',
-    templateUrl: './aws-alert.component.html',
-    styleUrls: ['./aws-alert.component.scss'],
+    selector: 'evj-aws-responsible-alert',
+    templateUrl: './aws-responsible-alert.component.html',
+    styleUrls: ['./aws-responsible-alert.component.scss'],
 })
-export class AwsAlertComponent implements OnInit, OnDestroy {
+export class AwsResponsibleAlertComponent implements OnInit, OnDestroy {
     @Input() public worker: IUser = null;
     @Input() public isSetResponsible: boolean = true;
 

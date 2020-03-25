@@ -127,7 +127,7 @@ import { AwsWorkspacesComponent } from './widgets/admin-panel/admin-worker-setti
 import { AdminGroupsComponent } from './widgets/admin-panel/admin-groups/admin-groups.component';
 import { AgGroupCardComponent } from './widgets/admin-panel/admin-groups/ag-group-card/ag-group-card.component';
 import { AgGroupWorkerCardComponent } from './widgets/admin-panel/admin-groups/ag-group-worker-card/ag-group-worker-card.component';
-import { AwsAlertComponent } from './widgets/admin-panel/admin-worker-settings/aws-alert/aws-alert.component';
+import { AwsResponsibleAlertComponent } from './widgets/admin-panel/admin-worker-settings/aws-alert/aws-responsible-alert.component';
 
 @NgModule({
     declarations: [
@@ -241,7 +241,7 @@ import { AwsAlertComponent } from './widgets/admin-panel/admin-worker-settings/a
         AdminGroupsComponent,
         AgGroupCardComponent,
         AgGroupWorkerCardComponent,
-        AwsAlertComponent,
+        AwsResponsibleAlertComponent,
     ],
     entryComponents: [
         LineChartComponent,
