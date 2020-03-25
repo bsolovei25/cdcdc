@@ -57,6 +57,9 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                         this.workerScreens.push(item.screen);
                     });
                     this.workerScreensDetached = workerScreens;
+                } else {
+                    this.workerScreens = [];
+                    this.workerScreensDetached = [];
                 }
             }),
             this.adminService.activeWorkerUnit$.subscribe(

@@ -51,6 +51,12 @@ export interface IWorkerOptionAdminPanel {
     key: string;
 }
 
+export interface IGroup {
+    id: number;
+    name: string;
+    description: string;
+}
+
 export enum EnumClaims {
     'Только чтение' = 1,
     'Модификация',
