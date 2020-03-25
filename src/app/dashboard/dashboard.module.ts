@@ -128,6 +128,7 @@ import { AdminGroupsComponent } from './widgets/admin-panel/admin-groups/admin-g
 import { AgGroupCardComponent } from './widgets/admin-panel/admin-groups/ag-group-card/ag-group-card.component';
 import { AgGroupWorkerCardComponent } from './widgets/admin-panel/admin-groups/ag-group-worker-card/ag-group-worker-card.component';
 import { AwsResponsibleAlertComponent } from './widgets/admin-panel/admin-worker-settings/aws-alert/aws-responsible-alert.component';
+import { AwsPasswordAlertComponent } from './widgets/admin-panel/admin-worker-settings/aws-password-alert/aws-password-alert.component';
 
 @NgModule({
     declarations: [
@@ -242,6 +243,7 @@ import { AwsResponsibleAlertComponent } from './widgets/admin-panel/admin-worker
         AgGroupCardComponent,
         AgGroupWorkerCardComponent,
         AwsResponsibleAlertComponent,
+        AwsPasswordAlertComponent,
     ],
     entryComponents: [
         LineChartComponent,
