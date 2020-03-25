@@ -52,16 +52,15 @@ export class LoginComponent implements OnInit, AfterViewInit {
         }
         // authentication
         try {
-            // const auth = await this.authService.authenticate(
-            //     this.username.value,
-            //     this.password.value
-            // );
-            const auth = true;
+            const auth = await this.authService.authenticate(
+                this.username.value,
+                this.password.value
+            );
             if (auth) {
                 this.router.navigate(['dashboard']);
-                // setTimeout(() => {
-                //     this.isLoadingData = false;
-                // }, 1000);
+                setTimeout(() => {
+                    this.isLoadingData = false;
+                }, 1000);
             } else {
                 // this.materialController.openSnackBar('Неверный логин или пароль');
                 this.swing = true;
