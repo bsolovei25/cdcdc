@@ -1,0 +1,59 @@
+<div class="panel" *ngIf="data">
+  <div class="panel-header" [class.panel-header--active]="active" (click)="toggle(data.id)">
+    <p class="panel-header__text">{{data.name}}</p>
+    <svg-icon
+      *ngIf="!active"
+      class="panel-header__icon"
+      [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+      src="assets/icons/widgets/reports/arrow-up.svg"
+    ></svg-icon>
+    <svg-icon
+      *ngIf="active"
+      class="panel-header__icon panel-header__icon__active"
+      [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+      src="assets/icons/widgets/reports/arrow-bottom.svg"
+    ></svg-icon>
+  </div>
+  <div class="panel-body" *ngIf="active">
+    <ng-container *ngIf="template">
+      <ng-container *ngFor="let option of template.options">
+        <div class="form" *ngIf="option.type === 'dateTime'">
+          <p class="form__title">Начало периода</p>
+          <div class="form__value">
+            01.08.2019
+            <svg-icon
+              [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+              src="./assets/icons/widgets/reports/date.svg"
+              (click)="openDatePicker(1)"
+            ></svg-icon>
+            <div class="dates-selector__picker" [class.dates-selector__picker-open]="datePicker">
+              <evj-time-data-picker
+                (dateTimePicker)="dateTimePickerNew($event)"
+              ></evj-time-data-picker>
+            </div>
+            02:00
+          </div>
+        </div>
+        <mat-form-field class="form" *ngIf="option.type === 'comboBox'">
+          <mat-select>
+            <mat-option *ngFor="let food of [1]" [value]="food">
+              {{food}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="form" *ngIf="option.type === 'textBox'">
+          <mat-label class="form__title">Тип оборудование</mat-label>
+          <input matInput value="" />
+        </mat-form-field>
+        <div class="panel-body__footer">
+          <svg-icon
+            (click)="postItem(template.id, option)"
+            class="panel-header__icon"
+            [svgStyle]="{ 'width.px':37, 'height.px':42 }"
+            src="assets/icons/widgets/reports/pdf.svg"
+          ></svg-icon>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>

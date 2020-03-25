@@ -1,15 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { ReportsService } from '../../services/reports.service';
-import { ITime } from '../../models/time-data-picker';
+
+export interface IReportTemplate {
+    id: number,
+    createdAt: Date,
+    createdBy: number,
+    name: string,
+    description: string,
+    fileId: string,
+    isDeleted: boolean,
+    displayName: string
+}
 
 @Component({
     selector: 'evj-reports',
     templateUrl: './reports.component.html',
     styleUrls: ['./reports.component.scss'],
 })
-export class ReportsComponent implements OnInit {
+export class ReportsComponent implements OnInit, OnDestroy {
 
     private subscription: Subscription;
 
@@ -18,9 +28,12 @@ export class ReportsComponent implements OnInit {
     public datePicker: boolean = false;
     public datePickerOpen: number;
 
+    data: IReportTemplate[] = [];
+
     constructor(
         public widgetService: NewWidgetService,
-        private reportsService: ReportsService
+        private reportsService: ReportsService,
+        private detectCh: ChangeDetectorRef
     ) {
         this.subscription = this.widgetService.widgets$.subscribe((dataW) => {
         });
@@ -41,24 +54,8 @@ export class ReportsComponent implements OnInit {
     }
 
     async loadItem(): Promise<void> {
-        await this.reportsService.getReportsTemplate();
-    }
-
-    openDatePicker(selectBlock: number): void {
-        this.datePickerOpen = selectBlock;
-        this.datePicker = true;
-    }
-
-    dateTimePickerNew(data: ITime): void {
-        const time = data.time.split(':');
-        const date = new Date(data.date);
-
-        if (this.datePickerOpen === 0) {
-            // this.fromDate = new Date(date.setHours(+time[0], +time[1], +time[2]));
-        } else if (this.datePickerOpen === 1) {
-            // this.toDate = new Date(date.setHours(+time[0], +time[1], +time[2]));
-        }
-        this.datePicker = !data.close;
+        this.data = await this.reportsService.getReportsTemplate();
+        this.detectCh.detectChanges();
     }
 
 }

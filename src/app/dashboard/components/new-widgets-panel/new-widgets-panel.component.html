@@ -73,19 +73,6 @@
   </ng-container>
 
   <ng-container *ngIf="!isWidgets">
-    <h4 class="widgets-panel__heading">
-      Доступные отчеты
-    </h4>
-    <div class="search_block">
-      <evj-search></evj-search>
-    </div>
-    <div class="widgets-panel__list scroll-bar">
-      <div class="options-header">
-        <evj-reports
-          *ngFor="let i of [1,2,3]"
-          style="width: 100%; margin: 10px auto;"
-        ></evj-reports>
-      </div>
-    </div>
+    <evj-reports></evj-reports>
   </ng-container>
 </div>

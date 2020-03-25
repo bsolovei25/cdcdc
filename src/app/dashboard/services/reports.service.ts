@@ -23,10 +23,20 @@ export class ReportsService {
         }
     }
 
-    async getReportsTemplaste(id: number): Promise<any> {
+    async getTemplate(id: number): Promise<any> {
         try {
             return this.http
-                .get<any>(this.restUrl + `/api/report-template/all`)
+                .get<any>(this.restUrl + `/api/report-template/${id}`)
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async postTemplate(id: number, body): Promise<any> {
+        try {
+            return this.http
+                .post<any>(this.restUrl + `/api/reporting/${id}/template/create`, body)
                 .toPromise();
         } catch (error) {
             console.error(error);

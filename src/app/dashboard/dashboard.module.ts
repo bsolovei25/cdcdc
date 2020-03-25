@@ -120,8 +120,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AwsBlockComponent } from './widgets/admin-panel/admin-worker-settings/aws-block/aws-block.component';
 import { UsbVerifierComponent } from './widgets/change-shift/usb-verifier/usb-verifier.component';
 import { TimeDataPickerComponent } from './components/time-data-picker/time-data-picker.component';
-import { ReportsComponent } from './components/reports/reports.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { ReportComponent } from './components/report/reports/report.component';
+import { ReportsComponent } from './components/report/reports.component';
 
 @NgModule({
     declarations: [
@@ -229,6 +230,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
         AwsBlockComponent,
         UsbVerifierComponent,
         TimeDataPickerComponent,
+        ReportComponent,
         ReportsComponent
     ],
     entryComponents: [
@@ -279,6 +281,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
         AdminReferencesComponent,
         PetroleumProductsMovementComponent,
         AdminPanelComponent,
+        ReportComponent,
         ReportsComponent
     ],
     exports: [HomeComponent],
