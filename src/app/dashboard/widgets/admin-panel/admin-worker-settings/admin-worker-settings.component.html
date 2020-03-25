@@ -35,6 +35,7 @@
         [workerUnit]="workerUnit"
         [searchingFieldName]="searchingFieldName"
         (workerData)="onChangeWorkerData($event)"
+        (responsible)="onSetResponsible($event)"
       ></evj-aws-fields>
       <div class="claims">
         <div class="title">Права доступа</div>
@@ -137,5 +138,11 @@
     [ngClass]="{'admin__popup_active':isPopUpShowing}"
     (closePopUp)="onClosePopUp($event)"
   ></evj-aws-avatar>
-  <evj-aws-alert class="admin__popup" [ngClass]="{'admin__popup_active':true}"></evj-aws-alert>
+  <evj-aws-alert
+    class="admin__popup"
+    [ngClass]="{'admin__popup_active':isBrigadeResponsibleAlertShowing}"
+    [worker]="worker"
+    [isSetResponsible]="isSetResponsible"
+    (choose)="onCloseResponsibleAlert()"
+  ></evj-aws-alert>
 </div>

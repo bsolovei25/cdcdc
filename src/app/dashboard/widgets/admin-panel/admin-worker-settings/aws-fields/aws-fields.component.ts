@@ -15,6 +15,7 @@ export class AwsFieldsComponent implements OnInit {
     @Input() private searchingFieldName: string = '';
 
     @Output() public workerData: EventEmitter<IUnitEvents> = new EventEmitter<IUnitEvents>();
+    @Output() private responsible: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     public inputOptions: IWorkerOptionAdminPanel[];
     public selectOptions: IWorkerOptionAdminPanel[];
@@ -114,7 +115,6 @@ export class AwsFieldsComponent implements OnInit {
     }
 
     public onSetResponsible(event: boolean): void {
-        this.worker.position = event ? 'responsible' : 'common';
-        this.workerData.emit(this.workerUnit);
+        this.responsible.emit(event);
     }
 }

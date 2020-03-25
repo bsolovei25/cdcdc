@@ -23,6 +23,9 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     public isPopUpShowing: boolean = false;
     public isAvatarButtonShowing: boolean = false;
 
+    public isBrigadeResponsibleAlertShowing: boolean = false;
+    public isSetResponsible: boolean = false;
+
     public searchingWorkspaceValue: string = '';
     public searchingFieldName: string = '';
 
@@ -97,6 +100,13 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         this.workerUnit = data;
     }
 
+    public onSetResponsible(event: boolean): void {
+        console.log('resp', event);
+        this.showAlert();
+        this.isBrigadeResponsibleAlertShowing = true;
+        this.isSetResponsible = event;
+    }
+
     public onChangeWorkspacesData(): void {
         this.showAlert();
     }
@@ -148,6 +158,10 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
             this.workerPhoto = event;
         }
+    }
+
+    public onCloseResponsibleAlert(): void {
+        this.isBrigadeResponsibleAlertShowing = false;
     }
 
     public onSelectClaim(): void {
