@@ -102,7 +102,6 @@
   display: inline-block;
   z-index: 999;
   padding-left: 5px;
-  padding-right: 10px;
   width: 20px;
   fill: white;
 }
@@ -111,14 +110,13 @@
   display: inline-block;
   z-index: 999;
   padding-left: 5px;
-  padding-right: 10px;
   width: 20px;
   fill: white;
 }
 .update_screen {
   display: inline-block;
   z-index: 999;
-  padding-left: 10px;
+  padding-left: 5px;
   width: 20px;
   fill: white;
 }
@@ -161,7 +159,7 @@
 
 .hover-button {
   padding-left: 5px;
-  // width: 70px;
+  width: 70px;
   background-color: var(--color-bg-main);
   display: flex;
   align-items: center;

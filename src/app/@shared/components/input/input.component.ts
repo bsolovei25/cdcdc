@@ -17,10 +17,7 @@ export class InputComponent implements OnInit {
     @Input() public placeholder: string = '';
     @Input() public iconSrc: string = '';
     @Input() public value: string = '';
-    @Input() public isDisabled: boolean = false;
-    @Input() public focused: boolean = false;
     @Output() public inputedValue: EventEmitter<string> = new EventEmitter<string>();
-    @Output() public unfocus: EventEmitter<string> = new EventEmitter<string>();
     @ViewChild('input') public input: ElementRef;
 
     public isFocused: boolean = false;
@@ -29,11 +26,15 @@ export class InputComponent implements OnInit {
 
     public ngOnInit(): void {}
 
-    public onInput(): void {
-        this.inputedValue.emit(this.input.nativeElement.value);
+    public onFocus(): string {
+        if (this.isFocused) {
+            return '';
+        } else {
+            return this.placeholder;
+        }
     }
 
-    public onBlur(): void {
-        this.unfocus.emit(this.input.nativeElement.value);
+    public onInput(): void {
+        this.inputedValue.emit(this.input.nativeElement.value);
     }
 }

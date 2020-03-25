@@ -28,8 +28,8 @@ export class TimeLineDiagramComponent extends WidgetPlatform implements OnInit, 
         ],
     };
 
-    public static itemCols: number = 22;
-    public static itemRows: number = 13;
+    protected static itemCols: number = 22;
+    protected static itemRows: number = 13;
 
     constructor(
         protected widgetService: NewWidgetService,

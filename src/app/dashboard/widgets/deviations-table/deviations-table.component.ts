@@ -229,8 +229,8 @@ export class DeviationsTableComponent extends WidgetPlatform implements OnInit, 
         },
     ];
 
-    public static itemCols: number = 15;
-    public static itemRows: number = 18;
+    protected static itemCols: number = 15;
+    protected static itemRows: number = 18;
 
     constructor(
         protected widgetService: NewWidgetService,

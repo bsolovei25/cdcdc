@@ -20,8 +20,8 @@ import { WidgetPlatform } from '../../models/widget-platform';
 })
 export class ObservationNormTRComponent extends WidgetPlatform
     implements OnInit, OnDestroy, AfterViewInit {
-    public static itemCols: number = 15;
-    public static itemRows: number = 10;
+    protected static itemCols: number = 15;
+    protected static itemRows: number = 10;
 
     circleRadius: string = (35).toString();
     minRadius: number = 47;

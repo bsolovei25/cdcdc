@@ -248,8 +248,8 @@ export class ChainMapComponent extends WidgetPlatform implements AfterViewInit, 
     public mass2;
     public check = true;
 
-    public static itemCols: number = 30;
-    public static itemRows: number = 20;
+    protected static itemCols: number = 30;
+    protected static itemRows: number = 20;
 
     constructor(
         public widgetService: NewWidgetService,

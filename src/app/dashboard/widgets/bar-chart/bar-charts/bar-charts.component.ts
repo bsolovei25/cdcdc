@@ -11,8 +11,8 @@ import { WidgetPlatform } from '../../../models/widget-platform';
 export class BarChartsComponent extends WidgetPlatform implements OnInit, OnDestroy {
     public data: any[] = [];
 
-    public static itemCols: number = 24;
-    public static itemRows: number = 10;
+    protected static itemCols: number = 24;
+    protected static itemRows: number = 10;
 
     constructor(
         private userSettings: NewUserSettingsService,

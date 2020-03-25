@@ -68,7 +68,7 @@ export const WIDGETS = {
     'chain-map': ChainMapComponent,
     energetics: EnergeticsComponent,
     'dispatcher-screen': DispatcherScreenComponent,
-    'table-data': SuspenseMachineComponent,
+    'suspense-machine': SuspenseMachineComponent,
     'deviations-table': DeviationsTableComponent,
     'triggering-critical-parameters': TriggeringCriticalParametersComponent,
     'circle-factory-diagram': CircleFactoryDiagramComponent,

@@ -13,7 +13,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { UiBlockComponent } from './layout/ui-block/ui-block.component';
 import { LoadingShadeComponent } from './components/loading-shade/loading-shade.component';
-import { WidgetPreloaderComponent } from './components/widget-preloader/widget-preloader.component';
 
 @NgModule({
     declarations: [
@@ -28,7 +27,6 @@ import { WidgetPreloaderComponent } from './components/widget-preloader/widget-p
         WorkerCardComponent,
         UiBlockComponent,
         LoadingShadeComponent,
-        WidgetPreloaderComponent,
     ],
     exports: [
         HeaderComponent,
@@ -42,7 +40,6 @@ import { WidgetPreloaderComponent } from './components/widget-preloader/widget-p
         PreLoaderComponent,
         UiBlockComponent,
         LoadingShadeComponent,
-        WidgetPreloaderComponent,
     ],
     imports: [CommonModule, MatInputModule, MatIconModule],
 })

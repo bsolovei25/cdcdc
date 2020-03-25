@@ -80,8 +80,8 @@ export class SemicircleEnergyComponent extends WidgetPlatform implements OnInit,
     public diagramLogoDanger: string;
     public isWarning: boolean = false;
 
-    public static itemCols: number = 14;
-    public static itemRows: number = 11;
+    protected static itemCols: number = 14;
+    protected static itemRows: number = 11;
 
     constructor(
         protected widgetService: NewWidgetService,

@@ -1,27 +1,23 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { NewUserSettingsService } from '../../services/new-user-settings.service';
 import { Subscription } from 'rxjs';
 import { ScreenSettings } from '../../models/user-settings.model';
-import { ClaimService, EnumClaimScreens } from '../../services/claim.service';
 
 @Component({
     selector: 'evj-indicator-selector',
     templateUrl: './indicator-selector.component.html',
     styleUrls: ['./indicator-selector.component.scss'],
 })
-export class IndicatorSelectorComponent implements OnInit, OnDestroy {
+export class IndicatorSelectorComponent {
     public dataScreen: ScreenSettings[] = [];
-
-    private subscriptions: Subscription[] = [];
-
-    public claimScreens: EnumClaimScreens[] = [];
-    EnumClaimScreens = EnumClaimScreens;
 
     isReadyAdd: boolean = false;
 
     tempScreen: string = '';
 
     newNameScreen: string = '';
+
+    private subscription: Subscription;
 
     public idScreen: number;
 
@@ -33,31 +29,22 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
 
     isShowScreens: boolean = false;
 
-    constructor(private userSettings: NewUserSettingsService, private claimService: ClaimService) {}
-
-    ngOnInit(): void {
-        this.subscriptions.push(
-            this.userSettings.screens$.subscribe((dataW) => {
-                console.log(dataW);
-                this.dataScreen = dataW;
-                this.localSaved = Number(localStorage.getItem('screenid'));
-                this.LoadScreen(this.localSaved);
-                this.nameScreen = this.getActiveScreen();
-                for (const item of this.dataScreen) {
-                    item.updateScreen = false;
-                }
-            }),
-            this.claimService.claimScreens$.subscribe((w) => {
-                this.claimScreens = w;
-            })
-        );
+    constructor(private userSettings: NewUserSettingsService) {
+        this.subscription = this.userSettings.screens$.subscribe((dataW) => {
+            console.log(dataW);
+            this.dataScreen = dataW;
+            this.localSaved = Number(localStorage.getItem('screenid'));
+            this.LoadScreen(this.localSaved);
+            this.nameScreen = this.getActiveScreen();
+            for (const item of this.dataScreen) {
+                item.updateScreen = false;
+            }
+        });
     }
 
     ngOnDestroy(): void {
-        if (this.subscriptions.length > 0) {
-            for (const subscribe of this.subscriptions) {
-                subscribe.unsubscribe();
-            }
+        if (this.subscription) {
+            this.subscription.unsubscribe();
         }
     }
 

@@ -31,8 +31,8 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
 
     data: LineChartData;
 
-    public static itemCols: number = 20;
-    public static itemRows: number = 12;
+    protected static itemCols: number = 20;
+    protected static itemRows: number = 12;
 
     @ViewChild('chart', { static: true }) private chartContainer: ElementRef;
 

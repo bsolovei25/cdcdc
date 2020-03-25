@@ -53,8 +53,8 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
 
     public unitId: number = null;
 
-    public static itemCols: number = 16;
-    public static itemRows: number = 30;
+    protected static itemCols: number = 16;
+    protected static itemRows: number = 30;
 
     constructor(
         protected widgetService: NewWidgetService,
@@ -113,9 +113,7 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
                     await this.shiftService.cancelUsbAction(obj.verifyId);
                     break;
             }
-            if (obj?.message) {
-                this.materialController.openSnackBar(obj?.message);
-            }
+            this.materialController.openSnackBar(obj?.message);
             setTimeout(() => {
                 this.isWindowCardVerifyActive = false;
                 this.isWindowUsbVerifyActive = false;

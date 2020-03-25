@@ -115,7 +115,7 @@ export class ShiftPersonComponent implements OnInit {
                 break;
             case 'accepted':
                 this.dropdownMenu.push('Готов к передаче');
-                if (!this.person.employee.main) {
+                if (true) {
                     this.dropdownMenu.push('Покинул смену');
                     this.dropdownMenu.push('Сделать главным');
                 }
@@ -136,7 +136,7 @@ export class ShiftPersonComponent implements OnInit {
                 }
                 break;
             case 'inProgressPassed':
-                if (!this.person.employee.main) {
+                if (true) {
                     this.dropdownMenu.push('Покинул смену');
                     this.dropdownMenu.push('Сделать главным');
                 }

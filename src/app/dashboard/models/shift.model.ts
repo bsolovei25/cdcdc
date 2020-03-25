@@ -2,8 +2,7 @@ import { IUser } from './events-widget';
 
 export interface IBrigade {
     id: number;
-    number: string;
-    // number: number;
+    number: number;
 }
 
 export interface Employee {

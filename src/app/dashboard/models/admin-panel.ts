@@ -1,4 +1,4 @@
-import { IUser, IUnitEvents } from './events-widget';
+import { IUser } from './events-widget';
 import { IWidgets } from './widget.model';
 import { IWorker } from './worker';
 
@@ -18,7 +18,7 @@ export interface IWorkspace {
 }
 
 export interface IClaim {
-    type?: string;
+    type: string;
     comment?: string;
     id: number;
 }
@@ -37,7 +37,6 @@ export interface IBrigadeAdminPanel {
     brigadeId: number;
     brigadeNumber: string;
     users: IUser[];
-    unit?: IUnitEvents;
 }
 
 export interface IWorkerAdminPanel {
@@ -49,12 +48,6 @@ export interface IWorkerOptionAdminPanel {
     name?: string;
     value: string;
     key: string;
-}
-
-export interface IGroup {
-    id: number;
-    name: string;
-    description: string;
 }
 
 export enum EnumClaims {

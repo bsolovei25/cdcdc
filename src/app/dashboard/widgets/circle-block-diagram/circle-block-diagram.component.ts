@@ -37,8 +37,8 @@ export class CircleBlockDiagramComponent extends WidgetPlatform implements OnIni
 
     public radius: string = '12';
 
-    public static itemCols: number = 15;
-    public static itemRows: number = 17;
+    protected static itemCols: number = 15;
+    protected static itemRows: number = 17;
 
     constructor(
         protected widgetService: NewWidgetService,

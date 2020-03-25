@@ -15,8 +15,8 @@ FROM gitlab.funcoff.club:4567/oaovd/osspu/evj/front/caches:17.03.2020
 #ENV PATH /app/node_modules/.bin:$PATH
 
 # install and cache app dependencies
-COPY ./package.json /app/package.json
-RUN npm install
+#COPY ./package.json /app/package.json
+#RUN npm install
 #ENV NG_CLI_ANALYTICS=ci
 #RUN npm install @angular/cli@9.0.1
 

@@ -10,6 +10,7 @@ import { LineChartData } from '../models/line-chart';
 import { IMachine_MI } from '../models/manual-input.model';
 import { WebSocketSubject } from 'rxjs/internal/observable/dom/WebSocketSubject';
 import { webSocket } from 'rxjs/internal/observable/dom/webSocket';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../@core/service/auth.service';
 import { MaterialControllerService } from './material-controller.service';
 import * as moment from 'moment';
@@ -221,7 +222,6 @@ export class NewWidgetService {
             case 'shift-accept':
             case 'column-chart-stacked':
             case 'events-workspace':
-            case 'table-data':
                 return data;
         }
         console.warn(`unknown widget type ${widgetType}`);

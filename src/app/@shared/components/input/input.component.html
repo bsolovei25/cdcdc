@@ -1,15 +1,7 @@
 <div class="input">
   <mat-form-field class="input__search">
     <mat-label>{{ placeholder }}</mat-label>
-    <input
-      type="search"
-      matInput
-      #input
-      [value]="value"
-      [disabled]="isDisabled"
-      (input)="onInput()"
-      (blur)="onBlur()"
-    />
-    <mat-icon matSuffix *ngIf="!!iconSrc"><img class="icon" [src]="iconSrc"/></mat-icon>
+    <input type="search" matInput #input [value]="value" (input)="onInput()" />
+    <mat-icon matSuffix><img class="icon" [src]="iconSrc"/></mat-icon>
   </mat-form-field>
 </div>

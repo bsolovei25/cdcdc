@@ -1,6 +1,4 @@
 <div class="admin">
-  <evj-widget-preloader *ngIf="isDataLoading" [isLoading]="isDataLoading"></evj-widget-preloader>
-
   <div class="admin__header">
     <div class="header__search">
       <div class="search">
@@ -30,12 +28,25 @@
   </div>
   <div class="admin__worker">
     <div class="worker__column worker__info">
-      <evj-aws-fields
-        [worker]="worker"
-        [workerUnit]="workerUnit"
-        [searchingFieldName]="searchingFieldName"
-        (workerData)="onChangeWorkerData($event)"
-      ></evj-aws-fields>
+      <div class="options scroll-bar">
+        <ng-container *ngFor="let option of options">
+          <ng-container *ngIf="!(option.key==='brigade')"
+            ><evj-aws-card
+              class="card"
+              *ngIf="isValidFieldName(option.name)"
+              [option]="option"
+              (saveChanging)="onFieldChanging($event)"
+            ></evj-aws-card
+          ></ng-container>
+          <ng-container r *ngIf="option.key==='brigade'">
+            <evj-aws-select-card
+              class="card"
+              [option]="option"
+              (saveChanging)="onSelectBrigade($event)"
+            ></evj-aws-select-card>
+          </ng-container>
+        </ng-container>
+      </div>
       <div class="claims">
         <div class="title">Права доступа</div>
         <div
@@ -53,28 +64,11 @@
           Доступные рабочие области
         </div>
       </div>
-      <div class="block" *ngIf="!isCreateNewUser">
-        <evj-aws-block
-          class="block__component"
-          [isLockedUser]="false"
-          (changeLockUser)="onChangeLockWorker()"
-        ></evj-aws-block>
-      </div>
     </div>
     <div class="worker__column worker__main">
       <div class="avatar">
-        <div
-          class="frame"
-          [ngClass]="{'frame-moved':isAlertShowing}"
-          (mouseenter)="isAvatarButtonShowing=true"
-          (mouseleave)="isAvatarButtonShowing=false"
-        >
+        <div class="frame" [ngClass]="{'frame-moved':isAlertShowing}">
           <img [src]="returnPhotoPath()" class="photo" />
-          <div
-            class="photo__add"
-            [ngClass]="{'photo__add_active':isAvatarButtonShowing}"
-            (click)="isPopUpShowing=true"
-          ></div>
         </div>
         <div class="alert" [ngClass]="{'alert-hidden':!isAlertShowing}">
           <div
@@ -99,16 +93,19 @@
         ></evj-button>
       </div>
     </div>
-    <evj-aws-workspaces
-      class="worker__column worker__workspaces scroll-bar"
-      *ngIf="!isClaimsShowing"
-      [allWorkspaces]="allWorkspaces"
-      [workerScreens]="workerScreens"
-      [workerScreensDetached]="workerScreensDetached"
-      [workspacesClaims]="workspacesClaims"
-      [searchingWorkspaceValue]="searchingWorkspaceValue"
-      (workspacesData)="onChangeWorkspacesData()"
-    ></evj-aws-workspaces>
+    <div class="worker__column worker__workspaces scroll-bar" *ngIf="!isClaimsShowing">
+      <div class="cards">
+        <ng-container *ngFor="let workspace of allWorkspaces">
+          <evj-aws-workspace-card
+            *ngIf="isValidWorkspaceName(workspace.screenName)"
+            [isActive]="defineIsWorkspaceActive(workspace)"
+            [workspace]="workspace"
+            [isChangingCardState]="true"
+            (selectedWorkspace)="onSelectWorkspace($event)"
+          ></evj-aws-workspace-card>
+        </ng-container>
+      </div>
+    </div>
     <div class="worker__column worker__claims scroll-bar" *ngIf="isClaimsShowing">
       <div class="title">Права</div>
       <div class="cards">
@@ -132,9 +129,4 @@
       </div>
     </div>
   </div>
-  <evj-aws-avatar
-    class="admin__popup"
-    [ngClass]="{'admin__popup_active':isPopUpShowing}"
-    (closePopUp)="onClosePopUp($event)"
-  ></evj-aws-avatar>
 </div>

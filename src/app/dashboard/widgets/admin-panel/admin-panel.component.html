@@ -15,7 +15,7 @@
 
   <evj-frame-top></evj-frame-top>
 
-  <ng-container *ngIf="!isWorkerSettingsShowed && !isGroupsShowed">
+  <ng-container *ngIf="!isWorkerSettingsShowed;else workerSettings">
     <div
       class="admin-container"
       (mousedown)="$event.stopPropagation()"
@@ -32,22 +32,14 @@
                 (inputedValue)="onSearchWorker($event)"
               ></evj-input>
             </div>
-            <div class="brigades__button">
+            <div class="group__button">
               <evj-button
                 class="insert-component"
                 [isSmallButton]="true"
                 [imgSrc]="groupsButtonIcon"
-                [isActive]="isBrigadesShowed"
+                [isActive]="isGroupShowed"
                 [isChangingState]="true"
                 (click)="onShowBrigades()"
-              ></evj-button>
-            </div>
-            <div class="group__button">
-              <evj-button
-                class="insert-component"
-                [isSmallButton]="false"
-                [textButton]="'Группы'"
-                (click)="onShowGroups()"
               ></evj-button>
             </div>
           </div>
@@ -79,9 +71,9 @@
           <evj-admin-employee
             [searchedWorker]="searchedWorker"
             [workers]="workers"
-            *ngIf="!isBrigadesShowed"
+            *ngIf="!isGroupShowed"
           ></evj-admin-employee>
-          <evj-admin-brigades *ngIf="isBrigadesShowed" [brigades]="brigades"></evj-admin-brigades>
+          <evj-admin-brigades *ngIf="isGroupShowed" [brigades]="brigades"></evj-admin-brigades>
         </div>
         <div class="admin__workspace">
           <evj-admin-workspace></evj-admin-workspace>
@@ -90,7 +82,7 @@
     </div>
   </ng-container>
 
-  <ng-container *ngIf="isWorkerSettingsShowed">
+  <ng-template #workerSettings>
     <evj-admin-worker-settings
       class="admin-container"
       [isCreateNewUser]="isCreateNewWorker"
@@ -98,11 +90,7 @@
       (mousedown)="$event.stopPropagation()"
       (touchstart)="$event.stopPropagation()"
     ></evj-admin-worker-settings>
-  </ng-container>
-
-  <ng-container *ngIf="isGroupsShowed">
-    <evj-admin-groups class="admin-container" (hideGroups)="onHideGroups()"></evj-admin-groups>
-  </ng-container>
+  </ng-template>
 
   <evj-frame-bottom></evj-frame-bottom>
 </div>

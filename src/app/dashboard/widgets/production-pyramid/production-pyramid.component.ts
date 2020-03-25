@@ -25,8 +25,8 @@ export class ProductionPyramidComponent extends WidgetPlatform implements OnInit
         },
     ];
 
-    public static itemCols: number = 35;
-    public static itemRows: number = 16;
+    protected static itemCols: number = 35;
+    protected static itemRows: number = 16;
 
     constructor(
         protected widgetService: NewWidgetService,
