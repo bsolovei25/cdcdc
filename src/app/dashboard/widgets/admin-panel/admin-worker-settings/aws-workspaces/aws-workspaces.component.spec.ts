@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WidgetPreloaderComponent } from './widget-preloader.component';
+import { AwsWorkspacesComponent } from './aws-workspaces.component';
 
-describe('WidgetPreloaderComponent', () => {
-    let component: WidgetPreloaderComponent;
-    let fixture: ComponentFixture<WidgetPreloaderComponent>;
+describe('AwsWorkspacesComponent', () => {
+    let component: AwsWorkspacesComponent;
+    let fixture: ComponentFixture<AwsWorkspacesComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [WidgetPreloaderComponent],
+            declarations: [AwsWorkspacesComponent],
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(WidgetPreloaderComponent);
+        fixture = TestBed.createComponent(AwsWorkspacesComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

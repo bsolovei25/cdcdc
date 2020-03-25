@@ -1,0 +1,13 @@
+<div class="cards">
+  <ng-container *ngFor="let workspace of allWorkspaces">
+    <evj-aws-workspace-card
+      *ngIf="isValidWorkspaceName(workspace.screenName)"
+      [isActive]="defineIsWorkspaceActive(workspace)"
+      [screenId]="defineWorkerScreenId(workspace)"
+      [workspace]="workspace"
+      [isChangingCardState]="true"
+      (selectedWorkspace)="onSelectWorkspace($event)"
+      (selectedWorkspaceClaims)="onSelectWorkspaceClaims($event)"
+    ></evj-aws-workspace-card>
+  </ng-container>
+</div>

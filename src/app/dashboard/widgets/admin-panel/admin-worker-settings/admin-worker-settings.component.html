@@ -30,33 +30,13 @@
   </div>
   <div class="admin__worker">
     <div class="worker__column worker__info">
-      <div class="options scroll-bar">
-        <ng-container *ngFor="let option of inputOptions">
-          <evj-aws-card
-            class="card"
-            *ngIf="isValidFieldName(option.name)"
-            [option]="option"
-            (saveChanging)="onFieldChanging($event)"
-          ></evj-aws-card>
-        </ng-container>
-
-        <evj-aws-select-card
-          class="card"
-          [option]="selectOptions[0]"
-          (saveChanging)="onSelectUnit($event)"
-        ></evj-aws-select-card>
-        <evj-aws-select-card
-          class="card"
-          *ngIf="!!workerUnit"
-          [option]="selectOptions[1]"
-          (saveChanging)="onSelectBrigade($event)"
-        ></evj-aws-select-card>
-
-        <evj-aws-checkbox-card
-          class="card"
-          (checked)="onSetResponsible($event)"
-        ></evj-aws-checkbox-card>
-      </div>
+      <evj-aws-fields
+        [worker]="worker"
+        [workerUnit]="workerUnit"
+        [searchingFieldName]="searchingFieldName"
+        (workerData)="onChangeWorkerData($event)"
+        (responsible)="onSetResponsible($event)"
+      ></evj-aws-fields>
       <div class="claims">
         <div class="title">Права доступа</div>
         <div
@@ -120,21 +100,16 @@
         ></evj-button>
       </div>
     </div>
-    <div class="worker__column worker__workspaces scroll-bar" *ngIf="!isClaimsShowing">
-      <div class="cards">
-        <ng-container *ngFor="let workspace of allWorkspaces">
-          <evj-aws-workspace-card
-            *ngIf="isValidWorkspaceName(workspace.screenName)"
-            [isActive]="defineIsWorkspaceActive(workspace)"
-            [screenId]="defineWorkerScreenId(workspace)"
-            [workspace]="workspace"
-            [isChangingCardState]="true"
-            (selectedWorkspace)="onSelectWorkspace($event)"
-            (selectedWorkspaceClaims)="onSelectWorkspaceClaims($event)"
-          ></evj-aws-workspace-card>
-        </ng-container>
-      </div>
-    </div>
+    <evj-aws-workspaces
+      class="worker__column worker__workspaces scroll-bar"
+      *ngIf="!isClaimsShowing"
+      [allWorkspaces]="allWorkspaces"
+      [workerScreens]="workerScreens"
+      [workerScreensDetached]="workerScreensDetached"
+      [workspacesClaims]="workspacesClaims"
+      [searchingWorkspaceValue]="searchingWorkspaceValue"
+      (workspacesData)="onChangeWorkspacesData()"
+    ></evj-aws-workspaces>
     <div class="worker__column worker__claims scroll-bar" *ngIf="isClaimsShowing">
       <div class="title">Права</div>
       <div class="cards">
@@ -163,4 +138,15 @@
     [ngClass]="{'admin__popup_active':isPopUpShowing}"
     (closePopUp)="onClosePopUp($event)"
   ></evj-aws-avatar>
+  <evj-aws-responsible-alert
+    class="admin__popup"
+    [ngClass]="{'admin__popup_active':isBrigadeResponsibleAlertShowing}"
+    [worker]="worker"
+    [isSetResponsible]="isSetResponsible"
+    (choose)="onCloseResponsibleAlert()"
+  ></evj-aws-responsible-alert>
+  <!-- <evj-aws-password-alert
+    class="admin__popup"
+    [ngClass]="{'admin__popup_active':true}"
+  ></evj-aws-password-alert> -->
 </div>

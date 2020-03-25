@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WidgetPreloaderComponent } from './widget-preloader.component';
+import { AdminGroupsComponent } from './admin-groups.component';
 
-describe('WidgetPreloaderComponent', () => {
-    let component: WidgetPreloaderComponent;
-    let fixture: ComponentFixture<WidgetPreloaderComponent>;
+describe('AdminGroupsComponent', () => {
+    let component: AdminGroupsComponent;
+    let fixture: ComponentFixture<AdminGroupsComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [WidgetPreloaderComponent],
+            declarations: [AdminGroupsComponent],
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(WidgetPreloaderComponent);
+        fixture = TestBed.createComponent(AdminGroupsComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

@@ -13,8 +13,8 @@ export interface ISuspenseMachine {
 }
 
 export interface ITableData {
-    columns: { id: number, caption: string }[],
-    values: { columnId: number, value: string }[][],
+    columns: { id: number; caption: string }[];
+    values: { columnId: number; value: string }[][];
 }
 
 @Component({
@@ -23,9 +23,8 @@ export interface ITableData {
     styleUrls: ['./suspense-machine.component.scss'],
 })
 export class SuspenseMachineComponent extends WidgetPlatform implements OnInit, OnDestroy {
-
     data: ITableData;
-    displayedColumns: { id: number, caption: string }[] = [];
+    displayedColumns: { id: number; caption: string }[] = [];
 
     public static itemCols: number = 20;
     public static itemRows: number = 5;

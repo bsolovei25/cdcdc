@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WidgetPreloaderComponent } from './widget-preloader.component';
+import { AgGroupWorkerCardComponent } from './ag-group-worker-card.component';
 
-describe('WidgetPreloaderComponent', () => {
-    let component: WidgetPreloaderComponent;
-    let fixture: ComponentFixture<WidgetPreloaderComponent>;
+describe('AgGroupWorkerCardComponent', () => {
+    let component: AgGroupWorkerCardComponent;
+    let fixture: ComponentFixture<AgGroupWorkerCardComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [WidgetPreloaderComponent],
+            declarations: [AgGroupWorkerCardComponent],
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(WidgetPreloaderComponent);
+        fixture = TestBed.createComponent(AgGroupWorkerCardComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
