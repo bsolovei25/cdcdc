@@ -57,6 +57,16 @@ export interface IGroup {
     description: string;
 }
 
+export interface IGlobalClaim {
+    claimType: string;
+    description: string;
+    claimCategory: string;
+    claimCategoryName?: string;
+    claimName?: string;
+    specification?: string;
+    value?: string;
+}
+
 export enum EnumClaims {
     'Только чтение' = 1,
     'Модификация',
