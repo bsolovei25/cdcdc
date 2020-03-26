@@ -2,26 +2,41 @@
   <div class="alert">
     <div class="claims">
       <div class="list">
-        <div
-          class="card"
-          *ngFor="let claim of allClaims"
-          [ngClass]="{'card_active':selectClaim.isSelected(claim)}"
-          (click)="selectClaim.select(claim)"
-        >
-          {{claim.claimName}}
-        </div>
+        <ng-container *ngFor="let claim of allClaims">
+          <div
+            class="card"
+            *ngIf="claimsFilter(claim)"
+            [ngClass]="{'card_active':selectClaim.isSelected(claim)}"
+            (click)="selectClaim.select(claim)"
+          >
+            {{claim.claimName}}
+          </div>
+        </ng-container>
       </div>
     </div>
     <div class="items">
       <div class="list">
-        <div
-          class="card"
-          *ngFor="let widget of allWidgets"
-          [ngClass]="{'card_active':selectWidget.isSelected(widget)}"
-          (click)="selectWidget.select(widget)"
-        >
-          {{widget.title}}
-        </div>
+        <ng-container *ngIf="itemsFilter()">
+          <div
+            class="card"
+            *ngFor="let widget of allWidgets"
+            [ngClass]="{'card_active':selectWidget.isSelected(widget)}"
+            (click)="selectWidget.select(widget)"
+          >
+            {{widget.title}}
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="!itemsFilter()">
+          <div
+            class="card"
+            *ngFor="let unit of allUnits"
+            [ngClass]="{'card_active':selectUnit.isSelected(unit)}"
+            (click)="selectUnit.select(unit)"
+          >
+            {{unit.name}}
+          </div>
+        </ng-container>
       </div>
     </div>
     <div class="alert__buttons">

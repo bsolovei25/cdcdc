@@ -4,6 +4,7 @@ import { IWidgets } from '../../../../models/widget.model';
 import { AdminPanelService } from '../../../../services/admin-panel/admin-panel.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { fillDataShape } from '../../../../../@shared/common-functions';
+import { IUnitEvents } from '../../../../models/events-widget';
 
 @Component({
     selector: 'evj-aws-create-claim',
@@ -15,15 +16,29 @@ export class AwsCreateClaimComponent implements OnInit {
 
     public allClaims: IGlobalClaim[] = [];
     public allWidgets: IWidgets[] = [];
+    public allUnits: IUnitEvents[] = [];
 
     public selectClaim: SelectionModel<IGlobalClaim> = new SelectionModel<IGlobalClaim>();
     public selectWidget: SelectionModel<IWidgets> = new SelectionModel<IWidgets>();
+    public selectUnit: SelectionModel<IUnitEvents> = new SelectionModel<IUnitEvents>();
 
     constructor(private adminService: AdminPanelService) {}
 
     ngOnInit(): void {
         this.allClaims = this.adminService.specialClaims;
         this.allWidgets = this.adminService.allWidgets;
+        this.allUnits = this.adminService.units;
+    }
+
+    public claimsFilter(claim: IGlobalClaim): boolean {
+        return !(claim.claimValueType === 'screen');
+    }
+
+    public itemsFilter(): boolean {
+        if (this.selectClaim.hasValue()) {
+            return this.selectClaim.selected[0].claimValueType === 'widget';
+        }
+        return true;
     }
 
     public onBack(): void {
