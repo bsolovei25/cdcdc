@@ -26,6 +26,8 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     public isBrigadeResponsibleAlertShowing: boolean = false;
     public isSetResponsible: boolean = false;
 
+    public isPasswordAlertShowing: boolean = false;
+
     public searchingWorkspaceValue: string = '';
     public searchingFieldName: string = '';
 
@@ -34,6 +36,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     public worker: IUser = null;
     public workerUnit: IUnitEvents = null;
     private workerPhoto: string = null;
+    private newWorkerPassword: string = null;
 
     public allWorkspaces: IWorkspace[] = [];
     public workerScreens: IWorkspace[] = [];
@@ -108,6 +111,15 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     public onChangeWorkspacesData(): void {
         this.showAlert();
+    }
+
+    public onSetWorkerPassword(event: string): void {
+        this.isPasswordAlertShowing = false;
+        if (event && this.isCreateNewUser) {
+            this.showAlert();
+            this.worker.password = event;
+            this.newWorkerPassword = event;
+        }
     }
 
     private async changeWorkspaceClaims(): Promise<void> {

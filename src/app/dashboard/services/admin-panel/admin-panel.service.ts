@@ -2,13 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '../../../services/appConfigService';
-import {
-    IBrigadeAdminPanel,
-    IClaim,
-    IScreen,
-    EnumClaims,
-    IWorkspace,
-} from '../../models/admin-panel';
+import { IBrigadeAdminPanel, IClaim, IScreen, IWorkspace } from '../../models/admin-panel';
 import { IUser, IUnitEvents } from '../../models/events-widget';
 
 @Injectable({
@@ -191,8 +185,10 @@ export class AdminPanelService {
         this.activeWorker$.next(worker);
         if (worker.brigade) {
             const unit = this.getUnitByBrigadeId(worker.brigade.id);
-            this.activeWorkerUnit$.next(unit);
-            this.updateUnitBrigades(unit.id);
+            if (unit) {
+                this.activeWorkerUnit$.next(unit);
+                this.updateUnitBrigades(unit.id);
+            }
         } else {
             this.activeWorkerUnit$.next(null);
             this.activeUnitBrigades$.next([]);
@@ -255,7 +251,7 @@ export class AdminPanelService {
         const brigade: IBrigadeAdminPanel = this.brigades.find(
             (item: IBrigadeAdminPanel) => item.brigadeId === brigadeId
         );
-        return brigade.unit;
+        return brigade ? brigade.unit : null;
     }
 
     public async updateUnitBrigades(unitId: number): Promise<void> {

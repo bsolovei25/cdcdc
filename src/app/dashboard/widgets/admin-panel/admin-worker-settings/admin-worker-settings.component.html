@@ -1,5 +1,6 @@
 <div class="admin">
-  <evj-widget-preloader *ngIf="isDataLoading" [isLoading]="isDataLoading"></evj-widget-preloader>
+  <!-- <evj-widget-preloader *ngIf="isDataLoading" [isLoading]="isDataLoading"></evj-widget-preloader> -->
+  <evj-loading-shade [isLoading]="isDataLoading"></evj-loading-shade>
 
   <div class="admin__header">
     <div class="header__search">
@@ -34,8 +35,10 @@
         [worker]="worker"
         [workerUnit]="workerUnit"
         [searchingFieldName]="searchingFieldName"
+        [isCreateNewUser]="isCreateNewUser"
         (workerData)="onChangeWorkerData($event)"
         (responsible)="onSetResponsible($event)"
+        (password)="isPasswordAlertShowing=true"
       ></evj-aws-fields>
       <div class="claims">
         <div class="title">Права доступа</div>
@@ -136,17 +139,21 @@
   <evj-aws-avatar
     class="admin__popup"
     [ngClass]="{'admin__popup_active':isPopUpShowing}"
+    *ngIf="isPopUpShowing"
     (closePopUp)="onClosePopUp($event)"
   ></evj-aws-avatar>
   <evj-aws-responsible-alert
     class="admin__popup"
     [ngClass]="{'admin__popup_active':isBrigadeResponsibleAlertShowing}"
+    *ngIf="isBrigadeResponsibleAlertShowing"
     [worker]="worker"
     [isSetResponsible]="isSetResponsible"
     (choose)="onCloseResponsibleAlert()"
   ></evj-aws-responsible-alert>
-  <!-- <evj-aws-password-alert
+  <evj-aws-password-alert
     class="admin__popup"
-    [ngClass]="{'admin__popup_active':true}"
-  ></evj-aws-password-alert> -->
+    [ngClass]="{'admin__popup_active':isPasswordAlertShowing}"
+    *ngIf="isPasswordAlertShowing"
+    (confirmed)="onSetWorkerPassword($event)"
+  ></evj-aws-password-alert>
 </div>
