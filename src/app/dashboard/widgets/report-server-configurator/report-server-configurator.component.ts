@@ -87,6 +87,39 @@ export class ReportServerConfiguratorComponent implements OnInit, OnDestroy {
                     isRequred: false,
                     isUnique: true,
                 },
+                {
+                    id: 3,
+                    createdAt: new Date(),
+                    createdBy: new Date(),
+                    referenceTypeId: 1,
+                    name: '3',
+                    columnTypeId: 1,
+                    columnName: 'Дата рождения',
+                    isRequred: false,
+                    isUnique: true,
+                },
+                {
+                    id: 4,
+                    createdAt: new Date(),
+                    createdBy: new Date(),
+                    referenceTypeId: 1,
+                    name: '4',
+                    columnTypeId: 1,
+                    columnName: 'Дата рождения',
+                    isRequred: false,
+                    isUnique: true,
+                },
+                {
+                    id: 5,
+                    createdAt: new Date(),
+                    createdBy: new Date(),
+                    referenceTypeId: 1,
+                    name: '5',
+                    columnTypeId: 1,
+                    columnName: 'Дата рождения',
+                    isRequred: false,
+                    isUnique: true,
+                },
             ],
         },
         {
@@ -178,6 +211,25 @@ export class ReportServerConfiguratorComponent implements OnInit, OnDestroy {
         this.addMenuClick = !this.addMenuClick;
     }
 
+    changeSwap(item): void {
+        let index = 0;
+        this.data.find((el) => {
+            el.columns.find((e) => {
+                if (e === item) {
+                    e.isRequred = !e.isRequred;
+
+                    if (el.columns[index].isRequred === true) {
+                        el.columns.unshift(...el.columns.splice(index, 1));
+                    } else if(el.columns[index].isRequred === false){
+                        el.columns.splice(index, 1);
+                        el.columns.push(e);
+                    }
+                }
+                index++;
+            });
+        });
+    }
+
     pushBlockInRef(): void {
         this.clickPushRef = true;
         this.addMenuClick = false;
@@ -208,10 +260,9 @@ export class ReportServerConfiguratorComponent implements OnInit, OnDestroy {
             isUnique: false,
             columnTypeId: 1,
         };
-        if (this.newFolder.trim().length > 0 && this.newFolder !== undefined) {
-            this.data[this.indexColumn].columns = [];
+        if (this.newRecord.trim().length > 0 && this.newRecord !== undefined) {
             this.data[this.indexColumn].columns.push(object);
-            this.newFolder = null;
+            this.newRecord = null;
         }
     }
 }
