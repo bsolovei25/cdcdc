@@ -1,4 +1,5 @@
 import { LineChartData } from './line-chart';
+import { IGlobalClaim } from './admin-panel';
 
 export interface EventsWidgetNotificationPreview {
     id: number;
@@ -92,6 +93,7 @@ export interface IUser {
     displayName?: string;
     position?: WorkerPositionType;
     photoId?: string;
+    claims?: IGlobalClaim[];
 }
 
 export type WorkerPositionType = 'common' | 'responsible';

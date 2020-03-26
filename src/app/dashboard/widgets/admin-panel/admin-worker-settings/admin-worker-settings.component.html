@@ -114,21 +114,21 @@
       (workspacesData)="onChangeWorkspacesData()"
     ></evj-aws-workspaces>
     <div class="worker__column worker__claims scroll-bar" *ngIf="isClaimsShowing">
-      <div class="title">Права</div>
+      <div class="title">Общие права</div>
       <div class="cards">
         <evj-aws-claim-card
-          [name]="'Высокий уровень доступа'"
-          [isActive]="false"
+          *ngFor="let claim of allGeneralClaims"
+          [name]="claim.description"
+          [isActive]="checkForActiveClaim(claim.claimType)"
           [isChangingCardState]="true"
-          (click)="onSelectClaim()"
+          (click)="onSelectClaim(claim)"
         ></evj-aws-claim-card>
+      </div>
+      <div class="title title__special">Специальные права</div>
+      <div class="cards cards__special">
         <evj-aws-claim-card
-          [name]="'Открытый доступ'"
-          [isActive]="true"
-          [isChangingCardState]="true"
-        ></evj-aws-claim-card>
-        <evj-aws-claim-card
-          [name]="'Доступ с ограничениями'"
+          *ngFor="let claim of allGeneralClaims"
+          [name]="claim.description"
           [isActive]="false"
           [isChangingCardState]="true"
           (click)="onSelectClaim()"
