@@ -124,7 +124,7 @@ import { AwsAvatarComponent } from './widgets/admin-panel/admin-worker-settings/
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { AwsFieldsComponent } from './widgets/admin-panel/admin-worker-settings/aws-fields/aws-fields.component';
 import { AwsWorkspacesComponent } from './widgets/admin-panel/admin-worker-settings/aws-workspaces/aws-workspaces.component';
-import { AdminGroupsComponent } from './widgets/admin-panel/admin-groups/admin-groups.components';
+import { AdminGroupsComponent } from './widgets/admin-panel/admin-groups/admin-groups.component';
 import { AgGroupCardComponent } from './widgets/admin-panel/admin-groups/ag-group-card/ag-group-card.component';
 import { AgGroupWorkerCardComponent } from './widgets/admin-panel/admin-groups/ag-group-worker-card/ag-group-worker-card.component';
 import { AwsResponsibleAlertComponent } from './widgets/admin-panel/admin-worker-settings/aws-responsible-alert/aws-responsible-alert.component';
