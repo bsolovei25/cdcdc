@@ -151,6 +151,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             this.workerScreens.splice(index, 1);
         }
     }
+}
 
     private addWorkspacesToWorker(): number[] {
         const idArray: number[] = [];
