@@ -5,7 +5,7 @@ import {
     IScreen,
     IBrigadeAdminPanel,
 } from '../../../models/admin-panel';
-import { IUser } from '../../../models/events-widget';
+import { IUser, IUnitEvents } from '../../../models/events-widget';
 import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
 import { Subscription } from 'rxjs';
 import { fillDataShape } from '../../../../@shared/common-functions';
@@ -149,9 +149,8 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                 (item: IScreen) => item.screen.id === wsClaim.workspaceId
             );
             this.workerScreens.splice(index, 1);
-        }
+        });
     }
-}
 
     private addWorkspacesToWorker(): number[] {
         const idArray: number[] = [];
