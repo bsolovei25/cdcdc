@@ -395,8 +395,6 @@ input {
     &__block {
       display: flex;
       padding-left: 20px;
-
-
     }
 
     &__button-add {
@@ -517,7 +515,7 @@ input {
       width: 40%;
     }
 
-    &__title-check{
+    &__title-check {
       display: flex;
       width: 20%;
     }
@@ -630,11 +628,11 @@ input {
         background: var(--color-bg-main);
       }
 
-      .notActiveItem{
+      .notActiveItem {
         color: var(--color-text-sub);
       }
 
-      .notActiveCheck{
+      .notActiveCheck {
         border: 1px solid var(--color-text-sub);
       }
     }

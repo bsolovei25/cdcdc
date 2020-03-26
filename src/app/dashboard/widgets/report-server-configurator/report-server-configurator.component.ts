@@ -220,7 +220,7 @@ export class ReportServerConfiguratorComponent implements OnInit, OnDestroy {
 
                     if (el.columns[index].isRequred === true) {
                         el.columns.unshift(...el.columns.splice(index, 1));
-                    } else if(el.columns[index].isRequred === false){
+                    } else if (el.columns[index].isRequred === false) {
                         el.columns.splice(index, 1);
                         el.columns.push(e);
                     }
