@@ -32,6 +32,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
 
     public isGroupShowed: boolean = false;
     public isWorkerSettingsShowed: boolean = false;
+    public isGroupsShowed: boolean = false;
     public isCreateNewWorker: boolean = false;
 
     //#endregion

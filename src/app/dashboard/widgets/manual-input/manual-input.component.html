@@ -61,7 +61,14 @@
         <div class="container-header">
           <div class="container-header__button-list" (click)="onShowAllSettings()">
             <svg-icon
+              *ngIf="openAllSettings"
               src="./assets/icons/widgets/manual-input/arrow_down.svg"
+              [svgStyle]="{ 'width.px':10, 'height.px':10 }"
+            ></svg-icon>
+
+            <svg-icon
+              *ngIf="!openAllSettings"
+              src="./assets/icons/widgets/manual-input/arrow_right.svg"
               [svgStyle]="{ 'width.px':10, 'height.px':10 }"
             ></svg-icon>
           </div>
@@ -98,7 +105,14 @@
               <div class="machine-name" (click)="onShowMachine(machine)">
                 <div class="machine-name__button">
                   <svg-icon
+                    *ngIf="machine.open"
                     src="./assets/icons/widgets/manual-input/arrow_down.svg"
+                    [svgStyle]="{ 'width.px':10, 'height.px':10 }"
+                  ></svg-icon>
+
+                  <svg-icon
+                    *ngIf="!machine.open"
+                    src="./assets/icons/widgets/manual-input/arrow_right.svg"
                     [svgStyle]="{ 'width.px':10, 'height.px':10 }"
                   ></svg-icon>
                 </div>
@@ -118,7 +132,14 @@
                     <div class="item-name" (click)="onShowItemMachine(item)">
                       <div class="item-name__button">
                         <svg-icon
+                          *ngIf="item.open"
                           src="./assets/icons/widgets/manual-input/arrow_down.svg"
+                          [svgStyle]="{ 'width.px':10, 'height.px':10 }"
+                        ></svg-icon>
+
+                        <svg-icon
+                          *ngIf="!item.open"
+                          src="./assets/icons/widgets/manual-input/arrow_right.svg"
                           [svgStyle]="{ 'width.px':10, 'height.px':10 }"
                         ></svg-icon>
                       </div>

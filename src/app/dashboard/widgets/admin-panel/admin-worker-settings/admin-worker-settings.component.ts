@@ -25,14 +25,22 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     public isCheckBoxClicked: boolean = false;
 
-    private searchingWorkspaceValue: string = '';
-    private searchingFieldName: string = '';
+    public isBrigadeResponsibleAlertShowing: boolean = false;
+    public isSetResponsible: boolean = false;
+
+    public isPasswordAlertShowing: boolean = false;
+
+    public searchingWorkspaceValue: string = '';
+    public searchingFieldName: string = '';
 
     public searchIcon: string = 'assets/icons/search-icon.svg';
 
     public options: IWorkerOptionAdminPanel[];
 
     public worker: IUser = null;
+    public workerUnit: IUnitEvents = null;
+    private workerPhoto: string = null;
+    private newWorkerPassword: string = null;
 
     public allWorkspaces: IWorkspace[] = [];
     public workerScreens: IWorkspace[] = [];
@@ -80,10 +88,15 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                 ];
             }),
             this.adminService.activeWorkerScreens$.subscribe((workerScreens: IScreen[]) => {
-                workerScreens.forEach((item: IScreen) => {
-                    this.workerScreens.push(item.screen);
-                });
-                this.workerScreensDetached = workerScreens;
+                if (workerScreens) {
+                    workerScreens.forEach((item: IScreen) => {
+                        this.workerScreens.push(item.screen);
+                    });
+                    this.workerScreensDetached = workerScreens;
+                } else {
+                    this.workerScreens = [];
+                    this.workerScreensDetached = [];
+                }
             }),
             this.adminService.getAllScreens().subscribe((data: IWorkspace[]) => {
                 this.allWorkspaces = data;
@@ -111,18 +124,29 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         return workspaceName.toLowerCase().includes(this.searchingWorkspaceValue);
     }
 
-    public defineIsWorkspaceActive(workspace: IWorkspace): boolean {
-        return !!this.workerScreens.find((item: IWorkspace) => item.id === workspace.id);
+    public onSetResponsible(event: boolean): void {
+        this.showAlert();
+        this.isBrigadeResponsibleAlertShowing = true;
+        this.isSetResponsible = event;
     }
 
-    public onSelectWorkspace(event: IWorkspace): void {
-        this.isCheckBoxClicked = false;
-        this.isAlertShowing = true;
-        if (!this.defineIsWorkspaceActive(event)) {
-            this.workerScreens.push(event);
-        } else {
-            const index: number = this.workerScreens.findIndex(
-                (item: IWorkspace) => item.id === event.id
+    public onChangeWorkspacesData(): void {
+        this.showAlert();
+    }
+
+    public onSetWorkerPassword(event: string): void {
+        this.isPasswordAlertShowing = false;
+        if (event && this.isCreateNewUser) {
+            this.showAlert();
+            this.worker.password = event;
+            this.newWorkerPassword = event;
+        }
+    }
+
+    private async changeWorkspaceClaims(): Promise<void> {
+        this.workspacesClaims.forEach(async (wsClaim) => {
+            const screen: IScreen = this.workerScreensDetached.find(
+                (item: IScreen) => item.screen.id === wsClaim.workspaceId
             );
             this.workerScreens.splice(index, 1);
         }
@@ -158,6 +182,10 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         this.isCheckBoxClicked = false;
         this.isAlertShowing = true;
         this.worker.brigade = { id: brigade.id, number: brigade.number.toString() };
+    }
+
+    public onCloseResponsibleAlert(): void {
+        this.isBrigadeResponsibleAlertShowing = false;
     }
 
     public onSelectClaim(): void {
