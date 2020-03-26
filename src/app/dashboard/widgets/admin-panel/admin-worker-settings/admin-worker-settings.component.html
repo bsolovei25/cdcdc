@@ -130,8 +130,8 @@
         <evj-aws-claim-card
           *ngFor="let claim of workerSpecialClaims"
           [name]="claim.claimName"
-          [isActive]="true"
           [isChangingCardState]="true"
+          [isSpecialClaim]="true"
           (click)="onSelectSpecialClaim(claim)"
         ></evj-aws-claim-card>
       </div>

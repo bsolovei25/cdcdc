@@ -331,7 +331,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             this.isDataLoading = true;
             try {
                 this.worker.displayName = this.adminService.generateDisplayName(this.worker);
-                this.worker.claims = this.workerGeneralClaims;
+                this.worker.claims = this.workerGeneralClaims.concat(this.workerSpecialClaims);
 
                 if (this.workerPhoto) {
                     this.worker.photoId = await this.adminService.pushWorkerPhoto(

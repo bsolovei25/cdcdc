@@ -51,5 +51,11 @@ export class AwsCreateClaimComponent implements OnInit {
             claim.value = this.selectWidget.selected[0].id;
             this.createdClaim.emit(claim);
         }
+
+        if (this.selectClaim.hasValue() && this.selectUnit.hasValue()) {
+            const claim: IGlobalClaim = fillDataShape(this.selectClaim.selected[0]);
+            claim.value = this.selectUnit.selected[0].id.toString();
+            this.createdClaim.emit(claim);
+        }
     }
 }
