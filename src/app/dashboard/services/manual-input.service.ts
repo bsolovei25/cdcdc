@@ -184,4 +184,11 @@ export class ManualInputService {
             snackBarBlock.className = snackBarBlock.className.replace('show', '');
         }
     }
+
+
+    async getManualInput(id: string): Promise<IMachine_MI[]> {
+        return await this.http
+            .get<IMachine_MI[]>(this.restUrl + '/api/manualinput/ManualInputData/' + id)
+            .toPromise();
+    }
 }

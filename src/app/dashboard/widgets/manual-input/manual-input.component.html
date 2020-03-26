@@ -38,7 +38,7 @@
           <div class="set-buttons" #truckScroll>
             <div
               class="set-button"
-              *ngFor="let machine of Data"
+              *ngFor="let machine of data"
               (click)="onSettings(machine)"
               [ngClass]="{'active': machine.active}"
             >
@@ -101,7 +101,7 @@
         </div>
         <div class="container" id="container">
           <ng-container *ngIf="allSettings">
-            <ng-container *ngFor="let machine of Data">
+            <ng-container *ngFor="let machine of data">
               <div class="machine-name" (click)="onShowMachine(machine)">
                 <div class="machine-name__button">
                   <svg-icon

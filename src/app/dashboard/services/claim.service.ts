@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
+import { AppConfigService } from '../../services/appConfigService';
+import { IUnits } from '../models/admin-shift-schedule';
 
 export enum EnumClaimWidgets {
     add = 'add',
@@ -13,6 +15,18 @@ export enum EnumClaimScreens {
     edit = 'edit',
     delete = 'delete',
 }
+
+export interface IClaimAll {
+    data: {
+        aimType: string;
+        value: string;
+        description: string;
+        claimCategory: string;
+        claimCategoryName: 'Разрешить' | 'Запретить';
+        claimName: string;
+        specification: string;
+    }[];
+}
 @Injectable({
     providedIn: 'root',
 })
@@ -24,7 +38,10 @@ export class ClaimService {
         EnumClaimScreens[]
     >([]);
 
-    constructor(public http: HttpClient) {
+    private readonly restUrl: string;
+
+    constructor(public http: HttpClient, configService: AppConfigService) {
+        this.restUrl = configService.restUrl;
         this.getCliam();
     }
 
@@ -40,5 +57,28 @@ export class ClaimService {
             EnumClaimScreens.edit,
             EnumClaimScreens.delete,
         ]);
+    }
+
+
+    async getClaimAll(): Promise<IClaimAll> {
+        try {
+            return this.http
+                .get<IClaimAll>(
+                    this.restUrl + `/api/user-management/claim/all`
+                )
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async getUnits(): Promise<IUnits[]> {
+        try {
+            return this.http
+                .get<IUnits[]>(this.restUrl + `/api/user-management/units/all`)
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
     }
 }
