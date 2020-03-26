@@ -120,6 +120,15 @@ import { TimeDataPickerComponent } from './components/time-data-picker/time-data
 import { ReferenceComponent } from './widgets/reference/reference.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ReportServerConfiguratorComponent } from './widgets/report-server-configurator/report-server-configurator.component';
+import { AwsAvatarComponent } from './widgets/admin-panel/admin-worker-settings/aws-avatar/aws-avatar.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { AwsFieldsComponent } from './widgets/admin-panel/admin-worker-settings/aws-fields/aws-fields.component';
+import { AwsWorkspacesComponent } from './widgets/admin-panel/admin-worker-settings/aws-workspaces/aws-workspaces.component';
+import { AdminGroupsComponent } from './widgets/admin-panel/admin-groups/admin-groups.component';
+import { AgGroupCardComponent } from './widgets/admin-panel/admin-groups/ag-group-card/ag-group-card.component';
+import { AgGroupWorkerCardComponent } from './widgets/admin-panel/admin-groups/ag-group-worker-card/ag-group-worker-card.component';
+import { AwsResponsibleAlertComponent } from './widgets/admin-panel/admin-worker-settings/aws-responsible-alert/aws-responsible-alert.component';
+import { AwsPasswordAlertComponent } from './widgets/admin-panel/admin-worker-settings/aws-password-alert/aws-password-alert.component';
 
 @NgModule({
     declarations: [
@@ -227,6 +236,14 @@ import { ReportServerConfiguratorComponent } from './widgets/report-server-confi
         TimeDataPickerComponent,
         ReferenceComponent,
         ReportServerConfiguratorComponent,
+        AwsAvatarComponent,
+        AwsFieldsComponent,
+        AwsWorkspacesComponent,
+        AdminGroupsComponent,
+        AgGroupCardComponent,
+        AgGroupWorkerCardComponent,
+        AwsResponsibleAlertComponent,
+        AwsPasswordAlertComponent,
     ],
     entryComponents: [
         LineChartComponent,

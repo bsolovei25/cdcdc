@@ -51,21 +51,9 @@
       <div class="table__body scroll-bar">
         <table>
           <tbody>
-            <tr *ngFor="let item of data" class="table__item">
-              <td class="item item__date">
-                {{ item.date | date:'dd-mm-yyyy' }}
-              </td>
-              <td class="item item__production">{{ item.production }}</td>
-              <td class="item item__equipment">{{ item.equipment }}</td>
-              <td class="item item__suspenseBreakpoint">
-                {{ item.suspenseBreakpoint }}
-              </td>
-              <td class="item item__suspenseDuration">
-                {{ item.suspenseDuration }}
-              </td>
-              <td class="item item__suspenseCause">{{ item.suspenseCause }}</td>
-              <td class="item item__suspenseRelated">
-                {{ item.suspenseRelated }}
+            <tr *ngFor="let item of data.values" class="table__item">
+              <td class="item item__date" *ngFor="let item2 of item">
+                {{ getValue(item2.value) }}
               </td>
             </tr>
           </tbody>
