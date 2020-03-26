@@ -32,6 +32,7 @@ export class PetroleumProductsMovementComponent extends WidgetPlatform implement
     }
 
     public ngOnInit(): void {
+        console.log(new Date(1585240500000));
         console.warn(this.isMock);
         super.widgetInit();
         this.subscriptions.push(
@@ -55,13 +56,13 @@ export class PetroleumProductsMovementComponent extends WidgetPlatform implement
     }
 
     private async initPetroleumMovement(): Promise<void> {
+        this.petroleumService.isLoad$.next(true);
         await this.petroleumService.setClient();
-        this.petroleumService.transfers$.next(
-          await this.petroleumService
-            .getTransfers(null, null, true, this.petroleumService.client)
-        );
+        await this.petroleumService
+            .getTransfers(null, null, true, this.petroleumService.client);
         const objects = await this.petroleumService.getObjects(this.petroleumService.client);
         this.petroleumService.objectsAll$.next(objects);
+        this.petroleumService.isLoad$.next(false);
     }
 
     // onChanged(type: string): void {

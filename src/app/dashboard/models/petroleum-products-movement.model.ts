@@ -12,6 +12,7 @@ export interface ITransfer {
     destinationClient: string;
     deltaMass: number;
     isActive?: boolean;
+    operationType?: OperationType;
 }
 
 export interface IPetroleumObject {
@@ -56,3 +57,5 @@ export type ObjectStatus = 'in' | 'out' | 'repair' | 'hold' | 'inout';
 export type ObjectType = 'Unit' | 'Tank';
 
 export type ObjectDirection = 'enter' | 'exit';
+
+export type  OperationType = 'Exist' | 'New';

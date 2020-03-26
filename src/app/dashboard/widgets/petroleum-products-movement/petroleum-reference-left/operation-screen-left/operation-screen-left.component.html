@@ -13,7 +13,7 @@
     </div>
   </div>
   <div *ngFor="let item of tanks" [class.reference_notActive]="!isShowTank">
-    <div class="click_button" [class.click_button__active]="item.isActive">
+    <div class="click_button" [class.click_button__active]="item.isActive" (click)="objectClick(item.objectName)">
       <div class="button_name">{{item.objectName}}</div>
       <div class="button_icon">
         <svg-icon
@@ -36,7 +36,7 @@
     </div>
   </div>
   <div *ngFor="let item of units" [class.reference_notActive]="!isShowFacilities">
-    <div class="click_button" [class.click_button__active]="item.isActive">
+    <div class="click_button" [class.click_button__active]="item.isActive" (click)="objectClick(item.objectName)">
       <div class="button_name">{{item.objectName}}</div>
       <div class="button_icon">
         <svg-icon

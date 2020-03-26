@@ -4,6 +4,7 @@ import { NewWidgetService } from '../../../services/new-widget.service';
 import { PlatformLocation } from '@angular/common';
 import { UnityLoader } from '../../dispatcher-screen/UnityLoader';
 import { PetroleumScreenService } from '../../../services/petroleum-screen.service';
+import { ITransfer, ObjectType } from '../../../models/petroleum-products-movement.model';
 
 @Component({
     selector: 'evj-petroleum-unity',
@@ -58,6 +59,38 @@ export class PetroleumUnityComponent implements OnInit, AfterViewInit, OnDestroy
         this.resize();
     }
 
+    @HostListener('document:UnityMotionAccounting_DeleteTransfer', ['$event', '$event.detail.param1'])
+    public DeleteTransfer(event, param1): void {
+        console.log(param1);
+        this.petroleumService.deleteTransfer(param1);
+    }
+
+    @HostListener('document:UnityMotionAccounting_SaveTransfer', ['$event', '$event.detail.param1'])
+    public SaveTransfer(event, param1: string): void {
+        console.log('save-transfer');
+        console.log(param1);
+        this.petroleumService.saveTransfer();
+    }
+
+    @HostListener('document:UnityMotionAccounting_CreateTransfer', ['$event'])
+    public CreateTransfer(event): void {
+        console.log('create-transfer');
+    }
+
+    @HostListener('document:UnityMotionAccounting_SetTime', ['$event', '$event.detail.param1', '$event.detail.param2'])
+    public SetTimeTransfer(event, param1: string, param2: number): void {
+        const isSource = (param1.toLowerCase() === 'true');
+        const dateTime = new Date(param2);
+        this.petroleumService.setTime(isSource, dateTime);
+    }
+
+    @HostListener('document:UnityMotionAccounting_SetProduct', ['$event', '$event.detail.param1', '$event.detail.param2'])
+    public SetProductTransfer(event, param1: string, param2: string): void {
+        const isSource = (param1.toLowerCase() === 'true');
+        const productName = param2;
+        this.petroleumService.setProduct(isSource, productName);
+    }
+
     @HostListener('document:UnityMotionAccounting_Start', ['$event', '$event.detail.param1'])
     public async OnUnityStart(event, param1): Promise<void> {
         this.isStart = true;
@@ -65,11 +98,27 @@ export class PetroleumUnityComponent implements OnInit, AfterViewInit, OnDestroy
             return;
         }
         this.petroleumService.currentTransfer.subscribe(
-            ref => {
-                console.log('unity');
-                console.log(ref);
-            }
+            ref => this.NextTransferHandler(ref)
         );
+    }
+
+    private async NextTransferHandler(ref: ITransfer): Promise<void> {
+        const sourceType: ObjectType = this.petroleumService.objectsSource$.getValue()?.find(item => item.isActive)?.objectType ?? 'Tank';
+        const destinationType: ObjectType = this.petroleumService.objectsReceiver$.getValue()?.find(item => item.isActive)?.objectType ?? 'Tank';
+        const sourceUnitProducts = sourceType === 'Unit' ? await this.petroleumService.getAvailableProducts(ref.sourceName) : null;
+        const destinationUnitProducts = sourceType === 'Unit' ? await this.petroleumService.getAvailableProducts(ref.destinationName) : null;
+        const additional = {
+            startTime: new Date(ref.startTime).getTime(),
+            endTime: new Date(ref.endTime).getTime(),
+            sourceType,
+            destinationType,
+            sourceUnitProducts,
+            destinationUnitProducts,
+            operationType: 'Exist'
+        };
+        const req = {...ref, ...additional};
+        console.log(JSON.stringify(req));
+        this.CallUnityScript('Scripts', 'LoadTransfer', JSON.stringify(req));
     }
 
     private async InitUnity(): Promise<void> {

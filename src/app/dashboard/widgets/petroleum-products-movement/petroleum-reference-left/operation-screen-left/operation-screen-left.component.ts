@@ -76,4 +76,8 @@ export class OperationScreenLeftComponent implements OnInit {
             }
         );
     }
+
+    public async objectClick(objectName: string): Promise<void> {
+        await this.petroleumService.chooseObject(objectName, true);
+    }
 }

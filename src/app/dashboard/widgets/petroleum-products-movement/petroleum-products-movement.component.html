@@ -15,6 +15,7 @@
       (mousedown)="$event.stopPropagation()"
       (touchstart)="$event.stopPropagation()"
     >
+      <evj-loading-shade [isLoading]="petroleumService.isLoad$ | async"></evj-loading-shade>
       <div class="blocks">
         <div class="components">
           <div class="left_block">
