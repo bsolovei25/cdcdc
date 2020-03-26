@@ -131,6 +131,7 @@ import { AwsResponsibleAlertComponent } from './widgets/admin-panel/admin-worker
 import { AwsPasswordAlertComponent } from './widgets/admin-panel/admin-worker-settings/aws-password-alert/aws-password-alert.component';
 import { ReferenceComponent } from './widgets/reference/reference.component';
 import { ReportServerConfiguratorComponent } from './widgets/report-server-configurator/report-server-configurator.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
     declarations: [
@@ -322,6 +323,7 @@ import { ReportServerConfiguratorComponent } from './widgets/report-server-confi
         ReactiveFormsModule,
         MatCheckboxModule,
         ImageCropperModule,
+        DragDropModule,
     ],
     bootstrap: [],
     providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }],

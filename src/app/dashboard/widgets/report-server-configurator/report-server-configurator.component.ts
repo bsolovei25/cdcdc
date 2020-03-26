@@ -212,22 +212,38 @@ export class ReportServerConfiguratorComponent implements OnInit, OnDestroy {
     }
 
     changeSwap(item): void {
-        let index = 0;
+        ////ОПТИМИЗИРОВАТЬ (!!!!)
+        let index1 = 0;
+        let index2 = 0;
+        let index3 = 0;
+        let index4 = 0;
+        let index5 = 0;
         this.data.find((el) => {
             el.columns.find((e) => {
                 if (e === item) {
                     e.isRequred = !e.isRequred;
-
-                    if (el.columns[index].isRequred === true) {
-                        el.columns.unshift(...el.columns.splice(index, 1));
-                    } else if (el.columns[index].isRequred === false) {
-                        el.columns.splice(index, 1);
-                        el.columns.push(e);
-                    }
+                    index3 = index2;
+                    index4 = index1;
                 }
-                index++;
+                index2++;
             });
+            index1++;
+            index2 = 0;
         });
+
+        for (let item of this.data[index4].columns) {
+            if (item.isRequred) {
+                index5++;
+            }
+        }
+
+        if (this.data[index4].columns[index3].isRequred === true) {
+            this.data[index4].columns.splice(index3, 1);
+            this.data[index4].columns.splice(index5 - 1, 0, item);
+        } else if (this.data[index4].columns[index3].isRequred === false) {
+            this.data[index4].columns.splice(index3, 1);
+            this.data[index4].columns.push(item);
+        }
     }
 
     pushBlockInRef(): void {
