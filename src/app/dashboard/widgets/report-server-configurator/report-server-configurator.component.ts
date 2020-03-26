@@ -151,6 +151,8 @@ export class ReportServerConfiguratorComponent implements OnInit, OnDestroy {
 
     public connectedTo: any = [];
 
+    public saveDate: any = [];
+
     constructor(
         public widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,
@@ -170,7 +172,9 @@ export class ReportServerConfiguratorComponent implements OnInit, OnDestroy {
         }
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.saveDate = this.data;
+    }
 
     ngOnDestroy() {
         if (this.subscriptions) {
