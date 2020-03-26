@@ -183,7 +183,6 @@ export class ReportServerConfiguratorComponent implements OnInit, OnDestroy {
         this.addMenuClick = false;
     }
 
-
     pushBlockInRec(): void {
         this.clickPushRec = true;
         this.addMenuClick = false;
@@ -194,10 +193,7 @@ export class ReportServerConfiguratorComponent implements OnInit, OnDestroy {
         const object = {
             name: this.newFolder,
         };
-        if (
-            this.newFolder.trim().length > 0 &&
-            this.newFolder !== undefined
-        ) {
+        if (this.newFolder.trim().length > 0 && this.newFolder !== undefined) {
             this.data.push(object);
             this.newFolder = null;
         }
@@ -212,10 +208,7 @@ export class ReportServerConfiguratorComponent implements OnInit, OnDestroy {
             isUnique: false,
             columnTypeId: 1,
         };
-        if (
-            this.newFolder.trim().length > 0 &&
-            this.newFolder !== undefined
-        ) {
+        if (this.newFolder.trim().length > 0 && this.newFolder !== undefined) {
             this.data[this.indexColumn].columns = [];
             this.data[this.indexColumn].columns.push(object);
             this.newFolder = null;

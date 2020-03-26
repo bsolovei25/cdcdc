@@ -24,8 +24,12 @@
         <div class="title-reference">Наименование справочника</div>
         <div class="reference-container">
           <div *ngFor="let item of data; let i = index">
-            <div class="reference-container__block"  [class.block-active]="item.open">
-              <div class="reference-container__block-info" [class.block-info-active]="item.open" (click)="onClickReference(item, i)">
+            <div class="reference-container__block" [class.block-active]="item.open">
+              <div
+                class="reference-container__block-info"
+                [class.block-info-active]="item.open"
+                (click)="onClickReference(item, i)"
+              >
                 <div class="reference-container__button">
                   <svg-icon
                     *ngIf="item.open"
@@ -34,15 +38,28 @@
                   ></svg-icon>
 
                   <svg-icon
-                  *ngIf="!item.open"
-                  src="./assets/icons/widgets/manual-input/arrow_right.svg"
-                  [svgStyle]="{ 'width.px':10, 'height.px':10 }"
-                ></svg-icon>
+                    *ngIf="!item.open"
+                    src="./assets/icons/widgets/manual-input/arrow_right.svg"
+                    [svgStyle]="{ 'width.px':10, 'height.px':10 }"
+                  ></svg-icon>
                 </div>
                 <div class="reference-container__name">{{item.name}}</div>
               </div>
-              <div cdkDropList id="{{item.name}}" [cdkDropListData]="item.columns" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="connectedTo" [@Branch]="(item.open) ? 'expanded' : 'collapsed'">
-                <div class="reference-container__block-contant" *ngFor="let i of item.columns" cdkDrag (click)="onClickItemReference(i)" [class.block-info-active]="i.open">
+              <div
+                cdkDropList
+                id="{{item.name}}"
+                [cdkDropListData]="item.columns"
+                (cdkDropListDropped)="drop($event)"
+                [cdkDropListConnectedTo]="connectedTo"
+                [@Branch]="(item.open) ? 'expanded' : 'collapsed'"
+              >
+                <div
+                  class="reference-container__block-contant"
+                  *ngFor="let i of item.columns"
+                  cdkDrag
+                  (click)="onClickItemReference(i)"
+                  [class.block-info-active]="i.open"
+                >
                   {{i.name}}
                 </div>
                 <div *ngIf="clickPushRec" class="reference-container__add-block">
@@ -99,7 +116,10 @@
                 <input type="text" />
               </div>
             </div>
-            <div class="bottom-reference-left__add-menu" [class.bottom-reference-left__add-menu-active]="addMenuClick">
+            <div
+              class="bottom-reference-left__add-menu"
+              [class.bottom-reference-left__add-menu-active]="addMenuClick"
+            >
               <div class="button" (click)="pushBlockInRef()">Добавить раздел</div>
               <div class="button" (click)="pushBlockInRec()">Добавить отчет</div>
             </div>
@@ -109,18 +129,14 @@
       <div class="reference-right">
         <div class="title-reference" [class.isLongBlock]="isLongBlock">
           <!--NG-CONTAINER FOR TITLE-->
-          <div
-            class="title-reference__title-name"
-          >
+          <div class="title-reference__title-name">
             <div class="title-reference__title-name-fio">
               Наименование параметра
             </div>
           </div>
-          <div
-            class="title-reference__title-type"
-          >
+          <div class="title-reference__title-type">
             <div class="title-reference__title-type-date">
-             Показатель параметров
+              Показатель параметров
             </div>
           </div>
         </div>

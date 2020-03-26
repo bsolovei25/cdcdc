@@ -300,7 +300,5 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
         this.data.splice(indexDelete, 1);
     }
 
-    editReference(item): void{
-        
-    }
+    editReference(item): void {}
 }
