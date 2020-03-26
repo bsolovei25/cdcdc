@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="alert">
+    <div class="claims">
+      <div class="list">
+        <div
+          class="card"
+          *ngFor="let claim of allClaims"
+          [ngClass]="{'card_active':selectClaim.isSelected(claim)}"
+          (click)="selectClaim.select(claim)"
+        >
+          {{claim.claimName}}
+        </div>
+      </div>
+    </div>
+    <div class="items">
+      <div class="list">
+        <div
+          class="card"
+          *ngFor="let widget of allWidgets"
+          [ngClass]="{'card_active':selectWidget.isSelected(widget)}"
+          (click)="selectWidget.select(widget)"
+        >
+          {{widget.title}}
+        </div>
+      </div>
+    </div>
+    <div class="alert__buttons">
+      <evj-button
+        class="button"
+        [isChangingState]="false"
+        [isSmallButton]="false"
+        [textButton]="'Назад'"
+        (click)="onBack()"
+      ></evj-button>
+      <evj-button
+        class="button"
+        [isChangingState]="false"
+        [isSmallButton]="false"
+        [textButton]="'Подтвердить'"
+        (click)="onSave()"
+      ></evj-button>
+    </div>
+  </div>
+</div>

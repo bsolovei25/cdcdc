@@ -121,17 +121,18 @@
           [name]="claim.description"
           [isActive]="checkForActiveClaim(claim.claimType)"
           [isChangingCardState]="true"
-          (click)="onSelectClaim(claim)"
+          (click)="onSelectGeneralClaim(claim)"
         ></evj-aws-claim-card>
       </div>
       <div class="title title__special">Специальные права</div>
+      <div class="create-special-claim" (click)="createSpecialClaim()"></div>
       <div class="cards cards__special">
         <evj-aws-claim-card
-          *ngFor="let claim of allGeneralClaims"
-          [name]="claim.description"
-          [isActive]="false"
+          *ngFor="let claim of workerSpecialClaims"
+          [name]="claim.claimName"
+          [isActive]="true"
           [isChangingCardState]="true"
-          (click)="onSelectClaim(claim)"
+          (click)="onSelectSpecialClaim(claim)"
         ></evj-aws-claim-card>
       </div>
     </div>
@@ -156,4 +157,10 @@
     *ngIf="isPasswordAlertShowing"
     (confirmed)="onSetWorkerPassword($event)"
   ></evj-aws-password-alert>
+  <evj-aws-create-claim
+    class="admin__popup"
+    [ngClass]="{'admin__popup_active':isCreateClaim}"
+    *ngIf="isCreateClaim"
+    (createdClaim)="onCreateSpecialClaim($event)"
+  ></evj-aws-create-claim>
 </div>

@@ -29,6 +29,8 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     public isPasswordAlertShowing: boolean = false;
 
+    public isCreateClaim: boolean = false;
+
     public searchingWorkspaceValue: string = '';
     public searchingFieldName: string = '';
 
@@ -83,7 +85,10 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             this.adminService.getAllScreens().subscribe((data: IWorkspace[]) => {
                 this.allWorkspaces = data;
             }),
-            this.adminService.getAllWidgets().subscribe((data) => (this.allWidgets = data.data))
+            this.adminService.getAllWidgets().subscribe((data) => {
+                this.adminService.allWidgets = data.data;
+                this.allWidgets = data.data;
+            })
         );
         if (!this.isCreateNewUser) {
             this.subscriptions.push(
@@ -204,7 +209,27 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         return !!claim;
     }
 
-    public onSelectClaim(claim: IGlobalClaim): void {
+    public createSpecialClaim(): void {
+        this.isCreateClaim = true;
+    }
+
+    public onCreateSpecialClaim(claim: IGlobalClaim): void {
+        this.showAlert();
+        this.isCreateClaim = false;
+        if (claim) {
+            this.workerSpecialClaims.push(claim);
+        }
+    }
+
+    public onSelectSpecialClaim(claim: IGlobalClaim): void {
+        this.showAlert();
+        const index: number = this.workerSpecialClaims.findIndex(
+            (item) => item.claimType === claim.claimType
+        );
+        this.workerSpecialClaims.splice(index, 1);
+    }
+
+    public onSelectGeneralClaim(claim: IGlobalClaim): void {
         this.showAlert();
         const index: number = this.workerGeneralClaims.findIndex(
             (item) => item.claimType === claim.claimType
