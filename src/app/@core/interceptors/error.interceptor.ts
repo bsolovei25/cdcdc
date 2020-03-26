@@ -29,7 +29,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                         // this.router.navigate(['login']);
                         break;
                     case 0:
-                        this.router.navigate(['login']);
+                        //this.router.navigate(['login']);
                         this.materialController.openSnackBar('Сервер не отвечает', 'snackbar-red');
                         break;
                     case 403:

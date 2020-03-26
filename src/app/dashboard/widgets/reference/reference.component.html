@@ -93,7 +93,7 @@
         </div>
         <div class="references-container-scroll-block">
           <div class="reference-container-value" [class.isLongBlock]="isLongBlock">
-            <ng-container *ngFor="let item of data[this.indexColumn].referenceColumns">
+            <ng-container *ngFor="let item of data[this.indexColumn].columns">
               <div
                 class="reference-container-value__block"
                 [class.block-active]="item.open"

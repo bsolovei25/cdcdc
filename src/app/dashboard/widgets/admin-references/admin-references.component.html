@@ -27,7 +27,7 @@
             <div class="reference-container__block" (click)="onClickReference(item, i)">
               <div class="reference-container__block-info" [class.block-active]="item.open">
                 <div class="reference-container__name">{{item.name}}</div>
-                <div class="reference-container__button-edit" (click)="onClickEditReference(item)">
+                <div class="reference-container__button-edit" (click)="editReference(item)">
                   <svg-icon
                     *ngIf="item.open"
                     class="indicator-selector__collapse"
