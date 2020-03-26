@@ -12,116 +12,22 @@ export interface ISuspenseMachine {
     suspenseRelated: string;
 }
 
+export interface ITableData {
+    columns: { id: number; caption: string }[];
+    values: { columnId: number; value: string }[][];
+}
+
 @Component({
     selector: 'evj-suspense-machine',
     templateUrl: './suspense-machine.component.html',
     styleUrls: ['./suspense-machine.component.scss'],
 })
 export class SuspenseMachineComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    data: ISuspenseMachine[] = [
-        {
-            date: new Date('2019-11-01T12:01:05'),
-            production: '№2 - ПГНПАКУ',
-            equipment: 'КПА-200',
-            suspenseBreakpoint: '10',
-            suspenseDuration: 0.2,
-            suspenseCause: 'КИП',
-            suspenseRelated: 'Технологическая',
-        },
-        {
-            date: new Date('2019-11-01T12:01:05'),
-            production: '№2 - ПГНПАКУ',
-            equipment: 'КПА-200',
-            suspenseBreakpoint: '10',
-            suspenseDuration: 0.2,
-            suspenseCause: 'КИП',
-            suspenseRelated: 'Технологическая',
-        },
-        {
-            date: new Date('2019-11-01T12:01:05'),
-            production: '№2 - ПГНПАКУ',
-            equipment: 'КПА-200',
-            suspenseBreakpoint: '10',
-            suspenseDuration: 0.2,
-            suspenseCause: 'КИП',
-            suspenseRelated: 'Технологическая',
-        },
-        {
-            date: new Date('2019-11-01T12:01:05'),
-            production: '№2 - ПГНПАКУ',
-            equipment: 'КПА-200',
-            suspenseBreakpoint: '10',
-            suspenseDuration: 0.2,
-            suspenseCause: 'КИП',
-            suspenseRelated: 'Технологическая',
-        },
-        {
-            date: new Date('2019-11-01T12:01:05'),
-            production: '№2 - ПГНПАКУ',
-            equipment: 'КПА-200',
-            suspenseBreakpoint: '10',
-            suspenseDuration: 0.2,
-            suspenseCause: 'КИП',
-            suspenseRelated: 'Технологическая',
-        },
-        {
-            date: new Date('2019-11-01T12:01:05'),
-            production: '№2 - ПГНПАКУ',
-            equipment: 'КПА-200',
-            suspenseBreakpoint: '10',
-            suspenseDuration: 0.2,
-            suspenseCause: 'КИП',
-            suspenseRelated: 'Технологическая',
-        },
-        {
-            date: new Date('2019-11-01T12:01:05'),
-            production: '№2 - ПГНПАКУ',
-            equipment: 'КПА-200',
-            suspenseBreakpoint: '10',
-            suspenseDuration: 0.2,
-            suspenseCause: 'КИП',
-            suspenseRelated: 'Технологическая',
-        },
-        {
-            date: new Date('2019-11-01T12:01:05'),
-            production: '№2 - ПГНПАКУ',
-            equipment: 'КПА-200',
-            suspenseBreakpoint: '10',
-            suspenseDuration: 0.2,
-            suspenseCause: 'КИП',
-            suspenseRelated: 'Технологическая',
-        },
-        {
-            date: new Date('2019-11-01T12:01:05'),
-            production: '№2 - ПГНПАКУ',
-            equipment: 'КПА-200',
-            suspenseBreakpoint: '10',
-            suspenseDuration: 0.2,
-            suspenseCause: 'КИП',
-            suspenseRelated: 'Технологическая',
-        },
-        {
-            date: new Date('2019-11-01T12:01:05'),
-            production: '№2 - ПГНПАКУ',
-            equipment: 'КПА-200',
-            suspenseBreakpoint: '10',
-            suspenseDuration: 0.2,
-            suspenseCause: 'КИП',
-            suspenseRelated: 'Технологическая',
-        },
-        {
-            date: new Date('2019-11-01T12:01:05'),
-            production: '№2 - ПГНПАКУ',
-            equipment: 'КПА-200',
-            suspenseBreakpoint: '10',
-            suspenseDuration: 0.2,
-            suspenseCause: 'КИП',
-            suspenseRelated: 'Технологическая',
-        },
-    ];
+    data: ITableData;
+    displayedColumns: { id: number; caption: string }[] = [];
 
-    protected static itemCols: number = 20;
-    protected static itemRows: number = 5;
+    public static itemCols: number = 20;
+    public static itemRows: number = 5;
 
     constructor(
         public widgetService: NewWidgetService,

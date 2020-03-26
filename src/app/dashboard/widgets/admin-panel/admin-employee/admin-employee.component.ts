@@ -23,11 +23,7 @@ export class AdminEmployeeComponent implements OnInit, OnDestroy {
         middleName: '',
         phone: 'Номер телефона',
         email: 'Электронная почта',
-        brigade: {
-            id: null,
-            number: 'Номер бригады',
-        },
-        position: '',
+        position: 'common',
         positionDescription: '',
         displayName: '',
     };

@@ -6,6 +6,7 @@ import { WIDGETS } from '../components/new-widgets-grid/widget-map';
 import { AppConfigService } from 'src/app/services/appConfigService';
 import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { filter, catchError } from 'rxjs/operators';
+import { IParamWidgetsGrid } from '../components/new-widgets-grid/new-widgets-grid.component';
 
 @Injectable({
     providedIn: 'root',
@@ -36,7 +37,7 @@ export class NewUserSettingsService {
 
     public widgetInfo: NewUserGrid;
 
-    public addCellByPosition(idWidget, nameWidget, param) {
+    public addCellByPosition(idWidget: string, nameWidget: string, param: IParamWidgetsGrid) {
         console.log('widget: ' + WIDGETS[nameWidget]);
         const uniqId = this.create_UUID();
         console.log(WIDGETS[nameWidget].minItemCols);
@@ -45,8 +46,8 @@ export class NewUserSettingsService {
             y: param.y,
             cols: WIDGETS[nameWidget].itemCols,
             rows: WIDGETS[nameWidget].itemRows,
-            minItemCols: WIDGETS[nameWidget].minItemCols,
-            minItemRows: WIDGETS[nameWidget].minItemRows,
+            minItemCols: WIDGETS[nameWidget]?.minItemCols ?? 5,
+            minItemRows: WIDGETS[nameWidget]?.minItemRows ?? 5,
             id: idWidget,
             uniqid: uniqId,
             widgetType: nameWidget,
@@ -95,7 +96,7 @@ export class NewUserSettingsService {
         }
     }
 
-    private updateWidgetApi(uniqId) {
+    private updateWidgetApi(uniqId: string): void {
         this.save(uniqId);
         const updateWidget = this.widgetInfo;
         this.http
@@ -106,7 +107,7 @@ export class NewUserSettingsService {
             );
     }
 
-    public updateByPosition(oldItem, newItem) {
+    public updateByPosition(oldItem, newItem): void {
         for (const item of this.widgetService.dashboard) {
             if (item.uniqid === oldItem.uniqid) {
                 item.x = newItem.x;
@@ -120,14 +121,11 @@ export class NewUserSettingsService {
         this.updateWidgetApi(oldItem.uniqid);
     }
 
-    public removeItem(widgetId: string) {
-        this.http.delete(this.restUrl + '/api/user-management/widget/' + widgetId).subscribe(
-            (ans) => {},
-            (error) => console.log(error)
-        );
+    public removeItem(widgetId: string): void {
+        this.http.delete(this.restUrl + '/api/user-management/widget/' + widgetId).toPromise();
     }
 
-    public GetScreen() {
+    public GetScreen(): void {
         try {
             this.http
                 .get<ScreenSettings[]>(this.restUrl + '/api/user-management/screens')
@@ -142,7 +140,7 @@ export class NewUserSettingsService {
         }
     }
 
-    private LoadScreenAsync(id: any, loadDefault: boolean): Observable<any> {
+    private LoadScreenAsync(id: number, loadDefault: boolean): Observable<any> {
         return this.http.get(this.restUrl + '/api/user-management/screen/' + id).pipe(
             catchError((err) => {
                 this.dataScreen = this._screens$.getValue();
@@ -165,21 +163,23 @@ export class NewUserSettingsService {
             this.ScreenId = item.id;
             this.ScreenName = item.screenName;
             this.widgetService.dashboard = item.widgets.map((widget) => {
-                const nameWidget = this.widgetService.getName(widget.widgetId);
+                const _minItemCols = WIDGETS[widget.widgetType]?.minItemCols ?? 6;
+                const _minItemRows = WIDGETS[widget.widgetType]?.minItemRows ?? 6;
+                console.log(_minItemCols, _minItemRows);
                 const result = {
                     x: widget.posX,
                     y: widget.posY,
-                    cols: widget.sizeX,
-                    rows: widget.sizeY,
-                    minItemCols: WIDGETS[nameWidget]?.minItemCols,
-                    minItemRows: WIDGETS[nameWidget]?.minItemRows,
+                    cols: widget.sizeX < _minItemCols ? _minItemCols : widget.sizeX,
+                    rows: widget.sizeY < _minItemRows ? _minItemRows : widget.sizeY,
+                    minItemCols: _minItemCols,
+                    minItemRows: _minItemRows,
                     id: widget.widgetId,
                     widgetType: widget.widgetType,
                     uniqid: widget.uniqueId,
                 };
                 return result;
             });
-            // console.log(this.widgetService.dashboard);
+            console.log(this.widgetService.dashboard);
         });
     }
 

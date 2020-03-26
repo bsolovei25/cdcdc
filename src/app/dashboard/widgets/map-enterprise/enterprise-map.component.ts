@@ -296,8 +296,8 @@ export class EnterpriseMapComponent extends WidgetPlatform
 
     @ViewChild('maps') maps: ElementRef;
 
-    protected static itemCols: number = 30;
-    protected static itemRows: number = 21;
+    public static itemCols: number = 30;
+    public static itemRows: number = 21;
 
     constructor(
         protected widgetService: NewWidgetService,

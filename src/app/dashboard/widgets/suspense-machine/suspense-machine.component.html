@@ -22,34 +22,23 @@
       (mousedown)="$event.stopPropagation()"
       (touchstart)="$event.stopPropagation()"
     >
-      <div class="table__header">
+      <div class="table__header scroll-bar">
         <table>
           <thead>
             <tr class="header__items">
-              <th class="header header__date">Дата</th>
-              <th class="header header__production">Производство</th>
-              <th class="header header__equipment">Установка</th>
-              <th class="header header__suspenseBreakpoint">
-                Простой останова
-              </th>
-              <th class="header header__suspenseDuration">
-                Длительность простоя
-              </th>
-              <th class="header header__suspenseCause">Причина простоя</th>
-              <th class="header header__suspenseRelated">
-                Причина сопутствующая
+              <th class="header header__date" *ngFor="let column of displayedColumns">
+                {{ column.caption }}
               </th>
             </tr>
           </thead>
         </table>
       </div>
-
       <div class="frame frame_top">
         <div class="frame__circle frame__circle__topleft"></div>
         <div class="frame__circle frame__circle__topright"></div>
       </div>
       <div class="table__body scroll-bar">
-        <table>
+        <table *ngIf="data">
           <tbody>
             <tr *ngFor="let item of data.values" class="table__item">
               <td class="item item__date" *ngFor="let item2 of item">

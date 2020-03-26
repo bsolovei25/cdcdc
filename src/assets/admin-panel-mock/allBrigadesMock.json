@@ -1,0 +1,58 @@
+[
+    {
+        "brigadeId": 1,
+        "brigadeNumber": "1",
+        "users": [
+            {
+                "login": "123",
+                "id": 1,
+                "firstName": "qqq",
+                "lastName": "qqq",
+                "middleName": "qqq",
+                "email": "qq@q",
+                "phone": "123",
+                "brigade": { "id": 1, "number": "1" },
+                "positionDescription": "qwerty",
+                "position": "common"
+            },
+            {
+                "login": "234",
+                "id": 2,
+                "firstName": "www",
+                "lastName": "www",
+                "middleName": "www",
+                "email": "ww@w",
+                "phone": "123",
+                "brigade": { "id": 1, "number": "1" },
+                "positionDescription": "qwerty",
+                "position": "common"
+            }
+        ],
+        "unit": {
+            "id": 1,
+            "name": "UNIT"
+        }
+    },
+    {
+        "brigadeId": 2,
+        "brigadeNumber": "2",
+        "users": [
+            {
+                "login": "345",
+                "id": 3,
+                "firstName": "eee",
+                "lastName": "eee",
+                "middleName": "eee",
+                "email": "ee@ee",
+                "phone": "123",
+                "brigade": { "id": 2, "number": "2" },
+                "positionDescription": "qwerty",
+                "position": "common"
+            }
+        ],
+        "unit": {
+            "id": 2,
+            "name": "TINU"
+        }
+    }
+]

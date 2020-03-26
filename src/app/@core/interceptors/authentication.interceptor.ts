@@ -25,7 +25,6 @@ export class AuthenticationInterceptor implements HttpInterceptor {
                 `Bearer ` + this.authService.userSessionToken
             ),
         });
-
         return next.handle(authReq);
     }
 }

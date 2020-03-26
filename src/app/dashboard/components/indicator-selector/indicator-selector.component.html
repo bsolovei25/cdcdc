@@ -29,13 +29,21 @@
               <input class="update_input" [(ngModel)]="newNameScreen" />
             </div>
             <div class="hover-button" *ngIf="screen.updateScreen === false">
-              <div class="update_screen" (click)="onUpdateForm(screen.id)">
+              <div
+                *ngIf="claimScreens.includes(EnumClaimScreens.edit)"
+                class="update_screen"
+                (click)="onUpdateForm(screen.id)"
+              >
                 <svg-icon
                   class="indicator-selector__collapse"
                   src="./assets/icons/edit.svg"
                 ></svg-icon>
               </div>
-              <div class="delete_screen" (click)="deleteScreen(screen.id)">
+              <div
+                *ngIf="claimScreens.includes(EnumClaimScreens.delete)"
+                class="delete_screen"
+                (click)="deleteScreen(screen.id)"
+              >
                 <svg-icon
                   class="indicator-selector__collapse"
                   src="./assets/icons/garbage_bad_pic.svg"
@@ -43,13 +51,21 @@
               </div>
             </div>
             <div class="hover-button" *ngIf="screen.updateScreen === true">
-              <div class="update_screen2" (click)="updateScreen(screen.id, this.newNameScreen)">
+              <div
+                *ngIf="claimScreens.includes(EnumClaimScreens.edit)"
+                class="update_screen2"
+                (click)="updateScreen(screen.id, this.newNameScreen)"
+              >
                 <svg-icon
                   class="indicator-selector__collapse"
                   src="./assets/icons/checkmark.svg"
                 ></svg-icon>
               </div>
-              <div class="delete_screen2" (click)="deleteScreen(screen.id)">
+              <div
+                *ngIf="claimScreens.includes(EnumClaimScreens.delete)"
+                class="delete_screen2"
+                (click)="deleteScreen(screen.id)"
+              >
                 <svg-icon
                   class="indicator-selector__collapse"
                   src="./assets/icons/garbage_bad_pic.svg"
@@ -60,7 +76,7 @@
         </div>
       </div>
     </ng-container>
-    <div class="dropdown-component">
+    <div class="dropdown-component" *ngIf="claimScreens.includes(EnumClaimScreens.add)">
       <input
         class="dropdown-component_input"
         [(ngModel)]="tempScreen"

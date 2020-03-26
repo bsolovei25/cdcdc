@@ -81,11 +81,18 @@ export class AdminBrigadesComponent implements OnInit, OnDestroy {
         }
     }
 
+    private pushUpResponsibleWorker(): void {
+        const index: number = this.workers.findIndex((item) => item.position === 'responsible');
+        const mainWorker = this.workers.splice(index, 1)[0];
+        this.workers.unshift(mainWorker);
+    }
+
     public setActiveBrigade(brigade: IBrigadeAdminPanel): void {
         if (!this.selectBrigade.isSelected(brigade)) {
             this.selectBrigade.select(brigade);
             this.adminService.activeBrigade$.next(brigade);
             this.workers = brigade.users;
+            this.pushUpResponsibleWorker();
         }
     }
 

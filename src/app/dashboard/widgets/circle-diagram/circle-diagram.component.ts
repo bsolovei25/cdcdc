@@ -24,8 +24,8 @@ export class CircleDiagramComponent extends WidgetPlatform implements OnDestroy,
 
     public readonly RADIUS: number = 40;
 
-    protected static itemCols: number = 18;
-    protected static itemRows: number = 14;
+    public static itemCols: number = 18;
+    public static itemRows: number = 14;
 
     @ViewChild('myCircle') myCircle: ElementRef;
 
