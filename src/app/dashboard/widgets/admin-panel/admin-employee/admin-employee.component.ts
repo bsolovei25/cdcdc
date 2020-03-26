@@ -54,7 +54,12 @@ export class AdminEmployeeComponent implements OnInit, OnDestroy {
     public onSelectWorker(workerId: number): void {
         const worker: IUser = this.workers.find((item: IUser) => item.id === workerId);
         const workerBrigade: IBrigadeAdminPanel = this.brigades.find(
-            (brigade: IBrigadeAdminPanel) => brigade.brigadeId === worker.brigade.id
+            (brigade: IBrigadeAdminPanel) => {
+                if (worker.brigade) {
+                    return brigade.brigadeId === worker.brigade.id;
+                }
+                return false;
+            }
         );
         this.adminService.setActiveWorker(worker);
         this.adminService.activeBrigade$.next(workerBrigade);
