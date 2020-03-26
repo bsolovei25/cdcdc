@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { fillDataShape } from '../../../../@shared/common-functions';
 import { MaterialControllerService } from '../../../services/material-controller.service';
 import { base64ToFile } from 'ngx-image-cropper';
+import { IWidgets } from '../../../models/widget.model';
 
 @Component({
     selector: 'evj-admin-worker-settings',
@@ -39,6 +40,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     private newWorkerPassword: string = null;
 
     private workerGeneralClaims: IGlobalClaim[] = [];
+    public workerSpecialClaims: IGlobalClaim[] = [];
 
     public allWorkspaces: IWorkspace[] = [];
     public workerScreens: IWorkspace[] = [];
@@ -46,10 +48,13 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     public workspacesClaims: { workspaceId: number; claims: IClaim[] }[] = [];
 
     public allGeneralClaims: IGlobalClaim[] = [];
+    public allSpecialClaims: IGlobalClaim[] = [];
 
     private subscriptions: Subscription[] = [];
 
     public isDataLoading: boolean = false;
+
+    public allWidgets: IWidgets[] = [];
 
     constructor(
         private adminService: AdminPanelService,
@@ -77,16 +82,21 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             ),
             this.adminService.getAllScreens().subscribe((data: IWorkspace[]) => {
                 this.allWorkspaces = data;
-            })
+            }),
+            this.adminService.getAllWidgets().subscribe((data) => (this.allWidgets = data.data))
         );
         if (!this.isCreateNewUser) {
             this.subscriptions.push(
                 this.adminService.getWorkerGeneralClaims(this.worker.id).subscribe((claims) => {
                     this.workerGeneralClaims = claims.data;
+                }),
+                this.adminService.getWorkerSpecialClaims(this.worker.id).subscribe((claims) => {
+                    this.workerSpecialClaims = claims.data;
                 })
             );
         }
         this.allGeneralClaims = this.adminService.generalClaims;
+        this.allSpecialClaims = this.adminService.specialClaims;
     }
 
     public ngOnDestroy(): void {

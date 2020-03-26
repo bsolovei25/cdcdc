@@ -113,7 +113,7 @@
       [searchingWorkspaceValue]="searchingWorkspaceValue"
       (workspacesData)="onChangeWorkspacesData()"
     ></evj-aws-workspaces>
-    <div class="worker__column worker__claims scroll-bar" *ngIf="isClaimsShowing">
+    <div class="worker__column worker__claims" *ngIf="isClaimsShowing">
       <div class="title">Общие права</div>
       <div class="cards">
         <evj-aws-claim-card
@@ -131,7 +131,7 @@
           [name]="claim.description"
           [isActive]="false"
           [isChangingCardState]="true"
-          (click)="onSelectClaim()"
+          (click)="onSelectClaim(claim)"
         ></evj-aws-claim-card>
       </div>
     </div>

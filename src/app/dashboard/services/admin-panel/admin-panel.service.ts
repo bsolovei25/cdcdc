@@ -10,6 +10,7 @@ import {
     IGlobalClaim,
 } from '../../models/admin-panel';
 import { IUser, IUnitEvents } from '../../models/events-widget';
+import { IWidgets } from '../../models/widget.model';
 
 @Injectable({
     providedIn: 'root',
@@ -56,6 +57,9 @@ export class AdminPanelService {
 
     public screenClaims: IClaim[] = [];
     public generalClaims: IGlobalClaim[] = [];
+    public specialClaims: IGlobalClaim[] = [];
+
+    public allWidgets: IWidgets[] = [];
 
     constructor(private http: HttpClient, private configService: AppConfigService) {
         this.configService.restUrl$.subscribe((urls) => (this.restUrl = `${urls}${this.restUrl}`));
@@ -178,7 +182,7 @@ export class AdminPanelService {
     }
     //#endregion
 
-    //#region GLOBAL_CLAIMS
+    //#region GENERAL_CLAIMS
     public getAllGeneralClaims(): Observable<{ data: IGlobalClaim[] }> {
         const url: string = `${this.restUrl}/claim/getavaible-claims/general`;
         return this.http.get<{ data: IGlobalClaim[] }>(url);
@@ -186,6 +190,23 @@ export class AdminPanelService {
 
     public getWorkerGeneralClaims(workerId: number): Observable<{ data: IGlobalClaim[] }> {
         const url: string = `${this.restUrl}/claim/user/${workerId}/getavaible-claims/general`;
+        return this.http.get<{ data: IGlobalClaim[] }>(url);
+    }
+    //#endregion
+
+    //#region SPECIAL_CLAIMS
+    public getAllWidgets(): Observable<{ data: IWidgets[] }> {
+        const url: string = `${this.restUrl}/claim/getavaible-widgets`;
+        return this.http.get<{ data: IWidgets[] }>(url);
+    }
+
+    public getAllSpecialClaims(): Observable<{ data: IGlobalClaim[] }> {
+        const url: string = `${this.restUrl}/claim/getavaible-claims/special`;
+        return this.http.get<{ data: IGlobalClaim[] }>(url);
+    }
+
+    public getWorkerSpecialClaims(workerId: number): Observable<{ data: IGlobalClaim[] }> {
+        const url: string = `${this.restUrl}/claim/user/${workerId}/getavaible-claims/special`;
         return this.http.get<{ data: IGlobalClaim[] }>(url);
     }
     //#endregion
