@@ -141,25 +141,7 @@ export class SuspenseMachineComponent extends WidgetPlatform implements OnInit, 
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: ITableData): void {
-        if (ref) {
-            this.data = ref;
-            this.renderTable(this.data);
-        }
-    }
-
-    renderTable(data: ITableData) {
-        this.displayedColumns = data.columns;
-    }
-
-    getValue(value) {
-        const a = new Date(value);
-        if (typeof value === 'number') {
-            return value;
-        }
-        if (a.getDate()) {
-            return `${a.getDay()}.${a.getMonth()}.${a.getFullYear()}`;
-        }
-        return value;
+    protected dataHandler(ref: any): void {
+        this.data = ref.items;
     }
 }

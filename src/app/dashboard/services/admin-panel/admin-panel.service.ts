@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '../../../services/appConfigService';
-import { IBrigadeAdminPanel, IClaim, IScreen, IWorkspace } from '../../models/admin-panel';
-import { IUser, IUnitEvents } from '../../models/events-widget';
+import { IBrigadeAdminPanel, IClaim, IScreen } from '../../models/admin-panel';
+import { IUser } from '../../models/events-widget';
 
 @Injectable({
     providedIn: 'root',
@@ -158,16 +158,6 @@ export class AdminPanelService {
 
     public setActiveWorker(worker: IUser): void {
         this.activeWorker$.next(worker);
-        if (worker.brigade) {
-            const unit = this.getUnitByBrigadeId(worker.brigade.id);
-            if (unit) {
-                this.activeWorkerUnit$.next(unit);
-                this.updateUnitBrigades(unit.id);
-            }
-        } else {
-            this.activeWorkerUnit$.next(null);
-            this.activeUnitBrigades$.next([]);
-        }
     }
 
     public setDefaultActiveWorker(): void {
@@ -200,11 +190,11 @@ export class AdminPanelService {
     //#region BRIGADE_METHODS
     //#endregion
 
-    public getUnitByBrigadeId(brigadeId: number): IUnitEvents {
-        const brigade: IBrigadeAdminPanel = this.brigades.find(
-            (item: IBrigadeAdminPanel) => item.brigadeId === brigadeId
-        );
-        return brigade ? brigade.unit : null;
+    public getFullName(worker: IUser): string {
+        if (worker.lastName && worker.firstName && worker.middleName) {
+            return `${worker.lastName} ${worker.firstName} ${worker.middleName}`;
+        }
+        return '';
     }
 
     public generateDisplayName(worker: IUser): string {

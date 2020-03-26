@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
 import { Subscription } from 'rxjs';
 import { IUser } from '../../../models/events-widget';
-import { IScreen, IBrigadeAdminPanel } from '../../../models/admin-panel';
+import { IScreen } from '../../../models/admin-panel';
 
 @Component({
     selector: 'evj-admin-employee',
@@ -12,8 +12,6 @@ import { IScreen, IBrigadeAdminPanel } from '../../../models/admin-panel';
 export class AdminEmployeeComponent implements OnInit, OnDestroy {
     @Input() public searchedWorker: string = '';
     @Input() public workers: IUser[] = null;
-
-    private brigades: IBrigadeAdminPanel[] = [];
 
     public defaultActiveWorker: IUser = {
         id: null,
@@ -43,8 +41,7 @@ export class AdminEmployeeComponent implements OnInit, OnDestroy {
         this.subscriptions.push(
             this.adminService.activeWorker$.subscribe(
                 (activeWorker: IUser) => (this.activeWorker = activeWorker)
-            ),
-            this.adminService.allBrigades$.subscribe((brigades) => (this.brigades = brigades))
+            )
         );
     }
 
@@ -56,13 +53,7 @@ export class AdminEmployeeComponent implements OnInit, OnDestroy {
     }
 
     public onSelectWorker(workerId: number): void {
-        const worker: IUser = this.workers.find((item: IUser) => item.id === workerId);
-        const workerBrigade: IBrigadeAdminPanel = this.brigades.find(
-            (brigade: IBrigadeAdminPanel) => brigade.brigadeId === worker.brigade.id
-        );
-        this.adminService.setActiveWorker(worker);
-        this.adminService.activeBrigade$.next(workerBrigade);
-
+        this.adminService.setActiveWorker(this.workers.find((item: IUser) => item.id === workerId));
         if (this.subsSelectedWorker) {
             this.subsSelectedWorker.unsubscribe();
         }
