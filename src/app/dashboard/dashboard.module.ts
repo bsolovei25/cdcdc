@@ -129,6 +129,8 @@ import { AgGroupCardComponent } from './widgets/admin-panel/admin-groups/ag-grou
 import { AgGroupWorkerCardComponent } from './widgets/admin-panel/admin-groups/ag-group-worker-card/ag-group-worker-card.component';
 import { AwsResponsibleAlertComponent } from './widgets/admin-panel/admin-worker-settings/aws-responsible-alert/aws-responsible-alert.component';
 import { AwsPasswordAlertComponent } from './widgets/admin-panel/admin-worker-settings/aws-password-alert/aws-password-alert.component';
+import { ReferenceComponent } from './widgets/reference/reference.component';
+import { ReportServerConfiguratorComponent } from './widgets/report-server-configurator/report-server-configurator.component';
 
 @NgModule({
     declarations: [
@@ -244,6 +246,8 @@ import { AwsPasswordAlertComponent } from './widgets/admin-panel/admin-worker-se
         AgGroupWorkerCardComponent,
         AwsResponsibleAlertComponent,
         AwsPasswordAlertComponent,
+        ReferenceComponent,
+        ReportServerConfiguratorComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -293,6 +297,8 @@ import { AwsPasswordAlertComponent } from './widgets/admin-panel/admin-worker-se
         AdminReferencesComponent,
         PetroleumProductsMovementComponent,
         AdminPanelComponent,
+        ReferenceComponent,
+        ReportServerConfiguratorComponent,
     ],
     exports: [HomeComponent],
     imports: [

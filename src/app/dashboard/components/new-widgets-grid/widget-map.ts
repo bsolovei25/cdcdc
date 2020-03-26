@@ -41,6 +41,8 @@ import { AdminShiftScheduleComponent } from '../../widgets/admin-widget/admin-sh
 import { AdminReferencesComponent } from '../../widgets/admin-references/admin-references.component';
 import { PetroleumProductsMovementComponent } from '../../widgets/petroleum-products-movement/petroleum-products-movement.component';
 import { AdminPanelComponent } from '../../widgets/admin-panel/admin-panel.component';
+import { ReportServerConfiguratorComponent } from '../../widgets/report-server-configurator/report-server-configurator.component';
+import { ReferenceComponent } from '../../widgets/reference/reference.component';
 
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
@@ -87,4 +89,6 @@ export const WIDGETS = {
     'admin-references': AdminReferencesComponent,
     'petroleum-products-movement': PetroleumProductsMovementComponent,
     'admin-panel': AdminPanelComponent,
+    'reference-type': ReferenceComponent,
+    'report-server-configurator': ReportServerConfiguratorComponent,
 };
