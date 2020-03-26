@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy, Input } from '@angular/core';
-import { IWorkspace, IScreen, IClaim } from '../../../models/admin-panel';
+import { IWorkspace, IScreen, IClaim, IGlobalClaim } from '../../../models/admin-panel';
 import { IUser, IUnitEvents } from '../../../models/events-widget';
 import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
 import { Subscription } from 'rxjs';
@@ -38,10 +38,14 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     private workerPhoto: string = null;
     private newWorkerPassword: string = null;
 
+    private workerGeneralClaims: IGlobalClaim[] = [];
+
     public allWorkspaces: IWorkspace[] = [];
     public workerScreens: IWorkspace[] = [];
     public workerScreensDetached: IScreen[] = [];
     public workspacesClaims: { workspaceId: number; claims: IClaim[] }[] = [];
+
+    public allGeneralClaims: IGlobalClaim[] = [];
 
     private subscriptions: Subscription[] = [];
 
@@ -75,6 +79,14 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                 this.allWorkspaces = data;
             })
         );
+        if (!this.isCreateNewUser) {
+            this.subscriptions.push(
+                this.adminService.getWorkerGeneralClaims(this.worker.id).subscribe((claims) => {
+                    this.workerGeneralClaims = claims.data;
+                })
+            );
+        }
+        this.allGeneralClaims = this.adminService.generalClaims;
     }
 
     public ngOnDestroy(): void {
@@ -175,8 +187,23 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         this.isBrigadeResponsibleAlertShowing = false;
     }
 
-    public onSelectClaim(): void {
+    public checkForActiveClaim(claimType: string): boolean {
+        const claim: IGlobalClaim = this.workerGeneralClaims.find(
+            (item) => item.claimType === claimType
+        );
+        return !!claim;
+    }
+
+    public onSelectClaim(claim: IGlobalClaim): void {
         this.showAlert();
+        const index: number = this.workerGeneralClaims.findIndex(
+            (item) => item.claimType === claim.claimType
+        );
+        if (index === -1) {
+            this.workerGeneralClaims.push(claim);
+        } else {
+            this.workerGeneralClaims.splice(index, 1);
+        }
     }
 
     public onChangeLockWorker(): void {
@@ -269,6 +296,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             this.isDataLoading = true;
             try {
                 this.worker.displayName = this.adminService.generateDisplayName(this.worker);
+                this.worker.claims = this.workerGeneralClaims;
 
                 if (this.workerPhoto) {
                     this.worker.photoId = await this.adminService.pushWorkerPhoto(
