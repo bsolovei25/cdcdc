@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { IBrigadeAdminPanel, IWorkerAdminPanel, IScreen } from '../../../models/admin-panel';
+import { IBrigadeAdminPanel, IScreen } from '../../../models/admin-panel';
 import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
 import { Subscription, zip } from 'rxjs';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -21,8 +21,8 @@ export class AdminBrigadesComponent implements OnInit, OnDestroy {
 
     public selectBrigade: SelectionModel<IBrigadeAdminPanel> = new SelectionModel<
         IBrigadeAdminPanel
-    >(true);
-    public selectWorker: SelectionModel<IUser> = new SelectionModel<IUser>(true);
+    >();
+    public selectWorker: SelectionModel<IUser> = new SelectionModel<IUser>();
 
     //#endregion
 
@@ -38,22 +38,38 @@ export class AdminBrigadesComponent implements OnInit, OnDestroy {
     constructor(private adminService: AdminPanelService) {}
 
     public ngOnInit(): void {
-        const combine = zip(this.adminService.activeBrigade$, this.adminService.activeWorker$);
-        this.subsActiveBrigadeWorker = combine.subscribe((data: [IBrigadeAdminPanel, IUser]) => {
-            if (data[0]) {
-                this.setActiveBrigade(data[0]);
-            }
-            if (data[1]) {
-                this.brigades.forEach((brigade) => {
-                    const worker: IUser = brigade.users.find(
-                        (user: IUser) => user.id === data[1].id
+        this.subsSelectedWorker = this.adminService.activeBrigade$.subscribe(
+            (brigade: IBrigadeAdminPanel) => {
+                if (!brigade) {
+                    this.adminService.activeBrigade$.next(this.brigades[0]);
+                } else {
+                    this.setActiveBrigade(brigade);
+                    this.subsActiveBrigadeWorker = this.adminService.activeWorker$.subscribe(
+                        (worker) => {
+                            if (worker.id) {
+                                this.brigades.forEach((brig) => {
+                                    const worker1: IUser = brig.users.find(
+                                        (user: IUser) => user.id === worker.id
+                                    );
+                                    if (worker1) {
+                                        this.setActiveWorker(worker1);
+                                    }
+                                });
+                            } else {
+                                const respUser = brigade.users.find(
+                                    (user) => user.position === 'responsible'
+                                );
+                                if (respUser) {
+                                    this.adminService.activeWorker$.next(respUser);
+                                } else {
+                                    this.adminService.activeWorker$.next(brigade.users[0]);
+                                }
+                            }
+                        }
                     );
-                    if (worker) {
-                        this.setActiveWorker(worker);
-                    }
-                });
+                }
             }
-        });
+        );
     }
 
     public ngOnDestroy(): void {
@@ -73,7 +89,6 @@ export class AdminBrigadesComponent implements OnInit, OnDestroy {
 
     public setActiveBrigade(brigade: IBrigadeAdminPanel): void {
         if (!this.selectBrigade.isSelected(brigade)) {
-            this.selectBrigade.clear();
             this.selectBrigade.select(brigade);
             this.adminService.activeBrigade$.next(brigade);
             this.workers = brigade.users;
@@ -83,7 +98,6 @@ export class AdminBrigadesComponent implements OnInit, OnDestroy {
 
     public setActiveWorker(worker: IUser): void {
         if (!this.selectWorker.isSelected(worker)) {
-            this.selectWorker.clear();
             this.selectWorker.select(worker);
             this.adminService.activeWorker$.next(worker);
 
