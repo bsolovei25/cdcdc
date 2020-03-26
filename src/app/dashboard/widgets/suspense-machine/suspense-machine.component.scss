@@ -55,6 +55,7 @@ table {
   box-sizing: border-box;
 
   background-color: inherit;
+  overflow-x: auto;
 
   border-right: 0.5px dashed var(--color-border-main-transparrent);
   border-left: 0.5px dashed var(--color-border-main-transparrent);
@@ -76,10 +77,12 @@ table {
 
     &__items {
       display: flex;
+      justify-content: space-between;
     }
 
     &__date {
-      min-width: 100px;
+      min-width: 180px;
+      max-width: 180px;
     }
     &__production {
       min-width: 125px;
@@ -125,7 +128,8 @@ table {
     flex-grow: 1;
 
     &__date {
-      min-width: 100px;
+      min-width: 180px;
+      max-width: 180px;
     }
     &__production {
       min-width: 125px;

@@ -2,13 +2,22 @@
   <ng-container *ngIf="!isSmallCard; else smallCard">
     <svg width="100%" height="100%" viewBox="0 0 50 50">
       <image
+        x="-36"
+        y="3.5"
+        width="42"
+        height="42"
+        style="clip-path: circle(20px at center);"
+        [attr.xlink:href]="photoPath"
+      />
+
+      <image
         x="-39"
         y="-0.5"
         width="120"
         height="50"
         xlink:href="assets/icons/widgets/admin/worker-card.svg"
       />
-      <image x="-36" y="0" width="42" height="42" [attr.xlink:href]="photoPath" />
+
       <text x="33" y="9" text-anchor="start" class="svg__txt">
         {{person.phone}}
       </text>
@@ -16,21 +25,38 @@
         {{person.email}}
       </text>
       <text x="33" y="32" text-anchor="start" class="svg__txt" *ngIf="person.id; else noselected">
-        Бригада№{{person.brigade.number}}
+        {{getPersonUnit()}}{{getPersonBrigade()}}
       </text>
       <ng-template #noselected>
         <text x="33" y="32" text-anchor="start" class="svg__txt">
-          {{person.brigade.number}}
+          {{getPersonUnit()}}{{getPersonBrigade()}}
         </text>
       </ng-template>
       <text x="33" y="43" text-anchor="start" class="svg__txt">
         {{1}}
       </text>
+      <image
+        x="-35"
+        y="40"
+        width="9"
+        height="9"
+        [attr.xlink:href]="mainWorkerPath"
+        *ngIf="checkPersonResponsibility()"
+      />
     </svg>
   </ng-container>
 
   <ng-template #smallCard>
     <svg width="100%" height="100%" viewBox="0 0 200 100" class="small">
+      <image
+        x="-36"
+        y="10"
+        width="80"
+        height="80"
+        style="clip-path: circle(40px at center);"
+        [attr.xlink:href]="photoPath"
+      />
+
       <image
         x="-65"
         y="0"
@@ -38,7 +64,6 @@
         height="100"
         [attr.xlink:href]="(isActiveCard)?srcCardActive:srcCardNormal"
       />
-      <image x="-36" y="3" width="80" height="80" [attr.xlink:href]="photoPath" />
 
       <text
         x="65"
@@ -58,6 +83,22 @@
       >
         {{getPersonPosition()}}
       </text>
+      <image
+        x="-40"
+        y="75"
+        width="25"
+        height="25"
+        [attr.xlink:href]="mainWorkerPath"
+        *ngIf="checkPersonResponsibility() && isActiveCard"
+      />
+      <image
+        x="-40"
+        y="75"
+        width="25"
+        height="25"
+        [attr.xlink:href]="mainWorkerPathDisable"
+        *ngIf="checkPersonResponsibility() && !isActiveCard"
+      />
     </svg>
   </ng-template>
 </div>

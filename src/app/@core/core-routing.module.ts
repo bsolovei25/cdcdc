@@ -9,7 +9,7 @@ const routes: Routes = [
         path: '',
         children: [
             {
-                path: '',
+                path: 'dashboard',
                 loadChildren: () =>
                     import('../dashboard/dashboard.module').then((m) => m.DashboardModule),
                 canLoad: [AuthenticationGuard],
@@ -22,7 +22,7 @@ const routes: Routes = [
                 component: LoginComponent,
                 data: { animation: 'login' },
             },
-            { path: '**', redirectTo: '', pathMatch: 'full' },
+            { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
         ],
     },
 ];

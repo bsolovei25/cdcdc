@@ -72,7 +72,7 @@
 
     .header {
       &__search {
-        width: 430px;
+        width: 510px;
         height: 100%;
 
         display: flex;
@@ -80,10 +80,17 @@
         justify-content: space-between;
         align-items: center;
 
-        .group__button,
+        .brigades__button,
         .new__button {
-          width: 65px;
+          width: 75px;
           height: 100%;
+          margin: 0px 10px 0px 20px;
+        }
+
+        .group__button {
+          width: 100px;
+          height: 100%;
+          margin-left: 10px;
         }
 
         .search {
@@ -130,7 +137,7 @@
       }
 
       &__title {
-        flex-basis: 270px;
+        flex-basis: 250px;
         height: 100%;
 
         display: flex;

@@ -57,11 +57,28 @@
           Доступные рабочие области
         </div>
       </div>
+      <div class="block" *ngIf="!isCreateNewUser">
+        <evj-aws-block
+          class="block__component"
+          [isLockedUser]="false"
+          (changeLockUser)="onChangeLockWorker()"
+        ></evj-aws-block>
+      </div>
     </div>
     <div class="worker__column worker__main">
       <div class="avatar">
-        <div class="frame" [ngClass]="{'frame-moved':isAlertShowing}">
+        <div
+          class="frame"
+          [ngClass]="{'frame-moved':isAlertShowing}"
+          (mouseenter)="isAvatarButtonShowing=true"
+          (mouseleave)="isAvatarButtonShowing=false"
+        >
           <img [src]="returnPhotoPath()" class="photo" />
+          <div
+            class="photo__add"
+            [ngClass]="{'photo__add_active':isAvatarButtonShowing}"
+            (click)="isPopUpShowing=true"
+          ></div>
         </div>
         <div class="alert" [ngClass]="{'alert-hidden':!isAlertShowing}">
           <div
@@ -86,19 +103,16 @@
         ></evj-button>
       </div>
     </div>
-    <div class="worker__column worker__workspaces scroll-bar" *ngIf="!isClaimsShowing">
-      <div class="cards">
-        <ng-container *ngFor="let workspace of allWorkspaces">
-          <evj-aws-workspace-card
-            *ngIf="isValidWorkspaceName(workspace.screenName)"
-            [isActive]="defineIsWorkspaceActive(workspace)"
-            [workspace]="workspace"
-            [isChangingCardState]="true"
-            (selectedWorkspace)="onSelectWorkspace($event)"
-          ></evj-aws-workspace-card>
-        </ng-container>
-      </div>
-    </div>
+    <evj-aws-workspaces
+      class="worker__column worker__workspaces scroll-bar"
+      *ngIf="!isClaimsShowing"
+      [allWorkspaces]="allWorkspaces"
+      [workerScreens]="workerScreens"
+      [workerScreensDetached]="workerScreensDetached"
+      [workspacesClaims]="workspacesClaims"
+      [searchingWorkspaceValue]="searchingWorkspaceValue"
+      (workspacesData)="onChangeWorkspacesData()"
+    ></evj-aws-workspaces>
     <div class="worker__column worker__claims scroll-bar" *ngIf="isClaimsShowing">
       <div class="title">Права</div>
       <div class="cards">

@@ -12,7 +12,7 @@ import { DashboardComponent } from './pages/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 import { EventsComponent } from './widgets/events/events.component';
 import { ManualInputComponent } from './widgets/manual-input/manual-input.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LineDiagramComponent } from './widgets/line-diagram/line-diagram.component';
 import { LineDatetimeComponent } from './components/line-datetime/line-datetime.component';
 import { ShiftPersonComponent } from './widgets/change-shift/shift-person/shift-person.component';
@@ -115,16 +115,16 @@ import { OperationScreenComponent } from './widgets/petroleum-products-movement/
 import { OperationParkScreenComponent } from './widgets/petroleum-products-movement/petroleum-reference/operation-park-screen/operation-park-screen.component';
 import { InfoScreenComponent } from './widgets/petroleum-products-movement/petroleum-reference/info-screen/info-screen.component';
 import { PetroleumUnityInfoComponent } from './widgets/petroleum-products-movement/petroleum-unity-info/petroleum-unity-info.component';
+import { AwsCheckboxCardComponent } from './widgets/admin-panel/admin-worker-settings/aws-checkbox-card/aws-checkbox-card.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { AwsBlockComponent } from './widgets/admin-panel/admin-worker-settings/aws-block/aws-block.component';
 import { UsbVerifierComponent } from './widgets/change-shift/usb-verifier/usb-verifier.component';
 import { TimeDataPickerComponent } from './components/time-data-picker/time-data-picker.component';
-import { ReferenceComponent } from './widgets/reference/reference.component';
-import { DragDropModule } from '@angular/cdk/drag-drop';
-import { ReportServerConfiguratorComponent } from './widgets/report-server-configurator/report-server-configurator.component';
 import { AwsAvatarComponent } from './widgets/admin-panel/admin-worker-settings/aws-avatar/aws-avatar.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { AwsFieldsComponent } from './widgets/admin-panel/admin-worker-settings/aws-fields/aws-fields.component';
 import { AwsWorkspacesComponent } from './widgets/admin-panel/admin-worker-settings/aws-workspaces/aws-workspaces.component';
-import { AdminGroupsComponent } from './widgets/admin-panel/admin-groups/admin-groups.components';
+import { AdminGroupsComponent } from './widgets/admin-panel/admin-groups/admin-groups.component';
 import { AgGroupCardComponent } from './widgets/admin-panel/admin-groups/ag-group-card/ag-group-card.component';
 import { AgGroupWorkerCardComponent } from './widgets/admin-panel/admin-groups/ag-group-worker-card/ag-group-worker-card.component';
 import { AwsResponsibleAlertComponent } from './widgets/admin-panel/admin-worker-settings/aws-responsible-alert/aws-responsible-alert.component';
@@ -232,10 +232,10 @@ import { AwsPasswordAlertComponent } from './widgets/admin-panel/admin-worker-se
         OperationParkScreenComponent,
         InfoScreenComponent,
         PetroleumUnityInfoComponent,
+        AwsCheckboxCardComponent,
+        AwsBlockComponent,
         UsbVerifierComponent,
         TimeDataPickerComponent,
-        ReferenceComponent,
-        ReportServerConfiguratorComponent,
         AwsAvatarComponent,
         AwsFieldsComponent,
         AwsWorkspacesComponent,
@@ -293,8 +293,6 @@ import { AwsPasswordAlertComponent } from './widgets/admin-panel/admin-worker-se
         AdminReferencesComponent,
         PetroleumProductsMovementComponent,
         AdminPanelComponent,
-        ReferenceComponent,
-        ReportServerConfiguratorComponent,
     ],
     exports: [HomeComponent],
     imports: [
@@ -315,7 +313,9 @@ import { AwsPasswordAlertComponent } from './widgets/admin-panel/admin-worker-se
         MatSelectModule,
         ScrollingModule,
         OldScrollingModule,
-        DragDropModule,
+        ReactiveFormsModule,
+        MatCheckboxModule,
+        ImageCropperModule,
     ],
     bootstrap: [],
     providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }],
