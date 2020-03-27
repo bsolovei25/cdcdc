@@ -58,8 +58,8 @@ export interface IGroup {
 
 export interface IGlobalClaim {
     claimType: string;
-    description: string;
-    claimCategory: string;
+    description?: string;
+    claimCategory?: string;
     claimCategoryName?: string;
     claimName?: string;
     claimValueTypeName?: string;

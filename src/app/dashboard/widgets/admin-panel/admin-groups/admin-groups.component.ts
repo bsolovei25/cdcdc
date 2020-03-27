@@ -3,6 +3,7 @@ import { IButtonImgSrc, IGroup, IWorkspace } from '../../../models/admin-panel';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
 import { IUser } from '../../../models/events-widget';
+import { fillDataShape } from '../../../../@shared/common-functions';
 
 @Component({
     selector: 'evj-admin-groups',
@@ -10,6 +11,7 @@ import { IUser } from '../../../models/events-widget';
     styleUrls: ['./admin-groups.component.scss'],
 })
 export class AdminGroupsComponent implements OnInit {
+    // TODO
     @Output() private hideGroups: EventEmitter<void> = new EventEmitter<void>();
 
     public searchIcon: string = 'assets/icons/search-icon.svg';
@@ -20,25 +22,7 @@ export class AdminGroupsComponent implements OnInit {
     public allWorkers: IUser[] = [];
     public allWorkspaces: IWorkspace[] = [];
 
-    // Mocked data
-    public groups: IGroup[] = [
-        {
-            id: 1,
-            name: 'Группа №1'
-        },
-        {
-            id: 2,
-            name: 'Группа №2'
-        },
-        {
-            id: 3,
-            name: 'Группа №3'
-        },
-        {
-            id: 4,
-            name: 'Группа №4'
-        },
-    ];
+    public groups: IGroup[] = [];
 
     public groupSelection: SelectionModel<IGroup> = new SelectionModel<IGroup>();
 
@@ -50,6 +34,7 @@ export class AdminGroupsComponent implements OnInit {
         this.adminService
             .getAllScreens()
             .subscribe((screens: IWorkspace[]) => (this.allWorkspaces = screens));
+        this.adminService.getAllGroups().subscribe((groups) => (this.groups = groups));
     }
 
     public onSearchGroup(event: string): void {

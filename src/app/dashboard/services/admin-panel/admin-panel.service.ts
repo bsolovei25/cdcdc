@@ -219,9 +219,10 @@ export class AdminPanelService {
     //#endregion
 
     //#region GROUPS
-    public getAllGroups(): Observable<IGroup> {
+    // TODO
+    public getAllGroups(): Observable<IGroup[]> {
         const url: string = `${this.restUrl}/roles`;
-        return this.http.get<IGroup>(url);
+        return this.http.get<IGroup[]>(url);
     }
 
     public createNewGroup(group: IGroup): Observable<void> {
