@@ -9,6 +9,7 @@ import { fillDataShape } from '../../../../../@shared/common-functions';
     styleUrls: ['./aws-card.component.scss'],
 })
 export class AwsCardComponent implements OnInit {
+    @Input() public isCreateNewUser: boolean = false;
     @Input() public option: IWorkerOptionAdminPanel = {
         value: '',
         name: '',
@@ -20,19 +21,19 @@ export class AwsCardComponent implements OnInit {
     private inputedValue: string = '';
     private isCloseClick: boolean = false;
 
-    public selectEdit: SelectionModel<boolean> = new SelectionModel<boolean>(true);
+    public selectEdit: SelectionModel<void> = new SelectionModel<void>();
 
     constructor() {}
 
-    public ngOnInit(): void {}
+    public ngOnInit(): void {
+        if (this.isCreateNewUser) {
+            this.selectEdit.toggle();
+        }
+    }
 
     public onEditClick(): void {
         this.isCloseClick = false;
-        if (this.selectEdit.isEmpty()) {
-            this.selectEdit.select(true);
-        } else {
-            this.selectEdit.clear();
-        }
+        this.selectEdit.toggle();
     }
 
     public onCloseClick(): void {
@@ -45,6 +46,8 @@ export class AwsCardComponent implements OnInit {
         if (!this.isCloseClick) {
             this.saveChanging.emit({ value: this.inputedValue, key: this.option.key });
             this.option.value = this.inputedValue;
+        }
+        if (!this.isCreateNewUser) {
             this.selectEdit.clear();
         }
     }
