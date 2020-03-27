@@ -24,7 +24,7 @@ export abstract class WidgetPlatform implements OnDestroy {
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public widgetId: string,
         @Inject('uniqId') public widgetUniqId: string
-    ) {}
+    ) { }
 
     public ngOnDestroy(): void {
         this.subscriptions.forEach((el) => el.unsubscribe());
@@ -68,7 +68,7 @@ export abstract class WidgetPlatform implements OnDestroy {
         );
     }
 
-    protected dataDisconnect(): void {}
+    protected dataDisconnect(): void { }
 
     protected abstract dataHandler(ref: any): void;
 }

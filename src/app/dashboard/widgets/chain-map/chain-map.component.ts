@@ -258,7 +258,6 @@ export class ChainMapComponent extends WidgetPlatform implements AfterViewInit, 
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
-
         this.widgetIcon = 'map';
         this.isRealtimeData = false;
     }
@@ -275,7 +274,7 @@ export class ChainMapComponent extends WidgetPlatform implements AfterViewInit, 
         this.drawChain();
     }
 
-    protected dataHandler(ref: any): void {}
+    protected dataHandler(ref: any): void { }
 
     public drawChain(): void {
         this.mass1 = this.data[0];

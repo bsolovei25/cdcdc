@@ -10,12 +10,16 @@ import { ManualInputService } from 'src/app/dashboard/services/manual-input.serv
 export class SearchInputComponent implements OnInit {
     @Input() public data;
     @Input() public dataWidget;
+    @Input() isReport: boolean = false;
+
+    @Output() searchReport = new EventEmitter<KeyboardEvent>();
 
     @Output() onCheck = new EventEmitter<boolean>();
 
     public checkClick: boolean = false;
 
     itemChoose: boolean = false;
+    valueInput: string = '';
 
     constructor(public widgetService: NewWidgetService) {
         if (this.data) {
@@ -23,7 +27,7 @@ export class SearchInputComponent implements OnInit {
         }
     }
 
-    ngOnInit() {}
+    ngOnInit() { }
 
     searchRecords(e: any) {
         this.onCheck.emit(this.checkClick);
@@ -32,6 +36,10 @@ export class SearchInputComponent implements OnInit {
         if (!e.currentTarget.value) {
             this.widgetService.reEmitList();
         }
+    }
+
+    searchReports(event: KeyboardEvent) {
+        this.searchReport.emit(event);
     }
 
     public openFilter(event: any) {
