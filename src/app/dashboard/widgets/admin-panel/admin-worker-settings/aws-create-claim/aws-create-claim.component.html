@@ -16,7 +16,7 @@
     </div>
     <div class="items">
       <div class="list">
-        <ng-container *ngIf="itemsFilter()">
+        <ng-container *ngIf="itemsFilter() && selectClaim.hasValue()">
           <div
             class="card"
             *ngFor="let widget of allWidgets"
@@ -27,7 +27,7 @@
           </div>
         </ng-container>
 
-        <ng-container *ngIf="!itemsFilter()">
+        <ng-container *ngIf="!itemsFilter() && selectClaim.hasValue()">
           <div
             class="card"
             *ngFor="let unit of allUnits"
