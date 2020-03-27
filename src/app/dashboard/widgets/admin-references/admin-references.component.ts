@@ -145,6 +145,7 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
             this.referencesService.getReference().subscribe((data) => {
                 this.datas = data;
                 this.data = this.datas;
+                this.idReferenceClick = this.data[0].id; ///ПОДУМАТЬ ЕСЛИ РЕФЕРЕНС НЕ БУДЕТ
             })
         );
     }
@@ -234,11 +235,40 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
     }
 
     drop(event: CdkDragDrop<string[]>) {
+        const prevId = this.data[this.indexColumn].id;
         moveItemInArray(
             this.data[this.indexColumn].columns,
             event.previousIndex,
             event.currentIndex
         );
+
+        let massColumnSend = [];
+        let pushColumn = [];
+        let index = 0;
+
+        const saveDatas = this.data[this.indexColumn].columns;
+
+        for(let item of saveDatas){
+            const itemObj = {
+                id: item.id,
+                columnOrder: item.columnOrder,
+            }   
+            index++;
+            massColumnSend.push(itemObj);
+        }
+
+        //this.sortById(massColumnSend);
+
+        const object = {
+            id: prevId,
+            colunms: massColumnSend,
+        }
+
+        this.referencesService.orderColumnReference(object);
+    }
+
+    sortById(arr){
+        arr.sort((a,b) => a.id > b.id ? 1: -1);
     }
 
     onPushBlockInReference(): void {

@@ -22,6 +22,7 @@ export interface IReferenceColumns {
     columnTypeId: number; /// ВРЕМЕННЫЙ СТРИНГ
     columnName?: string; /// В ЧЕМ ОТЛИЧИЕ ОТ name ???
     isRequred: boolean;
+    columnOrder?: number;
     isUnique: boolean;
     open?: boolean;
 }
