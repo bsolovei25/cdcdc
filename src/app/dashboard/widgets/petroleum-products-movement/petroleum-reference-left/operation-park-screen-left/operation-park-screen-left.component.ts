@@ -13,7 +13,7 @@ import { PetroleumScreenService } from '../../../../services/petroleum-screen.se
 export class OperationParkScreenLeftComponent implements OnInit {
     @Input() titlePark: string = 'Парк';
 
-    private currentObject: IPetroleumObject = null;
+    public currentObject: IPetroleumObject = null;
     public data: IPetroleumObject[];
 
     constructor(public petroleumService: PetroleumScreenService) {}

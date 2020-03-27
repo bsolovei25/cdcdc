@@ -17,7 +17,7 @@ export class PetroleumProductsMovementComponent extends WidgetPlatform implement
 
     constructor(
         protected widgetService: NewWidgetService,
-        private petroleumService: PetroleumScreenService,
+        public petroleumService: PetroleumScreenService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string

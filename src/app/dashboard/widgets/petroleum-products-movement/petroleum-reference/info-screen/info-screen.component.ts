@@ -11,7 +11,7 @@ export class InfoScreenComponent implements OnInit {
     @Input() title: string[];
     @Input() keys: string[];
 
-    constructor(private petroleumScreenService: PetroleumScreenService) {}
+    constructor(public petroleumScreenService: PetroleumScreenService) {}
 
     ngOnInit(): void {}
 

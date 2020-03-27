@@ -11,7 +11,7 @@ export class OperationScreenComponent implements OnInit {
     @Input() title: string[];
     @Input() keys: string[];
 
-    constructor(private petroleumService: PetroleumScreenService) {}
+    constructor(public petroleumService: PetroleumScreenService) {}
 
     ngOnInit(): void {}
 
