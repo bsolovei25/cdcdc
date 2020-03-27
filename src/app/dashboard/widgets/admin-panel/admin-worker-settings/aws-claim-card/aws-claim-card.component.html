@@ -1,7 +1,12 @@
 <div
   class="item"
+  *ngIf="!isSpecialClaim"
   [ngClass]="{'item-active':isActive,'hover':isChangingCardState}"
   (click)="changeCardState()"
 >
+  {{name}}
+</div>
+
+<div class="item item-big item-active" *ngIf="isSpecialClaim">
   {{name}}
 </div>

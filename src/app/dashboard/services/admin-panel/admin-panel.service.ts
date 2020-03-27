@@ -10,6 +10,8 @@ import {
     IGlobalClaim,
 } from '../../models/admin-panel';
 import { IUser, IUnitEvents } from '../../models/events-widget';
+import { IWidgets } from '../../models/widget.model';
+import { fillDataShape } from '../../../@shared/common-functions';
 
 @Injectable({
     providedIn: 'root',
@@ -56,6 +58,9 @@ export class AdminPanelService {
 
     public screenClaims: IClaim[] = [];
     public generalClaims: IGlobalClaim[] = [];
+    public specialClaims: IGlobalClaim[] = [];
+
+    public allWidgets: IWidgets[] = [];
 
     constructor(private http: HttpClient, private configService: AppConfigService) {
         this.configService.restUrl$.subscribe((urls) => (this.restUrl = `${urls}${this.restUrl}`));
@@ -93,6 +98,11 @@ export class AdminPanelService {
 
     public setUserResponsible(userId: number): Observable<void> {
         const url: string = `${this.restUrl}/user/${userId}/SetResponsible`;
+        return this.http.post<void>(url, null);
+    }
+
+    public resetUserPassword(workerId: number): Observable<void> {
+        const url: string = `${this.restUrl}/user/${workerId}/password/reset`;
         return this.http.post<void>(url, null);
     }
 
@@ -178,7 +188,7 @@ export class AdminPanelService {
     }
     //#endregion
 
-    //#region GLOBAL_CLAIMS
+    //#region GENERAL_CLAIMS
     public getAllGeneralClaims(): Observable<{ data: IGlobalClaim[] }> {
         const url: string = `${this.restUrl}/claim/getavaible-claims/general`;
         return this.http.get<{ data: IGlobalClaim[] }>(url);
@@ -186,6 +196,23 @@ export class AdminPanelService {
 
     public getWorkerGeneralClaims(workerId: number): Observable<{ data: IGlobalClaim[] }> {
         const url: string = `${this.restUrl}/claim/user/${workerId}/getavaible-claims/general`;
+        return this.http.get<{ data: IGlobalClaim[] }>(url);
+    }
+    //#endregion
+
+    //#region SPECIAL_CLAIMS
+    public getAllWidgets(): Observable<{ data: IWidgets[] }> {
+        const url: string = `${this.restUrl}/claim/getavaible-widgets`;
+        return this.http.get<{ data: IWidgets[] }>(url);
+    }
+
+    public getAllSpecialClaims(): Observable<{ data: IGlobalClaim[] }> {
+        const url: string = `${this.restUrl}/claim/getavaible-claims/special`;
+        return this.http.get<{ data: IGlobalClaim[] }>(url);
+    }
+
+    public getWorkerSpecialClaims(workerId: number): Observable<{ data: IGlobalClaim[] }> {
+        const url: string = `${this.restUrl}/claim/user/${workerId}/getavaible-claims/special`;
         return this.http.get<{ data: IGlobalClaim[] }>(url);
     }
     //#endregion
@@ -209,8 +236,11 @@ export class AdminPanelService {
     }
 
     public setDefaultActiveWorker(): void {
-        this.activeWorker$.next(this.defaultWorker);
+        const worker = fillDataShape(this.defaultWorker);
+        this.activeWorker$.next(worker);
         this.activeWorkerScreens$.next([]);
+        this.activeBrigade$.next(null);
+        this.activeWorkerUnit$.next(null);
     }
 
     public async updateAllWorkers(): Promise<void> {

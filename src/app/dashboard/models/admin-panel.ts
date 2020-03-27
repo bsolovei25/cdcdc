@@ -63,7 +63,9 @@ export interface IGlobalClaim {
     claimCategory: string;
     claimCategoryName?: string;
     claimName?: string;
+    claimValueTypeName?: string;
     specification?: string;
+    claimValueType?: string;
     value?: string;
 }
 

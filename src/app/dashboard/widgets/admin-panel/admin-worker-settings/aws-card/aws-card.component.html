@@ -8,7 +8,7 @@
   ></evj-input>
   <div
     class="button"
-    *ngIf="selectEdit.isEmpty()"
+    *ngIf="selectEdit.isEmpty() && !isCreateNewUser"
     [ngClass]="{'button-active':selectEdit.hasValue()}"
     (click)="onEditClick()"
   >
@@ -16,6 +16,7 @@
   </div>
   <div
     class="button button-x"
+    *ngIf="!isCreateNewUser"
     [ngClass]="{'button-hidden':selectEdit.isEmpty()}"
     (click)="onCloseClick()"
   ></div>

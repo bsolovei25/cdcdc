@@ -38,7 +38,7 @@
           <div class="set-buttons" #truckScroll>
             <div
               class="set-button"
-              *ngFor="let machine of Data"
+              *ngFor="let machine of data"
               (click)="onSettings(machine)"
               [ngClass]="{'active': machine.active}"
             >
@@ -52,7 +52,11 @@
             <div class="fake" [style.width.px]="widthTruckScroll"></div>
           </div>
         </div> -->
-        <div class="save-button" (click)="onButtonSave()">
+        <div
+          class="save-button"
+          (click)="onButtonSave()"
+          [style.opacity]="!disabledMachine.isSelected(chooseSetting.name) ? '1' : '0.1'"
+        >
           Сохранить
           <div class="b-a"></div>
         </div>
@@ -101,7 +105,7 @@
         </div>
         <div class="container" id="container">
           <ng-container *ngIf="allSettings">
-            <ng-container *ngFor="let machine of Data">
+            <ng-container *ngFor="let machine of data">
               <div class="machine-name" (click)="onShowMachine(machine)">
                 <div class="machine-name__button">
                   <svg-icon

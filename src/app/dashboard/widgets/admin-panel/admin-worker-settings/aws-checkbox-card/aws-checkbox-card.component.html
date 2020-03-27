@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" [ngClass]="{'card_active':isCreateNewUser}">
   <div class="checkbox" [ngClass]="{'checkbox-active':isChecked}" (click)="onClick()">
     <span></span>
   </div>

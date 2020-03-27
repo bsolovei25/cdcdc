@@ -67,4 +67,12 @@
     color: var(--color-text-sub);
     font-size: 14px;
   }
+
+  &_active {
+    background-image: url(../../../../../../assets/icons/widgets/admin/option-card-active.svg);
+
+    .text {
+      color: var(--color-text-main);
+    }
+  }
 }
