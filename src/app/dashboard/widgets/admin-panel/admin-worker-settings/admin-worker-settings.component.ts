@@ -17,6 +17,8 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     @Input() public isCreateNewUser: boolean = false;
     @Output() public closeWorkerSettings: EventEmitter<IUser> = new EventEmitter<IUser>();
 
+    public toggleClaim: boolean = false;
+
     public isClaimsShowing: boolean = true;
     public isAlertShowing: boolean = false;
     public isCheckBoxClicked: boolean = false;
