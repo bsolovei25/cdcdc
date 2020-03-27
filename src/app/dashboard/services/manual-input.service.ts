@@ -185,7 +185,6 @@ export class ManualInputService {
         }
     }
 
-
     async getManualInput(id: string): Promise<IMachine_MI[]> {
         return await this.http
             .get<IMachine_MI[]>(this.restUrl + '/api/manualinput/ManualInputData/' + id)
