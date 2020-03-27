@@ -10,24 +10,25 @@
 
   <evj-aws-select-card
     class="card"
+    *ngIf="isValidFieldName(selectOptions[0].name)"
     [option]="selectOptions[0]"
     (saveChanging)="onSelectUnit($event)"
   ></evj-aws-select-card>
   <evj-aws-select-card
     class="card"
-    *ngIf="!!workerUnit"
+    *ngIf="!!workerUnit && isValidFieldName(selectOptions[1].name)"
     [option]="selectOptions[1]"
     (saveChanging)="onSelectBrigade($event)"
   ></evj-aws-select-card>
 
   <evj-aws-checkbox-card
     class="card"
-    *ngIf="worker.brigade"
+    *ngIf="worker.brigade && isValidFieldName('Назначить главным')"
     [workerPosition]="setWorkerPosition()"
     (checked)="onSetResponsible($event)"
   ></evj-aws-checkbox-card>
 
-  <div class="card">
+  <div class="card" *ngIf="isValidFieldName(textPasswordButton())">
     <evj-button
       class="card__button"
       [isChangingState]="false"
