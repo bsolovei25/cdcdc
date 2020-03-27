@@ -375,6 +375,9 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public onReturn(): void {
+        if (this.isCreateNewUser) {
+            this.adminService.setDefaultActiveWorker();
+        }
         this.closeWorkerSettings.emit(null);
     }
 

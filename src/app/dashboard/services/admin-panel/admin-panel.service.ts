@@ -11,6 +11,7 @@ import {
 } from '../../models/admin-panel';
 import { IUser, IUnitEvents } from '../../models/events-widget';
 import { IWidgets } from '../../models/widget.model';
+import { fillDataShape } from '../../../@shared/common-functions';
 
 @Injectable({
     providedIn: 'root',
@@ -235,8 +236,11 @@ export class AdminPanelService {
     }
 
     public setDefaultActiveWorker(): void {
-        this.activeWorker$.next(this.defaultWorker);
+        const worker = fillDataShape(this.defaultWorker);
+        this.activeWorker$.next(worker);
         this.activeWorkerScreens$.next([]);
+        this.activeBrigade$.next(null);
+        this.activeWorkerUnit$.next(null);
     }
 
     public async updateAllWorkers(): Promise<void> {
