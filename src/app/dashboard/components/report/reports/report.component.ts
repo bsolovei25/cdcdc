@@ -56,7 +56,7 @@ export class ReportComponent implements OnInit {
         }
     }
 
-    toggle(id) {
+    toggle(id: number) {
         this.active = !this.active;
         if (this.active) {
             this.loadItem(id);

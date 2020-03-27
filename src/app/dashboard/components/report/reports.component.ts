@@ -33,7 +33,6 @@ export class ReportsComponent implements OnInit, OnDestroy {
     constructor(
         public widgetService: NewWidgetService,
         private reportsService: ReportsService,
-        private detectCh: ChangeDetectorRef
     ) {
         this.subscription = this.widgetService.widgets$.subscribe((dataW) => {
         });
@@ -55,7 +54,6 @@ export class ReportsComponent implements OnInit, OnDestroy {
 
     async loadItem(): Promise<void> {
         this.data = await this.reportsService.getReportsTemplate();
-        // this.detectCh.detectChanges();
     }
 
 }
