@@ -24,7 +24,7 @@
   <div
     class="button"
     [ngClass]="{'button-active':selectEdit.hasValue()}"
-    *ngIf="selectEdit.isEmpty()"
+    *ngIf="selectEdit.isEmpty() && !isCreateNewUser"
     (click)="onEditClick()"
   >
     <img src="assets/icons/widgets/admin/edit-button.svg" />
@@ -32,6 +32,7 @@
   <div
     class="button button-x"
     [ngClass]="{'button-hidden':selectEdit.isEmpty()}"
+    *ngIf="!isCreateNewUser"
     (click)="onCloseClick()"
   ></div>
 </div>

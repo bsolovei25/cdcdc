@@ -7,6 +7,7 @@ import { WorkerPositionType } from '../../../../models/events-widget';
     styleUrls: ['./aws-checkbox-card.component.scss'],
 })
 export class AwsCheckboxCardComponent implements OnInit, OnChanges {
+    @Input() public isCreateNewUser: boolean = false;
     @Input() public workerPosition: WorkerPositionType = 'common';
     @Output() private checked: EventEmitter<boolean> = new EventEmitter<boolean>();
 

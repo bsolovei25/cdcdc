@@ -31,6 +31,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     public isSetResponsible: boolean = false;
 
     public isPasswordAlertShowing: boolean = false;
+    private isResetPassword: boolean = false;
 
     public isCreateClaim: boolean = false;
 
@@ -139,6 +140,15 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         this.showAlert();
         this.isBrigadeResponsibleAlertShowing = true;
         this.isSetResponsible = event;
+    }
+
+    public onChangePassword(isResetPassword: boolean): void {
+        this.isResetPassword = isResetPassword;
+        if (!isResetPassword) {
+            this.isPasswordAlertShowing = true;
+        } else {
+            this.showAlert();
+        }
     }
 
     public onChangeWorkspacesData(): void {
@@ -365,6 +375,9 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public onReturn(): void {
+        if (this.isCreateNewUser) {
+            this.adminService.setDefaultActiveWorker();
+        }
         this.closeWorkerSettings.emit(null);
     }
 
@@ -385,6 +398,11 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                 if (this.worker.position === 'responsible') {
                     await this.adminService.setUserResponsible(this.worker.id).toPromise();
                 }
+
+                if (this.isResetPassword) {
+                    await this.adminService.resetUserPassword(this.worker.id).toPromise();
+                }
+
                 await this.adminService.updateAllWorkers();
                 await this.adminService.updateAllBrigades();
                 const userScreens: IScreen[] = await this.adminService

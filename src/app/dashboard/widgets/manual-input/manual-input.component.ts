@@ -136,8 +136,8 @@ export class ManualInputComponent extends WidgetPlatform
                 // if (Number(cl.value) === unit.id && cl.claimCategoryName === "Запретить") {
                 //     this.disabledMachine.select(unit.name);
                 // }
-            })
-        })
+            });
+        });
     }
 
     async setInitData(): Promise<void> {
@@ -148,7 +148,6 @@ export class ManualInputComponent extends WidgetPlatform
         } catch (error) {
             console.log(error);
         }
-
     }
 
     onButtonSave(): void {

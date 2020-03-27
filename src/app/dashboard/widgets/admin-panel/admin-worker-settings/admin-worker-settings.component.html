@@ -38,7 +38,7 @@
         [isCreateNewUser]="isCreateNewUser"
         (workerData)="onChangeWorkerData($event)"
         (responsible)="onSetResponsible($event)"
-        (password)="isPasswordAlertShowing=true"
+        (password)="onChangePassword($event)"
       ></evj-aws-fields>
       <div class="claims">
         <div class="title">Права доступа</div>
@@ -87,8 +87,7 @@
             (click)="isCheckBoxClicked=!isCheckBoxClicked"
           ></div>
           <div class="message">
-            Подтверждаю внесенные изменения и<br />
-            <span>высокий уровень</span> доступа<br />
+            Подтверждаю внесенные изменения<br />
             для данного сотрудника
           </div>
         </div>

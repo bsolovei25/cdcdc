@@ -59,13 +59,10 @@ export class ClaimService {
         ]);
     }
 
-
     async getClaimAll(): Promise<IClaimAll> {
         try {
             return this.http
-                .get<IClaimAll>(
-                    this.restUrl + `/api/user-management/claim/all`
-                )
+                .get<IClaimAll>(this.restUrl + `/api/user-management/claim/all`)
                 .toPromise();
         } catch (error) {
             console.error(error);
