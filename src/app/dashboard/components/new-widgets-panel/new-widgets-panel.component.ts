@@ -2,7 +2,6 @@ import {
     Component,
     OnInit,
     Injector,
-    ChangeDetectionStrategy,
     Output,
     EventEmitter,
     OnDestroy,
@@ -11,14 +10,12 @@ import { GridsterConfig, GridType } from 'angular-gridster2';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { Subscription, BehaviorSubject } from 'rxjs';
 import { WIDGETS } from '../new-widgets-grid/widget-map';
-import { WidgetModel } from '../../models/widget.model';
 import { IWidgets } from '../../models/widget.model';
 import { NewUserSettingsService } from '../../services/new-user-settings.service';
 import { ClaimService, EnumClaimWidgets } from '../../services/claim.service';
 
 @Component({
     selector: 'evj-new-widgets-panel',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './new-widgets-panel.component.html',
     styleUrls: ['./new-widgets-panel.component.scss'],
 })

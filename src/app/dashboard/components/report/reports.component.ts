@@ -55,7 +55,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
 
     async loadItem(): Promise<void> {
         this.data = await this.reportsService.getReportsTemplate();
-        this.detectCh.detectChanges();
+        // this.detectCh.detectChanges();
     }
 
 }

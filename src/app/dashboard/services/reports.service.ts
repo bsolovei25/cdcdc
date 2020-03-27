@@ -34,13 +34,9 @@ export class ReportsService {
     }
 
     async postTemplate(id: number, body): Promise<any> {
-        try {
-            return this.http
-                .post<any>(this.restUrl + `/api/reporting/${id}/template/create`, body)
-                .toPromise();
-        } catch (error) {
-            console.error(error);
-        }
+        return this.http
+            .post<any>(this.restUrl + `/api/reporting/${id}/template/create`, body)
+            .toPromise();
     }
 
 }

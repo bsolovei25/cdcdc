@@ -6,14 +6,14 @@ import { IReportTemplate } from '../reports.component';
 import { ReportsService } from 'src/app/dashboard/services/reports.service';
 
 export interface IReport extends IReportTemplate {
-    options: IReportOption[]
+    options: IReportOption[];
 }
 
 export interface IReportOption {
     id: number;
     name: string;
     description: string;
-    type: "textBox" | "comboBox | dateTime | checkBox";
+    type: 'textBox' | 'comboBox' | 'dateTime' | 'checkBox';
     validationRule: string;
     isRequired: boolean;
     source: string;
@@ -43,7 +43,6 @@ export class ReportComponent implements OnInit {
     constructor(
         public widgetService: NewWidgetService,
         private reportsService: ReportsService,
-        private detectCh: ChangeDetectorRef
     ) {
         this.subscription = this.widgetService.widgets$.subscribe((dataW) => {
         });
@@ -85,19 +84,17 @@ export class ReportComponent implements OnInit {
         this.isLoading = true;
         try {
             this.template = await this.reportsService.getTemplate(id);
-            this.detectCh.detectChanges();
             this.isLoading = false;
         } catch (error) {
             this.isLoading = false;
         }
     }
 
-    async postItem(template: IReport) {
+    async postItem(template: IReport): Promise<void> {
         this.isLoading = true;
         const body = [{ value: 'mmm', baseOptionId: template?.options?.[0].id }];
         try {
             await this.reportsService.postTemplate(template.id, body);
-            this.detectCh.detectChanges();
             this.isLoading = false;
         } catch (error) {
             this.isLoading = false;
