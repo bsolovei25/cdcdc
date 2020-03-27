@@ -4,59 +4,39 @@ import {
     IFacilityInfo, IPetroleumObject
 } from 'src/app/dashboard/models/petroleum-products-movement.model';
 import { PetroleumScreenService } from '../../../../services/petroleum-screen.service';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
     selector: 'evj-operation-screen-right',
     templateUrl: './operation-screen-right.component.html',
     styleUrls: ['./operation-screen-right.component.scss'],
+    animations: [
+        trigger('Branch', [
+            state(
+                'collapsed',
+                style({
+                    height: 0,
+                    opacity: 0,
+                    width: '100%',
+                    overflow: 'hidden',
+                    display: 'block',
+                })
+            ),
+            state(
+                'expanded',
+                style({
+                    height: 100,
+                    width: '100%',
+                    display: 'block',
+                    opacity: 1,
+                })
+            ),
+            transition('collapsed => expanded', animate('150ms ease-in')),
+            transition('expanded => collapsed', animate('150ms ease-out')),
+        ]),
+    ],
 })
 export class OperationScreenRightComponent implements OnInit {
-    // dataTank: ITankInfo[] = [
-    //     {
-    //         title: 'Резервуар 201',
-    //         state: 'in',
-    //     },
-    //     {
-    //         title: 'Резервуар 202',
-    //         state: 'in',
-    //     },
-    //     {
-    //         title: 'Резервуар 203',
-    //         state: 'in',
-    //     },
-    //     {
-    //         title: 'Резервуар 204',
-    //         state: 'in',
-    //     },
-    //     {
-    //         title: 'Резервуар 205',
-    //         state: 'in',
-    //     },
-    // ];
-    //
-    // dataFacil: IFacilityInfo[] = [
-    //     {
-    //         title: 'Резервуар 201',
-    //         state: 'in',
-    //     },
-    //     {
-    //         title: 'Резервуар 202',
-    //         state: 'in',
-    //     },
-    //     {
-    //         title: 'Резервуар 203',
-    //         state: 'in',
-    //     },
-    //     {
-    //         title: 'Резервуар 204',
-    //         state: 'in',
-    //     },
-    //     {
-    //         title: 'Резервуар 205',
-    //         state: 'in',
-    //     },
-    // ];
-
     public tanks: IPetroleumObject[];
     public units: IPetroleumObject[];
 

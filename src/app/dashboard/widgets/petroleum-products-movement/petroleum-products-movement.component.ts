@@ -12,12 +12,6 @@ export class PetroleumProductsMovementComponent extends WidgetPlatform implement
     public static itemCols: number = 23;
     public static itemRows: number = 16;
 
-    // public isWorkspace: boolean = true;
-    //
-    // public isShort: boolean = true;
-    //
-    // public isUpdateParamButton: boolean = false;
-
     public typeScreen: string = 'info';
     protected isRealtimeData: boolean = false;
 
@@ -32,8 +26,6 @@ export class PetroleumProductsMovementComponent extends WidgetPlatform implement
     }
 
     public ngOnInit(): void {
-        console.log(new Date(1585240500000));
-        console.warn(this.isMock);
         super.widgetInit();
         this.subscriptions.push(
             this.petroleumService.screenState$.subscribe((data) => {
@@ -63,24 +55,6 @@ export class PetroleumProductsMovementComponent extends WidgetPlatform implement
         const objects = await this.petroleumService.getObjects(this.petroleumService.client);
         this.petroleumService.objectsAll$.next(objects);
         this.petroleumService.isLoad$.next(false);
+        setInterval(() => this.petroleumService.reGetTransfers(), 30000);
     }
-
-    // onChanged(type: string): void {
-    //     switch (type) {
-    //         case 'create':
-    //             this.isWorkspace = false;
-    //             this.isShort = false;
-    //             this.isUpdateParamButton = false;
-    //             break;
-    //         case 'update':
-    //             this.isUpdateParamButton = true;
-    //             this.isWorkspace = true;
-    //             this.isShort = false;
-    //             break;
-    //     }
-    // }
-    //
-    // public onReturn(el: boolean): void {
-    //     this.isWorkspace = el;
-    // }
 }

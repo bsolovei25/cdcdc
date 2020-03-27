@@ -75,12 +75,16 @@ export class PetroleumUnityComponent implements OnInit, AfterViewInit, OnDestroy
     @HostListener('document:UnityMotionAccounting_CreateTransfer', ['$event'])
     public CreateTransfer(event): void {
         console.log('create-transfer');
+        this.petroleumService.createTransfer();
     }
 
     @HostListener('document:UnityMotionAccounting_SetTime', ['$event', '$event.detail.param1', '$event.detail.param2'])
     public SetTimeTransfer(event, param1: string, param2: number): void {
         const isSource = (param1.toLowerCase() === 'true');
-        const dateTime = new Date(param2);
+        let dateTime = null;
+        if (param2) {
+            dateTime = new Date(param2);
+        }
         this.petroleumService.setTime(isSource, dateTime);
     }
 
@@ -102,6 +106,11 @@ export class PetroleumUnityComponent implements OnInit, AfterViewInit, OnDestroy
         );
     }
 
+    @HostListener('document:UnityMotionAccounting_ExitScreen', ['$event'])
+    returnMenu(event): void {
+        this.petroleumService.openScreen('info');
+    }
+
     private async NextTransferHandler(ref: ITransfer): Promise<void> {
         const sourceType: ObjectType = this.petroleumService.objectsSource$.getValue()?.find(item => item.isActive)?.objectType ?? 'Tank';
         const destinationType: ObjectType = this.petroleumService.objectsReceiver$.getValue()?.find(item => item.isActive)?.objectType ?? 'Tank';
@@ -114,7 +123,7 @@ export class PetroleumUnityComponent implements OnInit, AfterViewInit, OnDestroy
             destinationType,
             sourceUnitProducts,
             destinationUnitProducts,
-            operationType: 'Exist'
+            operationType: ref.operationType ? ref.operationType : 'Exist',
         };
         const req = {...ref, ...additional};
         console.log(JSON.stringify(req));

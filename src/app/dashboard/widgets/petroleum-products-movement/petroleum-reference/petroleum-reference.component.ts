@@ -64,5 +64,10 @@ export class PetroleumReferenceComponent {
             type: 'кг/м3',
             value: 0.5,
         },
+        {
+            name: 'Продукт',
+            type: 'кг/м3',
+            value: 0.5,
+        },
     ];
 }

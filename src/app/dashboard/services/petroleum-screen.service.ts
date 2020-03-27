@@ -73,6 +73,8 @@ export class PetroleumScreenService {
             this.openScreen('operation');
         }
         const chooseTransfer = this.transfers$.getValue().find(el => el.uid === uid);
+        console.log(uid);
+        console.log(chooseTransfer);
         chooseTransfer.operationType = 'Exist';
         const tempTransfers = this.transfers$.getValue();
         tempTransfers.forEach(item => item.isActive = false);
@@ -161,7 +163,7 @@ export class PetroleumScreenService {
             currentTransfer.sourceClient = this.client;
         } else {
             const objectsSource = await this.getObjects(this.client, objectName, 'enter');
-            const objectSource = objectsSource?.find(item => item.objectName === currentTransfer.destinationName);
+            const objectSource = objectsSource?.find(item => item.objectName === currentTransfer.sourceName);
             let objectsDestination = this.objectsReceiver$.getValue();
             let isComparable: boolean = false;
             if (objectSource) {
@@ -238,6 +240,18 @@ export class PetroleumScreenService {
             .toPromise();
     }
 
+    public async reGetTransfers(): Promise<void> {
+        await this.getTransfers(null, null, true, this.client);
+        const currentTransfer = this.currentTransfer$.getValue();
+        const transfers = this.transfers$.getValue();
+        const currentTransferTemp = transfers.find(item => item.uid === currentTransfer.uid);
+        if (currentTransferTemp) {
+            currentTransferTemp.isActive = true;
+            this.currentTransfer$.next(currentTransferTemp);
+        }
+        this.transfers$.next(transfers);
+    }
+
     public async getTransfers(
         startTme: Date,
         endTime: Date,
@@ -260,12 +274,20 @@ export class PetroleumScreenService {
     public async saveTransfer(): Promise<void> {
         const currentTransfer = this.currentTransfer$.getValue();
         console.log(currentTransfer);
-        if (currentTransfer.operationType === 'Exist') {
-            await this.saveTransferAsync(currentTransfer);
-        } else {
-            await this.createTransferAsync(currentTransfer);
+        let uid: string;
+        try {
+            if (currentTransfer.operationType === 'Exist') {
+                const ans = await this.saveTransferAsync(currentTransfer);
+                uid = currentTransfer.uid;
+            } else {
+                uid = await this.createTransferAsync(currentTransfer);
+            }
+            await this.getTransfers(null, null, true, this.client);
+            await this.chooseTransfer(uid);
+            this.materialController.openSnackBar('Сохранено');
+        } catch {
+            this.materialController.openSnackBar('Ошибка валидации!', 'snackbar-red');
         }
-        await this.getTransfers(null, null, true, this.client);
     }
 
     public async getObjects(client: string, object: string = null, direction: ObjectDirection = null): Promise<IPetroleumObject[]> {
@@ -293,12 +315,12 @@ export class PetroleumScreenService {
         this.currentTransfer$.next(transfers[0]);
     }
 
-    private async saveTransferAsync(transfer: ITransfer): Promise<void> {
-        this.http.put(`${this.restUrl}/api/petroleum-flow-transfers/transfer/`, transfer).toPromise();
+    private async saveTransferAsync(transfer: ITransfer): Promise<any> {
+        return this.http.put(`${this.restUrl}/api/petroleum-flow-transfers/transfer/`, transfer).toPromise();
     }
 
-    private async createTransferAsync(transfer: ITransfer): Promise<void> {
-        this.http.post(`${this.restUrl}/api/petroleum-flow-transfers/transfer/`, transfer).toPromise();
+    private async createTransferAsync(transfer: ITransfer): Promise<string> {
+        return this.http.post<string>(`${this.restUrl}/api/petroleum-flow-transfers/transfer/`, transfer).toPromise();
     }
 
     private async deleteTransferAsync(uid: string): Promise<void> {

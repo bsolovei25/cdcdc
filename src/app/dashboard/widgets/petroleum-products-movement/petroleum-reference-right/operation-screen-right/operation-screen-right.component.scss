@@ -196,3 +196,9 @@
   width: 20%;
   line-height: 85px;
 }
+
+.arrow-button {
+  &__active {
+    transform: rotate(-90deg);
+  }
+}
