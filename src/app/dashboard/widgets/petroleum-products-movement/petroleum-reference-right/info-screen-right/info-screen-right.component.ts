@@ -16,6 +16,7 @@ export class InfoScreenRightComponent implements OnInit {
 
     createOperation(): void {
         this.petroleumService.openScreen('operation');
+        this.petroleumService.createTransfer();
     }
 
     changeParam(): void {

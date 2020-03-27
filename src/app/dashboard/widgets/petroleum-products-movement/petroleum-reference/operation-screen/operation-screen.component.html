@@ -1,10 +1,11 @@
-<div class="return_button" (click)="returnMenu()">
-  <svg-icon
-    src="./assets/icons/widgets/workspace/attantion.svg"
-    [svgStyle]="{ 'width.px':25, 'height.px':25 }"
-  >
-  </svg-icon>
-</div>
+<!--<div class="return_button" (click)="returnMenu()">-->
+<!--  <svg-icon-->
+<!--    style="width: 100%; height: 100%; fill: #8C99B2"-->
+<!--    src="./assets/icons/close_bad.svg"-->
+<!--    [svgStyle]="{ 'width.px':13, 'height.px':13 }"-->
+<!--  >-->
+<!--  </svg-icon>-->
+<!--</div>-->
 <div class="illustration_widget">
   <evj-petroleum-unity></evj-petroleum-unity>
 </div>
@@ -19,23 +20,23 @@
     </ng-container>
   </div>
   <div class="reference_values_short">
-    <ng-container *ngFor="let item of data">
-      <div class="values_block">
-        <ng-container *ngFor="let key of objectKeys(item)">
-          <ng-container *ngIf="(key === 'finishOperation') || (key === 'startOperation')">
-            <ng-container *ngIf="objectEntries(item[key]).length !== 0">
+    <ng-container *ngFor="let item of this.petroleumService.transfers$ | async">
+      <div class="values_block" [class.values_block__active]="item.isActive" (click)="transferClick(item.uid)">
+        <ng-container *ngFor="let key of keys">
+          <ng-container *ngIf="((key === 'startTime') || (key === 'endTime')) && (key !== 'uid')">
+            <ng-container *ngIf="item[key]">
               <div class="values">
                 <div class="value">
                   <div class="date">
-                    {{ item[key].datetime | date:'dd.MM.yyyy | hh:mm:ss' }}
+                    {{ (key === 'startTime' ? item.startTime : item.endTime) | date:'dd.MM.yyyy | HH:mm:ss' }}
                   </div>
                   <div class="operator">
-                    {{ item[key].operator }}
+                    {{ (key === 'startTime' ? item.sourceClient : item.destinationClient) }}
                   </div>
                 </div>
               </div>
             </ng-container>
-            <ng-container *ngIf="objectEntries(item[key]).length === 0">
+            <ng-container *ngIf="!item[key]">
               <div class="values">
                 <div class="value">
                   <svg-icon
@@ -47,7 +48,13 @@
               </div>
             </ng-container>
           </ng-container>
-          <ng-container *ngIf="(key !== 'finishOperation') && (key !== 'startOperation')">
+          <ng-container *ngIf="
+            (key !== 'endTime') &&
+            (key !== 'startTime') &&
+            (key !== 'sourceClient') &&
+            (key !== 'destinationClient') &&
+            (key !== 'uid')"
+          >
             <div class="values">
               <div class="value">
                 {{ item[key] }}

@@ -1,86 +1,60 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
-import { transition, style, animate, trigger } from '@angular/animations';
-import { IOperation } from '../../models/petroleum-products-movement.model';
 import { PetroleumScreenService } from '../../services/petroleum-screen.service';
+import {WidgetPlatform} from "../../models/widget-platform";
 
 @Component({
     selector: 'evj-petroleum-products-movement',
     templateUrl: './petroleum-products-movement.component.html',
     styleUrls: ['./petroleum-products-movement.component.scss'],
 })
-export class PetroleumProductsMovementComponent implements OnInit, OnDestroy {
-    static itemCols: number = 23;
-    static itemRows: number = 16;
+export class PetroleumProductsMovementComponent extends WidgetPlatform implements OnInit, OnDestroy {
+    public static itemCols: number = 23;
+    public static itemRows: number = 16;
 
-    public units: string = '%';
-    public title: string;
-    public code: string;
-    public previewTitle: string;
-
-    private subscriptions: Subscription[] = [];
-
-    public isWorkspace: boolean = true;
-
-    public isShort: boolean = true;
-
-    public isUpdateParamButton: boolean = false;
-
-    typeScreen: string = 'info';
+    public typeScreen: string = 'info';
+    protected isRealtimeData: boolean = false;
 
     constructor(
-        private widgetService: NewWidgetService,
-        private petroleumService: PetroleumScreenService,
+        protected widgetService: NewWidgetService,
+        public petroleumService: PetroleumScreenService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
-    ) {}
+    ) {
+        super(widgetService, isMock, id, uniqId);
+    }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
+        super.widgetInit();
         this.subscriptions.push(
-            this.widgetService.getWidgetChannel(this.id).subscribe((data) => {
-                this.title = data.title;
-                // this.code = data.code;
-                this.units = data.units;
-                // this.name = data.name;
-                this.previewTitle = data.widgetType;
-            }),
-
-            this.petroleumService.date$.subscribe((data) => {
+            this.petroleumService.screenState$.subscribe((data) => {
                 this.typeScreen = data;
             })
         );
-
-        if (!this.isMock) {
-            //  this.wsConnect();
-        }
     }
 
-    ngOnDestroy(): void {
-        if (this.subscriptions) {
-            for (const subscription of this.subscriptions) {
-                subscription.unsubscribe();
-            }
-        }
+    public ngOnDestroy(): void {
+        super.ngOnDestroy();
     }
 
-    onChanged(type: string): void {
-        switch (type) {
-            case 'create':
-                this.isWorkspace = false;
-                this.isShort = false;
-                this.isUpdateParamButton = false;
-                break;
-            case 'update':
-                this.isUpdateParamButton = true;
-                this.isWorkspace = true;
-                this.isShort = false;
-                break;
-        }
+    protected dataConnect(): void {
+        console.warn(this.widgetId + ' ' + this.isMock);
+        super.dataConnect();
+        this.initPetroleumMovement();
     }
 
-    onReturn(el: boolean): void {
-        this.isWorkspace = el;
+    protected dataHandler(ref: any): void {
+    }
+
+    private async initPetroleumMovement(): Promise<void> {
+        this.petroleumService.isLoad$.next(true);
+        await this.petroleumService.setClient();
+        await this.petroleumService
+            .getTransfers(null, null, true, this.petroleumService.client);
+        const objects = await this.petroleumService.getObjects(this.petroleumService.client);
+        this.petroleumService.objectsAll$.next(objects);
+        this.petroleumService.isLoad$.next(false);
+        setInterval(() => this.petroleumService.reGetTransfers(), 30000);
     }
 }

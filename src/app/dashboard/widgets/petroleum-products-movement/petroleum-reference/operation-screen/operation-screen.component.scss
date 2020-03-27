@@ -95,6 +95,14 @@
   justify-content: space-around;
   font-size: 10px;
   color: white;
+  padding-bottom: 10px;
+  cursor: pointer;
+  &__active {
+    background-color: var(--color-active-transparent);
+  }
+  &:hover {
+    background-color: var(--color-active-transparent);
+  }
 }
 
 .values {
@@ -252,8 +260,8 @@
 
 .return_button {
   position: absolute;
-  left: 1000px;
-  top: 40px;
+  left: 18.5%;
+  top: 0px;
   z-index: 999;
   cursor: pointer;
 }

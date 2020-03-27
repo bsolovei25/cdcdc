@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { transition, trigger, animate, style } from '@angular/animations';
-import { IOperation } from '../../../models/petroleum-products-movement.model';
+import { ITransfer } from '../../../models/petroleum-products-movement.model';
 
 @Component({
     selector: 'evj-petroleum-reference',
@@ -21,7 +21,7 @@ import { IOperation } from '../../../models/petroleum-products-movement.model';
         ]),
     ],
 })
-export class PetroleumReferenceComponent implements OnInit {
+export class PetroleumReferenceComponent {
     @Input() typeScreen: string;
     @Input() data: any;
 
@@ -41,275 +41,33 @@ export class PetroleumReferenceComponent implements OnInit {
         'Отклонение',
     ];
 
-    public operations: IOperation[] = [
-        {
-            source: 'Резервуар 503',
-            receiver: 'ЭЛОУ-2',
-            productSource: 'Нефть сырая',
-            productReceiver: 'Нефть сырая',
-            startOperation: {
-                datetime: new Date(),
-                operator: 'Иванов И.В.',
-            },
-            finishOperation: {},
-            massSource: 47.32,
-            massReceiver: 45.299,
-            deviation: 2.021,
-        },
-        {
-            source: 'Резервуар 505',
-            receiver: 'Резервуар 527',
-            productSource: 'Нефть сырая',
-            productReceiver: 'Нефть сырая',
-            startOperation: {
-                datetime: new Date(),
-                operator: 'Иванов И.В.',
-            },
-            finishOperation: {
-                datetime: new Date(),
-                operator: 'Иванов И.В.',
-            },
-            massSource: 47.32,
-            massReceiver: 45.299,
-            deviation: 2.021,
-        },
-        {
-            source: 'Резервуар 507',
-            receiver: 'ЭЛОУ-2',
-            productSource: 'Нефть сырая',
-            productReceiver: 'Нефть сырая',
-            startOperation: {
-                datetime: new Date(),
-                operator: 'Иванов И.В.',
-            },
-            finishOperation: {
-                datetime: new Date(),
-                operator: 'Иванов И.В.',
-            },
-            massSource: 47.32,
-            massReceiver: 45.299,
-            deviation: 2.021,
-        },
-        {
-            source: 'Резервуар 507',
-            receiver: 'ЭЛОУ-2',
-            productSource: 'Нефть сырая',
-            productReceiver: 'Нефть сырая',
-            startOperation: {
-                datetime: new Date(),
-                operator: 'Иванов И.В.',
-            },
-            finishOperation: {
-                datetime: new Date(),
-                operator: 'Иванов И.В.',
-            },
-            massSource: 47.32,
-            massReceiver: 45.299,
-            deviation: 2.021,
-        },
-        {
-            source: 'Резервуар 507',
-            receiver: 'ЭЛОУ-2',
-            productSource: 'Нефть сырая',
-            productReceiver: 'Нефть сырая',
-            startOperation: {
-                datetime: new Date(),
-                operator: 'Иванов И.В.',
-            },
-            finishOperation: {
-                datetime: new Date(),
-                operator: 'Иванов И.В.',
-            },
-            massSource: 47.32,
-            massReceiver: 45.299,
-            deviation: 2.021,
-        },
-        {
-            source: 'Резервуар 507',
-            receiver: 'ЭЛОУ-2',
-            productSource: 'Нефть сырая',
-            productReceiver: 'Нефть сырая',
-            startOperation: {
-                datetime: new Date(),
-                operator: 'Иванов И.В.',
-            },
-            finishOperation: {
-                datetime: new Date(),
-                operator: 'Иванов И.В.',
-            },
-            massSource: 47.32,
-            massReceiver: 45.299,
-            deviation: 2.021,
-        },
-        {
-            source: 'Резервуар 507',
-            receiver: 'ЭЛОУ-2',
-            productSource: 'Нефть сырая',
-            productReceiver: 'Нефть сырая',
-            startOperation: {
-                datetime: new Date(),
-                operator: 'Иванов И.В.',
-            },
-            finishOperation: {
-                datetime: new Date(),
-                operator: 'Иванов И.В.',
-            },
-            massSource: 47.32,
-            massReceiver: 45.299,
-            deviation: 2.021,
-        },
-        {
-            source: 'Резервуар 507',
-            receiver: 'ЭЛОУ-2',
-            productSource: 'Нефть сырая',
-            productReceiver: 'Нефть сырая',
-            startOperation: {
-                datetime: new Date(),
-                operator: 'Иванов И.В.',
-            },
-            finishOperation: {
-                datetime: new Date(),
-                operator: 'Иванов И.В.',
-            },
-            massSource: 47.32,
-            massReceiver: 45.299,
-            deviation: 2.021,
-        },
-        {
-            source: 'Резервуар 507',
-            receiver: 'ЭЛОУ-2',
-            productSource: 'Нефть сырая',
-            productReceiver: 'Нефть сырая',
-            startOperation: {
-                datetime: new Date(),
-                operator: 'Иванов И.В.',
-            },
-            finishOperation: {
-                datetime: new Date(),
-                operator: 'Иванов И.В.',
-            },
-            massSource: 47.32,
-            massReceiver: 45.299,
-            deviation: 2.021,
-        },
-        {
-            source: 'Резервуар 507',
-            receiver: 'ЭЛОУ-2',
-            productSource: 'Нефть сырая',
-            productReceiver: 'Нефть сырая',
-            startOperation: {
-                datetime: new Date(),
-                operator: 'Иванов И.В.',
-            },
-            finishOperation: {
-                datetime: new Date(),
-                operator: 'Иванов И.В.',
-            },
-            massSource: 47.32,
-            massReceiver: 45.299,
-            deviation: 2.021,
-        },
-        {
-            source: 'Резервуар 507',
-            receiver: 'ЭЛОУ-2',
-            productSource: 'Нефть сырая',
-            productReceiver: 'Нефть сырая',
-            startOperation: {
-                datetime: new Date(),
-                operator: 'Иванов И.В.',
-            },
-            finishOperation: {
-                datetime: new Date(),
-                operator: 'Иванов И.В.',
-            },
-            massSource: 47.32,
-            massReceiver: 45.299,
-            deviation: 2.021,
-        },
-        {
-            source: 'Резервуар 507',
-            receiver: 'ЭЛОУ-2',
-            productSource: 'Нефть сырая',
-            productReceiver: 'Нефть сырая',
-            startOperation: {
-                datetime: new Date(),
-                operator: 'Иванов И.В.',
-            },
-            finishOperation: {
-                datetime: new Date(),
-                operator: 'Иванов И.В.',
-            },
-            massSource: 47.32,
-            massReceiver: 45.299,
-            deviation: 2.021,
-        },
-        {
-            source: 'Резервуар 507',
-            receiver: 'ЭЛОУ-2',
-            productSource: 'Нефть сырая',
-            productReceiver: 'Нефть сырая',
-            startOperation: {
-                datetime: new Date(),
-                operator: 'Иванов И.В.',
-            },
-            finishOperation: {
-                datetime: new Date(),
-                operator: 'Иванов И.В.',
-            },
-            massSource: 47.32,
-            massReceiver: 45.299,
-            deviation: 2.021,
-        },
+    public keys: string[] = [
+        'sourceName',
+        'destinationName',
+        'sourceProduct',
+        'destinationProduct',
+        'startTime',
+        'endTime',
+        'sourceMass',
+        'destinationMass',
+        'deltaMass',
     ];
 
-    // public data2 = {
-    //     leftTable: [
-    //         {
-    //             name: 'Продукт',
-    //             type: 'кг/м3',
-    //             value: 0.5,
-    //         },
-    //         {
-    //             name: 'Продукт',
-    //             type: 'кг/м3',
-    //             value: 0.5,
-    //         },
-    //         {
-    //             name: 'Продукт',
-    //             type: 'кг/м3',
-    //             value: 0.5,
-    //         },
-    //         {
-    //             name: 'Продукт',
-    //             type: 'кг/м3',
-    //             value: 0.5,
-    //         },
-    //     ],
-    //     rightTable: [
-    //         {
-    //             name: 'Продукт',
-    //             type: 'кг/м3',
-    //             value: 0.5,
-    //         },
-    //         {
-    //             name: 'Продукт',
-    //             type: 'кг/м3',
-    //             value: 0.5,
-    //         },
-    //         {
-    //             name: 'Продукт',
-    //             type: 'кг/м3',
-    //             value: 0.5,
-    //         },
-    //         {
-    //             name: 'Продукт',
-    //             type: 'кг/м3',
-    //             value: 0.5,
-    //         },
-    //     ],
-    // };
-
-    constructor() {}
-
-    ngOnInit(): void {}
+    public data2: { name: string; type: string; value: number }[] = [
+        {
+            name: 'Продукт',
+            type: 'кг/м3',
+            value: 0.5,
+        },
+        {
+            name: 'Продукт',
+            type: 'кг/м3',
+            value: 0.5,
+        },
+        {
+            name: 'Продукт',
+            type: 'кг/м3',
+            value: 0.5,
+        },
+    ];
 }

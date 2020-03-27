@@ -90,7 +90,6 @@ import { PetroleumProductsMovementComponent } from './widgets/petroleum-products
 import { PetroleumReferenceLeftComponent } from './widgets/petroleum-products-movement/petroleum-reference-left/petroleum-reference-left.component';
 import { PetroleumReferenceRightComponent } from './widgets/petroleum-products-movement/petroleum-reference-right/petroleum-reference-right.component';
 import { PetroleumReferenceComponent } from './widgets/petroleum-products-movement/petroleum-reference/petroleum-reference.component';
-import { PetroleumWorkspaceComponent } from './widgets/petroleum-products-movement/petroleum-workspace/petroleum-workspace.component';
 import { MatSelectModule } from '@angular/material/select';
 import { ScrollingModule } from '@angular/cdk-experimental/scrolling';
 import { ScrollingModule as OldScrollingModule } from '@angular/cdk/scrolling';
@@ -211,7 +210,6 @@ import { AwsCreateClaimComponent } from './widgets/admin-panel/admin-worker-sett
         PetroleumReferenceLeftComponent,
         PetroleumReferenceRightComponent,
         PetroleumReferenceComponent,
-        PetroleumWorkspaceComponent,
         AdminEmployeeComponent,
         AdminWorkspaceComponent,
         AdminWorkspaceCardComponent,

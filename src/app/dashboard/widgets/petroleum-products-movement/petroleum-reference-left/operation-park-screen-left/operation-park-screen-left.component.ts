@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {
     ITankInfo,
-    IFacilityInfo,
+    IFacilityInfo, IPetroleumObject
 } from 'src/app/dashboard/models/petroleum-products-movement.model';
+import { PetroleumScreenService } from '../../../../services/petroleum-screen.service';
 
 @Component({
     selector: 'evj-operation-park-screen-left',
@@ -10,54 +11,26 @@ import {
     styleUrls: ['./operation-park-screen-left.component.scss'],
 })
 export class OperationParkScreenLeftComponent implements OnInit {
-    titlePark: string = 'Источник';
+    @Input() titlePark: string = 'Парк';
 
-    dataTank: ITankInfo[] = [
-        {
-            title: 'Резервуар 201',
-            state: 'vverh-arrow',
-        },
-        {
-            title: 'Резервуар 202',
-            state: 'Remont',
-        },
-        {
-            title: 'Резервуар 203',
-            state: 'vniz-arrow',
-        },
-        {
-            title: 'Резервуар 204',
-            state: 'Otstoy',
-        },
-        {
-            title: 'Резервуар 205',
-            state: 'two-arrow',
-        },
-    ];
+    public currentObject: IPetroleumObject = null;
+    public data: IPetroleumObject[];
 
-    dataFacil: IFacilityInfo[] = [
-        {
-            title: 'Резервуар 201',
-            state: 'vverh-arrow',
-        },
-        {
-            title: 'Резервуар 202',
-            state: 'Remont',
-        },
-        {
-            title: 'Резервуар 203',
-            state: 'vniz-arrow',
-        },
-        {
-            title: 'Резервуар 204',
-            state: 'Otstoy',
-        },
-        {
-            title: 'Резервуар 205',
-            state: 'two-arrow',
-        },
-    ];
-    constructor() {}
+    constructor(public petroleumService: PetroleumScreenService) {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.petroleumService.objectsAll$.subscribe(
+            (ref: IPetroleumObject[]) => {
+                this.data = ref;
+                this.setObjectActive(this.currentObject);
+            }
+        );
+    }
+
+    public setObjectActive(object: IPetroleumObject): void {
+        if (!object) {
+            object = this.data[0];
+        }
+        this.currentObject = object;
+    }
 }

@@ -71,7 +71,7 @@ export class NewWidgetsGridComponent implements OnInit {
                 this.loaditem();
             }
         });
-        this.loaditem();
+        // this.loaditem();
     }
 
     private loaditem(): void {

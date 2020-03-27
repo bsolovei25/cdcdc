@@ -1,11 +1,10 @@
-import { Component, Input, OnDestroy, OnInit, Inject, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, Inject, ViewChild } from '@angular/core';
 import {
     EventsWidgetCategory,
     EventsWidgetCategoryCode,
     EventsWidgetDataPreview,
     EventsWidgetNotificationPreview,
     EventsWidgetOptions,
-    ICategory,
 } from '../../models/events-widget';
 import { EventsWidgetFilter } from '../../models/events-widget';
 import {
@@ -143,7 +142,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         },
     ];
 
-    statuses: { [id in EventsWidgetNotificationStatus]: string } = {
+    public statuses: { [id in EventsWidgetNotificationStatus]: string } = {
         new: 'Новое',
         inWork: 'В работе',
         closed: 'Завершено',

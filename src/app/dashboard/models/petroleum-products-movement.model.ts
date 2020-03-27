@@ -1,28 +1,31 @@
-export interface IOperation {
-    id?: number; // maybe GUID
-    source: string;
-    receiver: string;
-    productSource: string;
-    productReceiver: string;
-    startOperation: {
-        datetime?: Date;
-        operator?: string;
-    };
-    finishOperation: {
-        datetime?: Date;
-        operator?: string;
-    };
-    massSource: number;
-    massReceiver: number;
-    deviation: number;
-    isOpen?: boolean;
-    isActive?: boolean; // no back
+export interface ITransfer {
+    uid?: string;
+    sourceName: string;
+    destinationName: string;
+    sourceProduct: string;
+    destinationProduct: string;
+    startTime: Date;
+    endTime: Date;
+    sourceMass: number;
+    destinationMass: number;
+    sourceClient: string;
+    destinationClient: string;
+    deltaMass: number;
+    isActive?: boolean;
+    operationType?: OperationType;
+}
+
+export interface IPetroleumObject {
+    objectName: string;
+    objectType: ObjectType;
+    objectStatus: ObjectStatus;
+    isActive?: boolean;
 }
 
 export interface IFacilityInfo {
     id?: number;
     title: string;
-    state: ObjectState;
+    state: ObjectStatus;
     parameters?: IFacilityInfoParam[];
     isActive?: boolean; // no back
 }
@@ -30,7 +33,7 @@ export interface IFacilityInfo {
 export interface ITankInfo {
     id?: number;
     title: string;
-    state: ObjectState;
+    state: ObjectStatus;
     parameters?: ITankInfoParam[];
     isActive?: boolean; // no back
 }
@@ -49,4 +52,10 @@ export interface IFacilityInfoParam {
 }
 
 // TODO add real list
-export type ObjectState = 'vverh-arrow' | 'Remont' | 'Otstoy' | 'two-arrow' | 'vniz-arrow';
+export type ObjectStatus = 'in' | 'out' | 'repair' | 'hold' | 'inout';
+
+export type ObjectType = 'Unit' | 'Tank';
+
+export type ObjectDirection = 'enter' | 'exit';
+
+export type  OperationType = 'Exist' | 'New';

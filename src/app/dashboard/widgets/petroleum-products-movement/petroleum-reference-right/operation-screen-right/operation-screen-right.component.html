@@ -5,7 +5,7 @@
   <div class="park">
     <div class="title_park" (click)="isShowTank = !isShowTank">
       <div class="title_parks">Резервуары</div>
-      <div class="button">
+      <div class="arrow-button" [class.arrow-button__active]="!isShowTank">
         <svg-icon
           src="./assets/icons/widgets/petroleum-products-movement/arrow_bottom.svg"
           [svgStyle]="{ 'width.px':15, 'height.px':15 }"
@@ -13,17 +13,17 @@
         </svg-icon>
       </div>
     </div>
-    <div class="reference" [class.reference_active]="isShowTank">
-      <ng-container *ngFor="let item of dataTank">
-        <div class="ref_items">
+    <div class="reference" [@Branch]="(isShowTank) ? 'expanded' : 'collapsed'">
+      <ng-container *ngFor="let item of tanks">
+        <div class="ref_items" [class.ref_items__active]="item.isActive" (click)="objectClick(item.objectName)">
           <div class="item_icon">
             <svg-icon
-              src="./assets/icons/widgets/petroleum-products-movement/{{item.state}}.svg"
+              src="./assets/icons/widgets/petroleum-products-movement/{{item.objectStatus}}.svg"
               [svgStyle]="{ 'width.px':25, 'height.px':25 }"
             >
             </svg-icon>
           </div>
-          <div class="item_name">{{ item.title }}</div>
+          <div class="item_name">{{ item.objectName }}</div>
         </div>
       </ng-container>
     </div>
@@ -31,7 +31,7 @@
   <div class="settings">
     <div class="title_sett" (click)="isShowFacilities = !isShowFacilities">
       <div class="title_settings">Установки</div>
-      <div class="button">
+      <div class="arrow-button" [class.arrow-button__active]="!isShowFacilities">
         <svg-icon
           src="./assets/icons/widgets/petroleum-products-movement/arrow_bottom.svg"
           [svgStyle]="{ 'width.px':15, 'height.px':15 }"
@@ -39,17 +39,17 @@
         </svg-icon>
       </div>
     </div>
-    <div class="reference" [class.reference_active]="isShowFacilities">
-      <ng-container *ngFor="let item of dataFacil">
-        <div class="ref_items">
+    <div class="reference" [@Branch]="(isShowFacilities) ? 'expanded' : 'collapsed'">
+      <ng-container *ngFor="let item of units">
+        <div class="ref_items" [class.ref_items__active]="item.isActive" (click)="objectClick(item.objectName)">
           <div class="item_icon">
             <svg-icon
-              src="./assets/icons/widgets/petroleum-products-movement/{{item.state}}.svg"
+              src="./assets/icons/widgets/petroleum-products-movement/{{item.objectStatus}}.svg"
               [svgStyle]="{ 'width.px':25, 'height.px':25 }"
             >
             </svg-icon>
           </div>
-          <div class="item_name">{{ item.title }}</div>
+          <div class="item_name">{{ item.objectName }}</div>
         </div>
       </ng-container>
     </div>

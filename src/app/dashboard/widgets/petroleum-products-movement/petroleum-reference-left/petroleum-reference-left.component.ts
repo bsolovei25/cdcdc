@@ -9,6 +9,8 @@ import { ITankInfo } from '../../../models/petroleum-products-movement.model';
 export class PetroleumReferenceLeftComponent implements OnInit {
     @Input() typeScreen: string;
 
+    @Input() titlePark: string = 'Парк';
+
     constructor() {}
 
     ngOnInit(): void {}
