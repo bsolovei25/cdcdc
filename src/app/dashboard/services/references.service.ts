@@ -31,6 +31,13 @@ export class ReferencesService {
         );
     }
 
+    public removeRecord(id: number): void {
+        this.http.delete(this.restUrl + '/api/ref-book/ReferenceColumn/' + id).subscribe(
+            (ans) => {},
+            (error) => console.log(error)
+        );
+    }
+
     public pushReference(reference) {
         const newReference: IReferenceTypes = new (class implements IReferenceTypes {
             name = reference.name;
@@ -52,13 +59,37 @@ export class ReferencesService {
         return data;
     }
 
-    async getType(): Promise<IReferenceColumnsType[]> {
+    async orderColumnReference(columns): Promise<any>{
         try {
-            return this.http
-                .get<IReferenceColumnsType[]>(this.restUrl + '/api/notification-reference/category')
-                .toPromise();
+            return this.http.post(this.restUrl + '/api/ref-book/ReferenceColumn/Order', columns).toPromise();
         } catch (error) {
             console.error(error);
         }
     }
+
+    async putEditColumn(body): Promise<any> {
+        try {
+            return this.http.put(this.restUrl + '/api/ref-book/ReferenceColumn', body).toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async putEditRef(body): Promise<any> {
+        try {
+            return this.http.put(this.restUrl + '/api/ref-book/ReferenceType', body).toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    // async getType(): Promise<IReferenceColumnsType[]> {
+    //     try {
+    //         return this.http
+    //             .get<IReferenceColumnsType[]>(this.restUrl + '/api/notification-reference/category')
+    //             .toPromise();
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // }
 }
