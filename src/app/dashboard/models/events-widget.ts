@@ -1,4 +1,5 @@
 import { LineChartData } from './line-chart';
+import { IGlobalClaim } from './admin-panel';
 
 export interface EventsWidgetNotificationPreview {
     id: number;
@@ -68,8 +69,8 @@ export interface EventsWidgetNotification {
 export interface IUnitEvents {
     id: number;
     name: string;
-    createdAt: Date;
-    createdById: number;
+    createdAt?: Date;
+    createdById?: number;
 }
 
 export interface IRetrievalEvents {
@@ -80,6 +81,7 @@ export interface IRetrievalEvents {
 
 export interface IUser {
     login: string;
+    password?: string;
     id: number;
     firstName: string;
     lastName: string;
@@ -89,9 +91,12 @@ export interface IUser {
     brigade?: { id: number; number: string };
     positionDescription?: string;
     displayName?: string;
-    position?: string;
+    position?: WorkerPositionType;
     photoId?: string;
+    claims?: IGlobalClaim[];
 }
+
+export type WorkerPositionType = 'common' | 'responsible';
 
 export type EventsWidgetNotificationPriority = 'danger' | 'warning' | 'standard';
 

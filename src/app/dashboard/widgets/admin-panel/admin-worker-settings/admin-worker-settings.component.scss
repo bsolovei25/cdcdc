@@ -1,5 +1,6 @@
 .admin {
   position: relative;
+  z-index: 1;
 
   width: 100%;
   height: 100%;
@@ -216,17 +217,79 @@
 
             transition: 0.5s;
 
+            overflow: hidden;
+
             .photo {
               position: absolute;
+              z-index: 1;
 
               height: 210px;
               width: 210px;
 
-              top: -38px;
+              top: 0px;
               right: 0px;
               bottom: 0px;
               left: 0px;
               margin: auto;
+
+              box-sizing: border-box;
+              border-radius: 50%;
+
+              &__add {
+                position: absolute;
+                z-index: 2;
+
+                width: 40px;
+                height: 40px;
+
+                bottom: 0px;
+                left: 0px;
+                right: 0px;
+                margin: auto;
+
+                box-sizing: border-box;
+                border-radius: 50%;
+                border: 2px solid var(--color-active);
+                background: var(--color-bg-main);
+
+                opacity: 0.6;
+                transition: 0.2s;
+
+                transform: translateY(100%);
+
+                &::before,
+                &::after {
+                  content: "";
+                  position: absolute;
+
+                  top: 0;
+                  right: 0;
+                  bottom: 0;
+                  left: 0;
+                  margin: auto;
+
+                  background: var(--color-text-main);
+                }
+
+                &::after {
+                  width: 60%;
+                  height: 2px;
+                }
+
+                &::before {
+                  width: 2px;
+                  height: 60%;
+                }
+
+                &_active {
+                  transform: translateY(-120%);
+                }
+
+                &:hover {
+                  cursor: pointer;
+                  opacity: 1;
+                }
+              }
             }
 
             &-moved {
@@ -240,7 +303,7 @@
             width: 100%;
             height: max-content;
 
-            top: 400px;
+            bottom: 70px;
 
             display: flex;
             flex-direction: column;
@@ -345,19 +408,6 @@
         overflow-x: hidden;
         overflow-y: auto;
 
-        .cards {
-          margin-top: 10px;
-
-          width: 100%;
-          height: auto;
-
-          display: flex;
-          flex-direction: row;
-          justify-content: flex-start;
-          align-items: flex-start;
-          flex-wrap: wrap;
-        }
-
         &::-webkit-scrollbar-track {
           margin: 120px 0px;
         }
@@ -383,7 +433,14 @@
 
           color: var(--color-text-main);
           font-size: 16px;
+
+          &__special{
+            top: 0;
+            bottom: 0;
+            margin: auto;
+          }
         }
+
 
         .cards {
           margin-top: 10px;
@@ -395,8 +452,39 @@
           justify-content: flex-start;
           align-items: flex-start;
           flex-wrap: wrap;
+
+          &__special{
+            margin-top: 50px;
+          }
         }
+
+        
       }
+    }
+  }
+
+  &__popup {
+    position: absolute;
+    z-index: 5;
+
+    width: 100%;
+    height: 100%;
+
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+
+    transform: scale(0);
+    transform-origin: center;
+
+    transition: 0.5s;
+
+    background: var(--color-bg-main-opacity);
+
+    &_active {
+      transform: scale(1);
     }
   }
 }

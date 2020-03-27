@@ -221,6 +221,7 @@ export class NewWidgetService {
             case 'shift-accept':
             case 'column-chart-stacked':
             case 'events-workspace':
+            case 'table-data':
                 return data;
         }
         console.warn(`unknown widget type ${widgetType}`);

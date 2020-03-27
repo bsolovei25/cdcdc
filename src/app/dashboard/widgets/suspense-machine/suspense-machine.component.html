@@ -22,50 +22,19 @@
       (mousedown)="$event.stopPropagation()"
       (touchstart)="$event.stopPropagation()"
     >
-      <div class="table__header">
-        <table>
+      <div class="table__header scroll-bar">
+        <table *ngIf="data">
           <thead>
             <tr class="header__items">
-              <th class="header header__date">Дата</th>
-              <th class="header header__production">Производство</th>
-              <th class="header header__equipment">Установка</th>
-              <th class="header header__suspenseBreakpoint">
-                Простой останова
-              </th>
-              <th class="header header__suspenseDuration">
-                Длительность простоя
-              </th>
-              <th class="header header__suspenseCause">Причина простоя</th>
-              <th class="header header__suspenseRelated">
-                Причина сопутствующая
+              <th class="header header__date" *ngFor="let column of displayedColumns">
+                {{ column.caption }}
               </th>
             </tr>
           </thead>
-        </table>
-      </div>
-
-      <div class="frame frame_top">
-        <div class="frame__circle frame__circle__topleft"></div>
-        <div class="frame__circle frame__circle__topright"></div>
-      </div>
-      <div class="table__body scroll-bar">
-        <table>
-          <tbody>
-            <tr *ngFor="let item of data" class="table__item">
-              <td class="item item__date">
-                {{ item.date | date:'dd-mm-yyyy' }}
-              </td>
-              <td class="item item__production">{{ item.production }}</td>
-              <td class="item item__equipment">{{ item.equipment }}</td>
-              <td class="item item__suspenseBreakpoint">
-                {{ item.suspenseBreakpoint }}
-              </td>
-              <td class="item item__suspenseDuration">
-                {{ item.suspenseDuration }}
-              </td>
-              <td class="item item__suspenseCause">{{ item.suspenseCause }}</td>
-              <td class="item item__suspenseRelated">
-                {{ item.suspenseRelated }}
+          <tbody class="table__body">
+            <tr class="table__item" *ngFor="let item of data.values">
+              <td class="item item__date" *ngFor="let item2 of item">
+                {{ getValue(item2.value) }}
               </td>
             </tr>
           </tbody>

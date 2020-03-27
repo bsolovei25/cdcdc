@@ -52,7 +52,7 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
         public widgetService: NewWidgetService,
         public userSettings: NewUserSettingsService,
         private claimService: ClaimService
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         this.subscriptions.push(

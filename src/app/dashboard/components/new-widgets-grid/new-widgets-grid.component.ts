@@ -56,7 +56,7 @@ export class NewWidgetsGridComponent implements OnInit {
         public injector: Injector,
         public userSettings: NewUserSettingsService,
         private claimService: ClaimService
-    ) { }
+    ) {}
 
     public ngOnInit(): void {
         document.addEventListener('fullscreenchange', () => {
@@ -69,7 +69,6 @@ export class NewWidgetsGridComponent implements OnInit {
                 this.isVisiblePanel = this.claimSettings.includes(EnumClaimWidgets.add);
                 this.options = null;
                 this.loaditem();
-                
             }
         });
         this.loaditem();
@@ -237,9 +236,9 @@ export class NewWidgetsGridComponent implements OnInit {
         this.widgetService.dashboard.push(item);
     }
 
-    public emptyCellMenuClick(): void { }
+    public emptyCellMenuClick(): void {}
 
-    public emptyCellDragClick(): void { }
+    public emptyCellDragClick(): void {}
 
     public emptyCellDropClick(event: DragEvent, param: IParamWidgetsGrid): void {
         const idWidget: string = event.dataTransfer.getData('text');
