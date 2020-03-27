@@ -8,6 +8,7 @@ import {
     IScreen,
     IWorkspace,
     IGlobalClaim,
+    IGroup,
 } from '../../models/admin-panel';
 import { IUser, IUnitEvents } from '../../models/events-widget';
 import { IWidgets } from '../../models/widget.model';
@@ -214,6 +215,33 @@ export class AdminPanelService {
     public getWorkerSpecialClaims(workerId: number): Observable<{ data: IGlobalClaim[] }> {
         const url: string = `${this.restUrl}/claim/user/${workerId}/getavaible-claims/special`;
         return this.http.get<{ data: IGlobalClaim[] }>(url);
+    }
+    //#endregion
+
+    //#region GROUPS
+    public getAllGroups(): Observable<IGroup> {
+        const url: string = `${this.restUrl}/roles`;
+        return this.http.get<IGroup>(url);
+    }
+
+    public createNewGroup(group: IGroup): Observable<void> {
+        const url: string = `${this.restUrl}/roles`;
+        return this.http.post<void>(url, group);
+    }
+
+    public editGroup(group: IGroup): Observable<void> {
+        const url: string = `${this.restUrl}/roles`;
+        return this.http.put<void>(url, group);
+    }
+
+    public getGroupById(groupId: number): Observable<IGroup> {
+        const url: string = `${this.restUrl}/roles/${groupId}`;
+        return this.http.get<IGroup>(url);
+    }
+
+    public deleteGroupById(groupId: number): Observable<void> {
+        const url: string = `${this.restUrl}/roles/${groupId}`;
+        return this.http.delete<void>(url);
     }
     //#endregion
 

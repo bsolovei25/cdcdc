@@ -24,23 +24,19 @@ export class AdminGroupsComponent implements OnInit {
     public groups: IGroup[] = [
         {
             id: 1,
-            name: 'Группа №1',
-            description: 'Описание',
+            name: 'Группа №1'
         },
         {
             id: 2,
-            name: 'Группа №2',
-            description: 'Описание',
+            name: 'Группа №2'
         },
         {
             id: 3,
-            name: 'Группа №3',
-            description: 'Описание',
+            name: 'Группа №3'
         },
         {
             id: 4,
-            name: 'Группа №4',
-            description: 'Описание',
+            name: 'Группа №4'
         },
     ];
 
