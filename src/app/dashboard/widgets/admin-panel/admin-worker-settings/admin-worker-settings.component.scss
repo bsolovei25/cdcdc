@@ -433,7 +433,14 @@
 
           color: var(--color-text-main);
           font-size: 16px;
+
+          &__special{
+            top: 0;
+            bottom: 0;
+            margin: auto;
+          }
         }
+
 
         .cards {
           margin-top: 10px;
@@ -445,7 +452,13 @@
           justify-content: flex-start;
           align-items: flex-start;
           flex-wrap: wrap;
+
+          &__special{
+            margin-top: 50px;
+          }
         }
+
+        
       }
     }
   }

@@ -2,7 +2,13 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '../../../services/appConfigService';
-import { IBrigadeAdminPanel, IClaim, IScreen, IWorkspace } from '../../models/admin-panel';
+import {
+    IBrigadeAdminPanel,
+    IClaim,
+    IScreen,
+    IWorkspace,
+    IGlobalClaim,
+} from '../../models/admin-panel';
 import { IUser, IUnitEvents } from '../../models/events-widget';
 
 @Injectable({
@@ -49,6 +55,7 @@ export class AdminPanelService {
     public units: IUnitEvents[] = [];
 
     public screenClaims: IClaim[] = [];
+    public generalClaims: IGlobalClaim[] = [];
 
     constructor(private http: HttpClient, private configService: AppConfigService) {
         this.configService.restUrl$.subscribe((urls) => (this.restUrl = `${urls}${this.restUrl}`));
@@ -171,11 +178,17 @@ export class AdminPanelService {
     }
     //#endregion
 
-    // RESERVE WORKER METHOD
-    // public getUserByLogin(workerLogin:string):Observable<any>{
-    //     const url: string = `${this.restUrl}api/user-management/user?login=${workerLogin}`;
-    //     return this.httpService.get<any>(url);
-    // }
+    //#region GLOBAL_CLAIMS
+    public getAllGeneralClaims(): Observable<{ data: IGlobalClaim[] }> {
+        const url: string = `${this.restUrl}/claim/getavaible-claims/general`;
+        return this.http.get<{ data: IGlobalClaim[] }>(url);
+    }
+
+    public getWorkerGeneralClaims(workerId: number): Observable<{ data: IGlobalClaim[] }> {
+        const url: string = `${this.restUrl}/claim/user/${workerId}/getavaible-claims/general`;
+        return this.http.get<{ data: IGlobalClaim[] }>(url);
+    }
+    //#endregion
 
     //#endregion
 
