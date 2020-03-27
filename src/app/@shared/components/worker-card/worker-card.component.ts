@@ -16,6 +16,8 @@ export class WorkerCardComponent implements OnInit, OnChanges {
 
     public photoPath: string = 'assets/icons/widgets/admin/default_avatar2.svg';
 
+    private defaultAvatarPath: string = 'assets/icons/widgets/admin/default_avatar2.svg';
+
     public srcCardNormal: string = 'assets/icons/widgets/admin/card-small.svg';
     public srcCardActive: string = 'assets/icons/widgets/admin/card-small-active.svg';
 
@@ -40,6 +42,8 @@ export class WorkerCardComponent implements OnInit, OnChanges {
     public ngOnChanges(): void {
         if (this.person.photoId) {
             this.photoPath = `${this.fsUrl}/${this.person.photoId}`;
+        } else {
+            this.photoPath = this.defaultAvatarPath;
         }
     }
 

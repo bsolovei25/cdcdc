@@ -1,5 +1,6 @@
 <div class="admin">
-  <evj-widget-preloader *ngIf="isDataLoading" [isLoading]="isDataLoading"></evj-widget-preloader>
+  <!-- <evj-widget-preloader *ngIf="isDataLoading" [isLoading]="isDataLoading"></evj-widget-preloader> -->
+  <evj-loading-shade [isLoading]="isDataLoading"></evj-loading-shade>
 
   <div class="admin__header">
     <div class="header__search">
@@ -34,7 +35,10 @@
         [worker]="worker"
         [workerUnit]="workerUnit"
         [searchingFieldName]="searchingFieldName"
+        [isCreateNewUser]="isCreateNewUser"
         (workerData)="onChangeWorkerData($event)"
+        (responsible)="onSetResponsible($event)"
+        (password)="isPasswordAlertShowing=true"
       ></evj-aws-fields>
       <div class="claims">
         <div class="title">Права доступа</div>
@@ -110,24 +114,24 @@
       (workspacesData)="onChangeWorkspacesData()"
     ></evj-aws-workspaces>
     <div class="worker__column worker__claims scroll-bar" *ngIf="isClaimsShowing">
-      <div class="title">Права</div>
+      <div class="title">Общие права</div>
       <div class="cards">
         <evj-aws-claim-card
-          [name]="'Высокий уровень доступа'"
+          *ngFor="let claim of allGeneralClaims"
+          [name]="claim.description"
+          [isActive]="checkForActiveClaim(claim.claimType)"
+          [isChangingCardState]="true"
+          (click)="onSelectClaim(claim)"
+        ></evj-aws-claim-card>
+      </div>
+      <div class="title title__special">Специальные права</div>
+      <div class="cards cards__special">
+        <evj-aws-claim-card
+          *ngFor="let claim of allGeneralClaims"
+          [name]="claim.description"
           [isActive]="false"
           [isChangingCardState]="true"
-          (click)="onSelectClaim()"
-        ></evj-aws-claim-card>
-        <evj-aws-claim-card
-          [name]="'Открытый доступ'"
-          [isActive]="true"
-          [isChangingCardState]="true"
-        ></evj-aws-claim-card>
-        <evj-aws-claim-card
-          [name]="'Доступ с ограничениями'"
-          [isActive]="false"
-          [isChangingCardState]="true"
-          (click)="onSelectClaim()"
+          (click)="onSelectClaim(claim)"
         ></evj-aws-claim-card>
       </div>
     </div>
@@ -135,6 +139,21 @@
   <evj-aws-avatar
     class="admin__popup"
     [ngClass]="{'admin__popup_active':isPopUpShowing}"
+    *ngIf="isPopUpShowing"
     (closePopUp)="onClosePopUp($event)"
   ></evj-aws-avatar>
+  <evj-aws-responsible-alert
+    class="admin__popup"
+    [ngClass]="{'admin__popup_active':isBrigadeResponsibleAlertShowing}"
+    *ngIf="isBrigadeResponsibleAlertShowing"
+    [worker]="worker"
+    [isSetResponsible]="isSetResponsible"
+    (choose)="onCloseResponsibleAlert()"
+  ></evj-aws-responsible-alert>
+  <evj-aws-password-alert
+    class="admin__popup"
+    [ngClass]="{'admin__popup_active':isPasswordAlertShowing}"
+    *ngIf="isPasswordAlertShowing"
+    (confirmed)="onSetWorkerPassword($event)"
+  ></evj-aws-password-alert>
 </div>

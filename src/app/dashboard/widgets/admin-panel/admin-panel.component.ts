@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { IButtonImgSrc, IBrigadeAdminPanel, IClaim } from '../../models/admin-panel';
+import { IButtonImgSrc, IBrigadeAdminPanel, IClaim, IGlobalClaim } from '../../models/admin-panel';
 import { AdminPanelService } from '../../services/admin-panel/admin-panel.service';
 import { IUser, IUnitEvents } from '../../models/events-widget';
 import { Subscription } from 'rxjs';
@@ -12,28 +12,23 @@ import { NewWidgetService } from '../../services/new-widget.service';
 })
 export class AdminPanelComponent implements OnInit, OnDestroy {
     //#region WIDGET_PROPS
-
     public title: string = 'Панель администратора';
     public previewTitle: string = 'admin-panel';
     public units: string = '';
-
     //#endregion
 
     //#region WIDGET_ICONS
-
     public groupsButtonIcon: IButtonImgSrc = {
         btnIconSrc: 'assets/icons/widgets/admin/icon_group-active.svg',
     };
     public searchIcon: string = 'assets/icons/search-icon.svg';
-
     //#endregion
 
     //#region WIDGET_FLAGS
-
-    public isGroupShowed: boolean = false;
+    public isBrigadesShowed: boolean = false;
     public isWorkerSettingsShowed: boolean = false;
+    public isGroupsShowed: boolean = false;
     public isCreateNewWorker: boolean = false;
-
     //#endregion
 
     public searchPlaceholder: string = 'Введите ФИО сотрудника';
@@ -87,7 +82,10 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
             }),
             this.adminService
                 .getAllUnits()
-                .subscribe((data: IUnitEvents[]) => (this.adminService.units = data))
+                .subscribe((data: IUnitEvents[]) => (this.adminService.units = data)),
+            this.adminService
+                .getAllGeneralClaims()
+                .subscribe((claims) => (this.adminService.generalClaims = claims.data))
         );
     }
 
@@ -107,6 +105,10 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
         }
     }
 
+    public onShowGroups(): void {
+        this.isGroupsShowed = true;
+    }
+
     public onCloseWorkerSettings(): void {
         this.isCreateNewWorker = false;
         this.isWorkerSettingsShowed = false;
@@ -117,9 +119,13 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     }
 
     public onShowBrigades(): void {
-        this.isGroupShowed = !this.isGroupShowed;
-        this.searchPlaceholder = this.isGroupShowed
+        this.isBrigadesShowed = !this.isBrigadesShowed;
+        this.searchPlaceholder = this.isBrigadesShowed
             ? 'Введите номер бригады или ФИО сотрудника'
             : 'Введите ФИО сотрудника';
+    }
+
+    public onHideGroups(): void {
+        this.isGroupsShowed = false;
     }
 }

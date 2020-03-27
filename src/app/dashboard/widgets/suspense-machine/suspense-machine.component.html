@@ -23,7 +23,7 @@
       (touchstart)="$event.stopPropagation()"
     >
       <div class="table__header scroll-bar">
-        <table>
+        <table *ngIf="data">
           <thead>
             <tr class="header__items">
               <th class="header header__date" *ngFor="let column of displayedColumns">
@@ -31,18 +31,10 @@
               </th>
             </tr>
           </thead>
-        </table>
-      </div>
-      <div class="frame frame_top">
-        <div class="frame__circle frame__circle__topleft"></div>
-        <div class="frame__circle frame__circle__topright"></div>
-      </div>
-      <div class="table__body scroll-bar">
-        <table *ngIf="data">
-          <tbody>
-            <tr *ngFor="let item of data.values" class="table__item">
+          <tbody class="table__body">
+            <tr class="table__item" *ngFor="let item of data.values">
               <td class="item item__date" *ngFor="let item2 of item">
-                {{ item2.value }}
+                {{ getValue(item2.value) }}
               </td>
             </tr>
           </tbody>

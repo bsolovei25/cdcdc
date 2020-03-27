@@ -6,8 +6,8 @@ import {
     IBrigadeAdminPanel,
     IClaim,
     IScreen,
-    EnumClaims,
     IWorkspace,
+    IGlobalClaim,
 } from '../../models/admin-panel';
 import { IUser, IUnitEvents } from '../../models/events-widget';
 
@@ -55,6 +55,7 @@ export class AdminPanelService {
     public units: IUnitEvents[] = [];
 
     public screenClaims: IClaim[] = [];
+    public generalClaims: IGlobalClaim[] = [];
 
     constructor(private http: HttpClient, private configService: AppConfigService) {
         this.configService.restUrl$.subscribe((urls) => (this.restUrl = `${urls}${this.restUrl}`));
@@ -177,11 +178,17 @@ export class AdminPanelService {
     }
     //#endregion
 
-    // RESERVE WORKER METHOD
-    // public getUserByLogin(workerLogin:string):Observable<any>{
-    //     const url: string = `${this.restUrl}api/user-management/user?login=${workerLogin}`;
-    //     return this.httpService.get<any>(url);
-    // }
+    //#region GLOBAL_CLAIMS
+    public getAllGeneralClaims(): Observable<{ data: IGlobalClaim[] }> {
+        const url: string = `${this.restUrl}/claim/getavaible-claims/general`;
+        return this.http.get<{ data: IGlobalClaim[] }>(url);
+    }
+
+    public getWorkerGeneralClaims(workerId: number): Observable<{ data: IGlobalClaim[] }> {
+        const url: string = `${this.restUrl}/claim/user/${workerId}/getavaible-claims/general`;
+        return this.http.get<{ data: IGlobalClaim[] }>(url);
+    }
+    //#endregion
 
     //#endregion
 
@@ -191,8 +198,10 @@ export class AdminPanelService {
         this.activeWorker$.next(worker);
         if (worker.brigade) {
             const unit = this.getUnitByBrigadeId(worker.brigade.id);
-            this.activeWorkerUnit$.next(unit);
-            this.updateUnitBrigades(unit.id);
+            if (unit) {
+                this.activeWorkerUnit$.next(unit);
+                this.updateUnitBrigades(unit.id);
+            }
         } else {
             this.activeWorkerUnit$.next(null);
             this.activeUnitBrigades$.next([]);
@@ -255,7 +264,7 @@ export class AdminPanelService {
         const brigade: IBrigadeAdminPanel = this.brigades.find(
             (item: IBrigadeAdminPanel) => item.brigadeId === brigadeId
         );
-        return brigade.unit;
+        return brigade ? brigade.unit : null;
     }
 
     public async updateUnitBrigades(unitId: number): Promise<void> {

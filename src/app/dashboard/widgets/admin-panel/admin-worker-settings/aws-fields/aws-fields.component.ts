@@ -10,11 +10,14 @@ import { AdminPanelService } from '../../../../services/admin-panel/admin-panel.
     styleUrls: ['./aws-fields.component.scss'],
 })
 export class AwsFieldsComponent implements OnInit {
-    @Input() private worker: IUser = null;
+    @Input() public worker: IUser = null;
     @Input() public workerUnit: IUnitEvents = null;
     @Input() private searchingFieldName: string = '';
+    @Input() public isCreateNewUser: boolean = false;
 
-    @Output() public workerData: EventEmitter<IUnitEvents> = new EventEmitter<IUnitEvents>();
+    @Output() private workerData: EventEmitter<IUnitEvents> = new EventEmitter<IUnitEvents>();
+    @Output() private responsible: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() private password: EventEmitter<void> = new EventEmitter<void>();
 
     public inputOptions: IWorkerOptionAdminPanel[];
     public selectOptions: IWorkerOptionAdminPanel[];
@@ -22,57 +25,62 @@ export class AwsFieldsComponent implements OnInit {
     constructor(private adminService: AdminPanelService) {}
 
     public ngOnInit(): void {
-        this.inputOptions = [
-            {
-                name: 'Логин',
-                value: this.worker.login,
-                key: 'login',
-            },
-            {
-                name: 'Фамилия',
-                value: this.worker.lastName,
-                key: 'lastName',
-            },
-            {
-                name: 'Имя',
-                value: this.worker.firstName,
-                key: 'firstName',
-            },
-            {
-                name: 'Отчество',
-                value: this.worker.middleName,
-                key: 'middleName',
-            },
-            {
-                name: 'Должность',
-                value: this.worker.positionDescription,
-                key: 'positionDescription',
-            },
-            {
-                name: 'Телефон',
-                value: this.worker.phone,
-                key: 'phone',
-            },
-            {
-                name: 'Почта',
-                value: this.worker.email,
-                key: 'email',
-            },
-        ];
-        this.selectOptions = [
-            {
-                name: 'Установка',
-                value: this.worker.hasOwnProperty('brigade')
-                    ? this.adminService.getUnitByBrigadeId(this.worker.brigade.id).name
-                    : null,
-                key: 'unit',
-            },
-            {
-                name: 'Бригада',
-                value: this.worker.hasOwnProperty('brigade') ? this.worker.brigade.number : null,
-                key: 'brigade',
-            },
-        ];
+        if (this.worker) {
+            this.inputOptions = [
+                {
+                    name: 'Логин',
+                    value: this.worker.login,
+                    key: 'login',
+                },
+                {
+                    name: 'Фамилия',
+                    value: this.worker.lastName,
+                    key: 'lastName',
+                },
+                {
+                    name: 'Имя',
+                    value: this.worker.firstName,
+                    key: 'firstName',
+                },
+                {
+                    name: 'Отчество',
+                    value: this.worker.middleName,
+                    key: 'middleName',
+                },
+                {
+                    name: 'Должность',
+                    value: this.worker.positionDescription,
+                    key: 'positionDescription',
+                },
+                {
+                    name: 'Телефон',
+                    value: this.worker.phone,
+                    key: 'phone',
+                },
+                {
+                    name: 'Почта',
+                    value: this.worker.email,
+                    key: 'email',
+                },
+            ];
+            const unit: IUnitEvents = this.worker.brigade
+                ? this.adminService.getUnitByBrigadeId(this.worker.brigade.id)
+                : null;
+            this.selectOptions = [
+                {
+                    name: 'Установка',
+                    value: unit ? unit.name : null,
+                    key: 'unit',
+                },
+                {
+                    name: 'Бригада',
+                    value: this.worker.hasOwnProperty('brigade')
+                        ? this.worker.brigade.number
+                        : null,
+                    key: 'brigade',
+                },
+            ];
+        }
     }
 
     public isValidFieldName(fieldName: string): boolean {
@@ -95,6 +103,7 @@ export class AwsFieldsComponent implements OnInit {
         this.workerUnit = unit;
         if (unit) {
             this.adminService.updateUnitBrigades(unit.id);
+            this.worker.position = 'common';
         } else {
             this.onSelectBrigade(null);
         }
@@ -109,12 +118,16 @@ export class AwsFieldsComponent implements OnInit {
 
         if (this.worker.hasOwnProperty('brigade')) {
             delete this.worker.brigade;
+            this.worker.position = 'common';
         }
         this.workerData.emit(this.workerUnit);
     }
 
     public onSetResponsible(event: boolean): void {
-        this.worker.position = event ? 'responsible' : 'common';
-        this.workerData.emit(this.workerUnit);
+        this.responsible.emit(event);
+    }
+
+    public onSetPassword(): void {
+        this.password.emit();
     }
 }
