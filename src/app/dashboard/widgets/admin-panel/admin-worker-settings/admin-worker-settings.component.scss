@@ -677,6 +677,11 @@
                 &-delete {
                   right: 10px;
 
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: center;
+                  align-items: center;
+
                   img {
                     width: 14px;
                     height: 14px;
