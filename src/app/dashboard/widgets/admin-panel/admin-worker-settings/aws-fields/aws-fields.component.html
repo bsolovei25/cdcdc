@@ -30,9 +30,8 @@
   <div class="card">
     <evj-button
       class="card__button"
-      *ngIf="isCreateNewUser"
       [isChangingState]="false"
-      textButton="Изменить пароль"
+      [textButton]="textPasswordButton()"
       (click)="onSetPassword()"
     ></evj-button>
   </div>

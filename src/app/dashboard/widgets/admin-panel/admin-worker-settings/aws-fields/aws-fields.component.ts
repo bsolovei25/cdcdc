@@ -17,7 +17,7 @@ export class AwsFieldsComponent implements OnInit {
 
     @Output() private workerData: EventEmitter<IUnitEvents> = new EventEmitter<IUnitEvents>();
     @Output() private responsible: EventEmitter<boolean> = new EventEmitter<boolean>();
-    @Output() private password: EventEmitter<void> = new EventEmitter<void>();
+    @Output() private password: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     public inputOptions: IWorkerOptionAdminPanel[];
     public selectOptions: IWorkerOptionAdminPanel[];
@@ -127,7 +127,15 @@ export class AwsFieldsComponent implements OnInit {
         this.responsible.emit(event);
     }
 
+    public textPasswordButton(): string {
+        return this.isCreateNewUser ? 'Добавить пароль' : 'Сбросить пароль';
+    }
+
     public onSetPassword(): void {
-        this.password.emit();
+        if (this.isCreateNewUser) {
+            this.password.emit(false);
+        } else {
+            this.password.emit(true);
+        }
     }
 }

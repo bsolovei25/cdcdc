@@ -100,6 +100,11 @@ export class AdminPanelService {
         return this.http.post<void>(url, null);
     }
 
+    public resetUserPassword(workerId: number): Observable<void> {
+        const url: string = `${this.restUrl}/user/${workerId}/password/reset`;
+        return this.http.post<void>(url, null);
+    }
+
     // TODO
     public async pushWorkerPhoto(file: Blob): Promise<any> {
         const body: FormData = new FormData();
