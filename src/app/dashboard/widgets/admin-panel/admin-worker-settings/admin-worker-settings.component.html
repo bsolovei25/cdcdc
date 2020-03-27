@@ -126,15 +126,6 @@
       </div>
       <div class="title title__special">Специальные права</div>
       <div class="create-special-claim" (click)="createSpecialClaim()"></div>
-      <!-- <div class="cards cards__special">
-        <evj-aws-claim-card
-          *ngFor="let claim of workerSpecialClaims"
-          [name]="claim.claimName"
-          [isChangingCardState]="true"
-          [isSpecialClaim]="true"
-          (click)="onRemoveSpecialClaim(claim)"
-        ></evj-aws-claim-card>
-      </div> -->
       <div class="list">
         <ng-container *ngFor="let claim of allSpecialClaims">
           <div
