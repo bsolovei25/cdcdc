@@ -13,11 +13,26 @@ import { WIDGETS } from '../new-widgets-grid/widget-map';
 import { IWidgets } from '../../models/widget.model';
 import { NewUserSettingsService } from '../../services/new-user-settings.service';
 import { ClaimService, EnumClaimWidgets } from '../../services/claim.service';
+import { trigger, state, style, transition, animate, group } from '@angular/animations';
+
+type isChoosePanel = 'widgets' | 'reports';
+
+export const fadeAnimation = trigger("fadeAnimation", [
+    transition(":enter", [
+        style({ opacity: 0 }),
+        animate("300ms", style({ opacity: 1 }))
+    ]),
+    transition(":leave", [
+        style({ opacity: 1 }),
+        animate("100ms", style({ opacity: 0 }))
+    ])
+]);
 
 @Component({
     selector: 'evj-new-widgets-panel',
     templateUrl: './new-widgets-panel.component.html',
     styleUrls: ['./new-widgets-panel.component.scss'],
+    animations: [fadeAnimation],
 })
 export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
     public readonly WIDGETS = WIDGETS;
@@ -29,7 +44,7 @@ export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
     public widgets$: BehaviorSubject<IWidgets[]> = new BehaviorSubject<IWidgets[]>([]);
     private claimSettingsWidgets: EnumClaimWidgets[] = [];
 
-    isWidgets: boolean = true;
+    isWidgets: isChoosePanel;
 
     _injector: Injector; // TOFIX   Если не нужно то удалить
 
@@ -114,10 +129,12 @@ export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
         }
     }
 
-    onToggleClick(buttonName?: string): void {
-        this.active = !this.active;
-        if (buttonName) {
-            this.isWidgets = buttonName === 'widgets' && this.active ? true : false;
+    onToggleClick(buttonName: isChoosePanel): void {
+        if (this.active && buttonName !== this.isWidgets) {
+            this.isWidgets = buttonName;
+        } else {
+            this.active = !this.active;
+            this.isWidgets = buttonName;
         }
     }
 
@@ -126,7 +143,7 @@ export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
 
         event.dataTransfer.dropEffect = 'copy';
 
-        this.onToggleClick();
+        this.onToggleClick(this.isWidgets);
     }
 
     public dataById(item): string {

@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { ReportsService } from '../../services/reports.service';
+import { fillDataShape } from '../../../@shared/common-functions';
 
 export interface IReportTemplate {
     id: number,
@@ -29,6 +30,9 @@ export class ReportsComponent implements OnInit, OnDestroy {
     public datePickerOpen: number;
 
     data: IReportTemplate[] = [];
+    filterData: IReportTemplate[] = [];
+
+    isReport = true;
 
     constructor(
         public widgetService: NewWidgetService,
@@ -54,6 +58,13 @@ export class ReportsComponent implements OnInit, OnDestroy {
 
     async loadItem(): Promise<void> {
         this.data = await this.reportsService.getReportsTemplate();
+        this.filterData = this.data;
+    }
+
+    searchReports(event: KeyboardEvent): void {
+        this.filterData = event ? this.data
+            .filter(value => value.name.toLowerCase()
+                .includes((event?.target as HTMLInputElement)?.value.toLowerCase())) : this.data;
     }
 
 }

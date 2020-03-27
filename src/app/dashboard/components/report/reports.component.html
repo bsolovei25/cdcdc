@@ -2,12 +2,12 @@
   Доступные отчеты
 </h4>
 <div class="search_block">
-  <evj-search></evj-search>
+  <evj-search [isReport]="isReport" (searchReport)="searchReports($event)"></evj-search>
 </div>
 <div class="reports-panel__list scroll-bar" *ngIf="data.length > 0">
   <div class="options-header">
     <evj-report
-      *ngFor="let i of data"
+      *ngFor="let i of filterData"
       style="width: 100%; margin: 10px auto;"
       [data]="i"
     ></evj-report>

@@ -232,6 +232,12 @@ gridster-item {
   margin: 5px;
 }
 
+.widget__new {
+  display: flex;
+  flex-flow: column;
+  height: calc(100% + 10px);
+}
+
 .mycheckbox {
   width: 100%;
   justify-content: center;

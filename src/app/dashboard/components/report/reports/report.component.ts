@@ -94,7 +94,7 @@ export class ReportComponent implements OnInit {
         this.isLoading = true;
         const body = [{ value: 'mmm', baseOptionId: template?.options?.[0].id }];
         try {
-            const a = await this.reportsService.postTemplate(template.id, body);
+            const a: IReportTemplate = await this.reportsService.postTemplate(template.id, body);
             window.open(`http://deploy.funcoff.club:6877/api/file/${a.fileId}`);
             this.isLoading = false;
         } catch (error) {
