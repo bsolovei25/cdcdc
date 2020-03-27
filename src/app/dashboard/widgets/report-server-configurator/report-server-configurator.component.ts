@@ -58,6 +58,8 @@ export class ReportServerConfiguratorComponent implements OnInit, OnDestroy {
 
     indexColumn: number = 0;
 
+    isOpenCheckBlock: boolean = false;
+
     public data: IReferenceTypes[] = [
         {
             id: 1,
@@ -142,6 +144,102 @@ export class ReportServerConfiguratorComponent implements OnInit, OnDestroy {
             ],
         },
     ];
+
+    public categorys = [
+        {
+            name: "Идентификатор шаблона",
+        },
+        {
+            name: "Описание",
+        },
+        {
+            name: "Временной период",
+        },
+        {
+            name: "Смещение по времени",
+        },
+        {
+            name: "Используемый XLS- файл",
+        },
+        {
+            name: "Группа пользователей",
+        },
+        {
+            name: "Максимальный объем кэша(МБайт)",
+        },
+        {
+            name: "Интервал перезаписи отчетов(мин)",
+        },
+        {
+            name: "Смешение отключения кеширования(час)",
+        },
+        {
+            name: "Использовать автогенерацию",
+        },
+        {
+            name: "Каталоги публикации",
+        },
+        {
+            name: "Использовать отрицательное смещение",
+        },
+        {
+            name: " Использовать макросы",
+        },
+        {
+            name: "Удалять макросы из отчета",
+        },
+        {
+            name: "Макросы до пересчета книги",
+        },
+        {
+            name: "Макросы после пересчета книги",
+        },
+        {
+            name: "Номер листа",
+        },
+        {
+            name: "Главный лист",
+        },
+        {
+            name: "Удалять формулы",
+        },
+        {
+            name: "Формат отчета",
+        },
+        {
+            name: "Выбор формата отчета пользователем",
+        },
+        {
+            name: "Открывать в новом окне",
+        },
+        {
+            name: "Режим формирования отчета",
+        },
+        {
+            name: "Приоритет кэша при генерации",
+        },
+        {
+            name: "Качество PDF",
+        },
+        {
+            name: "Параметры",
+        },
+        {
+            name: "Значения параметров для автогенерации",
+        },
+        {
+            name: "Активный",
+        },
+        {
+            name: "Выгрузить экземпляр Excel",
+        },
+        {
+            name: "Использовать шаблон имени отчета",
+        },
+        {
+            name: "Категории",
+        },
+    ]
 
     public clickPushRef: boolean = false;
     public clickPushRec: boolean = false;
@@ -235,19 +333,19 @@ export class ReportServerConfiguratorComponent implements OnInit, OnDestroy {
             index2 = 0;
         });
 
-        for (let item of this.data[index4].columns) {
-            if (item.isRequred) {
-                index5++;
-            }
-        }
+        // for (let item of this.data[index4].columns) {
+        //     if (item.isRequred) {
+        //         index5++;
+        //     }
+        // }
 
-        if (this.data[index4].columns[index3].isRequred === true) {
-            this.data[index4].columns.splice(index3, 1);
-            this.data[index4].columns.splice(index5 - 1, 0, item);
-        } else if (this.data[index4].columns[index3].isRequred === false) {
-            this.data[index4].columns.splice(index3, 1);
-            this.data[index4].columns.push(item);
-        }
+        // if (this.data[index4].columns[index3].isRequred === true) {
+        //     this.data[index4].columns.splice(index3, 1);
+        //     this.data[index4].columns.splice(index5 - 1, 0, item);
+        // } else if (this.data[index4].columns[index3].isRequred === false) {
+        //     this.data[index4].columns.splice(index3, 1);
+        //     this.data[index4].columns.push(item);
+        // }
     }
 
     pushBlockInRef(): void {
@@ -284,5 +382,9 @@ export class ReportServerConfiguratorComponent implements OnInit, OnDestroy {
             this.data[this.indexColumn].columns.push(object);
             this.newRecord = null;
         }
+    }
+
+    openCheckBoxBlock(): void {
+        this.isOpenCheckBlock = !this.isOpenCheckBlock;
     }
 }
