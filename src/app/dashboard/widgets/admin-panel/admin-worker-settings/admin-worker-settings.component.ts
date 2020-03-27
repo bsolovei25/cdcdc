@@ -7,6 +7,7 @@ import { fillDataShape } from '../../../../@shared/common-functions';
 import { MaterialControllerService } from '../../../services/material-controller.service';
 import { base64ToFile } from 'ngx-image-cropper';
 import { IWidgets } from '../../../models/widget.model';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
     selector: 'evj-admin-worker-settings',
@@ -59,6 +60,8 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     public isDataLoading: boolean = false;
 
     public allWidgets: IWidgets[] = [];
+
+    public claimsSelector: SelectionModel<IGlobalClaim> = new SelectionModel<IGlobalClaim>();
 
     constructor(
         private adminService: AdminPanelService,
@@ -211,6 +214,34 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         return !!claim;
     }
 
+    public onSelectSpecialClaim(claim: IGlobalClaim): void {
+        if (this.claimsSelector.isSelected(claim)) {
+            this.claimsSelector.clear();
+        } else {
+            this.claimsSelector.select(claim);
+        }
+    }
+
+    public canShowSpecialClaim(claim: IGlobalClaim): boolean {
+        return !!this.workerSpecialClaims.find((item) => item.claimType === claim.claimType);
+    }
+
+    public allEntitiesInSpecialType(claim: IGlobalClaim): IGlobalClaim[] {
+        return this.workerSpecialClaims.filter((item) => item.claimType === claim.claimType);
+    }
+
+    public findEntityByClaimValue(claim: IGlobalClaim): string {
+        let entity: IUnitEvents | IWidgets;
+        switch (claim.claimValueType) {
+            case 'unit':
+                entity = this.adminService.units.find((item) => item.id === +claim.value);
+                return entity ? entity.name : '';
+            case 'widget':
+                entity = this.adminService.allWidgets.find((item) => item.id === claim.value);
+                return entity ? entity.title : '';
+        }
+    }
+
     public createSpecialClaim(): void {
         this.isCreateClaim = true;
     }
@@ -218,12 +249,21 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     public onCreateSpecialClaim(claim: IGlobalClaim): void {
         this.showAlert();
         this.isCreateClaim = false;
-        if (claim) {
+        const isClaimExist: boolean = !!this.workerSpecialClaims.find(
+            (item) => item.claimType === claim.claimType && item.value === claim.value
+        );
+        if (claim && !isClaimExist) {
             this.workerSpecialClaims.push(claim);
+        }
+        if (isClaimExist) {
+            this.materialController.openSnackBar(
+                'Такое специальное право уже существует',
+                'snackbar-red'
+            );
         }
     }
 
-    public onSelectSpecialClaim(claim: IGlobalClaim): void {
+    public onRemoveSpecialClaim(claim: IGlobalClaim): void {
         this.showAlert();
         const index: number = this.workerSpecialClaims.findIndex(
             (item) => item.claimType === claim.claimType

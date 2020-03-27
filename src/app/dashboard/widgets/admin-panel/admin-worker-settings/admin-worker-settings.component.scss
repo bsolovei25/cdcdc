@@ -586,7 +586,7 @@
 
                 margin: 3px 0px;
 
-                display: flex;
+                display: none;
                 flex-direction: row;
                 justify-content: flex-start;
                 align-items: center;
@@ -693,6 +693,10 @@
 
                 &__items {
                   transform: scaleY(1);
+                }
+
+                &__item {
+                  display: flex;
                 }
 
                 &__button-toggle {
