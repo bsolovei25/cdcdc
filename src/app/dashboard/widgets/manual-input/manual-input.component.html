@@ -52,7 +52,11 @@
             <div class="fake" [style.width.px]="widthTruckScroll"></div>
           </div>
         </div> -->
-        <div class="save-button" (click)="onButtonSave()">
+        <div
+          class="save-button"
+          (click)="onButtonSave()"
+          [style.opacity]="!disabledMachine.isSelected(chooseSetting.name) ? '1' : '0.1'"
+        >
           Сохранить
           <div class="b-a"></div>
         </div>

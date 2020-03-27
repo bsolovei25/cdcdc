@@ -63,7 +63,7 @@ export class ManualInputComponent extends WidgetPlatform
     public previewTitle: string;
     claim: IClaimAll;
 
-    disabledMachine: SelectionModel<any> = new SelectionModel<any>(true);
+    disabledMachine: SelectionModel<string> = new SelectionModel<string>(true);
 
     allSettings: boolean = true;
     openAllSettings: boolean = true;
@@ -131,6 +131,13 @@ export class ManualInputComponent extends WidgetPlatform
     async loadClaims(): Promise<void> {
         const units = await this.claimService.getUnits();
         this.claim = await this.claimService.getClaimAll();
+        units.forEach((unit) => {
+            this.claim.data.forEach((cl) => {
+                // if (Number(cl.value) === unit.id && cl.claimCategoryName === "Запретить") {
+                //     this.disabledMachine.select(unit.name);
+                // }
+            })
+        })
     }
 
     async setInitData(): Promise<void> {
