@@ -6,6 +6,8 @@ import { Subscription } from 'rxjs';
 import { fillDataShape } from '../../../../@shared/common-functions';
 import { MaterialControllerService } from '../../../services/material-controller.service';
 import { base64ToFile } from 'ngx-image-cropper';
+import { IWidgets } from '../../../models/widget.model';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
     selector: 'evj-admin-worker-settings',
@@ -15,6 +17,8 @@ import { base64ToFile } from 'ngx-image-cropper';
 export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     @Input() public isCreateNewUser: boolean = false;
     @Output() public closeWorkerSettings: EventEmitter<IUser> = new EventEmitter<IUser>();
+
+    public toggleClaim: boolean = false;
 
     public isClaimsShowing: boolean = true;
     public isAlertShowing: boolean = false;
@@ -28,6 +32,8 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     public isPasswordAlertShowing: boolean = false;
 
+    public isCreateClaim: boolean = false;
+
     public searchingWorkspaceValue: string = '';
     public searchingFieldName: string = '';
 
@@ -39,6 +45,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     private newWorkerPassword: string = null;
 
     private workerGeneralClaims: IGlobalClaim[] = [];
+    public workerSpecialClaims: IGlobalClaim[] = [];
 
     public allWorkspaces: IWorkspace[] = [];
     public workerScreens: IWorkspace[] = [];
@@ -46,10 +53,15 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     public workspacesClaims: { workspaceId: number; claims: IClaim[] }[] = [];
 
     public allGeneralClaims: IGlobalClaim[] = [];
+    public allSpecialClaims: IGlobalClaim[] = [];
 
     private subscriptions: Subscription[] = [];
 
     public isDataLoading: boolean = false;
+
+    public allWidgets: IWidgets[] = [];
+
+    public claimsSelector: SelectionModel<IGlobalClaim> = new SelectionModel<IGlobalClaim>();
 
     constructor(
         private adminService: AdminPanelService,
@@ -77,16 +89,24 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             ),
             this.adminService.getAllScreens().subscribe((data: IWorkspace[]) => {
                 this.allWorkspaces = data;
+            }),
+            this.adminService.getAllWidgets().subscribe((data) => {
+                this.adminService.allWidgets = data.data;
+                this.allWidgets = data.data;
             })
         );
         if (!this.isCreateNewUser) {
             this.subscriptions.push(
                 this.adminService.getWorkerGeneralClaims(this.worker.id).subscribe((claims) => {
                     this.workerGeneralClaims = claims.data;
+                }),
+                this.adminService.getWorkerSpecialClaims(this.worker.id).subscribe((claims) => {
+                    this.workerSpecialClaims = claims.data;
                 })
             );
         }
         this.allGeneralClaims = this.adminService.generalClaims;
+        this.allSpecialClaims = this.adminService.specialClaims;
     }
 
     public ngOnDestroy(): void {
@@ -194,7 +214,64 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         return !!claim;
     }
 
-    public onSelectClaim(claim: IGlobalClaim): void {
+    public onSelectSpecialClaim(claim: IGlobalClaim): void {
+        if (this.claimsSelector.isSelected(claim)) {
+            this.claimsSelector.clear();
+        } else {
+            this.claimsSelector.select(claim);
+        }
+    }
+
+    public canShowSpecialClaim(claim: IGlobalClaim): boolean {
+        return !!this.workerSpecialClaims.find((item) => item.claimType === claim.claimType);
+    }
+
+    public allEntitiesInSpecialType(claim: IGlobalClaim): IGlobalClaim[] {
+        return this.workerSpecialClaims.filter((item) => item.claimType === claim.claimType);
+    }
+
+    public findEntityByClaimValue(claim: IGlobalClaim): string {
+        let entity: IUnitEvents | IWidgets;
+        switch (claim.claimValueType) {
+            case 'unit':
+                entity = this.adminService.units.find((item) => item.id === +claim.value);
+                return entity ? entity.name : '';
+            case 'widget':
+                entity = this.adminService.allWidgets.find((item) => item.id === claim.value);
+                return entity ? entity.title : '';
+        }
+    }
+
+    public createSpecialClaim(): void {
+        this.isCreateClaim = true;
+    }
+
+    public onCreateSpecialClaim(claim: IGlobalClaim): void {
+        this.showAlert();
+        this.isCreateClaim = false;
+        const isClaimExist: boolean = !!this.workerSpecialClaims.find(
+            (item) => item.claimType === claim.claimType && item.value === claim.value
+        );
+        if (claim && !isClaimExist) {
+            this.workerSpecialClaims.push(claim);
+        }
+        if (isClaimExist) {
+            this.materialController.openSnackBar(
+                'Такое специальное право уже существует',
+                'snackbar-red'
+            );
+        }
+    }
+
+    public onRemoveSpecialClaim(claim: IGlobalClaim): void {
+        this.showAlert();
+        const index: number = this.workerSpecialClaims.findIndex(
+            (item) => item.claimType === claim.claimType
+        );
+        this.workerSpecialClaims.splice(index, 1);
+    }
+
+    public onSelectGeneralClaim(claim: IGlobalClaim): void {
         this.showAlert();
         const index: number = this.workerGeneralClaims.findIndex(
             (item) => item.claimType === claim.claimType
@@ -296,7 +373,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             this.isDataLoading = true;
             try {
                 this.worker.displayName = this.adminService.generateDisplayName(this.worker);
-                this.worker.claims = this.workerGeneralClaims;
+                this.worker.claims = this.workerGeneralClaims.concat(this.workerSpecialClaims);
 
                 if (this.workerPhoto) {
                     this.worker.photoId = await this.adminService.pushWorkerPhoto(
