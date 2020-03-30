@@ -47,18 +47,16 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
             combineLatest([
                 this.adminService.allWorkers$,
                 this.adminService.getAllGroups(),
-            ]).subscribe(([workers, groups]) => {
-                console.log(workers);
-                console.log(groups);
-
+                this.adminService.getAllScreens(),
+            ]).subscribe(([workers, groups, screens]) => {
                 this.allWorkers = workers;
+
                 this.groups = groups;
                 this.groupSelection.select(this.groups[0]);
                 this.onSelectGroup(this.groups[0]);
-            }),
-            this.adminService
-                .getAllScreens()
-                .subscribe((screens: IWorkspace[]) => (this.allWorkspaces = screens))
+
+                this.allWorkspaces = screens;
+            })
         );
     }
 
@@ -105,12 +103,15 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
         this.editingGroup = null;
         if (group) {
             this.newGroups.push(group);
+            this.groupSelection.select(group);
         }
     }
 
     public onEditGroupName(group: IGroup): void {
         this.editingGroup = group;
         this.isCreateNewGroup = true;
+        console.log(group);
+
         this.onEditGroup();
     }
 
@@ -165,7 +166,28 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
         this.hideGroups.emit();
     }
 
-    public onSave(): void {
+    public async onSave(): Promise<void> {
+        try {
+            this.newGroups.forEach(
+                async (item) => await this.adminService.createNewGroup(item).toPromise()
+            );
+            this.deletedGroupsIds.forEach(
+                async (id) => await this.adminService.deleteGroupById(id).toPromise()
+            );
+
+            console.log('edited group: ', this.editedGroupsIds);
+
+            this.editedGroupsIds.forEach(async (id) => {
+                const group = this.groups.find((item) => item.id === id);
+                console.log(group);
+
+                if (group) {
+                    await this.adminService.editGroup(group).toPromise();
+                }
+            });
+        } catch (error) {
+            console.error(error);
+        }
         this.hideGroups.emit();
     }
 }
