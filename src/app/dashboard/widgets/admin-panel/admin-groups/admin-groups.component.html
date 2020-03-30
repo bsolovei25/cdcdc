@@ -28,13 +28,17 @@
         *ngFor="let group of newGroups"
         [group]="group"
         [isCardActive]="groupSelection.isSelected(group)"
-        (click)="groupSelection.select(group)"
+        (click)="onSelectGroup(group)"
+        (editGroup)="onEditGroupName(group)"
+        (deleteGroup)="onDeleteGroup()"
       ></evj-ag-group-card>
       <evj-ag-group-card
         *ngFor="let group of groups"
         [group]="group"
         [isCardActive]="groupSelection.isSelected(group)"
-        (click)="groupSelection.select(group)"
+        (click)="onSelectGroup(group)"
+        (editGroup)="onEditGroupName(group)"
+        (deleteGroup)="onDeleteGroup()"
       ></evj-ag-group-card>
     </div>
   </div>
@@ -53,6 +57,7 @@
       <evj-ag-group-worker-card
         *ngFor="let worker of allWorkers"
         [worker]="worker"
+        [isInGroup]="defineIsUserInGroup(worker)"
         (changeGroup)="editWorkerInGroup($event,worker)"
       ></evj-ag-group-worker-card>
     </div>
@@ -94,17 +99,18 @@
     </div>
   </div>
 
+  <evj-ag-new-group
+    class="popup"
+    [ngClass]="{'popup_active':isCreateNewGroup}"
+    *ngIf="isCreateNewGroup"
+    [editingGroup]="editingGroup"
+    (newGroup)="onCreateNewGroup($event)"
+  ></evj-ag-new-group>
+
   <evj-aws-create-claim
     class="popup"
     [ngClass]="{'popup_active':isCreateClaim}"
     *ngIf="isCreateClaim"
     (createdClaim)="onCreateSpecialClaim($event)"
   ></evj-aws-create-claim>
-
-  <evj-ag-new-group
-    class="popup"
-    [ngClass]="{'popup_active':isCreateNewGroup}"
-    *ngIf="isCreateNewGroup"
-    (newGroup)="onCreateNewGroup($event)"
-  ></evj-ag-new-group>
 </div>

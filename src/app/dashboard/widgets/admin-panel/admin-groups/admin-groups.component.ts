@@ -23,12 +23,16 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
     public allWorkspaces: IWorkspace[] = [];
 
     public isCreateClaim: boolean = false;
-    public isCreateNewGroup: boolean = true;
+    public isCreateNewGroup: boolean = false;
+
+    public editingGroup: IGroup = null;
 
     public groups: IGroup[] = [];
     public newGroups: IGroup[] = [];
     public editedGroupsIds: number[] = [];
     public deletedGroupsIds: number[] = [];
+
+    public workersInActiveGroup: IUser[] = [];
 
     public groupSelection: SelectionModel<IGroup> = new SelectionModel<IGroup>();
     public blockSelection: SelectionModel<void> = new SelectionModel<void>();
@@ -48,6 +52,7 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
             this.adminService.getAllGroups().subscribe((groups) => {
                 this.groups = groups;
                 this.groupSelection.select(this.groups[0]);
+                this.onSelectGroup(this.groups[0]);
             })
         );
     }
@@ -64,11 +69,36 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
         console.log(event);
     }
 
+    public defineIsUserInGroup(worker: IUser): boolean {
+        const activeGroup: IGroup = this.groupSelection.selected[0];
+
+        return activeGroup ? activeGroup.users.includes(worker.id) : false;
+    }
+
+    public onSelectGroup(group: IGroup): void {
+        this.groupSelection.select(group);
+        this.workersInActiveGroup = [];
+        if (group) {
+            group.users.forEach((userId) => {
+                const index = this.allWorkers.findIndex((worker) => worker.id === userId);
+                const [user] = this.allWorkers.splice(index, 1);
+                this.allWorkers.unshift(user);
+            });
+        }
+    }
+
     public onCreateNewGroup(group: IGroup): void {
         this.isCreateNewGroup = false;
+        this.editingGroup = null;
         if (group) {
             this.newGroups.push(group);
         }
+    }
+
+    public onEditGroupName(group: IGroup): void {
+        this.editingGroup = group;
+        this.isCreateNewGroup = true;
+        this.onEditGroup();
     }
 
     public onEditGroup(): void {
@@ -80,6 +110,8 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
 
     public onDeleteGroup(): void {
         const deletedGroup = this.groupSelection.selected[0];
+        console.log(deletedGroup);
+
         let index: number = null;
         if (deletedGroup.id) {
             this.deletedGroupsIds.push(deletedGroup.id);
@@ -87,8 +119,9 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
         } else {
             index = this.newGroups.findIndex((group) => group.name === deletedGroup.name);
         }
-        if (index) {
+        if (index !== -1) {
             this.groups.splice(index, 1);
+            this.groupSelection.select(this.groups[0]);
         }
     }
 
