@@ -1,7 +1,7 @@
 {
 "companyName": "DefaultCompany",
-"productName": "motion accounting",
-"productVersion": "0.1",
+"productName": "OperatorWidget",
+"productVersion": "1.1",
 "dataUrl": "web_build.data.unityweb",
 "wasmCodeUrl": "web_build.wasm.code.unityweb",
 "wasmFrameworkUrl": "web_build.wasm.framework.unityweb",
@@ -12,5 +12,5 @@
 "cacheControl": {"default": "must-revalidate"},
 "developmentBuild": false,
 "multithreading": false,
-"unityVersion": "2019.3.6f1"
+"unityVersion": "2019.2.14f1"
 }
