@@ -3,7 +3,7 @@ import { IButtonImgSrc, IGroup, IWorkspace, IGlobalClaim } from '../../../models
 import { SelectionModel } from '@angular/cdk/collections';
 import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
 import { IUser } from '../../../models/events-widget';
-import { Subscription } from 'rxjs';
+import { Subscription, combineLatest } from 'rxjs';
 
 @Component({
     selector: 'evj-admin-groups',
@@ -32,7 +32,8 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
     public editedGroupsIds: number[] = [];
     public deletedGroupsIds: number[] = [];
 
-    public workersInActiveGroup: IUser[] = [];
+    private searchingGroupString: string = '';
+    private searchingWorkerString: string = '';
 
     public groupSelection: SelectionModel<IGroup> = new SelectionModel<IGroup>();
     public blockSelection: SelectionModel<void> = new SelectionModel<void>();
@@ -43,17 +44,21 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         this.subscriptions.push(
-            this.adminService.allWorkers$.subscribe(
-                (workers: IUser[]) => (this.allWorkers = workers)
-            ),
-            this.adminService
-                .getAllScreens()
-                .subscribe((screens: IWorkspace[]) => (this.allWorkspaces = screens)),
-            this.adminService.getAllGroups().subscribe((groups) => {
+            combineLatest([
+                this.adminService.allWorkers$,
+                this.adminService.getAllGroups(),
+            ]).subscribe(([workers, groups]) => {
+                console.log(workers);
+                console.log(groups);
+
+                this.allWorkers = workers;
                 this.groups = groups;
                 this.groupSelection.select(this.groups[0]);
                 this.onSelectGroup(this.groups[0]);
-            })
+            }),
+            this.adminService
+                .getAllScreens()
+                .subscribe((screens: IWorkspace[]) => (this.allWorkspaces = screens))
         );
     }
 
@@ -62,11 +67,20 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
     }
 
     public onSearchGroup(event: string): void {
-        console.log(event);
+        this.searchingGroupString = event.toLowerCase();
     }
 
     public onSearchUser(event: string): void {
-        console.log(event);
+        this.searchingWorkerString = event.toLowerCase();
+    }
+
+    public displaySearchedWorker(worker: IUser): boolean {
+        const fullName: string = `${worker.lastName} ${worker.firstName} ${worker.middleName}`;
+        return fullName.toLowerCase().includes(this.searchingWorkerString);
+    }
+
+    public displaySearchedGroup(group: IGroup): boolean {
+        return group.name.toLowerCase().includes(this.searchingGroupString);
     }
 
     public defineIsUserInGroup(worker: IUser): boolean {
@@ -77,7 +91,6 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
 
     public onSelectGroup(group: IGroup): void {
         this.groupSelection.select(group);
-        this.workersInActiveGroup = [];
         if (group) {
             group.users.forEach((userId) => {
                 const index = this.allWorkers.findIndex((worker) => worker.id === userId);
@@ -127,11 +140,16 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
 
     public editWorkerInGroup(addWorkerToGroup: boolean, worker: IUser): void {
         const currentGroup = this.groupSelection.selected[0];
+
         if (addWorkerToGroup) {
             currentGroup.users.push(worker.id);
         } else {
             const index = currentGroup.users.findIndex((item) => item === worker.id);
             currentGroup.users.splice(index, 1);
+        }
+
+        if (currentGroup.id) {
+            this.onEditGroup();
         }
     }
 
