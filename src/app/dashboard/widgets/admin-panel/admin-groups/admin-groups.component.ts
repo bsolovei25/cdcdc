@@ -25,12 +25,15 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
     public isCreateClaim: boolean = false;
     public isCreateNewGroup: boolean = false;
 
-    public editingGroup: IGroup = null;
-
     public groups: IGroup[] = [];
     public newGroups: IGroup[] = [];
     public editedGroupsIds: number[] = [];
     public deletedGroupsIds: number[] = [];
+
+    public editingGroup: IGroup = null;
+
+    public generalClaims: IGlobalClaim[] = [];
+    public specialClaims: IGlobalClaim[] = [];
 
     private searchingGroupString: string = '';
     private searchingWorkerString: string = '';
@@ -58,6 +61,8 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
                 this.allWorkspaces = screens;
             })
         );
+        this.generalClaims = this.adminService.generalClaims;
+        this.specialClaims = this.adminService.specialClaims;
     }
 
     public ngOnDestroy(): void {
@@ -110,7 +115,6 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
     public onEditGroupName(group: IGroup): void {
         this.editingGroup = group;
         this.isCreateNewGroup = true;
-        console.log(group);
 
         this.onEditGroup();
     }
@@ -124,8 +128,6 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
 
     public onDeleteGroup(): void {
         const deletedGroup = this.groupSelection.selected[0];
-        console.log(deletedGroup);
-
         let index: number = null;
         if (deletedGroup.id) {
             this.deletedGroupsIds.push(deletedGroup.id);
@@ -174,13 +176,8 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
             this.deletedGroupsIds.forEach(
                 async (id) => await this.adminService.deleteGroupById(id).toPromise()
             );
-
-            console.log('edited group: ', this.editedGroupsIds);
-
             this.editedGroupsIds.forEach(async (id) => {
                 const group = this.groups.find((item) => item.id === id);
-                console.log(group);
-
                 if (group) {
                     await this.adminService.editGroup(group).toPromise();
                 }
