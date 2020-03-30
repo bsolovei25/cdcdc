@@ -34,15 +34,27 @@ export interface ITankInfo {
     id?: number;
     title: string;
     state: ObjectStatus;
-    parameters?: ITankInfoParam[];
+    parameters?: ITankAttribute[];
     isActive?: boolean; // no back
 }
 
-export interface ITankInfoParam {
+export interface ITankAttribute {
     title: string;
     value: string;
     unit: string;
     priority?: number; // no back
+    active?: boolean; // no back
+}
+
+export interface ITankParam {
+    objectName: string;
+    objectAttributes: ITankAttribute[];
+    objectInfo: ITankInfo;
+}
+
+// TODO
+export interface ITankInfo {
+    asd: string;
 }
 
 export interface IFacilityInfoParam {
@@ -51,8 +63,7 @@ export interface IFacilityInfoParam {
     isActive?: boolean; // no back
 }
 
-// TODO add real list
-export type ObjectStatus = 'in' | 'out' | 'repair' | 'hold' | 'inout';
+export type ObjectStatus = 'in' | 'out' | 'repair' | 'hold' | 'inout' | 'work' | 'unknown';
 
 export type ObjectType = 'Unit' | 'Tank';
 

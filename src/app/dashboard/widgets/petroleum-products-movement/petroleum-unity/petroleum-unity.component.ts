@@ -135,6 +135,12 @@ export class PetroleumUnityComponent implements OnInit, AfterViewInit, OnDestroy
             sourceType === 'Unit'
                 ? await this.petroleumService.getAvailableProducts(ref.destinationName)
                 : null;
+        const sourceTankParams = sourceType === 'Tank'
+            ? await this.petroleumService.getTankAttributes(ref.sourceName)
+            : null;
+        const destinationTankParams = destinationType === 'Tank'
+            ? await this.petroleumService.getTankAttributes(ref.destinationName)
+            : null;
         const additional = {
             startTime: new Date(ref.startTime).getTime(),
             endTime: new Date(ref.endTime).getTime(),
@@ -142,9 +148,12 @@ export class PetroleumUnityComponent implements OnInit, AfterViewInit, OnDestroy
             destinationType,
             sourceUnitProducts,
             destinationUnitProducts,
+            sourceTankParams,
+            destinationTankParams,
             operationType: ref.operationType ? ref.operationType : 'Exist',
         };
         const req = { ...ref, ...additional };
+        console.log(req);
         console.log(JSON.stringify(req));
         this.CallUnityScript('Scripts', 'LoadTransfer', JSON.stringify(req));
     }

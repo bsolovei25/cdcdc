@@ -19,10 +19,10 @@
         <ng-container *ngIf="i % 2 === 0">
           <div class="values_block" [ngClass]="{'active': item.active}" (click)="clickActive(item)">
             <div>
-              {{item.name}}
+              {{item.title}}
             </div>
             <div>
-              {{item.type}}
+              {{item.unit}}
             </div>
             <div>
               {{item.value}}
@@ -46,10 +46,10 @@
         <ng-container *ngIf="i % 2 !== 0">
           <div class="values_block" [ngClass]="{'active': item.active}" (click)="clickActive(item)">
             <div>
-              {{item.name}}
+              {{item.title}}
             </div>
             <div>
-              {{item.type}}
+              {{item.unit}}
             </div>
             <div>
               {{item.value}}

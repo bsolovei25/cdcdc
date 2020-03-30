@@ -4,9 +4,9 @@ import { filter } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '../../services/appConfigService';
 import {
-    IPetroleumObject,
+    IPetroleumObject, ITankAttribute, ITankInfo, ITankParam,
     ITransfer,
-    ObjectDirection,
+    ObjectDirection
 } from '../models/petroleum-products-movement.model';
 import { MaterialControllerService } from './material-controller.service';
 
@@ -31,6 +31,10 @@ export class PetroleumScreenService {
     public objectsReceiver$: BehaviorSubject<IPetroleumObject[]> = new BehaviorSubject<
         IPetroleumObject[]
     >([]);
+    private currentTankParam$: BehaviorSubject<ITankParam> = new BehaviorSubject<ITankParam>(null);
+    public  currentTankParam: Observable<ITankParam> = this.currentTankParam$
+        .asObservable()
+        .pipe(filter((item) => item != null));
 
     private currentTransfer$: BehaviorSubject<ITransfer> = new BehaviorSubject<ITransfer>(null);
     public currentTransfer: Observable<ITransfer> = this.currentTransfer$
@@ -340,6 +344,31 @@ export class PetroleumScreenService {
             return await this.getObjectsAsync(client);
         }
         return await this.getReferencesAsync(client, object, direction);
+    }
+
+    public async getTankAttributes(objectName: string): Promise<ITankAttribute[]> {
+        return await this.http.get<ITankAttribute[]>(
+            `${this.restUrl}/api/petroleum-flow-clients/objects/${objectName}/attr`
+        ).toPromise();
+    }
+
+    public async setTankParam(objectName: string): Promise<void> {
+        this.isLoad$.next(true);
+        const objectInfo = await this.getTankInfoAsync(objectName);
+        const objectAttributes = await this.getTankAttributes(objectName);
+        const currentTankParam: ITankParam = {
+            objectName,
+            objectInfo,
+            objectAttributes,
+        };
+        this.currentTankParam$.next(currentTankParam);
+        this.isLoad$.next(false);
+    }
+
+    private async getTankInfoAsync(objectName: string): Promise<ITankInfo> {
+        return await this.http.get<ITankInfo>(
+            `${this.restUrl}/api/petroleum-flow-clients/objects/${objectName}/tankInfo`
+        ).toPromise();
     }
 
     public async getAvailableProducts(objectName: string): Promise<string[]> {

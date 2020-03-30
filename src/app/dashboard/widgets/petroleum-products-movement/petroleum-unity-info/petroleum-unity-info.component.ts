@@ -1,9 +1,10 @@
 import { AfterViewInit, Component, HostListener, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NewWidgetService } from '../../../services/new-widget.service';
-import { WidgetSettingsService } from '../../../services/widget-settings.service';
 import { PlatformLocation } from '@angular/common';
 import { UnityLoader } from '../../dispatcher-screen/UnityLoader';
+import { PetroleumScreenService } from '../../../services/petroleum-screen.service';
+import { ITankInfo } from '../../../models/petroleum-products-movement.model';
 
 @Component({
     selector: 'evj-petroleum-unity-info',
@@ -25,7 +26,9 @@ export class PetroleumUnityInfoComponent implements OnInit, AfterViewInit, OnDes
 
     public previewTitle: string;
 
-    constructor(public widgetService: NewWidgetService, platformLocation: PlatformLocation) {
+    constructor(public widgetService: NewWidgetService,
+                private platformLocation: PlatformLocation,
+                private petroleumService: PetroleumScreenService) {
         const location = (platformLocation as any).location;
         this.baseUrl = location.origin + location.pathname.replace('dashboard', '');
     }
@@ -59,10 +62,12 @@ export class PetroleumUnityInfoComponent implements OnInit, AfterViewInit, OnDes
         if (!this.unityInstance) {
             return;
         }
-        this.wsConnect();
+        this.petroleumService.currentTankParam.subscribe((ref) => this.NextInfoHandler(ref.objectInfo));
     }
 
-    private wsConnect(): void {}
+    private async NextInfoHandler(ref: ITankInfo): Promise<void> {
+        this.CallUnityScript('Scripts', 'LoadInfo', JSON.stringify(ref));
+    }
 
     private async InitUnity(): Promise<void> {
         console.log('unity start');
@@ -70,7 +75,7 @@ export class PetroleumUnityInfoComponent implements OnInit, AfterViewInit, OnDes
         this.loadProject(`${this.baseUrl}assets/unity/motion-accounting-info/web_build.json`);
     }
 
-    private CallUnityScript(objName, funName, ...args): void {
+    private CallUnityScript(objName: string, funName: string, ...args): void {
         if (this.isStart && this.unityInstance) {
             this.unityInstance.SendMessage(objName, funName, ...args);
         }
