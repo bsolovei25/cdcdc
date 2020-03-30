@@ -11,8 +11,7 @@ export class AgGroupWorkerCardComponent implements OnInit {
     @Input() public worker: IUser = null;
     @Input() public isInBrigade: boolean = false;
 
-    // TODO
-    @Output() private changeGroup: EventEmitter<void> = new EventEmitter<void>();
+    @Output() private changeGroup: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     public cardSelection: SelectionModel<void> = new SelectionModel<void>();
 
@@ -26,5 +25,6 @@ export class AgGroupWorkerCardComponent implements OnInit {
 
     public onClick(): void {
         this.cardSelection.toggle();
+        this.changeGroup.emit(!this.isInBrigade);
     }
 }

@@ -19,16 +19,22 @@
           [isSmallButton]="true"
           [imgSrc]="plusIcon"
           [isChangingState]="false"
-          (click)="createNewBrigade()"
+          (click)="isCreateNewGroup=true"
         ></evj-button>
       </div>
     </div>
     <div class="column__body">
       <evj-ag-group-card
+        *ngFor="let group of newGroups"
+        [group]="group"
+        [isCardActive]="groupSelection.isSelected(group)"
+        (click)="groupSelection.select(group)"
+      ></evj-ag-group-card>
+      <evj-ag-group-card
         *ngFor="let group of groups"
         [group]="group"
         [isCardActive]="groupSelection.isSelected(group)"
-        (click)="onSelectGroup(group)"
+        (click)="groupSelection.select(group)"
       ></evj-ag-group-card>
     </div>
   </div>
@@ -47,6 +53,7 @@
       <evj-ag-group-worker-card
         *ngFor="let worker of allWorkers"
         [worker]="worker"
+        (changeGroup)="editWorkerInGroup($event,worker)"
       ></evj-ag-group-worker-card>
     </div>
   </div>
@@ -58,39 +65,46 @@
           [isSmallButton]="false"
           [textButton]="'Назад'"
           [isChangingState]="false"
-          (click)="onClickBack()"
+          (click)="onReturn()"
+        ></evj-button>
+      </div>
+      <div class="button__back">
+        <evj-button
+          class="insert-component"
+          [isSmallButton]="false"
+          [textButton]="'Сохранить'"
+          [isChangingState]="false"
+          (click)="onSave()"
         ></evj-button>
       </div>
     </div>
     <div class="column__body">
-      <div class="claims  scroll-bar">
-        <div class="title">Права</div>
-        <div class="cards">
-          <evj-aws-claim-card
-            [name]="'Высокий уровень доступа'"
-            [isActive]="false"
-            [isChangingCardState]="true"
-          ></evj-aws-claim-card>
-          <evj-aws-claim-card
-            [name]="'Открытый доступ'"
-            [isActive]="true"
-            [isChangingCardState]="true"
-          ></evj-aws-claim-card>
-          <evj-aws-claim-card
-            [name]="'Доступ с ограничениями'"
-            [isActive]="false"
-            [isChangingCardState]="true"
-          ></evj-aws-claim-card>
+      <div class="block" [ngClass]="{'block_active': blockSelection.isEmpty()}">
+        <div class="block__title" (click)="blockSelection.clear()">
+          Права
+          <div class="button button-toggle"></div>
         </div>
       </div>
-      <div class="workspaces scroll-bar">
-        <div class="title">Доступные рабочие области</div>
-        <div class="cards">
-          <ng-container *ngFor="let workspace of allWorkspaces">
-            <evj-aws-workspace-card [workspace]="workspace"></evj-aws-workspace-card>
-          </ng-container>
+      <div class="block" [ngClass]="{'block_active': blockSelection.hasValue()}">
+        <div class="block__title" (click)="blockSelection.select(null)">
+          Рабочие области
+          <div class="button button-toggle"></div>
         </div>
       </div>
     </div>
   </div>
+
+  <evj-aws-create-claim
+    class="popup"
+    [ngClass]="{'popup_active':isCreateClaim}"
+    *ngIf="isCreateClaim"
+    (createdClaim)="onCreateSpecialClaim($event)"
+  ></evj-aws-create-claim>
+
+  <evj-ag-new-group
+    class="popup"
+    [ngClass]="{'popup_active':isCreateNewGroup}"
+    *ngIf="isCreateNewGroup"
+    (newGroup)="onCreateNewGroup($event)"
+  ></evj-ag-new-group>
 </div>
