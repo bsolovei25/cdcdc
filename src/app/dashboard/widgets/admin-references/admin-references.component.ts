@@ -37,8 +37,9 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
     valueNewCheck: boolean = false;
     valueUniqNewCheck: boolean = false;
 
-    onClickPushReference: boolean = false;
-    onClickPushRecord: boolean = false;
+    isClickPushReference: boolean = false;
+    isClickPushRecord: boolean = false;
+
 
     isRefInput: boolean = false;
     isRecInput: boolean = false;
@@ -50,7 +51,7 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
     newValue: boolean;
     newUniqValue: boolean;
 
-    indexColumn: number = 0;
+    indexColumn: number = null;
     idReferenceClick: number;
 
     isLongBlock: boolean = true;
@@ -142,11 +143,7 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.subscriptions.push(
-            this.referencesService.getReference().subscribe((data) => {
-                this.datas = data;
-                this.data = this.datas;
-                this.idReferenceClick = this.data[0].id; ///ПОДУМАТЬ ЕСЛИ РЕФЕРЕНС НЕ БУДЕТ
-            })
+            this.getReference()
         );
     }
 
@@ -158,24 +155,34 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
         }
     }
 
-    onRefInputClick() {
-        this.inputClickRef = true;
-        this.inputClickName = false;
+    getReference() {
+        return this.referencesService.getReference().subscribe((data) => {
+            this.datas = data;
+            this.data = this.datas;
+            this.idReferenceClick = this.data[0].id; ///ПОДУМАТЬ ЕСЛИ РЕФЕРЕНС НЕ БУДЕТ
+        })
     }
 
-    onNameInputClick() {
-        this.inputClickRef = false;
-        this.inputClickName = true;
-    }
 
     onClickReference(data, index) {
-        let checkUniq = <HTMLInputElement>document.getElementById('checkBoxUniqValue');
-        let checkValue = <HTMLInputElement>document.getElementById('checkBoxValue');
+
+        this.idReferenceClick = data.id;
 
         for (let item of this.data) {
-            item.open = false;
+            if (data === item) {
+                data.open = !data.open;
+                if (data.open === false) {
+                    this.indexColumn = null;
+                }
+
+            } else {
+                item.open = false;
+            }
         }
-        if (data.columns !== undefined && data.columns !== null) {
+
+        if (data.columns !== null && data.columns !== undefined) {
+            this.sortByOrder(data.columns)
+
             for (let item of data.columns) {
                 if (item.isRequred) {
                     item.checked;
@@ -185,10 +192,13 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
                     item.checked;
                 }
             }
+
+        } else {
+            this.referencesService.getColumns(this.idReferenceClick).subscribe((datas) => {
+                data.columns = datas;
+            });
         }
 
-        data.open = true;
-        this.idReferenceClick = data.id;
         this.indexColumn = index;
     }
 
@@ -202,36 +212,32 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
         }
     }
 
-    onChangeName() {
-        this.isChangeName = !this.isChangeName;
-    }
-
     changeSwap(item) {
-        this.data.find((el) =>
-            el.columns.find((e) => {
-                if (e === item) {
-                    e.isRequred = !e.isRequred;
-                }
-            })
-        );
+        item.isRequred = !item.isRequred;
+        this.referencesService.putEditColumn(item).subscribe();
     }
 
     changeNewSwap() {
         this.valueNewCheck = !this.valueNewCheck;
     }
 
-    changeNewUniqSwap() {
-        this.valueUniqNewCheck = !this.valueUniqNewCheck;
+    changeUniqSwap(item) {
+        item.isUnique = !item.isUnique;
+
+        let object = {
+            id:item.id,
+            referenceTypeId: item.referenceTypeId,
+            name: item.name,
+            isRequred: item.isRequred,
+            isUnique: item.isUnique,
+            columnTypeId: item.columnTypeId,
+        }
+
+        this.referencesService.putEditColumn(object).subscribe();
     }
 
-    changeUniqSwap(item) {
-        this.data.find((el) =>
-            el.columns.find((e) => {
-                if (e === item) {
-                    e.isUnique = !e.isUnique;
-                }
-            })
-        );
+    changeNewUniqSwap() {
+        this.valueUniqNewCheck = !this.valueUniqNewCheck;
     }
 
     drop(event: CdkDragDrop<string[]>) {
@@ -243,60 +249,60 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
         );
 
         let massColumnSend = [];
-        let pushColumn = [];
         let index = 0;
 
         const saveDatas = this.data[this.indexColumn].columns;
 
-        for(let item of saveDatas){
+        for (let item of saveDatas) {
             const itemObj = {
                 id: item.id,
-                columnOrder: item.columnOrder,
-            }   
+                columnOrder: index,
+            }
+            item.columnOrder = index;
             index++;
             massColumnSend.push(itemObj);
         }
-
-        //this.sortById(massColumnSend);
 
         const object = {
             id: prevId,
             colunms: massColumnSend,
         }
 
-        this.referencesService.orderColumnReference(object);
+        this.referencesService.orderColumnReference(object).subscribe();
     }
 
-    sortById(arr){
-        arr.sort((a,b) => a.id > b.id ? 1: -1);
+    sortByOrder(arr) {
+        arr.sort((a, b) => a.columnOrder > b.columnOrder ? 1 : -1);
     }
 
     onPushBlockInReference(): void {
-        this.onClickPushReference = true;
+        this.isClickPushReference = true;
     }
 
     onPushBlockInRecord(): void {
-        this.onClickPushRecord = true;
+        this.isClickPushRecord = true;
         this.isLongBlock = false;
     }
 
     onPushReference(): void {
-        this.onClickPushReference = false;
-        let object = {
+        this.isClickPushReference = false;
+        let object: IReferenceTypes = {
             name: this.newRecordInReference,
         };
         if (
             this.newRecordInReference.trim().length > 0 &&
             this.newRecordInReference !== undefined
         ) {
-            this.data.push(object);
-            this.referencesService.pushReference(object);
+            this.referencesService.pushReference(object).subscribe((ans) => {
+                this.data.push(ans);
+            });
             this.newRecordInReference = null;
         }
+
     }
 
     onPushRecord(): void {
-        this.onClickPushRecord = false;
+        this.isClickPushRecord = false;
         let object = {
             name: this.newFioRecord,
             referenceTypeId: this.idReferenceClick,
@@ -305,9 +311,9 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
             columnTypeId: 1,
         };
         if (this.newFioRecord.trim().length > 0 && this.newFioRecord !== undefined) {
-            this.referencesService.pushColumnReference(object);
-            this.data[this.indexColumn].columns = [];
-            this.data[this.indexColumn].columns.push(object);
+            this.referencesService.pushColumnReference(object).subscribe(ans => {
+                this.data[this.indexColumn].columns.push(ans);
+            });
             this.newFioRecord = null;
         }
     }
@@ -325,10 +331,28 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
     }
 
     deleteReference(item): void {
-        this.referencesService.removeReference(item.id);
+        this.referencesService.removeReference(item.id).subscribe();
         const indexDelete = this.data.indexOf(item);
         this.data.splice(indexDelete, 1);
     }
 
-    editReference(item): void {}
+    deleteRecord(item): void {
+        this.referencesService.removeRecord(item.id).subscribe();
+        const indexDelete = this.data[this.indexColumn].columns.indexOf(item);
+        this.data[this.indexColumn].columns.splice(indexDelete, 1);
+    }
+
+    onEdit(item): void { 
+        item.openEdit = !item.openEdit;
+    }
+
+
+    editReference(item): void{
+        this.referencesService.putEditRef(item).subscribe();
+        item.openEdit = false;
+    }
+
+    editRecord(item): void{
+        this.referencesService.putEditColumn(item).subscribe();
+    }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from 'src/app/services/appConfigService';
-import { IReferenceTypes, IReferenceColumnsType } from '../models/references';
+import { IReferenceTypes, IReferenceColumnsType, IReferenceColumns } from '../models/references';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -16,81 +16,38 @@ export class ReferencesService {
     }
 
     public getReference(): Observable<IReferenceTypes[]> {
-        return this.http.get(this.restUrl + `/api/ref-book/ReferenceType`).pipe(
-            map((data: IReferenceTypes[]) => {
-                const localeData = this.mapData(data);
-                return localeData;
-            })
-        );
+        return this.http.get<IReferenceTypes[]>(this.restUrl + `/api/ref-book/ReferenceType`);
     }
 
-    public removeReference(id: number): void {
-        this.http.delete(this.restUrl + '/api/ref-book/ReferenceType/' + id).subscribe(
-            (ans) => {},
-            (error) => console.log(error)
-        );
+    public getColumns(id: number): Observable<IReferenceColumns[]> {
+        return this.http.get<IReferenceColumns[]>(this.restUrl + `/api/ref-book/ReferenceColumn/` + id + '/all');
     }
 
-    public removeRecord(id: number): void {
-        this.http.delete(this.restUrl + '/api/ref-book/ReferenceColumn/' + id).subscribe(
-            (ans) => {},
-            (error) => console.log(error)
-        );
+    public removeReference(id: number): Observable<IReferenceTypes> {
+        return this.http.delete<IReferenceTypes>(this.restUrl + '/api/ref-book/ReferenceType/' + id);
     }
 
-    public pushReference(reference) {
-        const newReference: IReferenceTypes = new (class implements IReferenceTypes {
-            name = reference.name;
-        })();
-        return this.http.post(this.restUrl + '/api/ref-book/ReferenceType', newReference).subscribe(
-            (ans) => {},
-            (error) => console.log(error)
-        );
+    public removeRecord(id: number): Observable<IReferenceColumns> {
+        return this.http.delete<IReferenceColumns>(this.restUrl + '/api/ref-book/ReferenceColumn/' + id);
     }
 
-    public pushColumnReference(records) {
-        return this.http.post(this.restUrl + '/api/ref-book/ReferenceColumn/', records).subscribe(
-            (ans) => {},
-            (error) => console.log(error)
-        );
+    public pushReference(reference: IReferenceTypes): Observable<IReferenceTypes> {
+        return this.http.post<IReferenceTypes>(this.restUrl + '/api/ref-book/ReferenceType', reference);
     }
 
-    public mapData(data: IReferenceTypes[]): IReferenceTypes[] {
-        return data;
+    public pushColumnReference(records: IReferenceColumns): Observable<IReferenceColumns> {
+        return this.http.post<IReferenceColumns>(this.restUrl + '/api/ref-book/ReferenceColumn/', records);
     }
 
-    async orderColumnReference(columns): Promise<any>{
-        try {
-            return this.http.post(this.restUrl + '/api/ref-book/ReferenceColumn/Order', columns).toPromise();
-        } catch (error) {
-            console.error(error);
-        }
+    public orderColumnReference(columns: any): Observable<any> {
+        return this.http.post<any>(this.restUrl + '/api/ref-book/ReferenceColumn/Order', JSON.stringify(columns));
     }
 
-    async putEditColumn(body): Promise<any> {
-        try {
-            return this.http.put(this.restUrl + '/api/ref-book/ReferenceColumn', body).toPromise();
-        } catch (error) {
-            console.error(error);
-        }
+    public putEditRef(body): Observable<IReferenceTypes> {
+        return this.http.put<IReferenceTypes>(this.restUrl + '/api/ref-book/ReferenceType', body);
     }
 
-    async putEditRef(body): Promise<any> {
-        try {
-
-            return this.http.put(this.restUrl + '/api/ref-book/ReferenceType', body).toPromise();
-        } catch (error) {
-            console.error(error);
-        }
+    public putEditColumn(body): Observable<IReferenceColumns> {
+        return this.http.put<IReferenceColumns>(this.restUrl + '/api/ref-book/ReferenceColumn', body);
     }
-
-    // async getType(): Promise<IReferenceColumnsType[]> {
-    //     try {
-    //         return this.http
-    //             .get<IReferenceColumnsType[]>(this.restUrl + '/api/notification-reference/category')
-    //             .toPromise();
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // }
 }
