@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { IBrigadeAdminPanel, IScreen } from '../../../models/admin-panel';
 import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
-import { Subscription, zip } from 'rxjs';
+import { Subscription, combineLatest } from 'rxjs';
 import { SelectionModel } from '@angular/cdk/collections';
 import { IUser } from '../../../models/events-widget';
 
@@ -30,6 +30,7 @@ export class AdminBrigadesComponent implements OnInit, OnDestroy {
 
     public subsSelectedWorker: Subscription = null;
     public subsActiveBrigadeWorker: Subscription = null;
+    public subs: Subscription = null;
 
     //#endregion
 
@@ -38,38 +39,17 @@ export class AdminBrigadesComponent implements OnInit, OnDestroy {
     constructor(private adminService: AdminPanelService) {}
 
     public ngOnInit(): void {
-        this.subsSelectedWorker = this.adminService.activeBrigade$.subscribe(
-            (brigade: IBrigadeAdminPanel) => {
-                if (!brigade) {
-                    this.adminService.activeBrigade$.next(this.brigades[0]);
-                } else {
-                    this.setActiveBrigade(brigade);
-                    this.subsActiveBrigadeWorker = this.adminService.activeWorker$.subscribe(
-                        (worker) => {
-                            if (worker.id) {
-                                this.brigades.forEach((brig) => {
-                                    const worker1: IUser = brig.users.find(
-                                        (user: IUser) => user.id === worker.id
-                                    );
-                                    if (worker1) {
-                                        this.setActiveWorker(worker1);
-                                    }
-                                });
-                            } else {
-                                const respUser = brigade.users.find(
-                                    (user) => user.position === 'responsible'
-                                );
-                                if (respUser) {
-                                    this.adminService.activeWorker$.next(respUser);
-                                } else {
-                                    this.adminService.activeWorker$.next(brigade.users[0]);
-                                }
-                            }
-                        }
-                    );
-                }
+        this.subs = combineLatest([
+            this.adminService.activeBrigade$,
+            this.adminService.activeWorker$,
+        ]).subscribe(([brigade, worker]) => {
+            if (brigade) {
+                this.setActiveBrigade(brigade);
+                this.defineActiveWorker(brigade, worker);
+            } else {
+                this.adminService.activeBrigade$.next(this.brigades[0]);
             }
-        );
+        });
     }
 
     public ngOnDestroy(): void {
@@ -78,6 +58,26 @@ export class AdminBrigadesComponent implements OnInit, OnDestroy {
         }
         if (this.subsActiveBrigadeWorker) {
             this.subsActiveBrigadeWorker.unsubscribe();
+        }
+        if (this.subs) {
+            this.subs.unsubscribe();
+        }
+    }
+
+    private defineActiveWorker(brigade: IBrigadeAdminPanel, worker: IUser): void {
+        if (worker.id) {
+            this.brigades.forEach((brigadeItem) => {
+                const brigadeWorker = brigadeItem.users.find((user) => user.id === worker.id);
+                if (brigadeWorker) {
+                    this.setActiveWorker(brigadeWorker);
+                }
+            });
+        } else {
+            let responsibleWorker = brigade
+                ? brigade.users.find((brigadeWorker) => brigadeWorker.position === 'responsible')
+                : null;
+            responsibleWorker = responsibleWorker ? responsibleWorker : brigade.users[0];
+            this.setActiveWorker(responsibleWorker);
         }
     }
 
@@ -100,10 +100,6 @@ export class AdminBrigadesComponent implements OnInit, OnDestroy {
         if (!this.selectWorker.isSelected(worker)) {
             this.selectWorker.select(worker);
             this.adminService.activeWorker$.next(worker);
-
-            if (this.subsSelectedWorker) {
-                this.subsSelectedWorker.unsubscribe();
-            }
 
             this.subsSelectedWorker = this.adminService
                 .getWorkerScreens(worker.id)

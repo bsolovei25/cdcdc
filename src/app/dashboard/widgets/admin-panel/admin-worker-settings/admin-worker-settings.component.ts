@@ -70,6 +70,10 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     ) {}
 
     public ngOnInit(): void {
+        if (this.isCreateNewUser) {
+            this.adminService.setDefaultActiveWorker();
+        }
+
         this.subscriptions.push(
             this.adminService.activeWorker$.subscribe((worker: IUser) => {
                 this.worker = fillDataShape(worker);

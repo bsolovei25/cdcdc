@@ -58,4 +58,4 @@ export type ObjectType = 'Unit' | 'Tank';
 
 export type ObjectDirection = 'enter' | 'exit';
 
-export type  OperationType = 'Exist' | 'New';
+export type OperationType = 'Exist' | 'New';
