@@ -119,6 +119,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AwsBlockComponent } from './widgets/admin-panel/admin-worker-settings/aws-block/aws-block.component';
 import { UsbVerifierComponent } from './widgets/change-shift/usb-verifier/usb-verifier.component';
 import { TimeDataPickerComponent } from './components/time-data-picker/time-data-picker.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { ReportComponent } from './components/report/reports/report.component';
+import { ReportsComponent } from './components/report/reports.component';
 import { AwsAvatarComponent } from './widgets/admin-panel/admin-worker-settings/aws-avatar/aws-avatar.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { AwsFieldsComponent } from './widgets/admin-panel/admin-worker-settings/aws-fields/aws-fields.component';
@@ -235,6 +238,8 @@ import { AwsCreateClaimComponent } from './widgets/admin-panel/admin-worker-sett
         AwsBlockComponent,
         UsbVerifierComponent,
         TimeDataPickerComponent,
+        ReportComponent,
+        ReportsComponent,
         AwsAvatarComponent,
         AwsFieldsComponent,
         AwsWorkspacesComponent,
@@ -293,6 +298,8 @@ import { AwsCreateClaimComponent } from './widgets/admin-panel/admin-worker-sett
         AdminReferencesComponent,
         PetroleumProductsMovementComponent,
         AdminPanelComponent,
+        ReportComponent,
+        ReportsComponent
     ],
     exports: [HomeComponent],
     imports: [
@@ -315,9 +322,10 @@ import { AwsCreateClaimComponent } from './widgets/admin-panel/admin-worker-sett
         OldScrollingModule,
         ReactiveFormsModule,
         MatCheckboxModule,
+        MatExpansionModule,
         ImageCropperModule,
     ],
     bootstrap: [],
     providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }],
 })
-export class DashboardModule {}
+export class DashboardModule { }

@@ -2,7 +2,6 @@ import {
     Component,
     OnInit,
     Injector,
-    ChangeDetectionStrategy,
     Output,
     EventEmitter,
     OnDestroy,
@@ -11,16 +10,29 @@ import { GridsterConfig, GridType } from 'angular-gridster2';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { Subscription, BehaviorSubject } from 'rxjs';
 import { WIDGETS } from '../new-widgets-grid/widget-map';
-import { WidgetModel } from '../../models/widget.model';
 import { IWidgets } from '../../models/widget.model';
 import { NewUserSettingsService } from '../../services/new-user-settings.service';
 import { ClaimService, EnumClaimWidgets } from '../../services/claim.service';
+import { trigger, state, style, transition, animate, group } from '@angular/animations';
+
+type isChoosePanel = 'widgets' | 'reports';
+
+export const fadeAnimation = trigger("fadeAnimation", [
+    transition(":enter", [
+        style({ opacity: 0 }),
+        animate("300ms", style({ opacity: 1 }))
+    ]),
+    transition(":leave", [
+        style({ opacity: 1 }),
+        animate("100ms", style({ opacity: 0 }))
+    ])
+]);
 
 @Component({
     selector: 'evj-new-widgets-panel',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './new-widgets-panel.component.html',
     styleUrls: ['./new-widgets-panel.component.scss'],
+    animations: [fadeAnimation],
 })
 export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
     public readonly WIDGETS = WIDGETS;
@@ -32,6 +44,8 @@ export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
     public widgets$: BehaviorSubject<IWidgets[]> = new BehaviorSubject<IWidgets[]>([]);
     private claimSettingsWidgets: EnumClaimWidgets[] = [];
 
+    isWidgets: isChoosePanel;
+
     _injector: Injector; // TOFIX   Если не нужно то удалить
 
     public gridWidget: boolean = true;
@@ -42,7 +56,7 @@ export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
         public injector: Injector,
         public userSettings: NewUserSettingsService,
         private claimService: ClaimService
-    ) {}
+    ) { }
 
     public ngOnInit(): void {
         this.subscriptions.push(
@@ -115,8 +129,13 @@ export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
         }
     }
 
-    onToggleClick(): void {
-        this.active = !this.active;
+    onToggleClick(buttonName: isChoosePanel): void {
+        if (this.active && buttonName !== this.isWidgets) {
+            this.isWidgets = buttonName;
+        } else {
+            this.active = !this.active;
+            this.isWidgets = buttonName;
+        }
     }
 
     dragStartHandler(event: DragEvent, item: string): void {
@@ -124,7 +143,7 @@ export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
 
         event.dataTransfer.dropEffect = 'copy';
 
-        this.onToggleClick();
+        this.onToggleClick(this.isWidgets);
     }
 
     public dataById(item): string {

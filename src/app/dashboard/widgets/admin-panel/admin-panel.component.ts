@@ -97,9 +97,9 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     }
 
     public createNewWorker(): void {
-        this.adminService.setDefaultActiveWorker();
         this.isCreateNewWorker = true;
         this.isWorkerSettingsShowed = true;
+        this.adminService.setDefaultActiveWorker();
     }
 
     public getMoreAboutWorker(): void {

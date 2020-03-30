@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {
     ITankInfo,
-    IFacilityInfo, IPetroleumObject
+    IFacilityInfo,
+    IPetroleumObject,
 } from 'src/app/dashboard/models/petroleum-products-movement.model';
 import { PetroleumScreenService } from '../../../../services/petroleum-screen.service';
 
@@ -19,12 +20,10 @@ export class OperationParkScreenLeftComponent implements OnInit {
     constructor(public petroleumService: PetroleumScreenService) {}
 
     ngOnInit(): void {
-        this.petroleumService.objectsAll$.subscribe(
-            (ref: IPetroleumObject[]) => {
-                this.data = ref;
-                this.setObjectActive(this.currentObject);
-            }
-        );
+        this.petroleumService.objectsAll$.subscribe((ref: IPetroleumObject[]) => {
+            this.data = ref;
+            this.setObjectActive(this.currentObject);
+        });
     }
 
     public setObjectActive(object: IPetroleumObject): void {
