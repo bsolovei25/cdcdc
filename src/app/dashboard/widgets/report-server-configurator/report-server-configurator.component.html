@@ -91,7 +91,7 @@
         </div>
         <div class="references-container-scroll-block">
           <div class="reference-container-value">
-            <ng-container *ngFor="let item of data[this.indexColumn].columns">
+            <ng-container *ngFor="let item of this.data">
               <div class="reference-container-value__block">
                 <div class="reference-container-value__fio-block" [class.notActiveItem]="!item.isRequred">
                   <div class="reference-container-value__fio">{{item.name}}</div>

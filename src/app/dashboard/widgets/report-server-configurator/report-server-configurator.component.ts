@@ -4,6 +4,7 @@ import { IReferenceTypes } from '../../models/references';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { moveItemInArray, transferArrayItem, CdkDragDrop } from '@angular/cdk/drag-drop';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { ReportServerConfiguratorService } from '../../services/report-server-configurator.service';
 
 @Component({
     selector: 'evj-report-server-configurator',
@@ -60,90 +61,90 @@ export class ReportServerConfiguratorComponent implements OnInit, OnDestroy {
 
     isOpenCheckBlock: boolean = false;
 
-    public data: IReferenceTypes[] = [
-        {
-            id: 1,
-            createdAt: new Date(),
-            createdBy: new Date(),
-            name: 'Професии',
-            columns: [
-                {
-                    id: 1,
-                    createdAt: new Date(),
-                    createdBy: new Date(),
-                    referenceTypeId: 1,
-                    name: 'ФИО',
-                    columnTypeId: 1,
-                    columnName: 'ФИО',
-                    isRequred: true,
-                    isUnique: false,
-                },
-                {
-                    id: 2,
-                    createdAt: new Date(),
-                    createdBy: new Date(),
-                    referenceTypeId: 1,
-                    name: 'Дата рождения',
-                    columnTypeId: 1,
-                    columnName: 'Дата рождения',
-                    isRequred: false,
-                    isUnique: true,
-                },
-                {
-                    id: 3,
-                    createdAt: new Date(),
-                    createdBy: new Date(),
-                    referenceTypeId: 1,
-                    name: '3',
-                    columnTypeId: 1,
-                    columnName: 'Дата рождения',
-                    isRequred: false,
-                    isUnique: true,
-                },
-                {
-                    id: 4,
-                    createdAt: new Date(),
-                    createdBy: new Date(),
-                    referenceTypeId: 1,
-                    name: '4',
-                    columnTypeId: 1,
-                    columnName: 'Дата рождения',
-                    isRequred: false,
-                    isUnique: true,
-                },
-                {
-                    id: 5,
-                    createdAt: new Date(),
-                    createdBy: new Date(),
-                    referenceTypeId: 1,
-                    name: '5',
-                    columnTypeId: 1,
-                    columnName: 'Дата рождения',
-                    isRequred: false,
-                    isUnique: true,
-                },
-            ],
-        },
-        {
-            id: 2,
-            createdAt: new Date(),
-            createdBy: new Date(),
-            name: 'Установки',
-            columns: [
-                {
-                    id: 1,
-                    createdAt: new Date(),
-                    createdBy: new Date(),
-                    referenceTypeId: 1,
-                    name: 'Дата рождения',
-                    columnTypeId: 1,
-                    columnName: 'Дата рождения',
-                    isRequred: false,
-                    isUnique: false,
-                },
-            ],
-        },
-    ];
+    // public data: IReferenceTypes[] = [
+    //     {
+    //         id: 1,
+    //         createdAt: new Date(),
+    //         createdBy: new Date(),
+    //         name: 'Професии',
+    //         columns: [
+    //             {
+    //                 id: 1,
+    //                 createdAt: new Date(),
+    //                 createdBy: new Date(),
+    //                 referenceTypeId: 1,
+    //                 name: 'ФИО',
+    //                 columnTypeId: 1,
+    //                 columnName: 'ФИО',
+    //                 isRequred: true,
+    //                 isUnique: false,
+    //             },
+    //             {
+    //                 id: 2,
+    //                 createdAt: new Date(),
+    //                 createdBy: new Date(),
+    //                 referenceTypeId: 1,
+    //                 name: 'Дата рождения',
+    //                 columnTypeId: 1,
+    //                 columnName: 'Дата рождения',
+    //                 isRequred: false,
+    //                 isUnique: true,
+    //             },
+    //             {
+    //                 id: 3,
+    //                 createdAt: new Date(),
+    //                 createdBy: new Date(),
+    //                 referenceTypeId: 1,
+    //                 name: '3',
+    //                 columnTypeId: 1,
+    //                 columnName: 'Дата рождения',
+    //                 isRequred: false,
+    //                 isUnique: true,
+    //             },
+    //             {
+    //                 id: 4,
+    //                 createdAt: new Date(),
+    //                 createdBy: new Date(),
+    //                 referenceTypeId: 1,
+    //                 name: '4',
+    //                 columnTypeId: 1,
+    //                 columnName: 'Дата рождения',
+    //                 isRequred: false,
+    //                 isUnique: true,
+    //             },
+    //             {
+    //                 id: 5,
+    //                 createdAt: new Date(),
+    //                 createdBy: new Date(),
+    //                 referenceTypeId: 1,
+    //                 name: '5',
+    //                 columnTypeId: 1,
+    //                 columnName: 'Дата рождения',
+    //                 isRequred: false,
+    //                 isUnique: true,
+    //             },
+    //         ],
+    //     },
+    //     {
+    //         id: 2,
+    //         createdAt: new Date(),
+    //         createdBy: new Date(),
+    //         name: 'Установки',
+    //         columns: [
+    //             {
+    //                 id: 1,
+    //                 createdAt: new Date(),
+    //                 createdBy: new Date(),
+    //                 referenceTypeId: 1,
+    //                 name: 'Дата рождения',
+    //                 columnTypeId: 1,
+    //                 columnName: 'Дата рождения',
+    //                 isRequred: false,
+    //                 isUnique: false,
+    //             },
+    //         ],
+    //     },
+    // ];
 
     public categorys = [
         {
@@ -241,6 +242,8 @@ export class ReportServerConfiguratorComponent implements OnInit, OnDestroy {
         },
     ]
 
+    public data;
+
     public clickPushRef: boolean = false;
     public clickPushRec: boolean = false;
 
@@ -253,6 +256,7 @@ export class ReportServerConfiguratorComponent implements OnInit, OnDestroy {
 
     constructor(
         public widgetService: NewWidgetService,
+        public reportService: ReportServerConfiguratorService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -264,14 +268,17 @@ export class ReportServerConfiguratorComponent implements OnInit, OnDestroy {
                     (this.options = data.widgetOptions);
             })
         );
-
-        for (let item of this.data) {
-            this.connectedTo.push(item.name);
-        }
     }
 
     ngOnInit(): void {
-        this.saveDate = this.data;
+       this.subscriptions.push(
+           this.reportService.getReportTemplate().subscribe((data) => {
+               this.data = data;
+               for (let item of this.data) {
+                this.connectedTo.push(item.name);
+            }
+           })
+       )
     }
 
     ngOnDestroy() {
