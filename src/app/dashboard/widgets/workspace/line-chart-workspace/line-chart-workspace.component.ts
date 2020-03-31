@@ -26,7 +26,7 @@ import {
     LineChartGraph,
     LineChartGraphValue,
 } from 'src/app/dashboard/models/line-chart';
-import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
+import { WidgetService } from 'src/app/dashboard/services/widget.service';
 
 @Component({
     selector: 'evj-line-chart-workspace',

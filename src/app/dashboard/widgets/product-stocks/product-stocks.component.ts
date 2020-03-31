@@ -8,8 +8,8 @@ import {
     AfterViewInit,
     Renderer2,
 } from '@angular/core';
-import { NewWidgetService } from '../../services/new-widget.service';
-import { NewUserSettingsService } from '../../services/new-user-settings.service';
+import { WidgetService } from '../../services/widget.service';
+import { UserSettingsService } from '../../services/user-settings.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 
 export interface IProductStocks {
@@ -43,8 +43,8 @@ export class ProductStocksComponent extends WidgetPlatform
     @ViewChild('svgContainers') svgContainers: ElementRef;
 
     constructor(
-        public userSettings: NewUserSettingsService,
-        public widgetService: NewWidgetService,
+        public userSettings: UserSettingsService,
+        public widgetService: WidgetService,
         private renderer: Renderer2,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,

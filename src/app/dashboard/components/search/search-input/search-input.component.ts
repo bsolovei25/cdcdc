@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
-import { ManualInputService } from 'src/app/dashboard/services/manual-input.service';
+import { WidgetService } from '../../../services/widget.service';
 
 @Component({
     selector: 'evj-search-input',
@@ -21,7 +20,7 @@ export class SearchInputComponent implements OnInit {
     itemChoose: boolean = false;
     valueInput: string = '';
 
-    constructor(public widgetService: NewWidgetService) {
+    constructor(public widgetService: WidgetService) {
         if (this.data) {
             this.itemChoose = true;
         }

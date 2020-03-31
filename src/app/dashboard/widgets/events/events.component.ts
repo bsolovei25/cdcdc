@@ -11,8 +11,8 @@ import {
     EventsWidgetNotification,
     EventsWidgetNotificationStatus,
 } from '../../models/events-widget';
-import { NewWidgetService } from '../../services/new-widget.service';
-import { NewUserSettingsService } from '../../services/new-user-settings.service';
+import { WidgetService } from '../../services/widget.service';
+import { UserSettingsService } from '../../services/user-settings.service';
 import { EventService } from '../../services/event.service';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { WidgetPlatform } from '../../models/widget-platform';
@@ -156,8 +156,8 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     constructor(
         private eventService: EventService,
         private materialService: SnackBarService,
-        public userSettings: NewUserSettingsService,
-        public widgetService: NewWidgetService,
+        public userSettings: UserSettingsService,
+        public widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string

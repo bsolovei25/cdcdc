@@ -29,7 +29,7 @@ interface IWebSocket {
 @Injectable({
     providedIn: 'root',
 })
-export class NewWidgetService {
+export class WidgetService {
     private readonly wsUrl: string;
     private readonly restUrl: string;
     private readonly reconnectInterval: number;

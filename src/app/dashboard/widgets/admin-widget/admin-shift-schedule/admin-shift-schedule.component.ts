@@ -8,7 +8,7 @@ import {
     OnInit,
     AfterContentChecked,
 } from '@angular/core';
-import { NewWidgetService } from '../../../services/new-widget.service';
+import { WidgetService } from '../../../services/widget.service';
 import * as moment from 'moment';
 import { DateAdapter } from '@angular/material/core';
 import { IUser } from '../../../models/events-widget';
@@ -71,7 +71,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         private renderer: Renderer2,
         private adminShiftScheduleService: AdminShiftScheduleService,
         private materialController: SnackBarService,
-        protected widgetService: NewWidgetService,
+        protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
