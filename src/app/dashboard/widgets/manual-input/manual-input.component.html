@@ -40,9 +40,9 @@
               class="set-button"
               *ngFor="let machine of data"
               (click)="onSettings(machine)"
-              [ngClass]="{'active': machine.active}"
+              [ngClass]="{'active': machine?.active}"
             >
-              {{machine.name}}
+              {{machine?.name}}
               <div class="b-a"></div>
             </div>
           </div>
@@ -55,7 +55,7 @@
         <div
           class="save-button"
           (click)="onButtonSave()"
-          [style.opacity]="!disabledMachine.isSelected(chooseSetting.name) ? '1' : '0.1'"
+          [style.opacity]="!disabledMachine.isSelected(chooseSetting?.name) ? '1' : '0.1'"
         >
           Сохранить
           <div class="b-a"></div>
@@ -121,7 +121,7 @@
                   ></svg-icon>
                 </div>
                 <div class="machine-name__title">
-                  {{machine.name}}
+                  {{machine?.name}}
                 </div>
                 <div class="machine-name__icon">
                   <svg-icon
@@ -147,13 +147,13 @@
                           [svgStyle]="{ 'width.px':10, 'height.px':10 }"
                         ></svg-icon>
                       </div>
-                      <div class="item-name__title">{{item.name}}</div>
+                      <div class="item-name__title">{{item?.name}}</div>
                     </div>
                     <div class="item-container" [@Branch]="(item.open) ? 'expanded' : 'collapsed'">
                       <ng-container *ngFor="let i of item.params">
                         <div class="items">
                           <div class="item-block">
-                            <div class="item-block__value name">{{i.name}}</div>
+                            <div class="item-block__value name">{{i?.name}}</div>
                             <div class="item-block__value unit">{{i.unit}}.</div>
                             <div class="item-block__value">
                               {{i.lastTime | date: 'dd.MM.yyyy HH:mm'}}
@@ -226,7 +226,7 @@
                         [svgStyle]="{ 'width.px':10, 'height.px':10 }"
                       ></svg-icon>
                     </div>
-                    <div class="item-name__title">{{item.name}}</div>
+                    <div class="item-name__title">{{item?.name}}</div>
                   </div>
                   <div
                     class="item-container-short"
@@ -235,7 +235,7 @@
                     <ng-container *ngFor="let i of item.params">
                       <div class="items">
                         <div class="item-block">
-                          <div class="item-block__value name">{{i.name}}</div>
+                          <div class="item-block__value name">{{i?.name}}</div>
                           <div class="item-block__value unit">{{i.unit}}.</div>
                           <div class="item-block__value">
                             {{i.lastTime | date: 'dd.MM.yyyy HH:mm'}}

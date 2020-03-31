@@ -43,7 +43,7 @@ export class UserInfoComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.loadData();
-        this.myOverlayService.closed$.subscribe((val) => this.closeOverlay(val))
+        this.myOverlayService.closed$.subscribe((val) => this.closeOverlay(val));
     }
 
     ngOnDestroy(): void {
