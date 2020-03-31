@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild, AfterViewInit, Inject, OnDestroy } from '@angular/core';
-import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
+import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 
 declare var d3: any;
@@ -36,7 +36,7 @@ export class MapEcologyComponent extends WidgetPlatform implements AfterViewInit
     @ViewChild('myCircle') myCircle: ElementRef;
 
     constructor(
-        public widgetService: NewWidgetService,
+        public widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string

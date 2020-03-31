@@ -11,7 +11,7 @@ import {
 import { ManualInputService } from '../../services/manual-input.service';
 import { HttpClient } from '@angular/common/http';
 import { IMachine_MI, IGroup_MI } from '../../models/manual-input.model';
-import { NewWidgetService } from '../../services/new-widget.service';
+import { WidgetService } from '../../services/widget.service';
 import { AppConfigService } from 'src/app/services/appConfigService';
 import { WidgetSettingsService } from '../../services/widget-settings.service';
 import { WidgetPlatform } from '../../models/widget-platform';
@@ -79,7 +79,7 @@ export class ManualInputComponent extends WidgetPlatform
 
     constructor(
         public manualInputService: ManualInputService,
-        public widgetService: NewWidgetService,
+        public widgetService: WidgetService,
         public widgetSettingsService: WidgetSettingsService,
         private http: HttpClient,
         private configService: AppConfigService,

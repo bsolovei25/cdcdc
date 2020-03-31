@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
+import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 
 @Component({
@@ -17,7 +17,7 @@ export class SolidGaugesComponent extends WidgetPlatform implements OnInit, OnDe
     ];
 
     constructor(
-        public widgetService: NewWidgetService,
+        public widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HeaderDataService } from '../../services/header-data.service';
-import { NewWidgetService } from '../../services/new-widget.service';
+import { WidgetService } from '../../services/widget.service';
 import { FormControl } from '@angular/forms';
 import { ITime } from '../../models/time-data-picker';
 
@@ -21,7 +21,7 @@ export class PeriodSelectorComponent implements OnInit {
 
     // date = new FormControl();
 
-    constructor(private headerData: HeaderDataService, private widgetService: NewWidgetService) {
+    constructor(private headerData: HeaderDataService, private widgetService: WidgetService) {
         this.setDefault();
     }
 

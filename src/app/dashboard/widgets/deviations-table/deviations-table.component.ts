@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { NewWidgetService } from '../../services/new-widget.service';
+import { WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 
 export interface IDeviationsTable {
@@ -233,7 +233,7 @@ export class DeviationsTableComponent extends WidgetPlatform implements OnInit, 
     public static itemRows: number = 18;
 
     constructor(
-        protected widgetService: NewWidgetService,
+        protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string

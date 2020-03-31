@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
+import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { WidgetPlatform } from '../../../models/widget-platform';
 
 @Component({
@@ -14,7 +14,7 @@ export class WidgetPiesComponent extends WidgetPlatform implements OnInit, OnDes
     public static itemRows: number = 10;
 
     constructor(
-        public widgetService: NewWidgetService,
+        public widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string

@@ -1,7 +1,7 @@
 import { Component, HostListener, Inject, OnDestroy, AfterViewInit } from '@angular/core';
 import { UnityLoader } from './UnityLoader.js';
 import { PlatformLocation } from '@angular/common';
-import { NewWidgetService } from '../../services/new-widget.service';
+import { WidgetService } from '../../services/widget.service';
 import { WidgetSettingsService } from '../../services/widget-settings.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 
@@ -23,7 +23,7 @@ export class DispatcherScreenComponent extends WidgetPlatform implements AfterVi
     public static minItemRows: number = 10;
 
     constructor(
-        public widgetService: NewWidgetService,
+        public widgetService: WidgetService,
         public widgetSettingsService: WidgetSettingsService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,

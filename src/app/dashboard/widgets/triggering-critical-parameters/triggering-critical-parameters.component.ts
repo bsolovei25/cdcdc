@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { EventService } from '../../services/event.service';
-import { NewWidgetService } from '../../services/new-widget.service';
+import { WidgetService } from '../../services/widget.service';
 
 export interface ITriggeringCriticalParameters {
     equipment: string;
@@ -366,7 +366,7 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
 
     constructor(
         private eventService: EventService,
-        public widgetService: NewWidgetService,
+        public widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string

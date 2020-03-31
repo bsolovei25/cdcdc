@@ -9,7 +9,7 @@ import {
     AfterViewInit,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { NewWidgetService } from '../../services/new-widget.service';
+import { WidgetService } from '../../services/widget.service';
 import { IObservationNormTR } from '../../models/observation-norm-tr';
 import { WidgetPlatform } from '../../models/widget-platform';
 
@@ -51,7 +51,7 @@ export class ObservationNormTRComponent extends WidgetPlatform
     @ViewChild('warningPolygon') warningPolygon: ElementRef;
 
     constructor(
-        protected widgetService: NewWidgetService,
+        protected widgetService: WidgetService,
         private renderer: Renderer2,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,

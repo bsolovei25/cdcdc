@@ -1,5 +1,5 @@
 import { Component, OnDestroy, Inject, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { NewWidgetService } from '../../services/new-widget.service';
+import { WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 
 declare var d3: any;
@@ -30,7 +30,7 @@ export class CircleDiagramComponent extends WidgetPlatform implements OnDestroy,
     @ViewChild('myCircle') myCircle: ElementRef;
 
     constructor(
-        public widgetService: NewWidgetService,
+        public widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
