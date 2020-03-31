@@ -6,7 +6,7 @@ import { AppConfigService } from '../../services/appConfigService';
 import {
     IPetroleumObject, ITankAttribute, ITankInfo, ITankParam,
     ITransfer,
-    ObjectDirection
+    ObjectDirection, TransfersFilter
 } from '../models/petroleum-products-movement.model';
 import { MaterialControllerService } from './material-controller.service';
 
@@ -45,6 +45,8 @@ export class PetroleumScreenService {
     public screenState$: Observable<string> = this.localScreenState$
         .asObservable()
         .pipe(filter((item) => item !== null));
+
+    public currentTransfersFilter$: BehaviorSubject<TransfersFilter> = new BehaviorSubject<TransfersFilter>('all');
 
     private emptyTransferGlobal: ITransfer = {
         uid: null,
@@ -282,10 +284,22 @@ export class PetroleumScreenService {
     }
 
     public async reGetTransfers(): Promise<void> {
-        await this.getTransfers(null, null, true, this.client);
+        let isOpen: boolean;
+        switch (this.currentTransfersFilter$.getValue()) {
+            case 'all':
+                isOpen = false;
+                break;
+            case 'open':
+                isOpen = true;
+                break;
+        }
+        await this.getTransfers(null, null, isOpen, this.client);
         const currentTransfer = this.currentTransfer$.getValue();
+        if (!currentTransfer?.uid) {
+            return;
+        }
         const transfers = this.transfers$.getValue();
-        const currentTransferTemp = transfers.find((item) => item.uid === currentTransfer.uid);
+        const currentTransferTemp = transfers.find((item) => item?.uid === currentTransfer?.uid);
         if (currentTransferTemp) {
             currentTransferTemp.isActive = true;
             this.currentTransfer$.next(currentTransferTemp);
@@ -347,9 +361,16 @@ export class PetroleumScreenService {
     }
 
     public async getTankAttributes(objectName: string): Promise<ITankAttribute[]> {
-        return await this.http.get<ITankAttribute[]>(
+        let attributes: ITankAttribute[] = await this.http.get<ITankAttribute[]>(
             `${this.restUrl}/api/petroleum-flow-clients/objects/${objectName}/attr`
         ).toPromise();
+        const regexp = /[A-Z]/;
+        attributes = attributes
+            .filter((el) =>
+                (el.paramTitle.toUpperCase().search(regexp) === -1) &&
+                (el.paramValue.toUpperCase().search(regexp) === -1)
+            );
+        return attributes;
     }
 
     public async setTankParam(objectName: string): Promise<void> {

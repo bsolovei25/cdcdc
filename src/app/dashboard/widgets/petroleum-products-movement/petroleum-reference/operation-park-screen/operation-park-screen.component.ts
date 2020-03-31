@@ -15,11 +15,20 @@ export class OperationParkScreenComponent implements OnInit {
 
     public ngOnInit(): void {
         this.petroleumService.currentTankParam.subscribe(
-            (item) => this.data = item.objectAttributes
+            (item) => {
+                // const regexp = /[A-Z]/;
+                // this.data = item.objectAttributes
+                //     .filter((el) =>
+                //         (el.paramTitle.toUpperCase().search(regexp) === -1) &&
+                //         (el.paramValue.toUpperCase().search(regexp) === -1)
+                //     );
+                this.data = item.objectAttributes;
+            }
         );
     }
 
-    clickActive(item): void {
+    clickActive(item: ITankAttribute): void {
+        this.data.forEach(el => el.active = false);
         item.active = !item.active;
     }
 

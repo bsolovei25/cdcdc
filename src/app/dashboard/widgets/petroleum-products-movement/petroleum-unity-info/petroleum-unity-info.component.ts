@@ -28,7 +28,8 @@ export class PetroleumUnityInfoComponent implements OnInit, AfterViewInit, OnDes
 
     constructor(public widgetService: NewWidgetService,
                 private platformLocation: PlatformLocation,
-                private petroleumService: PetroleumScreenService) {
+                private petroleumService: PetroleumScreenService,
+    ) {
         const location = (platformLocation as any).location;
         this.baseUrl = location.origin + location.pathname.replace('dashboard', '');
     }
@@ -66,6 +67,10 @@ export class PetroleumUnityInfoComponent implements OnInit, AfterViewInit, OnDes
     }
 
     private async NextInfoHandler(ref: ITankInfo): Promise<void> {
+        if (ref.minValue === ref.maxValue) {
+
+            return;
+        }
         this.CallUnityScript('Scripts', 'LoadInfo', JSON.stringify(ref));
     }
 

@@ -30,18 +30,10 @@ export interface IFacilityInfo {
     isActive?: boolean; // no back
 }
 
-export interface ITankInfo {
-    id?: number;
-    title: string;
-    state: ObjectStatus;
-    parameters?: ITankAttribute[];
-    isActive?: boolean; // no back
-}
-
 export interface ITankAttribute {
-    title: string;
-    value: string;
-    unit: string;
+    paramTitle: string;
+    paramValue: string;
+    paramUnit: string;
     priority?: number; // no back
     active?: boolean; // no back
 }
@@ -55,6 +47,14 @@ export interface ITankParam {
 // TODO
 export interface ITankInfo {
     asd: string;
+    tankTitle: string;
+    tankType: string;
+    maxValue: number;
+    minValue: number;
+    dieValue: number;
+    absolutValue: number;
+    currentValue: number;
+    objectStatus: string;
 }
 
 export interface IFacilityInfoParam {
@@ -70,3 +70,5 @@ export type ObjectType = 'Unit' | 'Tank';
 export type ObjectDirection = 'enter' | 'exit';
 
 export type OperationType = 'Exist' | 'New';
+
+export type TransfersFilter = 'open' | 'all';
