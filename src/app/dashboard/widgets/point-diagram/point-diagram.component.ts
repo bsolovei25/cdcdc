@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { NewWidgetService } from '../../services/new-widget.service';
+import { WidgetService } from '../../services/widget.service';
 import { Subscription } from 'rxjs';
 import { IPointDiagramElement } from '../../models/point-diagram';
 import { WidgetPlatform } from '../../models/widget-platform';
@@ -59,7 +59,7 @@ export class PointDiagramComponent extends WidgetPlatform implements OnInit, OnD
     public static itemRows: number = 16;
 
     constructor(
-        protected widgetService: NewWidgetService,
+        protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string

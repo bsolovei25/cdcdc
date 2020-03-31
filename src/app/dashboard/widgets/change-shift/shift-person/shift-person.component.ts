@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { Shift, ShiftMember } from 'src/app/dashboard/models/shift.model';
 import { ShiftService } from '../../../services/shift.service';
-import { MaterialControllerService } from '../../../services/material-controller.service';
+import { SnackBarService } from '../../../services/snack-bar.service';
 
 @Component({
     selector: 'evj-shift-person',
@@ -72,7 +72,7 @@ export class ShiftPersonComponent implements OnInit {
 
     constructor(
         private shiftService: ShiftService,
-        private materialController: MaterialControllerService
+        private materialController: SnackBarService
     ) {}
 
     public ngOnInit(): void {}

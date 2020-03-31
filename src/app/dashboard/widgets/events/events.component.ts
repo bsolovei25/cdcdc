@@ -11,13 +11,13 @@ import {
     EventsWidgetNotification,
     EventsWidgetNotificationStatus,
 } from '../../models/events-widget';
-import { NewWidgetService } from '../../services/new-widget.service';
-import { NewUserSettingsService } from '../../services/new-user-settings.service';
+import { WidgetService } from '../../services/widget.service';
+import { UserSettingsService } from '../../services/user-settings.service';
 import { EventService } from '../../services/event.service';
-import { MaterialControllerService } from '../../services/material-controller.service';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { throttle } from 'rxjs/operators';
+import { SnackBarService } from '../../services/snack-bar.service';
 
 @Component({
     selector: 'evj-events',
@@ -155,9 +155,9 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
 
     constructor(
         private eventService: EventService,
-        private materialService: MaterialControllerService,
-        public userSettings: NewUserSettingsService,
-        public widgetService: NewWidgetService,
+        private materialService: SnackBarService,
+        public userSettings: UserSettingsService,
+        public widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string

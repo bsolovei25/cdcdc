@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { NewWidgetService } from '../../services/new-widget.service';
+import { WidgetService } from '../../services/widget.service';
 import { ReportsService } from '../../services/reports.service';
 import { fillDataShape } from '../../../@shared/common-functions';
 
@@ -35,7 +35,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
     isReport = true;
 
     constructor(
-        public widgetService: NewWidgetService,
+        public widgetService: WidgetService,
         private reportsService: ReportsService,
     ) {
         this.subscription = this.widgetService.widgets$.subscribe((dataW) => {

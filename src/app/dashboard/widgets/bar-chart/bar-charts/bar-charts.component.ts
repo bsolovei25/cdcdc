@@ -1,6 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
-import { NewUserSettingsService } from 'src/app/dashboard/services/new-user-settings.service';
+import { WidgetService } from 'src/app/dashboard/services/widget.service';
+import { UserSettingsService } from 'src/app/dashboard/services/user-settings.service';
 import { WidgetPlatform } from '../../../models/widget-platform';
 
 @Component({
@@ -15,8 +15,8 @@ export class BarChartsComponent extends WidgetPlatform implements OnInit, OnDest
     public static itemRows: number = 10;
 
     constructor(
-        private userSettings: NewUserSettingsService,
-        protected widgetService: NewWidgetService,
+        private userSettings: UserSettingsService,
+        protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string

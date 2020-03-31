@@ -1,5 +1,6 @@
 <div class="user-info" (mouseover)="ScreenActive()" (mouseleave)="ScreenDisable()">
-  <div class="user-info_avatar"></div>
+  <div></div>
+  <img class="user-info_avatar" [src]="photoPath" />
   <div *ngIf="data" class="user-info_data">
     <div class="user-name">
       <span>
@@ -24,6 +25,20 @@
         <div class="screen_blocks">
           <div class="screen_name">
             Полный экран
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      (click)="resetPassword()"
+      class="dropdown-component"
+      (mouseover)="isOverScreen()"
+      (mouseleave)="isLeaveScreen()"
+    >
+      <div class="screen_block">
+        <div class="screen_blocks">
+          <div class="screen_name">
+            Сброс пароля
           </div>
         </div>
       </div>

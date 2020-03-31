@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { NewWidgetService } from '../../services/new-widget.service';
+import { WidgetService } from '../../services/widget.service';
 import { PetroleumScreenService } from '../../services/petroleum-screen.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 
@@ -19,7 +19,7 @@ export class PetroleumProductsMovementComponent extends WidgetPlatform
     private refreshTimeoutSecs: number = 45;
 
     constructor(
-        protected widgetService: NewWidgetService,
+        protected widgetService: WidgetService,
         public petroleumService: PetroleumScreenService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,

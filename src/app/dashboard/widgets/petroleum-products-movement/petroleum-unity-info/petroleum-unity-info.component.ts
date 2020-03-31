@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, HostListener, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { NewWidgetService } from '../../../services/new-widget.service';
+import { WidgetService } from '../../../services/widget.service';
 import { PlatformLocation } from '@angular/common';
 import { UnityLoader } from '../../dispatcher-screen/UnityLoader';
 import { PetroleumScreenService } from '../../../services/petroleum-screen.service';
@@ -26,7 +26,7 @@ export class PetroleumUnityInfoComponent implements OnInit, AfterViewInit, OnDes
 
     public previewTitle: string;
 
-    constructor(public widgetService: NewWidgetService,
+    constructor(public widgetService: WidgetService,
                 private platformLocation: PlatformLocation,
                 private petroleumService: PetroleumScreenService,
     ) {

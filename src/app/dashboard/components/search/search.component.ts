@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { IWidgets } from '../../models/widget.model';
 import { Subscription } from 'rxjs';
-import { NewWidgetService } from '../../services/new-widget.service';
+import { WidgetService } from '../../services/widget.service';
 
 @Component({
     selector: 'evj-search',
@@ -24,7 +24,7 @@ export class SearchComponent implements OnInit {
 
     @Input() isReport: boolean = false;
 
-    constructor(public widgetService: NewWidgetService) {
+    constructor(public widgetService: WidgetService) {
         this.subscription = this.widgetService.widgets$.subscribe((dataW) => {
             this.widgets = dataW;
             this.newArrayType = this.filterData(this.widgets);

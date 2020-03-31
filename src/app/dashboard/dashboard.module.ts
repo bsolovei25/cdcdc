@@ -132,6 +132,7 @@ import { AgGroupWorkerCardComponent } from './widgets/admin-panel/admin-groups/a
 import { AwsResponsibleAlertComponent } from './widgets/admin-panel/admin-worker-settings/aws-responsible-alert/aws-responsible-alert.component';
 import { AwsPasswordAlertComponent } from './widgets/admin-panel/admin-worker-settings/aws-password-alert/aws-password-alert.component';
 import { AwsCreateClaimComponent } from './widgets/admin-panel/admin-worker-settings/aws-create-claim/aws-create-claim.component';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 @NgModule({
     declarations: [
@@ -324,6 +325,7 @@ import { AwsCreateClaimComponent } from './widgets/admin-panel/admin-worker-sett
         MatCheckboxModule,
         MatExpansionModule,
         ImageCropperModule,
+        OverlayModule
     ],
     bootstrap: [],
     providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }],

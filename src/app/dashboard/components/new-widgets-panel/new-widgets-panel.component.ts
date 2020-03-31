@@ -7,11 +7,11 @@ import {
     OnDestroy,
 } from '@angular/core';
 import { GridsterConfig, GridType } from 'angular-gridster2';
-import { NewWidgetService } from '../../services/new-widget.service';
+import { WidgetService } from '../../services/widget.service';
 import { Subscription, BehaviorSubject } from 'rxjs';
 import { WIDGETS } from '../new-widgets-grid/widget-map';
 import { IWidgets } from '../../models/widget.model';
-import { NewUserSettingsService } from '../../services/new-user-settings.service';
+import { UserSettingsService } from '../../services/user-settings.service';
 import { ClaimService, EnumClaimWidgets } from '../../services/claim.service';
 import { trigger, state, style, transition, animate, group } from '@angular/animations';
 
@@ -52,9 +52,9 @@ export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
     public fixWidget: boolean = true;
 
     constructor(
-        public widgetService: NewWidgetService,
+        public widgetService: WidgetService,
         public injector: Injector,
-        public userSettings: NewUserSettingsService,
+        public userSettings: UserSettingsService,
         private claimService: ClaimService
     ) { }
 

@@ -21,7 +21,7 @@ import {
     IUnitEvents,
 } from '../../models/events-widget';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { NewWidgetService } from '../../services/new-widget.service';
+import { WidgetService } from '../../services/widget.service';
 import { DateAdapter } from '@angular/material/core';
 import { AuthService } from '@core/service/auth.service';
 import { WidgetPlatform } from '../../models/widget-platform';
@@ -122,7 +122,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     constructor(
         private eventService: EventService,
         private snackBar: MatSnackBar,
-        public widgetService: NewWidgetService,
+        public widgetService: WidgetService,
         private dateAdapter: DateAdapter<Date>,
         private authService: AuthService,
         @Inject('isMock') public isMock: boolean,
