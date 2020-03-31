@@ -1,33 +1,49 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, ViewChild, LOCALE_ID } from '@angular/core';
 import { ITime } from '../../models/time-data-picker';
 import * as moment from 'moment';
-import { ThemePalette } from '@angular/material/core';
-import { Validators, FormGroup, FormControl } from '@angular/forms';
+import { ThemePalette, DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
+import { FormControl } from '@angular/forms';
+import { NGX_MAT_DATE_FORMATS, NgxMatDateFormats } from '@angular-material-components/datetime-picker';
+import localization from 'moment/locale/ru'
+import { NGX_MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular-material-components/moment-adapter';
+
+moment.locale('ru', localization);
+
+const CUSTOM_DATE_FORMATS: NgxMatDateFormats = {
+    parse: {
+        dateInput: 'L | LTS'
+    },
+    display: {
+        dateInput: 'L | LTS',
+        monthYearLabel: "MMM YYYY",
+        dateA11yLabel: 'LL',
+        monthYearA11yLabel: "MMMM YYYY"
+    }
+};
+
 
 @Component({
     selector: 'evj-time-data-picker',
     templateUrl: './time-data-picker.component.html',
     styleUrls: ['./time-data-picker.component.scss'],
+    providers: [
+        { provide: NGX_MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS },
+    ]
 })
 export class TimeDataPickerComponent implements OnInit, OnChanges {
     @Input() data: Date;
     @Output() dateTimePicker = new EventEmitter<ITime>();
 
-    public inputDate: Date;
+    public inputDate: any;
     public inputTime: string;
-
-    // TimePicker
 
     @ViewChild('picker') picker: any;
 
-    public dates: moment.Moment;
     public disabled = false;
     public showSpinners = true;
     public showSeconds = true;
     public touchUi = false;
     public enableMeridian = false;
-    public minDate: (moment.Moment | Date);
-    public maxDate: (moment.Moment | Date);
     public stepHour = 1;
     public stepMinute = 10;
     public stepSecond = 1;
@@ -37,25 +53,20 @@ export class TimeDataPickerComponent implements OnInit, OnChanges {
     public stepMinutes = [1, 5, 10, 15, 20, 25];
     public stepSeconds = [1, 5, 10, 15, 20, 25];
 
-    public formGroup = new FormGroup({
-        date: new FormControl(null, [Validators.required]),
-        date2: new FormControl(null, [Validators.required])
-      })
-      public dateControl = new FormControl(new Date());
+    public dateControl = new FormControl(new Date());
 
     //
 
-    constructor() { }
+    constructor(private dateAdapter: DateAdapter<Date>, ) {
+        this.dateAdapter.setLocale('ru');
+    }
 
     ngOnInit(): void {
-         this.inputDate = new Date();
-        // this.inputTime = '00:00:00';
-        // if (this.data !== undefined) {
-        //     this.inputDate = this.data;
-        // }
+        this.inputDate = new Date();
     }
 
     ngOnChanges() {
+        this.inputDate = this.data;
     }
 
 
@@ -66,13 +77,13 @@ export class TimeDataPickerComponent implements OnInit, OnChanges {
                 : this.inputTime === ''
                     ? '00:00:00'
                     : this.inputTime;
-        const object: ITime = { date: this.inputDate, time: this.inputTime, close: true };
+        const object: ITime = { date: this.inputDate, time: this.inputTime };
         this.dateTimePicker.emit(object);
     }
 
-    test(){
-        console.log('click');
-        const object: ITime = { date: this.inputDate, time: '00:00:00', close: true };
+    buttonConfirm() {
+        let timeInput = moment(this.inputDate).format('LTS');
+        const object: ITime = { date: this.inputDate, time: timeInput};
         this.dateTimePicker.emit(object);
     }
 }
