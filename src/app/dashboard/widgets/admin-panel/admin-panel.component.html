@@ -81,7 +81,11 @@
             [workers]="workers"
             *ngIf="!isBrigadesShowed"
           ></evj-admin-employee>
-          <evj-admin-brigades *ngIf="isBrigadesShowed" [brigades]="brigades"></evj-admin-brigades>
+          <evj-admin-brigades
+            *ngIf="isBrigadesShowed"
+            [searchedBrigade]="searchedWorker"
+            [brigades]="brigades"
+          ></evj-admin-brigades>
         </div>
         <div class="admin__workspace">
           <evj-admin-workspace></evj-admin-workspace>
