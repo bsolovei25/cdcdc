@@ -135,6 +135,7 @@ import { AwsCreateClaimComponent } from './widgets/admin-panel/admin-worker-sett
 import { AgNewGroupComponent } from './widgets/admin-panel/admin-groups/ag-new-group/ag-new-group.component';
 import { AgAlertSubmitComponent } from './widgets/admin-panel/admin-groups/ag-alert-submit/ag-alert-submit.component';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { AdminAdImportComponent } from './widgets/admin-panel/admin-ad-import/admin-ad-import.component';
 
 @NgModule({
     declarations: [
@@ -254,6 +255,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
         AwsCreateClaimComponent,
         AgNewGroupComponent,
         AgAlertSubmitComponent,
+        AdminAdImportComponent,
     ],
     entryComponents: [
         LineChartComponent,

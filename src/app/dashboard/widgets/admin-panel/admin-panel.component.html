@@ -68,8 +68,8 @@
                 [ngClass]="{'dropdown_active':isDropdownShowed}"
                 (mouseleave)="isDropdownShowed=false"
               >
-                <div class="dropdown__item">Создать нового</div>
-                <div class="dropdown__item">Импортировать</div>
+                <div class="dropdown__item" (click)="createNewWorker()">Создать нового</div>
+                <div class="dropdown__item" (click)="isPopupShowed=true">Импортировать</div>
               </div>
             </div>
 
@@ -115,6 +115,10 @@
   <ng-container *ngIf="isGroupsShowed">
     <evj-admin-groups class="admin-container" (hideGroups)="onHideGroups()"></evj-admin-groups>
   </ng-container>
+
+  <div class="popup" [ngClass]="{'popup_active':isPopupShowed}">
+    <evj-admin-ad-import *ngIf="isPopupShowed"></evj-admin-ad-import>
+  </div>
 
   <evj-frame-bottom></evj-frame-bottom>
 </div>

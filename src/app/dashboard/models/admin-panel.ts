@@ -68,6 +68,16 @@ export interface IGlobalClaim {
     value?: string;
 }
 
+export interface IUserLdap {
+    id: string;
+    displayName: string;
+    givenName: string;
+    surname: string;
+    userPrincipalName: string;
+    samAccountName: string;
+    sid: string;
+}
+
 export enum EnumClaims {
     'Только чтение' = 1,
     'Модификация',

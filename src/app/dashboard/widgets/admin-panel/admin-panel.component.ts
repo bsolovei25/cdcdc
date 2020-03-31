@@ -30,6 +30,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     public isGroupsShowed: boolean = false;
     public isCreateNewWorker: boolean = false;
     public isDropdownShowed: boolean = false;
+    public isPopupShowed: boolean = false;
     //#endregion
 
     public searchPlaceholder: string = 'Введите ФИО сотрудника';
@@ -101,6 +102,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     }
 
     public createNewWorker(): void {
+        this.isDropdownShowed = false;
         this.isCreateNewWorker = true;
         this.isWorkerSettingsShowed = true;
         this.adminService.setDefaultActiveWorker();
