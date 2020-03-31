@@ -119,6 +119,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AwsBlockComponent } from './widgets/admin-panel/admin-worker-settings/aws-block/aws-block.component';
 import { UsbVerifierComponent } from './widgets/change-shift/usb-verifier/usb-verifier.component';
 import { TimeDataPickerComponent } from './components/time-data-picker/time-data-picker.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { ReportComponent } from './components/report/reports/report.component';
+import { ReportsComponent } from './components/report/reports.component';
 import { AwsAvatarComponent } from './widgets/admin-panel/admin-worker-settings/aws-avatar/aws-avatar.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { AwsFieldsComponent } from './widgets/admin-panel/admin-worker-settings/aws-fields/aws-fields.component';
@@ -131,6 +134,7 @@ import { AwsPasswordAlertComponent } from './widgets/admin-panel/admin-worker-se
 import { AwsCreateClaimComponent } from './widgets/admin-panel/admin-worker-settings/aws-create-claim/aws-create-claim.component';
 import { AgNewGroupComponent } from './widgets/admin-panel/admin-groups/ag-new-group/ag-new-group.component';
 import { AgAlertSubmitComponent } from './widgets/admin-panel/admin-groups/ag-alert-submit/ag-alert-submit.component';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 @NgModule({
     declarations: [
@@ -237,6 +241,8 @@ import { AgAlertSubmitComponent } from './widgets/admin-panel/admin-groups/ag-al
         AwsBlockComponent,
         UsbVerifierComponent,
         TimeDataPickerComponent,
+        ReportComponent,
+        ReportsComponent,
         AwsAvatarComponent,
         AwsFieldsComponent,
         AwsWorkspacesComponent,
@@ -297,6 +303,8 @@ import { AgAlertSubmitComponent } from './widgets/admin-panel/admin-groups/ag-al
         AdminReferencesComponent,
         PetroleumProductsMovementComponent,
         AdminPanelComponent,
+        ReportComponent,
+        ReportsComponent
     ],
     exports: [HomeComponent],
     imports: [
@@ -319,9 +327,11 @@ import { AgAlertSubmitComponent } from './widgets/admin-panel/admin-groups/ag-al
         OldScrollingModule,
         ReactiveFormsModule,
         MatCheckboxModule,
+        MatExpansionModule,
         ImageCropperModule,
+        OverlayModule
     ],
     bootstrap: [],
     providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }],
 })
-export class DashboardModule {}
+export class DashboardModule { }

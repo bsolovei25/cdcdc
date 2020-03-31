@@ -97,9 +97,9 @@
   color: white;
   padding-bottom: 10px;
   cursor: pointer;
-    &__active {
-      background-color: var(--color-active-transparent);
-    }
+  &__active {
+    background-color: var(--color-active-transparent);
+  }
   &:hover {
     background-color: var(--color-active-transparent);
   }

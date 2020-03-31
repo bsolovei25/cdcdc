@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, HostListener, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { NewWidgetService } from '../../../services/new-widget.service';
+import { WidgetService } from '../../../services/widget.service';
 import { PlatformLocation } from '@angular/common';
 import { UnityLoader } from '../../dispatcher-screen/UnityLoader';
 import { PetroleumScreenService } from '../../../services/petroleum-screen.service';
@@ -27,9 +27,9 @@ export class PetroleumUnityComponent implements OnInit, AfterViewInit, OnDestroy
     public previewTitle: string;
 
     constructor(
-        private widgetService: NewWidgetService,
+        private widgetService: WidgetService,
         private platformLocation: PlatformLocation,
-        private petroleumService: PetroleumScreenService,
+        private petroleumService: PetroleumScreenService
     ) {
         const location = (platformLocation as any).location;
         this.baseUrl = location.origin + location.pathname.replace('dashboard', '');
@@ -59,7 +59,10 @@ export class PetroleumUnityComponent implements OnInit, AfterViewInit, OnDestroy
         this.resize();
     }
 
-    @HostListener('document:UnityMotionAccounting_DeleteTransfer', ['$event', '$event.detail.param1'])
+    @HostListener('document:UnityMotionAccounting_DeleteTransfer', [
+        '$event',
+        '$event.detail.param1',
+    ])
     public DeleteTransfer(event, param1): void {
         console.log(param1);
         this.petroleumService.deleteTransfer(param1);
@@ -78,9 +81,13 @@ export class PetroleumUnityComponent implements OnInit, AfterViewInit, OnDestroy
         this.petroleumService.createTransfer();
     }
 
-    @HostListener('document:UnityMotionAccounting_SetTime', ['$event', '$event.detail.param1', '$event.detail.param2'])
+    @HostListener('document:UnityMotionAccounting_SetTime', [
+        '$event',
+        '$event.detail.param1',
+        '$event.detail.param2',
+    ])
     public SetTimeTransfer(event, param1: string, param2: number): void {
-        const isSource = (param1.toLowerCase() === 'true');
+        const isSource = param1.toLowerCase() === 'true';
         let dateTime = null;
         if (param2) {
             dateTime = new Date(param2);
@@ -88,9 +95,13 @@ export class PetroleumUnityComponent implements OnInit, AfterViewInit, OnDestroy
         this.petroleumService.setTime(isSource, dateTime);
     }
 
-    @HostListener('document:UnityMotionAccounting_SetProduct', ['$event', '$event.detail.param1', '$event.detail.param2'])
+    @HostListener('document:UnityMotionAccounting_SetProduct', [
+        '$event',
+        '$event.detail.param1',
+        '$event.detail.param2',
+    ])
     public SetProductTransfer(event, param1: string, param2: string): void {
-        const isSource = (param1.toLowerCase() === 'true');
+        const isSource = param1.toLowerCase() === 'true';
         const productName = param2;
         this.petroleumService.setProduct(isSource, productName);
     }
@@ -101,9 +112,7 @@ export class PetroleumUnityComponent implements OnInit, AfterViewInit, OnDestroy
         if (!this.unityInstance) {
             return;
         }
-        this.petroleumService.currentTransfer.subscribe(
-            ref => this.NextTransferHandler(ref)
-        );
+        this.petroleumService.currentTransfer.subscribe((ref) => this.NextTransferHandler(ref));
     }
 
     @HostListener('document:UnityMotionAccounting_ExitScreen', ['$event'])
@@ -112,10 +121,26 @@ export class PetroleumUnityComponent implements OnInit, AfterViewInit, OnDestroy
     }
 
     private async NextTransferHandler(ref: ITransfer): Promise<void> {
-        const sourceType: ObjectType = this.petroleumService.objectsSource$.getValue()?.find(item => item.isActive)?.objectType ?? 'Tank';
-        const destinationType: ObjectType = this.petroleumService.objectsReceiver$.getValue()?.find(item => item.isActive)?.objectType ?? 'Tank';
-        const sourceUnitProducts = sourceType === 'Unit' ? await this.petroleumService.getAvailableProducts(ref.sourceName) : null;
-        const destinationUnitProducts = sourceType === 'Unit' ? await this.petroleumService.getAvailableProducts(ref.destinationName) : null;
+        const sourceType: ObjectType =
+            this.petroleumService.objectsSource$.getValue()?.find((item) => item.isActive)
+                ?.objectType ?? 'Tank';
+        const destinationType: ObjectType =
+            this.petroleumService.objectsReceiver$.getValue()?.find((item) => item.isActive)
+                ?.objectType ?? 'Tank';
+        const sourceUnitProducts =
+            sourceType === 'Unit'
+                ? await this.petroleumService.getAvailableProducts(ref.sourceName)
+                : null;
+        const destinationUnitProducts =
+            sourceType === 'Unit'
+                ? await this.petroleumService.getAvailableProducts(ref.destinationName)
+                : null;
+        const sourceTankParams = sourceType === 'Tank'
+            ? await this.petroleumService.getTankAttributes(ref.sourceName)
+            : null;
+        const destinationTankParams = destinationType === 'Tank'
+            ? await this.petroleumService.getTankAttributes(ref.destinationName)
+            : null;
         const additional = {
             startTime: new Date(ref.startTime).getTime(),
             endTime: new Date(ref.endTime).getTime(),
@@ -123,9 +148,12 @@ export class PetroleumUnityComponent implements OnInit, AfterViewInit, OnDestroy
             destinationType,
             sourceUnitProducts,
             destinationUnitProducts,
+            sourceTankParams,
+            destinationTankParams,
             operationType: ref.operationType ? ref.operationType : 'Exist',
         };
-        const req = {...ref, ...additional};
+        const req = { ...ref, ...additional };
+        console.log(req);
         console.log(JSON.stringify(req));
         this.CallUnityScript('Scripts', 'LoadTransfer', JSON.stringify(req));
     }

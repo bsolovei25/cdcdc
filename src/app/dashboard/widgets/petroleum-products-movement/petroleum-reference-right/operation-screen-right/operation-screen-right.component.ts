@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {
     ITankInfo,
-    IFacilityInfo, IPetroleumObject
+    IFacilityInfo,
+    IPetroleumObject,
 } from 'src/app/dashboard/models/petroleum-products-movement.model';
 import { PetroleumScreenService } from '../../../../services/petroleum-screen.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -46,12 +47,10 @@ export class OperationScreenRightComponent implements OnInit {
     constructor(private petroleumService: PetroleumScreenService) {}
 
     public ngOnInit(): void {
-        this.petroleumService.objectsReceiver$.subscribe(
-            ref => {
-                this.tanks = ref.filter((item: IPetroleumObject) => item.objectType === 'Tank');
-                this.units = ref.filter((item: IPetroleumObject) => item.objectType === 'Unit');
-            }
-        );
+        this.petroleumService.objectsReceiver$.subscribe((ref) => {
+            this.tanks = ref.filter((item: IPetroleumObject) => item.objectType === 'Tank');
+            this.units = ref.filter((item: IPetroleumObject) => item.objectType === 'Unit');
+        });
     }
 
     public async objectClick(objectName: string): Promise<void> {

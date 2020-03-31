@@ -253,6 +253,7 @@ export class AdminPanelService {
     public setActiveWorker(worker: IUser): void {
         this.activeWorker$.next(worker);
         if (worker.brigade) {
+            this.setActiveBrigade(worker.brigade.id);
             const unit = this.getUnitByBrigadeId(worker.brigade.id);
             if (unit) {
                 this.activeWorkerUnit$.next(unit);
@@ -270,6 +271,13 @@ export class AdminPanelService {
         this.activeWorkerScreens$.next([]);
         this.activeBrigade$.next(null);
         this.activeWorkerUnit$.next(null);
+    }
+
+    public setActiveBrigade(brigadeId: number): void {
+        const activeBrigade = this.brigades.find((brigade) => brigade.brigadeId === brigadeId);
+        if (activeBrigade) {
+            this.activeBrigade$.next(activeBrigade);
+        }
     }
 
     public async updateAllWorkers(): Promise<void> {

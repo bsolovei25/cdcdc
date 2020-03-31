@@ -3,7 +3,7 @@ import { IButtonImgSrc, IBrigadeAdminPanel, IClaim, IGlobalClaim } from '../../m
 import { AdminPanelService } from '../../services/admin-panel/admin-panel.service';
 import { IUser, IUnitEvents } from '../../models/events-widget';
 import { Subscription } from 'rxjs';
-import { NewWidgetService } from '../../services/new-widget.service';
+import { WidgetService } from '../../services/widget.service';
 
 @Component({
     selector: 'evj-admin-panel',
@@ -60,7 +60,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
 
     constructor(
-        private widgetService: NewWidgetService,
+        private widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
@@ -100,9 +100,9 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     }
 
     public createNewWorker(): void {
-        this.adminService.setDefaultActiveWorker();
         this.isCreateNewWorker = true;
         this.isWorkerSettingsShowed = true;
+        this.adminService.setDefaultActiveWorker();
     }
 
     public getMoreAboutWorker(): void {

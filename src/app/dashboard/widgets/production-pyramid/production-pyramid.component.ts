@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { NewWidgetService } from '../../services/new-widget.service';
+import { WidgetService } from '../../services/widget.service';
 import { Subscription } from 'rxjs';
 import { IProductionPyramid } from '../../models/production-pyramid';
 import { WidgetPlatform } from '../../models/widget-platform';
@@ -29,7 +29,7 @@ export class ProductionPyramidComponent extends WidgetPlatform implements OnInit
     public static itemRows: number = 16;
 
     constructor(
-        protected widgetService: NewWidgetService,
+        protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string

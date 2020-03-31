@@ -30,19 +30,31 @@ export interface IFacilityInfo {
     isActive?: boolean; // no back
 }
 
-export interface ITankInfo {
-    id?: number;
-    title: string;
-    state: ObjectStatus;
-    parameters?: ITankInfoParam[];
-    isActive?: boolean; // no back
+export interface ITankAttribute {
+    paramTitle: string;
+    paramValue: string;
+    paramUnit: string;
+    priority?: number; // no back
+    active?: boolean; // no back
 }
 
-export interface ITankInfoParam {
-    title: string;
-    value: string;
-    unit: string;
-    priority?: number; // no back
+export interface ITankParam {
+    objectName: string;
+    objectAttributes: ITankAttribute[];
+    objectInfo: ITankInfo;
+}
+
+// TODO
+export interface ITankInfo {
+    asd: string;
+    tankTitle: string;
+    tankType: string;
+    maxValue: number;
+    minValue: number;
+    dieValue: number;
+    absolutValue: number;
+    currentValue: number;
+    objectStatus: string;
 }
 
 export interface IFacilityInfoParam {
@@ -51,11 +63,12 @@ export interface IFacilityInfoParam {
     isActive?: boolean; // no back
 }
 
-// TODO add real list
-export type ObjectStatus = 'in' | 'out' | 'repair' | 'hold' | 'inout';
+export type ObjectStatus = 'in' | 'out' | 'repair' | 'hold' | 'inout' | 'work' | 'unknown';
 
 export type ObjectType = 'Unit' | 'Tank';
 
 export type ObjectDirection = 'enter' | 'exit';
 
-export type  OperationType = 'Exist' | 'New';
+export type OperationType = 'Exist' | 'New';
+
+export type TransfersFilter = 'open' | 'all';

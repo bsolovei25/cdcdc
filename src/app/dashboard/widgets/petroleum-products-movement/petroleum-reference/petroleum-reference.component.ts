@@ -1,6 +1,5 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { transition, trigger, animate, style } from '@angular/animations';
-import { ITransfer } from '../../../models/petroleum-products-movement.model';
 
 @Component({
     selector: 'evj-petroleum-reference',
@@ -51,23 +50,5 @@ export class PetroleumReferenceComponent {
         'sourceMass',
         'destinationMass',
         'deltaMass',
-    ];
-
-    public data2: { name: string; type: string; value: number }[] = [
-        {
-            name: 'Продукт',
-            type: 'кг/м3',
-            value: 0.5,
-        },
-        {
-            name: 'Продукт',
-            type: 'кг/м3',
-            value: 0.5,
-        },
-        {
-            name: 'Продукт',
-            type: 'кг/м3',
-            value: 0.5,
-        },
     ];
 }

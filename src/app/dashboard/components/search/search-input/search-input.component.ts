@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
-import { ManualInputService } from 'src/app/dashboard/services/manual-input.service';
+import { WidgetService } from '../../../services/widget.service';
 
 @Component({
     selector: 'evj-search-input',
@@ -10,20 +9,24 @@ import { ManualInputService } from 'src/app/dashboard/services/manual-input.serv
 export class SearchInputComponent implements OnInit {
     @Input() public data;
     @Input() public dataWidget;
+    @Input() isReport: boolean = false;
+
+    @Output() searchReport = new EventEmitter<KeyboardEvent>();
 
     @Output() onCheck = new EventEmitter<boolean>();
 
     public checkClick: boolean = false;
 
     itemChoose: boolean = false;
+    valueInput: string = '';
 
-    constructor(public widgetService: NewWidgetService) {
+    constructor(public widgetService: WidgetService) {
         if (this.data) {
             this.itemChoose = true;
         }
     }
 
-    ngOnInit() {}
+    ngOnInit() { }
 
     searchRecords(e: any) {
         this.onCheck.emit(this.checkClick);
@@ -32,6 +35,10 @@ export class SearchInputComponent implements OnInit {
         if (!e.currentTarget.value) {
             this.widgetService.reEmitList();
         }
+    }
+
+    searchReports(event: KeyboardEvent) {
+        this.searchReport.emit(event);
     }
 
     public openFilter(event: any) {

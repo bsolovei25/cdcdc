@@ -34,13 +34,17 @@
           ></svg-icon>
         </div>
       </div>
-      <div class="filter_button">
-        <div class="button_all_period_operation">
+      <div class="filter_buttons">
+        <div class="filter_button"
+            [class.filter_button__active]="!isOpen"
+            (click)="filterClick(false)">
           <div class="buttons">
             Все операции за период
           </div>
         </div>
-        <div class="button_open_operation">
+        <div class="filter_button"
+             [class.filter_button__active]="isOpen"
+             (click)="filterClick(true)">
           <div class="buttons">
             Только открытые операции
           </div>
@@ -69,5 +73,5 @@
       </div>
     </div>
   </div>
-<!--  <div class="bottom_frame"></div>-->
+  <!--  <div class="bottom_frame"></div>-->
 </div>
