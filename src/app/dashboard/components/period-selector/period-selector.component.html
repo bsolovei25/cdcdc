@@ -12,48 +12,18 @@
     <div class="dates-selector__body">
       <div class="dates-selector__dates">
         <span class="dates-selector__label">c</span>
-        <!-- <input
-          type="datetime-local"
-          class="dates-selector__date-input"
-          [class.dates-selector__date-input___disabled]="isCurrent"
-          (ngModelChange)="setDateTime($event, 0)"
-          [ngModel]="fromDate | date:'yyyy-MM-ddTHH:mm'"
-        /> -->
-        <div
-          class="dates-selector__date-choose"
-          [class.dates-selector__date-choose__disabled]="isCurrent"
-          (click)="openDatePicker(0)"
-        >
-          {{ fromDate | date:'yyyy-MM-dd HH:mm' }}
+        <div class="dates-selector__date-choose" [class.dates-selector__date-choose__disabled]="isCurrent">
+          <evj-time-data-picker [data]="dateNow" (dateTimePicker)="dateTimePickerStart($event)"></evj-time-data-picker>
         </div>
       </div>
 
       <div class="dates-selector__dates">
         <span class="dates-selector__label">по</span>
-        <!-- <input
-          type="datetime-local"
-          class="dates-selector__date-input"
-          [class.dates-selector__date-input___disabled]="isCurrent"
-          [ngModel]="toDate | date:'yyyy-MM-ddTHH:mm'"
-          (ngModelChange)="setDateTime($event, 1)"
-        /> -->
-        <div
-          class="dates-selector__date-choose"
-          [class.dates-selector__date-choose__disabled]="isCurrent"
-          (click)="openDatePicker(1)"
-        >
-          {{ toDate | date:'yyyy-MM-dd HH:mm' }}
+        <div class="dates-selector__date-choose" [class.dates-selector__date-choose__disabled]="isCurrent">
+          <evj-time-data-picker [data]="dateNow" (dateTimePicker)="dateTimePickerEnd($event)"></evj-time-data-picker>
         </div>
-      </div>
 
-      <div class="dates-selector__picker" [class.dates-selector__picker-open]="datePicker">
-        <evj-time-data-picker
-          [data]="dateNow"
-          (dateTimePicker)="dateTimePickerNew($event)"
-        ></evj-time-data-picker>
       </div>
     </div>
-
-    <svg-icon class="dates-selector__calendar" src="./assets/icons/calendar.svg"></svg-icon>
   </div>
 </div>

@@ -110,27 +110,22 @@ export class PeriodSelectorComponent implements OnInit {
         }
     }
 
-    openDatePicker(selectBlock: number): void {
-        if (selectBlock === 0) {
-            this.dateNow = this.fromDate;
-        } else if (selectBlock === 1) {
-            this.dateNow = this.toDate;
-        }
-        this.datePicker = !this.datePicker;
-        this.datePickerOpen = selectBlock;
-    }
+    
 
-    dateTimePickerNew(data: ITime): void {
+    dateTimePickerStart(data: ITime): void {
         const time = data.time.split(':');
         const date = new Date(data.date);
 
-        if (this.datePickerOpen === 0) {
-            this.fromDate = new Date(date.setHours(+time[0], +time[1], +time[2]));
-        } else if (this.datePickerOpen === 1) {
-            this.toDate = new Date(date.setHours(+time[0], +time[1], +time[2]));
-        }
+        this.fromDate = new Date(date.setHours(+time[0], +time[1], +time[2]));
 
-        this.datePicker = !data.close;
+        this.headerData.catchDefaultDate(this.fromDate, this.toDate, this.isCurrent);
+    }
+
+    dateTimePickerEnd(data: ITime): void {
+        const time = data.time.split(':');
+        const date = new Date(data.date);
+
+        this.toDate = new Date(date.setHours(+time[0], +time[1], +time[2]));
 
         this.headerData.catchDefaultDate(this.fromDate, this.toDate, this.isCurrent);
     }

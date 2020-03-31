@@ -1,5 +1,14 @@
 <div class="content">
-  <div class="date">
+  <mat-form-field>
+    <input matInput [ngxMatDatetimePicker]="picker" [value]="inputDate" [(ngModel)]="inputDate" [formControl]="dateControl"
+      [min]="minDate" [max]="maxDate" [disabled]="disabled" (ngModelChange)="test()">
+    <mat-datepicker-toggle matSuffix [for]="picker">
+    </mat-datepicker-toggle>
+    <ngx-mat-datetime-picker #picker [showSpinners]="showSpinners" [showSeconds]="showSeconds" [stepHour]="stepHour"
+      [stepMinute]="stepMinute" [stepSecond]="stepSecond" [touchUi]="touchUi" [color]="color" >
+    </ngx-mat-datetime-picker>
+  </mat-form-field>
+  <!-- <div class="date">
     <mat-form-field>
       <input matInput [matDatepicker]="myDatepicker" [value]="inputDate" [(ngModel)]="inputDate" />
       <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
@@ -15,5 +24,5 @@
       class="add_button_icon"
       [svgStyle]="{ 'width.px':20, 'height.px':20 }"
     ></svg-icon>
-  </div>
+  </div> -->
 </div>

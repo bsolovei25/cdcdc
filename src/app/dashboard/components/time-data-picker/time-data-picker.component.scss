@@ -1,3 +1,5 @@
+@import "@angular/material/prebuilt-themes/deeppurple-amber.css";
+
 .content {
   height: 100%;
   width: 100%;
@@ -53,5 +55,28 @@
 
   ::ng-deep .mat-datepicker-toggle-default-icon {
     width: 1.3em;
+  }
+
+}
+
+::ng-deep {
+  .mat-calendar-previous-button {
+    color: black !important;
+  }
+
+  .mat-calendar-next-button {
+    color: black !important;
+  }
+
+  .mat-calendar-arrow {
+    border-top-color: rgba(0, 0, 0, 0.54);
+  }
+
+  .mat-datepicker-toggle{
+    color:white !important;
+  }
+
+  .mat-datepicker-toggle-active{
+    color: var(--color-border-active) !important;
   }
 }

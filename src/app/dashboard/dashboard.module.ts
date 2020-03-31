@@ -132,6 +132,10 @@ import { AgGroupWorkerCardComponent } from './widgets/admin-panel/admin-groups/a
 import { AwsResponsibleAlertComponent } from './widgets/admin-panel/admin-worker-settings/aws-responsible-alert/aws-responsible-alert.component';
 import { AwsPasswordAlertComponent } from './widgets/admin-panel/admin-worker-settings/aws-password-alert/aws-password-alert.component';
 import { AwsCreateClaimComponent } from './widgets/admin-panel/admin-worker-settings/aws-create-claim/aws-create-claim.component';
+import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
+import { MatButtonModule } from '@angular/material/button';
+
+
 
 @NgModule({
     declarations: [
@@ -322,8 +326,12 @@ import { AwsCreateClaimComponent } from './widgets/admin-panel/admin-worker-sett
         OldScrollingModule,
         ReactiveFormsModule,
         MatCheckboxModule,
+        MatButtonModule,
         MatExpansionModule,
         ImageCropperModule,
+        NgxMatDatetimePickerModule,
+        NgxMatTimepickerModule,
+        NgxMatNativeDateModule,
     ],
     bootstrap: [],
     providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }],
