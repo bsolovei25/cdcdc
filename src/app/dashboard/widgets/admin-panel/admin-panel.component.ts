@@ -88,7 +88,10 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
                 .subscribe((claims) => (this.adminService.generalClaims = claims.data)),
             this.adminService
                 .getAllSpecialClaims()
-                .subscribe((claims) => (this.adminService.specialClaims = claims.data))
+                .subscribe((claims) => (this.adminService.specialClaims = claims.data)),
+            this.adminService
+                .getAllWidgets()
+                .subscribe((widgets) => (this.adminService.allWidgets = widgets.data))
         );
     }
 
