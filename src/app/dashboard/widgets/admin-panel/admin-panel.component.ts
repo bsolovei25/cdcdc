@@ -127,7 +127,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     public onShowBrigades(): void {
         this.isBrigadesShowed = !this.isBrigadesShowed;
         this.searchPlaceholder = this.isBrigadesShowed
-            ? 'Введите номер бригады или ФИО сотрудника'
+            ? 'Введите название бригады'
             : 'Введите ФИО сотрудника';
     }
 
