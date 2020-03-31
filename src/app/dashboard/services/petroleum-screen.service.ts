@@ -324,8 +324,12 @@ export class PetroleumScreenService {
         requestUrl += `&isOpen=${isOpen}`;
         const transfers = await this.getTransfersAsync(requestUrl);
         transfers.map((item) => {
-            item.startTime = new Date(item.startTime);
-            item.endTime = new Date(item.endTime);
+            if (item.startTime) {
+                item.startTime = new Date(item.startTime);
+            }
+            if (item.endTime) {
+                item.endTime = new Date(item.endTime);
+            }
         });
         this.transfers$.next(transfers);
     }
@@ -341,7 +345,7 @@ export class PetroleumScreenService {
             } else {
                 uid = await this.createTransferAsync(currentTransfer);
             }
-            await this.getTransfers(null, null, true, this.client);
+            await this.reGetTransfers();
             await this.chooseTransfer(uid);
             this.materialController.openSnackBar('Сохранено');
         } catch {
