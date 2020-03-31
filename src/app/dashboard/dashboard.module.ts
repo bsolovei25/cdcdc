@@ -132,6 +132,8 @@ import { AgGroupWorkerCardComponent } from './widgets/admin-panel/admin-groups/a
 import { AwsResponsibleAlertComponent } from './widgets/admin-panel/admin-worker-settings/aws-responsible-alert/aws-responsible-alert.component';
 import { AwsPasswordAlertComponent } from './widgets/admin-panel/admin-worker-settings/aws-password-alert/aws-password-alert.component';
 import { AwsCreateClaimComponent } from './widgets/admin-panel/admin-worker-settings/aws-create-claim/aws-create-claim.component';
+import { AgNewGroupComponent } from './widgets/admin-panel/admin-groups/ag-new-group/ag-new-group.component';
+import { AgAlertSubmitComponent } from './widgets/admin-panel/admin-groups/ag-alert-submit/ag-alert-submit.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 
 @NgModule({
@@ -250,6 +252,8 @@ import { OverlayModule } from '@angular/cdk/overlay';
         AwsResponsibleAlertComponent,
         AwsPasswordAlertComponent,
         AwsCreateClaimComponent,
+        AgNewGroupComponent,
+        AgAlertSubmitComponent,
     ],
     entryComponents: [
         LineChartComponent,

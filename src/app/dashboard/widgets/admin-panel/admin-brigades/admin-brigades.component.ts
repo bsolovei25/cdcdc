@@ -14,6 +14,7 @@ export class AdminBrigadesComponent implements OnInit, OnDestroy {
     //#region INPUTS
 
     @Input() public brigades: IBrigadeAdminPanel[] = [];
+    @Input() public searchedBrigade: string = '';
 
     //#endregion
 
@@ -62,6 +63,11 @@ export class AdminBrigadesComponent implements OnInit, OnDestroy {
         if (this.subs) {
             this.subs.unsubscribe();
         }
+    }
+
+    public displaySearchedBrigade(brigade: IBrigadeAdminPanel): boolean {
+        const value: string = `Бригада ${brigade.brigadeNumber}`;
+        return value.toLowerCase().includes(this.searchedBrigade);
     }
 
     private defineActiveWorker(brigade: IBrigadeAdminPanel, worker: IUser): void {

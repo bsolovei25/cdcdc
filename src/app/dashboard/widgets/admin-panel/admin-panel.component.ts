@@ -88,7 +88,10 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
                 .subscribe((claims) => (this.adminService.generalClaims = claims.data)),
             this.adminService
                 .getAllSpecialClaims()
-                .subscribe((claims) => (this.adminService.specialClaims = claims.data))
+                .subscribe((claims) => (this.adminService.specialClaims = claims.data)),
+            this.adminService
+                .getAllWidgets()
+                .subscribe((widgets) => (this.adminService.allWidgets = widgets.data))
         );
     }
 
@@ -124,7 +127,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     public onShowBrigades(): void {
         this.isBrigadesShowed = !this.isBrigadesShowed;
         this.searchPlaceholder = this.isBrigadesShowed
-            ? 'Введите номер бригады или ФИО сотрудника'
+            ? 'Введите название бригады'
             : 'Введите ФИО сотрудника';
     }
 
