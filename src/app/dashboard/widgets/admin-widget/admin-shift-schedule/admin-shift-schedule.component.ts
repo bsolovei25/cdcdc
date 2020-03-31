@@ -23,8 +23,8 @@ import {
 } from '../../../models/admin-shift-schedule';
 import { fillDataShape } from '../../../../@shared/common-functions';
 import { MatCalendar } from '@angular/material/datepicker';
-import { MaterialControllerService } from '../../../services/material-controller.service';
 import { WidgetPlatform } from '../../../models/widget-platform';
+import { SnackBarService } from '../../../services/snack-bar.service';
 
 @Component({
     selector: 'evj-admin-shift-schedule',
@@ -70,7 +70,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         private dateAdapter: DateAdapter<Date>,
         private renderer: Renderer2,
         private adminShiftScheduleService: AdminShiftScheduleService,
-        private materialController: MaterialControllerService,
+        private materialController: SnackBarService,
         protected widgetService: NewWidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,

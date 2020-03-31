@@ -11,8 +11,8 @@ import { IMachine_MI } from '../models/manual-input.model';
 import { WebSocketSubject } from 'rxjs/internal/observable/dom/WebSocketSubject';
 import { webSocket } from 'rxjs/internal/observable/dom/webSocket';
 import { AuthService } from '../../@core/service/auth.service';
-import { MaterialControllerService } from './material-controller.service';
 import * as moment from 'moment';
+import { SnackBarService } from './snack-bar.service';
 
 interface IDatesInterval {
     fromDateTime: Date;
@@ -76,7 +76,7 @@ export class NewWidgetService {
         public http: HttpClient,
         private authService: AuthService,
         configService: AppConfigService,
-        private materialController: MaterialControllerService
+        private materialController: SnackBarService
     ) {
         this.restUrl = configService.restUrl;
         this.wsUrl = configService.wsUrl;

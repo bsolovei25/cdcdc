@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
+type snackBarColor = 'snackbar-red' | 'blue'
+
 @Injectable({
     providedIn: 'root',
 })
-export class MaterialControllerService {
-    constructor(private snackBar: MatSnackBar) {}
+export class SnackBarService {
+
+    constructor(private snackBar: MatSnackBar) { }
 
     public openSnackBar(
         msg: string = 'Операция выполнена',
-        panelClass: string | string[] = '',
+        panelClass: snackBarColor = 'blue',
         msgDuration: number = 5000,
         actionText?: string,
         actionFunction?: () => void

@@ -8,7 +8,7 @@ import {
     ITransfer,
     ObjectDirection,
 } from '../models/petroleum-products-movement.model';
-import { MaterialControllerService } from './material-controller.service';
+import { SnackBarService } from './snack-bar.service';
 
 @Injectable({
     providedIn: 'root',
@@ -62,7 +62,7 @@ export class PetroleumScreenService {
     constructor(
         private http: HttpClient,
         private configService: AppConfigService,
-        private materialController: MaterialControllerService
+        private materialController: SnackBarService
     ) {
         this.restUrl = configService.restUrl;
     }

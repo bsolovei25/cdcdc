@@ -4,10 +4,10 @@ import { IUser, IUnitEvents } from '../../../models/events-widget';
 import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
 import { Subscription } from 'rxjs';
 import { fillDataShape } from '../../../../@shared/common-functions';
-import { MaterialControllerService } from '../../../services/material-controller.service';
 import { base64ToFile } from 'ngx-image-cropper';
 import { IWidgets } from '../../../models/widget.model';
 import { SelectionModel } from '@angular/cdk/collections';
+import { SnackBarService } from '../../../services/snack-bar.service';
 
 @Component({
     selector: 'evj-admin-worker-settings',
@@ -66,7 +66,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     constructor(
         private adminService: AdminPanelService,
-        private materialController: MaterialControllerService
+        private materialController: SnackBarService
     ) {}
 
     public ngOnInit(): void {

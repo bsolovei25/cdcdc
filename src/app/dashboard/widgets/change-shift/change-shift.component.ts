@@ -16,8 +16,8 @@ import {
     ShiftComment,
     ShiftMember,
 } from '../../models/shift.model';
-import { MaterialControllerService } from '../../services/material-controller.service';
 import { WidgetPlatform } from '../../models/widget-platform';
+import { SnackBarService } from '../../services/snack-bar.service';
 
 @Component({
     selector: 'evj-change-shift',
@@ -59,7 +59,7 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
     constructor(
         protected widgetService: NewWidgetService,
         public shiftService: ShiftService,
-        private materialController: MaterialControllerService,
+        private materialController: SnackBarService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
