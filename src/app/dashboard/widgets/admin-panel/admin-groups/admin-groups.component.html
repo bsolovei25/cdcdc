@@ -69,14 +69,14 @@
     </div>
   </div>
   <div class="column">
-    <div class="column__header">
+    <div class="column__header column__header-buttons">
       <div class="button__back">
         <evj-button
           class="insert-component"
           [isSmallButton]="false"
           [textButton]="'Назад'"
           [isChangingState]="false"
-          (click)="onReturn()"
+          (click)="onClickButton(false)"
         ></evj-button>
       </div>
       <div class="button__back">
@@ -85,7 +85,7 @@
           [isSmallButton]="false"
           [textButton]="'Сохранить'"
           [isChangingState]="false"
-          (click)="onSave()"
+          (click)="onClickButton(true)"
         ></evj-button>
       </div>
     </div>
@@ -105,7 +105,7 @@
         >
           Рабочие области
         </div>
-        <div class="block__title" style="flex:1"></div>
+        <div class="block__title" style="flex:1; margin-right: 20px;"></div>
       </div>
       <div
         class="block"
@@ -114,7 +114,7 @@
       >
         <div class="block__body claims">
           <div class="title">Общие права</div>
-          <div class="cards">
+          <div class="cards scroll scroll-bar">
             <evj-aws-claim-card
               *ngFor="let claim of generalClaims"
               [name]="claim.description"
@@ -127,7 +127,7 @@
         <div class="block__body claims">
           <div class="title title__special">Специальные права</div>
           <div class="create-special-claim" (click)="onClickCreateNewClaim()"></div>
-          <div class="list">
+          <div class="list scroll scroll-bar">
             <ng-container *ngFor="let claim of specialClaims">
               <div
                 class="list__claim"
@@ -178,4 +178,11 @@
     *ngIf="isCreateClaim"
     (createdClaim)="onCreateSpecialClaim($event)"
   ></evj-aws-create-claim>
+
+  <evj-ag-alert-submit
+    class="popup"
+    [ngClass]="{'popup_active':isAlertShowing}"
+    [isSaving]="isSaveClicked"
+    (clickedButton)="onClickAlert($event)"
+  ></evj-ag-alert-submit>
 </div>

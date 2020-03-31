@@ -5,6 +5,7 @@ import { AdminPanelService } from '../../../services/admin-panel/admin-panel.ser
 import { IUser, IUnitEvents } from '../../../models/events-widget';
 import { Subscription, combineLatest } from 'rxjs';
 import { IWidgets } from '../../../models/widget.model';
+import { MaterialControllerService } from '../../../services/material-controller.service';
 
 @Component({
     selector: 'evj-admin-groups',
@@ -25,6 +26,8 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
 
     public isCreateClaim: boolean = false;
     public isCreateNewGroup: boolean = false;
+    public isAlertShowing: boolean = false;
+    public isSaveClicked: boolean = false;
 
     public groups: IGroup[] = [];
     public newGroups: IGroup[] = [];
@@ -48,7 +51,10 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
 
     private subscriptions: Subscription[] = [];
 
-    constructor(private adminService: AdminPanelService) {}
+    constructor(
+        private adminService: AdminPanelService,
+        private materialController: MaterialControllerService
+    ) {}
 
     public ngOnInit(): void {
         this.subscriptions.push(
@@ -230,10 +236,34 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
 
     public onCreateSpecialClaim(claim: IGlobalClaim): void {
         this.isCreateClaim = false;
-        if (claim) {
+        const isClaimExists: boolean = !!this.groupSelection.selected[0].claims.find(
+            (item) => item.claimType === claim.claimType && item.value === claim.value
+        );
+        if (claim && !isClaimExists) {
             const currentGroup = this.groupSelection.selected[0];
             currentGroup.claims.push(claim);
             this.onEditGroup();
+        }
+
+        if (isClaimExists) {
+            this.materialController.openSnackBar(
+                'Такое специальное право уже существует',
+                'snackbar-red'
+            );
+        }
+    }
+
+    public onClickButton(isSaveClicked: boolean = false): void {
+        this.isSaveClicked = isSaveClicked;
+        this.isAlertShowing = true;
+    }
+
+    public onClickAlert(event: boolean): void {
+        this.isAlertShowing = false;
+        if (event && this.isSaveClicked) {
+            this.onSave();
+        } else if (event && !this.isSaveClicked) {
+            this.onReturn();
         }
     }
 
