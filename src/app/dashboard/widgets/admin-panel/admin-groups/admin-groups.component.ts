@@ -30,6 +30,9 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
     public editedGroupsIds: number[] = [];
     public deletedGroupsIds: number[] = [];
 
+    public currentGroupGeneralClaims: IGlobalClaim[] = [];
+    public currentGroupSpecialClaims: IGlobalClaim[] = [];
+
     public editingGroup: IGroup = null;
 
     public generalClaims: IGlobalClaim[] = [];
@@ -55,7 +58,6 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
                 this.allWorkers = workers;
 
                 this.groups = groups;
-                this.groupSelection.select(this.groups[0]);
                 this.onSelectGroup(this.groups[0]);
 
                 this.allWorkspaces = screens;
@@ -92,6 +94,24 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
         return activeGroup ? activeGroup.users.includes(worker.id) : false;
     }
 
+    public defineIsClaimInGroup(claim: IGlobalClaim): boolean {
+        const currentGroup = this.groupSelection.selected[0];
+        return currentGroup
+            ? !!currentGroup.claims.find((item) => item.claimType === claim.claimType)
+            : false;
+    }
+
+    public onClickToGeneralClaim(claim: IGlobalClaim): void {
+        const currentGroupClaims = this.groupSelection.selected[0].claims;
+        const index = currentGroupClaims.findIndex((item) => item.claimType === claim.claimType);
+        if (index === -1) {
+            currentGroupClaims.push(claim);
+        } else {
+            currentGroupClaims.splice(index, 1);
+        }
+        this.onEditGroup();
+    }
+
     public onSelectGroup(group: IGroup): void {
         this.groupSelection.select(group);
         if (group) {
@@ -100,6 +120,9 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
                 const [user] = this.allWorkers.splice(index, 1);
                 this.allWorkers.unshift(user);
             });
+
+            this.currentGroupGeneralClaims = group.claims.filter((claim) => !claim.value);
+            this.currentGroupSpecialClaims = group.claims.filter((claim) => !!claim.value);
         }
     }
 

@@ -90,17 +90,51 @@
       </div>
     </div>
     <div class="column__body">
-      <div class="block" [ngClass]="{'block_active': blockSelection.isEmpty()}">
-        <div class="block__title" (click)="blockSelection.clear()">
+      <div class="block__titles">
+        <div
+          class="block__title"
+          [ngClass]="{'block__title_active':blockSelection.isEmpty()}"
+          (click)="blockSelection.clear()"
+        >
           Права
-          <div class="button button-toggle"></div>
+        </div>
+        <div
+          class="block__title"
+          [ngClass]="{'block__title_active':blockSelection.hasValue()}"
+          (click)="blockSelection.select(null)"
+        >
+          Рабочие области
+        </div>
+        <div class="block__title" style="flex:1"></div>
+      </div>
+      <div
+        class="block"
+        [ngClass]="{'block_active': blockSelection.isEmpty()}"
+        *ngIf="blockSelection.isEmpty()"
+      >
+        <div class="block__body claims">
+          <div class="title">Общие права</div>
+          <div class="cards">
+            <evj-aws-claim-card
+              *ngFor="let claim of generalClaims"
+              [name]="claim.description"
+              [isActive]="defineIsClaimInGroup(claim)"
+              [isChangingCardState]="true"
+              (click)="onClickToGeneralClaim(claim)"
+            ></evj-aws-claim-card>
+          </div>
+        </div>
+        <div class="block__body claims">
+          <div class="title title__special">Специальные права</div>
+          <div class="create-special-claim"></div>
         </div>
       </div>
-      <div class="block" [ngClass]="{'block_active': blockSelection.hasValue()}">
-        <div class="block__title" (click)="blockSelection.select(null)">
-          Рабочие области
-          <div class="button button-toggle"></div>
-        </div>
+      <div
+        class="block"
+        [ngClass]="{'block_active': blockSelection.hasValue()}"
+        *ngIf="blockSelection.hasValue()"
+      >
+        <div class="block__body"></div>
       </div>
     </div>
   </div>
