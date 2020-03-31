@@ -5,7 +5,7 @@ import { AdminPanelService } from '../../../services/admin-panel/admin-panel.ser
 import { IUser, IUnitEvents } from '../../../models/events-widget';
 import { Subscription, combineLatest } from 'rxjs';
 import { IWidgets } from '../../../models/widget.model';
-import { MaterialControllerService } from '../../../services/material-controller.service';
+import { SnackBarService } from '../../../services/snack-bar.service';
 
 @Component({
     selector: 'evj-admin-groups',
@@ -53,7 +53,7 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
 
     constructor(
         private adminService: AdminPanelService,
-        private materialController: MaterialControllerService
+        private materialController: SnackBarService
     ) {}
 
     public ngOnInit(): void {
@@ -235,7 +235,6 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
     }
 
     public onCreateSpecialClaim(claim: IGlobalClaim): void {
-        this.isCreateClaim = false;
         const isClaimExists: boolean = !!this.groupSelection.selected[0].claims.find(
             (item) => item.claimType === claim.claimType && item.value === claim.value
         );
@@ -250,7 +249,10 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
                 'Такое специальное право уже существует',
                 'snackbar-red'
             );
+            return;
         }
+
+        this.isCreateClaim = false;
     }
 
     public onClickButton(isSaveClicked: boolean = false): void {
