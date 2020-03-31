@@ -1,23 +1,11 @@
-import { Component, Type, TemplateRef } from '@angular/core';
-import { FormControl, FormGroup, ValidatorFn, FormGroupDirective, NgForm, FormBuilder, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, FormGroupDirective, NgForm, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../service/auth.service';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { IUser } from '../../../dashboard/models/events-widget';
 import { AppConfigService } from '../../../services/appConfigService';
-import { Overlay, OverlayRef } from '@angular/cdk/overlay';
-import { Subject } from 'rxjs';
 import { OverlayService } from '../../../dashboard/services/overlay.service';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
-
-export function sameValueAs(group: FormGroup, controlName: string): ValidatorFn {
-    return (control: FormControl) => {
-        const myValue = control.value;
-        const compareValue = group.controls[controlName].value;
-
-        return (myValue === compareValue) ? null : { valueDifferentFrom: controlName };
-
-    };
-}
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -28,17 +16,13 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     }
 }
 
-export interface OverlayCloseEvent<R> {
-    type: 'backdropClick' | 'close';
-    data: R;
-}
-
 @Component({
     selector: 'evj-password-reset',
     styleUrls: ['./password-reset.component.scss'],
     templateUrl: './password-reset.component.html',
 })
 export class PasswordResetComponent {
+    
     myForm: FormGroup;
 
     isLoadingData: boolean = false;
