@@ -2,8 +2,9 @@ import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/cor
 import { IButtonImgSrc, IGroup, IWorkspace, IGlobalClaim } from '../../../models/admin-panel';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
-import { IUser } from '../../../models/events-widget';
+import { IUser, IUnitEvents } from '../../../models/events-widget';
 import { Subscription, combineLatest } from 'rxjs';
+import { IWidgets } from '../../../models/widget.model';
 
 @Component({
     selector: 'evj-admin-groups',
@@ -43,6 +44,7 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
 
     public groupSelection: SelectionModel<IGroup> = new SelectionModel<IGroup>();
     public blockSelection: SelectionModel<void> = new SelectionModel<void>();
+    public claimsSelector: SelectionModel<IGlobalClaim> = new SelectionModel<IGlobalClaim>();
 
     private subscriptions: Subscription[] = [];
 
@@ -109,6 +111,49 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
         } else {
             currentGroupClaims.splice(index, 1);
         }
+        this.onEditGroup();
+    }
+
+    public canShowSpecialClaim(claim: IGlobalClaim): boolean {
+        const currentGroup = this.groupSelection.selected[0];
+        return currentGroup
+            ? !!currentGroup.claims.find((item) => item.claimType === claim.claimType)
+            : false;
+    }
+
+    public onSelectSpecialClaim(claim: IGlobalClaim): void {
+        if (this.claimsSelector.isSelected(claim)) {
+            this.claimsSelector.clear();
+        } else {
+            this.claimsSelector.select(claim);
+        }
+    }
+
+    public allEntitiesInSpecialType(claim: IGlobalClaim): IGlobalClaim[] {
+        const currentGroup = this.groupSelection.selected[0];
+        return currentGroup
+            ? currentGroup.claims.filter((item) => item.claimType === claim.claimType)
+            : [];
+    }
+
+    public findEntityByClaimValue(claim: IGlobalClaim): string {
+        let entity: IUnitEvents | IWidgets;
+        switch (claim.claimValueType) {
+            case 'unit':
+                entity = this.adminService.units.find((item) => item.id === +claim.value);
+                return entity ? entity.name : '111';
+            case 'widget':
+                entity = this.adminService.allWidgets.find((item) => item.id === claim.value);
+                return entity ? entity.title : '111';
+        }
+    }
+
+    public onRemoveSpecialClaim(claim: IGlobalClaim): void {
+        const currentGroup = this.groupSelection.selected[0];
+        const index: number = currentGroup.claims.findIndex(
+            (item) => item.claimType === claim.claimType
+        );
+        currentGroup.claims.splice(index, 1);
         this.onEditGroup();
     }
 
@@ -185,6 +230,11 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
 
     public onCreateSpecialClaim(claim: IGlobalClaim): void {
         this.isCreateClaim = false;
+        if (claim) {
+            const currentGroup = this.groupSelection.selected[0];
+            currentGroup.claims.push(claim);
+            this.onEditGroup();
+        }
     }
 
     public onReturn(): void {

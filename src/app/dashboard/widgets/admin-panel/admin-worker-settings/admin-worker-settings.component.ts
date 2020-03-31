@@ -90,10 +90,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             ),
             this.adminService.getAllScreens().subscribe((data: IWorkspace[]) => {
                 this.allWorkspaces = data;
-            }),
-            this.adminService.getAllWidgets().subscribe((data) => {
-                this.adminService.allWidgets = data.data;
-                this.allWidgets = data.data;
             })
         );
         if (!this.isCreateNewUser) {
@@ -108,6 +104,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         }
         this.allGeneralClaims = this.adminService.generalClaims;
         this.allSpecialClaims = this.adminService.specialClaims;
+        this.allWidgets = this.adminService.allWidgets;
     }
 
     public ngOnDestroy(): void {
@@ -387,6 +384,8 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             try {
                 this.worker.displayName = this.adminService.generateDisplayName(this.worker);
                 this.worker.claims = this.workerGeneralClaims.concat(this.workerSpecialClaims);
+
+                console.log('worker: ', this.worker);
 
                 if (this.workerPhoto) {
                     this.worker.photoId = await this.adminService.pushWorkerPhoto(

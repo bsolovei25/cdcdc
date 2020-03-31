@@ -27,7 +27,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     //#region WIDGET_FLAGS
     public isBrigadesShowed: boolean = false;
     public isWorkerSettingsShowed: boolean = false;
-    public isGroupsShowed: boolean = true;
+    public isGroupsShowed: boolean = false;
     public isCreateNewWorker: boolean = false;
     //#endregion
 
@@ -88,7 +88,10 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
                 .subscribe((claims) => (this.adminService.generalClaims = claims.data)),
             this.adminService
                 .getAllSpecialClaims()
-                .subscribe((claims) => (this.adminService.specialClaims = claims.data))
+                .subscribe((claims) => (this.adminService.specialClaims = claims.data)),
+            this.adminService
+                .getAllWidgets()
+                .subscribe((widgets) => (this.adminService.allWidgets = widgets.data))
         );
     }
 

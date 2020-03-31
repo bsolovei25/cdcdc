@@ -126,7 +126,32 @@
         </div>
         <div class="block__body claims">
           <div class="title title__special">Специальные права</div>
-          <div class="create-special-claim"></div>
+          <div class="create-special-claim" (click)="onClickCreateNewClaim()"></div>
+          <div class="list">
+            <ng-container *ngFor="let claim of specialClaims">
+              <div
+                class="list__claim"
+                [ngClass]="{'list__claim_active':claimsSelector.isSelected(claim)}"
+                *ngIf="canShowSpecialClaim(claim)"
+              >
+                <div class="claim__title" (click)="onSelectSpecialClaim(claim)">
+                  {{claim.claimName}}
+                  <div class="claim__button claim__button-toggle"></div>
+                </div>
+                <div class="claim__items">
+                  <div class="claim__item" *ngFor="let item of allEntitiesInSpecialType(claim)">
+                    {{findEntityByClaimValue(item)}}
+                    <div
+                      class="claim__button claim__button-delete"
+                      (click)="onRemoveSpecialClaim(item)"
+                    >
+                      <img src="assets/icons/widgets/admin/admin-groups/delete-icon.svg" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
         </div>
       </div>
       <div
