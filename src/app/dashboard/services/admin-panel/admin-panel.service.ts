@@ -246,6 +246,13 @@ export class AdminPanelService {
     }
     //#endregion
 
+    //#region LDAP
+    public getAllLDAPUsers(): Observable<any> {
+        const url: string = `${this.restUrl}/ldap/users`;
+        return this.http.get<any>(url);
+    }
+    //#endregion
+
     //#endregion
 
     //#region WORKER_METHODS

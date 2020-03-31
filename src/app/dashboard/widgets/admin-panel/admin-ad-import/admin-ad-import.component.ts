@@ -10,5 +10,6 @@ export class AdminAdImportComponent implements OnInit {
     constructor(private adminService: AdminPanelService) {}
 
     public ngOnInit(): void {
+        this.adminService.getAllLDAPUsers().subscribe((data) => console.log(data));
     }
 }
