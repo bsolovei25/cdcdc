@@ -61,8 +61,16 @@
                 class="insert-component"
                 [isSmallButton]="false"
                 [textButton]="'Добавить сотрудника'"
-                (click)="createNewWorker()"
+                (click)="isDropdownShowed=true"
               ></evj-button>
+              <div
+                class="dropdown"
+                [ngClass]="{'dropdown_active':isDropdownShowed}"
+                (mouseleave)="isDropdownShowed=false"
+              >
+                <div class="dropdown__item">Создать нового</div>
+                <div class="dropdown__item">Импортировать</div>
+              </div>
             </div>
 
             <div class="more__button">

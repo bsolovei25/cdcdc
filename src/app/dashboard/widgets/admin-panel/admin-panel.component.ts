@@ -29,6 +29,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     public isWorkerSettingsShowed: boolean = false;
     public isGroupsShowed: boolean = false;
     public isCreateNewWorker: boolean = false;
+    public isDropdownShowed: boolean = false;
     //#endregion
 
     public searchPlaceholder: string = 'Введите ФИО сотрудника';
