@@ -19,20 +19,20 @@
         <ng-container *ngIf="i % 2 === 0">
           <div class="values_block" [ngClass]="{'active': item.active}" (click)="clickActive(item)">
             <div>
-              {{item.name}}
+              {{item.paramTitle}}
             </div>
             <div>
-              {{item.type}}
+              {{item.paramUnit}}
             </div>
             <div>
-              {{item.value}}
+              {{item.paramValue}}
             </div>
-            <div class="icon-wrapper">
-              <svg-icon
-                class="indicator-selector__collapse"
-                src="./assets/icons/widgets/petroleum-products-movement/edit.svg"
-              ></svg-icon>
-            </div>
+<!--            <div class="icon-wrapper">-->
+<!--              <svg-icon-->
+<!--                class="indicator-selector__collapse"-->
+<!--                src="./assets/icons/widgets/petroleum-products-movement/edit.svg"-->
+<!--              ></svg-icon>-->
+<!--            </div>-->
           </div>
         </ng-container>
       </ng-container>
@@ -46,20 +46,20 @@
         <ng-container *ngIf="i % 2 !== 0">
           <div class="values_block" [ngClass]="{'active': item.active}" (click)="clickActive(item)">
             <div>
-              {{item.name}}
+              {{item.paramTitle}}
             </div>
             <div>
-              {{item.type}}
+              {{item.paramUnit}}
             </div>
             <div>
-              {{item.value}}
+              {{item.paramValue}}
             </div>
-            <div class="icon-wrapper">
-              <svg-icon
-                class="indicator-selector__collapse"
-                src="./assets/icons/widgets/petroleum-products-movement/edit.svg"
-              ></svg-icon>
-            </div>
+<!--            <div class="icon-wrapper">-->
+<!--              <svg-icon-->
+<!--                class="indicator-selector__collapse"-->
+<!--                src="./assets/icons/widgets/petroleum-products-movement/edit.svg"-->
+<!--              ></svg-icon>-->
+<!--            </div>-->
           </div>
         </ng-container>
       </ng-container>

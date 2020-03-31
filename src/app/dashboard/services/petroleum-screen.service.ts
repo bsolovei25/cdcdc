@@ -4,9 +4,9 @@ import { filter } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '../../services/appConfigService';
 import {
-    IPetroleumObject,
+    IPetroleumObject, ITankAttribute, ITankInfo, ITankParam,
     ITransfer,
-    ObjectDirection,
+    ObjectDirection, TransfersFilter
 } from '../models/petroleum-products-movement.model';
 import { SnackBarService } from './snack-bar.service';
 
@@ -31,6 +31,10 @@ export class PetroleumScreenService {
     public objectsReceiver$: BehaviorSubject<IPetroleumObject[]> = new BehaviorSubject<
         IPetroleumObject[]
     >([]);
+    private currentTankParam$: BehaviorSubject<ITankParam> = new BehaviorSubject<ITankParam>(null);
+    public  currentTankParam: Observable<ITankParam> = this.currentTankParam$
+        .asObservable()
+        .pipe(filter((item) => item != null));
 
     private currentTransfer$: BehaviorSubject<ITransfer> = new BehaviorSubject<ITransfer>(null);
     public currentTransfer: Observable<ITransfer> = this.currentTransfer$
@@ -41,6 +45,8 @@ export class PetroleumScreenService {
     public screenState$: Observable<string> = this.localScreenState$
         .asObservable()
         .pipe(filter((item) => item !== null));
+
+    public currentTransfersFilter$: BehaviorSubject<TransfersFilter> = new BehaviorSubject<TransfersFilter>('all');
 
     private emptyTransferGlobal: ITransfer = {
         uid: null,
@@ -278,10 +284,22 @@ export class PetroleumScreenService {
     }
 
     public async reGetTransfers(): Promise<void> {
-        await this.getTransfers(null, null, true, this.client);
+        let isOpen: boolean;
+        switch (this.currentTransfersFilter$.getValue()) {
+            case 'all':
+                isOpen = false;
+                break;
+            case 'open':
+                isOpen = true;
+                break;
+        }
+        await this.getTransfers(null, null, isOpen, this.client);
         const currentTransfer = this.currentTransfer$.getValue();
+        if (!currentTransfer?.uid) {
+            return;
+        }
         const transfers = this.transfers$.getValue();
-        const currentTransferTemp = transfers.find((item) => item.uid === currentTransfer.uid);
+        const currentTransferTemp = transfers.find((item) => item?.uid === currentTransfer?.uid);
         if (currentTransferTemp) {
             currentTransferTemp.isActive = true;
             this.currentTransfer$.next(currentTransferTemp);
@@ -306,8 +324,12 @@ export class PetroleumScreenService {
         requestUrl += `&isOpen=${isOpen}`;
         const transfers = await this.getTransfersAsync(requestUrl);
         transfers.map((item) => {
-            item.startTime = new Date(item.startTime);
-            item.endTime = new Date(item.endTime);
+            if (item.startTime) {
+                item.startTime = new Date(item.startTime);
+            }
+            if (item.endTime) {
+                item.endTime = new Date(item.endTime);
+            }
         });
         this.transfers$.next(transfers);
     }
@@ -323,7 +345,7 @@ export class PetroleumScreenService {
             } else {
                 uid = await this.createTransferAsync(currentTransfer);
             }
-            await this.getTransfers(null, null, true, this.client);
+            await this.reGetTransfers();
             await this.chooseTransfer(uid);
             this.materialController.openSnackBar('Сохранено');
         } catch {
@@ -340,6 +362,38 @@ export class PetroleumScreenService {
             return await this.getObjectsAsync(client);
         }
         return await this.getReferencesAsync(client, object, direction);
+    }
+
+    public async getTankAttributes(objectName: string): Promise<ITankAttribute[]> {
+        let attributes: ITankAttribute[] = await this.http.get<ITankAttribute[]>(
+            `${this.restUrl}/api/petroleum-flow-clients/objects/${objectName}/attr`
+        ).toPromise();
+        const regexp = /[A-Z]/;
+        attributes = attributes
+            .filter((el) =>
+                (el.paramTitle.toUpperCase().search(regexp) === -1) &&
+                (el.paramValue.toUpperCase().search(regexp) === -1)
+            );
+        return attributes;
+    }
+
+    public async setTankParam(objectName: string): Promise<void> {
+        this.isLoad$.next(true);
+        const objectInfo = await this.getTankInfoAsync(objectName);
+        const objectAttributes = await this.getTankAttributes(objectName);
+        const currentTankParam: ITankParam = {
+            objectName,
+            objectInfo,
+            objectAttributes,
+        };
+        this.currentTankParam$.next(currentTankParam);
+        this.isLoad$.next(false);
+    }
+
+    private async getTankInfoAsync(objectName: string): Promise<ITankInfo> {
+        return await this.http.get<ITankInfo>(
+            `${this.restUrl}/api/petroleum-flow-clients/objects/${objectName}/tankInfo`
+        ).toPromise();
     }
 
     public async getAvailableProducts(objectName: string): Promise<string[]> {

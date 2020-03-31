@@ -31,5 +31,6 @@ export class OperationParkScreenLeftComponent implements OnInit {
             object = this.data[0];
         }
         this.currentObject = object;
+        this.petroleumService.setTankParam(object.objectName);
     }
 }
