@@ -77,7 +77,7 @@ export class ReportComponent implements OnInit {
         } else if (this.datePickerOpen === 1) {
             // this.toDate = new Date(date.setHours(+time[0], +time[1], +time[2]));
         }
-        this.datePicker = !data.close;
+       
     }
 
     async loadItem(id: number): Promise<void> {

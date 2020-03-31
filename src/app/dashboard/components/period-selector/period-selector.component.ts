@@ -19,13 +19,14 @@ export class PeriodSelectorComponent implements OnInit {
 
     public dateNow: Date;
 
-    // date = new FormControl();
 
     constructor(private headerData: HeaderDataService, private widgetService: NewWidgetService) {
         this.setDefault();
     }
 
     ngOnInit(): void {
+        this.fromDate = new Date();
+        this.toDate = new Date();
         this.dateNow = new Date();
     }
 

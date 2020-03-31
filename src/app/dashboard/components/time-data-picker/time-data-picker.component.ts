@@ -1,13 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, ViewChild, LOCALE_ID } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, ViewChild } from '@angular/core';
 import { ITime } from '../../models/time-data-picker';
 import * as moment from 'moment';
-import { ThemePalette, DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
+import { ThemePalette } from '@angular/material/core';
 import { FormControl } from '@angular/forms';
 import { NGX_MAT_DATE_FORMATS, NgxMatDateFormats } from '@angular-material-components/datetime-picker';
-import localization from 'moment/locale/ru'
-import { NGX_MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular-material-components/moment-adapter';
 
-moment.locale('ru', localization);
 
 const CUSTOM_DATE_FORMATS: NgxMatDateFormats = {
     parse: {
@@ -31,7 +28,7 @@ const CUSTOM_DATE_FORMATS: NgxMatDateFormats = {
     ]
 })
 export class TimeDataPickerComponent implements OnInit, OnChanges {
-    @Input() data: Date;
+    @Input() data: any;
     @Output() dateTimePicker = new EventEmitter<ITime>();
 
     public inputDate: any;
@@ -57,32 +54,24 @@ export class TimeDataPickerComponent implements OnInit, OnChanges {
 
     //
 
-    constructor(private dateAdapter: DateAdapter<Date>, ) {
-        this.dateAdapter.setLocale('ru');
-    }
+    constructor() {}
 
     ngOnInit(): void {
-        this.inputDate = new Date();
+        this.inputDate = new Date(this.data);
     }
 
     ngOnChanges() {
-        this.inputDate = this.data;
-    }
-
-
-    acceptDate(): void {
-        this.inputTime =
-            this.inputTime.length === 5
-                ? this.inputTime + ':00'
-                : this.inputTime === ''
-                    ? '00:00:00'
-                    : this.inputTime;
-        const object: ITime = { date: this.inputDate, time: this.inputTime };
-        this.dateTimePicker.emit(object);
+        try {
+            let const22 = new Date(this.data);
+        this.inputDate = const22;
+        } catch (error) {
+            
+        }
+        
     }
 
     buttonConfirm() {
-        let timeInput = moment(this.inputDate).format('LTS');
+        let timeInput = moment(this.inputDate).locale('ru').format('LTS');
         const object: ITime = { date: this.inputDate, time: timeInput};
         this.dateTimePicker.emit(object);
     }
