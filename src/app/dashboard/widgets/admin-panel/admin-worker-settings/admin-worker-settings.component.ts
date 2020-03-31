@@ -94,10 +94,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             ),
             this.adminService.getAllScreens().subscribe((data: IWorkspace[]) => {
                 this.allWorkspaces = data;
-            }),
-            this.adminService.getAllWidgets().subscribe((data) => {
-                this.adminService.allWidgets = data.data;
-                this.allWidgets = data.data;
             })
         );
         if (!this.isCreateNewUser) {
@@ -112,6 +108,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         }
         this.allGeneralClaims = this.adminService.generalClaims;
         this.allSpecialClaims = this.adminService.specialClaims;
+        this.allWidgets = this.adminService.allWidgets;
     }
 
     public ngOnDestroy(): void {
@@ -261,20 +258,23 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public onCreateSpecialClaim(claim: IGlobalClaim): void {
-        this.showAlert();
-        this.isCreateClaim = false;
         const isClaimExist: boolean = !!this.workerSpecialClaims.find(
             (item) => item.claimType === claim.claimType && item.value === claim.value
         );
         if (claim && !isClaimExist) {
             this.workerSpecialClaims.push(claim);
         }
+
         if (isClaimExist) {
             this.materialController.openSnackBar(
                 'Такое специальное право уже существует',
                 'snackbar-red'
             );
+            return;
         }
+
+        this.showAlert();
+        this.isCreateClaim = false;
     }
 
     public onRemoveSpecialClaim(claim: IGlobalClaim): void {

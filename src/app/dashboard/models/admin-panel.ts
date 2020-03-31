@@ -10,8 +10,6 @@ export interface IAdminPanel {
 }
 
 export interface IWorkspace {
-    // name: string;
-    // authorId: number;
     id: number;
     screenName: string;
     widgets?: any;
@@ -54,13 +52,14 @@ export interface IWorkerOptionAdminPanel {
 export interface IGroup {
     id: number;
     name: string;
-    description: string;
+    claims?: IGlobalClaim[];
+    users?: number[];
 }
 
 export interface IGlobalClaim {
     claimType: string;
-    description: string;
-    claimCategory: string;
+    description?: string;
+    claimCategory?: string;
     claimCategoryName?: string;
     claimName?: string;
     claimValueTypeName?: string;

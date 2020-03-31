@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="alert">
+    <div class="alert__title">
+      {{textTitle}}
+    </div>
+    <div class="alert__buttons">
+      <evj-button
+        class="button"
+        [isChangingState]="false"
+        [isSmallButton]="false"
+        [textButton]="buttonNegativeText"
+        (click)="onReturn()"
+      ></evj-button>
+      <evj-button
+        class="button"
+        [isChangingState]="false"
+        [isSmallButton]="false"
+        [textButton]="buttonPositiveText"
+        (click)="onSave()"
+      ></evj-button>
+    </div>
+  </div>
+</div>
