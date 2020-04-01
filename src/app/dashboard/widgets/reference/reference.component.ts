@@ -11,6 +11,8 @@ import { ItemSizeAverager } from '@angular/cdk-experimental/scrolling';
     styleUrls: ['./reference.component.scss'],
 })
 export class ReferenceComponent implements OnInit, OnDestroy {
+    //objectKeys = Object.keys;
+
     private subscriptions: Subscription[] = [];
 
     static itemCols = 18;
@@ -28,9 +30,13 @@ export class ReferenceComponent implements OnInit, OnDestroy {
     public clickFio: boolean = true;
     public clickDate: boolean = false;
 
+    public isAddBlockRecord: boolean = false;
+
     isLongBlock: boolean = true;
 
     indexColumn: number = null;
+
+    public newName: string;
 
     public data: IReferenceTypes[] = [
         {
@@ -90,6 +96,8 @@ export class ReferenceComponent implements OnInit, OnDestroy {
 
     public idReferenceClick: number;
 
+    public columnObject = [];
+
     constructor(
         public widgetService: NewWidgetService,
         public referencesService: ReferencesService,
@@ -121,10 +129,10 @@ export class ReferenceComponent implements OnInit, OnDestroy {
     }
 
     getReference() {
-        return this.referencesService.getReference().subscribe((data) => {
+        return this.referencesService.reference$.subscribe((data) => {
             this.datas = data;
             this.data = this.datas;
-            this.idReferenceClick = this.data[0].id; ///ПОДУМАТЬ ЕСЛИ РЕФЕРЕНС НЕ БУДЕТ
+          //  this.idReferenceClick = this.data[0].id; ///ПОДУМАТЬ ЕСЛИ РЕФЕРЕНС НЕ БУДЕТ
         })
     }
 
@@ -135,21 +143,20 @@ export class ReferenceComponent implements OnInit, OnDestroy {
     }
 
     onClickReference(data, index) {
-        for (let item of this.data) {
-            item.open = false;
-        }
+        this.idReferenceClick = data.id;
+        this.isLongBlock = true;
+        this.isAddBlockRecord = false;
+
+        this.indexColumn = index;
 
         this.getTable(data.id);
-
-        data.open = true;
-        this.indexColumn = index;
     }
 
     onClickItemReference(data) {
         data.open = !data.open;
 
         this.isLongBlock = true;
-        for (let item of this.data[this.indexColumn].columns) {
+        for (let item of this.dataTable.data) {
             if (item.open) {
                 this.isLongBlock = false;
             }
@@ -158,6 +165,81 @@ export class ReferenceComponent implements OnInit, OnDestroy {
 
     changeSwap(item) {
         item.checked = !item.checked;
+    }
+
+    onAddBlockRecord() {
+        this.isAddBlockRecord = true;
+        this.isLongBlock = false;
+    }
+
+    onPushRecord() {
+        this.isAddBlockRecord = false;
+        this.isLongBlock = true;
+        let index = 0;
+        let columnsObj = [];
+        let obj: any = [];
+        for (let i of this.data[this.indexColumn].columns) {
+            if (i.name !== 'Id' && i.name !== 'Name') {
+                let test;
+                this.columnObject.find(e =>  {
+                    if(e.idColumn === i.id){
+                        test = e.value;
+                    }
+                }
+                 );
+                 (test === undefined) ? test = null : test = test;
+                if (i.columnTypeId === 2) {
+                    obj = {
+                        referenceColumnId: i.id,
+                        valueString: null,
+                        valueDateTime: null,
+                        valueNumber: +test,
+                        valueInt: null
+                    }
+                } else if (i.columnTypeId === 1) {
+                    obj = {
+                        referenceColumnId: i.id,
+                        valueString: test,
+                        valueDateTime: null,
+                        valueNumber: null,
+                        valueInt: null
+                    }
+                }
+
+                columnsObj.push(obj);
+                index++;
+            }
+
+        }
+        let object = {
+            name: this.newName,
+            referenceTypeId: this.idReferenceClick,
+            columnsData: columnsObj,
+        };
+
+      
+        this.referencesService.pushReferenceData(object).subscribe(ans => {
+            this.dataTable.data.push(object);
+            this.columnObject = [];
+            this.newName = null;
+        });
+
+    }
+
+    onChangeValue(event, id) {
+        const obj = {
+            idColumn: id,
+            value: event.currentTarget.value,
+        }
+        this.columnObject.push(obj);
+    }
+
+    deleteRecord(item): void {
+        this.referencesService.removeDataRecord(item.id).subscribe(ans => {
+            const indexDelete = this.dataTable.data.indexOf(item);
+            this.dataTable.data.splice(indexDelete, 1);
+        });
+
     }
 
 }

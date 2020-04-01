@@ -56,6 +56,15 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
 
     isLongBlock: boolean = true;
 
+    public isType: number;
+
+    types = {
+        1: 'Текст',
+        2: 'Число',
+        3: 'Дата',
+        4: 'Целое число'
+    };
+
     public datas: IReferenceTypes[] = [
         {
             id: 1,
@@ -117,11 +126,15 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
         },
         {
             id: 2,
-            name: 'Дата',
+            name: 'Число',
         },
         {
             id: 3,
-            name: 'Что-то там',
+            name: 'Дата',
+        },
+        {
+            id: 4,
+            name: 'Целое число',
         },
     ];
 
@@ -156,10 +169,10 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
     }
 
     getReference() {
-        return this.referencesService.getReference().subscribe((data) => {
+        return this.referencesService.reference$.subscribe((data) => {
             this.datas = data;
             this.data = this.datas;
-            this.idReferenceClick = this.data[0].id; ///ПОДУМАТЬ ЕСЛИ РЕФЕРЕНС НЕ БУДЕТ
+        //    this.idReferenceClick = this.data[0].id; ///ПОДУМАТЬ ЕСЛИ РЕФЕРЕНС НЕ БУДЕТ
         })
     }
 
@@ -168,17 +181,6 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
 
         this.idReferenceClick = data.id;
 
-        for (let item of this.data) {
-            if (data === item) {
-                data.open = !data.open;
-                if (data.open === false) {
-                    this.indexColumn = null;
-                }
-
-            } else {
-                item.open = false;
-            }
-        }
 
         if (data.columns !== null && data.columns !== undefined) {
             this.sortByOrder(data.columns)
@@ -225,7 +227,7 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
         item.isUnique = !item.isUnique;
 
         let object = {
-            id:item.id,
+            id: item.id,
             referenceTypeId: item.referenceTypeId,
             name: item.name,
             isRequred: item.isRequred,
@@ -265,7 +267,7 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
 
         const object = {
             id: prevId,
-            colunms: massColumnSend,
+            columns: massColumnSend,
         }
 
         this.referencesService.orderColumnReference(object).subscribe();
@@ -308,14 +310,19 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
             referenceTypeId: this.idReferenceClick,
             isRequred: this.valueNewCheck,
             isUnique: this.valueUniqNewCheck,
-            columnTypeId: 1,
+            columnTypeId: this.isType,
         };
         if (this.newFioRecord.trim().length > 0 && this.newFioRecord !== undefined) {
             this.referencesService.pushColumnReference(object).subscribe(ans => {
                 this.data[this.indexColumn].columns.push(ans);
             });
             this.newFioRecord = null;
+            this.isType = null;
         }
+    }
+
+    onChangeType(event) {
+        this.isType = event.value.id;
     }
 
     searchRecords(event: any) {
@@ -331,28 +338,32 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
     }
 
     deleteReference(item): void {
-        this.referencesService.removeReference(item.id).subscribe();
-        const indexDelete = this.data.indexOf(item);
-        this.data.splice(indexDelete, 1);
+        this.referencesService.removeReference(item.id).subscribe(ans => {
+            const indexDelete = this.data.indexOf(item);
+            this.data.splice(indexDelete, 1);
+        });
+
     }
 
     deleteRecord(item): void {
-        this.referencesService.removeRecord(item.id).subscribe();
-        const indexDelete = this.data[this.indexColumn].columns.indexOf(item);
-        this.data[this.indexColumn].columns.splice(indexDelete, 1);
+        this.referencesService.removeRecord(item.id).subscribe(ans => {
+            const indexDelete = this.data[this.indexColumn].columns.indexOf(item);
+            this.data[this.indexColumn].columns.splice(indexDelete, 1);
+        });
+
     }
 
-    onEdit(item): void { 
+    onEdit(item): void {
         item.openEdit = !item.openEdit;
     }
 
 
-    editReference(item): void{
+    editReference(item): void {
         this.referencesService.putEditRef(item).subscribe();
         item.openEdit = false;
     }
 
-    editRecord(item): void{
+    editRecord(item): void {
         this.referencesService.putEditColumn(item).subscribe();
     }
 }

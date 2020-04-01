@@ -13,10 +13,10 @@
           <ng-container *ngFor="let item of data; let i= index">
             <div class="reference-container__block">
               <div *ngIf="!item.openEdit" class="reference-container__block-info"
-                [class.block-active]="item.open" (click)="onClickReference(item, i)">
+                [class.block-active]="item.id === idReferenceClick" (click)="onClickReference(item, i)">
                 <div class="reference-container__name">{{item.name}}</div>
                 <div class="reference-container__button-edit" (click)="onEdit(item)">
-                  <svg-icon *ngIf="item.open" class="indicator-selector__collapse"
+                  <svg-icon *ngIf="item.id === idReferenceClick" class="indicator-selector__collapse"
                     src="./assets/icons/widgets/references/edit_white.svg"></svg-icon>
                 </div>
               </div>
@@ -31,7 +31,7 @@
               </div>
               <div class="reference-container__button-remove" (click)="deleteReference(item)">
                 <svg-icon class="indicator-selector__collapse" src="./assets/icons/widgets/references/delete_red.svg"
-                  *ngIf="item.open">
+                  *ngIf="item.id === idReferenceClick">
                 </svg-icon>
               </div>
             </div>
@@ -98,8 +98,8 @@
                   </div>
                   <div class="reference-container-value__type" [class.block-active]="item.open">
                     <mat-form-field class="categories_selectbox">
-                      <mat-select panelClass="mat-select-custom" [(ngModel)]="item.columnTypeId">
-                        <mat-option *ngFor="let p of dataType" [value]="item.columnTypeId">{{ p.name }}
+                      <mat-select panelClass="mat-select-custom"  [(ngModel)]="item.columnTypeId" (selectionChange)="editRecord(item)">
+                        <mat-option *ngFor="let p of dataType" [value]="p.id">{{ types[p.id] }}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
@@ -131,13 +131,13 @@
             <div *ngIf="isClickPushRecord" class="reference-container-value__add-block">
               <div class="reference-container-value__fio-block">
                 <div class="reference-container-value__fio">
-                  <input type="text" [(ngModel)]="newFioRecord" placeholder="Введите ФИО..." />
+                  <input type="text" [(ngModel)]="newFioRecord" placeholder="Введите имя колоннки..." />
                 </div>
               </div>
               <div class="reference-container-value__type">
                 <mat-form-field class="categories_selectbox">
-                  <mat-select panelClass="mat-select-custom">
-                    <mat-option *ngFor="let p of data" [value]="p">{{ p.name }} </mat-option>
+                  <mat-select panelClass="mat-select-custom" (selectionChange)="onChangeType($event)">
+                    <mat-option *ngFor="let p of dataType" [value]="p" >{{ p.name }} </mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
