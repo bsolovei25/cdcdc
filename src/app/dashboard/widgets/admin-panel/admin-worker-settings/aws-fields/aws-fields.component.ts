@@ -14,6 +14,7 @@ export class AwsFieldsComponent implements OnInit {
     @Input() public workerUnit: IUnitEvents = null;
     @Input() private searchingFieldName: string = '';
     @Input() public isCreateNewUser: boolean = false;
+    @Input() public isImportNewWorker: boolean = false;
 
     @Output() private workerData: EventEmitter<IUnitEvents> = new EventEmitter<IUnitEvents>();
     @Output() private responsible: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -85,6 +86,24 @@ export class AwsFieldsComponent implements OnInit {
 
     public isValidFieldName(fieldName: string): boolean {
         return fieldName.toLowerCase().includes(this.searchingFieldName);
+    }
+
+    public isDisabledField(fieldKey: string): boolean {
+        if (this.isImportNewWorker) {
+            switch (fieldKey) {
+                case 'login':
+                case 'firstName':
+                case 'lastName':
+                case 'email':
+                    return true;
+            }
+        } else if (!this.isCreateNewUser) {
+            switch (fieldKey) {
+                case 'login':
+                    return true;
+            }
+        }
+        return false;
     }
 
     public setWorkerPosition(): string {

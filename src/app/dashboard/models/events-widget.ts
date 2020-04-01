@@ -82,6 +82,7 @@ export interface IRetrievalEvents {
 export interface IUser {
     login: string;
     password?: string;
+    sid?: string;
     id: number;
     firstName: string;
     lastName: string;

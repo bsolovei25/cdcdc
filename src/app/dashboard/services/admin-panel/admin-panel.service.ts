@@ -262,7 +262,7 @@ export class AdminPanelService {
     }
 
     public importUserFromLDAP(worker: IUserLdap): Observable<IUserImported> {
-        const url: string = `${this.restUrl}/ldap/user/${worker.userPrincipalName}/import`;
+        const url: string = `${this.restUrl}/ldap/user/${worker.samAccountName}/import`;
         return this.http.post<IUserImported>(url, null);
     }
     //#endregion

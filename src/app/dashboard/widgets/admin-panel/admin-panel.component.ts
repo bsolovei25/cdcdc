@@ -94,7 +94,14 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
                 .subscribe((claims) => (this.adminService.specialClaims = claims.data)),
             this.adminService
                 .getAllWidgets()
-                .subscribe((widgets) => (this.adminService.allWidgets = widgets.data))
+                .subscribe((widgets) => (this.adminService.allWidgets = widgets.data)),
+            this.adminService.activeWorker$.subscribe((worker) => {
+                if (worker.sid) {
+                    this.isImportNewWorker = true;
+                } else {
+                    this.isImportNewWorker = false;
+                }
+            })
         );
     }
 

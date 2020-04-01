@@ -5,6 +5,7 @@
       *ngIf="isValidFieldName(option.name)"
       [option]="option"
       [isCreateNewUser]="isCreateNewUser"
+      [disabled]="isDisabledField(option.key)"
       (saveChanging)="onFieldChanging($event)"
     ></evj-aws-card>
   </ng-container>

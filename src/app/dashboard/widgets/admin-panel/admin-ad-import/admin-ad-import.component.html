@@ -18,7 +18,7 @@
         <div
           class="table__row"
           [ngClass]="{'table__row_active':workerSelect.isSelected(worker)}"
-          *ngIf="findSearchedWorker(worker)"
+          *ngIf="findSearchedWorker(worker) && !worker.isUserImported"
           (click)="workerSelect.select(worker)"
         >
           <div class="row__name">{{worker.ldapUser.displayName}}</div>
