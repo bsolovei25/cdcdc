@@ -111,7 +111,7 @@ export class PeriodSelectorComponent implements OnInit {
         }
     }
 
-    
+
 
     dateTimePickerStart(data: ITime): void {
         const time = data.time.split(':');
