@@ -16,6 +16,8 @@ import { SnackBarService } from '../../../services/snack-bar.service';
 })
 export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     @Input() public isCreateNewUser: boolean = false;
+    @Input() public isImportNewWorker: boolean = false;
+
     @Output() public closeWorkerSettings: EventEmitter<IUser> = new EventEmitter<IUser>();
 
     public toggleClaim: boolean = false;
@@ -258,11 +260,15 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public onCreateSpecialClaim(claim: IGlobalClaim): void {
-        const isClaimExist: boolean = !!this.workerSpecialClaims.find(
-            (item) => item.claimType === claim.claimType && item.value === claim.value
-        );
+        let isClaimExist: boolean = false;
+        if (claim) {
+            isClaimExist = !!this.workerSpecialClaims.find(
+                (item) => item.claimType === claim.claimType && item.value === claim.value
+            );
+        }
         if (claim && !isClaimExist) {
             this.workerSpecialClaims.push(claim);
+            this.showAlert();
         }
 
         if (isClaimExist) {
@@ -273,7 +279,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             return;
         }
 
-        this.showAlert();
         this.isCreateClaim = false;
     }
 

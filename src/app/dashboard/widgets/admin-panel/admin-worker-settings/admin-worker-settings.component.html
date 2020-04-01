@@ -21,6 +21,7 @@
       <div class="search">
         <evj-input
           class="insert-component"
+          *ngIf="!isClaimsShowing"
           [placeholder]="'Введите название рабочей области'"
           [iconSrc]="searchIcon"
           (inputedValue)="onSearchWorkspace($event)"
@@ -35,6 +36,7 @@
         [workerUnit]="workerUnit"
         [searchingFieldName]="searchingFieldName"
         [isCreateNewUser]="isCreateNewUser"
+        [isImportNewWorker]="isImportNewWorker"
         (workerData)="onChangeWorkerData($event)"
         (responsible)="onSetResponsible($event)"
         (password)="onChangePassword($event)"

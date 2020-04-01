@@ -15,8 +15,8 @@
   .column {
     height: 100%;
     flex-basis: 33%;
-    min-width: 435px;
-    max-width: 435px;
+    min-width: 390px;
+    max-width: 390px;
 
     display: flex;
     flex-direction: column;
@@ -24,7 +24,7 @@
     align-items: center;
 
     box-sizing: border-box;
-    padding: 0px 10px;
+    // padding: 0px 10px;
 
     * {
       user-select: none;
@@ -466,7 +466,7 @@
         font-size: 16px;
 
         &__special {
-          top: -35px;
+          top: 25px;
           bottom: 0;
           margin: auto;
         }
@@ -479,7 +479,7 @@
         width: 20px;
         height: 20px;
 
-        top: -35px;
+        top: 25px;
         bottom: 0;
         right: 15px;
         margin: auto;

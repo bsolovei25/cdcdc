@@ -9,6 +9,9 @@ import {
     IWorkspace,
     IGlobalClaim,
     IGroup,
+    IUserLdapDto,
+    IUserLdap,
+    IUserImported,
 } from '../../models/admin-panel';
 import { IUser, IUnitEvents } from '../../models/events-widget';
 import { IWidgets } from '../../models/widget.model';
@@ -21,7 +24,7 @@ export class AdminPanelService {
     private restUrl: string = `/api/user-management`;
     private restFileUrl: string = '';
 
-    private defaultWorker: IUser = {
+    public defaultWorker: IUser = {
         id: undefined,
         login: '',
         firstName: '',
@@ -178,7 +181,13 @@ export class AdminPanelService {
     //#endregion
 
     //#region UNITS
-    public getAllUnits(): Observable<IUnitEvents[]> {
+    // TODO
+    public getAllUnits(): Observable<any> {
+        const url: string = 'http://deploy.funcoff.club:6555/api/ref-book/Unit';
+        return this.http.get<any>(url);
+    }
+
+    public getAllUnitsWithBrigades(): Observable<IUnitEvents[]> {
         const url: string = `${this.restUrl}/units/all`;
         return this.http.get<IUnitEvents[]>(url);
     }
@@ -243,6 +252,18 @@ export class AdminPanelService {
     public deleteGroupById(groupId: number): Observable<void> {
         const url: string = `${this.restUrl}/roles/${groupId}`;
         return this.http.delete<void>(url);
+    }
+    //#endregion
+
+    //#region LDAP
+    public getAllLDAPUsers(): Observable<IUserLdapDto[]> {
+        const url: string = `${this.restUrl}/ldap/users`;
+        return this.http.get<IUserLdapDto[]>(url);
+    }
+
+    public importUserFromLDAP(worker: IUserLdap): Observable<IUserImported> {
+        const url: string = `${this.restUrl}/ldap/user/${worker.samAccountName}/import`;
+        return this.http.post<IUserImported>(url, null);
     }
     //#endregion
 
