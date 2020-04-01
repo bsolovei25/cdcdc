@@ -5,6 +5,7 @@ import {
     EnumClaims,
     IClaim,
     IGlobalClaim,
+    ScreenClaimsEnum,
 } from '../../../../models/admin-panel';
 
 @Component({
@@ -20,14 +21,8 @@ export class AdminWorkspaceCardComponent implements OnInit {
     public ngOnInit(): void {}
 
     public getClaim(): string {
-        enum ScreenClaims {
-            screenView,
-            screenEdit,
-            screenDel,
-            screenAdmin,
-        }
         const maxClaim = this.workspace.claims.reduce((mainClaim, item) => {
-            if (ScreenClaims[mainClaim.claimType] < ScreenClaims[item.claimType]) {
+            if (ScreenClaimsEnum[mainClaim.claimType] < ScreenClaimsEnum[item.claimType]) {
                 return item;
             }
             return mainClaim;

@@ -106,10 +106,8 @@
     <evj-aws-workspaces
       class="worker__column worker__workspaces scroll-bar"
       *ngIf="!isClaimsShowing"
-      [allWorkspaces]="allWorkspaces"
       [workerScreens]="workerScreens"
-      [workerScreensDetached]="workerScreensDetached"
-      [workspacesClaims]="workspacesClaims"
+      [workerSpecialClaims]="workerSpecialClaims"
       [searchingWorkspaceValue]="searchingWorkspaceValue"
       (workspacesData)="onChangeWorkspacesData()"
     ></evj-aws-workspaces>

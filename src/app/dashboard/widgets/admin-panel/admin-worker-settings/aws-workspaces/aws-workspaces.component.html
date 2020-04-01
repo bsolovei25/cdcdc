@@ -3,11 +3,10 @@
     <evj-aws-workspace-card
       *ngIf="isValidWorkspaceName(workspace.screenName)"
       [isActive]="defineIsWorkspaceActive(workspace)"
-      [screenId]="defineWorkerScreenId(workspace)"
       [workspace]="workspace"
+      [workerScreens]="workerScreens"
+      [workerSpecialClaims]="workerSpecialClaims"
       [isChangingCardState]="true"
-      (selectedWorkspace)="onSelectWorkspace($event)"
-      (selectedWorkspaceClaims)="onSelectWorkspaceClaims($event)"
     ></evj-aws-workspace-card>
   </ng-container>
 </div>

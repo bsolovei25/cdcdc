@@ -107,3 +107,10 @@ export enum EnumClaims {
     'Ручной ввод',
     'Администратор',
 }
+
+export enum ScreenClaimsEnum {
+    screenView,
+    screenEdit,
+    screenDel,
+    screenAdmin,
+}
