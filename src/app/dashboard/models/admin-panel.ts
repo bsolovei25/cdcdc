@@ -14,6 +14,7 @@ export interface IWorkspace {
     id: number;
     screenName: string;
     widgets?: any;
+    claims?: IGlobalClaim[];
 }
 
 export interface IClaim {

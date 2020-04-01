@@ -53,6 +53,9 @@ export class AdminPanelService {
     public activeWorker$: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(this.defaultWorker);
     public activeWorkerScreens$: BehaviorSubject<IScreen[]> = new BehaviorSubject<IScreen[]>(null);
     public activeWorkerUnit$: BehaviorSubject<IUnitEvents> = new BehaviorSubject<IUnitEvents>(null);
+    public activeWorkerWorkspaces$: BehaviorSubject<IWorkspace[]> = new BehaviorSubject<
+        IWorkspace[]
+    >(null);
 
     public workers: IUser[] = [];
 

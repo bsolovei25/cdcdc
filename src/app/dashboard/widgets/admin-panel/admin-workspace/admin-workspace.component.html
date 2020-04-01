@@ -21,7 +21,7 @@
     <div class="workspace__list scroll-bar">
       <div class="cards">
         <ng-container *ngFor="let workspace of workspaces">
-          <div class="card" *ngIf="onSearchWorkspace(workspace.screen.screenName)">
+          <div class="card" *ngIf="onSearchWorkspace(workspace.screenName)">
             <evj-admin-workspace-card [workspace]="workspace"></evj-admin-workspace-card>
           </div>
         </ng-container>

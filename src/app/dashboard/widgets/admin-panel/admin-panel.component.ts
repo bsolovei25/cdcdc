@@ -86,6 +86,9 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
             }),
             this.adminService.getAllSpecialScreenClaims().subscribe((data) => {
                 this.adminService.screenSpecialClaims = data;
+                console.log('screen claims: ', data);
+            this.adminService.getAllWorkerScreenClaims(1).subscribe((data) => {
+                console.log('worker screen claims: ', data);
             }),
             this.adminService
                 .getAllUnitsWithBrigades()
