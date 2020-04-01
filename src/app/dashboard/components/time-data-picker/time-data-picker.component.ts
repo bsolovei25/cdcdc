@@ -57,20 +57,14 @@ export class TimeDataPickerComponent implements OnInit, OnChanges {
     constructor() { }
 
     ngOnInit(): void {
-        this.inputDate = new Date(this.data);
+        
     }
 
     ngOnChanges() {
-        // try {
-        //     let const22 = new Date(this.data);
-        //     this.inputDate = const22;
-        // } catch (error) {
-
-        // }
+        this.inputDate = new Date(this.data);
     }
 
     buttonConfirm() {
-        this.inputDate = new Date(this.data);
         let timeInput = moment(this.inputDate).locale('ru').format('LTS');
         const object: ITime = { date: this.inputDate, time: timeInput };
         this.dateTimePicker.emit(object);
