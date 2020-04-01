@@ -1,6 +1,7 @@
 import { IUser, IUnitEvents } from './events-widget';
 import { IWidgets } from './widget.model';
 import { IWorker } from './worker';
+import { IBrigade } from './shift.model';
 
 export interface IAdminPanel {
     person: IUser;
@@ -70,12 +71,32 @@ export interface IGlobalClaim {
 
 export interface IUserLdap {
     id: string;
-    displayName: string;
-    givenName: string;
-    surname: string;
-    userPrincipalName: string;
-    samAccountName: string;
+    displayName?: string;
+    givenName?: string;
+    surname?: string;
+    userPrincipalName?: string;
+    samAccountName?: string;
     sid: string;
+}
+
+export interface IUserImported {
+    login: string;
+    sid: string;
+    firstName?: string;
+    lastName?: string;
+    brigade?: IBrigade;
+    position: string;
+    isLoadedAutomatically: boolean;
+    displayName: string;
+    userClaimsVersion?: number;
+    id: number;
+    concurrencyStamp: string;
+}
+
+export interface IUserLdapDto {
+    importedUser?: IUserImported;
+    ldapUser: IUserLdap;
+    isUserImported: boolean;
 }
 
 export enum EnumClaims {

@@ -21,6 +21,7 @@
       <div class="search">
         <evj-input
           class="insert-component"
+          *ngIf="!isClaimsShowing"
           [placeholder]="'Введите название рабочей области'"
           [iconSrc]="searchIcon"
           (inputedValue)="onSearchWorkspace($event)"

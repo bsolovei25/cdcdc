@@ -9,6 +9,7 @@ import {
     IWorkspace,
     IGlobalClaim,
     IGroup,
+    IUserLdapDto,
 } from '../../models/admin-panel';
 import { IUser, IUnitEvents } from '../../models/events-widget';
 import { IWidgets } from '../../models/widget.model';
@@ -178,7 +179,13 @@ export class AdminPanelService {
     //#endregion
 
     //#region UNITS
-    public getAllUnits(): Observable<IUnitEvents[]> {
+    // TODO
+    public getAllUnits(): Observable<any> {
+        const url: string = 'http://deploy.funcoff.club:6555/api/ref-book/Unit';
+        return this.http.get<any>(url);
+    }
+
+    public getAllUnitsWithBrigades(): Observable<IUnitEvents[]> {
         const url: string = `${this.restUrl}/units/all`;
         return this.http.get<IUnitEvents[]>(url);
     }
@@ -247,9 +254,9 @@ export class AdminPanelService {
     //#endregion
 
     //#region LDAP
-    public getAllLDAPUsers(): Observable<any> {
+    public getAllLDAPUsers(): Observable<IUserLdapDto[]> {
         const url: string = `${this.restUrl}/ldap/users`;
-        return this.http.get<any>(url);
+        return this.http.get<IUserLdapDto[]>(url);
     }
     //#endregion
 

@@ -83,7 +83,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
                 this.adminService.screenClaims = data;
             }),
             this.adminService
-                .getAllUnits()
+                .getAllUnitsWithBrigades()
                 .subscribe((data: IUnitEvents[]) => (this.adminService.units = data)),
             this.adminService
                 .getAllGeneralClaims()
