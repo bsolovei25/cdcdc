@@ -17,8 +17,8 @@
       <ng-container *ngFor="let worker of workersLdap">
         <div
           class="table__row"
-          [ngClass]="{'table__row_active':workerSelect.isSelected(worker)}"
-          *ngIf="findSearchedWorker(worker) && !worker.isUserImported"
+          [ngClass]="{'table__row_active':workerSelect.isSelected(worker),'table__row_disable': worker.isUserImported}"
+          *ngIf="findSearchedWorker(worker)"
           (click)="workerSelect.select(worker)"
         >
           <div class="row__name">{{worker.ldapUser.displayName}}</div>
