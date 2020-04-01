@@ -61,10 +61,11 @@ export class AdminPanelService {
 
     public brigades: IBrigadeAdminPanel[] = [];
 
+    public unitsWithBrigades: IUnitEvents[] = [];
     public units: IUnitEvents[] = [];
 
     public screenClaims: IClaim[] = [];
-    public screenSpecialClaims = [];
+    public screenSpecialClaims: IGlobalClaim[] = [];
     public generalClaims: IGlobalClaim[] = [];
     public specialClaims: IGlobalClaim[] = [];
 
@@ -201,9 +202,9 @@ export class AdminPanelService {
 
     //#region UNITS
     // TODO
-    public getAllUnits(): Observable<any> {
+    public getAllUnits(): Observable<IUnitEvents[]> {
         const url: string = 'http://deploy.funcoff.club:6555/api/ref-book/Unit';
-        return this.http.get<any>(url);
+        return this.http.get<IUnitEvents[]>(url);
     }
 
     public getAllUnitsWithBrigades(): Observable<IUnitEvents[]> {
