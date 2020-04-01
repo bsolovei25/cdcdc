@@ -80,8 +80,12 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
             this.adminService.allBrigades$.subscribe((brigades: IBrigadeAdminPanel[]) => {
                 this.brigades = brigades;
             }),
+            // TODO
             this.adminService.getAllScreenClaims().subscribe((data: IClaim[]) => {
                 this.adminService.screenClaims = data;
+            }),
+            this.adminService.getAllSpecialScreenClaims().subscribe((data) => {
+                this.adminService.screenSpecialClaims = data;
             }),
             this.adminService
                 .getAllUnitsWithBrigades()

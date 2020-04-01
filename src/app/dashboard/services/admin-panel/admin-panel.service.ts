@@ -61,6 +61,7 @@ export class AdminPanelService {
     public units: IUnitEvents[] = [];
 
     public screenClaims: IClaim[] = [];
+    public screenSpecialClaims = [];
     public generalClaims: IGlobalClaim[] = [];
     public specialClaims: IGlobalClaim[] = [];
 
@@ -179,6 +180,21 @@ export class AdminPanelService {
         return this.http.delete<void>(url);
     }
     //#endregion
+
+    public getAllSpecialScreenClaims(): Observable<any> {
+        const url: string = `${this.restUrl}/screen/admin/getavaible-claims`;
+        return this.http.get<any>(url);
+    }
+
+    public getAllWorkerScreenClaims(workerId: number): Observable<any> {
+        const url: string = `${this.restUrl}/screen/admin/screens/${workerId}/user`;
+        return this.http.get<any>(url);
+    }
+
+    public getAllGroupScreenClaims(groupId: number): Observable<any> {
+        const url: string = `${this.restUrl}/screen/admin/screens/${groupId}/role`;
+        return this.http.get<any>(url);
+    }
 
     //#region UNITS
     // TODO
