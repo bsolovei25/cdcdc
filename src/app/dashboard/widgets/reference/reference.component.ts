@@ -39,56 +39,10 @@ export class ReferenceComponent implements OnInit, OnDestroy {
     public newName: string;
 
     public data: IReferenceTypes[] = [
-        {
-            id: 1,
-            createdAt: new Date(),
-            createdBy: new Date(),
-            name: 'Професии',
-            columns: [
-                {
-                    id: 1,
-                    createdAt: new Date(),
-                    createdBy: new Date(),
-                    referenceTypeId: 1,
-                    name: 'ФИО',
-                    columnTypeId: 1,
-                    columnName: 'ФИО',
-                    isRequred: true,
-                    isUnique: false,
-                },
-                {
-                    id: 2,
-                    createdAt: new Date(),
-                    createdBy: new Date(),
-                    referenceTypeId: 1,
-                    name: 'Дата рождения',
-                    columnTypeId: 1,
-                    columnName: 'Дата рождения',
-                    isRequred: false,
-                    isUnique: true,
-                },
-            ],
-        },
-        {
-            id: 2,
-            createdAt: new Date(),
-            createdBy: new Date(),
-            name: 'Установки',
-            columns: [
-                {
-                    id: 1,
-                    createdAt: new Date(),
-                    createdBy: new Date(),
-                    referenceTypeId: 1,
-                    name: 'Дата рождения',
-                    columnTypeId: 1,
-                    columnName: 'Дата рождения',
-                    isRequred: false,
-                    isUnique: false,
-                },
-            ],
-        },
+
     ];
+
+    public columnData: any = [];
 
     public datas: IReferenceTypes[] = [];
 
@@ -132,7 +86,6 @@ export class ReferenceComponent implements OnInit, OnDestroy {
         return this.referencesService.reference$.subscribe((data) => {
             this.datas = data;
             this.data = this.datas;
-          //  this.idReferenceClick = this.data[0].id; ///ПОДУМАТЬ ЕСЛИ РЕФЕРЕНС НЕ БУДЕТ
         })
     }
 
@@ -148,6 +101,8 @@ export class ReferenceComponent implements OnInit, OnDestroy {
         this.isAddBlockRecord = false;
 
         this.indexColumn = index;
+
+        this.columnData = this.data[this.indexColumn].columns;
 
         this.getTable(data.id);
     }
@@ -168,26 +123,28 @@ export class ReferenceComponent implements OnInit, OnDestroy {
     }
 
     onAddBlockRecord() {
-        this.isAddBlockRecord = true;
-        this.isLongBlock = false;
+        if (this.idReferenceClick !== null && this.idReferenceClick !== undefined) {
+            this.isAddBlockRecord = true;
+            this.isLongBlock = false;
+        }
+
     }
 
     onPushRecord() {
         this.isAddBlockRecord = false;
         this.isLongBlock = true;
-        let index = 0;
         let columnsObj = [];
         let obj: any = [];
         for (let i of this.data[this.indexColumn].columns) {
             if (i.name !== 'Id' && i.name !== 'Name') {
                 let test;
-                this.columnObject.find(e =>  {
-                    if(e.idColumn === i.id){
+                this.columnObject.find(e => {
+                    if (e.idColumn === i.id) {
                         test = e.value;
                     }
                 }
-                 );
-                 (test === undefined) ? test = null : test = test;
+                );
+                (test === undefined) ? test = null : test = test;
                 if (i.columnTypeId === 2) {
                     obj = {
                         referenceColumnId: i.id,
@@ -207,7 +164,6 @@ export class ReferenceComponent implements OnInit, OnDestroy {
                 }
 
                 columnsObj.push(obj);
-                index++;
             }
 
         }
@@ -217,7 +173,7 @@ export class ReferenceComponent implements OnInit, OnDestroy {
             columnsData: columnsObj,
         };
 
-      
+
         this.referencesService.pushReferenceData(object).subscribe(ans => {
             this.dataTable.data.push(object);
             this.columnObject = [];
@@ -240,6 +196,31 @@ export class ReferenceComponent implements OnInit, OnDestroy {
             this.dataTable.data.splice(indexDelete, 1);
         });
 
+    }
+
+    searchReference(event: any) {
+        const record = event.currentTarget.value.toLowerCase();
+        const filterData = this.data.filter(
+            (e) =>
+                e.name.toLowerCase().indexOf(record.toLowerCase()) > -1
+
+        );
+        this.data = filterData;
+        if (!event.currentTarget.value) {
+            this.data = this.datas;
+        }
+    }
+
+    searchRecords(event: any) {
+        // const record = event.currentTarget.value.toLowerCase();
+        // const filterData = this.data[this.indexColumn].columns.filter(
+        //     (e) => e.name.toLowerCase().indexOf(record.toLowerCase()) > -1
+        // );
+
+        // this.data[this.indexColumn].columns = filterData;
+        // if (!event.currentTarget.value) {
+        //     this.data[this.indexColumn].columns = this.saveColumns;
+        // }
     }
 
 }

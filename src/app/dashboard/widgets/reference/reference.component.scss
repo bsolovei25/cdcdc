@@ -308,6 +308,11 @@ input {
       }
     }
 
+    &__input-active {
+      border: 1px solid var(--color-border-active);
+      border-left: none;
+    }
+
     &__input-block {
       display: flex;
       position: relative;
@@ -581,6 +586,11 @@ input {
       input {
         border-bottom: none !important;
       }
+    }
+
+    &__input-active {
+      border: 1px solid var(--color-border-active);
+      border-left: none;
     }
 
     &__input-block {

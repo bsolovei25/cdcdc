@@ -56,6 +56,8 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
 
     isLongBlock: boolean = true;
 
+    saveColumns: any = [];
+
     public isType: number;
 
     types = {
@@ -66,55 +68,7 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
     };
 
     public datas: IReferenceTypes[] = [
-        {
-            id: 1,
-            createdAt: new Date(),
-            createdBy: new Date(),
-            name: 'Професии',
-            columns: [
-                {
-                    id: 1,
-                    createdAt: new Date(),
-                    createdBy: new Date(),
-                    referenceTypeId: 1,
-                    name: 'ФИО',
-                    columnTypeId: 1,
-                    columnName: 'ФИО',
-                    isRequred: true,
-                    isUnique: false,
-                },
-                {
-                    id: 2,
-                    createdAt: new Date(),
-                    createdBy: new Date(),
-                    referenceTypeId: 1,
-                    name: 'Дата рождения',
-                    columnTypeId: 2,
-                    columnName: 'Дата рождения',
-                    isRequred: false,
-                    isUnique: true,
-                },
-            ],
-        },
-        {
-            id: 2,
-            createdAt: new Date(),
-            createdBy: new Date(),
-            name: 'Установки',
-            columns: [
-                {
-                    id: 1,
-                    createdAt: new Date(),
-                    createdBy: new Date(),
-                    referenceTypeId: 1,
-                    name: 'Дата рождения',
-                    columnTypeId: 1,
-                    columnName: 'Дата рождения',
-                    isRequred: false,
-                    isUnique: false,
-                },
-            ],
-        },
+
     ];
 
     public data: IReferenceTypes[] = [];
@@ -172,7 +126,6 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
         return this.referencesService.reference$.subscribe((data) => {
             this.datas = data;
             this.data = this.datas;
-        //    this.idReferenceClick = this.data[0].id; ///ПОДУМАТЬ ЕСЛИ РЕФЕРЕНС НЕ БУДЕТ
         })
     }
 
@@ -180,6 +133,8 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
     onClickReference(data, index) {
 
         this.idReferenceClick = data.id;
+
+        this.saveColumns = data.columns;
 
 
         if (data.columns !== null && data.columns !== undefined) {
@@ -282,8 +237,11 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
     }
 
     onPushBlockInRecord(): void {
-        this.isClickPushRecord = true;
-        this.isLongBlock = false;
+        if(this.idReferenceClick !== null && this.idReferenceClick !== undefined){
+            this.isClickPushRecord = true;
+            this.isLongBlock = false;
+        }
+       
     }
 
     onPushReference(): void {
@@ -315,17 +273,19 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
         if (this.newFioRecord.trim().length > 0 && this.newFioRecord !== undefined) {
             this.referencesService.pushColumnReference(object).subscribe(ans => {
                 this.data[this.indexColumn].columns.push(ans);
+               
             });
             this.newFioRecord = null;
             this.isType = null;
         }
+        this.isLongBlock = true;
     }
 
     onChangeType(event) {
         this.isType = event.value.id;
     }
 
-    searchRecords(event: any) {
+    searchReference(event: any) {
         const record = event.currentTarget.value.toLowerCase();
         const filterData = this.data.filter(
             (e) => e.name.toLowerCase().indexOf(record.toLowerCase()) > -1
@@ -334,6 +294,18 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
         this.data = filterData;
         if (!event.currentTarget.value) {
             this.data = this.datas;
+        }
+    }
+
+    searchRecords(event: any) {
+        const record = event.currentTarget.value.toLowerCase();
+        const filterData = this.data[this.indexColumn].columns.filter(
+            (e) => e.name.toLowerCase().indexOf(record.toLowerCase()) > -1
+        );
+
+        this.data[this.indexColumn].columns = filterData;
+        if (!event.currentTarget.value) {
+            this.data[this.indexColumn].columns = this.saveColumns;
         }
     }
 
@@ -346,6 +318,7 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
     }
 
     deleteRecord(item): void {
+        this.isLongBlock = true;
         this.referencesService.removeRecord(item.id).subscribe(ans => {
             const indexDelete = this.data[this.indexColumn].columns.indexOf(item);
             this.data[this.indexColumn].columns.splice(indexDelete, 1);
