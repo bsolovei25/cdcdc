@@ -235,9 +235,14 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
     }
 
     public onCreateSpecialClaim(claim: IGlobalClaim): void {
-        const isClaimExists: boolean = !!this.groupSelection.selected[0].claims.find(
-            (item) => item.claimType === claim.claimType && item.value === claim.value
-        );
+        let isClaimExists: boolean = false;
+
+        if (claim) {
+            isClaimExists = !!this.groupSelection.selected[0].claims.find(
+                (item) => item.claimType === claim.claimType && item.value === claim.value
+            );
+        }
+
         if (claim && !isClaimExists) {
             const currentGroup = this.groupSelection.selected[0];
             currentGroup.claims.push(claim);

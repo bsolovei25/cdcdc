@@ -83,7 +83,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AdminShiftScheduleComponent } from './widgets/admin-widget/admin-shift-schedule/admin-shift-schedule.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 import { AdminReferencesComponent } from './widgets/admin-references/admin-references.component';
 import { CardVerifierComponent } from './widgets/change-shift/card-verifier/card-verifier.component';
 import { PetroleumProductsMovementComponent } from './widgets/petroleum-products-movement/petroleum-products-movement.component';
@@ -132,9 +132,14 @@ import { AgGroupWorkerCardComponent } from './widgets/admin-panel/admin-groups/a
 import { AwsResponsibleAlertComponent } from './widgets/admin-panel/admin-worker-settings/aws-responsible-alert/aws-responsible-alert.component';
 import { AwsPasswordAlertComponent } from './widgets/admin-panel/admin-worker-settings/aws-password-alert/aws-password-alert.component';
 import { AwsCreateClaimComponent } from './widgets/admin-panel/admin-worker-settings/aws-create-claim/aws-create-claim.component';
+import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule, NGX_MAT_DATE_FORMATS } from '@angular-material-components/datetime-picker';
+import { MatButtonModule } from '@angular/material/button';
+import { NgxMatMomentModule} from '@angular-material-components/moment-adapter';
+
 import { AgNewGroupComponent } from './widgets/admin-panel/admin-groups/ag-new-group/ag-new-group.component';
 import { AgAlertSubmitComponent } from './widgets/admin-panel/admin-groups/ag-alert-submit/ag-alert-submit.component';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { AdminAdImportComponent } from './widgets/admin-panel/admin-ad-import/admin-ad-import.component';
 
 @NgModule({
     declarations: [
@@ -254,6 +259,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
         AwsCreateClaimComponent,
         AgNewGroupComponent,
         AgAlertSubmitComponent,
+        AdminAdImportComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -327,11 +333,18 @@ import { OverlayModule } from '@angular/cdk/overlay';
         OldScrollingModule,
         ReactiveFormsModule,
         MatCheckboxModule,
+        MatButtonModule,
         MatExpansionModule,
         ImageCropperModule,
+        NgxMatDatetimePickerModule,
+        NgxMatTimepickerModule,
+        NgxMatNativeDateModule,
+        NgxMatMomentModule,
         OverlayModule
     ],
     bootstrap: [],
-    providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }],
+    providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' },
+    { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
+   ],
 })
 export class DashboardModule { }

@@ -29,6 +29,9 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     public isWorkerSettingsShowed: boolean = false;
     public isGroupsShowed: boolean = false;
     public isCreateNewWorker: boolean = false;
+    public isImportNewWorker: boolean = false;
+    public isDropdownShowed: boolean = false;
+    public isPopupShowed: boolean = false;
     //#endregion
 
     public searchPlaceholder: string = 'Введите ФИО сотрудника';
@@ -81,7 +84,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
                 this.adminService.screenClaims = data;
             }),
             this.adminService
-                .getAllUnits()
+                .getAllUnitsWithBrigades()
                 .subscribe((data: IUnitEvents[]) => (this.adminService.units = data)),
             this.adminService
                 .getAllGeneralClaims()
@@ -91,7 +94,14 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
                 .subscribe((claims) => (this.adminService.specialClaims = claims.data)),
             this.adminService
                 .getAllWidgets()
-                .subscribe((widgets) => (this.adminService.allWidgets = widgets.data))
+                .subscribe((widgets) => (this.adminService.allWidgets = widgets.data)),
+            this.adminService.activeWorker$.subscribe((worker) => {
+                if (worker.sid) {
+                    this.isImportNewWorker = true;
+                } else {
+                    this.isImportNewWorker = false;
+                }
+            })
         );
     }
 
@@ -100,6 +110,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     }
 
     public createNewWorker(): void {
+        this.isDropdownShowed = false;
         this.isCreateNewWorker = true;
         this.isWorkerSettingsShowed = true;
         this.adminService.setDefaultActiveWorker();
@@ -118,6 +129,15 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     public onCloseWorkerSettings(): void {
         this.isCreateNewWorker = false;
         this.isWorkerSettingsShowed = false;
+        this.isImportNewWorker = false;
+    }
+
+    public onCloseLdapList(event: boolean): void {
+        if (event) {
+            this.isWorkerSettingsShowed = true;
+            this.isImportNewWorker = true;
+        }
+        this.isPopupShowed = false;
     }
 
     public onSearchWorker(inputedValue: string): void {

@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IWorkerOptionAdminPanel } from '../../../../models/admin-panel';
 import { SelectionModel } from '@angular/cdk/collections';
-import { fillDataShape } from '../../../../../@shared/common-functions';
 
 @Component({
     selector: 'evj-aws-card',
@@ -15,6 +14,8 @@ export class AwsCardComponent implements OnInit {
         name: '',
         key: '',
     };
+    @Input() public disabled: boolean = false;
+
     @Output() public saveChanging: EventEmitter<IWorkerOptionAdminPanel> = new EventEmitter<
         IWorkerOptionAdminPanel
     >();
@@ -29,6 +30,10 @@ export class AwsCardComponent implements OnInit {
         if (this.isCreateNewUser) {
             this.selectEdit.toggle();
         }
+    }
+
+    public setFieldValue(value: string): string {
+        return value ? value : '';
     }
 
     public onEditClick(): void {

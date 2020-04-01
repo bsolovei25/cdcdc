@@ -12,6 +12,7 @@ export class ButtonComponent implements OnInit {
     @Input() public imgSrc: IButtonImgSrc = null;
     @Input() public isActive: boolean = false;
     @Input() public isChangingState: boolean = false;
+    @Input() public disabled: boolean = false;
 
     public isButtonHover: boolean = false;
 

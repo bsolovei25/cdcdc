@@ -61,8 +61,16 @@
                 class="insert-component"
                 [isSmallButton]="false"
                 [textButton]="'Добавить сотрудника'"
-                (click)="createNewWorker()"
+                (click)="isDropdownShowed=true"
               ></evj-button>
+              <div
+                class="dropdown"
+                [ngClass]="{'dropdown_active':isDropdownShowed}"
+                (mouseleave)="isDropdownShowed=false"
+              >
+                <div class="dropdown__item" (click)="createNewWorker()">Создать нового</div>
+                <div class="dropdown__item" (click)="isPopupShowed=true">Импортировать</div>
+              </div>
             </div>
 
             <div class="more__button">
@@ -98,6 +106,7 @@
     <evj-admin-worker-settings
       class="admin-container"
       [isCreateNewUser]="isCreateNewWorker"
+      [isImportNewWorker]="isImportNewWorker"
       (closeWorkerSettings)="onCloseWorkerSettings()"
       (mousedown)="$event.stopPropagation()"
       (touchstart)="$event.stopPropagation()"
@@ -107,6 +116,13 @@
   <ng-container *ngIf="isGroupsShowed">
     <evj-admin-groups class="admin-container" (hideGroups)="onHideGroups()"></evj-admin-groups>
   </ng-container>
+
+  <div class="popup" [ngClass]="{'popup_active':isPopupShowed}">
+    <evj-admin-ad-import
+      *ngIf="isPopupShowed"
+      (closeLdap)="onCloseLdapList($event)"
+    ></evj-admin-ad-import>
+  </div>
 
   <evj-frame-bottom></evj-frame-bottom>
 </div>
