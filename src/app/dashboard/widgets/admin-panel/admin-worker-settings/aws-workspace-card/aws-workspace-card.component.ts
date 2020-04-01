@@ -2,22 +2,16 @@ import {
     Component,
     OnInit,
     Input,
-    Output,
-    EventEmitter,
     AfterViewInit,
     ChangeDetectorRef,
+    Output,
+    EventEmitter,
 } from '@angular/core';
-import {
-    IWorkspace,
-    EnumClaims,
-    IScreen,
-    IClaim,
-    IGlobalClaim,
-    ScreenClaimsEnum,
-} from '../../../../models/admin-panel';
+import { IWorkspace, IGlobalClaim, ScreenClaimsEnum } from '../../../../models/admin-panel';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AdminPanelService } from '../../../../services/admin-panel/admin-panel.service';
 import { FormControl } from '@angular/forms';
+import { fillDataShape } from '../../../../../@shared/common-functions';
 
 @Component({
     selector: 'evj-aws-workspace-card',
@@ -35,13 +29,15 @@ export class AwsWorkspaceCardComponent implements OnInit, AfterViewInit {
     @Input() private workerScreens: IWorkspace[] = [];
     @Input() private workerSpecialClaims: IGlobalClaim[] = [];
 
-    public select: SelectionModel<IWorkspace> = new SelectionModel<IWorkspace>(true);
-
-    public selectFormControl: FormControl = new FormControl();
+    @Output() private changingSelect: EventEmitter<void> = new EventEmitter<void>();
 
     private allScreenClaims: IGlobalClaim[] = [];
 
     private currentWorkspace: IWorkspace = null;
+
+    public select: SelectionModel<IWorkspace> = new SelectionModel<IWorkspace>();
+
+    public selectFormControl: FormControl = new FormControl();
 
     constructor(private adminService: AdminPanelService, private cdRef: ChangeDetectorRef) {}
 
@@ -75,7 +71,21 @@ export class AwsWorkspaceCardComponent implements OnInit, AfterViewInit {
 
     public changeCardState(): void {
         if (this.isChangingCardState) {
+            if (this.select.isEmpty()) {
+                const workspace = fillDataShape(this.workspace);
+                workspace.claims = [];
+                this.workerScreens.push(workspace);
+                this.currentWorkspace = workspace;
+            } else {
+                this.deleteAllWorkspaceClaims();
+                const index = this.workerScreens.findIndex((item) => item.id === this.workspace.id);
+                if (index !== -1) {
+                    this.workerScreens.splice(index, 1);
+                }
+            }
+
             this.select.toggle(this.workspace);
+            this.changingSelect.emit();
         }
     }
 
@@ -86,6 +96,19 @@ export class AwsWorkspaceCardComponent implements OnInit, AfterViewInit {
         });
 
         return claimsArray;
+    }
+
+    private deleteAllWorkspaceClaims(): void {
+        while (true) {
+            const index = this.workerSpecialClaims.findIndex(
+                (claim) => claim.value === this.workspace.id.toString()
+            );
+            if (index !== -1) {
+                this.workerSpecialClaims.splice(index, 1);
+            } else {
+                break;
+            }
+        }
     }
 
     private changeClaimsInWorkspace(claims: IGlobalClaim[]): void {
@@ -107,7 +130,7 @@ export class AwsWorkspaceCardComponent implements OnInit, AfterViewInit {
 
         addedClaims.forEach((claim) => {
             const index = this.workerSpecialClaims.findIndex(
-                (item) => item.claimType === claim.claimType
+                (item) => item.claimType === claim.claimType && item.value === claim.value
             );
             if (index === -1) {
                 this.workerSpecialClaims.push(claim);
@@ -116,7 +139,7 @@ export class AwsWorkspaceCardComponent implements OnInit, AfterViewInit {
 
         deletedClaims.forEach((claim) => {
             const index = this.workerSpecialClaims.findIndex(
-                (item) => item.claimType === claim.claimType
+                (item) => item.claimType === claim.claimType && item.value === claim.value
             );
             if (index !== -1) {
                 this.workerSpecialClaims.splice(index, 1);
@@ -138,5 +161,6 @@ export class AwsWorkspaceCardComponent implements OnInit, AfterViewInit {
             this.changeClaimsInWorkspace(claims);
             this.changeWorkerClaims(claims);
         }
+        this.changingSelect.emit();
     }
 }

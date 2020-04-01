@@ -184,9 +184,9 @@ export class AdminPanelService {
     }
     //#endregion
 
-    public getAllSpecialScreenClaims(): Observable<any> {
+    public getAllSpecialScreenClaims(): Observable<{ data: IGlobalClaim[] }> {
         const url: string = `${this.restUrl}/screen/admin/getavaible-claims`;
-        return this.http.get<any>(url);
+        return this.http.get<{ data: IGlobalClaim[] }>(url);
     }
 
     public getAllWorkerScreenClaims(workerId: number): Observable<any> {

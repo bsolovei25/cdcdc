@@ -139,7 +139,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         }
     }
 
-    // TOFIX
     public onChangeWorkspacesData(): void {
         this.showAlert();
     }

@@ -12,6 +12,8 @@ export class AwsWorkspacesComponent implements OnInit {
     @Input() public workerSpecialClaims: IGlobalClaim[] = [];
     @Input() private searchingWorkspaceValue: string = '';
 
+    @Output() private changeWorkspaces: EventEmitter<void> = new EventEmitter<void>();
+
     public allWorkspaces: IWorkspace[] = null;
 
     constructor(private adminService: AdminPanelService) {}
@@ -30,28 +32,7 @@ export class AwsWorkspacesComponent implements OnInit {
         return !!this.workerScreens.find((item: IWorkspace) => item.id === workspace.id);
     }
 
-    // public onSelectWorkspace(event: IWorkspace): void {
-    //     if (!this.defineIsWorkspaceActive(event)) {
-    //         this.workerScreens.push(event);
-    //     } else {
-    //         const index: number = this.workerScreens.findIndex(
-    //             (item: IWorkspace) => item.id === event.id
-    //         );
-    //         this.workerScreens.splice(index, 1);
-    //     }
-    //     this.workspacesData.emit();
-    // }
-
-    // public onSelectWorkspaceClaims(event: { workspaceId: number; claims: IClaim[] }): void {
-    //     const index: number = this.workspacesClaims.findIndex(
-    //         (item) => item.workspaceId === event.workspaceId
-    //     );
-    //     if (index === -1) {
-    //         this.workspacesClaims.push(event);
-    //     } else {
-    //         this.workspacesClaims.splice(index, 1);
-    //         this.workspacesClaims.push(event);
-    //     }
-    //     this.workspacesData.emit();
-    // }
+    public onChangeFields(): void {
+        this.changeWorkspaces.emit();
+    }
 }
