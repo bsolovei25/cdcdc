@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NewUserSettingsService } from '../../services/new-user-settings.service';
+import { UserSettingsService } from '../../services/user-settings.service';
 import { Subscription } from 'rxjs';
 import { ScreenSettings } from '../../models/user-settings.model';
 import { ClaimService, EnumClaimScreens } from '../../services/claim.service';
@@ -33,7 +33,7 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
 
     isShowScreens: boolean = false;
 
-    constructor(private userSettings: NewUserSettingsService, private claimService: ClaimService) {}
+    constructor(private userSettings: UserSettingsService, private claimService: ClaimService) {}
 
     ngOnInit(): void {
         this.subscriptions.push(

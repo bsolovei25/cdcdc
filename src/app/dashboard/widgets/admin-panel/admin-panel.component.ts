@@ -3,7 +3,7 @@ import { IButtonImgSrc, IBrigadeAdminPanel, IClaim, IGlobalClaim } from '../../m
 import { AdminPanelService } from '../../services/admin-panel/admin-panel.service';
 import { IUser, IUnitEvents } from '../../models/events-widget';
 import { Subscription } from 'rxjs';
-import { NewWidgetService } from '../../services/new-widget.service';
+import { WidgetService } from '../../services/widget.service';
 
 @Component({
     selector: 'evj-admin-panel',
@@ -60,7 +60,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
 
     constructor(
-        private widgetService: NewWidgetService,
+        private widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
@@ -88,7 +88,10 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
                 .subscribe((claims) => (this.adminService.generalClaims = claims.data)),
             this.adminService
                 .getAllSpecialClaims()
-                .subscribe((claims) => (this.adminService.specialClaims = claims.data))
+                .subscribe((claims) => (this.adminService.specialClaims = claims.data)),
+            this.adminService
+                .getAllWidgets()
+                .subscribe((widgets) => (this.adminService.allWidgets = widgets.data))
         );
     }
 
@@ -124,7 +127,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     public onShowBrigades(): void {
         this.isBrigadesShowed = !this.isBrigadesShowed;
         this.searchPlaceholder = this.isBrigadesShowed
-            ? 'Введите номер бригады или ФИО сотрудника'
+            ? 'Введите название бригады'
             : 'Введите ФИО сотрудника';
     }
 

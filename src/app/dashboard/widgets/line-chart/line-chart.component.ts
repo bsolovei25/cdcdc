@@ -18,7 +18,7 @@ import * as d3Format from 'd3-format';
 import { Mock } from 'src/app/dashboard/widgets/line-chart/mock';
 import { Subscription } from 'rxjs';
 import { LineChartData, LineChartGraph, LineChartGraphValue } from '../../models/line-chart';
-import { NewWidgetService } from '../../services/new-widget.service';
+import { WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 
 @Component({
@@ -115,7 +115,7 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
     deviationPoints: any;
 
     constructor(
-        public widgetService: NewWidgetService,
+        public widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string

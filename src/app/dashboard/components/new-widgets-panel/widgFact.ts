@@ -1,12 +1,12 @@
 import { Injectable, Injector } from '@angular/core';
-import { NewWidgetService } from '../../services/new-widget.service';
+import { WidgetService } from '../../services/widget.service';
 
 @Injectable()
 export class FacadeService {
-    private _widgetService: NewWidgetService;
-    public get widgettService(): NewWidgetService {
+    private _widgetService: WidgetService;
+    public get widgettService(): WidgetService {
         if (!this._widgetService) {
-            this._widgetService = this.injector.get(NewWidgetService);
+            this._widgetService = this.injector.get(WidgetService);
         }
         return this._widgetService;
     }

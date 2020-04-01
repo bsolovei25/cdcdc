@@ -1,6 +1,5 @@
 import { Component, OnInit, Injector, Inject } from '@angular/core';
 import { WIDGETS } from '../new-widgets-grid/widget-map';
-import { NewWidgetService } from '../../services/new-widget.service';
 import { WidgetModel } from '../../models/widget.model';
 import {
     GridsterConfig,
@@ -9,9 +8,10 @@ import {
     GridsterItemComponentInterface,
     DisplayGrid,
 } from 'angular-gridster2';
-import { NewUserSettingsService } from '../../services/new-user-settings.service';
+import { UserSettingsService } from '../../services/user-settings.service';
 import { EventEmitter } from '@angular/core';
 import { ClaimService, EnumClaimWidgets } from '../../services/claim.service';
+import { WidgetService } from '../../services/widget.service';
 
 export interface IParamWidgetsGrid {
     cols: number;
@@ -52,9 +52,9 @@ export class NewWidgetsGridComponent implements OnInit {
     private claimSettings: EnumClaimWidgets[] = [];
 
     constructor(
-        public widgetService: NewWidgetService,
+        public widgetService: WidgetService,
         public injector: Injector,
-        public userSettings: NewUserSettingsService,
+        public userSettings: UserSettingsService,
         private claimService: ClaimService
     ) {}
 

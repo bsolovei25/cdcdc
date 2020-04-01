@@ -1,6 +1,6 @@
-import { NewWidgetService } from '../services/new-widget.service';
 import { Inject, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { WidgetService } from '../services/widget.service';
 
 export abstract class WidgetPlatform implements OnDestroy {
     public widgetCode?: string;
@@ -20,7 +20,7 @@ export abstract class WidgetPlatform implements OnDestroy {
     protected subscriptions: Subscription[] = [];
 
     protected constructor(
-        protected widgetService: NewWidgetService,
+        protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public widgetId: string,
         @Inject('uniqId') public widgetUniqId: string

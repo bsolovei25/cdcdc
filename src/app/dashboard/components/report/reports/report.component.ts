@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { NewWidgetService } from '../../../services/new-widget.service';
 import { ITime } from '../../../models/time-data-picker';
 import { IReportTemplate } from '../reports.component';
 import { ReportsService } from 'src/app/dashboard/services/reports.service';
+import { WidgetService } from '../../../services/widget.service';
 
 export interface IReport extends IReportTemplate {
     options: IReportOption[];
@@ -41,7 +41,7 @@ export class ReportComponent implements OnInit {
     template: IReport;
 
     constructor(
-        public widgetService: NewWidgetService,
+        public widgetService: WidgetService,
         private reportsService: ReportsService,
     ) {
         this.subscription = this.widgetService.widgets$.subscribe((dataW) => {

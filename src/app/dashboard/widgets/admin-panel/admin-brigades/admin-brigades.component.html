@@ -4,11 +4,12 @@
       <ng-container *ngFor="let brigade of brigades">
         <div
           class="brigades__card block__frame-left"
+          *ngIf="displaySearchedBrigade(brigade)"
           (click)="setActiveBrigade(brigade)"
           [ngClass]="{'brigades__card-active':selectBrigade.isSelected(brigade)}"
         >
           <div class="card__name">
-            Бригада №{{brigade.brigadeNumber}}
+            Бригада {{brigade.brigadeNumber}}
           </div>
         </div>
       </ng-container>

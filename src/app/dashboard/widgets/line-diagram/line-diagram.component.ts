@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { NewWidgetService } from '../../services/new-widget.service';
+import { WidgetService } from '../../services/widget.service';
 import { ILineDiagram, ILineDiagramData, ILineDiagramDataItem } from '../../models/line-diagram';
 import { WidgetPlatform } from '../../models/widget-platform';
 
@@ -33,7 +33,7 @@ export class LineDiagramComponent extends WidgetPlatform implements OnInit, OnDe
     public fillGraphs: string = '#3FA9F5';
 
     constructor(
-        protected widgetService: NewWidgetService,
+        protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string

@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, HostListener, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { NewWidgetService } from '../../../services/new-widget.service';
+import { WidgetService } from '../../../services/widget.service';
 import { PlatformLocation } from '@angular/common';
 import { UnityLoader } from '../../dispatcher-screen/UnityLoader';
 import { PetroleumScreenService } from '../../../services/petroleum-screen.service';
@@ -27,7 +27,7 @@ export class PetroleumUnityComponent implements OnInit, AfterViewInit, OnDestroy
     public previewTitle: string;
 
     constructor(
-        private widgetService: NewWidgetService,
+        private widgetService: WidgetService,
         private platformLocation: PlatformLocation,
         private petroleumService: PetroleumScreenService
     ) {
@@ -135,6 +135,12 @@ export class PetroleumUnityComponent implements OnInit, AfterViewInit, OnDestroy
             sourceType === 'Unit'
                 ? await this.petroleumService.getAvailableProducts(ref.destinationName)
                 : null;
+        const sourceTankParams = sourceType === 'Tank'
+            ? await this.petroleumService.getTankAttributes(ref.sourceName)
+            : null;
+        const destinationTankParams = destinationType === 'Tank'
+            ? await this.petroleumService.getTankAttributes(ref.destinationName)
+            : null;
         const additional = {
             startTime: new Date(ref.startTime).getTime(),
             endTime: new Date(ref.endTime).getTime(),
@@ -142,9 +148,12 @@ export class PetroleumUnityComponent implements OnInit, AfterViewInit, OnDestroy
             destinationType,
             sourceUnitProducts,
             destinationUnitProducts,
+            sourceTankParams,
+            destinationTankParams,
             operationType: ref.operationType ? ref.operationType : 'Exist',
         };
         const req = { ...ref, ...additional };
+        console.log(req);
         console.log(JSON.stringify(req));
         this.CallUnityScript('Scripts', 'LoadTransfer', JSON.stringify(req));
     }

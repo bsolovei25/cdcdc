@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IWidgets } from 'src/app/dashboard/models/widget.model';
-import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
+import { WidgetService } from '../../../services/widget.service';
 
 @Component({
     selector: 'evj-search-filter',
@@ -18,7 +18,7 @@ export class SearchFilterComponent implements OnInit {
 
     @Output() onFilterMass = new EventEmitter<any>();
 
-    constructor(public widgetService: NewWidgetService) {}
+    constructor(public widgetService: WidgetService) {}
 
     ngOnInit() {}
 

@@ -4,9 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '@core/service/auth.service';
 import { environment } from 'src/environments/environment';
 import { FormControl, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { PreloaderService } from '../../service/preloader.service';
-import { MaterialControllerService } from '../../../dashboard/services/material-controller.service';
 // Angular material
 // Local modules
 
@@ -28,7 +26,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
     constructor(
         public authService: AuthService,
         private router: Router,
-        private materialController: MaterialControllerService,
         private preLoaderService: PreloaderService
     ) {}
 
@@ -62,7 +59,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
                     this.isLoadingData = false;
                 }, 1000);
             } else {
-                // this.materialController.openSnackBar('Неверный логин или пароль');
                 this.swing = true;
                 this.isLoadingData = false;
             }

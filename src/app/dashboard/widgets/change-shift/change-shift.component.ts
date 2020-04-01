@@ -8,7 +8,7 @@ import {
     OnDestroy,
 } from '@angular/core';
 import { ShiftService } from '../../services/shift.service';
-import { NewWidgetService } from '../../services/new-widget.service';
+import { WidgetService } from '../../services/widget.service';
 import {
     ICommentRequired,
     IVerifyWindow,
@@ -16,8 +16,8 @@ import {
     ShiftComment,
     ShiftMember,
 } from '../../models/shift.model';
-import { MaterialControllerService } from '../../services/material-controller.service';
 import { WidgetPlatform } from '../../models/widget-platform';
+import { SnackBarService } from '../../services/snack-bar.service';
 
 @Component({
     selector: 'evj-change-shift',
@@ -57,9 +57,9 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
     public static itemRows: number = 30;
 
     constructor(
-        protected widgetService: NewWidgetService,
+        protected widgetService: WidgetService,
         public shiftService: ShiftService,
-        private materialController: MaterialControllerService,
+        private materialController: SnackBarService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string

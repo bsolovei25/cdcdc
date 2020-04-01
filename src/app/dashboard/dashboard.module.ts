@@ -136,6 +136,9 @@ import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateMod
 import { MatButtonModule } from '@angular/material/button';
 import { NgxMatMomentModule} from '@angular-material-components/moment-adapter';
 
+import { AgNewGroupComponent } from './widgets/admin-panel/admin-groups/ag-new-group/ag-new-group.component';
+import { AgAlertSubmitComponent } from './widgets/admin-panel/admin-groups/ag-alert-submit/ag-alert-submit.component';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 @NgModule({
     declarations: [
@@ -253,6 +256,8 @@ import { NgxMatMomentModule} from '@angular-material-components/moment-adapter';
         AwsResponsibleAlertComponent,
         AwsPasswordAlertComponent,
         AwsCreateClaimComponent,
+        AgNewGroupComponent,
+        AgAlertSubmitComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -333,6 +338,7 @@ import { NgxMatMomentModule} from '@angular-material-components/moment-adapter';
         NgxMatTimepickerModule,
         NgxMatNativeDateModule,
         NgxMatMomentModule,
+        OverlayModule
     ],
     bootstrap: [],
     providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' },

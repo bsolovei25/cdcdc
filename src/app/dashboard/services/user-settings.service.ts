@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { NewWidgetService } from './new-widget.service';
 import { NewUserSettings, NewUserGrid, ScreenSettings } from '../models/user-settings.model';
 import { HttpClient } from '@angular/common/http';
 import { WIDGETS } from '../components/new-widgets-grid/widget-map';
@@ -7,11 +6,12 @@ import { AppConfigService } from 'src/app/services/appConfigService';
 import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { filter, catchError } from 'rxjs/operators';
 import { IParamWidgetsGrid } from '../components/new-widgets-grid/new-widgets-grid.component';
+import { WidgetService } from './widget.service';
 
 @Injectable({
     providedIn: 'root',
 })
-export class NewUserSettingsService {
+export class UserSettingsService {
     private _screens$: BehaviorSubject<ScreenSettings[]> = new BehaviorSubject(null);
 
     public screens$: Observable<ScreenSettings[]> = this._screens$
@@ -19,7 +19,7 @@ export class NewUserSettingsService {
         .pipe(filter((item) => item !== null));
 
     constructor(
-        private widgetService: NewWidgetService,
+        private widgetService: WidgetService,
         private http: HttpClient,
         configService: AppConfigService
     ) {
