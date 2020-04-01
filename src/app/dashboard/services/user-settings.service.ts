@@ -13,10 +13,16 @@ import { WidgetService } from './widget.service';
 })
 export class UserSettingsService {
     private _screens$: BehaviorSubject<ScreenSettings[]> = new BehaviorSubject(null);
-
     public screens$: Observable<ScreenSettings[]> = this._screens$
         .asObservable()
         .pipe(filter((item) => item !== null));
+
+    private restUrl: string;
+
+    public ScreenId: number;
+    public ScreenName: string;
+    public dataScreen = [];
+    public widgetInfo: NewUserGrid;
 
     constructor(
         private widgetService: WidgetService,
@@ -27,20 +33,8 @@ export class UserSettingsService {
         localStorage.getItem('screen');
     }
 
-    private restUrl: string;
-
-    public UserId = 1;
-    public ScreenId: number;
-    public ScreenName: string;
-
-    public dataScreen = [];
-
-    public widgetInfo: NewUserGrid;
-
-    public addCellByPosition(idWidget: string, nameWidget: string, param: IParamWidgetsGrid) {
-        console.log('widget: ' + WIDGETS[nameWidget]);
+    public addCellByPosition(idWidget: string, nameWidget: string, param: IParamWidgetsGrid): void {
         const uniqId = this.create_UUID();
-        console.log(WIDGETS[nameWidget].minItemCols);
         this.widgetService.dashboard.push({
             x: param.x,
             y: param.y,
@@ -52,11 +46,10 @@ export class UserSettingsService {
             uniqid: uniqId,
             widgetType: nameWidget,
         });
-
-        console.log(WIDGETS[nameWidget]);
         this.addWidgetApi(uniqId);
     }
 
+    // TODO WTF?! - function ??? var ???
     public create_UUID(): string {
         var dt = new Date().getTime();
         var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -67,7 +60,7 @@ export class UserSettingsService {
         return uuid;
     }
 
-    private addWidgetApi(uniqId: string) {
+    private addWidgetApi(uniqId: string): void {
         this.save(uniqId);
         const updateWidget = this.widgetInfo;
         this.http
@@ -78,7 +71,7 @@ export class UserSettingsService {
             );
     }
 
-    private save(uniqId: string) {
+    private save(uniqId: string): void {
         for (const item of this.widgetService.dashboard) {
             if (item.uniqid === uniqId) {
                 const cellSetting: NewUserGrid = new (class implements NewUserGrid {

@@ -22,7 +22,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     templateUrl: './password-reset.component.html',
 })
 export class PasswordResetComponent {
-    
+
     myForm: FormGroup;
 
     isLoadingData: boolean = false;
@@ -96,7 +96,6 @@ export class PasswordResetComponent {
             this.isLoadingData = false;
         } catch (err) {
             this.snackBar.openSnackBar('Пароль не изменен', 'snackbar-red');
-            this.closeOverlay();
             this.isLoadingData = false;
         }
     }

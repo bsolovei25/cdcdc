@@ -12,7 +12,7 @@
   <div class="circle circle__right circle__right-top"></div>
   <div class="person__avatar">
     <div class="circle circle__left circle__left-bottom"></div>
-    <div class="person__img"></div>
+    <img class="person__img" [src]="photoPathUser">
   </div>
   <div class="person__info" *ngIf="person">
     <div class="person__name" *ngIf="isPersonExist()">
