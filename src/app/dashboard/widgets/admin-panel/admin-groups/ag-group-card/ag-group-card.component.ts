@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IGroup } from '../../../../models/admin-panel';
 
 @Component({
@@ -10,7 +10,18 @@ export class AgGroupCardComponent implements OnInit {
     @Input() public group: IGroup = null;
     @Input() public isCardActive: boolean = false;
 
+    @Output() private editGroup: EventEmitter<void> = new EventEmitter<void>();
+    @Output() private deleteGroup: EventEmitter<void> = new EventEmitter<void>();
+
     constructor() {}
 
     public ngOnInit(): void {}
+
+    public onDeleteGroup(): void {
+        this.deleteGroup.emit();
+    }
+
+    public onEditGroup(): void {
+        this.editGroup.emit();
+    }
 }

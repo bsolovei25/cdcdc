@@ -82,7 +82,11 @@ export class AdminEmployeeComponent implements OnInit, OnDestroy {
     }
 
     public getWorkerFullName(worker: IUser): string {
-        return `${worker.lastName} ${worker.firstName} ${worker.middleName}`;
+        let name: string = `${worker.lastName} ${worker.firstName}`;
+        if (worker.middleName) {
+            name = `${name} ${worker.middleName}`;
+        }
+        return name;
     }
 
     public returnPhotoPath(): string {

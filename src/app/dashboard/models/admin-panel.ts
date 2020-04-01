@@ -1,6 +1,7 @@
 import { IUser, IUnitEvents } from './events-widget';
 import { IWidgets } from './widget.model';
 import { IWorker } from './worker';
+import { IBrigade } from './shift.model';
 
 export interface IAdminPanel {
     person: IUser;
@@ -10,8 +11,6 @@ export interface IAdminPanel {
 }
 
 export interface IWorkspace {
-    // name: string;
-    // authorId: number;
     id: number;
     screenName: string;
     widgets?: any;
@@ -54,19 +53,51 @@ export interface IWorkerOptionAdminPanel {
 export interface IGroup {
     id: number;
     name: string;
-    description: string;
+    claims?: IGlobalClaim[];
+    users?: number[];
 }
 
 export interface IGlobalClaim {
     claimType: string;
-    description: string;
-    claimCategory: string;
+    description?: string;
+    claimCategory?: string;
     claimCategoryName?: string;
     claimName?: string;
     claimValueTypeName?: string;
     specification?: string;
     claimValueType?: string;
     value?: string;
+}
+
+export interface IUserLdap {
+    id: string;
+    displayName?: string;
+    givenName?: string;
+    surname?: string;
+    userPrincipalName?: string;
+    samAccountName?: string;
+    sid: string;
+}
+
+export interface IUserImported {
+    login: string;
+    sid: string;
+    firstName?: string;
+    lastName?: string;
+    brigade?: IBrigade;
+    position: string;
+    isLoadedAutomatically: boolean;
+    displayName: string;
+    userClaimsVersion?: number;
+    id: number;
+    email?: string;
+    concurrencyStamp: string;
+}
+
+export interface IUserLdapDto {
+    importedUser?: IUserImported;
+    ldapUser: IUserLdap;
+    isUserImported: boolean;
 }
 
 export enum EnumClaims {

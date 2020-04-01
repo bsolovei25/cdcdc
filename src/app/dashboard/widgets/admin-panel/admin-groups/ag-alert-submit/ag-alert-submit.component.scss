@@ -1,0 +1,64 @@
+.container {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  box-sizing: border-box;
+
+  .alert {
+    position: relative;
+
+    width: 500px;
+    height: 250px;
+
+    box-sizing: border-box;
+    border: 1px solid var(--color-border-main-transparrent);
+    padding: 20px 25px 70px;
+    border-radius: 10px;
+
+    background: var(--color-bg-main);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &__title {
+      width: 100%;
+      height: max-content;
+      text-align: center;
+      line-height: 150%;
+    }
+
+    &__buttons {
+      position: absolute;
+
+      width: 80%;
+      height: 50px;
+
+      bottom: 10px;
+      left: 0;
+      right: 0;
+      margin: auto;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+
+      box-sizing: border-box;
+      padding: 0px 10%;
+
+      .button {
+        width: 120px;
+        height: 50px;
+      }
+    }
+  }
+}

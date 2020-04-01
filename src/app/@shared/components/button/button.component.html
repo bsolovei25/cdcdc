@@ -2,6 +2,7 @@
   class="button button__normal"
   [ngClass]="changeButtonStyle()"
   [ngClass]="{'button-active':isActive}"
+  [disabled]="disabled"
   (mouseover)="isButtonHover=true"
   (mouseleave)="isButtonHover=false"
   (click)="onClick()"

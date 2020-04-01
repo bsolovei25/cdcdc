@@ -168,6 +168,12 @@
   width: 160px;
   height: 24px;
 
+  &__active {
+    background: url(../../../../../../assets/icons/widgets/petroleum-products-movement/SVG/left_button_left_a.svg);
+    background-repeat: no-repeat;
+    color: white;
+  }
+
   &:hover {
     background: url(../../../../../../assets/icons/widgets/petroleum-products-movement/SVG/left_button_left_a.svg);
     background-repeat: no-repeat;
@@ -183,6 +189,12 @@
   background-repeat: no-repeat;
   width: 160px;
   height: 24px;
+
+  &__active {
+    background: url(../../../../../../assets/icons/widgets/petroleum-products-movement/SVG/left_button_left_a.svg);
+    background-repeat: no-repeat;
+    color: white;
+  }
 
   &:hover {
     background: url(../../../../../../assets/icons/widgets/petroleum-products-movement/SVG/left_button_right_a.svg);

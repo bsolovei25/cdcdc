@@ -1,5 +1,4 @@
 <div class="admin">
-  <!-- <evj-widget-preloader *ngIf="isDataLoading" [isLoading]="isDataLoading"></evj-widget-preloader> -->
   <evj-loading-shade [isLoading]="isDataLoading"></evj-loading-shade>
 
   <div class="admin__header">
@@ -22,6 +21,7 @@
       <div class="search">
         <evj-input
           class="insert-component"
+          *ngIf="!isClaimsShowing"
           [placeholder]="'Введите название рабочей области'"
           [iconSrc]="searchIcon"
           (inputedValue)="onSearchWorkspace($event)"
@@ -36,6 +36,7 @@
         [workerUnit]="workerUnit"
         [searchingFieldName]="searchingFieldName"
         [isCreateNewUser]="isCreateNewUser"
+        [isImportNewWorker]="isImportNewWorker"
         (workerData)="onChangeWorkerData($event)"
         (responsible)="onSetResponsible($event)"
         (password)="onChangePassword($event)"
