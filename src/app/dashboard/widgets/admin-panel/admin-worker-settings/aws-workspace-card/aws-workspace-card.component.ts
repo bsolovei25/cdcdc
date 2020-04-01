@@ -41,6 +41,8 @@ export class AwsWorkspaceCardComponent implements OnInit, AfterViewInit {
 
     private allScreenClaims: IGlobalClaim[] = [];
 
+    private currentWorkspace: IWorkspace = null;
+
     constructor(private adminService: AdminPanelService, private cdRef: ChangeDetectorRef) {}
 
     public ngOnInit(): void {
@@ -56,15 +58,15 @@ export class AwsWorkspaceCardComponent implements OnInit, AfterViewInit {
 
     public ngAfterViewInit(): void {
         if (this.isActive) {
-            const currentWorkspace = this.workerScreens.find(
+            this.currentWorkspace = this.workerScreens.find(
                 (item) => item.id === this.workspace.id
             );
-            if (currentWorkspace) {
+            if (this.currentWorkspace) {
                 const claimsArray: string[] = [];
-                currentWorkspace.claims.sort(
+                this.currentWorkspace.claims.sort(
                     (a, b) => ScreenClaimsEnum[a.claimType] - ScreenClaimsEnum[b.claimType]
                 );
-                currentWorkspace.claims.forEach((claim) => claimsArray.push(claim.claimName));
+                this.currentWorkspace.claims.forEach((claim) => claimsArray.push(claim.claimName));
                 this.selectFormControl.setValue(claimsArray);
                 this.cdRef.detectChanges();
             }
@@ -86,12 +88,55 @@ export class AwsWorkspaceCardComponent implements OnInit, AfterViewInit {
         return claimsArray;
     }
 
+    private changeClaimsInWorkspace(claims: IGlobalClaim[]): void {
+        const length = this.currentWorkspace.claims.length;
+        this.currentWorkspace.claims.splice(0, length);
+        claims.forEach((claim) => this.currentWorkspace.claims.push(claim));
+    }
+
+    private changeWorkerClaims(claims: IGlobalClaim[]): void {
+        const addedClaims: IGlobalClaim[] = [];
+        const deletedClaims: IGlobalClaim[] = [];
+        this.allScreenClaims.forEach((claim) => {
+            if (claims.findIndex((item) => item.claimType === claim.claimType) !== -1) {
+                addedClaims.push(claim);
+            } else {
+                deletedClaims.push(claim);
+            }
+        });
+
+        addedClaims.forEach((claim) => {
+            const index = this.workerSpecialClaims.findIndex(
+                (item) => item.claimType === claim.claimType
+            );
+            if (index === -1) {
+                this.workerSpecialClaims.push(claim);
+            }
+        });
+
+        deletedClaims.forEach((claim) => {
+            const index = this.workerSpecialClaims.findIndex(
+                (item) => item.claimType === claim.claimType
+            );
+            if (index !== -1) {
+                this.workerSpecialClaims.splice(index, 1);
+            }
+        });
+    }
+
     public onChangeSelect(): void {
-        const claims: IClaim[] = [];
-        this.selectFormControl.value.forEach((claim: string) =>
-            claims.push(
-                this.adminService.screenClaims.find((item: IClaim) => item.id === EnumClaims[claim])
-            )
-        );
+        const claimsNames: string[] = this.selectFormControl.value;
+        if (claimsNames.length) {
+            const claims: IGlobalClaim[] = [];
+            claimsNames.forEach((name) => {
+                const foundClaim = this.allScreenClaims.find((claim) => claim.claimName === name);
+                if (foundClaim) {
+                    foundClaim.value = this.workspace.id.toString();
+                    claims.push(foundClaim);
+                }
+            });
+            this.changeClaimsInWorkspace(claims);
+            this.changeWorkerClaims(claims);
+        }
     }
 }

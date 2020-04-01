@@ -114,3 +114,10 @@ export enum ScreenClaimsEnum {
     screenDel,
     screenAdmin,
 }
+
+export enum ScreenClaimsNamesEnum {
+    'Просмотр экрана',
+    'Редактирование экрана',
+    'Удаление экрана',
+    'Администрирование экрана',
+}
