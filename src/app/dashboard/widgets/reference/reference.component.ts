@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { NewWidgetService } from '../../services/new-widget.service';
 import { Subscription } from 'rxjs';
 import { IReferenceTypes } from '../../models/references';
+import { ReferencesService } from '../../services/references.service';
+import { ItemSizeAverager } from '@angular/cdk-experimental/scrolling';
 
 @Component({
     selector: 'evj-reference',
@@ -28,7 +30,7 @@ export class ReferenceComponent implements OnInit, OnDestroy {
 
     isLongBlock: boolean = true;
 
-    indexColumn: number = 0;
+    indexColumn: number = null;
 
     public data: IReferenceTypes[] = [
         {
@@ -82,8 +84,15 @@ export class ReferenceComponent implements OnInit, OnDestroy {
         },
     ];
 
+    public datas: IReferenceTypes[] = [];
+
+    public dataTable: any = []; //// НАПИСАТЬ МОДЕЛЬКУ
+
+    public idReferenceClick: number;
+
     constructor(
         public widgetService: NewWidgetService,
+        public referencesService: ReferencesService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -97,7 +106,11 @@ export class ReferenceComponent implements OnInit, OnDestroy {
         );
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.subscriptions.push(
+            this.getReference()
+        );
+    }
 
     ngOnDestroy() {
         if (this.subscriptions) {
@@ -107,10 +120,26 @@ export class ReferenceComponent implements OnInit, OnDestroy {
         }
     }
 
+    getReference() {
+        return this.referencesService.getReference().subscribe((data) => {
+            this.datas = data;
+            this.data = this.datas;
+            this.idReferenceClick = this.data[0].id; ///ПОДУМАТЬ ЕСЛИ РЕФЕРЕНС НЕ БУДЕТ
+        })
+    }
+
+    getTable(id: number) {
+        this.referencesService.getTableReference(id).subscribe((data) => {
+            this.dataTable = data;
+        })
+    }
+
     onClickReference(data, index) {
         for (let item of this.data) {
             item.open = false;
         }
+
+        this.getTable(data.id);
 
         data.open = true;
         this.indexColumn = index;
@@ -127,31 +156,8 @@ export class ReferenceComponent implements OnInit, OnDestroy {
         }
     }
 
-    changeSwap() {
-        let check = <HTMLInputElement>document.getElementById('checkBoxValue');
-        if (check.checked) {
-            this.valueCheck = false;
-        } else {
-            this.valueCheck = true;
-        }
+    changeSwap(item) {
+        item.checked = !item.checked;
     }
 
-    changeUniqSwap() {
-        let check = <HTMLInputElement>document.getElementById('checkBoxUniqValue');
-        if (check.checked) {
-            this.valueUniqCheck = false;
-        } else {
-            this.valueUniqCheck = true;
-        }
-    }
-
-    onClickTitle(item: string): void {
-        if (item === 'fio') {
-            this.clickFio = true;
-            this.clickDate = false;
-        } else if (item === 'date') {
-            this.clickFio = false;
-            this.clickDate = true;
-        }
-    }
 }

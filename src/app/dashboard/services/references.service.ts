@@ -23,6 +23,10 @@ export class ReferencesService {
         return this.http.get<IReferenceColumns[]>(this.restUrl + `/api/ref-book/ReferenceColumn/` + id + '/all');
     }
 
+    public getTableReference(id: number): Observable<any[]> {
+        return this.http.get<any[]>(this.restUrl + `/api/ref-book/ReferenceData/` + id + '/tree');
+    }
+
     public removeReference(id: number): Observable<IReferenceTypes> {
         return this.http.delete<IReferenceTypes>(this.restUrl + '/api/ref-book/ReferenceType/' + id);
     }
