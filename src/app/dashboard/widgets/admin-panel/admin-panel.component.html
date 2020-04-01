@@ -106,6 +106,7 @@
     <evj-admin-worker-settings
       class="admin-container"
       [isCreateNewUser]="isCreateNewWorker"
+      [isImportNewWorker]="isImportNewWorker"
       (closeWorkerSettings)="onCloseWorkerSettings()"
       (mousedown)="$event.stopPropagation()"
       (touchstart)="$event.stopPropagation()"
@@ -119,7 +120,7 @@
   <div class="popup" [ngClass]="{'popup_active':isPopupShowed}">
     <evj-admin-ad-import
       *ngIf="isPopupShowed"
-      (clickClose)="isPopupShowed=false"
+      (closeLdap)="onCloseLdapList($event)"
     ></evj-admin-ad-import>
   </div>
 

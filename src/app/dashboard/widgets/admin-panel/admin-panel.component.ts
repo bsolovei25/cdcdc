@@ -29,6 +29,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     public isWorkerSettingsShowed: boolean = false;
     public isGroupsShowed: boolean = false;
     public isCreateNewWorker: boolean = false;
+    public isImportNewWorker: boolean = false;
     public isDropdownShowed: boolean = false;
     public isPopupShowed: boolean = false;
     //#endregion
@@ -121,6 +122,15 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     public onCloseWorkerSettings(): void {
         this.isCreateNewWorker = false;
         this.isWorkerSettingsShowed = false;
+        this.isImportNewWorker = false;
+    }
+
+    public onCloseLdapList(event: boolean): void {
+        if (event) {
+            this.isWorkerSettingsShowed = true;
+            this.isImportNewWorker = true;
+        }
+        this.isPopupShowed = false;
     }
 
     public onSearchWorker(inputedValue: string): void {

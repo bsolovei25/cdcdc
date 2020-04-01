@@ -10,6 +10,8 @@ import {
     IGlobalClaim,
     IGroup,
     IUserLdapDto,
+    IUserLdap,
+    IUserImported,
 } from '../../models/admin-panel';
 import { IUser, IUnitEvents } from '../../models/events-widget';
 import { IWidgets } from '../../models/widget.model';
@@ -22,7 +24,7 @@ export class AdminPanelService {
     private restUrl: string = `/api/user-management`;
     private restFileUrl: string = '';
 
-    private defaultWorker: IUser = {
+    public defaultWorker: IUser = {
         id: undefined,
         login: '',
         firstName: '',
@@ -257,6 +259,11 @@ export class AdminPanelService {
     public getAllLDAPUsers(): Observable<IUserLdapDto[]> {
         const url: string = `${this.restUrl}/ldap/users`;
         return this.http.get<IUserLdapDto[]>(url);
+    }
+
+    public importUserFromLDAP(worker: IUserLdap): Observable<IUserImported> {
+        const url: string = `${this.restUrl}/ldap/user/${worker.userPrincipalName}/import`;
+        return this.http.post<IUserImported>(url, null);
     }
     //#endregion
 

@@ -16,6 +16,8 @@ import { SnackBarService } from '../../../services/snack-bar.service';
 })
 export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     @Input() public isCreateNewUser: boolean = false;
+    @Input() public isImportNewWorker: boolean = false;
+
     @Output() public closeWorkerSettings: EventEmitter<IUser> = new EventEmitter<IUser>();
 
     public toggleClaim: boolean = false;

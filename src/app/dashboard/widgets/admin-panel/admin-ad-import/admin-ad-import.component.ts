@@ -1,7 +1,9 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
-import { IUserLdapDto } from '../../../models/admin-panel';
+import { IUserLdapDto, IUserLdap, IUserImported } from '../../../models/admin-panel';
 import { SelectionModel } from '@angular/cdk/collections';
+import { fillDataShape } from '../../../../@shared/common-functions';
+import { IUser } from '../../../models/events-widget';
 
 @Component({
     selector: 'evj-admin-ad-import',
@@ -9,7 +11,7 @@ import { SelectionModel } from '@angular/cdk/collections';
     styleUrls: ['./admin-ad-import.component.scss'],
 })
 export class AdminAdImportComponent implements OnInit {
-    @Output() private clickClose: EventEmitter<void> = new EventEmitter<void>();
+    @Output() private closeLdap: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     public workersLdap: IUserLdapDto[] = null;
 
@@ -46,11 +48,26 @@ export class AdminAdImportComponent implements OnInit {
     }
 
     public onClose(): void {
-        this.clickClose.emit();
+        this.closeLdap.emit(false);
     }
 
-    public onClickAdd(): void {
+    public async onClickAdd(): Promise<void> {
         if (this.workerSelect.hasValue()) {
+            const worker: IUserLdap = this.workerSelect.selected[0].ldapUser;
+            const importedWorker: IUser = fillDataShape(this.adminService.defaultWorker);
+            importedWorker.id = undefined;
+            try {
+                const user = await this.adminService.importUserFromLDAP(worker).toPromise();
+                for (const key in user) {
+                    if (importedWorker.hasOwnProperty(key)) {
+                        importedWorker[key] = user[key];
+                    }
+                }
+                this.adminService.activeWorker$.next(importedWorker);
+                this.closeLdap.emit(true);
+            } catch (error) {
+                console.log(error.error);
+            }
         }
     }
 }

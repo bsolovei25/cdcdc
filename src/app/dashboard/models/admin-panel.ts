@@ -90,6 +90,7 @@ export interface IUserImported {
     displayName: string;
     userClaimsVersion?: number;
     id: number;
+    email?: string;
     concurrencyStamp: string;
 }
 
