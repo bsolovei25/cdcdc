@@ -117,7 +117,10 @@
   </ng-container>
 
   <div class="popup" [ngClass]="{'popup_active':isPopupShowed}">
-    <evj-admin-ad-import *ngIf="isPopupShowed"></evj-admin-ad-import>
+    <evj-admin-ad-import
+      *ngIf="isPopupShowed"
+      (clickClose)="isPopupShowed=false"
+    ></evj-admin-ad-import>
   </div>
 
   <evj-frame-bottom></evj-frame-bottom>

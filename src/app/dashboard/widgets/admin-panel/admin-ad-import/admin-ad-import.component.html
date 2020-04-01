@@ -1,3 +1,26 @@
-<div class="container">
-  <div class="alert"></div>
+<div
+  class="container"
+  (mousedown)="$event.stopPropagation()"
+  (touchstart)="$event.stopPropagation()"
+>
+  <div class="alert">
+    <div class="button-close" (click)="onClose()"></div>
+    <div class="alert__search">
+      <evj-input
+        class="insert-component"
+        [placeholder]="'Введите имя пользователя или логин'"
+        [iconSrc]="searchIcon"
+        (inputedValue)="onSearchWorker($event)"
+      ></evj-input>
+    </div>
+    <div class="alert__table"></div>
+    <div class="alert__button">
+      <evj-button
+        class="insert-component"
+        [isSmallButton]="false"
+        [textButton]="'Добавить сотрудника'"
+        [isChangingState]="false"
+      ></evj-button>
+    </div>
+  </div>
 </div>
