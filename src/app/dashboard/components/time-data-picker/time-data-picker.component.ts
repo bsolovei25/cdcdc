@@ -57,7 +57,7 @@ export class TimeDataPickerComponent implements OnInit, OnChanges {
     constructor() { }
 
     ngOnInit(): void {
-        
+
     }
 
     ngOnChanges() {
