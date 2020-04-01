@@ -56,6 +56,8 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
     public static itemCols: number = 16;
     public static itemRows: number = 30;
 
+    public photoPathMain: string = 'assets/icons/widgets/admin/default_avatar2.svg';
+
     constructor(
         protected widgetService: WidgetService,
         public shiftService: ShiftService,
@@ -144,7 +146,7 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
             this.currentShift = data.acceptingShift;
         }
 
-        if (this.currentShift.shiftMembers) {
+        if (this.currentShift.shiftMembers?.length > 0) {
             let index = this.currentShift.shiftMembers.findIndex(
                 (item) => item.position === 'responsible'
             );
@@ -168,6 +170,8 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
                     this.setMessage(commentObj);
                 }
             }
+        } else {
+            console.warn(`Для виджета ${this.widgetType} нет доступных смен`);
         }
 
         this.presentMembers = this.currentShift.shiftMembers.filter(

@@ -1,14 +1,16 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, OnChanges } from '@angular/core';
 import { Shift, ShiftMember } from 'src/app/dashboard/models/shift.model';
 import { ShiftService } from '../../../services/shift.service';
 import { SnackBarService } from '../../../services/snack-bar.service';
+
+interface IMapper { code: string; name: string; }
 
 @Component({
     selector: 'evj-shift-person',
     templateUrl: './shift-person.component.html',
     styleUrls: ['./shift-person.component.scss'],
 })
-export class ShiftPersonComponent implements OnInit {
+export class ShiftPersonComponent implements OnInit, OnChanges {
     @Input() public widgetId: string;
 
     @Input() public person: ShiftMember;
@@ -22,11 +24,12 @@ export class ShiftPersonComponent implements OnInit {
     @Input() public unitId: number;
 
     public isDropdownActive: boolean = false;
+    public photoPathUser: string = 'assets/icons/widgets/admin/default_avatar2.svg';
 
     @ViewChild('dropdown') ddMenu: ElementRef;
     @ViewChild('insideElement') insideElement: ElementRef;
 
-    public mapPosition = [
+    public mapPosition: IMapper[] = [
         {
             code: 'responsible',
             name: 'Старший оператор',
@@ -37,7 +40,7 @@ export class ShiftPersonComponent implements OnInit {
         },
     ];
 
-    public mapStatus = [
+    public mapStatus: IMapper[] = [
         {
             code: 'initialization',
             name: 'Ожидание',
@@ -77,11 +80,15 @@ export class ShiftPersonComponent implements OnInit {
 
     public ngOnInit(): void {}
 
-    public getDisplayStatus(code): string {
+    // TODO add get url
+    public ngOnChanges(): void {
+    }
+
+    public getDisplayStatus(code: string): string {
         return this.mapStatus.find((el) => el.code === code).name;
     }
 
-    public getDisplayPosition(code): string {
+    public getDisplayPosition(code: string): string {
         return this.mapPosition.find((el) => el.code === code).name;
     }
 
@@ -144,7 +151,7 @@ export class ShiftPersonComponent implements OnInit {
         }
     }
 
-    menuCheck(event: any, person: ShiftMember): void {
+    public menuCheck(event: any, person: ShiftMember): void {
         switch (event.target.innerText) {
             case 'Принять смену':
                 this.shiftService.changeStatus(
@@ -253,7 +260,7 @@ export class ShiftPersonComponent implements OnInit {
             });
     }
 
-    addToShift(id) {
+    public addToShift(id: number): void {
         if (!this.onShift) {
             this.shiftService.addMember(id, this.shiftId, this.unitId);
             const event = new CustomEvent('changeShift_clickAddBtn');
@@ -261,17 +268,11 @@ export class ShiftPersonComponent implements OnInit {
         }
     }
 
-    isFromThisBrigade(): boolean {
-        return this.person.employee.brigade.id === this.currentBrigade;
-    }
+    public isPersonExist(): boolean {
+        if (!this.person.employee.firstName || !this.person.employee.lastName) {
+            return false;
+        }
 
-    isPersonExist(): boolean {
-        if (!this.person.employee.firstName) {
-            return false;
-        }
-        if (!this.person.employee.lastName) {
-            return false;
-        }
         return true;
     }
 }
