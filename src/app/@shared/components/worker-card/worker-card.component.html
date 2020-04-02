@@ -24,16 +24,11 @@
       <text x="33" y="20" text-anchor="start" class="svg__txt">
         {{person.email}}
       </text>
-      <text x="33" y="32" text-anchor="start" class="svg__txt" *ngIf="person.id; else noselected">
-        {{getPersonUnit()}}{{getPersonBrigade()}}
+      <text x="33" y="32" text-anchor="start" class="svg__txt">
+        {{getPersonUnit()}}
       </text>
-      <ng-template #noselected>
-        <text x="33" y="32" text-anchor="start" class="svg__txt">
-          {{getPersonUnit()}}{{getPersonBrigade()}}
-        </text>
-      </ng-template>
       <text x="33" y="43" text-anchor="start" class="svg__txt">
-        {{1}}
+        {{getPersonBrigade()}}
       </text>
       <image
         x="-35"

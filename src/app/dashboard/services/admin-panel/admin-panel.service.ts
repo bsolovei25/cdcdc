@@ -136,7 +136,7 @@ export class AdminPanelService {
     }
     //#endregion
 
-    //#region CLAIMS_AND_WORKSPACES
+    //#region WORKSPACES
     public getAllScreens(): Observable<IWorkspace[]> {
         const url: string = `${this.restUrl}/allscreens`;
         return this.http.get<IWorkspace[]>(url);
