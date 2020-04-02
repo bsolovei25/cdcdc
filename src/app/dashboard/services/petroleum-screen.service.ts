@@ -152,46 +152,50 @@ export class PetroleumScreenService {
         }
         this.isLoad$.next(true);
         if (isSource) {
-            const objectsDestination = await this.getObjects(this.client, objectName, 'exit');
-            const objectDestination = objectsDestination?.find(
+            const objectDestinationOld = this.objectsReceiver$.getValue().find(
                 (item) => item.objectName === currentTransfer.destinationName
             );
-            if (!objectDestination) {
-                const tempTransfer = { ...this.emptyTransferGlobal };
-                tempTransfer.uid = currentTransfer.uid;
-                tempTransfer.startTime = currentTransfer.startTime;
-                tempTransfer.endTime = currentTransfer.endTime;
-                tempTransfer.operationType = currentTransfer.operationType;
-                currentTransfer = { ...tempTransfer };
-            } else {
-                objectsDestination.find((item) => item.objectName === currentTransfer.destinationName).isActive = true;
+            const objectsDestination = await this.getObjects(this.client, objectName, 'exit');
+            const objectDestination = this.objectsReceiver$.getValue().find(
+                (item) => item.objectName === currentTransfer.destinationName
+            );
+            if (!objectDestination && objectDestinationOld) {
+                objectsDestination.push(objectDestinationOld);
+            }
+            if (objectsDestination.length > 0 && objectDestinationOld) {
+                objectsDestination
+                    .find((item) => item.objectName === currentTransfer.destinationName)
+                    .isActive = true;
             }
             this.objectsReceiver$.next(objectsDestination);
             const objectsSource = this.objectsSource$.getValue();
             objectsSource.forEach((item) => (item.isActive = false));
             objectsSource.find((item) => item.objectName === objectName).isActive = true;
+            this.objectsSource$.next(objectsSource);
             currentTransfer.sourceName = objectName;
             currentTransfer.sourceProduct = (await this.getAvailableProducts(objectName))[0];
             currentTransfer.sourceClient = this.client;
         } else {
+            const objectSourceOld = this.objectsSource$.getValue().find(
+                (item) => item.objectName === currentTransfer.destinationName
+            );
             const objectsSource = await this.getObjects(this.client, objectName, 'enter');
             const objectSource = objectsSource?.find(
                 (item) => item.objectName === currentTransfer.sourceName
             );
-            if (!objectSource) {
-                const tempTransfer = { ...this.emptyTransferGlobal };
-                tempTransfer.uid = currentTransfer.uid;
-                tempTransfer.startTime = currentTransfer.startTime;
-                tempTransfer.endTime = currentTransfer.endTime;
-                tempTransfer.operationType = currentTransfer.operationType;
-                currentTransfer = { ...tempTransfer };
-            } else {
-                objectsSource.find((item) => item.objectName === currentTransfer.sourceName).isActive = true;
+            if (!objectSource && objectSourceOld) {
+                objectsSource.push(objectSourceOld);
+            }
+            if (objectsSource.length > 0 && objectSourceOld) {
+                objectsSource
+                    .find((item) => item.objectName === currentTransfer.sourceName)
+                    .isActive = true;
             }
             this.objectsSource$.next(objectsSource);
             const objectsDestination = this.objectsReceiver$.getValue();
             objectsDestination.forEach((item) => (item.isActive = false));
             objectsDestination.find((item) => item.objectName === objectName).isActive = true;
+            this.objectsReceiver$.next(objectsDestination);
             currentTransfer.destinationName = objectName;
             currentTransfer.destinationProduct = (await this.getAvailableProducts(objectName))[0];
             currentTransfer.destinationClient = this.client;
@@ -317,16 +321,20 @@ export class PetroleumScreenService {
     }
 
     public async getTankAttributes(objectName: string): Promise<ITankAttribute[]> {
-        let attributes: ITankAttribute[] = await this.http.get<ITankAttribute[]>(
-            `${this.restUrl}/api/petroleum-flow-clients/objects/${objectName}/attr`
-        ).toPromise();
-        const regexp = /[A-Z]/;
-        attributes = attributes
-            .filter((el) =>
-                (el.paramTitle.toUpperCase().search(regexp) === -1) &&
-                (el.paramValue.toUpperCase().search(regexp) === -1)
-            );
-        return attributes;
+        try {
+            let attributes: ITankAttribute[] = await this.http.get<ITankAttribute[]>(
+                `${this.restUrl}/api/petroleum-flow-clients/objects/${objectName}/attr`
+            ).toPromise();
+            const regexp = /[A-Z]/;
+            attributes = attributes
+                .filter((el) =>
+                    (el.paramTitle.toUpperCase().search(regexp) === -1) &&
+                    (el.paramValue.toUpperCase().search(regexp) === -1)
+                );
+            return attributes;
+        } catch {
+            return [];
+        }
     }
 
     public async setTankParam(objectName: string): Promise<void> {
