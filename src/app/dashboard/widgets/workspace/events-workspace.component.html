@@ -411,7 +411,9 @@
                     </div>
                   </div>
                   <div class="avatar_user">
-                    <div class="avatar_user_img"><img src="../assets/pic/avatar_temp.jpg" /></div>
+                    <div class="avatar_user_img">
+                      <img [src]="userAvatar">
+                    </div>
                   </div>
                 </div>
                 <div *ngIf="event.fixedBy.login !== ''" class="choosenUser">
@@ -432,7 +434,9 @@
                     </div>
                   </div>
                   <div class="avatar_user">
-                    <div class="avatar_user_img"><img src="../assets/pic/avatar_temp.jpg" /></div>
+                    <div class="avatar_user_img">
+                      <img [src]="userAvatar">
+                    </div>
                   </div>
                 </div>
                 <evj-ui-block class="workspace__header__block" status="normal">
@@ -959,7 +963,7 @@
                       </div>
                     </div>
                     <div class="avatar_user">
-                      <div class="avatar_user_img"><img src="../assets/pic/avatar_temp.jpg" /></div>
+                      <div class="avatar_user_img"><img [src]="userAvatar" /></div>
                     </div>
                   </div>
                   <evj-ui-block class="workspace__header__block" status="normal">
