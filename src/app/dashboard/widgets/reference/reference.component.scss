@@ -61,8 +61,8 @@
 }
 
 .mycheckbox__default:checked + .mycheckbox__new::after {
-  height: 14px;
-  width: 14px;
+  height: 10px;
+  width: 10px;
   border-radius: 25px;
 }
 
@@ -148,7 +148,7 @@ input {
   width: 30%;
   height: 100%;
   padding: 10px;
-  min-width: 240px;
+  min-width: 202px;
 
   .title-reference {
     position: relative;
@@ -207,7 +207,7 @@ input {
     direction: rtl;
 
     &__name {
-      line-height: 35px;
+      height: 40px;
       padding-left: 20px;
     }
 
@@ -215,59 +215,20 @@ input {
       cursor: pointer;
       direction: ltr;
       display: flex;
-      height: 40px;
 
       .block-active {
-        border-left: 1px solid var(--color-border-active);
-        border-top-right-radius: 15px;
-        border-bottom-right-radius: 15px;
         background: var(--color-bg-active);
+        border-left: 1px solid var(--color-border-active);
       }
     }
 
     &__block-info {
-      position: relative;
       display: flex;
-      width: 90%;
+      width: 100%;
       justify-content: space-between;
     }
 
-    &__button-remove {
-      cursor: pointer;
-      width: 45px;
-    }
-
-    &__button-edit {
-      pointer-events: fill;
-      cursor: pointer;
-      width: 15px;
-      position: absolute;
-      right: 10px;
-      top: 1px;
-    }
-
-    &__add-block {
-      display: flex;
-      width: 80%;
-      margin: 0 auto;
-      margin-left: 20px;
-      height: 40px;
-      direction: ltr;
-    }
-
-    &__add-block-input {
-      width: 100%;
-
-      input {
-        padding-left: 0;
-      }
-    }
-
-    &__add-block-icon {
-      cursor: pointer;
-      width: 20px;
-      margin-top: 5px;
-    }
+  
   }
 
   .bottom-reference-left {
@@ -324,9 +285,10 @@ input {
     }
 
     &__button-search {
+      cursor: pointer;
       height: 30px;
       width: 30px;
-      cursor: pointer;
+
       margin-top: 10px;
     }
 
@@ -410,23 +372,36 @@ input {
     }
 
     &__title-name {
-      width: 50%;
+      display: flex;
+      width: 100%;
+    }
+
+    &__title-name-check {
+    }
+
+    &__title-name-fio {
+      cursor: pointer;
+      width: 100%;
+      font-size: 12px;
     }
 
     &__title-type {
-      width: 20%;
+      width: 50%;
+      display: flex;
     }
 
-    &__title-value {
-      line-height: 20px;
-      padding-top: 6px;
-      width: 15%;
+    &__title-type-check {
     }
 
-    &__title-uniqValue {
-      line-height: 20px;
-      padding-top: 6px;
-      width: 15%;
+    &__title-type-date {
+      cursor: pointer;
+      width: 100%;
+      font-size: 12px;
+    }
+
+    .block-active {
+      background: var(--color-bg-active);
+      border-left: 1px solid var(--color-border-active);
     }
   }
 
@@ -446,7 +421,7 @@ input {
       position: relative;
 
       &__block {
-        display: flex !important;
+        display: flex;
         width: 100%;
         height: 40px;
         line-height: 40px;
@@ -455,83 +430,79 @@ input {
       }
 
       &__fio-block {
+        cursor: pointer;
+        position: relative;
+        display: flex;
         border-bottom: 2px solid var(--color-bg-main);
-        width: 50%;
-        background-color: #1b1f2c;
+        width: 100%;
+        border-left: 1px solid var(--color-bg-main);
+       /// background-color: #1b1f2c;
+
+       ::ng-deep{
+         .mat-form-field-infix{
+           width: 100%;
+         }
+       }
       }
+
+      &__fio-block2 {
+        cursor: pointer;
+        position: relative;
+        display: flex;
+        border-bottom: 2px solid var(--color-bg-main);
+        width: 100%;
+        border-left: 1px solid var(--color-bg-main);
+       // background-color: #1b1f2c;
+       background: none !important;
+      }
+
 
       .block-active {
         background: var(--color-bg-active);
-      }
-
-      .block-active-name{
-         border-left: 1px solid var(--color-border-active);
-         background: var(--color-bg-active);
+        border-left: 1px solid var(--color-border-active);
       }
 
       &__fio {
-        text-align: left;
-        padding-left: 30px;
+        width: 100%;
+        text-align: center;
       }
 
-      &__type {
-        border-left: 2px solid var(--color-bg-main);
-        border-bottom: 2px solid var(--color-bg-main);
-        width: 20%;
-        background-color: #1b1f2c;
-
-        .mat-form-field {
-          width: 90%;
-
-          ::ng-deep .mat-form-field-underline {
-            display: none;
-          }
-        }
-      }
-
-      &__value {
-        border-left: 2px solid var(--color-bg-main);
-        border-bottom: 2px solid var(--color-bg-main);
-        width: 15%;
-        background-color: #1b1f2c;
-      }
-
-      &__uniqValue {
-        border-left: 2px solid var(--color-bg-main);
-        border-bottom: 2px solid var(--color-bg-main);
-        width: 15%;
-        background-color: #1b1f2c;
+      &__edit-button {
+        position: absolute;
+        top: 5px;
+        width: 16px;
+        right: 5px;
       }
 
       &__delete-button {
-        cursor: pointer;
-        display: block !important;
+        width: 40px;
         position: absolute;
         right: -45px;
-        width: 40px;
         background: var(--color-bg-main);
-      }
-
-      &__delete-button-none {
-        display: none;
+        cursor: pointer;
       }
 
       &__add-block {
         display: flex;
+        width: 100%;
+        margin: 0 auto;
+        margin-left: 20px;
+        height: 40px;
         direction: ltr;
-
-        .reference-container-value__fio {
-          input {
-            height: 35px;
-            padding-left: 0;
-          }
+      }
+  
+      &__add-block-input {
+        width: 100%;
+  
+        input {
+          padding-left: 0;
         }
-
-        .reference-container-value__type {
-          .mat-form-field {
-            width: 95%;
-          }
-        }
+      }
+  
+      &__add-block-icon {
+        cursor: pointer;
+        width: 20px;
+        margin-top: 5px;
       }
 
       &__add-button {
@@ -542,6 +513,26 @@ input {
         margin-top: 15px;
         width: 20px;
         background: var(--color-bg-main);
+      }
+
+      &__add-button-edit {
+        cursor: pointer;
+        display: block !important;
+        position: absolute;
+        right: 10px;
+        width: 20px;
+      }
+
+      &__edit-value{
+        display: flex;
+        width: 80%;
+      }
+
+
+      &__edit-input{
+        input{
+       //   width: 100% !important;
+        }
       }
     }
   }
@@ -644,109 +635,6 @@ input {
   display: none;
 }
 
-.example-box {
-  cursor: move;
-}
-
-.cdk-drag-preview {
-  box-sizing: border-box;
-  border-radius: 4px;
-  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14),
-    0 3px 14px 2px rgba(0, 0, 0, 0.12);
-}
-
-.cdk-drag-placeholder {
-  opacity: 1;
-  display: flex !important;
-  .reference-container-value__block {
-    display: flex !important;
-  }
-}
-
-.cdk-drag-animating {
-  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-}
-
-.example-box:last-child {
-  border: none;
-}
-
-.reference-container-value.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
-  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-}
-
-.cdk-drag-preview {
-  font-size: 11px !important;
-  .reference-container-value {
-    height: 100%;
-    background-color: #1b1f2c;
-    width: 90%;
-    min-height: 40px;
-    direction: rtl;
-    position: relative;
-
-    &__block {
-      display: flex !important;
-      width: 100%;
-      height: 40px;
-      line-height: 40px;
-      text-align: center;
-      direction: ltr;
-    }
-
-    &__fio-block {
-      border-bottom: 2px solid var(--color-bg-main);
-      width: 50%;
-      background-color: #1b1f2c;
-    }
-
-    .block-active {
-      //border-left: 1px solid #1B1F2C;
-      background: var(--color-bg-active);
-    }
-
-    &__fio {
-      text-align: left;
-      padding-left: 30px;
-    }
-
-    &__type {
-      border-left: 2px solid var(--color-bg-main);
-      border-bottom: 2px solid var(--color-bg-main);
-      width: 20%;
-      background-color: #1b1f2c;
-
-      .mat-form-field {
-        width: 90%;
-
-        ::ng-deep .mat-form-field-underline {
-          display: none;
-        }
-      }
-    }
-
-    &__value {
-      border-left: 2px solid var(--color-bg-main);
-      border-bottom: 2px solid var(--color-bg-main);
-      width: 15%;
-      background-color: #1b1f2c;
-    }
-
-    &__uniqValue {
-      border-left: 2px solid var(--color-bg-main);
-      border-bottom: 2px solid var(--color-bg-main);
-      width: 15%;
-      background-color: #1b1f2c;
-    }
-
-    &__delete-button {
-      position: absolute;
-      right: -45px;
-      background: var(--color-bg-main);
-    }
-
-    &__delete-button-none {
-      display: none;
-    }
-  }
+.disabled{
+  display: none;
 }

@@ -131,6 +131,9 @@ import { AgGroupCardComponent } from './widgets/admin-panel/admin-groups/ag-grou
 import { AgGroupWorkerCardComponent } from './widgets/admin-panel/admin-groups/ag-group-worker-card/ag-group-worker-card.component';
 import { AwsResponsibleAlertComponent } from './widgets/admin-panel/admin-worker-settings/aws-responsible-alert/aws-responsible-alert.component';
 import { AwsPasswordAlertComponent } from './widgets/admin-panel/admin-worker-settings/aws-password-alert/aws-password-alert.component';
+import { ReferenceComponent } from './widgets/reference/reference.component';
+import { ReportServerConfiguratorComponent } from './widgets/report-server-configurator/report-server-configurator.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AwsCreateClaimComponent } from './widgets/admin-panel/admin-worker-settings/aws-create-claim/aws-create-claim.component';
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule, NGX_MAT_DATE_FORMATS } from '@angular-material-components/datetime-picker';
 import { MatButtonModule } from '@angular/material/button';
@@ -140,6 +143,7 @@ import { AgNewGroupComponent } from './widgets/admin-panel/admin-groups/ag-new-g
 import { AgAlertSubmitComponent } from './widgets/admin-panel/admin-groups/ag-alert-submit/ag-alert-submit.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { AdminAdImportComponent } from './widgets/admin-panel/admin-ad-import/admin-ad-import.component';
+import { AddReportFileComponent } from './widgets/report-server-configurator/add-report-file/add-report-file.component';
 
 @NgModule({
     declarations: [
@@ -256,10 +260,13 @@ import { AdminAdImportComponent } from './widgets/admin-panel/admin-ad-import/ad
         AgGroupWorkerCardComponent,
         AwsResponsibleAlertComponent,
         AwsPasswordAlertComponent,
+        ReferenceComponent,
+        ReportServerConfiguratorComponent,
         AwsCreateClaimComponent,
         AgNewGroupComponent,
         AgAlertSubmitComponent,
         AdminAdImportComponent,
+        AddReportFileComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -309,6 +316,8 @@ import { AdminAdImportComponent } from './widgets/admin-panel/admin-ad-import/ad
         AdminReferencesComponent,
         PetroleumProductsMovementComponent,
         AdminPanelComponent,
+        ReferenceComponent,
+        ReportServerConfiguratorComponent,
         ReportComponent,
         ReportsComponent
     ],
@@ -336,6 +345,7 @@ import { AdminAdImportComponent } from './widgets/admin-panel/admin-ad-import/ad
         MatButtonModule,
         MatExpansionModule,
         ImageCropperModule,
+        DragDropModule,
         NgxMatDatetimePickerModule,
         NgxMatTimepickerModule,
         NgxMatNativeDateModule,
