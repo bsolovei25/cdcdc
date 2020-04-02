@@ -1,0 +1,211 @@
+<evj-widget-preview [title]="widgetTitle" [previewTitle]="widgetType" *ngIf="isMock"></evj-widget-preview>
+
+<div class="container" *ngIf="!isMock">
+  <evj-widget-header [title]="widgetTitle" [units]="widgetUnits" [code]="widgetCode" [id]="id" [uniqId]="uniqId"
+    [icon]="widgetIcon"></evj-widget-header>
+
+  <evj-frame-top></evj-frame-top>
+
+  <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+    <div class="references">
+      <div class="reference-left">
+        <div class="title-reference">Наименование справочника</div>
+        <div class="reference-container">
+          <ng-container *ngFor="let item of data; let i = index">
+            <div class="reference-container__block" (click)="onClickReference(item, i)">
+              <div class="reference-container__block-info" [class.block-active]="item.id === idReferenceClick">
+                <div class="reference-container__name">{{item.name}}</div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+        <div class="bottom-reference-left">
+          <div class="bottom-reference-left__block">
+            <div class="bottom-reference-left__input-block">
+              <div class="bottom-reference-left__button-search">
+                <svg-icon *ngIf="!isRefInput" class="button_filter_icon"
+                  src="./assets/icons/widgets/references/search_white.svg"></svg-icon>
+
+                <svg-icon *ngIf="isRefInput" class="indicator-selector__collapse"
+                  src="./assets/icons/widgets/references/search_blue.svg"></svg-icon>
+              </div>
+              <div class="bottom-reference-left__input" [class.bottom-reference-left__input-active]="isRefInput">
+                <input type="text" (focus)="isRefInput = true" (blur)="isRefInput = false"
+                  (keyup)="searchReference($event)" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="reference-right">
+        <div class="title-reference" [class.isLongBlock]="isLongBlock">
+          <!--NG-CONTAINER FOR TITLE-->
+          <ng-container *ngIf="data[this.indexColumn] !== undefined">
+            <ng-container *ngFor="let item of this.columnData">
+              <ng-container *ngIf="item.name !== 'Id'">
+                <div class="title-reference__title-name" [class.block-active]="item.checked">
+                  <div class="title-reference__title-name-check">
+                    <label class="mycheckbox">
+                      <input type="checkbox" id="checkBoxValue" class="mycheckbox__default"
+                        (click)="changeSwap(item)" />
+                      <div class="mycheckbox__new" [class.mycheckbox__checked]="item.checked"></div>
+                    </label>
+                  </div>
+                  <div class="title-reference__title-name-fio">
+                    {{ item.name }}
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </div>
+        <div class="references-container-scroll-block">
+          <div class="reference-container-value" [class.isLongBlock]="isLongBlock">
+            <ng-container *ngIf="this.dataTable.data !== undefined">
+              <ng-container *ngFor="let item of this.dataTable.data">
+                <div class="reference-container-value__block" [class.block-active]="item.open"
+                  (click)="onClickItemReference(item)">
+                  <ng-container *ngFor="let i of this.columnData">
+                    <ng-container *ngIf="i.name !== 'Id'">
+                      <ng-container *ngIf="i.name === 'Name'">
+                        <div class="reference-container-value__fio-block2" [class.block-active]="item.open">
+
+                          <div *ngIf="!item.edit" class="reference-container-value__fio">
+                            {{ item.name }}
+                          </div>
+
+                          <div *ngIf="item.edit" class="reference-container-value__fio">
+                            <input type="text" [(ngModel)]="newName" placeholder="Введите текст..." />
+                          </div>
+
+                          <div *ngIf="!item.edit" class="reference-container-value__edit-button"
+                            (click)="onBlockEditRecordName(item)">
+                            <svg-icon *ngIf="item.open" class="indicator-selector__collapse"
+                              src="./assets/icons/widgets/references/edit_white.svg"></svg-icon>
+                          </div>
+                          <div *ngIf="item.edit" class="reference-container-value__add-button-edit"
+                            (click)="onEditRecordName(item)">
+                            <svg-icon class="indicator-selector__collapse"
+                              src="./assets/icons/widgets/references/accept.svg">
+                            </svg-icon>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container *ngIf="i.name !== 'Name'">
+                        <div class="reference-container-value__fio-block">
+                          <ng-container *ngFor="let i2 of item.columnsData">
+                            <div *ngIf="i.id === i2.referenceColumnId" class="reference-container-value__fio">
+                              <div *ngIf="!i2.edit" [class.disabled]="i2.edit">
+                                <div *ngIf="i.columnTypeId === 2"> {{ i2.valueNumber }}</div>
+                                <div *ngIf="i.columnTypeId === 1"> {{ i2.valueString }}</div>
+                                <div *ngIf="i.columnTypeId === 3"> {{ i2.valueDateTime | date: 'dd.MM.yyyy HH:mm' }}
+                                </div>
+                                <div *ngIf="i.columnTypeId === 4"> {{ i2.valueInt }}</div>
+                              </div>
+                              <div *ngIf="!i2.edit" class="reference-container-value__edit-button"
+                                (click)="onBlockEditRecord(i,item)">
+                                <svg-icon *ngIf="item.open" class="indicator-selector__collapse"
+                                  src="./assets/icons/widgets/references/edit_white.svg"></svg-icon>
+                              </div>
+                              <div *ngIf="i2.edit" class="reference-container-value__edit-value">
+                                <div *ngIf="i.columnTypeId === 2" class="reference-container-value__edit-input"> <input
+                                    type="number" [(ngModel)]="i2.valueNumber" placeholder="Введите число..."
+                                    (focus)="item.open = false" /></div>
+                                <div *ngIf="i.columnTypeId === 1" class="reference-container-value__edit-input"> <input
+                                    type="text" [(ngModel)]="i2.valueString" placeholder="Введите текст..."
+                                    (focus)="item.open = true" /></div>
+                                <div *ngIf="i.columnTypeId === 3" class="reference-container-value__edit-input">
+                                  <evj-time-data-picker (dateTimePicker)="dateTimePickerEdit($event, i2)">
+                                  </evj-time-data-picker>
+                                </div>
+                                <div *ngIf="i.columnTypeId === 4" class="reference-container-value__edit-input"> <input
+                                    type="number" [(ngModel)]="i2.valueInt" placeholder="Введите целое..."
+                                    (focus)="item.open = true" /></div>
+                                <div *ngIf="i2.edit" class="reference-container-value__add-button-edit"
+                                  (click)="onEditRecord(i2,item)">
+                                  <svg-icon class="indicator-selector__collapse"
+                                    src="./assets/icons/widgets/references/accept.svg">
+                                  </svg-icon>
+                                </div>
+                              </div>
+                            </div>
+                          </ng-container>
+
+                        </div>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                  <div class="reference-container-value__delete-button-none"
+                    [class.reference-container-value__delete-button]="item.open" [class.isNotButton]="isLongBlock"
+                    (click)="deleteRecord(item)">
+                    <svg-icon class="indicator-selector__collapse"
+                      src="./assets/icons/widgets/references/delete_blue.svg"></svg-icon>
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
+            <div *ngIf="isAddBlockRecord" class="reference-container-value__add-block">
+              <ng-container *ngFor="let item of this.data[this.indexColumn].columns;">
+                <ng-container *ngIf="item.name !=='Id'">
+                  <ng-container *ngIf="item.name ==='Name'">
+                    <div class="reference-container-value__fio-block">
+                      <div class="reference-container-value__fio">
+                        <input type="text" [(ngModel)]="newName" placeholder="Введите наименование..." />
+                      </div>
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="item.name !=='Name'">
+                    <div class="reference-container-value__fio-block">
+                      <div class="reference-container-value__fio">
+                        <div *ngIf="item.columnTypeId === 2"> <input type="text" placeholder="Введите число..."
+                            (change)="onChangeValue($event, item.id)" /></div>
+                        <div *ngIf="item.columnTypeId === 1" (change)="onChangeValue($event, item.id)"> <input
+                            type="text" placeholder="Введите текст..." /></div>
+                        <div *ngIf="item.columnTypeId === 3">
+                          <evj-time-data-picker (dateTimePicker)="dateTimePickerNew($event)">
+                          </evj-time-data-picker>
+                        </div>
+                        <div *ngIf="item.columnTypeId === 4"> <input type="text" placeholder="Введите целое число..."
+                            (change)="onChangeValue($event, item.id)" /></div>
+                      </div>
+                    </div>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+              <div class="reference-container-value__add-button" (click)="onPushRecord()">
+                <svg-icon class="indicator-selector__collapse" src="./assets/icons/widgets/references/accept.svg">
+                </svg-icon>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bottom-reference-right" [class.isLongBlock]="isLongBlock">
+          <div class="bottom-reference-right__block">
+            <div class="bottom-reference-right__button-add" (click)="onAddBlockRecord()">
+              <svg-icon *ngIf="!isAddBlockRecord" src="./assets/icons/widgets/references/add_white.svg"
+                class="add_button_icon"></svg-icon>
+
+              <svg-icon *ngIf="isAddBlockRecord" class="indicator-selector__collapse"
+                src="./assets/icons/widgets/references/add_blue.svg"></svg-icon>
+
+            </div>
+            <div class="bottom-reference-right__input-block">
+              <div class="bottom-reference-right__button-search">
+                <svg-icon *ngIf="!isRecInput" class="button_filter_icon"
+                  src="./assets/icons/widgets/references/search_white.svg"></svg-icon>
+                <svg-icon *ngIf="isRecInput" class="button_filter_icon"
+                  src="./assets/icons/widgets/references/search_blue.svg"></svg-icon>
+              </div>
+              <div class="bottom-reference-right__input" [class.bottom-reference-right__input-active]="isRecInput">
+                <input type="text" (focus)="isRecInput = true" (blur)="isRecInput = false"
+                  (keyup)="searchRecords($event)" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <evj-frame-bottom></evj-frame-bottom>
+</div>

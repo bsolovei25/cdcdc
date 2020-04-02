@@ -37,6 +37,8 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     event: EventsWidgetNotification;
     isLoading: boolean = true;
 
+    isUserCanEdit: boolean = true;
+
     comments: string[] = [];
     fact: string[] = [];
     isNew: boolean = true;
@@ -183,6 +185,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
                 value.fixedBy.lastName;
             this.event = value;
             this.dateChoose = value.deadline;
+            this.isUserCanEdit = value.isUserCanEdit;
         }
 
         await this.loadItem(typeof value === 'number' ? value : undefined);
@@ -354,6 +357,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.dateChoose = new Date();
 
         this.event = {
+            isUserCanEdit: true,
             itemNumber: 0,
             branch: 'Производство',
             category: this.category ? this.category[0] : null,
@@ -560,6 +564,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.dateChooseNew = new Date();
 
         this.isNewRetrieval = {
+            isUserCanEdit: true,
             itemNumber: 0,
             branch: 'Производство',
             category: this.category ? this.category[0] : null,
