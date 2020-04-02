@@ -142,7 +142,7 @@ export class PetroleumScreenService {
     }
 
     public async chooseObject(objectName: string, isSource: boolean): Promise<void> {
-        let currentTransfer = this.currentTransfer$.getValue();
+        const currentTransfer = this.currentTransfer$.getValue();
         if (currentTransfer.operationType === 'Exist') {
             this.materialController.openSnackBar(
                 'Для изменения объектов операции, создайте новую операцию!',
@@ -150,24 +150,23 @@ export class PetroleumScreenService {
             );
             return;
         }
+        if ((currentTransfer.destinationName &&
+            currentTransfer.destinationName !== '') &&
+            (currentTransfer.destinationName &&
+            currentTransfer.destinationName !== '')
+        ) {
+            this.materialController.openSnackBar(
+                'Для изменения объектов операции, сбросьте текущую операцию!',
+                'snackbar-red'
+            );
+            return;
+        }
         this.isLoad$.next(true);
         if (isSource) {
-            const objectDestinationOld = this.objectsReceiver$.getValue().find(
-                (item) => item.objectName === currentTransfer.destinationName
-            );
-            const objectsDestination = await this.getObjects(this.client, objectName, 'exit');
-            const objectDestination = this.objectsReceiver$.getValue().find(
-                (item) => item.objectName === currentTransfer.destinationName
-            );
-            if (!objectDestination && objectDestinationOld) {
-                objectsDestination.push(objectDestinationOld);
+            if (!currentTransfer.destinationName || currentTransfer.destinationName === '') {
+                const objectsDestination = await this.getObjects(this.client, objectName, 'exit');
+                this.objectsReceiver$.next(objectsDestination);
             }
-            if (objectsDestination.length > 0 && objectDestinationOld) {
-                objectsDestination
-                    .find((item) => item.objectName === currentTransfer.destinationName)
-                    .isActive = true;
-            }
-            this.objectsReceiver$.next(objectsDestination);
             const objectsSource = this.objectsSource$.getValue();
             objectsSource.forEach((item) => (item.isActive = false));
             objectsSource.find((item) => item.objectName === objectName).isActive = true;
@@ -176,22 +175,10 @@ export class PetroleumScreenService {
             currentTransfer.sourceProduct = (await this.getAvailableProducts(objectName))[0];
             currentTransfer.sourceClient = this.client;
         } else {
-            const objectSourceOld = this.objectsSource$.getValue().find(
-                (item) => item.objectName === currentTransfer.destinationName
-            );
-            const objectsSource = await this.getObjects(this.client, objectName, 'enter');
-            const objectSource = objectsSource?.find(
-                (item) => item.objectName === currentTransfer.sourceName
-            );
-            if (!objectSource && objectSourceOld) {
-                objectsSource.push(objectSourceOld);
+            if (!currentTransfer.sourceName || currentTransfer.sourceName === '') {
+                const objectsSource = await this.getObjects(this.client, objectName, 'exit');
+                this.objectsSource$.next(objectsSource);
             }
-            if (objectsSource.length > 0 && objectSourceOld) {
-                objectsSource
-                    .find((item) => item.objectName === currentTransfer.sourceName)
-                    .isActive = true;
-            }
-            this.objectsSource$.next(objectsSource);
             const objectsDestination = this.objectsReceiver$.getValue();
             objectsDestination.forEach((item) => (item.isActive = false));
             objectsDestination.find((item) => item.objectName === objectName).isActive = true;
