@@ -47,7 +47,7 @@ export class ClaimService {
 
     private getCliam(): void {
         this.claimWidgets$.next([
-            EnumClaimWidgets.delete,
+            // EnumClaimWidgets.delete, // TODO
             EnumClaimWidgets.move,
             EnumClaimWidgets.resize,
             EnumClaimWidgets.add,
