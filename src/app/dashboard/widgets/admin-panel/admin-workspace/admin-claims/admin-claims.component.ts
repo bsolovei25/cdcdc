@@ -1,302 +1,41 @@
-import { Component, OnInit } from '@angular/core';
-import { IClaim } from '../../../../models/admin-panel';
-import { IWidgets } from '../../../../models/widget.model';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { IGlobalClaim } from '../../../../models/admin-panel';
+import { AdminPanelService } from '../../../../services/admin-panel/admin-panel.service';
+import { Subscription, Observable, Subject, BehaviorSubject } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 
 @Component({
     selector: 'evj-admin-claims',
     templateUrl: './admin-claims.component.html',
     styleUrls: ['./admin-claims.component.scss'],
 })
-export class AdminClaimsComponent implements OnInit {
-    public claims: IClaim[] = [
-        {
-            type: 'Открытые',
-            id: 1,
-        },
-        {
-            type: 'Открытые и доступные',
-            id: 2,
-        },
-        {
-            type: 'Открытые и доступные',
-            id: 3,
-        },
-    ];
+export class AdminClaimsComponent implements OnInit, OnDestroy {
+    public claims: IGlobalClaim[] = [];
 
-    public availableWidgets: IWidgets[] = [
-        {
-            code: null,
-            id: '1',
-            name: 'Экран диспетчера',
-            title: null,
-            units: null,
-            widgetOptions: null,
-            widgetType: null,
-            categories: null,
-        },
-        {
-            code: null,
-            id: '2',
-            name: 'Панель администратора',
-            title: null,
-            units: null,
-            widgetOptions: null,
-            widgetType: null,
-            categories: null,
-        },
-        {
-            code: null,
-            id: '3',
-            name: 'Передача смен',
-            title: null,
-            units: null,
-            widgetOptions: null,
-            widgetType: null,
-            categories: null,
-        },
-        {
-            code: null,
-            id: '1',
-            name: 'Экран диспетчера',
-            title: null,
-            units: null,
-            widgetOptions: null,
-            widgetType: null,
-            categories: null,
-        },
-        {
-            code: null,
-            id: '2',
-            name: 'Панель администратора',
-            title: null,
-            units: null,
-            widgetOptions: null,
-            widgetType: null,
-            categories: null,
-        },
-        {
-            code: null,
-            id: '3',
-            name: 'Передача смен',
-            title: null,
-            units: null,
-            widgetOptions: null,
-            widgetType: null,
-            categories: null,
-        },
-        {
-            code: null,
-            id: '1',
-            name: 'Экран диспетчера',
-            title: null,
-            units: null,
-            widgetOptions: null,
-            widgetType: null,
-            categories: null,
-        },
-        {
-            code: null,
-            id: '2',
-            name: 'Панель администратора',
-            title: null,
-            units: null,
-            widgetOptions: null,
-            widgetType: null,
-            categories: null,
-        },
-        {
-            code: null,
-            id: '3',
-            name: 'Передача смен',
-            title: null,
-            units: null,
-            widgetOptions: null,
-            widgetType: null,
-            categories: null,
-        },
-        {
-            code: null,
-            id: '1',
-            name: 'Экран диспетчера',
-            title: null,
-            units: null,
-            widgetOptions: null,
-            widgetType: null,
-            categories: null,
-        },
-        {
-            code: null,
-            id: '2',
-            name: 'Панель администратора',
-            title: null,
-            units: null,
-            widgetOptions: null,
-            widgetType: null,
-            categories: null,
-        },
-        {
-            code: null,
-            id: '3',
-            name: 'Передача смен',
-            title: null,
-            units: null,
-            widgetOptions: null,
-            widgetType: null,
-            categories: null,
-        },
-        {
-            code: null,
-            id: '1',
-            name: 'Экран диспетчера',
-            title: null,
-            units: null,
-            widgetOptions: null,
-            widgetType: null,
-            categories: null,
-        },
-        {
-            code: null,
-            id: '2',
-            name: 'Панель администратора',
-            title: null,
-            units: null,
-            widgetOptions: null,
-            widgetType: null,
-            categories: null,
-        },
-        {
-            code: null,
-            id: '3',
-            name: 'Передача смен',
-            title: null,
-            units: null,
-            widgetOptions: null,
-            widgetType: null,
-            categories: null,
-        },
-        {
-            code: null,
-            id: '1',
-            name: 'Экран диспетчера',
-            title: null,
-            units: null,
-            widgetOptions: null,
-            widgetType: null,
-            categories: null,
-        },
-        {
-            code: null,
-            id: '2',
-            name: 'Панель администратора',
-            title: null,
-            units: null,
-            widgetOptions: null,
-            widgetType: null,
-            categories: null,
-        },
-        {
-            code: null,
-            id: '3',
-            name: 'Передача смен',
-            title: null,
-            units: null,
-            widgetOptions: null,
-            widgetType: null,
-            categories: null,
-        },
-        {
-            code: null,
-            id: '1',
-            name: 'Экран диспетчера',
-            title: null,
-            units: null,
-            widgetOptions: null,
-            widgetType: null,
-            categories: null,
-        },
-        {
-            code: null,
-            id: '2',
-            name: 'Панель администратора',
-            title: null,
-            units: null,
-            widgetOptions: null,
-            widgetType: null,
-            categories: null,
-        },
-        {
-            code: null,
-            id: '3',
-            name: 'Передача смен',
-            title: null,
-            units: null,
-            widgetOptions: null,
-            widgetType: null,
-            categories: null,
-        },
-        {
-            code: null,
-            id: '1',
-            name: 'Экран диспетчера',
-            title: null,
-            units: null,
-            widgetOptions: null,
-            widgetType: null,
-            categories: null,
-        },
-        {
-            code: null,
-            id: '2',
-            name: 'Панель администратора',
-            title: null,
-            units: null,
-            widgetOptions: null,
-            widgetType: null,
-            categories: null,
-        },
-        {
-            code: null,
-            id: '3',
-            name: 'Передача смен',
-            title: null,
-            units: null,
-            widgetOptions: null,
-            widgetType: null,
-            categories: null,
-        },
-        {
-            code: null,
-            id: '1',
-            name: 'Экран диспетчера',
-            title: null,
-            units: null,
-            widgetOptions: null,
-            widgetType: null,
-            categories: null,
-        },
-        {
-            code: null,
-            id: '2',
-            name: 'Панель администратора',
-            title: null,
-            units: null,
-            widgetOptions: null,
-            widgetType: null,
-            categories: null,
-        },
-        {
-            code: null,
-            id: '3',
-            name: 'Передача смен',
-            title: null,
-            units: null,
-            widgetOptions: null,
-            widgetType: null,
-            categories: null,
-        },
-    ];
+    private subscriptions: Subscription[] = [];
 
-    constructor() {}
+    constructor(private adminService: AdminPanelService) {}
 
-    ngOnInit(): void {}
+    public ngOnInit(): void {
+        this.subscriptions.push(
+            this.adminService.activeWorker$
+                .pipe(
+                    mergeMap((worker) => {
+                        if (worker.id) {
+                            return this.adminService.getWorkerGeneralClaims(worker.id);
+                        }
+                        return new BehaviorSubject(null);
+                    })
+                )
+                .subscribe((data) => {
+                    if (data) {
+                        this.claims = data.data;
+                    }
+                })
+        );
+    }
+
+    public ngOnDestroy(): void {
+        this.subscriptions.forEach((subs) => subs.unsubscribe());
+    }
 }

@@ -24,7 +24,9 @@ export class AdminWorkspaceComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.subscriptions.push(
             this.adminPanel.activeWorkerWorkspaces$.subscribe((data) => {
-                this.workspaces = data;
+                if (data) {
+                    this.workspaces = data;
+                }
             })
         );
     }
