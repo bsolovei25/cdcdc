@@ -45,15 +45,11 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     public worker: IUser = null;
     public workerUnit: IUnitEvents = null;
     private workerPhoto: string = null;
-    private newWorkerPassword: string = null;
 
     private workerGeneralClaims: IGlobalClaim[] = [];
     public workerSpecialClaims: IGlobalClaim[] = [];
 
-    public allWorkspaces: IWorkspace[] = [];
     public workerScreens: IWorkspace[] = [];
-    public workerScreensDetached: IScreen[] = [];
-    public workspacesClaims: { workspaceId: number; claims: IClaim[] }[] = [];
 
     public allGeneralClaims: IGlobalClaim[] = [];
     public allSpecialClaims: IGlobalClaim[] = [];
@@ -80,23 +76,12 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             this.adminService.activeWorker$.subscribe((worker: IUser) => {
                 this.worker = fillDataShape(worker);
             }),
-            this.adminService.activeWorkerScreens$.subscribe((workerScreens: IScreen[]) => {
-                if (workerScreens) {
-                    workerScreens.forEach((item: IScreen) => {
-                        this.workerScreens.push(item.screen);
-                    });
-                    this.workerScreensDetached = workerScreens;
-                } else {
-                    this.workerScreens = [];
-                    this.workerScreensDetached = [];
-                }
+            this.adminService.activeWorkerWorkspaces$.subscribe((workerScreens) => {
+                this.workerScreens = workerScreens;
             }),
             this.adminService.activeWorkerUnit$.subscribe(
                 (unit: IUnitEvents) => (this.workerUnit = unit)
-            ),
-            this.adminService.getAllScreens().subscribe((data: IWorkspace[]) => {
-                this.allWorkspaces = data;
-            })
+            )
         );
         if (!this.isCreateNewUser) {
             this.subscriptions.push(
@@ -163,48 +148,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         if (event && this.isCreateNewUser) {
             this.showAlert();
             this.worker.password = event;
-            this.newWorkerPassword = event;
         }
-    }
-
-    private async changeWorkspaceClaims(): Promise<void> {
-        this.workspacesClaims.forEach(async (wsClaim) => {
-            const screen: IScreen = this.workerScreensDetached.find(
-                (item: IScreen) => item.screen.id === wsClaim.workspaceId
-            );
-
-            if (screen) {
-                await this.adminService
-                    .setWorkerScreenClaims(screen.id, wsClaim.claims)
-                    .toPromise();
-            }
-        });
-    }
-
-    private addWorkspacesToWorker(): number[] {
-        const idArray: number[] = [];
-        this.workerScreens.forEach((item: IWorkspace) => {
-            const addingFlag: boolean = !!this.workerScreensDetached.find(
-                (wsd: IScreen) => wsd.screen.id === item.id
-            );
-            if (!addingFlag) {
-                idArray.push(item.id);
-            }
-        });
-        return idArray;
-    }
-
-    private removeWorkspacesFromWorker(): number[] {
-        const idArray: number[] = [];
-        this.workerScreensDetached.forEach((item: IScreen) => {
-            const addingFlag: boolean = !!this.workerScreens.find(
-                (wsd: IWorkspace) => wsd.id === item.screen.id
-            );
-            if (!addingFlag) {
-                idArray.push(item.id);
-            }
-        });
-        return idArray;
     }
 
     public onClosePopUp(event: string): void {
@@ -236,7 +180,11 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public canShowSpecialClaim(claim: IGlobalClaim): boolean {
-        return !!this.workerSpecialClaims.find((item) => item.claimType === claim.claimType);
+        const isWorkerHasClaim: boolean = !!this.workerSpecialClaims.find(
+            (item) => item.claimType === claim.claimType
+        );
+        const isClaimNotForScreen: boolean = !claim.claimType.includes('screen');
+        return isWorkerHasClaim && isClaimNotForScreen;
     }
 
     public allEntitiesInSpecialType(claim: IGlobalClaim): IGlobalClaim[] {
@@ -312,42 +260,11 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     private async onCreateNewWorker(): Promise<void> {
-        this.worker = await this.adminService.createNewWorker(this.worker).toPromise();
-        const promises: Promise<void>[] = [];
-        this.addWorkspacesToWorker().forEach((index: number) => {
-            const workspaceClaims = this.workspacesClaims.find(
-                (item) => item.workspaceId === index
-            );
-
-            promises.push(
-                this.adminService
-                    .addWorkerScreen(this.worker.id, index, workspaceClaims.claims)
-                    .toPromise()
-            );
-        });
-        Promise.all(promises);
+        await this.adminService.createNewWorker(this.worker).toPromise();
     }
 
     private async onEditWorker(): Promise<void> {
-        const promises: Promise<void>[] = [];
-        promises.push(this.adminService.editWorkerData(this.worker).toPromise());
-        await this.changeWorkspaceClaims();
-        this.addWorkspacesToWorker().forEach((index: number) => {
-            const workspaceClaims = this.workspacesClaims.find(
-                (item) => item.workspaceId === index
-            );
-
-            promises.push(
-                this.adminService
-                    .addWorkerScreen(this.worker.id, index, workspaceClaims.claims)
-                    .toPromise()
-            );
-        });
-        this.removeWorkspacesFromWorker().forEach((index: number) => {
-            promises.push(this.adminService.removeWorkerScreen(index).toPromise());
-        });
-
-        await Promise.all(promises);
+        await this.adminService.editWorkerData(this.worker).toPromise();
     }
 
     private checkForRequiredFields(): boolean {
@@ -414,16 +331,16 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
                 await this.adminService.updateAllWorkers();
                 await this.adminService.updateAllBrigades();
-                const userScreens: IScreen[] = await this.adminService
-                    .getWorkerScreens(this.worker.id)
-                    .toPromise();
+                const userScreens: {
+                    data: IWorkspace[];
+                } = await this.adminService.getAllWorkerScreenClaims(this.worker.id).toPromise();
                 if (this.worker.hasOwnProperty('brigade')) {
                     const newActiveBrigade = this.adminService.brigades.find(
                         (brigade) => brigade.brigadeId === this.worker.brigade.id
                     );
                     this.adminService.activeBrigade$.next(newActiveBrigade);
                 }
-                this.adminService.activeWorkerScreens$.next(userScreens);
+                this.adminService.activeWorkerWorkspaces$.next(userScreens.data);
                 this.adminService.activeWorker$.next(this.worker);
                 this.adminService.activeWorkerUnit$.next(this.workerUnit);
 

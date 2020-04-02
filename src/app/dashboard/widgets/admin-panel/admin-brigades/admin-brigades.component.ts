@@ -107,10 +107,14 @@ export class AdminBrigadesComponent implements OnInit, OnDestroy {
             this.selectWorker.select(worker);
             this.adminService.activeWorker$.next(worker);
 
+            if (this.subsSelectedWorker) {
+                this.subsSelectedWorker.unsubscribe();
+            }
+
             this.subsSelectedWorker = this.adminService
-                .getWorkerScreens(worker.id)
-                .subscribe((data: IScreen[]) => {
-                    this.adminService.activeWorkerScreens$.next(data);
+                .getAllWorkerScreenClaims(worker.id)
+                .subscribe((data) => {
+                    this.adminService.activeWorkerWorkspaces$.next(data.data);
                 });
         }
     }
