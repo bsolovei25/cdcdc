@@ -1,0 +1,49 @@
+.mat-calendar-previous-button {
+  color: var(--color-text-main) !important;
+}
+
+.mat-calendar-next-button {
+  color: var(--color-text-main) !important;
+}
+
+.mat-calendar-arrow {
+  border-top-color: var(--color-text-main);
+}
+
+.mat-datepicker-toggle {
+  color: var(--color-text-main) !important;
+}
+
+.mat-datepicker-toggle-active {
+  color: var(--color-border-active) !important;
+}
+
+.mat-datepicker-content {
+  background-color: var(--color-bg-sub) !important;
+  color: var(--color-text-main) !important;
+}
+
+.mat-calendar-header {
+  background-color: var(--color-bg-main);
+}
+
+.mat-calendar-table-header {
+  color: var(--color-text-main);
+}
+
+.mat-calendar-body-label {
+  color: var(--color-text-main);
+}
+
+.mat-form-field-underline {
+//  background-color: var(--color-bg-main) !important;
+}
+
+.mat-stroked-button.mat-primary {
+  color: var(--color-text-main);
+}
+
+.mat-stroked-button:not([disabled]) {
+  border-color: var(--color-text-main) !important;
+  border-radius: 20px;
+}
