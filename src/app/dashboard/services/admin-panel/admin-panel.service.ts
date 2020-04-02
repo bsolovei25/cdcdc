@@ -233,14 +233,20 @@ export class AdminPanelService {
     //#endregion
 
     //#region LDAP
-    public getAllLDAPUsers(): Observable<IUserLdapDto[]> {
+    public getAllLdapUsers(): Observable<IUserLdapDto[]> {
         const url: string = `${this.restUrl}/ldap/users`;
         return this.http.get<IUserLdapDto[]>(url);
     }
 
-    public importUserFromLDAP(worker: IUserLdap): Observable<IUserImported> {
-        const url: string = `${this.restUrl}/ldap/user/${worker.samAccountName}/import`;
-        return this.http.post<IUserImported>(url, null);
+    public getLdapUser(worker: IUserLdap): Observable<IUserLdapDto> {
+        const url: string = `${this.restUrl}/ldap/user/${worker.samAccountName}`;
+        return this.http.get<IUserLdapDto>(url);
+    }
+
+    public importUserFromLdap(worker: IUser): Observable<IUserImported> {
+        const url: string = `${this.restUrl}/ldap/user/${worker.login}/import`;
+        const body: string = JSON.stringify(worker);
+        return this.http.post<IUserImported>(url, body);
     }
     //#endregion
 

@@ -83,7 +83,8 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                 (unit: IUnitEvents) => (this.workerUnit = unit)
             )
         );
-        if (!this.isCreateNewUser) {
+
+        if (!!this.worker.id) {
             this.subscriptions.push(
                 this.adminService.getWorkerGeneralClaims(this.worker.id).subscribe((claims) => {
                     this.workerGeneralClaims = claims.data;
@@ -260,11 +261,17 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     private async onCreateNewWorker(): Promise<void> {
-        await this.adminService.createNewWorker(this.worker).toPromise();
+        const user = await this.adminService.createNewWorker(this.worker).toPromise();
+        this.worker.id = user.id;
     }
 
     private async onEditWorker(): Promise<void> {
         await this.adminService.editWorkerData(this.worker).toPromise();
+    }
+
+    private async onImportWorker(): Promise<void> {
+        const user = await this.adminService.importUserFromLdap(this.worker).toPromise();
+        this.worker.id = user.id;
     }
 
     private checkForRequiredFields(): boolean {
@@ -320,7 +327,14 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                     );
                 }
 
-                this.isCreateNewUser ? await this.onCreateNewWorker() : await this.onEditWorker();
+                if (this.isImportNewWorker) {
+                    await this.onImportWorker();
+                } else if (this.isCreateNewUser) {
+                    await this.onCreateNewWorker();
+                } else {
+                    await this.onEditWorker();
+                }
+
                 if (this.worker.position === 'responsible') {
                     await this.adminService.setUserResponsible(this.worker.id).toPromise();
                 }
