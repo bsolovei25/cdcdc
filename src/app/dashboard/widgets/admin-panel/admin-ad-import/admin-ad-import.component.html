@@ -33,8 +33,34 @@
         [textButton]="'Добавить сотрудника'"
         [isChangingState]="false"
         [disabled]="workerSelect.isEmpty()"
-        (click)="onClickAdd()"
+        (click)="onClickImport()"
       ></evj-button>
+    </div>
+
+    <div class="alert__popup" *ngIf="isAlertShowing">
+      <div class="popup__message">Импортировать выбранного пользователя в систему?</div>
+      <div class="popup__buttons">
+        <div class="button">
+          <evj-button
+            class="insert-component"
+            [isSmallButton]="false"
+            [textButton]="'Отменить'"
+            [isChangingState]="false"
+            [disabled]="workerSelect.isEmpty()"
+            (click)="isAlertShowing=false"
+          ></evj-button>
+        </div>
+        <div class="button">
+          <evj-button
+            class="insert-component"
+            [isSmallButton]="false"
+            [textButton]="'Подтвердить'"
+            [isChangingState]="false"
+            [disabled]="workerSelect.isEmpty()"
+            (click)="onClickAdd()"
+          ></evj-button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
