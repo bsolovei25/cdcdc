@@ -11,9 +11,14 @@ export class ReportServerConfiguratorService {
 
   constructor(private http: HttpClient, configService: AppConfigService) {
     this.restUrl = configService.restUrl;
-   }
+  }
 
-   public getReportTemplate(): Observable<any[]> {
+  public getReportTemplate(): Observable<any[]> {
     return this.http.get<any[]>(this.restUrl + '/api/report-template/all');
-}
+  }
+
+  public getCategorys(): Observable<any[]> {
+    return this.http.get<any[]>(this.restUrl + '/api/report-template/all');
+  }
+
 }

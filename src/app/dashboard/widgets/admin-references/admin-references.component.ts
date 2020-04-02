@@ -4,15 +4,14 @@ import { WidgetService } from '../../services/widget.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ReferencesService } from '../../services/references.service';
 import { IReferenceTypes, IReferenceColumnsType } from '../../models/references';
+import { WidgetPlatform } from '../../models/widget-platform';
 
 @Component({
     selector: 'evj-admin-references',
     templateUrl: './admin-references.component.html',
     styleUrls: ['./admin-references.component.scss'],
 })
-export class AdminReferencesComponent implements OnInit, OnDestroy {
-    private subscriptions: Subscription[] = [];
-
+export class AdminReferencesComponent extends WidgetPlatform implements OnInit, OnDestroy {
     static itemCols = 18;
     static itemRows = 14;
 
@@ -99,27 +98,22 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscriptions.push(
-            this.widgetService.getWidgetChannel(id).subscribe((data) => {
-                (this.code = data.code),
-                    (this.title = data.title),
-                    (this.options = data.widgetOptions);
-            })
-        );
+        super(widgetService, isMock, id, uniqId);
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
+        super.widgetInit();
         this.subscriptions.push(
             this.getReference()
         );
     }
 
-    ngOnDestroy() {
-        if (this.subscriptions) {
-            for (const subscribe of this.subscriptions) {
-                subscribe.unsubscribe();
-            }
-        }
+    ngOnDestroy(): void {
+        super.ngOnDestroy();
+    }
+
+    protected dataHandler(ref: any): void {
+        //this.data = ref.chartItems;
     }
 
     getReference() {

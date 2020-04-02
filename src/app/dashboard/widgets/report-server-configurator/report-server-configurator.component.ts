@@ -5,6 +5,7 @@ import { WidgetService } from '../../services/widget.service';
 import { moveItemInArray, transferArrayItem, CdkDragDrop } from '@angular/cdk/drag-drop';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { ReportServerConfiguratorService } from '../../services/report-server-configurator.service';
+import { WidgetPlatform } from '../../models/widget-platform';
 
 @Component({
     selector: 'evj-report-server-configurator',
@@ -33,8 +34,8 @@ import { ReportServerConfiguratorService } from '../../services/report-server-co
         ]),
     ],
 })
-export class ReportServerConfiguratorComponent implements OnInit, OnDestroy {
-    private subscriptions: Subscription[] = [];
+export class ReportServerConfiguratorComponent extends WidgetPlatform implements OnInit, OnDestroy {
+
 
     static itemCols = 18;
     static itemRows = 14;
@@ -61,90 +62,7 @@ export class ReportServerConfiguratorComponent implements OnInit, OnDestroy {
 
     isOpenCheckBlock: boolean = false;
 
-    // public data: IReferenceTypes[] = [
-    //     {
-    //         id: 1,
-    //         createdAt: new Date(),
-    //         createdBy: new Date(),
-    //         name: 'Професии',
-    //         columns: [
-    //             {
-    //                 id: 1,
-    //                 createdAt: new Date(),
-    //                 createdBy: new Date(),
-    //                 referenceTypeId: 1,
-    //                 name: 'ФИО',
-    //                 columnTypeId: 1,
-    //                 columnName: 'ФИО',
-    //                 isRequred: true,
-    //                 isUnique: false,
-    //             },
-    //             {
-    //                 id: 2,
-    //                 createdAt: new Date(),
-    //                 createdBy: new Date(),
-    //                 referenceTypeId: 1,
-    //                 name: 'Дата рождения',
-    //                 columnTypeId: 1,
-    //                 columnName: 'Дата рождения',
-    //                 isRequred: false,
-    //                 isUnique: true,
-    //             },
-    //             {
-    //                 id: 3,
-    //                 createdAt: new Date(),
-    //                 createdBy: new Date(),
-    //                 referenceTypeId: 1,
-    //                 name: '3',
-    //                 columnTypeId: 1,
-    //                 columnName: 'Дата рождения',
-    //                 isRequred: false,
-    //                 isUnique: true,
-    //             },
-    //             {
-    //                 id: 4,
-    //                 createdAt: new Date(),
-    //                 createdBy: new Date(),
-    //                 referenceTypeId: 1,
-    //                 name: '4',
-    //                 columnTypeId: 1,
-    //                 columnName: 'Дата рождения',
-    //                 isRequred: false,
-    //                 isUnique: true,
-    //             },
-    //             {
-    //                 id: 5,
-    //                 createdAt: new Date(),
-    //                 createdBy: new Date(),
-    //                 referenceTypeId: 1,
-    //                 name: '5',
-    //                 columnTypeId: 1,
-    //                 columnName: 'Дата рождения',
-    //                 isRequred: false,
-    //                 isUnique: true,
-    //             },
-    //         ],
-    //     },
-    //     {
-    //         id: 2,
-    //         createdAt: new Date(),
-    //         createdBy: new Date(),
-    //         name: 'Установки',
-    //         columns: [
-    //             {
-    //                 id: 1,
-    //                 createdAt: new Date(),
-    //                 createdBy: new Date(),
-    //                 referenceTypeId: 1,
-    //                 name: 'Дата рождения',
-    //                 columnTypeId: 1,
-    //                 columnName: 'Дата рождения',
-    //                 isRequred: false,
-    //                 isUnique: false,
-    //             },
-    //         ],
-    //     },
-    // ];
+  
 
     public categorys = [
         {
@@ -261,33 +179,34 @@ export class ReportServerConfiguratorComponent implements OnInit, OnDestroy {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscriptions.push(
-            this.widgetService.getWidgetChannel(id).subscribe((data) => {
-                (this.code = data.code),
-                    (this.title = data.title),
-                    (this.options = data.widgetOptions);
-            })
-        );
+        super(widgetService, isMock, id, uniqId);
     }
 
     ngOnInit(): void {
-       this.subscriptions.push(
-           this.reportService.getReportTemplate().subscribe((data) => {
-               this.data = data;
-               for (let item of this.data) {
-                this.connectedTo.push(item.name);
-            }
-           })
-       )
+        super.widgetInit();
+        this.subscriptions.push(
+            this.getReportTemplate()
+        );
     }
 
-    ngOnDestroy() {
-        if (this.subscriptions) {
-            for (const subscribe of this.subscriptions) {
-                subscribe.unsubscribe();
-            }
-        }
+    ngOnDestroy(): void {
+        super.ngOnDestroy();
     }
+
+    protected dataHandler(ref: any): void {
+        //this.data = ref.chartItems;
+    }
+
+    getReportTemplate(){
+        return this.reportService.getReportTemplate().subscribe((data) => {
+            this.data = data;
+            for (let item of this.data) {
+             this.connectedTo.push(item.name);
+         }
+        })
+    }
+
+  
 
     onClickReference(data, index) {
         data.open = !data.open;

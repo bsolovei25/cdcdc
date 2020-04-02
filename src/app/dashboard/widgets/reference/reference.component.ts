@@ -4,16 +4,16 @@ import { Subscription } from 'rxjs';
 import { IReferenceTypes } from '../../models/references';
 import { ReferencesService } from '../../services/references.service';
 import { ItemSizeAverager } from '@angular/cdk-experimental/scrolling';
+import { WidgetPlatform } from '../../models/widget-platform';
 
 @Component({
     selector: 'evj-reference',
     templateUrl: './reference.component.html',
     styleUrls: ['./reference.component.scss'],
 })
-export class ReferenceComponent implements OnInit, OnDestroy {
+export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDestroy {
     //objectKeys = Object.keys;
 
-    private subscriptions: Subscription[] = [];
 
     static itemCols = 18;
     static itemRows = 14;
@@ -69,27 +69,22 @@ export class ReferenceComponent implements OnInit, OnDestroy {
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
-        this.subscriptions.push(
-            this.widgetService.getWidgetChannel(id).subscribe((data) => {
-                (this.code = data.code),
-                    (this.title = data.title),
-                    (this.options = data.widgetOptions);
-            })
-        );
+        super(widgetService, isMock, id, uniqId);
     }
 
     ngOnInit(): void {
+        super.widgetInit();
         this.subscriptions.push(
             this.getReference()
         );
     }
 
-    ngOnDestroy() {
-        if (this.subscriptions) {
-            for (const subscribe of this.subscriptions) {
-                subscribe.unsubscribe();
-            }
-        }
+    ngOnDestroy(): void {
+        super.ngOnDestroy();
+    }
+
+    protected dataHandler(ref: any): void {
+        //this.data = ref.chartItems;
     }
 
     getReference() {
