@@ -1,9 +1,7 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
-import { Subscription } from 'rxjs';
 import { IReferenceTypes } from '../../models/references';
 import { ReferencesService } from '../../services/references.service';
-import { ItemSizeAverager } from '@angular/cdk-experimental/scrolling';
 import { WidgetPlatform } from '../../models/widget-platform';
 
 @Component({
@@ -18,11 +16,7 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
     static itemCols = 18;
     static itemRows = 14;
 
-    public code: string;
-    public title: string;
-    public units: string = ' ';
-    public previewTitle: string = 'default';
-    public options;
+  
 
     public valueCheck: boolean;
     public valueUniqCheck: boolean;

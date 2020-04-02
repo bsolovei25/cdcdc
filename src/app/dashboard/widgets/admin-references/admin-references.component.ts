@@ -1,5 +1,4 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { WidgetService } from '../../services/widget.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ReferencesService } from '../../services/references.service';
@@ -14,12 +13,6 @@ import { WidgetPlatform } from '../../models/widget-platform';
 export class AdminReferencesComponent extends WidgetPlatform implements OnInit, OnDestroy {
     static itemCols = 18;
     static itemRows = 14;
-
-    public code: string;
-    public title: string;
-    public units: string = ' ';
-    public previewTitle: string = 'default';
-    public options;
 
     isReference: boolean = false;
     referencesOn = 0;

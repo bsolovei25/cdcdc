@@ -1,6 +1,4 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { IReferenceTypes } from '../../models/references';
 import { WidgetService } from '../../services/widget.service';
 import { moveItemInArray, transferArrayItem, CdkDragDrop } from '@angular/cdk/drag-drop';
 import { trigger, state, style, animate, transition } from '@angular/animations';
@@ -39,12 +37,6 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     static itemCols = 18;
     static itemRows = 14;
-
-    public code: string;
-    public title: string;
-    public units: string = ' ';
-    public previewTitle: string = 'default';
-    public options;
 
     public valueCheck: boolean;
     public valueUniqCheck: boolean;
