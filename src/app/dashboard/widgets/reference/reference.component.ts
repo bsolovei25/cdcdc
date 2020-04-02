@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { NewWidgetService } from '../../services/new-widget.service';
+import { WidgetService } from '../../services/widget.service';
 import { Subscription } from 'rxjs';
 import { IReferenceTypes } from '../../models/references';
 import { ReferencesService } from '../../services/references.service';
@@ -52,6 +52,8 @@ export class ReferenceComponent implements OnInit, OnDestroy {
 
     public idReferenceClick: number;
 
+    public addDate: Date;
+
     public columnObject = [];
 
     public editRecordIndex: number;
@@ -59,7 +61,7 @@ export class ReferenceComponent implements OnInit, OnDestroy {
     public newValue: number;
 
     constructor(
-        public widgetService: NewWidgetService,
+        public widgetService: WidgetService,
         public referencesService: ReferencesService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
@@ -150,38 +152,48 @@ export class ReferenceComponent implements OnInit, OnDestroy {
                     }
                 }
                 );
-                (test === undefined) ? test = null : test = test;
-                if (i.columnTypeId === 2) {
-                    obj = {
-                        referenceColumnId: i.id,
-                        valueString: null,
-                        valueDateTime: null,
-                        valueNumber: +test,
-                        valueInt: null
-                    }
-                } else if (i.columnTypeId === 1) {
-                    obj = {
-                        referenceColumnId: i.id,
-                        valueString: test,
-                        valueDateTime: null,
-                        valueNumber: null,
-                        valueInt: null
-                    }
-                } else if(i.columnTypeId === 3) { 
-                    obj = {
-                        referenceColumnId: i.id,
-                        valueString: null,
-                        valueDateTime: new Date(),
-                        valueNumber: null,
-                        valueInt: null
-                    }
-                } else if (i.columnTypeId === 4){
+
+                if (test === undefined) {
                     obj = {
                         referenceColumnId: i.id,
                         valueString: null,
                         valueDateTime: null,
                         valueNumber: null,
-                        valueInt: +test,
+                        valueInt: null
+                    }
+                } else {
+                    if (i.columnTypeId === 2) {
+                        obj = {
+                            referenceColumnId: i.id,
+                            valueString: null,
+                            valueDateTime: null,
+                            valueNumber: +test,
+                            valueInt: null
+                        }
+                    } else if (i.columnTypeId === 1) {
+                        obj = {
+                            referenceColumnId: i.id,
+                            valueString: test,
+                            valueDateTime: null,
+                            valueNumber: null,
+                            valueInt: null
+                        }
+                    } else if (i.columnTypeId === 3) {
+                        obj = {
+                            referenceColumnId: i.id,
+                            valueString: null,
+                            valueDateTime: this.addDate,
+                            valueNumber: null,
+                            valueInt: null
+                        }
+                    } else if (i.columnTypeId === 4) {
+                        obj = {
+                            referenceColumnId: i.id,
+                            valueString: null,
+                            valueDateTime: null,
+                            valueNumber: null,
+                            valueInt: +test,
+                        }
                     }
                 }
                 columnsObj.push(obj);
@@ -206,7 +218,7 @@ export class ReferenceComponent implements OnInit, OnDestroy {
     onChangeValue(event, id) {
         const obj = {
             idColumn: id,
-            value: event.currentTarget.value,
+            value: event.target.value,
         }
         this.columnObject.push(obj);
     }
@@ -253,14 +265,12 @@ export class ReferenceComponent implements OnInit, OnDestroy {
     }
 
     onBlockEditRecord(i, item) {
-        let index = 0;
         const result = item.columnsData.find((el) => {
             if (i.id === el.referenceColumnId) {
-                this.editRecordIndex = index;
                 el.edit = true;
+                return true;
             }
-            index++;
-        })
+        });
 
         if (result === undefined) {
             let obj = {
@@ -272,8 +282,23 @@ export class ReferenceComponent implements OnInit, OnDestroy {
 
     }
 
-    onEditRecord(i2) {
-        i2.edit = false;
+    onEditRecord(i,item) {
+        item.columnsData.find((el) => {
+            if (i.id === el.id) {
+                el.edit = false;
+            }
+        });
+
+        this.referencesService.putEditData(item).subscribe();
     }
+
+    dateTimePickerNew(event) {
+        this.addDate = event.date._d;
+    }
+
+    dateTimePickerEdit(event, item) {
+        item.valueDateTime = event.date._d;
+    }
+
 
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { IReferenceTypes } from '../../models/references';
-import { NewWidgetService } from '../../services/new-widget.service';
+import { WidgetService } from '../../services/widget.service';
 import { moveItemInArray, transferArrayItem, CdkDragDrop } from '@angular/cdk/drag-drop';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { ReportServerConfiguratorService } from '../../services/report-server-configurator.service';
@@ -255,7 +255,7 @@ export class ReportServerConfiguratorComponent implements OnInit, OnDestroy {
     public saveDate: any = [];
 
     constructor(
-        public widgetService: NewWidgetService,
+        public widgetService: WidgetService,
         public reportService: ReportServerConfiguratorService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,

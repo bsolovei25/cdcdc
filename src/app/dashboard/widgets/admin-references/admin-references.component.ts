@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { NewWidgetService } from '../../services/new-widget.service';
+import { WidgetService } from '../../services/widget.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ReferencesService } from '../../services/references.service';
 import { IReferenceTypes, IReferenceColumnsType } from '../../models/references';
@@ -93,7 +93,7 @@ export class AdminReferencesComponent implements OnInit, OnDestroy {
     ];
 
     constructor(
-        public widgetService: NewWidgetService,
+        public widgetService: WidgetService,
         public referencesService: ReferencesService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
