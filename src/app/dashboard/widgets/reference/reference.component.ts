@@ -32,6 +32,8 @@ export class ReferenceComponent implements OnInit, OnDestroy {
 
     public isAddBlockRecord: boolean = false;
 
+    public isEditRecordBlock: boolean = false;
+
     isLongBlock: boolean = true;
 
     indexColumn: number = null;
@@ -51,6 +53,10 @@ export class ReferenceComponent implements OnInit, OnDestroy {
     public idReferenceClick: number;
 
     public columnObject = [];
+
+    public editRecordIndex: number;
+
+    public newValue: number;
 
     constructor(
         public widgetService: NewWidgetService,
@@ -161,8 +167,23 @@ export class ReferenceComponent implements OnInit, OnDestroy {
                         valueNumber: null,
                         valueInt: null
                     }
+                } else if(i.columnTypeId === 3) { 
+                    obj = {
+                        referenceColumnId: i.id,
+                        valueString: null,
+                        valueDateTime: new Date(),
+                        valueNumber: null,
+                        valueInt: null
+                    }
+                } else if (i.columnTypeId === 4){
+                    obj = {
+                        referenceColumnId: i.id,
+                        valueString: null,
+                        valueDateTime: null,
+                        valueNumber: null,
+                        valueInt: +test,
+                    }
                 }
-
                 columnsObj.push(obj);
             }
 
@@ -221,6 +242,38 @@ export class ReferenceComponent implements OnInit, OnDestroy {
         // if (!event.currentTarget.value) {
         //     this.data[this.indexColumn].columns = this.saveColumns;
         // }
+    }
+
+    onBlockEditRecordName(item) {
+        item.edit = true;
+    }
+
+    onEditRecordName(item) {
+        item.edit = false;
+    }
+
+    onBlockEditRecord(i, item) {
+        let index = 0;
+        const result = item.columnsData.find((el) => {
+            if (i.id === el.referenceColumnId) {
+                this.editRecordIndex = index;
+                el.edit = true;
+            }
+            index++;
+        })
+
+        if (result === undefined) {
+            let obj = {
+                referenceColumnId: i.id,
+                edit: true,
+            }
+            item.columnsData.push(obj);
+        }
+
+    }
+
+    onEditRecord(i2) {
+        i2.edit = false;
     }
 
 }

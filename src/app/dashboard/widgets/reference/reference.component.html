@@ -23,10 +23,10 @@
             <div class="bottom-reference-left__input-block">
               <div class="bottom-reference-left__button-search">
                 <svg-icon *ngIf="!isRefInput" class="button_filter_icon"
-                src="./assets/icons/widgets/references/search_white.svg"></svg-icon>
+                  src="./assets/icons/widgets/references/search_white.svg"></svg-icon>
 
-              <svg-icon *ngIf="isRefInput" class="indicator-selector__collapse"
-                src="./assets/icons/widgets/references/search_blue.svg"></svg-icon>
+                <svg-icon *ngIf="isRefInput" class="indicator-selector__collapse"
+                  src="./assets/icons/widgets/references/search_blue.svg"></svg-icon>
               </div>
               <div class="bottom-reference-left__input" [class.bottom-reference-left__input-active]="isRefInput">
                 <input type="text" (focus)="isRefInput = true" (blur)="isRefInput = false"
@@ -68,14 +68,25 @@
                     <ng-container *ngIf="i.name !== 'Id'">
                       <ng-container *ngIf="i.name === 'Name'">
                         <div class="reference-container-value__fio-block2" [class.block-active]="item.open">
-                  
-                            <div  class="reference-container-value__fio">
-                              {{ item.name }}
-                            </div>
-                          
-                          <div class="reference-container-value__edit-button">
+
+                          <div *ngIf="!item.edit" class="reference-container-value__fio">
+                            {{ item.name }}
+                          </div>
+
+                          <div *ngIf="item.edit" class="reference-container-value__fio">
+                            <input type="text" [(ngModel)]="newName" placeholder="Введите текст..." />
+                          </div>
+
+                          <div *ngIf="!item.edit" class="reference-container-value__edit-button"
+                            (click)="onBlockEditRecordName(item)">
                             <svg-icon *ngIf="item.open" class="indicator-selector__collapse"
                               src="./assets/icons/widgets/references/edit_white.svg"></svg-icon>
+                          </div>
+                          <div *ngIf="item.edit" class="reference-container-value__add-button-edit"
+                            (click)="onEditRecordName(item)">
+                            <svg-icon class="indicator-selector__collapse"
+                              src="./assets/icons/widgets/references/accept.svg">
+                            </svg-icon>
                           </div>
                         </div>
                       </ng-container>
@@ -83,13 +94,34 @@
                         <div class="reference-container-value__fio-block">
                           <ng-container *ngFor="let i2 of item.columnsData">
                             <div *ngIf="i.id === i2.referenceColumnId" class="reference-container-value__fio">
-                              <div *ngIf="i.columnTypeId === 2"> {{ i2.valueNumber }}</div>
-                              <div *ngIf="i.columnTypeId === 1"> {{ i2.valueString }}</div>
-                              <div *ngIf="i.columnTypeId === 3"> {{ i2.valueDateTime }}</div>
-                              <div *ngIf="i.columnTypeId === 4"> {{ i2.valueInt }}</div>
+                              <div *ngIf="!i2.edit">
+                                <div *ngIf="i.columnTypeId === 2"> {{ i2.valueNumber }}</div>
+                                <div *ngIf="i.columnTypeId === 1"> {{ i2.valueString }}</div>
+                                <div *ngIf="i.columnTypeId === 3"> {{ i2.valueDateTime }}</div>
+                                <div *ngIf="i.columnTypeId === 4"> {{ i2.valueInt }}</div>
+                              </div>
+                              <div *ngIf="i2.edit" class="reference-container-value__edit-value">
+                                <div *ngIf="i.columnTypeId === 2"> <input type="text" [(ngModel)]="newName"
+                                    placeholder="Введите число..." /></div>
+                                <div *ngIf="i.columnTypeId === 1"> <input type="text" [(ngModel)]="newValue"
+                                    placeholder="Введите текст..." /></div>
+                                <div *ngIf="i.columnTypeId === 3">
+                                  <evj-time-data-picker [data]="dateNow" (dateTimePicker)="dateTimePickerNew($event)">
+                                  </evj-time-data-picker>
+                                </div>
+                                <div *ngIf="i.columnTypeId === 4"> <input type="text" [(ngModel)]="newValue"
+                                    placeholder="Введите целое..." /></div>
+                                <div *ngIf="i2.edit" class="reference-container-value__add-button-edit"
+                                  (click)="onEditRecord(i2)">
+                                  <svg-icon class="indicator-selector__collapse"
+                                    src="./assets/icons/widgets/references/accept.svg">
+                                  </svg-icon>
+                                </div>
+                              </div>
                             </div>
                           </ng-container>
-                          <div class="reference-container-value__edit-button">
+                          <div *ngIf="!i.edit" class="reference-container-value__edit-button"
+                            (click)="onBlockEditRecord(i,item)">
                             <svg-icon *ngIf="item.open" class="indicator-selector__collapse"
                               src="./assets/icons/widgets/references/edit_white.svg"></svg-icon>
                           </div>
@@ -98,7 +130,8 @@
                     </ng-container>
                   </ng-container>
                   <div class="reference-container-value__delete-button-none"
-                    [class.reference-container-value__delete-button]="item.open" [class.isNotButton]="isLongBlock" (click)="deleteRecord(item)">
+                    [class.reference-container-value__delete-button]="item.open" [class.isNotButton]="isLongBlock"
+                    (click)="deleteRecord(item)">
                     <svg-icon class="indicator-selector__collapse"
                       src="./assets/icons/widgets/references/delete_blue.svg"></svg-icon>
                   </div>
@@ -111,14 +144,23 @@
                   <ng-container *ngIf="item.name ==='Name'">
                     <div class="reference-container-value__fio-block">
                       <div class="reference-container-value__fio">
-                        <input type="text" [(ngModel)]="newName" placeholder="Введите значение..." />
+                        <input type="text" [(ngModel)]="newName" placeholder="Введите наименование..." />
                       </div>
                     </div>
                   </ng-container>
                   <ng-container *ngIf="item.name !=='Name'">
                     <div class="reference-container-value__fio-block">
                       <div class="reference-container-value__fio">
-                        <input type="text" (change)="onChangeValue($event, item.id)" placeholder="Введите значение..." />
+                        <div *ngIf="item.columnTypeId === 2"> <input type="text" [(ngModel)]="newName"
+                          placeholder="Введите число..." /></div>
+                      <div *ngIf="item.columnTypeId === 1"> <input type="text" [(ngModel)]="newValue"
+                          placeholder="Введите текст..." /></div>
+                      <div *ngIf="item.columnTypeId === 3">
+                        <evj-time-data-picker [data]="dateNow" (dateTimePicker)="dateTimePickerNew($event)">
+                        </evj-time-data-picker>
+                      </div>
+                      <div *ngIf="item.columnTypeId === 4"> <input type="text" [(ngModel)]="newValue"
+                          placeholder="Введите целое число..." /></div>
                       </div>
                     </div>
                   </ng-container>
@@ -135,21 +177,22 @@
           <div class="bottom-reference-right__block">
             <div class="bottom-reference-right__button-add" (click)="onAddBlockRecord()">
               <svg-icon *ngIf="!isAddBlockRecord" src="./assets/icons/widgets/references/add_white.svg"
-              class="add_button_icon"></svg-icon>
+                class="add_button_icon"></svg-icon>
 
-            <svg-icon *ngIf="isAddBlockRecord" class="indicator-selector__collapse"
-              src="./assets/icons/widgets/references/add_blue.svg"></svg-icon>
+              <svg-icon *ngIf="isAddBlockRecord" class="indicator-selector__collapse"
+                src="./assets/icons/widgets/references/add_blue.svg"></svg-icon>
 
             </div>
             <div class="bottom-reference-right__input-block">
               <div class="bottom-reference-right__button-search">
                 <svg-icon *ngIf="!isRecInput" class="button_filter_icon"
-                src="./assets/icons/widgets/references/search_white.svg"></svg-icon>
-              <svg-icon *ngIf="isRecInput" class="button_filter_icon"
-                src="./assets/icons/widgets/references/search_blue.svg"></svg-icon>
+                  src="./assets/icons/widgets/references/search_white.svg"></svg-icon>
+                <svg-icon *ngIf="isRecInput" class="button_filter_icon"
+                  src="./assets/icons/widgets/references/search_blue.svg"></svg-icon>
               </div>
-              <div class="bottom-reference-right__input" [class.bottom-reference-right__input-active]="isRecInput"> 
-                <input type="text" (focus)="isRecInput = true" (blur)="isRecInput = false" (keyup)="searchRecords($event)" />
+              <div class="bottom-reference-right__input" [class.bottom-reference-right__input-active]="isRecInput">
+                <input type="text" (focus)="isRecInput = true" (blur)="isRecInput = false"
+                  (keyup)="searchRecords($event)" />
               </div>
             </div>
           </div>

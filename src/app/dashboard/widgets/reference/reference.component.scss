@@ -508,6 +508,19 @@ input {
         width: 20px;
         background: var(--color-bg-main);
       }
+
+      &__add-button-edit {
+        cursor: pointer;
+        display: block !important;
+        position: absolute;
+        right: 10px;
+        width: 20px;
+      }
+
+      &__edit-value{
+        display: flex;
+
+      }
     }
   }
 

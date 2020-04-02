@@ -79,4 +79,8 @@ export class ReferencesService {
     public putEditColumn(body): Observable<IReferenceColumns> {
         return this.http.put<IReferenceColumns>(this.restUrl + '/api/ref-book/ReferenceColumn', body);
     }
+
+    public putEditData(body): Observable<any> {
+        return this.http.put<any>(this.restUrl + '/api/ref-book/ReferenceData', body);
+    }
 }
