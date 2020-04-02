@@ -245,8 +245,7 @@ export class AdminPanelService {
 
     public importUserFromLdap(worker: IUser): Observable<IUserImported> {
         const url: string = `${this.restUrl}/ldap/user/${worker.login}/import`;
-        const body: string = JSON.stringify(worker);
-        return this.http.post<IUserImported>(url, body);
+        return this.http.post<IUserImported>(url, worker);
     }
     //#endregion
 

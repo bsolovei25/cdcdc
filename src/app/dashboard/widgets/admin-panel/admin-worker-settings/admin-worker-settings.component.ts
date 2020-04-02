@@ -146,7 +146,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     public onSetWorkerPassword(event: string): void {
         this.isPasswordAlertShowing = false;
-        if (event && this.isCreateNewUser) {
+        if (event && (this.isCreateNewUser || (this.isImportNewWorker && !this.worker.id))) {
             this.showAlert();
             this.worker.password = event;
         }
