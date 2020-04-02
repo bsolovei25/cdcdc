@@ -6,6 +6,7 @@ import { IUser, IUnitEvents } from '../../../models/events-widget';
 import { Subscription, combineLatest } from 'rxjs';
 import { IWidgets } from '../../../models/widget.model';
 import { SnackBarService } from '../../../services/snack-bar.service';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
     selector: 'evj-admin-groups',
@@ -183,6 +184,16 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
 
             this.currentGroupGeneralClaims = group.claims.filter((claim) => !claim.value);
             this.currentGroupSpecialClaims = group.claims.filter((claim) => !!claim.value);
+
+            if (!group.workspaces) {
+                this.adminService.getAllGroupScreenClaims(group.id).subscribe((data) => {
+                    group.workspaces = data.data;
+                    this.groupWorkspaces = group.workspaces;
+                });
+                this.groupWorkspaces = [];
+            } else {
+                this.groupWorkspaces = group.workspaces;
+            }
         }
     }
 

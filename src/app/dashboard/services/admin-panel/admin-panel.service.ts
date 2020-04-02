@@ -5,7 +5,6 @@ import { AppConfigService } from '../../../services/appConfigService';
 import {
     IBrigadeAdminPanel,
     IClaim,
-    IScreen,
     IWorkspace,
     IGlobalClaim,
     IGroup,
