@@ -143,6 +143,7 @@ import { AgNewGroupComponent } from './widgets/admin-panel/admin-groups/ag-new-g
 import { AgAlertSubmitComponent } from './widgets/admin-panel/admin-groups/ag-alert-submit/ag-alert-submit.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { AdminAdImportComponent } from './widgets/admin-panel/admin-ad-import/admin-ad-import.component';
+import { AddReportFileComponent } from './widgets/report-server-configurator/add-report-file/add-report-file.component';
 
 @NgModule({
     declarations: [
@@ -265,6 +266,7 @@ import { AdminAdImportComponent } from './widgets/admin-panel/admin-ad-import/ad
         AgNewGroupComponent,
         AgAlertSubmitComponent,
         AdminAdImportComponent,
+        AddReportFileComponent,
     ],
     entryComponents: [
         LineChartComponent,

@@ -47,6 +47,7 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
     public selectValue: { name: string; id: number };
 
     public CreateIcon: boolean = true;
+    public isReportButton: boolean = true;
 
     constructor(
         public widgetService: WidgetService,
@@ -88,6 +89,11 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
         if (event) {
             this.selected.emit(event.value);
         }
+    }
+
+    public reportSelected(event){
+        this.selected.emit(event);
+        this.isReportButton = event;
     }
 
     compareFn(o1: any, o2: any): boolean {

@@ -1,153 +1,159 @@
-<evj-widget-preview [title]="widgetTitle" [previewTitle]="" *ngIf="isMock"></evj-widget-preview>
+<evj-widget-preview [title]="widgetTitle" [previewTitle]="widgetType" *ngIf="isMock"></evj-widget-preview>
 
 <div class="container" *ngIf="!isMock">
   <evj-widget-header [title]="widgetTitle" [units]="widgetUnits" [code]="widgetCode" [id]="id" [uniqId]="uniqId"
-    [icon]="widgetIcon"></evj-widget-header>
+    [widgetType]="widgetType" [icon]="widgetIcon" (selected)="openTable($event)"></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
 
   <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
-    <div class="references">
-      <div class="reference-left">
-        <div class="title-reference">Наименование справочника</div>
-        <div class="reference-container">
-          <div *ngFor="let item of data; let i = index">
-            <div class="reference-container__block" [class.block-active]="item.open">
-              <div class="reference-container__block-info" [class.block-info-active]="item.open"
-                (click)="onClickReference(item, i)">
-                <div class="reference-container__button">
-                  <svg-icon *ngIf="item.open" src="./assets/icons/widgets/manual-input/arrow_down.svg"
-                    [svgStyle]="{ 'width.px':10, 'height.px':10 }"></svg-icon>
+    <ng-container *ngIf="isTable">
+      <div class="references">
+        <div class="reference-left">
+          <div class="title-reference">Наименование справочника</div>
+          <div class="reference-container">
+            <div *ngFor="let item of data; let i = index">
+              <div class="reference-container__block" [class.block-active]="item.open">
+                <div class="reference-container__block-info" [class.block-info-active]="item.open"
+                  (click)="onClickReference(item, i)">
+                  <div class="reference-container__button">
+                    <svg-icon *ngIf="item.open" src="./assets/icons/widgets/manual-input/arrow_down.svg"
+                      [svgStyle]="{ 'width.px':10, 'height.px':10 }"></svg-icon>
 
-                  <svg-icon *ngIf="!item.open" src="./assets/icons/widgets/manual-input/arrow_right.svg"
-                    [svgStyle]="{ 'width.px':10, 'height.px':10 }"></svg-icon>
+                    <svg-icon *ngIf="!item.open" src="./assets/icons/widgets/manual-input/arrow_right.svg"
+                      [svgStyle]="{ 'width.px':10, 'height.px':10 }"></svg-icon>
+                  </div>
+                  <div class="reference-container__name">{{item.name}}</div>
                 </div>
-                <div class="reference-container__name">{{item.name}}</div>
+                <div cdkDropList id="{{item.name}}" [cdkDropListData]="item.columns" (cdkDropListDropped)="drop($event)"
+                  [cdkDropListConnectedTo]="connectedTo" [@Branch]="(item.open) ? 'expanded' : 'collapsed'">
+                  <div class="reference-container__block-contant" *ngFor="let i of item.columns" cdkDrag
+                    (click)="onClickItemReference(i)" [class.block-info-active]="i.open">
+                    {{i.name}}
+                  </div>
+                  <div *ngIf="clickPushRec" class="reference-container__add-block">
+                    <div class="reference-container__add-block-input">
+                      <input type="text" [(ngModel)]="newRecord" placeholder="Введите название справочника..." />
+                    </div>
+                    <div class="reference-container__add-block-icon" (click)="onPushRecord()">
+                      <svg-icon src="./assets/icons/widgets/references/accept.svg" class="add_button_icon"></svg-icon>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div cdkDropList id="{{item.name}}" [cdkDropListData]="item.columns" (cdkDropListDropped)="drop($event)"
-                [cdkDropListConnectedTo]="connectedTo" [@Branch]="(item.open) ? 'expanded' : 'collapsed'">
-                <div class="reference-container__block-contant" *ngFor="let i of item.columns" cdkDrag
-                  (click)="onClickItemReference(i)" [class.block-info-active]="i.open">
-                  {{i.name}}
-                </div>
-                <div *ngIf="clickPushRec" class="reference-container__add-block">
-                  <div class="reference-container__add-block-input">
-                    <input type="text" [(ngModel)]="newRecord" placeholder="Введите название справочника..." />
-                  </div>
-                  <div class="reference-container__add-block-icon" (click)="onPushRecord()">
-                    <svg-icon src="./assets/icons/widgets/references/accept.svg" class="add_button_icon"></svg-icon>
-                  </div>
-                </div>
+            </div>
+            <div *ngIf="clickPushRef" class="reference-container__add-block">
+              <div class="reference-container__add-block-input">
+                <input type="text" [(ngModel)]="newFolder" placeholder="Введите название справочника..." />
+              </div>
+              <div class="reference-container__add-block-icon" (click)="onPushReference()">
+                <svg-icon src="./assets/icons/widgets/references/accept.svg" class="add_button_icon"></svg-icon>
               </div>
             </div>
           </div>
-          <div *ngIf="clickPushRef" class="reference-container__add-block">
-            <div class="reference-container__add-block-input">
-              <input type="text" [(ngModel)]="newFolder" placeholder="Введите название справочника..." />
-            </div>
-            <div class="reference-container__add-block-icon" (click)="onPushReference()">
-              <svg-icon src="./assets/icons/widgets/references/accept.svg" class="add_button_icon"></svg-icon>
+          <div class="bottom-reference-left">
+            <div class="bottom-reference-left__block">
+              <div class="bottom-reference-left__button-add" (click)="addMenu()">
+                <svg-icon src="./assets/icons/widgets/references/add_white.svg" class="add_button_icon">
+                </svg-icon>
+              </div>
+              <div class="bottom-reference-left__input-block">
+                <div class="bottom-reference-left__button-search">
+                  <svg-icon class="button_filter_icon" src="./assets/icons/widgets/references/search_white.svg">
+                  </svg-icon>
+                </div>
+                <div class="bottom-reference-left__input">
+                  <input type="text" />
+                </div>
+              </div>
+              <div class="bottom-reference-left__add-menu"
+                [class.bottom-reference-left__add-menu-active]="addMenuClick">
+                <div class="button" (click)="pushBlockInRef()">Добавить раздел</div>
+                <div class="button" (click)="pushBlockInRec()">Добавить отчет</div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="bottom-reference-left">
-          <div class="bottom-reference-left__block">
-            <div class="bottom-reference-left__button-add" (click)="addMenu()">
-              <svg-icon src="./assets/icons/widgets/references/add_white.svg" class="add_button_icon">
-              </svg-icon>
-            </div>
-            <div class="bottom-reference-left__input-block">
-              <div class="bottom-reference-left__button-search">
-                <svg-icon class="button_filter_icon" src="./assets/icons/widgets/references/search_white.svg">
-                </svg-icon>
-              </div>
-              <div class="bottom-reference-left__input">
-                <input type="text" />
+        <div class="reference-right">
+          <div class="title-reference">
+            <div class="title-reference__title-check">
+              <div class="title-reference__title-name-fio">
+                Статус
               </div>
             </div>
-            <div class="bottom-reference-left__add-menu" [class.bottom-reference-left__add-menu-active]="addMenuClick">
-              <div class="button" (click)="pushBlockInRef()">Добавить раздел</div>
-              <div class="button" (click)="pushBlockInRec()">Добавить отчет</div>
+            <div class="title-reference__title-name">
+              <div class="title-reference__title-name-fio">
+                Наименование параметра
+              </div>
+            </div>
+            <div class="title-reference__title-type">
+              <div class="title-reference__title-type-date">
+                Показатель параметров
+              </div>
+            </div>
+          </div>
+          <div class="references-container-scroll-block">
+            <div class="reference-container-value">
+              <ng-container *ngFor="let item of this.data">
+                <div class="reference-container-value__block">
+                  <div class="reference-container-value__fio-block" [class.notActiveItem]="!item.isRequred">
+                    <div class="reference-container-value__fio">{{item.name}}</div>
+                  </div>
+                  <div class="reference-container-value__type" [class.block-active]="item.open"
+                    [class.notActiveItem]="!item.isRequred" (click)="onClickItemReference(item)">
+                    <div class="reference-container-value__fio">{{item.name}}</div>
+                    <div class="reference-container-value__edit-button">
+                      <svg-icon *ngIf="item.open" class="indicator-selector__collapse"
+                        src="./assets/icons/widgets/references/edit_white.svg"></svg-icon>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+
+            <div class="references-container-check-block" *ngIf="isOpenCheckBlock">
+              <div class="references-container-check-block__title-block">
+                <div class="references-container-check-block__title-param">Наименование параметра</div>
+                <div class="references-container-check-block__title-status">Статус</div>
+              </div>
+              <div class="references-container-check-block__content-block" *ngFor="let item of this.categorys">
+                <div class="references-container-check-block__name-item">{{item.name}}</div>
+                <div class="references-container-check-block__check-item">
+                  <label class="mycheckbox">
+                    <input type="checkbox" id="checkBoxValue" class="mycheckbox__default" [checked]="item.isRequred"
+                      (click)="changeSwap(item)" />
+                    <div class="mycheckbox__new" [class.mycheckbox__checked]="item.isRequred"
+                      [class.notActiveCheck]="!item.isRequred"></div>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bottom-reference-right">
+            <div class="bottom-reference-right__block-edit">
+              <div class="bottom-reference-right__block-add">
+                <div class="bottom-reference-right__button-add" (click)="openCheckBoxBlock()">
+                  <svg-icon *ngIf="!isOpenCheckBlock" src="./assets/icons/widgets/references/add_white.svg"
+                    class="add_button_icon">
+                  </svg-icon>
+                  <svg-icon *ngIf="isOpenCheckBlock" src="./assets/icons/widgets/references/add_blue.svg"
+                    class="add_button_icon">
+                  </svg-icon>
+                </div>
+              </div>
+            </div>
+            <div class="bottom-reference-right__block">
+              <div class="bottom-reference-right__save-block">
+                <div class="bottom-reference-right__button-save">Сохранить</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="reference-right">
-        <div class="title-reference">
-          <div class="title-reference__title-check">
-            <div class="title-reference__title-name-fio">
-              Статус
-            </div>
-          </div>
-          <div class="title-reference__title-name">
-            <div class="title-reference__title-name-fio">
-              Наименование параметра
-            </div>
-          </div>
-          <div class="title-reference__title-type">
-            <div class="title-reference__title-type-date">
-              Показатель параметров
-            </div>
-          </div>
-        </div>
-        <div class="references-container-scroll-block">
-          <div class="reference-container-value">
-            <ng-container *ngFor="let item of this.data">
-              <div class="reference-container-value__block">
-                <div class="reference-container-value__fio-block" [class.notActiveItem]="!item.isRequred">
-                  <div class="reference-container-value__fio">{{item.name}}</div>
-                </div>
-                <div class="reference-container-value__type" [class.block-active]="item.open"
-                  [class.notActiveItem]="!item.isRequred" (click)="onClickItemReference(item)">
-                  <div class="reference-container-value__fio">{{item.name}}</div>
-                  <div class="reference-container-value__edit-button">
-                    <svg-icon *ngIf="item.open" class="indicator-selector__collapse"
-                      src="./assets/icons/widgets/references/edit_white.svg"></svg-icon>
-                  </div>
-                </div>
-              </div>
-            </ng-container>
-          </div>
-
-          <div class="references-container-check-block" *ngIf="isOpenCheckBlock">
-            <div class="references-container-check-block__title-block">
-              <div class="references-container-check-block__title-param">Наименование параметра</div>
-              <div class="references-container-check-block__title-status">Статус</div>
-            </div>
-            <div class="references-container-check-block__content-block" *ngFor="let item of this.categorys">
-              <div class="references-container-check-block__name-item">{{item.name}}</div>
-              <div class="references-container-check-block__check-item">
-                <label class="mycheckbox">
-                  <input type="checkbox" id="checkBoxValue" class="mycheckbox__default" [checked]="item.isRequred"
-                    (click)="changeSwap(item)" />
-                  <div class="mycheckbox__new" [class.mycheckbox__checked]="item.isRequred"
-                    [class.notActiveCheck]="!item.isRequred"></div>
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="bottom-reference-right">
-          <div class="bottom-reference-right__block-edit">
-            <div class="bottom-reference-right__block-add">
-              <div class="bottom-reference-right__button-add" (click)="openCheckBoxBlock()">
-                <svg-icon *ngIf="!isOpenCheckBlock" src="./assets/icons/widgets/references/add_white.svg"
-                  class="add_button_icon">
-                </svg-icon>
-                <svg-icon *ngIf="isOpenCheckBlock" src="./assets/icons/widgets/references/add_blue.svg"
-                  class="add_button_icon">
-                </svg-icon>
-              </div>
-            </div>
-          </div>
-          <div class="bottom-reference-right__block">
-            <div class="bottom-reference-right__save-block">
-              <div class="bottom-reference-right__button-save">Сохранить</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    </ng-container>
+    <ng-container *ngIf="!isTable">
+      <evj-add-report-file style="width: 100%;"></evj-add-report-file>
+    </ng-container>
   </div>
 
   <evj-frame-bottom></evj-frame-bottom>

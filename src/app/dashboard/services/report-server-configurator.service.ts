@@ -17,8 +17,8 @@ export class ReportServerConfiguratorService {
     return this.http.get<any[]>(this.restUrl + '/api/report-template/all');
   }
 
-  public getCategorys(): Observable<any[]> {
-    return this.http.get<any[]>(this.restUrl + '/api/report-template/all');
+  public getOptions(): Observable<any[]> {
+    return this.http.get<any[]>(this.restUrl + '/api/template/system-option/all');
   }
 
 }

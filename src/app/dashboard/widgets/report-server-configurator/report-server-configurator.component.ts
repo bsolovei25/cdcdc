@@ -33,10 +33,10 @@ import { WidgetPlatform } from '../../models/widget-platform';
     ],
 })
 export class ReportServerConfiguratorComponent extends WidgetPlatform implements OnInit, OnDestroy {
-
-
     static itemCols = 18;
     static itemRows = 14;
+
+    public isTable: boolean = true;
 
     public valueCheck: boolean;
     public valueUniqCheck: boolean;
@@ -53,8 +53,6 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     indexColumn: number = 0;
 
     isOpenCheckBlock: boolean = false;
-
-  
 
     public categorys = [
         {
@@ -153,6 +151,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     ]
 
     public data;
+    public options;
 
     public clickPushRef: boolean = false;
     public clickPushRec: boolean = false;
@@ -177,7 +176,8 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     ngOnInit(): void {
         super.widgetInit();
         this.subscriptions.push(
-            this.getReportTemplate()
+            this.getReportTemplate(),
+            this.getOptions()
         );
     }
 
@@ -189,12 +189,22 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         //this.data = ref.chartItems;
     }
 
+    openTable(event): void {
+        this.isTable = event;
+    }
+
     getReportTemplate(){
         return this.reportService.getReportTemplate().subscribe((data) => {
             this.data = data;
             for (let item of this.data) {
              this.connectedTo.push(item.name);
          }
+        })
+    }
+
+    getOptions(){
+        return this.reportService.getOptions().subscribe((data) => {
+            this.options = data;
         })
     }
 
@@ -305,4 +315,6 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     openCheckBoxBlock(): void {
         this.isOpenCheckBlock = !this.isOpenCheckBlock;
     }
+
+    
 }
