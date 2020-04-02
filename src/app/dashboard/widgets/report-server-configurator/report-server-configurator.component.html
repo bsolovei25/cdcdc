@@ -1,7 +1,8 @@
-<evj-widget-preview [title]="title" [previewTitle]="previewTitle" *ngIf="isMock"></evj-widget-preview>
+<evj-widget-preview [title]="widgetTitle" [previewTitle]="widgetType" *ngIf="isMock"></evj-widget-preview>
 
 <div class="container" *ngIf="!isMock">
-  <evj-widget-header [title]="title" [id]="id" [units]="units" [uniqId]="uniqId"></evj-widget-header>
+  <evj-widget-header [title]="widgetTitle" [units]="widgetUnits" [code]="widgetCode" [id]="id" [uniqId]="uniqId"
+    [icon]="widgetIcon"></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
 
@@ -117,18 +118,10 @@
               <div class="references-container-check-block__name-item">{{item.name}}</div>
               <div class="references-container-check-block__check-item">
                 <label class="mycheckbox">
-                  <input
-                    type="checkbox"
-                    id="checkBoxValue"
-                    class="mycheckbox__default"
-                    [checked]="item.isRequred"
-                    (click)="changeSwap(item)"
-                  />
-                  <div
-                    class="mycheckbox__new"
-                    [class.mycheckbox__checked]="item.isRequred"
-                    [class.notActiveCheck]="!item.isRequred"
-                  ></div>
+                  <input type="checkbox" id="checkBoxValue" class="mycheckbox__default" [checked]="item.isRequred"
+                    (click)="changeSwap(item)" />
+                  <div class="mycheckbox__new" [class.mycheckbox__checked]="item.isRequred"
+                    [class.notActiveCheck]="!item.isRequred"></div>
                 </label>
               </div>
             </div>
@@ -138,13 +131,11 @@
           <div class="bottom-reference-right__block-edit">
             <div class="bottom-reference-right__block-add">
               <div class="bottom-reference-right__button-add" (click)="openCheckBoxBlock()">
-                <svg-icon 
-                *ngIf = "!isOpenCheckBlock"
-                src="./assets/icons/widgets/references/add_white.svg" class="add_button_icon">
+                <svg-icon *ngIf="!isOpenCheckBlock" src="./assets/icons/widgets/references/add_white.svg"
+                  class="add_button_icon">
                 </svg-icon>
-                <svg-icon 
-                *ngIf = "isOpenCheckBlock"
-                src="./assets/icons/widgets/references/add_blue.svg" class="add_button_icon">
+                <svg-icon *ngIf="isOpenCheckBlock" src="./assets/icons/widgets/references/add_blue.svg"
+                  class="add_button_icon">
                 </svg-icon>
               </div>
             </div>

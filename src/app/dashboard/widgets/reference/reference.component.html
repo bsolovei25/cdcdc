@@ -1,7 +1,8 @@
-<evj-widget-preview [title]="title" [previewTitle]="previewTitle" *ngIf="isMock"></evj-widget-preview>
+<evj-widget-preview [title]="widgetTitle" [previewTitle]="widgetType" *ngIf="isMock"></evj-widget-preview>
 
 <div class="container" *ngIf="!isMock">
-  <evj-widget-header [title]="title" [id]="id" [units]="units" [uniqId]="uniqId"></evj-widget-header>
+  <evj-widget-header [title]="widgetTitle" [units]="widgetUnits" [code]="widgetCode" [id]="id" [uniqId]="uniqId"
+    [icon]="widgetIcon"></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
 
@@ -114,8 +115,7 @@
                                     type="text" [(ngModel)]="i2.valueString" placeholder="Введите текст..."
                                     (focus)="item.open = true" /></div>
                                 <div *ngIf="i.columnTypeId === 3" class="reference-container-value__edit-input">
-                                  <evj-time-data-picker 
-                                    (dateTimePicker)="dateTimePickerEdit($event, i2)">
+                                  <evj-time-data-picker (dateTimePicker)="dateTimePickerEdit($event, i2)">
                                   </evj-time-data-picker>
                                 </div>
                                 <div *ngIf="i.columnTypeId === 4" class="reference-container-value__edit-input"> <input
@@ -162,7 +162,7 @@
                         <div *ngIf="item.columnTypeId === 1" (change)="onChangeValue($event, item.id)"> <input
                             type="text" placeholder="Введите текст..." /></div>
                         <div *ngIf="item.columnTypeId === 3">
-                          <evj-time-data-picker  (dateTimePicker)="dateTimePickerNew($event)">
+                          <evj-time-data-picker (dateTimePicker)="dateTimePickerNew($event)">
                           </evj-time-data-picker>
                         </div>
                         <div *ngIf="item.columnTypeId === 4"> <input type="text" placeholder="Введите целое число..."
