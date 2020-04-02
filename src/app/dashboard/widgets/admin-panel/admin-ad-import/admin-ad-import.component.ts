@@ -15,6 +15,8 @@ export class AdminAdImportComponent implements OnInit {
 
     public workersLdap: IUserLdapDto[] = null;
 
+    public isAlertShowing: boolean = false;
+
     private searchedWorker: string = '';
 
     public searchIcon: string = 'assets/icons/search-icon.svg';
@@ -49,6 +51,12 @@ export class AdminAdImportComponent implements OnInit {
 
     public onClose(): void {
         this.closeLdap.emit(false);
+    }
+
+    public onClickImport(): void {
+        if (this.workerSelect.hasValue()) {
+            this.isAlertShowing = true;
+        }
     }
 
     public async onClickAdd(): Promise<void> {
