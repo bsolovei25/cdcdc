@@ -53,6 +53,7 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
     public groupWorkspaces: IWorkspace[] = [];
 
     private subscriptions: Subscription[] = [];
+    private subs: Subscription = null;
 
     constructor(
         private adminService: AdminPanelService,
@@ -80,6 +81,9 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
 
     public ngOnDestroy(): void {
         this.subscriptions.forEach((subs) => subs.unsubscribe());
+        if (this.subs) {
+            this.subs.unsubscribe();
+        }
     }
 
     public onSearchGroup(event: string): void {
@@ -186,10 +190,15 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
             this.currentGroupSpecialClaims = group.claims.filter((claim) => !!claim.value);
 
             if (!group.workspaces) {
-                this.adminService.getAllGroupScreenClaims(group.id).subscribe((data) => {
-                    group.workspaces = data.data;
-                    this.groupWorkspaces = group.workspaces;
-                });
+                if (this.subs) {
+                    this.subs.unsubscribe();
+                }
+                this.subs = this.adminService
+                    .getAllGroupScreenClaims(group.id)
+                    .subscribe((data) => {
+                        group.workspaces = data.data;
+                        this.groupWorkspaces = group.workspaces;
+                    });
                 this.groupWorkspaces = [];
             } else {
                 this.groupWorkspaces = group.workspaces;
