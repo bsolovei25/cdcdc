@@ -15,7 +15,7 @@ export class AdminWorkspaceComponent implements OnInit, OnDestroy {
 
     public searchIcon: string = 'assets/icons/search-icon.svg';
 
-    public workspaces: IScreen[] = [];
+    public workspaces: IWorkspace[] = [];
 
     private subscriptions: Subscription[] = [];
 
@@ -23,8 +23,10 @@ export class AdminWorkspaceComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         this.subscriptions.push(
-            this.adminPanel.activeWorkerScreens$.subscribe((data: IScreen[]) => {
-                this.workspaces = data;
+            this.adminPanel.activeWorkerWorkspaces$.subscribe((data) => {
+                if (data) {
+                    this.workspaces = data;
+                }
             })
         );
     }
