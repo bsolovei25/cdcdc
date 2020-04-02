@@ -57,7 +57,22 @@
     </div>
     <div class="block-bottom" *ngIf="selectedDay && yesterday">
       <section class="duty-schedule">
-        <div class="title"><p>График дежурств</p></div>
+        <div class="title">
+          <p>График дежурств</p>
+          <button
+            (click)="resetBrigadesFromShifts()"
+            class="title-button"
+            mat-icon-button
+            *ngIf="dateNow.getDate() === selectedDay.date.getDate()"
+          >
+            <svg-icon
+              class="icon-storage-title"
+              [svgStyle]="{'height.px':25}"
+              src="./assets/icons/garbage_bad_pic.svg"
+            ></svg-icon>
+          </button>
+        </div>
+
         <div class="date-yesterday">
           <p>
             {{ yesterday.date | date:'d MMMM' }} - {{ selectedDay.date | date:'d MMMM yyyy' }}
