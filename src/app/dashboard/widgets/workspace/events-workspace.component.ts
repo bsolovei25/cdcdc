@@ -190,6 +190,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
                 value.fixedBy.lastName;
             this.event = value;
             this.dateChoose = value.deadline;
+            this.userAvatar = value?.fixedBy?.photoId ? `${this.fsUrl}/${value?.fixedBy?.photoId}` : this.userAvatarDefault;
         }
 
         await this.loadItem(typeof value === 'number' ? value : undefined);
