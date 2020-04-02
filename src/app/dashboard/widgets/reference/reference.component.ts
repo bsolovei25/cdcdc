@@ -34,6 +34,8 @@ export class ReferenceComponent implements OnInit, OnDestroy {
 
     public isEditRecordBlock: boolean = false;
 
+    isRefInput: boolean = false;
+    isRecInput: boolean = false;
     isLongBlock: boolean = true;
 
     indexColumn: number = null;

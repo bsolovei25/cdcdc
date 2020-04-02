@@ -97,25 +97,30 @@
                               <div *ngIf="!i2.edit" [class.disabled]="i2.edit">
                                 <div *ngIf="i.columnTypeId === 2"> {{ i2.valueNumber }}</div>
                                 <div *ngIf="i.columnTypeId === 1"> {{ i2.valueString }}</div>
-                                <div *ngIf="i.columnTypeId === 3"> {{ i2.valueDateTime | date: 'dd.MM.yyyy HH:mm' }}</div>
+                                <div *ngIf="i.columnTypeId === 3"> {{ i2.valueDateTime | date: 'dd.MM.yyyy HH:mm' }}
+                                </div>
                                 <div *ngIf="i.columnTypeId === 4"> {{ i2.valueInt }}</div>
                               </div>
                               <div *ngIf="!i2.edit" class="reference-container-value__edit-button"
-                              (click)="onBlockEditRecord(i,item)">
-                              <svg-icon *ngIf="item.open" class="indicator-selector__collapse"
-                                src="./assets/icons/widgets/references/edit_white.svg"></svg-icon>
-                            </div>
+                                (click)="onBlockEditRecord(i,item)">
+                                <svg-icon *ngIf="item.open" class="indicator-selector__collapse"
+                                  src="./assets/icons/widgets/references/edit_white.svg"></svg-icon>
+                              </div>
                               <div *ngIf="i2.edit" class="reference-container-value__edit-value">
-                                <div *ngIf="i.columnTypeId === 2" class="reference-container-value__edit-input"> <input type="number" [(ngModel)]="i2.valueNumber"
-                                    placeholder="Введите число..." (focus)="item.open = false"/></div>
-                                <div *ngIf="i.columnTypeId === 1" class="reference-container-value__edit-input"> <input type="text" [(ngModel)]="i2.valueString"
-                                    placeholder="Введите текст..." (focus)="item.open = true"/></div>
+                                <div *ngIf="i.columnTypeId === 2" class="reference-container-value__edit-input"> <input
+                                    type="number" [(ngModel)]="i2.valueNumber" placeholder="Введите число..."
+                                    (focus)="item.open = false" /></div>
+                                <div *ngIf="i.columnTypeId === 1" class="reference-container-value__edit-input"> <input
+                                    type="text" [(ngModel)]="i2.valueString" placeholder="Введите текст..."
+                                    (focus)="item.open = true" /></div>
                                 <div *ngIf="i.columnTypeId === 3" class="reference-container-value__edit-input">
-                                  <evj-time-data-picker [data]="dateNow" (dateTimePicker)="dateTimePickerEdit($event, i2)">
+                                  <evj-time-data-picker 
+                                    (dateTimePicker)="dateTimePickerEdit($event, i2)">
                                   </evj-time-data-picker>
                                 </div>
-                                <div *ngIf="i.columnTypeId === 4" class="reference-container-value__edit-input"> <input type="number" [(ngModel)]="i2.valueInt"
-                                    placeholder="Введите целое..." (focus)="item.open = true"/></div>
+                                <div *ngIf="i.columnTypeId === 4" class="reference-container-value__edit-input"> <input
+                                    type="number" [(ngModel)]="i2.valueInt" placeholder="Введите целое..."
+                                    (focus)="item.open = true" /></div>
                                 <div *ngIf="i2.edit" class="reference-container-value__add-button-edit"
                                   (click)="onEditRecord(i2,item)">
                                   <svg-icon class="indicator-selector__collapse"
@@ -125,7 +130,7 @@
                               </div>
                             </div>
                           </ng-container>
-                        
+
                         </div>
                       </ng-container>
                     </ng-container>
@@ -152,16 +157,16 @@
                   <ng-container *ngIf="item.name !=='Name'">
                     <div class="reference-container-value__fio-block">
                       <div class="reference-container-value__fio">
-                        <div *ngIf="item.columnTypeId === 2"> <input type="text" 
-                          placeholder="Введите число..." (change)="onChangeValue($event, item.id)"/></div>
-                      <div *ngIf="item.columnTypeId === 1" (change)="onChangeValue($event, item.id)"> <input type="text" 
-                          placeholder="Введите текст..." /></div>
-                      <div *ngIf="item.columnTypeId === 3">
-                        <evj-time-data-picker [data]="dateNow" (dateTimePicker)="dateTimePickerNew($event)">
-                        </evj-time-data-picker>
-                      </div>
-                      <div *ngIf="item.columnTypeId === 4"> <input type="text" 
-                          placeholder="Введите целое число..." (change)="onChangeValue($event, item.id)"/></div>
+                        <div *ngIf="item.columnTypeId === 2"> <input type="text" placeholder="Введите число..."
+                            (change)="onChangeValue($event, item.id)" /></div>
+                        <div *ngIf="item.columnTypeId === 1" (change)="onChangeValue($event, item.id)"> <input
+                            type="text" placeholder="Введите текст..." /></div>
+                        <div *ngIf="item.columnTypeId === 3">
+                          <evj-time-data-picker  (dateTimePicker)="dateTimePickerNew($event)">
+                          </evj-time-data-picker>
+                        </div>
+                        <div *ngIf="item.columnTypeId === 4"> <input type="text" placeholder="Введите целое число..."
+                            (change)="onChangeValue($event, item.id)" /></div>
                       </div>
                     </div>
                   </ng-container>
