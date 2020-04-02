@@ -49,6 +49,8 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
     public blockSelection: SelectionModel<void> = new SelectionModel<void>();
     public claimsSelector: SelectionModel<IGlobalClaim> = new SelectionModel<IGlobalClaim>();
 
+    public groupWorkspaces: IWorkspace[] = [];
+
     private subscriptions: Subscription[] = [];
 
     constructor(
@@ -163,8 +165,15 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
         this.onEditGroup();
     }
 
+    public onWorkerScreens(): IWorkspace[] {
+        const workspaces = this.groupSelection.selected[0].workspaces;
+        return workspaces ? workspaces : [];
+    }
+
     public onSelectGroup(group: IGroup): void {
         this.groupSelection.select(group);
+        this.blockSelection.clear();
+
         if (group) {
             group.users.forEach((userId) => {
                 const index = this.allWorkers.findIndex((worker) => worker.id === userId);
@@ -272,6 +281,10 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
         } else if (event && !this.isSaveClicked) {
             this.onReturn();
         }
+    }
+
+    public onChangeWorkspaces(): void {
+        this.onEditGroup();
     }
 
     public onReturn(): void {

@@ -148,14 +148,14 @@ export class AdminPanelService {
         return this.http.get<{ data: IGlobalClaim[] }>(url);
     }
 
-    public getAllWorkerScreenClaims(workerId: number): Observable<any> {
+    public getAllWorkerScreenClaims(workerId: number): Observable<{ data: IWorkspace[] }> {
         const url: string = `${this.restUrl}/screen/admin/screens/${workerId}/user`;
-        return this.http.get<any>(url);
+        return this.http.get<{ data: IWorkspace[] }>(url);
     }
 
-    public getAllGroupScreenClaims(groupId: number): Observable<any> {
+    public getAllGroupScreenClaims(groupId: number): Observable<{ data: IWorkspace[] }> {
         const url: string = `${this.restUrl}/screen/admin/screens/${groupId}/role`;
-        return this.http.get<any>(url);
+        return this.http.get<{ data: IWorkspace[] }>(url);
     }
     //#endregion
 

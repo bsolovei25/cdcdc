@@ -56,6 +56,7 @@ export interface IGroup {
     name: string;
     claims?: IGlobalClaim[];
     users?: number[];
+    workspaces?: IWorkspace[];
 }
 
 export interface IGlobalClaim {

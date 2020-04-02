@@ -159,7 +159,15 @@
         [ngClass]="{'block_active': blockSelection.hasValue()}"
         *ngIf="blockSelection.hasValue()"
       >
-        <div class="block__body"></div>
+        <div class="block__body">
+          <evj-aws-workspaces
+            class="workspaces workspaces__list scroll scroll-bar"
+            [workerScreens]="groupWorkspaces"
+            [workerSpecialClaims]="this.groupSelection.selected[0].claims"
+            [searchingWorkspaceValue]="''"
+            (changeWorkspaces)="onChangeWorkspaces()"
+          ></evj-aws-workspaces>
+        </div>
       </div>
     </div>
   </div>
