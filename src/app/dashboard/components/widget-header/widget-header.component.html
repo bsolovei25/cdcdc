@@ -69,7 +69,7 @@
     </div>
   </div>
 
-  <div class="header-workspace__button">
+  <div class="header-workspace__button" [class.disabled]="blockWorkspaceButton === false">
     <div class="header-workspace__container" (click)="createEvent(true)">
       <div class="title">Создать событие</div>
       <div class="icon-wrapper">

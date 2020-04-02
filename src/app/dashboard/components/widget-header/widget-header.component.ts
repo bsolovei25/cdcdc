@@ -29,6 +29,7 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
     @Input() icon: string = 'shedule';
 
     @Input() isEventOpen: boolean;
+    @Input() blockWorkspaceButton: boolean;
     public localeSelect: { name: string; id: number }[];
     @Input() set select(data) {
         if (data) {

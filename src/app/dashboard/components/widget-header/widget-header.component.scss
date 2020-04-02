@@ -258,6 +258,10 @@
 
     background: var(--color-bg-main);
   }
+
+  .disabled{
+    display: none;
+  }
 }
 
 .header-schedule {

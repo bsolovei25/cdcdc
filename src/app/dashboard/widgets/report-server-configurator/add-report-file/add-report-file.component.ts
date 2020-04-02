@@ -9,6 +9,13 @@ export class AddReportFileComponent implements OnInit {
 
   constructor() { }
 
+  public data;
+
+  public clickPushRec: boolean = false;
+  public clickPushRef: boolean = false;
+
+  public isOpenCheckBlock:boolean = false;
+
   ngOnInit(): void {
   }
 

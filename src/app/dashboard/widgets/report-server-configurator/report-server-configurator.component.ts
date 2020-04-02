@@ -199,13 +199,13 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             for (let item of this.data) {
              this.connectedTo.push(item.name);
          }
-        })
+        });
     }
 
     getOptions(){
         return this.reportService.getOptions().subscribe((data) => {
             this.options = data;
-        })
+        });
     }
 
   
