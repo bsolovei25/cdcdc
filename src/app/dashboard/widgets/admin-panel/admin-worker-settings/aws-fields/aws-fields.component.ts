@@ -147,11 +147,13 @@ export class AwsFieldsComponent implements OnInit {
     }
 
     public textPasswordButton(): string {
-        return this.isCreateNewUser ? 'Добавить пароль' : 'Сбросить пароль';
+        return this.isCreateNewUser || (this.isImportNewWorker && !this.worker.id)
+            ? 'Добавить пароль'
+            : 'Сбросить пароль';
     }
 
     public onSetPassword(): void {
-        if (this.isCreateNewUser) {
+        if (this.isCreateNewUser || (this.isImportNewWorker && !this.worker.id)) {
             this.password.emit(false);
         } else {
             this.password.emit(true);
