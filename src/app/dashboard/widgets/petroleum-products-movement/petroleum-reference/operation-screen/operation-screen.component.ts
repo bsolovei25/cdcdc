@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PetroleumScreenService } from 'src/app/dashboard/services/petroleum-screen.service';
+import { ITransfer, TransfersFilter } from '../../../../models/petroleum-products-movement.model';
 
 @Component({
     selector: 'evj-operation-screen',
@@ -7,17 +8,48 @@ import { PetroleumScreenService } from 'src/app/dashboard/services/petroleum-scr
     styleUrls: ['./operation-screen.component.scss'],
 })
 export class OperationScreenComponent implements OnInit {
-    @Input() data: any;
     @Input() title: string[];
+    @Input() keys: string[];
+    public isOpen: boolean;
 
-    constructor(private petroleumService: PetroleumScreenService) {}
+    constructor(public petroleumService: PetroleumScreenService) {}
 
-    objectKeys: any = Object.keys;
-    objectEntries: any = Object.entries;
+    public ngOnInit(): void {
+        this.filterHandler();
+    }
 
-    ngOnInit(): void {}
-
-    returnMenu(): void {
+    public returnMenu(): void {
         this.petroleumService.openScreen('info');
+    }
+
+    public transferClick(uid: string): void {
+        console.log(uid);
+        this.petroleumService.chooseTransfer(uid);
+    }
+
+    private filterHandler(): void {
+        this.petroleumService.currentTransfersFilter$.subscribe(
+            (item) => {
+                switch (item) {
+                    case 'open':
+                        this.isOpen = true;
+                        break;
+                    case 'all':
+                        this.isOpen = false;
+                        break;
+                }
+            }
+        );
+    }
+
+    public filterClick(isOpen: boolean): void {
+        this.petroleumService.isLoad$.next(true);
+        let filterType: TransfersFilter;
+        if (isOpen) {
+            filterType = 'open';
+        } else {
+            filterType = 'all';
+        }
+        this.petroleumService.currentTransfersFilter$.next(filterType);
     }
 }

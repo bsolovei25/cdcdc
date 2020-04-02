@@ -8,10 +8,10 @@ import {
     OnChanges,
     OnDestroy,
 } from '@angular/core';
-import { NewWidgetService } from '../../services/new-widget.service';
-import { NewUserSettingsService } from '../../services/new-user-settings.service';
+import { UserSettingsService } from '../../services/user-settings.service';
 import { ClaimService, EnumClaimWidgets } from '../../services/claim.service';
 import { Subscription } from 'rxjs';
+import { WidgetService } from '../../services/widget.service';
 
 @Component({
     selector: 'evj-widget-header',
@@ -49,8 +49,8 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
     public CreateIcon: boolean = true;
 
     constructor(
-        public widgetService: NewWidgetService,
-        public userSettings: NewUserSettingsService,
+        public widgetService: WidgetService,
+        public userSettings: UserSettingsService,
         private claimService: ClaimService
     ) {}
 

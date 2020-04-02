@@ -1,0 +1,131 @@
+.container {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  box-sizing: border-box;
+
+  .alert {
+    position: relative;
+
+    width: 600px;
+    height: 450px;
+
+    box-sizing: border-box;
+    border: 1px solid var(--color-border-main-transparrent);
+    padding: 20px 25px 70px;
+    border-radius: 10px;
+
+    background: var(--color-bg-main);
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .claims {
+      height: 100%;
+      width: 35%;
+
+      overflow-x: hidden;
+      overflow-y: auto;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .items {
+      height: 100%;
+      width: 65%;
+
+      overflow-x: hidden;
+      overflow-y: auto;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .list {
+      width: 100%;
+      height: max-content;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .card {
+      position: relative;
+
+      width: 95%;
+      height: 50px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      box-sizing: border-box;
+      border: 1px solid var(--color-border-main-transparrent);
+      border-radius: 7px;
+      padding: 0 10px;
+      margin: 3px 0px;
+
+      font-size: 12px;
+      text-align: center;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &_active {
+        &::after {
+          content: "";
+          position: absolute;
+
+          width: 100%;
+          height: 100%;
+
+          background: var(--color-active);
+          opacity: 0.1;
+        }
+      }
+    }
+
+    &__buttons {
+      position: absolute;
+
+      width: 80%;
+      height: 50px;
+
+      bottom: 10px;
+      left: 0;
+      right: 0;
+      margin: auto;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+
+      box-sizing: border-box;
+      padding: 0px 10%;
+
+      .button {
+        width: 120px;
+        height: 50px;
+      }
+    }
+  }
+}

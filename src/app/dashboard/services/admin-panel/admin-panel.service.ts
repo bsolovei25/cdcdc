@@ -8,8 +8,14 @@ import {
     IScreen,
     IWorkspace,
     IGlobalClaim,
+    IGroup,
+    IUserLdapDto,
+    IUserLdap,
+    IUserImported,
 } from '../../models/admin-panel';
 import { IUser, IUnitEvents } from '../../models/events-widget';
+import { IWidgets } from '../../models/widget.model';
+import { fillDataShape } from '../../../@shared/common-functions';
 
 @Injectable({
     providedIn: 'root',
@@ -18,7 +24,7 @@ export class AdminPanelService {
     private restUrl: string = `/api/user-management`;
     private restFileUrl: string = '';
 
-    private defaultWorker: IUser = {
+    public defaultWorker: IUser = {
         id: undefined,
         login: '',
         firstName: '',
@@ -56,6 +62,9 @@ export class AdminPanelService {
 
     public screenClaims: IClaim[] = [];
     public generalClaims: IGlobalClaim[] = [];
+    public specialClaims: IGlobalClaim[] = [];
+
+    public allWidgets: IWidgets[] = [];
 
     constructor(private http: HttpClient, private configService: AppConfigService) {
         this.configService.restUrl$.subscribe((urls) => (this.restUrl = `${urls}${this.restUrl}`));
@@ -93,6 +102,11 @@ export class AdminPanelService {
 
     public setUserResponsible(userId: number): Observable<void> {
         const url: string = `${this.restUrl}/user/${userId}/SetResponsible`;
+        return this.http.post<void>(url, null);
+    }
+
+    public resetUserPassword(workerId: number): Observable<void> {
+        const url: string = `${this.restUrl}/user/${workerId}/password/reset`;
         return this.http.post<void>(url, null);
     }
 
@@ -167,7 +181,13 @@ export class AdminPanelService {
     //#endregion
 
     //#region UNITS
-    public getAllUnits(): Observable<IUnitEvents[]> {
+    // TODO
+    public getAllUnits(): Observable<any> {
+        const url: string = 'http://deploy.funcoff.club:6555/api/ref-book/Unit';
+        return this.http.get<any>(url);
+    }
+
+    public getAllUnitsWithBrigades(): Observable<IUnitEvents[]> {
         const url: string = `${this.restUrl}/units/all`;
         return this.http.get<IUnitEvents[]>(url);
     }
@@ -178,7 +198,7 @@ export class AdminPanelService {
     }
     //#endregion
 
-    //#region GLOBAL_CLAIMS
+    //#region GENERAL_CLAIMS
     public getAllGeneralClaims(): Observable<{ data: IGlobalClaim[] }> {
         const url: string = `${this.restUrl}/claim/getavaible-claims/general`;
         return this.http.get<{ data: IGlobalClaim[] }>(url);
@@ -190,6 +210,63 @@ export class AdminPanelService {
     }
     //#endregion
 
+    //#region SPECIAL_CLAIMS
+    public getAllWidgets(): Observable<{ data: IWidgets[] }> {
+        const url: string = `${this.restUrl}/claim/getavaible-widgets`;
+        return this.http.get<{ data: IWidgets[] }>(url);
+    }
+
+    public getAllSpecialClaims(): Observable<{ data: IGlobalClaim[] }> {
+        const url: string = `${this.restUrl}/claim/getavaible-claims/special`;
+        return this.http.get<{ data: IGlobalClaim[] }>(url);
+    }
+
+    public getWorkerSpecialClaims(workerId: number): Observable<{ data: IGlobalClaim[] }> {
+        const url: string = `${this.restUrl}/claim/user/${workerId}/getavaible-claims/special`;
+        return this.http.get<{ data: IGlobalClaim[] }>(url);
+    }
+    //#endregion
+
+    //#region GROUPS
+    // TODO
+    public getAllGroups(): Observable<IGroup[]> {
+        const url: string = `${this.restUrl}/roles`;
+        return this.http.get<IGroup[]>(url);
+    }
+
+    public createNewGroup(group: IGroup): Observable<void> {
+        const url: string = `${this.restUrl}/roles`;
+        return this.http.post<void>(url, group);
+    }
+
+    public editGroup(group: IGroup): Observable<void> {
+        const url: string = `${this.restUrl}/roles`;
+        return this.http.put<void>(url, group);
+    }
+
+    public getGroupById(groupId: number): Observable<IGroup> {
+        const url: string = `${this.restUrl}/roles/${groupId}`;
+        return this.http.get<IGroup>(url);
+    }
+
+    public deleteGroupById(groupId: number): Observable<void> {
+        const url: string = `${this.restUrl}/roles/${groupId}`;
+        return this.http.delete<void>(url);
+    }
+    //#endregion
+
+    //#region LDAP
+    public getAllLDAPUsers(): Observable<IUserLdapDto[]> {
+        const url: string = `${this.restUrl}/ldap/users`;
+        return this.http.get<IUserLdapDto[]>(url);
+    }
+
+    public importUserFromLDAP(worker: IUserLdap): Observable<IUserImported> {
+        const url: string = `${this.restUrl}/ldap/user/${worker.samAccountName}/import`;
+        return this.http.post<IUserImported>(url, null);
+    }
+    //#endregion
+
     //#endregion
 
     //#region WORKER_METHODS
@@ -197,6 +274,7 @@ export class AdminPanelService {
     public setActiveWorker(worker: IUser): void {
         this.activeWorker$.next(worker);
         if (worker.brigade) {
+            this.setActiveBrigade(worker.brigade.id);
             const unit = this.getUnitByBrigadeId(worker.brigade.id);
             if (unit) {
                 this.activeWorkerUnit$.next(unit);
@@ -209,8 +287,18 @@ export class AdminPanelService {
     }
 
     public setDefaultActiveWorker(): void {
-        this.activeWorker$.next(this.defaultWorker);
+        const worker = fillDataShape(this.defaultWorker);
+        this.activeWorker$.next(worker);
         this.activeWorkerScreens$.next([]);
+        this.activeBrigade$.next(null);
+        this.activeWorkerUnit$.next(null);
+    }
+
+    public setActiveBrigade(brigadeId: number): void {
+        const activeBrigade = this.brigades.find((brigade) => brigade.brigadeId === brigadeId);
+        if (activeBrigade) {
+            this.activeBrigade$.next(activeBrigade);
+        }
     }
 
     public async updateAllWorkers(): Promise<void> {

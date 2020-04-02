@@ -1,5 +1,4 @@
 <div class="admin">
-  <!-- <evj-widget-preloader *ngIf="isDataLoading" [isLoading]="isDataLoading"></evj-widget-preloader> -->
   <evj-loading-shade [isLoading]="isDataLoading"></evj-loading-shade>
 
   <div class="admin__header">
@@ -22,6 +21,7 @@
       <div class="search">
         <evj-input
           class="insert-component"
+          *ngIf="!isClaimsShowing"
           [placeholder]="'Введите название рабочей области'"
           [iconSrc]="searchIcon"
           (inputedValue)="onSearchWorkspace($event)"
@@ -36,9 +36,10 @@
         [workerUnit]="workerUnit"
         [searchingFieldName]="searchingFieldName"
         [isCreateNewUser]="isCreateNewUser"
+        [isImportNewWorker]="isImportNewWorker"
         (workerData)="onChangeWorkerData($event)"
         (responsible)="onSetResponsible($event)"
-        (password)="isPasswordAlertShowing=true"
+        (password)="onChangePassword($event)"
       ></evj-aws-fields>
       <div class="claims">
         <div class="title">Права доступа</div>
@@ -87,8 +88,7 @@
             (click)="isCheckBoxClicked=!isCheckBoxClicked"
           ></div>
           <div class="message">
-            Подтверждаю внесенные изменения и<br />
-            <span>высокий уровень</span> доступа<br />
+            Подтверждаю внесенные изменения<br />
             для данного сотрудника
           </div>
         </div>
@@ -113,7 +113,7 @@
       [searchingWorkspaceValue]="searchingWorkspaceValue"
       (workspacesData)="onChangeWorkspacesData()"
     ></evj-aws-workspaces>
-    <div class="worker__column worker__claims scroll-bar" *ngIf="isClaimsShowing">
+    <div class="worker__column worker__claims" *ngIf="isClaimsShowing">
       <div class="title">Общие права</div>
       <div class="cards">
         <evj-aws-claim-card
@@ -121,18 +121,35 @@
           [name]="claim.description"
           [isActive]="checkForActiveClaim(claim.claimType)"
           [isChangingCardState]="true"
-          (click)="onSelectClaim(claim)"
+          (click)="onSelectGeneralClaim(claim)"
         ></evj-aws-claim-card>
       </div>
       <div class="title title__special">Специальные права</div>
-      <div class="cards cards__special">
-        <evj-aws-claim-card
-          *ngFor="let claim of allGeneralClaims"
-          [name]="claim.description"
-          [isActive]="false"
-          [isChangingCardState]="true"
-          (click)="onSelectClaim()"
-        ></evj-aws-claim-card>
+      <div class="create-special-claim" (click)="createSpecialClaim()"></div>
+      <div class="list">
+        <ng-container *ngFor="let claim of allSpecialClaims">
+          <div
+            class="list__claim"
+            [ngClass]="{'list__claim_active':claimsSelector.isSelected(claim)}"
+            *ngIf="canShowSpecialClaim(claim)"
+          >
+            <div class="claim__title" (click)="onSelectSpecialClaim(claim)">
+              {{claim.claimName}}
+              <div class="claim__button claim__button-toggle"></div>
+            </div>
+            <div class="claim__items">
+              <div class="claim__item" *ngFor="let item of allEntitiesInSpecialType(claim)">
+                {{findEntityByClaimValue(item)}}
+                <div
+                  class="claim__button claim__button-delete"
+                  (click)="onRemoveSpecialClaim(item)"
+                >
+                  <img src="assets/icons/widgets/admin/admin-groups/delete-icon.svg" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
       </div>
     </div>
   </div>
@@ -156,4 +173,10 @@
     *ngIf="isPasswordAlertShowing"
     (confirmed)="onSetWorkerPassword($event)"
   ></evj-aws-password-alert>
+  <evj-aws-create-claim
+    class="admin__popup"
+    [ngClass]="{'admin__popup_active':isCreateClaim}"
+    *ngIf="isCreateClaim"
+    (createdClaim)="onCreateSpecialClaim($event)"
+  ></evj-aws-create-claim>
 </div>

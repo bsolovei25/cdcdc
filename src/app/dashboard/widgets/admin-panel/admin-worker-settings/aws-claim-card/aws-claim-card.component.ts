@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { AdminPanelService } from '../../../../services/admin-panel/admin-panel.service';
 
 @Component({
     selector: 'evj-aws-claim-card',
@@ -9,8 +10,9 @@ export class AwsClaimCardComponent implements OnInit {
     @Input() public name: string = '';
     @Input() public isActive: boolean = false;
     @Input() public isChangingCardState: boolean = false;
+    @Input() public isSpecialClaim: boolean = false;
 
-    constructor() {}
+    constructor(private adminPanel: AdminPanelService) {}
 
     public ngOnInit(): void {}
 

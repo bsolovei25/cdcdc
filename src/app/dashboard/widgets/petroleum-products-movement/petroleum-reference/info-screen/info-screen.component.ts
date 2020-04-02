@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IOperation } from 'src/app/dashboard/models/petroleum-products-movement.model';
+import { ITransfer } from 'src/app/dashboard/models/petroleum-products-movement.model';
+import { PetroleumScreenService } from '../../../../services/petroleum-screen.service';
 
 @Component({
     selector: 'evj-info-screen',
@@ -7,13 +8,15 @@ import { IOperation } from 'src/app/dashboard/models/petroleum-products-movement
     styleUrls: ['./info-screen.component.scss'],
 })
 export class InfoScreenComponent implements OnInit {
-    @Input() data: IOperation;
     @Input() title: string[];
+    @Input() keys: string[];
 
-    constructor() {}
-
-    objectKeys: any = Object.keys;
-    objectEntries: any = Object.entries;
+    constructor(public petroleumScreenService: PetroleumScreenService) {}
 
     ngOnInit(): void {}
+
+    public transferClick(uid: string): void {
+        console.log(uid);
+        this.petroleumScreenService.chooseTransfer(uid);
+    }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { NewUserSettingsService } from 'src/app/dashboard/services/new-user-settings.service';
-import { NewWidgetService } from 'src/app/dashboard/services/new-widget.service';
+import { UserSettingsService } from 'src/app/dashboard/services/user-settings.service';
+import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { RingFactoryWidget } from '../../../models/widget.model';
 import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 
@@ -97,8 +97,8 @@ export class RingSFactoryDiagramComponent extends WidgetPlatform implements OnIn
     ];
 
     constructor(
-        public widgetService: NewWidgetService,
-        public service: NewUserSettingsService,
+        public widgetService: WidgetService,
+        public service: UserSettingsService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string

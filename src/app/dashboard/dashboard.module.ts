@@ -83,14 +83,13 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AdminShiftScheduleComponent } from './widgets/admin-widget/admin-shift-schedule/admin-shift-schedule.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 import { AdminReferencesComponent } from './widgets/admin-references/admin-references.component';
 import { CardVerifierComponent } from './widgets/change-shift/card-verifier/card-verifier.component';
 import { PetroleumProductsMovementComponent } from './widgets/petroleum-products-movement/petroleum-products-movement.component';
 import { PetroleumReferenceLeftComponent } from './widgets/petroleum-products-movement/petroleum-reference-left/petroleum-reference-left.component';
 import { PetroleumReferenceRightComponent } from './widgets/petroleum-products-movement/petroleum-reference-right/petroleum-reference-right.component';
 import { PetroleumReferenceComponent } from './widgets/petroleum-products-movement/petroleum-reference/petroleum-reference.component';
-import { PetroleumWorkspaceComponent } from './widgets/petroleum-products-movement/petroleum-workspace/petroleum-workspace.component';
 import { MatSelectModule } from '@angular/material/select';
 import { ScrollingModule } from '@angular/cdk-experimental/scrolling';
 import { ScrollingModule as OldScrollingModule } from '@angular/cdk/scrolling';
@@ -120,6 +119,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AwsBlockComponent } from './widgets/admin-panel/admin-worker-settings/aws-block/aws-block.component';
 import { UsbVerifierComponent } from './widgets/change-shift/usb-verifier/usb-verifier.component';
 import { TimeDataPickerComponent } from './components/time-data-picker/time-data-picker.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { ReportComponent } from './components/report/reports/report.component';
+import { ReportsComponent } from './components/report/reports.component';
 import { AwsAvatarComponent } from './widgets/admin-panel/admin-worker-settings/aws-avatar/aws-avatar.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { AwsFieldsComponent } from './widgets/admin-panel/admin-worker-settings/aws-fields/aws-fields.component';
@@ -132,6 +134,15 @@ import { AwsPasswordAlertComponent } from './widgets/admin-panel/admin-worker-se
 import { ReferenceComponent } from './widgets/reference/reference.component';
 import { ReportServerConfiguratorComponent } from './widgets/report-server-configurator/report-server-configurator.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { AwsCreateClaimComponent } from './widgets/admin-panel/admin-worker-settings/aws-create-claim/aws-create-claim.component';
+import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule, NGX_MAT_DATE_FORMATS } from '@angular-material-components/datetime-picker';
+import { MatButtonModule } from '@angular/material/button';
+import { NgxMatMomentModule} from '@angular-material-components/moment-adapter';
+
+import { AgNewGroupComponent } from './widgets/admin-panel/admin-groups/ag-new-group/ag-new-group.component';
+import { AgAlertSubmitComponent } from './widgets/admin-panel/admin-groups/ag-alert-submit/ag-alert-submit.component';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { AdminAdImportComponent } from './widgets/admin-panel/admin-ad-import/admin-ad-import.component';
 
 @NgModule({
     declarations: [
@@ -213,7 +224,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
         PetroleumReferenceLeftComponent,
         PetroleumReferenceRightComponent,
         PetroleumReferenceComponent,
-        PetroleumWorkspaceComponent,
         AdminEmployeeComponent,
         AdminWorkspaceComponent,
         AdminWorkspaceCardComponent,
@@ -239,6 +249,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
         AwsBlockComponent,
         UsbVerifierComponent,
         TimeDataPickerComponent,
+        ReportComponent,
+        ReportsComponent,
         AwsAvatarComponent,
         AwsFieldsComponent,
         AwsWorkspacesComponent,
@@ -249,6 +261,10 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
         AwsPasswordAlertComponent,
         ReferenceComponent,
         ReportServerConfiguratorComponent,
+        AwsCreateClaimComponent,
+        AgNewGroupComponent,
+        AgAlertSubmitComponent,
+        AdminAdImportComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -300,6 +316,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
         AdminPanelComponent,
         ReferenceComponent,
         ReportServerConfiguratorComponent,
+        ReportComponent,
+        ReportsComponent
     ],
     exports: [HomeComponent],
     imports: [
@@ -322,10 +340,19 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
         OldScrollingModule,
         ReactiveFormsModule,
         MatCheckboxModule,
+        MatButtonModule,
+        MatExpansionModule,
         ImageCropperModule,
         DragDropModule,
+        NgxMatDatetimePickerModule,
+        NgxMatTimepickerModule,
+        NgxMatNativeDateModule,
+        NgxMatMomentModule,
+        OverlayModule
     ],
     bootstrap: [],
-    providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }],
+    providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' },
+    { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
+   ],
 })
-export class DashboardModule {}
+export class DashboardModule { }

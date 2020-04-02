@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PetroleumWorkspaceComponent } from './petroleum-workspace.component';
+import { AwsCreateClaimComponent } from './aws-create-claim.component';
 
-describe('PetroleumWorkspaceComponent', () => {
-    let component: PetroleumWorkspaceComponent;
-    let fixture: ComponentFixture<PetroleumWorkspaceComponent>;
+describe('AwsCreateClaimComponent', () => {
+    let component: AwsCreateClaimComponent;
+    let fixture: ComponentFixture<AwsCreateClaimComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [PetroleumWorkspaceComponent],
+            declarations: [AwsCreateClaimComponent],
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(PetroleumWorkspaceComponent);
+        fixture = TestBed.createComponent(AwsCreateClaimComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

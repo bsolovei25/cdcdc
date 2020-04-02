@@ -14,11 +14,11 @@ export interface IWidgets {
     code: string;
     id: string;
     name: string;
-    title: string;
-    units: string;
-    widgetOptions: LineChartOptions;
+    title?: string;
+    units?: string;
+    widgetOptions?: LineChartOptions;
     widgetType: string;
-    categories: string[];
+    categories?: string[];
 }
 
 export interface RingFactoryWidget {

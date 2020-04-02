@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { MaterialControllerService } from '../../../../services/material-controller.service';
+import { SnackBarService } from '../../../../services/snack-bar.service';
 
 @Component({
     selector: 'evj-aws-password-alert',
@@ -15,7 +15,7 @@ export class AwsPasswordAlertComponent implements OnInit {
     public password: FormControl = new FormControl('', Validators.required);
     public confirmPassword: FormControl = new FormControl('', Validators.required);
 
-    constructor(private materialContoller: MaterialControllerService) {}
+    constructor(private materialContoller: SnackBarService) {}
 
     public ngOnInit(): void {}
 

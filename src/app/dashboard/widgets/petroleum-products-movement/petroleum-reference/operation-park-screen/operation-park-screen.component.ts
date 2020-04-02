@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PetroleumScreenService } from 'src/app/dashboard/services/petroleum-screen.service';
+import { ITankAttribute } from '../../../../models/petroleum-products-movement.model';
 
 @Component({
     selector: 'evj-operation-park-screen',
@@ -7,14 +8,27 @@ import { PetroleumScreenService } from 'src/app/dashboard/services/petroleum-scr
     styleUrls: ['./operation-park-screen.component.scss'],
 })
 export class OperationParkScreenComponent implements OnInit {
-    @Input() data: any;
     @Input() title: string[];
+    public data: ITankAttribute[];
 
     constructor(private petroleumService: PetroleumScreenService) {}
 
-    ngOnInit(): void {}
+    public ngOnInit(): void {
+        this.petroleumService.currentTankParam.subscribe(
+            (item) => {
+                // const regexp = /[A-Z]/;
+                // this.data = item.objectAttributes
+                //     .filter((el) =>
+                //         (el.paramTitle.toUpperCase().search(regexp) === -1) &&
+                //         (el.paramValue.toUpperCase().search(regexp) === -1)
+                //     );
+                this.data = item.objectAttributes;
+            }
+        );
+    }
 
-    clickActive(item): void {
+    clickActive(item: ITankAttribute): void {
+        this.data.forEach(el => el.active = false);
         item.active = !item.active;
     }
 

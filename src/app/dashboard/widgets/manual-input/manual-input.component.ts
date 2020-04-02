@@ -11,11 +11,13 @@ import {
 import { ManualInputService } from '../../services/manual-input.service';
 import { HttpClient } from '@angular/common/http';
 import { IMachine_MI, IGroup_MI } from '../../models/manual-input.model';
-import { NewWidgetService } from '../../services/new-widget.service';
+import { WidgetService } from '../../services/widget.service';
 import { AppConfigService } from 'src/app/services/appConfigService';
 import { WidgetSettingsService } from '../../services/widget-settings.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { trigger, style, state, transition, animate } from '@angular/animations';
+import { ClaimService, IClaimAll } from '../../services/claim.service';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
     selector: 'evj-manual-input',
@@ -59,6 +61,9 @@ export class ManualInputComponent extends WidgetPlatform
 
     public title: string;
     public previewTitle: string;
+    claim: IClaimAll;
+
+    disabledMachine: SelectionModel<string> = new SelectionModel<string>(true);
 
     allSettings: boolean = true;
     openAllSettings: boolean = true;
@@ -70,14 +75,15 @@ export class ManualInputComponent extends WidgetPlatform
 
     private restUrl: string;
 
-    Data: IMachine_MI[] = [];
+    data: IMachine_MI[] = [];
 
     constructor(
         public manualInputService: ManualInputService,
-        public widgetService: NewWidgetService,
+        public widgetService: WidgetService,
         public widgetSettingsService: WidgetSettingsService,
         private http: HttpClient,
         private configService: AppConfigService,
+        private claimService: ClaimService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -113,34 +119,47 @@ export class ManualInputComponent extends WidgetPlatform
         this.setInitData();
     }
 
-    protected dataHandler(ref: any): void {
+    protected dataHandler(ref: IMachine_MI[]): void {
         this.loadSaveData(ref);
     }
 
     @Output()
     refresh(): void {
-        this.Data = [];
+        this.data = [];
     }
 
-    setInitData(): void {
-        this.http
-            .get(this.restUrl + '/api/manualinput/ManualInputData/' + this.id)
-            .subscribe((ref: IMachine_MI[]) => {
-                this.loadSaveData(ref);
-                this.loadSaveData(ref);
+    async loadClaims(): Promise<void> {
+        const units = await this.claimService.getUnits();
+        this.claim = await this.claimService.getClaimAll();
+        units.forEach((unit) => {
+            this.claim.data.forEach((cl) => {
+                // if (Number(cl.value) === unit.id && cl.claimCategoryName === "Запретить") {
+                //     this.disabledMachine.select(unit.name);
+                // }
             });
+        });
+    }
+
+    async setInitData(): Promise<void> {
+        try {
+            const data: IMachine_MI[] = await this.manualInputService.getManualInput(this.id);
+            this.loadSaveData(data);
+            this.loadClaims();
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     onButtonSave(): void {
-        this.manualInputService.BtnSaveValues(this.Data);
+        this.manualInputService.BtnSaveValues(this.data);
     }
 
     onChangeValue(id: string): void {
-        this.manualInputService.ChangeField(id, this.Data);
+        this.manualInputService.ChangeField(id, this.data);
     }
 
     onUnfocusValue(id: string): void {
-        this.manualInputService.CheckLastValue(id, this.Data);
+        this.manualInputService.CheckLastValue(id, this.data);
     }
 
     async loadSaveData(data: IMachine_MI[]): Promise<void> {
@@ -160,8 +179,7 @@ export class ManualInputComponent extends WidgetPlatform
             }
         }
 
-        this.Data = this.manualInputService.LoadData(this.Data, data);
-        console.log(this.Data);
+        this.data = this.manualInputService.LoadData(this.data, data);
     }
 
     onScroll(event): void {
@@ -170,14 +188,14 @@ export class ManualInputComponent extends WidgetPlatform
 
     onAllSettings(): void {
         this.allSettings = !this.allSettings;
-        for (let i of this.Data) {
+        for (let i of this.data) {
             i.active = false;
         }
         this.OnManualInputSendSettings(this.saveDataObj());
     }
 
     onSettings(item: IMachine_MI): void {
-        for (let i of this.Data) {
+        for (let i of this.data) {
             i.active = false;
         }
         item.active = !item.active;
@@ -189,14 +207,14 @@ export class ManualInputComponent extends WidgetPlatform
     onShowAllSettings(): void {
         if (this.allSettings === true) {
             this.openAllSettings = !this.openAllSettings;
-            for (let i of this.Data) {
+            for (let i of this.data) {
                 i.open = this.openAllSettings;
             }
             this.OnManualInputSendSettings(this.saveDataObj());
         } else {
             this.openAllMachine = !this.openAllMachine;
-            let machines = this.Data.findIndex((el) => el.name === this.chooseSetting.name);
-            for (let i of this.Data[machines].groups) {
+            let machines = this.data.findIndex((el) => el.name === this.chooseSetting.name);
+            for (let i of this.data[machines].groups) {
                 i.open = this.openAllMachine;
             }
             this.OnManualInputSendSettings(this.saveDataObj());
@@ -223,7 +241,7 @@ export class ManualInputComponent extends WidgetPlatform
 
     saveDataObj(): IMachine_MI[] {
         const saveDataTemp: IMachine_MI[] = [];
-        for (const machine of this.Data) {
+        for (const machine of this.data) {
             const machineObj: IMachine_MI = {
                 name: machine.name,
                 active: machine.active,

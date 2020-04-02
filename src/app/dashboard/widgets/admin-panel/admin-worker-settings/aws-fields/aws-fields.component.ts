@@ -14,10 +14,11 @@ export class AwsFieldsComponent implements OnInit {
     @Input() public workerUnit: IUnitEvents = null;
     @Input() private searchingFieldName: string = '';
     @Input() public isCreateNewUser: boolean = false;
+    @Input() public isImportNewWorker: boolean = false;
 
     @Output() private workerData: EventEmitter<IUnitEvents> = new EventEmitter<IUnitEvents>();
     @Output() private responsible: EventEmitter<boolean> = new EventEmitter<boolean>();
-    @Output() private password: EventEmitter<void> = new EventEmitter<void>();
+    @Output() private password: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     public inputOptions: IWorkerOptionAdminPanel[];
     public selectOptions: IWorkerOptionAdminPanel[];
@@ -87,6 +88,24 @@ export class AwsFieldsComponent implements OnInit {
         return fieldName.toLowerCase().includes(this.searchingFieldName);
     }
 
+    public isDisabledField(fieldKey: string): boolean {
+        if (this.isImportNewWorker) {
+            switch (fieldKey) {
+                case 'login':
+                case 'firstName':
+                case 'lastName':
+                case 'email':
+                    return true;
+            }
+        } else if (!this.isCreateNewUser) {
+            switch (fieldKey) {
+                case 'login':
+                    return true;
+            }
+        }
+        return false;
+    }
+
     public setWorkerPosition(): string {
         if (this.worker.position) {
             return this.worker.position;
@@ -127,7 +146,15 @@ export class AwsFieldsComponent implements OnInit {
         this.responsible.emit(event);
     }
 
+    public textPasswordButton(): string {
+        return this.isCreateNewUser ? 'Добавить пароль' : 'Сбросить пароль';
+    }
+
     public onSetPassword(): void {
-        this.password.emit();
+        if (this.isCreateNewUser) {
+            this.password.emit(false);
+        } else {
+            this.password.emit(true);
+        }
     }
 }

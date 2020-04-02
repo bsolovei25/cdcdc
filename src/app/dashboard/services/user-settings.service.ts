@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { NewWidgetService } from './new-widget.service';
 import { NewUserSettings, NewUserGrid, ScreenSettings } from '../models/user-settings.model';
 import { HttpClient } from '@angular/common/http';
 import { WIDGETS } from '../components/new-widgets-grid/widget-map';
@@ -7,19 +6,26 @@ import { AppConfigService } from 'src/app/services/appConfigService';
 import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { filter, catchError } from 'rxjs/operators';
 import { IParamWidgetsGrid } from '../components/new-widgets-grid/new-widgets-grid.component';
+import { WidgetService } from './widget.service';
 
 @Injectable({
     providedIn: 'root',
 })
-export class NewUserSettingsService {
+export class UserSettingsService {
     private _screens$: BehaviorSubject<ScreenSettings[]> = new BehaviorSubject(null);
-
     public screens$: Observable<ScreenSettings[]> = this._screens$
         .asObservable()
         .pipe(filter((item) => item !== null));
 
+    private restUrl: string;
+
+    public ScreenId: number;
+    public ScreenName: string;
+    public dataScreen = [];
+    public widgetInfo: NewUserGrid;
+
     constructor(
-        private widgetService: NewWidgetService,
+        private widgetService: WidgetService,
         private http: HttpClient,
         configService: AppConfigService
     ) {
@@ -27,20 +33,8 @@ export class NewUserSettingsService {
         localStorage.getItem('screen');
     }
 
-    private restUrl: string;
-
-    public UserId = 1;
-    public ScreenId: number;
-    public ScreenName: string;
-
-    public dataScreen = [];
-
-    public widgetInfo: NewUserGrid;
-
-    public addCellByPosition(idWidget: string, nameWidget: string, param: IParamWidgetsGrid) {
-        console.log('widget: ' + WIDGETS[nameWidget]);
+    public addCellByPosition(idWidget: string, nameWidget: string, param: IParamWidgetsGrid): void {
         const uniqId = this.create_UUID();
-        console.log(WIDGETS[nameWidget].minItemCols);
         this.widgetService.dashboard.push({
             x: param.x,
             y: param.y,
@@ -52,11 +46,10 @@ export class NewUserSettingsService {
             uniqid: uniqId,
             widgetType: nameWidget,
         });
-
-        console.log(WIDGETS[nameWidget]);
         this.addWidgetApi(uniqId);
     }
 
+    // TODO WTF?! - function ??? var ???
     public create_UUID(): string {
         var dt = new Date().getTime();
         var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -67,7 +60,7 @@ export class NewUserSettingsService {
         return uuid;
     }
 
-    private addWidgetApi(uniqId: string) {
+    private addWidgetApi(uniqId: string): void {
         this.save(uniqId);
         const updateWidget = this.widgetInfo;
         this.http
@@ -78,7 +71,7 @@ export class NewUserSettingsService {
             );
     }
 
-    private save(uniqId: string) {
+    private save(uniqId: string): void {
         for (const item of this.widgetService.dashboard) {
             if (item.uniqid === uniqId) {
                 const cellSetting: NewUserGrid = new (class implements NewUserGrid {

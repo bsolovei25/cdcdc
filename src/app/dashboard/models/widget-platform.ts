@@ -1,6 +1,6 @@
-import { NewWidgetService } from '../services/new-widget.service';
 import { Inject, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { WidgetService } from '../services/widget.service';
 
 export abstract class WidgetPlatform implements OnDestroy {
     public widgetCode?: string;
@@ -20,11 +20,11 @@ export abstract class WidgetPlatform implements OnDestroy {
     protected subscriptions: Subscription[] = [];
 
     protected constructor(
-        protected widgetService: NewWidgetService,
+        protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public widgetId: string,
         @Inject('uniqId') public widgetUniqId: string
-    ) {}
+    ) { }
 
     public ngOnDestroy(): void {
         this.subscriptions.forEach((el) => el.unsubscribe());
@@ -37,6 +37,10 @@ export abstract class WidgetPlatform implements OnDestroy {
                     this.widgetTitle = ref?.title;
                     this.widgetType = ref?.widgetType;
                     this.widgetOptions = ref.widgetOptions;
+                    if (!this.isMock) {
+                        console.log(this.widgetType);
+                    }
+
                     this.showMock(this.isMock);
                 }
             })
@@ -64,7 +68,7 @@ export abstract class WidgetPlatform implements OnDestroy {
         );
     }
 
-    protected dataDisconnect(): void {}
+    protected dataDisconnect(): void { }
 
     protected abstract dataHandler(ref: any): void;
 }

@@ -160,7 +160,16 @@
   margin: 8px auto;
   text-align: center;
   line-height: 70px;
-
+  &__active {
+    background: url(../../../../../../assets/icons/widgets/petroleum-products-movement/orange_hover_button.svg);
+    background-repeat: no-repeat;
+    .item_name {
+      color: white;
+    }
+    .item_icon {
+      opacity: 1;
+    }
+  }
   &:hover {
     background: url(../../../../../../assets/icons/widgets/petroleum-products-movement/orange_hover_button.svg);
     background-repeat: no-repeat;
@@ -186,4 +195,10 @@
   opacity: 0.5;
   width: 20%;
   line-height: 85px;
+}
+
+.arrow-button {
+  &__active {
+    transform: rotate(-90deg);
+  }
 }

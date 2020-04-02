@@ -3,8 +3,8 @@
 </div>
 <div class="bottom_block_middle">
   <div class="title_park" (click)="isShowTank = !isShowTank">
-    <div class="title_parks">Tank</div>
-    <div class="button">
+    <div class="title_parks">Резервуары</div>
+    <div class="arrow-button" [class.arrow-button__active]="!isShowTank">
       <svg-icon
         src="./assets/icons/widgets/petroleum-products-movement/arrow_bottom.svg"
         [svgStyle]="{ 'width.px':15, 'height.px':15 }"
@@ -12,12 +12,16 @@
       </svg-icon>
     </div>
   </div>
-  <div *ngFor="let item of dataTank" [class.reference_notActive]="!isShowTank">
-    <div class="click_button">
-      <div class="button_name">{{item.title}}</div>
+  <div *ngFor="let item of tanks" [@Branch]="(isShowTank) ? 'expanded' : 'collapsed'">
+    <div
+      class="click_button"
+      [class.click_button__active]="item.isActive"
+      (click)="objectClick(item.objectName)"
+    >
+      <div class="button_name">{{item.objectName}}</div>
       <div class="button_icon">
         <svg-icon
-          src="./assets/icons/widgets/petroleum-products-movement/{{item.state}}.svg"
+          src="./assets/icons/widgets/petroleum-products-movement/{{item.objectStatus}}.svg"
           [svgStyle]="{ 'width.px':25, 'height.px':25 }"
         >
         </svg-icon>
@@ -26,8 +30,8 @@
   </div>
 
   <div class="title_sett" (click)="isShowFacilities = !isShowFacilities">
-    <div class="title_settings">Facility</div>
-    <div class="button">
+    <div class="title_settings">Установки</div>
+    <div class="arrow-button" [class.arrow-button__active]="!isShowFacilities">
       <svg-icon
         src="./assets/icons/widgets/petroleum-products-movement/arrow_bottom.svg"
         [svgStyle]="{ 'width.px':15, 'height.px':15 }"
@@ -35,12 +39,16 @@
       </svg-icon>
     </div>
   </div>
-  <div *ngFor="let item of dataFacil" [class.reference_notActive]="!isShowFacilities">
-    <div class="click_button">
-      <div class="button_name">{{item.title}}</div>
+  <div *ngFor="let item of units" [@Branch]="(isShowFacilities) ? 'expanded' : 'collapsed'">
+    <div
+      class="click_button"
+      [class.click_button__active]="item.isActive"
+      (click)="objectClick(item.objectName)"
+    >
+      <div class="button_name">{{item.objectName}}</div>
       <div class="button_icon">
         <svg-icon
-          src="./assets/icons/widgets/petroleum-products-movement/{{item.state}}.svg"
+          src="./assets/icons/widgets/petroleum-products-movement/{{item.objectStatus}}.svg"
           [svgStyle]="{ 'width.px':25, 'height.px':25 }"
         >
         </svg-icon>

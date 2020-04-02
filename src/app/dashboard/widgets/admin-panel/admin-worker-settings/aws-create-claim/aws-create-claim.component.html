@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="alert">
+    <div class="claims">
+      <div class="list">
+        <ng-container *ngFor="let claim of allClaims">
+          <div
+            class="card"
+            *ngIf="claimsFilter(claim)"
+            [ngClass]="{'card_active':selectClaim.isSelected(claim)}"
+            (click)="selectClaim.select(claim)"
+          >
+            {{claim.claimName}}
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div class="items">
+      <div class="list">
+        <ng-container *ngIf="itemsFilter() && selectClaim.hasValue()">
+          <div
+            class="card"
+            *ngFor="let widget of allWidgets"
+            [ngClass]="{'card_active':selectWidget.isSelected(widget)}"
+            (click)="selectWidget.select(widget)"
+          >
+            {{widget.title}}
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="!itemsFilter() && selectClaim.hasValue()">
+          <div
+            class="card"
+            *ngFor="let unit of allUnits"
+            [ngClass]="{'card_active':selectUnit.isSelected(unit)}"
+            (click)="selectUnit.select(unit)"
+          >
+            {{unit.name}}
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div class="alert__buttons">
+      <evj-button
+        class="button"
+        [isChangingState]="false"
+        [isSmallButton]="false"
+        [textButton]="'Назад'"
+        (click)="onBack()"
+      ></evj-button>
+      <evj-button
+        class="button"
+        [isChangingState]="false"
+        [isSmallButton]="false"
+        [textButton]="'Подтвердить'"
+        (click)="onSave()"
+      ></evj-button>
+    </div>
+  </div>
+</div>

@@ -1,14 +1,14 @@
 <div class="card" [ngClass]="{'card-active':selectEdit.hasValue()}">
   <evj-input
     class="value value__input"
-    [value]="option.value"
+    [value]="setFieldValue(option.value)"
     [placeholder]="option.name"
     [isDisabled]="selectEdit.isEmpty()"
     (unfocus)="onInput($event)"
   ></evj-input>
   <div
     class="button"
-    *ngIf="selectEdit.isEmpty()"
+    *ngIf="selectEdit.isEmpty() && !isCreateNewUser && !disabled"
     [ngClass]="{'button-active':selectEdit.hasValue()}"
     (click)="onEditClick()"
   >
@@ -16,6 +16,7 @@
   </div>
   <div
     class="button button-x"
+    *ngIf="!isCreateNewUser"
     [ngClass]="{'button-hidden':selectEdit.isEmpty()}"
     (click)="onCloseClick()"
   ></div>

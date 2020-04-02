@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from 'src/app/services/appConfigService';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IUser } from '../../dashboard/models/events-widget';
-import { MaterialControllerService } from '../../dashboard/services/material-controller.service';
+import { SnackBarService } from '../../dashboard/services/snack-bar.service';
 // Local modules
 
 export interface ITokenData extends IUser {
@@ -36,7 +36,7 @@ export class AuthService {
         private router: Router,
         private http: HttpClient,
         private configService: AppConfigService,
-        private materialController: MaterialControllerService
+        private materialController: SnackBarService
     ) {
         // this.restUrl = configService.restUrl;
         this.configService.restUrl$.subscribe((value) => {
@@ -64,6 +64,17 @@ export class AuthService {
             }
             console.error(error);
         }
+    }
+
+    async resetPassword(password: string, oldPassword: string): Promise<ITokenData> {
+        const body = {
+            username: this.user$.getValue().login,
+            password,
+            oldPassword
+        }
+        return await this.http
+            .post<ITokenData>(this.restUrl + `/api/user-management/user/${this.user$.getValue().id}/password`, body)
+            .toPromise();
     }
 
     async getUserAuth(): Promise<ITokenData> | null {
