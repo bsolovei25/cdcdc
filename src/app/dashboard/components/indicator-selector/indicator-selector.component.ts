@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserSettingsService } from '../../services/user-settings.service';
 import { Subscription } from 'rxjs';
-import { ScreenSettings } from '../../models/user-settings.model';
+import { IScreenSettings } from '../../models/user-settings.model';
 import { ClaimService, EnumClaimScreens } from '../../services/claim.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { ClaimService, EnumClaimScreens } from '../../services/claim.service';
     styleUrls: ['./indicator-selector.component.scss'],
 })
 export class IndicatorSelectorComponent implements OnInit, OnDestroy {
-    public dataScreen: ScreenSettings[] = [];
+    public dataScreen: IScreenSettings[] = [];
 
     private subscriptions: Subscription[] = [];
 
