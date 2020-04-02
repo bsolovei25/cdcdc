@@ -137,6 +137,21 @@
             }
           }
 
+          &_disable {
+            .row {
+              &__name,
+              &__login {
+                color: var(--color-text-sub);
+                opacity: 0.3;
+              }
+            }
+
+            &:hover {
+              cursor: auto;
+              background: var(--color-bg-main);
+            }
+          }
+
           .row {
             &__name,
             &__login {
