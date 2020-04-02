@@ -51,7 +51,6 @@ export class AdminPanelService {
     >(null);
 
     public activeWorker$: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(this.defaultWorker);
-    public activeWorkerScreens$: BehaviorSubject<IScreen[]> = new BehaviorSubject<IScreen[]>(null);
     public activeWorkerUnit$: BehaviorSubject<IUnitEvents> = new BehaviorSubject<IUnitEvents>(null);
     public activeWorkerWorkspaces$: BehaviorSubject<IWorkspace[]> = new BehaviorSubject<
         IWorkspace[]
@@ -144,47 +143,6 @@ export class AdminPanelService {
         return this.http.get<IWorkspace[]>(url);
     }
 
-    public getWorkerScreens(workerId: number): Observable<IScreen[]> {
-        const url: string = `${this.restUrl}/user/${workerId}/screens`;
-        return this.http.get<IScreen[]>(url);
-    }
-
-    public getAllScreenClaims(): Observable<IClaim[]> {
-        const url: string = `${this.restUrl}/screenclaims`;
-        return this.http.get<IClaim[]>(url);
-    }
-
-    public getWorkerScreenClaims(screenWorkerId: number): Observable<any> {
-        const url: string = `${this.restUrl}/userscreen/${screenWorkerId}`;
-        return this.http.get<any>(url);
-    }
-
-    public setWorkerScreenClaims(screenWorkerId: number, claims: IClaim[]): Observable<void> {
-        const url: string = `${this.restUrl}/userscreen/${screenWorkerId}/claim`;
-        return this.http.put<void>(url, claims);
-    }
-
-    public addWorkerScreen(
-        userId: number,
-        screenId: number,
-        claims: IClaim[] = [{ id: 1 }]
-    ): Observable<void> {
-        const url: string = `${this.restUrl}/userscreen`;
-        const body = {
-            screen: { id: screenId },
-            user: { id: userId },
-            claims,
-        };
-
-        return this.http.post<void>(url, body);
-    }
-
-    public removeWorkerScreen(relationId: number): Observable<void> {
-        const url: string = `${this.restUrl}/userscreen/${relationId}`;
-        return this.http.delete<void>(url);
-    }
-    //#endregion
-
     public getAllSpecialScreenClaims(): Observable<{ data: IGlobalClaim[] }> {
         const url: string = `${this.restUrl}/screen/admin/getavaible-claims`;
         return this.http.get<{ data: IGlobalClaim[] }>(url);
@@ -199,9 +157,9 @@ export class AdminPanelService {
         const url: string = `${this.restUrl}/screen/admin/screens/${groupId}/role`;
         return this.http.get<any>(url);
     }
+    //#endregion
 
     //#region UNITS
-    // TODO
     public getAllUnits(): Observable<IUnitEvents[]> {
         const url: string = 'http://deploy.funcoff.club:6555/api/ref-book/Unit';
         return this.http.get<IUnitEvents[]>(url);
@@ -309,7 +267,7 @@ export class AdminPanelService {
     public setDefaultActiveWorker(): void {
         const worker = fillDataShape(this.defaultWorker);
         this.activeWorker$.next(worker);
-        this.activeWorkerScreens$.next([]);
+        this.activeWorkerWorkspaces$.next([]);
         this.activeBrigade$.next(null);
         this.activeWorkerUnit$.next(null);
     }

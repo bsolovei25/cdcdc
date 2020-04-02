@@ -331,16 +331,16 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
                 await this.adminService.updateAllWorkers();
                 await this.adminService.updateAllBrigades();
-                const userScreens: IScreen[] = await this.adminService
-                    .getWorkerScreens(this.worker.id)
-                    .toPromise();
+                const userScreens: {
+                    data: IWorkspace[];
+                } = await this.adminService.getAllWorkerScreenClaims(this.worker.id).toPromise();
                 if (this.worker.hasOwnProperty('brigade')) {
                     const newActiveBrigade = this.adminService.brigades.find(
                         (brigade) => brigade.brigadeId === this.worker.brigade.id
                     );
                     this.adminService.activeBrigade$.next(newActiveBrigade);
                 }
-                this.adminService.activeWorkerScreens$.next(userScreens);
+                this.adminService.activeWorkerWorkspaces$.next(userScreens.data);
                 this.adminService.activeWorker$.next(this.worker);
                 this.adminService.activeWorkerUnit$.next(this.workerUnit);
 
