@@ -81,6 +81,12 @@ export class PetroleumUnityComponent implements OnInit, AfterViewInit, OnDestroy
         this.petroleumService.createTransfer();
     }
 
+    @HostListener('document:UnityMotionAccounting_SetDefaultTransfer', ['$event'])
+    public SetDefaultTransfer(event): void {
+        console.log('set-default-transfer');
+        this.petroleumService.createTransfer();
+    }
+
     @HostListener('document:UnityMotionAccounting_SetTime', [
         '$event',
         '$event.detail.param1',
