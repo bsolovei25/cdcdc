@@ -122,9 +122,13 @@ export class AwsWorkspaceCardComponent implements OnInit, AfterViewInit {
         const deletedClaims: IGlobalClaim[] = [];
         this.allScreenClaims.forEach((claim) => {
             if (claims.findIndex((item) => item.claimType === claim.claimType) !== -1) {
-                addedClaims.push(claim);
+                const addClaim: IGlobalClaim = fillDataShape(claim);
+                addClaim.value = this.workspace.id.toString();
+                addedClaims.push(addClaim);
             } else {
-                deletedClaims.push(claim);
+                const removeClaim: IGlobalClaim = fillDataShape(claim);
+                removeClaim.value = this.workspace.id.toString();
+                deletedClaims.push(removeClaim);
             }
         });
 
@@ -161,6 +165,7 @@ export class AwsWorkspaceCardComponent implements OnInit, AfterViewInit {
             this.changeClaimsInWorkspace(claims);
             this.changeWorkerClaims(claims);
         }
+
         this.changingSelect.emit();
     }
 }
