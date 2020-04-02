@@ -357,6 +357,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.dateChoose = new Date();
 
         this.event = {
+            isUserCanEdit: true,
             itemNumber: 0,
             branch: 'Производство',
             category: this.category ? this.category[0] : null,
@@ -563,6 +564,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.dateChooseNew = new Date();
 
         this.isNewRetrieval = {
+            isUserCanEdit: true,
             itemNumber: 0,
             branch: 'Производство',
             category: this.category ? this.category[0] : null,
