@@ -141,10 +141,18 @@ p {
     }
 
     .title {
+      display: flex;
+      justify-content: space-between;
       font-size: 15px;
-
       padding: 0px 18px;
       padding-bottom: 10px;
+      max-height: 16px;
+
+      &-button {
+        position: relative;
+        top: -10px;
+        right: -10px;
+      }
     }
 
     .btn {
@@ -288,6 +296,13 @@ p {
   right: -42px;
   padding: 9px;
   fill: var(--color-text-sub);
+  &-title {
+    fill: var(--color-active);
+    line-height: 52px;
+    &:hover {
+      fill: var(--color-danger);
+    }
+  }
   &:hover {
     fill: var(--color-danger);
   }
