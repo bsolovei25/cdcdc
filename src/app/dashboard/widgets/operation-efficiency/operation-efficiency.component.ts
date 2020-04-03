@@ -20,11 +20,8 @@ export class OperationEfficiencyComponent extends WidgetPlatform implements OnIn
         plan: 1000,
         lowerBorder: 0.5,
         higherBorder: 0.5,
-        curValue: 300,
+        curValue: 1700,
         maxValue: 1500,
-        /* Вычислить при получении данных */
-        // lowerValue = this.data.plan * (1 - this.data.lowerBorder);
-        // higherValue = this.data.plan * (1 + this.data.higherBorder);
         lowerValue: 1000 * (1 - 0.5),
         higherValue: 1000 * (1 + 0.5),
     };
