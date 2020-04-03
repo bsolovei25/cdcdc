@@ -51,8 +51,10 @@ export class CalendarPlanComponent extends WidgetPlatform implements OnInit, OnD
         },
     ];
 
-    public static itemCols: number = 18;
+    public static itemCols: number = 24;
     public static itemRows: number = 10;
+    public static minItemCols: number = 24;
+    public static minItemRows: number = 10;
 
     constructor(
         protected widgetService: WidgetService,

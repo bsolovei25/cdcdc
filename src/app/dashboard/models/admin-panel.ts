@@ -14,6 +14,7 @@ export interface IWorkspace {
     id: number;
     screenName: string;
     widgets?: any;
+    claims?: IGlobalClaim[];
 }
 
 export interface IClaim {
@@ -55,6 +56,7 @@ export interface IGroup {
     name: string;
     claims?: IGlobalClaim[];
     users?: number[];
+    workspaces?: IWorkspace[];
 }
 
 export interface IGlobalClaim {
@@ -95,6 +97,7 @@ export interface IUserImported {
 }
 
 export interface IUserLdapDto {
+    user?: IUserImported;
     importedUser?: IUserImported;
     ldapUser: IUserLdap;
     isUserImported: boolean;
@@ -105,4 +108,18 @@ export enum EnumClaims {
     'Модификация',
     'Ручной ввод',
     'Администратор',
+}
+
+export enum ScreenClaimsEnum {
+    screenView,
+    screenEdit,
+    screenDel,
+    screenAdmin,
+}
+
+export enum ScreenClaimsNamesEnum {
+    'Просмотр экрана',
+    'Редактирование экрана',
+    'Удаление экрана',
+    'Администрирование экрана',
 }

@@ -1,5 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IWorkspace, IScreen, EnumClaims, IClaim } from '../../../../models/admin-panel';
+import {
+    IWorkspace,
+    IScreen,
+    EnumClaims,
+    IClaim,
+    IGlobalClaim,
+    ScreenClaimsEnum,
+} from '../../../../models/admin-panel';
 
 @Component({
     selector: 'evj-admin-workspace-card',
@@ -7,19 +14,19 @@ import { IWorkspace, IScreen, EnumClaims, IClaim } from '../../../../models/admi
     styleUrls: ['./admin-workspace-card.component.scss'],
 })
 export class AdminWorkspaceCardComponent implements OnInit {
-    @Input() public workspace: IScreen;
+    @Input() public workspace: IWorkspace;
 
     constructor() {}
 
     public ngOnInit(): void {}
 
     public getClaim(): string {
-        const mainClaim: IClaim = this.workspace.claims.reduce((maxIndex: IClaim, item: IClaim) => {
-            if (item.id > maxIndex.id) {
+        const maxClaim = this.workspace.claims.reduce((mainClaim, item) => {
+            if (ScreenClaimsEnum[mainClaim.claimType] < ScreenClaimsEnum[item.claimType]) {
                 return item;
             }
-            return maxIndex;
+            return mainClaim;
         });
-        return EnumClaims[mainClaim.id];
+        return maxClaim.claimName;
     }
 }

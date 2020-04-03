@@ -45,7 +45,7 @@ export class AwsSelectCardComponent implements OnInit, OnDestroy {
             );
         } else if (this.option.key === 'unit') {
             this.isBrigadeSelect = false;
-            this.allItems = this.adminService.units;
+            this.allItems = this.adminService.unitsWithBrigades;
         }
 
         if (!this.isCreateNewUser) {
@@ -70,7 +70,7 @@ export class AwsSelectCardComponent implements OnInit, OnDestroy {
                 : null;
             this.saveChanging.emit(returnedData);
         } else {
-            const unit: IUnitEvents = this.adminService.units.find(
+            const unit: IUnitEvents = this.adminService.unitsWithBrigades.find(
                 (item) => item.name === this.select.value
             );
             this.adminService.activeWorkerUnit$.next(unit);

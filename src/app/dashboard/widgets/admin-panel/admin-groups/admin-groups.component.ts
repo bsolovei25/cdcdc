@@ -6,6 +6,7 @@ import { IUser, IUnitEvents } from '../../../models/events-widget';
 import { Subscription, combineLatest } from 'rxjs';
 import { IWidgets } from '../../../models/widget.model';
 import { SnackBarService } from '../../../services/snack-bar.service';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
     selector: 'evj-admin-groups',
@@ -49,7 +50,10 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
     public blockSelection: SelectionModel<void> = new SelectionModel<void>();
     public claimsSelector: SelectionModel<IGlobalClaim> = new SelectionModel<IGlobalClaim>();
 
+    public groupWorkspaces: IWorkspace[] = [];
+
     private subscriptions: Subscription[] = [];
+    private subs: Subscription = null;
 
     constructor(
         private adminService: AdminPanelService,
@@ -77,6 +81,9 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
 
     public ngOnDestroy(): void {
         this.subscriptions.forEach((subs) => subs.unsubscribe());
+        if (this.subs) {
+            this.subs.unsubscribe();
+        }
     }
 
     public onSearchGroup(event: string): void {
@@ -163,8 +170,15 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
         this.onEditGroup();
     }
 
+    public onWorkerScreens(): IWorkspace[] {
+        const workspaces = this.groupSelection.selected[0].workspaces;
+        return workspaces ? workspaces : [];
+    }
+
     public onSelectGroup(group: IGroup): void {
         this.groupSelection.select(group);
+        this.blockSelection.clear();
+
         if (group) {
             group.users.forEach((userId) => {
                 const index = this.allWorkers.findIndex((worker) => worker.id === userId);
@@ -174,6 +188,21 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
 
             this.currentGroupGeneralClaims = group.claims.filter((claim) => !claim.value);
             this.currentGroupSpecialClaims = group.claims.filter((claim) => !!claim.value);
+
+            if (!group.workspaces) {
+                if (this.subs) {
+                    this.subs.unsubscribe();
+                }
+                this.subs = this.adminService
+                    .getAllGroupScreenClaims(group.id)
+                    .subscribe((data) => {
+                        group.workspaces = data.data;
+                        this.groupWorkspaces = group.workspaces;
+                    });
+                this.groupWorkspaces = [];
+            } else {
+                this.groupWorkspaces = group.workspaces;
+            }
         }
     }
 
@@ -272,6 +301,10 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
         } else if (event && !this.isSaveClicked) {
             this.onReturn();
         }
+    }
+
+    public onChangeWorkspaces(): void {
+        this.onEditGroup();
     }
 
     public onReturn(): void {

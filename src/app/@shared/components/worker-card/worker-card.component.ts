@@ -72,8 +72,8 @@ export class WorkerCardComponent implements OnInit, OnChanges {
 
     public getPersonUnit(): string {
         if (this.personsUnit) {
-            return `${this.personsUnit.name} | `;
+            return `${this.personsUnit.name}`;
         }
-        return '';
+        return 'Установка не выбрана';
     }
 }
