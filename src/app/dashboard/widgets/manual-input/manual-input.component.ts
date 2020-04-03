@@ -15,7 +15,7 @@ import { WidgetService } from '../../services/widget.service';
 import { AppConfigService } from 'src/app/services/appConfigService';
 import { WidgetSettingsService } from '../../services/widget-settings.service';
 import { WidgetPlatform } from '../../models/widget-platform';
-import { trigger, style, state, transition, animate } from '@angular/animations';
+import { trigger, style, state, transition, animate, group } from '@angular/animations';
 import { ClaimService, IClaimAll } from '../../services/claim.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { IClaim } from '../../models/user-settings.model';
@@ -77,6 +77,7 @@ export class ManualInputComponent extends WidgetPlatform
     private restUrl: string;
 
     data: IMachine_MI[] = [];
+    private isUserHasWriteClaims: boolean;
 
     constructor(
         public manualInputService: ManualInputService,
@@ -120,7 +121,7 @@ export class ManualInputComponent extends WidgetPlatform
         this.setInitData();
     }
 
-    protected dataHandler(ref: IMachine_MI[]): void {
+    protected dataHandler(ref: { machines: IMachine_MI[]; isUserHasWriteClaims: boolean}): void {
         this.loadSaveData(ref);
     }
 
@@ -128,25 +129,25 @@ export class ManualInputComponent extends WidgetPlatform
     refresh(): void {
         this.data = [];
     }
-
-    async loadClaims(): Promise<void> {
-        const units = await this.claimService.getUnits();
-        const claimsData = await this.claimService.getClaimAll();
-        this.claims = claimsData.data;
-        units.forEach((unit) => {
-            this.claims.forEach((cl) => {
-                // if (Number(cl.value) === unit.id && cl.claimCategoryName === "Запретить") {
-                //     this.disabledMachine.select(unit.name);
-                // }
-            });
-        });
-    }
+    //
+    // async loadClaims(): Promise<void> {
+    //     const units = await this.claimService.getUnits();
+    //     const claimsData = await this.claimService.getClaimAll();
+    //     this.claims = claimsData.data;
+    //     units.forEach((unit) => {
+    //         this.claims.forEach((cl) => {
+    //             // if (Number(cl.value) === unit.id && cl.claimCategoryName === "Запретить") {
+    //             //     this.disabledMachine.select(unit.name);
+    //             // }
+    //         });
+    //     });
+    // }
 
     async setInitData(): Promise<void> {
         try {
-            const data: IMachine_MI[] = await this.manualInputService.getManualInput(this.id);
+            const data: { machines: IMachine_MI[]; isUserHasWriteClaims: boolean} = await this.manualInputService.getManualInput(this.id);
+            console.log(data);
             this.loadSaveData(data);
-            this.loadClaims();
         } catch (error) {
             console.log(error);
         }
@@ -164,9 +165,12 @@ export class ManualInputComponent extends WidgetPlatform
         this.manualInputService.CheckLastValue(id, this.data);
     }
 
-    async loadSaveData(data: IMachine_MI[]): Promise<void> {
+    async loadSaveData( data: { machines: IMachine_MI[]; isUserHasWriteClaims: boolean}): Promise<void> {
+        this.isUserHasWriteClaims = data.isUserHasWriteClaims;
+        console.log('common ' + this.isUserHasWriteClaims);
         const settings: IMachine_MI[] = await this.widgetSettingsService.getSettings(this.uniqId);
-        for (const itemDate of data) {
+        for (const itemDate of data.machines) {
+            console.log(itemDate.name + '' + itemDate.isUserHasWriteClaims);
             itemDate.open = settings?.find((el) => el.name === itemDate.name)?.open ?? true;
             itemDate.active = settings?.find((el) => el.name === itemDate.name)?.active ?? false;
             for (const item of itemDate.groups) {
@@ -180,8 +184,7 @@ export class ManualInputComponent extends WidgetPlatform
                 this.allSettings = false;
             }
         }
-
-        this.data = this.manualInputService.LoadData(this.data, data);
+        this.data = this.manualInputService.LoadData(this.data, data.machines);
     }
 
     onScroll(event): void {
@@ -190,14 +193,12 @@ export class ManualInputComponent extends WidgetPlatform
 
     onAllSettings(): void {
         this.allSettings = !this.allSettings;
-        this.data?.forEach(el => el.active = false);
+        this.data?.forEach((el) => el.active = false);
         this.OnManualInputSendSettings(this.saveDataObj());
     }
 
     onSettings(item: IMachine_MI): void {
-        for (let i of this.data) {
-            i.active = false;
-        }
+        this.data?.forEach((el) => el.active = false);
         item.active = !item.active;
         this.chooseSetting = item;
         this.allSettings = false;
@@ -207,16 +208,12 @@ export class ManualInputComponent extends WidgetPlatform
     onShowAllSettings(): void {
         if (this.allSettings === true) {
             this.openAllSettings = !this.openAllSettings;
-            for (let i of this.data) {
-                i.open = this.openAllSettings;
-            }
+            this.data?.forEach((item) => item.open = this.openAllSettings);
             this.OnManualInputSendSettings(this.saveDataObj());
         } else {
             this.openAllMachine = !this.openAllMachine;
-            let machines = this.data.findIndex((el) => el.name === this.chooseSetting.name);
-            for (let i of this.data[machines].groups) {
-                i.open = this.openAllMachine;
-            }
+            this.data.find((el) => el.name === this.chooseSetting.name)
+                ?.groups.forEach((item) => item.open = this.openAllMachine);
             this.OnManualInputSendSettings(this.saveDataObj());
         }
     }
@@ -258,5 +255,18 @@ export class ManualInputComponent extends WidgetPlatform
             saveDataTemp.push(machineObj);
         }
         return saveDataTemp;
+    }
+
+    public isSaveButton(): boolean {
+        if (this.allSettings) {
+            if (this.isUserHasWriteClaims) {
+                return true;
+            }
+        } else {
+            if (this.chooseSetting.isUserHasWriteClaims) {
+                return true;
+            }
+        }
+        return false;
     }
 }

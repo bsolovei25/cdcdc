@@ -185,9 +185,9 @@ export class ManualInputService {
         }
     }
 
-    async getManualInput(id: string): Promise<IMachine_MI[]> {
+    async getManualInput(id: string): Promise<{ machines: IMachine_MI[]; isUserHasWriteClaims: boolean}> {
         return await this.http
-            .get<IMachine_MI[]>(this.restUrl + '/api/manualinput/ManualInputData/' + id)
+            .get<{ machines: IMachine_MI[]; isUserHasWriteClaims: boolean}>(this.restUrl + '/api/manualinput/ManualInputData/' + id)
             .toPromise();
     }
 }
