@@ -5,7 +5,6 @@ import { AppConfigService } from '../../../services/appConfigService';
 import {
     IBrigadeAdminPanel,
     IClaim,
-    IScreen,
     IWorkspace,
     IGlobalClaim,
     IGroup,
@@ -51,16 +50,20 @@ export class AdminPanelService {
     >(null);
 
     public activeWorker$: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(this.defaultWorker);
-    public activeWorkerScreens$: BehaviorSubject<IScreen[]> = new BehaviorSubject<IScreen[]>(null);
     public activeWorkerUnit$: BehaviorSubject<IUnitEvents> = new BehaviorSubject<IUnitEvents>(null);
+    public activeWorkerWorkspaces$: BehaviorSubject<IWorkspace[]> = new BehaviorSubject<
+        IWorkspace[]
+    >(null);
 
     public workers: IUser[] = [];
 
     public brigades: IBrigadeAdminPanel[] = [];
 
+    public unitsWithBrigades: IUnitEvents[] = [];
     public units: IUnitEvents[] = [];
 
     public screenClaims: IClaim[] = [];
+    public screenSpecialClaims: IGlobalClaim[] = [];
     public generalClaims: IGlobalClaim[] = [];
     public specialClaims: IGlobalClaim[] = [];
 
@@ -133,58 +136,32 @@ export class AdminPanelService {
     }
     //#endregion
 
-    //#region CLAIMS_AND_WORKSPACES
+    //#region WORKSPACES
     public getAllScreens(): Observable<IWorkspace[]> {
         const url: string = `${this.restUrl}/allscreens`;
         return this.http.get<IWorkspace[]>(url);
     }
 
-    public getWorkerScreens(workerId: number): Observable<IScreen[]> {
-        const url: string = `${this.restUrl}/user/${workerId}/screens`;
-        return this.http.get<IScreen[]>(url);
+    public getAllSpecialScreenClaims(): Observable<{ data: IGlobalClaim[] }> {
+        const url: string = `${this.restUrl}/screen/admin/getavaible-claims`;
+        return this.http.get<{ data: IGlobalClaim[] }>(url);
     }
 
-    public getAllScreenClaims(): Observable<IClaim[]> {
-        const url: string = `${this.restUrl}/screenclaims`;
-        return this.http.get<IClaim[]>(url);
+    public getAllWorkerScreenClaims(workerId: number): Observable<{ data: IWorkspace[] }> {
+        const url: string = `${this.restUrl}/screen/admin/screens/${workerId}/user`;
+        return this.http.get<{ data: IWorkspace[] }>(url);
     }
 
-    public getWorkerScreenClaims(screenWorkerId: number): Observable<any> {
-        const url: string = `${this.restUrl}/userscreen/${screenWorkerId}`;
-        return this.http.get<any>(url);
-    }
-
-    public setWorkerScreenClaims(screenWorkerId: number, claims: IClaim[]): Observable<void> {
-        const url: string = `${this.restUrl}/userscreen/${screenWorkerId}/claim`;
-        return this.http.put<void>(url, claims);
-    }
-
-    public addWorkerScreen(
-        userId: number,
-        screenId: number,
-        claims: IClaim[] = [{ id: 1 }]
-    ): Observable<void> {
-        const url: string = `${this.restUrl}/userscreen`;
-        const body = {
-            screen: { id: screenId },
-            user: { id: userId },
-            claims,
-        };
-
-        return this.http.post<void>(url, body);
-    }
-
-    public removeWorkerScreen(relationId: number): Observable<void> {
-        const url: string = `${this.restUrl}/userscreen/${relationId}`;
-        return this.http.delete<void>(url);
+    public getAllGroupScreenClaims(groupId: number): Observable<{ data: IWorkspace[] }> {
+        const url: string = `${this.restUrl}/screen/admin/screens/${groupId}/role`;
+        return this.http.get<{ data: IWorkspace[] }>(url);
     }
     //#endregion
 
     //#region UNITS
-    // TODO
-    public getAllUnits(): Observable<any> {
+    public getAllUnits(): Observable<IUnitEvents[]> {
         const url: string = 'http://deploy.funcoff.club:6555/api/ref-book/Unit';
-        return this.http.get<any>(url);
+        return this.http.get<IUnitEvents[]>(url);
     }
 
     public getAllUnitsWithBrigades(): Observable<IUnitEvents[]> {
@@ -256,14 +233,19 @@ export class AdminPanelService {
     //#endregion
 
     //#region LDAP
-    public getAllLDAPUsers(): Observable<IUserLdapDto[]> {
+    public getAllLdapUsers(): Observable<IUserLdapDto[]> {
         const url: string = `${this.restUrl}/ldap/users`;
         return this.http.get<IUserLdapDto[]>(url);
     }
 
-    public importUserFromLDAP(worker: IUserLdap): Observable<IUserImported> {
-        const url: string = `${this.restUrl}/ldap/user/${worker.samAccountName}/import`;
-        return this.http.post<IUserImported>(url, null);
+    public getLdapUser(worker: IUserLdap): Observable<IUserLdapDto> {
+        const url: string = `${this.restUrl}/ldap/user/${worker.samAccountName}`;
+        return this.http.get<IUserLdapDto>(url);
+    }
+
+    public importUserFromLdap(worker: IUser): Observable<IUserImported> {
+        const url: string = `${this.restUrl}/ldap/user/${worker.login}/import`;
+        return this.http.post<IUserImported>(url, worker);
     }
     //#endregion
 
@@ -289,7 +271,7 @@ export class AdminPanelService {
     public setDefaultActiveWorker(): void {
         const worker = fillDataShape(this.defaultWorker);
         this.activeWorker$.next(worker);
-        this.activeWorkerScreens$.next([]);
+        this.activeWorkerWorkspaces$.next([]);
         this.activeBrigade$.next(null);
         this.activeWorkerUnit$.next(null);
     }

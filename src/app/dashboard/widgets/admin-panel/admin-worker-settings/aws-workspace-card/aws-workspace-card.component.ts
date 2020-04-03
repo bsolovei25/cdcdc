@@ -1,8 +1,17 @@
-import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
-import { IWorkspace, EnumClaims, IScreen, IClaim } from '../../../../models/admin-panel';
+import {
+    Component,
+    OnInit,
+    Input,
+    AfterViewInit,
+    ChangeDetectorRef,
+    Output,
+    EventEmitter,
+} from '@angular/core';
+import { IWorkspace, IGlobalClaim, ScreenClaimsEnum } from '../../../../models/admin-panel';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AdminPanelService } from '../../../../services/admin-panel/admin-panel.service';
 import { FormControl } from '@angular/forms';
+import { fillDataShape } from '../../../../../@shared/common-functions';
 
 @Component({
     selector: 'evj-aws-workspace-card',
@@ -13,64 +22,150 @@ export class AwsWorkspaceCardComponent implements OnInit, AfterViewInit {
     @Input() public workspace: IWorkspace = {
         id: null,
         screenName: '',
+        claims: [],
     };
-    @Input() public screenId: number = null;
-    @Input() public author: string = '';
     @Input() public isActive: boolean = false;
     @Input() public isChangingCardState: boolean = false;
-    @Output() public selectedWorkspace: EventEmitter<IWorkspace> = new EventEmitter<IWorkspace>();
-    @Output() public selectedWorkspaceClaims: EventEmitter<{
-        workspaceId: number;
-        claims: IClaim[];
-    }> = new EventEmitter<{ workspaceId: number; claims: IClaim[] }>();
+    @Input() private workerScreens: IWorkspace[] = [];
+    @Input() private workerSpecialClaims: IGlobalClaim[] = [];
 
-    public select: SelectionModel<IWorkspace> = new SelectionModel<IWorkspace>(true);
+    @Output() private changingSelect: EventEmitter<void> = new EventEmitter<void>();
+
+    private allScreenClaims: IGlobalClaim[] = [];
+
+    private currentWorkspace: IWorkspace = null;
+
+    public select: SelectionModel<IWorkspace> = new SelectionModel<IWorkspace>();
 
     public selectFormControl: FormControl = new FormControl();
 
-    constructor(private adminService: AdminPanelService) {}
+    constructor(private adminService: AdminPanelService, private cdRef: ChangeDetectorRef) {}
 
     public ngOnInit(): void {
         if (this.isActive) {
             this.select.select(this.workspace);
         }
+        this.allScreenClaims = this.adminService.screenSpecialClaims;
+
+        this.allScreenClaims.sort(
+            (a, b) => ScreenClaimsEnum[a.claimType] - ScreenClaimsEnum[b.claimType]
+        );
     }
 
     public ngAfterViewInit(): void {
-        if (this.screenId) {
-            this.adminService.getWorkerScreenClaims(this.screenId).subscribe((item) => {
+        if (this.isActive) {
+            this.currentWorkspace = this.workerScreens.find(
+                (item) => item.id === this.workspace.id
+            );
+            if (this.currentWorkspace) {
                 const claimsArray: string[] = [];
-                item.forEach((claims) => {
-                    claimsArray.push(EnumClaims[claims.userScreenClaim.id]);
-                });
+                this.currentWorkspace.claims.sort(
+                    (a, b) => ScreenClaimsEnum[a.claimType] - ScreenClaimsEnum[b.claimType]
+                );
+                this.currentWorkspace.claims.forEach((claim) => claimsArray.push(claim.claimName));
                 this.selectFormControl.setValue(claimsArray);
-            });
+                this.cdRef.detectChanges();
+            }
         }
     }
 
     public changeCardState(): void {
         if (this.isChangingCardState) {
+            if (this.select.isEmpty()) {
+                const workspace = fillDataShape(this.workspace);
+                workspace.claims = [];
+                this.workerScreens.push(workspace);
+                this.currentWorkspace = workspace;
+            } else {
+                this.deleteAllWorkspaceClaims();
+                const index = this.workerScreens.findIndex((item) => item.id === this.workspace.id);
+                if (index !== -1) {
+                    this.workerScreens.splice(index, 1);
+                }
+            }
+
             this.select.toggle(this.workspace);
-            this.selectedWorkspace.emit(this.workspace);
+            this.changingSelect.emit();
         }
     }
 
     public getValuesSelect(): string[] {
         const claimsArray: string[] = [];
-        for (let i = 1; EnumClaims[i]; i++) {
-            claimsArray.push(EnumClaims[i]);
-        }
+        this.allScreenClaims.forEach((claim) => {
+            claimsArray.push(claim.claimName);
+        });
+
         return claimsArray;
     }
 
-    public onChangeSelect(): void {
-        const claims: IClaim[] = [];
-        this.selectFormControl.value.forEach((claim: string) =>
-            claims.push(
-                this.adminService.screenClaims.find((item: IClaim) => item.id === EnumClaims[claim])
-            )
-        );
+    private deleteAllWorkspaceClaims(): void {
+        while (true) {
+            const index = this.workerSpecialClaims.findIndex(
+                (claim) => claim.value === this.workspace.id.toString()
+            );
+            if (index !== -1) {
+                this.workerSpecialClaims.splice(index, 1);
+            } else {
+                break;
+            }
+        }
+    }
 
-        this.selectedWorkspaceClaims.emit({ workspaceId: this.workspace.id, claims });
+    private changeClaimsInWorkspace(claims: IGlobalClaim[]): void {
+        const length = this.currentWorkspace.claims.length;
+        this.currentWorkspace.claims.splice(0, length);
+        claims.forEach((claim) => this.currentWorkspace.claims.push(claim));
+    }
+
+    private changeWorkerClaims(claims: IGlobalClaim[]): void {
+        const addedClaims: IGlobalClaim[] = [];
+        const deletedClaims: IGlobalClaim[] = [];
+        this.allScreenClaims.forEach((claim) => {
+            if (claims.findIndex((item) => item.claimType === claim.claimType) !== -1) {
+                const addClaim: IGlobalClaim = fillDataShape(claim);
+                addClaim.value = this.workspace.id.toString();
+                addedClaims.push(addClaim);
+            } else {
+                const removeClaim: IGlobalClaim = fillDataShape(claim);
+                removeClaim.value = this.workspace.id.toString();
+                deletedClaims.push(removeClaim);
+            }
+        });
+
+        addedClaims.forEach((claim) => {
+            const index = this.workerSpecialClaims.findIndex(
+                (item) => item.claimType === claim.claimType && item.value === claim.value
+            );
+            if (index === -1) {
+                this.workerSpecialClaims.push(claim);
+            }
+        });
+
+        deletedClaims.forEach((claim) => {
+            const index = this.workerSpecialClaims.findIndex(
+                (item) => item.claimType === claim.claimType && item.value === claim.value
+            );
+            if (index !== -1) {
+                this.workerSpecialClaims.splice(index, 1);
+            }
+        });
+    }
+
+    public onChangeSelect(): void {
+        const claimsNames: string[] = this.selectFormControl.value;
+        if (claimsNames.length) {
+            const claims: IGlobalClaim[] = [];
+            claimsNames.forEach((name) => {
+                const foundClaim = this.allScreenClaims.find((claim) => claim.claimName === name);
+                if (foundClaim) {
+                    foundClaim.value = this.workspace.id.toString();
+                    claims.push(foundClaim);
+                }
+            });
+            this.changeClaimsInWorkspace(claims);
+            this.changeWorkerClaims(claims);
+        }
+
+        this.changingSelect.emit();
     }
 }

@@ -110,6 +110,12 @@ export class AdminShiftScheduleService {
         }
     }
 
+    async resetTodayBrigades(unitid: number): Promise<void> {
+        return await this.http
+            .get<void>(this.restUrl + `/api/shift/unit/${unitid}/set-default-state`)
+            .toPromise();
+    }
+
     async deleteMemberFromBrigade(idShift: number, idMember: number): Promise<void> {
         try {
             return await this.http

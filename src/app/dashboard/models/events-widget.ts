@@ -31,6 +31,7 @@ export interface EventsWidgetNotification {
     eventEndDateTime?: Date;
     iconUrl?: string;
     iconUrlStatus?: string;
+    isUserCanEdit: boolean;
     status: IStatus;
     facts?: {
         comment: string;

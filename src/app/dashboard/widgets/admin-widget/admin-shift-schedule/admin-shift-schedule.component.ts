@@ -145,7 +145,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         const dataLoadQueue: Promise<void>[] = [];
         dataLoadQueue.push(this.reLoadDataMonth());
         dataLoadQueue.push(
-            this.adminShiftScheduleService.getBrigades(this.allUnits[0].id).then((data) => {
+            this.adminShiftScheduleService.getBrigades(this.selectedUnit.id).then((data) => {
                 this.allBrigade = data;
             })
         );
@@ -243,6 +243,18 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         this.isLoading = false;
     }
 
+    public async resetBrigadesFromShifts(): Promise<void> {
+        this.isLoading = true;
+        try {
+            await this.adminShiftScheduleService.resetTodayBrigades(this.selectedUnit.id);
+            this.materialController.openSnackBar(`Выполнено`);
+            this.reLoadDataMonth();
+        } catch (error) {
+            this.isLoading = false;
+        }
+        this.isLoading = false;
+    }
+
     public async onChooseBrigade(
         brigade: IBrigadeWithUsersDto,
         selectedDay: IScheduleShiftDay
@@ -326,6 +338,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         if (idx !== -1) {
             const day = fillDataShape(this.scheduleShiftMonth[idx]);
             this.selectedDay = day;
+            this.selectedDay.date = new Date(this.selectedDay.date);
             const yesterdayLocal = new Date(
                 moment(this.selectedDay.date)
                     .subtract(1, 'days')

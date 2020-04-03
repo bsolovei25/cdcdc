@@ -106,12 +106,10 @@
     <evj-aws-workspaces
       class="worker__column worker__workspaces scroll-bar"
       *ngIf="!isClaimsShowing"
-      [allWorkspaces]="allWorkspaces"
       [workerScreens]="workerScreens"
-      [workerScreensDetached]="workerScreensDetached"
-      [workspacesClaims]="workspacesClaims"
+      [workerSpecialClaims]="workerSpecialClaims"
       [searchingWorkspaceValue]="searchingWorkspaceValue"
-      (workspacesData)="onChangeWorkspacesData()"
+      (changeWorkspaces)="onChangeWorkspacesData()"
     ></evj-aws-workspaces>
     <div class="worker__column worker__claims" *ngIf="isClaimsShowing">
       <div class="title">Общие права</div>

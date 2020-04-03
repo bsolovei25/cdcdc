@@ -67,9 +67,11 @@ export class AdminEmployeeComponent implements OnInit, OnDestroy {
         if (this.subsSelectedWorker) {
             this.subsSelectedWorker.unsubscribe();
         }
-        this.adminService.getWorkerScreens(workerId).subscribe((data: IScreen[]) => {
-            this.adminService.activeWorkerScreens$.next(data);
-        });
+        this.subsSelectedWorker = this.adminService
+            .getAllWorkerScreenClaims(workerId)
+            .subscribe((data) => {
+                this.adminService.activeWorkerWorkspaces$.next(data.data);
+            });
     }
 
     public showActiveWorker(workerId: number): boolean {

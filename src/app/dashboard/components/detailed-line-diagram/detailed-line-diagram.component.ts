@@ -28,20 +28,19 @@ export class DetailedLineDiagramComponent implements OnInit {
         if (limit === 'l') {
             return (this.data.lowerValue / data.maxValue) * 100 + '%';
         }
-        return (this.data.higherValue / data.maxValue) * 100 + '%';
+        if (this.data.higherValue < data.maxValue) {
+            return (this.data.higherValue / data.maxValue) * 100 + '%';
+        }else{
+            return '98%'
+        }
     }
 
     deviationCounter(data, flag) {
         if (flag) {
-            if (data.curValue < this.data.lowerValue) {
-                return ((data.curValue / data.plan) * 100 - (100 - data.lowerBorder * 100)).toFixed(
-                    1
-                );
+            if (data.curValue < this.data.plan) {
+                return ((1 - data.curValue / data.plan) * 100).toFixed(1);
             } else if (data.curValue > this.data.higherValue) {
-                return (
-                    '+' +
-                    ((data.curValue / data.plan) * 100 - (100 + data.higherBorder * 100)).toFixed(1)
-                );
+                return '+' + ((data.curValue / data.plan - 1) * 100).toFixed(1);
             } else {
                 return 0;
             }

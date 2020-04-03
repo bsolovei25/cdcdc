@@ -10,8 +10,7 @@ import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
         const invalidCtrl = !!(control && control.invalid && control.parent.dirty);
-        const invalidParent = !!(control && control.parent && control.parent.invalid && control.parent.dirty);
-
+        const invalidParent = !!(control && control.parent && control.parent.hasError('notSame') && control.parent.dirty);
         return (invalidCtrl || invalidParent);
     }
 }
@@ -51,11 +50,10 @@ export class PasswordResetComponent {
 
     ngOnInit(): void {
         this.isLoadingData = true;
-
         this.myForm = this.formBuilder.group({
-            oldPassword: ['', [Validators.required]],
-            password: ['', [Validators.required]],
-            confirmPassword: ['']
+            oldPassword: new FormControl('', [Validators.required]),
+            password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+            confirmPassword: new FormControl(''),
         }, { validator: this.checkPasswords })
 
         this.user = this.authService.user$.value;
@@ -72,13 +70,11 @@ export class PasswordResetComponent {
         }, 500);
     }
 
-
-
     closeOverlay(): void {
         this.myOverlayService.closed$.next(true);
     }
 
-    checkPasswords(group: FormGroup) { // here we have the 'passwords' group
+    checkPasswords(group: FormGroup) {
         let password = group.get('password').value;
         let confirmPassword = group.get('confirmPassword').value;
         return password === confirmPassword ? null : { notSame: true }
