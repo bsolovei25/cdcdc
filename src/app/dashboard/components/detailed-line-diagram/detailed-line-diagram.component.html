@@ -4,12 +4,20 @@
     <div class="graph__line">
       <div class="line line__marking line__marking-0"></div>
       <div class="line line__marking line__marking-50"></div>
-      <div class="line line__limit" [ngStyle]="{ left: limitsGraph(data, 'l') }">
+      <div
+        class="line line__limit"
+        [ngStyle]="{ left: limitsGraph(data, 'l') }"
+        *ngIf="data.lowerValue>=0"
+      >
         <div class="label label__limit label__limit-lower">
           {{ (data.lowerValue / data.plan) * 100 | number: "1.0-0" }}%
         </div>
       </div>
-      <div class="line line__limit" [ngStyle]="{ left: limitsGraph(data, 'r') }">
+      <div
+        class="line line__limit"
+        [ngStyle]="{ left: limitsGraph(data, 'r') }"
+        *ngIf="data.higherValue<=data.maxValue"
+      >
         <div class="label label__limit label__limit-higher">
           {{ (data.higherValue / data.plan) * 100 | number: "1.0-2" }}%
         </div>
@@ -30,7 +38,7 @@
           [attr.width]="
             data.curValue < data.higherValue
               ? drawGraph(data)
-              : (data.higherValue / data.maxValue) * 100 + '%'
+              : (data.higherValue / data.maxValue - 0.01) * 100 + '%'
           "
           height="8px"
           rx="3px"
@@ -43,7 +51,7 @@
   </div>
   <div class="dl-dia__deviation">
     <div class="deviation__worse">
-      Отклонение <span>{{ deviationCounter(data, true) }}</span>
+      Отклонение <span>{{ deviationCounter(data, true) }}%</span>
       <img
         [ngClass]="{ rotate: isPositive(data) }"
         src="../../../../assets/icons/widgets/calendar-plan/deviat_danger.svg"
@@ -51,7 +59,7 @@
       />
     </div>
     <div class="deviation__better">
-      Улучшение <span>{{ deviationCounter(data, false) }}</span>
+      Улучшение <span>{{ deviationCounter(data, false) }}%</span>
       <img src="../../../../assets/icons/widgets/calendar-plan/deviat.svg" alt="" />
     </div>
   </div>
