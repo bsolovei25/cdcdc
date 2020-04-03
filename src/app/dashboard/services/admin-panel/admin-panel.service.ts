@@ -68,6 +68,7 @@ export class AdminPanelService {
     public specialClaims: IGlobalClaim[] = [];
 
     public allWidgets: IWidgets[] = [];
+    public allScreens: IWorkspace[] = [];
 
     constructor(private http: HttpClient, private configService: AppConfigService) {
         this.configService.restUrl$.subscribe((urls) => (this.restUrl = `${urls}${this.restUrl}`));

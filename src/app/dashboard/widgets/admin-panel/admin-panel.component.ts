@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { IButtonImgSrc, IBrigadeAdminPanel, IClaim, IGlobalClaim } from '../../models/admin-panel';
+import { IButtonImgSrc, IBrigadeAdminPanel, IWorkspace } from '../../models/admin-panel';
 import { AdminPanelService } from '../../services/admin-panel/admin-panel.service';
 import { IUser, IUnitEvents } from '../../models/events-widget';
 import { Subscription } from 'rxjs';
@@ -98,6 +98,9 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
             this.adminService
                 .getAllWidgets()
                 .subscribe((widgets) => (this.adminService.allWidgets = widgets.data)),
+            this.adminService
+                .getAllScreens()
+                .subscribe((data: IWorkspace[]) => (this.adminService.allScreens = data)),
             this.adminService.activeWorker$.subscribe((worker) => {
                 if (worker.sid) {
                     this.isImportNewWorker = true;
