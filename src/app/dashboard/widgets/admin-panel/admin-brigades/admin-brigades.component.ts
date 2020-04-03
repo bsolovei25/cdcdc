@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { IBrigadeAdminPanel, IScreen } from '../../../models/admin-panel';
+import { IBrigadeAdminPanel } from '../../../models/admin-panel';
 import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
 import { Subscription, combineLatest } from 'rxjs';
 import { SelectionModel } from '@angular/cdk/collections';

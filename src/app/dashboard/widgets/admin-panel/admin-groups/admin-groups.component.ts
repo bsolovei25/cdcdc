@@ -6,7 +6,6 @@ import { IUser, IUnitEvents } from '../../../models/events-widget';
 import { Subscription, combineLatest } from 'rxjs';
 import { IWidgets } from '../../../models/widget.model';
 import { SnackBarService } from '../../../services/snack-bar.service';
-import { ThrowStmt } from '@angular/compiler';
 
 @Component({
     selector: 'evj-admin-groups',
