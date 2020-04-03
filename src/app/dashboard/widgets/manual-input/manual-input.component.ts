@@ -18,6 +18,7 @@ import { WidgetPlatform } from '../../models/widget-platform';
 import { trigger, style, state, transition, animate } from '@angular/animations';
 import { ClaimService, IClaimAll } from '../../services/claim.service';
 import { SelectionModel } from '@angular/cdk/collections';
+import { IClaim } from '../../models/user-settings.model';
 
 @Component({
     selector: 'evj-manual-input',
@@ -61,7 +62,7 @@ export class ManualInputComponent extends WidgetPlatform
 
     public title: string;
     public previewTitle: string;
-    claim: IClaimAll;
+    claims: IClaim[];
 
     disabledMachine: SelectionModel<string> = new SelectionModel<string>(true);
 
@@ -130,9 +131,10 @@ export class ManualInputComponent extends WidgetPlatform
 
     async loadClaims(): Promise<void> {
         const units = await this.claimService.getUnits();
-        this.claim = await this.claimService.getClaimAll();
+        const claimsData = await this.claimService.getClaimAll();
+        this.claims = claimsData.data;
         units.forEach((unit) => {
-            this.claim.data.forEach((cl) => {
+            this.claims.forEach((cl) => {
                 // if (Number(cl.value) === unit.id && cl.claimCategoryName === "Запретить") {
                 //     this.disabledMachine.select(unit.name);
                 // }
@@ -188,9 +190,7 @@ export class ManualInputComponent extends WidgetPlatform
 
     onAllSettings(): void {
         this.allSettings = !this.allSettings;
-        for (let i of this.data) {
-            i.active = false;
-        }
+        this.data?.forEach(el => el.active = false);
         this.OnManualInputSendSettings(this.saveDataObj());
     }
 
