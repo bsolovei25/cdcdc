@@ -194,6 +194,8 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
             this.dateChoose = value.deadline;
             this.userAvatar = value?.fixedBy?.photoId ? `${this.fsUrl}/${value?.fixedBy?.photoId}` : this.userAvatarDefault;
             this.isUserCanEdit = value.isUserCanEdit;
+            console.log(value);
+            console.log(this.isUserCanEdit);
         }
 
         await this.loadItem(typeof value === 'number' ? value : undefined);
