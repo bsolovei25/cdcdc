@@ -145,7 +145,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         const dataLoadQueue: Promise<void>[] = [];
         dataLoadQueue.push(this.reLoadDataMonth());
         dataLoadQueue.push(
-            this.adminShiftScheduleService.getBrigades(this.allUnits[0].id).then((data) => {
+            this.adminShiftScheduleService.getBrigades(this.selectedUnit.id).then((data) => {
                 this.allBrigade = data;
             })
         );

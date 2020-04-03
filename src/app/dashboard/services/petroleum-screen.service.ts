@@ -152,8 +152,8 @@ export class PetroleumScreenService {
         }
         if ((currentTransfer.destinationName &&
             currentTransfer.destinationName !== '') &&
-            (currentTransfer.destinationName &&
-            currentTransfer.destinationName !== '')
+            (currentTransfer.sourceName &&
+            currentTransfer.sourceName !== '')
         ) {
             this.materialController.openSnackBar(
                 'Для изменения объектов операции, сбросьте текущую операцию!',
