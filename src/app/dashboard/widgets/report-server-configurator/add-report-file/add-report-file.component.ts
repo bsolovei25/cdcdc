@@ -45,6 +45,7 @@ export class AddReportFileComponent implements OnInit {
 
     reader.readAsBinaryString(file);
     this.reportService.pushReportFile(file).subscribe(ans => {
+      this.fileLoad = true;
       this.fileName = event[0].name;
       let body: IFileTemplate = {
         name: this.fileName,
@@ -55,7 +56,7 @@ export class AddReportFileComponent implements OnInit {
         this.getRecord();
         setTimeout(() => {
           this.isUploadBlock = false;
-          this.fileLoad = true;
+          this.fileLoad = false;
         }, 2000);
       });
     });
