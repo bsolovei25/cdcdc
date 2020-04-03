@@ -85,25 +85,29 @@ export class ClaimService {
         //     EnumClaimScreens.delete,
         // ]);
         const allUserClaims = await this.getClaimAll();
+        console.log(allUserClaims);
         const claimsScreen: EnumClaimScreens[] = [];
-        allUserClaims.forEach((claim) => {
+        let i: number = 0;
+        allUserClaims.data.forEach((claim) => {
             switch (claim.claimType) {
                 case 'screensAdmin':
                 case 'screensAdd':
-                    claimsScreen.push(EnumClaimScreens.delete);
+                    claimsScreen.push(EnumClaimScreens.add);
                     break;
             }
+            i++;
         });
+        console.log(claimsScreen);
         this.claimScreens$.next(claimsScreen);
     }
 
-    async getClaimAll(): Promise<IClaim[]> {
+    async getClaimAll(): Promise<{ data: IClaim[] }> {
         try {
             return this.http
-                .get<IClaim[]>(this.restUrl + `/api/user-management/claim/all`)
+                .get<{ data: IClaim[] }>(this.restUrl + `/api/user-management/claim/all`)
                 .toPromise();
         } catch (error) {
-            return [];
+            return { data: [] };
         }
     }
 
