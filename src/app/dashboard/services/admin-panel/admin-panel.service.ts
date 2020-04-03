@@ -108,12 +108,12 @@ export class AdminPanelService {
         return this.http.post<void>(url, null);
     }
 
-    public async pushWorkerPhoto(file: Blob): Promise<any> {
+    public async pushWorkerPhoto(file: Blob): Promise<string> {
         const body: FormData = new FormData();
         const now: number = Date.now();
         body.append('uploadFile', file, `avatar_${now}.jpeg`);
 
-        return this.http.post(this.restFileUrl, body).toPromise();
+        return this.http.post<string>(this.restFileUrl, body).toPromise();
     }
     //#endregion
 
