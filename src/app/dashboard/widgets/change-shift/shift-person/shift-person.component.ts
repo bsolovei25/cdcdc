@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild, ElementRef, OnChanges } from '@ang
 import { Shift, ShiftMember } from 'src/app/dashboard/models/shift.model';
 import { ShiftService } from '../../../services/shift.service';
 import { SnackBarService } from '../../../services/snack-bar.service';
+import { AppConfigService } from '../../../../services/appConfigService';
 
 interface IMapper { code: string; name: string; }
 
@@ -25,6 +26,7 @@ export class ShiftPersonComponent implements OnInit, OnChanges {
 
     public isDropdownActive: boolean = false;
     public photoPathUser: string = 'assets/icons/widgets/admin/default_avatar2.svg';
+    private photoPathDefault: string = 'assets/icons/widgets/admin/default_avatar2.svg';
 
     @ViewChild('dropdown') ddMenu: ElementRef;
     @ViewChild('insideElement') insideElement: ElementRef;
@@ -73,15 +75,27 @@ export class ShiftPersonComponent implements OnInit, OnChanges {
 
     public dropdownMenu: string[];
 
+    private fsUrl: string;
+
     constructor(
         private shiftService: ShiftService,
+        private configService: AppConfigService,
         private materialController: SnackBarService
-    ) {}
+    ) {
+        this.fsUrl = this.configService.fsUrl;
+    }
 
-    public ngOnInit(): void {}
+    public ngOnInit(): void {
+
+    }
 
     // TODO add get url
     public ngOnChanges(): void {
+        if (this.person?.employee?.photoId) {
+            this.photoPathUser = `${this.fsUrl}/${this.person.employee.photoId}`;
+        } else {
+            this.photoPathUser = this.photoPathDefault;
+        }
     }
 
     public getDisplayStatus(code: string): string {
