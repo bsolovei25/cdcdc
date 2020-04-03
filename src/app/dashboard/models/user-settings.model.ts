@@ -10,7 +10,7 @@ export interface IScreenSettings {
 }
 
 export interface IClaim {
-    claimType: string; // TODO ClaimType
+    claimType: ClaimType;
     value: string;
     claimCategory: ClaimCategory;
     claimCategoryName: string;
@@ -28,5 +28,5 @@ export interface IUserGridItem {
     uniqueId: string;
 }
 
-export type ClaimType = 'screenView' | 'screenDel';
+export type ClaimType = 'screenView' | 'screenEdit' | 'screenDel' | string; // TODO ClaimType
 export type ClaimCategory = 'allow' | 'deny';
