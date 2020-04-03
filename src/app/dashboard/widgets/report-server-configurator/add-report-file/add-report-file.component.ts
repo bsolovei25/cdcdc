@@ -57,7 +57,7 @@ export class AddReportFileComponent implements OnInit {
         setTimeout(() => {
           this.isUploadBlock = false;
           this.fileLoad = false;
-        }, 2000);
+        }, 1500);
       });
     });
   }
