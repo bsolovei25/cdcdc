@@ -86,12 +86,6 @@ export class AdminPanelService {
         return this.http.get<IUser[]>(url);
     }
 
-    // TOFIX UNUSED
-    public getWorkerData(workerId: number): Observable<IUser> {
-        const url: string = `${this.restUrl}/user/${workerId}`;
-        return this.http.get<IUser>(url);
-    }
-
     public editWorkerData(worker: IUser): Observable<void> {
         const url: string = `${this.restUrl}/user/${worker.id}`;
         const body: string = JSON.stringify(worker);
@@ -114,7 +108,6 @@ export class AdminPanelService {
         return this.http.post<void>(url, null);
     }
 
-    // TODO
     public async pushWorkerPhoto(file: Blob): Promise<any> {
         const body: FormData = new FormData();
         const now: number = Date.now();
@@ -128,12 +121,6 @@ export class AdminPanelService {
     public getBrigades(): Observable<IBrigadeAdminPanel[]> {
         const url: string = `${this.restUrl}/brigades`;
         return this.http.get<IBrigadeAdminPanel[]>(url);
-    }
-
-    // TOFIX UNUSED
-    public getBrigadeWorkers(brigadeId: number): Observable<IUser[]> {
-        const url: string = `${this.restUrl}/brigade/${brigadeId}`;
-        return this.http.get<IUser[]>(url);
     }
     //#endregion
 
@@ -206,7 +193,6 @@ export class AdminPanelService {
     //#endregion
 
     //#region GROUPS
-    // TODO
     public getAllGroups(): Observable<IGroup[]> {
         const url: string = `${this.restUrl}/roles`;
         return this.http.get<IGroup[]>(url);
@@ -303,18 +289,6 @@ export class AdminPanelService {
             return 'assets/icons/widgets/admin/default_avatar2.svg';
         }
     }
-
-    // TOFIX UNUSED
-    // public getFullName(worker: IUser): string {
-    //     let returnedString: string = '';
-    //     if (worker.lastName && worker.firstName) {
-    //         returnedString = `${worker.lastName} ${worker.firstName}`;
-    //     }
-    //     if (worker.middleName) {
-    //         returnedString = `${returnedString} ${worker.middleName}`;
-    //     }
-    //     return returnedString;
-    // }
 
     public generateDisplayName(worker: IUser): string {
         let returnedString: string = '';
