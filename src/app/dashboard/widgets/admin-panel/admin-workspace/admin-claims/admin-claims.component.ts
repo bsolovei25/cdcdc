@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { IGlobalClaim } from '../../../../models/admin-panel';
 import { AdminPanelService } from '../../../../services/admin-panel/admin-panel.service';
-import { Subscription, Observable, Subject, BehaviorSubject } from 'rxjs';
+import { Subscription, BehaviorSubject } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
 @Component({

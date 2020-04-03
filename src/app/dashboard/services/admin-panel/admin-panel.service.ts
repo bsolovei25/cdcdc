@@ -21,6 +21,7 @@ import { fillDataShape } from '../../../@shared/common-functions';
 })
 export class AdminPanelService {
     private restUrl: string = `/api/user-management`;
+    private restUrlApi: string = `/api`;
     private restFileUrl: string = '';
 
     public defaultWorker: IUser = {
@@ -68,9 +69,11 @@ export class AdminPanelService {
     public specialClaims: IGlobalClaim[] = [];
 
     public allWidgets: IWidgets[] = [];
+    public allScreens: IWorkspace[] = [];
 
     constructor(private http: HttpClient, private configService: AppConfigService) {
-        this.configService.restUrl$.subscribe((urls) => (this.restUrl = `${urls}${this.restUrl}`));
+        this.restUrl = `${this.configService.restUrl}${this.restUrl}`;
+        this.restUrlApi = `${this.configService.restUrl}${this.restUrlApi}`;
         this.restFileUrl = this.configService.fsUrl;
         this.activeWorker$.subscribe((worker: IUser) => {
             this.activeWorker = worker;
@@ -83,12 +86,6 @@ export class AdminPanelService {
     public getAllWorkers(): Observable<IUser[]> {
         const url: string = `${this.restUrl}/users`;
         return this.http.get<IUser[]>(url);
-    }
-
-    // TOFIX UNUSED
-    public getWorkerData(workerId: number): Observable<IUser> {
-        const url: string = `${this.restUrl}/user/${workerId}`;
-        return this.http.get<IUser>(url);
     }
 
     public editWorkerData(worker: IUser): Observable<void> {
@@ -113,13 +110,12 @@ export class AdminPanelService {
         return this.http.post<void>(url, null);
     }
 
-    // TODO
-    public async pushWorkerPhoto(file: Blob): Promise<any> {
+    public async pushWorkerPhoto(file: Blob): Promise<string> {
         const body: FormData = new FormData();
         const now: number = Date.now();
         body.append('uploadFile', file, `avatar_${now}.jpeg`);
 
-        return this.http.post(this.restFileUrl, body).toPromise();
+        return this.http.post<string>(this.restFileUrl, body).toPromise();
     }
     //#endregion
 
@@ -127,12 +123,6 @@ export class AdminPanelService {
     public getBrigades(): Observable<IBrigadeAdminPanel[]> {
         const url: string = `${this.restUrl}/brigades`;
         return this.http.get<IBrigadeAdminPanel[]>(url);
-    }
-
-    // TOFIX UNUSED
-    public getBrigadeWorkers(brigadeId: number): Observable<IUser[]> {
-        const url: string = `${this.restUrl}/brigade/${brigadeId}`;
-        return this.http.get<IUser[]>(url);
     }
     //#endregion
 
@@ -160,7 +150,7 @@ export class AdminPanelService {
 
     //#region UNITS
     public getAllUnits(): Observable<IUnitEvents[]> {
-        const url: string = 'http://deploy.funcoff.club:6555/api/ref-book/Unit';
+        const url: string = `${this.restUrlApi}/ref-book/Unit`;
         return this.http.get<IUnitEvents[]>(url);
     }
 
@@ -205,7 +195,6 @@ export class AdminPanelService {
     //#endregion
 
     //#region GROUPS
-    // TODO
     public getAllGroups(): Observable<IGroup[]> {
         const url: string = `${this.restUrl}/roles`;
         return this.http.get<IGroup[]>(url);
@@ -302,18 +291,6 @@ export class AdminPanelService {
             return 'assets/icons/widgets/admin/default_avatar2.svg';
         }
     }
-
-    // TOFIX UNUSED
-    // public getFullName(worker: IUser): string {
-    //     let returnedString: string = '';
-    //     if (worker.lastName && worker.firstName) {
-    //         returnedString = `${worker.lastName} ${worker.firstName}`;
-    //     }
-    //     if (worker.middleName) {
-    //         returnedString = `${returnedString} ${worker.middleName}`;
-    //     }
-    //     return returnedString;
-    // }
 
     public generateDisplayName(worker: IUser): string {
         let returnedString: string = '';

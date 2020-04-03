@@ -4,6 +4,8 @@
   (touchstart)="$event.stopPropagation()"
 >
   <div class="alert">
+    <evj-loading-shade [isLoading]="isDataLoading"></evj-loading-shade>
+
     <div class="button-close" (click)="onClose()"></div>
     <div class="alert__search">
       <evj-input
