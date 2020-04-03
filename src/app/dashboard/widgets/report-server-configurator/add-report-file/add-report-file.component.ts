@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Renderer2, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core';
 import { ReportServerConfiguratorService } from 'src/app/dashboard/services/report-server-configurator.service';
 import { base64ToFile } from 'ngx-image-cropper';
 import { IFileTemplate, IReportTemplate } from 'src/app/dashboard/models/report-server';
@@ -10,8 +10,6 @@ import { IFileTemplate, IReportTemplate } from 'src/app/dashboard/models/report-
 })
 export class AddReportFileComponent implements OnInit {
   @ViewChild('area') area: ElementRef;
-
-  constructor(private _renderer: Renderer2, public reportService: ReportServerConfiguratorService) { }
 
   public data: any;
   public dataTemplate;
@@ -29,6 +27,8 @@ export class AddReportFileComponent implements OnInit {
   public fileName: string;
 
   public isRepInput: boolean = false;
+
+  constructor(private _renderer: Renderer2, public reportService: ReportServerConfiguratorService) { }
 
   ngOnInit(): void {
     this.getRecord();

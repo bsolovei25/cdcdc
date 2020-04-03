@@ -41,18 +41,19 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     public valueCheck: boolean;
     public valueUniqCheck: boolean;
 
-    public clickFio: boolean = true;
-    public clickDate: boolean = false;
-
     public addMenuClick: boolean = false;
 
-    public activeReference: number;
+    public isAddOptionsButton: boolean = false;
 
-    isLongBlock: boolean = true;
+    public isRepInput: boolean = false;
 
-    indexColumn: number = 0;
+    public isLongBlock: boolean = true;
 
-    isOpenCheckBlock: boolean = false;
+    public indexColumn: number = 0;
+
+    public isOpenCheckBlock: boolean = false;
+
+    public isIdReport: number;
 
     public categorys = [
         {
@@ -152,16 +153,22 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     public data;
     public options;
+    public optionsActive = [];
+    public dataFile;
 
     public clickPushRef: boolean = false;
     public clickPushRec: boolean = false;
 
-    newRecord: string;
-    newFolder: string;
+    public newRecord: string;
+    public newFolder: string;
+
+    public folderActive: number;
 
     public connectedTo: any = [];
 
-    public saveDate: any = [];
+    public saveData: any = [];
+
+    public selectFile;
 
     constructor(
         public widgetService: WidgetService,
@@ -176,7 +183,9 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     ngOnInit(): void {
         super.widgetInit();
         this.subscriptions.push(
-            this.getReportTemplate(),
+            this.getReportFolder(),
+            this.getRecordFile(),
+            //  this.getReportTemplate(),
             this.getOptions()
         );
     }
@@ -186,38 +195,54 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     }
 
     protected dataHandler(ref: any): void {
-        //this.data = ref.chartItems;
+        //this.data = ref;
     }
 
     openTable(event): void {
         this.isTable = event;
     }
 
-    getReportTemplate(){
+    getReportFolder() {
+        return this.reportService.getTemplateFolder().subscribe(ans => {
+            this.data = ans;
+            this.saveData = ans;
+            for (let item of this.data) {
+                this.connectedTo.push(item.name);
+            }
+        })
+    }
+
+    getReportTemplate() {
         return this.reportService.getReportTemplate().subscribe((data) => {
             this.data = data;
-            for (let item of this.data) {
-             this.connectedTo.push(item.name);
-         }
         });
     }
 
-    getOptions(){
+    getOptions() {
         return this.reportService.getOptions().subscribe((data) => {
             this.options = data;
         });
     }
 
-  
+    getRecordFile() {
+        return this.reportService.getReportFileTemplate().subscribe(ans => {
+            this.dataFile = ans;
+        })
+    }
+
+
 
     onClickReference(data, index) {
+        this.folderActive = data.id;
         data.open = !data.open;
         this.indexColumn = index;
-        this.activeReference = data.id;
     }
 
     onClickItemReference(data) {
-        data.open = !data.open;
+        this.optionsActive = [];
+        this.isAddOptionsButton = true;
+        //data.open = !data.open;
+        this.isIdReport = data.id;
     }
 
     drop(event: CdkDragDrop<string[]>) {
@@ -242,38 +267,13 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     }
 
     changeSwap(item): void {
-        ////ОПТИМИЗИРОВАТЬ (!!!!)
-        let index1 = 0;
-        let index2 = 0;
-        let index3 = 0;
-        let index4 = 0;
-        let index5 = 0;
-        this.data.find((el) => {
-            el.columns.find((e) => {
-                if (e === item) {
-                    e.isRequred = !e.isRequred;
-                    index3 = index2;
-                    index4 = index1;
-                }
-                index2++;
-            });
-            index1++;
-            index2 = 0;
-        });
-
-        // for (let item of this.data[index4].columns) {
-        //     if (item.isRequred) {
-        //         index5++;
-        //     }
-        // }
-
-        // if (this.data[index4].columns[index3].isRequred === true) {
-        //     this.data[index4].columns.splice(index3, 1);
-        //     this.data[index4].columns.splice(index5 - 1, 0, item);
-        // } else if (this.data[index4].columns[index3].isRequred === false) {
-        //     this.data[index4].columns.splice(index3, 1);
-        //     this.data[index4].columns.push(item);
-        // }
+        item.checked = !item.checked;
+        if (item.checked === true) {
+            this.optionsActive.push(item);
+        } else {
+            let index = this.optionsActive.findIndex(e => e === item);
+            this.optionsActive.splice(item, index);
+        }
     }
 
     pushBlockInRef(): void {
@@ -286,28 +286,31 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         this.addMenuClick = false;
     }
 
-    onPushReference(): void {
+    onPushFolder(): void {
         this.clickPushRef = false;
         const object = {
             name: this.newFolder,
         };
         if (this.newFolder.trim().length > 0 && this.newFolder !== undefined) {
-            this.data.push(object);
+            // this.data.push(object);
+            this.reportService.postTemplateFolder(object).subscribe(ans => {
+                this.getReportFolder();
+            })
             this.newFolder = null;
         }
     }
 
-    onPushRecord(): void {
+    onPushReport(): void {
         this.clickPushRec = false;
         const object = {
             name: this.newRecord,
-            referenceTypeId: 2,
-            isRequred: false,
-            isUnique: false,
-            columnTypeId: 1,
+            folderId: this.folderActive,
         };
         if (this.newRecord.trim().length > 0 && this.newRecord !== undefined) {
-            this.data[this.indexColumn].columns.push(object);
+            // this.data[this.indexColumn].columns.push(object);
+            this.reportService.postReportTemplate(object).subscribe(ans => {
+                this.getReportFolder();
+            })
             this.newRecord = null;
         }
     }
@@ -316,5 +319,43 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         this.isOpenCheckBlock = !this.isOpenCheckBlock;
     }
 
-    
+    searchReportFolder(event) {
+        const folder = event.currentTarget.value.toLowerCase();
+        const filterData = this.data.filter(
+            (e) => e.name.toLowerCase().indexOf(folder.toLowerCase()) > -1
+        );
+
+        this.data = filterData;
+        if (!event.currentTarget.value) {
+            this.data = this.saveData;
+        }
+    }
+
+    saveReport(item) {
+        let file;
+        let objectRepot;
+        this.data.find(e => {
+            if(e.id === this.folderActive){
+                e.templates.find(el => {
+                    if(el.id === item){
+                        objectRepot = el;
+                    }
+                })
+            }
+        })
+        let obj = {
+            id: objectRepot.id,
+            name: objectRepot.name,
+            fileTemplate: this.selectFile,
+            createdAt: new Date(),
+        }
+
+        this.reportService.putTemplate(obj).subscribe(ans => {
+            console.log(ans);
+        })
+    }
+
+
+
+
 }

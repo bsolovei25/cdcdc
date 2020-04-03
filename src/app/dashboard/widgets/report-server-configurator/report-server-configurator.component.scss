@@ -87,7 +87,7 @@
   }
 
   .block-info-active {
-    background: var(--color-bg-active);
+    background: var(--color-border-active);
   }
 
   &__fio {
@@ -292,6 +292,11 @@ input {
     min-height: 40px;
     direction: rtl;
 
+    .block-info-active {
+      background: var(--color-bg-active);
+      border-left: 1px solid var(--color-border-active);
+    }
+
     &__name {
       height: 40px;
       padding-left: 10px;
@@ -321,6 +326,7 @@ input {
     }
 
     &__block-contant {
+      padding-left: 10px;
       cursor: move;
       margin: 0 auto;
       margin-right: 0px;
@@ -428,6 +434,11 @@ input {
       }
     }
 
+    &__input-active {
+      border: 1px solid var(--color-border-active);
+      border-left: none;
+    }
+
     &__input-block {
       display: flex;
       position: relative;
@@ -511,7 +522,7 @@ input {
 
     &__title-name {
       display: flex;
-      width: 40%;
+      width: 100%;
     }
 
     &__title-check {
@@ -528,7 +539,7 @@ input {
     }
 
     &__title-type {
-      width: 40%;
+      width: 100%;
       display: flex;
     }
 
