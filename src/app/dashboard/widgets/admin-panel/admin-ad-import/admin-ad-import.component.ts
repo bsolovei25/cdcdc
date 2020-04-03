@@ -24,7 +24,7 @@ export class AdminAdImportComponent implements OnInit {
     constructor(private adminService: AdminPanelService) {}
 
     public ngOnInit(): void {
-        this.adminService.getAllLDAPUsers().subscribe((data) => (this.workersLdap = data));
+        this.adminService.getAllLdapUsers().subscribe((data) => (this.workersLdap = data));
     }
 
     public onSearchWorker(inputedValue: string): void {
@@ -57,12 +57,16 @@ export class AdminAdImportComponent implements OnInit {
             const importedWorker: IUser = fillDataShape(this.adminService.defaultWorker);
             importedWorker.id = undefined;
             try {
-                const user = await this.adminService.importUserFromLDAP(worker).toPromise();
-                for (const key in user) {
-                    if (importedWorker.hasOwnProperty(key)) {
-                        importedWorker[key] = user[key];
+                const user = await this.adminService.getLdapUser(worker).toPromise();
+                for (const key in user.user) {
+                    if (importedWorker.hasOwnProperty(key) && key !== 'id') {
+                        importedWorker[key] = user.user[key];
                     }
                 }
+
+                console.log(importedWorker);
+                
+
                 this.adminService.activeWorker$.next(importedWorker);
                 this.closeLdap.emit(true);
             } catch (error) {

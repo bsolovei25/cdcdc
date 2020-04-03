@@ -84,6 +84,10 @@ export class PetroleumScreenService {
             this.openScreen('operation');
         }
         const chooseTransfer = this.transfers$.getValue().find((el) => el.uid === uid);
+        if (!chooseTransfer) {
+            this.isLoad$.next(false);
+            return;
+        }
         console.log(uid);
         console.log(chooseTransfer);
         chooseTransfer.operationType = 'Exist';
@@ -138,7 +142,7 @@ export class PetroleumScreenService {
     }
 
     public async chooseObject(objectName: string, isSource: boolean): Promise<void> {
-        let currentTransfer = this.currentTransfer$.getValue();
+        const currentTransfer = this.currentTransfer$.getValue();
         if (currentTransfer.operationType === 'Exist') {
             this.materialController.openSnackBar(
                 'Для изменения объектов операции, создайте новую операцию!',
@@ -146,100 +150,39 @@ export class PetroleumScreenService {
             );
             return;
         }
+        if ((currentTransfer.destinationName &&
+            currentTransfer.destinationName !== '') &&
+            (currentTransfer.sourceName &&
+            currentTransfer.sourceName !== '')
+        ) {
+            this.materialController.openSnackBar(
+                'Для изменения объектов операции, сбросьте текущую операцию!',
+                'snackbar-red'
+            );
+            return;
+        }
         this.isLoad$.next(true);
         if (isSource) {
-            const objectsDestination = await this.getObjects(this.client, objectName, 'exit');
-            const objectDestination = objectsDestination?.find(
-                (item) => item.objectName === currentTransfer.destinationName
-            );
-            let objectsSource = this.objectsSource$.getValue();
-            let isComparable: boolean = false;
-            if (objectDestination) {
-                const objectsSourceTemp = await this.getObjects(
-                    this.client,
-                    objectDestination.objectName,
-                    'enter'
-                );
-                if (objectsSourceTemp.find((item) => item.objectName === objectName)) {
-                    isComparable = true;
-                    objectsSource = objectsSourceTemp;
-                }
+            if (!currentTransfer.destinationName || currentTransfer.destinationName === '') {
+                const objectsDestination = await this.getObjects(this.client, objectName, 'exit');
+                this.objectsReceiver$.next(objectsDestination);
             }
+            const objectsSource = this.objectsSource$.getValue();
             objectsSource.forEach((item) => (item.isActive = false));
             objectsSource.find((item) => item.objectName === objectName).isActive = true;
-            objectsDestination.forEach((item) => (item.isActive = false));
-            if (objectDestination) {
-                objectDestination.isActive = true;
-            }
-            console.log(objectsSource);
-            console.log(objectsDestination);
             this.objectsSource$.next(objectsSource);
-            this.objectsReceiver$.next(objectsDestination);
-            if (!isComparable) {
-                if (currentTransfer.destinationName) {
-                    this.materialController.openSnackBar(
-                        'Источник и приемник не совместимы!',
-                        'snackbar-red'
-                    );
-                }
-            }
-            if (isComparable) {
-            } else {
-                const tempTransfer = { ...this.emptyTransferGlobal };
-                tempTransfer.uid = currentTransfer.uid;
-                tempTransfer.startTime = currentTransfer.startTime;
-                tempTransfer.endTime = currentTransfer.endTime;
-                tempTransfer.operationType = currentTransfer.operationType;
-                currentTransfer = { ...tempTransfer };
-            }
             currentTransfer.sourceName = objectName;
             currentTransfer.sourceProduct = (await this.getAvailableProducts(objectName))[0];
             currentTransfer.sourceClient = this.client;
         } else {
-            const objectsSource = await this.getObjects(this.client, objectName, 'enter');
-            const objectSource = objectsSource?.find(
-                (item) => item.objectName === currentTransfer.sourceName
-            );
-            let objectsDestination = this.objectsReceiver$.getValue();
-            let isComparable: boolean = false;
-            if (objectSource) {
-                const objectsDestinationTemp = await this.getObjects(
-                    this.client,
-                    objectSource.objectName,
-                    'exit'
-                );
-                if (objectsDestinationTemp.find((item) => item.objectName === objectName)) {
-                    isComparable = true;
-                    objectsDestination = objectsDestinationTemp;
-                }
+            if (!currentTransfer.sourceName || currentTransfer.sourceName === '') {
+                const objectsSource = await this.getObjects(this.client, objectName, 'exit');
+                this.objectsSource$.next(objectsSource);
             }
+            const objectsDestination = this.objectsReceiver$.getValue();
             objectsDestination.forEach((item) => (item.isActive = false));
             objectsDestination.find((item) => item.objectName === objectName).isActive = true;
-            objectsSource.forEach((item) => (item.isActive = false));
-            if (objectSource) {
-                objectSource.isActive = true;
-            }
-            console.log(objectsSource);
-            console.log(objectsDestination);
-            this.objectsSource$.next(objectsSource);
             this.objectsReceiver$.next(objectsDestination);
-            if (!isComparable) {
-                if (currentTransfer.sourceName) {
-                    this.materialController.openSnackBar(
-                        'Источник и приемник не совместимы!',
-                        'snackbar-red'
-                    );
-                }
-            }
-            if (isComparable) {
-            } else {
-                const tempTransfer = { ...this.emptyTransferGlobal };
-                tempTransfer.uid = currentTransfer.uid;
-                tempTransfer.startTime = currentTransfer.startTime;
-                tempTransfer.endTime = currentTransfer.endTime;
-                tempTransfer.operationType = currentTransfer.operationType;
-                currentTransfer = { ...tempTransfer };
-            }
             currentTransfer.destinationName = objectName;
             currentTransfer.destinationProduct = (await this.getAvailableProducts(objectName))[0];
             currentTransfer.destinationClient = this.client;
@@ -365,16 +308,20 @@ export class PetroleumScreenService {
     }
 
     public async getTankAttributes(objectName: string): Promise<ITankAttribute[]> {
-        let attributes: ITankAttribute[] = await this.http.get<ITankAttribute[]>(
-            `${this.restUrl}/api/petroleum-flow-clients/objects/${objectName}/attr`
-        ).toPromise();
-        const regexp = /[A-Z]/;
-        attributes = attributes
-            .filter((el) =>
-                (el.paramTitle.toUpperCase().search(regexp) === -1) &&
-                (el.paramValue.toUpperCase().search(regexp) === -1)
-            );
-        return attributes;
+        try {
+            let attributes: ITankAttribute[] = await this.http.get<ITankAttribute[]>(
+                `${this.restUrl}/api/petroleum-flow-clients/objects/${objectName}/attr`
+            ).toPromise();
+            const regexp = /[A-Z]/;
+            attributes = attributes
+                .filter((el) =>
+                    (el.paramTitle.toUpperCase().search(regexp) === -1) &&
+                    (el.paramValue.toUpperCase().search(regexp) === -1)
+                );
+            return attributes;
+        } catch {
+            return [];
+        }
     }
 
     public async setTankParam(objectName: string): Promise<void> {
@@ -461,3 +408,117 @@ export class PetroleumScreenService {
             .toPromise();
     }
 }
+
+//
+// public async chooseObject(objectName: string, isSource: boolean): Promise<void> {
+//     let currentTransfer = this.currentTransfer$.getValue();
+// if (currentTransfer.operationType === 'Exist') {
+//     this.materialController.openSnackBar(
+//         'Для изменения объектов операции, создайте новую операцию!',
+//         'snackbar-red'
+//     );
+//     return;
+// }
+// this.isLoad$.next(true);
+// if (isSource) {
+//     const objectsDestination = await this.getObjects(this.client, objectName, 'exit');
+//     const objectDestination = objectsDestination?.find(
+//         (item) => item.objectName === currentTransfer.destinationName
+//     );
+//     let objectsSource = this.objectsSource$.getValue();
+//     let isComparable: boolean = false;
+//     if (objectDestination) {
+//         const objectsSourceTemp = await this.getObjects(
+//             this.client,
+//             objectDestination.objectName,
+//             'enter'
+//         );
+//         if (objectsSourceTemp.find((item) => item.objectName === objectName)) {
+//             isComparable = true;
+//             objectsSource = objectsSourceTemp;
+//         }
+//     }
+//     objectsSource.forEach((item) => (item.isActive = false));
+//     objectsSource.find((item) => item.objectName === objectName).isActive = true;
+//     objectsDestination.forEach((item) => (item.isActive = false));
+//     if (objectDestination) {
+//         objectDestination.isActive = true;
+//     }
+//     console.log(objectsSource);
+//     console.log(objectsDestination);
+//     this.objectsSource$.next(objectsSource);
+//     this.objectsReceiver$.next(objectsDestination);
+//     if (!isComparable) {
+//         if (currentTransfer.destinationName) {
+//             this.materialController.openSnackBar(
+//                 'Источник и приемник не совместимы!',
+//                 'snackbar-red'
+//             );
+//         }
+//     }
+//     if (isComparable) {
+//     } else {
+//         const tempTransfer = { ...this.emptyTransferGlobal };
+//         tempTransfer.uid = currentTransfer.uid;
+//         tempTransfer.startTime = currentTransfer.startTime;
+//         tempTransfer.endTime = currentTransfer.endTime;
+//         tempTransfer.operationType = currentTransfer.operationType;
+//         currentTransfer = { ...tempTransfer };
+//     }
+//     currentTransfer.sourceName = objectName;
+//     currentTransfer.sourceProduct = (await this.getAvailableProducts(objectName))[0];
+//     currentTransfer.sourceClient = this.client;
+// } else {
+//     const objectsSource = await this.getObjects(this.client, objectName, 'enter');
+//     const objectSource = objectsSource?.find(
+//         (item) => item.objectName === currentTransfer.sourceName
+//     );
+//     let objectsDestination = this.objectsReceiver$.getValue();
+//     let isComparable: boolean = false;
+//     if (objectSource) {
+//         const objectsDestinationTemp = await this.getObjects(
+//             this.client,
+//             objectSource.objectName,
+//             'exit'
+//         );
+//         if (objectsDestinationTemp.find((item) => item.objectName === objectName)) {
+//             isComparable = true;
+//             objectsDestination = objectsDestinationTemp;
+//         }
+//     }
+//     objectsDestination.forEach((item) => (item.isActive = false));
+//     objectsDestination.find((item) => item.objectName === objectName).isActive = true;
+//     objectsSource.forEach((item) => (item.isActive = false));
+//     if (objectSource) {
+//         objectSource.isActive = true;
+//     }
+//     console.log(objectsSource);
+//     console.log(objectsDestination);
+//     this.objectsSource$.next(objectsSource);
+//     this.objectsReceiver$.next(objectsDestination);
+//     if (!isComparable) {
+//         if (currentTransfer.sourceName) {
+//             this.materialController.openSnackBar(
+//                 'Источник и приемник не совместимы!',
+//                 'snackbar-red'
+//             );
+//         }
+//     }
+//     if (isComparable) {
+//     } else {
+//         const tempTransfer = { ...this.emptyTransferGlobal };
+//         tempTransfer.uid = currentTransfer.uid;
+//         tempTransfer.startTime = currentTransfer.startTime;
+//         tempTransfer.endTime = currentTransfer.endTime;
+//         tempTransfer.operationType = currentTransfer.operationType;
+//         currentTransfer = { ...tempTransfer };
+//     }
+//     currentTransfer.destinationName = objectName;
+//     currentTransfer.destinationProduct = (await this.getAvailableProducts(objectName))[0];
+//     currentTransfer.destinationClient = this.client;
+// }
+// this.isLoad$.next(false);
+// currentTransfer.isActive = true;
+// this.currentTransfer$.next(currentTransfer);
+// console.log(currentTransfer);
+// }

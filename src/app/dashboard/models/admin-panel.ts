@@ -97,6 +97,7 @@ export interface IUserImported {
 }
 
 export interface IUserLdapDto {
+    user?: IUserImported;
     importedUser?: IUserImported;
     ldapUser: IUserLdap;
     isUserImported: boolean;
