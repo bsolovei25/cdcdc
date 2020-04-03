@@ -44,7 +44,7 @@
     </span>
     <span class="header-schedule__units">{{units}}</span>
     <div
-      *ngIf="!isPreview"
+      *ngIf="!isPreview && claimWidgets.includes(EnumClaimWidgets.delete)"
       class="delete_widget"
       (click)="onRemoveButton()"
       (mousedown)="$event.stopPropagation()"
@@ -90,7 +90,7 @@
     </span>
     <span class="header-workspace__units">{{units}}</span>
     <div
-      *ngIf="!isPreview"
+      *ngIf="!isPreview  && claimWidgets.includes(EnumClaimWidgets.delete)"
       class="delete_widget"
       (click)="onRemoveButton()"
       (mousedown)="$event.stopPropagation()"

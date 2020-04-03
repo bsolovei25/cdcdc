@@ -28,5 +28,12 @@ export interface IUserGridItem {
     uniqueId: string;
 }
 
-export type ClaimType = 'screenView' | 'screenEdit' | 'screenDel' | string; // TODO ClaimType
+export type ClaimType = 'screenView' |
+    'screenEdit' |
+    'screenDel' |
+    'screenAdmin' |
+    'screenWidgetAdd'|
+    'screenWidgetEdit' |
+    'screenWidgetDel' |
+    string; // TODO ClaimType
 export type ClaimCategory = 'allow' | 'deny';

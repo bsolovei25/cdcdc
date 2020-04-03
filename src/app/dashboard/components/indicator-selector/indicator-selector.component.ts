@@ -162,10 +162,12 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
     isOverScreen(e) {}
 
     public isScreenDelete(screen: IScreenSettings): boolean {
-        return !!screen.claims.find((claim) => claim.claimType === 'screenDel');
+        return !!(screen.claims.find((claim) => claim.claimType === 'screenDel') ||
+            screen.claims.find((claim) => claim.claimType === 'screenAdmin'));
     }
 
     public isScreenEdit(screen: IScreenSettings): boolean {
-        return !!screen.claims.find((claim) => claim.claimType === 'screenEdit');
+        return !!(screen.claims.find((claim) => claim.claimType === 'screenEdit') ||
+            screen.claims.find((claim) => claim.claimType === 'screenAdmin'));
     }
 }

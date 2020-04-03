@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { AppConfigService } from '../../services/appConfigService';
 import { IUnits } from '../models/admin-shift-schedule';
+import { IClaim } from '../models/user-settings.model';
 
 export enum EnumClaimWidgets {
     add = 'add',
@@ -45,13 +46,39 @@ export class ClaimService {
         this.getCliam();
     }
 
+    public setClaimsByScreen(claims: IClaim[]): void {
+        const claimsWidget: EnumClaimWidgets[] = [];
+        claims.forEach((claim) => {
+            switch (claim.claimType) {
+                case 'screenWidgetAdd':
+                    claimsWidget.push(EnumClaimWidgets.add);
+                    break;
+                case 'screenWidgetDel':
+                    claimsWidget.push(EnumClaimWidgets.delete);
+                    break;
+                case 'screenWidgetEdit':
+                    claimsWidget.push(EnumClaimWidgets.resize);
+                    claimsWidget.push(EnumClaimWidgets.move);
+                    break;
+                case 'screenAdmin':
+                    claimsWidget.push(EnumClaimWidgets.add);
+                    claimsWidget.push(EnumClaimWidgets.delete);
+                    claimsWidget.push(EnumClaimWidgets.move);
+                    claimsWidget.push(EnumClaimWidgets.resize);
+                    break;
+            }
+        });
+        console.log(claimsWidget);
+        this.claimWidgets$.next(claimsWidget);
+    }
+
     private getCliam(): void {
-        this.claimWidgets$.next([
-            // EnumClaimWidgets.delete, // TODO
-            EnumClaimWidgets.move,
-            EnumClaimWidgets.resize,
-            EnumClaimWidgets.add,
-        ]);
+        // this.claimWidgets$.next([
+        //     // EnumClaimWidgets.delete, // TODO
+        //     EnumClaimWidgets.move,
+        //     EnumClaimWidgets.resize,
+        //     EnumClaimWidgets.add,
+        // ]);
         this.claimScreens$.next([
             EnumClaimScreens.add,
             EnumClaimScreens.edit,

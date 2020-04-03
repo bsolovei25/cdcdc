@@ -168,7 +168,7 @@ export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
         });
     };
 
-    removeItem(widgetId: string): void {
-        this.userSettings.removeItem(widgetId);
-    }
+    // removeItem(widgetId: string): void {
+    //     this.userSettings.removeItem(widgetId);
+    // }
 }

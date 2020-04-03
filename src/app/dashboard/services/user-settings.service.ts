@@ -7,6 +7,7 @@ import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { filter, catchError } from 'rxjs/operators';
 import { IParamWidgetsGrid } from '../components/new-widgets-grid/new-widgets-grid.component';
 import { WidgetService } from './widget.service';
+import { ClaimService } from './claim.service';
 
 @Injectable({
     providedIn: 'root',
@@ -26,6 +27,7 @@ export class UserSettingsService {
     constructor(
         private widgetService: WidgetService,
         private http: HttpClient,
+        private claimService: ClaimService,
         configService: AppConfigService
     ) {
         this.restUrl = configService.restUrl;
@@ -113,11 +115,11 @@ export class UserSettingsService {
         this.updateWidgetApi(oldItem.uniqid);
     }
 
-    public removeItem(widgetId: string): void {
-        this.http.delete(this.restUrl + '/api/user-management/widget/' + widgetId).toPromise();
+    public async removeItem(widgetId: string): Promise<any> {
+        return await this.http.delete(this.restUrl + '/api/user-management/widget/' + widgetId).toPromise();
     }
 
-    public GetScreen(): void {
+    public GetScreens(): void {
         try {
             this.http
                 .get<IScreenSettings[]>(this.restUrl + '/api/user-management/screens')
@@ -152,6 +154,7 @@ export class UserSettingsService {
     public LoadScreen(id: number) {
         localStorage.setItem('screenid', id.toString());
         return this.LoadScreenAsync(id, true).subscribe((item: IScreenSettings) => {
+            this.claimService.setClaimsByScreen(item.claims);
             this.ScreenId = item.id;
             this.ScreenName = item.screenName;
             this.widgetService.dashboard = item.widgets.map((widget) => {
@@ -185,7 +188,7 @@ export class UserSettingsService {
         };
         return this.http.post(this.restUrl + '/api/user-management/screen', userScreen).subscribe(
             (ans) => {
-                this.GetScreen();
+                this.GetScreens();
             },
             (error) => console.log(error)
         );
@@ -198,7 +201,7 @@ export class UserSettingsService {
                     this.ScreenId = undefined;
                 }
 
-                this.GetScreen();
+                this.GetScreens();
             },
             (error) => console.log(error)
         );
@@ -216,7 +219,7 @@ export class UserSettingsService {
             .put(this.restUrl + '/api/user-management/screen/' + id, userScreen)
             .subscribe(
                 (ans) => {
-                    this.GetScreen();
+                    this.GetScreens();
                 },
                 (error) => console.log(error)
             );

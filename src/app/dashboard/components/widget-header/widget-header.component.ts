@@ -74,9 +74,9 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
         this.CreateIcon = this.isEventOpen;
     }
 
-    public onRemoveButton(): void {
+    public async onRemoveButton(): Promise<void> {
+        await this.userSettings.removeItem(this.uniqId);
         this.widgetService.removeItemService(this.uniqId);
-        this.userSettings.removeItem(this.uniqId);
     }
 
     public createEvent(event): void {
