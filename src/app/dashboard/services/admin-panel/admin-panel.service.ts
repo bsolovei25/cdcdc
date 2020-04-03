@@ -21,6 +21,7 @@ import { fillDataShape } from '../../../@shared/common-functions';
 })
 export class AdminPanelService {
     private restUrl: string = `/api/user-management`;
+    private restUrlApi: string = `/api`;
     private restFileUrl: string = '';
 
     public defaultWorker: IUser = {
@@ -71,7 +72,10 @@ export class AdminPanelService {
     public allScreens: IWorkspace[] = [];
 
     constructor(private http: HttpClient, private configService: AppConfigService) {
-        this.configService.restUrl$.subscribe((urls) => (this.restUrl = `${urls}${this.restUrl}`));
+        this.configService.restUrl$.subscribe((urls) => {
+            this.restUrl = `${urls}${this.restUrl}`;
+            this.restUrlApi = `${urls}${this.restUrlApi}`;
+        });
         this.restFileUrl = this.configService.fsUrl;
         this.activeWorker$.subscribe((worker: IUser) => {
             this.activeWorker = worker;
@@ -148,7 +152,7 @@ export class AdminPanelService {
 
     //#region UNITS
     public getAllUnits(): Observable<IUnitEvents[]> {
-        const url: string = 'http://deploy.funcoff.club:6555/api/ref-book/Unit';
+        const url: string = `${this.restUrlApi}/ref-book/Unit`;
         return this.http.get<IUnitEvents[]>(url);
     }
 
