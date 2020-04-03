@@ -59,6 +59,7 @@ export interface ManualInputData {
 
 export interface IMachine_MI {
     name: string;
+    isUserHasWriteClaims?: boolean;
     groups?: IGroup_MI[];
     active?: boolean;
     open?: boolean;

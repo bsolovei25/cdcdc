@@ -53,6 +53,7 @@
           </div>
         </div> -->
         <div
+          *ngIf="isSaveButton()"
           class="save-button"
           (click)="onButtonSave()"
           [style.opacity]="!disabledMachine.isSelected(chooseSetting?.name) ? '1' : '0.1'"
