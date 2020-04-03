@@ -21,6 +21,8 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
         btnIconSrc: 'assets/icons/plus-icon.svg',
     };
 
+    public isDataLoading: boolean = false;
+
     public allWorkers: IUser[] = [];
     public allWorkspaces: IWorkspace[] = [];
 
@@ -60,19 +62,24 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
     ) {}
 
     public ngOnInit(): void {
+        this.isDataLoading = true;
         this.subscriptions.push(
             combineLatest([
                 this.adminService.allWorkers$,
                 this.adminService.getAllGroups(),
                 this.adminService.getAllScreens(),
-            ]).subscribe(([workers, groups, screens]) => {
-                this.allWorkers = workers;
+            ]).subscribe(
+                ([workers, groups, screens]) => {
+                    this.allWorkers = workers.slice();
 
-                this.groups = groups;
-                this.onSelectGroup(this.groups[0]);
+                    this.groups = groups;
+                    this.onSelectGroup(this.groups[0]);
 
-                this.allWorkspaces = screens;
-            })
+                    this.allWorkspaces = screens;
+                },
+                console.log,
+                () => (this.isDataLoading = false)
+            )
         );
         this.generalClaims = this.adminService.generalClaims;
         this.specialClaims = this.adminService.specialClaims;
@@ -192,12 +199,17 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
                 if (this.subs) {
                     this.subs.unsubscribe();
                 }
-                this.subs = this.adminService
-                    .getAllGroupScreenClaims(group.id)
-                    .subscribe((data) => {
+
+                this.isDataLoading = false;
+
+                this.subs = this.adminService.getAllGroupScreenClaims(group.id).subscribe(
+                    (data) => {
                         group.workspaces = data.data;
                         this.groupWorkspaces = group.workspaces;
-                    });
+                    },
+                    console.log,
+                    () => (this.isDataLoading = false)
+                );
                 this.groupWorkspaces = [];
             } else {
                 this.groupWorkspaces = group.workspaces;
