@@ -72,10 +72,8 @@ export class AdminPanelService {
     public allScreens: IWorkspace[] = [];
 
     constructor(private http: HttpClient, private configService: AppConfigService) {
-        this.configService.restUrl$.subscribe((urls) => {
-            this.restUrl = `${urls}${this.restUrl}`;
-            this.restUrlApi = `${urls}${this.restUrlApi}`;
-        });
+        this.restUrl = `${this.configService.restUrl}${this.restUrl}`;
+        this.restUrlApi = `${this.configService.restUrl}${this.restUrlApi}`;
         this.restFileUrl = this.configService.fsUrl;
         this.activeWorker$.subscribe((worker: IUser) => {
             this.activeWorker = worker;
