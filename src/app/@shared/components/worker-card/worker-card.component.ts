@@ -40,8 +40,8 @@ export class WorkerCardComponent implements OnInit, OnChanges {
     }
 
     public ngOnChanges(): void {
-        if (this.person.photoId) {
-            this.photoPath = `${this.fsUrl}/${this.person.photoId}`;
+        if (this.person?.photoId) {
+            this.photoPath = `${this.fsUrl}/${this.person?.photoId}`;
         } else {
             this.photoPath = this.defaultAvatarPath;
         }
