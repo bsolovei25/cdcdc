@@ -8,6 +8,7 @@ export interface IBrigade {
 
 export interface Employee {
     id: number;
+    photoId: string;
     firstName: string;
     lastName: string;
     brigade: IBrigade;
