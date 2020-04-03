@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { IWorkspace, IScreen } from '../../../models/admin-panel';
+import { IWorkspace } from '../../../models/admin-panel';
 import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
 import { Subscription } from 'rxjs';
 

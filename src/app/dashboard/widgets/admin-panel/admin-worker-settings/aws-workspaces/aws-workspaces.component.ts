@@ -1,14 +1,13 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { IWorkspace, IScreen, IClaim, IGlobalClaim } from '../../../../models/admin-panel';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { IWorkspace, IGlobalClaim } from '../../../../models/admin-panel';
 import { AdminPanelService } from '../../../../services/admin-panel/admin-panel.service';
-import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'evj-aws-workspaces',
     templateUrl: './aws-workspaces.component.html',
     styleUrls: ['./aws-workspaces.component.scss'],
 })
-export class AwsWorkspacesComponent implements OnInit, OnDestroy {
+export class AwsWorkspacesComponent implements OnInit {
     @Input() public workerScreens: IWorkspace[] = [];
     @Input() public workerSpecialClaims: IGlobalClaim[] = [];
     @Input() private searchingWorkspaceValue: string = '';
@@ -17,20 +16,10 @@ export class AwsWorkspacesComponent implements OnInit, OnDestroy {
 
     public allWorkspaces: IWorkspace[] = null;
 
-    private subscriptions: Subscription[] = [];
-
     constructor(private adminService: AdminPanelService) {}
 
     public ngOnInit(): void {
-        this.subscriptions.push(
-            this.adminService.getAllScreens().subscribe((data: IWorkspace[]) => {
-                this.allWorkspaces = data;
-            })
-        );
-    }
-
-    public ngOnDestroy(): void {
-        this.subscriptions.forEach((subs) => subs.unsubscribe());
+        this.allWorkspaces = this.adminService.allScreens;
     }
 
     public isValidWorkspaceName(workspaceName: string): boolean {

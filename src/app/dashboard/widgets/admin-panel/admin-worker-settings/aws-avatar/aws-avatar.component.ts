@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { ImageCroppedEvent, base64ToFile } from 'ngx-image-cropper';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 
 @Component({
     selector: 'evj-aws-avatar',

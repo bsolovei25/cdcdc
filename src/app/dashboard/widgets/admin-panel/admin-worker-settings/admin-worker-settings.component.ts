@@ -327,7 +327,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                     );
                 }
 
-                if (this.isImportNewWorker) {
+                if (this.isImportNewWorker && !this.worker.id) {
                     await this.onImportWorker();
                 } else if (this.isCreateNewUser) {
                     await this.onCreateNewWorker();
