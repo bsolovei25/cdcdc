@@ -33,9 +33,17 @@
       {{title}}
     </span>
     <span class="header-schedule__units">{{units}}</span>
-    <div *ngIf="!isPreview" class="delete_widget" (click)="onRemoveButton()" (mousedown)="$event.stopPropagation()"
-      (touchstart)="$event.stopPropagation()">
-      <svg-icon style="width: 100%; height: 100%; fill: #8C99B2" src="./assets/icons/close_bad.svg"></svg-icon>
+    <div
+      *ngIf="!isPreview && claimWidgets.includes(EnumClaimWidgets.delete)"
+      class="delete_widget"
+      (click)="onRemoveButton()"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
+      <svg-icon
+        style="width: 100%; height: 100%; fill: #8C99B2"
+        src="./assets/icons/close_bad.svg"
+      ></svg-icon>
     </div>
   </div>
 
@@ -63,9 +71,17 @@
       {{title}}
     </span>
     <span class="header-workspace__units">{{units}}</span>
-    <div *ngIf="!isPreview" class="delete_widget" (click)="onRemoveButton()" (mousedown)="$event.stopPropagation()"
-      (touchstart)="$event.stopPropagation()">
-      <svg-icon style="width: 100%; height: 100%; fill: #8C99B2" src="./assets/icons/close_bad.svg"></svg-icon>
+    <div
+      *ngIf="!isPreview  && claimWidgets.includes(EnumClaimWidgets.delete)"
+      class="delete_widget"
+      (click)="onRemoveButton()"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
+      <svg-icon
+        style="width: 100%; height: 100%; fill: #8C99B2"
+        src="./assets/icons/close_bad.svg"
+      ></svg-icon>
     </div>
   </div>
 

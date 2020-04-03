@@ -59,6 +59,7 @@ export class NewWidgetsGridComponent implements OnInit {
     ) {}
 
     public ngOnInit(): void {
+        this.userSettings.GetScreens();
         document.addEventListener('fullscreenchange', () => {
             console.log(document.fullscreenElement);
             this.fullscreen = document.fullscreenElement ? true : false;
@@ -75,7 +76,7 @@ export class NewWidgetsGridComponent implements OnInit {
     }
 
     private loaditem(): void {
-        this.userSettings.GetScreen();
+        // this.userSettings.GetScreen();
         this.options = {
             gridType: GridType.Fixed,
             displayGrid: 'none',
