@@ -63,10 +63,6 @@ export class AdminAdImportComponent implements OnInit {
                         importedWorker[key] = user.user[key];
                     }
                 }
-
-                console.log(importedWorker);
-                
-
                 this.adminService.activeWorker$.next(importedWorker);
                 this.closeLdap.emit(true);
             } catch (error) {
