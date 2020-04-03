@@ -43,7 +43,7 @@ export class ClaimService {
 
     constructor(public http: HttpClient, configService: AppConfigService) {
         this.restUrl = configService.restUrl;
-        this.getCliam();
+        this.getClaim();
     }
 
     public setClaimsByScreen(claims: IClaim[]): void {
@@ -72,27 +72,38 @@ export class ClaimService {
         this.claimWidgets$.next(claimsWidget);
     }
 
-    private getCliam(): void {
+    private async getClaim(): Promise<void> {
         // this.claimWidgets$.next([
         //     // EnumClaimWidgets.delete, // TODO
         //     EnumClaimWidgets.move,
         //     EnumClaimWidgets.resize,
         //     EnumClaimWidgets.add,
         // ]);
-        this.claimScreens$.next([
-            EnumClaimScreens.add,
-            EnumClaimScreens.edit,
-            EnumClaimScreens.delete,
-        ]);
+        // this.claimScreens$.next([
+        //     EnumClaimScreens.add,
+        //     EnumClaimScreens.edit,
+        //     EnumClaimScreens.delete,
+        // ]);
+        const allUserClaims = await this.getClaimAll();
+        const claimsScreen: EnumClaimScreens[] = [];
+        allUserClaims.forEach((claim) => {
+            switch (claim.claimType) {
+                case 'screensAdmin':
+                case 'screensAdd':
+                    claimsScreen.push(EnumClaimScreens.delete);
+                    break;
+            }
+        });
+        this.claimScreens$.next(claimsScreen);
     }
 
-    async getClaimAll(): Promise<IClaimAll> {
+    async getClaimAll(): Promise<IClaim[]> {
         try {
             return this.http
-                .get<IClaimAll>(this.restUrl + `/api/user-management/claim/all`)
+                .get<IClaim[]>(this.restUrl + `/api/user-management/claim/all`)
                 .toPromise();
         } catch (error) {
-            console.error(error);
+            return [];
         }
     }
 

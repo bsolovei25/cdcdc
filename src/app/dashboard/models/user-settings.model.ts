@@ -32,6 +32,8 @@ export type ClaimType = 'screenView' |
     'screenEdit' |
     'screenDel' |
     'screenAdmin' |
+    'screensAdmin' |
+    'screensAdd' |
     'screenWidgetAdd'|
     'screenWidgetEdit' |
     'screenWidgetDel' |
