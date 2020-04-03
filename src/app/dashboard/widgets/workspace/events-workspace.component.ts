@@ -27,6 +27,7 @@ import { AuthService } from '@core/service/auth.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 
 import { ITime } from '../../models/time-data-picker';
+import { AppConfigService } from '../../../services/appConfigService';
 
 @Component({
     selector: 'evj-events-workspace',
@@ -61,6 +62,8 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     nameUserFirstName: string;
     nameUserLastName: string;
 
+    public userAvatar: string = 'assets/icons/widgets/admin/default_avatar2.svg';
+    public userAvatarDefault: string = 'assets/icons/widgets/admin/default_avatar2.svg';
     userChoosen: boolean = false;
     userMeropChoosen: boolean = false;
     chooseNameUser: string;
@@ -112,6 +115,8 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     dateChoose: Date;
     dateChooseNew: Date;
 
+    private fsUrl: string;
+
     @ViewChild('input', { static: false }) input: ElementRef;
     @ViewChild('input2', { static: false }) input2: ElementRef;
     @ViewChild('newInput', { static: false }) newInput: ElementRef;
@@ -127,6 +132,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         public widgetService: WidgetService,
         private dateAdapter: DateAdapter<Date>,
         private authService: AuthService,
+        private configService: AppConfigService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -144,6 +150,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
         this.widgetIcon = 'document';
         this.dateAdapter.setLocale('ru');
+        this.fsUrl = this.configService.fsUrl;
     }
 
     ngOnInit(): void {
@@ -185,6 +192,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
                 value.fixedBy.lastName;
             this.event = value;
             this.dateChoose = value.deadline;
+            this.userAvatar = value?.fixedBy?.photoId ? `${this.fsUrl}/${value?.fixedBy?.photoId}` : this.userAvatarDefault;
             this.isUserCanEdit = value.isUserCanEdit;
         }
 
@@ -219,10 +227,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     }
 
     @HostListener('document:resize', ['$event'])
-    OnResize(event) {
-        // if (this.progress.nativeElement !== undefined) {
-        //     this.progressLine();
-        // }
+    OnResize(event): void {
         try {
             this.progressLine();
         } catch (error) {}
@@ -258,7 +263,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
                 displayName: this.nameUser,
             };
             this.event.comments.push(commentInfo);
-            // this.comments.push(this.input.nativeElement.value);
             this.input2.nativeElement.value = '';
             this.dateComment = new Date();
             setTimeout(() => {
@@ -289,7 +293,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
                 displayName: this.nameUser,
             };
             this.isNewRetrieval.facts.push(factInfo);
-            // this.comments.push(this.input.nativeElement.value);
             this.newInput2.nativeElement.value = '';
             setTimeout(() => {
                 this.scrollFactBottom();
@@ -361,7 +364,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
             itemNumber: 0,
             branch: 'Производство',
             category: this.category ? this.category[0] : null,
-            // comments: ['Новое событие'],
             description: '',
             deviationReason: 'Причина отклонения...',
             directReasons: '',
@@ -377,7 +379,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
                 middleName: '',
                 phone: '00123456789',
             },
-            //place: { id: 5001, name: 'ГФУ-2 с БОР' },
             organization: 'АО Газпромнефть',
             priority: this.priority
                 ? this.priority[2]
@@ -725,6 +726,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.chooseNameUser = data.firstName + ' ' + data.middleName + ' ' + data.lastName;
         this.userBrigade = data.brigade.number;
         this.userDescription = data.positionDescription;
+        this.userAvatar = data?.photoId ? `${this.fsUrl}/${data.photoId}` : this.userAvatarDefault;
     }
 
     chooseMeropRespons(data): void {
@@ -732,6 +734,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.chooseNameUser = data.firstName + ' ' + data.middleName + ' ' + data.lastName;
         this.userBrigade = data.brigade.number;
         this.userDescription = data.positionDescription;
+        this.userAvatar = data?.photoId ? `${this.fsUrl}/${data.photoId}` : this.userAvatarDefault;
     }
 
     onEditShortInfo(): void {

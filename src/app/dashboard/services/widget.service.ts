@@ -97,13 +97,31 @@ export class WidgetService {
         .pipe(filter((item) => item !== null));
 
     private getAvailableWidgets(): Observable<IWidgets[]> {
-        return this.http.get(this.restUrl + `/api/af-service/GetAvailableWidgets`).pipe(
-            map((data: IWidgets[]) => {
-                const localeData = this.mapData(data);
-                this.mass = this.mapData(data);
-                return localeData;
-            })
-        );
+        return this.http
+            .get(this.restUrl + `/api/user-management/Claim/user/GetAvailableWidgets`)
+            .pipe(
+                map((ans: {data: IWidgets[]}) => {
+                    const localeData = this.mapData(ans.data);
+                    this.mass = this.mapData(ans.data);
+                    return localeData;
+                })
+            );
+    }
+
+    private async getAvailableWidgetsTest(): Promise<void> {
+        const arr: number[] = [];
+        for (let i = 0; i < 10; i++) {
+            const start = new Date().getTime();
+            await this.http.get(this.restUrl + `/api/af-service/GetAvailableWidgets`).toPromise();
+            await this.http.get(this.restUrl + `/api/user-management/Claim/user/GetAvailableWidgets`).toPromise();
+            const end = new Date().getTime();
+            arr.push(end - start);
+        }
+        let summ = 0;
+        arr.forEach(el => summ += el);
+        console.log('averageTime: ' + (summ / arr.length));
+        console.log('maxTime: ' + (Math.max.apply(null, arr)));
+        console.log('minTime: ' + (Math.min.apply(null, arr)));
     }
 
     mapData(data: IWidgets[]): IWidgets[] {

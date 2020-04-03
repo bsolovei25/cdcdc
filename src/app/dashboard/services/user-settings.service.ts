@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { NewUserSettings, NewUserGrid, ScreenSettings } from '../models/user-settings.model';
+import { IUserGridItem, IScreenSettings } from '../models/user-settings.model';
 import { HttpClient } from '@angular/common/http';
 import { WIDGETS } from '../components/new-widgets-grid/widget-map';
 import { AppConfigService } from 'src/app/services/appConfigService';
@@ -7,13 +7,14 @@ import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { filter, catchError } from 'rxjs/operators';
 import { IParamWidgetsGrid } from '../components/new-widgets-grid/new-widgets-grid.component';
 import { WidgetService } from './widget.service';
+import { ClaimService } from './claim.service';
 
 @Injectable({
     providedIn: 'root',
 })
 export class UserSettingsService {
-    private _screens$: BehaviorSubject<ScreenSettings[]> = new BehaviorSubject(null);
-    public screens$: Observable<ScreenSettings[]> = this._screens$
+    private _screens$: BehaviorSubject<IScreenSettings[]> = new BehaviorSubject(null);
+    public screens$: Observable<IScreenSettings[]> = this._screens$
         .asObservable()
         .pipe(filter((item) => item !== null));
 
@@ -21,12 +22,12 @@ export class UserSettingsService {
 
     public ScreenId: number;
     public ScreenName: string;
-    public dataScreen = [];
-    public widgetInfo: NewUserGrid;
+    public widgetInfo: IUserGridItem;
 
     constructor(
         private widgetService: WidgetService,
         private http: HttpClient,
+        private claimService: ClaimService,
         configService: AppConfigService
     ) {
         this.restUrl = configService.restUrl;
@@ -74,15 +75,15 @@ export class UserSettingsService {
     private save(uniqId: string): void {
         for (const item of this.widgetService.dashboard) {
             if (item.uniqid === uniqId) {
-                const cellSetting: NewUserGrid = new (class implements NewUserGrid {
-                    widgetId = item.id;
-                    posX = item.x;
-                    posY = item.y;
-                    widgetType = item.widgetType;
-                    sizeX = item.cols;
-                    sizeY = item.rows;
-                    uniqueId = item.uniqid;
-                })();
+                const cellSetting: IUserGridItem = {
+                    widgetId: item.id,
+                    posX: item.x,
+                    posY: item.y,
+                    widgetType: item.widgetType,
+                    sizeX: item.cols,
+                    sizeY: item.rows,
+                    uniqueId: item.uniqid,
+                };
                 this.widgetInfo = cellSetting;
             } else {
             }
@@ -114,14 +115,14 @@ export class UserSettingsService {
         this.updateWidgetApi(oldItem.uniqid);
     }
 
-    public removeItem(widgetId: string): void {
-        this.http.delete(this.restUrl + '/api/user-management/widget/' + widgetId).toPromise();
+    public async removeItem(widgetId: string): Promise<any> {
+        return await this.http.delete(this.restUrl + '/api/user-management/widget/' + widgetId).toPromise();
     }
 
-    public GetScreen(): void {
+    public GetScreens(): void {
         try {
             this.http
-                .get<ScreenSettings[]>(this.restUrl + '/api/user-management/screens')
+                .get<IScreenSettings[]>(this.restUrl + '/api/user-management/screens')
                 .subscribe((data) => {
                     this._screens$.next(data);
                     if (!this.ScreenId && data[0]) {
@@ -136,14 +137,14 @@ export class UserSettingsService {
     private LoadScreenAsync(id: number, loadDefault: boolean): Observable<any> {
         return this.http.get(this.restUrl + '/api/user-management/screen/' + id).pipe(
             catchError((err) => {
-                this.dataScreen = this._screens$.getValue();
+                const dataScreen = this._screens$.getValue();
                 if (
                     err.status === 404 &&
                     loadDefault &&
-                    this.dataScreen &&
-                    this.dataScreen.length
+                    dataScreen &&
+                    dataScreen.length
                 ) {
-                    return this.LoadScreenAsync(this.dataScreen[0].id, false);
+                    return this.LoadScreenAsync(dataScreen[0].id, false);
                 }
                 return throwError(err);
             })
@@ -152,7 +153,8 @@ export class UserSettingsService {
 
     public LoadScreen(id: number) {
         localStorage.setItem('screenid', id.toString());
-        return this.LoadScreenAsync(id, true).subscribe((item: ScreenSettings) => {
+        return this.LoadScreenAsync(id, true).subscribe((item: IScreenSettings) => {
+            this.claimService.setClaimsByScreen(item.claims);
             this.ScreenId = item.id;
             this.ScreenName = item.screenName;
             this.widgetService.dashboard = item.widgets.map((widget) => {
@@ -176,17 +178,17 @@ export class UserSettingsService {
         });
     }
 
-    public PushScreen(nameWidget) {
-        const userScreen: ScreenSettings = new (class implements ScreenSettings {
-            id;
-            screenName = nameWidget;
-            user;
-            updateScreen;
-            widgets;
-        })();
+    public PushScreen(nameWidget: string) {
+        const userScreen: IScreenSettings = {
+            id: null,
+            screenName: nameWidget,
+            user: null,
+            updateScreen: null,
+            widgets: null,
+        };
         return this.http.post(this.restUrl + '/api/user-management/screen', userScreen).subscribe(
             (ans) => {
-                this.GetScreen();
+                this.GetScreens();
             },
             (error) => console.log(error)
         );
@@ -199,25 +201,25 @@ export class UserSettingsService {
                     this.ScreenId = undefined;
                 }
 
-                this.GetScreen();
+                this.GetScreens();
             },
             (error) => console.log(error)
         );
     }
 
-    public updateScreen(id, name) {
-        const userScreen: ScreenSettings = new (class implements ScreenSettings {
-            id = id;
-            screenName = name;
-            user;
-            updateScreen;
-            widgets;
-        })();
+    public updateScreen(id: number, name: string) {
+        const userScreen: IScreenSettings = {
+            id,
+            screenName: name,
+            user: null,
+            updateScreen: null,
+            widgets: null,
+        };
         return this.http
             .put(this.restUrl + '/api/user-management/screen/' + id, userScreen)
             .subscribe(
                 (ans) => {
-                    this.GetScreen();
+                    this.GetScreens();
                 },
                 (error) => console.log(error)
             );
