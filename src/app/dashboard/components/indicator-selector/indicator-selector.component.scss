@@ -50,7 +50,7 @@
 
   flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
 
   &_active {
     display: flex;
@@ -59,7 +59,7 @@
 
 .dropdown-content {
   flex: 1;
-  width: 100%;
+  width: calc(100% + 70px);
 
   overflow-x: hidden;
   overflow-y: scroll;
@@ -67,6 +67,7 @@
   direction: rtl;
 
   &__list {
+    width: 100%;
     display: block;
     direction: ltr;
   }
@@ -78,12 +79,12 @@
 }
 
 .dropdown-component {
-  padding-left: 10px;
+  // padding-left: 10px;
   text-align: left;
   display: flex;
   align-items: center;
   color: white;
-  background-color: var(--color-bg-main);
+  // background-color: var(--color-bg-main);
   cursor: pointer;
   font-size: 13px;
 
@@ -92,7 +93,9 @@
 
   &:hover {
     transition: all 0.3s ease;
-    background-color: var(--color-bg-sub);
+    .screen-card {
+      background-color: var(--color-bg-sub);
+    }
   }
   &_input {
     background: transparent;
@@ -126,6 +129,13 @@
   }
 }
 
+.screen-card {
+  padding-left: 10px;
+  width: 200px;
+  box-sizing: border-box;
+  background: var(--color-bg-main);
+}
+
 .screen_name {
   text-align: left;
   font-size: 15px;
@@ -134,9 +144,8 @@
 }
 .delete_screen {
   display: inline-block;
+  padding: 0px 5px;
   z-index: 999;
-  padding-left: 5px;
-  padding-right: 10px;
   width: 20px;
   fill: white;
 }
@@ -151,8 +160,8 @@
 }
 .update_screen {
   display: inline-block;
+  padding: 0px 5px;
   z-index: 999;
-  padding-left: 10px;
   width: 20px;
   fill: white;
 }
@@ -194,11 +203,11 @@
 }
 
 .hover-button {
-  padding-left: 5px;
-  // width: 70px;
   background-color: var(--color-bg-main);
   display: flex;
+  justify-content: space-around;
   align-items: center;
+  box-sizing: border-box;
   opacity: 0;
 }
 
