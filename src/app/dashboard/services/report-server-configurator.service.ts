@@ -33,6 +33,10 @@ export class ReportServerConfiguratorService {
     return this.http.get<any[]>(this.restUrl + '/api/report-template/system-option/all');
   }
 
+  public getTemplateFolder(): Observable<any[]> {
+    return this.http.get<any[]>(this.restUrl + '/api/report-templateFolder/all');
+  }
+
 
   public pushReportFile(file: Blob): Observable<any> {
     const body: FormData = new FormData();
@@ -48,6 +52,14 @@ export class ReportServerConfiguratorService {
 
   public postReportTemplate(template): Observable<any>{
     return this.http.post<any>(this.restUrl + '/api/report-template/', template);
+  }
+
+  public postTemplateFolder(folder): Observable<any>{
+    return this.http.post<any>(this.restUrl + '/api/report-templateFolder/', folder);
+  }
+
+  public putTemplate(template): Observable<any>{
+    return this.http.put<any>(this.restUrl + '/api/report-template/', template);
   }
 
   public putReportFileTemplate(filetemplate): Observable<any>{

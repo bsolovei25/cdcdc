@@ -27,6 +27,24 @@ export interface IReferenceColumns {
     open?: boolean;
 }
 
+export interface IReferenceData {
+    data: IReferenceDataColumns[];
+    messages: string;
+}
+
+export interface IReferenceDataColumns {
+    columnsData?: any[];
+    createdAt?: Date;
+    createdBy?: Date;
+    createdById?: number;
+    id?: number;
+    modifiedAt?: Date;
+    modifiedBy?: Date;
+    modifiedById?: number;
+    name: string;
+    referenceTypeId: number;
+}
+
 export interface IReferenceColumnsType {
     id: number;
     name: string;

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
-import { IReferenceTypes } from '../../models/references';
+import { IReferenceTypes} from '../../models/references';
 import { ReferencesService } from '../../services/references.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 
@@ -10,13 +10,8 @@ import { WidgetPlatform } from '../../models/widget-platform';
     styleUrls: ['./reference.component.scss'],
 })
 export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    //objectKeys = Object.keys;
-
-
     static itemCols = 18;
     static itemRows = 14;
-
-  
 
     public valueCheck: boolean;
     public valueUniqCheck: boolean;
@@ -64,6 +59,7 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
+        this.widgetIcon = 'reference';
     }
 
     ngOnInit(): void {
@@ -85,13 +81,13 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
         return this.referencesService.reference$.subscribe((data) => {
             this.datas = data;
             this.data = this.datas;
-        })
+        });
     }
 
     getTable(id: number) {
         this.referencesService.getTableReference(id).subscribe((data) => {
             this.dataTable = data;
-        })
+        });
     }
 
     onClickReference(data, index) {
@@ -153,7 +149,7 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
                         valueInt: null
                     }
                 } else {
-                    if (i.columnTypeId === 2) {
+                    if (i.columnTypeId === 3) {
                         obj = {
                             referenceColumnId: i.id,
                             valueString: null,
@@ -161,7 +157,7 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
                             valueNumber: +test,
                             valueInt: null
                         }
-                    } else if (i.columnTypeId === 1) {
+                    } else if (i.columnTypeId === 4) {
                         obj = {
                             referenceColumnId: i.id,
                             valueString: test,
@@ -169,7 +165,7 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
                             valueNumber: null,
                             valueInt: null
                         }
-                    } else if (i.columnTypeId === 3) {
+                    } else if (i.columnTypeId === 1) {
                         obj = {
                             referenceColumnId: i.id,
                             valueString: null,
@@ -177,7 +173,7 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
                             valueNumber: null,
                             valueInt: null
                         }
-                    } else if (i.columnTypeId === 4) {
+                    } else if (i.columnTypeId === 2) {
                         obj = {
                             referenceColumnId: i.id,
                             valueString: null,
@@ -191,7 +187,7 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
             }
 
         }
-        let object = {
+        let object: any = {
             name: this.newName,
             referenceTypeId: this.idReferenceClick,
             columnsData: columnsObj,

@@ -122,7 +122,7 @@ export class ManualInputComponent extends WidgetPlatform
     }
 
     protected dataHandler(ref: { machines: IMachine_MI[]; isUserHasWriteClaims: boolean}): void {
-        this.loadSaveData(ref);
+        this.loadSaveData(ref, true);
     }
 
     @Output()
@@ -147,13 +147,16 @@ export class ManualInputComponent extends WidgetPlatform
         try {
             const data: { machines: IMachine_MI[]; isUserHasWriteClaims: boolean} = await this.manualInputService.getManualInput(this.id);
             console.log(data);
-            this.loadSaveData(data);
+            this.loadSaveData(data, false);
         } catch (error) {
             console.log(error);
         }
     }
 
     onButtonSave(): void {
+        if (!this.isSaveButton()) {
+            return;
+        }
         this.manualInputService.BtnSaveValues(this.data);
     }
 
@@ -165,8 +168,10 @@ export class ManualInputComponent extends WidgetPlatform
         this.manualInputService.CheckLastValue(id, this.data);
     }
 
-    async loadSaveData( data: { machines: IMachine_MI[]; isUserHasWriteClaims: boolean}): Promise<void> {
-        this.isUserHasWriteClaims = data.isUserHasWriteClaims;
+    async loadSaveData( data: { machines: IMachine_MI[]; isUserHasWriteClaims: boolean}, isWsSource: boolean): Promise<void> {
+        if (!isWsSource) {
+            this.isUserHasWriteClaims = data.isUserHasWriteClaims;
+        }
         console.log('common ' + this.isUserHasWriteClaims);
         const settings: IMachine_MI[] = await this.widgetSettingsService.getSettings(this.uniqId);
         for (const itemDate of data.machines) {
@@ -182,6 +187,11 @@ export class ManualInputComponent extends WidgetPlatform
                     ? (this.chooseSetting = itemDate)
                     : (this.chooseSetting = this.chooseSetting);
                 this.allSettings = false;
+            }
+            if (isWsSource) {
+                itemDate.isUserHasWriteClaims = this.data
+                    ?.find((item) => item.name === itemDate.name)
+                    ?.isUserHasWriteClaims;
             }
         }
         this.data = this.manualInputService.LoadData(this.data, data.machines);

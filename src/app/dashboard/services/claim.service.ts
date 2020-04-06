@@ -51,12 +51,15 @@ export class ClaimService {
         claims.forEach((claim) => {
             switch (claim.claimType) {
                 case 'screenWidgetAdd':
+                case 'screensWidgetAdd':
                     claimsWidget.push(EnumClaimWidgets.add);
                     break;
                 case 'screenWidgetDel':
+                case 'screensWidgetDel':
                     claimsWidget.push(EnumClaimWidgets.delete);
                     break;
                 case 'screenWidgetEdit':
+                case 'screensWidgetEdit':
                     claimsWidget.push(EnumClaimWidgets.resize);
                     claimsWidget.push(EnumClaimWidgets.move);
                     break;
