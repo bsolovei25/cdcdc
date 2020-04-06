@@ -203,16 +203,15 @@ export class WidgetService {
         });
     }
 
-    private mapWidgetData(data: any, widgetType: any) {
+    private mapWidgetData(data: any, widgetType: string): any {
         switch (widgetType) {
             case 'events':
                 return this.mapEventsWidgetDataPreview(data as EventsWidgetDataPreview);
 
             case 'line-chart':
                 return this.mapLineChartData(data as LineChartData);
-            case 'manual-input':
-                return this.mapManualInput(data.items);
 
+            case 'manual-input':
             case 'line-diagram':
             case 'pie-diagram':
             case 'truncated-diagram-counter':
@@ -255,10 +254,6 @@ export class WidgetService {
         data.graphs.forEach((g) => {
             g.values.forEach((v) => (v.date = new Date(v.date)));
         });
-        return data;
-    }
-
-    private mapManualInput(data: IMachine_MI[]): IMachine_MI[] {
         return data;
     }
 
