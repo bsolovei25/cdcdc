@@ -64,6 +64,7 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
+        this.widgetIcon = 'reference';
     }
 
     ngOnInit(): void {

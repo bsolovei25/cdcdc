@@ -92,6 +92,7 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
+        this.widgetIcon = 'reference';
     }
 
     ngOnInit(): void {
