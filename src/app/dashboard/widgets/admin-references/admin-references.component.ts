@@ -111,7 +111,7 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
     }
 
     getReference() {
-        return this.referencesService.reference$.subscribe((data) => {
+        return this.referencesService.getReference().subscribe((data) => {
             this.datas = data;
             this.data = this.datas;
         })
@@ -228,11 +228,11 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
         if(this.idReferenceClick !== null && this.idReferenceClick !== undefined){
             this.isClickPushRecord = true;
             this.isLongBlock = false;
-        }
-       
+        }   
     }
 
     onPushReference(): void {
+        
         this.isClickPushReference = false;
         let object: IReferenceTypes = {
             name: this.newRecordInReference,
@@ -242,6 +242,7 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
             this.newRecordInReference !== undefined
         ) {
             this.referencesService.pushReference(object).subscribe((ans) => {
+                this.referencesService.getRestReference();
                 this.data.push(ans);
             });
             this.newRecordInReference = null;
@@ -260,8 +261,8 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
         };
         if (this.newFioRecord.trim().length > 0 && this.newFioRecord !== undefined) {
             this.referencesService.pushColumnReference(object).subscribe(ans => {
+                this.referencesService.getRestReference();
                 this.data[this.indexColumn].columns.push(ans);
-               
             });
             this.newFioRecord = null;
             this.isType = null;
@@ -299,6 +300,7 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
 
     deleteReference(item): void {
         this.referencesService.removeReference(item.id).subscribe(ans => {
+            this.referencesService.getRestReference();
             const indexDelete = this.data.indexOf(item);
             this.data.splice(indexDelete, 1);
         });
@@ -308,6 +310,7 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
     deleteRecord(item): void {
         this.isLongBlock = true;
         this.referencesService.removeRecord(item.id).subscribe(ans => {
+            this.referencesService.getRestReference();
             const indexDelete = this.data[this.indexColumn].columns.indexOf(item);
             this.data[this.indexColumn].columns.splice(indexDelete, 1);
         });
