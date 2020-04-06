@@ -63,6 +63,12 @@ export class AdminAdImportComponent implements OnInit, OnDestroy {
             .includes(this.searchedWorker.toLowerCase());
     }
 
+    public onSelectWorker(worker: IUserLdapDto): void {
+        if (!worker.isUserImported) {
+            this.workerSelect.select(worker);
+        }
+    }
+
     public onClose(): void {
         this.closeLdap.emit(false);
     }
