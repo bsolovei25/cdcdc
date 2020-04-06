@@ -38,9 +38,9 @@ export class AddReportFileComponent implements OnInit {
   }
 
   @HostListener('document:resize', ['$event'])
-    OnResize(event) {
-       this.blockNeed();
-    }
+  OnResize(event) {
+    this.blockNeed();
+  }
 
   onOpenUpload(): void {
     this.isUploadBlock = true;
@@ -153,12 +153,14 @@ export class AddReportFileComponent implements OnInit {
     this.handleFileInput(event.dataTransfer.files);
   }
 
-  blockNeed() {
+  blockNeed(): void {
     this.blockOut = [];
-    const heightTemplate = this.dataTemplate.length * 40;
-    const heihtOut = (this.testBlock.nativeElement.clientHeight - heightTemplate) / 40;
-    for (let i = 0; i < heihtOut - 1; i++) {
-      this.blockOut.push(i);
+    if (this.dataTemplate !== undefined) {
+      const heightTemplate = this.dataTemplate.length * 40;
+      const heihtOut = (this.testBlock.nativeElement.clientHeight - heightTemplate) / 40;
+      for (let i = 0; i < heihtOut - 1; i++) {
+        this.blockOut.push(i);
+      }
     }
   }
 
