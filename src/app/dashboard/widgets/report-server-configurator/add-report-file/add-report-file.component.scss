@@ -80,7 +80,7 @@ input {
     color: var(--color-text-sub);
     text-align: center;
     line-height: 40px;
-    font-size: 10px;
+    font-size: 11px;
 
     &:before {
       z-index: 1;
@@ -155,7 +155,7 @@ input {
       display: flex;
       width: 100%;
       position: relative;
-      padding-left: 10px;
+      padding-left: 15px;
       height: 40px;
     }
 
@@ -339,7 +339,7 @@ input {
     display: flex;
     text-align: center;
     line-height: 40px;
-    font-size: 10px;
+    font-size: 11px;
 
     &:before {
       z-index: 1;
@@ -390,7 +390,7 @@ input {
 
     &__title-name-fio {
       width: 100%;
-      font-size: 12px;
+      font-size: 11px;
     }
 
     &__title-type {

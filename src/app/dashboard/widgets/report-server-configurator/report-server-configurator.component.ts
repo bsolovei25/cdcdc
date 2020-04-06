@@ -55,102 +55,6 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     public isIdReport: number;
 
-    public categorys = [
-        {
-            name: "Идентификатор шаблона",
-        },
-        {
-            name: "Описание",
-        },
-        {
-            name: "Временной период",
-        },
-        {
-            name: "Смещение по времени",
-        },
-        {
-            name: "Используемый XLS- файл",
-        },
-        {
-            name: "Группа пользователей",
-        },
-        {
-            name: "Максимальный объем кэша(МБайт)",
-        },
-        {
-            name: "Интервал перезаписи отчетов(мин)",
-        },
-        {
-            name: "Смешение отключения кеширования(час)",
-        },
-        {
-            name: "Использовать автогенерацию",
-        },
-        {
-            name: "Каталоги публикации",
-        },
-        {
-            name: "Использовать отрицательное смещение",
-        },
-        {
-            name: " Использовать макросы",
-        },
-        {
-            name: "Удалять макросы из отчета",
-        },
-        {
-            name: "Макросы до пересчета книги",
-        },
-        {
-            name: "Макросы после пересчета книги",
-        },
-        {
-            name: "Номер листа",
-        },
-        {
-            name: "Главный лист",
-        },
-        {
-            name: "Удалять формулы",
-        },
-        {
-            name: "Формат отчета",
-        },
-        {
-            name: "Выбор формата отчета пользователем",
-        },
-        {
-            name: "Открывать в новом окне",
-        },
-        {
-            name: "Режим формирования отчета",
-        },
-        {
-            name: "Приоритет кэша при генерации",
-        },
-        {
-            name: "Качество PDF",
-        },
-        {
-            name: "Параметры",
-        },
-        {
-            name: "Значения параметров для автогенерации",
-        },
-        {
-            name: "Активный",
-        },
-        {
-            name: "Выгрузить экземпляр Excel",
-        },
-        {
-            name: "Использовать шаблон имени отчета",
-        },
-        {
-            name: "Категории",
-        },
-    ]
-
     public data;
     public options;
     public optionsActive = [];
@@ -178,6 +82,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
+        this.widgetIcon = 'reference';
     }
 
     ngOnInit(): void {
