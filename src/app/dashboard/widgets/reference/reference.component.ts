@@ -226,6 +226,9 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
     }
 
     searchReference(event: any) {
+        if (event.key === "Backspace") {
+            this.data = this.datas;
+          }
         const record = event.currentTarget.value.toLowerCase();
         const filterData = this.data.filter(
             (e) =>

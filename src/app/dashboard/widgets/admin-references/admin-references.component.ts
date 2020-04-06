@@ -114,7 +114,7 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
         return this.referencesService.getReference().subscribe((data) => {
             this.datas = data;
             this.data = this.datas;
-        })
+        });
     }
 
 
@@ -231,8 +231,7 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
         }   
     }
 
-    onPushReference(): void {
-        
+    onPushReference(): void { 
         this.isClickPushReference = false;
         let object: IReferenceTypes = {
             name: this.newRecordInReference,
@@ -275,6 +274,9 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
     }
 
     searchReference(event: any) {
+        if (event.key === "Backspace") {
+            this.data = this.datas;
+          }
         const record = event.currentTarget.value.toLowerCase();
         const filterData = this.data.filter(
             (e) => e.name.toLowerCase().indexOf(record.toLowerCase()) > -1
@@ -287,6 +289,9 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
     }
 
     searchRecords(event: any) {
+        if (event.key === "Backspace") {
+            this.data[this.indexColumn].columns = this.saveColumns;
+          }
         const record = event.currentTarget.value.toLowerCase();
         const filterData = this.data[this.indexColumn].columns.filter(
             (e) => e.name.toLowerCase().indexOf(record.toLowerCase()) > -1
