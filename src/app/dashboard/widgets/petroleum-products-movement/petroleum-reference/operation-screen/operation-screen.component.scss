@@ -95,6 +95,14 @@
   justify-content: space-around;
   font-size: 10px;
   color: white;
+  padding-bottom: 10px;
+  cursor: pointer;
+  &__active {
+    background-color: var(--color-active-transparent);
+  }
+  &:hover {
+    background-color: var(--color-active-transparent);
+  }
 }
 
 .values {
@@ -160,6 +168,12 @@
   width: 160px;
   height: 24px;
 
+  &__active {
+    background: url(../../../../../../assets/icons/widgets/petroleum-products-movement/SVG/left_button_left_a.svg);
+    background-repeat: no-repeat;
+    color: white;
+  }
+
   &:hover {
     background: url(../../../../../../assets/icons/widgets/petroleum-products-movement/SVG/left_button_left_a.svg);
     background-repeat: no-repeat;
@@ -175,6 +189,12 @@
   background-repeat: no-repeat;
   width: 160px;
   height: 24px;
+
+  &__active {
+    background: url(../../../../../../assets/icons/widgets/petroleum-products-movement/SVG/left_button_left_a.svg);
+    background-repeat: no-repeat;
+    color: white;
+  }
 
   &:hover {
     background: url(../../../../../../assets/icons/widgets/petroleum-products-movement/SVG/left_button_right_a.svg);
@@ -252,8 +272,8 @@
 
 .return_button {
   position: absolute;
-  left: 1000px;
-  top: 40px;
+  left: 18.5%;
+  top: 0px;
   z-index: 999;
   cursor: pointer;
 }

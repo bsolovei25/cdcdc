@@ -8,7 +8,7 @@ import {
     OnDestroy,
 } from '@angular/core';
 import { ShiftService } from '../../services/shift.service';
-import { NewWidgetService } from '../../services/new-widget.service';
+import { WidgetService } from '../../services/widget.service';
 import {
     ICommentRequired,
     IVerifyWindow,
@@ -16,8 +16,9 @@ import {
     ShiftComment,
     ShiftMember,
 } from '../../models/shift.model';
-import { MaterialControllerService } from '../../services/material-controller.service';
 import { WidgetPlatform } from '../../models/widget-platform';
+import { SnackBarService } from '../../services/snack-bar.service';
+import { AppConfigService } from '../../../services/appConfigService';
 
 @Component({
     selector: 'evj-change-shift',
@@ -56,15 +57,21 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
     public static itemCols: number = 16;
     public static itemRows: number = 30;
 
+    public photoPathMain: string = 'assets/icons/widgets/admin/default_avatar2.svg';
+    private photoPathDefault: string = 'assets/icons/widgets/admin/default_avatar2.svg';
+    private fsUrl: string;
+
     constructor(
-        protected widgetService: NewWidgetService,
+        protected widgetService: WidgetService,
         public shiftService: ShiftService,
-        private materialController: MaterialControllerService,
+        private materialController: SnackBarService,
+        private configService: AppConfigService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
+        this.fsUrl = this.configService.fsUrl;
         this.widgetIcon = 'peoples';
     }
 
@@ -85,6 +92,7 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
         this.subscriptions.push(
             this.shiftService.getShiftByUnit(this.unitId).subscribe((data) => {
                 if (this.widgetType) {
+                    console.log(data);
                     this.setRealtimeData(this.widgetType, data);
                 }
             })
@@ -144,7 +152,7 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
             this.currentShift = data.acceptingShift;
         }
 
-        if (this.currentShift.shiftMembers) {
+        if (this.currentShift.shiftMembers?.length > 0) {
             let index = this.currentShift.shiftMembers.findIndex(
                 (item) => item.position === 'responsible'
             );
@@ -157,6 +165,11 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
             const tempMember = this.currentShift.shiftMembers[0];
             this.currentShift.shiftMembers[0] = this.currentShift.shiftMembers[index];
             this.currentShift.shiftMembers[index] = tempMember;
+            if (this.currentShift?.shiftMembers[0]?.employee?.photoId) {
+                this.photoPathMain = `${this.fsUrl}/${this.currentShift?.shiftMembers[0].employee.photoId}`;
+            } else {
+                this.photoPathMain = this.photoPathDefault;
+            }
 
             this.comments = [];
             if (widgetType === 'shift-pass') {
@@ -168,6 +181,8 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
                     this.setMessage(commentObj);
                 }
             }
+        } else {
+            console.warn(`Для виджета ${this.widgetType} нет доступных смен`);
         }
 
         this.presentMembers = this.currentShift.shiftMembers.filter(

@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
 import { Subscription } from 'rxjs';
 import { IUser } from '../../../models/events-widget';
-import { IScreen } from '../../../models/admin-panel';
+import { IBrigadeAdminPanel } from '../../../models/admin-panel';
 
 @Component({
     selector: 'evj-admin-employee',
@@ -13,6 +13,8 @@ export class AdminEmployeeComponent implements OnInit, OnDestroy {
     @Input() public searchedWorker: string = '';
     @Input() public workers: IUser[] = null;
 
+    private brigades: IBrigadeAdminPanel[] = [];
+
     public defaultActiveWorker: IUser = {
         id: null,
         login: '',
@@ -21,7 +23,7 @@ export class AdminEmployeeComponent implements OnInit, OnDestroy {
         middleName: '',
         phone: 'Номер телефона',
         email: 'Электронная почта',
-        position: '',
+        position: 'common',
         positionDescription: '',
         displayName: '',
     };
@@ -37,7 +39,8 @@ export class AdminEmployeeComponent implements OnInit, OnDestroy {
         this.subscriptions.push(
             this.adminService.activeWorker$.subscribe(
                 (activeWorker: IUser) => (this.activeWorker = activeWorker)
-            )
+            ),
+            this.adminService.allBrigades$.subscribe((brigades) => (this.brigades = brigades))
         );
     }
 
@@ -49,13 +52,26 @@ export class AdminEmployeeComponent implements OnInit, OnDestroy {
     }
 
     public onSelectWorker(workerId: number): void {
-        this.adminService.setActiveWorker(this.workers.find((item: IUser) => item.id === workerId));
+        const worker: IUser = this.workers.find((item: IUser) => item.id === workerId);
+        const workerBrigade: IBrigadeAdminPanel = this.brigades.find(
+            (brigade: IBrigadeAdminPanel) => {
+                if (worker.brigade) {
+                    return brigade.brigadeId === worker.brigade.id;
+                }
+                return false;
+            }
+        );
+        this.adminService.setActiveWorker(worker);
+        this.adminService.activeBrigade$.next(workerBrigade);
+
         if (this.subsSelectedWorker) {
             this.subsSelectedWorker.unsubscribe();
         }
-        this.adminService.getWorkerScreens(workerId).subscribe((data: IScreen[]) => {
-            this.adminService.activeWorkerScreens$.next(data);
-        });
+        this.subsSelectedWorker = this.adminService
+            .getAllWorkerScreenClaims(workerId)
+            .subscribe((data) => {
+                this.adminService.activeWorkerWorkspaces$.next(data.data);
+            });
     }
 
     public showActiveWorker(workerId: number): boolean {
@@ -68,7 +84,11 @@ export class AdminEmployeeComponent implements OnInit, OnDestroy {
     }
 
     public getWorkerFullName(worker: IUser): string {
-        return `${worker.lastName} ${worker.firstName} ${worker.middleName}`;
+        let name: string = `${worker.lastName} ${worker.firstName}`;
+        if (worker.middleName) {
+            name = `${name} ${worker.middleName}`;
+        }
+        return name;
     }
 
     public returnPhotoPath(): string {

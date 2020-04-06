@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./aws-select-card.component.scss'],
 })
 export class AwsSelectCardComponent implements OnInit, OnDestroy {
+    @Input() public isCreateNewUser: boolean = false;
     @Input() public option: IWorkerOptionAdminPanel = {
         value: '',
         name: '',
@@ -24,7 +25,7 @@ export class AwsSelectCardComponent implements OnInit, OnDestroy {
 
     public allItems: IBrigadeAdminPanel[] | IUnitEvents[] = [];
 
-    public selectEdit: SelectionModel<boolean> = new SelectionModel<boolean>(true);
+    public selectEdit: SelectionModel<boolean> = new SelectionModel<boolean>();
 
     public select: FormControl = new FormControl();
 
@@ -42,14 +43,17 @@ export class AwsSelectCardComponent implements OnInit, OnDestroy {
                     (brigades: IBrigadeAdminPanel[]) => (this.allItems = brigades)
                 )
             );
-            // this.allItems = this.adminService.brigades;
         } else if (this.option.key === 'unit') {
             this.isBrigadeSelect = false;
-            this.allItems = this.adminService.units;
+            this.allItems = this.adminService.unitsWithBrigades;
         }
 
-        this.select.setValue(this.option.value);
-        this.select.disable();
+        if (!this.isCreateNewUser) {
+            this.select.setValue(this.option.value);
+            this.select.disable();
+        } else {
+            this.selectEdit.select(true);
+        }
     }
 
     public ngOnDestroy(): void {
@@ -66,7 +70,7 @@ export class AwsSelectCardComponent implements OnInit, OnDestroy {
                 : null;
             this.saveChanging.emit(returnedData);
         } else {
-            const unit: IUnitEvents = this.adminService.units.find(
+            const unit: IUnitEvents = this.adminService.unitsWithBrigades.find(
                 (item) => item.name === this.select.value
             );
             this.adminService.activeWorkerUnit$.next(unit);
@@ -75,8 +79,10 @@ export class AwsSelectCardComponent implements OnInit, OnDestroy {
         }
 
         this.option.value = this.select.value;
-        this.select.disable();
-        this.selectEdit.clear();
+        if (!this.isCreateNewUser) {
+            this.select.disable();
+            this.selectEdit.clear();
+        }
     }
 
     public onEditClick(): void {

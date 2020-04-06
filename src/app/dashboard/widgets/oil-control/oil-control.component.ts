@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
-import { NewWidgetService } from '../../services/new-widget.service';
+import { WidgetService } from '../../services/widget.service';
 import { EventEmitter } from '@angular/core';
 import { OilControls } from '../../models/oil-control';
 import { WidgetPlatform } from '../../models/widget-platform';
@@ -344,7 +344,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
     public test: boolean = false;
 
     constructor(
-        public widgetService: NewWidgetService,
+        public widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,

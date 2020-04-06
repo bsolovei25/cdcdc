@@ -59,7 +59,16 @@
   color: var(--color-text-sub-heading);
   margin: 8px auto;
   cursor: pointer;
-
+  &__active {
+    background: url(../../../../../../assets/icons/widgets/petroleum-products-movement/active-background-button-left.svg);
+    background-repeat: no-repeat;
+    .button_name {
+      color: white;
+    }
+    .button_icon {
+      opacity: 1;
+    }
+  }
   &:hover {
     background: url(../../../../../../assets/icons/widgets/petroleum-products-movement/active-background-button-left.svg);
     background-repeat: no-repeat;
@@ -114,6 +123,7 @@
   display: flex;
   padding-left: 20px;
   padding-right: 20px;
+  padding-bottom: 5px;
 }
 
 .title_sett {
@@ -143,4 +153,10 @@
   color: white;
   font-size: 12px;
   margin-right: 88px;
+}
+
+.arrow-button {
+  &__active {
+    transform: rotate(-90deg);
+  }
 }

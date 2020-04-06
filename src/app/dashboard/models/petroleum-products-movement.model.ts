@@ -1,45 +1,60 @@
-export interface IOperation {
-    id?: number; // maybe GUID
-    source: string;
-    receiver: string;
-    productSource: string;
-    productReceiver: string;
-    startOperation: {
-        datetime?: Date;
-        operator?: string;
-    };
-    finishOperation: {
-        datetime?: Date;
-        operator?: string;
-    };
-    massSource: number;
-    massReceiver: number;
-    deviation: number;
-    isOpen?: boolean;
-    isActive?: boolean; // no back
+export interface ITransfer {
+    uid?: string;
+    sourceName: string;
+    destinationName: string;
+    sourceProduct: string;
+    destinationProduct: string;
+    startTime: Date;
+    endTime: Date;
+    sourceMass: number;
+    destinationMass: number;
+    sourceClient: string;
+    destinationClient: string;
+    deltaMass: number;
+    isActive?: boolean;
+    operationType?: OperationType;
+}
+
+export interface IPetroleumObject {
+    objectName: string;
+    objectType: ObjectType;
+    objectStatus: ObjectStatus;
+    isActive?: boolean;
 }
 
 export interface IFacilityInfo {
     id?: number;
     title: string;
-    state: ObjectState;
+    state: ObjectStatus;
     parameters?: IFacilityInfoParam[];
     isActive?: boolean; // no back
 }
 
-export interface ITankInfo {
-    id?: number;
-    title: string;
-    state: ObjectState;
-    parameters?: ITankInfoParam[];
-    isActive?: boolean; // no back
+export interface ITankAttribute {
+    paramTitle: string;
+    paramValue: string;
+    paramUnit: string;
+    priority?: number; // no back
+    active?: boolean; // no back
 }
 
-export interface ITankInfoParam {
-    title: string;
-    value: string;
-    unit: string;
-    priority?: number; // no back
+export interface ITankParam {
+    objectName: string;
+    objectAttributes: ITankAttribute[];
+    objectInfo: ITankInfo;
+}
+
+// TODO
+export interface ITankInfo {
+    asd: string;
+    tankTitle: string;
+    tankType: string;
+    maxValue: number;
+    minValue: number;
+    dieValue: number;
+    absolutValue: number;
+    currentValue: number;
+    objectStatus: string;
 }
 
 export interface IFacilityInfoParam {
@@ -48,5 +63,12 @@ export interface IFacilityInfoParam {
     isActive?: boolean; // no back
 }
 
-// TODO add real list
-export type ObjectState = 'vverh-arrow' | 'Remont' | 'Otstoy' | 'two-arrow' | 'vniz-arrow';
+export type ObjectStatus = 'in' | 'out' | 'repair' | 'hold' | 'inout' | 'work' | 'unknown';
+
+export type ObjectType = 'Unit' | 'Tank';
+
+export type ObjectDirection = 'enter' | 'exit';
+
+export type OperationType = 'Exist' | 'New';
+
+export type TransfersFilter = 'open' | 'all';

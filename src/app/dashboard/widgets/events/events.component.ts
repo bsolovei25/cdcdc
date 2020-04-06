@@ -1,24 +1,23 @@
-import { Component, Input, OnDestroy, OnInit, Inject, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, Inject, ViewChild } from '@angular/core';
 import {
     EventsWidgetCategory,
     EventsWidgetCategoryCode,
     EventsWidgetDataPreview,
     EventsWidgetNotificationPreview,
     EventsWidgetOptions,
-    ICategory,
 } from '../../models/events-widget';
 import { EventsWidgetFilter } from '../../models/events-widget';
 import {
     EventsWidgetNotification,
     EventsWidgetNotificationStatus,
 } from '../../models/events-widget';
-import { NewWidgetService } from '../../services/new-widget.service';
-import { NewUserSettingsService } from '../../services/new-user-settings.service';
+import { WidgetService } from '../../services/widget.service';
+import { UserSettingsService } from '../../services/user-settings.service';
 import { EventService } from '../../services/event.service';
-import { MaterialControllerService } from '../../services/material-controller.service';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { throttle } from 'rxjs/operators';
+import { SnackBarService } from '../../services/snack-bar.service';
 
 @Component({
     selector: 'evj-events',
@@ -143,7 +142,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         },
     ];
 
-    statuses: { [id in EventsWidgetNotificationStatus]: string } = {
+    public statuses: { [id in EventsWidgetNotificationStatus]: string } = {
         new: 'Новое',
         inWork: 'В работе',
         closed: 'Завершено',
@@ -156,9 +155,9 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
 
     constructor(
         private eventService: EventService,
-        private materialService: MaterialControllerService,
-        public userSettings: NewUserSettingsService,
-        public widgetService: NewWidgetService,
+        private materialService: SnackBarService,
+        public userSettings: UserSettingsService,
+        public widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -322,9 +321,9 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     }
 
     // Удаление виджета
-    onRemoveButton(): void {
+    public async onRemoveButton(): Promise<void> {
+        await this.userSettings.removeItem(this.uniqId);
         this.widgetService.removeItemService(this.uniqId);
-        this.userSettings.removeItem(this.uniqId);
     }
 
     public async eventClick(deleteItem: boolean, eventId?: number, event?: Event): Promise<void> {

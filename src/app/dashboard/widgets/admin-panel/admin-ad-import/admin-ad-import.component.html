@@ -1,0 +1,42 @@
+<div
+  class="container"
+  (mousedown)="$event.stopPropagation()"
+  (touchstart)="$event.stopPropagation()"
+>
+  <div class="alert">
+    <evj-loading-shade [isLoading]="isDataLoading"></evj-loading-shade>
+
+    <div class="button-close" (click)="onClose()"></div>
+    <div class="alert__search">
+      <evj-input
+        class="insert-component"
+        [placeholder]="'Введите имя пользователя или логин'"
+        [iconSrc]="searchIcon"
+        (inputedValue)="onSearchWorker($event)"
+      ></evj-input>
+    </div>
+    <div class="alert__table scroll scroll-bar">
+      <ng-container *ngFor="let worker of workersLdap">
+        <div
+          class="table__row"
+          [ngClass]="{'table__row_active':workerSelect.isSelected(worker),'table__row_disable': worker.isUserImported}"
+          *ngIf="findSearchedWorker(worker)"
+          (click)="onSelectWorker(worker)"
+        >
+          <div class="row__name">{{worker.ldapUser.displayName}}</div>
+          <div class="row__login">{{worker.ldapUser.samAccountName}}</div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="alert__button">
+      <evj-button
+        class="insert-component"
+        [isSmallButton]="false"
+        [textButton]="'Добавить сотрудника'"
+        [isChangingState]="false"
+        [disabled]="workerSelect.isEmpty()"
+        (click)="onClickAdd()"
+      ></evj-button>
+    </div>
+  </div>
+</div>

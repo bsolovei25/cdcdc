@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NewUserSettingsService } from '../../services/new-user-settings.service';
+import { UserSettingsService } from '../../services/user-settings.service';
 import { Subscription } from 'rxjs';
-import { ScreenSettings } from '../../models/user-settings.model';
+import { IScreenSettings } from '../../models/user-settings.model';
 import { ClaimService, EnumClaimScreens } from '../../services/claim.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { ClaimService, EnumClaimScreens } from '../../services/claim.service';
     styleUrls: ['./indicator-selector.component.scss'],
 })
 export class IndicatorSelectorComponent implements OnInit, OnDestroy {
-    public dataScreen: ScreenSettings[] = [];
+    public dataScreen: IScreenSettings[] = [];
 
     private subscriptions: Subscription[] = [];
 
@@ -33,7 +33,7 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
 
     isShowScreens: boolean = false;
 
-    constructor(private userSettings: NewUserSettingsService, private claimService: ClaimService) { }
+    constructor(private userSettings: UserSettingsService, private claimService: ClaimService) {}
 
     ngOnInit(): void {
         this.subscriptions.push(
@@ -159,5 +159,15 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
             item.updateScreen = false;
         }
     }
-    isOverScreen(e) { }
+    isOverScreen(e) {}
+
+    public isScreenDelete(screen: IScreenSettings): boolean {
+        return !!(screen.claims.find((claim) => claim.claimType === 'screenDel') ||
+            screen.claims.find((claim) => claim.claimType === 'screenAdmin'));
+    }
+
+    public isScreenEdit(screen: IScreenSettings): boolean {
+        return !!(screen.claims.find((claim) => claim.claimType === 'screenEdit') ||
+            screen.claims.find((claim) => claim.claimType === 'screenAdmin'));
+    }
 }

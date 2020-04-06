@@ -1,7 +1,5 @@
-<div
-  class="header"
-  *ngIf="widgetType !== 'events-workspace' && widgetType !== 'admin-shift-schedule'"
->
+<div class="header"
+  *ngIf="widgetType !== 'events-workspace' && widgetType !== 'admin-shift-schedule' && widgetType !=='report-server-configurator'">
   <div class="header__content drag handle">
     <div class="header__icon-wrapper">
       <img src="{{iconRoute}}{{icon}}.png" *ngIf="(!code && icon)" />
@@ -16,17 +14,10 @@
       {{title}}
     </span>
     <span class="header__units">{{units}}</span>
-    <div
-      *ngIf="!isPreview && claimWidgets.includes(EnumClaimWidgets.delete)"
-      class="delete_widget"
-      (click)="onRemoveButton()"
-      (mousedown)="$event.stopPropagation()"
-      (touchstart)="$event.stopPropagation()"
-    >
-      <svg-icon
-        style="width: 100%; height: 100%; fill: #8C99B2"
-        src="./assets/icons/close_bad.svg"
-      ></svg-icon>
+    <div *ngIf="!isPreview && claimWidgets.includes(EnumClaimWidgets.delete)" class="delete_widget"
+      (click)="onRemoveButton()" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+      <svg-icon style="fill: #8C99B2" src="./assets/icons/close_bad.svg" [svgStyle]="{ 'width.px':14, 'height.px':14}">
+      </svg-icon>
     </div>
   </div>
 </div>
@@ -43,7 +34,7 @@
     </span>
     <span class="header-schedule__units">{{units}}</span>
     <div
-      *ngIf="!isPreview"
+      *ngIf="!isPreview && claimWidgets.includes(EnumClaimWidgets.delete)"
       class="delete_widget"
       (click)="onRemoveButton()"
       (mousedown)="$event.stopPropagation()"
@@ -56,18 +47,10 @@
     </div>
   </div>
 
-  <div
-    class="header-schedule__button"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
+  <div class="header-schedule__button" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
     <div class="header-schedule__container">
       <mat-form-field>
-        <mat-select
-          [compareWith]="compareFn"
-          (selectionChange)="onSelected($event)"
-          [(ngModel)]="selectValue"
-        >
+        <mat-select [compareWith]="compareFn" (selectionChange)="onSelected($event)" [(ngModel)]="selectValue">
           <mat-option *ngFor="let value of localeSelect" [value]="value">
             {{value.name}}
           </mat-option>
@@ -89,7 +72,7 @@
     </span>
     <span class="header-workspace__units">{{units}}</span>
     <div
-      *ngIf="!isPreview"
+      *ngIf="!isPreview  && claimWidgets.includes(EnumClaimWidgets.delete)"
       class="delete_widget"
       (click)="onRemoveButton()"
       (mousedown)="$event.stopPropagation()"
@@ -106,26 +89,43 @@
     <div class="header-workspace__container" (click)="createEvent(true)">
       <div class="title">Создать событие</div>
       <div class="icon-wrapper">
-        <svg-icon
-          src="./assets/icons/add_button.svg"
-          class="add_button_icon"
-          [svgStyle]="{ 'width.px':20, 'height.px':20 }"
-        ></svg-icon>
+        <svg-icon src="./assets/icons/add_button.svg" class="add_button_icon"
+          [svgStyle]="{ 'width.px':20, 'height.px':20 }"></svg-icon>
       </div>
     </div>
-    <div
-      class="header-workspace__container"
-      *ngIf="CreateIcon === false"
-      (click)="createEvent(false)"
-    >
+    <div class="header-workspace__container" *ngIf="CreateIcon === false && blockWorkspaceButton" (click)="createEvent(false)">
       <div class="title">Сохранить</div>
       <div class="icon-wrapper">
-        <svg-icon
-          src="./assets/icons/widgets/widget-header/checkmark.svg"
-          class="add_button_icon"
-          [svgStyle]="{ 'width.px':20, 'height.px':20 }"
-        ></svg-icon>
+        <svg-icon src="./assets/icons/widgets/widget-header/checkmark.svg" class="add_button_icon"
+          [svgStyle]="{ 'width.px':20, 'height.px':20 }"></svg-icon>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="header-report-configurator" *ngIf="widgetType === 'report-server-configurator'">
+  <div class="header-report-configurator__content drag handle">
+    <div class="header-report-configurator__icon-wrapper">
+      <img src="{{iconRoute}}{{icon}}.png" *ngIf="(!code && icon)" />
+      <img src="{{iconRoute}}shedule.png" *ngIf="(!code && !icon)" />
+      {{code}}
+    </div>
+    <span class="header-report-configurator__name">
+      {{title}}
+    </span>
+    <span class="header-report-configurator__units">{{units}}</span>
+    <div *ngIf="!isPreview" class="delete_widget" (click)="onRemoveButton()" (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()">
+      <svg-icon style="width: 100%; height: 100%; fill: #8C99B2" src="./assets/icons/close_bad.svg"></svg-icon>
+    </div>
+  </div>
+
+  <div class="header-report-configurator__button">
+    <div class="header-report-configurator__container" (click)="reportSelected(true)" [class.active]="isReportButton">
+      <div class="title">Отчеты</div>
+    </div>
+    <div class="header-report-configurator__container" (click)="reportSelected(false)" [class.active]="!isReportButton">
+      <div class="title">Файлы</div>
     </div>
   </div>
 </div>

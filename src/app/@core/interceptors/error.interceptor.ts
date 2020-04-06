@@ -7,14 +7,14 @@ import { throwError, Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { MaterialControllerService } from '../../dashboard/services/material-controller.service';
+import { SnackBarService } from '../../dashboard/services/snack-bar.service';
 // Local modules
 
 @Injectable({
     providedIn: 'root', // singleton service
 })
 export class ErrorInterceptor implements HttpInterceptor {
-    constructor(private router: Router, private materialController: MaterialControllerService) {}
+    constructor(private router: Router, private materialController: SnackBarService) {}
 
     /** Intercept request with custom error handling */
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -25,15 +25,15 @@ export class ErrorInterceptor implements HttpInterceptor {
                     case 401:
                         this.router.navigate(['login']);
                         break;
+                    case 403:
+                        this.materialController.openSnackBar('У Вас недостаточно прав для выполнения этой операции!',
+                            'snackbar-red');
+                        break;
                     case 500:
-                        // this.router.navigate(['login']);
                         break;
                     case 0:
-                        this.router.navigate(['login']);
-                        this.materialController.openSnackBar('Сервер не отвечает', 'snackbar-red');
-                        break;
-                    case 403:
-                        console.error(err);
+                        this.materialController.openSnackBar('Сервер не отвечает',
+                            'snackbar-red');
                         break;
                     case 477:
                         this.materialController.openSnackBar(

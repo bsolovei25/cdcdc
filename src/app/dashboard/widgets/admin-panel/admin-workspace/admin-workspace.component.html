@@ -6,7 +6,7 @@
         [placeholder]="'Введите название рабочей области'"
         [iconSrc]="searchIcon"
         (inputedValue)="onInput($event)"
-        *ngIf="isWorkspaceActive"
+        *ngIf="isWorkspaceActive && workspaces.length!==0"
       ></evj-input>
     </div>
     <div class="workspace__links">
@@ -18,15 +18,17 @@
     </div>
   </div>
   <ng-container *ngIf="isWorkspaceActive">
-    <div class="workspace__list scroll-bar">
+    <div class="workspace__list scroll-bar" *ngIf="workspaces.length!==0">
       <div class="cards">
         <ng-container *ngFor="let workspace of workspaces">
-          <div class="card" *ngIf="onSearchWorkspace(workspace.screen.screenName)">
+          <div class="card" *ngIf="onSearchWorkspace(workspace.screenName)">
             <evj-admin-workspace-card [workspace]="workspace"></evj-admin-workspace-card>
           </div>
         </ng-container>
       </div>
     </div>
+
+    <div class="workspace__popup" *ngIf="workspaces.length===0">Нет доступных рабочих областей</div>
   </ng-container>
 
   <evj-admin-claims class="workspace__claims" *ngIf="!isWorkspaceActive"></evj-admin-claims>

@@ -355,18 +355,18 @@
           </div>
 
           <div class="energetics__cards">
-            <div class="card">
+            <div class="card" [ngClass]="{'danger':isTermoCardDanger}">
               <div class="card__border"></div>
               <div class="card__logo">
                 <img
                   src="../../../../assets/icons/widgets/energetics/termo.svg"
                   alt=""
-                  *ngIf="true"
+                  *ngIf="!isTermoCardDanger"
                 />
                 <img
                   src="../../../../assets/icons/widgets/energetics/termo_danger.svg"
                   alt=""
-                  *ngIf="false"
+                  *ngIf="isTermoCardDanger"
                 />
               </div>
               <div class="card__counters">
@@ -375,13 +375,13 @@
                     class="rotate"
                     src="../../../../assets/icons/widgets/calendar-plan/deviat.svg"
                     alt=""
-                    *ngIf="true"
+                    *ngIf="!isTermoCardDanger"
                   />
                   <img
                     class="rotate"
                     src="../../../../assets/icons/widgets/calendar-plan/deviat_danger.svg"
                     alt=""
-                    *ngIf="false"
+                    *ngIf="isTermoCardDanger"
                   />
                   <div class="number">
                     0.100
@@ -393,13 +393,13 @@
                     class="rotate"
                     src="../../../../assets/icons/widgets/calendar-plan/deviat.svg"
                     alt=""
-                    *ngIf="true"
+                    *ngIf="!isTermoCardDanger"
                   />
                   <img
                     class="rotate"
                     src="../../../../assets/icons/widgets/calendar-plan/deviat_danger.svg"
                     alt=""
-                    *ngIf="false"
+                    *ngIf="isTermoCardDanger"
                   />
                   <div class="number">
                     142.8
@@ -444,18 +444,18 @@
                 </div>
               </div>
             </div>
-            <div class="card">
+            <div class="card" [ngClass]="{'danger':isElectroCardDanger}">
               <div class="card__border"></div>
               <div class="card__logo">
                 <img
                   src="../../../../assets/icons/widgets/energetics/electro.svg"
                   alt=""
-                  *ngIf="true"
+                  *ngIf="!isElectroCardDanger"
                 />
                 <img
                   src="../../../../assets/icons/widgets/energetics/electro_danger.svg"
                   alt=""
-                  *ngIf="false"
+                  *ngIf="isElectroCardDanger"
                 />
               </div>
               <div class="card__counters">
@@ -464,13 +464,13 @@
                     class="rotate"
                     src="../../../../assets/icons/widgets/calendar-plan/deviat.svg"
                     alt=""
-                    *ngIf="true"
+                    *ngIf="!isElectroCardDanger"
                   />
                   <img
                     class="rotate"
                     src="../../../../assets/icons/widgets/calendar-plan/deviat_danger.svg"
                     alt=""
-                    *ngIf="false"
+                    *ngIf="isElectroCardDanger"
                   />
                   <div class="number">
                     17.7
@@ -482,13 +482,13 @@
                     class="rotate"
                     src="../../../../assets/icons/widgets/calendar-plan/deviat.svg"
                     alt=""
-                    *ngIf="true"
+                    *ngIf="!isElectroCardDanger"
                   />
                   <img
                     class="rotate"
                     src="../../../../assets/icons/widgets/calendar-plan/deviat_danger.svg"
                     alt=""
-                    *ngIf="false"
+                    *ngIf="isElectroCardDanger"
                   />
                   <div class="number">
                     49.9
@@ -533,18 +533,18 @@
                 </div>
               </div>
             </div>
-            <div class="card danger">
+            <div class="card" [ngClass]="{'danger':isFuelCardDanger}">
               <div class="card__border"></div>
               <div class="card__logo">
                 <img
                   src="../../../../assets/icons/widgets/energetics/fuel.svg"
                   alt=""
-                  *ngIf="false"
+                  *ngIf="!isFuelCardDanger"
                 />
                 <img
                   src="../../../../assets/icons/widgets/energetics/fuel_danger.svg"
                   alt=""
-                  *ngIf="true"
+                  *ngIf="isFuelCardDanger"
                 />
               </div>
               <div class="card__counters">
@@ -553,13 +553,13 @@
                     class="rotate"
                     src="../../../../assets/icons/widgets/calendar-plan/deviat.svg"
                     alt=""
-                    *ngIf="false"
+                    *ngIf="!isFuelCardDanger"
                   />
                   <img
                     class="rotate"
                     src="../../../../assets/icons/widgets/calendar-plan/deviat_danger.svg"
                     alt=""
-                    *ngIf="true"
+                    *ngIf="isFuelCardDanger"
                   />
                   <div class="number">
                     85.3
@@ -571,13 +571,13 @@
                     class="rotate"
                     src="../../../../assets/icons/widgets/calendar-plan/deviat.svg"
                     alt=""
-                    *ngIf="false"
+                    *ngIf="!isFuelCardDanger"
                   />
                   <img
                     class="rotate"
                     src="../../../../assets/icons/widgets/calendar-plan/deviat_danger.svg"
                     alt=""
-                    *ngIf="true"
+                    *ngIf="isFuelCardDanger"
                   />
                   <div class="number">
                     59.9

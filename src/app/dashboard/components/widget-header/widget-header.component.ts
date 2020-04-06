@@ -8,10 +8,10 @@ import {
     OnChanges,
     OnDestroy,
 } from '@angular/core';
-import { NewWidgetService } from '../../services/new-widget.service';
-import { NewUserSettingsService } from '../../services/new-user-settings.service';
+import { UserSettingsService } from '../../services/user-settings.service';
 import { ClaimService, EnumClaimWidgets } from '../../services/claim.service';
 import { Subscription } from 'rxjs';
+import { WidgetService } from '../../services/widget.service';
 
 @Component({
     selector: 'evj-widget-header',
@@ -29,6 +29,7 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
     @Input() icon: string = 'shedule';
 
     @Input() isEventOpen: boolean;
+    @Input() blockWorkspaceButton: boolean;
     public localeSelect: { name: string; id: number }[];
     @Input() set select(data) {
         if (data) {
@@ -47,12 +48,13 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
     public selectValue: { name: string; id: number };
 
     public CreateIcon: boolean = true;
+    public isReportButton: boolean = true;
 
     constructor(
-        public widgetService: NewWidgetService,
-        public userSettings: NewUserSettingsService,
+        public widgetService: WidgetService,
+        public userSettings: UserSettingsService,
         private claimService: ClaimService
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         this.subscriptions.push(
@@ -74,9 +76,9 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
         this.CreateIcon = this.isEventOpen;
     }
 
-    public onRemoveButton(): void {
+    public async onRemoveButton(): Promise<void> {
+        await this.userSettings.removeItem(this.uniqId);
         this.widgetService.removeItemService(this.uniqId);
-        this.userSettings.removeItem(this.uniqId);
     }
 
     public createEvent(event): void {
@@ -88,6 +90,11 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
         if (event) {
             this.selected.emit(event.value);
         }
+    }
+
+    public reportSelected(event){
+        this.selected.emit(event);
+        this.isReportButton = event;
     }
 
     compareFn(o1: any, o2: any): boolean {

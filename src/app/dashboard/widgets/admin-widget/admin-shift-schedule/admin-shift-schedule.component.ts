@@ -8,7 +8,7 @@ import {
     OnInit,
     AfterContentChecked,
 } from '@angular/core';
-import { NewWidgetService } from '../../../services/new-widget.service';
+import { WidgetService } from '../../../services/widget.service';
 import * as moment from 'moment';
 import { DateAdapter } from '@angular/material/core';
 import { IUser } from '../../../models/events-widget';
@@ -23,8 +23,8 @@ import {
 } from '../../../models/admin-shift-schedule';
 import { fillDataShape } from '../../../../@shared/common-functions';
 import { MatCalendar } from '@angular/material/datepicker';
-import { MaterialControllerService } from '../../../services/material-controller.service';
 import { WidgetPlatform } from '../../../models/widget-platform';
+import { SnackBarService } from '../../../services/snack-bar.service';
 
 @Component({
     selector: 'evj-admin-shift-schedule',
@@ -70,8 +70,8 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         private dateAdapter: DateAdapter<Date>,
         private renderer: Renderer2,
         private adminShiftScheduleService: AdminShiftScheduleService,
-        private materialController: MaterialControllerService,
-        protected widgetService: NewWidgetService,
+        private materialController: SnackBarService,
+        protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -82,9 +82,11 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
 
     ngOnInit(): void {
         super.widgetInit();
-        this.setRus();
-        this.loadItem();
-        this.dateChanged(this.selectedDay.date);
+        if (!this.isMock) {
+            this.setRus();
+            this.loadItem();
+            this.dateChanged(this.selectedDay.date);
+        }
     }
 
     ngOnDestroy(): void {
@@ -143,7 +145,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         const dataLoadQueue: Promise<void>[] = [];
         dataLoadQueue.push(this.reLoadDataMonth());
         dataLoadQueue.push(
-            this.adminShiftScheduleService.getBrigades(this.allUnits[0].id).then((data) => {
+            this.adminShiftScheduleService.getBrigades(this.selectedUnit.id).then((data) => {
                 this.allBrigade = data;
             })
         );
@@ -241,6 +243,18 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         this.isLoading = false;
     }
 
+    public async resetBrigadesFromShifts(): Promise<void> {
+        this.isLoading = true;
+        try {
+            await this.adminShiftScheduleService.resetTodayBrigades(this.selectedUnit.id);
+            this.materialController.openSnackBar(`Выполнено`);
+            this.reLoadDataMonth();
+        } catch (error) {
+            this.isLoading = false;
+        }
+        this.isLoading = false;
+    }
+
     public async onChooseBrigade(
         brigade: IBrigadeWithUsersDto,
         selectedDay: IScheduleShiftDay
@@ -324,6 +338,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         if (idx !== -1) {
             const day = fillDataShape(this.scheduleShiftMonth[idx]);
             this.selectedDay = day;
+            this.selectedDay.date = new Date(this.selectedDay.date);
             const yesterdayLocal = new Date(
                 moment(this.selectedDay.date)
                     .subtract(1, 'days')
@@ -377,14 +392,14 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
 
     public filterShiftMembers(shiftMembers: IShiftMember[]): IShiftMember[] {
         this.brigadesSubstitution.users.forEach((user) => {
-            shiftMembers = shiftMembers.filter((member) => member.employee.id !== user.id);
+            shiftMembers = shiftMembers.filter((member) => member?.employee?.id !== user?.id);
         });
         return shiftMembers;
     }
 
     public filterBrigade(brigadeUsers: IBrigadeWithUsersDto[]): IBrigadeWithUsersDto[] {
         this.selectedDay.items.forEach((shift) => {
-            brigadeUsers = brigadeUsers.filter((val) => val.brigadeId !== shift.brigadeId);
+            brigadeUsers = brigadeUsers.filter((val) => val?.brigadeId !== shift?.brigadeId);
         });
         return brigadeUsers;
     }

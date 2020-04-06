@@ -1,0 +1,198 @@
+<div
+  class="container"
+  (mousedown)="$event.stopPropagation()"
+  (touchstart)="$event.stopPropagation()"
+>
+  <evj-loading-shade [isLoading]="isDataLoading"></evj-loading-shade>
+
+  <div class="column" *ngIf="!isDataLoading">
+    <div class="column__header">
+      <div class="search">
+        <evj-input
+          class="insert-component"
+          [placeholder]="'Введите наименование группы'"
+          [iconSrc]="searchIcon"
+          (inputedValue)="onSearchGroup($event)"
+        ></evj-input>
+      </div>
+      <div class="button__small">
+        <evj-button
+          class="insert-component"
+          [isSmallButton]="true"
+          [imgSrc]="plusIcon"
+          [isChangingState]="false"
+          (click)="isCreateNewGroup=true"
+        ></evj-button>
+      </div>
+    </div>
+    <div class="column__body">
+      <ng-container *ngFor="let group of newGroups">
+        <evj-ag-group-card
+          *ngIf="displaySearchedGroup(group)"
+          [group]="group"
+          [isCardActive]="groupSelection.isSelected(group)"
+          (click)="onSelectGroup(group)"
+          (editGroup)="onEditGroupName(group)"
+          (deleteGroup)="onDeleteGroup()"
+        ></evj-ag-group-card>
+      </ng-container>
+      <ng-container *ngFor="let group of groups">
+        <evj-ag-group-card
+          *ngIf="displaySearchedGroup(group)"
+          [group]="group"
+          [isCardActive]="groupSelection.isSelected(group)"
+          (click)="onSelectGroup(group)"
+          (editGroup)="onEditGroupName(group)"
+          (deleteGroup)="onDeleteGroup()"
+        ></evj-ag-group-card>
+      </ng-container>
+    </div>
+  </div>
+  <div class="column column-center" *ngIf="!isDataLoading">
+    <div class="column__header">
+      <div class="search">
+        <evj-input
+          class="insert-component"
+          [placeholder]="'Введите ФИО'"
+          [iconSrc]="searchIcon"
+          (inputedValue)="onSearchUser($event)"
+        ></evj-input>
+      </div>
+    </div>
+    <div class="column__body scroll scroll-bar">
+      <ng-container *ngFor="let worker of allWorkers">
+        <evj-ag-group-worker-card
+          *ngIf="displaySearchedWorker(worker)"
+          [worker]="worker"
+          [isInGroup]="defineIsUserInGroup(worker)"
+          (changeGroup)="editWorkerInGroup($event,worker)"
+        ></evj-ag-group-worker-card
+      ></ng-container>
+    </div>
+  </div>
+  <div class="column" *ngIf="!isDataLoading">
+    <div class="column__header column__header-buttons">
+      <div class="button__back">
+        <evj-button
+          class="insert-component"
+          [isSmallButton]="false"
+          [textButton]="'Назад'"
+          [isChangingState]="false"
+          (click)="onClickButton(false)"
+        ></evj-button>
+      </div>
+      <div class="button__back">
+        <evj-button
+          class="insert-component"
+          [isSmallButton]="false"
+          [textButton]="'Сохранить'"
+          [isChangingState]="false"
+          (click)="onClickButton(true)"
+        ></evj-button>
+      </div>
+    </div>
+    <div class="column__body">
+      <div class="block__titles">
+        <div
+          class="block__title"
+          [ngClass]="{'block__title_active':blockSelection.isEmpty()}"
+          (click)="blockSelection.clear()"
+        >
+          Права
+        </div>
+        <div
+          class="block__title"
+          [ngClass]="{'block__title_active':blockSelection.hasValue()}"
+          (click)="blockSelection.select(null)"
+        >
+          Рабочие области
+        </div>
+        <div class="block__title" style="flex:1; margin-right: 20px;"></div>
+      </div>
+      <div
+        class="block"
+        [ngClass]="{'block_active': blockSelection.isEmpty()}"
+        *ngIf="blockSelection.isEmpty()"
+      >
+        <div class="block__body claims">
+          <div class="title">Общие права</div>
+          <div class="cards scroll scroll-bar">
+            <evj-aws-claim-card
+              *ngFor="let claim of generalClaims"
+              [name]="claim.description"
+              [isActive]="defineIsClaimInGroup(claim)"
+              [isChangingCardState]="true"
+              (click)="onClickToGeneralClaim(claim)"
+            ></evj-aws-claim-card>
+          </div>
+        </div>
+        <div class="block__body claims">
+          <div class="title title__special">Специальные права</div>
+          <div class="create-special-claim" (click)="onClickCreateNewClaim()"></div>
+          <div class="list scroll scroll-bar">
+            <ng-container *ngFor="let claim of specialClaims">
+              <div
+                class="list__claim"
+                [ngClass]="{'list__claim_active':claimsSelector.isSelected(claim)}"
+                *ngIf="canShowSpecialClaim(claim)"
+              >
+                <div class="claim__title" (click)="onSelectSpecialClaim(claim)">
+                  {{claim.claimName}}
+                  <div class="claim__button claim__button-toggle"></div>
+                </div>
+                <div class="claim__items">
+                  <div class="claim__item" *ngFor="let item of allEntitiesInSpecialType(claim)">
+                    {{findEntityByClaimValue(item)}}
+                    <div
+                      class="claim__button claim__button-delete"
+                      (click)="onRemoveSpecialClaim(item)"
+                    >
+                      <img src="assets/icons/widgets/admin/admin-groups/delete-icon.svg" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div
+        class="block"
+        [ngClass]="{'block_active': blockSelection.hasValue()}"
+        *ngIf="blockSelection.hasValue()"
+      >
+        <div class="block__body">
+          <evj-aws-workspaces
+            class="workspaces workspaces__list scroll scroll-bar"
+            [workerScreens]="groupWorkspaces"
+            [workerSpecialClaims]="this.groupSelection.selected[0].claims"
+            [searchingWorkspaceValue]="''"
+            (changeWorkspaces)="onChangeWorkspaces()"
+          ></evj-aws-workspaces>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <evj-ag-new-group
+    class="popup"
+    [ngClass]="{'popup_active':isCreateNewGroup}"
+    *ngIf="isCreateNewGroup"
+    [editingGroup]="editingGroup"
+    (newGroup)="onCreateNewGroup($event)"
+  ></evj-ag-new-group>
+
+  <evj-aws-create-claim
+    class="popup"
+    [ngClass]="{'popup_active':isCreateClaim}"
+    *ngIf="isCreateClaim"
+    (createdClaim)="onCreateSpecialClaim($event)"
+  ></evj-aws-create-claim>
+
+  <evj-ag-alert-submit
+    class="popup"
+    [ngClass]="{'popup_active':isAlertShowing}"
+    [isSaving]="isSaveClicked"
+    (clickedButton)="onClickAlert($event)"
+  ></evj-ag-alert-submit>
+</div>

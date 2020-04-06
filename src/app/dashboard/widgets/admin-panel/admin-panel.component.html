@@ -15,13 +15,15 @@
 
   <evj-frame-top></evj-frame-top>
 
-  <ng-container *ngIf="!isWorkerSettingsShowed;else workerSettings">
+  <ng-container *ngIf="!isWorkerSettingsShowed && !isGroupsShowed">
     <div
       class="admin-container"
       (mousedown)="$event.stopPropagation()"
       (touchstart)="$event.stopPropagation()"
     >
-      <div class="admin">
+      <evj-loading-shade [isLoading]="isDataLoading"></evj-loading-shade>
+
+      <div class="admin" *ngIf="!isDataLoading">
         <div class="admin__header">
           <div class="header__search">
             <div class="search">
@@ -32,14 +34,22 @@
                 (inputedValue)="onSearchWorker($event)"
               ></evj-input>
             </div>
-            <div class="group__button">
+            <div class="brigades__button">
               <evj-button
                 class="insert-component"
                 [isSmallButton]="true"
                 [imgSrc]="groupsButtonIcon"
-                [isActive]="isGroupShowed"
+                [isActive]="isBrigadesShowed"
                 [isChangingState]="true"
                 (click)="onShowBrigades()"
+              ></evj-button>
+            </div>
+            <div class="group__button">
+              <evj-button
+                class="insert-component"
+                [isSmallButton]="false"
+                [textButton]="'Группы'"
+                (click)="onShowGroups()"
               ></evj-button>
             </div>
           </div>
@@ -53,8 +63,16 @@
                 class="insert-component"
                 [isSmallButton]="false"
                 [textButton]="'Добавить сотрудника'"
-                (click)="createNewWorker()"
+                (click)="isDropdownShowed=true"
               ></evj-button>
+              <div
+                class="dropdown"
+                [ngClass]="{'dropdown_active':isDropdownShowed}"
+                (mouseleave)="isDropdownShowed=false"
+              >
+                <div class="dropdown__item" (click)="createNewWorker()">Создать нового</div>
+                <div class="dropdown__item" (click)="isPopupShowed=true">Импортировать</div>
+              </div>
             </div>
 
             <div class="more__button">
@@ -71,9 +89,13 @@
           <evj-admin-employee
             [searchedWorker]="searchedWorker"
             [workers]="workers"
-            *ngIf="!isGroupShowed"
+            *ngIf="!isBrigadesShowed"
           ></evj-admin-employee>
-          <evj-admin-brigades *ngIf="isGroupShowed" [brigades]="brigades"></evj-admin-brigades>
+          <evj-admin-brigades
+            *ngIf="isBrigadesShowed"
+            [searchedBrigade]="searchedWorker"
+            [brigades]="brigades"
+          ></evj-admin-brigades>
         </div>
         <div class="admin__workspace">
           <evj-admin-workspace></evj-admin-workspace>
@@ -82,15 +104,27 @@
     </div>
   </ng-container>
 
-  <ng-template #workerSettings>
+  <ng-container *ngIf="isWorkerSettingsShowed">
     <evj-admin-worker-settings
       class="admin-container"
       [isCreateNewUser]="isCreateNewWorker"
+      [isImportNewWorker]="isImportNewWorker"
       (closeWorkerSettings)="onCloseWorkerSettings()"
       (mousedown)="$event.stopPropagation()"
       (touchstart)="$event.stopPropagation()"
     ></evj-admin-worker-settings>
-  </ng-template>
+  </ng-container>
+
+  <ng-container *ngIf="isGroupsShowed">
+    <evj-admin-groups class="admin-container" (hideGroups)="onHideGroups()"></evj-admin-groups>
+  </ng-container>
+
+  <div class="popup" [ngClass]="{'popup_active':isPopupShowed}">
+    <evj-admin-ad-import
+      *ngIf="isPopupShowed"
+      (closeLdap)="onCloseLdapList($event)"
+    ></evj-admin-ad-import>
+  </div>
 
   <evj-frame-bottom></evj-frame-bottom>
 </div>

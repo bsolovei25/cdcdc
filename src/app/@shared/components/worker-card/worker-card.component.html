@@ -2,13 +2,21 @@
   <ng-container *ngIf="!isSmallCard; else smallCard">
     <svg width="100%" height="100%" viewBox="0 0 50 50">
       <image
+        x="-36"
+        y="3.5"
+        width="42"
+        height="42"
+        style="clip-path: circle(50% at center);"
+        [attr.xlink:href]="photoPath"
+      />
+
+      <image
         x="-39"
         y="-0.5"
         width="120"
         height="50"
         xlink:href="assets/icons/widgets/admin/worker-card.svg"
       />
-      <image x="-36" y="0" width="42" height="42" [attr.xlink:href]="photoPath" />
 
       <text x="33" y="9" text-anchor="start" class="svg__txt">
         {{person.phone}}
@@ -16,16 +24,11 @@
       <text x="33" y="20" text-anchor="start" class="svg__txt">
         {{person.email}}
       </text>
-      <text x="33" y="32" text-anchor="start" class="svg__txt" *ngIf="person.id; else noselected">
-        {{getPersonUnit()}}{{getPersonBrigade()}}
+      <text x="33" y="32" text-anchor="start" class="svg__txt">
+        {{getPersonUnit()}}
       </text>
-      <ng-template #noselected>
-        <text x="33" y="32" text-anchor="start" class="svg__txt">
-          {{getPersonUnit()}}{{getPersonBrigade()}}
-        </text>
-      </ng-template>
       <text x="33" y="43" text-anchor="start" class="svg__txt">
-        {{1}}
+        {{getPersonBrigade()}}
       </text>
       <image
         x="-35"
@@ -41,13 +44,21 @@
   <ng-template #smallCard>
     <svg width="100%" height="100%" viewBox="0 0 200 100" class="small">
       <image
+        x="-36"
+        y="10"
+        width="80"
+        height="80"
+        style="clip-path: circle(40px at center);"
+        [attr.xlink:href]="photoPath"
+      />
+
+      <image
         x="-65"
         y="0"
         width="300"
         height="100"
         [attr.xlink:href]="(isActiveCard)?srcCardActive:srcCardNormal"
       />
-      <image x="-36" y="3" width="80" height="80" [attr.xlink:href]="photoPath" />
 
       <text
         x="65"

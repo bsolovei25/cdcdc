@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { NewWidgetService } from '../../services/new-widget.service';
+import { WidgetService } from '../../services/widget.service';
 import { ICalendarPlanGraph, ICalendarPlanData } from '../../models/calendar-plan';
 import { WidgetPlatform } from '../../models/widget-platform';
 
@@ -51,11 +51,13 @@ export class CalendarPlanComponent extends WidgetPlatform implements OnInit, OnD
         },
     ];
 
-    public static itemCols: number = 18;
+    public static itemCols: number = 24;
     public static itemRows: number = 10;
+    public static minItemCols: number = 24;
+    public static minItemRows: number = 10;
 
     constructor(
-        protected widgetService: NewWidgetService,
+        protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string

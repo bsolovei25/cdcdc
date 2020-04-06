@@ -1,6 +1,5 @@
 import { Component, OnInit, Injector, Inject } from '@angular/core';
 import { WIDGETS } from '../new-widgets-grid/widget-map';
-import { NewWidgetService } from '../../services/new-widget.service';
 import { WidgetModel } from '../../models/widget.model';
 import {
     GridsterConfig,
@@ -9,9 +8,10 @@ import {
     GridsterItemComponentInterface,
     DisplayGrid,
 } from 'angular-gridster2';
-import { NewUserSettingsService } from '../../services/new-user-settings.service';
+import { UserSettingsService } from '../../services/user-settings.service';
 import { EventEmitter } from '@angular/core';
 import { ClaimService, EnumClaimWidgets } from '../../services/claim.service';
+import { WidgetService } from '../../services/widget.service';
 
 export interface IParamWidgetsGrid {
     cols: number;
@@ -52,13 +52,14 @@ export class NewWidgetsGridComponent implements OnInit {
     private claimSettings: EnumClaimWidgets[] = [];
 
     constructor(
-        public widgetService: NewWidgetService,
+        public widgetService: WidgetService,
         public injector: Injector,
-        public userSettings: NewUserSettingsService,
+        public userSettings: UserSettingsService,
         private claimService: ClaimService
-    ) { }
+    ) {}
 
     public ngOnInit(): void {
+        this.userSettings.GetScreens();
         document.addEventListener('fullscreenchange', () => {
             console.log(document.fullscreenElement);
             this.fullscreen = document.fullscreenElement ? true : false;
@@ -69,14 +70,13 @@ export class NewWidgetsGridComponent implements OnInit {
                 this.isVisiblePanel = this.claimSettings.includes(EnumClaimWidgets.add);
                 this.options = null;
                 this.loaditem();
-                
             }
         });
-        this.loaditem();
+        // this.loaditem();
     }
 
     private loaditem(): void {
-        this.userSettings.GetScreen();
+        // this.userSettings.GetScreen();
         this.options = {
             gridType: GridType.Fixed,
             displayGrid: 'none',
@@ -237,9 +237,9 @@ export class NewWidgetsGridComponent implements OnInit {
         this.widgetService.dashboard.push(item);
     }
 
-    public emptyCellMenuClick(): void { }
+    public emptyCellMenuClick(): void {}
 
-    public emptyCellDragClick(): void { }
+    public emptyCellDragClick(): void {}
 
     public emptyCellDropClick(event: DragEvent, param: IParamWidgetsGrid): void {
         const idWidget: string = event.dataTransfer.getData('text');

@@ -38,11 +38,11 @@
           <div class="set-buttons" #truckScroll>
             <div
               class="set-button"
-              *ngFor="let machine of Data"
+              *ngFor="let machine of data"
               (click)="onSettings(machine)"
-              [ngClass]="{'active': machine.active}"
+              [ngClass]="{'active': machine?.active}"
             >
-              {{machine.name}}
+              {{machine?.name}}
               <div class="b-a"></div>
             </div>
           </div>
@@ -52,7 +52,11 @@
             <div class="fake" [style.width.px]="widthTruckScroll"></div>
           </div>
         </div> -->
-        <div class="save-button" (click)="onButtonSave()">
+        <div
+          class="save-button"
+          (click)="onButtonSave()"
+          [style.opacity]="isSaveButton() ? '1' : '0.2'"
+        >
           Сохранить
           <div class="b-a"></div>
         </div>
@@ -61,7 +65,14 @@
         <div class="container-header">
           <div class="container-header__button-list" (click)="onShowAllSettings()">
             <svg-icon
+              *ngIf="openAllSettings"
               src="./assets/icons/widgets/manual-input/arrow_down.svg"
+              [svgStyle]="{ 'width.px':10, 'height.px':10 }"
+            ></svg-icon>
+
+            <svg-icon
+              *ngIf="!openAllSettings"
+              src="./assets/icons/widgets/manual-input/arrow_right.svg"
               [svgStyle]="{ 'width.px':10, 'height.px':10 }"
             ></svg-icon>
           </div>
@@ -94,16 +105,23 @@
         </div>
         <div class="container" id="container">
           <ng-container *ngIf="allSettings">
-            <ng-container *ngFor="let machine of Data">
+            <ng-container *ngFor="let machine of data">
               <div class="machine-name" (click)="onShowMachine(machine)">
                 <div class="machine-name__button">
                   <svg-icon
+                    *ngIf="machine.open"
                     src="./assets/icons/widgets/manual-input/arrow_down.svg"
+                    [svgStyle]="{ 'width.px':10, 'height.px':10 }"
+                  ></svg-icon>
+
+                  <svg-icon
+                    *ngIf="!machine.open"
+                    src="./assets/icons/widgets/manual-input/arrow_right.svg"
                     [svgStyle]="{ 'width.px':10, 'height.px':10 }"
                   ></svg-icon>
                 </div>
                 <div class="machine-name__title">
-                  {{machine.name}}
+                  {{machine?.name}}
                 </div>
                 <div class="machine-name__icon">
                   <svg-icon
@@ -118,17 +136,24 @@
                     <div class="item-name" (click)="onShowItemMachine(item)">
                       <div class="item-name__button">
                         <svg-icon
+                          *ngIf="item.open"
                           src="./assets/icons/widgets/manual-input/arrow_down.svg"
                           [svgStyle]="{ 'width.px':10, 'height.px':10 }"
                         ></svg-icon>
+
+                        <svg-icon
+                          *ngIf="!item.open"
+                          src="./assets/icons/widgets/manual-input/arrow_right.svg"
+                          [svgStyle]="{ 'width.px':10, 'height.px':10 }"
+                        ></svg-icon>
                       </div>
-                      <div class="item-name__title">{{item.name}}</div>
+                      <div class="item-name__title">{{item?.name}}</div>
                     </div>
                     <div class="item-container" [@Branch]="(item.open) ? 'expanded' : 'collapsed'">
                       <ng-container *ngFor="let i of item.params">
                         <div class="items">
                           <div class="item-block">
-                            <div class="item-block__value name">{{i.name}}</div>
+                            <div class="item-block__value name">{{i?.name}}</div>
                             <div class="item-block__value unit">{{i.unit}}.</div>
                             <div class="item-block__value">
                               {{i.lastTime | date: 'dd.MM.yyyy HH:mm'}}
@@ -142,9 +167,10 @@
                                 class="data"
                                 type="text"
                                 placeholder="--------"
+                                [readOnly]="!isSaveButton()"
                                 [(ngModel)]="i.curValue"
+                                [class.data_notActive]="!i.isActive || !isSaveButton()"
                                 [class.data_active]="i.isActive"
-                                [class.data_notActive]="!i.isActive"
                                 [class.data_active__saving]="i.isActive && i.isSave"
                                 [class.data_active__warning]="i.isWarning && !i.isSave && i.isActive && !i.isError"
                                 [class.data_active__error]="i.isError && !i.isSave"
@@ -178,8 +204,9 @@
                               (focusout)="onUnfocusValue(i.id)"
                               [(ngModel)]="i.comment"
                               placeholder="Напишите свой комментарий..."
+                              [readOnly]="!isSaveButton()"
+                              [class.data_notActive]="!i.isActive || !isSaveButton()"
                               [class.data_active__saving]="i.isActive"
-                              [class.data_notActive]="!i.isActive"
                             />
                           </div>
                         </div>
@@ -201,7 +228,7 @@
                         [svgStyle]="{ 'width.px':10, 'height.px':10 }"
                       ></svg-icon>
                     </div>
-                    <div class="item-name__title">{{item.name}}</div>
+                    <div class="item-name__title">{{item?.name}}</div>
                   </div>
                   <div
                     class="item-container-short"
@@ -210,7 +237,7 @@
                     <ng-container *ngFor="let i of item.params">
                       <div class="items">
                         <div class="item-block">
-                          <div class="item-block__value name">{{i.name}}</div>
+                          <div class="item-block__value name">{{i?.name}}</div>
                           <div class="item-block__value unit">{{i.unit}}.</div>
                           <div class="item-block__value">
                             {{i.lastTime | date: 'dd.MM.yyyy HH:mm'}}
@@ -224,9 +251,10 @@
                               class="data"
                               type="text"
                               placeholder="--------"
+                              [readOnly]="!isSaveButton()"
                               [(ngModel)]="i.curValue"
+                              [class.data_notActive]="!i.isActive || !isSaveButton()"
                               [class.data_active]="i.isActive"
-                              [class.data_notActive]="!i.isActive"
                               [class.data_active__saving]="i.isActive && i.isSave"
                               [class.data_active__warning]="i.isWarning && !i.isSave && i.isActive && !i.isError"
                               [class.data_active__error]="i.isError && !i.isSave"
@@ -259,9 +287,10 @@
                             (change)="onChangeValue(i.id)"
                             (focusout)="onUnfocusValue(i.id)"
                             placeholder="Напишите свой комментарий..."
+                            [readOnly]="!isSaveButton()"
                             [(ngModel)]="i.comment"
+                            [class.data_notActive]="!i.isActive || !isSaveButton()"
                             [class.data_active__saving]="i.isActive"
-                            [class.data_notActive]="!i.isActive"
                           />
                         </div>
                       </div>

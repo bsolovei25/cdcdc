@@ -1,20 +1,24 @@
 import { IUser } from './events-widget';
 
-export interface NewUserSettings {
-    userId: number;
-    screenId: number;
-    userGrid: NewUserGrid[];
-}
-
-export interface ScreenSettings {
+export interface IScreenSettings {
     id: number;
     user: IUser[];
     screenName: string;
     updateScreen: boolean;
-    widgets: NewUserGrid[];
+    widgets: IUserGridItem[];
+    claims?: IClaim[];
 }
 
-export interface NewUserGrid {
+export interface IClaim {
+    claimType: ClaimType;
+    value: string;
+    claimCategory: ClaimCategory;
+    claimCategoryName: string;
+    claimName: string;
+    specification: string;
+}
+
+export interface IUserGridItem {
     posX: number;
     posY: number;
     sizeX: number;
@@ -23,3 +27,18 @@ export interface NewUserGrid {
     widgetType: string;
     uniqueId: string;
 }
+
+export type ClaimType = 'screenView' |
+    'screenEdit' |
+    'screenDel' |
+    'screenAdmin' |
+    'screensAdmin' |
+    'screensAdd' |
+    'screenWidgetAdd'|
+    'screensWidgetAdd'|
+    'screenWidgetEdit' |
+    'screensWidgetEdit' |
+    'screenWidgetDel' |
+    'screensWidgetDel' |
+    string; // TODO ClaimType
+export type ClaimCategory = 'allow' | 'deny';

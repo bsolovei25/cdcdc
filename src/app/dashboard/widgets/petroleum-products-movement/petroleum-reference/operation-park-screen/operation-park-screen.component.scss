@@ -252,8 +252,8 @@
 
 .return_button {
   position: absolute;
-  left: 1000px;
-  top: 40px;
+  right: 35px;
+  top: 0px;
   z-index: 999;
   cursor: pointer;
 }
@@ -261,7 +261,7 @@
 .table_update_button {
   height: calc(100% - 581px);
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   width: 100%;
   font-size: 12px;
 
@@ -276,9 +276,11 @@
       .values_block {
         cursor: pointer;
         display: flex;
-        justify-content: space-evenly;
+        justify-content: space-between;
         height: 40px;
         align-items: center;
+        padding-left: 30px;
+        padding-right: 30px;
 
         &:nth-child(2n) {
           background: var(--color-bg-main);
@@ -379,8 +381,10 @@
         cursor: pointer;
         display: flex;
         height: 40px;
-        justify-content: space-evenly;
+        justify-content: space-between;
         align-items: center;
+        padding-left: 30px;
+        padding-right: 30px;
 
         &:nth-child(2n) {
           background: var(--color-bg-main);
@@ -473,7 +477,9 @@
   min-height: 581px;
 
   &__title {
-    height: 20px;
+    height: 15px;
+    padding-top: 5px;
+    padding-left: 25px;
     font-size: 10px;
     color: var(--color-text-sub-heading);
   }

@@ -1,18 +1,22 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { IWorker } from '../../../dashboard/models/worker';
 import { IUser, IUnitEvents } from '../../../dashboard/models/events-widget';
 import { AdminPanelService } from '../../../dashboard/services/admin-panel/admin-panel.service';
+import { AppConfigService } from '../../../services/appConfigService';
 
 @Component({
     selector: 'evj-worker-card',
     templateUrl: './worker-card.component.html',
     styleUrls: ['./worker-card.component.scss'],
 })
-export class WorkerCardComponent implements OnInit {
+export class WorkerCardComponent implements OnInit, OnChanges {
     @Input() public person: IUser = null;
     @Input() public isSmallCard: boolean = false;
     @Input() public isActiveCard: boolean = false;
-    @Input() public photoPath: string = '';
+
+    public photoPath: string = 'assets/icons/widgets/admin/default_avatar2.svg';
+
+    private defaultAvatarPath: string = 'assets/icons/widgets/admin/default_avatar2.svg';
 
     public srcCardNormal: string = 'assets/icons/widgets/admin/card-small.svg';
     public srcCardActive: string = 'assets/icons/widgets/admin/card-small-active.svg';
@@ -23,11 +27,23 @@ export class WorkerCardComponent implements OnInit {
 
     public personsUnit: IUnitEvents = null;
 
-    constructor(private adminService: AdminPanelService) {}
+    private fsUrl: string = '';
+
+    constructor(private adminService: AdminPanelService, private configService: AppConfigService) {
+        this.fsUrl = this.configService.fsUrl;
+    }
 
     public ngOnInit(): void {
         if (!this.isSmallCard) {
             this.adminService.activeWorkerUnit$.subscribe((unit) => (this.personsUnit = unit));
+        }
+    }
+
+    public ngOnChanges(): void {
+        if (this.person?.photoId) {
+            this.photoPath = `${this.fsUrl}/${this.person?.photoId}`;
+        } else {
+            this.photoPath = this.defaultAvatarPath;
         }
     }
 
@@ -56,8 +72,8 @@ export class WorkerCardComponent implements OnInit {
 
     public getPersonUnit(): string {
         if (this.personsUnit) {
-            return `${this.personsUnit.name} | `;
+            return `${this.personsUnit.name}`;
         }
-        return '';
+        return 'Установка не выбрана';
     }
 }

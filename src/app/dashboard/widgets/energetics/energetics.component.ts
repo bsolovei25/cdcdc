@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { NewWidgetService } from '../../services/new-widget.service';
+import { WidgetService } from '../../services/widget.service';
 import {
     IEnergeticsEndsLine,
     IEnergeticsCoordinates,
@@ -16,8 +16,10 @@ import { WidgetPlatform } from '../../models/widget-platform';
     styleUrls: ['./energetics.component.scss'],
 })
 export class EnergeticsComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    public static itemCols: number = 18;
+    public static itemCols: number = 24;
     public static itemRows: number = 14;
+    public static minItemCols: number = 24;
+    public static minItemRows: number = 14;
 
     /* Приблизительная структура, получаемая с бека */
 
@@ -72,6 +74,10 @@ export class EnergeticsComponent extends WidgetPlatform implements OnInit, OnDes
         fuel: 125, // процентная доля топлива
     };
 
+    public isTermoCardDanger: boolean = false;
+    public isElectroCardDanger: boolean = false;
+    public isFuelCardDanger: boolean = false;
+
     /* Цвета для диаграмм */
 
     public colorMain: string = '#1b1e27';
@@ -93,7 +99,7 @@ export class EnergeticsComponent extends WidgetPlatform implements OnInit, OnDes
     public radPoint: string = '0.8';
 
     constructor(
-        protected widgetService: NewWidgetService,
+        protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -135,8 +141,32 @@ export class EnergeticsComponent extends WidgetPlatform implements OnInit, OnDes
                 this.electroCard.curValue = ref.electroCard.currentValue;
                 this.fuelCard = ref.fuelCard;
                 this.fuelCard.curValue = ref.fuelCard.currentValue;
+
+                if (this.termoCard.plan < this.termoCard.curValue) {
+                    this.isTermoCardDanger = true;
+                } else {
+                    this.isTermoCardDanger = false;
+                }
+                if (this.electroCard.plan < this.electroCard.curValue) {
+                    this.isElectroCardDanger = true;
+                } else {
+                    this.isElectroCardDanger = false;
+                }
+                if (this.fuelCard.plan < this.fuelCard.curValue) {
+                    this.isFuelCardDanger = true;
+                } else {
+                    this.isFuelCardDanger = false;
+                }
             })
         );
+    }
+
+    private checkDangerCard(cardData: IEnergeticsCard, dangerFlag: string): void {
+        if (cardData.plan < cardData.curValue) {
+            EnergeticsComponent[dangerFlag] = true;
+        } else {
+            EnergeticsComponent[dangerFlag] = false;
+        }
     }
 
     /* Отрисовка линейных графиков в карточках */
@@ -159,13 +189,21 @@ export class EnergeticsComponent extends WidgetPlatform implements OnInit, OnDes
     diaLine(r: string, line: number): string {
         const c: number = 2 * Math.PI * +r;
         const percent: number = line / 100;
-        return percent * 0.5 * c + ' ' + (c - percent * 0.5 * c);
+        let lineLength: number = percent * 0.5 * c;
+        if (lineLength > 0.75 * c) {
+            lineLength = 0.75 * c;
+        }
+        return lineLength + ' ' + (c - lineLength);
     }
 
     diaOffset(r: string, line: number): string {
         const c: number = 2 * Math.PI * +r;
         const percent: number = line / 100;
-        return (-0.75 * c + percent * 0.5 * c).toString();
+        let lineLength: number = percent * 0.5 * c;
+        if (lineLength > 0.75 * c) {
+            lineLength = 0.75 * c;
+        }
+        return (-0.75 * c + lineLength).toString();
     }
 
     diaLimits(line: number): IEnergeticsLimits {
@@ -218,7 +256,10 @@ export class EnergeticsComponent extends WidgetPlatform implements OnInit, OnDes
     }
 
     diaEndsLine(line: number, rad: string): IEnergeticsEndsLine {
-        const newLine = 100 - line + +this.radPoint; // отсчет угла от 100%
+        let newLine = 100 - line + +this.radPoint; // отсчет угла от 100%
+        if (newLine < -50) {
+            newLine = -50 + +this.radPoint * 2;
+        }
         const t = (Math.PI * newLine) / 100 + Math.PI / 2;
         const r = +rad;
         const limitLine: IEnergeticsEndsLine = {

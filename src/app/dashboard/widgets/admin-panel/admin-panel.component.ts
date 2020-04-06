@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { IButtonImgSrc, IBrigadeAdminPanel, IClaim } from '../../models/admin-panel';
+import { IButtonImgSrc, IBrigadeAdminPanel, IWorkspace } from '../../models/admin-panel';
 import { AdminPanelService } from '../../services/admin-panel/admin-panel.service';
 import { IUser, IUnitEvents } from '../../models/events-widget';
-import { Subscription } from 'rxjs';
-import { NewWidgetService } from '../../services/new-widget.service';
+import { Subscription, combineLatest } from 'rxjs';
+import { WidgetService } from '../../services/widget.service';
 
 @Component({
     selector: 'evj-admin-panel',
@@ -12,28 +12,28 @@ import { NewWidgetService } from '../../services/new-widget.service';
 })
 export class AdminPanelComponent implements OnInit, OnDestroy {
     //#region WIDGET_PROPS
-
     public title: string = 'Панель администратора';
     public previewTitle: string = 'admin-panel';
     public units: string = '';
-
     //#endregion
 
     //#region WIDGET_ICONS
-
     public groupsButtonIcon: IButtonImgSrc = {
         btnIconSrc: 'assets/icons/widgets/admin/icon_group-active.svg',
     };
     public searchIcon: string = 'assets/icons/search-icon.svg';
-
     //#endregion
 
     //#region WIDGET_FLAGS
+    public isDataLoading: boolean = false;
 
-    public isGroupShowed: boolean = false;
+    public isBrigadesShowed: boolean = false;
     public isWorkerSettingsShowed: boolean = false;
+    public isGroupsShowed: boolean = false;
     public isCreateNewWorker: boolean = false;
-
+    public isImportNewWorker: boolean = false;
+    public isDropdownShowed: boolean = false;
+    public isPopupShowed: boolean = false;
     //#endregion
 
     public searchPlaceholder: string = 'Введите ФИО сотрудника';
@@ -65,7 +65,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
 
     constructor(
-        private widgetService: NewWidgetService,
+        private widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string,
@@ -73,21 +73,48 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     ) {}
 
     public ngOnInit(): void {
+        this.isDataLoading = true;
         this.adminService.updateAllWorkers().then();
         this.adminService.updateAllBrigades().then();
+        const serviceData = combineLatest([
+            this.adminService.allWorkers$,
+            this.adminService.allBrigades$,
+            this.adminService.activeWorker$,
+        ]);
         this.subscriptions.push(
-            this.adminService.allWorkers$.subscribe((workers: IUser[]) => {
-                this.workers = workers;
+            serviceData.subscribe(([workers, brigades, activeWorker]) => {
+                if (workers) {
+                    this.workers = workers;
+                    this.isDataLoading = false;
+                }
+                if (brigades) {
+                    this.brigades = brigades;
+                }
+                if (activeWorker) {
+                    this.isImportNewWorker = activeWorker.sid ? true : false;
+                }
             }),
-            this.adminService.allBrigades$.subscribe((brigades: IBrigadeAdminPanel[]) => {
-                this.brigades = brigades;
-            }),
-            this.adminService.getAllScreenClaims().subscribe((data: IClaim[]) => {
-                this.adminService.screenClaims = data;
+            this.adminService.getAllSpecialScreenClaims().subscribe((data) => {
+                this.adminService.screenSpecialClaims = data.data;
             }),
             this.adminService
                 .getAllUnits()
-                .subscribe((data: IUnitEvents[]) => (this.adminService.units = data))
+                .subscribe((data: IUnitEvents[]) => (this.adminService.units = data)),
+            this.adminService
+                .getAllUnitsWithBrigades()
+                .subscribe((data: IUnitEvents[]) => (this.adminService.unitsWithBrigades = data)),
+            this.adminService
+                .getAllGeneralClaims()
+                .subscribe((claims) => (this.adminService.generalClaims = claims.data)),
+            this.adminService
+                .getAllSpecialClaims()
+                .subscribe((claims) => (this.adminService.specialClaims = claims.data)),
+            this.adminService
+                .getAllWidgets()
+                .subscribe((widgets) => (this.adminService.allWidgets = widgets.data)),
+            this.adminService
+                .getAllScreens()
+                .subscribe((data: IWorkspace[]) => (this.adminService.allScreens = data))
         );
     }
 
@@ -96,9 +123,10 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     }
 
     public createNewWorker(): void {
-        this.adminService.setDefaultActiveWorker();
+        this.isDropdownShowed = false;
         this.isCreateNewWorker = true;
         this.isWorkerSettingsShowed = true;
+        this.adminService.setDefaultActiveWorker();
     }
 
     public getMoreAboutWorker(): void {
@@ -107,9 +135,22 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
         }
     }
 
+    public onShowGroups(): void {
+        this.isGroupsShowed = true;
+    }
+
     public onCloseWorkerSettings(): void {
         this.isCreateNewWorker = false;
         this.isWorkerSettingsShowed = false;
+        this.isImportNewWorker = false;
+    }
+
+    public onCloseLdapList(event: boolean): void {
+        if (event) {
+            this.isWorkerSettingsShowed = true;
+            this.isImportNewWorker = true;
+        }
+        this.isPopupShowed = false;
     }
 
     public onSearchWorker(inputedValue: string): void {
@@ -117,9 +158,13 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     }
 
     public onShowBrigades(): void {
-        this.isGroupShowed = !this.isGroupShowed;
-        this.searchPlaceholder = this.isGroupShowed
-            ? 'Введите номер бригады или ФИО сотрудника'
+        this.isBrigadesShowed = !this.isBrigadesShowed;
+        this.searchPlaceholder = this.isBrigadesShowed
+            ? 'Введите название бригады'
             : 'Введите ФИО сотрудника';
+    }
+
+    public onHideGroups(): void {
+        this.isGroupsShowed = false;
     }
 }

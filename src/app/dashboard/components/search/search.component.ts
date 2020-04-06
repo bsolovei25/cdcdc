@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { IWidgets } from '../../models/widget.model';
 import { Subscription } from 'rxjs';
-import { NewWidgetService } from '../../services/new-widget.service';
-import { IfStmt } from '@angular/compiler';
+import { WidgetService } from '../../services/widget.service';
 
 @Component({
     selector: 'evj-search',
@@ -21,14 +20,18 @@ export class SearchComponent implements OnInit {
     public newArrayType = [];
     public newArrayClick = [];
 
-    constructor(public widgetService: NewWidgetService) {
+    @Output() searchReport = new EventEmitter<KeyboardEvent>();
+
+    @Input() isReport: boolean = false;
+
+    constructor(public widgetService: WidgetService) {
         this.subscription = this.widgetService.widgets$.subscribe((dataW) => {
             this.widgets = dataW;
             this.newArrayType = this.filterData(this.widgets);
         });
     }
 
-    ngOnInit() {}
+    ngOnInit() { }
 
     ngOnDestroy(): void {
         if (this.subscription) {
@@ -69,5 +72,9 @@ export class SearchComponent implements OnInit {
         } catch (error) {
             console.log('Ошибка:', error);
         }
+    }
+
+    searchReports(event: KeyboardEvent) {
+        this.searchReport.emit(event);
     }
 }

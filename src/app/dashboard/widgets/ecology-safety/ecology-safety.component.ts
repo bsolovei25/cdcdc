@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { NewWidgetService } from '../../services/new-widget.service';
+import { WidgetService } from '../../services/widget.service';
 import { IEcologySafety } from '../../models/ecology-safety';
 import { IWidgets } from '../../models/widget.model';
 import { WidgetPlatform } from '../../models/widget-platform';
@@ -11,10 +11,10 @@ import { WidgetPlatform } from '../../models/widget-platform';
     styleUrls: ['./ecology-safety.component.scss'],
 })
 export class EcologySafetyComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    public static itemCols: number = 18;
+    public static itemCols: number = 24;
     public static itemRows: number = 2;
-    public static minItemCols: number = 10;
-    public static minItemRows: number = 10;
+    public static minItemCols: number = 24;
+    public static minItemRows: number = 2;
 
     /* Приблизительная структура, получаемая с бека */
 
@@ -28,7 +28,7 @@ export class EcologySafetyComponent extends WidgetPlatform implements OnInit, On
     public colorDeviation: string = '#F4A321';
 
     constructor(
-        protected widgetService: NewWidgetService,
+        protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string

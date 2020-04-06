@@ -21,12 +21,13 @@ import {
     IUnitEvents,
 } from '../../models/events-widget';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { NewWidgetService } from '../../services/new-widget.service';
+import { WidgetService } from '../../services/widget.service';
 import { DateAdapter } from '@angular/material/core';
 import { AuthService } from '@core/service/auth.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 
 import { ITime } from '../../models/time-data-picker';
+import { AppConfigService } from '../../../services/appConfigService';
 
 @Component({
     selector: 'evj-events-workspace',
@@ -36,6 +37,8 @@ import { ITime } from '../../models/time-data-picker';
 export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, OnDestroy {
     event: EventsWidgetNotification;
     isLoading: boolean = true;
+
+    isUserCanEdit: boolean = true;
 
     comments: string[] = [];
     fact: string[] = [];
@@ -59,6 +62,8 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     nameUserFirstName: string;
     nameUserLastName: string;
 
+    public userAvatar: string = 'assets/icons/widgets/admin/default_avatar2.svg';
+    public userAvatarDefault: string = 'assets/icons/widgets/admin/default_avatar2.svg';
     userChoosen: boolean = false;
     userMeropChoosen: boolean = false;
     chooseNameUser: string;
@@ -110,6 +115,8 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     dateChoose: Date;
     dateChooseNew: Date;
 
+    private fsUrl: string;
+
     @ViewChild('input', { static: false }) input: ElementRef;
     @ViewChild('input2', { static: false }) input2: ElementRef;
     @ViewChild('newInput', { static: false }) newInput: ElementRef;
@@ -122,9 +129,10 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     constructor(
         private eventService: EventService,
         private snackBar: MatSnackBar,
-        public widgetService: NewWidgetService,
+        public widgetService: WidgetService,
         private dateAdapter: DateAdapter<Date>,
         private authService: AuthService,
+        private configService: AppConfigService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -142,6 +150,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
         this.widgetIcon = 'document';
         this.dateAdapter.setLocale('ru');
+        this.fsUrl = this.configService.fsUrl;
     }
 
     ngOnInit(): void {
@@ -183,6 +192,10 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
                 value.fixedBy.lastName;
             this.event = value;
             this.dateChoose = value.deadline;
+            this.userAvatar = value?.fixedBy?.photoId ? `${this.fsUrl}/${value?.fixedBy?.photoId}` : this.userAvatarDefault;
+            this.isUserCanEdit = value.isUserCanEdit;
+            console.log(value);
+            console.log(this.isUserCanEdit);
         }
 
         await this.loadItem(typeof value === 'number' ? value : undefined);
@@ -216,10 +229,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     }
 
     @HostListener('document:resize', ['$event'])
-    OnResize(event) {
-        // if (this.progress.nativeElement !== undefined) {
-        //     this.progressLine();
-        // }
+    OnResize(event): void {
         try {
             this.progressLine();
         } catch (error) {}
@@ -255,7 +265,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
                 displayName: this.nameUser,
             };
             this.event.comments.push(commentInfo);
-            // this.comments.push(this.input.nativeElement.value);
             this.input2.nativeElement.value = '';
             this.dateComment = new Date();
             setTimeout(() => {
@@ -286,7 +295,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
                 displayName: this.nameUser,
             };
             this.isNewRetrieval.facts.push(factInfo);
-            // this.comments.push(this.input.nativeElement.value);
             this.newInput2.nativeElement.value = '';
             setTimeout(() => {
                 this.scrollFactBottom();
@@ -354,10 +362,10 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.dateChoose = new Date();
 
         this.event = {
+            isUserCanEdit: true,
             itemNumber: 0,
             branch: 'Производство',
             category: this.category ? this.category[0] : null,
-            // comments: ['Новое событие'],
             description: '',
             deviationReason: 'Причина отклонения...',
             directReasons: '',
@@ -373,7 +381,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
                 middleName: '',
                 phone: '00123456789',
             },
-            //place: { id: 5001, name: 'ГФУ-2 с БОР' },
             organization: 'АО Газпромнефть',
             priority: this.priority
                 ? this.priority[2]
@@ -560,6 +567,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.dateChooseNew = new Date();
 
         this.isNewRetrieval = {
+            isUserCanEdit: true,
             itemNumber: 0,
             branch: 'Производство',
             category: this.category ? this.category[0] : null,
@@ -720,6 +728,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.chooseNameUser = data.firstName + ' ' + data.middleName + ' ' + data.lastName;
         this.userBrigade = data.brigade.number;
         this.userDescription = data.positionDescription;
+        this.userAvatar = data?.photoId ? `${this.fsUrl}/${data.photoId}` : this.userAvatarDefault;
     }
 
     chooseMeropRespons(data): void {
@@ -727,6 +736,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.chooseNameUser = data.firstName + ' ' + data.middleName + ' ' + data.lastName;
         this.userBrigade = data.brigade.number;
         this.userDescription = data.positionDescription;
+        this.userAvatar = data?.photoId ? `${this.fsUrl}/${data.photoId}` : this.userAvatarDefault;
     }
 
     onEditShortInfo(): void {
@@ -756,7 +766,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.dateChoose = new Date(date.setHours(+time[0], +time[1], +time[2]));
 
         this.event.deadline = this.dateChoose;
-        this.dataPicker = !data.close;
     }
 
     dateTimePickerNew(data: ITime): void {
@@ -765,7 +774,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
         this.dateChooseNew = new Date(date.setHours(+time[0], +time[1], +time[2]));
 
-        this.isNewRetrieval.deadline = this.dateChoose;
-        this.dataPicker = !data.close;
+        this.isNewRetrieval.deadline = this.dateChooseNew;
     }
 }

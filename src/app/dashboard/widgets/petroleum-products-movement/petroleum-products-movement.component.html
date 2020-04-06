@@ -1,12 +1,12 @@
-<evj-widget-preview [title]="title" [previewTitle]="" *ngIf="isMock"></evj-widget-preview>
+<evj-widget-preview [title]="widgetTitle" [previewTitle]="" *ngIf="isMock"></evj-widget-preview>
 
 <div style="height: 100%; width: 100%;" *ngIf="!isMock">
   <evj-widget-header
-    [title]="title"
-    [units]="units"
-    [code]="code"
-    [id]="id"
-    [uniqId]="uniqId"
+    [title]="widgetTitle"
+    [units]="widgetUnits"
+    [code]="widgetCode"
+    [id]="widgetId"
+    [uniqId]="widgetUniqId"
   ></evj-widget-header>
   <div class="container_widget">
     <evj-frame-top></evj-frame-top>
@@ -15,17 +15,23 @@
       (mousedown)="$event.stopPropagation()"
       (touchstart)="$event.stopPropagation()"
     >
+      <evj-loading-shade [isLoading]="petroleumService.isLoad$ | async"></evj-loading-shade>
       <div class="blocks">
         <div class="components">
           <div class="left_block">
-            <evj-petroleum-reference-left [typeScreen]="typeScreen"></evj-petroleum-reference-left>
+            <evj-petroleum-reference-left
+              [typeScreen]="typeScreen"
+              [titlePark]="this.petroleumService.client"
+            >
+            </evj-petroleum-reference-left>
           </div>
           <div class="middle_block">
-            <evj-petroleum-reference
-              [typeScreen]="typeScreen"
-              [updateParamBlock]="isUpdateParamButton"
-              (exitBlock)="onReturn($event)"
-            ></evj-petroleum-reference>
+            <!--            <evj-petroleum-reference-->
+            <!--              [typeScreen]="typeScreen"-->
+            <!--              [updateParamBlock]="isUpdateParamButton"-->
+            <!--              (exitBlock)="onReturn($event)"-->
+            <!--            ></evj-petroleum-reference>  -->
+            <evj-petroleum-reference [typeScreen]="typeScreen"></evj-petroleum-reference>
           </div>
           <div class="right_block">
             <evj-petroleum-reference-right

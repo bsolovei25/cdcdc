@@ -23,6 +23,10 @@
 
   user-select: none;
 
+  &-big {
+    height: 35px;
+  }
+
   &-active {
     color: var(--color-text-main);
     border-color: var(--color-active);

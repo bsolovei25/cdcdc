@@ -1,6 +1,7 @@
 import { IUser, IUnitEvents } from './events-widget';
 import { IWidgets } from './widget.model';
 import { IWorker } from './worker';
+import { IBrigade } from './shift.model';
 
 export interface IAdminPanel {
     person: IUser;
@@ -10,11 +11,10 @@ export interface IAdminPanel {
 }
 
 export interface IWorkspace {
-    // name: string;
-    // authorId: number;
     id: number;
     screenName: string;
     widgets?: any;
+    claims?: IGlobalClaim[];
 }
 
 export interface IClaim {
@@ -51,9 +51,75 @@ export interface IWorkerOptionAdminPanel {
     key: string;
 }
 
+export interface IGroup {
+    id: number;
+    name: string;
+    claims?: IGlobalClaim[];
+    users?: number[];
+    workspaces?: IWorkspace[];
+}
+
+export interface IGlobalClaim {
+    claimType: string;
+    description?: string;
+    claimCategory?: string;
+    claimCategoryName?: string;
+    claimName?: string;
+    claimValueTypeName?: string;
+    specification?: string;
+    claimValueType?: string;
+    value?: string;
+}
+
+export interface IUserLdap {
+    id: string;
+    displayName?: string;
+    givenName?: string;
+    surname?: string;
+    userPrincipalName?: string;
+    samAccountName?: string;
+    sid: string;
+}
+
+export interface IUserImported {
+    login: string;
+    sid: string;
+    firstName?: string;
+    lastName?: string;
+    brigade?: IBrigade;
+    position: string;
+    isLoadedAutomatically: boolean;
+    displayName: string;
+    userClaimsVersion?: number;
+    id: number;
+    email?: string;
+    concurrencyStamp: string;
+}
+
+export interface IUserLdapDto {
+    user?: IUserImported;
+    importedUser?: IUserImported;
+    ldapUser: IUserLdap;
+    isUserImported: boolean;
+}
+
 export enum EnumClaims {
     'Только чтение' = 1,
     'Модификация',
     'Ручной ввод',
     'Администратор',
+}
+
+export enum ScreenClaimsEnum {
+    screenView,
+    screenEdit,
+    screenDel,
+    screenAdmin,
+}
+
+export enum ScreenClaimsNamesEnum {
+    'Просмотр экрана',
+    'Редактирование экрана',
+    'Удаление экрана',
+    'Администрирование экрана',
 }
