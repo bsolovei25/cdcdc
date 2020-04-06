@@ -33,18 +33,34 @@
   }
 }
 
-.dropdown-content {
+.dropdown-container {
   display: none;
+
   position: absolute;
-  width: calc(100% + 1px);
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
+
+  width: 100%;
+  min-height: 60px;
+  max-height: calc(100vh - 60px);
+
   top: 60px;
   left: 0px;
+
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  direction: rtl;
 
   &_active {
     display: block;
   }
+}
+
+.dropdown-content {
+  display: block;
+  direction: ltr;
 }
 
 .dropdown-component {
