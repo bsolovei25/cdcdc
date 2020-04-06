@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { IButtonImgSrc, IBrigadeAdminPanel, IClaim, IGlobalClaim } from '../../models/admin-panel';
+import { IButtonImgSrc, IBrigadeAdminPanel, IWorkspace } from '../../models/admin-panel';
 import { AdminPanelService } from '../../services/admin-panel/admin-panel.service';
 import { IUser, IUnitEvents } from '../../models/events-widget';
-import { Subscription } from 'rxjs';
+import { Subscription, combineLatest } from 'rxjs';
 import { WidgetService } from '../../services/widget.service';
 
 @Component({
@@ -25,6 +25,8 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     //#endregion
 
     //#region WIDGET_FLAGS
+    public isDataLoading: boolean = false;
+
     public isBrigadesShowed: boolean = false;
     public isWorkerSettingsShowed: boolean = false;
     public isGroupsShowed: boolean = false;
@@ -71,14 +73,26 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     ) {}
 
     public ngOnInit(): void {
+        this.isDataLoading = true;
         this.adminService.updateAllWorkers().then();
         this.adminService.updateAllBrigades().then();
+        const serviceData = combineLatest([
+            this.adminService.allWorkers$,
+            this.adminService.allBrigades$,
+            this.adminService.activeWorker$,
+        ]);
         this.subscriptions.push(
-            this.adminService.allWorkers$.subscribe((workers: IUser[]) => {
-                this.workers = workers;
-            }),
-            this.adminService.allBrigades$.subscribe((brigades: IBrigadeAdminPanel[]) => {
-                this.brigades = brigades;
+            serviceData.subscribe(([workers, brigades, activeWorker]) => {
+                if (workers) {
+                    this.workers = workers;
+                    this.isDataLoading = false;
+                }
+                if (brigades) {
+                    this.brigades = brigades;
+                }
+                if (activeWorker) {
+                    this.isImportNewWorker = activeWorker.sid ? true : false;
+                }
             }),
             this.adminService.getAllSpecialScreenClaims().subscribe((data) => {
                 this.adminService.screenSpecialClaims = data.data;
@@ -98,13 +112,9 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
             this.adminService
                 .getAllWidgets()
                 .subscribe((widgets) => (this.adminService.allWidgets = widgets.data)),
-            this.adminService.activeWorker$.subscribe((worker) => {
-                if (worker.sid) {
-                    this.isImportNewWorker = true;
-                } else {
-                    this.isImportNewWorker = false;
-                }
-            })
+            this.adminService
+                .getAllScreens()
+                .subscribe((data: IWorkspace[]) => (this.adminService.allScreens = data))
         );
     }
 

@@ -25,15 +25,15 @@ export class ErrorInterceptor implements HttpInterceptor {
                     case 401:
                         this.router.navigate(['login']);
                         break;
+                    case 403:
+                        this.materialController.openSnackBar('У Вас недостаточно прав для выполнения этой операции!',
+                            'snackbar-red');
+                        break;
                     case 500:
-                        // this.router.navigate(['login']);
                         break;
                     case 0:
-                        // this.router.navigate(['login']);
-                        this.materialController.openSnackBar('Сервер не отвечает', );
-                        break;
-                    case 403:
-                        console.error(err);
+                        this.materialController.openSnackBar('Сервер не отвечает',
+                            'snackbar-red');
                         break;
                     case 477:
                         this.materialController.openSnackBar(

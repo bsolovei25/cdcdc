@@ -11,10 +11,10 @@ import { WidgetPlatform } from '../../models/widget-platform';
     styleUrls: ['./ecology-safety.component.scss'],
 })
 export class EcologySafetyComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    public static itemCols: number = 18;
+    public static itemCols: number = 24;
     public static itemRows: number = 2;
-    public static minItemCols: number = 10;
-    public static minItemRows: number = 10;
+    public static minItemCols: number = 24;
+    public static minItemRows: number = 2;
 
     /* Приблизительная структура, получаемая с бека */
 

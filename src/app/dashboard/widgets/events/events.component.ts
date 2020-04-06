@@ -321,9 +321,9 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     }
 
     // Удаление виджета
-    onRemoveButton(): void {
+    public async onRemoveButton(): Promise<void> {
+        await this.userSettings.removeItem(this.uniqId);
         this.widgetService.removeItemService(this.uniqId);
-        this.userSettings.removeItem(this.uniqId);
     }
 
     public async eventClick(deleteItem: boolean, eventId?: number, event?: Event): Promise<void> {
