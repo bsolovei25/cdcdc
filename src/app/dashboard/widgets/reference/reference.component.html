@@ -93,7 +93,7 @@
                       <ng-container *ngIf="i.name !== 'Name'">
                         <div class="reference-container-value__fio-block">
                           <ng-container *ngFor="let i2 of item.columnsData">
-                            <div *ngIf="i.id === i2.referenceColumnId" class="reference-container-value__fio">
+                            <div *ngIf="i.id === i2.referenceColumnId" class="reference-container-value__fio" >
                               <div *ngIf="!i2.edit" [class.disabled]="i2.edit">
                                 <div *ngIf="i.columnTypeId === 4"> {{ i2.valueNumber }}</div>
                                 <div *ngIf="i.columnTypeId === 1"> {{ i2.valueString }}</div>
@@ -101,7 +101,7 @@
                                 </div>
                                 <div *ngIf="i.columnTypeId === 2"> {{ i2.valueInt }}</div>
                               </div>
-                              <div *ngIf="i2.edit" class="reference-container-value__edit-value" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+                              <div *ngIf="i2.edit" class="reference-container-value__edit-value" (click)="$event.stopPropagation()">
                                 <div *ngIf="i.columnTypeId === 4" class="reference-container-value__edit-input"> <input
                                     type="number" [(ngModel)]="i2.valueNumber" placeholder="Введите число..."
                                     (focus)="item.open = false" /></div>

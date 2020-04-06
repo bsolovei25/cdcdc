@@ -52,7 +52,7 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
 
     public newValue: number;
 
-    public checkTitle = [];
+    public checkTitle: number;
 
     constructor(
         public widgetService: WidgetService,
@@ -95,6 +95,7 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
     }
 
     onClickReference(data, index) {
+        this.checkTitle = null;
         this.idReferenceClick = data.id;
         this.isLongBlock = true;
         this.isAddBlockRecord = false;
@@ -119,9 +120,7 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
 
     changeSwap(item) {
         item.checked = !item.checked;
-        if(item.checked){
-            this.checkTitle.push(item.id);
-        }
+        this.checkTitle = item.id;
     }
 
     onAddBlockRecord() {
@@ -228,7 +227,7 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
     searchReference(event: any) {
         if (event.key === "Backspace") {
             this.data = this.datas;
-          }
+        }
         const record = event.currentTarget.value.toLowerCase();
         const filterData = this.data.filter(
             (e) =>
@@ -242,15 +241,21 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
     }
 
     searchRecords(event: any) {
-//         const record = event.currentTarget.value.toLowerCase();
-//         const findData = this.dataTable.data.find(
-//             (el) => el.columnData.find((e) => this.checkTitle.find(e.referenceColumnId))
-//         );
-//  // e.name.toLowerCase().indexOf(record.toLowerCase()) > -1
-//         this.data[this.indexColumn].columns = findData;
-//         if (!event.currentTarget.value) {
-//             this.data[this.indexColumn].columns = this.saveTable;
-//         }
+        const record = event.currentTarget.value.toLowerCase();
+
+        const filterDataColumn = this.dataTable.data.filter(e => {
+            return e.columnsData = e.columnsData.filter(el => {
+                if (el.referenceColumnId === this.checkTitle) {
+                    if (el.valueString !== null) {
+                        return el.valueString.toLowerCase().indexOf(record.toLowerCase()) > -1;
+                    }
+                }
+            });
+        });
+        this.dataTable.data = filterDataColumn;
+        if (!event.currentTarget.value) {
+            this.dataTable.data = this.saveTable.data;
+        }
     }
 
     onBlockEditRecordName(item) {
@@ -287,7 +292,8 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
         });
 
         this.referencesService.putEditData(item).subscribe(ans => {
-            this.getTable(item.referenceTypeId);
+            // this.isLongBlock = true;
+            // this.getTable(item.referenceTypeId);
         });
     }
 
