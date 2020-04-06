@@ -9,74 +9,81 @@
     {{ nameScreen }}
   </span>
 
-  <div class="dropdown-content" [class.dropdown-content_active]="isShowScreens">
-    <ng-container *ngFor="let screen of dataScreen">
-      <div
-        (click)="this.setActiveScreen(screen)"
-        (click)="LoadScreen(idScreen)"
-        class="dropdown-component"
-        (mouseover)="isOverScreen($event)"
-        (mouseleave)="isLeaveScreen($event)"
-      >
-        <div class="screen_block">
-          <div class="screen_blocks">
-            <div *ngIf="screen.updateScreen === false">
-              <div class="screen_name">
-                {{ screen.screenName }}
-              </div>
-            </div>
-            <div *ngIf="screen.updateScreen === true">
-              <input class="update_input" [(ngModel)]="newNameScreen" />
-            </div>
-            <div class="hover-button" *ngIf="screen.updateScreen === false">
-              <div
-                *ngIf="claimScreens.includes(EnumClaimScreens.edit)"
-                class="update_screen"
-                (click)="onUpdateForm(screen.id)"
-              >
-                <svg-icon
-                  class="indicator-selector__collapse"
-                  src="./assets/icons/edit.svg"
-                ></svg-icon>
-              </div>
-              <div
-                *ngIf="claimScreens.includes(EnumClaimScreens.delete)"
-                class="delete_screen"
-                (click)="deleteScreen(screen.id)"
-              >
-                <svg-icon
-                  class="indicator-selector__collapse"
-                  src="./assets/icons/garbage_bad_pic.svg"
-                ></svg-icon>
-              </div>
-            </div>
-            <div class="hover-button" *ngIf="screen.updateScreen === true">
-              <div
-                *ngIf="claimScreens.includes(EnumClaimScreens.edit)"
-                class="update_screen2"
-                (click)="updateScreen(screen.id, this.newNameScreen)"
-              >
-                <svg-icon
-                  class="indicator-selector__collapse"
-                  src="./assets/icons/checkmark.svg"
-                ></svg-icon>
-              </div>
-              <div
-                *ngIf="claimScreens.includes(EnumClaimScreens.delete)"
-                class="delete_screen2"
-                (click)="deleteScreen(screen.id)"
-              >
-                <svg-icon
-                  class="indicator-selector__collapse"
-                  src="./assets/icons/garbage_bad_pic.svg"
-                ></svg-icon>
+  <div class="dropdown-container" [class.dropdown-container_active]="isShowScreens">
+    <div class="dropdown-content scroll scroll-bar">
+      <div class="dropdown-content__list">
+        <ng-container *ngFor="let screen of dataScreen">
+          <div
+            (click)="this.setActiveScreen(screen)"
+            (click)="LoadScreen(idScreen)"
+            class="dropdown-component"
+            (mouseover)="isOverScreen($event)"
+            (mouseleave)="isLeaveScreen($event)"
+          >
+            <div class="screen_block">
+              <div class="screen_blocks">
+                <div class="screen-card" *ngIf="!screen.updateScreen">
+                  <div class="screen_name">
+                    {{ screen.screenName }}
+                  </div>
+                </div>
+                <div class="screen-card" *ngIf="!!screen.updateScreen">
+                  <input class="update_input" [(ngModel)]="newNameScreen" />
+                </div>
+                <div class="hover-button" *ngIf="!screen.updateScreen">
+                  <div
+                    *ngIf="isScreenEdit(screen)"
+                    class="update_screen"
+                    (click)="onUpdateForm(screen.id)"
+                  >
+                    <svg-icon
+                      class="indicator-selector__collapse"
+                      src="assets/icons/edit.svg"
+                    ></svg-icon>
+                  </div>
+                  <div
+                    *ngIf="isScreenDelete(screen)"
+                    class="delete_screen"
+                    (click)="deleteScreen(screen.id)"
+                  >
+                    <svg-icon
+                      class="indicator-selector__collapse"
+                      src="assets/icons/garbage_bad_pic.svg"
+                    ></svg-icon>
+                  </div>
+                </div>
+                <div class="hover-button" *ngIf="!!screen.updateScreen">
+                  <div
+                    *ngIf="isScreenEdit(screen)"
+                    class="update_screen2"
+                    (click)="updateScreen(screen.id, this.newNameScreen)"
+                  >
+                    <svg-icon
+                      class="indicator-selector__collapse"
+                      src="assets/icons/checkmark.svg"
+                    ></svg-icon>
+                  </div>
+                  <div
+                    *ngIf="isScreenDelete(screen)"
+                    class="delete_screen2"
+                    (click)="deleteScreen(screen.id)"
+                  >
+                    <svg-icon
+                      class="indicator-selector__collapse"
+                      src="assets/icons/garbage_bad_pic.svg"
+                    ></svg-icon>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </ng-container>
       </div>
-    </ng-container>
-    <div class="dropdown-component" *ngIf="claimScreens.includes(EnumClaimScreens.add)">
+    </div>
+    <div
+      class="dropdown-component create-screen"
+      *ngIf="claimScreens.includes(EnumClaimScreens.add)"
+    >
       <input
         class="dropdown-component_input"
         [(ngModel)]="tempScreen"

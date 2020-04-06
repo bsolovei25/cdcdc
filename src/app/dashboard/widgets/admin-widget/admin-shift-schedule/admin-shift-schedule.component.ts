@@ -145,7 +145,7 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         const dataLoadQueue: Promise<void>[] = [];
         dataLoadQueue.push(this.reLoadDataMonth());
         dataLoadQueue.push(
-            this.adminShiftScheduleService.getBrigades(this.allUnits[0].id).then((data) => {
+            this.adminShiftScheduleService.getBrigades(this.selectedUnit.id).then((data) => {
                 this.allBrigade = data;
             })
         );
@@ -392,14 +392,14 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
 
     public filterShiftMembers(shiftMembers: IShiftMember[]): IShiftMember[] {
         this.brigadesSubstitution.users.forEach((user) => {
-            shiftMembers = shiftMembers.filter((member) => member.employee.id !== user.id);
+            shiftMembers = shiftMembers.filter((member) => member?.employee?.id !== user?.id);
         });
         return shiftMembers;
     }
 
     public filterBrigade(brigadeUsers: IBrigadeWithUsersDto[]): IBrigadeWithUsersDto[] {
         this.selectedDay.items.forEach((shift) => {
-            brigadeUsers = brigadeUsers.filter((val) => val.brigadeId !== shift.brigadeId);
+            brigadeUsers = brigadeUsers.filter((val) => val?.brigadeId !== shift?.brigadeId);
         });
         return brigadeUsers;
     }

@@ -91,12 +91,12 @@
           color: var(--color-text-main);
         }
 
-        border-color: var(--color-bg-active-bright);
+        border-color: var(--color-warning);
         * {
-          border-color: var(--color-bg-active-bright);
+          border-color: var(--color-warning);
           &::after,
           &::before {
-            border-color: var(--color-bg-active-bright);
+            border-color: var(--color-warning);
           }
         }
       }
@@ -123,7 +123,7 @@
             z-index: 2;
             content: "";
             position: absolute;
-            top: -5px;
+            top: -4px;
             left: -9px;
 
             height: 10px;
@@ -141,7 +141,7 @@
             z-index: 2;
             content: "";
             position: absolute;
-            bottom: -7px;
+            bottom: -8px;
             left: -9px;
 
             height: 8px;
@@ -164,7 +164,7 @@
             z-index: 2;
             content: "";
             position: absolute;
-            top: -6px;
+            top: -5px;
             right: -9px;
 
             height: 10px;
@@ -182,7 +182,7 @@
             z-index: 2;
             content: "";
             position: absolute;
-            bottom: -6px;
+            bottom: -7px;
             right: -9px;
 
             height: 8px;

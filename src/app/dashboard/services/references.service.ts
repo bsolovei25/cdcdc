@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from 'src/app/services/appConfigService';
-import { IReferenceTypes, IReferenceColumnsType, IReferenceColumns } from '../models/references';
+import { IReferenceTypes, IReferenceColumnsType, IReferenceColumns, IReferenceData } from '../models/references';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
@@ -13,6 +13,7 @@ export class ReferencesService {
 
     private _reference$: BehaviorSubject<IReferenceTypes[]> = new BehaviorSubject(null);
 
+
     public reference$: Observable<IReferenceTypes[]> = this._reference$.asObservable().pipe(filter(i => i !== null));
 
     constructor(private http: HttpClient, configService: AppConfigService) {
@@ -20,7 +21,7 @@ export class ReferencesService {
         this.getRestReference();
     }
 
-    private getRestReference(): void {
+    public getRestReference(): void {
         this.getReference().subscribe(
             (data) => {
                 this._reference$.next(data);
@@ -39,8 +40,8 @@ export class ReferencesService {
         return this.http.get<IReferenceColumns[]>(this.restUrl + `/api/ref-book/ReferenceColumn/` + id + '/all');
     }
 
-    public getTableReference(id: number): Observable<any[]> {
-        return this.http.get<any[]>(this.restUrl + `/api/ref-book/ReferenceData/` + id + '/tree');
+    public getTableReference(id: number): Observable<IReferenceData> {
+        return this.http.get<IReferenceData>(this.restUrl + `/api/ref-book/ReferenceData/` + id + '/tree');
     }
 
     public removeReference(id: number): Observable<IReferenceTypes> {

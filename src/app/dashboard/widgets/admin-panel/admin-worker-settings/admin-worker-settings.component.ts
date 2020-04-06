@@ -327,7 +327,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                     );
                 }
 
-                if (this.isImportNewWorker) {
+                if (this.isImportNewWorker && !this.worker.id) {
                     await this.onImportWorker();
                 } else if (this.isCreateNewUser) {
                     await this.onCreateNewWorker();
@@ -358,13 +358,13 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                 this.adminService.activeWorker$.next(this.worker);
                 this.adminService.activeWorkerUnit$.next(this.workerUnit);
 
-                this.isDataLoading = false;
-
                 this.materialController.openSnackBar('Данные сохранены');
-                this.closeWorkerSettings.emit(this.worker);
             } catch (error) {
                 console.log(error.error);
+            } finally {
                 this.isDataLoading = false;
+                this.isAlertShowing = false;
+                this.isCheckBoxClicked = false;
             }
         }
     }
