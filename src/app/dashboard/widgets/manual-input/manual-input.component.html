@@ -53,10 +53,9 @@
           </div>
         </div> -->
         <div
-          *ngIf="isSaveButton()"
           class="save-button"
           (click)="onButtonSave()"
-          [style.opacity]="!disabledMachine.isSelected(chooseSetting?.name) ? '1' : '0.1'"
+          [style.opacity]="isSaveButton() ? '1' : '0.2'"
         >
           Сохранить
           <div class="b-a"></div>
@@ -168,9 +167,10 @@
                                 class="data"
                                 type="text"
                                 placeholder="--------"
+                                [readOnly]="!isSaveButton()"
                                 [(ngModel)]="i.curValue"
+                                [class.data_notActive]="!i.isActive || !isSaveButton()"
                                 [class.data_active]="i.isActive"
-                                [class.data_notActive]="!i.isActive"
                                 [class.data_active__saving]="i.isActive && i.isSave"
                                 [class.data_active__warning]="i.isWarning && !i.isSave && i.isActive && !i.isError"
                                 [class.data_active__error]="i.isError && !i.isSave"
@@ -204,8 +204,9 @@
                               (focusout)="onUnfocusValue(i.id)"
                               [(ngModel)]="i.comment"
                               placeholder="Напишите свой комментарий..."
+                              [readOnly]="!isSaveButton()"
+                              [class.data_notActive]="!i.isActive || !isSaveButton()"
                               [class.data_active__saving]="i.isActive"
-                              [class.data_notActive]="!i.isActive"
                             />
                           </div>
                         </div>
@@ -250,9 +251,10 @@
                               class="data"
                               type="text"
                               placeholder="--------"
+                              [readOnly]="!isSaveButton()"
                               [(ngModel)]="i.curValue"
+                              [class.data_notActive]="!i.isActive || !isSaveButton()"
                               [class.data_active]="i.isActive"
-                              [class.data_notActive]="!i.isActive"
                               [class.data_active__saving]="i.isActive && i.isSave"
                               [class.data_active__warning]="i.isWarning && !i.isSave && i.isActive && !i.isError"
                               [class.data_active__error]="i.isError && !i.isSave"
@@ -285,9 +287,10 @@
                             (change)="onChangeValue(i.id)"
                             (focusout)="onUnfocusValue(i.id)"
                             placeholder="Напишите свой комментарий..."
+                            [readOnly]="!isSaveButton()"
                             [(ngModel)]="i.comment"
+                            [class.data_notActive]="!i.isActive || !isSaveButton()"
                             [class.data_active__saving]="i.isActive"
-                            [class.data_notActive]="!i.isActive"
                           />
                         </div>
                       </div>
