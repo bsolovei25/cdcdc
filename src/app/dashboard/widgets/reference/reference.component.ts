@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
-import { IReferenceTypes} from '../../models/references';
+import { IReferenceTypes } from '../../models/references';
 import { ReferencesService } from '../../services/references.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 
@@ -40,6 +40,7 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
     public datas: IReferenceTypes[] = [];
 
     public dataTable: any = []; //// НАПИСАТЬ МОДЕЛЬКУ
+    public saveTable: any = [];
 
     public idReferenceClick: number;
 
@@ -50,6 +51,8 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
     public editRecordIndex: number;
 
     public newValue: number;
+
+    public checkTitle = [];
 
     constructor(
         public widgetService: WidgetService,
@@ -85,8 +88,9 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
     }
 
     getTable(id: number) {
-        this.referencesService.getTableReference(id).subscribe((data) => {
+        return this.referencesService.getTableReference(id).subscribe((data) => {
             this.dataTable = data;
+            this.saveTable = data;
         });
     }
 
@@ -115,6 +119,9 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
 
     changeSwap(item) {
         item.checked = !item.checked;
+        if(item.checked){
+            this.checkTitle.push(item.id);
+        }
     }
 
     onAddBlockRecord() {
@@ -232,15 +239,15 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
     }
 
     searchRecords(event: any) {
-        // const record = event.currentTarget.value.toLowerCase();
-        // const filterData = this.data[this.indexColumn].columns.filter(
-        //     (e) => e.name.toLowerCase().indexOf(record.toLowerCase()) > -1
-        // );
-
-        // this.data[this.indexColumn].columns = filterData;
-        // if (!event.currentTarget.value) {
-        //     this.data[this.indexColumn].columns = this.saveColumns;
-        // }
+//         const record = event.currentTarget.value.toLowerCase();
+//         const findData = this.dataTable.data.find(
+//             (el) => el.columnData.find((e) => this.checkTitle.find(e.referenceColumnId))
+//         );
+//  // e.name.toLowerCase().indexOf(record.toLowerCase()) > -1
+//         this.data[this.indexColumn].columns = findData;
+//         if (!event.currentTarget.value) {
+//             this.data[this.indexColumn].columns = this.saveTable;
+//         }
     }
 
     onBlockEditRecordName(item) {
@@ -269,14 +276,16 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
 
     }
 
-    onEditRecord(i,item) {
+    onEditRecord(i, item) {
         item.columnsData.find((el) => {
             if (i.id === el.id) {
                 el.edit = false;
             }
         });
 
-        this.referencesService.putEditData(item).subscribe();
+        this.referencesService.putEditData(item).subscribe(ans => {
+            this.getTable(item.referenceTypeId);
+        });
     }
 
     dateTimePickerNew(event) {
@@ -284,7 +293,9 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
     }
 
     dateTimePickerEdit(event, item) {
-        item.valueDateTime = event.date._d;
+        if (event.date) {
+            item.valueDateTime = event.date._d;
+        }
     }
 
 

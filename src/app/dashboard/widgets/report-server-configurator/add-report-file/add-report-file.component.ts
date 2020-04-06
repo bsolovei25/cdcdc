@@ -115,6 +115,9 @@ export class AddReportFileComponent implements OnInit {
 
   searchReport(event) {
     const record = event.currentTarget.value.toLowerCase();
+    if (event.key === "Backspace") {
+      this.data = this.saveData;
+    }
     const filterData = this.data.filter(
       (e) => e.name.toLowerCase().indexOf(record.toLowerCase()) > -1
     );
