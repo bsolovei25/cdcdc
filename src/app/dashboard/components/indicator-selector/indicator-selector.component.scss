@@ -48,19 +48,33 @@
 
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  &_active {
+    display: flex;
+  }
+}
+
+.dropdown-content {
+  flex: 1;
+  width: 100%;
+
   overflow-x: hidden;
   overflow-y: scroll;
 
   direction: rtl;
 
-  &_active {
+  &__list {
     display: block;
+    direction: ltr;
   }
 }
 
-.dropdown-content {
-  display: block;
-  direction: ltr;
+.create-screen {
+  height: 40px;
+  width: 100%;
 }
 
 .dropdown-component {
@@ -72,6 +86,10 @@
   background-color: var(--color-bg-main);
   cursor: pointer;
   font-size: 13px;
+
+  box-sizing: border-box;
+  margin-left: -5px;
+
   &:hover {
     transition: all 0.3s ease;
     background-color: var(--color-bg-sub);
