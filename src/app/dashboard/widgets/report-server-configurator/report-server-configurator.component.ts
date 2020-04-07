@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, ViewChild, ElementRef } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { moveItemInArray, transferArrayItem, CdkDragDrop } from '@angular/cdk/drag-drop';
 import { trigger, state, style, animate, transition } from '@angular/animations';
@@ -33,6 +33,7 @@ import { WidgetPlatform } from '../../models/widget-platform';
     ],
 })
 export class ReportServerConfiguratorComponent extends WidgetPlatform implements OnInit, OnDestroy {
+
     static itemCols = 18;
     static itemRows = 14;
 
@@ -99,6 +100,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         super.ngOnDestroy();
     }
 
+
     protected dataHandler(ref: any): void {
         //this.data = ref;
     }
@@ -132,18 +134,18 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     getRecordFile() {
         return this.reportService.getReportFileTemplate().subscribe(ans => {
             this.dataFile = ans;
-        })
+        });
     }
 
-
-
     onClickReference(data, index) {
+        this.selectFile = null;
         this.folderActive = data.id;
         data.open = !data.open;
         this.indexColumn = index;
     }
 
     onClickItemReference(data) {
+        this.selectFile = null;
         this.optionsActive = [];
         this.isAddOptionsButton = true;
         //data.open = !data.open;
@@ -225,6 +227,9 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     }
 
     searchReportFolder(event) {
+        if (event.key === "Backspace") {
+            this.data = this.saveData;
+        }
         const folder = event.currentTarget.value.toLowerCase();
         const filterData = this.data.filter(
             (e) => e.name.toLowerCase().indexOf(folder.toLowerCase()) > -1
@@ -240,9 +245,9 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         let file;
         let objectRepot;
         this.data.find(e => {
-            if(e.id === this.folderActive){
+            if (e.id === this.folderActive) {
                 e.templates.find(el => {
-                    if(el.id === item){
+                    if (el.id === item) {
                         objectRepot = el;
                     }
                 })
@@ -257,10 +262,8 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
         this.reportService.putTemplate(obj).subscribe(ans => {
             console.log(ans);
-        })
+        });
     }
-
-
 
 
 }
