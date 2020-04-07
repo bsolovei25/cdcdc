@@ -1,10 +1,8 @@
-<evj-widget-preview [title]="widgetTitle"
-[previewTitle]="widgetType"
-*ngIf="isMock"></evj-widget-preview>
+<evj-widget-preview [title]="widgetTitle" [previewTitle]="widgetType" *ngIf="isMock"></evj-widget-preview>
 
 <div class="container" *ngIf="!isMock">
   <evj-widget-header [title]="widgetTitle" [units]="widgetUnits" [code]="widgetCode" [id]="id" [uniqId]="uniqId"
-  [icon]="widgetIcon"></evj-widget-header>
+    [icon]="widgetIcon"></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
 
@@ -13,38 +11,37 @@
       <div class="reference-left">
         <div class="title-reference">Наименование справочника</div>
         <div class="reference-container">
-          <ng-container *ngFor="let item of data; let i= index">
-            <div class="reference-container__block">
-              <div *ngIf="!item.openEdit" class="reference-container__block-info"
-                [class.block-active]="item.id === idReferenceClick" (click)="onClickReference(item, i)">
-                <div class="reference-container__name">{{item.name}}</div>
-                <div class="reference-container__button-edit" (click)="onEdit(item)">
-                  <svg-icon *ngIf="item.id === idReferenceClick" class="indicator-selector__collapse"
-                    src="./assets/icons/widgets/references/edit_white.svg"></svg-icon>
+          <div class="scroll-block">
+            <ng-container *ngFor="let item of data; let i= index">
+              <div class="reference-container__block">
+                <div *ngIf="!item.openEdit" class="reference-container__block-info"
+                  [class.block-active]="item.id === idReferenceClick" (click)="onClickReference(item, i)">
+                  <div class="reference-container__name">{{item.name}}</div>
+                  <div class="reference-container__button-edit" (click)="onEdit(item)">
+                    <svg-icon *ngIf="item.id === idReferenceClick" class="indicator-selector__collapse"
+                      src="./assets/icons/widgets/references/edit_white.svg"></svg-icon>
+                  </div>
                 </div>
-              </div>
-              <div *ngIf="item.openEdit" class="reference-container__block-info"
-                [class.block-active]="item.open">
-                <div class="reference-container__add-block-input">
-                  <input type="text" [(ngModel)]="item.name" placeholder="Новое наименование..." />
+                <div *ngIf="item.openEdit" class="reference-container__block-info" [class.block-active]="item.open">
+                  <div class="reference-container__add-block-input">
+                    <input type="text" [(ngModel)]="item.name" placeholder="Новое наименование..." />
+                  </div>
+                  <div class="reference-container__add-block-icon" (click)="editReference(item)">
+                    <svg-icon src="./assets/icons/widgets/references/accept.svg" class="add_button_icon"></svg-icon>
+                  </div>
                 </div>
-                <div class="reference-container__add-block-icon" (click)="editReference(item)">
-                  <svg-icon src="./assets/icons/widgets/references/accept.svg" class="add_button_icon"></svg-icon>
-                </div>
-              </div>
-              <div class="reference-container__button-remove" (click)="deleteReference(item)">
-                <svg-icon class="indicator-selector__collapse" src="./assets/icons/widgets/references/delete_red.svg"
+                <div class="reference-container__button-remove" (click)="deleteReference(item)"
                   *ngIf="item.id === idReferenceClick">
-                </svg-icon>
+                </div>
               </div>
-            </div>
-          </ng-container>
-          <div *ngIf="isClickPushReference" class="reference-container__add-block">
-            <div class="reference-container__add-block-input">
-              <input type="text" [(ngModel)]="newRecordInReference" placeholder="Введите имя справочника..." />
-            </div>
-            <div class="reference-container__add-block-icon" (click)="onPushReference()">
-              <svg-icon src="./assets/icons/widgets/references/accept.svg" class="add_button_icon"></svg-icon>
+            </ng-container>
+            <div *ngIf="isClickPushReference" class="reference-container__add-block">
+              <div class="reference-container__add-block-input">
+                <input type="text" [(ngModel)]="newRecordInReference" placeholder="Введите имя справочника..." />
+              </div>
+              <div class="reference-container__add-block-icon" (click)="onPushReference()">
+                <svg-icon src="./assets/icons/widgets/references/accept.svg" class="add_button_icon"></svg-icon>
+              </div>
             </div>
           </div>
         </div>
@@ -77,12 +74,16 @@
         <div class="title-reference" [class.isLongBlock]="isLongBlock">
           <div class="title-reference__title-name">Наименование колонны</div>
           <div class="title-reference__title-type">Тип</div>
-          <div class="title-reference__title-value"><div class="line-value">Обязательное значение</div></div>
-          <div class="title-reference__title-uniqValue"><div class="line-uniqValue">Уникальное значение</div></div>
+          <div class="title-reference__title-value">
+            <div class="line-value">Обязательное значение</div>
+          </div>
+          <div class="title-reference__title-uniqValue">
+            <div class="line-uniqValue">Уникальное значение</div>
+          </div>
         </div>
         <div class="references-container-scroll-block">
           <div class="reference-container-value" cdkDropList (cdkDropListDropped)="drop($event)"
-            [class.isLongBlock]="isLongBlock">
+            [class.isLongBlock]="isLongBlock" #adminRefereneTable>
             <ng-container *ngIf="data[this.indexColumn] !== undefined">
               <div *ngFor="let item of data[this.indexColumn].columns" cdkDrag class="example-box">
                 <div class="reference-container-value__block">
@@ -90,8 +91,7 @@
                     [class.block-active-name]="item.open" (click)="onClickItemReference(item)">
                     <div class="reference-container-value__fio">{{item.name}}</div>
                   </div>
-                  <div *ngIf="item.openEdit" class="reference-container__block-info"
-                    [class.block-active]="item.open">
+                  <div *ngIf="item.openEdit" class="reference-container__block-info" [class.block-active]="item.open">
                     <div class="reference-container__add-block-input">
                       <input type="text" [(ngModel)]="item.name" placeholder="Новое наименование." />
                     </div>
@@ -101,7 +101,8 @@
                   </div>
                   <div class="reference-container-value__type" [class.block-active]="item.open">
                     <mat-form-field class="categories_selectbox">
-                      <mat-select panelClass="mat-select-custom"  [(ngModel)]="item.columnTypeId" (selectionChange)="editRecord(item)">
+                      <mat-select panelClass="mat-select-custom" [(ngModel)]="item.columnTypeId"
+                        (selectionChange)="editRecord(item)">
                         <mat-option *ngFor="let p of dataType" [value]="p.id">{{ types[p.id] }}
                         </mat-option>
                       </mat-select>
@@ -123,47 +124,63 @@
                     </label>
                   </div>
                   <div class="reference-container-value__delete-button-none" [class.block-active]="item.open"
-                    [class.reference-container-value__delete-button]="item.open" [class.isNotButton]="isLongBlock" (click)="deleteRecord(item)">
-                    <svg-icon class="indicator-selector__collapse"
-                      style="height: 100%; width: 100%;" 
-                      src="./assets/icons/widgets/references/delete_blue.svg"></svg-icon>
+                    [class.reference-container-value__delete-button]="item.open" [class.isNotButton]="isLongBlock"
+                    (click)="deleteRecord(item)">
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="isClickPushRecord" class="reference-container-value__add-block">
+                <div class="reference-container-value__fio-block">
+                  <div class="reference-container-value__fio">
+                    <input type="text" [(ngModel)]="newFioRecord" placeholder="Введите имя колоннки..." />
+                  </div>
+                </div>
+                <div class="reference-container-value__type">
+                  <mat-form-field class="categories_selectbox">
+                    <mat-select panelClass="mat-select-custom" (selectionChange)="onChangeType($event)">
+                      <mat-option *ngFor="let p of dataType" [value]="p">{{ p.name }} </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="reference-container-value__value">
+                  <label class="mycheckbox">
+                    <input type="checkbox" id="checkBoxValue" class="mycheckbox__default" (click)="changeNewSwap()"
+                      [checked]="valueNewCheck === true" />
+                    <div class="mycheckbox__new" [class.mycheckbox__checked]="valueNewCheck === true"></div>
+                  </label>
+                </div>
+                <div class="reference-container-value__uniqValue">
+                  <label class="mycheckbox">
+                    <input type="checkbox" id="checkBoxUniqValue" class="mycheckbox__default"
+                      (click)="changeNewUniqSwap()" [checked]="valueUniqNewCheck === true" />
+                    <div class="mycheckbox__new" [class.mycheckbox__checked]="valueUniqNewCheck === true"></div>
+                  </label>
+                </div>
+                <div class="reference-container-value__add-button" (click)="onPushRecord()">
+                  <svg-icon class="indicator-selector__collapse" src="./assets/icons/widgets/references/accept.svg">
+                  </svg-icon>
+                </div>
+              </div>
+              <div *ngFor="let item of blockOut" cdkDrag class="example-box">
+                <div class="reference-container-value__block">
+                  <div class="reference-container-value__fio-block">
+                    <div class="reference-container-value__fio"></div>
+                  </div>
+                  <div class="reference-container__block-info">
+
+                  </div>
+                  <div class="reference-container-value__type">
+
+                  </div>
+                  <div class="reference-container-value__value">
+
+                  </div>
+                  <div class="reference-container-value__uniqValue">
+
                   </div>
                 </div>
               </div>
             </ng-container>
-
-            <div *ngIf="isClickPushRecord" class="reference-container-value__add-block">
-              <div class="reference-container-value__fio-block">
-                <div class="reference-container-value__fio">
-                  <input type="text" [(ngModel)]="newFioRecord" placeholder="Введите имя колоннки..." />
-                </div>
-              </div>
-              <div class="reference-container-value__type">
-                <mat-form-field class="categories_selectbox">
-                  <mat-select panelClass="mat-select-custom" (selectionChange)="onChangeType($event)">
-                    <mat-option *ngFor="let p of dataType" [value]="p" >{{ p.name }} </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-              <div class="reference-container-value__value">
-                <label class="mycheckbox">
-                  <input type="checkbox" id="checkBoxValue" class="mycheckbox__default" (click)="changeNewSwap()"
-                    [checked]="valueNewCheck === true" />
-                  <div class="mycheckbox__new" [class.mycheckbox__checked]="valueNewCheck === true"></div>
-                </label>
-              </div>
-              <div class="reference-container-value__uniqValue">
-                <label class="mycheckbox">
-                  <input type="checkbox" id="checkBoxUniqValue" class="mycheckbox__default"
-                    (click)="changeNewUniqSwap()" [checked]="valueUniqNewCheck === true" />
-                  <div class="mycheckbox__new" [class.mycheckbox__checked]="valueUniqNewCheck === true"></div>
-                </label>
-              </div>
-              <div class="reference-container-value__add-button" (click)="onPushRecord()">
-                <svg-icon class="indicator-selector__collapse" src="./assets/icons/widgets/references/accept.svg">
-                </svg-icon>
-              </div>
-            </div>
           </div>
         </div>
         <div class="bottom-reference-right" [class.isLongBlock]="isLongBlock">
@@ -183,7 +200,8 @@
                   src="./assets/icons/widgets/references/search_blue.svg"></svg-icon>
               </div>
               <div class="bottom-reference-right__input" [class.bottom-reference-right__input-active]="isRecInput">
-                <input type="text" (focus)="isRecInput = true" (blur)="isRecInput = false" (keyup)="searchRecords($event)" />
+                <input type="text" (focus)="isRecInput = true" (blur)="isRecInput = false"
+                  (keyup)="searchRecords($event)" />
               </div>
             </div>
           </div>

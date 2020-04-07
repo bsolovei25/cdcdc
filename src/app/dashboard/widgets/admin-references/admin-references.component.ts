@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, ElementRef, ViewChild, HostListener } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ReferencesService } from '../../services/references.service';
@@ -11,6 +11,8 @@ import { WidgetPlatform } from '../../models/widget-platform';
     styleUrls: ['./admin-references.component.scss'],
 })
 export class AdminReferencesComponent extends WidgetPlatform implements OnInit, OnDestroy {
+    @ViewChild('adminRefereneTable') public testBlock: ElementRef;
+
     static itemCols = 18;
     static itemRows = 14;
 
@@ -50,13 +52,15 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
 
     saveColumns: any = [];
 
+    public blockOut = [];
+
     public isType: number;
 
     types = {
         1: 'Текст',
-        2: 'Число',
+        2: 'Целое число',
         3: 'Дата',
-        4: 'Целое число'
+        4: 'Число'
     };
 
     public datas: IReferenceTypes[] = [
@@ -95,6 +99,13 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
         this.widgetIcon = 'reference';
     }
 
+    @HostListener('document:resize', ['$event'])
+    OnResize(event) {
+        if (this.data !== undefined && this.data.length > 0) {
+            this.blockNeed();
+        }
+    }
+
     ngOnInit(): void {
         super.widgetInit();
         this.subscriptions.push(
@@ -119,14 +130,13 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
 
 
     onClickReference(data, index) {
-
         this.idReferenceClick = data.id;
-
         this.saveColumns = data.columns;
-
+        this.indexColumn = index;
 
         if (data.columns !== null && data.columns !== undefined) {
-            this.sortByOrder(data.columns)
+            this.sortByOrder(data.columns);
+            this.blockNeed();
 
             for (let item of data.columns) {
                 if (item.isRequred) {
@@ -141,10 +151,9 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
         } else {
             this.referencesService.getColumns(this.idReferenceClick).subscribe((datas) => {
                 data.columns = datas;
+                this.blockNeed();
             });
         }
-
-        this.indexColumn = index;
     }
 
     onClickItemReference(data) {
@@ -225,13 +234,13 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
     }
 
     onPushBlockInRecord(): void {
-        if(this.idReferenceClick !== null && this.idReferenceClick !== undefined){
+        if (this.idReferenceClick !== null && this.idReferenceClick !== undefined) {
             this.isClickPushRecord = true;
             this.isLongBlock = false;
-        }   
+        }
     }
 
-    onPushReference(): void { 
+    onPushReference(): void {
         this.isClickPushReference = false;
         let object: IReferenceTypes = {
             name: this.newRecordInReference,
@@ -251,20 +260,23 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
 
     onPushRecord(): void {
         this.isClickPushRecord = false;
-        let object = {
-            name: this.newFioRecord,
-            referenceTypeId: this.idReferenceClick,
-            isRequred: this.valueNewCheck,
-            isUnique: this.valueUniqNewCheck,
-            columnTypeId: this.isType,
-        };
-        if (this.newFioRecord.trim().length > 0 && this.newFioRecord !== undefined) {
-            this.referencesService.pushColumnReference(object).subscribe(ans => {
-                this.referencesService.getRestReference();
-                this.data[this.indexColumn].columns.push(ans);
-            });
-            this.newFioRecord = null;
-            this.isType = null;
+        if (this.newFioRecord !== undefined) {
+            let object = {
+                name: this.newFioRecord,
+                referenceTypeId: this.idReferenceClick,
+                isRequred: this.valueNewCheck,
+                isUnique: this.valueUniqNewCheck,
+                columnTypeId: this.isType,
+            };
+            if (this.newFioRecord.trim().length > 0) {
+                this.referencesService.pushColumnReference(object).subscribe(ans => {
+                    this.referencesService.getRestReference();
+                    this.data[this.indexColumn].columns.push(ans);
+                    this.blockNeed();
+                });
+                this.newFioRecord = null;
+                this.isType = null;
+            }
         }
         this.isLongBlock = true;
     }
@@ -276,7 +288,7 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
     searchReference(event: any) {
         if (event.key === "Backspace") {
             this.data = this.datas;
-          }
+        }
         const record = event.currentTarget.value.toLowerCase();
         const filterData = this.data.filter(
             (e) => e.name.toLowerCase().indexOf(record.toLowerCase()) > -1
@@ -291,7 +303,7 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
     searchRecords(event: any) {
         if (event.key === "Backspace") {
             this.data[this.indexColumn].columns = this.saveColumns;
-          }
+        }
         const record = event.currentTarget.value.toLowerCase();
         const filterData = this.data[this.indexColumn].columns.filter(
             (e) => e.name.toLowerCase().indexOf(record.toLowerCase()) > -1
@@ -334,5 +346,16 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
 
     editRecord(item): void {
         this.referencesService.putEditColumn(item).subscribe();
+    }
+
+    blockNeed(): void {
+        this.blockOut = [];
+        if (this.data[this.indexColumn].columns !== undefined) {
+            const heightTemplate = this.data[this.indexColumn].columns?.length * 40;
+            const heihtOut = (this.testBlock.nativeElement.clientHeight - heightTemplate) / 40;
+            for (let i = 0; i < heihtOut - 1; i++) {
+                this.blockOut.push(i);
+            }
+        }
     }
 }

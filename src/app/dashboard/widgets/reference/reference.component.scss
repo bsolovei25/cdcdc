@@ -1,37 +1,47 @@
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 5px;
   height: 5px;
+  border-radius: 25px;
+  margin-top: 90px;
+  margin-bottom: 90px;
+}
+
+::-webkit-scrollbar-track:vertical {
+  width: 5px;
+  height: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
   border-radius: 25px;
 }
 
-::-webkit-scrollbar:hover {
-  width: 10px;
+:hover::-webkit-scrollbar {
+  width: 8px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  width: 10px;
+:hover::-webkit-scrollbar-thumb {
   background-color: var(--color-border-active);
 }
 
+:hover::-webkit-scrollbar-track-piece {
+  border: solid 1px var(--color-border-active);
+}
+
+::-webkit-scrollbar-thumb {
+  width: 10px;
+  border-radius: 25px;
+  background-color: var(--color-border-main);
+}
+
 ::-webkit-scrollbar-track {
-  // background-color:var(--color-border-active);
   border-radius: 25px;
 }
 ::-webkit-scrollbar-track-piece {
   border: solid 1px var(--color-border-main);
   border-radius: 25px;
 }
-::-webkit-scrollbar-thumb {
-  background-color: var(--color-border-main);
-  border-radius: 25px;
-}
-::-webkit-scrollbar-corner {
-  background-color: var(--color-border-main);
-  border-radius: 25px;
-}
+
 ::-webkit-resizer {
   background-color: var(--color-border-active);
-  border-radius: 25px;
 }
 
 .mycheckbox {
@@ -67,8 +77,8 @@
 }
 
 .mycheckbox__new {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   border-radius: 25px;
   border: 1px solid white;
   margin-right: 9px;
@@ -154,11 +164,14 @@ input {
   .title-reference {
     position: relative;
     height: 40px;
-    width: 100%;
+    margin: 0 auto;
+    margin-right: 0;
+    width: calc(100% - 10px);
     background-color: rgba(93, 96, 123, 0.2);
-    color: white;
+    color: var(--color-text-sub);
     text-align: center;
     line-height: 40px;
+    font-size: 11px;
 
     &:before {
       z-index: 1;
@@ -196,16 +209,23 @@ input {
   }
 
   .reference-container {
-    background-color: #1b1f2c;
     height: calc(100% - 80px);
-    margin-top: 2px;
-    margin-bottom: 2px;
-    width: calc(100%);
-    line-height: 40px;
+    width: 100%;
     overflow: auto;
     overflow-x: hidden;
-    min-height: 40px;
     direction: rtl;
+    margin-bottom: 2px;
+    margin-top: 2px;
+
+    .scroll-block {
+      background-color: #1b1f2c;
+      margin: 0 auto;
+      width: calc(100% - 5px);
+      margin-right: 0;
+      height: 100%;
+      line-height: 40px;
+      min-height: 40px;
+    }
 
     &__name {
       height: 40px;
@@ -216,6 +236,7 @@ input {
       cursor: pointer;
       direction: ltr;
       display: flex;
+      background-color: #1b1f2c;
 
       .block-active {
         background: var(--color-bg-active);
@@ -228,14 +249,14 @@ input {
       width: 100%;
       justify-content: space-between;
     }
-
-  
   }
 
   .bottom-reference-left {
     position: relative;
     height: 40px;
-    width: 100%;
+    margin: 0 auto;
+    margin-right: 0;
+    width: calc(100% - 10px);
     background-color: rgba(93, 96, 123, 0.2);
 
     &:before {
@@ -294,15 +315,29 @@ input {
     }
 
     &__input {
-      border: 1px solid white;
+      border: 1px solid;
+      border-image: linear-gradient(90deg, transparent 10%, var(--color-text-main) 100%);
+      border-image-slice: 1;
       border-left: none;
-      border-top-right-radius: 20px;
-      border-bottom-right-radius: 20px;
+      border-right: none;
       left: 25px;
       top: 5px;
       height: 28px;
       position: absolute;
       width: 150px;
+
+      &:after {
+        content: "";
+        position: absolute;
+        height: 28px;
+        width: 14px;
+        top: -1px;
+        right: -15px;
+        border: 1px solid var(--color-text-main);
+        border-left: none;
+        border-top-right-radius: 25px;
+        border-bottom-right-radius: 25px;
+      }
 
       input {
         border-bottom: none !important;
@@ -310,8 +345,34 @@ input {
     }
 
     &__input-active {
-      border: 1px solid var(--color-border-active);
-      border-left: none;
+      border: 1px solid;
+      border-image: linear-gradient(
+        to left,
+        rgba(107, 166, 241, 0.7) 2%,
+        rgba(107, 166, 241, 0.63) 6%,
+        rgba(107, 166, 241, 0.46) 16%,
+        rgba(107, 166, 241, 0.32) 26%,
+        rgba(107, 166, 241, 0.2) 38%,
+        rgba(107, 166, 241, 0.11) 50%,
+        rgba(107, 166, 241, 0.05) 63%,
+        rgba(107, 166, 241, 0.01) 79%,
+        rgba(107, 166, 241, 0) 102%
+      );
+      border-image-slice: 1;
+      border-right: none;
+
+      &:after {
+        content: "";
+        position: absolute;
+        height: 28px;
+        width: 14px;
+        top: -1px;
+        right: -15px;
+        border: 1px solid var(--color-border-active);
+        border-left: none;
+        border-top-right-radius: 25px;
+        border-bottom-right-radius: 25px;
+      }
     }
 
     &__input-block {
@@ -328,6 +389,7 @@ input {
   padding: 10px;
   min-width: 500px;
   padding-bottom: 0;
+  padding-left: 0;
 
   .title-reference {
     color: white;
@@ -403,7 +465,7 @@ input {
 
     .block-active {
       background: var(--color-bg-active);
-      border-left: 2px solid var(--color-border-active);
+      // border-left: 2px solid var(--color-border-active);
     }
   }
 
@@ -414,12 +476,17 @@ input {
     width: 100%;
     margin-bottom: 2px;
     margin-top: 2px;
+    position: relative;
+    direction: rtl;
+
     .reference-container-value {
       height: 100%;
       background-color: #1b1f2c;
       width: 90%;
       min-height: 40px;
-      direction: rtl;
+      direction: initial;
+      margin: 0 auto;
+      margin-left: 0;
       position: relative;
 
       &__block {
@@ -429,6 +496,8 @@ input {
         line-height: 40px;
         text-align: center;
         direction: ltr;
+        position: relative;
+        background-color: #1b1f2c;
       }
 
       &__fio-block {
@@ -438,13 +507,13 @@ input {
         border-bottom: 2px solid var(--color-bg-main);
         width: 100%;
         border-left: 1px solid var(--color-bg-main);
-       /// background-color: #1b1f2c;
+        /// background-color: #1b1f2c;
 
-       ::ng-deep{
-         .mat-form-field-infix{
-           width: 100%;
-         }
-       }
+        ::ng-deep {
+          .mat-form-field-infix {
+            width: 100%;
+          }
+        }
       }
 
       &__fio-block2 {
@@ -454,14 +523,13 @@ input {
         border-bottom: 2px solid var(--color-bg-main);
         width: 100%;
         border-left: 1px solid var(--color-bg-main);
-       // background-color: #1b1f2c;
-       background: none !important;
+        // background-color: #1b1f2c;
+        background: none !important;
       }
-
 
       .block-active {
         background: var(--color-bg-active);
-        border-left: 2px solid var(--color-border-active);
+        border-left: 1px solid var(--color-border-active);
       }
 
       &__fio {
@@ -471,23 +539,31 @@ input {
 
       &__edit-button {
         position: absolute;
-        top: 5px;
-        width: 16px;
+        top: 2px;
+        width: 12px;
         right: 5px;
       }
 
       &__delete-button {
-        cursor: pointer;
         display: block !important;
+        cursor: pointer;
         position: absolute;
-        right: -44px;
-        width: 40px;
-        padding: 2px;
-        height: 34px;
-        //background: var(--color-bg-main);
+        right: -46px;
+        top: 0px;
+        width: 46px;
+        height: 38px;
         background: var(--color-bg-active);
+        background-image: url(../../../../assets/icons/widgets/references/delete_blue.svg) !important;
+        background-repeat: no-repeat !important;
+        background-position: center !important;
+  
+        &:hover{
+          background-image: url(../../../../assets/icons/widgets/references/delete_red.svg) !important;
+        }
+
         border-top-right-radius: 20px;
         border-bottom-right-radius: 20px;
+
         .indicator-selector__collapse {
           ::ng-deep svg {
             height: 100%;
@@ -501,19 +577,19 @@ input {
         display: flex;
         width: 100%;
         margin: 0 auto;
-        margin-left: 20px;
         height: 40px;
         direction: ltr;
+        background-color: #1b1f2c;
       }
-  
+
       &__add-block-input {
         width: 100%;
-  
+
         input {
           padding-left: 0;
         }
       }
-  
+
       &__add-block-icon {
         cursor: pointer;
         width: 20px;
@@ -538,15 +614,14 @@ input {
         width: 20px;
       }
 
-      &__edit-value{
+      &__edit-value {
         display: flex;
         width: 80%;
       }
 
-
-      &__edit-input{
-        input{
-       //   width: 100% !important;
+      &__edit-input {
+        input {
+          //   width: 100% !important;
         }
       }
     }
@@ -614,24 +689,63 @@ input {
     }
 
     &__input {
-      border: 1px solid var(--color-text-main);
+      border: 1px solid;
+      border-image: linear-gradient(90deg, transparent 10%, var(--color-text-main) 100%);
+      border-image-slice: 1;
       border-left: none;
-      border-top-right-radius: 20px;
-      border-bottom-right-radius: 20px;
+      border-right: none;
       left: 25px;
       top: 5px;
       height: 28px;
       position: absolute;
-      width: 200px;
+      width: 150px;
 
+      &:after {
+        content: "";
+        position: absolute;
+        height: 28px;
+        width: 14px;
+        top: -1px;
+        right: -15px;
+        border: 1px solid var(--color-text-main);
+        border-left: none;
+        border-top-right-radius: 25px;
+        border-bottom-right-radius: 25px;
+      }
       input {
         border-bottom: none !important;
       }
     }
 
     &__input-active {
-      border: 1px solid var(--color-border-active);
-      border-left: none;
+      border: 1px solid;
+      border-image: linear-gradient(
+        to left,
+        rgba(107, 166, 241, 0.7) 2%,
+        rgba(107, 166, 241, 0.63) 6%,
+        rgba(107, 166, 241, 0.46) 16%,
+        rgba(107, 166, 241, 0.32) 26%,
+        rgba(107, 166, 241, 0.2) 38%,
+        rgba(107, 166, 241, 0.11) 50%,
+        rgba(107, 166, 241, 0.05) 63%,
+        rgba(107, 166, 241, 0.01) 79%,
+        rgba(107, 166, 241, 0) 102%
+      );
+      border-image-slice: 1;
+      border-right: none;
+
+      &:after {
+        content: "";
+        position: absolute;
+        height: 28px;
+        width: 14px;
+        top: -1px;
+        right: -15px;
+        border: 1px solid var(--color-border-active);
+        border-left: none;
+        border-top-right-radius: 25px;
+        border-bottom-right-radius: 25px;
+      }
     }
 
     &__input-block {
@@ -643,13 +757,15 @@ input {
 }
 
 .isLongBlock {
-  width: 100% !important;
+  width: calc(100% - 10px) !important;
+ margin: 0 auto;
+ margin-right: 0 !important;
 }
 
 .isNotButton {
   display: none;
 }
 
-.disabled{
+.disabled {
   display: none;
 }

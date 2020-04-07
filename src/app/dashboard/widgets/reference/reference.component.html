@@ -11,6 +11,7 @@
       <div class="reference-left">
         <div class="title-reference">Наименование справочника</div>
         <div class="reference-container">
+          <div class="scroll-block">
           <ng-container *ngFor="let item of data; let i = index">
             <div class="reference-container__block" (click)="onClickReference(item, i)">
               <div class="reference-container__block-info" [class.block-active]="item.id === idReferenceClick">
@@ -18,6 +19,7 @@
               </div>
             </div>
           </ng-container>
+          </div>
         </div>
         <div class="bottom-reference-left">
           <div class="bottom-reference-left__block">
@@ -59,7 +61,7 @@
           </ng-container>
         </div>
         <div class="references-container-scroll-block">
-          <div class="reference-container-value" [class.isLongBlock]="isLongBlock">
+          <div class="reference-container-value" [class.isLongBlock]="isLongBlock" #refereneTable>
             <ng-container *ngIf="this.dataTable.data !== undefined">
               <ng-container *ngFor="let item of this.dataTable.data">
                 <div class="reference-container-value__block" [class.block-active]="item.open"
@@ -113,7 +115,7 @@
                                   </evj-time-data-picker>
                                 </div>
                                 <div *ngIf="i.columnTypeId === 2" class="reference-container-value__edit-input"> <input
-                                    type="number" [(ngModel)]="i2.valueInt" placeholder="Введите целое..."
+                                    type="number" [(ngModel)]="i2.valueInt" placeholder="Введите целое число..."
                                     (focus)="item.open = true" /></div>
                                 <div *ngIf="i2.edit" class="reference-container-value__add-button-edit"
                                   (click)="onEditRecord(i2,item)">
@@ -126,7 +128,7 @@
                           </ng-container>
                           <div class="reference-container-value__edit-button"
                           (click)="onBlockEditRecord(i,item)">
-                          <svg-icon *ngIf="item.open" class="indicator-selector__collapse"
+                          <svg-icon *ngIf="item.open && !isEdit" class="indicator-selector__collapse"
                             src="./assets/icons/widgets/references/edit_white.svg"></svg-icon>
                         </div>
                         </div>
@@ -136,45 +138,52 @@
                   <div class="reference-container-value__delete-button-none"
                     [class.reference-container-value__delete-button]="item.open" [class.isNotButton]="isLongBlock"
                     (click)="deleteRecord(item)">
-                    <svg-icon class="indicator-selector__collapse"
-                      src="./assets/icons/widgets/references/delete_blue.svg"></svg-icon>
                   </div>
                 </div>
               </ng-container>
-            </ng-container>
-            <div *ngIf="isAddBlockRecord" class="reference-container-value__add-block">
-              <ng-container *ngFor="let item of this.data[this.indexColumn].columns;">
-                <ng-container *ngIf="item.name !=='Id'">
-                  <ng-container *ngIf="item.name ==='Name'">
-                    <div class="reference-container-value__fio-block">
-                      <div class="reference-container-value__fio">
-                        <input type="text" [(ngModel)]="newName" placeholder="Введите наименование..." />
-                      </div>
-                    </div>
-                  </ng-container>
-                  <ng-container *ngIf="item.name !=='Name'">
-                    <div class="reference-container-value__fio-block">
-                      <div class="reference-container-value__fio">
-                        <div *ngIf="item.columnTypeId === 2"> <input type="text" placeholder="Введите число..."
-                            (change)="onChangeValue($event, item.id)" /></div>
-                        <div *ngIf="item.columnTypeId === 1" (change)="onChangeValue($event, item.id)"> <input
-                            type="text" placeholder="Введите текст..." /></div>
-                        <div *ngIf="item.columnTypeId === 3">
-                          <evj-time-data-picker (dateTimePicker)="dateTimePickerNew($event)">
-                          </evj-time-data-picker>
+              <div *ngIf="isAddBlockRecord" class="reference-container-value__add-block">
+                <ng-container *ngFor="let item of this.data[this.indexColumn].columns;">
+                  <ng-container *ngIf="item.name !=='Id'">
+                    <ng-container *ngIf="item.name ==='Name'">
+                      <div class="reference-container-value__fio-block">
+                        <div class="reference-container-value__fio">
+                          <input type="text" [(ngModel)]="newName" placeholder="Введите наименование..." />
                         </div>
-                        <div *ngIf="item.columnTypeId === 4"> <input type="text" placeholder="Введите целое число..."
-                            (change)="onChangeValue($event, item.id)" /></div>
                       </div>
-                    </div>
+                    </ng-container>
+                    <ng-container *ngIf="item.name !=='Name'">
+                      <div class="reference-container-value__fio-block">
+                        <div class="reference-container-value__fio">
+                          <div *ngIf="item.columnTypeId === 2"> <input type="text" placeholder="Введите целое число..."
+                              (change)="onChangeValue($event, item.id)" /></div>
+                          <div *ngIf="item.columnTypeId === 1" (change)="onChangeValue($event, item.id)"> <input
+                              type="text" placeholder="Введите текст..." /></div>
+                          <div *ngIf="item.columnTypeId === 3" >
+                            <evj-time-data-picker (dateTimePicker)="dateTimePickerNew($event, item.id)" >
+                            </evj-time-data-picker>
+                          </div>
+                          <div *ngIf="item.columnTypeId === 4"> <input type="text" placeholder="Введите число..."
+                              (change)="onChangeValue($event, item.id)" /></div>
+                        </div>
+                      </div>
+                    </ng-container>
                   </ng-container>
                 </ng-container>
-              </ng-container>
-              <div class="reference-container-value__add-button" (click)="onPushRecord()">
-                <svg-icon class="indicator-selector__collapse" src="./assets/icons/widgets/references/accept.svg">
-                </svg-icon>
+                <div class="reference-container-value__add-button" (click)="onPushRecord()">
+                  <svg-icon class="indicator-selector__collapse" src="./assets/icons/widgets/references/accept.svg">
+                  </svg-icon>
+                </div>
               </div>
-            </div>
+              <ng-container *ngFor="let item of this.blockOut">
+                <div class="reference-container-value__block">
+                  <ng-container *ngFor="let i of blockOutColumn">
+                    <div class="reference-container-value__fio-block">
+                      <div class="reference-container-value__fio"></div>
+                    </div>
+                  </ng-container>
+                </div>
+              </ng-container>
+            </ng-container>
           </div>
         </div>
         <div class="bottom-reference-right" [class.isLongBlock]="isLongBlock">
