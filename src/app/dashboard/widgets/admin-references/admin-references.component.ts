@@ -54,13 +54,12 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
 
     public blockOut = [];
 
-    public isType: number;
+    public isType: string;
 
     types = {
-        1: 'Текст',
-        2: 'Целое число',
-        3: 'Дата',
-        4: 'Число'
+        'typeString': 'Текст',
+        'typeInt': 'Число',
+        'typeDateTime': 'Дата',
     };
 
     public datas: IReferenceTypes[] = [
@@ -71,20 +70,16 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
 
     public dataType: IReferenceColumnsType[] = [
         {
-            id: 1,
+            type: 'typeString',
             name: 'Tекст',
         },
         {
-            id: 2,
+            type: 'typeInt',
             name: 'Число',
         },
         {
-            id: 3,
+            type: 'typeDateTime',
             name: 'Дата',
-        },
-        {
-            id: 4,
-            name: 'Целое число',
         },
     ];
 
@@ -282,7 +277,7 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
     }
 
     onChangeType(event) {
-        this.isType = event.value.id;
+        this.isType = event.value.type;
     }
 
     searchReference(event: any) {

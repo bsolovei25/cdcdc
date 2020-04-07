@@ -103,7 +103,7 @@
                     <mat-form-field class="categories_selectbox">
                       <mat-select panelClass="mat-select-custom" [(ngModel)]="item.columnTypeId"
                         (selectionChange)="editRecord(item)">
-                        <mat-option *ngFor="let p of dataType" [value]="p.id">{{ types[p.id] }}
+                        <mat-option *ngFor="let p of dataType" [value]="p.type">{{ types[p.type] }}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>

@@ -3,6 +3,7 @@ import { WidgetService } from '../../services/widget.service';
 import { IReferenceTypes } from '../../models/references';
 import { ReferencesService } from '../../services/references.service';
 import { WidgetPlatform } from '../../models/widget-platform';
+import { SnackBarService } from '../../services/snack-bar.service';
 
 @Component({
     selector: 'evj-reference',
@@ -64,6 +65,7 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
     constructor(
         public widgetService: WidgetService,
         public referencesService: ReferencesService,
+        public snackBar: SnackBarService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -132,8 +134,11 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
     }
 
     changeSwap(item) {
-        item.checked = !item.checked;
-        this.checkTitle = item.id;
+        if (this.checkTitle === item.id) {
+            this.checkTitle = null;
+        } else {
+            this.checkTitle = item.id;
+        }
     }
 
     onAddBlockRecord() {
@@ -168,36 +173,25 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
                         valueInt: null
                     }
                 } else {
-                    if (i.columnTypeId === 3) {
+                    if (i.columnTypeId === 'typeDateTime') {
                         obj = {
                             referenceColumnId: i.id,
                             valueString: null,
                             valueDateTime: test,
-                            valueNumber: null,
                             valueInt: null
                         }
-                    } else if (i.columnTypeId === 4) {
-                        obj = {
-                            referenceColumnId: i.id,
-                            valueString: null,
-                            valueDateTime: null,
-                            valueNumber: +test,
-                            valueInt: null,
-                        }
-                    } else if (i.columnTypeId === 1) {
+                    }  else if (i.columnTypeId === 'typeString') {
                         obj = {
                             referenceColumnId: i.id,
                             valueString: test,
                             valueDateTime: null,
-                            valueNumber: null,
                             valueInt: null
                         }
-                    } else if (i.columnTypeId === 2) {
+                    } else if (i.columnTypeId === 'typeInt') {
                         obj = {
                             referenceColumnId: i.id,
                             valueString: null,
                             valueDateTime: null,
-                            valueNumber: null,
                             valueInt: +test,
                         }
                     }
@@ -254,20 +248,27 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
     }
 
     searchRecords(event: any) {
-        const record = event.currentTarget.value.toLowerCase();
-
-        const filterDataColumn = this.dataTable.data.filter(e => {
-            return e.columnsData = e.columnsData.filter(el => {
-                if (el.referenceColumnId === this.checkTitle) {
-                    if (el.valueString !== null) {
-                        return el.valueString.toLowerCase().indexOf(record.toLowerCase()) > -1;
+        if(this.checkTitle === null){
+            this.snackBar.openSnackBar('Выберите колонку для поиска', 'snackbar-red');
+        } else {
+            if (event.key === "Backspace") {
+                //this.getTable(this.idReferenceClick);
+            }
+            const record = event.currentTarget.value.toLowerCase();
+    
+            const filterDataColumn = this.dataTable.data.filter(e => {
+                return e.columnsData = e.columnsData.filter(el => {
+                    if (el.referenceColumnId === this.checkTitle) {
+                        if (el.valueString !== null) {
+                            return el.valueString.toLowerCase().indexOf(record.toLowerCase()) > -1;
+                        }
                     }
-                }
+                });
             });
-        });
-        this.dataTable.data = filterDataColumn;
-        if (!event.currentTarget.value) {
-            this.dataTable.data = this.saveTable.data;
+            this.dataTable.data = filterDataColumn;
+            if (!event.currentTarget.value) {
+                this.getTable(this.idReferenceClick);
+            }
         }
     }
 
@@ -308,13 +309,13 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
 
         this.referencesService.putEditData(item).subscribe(ans => {
             // this.isLongBlock = true;
-            // this.getTable(item.referenceTypeId);
+            this.getTable(item.referenceTypeId);
             this.newName = null;
         });
     }
 
     dateTimePickerNew(event, id) {
-        if(event.date !== undefined){
+        if (event.date !== undefined) {
             this.addDate = event.date._d;
             const obj = {
                 idColumn: id,
