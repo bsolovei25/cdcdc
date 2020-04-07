@@ -58,8 +58,7 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
     public newValue: number;
 
     public checkTitle: number;
-    
-    public itemTableId: number;
+
 
     public blockOut = [];
     public blockOutColumn = [];
@@ -126,8 +125,6 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
 
     onClickItemReference(data) {
         data.open = !data.open;
-
-        this.itemTableId = data.id;
 
         this.isLongBlock = true;
         for (let item of this.dataTable.data) {
