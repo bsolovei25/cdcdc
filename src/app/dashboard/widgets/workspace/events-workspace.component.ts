@@ -237,9 +237,10 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         } catch (error) {}
     }
 
+    // нажатие на кнопку в хэдере
     createdEvent(event: boolean): void {
         console.log(event);
-        event === true ? this.createEvent() : this.saveItem();
+        event ? this.createEvent() : this.saveItem();
     }
 
     resetComponent(): void {
