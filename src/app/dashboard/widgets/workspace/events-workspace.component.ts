@@ -117,14 +117,14 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
     private fsUrl: string;
 
-    @ViewChild('input', { static: false }) input: ElementRef;
-    @ViewChild('input2', { static: false }) input2: ElementRef;
-    @ViewChild('newInput', { static: false }) newInput: ElementRef;
-    @ViewChild('newInput2', { static: false }) newInput2: ElementRef;
-    @ViewChild('scroll', { static: false }) scroll: ElementRef;
-    @ViewChild('scroll2', { static: false }) scroll2: ElementRef;
+    @ViewChild('input') input: ElementRef;
+    @ViewChild('input2') input2: ElementRef;
+    @ViewChild('newInput') newInput: ElementRef;
+    @ViewChild('newInput2') newInput2: ElementRef;
+    @ViewChild('scroll') scroll: ElementRef;
+    @ViewChild('scroll2') scroll2: ElementRef;
     @ViewChild('graph') graphWidht: ElementRef;
-    @ViewChild('progress', { static: false }) progress: ElementRef;
+    @ViewChild('progress') progress: ElementRef;
 
     constructor(
         private eventService: EventService,
@@ -192,7 +192,9 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
                 value.fixedBy.lastName;
             this.event = value;
             this.dateChoose = value.deadline;
-            this.userAvatar = value?.fixedBy?.photoId ? `${this.fsUrl}/${value?.fixedBy?.photoId}` : this.userAvatarDefault;
+            this.userAvatar = value?.fixedBy?.photoId
+                ? `${this.fsUrl}/${value?.fixedBy?.photoId}`
+                : this.userAvatarDefault;
             this.isUserCanEdit = value.isUserCanEdit;
             console.log(value);
             console.log(this.isUserCanEdit);
@@ -257,6 +259,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.isNewRetrieval = null;
     }
 
+    // для существующего event
     onSendMessage(): void {
         if (this.input2.nativeElement.value) {
             const commentInfo = {
@@ -284,6 +287,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         }
     }
 
+    // при создании retrieval event
     onSendNewMessage(): void {
         if (this.newInput2.nativeElement.value) {
             if (this.isNewRetrieval.facts === undefined) {
@@ -420,51 +424,43 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         dataLoadQueue.push(
             this.eventService.getCategory().then((data) => {
                 this.category = data;
-            })
-        );
-        dataLoadQueue.push(
+            }),
+
             this.eventService.getUser().then((data) => {
                 this.user = data;
-            })
-        );
-        dataLoadQueue.push(
+            }),
+
             this.eventService.getStatus().then((data) => {
                 this.status = data;
-            })
-        );
+            }),
 
-        dataLoadQueue.push(
             this.eventService.getUnits().then((data) => {
                 this.units = data;
-            })
-        );
-        dataLoadQueue.push(
+            }),
+
             this.eventService.getPriority().then((data) => {
                 this.priority = data;
-            })
-        );
+            }),
 
-        // dataLoadQueue.push(
-        //     this.eventService.getPlace().then((data) => {
-        //         this.place = data;
-        //     })
-        // );
-        dataLoadQueue.push(
+            // dataLoadQueue.push(
+            //     this.eventService.getPlace().then((data) => {
+            //         this.place = data;
+            //     })
+            // );
+
             this.eventService.getEquipmentCategory().then((data) => {
                 this.equipmentCategory = data;
-            })
-        );
-        dataLoadQueue.push(
+            }),
+
+            this.eventService.getEventType().then((data) => {
+                this.eventTypes = data;
+            }),
+
             this.eventService.getEventType().then((data) => {
                 this.eventTypes = data;
             })
         );
 
-        dataLoadQueue.push(
-            this.eventService.getEventType().then((data) => {
-                this.eventTypes = data;
-            })
-        );
         if (dataLoadQueue.length > 0) {
             try {
                 // wait untill all data will be loaded (with parralel requests)
