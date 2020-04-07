@@ -11,6 +11,7 @@ export interface IReferenceTypes {
 }
 
 export interface IReferenceColumns {
+    checked?: boolean;
     id?: number;
     createdAt?: Date;
     createdBy?: Date;
@@ -19,8 +20,8 @@ export interface IReferenceColumns {
     referenceTypeId: number;
     name: string;
     description?: string;
-    columnTypeId: number; /// ВРЕМЕННЫЙ СТРИНГ
-    columnName?: string; /// В ЧЕМ ОТЛИЧИЕ ОТ name ???
+    columnTypeId: string;
+    columnName?: string;
     isRequred: boolean;
     columnOrder?: number;
     isUnique: boolean;
@@ -46,6 +47,6 @@ export interface IReferenceDataColumns {
 }
 
 export interface IReferenceColumnsType {
-    id: number;
+    type: string;
     name: string;
 }

@@ -50,6 +50,7 @@ export class AddReportFileComponent implements OnInit {
   handleFileInput(event) {
     let file = event[0];
     const type_file = file.name.split('.').pop();
+
     if (type_file === "xls" || type_file === "xlsm" || type_file === "xlsx") {
       let reader = new FileReader();
       reader.readAsBinaryString(file);
@@ -80,9 +81,14 @@ export class AddReportFileComponent implements OnInit {
 
   getRecord() {
     this.reportService.getReportFileTemplate().subscribe(ans3 => {
-      this.data = ans3;
-      this.saveData = ans3;
-    })
+      const filterData = [];
+      for (const i of ans3) {
+        i.name = i.name.split('.').shift();
+        filterData.push(i);
+      }
+      this.data = filterData;
+      this.saveData = filterData;
+    });
   }
 
   postReportTemplate(template) {
@@ -94,7 +100,7 @@ export class AddReportFileComponent implements OnInit {
   deleteReportFile(item) {
     this.reportService.deleteReportFileTemplate(item.id).subscribe(ans => {
       this.getRecord();
-    })
+    });
   }
 
   editNameReportFile(item) {
