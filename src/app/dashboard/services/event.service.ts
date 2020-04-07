@@ -189,7 +189,7 @@ export class EventService {
         }
     }
 
-    async addRetrievalEvents(idEvent: number, body) {
+    async addRetrievalEvents(idEvent: number, body): Promise<any> {
         try {
             return this.http
                 .post<any>(

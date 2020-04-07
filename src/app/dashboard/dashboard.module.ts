@@ -144,6 +144,8 @@ import { AgAlertSubmitComponent } from './widgets/admin-panel/admin-groups/ag-al
 import { OverlayModule } from '@angular/cdk/overlay';
 import { AdminAdImportComponent } from './widgets/admin-panel/admin-ad-import/admin-ad-import.component';
 import { AddReportFileComponent } from './widgets/report-server-configurator/add-report-file/add-report-file.component';
+import { SmotrEventComponent } from './widgets/workspace/smotr-event/smotr-event.component';
+import { UsualEventComponent } from './widgets/workspace/usual-event/usual-event.component';
 
 @NgModule({
     declarations: [
@@ -267,6 +269,8 @@ import { AddReportFileComponent } from './widgets/report-server-configurator/add
         AgAlertSubmitComponent,
         AdminAdImportComponent,
         AddReportFileComponent,
+        SmotrEventComponent,
+        UsualEventComponent,
     ],
     entryComponents: [
         LineChartComponent,
