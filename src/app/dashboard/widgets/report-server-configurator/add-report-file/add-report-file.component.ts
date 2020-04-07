@@ -1,6 +1,5 @@
-import { Component, OnInit, Renderer2, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Renderer2, ElementRef, ViewChild, HostListener } from '@angular/core';
 import { ReportServerConfiguratorService } from 'src/app/dashboard/services/report-server-configurator.service';
-import { base64ToFile } from 'ngx-image-cropper';
 import { IFileTemplate, IReportTemplate } from 'src/app/dashboard/models/report-server';
 import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
 
@@ -10,6 +9,7 @@ import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
   styleUrls: ['./add-report-file.component.scss']
 })
 export class AddReportFileComponent implements OnInit {
+  @ViewChild('test') public testBlock: ElementRef;
   @ViewChild('area') area: ElementRef;
 
   public data: any;
@@ -29,10 +29,17 @@ export class AddReportFileComponent implements OnInit {
 
   public isRepInput: boolean = false;
 
+  public blockOut = [];
+
   constructor(private _renderer: Renderer2, public reportService: ReportServerConfiguratorService, public snackBar: SnackBarService) { }
 
   ngOnInit(): void {
     this.getRecord();
+  }
+
+  @HostListener('document:resize', ['$event'])
+  OnResize(event) {
+    this.blockNeed();
   }
 
   onOpenUpload(): void {
@@ -81,7 +88,7 @@ export class AddReportFileComponent implements OnInit {
   postReportTemplate(template) {
     this.reportService.postReportTemplate(template).subscribe(ans => {
 
-    })
+    });
   }
 
   deleteReportFile(item) {
@@ -110,11 +117,15 @@ export class AddReportFileComponent implements OnInit {
     this.clickItemId = item.id;
     this.reportService.getTepmplate(item.id).subscribe(ans => {
       this.dataTemplate = ans;
+      this.blockNeed();
     });
   }
 
   searchReport(event) {
     const record = event.currentTarget.value.toLowerCase();
+    if (event.key === "Backspace") {
+      this.data = this.saveData;
+    }
     const filterData = this.data.filter(
       (e) => e.name.toLowerCase().indexOf(record.toLowerCase()) > -1
     );
@@ -141,5 +152,18 @@ export class AddReportFileComponent implements OnInit {
     this._renderer.removeClass(this.area.nativeElement, 'hover');
     this.handleFileInput(event.dataTransfer.files);
   }
+
+  blockNeed(): void {
+    this.blockOut = [];
+    if (this.dataTemplate !== undefined) {
+      const heightTemplate = this.dataTemplate.length * 40;
+      const heihtOut = (this.testBlock.nativeElement.clientHeight - heightTemplate) / 40;
+      for (let i = 0; i < heihtOut - 1; i++) {
+        this.blockOut.push(i);
+      }
+    }
+  }
+
+
 
 }
