@@ -7,15 +7,10 @@
 </evj-widget-preview>
 
 <ng-container *ngIf="!isMock">
-  <div class="container pointer-event">
+  <div class="container pointer-event events-workspace__scroll">
     <!-- loading data -->
-    <!-- <div class="loading-shade" *ngIf="isLoading">
-      <div class="item loading-6">
-        <svg viewBox="25 25 50 50">
-          <circle cx="50" cy="50" r="20"></circle>
-        </svg>
-      </div>
-    </div> -->
+    <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
+
     <evj-widget-header
       [title]="widgetTitle"
       [icon]="widgetIcon"
@@ -31,9 +26,6 @@
     </evj-widget-header>
 
     <evj-frame-top></evj-frame-top>
-
-    <!--  Event -->
-    <!-- <ng-container *ngIf="!isMock && event"> -->
 
     <!--NEW EVENT KP-->
     <div class="container-widget">
@@ -635,6 +627,7 @@
         </div>
       </ng-container>
 
+      <!-- NO-SELECTED EVENT -->
       <ng-container *ngIf="!isMock && !event">
         <div
           class="workspace__mock"
@@ -642,25 +635,15 @@
           (touchstart)="$event.stopPropagation()"
         >
           <div class="workspace__submit">
-            <!-- <div class="submit__frame submit__frame-left"></div>
-            <div class="submit__frame submit__frame-right"></div>
-            <button type="submit gridster-item-content" (click)="createEvent()">
-              Создать событие
-            </button> -->
             Создайте или выберите событие
           </div>
         </div>
       </ng-container>
     </div>
 
-    <!---->
-
-    <!--  Create Event -->
-    <!-- <ng-container *ngIf="!isMock && !event"> -->
-
     <evj-frame-bottom></evj-frame-bottom>
 
-    <!--NEW CREATE EVENT KP-->
+    <!--CREATE EVENT KP-->
     <div
       (mousedown)="$event.stopPropagation()"
       (touchstart)="$event.stopPropagation()"
