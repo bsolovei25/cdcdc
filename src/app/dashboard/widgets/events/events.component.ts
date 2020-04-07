@@ -178,7 +178,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         super.dataConnect();
         this.placeNames = await this.eventService.getPlaces(this.id);
         this.subscriptions.push(
-            this.widgetService.currentDatesObservable.subscribe((ref) => {
+            this.widgetService.currentDates$.subscribe((ref) => {
                 this.getData();
                 this.getStats();
             })
@@ -237,7 +237,7 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         const options: EventsWidgetOptions = {
             categories: this.categories.filter((c) => c.isActive).map((c) => c.id),
             filter: this.filters.find((f) => f.isActive).code,
-            dates: this.widgetService.currentDatesObservable.getValue(),
+            dates: this.widgetService.currentDates$.getValue(),
             placeNames: this.placeNames,
         };
         return options;

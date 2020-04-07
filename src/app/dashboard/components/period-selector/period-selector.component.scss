@@ -268,10 +268,6 @@
   }
 
   &_active {
-    //new
-    // pointer-events: fill;
-
-    //
     border: 0.5px solid var(--color-border-active);
     color: var(--color-text-sub);
     &:before {

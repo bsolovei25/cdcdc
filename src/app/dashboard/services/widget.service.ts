@@ -14,7 +14,7 @@ import { AuthService } from '../../@core/service/auth.service';
 import * as moment from 'moment';
 import { SnackBarService } from './snack-bar.service';
 
-interface IDatesInterval {
+export interface IDatesInterval {
     fromDateTime: Date;
     toDateTime: Date;
 }
@@ -60,7 +60,7 @@ export class WidgetService {
     public offFilterWidget: any = [];
 
     private currentDates: IDatesInterval = null;
-    public currentDatesObservable: BehaviorSubject<IDatesInterval> = new BehaviorSubject<
+    public currentDates$: BehaviorSubject<IDatesInterval> = new BehaviorSubject<
         IDatesInterval
     >(null);
 
@@ -85,7 +85,7 @@ export class WidgetService {
         this.getRest();
         this.initWS();
 
-        this.currentDatesObservable.subscribe((ref) => {
+        this.currentDates$.subscribe((ref) => {
             this.wsSetParams(ref);
         });
 
@@ -108,6 +108,7 @@ export class WidgetService {
             );
     }
 
+    // Для тестирования скорости работы
     private async getAvailableWidgetsTest(): Promise<void> {
         const arr: number[] = [];
         for (let i = 0; i < 10; i++) {
@@ -151,7 +152,7 @@ export class WidgetService {
         }
     }
 
-    removeItemService(uniqid: string) {
+    removeItemService(uniqid: string): void {
         for (const item of this.dashboard) {
             if (item.uniqid === uniqid) {
                 this.dashboard.splice(this.dashboard.indexOf(item), 1);
@@ -174,7 +175,7 @@ export class WidgetService {
     }
 
     private wsConnect(widgetId: string): void {
-        if (this.currentDatesObservable.getValue() !== null) {
+        if (this.currentDates$.getValue() !== null) {
             this.wsPeriodData(widgetId);
         } else {
             this.wsRealtimeData(widgetId);
@@ -192,7 +193,7 @@ export class WidgetService {
         this.ws.next({
             actionType: 'getPeriodData',
             channelId: widgetId,
-            selectedPeriod: this.currentDatesObservable.getValue(),
+            selectedPeriod: this.currentDates$.getValue(),
         });
     }
 
@@ -333,7 +334,7 @@ export class WidgetService {
         );
     }
 
-    private reconnectWs() {
+    private reconnectWs(): void {
         if (this.reconnectTimer) {
             console.warn('reconnect уже создан');
             return;
@@ -345,7 +346,7 @@ export class WidgetService {
         }, this.reconnectInterval);
     }
 
-    public searchItems(value, type) {
+    public searchItems(value, type): void {
         this.searchType = type;
         try {
             this.searchWidget$.next(value);
@@ -376,8 +377,6 @@ export class WidgetService {
                     const filter = point.filter((point) => point.categories.indexOf(i) > -1);
                     arrFilter.push(filter);
                 }
-                //  const filter = point.filter((point) => point.categories.indexOf(record) > -1);
-                //  arrFilter.push(filter);
                 for (const i of arrFilter) {
                     for (const j of i) {
                         arrFilterButton.push(j);
@@ -399,7 +398,6 @@ export class WidgetService {
     }
 
     public wsSetParams(Dates: IDatesInterval = null): void {
-        console.log(Dates);
         this.dashboard.forEach((el) => this.wsDisonnect(el.id));
         this.dashboard.forEach((el) => this.wsConnect(el.id));
     }

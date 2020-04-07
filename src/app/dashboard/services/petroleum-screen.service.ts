@@ -9,6 +9,8 @@ import {
     ObjectDirection, TransfersFilter
 } from '../models/petroleum-products-movement.model';
 import { SnackBarService } from './snack-bar.service';
+import { IDatesInterval, WidgetService } from './widget.service';
+import { IAlertWindowModel } from '@shared/models/alert-window.model';
 
 @Injectable({
     providedIn: 'root',
@@ -46,6 +48,8 @@ export class PetroleumScreenService {
         .asObservable()
         .pipe(filter((item) => item !== null));
 
+    public alertWindow$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
+
     public currentTransfersFilter$: BehaviorSubject<TransfersFilter> = new BehaviorSubject<TransfersFilter>('all');
 
     private emptyTransferGlobal: ITransfer = {
@@ -68,7 +72,8 @@ export class PetroleumScreenService {
     constructor(
         private http: HttpClient,
         private configService: AppConfigService,
-        private materialController: SnackBarService
+        private widgetService: WidgetService,
+        private materialController: SnackBarService,
     ) {
         this.restUrl = configService.restUrl;
     }
@@ -78,22 +83,24 @@ export class PetroleumScreenService {
         console.log(screen);
     }
 
-    public async chooseTransfer(uid: string): Promise<void> {
+    public async chooseTransfer(uid: string, toFirst: boolean = false): Promise<void> {
         this.isLoad$.next(true);
         if (this.localScreenState$.getValue() !== 'operation') {
             this.openScreen('operation');
         }
-        const chooseTransfer = this.transfers$.getValue().find((el) => el.uid === uid);
+        const tempTransfers = this.transfers$.getValue();
+        const chooseTransfer = tempTransfers.find((el) => el.uid === uid);
         if (!chooseTransfer) {
             this.isLoad$.next(false);
             return;
         }
-        console.log(uid);
-        console.log(chooseTransfer);
-        chooseTransfer.operationType = 'Exist';
-        const tempTransfers = this.transfers$.getValue();
         tempTransfers.forEach((item) => (item.isActive = false));
-        tempTransfers.find((item) => item.uid === uid).isActive = true;
+        chooseTransfer.operationType = 'Exist';
+        chooseTransfer.isActive = true;
+        if (toFirst) {
+            const idx = tempTransfers.findIndex(item => item === chooseTransfer);
+            tempTransfers.unshift(...tempTransfers.splice(idx, 1));
+        }
         this.transfers$.next(tempTransfers);
         const objectsReceiver = await this.getObjects(
             this.client,
@@ -226,7 +233,7 @@ export class PetroleumScreenService {
             .toPromise();
     }
 
-    public async reGetTransfers(): Promise<void> {
+    public async reGetTransfers(dates: IDatesInterval): Promise<void> {
         let isOpen: boolean;
         switch (this.currentTransfersFilter$.getValue()) {
             case 'all':
@@ -236,7 +243,7 @@ export class PetroleumScreenService {
                 isOpen = true;
                 break;
         }
-        await this.getTransfers(null, null, isOpen, this.client);
+        await this.getTransfers(dates?.fromDateTime ?? null, dates?.toDateTime ?? null, isOpen, this.client);
         const currentTransfer = this.currentTransfer$.getValue();
         if (!currentTransfer?.uid) {
             return;
@@ -258,10 +265,10 @@ export class PetroleumScreenService {
     ): Promise<void> {
         let requestUrl = `${this.restUrl}/api/petroleum-flow-transfers/transfer?`;
         if (startTme) {
-            requestUrl += `startTime=${startTme}`;
+            requestUrl += `startTime=${startTme.toISOString()}`;
         }
         if (endTime) {
-            requestUrl += `startTime=${endTime}`;
+            requestUrl += `&endTime=${endTime.toISOString()}`;
         }
         requestUrl += `&client=${client}`;
         requestUrl += `&isOpen=${isOpen}`;
@@ -288,7 +295,7 @@ export class PetroleumScreenService {
             } else {
                 uid = await this.createTransferAsync(currentTransfer);
             }
-            await this.reGetTransfers();
+            await this.reGetTransfers(this.widgetService.currentDates$.getValue());
             await this.chooseTransfer(uid);
             this.materialController.openSnackBar('Сохранено');
         } catch {
@@ -406,6 +413,10 @@ export class PetroleumScreenService {
                 `${this.restUrl}/api/petroleum-flow-clients/clients/${client}/objects/${object}/relations/${direction}`
             )
             .toPromise();
+    }
+
+    public closeAlert(): void {
+        this.alertWindow$.next(null);
     }
 }
 
