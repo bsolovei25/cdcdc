@@ -123,7 +123,7 @@
                           </ng-container>
                           <div class="reference-container-value__edit-button"
                           (click)="onBlockEditRecord(i,item)">
-                          <svg-icon *ngIf="item.open && !isEdit" class="indicator-selector__collapse"
+                          <svg-icon *ngIf="item.id === itemTableId && !isEdit" class="indicator-selector__collapse"
                             src="./assets/icons/widgets/references/edit_white.svg"></svg-icon>
                         </div>
                         </div>

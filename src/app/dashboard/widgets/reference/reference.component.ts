@@ -58,6 +58,8 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
     public newValue: number;
 
     public checkTitle: number;
+    
+    public itemTableId: number;
 
     public blockOut = [];
     public blockOutColumn = [];
@@ -125,6 +127,8 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
     onClickItemReference(data) {
         data.open = !data.open;
 
+        this.itemTableId = data.id;
+
         this.isLongBlock = true;
         for (let item of this.dataTable.data) {
             if (item.open) {
@@ -180,7 +184,7 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
                             valueDateTime: test,
                             valueInt: null
                         }
-                    }  else if (i.columnTypeId === 'typeString') {
+                    } else if (i.columnTypeId === 'typeString') {
                         obj = {
                             referenceColumnId: i.id,
                             valueString: test,
@@ -248,19 +252,23 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
     }
 
     searchRecords(event: any) {
-        if(this.checkTitle === null){
+        if (this.checkTitle === null) {
             this.snackBar.openSnackBar('Выберите колонку для поиска', 'snackbar-red');
         } else {
             if (event.key === "Backspace") {
-                //this.getTable(this.idReferenceClick);
+                this.getTable(this.idReferenceClick);
             }
             const record = event.currentTarget.value.toLowerCase();
-    
-            const filterDataColumn = this.dataTable.data.filter(e => {
-                return e.columnsData = e.columnsData.filter(el => {
+
+            const filterDataColumn = this.dataTable.data.filter((e) => {
+                return e.columnsData = e.columnsData.find((el) => {
                     if (el.referenceColumnId === this.checkTitle) {
-                        if (el.valueString !== null) {
+                        if (el.valueString !== null && el.valueString !== undefined) {
                             return el.valueString.toLowerCase().indexOf(record.toLowerCase()) > -1;
+                        } else if (el.valueInt !== null && el.valueInt !== undefined) {
+                            return el.valueInt.toString().toLowerCase().indexOf(record.toLowerCase()) > -1;
+                        } else if (el.valueDateTime !== null && el.valueDateTime !== undefined) {
+                            return el.valueDateTime.toLowerCase().indexOf(record.toLowerCase()) > -1;
                         }
                     }
                 });
