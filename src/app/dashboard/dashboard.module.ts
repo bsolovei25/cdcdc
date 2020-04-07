@@ -137,13 +137,14 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AwsCreateClaimComponent } from './widgets/admin-panel/admin-worker-settings/aws-create-claim/aws-create-claim.component';
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule, NGX_MAT_DATE_FORMATS } from '@angular-material-components/datetime-picker';
 import { MatButtonModule } from '@angular/material/button';
-import { NgxMatMomentModule} from '@angular-material-components/moment-adapter';
+import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 
 import { AgNewGroupComponent } from './widgets/admin-panel/admin-groups/ag-new-group/ag-new-group.component';
 import { AgAlertSubmitComponent } from './widgets/admin-panel/admin-groups/ag-alert-submit/ag-alert-submit.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { AdminAdImportComponent } from './widgets/admin-panel/admin-ad-import/admin-ad-import.component';
 import { AddReportFileComponent } from './widgets/report-server-configurator/add-report-file/add-report-file.component';
+import { TankCalibrationTableComponent } from './widgets/tank-calibration-table/tank-calibration-table.component';
 
 @NgModule({
     declarations: [
@@ -267,6 +268,7 @@ import { AddReportFileComponent } from './widgets/report-server-configurator/add
         AgAlertSubmitComponent,
         AdminAdImportComponent,
         AddReportFileComponent,
+        TankCalibrationTableComponent
     ],
     entryComponents: [
         LineChartComponent,
@@ -319,7 +321,8 @@ import { AddReportFileComponent } from './widgets/report-server-configurator/add
         ReferenceComponent,
         ReportServerConfiguratorComponent,
         ReportComponent,
-        ReportsComponent
+        ReportsComponent,
+        TankCalibrationTableComponent
     ],
     exports: [HomeComponent],
     imports: [
@@ -355,6 +358,6 @@ import { AddReportFileComponent } from './widgets/report-server-configurator/add
     bootstrap: [],
     providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' },
     { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
-   ],
+    ],
 })
 export class DashboardModule { }
