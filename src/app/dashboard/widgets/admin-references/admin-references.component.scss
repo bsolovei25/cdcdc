@@ -18,15 +18,15 @@
   border-radius: 25px;
 }
 ::-webkit-scrollbar-track-piece {
-  border: solid 1px rgba(255, 255, 255, 0.2);
+  border: solid 1px var(--color-border-main);
   border-radius: 25px;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: #4a4d4f;
+  background-color: var(--color-border-main);
   border-radius: 25px;
 }
 ::-webkit-scrollbar-corner {
-  background-color: var(--color-border-active);
+  background-color: var(--color-border-main);
   border-radius: 25px;
 }
 ::-webkit-resizer {
@@ -61,14 +61,14 @@
 }
 
 .mycheckbox__default:checked + .mycheckbox__new::after {
-  height: 14px;
-  width: 14px;
+  height: 10px;
+  width: 10px;
   border-radius: 25px;
 }
 
 .mycheckbox__new {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   border-radius: 25px;
   border: 1px solid white;
   margin-right: 9px;
@@ -110,7 +110,7 @@
 
 .content {
   display: flex;
-  height: calc(100% - 69px);
+  height: calc(100% - 50px);
   border-left: dashed 0.5px var(--color-border-main);
   border-right: dashed 0.5px var(--color-border-main);
   overflow-x: auto;
@@ -136,6 +136,7 @@ input {
   }
 }
 
+
 .references {
   display: flex;
   justify-content: space-between;
@@ -149,15 +150,16 @@ input {
   height: 100%;
   padding: 10px;
   min-width: 240px;
+  padding-bottom: 0;
 
   .title-reference {
     position: relative;
-    height: 50px;
+    height: 40px;
     width: 100%;
     background-color: rgba(93, 96, 123, 0.2);
     color: white;
     text-align: center;
-    line-height: 50px;
+    line-height: 40px;
 
     &:before {
       z-index: 1;
@@ -196,7 +198,7 @@ input {
 
   .reference-container {
     background-color: #1b1f2c;
-    height: calc(100% - 100px);
+    height: calc(100% - 80px);
     margin-top: 2px;
     margin-bottom: 2px;
     width: calc(100%);
@@ -218,9 +220,9 @@ input {
       height: 40px;
 
       .block-active {
-        border-left: 1px solid var(--color-border-active);
-        border-top-right-radius: 15px;
-        border-bottom-right-radius: 15px;
+        border-left: 2px solid var(--color-border-active);
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
         background: var(--color-bg-active);
       }
     }
@@ -234,7 +236,8 @@ input {
 
     &__button-remove {
       cursor: pointer;
-      width: 45px;
+      width: 40px;
+      margin-top: 2px;
     }
 
     &__button-edit {
@@ -242,8 +245,8 @@ input {
       cursor: pointer;
       width: 15px;
       position: absolute;
-      right: 10px;
-      top: 1px;
+      right: 15px;
+      top: 4px;
     }
 
     &__add-block {
@@ -257,6 +260,7 @@ input {
 
     &__add-block-input {
       width: 100%;
+      margin-left: 20px;
 
       input {
         padding-left: 0;
@@ -267,12 +271,13 @@ input {
       cursor: pointer;
       width: 20px;
       margin-top: 5px;
+      margin-right: 15px;
     }
   }
 
   .bottom-reference-left {
     position: relative;
-    height: 50px;
+    height: 40px;
     width: 100%;
     background-color: rgba(93, 96, 123, 0.2);
 
@@ -320,14 +325,14 @@ input {
       height: 30px;
       width: 30px;
 
-      margin-top: 10px;
+      margin-top: 5px;
     }
 
     &__button-search {
       height: 30px;
       width: 30px;
       cursor: pointer;
-      margin-top: 10px;
+      margin-top: 5px;
     }
 
     &__input {
@@ -336,7 +341,7 @@ input {
       border-top-right-radius: 20px;
       border-bottom-right-radius: 20px;
       left: 25px;
-      top: 10px;
+      top: 5px;
       height: 28px;
       position: absolute;
       width: 150px;
@@ -363,17 +368,17 @@ input {
   height: 100%;
   width: 70%;
   padding: 10px;
+  padding-bottom: 0;
   min-width: 500px;
 
   .title-reference {
     color: white;
     position: relative;
-    height: 50px;
+    height: 40px;
     width: 90%;
     background-color: rgba(93, 96, 123, 0.2);
     display: flex;
     text-align: center;
-    line-height: 50px;
 
     &:before {
       z-index: 1;
@@ -411,28 +416,34 @@ input {
 
     &__title-name {
       width: 50%;
+      line-height: 40px;
     }
 
     &__title-type {
       width: 20%;
+      line-height: 40px;
     }
 
     &__title-value {
-      line-height: 20px;
-      padding-top: 6px;
+      .line-value{
+        line-height: 0.9;
+      }
+      margin-top: 14px;
       width: 15%;
     }
 
     &__title-uniqValue {
-      line-height: 20px;
-      padding-top: 6px;
+      .line-uniqValue{
+        line-height: 0.9;
+      }
+      margin-top: 14px;
       width: 15%;
     }
   }
 
   .references-container-scroll-block {
     overflow: auto;
-    height: calc(100% - 100px);
+    height: calc(100% - 80px);
     overflow-x: hidden;
     width: 100%;
     margin-bottom: 2px;
@@ -464,9 +475,9 @@ input {
         background: var(--color-bg-active);
       }
 
-      .block-active-name{
-         border-left: 1px solid var(--color-border-active);
-         background: var(--color-bg-active);
+      .block-active-name {
+        border-left: 2px solid var(--color-border-active);
+        background: var(--color-bg-active);
       }
 
       &__fio {
@@ -485,6 +496,10 @@ input {
 
           ::ng-deep .mat-form-field-underline {
             display: none;
+          }
+
+          ::ng-deep .mat-select-arrow{
+            background-image: url(../../../../assets/icons/widgets/references/arrow.svg);
           }
         }
       }
@@ -507,9 +522,22 @@ input {
         cursor: pointer;
         display: block !important;
         position: absolute;
-        right: -45px;
+        right: -44px;
         width: 40px;
-        background: var(--color-bg-main);
+        padding: 2px;
+        height: 34px;
+        //background: var(--color-bg-main);
+        background: var(--color-bg-active);
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+
+        .indicator-selector__collapse {
+          ::ng-deep svg {
+            height: 100%;
+            width: 100%;
+            margin-left: 5px;
+          }
+        }
       }
 
       &__delete-button-none {
@@ -548,7 +576,7 @@ input {
 
   .bottom-reference-right {
     position: relative;
-    height: 50px;
+    height: 40px;
     width: 90%;
     background-color: rgba(93, 96, 123, 0.2);
 
@@ -596,7 +624,7 @@ input {
       height: 30px;
       width: 30px;
 
-      margin-top: 10px;
+      margin-top: 5px;
     }
 
     &__button-search {
@@ -604,7 +632,7 @@ input {
       height: 30px;
       width: 30px;
 
-      margin-top: 10px;
+      margin-top: 5px;
     }
 
     &__input {
@@ -613,7 +641,7 @@ input {
       border-top-right-radius: 20px;
       border-bottom-right-radius: 20px;
       left: 25px;
-      top: 10px;
+      top: 5px;
       height: 28px;
       position: absolute;
       width: 200px;
@@ -651,8 +679,7 @@ input {
 .cdk-drag-preview {
   box-sizing: border-box;
   border-radius: 4px;
-  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14),
-    0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 
 .cdk-drag-placeholder {

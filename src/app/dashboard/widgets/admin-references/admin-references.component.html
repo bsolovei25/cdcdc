@@ -77,8 +77,8 @@
         <div class="title-reference" [class.isLongBlock]="isLongBlock">
           <div class="title-reference__title-name">Наименование колонны</div>
           <div class="title-reference__title-type">Тип</div>
-          <div class="title-reference__title-value">Обязательное значение</div>
-          <div class="title-reference__title-uniqValue">Уникальное значение</div>
+          <div class="title-reference__title-value"><div class="line-value">Обязательное значение</div></div>
+          <div class="title-reference__title-uniqValue"><div class="line-uniqValue">Уникальное значение</div></div>
         </div>
         <div class="references-container-scroll-block">
           <div class="reference-container-value" cdkDropList (cdkDropListDropped)="drop($event)"
@@ -122,9 +122,10 @@
                       <div class="mycheckbox__new" [class.mycheckbox__checked]="item.isUnique === true"></div>
                     </label>
                   </div>
-                  <div class="reference-container-value__delete-button-none"
+                  <div class="reference-container-value__delete-button-none" [class.block-active]="item.open"
                     [class.reference-container-value__delete-button]="item.open" [class.isNotButton]="isLongBlock" (click)="deleteRecord(item)">
                     <svg-icon class="indicator-selector__collapse"
+                      style="height: 100%; width: 100%;" 
                       src="./assets/icons/widgets/references/delete_blue.svg"></svg-icon>
                   </div>
                 </div>

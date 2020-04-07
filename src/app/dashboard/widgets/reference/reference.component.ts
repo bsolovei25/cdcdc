@@ -10,13 +10,8 @@ import { WidgetPlatform } from '../../models/widget-platform';
     styleUrls: ['./reference.component.scss'],
 })
 export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    //objectKeys = Object.keys;
-
-
     static itemCols = 18;
     static itemRows = 14;
-
-  
 
     public valueCheck: boolean;
     public valueUniqCheck: boolean;
@@ -45,6 +40,7 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
     public datas: IReferenceTypes[] = [];
 
     public dataTable: any = []; //// НАПИСАТЬ МОДЕЛЬКУ
+    public saveTable: any = [];
 
     public idReferenceClick: number;
 
@@ -56,6 +52,8 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
 
     public newValue: number;
 
+    public checkTitle = [];
+
     constructor(
         public widgetService: WidgetService,
         public referencesService: ReferencesService,
@@ -64,6 +62,7 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
+        this.widgetIcon = 'reference';
     }
 
     ngOnInit(): void {
@@ -85,13 +84,14 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
         return this.referencesService.reference$.subscribe((data) => {
             this.datas = data;
             this.data = this.datas;
-        })
+        });
     }
 
     getTable(id: number) {
-        this.referencesService.getTableReference(id).subscribe((data) => {
+        return this.referencesService.getTableReference(id).subscribe((data) => {
             this.dataTable = data;
-        })
+            this.saveTable = data;
+        });
     }
 
     onClickReference(data, index) {
@@ -119,6 +119,9 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
 
     changeSwap(item) {
         item.checked = !item.checked;
+        if(item.checked){
+            this.checkTitle.push(item.id);
+        }
     }
 
     onAddBlockRecord() {
@@ -153,7 +156,7 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
                         valueInt: null
                     }
                 } else {
-                    if (i.columnTypeId === 2) {
+                    if (i.columnTypeId === 3) {
                         obj = {
                             referenceColumnId: i.id,
                             valueString: null,
@@ -161,7 +164,7 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
                             valueNumber: +test,
                             valueInt: null
                         }
-                    } else if (i.columnTypeId === 1) {
+                    } else if (i.columnTypeId === 4) {
                         obj = {
                             referenceColumnId: i.id,
                             valueString: test,
@@ -169,7 +172,7 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
                             valueNumber: null,
                             valueInt: null
                         }
-                    } else if (i.columnTypeId === 3) {
+                    } else if (i.columnTypeId === 1) {
                         obj = {
                             referenceColumnId: i.id,
                             valueString: null,
@@ -177,7 +180,7 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
                             valueNumber: null,
                             valueInt: null
                         }
-                    } else if (i.columnTypeId === 4) {
+                    } else if (i.columnTypeId === 2) {
                         obj = {
                             referenceColumnId: i.id,
                             valueString: null,
@@ -191,7 +194,7 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
             }
 
         }
-        let object = {
+        let object: any = {
             name: this.newName,
             referenceTypeId: this.idReferenceClick,
             columnsData: columnsObj,
@@ -223,6 +226,9 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
     }
 
     searchReference(event: any) {
+        if (event.key === "Backspace") {
+            this.data = this.datas;
+          }
         const record = event.currentTarget.value.toLowerCase();
         const filterData = this.data.filter(
             (e) =>
@@ -236,15 +242,15 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
     }
 
     searchRecords(event: any) {
-        // const record = event.currentTarget.value.toLowerCase();
-        // const filterData = this.data[this.indexColumn].columns.filter(
-        //     (e) => e.name.toLowerCase().indexOf(record.toLowerCase()) > -1
-        // );
-
-        // this.data[this.indexColumn].columns = filterData;
-        // if (!event.currentTarget.value) {
-        //     this.data[this.indexColumn].columns = this.saveColumns;
-        // }
+//         const record = event.currentTarget.value.toLowerCase();
+//         const findData = this.dataTable.data.find(
+//             (el) => el.columnData.find((e) => this.checkTitle.find(e.referenceColumnId))
+//         );
+//  // e.name.toLowerCase().indexOf(record.toLowerCase()) > -1
+//         this.data[this.indexColumn].columns = findData;
+//         if (!event.currentTarget.value) {
+//             this.data[this.indexColumn].columns = this.saveTable;
+//         }
     }
 
     onBlockEditRecordName(item) {
@@ -273,14 +279,16 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
 
     }
 
-    onEditRecord(i,item) {
+    onEditRecord(i, item) {
         item.columnsData.find((el) => {
             if (i.id === el.id) {
                 el.edit = false;
             }
         });
 
-        this.referencesService.putEditData(item).subscribe();
+        this.referencesService.putEditData(item).subscribe(ans => {
+            this.getTable(item.referenceTypeId);
+        });
     }
 
     dateTimePickerNew(event) {
@@ -288,7 +296,9 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
     }
 
     dateTimePickerEdit(event, item) {
-        item.valueDateTime = event.date._d;
+        if (event.date) {
+            item.valueDateTime = event.date._d;
+        }
     }
 
 

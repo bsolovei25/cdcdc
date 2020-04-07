@@ -1,7 +1,7 @@
-import { Component, OnInit, Renderer2, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Renderer2, ElementRef, ViewChild, HostListener } from '@angular/core';
 import { ReportServerConfiguratorService } from 'src/app/dashboard/services/report-server-configurator.service';
-import { base64ToFile } from 'ngx-image-cropper';
 import { IFileTemplate, IReportTemplate } from 'src/app/dashboard/models/report-server';
+import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
 
 @Component({
   selector: 'evj-add-report-file',
@@ -9,9 +9,8 @@ import { IFileTemplate, IReportTemplate } from 'src/app/dashboard/models/report-
   styleUrls: ['./add-report-file.component.scss']
 })
 export class AddReportFileComponent implements OnInit {
+  @ViewChild('test') public testBlock: ElementRef;
   @ViewChild('area') area: ElementRef;
-
-  constructor(private _renderer: Renderer2, public reportService: ReportServerConfiguratorService) { }
 
   public data: any;
   public dataTemplate;
@@ -30,8 +29,17 @@ export class AddReportFileComponent implements OnInit {
 
   public isRepInput: boolean = false;
 
+  public blockOut = [];
+
+  constructor(private _renderer: Renderer2, public reportService: ReportServerConfiguratorService, public snackBar: SnackBarService) { }
+
   ngOnInit(): void {
     this.getRecord();
+  }
+
+  @HostListener('document:resize', ['$event'])
+  OnResize(event) {
+    this.blockNeed();
   }
 
   onOpenUpload(): void {
@@ -41,82 +49,90 @@ export class AddReportFileComponent implements OnInit {
 
   handleFileInput(event) {
     let file = event[0];
-    let reader = new FileReader();
-
-    reader.readAsBinaryString(file);
-    this.reportService.pushReportFile(file).subscribe(ans => {
-      this.fileLoad = true;
-      this.fileName = event[0].name;
-      let body: IFileTemplate = {
-        name: this.fileName,
-        description: '',
-        fileId: ans,
-      }
-      this.reportService.postReportFileTemplate(body).subscribe(ans2 => {
-        this.getRecord();
-        setTimeout(() => {
-          this.isUploadBlock = false;
-          this.fileLoad = false;
-        }, 1500);
+    const type_file = file.name.split('.').pop();
+    if (type_file === "xls" || type_file === "xlsm" || type_file === "xlsx") {
+      let reader = new FileReader();
+      reader.readAsBinaryString(file);
+      this.reportService.pushReportFile(file).subscribe(ans => {
+        this.fileLoad = true;
+        this.fileName = event[0].name;
+        let body: IFileTemplate = {
+          name: this.fileName,
+          description: '',
+          fileId: ans,
+        }
+        this.reportService.postReportFileTemplate(body).subscribe(ans2 => {
+          this.getRecord();
+          setTimeout(() => {
+            this.isUploadBlock = false;
+            this.fileLoad = false;
+          }, 1500);
+        });
       });
-    });
+    } else {
+      this.snackBar.openSnackBar('Не верный формат файла', 'snackbar-red');
+    }
   }
 
   uploadClose(): void {
     this.isUploadBlock = false;
   }
 
-  getRecord(){
+  getRecord() {
     this.reportService.getReportFileTemplate().subscribe(ans3 => {
       this.data = ans3;
       this.saveData = ans3;
     })
   }
 
-  postReportTemplate(template){
+  postReportTemplate(template) {
     this.reportService.postReportTemplate(template).subscribe(ans => {
 
-    })
+    });
   }
 
-  deleteReportFile(item){
+  deleteReportFile(item) {
     this.reportService.deleteReportFileTemplate(item.id).subscribe(ans => {
       this.getRecord();
     })
   }
 
-  editNameReportFile(item){
+  editNameReportFile(item) {
     item.edit = true;
   }
 
-  onEditName(item){
-   item.edit = false;
-   let updFileTemplate = {
-     id: item.id,
-     name: item.name,
-     description: item.description,
-   }
-   this.reportService.putReportFileTemplate(updFileTemplate).subscribe(ans => {
+  onEditName(item) {
+    item.edit = false;
+    let updFileTemplate = {
+      id: item.id,
+      name: item.name,
+      description: item.description,
+    }
+    this.reportService.putReportFileTemplate(updFileTemplate).subscribe(ans => {
 
-   });
-  }
-
-  getTemplate(item): any{
-    this.clickItemId = item.id;
-    this.reportService.getTepmplate(item.id).subscribe(ans => {
-      this.dataTemplate = ans;
     });
   }
 
-  searchReport(event){
+  getTemplate(item): any {
+    this.clickItemId = item.id;
+    this.reportService.getTepmplate(item.id).subscribe(ans => {
+      this.dataTemplate = ans;
+      this.blockNeed();
+    });
+  }
+
+  searchReport(event) {
     const record = event.currentTarget.value.toLowerCase();
+    if (event.key === "Backspace") {
+      this.data = this.saveData;
+    }
     const filterData = this.data.filter(
-        (e) => e.name.toLowerCase().indexOf(record.toLowerCase()) > -1
+      (e) => e.name.toLowerCase().indexOf(record.toLowerCase()) > -1
     );
 
     this.data = filterData;
     if (!event.currentTarget.value) {
-        this.data = this.saveData;
+      this.data = this.saveData;
     }
   }
 
@@ -136,5 +152,18 @@ export class AddReportFileComponent implements OnInit {
     this._renderer.removeClass(this.area.nativeElement, 'hover');
     this.handleFileInput(event.dataTransfer.files);
   }
+
+  blockNeed(): void {
+    this.blockOut = [];
+    if (this.dataTemplate !== undefined) {
+      const heightTemplate = this.dataTemplate.length * 40;
+      const heihtOut = (this.testBlock.nativeElement.clientHeight - heightTemplate) / 40;
+      for (let i = 0; i < heihtOut - 1; i++) {
+        this.blockOut.push(i);
+      }
+    }
+  }
+
+
 
 }

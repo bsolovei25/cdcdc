@@ -35,7 +35,10 @@ export type ClaimType = 'screenView' |
     'screensAdmin' |
     'screensAdd' |
     'screenWidgetAdd'|
+    'screensWidgetAdd'|
     'screenWidgetEdit' |
+    'screensWidgetEdit' |
     'screenWidgetDel' |
+    'screensWidgetDel' |
     string; // TODO ClaimType
 export type ClaimCategory = 'allow' | 'deny';

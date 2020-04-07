@@ -1,0 +1,26 @@
+<div class="loading-shade loading-shade__blur" *ngIf="info?.isShow">
+  <div class="alert-block">
+    <div class="block-top">
+      <div class="block-text">
+        {{info?.questionText}}
+      </div>
+    </div>
+    <div class="block-bottom">
+      <div class="block-button">
+        <evj-button
+          [isSmallButton]="false"
+          [textButton]="info?.acceptText"
+          [isChangingState]="false"
+          (click)="accept()"
+        ></evj-button>
+      </div>
+      <div class="block-button">
+        <evj-button
+          [isSmallButton]="false"
+          [textButton]="info?.cancelText"
+          [isChangingState]="false"
+          (click)="cancel()"
+        ></evj-button>
+    </div>
+  </div>
+</div>
