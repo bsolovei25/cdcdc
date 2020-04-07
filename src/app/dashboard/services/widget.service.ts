@@ -20,9 +20,10 @@ interface IDatesInterval {
 }
 
 interface IWebSocket {
-    actionType: string;
+    actionType: 'authenticate' | 'subscribe' | 'unsubscribe' | 'getPeriodData';
     channelId: string;
     selectedPeriod?: IDatesInterval;
+    token?: string; // Bearer token for authenticate actionType
     data?: any;
 }
 
@@ -297,6 +298,11 @@ export class WidgetService {
             this.ws.complete();
         }
         this.ws = webSocket(this.wsUrl);
+        this.ws.next({
+            actionType: 'authenticate',
+            channelId: null,
+            token: this.authService.userSessionToken
+        });
         this.ws.subscribe(
             (msg) => {
                 console.log('message received: ' + msg);
