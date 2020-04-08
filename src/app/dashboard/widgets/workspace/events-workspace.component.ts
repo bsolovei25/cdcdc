@@ -28,6 +28,7 @@ import { WidgetPlatform } from '../../models/widget-platform';
 
 import { ITime } from '../../models/time-data-picker';
 import { AppConfigService } from '../../../services/appConfigService';
+import { EventsWorkspaceService } from '../../services/events-workspace.service';
 
 @Component({
     selector: 'evj-events-workspace',
@@ -101,7 +102,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         drops: 'Сбросы',
     };
 
-    units: IUnitEvents;
+    units: IUnitEvents[];
 
     eventLegends: any = [{ isLegend: true }, { isLegend: false }];
 
@@ -127,6 +128,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     @ViewChild('progress') progress: ElementRef;
 
     constructor(
+        private ewService: EventsWorkspaceService,
         private eventService: EventService,
         private snackBar: MatSnackBar,
         public widgetService: WidgetService,
@@ -144,6 +146,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
                     this.nameUser = data.firstName + ' ' + data.lastName;
                     this.nameUserFirstName = data.firstName;
                     this.nameUserLastName = data.lastName;
+                    this.ewService.currentAuthUser = data;
                 }
             })
         );
@@ -156,6 +159,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     ngOnInit(): void {
         super.widgetInit();
         this.isLoading = false;
+        this.ewService.loadItem();
     }
 
     protected dataConnect(): void {
@@ -239,7 +243,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
     // нажатие на кнопку в хэдере
     createdEvent(event: boolean): void {
-        console.log(event);
         event ? this.createEvent() : this.saveItem();
     }
 
@@ -378,13 +381,13 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
             eventDateTime: new Date(),
             eventType: this.eventTypes ? this.eventTypes[0] : null,
             fixedBy: {
-                email: 'test@test',
+                email: '',
                 login: '',
                 firstName: '',
-                id: 1,
+                id: null,
                 lastName: '',
                 middleName: '',
-                phone: '00123456789',
+                phone: '',
             },
             organization: 'АО Газпромнефть',
             priority: this.priority
@@ -443,18 +446,8 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
                 this.priority = data;
             }),
 
-            // dataLoadQueue.push(
-            //     this.eventService.getPlace().then((data) => {
-            //         this.place = data;
-            //     })
-            // );
-
             this.eventService.getEquipmentCategory().then((data) => {
                 this.equipmentCategory = data;
-            }),
-
-            this.eventService.getEventType().then((data) => {
-                this.eventTypes = data;
             }),
 
             this.eventService.getEventType().then((data) => {
@@ -568,27 +561,24 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
             itemNumber: 0,
             branch: 'Производство',
             category: this.category ? this.category[0] : null,
-            // comments: ['Новое событие'],
             deviationReason: 'Причина отклонения...',
             directReasons: '',
             establishedFacts: '',
             eventDateTime: new Date(),
             eventType: this.eventTypes ? this.eventTypes[0] : null,
             fixedBy: {
-                id: 2,
-                login: 'PetrovP',
-                firstName: 'Петр',
-                lastName: 'Петров',
+                id: null,
+                login: '',
+                firstName: '',
+                lastName: '',
                 middleName: '',
-                email: 'test@test',
-                phone: '00123456789',
+                email: '',
+                phone: '',
             },
             comments: [],
             facts: [],
             organization: 'АО Газпромнефть',
-            //  place: { id: 5001, name: 'ГФУ-1' },
             priority: { id: 2003, name: 'standard', code: '2' },
-            //     responsibleOperator: this.user ? this.user[0] : null,
             responsibleOperator: this.user[this.idUser - 1],
             status: this.status ? this.status[0] : null,
             description: '',
@@ -607,6 +597,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.isNewRetrieval = null;
     }
 
+    // TOFIX
     cancelRetrieval(): void {
         this.event.retrievalEvents.pop();
     }

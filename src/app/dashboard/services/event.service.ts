@@ -10,6 +10,9 @@ import {
     EventsWidgetsStats,
     EventsWidgetNotificationPreview,
     IRetrievalEvents,
+    IUnitEvents,
+    IUser,
+    IPriority,
 } from '../models/events-widget';
 import { AppConfigService } from 'src/app/services/appConfigService';
 
@@ -109,9 +112,11 @@ export class EventService {
         }
     }
 
-    async getPriority(): Promise<any> {
+    async getPriority(): Promise<IPriority[]> {
         try {
-            return this.http.get(this.restUrl + '/api/notification-reference/priority').toPromise();
+            return this.http
+                .get<IPriority[]>(this.restUrl + '/api/notification-reference/priority')
+                .toPromise();
         } catch (error) {
             console.error(error);
         }
@@ -147,28 +152,28 @@ export class EventService {
         }
     }
 
-    async getUnits(): Promise<any> {
+    async getUnits(): Promise<IUnitEvents[]> {
         try {
             return this.http
-                .get<any>(this.restUrl + '/api/notification-reference/units')
+                .get<IUnitEvents[]>(this.restUrl + '/api/notification-reference/units')
                 .toPromise();
         } catch (error) {
             console.error(error);
         }
     }
 
-    async getUser(): Promise<any> {
+    async getUser(): Promise<IUser[]> {
         try {
-            return this.http.get<any>(this.restUrl + '/api/user-management/users').toPromise();
+            return this.http.get<IUser[]>(this.restUrl + '/api/user-management/users').toPromise();
         } catch (error) {
             console.error(error);
         }
     }
 
-    async getEquipmentCategory(): Promise<any> {
+    async getEquipmentCategory(): Promise< ICategory[]> {
         try {
             return this.http
-                .get<any>(this.restUrl + '/api/notification-reference/equipmentcategory')
+                .get< ICategory[]>(this.restUrl + '/api/notification-reference/equipmentcategory')
                 .toPromise();
         } catch (error) {
             console.error(error);
