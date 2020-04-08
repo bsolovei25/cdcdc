@@ -29,7 +29,7 @@
 
     <!-- EVENT -->
     <div class="container-widget">
-      <ng-container *ngIf="!isMock && event">
+      <ng-container *ngIf="!isMock && ewService.event">
         <section
           class="workspace"
           (mousedown)="$event.stopPropagation()"
@@ -41,35 +41,35 @@
                 <mat-label>Статус</mat-label>
                 <mat-select
                   panelClass="mat-select-custom"
-                  [(ngModel)]="event.status"
+                  [(ngModel)]="ewService.event.status"
                   [compareWith]="compareFn"
                 >
-                  <mat-option *ngFor="let p of status" [value]="p"
-                    >{{ statuses[p.name] }}
+                  <mat-option *ngFor="let p of ewService.status" [value]="p"
+                    >{{ ewService.statuses[p.name] }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
             </evj-ui-block>
-            <evj-ui-block class="workspace__header__block" status="{{event.priority.name}}">
-              <mat-form-field class="{{event.priority.name}}">
+            <evj-ui-block class="workspace__header__block" status="{{ewService.event.priority.name}}">
+              <mat-form-field class="{{ewService.event.priority.name}}">
                 <mat-label>Приоритет</mat-label>
                 <mat-select
                   panelClass="mat-select-custom"
-                  [(ngModel)]="event.priority"
+                  [(ngModel)]="ewService.event.priority"
                   [compareWith]="compareFn"
                 >
-                  <mat-option *ngFor="let p of priority" [value]="p"
-                    >{{ priorities[p.name] }}
+                  <mat-option *ngFor="let p of ewService.priority" [value]="p"
+                    >{{ ewService.priorities[p.name] }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
             </evj-ui-block>
-            <evj-ui-block class="workspace__header__block" status="{{event.isAcknowledged}}">
-              <mat-form-field class="card-{{event.isAcknowledged}}">
+            <evj-ui-block class="workspace__header__block" status="{{ewService.event.isAcknowledged}}">
+              <mat-form-field class="card-{{ewService.event.isAcknowledged}}">
                 <mat-label>Событие</mat-label>
                 <mat-select
                   panelClass="mat-select-custom"
-                  [(ngModel)]="event.isAcknowledged"
+                  [(ngModel)]="ewService.event.isAcknowledged"
                   [compareWith]="compareFn"
                 >
                   <mat-option *ngFor="let l of this.eventLegends" [value]="l.isLegend">
@@ -95,11 +95,11 @@
                         <mat-label>Категория</mat-label>
                         <mat-select
                           panelClass="mat-select-custom"
-                          [(ngModel)]="event.category"
+                          [(ngModel)]="ewService.event.category"
                           [compareWith]="compareFn"
                         >
-                          <mat-option *ngFor="let cat of this.category" [value]="cat">
-                            {{ categories[cat.name] }}
+                          <mat-option *ngFor="let cat of ewService.category" [value]="cat">
+                            {{ ewService.categories[cat.name] }}
                           </mat-option>
                         </mat-select>
                       </mat-form-field>
@@ -111,10 +111,10 @@
                         <mat-label>Тип оборудования</mat-label>
                         <mat-select
                           panelClass="mat-select-custom"
-                          [(ngModel)]="event.equipmentCategory"
+                          [(ngModel)]="ewService.event.equipmentCategory"
                           [compareWith]="compareFn"
                         >
-                          <mat-option *ngFor="let p of equipmentCategory" [value]="p"
+                          <mat-option *ngFor="let p of ewService.equipmentCategory" [value]="p"
                             >{{ p.name }}
                           </mat-option>
                         </mat-select>
@@ -122,17 +122,17 @@
                     </evj-ui-block>
                   </div>
                 </div>
-                <div class="second_block" *ngIf="event.category.name === 'equipmentStatus'">
+                <div class="second_block" *ngIf="ewService.event.category.name === 'equipmentStatus'">
                   <div class="type_incident">
                     <evj-ui-block class="workspace__header__block" status="normal">
                       <mat-form-field>
                         <mat-label>Тип происшествия</mat-label>
                         <mat-select
                           panelClass="mat-select-custom"
-                          [(ngModel)]="event.eventType"
+                          [(ngModel)]="ewService.event.eventType"
                           [compareWith]="compareFn"
                         >
-                          <mat-option *ngFor="let p of eventTypes" [value]="p"
+                          <mat-option *ngFor="let p of ewService.eventTypes" [value]="p"
                             >{{ p.name }}
                           </mat-option>
                         </mat-select>
@@ -147,8 +147,8 @@
                           <input
                             matInput
                             placeholder="Текст..."
-                            [value]="event.positionNumber"
-                            [(ngModel)]="event.positionNumber"
+                            [value]="ewService.event.positionNumber"
+                            [(ngModel)]="ewService.event.positionNumber"
                           />
                         </mat-form-field>
                       </div>
@@ -165,7 +165,7 @@
 
               <div
                 class="description"
-                [class.description_small]="event.category.name === 'equipmentStatus'"
+                [class.description_small]="ewService.event.category.name === 'equipmentStatus'"
               >
                 <div class="description_nav">
                   <div class="description_title">Краткое описание</div>
@@ -179,7 +179,7 @@
                 </div>
                 <div class="description__content">
                   <div class="description__content_text" *ngIf="!isEditing">
-                    {{event.description}}
+                    {{ewService.event.description}}
                   </div>
                   <div class="description__content_text" *ngIf="isEditing">
                     <textarea
@@ -187,7 +187,7 @@
                       class="gridster-item-content"
                       placeholder="Введите значение..."
                       minlength="3"
-                      [(ngModel)]="event.description"
+                      [(ngModel)]="ewService.event.description"
                     >
                     </textarea>
                   </div>
@@ -202,7 +202,7 @@
                   </div>
                 </div>
                 <div class="fact_content" #scroll2>
-                  <div class="fact_img" *ngIf="event.graphValues" (click)="openLineChart()" #graph>
+                  <div class="fact_img" *ngIf="ewService.event.graphValues" (click)="openLineChart()" #graph>
                     <svg-icon
                       src="./assets/icons/widgets/workspace/graph.svg"
                       [svgStyle]="{ 'width.px':250, 'height.px':70 }"
@@ -212,7 +212,7 @@
                   <div
                     class="fact_new"
                     (click)="clickFact(fact, i)"
-                    *ngFor="let fact of event.facts; let i = index"
+                    *ngFor="let fact of ewService.event.facts; let i = index"
                   >
                     <div class="fact_text">
                       <p>{{fact.comment}}</p>
@@ -268,7 +268,7 @@
                   <div
                     class="comment_new"
                     (click)="clickComment(comment, i)"
-                    *ngFor="let comment of event.comments; let i = index"
+                    *ngFor="let comment of ewService.event.comments; let i = index"
                   >
                     <div class="comment_text">
                       <p>{{comment.comment}}</p>
@@ -321,15 +321,15 @@
                     Автор
                   </div>
                   <div class="creator_body">
-                    {{ event.responsibleOperator?.lastName }} {{
-                    event.responsibleOperator?.firstName }}
+                    {{ ewService.event.responsibleOperator?.lastName }} {{
+                      ewService.event.responsibleOperator?.firstName }}
                   </div>
                 </div>
                 <div class="deadline">
                   <div class="date-info">
                     <div class="deadline-title">Срок выполнения</div>
                     <evj-time-data-picker
-                      [data]="event.deadline"
+                      [data]="ewService.event.deadline"
                       (dateTimePicker)="dateTimePicker($event)"
                     ></evj-time-data-picker>
                   </div>
@@ -342,10 +342,10 @@
                     <mat-label>Место</mat-label>
                     <mat-select
                       panelClass="mat-select-custom"
-                      [(ngModel)]="event.unit"
+                      [(ngModel)]="ewService.event.unit"
                       [compareWith]="compareFn"
                     >
-                      <mat-option *ngFor="let cat of this.units" [value]="cat">
+                      <mat-option *ngFor="let cat of ewService.units" [value]="cat">
                         {{ cat.name }}
                       </mat-option>
                     </mat-select>
@@ -353,22 +353,22 @@
                 </evj-ui-block>
               </div>
               <div class="responsible">
-                <div *ngIf="userChoosen && event.fixedBy.login === ''" class="choosenUser">
+                <div *ngIf="userChoosen && ewService.event.fixedBy.login === ''" class="choosenUser">
                   <div class="name_user">
                     <div class="name_user_responsible">
                       Ответственный
                     </div>
-                    <div class="name_user_info" *ngIf="event.fixedBy">
+                    <div class="name_user_info" *ngIf="ewService.event.fixedBy">
                       <div>
                         {{this.chooseNameUser}}
                       </div>
-                      <!-- <div>{{ event.fixedBy.positionDescription }}</div> -->
+                      <!-- <div>{{ ewService.event.fixedBy.positionDescription }}</div> -->
                       <div>{{this.userDescription}}</div>
                     </div>
                   </div>
                   <div class="brigade_user">
                     <div class="brigade_user_text">
-                      Бригада {{ event.fixedBy?.brigade?.number }}
+                      Бригада {{ ewService.event.fixedBy?.brigade?.number }}
                     </div>
                   </div>
                   <div class="avatar_user">
@@ -377,7 +377,7 @@
                     </div>
                   </div>
                 </div>
-                <div *ngIf="event.fixedBy.login !== ''" class="choosenUser">
+                <div *ngIf="ewService.event.fixedBy.login !== ''" class="choosenUser">
                   <div class="name_user">
                     <div class="name_user_responsible">
                       Ответственный
@@ -386,12 +386,12 @@
                       <div>
                         {{ this.chooseNameUser }}
                       </div>
-                      <div>{{ event.fixedBy.positionDescription }}</div>
+                      <div>{{ ewService.event.fixedBy.positionDescription }}</div>
                     </div>
                   </div>
                   <div class="brigade_user">
                     <div class="brigade_user_text">
-                      Бригада {{ event.fixedBy?.brigade?.number }}
+                      Бригада {{ ewService.event.fixedBy?.brigade?.number }}
                     </div>
                   </div>
                   <div class="avatar_user">
@@ -403,8 +403,8 @@
                 <evj-ui-block class="workspace__header__block" status="normal">
                   <mat-form-field>
                     <mat-label>Отвественный</mat-label>
-                    <mat-select panelClass="mat-select-custom" [(ngModel)]="event.fixedBy">
-                      <mat-option *ngFor="let p of user" [value]="p" (click)="chooseRespons(p)"
+                    <mat-select panelClass="mat-select-custom" [(ngModel)]="ewService.event.fixedBy">
+                      <mat-option *ngFor="let p of ewService.users" [value]="p" (click)="chooseRespons(p)"
                         >{{ p.lastName }} {{ p.firstName }}
                       </mat-option>
                     </mat-select>
@@ -418,12 +418,12 @@
                     <div class="event_info_date">
                       <div class="event_info_date_title">Начало события</div>
                       <div class="event_info_date_body">
-                        {{event.eventDateTime | date:'dd-MM-yyyy HH:mm' }}
+                        {{ewService.event.eventDateTime | date:'dd-MM-yyyy HH:mm' }}
                       </div>
                     </div>
                   </div>
                   <div class="events">
-                    <ng-container *ngFor="let retrieval of event.retrievalEvents">
+                    <ng-container *ngFor="let retrieval of ewService.event.retrievalEvents">
                       <div
                         class="events_content"
                         [class.events_closed]="retrieval.innerNotification.status.name === 'closed'"
@@ -452,7 +452,7 @@
                               class="events_status-{{retrieval.innerNotification.priority.name}}"
                               *ngIf="retrieval.innerNotification.status"
                             >
-                              {{ statuses[retrieval.innerNotification.status.name] }}
+                              {{ ewService.statuses[retrieval.innerNotification.status.name] }}
                             </div>
                             <div class="events_status_datetime">
                               <div class="datetime_title">Срок исполнения</div>
@@ -526,7 +526,7 @@
                               <div class="submit__frame submit__frame-right"></div>
                               <button
                                 type="submit gridster-item-content"
-                                (click)="deleteRetrieval(event.id, retrieval.innerNotification.id, retrieval.id)"
+                                (click)="deleteRetrieval(ewService.event.id, retrieval.innerNotification.id, retrieval.id)"
                               >
                                 Удалить
                               </button>
@@ -558,8 +558,8 @@
                     </div>
                     <div class="end_events">
                       <div class="end_events_title">Завершение события</div>
-                      <div class="end_events_body" *ngIf="event.eventEndDateTime">
-                        {{event.eventEndDateTime | date:'dd-MM-yyyy HH:mm'}}
+                      <div class="end_events_body" *ngIf="ewService.event.eventEndDateTime">
+                        {{ewService.event.eventEndDateTime | date:'dd-MM-yyyy HH:mm'}}
                       </div>
                     </div>
                   </div>
@@ -581,22 +581,23 @@
           (mousedown)="$event.stopPropagation()"
           (touchstart)="$event.stopPropagation()"
           id="overlay-chart"
+          *ngIf="ewService.isOverlayChartOpen"
           (click)="overlayChartClose()"
         >
           <div
             class="overlay-chart__body"
             (click)="$event.stopPropagation()"
-            *ngIf="event.graphValues"
+            *ngIf="ewService.event.graphValues"
           >
             <evj-line-chart-workspace
-              [dataChartAttribute]="event.graphValues"
+              [dataChartAttribute]="ewService.event.graphValues"
             ></evj-line-chart-workspace>
           </div>
         </div>
       </ng-container>
 
       <!-- NO-SELECTED EVENT -->
-      <ng-container *ngIf="!isMock && !event">
+      <ng-container *ngIf="!isMock && !ewService.event">
         <div
           class="workspace__mock"
           (mousedown)="$event.stopPropagation()"
@@ -616,12 +617,13 @@
       (mousedown)="$event.stopPropagation()"
       (touchstart)="$event.stopPropagation()"
       id="overlay-retrieval"
+      *ngIf="ewService.isOverlayRetrivealOpen"
       (click)="overlayClose()"
     >
       <div class="overlay-retrieval__body" (click)="$event.stopPropagation()">
         <ng-container>
           <section
-            *ngIf="isNewRetrieval"
+            *ngIf="ewService.retrievalEvent"
             class="workspace"
             (mousedown)="$event.stopPropagation()"
             (touchstart)="$event.stopPropagation()"
@@ -632,41 +634,41 @@
                   <mat-label>Статус</mat-label>
                   <mat-select
                     panelClass="mat-select-custom"
-                    [(ngModel)]="isNewRetrieval.status"
+                    [(ngModel)]="ewService.retrievalEvent.status"
                     [compareWith]="compareFn"
                   >
-                    <mat-option *ngFor="let p of status" [value]="p"
-                      >{{ statuses[p.name] }}
+                    <mat-option *ngFor="let p of ewService.status" [value]="p"
+                      >{{ ewService.statuses[p.name] }}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
               </evj-ui-block>
               <evj-ui-block
                 class="workspace__header__block"
-                status="{{isNewRetrieval.priority.name}}"
+                status="{{ewService.retrievalEvent.priority.name}}"
               >
-                <mat-form-field class="{{isNewRetrieval.priority.name}}">
+                <mat-form-field class="{{ewService.retrievalEvent.priority.name}}">
                   <mat-label>Приоритет</mat-label>
                   <mat-select
                     panelClass="mat-select-custom"
-                    [(ngModel)]="isNewRetrieval.priority"
+                    [(ngModel)]="ewService.retrievalEvent.priority"
                     [compareWith]="compareFn"
                   >
-                    <mat-option *ngFor="let p of priority" [value]="p"
-                      >{{ priorities[p.name] }}
+                    <mat-option *ngFor="let p of ewService.priority" [value]="p"
+                      >{{ ewService.priorities[p.name] }}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
               </evj-ui-block>
               <evj-ui-block
                 class="workspace__header__block"
-                status="{{isNewRetrieval.isAcknowledged}}"
+                status="{{ewService.retrievalEvent.isAcknowledged}}"
               >
-                <mat-form-field class="card-{{isNewRetrieval.isAcknowledged}}">
+                <mat-form-field class="card-{{ewService.retrievalEvent.isAcknowledged}}">
                   <mat-label>Событие</mat-label>
                   <mat-select
                     panelClass="mat-select-custom"
-                    [(ngModel)]="isNewRetrieval.isAcknowledged"
+                    [(ngModel)]="ewService.retrievalEvent.isAcknowledged"
                     [compareWith]="compareFn"
                   >
                     <mat-option *ngFor="let l of this.eventLegends" [value]="l.isLegend">
@@ -692,12 +694,11 @@
                           <mat-label>Категория</mat-label>
                           <mat-select
                             panelClass="mat-select-custom"
-                            [(ngModel)]="isNewRetrieval.category"
+                            [(ngModel)]="ewService.retrievalEvent.category"
                             [compareWith]="compareFn"
-                            (change)="changeCategory()"
                           >
-                            <mat-option *ngFor="let cat of this.category" [value]="cat">
-                              {{ categories[cat.name] }}
+                            <mat-option *ngFor="let cat of ewService.category" [value]="cat">
+                              {{ ewService.categories[cat.name] }}
                             </mat-option>
                           </mat-select>
                         </mat-form-field>
@@ -709,10 +710,10 @@
                           <mat-label>Тип оборудования</mat-label>
                           <mat-select
                             panelClass="mat-select-custom"
-                            [(ngModel)]="isNewRetrieval.equipmentCategory"
+                            [(ngModel)]="ewService.retrievalEvent.equipmentCategory"
                             [compareWith]="compareFn"
                           >
-                            <mat-option *ngFor="let p of equipmentCategory" [value]="p"
+                            <mat-option *ngFor="let p of ewService.equipmentCategory" [value]="p"
                               >{{ p.name }}
                             </mat-option>
                           </mat-select>
@@ -722,7 +723,7 @@
                   </div>
                   <div
                     class="second_block"
-                    *ngIf="isNewRetrieval.category.name === 'equipmentStatus'"
+                    *ngIf="ewService.retrievalEvent.category.name === 'equipmentStatus'"
                   >
                     <div class="type_incident">
                       <evj-ui-block class="workspace__header__block" status="normal">
@@ -730,10 +731,10 @@
                           <mat-label>Тип происшествия</mat-label>
                           <mat-select
                             panelClass="mat-select-custom"
-                            [(ngModel)]="isNewRetrieval.eventType"
+                            [(ngModel)]="ewService.retrievalEvent.eventType"
                             [compareWith]="compareFn"
                           >
-                            <mat-option *ngFor="let p of eventTypes" [value]="p"
+                            <mat-option *ngFor="let p of ewService.eventTypes" [value]="p"
                               >{{ p.name }}
                             </mat-option>
                           </mat-select>
@@ -748,8 +749,8 @@
                             <input
                               matInput
                               placeholder="Текст..."
-                              [value]="isNewRetrieval.positionNumber"
-                              [(ngModel)]="isNewRetrieval.positionNumber"
+                              [value]="ewService.retrievalEvent.positionNumber"
+                              [(ngModel)]="ewService.retrievalEvent.positionNumber"
                             />
                           </mat-form-field>
                         </div>
@@ -767,7 +768,7 @@
 
                 <div
                   class="description"
-                  [class.description_small]="isNewRetrieval.category.name === 'equipmentStatus'"
+                  [class.description_small]="ewService.retrievalEvent.category.name === 'equipmentStatus'"
                 >
                   <div class="description_nav">
                     <div class="description_title">Краткое описание</div>
@@ -786,7 +787,7 @@
                         class="gridster-item-content"
                         placeholder="Введите значение..."
                         minlength="3"
-                        [(ngModel)]="isNewRetrieval.description"
+                        [(ngModel)]="ewService.retrievalEvent.description"
                       >
                       </textarea>
                     </div>
@@ -805,7 +806,7 @@
                     <div
                       class="fact_new"
                       (click)="clickFact(fact, i)"
-                      *ngFor="let fact of isNewRetrieval.facts; let i = index"
+                      *ngFor="let fact of ewService.retrievalEvent.facts; let i = index"
                     >
                       <div class="fact_text">
                         <p>{{fact.comment}}</p>
@@ -866,10 +867,10 @@
                         <mat-label>Место</mat-label>
                         <mat-select
                           panelClass="mat-select-custom"
-                          [(ngModel)]="isNewRetrieval.unit"
+                          [(ngModel)]="ewService.retrievalEvent.unit"
                           [compareWith]="compareFn"
                         >
-                          <mat-option *ngFor="let cat of this.units" [value]="cat">
+                          <mat-option *ngFor="let cat of ewService.units" [value]="cat">
                             {{ cat.name }}
                           </mat-option>
                         </mat-select>
@@ -882,8 +883,8 @@
                   <input
                     matInput
                     [matDatepicker]="myDatepicker"
-                    [value]="event.deadline"
-                    [(ngModel)]="event.deadline"
+                    [value]="ewService.event.deadline"
+                    [(ngModel)]="ewService.event.deadline"
                   />
                   <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
                   <mat-datepicker #myDatepicker></mat-datepicker>
@@ -891,7 +892,7 @@
                     <div class="date-info">
                       <div class="deadline-title">Срок выполнения</div>
                       <evj-time-data-picker
-                        [data]="isNewRetrieval.deadline"
+                        [data]="ewService.retrievalEvent.deadline"
                         (dateTimePicker)="dateTimePickerNew($event)"
                       ></evj-time-data-picker>
                     </div>
@@ -911,7 +912,7 @@
                     </div>
                     <div class="brigade_user">
                       <div class="brigade_user_text">
-                        Бригада № {{ isNewRetrieval.fixedBy.id }}
+                        Бригада № {{ ewService.retrievalEvent.fixedBy.id }}
                       </div>
                     </div>
                     <div class="avatar_user">
@@ -923,10 +924,10 @@
                       <mat-label>Ответственный</mat-label>
                       <mat-select
                         panelClass="mat-select-custom"
-                        [(ngModel)]="isNewRetrieval.fixedBy"
+                        [(ngModel)]="ewService.retrievalEvent.fixedBy"
                       >
                         <mat-option
-                          *ngFor="let p of user"
+                          *ngFor="let p of ewService.users"
                           [value]="p"
                           (click)="chooseMeropRespons(p)"
                           >{{ p.lastName }} {{ p.firstName }}
@@ -946,7 +947,7 @@
                     <div
                       class="comment_new"
                       (click)="clickComment(comment, i)"
-                      *ngFor="let comment of isNewRetrieval.comments; let i = index"
+                      *ngFor="let comment of ewService.retrievalEvent.comments; let i = index"
                     >
                       <div class="comment_text">
                         <p>{{comment.comment}}</p>
@@ -1024,7 +1025,7 @@
                 <button
                   *ngIf="!isEdit"
                   type="submit gridster-item-content"
-                  (click)="saveRetrieval(event.id)"
+                  (click)="saveRetrieval()"
                 >
                   Сохранить
                 </button>

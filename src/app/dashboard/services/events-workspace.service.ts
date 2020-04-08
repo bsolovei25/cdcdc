@@ -23,13 +23,14 @@ export class EventsWorkspaceService {
 
     //#region FLAGS
     public isCreateNewEvent: boolean = false;
+    public isOverlayChartOpen: boolean = false;
+    public isOverlayRetrivealOpen: boolean = false;
     //#endregion
 
     public priority: IPriority[];
     public status: IStatus[];
     public users: IUser[];
     public category: ICategory[];
-    public place: string;
     public equipmentCategory: ICategory[];
     public eventTypes: ICategory[];
     public units: IUnitEvents[];
@@ -37,7 +38,7 @@ export class EventsWorkspaceService {
     public currentAuthUser: IUser = null;
 
     //#region RESPONSIBLE_USER
-    public;
+    // public;
     //#endregion
 
     statuses: { [id in EventsWidgetNotificationStatus]: string } = {
@@ -60,9 +61,11 @@ export class EventsWorkspaceService {
         drops: 'Сбросы',
     };
 
-    private defaultEvent: EventsWidgetNotification = null;
+    public defaultEvent: EventsWidgetNotification = null;
 
-    constructor(private eventService: EventService) {}
+    constructor(private eventService: EventService) {
+        this.loadItem();
+    }
 
     public async loadItem(id?: number): Promise<void> {
         try {
@@ -113,9 +116,6 @@ export class EventsWorkspaceService {
             retrievalEvents: [],
             severity: 'Critical',
             status: this.status ? this.status[0] : null,
-            iconUrl: 'number',
-            iconUrlStatus: 'number',
-            statusName: '',
             equipmentCategory: this.equipmentCategory ? this.equipmentCategory[0] : null,
             deadline: new Date(),
             graphValues: null,
@@ -134,7 +134,7 @@ export class EventsWorkspaceService {
             console.log(value);
         }
 
-        await this.loadItem(typeof value === 'number' ? value : undefined);
+        this.loadItem(typeof value === 'number' ? value : undefined);
     }
 
     public createNewEvent(isRetrieval: boolean = false): void {
@@ -145,6 +145,25 @@ export class EventsWorkspaceService {
         } else {
             this.retrievalEvent = fillDataShape(this.defaultEvent);
         }
+    }
+
+    public async saveEvent(): Promise<void> {
+        if (this.isCreateNewEvent) {
+            try {
+                const event = await this.eventService.postEvent(this.event);
+                this.event = event;
+                this.isCreateNewEvent = false;
+            } catch (err) {
+                console.error(err);
+            }
+        } else {
+            try {
+                await this.eventService.putEvent(this.event);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        this.eventService.updateEvent$.next(true);
     }
 
     public async saveNewRetrievalEvent(): Promise<void> {
@@ -181,10 +200,33 @@ export class EventsWorkspaceService {
                     this.event.retrievalEvents[index].innerNotification = this.retrievalEvent;
                     await this.eventService.editRetrievalEvents(this.event.retrievalEvents[index]);
                     this.eventService.updateEvent$.next(true);
+                    this.retrievalEvent = fillDataShape(this.defaultEvent);
                 } catch (err) {
                     console.error(err);
                 }
             }
+        } else {
+            const index = this.event.retrievalEvents.findIndex(
+                (item) => item.id === this.retrievalEvent.id
+            );
+            this.event.retrievalEvents[index].innerNotification = this.retrievalEvent;
+        }
+    }
+
+    public sendMessageToEvent(
+        msg: string,
+        category: 'comments' | 'facts',
+        isRetrieval: boolean = false
+    ): void {
+        const fullComment = {
+            comment: msg,
+            createdAt: new Date(),
+            displayName: this.currentAuthUser.displayName,
+        };
+        if (isRetrieval) {
+            this.retrievalEvent[category].push(fullComment);
+        } else {
+            this.event[category].push(fullComment);
         }
     }
 }

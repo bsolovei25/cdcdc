@@ -29,6 +29,7 @@ import { WidgetPlatform } from '../../models/widget-platform';
 import { ITime } from '../../models/time-data-picker';
 import { AppConfigService } from '../../../services/appConfigService';
 import { EventsWorkspaceService } from '../../services/events-workspace.service';
+import { fillDataShape } from '../../../@shared/common-functions';
 
 @Component({
     selector: 'evj-events-workspace',
@@ -41,22 +42,12 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
     isUserCanEdit: boolean = true; // может пользователь редактировать
 
-    comments: string[] = []; // TOFIX
-    fact: string[] = []; // TOFIX
-    isNew: boolean = true;
+    // isNew: boolean = true;
 
     isEdit: boolean = false; // изменено ли событие
 
     isClickFact: number; // хз
     isClickComment: number; // хз
-
-    priority: IPriority[]; // TOFIX
-    status: IStatus[]; // TOFIX
-    user: IUser[]; // TOFIX
-    category: ICategory[]; // TOFIX
-    place: string; // TOFIX
-    equipmentCategory: any; // TOFIX
-    eventTypes: any; // TOFIX
 
     nameUser: string; // TOFIX
     nameUserFirstName: string; // TOFIX
@@ -77,31 +68,9 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
     dateComment: Date; // хз
 
-    isNewRetrieval: EventsWidgetNotification = null; // TOFIX
+    // isNewRetrieval: EventsWidgetNotification = null; // TOFIX
 
     openEvent: boolean = true; // отображение кнопок в хэдере
-
-    statuses: { [id in EventsWidgetNotificationStatus]: string } = { // TOFIX
-        new: 'Новое',
-        inWork: 'В работе',
-        closed: 'Завершено',
-    };
-
-    priorities: { [id in EventsWidgetNotificationPriority]: string } = { // TOFIX
-        danger: 'Высокий',
-        warning: 'Средний',
-        standard: 'Стандартный',
-    };
-
-    categories: { [id in EventsWidgetCategoryCode]: string } = { // TOFIX
-        smotr: 'СМОТР',
-        safety: 'Безопасноть',
-        tasks: 'Производственные задания',
-        equipmentStatus: 'Состояния оборудования',
-        drops: 'Сбросы',
-    };
-
-    units: IUnitEvents[]; // TOFIX
 
     eventLegends: any = [{ isLegend: true }, { isLegend: false }]; // TOFIX
 
@@ -127,7 +96,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     @ViewChild('progress') progress: ElementRef;
 
     constructor(
-        private ewService: EventsWorkspaceService,
+        public ewService: EventsWorkspaceService,
         private eventService: EventService,
         private snackBar: MatSnackBar,
         public widgetService: WidgetService,
@@ -142,9 +111,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.subscriptions.push(
             this.authService.user$.subscribe((data: IUser) => {
                 if (data) {
-                    this.nameUser = data.firstName + ' ' + data.lastName;
-                    this.nameUserFirstName = data.firstName;
-                    this.nameUserLastName = data.lastName;
                     this.ewService.currentAuthUser = data;
                 }
             })
@@ -169,7 +135,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
                     this.openEvent = false;
                     this.setEventByInfo(value);
                 } else {
-                    this.event = value;
+                    this.ewService.event = value;
                 }
             })
         );
@@ -184,27 +150,11 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
         this.resetComponent();
         this.dataPicker = false;
-        this.isNew = false;
+        this.ewService.setEventByInfo(value);
 
-        if (typeof value !== 'number') {
-            this.chooseNameUser =
-                value.fixedBy.firstName +
-                ' ' +
-                value.fixedBy.middleName +
-                ' ' +
-                value.fixedBy.lastName;
-            this.event = value;
-            this.dateChoose = value.deadline;
-            this.userAvatar = value?.fixedBy?.photoId
-                ? `${this.fsUrl}/${value?.fixedBy?.photoId}`
-                : this.userAvatarDefault;
-            this.isUserCanEdit = value.isUserCanEdit;
-            console.log(value);
-            console.log(this.isUserCanEdit);
-        }
+        setTimeout(() => (this.isLoading = false), 500);
 
-        await this.loadItem(typeof value === 'number' ? value : undefined);
-        this.progressLine();
+        // this.progressLine();
     }
 
     ngOnDestroy(): void {
@@ -212,7 +162,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     }
 
     private wsHandler(data: EventsWidgetData): void {
-        if (this.event?.id !== data.notification.id) {
+        if (this.ewService.event?.id !== data.notification.id) {
             return;
         }
         switch (data.action) {
@@ -236,7 +186,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     @HostListener('document:resize', ['$event'])
     OnResize(event): void {
         try {
-            this.progressLine();
+            // this.progressLine();
         } catch (error) {}
     }
 
@@ -258,32 +208,24 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         ) {
             document.getElementById('overlay-chart').style.display = 'none';
         }
-        this.isNew = false;
-        this.isNewRetrieval = null;
+        // this.isNew = false;
+        // this.isNewRetrieval = null;
     }
 
     // для существующего event
     onSendMessage(): void {
         if (this.input2.nativeElement.value) {
-            const commentInfo = {
-                comment: this.input2.nativeElement.value,
-                createdAt: new Date(),
-                displayName: this.nameUser,
-            };
-            this.event.comments.push(commentInfo);
+            const msg = this.input2.nativeElement.value;
             this.input2.nativeElement.value = '';
+            this.ewService.sendMessageToEvent(msg, 'comments', false);
             this.dateComment = new Date();
             setTimeout(() => {
                 this.scrollCommentBottom();
             }, 50);
         } else if (this.input.nativeElement.value) {
-            const factInfo = {
-                comment: this.input.nativeElement.value,
-                createdAt: new Date(),
-                displayName: this.nameUser,
-            };
-            this.event.facts.push(factInfo);
+            const msg = this.input.nativeElement.value;
             this.input.nativeElement.value = '';
+            this.ewService.sendMessageToEvent(msg, 'facts', false);
             setTimeout(() => {
                 this.scrollFactBottom();
             }, 50);
@@ -293,30 +235,18 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     // при создании retrieval event
     onSendNewMessage(): void {
         if (this.newInput2.nativeElement.value) {
-            if (this.isNewRetrieval.facts === undefined) {
-                this.isNewRetrieval.facts = [];
-            }
-            const factInfo = {
-                comment: this.newInput2.nativeElement.value,
-                createdAt: new Date(),
-                displayName: this.nameUser,
-            };
-            this.isNewRetrieval.facts.push(factInfo);
+            this.ewService.retrievalEvent.facts = this.ewService.retrievalEvent?.facts ?? [];
+            const msg = this.newInput2.nativeElement.value;
             this.newInput2.nativeElement.value = '';
+            this.ewService.sendMessageToEvent(msg, 'comments', false);
             setTimeout(() => {
                 this.scrollFactBottom();
             }, 50);
         } else if (this.newInput.nativeElement.value) {
-            if (this.isNewRetrieval.comments === undefined) {
-                this.isNewRetrieval.comments = [];
-            }
-            const commentInfo = {
-                comment: this.newInput.nativeElement.value,
-                createdAt: new Date(),
-                displayName: this.nameUser,
-            };
-            this.isNewRetrieval.comments.push(commentInfo);
+            this.ewService.retrievalEvent.comments = this.ewService.retrievalEvent?.comments ?? [];
+            const msg = this.newInput.nativeElement.value;
             this.newInput.nativeElement.value = '';
+            this.ewService.sendMessageToEvent(msg, 'comments', false);
             setTimeout(() => {
                 this.scrollCommentBottom();
             }, 50);
@@ -360,113 +290,16 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     }
 
     async createEvent(): Promise<void> {
-        await this.loadItem();
-        this.changeCategory();
-        this.isNew = true;
+        this.ewService.isCreateNewEvent = true;
 
         this.dataPicker = false;
 
         this.dateChoose = new Date();
 
-        this.event = {
-            isUserCanEdit: true,
-            itemNumber: 0,
-            branch: 'Производство',
-            category: this.category ? this.category[0] : null,
-            description: '',
-            deviationReason: 'Причина отклонения...',
-            directReasons: '',
-            establishedFacts: '',
-            eventDateTime: new Date(),
-            eventType: this.eventTypes ? this.eventTypes[0] : null,
-            fixedBy: {
-                email: '',
-                login: '',
-                firstName: '',
-                id: null,
-                lastName: '',
-                middleName: '',
-                phone: '',
-            },
-            organization: 'АО Газпромнефть',
-            priority: this.priority
-                ? this.priority[2]
-                    ? this.priority[2]
-                    : this.priority[0]
-                : null,
-            responsibleOperator: this.user[this.idUser - 1],
-            retrievalEvents: [],
-            severity: 'Critical',
-            status: this.status ? this.status[0] : null,
-            iconUrl: 'number',
-            iconUrlStatus: 'number',
-            statusName: '',
-            equipmentCategory: this.equipmentCategory ? this.equipmentCategory[0] : null,
-            deadline: new Date(),
-            graphValues: null,
-            isAcknowledged: false,
-            unitName: null,
-            facts: [],
-            comments: [],
-        };
+        this.ewService.createNewEvent();
     }
 
     // #region DATA API
-
-    async loadItem(id?: number): Promise<void> {
-        this.isLoading = true;
-        const dataLoadQueue: Promise<void>[] = [];
-        if (id) {
-            dataLoadQueue.push(
-                this.eventService.getEvent(id).then((data) => {
-                    this.event = data;
-                })
-            );
-        }
-
-        dataLoadQueue.push(
-            this.eventService.getCategory().then((data) => {
-                this.category = data;
-            }),
-
-            this.eventService.getUser().then((data) => {
-                this.user = data;
-            }),
-
-            this.eventService.getStatus().then((data) => {
-                this.status = data;
-            }),
-
-            this.eventService.getUnits().then((data) => {
-                this.units = data;
-            }),
-
-            this.eventService.getPriority().then((data) => {
-                this.priority = data;
-            }),
-
-            this.eventService.getEquipmentCategory().then((data) => {
-                this.equipmentCategory = data;
-            }),
-
-            this.eventService.getEventType().then((data) => {
-                this.eventTypes = data;
-            })
-        );
-
-        if (dataLoadQueue.length > 0) {
-            try {
-                // wait untill all data will be loaded (with parralel requests)
-                await Promise.all(dataLoadQueue);
-                // fill form data from source object
-            } catch (err) {
-                console.error(err);
-            }
-        }
-        setTimeout(() => {
-            this.isLoading = false;
-        }, 500);
-    }
 
     formatDate(date: Date): Date {
         return new Date(
@@ -486,27 +319,9 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.isEditing = false;
         //  this.event.deadline = this.formatDate(new Date(this.event.deadline));
         console.log(this.event.deadline);
-        if (this.isNew) {
-            try {
-                const ev = await this.eventService.postEvent(this.event);
-                this.event = ev;
-                this.isNew = false;
-                this.openSnackBar('Сохранено');
-            } catch (error) {
-                this.isLoading = false;
-                this.openSnackBar('Ошибка');
-            }
-        } else {
-            try {
-                const ev = await this.eventService.putEvent(this.event);
-                this.openSnackBar('Сохранено');
-            } catch (error) {
-                this.isLoading = false;
-                this.openSnackBar('Ошибка');
-            }
-        }
 
-        this.eventService.updateEvent$.next(true);
+        this.ewService.saveEvent();
+
         this.isLoading = false;
     }
 
@@ -518,130 +333,44 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
     // #region Retrieval Event
 
-    async saveRetrieval(idEvent: number): Promise<void> {
-        // Если не новый event, отсылаем
-        if (!this.isNew) {
-            try {
-                const post = await this.eventService.addRetrievalEvents(
-                    idEvent,
-                    this.isNewRetrieval
-                );
-                this.event.retrievalEvents.push(post);
-                this.overlayClose();
-                this.eventService.updateEvent$.next(true);
-                this.openSnackBar('Сохранено');
-            } catch (error) {
-                this.overlayClose();
-                this.isLoading = false;
-                this.openSnackBar('Ошибка');
-            }
-        } else {
-            // Если новый event то добавляем в массив
-            //this.event.retrievalEvents[0].innerNotification = this.isNewRetrieval;
-            this.event.retrievalEvents.push({
-                id: 1,
-                innerNotification: this.isNewRetrieval,
-                timerPercentage: 50,
-            });
-            this.overlayClose();
-        }
+    async saveRetrieval(): Promise<void> {
+        this.ewService.saveNewRetrievalEvent();
+        this.ewService.isOverlayRetrivealOpen = false;
     }
 
     addRetrieval(): void {
-        this.changeCategory();
-        document.getElementById('overlay-retrieval').style.display = 'block';
+        // document.getElementById('overlay-retrieval').style.display = 'block';
 
         this.dataPicker = false;
 
         this.dateChooseNew = new Date();
 
-        this.isNewRetrieval = {
-            isUserCanEdit: true,
-            itemNumber: 0,
-            branch: 'Производство',
-            category: this.category ? this.category[0] : null,
-            deviationReason: 'Причина отклонения...',
-            directReasons: '',
-            establishedFacts: '',
-            eventDateTime: new Date(),
-            eventType: this.eventTypes ? this.eventTypes[0] : null,
-            fixedBy: {
-                id: null,
-                login: '',
-                firstName: '',
-                lastName: '',
-                middleName: '',
-                email: '',
-                phone: '',
-            },
-            comments: [],
-            facts: [],
-            organization: 'АО Газпромнефть',
-            priority: { id: 2003, name: 'standard', code: '2' },
-            responsibleOperator: this.user[this.idUser - 1],
-            status: this.status ? this.status[0] : null,
-            description: '',
-            equipmentCategory: this.equipmentCategory ? this.equipmentCategory[0] : null,
-            retrievalEvents: [],
-            severity: 'Critical',
-            deadline: new Date(),
-            graphValues: null,
-            isAcknowledged: false,
-            unitName: null,
-        };
+        // показать попап с retrieval event
+
+        this.ewService.createNewEvent(true);
+
+        this.ewService.isOverlayRetrivealOpen = true;
     }
 
     overlayClose(): void {
-        document.getElementById('overlay-retrieval').style.display = 'none';
-        this.isNewRetrieval = null;
-    }
-
-    // TOFIX
-    cancelRetrieval(): void {
-        this.event.retrievalEvents.pop();
+        // document.getElementById('overlay-retrieval').style.display = 'none';
+        // скрыть попап
+        this.ewService.isOverlayRetrivealOpen = false;
+        this.ewService.createNewEvent(true);
     }
 
     onEditRetrieval(retNotid: EventsWidgetNotification): void {
         this.isEdit = true;
-        this.isNewRetrieval = retNotid;
-        document.getElementById('overlay-retrieval').style.display = 'block';
+        this.ewService.retrievalEvent = retNotid;
+        // document.getElementById('overlay-retrieval').style.display = 'block';
+
+        // показать попап с retrieval event
     }
 
     async editSaveRetrieval(): Promise<void> {
-        this.isEdit = true;
-        if (this.isNew) {
-            const idx = this.event.retrievalEvents.findIndex(
-                (i) => i.innerNotification.id === this.isNewRetrieval.id
-            );
-            if (idx !== -1) {
-                this.event.retrievalEvents[idx].innerNotification = this.isNewRetrieval;
-            }
-            this.isNewRetrieval = null;
-            this.isEdit = false;
-            this.overlayClose();
-        } else {
-            try {
-                const idx = this.event.retrievalEvents.findIndex(
-                    (i) => i.innerNotification.id === this.isNewRetrieval.id
-                );
-                if (idx !== -1) {
-                    this.event.retrievalEvents[idx].innerNotification = this.isNewRetrieval;
-                }
-                this.isLoading = true;
-                const put = await this.eventService.editRetrievalEvents(
-                    this.event.retrievalEvents[idx]
-                );
-                this.eventService.updateEvent$.next(true);
-                this.overlayClose();
-                this.isLoading = false;
-                this.openSnackBar('Сохранено');
-            } catch (error) {
-                this.isLoading = false;
-                this.openSnackBar('Ошибка');
-            }
-            this.isEdit = false;
-        }
-        this.progressLine();
+        this.ewService.isOverlayRetrivealOpen = false;
+        this.ewService.saveEditedRetrievalEvent();
+        // this.progressLine();
     }
 
     async deleteRetrieval(idEvent: number, idRetrNotif: number, idRetr): Promise<void> {
@@ -672,7 +401,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     }
 
     overlayConfirmationOpen(): void {
-        document.getElementById('overlay-confirmation').style.display = 'block';
+        this.ewService.isOverlayRetrivealOpen = true;
     }
 
     overlayConfirmationClose(): void {
@@ -689,41 +418,22 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         return a && b && a.id === b.id;
     }
 
-    changeCategory(): void {
-        for (let item of this.user) {
-            if (
-                item.lastName === this.nameUserLastName &&
-                item.firstName === this.nameUserFirstName
-            ) {
-                this.idUser = item.id;
-            }
-        }
-    }
-
     openLineChart(): void {
-        document.getElementById('overlay-chart').style.display = 'block';
+        this.ewService.isOverlayChartOpen = true;
         const event = new CustomEvent('resize');
         document.dispatchEvent(event);
     }
 
     overlayChartClose(): void {
-        document.getElementById('overlay-chart').style.display = 'none';
+        this.ewService.isOverlayChartOpen = false;
     }
 
-    chooseRespons(data): void {
-        this.userChoosen = true;
-        this.chooseNameUser = data.firstName + ' ' + data.middleName + ' ' + data.lastName;
-        this.userBrigade = data.brigade.number;
-        this.userDescription = data.positionDescription;
-        this.userAvatar = data?.photoId ? `${this.fsUrl}/${data.photoId}` : this.userAvatarDefault;
+    chooseRespons(data: IUser): void {
+        this.ewService.event.fixedBy = data;
     }
 
-    chooseMeropRespons(data): void {
-        this.userMeropChoosen = true;
-        this.chooseNameUser = data.firstName + ' ' + data.middleName + ' ' + data.lastName;
-        this.userBrigade = data.brigade.number;
-        this.userDescription = data.positionDescription;
-        this.userAvatar = data?.photoId ? `${this.fsUrl}/${data.photoId}` : this.userAvatarDefault;
+    chooseMeropRespons(data: IUser): void {
+        this.ewService.retrievalEvent.fixedBy = data;
     }
 
     onEditShortInfo(): void {
@@ -752,7 +462,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
         this.dateChoose = new Date(date.setHours(+time[0], +time[1], +time[2]));
 
-        this.event.deadline = this.dateChoose;
+        this.ewService.event.deadline = this.dateChoose;
     }
 
     dateTimePickerNew(data: ITime): void {
@@ -761,6 +471,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
         this.dateChooseNew = new Date(date.setHours(+time[0], +time[1], +time[2]));
 
-        this.isNewRetrieval.deadline = this.dateChooseNew;
+        this.ewService.retrievalEvent.deadline = this.dateChooseNew;
     }
 }
