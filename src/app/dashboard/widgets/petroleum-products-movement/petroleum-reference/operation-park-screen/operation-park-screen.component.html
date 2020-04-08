@@ -60,7 +60,7 @@
                 type="text"
                 placeholder="--------"
                 [(ngModel)]="item.paramValue"
-                [readOnly]="item.isActive"
+                [readOnly]="!item.isActive"
                 [class.data_active]="item.isActive"
               />
             </ng-container>
