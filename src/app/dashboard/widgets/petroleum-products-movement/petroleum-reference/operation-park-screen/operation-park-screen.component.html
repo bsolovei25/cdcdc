@@ -61,7 +61,7 @@
                 placeholder="--------"
                 [(ngModel)]="item.paramValue"
                 [readOnly]="item.isActive"
-                [class.data_active]="true"
+                [class.data_active]="item.isActive"
               />
             </ng-container>
             <ng-container *ngIf="dic.key === 'buttons' && item.isEdit">
