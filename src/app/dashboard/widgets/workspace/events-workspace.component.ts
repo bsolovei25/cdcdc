@@ -759,21 +759,13 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.progressLineHeight = (heightMiddle / countRetAll) * countRetCompleate;
     }
 
-    dateTimePicker(data: ITime): void {
-        const time = data.time.split(':');
-        const date = new Date(data.date);
-
-        this.dateChoose = new Date(date.setHours(+time[0], +time[1], +time[2]));
-
+    dateTimePicker(date: Date): void {
+        this.dateChoose = new Date(date);
         this.event.deadline = this.dateChoose;
     }
 
-    dateTimePickerNew(data: ITime): void {
-        const time = data.time.split(':');
-        const date = new Date(data.date);
-
-        this.dateChooseNew = new Date(date.setHours(+time[0], +time[1], +time[2]));
-
+    dateTimePickerNew(date: Date): void {
+        this.dateChooseNew = new Date(date);
         this.isNewRetrieval.deadline = this.dateChooseNew;
     }
 }

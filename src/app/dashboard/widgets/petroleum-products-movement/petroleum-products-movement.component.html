@@ -16,6 +16,7 @@
       (touchstart)="$event.stopPropagation()"
     >
       <evj-loading-shade [isLoading]="petroleumService.isLoad$ | async"></evj-loading-shade>
+      <evj-alert-window [info]="petroleumService.alertWindow$ | async"></evj-alert-window>
       <div class="blocks">
         <div class="components">
           <div class="left_block">

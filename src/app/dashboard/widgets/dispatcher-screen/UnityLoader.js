@@ -286,9 +286,9 @@ export var UnityLoader = UnityLoader || {
                   if (2048 & r.flags) {
                     if (0 === d) break e;
                     w = 0;
-                    do Ue = o[a + w++], r.head && Ue && r.length < 65536 && (r.head.name += String.fromCharCode(Ue)); while (Ue && w < d);
+                    do Ue = o[a + w++], r.head && Ue && r.length < 65536 && (r.head.key += String.fromCharCode(Ue)); while (Ue && w < d);
                     if (512 & r.flags && (r.check = v(r.check, o, w, a)), d -= w, a += w, Ue) break e
-                  } else r.head && (r.head.name = null);
+                  } else r.head && (r.head.key = null);
                   r.length = 0, r.mode = Z;
                 case Z:
                   if (4096 & r.flags) {
