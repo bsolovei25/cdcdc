@@ -52,6 +52,10 @@ export class ReferencesService {
         return this.http.delete<IReferenceColumns>(this.restUrl + '/api/ref-book/ReferenceColumn/' + id);
     }
 
+    public removeRecordWithColumn(id: number): Observable<IReferenceColumns> {
+        return this.http.delete<IReferenceColumns>(this.restUrl + '/api/ref-book/ReferenceColumn/' + id + '/force');
+    }
+
     public removeDataRecord(id: number): Observable<any> {
         return this.http.delete<any>(this.restUrl + '/api/ref-book/ReferenceData/' + id);
     }

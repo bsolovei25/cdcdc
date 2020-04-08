@@ -75,6 +75,8 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     public selectFile;
 
+    public popupUserParam: boolean = false;
+
     constructor(
         public widgetService: WidgetService,
         public reportService: ReportServerConfiguratorService,
@@ -126,7 +128,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     }
 
     getOptions() {
-        return this.reportService.getOptions().subscribe((data) => {
+        return this.reportService.getSystemOptions().subscribe((data) => {
             this.options = data;
         });
     }
@@ -142,14 +144,20 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         this.folderActive = data.id;
         data.open = !data.open;
         this.indexColumn = index;
+        this.optionsActive = [];
     }
 
-    onClickItemReference(data) {
+    onClickItemReference(item) {
         this.selectFile = null;
-        this.optionsActive = [];
         this.isAddOptionsButton = true;
         //data.open = !data.open;
-        this.isIdReport = data.id;
+         this.isIdReport = item.id;
+    }
+
+    onClickParamReference(item){
+        if (item.systemOptionType === "customOptions") {
+            this.popupUserParam = true;
+        }
     }
 
     drop(event: CdkDragDrop<string[]>) {
@@ -263,6 +271,10 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         this.reportService.putTemplate(obj).subscribe(ans => {
             console.log(ans);
         });
+    }
+
+    closeOptions(event){
+        this.popupUserParam = event;
     }
 
 

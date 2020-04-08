@@ -111,9 +111,9 @@
                   <div class="reference-container-value__fio-block">
                     <div class="reference-container-value__fio">{{item.name}}</div>
                   </div>
-                  <div class="reference-container-value__type" [class.block-active]="item.open"
-                    (click)="onClickItemReference(item)">
-                    <div class="reference-container-value__fio">{{item.name}}</div>
+                  <div class="reference-container-value__type"
+                    (click)="onClickParamReference(item)">
+                    <div class="reference-container-value__fio">{{item.systemOptionType}}</div>
                     <div class="reference-container-value__edit-button">
                       <svg-icon *ngIf="item.open" class="indicator-selector__collapse"
                         src="./assets/icons/widgets/references/edit_white.svg"></svg-icon>
@@ -156,6 +156,10 @@
               </div>
             </div>
           </div>
+        </div>
+
+        <div *ngIf="popupUserParam" class="popup-user-param">
+          <evj-popup-user-options (close)="closeOptions($event)"></evj-popup-user-options>
         </div>
       </div>
     </ng-container>

@@ -93,7 +93,7 @@
                   </div>
                   <div *ngIf="item.openEdit" class="reference-container__block-info" [class.block-active]="item.open">
                     <div class="reference-container__add-block-input">
-                      <input type="text" [(ngModel)]="item.name" placeholder="Новое наименование." />
+                      <input type="text" [(ngModel)]="item.name" placeholder="Новое наименование..." />
                     </div>
                     <div class="reference-container__add-block-icon" (click)="editRecord(item)">
                       <svg-icon src="./assets/icons/widgets/references/accept.svg" class="add_button_icon"></svg-icon>

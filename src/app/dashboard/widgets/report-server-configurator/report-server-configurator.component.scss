@@ -225,6 +225,7 @@ input {
 }
 
 .references {
+  position: relative;
   display: flex;
   justify-content: space-between;
   height: calc(100% - 20px);
@@ -811,6 +812,13 @@ input {
       left: 15px;
     }
   }
+}
+
+.popup-user-param{
+  position: absolute;
+  display: block;
+  height: 100%;
+  width: 100%;
 }
 
 .isLongBlock {

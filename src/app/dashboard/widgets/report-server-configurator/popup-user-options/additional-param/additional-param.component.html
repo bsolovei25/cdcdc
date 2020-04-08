@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="title">
+        <div class="title__button-close" (click)="closeAdditional()">
+            <svg-icon  src="./assets/icons/widgets/reports/close.svg"
+            class="add_button_icon">
+        </svg-icon>
+        </div>
+        <div class="title__name"> Наборы значений параметров для автогенерации</div>
+    </div>
+    <div class="content">
+        <ng-container *ngFor="let item of data">
+            <div class="content__item-title" (click)="onShowOptions(item)">
+                {{item.name}}
+            </div>
+            <div *ngIf="item.open" class="content__item-options">
+                <ng-container *ngFor="let options of item.options">
+                    <div class="options"> {{options.name}}</div>
+                    <div class="value"> {{options.value}}</div>
+                </ng-container>
+            </div>
+        </ng-container>
+    </div>
+    <div class="bottom">
+        <div class="bottom__block-edit">
+            <div class="bottom__block-add">
+                <div class="bottom__button-add" (click)="openCustomOptions()">
+                    <svg-icon src="./assets/icons/widgets/reports/edit.svg"
+                        class="add_button_icon">
+                    </svg-icon>
+                </div>
+            </div>
+        </div>
+        <div class="bottom__block">
+            <div class="bottom__save-block" (click)="saveReport()">
+                <div class="bottom__button-save">Сохранить</div>
+            </div>
+        </div>
+    </div>
+</div>

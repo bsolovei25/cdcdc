@@ -29,8 +29,12 @@ export class ReportServerConfiguratorService {
     return this.http.get<any[]>(this.restUrl + '/api/report-filetemplate/' + id + '/templates');
   }
 
-  public getOptions(): Observable<any[]> {
-    return this.http.get<any[]>(this.restUrl + '/api/report-template/system-option/all');
+  public getSystemOptions(): Observable<any[]> {
+    return this.http.get<any[]>(this.restUrl + '/api/report-options/system/all');
+  }
+
+  public getUserOptions(): Observable<any[]> {
+    return this.http.get<any[]>(this.restUrl + '/api/report-options/custom/all');
   }
 
   public getTemplateFolder(): Observable<any[]> {
