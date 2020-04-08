@@ -43,7 +43,6 @@ export class PetroleumProductsMovementComponent extends WidgetPlatform
     }
 
     protected dataConnect(): void {
-        console.warn(this.widgetId + ' ' + this.isMock);
         super.dataConnect();
         this.initPetroleumMovement();
     }

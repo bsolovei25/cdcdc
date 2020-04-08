@@ -12,58 +12,159 @@
     <evj-petroleum-unity-info></evj-petroleum-unity-info>
   </div>
 </div>
-<div class="table_update_button">
-  <div class="left_table">
-    <div class="reference_values_short">
-      <ng-container *ngFor="let item of data; let i = index">
-        <ng-container *ngIf="i % 2 === 0">
-          <div class="values_block" [ngClass]="{'active': item.active}" (click)="clickActive(item)">
-            <div>
-              {{item.paramTitle}}
-            </div>
-            <div>
-              {{item.paramUnit}}
-            </div>
-            <div>
-              {{item.paramValue}}
-            </div>
-<!--            <div class="icon-wrapper">-->
-<!--              <svg-icon-->
-<!--                class="indicator-selector__collapse"-->
-<!--                src="./assets/icons/widgets/petroleum-products-movement/edit.svg"-->
-<!--              ></svg-icon>-->
-<!--            </div>-->
-          </div>
-        </ng-container>
-      </ng-container>
-    </div>
-    <div class="before_after_left"></div>
-  </div>
 
-  <div class="right_table">
-    <div class="reference_values_short">
-      <ng-container *ngFor="let item of data; let i = index">
-        <ng-container *ngIf="i % 2 !== 0">
-          <div class="values_block" [ngClass]="{'active': item.active}" (click)="clickActive(item)">
-            <div>
-              {{item.paramTitle}}
-            </div>
-            <div>
-              {{item.paramUnit}}
-            </div>
-            <div>
-              {{item.paramValue}}
-            </div>
-<!--            <div class="icon-wrapper">-->
-<!--              <svg-icon-->
-<!--                class="indicator-selector__collapse"-->
-<!--                src="./assets/icons/widgets/petroleum-products-movement/edit.svg"-->
-<!--              ></svg-icon>-->
-<!--            </div>-->
+<div class="table_widget">
+  <div class="reference_title">
+    <ng-container *ngFor="let dic of dict">
+      <div class="title_block"
+           [class.table-width__title]="dic.key === 'paramTitle'"
+           [class.table-width__unit]="dic.key === 'paramUnit'"
+           [class.table-width__datetime]="dic.key === 'paramDatetime'"
+           [class.table-width__value]="dic.key === 'paramValue'"
+           [class.table-width__buttons]="dic.key === 'buttons'">
+        <div class="title">
+          {{ dic.title }}
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="reference_values_short">
+    <ng-container *ngFor="let item of testData">
+      <div
+        class="values_block"
+        [class.values_block__active]="item.isActive"
+      >
+        <ng-container *ngFor="let dic of dict">
+          <div class="values"
+               [class.table-width__title]="dic.key === 'paramTitle'"
+               [class.table-width__unit]="dic.key === 'paramUnit'"
+               [class.table-width__datetime]="dic.key === 'paramDatetime'"
+               [class.table-width__value]="dic.key === 'paramValue'"
+               [class.table-width__buttons]="dic.key === 'buttons'">
+            <ng-container *ngIf="dic.key === 'paramDatetime' && item.paramDatetime">
+              <div class="dates-selector__body">
+                <div class="dates-selector__dates">
+                  <div class="dates-selector__date-choose">
+                    <evj-time-data-picker
+                      [data]="item[dic.key]"
+                      (dateTimePicker)="dateTimePicker($event, item)"
+                      [class.dates-selector__date-choose__disabled]="!item.isActive">
+                    </evj-time-data-picker>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="dic.key === 'paramValue'">
+              <input
+                class="data"
+                type="text"
+                placeholder="--------"
+                [(ngModel)]="item.paramValue"
+                [readOnly]="item.isActive"
+                [class.data_active]="true"
+              />
+            </ng-container>
+            <ng-container *ngIf="dic.key === 'buttons' && item.isEdit">
+              <div class="icon-buttons">
+                <ng-container *ngIf="item.isActive">
+                  <div class="icon-wrapper" (click)="okEdit(item)">
+                    <svg-icon
+                      class="indicator-selector__collapse"
+                      src="assets/icons/widgets/petroleum-products-movement/checkmark.svg"
+                    ></svg-icon>
+                  </div>
+                  <div class="icon-wrapper" (click)="closeEdit(item)">
+                    <svg-icon
+                      class="indicator-selector__collapse"
+                      src="assets/icons/widgets/petroleum-products-movement/garbage_bad_pic.svg"
+                    ></svg-icon>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="!item.isActive">
+                  <div class="icon-wrapper" (click)="startEdit(item)">
+                    <svg-icon
+                      class="indicator-selector__collapse"
+                      src="assets/icons/widgets/petroleum-products-movement/edit.svg"
+                    ></svg-icon>
+                  </div>
+                </ng-container>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="dic.key !== 'paramValue' &&
+             dic.key !== 'paramDatetime' && dic.key !== 'buttons'">
+              <div class="value">
+                {{ item[dic.key] }}
+              </div>
+            </ng-container>
           </div>
         </ng-container>
-      </ng-container>
-    </div>
-    <div class="before_after_right"></div>
+      </div>
+    </ng-container>
   </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+<!--<div class="table_update_button">-->
+<!--  <div class="left_table">-->
+<!--    <div class="reference_values_short">-->
+<!--      <ng-container *ngFor="let item of data; let i = index">-->
+<!--        <ng-container *ngIf="i % 2 === 0">-->
+<!--          <div class="values_block" [ngClass]="{'active': item.active}" (click)="clickActive(item)">-->
+<!--            <div>-->
+<!--              {{item.paramTitle}}-->
+<!--            </div>-->
+<!--            <div>-->
+<!--              {{item.paramUnit}}-->
+<!--            </div>-->
+<!--            <div>-->
+<!--              {{item.paramValue}}-->
+<!--            </div>-->
+<!--&lt;!&ndash;            <div class="icon-wrapper">&ndash;&gt;-->
+<!--&lt;!&ndash;              <svg-icon&ndash;&gt;-->
+<!--&lt;!&ndash;                class="indicator-selector__collapse"&ndash;&gt;-->
+<!--&lt;!&ndash;                src="./assets/icons/widgets/petroleum-products-movement/edit.svg"&ndash;&gt;-->
+<!--&lt;!&ndash;              ></svg-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--          </div>-->
+<!--        </ng-container>-->
+<!--      </ng-container>-->
+<!--    </div>-->
+<!--    <div class="before_after_left"></div>-->
+<!--  </div>-->
+
+<!--  <div class="right_table">-->
+<!--    <div class="reference_values_short">-->
+<!--      <ng-container *ngFor="let item of data; let i = index">-->
+<!--        <ng-container *ngIf="i % 2 !== 0">-->
+<!--          <div class="values_block" [ngClass]="{'active': item.active}" (click)="clickActive(item)">-->
+<!--            <div>-->
+<!--              {{item.paramTitle}}-->
+<!--            </div>-->
+<!--            <div>-->
+<!--              {{item.paramUnit}}-->
+<!--            </div>-->
+<!--            <div>-->
+<!--              {{item.paramValue}}-->
+<!--            </div>-->
+<!--&lt;!&ndash;            <div class="icon-wrapper">&ndash;&gt;-->
+<!--&lt;!&ndash;              <svg-icon&ndash;&gt;-->
+<!--&lt;!&ndash;                class="indicator-selector__collapse"&ndash;&gt;-->
+<!--&lt;!&ndash;                src="./assets/icons/widgets/petroleum-products-movement/edit.svg"&ndash;&gt;-->
+<!--&lt;!&ndash;              ></svg-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--          </div>-->
+<!--        </ng-container>-->
+<!--      </ng-container>-->
+<!--    </div>-->
+<!--    <div class="before_after_right"></div>-->
+<!--  </div>-->
+<!--</div>-->
