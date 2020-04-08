@@ -39,62 +39,61 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     event: EventsWidgetNotification;
     isLoading: boolean = true;
 
-    isUserCanEdit: boolean = true;
+    isUserCanEdit: boolean = true; // может пользователь редактировать
 
-    comments: string[] = [];
-    fact: string[] = [];
+    comments: string[] = []; // TOFIX
+    fact: string[] = []; // TOFIX
     isNew: boolean = true;
 
-    isEdit: boolean = false;
+    isEdit: boolean = false; // изменено ли событие
 
-    isClickFact: number;
-    isClickComment: number;
+    isClickFact: number; // хз
+    isClickComment: number; // хз
 
-    priority: IPriority[];
-    status: IStatus[];
-    user: IUser[];
-    category: ICategory[];
-    place: string;
-    equipmentCategory: any;
-    eventTypes: any;
+    priority: IPriority[]; // TOFIX
+    status: IStatus[]; // TOFIX
+    user: IUser[]; // TOFIX
+    category: ICategory[]; // TOFIX
+    place: string; // TOFIX
+    equipmentCategory: any; // TOFIX
+    eventTypes: any; // TOFIX
 
-    nameUser: string;
+    nameUser: string; // TOFIX
+    nameUserFirstName: string; // TOFIX
+    nameUserLastName: string; // TOFIX
 
-    nameUserFirstName: string;
-    nameUserLastName: string;
-
-    public userAvatar: string = 'assets/icons/widgets/admin/default_avatar2.svg';
+    public userAvatar: string = 'assets/icons/widgets/admin/default_avatar2.svg'; // TOFIX
     public userAvatarDefault: string = 'assets/icons/widgets/admin/default_avatar2.svg';
-    userChoosen: boolean = false;
-    userMeropChoosen: boolean = false;
-    chooseNameUser: string;
-    userBrigade: string;
-    userDescription: string;
+    userChoosen: boolean = false; // ответственный
+    userMeropChoosen: boolean = false; // ответственный в retrieval
+    chooseNameUser: string; // TOFIX
+    userBrigade: string; // TOFIX
+    userDescription: string; // TOFIX
 
     saveEvent: boolean;
     isEditing: boolean = false;
 
-    progressLineHeight: number;
+    progressLineHeight: number; // хз
 
-    dateComment: Date;
+    dateComment: Date; // хз
 
-    isNewRetrieval: EventsWidgetNotification = null;
+    isNewRetrieval: EventsWidgetNotification = null; // TOFIX
 
-    openEvent: boolean = true;
+    openEvent: boolean = true; // отображение кнопок в хэдере
 
-    statuses: { [id in EventsWidgetNotificationStatus]: string } = {
+    statuses: { [id in EventsWidgetNotificationStatus]: string } = { // TOFIX
         new: 'Новое',
         inWork: 'В работе',
         closed: 'Завершено',
     };
 
-    priorities: { [id in EventsWidgetNotificationPriority]: string } = {
+    priorities: { [id in EventsWidgetNotificationPriority]: string } = { // TOFIX
         danger: 'Высокий',
         warning: 'Средний',
         standard: 'Стандартный',
     };
 
-    categories: { [id in EventsWidgetCategoryCode]: string } = {
+    categories: { [id in EventsWidgetCategoryCode]: string } = { // TOFIX
         smotr: 'СМОТР',
         safety: 'Безопасноть',
         tasks: 'Производственные задания',
@@ -102,19 +101,19 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         drops: 'Сбросы',
     };
 
-    units: IUnitEvents[];
+    units: IUnitEvents[]; // TOFIX
 
-    eventLegends: any = [{ isLegend: true }, { isLegend: false }];
+    eventLegends: any = [{ isLegend: true }, { isLegend: false }]; // TOFIX
 
-    idUser: number = 0;
+    idUser: number = 0; // TOFIX
 
     static itemCols: number = 20;
     static itemRows: number = 5;
 
-    dataPicker: boolean = false;
+    dataPicker: boolean = false; // хз
 
-    dateChoose: Date;
-    dateChooseNew: Date;
+    dateChoose: Date; // хз
+    dateChooseNew: Date; // хз
 
     private fsUrl: string;
 
