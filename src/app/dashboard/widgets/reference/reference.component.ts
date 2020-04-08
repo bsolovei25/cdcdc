@@ -59,7 +59,6 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
 
     public checkTitle: number;
 
-
     public blockOut = [];
     public blockOutColumn = [];
 

@@ -321,18 +321,21 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
 
     deleteRecord(item): void {
         this.isLongBlock = true;
-        this.referencesService.removeRecord(item.id).subscribe(ans => {
+        this.referencesService.removeRecord(item.id).subscribe((ans) => {
             this.referencesService.getRestReference();
             const indexDelete = this.data[this.indexColumn].columns.indexOf(item);
             this.data[this.indexColumn].columns.splice(indexDelete, 1);
-        });
+        }, (error) => {
+            console.log(error);
+            this.deleteColumn(item);
+        }
+        );
 
     }
 
     onEdit(item): void {
         item.openEdit = !item.openEdit;
     }
-
 
     editReference(item): void {
         this.referencesService.putEditRef(item).subscribe();
@@ -352,5 +355,22 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
                 this.blockOut.push(i);
             }
         }
+    }
+
+
+    public deleteColumn(item): void {
+        const windowsParam = {
+            isShow: true,
+            questionText: 'Вы уверены, что хотите удалить столбец с данными?',
+            acceptText: 'Да',
+            cancelText: 'Отменить',
+            acceptFunction: () => this.referencesService.removeRecordWithColumn(item.id).subscribe(ans => {
+                this.referencesService.getRestReference();
+                const indexDelete = this.data[this.indexColumn].columns.indexOf(item);
+                this.data[this.indexColumn].columns.splice(indexDelete, 1);
+            }),
+            cancelFunction: () => this.referencesService.closeAlert(),
+        };
+        this.referencesService.alertWindow$.next(windowsParam);
     }
 }
