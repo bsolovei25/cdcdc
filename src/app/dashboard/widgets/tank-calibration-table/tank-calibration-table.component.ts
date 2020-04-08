@@ -70,13 +70,18 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         }
     ];
     endTr = [];
+    endTr2 = [];
+
+    isReport: boolean = true;
 
     @HostListener('document:resize', ['$event'])
     OnResize(event) {
         this.blockNeed();
+        this.blockNee2d();
     }
 
     @ViewChild('tableBody') table: ElementRef;
+    @ViewChild('tableRight') tableRight: ElementRef;
 
     constructor(
         public widgetService: WidgetService,
@@ -105,12 +110,24 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         return [...element.values];
     }
 
-    blockNeed() {
+    selectTable(event: boolean): void {
+        this.isReport = event;
+    }
+
+    blockNeed(): void {
         this.endTr = [];
         const heightTemplate = this.dataSource.length * 28;
-        const heihtOut = (this.table.nativeElement.clientHeight - heightTemplate) / 28;
+        const heihtOut = (this.table.nativeElement.clientHeight - heightTemplate) / 26;
         for (let i = 0; i < heihtOut - 1; i++) {
             this.endTr.push(i);
+        }
+    }
+    blockNee2d(): void {
+        this.endTr2 = [];
+        const heightTemplate = this.dataSource.length * 28;
+        const heihtOut = (this.tableRight.nativeElement.clientHeight - heightTemplate) / 26;
+        for (let i = 0; i < heihtOut - 1; i++) {
+            this.endTr2.push(i);
         }
     }
 

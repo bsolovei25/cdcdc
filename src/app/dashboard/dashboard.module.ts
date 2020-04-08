@@ -145,6 +145,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { AdminAdImportComponent } from './widgets/admin-panel/admin-ad-import/admin-ad-import.component';
 import { AddReportFileComponent } from './widgets/report-server-configurator/add-report-file/add-report-file.component';
 import { TankCalibrationTableComponent } from './widgets/tank-calibration-table/tank-calibration-table.component';
+import { TankCalibrationTableFilesComponent } from './widgets/tank-calibration-table/tank-calibration-table-files/tank-calibration-table-files.component';
 
 @NgModule({
     declarations: [
@@ -268,7 +269,8 @@ import { TankCalibrationTableComponent } from './widgets/tank-calibration-table/
         AgAlertSubmitComponent,
         AdminAdImportComponent,
         AddReportFileComponent,
-        TankCalibrationTableComponent
+        TankCalibrationTableComponent,
+        TankCalibrationTableFilesComponent
     ],
     entryComponents: [
         LineChartComponent,

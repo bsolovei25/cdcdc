@@ -61,23 +61,25 @@ input {
 
 .table__left {
   table {
-    width: 600px;
+    width: 200px;
     border-spacing: 0;
     justify-content: space-between;
     flex-direction: column;
     height: 100%;
   }
+
   .table {
     height: calc(100% - 42px);
     overflow-y: auto;
   }
+
   font-family: Tahoma, sans-serif;
   font-size: 12px;
   font-weight: 100;
   color: var(--color-text-sub);
 
   position: relative;
-  min-width: 660px;
+  min-width: 227px;
   height: 100%;
   padding: 20px;
   padding-top: 31px;
@@ -234,11 +236,11 @@ input {
 
 .table__right {
   table {
-    width: 425px;
+    width: 720px;
+    height: 100%;
     border-spacing: 0;
     justify-content: space-between;
     flex-direction: column;
-    height: 100%;
   }
   .table {
     height: calc(100% - 42px);
