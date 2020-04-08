@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PetroleumScreenService } from 'src/app/dashboard/services/petroleum-screen.service';
 import { ITankAttribute } from '../../../../models/petroleum-products-movement.model';
+import { SnackBarService } from '../../../../services/snack-bar.service';
 
 interface IParams {
     name: string;
@@ -80,7 +81,10 @@ export class OperationParkScreenComponent implements OnInit {
         },
     ];
 
-    constructor(private petroleumService: PetroleumScreenService) {}
+    constructor(
+        private petroleumService: PetroleumScreenService,
+        private snackBarService: SnackBarService
+    ) {}
 
     public ngOnInit(): void {
         this.petroleumService.currentTankParam.subscribe(
@@ -95,7 +99,12 @@ export class OperationParkScreenComponent implements OnInit {
     }
 
     dateTimePicker(date: Date, item: ITankAttribute): void {
-        item.paramDatetime = new Date(date);
+        // console.log(date.getDate());
+        // if (date.getDate() > Date.now()) {
+        //     this.snackBarService.openSnackBar('Некорректно установлено время (установите время не превышающее текущее)' , 'snackbar-red');
+        //     return;
+        // }
+        // item.paramDatetime = new Date(date);
     }
 
     public startEdit(item: ITankAttribute): void {
