@@ -179,8 +179,8 @@ input {
     text-align: left;
     font-size: 16px;
     font-weight: 100;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 8px;
+    padding-bottom: 2px;
     display: flex;
     flex-grow: 1;
     max-height: 28px;
@@ -221,6 +221,8 @@ input {
 
       &-icon {
         padding-left: 23px;
+        top: -5px;
+        position: relative;
       }
       &-trash {
         display: none;
@@ -241,6 +243,7 @@ input {
       min-width: 141px;
       max-width: 141px;
       text-align: center;
+      color: var(--color-text-main);
       // border-bottom: 2px solid var(--color-danger);
     }
   }
