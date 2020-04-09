@@ -11,6 +11,8 @@ export class AdditionalParamComponent implements OnInit {
   @Output() public close: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() public openOptions: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+  objectKeys = Object.keys;
+
   isOpenCheckBlock: boolean = false;
 
   public datas: any = [];
