@@ -98,6 +98,29 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
     OnResize(event) {
         if (this.data !== undefined && this.data.length > 0) {
             this.blockNeed();
+            this.setStyleScroll();
+        }
+    }
+
+    setStyleScroll() {
+        const rightScroll = document.getElementById('rightScrollAdmRef');
+        const leftScroll = document.getElementById('leftScrollAdmRef');
+
+        if (rightScroll !== undefined) {
+            if (rightScroll.scrollHeight !== rightScroll.clientHeight) {
+                rightScroll.style.cssText = "margin-left: 5px; width: calc(100% - 45px);";
+            } else {
+                rightScroll.style.cssText = "margin-left: 10px; width: calc(100% - 50px);";
+
+            }
+        }
+
+        if (leftScroll !== undefined) {
+            if (leftScroll.scrollHeight !== leftScroll.clientHeight) {
+                leftScroll.style.cssText = "margin-right: 5px; width: calc(100% - 10px);";
+            } else {
+                leftScroll.style.cssText = "margin-right: -5px; width: calc(100% - 5px);";
+            }
         }
     }
 
@@ -120,6 +143,7 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
         return this.referencesService.getReference().subscribe((data) => {
             this.datas = data;
             this.data = this.datas;
+            this.setStyleScroll();
         });
     }
 
@@ -132,6 +156,7 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
         if (data.columns !== null && data.columns !== undefined) {
             this.sortByOrder(data.columns);
             this.blockNeed();
+            this.setStyleScroll();
 
             for (let item of data.columns) {
                 if (item.isRequred) {
@@ -147,6 +172,7 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
             this.referencesService.getColumns(this.idReferenceClick).subscribe((datas) => {
                 data.columns = datas;
                 this.blockNeed();
+                this.setStyleScroll();
             });
         }
     }
@@ -348,11 +374,13 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
 
     blockNeed(): void {
         this.blockOut = [];
-        if (this.data[this.indexColumn].columns !== undefined) {
-            const heightTemplate = this.data[this.indexColumn].columns?.length * 40;
-            const heihtOut = (this.testBlock.nativeElement.clientHeight - heightTemplate) / 40;
-            for (let i = 0; i < heihtOut - 1; i++) {
-                this.blockOut.push(i);
+        if (this.data[this.indexColumn] !== undefined) {
+            if (this.data[this.indexColumn].columns !== undefined) {
+                const heightTemplate = this.data[this.indexColumn].columns?.length * 40;
+                const heihtOut = (this.testBlock.nativeElement.clientHeight - heightTemplate) / 40;
+                for (let i = 0; i < heihtOut - 1; i++) {
+                    this.blockOut.push(i);
+                }
             }
         }
     }

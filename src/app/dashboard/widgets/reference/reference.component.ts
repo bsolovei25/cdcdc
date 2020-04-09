@@ -81,9 +81,32 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
         );
     }
 
+    setStyleScroll() {
+        const rightScroll = document.getElementById('rightScrollRef');
+        const leftScroll = document.getElementById('leftScrollRef');
+
+        if (rightScroll !== undefined) {
+            if (rightScroll.scrollHeight !== rightScroll.clientHeight) {
+                rightScroll.style.cssText = "margin-left: 5px; width: calc(100% - 45px);";
+            } else {
+                rightScroll.style.cssText = "margin-left: 10px; width: calc(100% - 50px);";
+
+            }
+        }
+
+        if (leftScroll !== undefined) {
+            if (leftScroll.scrollHeight !== leftScroll.clientHeight) {
+                leftScroll.style.cssText = "margin-right: 5px; width: calc(100% - 10px);";
+            } else {
+                leftScroll.style.cssText = "margin-right: -5px; width: calc(100% - 5px);";
+            }
+        }
+    }
+
     @HostListener('document:resize', ['$event'])
     OnResize(event) {
         this.blockNeed();
+        this.setStyleScroll();
     }
 
     ngOnDestroy(): void {
@@ -98,6 +121,7 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
         return this.referencesService.reference$.subscribe((data) => {
             this.datas = data;
             this.data = this.datas;
+            this.setStyleScroll();
         });
     }
 
@@ -106,6 +130,7 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
             this.dataTable = data;
             this.saveTable = data;
             this.blockNeed();
+            this.setStyleScroll();
         });
     }
 
@@ -120,6 +145,7 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
         this.columnData = this.data[this.indexColumn].columns;
 
         this.getTable(data.id);
+        this.setStyleScroll();
     }
 
     onClickItemReference(data) {
@@ -131,14 +157,12 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
                 this.isLongBlock = false;
             }
         }
+
+        this.setStyleScroll();
     }
 
     changeSwap(item) {
-        if (this.checkTitle === item.id) {
-            this.checkTitle = null;
-        } else {
-            this.checkTitle = item.id;
-        }
+        this.checkTitle = item.id;
     }
 
     onAddBlockRecord() {
@@ -338,15 +362,17 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
     blockNeed(): void {
         this.blockOutColumn = [];
         this.blockOut = [];
-        if (this.dataTable.data !== undefined) {
-            const heightTemplate = this.dataTable.data.length * 40;
-            const heihtOut = (this.testBlock.nativeElement.clientHeight - heightTemplate) / 40;
-            for (let i = 0; i < heihtOut - 1; i++) {
-                this.blockOut.push(i);
-            }
+        if (this.dataTable !== undefined) {
+            if (this.dataTable.data !== undefined) {
+                const heightTemplate = this.dataTable.data.length * 40;
+                const heihtOut = (this.testBlock.nativeElement.clientHeight - heightTemplate) / 40;
+                for (let i = 0; i < heihtOut - 1; i++) {
+                    this.blockOut.push(i);
+                }
 
-            for (let j = 0; j < this.columnData.length - 1; j++) {
-                this.blockOutColumn.push(j);
+                for (let j = 0; j < this.columnData.length - 1; j++) {
+                    this.blockOutColumn.push(j);
+                }
             }
         }
     }

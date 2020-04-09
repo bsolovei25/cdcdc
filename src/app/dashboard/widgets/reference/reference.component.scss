@@ -9,13 +9,9 @@
 ::-webkit-scrollbar-track:vertical {
   width: 5px;
   height: 5px;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-top: 1px;
+  margin-bottom: 1px;
   border-radius: 25px;
-}
-
-:hover::-webkit-scrollbar {
-  width: 8px;
 }
 
 :hover::-webkit-scrollbar-thumb {
@@ -47,7 +43,7 @@
 .container {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 99%;
   box-sizing: border-box;
   margin-bottom: 20px;
   display: flex;
@@ -96,7 +92,7 @@ input {
   width: 30%;
   height: 100%;
   padding: 10px;
-  min-width: 202px;
+  min-width: 220px;
   padding-bottom: 0;
 
   .title-reference {
@@ -333,11 +329,13 @@ input {
     color: white;
     position: relative;
     height: 40px;
-    width: 90%;
+    width: calc(100% - 50px);
     background-color: rgba(93, 96, 123, 0.2);
     display: flex;
     text-align: center;
     line-height: 40px;
+    margin: 0 auto;
+    margin-left: 10px ;
 
     &:before {
       z-index: 1;
@@ -456,11 +454,11 @@ input {
     .reference-container-value {
       height: 100%;
       background-color: #1b1f2c;
-      width: 90%;
+      width: calc(100% - 50px);
       min-height: 40px;
       direction: initial;
       margin: 0 auto;
-      margin-left: 0;
+      margin-left: 10px;
       position: relative;
 
       &__block {
@@ -515,16 +513,16 @@ input {
         position: absolute;
         top: 2px;
         width: 12px;
-        right: 5px;
+        right: 10px;
       }
 
       &__delete-button {
         display: block !important;
         cursor: pointer;
         position: absolute;
-        right: -46px;
+        right: -39px;
         top: 0px;
-        width: 46px;
+        width: 39px;
         height: 38px;
         background: var(--color-bg-active);
         background-image: url(../../../../assets/icons/widgets/references/delete_blue.svg) !important;
@@ -594,6 +592,7 @@ input {
       }
 
       &__edit-input {
+        width: 100%;
         input {
           //   width: 100% !important;
         }
@@ -604,8 +603,10 @@ input {
   .bottom-reference-right {
     position: relative;
     height: 40px;
-    width: 90%;
+    width: calc(100% - 50px);
     background-color: rgba(93, 96, 123, 0.2);
+    margin: 0 auto;
+    margin-left: 10px ;
 
     &:before {
       z-index: 1;
@@ -731,9 +732,9 @@ input {
 }
 
 .isLongBlock {
-  width: calc(100% - 10px) !important;
-  margin: 0 auto;
-  margin-right: 0 !important;
+  // width: calc(100% - 10px) !important;
+  // margin: 0 auto;
+  // margin-left: 0 !important;
 }
 
 .isNotButton {

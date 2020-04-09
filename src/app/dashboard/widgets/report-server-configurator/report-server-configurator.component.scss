@@ -4,9 +4,6 @@
   border-radius: 25px;
 }
 
-::-webkit-scrollbar:hover {
-  width: 10px;
-}
 
 ::-webkit-scrollbar-thumb {
   width: 10px;
@@ -235,7 +232,7 @@ input {
 
 .reference-left {
   width: 30%;
-  height: 100%;
+  height: 99%;
   padding: 10px;
   padding-bottom: 0;
   min-width: 235px;
