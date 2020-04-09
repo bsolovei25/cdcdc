@@ -148,6 +148,7 @@ import { SmotrEventComponent } from './widgets/workspace/smotr-event/smotr-event
 import { UsualEventComponent } from './widgets/workspace/usual-event/usual-event.component';
 import { RetrievalWindowComponent } from './widgets/workspace/components/retrieval-window/retrieval-window.component';
 import { EventDescriptionComponent } from './widgets/workspace/components/event-description/event-description.component';
+import { ChatComponent } from './widgets/workspace/components/chat/chat.component';
 
 @NgModule({
     declarations: [
@@ -275,6 +276,7 @@ import { EventDescriptionComponent } from './widgets/workspace/components/event-
         UsualEventComponent,
         RetrievalWindowComponent,
         EventDescriptionComponent,
+        ChatComponent,
     ],
     entryComponents: [
         LineChartComponent,

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EventsWorkspaceService } from '../../../../services/events-workspace.service';
 import { IUser } from '../../../../models/events-widget';
 
@@ -8,11 +8,6 @@ import { IUser } from '../../../../models/events-widget';
     styleUrls: ['./retrieval-window.component.scss'],
 })
 export class RetrievalWindowComponent implements OnInit {
-    @ViewChild('commentInput') commentInput: ElementRef;
-    @ViewChild('factInput') factInput: ElementRef;
-    @ViewChild('factScroll') factScroll: ElementRef;
-    @ViewChild('commentScroll') commentScroll: ElementRef;
-
     constructor(public ewService: EventsWorkspaceService) {}
 
     public ngOnInit(): void {}
@@ -21,37 +16,8 @@ export class RetrievalWindowComponent implements OnInit {
         return a && b && a.id === b.id;
     }
 
-    public onEnterPush(event?: KeyboardEvent): void {
-        if (event.keyCode === 13) {
-            this.onSendMessage();
-        }
-    }
-
-    public onSendMessage(isComment: boolean = true): void {
-        if (!isComment && this.factInput.nativeElement.value) {
-            this.ewService.retrievalEvent.facts = this.ewService.retrievalEvent?.facts ?? [];
-            const msg = this.factInput.nativeElement.value;
-            this.factInput.nativeElement.value = '';
-            this.ewService.sendMessageToEvent(msg, 'facts', true);
-            setTimeout(() => {
-                this.scrollFactBottom();
-            }, 50);
-        } else if (isComment && this.commentInput.nativeElement.value) {
-            this.ewService.retrievalEvent.comments = this.ewService.retrievalEvent?.comments ?? [];
-            const msg = this.commentInput.nativeElement.value;
-            this.commentInput.nativeElement.value = '';
-            this.ewService.sendMessageToEvent(msg, 'comments', true);
-            setTimeout(() => {
-                this.scrollCommentBottom();
-            }, 50);
-        }
-    }
-
-    scrollCommentBottom(): void {
-        this.commentScroll.nativeElement.scrollTop = this.commentScroll.nativeElement.scrollHeight;
-    }
-    scrollFactBottom(): void {
-        this.factScroll.nativeElement.scrollTop = this.factScroll.nativeElement.scrollHeight;
+    public onSendMessage(message: string, msgType: 'comments' | 'facts'): void {
+        this.ewService.sendMessageToEvent(message, msgType, true);
     }
 
     overlayClose(): void {

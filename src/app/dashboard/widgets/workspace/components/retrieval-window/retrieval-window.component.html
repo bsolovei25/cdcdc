@@ -151,60 +151,12 @@
               (changedDescription)="onChangeEventDescription($event)"
             ></evj-event-description>
 
-            <div class="fact_block">
-              <div class="title_fact_block">
-                <div class="title_fact_block_text">
-                  Установленные факты
-                </div>
-              </div>
-              <div class="fact_content_create_event" #factScroll>
-                <div
-                  class="fact_new"
-                  *ngFor="let fact of ewService.retrievalEvent.facts; let i = index"
-                >
-                  <div class="fact_text">
-                    <p>{{fact.comment}}</p>
-                  </div>
-                  <div class="fact_menu">
-                    <div class="fact_info">
-                      <div class="fact_info_user">{{fact.displayName}}</div>
-                      <div class="fact_info_date">
-                        {{fact.createdAt | dateFormat:'DD-MM-YY hh:mm'}}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="empty"></div>
-              <div class="fact_comment">
-                <div class="comment__new">
-                  <input
-                    type="text"
-                    class="comment__text gridster-item-content"
-                    placeholder="Укажите факты..."
-                    (keypress)="onEnterPush($event)"
-                    #factInput
-                  />
-                  <button type="submit" class="button comment__file   gridster-item-content">
-                    <svg-icon
-                      class="button__icon"
-                      src="./assets/icons/widgets/change-shift/add_file.svg"
-                    >
-                    </svg-icon>
-                  </button>
-                  <button
-                    type="submit"
-                    class="button comment__submit  gridster-item-content"
-                    (click)="onSendMessage(false)"
-                  >
-                    <svg-icon
-                      class="button__icon"
-                      src="./assets/icons/widgets/change-shift/send.svg"
-                    ></svg-icon>
-                  </button>
-                </div>
-              </div>
-            </div>
+            <evj-chat
+              [messages]="ewService.retrievalEvent.facts"
+              title="Установленные факты"
+              placeholder="Укажите факты..."
+              (addingMessage)="onSendMessage($event,'facts')"
+            ></evj-chat>
           </div>
 
           <div class="workspace__body__right">
@@ -283,60 +235,13 @@
                 </mat-form-field>
               </evj-ui-block>
             </div>
-            <div class="comments_block">
-              <div class="title_comments_block">
-                <div class="title_comments_block_text" #commentScroll>
-                  Комментарии
-                </div>
-              </div>
-              <div class="comments_content_create_event">
-                <div
-                  class="comment_new"
-                  *ngFor="let comment of ewService.retrievalEvent.comments; let i = index"
-                >
-                  <div class="comment_text">
-                    <p>{{comment.comment}}</p>
-                  </div>
-                  <div class="comment_menu">
-                    <div class="comment_info">
-                      <div class="comment_info_user">{{comment.displayName}}</div>
-                      <div class="comment_info_date">
-                        {{ comment.createdAt | dateFormat:'DD-MM-YY hh:mm'}}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="empty"></div>
-              <div class="fact_comment">
-                <div class="comment__new">
-                  <input
-                    type="text"
-                    class="comment__text gridster-item-content"
-                    placeholder="Напишите свой комментарий..."
-                    (keypress)="onEnterPush($event)"
-                    #commentInput
-                  />
-                  <button type="submit" class="button comment__file   gridster-item-content">
-                    <svg-icon
-                      class="button__icon"
-                      src="./assets/icons/widgets/change-shift/add_file.svg"
-                    >
-                    </svg-icon>
-                  </button>
-                  <button
-                    type="submit"
-                    class="button comment__submit  gridster-item-content"
-                    (click)="onSendMessage(true)"
-                  >
-                    <svg-icon
-                      class="button__icon"
-                      src="./assets/icons/widgets/change-shift/send.svg"
-                    ></svg-icon>
-                  </button>
-                </div>
-              </div>
-            </div>
+
+            <evj-chat
+              [messages]="ewService.retrievalEvent.comments"
+              title="Комментарии"
+              placeholder="Напишите свой комментарий..."
+              (addingMessage)="onSendMessage($event,'comments')"
+            ></evj-chat>
           </div>
         </div>
 

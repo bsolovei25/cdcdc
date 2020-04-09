@@ -8,16 +8,7 @@ import { IUser, EventsWidgetNotification } from '../../../models/events-widget';
     styleUrls: ['./usual-event.component.scss'],
 })
 export class UsualEventComponent implements OnInit {
-    @ViewChild('input') input: ElementRef;
-    @ViewChild('input2') input2: ElementRef;
-    @ViewChild('newInput') newInput: ElementRef;
-    @ViewChild('newInput2') newInput2: ElementRef;
-    @ViewChild('scroll') scroll: ElementRef;
-    @ViewChild('scroll2') scroll2: ElementRef;
-    @ViewChild('graph') graphWidht: ElementRef;
     @ViewChild('progress') progress: ElementRef;
-
-    isEditingDescription: boolean = false;
 
     progressLineHeight: number;
 
@@ -29,56 +20,23 @@ export class UsualEventComponent implements OnInit {
         return a && b && a.id === b.id;
     }
 
-    onEditShortInfo(): void {
-        this.isEditingDescription = true;
+    public onSendMessage(message: string, msgType: 'comments' | 'facts'): void {
+        this.ewService.sendMessageToEvent(message, msgType, false);
     }
 
-    openLineChart(): void {
-        this.ewService.isOverlayChartOpen = true;
-        const event = new CustomEvent('resize');
-        document.dispatchEvent(event);
+    public onChangeEventDescription(description: string): void {
+        this.ewService.event.description = description;
     }
 
-    onEnterPush(event?: any): void {
-        if (event.keyCode === 13) {
-            this.onSendMessage();
-        }
-    }
-
-    onSendMessage(): void {
-        if (this.input2.nativeElement.value) {
-            const msg = this.input2.nativeElement.value;
-            this.input2.nativeElement.value = '';
-            this.ewService.sendMessageToEvent(msg, 'comments', false);
-            setTimeout(() => {
-                this.scrollCommentBottom();
-            }, 50);
-        } else if (this.input.nativeElement.value) {
-            const msg = this.input.nativeElement.value;
-            this.input.nativeElement.value = '';
-            this.ewService.sendMessageToEvent(msg, 'facts', false);
-            setTimeout(() => {
-                this.scrollFactBottom();
-            }, 50);
-        }
-    }
-
-    scrollCommentBottom(): void {
-        this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
-    }
-    scrollFactBottom(): void {
-        this.scroll2.nativeElement.scrollTop = this.scroll2.nativeElement.scrollHeight;
-    }
-
-    dateTimePicker(date: Date): void {
+    public dateTimePicker(date: Date): void {
         this.ewService.setDeadlineToEvent(date);
     }
 
-    chooseRespons(data: IUser): void {
+    public chooseRespons(data: IUser): void {
         this.ewService.event.fixedBy = data;
     }
 
-    onLoadEvent(id: number): void {
+    public onLoadEvent(id: number): void {
         this.setEventByInfo(id);
     }
 
@@ -92,31 +50,38 @@ export class UsualEventComponent implements OnInit {
         // this.progressLine();
     }
 
-    overlayConfirmationOpen(): void {
+    public overlayConfirmationOpen(): void {
         this.ewService.isOverlayConfirmOpen = true;
     }
 
-    overlayConfirmationClose(): void {
+    public overlayConfirmationClose(): void {
         this.ewService.isOverlayConfirmOpen = false;
     }
 
-    onEditRetrieval(retNotid: EventsWidgetNotification): void {
+    public openLineChart(): void {
+        this.ewService.isOverlayChartOpen = true;
+        const event = new CustomEvent('resize');
+        document.dispatchEvent(event);
+    }
+
+    public overlayChartClose(): void {
+        this.ewService.isOverlayChartOpen = false;
+    }
+
+    public onEditRetrieval(retNotid: EventsWidgetNotification): void {
         this.ewService.isEditRetrievalEvent = true;
         this.ewService.retrievalEvent = retNotid;
         this.ewService.isOverlayRetrivealOpen = true;
     }
 
-    addRetrieval(): void {
+    public addRetrieval(): void {
         this.ewService.createNewEvent(true);
 
         this.ewService.isOverlayRetrivealOpen = true;
     }
 
-    overlayChartClose(): void {
-        this.ewService.isOverlayChartOpen = false;
-    }
-
-    progressLine(): void {
+    // TODO
+    public progressLine(): void {
         const heightMiddle = this.progress.nativeElement.offsetParent.offsetHeight - 103;
         const countRetAll = this.ewService.event.retrievalEvents.length;
         let countRetComplete = 0;
@@ -126,9 +91,5 @@ export class UsualEventComponent implements OnInit {
             }
         }
         this.progressLineHeight = (heightMiddle / countRetAll) * countRetComplete;
-    }
-
-    public onChangeEventDescription(descr: string): void {
-        this.ewService.event.description = descr;
     }
 }
