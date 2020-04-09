@@ -21,7 +21,7 @@
       [widgetType]="widgetType"
       (eventCreated)="createdEvent($event)"
       [isEventOpen]="!ewService.isEditEvent"
-      [blockWorkspaceButton]="ewService.event.isUserCanEdit"
+      [blockWorkspaceButton]="!!ewService.event?.isUserCanEdit"
     >
     </evj-widget-header>
 
