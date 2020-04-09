@@ -78,13 +78,11 @@
                   [(ngModel)]="ewService.event.isAcknowledged"
                   [compareWith]="compareFn"
                 >
-                  <mat-option *ngFor="let l of this.eventLegends" [value]="l.isLegend">
-                    <ng-container *ngIf="l.isLegend">
-                      Квитировано
-                    </ng-container>
-                    <ng-container *ngIf="!l.isLegend">
-                      Не квитировано
-                    </ng-container>
+                  <mat-option [value]="true">
+                    Квитировано
+                  </mat-option>
+                  <mat-option [value]="false">
+                    Не квитировано
                   </mat-option>
                 </mat-select>
               </mat-form-field>
