@@ -64,15 +64,30 @@ export class PetroleumUnityComponent implements OnInit, AfterViewInit, OnDestroy
         '$event.detail.param1',
     ])
     public DeleteTransfer(event, param1): void {
-        console.log(param1);
-        this.petroleumService.deleteTransfer(param1);
+        console.log('delete-transfer');
+        const windowsParam = {
+            isShow: true,
+            questionText: 'Вы уверены, что хотите удалить текущую операцию?',
+            acceptText: 'Да',
+            cancelText: 'Отменить',
+            acceptFunction: () => this.petroleumService.deleteTransfer(param1),
+            cancelFunction: () => this.petroleumService.closeAlert(),
+        };
+        this.petroleumService.alertWindow$.next(windowsParam);
     }
 
     @HostListener('document:UnityMotionAccounting_SaveTransfer', ['$event', '$event.detail.param1'])
     public SaveTransfer(event, param1: string): void {
         console.log('save-transfer');
-        console.log(param1);
-        this.petroleumService.saveTransfer();
+        const windowsParam = {
+            isShow: true,
+            questionText: 'Вы уверены, что хотите сохранить изменения в текущей операции?',
+            acceptText: 'Да',
+            cancelText: 'Отменить',
+            acceptFunction: () => this.petroleumService.saveTransfer(),
+            cancelFunction: () => this.petroleumService.closeAlert(),
+        };
+        this.petroleumService.alertWindow$.next(windowsParam);
     }
 
     @HostListener('document:UnityMotionAccounting_CreateTransfer', ['$event'])
@@ -84,7 +99,15 @@ export class PetroleumUnityComponent implements OnInit, AfterViewInit, OnDestroy
     @HostListener('document:UnityMotionAccounting_SetDefaultTransfer', ['$event'])
     public SetDefaultTransfer(event): void {
         console.log('set-default-transfer');
-        this.petroleumService.createTransfer();
+        const windowsParam = {
+            isShow: true,
+            questionText: 'Вы уверены, что хотите сбросить создание текущей операции?',
+            acceptText: 'Да',
+            cancelText: 'Отменить',
+            acceptFunction: () => this.petroleumService.createTransfer(),
+            cancelFunction: () => this.petroleumService.closeAlert(),
+        };
+        this.petroleumService.alertWindow$.next(windowsParam);
     }
 
     @HostListener('document:UnityMotionAccounting_SetTime', [

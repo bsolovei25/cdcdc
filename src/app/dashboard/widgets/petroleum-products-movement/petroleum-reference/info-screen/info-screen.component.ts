@@ -17,6 +17,6 @@ export class InfoScreenComponent implements OnInit {
 
     public transferClick(uid: string): void {
         console.log(uid);
-        this.petroleumScreenService.chooseTransfer(uid);
+        this.petroleumScreenService.chooseTransfer(uid, true);
     }
 }

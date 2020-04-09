@@ -13,16 +13,15 @@
       <div class="dates-selector__dates">
         <span class="dates-selector__label">c</span>
         <div class="dates-selector__date-choose" [class.dates-selector__date-choose__disabled]="isCurrent">
-          <evj-time-data-picker [data]="dateNow" (dateTimePicker)="dateTimePickerStart($event)"></evj-time-data-picker>
+          <evj-time-data-picker [data]="dateNow" (dateTimePicker)="dateTimePickerInput($event, true)"></evj-time-data-picker>
         </div>
       </div>
 
       <div class="dates-selector__dates">
         <span class="dates-selector__label">по</span>
         <div class="dates-selector__date-choose" [class.dates-selector__date-choose__disabled]="isCurrent">
-          <evj-time-data-picker [data]="dateNow" (dateTimePicker)="dateTimePickerEnd($event)"></evj-time-data-picker>
+          <evj-time-data-picker [data]="dateNow" (dateTimePicker)="dateTimePickerInput($event, false)"></evj-time-data-picker>
         </div>
-
       </div>
     </div>
   </div>
