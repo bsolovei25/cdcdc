@@ -6,7 +6,7 @@ import { AppConfigService } from '../../services/appConfigService';
 import {
     IPetroleumObject, ITankAttribute, ITankInfo, ITankParam,
     ITransfer,
-    ObjectDirection, TransfersFilter
+    ObjectDirection, ObjectType, TransfersFilter
 } from '../models/petroleum-products-movement.model';
 import { SnackBarService } from './snack-bar.service';
 import { IDatesInterval, WidgetService } from './widget.service';
@@ -311,7 +311,13 @@ export class PetroleumScreenService {
         if (!object || !direction) {
             return await this.getObjectsAsync(client);
         }
-        return await this.getReferencesAsync(client, object, direction);
+        const allObjects = [
+            ...this.objectsAll$.getValue(),
+            ...this.objectsReceiver$.getValue(),
+            ...this.objectsSource$.getValue()
+        ];
+        const objectType = allObjects.find(el => el.objectName === object).objectType;
+        return await this.getReferencesAsync(client, object, objectType, direction);
     }
 
     public async getTankAttributes(objectName: string): Promise<ITankAttribute[]> {
@@ -319,16 +325,34 @@ export class PetroleumScreenService {
             let attributes: ITankAttribute[] = await this.http.get<ITankAttribute[]>(
                 `${this.restUrl}/api/petroleum-flow-clients/objects/${objectName}/attr`
             ).toPromise();
-            const regexp = /[A-Z]/;
-            attributes = attributes
-                .filter((el) =>
-                    (el.paramTitle.toUpperCase().search(regexp) === -1) &&
-                    (el.paramValue.toUpperCase().search(regexp) === -1)
-                );
+            attributes.forEach((item) => item.paramSaveDateTime = new Date(item.paramDateTime));
+            // const regexp = /[A-Z]/;
+            // attributes = attributes
+            //     .filter((el) =>
+            //         (el.paramTitle.toUpperCase().search(regexp) === -1) &&
+            //         (el.paramValue.toUpperCase().search(regexp) === -1)
+            //     );
             return attributes;
         } catch {
             return [];
         }
+    }
+
+    public async setTankAttributes(objectAttribute: ITankAttribute): Promise<void> {
+        this.isLoad$.next(true);
+        try {
+            const objectName = this.currentTankParam$.getValue().objectName;
+            await this.http.post(`${this.restUrl}/api/petroleum-flow-values/${objectName}`, objectAttribute).toPromise();
+            const attributes: ITankAttribute[] = await this.getTankAttributes(objectName);
+            const currentTankParam = this.currentTankParam$.getValue();
+            currentTankParam.objectAttributes = attributes;
+            this.currentTankParam$.next(currentTankParam);
+            const objects = await this.getObjects(this.client);
+            this.objectsAll$.next(objects);
+        } catch {
+            this.materialController.openSnackBar('Ошибка сохранения параметра!', 'snackbar-red');
+        }
+        this.isLoad$.next(false);
     }
 
     public async setTankParam(objectName: string): Promise<void> {
@@ -340,6 +364,7 @@ export class PetroleumScreenService {
             objectInfo,
             objectAttributes,
         };
+        console.log(currentTankParam);
         this.currentTankParam$.next(currentTankParam);
         this.isLoad$.next(false);
     }
@@ -406,11 +431,12 @@ export class PetroleumScreenService {
     private async getReferencesAsync(
         client: string,
         object: string,
+        type: ObjectType,
         direction: ObjectDirection
     ): Promise<IPetroleumObject[]> {
         return this.http
             .get<IPetroleumObject[]>(
-                `${this.restUrl}/api/petroleum-flow-clients/clients/${client}/objects/${object}/relations/${direction}`
+                `${this.restUrl}/api/petroleum-flow-clients/clients/${client}/objects/${type}/${object}/relations/${direction}`
             )
             .toPromise();
     }
