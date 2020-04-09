@@ -30,8 +30,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     static itemCols: number = 20;
     static itemRows: number = 5;
 
-    private fsUrl: string;
-
     @ViewChild('input') input: ElementRef;
     @ViewChild('input2') input2: ElementRef;
     @ViewChild('newInput') newInput: ElementRef;
@@ -136,171 +134,33 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         event ? this.createEvent() : this.saveItem();
     }
 
-    // для существующего event
-    onSendMessage(): void {
-        if (this.input2.nativeElement.value) {
-            const msg = this.input2.nativeElement.value;
-            this.input2.nativeElement.value = '';
-            this.ewService.sendMessageToEvent(msg, 'comments', false);
-            setTimeout(() => {
-                this.scrollCommentBottom();
-            }, 50);
-        } else if (this.input.nativeElement.value) {
-            const msg = this.input.nativeElement.value;
-            this.input.nativeElement.value = '';
-            this.ewService.sendMessageToEvent(msg, 'facts', false);
-            setTimeout(() => {
-                this.scrollFactBottom();
-            }, 50);
-        }
-    }
-
-    // при создании retrieval event
-    onSendNewMessage(): void {
-        if (this.newInput2.nativeElement.value) {
-            this.ewService.retrievalEvent.facts = this.ewService.retrievalEvent?.facts ?? [];
-            const msg = this.newInput2.nativeElement.value;
-            this.newInput2.nativeElement.value = '';
-            this.ewService.sendMessageToEvent(msg, 'comments', false);
-            setTimeout(() => {
-                this.scrollFactBottom();
-            }, 50);
-        } else if (this.newInput.nativeElement.value) {
-            this.ewService.retrievalEvent.comments = this.ewService.retrievalEvent?.comments ?? [];
-            const msg = this.newInput.nativeElement.value;
-            this.newInput.nativeElement.value = '';
-            this.ewService.sendMessageToEvent(msg, 'comments', false);
-            setTimeout(() => {
-                this.scrollCommentBottom();
-            }, 50);
-        }
-    }
-
-    scrollCommentBottom(): void {
-        this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
-    }
-    scrollFactBottom(): void {
-        this.scroll2.nativeElement.scrollTop = this.scroll2.nativeElement.scrollHeight;
-    }
-
-    onEnterPush(event?: any): void {
-        if (event.keyCode === 13) {
-            this.onSendMessage();
-        }
-    }
-
     async createEvent(): Promise<void> {
         this.ewService.isCreateNewEvent = true;
-
         this.ewService.createNewEvent();
     }
 
     // #region DATA API
 
-    formatDate(date: Date): Date {
-        return new Date(
-            Date.UTC(
-                date.getFullYear(),
-                date.getMonth(),
-                date.getDate(),
-                date.getHours(),
-                date.getMinutes(),
-                date.getSeconds()
-            )
-        );
-    }
-
     async saveItem(): Promise<void> {
         this.ewService.isLoading = true;
         this.isEditingDescription = false;
-        //  this.event.deadline = this.formatDate(new Date(this.event.deadline));
         this.ewService.saveEvent();
         this.ewService.isLoading = false;
-    }
-
-    onLoadEvent(id: number): void {
-        this.setEventByInfo(id);
     }
 
     // #endregion
 
     // #region Retrieval Event
-
-    async saveRetrieval(): Promise<void> {
-        this.ewService.isLoading = true;
-        this.ewService.saveNewRetrievalEvent();
-        this.overlayClose();
-        this.ewService.isLoading = false;
-    }
-
     addRetrieval(): void {
-        this.ewService.createNewEvent(true);
-
         this.ewService.isOverlayRetrivealOpen = true;
+        this.ewService.createNewEvent(true);
     }
 
     overlayClose(): void {
         this.ewService.isOverlayRetrivealOpen = false;
         this.ewService.createNewEvent(true);
     }
-
-    onEditRetrieval(retNotid: EventsWidgetNotification): void {
-        this.ewService.isEditEvent = true;
-        this.ewService.retrievalEvent = retNotid;
-        this.ewService.isOverlayRetrivealOpen = true;
-    }
-
-    async editSaveRetrieval(): Promise<void> {
-        this.ewService.isLoading = true;
-        this.ewService.saveEditedRetrievalEvent();
-        this.overlayClose();
-        this.ewService.isLoading = false;
-        // this.progressLine();
-    }
-
     // #endregion
-
-    // #region Popup Alert
-
-    overlayConfirmationOpen(): void {
-        this.ewService.isOverlayConfirmOpen = true;
-    }
-
-    overlayConfirmationClose(): void {
-        this.ewService.isOverlayConfirmOpen = false;
-    }
-
-    // #endregion
-
-    getIndex(i: number): string {
-        return Number(i + 1).toString();
-    }
-
-    compareFn(a, b): boolean {
-        return a && b && a.id === b.id;
-    }
-
-    openLineChart(): void {
-        this.ewService.isOverlayChartOpen = true;
-        const event = new CustomEvent('resize');
-        document.dispatchEvent(event);
-    }
-
-    overlayChartClose(): void {
-        this.ewService.isOverlayChartOpen = false;
-    }
-
-    chooseRespons(data: IUser): void {
-        this.ewService.event.fixedBy = data;
-    }
-
-    chooseMeropRespons(data: IUser): void {
-        this.ewService.retrievalEvent.fixedBy = data;
-    }
-
-    onEditShortInfo(): void {
-        this.isEditingDescription = true;
-    }
 
     // TODO
     progressLine(): void {
