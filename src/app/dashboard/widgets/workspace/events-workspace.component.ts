@@ -8,19 +8,7 @@ import {
     HostListener,
 } from '@angular/core';
 import { EventService } from '../../services/event.service';
-import {
-    EventsWidgetNotification,
-    EventsWidgetNotificationStatus,
-    EventsWidgetNotificationPriority,
-    IStatus,
-    IPriority,
-    IUser,
-    ICategory,
-    EventsWidgetCategoryCode,
-    EventsWidgetData,
-    IUnitEvents,
-} from '../../models/events-widget';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { EventsWidgetNotification, IUser, EventsWidgetData } from '../../models/events-widget';
 import { WidgetService } from '../../services/widget.service';
 import { DateAdapter } from '@angular/material/core';
 import { AuthService } from '@core/service/auth.service';
@@ -29,7 +17,6 @@ import { WidgetPlatform } from '../../models/widget-platform';
 import { ITime } from '../../models/time-data-picker';
 import { AppConfigService } from '../../../services/appConfigService';
 import { EventsWorkspaceService } from '../../services/events-workspace.service';
-import { fillDataShape } from '../../../@shared/common-functions';
 
 @Component({
     selector: 'evj-events-workspace',
@@ -37,14 +24,9 @@ import { fillDataShape } from '../../../@shared/common-functions';
     styleUrls: ['./events-workspace.component.scss'],
 })
 export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    event: EventsWidgetNotification;
     isLoading: boolean = true;
 
     isUserCanEdit: boolean = true; // может пользователь редактировать
-
-    // isNew: boolean = true;
-
-    isEdit: boolean = false; // изменено ли событие
 
     isClickFact: number; // хз
     isClickComment: number; // хз
@@ -62,27 +44,18 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     userDescription: string; // TOFIX
 
     saveEvent: boolean;
-    isEditing: boolean = false;
+    isEditingDescription: boolean = false;
 
     progressLineHeight: number; // хз
 
     dateComment: Date; // хз
 
-    // isNewRetrieval: EventsWidgetNotification = null; // TOFIX
-
-    openEvent: boolean = true; // отображение кнопок в хэдере
-
     eventLegends: any = [{ isLegend: true }, { isLegend: false }]; // TOFIX
-
-    idUser: number = 0; // TOFIX
 
     static itemCols: number = 20;
     static itemRows: number = 5;
 
     dataPicker: boolean = false; // хз
-
-    dateChoose: Date; // хз
-    dateChooseNew: Date; // хз
 
     private fsUrl: string;
 
@@ -98,7 +71,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     constructor(
         public ewService: EventsWorkspaceService,
         private eventService: EventService,
-        private snackBar: MatSnackBar,
         public widgetService: WidgetService,
         private dateAdapter: DateAdapter<Date>,
         private authService: AuthService,
@@ -132,7 +104,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.subscriptions.push(
             this.eventService.event$.subscribe((value) => {
                 if (value) {
-                    this.openEvent = false;
+                    this.ewService.isEditEvent = true;
                     this.setEventByInfo(value);
                 } else {
                     this.ewService.event = value;
@@ -148,7 +120,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     private async setEventByInfo(value: EventsWidgetNotification | number): Promise<void> {
         this.isLoading = true;
 
-        this.resetComponent();
         this.dataPicker = false;
         this.ewService.setEventByInfo(value);
 
@@ -180,7 +151,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     }
 
     private deleteWsElement(): void {
-        this.event = null;
+        this.ewService.createNewEvent();
     }
 
     @HostListener('document:resize', ['$event'])
@@ -193,23 +164,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     // нажатие на кнопку в хэдере
     createdEvent(event: boolean): void {
         event ? this.createEvent() : this.saveItem();
-    }
-
-    resetComponent(): void {
-        if (
-            document.getElementById('overlay-retrieval') &&
-            document.getElementById('overlay-retrieval').style.display === 'block'
-        ) {
-            document.getElementById('overlay-retrieval').style.display = 'none';
-        }
-        if (
-            document.getElementById('overlay-chart') &&
-            document.getElementById('overlay-chart').style.display === 'block'
-        ) {
-            document.getElementById('overlay-chart').style.display = 'none';
-        }
-        // this.isNew = false;
-        // this.isNewRetrieval = null;
     }
 
     // для существующего event
@@ -253,29 +207,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         }
     }
 
-    clickFact(fact, index): void {
-        for (let i of this.event.facts) {
-            i.active = false;
-        }
-        fact.active = !fact.active;
-        if (fact.active === true) {
-            this.isClickFact = index;
-        } else {
-            this.isClickFact = null;
-        }
-    }
-
-    clickComment(comment, index): void {
-        for (let i of this.event.comments) {
-            i.active = false;
-        }
-        comment.active = !comment.active;
-        if (comment.active === true) {
-            this.isClickComment = index;
-        } else {
-            this.isClickComment = null;
-        }
-    }
     scrollCommentBottom(): void {
         this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
     }
@@ -293,8 +224,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.ewService.isCreateNewEvent = true;
 
         this.dataPicker = false;
-
-        this.dateChoose = new Date();
 
         this.ewService.createNewEvent();
     }
@@ -316,16 +245,13 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
     async saveItem(): Promise<void> {
         this.isLoading = true;
-        this.isEditing = false;
+        this.isEditingDescription = false;
         //  this.event.deadline = this.formatDate(new Date(this.event.deadline));
-        console.log(this.event.deadline);
-
         this.ewService.saveEvent();
-
         this.isLoading = false;
     }
 
-    onLoadEvent(id): void {
+    onLoadEvent(id: number): void {
         this.setEventByInfo(id);
     }
 
@@ -334,18 +260,14 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     // #region Retrieval Event
 
     async saveRetrieval(): Promise<void> {
+        this.isLoading = true;
         this.ewService.saveNewRetrievalEvent();
-        this.ewService.isOverlayRetrivealOpen = false;
+        this.overlayClose();
+        this.isLoading = false;
     }
 
     addRetrieval(): void {
-        // document.getElementById('overlay-retrieval').style.display = 'block';
-
         this.dataPicker = false;
-
-        this.dateChooseNew = new Date();
-
-        // показать попап с retrieval event
 
         this.ewService.createNewEvent(true);
 
@@ -353,59 +275,34 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     }
 
     overlayClose(): void {
-        // document.getElementById('overlay-retrieval').style.display = 'none';
-        // скрыть попап
         this.ewService.isOverlayRetrivealOpen = false;
         this.ewService.createNewEvent(true);
     }
 
     onEditRetrieval(retNotid: EventsWidgetNotification): void {
-        this.isEdit = true;
+        this.ewService.isEditEvent = true;
         this.ewService.retrievalEvent = retNotid;
-        // document.getElementById('overlay-retrieval').style.display = 'block';
-
-        // показать попап с retrieval event
+        this.ewService.isOverlayRetrivealOpen = true;
     }
 
     async editSaveRetrieval(): Promise<void> {
-        this.ewService.isOverlayRetrivealOpen = false;
+        this.isLoading = true;
         this.ewService.saveEditedRetrievalEvent();
+        this.overlayClose();
+        this.isLoading = false;
         // this.progressLine();
-    }
-
-    async deleteRetrieval(idEvent: number, idRetrNotif: number, idRetr): Promise<void> {
-        const del = await this.eventService.deleteRetrievalEvents(idEvent, idRetrNotif);
-        this.eventService.updateEvent$.next(true);
-        const idx = this.event.retrievalEvents.findIndex((i) => i.id === idRetr);
-        if (idx !== -1) {
-            this.event.retrievalEvents.splice(idx, 1);
-        }
     }
 
     // #endregion
 
-    // #region Overlay Сonfirmation
-
-    openSnackBar(
-        msg: string = 'Операция выполнена',
-        msgDuration: number = 500,
-        actionText?: string,
-        actionFunction?: () => void
-    ): void {
-        const snackBarInstance = this.snackBar.open(msg, actionText, {
-            duration: msgDuration,
-        });
-        if (actionFunction) {
-            snackBarInstance.onAction().subscribe(() => actionFunction());
-        }
-    }
+    // #region Popup Alert
 
     overlayConfirmationOpen(): void {
-        this.ewService.isOverlayRetrivealOpen = true;
+        this.ewService.isOverlayConfirmOpen = true;
     }
 
     overlayConfirmationClose(): void {
-        document.getElementById('overlay-confirmation').style.display = 'none';
+        this.ewService.isOverlayConfirmOpen = false;
     }
 
     // #endregion
@@ -437,40 +334,26 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     }
 
     onEditShortInfo(): void {
-        this.isEditing = true;
-    }
-
-    showDateBlock(): void {
-        this.dataPicker = !this.dataPicker;
+        this.isEditingDescription = true;
     }
 
     progressLine(): void {
         const heightMiddle = this.progress.nativeElement.offsetParent.offsetHeight - 103;
-        const countRetAll = this.event.retrievalEvents.length;
-        let countRetCompleate = 0;
-        for (let i of this.event.retrievalEvents) {
+        const countRetAll = this.ewService.event.retrievalEvents.length;
+        let countRetComplete = 0;
+        for (let i of this.ewService.event.retrievalEvents) {
             if (i.innerNotification.status.name === 'closed') {
-                countRetCompleate++;
+                countRetComplete++;
             }
         }
-        this.progressLineHeight = (heightMiddle / countRetAll) * countRetCompleate;
+        this.progressLineHeight = (heightMiddle / countRetAll) * countRetComplete;
     }
 
-    dateTimePicker(data: ITime): void {
-        const time = data.time.split(':');
-        const date = new Date(data.date);
-
-        this.dateChoose = new Date(date.setHours(+time[0], +time[1], +time[2]));
-
-        this.ewService.event.deadline = this.dateChoose;
+    dateTimePicker(date: Date): void {
+        this.ewService.setDeadlineToEvent(date);
     }
 
-    dateTimePickerNew(data: ITime): void {
-        const time = data.time.split(':');
-        const date = new Date(data.date);
-
-        this.dateChooseNew = new Date(date.setHours(+time[0], +time[1], +time[2]));
-
-        this.ewService.retrievalEvent.deadline = this.dateChooseNew;
+    dateTimePickerNew(date: Date): void {
+        this.ewService.setDeadlineToEvent(date, true);
     }
 }

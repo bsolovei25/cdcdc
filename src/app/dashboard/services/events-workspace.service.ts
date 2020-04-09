@@ -13,6 +13,7 @@ import {
 } from '../models/events-widget';
 import { EventService } from './event.service';
 import { fillDataShape } from '../../@shared/common-functions';
+import { SnackBarService } from './snack-bar.service';
 
 @Injectable({
     providedIn: 'root',
@@ -22,9 +23,11 @@ export class EventsWorkspaceService {
     public retrievalEvent: EventsWidgetNotification;
 
     //#region FLAGS
+    public isEditEvent: boolean = false;
     public isCreateNewEvent: boolean = false;
     public isOverlayChartOpen: boolean = false;
     public isOverlayRetrivealOpen: boolean = false;
+    public isOverlayConfirmOpen: boolean = false;
     //#endregion
 
     public priority: IPriority[];
@@ -38,7 +41,7 @@ export class EventsWorkspaceService {
     public currentAuthUser: IUser = null;
 
     //#region RESPONSIBLE_USER
-    // public;
+
     //#endregion
 
     statuses: { [id in EventsWidgetNotificationStatus]: string } = {
@@ -63,7 +66,7 @@ export class EventsWorkspaceService {
 
     public defaultEvent: EventsWidgetNotification = null;
 
-    constructor(private eventService: EventService) {
+    constructor(private eventService: EventService, private snackBarService: SnackBarService) {
         this.loadItem();
     }
 
@@ -153,14 +156,18 @@ export class EventsWorkspaceService {
                 const event = await this.eventService.postEvent(this.event);
                 this.event = event;
                 this.isCreateNewEvent = false;
+                this.snackBarService.openSnackBar('Сохранено');
             } catch (err) {
                 console.error(err);
+                this.snackBarService.openSnackBar('Ошибка', 'snackbar-red');
             }
         } else {
             try {
                 await this.eventService.putEvent(this.event);
+                this.snackBarService.openSnackBar('Изменения сохранены');
             } catch (err) {
                 console.error(err);
+                this.snackBarService.openSnackBar('Ошибка', 'snackbar-red');
             }
         }
         this.eventService.updateEvent$.next(true);
@@ -176,16 +183,19 @@ export class EventsWorkspaceService {
                 this.event.retrievalEvents.push(addedRetrievalEvent);
                 this.eventService.updateEvent$.next(true);
                 this.retrievalEvent = fillDataShape(this.defaultEvent);
+                this.snackBarService.openSnackBar('Сохранено');
             } catch (error) {
                 console.error(error);
+                this.snackBarService.openSnackBar('Ошибка', 'snackbar-red');
             }
         } else {
             const addingRetrieval: IRetrievalEvents = {
-                id: null,
+                id: undefined,
                 innerNotification: this.retrievalEvent,
                 timerPercentage: 50,
             };
             this.event.retrievalEvents.push(addingRetrieval);
+            this.snackBarService.openSnackBar('Сохранено');
             this.retrievalEvent = fillDataShape(this.defaultEvent);
         }
     }
@@ -201,8 +211,10 @@ export class EventsWorkspaceService {
                     await this.eventService.editRetrievalEvents(this.event.retrievalEvents[index]);
                     this.eventService.updateEvent$.next(true);
                     this.retrievalEvent = fillDataShape(this.defaultEvent);
+                    this.snackBarService.openSnackBar('Изменения сохранены');
                 } catch (err) {
                     console.error(err);
+                    this.snackBarService.openSnackBar('Ошибка', 'snackbar-red');
                 }
             }
         } else {
@@ -210,6 +222,23 @@ export class EventsWorkspaceService {
                 (item) => item.id === this.retrievalEvent.id
             );
             this.event.retrievalEvents[index].innerNotification = this.retrievalEvent;
+            this.snackBarService.openSnackBar('Изменения сохранены');
+        }
+    }
+
+    public async deleteRetrievalEvent(retrieval: IRetrievalEvents): Promise<void> {
+        try {
+            await this.eventService.deleteRetrievalEvents(
+                this.event.id,
+                retrieval.innerNotification.id
+            );
+            this.eventService.updateEvent$.next(true);
+            const index = this.event.retrievalEvents.findIndex((item) => item.id === retrieval.id);
+            this.event.retrievalEvents.splice(index, 1);
+            this.snackBarService.openSnackBar('Мероприятие удалено');
+        } catch (err) {
+            console.error(err);
+            this.snackBarService.openSnackBar('Ошибка', 'snackbar-red');
         }
     }
 
@@ -227,6 +256,17 @@ export class EventsWorkspaceService {
             this.retrievalEvent[category].push(fullComment);
         } else {
             this.event[category].push(fullComment);
+        }
+    }
+
+    public setDeadlineToEvent(date: Date, isRetriveal: boolean = false): void {
+        const deadline: Date = new Date(date);
+        console.log('deadline: ', deadline);
+
+        if (isRetriveal) {
+            this.retrievalEvent.deadline = deadline;
+        } else {
+            this.event.deadline = deadline;
         }
     }
 }

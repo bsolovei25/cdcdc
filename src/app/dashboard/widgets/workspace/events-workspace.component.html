@@ -20,7 +20,7 @@
       [uniqId]="widgetUniqId"
       [widgetType]="widgetType"
       (eventCreated)="createdEvent($event)"
-      [isEventOpen]="openEvent"
+      [isEventOpen]="!ewService.isEditEvent"
       [blockWorkspaceButton]="isUserCanEdit"
     >
     </evj-widget-header>
@@ -50,7 +50,10 @@
                 </mat-select>
               </mat-form-field>
             </evj-ui-block>
-            <evj-ui-block class="workspace__header__block" status="{{ewService.event.priority.name}}">
+            <evj-ui-block
+              class="workspace__header__block"
+              status="{{ewService.event.priority.name}}"
+            >
               <mat-form-field class="{{ewService.event.priority.name}}">
                 <mat-label>Приоритет</mat-label>
                 <mat-select
@@ -64,7 +67,10 @@
                 </mat-select>
               </mat-form-field>
             </evj-ui-block>
-            <evj-ui-block class="workspace__header__block" status="{{ewService.event.isAcknowledged}}">
+            <evj-ui-block
+              class="workspace__header__block"
+              status="{{ewService.event.isAcknowledged}}"
+            >
               <mat-form-field class="card-{{ewService.event.isAcknowledged}}">
                 <mat-label>Событие</mat-label>
                 <mat-select
@@ -122,7 +128,10 @@
                     </evj-ui-block>
                   </div>
                 </div>
-                <div class="second_block" *ngIf="ewService.event.category.name === 'equipmentStatus'">
+                <div
+                  class="second_block"
+                  *ngIf="ewService.event.category.name === 'equipmentStatus'"
+                >
                   <div class="type_incident">
                     <evj-ui-block class="workspace__header__block" status="normal">
                       <mat-form-field>
@@ -178,10 +187,10 @@
                   </div>
                 </div>
                 <div class="description__content">
-                  <div class="description__content_text" *ngIf="!isEditing">
+                  <div class="description__content_text" *ngIf="!isEditingDescription">
                     {{ewService.event.description}}
                   </div>
-                  <div class="description__content_text" *ngIf="isEditing">
+                  <div class="description__content_text" *ngIf="isEditingDescription">
                     <textarea
                       required
                       class="gridster-item-content"
@@ -202,18 +211,19 @@
                   </div>
                 </div>
                 <div class="fact_content" #scroll2>
-                  <div class="fact_img" *ngIf="ewService.event.graphValues" (click)="openLineChart()" #graph>
+                  <div
+                    class="fact_img"
+                    *ngIf="ewService.event.graphValues"
+                    (click)="openLineChart()"
+                    #graph
+                  >
                     <svg-icon
                       src="./assets/icons/widgets/workspace/graph.svg"
                       [svgStyle]="{ 'width.px':250, 'height.px':70 }"
                     ></svg-icon>
                   </div>
                   <!--ngFor -->
-                  <div
-                    class="fact_new"
-                    (click)="clickFact(fact, i)"
-                    *ngFor="let fact of ewService.event.facts; let i = index"
-                  >
+                  <div class="fact_new" *ngFor="let fact of ewService.event.facts; let i = index">
                     <div class="fact_text">
                       <p>{{fact.comment}}</p>
                     </div>
@@ -267,7 +277,6 @@
                   <!--ngFor -->
                   <div
                     class="comment_new"
-                    (click)="clickComment(comment, i)"
                     *ngFor="let comment of ewService.event.comments; let i = index"
                   >
                     <div class="comment_text">
@@ -322,7 +331,7 @@
                   </div>
                   <div class="creator_body">
                     {{ ewService.event.responsibleOperator?.lastName }} {{
-                      ewService.event.responsibleOperator?.firstName }}
+                    ewService.event.responsibleOperator?.firstName }}
                   </div>
                 </div>
                 <div class="deadline">
@@ -353,17 +362,20 @@
                 </evj-ui-block>
               </div>
               <div class="responsible">
-                <div *ngIf="userChoosen && ewService.event.fixedBy.login === ''" class="choosenUser">
+                <div
+                  *ngIf="userChoosen && ewService.event.fixedBy.login === ''"
+                  class="choosenUser"
+                >
                   <div class="name_user">
                     <div class="name_user_responsible">
                       Ответственный
                     </div>
                     <div class="name_user_info" *ngIf="ewService.event.fixedBy">
                       <div>
-                        {{this.chooseNameUser}}
+                        {{ewService.event.fixedBy.displayName}}
                       </div>
                       <!-- <div>{{ ewService.event.fixedBy.positionDescription }}</div> -->
-                      <div>{{this.userDescription}}</div>
+                      <div>{{ewService.event.fixedBy.positionDescription}}</div>
                     </div>
                   </div>
                   <div class="brigade_user">
@@ -384,7 +396,7 @@
                     </div>
                     <div class="name_user_info">
                       <div>
-                        {{ this.chooseNameUser }}
+                        {{ ewService.event.fixedBy.positionDescription }}
                       </div>
                       <div>{{ ewService.event.fixedBy.positionDescription }}</div>
                     </div>
@@ -403,8 +415,14 @@
                 <evj-ui-block class="workspace__header__block" status="normal">
                   <mat-form-field>
                     <mat-label>Отвественный</mat-label>
-                    <mat-select panelClass="mat-select-custom" [(ngModel)]="ewService.event.fixedBy">
-                      <mat-option *ngFor="let p of ewService.users" [value]="p" (click)="chooseRespons(p)"
+                    <mat-select
+                      panelClass="mat-select-custom"
+                      [(ngModel)]="ewService.event.fixedBy"
+                    >
+                      <mat-option
+                        *ngFor="let p of ewService.users"
+                        [value]="p"
+                        (click)="chooseRespons(p)"
                         >{{ p.lastName }} {{ p.firstName }}
                       </mat-option>
                     </mat-select>
@@ -517,6 +535,7 @@
                         (mousedown)="$event.stopPropagation()"
                         (touchstart)="$event.stopPropagation()"
                         id="overlay-confirmation"
+                        *ngIf="ewService.isOverlayConfirmOpen"
                       >
                         <div class="overlay-confirmation__body" (click)="$event.stopPropagation()">
                           <span>Вы действительно хотите удалить выбранное Мероприятие?</span>
@@ -526,7 +545,7 @@
                               <div class="submit__frame submit__frame-right"></div>
                               <button
                                 type="submit gridster-item-content"
-                                (click)="deleteRetrieval(ewService.event.id, retrieval.innerNotification.id, retrieval.id)"
+                                (click)="ewService.deleteRetrievalEvent(retrieval)"
                               >
                                 Удалить
                               </button>
@@ -805,7 +824,6 @@
                     <!--ngFor -->
                     <div
                       class="fact_new"
-                      (click)="clickFact(fact, i)"
                       *ngFor="let fact of ewService.retrievalEvent.facts; let i = index"
                     >
                       <div class="fact_text">
@@ -859,7 +877,9 @@
                     <div class="creator_title">
                       Автор
                     </div>
-                    <div class="creator_body">{{this.nameUser}}</div>
+                    <div class="creator_body">
+                      {{ewService.retrievalEvent.responsibleOperator.displayName}}
+                    </div>
                   </div>
                   <div class="place">
                     <evj-ui-block class="workspace__body__categories" status="normal">
@@ -906,8 +926,8 @@
                         Ответственный
                       </div>
                       <div class="name_user_info">
-                        <div>{{ chooseNameUser }}</div>
-                        <div>{{ userDescription }}</div>
+                        <div>{{ ewService.retrievalEvent.fixedBy.displayName }}</div>
+                        <div>{{ ewService.retrievalEvent.fixedBy.positionDescription }}</div>
                       </div>
                     </div>
                     <div class="brigade_user">
@@ -946,7 +966,6 @@
                     <!--ngFor -->
                     <div
                       class="comment_new"
-                      (click)="clickComment(comment, i)"
                       *ngFor="let comment of ewService.retrievalEvent.comments; let i = index"
                     >
                       <div class="comment_text">
@@ -1023,14 +1042,14 @@
                 <div class="submit__frame submit__frame-left"></div>
                 <div class="submit__frame submit__frame-right"></div>
                 <button
-                  *ngIf="!isEdit"
+                  *ngIf="!ewService.isEditEvent"
                   type="submit gridster-item-content"
                   (click)="saveRetrieval()"
                 >
                   Сохранить
                 </button>
                 <button
-                  *ngIf="isEdit"
+                  *ngIf="ewService.isEditEvent"
                   type="submit gridster-item-content"
                   (click)="editSaveRetrieval()"
                 >
