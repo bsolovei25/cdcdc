@@ -1,4 +1,4 @@
-<evj-widget-preview [title]="widgetTitle" [previewTitle]="widgetType" *ngIf="isMock"></evj-widget-preview>
+<evj-widget-preview [title]="widgetTitle" [code]="widgetCode" [previewTitle]="widgetType" *ngIf="isMock"></evj-widget-preview>
 
 <div class="container" *ngIf="!isMock">
   <evj-widget-header [title]="widgetTitle" [units]="widgetUnits" [code]="widgetCode" [id]="id" [uniqId]="uniqId"
@@ -16,16 +16,16 @@
               <div class="reference-container__block">
                 <div class="reference-container__block-info" [class.block-info-active]="item.id === folderActive"
                   (click)="onClickReference(item, i)">
-                  <div class="reference-container__button">
+                  <!-- <div class="reference-container__button">
                     <svg-icon *ngIf="item.open" src="./assets/icons/widgets/manual-input/arrow_down.svg"
                       [svgStyle]="{ 'width.px':10, 'height.px':10 }"></svg-icon>
 
                     <svg-icon *ngIf="!item.open" src="./assets/icons/widgets/manual-input/arrow_right.svg"
                       [svgStyle]="{ 'width.px':10, 'height.px':10 }"></svg-icon>
-                  </div>
+                  </div> -->
                   <div class="reference-container__name">{{item.name}}</div>
                 </div>
-                <div cdkDropList id="{{item.name}}" [cdkDropListData]="item.columns" (cdkDropListDropped)="drop($event)"
+                <!-- <div cdkDropList id="{{item.name}}" [cdkDropListData]="item.columns" (cdkDropListDropped)="drop($event)"
                   [cdkDropListConnectedTo]="connectedTo" [@Branch]="(item.open) ? 'expanded' : 'collapsed'">
                   <div class="reference-container__block-contant" *ngFor="let i of item.templates" cdkDrag
                     (click)="onClickItemReference(i)" [class.block-info-active]="i.id === isIdReport">
@@ -39,17 +39,26 @@
                       <svg-icon src="./assets/icons/widgets/references/accept.svg" class="add_button_icon"></svg-icon>
                     </div>
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
-            <div *ngIf="clickPushRef" class="reference-container__add-block">
+            <!--ДЛЯ ОДНОГО ФАЙЛА-->
+            <div *ngIf="clickPushRec" class="reference-container__add-block">
+              <div class="reference-container__add-block-input">
+                <input type="text" [(ngModel)]="newRecord" placeholder="Введите название отчета..." />
+              </div>
+              <div class="reference-container__add-block-icon" (click)="onPushReport()">
+                <svg-icon src="./assets/icons/widgets/references/accept.svg" class="add_button_icon"></svg-icon>
+              </div>
+            </div>
+            <!-- <div *ngIf="clickPushRef" class="reference-container__add-block">
               <div class="reference-container__add-block-input">
                 <input type="text" [(ngModel)]="newFolder" placeholder="Введите название папки..." />
               </div>
               <div class="reference-container__add-block-icon" (click)="onPushFolder()">
                 <svg-icon src="./assets/icons/widgets/references/accept.svg" class="add_button_icon"></svg-icon>
               </div>
-            </div>
+            </div> -->
           </div>
           <div class="bottom-reference-left">
             <div class="bottom-reference-left__block">
@@ -93,14 +102,14 @@
           </div>
           <div class="references-container-scroll-block">
             <div class="reference-container-value">
-              <div *ngIf="isAddOptionsButton" class="reference-container-value__block">
+              <div *ngIf="folderActive !== undefined" class="reference-container-value__block">
                 <div class="reference-container-value__fio-block">
                   <div class="reference-container-value__fio">Выбранный файл-шаблон</div>
                 </div>
                 <div class="reference-container-value__type">
                   <mat-form-field class="categories_selectbox">
-                    <mat-select panelClass="mat-select-custom" [(ngModel)]="selectFile">
-                      <mat-option *ngFor="let p of dataFile" [value]="p">{{ p.name }}
+                    <mat-select panelClass="mat-select-custom" [(ngModel)]="this.selectFile">
+                      <mat-option *ngFor="let p of dataFile" [value]="p.name">{{ p.name }}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
@@ -111,9 +120,9 @@
                   <div class="reference-container-value__fio-block">
                     <div class="reference-container-value__fio">{{item.name}}</div>
                   </div>
-                  <div class="reference-container-value__type" [class.block-active]="item.open"
-                    (click)="onClickItemReference(item)">
-                    <div class="reference-container-value__fio">{{item.name}}</div>
+                  <div class="reference-container-value__type"
+                    (click)="onClickParamReference(item)">
+                    <div class="reference-container-value__fio">{{item.systemOptionType}}</div>
                     <div class="reference-container-value__edit-button">
                       <svg-icon *ngIf="item.open" class="indicator-selector__collapse"
                         src="./assets/icons/widgets/references/edit_white.svg"></svg-icon>
@@ -156,6 +165,10 @@
               </div>
             </div>
           </div>
+        </div>
+
+        <div *ngIf="popupUserParam" class="popup-user-param">
+          <evj-popup-user-options [data]="optionsCustom" (close)="closeOptions($event)"></evj-popup-user-options>
         </div>
       </div>
     </ng-container>

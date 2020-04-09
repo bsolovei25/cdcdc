@@ -135,10 +135,14 @@ import { ReferenceComponent } from './widgets/reference/reference.component';
 import { ReportServerConfiguratorComponent } from './widgets/report-server-configurator/report-server-configurator.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AwsCreateClaimComponent } from './widgets/admin-panel/admin-worker-settings/aws-create-claim/aws-create-claim.component';
-import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule, NGX_MAT_DATE_FORMATS } from '@angular-material-components/datetime-picker';
+import {
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule,
+    NGX_MAT_DATE_FORMATS,
+} from '@angular-material-components/datetime-picker';
 import { MatButtonModule } from '@angular/material/button';
-import { NgxMatMomentModule} from '@angular-material-components/moment-adapter';
-
+import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 import { AgNewGroupComponent } from './widgets/admin-panel/admin-groups/ag-new-group/ag-new-group.component';
 import { AgAlertSubmitComponent } from './widgets/admin-panel/admin-groups/ag-alert-submit/ag-alert-submit.component';
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -149,6 +153,14 @@ import { UsualEventComponent } from './widgets/workspace/usual-event/usual-event
 import { RetrievalWindowComponent } from './widgets/workspace/components/retrieval-window/retrieval-window.component';
 import { EventDescriptionComponent } from './widgets/workspace/components/event-description/event-description.component';
 import { ChatComponent } from './widgets/workspace/components/chat/chat.component';
+import { CustomReportPropertiesReferenceComponent } from './widgets/custom-report-properties-reference/custom-report-properties-reference.component';
+import { PopupUserOptionsComponent } from './widgets/report-server-configurator/popup-user-options/popup-user-options.component';
+import { NecessaryParamComponent } from './widgets/report-server-configurator/popup-user-options/necessary-param/necessary-param.component';
+import { AdditionalParamComponent } from './widgets/report-server-configurator/popup-user-options/additional-param/additional-param.component';
+import { CustomReportOptionsComponent } from './widgets/custom-report-properties-reference/custom-report-options/custom-report-options.component';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
     declarations: [
@@ -277,6 +289,11 @@ import { ChatComponent } from './widgets/workspace/components/chat/chat.componen
         RetrievalWindowComponent,
         EventDescriptionComponent,
         ChatComponent,
+        CustomReportPropertiesReferenceComponent,
+        PopupUserOptionsComponent,
+        NecessaryParamComponent,
+        AdditionalParamComponent,
+        CustomReportOptionsComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -329,7 +346,8 @@ import { ChatComponent } from './widgets/workspace/components/chat/chat.componen
         ReferenceComponent,
         ReportServerConfiguratorComponent,
         ReportComponent,
-        ReportsComponent
+        ReportsComponent,
+        CustomReportPropertiesReferenceComponent,
     ],
     exports: [HomeComponent],
     imports: [
@@ -360,11 +378,15 @@ import { ChatComponent } from './widgets/workspace/components/chat/chat.componen
         NgxMatTimepickerModule,
         NgxMatNativeDateModule,
         NgxMatMomentModule,
-        OverlayModule
+        OverlayModule,
+        MatChipsModule,
+        MatIconModule,
+        MatAutocompleteModule,
     ],
     bootstrap: [],
-    providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' },
-    { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
-   ],
+    providers: [
+        { provide: LOCALE_ID, useValue: 'ru-RU' },
+        { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
+    ],
 })
-export class DashboardModule { }
+export class DashboardModule {}

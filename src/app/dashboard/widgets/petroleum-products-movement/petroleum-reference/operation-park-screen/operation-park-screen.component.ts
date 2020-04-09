@@ -1,28 +1,22 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    Input, OnDestroy
+} from '@angular/core';
 import { PetroleumScreenService } from 'src/app/dashboard/services/petroleum-screen.service';
 import { ITankAttribute } from '../../../../models/petroleum-products-movement.model';
 import { SnackBarService } from '../../../../services/snack-bar.service';
-
-interface IParams {
-    name: string;
-    unit: string;
-    datetime: Date;
-    value: string;
-    isActive: boolean;
-    isEdit: boolean;
-    saveValue?: string;
-    saveDatetime?: Date;
-    icon: string; // TODO delete
-}
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'evj-operation-park-screen',
     templateUrl: './operation-park-screen.component.html',
     styleUrls: ['./operation-park-screen.component.scss'],
 })
-export class OperationParkScreenComponent implements OnInit {
+export class OperationParkScreenComponent implements OnInit, OnDestroy {
     @Input() title: string[];
     public data: ITankAttribute[];
+    private subscriptions: Subscription[] = [];
 
     public readonly dict: { title: string, key: string }[] = [
         {
@@ -35,7 +29,7 @@ export class OperationParkScreenComponent implements OnInit {
         },
         {
             title: 'Дата/Время',
-            key: 'paramDatetime',
+            key: 'paramDateTime',
         },
         {
             title: 'Значение',
@@ -52,7 +46,7 @@ export class OperationParkScreenComponent implements OnInit {
         {
             paramTitle: 'test',
             paramUnit: 'test',
-            paramDatetime: new Date(),
+            paramDateTime: new Date(),
             paramValue: 'test',
             isActive: false,
             isEdit: true,
@@ -60,7 +54,7 @@ export class OperationParkScreenComponent implements OnInit {
         {
             paramTitle: 'test',
             paramUnit: 'test',
-            paramDatetime: new Date(),
+            paramDateTime: new Date(),
             paramValue: 'test',
             isActive: false,
             isEdit: true,
@@ -68,7 +62,7 @@ export class OperationParkScreenComponent implements OnInit {
         {
             paramTitle: 'test',
             paramUnit: 'test',
-            paramDatetime: new Date(),
+            paramDateTime: new Date(),
             paramValue: 'test',
             isActive: false,
             isEdit: false,
@@ -87,11 +81,27 @@ export class OperationParkScreenComponent implements OnInit {
     ) {}
 
     public ngOnInit(): void {
-        this.petroleumService.currentTankParam.subscribe(
+        if (this.subscriptions?.length > 0) {
+            return;
+        }
+        this.subscriptions.push(
+            this.petroleumService.currentTankParam.subscribe(
             (item) => {
                 this.data = item.objectAttributes;
+                this.data.sort( (a, b) => {
+                    if (a.isEdit && !b.isEdit) {
+                        return -1;
+                    } else if (!a.isEdit && b.isEdit) {
+                        return 1;
+                    }
+                    return 0;
+                });
             }
-        );
+        ));
+    }
+
+    public ngOnDestroy(): void {
+        this.subscriptions.forEach((item) => item.unsubscribe());
     }
 
     returnMenu(): void {
@@ -99,29 +109,38 @@ export class OperationParkScreenComponent implements OnInit {
     }
 
     dateTimePicker(date: Date, item: ITankAttribute): void {
-        // console.log(date.getDate());
-        // if (date.getDate() > Date.now()) {
-        //     this.snackBarService.openSnackBar('Некорректно установлено время (установите время не превышающее текущее)' , 'snackbar-red');
-        //     return;
-        // }
-        // item.paramDatetime = new Date(date);
+        console.log(date);
+        if (date.getTime() > Date.now()) {
+            this.snackBarService.openSnackBar('Некорректно установлено время (установите время не превышающее текущее)' , 'snackbar-red');
+            item.paramDateTime = new Date(item.paramSaveDateTime);
+            return;
+        }
+        item.paramDateTime = new Date(date);
     }
 
     public startEdit(item: ITankAttribute): void {
         this.testData.forEach(el => el.isActive = false);
         item.isActive = true;
         item.paramSaveValue = item.paramValue;
-        item.paramSaveDatetime = new Date(item.paramDatetime);
+        item.paramSaveDateTime = new Date(item.paramDateTime);
     }
 
     public closeEdit(item: ITankAttribute): void {
         item.isActive = false;
         item.paramValue = item.paramSaveValue;
-        item.paramDatetime = new Date(item.paramSaveDatetime);
+        item.paramDateTime = new Date(item.paramSaveDateTime);
     }
 
-    public okEdit(item: ITankAttribute): void {
-        console.log(item.paramDatetime);
-        console.log(item.paramSaveDatetime);
+    public async okEdit(item: ITankAttribute): Promise<void> {
+        console.log(item.paramDateTime);
+        console.log(item.paramSaveDateTime);
+        await this.petroleumService.setTankAttributes(item);
+    }
+
+    public isDropdown(item: ITankAttribute): boolean {
+        if (item?.valueStates?.length > 0 && item?.isEdit) {
+            return true;
+        }
+        return false;
     }
 }

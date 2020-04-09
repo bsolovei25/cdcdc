@@ -1,0 +1,54 @@
+<div class="container">
+    <div class="title">
+      <div class="title__button-close" (click)="closeOptions()">
+        <svg-icon  src="./assets/icons/widgets/reports/close.svg"
+        class="add_button_icon">
+    </svg-icon>
+    </div>
+    <div class="title__name">Выберите необходимые параметры</div>
+    </div>
+    <div class="content">
+        <ng-container *ngFor="let item of data">
+            <div class="content__item-title" (click)="onShowOptions(item)">
+                <div class="name-item">
+                    {{item.name}}
+                </div>
+                <div class="check-item">
+                    <label class="mycheckbox">
+                      <input type="checkbox" id="checkBoxValue" class="mycheckbox__default" (click)="changeSwap(item)" />
+                      <div class="mycheckbox__new"></div>
+                    </label>
+                  </div>
+            </div>
+            
+            <div *ngIf="item.open" class="content__item-options">
+                <ng-container *ngFor="let options of item.options">
+                    <div class="options"> {{options.name}}</div>
+                    <div class="value"> {{options.value}}</div>
+                </ng-container>
+            </div>
+        </ng-container>
+    </div>
+    <div class="bottom">
+        <div class="bottom-reference-right__block-edit">
+            <div class="bottom-reference-left__input-block">
+                <div class="bottom-reference-left__button-search">
+                  <svg-icon *ngIf="!isRepInput" class="button_filter_icon"
+                    src="./assets/icons/widgets/references/search_white.svg"></svg-icon>
+
+                  <svg-icon *ngIf="isRepInput" class="indicator-selector__collapse"
+                    src="./assets/icons/widgets/references/search_blue.svg"></svg-icon>
+                </div>
+                <div class="bottom-reference-left__input" [class.bottom-reference-left__input-active]="isRepInput">
+                  <input type="text" (focus)="isRepInput = true" (blur)="isRepInput = false"
+                    (keyup)="search($event)" />
+                </div>
+              </div>
+          </div>
+          <div class="bottom-reference-right__block">
+            <div class="bottom-reference-right__save-block" (click)="saveOptions()">
+              <div class="bottom-reference-right__button-save">Сохранить</div>
+            </div>
+          </div>
+    </div>
+</div>
