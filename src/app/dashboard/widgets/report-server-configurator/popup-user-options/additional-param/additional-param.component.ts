@@ -13,10 +13,20 @@ export class AdditionalParamComponent implements OnInit {
 
   isOpenCheckBlock: boolean = false;
 
+  public datas: any = [];
+
   constructor() { }
 
   ngOnInit(): void {
   }
+
+  ngOnChanges(): void {
+    console.log(this.data);
+    if (this.data === null || this.data === undefined) {
+      this.datas = this.data;
+    }
+  }
+
 
   onShowOptions(item): void {
     item.open = !item.open;

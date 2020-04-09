@@ -29,6 +29,10 @@ export class ReportServerConfiguratorService {
     return this.http.get<any[]>(this.restUrl + '/api/report-filetemplate/' + id + '/templates');
   }
 
+  public getReporting(id: number): Observable<any> {
+    return this.http.get<IReportTemplate[]>(this.restUrl + '/api/report-template/' + id);
+  }
+
   public getSystemOptions(): Observable<any[]> {
     return this.http.get<any[]>(this.restUrl + '/api/report-options/system/all');
   }
@@ -52,6 +56,10 @@ export class ReportServerConfiguratorService {
 
   public postReportFileTemplate(body): Observable<IFileTemplate> {
     return this.http.post<IFileTemplate>(this.restUrl + '/api/report-filetemplate/loaded', body);
+  }
+
+  public postSystemOptions(id, options): Observable<any>{
+    return this.http.post<any>(this.restUrl + '/api/report-template/' + id + '/system-option', options);
   }
 
   public postReportTemplate(template): Observable<any>{

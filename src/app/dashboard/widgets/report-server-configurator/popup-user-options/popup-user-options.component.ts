@@ -12,11 +12,20 @@ export class PopupUserOptionsComponent implements OnInit {
   public isOpenNecessaryParam: boolean = false;
 
   options: any = [];
+  customOptionsActive: any = [];
 
   constructor() { }
 
   ngOnInit(): void {
   }
+  
+  ngOnChanges(): void {
+    console.log(this.data);
+    if (this.data === null || this.data === undefined) {
+      this.customOptionsActive = this.data;
+    }
+  }
+
 
   closeAdditional(event) {
     this.close.emit(event);
@@ -30,8 +39,10 @@ export class PopupUserOptionsComponent implements OnInit {
     this.isOpenNecessaryParam = event;
   }
 
-  chooseOptions(event){
+  chooseOptions(event) {
     this.options = event;
   }
+
+
 
 }

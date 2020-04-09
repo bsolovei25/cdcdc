@@ -59,6 +59,8 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     public data;
     public options;
     public optionsActive = [];
+    public optionsCustom = [];
+    public reportTemplate = [];
     public dataFile;
 
     public clickPushRef: boolean = false;
@@ -91,7 +93,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     ngOnInit(): void {
         super.widgetInit();
         this.subscriptions.push(
-           // this.getReportFolder(),
+            // this.getReportFolder(),
             this.getRecordFile(),
             this.getReportTemplate(),
             this.getOptions()
@@ -124,13 +126,21 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     getReportTemplate() {
         return this.reportService.getReportTemplate().subscribe((data) => {
             this.data = data;
-            this.optionsActive = this.data.systemOption;
         });
     }
 
     getOptions() {
         return this.reportService.getSystemOptions().subscribe((data) => {
             this.options = data;
+        });
+    }
+
+    getReporting(id) {
+        return this.reportService.getReporting(id).subscribe((ans) => {
+            this.reportTemplate = ans;
+            this.selectFile = ans.fileTemplate.name;
+            this.optionsActive = ans.systemOptions;
+            this.optionsCustom = ans.customOptions;
         });
     }
 
@@ -142,7 +152,10 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     onClickReference(data, index) {
         this.selectFile = null;
+        this.isAddOptionsButton = true; // file
         this.folderActive = data.id;
+        this.isIdReport = data.id;
+        this.getReporting(data.id);
         data.open = !data.open;
         this.indexColumn = index;
         this.optionsActive = [];
@@ -152,10 +165,10 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         this.selectFile = null;
         this.isAddOptionsButton = true;
         //data.open = !data.open;
-         this.isIdReport = item.id;
+        this.isIdReport = item.id;
     }
 
-    onClickParamReference(item){
+    onClickParamReference(item) {
         if (item.systemOptionType === "customOptions") {
             this.popupUserParam = true;
         }
@@ -251,8 +264,10 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     }
 
     saveReport(item) {
-        let file;
-        let objectRepot;
+        const obj = {
+            systemOptions: this.optionsActive,
+            fileTemplate: this.selectFile,
+        }
         //если папка
         // this.data.find(e => {
         //     if (e.id === this.folderActive) {
@@ -263,20 +278,20 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         //         })
         //     }
         // })
-        let obj = {
-            id: 0,
-            name: objectRepot.name,
-            fileTemplate: this.selectFile,
-            createdAt: new Date(),
-        }
+        // let obj = {
+        //     id: 0,
+        //     name: objectRepot.name,
+        //     fileTemplate: this.selectFile,
+        //     createdAt: new Date(),
+        // }
 
-        this.reportService.putTemplate(obj).subscribe(ans => {
+        this.reportService.postSystemOptions(item, obj).subscribe(ans => {
             console.log(ans);
         });
     }
 
 
-    closeOptions(event){
+    closeOptions(event) {
         this.popupUserParam = event;
     }
 

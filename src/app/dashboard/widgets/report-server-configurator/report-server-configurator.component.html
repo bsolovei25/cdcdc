@@ -1,4 +1,4 @@
-<evj-widget-preview [title]="widgetTitle" [previewTitle]="widgetType" *ngIf="isMock"></evj-widget-preview>
+<evj-widget-preview [title]="widgetTitle" [code]="widgetCode" [previewTitle]="widgetType" *ngIf="isMock"></evj-widget-preview>
 
 <div class="container" *ngIf="!isMock">
   <evj-widget-header [title]="widgetTitle" [units]="widgetUnits" [code]="widgetCode" [id]="id" [uniqId]="uniqId"
@@ -102,14 +102,14 @@
           </div>
           <div class="references-container-scroll-block">
             <div class="reference-container-value">
-              <div *ngIf="isAddOptionsButton" class="reference-container-value__block">
+              <div *ngIf="folderActive !== undefined" class="reference-container-value__block">
                 <div class="reference-container-value__fio-block">
                   <div class="reference-container-value__fio">Выбранный файл-шаблон</div>
                 </div>
                 <div class="reference-container-value__type">
                   <mat-form-field class="categories_selectbox">
-                    <mat-select panelClass="mat-select-custom" [(ngModel)]="selectFile">
-                      <mat-option *ngFor="let p of dataFile" [value]="p">{{ p.name }}
+                    <mat-select panelClass="mat-select-custom" [(ngModel)]="this.selectFile">
+                      <mat-option *ngFor="let p of dataFile" [value]="p.name">{{ p.name }}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
@@ -168,7 +168,7 @@
         </div>
 
         <div *ngIf="popupUserParam" class="popup-user-param">
-          <evj-popup-user-options [data]="" (close)="closeOptions($event)"></evj-popup-user-options>
+          <evj-popup-user-options [data]="optionsCustom" (close)="closeOptions($event)"></evj-popup-user-options>
         </div>
       </div>
     </ng-container>
