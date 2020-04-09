@@ -88,9 +88,14 @@ export class OperationParkScreenComponent implements OnInit, OnDestroy {
             this.petroleumService.currentTankParam.subscribe(
             (item) => {
                 this.data = item.objectAttributes;
-                console.log(this.data);
-                this.data.forEach(el => el.paramDateTime = new Date(el.paramSaveDateTime));
-                console.log(this.data);
+                this.data.sort( (a, b) => {
+                    if (a.isEdit && !b.isEdit) {
+                        return -1;
+                    } else if (!a.isEdit && b.isEdit) {
+                        return 1;
+                    }
+                    return 0;
+                });
             }
         ));
     }

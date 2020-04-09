@@ -347,6 +347,8 @@ export class PetroleumScreenService {
             const currentTankParam = this.currentTankParam$.getValue();
             currentTankParam.objectAttributes = attributes;
             this.currentTankParam$.next(currentTankParam);
+            const objects = await this.getObjects(this.client);
+            this.objectsAll$.next(objects);
         } catch {
             this.materialController.openSnackBar('Ошибка сохранения параметра!', 'snackbar-red');
         }
