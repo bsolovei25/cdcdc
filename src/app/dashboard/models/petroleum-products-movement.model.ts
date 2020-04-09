@@ -34,11 +34,11 @@ export interface ITankAttribute {
     paramTitle: string;
     paramValue: string;
     paramUnit?: string;
-    paramDatetime?: Date;
+    paramDateTime?: Date;
     isActive?: boolean; // no back
     isEdit?: boolean; // no back
     paramSaveValue?: string; // no back
-    paramSaveDatetime?: Date; // no back
+    paramSaveDateTime?: Date; // no back
 }
 
 export interface ITankParam {

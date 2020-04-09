@@ -768,19 +768,18 @@
 
 
 input.data {
-  text-align: center;
+  text-align: left;
   font-size: 10px;
   width: 100%;
   background: transparent;
   border-color: transparent;
-  border-bottom: solid 1px transparent;
+  border-bottom: solid 1px var(--color-border-main-transparrent);
+  border-radius: 3px;
   color: white;
   pointer-events: none;
 
   &_active {
     pointer-events: fill;
-    border-radius: 3px;
-    border-color: transparent;
     border-bottom: solid 1px var(--color-active);
   }
   &_notActive {

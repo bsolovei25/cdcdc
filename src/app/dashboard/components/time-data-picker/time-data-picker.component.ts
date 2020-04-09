@@ -59,7 +59,7 @@ export class TimeDataPickerComponent implements OnInit, OnChanges {
         this.inputDate = new Date(this.data);
     }
 
-    public buttonConfirm(): void {
-        this.dateTimePicker.emit(moment(this.inputDate).toDate());
+    public buttonConfirm(date: any): void {
+        this.dateTimePicker.emit(moment(date).toDate());
     }
 }

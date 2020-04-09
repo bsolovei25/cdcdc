@@ -19,7 +19,7 @@
       <div class="title_block"
            [class.table-width__title]="dic.key === 'paramTitle'"
            [class.table-width__unit]="dic.key === 'paramUnit'"
-           [class.table-width__datetime]="dic.key === 'paramDatetime'"
+           [class.table-width__datetime]="dic.key === 'paramDateTime'"
            [class.table-width__value]="dic.key === 'paramValue'"
            [class.table-width__buttons]="dic.key === 'buttons'">
         <div class="title">
@@ -29,7 +29,7 @@
     </ng-container>
   </div>
   <div class="reference_values_short">
-    <ng-container *ngFor="let item of testData">
+    <ng-container *ngFor="let item of data">
       <div
         class="values_block"
         [class.values_block__active]="item.isActive"
@@ -38,10 +38,10 @@
           <div class="values"
                [class.table-width__title]="dic.key === 'paramTitle'"
                [class.table-width__unit]="dic.key === 'paramUnit'"
-               [class.table-width__datetime]="dic.key === 'paramDatetime'"
+               [class.table-width__datetime]="dic.key === 'paramDateTime'"
                [class.table-width__value]="dic.key === 'paramValue'"
                [class.table-width__buttons]="dic.key === 'buttons'">
-            <ng-container *ngIf="dic.key === 'paramDatetime' && item.paramDatetime">
+            <ng-container *ngIf="dic.key === 'paramDateTime' && item.paramDateTime">
               <div class="dates-selector__body">
                 <div class="dates-selector__dates">
                   <div class="dates-selector__date-choose">
@@ -91,7 +91,7 @@
               </div>
             </ng-container>
             <ng-container *ngIf="dic.key !== 'paramValue' &&
-             dic.key !== 'paramDatetime' && dic.key !== 'buttons'">
+             dic.key !== 'paramDateTime' && dic.key !== 'buttons'">
               <div class="value">
                 {{ item[dic.key] }}
               </div>

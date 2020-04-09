@@ -3,18 +3,6 @@ import { PetroleumScreenService } from 'src/app/dashboard/services/petroleum-scr
 import { ITankAttribute } from '../../../../models/petroleum-products-movement.model';
 import { SnackBarService } from '../../../../services/snack-bar.service';
 
-interface IParams {
-    name: string;
-    unit: string;
-    datetime: Date;
-    value: string;
-    isActive: boolean;
-    isEdit: boolean;
-    saveValue?: string;
-    saveDatetime?: Date;
-    icon: string; // TODO delete
-}
-
 @Component({
     selector: 'evj-operation-park-screen',
     templateUrl: './operation-park-screen.component.html',
@@ -35,7 +23,7 @@ export class OperationParkScreenComponent implements OnInit {
         },
         {
             title: 'Дата/Время',
-            key: 'paramDatetime',
+            key: 'paramDateTime',
         },
         {
             title: 'Значение',
@@ -52,7 +40,7 @@ export class OperationParkScreenComponent implements OnInit {
         {
             paramTitle: 'test',
             paramUnit: 'test',
-            paramDatetime: new Date(),
+            paramDateTime: new Date(),
             paramValue: 'test',
             isActive: false,
             isEdit: true,
@@ -60,7 +48,7 @@ export class OperationParkScreenComponent implements OnInit {
         {
             paramTitle: 'test',
             paramUnit: 'test',
-            paramDatetime: new Date(),
+            paramDateTime: new Date(),
             paramValue: 'test',
             isActive: false,
             isEdit: true,
@@ -68,7 +56,7 @@ export class OperationParkScreenComponent implements OnInit {
         {
             paramTitle: 'test',
             paramUnit: 'test',
-            paramDatetime: new Date(),
+            paramDateTime: new Date(),
             paramValue: 'test',
             isActive: false,
             isEdit: false,
@@ -90,6 +78,7 @@ export class OperationParkScreenComponent implements OnInit {
         this.petroleumService.currentTankParam.subscribe(
             (item) => {
                 this.data = item.objectAttributes;
+                console.log(item);
             }
         );
     }
@@ -99,29 +88,30 @@ export class OperationParkScreenComponent implements OnInit {
     }
 
     dateTimePicker(date: Date, item: ITankAttribute): void {
-        // console.log(date.getDate());
-        // if (date.getDate() > Date.now()) {
-        //     this.snackBarService.openSnackBar('Некорректно установлено время (установите время не превышающее текущее)' , 'snackbar-red');
-        //     return;
-        // }
-        // item.paramDatetime = new Date(date);
+        console.log(date);
+        if (date.getTime() > Date.now()) {
+            this.snackBarService.openSnackBar('Некорректно установлено время (установите время не превышающее текущее)' , 'snackbar-red');
+            item.paramDateTime = new Date(item.paramSaveDateTime);
+            return;
+        }
+        item.paramDateTime = new Date(date);
     }
 
     public startEdit(item: ITankAttribute): void {
         this.testData.forEach(el => el.isActive = false);
         item.isActive = true;
         item.paramSaveValue = item.paramValue;
-        item.paramSaveDatetime = new Date(item.paramDatetime);
+        item.paramSaveDateTime = new Date(item.paramDateTime);
     }
 
     public closeEdit(item: ITankAttribute): void {
         item.isActive = false;
         item.paramValue = item.paramSaveValue;
-        item.paramDatetime = new Date(item.paramSaveDatetime);
+        item.paramDateTime = new Date(item.paramSaveDateTime);
     }
 
     public okEdit(item: ITankAttribute): void {
-        console.log(item.paramDatetime);
-        console.log(item.paramSaveDatetime);
+        console.log(item.paramDateTime);
+        console.log(item.paramSaveDateTime);
     }
 }

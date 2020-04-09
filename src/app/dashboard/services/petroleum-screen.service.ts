@@ -319,16 +319,30 @@ export class PetroleumScreenService {
             let attributes: ITankAttribute[] = await this.http.get<ITankAttribute[]>(
                 `${this.restUrl}/api/petroleum-flow-clients/objects/${objectName}/attr`
             ).toPromise();
-            const regexp = /[A-Z]/;
-            attributes = attributes
-                .filter((el) =>
-                    (el.paramTitle.toUpperCase().search(regexp) === -1) &&
-                    (el.paramValue.toUpperCase().search(regexp) === -1)
-                );
+            // const regexp = /[A-Z]/;
+            // attributes = attributes
+            //     .filter((el) =>
+            //         (el.paramTitle.toUpperCase().search(regexp) === -1) &&
+            //         (el.paramValue.toUpperCase().search(regexp) === -1)
+            //     );
             return attributes;
         } catch {
             return [];
         }
+    }
+
+    public async setTankAttributes(objectName: string, objectAttribute: ITankAttribute): Promise<void> {
+        this.isLoad$.next(true);
+        try {
+            await this.http.post(`${this.restUrl}/api/petroleum-flow-values/${objectName}`, objectAttribute).toPromise();
+            const attributes: ITankAttribute[] = await this.getTankAttributes(objectName);
+            const currentTankParam = this.currentTankParam$.getValue();
+            currentTankParam.objectAttributes = attributes;
+            this.currentTankParam$.next(currentTankParam);
+        } catch {
+            this.materialController.openSnackBar('Ошибка сохранения параметра!', 'snackbar-red');
+        }
+        this.isLoad$.next(true);
     }
 
     public async setTankParam(objectName: string): Promise<void> {
@@ -340,6 +354,7 @@ export class PetroleumScreenService {
             objectInfo,
             objectAttributes,
         };
+        console.log(currentTankParam);
         this.currentTankParam$.next(currentTankParam);
         this.isLoad$.next(false);
     }
