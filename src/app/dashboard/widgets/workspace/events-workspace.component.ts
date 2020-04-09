@@ -13,9 +13,6 @@ import { WidgetService } from '../../services/widget.service';
 import { DateAdapter } from '@angular/material/core';
 import { AuthService } from '@core/service/auth.service';
 import { WidgetPlatform } from '../../models/widget-platform';
-
-import { ITime } from '../../models/time-data-picker';
-import { AppConfigService } from '../../../services/appConfigService';
 import { EventsWorkspaceService } from '../../services/events-workspace.service';
 
 @Component({
@@ -50,7 +47,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         public widgetService: WidgetService,
         private dateAdapter: DateAdapter<Date>,
         private authService: AuthService,
-        private configService: AppConfigService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -66,12 +62,11 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
         this.widgetIcon = 'document';
         this.dateAdapter.setLocale('ru');
-        this.fsUrl = this.configService.fsUrl;
     }
 
     ngOnInit(): void {
         super.widgetInit();
-        this.isLoading = false;
+        this.ewService.isLoading = false;
         this.ewService.loadItem();
     }
 
@@ -94,11 +89,11 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     }
 
     private async setEventByInfo(value: EventsWidgetNotification | number): Promise<void> {
-        this.isLoading = true;
+        this.ewService.isLoading = true;
 
         this.ewService.setEventByInfo(value);
 
-        setTimeout(() => (this.isLoading = false), 500);
+        setTimeout(() => (this.ewService.isLoading = false), 500);
 
         // this.progressLine();
     }
@@ -216,11 +211,11 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     }
 
     async saveItem(): Promise<void> {
-        this.isLoading = true;
+        this.ewService.isLoading = true;
         this.isEditingDescription = false;
         //  this.event.deadline = this.formatDate(new Date(this.event.deadline));
         this.ewService.saveEvent();
-        this.isLoading = false;
+        this.ewService.isLoading = false;
     }
 
     onLoadEvent(id: number): void {
@@ -232,10 +227,10 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     // #region Retrieval Event
 
     async saveRetrieval(): Promise<void> {
-        this.isLoading = true;
+        this.ewService.isLoading = true;
         this.ewService.saveNewRetrievalEvent();
         this.overlayClose();
-        this.isLoading = false;
+        this.ewService.isLoading = false;
     }
 
     addRetrieval(): void {
@@ -256,10 +251,10 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     }
 
     async editSaveRetrieval(): Promise<void> {
-        this.isLoading = true;
+        this.ewService.isLoading = true;
         this.ewService.saveEditedRetrievalEvent();
         this.overlayClose();
-        this.isLoading = false;
+        this.ewService.isLoading = false;
         // this.progressLine();
     }
 
@@ -305,11 +300,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
     onEditShortInfo(): void {
         this.isEditingDescription = true;
-    }
-
-    public getUserAvatarUrl(user: IUser): string {
-        const avatar: string = 'assets/icons/widgets/admin/default_avatar2.svg';
-        return user?.photoId ? `${this.fsUrl}/${user.photoId}` : avatar;
     }
 
     // TODO

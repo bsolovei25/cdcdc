@@ -146,6 +146,7 @@ import { AdminAdImportComponent } from './widgets/admin-panel/admin-ad-import/ad
 import { AddReportFileComponent } from './widgets/report-server-configurator/add-report-file/add-report-file.component';
 import { SmotrEventComponent } from './widgets/workspace/smotr-event/smotr-event.component';
 import { UsualEventComponent } from './widgets/workspace/usual-event/usual-event.component';
+import { RetrievalWindowComponent } from './widgets/workspace/components/retrieval-window/retrieval-window.component';
 
 @NgModule({
     declarations: [
@@ -271,6 +272,7 @@ import { UsualEventComponent } from './widgets/workspace/usual-event/usual-event
         AddReportFileComponent,
         SmotrEventComponent,
         UsualEventComponent,
+        RetrievalWindowComponent,
     ],
     entryComponents: [
         LineChartComponent,

@@ -14,6 +14,7 @@ import {
 import { EventService } from './event.service';
 import { fillDataShape } from '../../@shared/common-functions';
 import { SnackBarService } from './snack-bar.service';
+import { AppConfigService } from '../../services/appConfigService';
 
 @Injectable({
     providedIn: 'root',
@@ -23,6 +24,7 @@ export class EventsWorkspaceService {
     public retrievalEvent: EventsWidgetNotification;
 
     //#region FLAGS
+    public isLoading: boolean = true;
     public isEditEvent: boolean = false;
     public isCreateNewEvent: boolean = false;
     public isOverlayChartOpen: boolean = false;
@@ -39,10 +41,6 @@ export class EventsWorkspaceService {
     public units: IUnitEvents[];
 
     public currentAuthUser: IUser = null;
-
-    //#region RESPONSIBLE_USER
-
-    //#endregion
 
     public readonly statuses: { [id in EventsWidgetNotificationStatus]: string } = {
         new: 'Новое',
@@ -65,9 +63,15 @@ export class EventsWorkspaceService {
     };
 
     private defaultEvent: EventsWidgetNotification = null;
+    private fsUrl: string = '';
 
-    constructor(private eventService: EventService, private snackBarService: SnackBarService) {
+    constructor(
+        private eventService: EventService,
+        private snackBarService: SnackBarService,
+        private configService: AppConfigService
+    ) {
         this.loadItem();
+        this.fsUrl = this.configService.fsUrl;
     }
 
     public async loadItem(id?: number): Promise<void> {
@@ -267,5 +271,10 @@ export class EventsWorkspaceService {
         } else {
             this.event.deadline = deadline;
         }
+    }
+
+    public getUserAvatarUrl(user: IUser): string {
+        const avatar: string = 'assets/icons/widgets/admin/default_avatar2.svg';
+        return user?.photoId ? `${this.fsUrl}/${user.photoId}` : avatar;
     }
 }
