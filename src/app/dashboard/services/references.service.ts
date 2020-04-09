@@ -4,6 +4,7 @@ import { AppConfigService } from 'src/app/services/appConfigService';
 import { IReferenceTypes, IReferenceColumnsType, IReferenceColumns, IReferenceData } from '../models/references';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
+import { IAlertWindowModel } from '@shared/models/alert-window.model';
 
 @Injectable({
     providedIn: 'root',
@@ -20,6 +21,8 @@ export class ReferencesService {
         this.restUrl = configService.restUrl;
         this.getRestReference();
     }
+
+    public alertWindow$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
 
     public getRestReference(): void {
         this.getReference().subscribe(
@@ -50,6 +53,10 @@ export class ReferencesService {
 
     public removeRecord(id: number): Observable<IReferenceColumns> {
         return this.http.delete<IReferenceColumns>(this.restUrl + '/api/ref-book/ReferenceColumn/' + id);
+    }
+
+    public removeRecordWithColumn(id: number): Observable<IReferenceColumns> {
+        return this.http.delete<IReferenceColumns>(this.restUrl + '/api/ref-book/ReferenceColumn/' + id + '/force');
     }
 
     public removeDataRecord(id: number): Observable<any> {
@@ -83,5 +90,9 @@ export class ReferencesService {
 
     public putEditData(body): Observable<any> {
         return this.http.put<any>(this.restUrl + '/api/ref-book/ReferenceData', body);
+    }
+
+    public closeAlert(): void {
+        this.alertWindow$.next(null);
     }
 }

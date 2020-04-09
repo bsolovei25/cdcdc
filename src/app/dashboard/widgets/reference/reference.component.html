@@ -1,4 +1,4 @@
-<evj-widget-preview [title]="widgetTitle" [previewTitle]="widgetType" *ngIf="isMock"></evj-widget-preview>
+<evj-widget-preview [title]="widgetTitle" [code]="widgetCode" [previewTitle]="widgetType" *ngIf="isMock"></evj-widget-preview>
 
 <div class="container" *ngIf="!isMock">
   <evj-widget-header [title]="widgetTitle" [units]="widgetUnits" [code]="widgetCode" [id]="id" [uniqId]="uniqId"
@@ -11,7 +11,7 @@
       <div class="reference-left">
         <div class="title-reference">Наименование справочника</div>
         <div class="reference-container">
-          <div class="scroll-block">
+          <div id="leftScrollRef" class="scroll-block">
           <ng-container *ngFor="let item of data; let i = index">
             <div class="reference-container__block" (click)="onClickReference(item, i)">
               <div class="reference-container__block-info" [class.block-active]="item.id === idReferenceClick">
@@ -44,12 +44,13 @@
           <ng-container *ngIf="data[this.indexColumn] !== undefined">
             <ng-container *ngFor="let item of this.columnData">
               <ng-container *ngIf="item.name !== 'Id'">
-                <div class="title-reference__title-name" [class.block-active]="item.checked">
+                <div class="title-reference__title-name" [class.block-active]="checkTitle === item.id">
                   <div class="title-reference__title-name-check">
-                    <label class="mycheckbox">
-                      <input type="radio" id="radio" name="title" class="mycheckbox__new" value="{{ item.name }}"
-                        (click)="changeSwap(item)"/>
-                    </label>
+                    <div class="radio-button">
+                      <input type="radio" id="{{ item.name }}" name="title" value="{{ item.name }}"
+                      (click)="changeSwap(item)"/>
+                    <label for="{{ item.name }}" class="cyan"></label>
+                    </div>
                   </div>
                   <div class="title-reference__title-name-fio">
                     {{ item.name }}
@@ -60,7 +61,7 @@
           </ng-container>
         </div>
         <div class="references-container-scroll-block">
-          <div class="reference-container-value" [class.isLongBlock]="isLongBlock" #refereneTable>
+          <div id="rightScrollRef" class="reference-container-value" [class.isLongBlock]="isLongBlock" #refereneTable>
             <ng-container *ngIf="this.dataTable.data !== undefined">
               <ng-container *ngFor="let item of this.dataTable.data">
                 <div class="reference-container-value__block" [class.block-active]="item.open"
@@ -123,7 +124,7 @@
                           </ng-container>
                           <div class="reference-container-value__edit-button"
                           (click)="onBlockEditRecord(i,item)">
-                          <svg-icon *ngIf="item.id === itemTableId && !isEdit" class="indicator-selector__collapse"
+                          <svg-icon *ngIf="item.open && !isEdit" class="indicator-selector__collapse"
                             src="./assets/icons/widgets/references/edit_white.svg"></svg-icon>
                         </div>
                         </div>
