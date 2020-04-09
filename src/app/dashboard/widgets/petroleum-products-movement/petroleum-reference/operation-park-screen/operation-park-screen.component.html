@@ -55,14 +55,23 @@
               </div>
             </ng-container>
             <ng-container *ngIf="dic.key === 'paramValue'">
-              <input
-                class="data"
-                type="text"
-                placeholder="--------"
-                [(ngModel)]="item.paramValue"
-                [readOnly]="!item.isActive"
-                [class.data_active]="item.isActive"
-              />
+              <ng-container *ngIf="!isDropdown(item)">
+                <input
+                  class="data"
+                  type="text"
+                  placeholder="--------"
+                  [(ngModel)]="item.paramValue"
+                  [readOnly]="!item.isActive"
+                  [class.data_active]="item.isActive"
+                />
+              </ng-container>
+              <ng-container *ngIf="isDropdown(item)">
+                <mat-select [disabled]="!item.isActive" [(ngModel)]="item.paramValue">
+                  <mat-option *ngFor="let el of item?.valueStates" [value]="el">
+                    {{ el }}
+                  </mat-option>
+                </mat-select>
+              </ng-container>
             </ng-container>
             <ng-container *ngIf="dic.key === 'buttons' && item.isEdit">
               <div class="icon-buttons">

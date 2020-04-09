@@ -6,7 +6,7 @@ import { AppConfigService } from '../../services/appConfigService';
 import {
     IPetroleumObject, ITankAttribute, ITankInfo, ITankParam,
     ITransfer,
-    ObjectDirection, TransfersFilter
+    ObjectDirection, ObjectType, TransfersFilter
 } from '../models/petroleum-products-movement.model';
 import { SnackBarService } from './snack-bar.service';
 import { IDatesInterval, WidgetService } from './widget.service';
@@ -311,7 +311,13 @@ export class PetroleumScreenService {
         if (!object || !direction) {
             return await this.getObjectsAsync(client);
         }
-        return await this.getReferencesAsync(client, object, direction);
+        const allObjects = [
+            ...this.objectsAll$.getValue(),
+            ...this.objectsReceiver$.getValue(),
+            ...this.objectsSource$.getValue()
+        ];
+        const objectType = allObjects.find(el => el.objectName === object).objectType;
+        return await this.getReferencesAsync(client, object, objectType, direction);
     }
 
     public async getTankAttributes(objectName: string): Promise<ITankAttribute[]> {
@@ -319,6 +325,7 @@ export class PetroleumScreenService {
             let attributes: ITankAttribute[] = await this.http.get<ITankAttribute[]>(
                 `${this.restUrl}/api/petroleum-flow-clients/objects/${objectName}/attr`
             ).toPromise();
+            attributes.forEach((item) => item.paramSaveDateTime = new Date(item.paramDateTime));
             // const regexp = /[A-Z]/;
             // attributes = attributes
             //     .filter((el) =>
@@ -422,11 +429,12 @@ export class PetroleumScreenService {
     private async getReferencesAsync(
         client: string,
         object: string,
+        type: ObjectType,
         direction: ObjectDirection
     ): Promise<IPetroleumObject[]> {
         return this.http
             .get<IPetroleumObject[]>(
-                `${this.restUrl}/api/petroleum-flow-clients/clients/${client}/objects/${object}/relations/${direction}`
+                `${this.restUrl}/api/petroleum-flow-clients/clients/${client}/objects/${type}/${object}/relations/${direction}`
             )
             .toPromise();
     }

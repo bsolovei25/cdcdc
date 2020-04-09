@@ -108,6 +108,21 @@
 .values {
   text-align: left;
   width: 100px;
+  ::ng-deep .mat-select {
+    padding-top: 5px;
+    border-bottom: solid 1px var(--color-border-main-transparrent);
+  }
+  ::ng-deep .mat-select-arrow {
+    width: 8px !important;
+    height: 6px !important;
+    margin-right: 5px !important;
+  }
+  ::ng-deep .mat-select-disabled .mat-select-value {
+    color: white;
+  }
+}
+::ng-deep .mat-option:hover .mat-option-ripple {
+  background-color: var(--color-bg-active);
 }
 
 .value {
@@ -781,9 +796,6 @@ input.data {
   &_active {
     pointer-events: fill;
     border-bottom: solid 1px var(--color-active);
-  }
-  &_notActive {
-    border-color: transparent;
   }
   &::placeholder {
     color: var(--color-text-sub);

@@ -1,16 +1,22 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    Input, OnDestroy
+} from '@angular/core';
 import { PetroleumScreenService } from 'src/app/dashboard/services/petroleum-screen.service';
 import { ITankAttribute } from '../../../../models/petroleum-products-movement.model';
 import { SnackBarService } from '../../../../services/snack-bar.service';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'evj-operation-park-screen',
     templateUrl: './operation-park-screen.component.html',
     styleUrls: ['./operation-park-screen.component.scss'],
 })
-export class OperationParkScreenComponent implements OnInit {
+export class OperationParkScreenComponent implements OnInit, OnDestroy {
     @Input() title: string[];
     public data: ITankAttribute[];
+    private subscriptions: Subscription[] = [];
 
     public readonly dict: { title: string, key: string }[] = [
         {
@@ -75,12 +81,22 @@ export class OperationParkScreenComponent implements OnInit {
     ) {}
 
     public ngOnInit(): void {
-        this.petroleumService.currentTankParam.subscribe(
+        if (this.subscriptions?.length > 0) {
+            return;
+        }
+        this.subscriptions.push(
+            this.petroleumService.currentTankParam.subscribe(
             (item) => {
                 this.data = item.objectAttributes;
-                console.log(item);
+                console.log(this.data);
+                this.data.forEach(el => el.paramDateTime = new Date(el.paramSaveDateTime));
+                console.log(this.data);
             }
-        );
+        ));
+    }
+
+    public ngOnDestroy(): void {
+        this.subscriptions.forEach((item) => item.unsubscribe());
     }
 
     returnMenu(): void {
@@ -114,5 +130,12 @@ export class OperationParkScreenComponent implements OnInit {
         console.log(item.paramDateTime);
         console.log(item.paramSaveDateTime);
         await this.petroleumService.setTankAttributes(item);
+    }
+
+    public isDropdown(item: ITankAttribute): boolean {
+        if (item?.valueStates?.length > 0 && item?.isEdit) {
+            return true;
+        }
+        return false;
     }
 }

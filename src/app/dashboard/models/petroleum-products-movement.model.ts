@@ -31,10 +31,12 @@ export interface IFacilityInfo {
 }
 
 export interface ITankAttribute {
+    paramName?: string;
     paramTitle: string;
     paramValue: string;
     paramUnit?: string;
     paramDateTime?: Date;
+    valueStates?: string[];
     isActive?: boolean; // no back
     isEdit?: boolean; // no back
     paramSaveValue?: string; // no back
