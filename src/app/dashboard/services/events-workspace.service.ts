@@ -44,19 +44,19 @@ export class EventsWorkspaceService {
 
     //#endregion
 
-    statuses: { [id in EventsWidgetNotificationStatus]: string } = {
+    public readonly statuses: { [id in EventsWidgetNotificationStatus]: string } = {
         new: 'Новое',
         inWork: 'В работе',
         closed: 'Завершено',
     };
 
-    priorities: { [id in EventsWidgetNotificationPriority]: string } = {
+    public readonly priorities: { [id in EventsWidgetNotificationPriority]: string } = {
         danger: 'Высокий',
         warning: 'Средний',
         standard: 'Стандартный',
     };
 
-    categories: { [id in EventsWidgetCategoryCode]: string } = {
+    public readonly categories: { [id in EventsWidgetCategoryCode]: string } = {
         smotr: 'СМОТР',
         safety: 'Безопасноть',
         tasks: 'Производственные задания',
@@ -64,7 +64,7 @@ export class EventsWorkspaceService {
         drops: 'Сбросы',
     };
 
-    public defaultEvent: EventsWidgetNotification = null;
+    private defaultEvent: EventsWidgetNotification = null;
 
     constructor(private eventService: EventService, private snackBarService: SnackBarService) {
         this.loadItem();
@@ -261,7 +261,6 @@ export class EventsWorkspaceService {
 
     public setDeadlineToEvent(date: Date, isRetriveal: boolean = false): void {
         const deadline: Date = new Date(date);
-        console.log('deadline: ', deadline);
 
         if (isRetriveal) {
             this.retrievalEvent.deadline = deadline;

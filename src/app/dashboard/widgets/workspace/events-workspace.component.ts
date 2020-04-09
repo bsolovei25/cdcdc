@@ -26,36 +26,12 @@ import { EventsWorkspaceService } from '../../services/events-workspace.service'
 export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, OnDestroy {
     isLoading: boolean = true;
 
-    isUserCanEdit: boolean = true; // может пользователь редактировать
-
-    isClickFact: number; // хз
-    isClickComment: number; // хз
-
-    nameUser: string; // TOFIX
-    nameUserFirstName: string; // TOFIX
-    nameUserLastName: string; // TOFIX
-
-    public userAvatar: string = 'assets/icons/widgets/admin/default_avatar2.svg'; // TOFIX
-    public userAvatarDefault: string = 'assets/icons/widgets/admin/default_avatar2.svg';
-    userChoosen: boolean = false; // ответственный
-    userMeropChoosen: boolean = false; // ответственный в retrieval
-    chooseNameUser: string; // TOFIX
-    userBrigade: string; // TOFIX
-    userDescription: string; // TOFIX
-
-    saveEvent: boolean;
     isEditingDescription: boolean = false;
 
     progressLineHeight: number; // хз
 
-    dateComment: Date; // хз
-
-    eventLegends: any = [{ isLegend: true }, { isLegend: false }]; // TOFIX
-
     static itemCols: number = 20;
     static itemRows: number = 5;
-
-    dataPicker: boolean = false; // хз
 
     private fsUrl: string;
 
@@ -120,7 +96,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     private async setEventByInfo(value: EventsWidgetNotification | number): Promise<void> {
         this.isLoading = true;
 
-        this.dataPicker = false;
         this.ewService.setEventByInfo(value);
 
         setTimeout(() => (this.isLoading = false), 500);
@@ -172,7 +147,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
             const msg = this.input2.nativeElement.value;
             this.input2.nativeElement.value = '';
             this.ewService.sendMessageToEvent(msg, 'comments', false);
-            this.dateComment = new Date();
             setTimeout(() => {
                 this.scrollCommentBottom();
             }, 50);
@@ -223,8 +197,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     async createEvent(): Promise<void> {
         this.ewService.isCreateNewEvent = true;
 
-        this.dataPicker = false;
-
         this.ewService.createNewEvent();
     }
 
@@ -267,8 +239,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     }
 
     addRetrieval(): void {
-        this.dataPicker = false;
-
         this.ewService.createNewEvent(true);
 
         this.ewService.isOverlayRetrivealOpen = true;
@@ -337,6 +307,12 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.isEditingDescription = true;
     }
 
+    public getUserAvatarUrl(user: IUser): string {
+        const avatar: string = 'assets/icons/widgets/admin/default_avatar2.svg';
+        return user?.photoId ? `${this.fsUrl}/${user.photoId}` : avatar;
+    }
+
+    // TODO
     progressLine(): void {
         const heightMiddle = this.progress.nativeElement.offsetParent.offsetHeight - 103;
         const countRetAll = this.ewService.event.retrievalEvents.length;
