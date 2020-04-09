@@ -91,9 +91,9 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     ngOnInit(): void {
         super.widgetInit();
         this.subscriptions.push(
-            this.getReportFolder(),
+           // this.getReportFolder(),
             this.getRecordFile(),
-            //  this.getReportTemplate(),
+            this.getReportTemplate(),
             this.getOptions()
         );
     }
@@ -118,12 +118,13 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             for (let item of this.data) {
                 this.connectedTo.push(item.name);
             }
-        })
+        });
     }
 
     getReportTemplate() {
         return this.reportService.getReportTemplate().subscribe((data) => {
             this.data = data;
+            this.optionsActive = this.data.systemOption;
         });
     }
 
@@ -252,17 +253,18 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     saveReport(item) {
         let file;
         let objectRepot;
-        this.data.find(e => {
-            if (e.id === this.folderActive) {
-                e.templates.find(el => {
-                    if (el.id === item) {
-                        objectRepot = el;
-                    }
-                })
-            }
-        })
+        //если папка
+        // this.data.find(e => {
+        //     if (e.id === this.folderActive) {
+        //         e.templates.find(el => {
+        //             if (el.id === item) {
+        //                 objectRepot = el;
+        //             }
+        //         })
+        //     }
+        // })
         let obj = {
-            id: objectRepot.id,
+            id: 0,
             name: objectRepot.name,
             fileTemplate: this.selectFile,
             createdAt: new Date(),
@@ -272,6 +274,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             console.log(ans);
         });
     }
+
 
     closeOptions(event){
         this.popupUserParam = event;

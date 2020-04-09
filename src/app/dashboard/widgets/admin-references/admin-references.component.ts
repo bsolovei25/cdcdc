@@ -117,7 +117,7 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
 
         if (leftScroll !== undefined) {
             if (leftScroll.scrollHeight !== leftScroll.clientHeight) {
-                leftScroll.style.cssText = "margin-right: 5px; width: calc(100% - 10px);";
+                leftScroll.style.cssText = "margin-right: 0px; width: calc(100% - 5px);";
             } else {
                 leftScroll.style.cssText = "margin-right: -5px; width: calc(100% - 5px);";
             }
@@ -149,6 +149,13 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
 
 
     onClickReference(data, index) {
+        if (this.indexColumn !== undefined && this.indexColumn !== null) {
+            for (let item of this.data[this.indexColumn].columns) {
+                if (item.open) {
+                    item.open = false;
+                }
+            }
+        }
         this.idReferenceClick = data.id;
         this.saveColumns = data.columns;
         this.indexColumn = index;
@@ -156,8 +163,6 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
         if (data.columns !== null && data.columns !== undefined) {
             this.sortByOrder(data.columns);
             this.blockNeed();
-            this.setStyleScroll();
-
             for (let item of data.columns) {
                 if (item.isRequred) {
                     item.checked;
@@ -167,6 +172,7 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
                     item.checked;
                 }
             }
+            this.setStyleScroll();
 
         } else {
             this.referencesService.getColumns(this.idReferenceClick).subscribe((datas) => {
@@ -175,9 +181,12 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
                 this.setStyleScroll();
             });
         }
+
+        this.setStyleScroll();
     }
 
     onClickItemReference(data) {
+        this.setStyleScroll();
         data.open = !data.open;
         this.isLongBlock = true;
         for (let item of this.data[this.indexColumn].columns) {

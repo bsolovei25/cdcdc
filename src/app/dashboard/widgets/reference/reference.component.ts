@@ -96,7 +96,7 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
 
         if (leftScroll !== undefined) {
             if (leftScroll.scrollHeight !== leftScroll.clientHeight) {
-                leftScroll.style.cssText = "margin-right: 5px; width: calc(100% - 10px);";
+                leftScroll.style.cssText = "margin-right: 0px; width: calc(100% - 5px);";
             } else {
                 leftScroll.style.cssText = "margin-right: -5px; width: calc(100% - 5px);";
             }

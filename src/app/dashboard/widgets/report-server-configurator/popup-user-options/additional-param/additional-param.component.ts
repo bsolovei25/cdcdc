@@ -7,7 +7,9 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class AdditionalParamComponent implements OnInit {
   @Input() public data;
+  @Input() public options;
   @Output() public close: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() public openOptions: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   isOpenCheckBlock: boolean = false;
 
@@ -29,7 +31,7 @@ export class AdditionalParamComponent implements OnInit {
   }
 
   openCustomOptions() {
-  
+    this.openOptions.emit(true);
   }
 
 }

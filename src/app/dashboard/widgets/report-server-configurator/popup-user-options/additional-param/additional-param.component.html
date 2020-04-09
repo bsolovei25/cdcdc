@@ -5,7 +5,7 @@
             class="add_button_icon">
         </svg-icon>
         </div>
-        <div class="title__name"> Наборы значений параметров для автогенерации</div>
+        <div class="title__name">Дополнительные параметры</div>
     </div>
     <div class="content">
         <ng-container *ngFor="let item of data">
@@ -13,9 +13,9 @@
                 {{item.name}}
             </div>
             <div *ngIf="item.open" class="content__item-options">
-                <ng-container *ngFor="let options of item.options">
-                    <div class="options"> {{options.name}}</div>
-                    <div class="value"> {{options.value}}</div>
+                <ng-container *ngFor="let key of objectKeys(item)">
+                    <div class="options"> {{ key }}</div>
+                    <div class="value"> {{ item[key] }}</div>
                 </ng-container>
             </div>
         </ng-container>

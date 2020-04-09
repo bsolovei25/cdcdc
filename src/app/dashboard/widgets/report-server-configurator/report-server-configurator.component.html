@@ -16,16 +16,16 @@
               <div class="reference-container__block">
                 <div class="reference-container__block-info" [class.block-info-active]="item.id === folderActive"
                   (click)="onClickReference(item, i)">
-                  <div class="reference-container__button">
+                  <!-- <div class="reference-container__button">
                     <svg-icon *ngIf="item.open" src="./assets/icons/widgets/manual-input/arrow_down.svg"
                       [svgStyle]="{ 'width.px':10, 'height.px':10 }"></svg-icon>
 
                     <svg-icon *ngIf="!item.open" src="./assets/icons/widgets/manual-input/arrow_right.svg"
                       [svgStyle]="{ 'width.px':10, 'height.px':10 }"></svg-icon>
-                  </div>
+                  </div> -->
                   <div class="reference-container__name">{{item.name}}</div>
                 </div>
-                <div cdkDropList id="{{item.name}}" [cdkDropListData]="item.columns" (cdkDropListDropped)="drop($event)"
+                <!-- <div cdkDropList id="{{item.name}}" [cdkDropListData]="item.columns" (cdkDropListDropped)="drop($event)"
                   [cdkDropListConnectedTo]="connectedTo" [@Branch]="(item.open) ? 'expanded' : 'collapsed'">
                   <div class="reference-container__block-contant" *ngFor="let i of item.templates" cdkDrag
                     (click)="onClickItemReference(i)" [class.block-info-active]="i.id === isIdReport">
@@ -39,17 +39,26 @@
                       <svg-icon src="./assets/icons/widgets/references/accept.svg" class="add_button_icon"></svg-icon>
                     </div>
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
-            <div *ngIf="clickPushRef" class="reference-container__add-block">
+            <!--ДЛЯ ОДНОГО ФАЙЛА-->
+            <div *ngIf="clickPushRec" class="reference-container__add-block">
+              <div class="reference-container__add-block-input">
+                <input type="text" [(ngModel)]="newRecord" placeholder="Введите название отчета..." />
+              </div>
+              <div class="reference-container__add-block-icon" (click)="onPushReport()">
+                <svg-icon src="./assets/icons/widgets/references/accept.svg" class="add_button_icon"></svg-icon>
+              </div>
+            </div>
+            <!-- <div *ngIf="clickPushRef" class="reference-container__add-block">
               <div class="reference-container__add-block-input">
                 <input type="text" [(ngModel)]="newFolder" placeholder="Введите название папки..." />
               </div>
               <div class="reference-container__add-block-icon" (click)="onPushFolder()">
                 <svg-icon src="./assets/icons/widgets/references/accept.svg" class="add_button_icon"></svg-icon>
               </div>
-            </div>
+            </div> -->
           </div>
           <div class="bottom-reference-left">
             <div class="bottom-reference-left__block">
@@ -159,7 +168,7 @@
         </div>
 
         <div *ngIf="popupUserParam" class="popup-user-param">
-          <evj-popup-user-options (close)="closeOptions($event)"></evj-popup-user-options>
+          <evj-popup-user-options [data]="" (close)="closeOptions($event)"></evj-popup-user-options>
         </div>
       </div>
     </ng-container>
