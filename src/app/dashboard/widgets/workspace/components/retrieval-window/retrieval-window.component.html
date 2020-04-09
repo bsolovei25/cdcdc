@@ -143,7 +143,13 @@
               </div>
             </div>
 
-            <evj-event-description [isRetrievalEvent]="true"></evj-event-description>
+            <evj-event-description
+              class="description"
+              [ngClass]="{'description_small':ewService.retrievalEvent.category.name === 'equipmentStatus'}"
+              [description]="ewService.retrievalEvent.description"
+              [isRetrievalEvent]="true"
+              (changedDescription)="onChangeEventDescription($event)"
+            ></evj-event-description>
 
             <div class="fact_block">
               <div class="title_fact_block">

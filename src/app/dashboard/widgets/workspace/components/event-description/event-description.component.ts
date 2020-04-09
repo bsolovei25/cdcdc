@@ -1,4 +1,13 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Input } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    ViewChild,
+    ElementRef,
+    AfterViewInit,
+    Input,
+    Output,
+    EventEmitter,
+} from '@angular/core';
 import { EventsWorkspaceService } from '../../../../services/events-workspace.service';
 
 @Component({
@@ -7,17 +16,16 @@ import { EventsWorkspaceService } from '../../../../services/events-workspace.se
     styleUrls: ['./event-description.component.scss'],
 })
 export class EventDescriptionComponent implements OnInit, AfterViewInit {
+    @Input() public description: string = '';
     @Input() public isRetrievalEvent: boolean = false;
+
+    @Output() private changedDescription: EventEmitter<string> = new EventEmitter<string>();
 
     @ViewChild('textarea') private textarea: ElementRef;
 
-    public eventKey: 'event' | 'retrievalEvent';
-
     constructor(public ewService: EventsWorkspaceService) {}
 
-    public ngOnInit(): void {
-        this.eventKey = this.isRetrievalEvent ? 'retrievalEvent' : 'event';
-    }
+    public ngOnInit(): void {}
 
     public ngAfterViewInit(): void {
         this.disableTextarea();
@@ -30,5 +38,9 @@ export class EventDescriptionComponent implements OnInit, AfterViewInit {
 
     public disableTextarea(): void {
         this.textarea.nativeElement.disabled = true;
+    }
+
+    public onChangeTextarea(): void {
+        this.changedDescription.emit(this.description);
     }
 }

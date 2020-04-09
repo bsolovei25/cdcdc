@@ -127,4 +127,8 @@ export class UsualEventComponent implements OnInit {
         }
         this.progressLineHeight = (heightMiddle / countRetAll) * countRetComplete;
     }
+
+    public onChangeEventDescription(descr: string): void {
+        this.ewService.event.description = descr;
+    }
 }

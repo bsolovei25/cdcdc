@@ -77,4 +77,8 @@ export class RetrievalWindowComponent implements OnInit {
         this.ewService.isLoading = false;
         // this.progressLine();
     }
+
+    public onChangeEventDescription(descr: string): void {
+        this.ewService.retrievalEvent.description = descr;
+    }
 }

@@ -1,7 +1,4 @@
-<div
-  class="description"
-  [class.description_small]="ewService[eventKey].category.name === 'equipmentStatus'"
->
+<div class="description">
   <div class="description_nav">
     <div class="description_title">Краткое описание</div>
     <div class="description_button_update" (click)="onEditShortInfo()">
@@ -16,7 +13,8 @@
         class="gridster-item-content"
         placeholder="Введите значение..."
         minlength="3"
-        [(ngModel)]="ewService[eventKey].description"
+        [(ngModel)]="description"
+        (input)="onChangeTextarea()"
         (blur)="disableTextarea()"
         #textarea
       >
