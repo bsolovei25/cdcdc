@@ -26,6 +26,7 @@ export class EventsWorkspaceService {
     //#region FLAGS
     public isLoading: boolean = true;
     public isEditEvent: boolean = false;
+    public isEditRetrievalEvent: boolean = false;
     public isCreateNewEvent: boolean = false;
     public isOverlayChartOpen: boolean = false;
     public isOverlayRetrivealOpen: boolean = false;
@@ -214,6 +215,7 @@ export class EventsWorkspaceService {
                     this.event.retrievalEvents[index].innerNotification = this.retrievalEvent;
                     await this.eventService.editRetrievalEvents(this.event.retrievalEvents[index]);
                     this.eventService.updateEvent$.next(true);
+                    this.isEditRetrievalEvent = false;
                     this.retrievalEvent = fillDataShape(this.defaultEvent);
                     this.snackBarService.openSnackBar('Изменения сохранены');
                 } catch (err) {
@@ -226,6 +228,7 @@ export class EventsWorkspaceService {
                 (item) => item.id === this.retrievalEvent.id
             );
             this.event.retrievalEvents[index].innerNotification = this.retrievalEvent;
+            this.isEditRetrievalEvent = false;
             this.snackBarService.openSnackBar('Изменения сохранены');
         }
     }

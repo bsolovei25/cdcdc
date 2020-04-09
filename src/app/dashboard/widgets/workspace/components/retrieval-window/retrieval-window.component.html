@@ -373,14 +373,14 @@
             <div class="submit__frame submit__frame-left"></div>
             <div class="submit__frame submit__frame-right"></div>
             <button
-              *ngIf="!ewService.isEditEvent"
+              *ngIf="!ewService.isEditRetrievalEvent"
               type="submit gridster-item-content"
               (click)="saveRetrieval()"
             >
               Сохранить
             </button>
             <button
-              *ngIf="ewService.isEditEvent"
+              *ngIf="ewService.isEditRetrievalEvent"
               type="submit gridster-item-content"
               (click)="editSaveRetrieval()"
             >
