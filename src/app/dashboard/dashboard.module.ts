@@ -147,6 +147,7 @@ import { AddReportFileComponent } from './widgets/report-server-configurator/add
 import { SmotrEventComponent } from './widgets/workspace/smotr-event/smotr-event.component';
 import { UsualEventComponent } from './widgets/workspace/usual-event/usual-event.component';
 import { RetrievalWindowComponent } from './widgets/workspace/components/retrieval-window/retrieval-window.component';
+import { EventDescriptionComponent } from './widgets/workspace/components/event-description/event-description.component';
 
 @NgModule({
     declarations: [
@@ -273,6 +274,7 @@ import { RetrievalWindowComponent } from './widgets/workspace/components/retriev
         SmotrEventComponent,
         UsualEventComponent,
         RetrievalWindowComponent,
+        EventDescriptionComponent,
     ],
     entryComponents: [
         LineChartComponent,

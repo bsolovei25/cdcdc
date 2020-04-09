@@ -143,34 +143,7 @@
               </div>
             </div>
 
-            <div
-              class="description"
-              [class.description_small]="ewService.retrievalEvent.category.name === 'equipmentStatus'"
-            >
-              <div class="description_nav">
-                <div class="description_title">Краткое описание</div>
-                <div class="description_button_update">
-                  <svg-icon
-                    src="./assets/icons/edit.svg"
-                    [svgStyle]="{ 'width.px':20, 'height.px':20 }"
-                  >
-                  </svg-icon>
-                </div>
-              </div>
-              <div class="description__content">
-                <div class="description__content_text">
-                  <textarea
-                    required
-                    class="gridster-item-content"
-                    placeholder="Введите значение..."
-                    minlength="3"
-                    [(ngModel)]="ewService.retrievalEvent.description"
-                  >
-                  </textarea>
-                </div>
-              </div>
-              <div class="frame_description_bottom"></div>
-            </div>
+            <evj-event-description [isRetrievalEvent]="true"></evj-event-description>
 
             <div class="fact_block">
               <div class="title_fact_block">
