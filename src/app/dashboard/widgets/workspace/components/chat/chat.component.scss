@@ -1,8 +1,9 @@
 .fact_block {
-  height: 30%;
-  min-height: 100px;
+  height: inherit; // задается стилем 'снаружи' при вставке компонента в шаблон
+  
   margin-top: 15px;
   width: calc(100% - 24px);
+  min-height: 100px;
   position: relative;
 
   .title_fact_block {

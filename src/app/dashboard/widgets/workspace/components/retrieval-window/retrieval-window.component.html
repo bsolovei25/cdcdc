@@ -152,6 +152,7 @@
             ></evj-event-description>
 
             <evj-chat
+            class="facts"
               [messages]="ewService.retrievalEvent.facts"
               title="Установленные факты"
               placeholder="Укажите факты..."
@@ -237,6 +238,7 @@
             </div>
 
             <evj-chat
+              class="comments"
               [messages]="ewService.retrievalEvent.comments"
               title="Комментарии"
               placeholder="Напишите свой комментарий..."

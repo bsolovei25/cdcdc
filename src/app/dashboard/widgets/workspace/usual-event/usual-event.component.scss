@@ -506,6 +506,11 @@ $border-size: 4px;
           height: 140px;
         }
       }
+
+      .facts,
+      .comments {
+        height: 30%;
+      }
     }
 
     &__right {
