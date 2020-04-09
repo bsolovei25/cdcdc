@@ -331,9 +331,10 @@ export class PetroleumScreenService {
         }
     }
 
-    public async setTankAttributes(objectName: string, objectAttribute: ITankAttribute): Promise<void> {
+    public async setTankAttributes(objectAttribute: ITankAttribute): Promise<void> {
         this.isLoad$.next(true);
         try {
+            const objectName = this.currentTankParam$.getValue().objectName;
             await this.http.post(`${this.restUrl}/api/petroleum-flow-values/${objectName}`, objectAttribute).toPromise();
             const attributes: ITankAttribute[] = await this.getTankAttributes(objectName);
             const currentTankParam = this.currentTankParam$.getValue();
@@ -342,7 +343,7 @@ export class PetroleumScreenService {
         } catch {
             this.materialController.openSnackBar('Ошибка сохранения параметра!', 'snackbar-red');
         }
-        this.isLoad$.next(true);
+        this.isLoad$.next(false);
     }
 
     public async setTankParam(objectName: string): Promise<void> {

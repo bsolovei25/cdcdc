@@ -110,8 +110,9 @@ export class OperationParkScreenComponent implements OnInit {
         item.paramDateTime = new Date(item.paramSaveDateTime);
     }
 
-    public okEdit(item: ITankAttribute): void {
+    public async okEdit(item: ITankAttribute): Promise<void> {
         console.log(item.paramDateTime);
         console.log(item.paramSaveDateTime);
+        await this.petroleumService.setTankAttributes(item);
     }
 }
