@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, OnDestroy, HostListener, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, HostListener, ViewChild, ElementRef, Input } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { IUser } from '../../../models/events-widget';
 
@@ -34,13 +34,6 @@ interface ITanksHistory {
     styleUrls: ['./tank-calibration-table-files.component.scss'],
 })
 export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
-
-    columnsToDisplay: string[] = [
-        'Наименование',
-        'Дата начала калибровки',
-        'Дата окончания калибровки',
-        'Действия с калибровками'
-    ];
 
     static itemCols: number = 18;
     static itemRows: number = 14;
@@ -129,6 +122,13 @@ export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
     endTr = [];
     endTr2 = [];
 
+    @Input() set isReport($event) {
+        setTimeout(() => {
+            this.blockNeed();
+            this.blockNee2d();
+        }, 100);
+    }
+
     @HostListener('document:resize', ['$event'])
     OnResize(event) {
         this.blockNeed();
@@ -139,10 +139,8 @@ export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
     @ViewChild('tableRight4') tableRight4: ElementRef;
 
     constructor(
-
     ) { }
-    ngOnInit(): void {
-    }
+    ngOnInit(): void { }
 
     ngOnDestroy(): void {
     }
@@ -164,7 +162,7 @@ export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
     blockNeed(): void {
         this.endTr = [];
         const heightTemplate = this.dataSource.length * 28;
-        const heihtOut = (this.table3.nativeElement.clientHeight - heightTemplate) / 25;
+        const heihtOut = (this.table3.nativeElement.clientHeight - heightTemplate) / 26;
         for (let i = 0; i < heihtOut - 1; i++) {
             this.endTr.push(i);
         }

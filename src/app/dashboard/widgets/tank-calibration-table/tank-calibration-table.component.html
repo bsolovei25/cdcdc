@@ -31,16 +31,43 @@
                 <th class="header header__th header__name">
                   Наименование
                 </th>
-                <th class="header header__th header__date">
-                  Дата начала калибровки
+                <th class="header header__th header__date" (click)="sortStart()">
+                  <span class="header__date-text">
+                    Дата начала калибровки
+                  </span>
                   <svg-icon
+                    *ngIf="sort?.name === 'upStart' || !sort || sort?.name === 'bottomStart'
+                    || sort?.name === 'bottomEnd'"
+                    class="header__date-sort-up"
+                    [class.header__date-sort-up--active]="sort?.name === 'upStart' && sort?.value"
                     src="assets/icons/widgets/calibration-table/sort-up.svg"
                     [svgStyle]="{ 'width.px':12, 'height.px':12 }"
                   ></svg-icon>
-                </th>
-                <th class="header header__th header__date">
-                  Дата окончания калибровки
                   <svg-icon
+                    *ngIf="sort?.name === 'upEnd'"
+                    class="header__date-sort-bottom"
+                    [class.header__date-sort-bottom--active]="sort?.name === 'upEnd' && sort?.value"
+                    src="assets/icons/widgets/calibration-table/sort-bottom.svg"
+                    [svgStyle]="{ 'width.px':12, 'height.px':12 }"
+                  ></svg-icon>
+                </th>
+                <th class="header header__th header__date" (click)="sortEnd()">
+                  <span class="header__date-text">
+                    Дата окончания калибровки
+                  </span>
+                  <svg-icon
+                    *ngIf="sort?.name === 'bottomStart'"
+                    class="header__date-sort-up"
+                    [class.header__date-sort-up--active]="sort?.name === 'bottomStart' && sort?.value"
+                    src="assets/icons/widgets/calibration-table/sort-up.svg"
+                    [svgStyle]="{ 'width.px':12, 'height.px':12 }"
+                  ></svg-icon>
+                  <svg-icon
+                    *ngIf="sort?.name === 'bottomEnd' ||
+                     !sort || sort?.name === 'upStart'
+                     || sort?.name === 'upEnd'"
+                    class="header__date-sort-bottom"
+                    [class.header__date-sort-bottom--active]="sort?.name === 'bottomEnd' && sort?.value"
                     src="assets/icons/widgets/calibration-table/sort-bottom.svg"
                     [svgStyle]="{ 'width.px':12, 'height.px':12 }"
                   ></svg-icon>
@@ -120,8 +147,8 @@
                 <div class="bottom-reference-left__block">
                   <div class="bottom-reference-left__button-add">
                     <svg-icon
-                      src="./assets/icons/widgets/references/add_white.svg"
                       class="add_button_icon"
+                      src="./assets/icons/widgets/references/add_white.svg"
                     >
                     </svg-icon>
                   </div>
@@ -154,14 +181,12 @@
             <thead>
               <tr class="header__items">
                 <th class="header header__th header__name">
-                  Наименование
+                  № пояса
                 </th>
                 <th class="header header__th header__name">
-                  Наименование
+                  Н, см
                 </th>
-                <th class="header header__th header__name">
-                  Наименование
-                </th>
+                <th class="header header__th header__name">V, м<sup>3</sup></th>
               </tr>
             </thead>
             <tbody class="table__body">
@@ -187,15 +212,15 @@
               </ng-container>
             </tbody>
             <tfoot>
-              <div class="bottom-reference-left">
-                <div class="bottom-reference-left__block">
-                  <div class="bottom-reference-left__button-add"></div>
-                  <div class="bottom-reference-left__input-block">
+              <div class="bottom-reference-right">
+                <div class="bottom-reference-right__block">
+                  <div class="bottom-reference-right__button-add"></div>
+                  <div class="bottom-reference-right__text">
                     Таблица с калибровок резервуара
+                    <div class="bottom-reference-right__div">
+                      <span class="bottom-reference-right__div-text">№123</span>
+                    </div>
                   </div>
-                  <div
-                    style="width: 70px; height: 20px; border-radius: 7px; background-color: aqua;"
-                  ></div>
                 </div>
               </div>
             </tfoot>
@@ -204,7 +229,7 @@
       </section>
     </ng-container>
     <ng-container *ngIf="!isReport">
-      <evj-tank-calibration-table-files></evj-tank-calibration-table-files
+      <evj-tank-calibration-table-files [isReport]="isReport"></evj-tank-calibration-table-files
     ></ng-container>
   </div>
   <evj-frame-bottom></evj-frame-bottom>

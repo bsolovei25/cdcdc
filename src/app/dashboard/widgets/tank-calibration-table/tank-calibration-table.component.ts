@@ -72,6 +72,8 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
     endTr = [];
     endTr2 = [];
 
+    sort: { name: 'upStart' | 'bottomStart' | 'upEnd' | 'bottomEnd', value: boolean } | null = null;
+
     isReport: boolean = true;
 
     @HostListener('document:resize', ['$event'])
@@ -114,10 +116,33 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         this.isReport = event;
     }
 
+    sortStart(): void {
+        if (!this.sort || this.sort.name === 'bottomStart' || this.sort.name === 'bottomEnd') {
+            this.sort = { name: 'upStart', value: true };
+        } else {
+            if (this.sort.name === 'upStart') {
+                this.sort = { name: 'upEnd', value: true };
+            } else {
+                this.sort = null;
+            }
+        }
+    }
+    sortEnd(): void {
+        if (!this.sort || this.sort.name === 'upStart' || this.sort.name === 'upEnd') {
+            this.sort = { name: 'bottomStart', value: true };
+        } else {
+            if (this.sort.name === 'bottomStart') {
+                this.sort = { name: 'bottomEnd', value: true };
+            } else {
+                this.sort = null;
+            }
+        }
+    }
+
     blockNeed(): void {
         this.endTr = [];
         const heightTemplate = this.dataSource.length * 28;
-        const heihtOut = (this.table.nativeElement.clientHeight - heightTemplate) / 26;
+        const heihtOut = (this.table.nativeElement.clientHeight - heightTemplate) / 26.5;
         for (let i = 0; i < heihtOut - 1; i++) {
             this.endTr.push(i);
         }
@@ -125,7 +150,7 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
     blockNee2d(): void {
         this.endTr2 = [];
         const heightTemplate = this.dataSource.length * 28;
-        const heihtOut = (this.tableRight.nativeElement.clientHeight - heightTemplate) / 26;
+        const heihtOut = (this.tableRight.nativeElement.clientHeight - heightTemplate) / 25;
         for (let i = 0; i < heihtOut - 1; i++) {
             this.endTr2.push(i);
         }

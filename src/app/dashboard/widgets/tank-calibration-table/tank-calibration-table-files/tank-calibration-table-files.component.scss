@@ -69,7 +69,7 @@ input {
   }
 
   .table {
-    height: calc(100% - 42px);
+    height: calc(100% - 1px);
     overflow-y: auto;
   }
 
@@ -243,7 +243,7 @@ input {
     flex-direction: column;
   }
   .table {
-    height: calc(100% - 42px);
+    height: calc(100% - 2px);
     overflow-y: auto;
   }
   font-family: Tahoma, sans-serif;
@@ -620,7 +620,6 @@ input {
 
   &__block {
     display: flex;
-    padding-left: 20px;
   }
 
   &__button-add {
