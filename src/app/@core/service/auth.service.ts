@@ -79,7 +79,7 @@ mInarJutHTwE+Elb3QIDAQAB`;
             const auth = await this.http
                 .post<ITokenData>(this.restUrl + `/api/user-management/auth`, {
                     username,
-                    password,
+                    encryptPass,
                 })
                 .toPromise();
             this.configureUserAuth(auth);
@@ -101,8 +101,8 @@ mInarJutHTwE+Elb3QIDAQAB`;
         const encryptOldPass = this.encrypt(oldPassword);
         const body = {
             username: this.user$.getValue().login,
-            password,
-            oldPassword
+            encryptPass,
+            encryptOldPass
         };
         return await this.http
             .post<ITokenData>(this.restUrl + `/api/user-management/user/${this.user$.getValue().id}/password`, body)
