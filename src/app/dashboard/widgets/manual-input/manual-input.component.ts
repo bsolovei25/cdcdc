@@ -170,10 +170,8 @@ export class ManualInputComponent extends WidgetPlatform
 
     async loadSaveData( data: { machines: IMachine_MI[]; isUserHasWriteClaims: boolean}): Promise<void> {
         this.isUserHasWriteClaims = data.isUserHasWriteClaims;
-        console.log('common ' + this.isUserHasWriteClaims);
         const settings: IMachine_MI[] = await this.widgetSettingsService.getSettings(this.uniqId);
         for (const itemDate of data.machines) {
-            console.log(itemDate.name + '' + itemDate.isUserHasWriteClaims);
             itemDate.open = settings?.find((el) => el.name === itemDate.name)?.open ?? true;
             itemDate.active = settings?.find((el) => el.name === itemDate.name)?.active ?? false;
             for (const item of itemDate.groups) {
@@ -181,16 +179,9 @@ export class ManualInputComponent extends WidgetPlatform
                 item.open = setGroups?.groups?.find((el) => el.name === item.name)?.open ?? true;
             }
             if (itemDate.active) {
-                this.chooseSetting === undefined
-                    ? (this.chooseSetting = itemDate)
-                    : (this.chooseSetting = this.chooseSetting);
+                this.chooseSetting = this.chooseSetting ?? itemDate;
                 this.allSettings = false;
             }
-            // if (isWsSource) {
-            //     itemDate.isUserHasWriteClaims = this.data
-            //         ?.find((item) => item.name === itemDate.name)
-            //         ?.isUserHasWriteClaims;
-            // }
         }
         this.data = this.manualInputService.LoadData(this.data, data.machines);
     }
