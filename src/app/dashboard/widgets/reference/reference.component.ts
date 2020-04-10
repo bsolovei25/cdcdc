@@ -71,14 +71,12 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
+        this.isRealtimeData = false;
         this.widgetIcon = 'reference';
     }
 
     ngOnInit(): void {
         super.widgetInit();
-        this.subscriptions.push(
-            this.getReference()
-        );
     }
 
     setStyleScroll() {
@@ -111,6 +109,13 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
 
     ngOnDestroy(): void {
         super.ngOnDestroy();
+    }
+
+    protected dataConnect(): void {
+        super.dataConnect();
+        this.subscriptions.push(
+            this.getReference()
+        );
     }
 
     protected dataHandler(ref: any): void {
@@ -275,25 +280,24 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
         if (this.checkTitle === null) {
             this.snackBar.openSnackBar('Выберите колонку для поиска', 'snackbar-red');
         } else {
-            if (event.key === "Backspace") {
+            if (event.key === 'Backspace') {
                 this.getTable(this.idReferenceClick);
             }
             const record = event.currentTarget.value.toLowerCase();
 
-            const filterDataColumn = this.dataTable.data.filter((e) => {
+            this.dataTable.data = this.dataTable.data.filter((e) => {
                 return e.columnsData = e.columnsData.find((el) => {
                     if (el.referenceColumnId === this.checkTitle) {
-                        if (el.valueString !== null && el.valueString !== undefined) {
+                        if (el.valueString) {
                             return el.valueString.toLowerCase().indexOf(record.toLowerCase()) > -1;
-                        } else if (el.valueInt !== null && el.valueInt !== undefined) {
+                        } else if (el.valueInt) {
                             return el.valueInt.toString().toLowerCase().indexOf(record.toLowerCase()) > -1;
-                        } else if (el.valueDateTime !== null && el.valueDateTime !== undefined) {
+                        } else if (el.valueDateTime) {
                             return el.valueDateTime.toLowerCase().indexOf(record.toLowerCase()) > -1;
                         }
                     }
                 });
             });
-            this.dataTable.data = filterDataColumn;
             if (!event.currentTarget.value) {
                 this.getTable(this.idReferenceClick);
             }
@@ -316,12 +320,11 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
                 return true;
             }
         });
-
         if (result === undefined) {
-            let obj = {
+            const obj = {
                 referenceColumnId: i.id,
                 edit: true,
-            }
+            };
             item.columnsData.push(obj);
         }
 
@@ -334,7 +337,6 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
                 el.edit = false;
             }
         });
-
         this.referencesService.putEditData(item).subscribe(ans => {
             // this.isLongBlock = true;
             this.getTable(item.referenceTypeId);
@@ -362,17 +364,14 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
     blockNeed(): void {
         this.blockOutColumn = [];
         this.blockOut = [];
-        if (this.dataTable !== undefined) {
-            if (this.dataTable.data !== undefined) {
-                const heightTemplate = this.dataTable.data.length * 40;
-                const heihtOut = (this.testBlock.nativeElement.clientHeight - heightTemplate) / 40;
-                for (let i = 0; i < heihtOut - 1; i++) {
-                    this.blockOut.push(i);
-                }
-
-                for (let j = 0; j < this.columnData.length - 1; j++) {
-                    this.blockOutColumn.push(j);
-                }
+        if (this.dataTable?.data) {
+            const heightTemplate = this.dataTable.data.length * 40;
+            const heightOut = (this.testBlock.nativeElement.clientHeight - heightTemplate) / 40;
+            for (let i = 0; i < heightOut - 1; i++) {
+                this.blockOut.push(i);
+            }
+            for (let j = 0; j < this.columnData.length - 1; j++) {
+                this.blockOutColumn.push(j);
             }
         }
     }
