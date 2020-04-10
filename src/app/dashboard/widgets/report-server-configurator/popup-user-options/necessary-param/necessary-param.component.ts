@@ -8,7 +8,7 @@ import { ReportsService } from 'src/app/dashboard/services/reports.service';
 })
 export class NecessaryParamComponent implements OnInit {
   @Input() public activeOptions;
-  @Output() public close: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() public closeN: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() public options: EventEmitter<any> = new EventEmitter<any>();
 
   objectKeys = Object.keys;
@@ -34,21 +34,28 @@ export class NecessaryParamComponent implements OnInit {
 
   changeSwap(item) {
     item.checked = !item.checked;
-    if(item.checked){
+    if (item.checked) {
       this.arrayOptions.push(item);
     } else {
       let index = this.data.findIndex(e => e.id === item.id);
-      this.arrayOptions.splice(item, index);
+      this.arrayOptions.splice(index, 1);
     }
   }
 
   saveOptions() {
-    this.options.emit(this.arrayOptions);
-    this.close.emit(false);
+    let obj = {
+      array: this.arrayOptions,
+      close: false,
+    }
+    this.options.emit(obj);
   }
 
   closeOptions() {
-    this.close.emit(false);
+    let obj = {
+      array: this.arrayOptions,
+      close: false,
+    }
+    this.options.emit(obj);
   }
 
   getReference() {

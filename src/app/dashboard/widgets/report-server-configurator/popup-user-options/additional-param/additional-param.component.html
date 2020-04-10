@@ -8,7 +8,7 @@
         <div class="title__name">Дополнительные параметры</div>
     </div>
     <div class="content">
-        <ng-container *ngFor="let item of datas">
+        <ng-container *ngFor="let item of this.optionsChoose">
             <div class="content__item-title" (click)="onShowOptions(item)">
                 {{item.name}}
             </div>

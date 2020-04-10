@@ -138,9 +138,9 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     getReporting(id) {
         return this.reportService.getReporting(id).subscribe((ans) => {
             this.reportTemplate = ans;
-            this.selectFile = ans.fileTemplate.name;
+            this.selectFile = ans.fileTemplate;
             this.optionsActive = ans.systemOptions;
-            this.optionsCustom = ans.customOptions;
+            this.optionsCustom = ans;
         });
     }
 
@@ -169,7 +169,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     }
 
     onClickParamReference(item) {
-        if (item.systemOptionType === "customOptions") {
+        if (item.templateSystemOption.systemOptionType === "customOptions") {
             this.popupUserParam = true;
         }
     }
@@ -197,11 +197,15 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     changeSwap(item): void {
         item.checked = !item.checked;
-        if (item.checked === true) {
-            this.optionsActive.push(item);
+        let obj = {
+            templateSystemOption: item,
+            value: '',
+        }
+        if (item.checked) {
+            this.optionsActive.push(obj);
         } else {
-            let index = this.optionsActive.findIndex(e => e === item);
-            this.optionsActive.splice(item, index);
+            let index = this.optionsActive.findIndex(e => e.templateSystemOption === item);
+            this.optionsActive.splice(index, 1);
         }
     }
 
@@ -264,8 +268,22 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     }
 
     saveReport(item) {
+        let optionObject = [];
+        let objItem;
+
+        for (let i of this.optionsActive) {
+            objItem = {
+                templateSystemOption: {
+                    id: i.templateSystemOption.id
+                },
+                value: '',
+            }
+
+            optionObject.push(objItem);
+        }
+
         const obj = {
-            systemOptions: this.optionsActive,
+            systemOptionValues: optionObject,
             fileTemplate: this.selectFile,
         }
         //если папка

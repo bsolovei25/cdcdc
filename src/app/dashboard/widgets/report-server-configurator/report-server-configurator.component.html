@@ -12,6 +12,7 @@
         <div class="reference-left">
           <div class="title-reference">Наименование отчета</div>
           <div class="reference-container">
+            <div class="scroll-block" id="leftScrollReportConfig">
             <div *ngFor="let item of data; let i = index">
               <div class="reference-container__block">
                 <div class="reference-container__block-info" [class.block-info-active]="item.id === folderActive"
@@ -41,6 +42,7 @@
                   </div>
                 </div> -->
               </div>
+            </div>
             </div>
             <!--ДЛЯ ОДНОГО ФАЙЛА-->
             <div *ngIf="clickPushRec" class="reference-container__add-block">
@@ -101,28 +103,28 @@
             </div>
           </div>
           <div class="references-container-scroll-block">
-            <div class="reference-container-value">
+            <div id="rightScrollReportConfig" class="reference-container-value">
               <div *ngIf="folderActive !== undefined" class="reference-container-value__block">
                 <div class="reference-container-value__fio-block">
                   <div class="reference-container-value__fio">Выбранный файл-шаблон</div>
                 </div>
                 <div class="reference-container-value__type">
-                  <mat-form-field class="categories_selectbox">
-                    <mat-select panelClass="mat-select-custom" [(ngModel)]="this.selectFile">
-                      <mat-option *ngFor="let p of dataFile" [value]="p.name">{{ p.name }}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
+                      <mat-form-field class="categories_selectbox">
+                        <mat-select panelClass="mat-select-custom">
+                          <mat-option *ngFor="let p of dataFile" [value]="p.name">{{ p.name }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
                 </div>
               </div>
               <ng-container *ngFor="let item of optionsActive">
                 <div class="reference-container-value__block">
                   <div class="reference-container-value__fio-block">
-                    <div class="reference-container-value__fio">{{item.name}}</div>
+                    <div class="reference-container-value__fio">{{item.templateSystemOption.name}}</div>
                   </div>
                   <div class="reference-container-value__type"
                     (click)="onClickParamReference(item)">
-                    <div class="reference-container-value__fio">{{item.systemOptionType}}</div>
+                    <div class="reference-container-value__fio">{{item.fio}}</div>
                     <div class="reference-container-value__edit-button">
                       <svg-icon *ngIf="item.open" class="indicator-selector__collapse"
                         src="./assets/icons/widgets/references/edit_white.svg"></svg-icon>
