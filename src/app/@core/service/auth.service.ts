@@ -175,7 +175,7 @@ mInarJutHTwE+Elb3QIDAQAB`;
         }
     }
 
-    private encrypt(msg: string): string {
+    public encrypt(msg: string): string {
         const text = `${msg}`.trim();
         if (text.length > 117) {
             console.error('Error pass length');
