@@ -98,6 +98,29 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
     OnResize(event) {
         if (this.data !== undefined && this.data.length > 0) {
             this.blockNeed();
+            this.setStyleScroll();
+        }
+    }
+
+    setStyleScroll() {
+        const rightScroll = document.getElementById('rightScrollAdmRef');
+        const leftScroll = document.getElementById('leftScrollAdmRef');
+
+        if (rightScroll !== undefined) {
+            if (rightScroll.scrollHeight !== rightScroll.clientHeight) {
+                rightScroll.style.cssText = "margin-left: 5px; width: calc(100% - 45px);";
+            } else {
+                rightScroll.style.cssText = "margin-left: 10px; width: calc(100% - 50px);";
+
+            }
+        }
+
+        if (leftScroll !== undefined) {
+            if (leftScroll.scrollHeight !== leftScroll.clientHeight) {
+                leftScroll.style.cssText = "margin-right: 0px; width: calc(100% - 5px);";
+            } else {
+                leftScroll.style.cssText = "margin-right: -5px; width: calc(100% - 5px);";
+            }
         }
     }
 
@@ -120,11 +143,19 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
         return this.referencesService.getReference().subscribe((data) => {
             this.datas = data;
             this.data = this.datas;
+            this.setStyleScroll();
         });
     }
 
 
     onClickReference(data, index) {
+        if (this.indexColumn !== undefined && this.indexColumn !== null) {
+            for (let item of this.data[this.indexColumn].columns) {
+                if (item.open) {
+                    item.open = false;
+                }
+            }
+        }
         this.idReferenceClick = data.id;
         this.saveColumns = data.columns;
         this.indexColumn = index;
@@ -132,7 +163,6 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
         if (data.columns !== null && data.columns !== undefined) {
             this.sortByOrder(data.columns);
             this.blockNeed();
-
             for (let item of data.columns) {
                 if (item.isRequred) {
                     item.checked;
@@ -142,16 +172,21 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
                     item.checked;
                 }
             }
+            this.setStyleScroll();
 
         } else {
             this.referencesService.getColumns(this.idReferenceClick).subscribe((datas) => {
                 data.columns = datas;
                 this.blockNeed();
+                this.setStyleScroll();
             });
         }
+
+        this.setStyleScroll();
     }
 
     onClickItemReference(data) {
+        this.setStyleScroll();
         data.open = !data.open;
         this.isLongBlock = true;
         for (let item of this.data[this.indexColumn].columns) {
@@ -321,18 +356,21 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
 
     deleteRecord(item): void {
         this.isLongBlock = true;
-        this.referencesService.removeRecord(item.id).subscribe(ans => {
+        this.referencesService.removeRecord(item.id).subscribe((ans) => {
             this.referencesService.getRestReference();
             const indexDelete = this.data[this.indexColumn].columns.indexOf(item);
             this.data[this.indexColumn].columns.splice(indexDelete, 1);
-        });
+        }, (error) => {
+            console.log(error);
+            this.deleteColumn(item);
+        }
+        );
 
     }
 
     onEdit(item): void {
         item.openEdit = !item.openEdit;
     }
-
 
     editReference(item): void {
         this.referencesService.putEditRef(item).subscribe();
@@ -345,12 +383,31 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
 
     blockNeed(): void {
         this.blockOut = [];
-        if (this.data[this.indexColumn].columns !== undefined) {
-            const heightTemplate = this.data[this.indexColumn].columns?.length * 40;
-            const heihtOut = (this.testBlock.nativeElement.clientHeight - heightTemplate) / 40;
-            for (let i = 0; i < heihtOut - 1; i++) {
-                this.blockOut.push(i);
+        if (this.data[this.indexColumn] !== undefined) {
+            if (this.data[this.indexColumn].columns !== undefined) {
+                const heightTemplate = this.data[this.indexColumn].columns?.length * 40;
+                const heihtOut = (this.testBlock.nativeElement.clientHeight - heightTemplate) / 40;
+                for (let i = 0; i < heihtOut - 1; i++) {
+                    this.blockOut.push(i);
+                }
             }
         }
+    }
+
+
+    public deleteColumn(item): void {
+        const windowsParam = {
+            isShow: true,
+            questionText: 'Вы уверены, что хотите удалить столбец с данными?',
+            acceptText: 'Да',
+            cancelText: 'Отменить',
+            acceptFunction: () => this.referencesService.removeRecordWithColumn(item.id).subscribe(ans => {
+                this.referencesService.getRestReference();
+                const indexDelete = this.data[this.indexColumn].columns.indexOf(item);
+                this.data[this.indexColumn].columns.splice(indexDelete, 1);
+            }),
+            cancelFunction: () => this.referencesService.closeAlert(),
+        };
+        this.referencesService.alertWindow$.next(windowsParam);
     }
 }

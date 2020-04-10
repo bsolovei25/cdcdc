@@ -1,5 +1,6 @@
 import { LineChartData } from './line-chart';
 import { IGlobalClaim } from './admin-panel';
+import { IMessage } from '../../@shared/models/message.model';
 
 export interface EventsWidgetNotificationPreview {
     id: number;
@@ -33,26 +34,14 @@ export interface EventsWidgetNotification {
     iconUrlStatus?: string;
     isUserCanEdit?: boolean;
     status: IStatus;
-    facts?: {
-        comment: string;
-        createdBy?: number;
-        createdAt: Date;
-        displayName: string;
-        active?: boolean;
-    }[];
+    facts?: IMessage[];
     priority: IPriority;
     deviationReason: string; // Причина отклонения
     establishedFacts: string; // Установленные факты
     eventType: { id: number; name: string }; // Тип происшествия
     directReasons: string; // Непосредственные/прямые причины
     description: string; // Описание
-    comments?: {
-        comment: string;
-        createdBy?: number;
-        createdAt: Date;
-        displayName: string;
-        active?: boolean;
-    }[]; // Комментарий оператора
+    comments?: IMessage[]; // Комментарий оператора
     category: ICategory;
     statusName?: string;
     positionNumber?: string;
