@@ -34,6 +34,7 @@
         "angular-paging": "^2.2.2",
         "angular-svg-icon": "^8.0.0",
         "d3": "^5.15.0",
+        "jsencrypt": "^3.0.0-rc.1",
         "leader-line": "^1.0.5",
         "moment": "^2.24.0",
         "ngx-drag-drop": "^2.0.0",
