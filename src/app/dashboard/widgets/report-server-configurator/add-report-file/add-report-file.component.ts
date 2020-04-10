@@ -40,6 +40,30 @@ export class AddReportFileComponent implements OnInit {
   @HostListener('document:resize', ['$event'])
   OnResize(event) {
     this.blockNeed();
+    this.setStyleScroll();
+  }
+
+
+  setStyleScroll() {
+    const rightScroll = document.getElementById('rightScrollAddReport');
+    const leftScroll = document.getElementById('leftScrollAddReport');
+
+    if (rightScroll !== undefined) {
+      if (rightScroll.scrollHeight !== rightScroll.clientHeight) {
+        rightScroll.style.cssText = "margin-left: 5px; width: calc(100% - 45px);";
+      } else {
+        rightScroll.style.cssText = "margin-left: 10px; width: calc(100% - 50px);";
+
+      }
+    }
+
+    if (leftScroll !== undefined) {
+      if (leftScroll.scrollHeight !== leftScroll.clientHeight) {
+        leftScroll.style.cssText = "margin-right: 0px; width: calc(100% - 5px);";
+      } else {
+        leftScroll.style.cssText = "margin-right: -5px; width: calc(100% - 5px);";
+      }
+    }
   }
 
   onOpenUpload(): void {
@@ -88,6 +112,9 @@ export class AddReportFileComponent implements OnInit {
       }
       this.data = filterData;
       this.saveData = filterData;
+
+
+      this.setStyleScroll();
     });
   }
 

@@ -45,7 +45,6 @@ export class ReportServerConfiguratorService {
     return this.http.get<any[]>(this.restUrl + '/api/report-templateFolder/all');
   }
 
-
   public pushReportFile(file: Blob): Observable<any> {
     const body: FormData = new FormData();
     const now: number = Date.now();
@@ -82,8 +81,17 @@ export class ReportServerConfiguratorService {
     return this.http.put<any>(this.restUrl + '/api/report-filetemplate/', filetemplate);
   }
 
+  public putReportTemplate(template): Observable<any> {
+    return this.http.put<any>(this.restUrl + '/api/report-template/', template);
+  }
+
   public deleteReportFileTemplate(id: number): Observable<any> {
     return this.http.delete<any>(this.restUrl + '/api/report-filetemplate/' + id);
   }
+
+  public deleteReportTemplate(id: number): Observable<any> {
+    return this.http.delete<any>(this.restUrl + '/api/report-template/' + id);
+  }
+
 
 }

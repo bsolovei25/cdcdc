@@ -36,6 +36,7 @@ export class PopupUserOptionsComponent implements OnInit, OnChanges {
   chooseOptions(event) {
     this.isOpenNecessaryParam = event.close;
     this.options = event.array;
+    this.data.customOptions = this.options;
   }
 
 

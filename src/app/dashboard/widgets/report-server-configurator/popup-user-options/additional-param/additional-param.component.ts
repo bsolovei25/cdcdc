@@ -20,6 +20,16 @@ export class AdditionalParamComponent implements OnInit, OnChanges {
   public datas: any = [];
   public optionsChoose: any = [];
 
+
+  optionsName = {
+    description: "Описание",
+    type: "Тип",
+    validationRule: "Правило проверки",
+    isRequired: "Обязательный",
+    "source": "Источник",
+    sortOrder: "Сортировка",
+  }
+
   constructor(
     public reportService: ReportServerConfiguratorService,
     private cdRef: ChangeDetectorRef) {

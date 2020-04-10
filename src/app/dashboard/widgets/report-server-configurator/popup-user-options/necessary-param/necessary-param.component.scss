@@ -1,3 +1,45 @@
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  border-radius: 25px;
+  margin-top: 90px;
+  margin-bottom: 90px;
+}
+
+::-webkit-scrollbar-track:vertical {
+  width: 5px;
+  height: 5px;
+  margin-top: 1px;
+  margin-bottom: 1px;
+  border-radius: 25px;
+}
+
+:hover::-webkit-scrollbar-thumb {
+  background-color: var(--color-border-active);
+}
+
+:hover::-webkit-scrollbar-track-piece {
+  border: solid 1px var(--color-border-active);
+}
+
+::-webkit-scrollbar-thumb {
+  width: 10px;
+  border-radius: 25px;
+  background-color: var(--color-border-main);
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 25px;
+}
+::-webkit-scrollbar-track-piece {
+  border: solid 1px var(--color-border-main);
+  border-radius: 25px;
+}
+
+::-webkit-resizer {
+  background-color: var(--color-border-active);
+}
+
 .mycheckbox {
   height: 100%;
   width: 100%;
@@ -83,13 +125,14 @@ input {
   width: 100%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
+  min-width: 380px;
 }
 
 .title {
   position: relative;
   height: 40px;
   width: 100%;
-  background-color: #1b1f2c;
+  background-color: #22232d;
   color: var(--color-text-main);
   text-align: center;
   line-height: 40px;
@@ -113,26 +156,55 @@ input {
 
 .content {
   height: calc(100% - 90px);
-  background-color: #1b1f2c;
+  background-color: #22232d;
   border-top: 5px solid var(--color-bg-main);
   border-bottom: 5px solid var(--color-bg-main);
 
-  &__item-title{
+  &__item-title {
+    cursor: pointer;
+    height: 30px;
     display: flex;
-    justify-content: space-between;
+    position: relative;
+    line-height: 30px;
+    margin-left: 30px;
 
-    .name-item{
-      width: 50%;
+    .name-item {
+      width: 70%;
+      padding-left: 45px;
     }
 
-    .check-item{
-      width: 50%;
+    &__title-button {
+      height: 100%;
+      position: absolute;
+      left: 20px;
+    }
+
+    .check-item {
+      width: 30%;
     }
   }
 
   &__item-options {
-    .options {
+    height: 125px;
+    overflow: auto;
+
+    .item-block {
       display: flex;
+      height: 30px;
+      line-height: 30px;
+      background-color: #1b1f2c;
+      border-bottom: 1px solid var(--color-bg-main);
+
+      .options {
+        padding-left: 20px;
+        width: calc(50% - 1px);
+        border-right: 1px solid var(--color-bg-main);
+      }
+
+      .value {
+        padding-left: 20px;
+        width: 50%;
+      }
     }
   }
 }
@@ -141,7 +213,7 @@ input {
   position: relative;
   height: 40px;
   width: 100%;
-  background-color: #1b1f2c;
+  background-color: #22232d;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
 
@@ -186,9 +258,8 @@ input {
   }
 
   &__save-block {
-    display: flex;
-    position: relative;
-    margin: 0 auto;
+    width: 100%;
+    text-align: center;
   }
 
   &__button-save {
@@ -214,5 +285,36 @@ input {
     display: flex;
     padding-left: 10px;
     position: relative;
+  }
+
+  &__input-active {
+    border: 1px solid;
+    border-image: linear-gradient(
+      to left,
+      rgba(107, 166, 241, 0.7) 2%,
+      rgba(107, 166, 241, 0.63) 6%,
+      rgba(107, 166, 241, 0.46) 16%,
+      rgba(107, 166, 241, 0.32) 26%,
+      rgba(107, 166, 241, 0.2) 38%,
+      rgba(107, 166, 241, 0.11) 50%,
+      rgba(107, 166, 241, 0.05) 63%,
+      rgba(107, 166, 241, 0.01) 79%,
+      rgba(107, 166, 241, 0) 102%
+    );
+    border-image-slice: 1;
+    border-right: none;
+
+    &:after {
+      content: "";
+      position: absolute;
+      height: 28px;
+      width: 14px;
+      top: -1px;
+      right: -15px;
+      border: 1px solid var(--color-border-active);
+      border-left: none;
+      border-top-right-radius: 25px;
+      border-bottom-right-radius: 25px;
+    }
   }
 }

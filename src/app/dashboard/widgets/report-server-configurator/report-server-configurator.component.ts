@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Inject, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { moveItemInArray, transferArrayItem, CdkDragDrop } from '@angular/cdk/drag-drop';
 import { trigger, state, style, animate, transition } from '@angular/animations';
@@ -64,6 +64,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     public dataFile;
 
     public clickPushRef: boolean = false;
+
     public clickPushRec: boolean = false;
 
     public newRecord: string;
@@ -104,6 +105,34 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         super.ngOnDestroy();
     }
 
+    @HostListener('document:resize', ['$event'])
+    OnResize(event) {
+        this.setStyleScroll();
+    }
+
+
+    setStyleScroll() {
+        const rightScroll = document.getElementById('rightScrollReportConfig');
+        const leftScroll = document.getElementById('leftScrollReportConfig');
+
+        if (rightScroll !== undefined) {
+            if (rightScroll.scrollHeight !== rightScroll.clientHeight) {
+                rightScroll.style.cssText = "margin-left: 5px; width: calc(100% - 5px);";
+            } else {
+                rightScroll.style.cssText = "margin-left: 10px; width: calc(100% - 10px);";
+
+            }
+        }
+
+        if (leftScroll !== undefined) {
+            if (leftScroll.scrollHeight !== leftScroll.clientHeight) {
+                leftScroll.style.cssText = "margin-right: 0px; width: calc(100% - 5px);";
+            } else {
+                leftScroll.style.cssText = "margin-right: -5px; width: calc(100% - 5px);";
+            }
+        }
+    }
+
 
     protected dataHandler(ref: any): void {
         //this.data = ref;
@@ -126,6 +155,8 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     getReportTemplate() {
         return this.reportService.getReportTemplate().subscribe((data) => {
             this.data = data;
+
+            this.setStyleScroll();
         });
     }
 
@@ -138,15 +169,54 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     getReporting(id) {
         return this.reportService.getReporting(id).subscribe((ans) => {
             this.reportTemplate = ans;
-            this.selectFile = ans.fileTemplate;
+            if (!!ans.fileTemplate) {
+                this.selectFile = ans.fileTemplate;
+            } else {
+                ans.fileTemplate = {
+                    createdAt: new Date(),
+                    createdBy: null,
+                    description: '',
+                    fileId: '',
+                    id: null,
+                    isDeleted: false,
+                    name: '',
+                };
+                this.selectFile = ans.fileTemplate;
+            }
             this.optionsActive = ans.systemOptions;
             this.optionsCustom = ans;
+
+            this.setStyleScroll();
         });
     }
 
     getRecordFile() {
         return this.reportService.getReportFileTemplate().subscribe(ans => {
             this.dataFile = ans;
+        });
+    }
+
+    onEdit(item) {
+        item.openEdit = true;
+    }
+
+    editReference(item) {
+        item.openEdit = false;
+        const obj = {
+            createdAt: item.createdAt,
+            displayName: item.displayName,
+            id: item.id,
+            isDeleted: item.isDeleted,
+            name: item.name,
+        }
+        this.reportService.putReportTemplate(obj).subscribe((ans) => {
+            this.getReportTemplate();
+        });
+    }
+
+    deleteReportTemplate(item) {
+        this.reportService.deleteReportTemplate(item.id).subscribe((ans) => {
+            this.getReportTemplate();
         });
     }
 
@@ -159,6 +229,8 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         data.open = !data.open;
         this.indexColumn = index;
         this.optionsActive = [];
+
+        this.setStyleScroll();
     }
 
     onClickItemReference(item) {

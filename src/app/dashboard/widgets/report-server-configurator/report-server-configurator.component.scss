@@ -292,7 +292,6 @@ input {
   }
 
   .reference-container {
-    background-color: #1b1f2c;
     height: calc(100% - 80px);
     margin-top: 2px;
     margin-bottom: 2px;
@@ -327,9 +326,20 @@ input {
       padding-left: 10px;
     }
 
+    &__button-edit {
+      pointer-events: fill;
+      cursor: pointer;
+      width: 15px;
+      position: absolute;
+      right: 55px;
+      top: 4px;
+    }
+
     &__block {
+      background-color: #1b1f2c;
       cursor: pointer;
       direction: ltr;
+      position: relative;
 
       .block-active {
         background: var(--color-bg-active);
@@ -363,8 +373,25 @@ input {
       direction: ltr;
     }
 
+    &__button-remove {
+      cursor: pointer;
+      position: absolute;
+      right: 10px;
+      top: 3px;
+      width: 35px;
+      height: 35px;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-image: url(../../../../assets/icons/widgets/reports/delete_blue.svg);
+
+      &:hover {
+        background-image: url(../../../../assets/icons/widgets/reports/delete_red.svg);
+      }
+    }
+
     &__add-block-input {
-      width: 100%;
+      width: calc(100% - 90px);
+      padding-left: 10px;
 
       input {
         padding-left: 0;
@@ -497,13 +524,14 @@ input {
   width: 70%;
   padding: 10px;
   padding-bottom: 0;
+  padding-left: 0;
   min-width: 500px;
 
   .title-reference {
     color: var(--color-text-sub);
     position: relative;
     height: 40px;
-    width: calc(100% - 50px);
+    width: calc(100% - 10px);
     background-color: rgba(93, 96, 123, 0.2);
     display: flex;
     text-align: center;
@@ -608,6 +636,7 @@ input {
         line-height: 40px;
         text-align: center;
         direction: ltr;
+        background-color: #1b1f2c;
       }
 
       &__fio-block {
@@ -683,6 +712,7 @@ input {
       height: calc(100% - 50px);
       left: 65px;
       top: 20px;
+      direction: ltr;
       overflow-x: hidden;
       overflow: auto;
       background-color: #1b1f2c;
