@@ -161,11 +161,11 @@ export class WidgetService {
         }
     }
 
-    getWidgetChannel(idWidg) {
+    getWidgetChannel(idWidg: string): Observable<any> {
         return this.widgets$.pipe(map((i) => i.find((x) => x.id === idWidg)));
     }
 
-    getWidgetLiveDataFromWS(widgetId, widgetType): any {
+    getWidgetLiveDataFromWS(widgetId: string, widgetType: string): Observable<any> {
         this.wsConnect(widgetId);
         return this.widgetsSocketObservable.pipe(
             filter((ref) => ref && ref.channelId === widgetId),

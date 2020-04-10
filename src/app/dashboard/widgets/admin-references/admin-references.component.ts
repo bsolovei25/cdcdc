@@ -4,6 +4,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ReferencesService } from '../../services/references.service';
 import { IReferenceTypes, IReferenceColumnsType } from '../../models/references';
 import { WidgetPlatform } from '../../models/widget-platform';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'evj-admin-references',
@@ -62,9 +63,7 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
         'typeDateTime': 'Дата',
     };
 
-    public datas: IReferenceTypes[] = [
-
-    ];
+    public datas: IReferenceTypes[] = [];
 
     public data: IReferenceTypes[] = [];
 
@@ -91,31 +90,29 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
+        this.isRealtimeData = false;
         this.widgetIcon = 'reference';
     }
 
     @HostListener('document:resize', ['$event'])
-    OnResize(event) {
-        if (this.data !== undefined && this.data.length > 0) {
+    OnResize(event): void {
+        if (this.data?.length > 0) {
             this.blockNeed();
             this.setStyleScroll();
         }
     }
 
-    setStyleScroll() {
+    setStyleScroll(): void {
         const rightScroll = document.getElementById('rightScrollAdmRef');
         const leftScroll = document.getElementById('leftScrollAdmRef');
-
-        if (rightScroll !== undefined) {
+        if (rightScroll) {
             if (rightScroll.scrollHeight !== rightScroll.clientHeight) {
                 rightScroll.style.cssText = "margin-left: 5px; width: calc(100% - 45px);";
             } else {
                 rightScroll.style.cssText = "margin-left: 10px; width: calc(100% - 50px);";
-
             }
         }
-
-        if (leftScroll !== undefined) {
+        if (leftScroll) {
             if (leftScroll.scrollHeight !== leftScroll.clientHeight) {
                 leftScroll.style.cssText = "margin-right: 0px; width: calc(100% - 5px);";
             } else {
@@ -126,20 +123,24 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
 
     ngOnInit(): void {
         super.widgetInit();
-        this.subscriptions.push(
-            this.getReference()
-        );
     }
 
     ngOnDestroy(): void {
         super.ngOnDestroy();
     }
 
+    protected dataConnect(): void {
+        super.dataConnect();
+        this.subscriptions.push(
+            this.getReference()
+        );
+    }
+
     protected dataHandler(ref: any): void {
         //this.data = ref.chartItems;
     }
 
-    getReference() {
+    getReference(): Subscription {
         return this.referencesService.getReference().subscribe((data) => {
             this.datas = data;
             this.data = this.datas;
@@ -233,29 +234,28 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
         );
 
         let massColumnSend = [];
-        let index = 0;
+        // let index = 0;
 
         const saveDatas = this.data[this.indexColumn].columns;
 
-        for (let item of saveDatas) {
+        saveDatas.forEach((item, index) => {
             const itemObj = {
                 id: item.id,
                 columnOrder: index,
-            }
+            };
             item.columnOrder = index;
-            index++;
             massColumnSend.push(itemObj);
-        }
+        });
 
         const object = {
             id: prevId,
             columns: massColumnSend,
-        }
+        };
 
         this.referencesService.orderColumnReference(object).subscribe();
     }
 
-    sortByOrder(arr) {
+    sortByOrder(arr): void {
         arr.sort((a, b) => a.columnOrder > b.columnOrder ? 1 : -1);
     }
 
@@ -272,33 +272,29 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
 
     onPushReference(): void {
         this.isClickPushReference = false;
-        let object: IReferenceTypes = {
+        const object: IReferenceTypes = {
             name: this.newRecordInReference,
         };
-        if (
-            this.newRecordInReference.trim().length > 0 &&
-            this.newRecordInReference !== undefined
-        ) {
+        if (this.newRecordInReference?.trim().length > 0) {
             this.referencesService.pushReference(object).subscribe((ans) => {
                 this.referencesService.getRestReference();
                 this.data.push(ans);
             });
             this.newRecordInReference = null;
         }
-
     }
 
     onPushRecord(): void {
         this.isClickPushRecord = false;
-        if (this.newFioRecord !== undefined) {
-            let object = {
+        if (this.newFioRecord) {
+            const object = {
                 name: this.newFioRecord,
                 referenceTypeId: this.idReferenceClick,
                 isRequred: this.valueNewCheck,
                 isUnique: this.valueUniqNewCheck,
                 columnTypeId: this.isType,
             };
-            if (this.newFioRecord.trim().length > 0) {
+            if (this.newFioRecord?.trim().length > 0) {
                 this.referencesService.pushColumnReference(object).subscribe(ans => {
                     this.referencesService.getRestReference();
                     this.data[this.indexColumn].columns.push(ans);
@@ -311,12 +307,12 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
         this.isLongBlock = true;
     }
 
-    onChangeType(event) {
+    onChangeType(event): void {
         this.isType = event.value.type;
     }
 
-    searchReference(event: any) {
-        if (event.key === "Backspace") {
+    searchReference(event: any): void {
+        if (event.key === 'Backspace') {
             this.data = this.datas;
         }
         const record = event.currentTarget.value.toLowerCase();
@@ -330,8 +326,8 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
         }
     }
 
-    searchRecords(event: any) {
-        if (event.key === "Backspace") {
+    searchRecords(event: any): void {
+        if (event.key === 'Backspace') {
             this.data[this.indexColumn].columns = this.saveColumns;
         }
         const record = event.currentTarget.value.toLowerCase();
@@ -393,7 +389,6 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
             }
         }
     }
-
 
     public deleteColumn(item): void {
         const windowsParam = {

@@ -97,13 +97,13 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
         if (this.dataScreen[0]) return this.dataScreen[0].screenName;
     };
 
-    setActiveScreen(screen) {
+    setActiveScreen(screen): void {
         this.nameScreen = screen.screenName;
         this.idScreen = screen.id;
         screen.isActive = true;
     }
 
-    onChangeAdder() {
+    onChangeAdder(): void {
         if (this.tempScreen !== '') {
             this.isReadyAdd = true;
         } else {
