@@ -31,14 +31,16 @@ export interface IFacilityInfo {
 }
 
 export interface ITankAttribute {
+    paramName?: string;
     paramTitle: string;
     paramValue: string;
     paramUnit?: string;
-    paramDatetime?: Date;
+    paramDateTime?: Date;
+    valueStates?: string[];
     isActive?: boolean; // no back
     isEdit?: boolean; // no back
     paramSaveValue?: string; // no back
-    paramSaveDatetime?: Date; // no back
+    paramSaveDateTime?: Date; // no back
 }
 
 export interface ITankParam {
