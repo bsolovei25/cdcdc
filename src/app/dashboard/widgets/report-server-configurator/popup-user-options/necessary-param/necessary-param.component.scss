@@ -189,12 +189,11 @@ input {
   }
 
   &__item-options {
-    height: 188px;
-    overflow: auto;
+    height: auto;
 
     .item-block {
       display: flex;
-      height: 30px;
+      height: auto;
       line-height: 30px;
       background-color: #171b27;
       border-bottom: 1px solid var(--color-bg-main);
@@ -208,6 +207,7 @@ input {
       .value {
         padding-left: 20px;
         width: 50%;
+        word-break: break-word;
       }
     }
   }
