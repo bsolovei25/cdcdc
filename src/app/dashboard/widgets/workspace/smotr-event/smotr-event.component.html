@@ -46,9 +46,29 @@
         <evj-events-workspace-button status="close"></evj-events-workspace-button>
       </div>
     </div>
-    <div class="column__row row description"></div>
-    <div class="column__row row chat"></div>
-    <div class="column__row row chat"></div>
+    <div class="column__row row description">
+      <evj-event-description
+        [description]="ewService.event.description"
+        [isRetrievalEvent]="false"
+        (changedDescription)="onChangeEventDescription($event)"
+      ></evj-event-description>
+    </div>
+    <div class="column__row row chat">
+      <evj-chat
+        [messages]="ewService.event.facts"
+        title="Установленные факты"
+        placeholder="Укажите факты..."
+        (addingMessage)="onSendMessage($event,'facts')"
+      ></evj-chat>
+    </div>
+    <div class="column__row row chat">
+      <evj-chat
+        [messages]="ewService.event.comments"
+        title="Комментарии"
+        placeholder="Напишите свой комментарий..."
+        (addingMessage)="onSendMessage($event,'comments')"
+      ></evj-chat>
+    </div>
   </div>
   <div class="workspace__column column column_right">
     <div class="column__row row">

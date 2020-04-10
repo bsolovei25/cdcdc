@@ -14,4 +14,12 @@ export class SmotrEventComponent implements OnInit {
     public compareFn(a, b): boolean {
         return a && b && a.id === b.id;
     }
+
+    public onChangeEventDescription(description: string): void {
+        this.ewService.event.description = description;
+    }
+
+    public onSendMessage(message: string, msgType: 'comments' | 'facts'): void {
+        this.ewService.sendMessageToEvent(message, msgType, false);
+    }
 }

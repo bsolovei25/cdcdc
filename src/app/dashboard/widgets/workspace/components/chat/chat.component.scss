@@ -1,6 +1,11 @@
+:host {
+  height: inherit;
+  width: inherit;
+}
+
 .fact_block {
   height: inherit; // задается стилем 'снаружи' при вставке компонента в шаблон
-  
+
   margin-top: 15px;
   width: calc(100% - 24px);
   min-height: 100px;
