@@ -2,6 +2,7 @@
 </evj-widget-preview>
 
 <div class="container" *ngIf="!isMock">
+  <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
   <evj-widget-header [title]="widgetTitle" [units]="widgetUnits" [code]="widgetCode" [id]="id" [uniqId]="uniqId"
     [widgetType]="widgetType" [icon]="widgetIcon" (selected)="openTable($event)"></evj-widget-header>
 
@@ -61,16 +62,24 @@
                 </div> -->
                 </div>
               </div>
+              <div *ngIf="clickPushRec" class="reference-container__add-block">
+                <div class="reference-container__add-block-input">
+                  <input type="text" [(ngModel)]="newRecord" placeholder="Введите название отчета..." />
+                </div>
+                <div class="reference-container__add-block-icon" (click)="onPushReport()">
+                  <svg-icon src="./assets/icons/widgets/references/accept.svg" class="add_button_icon"></svg-icon>
+                </div>
+              </div>
             </div>
             <!--ДЛЯ ОДНОГО ФАЙЛА-->
-            <div *ngIf="clickPushRec" class="reference-container__add-block">
+            <!-- <div *ngIf="clickPushRec" class="reference-container__add-block">
               <div class="reference-container__add-block-input">
                 <input type="text" [(ngModel)]="newRecord" placeholder="Введите название отчета..." />
               </div>
               <div class="reference-container__add-block-icon" (click)="onPushReport()">
                 <svg-icon src="./assets/icons/widgets/references/accept.svg" class="add_button_icon"></svg-icon>
               </div>
-            </div>
+            </div> -->
             <!-- <div *ngIf="clickPushRef" class="reference-container__add-block">
               <div class="reference-container__add-block-input">
                 <input type="text" [(ngModel)]="newFolder" placeholder="Введите название папки..." />
@@ -171,10 +180,10 @@
             <div class="bottom-reference-right__block-edit" *ngIf="isAddOptionsButton">
               <div class="bottom-reference-right__block-add">
                 <div class="bottom-reference-right__button-add" (click)="openCheckBoxBlock()">
-                  <svg-icon *ngIf="!isOpenCheckBlock" src="./assets/icons/widgets/references/add_white.svg"
+                  <svg-icon *ngIf="!isOpenCheckBlock" src="./assets/icons/widgets/reports/add_white.svg"
                     class="add_button_icon">
                   </svg-icon>
-                  <svg-icon *ngIf="isOpenCheckBlock" src="./assets/icons/widgets/references/add_blue.svg"
+                  <svg-icon *ngIf="isOpenCheckBlock" src="./assets/icons/widgets/reports/close.svg"
                     class="add_button_icon">
                   </svg-icon>
                 </div>

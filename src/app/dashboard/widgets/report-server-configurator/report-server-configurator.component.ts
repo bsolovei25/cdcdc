@@ -38,6 +38,8 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     static itemCols = 18;
     static itemRows = 14;
 
+    public isLoading: boolean = false;
+
     public isTable: boolean = true;
 
     public valueCheck: boolean;
@@ -169,8 +171,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     getReporting(id) {
         return this.reportService.getReporting(id).subscribe((ans) => {
-            this.reportTemplate = ans;
-            if (!!ans.fileTemplate) {
+            if (ans.fileTemplate) {
                 this.selectFile = ans.fileTemplate;
             } else {
                 ans.fileTemplate = {
@@ -184,6 +185,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
                 };
                 this.selectFile = ans.fileTemplate;
             }
+            this.reportTemplate = ans;
             this.optionsActive = ans.systemOptions;
             this.optionsCustom = ans;
 
@@ -227,17 +229,18 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     }
 
     deleteReportTemplate(item) {
+        this.isLoading = true;
         this.reportService.deleteReportTemplate(item.id).subscribe((ans) => {
+            this.isLoading = false;
             this.getReportTemplate();
         });
     }
 
     onClickReference(data, index) {
-        this.selectFile = null;
+        this.getReporting(data.id);
         this.isAddOptionsButton = true; // file
         this.folderActive = data.id;
         this.isIdReport = data.id;
-        this.getReporting(data.id);
         data.open = !data.open;
         this.indexColumn = index;
         this.optionsActive = [];
@@ -318,6 +321,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     }
 
     onPushReport(): void {
+        this.isLoading = true;
         this.clickPushRec = false;
         const object = {
             name: this.newRecord,
@@ -326,8 +330,10 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         if (this.newRecord.trim().length > 0 && this.newRecord !== undefined) {
             // this.data[this.indexColumn].columns.push(object);
             this.reportService.postReportTemplate(object).subscribe(ans => {
-                this.getReportFolder();
-            })
+                this.isLoading = false;
+               // this.getReportFolder();
+               this.getReportTemplate();
+            });
             this.newRecord = null;
         }
     }
