@@ -46,11 +46,11 @@ export class NecessaryParamComponent implements OnInit, OnChanges {
   }
 
   changeSwap(item) {
-    item.isRequired = !item.isRequired;
-    if (item.isRequired) {
+    item.isActive = !item.isActive;
+    if (item.isActive) {
       this.arrayOptions.push(item);
     } else {
-      let index = this.data.findIndex(e => e.id === item.id);
+      let index = this.arrayOptions.findIndex(e => e.id === item.id);
       this.arrayOptions.splice(index, 1);
     }
   }
