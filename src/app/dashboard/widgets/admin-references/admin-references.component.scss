@@ -641,7 +641,8 @@ input {
 
         .reference-container-value__type {
           .mat-form-field {
-            width: 95%;
+            width: 89%;
+            margin-left: 12px;
           }
         }
       }
@@ -800,6 +801,10 @@ input {
 
 .isNotButton {
   display: none;
+}
+
+.disabled {
+  pointer-events: none;
 }
 
 .example-box {

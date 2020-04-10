@@ -16,6 +16,8 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
     static itemCols = 18;
     static itemRows = 14;
 
+    isLoading: boolean = false;
+
     isReference: boolean = false;
     referencesOn = 0;
     massCheck = [];
@@ -271,6 +273,7 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
     }
 
     onPushReference(): void {
+        this.isLoading = true;
         this.isClickPushReference = false;
         let object: IReferenceTypes = {
             name: this.newRecordInReference,
@@ -280,6 +283,7 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
             this.newRecordInReference !== undefined
         ) {
             this.referencesService.pushReference(object).subscribe((ans) => {
+                this.isLoading = false;
                 this.referencesService.getRestReference();
                 this.data.push(ans);
             });

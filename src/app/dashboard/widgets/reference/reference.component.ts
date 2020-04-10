@@ -16,6 +16,8 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
     static itemCols = 18;
     static itemRows = 14;
 
+    isLoading: boolean = false;
+
     public valueCheck: boolean;
     public valueUniqCheck: boolean;
 
@@ -343,19 +345,18 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
     }
 
     dateTimePickerNew(event, id) {
-        if (event.date !== undefined) {
-            this.addDate = event.date._d;
+        if (event) {
             const obj = {
                 idColumn: id,
-                value: this.addDate,
+                value: event,
             }
             this.columnObject.push(obj);
         }
     }
 
     dateTimePickerEdit(event, item) {
-        if (event.date) {
-            item.valueDateTime = event.date._d;
+        if (event) {
+            item.valueDateTime = event;
         }
     }
 
