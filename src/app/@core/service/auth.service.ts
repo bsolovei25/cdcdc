@@ -21,8 +21,7 @@ export interface ITokenData extends IUser {
 })
 export class AuthService {
 
-    private privateKey: string = `-----BEGIN RSA PRIVATE KEY-----
-MIICXQIBAAKBgQDObZtjxfplZYRgo6TKZM9E6b3RVQpXTpKTOiqefTKEpT9//ru1
+    private privateKey: string = `MIICXQIBAAKBgQDObZtjxfplZYRgo6TKZM9E6b3RVQpXTpKTOiqefTKEpT9//ru1
 x0rHgqpsjcw1BoXFX3SuYRPn3ijCM/C9WHnc2PDjEgGu0KezIxvqE7nCjbHed7pf
 f6fov6ZajFsiwcf2r3oOwCjWMW1ChHP0ZYF2Ai1HmInarJutHTwE+Elb3QIDAQAB
 AoGAHLkVmRFwIPG6NLQwdtUGHiGj/t+lW7acII5EZd8ny1su9cFdHxMG7bHZwtcM
@@ -34,15 +33,12 @@ w7DUEQ5sl+Sk5XwWWa9AEckkG3SRW3BogQJBAL5Flwvj78tklAjhvypX9PwqpTd6
 Ck4YXC+hQH/iKBnote1mftz+REwgzFeXtXYBFkFnfF59jr/g3NSpPXj72pkCQCan
 LZ78Is/PSIMexxMVzC5SB0IZabyRrBECel+NHE0vh162eaw25+VGgkrIgXJuaugh
 naGqXDcLtvF8PLK5/oECQQDkQl/IAPBbI5QXLmfiseu7duRtZ9px/7HYDOEDtjia
-sOyBGW2Ml7FYxYTPJX6uIhxfIpX1Bt1Kdtue3Wu3OMRC
------END RSA PRIVATE KEY-----`;
+sOyBGW2Ml7FYxYTPJX6uIhxfIpX1Bt1Kdtue3Wu3OMRC`;
 
-    private publicKey: string = `-----BEGIN PUBLIC KEY-----
-MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDObZtjxfplZYRgo6TKZM9E6b3R
+    private publicKey: string = `MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDObZtjxfplZYRgo6TKZM9E6b3R
 VQpXTpKTOiqefTKEpT9//ru1x0rHgqpsjcw1BoXFX3SuYRPn3ijCM/C9WHnc2PDj
 EgGu0KezIxvqE7nCjbHed7pff6fov6ZajFsiwcf2r3oOwCjWMW1ChHP0ZYF2Ai1H
-mInarJutHTwE+Elb3QIDAQAB
------END PUBLIC KEY-----`;
+mInarJutHTwE+Elb3QIDAQAB`;
 
     $encrypt: any; // JSEncrypt
 
@@ -75,6 +71,10 @@ mInarJutHTwE+Elb3QIDAQAB
 
     async authenticate(username: string, password: string): Promise<ITokenData> {
         const encryptPass = this.encrypt(password);
+        const decryptPass = this.decrypt(encryptPass);
+        console.log(encryptPass);
+        console.log(decryptPass);
+        console.log(password);
         try {
             const auth = await this.http
                 .post<ITokenData>(this.restUrl + `/api/user-management/auth`, {
