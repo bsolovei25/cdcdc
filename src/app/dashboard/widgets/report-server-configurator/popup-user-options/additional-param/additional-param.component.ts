@@ -1,10 +1,33 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, ChangeDetectorRef } from '@angular/core';
 import { ReportServerConfiguratorService } from 'src/app/dashboard/services/report-server-configurator.service';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'evj-additional-param',
   templateUrl: './additional-param.component.html',
-  styleUrls: ['./additional-param.component.scss']
+  styleUrls: ['./additional-param.component.scss'],
+  animations: [
+    trigger('Branch', [
+        state(
+            'collapsed',
+            style({
+                height: 0,
+                transform: 'translateY(-8px)',
+                opacity: 0,
+                overflow: 'hidden',
+            })
+        ),
+        state(
+            'expanded',
+            style({
+                height: '*',
+                opacity: 1,
+            })
+        ),
+        transition('collapsed => expanded', animate('150ms ease-in')),
+        transition('expanded => collapsed', animate('150ms ease-out')),
+    ]),
+],
 })
 export class AdditionalParamComponent implements OnInit, OnChanges {
   @Input() public data;

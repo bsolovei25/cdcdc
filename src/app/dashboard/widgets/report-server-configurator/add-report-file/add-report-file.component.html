@@ -83,10 +83,13 @@
 <div *ngIf="isUploadBlock" id="upload" class="upload" (click)="uploadClose()">
   <div class="upload-container" #area (click)="$event.stopPropagation()" (dragover)="dragOver($event)"
     (dragleave)="dragLeave($event)" (drop)="dropFile($event)">
-    <img *ngIf="!fileLoad" class="upload-image" src="./assets/icons/widgets/reports/upload-container.png">
+    <svg-icon
+          src="./assets/icons/widgets/reports/cloud.svg"
+          [svgStyle]="{ 'width.%':100, 'height.%':100 }"
+        ></svg-icon>
     <img *ngIf="fileLoad" class="upload-image" src="./assets/icons/widgets/reports/xls.svg">
     <label *ngIf="fileLoad">Файл {{ fileName }} загружен</label>
-    <div *ngIf="!fileLoad">
+    <div *ngIf="!fileLoad" class="upload-label">
       <input id="file-input" type="file" name="file" (change)="handleFileInput($event.target.files)"
         accept=".xls,.xlsx, .xlsm" multiple>
       <label for="file-input">Выберите файл</label>

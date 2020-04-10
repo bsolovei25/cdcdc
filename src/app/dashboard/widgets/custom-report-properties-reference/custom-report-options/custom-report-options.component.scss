@@ -86,6 +86,7 @@ input {
   min-height: 40px;
   border-bottom: 1px solid var(--color-bg-main);
   align-items: center;
+  background-color: #1b1f2c;
 
   &__title {
     width: 50%;
@@ -139,6 +140,21 @@ input {
       cursor: pointer;
       width: 20px;
       margin-top: 5px;
+    }
+
+    ::ng-deep .mat-chip-ripple {
+      border: 1px solid var(--color-border-active) !important;
+    }
+    ::ng-deep .mat-chip-remove {
+     opacity: 0.9 !important;
+    }
+
+    ::ng-deep .mat-form-field-wrapper{
+      padding-bottom: 0 !important;
+    }
+
+    ::ng-deep .mat-form-field-flex{
+      padding: 0 !important;
     }
   }
 }

@@ -7,13 +7,13 @@
         <div class="title__name">Дополнительные параметры</div>
     </div>
     <div class="content">
-        <ng-container *ngFor="let item of this.optionsChoose">
-            <div class="content__title-block" (click)="onShowOptions(item)">
+        <ng-container *ngFor="let item of this.optionsChoose" >
+            <div class="content__title-block" (click)="onShowOptions(item)" [class.active]="item.open">
                 <div class="content__title-button">
-                    <svg-icon *ngIf="item.open" src="./assets/icons/widgets/manual-input/arrow_down.svg"
+                    <svg-icon *ngIf="item.open" src="./assets/icons/widgets/reports/arrow-up.svg"
                         [svgStyle]="{ 'width.px':10, 'height.px':10 }"></svg-icon>
 
-                    <svg-icon *ngIf="!item.open" src="./assets/icons/widgets/manual-input/arrow_right.svg"
+                    <svg-icon *ngIf="!item.open" src="./assets/icons/widgets/reports/arrow-bottom.svg"
                         [svgStyle]="{ 'width.px':10, 'height.px':10 }"></svg-icon>
                 </div>
                 <div class="content__item-title" >
@@ -22,9 +22,9 @@
             </div>
             <div *ngIf="item.open" class="content__item-options">
                 <ng-container *ngFor="let key of objectKeys(item)">
-                    <ng-container *ngIf="key !== 'id' && key !== 'name' && key !== 'open'">
+                    <ng-container *ngIf="key !== 'id' && key !== 'name' && key !== 'open' && key !== 'isActive'">
                     <div class="item-block" >
-                        <div class="options"> {{ optionsName[key] }}</div>
+                        <div class="options"> {{ key }}</div>
                         <div class="value" > {{ item[key] }}</div>
                     </div>
                 </ng-container>

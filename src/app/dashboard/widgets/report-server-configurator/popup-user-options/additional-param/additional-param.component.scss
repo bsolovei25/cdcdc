@@ -1,4 +1,3 @@
-
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
@@ -41,11 +40,11 @@
   background-color: var(--color-border-active);
 }
 
-
 .container {
   height: 100%;
   width: 100%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  //box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
 }
 
@@ -53,7 +52,7 @@
   position: relative;
   height: 40px;
   width: 100%;
-  background-color: #22232d;
+  background-color: #1b1f2c;
   color: var(--color-text-main);
   text-align: center;
   line-height: 40px;
@@ -65,7 +64,7 @@
   &__button-close {
     cursor: pointer;
     width: 30px;
-    margin-top: 5px;
+    margin-top: 7px;
     margin-left: 20px;
   }
 
@@ -76,53 +75,61 @@
 }
 
 .content {
+  overflow: auto;
+  overflow-x: hidden;
   height: calc(100% - 90px);
-  background-color: #22232d;
+  background-color: #1b1f2c;
   border-top: 5px solid var(--color-bg-main);
   border-bottom: 5px solid var(--color-bg-main);
 
-  &__title-block{
+  &__title-block {
     cursor: pointer;
     height: 30px;
     display: flex;
     position: relative;
     line-height: 30px;
+    color: var(--color-text-sub);
   }
 
-  &__item-title{
+  &__item-title {
     padding-left: 45px;
     width: 100%;
     height: 100%;
+    font-weight: bold;
   }
 
-  &__title-button{
+  &__title-button {
     height: 100%;
     position: absolute;
     left: 20px;
   }
 
-  &__item-options{
-    height: 125px;
-    overflow: auto;
+  &__item-options {
+    height: auto;
 
-    .item-block{
+    .item-block {
       display: flex;
-      height: 30px;
+      height: auto;
       line-height: 30px;
-      background-color: #1b1f2c;
+      background-color: #171b27;
       border-bottom: 1px solid var(--color-bg-main);
 
-      .options{
+      .options {
         padding-left: 20px;
         width: calc(50% - 1px);
         border-right: 1px solid var(--color-bg-main);
       }
 
-      .value{
-        padding-left: 20px;
+      .value {
+        padding-left: 10px;
         width: 50%;
+        word-break: break-word;
       }
     }
+  }
+
+  .active {
+    background-color: #1f2d40;
   }
 }
 
@@ -130,7 +137,7 @@
   position: relative;
   height: 40px;
   width: 100%;
-  background-color: #22232d;
+  background-color: #1b1f2c;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
 
