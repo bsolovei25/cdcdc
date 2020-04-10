@@ -304,8 +304,10 @@ export class PetroleumScreenService {
             await this.reGetTransfers(this.widgetService.currentDates$.getValue());
             await this.chooseTransfer(uid);
             this.materialController.openSnackBar('Сохранено');
-        } catch {
-            this.materialController.openSnackBar('Ошибка валидации!', 'snackbar-red');
+        } catch (err) {
+            if (err.status !== 477) {
+                this.materialController.openSnackBar('Ошибка валидации!', 'snackbar-red');
+            }
         }
     }
 
