@@ -1,3 +1,47 @@
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  border-radius: 25px;
+  margin-top: 90px;
+  margin-bottom: 90px;
+}
+
+::-webkit-scrollbar-track:vertical {
+  width: 5px;
+  height: 5px;
+  margin-top: 1px;
+  margin-bottom: 1px;
+  border-radius: 25px;
+}
+
+:hover::-webkit-scrollbar-thumb {
+  background-color: var(--color-border-active);
+}
+
+:hover::-webkit-scrollbar-track-piece {
+  border: solid 1px var(--color-border-active);
+}
+
+::-webkit-scrollbar-thumb {
+  width: 10px;
+  border-radius: 25px;
+  background-color: var(--color-border-main);
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 25px;
+}
+::-webkit-scrollbar-track-piece {
+  border: solid 1px var(--color-border-main);
+  border-radius: 25px;
+}
+
+::-webkit-resizer {
+  background-color: var(--color-border-active);
+}
+
+
 .container {
   height: 100%;
   width: 100%;
@@ -9,7 +53,7 @@
   position: relative;
   height: 40px;
   width: 100%;
-  background-color: #1b1f2c;
+  background-color: #22232d;
   color: var(--color-text-main);
   text-align: center;
   line-height: 40px;
@@ -33,16 +77,60 @@
 
 .content {
   height: calc(100% - 90px);
-  background-color: #1b1f2c;
+  background-color: #22232d;
   border-top: 5px solid var(--color-bg-main);
   border-bottom: 5px solid var(--color-bg-main);
+
+  &__title-block{
+    cursor: pointer;
+    height: 30px;
+    display: flex;
+    position: relative;
+    line-height: 30px;
+  }
+
+  &__item-title{
+    padding-left: 45px;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__title-button{
+    height: 100%;
+    position: absolute;
+    left: 20px;
+  }
+
+  &__item-options{
+    height: 125px;
+    overflow: auto;
+
+    .item-block{
+      display: flex;
+      height: 30px;
+      line-height: 30px;
+      background-color: #1b1f2c;
+      border-bottom: 1px solid var(--color-bg-main);
+
+      .options{
+        padding-left: 20px;
+        width: calc(50% - 1px);
+        border-right: 1px solid var(--color-bg-main);
+      }
+
+      .value{
+        padding-left: 20px;
+        width: 50%;
+      }
+    }
+  }
 }
 
 .bottom {
   position: relative;
   height: 40px;
   width: 100%;
-  background-color: #1b1f2c;
+  background-color: #22232d;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
 

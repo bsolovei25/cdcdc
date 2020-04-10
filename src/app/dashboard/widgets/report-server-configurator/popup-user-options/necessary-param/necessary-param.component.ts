@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, OnChanges, ChangeDetectorRef } from '@angular/core';
 import { ReportsService } from 'src/app/dashboard/services/reports.service';
 
 @Component({
@@ -6,9 +6,9 @@ import { ReportsService } from 'src/app/dashboard/services/reports.service';
   templateUrl: './necessary-param.component.html',
   styleUrls: ['./necessary-param.component.scss']
 })
-export class NecessaryParamComponent implements OnInit {
+export class NecessaryParamComponent implements OnInit, OnChanges {
   @Input() public activeOptions;
-  @Output() public close: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() public closeN: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() public options: EventEmitter<any> = new EventEmitter<any>();
 
   objectKeys = Object.keys;
@@ -18,44 +18,77 @@ export class NecessaryParamComponent implements OnInit {
   data: any = [];
   datas: any = [];
 
+  optionsName = {
+    description: "Описание",
+    type: "Тип",
+    validationRule: "Правило проверки",
+    isRequired: "Обязательный",
+    "source": "Источник",
+    sortOrder: "Сортировка",
+  }
+
   arrayOptions = [];
 
   constructor(
+    private cdRef: ChangeDetectorRef,
     public reportService: ReportsService,
   ) { }
 
   ngOnInit(): void {
-    this.getReference();
   }
 
   onShowOptions(item): void {
     item.open = !item.open;
   }
 
+  ngOnChanges(): void {
+    this.getReference();
+  }
+
   changeSwap(item) {
-    item.checked = !item.checked;
-    if(item.checked){
+    item.isActive = !item.isActive;
+    if (item.isActive) {
       this.arrayOptions.push(item);
     } else {
-      let index = this.data.findIndex(e => e.id === item.id);
-      this.arrayOptions.splice(item, index);
+      let index = this.arrayOptions.findIndex(e => e.id === item.id);
+      this.arrayOptions.splice(index, 1);
     }
   }
 
   saveOptions() {
-    this.options.emit(this.arrayOptions);
-    this.close.emit(false);
+    let obj = {
+      array: this.arrayOptions,
+      close: false,
+    }
+    this.options.emit(obj);
   }
 
   closeOptions() {
-    this.close.emit(false);
+    let obj = {
+      array: this.arrayOptions,
+      close: false,
+    }
+    this.options.emit(obj);
   }
 
   getReference() {
     return this.reportService.getCustomOptions().subscribe((data) => {
-      this.datas = data;
-      this.data = this.datas;
+      this.mapOptions(data);
     });
+  }
+
+  mapOptions(data) {
+    this.arrayOptions = [];
+    this.data = data;
+    for (let i of this.data) {
+      for (let j of this.activeOptions.customOptions) {
+        if (i.id === j.id) {
+          i.isActive = true;
+          this.arrayOptions.push(j);
+        }
+      }
+    }
+    this.datas = this.data;
   }
 
   search(event: any) {
