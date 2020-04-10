@@ -50,9 +50,9 @@ export class AddReportFileComponent implements OnInit {
 
     if (rightScroll !== undefined) {
       if (rightScroll.scrollHeight !== rightScroll.clientHeight) {
-        rightScroll.style.cssText = "margin-left: 5px; width: calc(100% - 45px);";
+        rightScroll.style.cssText = "margin-left: 5px; width: calc(100% - 5px);";
       } else {
-        rightScroll.style.cssText = "margin-left: 10px; width: calc(100% - 50px);";
+        rightScroll.style.cssText = "margin-left: 10px; width: calc(100% - 10px);";
 
       }
     }
