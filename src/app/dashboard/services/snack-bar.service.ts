@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
-type snackBarColor = 'snackbar-red' | 'blue'
+type snackBarColor = 'snackbar-red' | 'blue';
 
 @Injectable({
     providedIn: 'root',

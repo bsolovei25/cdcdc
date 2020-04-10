@@ -2,15 +2,20 @@ import { Component, OnInit, Inject, OnDestroy, HostListener, ViewChild, ElementR
 import { WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { SelectionModel } from '@angular/cdk/collections';
+import { TankCalibrationTableService } from '../../services/tank-calibration-table.service';
+import { UploadTableComponent } from './upload-table/upload-table.component';
+import { MatDialog } from '@angular/material/dialog';
+import * as moment from 'moment';
 
-interface ICalibrationTable {
+export interface ICalibrationTable {
+    uid: string;
     name: string;
-    values: {
-        name: string;
-        startDate: Date;
-        endDate: Date;
-        action: any;
-    }[];
+    startDate?: Date;
+    endDate?: Date;
+    warningLevel?: 'none' | 'warning' | 'expired';
+    parentUid?: string;
+    parentName?: string;
+    isGroup: boolean;
 }
 
 @Component({
@@ -32,43 +37,15 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
 
     expandedElement: SelectionModel<any> = new SelectionModel(true);
 
-    data;
-    dataSource: ICalibrationTable[] = [
-        {
-            name: 'ГФУ-2',
-            values: [
-                {
-                    name: 'Резерв 1213',
-                    startDate: new Date(),
-                    endDate: new Date(),
-                    action: ''
-                },
-                {
-                    name: 'Резерв 2131',
-                    startDate: new Date(),
-                    endDate: new Date(),
-                    action: ''
-                }
-            ]
-        },
-        {
-            name: 'ГФУ-3',
-            values: [
-                {
-                    name: 'Резерв 1123',
-                    startDate: new Date(),
-                    endDate: new Date(),
-                    action: ''
-                },
-                {
-                    name: 'Резерв 12132',
-                    startDate: new Date(),
-                    endDate: new Date(),
-                    action: ''
-                }
-            ]
-        }
+    public toDate: Date;
+    public fromDate: Date;
+    public isCurrent: boolean;
+    public dateNow: Date;
+
+    data: ICalibrationTable[] = [
+
     ];
+    dataSource: ICalibrationTable[] = [];
     endTr = [];
     endTr2 = [];
 
@@ -87,6 +64,8 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
 
     constructor(
         public widgetService: WidgetService,
+        private calibrationService: TankCalibrationTableService,
+        private dialog: MatDialog,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -96,6 +75,7 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
 
     ngOnInit(): void {
         super.widgetInit();
+        this.loadItem();
     }
 
     ngOnDestroy(): void {
@@ -108,8 +88,39 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         }
     }
 
-    getChildrenRows(element: any): any {
-        return [...element.values];
+    private async loadItem(): Promise<void> {
+        const dataLoadQueue: Promise<void>[] = [];
+        dataLoadQueue.push(
+            this.calibrationService.getTanks()
+                .then((data) => {
+                    this.data = data;
+                    this.dataSource = data.filter(val => val.isGroup === true);
+                })
+        );
+        dataLoadQueue.push(
+            this.calibrationService.getTankAvailable().then((data) => {
+                console.log(data);
+            })
+        );
+        dataLoadQueue.push();
+        if (dataLoadQueue.length > 0) {
+            try {
+                await Promise.all(dataLoadQueue);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+    }
+
+    async deleteItem(element: ICalibrationTable): Promise<void> {
+        try {
+            this.calibrationService.deleteTank(element.uid);
+        } catch (error) {
+        }
+    }
+
+    getChildrenRows(element: ICalibrationTable): any {
+        return this.data.filter(val => element?.uid === val?.parentUid);
     }
 
     selectTable(event: boolean): void {
@@ -119,8 +130,10 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
     sortStart(): void {
         if (!this.sort || this.sort.name === 'bottomStart' || this.sort.name === 'bottomEnd') {
             this.sort = { name: 'upStart', value: true };
+            this.dataSource.sort((a, b) => a?.startDate?.getTime() - b?.startDate?.getTime());
         } else {
             if (this.sort.name === 'upStart') {
+                this.dataSource.sort((a, b) => b?.startDate?.getTime() - a?.startDate?.getTime());
                 this.sort = { name: 'upEnd', value: true };
             } else {
                 this.sort = null;
@@ -130,8 +143,10 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
     sortEnd(): void {
         if (!this.sort || this.sort.name === 'upStart' || this.sort.name === 'upEnd') {
             this.sort = { name: 'bottomStart', value: true };
+            this.dataSource.sort((a, b) => a?.endDate?.getTime() - b?.endDate?.getTime());
         } else {
             if (this.sort.name === 'bottomStart') {
+                this.dataSource.sort((a, b) => b?.endDate?.getTime() - a?.endDate?.getTime());
                 this.sort = { name: 'bottomEnd', value: true };
             } else {
                 this.sort = null;
@@ -139,10 +154,15 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         }
     }
 
+    searchInput(event): void {
+        this.dataSource = this.data?.filter((val) => val.name.toLowerCase()
+            .includes(event?.target?.value.toLowerCase()));
+    }
+
     blockNeed(): void {
         this.endTr = [];
         const heightTemplate = this.dataSource.length * 28;
-        const heihtOut = (this.table.nativeElement.clientHeight - heightTemplate) / 26.5;
+        const heihtOut = (this.table?.nativeElement?.clientHeight - heightTemplate) / 26.5;
         for (let i = 0; i < heihtOut - 1; i++) {
             this.endTr.push(i);
         }
@@ -150,10 +170,45 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
     blockNee2d(): void {
         this.endTr2 = [];
         const heightTemplate = this.dataSource.length * 28;
-        const heihtOut = (this.tableRight.nativeElement.clientHeight - heightTemplate) / 25;
+        const heihtOut = (this.tableRight?.nativeElement?.clientHeight - heightTemplate) / 25;
         for (let i = 0; i < heihtOut - 1; i++) {
             this.endTr2.push(i);
         }
+    }
+
+    public dateTimePickerInput(date: Date, isStart: boolean): void {
+        console.log(date);
+
+        if (this.isCurrent) {
+            return;
+        }
+        if (isStart) {
+            this.fromDate = new Date(date);
+        } else {
+            this.toDate = new Date(date);
+        }
+        this.setDates();
+    }
+
+    private setDates(): void {
+        const dates = {
+            fromDateTime: this.fromDate,
+            toDateTime: this.toDate,
+        };
+    }
+
+    openDialog(): void {
+        const dialogRef = this.dialog
+            .open(UploadTableComponent, {
+                data: {
+                    title: 'Выбор номенклатуры',
+                },
+                autoFocus: true,
+            });
+        // when dialog is closed, check result
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+        });
     }
 
 

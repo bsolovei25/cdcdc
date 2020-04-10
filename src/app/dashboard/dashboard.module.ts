@@ -146,6 +146,9 @@ import { AdminAdImportComponent } from './widgets/admin-panel/admin-ad-import/ad
 import { AddReportFileComponent } from './widgets/report-server-configurator/add-report-file/add-report-file.component';
 import { TankCalibrationTableComponent } from './widgets/tank-calibration-table/tank-calibration-table.component';
 import { TankCalibrationTableFilesComponent } from './widgets/tank-calibration-table/tank-calibration-table-files/tank-calibration-table-files.component';
+import { UploadTableComponent } from './widgets/tank-calibration-table/upload-table/upload-table.component';
+import { UploadDropComponent } from './widgets/tank-calibration-table/upload-table/upload-drop/upload-drop.component';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @NgModule({
     declarations: [
@@ -270,7 +273,9 @@ import { TankCalibrationTableFilesComponent } from './widgets/tank-calibration-t
         AdminAdImportComponent,
         AddReportFileComponent,
         TankCalibrationTableComponent,
-        TankCalibrationTableFilesComponent
+        TankCalibrationTableFilesComponent,
+        UploadTableComponent,
+        UploadDropComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -324,7 +329,9 @@ import { TankCalibrationTableFilesComponent } from './widgets/tank-calibration-t
         ReportServerConfiguratorComponent,
         ReportComponent,
         ReportsComponent,
-        TankCalibrationTableComponent
+        TankCalibrationTableComponent,
+        UploadTableComponent,
+        UploadDropComponent,
     ],
     exports: [HomeComponent],
     imports: [
@@ -355,11 +362,14 @@ import { TankCalibrationTableFilesComponent } from './widgets/tank-calibration-t
         NgxMatTimepickerModule,
         NgxMatNativeDateModule,
         NgxMatMomentModule,
-        OverlayModule
+        OverlayModule,
+        MatDialogModule,
     ],
     bootstrap: [],
     providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' },
     { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
+    { provide: MatDialogRef, useValue: {} },
+    { provide: MAT_DIALOG_DATA, useValue: [] },
     ],
 })
 export class DashboardModule { }

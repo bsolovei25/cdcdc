@@ -104,16 +104,31 @@
                       {{ elementChildren.name }}
                     </td>
                     <td [class.expanded-column]="elementChildren" class="item item__td item__date">
-                      {{ elementChildren.startDate | date }}
+                      <div class="item__date-data-picker">
+                        <evj-time-data-picker
+                          [data]="elementChildren.startDate"
+                          (dateTimePicker)="dateTimePickerInput($event, false)"
+                        ></evj-time-data-picker>
+                      </div>
                     </td>
                     <td [class.expanded-column]="elementChildren" class="item item__td item__date">
-                      {{ elementChildren.endDate | date }}
+                      <div
+                        class="item__date-data-picker"
+                        [class.item__date-data-picker--warning]="elementChildren.warningLevel === 'warning'"
+                        [class.item__date-data-picker--expired]="elementChildren.warningLevel === 'expired'"
+                      >
+                        <evj-time-data-picker
+                          [data]="elementChildren.startDate"
+                          (dateTimePicker)="dateTimePickerInput($event, false)"
+                        ></evj-time-data-picker>
+                      </div>
                     </td>
                     <td
                       [class.expanded-column]="elementChildren"
                       class="item item__td item__action"
                     >
                       <svg-icon
+                        (click)="openDialog()"
                         class="item__action-icon"
                         src="assets/icons/widgets/calibration-table/upload.svg"
                         [svgStyle]="{ 'width.px':20, 'height.px':20 }"
@@ -123,7 +138,7 @@
                         src="assets/icons/widgets/calibration-table/download.svg"
                         [svgStyle]="{ 'width.px':20, 'height.px':20 }"
                       ></svg-icon>
-                      <span class="item__action-trash">
+                      <span class="item__action-trash" (click)="deleteItem(element)">
                         <svg-icon
                           src="assets/icons/widgets/calibration-table/trash.svg"
                           [svgStyle]="{ 'width.px':20, 'height.px':20 }"
@@ -161,7 +176,7 @@
                       </svg-icon>
                     </div>
                     <div class="bottom-reference-left__input">
-                      <input type="text" />
+                      <input type="text" (keyup)="searchInput($event)" />
                     </div>
                   </div>
                 </div>
@@ -229,7 +244,10 @@
       </section>
     </ng-container>
     <ng-container *ngIf="!isReport">
-      <evj-tank-calibration-table-files [isReport]="isReport"></evj-tank-calibration-table-files
+      <evj-tank-calibration-table-files
+        [data]="data"
+        [isReport]="isReport"
+      ></evj-tank-calibration-table-files
     ></ng-container>
   </div>
   <evj-frame-bottom></evj-frame-bottom>

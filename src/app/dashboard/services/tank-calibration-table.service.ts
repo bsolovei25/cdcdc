@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AppConfigService } from 'src/app/services/appConfigService';
+import { AppConfigService } from './../../services/appConfigService';
+import { ICalibrationTable } from '../widgets/tank-calibration-table/tank-calibration-table.component';
 
 @Injectable({
     providedIn: 'root',
@@ -13,23 +14,23 @@ export class TankCalibrationTableService {
         this.restUrl = configService.restUrl;
     }
 
-    async getTankCalibration(): Promise<any[]> {
+    async getTankAvailable(): Promise<any[]> {
         return this.http
             .get<any[]>(
-                this.restUrl + `/api/graduation/tanks/available`
+                this.restUrl + `/api/graduation-table/Graduation/tanks/available`
             )
             .toPromise();
     }
 
-    async getTanks(): Promise<any[]> {
+    async getTanks(): Promise<ICalibrationTable[]> {
         return this.http
-            .get<any[]>(
-                this.restUrl + `/api/graduation/tanks`
+            .get<ICalibrationTable[]>(
+                this.restUrl + `/api/graduation-table/Graduation/tanks`
             )
             .toPromise();
     }
 
-    async getHistoryTanks(id: number): Promise<any[]> {
+    async getHistoryTanks(id: string): Promise<any[]> {
         return this.http
             .get<any[]>(
                 this.restUrl + `/api/graduation/tanks/${id}/history`
@@ -46,7 +47,7 @@ export class TankCalibrationTableService {
             .toPromise();
     }
 
-    async deleteBrigade(id: number): Promise<void> {
+    async deleteTank(id: string): Promise<void> {
         return await this.http
             .delete<void>(this.restUrl + `/api/graduation/tanks/${id}`)
             .toPromise();

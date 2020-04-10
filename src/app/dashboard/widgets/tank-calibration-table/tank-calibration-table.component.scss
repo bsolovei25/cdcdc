@@ -54,30 +54,20 @@ input {
 .content {
   display: flex;
   height: calc(100% - 57px);
+  position: relative;
 
   border-left: dashed 0.5px var(--color-border-main);
   border-right: dashed 0.5px var(--color-border-main);
 }
 
 .table__left {
-  table {
-    width: 600px;
-    border-spacing: 0;
-    justify-content: space-between;
-    flex-direction: column;
-    height: 100%;
-  }
-  .table {
-    height: calc(100% - 42px);
-    overflow-y: auto;
-  }
   font-family: Tahoma, sans-serif;
   font-size: 12px;
   font-weight: 100;
   color: var(--color-text-main);
 
   position: relative;
-  min-width: 685px;
+  min-width: 650px;
   height: 100%;
   padding: 20px;
   padding-top: 31px;
@@ -85,6 +75,20 @@ input {
 
   background-color: inherit;
   overflow-x: auto;
+
+  table {
+    width: 600px;
+    border-spacing: 0;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 100%;
+    direction: ltr;
+  }
+  .table {
+    height: calc(100% - 42px);
+    overflow-y: auto;
+    direction: rtl;
+  }
 
   &__body {
     overflow-x: hidden;
@@ -220,9 +224,17 @@ input {
       position: relative;
 
       &-icon {
+        position: relative;
         padding-left: 23px;
         top: -5px;
-        position: relative;
+
+        cursor: pointer;
+        fill: var(--color-text-main);
+        stroke: var(--color-text-main);
+        &:hover {
+          fill: var(--color-active);
+          stroke: var(--color-active);
+        }
       }
       &-trash {
         display: none;
@@ -240,6 +252,17 @@ input {
       }
     }
     &__date {
+      &-data-picker {
+        position: relative;
+        top: -15px;
+
+        &--warning {
+          border-bottom: 1px solid var(--color-warning);
+        }
+        &--warning {
+          border-bottom: 1px solid var(--color-danger);
+        }
+      }
       min-width: 141px;
       max-width: 141px;
       text-align: center;
@@ -824,4 +847,8 @@ input {
       }
     }
   }
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+  display: none;
 }
