@@ -16,9 +16,6 @@ import { AppConfigService } from 'src/app/services/appConfigService';
 import { WidgetSettingsService } from '../../services/widget-settings.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { trigger, style, state, transition, animate, group } from '@angular/animations';
-import { ClaimService, IClaimAll } from '../../services/claim.service';
-import { SelectionModel } from '@angular/cdk/collections';
-import { IClaim } from '../../models/user-settings.model';
 
 @Component({
     selector: 'evj-manual-input',
@@ -62,17 +59,12 @@ export class ManualInputComponent extends WidgetPlatform
 
     public title: string;
     public previewTitle: string;
-    claims: IClaim[];
-
-    disabledMachine: SelectionModel<string> = new SelectionModel<string>(true);
 
     allSettings: boolean = true;
     openAllSettings: boolean = true;
     openAllMachine: boolean = true;
 
     chooseSetting: IMachine_MI;
-
-    public isLoading: boolean;
 
     private restUrl: string;
 
@@ -85,19 +77,17 @@ export class ManualInputComponent extends WidgetPlatform
         public widgetSettingsService: WidgetSettingsService,
         private http: HttpClient,
         private configService: AppConfigService,
-        private claimService: ClaimService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
+        this.restUrl = this.configService.restUrl;
         this.widgetIcon = 'peoples';
     }
 
     ngOnInit(): void {
         super.widgetInit();
-        this.restUrl = this.configService.restUrl;
-        this.isLoading = true;
     }
 
     ngAfterViewInit(): void {
@@ -129,24 +119,10 @@ export class ManualInputComponent extends WidgetPlatform
     refresh(): void {
         this.data = [];
     }
-    //
-    // async loadClaims(): Promise<void> {
-    //     const units = await this.claimService.getUnits();
-    //     const claimsData = await this.claimService.getClaimAll();
-    //     this.claims = claimsData.data;
-    //     units.forEach((unit) => {
-    //         this.claims.forEach((cl) => {
-    //             // if (Number(cl.value) === unit.id && cl.claimCategoryName === "Запретить") {
-    //             //     this.disabledMachine.select(unit.name);
-    //             // }
-    //         });
-    //     });
-    // }
 
     async setInitData(): Promise<void> {
         try {
             const data: { machines: IMachine_MI[]; isUserHasWriteClaims: boolean} = await this.manualInputService.getManualInput(this.id);
-            console.log(data);
             this.loadSaveData(data);
         } catch (error) {
             console.log(error);
