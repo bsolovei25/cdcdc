@@ -73,6 +73,8 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     public newRecord: string;
     public newFolder: string;
 
+    public fileName: string;
+
     public folderActive: number;
 
     public connectedTo: any = [];
@@ -170,6 +172,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     }
 
     getReporting(id) {
+        this.isLoading = true;
         return this.reportService.getReporting(id).subscribe((ans) => {
             if (ans.fileTemplate) {
                 this.selectFile = ans.fileTemplate;
@@ -185,10 +188,11 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
                 };
                 this.selectFile = ans.fileTemplate;
             }
+            this.fileName = ans.fileTemplate.name;
             this.reportTemplate = ans;
             this.optionsActive = ans.systemOptions;
             this.optionsCustom = ans;
-
+            this.isLoading = false;
             this.setStyleScroll();
         });
     }
@@ -398,12 +402,18 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             this.materialController.openSnackBar(
                 'Файл-шаблон сохранен'
             );
+            this.getReporting(this.isIdReport);
         });
     }
 
 
     closeOptions(event) {
         this.popupUserParam = event;
+    }
+
+
+    onChangeFile(event){
+        this.selectFile = this.dataFile.find(e => e.id === event);
     }
 
 

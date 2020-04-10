@@ -137,8 +137,8 @@
                 </div>
                 <div class="reference-container-value__type">
                   <mat-form-field class="categories_selectbox">
-                    <mat-select panelClass="mat-select-custom" [(ngModel)]="selectFile.name">
-                      <mat-option *ngFor="let p of dataFile" [value]="p.name">{{ p.name }}
+                    <mat-select panelClass="mat-select-custom" [(ngModel)]="selectFile.id" (ngModelChange)="onChangeFile($event)">
+                      <mat-option *ngFor="let p of dataFile" [value]="p.id">{{ p.name }}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
