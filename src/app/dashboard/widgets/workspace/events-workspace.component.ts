@@ -21,8 +21,6 @@ import { EventsWorkspaceService } from '../../services/events-workspace.service'
     styleUrls: ['./events-workspace.component.scss'],
 })
 export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    isLoading: boolean = true;
-
     isEditingDescription: boolean = false;
 
     progressLineHeight: number; // хз
@@ -64,7 +62,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
     ngOnInit(): void {
         super.widgetInit();
-        this.ewService.isLoading = false;
         this.ewService.loadItem();
     }
 
@@ -87,11 +84,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     }
 
     private async setEventByInfo(value: EventsWidgetNotification | number): Promise<void> {
-        this.ewService.isLoading = true;
-
         this.ewService.setEventByInfo(value);
-
-        setTimeout(() => (this.ewService.isLoading = false), 500);
 
         // this.progressLine();
     }
@@ -142,10 +135,8 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     // #region DATA API
 
     async saveItem(): Promise<void> {
-        this.ewService.isLoading = true;
         this.isEditingDescription = false;
         this.ewService.saveEvent();
-        this.ewService.isLoading = false;
     }
 
     // #endregion

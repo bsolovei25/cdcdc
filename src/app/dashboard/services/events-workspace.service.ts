@@ -90,6 +90,8 @@ export class EventsWorkspaceService {
             this.setDefaultEvent();
         } catch (err) {
             console.error(err);
+        } finally {
+            setTimeout(() => (this.isLoading = false), 500);
         }
     }
 
@@ -135,6 +137,7 @@ export class EventsWorkspaceService {
     }
 
     public async setEventByInfo(value: EventsWidgetNotification | number): Promise<void> {
+        this.isLoading = true;
         this.isCreateNewEvent = false;
 
         if (typeof value !== 'number') {
@@ -147,6 +150,9 @@ export class EventsWorkspaceService {
 
     public createNewEvent(isRetrieval: boolean = false): void {
         this.loadItem();
+        if (!this.defaultEvent) {
+            this.setDefaultEvent();
+        }
         if (!isRetrieval) {
             this.isCreateNewEvent = true;
             this.event = fillDataShape(this.defaultEvent);
@@ -156,6 +162,7 @@ export class EventsWorkspaceService {
     }
 
     public async saveEvent(): Promise<void> {
+        this.isLoading = true;
         if (this.isCreateNewEvent) {
             try {
                 const event = await this.eventService.postEvent(this.event);
@@ -176,6 +183,7 @@ export class EventsWorkspaceService {
             }
         }
         this.eventService.updateEvent$.next(true);
+        this.isLoading = false;
     }
 
     public async saveNewRetrievalEvent(): Promise<void> {
