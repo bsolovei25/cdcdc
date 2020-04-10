@@ -1,12 +1,4 @@
-import {
-    Component,
-    OnInit,
-    ViewChild,
-    ElementRef,
-    Inject,
-    OnDestroy,
-    HostListener,
-} from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { EventService } from '../../services/event.service';
 import { EventsWidgetNotification, IUser, EventsWidgetData } from '../../models/events-widget';
 import { WidgetService } from '../../services/widget.service';
@@ -27,15 +19,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
     static itemCols: number = 20;
     static itemRows: number = 5;
-
-    @ViewChild('input') input: ElementRef;
-    @ViewChild('input2') input2: ElementRef;
-    @ViewChild('newInput') newInput: ElementRef;
-    @ViewChild('newInput2') newInput2: ElementRef;
-    @ViewChild('scroll') scroll: ElementRef;
-    @ViewChild('scroll2') scroll2: ElementRef;
-    @ViewChild('graph') graphWidht: ElementRef;
-    @ViewChild('progress') progress: ElementRef;
 
     constructor(
         public ewService: EventsWorkspaceService,
@@ -115,13 +98,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.ewService.createNewEvent();
     }
 
-    @HostListener('document:resize', ['$event'])
-    OnResize(event): void {
-        try {
-            // this.progressLine();
-        } catch (error) {}
-    }
-
     // нажатие на кнопку в хэдере
     createdEvent(event: boolean): void {
         event ? this.createEvent() : this.saveItem();
@@ -152,25 +128,4 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.ewService.createNewEvent(true);
     }
     // #endregion
-
-    // TODO
-    progressLine(): void {
-        const heightMiddle = this.progress.nativeElement.offsetParent.offsetHeight - 103;
-        const countRetAll = this.ewService.event.retrievalEvents.length;
-        let countRetComplete = 0;
-        for (let i of this.ewService.event.retrievalEvents) {
-            if (i.innerNotification.status.name === 'closed') {
-                countRetComplete++;
-            }
-        }
-        this.progressLineHeight = (heightMiddle / countRetAll) * countRetComplete;
-    }
-
-    dateTimePicker(date: Date): void {
-        this.ewService.setDeadlineToEvent(date);
-    }
-
-    dateTimePickerNew(date: Date): void {
-        this.ewService.setDeadlineToEvent(date, true);
-    }
 }

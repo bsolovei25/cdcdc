@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { EventsWorkspaceService } from '../../../services/events-workspace.service';
 import { IUser, EventsWidgetNotification } from '../../../models/events-widget';
 
@@ -15,6 +15,13 @@ export class UsualEventComponent implements OnInit {
     constructor(public ewService: EventsWorkspaceService) {}
 
     ngOnInit(): void {}
+
+    @HostListener('document:resize', ['$event'])
+    OnResize(event): void {
+        try {
+            // this.progressLine();
+        } catch (error) {}
+    }
 
     public compareFn(a, b): boolean {
         return a && b && a.id === b.id;
