@@ -11,6 +11,7 @@ import {
 import { SnackBarService } from './snack-bar.service';
 import { IDatesInterval, WidgetService } from './widget.service';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
+import { error } from '@angular/compiler/src/util';
 
 @Injectable({
     providedIn: 'root',
@@ -85,54 +86,58 @@ export class PetroleumScreenService {
 
     public async chooseTransfer(uid: string, toFirst: boolean = false): Promise<void> {
         this.isLoad$.next(true);
-        if (this.localScreenState$.getValue() !== 'operation') {
-            this.openScreen('operation');
-        }
-        const tempTransfers = this.transfers$.getValue();
-        const chooseTransfer = tempTransfers.find((el) => el.uid === uid);
-        if (!chooseTransfer) {
-            this.isLoad$.next(false);
-            return;
-        }
-        tempTransfers.forEach((item) => (item.isActive = false));
-        chooseTransfer.operationType = 'Exist';
-        chooseTransfer.isActive = true;
-        if (toFirst) {
-            const idx = tempTransfers.findIndex(item => item === chooseTransfer);
-            tempTransfers.unshift(...tempTransfers.splice(idx, 1));
-        }
-        this.transfers$.next(tempTransfers);
-        const objectsReceiver = await this.getObjects(
-            this.client,
-            chooseTransfer.sourceName,
-            'enter'
-        );
-        const objectsSource = await this.getObjects(
-            this.client,
-            chooseTransfer.destinationName,
-            'exit'
-        );
-        objectsSource.forEach((item) => (item.isActive = false));
-        objectsReceiver.forEach((item) => (item.isActive = false));
-        if (
-            objectsSource.find((item) => item.objectName === chooseTransfer.sourceName) &&
-            objectsReceiver.find((item) => item.objectName === chooseTransfer.destinationName)
-        ) {
-            objectsSource.find(
-                (item) => item.objectName === chooseTransfer.sourceName
-            ).isActive = true;
-            objectsReceiver.find(
-                (item) => item.objectName === chooseTransfer.destinationName
-            ).isActive = true;
-        } else {
-            this.materialController.openSnackBar(
-                'Источник и приемник не совместимы!',
-                'snackbar-red'
+        try {
+            if (this.localScreenState$.getValue() !== 'operation') {
+                this.openScreen('operation');
+            }
+            const tempTransfers = this.transfers$.getValue();
+            const chooseTransfer = tempTransfers.find((el) => el.uid === uid);
+            if (!chooseTransfer) {
+                this.isLoad$.next(false);
+                return;
+            }
+            tempTransfers.forEach((item) => (item.isActive = false));
+            chooseTransfer.operationType = 'Exist';
+            chooseTransfer.isActive = true;
+            if (toFirst) {
+                const idx = tempTransfers.findIndex(item => item === chooseTransfer);
+                tempTransfers.unshift(...tempTransfers.splice(idx, 1));
+            }
+            this.transfers$.next(tempTransfers);
+            const objectsReceiver = await this.getObjects(
+                this.client,
+                chooseTransfer.sourceName,
+                'enter'
             );
+            const objectsSource = await this.getObjects(
+                this.client,
+                chooseTransfer.destinationName,
+                'exit'
+            );
+            objectsSource.forEach((item) => (item.isActive = false));
+            objectsReceiver.forEach((item) => (item.isActive = false));
+            if (
+                objectsSource.find((item) => item.objectName === chooseTransfer.sourceName) &&
+                objectsReceiver.find((item) => item.objectName === chooseTransfer.destinationName)
+            ) {
+                objectsSource.find(
+                    (item) => item.objectName === chooseTransfer.sourceName
+                ).isActive = true;
+                objectsReceiver.find(
+                    (item) => item.objectName === chooseTransfer.destinationName
+                ).isActive = true;
+            } else {
+                this.materialController.openSnackBar(
+                    'Источник и приемник не совместимы!',
+                    'snackbar-red'
+                );
+            }
+            this.objectsReceiver$.next(objectsReceiver);
+            this.objectsSource$.next(objectsSource);
+            this.currentTransfer$.next(chooseTransfer);
+        } catch (e) {
+            throw error(e);
         }
-        this.objectsReceiver$.next(objectsReceiver);
-        this.objectsSource$.next(objectsSource);
-        this.currentTransfer$.next(chooseTransfer);
         this.isLoad$.next(false);
     }
 
@@ -145,6 +150,7 @@ export class PetroleumScreenService {
         this.objectsSource$.next(objects);
         this.objectsReceiver$.next(objects);
         const emptyTransfer: ITransfer = { ...this.emptyTransferGlobal };
+        emptyTransfer.startTime = new Date();
         this.currentTransfer$.next(emptyTransfer);
     }
 
