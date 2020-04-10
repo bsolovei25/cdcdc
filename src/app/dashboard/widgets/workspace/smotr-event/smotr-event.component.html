@@ -1,1 +1,92 @@
-<p>smotr-event works!</p>
+<div
+  class="workspace"
+  (mousedown)="$event.stopPropagation()"
+  (touchstart)="$event.stopPropagation()"
+>
+  <div class="workspace__column column column_left">
+    <div class="column__row row">
+      <div class="row__cell cell cell_left">
+        <evj-ui-block status="normal">
+          <mat-form-field class="categories_selectbox">
+            <mat-label>Категория</mat-label>
+            <mat-select
+              panelClass="mat-select-custom"
+              [(ngModel)]="ewService.event.category"
+              [compareWith]="compareFn"
+            >
+              <mat-option *ngFor="let cat of ewService.category" [value]="cat">
+                {{ ewService.categories[cat.name] }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </evj-ui-block>
+      </div>
+      <div class="row__cell cell cell_right">
+        <evj-events-workspace-button status="escalate"></evj-events-workspace-button>
+      </div>
+    </div>
+    <div class="column__row row">
+      <div class="row__cell cell cell_left">
+        <evj-ui-block status="normal">
+          <mat-form-field class="status">
+            <mat-label>Статус</mat-label>
+            <mat-select
+              panelClass="mat-select-custom"
+              [(ngModel)]="ewService.event.status"
+              [compareWith]="compareFn"
+            >
+              <mat-option *ngFor="let p of ewService.status" [value]="p"
+                >{{ ewService.statuses[p.name] }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </evj-ui-block>
+      </div>
+      <div class="row__cell cell cell_right">
+        <evj-events-workspace-button status="close"></evj-events-workspace-button>
+      </div>
+    </div>
+    <div class="column__row row description"></div>
+    <div class="column__row row chat"></div>
+    <div class="column__row row chat"></div>
+  </div>
+  <div class="workspace__column column column_right">
+    <div class="column__row row">
+      <div class="row__cell cell cell_left"></div>
+      <div class="row__cell cell cell_right">
+        <evj-ui-block status="{{ewService.event.priority.name}}">
+          <mat-form-field class="{{ewService.event.priority.name}}">
+            <mat-label>Приоритет</mat-label>
+            <mat-select
+              panelClass="mat-select-custom"
+              [(ngModel)]="ewService.event.priority"
+              [compareWith]="compareFn"
+            >
+              <mat-option *ngFor="let p of ewService.priority" [value]="p"
+                >{{ ewService.priorities[p.name] }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </evj-ui-block>
+      </div>
+    </div>
+    <div class="column__row row">
+      <div class="row__cell cell cell_left information">
+        <div class="information__label label">
+          <div class="label__title">Место</div>
+          <div class="label__text">ГФУ-2</div>
+        </div>
+        <div class="information__label label">
+          <div class="label__title">Автор</div>
+          <div class="label__text">Иванов И.И.</div>
+        </div>
+      </div>
+      <div class="row__cell cell cell_right">
+        <evj-events-workspace-button status="tools"></evj-events-workspace-button>
+      </div>
+    </div>
+    <div class="column__row row responsible"></div>
+    <div class="column__row row list"></div>
+    <div class="column__row row list"></div>
+  </div>
+</div>

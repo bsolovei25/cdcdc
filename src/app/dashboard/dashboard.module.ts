@@ -161,6 +161,7 @@ import { CustomReportOptionsComponent } from './widgets/custom-report-properties
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon';
+import { EventsWorkspaceButtonComponent } from './widgets/workspace/components/events-workspace-button/events-workspace-button.component';
 
 @NgModule({
     declarations: [
@@ -294,6 +295,7 @@ import { MatIconModule } from '@angular/material/icon';
         NecessaryParamComponent,
         AdditionalParamComponent,
         CustomReportOptionsComponent,
+        EventsWorkspaceButtonComponent,
     ],
     entryComponents: [
         LineChartComponent,

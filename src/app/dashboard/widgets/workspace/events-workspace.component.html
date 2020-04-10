@@ -29,10 +29,12 @@
 
     <!-- EVENT -->
     <div class="container-widget">
-      <evj-usual-event *ngIf="!isMock && ewService.event"></evj-usual-event>
+      <!-- <evj-usual-event *ngIf="!isMock && ewService.event"></evj-usual-event> -->
+
+      <evj-smotr-event *ngIf="!ewService.isLoading"></evj-smotr-event>
 
       <!-- NO-SELECTED EVENT -->
-      <ng-container *ngIf="!isMock && !ewService.event">
+      <!-- <ng-container *ngIf="!isMock && !ewService.event">
         <div
           class="workspace__mock"
           (mousedown)="$event.stopPropagation()"
@@ -42,7 +44,7 @@
             Создайте или выберите событие
           </div>
         </div>
-      </ng-container>
+      </ng-container> -->
     </div>
 
     <evj-frame-bottom></evj-frame-bottom>

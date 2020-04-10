@@ -92,6 +92,8 @@ export class EventsWorkspaceService {
             console.error(err);
         } finally {
             setTimeout(() => (this.isLoading = false), 500);
+
+            this.createNewEvent(); // TOFIX
         }
     }
 
