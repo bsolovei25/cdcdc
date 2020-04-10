@@ -218,8 +218,8 @@ export class EventService {
     private getOptionString(lastId: number, options: EventsWidgetOptions): string {
         let res = `take=${this.batchSize}&lastId=${lastId}&`;
         if (options.dates) {
-            res += `fromDateTime=${options.dates?.fromDateTime.toISOString()}&
-            toDateTime=${options.dates?.toDateTime.toISOString()}`;
+            res += `fromDateTime=${options.dates?.fromDateTime.toISOString()}&`
+            + `toDateTime=${options.dates?.toDateTime.toISOString()}`;
         }
         for (const category of options.categories) {
             res += `&categoryIds=${category}`;
