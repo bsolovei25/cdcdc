@@ -8,6 +8,7 @@ import { filter, catchError } from 'rxjs/operators';
 import { IParamWidgetsGrid } from '../components/new-widgets-grid/new-widgets-grid.component';
 import { WidgetService } from './widget.service';
 import { ClaimService } from './claim.service';
+import { GridsterItem } from 'angular-gridster2';
 
 @Injectable({
     providedIn: 'root',
@@ -36,13 +37,20 @@ export class UserSettingsService {
 
     public addCellByPosition(idWidget: string, nameWidget: string, param: IParamWidgetsGrid): void {
         const uniqId = this.create_UUID();
+        const _minItemCols = WIDGETS[nameWidget]?.minItemCols ?? 6;
+        const _minItemRows = WIDGETS[nameWidget]?.minItemRows ?? 6;
+        console.log(_minItemCols, _minItemRows);
         this.widgetService.dashboard.push({
             x: param.x,
             y: param.y,
-            cols: WIDGETS[nameWidget].itemCols,
-            rows: WIDGETS[nameWidget].itemRows,
-            minItemCols: WIDGETS[nameWidget]?.minItemCols ?? 5,
-            minItemRows: WIDGETS[nameWidget]?.minItemRows ?? 5,
+            cols: WIDGETS[nameWidget].itemCols < _minItemCols
+                ? _minItemCols
+                : WIDGETS[nameWidget].itemCols,
+            rows: WIDGETS[nameWidget].itemRows < _minItemRows
+                ? _minItemRows
+                : WIDGETS[nameWidget].itemRows,
+            minItemCols: _minItemCols,
+            minItemRows: _minItemRows,
             id: idWidget,
             uniqid: uniqId,
             widgetType: nameWidget,
@@ -73,21 +81,19 @@ export class UserSettingsService {
     }
 
     private save(uniqId: string): void {
-        for (const item of this.widgetService.dashboard) {
-            if (item.uniqid === uniqId) {
-                const cellSetting: IUserGridItem = {
-                    widgetId: item.id,
-                    posX: item.x,
-                    posY: item.y,
-                    widgetType: item.widgetType,
-                    sizeX: item.cols,
-                    sizeY: item.rows,
-                    uniqueId: item.uniqid,
-                };
-                this.widgetInfo = cellSetting;
-            } else {
-            }
-        }
+        const item = this.widgetService.dashboard?.find((el) =>
+            el.uniqid === uniqId
+        );
+        const cellSetting: IUserGridItem = {
+            widgetId: item.id,
+            posX: item.x,
+            posY: item.y,
+            widgetType: item.widgetType,
+            sizeX: item.cols,
+            sizeY: item.rows,
+            uniqueId: item.uniqid,
+        };
+        this.widgetInfo = cellSetting;
     }
 
     private updateWidgetApi(uniqId: string): void {
@@ -101,22 +107,20 @@ export class UserSettingsService {
             );
     }
 
-    public updateByPosition(oldItem, newItem): void {
-        for (const item of this.widgetService.dashboard) {
-            if (item.uniqid === oldItem.uniqid) {
-                item.x = newItem.x;
-                item.y = newItem.y;
-                item.rows = newItem.rows;
-                item.cols = newItem.cols;
-                item.minItemCols = newItem.minItemCols;
-                item.maxItemRows = newItem.maxItemRows;
-            }
-        }
+    public updateByPosition(oldItem: GridsterItem, newItem: GridsterItem): void {
+        const item = this.widgetService.dashboard?.find(el => el.uniqId === oldItem.uniqId);
+        item.x = newItem.x;
+        item.y = newItem.y;
+        item.rows = newItem.rows;
+        item.cols = newItem.cols;
+        item.minItemCols = newItem.minItemCols;
+        item.maxItemRows = newItem.maxItemRows;
         this.updateWidgetApi(oldItem.uniqid);
     }
 
     public async removeItem(widgetId: string): Promise<any> {
-        return await this.http.delete(this.restUrl + '/api/user-management/widget/' + widgetId).toPromise();
+        return await this.http.delete(this.restUrl + '/api/user-management/widget/' + widgetId)
+            .toPromise();
     }
 
     public GetScreens(): void {
@@ -161,7 +165,7 @@ export class UserSettingsService {
                 const _minItemCols = WIDGETS[widget.widgetType]?.minItemCols ?? 6;
                 const _minItemRows = WIDGETS[widget.widgetType]?.minItemRows ?? 6;
                 console.log(_minItemCols, _minItemRows);
-                const result = {
+                return {
                     x: widget.posX,
                     y: widget.posY,
                     cols: widget.sizeX < _minItemCols ? _minItemCols : widget.sizeX,
@@ -172,7 +176,6 @@ export class UserSettingsService {
                     widgetType: widget.widgetType,
                     uniqid: widget.uniqueId,
                 };
-                return result;
             });
             console.log(this.widgetService.dashboard);
         });

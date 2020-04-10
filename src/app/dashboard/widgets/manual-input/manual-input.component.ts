@@ -16,9 +16,6 @@ import { AppConfigService } from 'src/app/services/appConfigService';
 import { WidgetSettingsService } from '../../services/widget-settings.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { trigger, style, state, transition, animate, group } from '@angular/animations';
-import { ClaimService, IClaimAll } from '../../services/claim.service';
-import { SelectionModel } from '@angular/cdk/collections';
-import { IClaim } from '../../models/user-settings.model';
 
 @Component({
     selector: 'evj-manual-input',
@@ -62,17 +59,12 @@ export class ManualInputComponent extends WidgetPlatform
 
     public title: string;
     public previewTitle: string;
-    claims: IClaim[];
-
-    disabledMachine: SelectionModel<string> = new SelectionModel<string>(true);
 
     allSettings: boolean = true;
     openAllSettings: boolean = true;
     openAllMachine: boolean = true;
 
     chooseSetting: IMachine_MI;
-
-    public isLoading: boolean;
 
     private restUrl: string;
 
@@ -85,19 +77,17 @@ export class ManualInputComponent extends WidgetPlatform
         public widgetSettingsService: WidgetSettingsService,
         private http: HttpClient,
         private configService: AppConfigService,
-        private claimService: ClaimService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
+        this.restUrl = this.configService.restUrl;
         this.widgetIcon = 'peoples';
     }
 
     ngOnInit(): void {
         super.widgetInit();
-        this.restUrl = this.configService.restUrl;
-        this.isLoading = true;
     }
 
     ngAfterViewInit(): void {
@@ -122,32 +112,18 @@ export class ManualInputComponent extends WidgetPlatform
     }
 
     protected dataHandler(ref: { machines: IMachine_MI[]; isUserHasWriteClaims: boolean}): void {
-        this.loadSaveData(ref, true);
+        this.loadSaveData(ref);
     }
 
     @Output()
     refresh(): void {
         this.data = [];
     }
-    //
-    // async loadClaims(): Promise<void> {
-    //     const units = await this.claimService.getUnits();
-    //     const claimsData = await this.claimService.getClaimAll();
-    //     this.claims = claimsData.data;
-    //     units.forEach((unit) => {
-    //         this.claims.forEach((cl) => {
-    //             // if (Number(cl.value) === unit.id && cl.claimCategoryName === "Запретить") {
-    //             //     this.disabledMachine.select(unit.name);
-    //             // }
-    //         });
-    //     });
-    // }
 
     async setInitData(): Promise<void> {
         try {
             const data: { machines: IMachine_MI[]; isUserHasWriteClaims: boolean} = await this.manualInputService.getManualInput(this.id);
-            console.log(data);
-            this.loadSaveData(data, false);
+            this.loadSaveData(data);
         } catch (error) {
             console.log(error);
         }
@@ -168,14 +144,10 @@ export class ManualInputComponent extends WidgetPlatform
         this.manualInputService.CheckLastValue(id, this.data);
     }
 
-    async loadSaveData( data: { machines: IMachine_MI[]; isUserHasWriteClaims: boolean}, isWsSource: boolean): Promise<void> {
-        if (!isWsSource) {
-            this.isUserHasWriteClaims = data.isUserHasWriteClaims;
-        }
-        console.log('common ' + this.isUserHasWriteClaims);
+    async loadSaveData( data: { machines: IMachine_MI[]; isUserHasWriteClaims: boolean}): Promise<void> {
+        this.isUserHasWriteClaims = data.isUserHasWriteClaims;
         const settings: IMachine_MI[] = await this.widgetSettingsService.getSettings(this.uniqId);
         for (const itemDate of data.machines) {
-            console.log(itemDate.name + '' + itemDate.isUserHasWriteClaims);
             itemDate.open = settings?.find((el) => el.name === itemDate.name)?.open ?? true;
             itemDate.active = settings?.find((el) => el.name === itemDate.name)?.active ?? false;
             for (const item of itemDate.groups) {
@@ -183,15 +155,8 @@ export class ManualInputComponent extends WidgetPlatform
                 item.open = setGroups?.groups?.find((el) => el.name === item.name)?.open ?? true;
             }
             if (itemDate.active) {
-                this.chooseSetting === undefined
-                    ? (this.chooseSetting = itemDate)
-                    : (this.chooseSetting = this.chooseSetting);
+                this.chooseSetting = this.chooseSetting ?? itemDate;
                 this.allSettings = false;
-            }
-            if (isWsSource) {
-                itemDate.isUserHasWriteClaims = this.data
-                    ?.find((item) => item.name === itemDate.name)
-                    ?.isUserHasWriteClaims;
             }
         }
         this.data = this.manualInputService.LoadData(this.data, data.machines);

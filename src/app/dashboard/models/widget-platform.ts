@@ -40,7 +40,6 @@ export abstract class WidgetPlatform implements OnDestroy {
                     if (!this.isMock) {
                         console.log(this.widgetType);
                     }
-
                     this.showMock(this.isMock);
                 }
             })
