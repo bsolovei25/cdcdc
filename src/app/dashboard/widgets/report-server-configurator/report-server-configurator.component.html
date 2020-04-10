@@ -128,7 +128,7 @@
                 </div>
                 <div class="reference-container-value__type">
                   <mat-form-field class="categories_selectbox">
-                    <mat-select panelClass="mat-select-custom" [(ngModel)]="selectFile">
+                    <mat-select panelClass="mat-select-custom" [(ngModel)]="selectFile.name">
                       <mat-option *ngFor="let p of dataFile" [value]="p.name">{{ p.name }}
                       </mat-option>
                     </mat-select>
@@ -160,7 +160,7 @@
                 <div class="references-container-check-block__name-item">{{item.name}}</div>
                 <div class="references-container-check-block__check-item">
                   <label class="mycheckbox">
-                    <input type="checkbox" id="checkBoxValue" class="mycheckbox__default" (click)="changeSwap(item)" />
+                    <input type="checkbox" id="checkBoxValue" class="mycheckbox__default" (click)="changeSwap(item)" [checked]="item.isActive"/>
                     <div class="mycheckbox__new"></div>
                   </label>
                 </div>

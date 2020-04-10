@@ -4,6 +4,7 @@ import { moveItemInArray, transferArrayItem, CdkDragDrop } from '@angular/cdk/dr
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { ReportServerConfiguratorService } from '../../services/report-server-configurator.service';
 import { WidgetPlatform } from '../../models/widget-platform';
+import { SnackBarService } from '../../services/snack-bar.service';
 
 @Component({
     selector: 'evj-report-server-configurator',
@@ -58,8 +59,8 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     public data;
     public options;
-    public optionsActive = [];
-    public optionsCustom = [];
+    public optionsActive: any = [];
+    public optionsCustom: any = [];
     public reportTemplate = [];
     public dataFile;
 
@@ -83,6 +84,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     constructor(
         public widgetService: WidgetService,
         public reportService: ReportServerConfiguratorService,
+        private materialController: SnackBarService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -97,7 +99,6 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             // this.getReportFolder(),
             this.getRecordFile(),
             this.getReportTemplate(),
-            this.getOptions()
         );
     }
 
@@ -162,7 +163,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     getOptions() {
         return this.reportService.getSystemOptions().subscribe((data) => {
-            this.options = data;
+            this.mapOptions(data);
         });
     }
 
@@ -195,6 +196,17 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             this.dataFile = ans;
         });
     }
+
+    mapOptions(data) {
+        this.options = data;
+        for (let i of this.options) {
+          for (let j of this.optionsActive) {
+            if (i.id === j.templateSystemOption.id) {
+              i.isActive = true;
+            }
+          }
+        }
+      }
 
     onEdit(item) {
         item.openEdit = true;
@@ -268,15 +280,15 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     }
 
     changeSwap(item): void {
-        item.checked = !item.checked;
+        item.isActive = !item.isActive;
         let obj = {
             templateSystemOption: item,
             value: '',
         }
-        if (item.checked) {
+        if (item.isActive) {
             this.optionsActive.push(obj);
         } else {
-            let index = this.optionsActive.findIndex(e => e.templateSystemOption === item);
+            const index = this.optionsActive.findIndex(e => e.templateSystemOption.id === item.id);
             this.optionsActive.splice(index, 1);
         }
     }
@@ -321,6 +333,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     }
 
     openCheckBoxBlock(): void {
+        this.getOptions();
         this.isOpenCheckBlock = !this.isOpenCheckBlock;
     }
 
@@ -376,7 +389,9 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         // }
 
         this.reportService.postSystemOptions(item, obj).subscribe(ans => {
-            console.log(ans);
+            this.materialController.openSnackBar(
+                'Файл-шаблон сохранен'
+            );
         });
     }
 
