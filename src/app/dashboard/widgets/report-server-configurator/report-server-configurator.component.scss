@@ -475,15 +475,29 @@ input {
     }
 
     &__input {
-      border: 1px solid white;
+      border: 1px solid;
+      border-image: linear-gradient(90deg, transparent 10%, var(--color-text-main) 100%);
+      border-image-slice: 1;
       border-left: none;
-      border-top-right-radius: 20px;
-      border-bottom-right-radius: 20px;
+      border-right: none;
       left: 25px;
       top: 5px;
       height: 28px;
       position: absolute;
       width: 150px;
+
+      &:after {
+        content: "";
+        position: absolute;
+        height: 28px;
+        width: 14px;
+        top: -1px;
+        right: -15px;
+        border: 1px solid var(--color-text-main);
+        border-left: none;
+        border-top-right-radius: 25px;
+        border-bottom-right-radius: 25px;
+      }
 
       input {
         border-bottom: none !important;
@@ -491,8 +505,34 @@ input {
     }
 
     &__input-active {
-      border: 1px solid var(--color-border-active);
-      border-left: none;
+      border: 1px solid;
+      border-image: linear-gradient(
+        to left,
+        rgba(107, 166, 241, 0.7) 2%,
+        rgba(107, 166, 241, 0.63) 6%,
+        rgba(107, 166, 241, 0.46) 16%,
+        rgba(107, 166, 241, 0.32) 26%,
+        rgba(107, 166, 241, 0.2) 38%,
+        rgba(107, 166, 241, 0.11) 50%,
+        rgba(107, 166, 241, 0.05) 63%,
+        rgba(107, 166, 241, 0.01) 79%,
+        rgba(107, 166, 241, 0) 102%
+      );
+      border-image-slice: 1;
+      border-right: none;
+
+      &:after {
+        content: "";
+        position: absolute;
+        height: 28px;
+        width: 14px;
+        top: -1px;
+        right: -15px;
+        border: 1px solid var(--color-border-active);
+        border-left: none;
+        border-top-right-radius: 25px;
+        border-bottom-right-radius: 25px;
+      }
     }
 
     &__input-block {
@@ -628,7 +668,7 @@ input {
     .reference-container-value {
       height: 100%;
       background-color: #1b1f2c;
-      width: calc(100% - 50px);
+      width: calc(100% - 10px);
       min-height: 40px;
       direction: initial;
       margin: 0 auto;

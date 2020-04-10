@@ -45,7 +45,8 @@
 .container {
   height: 100%;
   width: 100%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+  //box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
 }
 
@@ -53,7 +54,7 @@
   position: relative;
   height: 40px;
   width: 100%;
-  background-color: #22232d;
+  background-color: #1b1f2c;
   color: var(--color-text-main);
   text-align: center;
   line-height: 40px;
@@ -65,7 +66,7 @@
   &__button-close {
     cursor: pointer;
     width: 30px;
-    margin-top: 5px;
+    margin-top: 7px;
     margin-left: 20px;
   }
 
@@ -76,8 +77,10 @@
 }
 
 .content {
+  overflow: auto;
+  overflow-x: hidden;
   height: calc(100% - 90px);
-  background-color: #22232d;
+  background-color: #1b1f2c;
   border-top: 5px solid var(--color-bg-main);
   border-bottom: 5px solid var(--color-bg-main);
 
@@ -87,12 +90,14 @@
     display: flex;
     position: relative;
     line-height: 30px;
+    color: var(--color-text-sub);
   }
 
   &__item-title{
     padding-left: 45px;
     width: 100%;
     height: 100%;
+    font-weight: bold;
   }
 
   &__title-button{
@@ -102,14 +107,14 @@
   }
 
   &__item-options{
-    height: 125px;
+    height: 188px;
     overflow: auto;
 
     .item-block{
       display: flex;
       height: 30px;
       line-height: 30px;
-      background-color: #1b1f2c;
+      background-color: #171b27;
       border-bottom: 1px solid var(--color-bg-main);
 
       .options{
@@ -124,13 +129,17 @@
       }
     }
   }
+
+  .active{
+    background-color: #1F2D40;
+  }
 }
 
 .bottom {
   position: relative;
   height: 40px;
   width: 100%;
-  background-color: #22232d;
+  background-color: #1b1f2c;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
 
