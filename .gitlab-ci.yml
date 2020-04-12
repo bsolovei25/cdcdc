@@ -137,6 +137,6 @@ clean on failure:
     <<: *init
     stage: clean-on-failure
     script:
-        - docker container stop ${CI_PROJECT_NAME}
+        - docker container stop ${CI_PROJECT_NAME} || sleep 0.1
         - cd ${ROCKETCHAT_HOOKS} ; python3 rockethooks.py failed
     when: on_failure
