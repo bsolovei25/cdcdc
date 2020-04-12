@@ -60,7 +60,6 @@ build artifact:
         - docker build . -t ${CI_PROJECT_NAME}_prod -f Dockerfile.prod
         - docker stop ${CI_PROJECT_NAME}_prod || sleep 0.1
         - docker container rm ${CI_PROJECT_NAME}_prod || sleep 0.1
-        - cd ${ROCKETCHAT_HOOKS} ; git pull origin master --no-edit ; python3 rockethooks.py
         - docker run --rm --name ${CI_PROJECT_NAME}_prod  -d ${CI_PROJECT_NAME}_prod ; docker exec ${CI_PROJECT_NAME}_prod ng build
         - docker cp ${CI_PROJECT_NAME}_prod:/app/dist/evj ./public
         - docker container stop ${CI_PROJECT_NAME}_prod
@@ -107,6 +106,8 @@ staging:
     variables:
         CMD_REPLACE: sed -i -E "s/(<title>Evj)(<\/title>)/\1 | ${CI_COMMIT_SHORT_SHA} \2/g" /var/www/angular-staging.local/public/index.html
     script:
+        - env
+        - cd ${ROCKETCHAT_HOOKS} ; git pull origin master --no-edit ; python3 rockethooks.py
         - ssh root@${DEPLOY_DOMAIN} rm -rf /var/www/angular-staging.local/public
         - scp -r ./public root@${DEPLOY_DOMAIN}:/var/www/angular-staging.local
         - ssh root@${DEPLOY_DOMAIN} $CMD_REPLACE
@@ -136,6 +137,6 @@ clean on failure:
     <<: *init
     stage: clean-on-failure
     script:
-        - docker container stop ${CI_PROJECT_NAME}
+        - docker container stop ${CI_PROJECT_NAME} || sleep 0.1
         - cd ${ROCKETCHAT_HOOKS} ; python3 rockethooks.py failed
     when: on_failure
