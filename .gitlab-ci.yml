@@ -11,7 +11,7 @@ after_script:
 variables:
     GIT_SSL_NO_VERIFY: "1"
     DEPLOY_DOMAIN: deploy.funcoff.club
-    ROCKETCHAT_HOOKS: "/home/gitlab-runner/rocketchat.integrations"
+    ROCKETCHAT_HOOKS: "/home/gitlab-runner/rocket.integrations"
 
 stages:
     - prebuild
@@ -137,5 +137,5 @@ clean on failure:
     stage: clean-on-failure
     script:
         - docker container stop ${CI_PROJECT_NAME}
-        - cd ${ROCKETCHAT_HOOKS} ; python3 rockethooks.py fail
+        - cd ${ROCKETCHAT_HOOKS} ; python3 rockethooks.py failed
     when: on_failure
