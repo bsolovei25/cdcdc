@@ -11,6 +11,7 @@ after_script:
 variables:
     GIT_SSL_NO_VERIFY: "1"
     DEPLOY_DOMAIN: deploy.funcoff.club
+    ROCKETCHAT_HOOKS: "/home/gitlab-runner/rocketchat.integrations"
 
 stages:
     - prebuild
@@ -59,6 +60,7 @@ build artifact:
         - docker build . -t ${CI_PROJECT_NAME}_prod -f Dockerfile.prod
         - docker stop ${CI_PROJECT_NAME}_prod || sleep 0.1
         - docker container rm ${CI_PROJECT_NAME}_prod || sleep 0.1
+        - cd ${ROCKETCHAT_HOOKS} ; git pull origin master --no-edit ; python3 rockethooks.py
         - docker run --rm --name ${CI_PROJECT_NAME}_prod  -d ${CI_PROJECT_NAME}_prod ; docker exec ${CI_PROJECT_NAME}_prod ng build
         - docker cp ${CI_PROJECT_NAME}_prod:/app/dist/evj ./public
         - docker container stop ${CI_PROJECT_NAME}_prod
@@ -135,4 +137,5 @@ clean on failure:
     stage: clean-on-failure
     script:
         - docker container stop ${CI_PROJECT_NAME}
+        - cd ${ROCKETCHAT_HOOKS} ; python3 rockethooks.py fail
     when: on_failure
