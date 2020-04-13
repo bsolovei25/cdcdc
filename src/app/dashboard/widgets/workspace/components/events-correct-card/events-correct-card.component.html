@@ -25,13 +25,13 @@
         <div class="info__text">{{event.innerNotification.fixedBy.displayName}}</div>
       </div>
       <div class="info__buttons">
-        <div class="button button__delete" *ngIf="event.innerNotification.isUserCanEdit" (click)="onClickDelete()">
+        <div class="button button__delete" (click)="onClickDelete()">
           <svg-icon
             src="assets/icons/widgets/workspace/delete.svg"
             [svgStyle]="{ 'width.px':18, 'height.px':18 }"
           ></svg-icon>
         </div>
-        <div class="button button__edit" *ngIf="event.innerNotification.isUserCanEdit" (click)="onClickEdit()">
+        <div class="button button__edit" (click)="onClickEdit()">
           <svg-icon
             src="assets/icons/widgets/workspace/edit.svg"
             [svgStyle]="{ 'width.px':20, 'height.px':20 }"

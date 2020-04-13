@@ -93,7 +93,7 @@ export class EventsWorkspaceService {
         } finally {
             setTimeout(() => (this.isLoading = false), 500);
 
-            this.createNewEvent(); // TOFIX
+            // this.createNewEvent(); // TOFIX
         }
     }
 
@@ -113,7 +113,7 @@ export class EventsWorkspaceService {
                 email: '',
                 login: '',
                 firstName: '',
-                id: null,
+                id: undefined,
                 lastName: '',
                 middleName: '',
                 phone: '',
@@ -123,7 +123,7 @@ export class EventsWorkspaceService {
                 ? this.priority[2]
                     ? this.priority[2]
                     : this.priority[0]
-                : null,
+                : undefined,
             responsibleOperator: fillDataShape(this.currentAuthUser),
             retrievalEvents: [],
             severity: 'Critical',
@@ -151,7 +151,7 @@ export class EventsWorkspaceService {
     }
 
     public createNewEvent(isRetrieval: boolean = false): void {
-        // this.loadItem(); // TOFIX
+        this.loadItem(); // TOFIX
         if (!this.defaultEvent) {
             this.setDefaultEvent();
         }

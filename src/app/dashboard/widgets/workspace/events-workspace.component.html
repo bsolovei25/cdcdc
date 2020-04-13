@@ -29,9 +29,9 @@
 
     <!-- EVENT -->
     <div class="container-widget">
-      <!-- <evj-usual-event *ngIf="!isMock && ewService.event"></evj-usual-event> -->
+      <evj-usual-event *ngIf="!isMock && ewService.event"></evj-usual-event>
 
-      <evj-smotr-event *ngIf="!ewService.isLoading"></evj-smotr-event>
+      <!-- <evj-smotr-event *ngIf="!ewService.isLoading"></evj-smotr-event> -->
 
       <!-- NO-SELECTED EVENT -->
       <ng-container *ngIf="!isMock && !ewService.event">
