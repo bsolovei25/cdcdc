@@ -63,7 +63,6 @@ export class WidgetService {
         IDatesInterval
     >(null);
 
-
     constructor(
         public http: HttpClient,
         private authService: AuthService,
@@ -123,12 +122,10 @@ export class WidgetService {
         });
     }
 
-    getName(widgetId: string): string {
-        let widgetName: IWidgets | string = this._widgets$.getValue()
-            .find((x) => x.id === widgetId).title;
-        if (!widgetName || widgetName === '') {
-            widgetName = 'Нет имени';
-            return widgetName;
+    getName(idWidg: string): string {
+        const widgetNames: IWidgets = this._widgets$.getValue().find((x) => x.id === idWidg);
+        if (widgetNames) {
+            return widgetNames.widgetType;
         }
     }
 
