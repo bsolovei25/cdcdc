@@ -93,7 +93,7 @@ export class EventsWorkspaceService {
         } finally {
             setTimeout(() => (this.isLoading = false), 500);
 
-            // this.createNewEvent(); // TOFIX
+            this.createNewEvent(); // TOFIX
         }
     }
 
@@ -151,7 +151,7 @@ export class EventsWorkspaceService {
     }
 
     public createNewEvent(isRetrieval: boolean = false): void {
-        this.loadItem(); // TOFIX
+        // this.loadItem(); // TOFIX
         if (!this.defaultEvent) {
             this.setDefaultEvent();
         }

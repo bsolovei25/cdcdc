@@ -166,6 +166,7 @@ import { EventsResponsibleSelectComponent } from './widgets/workspace/components
 import { EventsReasonsComponent } from './widgets/workspace/components/events-reasons/events-reasons.component';
 import { EventsCorrectComponent } from './widgets/workspace/components/events-correct/events-correct.component';
 import { EventsCorrectCardComponent } from './widgets/workspace/components/events-correct-card/events-correct-card.component';
+import { EventsSmotrIconComponent } from './widgets/workspace/components/events-smotr-icon/events-smotr-icon.component';
 
 @NgModule({
     declarations: [
@@ -304,6 +305,7 @@ import { EventsCorrectCardComponent } from './widgets/workspace/components/event
         EventsReasonsComponent,
         EventsCorrectComponent,
         EventsCorrectCardComponent,
+        EventsSmotrIconComponent,
     ],
     entryComponents: [
         LineChartComponent,

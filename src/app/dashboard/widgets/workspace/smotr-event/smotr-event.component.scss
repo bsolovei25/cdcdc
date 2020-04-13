@@ -119,6 +119,13 @@
   .events-correct {
     height: 490px;
   }
+
+  .events-icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
   // END-ELEMENTS
 
   // MAT-SELECT
