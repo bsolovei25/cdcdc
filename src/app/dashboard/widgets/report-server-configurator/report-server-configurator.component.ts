@@ -73,8 +73,6 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     public newRecord: string;
     public newFolder: string;
 
-    public fileName: string;
-
     public folderActive: number;
 
     public connectedTo: any = [];
@@ -172,23 +170,22 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     }
 
     getReporting(id) {
-        this.isLoading = true;
-        return this.reportService.getReporting(id).subscribe((ans) => {
-            if (ans.fileTemplate) {
-                this.selectFile = ans.fileTemplate;
-            } else {
-                ans.fileTemplate = {
-                    createdAt: new Date(),
+        this.selectFile = {
+            fileTemplate: {
+                createdAt: new Date(),
                     createdBy: null,
                     description: '',
                     fileId: '',
                     id: null,
                     isDeleted: false,
                     name: '',
-                };
+            }
+        }
+        this.isLoading = true;
+        return this.reportService.getReporting(id).subscribe((ans) => {
+            if(ans?.fileTemplate){
                 this.selectFile = ans.fileTemplate;
             }
-            this.fileName = ans.fileTemplate.name;
             this.reportTemplate = ans;
             this.optionsActive = ans.systemOptions;
             this.optionsCustom = ans;
@@ -413,7 +410,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
 
     onChangeFile(event){
-        this.selectFile = this.dataFile.find(e => e.id === event);
+        this.selectFile = this.dataFile.find(e => e.fileId === event);
     }
 
 

@@ -29,8 +29,8 @@
 
       <div *ngIf="item.open" class="content__item-options">
         <ng-container *ngFor="let key of objectKeys(item)">
-          <ng-container *ngIf="key !== 'id' && key !== 'name' && key !== 'open'">
-            <div class="item-block">
+          <ng-container *ngIf="key !== 'id' && key !== 'name' && key !== 'open' && key !== 'isActive'">
+            <div class="item-block" [class.displayOff] = "(item.type !== 'comboBox') && (key === 'source')">
               <div class="options"> {{ optionsName[key] }}</div>
               <div class="value"> {{ item[key] }}</div>
             </div>
