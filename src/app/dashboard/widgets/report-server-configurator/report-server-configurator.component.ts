@@ -377,7 +377,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     onPushReport(): void {
         this.isLoading = true;
-        this.createReport = false;
+        this.addItem = false;
         const object = {
             name: this.newRecord,
             folderId: this.folderActive,
@@ -386,8 +386,8 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             // this.data[this.indexColumn].columns.push(object);
             this.reportService.postReportTemplate(object).subscribe(ans => {
                 this.isLoading = false;
-                // this.getReportFolder();
-                this.getReportTemplate();
+                 this.getReportFolder();
+                //this.getReportTemplate();
             });
             this.newRecord = null;
         }
