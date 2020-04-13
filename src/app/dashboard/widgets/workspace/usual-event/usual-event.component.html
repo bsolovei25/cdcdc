@@ -137,23 +137,25 @@
         (changedDescription)="onChangeEventDescription($event)"
       ></evj-event-description>
 
-      <evj-chat
-        class="facts"
-        [messages]="ewService.event.facts"
-        title="Установленные факты"
-        placeholder="Укажите факты..."
-        [displayGraphImage]="!!ewService.event.graphValues"
-        [onClickItem]="openLineChart"
-        (addingMessage)="onSendMessage($event,'facts')"
-      ></evj-chat>
+      <div class="facts">
+        <evj-chat
+          [messages]="ewService.event.facts"
+          title="Установленные факты"
+          placeholder="Укажите факты..."
+          [displayGraphImage]="!!ewService.event.graphValues"
+          [onClickItem]="openLineChart"
+          (addingMessage)="onSendMessage($event,'facts')"
+        ></evj-chat>
+      </div>
 
-      <evj-chat
-        class="comments"
-        [messages]="ewService.event.comments"
-        title="Комментарии"
-        placeholder="Напишите свой комментарий..."
-        (addingMessage)="onSendMessage($event,'comments')"
-      ></evj-chat>
+      <div class="comments">
+        <evj-chat
+          [messages]="ewService.event.comments"
+          title="Комментарии"
+          placeholder="Напишите свой комментарий..."
+          (addingMessage)="onSendMessage($event,'comments')"
+        ></evj-chat>
+      </div>
     </div>
 
     <div class="workspace__body__right">

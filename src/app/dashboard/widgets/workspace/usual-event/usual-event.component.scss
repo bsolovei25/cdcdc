@@ -509,7 +509,9 @@ $border-size: 4px;
 
       .facts,
       .comments {
-        height: 30%;
+        height: 220px;
+        width: calc(100% - 12px);
+        margin-top: 15px;
       }
     }
 

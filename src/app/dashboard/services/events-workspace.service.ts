@@ -151,7 +151,7 @@ export class EventsWorkspaceService {
     }
 
     public createNewEvent(isRetrieval: boolean = false): void {
-        this.loadItem();
+        // this.loadItem(); // TOFIX
         if (!this.defaultEvent) {
             this.setDefaultEvent();
         }
