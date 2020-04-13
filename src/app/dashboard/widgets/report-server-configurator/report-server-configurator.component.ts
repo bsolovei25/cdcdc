@@ -170,20 +170,10 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     }
 
     getReporting(id) {
-        this.selectFile = {
-            fileTemplate: {
-                createdAt: new Date(),
-                    createdBy: null,
-                    description: '',
-                    fileId: '',
-                    id: null,
-                    isDeleted: false,
-                    name: '',
-            }
-        }
+        this.selectFile = { }
         this.isLoading = true;
         return this.reportService.getReporting(id).subscribe((ans) => {
-            if(ans?.fileTemplate){
+            if (ans?.fileTemplate) {
                 this.selectFile = ans.fileTemplate;
             }
             this.reportTemplate = ans;
@@ -203,13 +193,13 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     mapOptions(data) {
         this.options = data;
         for (let i of this.options) {
-          for (let j of this.optionsActive) {
-            if (i.id === j.templateSystemOption.id) {
-              i.isActive = true;
+            for (let j of this.optionsActive) {
+                if (i.id === j.templateSystemOption.id) {
+                    i.isActive = true;
+                }
             }
-          }
         }
-      }
+    }
 
     onEdit(item) {
         item.openEdit = true;
@@ -332,8 +322,8 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             // this.data[this.indexColumn].columns.push(object);
             this.reportService.postReportTemplate(object).subscribe(ans => {
                 this.isLoading = false;
-               // this.getReportFolder();
-               this.getReportTemplate();
+                // this.getReportFolder();
+                this.getReportTemplate();
             });
             this.newRecord = null;
         }
@@ -409,7 +399,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     }
 
 
-    onChangeFile(event){
+    onChangeFile(event) {
         this.selectFile = this.dataFile.find(e => e.fileId === event);
     }
 
