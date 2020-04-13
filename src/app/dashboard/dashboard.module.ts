@@ -146,9 +146,10 @@ import { AdminAdImportComponent } from './widgets/admin-panel/admin-ad-import/ad
 import { AddReportFileComponent } from './widgets/report-server-configurator/add-report-file/add-report-file.component';
 import { TankCalibrationTableComponent } from './widgets/tank-calibration-table/tank-calibration-table.component';
 import { TankCalibrationTableFilesComponent } from './widgets/tank-calibration-table/tank-calibration-table-files/tank-calibration-table-files.component';
-import { UploadTableComponent } from './widgets/tank-calibration-table/upload-table/upload-table.component';
-import { UploadDropComponent } from './widgets/tank-calibration-table/upload-table/upload-drop/upload-drop.component';
+import { UploadDropComponent } from './widgets/tank-calibration-table/upload-form/upload-drop/upload-drop.component';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { TanksTableComponent } from './widgets/tank-calibration-table/tanks-table/tanks-table.component';
+import { UploadFormComponent } from './widgets/tank-calibration-table/upload-form/upload-form.component';
 
 @NgModule({
     declarations: [
@@ -274,8 +275,9 @@ import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/materia
         AddReportFileComponent,
         TankCalibrationTableComponent,
         TankCalibrationTableFilesComponent,
-        UploadTableComponent,
+        UploadFormComponent,
         UploadDropComponent,
+        TanksTableComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -330,8 +332,9 @@ import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/materia
         ReportComponent,
         ReportsComponent,
         TankCalibrationTableComponent,
-        UploadTableComponent,
+        UploadFormComponent,
         UploadDropComponent,
+        TanksTableComponent,
     ],
     exports: [HomeComponent],
     imports: [

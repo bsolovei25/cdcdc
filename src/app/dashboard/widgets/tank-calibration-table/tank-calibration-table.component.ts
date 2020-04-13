@@ -3,9 +3,10 @@ import { WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { SelectionModel } from '@angular/cdk/collections';
 import { TankCalibrationTableService } from '../../services/tank-calibration-table.service';
-import { UploadTableComponent } from './upload-table/upload-table.component';
+import { UploadFormComponent } from './upload-form/upload-form.component';
 import { MatDialog } from '@angular/material/dialog';
 import * as moment from 'moment';
+import { TanksTableComponent } from './tanks-table/tanks-table.component';
 
 export interface ICalibrationTable {
     uid: string;
@@ -42,10 +43,10 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
     public isCurrent: boolean;
     public dateNow: Date;
 
-    data: ICalibrationTable[] = [
-
-    ];
+    data: ICalibrationTable[] = [];
     dataSource: ICalibrationTable[] = [];
+    tanksAvailable: ICalibrationTable[] = [];
+
     endTr = [];
     endTr2 = [];
 
@@ -99,7 +100,9 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         );
         dataLoadQueue.push(
             this.calibrationService.getTankAvailable().then((data) => {
-                console.log(data);
+                this.tanksAvailable = data;
+                console.log(this.tanksAvailable);
+
             })
         );
         dataLoadQueue.push();
@@ -199,10 +202,23 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
 
     openDialog(): void {
         const dialogRef = this.dialog
-            .open(UploadTableComponent, {
+            .open(UploadFormComponent, {
                 data: {
                     title: 'Выбор номенклатуры',
                 },
+                autoFocus: true,
+            });
+        // when dialog is closed, check result
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+        });
+    }
+
+    openTanksTable(): void {
+
+        const dialogRef = this.dialog
+            .open(TanksTableComponent, {
+                data: this.tanksAvailable,
                 autoFocus: true,
             });
         // when dialog is closed, check result
