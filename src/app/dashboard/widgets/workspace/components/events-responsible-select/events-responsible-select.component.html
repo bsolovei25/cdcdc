@@ -1,0 +1,61 @@
+<div class="responsible">
+  <div
+    *ngIf="ewService.event.fixedBy?.id && ewService.event.fixedBy.login === ''"
+    class="choosenUser"
+  >
+    <div class="name_user">
+      <div class="name_user_responsible">
+        Ответственный
+      </div>
+      <div class="name_user_info" *ngIf="ewService.event.fixedBy">
+        <div>
+          {{ewService.event.fixedBy.displayName}}
+        </div>
+        <div>{{ewService.event.fixedBy.positionDescription}}</div>
+      </div>
+    </div>
+    <div class="brigade_user">
+      <div class="brigade_user_text">
+        Бригада {{ ewService.event.fixedBy?.brigade?.number }}
+      </div>
+    </div>
+    <div class="avatar_user">
+      <div class="avatar_user_img">
+        <img [src]="ewService.getUserAvatarUrl(ewService.event.fixedBy)" />
+      </div>
+    </div>
+  </div>
+  <div *ngIf="ewService.event.fixedBy.login !== ''" class="choosenUser">
+    <div class="name_user">
+      <div class="name_user_responsible">
+        Ответственный
+      </div>
+      <div class="name_user_info">
+        <div>
+          {{ ewService.event.fixedBy.displayName }}
+        </div>
+        <div>{{ ewService.event.fixedBy.positionDescription }}</div>
+      </div>
+    </div>
+    <div class="brigade_user">
+      <div class="brigade_user_text">
+        Бригада {{ ewService.event.fixedBy?.brigade?.number }}
+      </div>
+    </div>
+    <div class="avatar_user">
+      <div class="avatar_user_img">
+        <img [src]="ewService.getUserAvatarUrl(ewService.event.fixedBy)" />
+      </div>
+    </div>
+  </div>
+  <evj-ui-block status="normal">
+    <mat-form-field>
+      <mat-label>Отвественный</mat-label>
+      <mat-select panelClass="mat-select-custom" [(ngModel)]="ewService.event.fixedBy">
+        <mat-option *ngFor="let p of ewService.users" [value]="p" (click)="chooseRespons(p)"
+          >{{ p.lastName }} {{ p.firstName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </evj-ui-block>
+</div>

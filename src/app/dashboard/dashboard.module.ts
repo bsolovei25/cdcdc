@@ -162,6 +162,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon';
 import { EventsWorkspaceButtonComponent } from './widgets/workspace/components/events-workspace-button/events-workspace-button.component';
+import { EventsResponsibleSelectComponent } from './widgets/workspace/components/events-responsible-select/events-responsible-select.component';
 
 @NgModule({
     declarations: [
@@ -296,6 +297,7 @@ import { EventsWorkspaceButtonComponent } from './widgets/workspace/components/e
         AdditionalParamComponent,
         CustomReportOptionsComponent,
         EventsWorkspaceButtonComponent,
+        EventsResponsibleSelectComponent,
     ],
     entryComponents: [
         LineChartComponent,
