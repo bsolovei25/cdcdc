@@ -174,6 +174,7 @@ import { EventsReasonsComponent } from './widgets/workspace/components/events-re
 import { EventsCorrectComponent } from './widgets/workspace/components/events-correct/events-correct.component';
 import { EventsCorrectCardComponent } from './widgets/workspace/components/events-correct-card/events-correct-card.component';
 import { EventsSmotrIconComponent } from './widgets/workspace/components/events-smotr-icon/events-smotr-icon.component';
+import { EventsCommentWindowComponent } from './widgets/workspace/components/events-comment-window/events-comment-window.component';
 
 @NgModule({
     declarations: [
@@ -318,6 +319,7 @@ import { EventsSmotrIconComponent } from './widgets/workspace/components/events-
         EventsCorrectComponent,
         EventsCorrectCardComponent,
         EventsSmotrIconComponent,
+        EventsCommentWindowComponent,
     ],
     entryComponents: [
         LineChartComponent,
