@@ -13,9 +13,49 @@
       <div class="references">
         <div class="reference-left">
           <div class="title-reference">Наименование отчета</div>
-          <div class="reference-container" style="direction: ltr !important;">
-            <div class="scroll-block" id="leftScrollReportConfig"> 
-              <tree-root [state]="state" [options]="optionsTest" [focused]="true" [nodes]="this.dataFolder" (dragover)="$event.stopPropagation()"></tree-root>
+          <div class="reference-container">
+            <div class="scroll-block" id="leftScrollReportConfig">
+              <tree-root [state]="state" [options]="optionsTest" [focused]="true" [nodes]="this.dataFolder"
+                (dragover)="$event.stopPropagation()"  
+                (blur)="onEventTree($event)"
+                (activate)="onFolder($event)"
+                (moveNode)="onMovedItem($event)">
+                <ng-template #treeNodeTemplate let-node let-index="index">
+                  <div *ngIf="node.data.type === 'Template'" class="tree-template" (click)="onClickReference(node.data, index)">
+                    <div *ngIf="!node.data.openEdit">
+                      <span [class]="node.data.className + 'Index'">Файл-шаблон: </span>
+                      <span [class]="node.data.className" [class.title]="true">{{ node.data.name }}</span>
+                      <div *ngIf="this.isIdReport === node.data.id" class="reference-container__button-edit" (click)="$event.stopPropagation()">
+                        <svg-icon  class="indicator-selector__collapse"
+                          src="./assets/icons/widgets/reports/edit_white.svg" (click)="onEdit(node.data)"></svg-icon>
+                      </div>
+                      <div *ngIf="this.isIdReport === node.data.id" class="reference-container__button-remove" (click)="deleteReportTemplate(node.data)">
+                      </div>
+                    </div>
+                    <div *ngIf="node.data.openEdit" class="reference-container__block-info">
+                      <div class="reference-container__add-block-input" (click)="$event.stopPropagation()">
+                        <input type="text" [(ngModel)]="node.data.name" placeholder="Новое наименование..." />
+                      </div>
+                      <div class="reference-container__add-block-icon" (click)="editReference(node.data)">
+                        <svg-icon src="./assets/icons/widgets/reports/accept.svg" class="add_button_icon"></svg-icon>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="node.data.type === 'Folder'" style="background-image: none !important">
+                    <span [class]="node.data.className + 'Index'">Папка: </span>
+                    <span [class]="node.data.className" [class.title]="true">{{ node.data.name }}</span>
+                  </div>
+                  <div *ngIf="addItem && node.data.id === folderActive" class="reference-container__add-block">
+                    <div class="reference-container__add-block-input">
+                      <input *ngIf="createReport" type="text" [(ngModel)]="newRecord" placeholder="Введите название файла-шаблона..." />
+                      <input *ngIf="createFolder" type="text" [(ngModel)]="newRecord" placeholder="Введите название папки..." />
+                    </div>
+                    <div class="reference-container__add-block-icon" (click)="onPushReport()">
+                      <svg-icon src="./assets/icons/widgets/references/accept.svg" class="add_button_icon"></svg-icon>
+                    </div>
+                  </div>
+                </ng-template>
+              </tree-root>
               <!-- <div *ngFor="let item of data; let i = index">
                 <div class="reference-container__block">
                   <div *ngIf="!item.openEdit" class="reference-container__block-info"
@@ -138,7 +178,8 @@
                 </div>
                 <div class="reference-container-value__type">
                   <mat-form-field class="categories_selectbox">
-                    <mat-select panelClass="mat-select-custom" [(ngModel)]="selectFile.id" (ngModelChange)="onChangeFile($event)">
+                    <mat-select panelClass="mat-select-custom" [(ngModel)]="selectFile.id"
+                      (ngModelChange)="onChangeFile($event)">
                       <mat-option *ngFor="let p of dataFile" [value]="p.id">{{ p.name }}
                       </mat-option>
                     </mat-select>
@@ -170,7 +211,8 @@
                 <div class="references-container-check-block__name-item">{{item.name}}</div>
                 <div class="references-container-check-block__check-item">
                   <label class="mycheckbox">
-                    <input type="checkbox" id="checkBoxValue" class="mycheckbox__default" (click)="changeSwap(item)" [checked]="item.isActive"/>
+                    <input type="checkbox" id="checkBoxValue" class="mycheckbox__default" (click)="changeSwap(item)"
+                      [checked]="item.isActive" />
                     <div class="mycheckbox__new"></div>
                   </label>
                 </div>

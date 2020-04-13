@@ -62,6 +62,8 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     public isIdReport: number;
 
+    public addItem: boolean = false;
+
     public data;
     public options;
     public optionsActive: any = [];
@@ -69,9 +71,9 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     public reportTemplate = [];
     public dataFile;
 
-    public clickPushRef: boolean = false;
+    public createFolder: boolean = false;
 
-    public clickPushRec: boolean = false;
+    public createReport: boolean = false;
 
     public newRecord: string;
     public newFolder: string;
@@ -154,12 +156,13 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     getReportFolder() {
         return this.reportService.getTemplateFolder().subscribe(ans => {
-            this.dataFolder =  this.mapDataFolder(ans);
-          //  this.dataFolder = ans;
+            this.dataFolder = this.mapDataFolder(ans);
+            //  this.dataFolder = ans;
             // this.saveData = ans;
             // for (let item of this.data) {
             //     this.connectedTo.push(item.name);
             // }
+            console.log(this.dataFolder);
         });
     }
 
@@ -212,23 +215,23 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     mapDataFolder(data) {
         const test = [];
         for (let i of data) {
-            const obj = {
+            let obj = {
                 id: i.id,
                 name: i.name,
-                children: this.mapDataFolder2(i?.childFolders),
-            }
-            test.push(obj);
-        }
-        return test;
-    }
-
-    mapDataFolder2(data) {
-        const test = [];
-        for (let i of data) {
-            const obj = {
-                id: i.id,
-                name: i.name,
+                type: 'Folder',
                 children: this.mapDataFolder(i?.childFolders),
+            }
+            for (let temp of i.templates) {
+                let templateObj = {
+                    id: temp.id,
+                    name: temp.name,
+                    type: 'Template',
+                    folderId: temp.id,
+                    displayName: temp.displayName,
+                    isDeleted: temp.isDeleted,
+                    children: [],
+                }
+                obj.children.push(templateObj);
             }
             test.push(obj);
         }
@@ -253,12 +256,15 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     editReference(item) {
         item.openEdit = false;
         const obj = {
-            createdAt: item.createdAt,
-            displayName: item.displayName,
             id: item.id,
-            isDeleted: item.isDeleted,
             name: item.name,
+            displayName: item.displayName,
+            isDeleted: item.isDeleted,
         }
+        this.putReportTemplate(obj);
+    }
+
+    putReportTemplate(obj) {
         this.reportService.putReportTemplate(obj).subscribe((ans) => {
             this.getReportTemplate();
         });
@@ -275,7 +281,6 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     onClickReference(data, index) {
         this.getReporting(data.id);
         this.isAddOptionsButton = true; // file
-        this.folderActive = data.id;
         this.isIdReport = data.id;
         data.open = !data.open;
         this.indexColumn = index;
@@ -333,17 +338,31 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     }
 
     pushBlockInRef(): void {
-        this.clickPushRef = true;
+        if (!this.folderActive) {
+            this.materialController.openSnackBar(
+                'Выберите папку'
+            );
+        }
+        this.addItem = true;
+        this.createReport = false;
+        this.createFolder = true;
         this.addMenuClick = false;
     }
 
     pushBlockInRec(): void {
-        this.clickPushRec = true;
+        if (!this.folderActive) {
+            this.materialController.openSnackBar(
+                'Выберите папку'
+            );
+        }
+        this.addItem = true;
+        this.createFolder = false;
+        this.createReport = true;
         this.addMenuClick = false;
     }
 
     onPushFolder(): void {
-        this.clickPushRef = false;
+        this.createFolder = false;
         const object = {
             name: this.newFolder,
         };
@@ -358,7 +377,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     onPushReport(): void {
         this.isLoading = true;
-        this.clickPushRec = false;
+        this.createReport = false;
         const object = {
             name: this.newRecord,
             folderId: this.folderActive,
@@ -460,6 +479,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     optionsTest: ITreeOptions = {
         allowDrag: (node) => node.isLeaf,
+        allowDrop: (element, { parent, index }) => parent.data.type === 'Folder',
         getNodeClone: (node) => ({
             ...node.data,
             id: this.randomInt(1, 1000000),
@@ -467,37 +487,28 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         })
     };
 
-    nodes = [
-        {
-            id: 1,
-            name: 'root1',
-            children: [
-                { name: 'child1' },
-                { name: 'child2' }
-            ]
-        },
-        {
-            name: 'root2',
-            id: 2,
-            children: [
-                { name: 'child2.1', children: [] },
-                {
-                    name: 'child2.2', children: [
-                        { name: 'grandchild2.2.1' }
-                    ]
-                }
-            ]
-        },
-        { name: 'root3' },
-        { name: 'root4', children: [] },
-        { name: 'root5', children: null }
-    ];
-
-
     randomInt(min, max) {
         return min + Math.floor((max - min) * Math.random());
     }
 
+    onFolder(event) {
+        if (event.node.data.type === "Folder") {
+            this.folderActive = event.node.id;
+        }
+    }
 
+    onEventTree(event) {
+        console.log(event);
+    }
+
+    onMovedItem(event) {
+        console.log(event);
+        const obj = {
+            id: event.node.id,
+            name: event.node.name,
+            folderId: event.to.parent.id,
+        }
+        this.putReportTemplate(obj);
+    }
 
 }
