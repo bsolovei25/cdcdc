@@ -98,22 +98,22 @@
           </tr>
         </thead>
         <tbody class="table__body" style="text-align: center;">
-          <ng-container *ngFor="let element of chooseTanks?.data">
+          <ng-container *ngFor="let element of chooseTanks">
             <tr class="expanded-row">
               <td class="item item__td item__name" style="text-align: center">
-                {{ element.editDate | date }}
+                {{ element?.editDate | date }}
               </td>
               <td class="item item__td item__name" style="text-align: center">
-                {{ element.user.firstName }}
+                {{ element?.user?.firstName }}
               </td>
               <td class="item item__td item__name" style="text-align: center">
-                {{ element.empty }}
+                {{ element?.empty }}
               </td>
               <td class="item item__td item__name" style="text-align: center">
-                {{ element.updateDate | date }}
+                {{ element?.updateDate | date }}
               </td>
               <td class="item item__td item__name" style="text-align: center">
-                {{ element.comment }}
+                {{ element?.comment }}
               </td>
             </tr>
           </ng-container>

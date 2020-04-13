@@ -112,5 +112,10 @@ export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
         }
     }
 
+    searchInput(event): void {
+        // this.dataSource = this.data?.filter((val) => val.name.toLowerCase()
+        //     .includes(event?.target?.value.toLowerCase()));
+    }
+
 
 }
