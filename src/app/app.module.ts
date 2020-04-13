@@ -11,7 +11,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorInterceptor } from '@core/interceptors/error.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthenticationInterceptor } from '@core/interceptors/authentication.interceptor';
-import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogRef } from '@angular/material/dialog';
 
 @NgModule({
     imports: [
@@ -41,7 +40,6 @@ import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogRef } from '@angular/material/dial
             useClass: AuthenticationInterceptor,
             multi: true,
         },
-        { provide: MatDialogRef, useValue: {} },
     ],
     bootstrap: [AppComponent],
 })
