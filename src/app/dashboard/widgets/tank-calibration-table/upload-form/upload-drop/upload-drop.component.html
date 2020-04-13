@@ -1,0 +1,20 @@
+<div
+  class="container"
+  (mousedown)="$event.stopPropagation()"
+  (touchstart)="$event.stopPropagation()"
+>
+  <section class="upload-drop">
+    <div class="upload-drop__body">
+      <svg-icon
+        (click)="onNoClick()"
+        class="upload-drop__body__icon"
+        src="./assets/icons/widgets/calibration-table/close.svg"
+        [svgStyle]="{ 'width.px': 20, 'height.px': 20 }"
+      >
+      </svg-icon>
+    </div>
+    <div class="upload-drop__footer">
+      Выберите файл или перетащите его сюда!
+    </div>
+  </section>
+</div>

@@ -1,0 +1,138 @@
+<div class="content" style="border-left: none; border-right: none">
+  <section
+    class="table__left"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="table scroll-bar" #tableBody3>
+      <table>
+        <thead>
+          <tr class="header__items">
+            <th class="header header__th header__name">
+              Наименование
+            </th>
+          </tr>
+        </thead>
+        <tbody class="table__body">
+          <ng-container *ngFor="let element of dataSource">
+            <tr
+              class="table__item"
+              (click)="expandedElement.isSelected(element) ? 
+                       expandedElement.deselect(element)
+                       : expandedElement.select(element)"
+            >
+              <td class="item item__tr">
+                <svg-icon
+                  class="item__tr-icon"
+                  src="assets/icons/widgets/calibration-table/arrow.svg"
+                  [svgStyle]="{ 'width.px':8, 'height.px':5 }"
+                  [class.arrow-rtl]="expandedElement.isSelected(element)"
+                ></svg-icon>
+                <span class="item__tr-name">{{ element.name }}</span>
+              </td>
+            </tr>
+            <ng-container *ngFor="let elementChildren of getChildrenRows(element)">
+              <tr
+                *ngIf="expandedElement.isSelected(element)"
+                [class.expanded-row]="elementChildren"
+                (click)="chooseTank(elementChildren)"
+              >
+                <td [class.expanded-column]="elementChildren" class="item item__td item__name">
+                  {{ elementChildren.name }}
+                </td>
+              </tr>
+            </ng-container>
+          </ng-container>
+          <ng-container *ngFor="let end of endTr">
+            <tr class="table__item expanded-row">
+              <td class="item item__td item__name expanded-column"></td>
+            </tr>
+          </ng-container>
+        </tbody>
+        <tfoot>
+          <div class="bottom-reference-left">
+            <div class="bottom-reference-left__block">
+              <div class="bottom-reference-left__input-block">
+                <div class="bottom-reference-left__button-search">
+                  <svg-icon
+                    class="button_filter_icon"
+                    src="./assets/icons/widgets/references/search_white.svg"
+                  >
+                  </svg-icon>
+                </div>
+                <div class="bottom-reference-left__input">
+                  <input type="text" (keyup)="searchInput($event)" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </tfoot>
+      </table>
+    </div>
+  </section>
+
+  <section
+    class="table__right"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
+    <div class="table scroll-bar" #tableRight4>
+      <table>
+        <thead>
+          <tr class="header__items">
+            <th class="header header__th header__name">
+              Дата изменения
+            </th>
+            <th class="header header__th header__name">
+              Пользователь
+            </th>
+            <th class="header header__th header__name">
+              Поле
+            </th>
+            <th class="header header__th header__name">
+              Обновленное значение
+            </th>
+            <th class="header header__th header__name">
+              Комментарий
+            </th>
+          </tr>
+        </thead>
+        <tbody class="table__body" style="text-align: center;">
+          <ng-container *ngFor="let element of chooseTanks">
+            <tr class="expanded-row">
+              <td class="item item__td item__name" style="text-align: center">
+                {{ element?.editDate | date }}
+              </td>
+              <td class="item item__td item__name" style="text-align: center">
+                {{ element?.user?.firstName }}
+              </td>
+              <td class="item item__td item__name" style="text-align: center">
+                {{ element?.empty }}
+              </td>
+              <td class="item item__td item__name" style="text-align: center">
+                {{ element?.updateDate | date }}
+              </td>
+              <td class="item item__td item__name" style="text-align: center">
+                {{ element?.comment }}
+              </td>
+            </tr>
+          </ng-container>
+          <ng-container *ngFor="let end of endTr2">
+            <tr class="table__item expanded-row">
+              <td class="item item__td item__name"></td>
+              <td class="item item__td item__name"></td>
+              <td class="item item__td item__name"></td>
+              <td class="item item__td item__name"></td>
+              <td class="item item__td item__name"></td>
+            </tr>
+          </ng-container>
+        </tbody>
+        <tfoot>
+          <div class="bottom-reference-left">
+            <div class="bottom-reference-left__block"></div>
+          </div>
+        </tfoot>
+      </table>
+    </div>
+  </section>
+</div>
