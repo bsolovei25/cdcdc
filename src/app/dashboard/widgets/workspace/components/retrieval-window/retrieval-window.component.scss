@@ -274,6 +274,11 @@ $border-size: 4px;
       height: 0;
     }
 
+    .mat-form-field-wrapper {
+      padding-bottom: 0px;
+      margin: 7px 0px;
+    }
+
     .mat-select-value {
       color: var(--color-text-main);
     }

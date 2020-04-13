@@ -13,7 +13,6 @@ import {
 })
 export class EventsCorrectCardComponent implements OnInit {
     @Input() public event: IRetrievalEvents = null;
-    public status: string = 'danger';
 
     public readonly statusesColors: { [id in EventsWidgetNotificationStatus]: string } = {
         new: 'standart',

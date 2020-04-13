@@ -59,6 +59,10 @@
       width: 50%;
       height: 100%;
     }
+
+    &:last-child {
+      margin: 0px;
+    }
   }
 
   .cell {
@@ -80,7 +84,7 @@
   }
 
   .chat {
-    height: 265px;
+    height: 245px;
   }
 
   .information {
@@ -117,7 +121,7 @@
   }
 
   .events-correct {
-    height: 490px;
+    height: 400px;
   }
 
   .events-icons {
@@ -144,9 +148,74 @@
       height: 0;
     }
 
+    .mat-form-field-wrapper {
+      padding-bottom: 0px;
+      margin: 7px 0px;
+    }
+
     .mat-select-value {
       color: var(--color-text-main);
     }
   }
   // END-MAT-SELECT
+
+  .standard {
+    border: 1px solid;
+    border-image: linear-gradient(90deg, transparent 0%, var(--color-standard) 100%);
+    border-image-slice: 1;
+    background-image: linear-gradient(
+      to right,
+      #6fcf97 0%,
+      #66bd8c 2%,
+      #569875 6%,
+      #477862 11%,
+      #3b5d51 17%,
+      #314743 23%,
+      #293639 30%,
+      #232a32 39%,
+      #20232e 52%,
+      #20222d 86%
+    );
+  }
+
+  .warning {
+    border: 1px solid;
+    border-image: linear-gradient(90deg, transparent 0%, var(--color-warning) 100%);
+    border-image-slice: 1;
+    background-image: linear-gradient(
+      to right,
+      #f4a321 0%,
+      #e59a21 1%,
+      #bc8124 5%,
+      #966a26 9%,
+      #765628 14%,
+      #5b4629 19%,
+      #45382a 25%,
+      #342e2b 32%,
+      #28272c 41%,
+      #21232c 53%,
+      #20222d 86%
+    );
+  }
+
+  .danger {
+    border: 1px solid;
+    border-image: linear-gradient(90deg, transparent 0%, var(--color-danger) 100%);
+    border-image-slice: 1;
+    background: #eb5757;
+    background-image: linear-gradient(
+      to right,
+      #eb5757 0%,
+      #e55555 0%,
+      #bc4a4d 4%,
+      #974145 9%,
+      #76383e 14%,
+      #5b3139 19%,
+      #452b34 25%,
+      #342731 32%,
+      #28242e 41%,
+      #21222d 53%,
+      #20222d 86%
+    );
+  }
 }
