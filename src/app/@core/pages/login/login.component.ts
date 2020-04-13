@@ -54,10 +54,12 @@ export class LoginComponent implements OnInit, AfterViewInit {
                 this.password.value
             );
             if (auth) {
-                this.router.navigate(['dashboard']);
-                setTimeout(() => {
-                    this.isLoadingData = false;
-                }, 1000);
+                this.router.routeReuseStrategy.shouldReuseRoute = () => { return false; };
+                await this.router.navigate(['dashboard'], {skipLocationChange: true});
+                this.isLoadingData = false;
+                // setTimeout(() => {
+                //     this.isLoadingData = false;
+                // }, 1000);
             } else {
                 this.swing = true;
                 this.isLoadingData = false;

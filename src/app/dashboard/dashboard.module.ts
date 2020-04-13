@@ -1,5 +1,5 @@
 import { ChangeShiftComponent } from './widgets/change-shift/change-shift.component';
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { NgModule, LOCALE_ID, APP_INITIALIZER } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './pages/home/home.component';
 import { SharedModule } from '../@shared/shared.module';
@@ -168,6 +168,8 @@ import { CustomReportOptionsComponent } from './widgets/custom-report-properties
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon';
+import { AppConfigService } from '../services/appConfigService';
+import { WidgetService } from './services/widget.service';
 
 @NgModule({
     declarations: [
