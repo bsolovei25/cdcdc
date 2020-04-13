@@ -164,6 +164,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { EventsWorkspaceButtonComponent } from './widgets/workspace/components/events-workspace-button/events-workspace-button.component';
 import { EventsResponsibleSelectComponent } from './widgets/workspace/components/events-responsible-select/events-responsible-select.component';
 import { EventsReasonsComponent } from './widgets/workspace/components/events-reasons/events-reasons.component';
+import { EventsCorrectComponent } from './widgets/workspace/components/events-correct/events-correct.component';
+import { EventsCorrectCardComponent } from './widgets/workspace/components/events-correct-card/events-correct-card.component';
 
 @NgModule({
     declarations: [
@@ -300,6 +302,8 @@ import { EventsReasonsComponent } from './widgets/workspace/components/events-re
         EventsWorkspaceButtonComponent,
         EventsResponsibleSelectComponent,
         EventsReasonsComponent,
+        EventsCorrectComponent,
+        EventsCorrectCardComponent,
     ],
     entryComponents: [
         LineChartComponent,
