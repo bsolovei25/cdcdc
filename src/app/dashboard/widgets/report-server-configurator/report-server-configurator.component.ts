@@ -229,8 +229,10 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
                     id: temp.id,
                     name: temp.name,
                     type: 'Template',
-                    folderId: temp.id,
+                    folderId: temp.folderId,
                     displayName: temp.displayName,
+                    createdBy: temp.createdBy,
+                    createdAt: temp.createdAt,
                     isDeleted: temp.isDeleted,
                     children: [],
                 }
@@ -259,9 +261,12 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     editReference(item) {
         item.openEdit = false;
         const obj = {
+            folderId: item.folderId,
             id: item.id,
             name: item.name,
-            displayName: item.displayName,
+            createdAt: item.createdAt,
+            createdBy: item.createdBy,
+            displayName: '',
             isDeleted: item.isDeleted,
         }
         this.putReportTemplate(obj);
@@ -380,18 +385,26 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     onPushReport(): void {
         this.isLoading = true;
-        this.addItem = false;
         const object = {
             name: this.newRecord,
             folderId: this.folderActive,
         };
         if (this.newRecord.trim().length > 0 && this.newRecord !== undefined) {
-            // this.data[this.indexColumn].columns.push(object);
-            this.reportService.postReportTemplate(object).subscribe(ans => {
-                this.isLoading = false;
-                this.getReportFolder();
-                //this.getReportTemplate();
-            });
+            if (this.createFolder) {
+                this.reportService.postTemplateFolder(object).subscribe(ans => {
+                    this.addItem = false;
+                    this.isLoading = false;
+                    this.getReportFolder();
+                });
+            }
+
+            if (this.createReport) {
+                this.reportService.postReportTemplate(object).subscribe(ans => {
+                    this.addItem = false;
+                    this.isLoading = false;
+                    this.getReportFolder();
+                });
+            }
             this.newRecord = null;
         }
     }
@@ -506,12 +519,24 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     onMovedItem(event) {
         console.log(event);
-        const obj = {
-            id: event.node.id,
-            name: event.node.name,
-            folderId: event.to.parent.id,
+        if (event.node.type === "Folder") {
+            const obj = {
+                id: event.node.id,
+                name: event.node.name,
+                parentFolderId: event.to.parent.id,
+            }
+            this.reportService.putFolderTemplate(obj).subscribe(ans => {
+                console.log('test');
+             });
+        } else if (event.node.type === "Template") {
+            const obj = {
+                id: event.node.id,
+                name: event.node.name,
+                folderId: event.to.parent.id,
+            }
+            this.putReportTemplate(obj);
         }
-     //this.putReportTemplate(obj);
+
     }
 
 }
