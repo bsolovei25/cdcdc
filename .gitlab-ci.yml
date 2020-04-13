@@ -107,7 +107,7 @@ staging:
         CMD_REPLACE: sed -i -E "s/(<title>Evj)(<\/title>)/\1 | ${CI_COMMIT_SHORT_SHA} \2/g" /var/www/angular-staging.local/public/index.html
     script:
         - env
-        - cd ${ROCKETCHAT_HOOKS} ; git pull origin master --no-edit ; python3 rockethooks.py
+          #- cd ${ROCKETCHAT_HOOKS} ; git pull origin master --no-edit ; python3 rockethooks.py
         - ssh root@${DEPLOY_DOMAIN} rm -rf /var/www/angular-staging.local/public
         - scp -r ./public root@${DEPLOY_DOMAIN}:/var/www/angular-staging.local
         - ssh root@${DEPLOY_DOMAIN} $CMD_REPLACE
