@@ -1,4 +1,4 @@
-<evj-widget-preview [title]="widgetTitle" [previewTitle]="widgetType" *ngIf="isMock"></evj-widget-preview>
+<evj-widget-preview [title]="widgetTitle" [code]="widgetCode" [previewTitle]="widgetType" *ngIf="isMock"></evj-widget-preview>
 
 <div class="container" *ngIf="!isMock">
   <evj-widget-header [title]="widgetTitle" [units]="widgetUnits" [code]="widgetCode" [id]="id" [uniqId]="uniqId"
@@ -7,11 +7,13 @@
   <evj-frame-top></evj-frame-top>
 
   <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+    <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
+    <evj-alert-window [info]="referencesService.alertWindow$ | async"></evj-alert-window>
     <div class="references">
       <div class="reference-left">
         <div class="title-reference">Наименование справочника</div>
         <div class="reference-container">
-          <div class="scroll-block">
+          <div class="scroll-block" id="leftScrollAdmRef">
             <ng-container *ngFor="let item of data; let i= index">
               <div class="reference-container__block">
                 <div *ngIf="!item.openEdit" class="reference-container__block-info"
@@ -82,18 +84,18 @@
           </div>
         </div>
         <div class="references-container-scroll-block">
-          <div class="reference-container-value" cdkDropList (cdkDropListDropped)="drop($event)"
+          <div id="rightScrollAdmRef" class="reference-container-value" cdkDropList (cdkDropListDropped)="drop($event)"
             [class.isLongBlock]="isLongBlock" #adminRefereneTable>
             <ng-container *ngIf="data[this.indexColumn] !== undefined">
               <div *ngFor="let item of data[this.indexColumn].columns" cdkDrag class="example-box">
-                <div class="reference-container-value__block">
+                <div class="reference-container-value__block" [class.disabled]="item.name === 'Id' || item.name === 'Name'">
                   <div *ngIf="!item.openEdit" class="reference-container-value__fio-block"
                     [class.block-active-name]="item.open" (click)="onClickItemReference(item)">
                     <div class="reference-container-value__fio">{{item.name}}</div>
                   </div>
                   <div *ngIf="item.openEdit" class="reference-container__block-info" [class.block-active]="item.open">
                     <div class="reference-container__add-block-input">
-                      <input type="text" [(ngModel)]="item.name" placeholder="Новое наименование." />
+                      <input type="text" [(ngModel)]="item.name" placeholder="Новое наименование..." />
                     </div>
                     <div class="reference-container__add-block-icon" (click)="editRecord(item)">
                       <svg-icon src="./assets/icons/widgets/references/accept.svg" class="add_button_icon"></svg-icon>
@@ -132,7 +134,7 @@
               <div *ngIf="isClickPushRecord" class="reference-container-value__add-block">
                 <div class="reference-container-value__fio-block">
                   <div class="reference-container-value__fio">
-                    <input type="text" [(ngModel)]="newFioRecord" placeholder="Введите имя колоннки..." />
+                    <input type="text" [(ngModel)]="newFioRecord" placeholder="Введите имя колонки..." />
                   </div>
                 </div>
                 <div class="reference-container-value__type">

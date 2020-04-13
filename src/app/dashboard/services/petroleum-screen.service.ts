@@ -6,11 +6,12 @@ import { AppConfigService } from '../../services/appConfigService';
 import {
     IPetroleumObject, ITankAttribute, ITankInfo, ITankParam,
     ITransfer,
-    ObjectDirection, TransfersFilter
+    ObjectDirection, ObjectType, TransfersFilter
 } from '../models/petroleum-products-movement.model';
 import { SnackBarService } from './snack-bar.service';
 import { IDatesInterval, WidgetService } from './widget.service';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
+import { error } from '@angular/compiler/src/util';
 
 @Injectable({
     providedIn: 'root',
@@ -85,54 +86,58 @@ export class PetroleumScreenService {
 
     public async chooseTransfer(uid: string, toFirst: boolean = false): Promise<void> {
         this.isLoad$.next(true);
-        if (this.localScreenState$.getValue() !== 'operation') {
-            this.openScreen('operation');
-        }
-        const tempTransfers = this.transfers$.getValue();
-        const chooseTransfer = tempTransfers.find((el) => el.uid === uid);
-        if (!chooseTransfer) {
-            this.isLoad$.next(false);
-            return;
-        }
-        tempTransfers.forEach((item) => (item.isActive = false));
-        chooseTransfer.operationType = 'Exist';
-        chooseTransfer.isActive = true;
-        if (toFirst) {
-            const idx = tempTransfers.findIndex(item => item === chooseTransfer);
-            tempTransfers.unshift(...tempTransfers.splice(idx, 1));
-        }
-        this.transfers$.next(tempTransfers);
-        const objectsReceiver = await this.getObjects(
-            this.client,
-            chooseTransfer.sourceName,
-            'enter'
-        );
-        const objectsSource = await this.getObjects(
-            this.client,
-            chooseTransfer.destinationName,
-            'exit'
-        );
-        objectsSource.forEach((item) => (item.isActive = false));
-        objectsReceiver.forEach((item) => (item.isActive = false));
-        if (
-            objectsSource.find((item) => item.objectName === chooseTransfer.sourceName) &&
-            objectsReceiver.find((item) => item.objectName === chooseTransfer.destinationName)
-        ) {
-            objectsSource.find(
-                (item) => item.objectName === chooseTransfer.sourceName
-            ).isActive = true;
-            objectsReceiver.find(
-                (item) => item.objectName === chooseTransfer.destinationName
-            ).isActive = true;
-        } else {
-            this.materialController.openSnackBar(
-                'Источник и приемник не совместимы!',
-                'snackbar-red'
+        try {
+            if (this.localScreenState$.getValue() !== 'operation') {
+                this.openScreen('operation');
+            }
+            const tempTransfers = this.transfers$.getValue();
+            const chooseTransfer = tempTransfers.find((el) => el.uid === uid);
+            if (!chooseTransfer) {
+                this.isLoad$.next(false);
+                return;
+            }
+            tempTransfers.forEach((item) => (item.isActive = false));
+            chooseTransfer.operationType = 'Exist';
+            chooseTransfer.isActive = true;
+            if (toFirst) {
+                const idx = tempTransfers.findIndex(item => item === chooseTransfer);
+                tempTransfers.unshift(...tempTransfers.splice(idx, 1));
+            }
+            this.transfers$.next(tempTransfers);
+            const objectsReceiver = await this.getObjects(
+                this.client,
+                chooseTransfer.sourceName,
+                'enter'
             );
+            const objectsSource = await this.getObjects(
+                this.client,
+                chooseTransfer.destinationName,
+                'exit'
+            );
+            objectsSource.forEach((item) => (item.isActive = false));
+            objectsReceiver.forEach((item) => (item.isActive = false));
+            if (
+                objectsSource.find((item) => item.objectName === chooseTransfer.sourceName) &&
+                objectsReceiver.find((item) => item.objectName === chooseTransfer.destinationName)
+            ) {
+                objectsSource.find(
+                    (item) => item.objectName === chooseTransfer.sourceName
+                ).isActive = true;
+                objectsReceiver.find(
+                    (item) => item.objectName === chooseTransfer.destinationName
+                ).isActive = true;
+            } else {
+                this.materialController.openSnackBar(
+                    'Источник и приемник не совместимы!',
+                    'snackbar-red'
+                );
+            }
+            this.objectsReceiver$.next(objectsReceiver);
+            this.objectsSource$.next(objectsSource);
+            this.currentTransfer$.next(chooseTransfer);
+        } catch (e) {
+            throw error(e);
         }
-        this.objectsReceiver$.next(objectsReceiver);
-        this.objectsSource$.next(objectsSource);
-        this.currentTransfer$.next(chooseTransfer);
         this.isLoad$.next(false);
     }
 
@@ -145,6 +150,7 @@ export class PetroleumScreenService {
         this.objectsSource$.next(objects);
         this.objectsReceiver$.next(objects);
         const emptyTransfer: ITransfer = { ...this.emptyTransferGlobal };
+        emptyTransfer.startTime = new Date();
         this.currentTransfer$.next(emptyTransfer);
     }
 
@@ -298,8 +304,10 @@ export class PetroleumScreenService {
             await this.reGetTransfers(this.widgetService.currentDates$.getValue());
             await this.chooseTransfer(uid);
             this.materialController.openSnackBar('Сохранено');
-        } catch {
-            this.materialController.openSnackBar('Ошибка валидации!', 'snackbar-red');
+        } catch (err) {
+            if (err.status !== 477) {
+                this.materialController.openSnackBar('Ошибка валидации!', 'snackbar-red');
+            }
         }
     }
 
@@ -311,7 +319,13 @@ export class PetroleumScreenService {
         if (!object || !direction) {
             return await this.getObjectsAsync(client);
         }
-        return await this.getReferencesAsync(client, object, direction);
+        const allObjects = [
+            ...this.objectsAll$.getValue(),
+            ...this.objectsReceiver$.getValue(),
+            ...this.objectsSource$.getValue()
+        ];
+        const objectType = allObjects.find(el => el.objectName === object).objectType;
+        return await this.getReferencesAsync(client, object, objectType, direction);
     }
 
     public async getTankAttributes(objectName: string): Promise<ITankAttribute[]> {
@@ -319,16 +333,34 @@ export class PetroleumScreenService {
             let attributes: ITankAttribute[] = await this.http.get<ITankAttribute[]>(
                 `${this.restUrl}/api/petroleum-flow-clients/objects/${objectName}/attr`
             ).toPromise();
-            const regexp = /[A-Z]/;
-            attributes = attributes
-                .filter((el) =>
-                    (el.paramTitle.toUpperCase().search(regexp) === -1) &&
-                    (el.paramValue.toUpperCase().search(regexp) === -1)
-                );
+            attributes.forEach((item) => item.paramSaveDateTime = new Date(item.paramDateTime));
+            // const regexp = /[A-Z]/;
+            // attributes = attributes
+            //     .filter((el) =>
+            //         (el.paramTitle.toUpperCase().search(regexp) === -1) &&
+            //         (el.paramValue.toUpperCase().search(regexp) === -1)
+            //     );
             return attributes;
         } catch {
             return [];
         }
+    }
+
+    public async setTankAttributes(objectAttribute: ITankAttribute): Promise<void> {
+        this.isLoad$.next(true);
+        try {
+            const objectName = this.currentTankParam$.getValue().objectName;
+            await this.http.post(`${this.restUrl}/api/petroleum-flow-values/${objectName}`, objectAttribute).toPromise();
+            const attributes: ITankAttribute[] = await this.getTankAttributes(objectName);
+            const currentTankParam = this.currentTankParam$.getValue();
+            currentTankParam.objectAttributes = attributes;
+            this.currentTankParam$.next(currentTankParam);
+            const objects = await this.getObjects(this.client);
+            this.objectsAll$.next(objects);
+        } catch {
+            this.materialController.openSnackBar('Ошибка сохранения параметра!', 'snackbar-red');
+        }
+        this.isLoad$.next(false);
     }
 
     public async setTankParam(objectName: string): Promise<void> {
@@ -340,6 +372,7 @@ export class PetroleumScreenService {
             objectInfo,
             objectAttributes,
         };
+        console.log(currentTankParam);
         this.currentTankParam$.next(currentTankParam);
         this.isLoad$.next(false);
     }
@@ -406,11 +439,12 @@ export class PetroleumScreenService {
     private async getReferencesAsync(
         client: string,
         object: string,
+        type: ObjectType,
         direction: ObjectDirection
     ): Promise<IPetroleumObject[]> {
         return this.http
             .get<IPetroleumObject[]>(
-                `${this.restUrl}/api/petroleum-flow-clients/clients/${client}/objects/${object}/relations/${direction}`
+                `${this.restUrl}/api/petroleum-flow-clients/clients/${client}/objects/${type}/${object}/relations/${direction}`
             )
             .toPromise();
     }

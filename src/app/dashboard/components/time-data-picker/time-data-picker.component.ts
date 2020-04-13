@@ -57,9 +57,10 @@ export class TimeDataPickerComponent implements OnInit, OnChanges {
 
     public ngOnChanges(): void {
         this.inputDate = new Date(this.data);
+        this.dateControl = new FormControl(this.inputDate);
     }
 
-    public buttonConfirm(): void {
-        this.dateTimePicker.emit(moment(this.inputDate).toDate());
+    public buttonConfirm(date: any): void {
+        this.dateTimePicker.emit(moment(date).toDate());
     }
 }

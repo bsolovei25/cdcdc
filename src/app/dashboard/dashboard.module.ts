@@ -135,7 +135,12 @@ import { ReferenceComponent } from './widgets/reference/reference.component';
 import { ReportServerConfiguratorComponent } from './widgets/report-server-configurator/report-server-configurator.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AwsCreateClaimComponent } from './widgets/admin-panel/admin-worker-settings/aws-create-claim/aws-create-claim.component';
-import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule, NGX_MAT_DATE_FORMATS } from '@angular-material-components/datetime-picker';
+import {
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule,
+    NGX_MAT_DATE_FORMATS,
+} from '@angular-material-components/datetime-picker';
 import { MatButtonModule } from '@angular/material/button';
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 
@@ -150,6 +155,19 @@ import { UploadDropComponent } from './widgets/tank-calibration-table/upload-for
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TanksTableComponent } from './widgets/tank-calibration-table/tanks-table/tanks-table.component';
 import { UploadFormComponent } from './widgets/tank-calibration-table/upload-form/upload-form.component';
+import { SmotrEventComponent } from './widgets/workspace/smotr-event/smotr-event.component';
+import { UsualEventComponent } from './widgets/workspace/usual-event/usual-event.component';
+import { RetrievalWindowComponent } from './widgets/workspace/components/retrieval-window/retrieval-window.component';
+import { EventDescriptionComponent } from './widgets/workspace/components/event-description/event-description.component';
+import { ChatComponent } from './widgets/workspace/components/chat/chat.component';
+import { CustomReportPropertiesReferenceComponent } from './widgets/custom-report-properties-reference/custom-report-properties-reference.component';
+import { PopupUserOptionsComponent } from './widgets/report-server-configurator/popup-user-options/popup-user-options.component';
+import { NecessaryParamComponent } from './widgets/report-server-configurator/popup-user-options/necessary-param/necessary-param.component';
+import { AdditionalParamComponent } from './widgets/report-server-configurator/popup-user-options/additional-param/additional-param.component';
+import { CustomReportOptionsComponent } from './widgets/custom-report-properties-reference/custom-report-options/custom-report-options.component';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
     declarations: [
@@ -278,6 +296,16 @@ import { UploadFormComponent } from './widgets/tank-calibration-table/upload-for
         UploadFormComponent,
         UploadDropComponent,
         TanksTableComponent,
+        SmotrEventComponent,
+        UsualEventComponent,
+        RetrievalWindowComponent,
+        EventDescriptionComponent,
+        ChatComponent,
+        CustomReportPropertiesReferenceComponent,
+        PopupUserOptionsComponent,
+        NecessaryParamComponent,
+        AdditionalParamComponent,
+        CustomReportOptionsComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -335,6 +363,7 @@ import { UploadFormComponent } from './widgets/tank-calibration-table/upload-for
         UploadFormComponent,
         UploadDropComponent,
         TanksTableComponent,
+        CustomReportPropertiesReferenceComponent,
     ],
     exports: [HomeComponent],
     imports: [
@@ -367,6 +396,9 @@ import { UploadFormComponent } from './widgets/tank-calibration-table/upload-for
         NgxMatMomentModule,
         OverlayModule,
         MatDialogModule,
+        MatChipsModule,
+        MatIconModule,
+        MatAutocompleteModule,
     ],
     bootstrap: [],
     providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' },
@@ -374,5 +406,6 @@ import { UploadFormComponent } from './widgets/tank-calibration-table/upload-for
     { provide: MatDialogRef, useValue: {} },
     { provide: MAT_DIALOG_DATA, useValue: [] },
     ],
+
 })
 export class DashboardModule { }
