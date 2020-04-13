@@ -125,7 +125,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         const rightScroll = document.getElementById('rightScrollReportConfig');
         const leftScroll = document.getElementById('leftScrollReportConfig');
 
-        if (rightScroll !== undefined) {
+        if (rightScroll) {
             if (rightScroll.scrollHeight !== rightScroll.clientHeight) {
                 rightScroll.style.cssText = "margin-left: 5px; width: calc(100% - 5px);";
             } else {
@@ -134,7 +134,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             }
         }
 
-        if (leftScroll !== undefined) {
+        if (leftScroll) {
             if (leftScroll.scrollHeight !== leftScroll.clientHeight) {
                 leftScroll.style.cssText = "margin-right: 0px; width: calc(100% - 5px);";
             } else {
