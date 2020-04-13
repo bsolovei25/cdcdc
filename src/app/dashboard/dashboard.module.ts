@@ -163,6 +163,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon';
 import { EventsWorkspaceButtonComponent } from './widgets/workspace/components/events-workspace-button/events-workspace-button.component';
 import { EventsResponsibleSelectComponent } from './widgets/workspace/components/events-responsible-select/events-responsible-select.component';
+import { EventsReasonsComponent } from './widgets/workspace/components/events-reasons/events-reasons.component';
 
 @NgModule({
     declarations: [
@@ -298,6 +299,7 @@ import { EventsResponsibleSelectComponent } from './widgets/workspace/components
         CustomReportOptionsComponent,
         EventsWorkspaceButtonComponent,
         EventsResponsibleSelectComponent,
+        EventsReasonsComponent,
     ],
     entryComponents: [
         LineChartComponent,
