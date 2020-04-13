@@ -161,6 +161,7 @@ import { CustomReportOptionsComponent } from './widgets/custom-report-properties
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon';
+import { TreeModule } from 'angular-tree-component';
 
 @NgModule({
     declarations: [
@@ -382,6 +383,7 @@ import { MatIconModule } from '@angular/material/icon';
         MatChipsModule,
         MatIconModule,
         MatAutocompleteModule,
+        TreeModule,
     ],
     bootstrap: [],
     providers: [

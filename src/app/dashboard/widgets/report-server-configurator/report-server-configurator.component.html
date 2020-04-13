@@ -13,19 +13,20 @@
       <div class="references">
         <div class="reference-left">
           <div class="title-reference">Наименование отчета</div>
-          <div class="reference-container">
-            <div class="scroll-block" id="leftScrollReportConfig">
-              <div *ngFor="let item of data; let i = index">
+          <div class="reference-container" style="direction: ltr !important;">
+            <div class="scroll-block" id="leftScrollReportConfig"> 
+              <tree-root [state]="state" [options]="optionsTest" [focused]="true" [nodes]="this.dataFolder" (dragover)="$event.stopPropagation()"></tree-root>
+              <!-- <div *ngFor="let item of data; let i = index">
                 <div class="reference-container__block">
                   <div *ngIf="!item.openEdit" class="reference-container__block-info"
                     [class.block-info-active]="item.id === folderActive" (click)="onClickReference(item, i)">
-                    <!-- <div class="reference-container__button">
+                    <div class="reference-container__button">
                     <svg-icon *ngIf="item.open" src="./assets/icons/widgets/manual-input/arrow_down.svg"
                       [svgStyle]="{ 'width.px':10, 'height.px':10 }"></svg-icon>
 
                     <svg-icon *ngIf="!item.open" src="./assets/icons/widgets/manual-input/arrow_right.svg"
                       [svgStyle]="{ 'width.px':10, 'height.px':10 }"></svg-icon>
-                  </div> -->
+                  </div>
                     <div class="reference-container__name">{{item.name}}</div>
 
                     <div class="reference-container__button-edit" (click)="onEdit(item)">
@@ -45,7 +46,7 @@
                   <div class="reference-container__button-remove" (click)="deleteReportTemplate(item)"
                     *ngIf="item.id === folderActive">
                   </div>
-                  <!-- <div cdkDropList id="{{item.name}}" [cdkDropListData]="item.columns" (cdkDropListDropped)="drop($event)"
+                  <div cdkDropList id="{{item.name}}" [cdkDropListData]="item.columns" (cdkDropListDropped)="drop($event)"
                   [cdkDropListConnectedTo]="connectedTo" [@Branch]="(item.open) ? 'expanded' : 'collapsed'">
                   <div class="reference-container__block-contant" *ngFor="let i of item.templates" cdkDrag
                     (click)="onClickItemReference(i)" [class.block-info-active]="i.id === isIdReport">
@@ -59,7 +60,7 @@
                       <svg-icon src="./assets/icons/widgets/references/accept.svg" class="add_button_icon"></svg-icon>
                     </div>
                   </div>
-                </div> -->
+                </div>
                 </div>
               </div>
               <div *ngIf="clickPushRec" class="reference-container__add-block">
@@ -69,7 +70,7 @@
                 <div class="reference-container__add-block-icon" (click)="onPushReport()">
                   <svg-icon src="./assets/icons/widgets/references/accept.svg" class="add_button_icon"></svg-icon>
                 </div>
-              </div>
+              </div> -->
             </div>
             <!--ДЛЯ ОДНОГО ФАЙЛА-->
             <!-- <div *ngIf="clickPushRec" class="reference-container__add-block">

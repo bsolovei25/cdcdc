@@ -5,6 +5,8 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 import { ReportServerConfiguratorService } from '../../services/report-server-configurator.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { SnackBarService } from '../../services/snack-bar.service';
+import { ITreeState, ITreeOptions, TreeDraggedElement } from 'angular-tree-component';
+import { v4 } from 'uuid';
 
 @Component({
     selector: 'evj-report-server-configurator',
@@ -32,6 +34,7 @@ import { SnackBarService } from '../../services/snack-bar.service';
             transition('expanded => collapsed', animate('150ms ease-out')),
         ]),
     ],
+    providers: [TreeDraggedElement]
 })
 export class ReportServerConfiguratorComponent extends WidgetPlatform implements OnInit, OnDestroy {
 
@@ -100,7 +103,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     ngOnInit(): void {
         super.widgetInit();
         this.subscriptions.push(
-            // this.getReportFolder(),
+            this.getReportFolder(),
             this.getRecordFile(),
             this.getReportTemplate(),
         );
@@ -147,13 +150,16 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         this.isTable = event;
     }
 
+    dataFolder: any = [];
+
     getReportFolder() {
         return this.reportService.getTemplateFolder().subscribe(ans => {
-            this.data = ans;
-            this.saveData = ans;
-            for (let item of this.data) {
-                this.connectedTo.push(item.name);
-            }
+            this.dataFolder =  this.mapDataFolder(ans);
+          //  this.dataFolder = ans;
+            // this.saveData = ans;
+            // for (let item of this.data) {
+            //     this.connectedTo.push(item.name);
+            // }
         });
     }
 
@@ -203,16 +209,42 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         });
     }
 
+    mapDataFolder(data) {
+        const test = [];
+        for (let i of data) {
+            const obj = {
+                id: i.id,
+                name: i.name,
+                children: this.mapDataFolder2(i?.childFolders),
+            }
+            test.push(obj);
+        }
+        return test;
+    }
+
+    mapDataFolder2(data) {
+        const test = [];
+        for (let i of data) {
+            const obj = {
+                id: i.id,
+                name: i.name,
+                children: this.mapDataFolder(i?.childFolders),
+            }
+            test.push(obj);
+        }
+        return test;
+    }
+
     mapOptions(data) {
         this.options = data;
         for (let i of this.options) {
-          for (let j of this.optionsActive) {
-            if (i.id === j.templateSystemOption.id) {
-              i.isActive = true;
+            for (let j of this.optionsActive) {
+                if (i.id === j.templateSystemOption.id) {
+                    i.isActive = true;
+                }
             }
-          }
         }
-      }
+    }
 
     onEdit(item) {
         item.openEdit = true;
@@ -335,8 +367,8 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             // this.data[this.indexColumn].columns.push(object);
             this.reportService.postReportTemplate(object).subscribe(ans => {
                 this.isLoading = false;
-               // this.getReportFolder();
-               this.getReportTemplate();
+                // this.getReportFolder();
+                this.getReportTemplate();
             });
             this.newRecord = null;
         }
@@ -411,10 +443,61 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         this.popupUserParam = event;
     }
 
-
-    onChangeFile(event){
+    onChangeFile(event) {
         this.selectFile = this.dataFile.find(e => e.id === event);
     }
+
+    /// test dnd
+
+    state: ITreeState = {
+        expandedNodeIds: {
+            1: true,
+            2: true
+        },
+        hiddenNodeIds: {},
+        activeNodeIds: {}
+    };
+
+    optionsTest: ITreeOptions = {
+        allowDrag: (node) => node.isLeaf,
+        getNodeClone: (node) => ({
+            ...node.data,
+            id: this.randomInt(1, 1000000),
+            name: `copy of ${node.data.name}`
+        })
+    };
+
+    nodes = [
+        {
+            id: 1,
+            name: 'root1',
+            children: [
+                { name: 'child1' },
+                { name: 'child2' }
+            ]
+        },
+        {
+            name: 'root2',
+            id: 2,
+            children: [
+                { name: 'child2.1', children: [] },
+                {
+                    name: 'child2.2', children: [
+                        { name: 'grandchild2.2.1' }
+                    ]
+                }
+            ]
+        },
+        { name: 'root3' },
+        { name: 'root4', children: [] },
+        { name: 'root5', children: null }
+    ];
+
+
+    randomInt(min, max) {
+        return min + Math.floor((max - min) * Math.random());
+    }
+
 
 
 }
