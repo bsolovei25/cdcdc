@@ -5,7 +5,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 import { ReportServerConfiguratorService } from '../../services/report-server-configurator.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { SnackBarService } from '../../services/snack-bar.service';
-import { ITreeState, ITreeOptions, TreeDraggedElement } from 'angular-tree-component';
+import { ITreeState, ITreeOptions, TreeDraggedElement, TreeComponent } from 'angular-tree-component';
 import { v4 } from 'uuid';
 
 @Component({
@@ -37,6 +37,8 @@ import { v4 } from 'uuid';
     providers: [TreeDraggedElement]
 })
 export class ReportServerConfiguratorComponent extends WidgetPlatform implements OnInit, OnDestroy {
+
+    @ViewChild(TreeComponent) private tree: TreeComponent;
 
     static itemCols = 18;
     static itemRows = 14;
@@ -157,6 +159,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     getReportFolder() {
         return this.reportService.getTemplateFolder().subscribe(ans => {
             this.dataFolder = this.mapDataFolder(ans);
+            this.tree.treeModel.update();
             //  this.dataFolder = ans;
             // this.saveData = ans;
             // for (let item of this.data) {
@@ -370,7 +373,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             // this.data.push(object);
             this.reportService.postTemplateFolder(object).subscribe(ans => {
                 this.getReportFolder();
-            })
+            });
             this.newFolder = null;
         }
     }
@@ -386,7 +389,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             // this.data[this.indexColumn].columns.push(object);
             this.reportService.postReportTemplate(object).subscribe(ans => {
                 this.isLoading = false;
-                 this.getReportFolder();
+                this.getReportFolder();
                 //this.getReportTemplate();
             });
             this.newRecord = null;
@@ -478,7 +481,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     };
 
     optionsTest: ITreeOptions = {
-        allowDrag: (node) => node.isLeaf,
+        allowDrag: (node) => node,
         allowDrop: (element, { parent, index }) => parent.data.type === 'Folder',
         getNodeClone: (node) => ({
             ...node.data,
@@ -508,7 +511,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             name: event.node.name,
             folderId: event.to.parent.id,
         }
-        this.putReportTemplate(obj);
+     //this.putReportTemplate(obj);
     }
 
 }
