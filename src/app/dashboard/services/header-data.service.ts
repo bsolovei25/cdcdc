@@ -2,17 +2,17 @@ import { Injectable } from '@angular/core';
 import { filter } from 'rxjs/operators';
 import { DatePipe } from '@angular/common';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { HeaderDate } from '../models/header-date';
+import { IHeaderDate } from '../models/i-header-date';
 
 @Injectable({
     providedIn: 'root',
 })
 export class HeaderDataService {
-    private localDate$: BehaviorSubject<HeaderDate | null> = new BehaviorSubject<HeaderDate | null>(
+    private localDate$: BehaviorSubject<IHeaderDate | null> = new BehaviorSubject<IHeaderDate | null>(
         null
     );
 
-    public date$: Observable<HeaderDate> = this.localDate$
+    public date$: Observable<IHeaderDate> = this.localDate$
         .asObservable()
         .pipe(filter((item) => item !== null));
 
@@ -25,11 +25,14 @@ export class HeaderDataService {
     public hoursEnd;
     public otherMonth: string;
 
+    public startDatetime: Date = new Date();
+    public endDatetime: Date = new Date();
+
     // public dateToLine = {};
 
     constructor() {}
 
-    public catchDefaultDate(start, end, status): void {
+    public catchDefaultDate(start: Date, end: Date, status: boolean): void {
         let defaultTime = new Date();
         defaultTime = new Date(
             defaultTime.getFullYear(),
@@ -57,6 +60,9 @@ export class HeaderDataService {
             : this.monthEnd !== defaultMonth
             ? ((this.endDate = '31'), (this.otherMonth = 'future'))
             : (this.otherMonth = '');
+
+        this.startDatetime = new Date(start);
+        this.endDatetime = new Date(end);
         this.statusButton = status;
         this.pushDate();
     }
@@ -74,6 +80,8 @@ export class HeaderDataService {
             hoursStart: this.hoursStart,
             hoursEnd: this.hoursEnd,
             status: this.statusButton,
+            startDatetime: this.startDatetime,
+            endDatetime: this.endDatetime,
         };
         this.localDate$.next(dateTo);
     }

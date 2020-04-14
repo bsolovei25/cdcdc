@@ -17,7 +17,7 @@
     </div>
   </ng-container>
   <ng-container *ngIf="this.dateFromSelector.status === false">
-    <div class="line-block" id="startLine" #startLine>
+    <div class="line-block" id="lightBlock" #lightBlock>
       <div
         class="line-start"
         [class.eline-not-finish]="(dateFromSelector.otherMonth === 'past') || (dateFromSelector.otherMonth === 'all')"
@@ -29,12 +29,12 @@
         [class.mline-not-finish]="(dateFromSelector.otherMonth === 'past') || (dateFromSelector.otherMonth === 'all')"
         [class.mline-not-finish-end]="(dateFromSelector.otherMonth === 'future')"
       ></div>
-      <div
-        class="line-end"
-        [class.eline-not-finish]="(dateFromSelector.otherMonth === 'future') || (dateFromSelector.otherMonth === 'all')"
-      >
-        <div class="rectangle"></div>
-      </div>
+<!--      <div-->
+<!--        class="line-end"-->
+<!--        [class.eline-not-finish]="(dateFromSelector.otherMonth === 'future') || (dateFromSelector.otherMonth === 'all')"-->
+<!--      >-->
+<!--        <div class="rectangle"></div>-->
+<!--      </div>-->
     </div>
   </ng-container>
 </div>
