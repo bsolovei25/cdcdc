@@ -22,7 +22,7 @@
   &__header {
     min-height: 43px;
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
@@ -46,7 +46,7 @@
   &__body {
     display: flex;
     justify-content: space-between;
-    height: 486px;
+    height: 491px;
     overflow-y: auto;
 
     .table {
@@ -54,6 +54,7 @@
       &__body {
         &__item {
           &__row {
+            cursor: pointer;
             height: 35px;
             background-color: var(--color-bg-header-table);
             &__col {
@@ -64,16 +65,23 @@
                 }
                 &__icon {
                   margin-left: 20px;
+                  transform: rotate(180deg);
                   &-arrow-rtl {
-                    transform: rotate(180deg);
                   }
                 }
               }
             }
             &__expanded {
+              cursor: pointer;
+              font-size: 12px;
+              height: 35px;
               .col {
                 &__name {
+                  padding-left: 22px;
                 }
+              }
+              &--selected {
+                background-color: var(--color-bg-search);
               }
             }
           }
@@ -86,7 +94,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    margin-top: 10px;
+    margin-top: 5px;
     min-height: 43px;
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
