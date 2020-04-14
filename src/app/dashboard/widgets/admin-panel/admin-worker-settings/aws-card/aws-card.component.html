@@ -1,11 +1,20 @@
 <div class="card" [ngClass]="{'card-active':selectEdit.hasValue()}">
-  <evj-input
-    class="value value__input"
-    [value]="setFieldValue(option.value)"
-    [placeholder]="option.name"
-    [isDisabled]="selectEdit.isEmpty()"
-    (unfocus)="onInput($event)"
-  ></evj-input>
+  <div class="input">
+    <mat-form-field class="input__search">
+      <mat-label>{{ option.name }}</mat-label>
+      <input
+        type="text"
+        matInput
+        #input
+        [formControl]="inputFormControl"
+        prefix="{{prefix}}"
+        [mask]="mask"
+        [showMaskTyped]="showMaskTyped"
+        (blur)="onInput($event)"
+      />
+      <mat-error *ngIf="inputFormControl.invalid"></mat-error>
+    </mat-form-field>
+  </div>
   <div
     class="button"
     *ngIf="selectEdit.isEmpty() && !isCreateNewUser && !disabled"

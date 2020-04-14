@@ -1,6 +1,15 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    Input,
+    Output,
+    EventEmitter,
+    ViewChild,
+    ElementRef,
+} from '@angular/core';
 import { IWorkerOptionAdminPanel } from '../../../../models/admin-panel';
 import { SelectionModel } from '@angular/cdk/collections';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
     selector: 'evj-aws-card',
@@ -19,16 +28,45 @@ export class AwsCardComponent implements OnInit {
     @Output() public saveChanging: EventEmitter<IWorkerOptionAdminPanel> = new EventEmitter<
         IWorkerOptionAdminPanel
     >();
-    private inputedValue: string = '';
+
+    @ViewChild('input') private input: ElementRef;
+
     private isCloseClick: boolean = false;
+
+    public inputFormControl: FormControl = new FormControl();
+
+    //#region MASK
+    public prefix: string = '';
+    public mask: string = '';
+    public showMaskTyped: boolean = false;
+    //#endregion
 
     public selectEdit: SelectionModel<void> = new SelectionModel<void>();
 
     constructor() {}
 
     public ngOnInit(): void {
+        this.inputFormControl.disable();
         if (this.isCreateNewUser) {
             this.selectEdit.toggle();
+            this.inputFormControl.enable();
+        }
+        this.inputFormControl.setValue(this.option.value);
+
+        switch (this.option.key) {
+            case 'login':
+                this.inputFormControl.setValidators([
+                    Validators.required,
+                    Validators.minLength(5),
+                    Validators.pattern('[a-zA-Z0-9]+'),
+                ]);
+                break;
+            case 'phone':
+                this.inputFormControl.setValidators([Validators.pattern('[0-9]{10}')]);
+                this.prefix = '+7 ';
+                this.mask = '(000) 000-00-00';
+                this.showMaskTyped = true;
+                break;
         }
     }
 
@@ -39,21 +77,24 @@ export class AwsCardComponent implements OnInit {
     public onEditClick(): void {
         this.isCloseClick = false;
         this.selectEdit.toggle();
+        this.inputFormControl.enable();
+        this.input.nativeElement.focus();
     }
 
     public onCloseClick(): void {
         this.isCloseClick = true;
         this.selectEdit.clear();
+        this.inputFormControl.disable();
     }
 
     public onInput(event: string): void {
-        this.inputedValue = event;
-        if (!this.isCloseClick) {
-            this.saveChanging.emit({ value: this.inputedValue, key: this.option.key });
-            this.option.value = this.inputedValue;
+        if (!this.isCloseClick && this.inputFormControl.valid) {
+            this.saveChanging.emit({ value: this.inputFormControl.value, key: this.option.key });
+            this.option.value = this.inputFormControl.value;
         }
         if (!this.isCreateNewUser) {
             this.selectEdit.clear();
+            this.inputFormControl.disable();
         }
     }
 }
