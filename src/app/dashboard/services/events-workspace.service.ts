@@ -111,7 +111,7 @@ export class EventsWorkspaceService {
                 email: '',
                 login: '',
                 firstName: '',
-                id: null,
+                id: undefined,
                 lastName: '',
                 middleName: '',
                 phone: '',
@@ -121,7 +121,7 @@ export class EventsWorkspaceService {
                 ? this.priority[2]
                     ? this.priority[2]
                     : this.priority[0]
-                : null,
+                : undefined,
             responsibleOperator: fillDataShape(this.currentAuthUser),
             retrievalEvents: [],
             severity: 'Critical',

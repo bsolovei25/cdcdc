@@ -19,7 +19,7 @@
       />
 
       <text x="33" y="9" text-anchor="start" class="svg__txt">
-        {{person.phone}}
+        {{person.phone?person.phone:'Телефон не указан'}}
       </text>
       <text x="33" y="20" text-anchor="start" class="svg__txt">
         {{person.email}}

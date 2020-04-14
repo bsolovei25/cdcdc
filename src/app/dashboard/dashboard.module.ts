@@ -43,7 +43,7 @@ import { MapEcologyComponent } from './widgets/map-ecology/map-ecology.component
 import { UnityTemplateComponent } from './widgets/unity-template/unity-template.component';
 import { PowIndexPipe } from './pipes/pow-index.pipe';
 import { RingFactoryDiagramComponent } from './widgets/ring-factory-diagrams/ring-factory-diagram/ring-factory-diagram.component';
-import { LineChartWorkspaceComponent } from './widgets/workspace/line-chart-workspace/line-chart-workspace.component';
+import { LineChartWorkspaceComponent } from './widgets/workspace/components/line-chart-workspace/line-chart-workspace.component';
 import { RingSFactoryDiagramComponent } from './widgets/ring-factory-diagrams/ring-s-factory-diagram/ring-s-factory-diagram.component';
 import { CalendarPlanComponent } from './widgets/calendar-plan/calendar-plan.component';
 import { EcologySafetyComponent } from './widgets/ecology-safety/ecology-safety.component';
@@ -168,8 +168,14 @@ import { CustomReportOptionsComponent } from './widgets/custom-report-properties
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon';
-import { AppConfigService } from '../services/appConfigService';
-import { WidgetService } from './services/widget.service';
+import { EventsWorkspaceButtonComponent } from './widgets/workspace/components/events-workspace-button/events-workspace-button.component';
+import { EventsResponsibleSelectComponent } from './widgets/workspace/components/events-responsible-select/events-responsible-select.component';
+import { EventsReasonsComponent } from './widgets/workspace/components/events-reasons/events-reasons.component';
+import { EventsCorrectComponent } from './widgets/workspace/components/events-correct/events-correct.component';
+import { EventsCorrectCardComponent } from './widgets/workspace/components/events-correct-card/events-correct-card.component';
+import { EventsSmotrIconComponent } from './widgets/workspace/components/events-smotr-icon/events-smotr-icon.component';
+import { EventsCommentWindowComponent } from './widgets/workspace/components/events-comment-window/events-comment-window.component';
+import { EventsListWindowComponent } from './widgets/workspace/components/events-list-window/events-list-window.component';
 
 @NgModule({
     declarations: [
@@ -308,6 +314,14 @@ import { WidgetService } from './services/widget.service';
         NecessaryParamComponent,
         AdditionalParamComponent,
         CustomReportOptionsComponent,
+        EventsWorkspaceButtonComponent,
+        EventsResponsibleSelectComponent,
+        EventsReasonsComponent,
+        EventsCorrectComponent,
+        EventsCorrectCardComponent,
+        EventsSmotrIconComponent,
+        EventsCommentWindowComponent,
+        EventsListWindowComponent,
     ],
     entryComponents: [
         LineChartComponent,

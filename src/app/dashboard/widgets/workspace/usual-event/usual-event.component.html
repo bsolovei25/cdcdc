@@ -5,15 +5,15 @@
 >
   <div class="workspace__header">
     <evj-ui-block class="workspace__header__block" status="normal">
-      <mat-form-field class="status">
-        <mat-label>Статус</mat-label>
+      <mat-form-field class="categories_selectbox">
+        <mat-label>Категория</mat-label>
         <mat-select
           panelClass="mat-select-custom"
-          [(ngModel)]="ewService.event.status"
+          [(ngModel)]="ewService.event.category"
           [compareWith]="compareFn"
         >
-          <mat-option *ngFor="let p of ewService.status" [value]="p"
-            >{{ ewService.statuses[p.name] }}
+          <mat-option *ngFor="let cat of ewService.category" [value]="cat">
+            {{ ewService.categories[cat.name] }}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -57,15 +57,15 @@
         <div class="first_block">
           <div class="categories">
             <evj-ui-block class="workspace__body__categories" status="normal">
-              <mat-form-field class="categories_selectbox">
-                <mat-label>Категория</mat-label>
+              <mat-form-field class="status">
+                <mat-label>Статус</mat-label>
                 <mat-select
                   panelClass="mat-select-custom"
-                  [(ngModel)]="ewService.event.category"
+                  [(ngModel)]="ewService.event.status"
                   [compareWith]="compareFn"
                 >
-                  <mat-option *ngFor="let cat of ewService.category" [value]="cat">
-                    {{ ewService.categories[cat.name] }}
+                  <mat-option *ngFor="let p of ewService.status" [value]="p"
+                    >{{ ewService.statuses[p.name] }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -137,23 +137,25 @@
         (changedDescription)="onChangeEventDescription($event)"
       ></evj-event-description>
 
-      <evj-chat
-        class="facts"
-        [messages]="ewService.event.facts"
-        title="Установленные факты"
-        placeholder="Укажите факты..."
-        [displayGraphImage]="!!ewService.event.graphValues"
-        [onClickItem]="openLineChart"
-        (addingMessage)="onSendMessage($event,'facts')"
-      ></evj-chat>
+      <div class="facts">
+        <evj-chat
+          [messages]="ewService.event.facts"
+          title="Установленные факты"
+          placeholder="Укажите факты..."
+          [displayGraphImage]="!!ewService.event.graphValues"
+          [onClickItem]="openLineChart"
+          (addingMessage)="onSendMessage($event,'facts')"
+        ></evj-chat>
+      </div>
 
-      <evj-chat
-        class="comments"
-        [messages]="ewService.event.comments"
-        title="Комментарии"
-        placeholder="Напишите свой комментарий..."
-        (addingMessage)="onSendMessage($event,'comments')"
-      ></evj-chat>
+      <div class="comments">
+        <evj-chat
+          [messages]="ewService.event.comments"
+          title="Комментарии"
+          placeholder="Напишите свой комментарий..."
+          (addingMessage)="onSendMessage($event,'comments')"
+        ></evj-chat>
+      </div>
     </div>
 
     <div class="workspace__body__right">
@@ -195,221 +197,10 @@
         </evj-ui-block>
       </div>
       <div class="responsible">
-        <div
-          *ngIf="ewService.event.fixedBy?.id && ewService.event.fixedBy.login === ''"
-          class="choosenUser"
-        >
-          <div class="name_user">
-            <div class="name_user_responsible">
-              Ответственный
-            </div>
-            <div class="name_user_info" *ngIf="ewService.event.fixedBy">
-              <div>
-                {{ewService.event.fixedBy.displayName}}
-              </div>
-              <!-- <div>{{ ewService.event.fixedBy.positionDescription }}</div> -->
-              <div>{{ewService.event.fixedBy.positionDescription}}</div>
-            </div>
-          </div>
-          <div class="brigade_user">
-            <div class="brigade_user_text">
-              Бригада {{ ewService.event.fixedBy?.brigade?.number }}
-            </div>
-          </div>
-          <div class="avatar_user">
-            <div class="avatar_user_img">
-              <img [src]="ewService.getUserAvatarUrl(ewService.event.fixedBy)" />
-            </div>
-          </div>
-        </div>
-        <div *ngIf="ewService.event.fixedBy.login !== ''" class="choosenUser">
-          <div class="name_user">
-            <div class="name_user_responsible">
-              Ответственный
-            </div>
-            <div class="name_user_info">
-              <div>
-                {{ ewService.event.fixedBy.displayName }}
-              </div>
-              <div>{{ ewService.event.fixedBy.positionDescription }}</div>
-            </div>
-          </div>
-          <div class="brigade_user">
-            <div class="brigade_user_text">
-              Бригада {{ ewService.event.fixedBy?.brigade?.number }}
-            </div>
-          </div>
-          <div class="avatar_user">
-            <div class="avatar_user_img">
-              <img [src]="ewService.getUserAvatarUrl(ewService.event.fixedBy)" />
-            </div>
-          </div>
-        </div>
-        <evj-ui-block class="workspace__header__block" status="normal">
-          <mat-form-field>
-            <mat-label>Отвественный</mat-label>
-            <mat-select panelClass="mat-select-custom" [(ngModel)]="ewService.event.fixedBy">
-              <mat-option *ngFor="let p of ewService.users" [value]="p" (click)="chooseRespons(p)"
-                >{{ p.lastName }} {{ p.firstName }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </evj-ui-block>
+        <evj-events-responsible-select></evj-events-responsible-select>
       </div>
       <div class="events-correct">
-        <div class="events-correct-block">
-          <div class="event_info">
-            <div class="event_info_title">Корректирующие мероприятия</div>
-            <div class="event_info_date">
-              <div class="event_info_date_title">Начало события</div>
-              <div class="event_info_date_body">
-                {{ewService.event.eventDateTime | date:'dd-MM-yyyy HH:mm' }}
-              </div>
-            </div>
-          </div>
-          <div class="events">
-            <ng-container *ngFor="let retrieval of ewService.event.retrievalEvents">
-              <div
-                class="events_content"
-                [class.events_closed]="retrieval.innerNotification.status.name === 'closed'"
-              >
-                <div class="events_container" (click)="onLoadEvent(retrieval.innerNotification.id)">
-                  <div class="events_info">
-                    <div class="events_info_title">
-                      <div>Краткое описание</div>
-                      <div style="margin-left: 10px">
-                        <svg-icon
-                          *ngIf="retrieval.timerPercentage > 99"
-                          src="./assets/icons/widgets/workspace/attantion.svg"
-                          [svgStyle]="{ 'width.px':18, 'height.px':18, 'margin-top.px': 2 }"
-                        ></svg-icon>
-                      </div>
-                    </div>
-                    <div class="events_info_body">
-                      {{ retrieval.innerNotification.description }}
-                    </div>
-                  </div>
-                  <div class="events_status">
-                    <div
-                      class="events_status-{{retrieval.innerNotification.priority.name}}"
-                      *ngIf="retrieval.innerNotification.status"
-                    >
-                      {{ ewService.statuses[retrieval.innerNotification.status.name] }}
-                    </div>
-                    <div class="events_status_datetime">
-                      <div class="datetime_title">Срок исполнения</div>
-                      <div class="datetime_body">
-                        {{ retrieval.innerNotification.deadline | date:'dd-MM-yyyy HH:mm' }}
-                      </div>
-                    </div>
-                    <div class="events_status_responsible">
-                      <div class="responsible_title">Ответственный</div>
-                      <div class="responsible_body" *ngIf="retrieval.innerNotification.fixedBy">
-                        {{ retrieval.innerNotification.fixedBy.lastName }} {{
-                        retrieval.innerNotification.fixedBy.firstName }} {{
-                        retrieval.innerNotification.fixedBy.middleName }}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="events_menu">
-                  <div class="events_check" *ngIf="retrieval.innerNotification.isAcknowledged">
-                    <svg-icon
-                      src="./assets/icons/widgets/workspace/accept.svg"
-                      [svgStyle]="{ 'width.px':15, 'height.px':15 }"
-                    >
-                    </svg-icon>
-                  </div>
-                  <div class="events_button">
-                    <div clas="events_button_delete" (click)="overlayConfirmationOpen()">
-                      <svg-icon
-                        class="delete_button_icon"
-                        src="./assets/icons/widgets/workspace/delete.svg"
-                        [svgStyle]="{ 'width.px':16, 'height.px':16 }"
-                      >
-                      </svg-icon>
-                    </div>
-                    <div
-                      clas="events_button_update"
-                      (click)="onEditRetrieval(retrieval.innerNotification)"
-                    >
-                      <svg-icon
-                        class="edit_button_icon"
-                        src="./assets/icons/widgets/workspace/edit.svg"
-                        [svgStyle]="{ 'width.px':20, 'height.px':20 }"
-                      >
-                      </svg-icon>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  ngClass="progress-line-{{retrieval.innerNotification.priority.name}}"
-                  [style.width.%]="retrieval.timerPercentage"
-                ></div>
-              </div>
-
-              <!--DELETE EVENT-->
-              <div
-                (mousedown)="$event.stopPropagation()"
-                (touchstart)="$event.stopPropagation()"
-                id="overlay-confirmation"
-                *ngIf="ewService.isOverlayConfirmOpen"
-              >
-                <div class="overlay-confirmation__body" (click)="$event.stopPropagation()">
-                  <span>Вы действительно хотите удалить выбранное Мероприятие?</span>
-                  <div style="display: flex;">
-                    <div class="workspace__submit">
-                      <div class="submit__frame submit__frame-left"></div>
-                      <div class="submit__frame submit__frame-right"></div>
-                      <button
-                        type="submit gridster-item-content"
-                        (click)="ewService.deleteRetrievalEvent(retrieval)"
-                      >
-                        Удалить
-                      </button>
-                    </div>
-                    <div class="workspace__submit">
-                      <div class="submit__frame submit__frame-left"></div>
-                      <div class="submit__frame submit__frame-right"></div>
-                      <button
-                        type="submit gridster-item-content"
-                        (click)="overlayConfirmationClose()"
-                      >
-                        Отменить
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!--DELETE EVENT-->
-            </ng-container>
-          </div>
-          <div class="events_bottom_info">
-            <div class="add_events">
-              <svg-icon
-                src="./assets/icons/add_button.svg"
-                class="add_button_icon"
-                [svgStyle]="{ 'width.px':20, 'height.px':20 }"
-                (click)="addRetrieval()"
-              ></svg-icon>
-            </div>
-            <div class="end_events">
-              <div class="end_events_title">Завершение события</div>
-              <div class="end_events_body" *ngIf="ewService.event.eventEndDateTime">
-                {{ewService.event.eventEndDateTime | date:'dd-MM-yyyy HH:mm'}}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="events-correct-progress">
-          <div class="line_progress">
-            <div class="top_frame_line"></div>
-            <div class="middle_line" #progress>
-              <div class="progress" [style.height.px]="progressLineHeight"></div>
-            </div>
-            <div class="bottom_frame_line"></div>
-          </div>
-        </div>
+        <evj-events-correct></evj-events-correct>
       </div>
     </div>
   </div>

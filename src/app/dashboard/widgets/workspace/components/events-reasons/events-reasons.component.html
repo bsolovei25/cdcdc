@@ -1,0 +1,16 @@
+<div class="chat">
+  <div class="chat__header">
+    {{title}}
+    <div class="button__add" (click)="onClickAdd()"></div>
+  </div>
+  <div class="chat__reasons reasons scroll scroll-bar" #scroll>
+    <div class="reasons__list">
+      <ng-container *ngFor="let reason of reasons; let i = index;">
+        <div class="reason" [ngClass]="{'reason_odd':i%2===0}">
+          <div class="reason__text">{{reason}}</div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="chat__bottom"></div>
+</div>

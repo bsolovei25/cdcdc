@@ -1,17 +1,4 @@
-import {
-    AfterContentInit,
-    Component,
-    ElementRef,
-    Input,
-    OnChanges,
-    OnDestroy,
-    OnInit,
-    ViewChild,
-    ViewEncapsulation,
-    Inject,
-    AfterViewInit,
-    HostListener,
-} from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, HostListener } from '@angular/core';
 
 import * as d3 from 'd3-selection';
 import * as d3Scale from 'd3-scale';
@@ -19,14 +6,11 @@ import * as d3Shape from 'd3-shape';
 import * as d3Array from 'd3-array';
 import * as d3Axis from 'd3-axis';
 import * as d3Format from 'd3-format';
-import { Mock } from 'src/app/dashboard/widgets/line-chart/mock';
-import { Subscription } from 'rxjs';
 import {
     LineChartData,
     LineChartGraph,
     LineChartGraphValue,
 } from 'src/app/dashboard/models/line-chart';
-import { WidgetService } from 'src/app/dashboard/services/widget.service';
 
 @Component({
     selector: 'evj-line-chart-workspace',
