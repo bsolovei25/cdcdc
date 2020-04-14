@@ -1,0 +1,24 @@
+.filter {
+  width: 200px;
+  background-color: var(--color-bg-main-dark);
+  box-shadow: 0 0 100px rgba(0, 0, 0, 40);
+  border-radius: 10px;
+  &_block {
+    &:hover {
+      background-color: var(--color-bg-active);
+    }
+    &__settings {
+      height: 30px;
+      display: flex;
+      &__title-block {
+        padding: 3px;
+        width: 80%;
+        text-align: left;
+      }
+      &__radio-button-block {
+        padding: 3px;
+        width: 20%;
+      }
+    }
+  }
+}

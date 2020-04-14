@@ -14,7 +14,12 @@
     <ng-container *ngFor="let item of title">
       <div class="title_block">
         <div class="title">
-          {{ item }}
+          <div>
+            {{ item }}
+          </div>
+          <div>
+            <svg-icon class="filter_icon" src="assets/icons/SearchFilter.svg"></svg-icon>
+          </div>
         </div>
       </div>
     </ng-container>

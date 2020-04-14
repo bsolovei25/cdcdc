@@ -251,16 +251,15 @@ export class PetroleumScreenService {
         }
         await this.getTransfers(dates?.fromDateTime ?? null, dates?.toDateTime ?? null, isOpen, this.client);
         const currentTransfer = this.currentTransfer$.getValue();
-        if (!currentTransfer?.uid) {
-            return;
-        }
         const transfers = this.transfers$.getValue();
-        const currentTransferTemp = transfers.find((item) => item?.uid === currentTransfer?.uid);
-        if (currentTransferTemp) {
-            currentTransferTemp.isActive = true;
-            this.currentTransfer$.next(currentTransferTemp);
-        }
         this.transfers$.next(transfers);
+        if (currentTransfer?.uid) {
+            const currentTransferTemp = transfers.find((item) => item?.uid === currentTransfer?.uid);
+            if (currentTransferTemp) {
+                currentTransferTemp.isActive = true;
+                this.currentTransfer$.next(currentTransferTemp);
+            }
+        }
     }
 
     public async getTransfers(
