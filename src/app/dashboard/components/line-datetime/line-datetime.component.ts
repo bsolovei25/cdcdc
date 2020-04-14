@@ -32,20 +32,14 @@ export class LineDatetimeComponent implements OnInit, AfterViewInit, OnDestroy {
         otherMonth: '',
     };
 
-    public positionEndLine: number = 1;
-    public positionStartLine: number = 1;
+    constructor(private renderer: Renderer2, private headerData: HeaderDataService) { }
 
-    public widthBlock;
-
-    constructor(private renderer: Renderer2, private headerData: HeaderDataService) {
+    ngOnInit(): void {
+        this.datesFill();
         setInterval(() => {
             this.datesFill();
             this.currentData = Date.now();
         }, 10000);
-    }
-
-    ngOnInit(): void {
-        this.datesFill();
     }
 
     ngAfterViewInit(): void {
