@@ -89,7 +89,9 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     public selectFile;
 
-    public popupUserParam: boolean = false;
+    public popupUserOptions: boolean = false;
+    public popupUserCustomOptions: boolean = false;
+    public popupOptionsActive: string;
 
     constructor(
         public widgetService: WidgetService,
@@ -176,7 +178,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     }
 
     getReporting(id) {
-        this.selectFile = { }
+        this.selectFile = {}
         this.isLoading = true;
         return this.reportService.getReporting(id).subscribe((ans) => {
             if (ans?.fileTemplate) {
@@ -288,9 +290,43 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     }
 
     onClickParamReference(item) {
-        if (item.templateSystemOption.systemOptionType === "customOptions") {
-            this.popupUserParam = true;
+        switch (item.templateSystemOption.systemOptionType) {
+            case 'customOptions':
+                this.popupOptionsActive = "customOptions";
+                this.popupUserCustomOptions = true;
+                break;
+            case 'maxReportSizeInMb':
+                this.popupOptionsActive = "maxReportSizeInMb";
+                break;
+            case 'doRemoveFormulas':
+                this.popupOptionsActive = "doRemoveFormulas";
+                break;
+            case 'doRemoveMacro':
+                this.popupOptionsActive = "doRemoveMacro";
+                break;
+            case 'customOptions':
+                this.popupOptionsActive = "customOptions";
+                break;
+            case 'autogenerate':
+                this.popupOptionsActive = "autogenerate";
+                break;
+            case 'pathEdit':
+                this.popupOptionsActive = "pathEdit";
+                break;
+            case 'macroEdit':
+                this.popupOptionsActive = "macroEdit";
+                break;
+            case 'reportSheets':
+                this.popupOptionsActive = "reportSheets";
+                break;
+            case 'parameterValuesAutogeneration':
+                this.popupOptionsActive = "parameterValuesAutogeneration";
+                break;
+            case 'periodEdit':
+                this.popupOptionsActive = "periodEdit";
+                break;
         }
+        this.popupUserOptions = true;
     }
 
     drop(event: CdkDragDrop<string[]>) {
@@ -458,7 +494,8 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
 
     closeOptions(event) {
-        this.popupUserParam = event;
+        this.popupUserCustomOptions = event;
+        this.popupUserOptions = event;
     }
 
 
@@ -507,15 +544,19 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             const obj = {
                 id: event.node.idFolder,
                 name: event.node.name,
-                parentFolderId: event.to.parent.id,
+                parentFolderId: event.to.parent.idFolder,
             }
             this.reportService.putFolderTemplate(obj).subscribe(ans => {
             });
         } else if (event.node.type === "Template") {
             const obj = {
+                createdAt: event.node.createdAt,
+                createdBy: event.node.createdBy,
+                isDeleted: event.node.isDeleted,
+                displayName: event.node.displayName,
                 id: event.node.idTemplate,
                 name: event.node.name,
-                folderId: event.to.parent.id,
+                folderId: event.to.parent.idFolder,
             }
             this.putReportTemplate(obj);
         }

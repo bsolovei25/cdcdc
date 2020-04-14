@@ -412,6 +412,11 @@ input {
         .angular-tree-component {
           width: calc(100% - 10px);
           margin-left: 10px;
+          background-color: var(--color-table-main);
+        }
+
+        tree-viewport{
+          overflow: unset !important;
         }
       }
     }

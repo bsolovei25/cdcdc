@@ -49,7 +49,7 @@ export class AdditionalParamComponent implements OnInit, OnChanges {
     type: "Тип",
     validationRule: "Правило проверки",
     isRequired: "Обязательный",
-    "source": "Источник",
+    source: "Источник",
     sortOrder: "Сортировка",
   }
 
