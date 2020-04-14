@@ -18,10 +18,9 @@
   background-color: var(--color-border-active);
 }
 
-:hover::-webkit-scrollbar-track-piece{
+:hover::-webkit-scrollbar-track-piece {
   border: solid 1px var(--color-border-active);
 }
-
 
 ::-webkit-scrollbar-thumb {
   width: 10px;
@@ -125,7 +124,6 @@ input {
   }
 
   .reference-container {
-
     height: calc(100% - 80px);
     width: 100%;
     overflow: auto;
@@ -220,10 +218,9 @@ input {
       background-position: center;
       background-image: url(../../../../../assets/icons/widgets/reports/delete_blue.svg);
 
-      &:hover{
+      &:hover {
         background-image: url(../../../../../assets/icons/widgets/reports/delete_red.svg);
       }
-
     }
 
     &__button-edit {
@@ -294,7 +291,7 @@ input {
       background-position: center;
       background-image: url(../../../../../assets/icons/widgets/reports/add_white.svg);
 
-      &:hover{
+      &:hover {
         background-image: url(../../../../../assets/icons/widgets/reports/add_blue.svg);
       }
     }
@@ -331,7 +328,6 @@ input {
         border-top-right-radius: 25px;
         border-bottom-right-radius: 25px;
       }
-
 
       input {
         border-bottom: none !important;
@@ -507,7 +503,6 @@ input {
       min-height: 40px;
       direction: rtl;
       position: relative;
-      
 
       &__block {
         display: flex;
@@ -759,17 +754,33 @@ input {
 }
 
 .upload-container {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   width: 400px;
   height: 400px;
-  outline: 2px dashed #5d5d5d;
-  outline-offset: -12px;
-  background-color: #e0f2f7;
+  border-radius: 20px;
+  background-color: var(--color-bg-main);
   font-family: "Segoe UI";
-  color: #1f3c44;
+  color: white;
+
+  svg-icon{
+    margin-top: -50px;
+  }
+
+  .upload-label {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    height: 80px;
+    background: var(--color-table-main);
+    line-height: 80px;
+    bottom: 0;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
 }
 
 .upload-container img {

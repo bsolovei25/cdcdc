@@ -43,6 +43,7 @@ import { PetroleumProductsMovementComponent } from '../../widgets/petroleum-prod
 import { AdminPanelComponent } from '../../widgets/admin-panel/admin-panel.component';
 import { ReportServerConfiguratorComponent } from '../../widgets/report-server-configurator/report-server-configurator.component';
 import { ReferenceComponent } from '../../widgets/reference/reference.component';
+import { TankCalibrationTableComponent } from '../../widgets/tank-calibration-table/tank-calibration-table.component';
 import { CustomReportPropertiesReferenceComponent } from '../../widgets/custom-report-properties-reference/custom-report-properties-reference.component';
 
 export const WIDGETS = {
@@ -92,5 +93,6 @@ export const WIDGETS = {
     'admin-panel': AdminPanelComponent,
     'reference': ReferenceComponent,
     'report-server-configurator': ReportServerConfiguratorComponent,
+    'tank-calibration-table': TankCalibrationTableComponent,
     'custom-report-properties-reference': CustomReportPropertiesReferenceComponent,
 };

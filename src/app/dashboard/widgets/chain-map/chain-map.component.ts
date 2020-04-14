@@ -246,7 +246,7 @@ export class ChainMapComponent extends WidgetPlatform implements AfterViewInit, 
 
     public mass1;
     public mass2;
-    public check = true;
+    public check: boolean = true;
 
     public static itemCols: number = 30;
     public static itemRows: number = 20;
@@ -271,6 +271,7 @@ export class ChainMapComponent extends WidgetPlatform implements AfterViewInit, 
     }
 
     protected dataConnect(): void {
+        super.dataConnect();
         this.drawChain();
     }
 
