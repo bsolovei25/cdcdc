@@ -12,4 +12,12 @@ export class SystemParameterValuesAutogenerationComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  close(){
+
+  }
+
+  save(){
+    
+  }
+
 }

@@ -12,4 +12,12 @@ export class SystemPeriodEditComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  close(){
+
+  }
+
+  save(){
+    
+  }
+
 }

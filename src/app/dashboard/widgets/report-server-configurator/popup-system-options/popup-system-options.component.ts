@@ -13,4 +13,8 @@ export class PopupSystemOptionsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  resultPopup(event){
+    console.log(event);
+  }
+
 }

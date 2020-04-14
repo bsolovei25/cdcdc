@@ -12,4 +12,12 @@ export class SystemAutogenerateComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  close(){
+
+  }
+
+  save(){
+    
+  }
+
 }

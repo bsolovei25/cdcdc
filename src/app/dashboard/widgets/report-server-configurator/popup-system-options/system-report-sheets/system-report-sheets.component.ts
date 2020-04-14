@@ -12,4 +12,12 @@ export class SystemReportSheetsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  close(){
+
+  }
+
+  save(){
+    
+  }
+
 }

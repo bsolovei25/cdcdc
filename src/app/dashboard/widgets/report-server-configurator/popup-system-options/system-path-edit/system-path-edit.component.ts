@@ -12,4 +12,12 @@ export class SystemPathEditComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  close(){
+
+  }
+
+  save(){
+    
+  }
+
 }

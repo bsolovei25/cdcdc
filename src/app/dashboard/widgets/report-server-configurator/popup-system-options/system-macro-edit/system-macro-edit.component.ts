@@ -12,4 +12,12 @@ export class SystemMacroEditComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  close(){
+
+  }
+
+  save(){
+    
+  }
+
 }
