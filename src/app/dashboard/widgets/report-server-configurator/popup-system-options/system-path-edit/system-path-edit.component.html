@@ -10,7 +10,7 @@
         <div class="content">
             <ng-container *ngFor="let item of data">
                 <div class="item-content" (click)="onClickItem(item)" [class.active]="item.id === itemChooseId">
-                    <div class="item-content__title-button">
+                    <div class="item-content__title-button" (click)="itemOpen(item)">
                         <svg-icon *ngIf="item.open" src="./assets/icons/widgets/reports/arrow-up.svg"
                             [svgStyle]="{ 'width.px':10, 'height.px':10 }"></svg-icon>
 
@@ -27,6 +27,13 @@
                         <svg-icon src="./assets/icons/widgets/reports/edit_white.svg" (click)="blockItem(item)">
                         </svg-icon>
                     </div>
+                </div> 
+                <div *ngIf="item.open" class="item-content__shadow-block">
+                    <ng-container *ngFor="let i of item.catalog">
+                        <div class="item-content__info">
+                            {{ i.mail }}
+                        </div>
+                    </ng-container>
                 </div>
             </ng-container>
         </div>

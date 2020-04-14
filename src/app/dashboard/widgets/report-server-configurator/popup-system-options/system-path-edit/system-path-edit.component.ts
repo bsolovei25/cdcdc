@@ -66,18 +66,24 @@ export class SystemPathEditComponent implements OnInit {
 
   }
 
+  itemOpen(item){
+    item.open = !item.open;
+  }
+
   onClickItem(item): void {
     this.itemChooseId = item.id;
   }
 
   openUserBlock(): void {
-    this.userBlock = true;
+    if (this.itemChooseId) {
+      this.userBlock = true;
+      this.dataSend = this.data.find(e => e.id === this.itemChooseId).catalog;
+    }
   }
 
   closeUserBlock(event): void {
-    this.userBlock = event;
-    this.dataSend = this.data.find(e => e.id === this.itemChooseId).catalog;
-    console.log("test");
+    this.data.find(e => e.id === this.itemChooseId).catalog = event.data;
+    this.userBlock = event.close;
   }
 
 }

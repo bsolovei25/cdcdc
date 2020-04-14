@@ -8,8 +8,17 @@
             <div class="title__name">Выберите нужных пользователей</div>
         </div>
         <div class="content">
-            <ng-container>
-
+            <ng-container *ngFor="let item of dataMail">
+                <div class="item"> 
+                    <div class="item__mail"> {{ item.mail }}</div>
+                    <div class="item__check">
+                        <label class="mycheckbox">
+                            <input type="checkbox" id="checkBoxValue" class="mycheckbox__default" (click)="changeSwap(item)" [checked]="item.isActive"
+                                 />
+                            <div class="mycheckbox__new" [class.mycheckbox__checked]="item.isActive"></div>
+                        </label>
+                    </div>
+                </div>
             </ng-container>
         </div>
         <div class="bottom">

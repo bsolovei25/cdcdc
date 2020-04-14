@@ -90,6 +90,7 @@
   }
 
   .item-content {
+    cursor: pointer;
     position: relative;
     height: 40px;
     line-height: 40px;
@@ -98,6 +99,18 @@
       height: 100%;
       position: absolute;
       left: 30px;
+    }
+
+    &__shadow-block{
+      height: auto;
+    }
+
+    &__info{
+      background-color: var(--color-bg-main);
+      color: white;
+      height: 40px;
+      line-height: 40px;
+      padding-left: 30px;
     }
 
     &__name{
