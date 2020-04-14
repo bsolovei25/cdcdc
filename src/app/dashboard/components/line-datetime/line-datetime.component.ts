@@ -25,9 +25,6 @@ export class LineDatetimeComponent implements OnInit, AfterViewInit, OnDestroy {
     public dates: any[] = [];
 
     public dateFromSelector: IHeaderDate = {
-        // start: 0,
-        // end: 0,
-        // otherMonth: '',
         status: true,
         startDatetime: new Date(),
         endDatetime: new Date(),
