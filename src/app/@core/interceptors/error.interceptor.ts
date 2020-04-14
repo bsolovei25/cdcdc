@@ -47,8 +47,8 @@ export class ErrorInterceptor implements HttpInterceptor {
                         console.log(err);
                         break;
                     case 475:
-                        if (err.error.token) {
-                            this.authService.userSessionToken = err.error.token;
+                        if (err?.error) {
+                            this.authService.authData = err.error;
                             return next.handle(req);
                         }
                         console.error('Error 475 (continue): Token was not received');

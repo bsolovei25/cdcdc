@@ -36,6 +36,11 @@ export class AuthService {
             this.authTokenData.token = newValue;
         }
     }
+    public set authData(newValue: ITokenData) {
+        if (newValue) {
+            this.authTokenData = newValue;
+        }
+    }
 
     constructor(
         private router: Router,
