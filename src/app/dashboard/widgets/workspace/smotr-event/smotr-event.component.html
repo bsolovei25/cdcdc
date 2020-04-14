@@ -22,7 +22,10 @@
         </evj-ui-block>
       </div>
       <div class="row__cell cell cell_right">
-        <evj-events-workspace-button status="escalate"></evj-events-workspace-button>
+        <evj-events-workspace-button
+          status="escalate"
+          (click)="isEscalatePopupOpen=true"
+        ></evj-events-workspace-button>
       </div>
     </div>
     <div class="column__row row">
@@ -43,7 +46,10 @@
         </evj-ui-block>
       </div>
       <div class="row__cell cell cell_right">
-        <evj-events-workspace-button status="close"></evj-events-workspace-button>
+        <evj-events-workspace-button
+          status="close"
+          (click)="isClosePopupOpen=true"
+        ></evj-events-workspace-button>
       </div>
     </div>
     <div class="column__row row description">
@@ -120,7 +126,19 @@
     </div>
   </div>
 
-  <!-- <div class="workspace__popup" >
-    <evj-events-comment-window></evj-events-comment-window>
-  </div> -->
+  <div class="workspace__popup" [ngClass]="{'workspace__popup_active':isEscalatePopupOpen}">
+    <evj-events-comment-window
+      *ngIf="isEscalatePopupOpen"
+      title="Эскалировать выше"
+      (closeWindow)="isEscalatePopupOpen=false"
+    ></evj-events-comment-window>
+  </div>
+
+  <div class="workspace__popup" [ngClass]="{'workspace__popup_active':isClosePopupOpen}">
+    <evj-events-comment-window
+      *ngIf="isClosePopupOpen"
+      title="Закрыть карточку"
+      (closeWindow)="isClosePopupOpen=false"
+    ></evj-events-comment-window>
+  </div>
 </div>

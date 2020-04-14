@@ -29,16 +29,14 @@
 
     <!-- EVENT -->
     <div class="container-widget">
-      <evj-usual-event
-        *ngIf="!isMock && ewService.event && !(ewService.event.category.code==='0')"
-      ></evj-usual-event>
+      <ng-container *ngIf="ewService.event">
+        <evj-usual-event *ngIf="ewService.event.category.code!=='0'"></evj-usual-event>
 
-      <evj-smotr-event
-        *ngIf="!isMock && ewService.event && ewService.event.category.code==='0'"
-      ></evj-smotr-event>
+        <evj-smotr-event *ngIf="ewService.event.category.code==='0'"></evj-smotr-event>
+      </ng-container>
 
       <!-- NO-SELECTED EVENT -->
-      <ng-container *ngIf="!isMock && !ewService.event">
+      <ng-container *ngIf="!ewService.event">
         <div
           class="workspace__mock"
           (mousedown)="$event.stopPropagation()"

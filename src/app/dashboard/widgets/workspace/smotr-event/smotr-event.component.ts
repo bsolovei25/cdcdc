@@ -16,6 +16,10 @@ export class SmotrEventComponent implements OnInit {
         'Причина 6',
     ];
 
+    public isEscalatePopupOpen: boolean = false;
+    public isClosePopupOpen: boolean = false;
+    public isReasonsPopupOpen: boolean = true;
+
     constructor(public ewService: EventsWorkspaceService) {}
 
     public ngOnInit(): void {}
