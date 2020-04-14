@@ -22,13 +22,13 @@ export class LineDatetimeComponent implements OnInit, AfterViewInit, OnDestroy {
     private subscription: Subscription;
 
     public currentData: number;
-    public dates = [];
+    public dates: any[] = [];
 
     public dateFromSelector: IHeaderDate = {
-        start: 0,
-        end: 0,
+        // start: 0,
+        // end: 0,
+        // otherMonth: '',
         status: true,
-        otherMonth: '',
         startDatetime: new Date(),
         endDatetime: new Date(),
     };
