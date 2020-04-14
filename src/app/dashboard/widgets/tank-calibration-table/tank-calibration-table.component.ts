@@ -7,6 +7,7 @@ import { UploadFormComponent } from './upload-form/upload-form.component';
 import { MatDialog } from '@angular/material/dialog';
 import * as moment from 'moment';
 import { TanksTableComponent } from './tanks-table/tanks-table.component';
+import { SnackBarService } from '../../services/snack-bar.service';
 
 export interface ICalibrationTable {
     uid: string;
@@ -67,6 +68,7 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         public widgetService: WidgetService,
         private calibrationService: TankCalibrationTableService,
         private dialog: MatDialog,
+        public snackBar: SnackBarService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -165,7 +167,7 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
     blockNeed(): void {
         this.endTr = [];
         const heightTemplate = this.dataSource.length * 28;
-        const heihtOut = (this.table?.nativeElement?.clientHeight - heightTemplate) / 26.5;
+        const heihtOut = (this.table?.nativeElement?.clientHeight - heightTemplate) / 28;
         for (let i = 0; i < heihtOut - 1; i++) {
             this.endTr.push(i);
         }
@@ -173,7 +175,7 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
     blockNee2d(): void {
         this.endTr2 = [];
         const heightTemplate = this.dataSource.length * 28;
-        const heihtOut = (this.tableRight?.nativeElement?.clientHeight - heightTemplate) / 25;
+        const heihtOut = (this.tableRight?.nativeElement?.clientHeight) / 28;
         for (let i = 0; i < heihtOut - 1; i++) {
             this.endTr2.push(i);
         }
@@ -215,7 +217,6 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
     }
 
     openTanksTable(): void {
-
         const dialogRef = this.dialog
             .open(TanksTableComponent, {
                 data: this.tanksAvailable,
@@ -223,8 +224,19 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
             });
         // when dialog is closed, check result
         dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
+            if (result) {
+                this.putTanks(result?.[0]?.uid);
+            }
         });
+    }
+
+    async putTanks(uid: string): Promise<void> {
+        try {
+            this.calibrationService.putTank(uid);
+            this.snackBar.openSnackBar('Резервуар добавлен');
+        } catch (error) {
+
+        }
     }
 
 

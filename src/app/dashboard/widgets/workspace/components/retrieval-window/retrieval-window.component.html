@@ -151,13 +151,14 @@
               (changedDescription)="onChangeEventDescription($event)"
             ></evj-event-description>
 
-            <evj-chat
-            class="facts"
-              [messages]="ewService.retrievalEvent.facts"
-              title="Установленные факты"
-              placeholder="Укажите факты..."
-              (addingMessage)="onSendMessage($event,'facts')"
-            ></evj-chat>
+            <div class="facts">
+              <evj-chat
+                [messages]="ewService.retrievalEvent.facts"
+                title="Установленные факты"
+                placeholder="Укажите факты..."
+                (addingMessage)="onSendMessage($event,'facts')"
+              ></evj-chat>
+            </div>
           </div>
 
           <div class="workspace__body__right">
@@ -198,52 +199,17 @@
               </div>
             </div>
             <div class="responsible">
-              <div *ngIf="ewService.retrievalEvent.fixedBy.id" class="choosenUser">
-                <div class="name_user">
-                  <div class="name_user_responsible">
-                    Ответственный
-                  </div>
-                  <div class="name_user_info">
-                    <div>{{ ewService.retrievalEvent.fixedBy.displayName }}</div>
-                    <div>{{ ewService.retrievalEvent.fixedBy.positionDescription }}</div>
-                  </div>
-                </div>
-                <div class="brigade_user">
-                  <div class="brigade_user_text">
-                    Бригада № {{ ewService.retrievalEvent.fixedBy.id }}
-                  </div>
-                </div>
-                <div class="avatar_user">
-                  <div class="avatar_user_img">
-                    <img [src]="ewService.getUserAvatarUrl(ewService.retrievalEvent.fixedBy)" />
-                  </div>
-                </div>
-              </div>
-              <evj-ui-block class="workspace__header__block" status="normal">
-                <mat-form-field>
-                  <mat-label>Ответственный</mat-label>
-                  <mat-select
-                    panelClass="mat-select-custom"
-                    [(ngModel)]="ewService.retrievalEvent.fixedBy"
-                  >
-                    <mat-option
-                      *ngFor="let p of ewService.users"
-                      [value]="p"
-                      (click)="chooseMeropRespons(p)"
-                      >{{ p.lastName }} {{ p.firstName }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </evj-ui-block>
+              <evj-events-responsible-select [isRetrieval]="true"></evj-events-responsible-select>
             </div>
 
-            <evj-chat
-              class="comments"
-              [messages]="ewService.retrievalEvent.comments"
-              title="Комментарии"
-              placeholder="Напишите свой комментарий..."
-              (addingMessage)="onSendMessage($event,'comments')"
-            ></evj-chat>
+            <div class="comments">
+              <evj-chat
+                [messages]="ewService.retrievalEvent.comments"
+                title="Комментарии"
+                placeholder="Напишите свой комментарий..."
+                (addingMessage)="onSendMessage($event,'comments')"
+              ></evj-chat>
+            </div>
           </div>
         </div>
 
