@@ -66,7 +66,7 @@ export class WidgetService {
     constructor(
         public http: HttpClient,
         private authService: AuthService,
-        configService: AppConfigService,
+        private configService: AppConfigService,
         private materialController: SnackBarService
     ) {
         this.restUrl = configService.restUrl;
@@ -122,8 +122,8 @@ export class WidgetService {
         });
     }
 
-    getName(idWidg: string): string {
-        const widgetNames: IWidgets = this._widgets$.getValue().find((x) => x.id === idWidg);
+    getName(widgetId: string): string {
+        const widgetNames: IWidgets = this._widgets$.getValue().find((x) => x.id === widgetId);
         if (widgetNames) {
             return widgetNames.widgetType;
         }
