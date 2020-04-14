@@ -7,6 +7,7 @@ import { AuthenticationGuard } from './guards/authentication.guard';
 const routes: Routes = [
     {
         path: '',
+        canActivateChild: [AuthenticationGuard],
         children: [
             {
                 path: 'dashboard',
@@ -16,6 +17,7 @@ const routes: Routes = [
                 canActivate: [AuthenticationGuard],
                 canActivateChild: [AuthenticationGuard],
                 data: { animation: 'dashboard' },
+                runGuardsAndResolvers: 'always',
             },
             {
                 path: 'login',
@@ -26,5 +28,4 @@ const routes: Routes = [
         ],
     },
 ];
-
 export const CoreRoutingModule = RouterModule.forRoot(routes);
