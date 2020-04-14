@@ -33,7 +33,7 @@
     (checked)="onSetResponsible($event)"
   ></evj-aws-checkbox-card>
 
-  <div class="card" *ngIf="isValidFieldName(textPasswordButton())">
+  <div class="card" *ngIf="isValidFieldName(textPasswordButton()) && !isImportNewWorker">
     <evj-button
       class="card__button"
       [isChangingState]="false"
