@@ -35,6 +35,8 @@ export class AwsCardComponent implements OnInit {
 
     public inputFormControl: FormControl = new FormControl();
 
+    public placeholder: string = '';
+
     //#region MASK
     public prefix: string = '';
     public mask: string = '';
@@ -58,14 +60,23 @@ export class AwsCardComponent implements OnInit {
                 this.inputFormControl.setValidators([
                     Validators.required,
                     Validators.minLength(5),
-                    Validators.pattern('[a-zA-Z0-9]+'),
+                    Validators.pattern(/[a-zA-Z0-9]+/),
                 ]);
+                this.placeholder = 'login';
                 break;
             case 'phone':
-                this.inputFormControl.setValidators([Validators.pattern('[0-9]{10}')]);
+                this.inputFormControl.setValidators([Validators.pattern(/[0-9]{10}/)]);
                 this.prefix = '+7 ';
                 this.mask = '(000) 000-00-00';
                 this.showMaskTyped = true;
+                this.placeholder = '0000000000';
+                break;
+            case 'email':
+                this.inputFormControl.setValidators([
+                    Validators.email,
+                    Validators.pattern(/[a-zA-Z0-9.-_]+@[a-zA-Z0-9-]+\.[a-zA-Z]+/),
+                ]);
+                this.placeholder = 'example@example.ru';
                 break;
         }
     }
