@@ -20,26 +20,24 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
     isReadyAdd: boolean = false;
 
     tempScreen: string = '';
-
     newNameScreen: string = '';
-
     public idScreen: number;
-
     public nameScreen: string;
 
-    public localSaved;
+    public localSaved: number;
 
-    private timerOff = null;
+    private timerOff: any = null;
 
     isShowScreens: boolean = false;
 
     constructor(private userSettings: UserSettingsService, private claimService: ClaimService) {}
 
     ngOnInit(): void {
+        console.log('ind init');
         this.subscriptions.push(
-            this.userSettings.screens$.subscribe((dataW) => {
-                console.log(dataW);
-                this.dataScreen = dataW;
+            this.userSettings.screens$.subscribe((screens) => {
+                console.log(screens);
+                this.dataScreen = screens;
                 this.localSaved = Number(localStorage.getItem('screenid'));
                 this.LoadScreen(this.localSaved);
                 this.nameScreen = this.getActiveScreen();
@@ -54,28 +52,26 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        if (this.subscriptions.length > 0) {
-            for (const subscribe of this.subscriptions) {
-                subscribe.unsubscribe();
-            }
-        }
+        this.subscriptions.forEach((subscription) => {
+            subscription.unsubscribe();
+        });
     }
 
-    public LoadScreen(id: any): void {
+    public LoadScreen(id: number): void {
         this.userSettings.LoadScreen(id);
     }
 
-    ScreenActive(e) {
+    ScreenActive(e): void {
         if (this.timerOff) {
             clearTimeout(this.timerOff);
         }
         this.isShowScreens = true;
     }
 
-    ScreenDisable(e) {
+    ScreenDisable(e): void {
         this.timerOff = setTimeout(() => {
             this.isShowScreens = false;
-        }, 700);
+        }, 300);
     }
 
     public getActiveScreen = (): string => {
@@ -85,16 +81,13 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
                 return currentScreen.screenName;
             }
         }
-
         if (this.localSaved) {
             const found = this.dataScreen.find((x) => x.id === this.localSaved);
             if (found) {
                 return found.screenName;
             }
-            this.LoadScreen(this.localSaved);
         }
-
-        if (this.dataScreen[0]) return this.dataScreen[0].screenName;
+        if (this.dataScreen[0]) { return this.dataScreen[0].screenName; }
     };
 
     setActiveScreen(screen): void {
@@ -135,7 +128,7 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
         this.userSettings.updateScreen(id, newName);
     }
 
-    public addScreen() {
+    public addScreen(): void {
         const newScreen = {
             id: 0,
             name: this.tempScreen,
@@ -145,29 +138,28 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
         this.tempScreen = '';
     }
 
-    onUpdateForm(id) {
-        for (const item of this.dataScreen) {
-            if (item.id === id) {
-                item.updateScreen = true;
-                this.newNameScreen = item.screenName;
-            }
-        }
+    onUpdateForm(id: number): void {
+        const item = this.dataScreen.find((el) => el.id === id);
+        item.updateScreen = true;
+        this.newNameScreen = item.screenName;
     }
 
-    isLeaveScreen(e) {
+    isLeaveScreen(e): void {
         for (const item of this.dataScreen) {
             item.updateScreen = false;
         }
     }
-    isOverScreen(e) {}
+    isOverScreen(e): void {}
 
     public isScreenDelete(screen: IScreenSettings): boolean {
-        return !!(screen.claims.find((claim) => claim.claimType === 'screenDel') ||
-            screen.claims.find((claim) => claim.claimType === 'screenAdmin'));
+        return !!(screen.claims.find((claim) => claim.claimType === 'screenDel' ||
+            claim.claimType === 'screensDel' ||
+            claim.claimType === 'screenAdmin'));
     }
 
     public isScreenEdit(screen: IScreenSettings): boolean {
-        return !!(screen.claims.find((claim) => claim.claimType === 'screenEdit') ||
-            screen.claims.find((claim) => claim.claimType === 'screenAdmin'));
+        return !!(screen.claims.find((claim) => claim.claimType === 'screensEdit' ||
+            claim.claimType === 'screenEdit' ||
+            claim.claimType === 'screenAdmin'));
     }
 }
