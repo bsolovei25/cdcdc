@@ -70,7 +70,7 @@ input {
   min-width: 650px;
   height: 100%;
   padding: 20px;
-  padding-top: 31px;
+  padding-top: 40px;
   box-sizing: border-box;
 
   background-color: inherit;
@@ -85,7 +85,7 @@ input {
     direction: ltr;
   }
   .table {
-    height: calc(100% - 42px);
+    height: calc(100% - 24px);
     overflow-y: auto;
     direction: rtl;
   }
@@ -102,8 +102,9 @@ input {
     th {
       color: var(--color-text-header-table);
       background-color: var(--color-table-header);
-      font-size: 8px;
-      padding: 9px 0;
+      font-size: 11px;
+      padding-top: 7px;
+      height: 32px;
       text-align: center;
       display: inline-block;
       position: sticky;
@@ -133,6 +134,10 @@ input {
     &__name {
       min-width: 201px;
       max-width: 201px;
+      &__text {
+        display: inline-block;
+        padding-top: 5px;
+      }
     }
 
     &__action {
@@ -172,11 +177,13 @@ input {
     }
   }
 
-  &__item {
-    text-align: left;
-    display: flex;
-    justify-content: space-between;
-    height: 28px;
+  .table {
+    &__item {
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      height: 28px;
+    }
   }
 
   .item {
@@ -188,6 +195,7 @@ input {
     display: flex;
     flex-grow: 1;
     max-height: 28px;
+    height: 20px;
 
     &__tr {
       padding-left: 33px;
@@ -197,7 +205,7 @@ input {
       }
       &-name {
         padding-left: 15px;
-        font-size: 9px;
+        font-size: 12px;
       }
     }
 
@@ -272,7 +280,7 @@ input {
   }
   tfoot {
     position: fixed;
-    bottom: 40px;
+    bottom: 20px;
     width: inherit;
   }
 }
@@ -286,7 +294,7 @@ input {
     height: 100%;
   }
   .table {
-    height: calc(100% - 42px);
+    height: calc(100% - 24px);
     overflow-y: auto;
   }
   font-family: Tahoma, sans-serif;
@@ -295,10 +303,10 @@ input {
   color: var(--color-text-sub);
 
   position: relative;
-  min-width: 465px;
+  min-width: 456px;
   height: 100%;
   padding: 20px;
-  padding-top: 31px;
+  padding-top: 40px;
   box-sizing: border-box;
 
   background-color: inherit;
@@ -316,8 +324,9 @@ input {
     th {
       color: var(--color-text-header-table);
       background-color: var(--color-table-header);
-      font-size: 8px;
-      padding: 9px 0;
+      font-size: 11px;
+      height: 25px;
+      padding-top: 15px;
       text-align: center;
       display: inline-block;
       position: sticky;
@@ -345,8 +354,8 @@ input {
       // background-color: var(--color-bg-header-table);
     }
     &__name {
-      min-width: 138px;
-      max-width: 138px;
+      min-width: 136px;
+      max-width: 136px;
     }
 
     &__action {
@@ -415,7 +424,7 @@ input {
   }
   tfoot {
     position: fixed;
-    bottom: 40px;
+    bottom: 20px;
     width: inherit;
   }
 }
@@ -669,18 +678,16 @@ input {
 
   &__button-add {
     cursor: pointer;
-    height: 30px;
-    width: 30px;
-
-    margin-top: 1px;
+    height: 24px;
+    width: 24px;
+    margin-top: 5px;
   }
 
   &__button-search {
     cursor: pointer;
-    height: 30px;
-    width: 30px;
-
-    margin-top: 2px;
+    height: 22px;
+    width: 25px;
+    margin-top: 4px;
   }
 
   &__input {
@@ -689,8 +696,8 @@ input {
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     left: 25px;
-    top: 2px;
-    height: 28px;
+    top: 4px;
+    height: 23px;
     position: absolute;
     width: 150px;
 
@@ -730,7 +737,7 @@ input {
 
 .bottom-reference-right {
   position: relative;
-  height: 45px;
+  height: 35px;
   width: 100%;
   background-color: var(--color-table-header);
 
@@ -808,7 +815,7 @@ input {
   &__text {
     display: flex;
     position: relative;
-    padding-top: 14px;
+    padding-top: 8px;
   }
 
   &__div {
