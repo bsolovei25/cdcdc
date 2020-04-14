@@ -7,6 +7,7 @@ import { WidgetPlatform } from '../../models/widget-platform';
 import { SnackBarService } from '../../services/snack-bar.service';
 import { ITreeState, ITreeOptions, TreeDraggedElement, TreeComponent } from 'angular-tree-component';
 import { v4 } from 'uuid';
+import { templateJitUrl } from '@angular/compiler';
 
 @Component({
     selector: 'evj-report-server-configurator',
@@ -159,13 +160,6 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     getReportFolder() {
         return this.reportService.getTemplateFolder().subscribe(ans => {
             this.dataFolder = this.mapDataFolder(ans);
-            this.tree.treeModel.update();
-            //  this.dataFolder = ans;
-            // this.saveData = ans;
-            // for (let item of this.data) {
-            //     this.connectedTo.push(item.name);
-            // }
-            console.log(this.dataFolder);
         });
     }
 
@@ -219,14 +213,16 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         const test = [];
         for (let i of data) {
             let obj = {
-                id: i.id,
+                id: 'folder' + i.id,
+                idFolder: i.id,
                 name: i.name,
                 type: 'Folder',
                 children: this.mapDataFolder(i?.childFolders),
             }
             for (let temp of i.templates) {
                 let templateObj = {
-                    id: temp.id,
+                    id: 'temp' + temp.id,
+                    idTemplate: temp.id,
                     name: temp.name,
                     type: 'Template',
                     folderId: temp.folderId,
@@ -262,7 +258,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         item.openEdit = false;
         const obj = {
             folderId: item.folderId,
-            id: item.id,
+            id: item.idTemplate,
             name: item.name,
             createdAt: item.createdAt,
             createdBy: item.createdBy,
@@ -280,16 +276,16 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     deleteReportTemplate(item) {
         this.isLoading = true;
-        this.reportService.deleteReportTemplate(item.id).subscribe((ans) => {
+        this.reportService.deleteReportTemplate(item.idTemplate).subscribe((ans) => {
             this.isLoading = false;
             this.getReportTemplate();
         });
     }
 
     onClickReference(data, index) {
-        this.getReporting(data.id);
+        this.getReporting(data.idTemplate);
         this.isAddOptionsButton = true; // file
-        this.isIdReport = data.id;
+        this.isIdReport = data.idTemplate;
         data.open = !data.open;
         this.indexColumn = index;
         this.optionsActive = [];
@@ -301,7 +297,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         this.selectFile = null;
         this.isAddOptionsButton = true;
         //data.open = !data.open;
-        this.isIdReport = item.id;
+        this.isIdReport = item.idTemplate;
     }
 
     onClickParamReference(item) {
@@ -509,7 +505,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     onFolder(event) {
         if (event.node.data.type === "Folder") {
-            this.folderActive = event.node.id;
+            this.folderActive = event.node.idFolder;
         }
     }
 
@@ -521,16 +517,15 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         console.log(event);
         if (event.node.type === "Folder") {
             const obj = {
-                id: event.node.id,
+                id: event.node.idFolder,
                 name: event.node.name,
                 parentFolderId: event.to.parent.id,
             }
             this.reportService.putFolderTemplate(obj).subscribe(ans => {
-                console.log('test');
-             });
+            });
         } else if (event.node.type === "Template") {
             const obj = {
-                id: event.node.id,
+                id: event.node.idTemplate,
                 name: event.node.name,
                 folderId: event.to.parent.id,
             }

@@ -25,11 +25,11 @@
                     <div *ngIf="!node.data.openEdit">
                       <span [class]="node.data.className + 'Index'">Файл-шаблон: </span>
                       <span [class]="node.data.className" [class.title]="true">{{ node.data.name }}</span>
-                      <div *ngIf="this.isIdReport === node.data.id" class="reference-container__button-edit" (click)="$event.stopPropagation()">
+                      <div *ngIf="this.isIdReport === node.data.idTemplate" class="reference-container__button-edit" (click)="$event.stopPropagation()">
                         <svg-icon  class="indicator-selector__collapse"
                           src="./assets/icons/widgets/reports/edit_white.svg" (click)="onEdit(node.data)"></svg-icon>
                       </div>
-                      <div *ngIf="this.isIdReport === node.data.id" class="reference-container__button-remove" (click)="deleteReportTemplate(node.data)">
+                      <div *ngIf="this.isIdReport === node.data.idTemplate" class="reference-container__button-remove" (click)="deleteReportTemplate(node.data)">
                       </div>
                     </div>
                     <div *ngIf="node.data.openEdit" class="reference-container__block-info">
@@ -172,7 +172,7 @@
           </div>
           <div class="references-container-scroll-block">
             <div id="rightScrollReportConfig" class="reference-container-value">
-              <div *ngIf="folderActive !== undefined" class="reference-container-value__block">
+              <div *ngIf="isIdReport" class="reference-container-value__block">
                 <div class="reference-container-value__fio-block">
                   <div class="reference-container-value__fio">Выбранный файл-шаблон</div>
                 </div>
