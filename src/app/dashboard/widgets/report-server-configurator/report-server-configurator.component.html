@@ -48,7 +48,7 @@
                     <!-- <span [class]="node.data.className + 'Index'">Папка: </span> -->
                     <span [class]="node.data.className" [class.title]="true">{{ node.data.name }}</span>
                   </div>
-                  <div *ngIf="addItem && node.data.id === folderActive" class="reference-container__add-block">
+                  <div *ngIf="addItem && node.data.id === folderIdActive" class="reference-container__add-block">
                     <div class="reference-container__add-block-input">
                       <input *ngIf="createReport" type="text" [(ngModel)]="newRecord"
                         placeholder="Введите название файла-шаблона..." />
@@ -183,7 +183,7 @@
             <evj-popup-user-options [data]="optionsCustom" (close)="closeOptions($event)"></evj-popup-user-options>
           </ng-container>
           <ng-container *ngIf="!popupUserCustomOptions">
-            <evj-popup-system-options [optionsType]="popupOptionsActive"></evj-popup-system-options>
+            <evj-popup-system-options [optionsType]="popupOptionsActive" (close)="closeOptions($event)"></evj-popup-system-options>
           </ng-container>
         </div>
       </div>

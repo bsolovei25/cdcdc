@@ -82,6 +82,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     public newFolder: string;
 
     public folderActive: number;
+    public folderIdActive: number;
 
     public connectedTo: any = [];
 
@@ -467,22 +468,6 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             systemOptionValues: optionObject,
             fileTemplate: this.selectFile,
         }
-        //если папка
-        // this.data.find(e => {
-        //     if (e.id === this.folderActive) {
-        //         e.templates.find(el => {
-        //             if (el.id === item) {
-        //                 objectRepot = el;
-        //             }
-        //         })
-        //     }
-        // })
-        // let obj = {
-        //     id: 0,
-        //     name: objectRepot.name,
-        //     fileTemplate: this.selectFile,
-        //     createdAt: new Date(),
-        // }
 
         this.reportService.postSystemOptions(item, obj).subscribe(ans => {
             this.materialController.openSnackBar(
@@ -531,6 +516,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     onFolder(event) {
         if (event.node.data.type === "Folder") {
             this.folderActive = event.node.idFolder;
+            this.folderIdActive = event.node.id;
         }
     }
 
