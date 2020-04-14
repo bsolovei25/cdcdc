@@ -75,6 +75,9 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         this.subscriptions.push(
             this.adminService.activeWorker$.subscribe((worker: IUser) => {
                 this.worker = fillDataShape(worker);
+                if (this.isImportNewWorker && !this.worker.id) {
+                    this.showAlert();
+                }
             }),
             this.adminService.activeWorkerWorkspaces$.subscribe((workerScreens) => {
                 this.workerScreens = workerScreens;

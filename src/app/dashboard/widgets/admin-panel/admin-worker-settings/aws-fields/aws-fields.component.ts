@@ -147,9 +147,7 @@ export class AwsFieldsComponent implements OnInit {
     }
 
     public textPasswordButton(): string {
-        return this.isCreateNewUser || (this.isImportNewWorker && !this.worker.id)
-            ? 'Добавить пароль'
-            : 'Сбросить пароль';
+        return this.isCreateNewUser ? 'Добавить пароль' : 'Сбросить пароль';
     }
 
     public onSetPassword(): void {
