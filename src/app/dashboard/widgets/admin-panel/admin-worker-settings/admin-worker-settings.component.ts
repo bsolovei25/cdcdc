@@ -75,6 +75,9 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         this.subscriptions.push(
             this.adminService.activeWorker$.subscribe((worker: IUser) => {
                 this.worker = fillDataShape(worker);
+                if (this.isImportNewWorker && !this.worker.id) {
+                    this.showAlert();
+                }
             }),
             this.adminService.activeWorkerWorkspaces$.subscribe((workerScreens) => {
                 this.workerScreens = workerScreens;
@@ -279,7 +282,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             firstName: 'Имя',
             lastName: 'Фамилия',
             login: 'Логин',
-            phone: 'Телефон',
             email: 'Эл.почта',
         };
 
@@ -302,7 +304,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             !!this.worker.firstName &&
             !!this.worker.lastName &&
             !!this.worker.login &&
-            !!this.worker.phone &&
             !!this.worker.email
         );
     }

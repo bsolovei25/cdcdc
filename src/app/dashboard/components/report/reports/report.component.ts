@@ -41,19 +41,15 @@ export class ReportComponent implements OnInit {
     template: IReport;
 
     constructor(
-        public widgetService: WidgetService,
         private reportsService: ReportsService,
     ) {
-        this.subscription = this.widgetService.widgets$.subscribe((dataW) => {
-        });
+
     }
     ngOnInit() {
     }
 
     ngOnDestroy(): void {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
+
     }
 
     toggle(id: number) {
@@ -77,13 +73,15 @@ export class ReportComponent implements OnInit {
         } else if (this.datePickerOpen === 1) {
             // this.toDate = new Date(date.setHours(+time[0], +time[1], +time[2]));
         }
-       
+
     }
 
     async loadItem(id: number): Promise<void> {
         this.isLoading = true;
         try {
             this.template = await this.reportsService.getTemplate(id);
+            console.log(this.template);
+
             this.isLoading = false;
         } catch (error) {
             this.isLoading = false;

@@ -47,9 +47,19 @@ export class TankCalibrationTableService {
             .toPromise();
     }
 
+    async putTank(id: string): Promise<any> {
+        try {
+            return this.http
+                .put(this.restUrl + `/api/graduation-table/Graduation/tanks/${id}`, null)
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     async deleteTank(id: string): Promise<void> {
         return await this.http
-            .delete<void>(this.restUrl + `/api/graduation/tanks/${id}`)
+            .delete<void>(this.restUrl + `/ api / graduation / tanks / ${id}`)
             .toPromise();
     }
 

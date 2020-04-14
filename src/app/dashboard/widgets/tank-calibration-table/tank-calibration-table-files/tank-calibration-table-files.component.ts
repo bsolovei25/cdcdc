@@ -98,15 +98,15 @@ export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
     blockNeed(): void {
         this.endTr = [];
         const heightTemplate = this.dataSource.length * 28;
-        const heihtOut = (this.table3.nativeElement.clientHeight - heightTemplate) / 26;
+        const heihtOut = (this.table3.nativeElement.clientHeight - heightTemplate) / 20;
         for (let i = 0; i < heihtOut - 1; i++) {
             this.endTr.push(i);
         }
     }
     blockNee2d(): void {
         this.endTr2 = [];
-        const heightTemplate = this.dataSource.length * 28;
-        const heihtOut = (this.tableRight4.nativeElement.clientHeight - heightTemplate) / 25;
+        const heightTemplate = this.dataSource.length * 26;
+        const heihtOut = (this.tableRight4.nativeElement.clientHeight - heightTemplate) / 14;
         for (let i = 0; i < heihtOut - 1; i++) {
             this.endTr2.push(i);
         }

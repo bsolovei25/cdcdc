@@ -28,7 +28,7 @@
               <td class="table__body__item__row__col">
                 <svg-icon
                   class="col__icon"
-                  src="assets/icons/widgets/calibration-table/arrow.svg"
+                  src="assets/icons/widgets/calibration-table/arrow-name.svg"
                   [svgStyle]="{ 'width.px':8, 'height.px':5 }"
                   [class.col__icon-arrow-rtl]="expandedElement.isSelected(element)"
                 ></svg-icon>
@@ -36,7 +36,14 @@
               </td>
             </tr>
             <ng-container *ngFor="let elementChildren of getChildrenRows(element)">
-              <tr *ngIf="expandedElement.isSelected(element)" class="row__expanded">
+              <tr
+                *ngIf="expandedElement.isSelected(element)"
+                (click)="selectedElement.isSelected(elementChildren) ? 
+                         selectedElement.deselect(elementChildren)
+                        : selectedElement.select(elementChildren)"
+                [class.table__body__item__row__expanded--selected]="selectedElement.isSelected(elementChildren)"
+                class="table__body__item__row__expanded"
+              >
                 <td class="col__name">
                   {{ elementChildren.name }}
                 </td>
@@ -47,7 +54,7 @@
       </table>
     </div>
     <div class="tank__footer">
-      <span class="tank__footer__icon">Добавить</span>
+      <span class="tank__footer__icon" (click)="addClick()">Добавить</span>
     </div>
   </section>
 </div>
