@@ -1,0 +1,37 @@
+<div class="container">
+    <div style="height: 100%;">
+        <div class="title">
+            <div class="title__button-close" (click)="exit()">
+                <svg-icon src="./assets/icons/widgets/reports/close.svg" class="add_button_icon">
+                </svg-icon>
+            </div>
+            <div class="title__name">Выберите нужных пользователей</div>
+        </div>
+        <div class="content">
+            <ng-container>
+
+            </ng-container>
+        </div>
+        <div class="bottom">
+            <div class="bottom__block-edit">
+                <div class="bottom__input-block">
+                    <div class="bottom__button-search">
+                      <svg-icon *ngIf="!isRepInput" class="button_filter_icon"
+                        src="./assets/icons/widgets/references/search_white.svg"></svg-icon>
+            
+                      <svg-icon *ngIf="isRepInput" class="indicator-selector__collapse"
+                        src="./assets/icons/widgets/references/search_blue.svg"></svg-icon>
+                    </div>
+                    <div class="bottom__input" [class.bottom__input-active]="isRepInput">
+                      <input type="text" (focus)="isRepInput = true" (blur)="isRepInput = false" (keyup)="search($event)" />
+                    </div>
+                  </div>
+            </div>
+            <div class="bottom__block">
+                <div class="bottom__save-block" (click)="save()">
+                    <div class="bottom__button-save">Сохранить</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

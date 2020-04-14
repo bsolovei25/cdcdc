@@ -27,7 +27,7 @@
                             <div class="item-list__add-block-input" (click)="$event.stopPropagation()">
                                 <input type="text" [(ngModel)]="nameItem" placeholder="Новое наименование..." />
                             </div>
-                            <div class="item-list__add-block-icon" (click)="editItem()">
+                            <div class="item-list__add-block-icon" (click)="editItemAccept(item)">
                                 <svg-icon src="./assets/icons/widgets/reports/accept.svg">
                                 </svg-icon>
                             </div>

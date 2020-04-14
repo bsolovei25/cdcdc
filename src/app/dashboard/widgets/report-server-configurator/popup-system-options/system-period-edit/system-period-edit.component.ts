@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'evj-system-period-edit',
@@ -6,18 +6,58 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./system-period-edit.component.scss']
 })
 export class SystemPeriodEditComponent implements OnInit {
+  @Output() public result: EventEmitter<any> = new EventEmitter<any>();
+
+  data: any = [
+    {
+      name: 'Годичный',
+      isActive: false,
+    },
+    {
+      name: 'Месячный',
+      isActive: false,
+    },
+    {
+      name: 'Суточный',
+      isActive: false,
+    },
+    {
+      name: 'Произвольное время',
+      isActive: false,
+    },
+    {
+      name: 'Точное время',
+      isActive: false,
+    },
+    {
+      name: 'Произвольная дата',
+      isActive: false,
+    },
+    {
+      name: 'Без запроса времени',
+      isActive: false,
+    },
+    {
+      name: 'Свой вариант',
+      isActive: false,
+    },
+  ];
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  close(){
+  close() {
+    this.result.emit(true);
+  }
+
+  save() {
 
   }
 
-  save(){
-    
+  changeSwap(item){
+    item.isActive = !item.isActive;
   }
 
 }

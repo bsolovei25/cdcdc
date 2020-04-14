@@ -1,24 +1,60 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'evj-system-report-sheets',
   templateUrl: './system-report-sheets.component.html',
   styleUrls: ['./system-report-sheets.component.scss']
 })
-export class SystemReportSheetsComponent implements OnInit {
+export class SystemReportSheetsComponent implements OnInit, AfterViewInit {
   @Output() public result: EventEmitter<any> = new EventEmitter<any>();
+
+  @ViewChild('reportSheets') public block: ElementRef;
+
+  data: any = [
+    {
+      name: 'test1',
+      isView: true,
+      value: 1
+    },
+    {
+      name: 'test2',
+      isView: false,
+      value: 2
+    },
+    {
+      name: 'test3',
+      isView: true,
+      value: 3
+    },
+  ];
+
+  blockOut: any = [];
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  close() {
+  ngAfterViewInit(): void {
+    this.blockNeed();
+  }
+
+  close(): void {
     this.result.emit(true);
   }
 
-  save(){
-    
+  save(): void {
+
+  }
+
+  blockNeed(): void {
+    if (this.data) {
+      const heightTemplate = this.data.length * 40;
+      const heightOut = (this.block.nativeElement.clientHeight - heightTemplate) / 40;
+      for (let i = 0; i < heightOut - 2; i++) {
+        this.blockOut.push(i);
+      }
+    }
   }
 
 }

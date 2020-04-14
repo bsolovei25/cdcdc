@@ -41,31 +41,35 @@ export class SystemMacroEditComponent implements OnInit, AfterViewInit {
     this.blockNeed();
   }
 
-  clickItem(item) {
+  clickItem(item): void {
     this.itemChoose = item;
   }
 
-  addItemBlock() {
+  addItemBlock(): void {
     this.addItem = true;
   }
 
-  addItemAccept() {
+  addItemAccept(): void {
     this.addItem = false;
   }
 
-  editItem(item) {
-    item.edit = !item.edit;
+  editItem(item): void {
+    item.edit = true;
   }
 
-  close() {
+  editItemAccept(item): void {
+    item.edit = false;
+  }
+
+  close(): void {
     this.result.emit(true);
   }
 
-  save() {
+  save(): void {
 
   }
 
-  drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<string[]>): void {
     moveItemInArray(this.data, event.previousIndex, event.currentIndex);
   }
 
