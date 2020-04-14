@@ -177,6 +177,7 @@ import { SystemMacroEditComponent } from './widgets/report-server-configurator/p
 import { SystemPathEditComponent } from './widgets/report-server-configurator/popup-system-options/system-path-edit/system-path-edit.component';
 import { SystemAutogenerateComponent } from './widgets/report-server-configurator/popup-system-options/system-autogenerate/system-autogenerate.component';
 import { SystemPathUserComponent } from './widgets/report-server-configurator/popup-system-options/system-path-edit/system-path-user/system-path-user.component';
+import { ParameterAutogenerationComponent } from './widgets/report-server-configurator/popup-system-options/system-parameter-values-autogeneration/parameter-autogeneration/parameter-autogeneration.component';
 
 
 @NgModule({
@@ -324,6 +325,7 @@ import { SystemPathUserComponent } from './widgets/report-server-configurator/po
         SystemPathEditComponent,
         SystemAutogenerateComponent,
         SystemPathUserComponent,
+        ParameterAutogenerationComponent,
     ],
     entryComponents: [
         LineChartComponent,
