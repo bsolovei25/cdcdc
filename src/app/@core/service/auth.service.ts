@@ -27,9 +27,19 @@ export class AuthService {
         return this.authTokenData !== null;
     }
 
-    get userSessionToken(): string | null {
+    public get userSessionToken(): string | null {
         const storageToken: string | null = localStorage.getItem('authentication-token');
         return this.authTokenData ? this.authTokenData.token : storageToken;
+    }
+    public set userSessionToken(newValue: string) {
+        if (newValue) {
+            this.authTokenData.token = newValue;
+        }
+    }
+    public set authData(newValue: ITokenData) {
+        if (newValue) {
+            this.authTokenData = newValue;
+        }
     }
 
     constructor(
@@ -38,7 +48,6 @@ export class AuthService {
         private configService: AppConfigService,
         private materialController: SnackBarService
     ) {
-        // this.restUrl = configService.restUrl;
         this.configService.restUrl$.subscribe((value) => {
             this.restUrl = value;
         });

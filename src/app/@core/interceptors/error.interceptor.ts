@@ -8,13 +8,17 @@ import { catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { SnackBarService } from '../../dashboard/services/snack-bar.service';
+import { AuthService } from '@core/service/auth.service';
 // Local modules
 
 @Injectable({
     providedIn: 'root', // singleton service
 })
 export class ErrorInterceptor implements HttpInterceptor {
-    constructor(private router: Router, private materialController: SnackBarService) {}
+    constructor(
+        private router: Router,
+        private materialController: SnackBarService,
+        private authService: AuthService) {}
 
     /** Intercept request with custom error handling */
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -41,6 +45,13 @@ export class ErrorInterceptor implements HttpInterceptor {
                             'snackbar-red'
                         );
                         console.log(err);
+                        break;
+                    case 475:
+                        if (err?.error) {
+                            this.authService.authData = err.error;
+                            return next.handle(req);
+                        }
+                        console.error('Error 475 (continue): Token was not received');
                         break;
                     default:
                         break;
