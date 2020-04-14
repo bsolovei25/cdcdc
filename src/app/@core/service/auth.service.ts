@@ -8,6 +8,8 @@ import { AppConfigService } from 'src/app/services/appConfigService';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IUser } from '../../dashboard/models/events-widget';
 import { SnackBarService } from '../../dashboard/services/snack-bar.service';
+
+import { JSEncrypt } from 'jsencrypt';
 // Local modules
 
 export interface ITokenData extends IUser {
@@ -18,6 +20,14 @@ export interface ITokenData extends IUser {
     providedIn: 'root', // singleton service
 })
 export class AuthService {
+
+    private readonly publicKey: string = `MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDObZtjxfplZYRgo6TKZM9E6b3R
+VQpXTpKTOiqefTKEpT9//ru1x0rHgqpsjcw1BoXFX3SuYRPn3ijCM/C9WHnc2PDj
+EgGu0KezIxvqE7nCjbHed7pff6fov6ZajFsiwcf2r3oOwCjWMW1ChHP0ZYF2Ai1H
+mInarJutHTwE+Elb3QIDAQAB`;
+
+    $encrypt: any; // JSEncrypt
+
     private authTokenData: ITokenData | null;
     private restUrl: string;
 
@@ -41,14 +51,16 @@ export class AuthService {
         this.configService.restUrl$.subscribe((value) => {
             this.restUrl = value;
         });
+        this.$encrypt = new JSEncrypt();
     }
 
     async authenticate(username: string, password: string): Promise<ITokenData> {
+        const encryptPass = this.encrypt(password);
         try {
             const auth = await this.http
                 .post<ITokenData>(this.restUrl + `/api/user-management/auth`, {
                     username,
-                    password,
+                    encryptPass,
                 })
                 .toPromise();
             this.configureUserAuth(auth);
@@ -66,11 +78,13 @@ export class AuthService {
     }
 
     async resetPassword(password: string, oldPassword: string): Promise<ITokenData> {
+        const encryptPass = this.encrypt(password);
+        const encryptOldPass = this.encrypt(oldPassword);
         const body = {
             username: this.user$.getValue().login,
-            password,
-            oldPassword
-        }
+            encryptPass,
+            encryptOldPass
+        };
         return await this.http
             .post<ITokenData>(this.restUrl + `/api/user-management/user/${this.user$.getValue().id}/password`, body)
             .toPromise();
@@ -139,6 +153,17 @@ export class AuthService {
             this.resetUserAuth(true);
         } catch (error) {
             console.error(error);
+        }
+    }
+
+    public encrypt(msg: string): string {
+        const text = `${msg}`.trim();
+        if (text.length > 117) {
+            console.error('Error pass length');
+            return null;
+        } else {
+            this.$encrypt.setPublicKey(this.publicKey);
+            return this.$encrypt.encrypt(text);
         }
     }
 }
