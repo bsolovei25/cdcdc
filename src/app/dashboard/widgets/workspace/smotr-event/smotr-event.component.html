@@ -119,7 +119,11 @@
       <evj-events-responsible-select></evj-events-responsible-select>
     </div>
     <div class="column__row row reasons">
-      <evj-events-reasons title="Причины" [reasons]="reasons"></evj-events-reasons>
+      <evj-events-reasons
+        title="Причины"
+        [reasons]="reasons"
+        (addReason)="isReasonsPopupOpen=true"
+      ></evj-events-reasons>
     </div>
     <div class="column__row row events-correct">
       <evj-events-correct></evj-events-correct>
@@ -140,5 +144,13 @@
       title="Закрыть карточку"
       (closeWindow)="isClosePopupOpen=false"
     ></evj-events-comment-window>
+  </div>
+
+  <div class="workspace__popup" [ngClass]="{'workspace__popup_active':isReasonsPopupOpen}">
+    <evj-events-list-window
+      *ngIf="isReasonsPopupOpen"
+      (closeWindow)="isReasonsPopupOpen=false"
+    ></evj-events-list-window
+    >>
   </div>
 </div>

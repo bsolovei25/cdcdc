@@ -18,7 +18,7 @@ export class SmotrEventComponent implements OnInit {
 
     public isEscalatePopupOpen: boolean = false;
     public isClosePopupOpen: boolean = false;
-    public isReasonsPopupOpen: boolean = true;
+    public isReasonsPopupOpen: boolean = false;
 
     constructor(public ewService: EventsWorkspaceService) {}
 

@@ -1,11 +1,11 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-    selector: 'evj-events-comment-window',
-    templateUrl: './events-comment-window.component.html',
-    styleUrls: ['./events-comment-window.component.scss'],
+    selector: 'evj-events-list-window',
+    templateUrl: './events-list-window.component.html',
+    styleUrls: ['./events-list-window.component.scss'],
 })
-export class EventsCommentWindowComponent implements OnInit {
+export class EventsListWindowComponent implements OnInit {
     @Input() public title: string = '';
     @Input() public placeholder: string = 'Введите свой комментарий...';
     @Input() public buttonText: string = 'Сохранить';
@@ -17,6 +17,8 @@ export class EventsCommentWindowComponent implements OnInit {
     constructor() {}
 
     public ngOnInit(): void {}
+
+    public onSearchValue(event: string): void {}
 
     public onClose(): void {
         this.closeWindow.emit();
