@@ -416,7 +416,7 @@ import { NgxMaskModule } from 'ngx-mask';
         MatChipsModule,
         MatIconModule,
         MatAutocompleteModule,
-        NgxMaskModule.forRoot(),
+        NgxMaskModule.forChild(),
     ],
     bootstrap: [],
     providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' },
