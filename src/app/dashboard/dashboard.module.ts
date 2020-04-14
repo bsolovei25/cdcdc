@@ -1,5 +1,5 @@
 import { ChangeShiftComponent } from './widgets/change-shift/change-shift.component';
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { NgModule, LOCALE_ID, APP_INITIALIZER } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './pages/home/home.component';
 import { SharedModule } from '../@shared/shared.module';
@@ -143,11 +143,18 @@ import {
 } from '@angular-material-components/datetime-picker';
 import { MatButtonModule } from '@angular/material/button';
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
+
 import { AgNewGroupComponent } from './widgets/admin-panel/admin-groups/ag-new-group/ag-new-group.component';
 import { AgAlertSubmitComponent } from './widgets/admin-panel/admin-groups/ag-alert-submit/ag-alert-submit.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { AdminAdImportComponent } from './widgets/admin-panel/admin-ad-import/admin-ad-import.component';
 import { AddReportFileComponent } from './widgets/report-server-configurator/add-report-file/add-report-file.component';
+import { TankCalibrationTableComponent } from './widgets/tank-calibration-table/tank-calibration-table.component';
+import { TankCalibrationTableFilesComponent } from './widgets/tank-calibration-table/tank-calibration-table-files/tank-calibration-table-files.component';
+import { UploadDropComponent } from './widgets/tank-calibration-table/upload-form/upload-drop/upload-drop.component';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { TanksTableComponent } from './widgets/tank-calibration-table/tanks-table/tanks-table.component';
+import { UploadFormComponent } from './widgets/tank-calibration-table/upload-form/upload-form.component';
 import { SmotrEventComponent } from './widgets/workspace/smotr-event/smotr-event.component';
 import { UsualEventComponent } from './widgets/workspace/usual-event/usual-event.component';
 import { RetrievalWindowComponent } from './widgets/workspace/components/retrieval-window/retrieval-window.component';
@@ -162,6 +169,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon';
 import { TreeModule } from 'angular-tree-component';
+
 
 @NgModule({
     declarations: [
@@ -285,6 +293,11 @@ import { TreeModule } from 'angular-tree-component';
         AgAlertSubmitComponent,
         AdminAdImportComponent,
         AddReportFileComponent,
+        TankCalibrationTableComponent,
+        TankCalibrationTableFilesComponent,
+        UploadFormComponent,
+        UploadDropComponent,
+        TanksTableComponent,
         SmotrEventComponent,
         UsualEventComponent,
         RetrievalWindowComponent,
@@ -348,6 +361,10 @@ import { TreeModule } from 'angular-tree-component';
         ReportServerConfiguratorComponent,
         ReportComponent,
         ReportsComponent,
+        TankCalibrationTableComponent,
+        UploadFormComponent,
+        UploadDropComponent,
+        TanksTableComponent,
         CustomReportPropertiesReferenceComponent,
     ],
     exports: [HomeComponent],
@@ -380,15 +397,18 @@ import { TreeModule } from 'angular-tree-component';
         NgxMatNativeDateModule,
         NgxMatMomentModule,
         OverlayModule,
+        MatDialogModule,
         MatChipsModule,
         MatIconModule,
         MatAutocompleteModule,
         TreeModule,
     ],
     bootstrap: [],
-    providers: [
-        { provide: LOCALE_ID, useValue: 'ru-RU' },
-        { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
+    providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' },
+    { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
+    { provide: MatDialogRef, useValue: {} },
+    { provide: MAT_DIALOG_DATA, useValue: [] },
     ],
+
 })
-export class DashboardModule {}
+export class DashboardModule { }
