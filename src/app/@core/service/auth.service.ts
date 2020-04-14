@@ -31,16 +31,6 @@ export class AuthService {
         const storageToken: string | null = localStorage.getItem('authentication-token');
         return this.authTokenData ? this.authTokenData.token : storageToken;
     }
-    public set userSessionToken(newValue: string) {
-        if (newValue) {
-            this.authTokenData.token = newValue;
-        }
-    }
-    public set authData(newValue: ITokenData) {
-        if (newValue) {
-            this.authTokenData = newValue;
-        }
-    }
 
     constructor(
         private router: Router,
@@ -126,7 +116,7 @@ export class AuthService {
         return null;
     }
 
-    private configureUserAuth(tokenData: ITokenData): void {
+    public configureUserAuth(tokenData: ITokenData): void {
         this.user$.next(tokenData);
 
         if (!tokenData.token) return;
