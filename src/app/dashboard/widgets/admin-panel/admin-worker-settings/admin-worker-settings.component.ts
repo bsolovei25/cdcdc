@@ -282,7 +282,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             firstName: 'Имя',
             lastName: 'Фамилия',
             login: 'Логин',
-            phone: 'Телефон',
             email: 'Эл.почта',
         };
 
@@ -305,7 +304,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             !!this.worker.firstName &&
             !!this.worker.lastName &&
             !!this.worker.login &&
-            !!this.worker.phone &&
             !!this.worker.email
         );
     }
