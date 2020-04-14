@@ -176,6 +176,7 @@ import { EventsCorrectCardComponent } from './widgets/workspace/components/event
 import { EventsSmotrIconComponent } from './widgets/workspace/components/events-smotr-icon/events-smotr-icon.component';
 import { EventsCommentWindowComponent } from './widgets/workspace/components/events-comment-window/events-comment-window.component';
 import { EventsListWindowComponent } from './widgets/workspace/components/events-list-window/events-list-window.component';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
     declarations: [
@@ -415,6 +416,7 @@ import { EventsListWindowComponent } from './widgets/workspace/components/events
         MatChipsModule,
         MatIconModule,
         MatAutocompleteModule,
+        NgxMaskModule.forRoot(),
     ],
     bootstrap: [],
     providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' },
