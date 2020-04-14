@@ -66,7 +66,7 @@
 
 .line-start {
   position: relative;
-  width: 8px;
+  width: 0px;
   border-right: 1px solid var(--color-border-active);
 
   .rectangle {
@@ -85,7 +85,7 @@
 
 .line-end {
   position: relative;
-  width: 8px;
+  width: 0px;
   border-left: 1px solid var(--color-border-active);
 
   .rectangle {
