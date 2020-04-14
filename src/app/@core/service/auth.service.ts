@@ -51,7 +51,7 @@ mInarJutHTwE+Elb3QIDAQAB`;
         return this.authTokenData !== null;
     }
 
-    get userSessionToken(): string | null {
+    public get userSessionToken(): string | null {
         const storageToken: string | null = localStorage.getItem('authentication-token');
         return this.authTokenData ? this.authTokenData.token : storageToken;
     }
@@ -62,7 +62,6 @@ mInarJutHTwE+Elb3QIDAQAB`;
         private configService: AppConfigService,
         private materialController: SnackBarService
     ) {
-        // this.restUrl = configService.restUrl;
         this.configService.restUrl$.subscribe((value) => {
             this.restUrl = value;
         });
@@ -149,7 +148,7 @@ mInarJutHTwE+Elb3QIDAQAB`;
         return null;
     }
 
-    private configureUserAuth(tokenData: ITokenData): void {
+    public configureUserAuth(tokenData: ITokenData): void {
         this.user$.next(tokenData);
 
         if (!tokenData.token) return;

@@ -43,4 +43,4 @@ import { AuthenticationInterceptor } from '@core/interceptors/authentication.int
     ],
     bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

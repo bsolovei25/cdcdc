@@ -43,12 +43,11 @@ export class ClaimService {
 
     constructor(public http: HttpClient, configService: AppConfigService) {
         this.restUrl = configService.restUrl;
-        this.getClaim();
     }
 
     public setClaimsByScreen(claims: IClaim[]): void {
         const claimsWidget: EnumClaimWidgets[] = [];
-        claims.forEach((claim) => {
+        claims?.forEach((claim) => {
             switch (claim.claimType) {
                 case 'screenWidgetAdd':
                 case 'screensWidgetAdd':
@@ -75,22 +74,10 @@ export class ClaimService {
         this.claimWidgets$.next(claimsWidget);
     }
 
-    private async getClaim(): Promise<void> {
-        // this.claimWidgets$.next([
-        //     // EnumClaimWidgets.delete, // TODO
-        //     EnumClaimWidgets.move,
-        //     EnumClaimWidgets.resize,
-        //     EnumClaimWidgets.add,
-        // ]);
-        // this.claimScreens$.next([
-        //     EnumClaimScreens.add,
-        //     EnumClaimScreens.edit,
-        //     EnumClaimScreens.delete,
-        // ]);
+    public async getClaim(): Promise<void> {
         const allUserClaims = await this.getClaimAll();
         console.log(allUserClaims);
         const claimsScreen: EnumClaimScreens[] = [];
-        let i: number = 0;
         allUserClaims.data.forEach((claim) => {
             switch (claim.claimType) {
                 case 'screensAdmin':
@@ -98,7 +85,6 @@ export class ClaimService {
                     claimsScreen.push(EnumClaimScreens.add);
                     break;
             }
-            i++;
         });
         console.log(claimsScreen);
         this.claimScreens$.next(claimsScreen);

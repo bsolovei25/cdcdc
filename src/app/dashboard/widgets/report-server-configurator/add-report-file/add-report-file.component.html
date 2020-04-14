@@ -2,7 +2,7 @@
   <div class="reference-left">
     <div class="title-reference">Наименование файла</div>
     <div class="reference-container">
-      <div class="scroll-block">
+      <div id="leftScrollAddReport" class="scroll-block">
         <div *ngFor="let item of data; let i = index">
           <div class="reference-container__block" [class.block-active]="item.id === clickItemId"
             (click)="getTemplate(item)">
@@ -58,7 +58,7 @@
       </div>
     </div>
     <div class="references-container-scroll-block">
-      <div class="reference-container-value" #test>
+      <div id="rightScrollAddReport" class="reference-container-value" #test>
         <ng-container *ngFor="let item of this.dataTemplate">
           <div class="reference-container-value__block">
             <div class="reference-container-value__fio-block">
@@ -83,10 +83,13 @@
 <div *ngIf="isUploadBlock" id="upload" class="upload" (click)="uploadClose()">
   <div class="upload-container" #area (click)="$event.stopPropagation()" (dragover)="dragOver($event)"
     (dragleave)="dragLeave($event)" (drop)="dropFile($event)">
-    <img *ngIf="!fileLoad" class="upload-image" src="./assets/icons/widgets/reports/upload-container.png">
+    <svg-icon
+          src="./assets/icons/widgets/reports/cloud.svg"
+          [svgStyle]="{ 'width.%':100, 'height.%':100 }"
+        ></svg-icon>
     <img *ngIf="fileLoad" class="upload-image" src="./assets/icons/widgets/reports/xls.svg">
     <label *ngIf="fileLoad">Файл {{ fileName }} загружен</label>
-    <div *ngIf="!fileLoad">
+    <div *ngIf="!fileLoad" class="upload-label">
       <input id="file-input" type="file" name="file" (change)="handleFileInput($event.target.files)"
         accept=".xls,.xlsx, .xlsm" multiple>
       <label for="file-input">Выберите файл</label>

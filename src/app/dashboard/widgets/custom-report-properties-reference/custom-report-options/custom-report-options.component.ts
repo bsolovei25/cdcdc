@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, ElementRef, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { FormControl } from '@angular/forms';
@@ -41,16 +41,20 @@ export class CustomReportOptionsComponent implements OnInit, OnChanges {
 
   systemOptionType = ['textBox', 'dateTime', 'comboBox', 'checkBox'];
 
-  constructor(public reportService: ReportsService) { }
+  constructor(public reportService: ReportsService,
+    private cdRef: ChangeDetectorRef) { }
 
   ngOnInit(): void {
   }
 
   ngOnChanges(): void {
+    this.cdRef.detectChanges();
     console.log(this.data);
-    if (this.data.source === null || this.data.source === undefined) {
-      this.data.source = [];
-      this.valuesInput = this.data.source;
+    if (this.data?.source) {
+      this.valuesInput = [];
+      for (let i of this.data.source) {
+        this.valuesInput.push(i.trim());
+      }
     }
   }
 
@@ -79,7 +83,7 @@ export class CustomReportOptionsComponent implements OnInit, OnChanges {
 
     if ((value || '').trim()) {
       this.valuesInput.push(value.trim());
-      this.data.source = this.valueInput;
+      this.data.source.push(value);
       this.editOptions();
     }
 

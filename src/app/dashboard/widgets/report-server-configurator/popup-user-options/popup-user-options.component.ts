@@ -1,11 +1,11 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, OnChanges, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'evj-popup-user-options',
   templateUrl: './popup-user-options.component.html',
   styleUrls: ['./popup-user-options.component.scss']
 })
-export class PopupUserOptionsComponent implements OnInit {
+export class PopupUserOptionsComponent implements OnInit, OnChanges {
   @Input() public data;
   @Output() public close: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -14,16 +14,14 @@ export class PopupUserOptionsComponent implements OnInit {
   options: any = [];
   customOptionsActive: any = [];
 
-  constructor() { }
+  constructor(private cdRef: ChangeDetectorRef) { }
 
   ngOnInit(): void {
   }
-  
+
   ngOnChanges(): void {
-    console.log(this.data);
-    if (this.data === null || this.data === undefined) {
-      this.customOptionsActive = this.data;
-    }
+ //   this.cdRef.detectChanges();
+    this.customOptionsActive = this.data;
   }
 
 
@@ -31,16 +29,14 @@ export class PopupUserOptionsComponent implements OnInit {
     this.close.emit(event);
   }
 
-  closeNecessary(event) {
-    this.isOpenNecessaryParam = event;
-  }
-
   openOptions(event) {
     this.isOpenNecessaryParam = event;
   }
 
   chooseOptions(event) {
-    this.options = event;
+    this.isOpenNecessaryParam = event.close;
+    this.options = event.array;
+    this.data.customOptions = this.options;
   }
 
 

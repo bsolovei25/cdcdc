@@ -1,0 +1,254 @@
+<evj-widget-preview
+  [title]="widgetTitle"
+  [previewTitle]="widgetType"
+  *ngIf="isMock"
+></evj-widget-preview>
+
+<div class="container" *ngIf="!isMock">
+  <evj-widget-header
+    [title]="widgetTitle"
+    [units]="widgetUnits"
+    [code]="widgetCode"
+    [id]="id"
+    [uniqId]="uniqId"
+    [widgetType]="widgetType"
+    [icon]="widgetIcon"
+    (selected)="selectTable($event)"
+  ></evj-widget-header>
+
+  <evj-frame-top></evj-frame-top>
+  <div class="content">
+    <ng-container *ngIf="isReport">
+      <section
+        class="table__left"
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
+      >
+        <div class="table scroll-bar" #tableBody>
+          <table>
+            <thead>
+              <tr class="header__items">
+                <th class="header header__th header__name">
+                  <span class="header__name__text">Наименование</span>
+                </th>
+                <th class="header header__th header__date" (click)="sortStart()">
+                  <span class="header__date-text">
+                    Дата начала калибровки
+                  </span>
+                  <svg-icon
+                    *ngIf="sort?.name === 'upStart' || !sort || sort?.name === 'bottomStart'
+                    || sort?.name === 'bottomEnd'"
+                    class="header__date-sort-up"
+                    [class.header__date-sort-up--active]="sort?.name === 'upStart' && sort?.value"
+                    src="assets/icons/widgets/calibration-table/sort-up.svg"
+                    [svgStyle]="{ 'width.px':12, 'height.px':12 }"
+                  ></svg-icon>
+                  <svg-icon
+                    *ngIf="sort?.name === 'upEnd'"
+                    class="header__date-sort-bottom"
+                    [class.header__date-sort-bottom--active]="sort?.name === 'upEnd' && sort?.value"
+                    src="assets/icons/widgets/calibration-table/sort-bottom.svg"
+                    [svgStyle]="{ 'width.px':12, 'height.px':12 }"
+                  ></svg-icon>
+                </th>
+                <th class="header header__th header__date" (click)="sortEnd()">
+                  <span class="header__date-text">
+                    Дата окончания калибровки
+                  </span>
+                  <svg-icon
+                    *ngIf="sort?.name === 'bottomStart'"
+                    class="header__date-sort-up"
+                    [class.header__date-sort-up--active]="sort?.name === 'bottomStart' && sort?.value"
+                    src="assets/icons/widgets/calibration-table/sort-up.svg"
+                    [svgStyle]="{ 'width.px':12, 'height.px':12 }"
+                  ></svg-icon>
+                  <svg-icon
+                    *ngIf="sort?.name === 'bottomEnd' ||
+                     !sort || sort?.name === 'upStart'
+                     || sort?.name === 'upEnd'"
+                    class="header__date-sort-bottom"
+                    [class.header__date-sort-bottom--active]="sort?.name === 'bottomEnd' && sort?.value"
+                    src="assets/icons/widgets/calibration-table/sort-bottom.svg"
+                    [svgStyle]="{ 'width.px':12, 'height.px':12 }"
+                  ></svg-icon>
+                </th>
+                <th class="header header__th header__action">
+                  Действия с калибровками
+                </th>
+              </tr>
+            </thead>
+            <tbody class="table__body">
+              <ng-container *ngFor="let element of dataSource">
+                <tr
+                  class="table__item"
+                  (click)="expandedElement.isSelected(element) ? 
+                expandedElement.deselect(element)
+              : expandedElement.select(element)"
+                >
+                  <td class="item item__tr">
+                    <svg-icon
+                      class="item__tr-icon"
+                      src="assets/icons/widgets/calibration-table/arrow-name.svg"
+                      [svgStyle]="{ 'width.px':8, 'height.px':5 }"
+                      [class.arrow-rtl]="expandedElement.isSelected(element)"
+                    ></svg-icon>
+                    <span class="item__tr-name">{{ element.name }}</span>
+                  </td>
+                </tr>
+                <ng-container *ngFor="let elementChildren of getChildrenRows(element)">
+                  <tr
+                    *ngIf="expandedElement.isSelected(element)"
+                    [class.expanded-row]="elementChildren"
+                  >
+                    <td [class.expanded-column]="elementChildren" class="item item__td item__name">
+                      {{ elementChildren.name }}
+                    </td>
+                    <td [class.expanded-column]="elementChildren" class="item item__td item__date">
+                      <div class="item__date-data-picker">
+                        <evj-time-data-picker
+                          [data]="elementChildren.startDate"
+                          (dateTimePicker)="dateTimePickerInput($event, false)"
+                        ></evj-time-data-picker>
+                      </div>
+                    </td>
+                    <td [class.expanded-column]="elementChildren" class="item item__td item__date">
+                      <div
+                        class="item__date-data-picker"
+                        [class.item__date-data-picker--warning]="elementChildren.warningLevel === 'warning'"
+                        [class.item__date-data-picker--expired]="elementChildren.warningLevel === 'expired'"
+                      >
+                        <evj-time-data-picker
+                          [data]="elementChildren.startDate"
+                          (dateTimePicker)="dateTimePickerInput($event, false)"
+                        ></evj-time-data-picker>
+                      </div>
+                    </td>
+                    <td
+                      [class.expanded-column]="elementChildren"
+                      class="item item__td item__action"
+                    >
+                      <svg-icon
+                        (click)="openDialog()"
+                        class="item__action-icon"
+                        src="assets/icons/widgets/calibration-table/upload.svg"
+                        [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+                      ></svg-icon>
+                      <svg-icon
+                        class="item__action-icon"
+                        src="assets/icons/widgets/calibration-table/download.svg"
+                        [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+                      ></svg-icon>
+                      <span class="item__action-trash" (click)="deleteItem(element)">
+                        <svg-icon
+                          src="assets/icons/widgets/calibration-table/trash.svg"
+                          [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+                        ></svg-icon>
+                      </span>
+                    </td>
+                  </tr>
+                </ng-container>
+              </ng-container>
+              <ng-container *ngFor="let end of endTr">
+                <tr class="table__item expanded-row">
+                  <td class="item item__td item__name"></td>
+                  <td class="item item__td item__date"></td>
+                  <td class="item item__td item__date"></td>
+                  <td class="item item__td item__action"></td>
+                </tr>
+              </ng-container>
+            </tbody>
+            <tfoot>
+              <div class="bottom-reference-left">
+                <div class="bottom-reference-left__block">
+                  <div class="bottom-reference-left__button-add" (click)="openTanksTable()">
+                    <svg-icon
+                      class="add_button_icon"
+                      src="./assets/icons/widgets/references/add_white.svg"
+                    >
+                    </svg-icon>
+                  </div>
+                  <div class="bottom-reference-left__input-block">
+                    <div class="bottom-reference-left__button-search">
+                      <svg-icon
+                        class="button_filter_icon"
+                        src="./assets/icons/widgets/references/search_white.svg"
+                      >
+                      </svg-icon>
+                    </div>
+                    <div class="bottom-reference-left__input">
+                      <input type="text" (keyup)="searchInput($event)" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </tfoot>
+          </table>
+        </div>
+      </section>
+
+      <section
+        class="table__right"
+        (mousedown)="$event.stopPropagation()"
+        (touchstart)="$event.stopPropagation()"
+      >
+        <div class="table scroll-bar" #tableRight>
+          <table>
+            <thead>
+              <tr class="header__items">
+                <th class="header header__th header__name">
+                  № пояса
+                </th>
+                <th class="header header__th header__name">
+                  Н, см
+                </th>
+                <th class="header header__th header__name">V, м<sup>3</sup></th>
+              </tr>
+            </thead>
+            <tbody class="table__body">
+              <ng-container *ngFor="let element of dataSource">
+                <tr *ngIf="expandedElement.isSelected(element)" class="expanded-row">
+                  <td class="item item__td item__name">
+                    {{ element.name }}
+                  </td>
+                  <td class="item item__td item__name">
+                    {{ element.name }}
+                  </td>
+                  <td class="item item__td item__name">
+                    {{ element.name }}
+                  </td>
+                </tr>
+              </ng-container>
+              <ng-container *ngFor="let end of endTr2">
+                <tr class="table__item expanded-row">
+                  <td class="item item__td item__name"></td>
+                  <td class="item item__td item__name"></td>
+                  <td class="item item__td item__name"></td>
+                </tr>
+              </ng-container>
+            </tbody>
+            <tfoot>
+              <div class="bottom-reference-right">
+                <div class="bottom-reference-right__block">
+                  <div class="bottom-reference-right__button-add"></div>
+                  <div class="bottom-reference-right__text">
+                    Таблица с калибровок резервуара
+                    <div class="bottom-reference-right__div">
+                      <span class="bottom-reference-right__div-text">№123</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </tfoot>
+          </table>
+        </div>
+      </section>
+    </ng-container>
+    <ng-container *ngIf="!isReport">
+      <evj-tank-calibration-table-files
+        [data]="data"
+        [isReport]="isReport"
+      ></evj-tank-calibration-table-files
+    ></ng-container>
+  </div>
+  <evj-frame-bottom></evj-frame-bottom>
+</div>

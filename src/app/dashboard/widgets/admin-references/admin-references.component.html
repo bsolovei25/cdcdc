@@ -7,6 +7,7 @@
   <evj-frame-top></evj-frame-top>
 
   <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+    <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
     <evj-alert-window [info]="referencesService.alertWindow$ | async"></evj-alert-window>
     <div class="references">
       <div class="reference-left">
@@ -87,7 +88,7 @@
             [class.isLongBlock]="isLongBlock" #adminRefereneTable>
             <ng-container *ngIf="data[this.indexColumn] !== undefined">
               <div *ngFor="let item of data[this.indexColumn].columns" cdkDrag class="example-box">
-                <div class="reference-container-value__block">
+                <div class="reference-container-value__block" [class.disabled]="item.name === 'Id' || item.name === 'Name'">
                   <div *ngIf="!item.openEdit" class="reference-container-value__fio-block"
                     [class.block-active-name]="item.open" (click)="onClickItemReference(item)">
                     <div class="reference-container-value__fio">{{item.name}}</div>
@@ -133,7 +134,7 @@
               <div *ngIf="isClickPushRecord" class="reference-container-value__add-block">
                 <div class="reference-container-value__fio-block">
                   <div class="reference-container-value__fio">
-                    <input type="text" [(ngModel)]="newFioRecord" placeholder="Введите имя колоннки..." />
+                    <input type="text" [(ngModel)]="newFioRecord" placeholder="Введите имя колонки..." />
                   </div>
                 </div>
                 <div class="reference-container-value__type">

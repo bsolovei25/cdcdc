@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HeaderDataService } from '../../services/header-data.service';
 import { WidgetService } from '../../services/widget.service';
+import { SnackBarService } from '../../services/snack-bar.service';
 
 @Component({
     selector: 'evj-period-selector',
@@ -11,31 +12,37 @@ export class PeriodSelectorComponent implements OnInit {
     public toDate: Date;
     public fromDate: Date;
     public isCurrent: boolean;
-    public dateNow: Date;
 
-    constructor(private headerData: HeaderDataService,
-                private widgetService: WidgetService
+    constructor(
+        private headerData: HeaderDataService,
+        private widgetService: WidgetService,
+        private snackBar: SnackBarService,
     ) { }
 
     public ngOnInit(): void {
-        this.setDefault();
         this.fromDate = new Date();
         this.toDate = new Date();
-        this.dateNow = new Date();
+        this.setDefault();
     }
 
     private setDefault(): void {
-        let defaultTime: Date = new Date(Date.now());
-        defaultTime = new Date(
-            defaultTime.getFullYear(),
-            defaultTime.getMonth(),
-            defaultTime.getDate(),
+        const currentDatetime: Date = new Date(Date.now());
+        this.fromDate = new Date(
+            currentDatetime.getFullYear(),
+            currentDatetime.getMonth(),
+            currentDatetime.getDate(),
             0,
             0,
             0
         );
-        this.toDate = defaultTime;
-        this.fromDate = defaultTime;
+        this.toDate = new Date(
+            currentDatetime.getFullYear(),
+            currentDatetime.getMonth(),
+            currentDatetime.getDate(),
+            23,
+            59,
+            59
+        );
         this.isCurrent = true;
         this.headerData.catchDefaultDate(this.fromDate, this.toDate, this.isCurrent);
     }
@@ -46,6 +53,7 @@ export class PeriodSelectorComponent implements OnInit {
 
         if (this.isCurrent) {
             this.widgetService.currentDates$.next(null);
+            this.headerData.catchDefaultDate(this.fromDate, this.toDate, this.isCurrent);
         } else {
             this.setDates();
         }
@@ -53,6 +61,23 @@ export class PeriodSelectorComponent implements OnInit {
 
     public dateTimePickerInput(date: Date, isStart: boolean): void {
         if (this.isCurrent) {
+            return;
+        }
+        if (isStart && new Date(date).getTime() > this.toDate.getTime()) {
+            this.fromDate = new Date(this.fromDate);
+            this.snackBar.openSnackBar(
+                'Установлено неверное время! Время начала периода должно быть меньше времени конца периода',
+                'snackbar-red'
+            );
+            console.error('wrong time!');
+            return;
+        } else if (!isStart && new Date(date).getTime() < this.fromDate.getTime()) {
+            this.toDate = new Date(this.toDate);
+            this.snackBar.openSnackBar(
+                'Установлено неверное время! Время конца периода должно быть больше времени начала периода',
+                'snackbar-red'
+            );
+            console.error('wrong time!');
             return;
         }
         if (isStart) {

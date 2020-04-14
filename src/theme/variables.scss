@@ -11,8 +11,10 @@
   --color-bg-line-diagram: #0d1014;
   --color-bg-search: rgba(142, 151, 175, 0.12);
   --color-bg-card: #20222d;
+  --color-bg-card-sec: #1d202a;
   --color-bg-header-table: #1b1f2c;
   --color-bg-body: #191c24;
+  --color-bg-overlay: #131722;
 
   --color-border-main: #5b607d;
   --color-border-main-transparrent: rgba(91, 96, 125, 0.9);
@@ -22,6 +24,9 @@
   --color-border-search-line: rgba(142, 151, 175, 1);
 
   --color-border-light: #9ed7f5;
+
+  --color-table-hover: #0e2637;
+  --color-table-header: #131928;
 
   // Переделать под прозрачность
   --color-border-active-hover: #1e2b3a;
@@ -36,6 +41,8 @@
   --color-text-diagram-transparent: rgb(64%, 89%, 100%, 0.2);
   --color-text-header-table: #8d99b2;
   --color-marker-diagram: #606580;
+
+  --color-table-main: #1b1f2c;
 
   --color-plan: #a2e2ff;
   --color-fact: #ffffff;

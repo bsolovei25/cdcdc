@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy, Inject, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { moveItemInArray, transferArrayItem, CdkDragDrop } from '@angular/cdk/drag-drop';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { ReportServerConfiguratorService } from '../../services/report-server-configurator.service';
 import { WidgetPlatform } from '../../models/widget-platform';
+import { SnackBarService } from '../../services/snack-bar.service';
 
 @Component({
     selector: 'evj-report-server-configurator',
@@ -37,6 +38,8 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     static itemCols = 18;
     static itemRows = 14;
 
+    public isLoading: boolean = false;
+
     public isTable: boolean = true;
 
     public valueCheck: boolean;
@@ -58,16 +61,19 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     public data;
     public options;
-    public optionsActive = [];
-    public optionsCustom = [];
+    public optionsActive: any = [];
+    public optionsCustom: any = [];
     public reportTemplate = [];
     public dataFile;
 
     public clickPushRef: boolean = false;
+
     public clickPushRec: boolean = false;
 
     public newRecord: string;
     public newFolder: string;
+
+    public fileName: string;
 
     public folderActive: number;
 
@@ -82,6 +88,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     constructor(
         public widgetService: WidgetService,
         public reportService: ReportServerConfiguratorService,
+        private materialController: SnackBarService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -96,12 +103,39 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             // this.getReportFolder(),
             this.getRecordFile(),
             this.getReportTemplate(),
-            this.getOptions()
         );
     }
 
     ngOnDestroy(): void {
         super.ngOnDestroy();
+    }
+
+    @HostListener('document:resize', ['$event'])
+    OnResize(event) {
+        this.setStyleScroll();
+    }
+
+
+    setStyleScroll() {
+        const rightScroll = document.getElementById('rightScrollReportConfig');
+        const leftScroll = document.getElementById('leftScrollReportConfig');
+
+        if (rightScroll !== undefined) {
+            if (rightScroll.scrollHeight !== rightScroll.clientHeight) {
+                rightScroll.style.cssText = "margin-left: 5px; width: calc(100% - 5px);";
+            } else {
+                rightScroll.style.cssText = "margin-left: 10px; width: calc(100% - 10px);";
+
+            }
+        }
+
+        if (leftScroll !== undefined) {
+            if (leftScroll.scrollHeight !== leftScroll.clientHeight) {
+                leftScroll.style.cssText = "margin-right: 0px; width: calc(100% - 5px);";
+            } else {
+                leftScroll.style.cssText = "margin-right: -5px; width: calc(100% - 5px);";
+            }
+        }
     }
 
 
@@ -126,21 +160,40 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     getReportTemplate() {
         return this.reportService.getReportTemplate().subscribe((data) => {
             this.data = data;
+
+            this.setStyleScroll();
         });
     }
 
     getOptions() {
         return this.reportService.getSystemOptions().subscribe((data) => {
-            this.options = data;
+            this.mapOptions(data);
         });
     }
 
     getReporting(id) {
+        this.isLoading = true;
         return this.reportService.getReporting(id).subscribe((ans) => {
+            if (ans.fileTemplate) {
+                this.selectFile = ans.fileTemplate;
+            } else {
+                ans.fileTemplate = {
+                    createdAt: new Date(),
+                    createdBy: null,
+                    description: '',
+                    fileId: '',
+                    id: null,
+                    isDeleted: false,
+                    name: '',
+                };
+                this.selectFile = ans.fileTemplate;
+            }
+            this.fileName = ans.fileTemplate.name;
             this.reportTemplate = ans;
-            this.selectFile = ans.fileTemplate.name;
             this.optionsActive = ans.systemOptions;
-            this.optionsCustom = ans.customOptions;
+            this.optionsCustom = ans;
+            this.isLoading = false;
+            this.setStyleScroll();
         });
     }
 
@@ -150,15 +203,53 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         });
     }
 
+    mapOptions(data) {
+        this.options = data;
+        for (let i of this.options) {
+          for (let j of this.optionsActive) {
+            if (i.id === j.templateSystemOption.id) {
+              i.isActive = true;
+            }
+          }
+        }
+      }
+
+    onEdit(item) {
+        item.openEdit = true;
+    }
+
+    editReference(item) {
+        item.openEdit = false;
+        const obj = {
+            createdAt: item.createdAt,
+            displayName: item.displayName,
+            id: item.id,
+            isDeleted: item.isDeleted,
+            name: item.name,
+        }
+        this.reportService.putReportTemplate(obj).subscribe((ans) => {
+            this.getReportTemplate();
+        });
+    }
+
+    deleteReportTemplate(item) {
+        this.isLoading = true;
+        this.reportService.deleteReportTemplate(item.id).subscribe((ans) => {
+            this.isLoading = false;
+            this.getReportTemplate();
+        });
+    }
+
     onClickReference(data, index) {
-        this.selectFile = null;
+        this.getReporting(data.id);
         this.isAddOptionsButton = true; // file
         this.folderActive = data.id;
         this.isIdReport = data.id;
-        this.getReporting(data.id);
         data.open = !data.open;
         this.indexColumn = index;
         this.optionsActive = [];
+
+        this.setStyleScroll();
     }
 
     onClickItemReference(item) {
@@ -169,7 +260,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     }
 
     onClickParamReference(item) {
-        if (item.systemOptionType === "customOptions") {
+        if (item.templateSystemOption.systemOptionType === "customOptions") {
             this.popupUserParam = true;
         }
     }
@@ -196,12 +287,16 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     }
 
     changeSwap(item): void {
-        item.checked = !item.checked;
-        if (item.checked === true) {
-            this.optionsActive.push(item);
+        item.isActive = !item.isActive;
+        let obj = {
+            templateSystemOption: item,
+            value: '',
+        }
+        if (item.isActive) {
+            this.optionsActive.push(obj);
         } else {
-            let index = this.optionsActive.findIndex(e => e === item);
-            this.optionsActive.splice(item, index);
+            const index = this.optionsActive.findIndex(e => e.templateSystemOption.id === item.id);
+            this.optionsActive.splice(index, 1);
         }
     }
 
@@ -230,6 +325,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     }
 
     onPushReport(): void {
+        this.isLoading = true;
         this.clickPushRec = false;
         const object = {
             name: this.newRecord,
@@ -238,13 +334,16 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         if (this.newRecord.trim().length > 0 && this.newRecord !== undefined) {
             // this.data[this.indexColumn].columns.push(object);
             this.reportService.postReportTemplate(object).subscribe(ans => {
-                this.getReportFolder();
-            })
+                this.isLoading = false;
+               // this.getReportFolder();
+               this.getReportTemplate();
+            });
             this.newRecord = null;
         }
     }
 
     openCheckBoxBlock(): void {
+        this.getOptions();
         this.isOpenCheckBlock = !this.isOpenCheckBlock;
     }
 
@@ -264,8 +363,22 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     }
 
     saveReport(item) {
+        let optionObject = [];
+        let objItem;
+
+        for (let i of this.optionsActive) {
+            objItem = {
+                templateSystemOption: {
+                    id: i.templateSystemOption.id
+                },
+                value: '',
+            }
+
+            optionObject.push(objItem);
+        }
+
         const obj = {
-            systemOptions: this.optionsActive,
+            systemOptionValues: optionObject,
             fileTemplate: this.selectFile,
         }
         //если папка
@@ -286,13 +399,21 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         // }
 
         this.reportService.postSystemOptions(item, obj).subscribe(ans => {
-            console.log(ans);
+            this.materialController.openSnackBar(
+                'Файл-шаблон сохранен'
+            );
+            this.getReporting(this.isIdReport);
         });
     }
 
 
     closeOptions(event) {
         this.popupUserParam = event;
+    }
+
+
+    onChangeFile(event){
+        this.selectFile = this.dataFile.find(e => e.id === event);
     }
 
 
