@@ -517,10 +517,6 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     }
 
     onFolder(event): void {
-        // if (event.node.data.type === "Folder") {
-        //     this.folderActive = event.node.data.idFolder;
-        //     this.folderIdActive = event.node.id;
-        // }
         if (event.type === "Folder") {
             this.folderActive = event.idFolder;
             this.folderIdActive = event.id;
