@@ -34,12 +34,13 @@
                 <div class="time">
                     <div class="time__picker">
                         <mat-form-field>
+                            <label>Начало</label>
                             <input matInput [ngxMatDatetimePicker]="pickerD" [value]="dateNow"
                                  [disabled]="disabled">
                             <mat-datepicker-toggle matSuffix [for]="pickerD">
                                 <mat-icon matDatepickerToggleIcon>
                                     <svg-icon src="./assets/icons/widgets/reports/calend.svg"
-                                        [svgStyle]="{ 'width.px':25, 'height.px':25}">
+                                        [svgStyle]="{ 'width.px':25, 'height.px':25, 'margin-top.px': -50}">
                                     </svg-icon>
                                 </mat-icon>
                             </mat-datepicker-toggle>
@@ -53,12 +54,13 @@
                 <div class="time">
                     <div class="time__picker">
                         <mat-form-field>
+                            <label>Интервал</label>
                             <input matInput [ngxMatDatetimePicker]="pickerT" [value]="dateNow"
                                 [disabled]="disabled">
                             <mat-datepicker-toggle matSuffix [for]="pickerT">
                                 <mat-icon matDatepickerToggleIcon>
                                     <svg-icon src="./assets/icons/widgets/reports/calend.svg"
-                                        [svgStyle]="{ 'width.px':25, 'height.px':25}">
+                                        [svgStyle]="{ 'width.px':25, 'height.px':25, 'margin-top.px': -50}">
                                     </svg-icon>
                                 </mat-icon>
                             </mat-datepicker-toggle>

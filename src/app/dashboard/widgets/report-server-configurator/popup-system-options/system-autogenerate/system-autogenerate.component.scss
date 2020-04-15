@@ -163,6 +163,20 @@
       .time{
         align-items: center;
         display: flex;
+
+        ::ng-deep{
+          .mat-form-field-underline{
+            height: 0;
+          }
+ 
+          .mat-form-field-infix{
+            width: 120px;
+          }
+ 
+          input{
+           border-bottom: 1px solid white;
+          }
+       }
       }
     }
    

@@ -43,6 +43,8 @@ export class SystemPeriodEditComponent implements OnInit {
     },
   ];
 
+  dateNow: Date = new Date();
+
   constructor() { }
 
   ngOnInit(): void {
