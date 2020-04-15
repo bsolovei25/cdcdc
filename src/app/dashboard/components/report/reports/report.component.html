@@ -38,7 +38,10 @@
           <mat-label class="form__title">{{ option.name }}</mat-label>
           <input matInput [(ngModel)]="option.value" />
         </mat-form-field>
-        <mat-checkbox style="margin-top: 18px;" *ngIf="option.type === 'checkBox'"
+        <mat-checkbox
+          style="margin-top: 18px;"
+          [(ngModel)]="option.value"
+          *ngIf="option.type === 'checkBox'"
           >{{ option.name }}</mat-checkbox
         >
       </ng-container>
