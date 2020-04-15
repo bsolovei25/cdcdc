@@ -18,23 +18,12 @@
           <div class="reference-container">
             <div class="scroll-block" id="leftScrollReportConfig">
               <!---TREE--->
-              <div *ngIf="addItem && (folderIdActive === undefined)" class="reference-container__add-block">
-                <div class="reference-container__add-block-input">
-                  <input *ngIf="createReport" type="text" [(ngModel)]="newRecord"
-                    placeholder="Введите название файла-шаблона..." />
-                  <input *ngIf="createFolder" type="text" [(ngModel)]="newRecord"
-                    placeholder="Введите название папки..." />
-                </div>
-                <div class="reference-container__add-block-icon" (click)="onPushReport()">
-                  <svg-icon src="./assets/icons/widgets/references/accept.svg" class="add_button_icon"></svg-icon>
-                </div>
-              </div>
               <tree-root #tree [state]="state" [options]="optionsTest" [focused]="true" [nodes]="this.dataFolder"
-                (dragover)="$event.stopPropagation()" (blur)="onEventTree($event)" (activate)="onFolder($event)"
+                (dragover)="$event.stopPropagation()" (blur)="onEventTree($event)"
                 (moveNode)="onMovedItem($event)">
                 <ng-template #treeNodeTemplate let-node let-index="index">
                   <div *ngIf="node.data.type === 'Template'" class="tree-template"
-                    (click)="onClickReference(node.data, index)">
+                    (click)="onClickReference(node.data, index)" [class.activeFolder]="node.data.idTemplate === this.isIdReport">
                     <div *ngIf="!node.data.openEdit">
                       <!-- <span [class]="node.data.className + 'Index'">Файл-шаблон: </span> -->
                       <span [class]="node.data.className" [class.title]="true">{{ node.data.name }}</span>
@@ -56,9 +45,20 @@
                       </div>
                     </div>
                   </div>
-                  <div *ngIf="node.data.type === 'Folder'" style="background-image: none !important">
+                  <div *ngIf="node.data.type === 'Folder'" [class.activeFolder]="node.data.idFolder === folderActive" (click)="onFolder(node.data)">
                     <!-- <span [class]="node.data.className + 'Index'">Папка: </span> -->
                     <span [class]="node.data.className" [class.title]="true">{{ node.data.name }}</span>
+                  </div>
+                  <div *ngIf="addItem && (folderIdActive === undefined) && (node.data.idFolder === 0)" class="reference-container__add-block">
+                    <div class="reference-container__add-block-input">
+                      <input *ngIf="createReport" type="text" [(ngModel)]="newRecord"
+                        placeholder="Введите название файла-шаблона..." />
+                      <input *ngIf="createFolder" type="text" [(ngModel)]="newRecord"
+                        placeholder="Введите название папки..." />
+                    </div>
+                    <div class="reference-container__add-block-icon" (click)="onPushReport()">
+                      <svg-icon src="./assets/icons/widgets/references/accept.svg" class="add_button_icon"></svg-icon>
+                    </div>
                   </div>
                   <div *ngIf="addItem && node.data.id === folderIdActive" class="reference-container__add-block">
                     <div class="reference-container__add-block-input">

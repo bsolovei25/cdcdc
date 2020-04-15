@@ -234,7 +234,16 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             }
             dataTreeItem.push(templateObj);
         }
-        return dataTreeItem;
+        const testObject = {
+            id: 'default1',
+            name: 'Файлы и папки',
+            type: 'Folder',
+            idFolder: 0,
+            children: dataTreeItem,
+        }
+        let test = [];
+        test.push(testObject);
+        return test;
     }
 
     mapDataFolder(data) {
@@ -314,7 +323,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
                 this.getReportFolder();
             }, (error) => {
                 this.isLoading = false;
-              }),
+            }),
             cancelFunction: () => this.reportService.closeAlert(),
         };
         this.reportService.alertWindow$.next(windowsParam);
@@ -413,7 +422,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             if (this.createReport) {
                 const object = {
                     name: this.newRecord,
-                    folderId: this.folderActive,
+                    folderId: (this.folderActive === 0) ? undefined : this.folderActive,
                 };
                 this.reportService.postReportTemplate(object).subscribe(ans => {
                     this.addItem = false;
@@ -508,9 +517,13 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     }
 
     onFolder(event): void {
-        if (event.node.data.type === "Folder") {
-            this.folderActive = event.node.data.idFolder;
-            this.folderIdActive = event.node.id;
+        // if (event.node.data.type === "Folder") {
+        //     this.folderActive = event.node.data.idFolder;
+        //     this.folderIdActive = event.node.id;
+        // }
+        if (event.type === "Folder") {
+            this.folderActive = event.idFolder;
+            this.folderIdActive = event.id;
         }
     }
 
@@ -521,7 +534,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     onMovedItem(event): void {
         if (event.node.type === "Folder") {
             const obj = {
-                id: event.node.data.idFolder,
+                id: event.node.idFolder,
                 name: event.node.name,
                 parentFolderId: event.to.parent.idFolder,
             }

@@ -325,54 +325,24 @@ input {
         }
 
         .node-content-wrapper-active:hover {
-          background-image: linear-gradient(
-            to left,
-            rgba(107, 166, 241, 0.7) 2%,
-            rgba(107, 166, 241, 0.63) 6%,
-            rgba(107, 166, 241, 0.46) 16%,
-            rgba(107, 166, 241, 0.32) 26%,
-            rgba(107, 166, 241, 0.2) 38%,
-            rgba(107, 166, 241, 0.11) 50%,
-            rgba(107, 166, 241, 0.05) 63%,
-            rgba(107, 166, 241, 0.01) 79%,
-            rgba(107, 166, 241, 0) 102%
-          ) !important;
           background: none;
           box-shadow: none !important;
           color: white !important;
         }
 
         .node-content-wrapper:hover {
-          background-image: linear-gradient(
-            to left,
-            rgba(107, 166, 241, 0.7) 2%,
-            rgba(107, 166, 241, 0.63) 6%,
-            rgba(107, 166, 241, 0.46) 16%,
-            rgba(107, 166, 241, 0.32) 26%,
-            rgba(107, 166, 241, 0.2) 38%,
-            rgba(107, 166, 241, 0.11) 50%,
-            rgba(107, 166, 241, 0.05) 63%,
-            rgba(107, 166, 241, 0.01) 79%,
-            rgba(107, 166, 241, 0) 102%
-          ) !important;
           background: none;
           box-shadow: none !important;
           color: white !important;
           border-top-right-radius: 20px;
           border-bottom-right-radius: 20px;
-        }
-
-        .node-wrapper:hover {
-          // background: var(--color-bg-active);
-          // box-shadow: none !important;
-          // color: white !important;
         }
 
         .node-content-wrapper {
-          width: 85%;
+          width: 100%;
         }
 
-        .node-content-wrapper-active {
+        .tree-template:hover {
           background-image: linear-gradient(
             to left,
             rgba(107, 166, 241, 0.7) 2%,
@@ -385,11 +355,14 @@ input {
             rgba(107, 166, 241, 0.01) 79%,
             rgba(107, 166, 241, 0) 102%
           ) !important;
+          background: none;
           box-shadow: none !important;
           color: white !important;
-          background: none;
           border-top-right-radius: 20px;
           border-bottom-right-radius: 20px;
+        }
+
+        .node-content-wrapper-active {
         }
 
         .toggle-children {
@@ -398,6 +371,17 @@ input {
           width: 15px;
           background-size: cover;
           top: 2px;
+        }
+
+        .tree-node-level-1 > *:nth-child(3) > .tree-children {
+          padding-left: 0 !important;
+        }
+
+        .tree-node-level-1 > *:nth-child(2) > .node-wrapper {
+          position: sticky;
+          z-index: 999;
+          top: 0;
+          background: var(--color-table-main);
         }
 
         .toggle-children-wrapper-expanded .toggle-children {
@@ -410,7 +394,7 @@ input {
 
         .angular-tree-component {
           width: calc(100% - 10px);
-          margin-left: 10px;
+          margin-left: 5px;
           background-color: var(--color-table-main);
         }
 
@@ -451,7 +435,7 @@ input {
       width: 15px;
       position: absolute;
       right: 50px;
-      top: 4px;
+      top: 3px;
     }
 
     &__block {
@@ -503,9 +487,9 @@ input {
       cursor: pointer;
       position: absolute;
       right: -7px;
-      top: -2px;
-      width: 45px;
-      height: 45px;
+      top: 0px;
+      width: 53px;
+      height: 40px;
       background-repeat: no-repeat;
       background-position: center;
       background-image: url(../../../../assets/icons/widgets/reports/delete_blue.svg);
@@ -1057,4 +1041,24 @@ input {
 .tree-template {
   position: relative;
   color: white;
+}
+
+.activeFolder {
+  background-image: linear-gradient(
+    to left,
+    rgba(107, 166, 241, 0.7) 2%,
+    rgba(107, 166, 241, 0.63) 6%,
+    rgba(107, 166, 241, 0.46) 16%,
+    rgba(107, 166, 241, 0.32) 26%,
+    rgba(107, 166, 241, 0.2) 38%,
+    rgba(107, 166, 241, 0.11) 50%,
+    rgba(107, 166, 241, 0.05) 63%,
+    rgba(107, 166, 241, 0.01) 79%,
+    rgba(107, 166, 241, 0) 102%
+  ) !important;
+  background: none;
+  box-shadow: none !important;
+  color: white !important;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
