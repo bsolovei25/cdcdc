@@ -5,14 +5,14 @@ import { ReportsService } from '../../services/reports.service';
 import { fillDataShape } from '../../../@shared/common-functions';
 
 export interface IReportTemplate {
-    id: number,
-    createdAt: Date,
-    createdBy: number,
-    name: string,
-    description: string,
-    fileId: string,
-    isDeleted: boolean,
-    displayName: string
+    id: number;
+    createdAt: Date;
+    createdBy: number;
+    name: string;
+    description: string;
+    fileId: string;
+    isDeleted: boolean;
+    displayName: string;
 }
 
 @Component({

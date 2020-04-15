@@ -10,8 +10,11 @@ export class TankCalibrationTableService {
 
     private readonly restUrl: string;
 
+    private restFileUrl: string = '';
+
     constructor(public http: HttpClient, configService: AppConfigService) {
         this.restUrl = configService.restUrl;
+        this.restFileUrl = configService.fsUrl;
     }
 
     async getTankAvailable(): Promise<any[]> {
@@ -33,19 +36,26 @@ export class TankCalibrationTableService {
     async getHistoryTanks(id: string): Promise<any[]> {
         return this.http
             .get<any[]>(
-                this.restUrl + `/api/graduation/tanks/${id}/history`
+                this.restUrl + `/api/graduation-table/Graduation/tanks/${id}/history`
             )
             .toPromise();
     }
 
-    async postMemberFromBrigade(id: number, newDate: string, comment: string): Promise<any> {
+    async postNewDate(id: number, body): Promise<any> {
         return this.http
-            .post(this.restUrl + `/api/graduation/tanks/${id}/table/date`, {
+            .post(this.restUrl + `/api/graduation-table/Graduation/tanks/${id}/table/`, body)
+            .toPromise();
+    }
+
+    async postDataFile(id: number, newDate: string, comment: string): Promise<any> {
+        return this.http
+            .post(this.restUrl + `/api/graduation-table/Graduation/tanks/${id}/table/date`, {
                 newDate,
                 comment,
             })
             .toPromise();
     }
+
 
     async putTank(id: string): Promise<any> {
         try {
@@ -55,6 +65,12 @@ export class TankCalibrationTableService {
         } catch (error) {
             console.error(error);
         }
+    }
+
+    async pushXlsFile(file: Blob): Promise<string> {
+        const body: FormData = new FormData();
+        body.append('uploadFile', file);
+        return this.http.post<string>(this.restFileUrl, body).toPromise();
     }
 
     async deleteTank(id: string): Promise<void> {
