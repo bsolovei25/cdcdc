@@ -61,11 +61,14 @@
       &__title {
         font-size: 10px;
         color: var(--color-text-sub);
+        margin-top: 5px;
+        margin-bottom: 3px;
       }
       &__value {
         display: flex;
         position: relative;
-        font-size: 12px;
+        font-size: 14px;
+        top: -18px;
       }
     }
     &__footer {

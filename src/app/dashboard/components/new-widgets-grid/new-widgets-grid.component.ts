@@ -85,7 +85,7 @@ export class NewWidgetsGridComponent implements OnInit, OnDestroy {
     private loaditem(): void {
         this.options = {
             gridType: GridType.Fixed,
-            displayGrid: 'none',
+            displayGrid: DisplayGrid.None,
             itemChangeCallback: this.itemChange.bind(this),
             enableEmptyCellClick: false,
             enableEmptyCellContextMenu: false,
@@ -109,6 +109,7 @@ export class NewWidgetsGridComponent implements OnInit, OnDestroy {
             maxRows: 100000,
             maxCols: 100000,
             pushItems: true,
+            swap: false,
             draggable: {
                 enabled: this.claimSettings.includes(EnumClaimWidgets.move),
                 stop: this.dragStop.bind(this),
@@ -131,7 +132,6 @@ export class NewWidgetsGridComponent implements OnInit, OnDestroy {
                 },
             },
         };
-
         this.sizeGrid();
     }
 
@@ -155,7 +155,6 @@ export class NewWidgetsGridComponent implements OnInit, OnDestroy {
         this.options.fixedRowHeight = this.RowHeight;
 
         this.changedOptions();
-
         console.log(heigthScreen + ' ' + widthScreen);
         console.log(this.RowHeight + ' ' + this.ColWidth);
     }
@@ -167,17 +166,18 @@ export class NewWidgetsGridComponent implements OnInit, OnDestroy {
 
     public itemChange(item: GridsterItem, itemComponent: GridsterItemComponentInterface): void {
         this.userSettings.updateByPosition(item, itemComponent.$item);
+        itemComponent.item = itemComponent.$item;
     }
 
-    public onSwap(swap: any): void {
-        swap === true ? (this.options.swap = true) : (this.options.swap = false);
+    public onSwap(swap: boolean): void {
+        // swap === true ? (this.options.swap = true) : (this.options.swap = false);
         swap === true ? (this.options.pushItems = true) : (this.options.pushItems = false);
         this.changedOptions();
     }
 
     public onGrid(grid: any): void {
         grid === true
-            ? (this.options.displayGrid = 'none')
+            ? (this.options.displayGrid = DisplayGrid.None)
             : (this.options.displayGrid = DisplayGrid.Always);
         this.changedOptions();
     }
@@ -222,10 +222,10 @@ export class NewWidgetsGridComponent implements OnInit, OnDestroy {
     }
 
     public dragStop(item: GridsterItem, e: MouseEvent): void {
-        /*  if (!e) return;
-    const dataTrasfer = new DataTransfer();
-    e.currentTarget.dispatchEvent(new DragEvent('dragstop', { dataTransfer: dataTrasfer }));
-    this.widgetService.draggingItem = null; */
+        // if (!e) return;
+        // const dataTrasfer = new DataTransfer();
+        // e.currentTarget.dispatchEvent(new DragEvent('dragstop', { dataTransfer: dataTrasfer }));
+        // this.widgetService.draggingItem = null;
     }
 
     public dragStartHandler(ev, i): void {

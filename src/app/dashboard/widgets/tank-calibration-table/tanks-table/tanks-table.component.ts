@@ -19,9 +19,12 @@ interface ITanksTable {
 export class TanksTableComponent implements OnInit, OnDestroy {
 
     dataSource: ITanksTable[] = [];
+    dataSourceTanks: ITanksTable[] = [];
 
     expandedElement: SelectionModel<ITanksTable[]> = new SelectionModel(true);
     selectedElement: SelectionModel<ITanksTable> = new SelectionModel();
+
+    isRefInput: boolean = false;
 
     constructor(
         public dialogRef: MatDialogRef<any>,
@@ -31,7 +34,10 @@ export class TanksTableComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.dataSource = [...this.data.filter(val => val.isGroup === true || val?.parentUid)];
+        this.dataSource = [...this.data
+            .filter(val => val.isGroup)];
+        this.dataSourceTanks = [...this.data
+            .filter(val => !val.parentUid && !val.isGroup)];
     }
 
     ngOnDestroy(): void {
@@ -48,7 +54,14 @@ export class TanksTableComponent implements OnInit, OnDestroy {
     }
 
     getChildrenRows(element: ITanksTable): ITanksTable[] {
-        return this.dataSource.filter(val => element?.uid === val?.parentUid);
+        return this.data.filter(val => element?.uid === val?.parentUid);
+    }
+
+    searchInput(event): void {
+        this.dataSource = this.data?.filter((val) => val.name.toLowerCase()
+            .includes(event?.target?.value.toLowerCase()));
+        this.dataSourceTanks = this.data?.filter((val) => val.name.toLowerCase()
+            .includes(event?.target?.value.toLowerCase()));
     }
 
 }
