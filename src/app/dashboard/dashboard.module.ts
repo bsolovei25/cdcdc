@@ -177,6 +177,7 @@ import { EventsSmotrIconComponent } from './widgets/workspace/components/events-
 import { EventsCommentWindowComponent } from './widgets/workspace/components/events-comment-window/events-comment-window.component';
 import { EventsListWindowComponent } from './widgets/workspace/components/events-list-window/events-list-window.component';
 import { FilterPopupComponent } from './widgets/petroleum-products-movement/components/filter-popup/filter-popup.component';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
     declarations: [
@@ -417,6 +418,7 @@ import { FilterPopupComponent } from './widgets/petroleum-products-movement/comp
         MatChipsModule,
         MatIconModule,
         MatAutocompleteModule,
+        NgxMaskModule.forChild(),
     ],
     bootstrap: [],
     providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' },

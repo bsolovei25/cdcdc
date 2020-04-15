@@ -82,8 +82,8 @@
                 <tr
                   class="table__item"
                   (click)="expandedElement.isSelected(element) ?
-                expandedElement.deselect(element)
-              : expandedElement.select(element)"
+                           expandedElement.deselect(element)
+                          : expandedElement.select(element)"
                 >
                   <td class="item item__tr">
                     <svg-icon
@@ -128,7 +128,7 @@
                       class="item item__td item__action"
                     >
                       <svg-icon
-                        (click)="openDialog()"
+                        (click)="openDialog(elementChildren)"
                         class="item__action-icon"
                         src="assets/icons/widgets/calibration-table/upload.svg"
                         [svgStyle]="{ 'width.px':20, 'height.px':20 }"
@@ -148,12 +148,50 @@
                   </tr>
                 </ng-container>
               </ng-container>
-              <ng-container *ngFor="let end of endTr">
-                <tr class="table__item expanded-row">
-                  <td class="item item__td item__name"></td>
-                  <td class="item item__td item__date"></td>
-                  <td class="item item__td item__date"></td>
-                  <td class="item item__td item__action"></td>
+              <ng-container *ngFor="let element of dataSourceTanks">
+                <tr>
+                  <td [class.expanded-column]="element" class="item item__td item__name">
+                    {{ element.name }}
+                  </td>
+                  <td [class.expanded-column]="element" class="item item__td item__date">
+                    <div class="item__date-data-picker">
+                      <evj-time-data-picker
+                        [data]="element.startDate"
+                        (dateTimePicker)="dateTimePickerInput($event, false)"
+                      ></evj-time-data-picker>
+                    </div>
+                  </td>
+                  <td [class.expanded-column]="element" class="item item__td item__date">
+                    <div
+                      class="item__date-data-picker"
+                      [class.item__date-data-picker--warning]="element.warningLevel === 'warning'"
+                      [class.item__date-data-picker--expired]="element.warningLevel === 'expired'"
+                    >
+                      <evj-time-data-picker
+                        [data]="element.startDate"
+                        (dateTimePicker)="dateTimePickerInput($event, false)"
+                      ></evj-time-data-picker>
+                    </div>
+                  </td>
+                  <td [class.expanded-column]="element" class="item item__td item__action">
+                    <svg-icon
+                      (click)="openDialog(element)"
+                      class="item__action-icon"
+                      src="assets/icons/widgets/calibration-table/upload.svg"
+                      [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+                    ></svg-icon>
+                    <svg-icon
+                      class="item__action-icon"
+                      src="assets/icons/widgets/calibration-table/download.svg"
+                      [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+                    ></svg-icon>
+                    <span class="item__action-trash" (click)="deleteItem(element)">
+                      <svg-icon
+                        src="assets/icons/widgets/calibration-table/trash.svg"
+                        [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+                      ></svg-icon>
+                    </span>
+                  </td>
                 </tr>
               </ng-container>
             </tbody>
@@ -170,13 +208,27 @@
                   <div class="bottom-reference-left__input-block">
                     <div class="bottom-reference-left__button-search">
                       <svg-icon
+                        *ngIf="!isRefInput"
                         class="button_filter_icon"
                         src="./assets/icons/widgets/references/search_white.svg"
-                      >
-                      </svg-icon>
+                      ></svg-icon>
+
+                      <svg-icon
+                        *ngIf="isRefInput"
+                        class="indicator-selector__collapse"
+                        src="./assets/icons/widgets/references/search_blue.svg"
+                      ></svg-icon>
                     </div>
-                    <div class="bottom-reference-left__input">
-                      <input type="text" (keyup)="searchInput($event)" />
+                    <div
+                      class="bottom-reference-left__input"
+                      [class.bottom-reference-left__input-active]="isRefInput"
+                    >
+                      <input
+                        type="text"
+                        (focus)="isRefInput = true"
+                        (blur)="isRefInput = false"
+                        (keyup)="searchInput($event)"
+                      />
                     </div>
                   </div>
                 </div>
@@ -207,15 +259,9 @@
             <tbody class="table__body">
               <ng-container *ngFor="let element of dataSource">
                 <tr *ngIf="expandedElement.isSelected(element)" class="expanded-row">
-                  <td class="item item__td item__name">
-                    {{ element.name }}
-                  </td>
-                  <td class="item item__td item__name">
-                    {{ element.name }}
-                  </td>
-                  <td class="item item__td item__name">
-                    {{ element.name }}
-                  </td>
+                  <td class="item item__td item__name"></td>
+                  <td class="item item__td item__name"></td>
+                  <td class="item item__td item__name"></td>
                 </tr>
               </ng-container>
               <ng-container *ngFor="let end of endTr2">
