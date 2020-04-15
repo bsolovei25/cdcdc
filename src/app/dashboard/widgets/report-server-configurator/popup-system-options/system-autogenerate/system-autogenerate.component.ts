@@ -32,7 +32,7 @@ export class SystemAutogenerateComponent implements OnInit {
     this.result.emit(obj);
   }
 
-  changeSwap(item) {
+  changeSwap() {
 
   }
 

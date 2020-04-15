@@ -60,6 +60,10 @@ export class SystemMacroEditComponent implements OnInit, AfterViewInit {
   editItemAccept(item): void {
     item.edit = false;
   }
+  
+  deleteItem(item){
+    
+  }
 
   close(): void {
     const obj = {

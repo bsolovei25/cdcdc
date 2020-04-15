@@ -13,7 +13,7 @@
                     <div class="check-item">
                         <label class="mycheckbox">
                             <input type="checkbox" id="checkBoxValue" class="mycheckbox__default"
-                                (click)="changeSwap(item)" />
+                                (click)="changeSwap()" />
                             <div class="mycheckbox__new"></div>
                         </label>
                     </div>
@@ -23,7 +23,7 @@
                     <div class="check-item">
                         <label class="mycheckbox">
                             <input type="checkbox" id="checkBoxValue" class="mycheckbox__default"
-                                (click)="changeSwap(item)" />
+                                (click)="changeSwap()" />
                             <div class="mycheckbox__new"></div>
                         </label>
                     </div>
@@ -36,7 +36,7 @@
                         <mat-form-field>
                             <label>Начало</label>
                             <input matInput [ngxMatDatetimePicker]="pickerD" [value]="dateNow"
-                                 [disabled]="disabled">
+                                 >
                             <mat-datepicker-toggle matSuffix [for]="pickerD">
                                 <mat-icon matDatepickerToggleIcon>
                                     <svg-icon src="./assets/icons/widgets/reports/calend.svg"
@@ -44,9 +44,8 @@
                                     </svg-icon>
                                 </mat-icon>
                             </mat-datepicker-toggle>
-                            <ngx-mat-datetime-picker #pickerD [showSpinners]="showSpinners" [showSeconds]="showSeconds"
-                                [stepHour]="stepHour" [stepMinute]="stepMinute" [stepSecond]="stepSecond"
-                                [touchUi]="touchUi" [color]="color">
+                            <ngx-mat-datetime-picker #pickerD
+                                 >
                             </ngx-mat-datetime-picker>
                         </mat-form-field>
                     </div>
@@ -56,7 +55,7 @@
                         <mat-form-field>
                             <label>Интервал</label>
                             <input matInput [ngxMatDatetimePicker]="pickerT" [value]="dateNow"
-                                [disabled]="disabled">
+                                >
                             <mat-datepicker-toggle matSuffix [for]="pickerT">
                                 <mat-icon matDatepickerToggleIcon>
                                     <svg-icon src="./assets/icons/widgets/reports/calend.svg"
@@ -64,9 +63,8 @@
                                     </svg-icon>
                                 </mat-icon>
                             </mat-datepicker-toggle>
-                            <ngx-mat-datetime-picker #pickerT [showSpinners]="showSpinners" [showSeconds]="showSeconds"
-                                [stepHour]="stepHour" [stepMinute]="stepMinute" [stepSecond]="stepSecond"
-                                [touchUi]="touchUi" [color]="color">
+                            <ngx-mat-datetime-picker #pickerT 
+                                >
                             </ngx-mat-datetime-picker>
                         </mat-form-field>
                     </div>
