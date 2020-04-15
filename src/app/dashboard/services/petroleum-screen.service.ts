@@ -11,7 +11,6 @@ import {
 import { SnackBarService } from './snack-bar.service';
 import { IDatesInterval, WidgetService } from './widget.service';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
-import { error } from '@angular/compiler/src/util';
 
 @Injectable({
     providedIn: 'root',
@@ -136,7 +135,7 @@ export class PetroleumScreenService {
             this.objectsSource$.next(objectsSource);
             this.currentTransfer$.next(chooseTransfer);
         } catch (e) {
-            throw error(e);
+            console.error(e);
         }
         this.isLoad$.next(false);
     }
@@ -249,18 +248,17 @@ export class PetroleumScreenService {
                 isOpen = true;
                 break;
         }
-        await this.getTransfers(dates?.fromDateTime ?? null, dates?.toDateTime ?? null, isOpen, this.client);
+        await this.getTransfers(dates?.fromDateTime ?? this.getTodaysPeriod().fromDatetime, dates?.toDateTime ?? this.getTodaysPeriod().toDatetime, isOpen, this.client);
         const currentTransfer = this.currentTransfer$.getValue();
-        if (!currentTransfer?.uid) {
-            return;
-        }
         const transfers = this.transfers$.getValue();
-        const currentTransferTemp = transfers.find((item) => item?.uid === currentTransfer?.uid);
-        if (currentTransferTemp) {
-            currentTransferTemp.isActive = true;
-            this.currentTransfer$.next(currentTransferTemp);
-        }
         this.transfers$.next(transfers);
+        if (currentTransfer?.uid) {
+            const currentTransferTemp = transfers.find((item) => item?.uid === currentTransfer?.uid);
+            if (currentTransferTemp) {
+                currentTransferTemp.isActive = true;
+                this.currentTransfer$.next(currentTransferTemp);
+            }
+        }
     }
 
     public async getTransfers(
@@ -324,7 +322,7 @@ export class PetroleumScreenService {
             ...this.objectsReceiver$.getValue(),
             ...this.objectsSource$.getValue()
         ];
-        const objectType = allObjects.find(el => el.objectName === object).objectType;
+        const objectType = allObjects.find(el => el.objectName === object)?.objectType ?? null;
         return await this.getReferencesAsync(client, object, objectType, direction);
     }
 
@@ -378,9 +376,14 @@ export class PetroleumScreenService {
     }
 
     private async getTankInfoAsync(objectName: string): Promise<ITankInfo> {
-        return await this.http.get<ITankInfo>(
-            `${this.restUrl}/api/petroleum-flow-clients/objects/${objectName}/tankInfo`
-        ).toPromise();
+        try {
+            return await this.http.get<ITankInfo>(
+                `${this.restUrl}/api/petroleum-flow-clients/objects/${objectName}/tankInfo`
+            ).toPromise();
+        } catch (e) {
+            console.error(e);
+            return null;
+        }
     }
 
     public async getAvailableProducts(objectName: string): Promise<string[]> {
@@ -452,9 +455,32 @@ export class PetroleumScreenService {
     public closeAlert(): void {
         this.alertWindow$.next(null);
     }
+
+    private getTodaysPeriod(): { fromDatetime: Date, toDatetime: Date } {
+        const currentDatetime: Date = new Date(Date.now());
+        const fromDatetime = new Date(
+            currentDatetime.getFullYear(),
+            currentDatetime.getMonth(),
+            currentDatetime.getDate(),
+            0,
+            0,
+            0
+        );
+        const toDatetime = new Date(
+            currentDatetime.getFullYear(),
+            currentDatetime.getMonth(),
+            currentDatetime.getDate(),
+            23,
+            59,
+            59
+        );
+        return {
+            fromDatetime,
+            toDatetime,
+        };
+    }
 }
 
-//
 // public async chooseObject(objectName: string, isSource: boolean): Promise<void> {
 //     let currentTransfer = this.currentTransfer$.getValue();
 // if (currentTransfer.operationType === 'Exist') {

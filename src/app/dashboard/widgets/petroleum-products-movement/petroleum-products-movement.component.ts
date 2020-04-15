@@ -51,9 +51,13 @@ export class PetroleumProductsMovementComponent extends WidgetPlatform
 
     private async initPetroleumMovement(): Promise<void> {
         this.petroleumService.isLoad$.next(true);
-        await this.petroleumService.setClient();
-        const objects = await this.petroleumService.getObjects(this.petroleumService.client);
-        this.petroleumService.objectsAll$.next(objects);
+        try {
+            await this.petroleumService.setClient();
+            const objects = await this.petroleumService.getObjects(this.petroleumService.client);
+            this.petroleumService.objectsAll$.next(objects);
+        } catch (e) {
+            console.error(e);
+        }
         this.petroleumService.isLoad$.next(false);
         // setInterval(() => this.petroleumService.reGetTransfers(), this.refreshTimeoutSecs * 1000);
         this.widgetService.currentDates$.subscribe(
