@@ -136,7 +136,7 @@ export class PetroleumScreenService {
             this.objectsSource$.next(objectsSource);
             this.currentTransfer$.next(chooseTransfer);
         } catch (e) {
-            throw error(e);
+            console.error(e);
         }
         this.isLoad$.next(false);
     }
@@ -323,7 +323,7 @@ export class PetroleumScreenService {
             ...this.objectsReceiver$.getValue(),
             ...this.objectsSource$.getValue()
         ];
-        const objectType = allObjects.find(el => el.objectName === object).objectType;
+        const objectType = allObjects.find(el => el.objectName === object)?.objectType ?? null;
         return await this.getReferencesAsync(client, object, objectType, direction);
     }
 

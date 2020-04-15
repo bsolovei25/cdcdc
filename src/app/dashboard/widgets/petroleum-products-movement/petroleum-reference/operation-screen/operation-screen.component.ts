@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PetroleumScreenService } from 'src/app/dashboard/services/petroleum-screen.service';
 import { ITransfer, TransfersFilter } from '../../../../models/petroleum-products-movement.model';
+import { IUdTableDict } from '../petroleum-reference.component';
 
 @Component({
     selector: 'evj-operation-screen',
@@ -10,6 +11,7 @@ import { ITransfer, TransfersFilter } from '../../../../models/petroleum-product
 export class OperationScreenComponent implements OnInit {
     @Input() title: string[];
     @Input() keys: string[];
+    @Input() dictionary: IUdTableDict[];
     public isOpen: boolean;
 
     constructor(public petroleumService: PetroleumScreenService) {}

@@ -14,9 +14,16 @@
   border-radius: 25px;
 }
 
-.filter_icon {
-  &__active {
-
+.filter {
+  &_icon {
+    fill: var(--color-text-sub);
+    width: 10px;
+    height: 10px;
+    &__active {
+    }
+  }
+  &_block {
+    position: absolute;
   }
 }
 
@@ -70,6 +77,8 @@
 
 .title {
   margin-top: 13px;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .reference_values {
