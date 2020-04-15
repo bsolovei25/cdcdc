@@ -53,11 +53,34 @@ export class CustomReportPropertiesReferenceComponent extends WidgetPlatform imp
   @HostListener('document:resize', ['$event'])
   OnResize(event) {
     this.blockNeed();
+    this.setStyleScroll();
   }
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
   }
+
+  setStyleScroll() {
+    const rightScroll = document.getElementById('rightScrollReportRef');
+    const leftScroll = document.getElementById('leftScrollReportRef');
+
+    if (rightScroll) {
+        if (rightScroll.scrollHeight !== rightScroll.clientHeight) {
+            rightScroll.style.cssText = "margin-left: 5px; width: calc(100% - 5px);";
+        } else {
+            rightScroll.style.cssText = "margin-left: 10px; width: calc(100% - 10px);";
+
+        }
+    }
+
+    if (leftScroll) {
+        if (leftScroll.scrollHeight !== leftScroll.clientHeight) {
+            leftScroll.style.cssText = "margin-right: 0px; width: calc(100% - 5px);";
+        } else {
+            leftScroll.style.cssText = "margin-right: 0px; width: calc(100% - 10px);";
+        }
+    }
+}
 
   protected dataHandler(ref: any): void {
     //this.data = ref.chartItems;
@@ -78,6 +101,7 @@ export class CustomReportPropertiesReferenceComponent extends WidgetPlatform imp
     return this.reportService.getCustomOptions().subscribe((data) => {
       this.datas = data;
       this.data = this.datas;
+      this.setStyleScroll();
     });
   }
 
@@ -85,6 +109,7 @@ export class CustomReportPropertiesReferenceComponent extends WidgetPlatform imp
     this.idReferenceClick = data.id;
     this.indexColumn = index;
     this.blockNeed();
+    this.setStyleScroll();
 
     // this.reportService.getColumns(this.idReferenceClick).subscribe((datas) => {
     //   data.columns = datas;

@@ -1,5 +1,5 @@
 <ng-container *ngFor="let key of objectKeys(this.data); let i = index;">
-    <ng-container *ngIf="key !== 'id' && key !== 'name' && key !== '__proto__'">
+    <ng-container *ngIf="key !== 'id' && key !== 'name'">
         <div class="options">
             <div class="options__title">{{ options[key] }}</div>
             <div class="options__value">
@@ -57,7 +57,7 @@
                         <div class="mycheckbox__new" [class.mycheckbox__checked]="data[key]"></div>
                     </label>
                 </ng-container>
-                <ng-container *ngIf="key === 'sortOrder'">
+                <ng-container *ngIf="key === 'sortOrder' ">
                     {{ data[key] }}
                 </ng-container>
                 <ng-container *ngIf="key === 'source' && data.type === 'comboBox'">
