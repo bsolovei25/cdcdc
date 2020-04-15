@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from './../../services/appConfigService';
 import { ICalibrationTable } from '../widgets/tank-calibration-table/tank-calibration-table.component';
+import { stringify } from 'querystring';
 
 @Injectable({
     providedIn: 'root',
@@ -41,9 +42,15 @@ export class TankCalibrationTableService {
             .toPromise();
     }
 
-    async postNewDate(id: number, body): Promise<any> {
+    async postNewDate(id: number, body, file: Blob): Promise<any> {
+        const data: FormData = new FormData();
+        console.log(file);
+        data.append('file', file);
+        data.append('comment', '1');
+        data.append('startDate', '2020-04-13T07:51:26.668Z');
+        data.append('endDate', '2020-04-15T07:51:26.668Z');
         return this.http
-            .post(this.restUrl + `/api/graduation-table/Graduation/tanks/${id}/table/`, body)
+            .post(this.restUrl + `/api/graduation-table/Graduation/tanks/${id}/table/`, data)
             .toPromise();
     }
 

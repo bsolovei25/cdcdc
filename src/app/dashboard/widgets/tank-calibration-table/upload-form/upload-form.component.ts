@@ -46,8 +46,6 @@ export class UploadFormComponent implements OnInit, OnDestroy {
 
     submitForm(): void {
         this.body.comment = this.comment;
-        console.log(this.body);
-
         this.dialogRef.close(this.body);
     }
 
@@ -69,8 +67,6 @@ export class UploadFormComponent implements OnInit, OnDestroy {
             });
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                console.log(result);
-
                 this.body.file = result;
             }
         });

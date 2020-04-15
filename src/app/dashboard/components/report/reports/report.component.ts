@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { ITime } from '../../../models/time-data-picker';
 import { IReportTemplate } from '../reports.component';
 import { ReportsService } from 'src/app/dashboard/services/reports.service';
+import { SnackBarService } from '../../../services/snack-bar.service';
 
 export interface IReport extends IReportTemplate {
     customOptions: IReportOption[];
@@ -49,6 +50,7 @@ export class ReportComponent implements OnInit {
 
     constructor(
         private reportsService: ReportsService,
+        private snackBar: SnackBarService
     ) {
 
     }
@@ -59,6 +61,7 @@ export class ReportComponent implements OnInit {
     toggle(id: number): void {
         this.active = !this.active;
         if (this.active) {
+            this.formGroup = [];
             this.loadItem(id);
         }
     }
@@ -106,6 +109,7 @@ export class ReportComponent implements OnInit {
             window.open(`http://deploy.funcoff.club:6877/api/file/${a.fileId}`);
             this.isLoading = false;
         } catch (error) {
+            this.snackBar.openSnackBar('Файл не сформирован', 'snackbar-red');
             this.isLoading = false;
         }
 

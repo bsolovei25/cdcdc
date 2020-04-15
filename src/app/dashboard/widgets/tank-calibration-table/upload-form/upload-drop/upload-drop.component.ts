@@ -28,22 +28,12 @@ export class UploadDropComponent implements OnInit, OnDestroy {
         this.dialogRef.close();
     }
 
-    async addPhoto(event) {
+    addPhoto(event) {
         let target = event.target || event.srcElement;
-        try {
-            let file = target?.files?.[0];
-            let reader = new FileReader();
-            reader.readAsBinaryString(file);
-            console.log(file);
-
-            const body: FormData = new FormData();
-            body.append('uploadFile', file, 'dsadas');
-
-            this.dialogRef.close(body);
-        } catch (error) {
-
-        }
-
+        let file = target?.files?.[0];
+        const body: FormData = new FormData();
+        body.set('file', file);
+        this.dialogRef.close(file);
     }
 
 }

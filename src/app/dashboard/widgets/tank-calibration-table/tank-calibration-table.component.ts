@@ -225,7 +225,7 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         // when dialog is closed, check result
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.calibrationService.postNewDate(element.uid, result);
+                this.calibrationService.postNewDate(element.uid, result, result.file);
             }
         });
     }
