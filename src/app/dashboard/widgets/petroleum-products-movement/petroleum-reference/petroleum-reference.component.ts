@@ -1,6 +1,14 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { transition, trigger, animate, style } from '@angular/animations';
 
+export interface IUdTableDict {
+    key: string;
+    title: string;
+    filter?: {
+        isActive: boolean
+    };
+}
+
 @Component({
     selector: 'evj-petroleum-reference',
     templateUrl: './petroleum-reference.component.html',
@@ -50,5 +58,71 @@ export class PetroleumReferenceComponent {
         'sourceMass',
         'destinationMass',
         'deltaMass',
+    ];
+
+    public dictionary: IUdTableDict[] = [
+        {
+            key: 'sourceName',
+            title: 'Источник',
+            filter: {
+                isActive: false,
+            },
+        },
+        {
+            key: 'destinationName',
+            title: 'Приемник',
+            filter: {
+                isActive: false,
+            },
+        },
+        {
+            key: 'sourceProduct',
+            title: 'Продукт по источнику',
+            filter: {
+                isActive: false,
+            },
+        },
+        {
+            key: 'destinationProduct',
+            title: 'Продукт по приемнику',
+            filter: {
+                isActive: false,
+            },
+        },
+        {
+            key: 'startTime',
+            title: 'Начало операции',
+            filter: {
+                isActive: false,
+            },
+        },
+        {
+            key: 'endTime',
+            title: 'Конец операции',
+            filter: {
+                isActive: false,
+            },
+        },
+        {
+            key: 'sourceMass',
+            title: 'Масса операции по источнику',
+            filter: {
+                isActive: false,
+            },
+        },
+        {
+            key: 'destinationMass',
+            title: 'Масса операции по приемнику',
+            filter: {
+                isActive: false,
+            },
+        },
+        {
+            key: 'deltaMass',
+            title: 'Отклонение',
+            filter: {
+                isActive: false,
+            },
+        },
     ];
 }

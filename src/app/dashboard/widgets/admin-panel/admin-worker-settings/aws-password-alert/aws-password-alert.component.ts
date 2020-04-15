@@ -42,9 +42,6 @@ export class AwsPasswordAlertComponent implements OnInit {
     public formGroup: FormGroup;
     public matcher: MyErrorStateMatcher = new MyErrorStateMatcher();
 
-    public password: FormControl = new FormControl('', Validators.required);
-    public confirmPassword: FormControl = new FormControl('', Validators.required);
-
     constructor(private formBuilder: FormBuilder) {
         const regExpConditions = '(?=.*[0-9])(?=.*[?!._*#$-])(?=.*[a-zа-я])(?=.*[A-ZА-Я])';
         const regExp = '[0-9a-zA-Zа-яА-Я?!._*#$-]{7,25}';
@@ -81,7 +78,7 @@ export class AwsPasswordAlertComponent implements OnInit {
 
     public onClickConfirm(): void {
         if (this.formGroup.valid) {
-            this.confirmed.emit(this.password.value);
+            this.confirmed.emit(this.formGroup.controls.password.value);
         } else {
             this.formGroup.markAllAsTouched();
             this.formGroup.markAsDirty();

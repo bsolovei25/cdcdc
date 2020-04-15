@@ -186,6 +186,7 @@ import { EventsCorrectCardComponent } from './widgets/workspace/components/event
 import { EventsSmotrIconComponent } from './widgets/workspace/components/events-smotr-icon/events-smotr-icon.component';
 import { EventsCommentWindowComponent } from './widgets/workspace/components/events-comment-window/events-comment-window.component';
 import { EventsListWindowComponent } from './widgets/workspace/components/events-list-window/events-list-window.component';
+import { FilterPopupComponent } from './widgets/petroleum-products-movement/components/filter-popup/filter-popup.component';
 import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
@@ -342,6 +343,7 @@ import { NgxMaskModule } from 'ngx-mask';
         EventsSmotrIconComponent,
         EventsCommentWindowComponent,
         EventsListWindowComponent,
+        FilterPopupComponent,
     ],
     entryComponents: [
         LineChartComponent,
