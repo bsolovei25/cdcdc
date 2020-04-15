@@ -18,6 +18,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+
+    color: var(--color-text-main);
   }
 
   &__icon {
@@ -27,7 +29,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: left;
 
     img {
       width: 27px;
