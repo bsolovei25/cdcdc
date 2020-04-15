@@ -401,7 +401,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             });
             this.newFolder = null;
         }
-    }
+    } /// Удалить
 
     onPushReport(): void {
         this.isLoading = true;
