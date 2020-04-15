@@ -168,6 +168,16 @@ import { CustomReportOptionsComponent } from './widgets/custom-report-properties
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon';
+import { TreeModule } from 'angular-tree-component';
+import { PopupSystemOptionsComponent } from './widgets/report-server-configurator/popup-system-options/popup-system-options.component';
+import { SystemPeriodEditComponent } from './widgets/report-server-configurator/popup-system-options/system-period-edit/system-period-edit.component';
+import { SystemParameterValuesAutogenerationComponent } from './widgets/report-server-configurator/popup-system-options/system-parameter-values-autogeneration/system-parameter-values-autogeneration.component';
+import { SystemReportSheetsComponent } from './widgets/report-server-configurator/popup-system-options/system-report-sheets/system-report-sheets.component';
+import { SystemMacroEditComponent } from './widgets/report-server-configurator/popup-system-options/system-macro-edit/system-macro-edit.component';
+import { SystemPathEditComponent } from './widgets/report-server-configurator/popup-system-options/system-path-edit/system-path-edit.component';
+import { SystemAutogenerateComponent } from './widgets/report-server-configurator/popup-system-options/system-autogenerate/system-autogenerate.component';
+import { SystemPathUserComponent } from './widgets/report-server-configurator/popup-system-options/system-path-edit/system-path-user/system-path-user.component';
+import { ParameterAutogenerationComponent } from './widgets/report-server-configurator/popup-system-options/system-parameter-values-autogeneration/parameter-autogeneration/parameter-autogeneration.component';
 import { EventsWorkspaceButtonComponent } from './widgets/workspace/components/events-workspace-button/events-workspace-button.component';
 import { EventsResponsibleSelectComponent } from './widgets/workspace/components/events-responsible-select/events-responsible-select.component';
 import { EventsReasonsComponent } from './widgets/workspace/components/events-reasons/events-reasons.component';
@@ -315,6 +325,15 @@ import { NgxMaskModule } from 'ngx-mask';
         NecessaryParamComponent,
         AdditionalParamComponent,
         CustomReportOptionsComponent,
+        PopupSystemOptionsComponent,
+        SystemPeriodEditComponent,
+        SystemParameterValuesAutogenerationComponent,
+        SystemReportSheetsComponent,
+        SystemMacroEditComponent,
+        SystemPathEditComponent,
+        SystemAutogenerateComponent,
+        SystemPathUserComponent,
+        ParameterAutogenerationComponent,
         EventsWorkspaceButtonComponent,
         EventsResponsibleSelectComponent,
         EventsReasonsComponent,
@@ -416,6 +435,7 @@ import { NgxMaskModule } from 'ngx-mask';
         MatChipsModule,
         MatIconModule,
         MatAutocompleteModule,
+        TreeModule,
         NgxMaskModule.forChild(),
     ],
     bootstrap: [],

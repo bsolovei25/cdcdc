@@ -190,7 +190,7 @@
 .container {
   position: relative;
   width: 100%;
-  height: 99%;
+  height: calc(100% - 1px);
   box-sizing: border-box;
   margin-bottom: 20px;
   display: flex;
@@ -241,7 +241,7 @@ input {
   height: 100%;
   padding: 10px;
   padding-bottom: 0;
-  min-width: 235px;
+  min-width: 255px;
 
   .title-reference {
     position: relative;
@@ -302,6 +302,7 @@ input {
     direction: rtl;
 
     .scroll-block {
+      direction: ltr;
       background-color: #1b1f2c;
       margin: 0 auto;
       width: calc(100% - 5px);
@@ -309,6 +310,119 @@ input {
       height: 100%;
       line-height: 40px;
       min-height: 40px;
+      font-size: 13px;
+      color: var(--color-text-sub);
+
+      /// TEST TREE
+
+      ::ng-deep {
+        .node-content-wrapper {
+          width: 100%;
+        }
+        .node-content-wrapper-focused {
+          //  background: var(--color-bg-active) !important;
+          box-shadow: none !important;
+          background: none;
+        }
+
+        .node-content-wrapper-active:hover {
+          background-image: linear-gradient(
+            to left,
+            rgba(107, 166, 241, 0.7) 2%,
+            rgba(107, 166, 241, 0.63) 6%,
+            rgba(107, 166, 241, 0.46) 16%,
+            rgba(107, 166, 241, 0.32) 26%,
+            rgba(107, 166, 241, 0.2) 38%,
+            rgba(107, 166, 241, 0.11) 50%,
+            rgba(107, 166, 241, 0.05) 63%,
+            rgba(107, 166, 241, 0.01) 79%,
+            rgba(107, 166, 241, 0) 102%
+          ) !important;
+          background: none;
+          box-shadow: none !important;
+          color: white !important;
+        }
+
+        .node-content-wrapper:hover {
+          background-image: linear-gradient(
+            to left,
+            rgba(107, 166, 241, 0.7) 2%,
+            rgba(107, 166, 241, 0.63) 6%,
+            rgba(107, 166, 241, 0.46) 16%,
+            rgba(107, 166, 241, 0.32) 26%,
+            rgba(107, 166, 241, 0.2) 38%,
+            rgba(107, 166, 241, 0.11) 50%,
+            rgba(107, 166, 241, 0.05) 63%,
+            rgba(107, 166, 241, 0.01) 79%,
+            rgba(107, 166, 241, 0) 102%
+          ) !important;
+          background: none;
+          box-shadow: none !important;
+          color: white !important;
+          border-top-right-radius: 20px;
+          border-bottom-right-radius: 20px;
+        }
+
+        .node-wrapper:hover {
+          // background: var(--color-bg-active);
+          // box-shadow: none !important;
+          // color: white !important;
+        }
+
+        .node-content-wrapper {
+          width: 85%;
+        }
+
+        .node-content-wrapper-active {
+          background-image: linear-gradient(
+            to left,
+            rgba(107, 166, 241, 0.7) 2%,
+            rgba(107, 166, 241, 0.63) 6%,
+            rgba(107, 166, 241, 0.46) 16%,
+            rgba(107, 166, 241, 0.32) 26%,
+            rgba(107, 166, 241, 0.2) 38%,
+            rgba(107, 166, 241, 0.11) 50%,
+            rgba(107, 166, 241, 0.05) 63%,
+            rgba(107, 166, 241, 0.01) 79%,
+            rgba(107, 166, 241, 0) 102%
+          ) !important;
+          box-shadow: none !important;
+          color: white !important;
+          background: none;
+          border-top-right-radius: 20px;
+          border-bottom-right-radius: 20px;
+        }
+
+        .toggle-children {
+          background-image: url(../../../../assets/icons/widgets/reports/arrow_right.svg);
+          height: 12px;
+          width: 15px;
+          background-size: cover;
+          top: 2px;
+        }
+
+        .toggle-children-wrapper-expanded .toggle-children {
+          transform: rotate(90deg);
+        }
+
+        .tree-node-expanded {
+          //background: var(--color-bg-main);
+        }
+
+        .angular-tree-component {
+          width: calc(100% - 10px);
+          margin-left: 10px;
+          background-color: var(--color-table-main);
+        }
+
+        tree-viewport {
+          overflow: unset !important;
+        }
+
+        tree-viewport > div {
+          background-color: var(--color-table-main);
+        }
+      }
     }
 
     .block-info-active {
@@ -330,7 +444,7 @@ input {
       cursor: pointer;
       width: 15px;
       position: absolute;
-      right: 55px;
+      right: 50px;
       top: 4px;
     }
 
@@ -382,10 +496,10 @@ input {
     &__button-remove {
       cursor: pointer;
       position: absolute;
-      right: 10px;
-      top: 3px;
-      width: 35px;
-      height: 35px;
+      right: -6px;
+      top: -2px;
+      width: 45px;
+      height: 45px;
       background-repeat: no-repeat;
       background-position: center;
       background-image: url(../../../../assets/icons/widgets/reports/delete_blue.svg);
@@ -700,7 +814,7 @@ input {
       &__fio {
         width: 100%;
         text-align: left;
-        padding-left: 30px;
+        padding-left: 20px;
       }
 
       &__edit-button {
@@ -930,4 +1044,11 @@ input {
 
 .block-active {
   border-left: 1px solid var(--color-border-active);
+}
+
+///TREE TEST
+
+.tree-template {
+  position: relative;
+  color: white;
 }

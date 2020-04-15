@@ -85,6 +85,10 @@ export class ReportServerConfiguratorService {
     return this.http.put<any>(this.restUrl + '/api/report-template/', template);
   }
 
+  public putFolderTemplate(folder): Observable<any> {
+    return this.http.put<any>(this.restUrl + '/api/report-templateFolder/', folder);
+  }
+
   public deleteReportFileTemplate(id: number): Observable<any> {
     return this.http.delete<any>(this.restUrl + '/api/report-filetemplate/' + id);
   }
