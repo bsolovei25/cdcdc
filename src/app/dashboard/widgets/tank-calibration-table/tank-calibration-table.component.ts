@@ -46,6 +46,8 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
 
     data: ICalibrationTable[] = [];
     dataSource: ICalibrationTable[] = [];
+    dataSourceTanks: ICalibrationTable[] = [];
+
     tanksAvailable: ICalibrationTable[] = [];
 
     endTr = [];
@@ -54,6 +56,8 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
     sort: { name: 'upStart' | 'bottomStart' | 'upEnd' | 'bottomEnd', value: boolean } | null = null;
 
     isReport: boolean = true;
+
+    isRefInput: boolean = false;
 
     @HostListener('document:resize', ['$event'])
     OnResize(event) {
@@ -91,22 +95,25 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         }
     }
 
-    private async loadItem(): Promise<void> {
+    private async loadItem(onlyTanks: boolean = false): Promise<void> {
         const dataLoadQueue: Promise<void>[] = [];
         dataLoadQueue.push(
             this.calibrationService.getTanks()
                 .then((data) => {
                     this.data = data;
-                    this.dataSource = data.filter(val => val.isGroup === true);
+                    this.dataSource = [...this.data
+                        .filter(val => val.isGroup)];
+                    this.dataSourceTanks = [...this.data
+                        .filter(val => !val.parentUid && !val.isGroup)];
                 })
         );
-        dataLoadQueue.push(
-            this.calibrationService.getTankAvailable().then((data) => {
-                this.tanksAvailable = data;
-                console.log(this.tanksAvailable);
-
-            })
-        );
+        if (!onlyTanks) {
+            dataLoadQueue.push(
+                this.calibrationService.getTankAvailable().then((data) => {
+                    this.tanksAvailable = data;
+                })
+            );
+        }
         dataLoadQueue.push();
         if (dataLoadQueue.length > 0) {
             try {
@@ -175,7 +182,7 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
     blockNee2d(): void {
         this.endTr2 = [];
         const heightTemplate = this.dataSource.length * 28;
-        const heihtOut = (this.tableRight?.nativeElement?.clientHeight) / 28;
+        const heihtOut = (this.tableRight?.nativeElement?.clientHeight) / 29;
         for (let i = 0; i < heihtOut - 1; i++) {
             this.endTr2.push(i);
         }
@@ -202,7 +209,8 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         };
     }
 
-    openDialog(): void {
+    openDialog(element): void {
+        console.log(element);
         const dialogRef = this.dialog
             .open(UploadFormComponent, {
                 data: {
@@ -212,7 +220,9 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
             });
         // when dialog is closed, check result
         dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
+            if (result) {
+                this.calibrationService.postNewDate(element.uid, result);
+            }
         });
     }
 
@@ -232,10 +242,11 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
 
     async putTanks(uid: string): Promise<void> {
         try {
-            this.calibrationService.putTank(uid);
+            await this.calibrationService.putTank(uid);
             this.snackBar.openSnackBar('Резервуар добавлен');
+            this.loadItem(true);
         } catch (error) {
-
+            console.error(error);
         }
     }
 
