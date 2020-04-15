@@ -90,7 +90,7 @@
                 </div>
                 <div class="bottom-reference-left__input" [class.bottom-reference-left__input-active]="isRepInput">
                   <input type="text" (focus)="isRepInput = true" (blur)="isRepInput = false"
-                    (keyup)="searchReportFolder($event)" />
+                  id="filter" #filter (keyup)="tree.treeModel.filterNodes(filter.value)" />
                 </div>
               </div>
               <div class="bottom-reference-left__add-menu"

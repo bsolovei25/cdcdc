@@ -443,21 +443,6 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         this.isOpenCheckBlock = !this.isOpenCheckBlock;
     }
 
-    searchReportFolder(event): void {
-        if (event.key === "Backspace") {
-            this.data = this.saveData;
-        }
-        const folder = event.currentTarget.value.toLowerCase();
-        const filterData = this.data.filter(
-            (e) => e.name.toLowerCase().indexOf(folder.toLowerCase()) > -1
-        );
-
-        this.data = filterData;
-        if (!event.currentTarget.value) {
-            this.data = this.saveData;
-        }
-    }
-
     saveReport(item): void {
         const optionObject = [];
         let objItem;
