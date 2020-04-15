@@ -249,7 +249,7 @@ export class PetroleumScreenService {
                 isOpen = true;
                 break;
         }
-        await this.getTransfers(dates?.fromDateTime ?? null, dates?.toDateTime ?? null, isOpen, this.client);
+        await this.getTransfers(dates?.fromDateTime ?? this.getTodaysPeriod().fromDatetime, dates?.toDateTime ?? this.getTodaysPeriod().toDatetime, isOpen, this.client);
         const currentTransfer = this.currentTransfer$.getValue();
         const transfers = this.transfers$.getValue();
         this.transfers$.next(transfers);
@@ -451,9 +451,32 @@ export class PetroleumScreenService {
     public closeAlert(): void {
         this.alertWindow$.next(null);
     }
+
+    private getTodaysPeriod(): { fromDatetime: Date, toDatetime: Date } {
+        const currentDatetime: Date = new Date(Date.now());
+        const fromDatetime = new Date(
+            currentDatetime.getFullYear(),
+            currentDatetime.getMonth(),
+            currentDatetime.getDate(),
+            0,
+            0,
+            0
+        );
+        const toDatetime = new Date(
+            currentDatetime.getFullYear(),
+            currentDatetime.getMonth(),
+            currentDatetime.getDate(),
+            23,
+            59,
+            59
+        );
+        return {
+            fromDatetime,
+            toDatetime,
+        };
+    }
 }
 
-//
 // public async chooseObject(objectName: string, isSource: boolean): Promise<void> {
 //     let currentTransfer = this.currentTransfer$.getValue();
 // if (currentTransfer.operationType === 'Exist') {
