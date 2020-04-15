@@ -54,4 +54,12 @@ export class OperationScreenComponent implements OnInit {
         }
         this.petroleumService.currentTransfersFilter$.next(filterType);
     }
+
+    public showFilter(item: IUdTableDict): void {
+        const itemFilterValue = item.filter.isActive;
+        this.dictionary.forEach((el) => {
+            el.filter.isActive = false;
+        });
+        item.filter.isActive = !itemFilterValue;
+    }
 }
