@@ -381,6 +381,12 @@ $border-size: 4px;
     justify-content: space-between;
     &__left {
       width: 50%;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+
       .select__block {
         width: calc(100% - 24px);
         .first_block {
@@ -452,14 +458,22 @@ $border-size: 4px;
       }
 
       .facts {
-        height: 340px;
-        width: calc(100% - 12px);
-        margin-top: 15px;
+        height: 100%;
+        width: 100%;
+
+        flex-grow: 1;
+
+        margin: 15px 0px;
       }
     }
 
     &__right {
       width: 50%;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
 
       .info_block {
         display: flex;
@@ -983,7 +997,7 @@ $border-size: 4px;
       border: none !important;
 
       .workspace__header {
-        padding: 10px;
+        padding: 10px 10px 0px 10px;
         border-top: 1px solid var(--color-border-main-transparrent);
         border-left: 1px solid var(--color-border-main-transparrent);
         border-right: 1px solid var(--color-border-main-transparrent);
@@ -996,7 +1010,7 @@ $border-size: 4px;
       &__body {
         height: calc(100% - 160px);
         &__left {
-          padding-left: 20px;
+          padding: 0px 20px;
           background-color: var(--color-bg-main);
           border-left: 1px solid var(--color-border-main-transparrent);
           border-bottom: 1px solid var(--color-border-main-transparrent);
@@ -1007,7 +1021,7 @@ $border-size: 4px;
           }
 
           .select__block {
-            width: calc(100% - 23px);
+            width: 100%;
             .first_block {
               flex-wrap: nowrap;
             }
@@ -1036,6 +1050,7 @@ $border-size: 4px;
 
           .description {
             height: 180px;
+            width: 100%;
           }
 
           .description_small {
@@ -1217,9 +1232,12 @@ $border-size: 4px;
           }
 
           .comments {
-            height: 320px;
+            height: 100%;
             width: 100%;
-            margin-top: 15px;
+
+            flex-grow: 1;
+
+            margin: 15px 0px;
           }
         }
       }

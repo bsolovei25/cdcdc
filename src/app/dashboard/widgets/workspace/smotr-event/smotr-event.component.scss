@@ -86,7 +86,8 @@
   }
 
   .chat {
-    height: 245px;
+    height: 100%;
+    flex-grow: 1;
   }
 
   .information {
@@ -123,7 +124,8 @@
   }
 
   .events-correct {
-    height: 400px;
+    height: 100%;
+    flex-grow: 1;
   }
 
   .events-icons {
