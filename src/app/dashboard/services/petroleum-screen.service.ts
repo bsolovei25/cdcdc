@@ -11,7 +11,6 @@ import {
 import { SnackBarService } from './snack-bar.service';
 import { IDatesInterval, WidgetService } from './widget.service';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
-import { error } from '@angular/compiler/src/util';
 
 @Injectable({
     providedIn: 'root',
@@ -377,9 +376,14 @@ export class PetroleumScreenService {
     }
 
     private async getTankInfoAsync(objectName: string): Promise<ITankInfo> {
-        return await this.http.get<ITankInfo>(
-            `${this.restUrl}/api/petroleum-flow-clients/objects/${objectName}/tankInfo`
-        ).toPromise();
+        try {
+            return await this.http.get<ITankInfo>(
+                `${this.restUrl}/api/petroleum-flow-clients/objects/${objectName}/tankInfo`
+            ).toPromise();
+        } catch (e) {
+            console.error(e);
+            return null;
+        }
     }
 
     public async getAvailableProducts(objectName: string): Promise<string[]> {
