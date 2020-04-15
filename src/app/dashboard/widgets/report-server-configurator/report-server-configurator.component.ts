@@ -405,12 +405,12 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     onPushReport(): void {
         this.isLoading = true;
-        const object = {
-            name: this.newRecord,
-            folderId: this.folderActive,
-        };
         if (this.newRecord.trim().length > 0 && this.newRecord !== undefined) {
             if (this.createFolder) {
+                const object = {
+                    name: this.newRecord,
+                    parentFolderId: this.folderActive,
+                };
                 this.reportService.postTemplateFolder(object).subscribe(ans => {
                     this.addItem = false;
                     this.isLoading = false;
@@ -419,6 +419,10 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             }
 
             if (this.createReport) {
+                const object = {
+                    name: this.newRecord,
+                    folderId: this.folderActive,
+                };
                 this.reportService.postReportTemplate(object).subscribe(ans => {
                     this.addItem = false;
                     this.isLoading = false;
@@ -477,7 +481,6 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         });
     }
 
-
     closeOptions(event) {
         this.popupUserCustomOptions = event;
         this.popupUserOptions = event;
@@ -515,7 +518,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     onFolder(event) {
         if (event.node.data.type === "Folder") {
-            this.folderActive = event.node.idFolder;
+            this.folderActive = event.node.data.idFolder;
             this.folderIdActive = event.node.id;
         }
     }
@@ -528,7 +531,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         console.log(event);
         if (event.node.type === "Folder") {
             const obj = {
-                id: event.node.idFolder,
+                id: event.node.data.idFolder,
                 name: event.node.name,
                 parentFolderId: event.to.parent.idFolder,
             }
