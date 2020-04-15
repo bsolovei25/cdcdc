@@ -15,6 +15,7 @@ import {
 import { IUser, IUnitEvents } from '../../models/events-widget';
 import { IWidgets } from '../../models/widget.model';
 import { fillDataShape } from '../../../@shared/common-functions';
+import { AuthService } from '@core/service/auth.service';
 
 @Injectable({
     providedIn: 'root',
@@ -71,7 +72,11 @@ export class AdminPanelService {
     public allWidgets: IWidgets[] = [];
     public allScreens: IWorkspace[] = [];
 
-    constructor(private http: HttpClient, private configService: AppConfigService) {
+    constructor(
+        private http: HttpClient,
+        private configService: AppConfigService,
+        private authService: AuthService
+    ) {
         this.restUrl = `${this.configService.restUrl}${this.restUrl}`;
         this.restUrlApi = `${this.configService.restUrl}${this.restUrlApi}`;
         this.restFileUrl = this.configService.fsUrl;
@@ -95,6 +100,7 @@ export class AdminPanelService {
     }
 
     public createNewWorker(worker: IUser): Observable<IUser> {
+        worker.password = this.authService.encrypt(worker.password);
         const url: string = `${this.restUrl}/user`;
         const body: string = JSON.stringify(worker);
         return this.http.post<IUser>(url, body);

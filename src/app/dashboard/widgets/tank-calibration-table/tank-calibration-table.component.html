@@ -29,7 +29,7 @@
             <thead>
               <tr class="header__items">
                 <th class="header header__th header__name">
-                  Наименование
+                  <span class="header__name__text">Наименование</span>
                 </th>
                 <th class="header header__th header__date" (click)="sortStart()">
                   <span class="header__date-text">
@@ -88,7 +88,7 @@
                   <td class="item item__tr">
                     <svg-icon
                       class="item__tr-icon"
-                      src="assets/icons/widgets/calibration-table/arrow.svg"
+                      src="assets/icons/widgets/calibration-table/arrow-name.svg"
                       [svgStyle]="{ 'width.px':8, 'height.px':5 }"
                       [class.arrow-rtl]="expandedElement.isSelected(element)"
                     ></svg-icon>

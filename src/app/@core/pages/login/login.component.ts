@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
             );
             if (auth) {
                 this.router.routeReuseStrategy.shouldReuseRoute = () => { return false; };
-                await this.router.navigate(['dashboard'], {skipLocationChange: true});
+                await this.router.navigate(['dashboard']);
                 this.isLoadingData = false;
                 // setTimeout(() => {
                 //     this.isLoadingData = false;
