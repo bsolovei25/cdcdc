@@ -9,6 +9,7 @@ import { IParamWidgetsGrid } from '../components/new-widgets-grid/new-widgets-gr
 import { WidgetService } from './widget.service';
 import { ClaimService } from './claim.service';
 import { GridsterItem } from 'angular-gridster2';
+import { GridsterDraggable } from 'angular-gridster2/lib/gridsterDraggable.service';
 
 @Injectable({
     providedIn: 'root',
