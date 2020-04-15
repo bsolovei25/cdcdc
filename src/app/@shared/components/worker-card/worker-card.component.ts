@@ -14,6 +14,8 @@ export class WorkerCardComponent implements OnInit, OnChanges {
     @Input() public isSmallCard: boolean = false;
     @Input() public isActiveCard: boolean = false;
 
+    public readonly phoneRegExp: RegExp = /[0-9]{10}/;
+
     public photoPath: string = 'assets/icons/widgets/admin/default_avatar2.svg';
 
     private defaultAvatarPath: string = 'assets/icons/widgets/admin/default_avatar2.svg';
