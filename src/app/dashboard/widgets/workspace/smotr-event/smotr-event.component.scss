@@ -61,10 +61,6 @@
       width: 50%;
       height: 100%;
     }
-
-    &:last-child {
-      margin: 0px;
-    }
   }
 
   .cell {
@@ -93,8 +89,11 @@
   .information {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
+
+    box-sizing: border-box;
+    padding: 0px 15px;
   }
 
   .label {
@@ -142,6 +141,10 @@
     width: 100%;
     padding: 0px 15px;
     padding-bottom: 0px;
+
+    mat-label {
+      color: var(--color-text-sub);
+    }
   }
 
   ::ng-deep {

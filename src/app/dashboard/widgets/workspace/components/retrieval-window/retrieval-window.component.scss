@@ -264,6 +264,10 @@ $border-size: 4px;
     width: 100%;
     padding: 0px 15px;
     padding-bottom: 0px;
+
+    mat-label{
+      color: var(--color-text-sub);
+    }
   }
 
   ::ng-deep {
