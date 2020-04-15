@@ -27,6 +27,8 @@ export class CustomReportPropertiesReferenceComponent extends WidgetPlatform imp
   public dataOptions;
   public blockOut = [];
 
+  public isLoading: boolean = false;
+
   options = [
     { object: "1", }
   ]
@@ -65,22 +67,22 @@ export class CustomReportPropertiesReferenceComponent extends WidgetPlatform imp
     const leftScroll = document.getElementById('leftScrollReportRef');
 
     if (rightScroll) {
-        if (rightScroll.scrollHeight !== rightScroll.clientHeight) {
-            rightScroll.style.cssText = "margin-left: 5px; width: calc(100% - 5px);";
-        } else {
-            rightScroll.style.cssText = "margin-left: 10px; width: calc(100% - 10px);";
+      if (rightScroll.scrollHeight !== rightScroll.clientHeight) {
+        rightScroll.style.cssText = "margin-left: 5px; width: calc(100% - 5px);";
+      } else {
+        rightScroll.style.cssText = "margin-left: 10px; width: calc(100% - 10px);";
 
-        }
+      }
     }
 
     if (leftScroll) {
-        if (leftScroll.scrollHeight !== leftScroll.clientHeight) {
-            leftScroll.style.cssText = "margin-right: 0px; width: calc(100% - 5px);";
-        } else {
-            leftScroll.style.cssText = "margin-right: 0px; width: calc(100% - 10px);";
-        }
+      if (leftScroll.scrollHeight !== leftScroll.clientHeight) {
+        leftScroll.style.cssText = "margin-right: 0px; width: calc(100% - 5px);";
+      } else {
+        leftScroll.style.cssText = "margin-right: 0px; width: calc(100% - 10px);";
+      }
     }
-}
+  }
 
   protected dataHandler(ref: any): void {
     //this.data = ref.chartItems;
@@ -158,9 +160,19 @@ export class CustomReportPropertiesReferenceComponent extends WidgetPlatform imp
   }
 
   deleteReference(item): void {
-    this.reportService.deleteCustomOptions(item.id).subscribe(ans => {
-      this.getReference();
-    });
+
+    this.isLoading = true;
+    const windowsParam = {
+      isShow: true,
+      questionText: 'Вы уверены, что хотите удалить файл-шаблон?',
+      acceptText: 'Да',
+      cancelText: 'Нет',
+      acceptFunction: () => this.reportService.deleteCustomOptions(item.id).subscribe(ans => {
+        this.getReference();
+      }),
+      cancelFunction: () => this.reportService.closeAlert(),
+    };
+    this.reportService.alertWindow$.next(windowsParam);
   }
 
   onEdit(item) {

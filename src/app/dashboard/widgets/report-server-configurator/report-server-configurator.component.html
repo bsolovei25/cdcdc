@@ -2,13 +2,14 @@
 </evj-widget-preview>
 
 <div class="container" *ngIf="!isMock">
-  <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
   <evj-widget-header [title]="widgetTitle" [units]="widgetUnits" [code]="widgetCode" [id]="id" [uniqId]="uniqId"
     [widgetType]="widgetType" [icon]="widgetIcon" (selected)="openTable($event)"></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
 
   <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+    <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
+    <evj-alert-window [info]="reportService.alertWindow$ | async"></evj-alert-window>
     <ng-container *ngIf="isTable">
       <div class="references">
         <!--LEFT SIDE-->
@@ -173,10 +174,10 @@
             <div class="bottom-reference-right__block-edit" *ngIf="isAddOptionsButton">
               <div class="bottom-reference-right__block-add">
                 <div class="bottom-reference-right__button-add" (click)="openCheckBoxBlock()">
-                  <svg-icon *ngIf="!isOpenCheckBlock" src="./assets/icons/widgets/reports/add_white.svg"
+                  <svg-icon *ngIf="!isOpenCheckBlock" src="./assets/icons/widgets/reports/edit.svg"
                     class="add_button_icon">
                   </svg-icon>
-                  <svg-icon *ngIf="isOpenCheckBlock" src="./assets/icons/widgets/reports/close.svg"
+                  <svg-icon *ngIf="isOpenCheckBlock" src="./assets/icons/widgets/reports/edit_blue.svg"
                     class="add_button_icon">
                   </svg-icon>
                 </div>
