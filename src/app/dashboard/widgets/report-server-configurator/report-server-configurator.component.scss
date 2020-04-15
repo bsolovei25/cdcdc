@@ -379,7 +379,7 @@ input {
 
         .tree-node-level-1 > *:nth-child(2) > .node-wrapper {
           position: sticky;
-          z-index: 999;
+          z-index: 200;
           top: 0;
           background: var(--color-table-main);
         }
