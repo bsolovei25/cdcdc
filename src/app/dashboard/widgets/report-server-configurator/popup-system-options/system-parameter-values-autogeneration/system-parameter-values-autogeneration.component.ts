@@ -11,29 +11,33 @@ export class SystemParameterValuesAutogenerationComponent implements OnInit {
   public data: any = [
     {
       id: 1,
-      name: "C/auth",
-      catalog: [
+      name: "Новый набор значений",
+      param: [
         {
           id: 1,
-          mail: "test1@test.ru",
+          name: 'Значение',
+          value: "Смена 1",
         },
         {
           id: 2,
-          mail: "test2@test.ru",
+          name: 'Значение по умолчанию',
+          value: "Смена 2",
         },
       ]
     },
     {
       id: 2,
-      name: "D/auth",
-      catalog: [
+      name: "Параметр №2",
+      param: [
         {
           id: 3,
-          mail: "test3@test.ru",
+          name: 'Имя',
+          value: "Смена 3",
         },
         {
           id: 4,
-          mail: "test4@test.ru",
+          name: 'Обязательный',
+          value: "Нет",
         },
       ]
     },
@@ -51,11 +55,19 @@ export class SystemParameterValuesAutogenerationComponent implements OnInit {
   }
 
   close(): void {
-    this.result.emit(false);
+    const obj = {
+      close: false,
+      type: 'parameterValuesAutogeneration',
+    }
+    this.result.emit(obj);
   }
 
   save(): void {
-
+    const obj = {
+      close: true,
+      type: 'parameterValuesAutogeneration',
+    };
+    this.result.emit(obj);
   }
 
   blockItem(item) {
@@ -77,12 +89,12 @@ export class SystemParameterValuesAutogenerationComponent implements OnInit {
   openUserBlock(): void {
     if (this.itemChooseId) {
       this.userBlock = true;
-      this.dataSend = this.data.find(e => e.id === this.itemChooseId).catalog;
+      this.dataSend = this.data.find(e => e.id === this.itemChooseId).param;
     }
   }
 
   closeUserBlock(event): void {
-    this.data.find(e => e.id === this.itemChooseId).catalog = event.data;
+    this.data.find(e => e.id === this.itemChooseId).param = event.data;
     this.userBlock = event.close;
   }
 

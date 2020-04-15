@@ -6,8 +6,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./popup-system-options.component.scss']
 })
 export class PopupSystemOptionsComponent implements OnInit {
-  @Output() close: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Input() optionsType: string;
+  @Output() close: EventEmitter<any> = new EventEmitter<any>();
+  @Input() optionsType: any;
 
   constructor() { }
 
@@ -15,9 +15,13 @@ export class PopupSystemOptionsComponent implements OnInit {
   }
 
   resultPopup(event) {
+    const systemCustomOptionsId = this.optionsType.id;
+    const obj = {
+      close: event.close,
+      systemIdChange: systemCustomOptionsId,
+    }
     this.optionsType = null;
-    this.close.emit(false);
-    console.log(event);
+    this.close.emit(obj);
   }
 
 }

@@ -12,8 +12,8 @@
                 <div class="activate">
                     <div class="check-item">
                         <label class="mycheckbox">
-                            <input type="checkbox" id="checkBoxValue" class="mycheckbox__default" (click)="changeSwap(item)"
-                                 />
+                            <input type="checkbox" id="checkBoxValue" class="mycheckbox__default"
+                                (click)="changeSwap(item)" />
                             <div class="mycheckbox__new"></div>
                         </label>
                     </div>
@@ -22,8 +22,8 @@
                 <div class="activate">
                     <div class="check-item">
                         <label class="mycheckbox">
-                            <input type="checkbox" id="checkBoxValue" class="mycheckbox__default" (click)="changeSwap(item)"
-                                 />
+                            <input type="checkbox" id="checkBoxValue" class="mycheckbox__default"
+                                (click)="changeSwap(item)" />
                             <div class="mycheckbox__new"></div>
                         </label>
                     </div>
@@ -33,22 +33,40 @@
             <div class="content__time">
                 <div class="time">
                     <div class="time__picker">
-                        <evj-time-data-picker [data]="dateNow" (dateTimePicker)="dateTimePickerInput($event)">
-                        </evj-time-data-picker>
-                    </div>
-                    <div class="time__icon">
-                        <svg-icon src="./assets/icons/widgets/reports/close.svg" class="add_button_icon">
-                        </svg-icon>
+                        <mat-form-field>
+                            <input matInput [ngxMatDatetimePicker]="pickerD" [value]="dateNow"
+                                 [disabled]="disabled">
+                            <mat-datepicker-toggle matSuffix [for]="pickerD">
+                                <mat-icon matDatepickerToggleIcon>
+                                    <svg-icon src="./assets/icons/widgets/reports/calend.svg"
+                                        [svgStyle]="{ 'width.px':25, 'height.px':25}">
+                                    </svg-icon>
+                                </mat-icon>
+                            </mat-datepicker-toggle>
+                            <ngx-mat-datetime-picker #pickerD [showSpinners]="showSpinners" [showSeconds]="showSeconds"
+                                [stepHour]="stepHour" [stepMinute]="stepMinute" [stepSecond]="stepSecond"
+                                [touchUi]="touchUi" [color]="color">
+                            </ngx-mat-datetime-picker>
+                        </mat-form-field>
                     </div>
                 </div>
                 <div class="time">
                     <div class="time__picker">
-                        <evj-time-data-picker [data]="dateNow" (dateTimePicker)="dateTimePickerInput($event)">
-                        </evj-time-data-picker>
-                    </div>
-                    <div class="time__icon">
-                        <svg-icon src="./assets/icons/widgets/reports/close.svg" class="add_button_icon">
-                        </svg-icon>
+                        <mat-form-field>
+                            <input matInput [ngxMatDatetimePicker]="pickerT" [value]="dateNow"
+                                [disabled]="disabled">
+                            <mat-datepicker-toggle matSuffix [for]="pickerT">
+                                <mat-icon matDatepickerToggleIcon>
+                                    <svg-icon src="./assets/icons/widgets/reports/calend.svg"
+                                        [svgStyle]="{ 'width.px':25, 'height.px':25}">
+                                    </svg-icon>
+                                </mat-icon>
+                            </mat-datepicker-toggle>
+                            <ngx-mat-datetime-picker #pickerT [showSpinners]="showSpinners" [showSeconds]="showSeconds"
+                                [stepHour]="stepHour" [stepMinute]="stepMinute" [stepSecond]="stepSecond"
+                                [touchUi]="touchUi" [color]="color">
+                            </ngx-mat-datetime-picker>
+                        </mat-form-field>
                     </div>
                 </div>
             </div>

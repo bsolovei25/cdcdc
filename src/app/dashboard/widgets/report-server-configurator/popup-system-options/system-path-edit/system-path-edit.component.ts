@@ -51,11 +51,19 @@ export class SystemPathEditComponent implements OnInit {
   }
 
   close(): void {
-    this.result.emit(false);
+    const obj = {
+      close: false,
+      type: 'pathEdit',
+    }
+    this.result.emit(obj);
   }
 
   save(): void {
-
+    const obj = {
+      close: true,
+      type: 'pathEdit',
+    }
+    this.result.emit(obj);
   }
 
   blockItem(item) {

@@ -147,8 +147,8 @@ input {
             }
 
             .mycheckbox__default:checked + .mycheckbox__new::after {
-                height: 10px;
-                width: 10px;
+                height: 8px;
+                width: 8px;
                 border-radius: 25px;
             }
 
@@ -180,6 +180,8 @@ input {
                 transition: 0.2s ease-in;
             }
         }
+
+        
     }
 }
 

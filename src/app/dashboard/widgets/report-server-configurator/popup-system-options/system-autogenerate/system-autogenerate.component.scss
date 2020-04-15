@@ -43,8 +43,8 @@
   .container {
     position: absolute;
     left: 30%;
-    top: 30%;
-    height: 35%;
+    top: 20%;
+    height: 65%;
     width: 40%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     //box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.3);
@@ -161,6 +161,7 @@
       justify-content: space-evenly;
       height: calc(100% - 80px);
       .time{
+        align-items: center;
         display: flex;
       }
     }

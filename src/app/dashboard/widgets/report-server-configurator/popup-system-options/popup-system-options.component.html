@@ -1,19 +1,19 @@
-<div *ngIf="optionsType === 'autogenerate'" class="block">
+<div *ngIf="optionsType.templateSystemOption.systemOptionType === 'autogenerate'" class="block">
     <evj-system-autogenerate (result)="resultPopup($event)"></evj-system-autogenerate>
 </div>
-<div *ngIf="optionsType === 'pathEdit'" class="block">
+<div *ngIf="optionsType.templateSystemOption.systemOptionType === 'pathEdit'" class="block">
     <evj-system-path-edit (result)="resultPopup($event)"></evj-system-path-edit>
 </div>
-<div *ngIf="optionsType === 'macroEdit'" class="block">
+<div *ngIf="optionsType.templateSystemOption.systemOptionType === 'macroEdit'" class="block">
     <evj-system-macro-edit (result)="resultPopup($event)"></evj-system-macro-edit>
 </div>
-<div *ngIf="optionsType === 'reportSheets'" class="block">
+<div *ngIf="optionsType.templateSystemOption.systemOptionType === 'reportSheets'" class="block">
     <evj-system-report-sheets (result)="resultPopup($event)"></evj-system-report-sheets>
 </div>
-<div *ngIf="optionsType === 'parameterValuesAutogeneration'" class="block">
+<div *ngIf="optionsType.templateSystemOption.systemOptionType === 'parameterValuesAutogeneration'" class="block">
     <evj-system-parameter-values-autogeneration (result)="resultPopup($event)"></evj-system-parameter-values-autogeneration>
 </div>
-<div *ngIf="optionsType === 'periodEdit'" class="block">
+<div *ngIf="optionsType.templateSystemOption.systemOptionType === 'periodEdit'" class="block">
     <evj-system-period-edit (result)="resultPopup($event)"></evj-system-period-edit>
 </div>
 

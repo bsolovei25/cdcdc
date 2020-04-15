@@ -12,27 +12,60 @@ export class ParameterAutogenerationComponent implements OnInit {
 
   public isRepInput: boolean = false;
 
-  dataMail: any = [
+  public dataParam: any = [
     {
       id: 1,
-      mail: "test1@test.ru",
-      isActive: false,
+      name: "Новый набор значений",
+      param: [
+        {
+          id: 1,
+          name: 'Значение',
+          value: "Смена 1",
+        },
+        {
+          id: 2,
+          name: 'Значение по умолчанию',
+          value: "Смена 2",
+        },
+        {
+          id: 3,
+          name: 'Имя',
+          value: "Смена 3",
+        },
+        {
+          id: 4,
+          name: 'Обязательный',
+          value: "Нет",
+        },
+      ]
     },
     {
       id: 2,
-      mail: "test2@test.ru",
-      isActive: false,
+      name: "Параметр №2",
+      param: [
+        {
+          id: 1,
+          name: 'Значение',
+          value: "Смена 1",
+        },
+        {
+          id: 2,
+          name: 'Значение по умолчанию',
+          value: "Смена 2",
+        },
+        {
+          id: 3,
+          name: 'Имя',
+          value: "Смена 3",
+        },
+        {
+          id: 4,
+          name: 'Обязательный',
+          value: "Нет",
+        },
+      ]
     },
-    {
-      id: 3,
-      mail: "test3@test.ru",
-      isActive: false,
-    },
-    {
-      id: 4,
-      mail: "test4@test.ru",
-      isActive: false,
-    },
+
   ];
 
   datas: any = [];
@@ -42,17 +75,21 @@ export class ParameterAutogenerationComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.datas = this.dataMail;
+    this.datas = this.dataParam;
   }
 
   ngOnChanges(): void {
     if (this.data.length > 0) {
       this.saveData = this.data;
-      for (let i of this.dataMail) {
-        for (let j of this.data) {
-          if (i.id === j.id) {
-            i.isActive = true;
-          }
+    }
+  }
+
+  itemOpen(item) {
+    item.open = !item.open;
+    for (let i of item.param) {
+      for (let j of this.data) {
+        if (i.id === j.id) {
+          i.isActive = true;
         }
       }
     }
@@ -66,23 +103,28 @@ export class ParameterAutogenerationComponent implements OnInit {
     const obj = {
       data: this.saveData,
       close: false,
-    }
+    };
     this.close.emit(obj);
   }
 
   save(): void {
-    const newMailUser = [];
-    for (let item of this.dataMail) {
-      if (item.isActive) {
-        const obj = {
-          id: item.id,
-          mail: item.mail,
-        };
-        newMailUser.push(obj);
+    let newParam = [];
+    for (let item of this.dataParam) {
+      for (let i of item.param) {
+        if (i.isActive) {
+          const obj = {
+            id: i.id,
+            name: i.name,
+            value: i.value,
+          };
+          newParam.push(obj);
+        }
       }
+      item.param = newParam;
+      newParam = [];
     }
     const objSend = {
-      data: newMailUser,
+      data: newParam,
       close: false,
     }
     this.close.emit(objSend);
@@ -90,17 +132,17 @@ export class ParameterAutogenerationComponent implements OnInit {
 
   search(event): void {
     if (event.key === "Backspace") {
-      this.dataMail = this.datas;
+      this.dataParam = this.datas;
     }
     const record = event.currentTarget.value.toLowerCase();
-    const filterData = this.dataMail.filter(
+    const filterData = this.dataParam.filter(
       (e) =>
         e.mail.toLowerCase().indexOf(record.toLowerCase()) > -1
 
     );
-    this.dataMail = filterData;
+    this.dataParam = filterData;
     if (!event.currentTarget.value) {
-      this.dataMail = this.datas;
+      this.dataParam = this.datas;
     }
   }
 }

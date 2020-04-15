@@ -49,11 +49,19 @@ export class SystemPeriodEditComponent implements OnInit {
   }
 
   close() {
-    this.result.emit(true);
+    const obj = {
+      close: false,
+      type: 'periodEdit',
+    }
+    this.result.emit(obj);
   }
 
   save() {
-
+    const obj = {
+      close: true,
+      type: 'periodEdit',
+    }
+    this.result.emit(obj);
   }
 
   changeSwap(item){

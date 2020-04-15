@@ -71,7 +71,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     public options;
     public optionsActive: any = [];
     public optionsCustom: any = [];
-    public reportTemplate = [];
+    public reportTemplate: any = [];
     public dataFile;
 
     public createFolder: boolean = false;
@@ -268,7 +268,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         this.isLoading = true;
         this.reportService.deleteReportTemplate(item.idTemplate).subscribe((ans) => {
             this.isLoading = false;
-            this.getReportTemplate();
+            this.getReportFolder();
         });
     }
 
@@ -291,42 +291,11 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     }
 
     onClickParamReference(item) {
-        switch (item.templateSystemOption.systemOptionType) {
-            case 'customOptions':
-                this.popupOptionsActive = "customOptions";
+        if (item.templateSystemOption.
+            systemOptionType === 'customOptions') {
                 this.popupUserCustomOptions = true;
-                break;
-            case 'maxReportSizeInMb':
-                this.popupOptionsActive = "maxReportSizeInMb";
-                break;
-            case 'doRemoveFormulas':
-                this.popupOptionsActive = "doRemoveFormulas";
-                break;
-            case 'doRemoveMacro':
-                this.popupOptionsActive = "doRemoveMacro";
-                break;
-            case 'customOptions':
-                this.popupOptionsActive = "customOptions";
-                break;
-            case 'autogenerate':
-                this.popupOptionsActive = "autogenerate";
-                break;
-            case 'pathEdit':
-                this.popupOptionsActive = "pathEdit";
-                break;
-            case 'macroEdit':
-                this.popupOptionsActive = "macroEdit";
-                break;
-            case 'reportSheets':
-                this.popupOptionsActive = "reportSheets";
-                break;
-            case 'parameterValuesAutogeneration':
-                this.popupOptionsActive = "parameterValuesAutogeneration";
-                break;
-            case 'periodEdit':
-                this.popupOptionsActive = "periodEdit";
-                break;
         }
+        this.popupOptionsActive = item;
         this.popupUserOptions = true;
     }
 
@@ -366,11 +335,6 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     }
 
     pushBlockInRef(): void {
-        if (!this.folderActive) {
-            this.materialController.openSnackBar(
-                'Выберите папку'
-            );
-        }
         this.addItem = true;
         this.createReport = false;
         this.createFolder = true;
@@ -405,7 +369,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     onPushReport(): void {
         this.isLoading = true;
-        if (this.newRecord.trim().length > 0 && this.newRecord !== undefined) {
+        if (this.newRecord?.trim().length > 0 && this.newRecord !== undefined) {
             if (this.createFolder) {
                 const object = {
                     name: this.newRecord,
@@ -429,6 +393,10 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
                     this.getReportFolder();
                 });
             }
+            this.newRecord = null;
+        } else {
+            this.isLoading = false;
+            this.addItem = false;
             this.newRecord = null;
         }
     }
@@ -462,7 +430,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
                 templateSystemOption: {
                     id: i.templateSystemOption.id
                 },
-                value: '',
+                value: i.value,
             }
 
             optionObject.push(objItem);
@@ -473,17 +441,32 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             fileTemplate: this.selectFile,
         }
 
-        this.reportService.postSystemOptions(item, obj).subscribe(ans => {
+        this.reportService.postSystemOptions(item, obj).subscribe((ans) => {
             this.materialController.openSnackBar(
                 'Файл-шаблон сохранен'
             );
             this.getReporting(this.isIdReport);
+        }, (error) => {
+            this.materialController.openSnackBar(
+                'Выберите файл'
+            );
         });
     }
 
     closeOptions(event) {
-        this.popupUserCustomOptions = event;
-        this.popupUserOptions = event;
+        if (event.close) {
+            const date: Date = new Date(Date.now());
+            const day = date.getDate();
+            const month = date.getMonth() + 1;
+            const year = date.getFullYear();
+            this.optionsActive.forEach(el => {
+                if (el.id === event.systemIdChange) {
+                    el.value = "Обновлено: " + day + '.' + month + '.' + year + 'г.';
+                }
+            });
+        }
+        this.popupUserCustomOptions = false;
+        this.popupUserOptions = false;
     }
 
 
@@ -524,11 +507,10 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     }
 
     onEventTree(event) {
-        console.log(event);
+       // console.log(event);
     }
 
     onMovedItem(event) {
-        console.log(event);
         if (event.node.type === "Folder") {
             const obj = {
                 id: event.node.data.idFolder,

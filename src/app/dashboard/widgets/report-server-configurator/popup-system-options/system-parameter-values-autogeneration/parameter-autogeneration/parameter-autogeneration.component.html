@@ -8,16 +8,33 @@
             <div class="title__name">Выберите нужных пользователей</div>
         </div>
         <div class="content">
-            <ng-container *ngFor="let item of dataMail">
-                <div class="item"> 
-                    <div class="item__mail"> {{ item.mail }}</div>
-                    <div class="item__check">
-                        <label class="mycheckbox">
-                            <input type="checkbox" id="checkBoxValue" class="mycheckbox__default" (click)="changeSwap(item)" [checked]="item.isActive"
-                                 />
-                            <div class="mycheckbox__new" [class.mycheckbox__checked]="item.isActive"></div>
-                        </label>
+            <ng-container *ngFor="let item of dataParam">
+                <div class="item">
+                    <div class="item__title-button" (click)="itemOpen(item)">
+                        <svg-icon *ngIf="item.open" src="./assets/icons/widgets/reports/arrow-up.svg"
+                            [svgStyle]="{ 'width.px':10, 'height.px':10 }"></svg-icon>
+
+                        <svg-icon *ngIf="!item.open" src="./assets/icons/widgets/reports/arrow-bottom.svg"
+                            [svgStyle]="{ 'width.px':10, 'height.px':10 }"></svg-icon>
                     </div>
+                    <div class="item__name"> {{ item.name }}</div>
+                </div>
+                <div *ngIf="item.open" class="item__shadow-block">
+                    <ng-container *ngFor="let i of item.param">
+                        <div class="item__i">
+                            <div class="name-param">
+                                {{ i.name }}
+                            </div>
+                            <div class="value-param">{{ i.value }}</div>
+                            <div class="check-param">
+                                <label class="mycheckbox">
+                                    <input type="checkbox" id="checkBoxValue" class="mycheckbox__default" (click)="changeSwap(i)" [checked]="i.isActive"
+                                         />
+                                    <div class="mycheckbox__new" [class.mycheckbox__checked]="i.isActive"></div>
+                                </label>
+                            </div>
+                        </div>
+                    </ng-container>
                 </div>
             </ng-container>
         </div>

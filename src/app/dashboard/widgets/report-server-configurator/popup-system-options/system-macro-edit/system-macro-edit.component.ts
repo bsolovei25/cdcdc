@@ -62,11 +62,19 @@ export class SystemMacroEditComponent implements OnInit, AfterViewInit {
   }
 
   close(): void {
-    this.result.emit(true);
+    const obj = {
+      close: false,
+      type: 'macroEdit',
+    }
+    this.result.emit(obj);
   }
 
   save(): void {
-
+    const obj = {
+      close: true,
+      type: 'macroEdit',
+    }
+    this.result.emit(obj);
   }
 
   drop(event: CdkDragDrop<string[]>): void {

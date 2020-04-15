@@ -40,11 +40,23 @@ export class SystemReportSheetsComponent implements OnInit, AfterViewInit {
   }
 
   close(): void {
-    this.result.emit(true);
+    const obj = {
+      close: false,
+      type: 'reportSheets',
+    }
+    this.result.emit(obj);
   }
 
   save(): void {
+    const obj = {
+      close: true,
+      type: 'reportSheets',
+    }
+    this.result.emit(obj);
+  }
 
+  changeSwap(item){
+    item.isView = !item.isView;
   }
 
   blockNeed(): void {

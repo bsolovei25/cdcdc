@@ -64,7 +64,7 @@ export class CustomReportPropertiesReferenceComponent extends WidgetPlatform imp
     const rightScroll = document.getElementById('rightScrollReportRef');
     const leftScroll = document.getElementById('leftScrollReportRef');
 
-    if (rightScroll !== undefined) {
+    if (rightScroll) {
         if (rightScroll.scrollHeight !== rightScroll.clientHeight) {
             rightScroll.style.cssText = "margin-left: 5px; width: calc(100% - 5px);";
         } else {
@@ -73,7 +73,7 @@ export class CustomReportPropertiesReferenceComponent extends WidgetPlatform imp
         }
     }
 
-    if (leftScroll !== undefined) {
+    if (leftScroll) {
         if (leftScroll.scrollHeight !== leftScroll.clientHeight) {
             leftScroll.style.cssText = "margin-right: 0px; width: calc(100% - 5px);";
         } else {

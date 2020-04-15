@@ -22,12 +22,14 @@
                     <div *ngIf="item.id === itemChooseId" class="item-content__button-remove"
                         (click)="deleteItem(item)">
                     </div>
-                     <!--BLOCK ITEM-->
+                    <!--BLOCK ITEM-->
                     <div *ngIf="item.id === itemChooseId" class="item-content__button-block">
-                        <svg-icon src="./assets/icons/widgets/reports/edit_white.svg" (click)="blockItem(item)">
+                        <svg-icon src="./assets/icons/widgets/reports/block.svg" (click)="blockItem(item)" [svgStyle]="{ 'height.px': 35,
+                        'width.px': 35,
+                        'margin-left.px': -5}">
                         </svg-icon>
                     </div>
-                </div> 
+                </div>
                 <div *ngIf="item.open" class="item-content__shadow-block">
                     <ng-container *ngFor="let i of item.catalog">
                         <div class="item-content__info">

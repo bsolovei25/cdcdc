@@ -17,6 +17,17 @@
           <div class="reference-container">
             <div class="scroll-block" id="leftScrollReportConfig">
               <!---TREE--->
+              <div *ngIf="addItem && (folderIdActive === undefined)" class="reference-container__add-block">
+                <div class="reference-container__add-block-input">
+                  <input *ngIf="createReport" type="text" [(ngModel)]="newRecord"
+                    placeholder="Введите название файла-шаблона..." />
+                  <input *ngIf="createFolder" type="text" [(ngModel)]="newRecord"
+                    placeholder="Введите название папки..." />
+                </div>
+                <div class="reference-container__add-block-icon" (click)="onPushReport()">
+                  <svg-icon src="./assets/icons/widgets/references/accept.svg" class="add_button_icon"></svg-icon>
+                </div>
+              </div>
               <tree-root #tree [state]="state" [options]="optionsTest" [focused]="true" [nodes]="this.dataFolder"
                 (dragover)="$event.stopPropagation()" (blur)="onEventTree($event)" (activate)="onFolder($event)"
                 (moveNode)="onMovedItem($event)">
@@ -133,7 +144,8 @@
                       </div>
                     </ng-container>
                     <ng-container *ngIf="item.templateSystemOption.systemOptionType === 'customOptions'">
-                      <div class="reference-container-value__fio">{{item.value}} Custom</div> <!--ЗАПОЛНЯТЬ VALUE-->
+                      <div class="reference-container-value__fio">{{item.value}}</div>
+                      <!--ЗАПОЛНЯТЬ VALUE-->
                     </ng-container>
                   </div>
                 </div>
@@ -151,7 +163,7 @@
                   <label class="mycheckbox">
                     <input type="checkbox" id="checkBoxValue" class="mycheckbox__default" (click)="changeSwap(item)"
                       [checked]="item.isActive" />
-                    <div class="mycheckbox__new"></div>
+                    <div class="mycheckbox__new" [class.mycheckbox__checked]="item.isActive"></div>
                   </label>
                 </div>
               </div>
@@ -183,7 +195,8 @@
             <evj-popup-user-options [data]="optionsCustom" (close)="closeOptions($event)"></evj-popup-user-options>
           </ng-container>
           <ng-container *ngIf="!popupUserCustomOptions">
-            <evj-popup-system-options [optionsType]="popupOptionsActive" (close)="closeOptions($event)"></evj-popup-system-options>
+            <evj-popup-system-options [optionsType]="popupOptionsActive" (close)="closeOptions($event)">
+            </evj-popup-system-options>
           </ng-container>
         </div>
       </div>

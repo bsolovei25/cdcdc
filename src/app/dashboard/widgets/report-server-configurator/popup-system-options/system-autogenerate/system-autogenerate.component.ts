@@ -17,11 +17,19 @@ export class SystemAutogenerateComponent implements OnInit {
   }
 
   close() {
-    this.result.emit(true);
+    const obj = {
+      close: false,
+      type: 'autogenerate',
+    }
+    this.result.emit(obj);
   }
 
   save() {
-
+    const obj = {
+      close: true,
+      type: 'autogenerate',
+    }
+    this.result.emit(obj);
   }
 
   changeSwap(item) {

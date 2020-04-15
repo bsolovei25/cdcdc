@@ -35,7 +35,7 @@ export class UserSettingsService {
         localStorage.getItem('screen');
     }
 
-    // TODO WTF?! - function ??? var ???
+    // TODO WTF?! - function ??? var ??? - answer: copypast google
     public create_UUID(): string {
         var dt = new Date().getTime();
         var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
