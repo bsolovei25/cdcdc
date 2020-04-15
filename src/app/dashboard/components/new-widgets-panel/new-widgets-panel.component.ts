@@ -97,7 +97,8 @@ export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
 
     @Output() swap: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() grid: EventEmitter<boolean> = new EventEmitter<boolean>();
-    @Output() viewSise: EventEmitter<boolean> = new EventEmitter<boolean>();
+    // @Output() viewSise: EventEmitter<boolean> = new EventEmitter<boolean>();
+
 
     changeSwap(): void {
         const check = document.getElementById('checkBoxFix') as HTMLInputElement;
