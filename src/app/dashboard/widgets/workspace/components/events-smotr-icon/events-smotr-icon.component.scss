@@ -79,6 +79,12 @@
 
         .cls-2 {
           fill: var(--color-text-main);
+          stroke: var(--color-text-main);
+        }
+
+        .cls-3{
+          fill: var(--color-text-main);
+          stroke: none;
         }
       }
     }

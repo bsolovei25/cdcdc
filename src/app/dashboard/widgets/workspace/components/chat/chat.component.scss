@@ -29,6 +29,8 @@
 
     background: var(--color-bg-card);
 
+    color: var(--color-text-sub);
+
     &::before,
     &::after {
       content: "";
@@ -185,6 +187,7 @@
     height: 10px;
 
     top: 0;
+    left: 0;
 
     background: var(--color-bg-main);
   }
@@ -192,7 +195,7 @@
   .input-line {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
 
     box-sizing: border-box;
@@ -212,6 +215,10 @@
 
     font-size: 12px;
     color: var(--color-text-sub);
+
+    &::placeholder{
+      color: var(--color-text-sub-heading);
+    }
   }
 
   .button {

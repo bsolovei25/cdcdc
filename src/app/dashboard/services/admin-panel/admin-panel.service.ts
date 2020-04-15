@@ -100,7 +100,7 @@ export class AdminPanelService {
     }
 
     public createNewWorker(worker: IUser): Observable<IUser> {
-        worker.password = this.authService.encrypt(worker.password);
+        worker.password = worker?.password ? this.authService.encrypt(worker.password) : null;
         const url: string = `${this.restUrl}/user`;
         const body: string = JSON.stringify(worker);
         return this.http.post<IUser>(url, body);
