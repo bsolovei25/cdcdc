@@ -339,7 +339,7 @@ input {
         }
 
         .node-content-wrapper {
-          width: 90%;
+          width: calc(100% - 25px);
         }
 
         .tree-template:hover {
