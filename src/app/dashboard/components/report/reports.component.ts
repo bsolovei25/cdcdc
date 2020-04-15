@@ -42,7 +42,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
         });
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.loadItem();
     }
 
@@ -52,7 +52,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
         }
     }
 
-    toggle() {
+    toggle(): void {
         this.active = !this.active;
     }
 

@@ -82,7 +82,9 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
 
     ngOnInit(): void {
         super.widgetInit();
-        this.loadItem();
+        if (!this.isMock) {
+            this.loadItem();
+        }
     }
 
     ngOnDestroy(): void {
