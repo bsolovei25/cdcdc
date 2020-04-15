@@ -1,57 +1,46 @@
-<div class="fact_block">
-  <div class="title_fact_block">
-    <div class="title_fact_block_text">
-      {{title}}
-    </div>
-  </div>
-  <div class="fact_content" #scroll>
-    <div class="fact_img" *ngIf="displayGraphImage" (click)="onClickItem()" #graph>
-      <svg-icon
-        src="./assets/icons/widgets/workspace/graph.svg"
-        [svgStyle]="{ 'width.px':250, 'height.px':70 }"
-      ></svg-icon>
-    </div>
-    <!--ngFor -->
-    <div class="fact_new" *ngFor="let message of messages">
-      <div class="fact_text">
-        <p>{{message.comment}}</p>
+<div class="chat">
+  <div class="chat__header">{{title}}</div>
+  <div class="chat__messages messages scroll scroll-bar" #scroll>
+    <div class="messages__list">
+      <div class="message__graph graph" *ngIf="displayGraphImage" (click)="onClickItem()">
+        <svg-icon
+          src="assets/icons/widgets/workspace/graph.svg"
+          [svgStyle]="{ 'width.px':250, 'height.px':70 }"
+        ></svg-icon>
       </div>
-      <div class="fact_menu">
-        <div class="fact_info">
-          <div class="fact_info_user">{{message.displayName}}</div>
-          <div class="fact_info_date">
-            {{message.createdAt | dateFormat:'DD-MM-YY hh:mm'}}
+      <ng-container *ngFor="let message of messages; let i = index;">
+        <div class="message" [ngClass]="{'message_odd':i%2===0}">
+          <div class="message__text">{{message.comment}}</div>
+          <div class="message__info info">
+            <div class="info__author">{{message.displayName}}</div>
+            <div class="info__date">{{message.createdAt | dateFormat:'DD-MM-YY hh:mm'}}</div>
           </div>
-        </div>
-      </div>
+        </div></ng-container
+      >
     </div>
   </div>
-  <div class="empty"></div>
-  <div class="fact_comment">
-    <div class="comment__new">
-      <input
-        type="text"
-        class="comment__text gridster-item-content"
-        [placeholder]="placeholder"
-        (keypress)="onEnterPush($event)"
-        #input
-      />
-      <button type="submit" class="button comment__file   gridster-item-content">
-        <svg-icon
-          class="button__icon"
-          src="./assets/icons/widgets/change-shift/add_file.svg"
-        ></svg-icon>
-      </button>
-      <button
-        type="submit"
-        class="button comment__submit  gridster-item-content"
-        (click)="onSendMessage()"
-      >
-        <svg-icon
-          class="button__icon"
-          src="./assets/icons/widgets/change-shift/send.svg"
-        ></svg-icon>
-      </button>
-    </div>
+  <div class="chat__input input-line">
+    <div class="empty-line"></div>
+    <input
+      class="input"
+      type="text"
+      [placeholder]="placeholder"
+      (keypress)="onEnterPush($event)"
+      #input
+    />
+    <button class="button">
+      <svg-icon
+        class="button__icon"
+        src="./assets/icons/widgets/change-shift/add_file.svg"
+        [svgStyle]="{ 'width.px':15, 'height.px':15 }"
+      ></svg-icon>
+    </button>
+    <button class="button" (click)="onSendMessage()">
+      <svg-icon
+        class="button__icon"
+        src="./assets/icons/widgets/change-shift/send.svg"
+        [svgStyle]="{ 'width.px':15, 'height.px':15 }"
+      ></svg-icon>
+    </button>
   </div>
 </div>
