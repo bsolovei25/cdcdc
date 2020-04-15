@@ -169,6 +169,9 @@ export class CustomReportPropertiesReferenceComponent extends WidgetPlatform imp
       cancelText: 'Нет',
       acceptFunction: () => this.reportService.deleteCustomOptions(item.id).subscribe(ans => {
         this.getReference();
+        this.isLoading = false;
+      }, (error) => {
+        this.isLoading = false;
       }),
       cancelFunction: () => this.reportService.closeAlert(),
     };

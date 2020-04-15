@@ -312,7 +312,9 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             acceptFunction: () => this.reportService.deleteReportTemplate(item.idTemplate).subscribe(ans => {
                 this.isLoading = false;
                 this.getReportFolder();
-            }),
+            }, (error) => {
+                this.isLoading = false;
+              }),
             cancelFunction: () => this.reportService.closeAlert(),
         };
         this.reportService.alertWindow$.next(windowsParam);
