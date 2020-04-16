@@ -1045,6 +1045,7 @@ input {
 }
 
 .activeFolder {
+  position: relative;
   background-image: linear-gradient(
     to left,
     rgba(107, 166, 241, 0.7) 2%,

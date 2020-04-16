@@ -19,11 +19,11 @@
             <div class="scroll-block" id="leftScrollReportConfig">
               <!---TREE--->
               <tree-root #tree [state]="state" [options]="optionsTest" [focused]="true" [nodes]="this.dataFolder"
-                (dragover)="$event.stopPropagation()" (blur)="onEventTree($event)"
-                (moveNode)="onMovedItem($event)">
+                (dragover)="$event.stopPropagation()" (blur)="onEventTree($event)" (moveNode)="onMovedItem($event)">
                 <ng-template #treeNodeTemplate let-node let-index="index">
                   <div *ngIf="node.data.type === 'Template'" class="tree-template"
-                    (click)="onClickReference(node.data, index)" [class.activeFolder]="node.data.idTemplate === this.isIdReport">
+                    (click)="onClickReference(node.data, index)"
+                    [class.activeFolder]="node.data.idTemplate === this.isIdReport">
                     <div *ngIf="!node.data.openEdit">
                       <!-- <span [class]="node.data.className + 'Index'">Файл-шаблон: </span> -->
                       <span [class]="node.data.className" [class.title]="true">{{ node.data.name }}</span>
@@ -45,11 +45,17 @@
                       </div>
                     </div>
                   </div>
-                  <div *ngIf="node.data.type === 'Folder'" [class.activeFolder]="node.data.idFolder === folderActive" (click)="onFolder(node.data)">
+                  <div *ngIf="node.data.type === 'Folder'" [class.activeFolder]="node.data.idFolder === folderActive"
+                    (click)="onFolder(node.data)">
                     <!-- <span [class]="node.data.className + 'Index'">Папка: </span> -->
-                    <span [class]="node.data.className" [class.title]="true">{{ node.data.name }}</span>
+                    <div [class]="node.data.className" [class.title]="true">{{ node.data.name }}</div>
+                    <div
+                      *ngIf="folderActive === node.data.idFolder && folderActive !== 0 && folderActive !== undefined"
+                      class="reference-container__button-remove" (click)="deleteFolder(node.data)">
+                    </div>
                   </div>
-                  <div *ngIf="addItem && (folderIdActive === undefined) && (node.data.idFolder === 0)" class="reference-container__add-block">
+                  <div *ngIf="addItem && (folderIdActive === undefined) && (node.data.idFolder === 0)"
+                    class="reference-container__add-block">
                     <div class="reference-container__add-block-input">
                       <input *ngIf="createReport" type="text" [(ngModel)]="newRecord"
                         placeholder="Введите название файла-шаблона..." />
@@ -89,8 +95,8 @@
                     src="./assets/icons/widgets/references/search_blue.svg"></svg-icon>
                 </div>
                 <div class="bottom-reference-left__input" [class.bottom-reference-left__input-active]="isRepInput">
-                  <input type="text" (focus)="isRepInput = true" (blur)="isRepInput = false"
-                  id="filter" #filter (keyup)="tree.treeModel.filterNodes(filter.value)" />
+                  <input type="text" (focus)="isRepInput = true" (blur)="isRepInput = false" id="filter" #filter
+                    (keyup)="tree.treeModel.filterNodes(filter.value)" />
                 </div>
               </div>
               <div class="bottom-reference-left__add-menu"
@@ -204,7 +210,7 @@
     </ng-container>
     <!---ADD-FILE-COMPONENT--->
     <ng-container *ngIf="!isTable">
-      <evj-add-report-file style="width: 100%;"></evj-add-report-file>
+      <evj-add-report-file style="width: 100%;" (fileUpload)="updateFiletemplate($event)"></evj-add-report-file>
     </ng-container>
   </div>
 

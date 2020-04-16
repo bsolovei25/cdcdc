@@ -95,6 +95,10 @@ export class ReportServerConfiguratorService {
     return this.http.delete<any>(this.restUrl + '/api/report-template/' + id);
   }
 
+  public deleteFolder(id: number): Observable<any> {
+    return this.http.delete<any>(this.restUrl + '/api/report-templateFolder/' + id);
+  }
+
   public closeAlert(): void {
     this.alertWindow$.next(null);
   }
