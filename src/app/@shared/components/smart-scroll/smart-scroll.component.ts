@@ -38,6 +38,7 @@ export class SmartScrollComponent implements AfterViewInit, OnChanges {
     private sbTrackCoords: DOMRect;
 
     private thumbWidth: number = 20;
+    private left: number = 20;
 
     private scrollWidth: number = 0;
 
@@ -52,7 +53,6 @@ export class SmartScrollComponent implements AfterViewInit, OnChanges {
         if (this.scroll?.nativeElement) {
             this.setThumbWidth(this.sbThumbWidth);
         }
-        console.log(this.sbThumbWidth);
     }
 
     public ngAfterViewInit(): void {
@@ -67,7 +67,8 @@ export class SmartScrollComponent implements AfterViewInit, OnChanges {
 
     private eventsListenFn(): void {
         let listeningMouseMove: () => void = null;
-        let listeningMouseMoveResizer: () => void = null;
+        let listeningMouseMoveResizerRight: () => void = null;
+        let listeningMouseMoveResizerLeft: () => void = null;
 
         this.sbThumb.nativeElement.ondragstart = () => false;
 
@@ -83,12 +84,27 @@ export class SmartScrollComponent implements AfterViewInit, OnChanges {
             );
         });
 
-        this.renderer.listen(this.resizerRight.nativeElement, 'mousedown', (event: MouseEvent) => {
+        this.renderer.listen(this.resizerLeft.nativeElement, 'mousedown', (event: MouseEvent) => {
             this.beginCoordThumb = event.clientX;
-            listeningMouseMoveResizer = this.renderer.listen(
+            this.changePositionSides(true);
+            listeningMouseMoveResizerLeft = this.renderer.listen(
                 document,
                 'mousemove',
-                this.onResizeThumb.bind(this)
+                (mouseEvent: MouseEvent) => {
+                    this.onResizeThumb(mouseEvent, 'left');
+                }
+            );
+        });
+
+        this.renderer.listen(this.resizerRight.nativeElement, 'mousedown', (event: MouseEvent) => {
+            this.beginCoordThumb = event.clientX;
+            this.changePositionSides(false);
+            listeningMouseMoveResizerRight = this.renderer.listen(
+                document,
+                'mousemove',
+                (mouseEvent: MouseEvent) => {
+                    this.onResizeThumb(mouseEvent, 'right');
+                }
             );
         });
 
@@ -97,9 +113,16 @@ export class SmartScrollComponent implements AfterViewInit, OnChanges {
                 listeningMouseMove();
                 listeningMouseMove = null;
             }
-            if (listeningMouseMoveResizer) {
-                listeningMouseMoveResizer();
-                listeningMouseMoveResizer = null;
+            if (listeningMouseMoveResizerLeft) {
+                listeningMouseMoveResizerLeft();
+                listeningMouseMoveResizerLeft = null;
+                this.changePositionSides(false);
+                this.sbThumbWidthChange.emit(this.thumbWidth);
+            }
+            if (listeningMouseMoveResizerRight) {
+                listeningMouseMoveResizerRight();
+                listeningMouseMoveResizerRight = null;
+                this.changePositionSides(false);
                 this.sbThumbWidthChange.emit(this.thumbWidth);
             }
         });
@@ -126,6 +149,24 @@ export class SmartScrollComponent implements AfterViewInit, OnChanges {
         this.renderer.setStyle(this.sbThumb.nativeElement, 'width', `${this.thumbWidth}%`);
     }
 
+    private changePositionSides(leftToRight: boolean): void {
+        this.sbThumbCoords = this.sbThumb.nativeElement.getBoundingClientRect();
+        this.sbTrackCoords = this.sbTrack.nativeElement.getBoundingClientRect();
+
+        let px: number = this.sbTrackCoords.right - this.sbThumbCoords.right;
+        let firstSide: 'left' | 'right' = 'left';
+        let secondSide: 'left' | 'right' = 'right';
+
+        if (!leftToRight) {
+            px = this.sbThumbCoords.left - this.sbTrackCoords.left;
+            firstSide = 'right';
+            secondSide = 'left';
+        }
+
+        this.renderer.setStyle(this.sbThumb.nativeElement, firstSide, 'auto');
+        this.renderer.setStyle(this.sbThumb.nativeElement, secondSide, `${px}px`);
+    }
+
     private moveScrollbar(displ: number): void {
         let newCoords: number = this.startPointFromLeft + displ;
         this.sbThumbCoords = this.sbThumb.nativeElement.getBoundingClientRect();
@@ -144,18 +185,26 @@ export class SmartScrollComponent implements AfterViewInit, OnChanges {
         // this.scrollCoordinatesX.emit(this.scaleScrollForHTML());
     }
 
-    private onResizeThumb(event: MouseEvent): void {
+    private onResizeThumb(event: MouseEvent, side: 'left' | 'right'): void {
+        this.sbThumbCoords = this.sbThumb.nativeElement.getBoundingClientRect();
+        this.sbTrackCoords = this.sbTrack.nativeElement.getBoundingClientRect();
+
         let delta: number;
-        if (event.clientX < this.sbTrackCoords.right) {
+        if (
+            (side === 'right' && event.clientX < this.sbTrackCoords[side]) ||
+            (side === 'left' && event.clientX > this.sbTrackCoords[side])
+        ) {
             delta = event.clientX - this.beginCoordThumb;
         } else {
-            delta = this.sbTrackCoords.right - this.beginCoordThumb;
+            delta = this.sbTrackCoords[side] - this.beginCoordThumb;
         }
 
         const deltaPercent: number = (delta / this.scrollWidth) * 100;
 
-        this.setThumbWidth(this.sbThumbWidth + deltaPercent);
-        console.log(this.sbTrack);
+        let percent = this.sbThumbWidth;
+        percent += side === 'left' ? -deltaPercent : deltaPercent;
+
+        this.setThumbWidth(percent);
     }
 
     private onButtonClick(isButtonLeft: boolean): void {
