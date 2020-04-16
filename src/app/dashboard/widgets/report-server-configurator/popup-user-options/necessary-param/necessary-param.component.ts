@@ -106,5 +106,4 @@ export class NecessaryParamComponent implements OnInit, OnChanges {
       this.data = this.datas;
     }
   }
-
 }

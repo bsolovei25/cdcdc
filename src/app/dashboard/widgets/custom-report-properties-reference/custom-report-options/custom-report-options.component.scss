@@ -58,14 +58,13 @@
   transition: 0.2s ease-in;
 }
 
-
 input {
   width: calc(100% - 20px);
   height: 30px;
   outline: none;
   padding-left: 20px;
   background: rgb(33, 36, 45, 0.1);
-  font-size: 12px;
+  font-size: 14px;
   border: none;
   color: rgb(255, 255, 255);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
@@ -140,20 +139,22 @@ input {
       cursor: pointer;
       width: 20px;
       margin-top: 5px;
+      position: absolute;
+      right: 30px;
     }
 
     ::ng-deep .mat-chip-ripple {
       border: 1px solid var(--color-border-active) !important;
     }
     ::ng-deep .mat-chip-remove {
-     opacity: 0.9 !important;
+      opacity: 0.9 !important;
     }
 
-    ::ng-deep .mat-form-field-wrapper{
+    ::ng-deep .mat-form-field-wrapper {
       padding-bottom: 0 !important;
     }
 
-    ::ng-deep .mat-form-field-flex{
+    ::ng-deep .mat-form-field-flex {
       padding: 0 !important;
     }
   }

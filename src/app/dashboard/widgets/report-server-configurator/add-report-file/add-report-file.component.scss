@@ -46,7 +46,7 @@ input {
   outline: none;
   padding-left: 20px;
   background: rgb(33, 36, 45, 0.1);
-  font-size: 12px;
+  font-size: 14px;
   border: none;
   color: rgb(255, 255, 255);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
@@ -65,7 +65,7 @@ input {
   justify-content: space-between;
   height: calc(100% - 20px);
   width: 100%;
-  font-size: 11px;
+  font-size: 14px;
   position: relative;
 }
 
@@ -73,7 +73,7 @@ input {
   width: 40%;
   height: 100%;
   padding: 10px;
-  min-width: 235px;
+  min-width: 255px;
   padding-bottom: 0;
 
   .title-reference {
@@ -86,7 +86,7 @@ input {
     color: var(--color-text-sub);
     text-align: center;
     line-height: 40px;
-    font-size: 11px;
+    font-size: 14px;
 
     &:before {
       z-index: 1;
@@ -205,15 +205,21 @@ input {
 
     .block-active {
       background: var(--color-bg-active);
+      border-top-right-radius: 25px;
+      border-bottom-right-radius: 25px;
+      margin: 0 auto;
+      margin-left: 0px;
+      width: calc(100% - 20px);
+      border-left: 2px solid var(--color-border-active);
     }
 
     &__button-remove {
       cursor: pointer;
       position: absolute;
-      right: 26px;
-      top: 3px;
-      width: 35px;
-      height: 35px;
+      right: 16px;
+      top: -1px;
+      width: 40px;
+      height: 42px;
       background-repeat: no-repeat;
       background-position: center;
       background-image: url(../../../../../assets/icons/widgets/reports/delete_blue.svg);
@@ -414,7 +420,7 @@ input {
     display: flex;
     text-align: center;
     line-height: 40px;
-    font-size: 11px;
+    font-size: 14px;
 
     &:before {
       z-index: 1;
@@ -465,7 +471,7 @@ input {
 
     &__title-name-fio {
       width: 100%;
-      font-size: 11px;
+      font-size: 14px;
     }
 
     &__title-type {
@@ -478,7 +484,7 @@ input {
 
     &__title-type-date {
       width: 100%;
-      font-size: 12px;
+      font-size: 14px;
     }
 
     .block-active {
@@ -759,14 +765,16 @@ input {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 400px;
-  height: 400px;
+  width: 40%;
+  min-width: 330px;
+  min-height: 300px;
+  height: 60%;
   border-radius: 20px;
   background-color: var(--color-bg-main);
   font-family: "Segoe UI";
   color: white;
 
-  svg-icon{
+  svg-icon {
     margin-top: -50px;
   }
 

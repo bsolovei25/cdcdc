@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from 'src/app/services/appConfigService';
-import { Observable } from 'rxjs';
-import { IFileTemplate } from '../models/report-server';
-import { IReportTemplate } from '../components/report/reports.component';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { IFileTemplate, IReportTemplate, ITemplateFolder, ISystemOptions, IReportFile } from '../models/report-server';
+import { IAlertWindowModel } from '@shared/models/alert-window.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,10 @@ export class ReportServerConfiguratorService {
     this.restFileUrl = configService.fsUrl;
   }
 
-  public getReportFileTemplate(): Observable<any[]> {
-    return this.http.get<any[]>(this.restUrl + '/api/report-filetemplate/all');
+  public alertWindow$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
+
+  public getReportFileTemplate(): Observable<IReportFile[]> {
+    return this.http.get<IReportFile[]>(this.restUrl + '/api/report-filetemplate/all');
   }
 
   public getReportTemplate(): Observable<IReportTemplate[]> {
@@ -29,12 +32,12 @@ export class ReportServerConfiguratorService {
     return this.http.get<any[]>(this.restUrl + '/api/report-filetemplate/' + id + '/templates');
   }
 
-  public getReporting(id: number): Observable<any> {
-    return this.http.get<IReportTemplate[]>(this.restUrl + '/api/report-template/' + id);
+  public getReporting(id: number): Observable<IReportTemplate> {
+    return this.http.get<IReportTemplate>(this.restUrl + '/api/report-template/' + id);
   }
 
-  public getSystemOptions(): Observable<any[]> {
-    return this.http.get<any[]>(this.restUrl + '/api/report-options/system/all');
+  public getSystemOptions(): Observable<ISystemOptions[]> {
+    return this.http.get<ISystemOptions[]>(this.restUrl + '/api/report-options/system/all');
   }
 
   public getUserOptions(): Observable<any[]> {
@@ -49,7 +52,6 @@ export class ReportServerConfiguratorService {
     const body: FormData = new FormData();
     const now: number = Date.now();
     body.append('uploadFile', file, `report_${now}.xlsm`);
-
     return this.http.post<any>(this.restFileUrl, body);
   }
 
@@ -73,16 +75,16 @@ export class ReportServerConfiguratorService {
     return this.http.post<any>(this.restUrl + '/api/report-templateFolder/', folder);
   }
 
-  public putTemplate(template): Observable<any> {
-    return this.http.put<any>(this.restUrl + '/api/report-template/', template);
-  }
-
   public putReportFileTemplate(filetemplate): Observable<any> {
     return this.http.put<any>(this.restUrl + '/api/report-filetemplate/', filetemplate);
   }
 
   public putReportTemplate(template): Observable<any> {
     return this.http.put<any>(this.restUrl + '/api/report-template/', template);
+  }
+
+  public putFolderTemplate(folder): Observable<any> {
+    return this.http.put<any>(this.restUrl + '/api/report-templateFolder/', folder);
   }
 
   public deleteReportFileTemplate(id: number): Observable<any> {
@@ -92,6 +94,12 @@ export class ReportServerConfiguratorService {
   public deleteReportTemplate(id: number): Observable<any> {
     return this.http.delete<any>(this.restUrl + '/api/report-template/' + id);
   }
+
+  public closeAlert(): void {
+    this.alertWindow$.next(null);
+  }
+
+  ///PROMISE-STYLE
 
 
 }

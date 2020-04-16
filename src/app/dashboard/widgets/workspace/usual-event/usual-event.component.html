@@ -1,5 +1,5 @@
 <section
-  class="workspace"
+  class="workspace scroll scroll-bar"
   (mousedown)="$event.stopPropagation()"
   (touchstart)="$event.stopPropagation()"
 >
@@ -129,13 +129,14 @@
         </div>
       </div>
 
-      <evj-event-description
-        class="description"
-        [ngClass]="{'description_small':ewService.event.category.name === 'equipmentStatus'}"
-        [description]="ewService.event.description"
-        [isRetrievalEvent]="false"
-        (changedDescription)="onChangeEventDescription($event)"
-      ></evj-event-description>
+      <div class="description">
+        <evj-event-description
+          [ngClass]="{'description_small':ewService.event.category.name === 'equipmentStatus'}"
+          [description]="ewService.event.description"
+          [isRetrievalEvent]="false"
+          (changedDescription)="onChangeEventDescription($event)"
+        ></evj-event-description>
+      </div>
 
       <div class="facts">
         <evj-chat

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '../../services/appConfigService';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { IAlertWindowModel } from '@shared/models/alert-window.model';
 
 @Injectable({
     providedIn: 'root',
@@ -13,6 +14,8 @@ export class ReportsService {
     constructor(public http: HttpClient, configService: AppConfigService) {
         this.restUrl = configService.restUrl;
     }
+
+    public alertWindow$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
 
     async getReportsTemplate(): Promise<any> {
         try {
@@ -55,6 +58,11 @@ export class ReportsService {
     public deleteCustomOptions(id: number): Observable<any> {
         return this.http.delete<any[]>(this.restUrl + '/api/report-options/custom/' + id);
     }
+
+
+    public closeAlert(): void {
+        this.alertWindow$.next(null);
+      }
 
 
 }
