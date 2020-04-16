@@ -8,7 +8,8 @@ export interface IUdTableDict {
     title: string;
     type: string;
     filter?: {
-        isActive: boolean
+        isSearch: boolean;
+        isActive: boolean;
     };
 }
 
@@ -70,6 +71,7 @@ export class PetroleumReferenceComponent {
             title: 'Источник',
             type: 'string',
             filter: {
+                isSearch: true,
                 isActive: false,
             },
         },
@@ -78,6 +80,7 @@ export class PetroleumReferenceComponent {
             title: 'Приемник',
             type: 'string',
             filter: {
+                isSearch: true,
                 isActive: false,
             },
         },
@@ -86,6 +89,7 @@ export class PetroleumReferenceComponent {
             title: 'Продукт по источнику',
             type: 'string',
             filter: {
+                isSearch: true,
                 isActive: false,
             },
         },
@@ -94,6 +98,7 @@ export class PetroleumReferenceComponent {
             title: 'Продукт по приемнику',
             type: 'string',
             filter: {
+                isSearch: true,
                 isActive: false,
             },
         },
@@ -102,6 +107,7 @@ export class PetroleumReferenceComponent {
             title: 'Начало операции',
             type: 'date',
             filter: {
+                isSearch: false,
                 isActive: false,
             },
         },
@@ -110,6 +116,7 @@ export class PetroleumReferenceComponent {
             title: 'Конец операции',
             type: 'date',
             filter: {
+                isSearch: false,
                 isActive: false,
             },
         },
@@ -118,6 +125,7 @@ export class PetroleumReferenceComponent {
             title: 'Масса операции по источнику',
             type: 'number',
             filter: {
+                isSearch: false,
                 isActive: false,
             },
         },
@@ -126,6 +134,7 @@ export class PetroleumReferenceComponent {
             title: 'Масса операции по приемнику',
             type: 'number',
             filter: {
+                isSearch: false,
                 isActive: false,
             },
         },
@@ -134,6 +143,7 @@ export class PetroleumReferenceComponent {
             title: 'Отклонение',
             type: 'number',
             filter: {
+                isSearch: false,
                 isActive: false,
             },
         },

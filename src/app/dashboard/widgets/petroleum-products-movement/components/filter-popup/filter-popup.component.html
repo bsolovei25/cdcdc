@@ -27,9 +27,9 @@
       </div>
     </div>
   </div>
-  <div class="filter_block__search">
+  <div class="filter_block__search" *ngIf="isSearch">
     <div class="filter_block__search__input-block">
-      <input class="vertical-middle" (keyup)="setText($event?.target?.value)">
+      <input class="vertical-middle" [(ngModel)]="filterSetting.text" (keyup)="setText($event?.target?.value)">
     </div>
     <div class="filter_block__search__icon-block">
       <svg-icon class="icon" src="assets/icons/search-icon.svg"></svg-icon>

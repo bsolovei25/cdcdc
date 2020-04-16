@@ -16,7 +16,6 @@ export class TransferTableComponent {
     constructor(private petroleumService: PetroleumScreenService) { }
 
     public transferClick(uid: string): void {
-        console.log(uid);
         this.petroleumService.chooseTransfer(uid, true);
     }
 
@@ -45,6 +44,9 @@ export class TransferTableComponent {
             currentFilter.sortFilter.isUp
                 ? filterSetting.isUp = true
                 : filterSetting.isDown = true;
+        }
+        if (item.key === currentFilter?.textFilter?.key) {
+            filterSetting.text = currentFilter.textFilter.value;
         }
         return filterSetting;
     }

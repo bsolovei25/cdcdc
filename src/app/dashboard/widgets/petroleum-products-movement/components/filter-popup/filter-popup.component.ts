@@ -13,6 +13,7 @@ export interface IFilterSetting {
 })
 export class FilterPopupComponent {
     @Input() filterSetting: IFilterSetting;
+    @Input() isSearch: boolean;
     @Output() public sortFilter: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() public sortText: EventEmitter<string> = new EventEmitter<string>();
 

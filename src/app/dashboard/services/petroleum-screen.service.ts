@@ -264,6 +264,13 @@ export class PetroleumScreenService {
                 this.currentTransfer$.next(currentTransferTemp);
             }
         }
+        this.filterTransfersByColumn(
+            this.currentFilter?.textFilter?.key,
+            this.currentFilter?.textFilter?.key);
+        this.sortTransfersByColumn(
+            this.currentFilter?.sortFilter?.key,
+            this.currentFilter?.sortFilter?.type,
+            this.currentFilter?.sortFilter?.isUp);
     }
 
     public async getTransfers(
@@ -486,6 +493,10 @@ export class PetroleumScreenService {
 
     public filterTransfersByColumn(key: string, search: string): void {
         const transfers = this.transfers$.getValue();
+        if (!key || key === '') {
+            transfers?.forEach((el) => el.isSearchFilter = true);
+            return;
+        }
         transfers?.forEach(
             (el) => el.isSearchFilter = el[key].toLowerCase().includes(search.toLowerCase()));
         this.currentFilter.textFilter = {
@@ -496,6 +507,9 @@ export class PetroleumScreenService {
 
     // isUp - по возрастанию
     public sortTransfersByColumn(key: string, type: string, isUp: boolean): void {
+        if (!key || !type || key === '' || type === '') {
+            return;
+        }
         const sortOrder: number = isUp ? 1 : -1;
         const transfers = this.transfers$.getValue();
         switch (type) {

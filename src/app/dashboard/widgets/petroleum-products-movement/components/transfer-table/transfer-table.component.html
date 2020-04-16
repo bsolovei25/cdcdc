@@ -10,6 +10,7 @@
           <div *ngIf="item.filter.isActive" class="filter_block">
             <evj-filter-popup
               [filterSetting]="getFilterParams(item)"
+              [isSearch]="item.filter.isSearch"
               (sortFilter)="setSortFilter($event, item)"
               (sortText)="setTextFilter($event, item)">
             </evj-filter-popup>
