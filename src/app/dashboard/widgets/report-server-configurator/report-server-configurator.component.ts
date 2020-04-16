@@ -536,4 +536,31 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     }
 
+    updateFiletemplate(event) {
+        if (event) {
+            this.getRecordFile();
+        }
+    }
+
+    deleteFolder(item): void {
+        this.isLoading = true;
+        const windowsParam = {
+            isShow: true,
+            questionText: 'Вы уверены, что хотите удалить папку?',
+            acceptText: 'Да',
+            cancelText: 'Нет',
+            acceptFunction: () => this.reportService.deleteFolder(item.idFolder).subscribe(ans => {
+                this.isLoading = false;
+                this.getReportFolder();
+            }, (error) => {
+                this.isLoading = false;
+            }),
+            cancelFunction: () => {
+                this.reportService.closeAlert();
+                this.isLoading = false;
+            }
+        };
+        this.reportService.alertWindow$.next(windowsParam);
+    }
+
 }
