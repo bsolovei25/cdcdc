@@ -25,6 +25,8 @@ export class UploadFormComponent implements OnInit, OnDestroy {
         };
     comment: string = '';
 
+    file: boolean = false;
+
     constructor(
         private dialog: MatDialog,
         public dialogRef: MatDialogRef<any>,
@@ -68,8 +70,14 @@ export class UploadFormComponent implements OnInit, OnDestroy {
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
                 this.body.file = result;
+                this.file = true;
             }
         });
+    }
+
+    deleteFile(): void {
+        this.file = false;
+        this.body.file = null;
     }
 
 }

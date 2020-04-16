@@ -503,13 +503,13 @@ input {
       // background-color: var(--color-bg-header-table);
     }
     &__name {
-      min-width: 136px;
-      max-width: 136px;
+      min-width: 125px;
+      max-width: 125px;
     }
 
     &__comment {
-      min-width: 166px;
-      max-width: 166px;
+      min-width: 211px;
+      max-width: 211px;
     }
   }
 
@@ -567,14 +567,14 @@ input {
     }
 
     &__name {
-      min-width: 134px;
-      max-width: 134px;
+      min-width: 127px;
+      max-width: 127px;
       text-align: center;
     }
 
     &__comment {
-      min-width: 134px;
-      max-width: 134px;
+      min-width: 196px;
+      max-width: 196px;
       text-align: center;
     }
   }
@@ -831,7 +831,7 @@ input {
 
   &__block {
     display: flex;
-    padding-left: 20px;
+    padding-left: 10px;
     padding-top: 2px;
   }
 

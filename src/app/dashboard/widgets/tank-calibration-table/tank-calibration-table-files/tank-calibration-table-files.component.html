@@ -35,6 +35,7 @@
               <tr
                 *ngIf="expandedElement.isSelected(element)"
                 [class.expanded-row]="elementChildren"
+                (click)="chooseTank(elementChildren)"
               >
                 <td [class.expanded-column]="elementChildren" class="item item__td item__name">
                   {{ elementChildren.name }}
@@ -43,7 +44,7 @@
             </ng-container>
           </ng-container>
           <ng-container *ngFor="let element of dataSourceTanks">
-            <tr class="expanded-row">
+            <tr class="expanded-row" (click)="chooseTank(element)">
               <td [class.expanded-column]="element" class="item item__td item__name">
                 {{ element.name }}
               </td>
@@ -116,16 +117,16 @@
           <ng-container *ngFor="let element of chooseTanks">
             <tr class="expanded-row">
               <td class="item item__td item__name">
-                {{ element?.editDate | date }}
+                {{ element?.createdAt | date }}
               </td>
               <td class="item item__td item__name">
-                {{ element?.user?.firstName }}
+                {{ element?.createdBy }}
               </td>
               <td class="item item__td item__name">
-                {{ element?.empty }}
+                {{ element?.action }}
               </td>
               <td class="item item__td item__name">
-                {{ element?.updateDate | date }}
+                {{ element?.newValue }}
               </td>
               <td class="item item__td item__comment">
                 {{ element?.comment }}
@@ -137,9 +138,7 @@
           <div class="bottom-reference-right">
             <div class="bottom-reference-right__block">
               <div class="bottom-reference-right__button-add"></div>
-              <div class="bottom-reference-right__text">
-                <div class="bottom-reference-right__div"></div>
-              </div>
+              <div class="bottom-reference-right__text"></div>
             </div>
           </div>
         </tfoot>

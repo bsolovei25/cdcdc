@@ -99,6 +99,7 @@
                   <tr
                     *ngIf="expandedElement.isSelected(element)"
                     [class.expanded-row]="elementChildren"
+                    (click)="clickItem(elementChildren.uid)"
                   >
                     <td [class.expanded-column]="elementChildren" class="item item__td item__name">
                       {{ elementChildren.name }}
@@ -134,11 +135,12 @@
                         [svgStyle]="{ 'width.px': 20, 'height.px': 20 }"
                       ></svg-icon>
                       <svg-icon
+                        (click)="downloadFile()"
                         class="item__action-icon"
                         src="assets/icons/widgets/calibration-table/download.svg"
                         [svgStyle]="{ 'width.px': 20, 'height.px': 20 }"
                       ></svg-icon>
-                      <span class="item__action-trash" (click)="deleteItem(element)">
+                      <span class="item__action-trash" (click)="deleteTanks(element.uid)">
                         <svg-icon
                           src="assets/icons/widgets/calibration-table/trash.svg"
                           [svgStyle]="{ 'width.px': 20, 'height.px': 20 }"
@@ -149,7 +151,7 @@
                 </ng-container>
               </ng-container>
               <ng-container *ngFor="let element of dataSourceTanks">
-                <tr class="expanded-row">
+                <tr class="expanded-row" (click)="clickItem(element.uid)">
                   <td [class.expanded-column]="element" class="item item__td item__name">
                     {{ element.name }}
                   </td>
@@ -181,11 +183,12 @@
                       [svgStyle]="{ 'width.px':20, 'height.px':20 }"
                     ></svg-icon>
                     <svg-icon
+                      (click)="downloadFile(element.uid)"
                       class="item__action-icon"
                       src="assets/icons/widgets/calibration-table/download.svg"
                       [svgStyle]="{ 'width.px':20, 'height.px':20 }"
                     ></svg-icon>
-                    <span class="item__action-trash" (click)="deleteItem(element)">
+                    <span class="item__action-trash" (click)="deleteTanks(element.uid)">
                       <svg-icon
                         src="assets/icons/widgets/calibration-table/trash.svg"
                         [svgStyle]="{ 'width.px':20, 'height.px':20 }"
@@ -257,11 +260,11 @@
               </tr>
             </thead>
             <tbody class="table__body">
-              <ng-container *ngFor="let element of dataSource">
-                <tr *ngIf="expandedElement.isSelected(element)" class="expanded-row">
-                  <td class="item item__td item__name">fdsf</td>
-                  <td class="item item__td item__name">sdfdsf</td>
-                  <td class="item item__td item__name">sdfsdf</td>
+              <ng-container *ngFor="let online of onlineTable">
+                <tr class="expanded-row">
+                  <td class="item item__td item__name">{{ online?.beltNumber }}</td>
+                  <td class="item item__td item__name">{{ online?.height }}</td>
+                  <td class="item item__td item__name">{{ online?.volume }}</td>
                 </tr>
               </ng-container>
             </tbody>
@@ -285,7 +288,8 @@
     <ng-container *ngIf="!isReport">
       <evj-tank-calibration-table-files
         [data]="data"
-        [dataTanks]="dataSourceTanks"
+        [dataS]="dataSource"
+        [dataSTanks]="dataSourceTanks"
       ></evj-tank-calibration-table-files
     ></ng-container>
   </div>

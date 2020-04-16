@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, OnDestroy, HostListener, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, HostListener, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -17,6 +17,12 @@ export interface ICalibrationTable {
     parentUid?: string;
     parentName?: string;
     isGroup: boolean;
+}
+
+export interface IOnlineTable {
+    beltNumber: number;
+    height: number;
+    volume: number;
 }
 
 @Component({
@@ -48,6 +54,8 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
     dataSourceTanks: ICalibrationTable[] = [];
 
     tanksAvailable: ICalibrationTable[] = [];
+
+    onlineTable: IOnlineTable[];
 
     sort: { name: 'upStart' | 'bottomStart' | 'upEnd' | 'bottomEnd', value: boolean } | null = null;
 
@@ -111,13 +119,6 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
             } catch (err) {
                 console.error(err);
             }
-        }
-    }
-
-    async deleteItem(element: ICalibrationTable): Promise<void> {
-        try {
-            this.calibrationService.deleteTank(element.uid);
-        } catch (error) {
         }
     }
 
@@ -185,16 +186,24 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
     openDialog(element): void {
         const dialogRef = this.dialog
             .open(UploadFormComponent, {
-                data: {
-                    title: 'Выбор номенклатуры',
-                },
+                data: {},
                 autoFocus: true,
             });
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.calibrationService.postNewDate(element.uid, result, result.file);
+                this.uploadFile(result, element.uid);
             }
         });
+    }
+
+    async uploadFile(result, id: string): Promise<void> {
+        try {
+            await this.calibrationService.postNewDate(id, result, result.file);
+            this.snackBar.openSnackBar('Файл загружен успешно');
+        } catch (error) {
+            this.snackBar.openSnackBar('Файл не загружен');
+            console.error(error);
+        }
     }
 
     openTanksTable(): void {
@@ -220,5 +229,26 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         }
     }
 
+    async deleteTanks(uid: string): Promise<void> {
+        try {
+            await this.calibrationService.deleteTank(uid);
+            this.snackBar.openSnackBar('Резервуар удален');
+            this.loadItem(true);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async clickItem(id: string): Promise<void> {
+        try {
+            this.onlineTable = await this.calibrationService.getTankOnlineTable(id);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    downloadFile(id: string): void {
+        window.open(`http://deploy.funcoff.club:6555/api/graduation-table/graduation/tanks/${id}/table`);
+    }
 
 }

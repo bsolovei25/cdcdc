@@ -26,6 +26,14 @@ export class TankCalibrationTableService {
             .toPromise();
     }
 
+    async getTankOnlineTable(id: string): Promise<any[]> {
+        return this.http
+            .get<any[]>(
+                this.restUrl + `/api/graduation-table/Graduation/tanks/${id}/onlinetable`
+            )
+            .toPromise();
+    }
+
     async getTanks(): Promise<ICalibrationTable[]> {
         return this.http
             .get<ICalibrationTable[]>(
@@ -42,12 +50,12 @@ export class TankCalibrationTableService {
             .toPromise();
     }
 
-    async postNewDate(id: number, body, file: Blob): Promise<any> {
+    async postNewDate(id: string, body, file: Blob): Promise<any> {
         const data: FormData = new FormData();
         data.append('file', file);
         data.append('comment', body.comment);
-        data.append('startDate', body.startDate);
-        data.append('endDate', body.endDate);
+        data.append('startDate', JSON.parse(JSON.stringify(body.startDate)));
+        data.append('endDate', JSON.parse(JSON.stringify(body.endDate)));
         return this.http
             .post(this.restUrl + `/api/graduation-table/Graduation/tanks/${id}/table/`, data)
             .toPromise();
@@ -81,7 +89,7 @@ export class TankCalibrationTableService {
 
     async deleteTank(id: string): Promise<void> {
         return await this.http
-            .delete<void>(this.restUrl + `/ api / graduation / tanks / ${id}`)
+            .delete<void>(this.restUrl + `/api/graduation-table/Graduation/tanks/${id}`)
             .toPromise();
     }
 

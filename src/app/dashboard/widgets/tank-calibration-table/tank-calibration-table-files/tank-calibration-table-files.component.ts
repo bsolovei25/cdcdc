@@ -15,14 +15,11 @@ export interface ICalibrationTable {
 }
 
 interface ITanksHistory {
-    name: string;
-    data: {
-        editDate: Date;
-        user: IUser;
-        empty: any;
-        updateDate: Date;
-        comment: string;
-    }[];
+    createdAt: Date;
+    createdBy: string;
+    action: string;
+    newValue: string;
+    comment: string;
 }
 
 @Component({
@@ -35,8 +32,6 @@ export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
     static itemCols: number = 18;
     static itemRows: number = 14;
 
-
-
     expandedElement: SelectionModel<any> = new SelectionModel(true);
 
     localeData: ICalibrationTable[] = [];
@@ -45,11 +40,12 @@ export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
     dataSourceTanks: ICalibrationTable[] = [];
 
     chooseTanks: any[];
-    endTr = [];
-    endTr2 = [];
 
-    @Input() data;
-    @Input() dataTanks;
+    isRefInput: boolean = false;
+
+    @Input() data: ICalibrationTable[] = [];
+    @Input() dataS: ICalibrationTable[] = [];
+    @Input() dataSTanks: ICalibrationTable[] = [];
 
     @ViewChild('tableBody3') table3: ElementRef;
     @ViewChild('tableRight4') tableRight4: ElementRef;
@@ -58,8 +54,9 @@ export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
         private calibrationService: TankCalibrationTableService,
     ) { }
     ngOnInit(): void {
-        this.dataSource = this.data;
-        this.dataSourceTanks = this.dataTanks;
+        this.localeData = this.data;
+        this.dataSource = this.dataS;
+        this.dataSourceTanks = this.dataSTanks;
     }
 
     ngOnDestroy(): void {
@@ -69,7 +66,6 @@ export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
         try {
             const el = await this.calibrationService.getHistoryTanks(element?.uid);
             this.chooseTanks = el;
-            console.log(el);
         } catch (error) {
 
         }
@@ -84,9 +80,9 @@ export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
     }
 
     searchInput(event): void {
-        this.dataSource = this.data?.filter((val) => val.name.toLowerCase()
+        this.dataSource = this.localeData?.filter((val) => val.name.toLowerCase()
             .includes(event?.target?.value.toLowerCase()) && val.isGroup);
-        this.dataSourceTanks = this.data?.filter((val) => val.name.toLowerCase()
+        this.dataSourceTanks = this.localeData?.filter((val) => val.name.toLowerCase()
             .includes(event?.target?.value.toLowerCase()) && !val.parentUid && !val.isGroup);
     }
 

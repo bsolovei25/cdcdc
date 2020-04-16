@@ -382,12 +382,13 @@ input {
       &-data-picker {
         position: relative;
         top: -15px;
+        height: 35px;
 
         &--warning {
-          border-bottom: 1px solid var(--color-warning);
+          border-bottom: 2px solid var(--color-warning);
         }
         &--warning {
-          border-bottom: 1px solid var(--color-danger);
+          border-bottom: 2px solid var(--color-danger);
         }
       }
       min-width: 141px;
