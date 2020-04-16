@@ -77,7 +77,7 @@ export class ReferencesService {
 
 
     public orderColumnReference(columns: any): Observable<any> {
-        return this.http.post<any>(this.restUrl + '/api/ref-book/ReferenceColumn/Order', JSON.stringify(columns));
+        return this.http.post<any>(this.restUrl + '/api/ref-book/ReferenceColumn/Order', columns);
     }
 
     public putEditRef(body): Observable<IReferenceTypes> {
