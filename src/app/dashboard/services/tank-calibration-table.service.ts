@@ -54,8 +54,8 @@ export class TankCalibrationTableService {
         const data: FormData = new FormData();
         data.append('file', file);
         data.append('comment', body.comment);
-        data.append('startDate', JSON.parse(JSON.stringify(body.startDate)));
-        data.append('endDate', JSON.parse(JSON.stringify(body.endDate)));
+        data.append('startDate', new Date(body.startDate).toISOString());
+        data.append('endDate', new Date(body.endDate).toISOString());
         return this.http
             .post(this.restUrl + `/api/graduation-table/Graduation/tanks/${id}/table/`, data)
             .toPromise();
