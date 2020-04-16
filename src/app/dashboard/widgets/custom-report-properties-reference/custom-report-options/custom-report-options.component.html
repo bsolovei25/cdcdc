@@ -66,7 +66,11 @@
                             <mat-chip *ngFor="let value of valuesInput" [selectable]="selectable"
                                 [removable]="removable" (removed)="remove(value)">
                                 {{ value }}
-                                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                <mat-icon matChipRemove *ngIf="removable">
+                                    <svg-icon src="./assets/icons/widgets/reports/close-icon.svg"
+                                        [svgStyle]="{ 'width.px':10, 'height.px':17, 'margin-top.px': 0}">
+                                    </svg-icon>
+                                </mat-icon>
                             </mat-chip>
                             <input placeholder="Введите источник..." #valueInput [formControl]="valueCtrl"
                                 [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
