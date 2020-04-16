@@ -16,6 +16,7 @@ import { LoadingShadeComponent } from './components/loading-shade/loading-shade.
 import { WidgetPreloaderComponent } from './components/widget-preloader/widget-preloader.component';
 import { AlertWindowComponent } from './components/alert-window/alert-window.component';
 import { NgxMaskModule } from 'ngx-mask';
+import { SmartScrollComponent } from './components/smart-scroll/smart-scroll.component';
 
 @NgModule({
     declarations: [
@@ -32,6 +33,7 @@ import { NgxMaskModule } from 'ngx-mask';
         LoadingShadeComponent,
         WidgetPreloaderComponent,
         AlertWindowComponent,
+        SmartScrollComponent,
     ],
     exports: [
         HeaderComponent,
