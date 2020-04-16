@@ -4,12 +4,12 @@
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
   >
-    <div class="table scroll-bar" #tableBody3>
+    <div class="table scroll-bar" #tableBody>
       <table>
         <thead>
           <tr class="header__items">
             <th class="header header__th header__name">
-              Наименование
+              <span class="header__name__text">Наименование</span>
             </th>
           </tr>
         </thead>
@@ -18,8 +18,8 @@
             <tr
               class="table__item"
               (click)="expandedElement.isSelected(element) ? 
-                       expandedElement.deselect(element)
-                       : expandedElement.select(element)"
+                           expandedElement.deselect(element)
+                          : expandedElement.select(element)"
             >
               <td class="item item__tr">
                 <svg-icon
@@ -43,9 +43,11 @@
               </tr>
             </ng-container>
           </ng-container>
-          <ng-container *ngFor="let end of endTr">
-            <tr class="table__item expanded-row">
-              <td class="item item__td item__name expanded-column"></td>
+          <ng-container *ngFor="let element of dataSourceTanks">
+            <tr class="expanded-row" (click)="chooseTank(element)">
+              <td [class.expanded-column]="element" class="item item__td item__name">
+                {{ element.name }}
+              </td>
             </tr>
           </ng-container>
         </tbody>
@@ -55,13 +57,27 @@
               <div class="bottom-reference-left__input-block">
                 <div class="bottom-reference-left__button-search">
                   <svg-icon
+                    *ngIf="!isRefInput"
                     class="button_filter_icon"
                     src="./assets/icons/widgets/references/search_white.svg"
-                  >
-                  </svg-icon>
+                  ></svg-icon>
+
+                  <svg-icon
+                    *ngIf="isRefInput"
+                    class="indicator-selector__collapse"
+                    src="./assets/icons/widgets/references/search_blue.svg"
+                  ></svg-icon>
                 </div>
-                <div class="bottom-reference-left__input">
-                  <input type="text" (keyup)="searchInput($event)" />
+                <div
+                  class="bottom-reference-left__input"
+                  [class.bottom-reference-left__input-active]="isRefInput"
+                >
+                  <input
+                    type="text"
+                    (focus)="isRefInput = true"
+                    (blur)="isRefInput = false"
+                    (keyup)="searchInput($event)"
+                  />
                 </div>
               </div>
             </div>
@@ -76,7 +92,7 @@
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
   >
-    <div class="table scroll-bar" #tableRight4>
+    <div class="table scroll-bar" #tableRight>
       <table>
         <thead>
           <tr class="header__items">
@@ -92,44 +108,38 @@
             <th class="header header__th header__name">
               Обновленное значение
             </th>
-            <th class="header header__th header__name">
+            <th class="header header__th header__comment">
               Комментарий
             </th>
           </tr>
         </thead>
-        <tbody class="table__body" style="text-align: center;">
+        <tbody class="table__body">
           <ng-container *ngFor="let element of chooseTanks">
             <tr class="expanded-row">
-              <td class="item item__td item__name" style="text-align: center">
-                {{ element?.editDate | date }}
+              <td class="item item__td item__name">
+                {{ element?.createdAt | date }}
               </td>
-              <td class="item item__td item__name" style="text-align: center">
-                {{ element?.user?.firstName }}
+              <td class="item item__td item__name">
+                {{ element?.createdBy }}
               </td>
-              <td class="item item__td item__name" style="text-align: center">
-                {{ element?.empty }}
+              <td class="item item__td item__name">
+                {{ element?.action }}
               </td>
-              <td class="item item__td item__name" style="text-align: center">
-                {{ element?.updateDate | date }}
+              <td class="item item__td item__name">
+                {{ element?.newValue }}
               </td>
-              <td class="item item__td item__name" style="text-align: center">
+              <td class="item item__td item__comment">
                 {{ element?.comment }}
               </td>
             </tr>
           </ng-container>
-          <ng-container *ngFor="let end of endTr2">
-            <tr class="table__item expanded-row">
-              <td class="item item__td item__name"></td>
-              <td class="item item__td item__name"></td>
-              <td class="item item__td item__name"></td>
-              <td class="item item__td item__name"></td>
-              <td class="item item__td item__name"></td>
-            </tr>
-          </ng-container>
         </tbody>
         <tfoot>
-          <div class="bottom-reference-left">
-            <div class="bottom-reference-left__block"></div>
+          <div class="bottom-reference-right">
+            <div class="bottom-reference-right__block">
+              <div class="bottom-reference-right__button-add"></div>
+              <div class="bottom-reference-right__text"></div>
+            </div>
           </div>
         </tfoot>
       </table>

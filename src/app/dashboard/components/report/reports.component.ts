@@ -2,18 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { WidgetService } from '../../services/widget.service';
 import { ReportsService } from '../../services/reports.service';
-import { fillDataShape } from '../../../@shared/common-functions';
+import { IReportTemplate } from '../../models/report-server';
 
-export interface IReportTemplate {
-    id: number;
-    createdAt: Date;
-    createdBy: number;
-    name: string;
-    description: string;
-    fileId: string;
-    isDeleted: boolean;
-    displayName: string;
-}
 
 @Component({
     selector: 'evj-reports',
@@ -32,7 +22,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
     data: IReportTemplate[] = [];
     filterData: IReportTemplate[] = [];
 
-    isReport = true;
+    isReport: boolean = true;
 
     constructor(
         public widgetService: WidgetService,

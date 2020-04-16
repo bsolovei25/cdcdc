@@ -605,3 +605,13 @@
     background-color: var(--color-border-active);
   }
 }
+
+.icon{
+  &__add-button{
+    &::ng-deep{
+      .cls-1{
+        fill: var(--color-text-sub);
+      }
+    }
+  }
+}

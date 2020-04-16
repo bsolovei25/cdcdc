@@ -4,25 +4,35 @@
     <div class="reference-container">
       <div id="leftScrollAddReport" class="scroll-block">
         <div *ngFor="let item of data; let i = index">
-          <div class="reference-container__block" [class.block-active]="item.id === clickItemId"
-            (click)="getTemplate(item)">
+          <div
+            class="reference-container__block"
+            [class.block-active]="item.id === clickItemId"
+            (click)="getTemplate(item)"
+          >
             <div *ngIf="!item.edit" class="reference-container__block-info">
               <div>{{ item.name }}</div>
               <div class="reference-container__button-edit" (click)="editNameReportFile(item)">
-                <svg-icon *ngIf="item.id === clickItemId" class="indicator-selector__collapse"
-                  src="./assets/icons/widgets/reports/edit_white.svg"></svg-icon>
+                <svg-icon
+                  *ngIf="item.id === clickItemId"
+                  class="indicator-selector__collapse"
+                  src="./assets/icons/widgets/reports/edit_white.svg"
+                ></svg-icon>
               </div>
-              <div class="reference-container__button-remove" (click)="deleteReportFile(item)"
-                *ngIf="item.id === clickItemId">
-            
-              </div>
+              <div
+                class="reference-container__button-remove"
+                (click)="deleteReportFile(item)"
+                *ngIf="item.id === clickItemId"
+              ></div>
             </div>
             <div *ngIf="item.edit" class="reference-container__add-block">
               <div class="reference-container__add-block-input">
                 <input type="text" [(ngModel)]="item.name" placeholder="Введите имя файла..." />
               </div>
               <div class="reference-container__add-block-icon" (click)="onEditName(item)">
-                <svg-icon src="./assets/icons/widgets/reports/accept.svg" class="add_button_icon"></svg-icon>
+                <svg-icon
+                  src="./assets/icons/widgets/reports/accept.svg"
+                  class="add_button_icon"
+                ></svg-icon>
               </div>
             </div>
           </div>
@@ -32,18 +42,32 @@
     <div class="bottom-reference-left">
       <div class="bottom-reference-left__block">
         <div class="bottom-reference-left__button-add" (click)="onOpenUpload()">
-         
+
         </div>
         <div class="bottom-reference-left__input-block">
           <div class="bottom-reference-left__button-search">
-            <svg-icon *ngIf="!isRepInput" class="button_filter_icon"
-              src="./assets/icons/widgets/references/search_white.svg"></svg-icon>
+            <svg-icon
+              *ngIf="!isRepInput"
+              class="button_filter_icon"
+              src="./assets/icons/widgets/references/search_white.svg"
+            ></svg-icon>
 
-            <svg-icon *ngIf="isRepInput" class="indicator-selector__collapse"
-              src="./assets/icons/widgets/references/search_blue.svg"></svg-icon>
+            <svg-icon
+              *ngIf="isRepInput"
+              class="indicator-selector__collapse"
+              src="./assets/icons/widgets/references/search_blue.svg"
+            ></svg-icon>
           </div>
-          <div class="bottom-reference-left__input" [class.bottom-reference-left__input-active]="isRepInput">
-            <input type="text" (focus)="isRepInput = true" (blur)="isRepInput = false" (keyup)="searchReport($event)" />
+          <div
+            class="bottom-reference-left__input"
+            [class.bottom-reference-left__input-active]="isRepInput"
+          >
+            <input
+              type="text"
+              (focus)="isRepInput = true"
+              (blur)="isRepInput = false"
+              (keyup)="searchReport($event)"
+            />
           </div>
         </div>
       </div>
@@ -75,23 +99,25 @@
         </ng-container>
       </div>
     </div>
-    <div class="bottom-reference-right">
-
-    </div>
+    <div class="bottom-reference-right"></div>
   </div>
 </div>
 <div *ngIf="isUploadBlock" id="upload" class="upload" (click)="uploadClose()">
   <div class="upload-container" #area (click)="$event.stopPropagation()" (dragover)="dragOver($event)"
     (dragleave)="dragLeave($event)" (drop)="dropFile($event)">
-    <svg-icon
-          src="./assets/icons/widgets/reports/cloud.svg"
-          [svgStyle]="{ 'width.%':100, 'height.%':100 }"
-        ></svg-icon>
+    <svg-icon *ngIf="!fileLoad" src="./assets/icons/widgets/reports/cloud.svg"
+      [svgStyle]="{ 'width.%':100, 'height.%':100 }"></svg-icon>
     <img *ngIf="fileLoad" class="upload-image" src="./assets/icons/widgets/reports/xls.svg">
     <label *ngIf="fileLoad">Файл {{ fileName }} загружен</label>
     <div *ngIf="!fileLoad" class="upload-label">
-      <input id="file-input" type="file" name="file" (change)="handleFileInput($event.target.files)"
-        accept=".xls,.xlsx, .xlsm" multiple>
+      <input
+        id="file-input"
+        type="file"
+        name="file"
+        (change)="handleFileInput($event.target.files)"
+        accept=".xls,.xlsx, .xlsm"
+        multiple
+      />
       <label for="file-input">Выберите файл</label>
       <span> или перетащите его сюда</span>
     </div>

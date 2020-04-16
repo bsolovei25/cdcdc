@@ -7,6 +7,8 @@
   <evj-frame-top></evj-frame-top>
 
   <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+    <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
+    <evj-alert-window [info]="reportService.alertWindow$ | async"></evj-alert-window>
     <div class="references">
       <div class="reference-left">
         <div class="title-reference">Наименование параметра</div>

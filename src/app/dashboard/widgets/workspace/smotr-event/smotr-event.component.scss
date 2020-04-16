@@ -61,10 +61,6 @@
       width: 50%;
       height: 100%;
     }
-
-    &:last-child {
-      margin: 0px;
-    }
   }
 
   .cell {
@@ -86,14 +82,18 @@
   }
 
   .chat {
-    height: 245px;
+    height: 100%;
+    flex-grow: 1;
   }
 
   .information {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
+
+    box-sizing: border-box;
+    padding: 0px 15px;
   }
 
   .label {
@@ -123,7 +123,8 @@
   }
 
   .events-correct {
-    height: 400px;
+    height: 100%;
+    flex-grow: 1;
   }
 
   .events-icons {
@@ -140,6 +141,10 @@
     width: 100%;
     padding: 0px 15px;
     padding-bottom: 0px;
+
+    mat-label {
+      color: var(--color-text-sub);
+    }
   }
 
   ::ng-deep {

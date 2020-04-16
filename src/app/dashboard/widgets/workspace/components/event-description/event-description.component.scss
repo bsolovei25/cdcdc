@@ -16,6 +16,8 @@
       font-size: 10px;
       width: 90%;
       margin-left: 15px;
+
+      color: var(--color-text-sub);
     }
     .description_button_update {
       margin-left: 5x;
@@ -82,6 +84,12 @@
         height: 100%;
         overflow-y: auto;
         overflow-x: hidden;
+
+        padding: 0;
+
+        &::placeholder{
+          color: var(--color-text-sub-heading);
+        }
       }
     }
   }

@@ -102,7 +102,12 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
     // нажатие на кнопку в хэдере
     createdEvent(event: boolean): void {
-        event ? this.createEvent() : this.saveItem();
+        if (event) {
+            this.ewService.isEditEvent = true;
+            this.createEvent();
+        } else {
+            this.saveItem();
+        }
     }
 
     async createEvent(): Promise<void> {
@@ -130,4 +135,8 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         this.ewService.createNewEvent(true);
     }
     // #endregion
+
+    canShowSaveButton(): boolean {
+        return this.ewService.event?.isUserCanEdit ?? false;
+    }
 }

@@ -51,10 +51,10 @@ export class PasswordResetComponent {
     ngOnInit(): void {
         this.isLoadingData = true;
         this.myForm = this.formBuilder.group({
-            oldPassword: new FormControl('', [Validators.required]),
+            oldPassword: new FormControl('', Validators.required),
             password: new FormControl('', [Validators.required, Validators.minLength(6)]),
             confirmPassword: new FormControl(''),
-        }, { validator: this.checkPasswords })
+        }, { validator: this.checkPasswords });
 
         this.user = this.authService.user$.value;
         if (this.user.photoId) {

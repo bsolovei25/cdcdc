@@ -107,12 +107,12 @@ staging:
         CMD_REPLACE: sed -i -E "s/(<title>Evj)(<\/title>)/\1 | ${CI_COMMIT_SHORT_SHA} \2/g" /var/www/angular-staging.local/public/index.html
     script:
         - env
-          #- cd ${ROCKETCHAT_HOOKS} ; git pull origin master --no-edit ; python3 rockethooks.py
         - ssh root@${DEPLOY_DOMAIN} rm -rf /var/www/angular-staging.local/public
         - scp -r ./public root@${DEPLOY_DOMAIN}:/var/www/angular-staging.local
         - ssh root@${DEPLOY_DOMAIN} $CMD_REPLACE
         - ssh root@${DEPLOY_DOMAIN} "sed -i  's/:5555/:6555/g' /var/www/angular-staging.local/public/assets/config.json || sleep 0.1"
         - ssh root@${DEPLOY_DOMAIN} nginx -s reload
+        - cd ${ROCKETCHAT_HOOKS} ; git pull origin master --no-edit ; python3 rockethooks.py
     only:
         - develop
 

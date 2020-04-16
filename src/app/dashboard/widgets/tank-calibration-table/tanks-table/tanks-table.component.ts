@@ -59,9 +59,9 @@ export class TanksTableComponent implements OnInit, OnDestroy {
 
     searchInput(event): void {
         this.dataSource = this.data?.filter((val) => val.name.toLowerCase()
-            .includes(event?.target?.value.toLowerCase()));
+            .includes(event?.target?.value.toLowerCase()) && val.isGroup);
         this.dataSourceTanks = this.data?.filter((val) => val.name.toLowerCase()
-            .includes(event?.target?.value.toLowerCase()));
+            .includes(event?.target?.value.toLowerCase()) && !val.parentUid && !val.isGroup);
     }
 
 }

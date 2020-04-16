@@ -1,13 +1,23 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ITime } from '../../../models/time-data-picker';
-import { IReportTemplate } from '../reports.component';
 import { ReportsService } from 'src/app/dashboard/services/reports.service';
+import { SnackBarService } from '../../../services/snack-bar.service';
+import { IReportTemplate } from 'src/app/dashboard/models/report-server';
 
 export interface IReport extends IReportTemplate {
     customOptions: IReportOption[];
     reports: [];
     systemOptions: [];
+    fileTemplate: {
+        id: number;
+        fileId: string;
+        name: string;
+        description: string;
+        createdAt: Date;
+        createdBy: number;
+        isDeleted: boolean;
+    };
 }
 
 export interface IReportOption {
@@ -49,16 +59,18 @@ export class ReportComponent implements OnInit {
 
     constructor(
         private reportsService: ReportsService,
+        private snackBar: SnackBarService
     ) {
 
     }
     ngOnInit(): void {
-
+        console.log(this.data);
     }
 
     toggle(id: number): void {
         this.active = !this.active;
         if (this.active) {
+            this.formGroup = [];
             this.loadItem(id);
         }
     }
@@ -103,12 +115,12 @@ export class ReportComponent implements OnInit {
         });
         try {
             const a: IReportTemplate = await this.reportsService.postTemplate(template.id, body);
-            window.open(`http://deploy.funcoff.club:6877/api/file/${a.fileId}`);
+            window.open(`http://deploy.funcoff.club:6555/api/file-storage/${a.fileId}`);
             this.isLoading = false;
         } catch (error) {
+            this.snackBar.openSnackBar('Файл не сформирован', 'snackbar-red');
             this.isLoading = false;
         }
-
     }
 
 }
