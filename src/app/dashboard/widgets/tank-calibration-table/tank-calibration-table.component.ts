@@ -201,7 +201,7 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
             await this.calibrationService.postNewDate(id, result, result.file);
             this.snackBar.openSnackBar('Файл загружен успешно');
         } catch (error) {
-            this.snackBar.openSnackBar('Файл не загружен');
+            this.snackBar.openSnackBar('Файл не загружен', 'snackbar-red');
             console.error(error);
         }
     }

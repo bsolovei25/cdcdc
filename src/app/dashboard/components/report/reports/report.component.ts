@@ -114,19 +114,13 @@ export class ReportComponent implements OnInit {
             body.push({ value: val?.value, baseOptionId: val?.id });
         });
         try {
-            if (template?.fileTemplate?.fileId) {
-                window.open(`http://deploy.funcoff.club:6877/api/file/${template?.fileTemplate?.fileId}`);
-            } else {
-                const a: IReportTemplate = await this.reportsService.postTemplate(template.id, body);
-                window.open(`http://deploy.funcoff.club:6877/api/file/${a.fileId}`);
-
-            }
+            const a: IReportTemplate = await this.reportsService.postTemplate(template.id, body);
+            window.open(`http://deploy.funcoff.club:6555/api/file-storage/${a.fileId}`);
             this.isLoading = false;
         } catch (error) {
             this.snackBar.openSnackBar('Файл не сформирован', 'snackbar-red');
             this.isLoading = false;
         }
-
     }
 
 }
