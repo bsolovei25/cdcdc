@@ -22,8 +22,6 @@ export class SmartScrollComponent implements AfterViewInit, OnChanges {
     @Output() private sbThumbWidthChange: EventEmitter<number> = new EventEmitter<number>();
     @Output() private sbThumbLeftChange: EventEmitter<number> = new EventEmitter<number>();
 
-    @ViewChild('scroll') private scroll: ElementRef;
-
     @ViewChild('sbThumb') private sbThumb: ElementRef;
     @ViewChild('sbThumbBody') private sbThumbBody: ElementRef;
     @ViewChild('sbTrack') private sbTrack: ElementRef;
@@ -45,7 +43,7 @@ export class SmartScrollComponent implements AfterViewInit, OnChanges {
     constructor(private renderer: Renderer2) {}
 
     public ngOnChanges(): void {
-        if (this.scroll?.nativeElement) {
+        if (this.sbTrack?.nativeElement) {
             this.setThumbWidth(this.sbThumbWidth);
             this.setScrollbarLeftPosition(this.sbThumbLeft);
         }
@@ -60,6 +58,7 @@ export class SmartScrollComponent implements AfterViewInit, OnChanges {
         this.setScrollbarLeftPosition(this.sbThumbLeft);
     }
 
+    // Функция, отлавливающая события
     private eventsListenFn(): void {
         let listeningMouseMove: () => void = null;
         let listeningMouseMoveResizerRight: () => void = null;
@@ -67,6 +66,7 @@ export class SmartScrollComponent implements AfterViewInit, OnChanges {
 
         this.sbThumb.nativeElement.ondragstart = () => false;
 
+        // движение скролла
         this.renderer.listen(this.sbThumbBody.nativeElement, 'mousedown', (event: MouseEvent) => {
             this.beginCoordThumb = event.clientX;
             if (this.sbThumb.nativeElement.style.left) {
@@ -79,6 +79,7 @@ export class SmartScrollComponent implements AfterViewInit, OnChanges {
             );
         });
 
+        // ресайз скролла слева
         this.renderer.listen(this.resizerLeft.nativeElement, 'mousedown', (event: MouseEvent) => {
             this.beginCoordThumb = event.clientX;
             this.changePositionSides(true);
@@ -91,6 +92,7 @@ export class SmartScrollComponent implements AfterViewInit, OnChanges {
             );
         });
 
+        // ресайз скролла справа
         this.renderer.listen(this.resizerRight.nativeElement, 'mousedown', (event: MouseEvent) => {
             this.beginCoordThumb = event.clientX;
             listeningMouseMoveResizerRight = this.renderer.listen(
@@ -102,6 +104,7 @@ export class SmartScrollComponent implements AfterViewInit, OnChanges {
             );
         });
 
+        // поднятие клавиши и отписка от событий
         this.renderer.listen(document, 'mouseup', () => {
             if (listeningMouseMove) {
                 listeningMouseMove();
@@ -128,22 +131,27 @@ export class SmartScrollComponent implements AfterViewInit, OnChanges {
             }
         });
 
+        // нажатие кнопки слева
         this.renderer.listen(this.btnLeft.nativeElement, 'click', () => {
             this.startPointFromLeft = +this.sbThumb.nativeElement.style.left.slice(0, -1);
             this.onButtonClick(true);
         });
 
+        // нажатие кнопки справа
         this.renderer.listen(this.btnRight.nativeElement, 'click', () => {
             this.startPointFromLeft = +this.sbThumb.nativeElement.style.left.slice(0, -1);
             this.onButtonClick(false);
         });
     }
 
+    //#region SUPPORT
+    // обновить координаты скролла и дорожки
     private updateCoords(): void {
         this.sbThumbCoords = this.sbThumb.nativeElement.getBoundingClientRect();
         this.sbTrackCoords = this.sbTrack.nativeElement.getBoundingClientRect();
     }
 
+    // изменение сторон абсолютного позиционирования
     private changePositionSides(leftToRight: boolean): void {
         this.updateCoords();
 
@@ -167,21 +175,14 @@ export class SmartScrollComponent implements AfterViewInit, OnChanges {
         this.renderer.setStyle(this.sbThumb.nativeElement, secondSide, `${px}%`);
     }
 
-    private setThumbWidth(percent: number): void {
-        if (percent > 100) {
-            this.thumbWidth = 100;
-        } else if (percent < 5) {
-            this.thumbWidth = 5;
-        } else {
-            this.thumbWidth = percent;
-        }
-        this.renderer.setStyle(this.sbThumb.nativeElement, 'width', `${this.thumbWidth}%`);
-    }
-
+    // выставление скролла по левой стороне
     private setScrollbarLeftPosition(percent: number): void {
         this.renderer.setStyle(this.sbThumb.nativeElement, 'left', `${percent}%`);
     }
+    //#endregion SUPPORT
 
+    //#region MOVE_SB
+    // движение скролла
     private moveScrollbar(displ: number): void {
         let newCoords: number = (this.startPointFromLeft / 100) * this.sbTrackCoords.width + displ;
         this.updateCoords();
@@ -197,12 +198,33 @@ export class SmartScrollComponent implements AfterViewInit, OnChanges {
         this.sbThumbLeftChange.emit(percent);
     }
 
+    // движение мыши
     private onMouseMove(event: MouseEvent): void {
         const displacement = event.clientX - this.beginCoordThumb;
         this.moveScrollbar(displacement);
-        // this.scrollCoordinatesX.emit(this.scaleScrollForHTML());
     }
 
+    // клик на кнопку
+    private onButtonClick(isButtonLeft: boolean): void {
+        const displacement = isButtonLeft ? -this.defaultDisplacement : this.defaultDisplacement;
+        this.moveScrollbar(displacement);
+    }
+    //#endregion MOVE_SB
+
+    //#region RESIZE_SB
+    // задание ширины скролла
+    private setThumbWidth(percent: number): void {
+        if (percent > 100) {
+            this.thumbWidth = 100;
+        } else if (percent < 5) {
+            this.thumbWidth = 5;
+        } else {
+            this.thumbWidth = percent;
+        }
+        this.renderer.setStyle(this.sbThumb.nativeElement, 'width', `${this.thumbWidth}%`);
+    }
+
+    // изменение размеров скролла
     private onResizeThumb(event: MouseEvent, side: 'left' | 'right'): void {
         this.updateCoords();
 
@@ -223,20 +245,5 @@ export class SmartScrollComponent implements AfterViewInit, OnChanges {
 
         this.setThumbWidth(percent);
     }
-
-    private onButtonClick(isButtonLeft: boolean): void {
-        const displacement = isButtonLeft ? -this.defaultDisplacement : this.defaultDisplacement;
-        this.moveScrollbar(displacement);
-        // this.scrollCoordinatesX.emit(this.scaleScrollForHTML());
-    }
-
-    private scaleScrollForHTML(): number {
-        // const realTimeSbCoordsThumb1: DOMRect = this.sbThumb.nativeElement.getBoundingClientRect();
-        // const scrollBarWidth: number = this.scrollMaxWidth - this.scrollWidth;
-        // const customScrollWidth: number = this.sbTrackCoords.width - this.sbThumbCoords.width;
-        // const diferenceOfLeftSides: number = realTimeSbCoordsThumb1.left - this.sbTrackCoords.left;
-        // const realScroll: number = (diferenceOfLeftSides / customScrollWidth) * scrollBarWidth;
-        // return realScroll;
-        return;
-    }
+    //#endregion RESIZE_SB
 }
