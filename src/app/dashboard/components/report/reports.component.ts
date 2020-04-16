@@ -2,17 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { WidgetService } from '../../services/widget.service';
 import { ReportsService } from '../../services/reports.service';
+import { IReportTemplate } from '../../models/report-server';
 
-export interface IReportTemplate {
-    id: number;
-    createdAt: Date;
-    createdBy: number;
-    name: string;
-    description: string;
-    fileId: string;
-    isDeleted: boolean;
-    displayName: string;
-}
 
 @Component({
     selector: 'evj-reports',

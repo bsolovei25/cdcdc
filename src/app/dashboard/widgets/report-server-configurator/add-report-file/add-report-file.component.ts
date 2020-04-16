@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2, ElementRef, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, Renderer2, ElementRef, ViewChild, HostListener, Output, EventEmitter } from '@angular/core';
 import { ReportServerConfiguratorService } from 'src/app/dashboard/services/report-server-configurator.service';
 import { IFileTemplate, IReportTemplate } from 'src/app/dashboard/models/report-server';
 import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
@@ -11,6 +11,8 @@ import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
 export class AddReportFileComponent implements OnInit {
   @ViewChild('test') public testBlock: ElementRef;
   @ViewChild('area') area: ElementRef;
+
+  @Output() public fileUpload: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   public data: any;
   public dataTemplate;
@@ -48,7 +50,7 @@ export class AddReportFileComponent implements OnInit {
     const rightScroll = document.getElementById('rightScrollAddReport');
     const leftScroll = document.getElementById('leftScrollAddReport');
 
-    if (rightScroll !== undefined) {
+    if (rightScroll) {
       if (rightScroll.scrollHeight !== rightScroll.clientHeight) {
         rightScroll.style.cssText = "margin-left: 5px; width: calc(100% - 5px);";
       } else {
@@ -57,7 +59,7 @@ export class AddReportFileComponent implements OnInit {
       }
     }
 
-    if (leftScroll !== undefined) {
+    if (leftScroll) {
       if (leftScroll.scrollHeight !== leftScroll.clientHeight) {
         leftScroll.style.cssText = "margin-right: 0px; width: calc(100% - 5px);";
       } else {
@@ -88,6 +90,7 @@ export class AddReportFileComponent implements OnInit {
         }
         this.reportService.postReportFileTemplate(body).subscribe(ans2 => {
           this.getRecord();
+          this.fileUpload.emit(true);
           setTimeout(() => {
             this.isUploadBlock = false;
             this.fileLoad = false;
@@ -196,7 +199,5 @@ export class AddReportFileComponent implements OnInit {
       }
     }
   }
-
-
 
 }

@@ -8,26 +8,26 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   styleUrls: ['./additional-param.component.scss'],
   animations: [
     trigger('Branch', [
-        state(
-            'collapsed',
-            style({
-                height: 0,
-                transform: 'translateY(-8px)',
-                opacity: 0,
-                overflow: 'hidden',
-            })
-        ),
-        state(
-            'expanded',
-            style({
-                height: '*',
-                opacity: 1,
-            })
-        ),
-        transition('collapsed => expanded', animate('150ms ease-in')),
-        transition('expanded => collapsed', animate('150ms ease-out')),
+      state(
+        'collapsed',
+        style({
+          height: 0,
+          transform: 'translateY(-8px)',
+          opacity: 0,
+          overflow: 'hidden',
+        })
+      ),
+      state(
+        'expanded',
+        style({
+          height: '*',
+          opacity: 1,
+        })
+      ),
+      transition('collapsed => expanded', animate('150ms ease-in')),
+      transition('expanded => collapsed', animate('150ms ease-out')),
     ]),
-],
+  ],
 })
 export class AdditionalParamComponent implements OnInit, OnChanges {
   @Input() public data;
@@ -49,7 +49,7 @@ export class AdditionalParamComponent implements OnInit, OnChanges {
     type: "Тип",
     validationRule: "Правило проверки",
     isRequired: "Обязательный",
-    "source": "Источник",
+    source: "Источник",
     sortOrder: "Сортировка",
   }
 
@@ -66,7 +66,7 @@ export class AdditionalParamComponent implements OnInit, OnChanges {
     this.cdRef.detectChanges();
     this.datas = this.data.customOptions;
     this.templateId = this.data.id;
-    if(this.options.length > 0){
+    if (this.options.length > 0) {
       this.optionsChoose = this.options;
     } else {
       this.optionsChoose = this.data.customOptions;
@@ -80,7 +80,10 @@ export class AdditionalParamComponent implements OnInit, OnChanges {
 
   saveReport() {
     this.reportService.postCustomOptions(this.templateId, this.optionsChoose).subscribe(ans => {
-      this.close.emit(false);
+      // this.reportService.putReportTemplate(obj).subscribe((ans) => {
+      //   this.getReportTemplate();
+      // });
+      this.close.emit(true);
     });
   }
 

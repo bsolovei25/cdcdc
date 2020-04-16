@@ -6,7 +6,7 @@
 .responsible {
   height: inherit;
   width: inherit;
-  min-width: 350px;
+  // min-width: 350px;
   position: relative;
   min-height: 100px;
   background: var(--color-bg-card);
@@ -19,10 +19,14 @@
       align-items: center;
     }
 
-    mat-form-field{
+    mat-form-field {
       width: 100%;
       box-sizing: border-box;
-      padding: 0px 15px;
+      padding: 0px 15px 0px 17px;
+
+      mat-label {
+        color: var(--color-text-sub);
+      }
     }
   }
 

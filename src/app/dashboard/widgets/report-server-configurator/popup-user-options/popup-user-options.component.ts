@@ -7,7 +7,7 @@ import { Component, OnInit, Output, EventEmitter, Input, OnChanges, ChangeDetect
 })
 export class PopupUserOptionsComponent implements OnInit, OnChanges {
   @Input() public data;
-  @Output() public close: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() public close: EventEmitter<any> = new EventEmitter<any>();
 
   public isOpenNecessaryParam: boolean = false;
 
@@ -20,13 +20,18 @@ export class PopupUserOptionsComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
- //   this.cdRef.detectChanges();
+    //   this.cdRef.detectChanges();
     this.customOptionsActive = this.data;
   }
 
 
   closeAdditional(event) {
-    this.close.emit(event);
+    const systemCustomOptionsId: number = this.data.systemOptions.find(e => e.templateSystemOption.systemOptionType === "customOptions").id;
+    const obj = {
+      close: event,
+      systemIdChange: systemCustomOptionsId,
+    }
+    this.close.emit(obj);
   }
 
   openOptions(event) {

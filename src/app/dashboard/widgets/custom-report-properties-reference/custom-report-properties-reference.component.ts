@@ -27,6 +27,8 @@ export class CustomReportPropertiesReferenceComponent extends WidgetPlatform imp
   public dataOptions;
   public blockOut = [];
 
+  public isLoading: boolean = false;
+
   options = [
     { object: "1", }
   ]
@@ -53,10 +55,33 @@ export class CustomReportPropertiesReferenceComponent extends WidgetPlatform imp
   @HostListener('document:resize', ['$event'])
   OnResize(event) {
     this.blockNeed();
+    this.setStyleScroll();
   }
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
+  }
+
+  setStyleScroll() {
+    const rightScroll = document.getElementById('rightScrollReportRef');
+    const leftScroll = document.getElementById('leftScrollReportRef');
+
+    if (rightScroll) {
+      if (rightScroll.scrollHeight !== rightScroll.clientHeight) {
+        rightScroll.style.cssText = "margin-left: 5px; width: calc(100% - 5px);";
+      } else {
+        rightScroll.style.cssText = "margin-left: 10px; width: calc(100% - 10px);";
+
+      }
+    }
+
+    if (leftScroll) {
+      if (leftScroll.scrollHeight !== leftScroll.clientHeight) {
+        leftScroll.style.cssText = "margin-right: 0px; width: calc(100% - 5px);";
+      } else {
+        leftScroll.style.cssText = "margin-right: 0px; width: calc(100% - 10px);";
+      }
+    }
   }
 
   protected dataHandler(ref: any): void {
@@ -78,6 +103,7 @@ export class CustomReportPropertiesReferenceComponent extends WidgetPlatform imp
     return this.reportService.getCustomOptions().subscribe((data) => {
       this.datas = data;
       this.data = this.datas;
+      this.setStyleScroll();
     });
   }
 
@@ -85,6 +111,7 @@ export class CustomReportPropertiesReferenceComponent extends WidgetPlatform imp
     this.idReferenceClick = data.id;
     this.indexColumn = index;
     this.blockNeed();
+    this.setStyleScroll();
 
     // this.reportService.getColumns(this.idReferenceClick).subscribe((datas) => {
     //   data.columns = datas;
@@ -133,9 +160,22 @@ export class CustomReportPropertiesReferenceComponent extends WidgetPlatform imp
   }
 
   deleteReference(item): void {
-    this.reportService.deleteCustomOptions(item.id).subscribe(ans => {
-      this.getReference();
-    });
+
+    this.isLoading = true;
+    const windowsParam = {
+      isShow: true,
+      questionText: 'Вы уверены, что хотите удалить файл-шаблон?',
+      acceptText: 'Да',
+      cancelText: 'Нет',
+      acceptFunction: () => this.reportService.deleteCustomOptions(item.id).subscribe(ans => {
+        this.getReference();
+        this.isLoading = false;
+      }, (error) => {
+        this.isLoading = false;
+      }),
+      cancelFunction: () => this.reportService.closeAlert(),
+    };
+    this.reportService.alertWindow$.next(windowsParam);
   }
 
   onEdit(item) {

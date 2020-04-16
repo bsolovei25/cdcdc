@@ -58,7 +58,7 @@ export class NewWidgetsGridComponent implements OnInit, OnDestroy {
         public injector: Injector,
         public userSettings: UserSettingsService,
         private claimService: ClaimService
-    ) {}
+    ) { }
 
     public ngOnInit(): void {
         document.addEventListener('fullscreenchange', () => {
@@ -73,7 +73,7 @@ export class NewWidgetsGridComponent implements OnInit, OnDestroy {
                     this.options = null;
                     this.loaditem();
                 }
-        }));
+            }));
     }
 
     public ngOnDestroy(): void {
@@ -170,8 +170,7 @@ export class NewWidgetsGridComponent implements OnInit, OnDestroy {
     }
 
     public onSwap(swap: boolean): void {
-        // swap === true ? (this.options.swap = true) : (this.options.swap = false);
-        swap === true ? (this.options.pushItems = true) : (this.options.pushItems = false);
+        this.options.pushItems = swap;
         this.changedOptions();
     }
 
@@ -243,9 +242,9 @@ export class NewWidgetsGridComponent implements OnInit, OnDestroy {
         this.widgetService.dashboard.push(item);
     }
 
-    public emptyCellMenuClick(): void {}
+    public emptyCellMenuClick(): void { }
 
-    public emptyCellDragClick(): void {}
+    public emptyCellDragClick(): void { }
 
     public emptyCellDropClick(event: DragEvent, param: IParamWidgetsGrid): void {
         const idWidget: string = event.dataTransfer.getData('text');

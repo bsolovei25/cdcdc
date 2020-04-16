@@ -59,6 +59,8 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
 
     public isType: string;
 
+    public allFileTree: any;
+
     types = {
         'typeString': 'Текст',
         'typeInt': 'Число',
@@ -361,7 +363,6 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
             const indexDelete = this.data[this.indexColumn].columns.indexOf(item);
             this.data[this.indexColumn].columns.splice(indexDelete, 1);
         }, (error) => {
-            console.log(error);
             this.deleteColumn(item);
         }
         );

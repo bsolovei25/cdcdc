@@ -1,6 +1,33 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { SnackBarService } from '../../../../services/snack-bar.service';
+import {
+    FormControl,
+    Validators,
+    FormBuilder,
+    FormGroup,
+    FormGroupDirective,
+    NgForm,
+} from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+    isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+        const invalidCtrl = !!(
+            control &&
+            control.touched &&
+            control.invalid &&
+            control.parent.dirty
+        );
+        const invalidParent = !!(
+            control &&
+            control.touched &&
+            control.parent &&
+            control.parent.invalid &&
+            control.parent.dirty
+        );
+
+        return invalidCtrl || invalidParent;
+    }
+}
 
 @Component({
     selector: 'evj-aws-password-alert',
@@ -12,15 +39,37 @@ export class AwsPasswordAlertComponent implements OnInit {
 
     public hide: boolean = true;
 
-    public password: FormControl = new FormControl('', Validators.required);
-    public confirmPassword: FormControl = new FormControl('', Validators.required);
+    public formGroup: FormGroup;
+    public matcher: MyErrorStateMatcher = new MyErrorStateMatcher();
 
-    constructor(private materialContoller: SnackBarService) {}
+    constructor(private formBuilder: FormBuilder) {
+        const regExpConditions = '(?=.*[0-9])(?=.*[?!._*#$-])(?=.*[a-zа-я])(?=.*[A-ZА-Я])';
+        const regExp = '[0-9a-zA-Zа-яА-Я?!._*#$-]{7,25}';
+
+        this.formGroup = this.formBuilder.group(
+            {
+                password: [
+                    '',
+                    [
+                        Validators.required,
+                        Validators.minLength(7),
+                        Validators.maxLength(25),
+                        Validators.pattern(`${regExpConditions}${regExp}`),
+                    ],
+                ],
+                confirmPassword: [''],
+            },
+            { validator: this.checkPasswords }
+        );
+    }
 
     public ngOnInit(): void {}
 
-    private isEqualPasswords(): boolean {
-        return this.password.value === this.confirmPassword.value;
+    public checkPasswords(group: FormGroup): { notSame: true } {
+        const pass = group.controls.password.value;
+        const confirmPass = group.controls.confirmPassword.value;
+
+        return pass === confirmPass ? null : { notSame: true };
     }
 
     public onClickBack(): void {
@@ -28,10 +77,11 @@ export class AwsPasswordAlertComponent implements OnInit {
     }
 
     public onClickConfirm(): void {
-        if (this.isEqualPasswords() && this.password.valid) {
-            this.confirmed.emit(this.password.value);
+        if (this.formGroup.valid) {
+            this.confirmed.emit(this.formGroup.controls.password.value);
         } else {
-            this.materialContoller.openSnackBar('Пароли не совпадают', 'snackbar-red');
+            this.formGroup.markAllAsTouched();
+            this.formGroup.markAsDirty();
         }
     }
 }

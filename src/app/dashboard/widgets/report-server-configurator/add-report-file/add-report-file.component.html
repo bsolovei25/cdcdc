@@ -41,7 +41,9 @@
     </div>
     <div class="bottom-reference-left">
       <div class="bottom-reference-left__block">
-        <div class="bottom-reference-left__button-add" (click)="onOpenUpload()"></div>
+        <div class="bottom-reference-left__button-add" (click)="onOpenUpload()">
+
+        </div>
         <div class="bottom-reference-left__input-block">
           <div class="bottom-reference-left__button-search">
             <svg-icon
@@ -101,19 +103,11 @@
   </div>
 </div>
 <div *ngIf="isUploadBlock" id="upload" class="upload" (click)="uploadClose()">
-  <div
-    class="upload-container"
-    #area
-    (click)="$event.stopPropagation()"
-    (dragover)="dragOver($event)"
-    (dragleave)="dragLeave($event)"
-    (drop)="dropFile($event)"
-  >
-    <svg-icon
-      src="./assets/icons/widgets/reports/cloud.svg"
-      [svgStyle]="{ 'width.%':100, 'height.%':100 }"
-    ></svg-icon>
-    <img *ngIf="fileLoad" class="upload-image" src="./assets/icons/widgets/reports/xls.svg" />
+  <div class="upload-container" #area (click)="$event.stopPropagation()" (dragover)="dragOver($event)"
+    (dragleave)="dragLeave($event)" (drop)="dropFile($event)">
+    <svg-icon *ngIf="!fileLoad" src="./assets/icons/widgets/reports/cloud.svg"
+      [svgStyle]="{ 'width.%':100, 'height.%':100 }"></svg-icon>
+    <img *ngIf="fileLoad" class="upload-image" src="./assets/icons/widgets/reports/xls.svg">
     <label *ngIf="fileLoad">Файл {{ fileName }} загружен</label>
     <div *ngIf="!fileLoad" class="upload-label">
       <input

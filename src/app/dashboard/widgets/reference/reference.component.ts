@@ -85,7 +85,7 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
         const rightScroll = document.getElementById('rightScrollRef');
         const leftScroll = document.getElementById('leftScrollRef');
 
-        if (rightScroll !== undefined) {
+        if (rightScroll) {
             if (rightScroll.scrollHeight !== rightScroll.clientHeight) {
                 rightScroll.style.cssText = "margin-left: 5px; width: calc(100% - 45px);";
             } else {
@@ -94,7 +94,7 @@ export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDest
             }
         }
 
-        if (leftScroll !== undefined) {
+        if (leftScroll) {
             if (leftScroll.scrollHeight !== leftScroll.clientHeight) {
                 leftScroll.style.cssText = "margin-right: 0px; width: calc(100% - 5px);";
             } else {
