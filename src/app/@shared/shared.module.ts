@@ -49,6 +49,7 @@ import { SmartScrollComponent } from './components/smart-scroll/smart-scroll.com
         LoadingShadeComponent,
         WidgetPreloaderComponent,
         AlertWindowComponent,
+        SmartScrollComponent
     ],
     imports: [CommonModule, MatInputModule, MatIconModule, NgxMaskModule.forChild()],
 })

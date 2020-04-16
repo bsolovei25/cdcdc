@@ -1,11 +1,11 @@
-<div class="container" *ngIf="showScroll()">
+<div class="container" #scroll>
   <div class="scroll-bar">
     <div class="sb__button sb__button_left" #btnLeft></div>
     <div class="sb__track" #sbTrack>
       <div class="sb__thumb" #sbThumb>
-        <div class="sb__dot"></div>
-        <div class="sb__dot sb__dot_left"></div>
-        <div class="sb__dot sb__dot_right"></div>
+        <div class="thumb-body" #sbThumbBody></div>
+        <div class="resizer resizer_left" #resizerLeft></div>
+        <div class="resizer resizer_right" #resizerRight></div>
       </div>
     </div>
     <div class="sb__button sb__button_right" #btnRight></div>
