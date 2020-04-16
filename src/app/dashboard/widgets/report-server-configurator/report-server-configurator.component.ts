@@ -6,8 +6,9 @@ import { ReportServerConfiguratorService } from '../../services/report-server-co
 import { WidgetPlatform } from '../../models/widget-platform';
 import { SnackBarService } from '../../services/snack-bar.service';
 import { ITreeState, ITreeOptions, TreeDraggedElement, TreeComponent } from 'angular-tree-component';
-import { v4 } from 'uuid';
-import { templateJitUrl } from '@angular/compiler';
+import { IReportTemplate, ITreeFolderMap, ITemplate, ISystemOptions, ITemplateFolder, IReportFile, ISystemOptionsTemplate } from '../../models/report-server';
+import { Subscription } from 'rxjs';
+
 
 @Component({
     selector: 'evj-report-server-configurator',
@@ -67,12 +68,12 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     public addItem: boolean = false;
 
-    public data;
-    public options;
-    public optionsActive: any = [];
-    public optionsCustom: any = [];
-    public reportTemplate: any = [];
-    public dataFile;
+    public data: ITemplate[];
+    public options: ISystemOptions[];
+    public optionsActive: ISystemOptionsTemplate[];
+    public optionsCustom: IReportTemplate;
+    public reportTemplate: IReportTemplate;
+    public dataFile: IReportFile[];
 
     public createFolder: boolean = false;
 
@@ -84,15 +85,34 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     public folderActive: number;
     public folderIdActive: number;
 
-    public connectedTo: any = [];
+    public saveData: ITemplate[];
 
-    public saveData: any = [];
+    public selectFile: IReportFile;
 
-    public selectFile;
+    public dataFolder: any;
 
     public popupUserOptions: boolean = false;
     public popupUserCustomOptions: boolean = false;
     public popupOptionsActive: string;
+
+    state: ITreeState = {
+        expandedNodeIds: {
+            1: true,
+            2: true
+        },
+        hiddenNodeIds: {},
+        activeNodeIds: {}
+    };
+
+    optionsTest: ITreeOptions = {
+        allowDrag: (node) => node,
+        allowDrop: (element, { parent, index }) => parent.data.type === 'Folder',
+        getNodeClone: (node) => ({
+            ...node.data,
+            id: this.randomInt(1, 1000000),
+            name: `copy of ${node.data.name}`
+        })
+    };
 
     constructor(
         public widgetService: WidgetService,
@@ -125,7 +145,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     }
 
 
-    setStyleScroll() {
+    setStyleScroll(): void {
         const rightScroll = document.getElementById('rightScrollReportConfig');
         const leftScroll = document.getElementById('leftScrollReportConfig');
 
@@ -156,30 +176,27 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         this.isTable = event;
     }
 
-    dataFolder: any = [];
-
-    getReportFolder() {
+    getReportFolder(): Subscription {
         return this.reportService.getTemplateFolder().subscribe(ans => {
-            this.dataFolder = this.mapDataFolder(ans);
+            this.dataFolder = this.mapData(ans);
         });
     }
 
-    getReportTemplate() {
+    getReportTemplate(): Subscription {
         return this.reportService.getReportTemplate().subscribe((data) => {
             this.data = data;
-
             this.setStyleScroll();
         });
     }
 
-    getOptions() {
+    getOptions(): Subscription {
         return this.reportService.getSystemOptions().subscribe((data) => {
             this.mapOptions(data);
         });
     }
 
-    getReporting(id) {
-        this.selectFile = {}
+    getReporting(id: number): Subscription {
+        this.selectFile = {}; /// TEST
         this.isLoading = true;
         return this.reportService.getReporting(id).subscribe((ans) => {
             if (ans?.fileTemplate) {
@@ -193,10 +210,40 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         });
     }
 
-    getRecordFile() {
+    getRecordFile(): Subscription {
         return this.reportService.getReportFileTemplate().subscribe(ans => {
             this.dataFile = ans;
         });
+    }
+
+    mapData(data) {
+        let dataTreeItem = [];
+        dataTreeItem = this.mapDataFolder(data?.folders);
+        for (let item of data.templates) {
+            let templateObj = {
+                id: 'temp' + item.id,
+                idTemplate: item.id,
+                name: item.name,
+                type: 'Template',
+                folderId: item.folderId,
+                displayName: item.displayName,
+                createdBy: item.createdBy,
+                createdAt: item.createdAt,
+                isDeleted: item.isDeleted,
+                children: [],
+            }
+            dataTreeItem.push(templateObj);
+        }
+        const testObject = {
+            id: 'default1',
+            name: 'Файлы и папки',
+            type: 'Folder',
+            idFolder: 0,
+            children: dataTreeItem,
+        }
+        let test = [];
+        test.push(testObject);
+        return test;
     }
 
     mapDataFolder(data) {
@@ -229,7 +276,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         return test;
     }
 
-    mapOptions(data) {
+    mapOptions(data: ISystemOptions[]): void {
         this.options = data;
         for (let i of this.options) {
             for (let j of this.optionsActive) {
@@ -240,11 +287,11 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         }
     }
 
-    onEdit(item) {
+    onEdit(item): void {
         item.openEdit = true;
     }
 
-    editReference(item) {
+    editReference(item): void {
         item.openEdit = false;
         const obj = {
             folderId: item.folderId,
@@ -258,21 +305,31 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         this.putReportTemplate(obj);
     }
 
-    putReportTemplate(obj) {
+    putReportTemplate(obj): void {
         this.reportService.putReportTemplate(obj).subscribe((ans) => {
             this.getReportTemplate();
         });
     }
 
-    deleteReportTemplate(item) {
+    deleteReportTemplate(item): void {
         this.isLoading = true;
-        this.reportService.deleteReportTemplate(item.idTemplate).subscribe((ans) => {
-            this.isLoading = false;
-            this.getReportFolder();
-        });
+        const windowsParam = {
+            isShow: true,
+            questionText: 'Вы уверены, что хотите удалить файл-шаблон?',
+            acceptText: 'Да',
+            cancelText: 'Нет',
+            acceptFunction: () => this.reportService.deleteReportTemplate(item.idTemplate).subscribe(ans => {
+                this.isLoading = false;
+                this.getReportFolder();
+            }, (error) => {
+                this.isLoading = false;
+            }),
+            cancelFunction: () => this.reportService.closeAlert(),
+        };
+        this.reportService.alertWindow$.next(windowsParam);
     }
 
-    onClickReference(data, index) {
+    onClickReference(data, index): void {
         this.getReporting(data.idTemplate);
         this.isAddOptionsButton = true; // file
         this.isIdReport = data.idTemplate;
@@ -283,23 +340,22 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         this.setStyleScroll();
     }
 
-    onClickItemReference(item) {
+    onClickItemReference(item): void {
         this.selectFile = null;
         this.isAddOptionsButton = true;
-        //data.open = !data.open;
         this.isIdReport = item.idTemplate;
     }
 
-    onClickParamReference(item) {
+    onClickParamReference(item): void {
         if (item.templateSystemOption.
             systemOptionType === 'customOptions') {
-                this.popupUserCustomOptions = true;
+            this.popupUserCustomOptions = true;
         }
         this.popupOptionsActive = item;
         this.popupUserOptions = true;
     }
 
-    drop(event: CdkDragDrop<string[]>) {
+    drop(event: CdkDragDrop<string[]>): void {
         if (event.previousContainer === event.container) {
             moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
         } else {
@@ -316,13 +372,13 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         item.open = !item.open;
     }
 
-    addMenu() {
+    addMenu(): void {
         this.addMenuClick = !this.addMenuClick;
     }
 
     changeSwap(item): void {
         item.isActive = !item.isActive;
-        let obj = {
+        const obj = {
             templateSystemOption: item,
             value: '',
         }
@@ -342,30 +398,11 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     }
 
     pushBlockInRec(): void {
-        if (!this.folderActive) {
-            this.materialController.openSnackBar(
-                'Выберите папку'
-            );
-        }
         this.addItem = true;
         this.createFolder = false;
         this.createReport = true;
         this.addMenuClick = false;
     }
-
-    onPushFolder(): void {
-        this.createFolder = false;
-        const object = {
-            name: this.newFolder,
-        };
-        if (this.newFolder.trim().length > 0 && this.newFolder !== undefined) {
-            // this.data.push(object);
-            this.reportService.postTemplateFolder(object).subscribe(ans => {
-                this.getReportFolder();
-            });
-            this.newFolder = null;
-        }
-    } /// Удалить
 
     onPushReport(): void {
         this.isLoading = true;
@@ -385,7 +422,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             if (this.createReport) {
                 const object = {
                     name: this.newRecord,
-                    folderId: this.folderActive,
+                    folderId: (this.folderActive === 0) ? undefined : this.folderActive,
                 };
                 this.reportService.postReportTemplate(object).subscribe(ans => {
                     this.addItem = false;
@@ -406,23 +443,8 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         this.isOpenCheckBlock = !this.isOpenCheckBlock;
     }
 
-    searchReportFolder(event) {
-        if (event.key === "Backspace") {
-            this.data = this.saveData;
-        }
-        const folder = event.currentTarget.value.toLowerCase();
-        const filterData = this.data.filter(
-            (e) => e.name.toLowerCase().indexOf(folder.toLowerCase()) > -1
-        );
-
-        this.data = filterData;
-        if (!event.currentTarget.value) {
-            this.data = this.saveData;
-        }
-    }
-
-    saveReport(item) {
-        let optionObject = [];
+    saveReport(item): void {
+        const optionObject = [];
         let objItem;
 
         for (let i of this.optionsActive) {
@@ -453,7 +475,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         });
     }
 
-    closeOptions(event) {
+    closeOptions(event): void {
         if (event.close) {
             const date: Date = new Date(Date.now());
             const day = date.getDate();
@@ -469,51 +491,31 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         this.popupUserOptions = false;
     }
 
-
-    onChangeFile(event) {
+    onChangeFile(event): void {
         this.selectFile = this.dataFile.find(e => e.fileId === event);
     }
 
     /// test dnd
 
-    state: ITreeState = {
-        expandedNodeIds: {
-            1: true,
-            2: true
-        },
-        hiddenNodeIds: {},
-        activeNodeIds: {}
-    };
-
-    optionsTest: ITreeOptions = {
-        allowDrag: (node) => node,
-        allowDrop: (element, { parent, index }) => parent.data.type === 'Folder',
-        getNodeClone: (node) => ({
-            ...node.data,
-            id: this.randomInt(1, 1000000),
-            name: `copy of ${node.data.name}`
-        })
-    };
-
-    randomInt(min, max) {
+    randomInt(min, max): void {
         return min + Math.floor((max - min) * Math.random());
     }
 
-    onFolder(event) {
-        if (event.node.data.type === "Folder") {
-            this.folderActive = event.node.data.idFolder;
-            this.folderIdActive = event.node.id;
+    onFolder(event): void {
+        if (event.type === "Folder") {
+            this.folderActive = event.idFolder;
+            this.folderIdActive = event.id;
         }
     }
 
     onEventTree(event) {
-       // console.log(event);
+        // console.log(event);
     }
 
-    onMovedItem(event) {
+    onMovedItem(event): void {
         if (event.node.type === "Folder") {
             const obj = {
-                id: event.node.data.idFolder,
+                id: event.node.idFolder,
                 name: event.node.name,
                 parentFolderId: event.to.parent.idFolder,
             }

@@ -2,13 +2,14 @@
 </evj-widget-preview>
 
 <div class="container" *ngIf="!isMock">
-  <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
   <evj-widget-header [title]="widgetTitle" [units]="widgetUnits" [code]="widgetCode" [id]="id" [uniqId]="uniqId"
     [widgetType]="widgetType" [icon]="widgetIcon" (selected)="openTable($event)"></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
 
   <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+    <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
+    <evj-alert-window [info]="reportService.alertWindow$ | async"></evj-alert-window>
     <ng-container *ngIf="isTable">
       <div class="references">
         <!--LEFT SIDE-->
@@ -17,23 +18,12 @@
           <div class="reference-container">
             <div class="scroll-block" id="leftScrollReportConfig">
               <!---TREE--->
-              <div *ngIf="addItem && (folderIdActive === undefined)" class="reference-container__add-block">
-                <div class="reference-container__add-block-input">
-                  <input *ngIf="createReport" type="text" [(ngModel)]="newRecord"
-                    placeholder="Введите название файла-шаблона..." />
-                  <input *ngIf="createFolder" type="text" [(ngModel)]="newRecord"
-                    placeholder="Введите название папки..." />
-                </div>
-                <div class="reference-container__add-block-icon" (click)="onPushReport()">
-                  <svg-icon src="./assets/icons/widgets/references/accept.svg" class="add_button_icon"></svg-icon>
-                </div>
-              </div>
               <tree-root #tree [state]="state" [options]="optionsTest" [focused]="true" [nodes]="this.dataFolder"
-                (dragover)="$event.stopPropagation()" (blur)="onEventTree($event)" (activate)="onFolder($event)"
+                (dragover)="$event.stopPropagation()" (blur)="onEventTree($event)"
                 (moveNode)="onMovedItem($event)">
                 <ng-template #treeNodeTemplate let-node let-index="index">
                   <div *ngIf="node.data.type === 'Template'" class="tree-template"
-                    (click)="onClickReference(node.data, index)">
+                    (click)="onClickReference(node.data, index)" [class.activeFolder]="node.data.idTemplate === this.isIdReport">
                     <div *ngIf="!node.data.openEdit">
                       <!-- <span [class]="node.data.className + 'Index'">Файл-шаблон: </span> -->
                       <span [class]="node.data.className" [class.title]="true">{{ node.data.name }}</span>
@@ -55,9 +45,20 @@
                       </div>
                     </div>
                   </div>
-                  <div *ngIf="node.data.type === 'Folder'" style="background-image: none !important">
+                  <div *ngIf="node.data.type === 'Folder'" [class.activeFolder]="node.data.idFolder === folderActive" (click)="onFolder(node.data)">
                     <!-- <span [class]="node.data.className + 'Index'">Папка: </span> -->
                     <span [class]="node.data.className" [class.title]="true">{{ node.data.name }}</span>
+                  </div>
+                  <div *ngIf="addItem && (folderIdActive === undefined) && (node.data.idFolder === 0)" class="reference-container__add-block">
+                    <div class="reference-container__add-block-input">
+                      <input *ngIf="createReport" type="text" [(ngModel)]="newRecord"
+                        placeholder="Введите название файла-шаблона..." />
+                      <input *ngIf="createFolder" type="text" [(ngModel)]="newRecord"
+                        placeholder="Введите название папки..." />
+                    </div>
+                    <div class="reference-container__add-block-icon" (click)="onPushReport()">
+                      <svg-icon src="./assets/icons/widgets/references/accept.svg" class="add_button_icon"></svg-icon>
+                    </div>
                   </div>
                   <div *ngIf="addItem && node.data.id === folderIdActive" class="reference-container__add-block">
                     <div class="reference-container__add-block-input">
@@ -89,7 +90,7 @@
                 </div>
                 <div class="bottom-reference-left__input" [class.bottom-reference-left__input-active]="isRepInput">
                   <input type="text" (focus)="isRepInput = true" (blur)="isRepInput = false"
-                    (keyup)="searchReportFolder($event)" />
+                  id="filter" #filter (keyup)="tree.treeModel.filterNodes(filter.value)" />
                 </div>
               </div>
               <div class="bottom-reference-left__add-menu"
@@ -173,10 +174,10 @@
             <div class="bottom-reference-right__block-edit" *ngIf="isAddOptionsButton">
               <div class="bottom-reference-right__block-add">
                 <div class="bottom-reference-right__button-add" (click)="openCheckBoxBlock()">
-                  <svg-icon *ngIf="!isOpenCheckBlock" src="./assets/icons/widgets/reports/add_white.svg"
+                  <svg-icon *ngIf="!isOpenCheckBlock" src="./assets/icons/widgets/reports/edit.svg"
                     class="add_button_icon">
                   </svg-icon>
-                  <svg-icon *ngIf="isOpenCheckBlock" src="./assets/icons/widgets/reports/close.svg"
+                  <svg-icon *ngIf="isOpenCheckBlock" src="./assets/icons/widgets/reports/edit_blue.svg"
                     class="add_button_icon">
                   </svg-icon>
                 </div>
