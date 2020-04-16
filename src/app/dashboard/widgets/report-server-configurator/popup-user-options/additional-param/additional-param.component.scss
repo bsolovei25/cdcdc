@@ -75,6 +75,7 @@
 }
 
 .content {
+  user-select: none;
   overflow: auto;
   overflow-x: hidden;
   height: calc(100% - 90px);
