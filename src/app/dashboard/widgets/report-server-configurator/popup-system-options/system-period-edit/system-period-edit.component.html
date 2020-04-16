@@ -13,11 +13,11 @@
                 <ng-container *ngFor="let item of data">
                     <div class="item">
                         <div class="check-item">
-                            <label class="mycheckbox">
-                                <input type="checkbox" id="checkBoxValue" class="mycheckbox__default"
-                                    [checked]="item.isActive" (click)="changeSwap(item)" />
-                                <div class="mycheckbox__new" [class.mycheckbox__checked]="item.isActive"></div>
-                            </label>
+                            <div class="radio-button">
+                                <input type="radio" id="{{ item.name }}" name="title" value="{{ item.name }}"
+                                (click)="changeSwap(item)"/>
+                              <label for="{{ item.name }}" class="cyan"></label>
+                              </div>
                         </div>
                         <div class="item-name">{{item.name}}</div>
                     </div>
@@ -25,44 +25,7 @@
             </div>
             <div class="content__title">Итоговый временной период</div>
             <div class="content__time">
-                <div class="time">
-                    <div class="time__picker">
-                        <mat-form-field>
-                            <label>Начало</label>
-                            <input matInput [ngxMatDatetimePicker]="pickerD" [value]="dateNow"
-                             >
-                            <mat-datepicker-toggle matSuffix [for]="pickerD">
-                                <mat-icon matDatepickerToggleIcon>
-                                    <svg-icon src="./assets/icons/widgets/reports/calend.svg"
-                                        [svgStyle]="{ 'width.px':25, 'height.px':25}">
-                                    </svg-icon>
-                                </mat-icon>
-                            </mat-datepicker-toggle>
-                            <ngx-mat-datetime-picker #pickerD 
-                               >
-                            </ngx-mat-datetime-picker>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="time">
-                    <div class="time__picker">
-                        <mat-form-field>
-                            <label>Окончание</label>
-                            <input matInput [ngxMatDatetimePicker]="pickerT" [value]="dateNow"
-                                >
-                            <mat-datepicker-toggle matSuffix [for]="pickerT">
-                                <mat-icon matDatepickerToggleIcon>
-                                    <svg-icon src="./assets/icons/widgets/reports/calend.svg"
-                                        [svgStyle]="{ 'width.px':25, 'height.px':25}">
-                                    </svg-icon>
-                                </mat-icon>
-                            </mat-datepicker-toggle>
-                            <ngx-mat-datetime-picker #pickerT
-                                >
-                            </ngx-mat-datetime-picker>
-                        </mat-form-field>
-                    </div>
-                </div>
+                <evj-system-period-date [timeCheck]="timeCheck"></evj-system-period-date>
             </div>
         </div>
         <div class="bottom">

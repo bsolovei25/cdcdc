@@ -6,7 +6,7 @@ import { ReportServerConfiguratorService } from '../../services/report-server-co
 import { WidgetPlatform } from '../../models/widget-platform';
 import { SnackBarService } from '../../services/snack-bar.service';
 import { ITreeState, ITreeOptions, TreeDraggedElement, TreeComponent } from 'angular-tree-component';
-import { IReportTemplate, ITreeFolderMap, ITemplate, ISystemOptions, ITemplateFolder, IReportFile, ISystemOptionsTemplate } from '../../models/report-server';
+import { IReportTemplate, ITreeFolderMap, ITemplate, ISystemOptions, ITemplateFolder, IReportFile, ISystemOptionsTemplate, IFolder } from '../../models/report-server';
 import { Subscription } from 'rxjs';
 
 
@@ -89,7 +89,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     public selectFile: IReportFile;
 
-    public dataFolder: any;
+    public dataFolder: ITreeFolderMap[];
 
     public popupUserOptions: boolean = false;
     public popupUserCustomOptions: boolean = false;
@@ -189,6 +189,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         });
     }
 
+    // Get system-options
     getOptions(): Subscription {
         return this.reportService.getSystemOptions().subscribe((data) => {
             this.mapOptions(data);
@@ -196,7 +197,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     }
 
     getReporting(id: number): Subscription {
-        this.selectFile = {}; /// TEST
+        this.selectFile = {};
         this.isLoading = true;
         return this.reportService.getReporting(id).subscribe((ans) => {
             if (ans?.fileTemplate) {
@@ -216,11 +217,12 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         });
     }
 
-    mapData(data) {
+    //Map answer for treeFolder
+    mapData(data: IFolder): ITreeFolderMap[] {
         let dataTreeItem = [];
         dataTreeItem = this.mapDataFolder(data?.folders);
         for (let item of data.templates) {
-            let templateObj = {
+            const templateObj = {
                 id: 'temp' + item.id,
                 idTemplate: item.id,
                 name: item.name,
@@ -241,11 +243,12 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             idFolder: 0,
             children: dataTreeItem,
         }
-        let test = [];
+        const test = [];
         test.push(testObject);
         return test;
     }
 
+    //Map folder for tree
     mapDataFolder(data) {
         const test = [];
         for (let i of data) {
@@ -276,6 +279,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         return test;
     }
 
+    // Map choosen system-options
     mapOptions(data: ISystemOptions[]): void {
         this.options = data;
         for (let i of this.options) {
@@ -311,6 +315,8 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         });
     }
 
+    // Delete template
+
     deleteReportTemplate(item): void {
         this.isLoading = true;
         const windowsParam = {
@@ -329,6 +335,8 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         this.reportService.alertWindow$.next(windowsParam);
     }
 
+    //OnClick Template
+
     onClickReference(data, index): void {
         this.getReporting(data.idTemplate);
         this.isAddOptionsButton = true; // file
@@ -340,11 +348,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         this.setStyleScroll();
     }
 
-    onClickItemReference(item): void {
-        this.selectFile = null;
-        this.isAddOptionsButton = true;
-        this.isIdReport = item.idTemplate;
-    }
+    //OnClick Template system-options
 
     onClickParamReference(item): void {
         if (item.templateSystemOption.
@@ -355,26 +359,17 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         this.popupUserOptions = true;
     }
 
-    drop(event: CdkDragDrop<string[]>): void {
-        if (event.previousContainer === event.container) {
-            moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-        } else {
-            transferArrayItem(
-                event.previousContainer.data,
-                event.container.data,
-                event.previousIndex,
-                event.currentIndex
-            );
-        }
-    }
-
     onShowItem(item): void {
         item.open = !item.open;
     }
 
+    //Add input in tree
+
     addMenu(): void {
         this.addMenuClick = !this.addMenuClick;
     }
+
+    //SWAP SYSTEM OPTIONS
 
     changeSwap(item): void {
         item.isActive = !item.isActive;
@@ -390,6 +385,8 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         }
     }
 
+    //PUSH INPUT FOR FOLDER/TEMPLATE
+
     pushBlockInRef(): void {
         this.addItem = true;
         this.createReport = false;
@@ -404,6 +401,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         this.addMenuClick = false;
     }
 
+    //PUSH FOLDER/TEMLATE
     onPushReport(): void {
         this.isLoading = true;
         if (this.newRecord?.trim().length > 0 && this.newRecord !== undefined) {
@@ -438,10 +436,14 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         }
     }
 
+    //OPEN SYSTEM-OPTIONS
+
     openCheckBoxBlock(): void {
         this.getOptions();
         this.isOpenCheckBlock = !this.isOpenCheckBlock;
     }
+
+    //SAVE Template with system options
 
     saveReport(item): void {
         const optionObject = [];
@@ -495,8 +497,6 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         this.selectFile = this.dataFile.find(e => e.fileId === event);
     }
 
-    /// test dnd
-
     randomInt(min, max): void {
         return min + Math.floor((max - min) * Math.random());
     }
@@ -511,6 +511,8 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     onEventTree(event) {
         // console.log(event);
     }
+
+    // Drop on tree
 
     onMovedItem(event): void {
         if (event.node.type === "Folder") {
@@ -536,11 +538,13 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     }
 
-    updateFiletemplate(event) {
+    updateFiletemplate(event): void {
         if (event) {
             this.getRecordFile();
         }
     }
+
+    // Delete folder
 
     deleteFolder(item): void {
         this.isLoading = true;

@@ -1,0 +1,31 @@
+.container {
+  &__time {
+    display: flex;
+
+  
+
+    .month {
+    }
+
+    .day {
+    }
+
+    .exactlyTime {
+    }
+
+    .arbitraryTime {
+    }
+
+    .arbitraryDate {
+    }
+  }
+}
+
+
+::ng-deep .year {
+  ::ng-deep {
+    .mat-calendar-period-button  {
+      display: none;
+    }
+  }
+}

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from 'src/app/services/appConfigService';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { IFileTemplate, IReportTemplate, ITemplateFolder, ISystemOptions, IReportFile } from '../models/report-server';
+import { IFileTemplate, IReportTemplate, ITemplateFolder, ISystemOptions, IReportFile, IFolder } from '../models/report-server';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 
 
@@ -44,8 +44,8 @@ export class ReportServerConfiguratorService {
     return this.http.get<any[]>(this.restUrl + '/api/report-options/custom/all');
   }
 
-  public getTemplateFolder(): Observable<any[]> {
-    return this.http.get<any[]>(this.restUrl + '/api/report-templateFolder/all');
+  public getTemplateFolder(): Observable<IFolder> {
+    return this.http.get<IFolder>(this.restUrl + '/api/report-templateFolder/all');
   }
 
   public pushReportFile(file: Blob): Observable<any> {
