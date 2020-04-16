@@ -1,0 +1,129 @@
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  border-radius: 25px;
+}
+::-webkit-scrollbar-track {
+  border-radius: 25px;
+}
+::-webkit-scrollbar-track-piece {
+  border-radius: 25px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-bg-additional);
+  border-radius: 25px;
+}
+
+.filter {
+  &_icon {
+    fill: var(--color-text-sub);
+    width: 10px;
+    height: 10px;
+    &__active {
+    }
+  }
+  &_block {
+    position: absolute;
+  }
+}
+
+.reference {
+  position: relative;
+  background: var(--color-bg-main);
+  width: 100%;
+  margin: 0 auto;
+  height: 100%;
+  min-width: 1000px;
+}
+
+.reference_values {
+  background: rgba(34, 36, 47, 0.5);
+  height: 100%;
+  overflow: auto;
+}
+
+.reference_title {
+  position: relative;
+  background: var(--color-bg-sub);
+  display: flex;
+  justify-content: space-around;
+  height: 40px;
+  font-size: 10px;
+  color: var(--color-text-sub);
+  border-bottom: 1px solid var(--color-bg-main);
+
+  &:before {
+    content: "";
+    position: absolute;
+    height: 20px;
+    width: 10px;
+    top: -6px;
+    left: -1px;
+    transform: rotate(45deg);
+    background: var(--color-bg-main);
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    height: 20px;
+    width: 10px;
+    top: -6px;
+    right: -1px;
+    transform: rotate(136deg);
+    background: var(--color-bg-main);
+  }
+}
+
+.title_block {
+  text-align: center;
+  width: 100px;
+}
+
+.title {
+  margin-top: 13px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.values_block {
+  display: flex;
+  justify-content: space-around;
+  font-size: 10px;
+  color: white;
+  padding-bottom: 10px;
+  cursor: pointer;
+  &__active {
+    background-color: var(--color-active-transparent);
+  }
+  &:hover {
+    background-color: var(--color-active-transparent);
+  }
+}
+
+.values {
+  text-align: center;
+  width: 100px;
+}
+
+.value {
+  margin-top: 13px;
+
+  .date {
+    text-align: start;
+  }
+
+  .operator {
+    text-align: start;
+    font-size: 8px;
+    color: var(--color-text-sub);
+  }
+}
+
+.shortReference {
+  background: var(--color-bg-main);
+  width: 100%;
+  margin: 0 auto;
+  height: 100%;
+  position: relative;
+}

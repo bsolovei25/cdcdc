@@ -59,7 +59,6 @@ export class PetroleumProductsMovementComponent extends WidgetPlatform
             console.error(e);
         }
         this.petroleumService.isLoad$.next(false);
-        // setInterval(() => this.petroleumService.reGetTransfers(), this.refreshTimeoutSecs * 1000);
         this.widgetService.currentDates$.subscribe(
             (dates) => {
                 this.petroleumService.reGetTransfers(dates);

@@ -1,9 +1,12 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { transition, trigger, animate, style } from '@angular/animations';
+import { IFilterSetting } from '../components/filter-popup/filter-popup.component';
+import { PetroleumScreenService } from '../../../services/petroleum-screen.service';
 
 export interface IUdTableDict {
     key: string;
     title: string;
+    type: string;
     filter?: {
         isActive: boolean
     };
@@ -31,10 +34,11 @@ export interface IUdTableDict {
 export class PetroleumReferenceComponent {
     @Input() typeScreen: string;
     @Input() data: any;
-
     @Input() updateParamBlock: boolean;
 
     @Output() exitBlock: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+    constructor(private petroleumService: PetroleumScreenService) { }
 
     public title: string[] = [
         'Источник',
@@ -64,6 +68,7 @@ export class PetroleumReferenceComponent {
         {
             key: 'sourceName',
             title: 'Источник',
+            type: 'string',
             filter: {
                 isActive: false,
             },
@@ -71,6 +76,7 @@ export class PetroleumReferenceComponent {
         {
             key: 'destinationName',
             title: 'Приемник',
+            type: 'string',
             filter: {
                 isActive: false,
             },
@@ -78,6 +84,7 @@ export class PetroleumReferenceComponent {
         {
             key: 'sourceProduct',
             title: 'Продукт по источнику',
+            type: 'string',
             filter: {
                 isActive: false,
             },
@@ -85,6 +92,7 @@ export class PetroleumReferenceComponent {
         {
             key: 'destinationProduct',
             title: 'Продукт по приемнику',
+            type: 'string',
             filter: {
                 isActive: false,
             },
@@ -92,6 +100,7 @@ export class PetroleumReferenceComponent {
         {
             key: 'startTime',
             title: 'Начало операции',
+            type: 'date',
             filter: {
                 isActive: false,
             },
@@ -99,6 +108,7 @@ export class PetroleumReferenceComponent {
         {
             key: 'endTime',
             title: 'Конец операции',
+            type: 'date',
             filter: {
                 isActive: false,
             },
@@ -106,6 +116,7 @@ export class PetroleumReferenceComponent {
         {
             key: 'sourceMass',
             title: 'Масса операции по источнику',
+            type: 'number',
             filter: {
                 isActive: false,
             },
@@ -113,6 +124,7 @@ export class PetroleumReferenceComponent {
         {
             key: 'destinationMass',
             title: 'Масса операции по приемнику',
+            type: 'number',
             filter: {
                 isActive: false,
             },
@@ -120,6 +132,7 @@ export class PetroleumReferenceComponent {
         {
             key: 'deltaMass',
             title: 'Отклонение',
+            type: 'number',
             filter: {
                 isActive: false,
             },

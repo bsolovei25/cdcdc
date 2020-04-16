@@ -188,6 +188,7 @@ import { EventsCommentWindowComponent } from './widgets/workspace/components/eve
 import { EventsListWindowComponent } from './widgets/workspace/components/events-list-window/events-list-window.component';
 import { FilterPopupComponent } from './widgets/petroleum-products-movement/components/filter-popup/filter-popup.component';
 import { NgxMaskModule } from 'ngx-mask';
+import { TransferTableComponent } from './widgets/petroleum-products-movement/components/transfer-table/transfer-table.component';
 
 @NgModule({
     declarations: [
@@ -344,6 +345,7 @@ import { NgxMaskModule } from 'ngx-mask';
         EventsCommentWindowComponent,
         EventsListWindowComponent,
         FilterPopupComponent,
+        TransferTableComponent,
     ],
     entryComponents: [
         LineChartComponent,

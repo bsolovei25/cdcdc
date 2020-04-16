@@ -1,26 +1,27 @@
 <div class="filter">
   <div class="filter_settings-body">
-    <div class="filter_block">
+
+    <div class="filter_block" (click)="setSort(true)">
       <div class="filter_block__settings">
         <div class="filter_block__settings__title-block">
           <span class="vertical-middle">По возрастанию</span>
         </div>
         <div class="filter_block__settings__radio-button-block">
           <div class="radio-button">
-            <div class="radio-button_circle"></div>
+            <div class="radio-button_circle" *ngIf="filterSetting?.isUp"></div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="filter_block">
+    <div class="filter_block" (click)="setSort(false)">
       <div class="filter_block__settings">
         <div class="filter_block__settings__title-block">
           <span class="vertical-middle">По убыванию</span>
         </div>
         <div class="filter_block__settings__radio-button-block">
           <div class="radio-button">
-<!--            <div class="radio-button_circle"></div>-->
+            <div class="radio-button_circle" *ngIf="filterSetting?.isDown"></div>
           </div>
         </div>
       </div>
@@ -28,10 +29,9 @@
   </div>
   <div class="filter_block__search">
     <div class="filter_block__search__input-block">
-      <input class="vertical-middle">
+      <input class="vertical-middle" (keyup)="setText($event?.target?.value)">
     </div>
     <div class="filter_block__search__icon-block">
-<!--      <div class="icon"></div>-->
       <svg-icon class="icon" src="assets/icons/search-icon.svg"></svg-icon>
     </div>
   </div>
