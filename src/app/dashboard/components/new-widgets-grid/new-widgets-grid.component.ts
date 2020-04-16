@@ -170,8 +170,7 @@ export class NewWidgetsGridComponent implements OnInit, OnDestroy {
     }
 
     public onSwap(swap: boolean): void {
-        // swap === true ? (this.options.swap = true) : (this.options.swap = false);
-        swap === true ? (this.options.pushItems = true) : (this.options.pushItems = false);
+        this.options.pushItems = swap;
         this.changedOptions();
     }
 

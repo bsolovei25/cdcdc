@@ -149,7 +149,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     public onSetWorkerPassword(event: string): void {
         this.isPasswordAlertShowing = false;
-        if (event && (this.isCreateNewUser || (this.isImportNewWorker && !this.worker.id))) {
+        if (event && this.isCreateNewUser) {
             this.showAlert();
             this.worker.password = event;
         }
@@ -291,6 +291,10 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             if (!this.worker[key]) {
                 snackbarMessage = `${snackbarMessage} ${messages[key]}`;
             }
+        }
+
+        if (this.isCreateNewUser && !this.worker.password) {
+            snackbarMessage = `${snackbarMessage} Пароль`;
         }
 
         if (snackbarMessage) {
