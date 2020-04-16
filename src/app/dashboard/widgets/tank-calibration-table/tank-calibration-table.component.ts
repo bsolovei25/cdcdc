@@ -5,7 +5,6 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { TankCalibrationTableService } from '../../services/tank-calibration-table.service';
 import { UploadFormComponent } from './upload-form/upload-form.component';
 import { MatDialog } from '@angular/material/dialog';
-import * as moment from 'moment';
 import { TanksTableComponent } from './tanks-table/tanks-table.component';
 import { SnackBarService } from '../../services/snack-bar.service';
 
@@ -50,23 +49,10 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
 
     tanksAvailable: ICalibrationTable[] = [];
 
-    endTr = [];
-    endTr2 = [];
-
     sort: { name: 'upStart' | 'bottomStart' | 'upEnd' | 'bottomEnd', value: boolean } | null = null;
 
     isReport: boolean = true;
-
     isRefInput: boolean = false;
-
-    @HostListener('document:resize', ['$event'])
-    OnResize(event) {
-        this.blockNeed();
-        this.blockNee2d();
-    }
-
-    @ViewChild('tableBody') table: ElementRef;
-    @ViewChild('tableRight') tableRight: ElementRef;
 
     constructor(
         public widgetService: WidgetService,
@@ -172,29 +158,12 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
 
     searchInput(event): void {
         this.dataSource = this.data?.filter((val) => val.name.toLowerCase()
-            .includes(event?.target?.value.toLowerCase()));
-    }
-
-    blockNeed(): void {
-        this.endTr = [];
-        const heightTemplate = this.dataSource.length * 28;
-        const heihtOut = (this.table?.nativeElement?.clientHeight - heightTemplate) / 28;
-        for (let i = 0; i < heihtOut - 1; i++) {
-            this.endTr.push(i);
-        }
-    }
-    blockNee2d(): void {
-        this.endTr2 = [];
-        const heightTemplate = this.dataSource.length * 28;
-        const heihtOut = (this.tableRight?.nativeElement?.clientHeight) / 29;
-        for (let i = 0; i < heihtOut - 1; i++) {
-            this.endTr2.push(i);
-        }
+            .includes(event?.target?.value.toLowerCase()) && val.isGroup);
+        this.dataSourceTanks = this.data?.filter((val) => val.name.toLowerCase()
+            .includes(event?.target?.value.toLowerCase()) && !val.parentUid && !val.isGroup);
     }
 
     public dateTimePickerInput(date: Date, isStart: boolean): void {
-        console.log(date);
-
         if (this.isCurrent) {
             return;
         }
@@ -214,7 +183,6 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
     }
 
     openDialog(element): void {
-        console.log(element);
         const dialogRef = this.dialog
             .open(UploadFormComponent, {
                 data: {
@@ -222,7 +190,6 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
                 },
                 autoFocus: true,
             });
-        // when dialog is closed, check result
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
                 this.calibrationService.postNewDate(element.uid, result, result.file);
@@ -236,7 +203,6 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
                 data: this.tanksAvailable,
                 autoFocus: true,
             });
-        // when dialog is closed, check result
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
                 this.putTanks(result?.[0]?.uid);

@@ -9,6 +9,15 @@ export interface IReport extends IReportTemplate {
     customOptions: IReportOption[];
     reports: [];
     systemOptions: [];
+    fileTemplate: {
+        id: number;
+        fileId: string;
+        name: string;
+        description: string;
+        createdAt: Date;
+        createdBy: number;
+        isDeleted: boolean;
+    };
 }
 
 export interface IReportOption {
@@ -55,7 +64,7 @@ export class ReportComponent implements OnInit {
 
     }
     ngOnInit(): void {
-
+        console.log(this.data);
     }
 
     toggle(id: number): void {
@@ -105,8 +114,13 @@ export class ReportComponent implements OnInit {
             body.push({ value: val?.value, baseOptionId: val?.id });
         });
         try {
-            const a: IReportTemplate = await this.reportsService.postTemplate(template.id, body);
-            window.open(`http://deploy.funcoff.club:6877/api/file/${a.fileId}`);
+            if (template?.fileTemplate?.fileId) {
+                window.open(`http://deploy.funcoff.club:6877/api/file/${template?.fileTemplate?.fileId}`);
+            } else {
+                const a: IReportTemplate = await this.reportsService.postTemplate(template.id, body);
+                window.open(`http://deploy.funcoff.club:6877/api/file/${a.fileId}`);
+
+            }
             this.isLoading = false;
         } catch (error) {
             this.snackBar.openSnackBar('Файл не сформирован', 'snackbar-red');

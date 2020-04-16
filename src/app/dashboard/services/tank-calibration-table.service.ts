@@ -44,11 +44,10 @@ export class TankCalibrationTableService {
 
     async postNewDate(id: number, body, file: Blob): Promise<any> {
         const data: FormData = new FormData();
-        console.log(file);
         data.append('file', file);
-        data.append('comment', '1');
-        data.append('startDate', '2020-04-13T07:51:26.668Z');
-        data.append('endDate', '2020-04-15T07:51:26.668Z');
+        data.append('comment', body.comment);
+        data.append('startDate', body.startDate);
+        data.append('endDate', body.endDate);
         return this.http
             .post(this.restUrl + `/api/graduation-table/Graduation/tanks/${id}/table/`, data)
             .toPromise();

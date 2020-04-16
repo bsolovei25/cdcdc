@@ -40,29 +40,16 @@ export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
     expandedElement: SelectionModel<any> = new SelectionModel(true);
 
     localeData: ICalibrationTable[] = [];
+
     dataSource: ICalibrationTable[] = [];
+    dataSourceTanks: ICalibrationTable[] = [];
 
     chooseTanks: any[];
     endTr = [];
     endTr2 = [];
 
-    @Input() set data(value) {
-        this.localeData = value;
-        this.dataSource = value;
-    }
-
-    @Input() set isReport(event) {
-        setTimeout(() => {
-            this.blockNeed();
-            this.blockNee2d();
-        }, 100);
-    }
-
-    @HostListener('document:resize', ['$event'])
-    OnResize(event) {
-        this.blockNeed();
-        this.blockNee2d();
-    }
+    @Input() data;
+    @Input() dataTanks;
 
     @ViewChild('tableBody3') table3: ElementRef;
     @ViewChild('tableRight4') tableRight4: ElementRef;
@@ -71,7 +58,8 @@ export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
         private calibrationService: TankCalibrationTableService,
     ) { }
     ngOnInit(): void {
-        console.log(new Date().toJSON());
+        this.dataSource = this.data;
+        this.dataSourceTanks = this.dataTanks;
     }
 
     ngOnDestroy(): void {
@@ -95,26 +83,11 @@ export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
         this.loadItem(element);
     }
 
-    blockNeed(): void {
-        this.endTr = [];
-        const heightTemplate = this.dataSource.length * 28;
-        const heihtOut = (this.table3.nativeElement.clientHeight - heightTemplate) / 20;
-        for (let i = 0; i < heihtOut - 1; i++) {
-            this.endTr.push(i);
-        }
-    }
-    blockNee2d(): void {
-        this.endTr2 = [];
-        const heightTemplate = this.dataSource.length * 26;
-        const heihtOut = (this.tableRight4.nativeElement.clientHeight - heightTemplate) / 14;
-        for (let i = 0; i < heihtOut - 1; i++) {
-            this.endTr2.push(i);
-        }
-    }
-
     searchInput(event): void {
-        // this.dataSource = this.data?.filter((val) => val.name.toLowerCase()
-        //     .includes(event?.target?.value.toLowerCase()));
+        this.dataSource = this.data?.filter((val) => val.name.toLowerCase()
+            .includes(event?.target?.value.toLowerCase()) && val.isGroup);
+        this.dataSourceTanks = this.data?.filter((val) => val.name.toLowerCase()
+            .includes(event?.target?.value.toLowerCase()) && !val.parentUid && !val.isGroup);
     }
 
 

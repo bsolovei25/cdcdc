@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { WidgetService } from '../../services/widget.service';
 import { ReportsService } from '../../services/reports.service';
-import { fillDataShape } from '../../../@shared/common-functions';
 
 export interface IReportTemplate {
     id: number;
@@ -58,6 +57,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
 
     async loadItem(): Promise<void> {
         this.data = await this.reportsService.getReportsTemplate();
+        console.log(this.data);
         this.filterData = this.data;
     }
 
