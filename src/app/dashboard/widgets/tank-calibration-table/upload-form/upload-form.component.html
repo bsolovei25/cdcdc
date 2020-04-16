@@ -51,17 +51,27 @@
         <h3 class="upload__body__file__title">Файл</h3>
         <div class="upload__body__file__body">
           <svg-icon
+            *ngIf="!file"
             (click)="openDialog()"
             class="upload__body__file__body__icon"
             src="./assets/icons/widgets/calibration-table/upload.svg"
             [svgStyle]="{ 'width.px': 30, 'height.px': 30 }"
           >
           </svg-icon>
-          <!-- <svg-icon
+          <svg-icon
+            *ngIf="file"
+            class="upload__body__file__body__icon-file"
+            [svgStyle]="{ 'width.px':37, 'height.px':42 }"
+            src="assets/icons/widgets/reports/xls.svg"
+          ></svg-icon>
+          <svg-icon
+            *ngIf="file"
+            (click)="deleteFile()"
+            class="upload__body__file__body__icon-trash"
             src="./assets/icons/widgets/calibration-table/trash.svg"
             [svgStyle]="{ 'width.px': 30, 'height.px': 30 }"
           >
-          </svg-icon> -->
+          </svg-icon>
         </div>
       </div>
     </div>

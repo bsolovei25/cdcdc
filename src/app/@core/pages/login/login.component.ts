@@ -14,8 +14,8 @@ import { PreloaderService } from '../../service/preloader.service';
     templateUrl: './login.component.html',
 })
 export class LoginComponent implements OnInit, AfterViewInit {
-    username: FormControl = new FormControl(environment.username, [Validators.required]);
-    password: FormControl = new FormControl(environment.password, [Validators.required]);
+    username: FormControl = new FormControl(environment.username, Validators.required);
+    password: FormControl = new FormControl(environment.password, Validators.required);
 
     isLoadingData: boolean = false;
     isLoading: boolean = true;
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
         public authService: AuthService,
         private router: Router,
         private preLoaderService: PreloaderService
-    ) {}
+    ) { }
 
     ngOnInit(): void {
         this.isLoadingData = true;

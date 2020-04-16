@@ -48,6 +48,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
 
     async loadItem(): Promise<void> {
         this.data = await this.reportsService.getReportsTemplate();
+        console.log(this.data);
         this.filterData = this.data;
     }
 
