@@ -95,15 +95,13 @@ export class AdminPanelService {
 
     public editWorkerData(worker: IUser): Observable<void> {
         const url: string = `${this.restUrl}/user/${worker.id}`;
-        const body: string = JSON.stringify(worker);
-        return this.http.put<void>(url, body);
+        return this.http.put<void>(url, worker);
     }
 
     public createNewWorker(worker: IUser): Observable<IUser> {
         worker.password = worker?.password ? this.authService.encrypt(worker.password) : null;
         const url: string = `${this.restUrl}/user`;
-        const body: string = JSON.stringify(worker);
-        return this.http.post<IUser>(url, body);
+        return this.http.post<IUser>(url, worker);
     }
 
     public setUserResponsible(userId: number): Observable<void> {
