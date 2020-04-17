@@ -20,10 +20,6 @@ export class OperationScreenComponent implements OnInit {
         this.filterHandler();
     }
 
-    public returnMenu(): void {
-        this.petroleumService.openScreen('info');
-    }
-
     public transferClick(uid: string): void {
         console.log(uid);
         this.petroleumService.chooseTransfer(uid);
