@@ -175,8 +175,8 @@
       position: absolute;
       z-index: 2;
 
-      height: 30px;
-      width: 10px;
+      height: 18px;
+      width: 5px;
 
       top: 0px;
       bottom: 0px;
@@ -191,12 +191,12 @@
       }
 
       &_left {
-        left: -10px;
+        left: -5px;
         transform: rotate(180deg);
       }
 
       &_right {
-        right: -10px;
+        right: -5px;
       }
     }
   }

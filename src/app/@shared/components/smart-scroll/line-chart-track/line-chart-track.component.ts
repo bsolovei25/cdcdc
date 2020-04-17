@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, OnChanges, HostListener } from '@angular/core';
+import { Component, AfterViewInit, OnChanges, HostListener, Input } from '@angular/core';
 import { IChartMini, IChartD3 } from '../../../models/smart-scroll.model';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
@@ -9,36 +9,7 @@ import * as d3 from 'd3';
     styleUrls: ['./line-chart-track.component.scss'],
 })
 export class LineChartTrackComponent implements OnChanges, AfterViewInit {
-    private data: IChartMini[] = [
-        { value: 7, timestamp: new Date(2020, 3, 1) },
-        { value: 2, timestamp: new Date(2020, 3, 2) },
-        { value: -3, timestamp: new Date(2020, 3, 3) },
-        { value: 5, timestamp: new Date(2020, 3, 4) },
-        { value: 1, timestamp: new Date(2020, 3, 5) },
-        { value: 8, timestamp: new Date(2020, 3, 6) },
-        { value: 7, timestamp: new Date(2020, 3, 7) },
-        { value: 7, timestamp: new Date(2020, 3, 9) },
-        { value: 2, timestamp: new Date(2020, 3, 10) },
-        { value: -3, timestamp: new Date(2020, 3, 11) },
-        { value: 5, timestamp: new Date(2020, 3, 12) },
-        { value: 1, timestamp: new Date(2020, 3, 13) },
-        { value: 8, timestamp: new Date(2020, 3, 14) },
-        { value: 7, timestamp: new Date(2020, 3, 15) },
-        { value: 7, timestamp: new Date(2020, 3, 16) },
-        { value: 2, timestamp: new Date(2020, 3, 17) },
-        { value: -3, timestamp: new Date(2020, 3, 18) },
-        { value: 5, timestamp: new Date(2020, 3, 19) },
-        { value: 1, timestamp: new Date(2020, 3, 20) },
-        { value: 8, timestamp: new Date(2020, 3, 21) },
-        { value: 7, timestamp: new Date(2020, 3, 22) },
-        { value: 7, timestamp: new Date(2020, 3, 23) },
-        { value: 2, timestamp: new Date(2020, 3, 24) },
-        { value: -3, timestamp: new Date(2020, 3, 25) },
-        { value: 5, timestamp: new Date(2020, 3, 26) },
-        { value: 1, timestamp: new Date(2020, 3, 27) },
-        { value: 8, timestamp: new Date(2020, 3, 28) },
-        { value: 7, timestamp: new Date(2020, 3, 29) },
-    ];
+    @Input() private data: IChartMini[] = [];
 
     private chartData: IChartD3[] = [];
 
