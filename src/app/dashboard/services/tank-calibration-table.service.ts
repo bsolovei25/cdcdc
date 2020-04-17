@@ -61,15 +61,15 @@ export class TankCalibrationTableService {
             .toPromise();
     }
 
-    async postDataFile(id: number, newDate: string, comment: string): Promise<any> {
+    async postDataFile(id: number, newDate: Date, comment: string, newDateType: 'startDate' | 'endDate'): Promise<any> {
         return this.http
             .post(this.restUrl + `/api/graduation-table/Graduation/tanks/${id}/table/date`, {
                 newDate,
                 comment,
+                newDateType
             })
             .toPromise();
     }
-
 
     async putTank(id: string): Promise<any> {
         try {

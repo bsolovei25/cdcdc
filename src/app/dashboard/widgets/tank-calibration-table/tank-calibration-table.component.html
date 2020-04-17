@@ -24,7 +24,7 @@
         (mousedown)="$event.stopPropagation()"
         (touchstart)="$event.stopPropagation()"
       >
-        <div class="table scroll-bar" #tableBody>
+        <div class="table__container scroll-bar" #tableBody>
           <table>
             <thead>
               <tr class="header__items">
@@ -80,70 +80,98 @@
             <tbody class="table__body">
               <ng-container *ngFor="let element of dataSource">
                 <tr
-                  class="table__item"
+                  class="table__tr"
                   (click)="expandedElement.isSelected(element) ?
-                           expandedElement.deselect(element)
-                          : expandedElement.select(element)"
+                         expandedElement.deselect(element)
+                        : expandedElement.select(element)"
                 >
-                  <td class="item item__tr">
+                  <td class="name">
                     <svg-icon
-                      class="item__tr-icon"
+                      class="name__icon"
                       src="assets/icons/widgets/calibration-table/arrow-name.svg"
-                      [svgStyle]="{ 'width.px':8, 'height.px':5 }"
+                      [svgStyle]="{ 'width.px':12, 'height.px':8 }"
                       [class.arrow-rtl]="expandedElement.isSelected(element)"
                     ></svg-icon>
-                    <span class="item__tr-name">{{ element.name }}</span>
+                    <span class="name__text">{{ element.name }}</span>
                   </td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                 </tr>
                 <ng-container *ngFor="let elementChildren of getChildrenRows(element)">
                   <tr
                     *ngIf="expandedElement.isSelected(element)"
                     [class.expanded-row]="elementChildren"
-                    (click)="clickItem(elementChildren.uid)"
+                    [class.chooseElement]="chooseElement.isSelected(elementChildren)"
+                    (click)="clickItem(elementChildren)"
                   >
-                    <td [class.expanded-column]="elementChildren" class="item item__td item__name">
+                    <td [class.expanded-column]="elementChildren" class="name">
                       {{ elementChildren.name }}
                     </td>
                     <td [class.expanded-column]="elementChildren" class="item item__td item__date">
                       <div class="item__date-data-picker">
                         <evj-time-data-picker
                           [data]="elementChildren.startDate"
-                          (dateTimePicker)="dateTimePickerInput($event, false)"
+                          (dateTimePicker)="dateTimePickerInput($event, false, element.uid)"
                         ></evj-time-data-picker>
                       </div>
                     </td>
-                    <td [class.expanded-column]="elementChildren" class="item item__td item__date">
+                    <td
+                      [class.expanded-column]="elementChildren"
+                      class="item item__td item__date"
+                      style="position: relative;"
+                    >
                       <div
                         class="item__date-data-picker"
                         [class.item__date-data-picker--warning]="elementChildren.warningLevel === 'warning'"
                         [class.item__date-data-picker--expired]="elementChildren.warningLevel === 'expired'"
                       >
                         <evj-time-data-picker
-                          [data]="elementChildren.startDate"
-                          (dateTimePicker)="dateTimePickerInput($event, false)"
+                          [data]="elementChildren.endDate"
+                          (dateTimePicker)="dateTimePickerInput($event, true, element.uid)"
                         ></evj-time-data-picker>
                       </div>
+                      <div *ngIf="showComment.isSelected(elementChildren.uid)" class="dialog">
+                        <input
+                          placeholder="Напишите свой комментарий"
+                          matInput
+                          type="text"
+                          [formControl]="comment"
+                        />
+                        <svg-icon
+                          (click)="closeComment()"
+                          style="    padding-right: 9px;
+                        padding-top: 3px;"
+                          src="assets/icons/widgets/calibration-table/closeCom.svg"
+                          [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+                        ></svg-icon>
+                        <svg-icon
+                          (click)="comment.invalid ? null : doneComment()"
+                          style="    padding-right: 9px;
+                        padding-top: 3px;"
+                          src="assets/icons/widgets/calibration-table/doneCom.svg"
+                          [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+                        ></svg-icon>
+                        <div></div>
+                      </div>
                     </td>
-                    <td
-                      [class.expanded-column]="elementChildren"
-                      class="item item__td item__action"
-                    >
+                    <td [class.expanded-column]="elementChildren" class="action">
                       <svg-icon
                         (click)="openDialog(elementChildren)"
                         class="item__action-icon"
                         src="assets/icons/widgets/calibration-table/upload.svg"
-                        [svgStyle]="{ 'width.px': 20, 'height.px': 20 }"
+                        [svgStyle]="{ 'width.px':27, 'height.px':27 }"
                       ></svg-icon>
                       <svg-icon
                         (click)="downloadFile(elementChildren.uid)"
                         class="item__action-icon"
                         src="assets/icons/widgets/calibration-table/download.svg"
-                        [svgStyle]="{ 'width.px': 20, 'height.px': 20 }"
+                        [svgStyle]="{ 'width.px':27, 'height.px':27 }"
                       ></svg-icon>
                       <span class="item__action-trash" (click)="deleteTanks(element.uid)">
                         <svg-icon
                           src="assets/icons/widgets/calibration-table/trash.svg"
-                          [svgStyle]="{ 'width.px': 20, 'height.px': 20 }"
+                          [svgStyle]="{ 'width.px':27, 'height.px':27 }"
                         ></svg-icon>
                       </span>
                     </td>
@@ -151,47 +179,78 @@
                 </ng-container>
               </ng-container>
               <ng-container *ngFor="let element of dataSourceTanks">
-                <tr class="expanded-row" (click)="clickItem(element.uid)">
-                  <td [class.expanded-column]="element" class="item item__td item__name">
+                <tr
+                  class="expanded-row"
+                  (click)=" element.uid !== 'last-row' ?  clickItem(element): null"
+                  [class.last-row]="element.uid === 'last-row'"
+                  [class.chooseElement]="chooseElement.isSelected(element)"
+                >
+                  <td class="name">
                     {{ element.name }}
                   </td>
-                  <td [class.expanded-column]="element" class="item item__td item__date">
-                    <div class="item__date-data-picker">
+                  <td class="item item__td item__date expanded-column">
+                    <div *ngIf="element.uid !== 'last-row'" class="item__date-data-picker">
                       <evj-time-data-picker
                         [data]="element.startDate"
-                        (dateTimePicker)="dateTimePickerInput($event, false)"
+                        (dateTimePicker)="dateTimePickerInput($event, false, element.uid)"
                       ></evj-time-data-picker>
                     </div>
                   </td>
-                  <td [class.expanded-column]="element" class="item item__td item__date">
+                  <td class="item item__td item__date expanded-column" style="position: relative;">
                     <div
+                      *ngIf="element.uid !== 'last-row'"
                       class="item__date-data-picker"
                       [class.item__date-data-picker--warning]="element.warningLevel === 'warning'"
                       [class.item__date-data-picker--expired]="element.warningLevel === 'expired'"
                     >
                       <evj-time-data-picker
-                        [data]="element.startDate"
-                        (dateTimePicker)="dateTimePickerInput($event, false)"
+                        [data]="element.endDate"
+                        (dateTimePicker)="dateTimePickerInput($event, true, element.uid)"
                       ></evj-time-data-picker>
                     </div>
+                    <div *ngIf="showComment.isSelected(element.uid)" class="dialog">
+                      <input
+                        placeholder="Напишите свой комментарий"
+                        matInput
+                        type="text"
+                        [formControl]="comment"
+                      />
+                      <svg-icon
+                        (click)="closeComment()"
+                        style="    padding-right: 9px;
+                      padding-top: 3px;"
+                        src="assets/icons/widgets/calibration-table/closeCom.svg"
+                        [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+                      ></svg-icon>
+                      <svg-icon
+                        (click)="comment.invalid ? null : doneComment()"
+                        style="    padding-right: 9px;
+                      padding-top: 3px;"
+                        src="assets/icons/widgets/calibration-table/doneCom.svg"
+                        [svgStyle]="{ 'width.px':25, 'height.px':25 }"
+                      ></svg-icon>
+                      <div></div>
+                    </div>
                   </td>
-                  <td [class.expanded-column]="element" class="item item__td item__action">
+                  <td class="action expanded-column">
                     <svg-icon
+                      *ngIf="element.uid !== 'last-row'"
                       (click)="openDialog(element)"
                       class="item__action-icon"
                       src="assets/icons/widgets/calibration-table/upload.svg"
-                      [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+                      [svgStyle]="{ 'width.px':27, 'height.px':27 }"
                     ></svg-icon>
                     <svg-icon
+                      *ngIf="element.uid !== 'last-row'"
                       (click)="downloadFile(element.uid)"
                       class="item__action-icon"
                       src="assets/icons/widgets/calibration-table/download.svg"
-                      [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+                      [svgStyle]="{ 'width.px':27, 'height.px':27 }"
                     ></svg-icon>
                     <span class="item__action-trash" (click)="deleteTanks(element.uid)">
                       <svg-icon
                         src="assets/icons/widgets/calibration-table/trash.svg"
-                        [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+                        [svgStyle]="{ 'width.px':27, 'height.px':27 }"
                       ></svg-icon>
                     </span>
                   </td>
@@ -199,43 +258,50 @@
               </ng-container>
             </tbody>
             <tfoot>
-              <div class="bottom-reference-left">
-                <div class="bottom-reference-left__block">
-                  <div class="bottom-reference-left__button-add" (click)="openTanksTable()">
-                    <svg-icon
-                      class="add_button_icon"
-                      src="./assets/icons/widgets/references/add_white.svg"
-                    >
-                    </svg-icon>
-                  </div>
-                  <div class="bottom-reference-left__input-block">
-                    <div class="bottom-reference-left__button-search">
-                      <svg-icon
-                        *ngIf="!isRefInput"
-                        class="button_filter_icon"
-                        src="./assets/icons/widgets/references/search_white.svg"
-                      ></svg-icon>
+              <tr>
+                <th>
+                  <div class="bottom-reference-left">
+                    <div class="bottom-reference-left__block">
+                      <div class="bottom-reference-left__button-add" (click)="openTanksTable()">
+                        <svg-icon
+                          class="add_button_icon"
+                          src="./assets/icons/widgets/references/add_white.svg"
+                        >
+                        </svg-icon>
+                      </div>
+                      <div class="bottom-reference-left__input-block">
+                        <div class="bottom-reference-left__button-search">
+                          <svg-icon
+                            *ngIf="!isRefInput"
+                            class="button_filter_icon"
+                            src="./assets/icons/widgets/references/search_white.svg"
+                          ></svg-icon>
 
-                      <svg-icon
-                        *ngIf="isRefInput"
-                        class="indicator-selector__collapse"
-                        src="./assets/icons/widgets/references/search_blue.svg"
-                      ></svg-icon>
-                    </div>
-                    <div
-                      class="bottom-reference-left__input"
-                      [class.bottom-reference-left__input-active]="isRefInput"
-                    >
-                      <input
-                        type="text"
-                        (focus)="isRefInput = true"
-                        (blur)="isRefInput = false"
-                        (keyup)="searchInput($event)"
-                      />
+                          <svg-icon
+                            *ngIf="isRefInput"
+                            class="indicator-selector__collapse"
+                            src="./assets/icons/widgets/references/search_blue.svg"
+                          ></svg-icon>
+                        </div>
+                        <div
+                          class="bottom-reference-left__input"
+                          [class.bottom-reference-left__input-active]="isRefInput"
+                        >
+                          <input
+                            type="text"
+                            (focus)="isRefInput = true"
+                            (blur)="isRefInput = false"
+                            (keyup)="searchInput($event)"
+                          />
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
+                </th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
             </tfoot>
           </table>
         </div>
@@ -273,9 +339,9 @@
                 <div class="bottom-reference-right__block">
                   <div class="bottom-reference-right__button-add"></div>
                   <div class="bottom-reference-right__text">
-                    Таблица с калибровок резервуара
+                    Таблица градуировок
                     <div class="bottom-reference-right__div">
-                      <span class="bottom-reference-right__div-text">№123</span>
+                      {{chooseElement?.selected[0]?.name}}
                     </div>
                   </div>
                 </div>
