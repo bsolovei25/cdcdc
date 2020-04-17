@@ -438,8 +438,15 @@ export class PetroleumScreenService {
     }
 
     private async getTransfersAsync(requestUrl: string): Promise<ITransfer[]> {
-        console.log(requestUrl);
-        return this.http.get<ITransfer[]>(requestUrl).toPromise();
+        this.isLoad$.next(true);
+        let ans: ITransfer[] = [];
+        try {
+            ans = await this.http.get<ITransfer[]>(requestUrl).toPromise();
+        } catch (e) {
+            console.error(e);
+        }
+        this.isLoad$.next(false);
+        return ans;
     }
 
     private async getObjectsAsync(client: string): Promise<IPetroleumObject[]> {
