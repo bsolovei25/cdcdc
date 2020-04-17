@@ -7,6 +7,7 @@ import { UploadFormComponent } from './upload-form/upload-form.component';
 import { MatDialog } from '@angular/material/dialog';
 import { TanksTableComponent } from './tanks-table/tanks-table.component';
 import { SnackBarService } from '../../services/snack-bar.service';
+import { FormControl, Validators } from '@angular/forms';
 
 export interface ICalibrationTable {
     uid: string;
@@ -43,19 +44,30 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
     static itemRows: number = 14;
 
     expandedElement: SelectionModel<any> = new SelectionModel(true);
+    chooseElement: SelectionModel<ICalibrationTable> = new SelectionModel(false);
+    showComment: SelectionModel<any> = new SelectionModel(true);
 
     public toDate: Date;
     public fromDate: Date;
     public isCurrent: boolean;
     public dateNow: Date;
 
+    comment: FormControl = new FormControl('', Validators.required);
+
     data: ICalibrationTable[] = [];
     dataSource: ICalibrationTable[] = [];
-    dataSourceTanks: ICalibrationTable[] = [];
+    dataSourceTanks: ICalibrationTable[] = [
+        { name: '', isGroup: false, uid: 'last-row' }
+    ];
 
     tanksAvailable: ICalibrationTable[] = [];
-
     onlineTable: IOnlineTable[];
+
+    isComment: boolean = false;
+
+    postDate: {
+        id, newDate: Date, comment: string, newDateType: 'startDate' | 'endDate'
+    } | null;
 
     sort: { name: 'upStart' | 'bottomStart' | 'upEnd' | 'bottomEnd', value: boolean } | null = null;
 
@@ -102,7 +114,8 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
                     this.dataSource = [...this.data
                         .filter(val => val.isGroup)];
                     this.dataSourceTanks = [...this.data
-                        .filter(val => !val.parentUid && !val.isGroup)];
+                        .filter(val => !val.parentUid && !val.isGroup),
+                    { name: '', isGroup: false, uid: 'last-row' }];
                 })
         );
         if (!onlyTanks) {
@@ -130,13 +143,28 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         this.isReport = event;
     }
 
+    async postNewDate(id, newDate: Date, comment: string, newDateType: 'startDate' | 'endDate') {
+        try {
+            await this.calibrationService.postDataFile(id, newDate, comment, newDateType)
+        } catch (error) {
+
+        }
+    }
+
     sortStart(): void {
         if (!this.sort || this.sort.name === 'bottomStart' || this.sort.name === 'bottomEnd') {
             this.sort = { name: 'upStart', value: true };
             this.dataSource.sort((a, b) => a?.startDate?.getTime() - b?.startDate?.getTime());
         } else {
             if (this.sort.name === 'upStart') {
-                this.dataSource.sort((a, b) => b?.startDate?.getTime() - a?.startDate?.getTime());
+                const a = this.dataSource.sort((a, b) => b?.startDate?.getTime() - a?.startDate?.getTime());
+                const ba = this.dataSourceTanks.sort((a, b) => {
+                    if (b?.startDate && a?.startDate) {
+                        return b?.startDate?.getTime() - a?.startDate?.getTime()
+                    }
+                });
+                console.log(ba);
+
                 this.sort = { name: 'upEnd', value: true };
             } else {
                 this.sort = null;
@@ -161,26 +189,40 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         this.dataSource = this.data?.filter((val) => val.name.toLowerCase()
             .includes(event?.target?.value.toLowerCase()) && val.isGroup);
         this.dataSourceTanks = this.data?.filter((val) => val.name.toLowerCase()
-            .includes(event?.target?.value.toLowerCase()) && !val.parentUid && !val.isGroup);
+            .includes(event?.target?.value.toLowerCase()) && !val.parentUid && !val.isGroup)
+        this.dataSourceTanks.push({ name: '', isGroup: false, uid: 'last-row' });
     }
 
-    public dateTimePickerInput(date: Date, isStart: boolean): void {
-        if (this.isCurrent) {
-            return;
-        }
-        if (isStart) {
+    public dateTimePickerInput(date: Date, isStart: boolean, id: string): void {
+        this.isComment = true;
+        this.showComment.select(id);
+        if (!isStart) {
             this.fromDate = new Date(date);
+            this.postDate = {
+                id, newDate: this.fromDate,
+                comment: this.comment.value,
+                newDateType: 'startDate'
+            };
         } else {
             this.toDate = new Date(date);
+            this.postDate = {
+                id, newDate: this.toDate,
+                comment: this.comment.value,
+                newDateType: 'endDate'
+            };
         }
-        this.setDates();
     }
 
-    private setDates(): void {
-        const dates = {
-            fromDateTime: this.fromDate,
-            toDateTime: this.toDate,
-        };
+    closeComment() {
+        this.showComment.clear();
+        this.postDate = null;
+        this.comment.setValue('');
+    }
+    doneComment() {
+        this.postNewDate(this.postDate.id, this.postDate.newDate, this.comment.value, this.postDate.newDateType);
+        this.showComment.clear();
+        this.postDate = null;
+        this.comment.setValue('');
     }
 
     openDialog(element): void {
@@ -239,12 +281,33 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         }
     }
 
-    async clickItem(id: string): Promise<void> {
+    async clickItem(element: ICalibrationTable): Promise<void> {
+        this.chooseElement.select(element);
         try {
-            this.onlineTable = await this.calibrationService.getTankOnlineTable(id);
+            this.onlineTable = await this.calibrationService.getTankOnlineTable(element.uid);
         } catch (error) {
             console.error(error);
         }
+    }
+
+    sortDesc(date) {
+        const data1 = new Date();
+        const data2 = new Date();
+
+        console.log(this.formatDate(data1));
+
+        const time = [
+            1537043086974,
+            1536043086974,
+            1535043086974,
+            1534043086974,
+            1533043086974,
+        ];
+        return time.sort((a, b) => b - a);
+    }
+
+    formatDate(date) {
+        return Intl.DateTimeFormat('ru').format(date);
     }
 
     downloadFile(id: string): void {
