@@ -96,13 +96,15 @@ input {
     border-left: 1px solid var(--color-bg-main);
     width: 50%;
     padding-left: 20px;
+    height: 40px;
+    line-height: 40px;
     position: relative;
 
     .edit-button {
       position: absolute;
       top: 2px;
       width: 12px;
-      right: 42px;
+      right: 30px;
       cursor: pointer;
 
       .collapse {
@@ -158,6 +160,10 @@ input {
       padding: 0 !important;
     }
   }
+}
+
+.source{
+  height: auto !important;
 }
 
 ::ng-deep .mat-input-placeholder {

@@ -204,6 +204,8 @@
   height: calc(100% - 60px);
   border-left: dashed 0.5px var(--color-border-main);
   border-right: dashed 0.5px var(--color-border-main);
+  overflow: auto;
+  overflow-y: hidden;
 }
 
 input {
@@ -312,11 +314,14 @@ input {
       font-size: 14px;
       color: var(--color-text-sub);
 
-      /// TEST TREE
-
+      /// TREE STYLE
       ::ng-deep {
         .node-content-wrapper {
           width: 100%;
+        }
+
+        tree-node-expander {
+          width: auto;
         }
         .node-content-wrapper-focused {
           //  background: var(--color-bg-active) !important;
@@ -324,18 +329,39 @@ input {
           background: none;
         }
 
+        .toggle-children-placeholder {
+          height: 0px;
+          width: 0px;
+          padding-right: 5px;
+        }
+
         .node-content-wrapper-active:hover {
           background: none;
           box-shadow: none !important;
-          color: white !important;
+         // color: white !important;
         }
 
         .node-content-wrapper:hover {
           background: none;
           box-shadow: none !important;
-          color: white !important;
+          //  color: white !important;
           border-top-right-radius: 20px;
           border-bottom-right-radius: 20px;
+        }
+
+        .node-wrapper:hover {
+          color: white;
+
+          ::ng-deep {
+            .toggle-children {
+              background-image: url(../../../../assets/icons/widgets/reports/folder-white.svg);
+            }
+
+            .toggle-children-wrapper-expanded .toggle-children {
+              transform: rotate(0deg);
+              background-image: url(../../../../assets/icons/widgets/reports/folder-white-open.svg);
+            }
+          }
         }
 
         .node-content-wrapper {
@@ -366,11 +392,11 @@ input {
         }
 
         .toggle-children {
-          background-image: url(../../../../assets/icons/widgets/reports/arrow_right.svg);
-          height: 12px;
-          width: 15px;
-          background-size: cover;
-          top: 2px;
+          background-image: url(../../../../assets/icons/widgets/reports/folder-open.svg);
+          height: 15px;
+          background-size: contain;
+          top: 5px;
+          width: 32px;
         }
 
         .tree-node-level-1 > *:nth-child(3) > .tree-children {
@@ -382,10 +408,17 @@ input {
           z-index: 200;
           top: 0;
           background: var(--color-table-main);
+
+          height: auto !important;
+
+          tree-node-expander {
+            display: none;
+          }
         }
 
         .toggle-children-wrapper-expanded .toggle-children {
-          transform: rotate(90deg);
+          transform: rotate(0deg);
+          background-image: url(../../../../assets/icons/widgets/reports/folder.svg);
         }
 
         .tree-node-expanded {
@@ -394,7 +427,6 @@ input {
 
         .angular-tree-component {
           width: calc(100% - 10px);
-          margin-left: 5px;
           background-color: var(--color-table-main);
         }
 
@@ -858,10 +890,10 @@ input {
     }
 
     .references-container-check-block {
-      width: 50%;
+      width: 85%;
       position: absolute;
       height: calc(100% - 50px);
-      left: 65px;
+      left: 35px;
       top: 20px;
       direction: ltr;
       overflow-x: hidden;
@@ -869,7 +901,7 @@ input {
       background-color: #1b1f2c;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Параметры тени */
       padding: 10px;
-      line-height: 50px;
+      line-height: 40px;
 
       &__title-block {
         display: flex;
@@ -1060,7 +1092,11 @@ input {
   ) !important;
   background: none;
   box-shadow: none !important;
-  color: white !important;
+  //color: white !important;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
+}
+
+.displayOff {
+  display: none;
 }

@@ -1,0 +1,137 @@
+<!--Годичный-->
+<div *ngIf="timeCheck === 'Годичный'" class="container">
+    <div class="container__time">
+        <div class="year">
+            <mat-form-field>
+                <mat-label>Выберите год</mat-label>
+                <input matInput [matDatepicker]="picker" >
+                <mat-datepicker-toggle matSuffix [for]="picker">
+                    <mat-icon matDatepickerToggleIcon (click)="clickYear()">
+                        <svg-icon src="./assets/icons/widgets/reports/calend.svg"
+                            [svgStyle]="{ 'width.px':25, 'height.px':25}">
+                        </svg-icon>
+                    </mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker startView="multi-year" [startAt]="dateNow"></mat-datepicker>
+              </mat-form-field>
+        </div>
+    </div>
+</div>
+<!--Суточный-->
+<div *ngIf="timeCheck === 'Суточный'" class="container">
+    <div class="container__time">
+        <div class="day">
+            <mat-form-field>
+                <mat-label>Выберите день</mat-label>
+                <input matInput [matDatepicker]="picker" >
+                <mat-datepicker-toggle matSuffix [for]="picker" (click)="clickDay()">
+                    <mat-icon matDatepickerToggleIcon>
+                        <svg-icon src="./assets/icons/widgets/reports/calend.svg"
+                            [svgStyle]="{ 'width.px':25, 'height.px':25}">
+                        </svg-icon>
+                    </mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker startView="month" [startAt]="dateNow"></mat-datepicker>
+              </mat-form-field>
+        </div>
+    </div>
+</div>
+<!--Месячный-->
+<div *ngIf="timeCheck === 'Месячный'" class="container">
+    <div class="container__time">
+        <div class="month">
+            <mat-form-field>
+                <mat-label>Выберите месяц</mat-label>
+                <input matInput [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker" (click)="clickMonth()">
+                    <mat-icon matDatepickerToggleIcon>
+                        <svg-icon src="./assets/icons/widgets/reports/calend.svg"
+                            [svgStyle]="{ 'width.px':25, 'height.px':25}">
+                        </svg-icon>
+                    </mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker startView="multi-year" [startAt]="dateNow"></mat-datepicker>
+              </mat-form-field>
+        </div>
+    </div>
+</div>
+<!--Точное время-->
+<div *ngIf="timeCheck === 'Точное время'" class="container">
+    <div class="container__time">
+        <div class="exactlyTime">
+            <mat-form-field>
+                <label>Точное время</label>
+                <input matInput [ngxMatDatetimePicker]="pickerD" [value]="dateNow">
+                <mat-datepicker-toggle matSuffix [for]="pickerD">
+                    <mat-icon matDatepickerToggleIcon>
+                        <svg-icon src="./assets/icons/widgets/reports/calend.svg"
+                            [svgStyle]="{ 'width.px':25, 'height.px':25}">
+                        </svg-icon>
+                    </mat-icon>
+                </mat-datepicker-toggle>
+                <ngx-mat-datetime-picker #pickerD>
+                </ngx-mat-datetime-picker>
+            </mat-form-field>
+        </div>
+    </div>
+</div>
+<!--Без запроса времени-->
+<div *ngIf="timeCheck === 'Без запроса времени'" class="container">
+</div>
+<!--Произвольное время-->
+<div *ngIf="timeCheck === 'Произвольное время'" class="container">
+    <div class="container__time">
+        <div class="arbitraryTime">
+            <mat-form-field>
+                <label>От</label>
+                <input matInput [ngxMatDatetimePicker]="pickerT" [value]="dateNow">
+                <mat-datepicker-toggle matSuffix [for]="pickerT">
+                    <mat-icon matDatepickerToggleIcon>
+                        <svg-icon src="./assets/icons/widgets/reports/calend.svg"
+                            [svgStyle]="{ 'width.px':25, 'height.px':25}">
+                        </svg-icon>
+                    </mat-icon>
+                </mat-datepicker-toggle>
+                <ngx-mat-datetime-picker #pickerT>
+                </ngx-mat-datetime-picker>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="container__time">
+        <div class="arbitraryTime">
+            <mat-form-field>
+                <label>До</label>
+                <input matInput [ngxMatDatetimePicker]="pickerT" [value]="dateNow">
+                <mat-datepicker-toggle matSuffix [for]="pickerT">
+                    <mat-icon matDatepickerToggleIcon>
+                        <svg-icon src="./assets/icons/widgets/reports/calend.svg"
+                            [svgStyle]="{ 'width.px':25, 'height.px':25}">
+                        </svg-icon>
+                    </mat-icon>
+                </mat-datepicker-toggle>
+                <ngx-mat-datetime-picker #pickerT>
+                </ngx-mat-datetime-picker>
+            </mat-form-field>
+        </div>
+    </div>
+</div>
+<!--Произвольная дата-->
+<div *ngIf="timeCheck === 'Произвольная дата'" class="container">
+    <div class="container__time">
+        <div class="arbitraryDate">
+            <mat-form-field>
+                <label>Дата</label>
+                <input matInput [ngxMatDatetimePicker]="pickerD" [value]="dateNow">
+                <mat-datepicker-toggle matSuffix [for]="pickerD">
+                    <mat-icon matDatepickerToggleIcon>
+                        <svg-icon src="./assets/icons/widgets/reports/calend.svg"
+                            [svgStyle]="{ 'width.px':25, 'height.px':25}">
+                        </svg-icon>
+                    </mat-icon>
+                </mat-datepicker-toggle>
+                <ngx-mat-datetime-picker #pickerD>
+                </ngx-mat-datetime-picker>
+            </mat-form-field>
+        </div>
+    </div>
+</div>
