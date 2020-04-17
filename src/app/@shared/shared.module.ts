@@ -17,6 +17,7 @@ import { WidgetPreloaderComponent } from './components/widget-preloader/widget-p
 import { AlertWindowComponent } from './components/alert-window/alert-window.component';
 import { NgxMaskModule } from 'ngx-mask';
 import { SmartScrollComponent } from './components/smart-scroll/smart-scroll.component';
+import { LineChartTrackComponent } from './components/smart-scroll/line-chart-track/line-chart-track.component';
 
 @NgModule({
     declarations: [
@@ -34,6 +35,7 @@ import { SmartScrollComponent } from './components/smart-scroll/smart-scroll.com
         WidgetPreloaderComponent,
         AlertWindowComponent,
         SmartScrollComponent,
+        LineChartTrackComponent,
     ],
     exports: [
         HeaderComponent,
