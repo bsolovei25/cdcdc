@@ -17,7 +17,6 @@ $container-padding: 5px;
   $top-block-size: 150px;
   position: relative;
   margin: $block-margin;
-  background-color: var(--color-bg-additional);
   &_main-icon {
     width: $top-block-size;
     height: $top-block-size;
@@ -37,5 +36,6 @@ $container-padding: 5px;
   &_graph {
     width: calc(100% - #{$top-block-size} - #{$block-margin * 4});
     height: calc(100% - #{$top-block-size} - #{$block-margin * 4});
+    background-color: var(--color-bg-additional);
   }
 }

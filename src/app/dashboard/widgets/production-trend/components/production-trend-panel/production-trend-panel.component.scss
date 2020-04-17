@@ -2,8 +2,21 @@
   position: relative;
   display: flex;
   width: 100%;
-  height: 100px;
+  height: 15%;
   &_text {
     margin: auto;
+  }
+}
+
+.cards-block {
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  height: 85%;
+  &_card {
+    width: 100%;
+    height: calc(25% - 6px);
+    margin-top: auto;
   }
 }
