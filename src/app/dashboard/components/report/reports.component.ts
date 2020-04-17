@@ -4,7 +4,6 @@ import { WidgetService } from '../../services/widget.service';
 import { ReportsService } from '../../services/reports.service';
 import { IReportTemplate } from '../../models/report-server';
 
-
 @Component({
     selector: 'evj-reports',
     templateUrl: './reports.component.html',
