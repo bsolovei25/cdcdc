@@ -13,7 +13,7 @@
         >
         </svg-icon>
       </span>
-      <h3 class="upload__header__title">Загрузка градуирования таблицы</h3>
+      <h3 class="upload__header__title">Загрузка градуировки</h3>
     </div>
     <div class="upload__date">
       <div class="upload__date__picker">
@@ -29,7 +29,7 @@
         <span class="upload__date__picker__title">Окончание</span>
         <span class="upload__date__picker__date">
           <evj-time-data-picker
-            [data]="date"
+            [data]="dateEnd"
             (dateTimePicker)="dateTimePickerInputEnd($event)"
           ></evj-time-data-picker>
         </span>
@@ -40,7 +40,7 @@
         <h3 class="upload__body__comment__title">Комментарий</h3>
         <div class="upload__body__comment__body">
           <textarea
-            [(ngModel)]="comment"
+            [formControl]="comment"
             matInput
             placeholder="Напишите свой комментарий"
             style="max-height: 95px"
@@ -76,7 +76,12 @@
       </div>
     </div>
     <div class="upload__footer">
-      <span class="upload__footer__icon" (click)="submitForm()">Сохранить</span>
+      <span
+        [style.opacity]="comment.invalid ? '0.4' : '1'"
+        class="upload__footer__icon"
+        (click)="comment.invalid ? null : submitForm() "
+        >Сохранить</span
+      >
     </div>
     <!-- <evj-upload-drop></evj-upload-drop> -->
   </section>

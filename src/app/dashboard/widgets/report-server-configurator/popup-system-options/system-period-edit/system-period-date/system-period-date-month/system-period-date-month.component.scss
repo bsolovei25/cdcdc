@@ -1,0 +1,22 @@
+.month {
+    ::ng-deep {
+        .mat-form-field-infix {
+            width: 100px;
+            border-bottom: 1px solid white;
+        }
+
+        .mat-form-field-underline {
+            display: none;
+        }
+    }
+}
+
+::ng-deep {
+    .month {
+        ::ng-deep {
+            .mat-calendar-header {
+                display: none;
+            }
+        }
+    }
+}

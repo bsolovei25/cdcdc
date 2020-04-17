@@ -55,4 +55,4 @@ import { LineChartTrackComponent } from './components/smart-scroll/line-chart-tr
     ],
     imports: [CommonModule, MatInputModule, MatIconModule, NgxMaskModule.forChild()],
 })
-export class SharedModule {}
+export class SharedModule { }

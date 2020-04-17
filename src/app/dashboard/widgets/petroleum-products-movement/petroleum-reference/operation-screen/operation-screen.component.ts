@@ -41,7 +41,6 @@ export class OperationScreenComponent implements OnInit {
     }
 
     public filterClick(isOpen: boolean): void {
-        this.petroleumService.isLoad$.next(true);
         let filterType: TransfersFilter;
         if (isOpen) {
             filterType = 'open';
