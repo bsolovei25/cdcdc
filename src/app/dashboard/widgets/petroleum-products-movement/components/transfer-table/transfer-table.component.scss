@@ -20,6 +20,7 @@
     width: 10px;
     height: 10px;
     &__active {
+      fill: var(--color-border-active);
     }
   }
   &_block {

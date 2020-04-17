@@ -315,7 +315,7 @@ export class PetroleumScreenService {
             await this.chooseTransfer(uid);
             this.materialController.openSnackBar('Сохранено');
         } catch (err) {
-            if (err.status !== 477) {
+            if (err.status !== 477 && err.status !== 403) {
                 this.materialController.openSnackBar('Ошибка валидации!', 'snackbar-red');
             }
         }

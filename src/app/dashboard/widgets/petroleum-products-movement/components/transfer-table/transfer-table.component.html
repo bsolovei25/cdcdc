@@ -6,7 +6,11 @@
           {{ item.title }}
         </div>
         <div style="position: relative">
-          <svg-icon class="filter_icon" [svgStyle]="{ 'width.px':12, 'height.px':12 }" src="assets/icons/SearchFilter.svg"></svg-icon>
+          <svg-icon
+            class="filter_icon"
+            [svgStyle]="{ 'width.px':12, 'height.px':12 }"
+            src="assets/icons/SearchFilter.svg" [class.filter_icon__active]="item.filter.isActive">
+          </svg-icon>
           <div *ngIf="item.filter.isActive" class="filter_block">
             <evj-filter-popup
               [filterSetting]="getFilterParams(item)"
