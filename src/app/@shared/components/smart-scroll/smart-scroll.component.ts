@@ -140,6 +140,9 @@ export class SmartScrollComponent implements AfterViewInit, OnChanges {
             if (listeningMouseMove) {
                 listeningMouseMove();
                 listeningMouseMove = null;
+
+                const left: number = +this.sbThumb.nativeElement.style.left.slice(0, -1);
+                this.sbThumbLeftChange.emit(left);
             }
             if (listeningMouseMoveResizerLeft) {
                 listeningMouseMoveResizerLeft();
@@ -225,8 +228,6 @@ export class SmartScrollComponent implements AfterViewInit, OnChanges {
         const percent: number = (newCoords / this.sbTrackCoords.width) * 100;
 
         this.setScrollbarLeftPosition(percent);
-
-        this.sbThumbLeftChange.emit(percent);
     }
 
     // движение мыши
