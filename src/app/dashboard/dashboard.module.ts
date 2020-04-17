@@ -190,6 +190,9 @@ import { FilterPopupComponent } from './widgets/petroleum-products-movement/comp
 import { NgxMaskModule } from 'ngx-mask';
 import { SystemPeriodDateComponent } from './widgets/report-server-configurator/popup-system-options/system-period-edit/system-period-date/system-period-date.component';
 import { TransferTableComponent } from './widgets/petroleum-products-movement/components/transfer-table/transfer-table.component';
+import { SystemPeriodDateYearComponent } from './widgets/report-server-configurator/popup-system-options/system-period-edit/system-period-date/system-period-date-year/system-period-date-year.component';
+import { SystemPeriodDateMonthComponent } from './widgets/report-server-configurator/popup-system-options/system-period-edit/system-period-date/system-period-date-month/system-period-date-month.component';
+import { SystemPeriodDateDayComponent } from './widgets/report-server-configurator/popup-system-options/system-period-edit/system-period-date/system-period-date-day/system-period-date-day.component';
 
 @NgModule({
     declarations: [
@@ -348,6 +351,9 @@ import { TransferTableComponent } from './widgets/petroleum-products-movement/co
         FilterPopupComponent,
         SystemPeriodDateComponent,
         TransferTableComponent,
+        SystemPeriodDateYearComponent,
+        SystemPeriodDateMonthComponent,
+        SystemPeriodDateDayComponent,
     ],
     entryComponents: [
         LineChartComponent,
