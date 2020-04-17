@@ -83,7 +83,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     public newFolder: string;
 
     public folderActive: number;
-    public folderIdActive: number;
+    public folderIdActive: string;
 
     public saveData: ITemplate[];
 
@@ -241,7 +241,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             });
     }
 
-    putFolder(folder) {
+    putFolder(folder): void {
         this.reportService.putFolderTemplate(folder).subscribe(ans => {
             console.log(ans);
         },
@@ -568,8 +568,13 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     onFolder(event): void {
         if (event.type === "Folder") {
-            this.folderActive = event.idFolder;
-            this.folderIdActive = event.id;
+            if (event.id === this.folderIdActive) {
+                this.folderIdActive = 'default1';
+                this.folderActive = 0;
+            } else {
+                this.folderActive = event.idFolder;
+                this.folderIdActive = event.id;
+            }
         }
     }
 
