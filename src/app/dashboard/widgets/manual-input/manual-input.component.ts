@@ -155,7 +155,7 @@ export class ManualInputComponent extends WidgetPlatform
                 item.open = setGroups?.groups?.find((el) => el.name === item.name)?.open ?? true;
             }
             if (itemDate.active) {
-                this.chooseSetting = this.chooseSetting ?? itemDate;
+                this.chooseSetting = itemDate;
                 this.allSettings = false;
             }
         }
