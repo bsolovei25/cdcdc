@@ -194,6 +194,7 @@ import { DevGraphComponent } from './pages/dev-graph/dev-graph.component';
 import { MainIconComponent } from './widgets/production-trend/components/main-icon/main-icon.component';
 import { ProductionTrendFacilitiesComponent } from './widgets/production-trend/components/production-trend-facilities/production-trend-facilities.component';
 import { FacilityComponent } from './widgets/production-trend/components/facility/facility.component';
+import { ProductionTrendPanelComponent } from './widgets/production-trend/components/production-trend-panel/production-trend-panel.component';
 
 @NgModule({
     declarations: [
@@ -356,6 +357,7 @@ import { FacilityComponent } from './widgets/production-trend/components/facilit
         MainIconComponent,
         ProductionTrendFacilitiesComponent,
         FacilityComponent,
+        ProductionTrendPanelComponent,
     ],
     entryComponents: [
         LineChartComponent,

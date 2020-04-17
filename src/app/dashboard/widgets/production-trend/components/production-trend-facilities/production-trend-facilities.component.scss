@@ -1,3 +1,12 @@
+::-webkit-scrollbar {
+  width: 1px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track-piece {
+  background-color: var(--color-bg-additional);
+}
+
 .facilities-container {
   display: flex;
   margin: 10px;
