@@ -35,8 +35,9 @@
         margin: auto;
 
         box-sizing: border-box;
+
         border: 1px solid var(--color-active);
-        border-radius: 3px;
+        border-radius: 5px;
 
         background: var(--color-bg-active);
 
@@ -174,23 +175,28 @@
       position: absolute;
       z-index: 2;
 
-      height: 100%;
-      width: 5px;
+      height: 30px;
+      width: 10px;
 
       top: 0px;
+      bottom: 0px;
+      margin: auto;
 
-      background: var(--color-active);
+      background-image: url(../../../../assets/icons/components/smart-scroll/scroll-resizer.svg);
+      background-repeat: no-repeat;
+      background-size: contain;
 
       &:hover {
         cursor: e-resize;
       }
 
       &_left {
-        left: 0px;
+        left: -10px;
+        transform: rotate(180deg);
       }
 
       &_right {
-        right: 0px;
+        right: -10px;
       }
     }
   }
