@@ -266,7 +266,7 @@ export class PetroleumScreenService {
         }
         this.filterTransfersByColumn(
             this.currentFilter?.textFilter?.key,
-            this.currentFilter?.textFilter?.key);
+            this.currentFilter?.textFilter?.value);
         this.sortTransfersByColumn(
             this.currentFilter?.sortFilter?.key,
             this.currentFilter?.sortFilter?.type,
