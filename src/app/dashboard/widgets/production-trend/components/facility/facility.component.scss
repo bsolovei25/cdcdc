@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  height: 100%;
+  margin-right: 5px;
+}
+
+.facility {
+  width: 110px;
+  height: 110px;
+  margin: auto;
+  border-radius: 10px;
+  background-color: var(--color-bg-main-dark);
+}

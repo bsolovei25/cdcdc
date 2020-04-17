@@ -189,6 +189,11 @@ import { EventsListWindowComponent } from './widgets/workspace/components/events
 import { FilterPopupComponent } from './widgets/petroleum-products-movement/components/filter-popup/filter-popup.component';
 import { NgxMaskModule } from 'ngx-mask';
 import { TransferTableComponent } from './widgets/petroleum-products-movement/components/transfer-table/transfer-table.component';
+import { ProductionTrendComponent } from './widgets/production-trend/production-trend.component';
+import { DevGraphComponent } from './pages/dev-graph/dev-graph.component';
+import { MainIconComponent } from './widgets/production-trend/components/main-icon/main-icon.component';
+import { ProductionTrendFacilitiesComponent } from './widgets/production-trend/components/production-trend-facilities/production-trend-facilities.component';
+import { FacilityComponent } from './widgets/production-trend/components/facility/facility.component';
 
 @NgModule({
     declarations: [
@@ -346,6 +351,11 @@ import { TransferTableComponent } from './widgets/petroleum-products-movement/co
         EventsListWindowComponent,
         FilterPopupComponent,
         TransferTableComponent,
+        ProductionTrendComponent,
+        DevGraphComponent,
+        MainIconComponent,
+        ProductionTrendFacilitiesComponent,
+        FacilityComponent,
     ],
     entryComponents: [
         LineChartComponent,

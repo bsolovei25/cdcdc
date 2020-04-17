@@ -1,0 +1,51 @@
+<!--<evj-widget-preview-->
+<!--  [title]="widgetTitle"-->
+<!--  [icon]="widgetIcon"-->
+<!--  [previewTitle]="widgetType"-->
+<!--  *ngIf="isMock"-->
+<!--&gt;</evj-widget-preview>-->
+
+<!--<ng-container *ngIf="!isMock">-->
+<!--  <evj-widget-header-->
+<!--    [title]="widgetTitle"-->
+<!--    [units]="widgetUnits"-->
+<!--    [code]="widgetCode"-->
+<!--    [id]="widgetId"-->
+<!--    [uniqId]="widgetUniqId"-->
+<!--  ></evj-widget-header>-->
+<!--  <evj-frame-top></evj-frame-top>-->
+<!--  <div-->
+<!--    class="body-container"-->
+<!--    (mousedown)="$event.stopPropagation()"-->
+<!--    (touchstart)="$event.stopPropagation()"-->
+<!--  >-->
+<!--  </div>-->
+<!--  <evj-frame-bottom></evj-frame-bottom>-->
+<!--</ng-container>-->
+
+
+<ng-container *ngIf="true">
+  <evj-widget-header
+    [title]="'widgetTitle'"
+    [units]="'widgetUnits'"
+    [uniqId]="'widgetUniqId'"
+  ></evj-widget-header>
+  <evj-frame-top></evj-frame-top>
+  <div
+    class="body-container"
+  >
+    <div class="block block_main-icon">
+      <evj-main-icon>
+
+      </evj-main-icon>
+    </div>
+    <div class="block block_factory-list">
+      <evj-production-trend-facilities>
+
+      </evj-production-trend-facilities>
+    </div>
+    <div class="block block_panel"></div>
+    <div class="block block_graph"></div>
+  </div>
+  <evj-frame-bottom></evj-frame-bottom>
+</ng-container>
