@@ -397,14 +397,26 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     //OnClick Template
 
     onClickReference(data, index): void {
-        this.getReporting(data.idTemplate);
-        this.isAddOptionsButton = true; // file
-        this.isIdReport = data.idTemplate;
-        data.open = !data.open;
-        this.indexColumn = index;
-        this.optionsActive = [];
+        if (data.idTemplate === this.isIdReport) {
+            this.isAddOptionsButton = false;
+            this.isIdReport = null;
+            data.open = false;
+            this.indexColumn = null;
+            this.optionsActive = [];
+        } else {
+            //CLOSE ATIVE FOLDER
+            this.folderIdActive = 'default1';
+            this.folderActive = 0;
+            //LOAD TEMPLATE
+            this.getReporting(data.idTemplate);
+            this.isAddOptionsButton = true;
+            this.isIdReport = data.idTemplate;
+            data.open = !data.open;
+            this.indexColumn = index;
+            this.optionsActive = [];
+            this.setStyleScroll();
+        }
 
-        this.setStyleScroll();
     }
 
     //OnClick Template system-options
@@ -572,10 +584,21 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
                 this.folderIdActive = 'default1';
                 this.folderActive = 0;
             } else {
+                //CLOSE TEMPLATE
+                this.isAddOptionsButton = false;
+                this.isIdReport = null;
+                this.indexColumn = null;
+
+                //ACTIVATE FOLDER
+                this.optionsActive = [];
                 this.folderActive = event.idFolder;
                 this.folderIdActive = event.id;
             }
         }
+    }
+
+    leaveAddBlock(event): void {
+        this.addMenuClick = false;
     }
 
     onEventTree(event) {

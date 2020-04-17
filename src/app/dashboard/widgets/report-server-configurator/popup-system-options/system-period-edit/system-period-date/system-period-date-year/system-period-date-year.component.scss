@@ -1,0 +1,22 @@
+.year {
+    ::ng-deep {
+        .mat-form-field-infix {
+            width: 100px;
+            border-bottom: 1px solid white;
+        }
+
+        .mat-form-field-underline {
+            display: none;
+        }
+    }
+}
+
+::ng-deep {
+    .year {
+        ::ng-deep {
+            .mat-calendar-period-button {
+                display: none;
+            }
+        }
+    }
+}
