@@ -36,6 +36,11 @@ export interface ITemplateFolder {
     templates: ITemplate[];
 }
 
+export interface IFolder {
+    templates: ITemplate[];
+    folders: ITemplateFolder[];
+}
+
 export interface ITemplate {
     createdAt: Date;
     createdBy: number;

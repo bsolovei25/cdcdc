@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { timeInterval } from 'rxjs/operators';
 
 @Component({
   selector: 'evj-system-period-edit',
@@ -37,13 +38,11 @@ export class SystemPeriodEditComponent implements OnInit {
       name: 'Без запроса времени',
       isActive: false,
     },
-    {
-      name: 'Свой вариант',
-      isActive: false,
-    },
   ];
 
   dateNow: Date = new Date();
+
+  public timeCheck: string;
 
   constructor() { }
 
@@ -68,6 +67,7 @@ export class SystemPeriodEditComponent implements OnInit {
 
   changeSwap(item){
     item.isActive = !item.isActive;
+    this.timeCheck = item.name;
   }
 
 }
