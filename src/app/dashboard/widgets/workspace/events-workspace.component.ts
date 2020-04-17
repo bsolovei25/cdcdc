@@ -19,7 +19,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
     static itemCols: number = 27;
     static itemRows: number = 30;
-    public static minItemCols: number = 27;
+    public static minItemCols: number = 30;
     public static minItemRows: number = 30;
 
     constructor(
