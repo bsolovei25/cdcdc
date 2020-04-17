@@ -66,7 +66,6 @@ export class PetroleumProductsMovementComponent extends WidgetPlatform
         );
         this.petroleumService.currentTransfersFilter$.subscribe(
             (item) => {
-                this.petroleumService.isLoad$.next(false);
                 this.petroleumService.reGetTransfers(this.widgetService.currentDates$.getValue());
             }
         );
