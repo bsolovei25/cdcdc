@@ -9,6 +9,8 @@ export class SystemPeriodDateComponent implements OnInit {
   @ViewChild('picker') public picker: any;
   @Input() public timeCheck: string;
 
+  public dateNow: Date = new Date();
+
   constructor() { }
 
   ngOnInit(): void {
