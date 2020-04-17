@@ -189,6 +189,7 @@ import { EventsListWindowComponent } from './widgets/workspace/components/events
 import { FilterPopupComponent } from './widgets/petroleum-products-movement/components/filter-popup/filter-popup.component';
 import { NgxMaskModule } from 'ngx-mask';
 import { SystemPeriodDateComponent } from './widgets/report-server-configurator/popup-system-options/system-period-edit/system-period-date/system-period-date.component';
+import { TransferTableComponent } from './widgets/petroleum-products-movement/components/transfer-table/transfer-table.component';
 
 @NgModule({
     declarations: [
@@ -346,6 +347,7 @@ import { SystemPeriodDateComponent } from './widgets/report-server-configurator/
         EventsListWindowComponent,
         FilterPopupComponent,
         SystemPeriodDateComponent,
+        TransferTableComponent,
     ],
     entryComponents: [
         LineChartComponent,

@@ -15,14 +15,11 @@ export interface ICalibrationTable {
 }
 
 interface ITanksHistory {
-    name: string;
-    data: {
-        editDate: Date;
-        user: IUser;
-        empty: any;
-        updateDate: Date;
-        comment: string;
-    }[];
+    createdAt: Date;
+    createdBy: string;
+    action: string;
+    newValue: string;
+    comment: string;
 }
 
 @Component({
@@ -35,34 +32,20 @@ export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
     static itemCols: number = 18;
     static itemRows: number = 14;
 
-
-
     expandedElement: SelectionModel<any> = new SelectionModel(true);
 
     localeData: ICalibrationTable[] = [];
+
     dataSource: ICalibrationTable[] = [];
+    dataSourceTanks: ICalibrationTable[] = [];
 
     chooseTanks: any[];
-    endTr = [];
-    endTr2 = [];
 
-    @Input() set data(value) {
-        this.localeData = value;
-        this.dataSource = value;
-    }
+    isRefInput: boolean = false;
 
-    @Input() set isReport(event) {
-        setTimeout(() => {
-            this.blockNeed();
-            this.blockNee2d();
-        }, 100);
-    }
-
-    @HostListener('document:resize', ['$event'])
-    OnResize(event) {
-        this.blockNeed();
-        this.blockNee2d();
-    }
+    @Input() data: ICalibrationTable[] = [];
+    @Input() dataS: ICalibrationTable[] = [];
+    @Input() dataSTanks: ICalibrationTable[] = [];
 
     @ViewChild('tableBody3') table3: ElementRef;
     @ViewChild('tableRight4') tableRight4: ElementRef;
@@ -71,7 +54,9 @@ export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
         private calibrationService: TankCalibrationTableService,
     ) { }
     ngOnInit(): void {
-        console.log(new Date().toJSON());
+        this.localeData = this.data;
+        this.dataSource = this.dataS;
+        this.dataSourceTanks = this.dataSTanks;
     }
 
     ngOnDestroy(): void {
@@ -81,7 +66,6 @@ export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
         try {
             const el = await this.calibrationService.getHistoryTanks(element?.uid);
             this.chooseTanks = el;
-            console.log(el);
         } catch (error) {
 
         }
@@ -95,26 +79,11 @@ export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
         this.loadItem(element);
     }
 
-    blockNeed(): void {
-        this.endTr = [];
-        const heightTemplate = this.dataSource.length * 28;
-        const heihtOut = (this.table3.nativeElement.clientHeight - heightTemplate) / 20;
-        for (let i = 0; i < heihtOut - 1; i++) {
-            this.endTr.push(i);
-        }
-    }
-    blockNee2d(): void {
-        this.endTr2 = [];
-        const heightTemplate = this.dataSource.length * 26;
-        const heihtOut = (this.tableRight4.nativeElement.clientHeight - heightTemplate) / 14;
-        for (let i = 0; i < heihtOut - 1; i++) {
-            this.endTr2.push(i);
-        }
-    }
-
     searchInput(event): void {
-        // this.dataSource = this.data?.filter((val) => val.name.toLowerCase()
-        //     .includes(event?.target?.value.toLowerCase()));
+        this.dataSource = this.localeData?.filter((val) => val.name.toLowerCase()
+            .includes(event?.target?.value.toLowerCase()) && val.isGroup);
+        this.dataSourceTanks = this.localeData?.filter((val) => val.name.toLowerCase()
+            .includes(event?.target?.value.toLowerCase()) && !val.parentUid && !val.isGroup);
     }
 
 

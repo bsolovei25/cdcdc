@@ -1,31 +1,5 @@
 <div class="responsible">
-  <div
-    *ngIf="responsible?.id && responsible.login === ''"
-    class="choosenUser"
-  >
-    <div class="name_user">
-      <div class="name_user_responsible">
-        Ответственный
-      </div>
-      <div class="name_user_info" *ngIf="responsible">
-        <div>
-          {{responsible.displayName}}
-        </div>
-        <div>{{responsible.positionDescription}}</div>
-      </div>
-    </div>
-    <div class="brigade_user">
-      <div class="brigade_user_text">
-        Бригада {{ responsible?.brigade?.number }}
-      </div>
-    </div>
-    <div class="avatar_user">
-      <div class="avatar_user_img">
-        <img [src]="ewService.getUserAvatarUrl(responsible)" />
-      </div>
-    </div>
-  </div>
-  <div *ngIf="responsible.login !== ''" class="choosenUser">
+  <div *ngIf="responsible?.login" class="choosenUser">
     <div class="name_user">
       <div class="name_user_responsible">
         Ответственный

@@ -11,6 +11,7 @@ export interface ITransfer {
     sourceClient: string;
     destinationClient: string;
     deltaMass: number;
+    isSearchFilter?: boolean;
     isActive?: boolean;
     operationType?: OperationType;
 }
@@ -66,6 +67,18 @@ export interface IFacilityInfoParam {
     id: number;
     title: string;
     isActive?: boolean; // no back
+}
+
+export interface ITransferFilter {
+    sortFilter: {
+        key: string;
+        type: string;
+        isUp: boolean;
+    };
+    textFilter: {
+        key: string;
+        value: string;
+    };
 }
 
 export type ObjectStatus = 'in' | 'out' | 'repair' | 'hold' | 'inout' | 'work' | 'unknown';

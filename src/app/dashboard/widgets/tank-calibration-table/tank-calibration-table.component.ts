@@ -1,11 +1,10 @@
-import { Component, OnInit, Inject, OnDestroy, HostListener, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, HostListener, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { SelectionModel } from '@angular/cdk/collections';
 import { TankCalibrationTableService } from '../../services/tank-calibration-table.service';
 import { UploadFormComponent } from './upload-form/upload-form.component';
 import { MatDialog } from '@angular/material/dialog';
-import * as moment from 'moment';
 import { TanksTableComponent } from './tanks-table/tanks-table.component';
 import { SnackBarService } from '../../services/snack-bar.service';
 
@@ -18,6 +17,12 @@ export interface ICalibrationTable {
     parentUid?: string;
     parentName?: string;
     isGroup: boolean;
+}
+
+export interface IOnlineTable {
+    beltNumber: number;
+    height: number;
+    volume: number;
 }
 
 @Component({
@@ -50,23 +55,12 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
 
     tanksAvailable: ICalibrationTable[] = [];
 
-    endTr = [];
-    endTr2 = [];
+    onlineTable: IOnlineTable[];
 
     sort: { name: 'upStart' | 'bottomStart' | 'upEnd' | 'bottomEnd', value: boolean } | null = null;
 
     isReport: boolean = true;
-
     isRefInput: boolean = false;
-
-    @HostListener('document:resize', ['$event'])
-    OnResize(event) {
-        this.blockNeed();
-        this.blockNee2d();
-    }
-
-    @ViewChild('tableBody') table: ElementRef;
-    @ViewChild('tableRight') tableRight: ElementRef;
 
     constructor(
         public widgetService: WidgetService,
@@ -128,13 +122,6 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         }
     }
 
-    async deleteItem(element: ICalibrationTable): Promise<void> {
-        try {
-            this.calibrationService.deleteTank(element.uid);
-        } catch (error) {
-        }
-    }
-
     getChildrenRows(element: ICalibrationTable): any {
         return this.data.filter(val => element?.uid === val?.parentUid);
     }
@@ -172,29 +159,12 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
 
     searchInput(event): void {
         this.dataSource = this.data?.filter((val) => val.name.toLowerCase()
-            .includes(event?.target?.value.toLowerCase()));
-    }
-
-    blockNeed(): void {
-        this.endTr = [];
-        const heightTemplate = this.dataSource.length * 28;
-        const heihtOut = (this.table?.nativeElement?.clientHeight - heightTemplate) / 28;
-        for (let i = 0; i < heihtOut - 1; i++) {
-            this.endTr.push(i);
-        }
-    }
-    blockNee2d(): void {
-        this.endTr2 = [];
-        const heightTemplate = this.dataSource.length * 28;
-        const heihtOut = (this.tableRight?.nativeElement?.clientHeight) / 29;
-        for (let i = 0; i < heihtOut - 1; i++) {
-            this.endTr2.push(i);
-        }
+            .includes(event?.target?.value.toLowerCase()) && val.isGroup);
+        this.dataSourceTanks = this.data?.filter((val) => val.name.toLowerCase()
+            .includes(event?.target?.value.toLowerCase()) && !val.parentUid && !val.isGroup);
     }
 
     public dateTimePickerInput(date: Date, isStart: boolean): void {
-        console.log(date);
-
         if (this.isCurrent) {
             return;
         }
@@ -214,20 +184,26 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
     }
 
     openDialog(element): void {
-        console.log(element);
         const dialogRef = this.dialog
             .open(UploadFormComponent, {
-                data: {
-                    title: 'Выбор номенклатуры',
-                },
+                data: {},
                 autoFocus: true,
             });
-        // when dialog is closed, check result
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.calibrationService.postNewDate(element.uid, result);
+                this.uploadFile(result, element.uid);
             }
         });
+    }
+
+    async uploadFile(result, id: string): Promise<void> {
+        try {
+            await this.calibrationService.postNewDate(id, result, result.file);
+            this.snackBar.openSnackBar('Файл загружен успешно');
+        } catch (error) {
+            this.snackBar.openSnackBar('Файл не загружен', 'snackbar-red');
+            console.error(error);
+        }
     }
 
     openTanksTable(): void {
@@ -236,7 +212,6 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
                 data: this.tanksAvailable,
                 autoFocus: true,
             });
-        // when dialog is closed, check result
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
                 this.putTanks(result?.[0]?.uid);
@@ -254,5 +229,26 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         }
     }
 
+    async deleteTanks(uid: string): Promise<void> {
+        try {
+            await this.calibrationService.deleteTank(uid);
+            this.snackBar.openSnackBar('Резервуар удален');
+            this.loadItem(true);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async clickItem(id: string): Promise<void> {
+        try {
+            this.onlineTable = await this.calibrationService.getTankOnlineTable(id);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    downloadFile(id: string): void {
+        window.open(`http://deploy.funcoff.club:6555/api/graduation-table/graduation/tanks/${id}/table`);
+    }
 
 }

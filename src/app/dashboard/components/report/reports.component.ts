@@ -22,7 +22,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
     data: IReportTemplate[] = [];
     filterData: IReportTemplate[] = [];
 
-    isReport = true;
+    isReport: boolean = true;
 
     constructor(
         public widgetService: WidgetService,
