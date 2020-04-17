@@ -1,31 +1,40 @@
 .container {
   &__time {
     display: flex;
-
-  
-
-    .month {
-    }
-
-    .day {
-    }
-
-    .exactlyTime {
-    }
-
-    .arbitraryTime {
-    }
-
-    .arbitraryDate {
-    }
   }
 }
 
+::ng-deep {
+  .year {
+    ::ng-deep {
+      .mat-calendar-period-button {
+        display: none;
+      }
+    }
+  }
 
-::ng-deep .year {
-  ::ng-deep {
-    .mat-calendar-period-button  {
-      display: none;
+  .month {
+    ::ng-deep {
+    }
+  }
+
+  .day {
+    ::ng-deep {
+    }
+  }
+
+  .exactlyTime {
+    ::ng-deep {
+    }
+  }
+
+  .arbitraryTime {
+    ::ng-deep {
+    }
+  }
+
+  .arbitraryDate {
+    ::ng-deep {
     }
   }
 }

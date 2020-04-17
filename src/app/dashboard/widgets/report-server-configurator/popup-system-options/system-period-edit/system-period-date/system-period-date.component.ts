@@ -14,10 +14,19 @@ export class SystemPeriodDateComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  testClick() {
+  clickYear() {
     let dataPicker = this.picker._overlay._overlayContainer.getContainerElement();
     dataPicker.classList.add('year');
-    console.log('test');
+  }
+
+  clickMonth() {
+    let dataPicker = this.picker._overlay._overlayContainer.getContainerElement();
+    dataPicker.classList.add('month');
+  }
+
+  clickDay() {
+    let dataPicker = this.picker._overlay._overlayContainer.getContainerElement();
+    dataPicker.classList.add('day');
   }
 
 }

@@ -15,7 +15,7 @@ export class ReportServerConfiguratorService {
 
   constructor(private http: HttpClient, configService: AppConfigService) {
     this.restUrl = configService.restUrl;
-    this.restFileUrl = configService.fsUrl;
+  //  this.restFileUrl = configService.fsUrl; //OLD FILE STORAGE
   }
 
   public alertWindow$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
@@ -48,11 +48,10 @@ export class ReportServerConfiguratorService {
     return this.http.get<IFolder>(this.restUrl + '/api/report-templateFolder/all');
   }
 
-  public pushReportFile(file: Blob): Observable<any> {
+  public pushReportFile(file: any): Observable<any> {
     const body: FormData = new FormData();
-    const now: number = Date.now();
-    body.append('uploadFile', file, `report_${now}.xlsm`);
-    return this.http.post<any>(this.restFileUrl, body);
+    body.append('uploadFile', file, file.name);
+    return this.http.post<any>(this.restUrl + '/api/file-storage', body);
   }
 
   public postReportFileTemplate(body): Observable<IFileTemplate> {

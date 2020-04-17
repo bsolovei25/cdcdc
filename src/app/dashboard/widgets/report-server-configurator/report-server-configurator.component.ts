@@ -97,14 +97,13 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     state: ITreeState = {
         expandedNodeIds: {
-            1: true,
-            2: true
+            default1: true,
         },
         hiddenNodeIds: {},
         activeNodeIds: {}
     };
 
-    optionsTest: ITreeOptions = {
+    optionsTree: ITreeOptions = {
         allowDrag: (node) => node,
         allowDrop: (element, { parent, index }) => parent.data.type === 'Folder',
         getNodeClone: (node) => ({
@@ -118,6 +117,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         public widgetService: WidgetService,
         public reportService: ReportServerConfiguratorService,
         private materialController: SnackBarService,
+        public snackBar: SnackBarService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
@@ -179,21 +179,30 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     getReportFolder(): Subscription {
         return this.reportService.getTemplateFolder().subscribe(ans => {
             this.dataFolder = this.mapData(ans);
-        });
+        },
+            (error) => {
+                this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+            });
     }
 
     getReportTemplate(): Subscription {
         return this.reportService.getReportTemplate().subscribe((data) => {
             this.data = data;
             this.setStyleScroll();
-        });
+        },
+            (error) => {
+                this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+            });
     }
 
     // Get system-options
     getOptions(): Subscription {
         return this.reportService.getSystemOptions().subscribe((data) => {
             this.mapOptions(data);
-        });
+        },
+            (error) => {
+                this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+            });
     }
 
     getReporting(id: number): Subscription {
@@ -208,13 +217,80 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             this.optionsCustom = ans;
             this.isLoading = false;
             this.setStyleScroll();
-        });
+        },
+            (error) => {
+                this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+            });
     }
 
     getRecordFile(): Subscription {
         return this.reportService.getReportFileTemplate().subscribe(ans => {
             this.dataFile = ans;
-        });
+        },
+            (error) => {
+                this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+            });
+    }
+
+    putReportTemplate(template): void {
+        this.reportService.putReportTemplate(template).subscribe((ans) => {
+            this.getReportTemplate();
+        },
+            (error) => {
+                this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+            });
+    }
+
+    putFolder(folder) {
+        this.reportService.putFolderTemplate(folder).subscribe(ans => {
+            console.log(ans);
+        },
+            (error) => {
+                this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+            });
+    }
+
+    // Delete template
+    deleteReportTemplate(item): void {
+        this.isLoading = true;
+        const windowsParam = {
+            isShow: true,
+            questionText: 'Вы уверены, что хотите удалить файл-шаблон?',
+            acceptText: 'Да',
+            cancelText: 'Нет',
+            acceptFunction: () => this.reportService.deleteReportTemplate(item.idTemplate).subscribe(ans => {
+                this.isLoading = false;
+                this.getReportFolder();
+            }, (error) => {
+                this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+                this.isLoading = false;
+            }),
+            cancelFunction: () => this.reportService.closeAlert(),
+        };
+        this.reportService.alertWindow$.next(windowsParam);
+    }
+
+    // Delete folder
+    deleteFolder(item): void {
+        this.isLoading = true;
+        const windowsParam = {
+            isShow: true,
+            questionText: 'Вы уверены, что хотите удалить папку?',
+            acceptText: 'Да',
+            cancelText: 'Нет',
+            acceptFunction: () => this.reportService.deleteFolder(item.idFolder).subscribe(ans => {
+                this.isLoading = false;
+                this.getReportFolder();
+            }, (error) => {
+                this.isLoading = false;
+                this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+            }),
+            cancelFunction: () => {
+                this.reportService.closeAlert();
+                this.isLoading = false;
+            }
+        };
+        this.reportService.alertWindow$.next(windowsParam);
     }
 
     //Map answer for treeFolder
@@ -309,30 +385,13 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         this.putReportTemplate(obj);
     }
 
-    putReportTemplate(obj): void {
-        this.reportService.putReportTemplate(obj).subscribe((ans) => {
-            this.getReportTemplate();
-        });
-    }
-
-    // Delete template
-
-    deleteReportTemplate(item): void {
-        this.isLoading = true;
-        const windowsParam = {
-            isShow: true,
-            questionText: 'Вы уверены, что хотите удалить файл-шаблон?',
-            acceptText: 'Да',
-            cancelText: 'Нет',
-            acceptFunction: () => this.reportService.deleteReportTemplate(item.idTemplate).subscribe(ans => {
-                this.isLoading = false;
-                this.getReportFolder();
-            }, (error) => {
-                this.isLoading = false;
-            }),
-            cancelFunction: () => this.reportService.closeAlert(),
+    editFolder(item): void {
+        item.openEdit = false;
+        const obj = {
+            id: item.idFolder,
+            name: item.name,
         };
-        this.reportService.alertWindow$.next(windowsParam);
+        this.putFolder(obj);
     }
 
     //OnClick Template
@@ -414,7 +473,10 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
                     this.addItem = false;
                     this.isLoading = false;
                     this.getReportFolder();
-                });
+                },
+                    (error) => {
+                        this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+                    });
             }
 
             if (this.createReport) {
@@ -426,7 +488,10 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
                     this.addItem = false;
                     this.isLoading = false;
                     this.getReportFolder();
-                });
+                },
+                    (error) => {
+                        this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+                    });
             }
             this.newRecord = null;
         } else {
@@ -520,9 +585,8 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
                 id: event.node.idFolder,
                 name: event.node.name,
                 parentFolderId: event.to.parent.idFolder,
-            }
-            this.reportService.putFolderTemplate(obj).subscribe(ans => {
-            });
+            };
+            this.putFolder(obj);
         } else if (event.node.type === "Template") {
             const obj = {
                 createdAt: event.node.createdAt,
@@ -542,29 +606,6 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         if (event) {
             this.getRecordFile();
         }
-    }
-
-    // Delete folder
-
-    deleteFolder(item): void {
-        this.isLoading = true;
-        const windowsParam = {
-            isShow: true,
-            questionText: 'Вы уверены, что хотите удалить папку?',
-            acceptText: 'Да',
-            cancelText: 'Нет',
-            acceptFunction: () => this.reportService.deleteFolder(item.idFolder).subscribe(ans => {
-                this.isLoading = false;
-                this.getReportFolder();
-            }, (error) => {
-                this.isLoading = false;
-            }),
-            cancelFunction: () => {
-                this.reportService.closeAlert();
-                this.isLoading = false;
-            }
-        };
-        this.reportService.alertWindow$.next(windowsParam);
     }
 
 }
