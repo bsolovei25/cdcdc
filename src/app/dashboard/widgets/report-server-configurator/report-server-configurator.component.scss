@@ -783,7 +783,7 @@ input {
         display: flex;
         width: 100%;
         height: auto;
-        line-height: 50px;
+        line-height: 35px;
         text-align: center;
         direction: ltr;
         background-color: #1b1f2c;
@@ -825,7 +825,7 @@ input {
 
         .mat-form-field {
           width: 90%;
-          margin-left: 20px;
+          margin-left: 15px;
 
           ::ng-deep .mat-form-field-underline {
             display: none;
@@ -1045,6 +1045,7 @@ input {
 }
 
 .activeFolder {
+  position: relative;
   background-image: linear-gradient(
     to left,
     rgba(107, 166, 241, 0.7) 2%,

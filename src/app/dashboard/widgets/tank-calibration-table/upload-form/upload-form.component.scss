@@ -105,8 +105,9 @@
 
       &__body {
         display: flex;
-        justify-content: center;
+        justify-content: space-around;
         align-items: center;
+        flex-direction: column;
         min-height: 137px;
 
         border-top-left-radius: 15px;
@@ -117,6 +118,15 @@
           cursor: pointer;
           fill: var(--color-text-main);
           stroke: var(--color-text-main);
+
+          &-trash {
+            cursor: pointer;
+          }
+
+          &-file {
+            cursor: pointer;
+          }
+
           &:hover {
             fill: var(--color-active);
             stroke: var(--color-active);

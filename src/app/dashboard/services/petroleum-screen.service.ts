@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '../../services/appConfigService';
 import {
     IPetroleumObject, ITankAttribute, ITankInfo, ITankParam,
-    ITransfer,
+    ITransfer, ITransferFilter,
     ObjectDirection, ObjectType, TransfersFilter
 } from '../models/petroleum-products-movement.model';
 import { SnackBarService } from './snack-bar.service';
@@ -67,6 +67,11 @@ export class PetroleumScreenService {
         deltaMass: null,
         isActive: true,
         operationType: 'New',
+    };
+
+    public currentFilter: ITransferFilter = {
+        textFilter: null,
+        sortFilter: null,
     };
 
     constructor(
@@ -259,6 +264,13 @@ export class PetroleumScreenService {
                 this.currentTransfer$.next(currentTransferTemp);
             }
         }
+        this.filterTransfersByColumn(
+            this.currentFilter?.textFilter?.key,
+            this.currentFilter?.textFilter?.key);
+        this.sortTransfersByColumn(
+            this.currentFilter?.sortFilter?.key,
+            this.currentFilter?.sortFilter?.type,
+            this.currentFilter?.sortFilter?.isUp);
     }
 
     public async getTransfers(
@@ -303,7 +315,7 @@ export class PetroleumScreenService {
             await this.chooseTransfer(uid);
             this.materialController.openSnackBar('Сохранено');
         } catch (err) {
-            if (err.status !== 477) {
+            if (err.status !== 477 && err.status !== 403) {
                 this.materialController.openSnackBar('Ошибка валидации!', 'snackbar-red');
             }
         }
@@ -370,7 +382,6 @@ export class PetroleumScreenService {
             objectInfo,
             objectAttributes,
         };
-        console.log(currentTankParam);
         this.currentTankParam$.next(currentTankParam);
         this.isLoad$.next(false);
     }
@@ -478,6 +489,71 @@ export class PetroleumScreenService {
             fromDatetime,
             toDatetime,
         };
+    }
+
+    public filterTransfersByColumn(key: string, search: string): void {
+        const transfers = this.transfers$.getValue();
+        if (!key || key === '') {
+            transfers?.forEach((el) => el.isSearchFilter = true);
+            return;
+        }
+        transfers?.forEach(
+            (el) => el.isSearchFilter = el[key].toLowerCase().includes(search.toLowerCase()));
+        this.currentFilter.textFilter = {
+            key,
+            value: search,
+        };
+    }
+
+    // isUp - по возрастанию
+    public sortTransfersByColumn(key: string, type: string, isUp: boolean): void {
+        if (!key || !type || key === '' || type === '') {
+            return;
+        }
+        const sortOrder: number = isUp ? 1 : -1;
+        const transfers = this.transfers$.getValue();
+        switch (type) {
+            case 'number':
+                this.sortTransferNumber(key, sortOrder, transfers);
+                break;
+            case 'string':
+                this.sortTransferString(key, sortOrder, transfers);
+                break;
+            case 'date':
+                this.sortTransferDate(key, sortOrder, transfers);
+                break;
+            default:
+                return;
+        }
+        this.currentFilter.sortFilter = {
+            key, type, isUp
+        };
+    }
+
+    private sortTransferNumber(key: string, sortOrder: number, transfers: ITransfer[]): void {
+        transfers.sort((a, b) => {
+            if (a[key] > b[key]) {
+                return sortOrder;
+            } else if (a[key] < b[key]) {
+                return -sortOrder;
+            }
+            return 0;
+        });
+    }
+
+    private sortTransferString(key: string, sortOrder: number, transfers: ITransfer[]): void {
+        transfers.sort((a, b) => a[key].localeCompare(b[key]) * sortOrder);
+    }
+
+    private sortTransferDate(key: string, sortOrder: number, transfers: ITransfer[]): void {
+        transfers.sort((a, b) => {
+            if (a[key]?.getTime() > b[key]?.getTime() || !a[key]) {
+                return sortOrder;
+            } else if (a[key]?.getTime() < b[key]?.getTime() || !b[key]) {
+                return -sortOrder;
+            }
+            return 0;
+        });
     }
 }
 
