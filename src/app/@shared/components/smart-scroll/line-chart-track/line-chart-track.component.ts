@@ -97,8 +97,6 @@ export class LineChartTrackComponent implements OnChanges, AfterViewInit {
     }
 
     private initGraph(): void {
-        this.svg = d3Selection.select('div.line-chart-track').append('svg');
-
         this.graphMaxX = +d3Selection
             .select('div.line-chart-track')
             .style('width')
@@ -118,13 +116,14 @@ export class LineChartTrackComponent implements OnChanges, AfterViewInit {
         const line = d3
             .line()
             .x((item: IChartD3) => item.x)
-            .y((item: IChartD3) => item.y);
+            .y((item: IChartD3) => item.y)
+            .curve(d3.curveCatmullRom.alpha(0.5));
 
         this.svg
             .append('path')
             .attr('d', line(this.chartData))
             .style('fill', 'none')
             .style('stroke', '#ffffff')
-            .style('stroke-width', '2px');
+            .style('stroke-width', 1);
     }
 }
