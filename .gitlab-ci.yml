@@ -152,8 +152,8 @@ release maker:
         - python3 release-notes.py
         - ls ./output
         - bash upload_release.sh  
-          #only:
-          #- release
+    only:
+        - master
     when:
         manual
 
