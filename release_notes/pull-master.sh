@@ -32,3 +32,5 @@ cook_tag $GIT_DIR
 
 echo "Going into $GIT_DIR2 ..."
 cook_tag $GIT_DIR2
+
+echo $TAGNAME > /tmp/current_tagname
