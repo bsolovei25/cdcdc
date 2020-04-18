@@ -11,6 +11,7 @@ after_script:
 variables:
     GIT_SSL_NO_VERIFY: "1"
     DEPLOY_DOMAIN: deploy.funcoff.club
+    SCP_HOST: root@${DEPLOY_DOMAIN}
 
 stages:
     - prebuild
