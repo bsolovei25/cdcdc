@@ -11,6 +11,7 @@ after_script:
 variables:
     GIT_SSL_NO_VERIFY: "1"
     DEPLOY_DOMAIN: deploy.funcoff.club
+    SCP_HOST: root@${DEPLOY_DOMAIN}
 
 stages:
     - prebuild
@@ -19,6 +20,7 @@ stages:
     - deploy-review
     - staging
     - deploy
+    - release
     - clean-on-failure
 
 
@@ -129,6 +131,31 @@ prod:
         - ssh root@${DEPLOY_DOMAIN} nginx -s reload
     only:
         - master
+
+release maker:
+    <<: *init
+    stage: release
+    script:
+        - env
+        - ls
+        - echo "Check if MILESTONE environment supplied"
+          #- if [[ -z $MILESTONE  ]]; then echo "no variable detected"; exit 1; fi
+        - cd ./release_notes
+        - echo "Cooking tags to make future release of release branch!:))"
+        - scp ./pull-master.sh ${SCP_HOST}:/tmp
+        - ssh ${SCP_HOST} "bash /tmp/pull-master.sh $TAGNAME"
+        - scp ${SCP_HOST}:/tmp/current_tagname /tmp
+
+        - echo "Proceeding to making release notes"
+        - echo "Setting locale to UTF-8 (docker fix)"
+          # - export LANG=C.UTF-8
+        - python3 release-notes.py
+        - ls ./output
+        - bash upload_release.sh  
+    only:
+        - master
+    when:
+        manual
 
 clean on failure:
     <<: *init
