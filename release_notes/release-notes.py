@@ -41,7 +41,8 @@ def render_template(milestone, closed_issues):
     return(output)
 
 def milestone_id_by_name(gl):
-    milestones = gl.milestones.list(search=MILESTONE_TITLE)
+    #milestones = gl.milestones.list(search=MILESTONE_TITLE)
+    milestones = gl.milestones.list(state='active')
     logging.info("milestones got: {}".format(milestones))
     if not milestones:
         logging.warning("milestone wasn't find! Exit 1")
