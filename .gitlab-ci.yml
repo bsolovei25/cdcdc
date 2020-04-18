@@ -19,6 +19,7 @@ stages:
     - deploy-review
     - staging
     - deploy
+    - release
     - clean-on-failure
 
 
