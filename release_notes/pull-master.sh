@@ -14,7 +14,7 @@ fi
 function cook_tag() {
     dir=$1
     cd $dir
-    git pull
+    #git pull
     git checkout release
     git pull origin master --no-edit
     git tag -a $TAGNAME HEAD -m "Created with pipelines at $(date -u +"%Y-%m-%dT%H:%M:%SZ")"
