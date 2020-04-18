@@ -31,7 +31,7 @@ curl --request POST\
      "https://${GITLAB_HOST}/api/v4/projects/${CI_PROJECT_ID}/releases"
 
 # the same for another project
-echo $DESCRIPTION
+#echo $DESCRIPTION
 curl --request POST\
      --header 'Content-Type: application/json'\
      --header "Private-Token: ${GITLAB_TOKEN}"\
