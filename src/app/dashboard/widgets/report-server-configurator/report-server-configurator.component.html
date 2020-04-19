@@ -119,7 +119,8 @@
                 </div>
               </div>
               <div class="bottom-reference-left__add-menu"
-                [class.bottom-reference-left__add-menu-active]="addMenuClick">
+                [class.bottom-reference-left__add-menu-active]="addMenuClick"
+                (mouseleave)="leaveAddBlock($event)">
                 <div class="button" (click)="pushBlockInRef()">Добавить раздел</div>
                 <div class="button" (click)="pushBlockInRec()">Добавить отчет</div>
               </div>
