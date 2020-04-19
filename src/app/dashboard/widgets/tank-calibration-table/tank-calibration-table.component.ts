@@ -332,7 +332,8 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         this.deleteElement = true;
         this.deleteItem = uid;
     }
-    closeDialog() {
+
+    closeDialog(): void {
         this.deleteElement = false;
         this.deleteItem = null;
     }
