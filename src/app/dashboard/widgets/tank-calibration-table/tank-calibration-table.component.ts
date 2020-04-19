@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, OnDestroy, HostListener, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { TanksTableComponent } from './tanks-table/tanks-table.component';
 import { SnackBarService } from '../../services/snack-bar.service';
 import { FormControl, Validators } from '@angular/forms';
+import * as moment from 'moment';
 
 export interface ICalibrationTable {
     uid: string;
@@ -24,6 +25,11 @@ export interface IOnlineTable {
     beltNumber: number;
     height: number;
     volume: number;
+    lastRow?: string;
+}
+
+interface IDataSource extends ICalibrationTable {
+    childredTanks?: ICalibrationTable[];
 }
 
 @Component({
@@ -55,13 +61,15 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
     comment: FormControl = new FormControl('', Validators.required);
 
     data: ICalibrationTable[] = [];
-    dataSource: ICalibrationTable[] = [];
+    dataSource: IDataSource[] = [];
     dataSourceTanks: ICalibrationTable[] = [
         { name: '', isGroup: false, uid: 'last-row' }
     ];
 
     tanksAvailable: ICalibrationTable[] = [];
-    onlineTable: IOnlineTable[];
+    onlineTable: IOnlineTable[] = [
+        { beltNumber: 0, height: 0, volume: 0, lastRow: 'last-row' }
+    ];
 
     isComment: boolean = false;
 
@@ -73,6 +81,9 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
 
     isReport: boolean = true;
     isRefInput: boolean = false;
+
+    deleteElement: boolean = false;
+    deleteItem: string;
 
     constructor(
         public widgetService: WidgetService,
@@ -111,11 +122,16 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
             this.calibrationService.getTanks()
                 .then((data) => {
                     this.data = data;
-                    this.dataSource = [...this.data
-                        .filter(val => val.isGroup)];
+                    this.dataSource = this.data
+                        .filter(val => val.isGroup);
+                    this.dataSource.map((value) => {
+                        value.childredTanks = this.getChildrenRows(value);
+                        this.undefinedSortStartDate(value.childredTanks);
+                    });
                     this.dataSourceTanks = [...this.data
                         .filter(val => !val.parentUid && !val.isGroup),
                     { name: '', isGroup: false, uid: 'last-row' }];
+                    this.undefinedSortStartDate(this.dataSourceTanks);
                 })
         );
         if (!onlyTanks) {
@@ -135,7 +151,7 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         }
     }
 
-    getChildrenRows(element: ICalibrationTable): any {
+    getChildrenRows(element: ICalibrationTable): ICalibrationTable[] {
         return this.data.filter(val => element?.uid === val?.parentUid);
     }
 
@@ -143,46 +159,76 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         this.isReport = event;
     }
 
-    async postNewDate(id, newDate: Date, comment: string, newDateType: 'startDate' | 'endDate') {
-        try {
-            await this.calibrationService.postDataFile(id, newDate, comment, newDateType)
-        } catch (error) {
-
-        }
-    }
 
     sortStart(): void {
         if (!this.sort || this.sort.name === 'bottomStart' || this.sort.name === 'bottomEnd') {
             this.sort = { name: 'upStart', value: true };
-            this.dataSource.sort((a, b) => a?.startDate?.getTime() - b?.startDate?.getTime());
+            this.dataSource.map(data => {
+                this.sortHighStartDate(data.childredTanks);
+            });
+            this.sortHighStartDate(this.dataSourceTanks);
         } else {
             if (this.sort.name === 'upStart') {
-                const a = this.dataSource.sort((a, b) => b?.startDate?.getTime() - a?.startDate?.getTime());
-                const ba = this.dataSourceTanks.sort((a, b) => {
-                    if (b?.startDate && a?.startDate) {
-                        return b?.startDate?.getTime() - a?.startDate?.getTime()
-                    }
+                this.dataSource.map(data => {
+                    this.sortLowStartDate(data.childredTanks);
                 });
-                console.log(ba);
-
+                this.sortLowStartDate(this.dataSourceTanks);
                 this.sort = { name: 'upEnd', value: true };
             } else {
                 this.sort = null;
             }
         }
     }
+
     sortEnd(): void {
+        this.undefinedSortEndDate(this.dataSourceTanks);
         if (!this.sort || this.sort.name === 'upStart' || this.sort.name === 'upEnd') {
             this.sort = { name: 'bottomStart', value: true };
-            this.dataSource.sort((a, b) => a?.endDate?.getTime() - b?.endDate?.getTime());
+            this.dataSource.map(data => {
+                this.sortHighEndDate(data.childredTanks);
+            });
+            this.sortHighEndDate(this.dataSourceTanks);
         } else {
             if (this.sort.name === 'bottomStart') {
-                this.dataSource.sort((a, b) => b?.endDate?.getTime() - a?.endDate?.getTime());
+                this.dataSource.map(data => {
+                    this.sortLowEndDate(data.childredTanks);
+                });
+                this.sortLowEndDate(this.dataSourceTanks);
                 this.sort = { name: 'bottomEnd', value: true };
             } else {
                 this.sort = null;
             }
         }
+    }
+
+    sortLowStartDate<T extends ICalibrationTable>(array: T[]): T[] {
+        return array.sort((a, b) => new Date(a.startDate).getTime()
+            - new Date(b.startDate).getTime());
+    }
+
+    sortHighStartDate<T extends ICalibrationTable>(array: T[]): T[] {
+        return array.sort((a, b) => new Date(b?.startDate)?.getTime()
+            - new Date(a?.startDate)?.getTime());
+    }
+
+    sortLowEndDate<T extends ICalibrationTable>(array: T[]): T[] {
+        return array.sort((a, b) => new Date(a?.endDate)?.getTime()
+            - new Date(b?.endDate)?.getTime());
+    }
+
+    sortHighEndDate<T extends ICalibrationTable>(array: T[]): T[] {
+        return array.sort((a, b) => new Date(b?.endDate)?.getTime()
+            - new Date(a?.endDate)?.getTime());
+    }
+
+    undefinedSortStartDate<T extends ICalibrationTable>(array: T[]): T[] {
+        return array.sort((a, b) => +b.hasOwnProperty('startDate')
+            - +a.hasOwnProperty('startDate'));
+    }
+
+    undefinedSortEndDate<T extends ICalibrationTable>(array: T[]): T[] {
+        return array.sort((a, b) => +b.hasOwnProperty('endDate')
+            - +a.hasOwnProperty('endDate'));
     }
 
     searchInput(event): void {
@@ -213,16 +259,27 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         }
     }
 
-    closeComment() {
+    closeComment(): void {
         this.showComment.clear();
         this.postDate = null;
         this.comment.setValue('');
     }
-    doneComment() {
-        this.postNewDate(this.postDate.id, this.postDate.newDate, this.comment.value, this.postDate.newDateType);
+
+    doneComment(): void {
+        this.postNewDate(this.postDate.id, this.postDate.newDate,
+            this.comment.value, this.postDate.newDateType);
         this.showComment.clear();
         this.postDate = null;
         this.comment.setValue('');
+    }
+
+    async postNewDate(id: string, newDate: Date, comment: string,
+        newDateType: 'startDate' | 'endDate'): Promise<void> {
+        try {
+            await this.calibrationService
+                .postDataFile(id, newDate, comment, newDateType);
+            this.snackBar.openSnackBar('Дата успешно изменена');
+        } catch (error) { }
     }
 
     openDialog(element): void {
@@ -271,12 +328,24 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         }
     }
 
-    async deleteTanks(uid: string): Promise<void> {
+    deleteUI(uid: string): void {
+        this.deleteElement = true;
+        this.deleteItem = uid;
+    }
+    closeDialog() {
+        this.deleteElement = false;
+        this.deleteItem = null;
+    }
+
+    async deleteTanks(): Promise<void> {
+        this.deleteElement = false;
         try {
-            await this.calibrationService.deleteTank(uid);
+            await this.calibrationService.deleteTank(this.deleteItem);
+            this.deleteElement = false;
             this.snackBar.openSnackBar('Резервуар удален');
             this.loadItem(true);
         } catch (error) {
+            this.deleteElement = false;
             console.error(error);
         }
     }
@@ -285,29 +354,10 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         this.chooseElement.select(element);
         try {
             this.onlineTable = await this.calibrationService.getTankOnlineTable(element.uid);
+            this.onlineTable.push({ beltNumber: 0, height: 0, volume: 0, lastRow: 'last-row' })
         } catch (error) {
             console.error(error);
         }
-    }
-
-    sortDesc(date) {
-        const data1 = new Date();
-        const data2 = new Date();
-
-        console.log(this.formatDate(data1));
-
-        const time = [
-            1537043086974,
-            1536043086974,
-            1535043086974,
-            1534043086974,
-            1533043086974,
-        ];
-        return time.sort((a, b) => b - a);
-    }
-
-    formatDate(date) {
-        return Intl.DateTimeFormat('ru').format(date);
     }
 
     downloadFile(id: string): void {
