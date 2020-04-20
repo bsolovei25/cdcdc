@@ -1100,3 +1100,28 @@ input {
 .displayOff {
   display: none;
 }
+
+
+//TOOLTIP
+
+[data-tooltip]::after {
+  content: attr(data-tooltip); 
+  position: absolute; 
+  width: 100px;
+  left: 0; top: 3px; 
+  background: var(--color-bg-main);
+  color: #fff;
+  padding: 0.5em;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+  opacity: 0; 
+  height: 20px;
+  line-height: 20px;
+  transition: 1s;
+}
+
+[data-tooltip]:hover::after {
+  opacity: 1;
+  left: -8em;
+  top: 3px;
+}
