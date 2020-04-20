@@ -142,48 +142,48 @@
                     -moz-user-select: none;
                     -ms-user-select: none;
                     user-select: none;
-                }
 
-                &__default {
-                    display: none;
-                }
-
-                &__descr {
-                    font-size: 14px;
-                }
-
-                &__default:checked + .mycheckbox__new::after {
-                    height: 8px;
-                    width: 8px;
-                    border-radius: 25px;
-                }
-
-                &__new {
-                    width: 16px;
-                    height: 16px;
-                    border-radius: 25px;
-                    border: 1px solid white;
-                    margin-right: 9px;
-                    position: relative;
-                }
-
-                &__checked {
-                    border: 1px solid var(--color-border-active);
-                }
-
-                &__new::after {
-                    content: "";
-                    display: block;
-                    width: 0;
-                    height: 0;
-                    background-color: var(--color-border-active);
-                    left: 50%;
-                    top: 50%;
-                    position: absolute;
-                    -webkit-transform: translate(-50%, -50%);
-                    transform: translate(-50%, -50%);
-                    -webkit-transition: 0.2s ease-in;
-                    transition: 0.2s ease-in;
+                    &__default {
+                        display: none;
+                    }
+    
+                    &__descr {
+                        font-size: 14px;
+                    }
+    
+                    &__default:checked + .mycheckbox__new::after {
+                        height: 8px;
+                        width: 8px;
+                        border-radius: 25px;
+                    }
+    
+                    &__new {
+                        width: 16px;
+                        height: 16px;
+                        border-radius: 25px;
+                        border: 1px solid white;
+                        margin-right: 9px;
+                        position: relative;
+                    }
+    
+                    &__checked {
+                        border: 1px solid var(--color-border-active);
+                    }
+    
+                    &__new::after {
+                        content: "";
+                        display: block;
+                        width: 0;
+                        height: 0;
+                        background-color: var(--color-border-active);
+                        left: 50%;
+                        top: 50%;
+                        position: absolute;
+                        -webkit-transform: translate(-50%, -50%);
+                        transform: translate(-50%, -50%);
+                        -webkit-transition: 0.2s ease-in;
+                        transition: 0.2s ease-in;
+                    }
                 }
             }
         }
