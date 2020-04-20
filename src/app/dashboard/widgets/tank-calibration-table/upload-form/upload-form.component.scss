@@ -117,7 +117,6 @@
         &__icon {
           cursor: pointer;
           fill: var(--color-text-main);
-          stroke: var(--color-text-main);
 
           &-trash {
             cursor: pointer;
@@ -129,7 +128,6 @@
 
           &:hover {
             fill: var(--color-active);
-            stroke: var(--color-active);
           }
         }
       }
