@@ -8,18 +8,13 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AppConfigService {
     private appConfig: any;
-
     restUrl$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
     constructor(private http: HttpClient) {}
 
-    public async loadAppConfig() {
-        const data = await this.http.get('/assets/config.json').toPromise();
-        this.appConfig = data;
+    public async loadAppConfig(): Promise<void> {
+        this.appConfig = await this.http.get('/assets/config.json').toPromise();
         this.restUrl$.next(this.appConfig.restUrl);
-        // if (this.appConfig) {
-        //     this.router.initialNavigation();
-        // }
     }
 
     get wsUrl(): string {
