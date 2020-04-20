@@ -1,16 +1,17 @@
 .container-card{
-    height: 130px;
-    width: 200px;
-    padding-left: 20px;
-    border-radius: 20px;
-    background-color: #1C2333;
+    cursor: pointer;
+    height: 100px;
+    width: 170px;
+    padding-left: 15px;
+    border-radius: 15px;
+    background-color: var(--color-oil-card);
     position: relative;
 
     &__title{
         color: var(--color-text-sub);
         font-size: 12px;
         height: 20px;
-        padding-top: 10px;
+        padding-top: 3px;
     }
 
     &__content{
@@ -18,19 +19,21 @@
         width: 100%;
 
         .value{
-            width: 35%;
-            line-height: 30px;
+            width: 40%;
+            line-height: 20px;
+            margin-top: 5px;
+            height: 100%;
             font-size: 14px;
         }
 
         .tank{
-            width: 45%;
+            width: 35%;
         }
 
         .status{
-            line-height: 100px;
+            line-height: 85px;
             text-align: center;
-            width: 20%;
+            width: 25%;
         }
     }
 
@@ -38,8 +41,8 @@
         position: absolute;
         top: 0;
         right: 0;
-        height: 27px;
-        width: 27px;
+        height: 20px;
+        width: 20px;
         border-bottom-left-radius: 30px;
         border-top-right-radius: 20px;
     }
@@ -53,10 +56,10 @@
             position: absolute;
             top: 0px;
             right: 0px;
-            height: 35px;
-            width: 35px;
+            height: 30px;
+            width: 30px;
             border-bottom-left-radius: 35px;
-            border-top-right-radius: 20px;
+            border-top-right-radius: 15px;
             background-color: var(--color-axis);
             opacity: .5;
           }
@@ -71,10 +74,10 @@
             position: absolute;
             top: 0px;
             right: 0px;
-            height: 35px;
-            width: 35px;
+            height: 30px;
+            width: 30px;
             border-bottom-left-radius: 35px;
-            border-top-right-radius: 20px;
+            border-top-right-radius: 15px;
             background-color: var(--color-standard);
             opacity: .5;
           }
@@ -89,12 +92,36 @@
             position: absolute;
             top: 0px;
             right: 0px;
-            height: 35px;
-            width: 35px;
+            height: 30px;
+            width: 30px;
             border-bottom-left-radius: 35px;
-            border-top-right-radius: 20px;
+            border-top-right-radius: 15px;
             background-color: var(--color-active);
             opacity: .5;
           }
     }
 }
+
+[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    width: 80px;
+    left: 50px;
+    bottom: 0px;
+    background: var(--color-bg-main);
+    color: #fff;
+    border: 1px solid var(--color-text-main);
+    border-radius: 15px;
+    padding: 0.5em;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+    opacity: 0;
+    height: 15px;
+    line-height: 15px;
+    transition: 1s;
+  }
+
+  [data-tooltip]:hover::after {
+    opacity: 1;
+    bottom: 10px;
+  }

@@ -82,12 +82,32 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
           tankFilling: 32,
           status: "down",
           operation: "Налив"
+        },
+        {
+          id: 6,
+          name: "Резервуар №1.2",
+          valuePas: 617,
+          valueGr: 21,
+          valueLev: 505.2,
+          tankFilling: 32,
+          status: "down",
+          operation: "Налив"
+        },
+        {
+          id: 7,
+          name: "Резервуар №1.2",
+          valuePas: 617,
+          valueGr: 21,
+          valueLev: 505.2,
+          tankFilling: 32,
+          status: "down",
+          operation: "Налив"
         }
       ],
     },
     {
       id: 2,
-      name: 'БЕНЗИНЫ',
+      name: 'МАЗУТ',
       tank: [
         {
           id: 1,
@@ -199,6 +219,8 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
     },
   ];
 
+  public isFilterTable: boolean = false;
+
   constructor(
     public widgetService: WidgetService,
     @Inject('isMock') public isMock: boolean,
@@ -219,6 +241,14 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
+  }
+
+  openFilterTable(event): void {
+    this.isFilterTable = event;
+  }
+
+  closeFilter(event): void {
+    this.isFilterTable = event;
   }
 
 }
