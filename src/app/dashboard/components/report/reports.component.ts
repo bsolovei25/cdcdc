@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { WidgetService } from '../../services/widget.service';
-import { ReportsService } from '../../services/reports.service';
 import { IReportTemplate } from '../../models/report-server';
+import { ReportsService } from '../../services/widgets/reports.service';
 
 @Component({
     selector: 'evj-reports',

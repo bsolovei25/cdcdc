@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, ChangeDetectorRef } from '@angular/core';
-import { ReportServerConfiguratorService } from 'src/app/dashboard/services/report-server-configurator.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
+import { ReportServerConfiguratorService } from '../../../../services/widgets/report-server-configurator.service';
 
 @Component({
   selector: 'evj-additional-param',
@@ -46,20 +46,18 @@ export class AdditionalParamComponent implements OnInit, OnChanges {
 
 
   optionsName = {
-    description: "Описание",
-    type: "Тип",
-    validationRule: "Правило проверки",
-    isRequired: "Обязательный",
-    source: "Источник",
-    sortOrder: "Сортировка",
-  }
+    description: 'Описание',
+    type: 'Тип',
+    validationRule: 'Правило проверки',
+    isRequired: 'Обязательный',
+    source: 'Источник',
+    sortOrder: 'Сортировка',
+  };
 
   constructor(
     public reportService: ReportServerConfiguratorService,
     private cdRef: ChangeDetectorRef,
-    public snackBar: SnackBarService) {
-
-  }
+    public snackBar: SnackBarService) { }
 
   ngOnInit(): void {
   }
@@ -87,9 +85,9 @@ export class AdditionalParamComponent implements OnInit, OnChanges {
       // });
       this.close.emit(true);
     },
-    (error) => {
-      this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
-    });
+      (error) => {
+        this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+      });
   }
 
   closeAdditional() {

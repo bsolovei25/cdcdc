@@ -1,7 +1,7 @@
 import { Component, OnInit, Renderer2, ElementRef, ViewChild, HostListener, Output, EventEmitter } from '@angular/core';
-import { ReportServerConfiguratorService } from 'src/app/dashboard/services/report-server-configurator.service';
 import { IFileTemplate, IReportTemplate } from 'src/app/dashboard/models/report-server';
 import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
+import { ReportServerConfiguratorService } from '../../../services/widgets/report-server-configurator.service';
 
 @Component({
   selector: 'evj-add-report-file',
@@ -35,7 +35,10 @@ export class AddReportFileComponent implements OnInit {
 
   public blockOut = [];
 
-  constructor(private _renderer: Renderer2, public reportService: ReportServerConfiguratorService, public snackBar: SnackBarService) { }
+  constructor(
+    private _renderer: Renderer2,
+    public reportService: ReportServerConfiguratorService,
+    public snackBar: SnackBarService) { }
 
   ngOnInit(): void {
     this.getRecord();

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AppConfigService } from '../../services/appConfigService';
+import { AppConfigService } from '../../../services/appConfigService';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 
@@ -15,7 +15,8 @@ export class ReportsService {
         this.restUrl = configService.restUrl;
     }
 
-    public alertWindow$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
+    public alertWindow$: BehaviorSubject<IAlertWindowModel> =
+        new BehaviorSubject<IAlertWindowModel>(null);
 
     async getReportsTemplate(): Promise<any> {
         try {
@@ -62,7 +63,7 @@ export class ReportsService {
 
     public closeAlert(): void {
         this.alertWindow$.next(null);
-      }
+    }
 
 
 }

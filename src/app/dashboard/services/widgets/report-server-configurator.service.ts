@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from 'src/app/services/appConfigService';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { IFileTemplate, IReportTemplate, ITemplateFolder, ISystemOptions, IReportFile, IFolder } from '../models/report-server';
+import { IFileTemplate, IReportTemplate, ITemplateFolder, ISystemOptions, IReportFile, IFolder } from '../../models/report-server';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 
 

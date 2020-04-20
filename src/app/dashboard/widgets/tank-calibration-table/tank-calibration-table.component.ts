@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { SelectionModel } from '@angular/cdk/collections';
-import { TankCalibrationTableService } from '../../services/tank-calibration-table.service';
+import { TankCalibrationTableService } from '../../services/widgets/tank-calibration-table.service';
 import { UploadFormComponent } from './upload-form/upload-form.component';
 import { MatDialog } from '@angular/material/dialog';
 import { TanksTableComponent } from './tanks-table/tanks-table.component';
@@ -122,6 +122,7 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
             this.calibrationService.getTanks()
                 .then((data) => {
                     this.data = data;
+                    const time1 = performance.now();
                     this.dataSource = this.data
                         .filter(val => val.isGroup);
                     this.dataSource.map((value) => {

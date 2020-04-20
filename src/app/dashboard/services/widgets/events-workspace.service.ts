@@ -1,20 +1,9 @@
 import { Injectable } from '@angular/core';
-import {
-    IPriority,
-    IStatus,
-    IUser,
-    ICategory,
-    IUnitEvents,
-    EventsWidgetNotificationStatus,
-    EventsWidgetNotificationPriority,
-    EventsWidgetCategoryCode,
-    EventsWidgetNotification,
-    IRetrievalEvents,
-} from '../models/events-widget';
-import { EventService } from './event.service';
-import { fillDataShape } from '../../@shared/common-functions';
-import { SnackBarService } from './snack-bar.service';
-import { AppConfigService } from '../../services/appConfigService';
+import { EventsWidgetNotification, IPriority, IStatus, IUser, ICategory, IUnitEvents, EventsWidgetNotificationStatus, EventsWidgetNotificationPriority, EventsWidgetCategoryCode, IRetrievalEvents } from '../../models/events-widget';
+import { EventService } from '../widgets/event.service';
+import { SnackBarService } from '../snack-bar.service';
+import { AppConfigService } from '../../../services/appConfigService';
+import { fillDataShape } from '../../../@shared/common-functions';
 
 @Injectable({
     providedIn: 'root',

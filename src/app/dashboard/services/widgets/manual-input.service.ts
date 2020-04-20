@@ -7,7 +7,7 @@ import {
     MI_ParamSend,
     Param_MI,
     IValue,
-} from '../models/manual-input.model';
+} from '../../models/manual-input.model';
 import { AppConfigService } from 'src/app/services/appConfigService';
 
 @Injectable({ providedIn: 'root' })

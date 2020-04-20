@@ -1,10 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { ITime } from '../../../models/time-data-picker';
-import { ReportsService } from 'src/app/dashboard/services/reports.service';
 import { SnackBarService } from '../../../services/snack-bar.service';
 import { IReportTemplate } from 'src/app/dashboard/models/report-server';
 import { AppConfigService } from '../../../../services/appConfigService';
+import { ReportsService } from '../../../services/widgets/reports.service';
 
 export interface IReport extends IReportTemplate {
     customOptions: IReportOption[];
