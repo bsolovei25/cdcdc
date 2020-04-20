@@ -14,7 +14,7 @@ export class AvatarConfiguratorService {
         console.log('photoId');
         console.log(photoId);
         if (photoId) {
-            return `${this.configService.fsUrl}/${photoId}`;
+            return `${this.configService.restUrl}/api/file-storage/${photoId}`;
         }
         return this.defaultAvatarPath;
     }
