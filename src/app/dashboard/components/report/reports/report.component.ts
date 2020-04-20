@@ -4,6 +4,7 @@ import { ITime } from '../../../models/time-data-picker';
 import { ReportsService } from 'src/app/dashboard/services/reports.service';
 import { SnackBarService } from '../../../services/snack-bar.service';
 import { IReportTemplate } from 'src/app/dashboard/models/report-server';
+import { AppConfigService } from '../../../../services/appConfigService';
 
 export interface IReport extends IReportTemplate {
     customOptions: IReportOption[];
@@ -40,6 +41,8 @@ export class ReportComponent implements OnInit {
 
     isLoading: boolean = false;
 
+    private readonly restUrl: string;
+
     public active: boolean = false;
 
     public datePicker: boolean = false;
@@ -59,12 +62,11 @@ export class ReportComponent implements OnInit {
 
     constructor(
         private reportsService: ReportsService,
-        private snackBar: SnackBarService
-    ) {
-
+        private snackBar: SnackBarService,
+        configService: AppConfigService) {
+        this.restUrl = configService.restUrl;
     }
     ngOnInit(): void {
-        console.log(this.data);
     }
 
     toggle(id: number): void {
@@ -115,7 +117,7 @@ export class ReportComponent implements OnInit {
         });
         try {
             const a: IReportTemplate = await this.reportsService.postTemplate(template.id, body);
-            window.open(`http://deploy.funcoff.club:6555/api/file-storage/${a.fileId}`);
+            window.open(`${this.restUrl}/api/file-storage/${a.fileId}`);
             this.isLoading = false;
         } catch (error) {
             this.snackBar.openSnackBar('Файл не сформирован', 'snackbar-red');

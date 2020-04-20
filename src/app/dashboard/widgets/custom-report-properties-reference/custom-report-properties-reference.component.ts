@@ -173,7 +173,10 @@ export class CustomReportPropertiesReferenceComponent extends WidgetPlatform imp
       }, (error) => {
         this.isLoading = false;
       }),
-      cancelFunction: () => this.reportService.closeAlert(),
+      cancelFunction: () => {
+        this.reportService.closeAlert();
+        this.isLoading = false;
+      }
     };
     this.reportService.alertWindow$.next(windowsParam);
   }
@@ -185,7 +188,7 @@ export class CustomReportPropertiesReferenceComponent extends WidgetPlatform imp
   editOptions(item) {
     this.reportService.putCustomOptions(item).subscribe(ans => {
       this.getReference();
-    })
+    });
   }
 
 }

@@ -151,7 +151,7 @@ input {
     th {
       color: var(--color-text-header-table);
       background-color: rgba(93, 96, 123, 0.2);
-      font-size: 11px;
+      font-size: 12px;
       padding-top: 7px;
       box-sizing: border-box;
       height: 38px;
@@ -317,13 +317,13 @@ input {
       }
       &-name {
         padding-left: 15px;
-        font-size: 12px;
+        font-size: 14px;
         color: var(--color-text-sub);
       }
     }
 
     &__td {
-      font-size: 11px;
+      font-size: 14px;
       height: 19px;
       min-width: 190px;
       max-width: 190px;
@@ -443,7 +443,7 @@ input {
     th {
       color: var(--color-text-header-table);
       background-color: var(--color-table-header);
-      font-size: 11px;
+      font-size: 12px;
       height: 25px;
       padding-top: 15px;
       text-align: center;
@@ -551,7 +551,7 @@ input {
     }
 
     &__td {
-      font-size: 9px;
+      font-size: 12px;
       height: 16px;
       min-width: 190px;
       max-width: 190px;

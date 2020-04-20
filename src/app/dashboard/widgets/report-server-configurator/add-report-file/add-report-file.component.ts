@@ -45,8 +45,7 @@ export class AddReportFileComponent implements OnInit {
     this.setStyleScroll();
   }
 
-
-  setStyleScroll() {
+  setStyleScroll(): void {
     const rightScroll = document.getElementById('rightScrollAddReport');
     const leftScroll = document.getElementById('leftScrollAddReport');
 
@@ -72,22 +71,20 @@ export class AddReportFileComponent implements OnInit {
     this.isUploadBlock = true;
   }
 
-
-  handleFileInput(event) {
+  handleFileInput(event): void {
     let file = event[0];
     const type_file = file.name.split('.').pop();
-
     if (type_file === "xls" || type_file === "xlsm" || type_file === "xlsx") {
       let reader = new FileReader();
       reader.readAsBinaryString(file);
       this.reportService.pushReportFile(file).subscribe(ans => {
         this.fileLoad = true;
         this.fileName = event[0].name;
-        let body: IFileTemplate = {
+        const body: IFileTemplate = {
           name: this.fileName,
           description: '',
           fileId: ans,
-        }
+        };
         this.reportService.postReportFileTemplate(body).subscribe(ans2 => {
           this.getRecord();
           this.fileUpload.emit(true);
@@ -95,8 +92,14 @@ export class AddReportFileComponent implements OnInit {
             this.isUploadBlock = false;
             this.fileLoad = false;
           }, 1500);
+        }, (error) => {
+          this.fileLoad = false;
+          this.snackBar.openSnackBar('Ошибка загрузки', 'snackbar-red');
         });
-      });
+      },
+        (error) => {
+          this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+        });
     } else {
       this.snackBar.openSnackBar('Не верный формат файла', 'snackbar-red');
     }
@@ -106,7 +109,7 @@ export class AddReportFileComponent implements OnInit {
     this.isUploadBlock = false;
   }
 
-  getRecord() {
+  getRecord(): void {
     this.reportService.getReportFileTemplate().subscribe(ans3 => {
       const filterData = [];
       for (const i of ans3) {
@@ -115,29 +118,46 @@ export class AddReportFileComponent implements OnInit {
       }
       this.data = filterData;
       this.saveData = filterData;
-
-
       this.setStyleScroll();
-    });
+    },
+      (error) => {
+        this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+      });
   }
 
-  postReportTemplate(template) {
+  postReportTemplate(template): void {
     this.reportService.postReportTemplate(template).subscribe(ans => {
 
-    });
+    },
+      (error) => {
+        this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+      });
   }
 
-  deleteReportFile(item) {
-    this.reportService.deleteReportFileTemplate(item.id).subscribe(ans => {
-      this.getRecord();
-    });
+  deleteReportFile(item): void {
+    const windowsParam = {
+      isShow: true,
+      questionText: 'Вы уверены, что хотите удалить файл?',
+      acceptText: 'Да',
+      cancelText: 'Нет',
+      acceptFunction: () => this.reportService.deleteReportFileTemplate(item.id).subscribe(ans => {
+        this.getRecord();
+      },
+        (error) => {
+          this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+        }),
+      cancelFunction: () => {
+        this.reportService.closeAlert();
+      }
+    };
+    this.reportService.alertWindow$.next(windowsParam);
   }
 
-  editNameReportFile(item) {
+  editNameReportFile(item): void {
     item.edit = true;
   }
 
-  onEditName(item) {
+  onEditName(item): void {
     item.edit = false;
     let updFileTemplate = {
       id: item.id,
@@ -146,18 +166,24 @@ export class AddReportFileComponent implements OnInit {
     }
     this.reportService.putReportFileTemplate(updFileTemplate).subscribe(ans => {
 
-    });
+    },
+      (error) => {
+        this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+      });
   }
 
-  getTemplate(item): any {
+  getTemplate(item): void {
     this.clickItemId = item.id;
     this.reportService.getTepmplate(item.id).subscribe(ans => {
       this.dataTemplate = ans;
       this.blockNeed();
-    });
+    },
+      (error) => {
+        this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+      });
   }
 
-  searchReport(event) {
+  searchReport(event): void {
     const record = event.currentTarget.value.toLowerCase();
     if (event.key === "Backspace") {
       this.data = this.saveData;

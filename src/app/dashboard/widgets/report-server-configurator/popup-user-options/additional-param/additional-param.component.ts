@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, ChangeDetectorRef } from '@angular/core';
 import { ReportServerConfiguratorService } from 'src/app/dashboard/services/report-server-configurator.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
 
 @Component({
   selector: 'evj-additional-param',
@@ -55,7 +56,8 @@ export class AdditionalParamComponent implements OnInit, OnChanges {
 
   constructor(
     public reportService: ReportServerConfiguratorService,
-    private cdRef: ChangeDetectorRef) {
+    private cdRef: ChangeDetectorRef,
+    public snackBar: SnackBarService) {
 
   }
 
@@ -84,6 +86,9 @@ export class AdditionalParamComponent implements OnInit, OnChanges {
       //   this.getReportTemplate();
       // });
       this.close.emit(true);
+    },
+    (error) => {
+      this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
     });
   }
 

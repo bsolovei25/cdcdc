@@ -2,7 +2,7 @@
     <ng-container *ngIf="key !== 'id' && key !== 'name'">
         <div class="options">
             <div class="options__title">{{ options[key] }}</div>
-            <div class="options__value">
+            <div class="options__value" [class.source]="key === 'source'">
                 <ng-container *ngIf="key === 'description'">
                     <div *ngIf="i !== isEdit">
                         {{ data[key] }}

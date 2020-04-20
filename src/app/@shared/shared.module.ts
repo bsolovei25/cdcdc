@@ -50,4 +50,4 @@ import { NgxMaskModule } from 'ngx-mask';
     ],
     imports: [CommonModule, MatInputModule, MatIconModule, NgxMaskModule.forChild()],
 })
-export class SharedModule {}
+export class SharedModule { }
