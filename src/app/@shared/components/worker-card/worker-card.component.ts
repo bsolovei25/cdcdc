@@ -10,9 +10,11 @@ import { AppConfigService } from '../../../services/appConfigService';
     styleUrls: ['./worker-card.component.scss'],
 })
 export class WorkerCardComponent implements OnInit, OnChanges {
+
     @Input() public person: IUser = null;
     @Input() public isSmallCard: boolean = false;
     @Input() public isActiveCard: boolean = false;
+    @Input() public position: 'responsible' | 'common';  // нужно в расписании смен
 
     public readonly phoneRegExp: RegExp = /[0-9]{10}/;
 
@@ -69,7 +71,11 @@ export class WorkerCardComponent implements OnInit, OnChanges {
     }
 
     public checkPersonResponsibility(): boolean {
-        return this.person.position === 'responsible';
+        if (this.position) {
+            return this.position === 'responsible';
+        } else {
+            return this.person.position === 'responsible';
+        }
     }
 
     public getPersonUnit(): string {
