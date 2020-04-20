@@ -288,4 +288,25 @@ export class EventsWorkspaceService {
         const avatar: string = 'assets/icons/widgets/admin/default_avatar2.svg';
         return user?.photoId ? `${this.fsUrl}/${user.photoId}` : avatar;
     }
+
+    public async escalateEvent(): Promise<void> {
+        if (this.event.originalId) {
+            const a = this.eventService.escalateSmotrEvent(this.event.originalId);
+            console.log(a);
+        }
+    }
+
+    public async closeEvent(): Promise<void> {
+        if (this.event.originalId) {
+            const a = this.eventService.closeSmotrEvent(this.event.originalId);
+            console.log(a);
+        }
+    }
+
+    public async updateEvent(): Promise<void> {
+        if (this.event.originalId) {
+            const a = this.eventService.closeSmotrEvent(this.event.originalId);
+            console.log(a);
+        }
+    }
 }

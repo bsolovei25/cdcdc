@@ -25,7 +25,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
             return next.handle(req);
         }
 
-        if (req.url.includes('api/monitoring/')) {
+        if (req.url.includes('api/Monitoring/')) {
             req = req.clone({
                 withCredentials: true,
             });

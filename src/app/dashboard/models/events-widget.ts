@@ -25,6 +25,7 @@ export interface EventsWidgetNotification {
     itemNumber: number;
     organization: string;
     branch: string;
+    originalId?: string;
     //place?: { id: number; name: string };
     responsibleOperator: IUser;
     fixedBy: IUser;
@@ -69,7 +70,7 @@ export interface IEventDeviationData {
     isClosed: boolean;
     cardDate: string;
     actions: {
-        originalId: string;
+        originalId?: string;
         dateStart: string;
         dateEnd: string;
         typeId: string;

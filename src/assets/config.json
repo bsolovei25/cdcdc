@@ -1,6 +1,7 @@
 {
     "wsUrl": "ws://deploy.funcoff.club:6555",
     "restUrl": "http://deploy.funcoff.club:6555",
+    "smotrUrl": "http://192.168.0.17:6937",
     "fileStorage": "http://deploy.funcoff.club:6877/api/file",
     "reconnectInterval": 5,
     "shiftFree": "not-all"

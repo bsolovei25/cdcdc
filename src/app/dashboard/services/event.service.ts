@@ -21,6 +21,7 @@ import { AppConfigService } from 'src/app/services/appConfigService';
 })
 export class EventService {
     private readonly restUrl: string;
+    private readonly smotrUrl: string;
     private readonly batchSize: number = 50;
 
     event$: BehaviorSubject<any | null> = new BehaviorSubject<any | null>(null);
@@ -28,6 +29,7 @@ export class EventService {
 
     constructor(public http: HttpClient, configService: AppConfigService) {
         this.restUrl = configService.restUrl;
+        this.smotrUrl = configService.smotrUrl;
     }
 
     async getBatchData(
@@ -170,10 +172,10 @@ export class EventService {
         }
     }
 
-    async getEquipmentCategory(): Promise< ICategory[]> {
+    async getEquipmentCategory(): Promise<ICategory[]> {
         try {
             return this.http
-                .get< ICategory[]>(this.restUrl + '/api/notification-reference/equipmentcategory')
+                .get<ICategory[]>(this.restUrl + '/api/notification-reference/equipmentcategory')
                 .toPromise();
         } catch (error) {
             console.error(error);
@@ -220,11 +222,39 @@ export class EventService {
         }
     }
 
+    public async escalateSmotrEvent(id: string): Promise<any> {
+        const url: string = `${this.smotrUrl}/api/monitoring/escalatedeviation/${id}`;
+        try {
+            return await this.http.put(url, null).toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    public async closeSmotrEvent(id: string): Promise<any> {
+        const url: string = `${this.smotrUrl}/api/monitoring/closedeviation/${id}`;
+        try {
+            return await this.http.put(url, null).toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    public async updateSmotrEvent(id: string): Promise<any> {
+        const url: string = `${this.smotrUrl}/api/monitoring/updatedeviation/${id}`;
+        try {
+            return await this.http.put(url, null).toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     private getOptionString(lastId: number, options: EventsWidgetOptions): string {
         let res = `take=${this.batchSize}&lastId=${lastId}&`;
         if (options.dates) {
-            res += `fromDateTime=${options.dates?.fromDateTime.toISOString()}&`
-            + `toDateTime=${options.dates?.toDateTime.toISOString()}`;
+            res +=
+                `fromDateTime=${options.dates?.fromDateTime.toISOString()}&` +
+                `toDateTime=${options.dates?.toDateTime.toISOString()}`;
         }
         for (const category of options.categories) {
             res += `&categoryIds=${category}`;

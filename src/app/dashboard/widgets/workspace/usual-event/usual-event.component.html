@@ -144,7 +144,7 @@
           title="Установленные факты"
           placeholder="Укажите факты..."
           [displayGraphImage]="!!ewService.event.graphValues"
-          [onClickItem]="openLineChart"
+          [onClickItem]="openLineChart.bind(this)"
           (addingMessage)="onSendMessage($event,'facts')"
         ></evj-chat>
       </div>
