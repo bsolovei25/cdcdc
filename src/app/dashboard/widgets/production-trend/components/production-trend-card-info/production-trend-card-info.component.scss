@@ -56,6 +56,35 @@ $background-card-color: #0E2235;
   }
   &_icon {
     position: absolute;
-    traslat
+    right: 2px;
+    top: 50%;
+    width: 20px;
+    height: 20px;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    background-color: transparent;
+    &__danger {
+      background-color: $--color-danger;
+    }
+    &__good {
+      background-color: $--color-standard;
+    }
+  }
+}
+
+.text {
+  margin: auto;
+  &_line-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+  }
+  &_danger {
+    color: $--color-danger;
+  }
+  &_good {
+    color: $--color-standard;
   }
 }

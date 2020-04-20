@@ -29,6 +29,8 @@
     [title]="'widgetTitle'"
     [units]="'widgetUnits'"
     [uniqId]="'widgetUniqId'"
+    [select]="allUnits"
+    (selected)="selectUnit($event)"
   ></evj-widget-header>
   <evj-frame-top></evj-frame-top>
   <div

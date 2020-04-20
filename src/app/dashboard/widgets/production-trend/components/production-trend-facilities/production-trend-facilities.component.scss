@@ -1,10 +1,23 @@
+$scrollbar-color: #08314D;
+$background-facilities-color: #05172B;
+
 ::-webkit-scrollbar {
   width: 1px;
   height: 6px;
 }
-
 ::-webkit-scrollbar-track-piece {
-  background-color: var(--color-bg-additional);
+  background-color: $background-facilities-color;
+}
+::-webkit-scrollbar-thumb {
+  background-color: $scrollbar-color;
+}
+
+.block {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  background: $background-facilities-color;
 }
 
 .facilities-container {

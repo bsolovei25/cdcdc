@@ -10,6 +10,7 @@ $container-padding: 5px;
   height: calc(100% - 60px);
   border-left: dashed 0.5px var(--color-border-main);
   border-right: dashed 0.5px var(--color-border-main);
+  background-color: #0C1522;
 }
 
 .block {
@@ -24,8 +25,6 @@ $container-padding: 5px;
   &_factory-list {
     width: calc(100% - #{$top-block-size} - #{$block-margin * 4});
     height: $top-block-size;
-    border-radius: 10px;
-    background-color: var(--color-bg-additional);
   }
   &_panel {
     width: $top-block-size;
