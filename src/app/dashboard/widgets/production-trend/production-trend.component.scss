@@ -20,8 +20,6 @@ $container-padding: 5px;
   &_main-icon {
     width: $top-block-size;
     height: $top-block-size;
-    border-radius: 10px;
-    background-color: var(--color-bg-additional);
   }
   &_factory-list {
     width: calc(100% - #{$top-block-size} - #{$block-margin * 4});

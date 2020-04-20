@@ -1,6 +1,61 @@
+@import "src/theme/variables.scss";
+
+$background-card-color: #0E2235;
+
 .block {
+  position: relative;
+  display: flex;
   width: 100%;
   height: 100%;
   border-radius: 10px;
-  background-color: var(--color-bg-additional);
+  background: $background-card-color;
+  &_danger {
+    background: linear-gradient(to right, $--color-danger, transparent);
+  }
+  &_good {
+    background: linear-gradient(to right, $--color-standard, transparent);
+  }
+}
+
+.card {
+  position: relative;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+  margin: auto;
+  border-radius: inherit;
+  background: $background-card-color;
+  &_background {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    &__danger {
+      background: transparentize($--color-danger, 0.9);
+    }
+    &__good {
+      background: transparentize($--color-standard, 0.9);
+    }
+  }
+  &_row {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    &__1 {
+      height: 30%;
+      font-size: 10px;
+    }
+    &__2 {
+      height: 40%;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    &__3 {
+      height: 30%;
+      font-size: 11px;
+    }
+  }
+  &_icon {
+    position: absolute;
+    traslat
+  }
 }
