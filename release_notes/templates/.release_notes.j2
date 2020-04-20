@@ -1,0 +1,12 @@
+
+# {{ milestone.attributes.title }} 
+## {{ milestone.attributes.due_date  }}
+{% for closed_issue in closed_issues  -%}
+## {{ closed_issue.title  }} / {{ closed_issue.created_at }}
+#### #{{ closed_issue.iid }} 
+{{ closed_issue.description }}
+
+Closed by {{ closed_issue.attributes['closed_by']['name'] }} at {{ closed_issue.closed_at  }}  
+
+{% endfor %}
+
