@@ -31,6 +31,8 @@ export class AddReportFileComponent implements OnInit {
 
   public isRepInput: boolean = false;
 
+  public formatFile: any;
+
   public blockOut = [];
 
   constructor(private _renderer: Renderer2, public reportService: ReportServerConfiguratorService, public snackBar: SnackBarService) { }
@@ -110,9 +112,16 @@ export class AddReportFileComponent implements OnInit {
   }
 
   getRecord(): void {
-    this.reportService.getReportFileTemplate().subscribe(ans3 => {
+    this.formatFile = [];
+    this.reportService.getReportFileTemplate().subscribe(ans => {
       const filterData = [];
-      for (const i of ans3) {
+      for (const i of ans) {
+        const type_file = i.name.split('.').pop();
+        const objType = {
+          id: i.id,
+          type: type_file,
+        };
+        this.formatFile.push(objType);
         i.name = i.name.split('.').shift();
         filterData.push(i);
       }
@@ -154,22 +163,49 @@ export class AddReportFileComponent implements OnInit {
   }
 
   editNameReportFile(item): void {
+    this.newName = item.name;
     item.edit = true;
   }
 
   onEditName(item): void {
     item.edit = false;
-    let updFileTemplate = {
-      id: item.id,
-      name: item.name,
-      description: item.description,
+    let updFileTemplate;
+    const format = this.formatFile.find(e => e.id === item.id).type;
+    if (format === "xls" || format === "xlsm" || format === "xlsx") {
+      updFileTemplate = {
+        id: item.id,
+        name: this.newName + '.' + format,
+        description: item.description,
+      };
+    } else {
+      updFileTemplate = {
+        id: item.id,
+        name: this.newName,
+        description: item.description,
+      };
     }
-    this.reportService.putReportFileTemplate(updFileTemplate).subscribe(ans => {
 
-    },
-      (error) => {
-        this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
-      });
+    const windowsParam = {
+      isShow: true,
+      questionText: 'Применить внесенные изменения?',
+      acceptText: 'Да',
+      cancelText: 'Нет',
+      acceptFunction: () => {
+        this.reportService.putReportFileTemplate(updFileTemplate).subscribe(ans => {
+        },
+          (error) => {
+            this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+          });
+        item.name = this.newName;
+        this.newName = null;
+      },
+      cancelFunction: () => {
+        this.reportService.closeAlert();
+        this.newName = null;
+      }
+    };
+    this.reportService.alertWindow$.next(windowsParam);
+
   }
 
   getTemplate(item): void {
