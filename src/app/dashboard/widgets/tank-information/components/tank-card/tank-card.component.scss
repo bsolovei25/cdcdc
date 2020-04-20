@@ -1,15 +1,16 @@
 .container-card{
-    height: 150px;
+    height: 130px;
     width: 200px;
     padding-left: 20px;
     border-radius: 20px;
     background-color: #1C2333;
+    position: relative;
 
     &__title{
         color: var(--color-text-sub);
-        font-size: 11px;
+        font-size: 12px;
         height: 20px;
-        padding-top: 15px;
+        padding-top: 10px;
     }
 
     &__content{
@@ -17,15 +18,83 @@
         width: 100%;
 
         .value{
-            width: 40%;
+            width: 35%;
+            line-height: 30px;
+            font-size: 14px;
         }
 
         .tank{
-            width: 40%;
+            width: 45%;
         }
 
         .status{
+            line-height: 100px;
+            text-align: center;
             width: 20%;
         }
+    }
+
+    &__status{
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 27px;
+        width: 27px;
+        border-bottom-left-radius: 30px;
+        border-top-right-radius: 20px;
+    }
+
+    .standart{
+        background-color: var(--color-axis);
+        opacity: 1;
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            height: 35px;
+            width: 35px;
+            border-bottom-left-radius: 35px;
+            border-top-right-radius: 20px;
+            background-color: var(--color-axis);
+            opacity: .5;
+          }
+    }
+    
+    .filling{
+        background-color: var(--color-standard);
+        opacity: 1;
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            height: 35px;
+            width: 35px;
+            border-bottom-left-radius: 35px;
+            border-top-right-radius: 20px;
+            background-color: var(--color-standard);
+            opacity: .5;
+          }
+    }
+
+    .shipment{
+        background-color: var(--color-active);
+        opacity: 1;
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            height: 35px;
+            width: 35px;
+            border-bottom-left-radius: 35px;
+            border-top-right-radius: 20px;
+            background-color: var(--color-active);
+            opacity: .5;
+          }
     }
 }

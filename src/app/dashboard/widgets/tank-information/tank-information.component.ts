@@ -41,7 +41,7 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
           valueLev: 505.2,
           tankFilling: 32,
           status: "repair",
-          operation: "Отгрузка"
+          operation: "filling"
         },
         {
           id: 2,
@@ -51,7 +51,7 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
           valueLev: 505.2,
           tankFilling: 32,
           status: "down",
-          operation: "Налив"
+          operation: "shipment"
         },
         {
           id: 3,
@@ -61,7 +61,7 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
           valueLev: 505.2,
           tankFilling: 74,
           status: "down",
-          operation: "Налив"
+          operation: "standart"
         },
         {
           id: 4,
@@ -87,29 +87,59 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
     },
     {
       id: 2,
-      name: 'ДИЗЕЛЬ',
+      name: 'БЕНЗИНЫ',
       tank: [
         {
           id: 1,
-          name: "Резервуар №2.1",
+          name: "Резервуар №1.1",
           valuePas: 617,
           valueGr: 21,
           valueLev: 505.2,
           tankFilling: 32,
           status: "repair",
-          operation: "Нет операции"
+          operation: "filling"
         },
         {
           id: 2,
-          name: "Резервуар №2.2",
+          name: "Резервуар №1.2",
           valuePas: 617,
           valueGr: 21,
           valueLev: 505.2,
           tankFilling: 32,
-          status: "up",
+          status: "down",
+          operation: "shipment"
+        },
+        {
+          id: 3,
+          name: "Резервуар №1.2",
+          valuePas: 617,
+          valueGr: 21,
+          valueLev: 505.2,
+          tankFilling: 74,
+          status: "down",
+          operation: "standart"
+        },
+        {
+          id: 4,
+          name: "Резервуар №1.2",
+          valuePas: 617,
+          valueGr: 21,
+          valueLev: 505.2,
+          tankFilling: 100,
+          status: "down",
+          operation: "Налив"
+        },
+        {
+          id: 5,
+          name: "Резервуар №1.2",
+          valuePas: 617,
+          valueGr: 21,
+          valueLev: 505.2,
+          tankFilling: 32,
+          status: "down",
           operation: "Налив"
         }
-      ]
+      ],
     },
     {
       id: 3,
@@ -123,7 +153,7 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
           valueLev: 505.2,
           tankFilling: 32,
           status: "repair",
-          operation: "Отгрузка"
+          operation: "filling"
         },
         {
           id: 2,
@@ -133,7 +163,7 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
           valueLev: 505.2,
           tankFilling: 32,
           status: "down",
-          operation: "Налив"
+          operation: "shipment"
         },
         {
           id: 3,
@@ -143,7 +173,7 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
           valueLev: 505.2,
           tankFilling: 74,
           status: "down",
-          operation: "Налив"
+          operation: "standart"
         },
         {
           id: 4,

@@ -18,6 +18,15 @@
     overflow-y: hidden;
 }
 
+.scroll-container{
+  height: 100%;
+  direction: rtl;
+  width: calc(100% - 20px);
+  margin: 0 auto;
+  margin-right: 0;
+  overflow: auto;
+}
+
 
 
 
@@ -32,8 +41,8 @@
   ::-webkit-scrollbar-track:vertical {
     width: 5px;
     height: 5px;
-    margin-top: 1px;
-    margin-bottom: 1px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     border-radius: 25px;
   }
   
