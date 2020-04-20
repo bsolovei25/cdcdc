@@ -1,0 +1,8 @@
+<div class="container-line">
+    <div class="container-line__title">
+        {{ data.name }}
+    </div>
+    <div class="container-line__content" *ngFor="let item of data.tank">
+        <evj-tank-card [data]="item" [idLine]="data.id"></evj-tank-card>
+    </div>
+</div>
