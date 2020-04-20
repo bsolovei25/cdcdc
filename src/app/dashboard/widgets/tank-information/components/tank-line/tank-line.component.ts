@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ITankInformation } from '../../tank-information.component';
+import { ITankInformation } from 'src/app/dashboard/models/tank-information';
 
 @Component({
   selector: 'evj-tank-line',

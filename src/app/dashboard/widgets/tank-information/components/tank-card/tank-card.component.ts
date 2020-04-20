@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
-import { ITankCard } from '../../tank-information.component';
+import { ITankCard } from 'src/app/dashboard/models/tank-information';
 
 @Component({
   selector: 'evj-tank-card',

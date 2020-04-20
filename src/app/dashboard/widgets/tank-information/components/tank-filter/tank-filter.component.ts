@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
+import { ITankCard, ITankInformation, ITankFilter, ITankFilterTanks } from 'src/app/dashboard/models/tank-information';
 
 @Component({
   selector: 'evj-tank-filter',
@@ -6,10 +7,10 @@ import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angu
   styleUrls: ['./tank-filter.component.scss']
 })
 export class TankFilterComponent implements OnInit, OnChanges {
-  @Input() public data;
+  @Input() public data: ITankInformation[];
   @Output() public close: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  public dataParam: any = [
+  public dataParam: ITankFilter[] = [
     {
       id: 1,
       name: 'ТСБ',
@@ -84,9 +85,9 @@ export class TankFilterComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    for (let item of this.dataParam) {
-      for (let i of item.tank) {
-        for (let j of this.data) {
+    for (const item of this.dataParam) {
+      for (const i of item.tank) {
+        for (const j of this.data) {
           if (i.name.toLocaleLowerCase() === j.name.toLocaleLowerCase()) {
             i.isActive = true;
           }
@@ -103,11 +104,11 @@ export class TankFilterComponent implements OnInit, OnChanges {
     this.close.emit(false);
   }
 
-  itemOpen(item): void {
+  itemOpen(item: ITankFilterTanks): void {
     item.open = !item.open;
   }
 
-  changeSwap(i): void {
+  changeSwap(i: ITankFilterTanks): void {
     i.isActive = !i.isActive;
   }
 

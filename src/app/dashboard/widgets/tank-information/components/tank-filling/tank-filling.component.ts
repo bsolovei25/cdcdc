@@ -24,7 +24,7 @@ export class TankFillingComponent implements OnInit, AfterViewInit {
     this.drawBak(this.oilBak.nativeElement);
   }
 
-  public drawBak(el): void {
+  public drawBak(el: ElementRef): void {
     this.tankPicture = d3
       .select(el)
       .append('svg')

@@ -1,23 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
-
-export interface ITankInformation {
-  id: number;
-  name: string;
-  tank: ITankCard[];
-}
-
-export interface ITankCard {
-  id: number;
-  name: string;
-  valuePas: number;
-  valueGr: number;
-  valueLev: number;
-  tankFilling: number;
-  status: string;
-  operation: string;
-}
+import { ITankInformation } from '../../models/tank-information';
 
 @Component({
   selector: 'evj-tank-information',
@@ -244,11 +228,11 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
     super.ngOnDestroy();
   }
 
-  openFilterTable(event): void {
+  openFilterTable(event: boolean): void {
     this.isFilterTable = event;
   }
 
-  closeFilter(event): void {
+  closeFilter(event: boolean): void {
     this.isFilterTable = event;
   }
 
