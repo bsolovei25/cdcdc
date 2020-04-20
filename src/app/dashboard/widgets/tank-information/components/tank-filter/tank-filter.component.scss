@@ -144,21 +144,21 @@
                     user-select: none;
                 }
 
-                .mycheckbox__default {
+                &__default {
                     display: none;
                 }
 
-                .mycheckbox__descr {
+                &__descr {
                     font-size: 14px;
                 }
 
-                .mycheckbox__default:checked + .mycheckbox__new::after {
+                &__default:checked + .mycheckbox__new::after {
                     height: 8px;
                     width: 8px;
                     border-radius: 25px;
                 }
 
-                .mycheckbox__new {
+                &__new {
                     width: 16px;
                     height: 16px;
                     border-radius: 25px;
@@ -167,11 +167,11 @@
                     position: relative;
                 }
 
-                .mycheckbox__checked {
+                &__checked {
                     border: 1px solid var(--color-border-active);
                 }
 
-                .mycheckbox__new::after {
+                &__new::after {
                     content: "";
                     display: block;
                     width: 0;
