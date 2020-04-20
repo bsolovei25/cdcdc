@@ -8,6 +8,7 @@ import {
     EventEmitter,
     Renderer2,
     OnChanges,
+    OnDestroy,
 } from '@angular/core';
 import { IChartMini } from '../../models/smart-scroll.model';
 
@@ -16,7 +17,7 @@ import { IChartMini } from '../../models/smart-scroll.model';
     templateUrl: './smart-scroll.component.html',
     styleUrls: ['./smart-scroll.component.scss'],
 })
-export class SmartScrollComponent implements AfterViewInit, OnChanges {
+export class SmartScrollComponent implements AfterViewInit, OnChanges, OnDestroy {
     @Input() private sbThumbWidth: number = 40; // ширина бегунка в процентах
     @Input() private sbThumbLeft: number = 40; // положение левой части скролла в процентах
     @Input() public data: IChartMini[] = [
@@ -69,6 +70,8 @@ export class SmartScrollComponent implements AfterViewInit, OnChanges {
     private beginCoordThumb: number = 0;
     private startPointFromLeft: number = 0;
 
+    private eventListener: () => void = null;
+
     readonly defaultDisplacement: number = 20;
 
     constructor(private renderer: Renderer2) {}
@@ -81,7 +84,7 @@ export class SmartScrollComponent implements AfterViewInit, OnChanges {
     }
 
     public ngAfterViewInit(): void {
-        this.eventsListenFn();
+        this.eventListener = this.eventsListenFn();
 
         this.updateCoords();
 
@@ -89,93 +92,123 @@ export class SmartScrollComponent implements AfterViewInit, OnChanges {
         this.setScrollbarLeftPosition(this.sbThumbLeft);
     }
 
+    public ngOnDestroy(): void {
+        if (this.eventListener) {
+            this.eventListener();
+        }
+    }
+
     // Функция, отлавливающая события
-    private eventsListenFn(): void {
+    private eventsListenFn(): () => void {
+        const eventListeners: (() => void)[] = [];
+
         let listeningMouseMove: () => void = null;
         let listeningMouseMoveResizerRight: () => void = null;
         let listeningMouseMoveResizerLeft: () => void = null;
 
         this.sbThumb.nativeElement.ondragstart = () => false;
 
-        // движение скролла
-        this.renderer.listen(this.sbThumbBody.nativeElement, 'mousedown', (event: MouseEvent) => {
-            this.beginCoordThumb = event.clientX;
-            if (this.sbThumb.nativeElement.style.left) {
+        eventListeners.push(
+            // движение скролла
+            this.renderer.listen(
+                this.sbThumbBody.nativeElement,
+                'mousedown',
+                (event: MouseEvent) => {
+                    this.beginCoordThumb = event.clientX;
+                    if (this.sbThumb.nativeElement.style.left) {
+                        this.startPointFromLeft = +this.sbThumb.nativeElement.style.left.slice(
+                            0,
+                            -1
+                        );
+                    }
+                    listeningMouseMove = this.renderer.listen(
+                        document,
+                        'mousemove',
+                        this.onMouseMove.bind(this)
+                    );
+                }
+            ),
+
+            // ресайз скролла слева
+            this.renderer.listen(
+                this.resizerLeft.nativeElement,
+                'mousedown',
+                (event: MouseEvent) => {
+                    this.beginCoordThumb = event.clientX;
+                    this.changePositionSides(true);
+                    listeningMouseMoveResizerLeft = this.renderer.listen(
+                        document,
+                        'mousemove',
+                        (mouseEvent: MouseEvent) => {
+                            this.onResizeThumb(mouseEvent, 'left');
+                        }
+                    );
+                }
+            ),
+
+            // ресайз скролла справа
+            this.renderer.listen(
+                this.resizerRight.nativeElement,
+                'mousedown',
+                (event: MouseEvent) => {
+                    this.beginCoordThumb = event.clientX;
+                    listeningMouseMoveResizerRight = this.renderer.listen(
+                        document,
+                        'mousemove',
+                        (mouseEvent: MouseEvent) => {
+                            this.onResizeThumb(mouseEvent, 'right');
+                        }
+                    );
+                }
+            ),
+
+            // поднятие клавиши и отписка от событий
+            this.renderer.listen(document, 'mouseup', () => {
+                if (listeningMouseMove) {
+                    listeningMouseMove();
+                    listeningMouseMove = null;
+
+                    const left: number = +this.sbThumb.nativeElement.style.left.slice(0, -1);
+                    this.sbThumbLeftChange.emit(left);
+                }
+                if (listeningMouseMoveResizerLeft) {
+                    listeningMouseMoveResizerLeft();
+                    listeningMouseMoveResizerLeft = null;
+
+                    this.sbThumbWidthChange.emit(this.thumbWidth);
+
+                    const right: number = +this.sbThumb.nativeElement.style.right.slice(0, -1);
+                    const width: number = +this.sbThumb.nativeElement.style.width.slice(0, -1);
+                    this.changePositionSides(false);
+
+                    const left: number = 100 - width - right;
+                    this.sbThumbLeftChange.emit(left);
+                }
+                if (listeningMouseMoveResizerRight) {
+                    listeningMouseMoveResizerRight();
+                    listeningMouseMoveResizerRight = null;
+
+                    this.sbThumbWidthChange.emit(this.thumbWidth);
+                }
+            }),
+
+            // нажатие кнопки слева
+            this.renderer.listen(this.btnLeft.nativeElement, 'click', () => {
                 this.startPointFromLeft = +this.sbThumb.nativeElement.style.left.slice(0, -1);
-            }
-            listeningMouseMove = this.renderer.listen(
-                document,
-                'mousemove',
-                this.onMouseMove.bind(this)
-            );
-        });
+                this.onButtonClick(true);
+            }),
 
-        // ресайз скролла слева
-        this.renderer.listen(this.resizerLeft.nativeElement, 'mousedown', (event: MouseEvent) => {
-            this.beginCoordThumb = event.clientX;
-            this.changePositionSides(true);
-            listeningMouseMoveResizerLeft = this.renderer.listen(
-                document,
-                'mousemove',
-                (mouseEvent: MouseEvent) => {
-                    this.onResizeThumb(mouseEvent, 'left');
-                }
-            );
-        });
+            // нажатие кнопки справа
+            this.renderer.listen(this.btnRight.nativeElement, 'click', () => {
+                this.startPointFromLeft = +this.sbThumb.nativeElement.style.left.slice(0, -1);
+                this.onButtonClick(false);
+            })
+        );
 
-        // ресайз скролла справа
-        this.renderer.listen(this.resizerRight.nativeElement, 'mousedown', (event: MouseEvent) => {
-            this.beginCoordThumb = event.clientX;
-            listeningMouseMoveResizerRight = this.renderer.listen(
-                document,
-                'mousemove',
-                (mouseEvent: MouseEvent) => {
-                    this.onResizeThumb(mouseEvent, 'right');
-                }
-            );
-        });
-
-        // поднятие клавиши и отписка от событий
-        this.renderer.listen(document, 'mouseup', () => {
-            if (listeningMouseMove) {
-                listeningMouseMove();
-                listeningMouseMove = null;
-
-                const left: number = +this.sbThumb.nativeElement.style.left.slice(0, -1);
-                this.sbThumbLeftChange.emit(left);
-            }
-            if (listeningMouseMoveResizerLeft) {
-                listeningMouseMoveResizerLeft();
-                listeningMouseMoveResizerLeft = null;
-
-                this.sbThumbWidthChange.emit(this.thumbWidth);
-
-                const right: number = +this.sbThumb.nativeElement.style.right.slice(0, -1);
-                const width: number = +this.sbThumb.nativeElement.style.width.slice(0, -1);
-                this.changePositionSides(false);
-
-                const left: number = 100 - width - right;
-                this.sbThumbLeftChange.emit(left);
-            }
-            if (listeningMouseMoveResizerRight) {
-                listeningMouseMoveResizerRight();
-                listeningMouseMoveResizerRight = null;
-
-                this.sbThumbWidthChange.emit(this.thumbWidth);
-            }
-        });
-
-        // нажатие кнопки слева
-        this.renderer.listen(this.btnLeft.nativeElement, 'click', () => {
-            this.startPointFromLeft = +this.sbThumb.nativeElement.style.left.slice(0, -1);
-            this.onButtonClick(true);
-        });
-
-        // нажатие кнопки справа
-        this.renderer.listen(this.btnRight.nativeElement, 'click', () => {
-            this.startPointFromLeft = +this.sbThumb.nativeElement.style.left.slice(0, -1);
-            this.onButtonClick(false);
-        });
+        // повторный вызов функции для завершения прослушивания событий
+        return () => {
+            eventListeners.forEach((func) => func());
+        };
     }
 
     //#region SUPPORT
