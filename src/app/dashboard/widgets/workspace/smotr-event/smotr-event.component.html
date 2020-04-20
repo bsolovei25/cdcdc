@@ -1,0 +1,156 @@
+<div
+  class="workspace scroll scroll-bar"
+  (mousedown)="$event.stopPropagation()"
+  (touchstart)="$event.stopPropagation()"
+>
+  <div class="workspace__column column column_left">
+    <div class="column__row row">
+      <div class="row__cell cell cell_left">
+        <evj-ui-block status="normal">
+          <mat-form-field class="categories_selectbox">
+            <mat-label>Категория</mat-label>
+            <mat-select
+              panelClass="mat-select-custom"
+              [(ngModel)]="ewService.event.category"
+              [compareWith]="compareFn"
+            >
+              <mat-option *ngFor="let cat of ewService.category" [value]="cat">
+                {{ ewService.categories[cat.name] }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </evj-ui-block>
+      </div>
+      <div class="row__cell cell cell_right">
+        <evj-events-workspace-button
+          status="escalate"
+          (click)="isEscalatePopupOpen=true"
+        ></evj-events-workspace-button>
+      </div>
+    </div>
+    <div class="column__row row">
+      <div class="row__cell cell cell_left">
+        <evj-ui-block status="normal">
+          <mat-form-field class="status">
+            <mat-label>Статус</mat-label>
+            <mat-select
+              panelClass="mat-select-custom"
+              [(ngModel)]="ewService.event.status"
+              [compareWith]="compareFn"
+            >
+              <mat-option *ngFor="let p of ewService.status" [value]="p"
+                >{{ ewService.statuses[p.name] }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </evj-ui-block>
+      </div>
+      <div class="row__cell cell cell_right">
+        <evj-events-workspace-button
+          status="close"
+          (click)="isClosePopupOpen=true"
+        ></evj-events-workspace-button>
+      </div>
+    </div>
+    <div class="column__row row description">
+      <evj-event-description
+        [description]="ewService.event.description"
+        [isRetrievalEvent]="false"
+        (changedDescription)="onChangeEventDescription($event)"
+      ></evj-event-description>
+    </div>
+    <div class="column__row row chat">
+      <evj-chat
+        [messages]="ewService.event.facts"
+        title="Установленные факты"
+        placeholder="Укажите факты..."
+        (addingMessage)="onSendMessage($event,'facts')"
+      ></evj-chat>
+    </div>
+    <div class="column__row row chat">
+      <evj-chat
+        [messages]="ewService.event.comments"
+        title="Комментарии"
+        placeholder="Напишите свой комментарий..."
+        (addingMessage)="onSendMessage($event,'comments')"
+      ></evj-chat>
+    </div>
+  </div>
+  <div class="workspace__column column column_right">
+    <div class="column__row row">
+      <div class="row__cell cell cell_left events-icons">
+        <evj-events-smotr-icon [iconType]="'escalate'" counter="2"></evj-events-smotr-icon>
+        <evj-events-smotr-icon [iconType]="'critical'" [isCritical]="true"></evj-events-smotr-icon>
+        <evj-events-smotr-icon [iconType]="'repeat'" counter="13"></evj-events-smotr-icon>
+      </div>
+      <div class="row__cell cell cell_right">
+        <evj-ui-block status="{{ewService.event.priority.name}}">
+          <mat-form-field class="{{ewService.event.priority.name}}">
+            <mat-label>Приоритет</mat-label>
+            <mat-select
+              panelClass="mat-select-custom"
+              [(ngModel)]="ewService.event.priority"
+              [compareWith]="compareFn"
+            >
+              <mat-option *ngFor="let p of ewService.priority" [value]="p"
+                >{{ ewService.priorities[p.name] }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </evj-ui-block>
+      </div>
+    </div>
+    <div class="column__row row">
+      <div class="row__cell cell cell_left information">
+        <div class="information__label label">
+          <div class="label__title">Место</div>
+          <div class="label__text">ГФУ-2</div>
+        </div>
+        <div class="information__label label">
+          <div class="label__title">Автор</div>
+          <div class="label__text">Иванов И.И.</div>
+        </div>
+      </div>
+      <div class="row__cell cell cell_right">
+        <evj-events-workspace-button status="tools"></evj-events-workspace-button>
+      </div>
+    </div>
+    <div class="column__row row responsible">
+      <evj-events-responsible-select></evj-events-responsible-select>
+    </div>
+    <div class="column__row row reasons">
+      <evj-events-reasons
+        title="Причины"
+        [reasons]="reasons"
+        (addReason)="isReasonsPopupOpen=true"
+      ></evj-events-reasons>
+    </div>
+    <div class="column__row row events-correct">
+      <evj-events-correct></evj-events-correct>
+    </div>
+  </div>
+
+  <div class="workspace__popup" [ngClass]="{'workspace__popup_active':isEscalatePopupOpen}">
+    <evj-events-comment-window
+      *ngIf="isEscalatePopupOpen"
+      title="Эскалировать выше"
+      (closeWindow)="isEscalatePopupOpen=false"
+    ></evj-events-comment-window>
+  </div>
+
+  <div class="workspace__popup" [ngClass]="{'workspace__popup_active':isClosePopupOpen}">
+    <evj-events-comment-window
+      *ngIf="isClosePopupOpen"
+      title="Закрыть карточку"
+      (closeWindow)="isClosePopupOpen=false"
+    ></evj-events-comment-window>
+  </div>
+
+  <div class="workspace__popup" [ngClass]="{'workspace__popup_active':isReasonsPopupOpen}">
+    <evj-events-list-window
+      *ngIf="isReasonsPopupOpen"
+      title="Выберите нужные причины"
+      (closeWindow)="isReasonsPopupOpen=false"
+    ></evj-events-list-window>
+  </div>
+</div>

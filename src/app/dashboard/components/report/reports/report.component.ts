@@ -1,12 +1,24 @@
-import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ITime } from '../../../models/time-data-picker';
-import { IReportTemplate } from '../reports.component';
 import { ReportsService } from 'src/app/dashboard/services/reports.service';
-import { WidgetService } from '../../../services/widget.service';
+import { SnackBarService } from '../../../services/snack-bar.service';
+import { IReportTemplate } from 'src/app/dashboard/models/report-server';
+import { AppConfigService } from '../../../../services/appConfigService';
 
 export interface IReport extends IReportTemplate {
-    options: IReportOption[];
+    customOptions: IReportOption[];
+    reports: [];
+    systemOptions: [];
+    fileTemplate: {
+        id: number;
+        fileId: string;
+        name: string;
+        description: string;
+        createdAt: Date;
+        createdBy: number;
+        isDeleted: boolean;
+    };
 }
 
 export interface IReportOption {
@@ -16,7 +28,7 @@ export interface IReportOption {
     type: 'textBox' | 'comboBox' | 'dateTime' | 'checkBox';
     validationRule: string;
     isRequired: boolean;
-    source: string;
+    source: string[];
     sortOrder: number;
 }
 
@@ -27,38 +39,40 @@ export interface IReportOption {
 })
 export class ReportComponent implements OnInit {
 
-    private subscription: Subscription;
-
     isLoading: boolean = false;
+
+    private readonly restUrl: string;
 
     public active: boolean = false;
 
     public datePicker: boolean = false;
     public datePickerOpen: number;
 
+    formGroup: {
+        id: number,
+        name: string,
+        value: string | Date,
+        type: 'textBox' | 'comboBox' | 'dateTime' | 'checkBox',
+        source: string[];
+    }[] = [];
+
     @Input() data: IReportTemplate;
 
     template: IReport;
 
     constructor(
-        public widgetService: WidgetService,
         private reportsService: ReportsService,
-    ) {
-        this.subscription = this.widgetService.widgets$.subscribe((dataW) => {
-        });
+        private snackBar: SnackBarService,
+        configService: AppConfigService) {
+        this.restUrl = configService.restUrl;
     }
-    ngOnInit() {
-    }
-
-    ngOnDestroy(): void {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
+    ngOnInit(): void {
     }
 
-    toggle(id: number) {
+    toggle(id: number): void {
         this.active = !this.active;
         if (this.active) {
+            this.formGroup = [];
             this.loadItem(id);
         }
     }
@@ -68,22 +82,27 @@ export class ReportComponent implements OnInit {
         this.datePicker = true;
     }
 
-    dateTimePickerNew(data: ITime): void {
-        const time = data.time.split(':');
-        const date = new Date(data.date);
-
-        if (this.datePickerOpen === 0) {
-            // this.fromDate = new Date(date.setHours(+time[0], +time[1], +time[2]));
-        } else if (this.datePickerOpen === 1) {
-            // this.toDate = new Date(date.setHours(+time[0], +time[1], +time[2]));
-        }
-       
+    dateTimePickerNew(date: Date, id: number): void {
+        this.formGroup.map((val) => {
+            if (val.id === id) {
+                val.value = date;
+            }
+        });
     }
 
     async loadItem(id: number): Promise<void> {
         this.isLoading = true;
         try {
             this.template = await this.reportsService.getTemplate(id);
+            this.template.customOptions.forEach(option => {
+                this.formGroup.push({
+                    id: option.id,
+                    name: option.name,
+                    value: '',
+                    type: option.type,
+                    source: option.source
+                });
+            });
             this.isLoading = false;
         } catch (error) {
             this.isLoading = false;
@@ -92,15 +111,18 @@ export class ReportComponent implements OnInit {
 
     async postItem(template: IReport): Promise<void> {
         this.isLoading = true;
-        const body = [{ value: 'mmm', baseOptionId: template?.options?.[0].id }];
+        const body: { value: string | Date, baseOptionId: number }[] = [];
+        this.formGroup.forEach((val) => {
+            body.push({ value: val?.value, baseOptionId: val?.id });
+        });
         try {
             const a: IReportTemplate = await this.reportsService.postTemplate(template.id, body);
-            window.open(`http://deploy.funcoff.club:6877/api/file/${a.fileId}`);
+            window.open(`${this.restUrl}/api/file-storage/${a.fileId}`);
             this.isLoading = false;
         } catch (error) {
+            this.snackBar.openSnackBar('Файл не сформирован', 'snackbar-red');
             this.isLoading = false;
         }
-
     }
 
 }

@@ -4,6 +4,7 @@ import { AppConfigService } from 'src/app/services/appConfigService';
 import { IReferenceTypes, IReferenceColumnsType, IReferenceColumns, IReferenceData } from '../models/references';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
+import { IAlertWindowModel } from '@shared/models/alert-window.model';
 
 @Injectable({
     providedIn: 'root',
@@ -20,6 +21,8 @@ export class ReferencesService {
         this.restUrl = configService.restUrl;
         this.getRestReference();
     }
+
+    public alertWindow$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
 
     public getRestReference(): void {
         this.getReference().subscribe(
@@ -52,6 +55,10 @@ export class ReferencesService {
         return this.http.delete<IReferenceColumns>(this.restUrl + '/api/ref-book/ReferenceColumn/' + id);
     }
 
+    public removeRecordWithColumn(id: number): Observable<IReferenceColumns> {
+        return this.http.delete<IReferenceColumns>(this.restUrl + '/api/ref-book/ReferenceColumn/' + id + '/force');
+    }
+
     public removeDataRecord(id: number): Observable<any> {
         return this.http.delete<any>(this.restUrl + '/api/ref-book/ReferenceData/' + id);
     }
@@ -70,7 +77,7 @@ export class ReferencesService {
 
 
     public orderColumnReference(columns: any): Observable<any> {
-        return this.http.post<any>(this.restUrl + '/api/ref-book/ReferenceColumn/Order', JSON.stringify(columns));
+        return this.http.post<any>(this.restUrl + '/api/ref-book/ReferenceColumn/Order', columns);
     }
 
     public putEditRef(body): Observable<IReferenceTypes> {
@@ -83,5 +90,9 @@ export class ReferencesService {
 
     public putEditData(body): Observable<any> {
         return this.http.put<any>(this.restUrl + '/api/ref-book/ReferenceData', body);
+    }
+
+    public closeAlert(): void {
+        this.alertWindow$.next(null);
     }
 }

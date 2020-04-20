@@ -1,4 +1,4 @@
-import { Component, OnInit, Injector, Inject } from '@angular/core';
+import { Component, OnInit, Injector, Inject, OnDestroy } from '@angular/core';
 import { WIDGETS } from '../new-widgets-grid/widget-map';
 import { WidgetModel } from '../../models/widget.model';
 import {
@@ -12,6 +12,7 @@ import { UserSettingsService } from '../../services/user-settings.service';
 import { EventEmitter } from '@angular/core';
 import { ClaimService, EnumClaimWidgets } from '../../services/claim.service';
 import { WidgetService } from '../../services/widget.service';
+import { Subscription } from 'rxjs';
 
 export interface IParamWidgetsGrid {
     cols: number;
@@ -25,18 +26,19 @@ export interface IParamWidgetsGrid {
     templateUrl: './new-widgets-grid.component.html',
     styleUrls: ['./new-widgets-grid.component.scss'],
 })
-export class NewWidgetsGridComponent implements OnInit {
+export class NewWidgetsGridComponent implements OnInit, OnDestroy {
     public readonly WIDGETS = WIDGETS;
+
+    private subscriptions: Subscription[] = [];
 
     public fullscreen: boolean = false;
 
-    public isVisiblePanel: boolean = true;
+    public isVisiblePanel: boolean = false;
 
     public options: GridsterConfig;
 
     public model: WidgetModel;
 
-    public indexWidget;
     public nameWidget: string;
 
     public resizeWidget: EventEmitter<{
@@ -56,30 +58,34 @@ export class NewWidgetsGridComponent implements OnInit {
         public injector: Injector,
         public userSettings: UserSettingsService,
         private claimService: ClaimService
-    ) {}
+    ) { }
 
     public ngOnInit(): void {
-        this.userSettings.GetScreens();
         document.addEventListener('fullscreenchange', () => {
-            console.log(document.fullscreenElement);
-            this.fullscreen = document.fullscreenElement ? true : false;
+            this.fullscreen = !!document.fullscreenElement;
         });
-        this.claimService.claimWidgets$.subscribe((value) => {
-            if (value) {
-                this.claimSettings = value;
-                this.isVisiblePanel = this.claimSettings.includes(EnumClaimWidgets.add);
-                this.options = null;
-                this.loaditem();
-            }
+        this.subscriptions.push(
+            this.claimService.claimWidgets$.subscribe((value) => {
+                console.log('widget-grid sub init');
+                if (value) {
+                    this.claimSettings = value;
+                    this.isVisiblePanel = this.claimSettings.includes(EnumClaimWidgets.add);
+                    this.options = null;
+                    this.loaditem();
+                }
+            }));
+    }
+
+    public ngOnDestroy(): void {
+        this.subscriptions.forEach((subscription) => {
+            subscription.unsubscribe();
         });
-        // this.loaditem();
     }
 
     private loaditem(): void {
-        // this.userSettings.GetScreen();
         this.options = {
             gridType: GridType.Fixed,
-            displayGrid: 'none',
+            displayGrid: DisplayGrid.None,
             itemChangeCallback: this.itemChange.bind(this),
             enableEmptyCellClick: false,
             enableEmptyCellContextMenu: false,
@@ -97,12 +103,13 @@ export class NewWidgetsGridComponent implements OnInit {
             fixedRowHeight: this.RowHeight,
             maxItemCols: 10000,
             maxItemRows: 10000,
-            maxItemArea: 1000000, // FIX максимальный размер виджета
+            maxItemArea: 1000000,
             minItemCols: 1,
             minItemRows: 1,
             maxRows: 100000,
             maxCols: 100000,
             pushItems: true,
+            swap: false,
             draggable: {
                 enabled: this.claimSettings.includes(EnumClaimWidgets.move),
                 stop: this.dragStop.bind(this),
@@ -125,7 +132,6 @@ export class NewWidgetsGridComponent implements OnInit {
                 },
             },
         };
-
         this.sizeGrid();
     }
 
@@ -149,7 +155,6 @@ export class NewWidgetsGridComponent implements OnInit {
         this.options.fixedRowHeight = this.RowHeight;
 
         this.changedOptions();
-
         console.log(heigthScreen + ' ' + widthScreen);
         console.log(this.RowHeight + ' ' + this.ColWidth);
     }
@@ -161,17 +166,17 @@ export class NewWidgetsGridComponent implements OnInit {
 
     public itemChange(item: GridsterItem, itemComponent: GridsterItemComponentInterface): void {
         this.userSettings.updateByPosition(item, itemComponent.$item);
+        itemComponent.item = itemComponent.$item;
     }
 
-    public onSwap(swap: any): void {
-        swap === true ? (this.options.swap = true) : (this.options.swap = false);
-        swap === true ? (this.options.pushItems = true) : (this.options.pushItems = false);
+    public onSwap(swap: boolean): void {
+        this.options.pushItems = swap;
         this.changedOptions();
     }
 
     public onGrid(grid: any): void {
         grid === true
-            ? (this.options.displayGrid = 'none')
+            ? (this.options.displayGrid = DisplayGrid.None)
             : (this.options.displayGrid = DisplayGrid.Always);
         this.changedOptions();
     }
@@ -216,10 +221,10 @@ export class NewWidgetsGridComponent implements OnInit {
     }
 
     public dragStop(item: GridsterItem, e: MouseEvent): void {
-        /*  if (!e) return;
-    const dataTrasfer = new DataTransfer();
-    e.currentTarget.dispatchEvent(new DragEvent('dragstop', { dataTransfer: dataTrasfer }));
-    this.widgetService.draggingItem = null; */
+        // if (!e) return;
+        // const dataTrasfer = new DataTransfer();
+        // e.currentTarget.dispatchEvent(new DragEvent('dragstop', { dataTransfer: dataTrasfer }));
+        // this.widgetService.draggingItem = null;
     }
 
     public dragStartHandler(ev, i): void {
@@ -237,15 +242,13 @@ export class NewWidgetsGridComponent implements OnInit {
         this.widgetService.dashboard.push(item);
     }
 
-    public emptyCellMenuClick(): void {}
+    public emptyCellMenuClick(): void { }
 
-    public emptyCellDragClick(): void {}
+    public emptyCellDragClick(): void { }
 
     public emptyCellDropClick(event: DragEvent, param: IParamWidgetsGrid): void {
         const idWidget: string = event.dataTransfer.getData('text');
-
         this.nameWidget = this.widgetService.getName(idWidget);
-
         this.userSettings.addCellByPosition(idWidget, this.nameWidget, param);
     }
 }

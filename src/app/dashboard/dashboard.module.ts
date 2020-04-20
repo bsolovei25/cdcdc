@@ -1,5 +1,5 @@
 import { ChangeShiftComponent } from './widgets/change-shift/change-shift.component';
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { NgModule, LOCALE_ID, APP_INITIALIZER } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './pages/home/home.component';
 import { SharedModule } from '../@shared/shared.module';
@@ -43,7 +43,7 @@ import { MapEcologyComponent } from './widgets/map-ecology/map-ecology.component
 import { UnityTemplateComponent } from './widgets/unity-template/unity-template.component';
 import { PowIndexPipe } from './pipes/pow-index.pipe';
 import { RingFactoryDiagramComponent } from './widgets/ring-factory-diagrams/ring-factory-diagram/ring-factory-diagram.component';
-import { LineChartWorkspaceComponent } from './widgets/workspace/line-chart-workspace/line-chart-workspace.component';
+import { LineChartWorkspaceComponent } from './widgets/workspace/components/line-chart-workspace/line-chart-workspace.component';
 import { RingSFactoryDiagramComponent } from './widgets/ring-factory-diagrams/ring-s-factory-diagram/ring-s-factory-diagram.component';
 import { CalendarPlanComponent } from './widgets/calendar-plan/calendar-plan.component';
 import { EcologySafetyComponent } from './widgets/ecology-safety/ecology-safety.component';
@@ -135,15 +135,64 @@ import { ReferenceComponent } from './widgets/reference/reference.component';
 import { ReportServerConfiguratorComponent } from './widgets/report-server-configurator/report-server-configurator.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AwsCreateClaimComponent } from './widgets/admin-panel/admin-worker-settings/aws-create-claim/aws-create-claim.component';
-import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule, NGX_MAT_DATE_FORMATS } from '@angular-material-components/datetime-picker';
+import {
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule,
+    NGX_MAT_DATE_FORMATS,
+} from '@angular-material-components/datetime-picker';
 import { MatButtonModule } from '@angular/material/button';
-import { NgxMatMomentModule} from '@angular-material-components/moment-adapter';
+import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 
 import { AgNewGroupComponent } from './widgets/admin-panel/admin-groups/ag-new-group/ag-new-group.component';
 import { AgAlertSubmitComponent } from './widgets/admin-panel/admin-groups/ag-alert-submit/ag-alert-submit.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { AdminAdImportComponent } from './widgets/admin-panel/admin-ad-import/admin-ad-import.component';
 import { AddReportFileComponent } from './widgets/report-server-configurator/add-report-file/add-report-file.component';
+import { TankCalibrationTableComponent } from './widgets/tank-calibration-table/tank-calibration-table.component';
+import { TankCalibrationTableFilesComponent } from './widgets/tank-calibration-table/tank-calibration-table-files/tank-calibration-table-files.component';
+import { UploadDropComponent } from './widgets/tank-calibration-table/upload-form/upload-drop/upload-drop.component';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { TanksTableComponent } from './widgets/tank-calibration-table/tanks-table/tanks-table.component';
+import { UploadFormComponent } from './widgets/tank-calibration-table/upload-form/upload-form.component';
+import { SmotrEventComponent } from './widgets/workspace/smotr-event/smotr-event.component';
+import { UsualEventComponent } from './widgets/workspace/usual-event/usual-event.component';
+import { RetrievalWindowComponent } from './widgets/workspace/components/retrieval-window/retrieval-window.component';
+import { EventDescriptionComponent } from './widgets/workspace/components/event-description/event-description.component';
+import { ChatComponent } from './widgets/workspace/components/chat/chat.component';
+import { CustomReportPropertiesReferenceComponent } from './widgets/custom-report-properties-reference/custom-report-properties-reference.component';
+import { PopupUserOptionsComponent } from './widgets/report-server-configurator/popup-user-options/popup-user-options.component';
+import { NecessaryParamComponent } from './widgets/report-server-configurator/popup-user-options/necessary-param/necessary-param.component';
+import { AdditionalParamComponent } from './widgets/report-server-configurator/popup-user-options/additional-param/additional-param.component';
+import { CustomReportOptionsComponent } from './widgets/custom-report-properties-reference/custom-report-options/custom-report-options.component';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatIconModule } from '@angular/material/icon';
+import { TreeModule } from 'angular-tree-component';
+import { PopupSystemOptionsComponent } from './widgets/report-server-configurator/popup-system-options/popup-system-options.component';
+import { SystemPeriodEditComponent } from './widgets/report-server-configurator/popup-system-options/system-period-edit/system-period-edit.component';
+import { SystemParameterValuesAutogenerationComponent } from './widgets/report-server-configurator/popup-system-options/system-parameter-values-autogeneration/system-parameter-values-autogeneration.component';
+import { SystemReportSheetsComponent } from './widgets/report-server-configurator/popup-system-options/system-report-sheets/system-report-sheets.component';
+import { SystemMacroEditComponent } from './widgets/report-server-configurator/popup-system-options/system-macro-edit/system-macro-edit.component';
+import { SystemPathEditComponent } from './widgets/report-server-configurator/popup-system-options/system-path-edit/system-path-edit.component';
+import { SystemAutogenerateComponent } from './widgets/report-server-configurator/popup-system-options/system-autogenerate/system-autogenerate.component';
+import { SystemPathUserComponent } from './widgets/report-server-configurator/popup-system-options/system-path-edit/system-path-user/system-path-user.component';
+import { ParameterAutogenerationComponent } from './widgets/report-server-configurator/popup-system-options/system-parameter-values-autogeneration/parameter-autogeneration/parameter-autogeneration.component';
+import { EventsWorkspaceButtonComponent } from './widgets/workspace/components/events-workspace-button/events-workspace-button.component';
+import { EventsResponsibleSelectComponent } from './widgets/workspace/components/events-responsible-select/events-responsible-select.component';
+import { EventsReasonsComponent } from './widgets/workspace/components/events-reasons/events-reasons.component';
+import { EventsCorrectComponent } from './widgets/workspace/components/events-correct/events-correct.component';
+import { EventsCorrectCardComponent } from './widgets/workspace/components/events-correct-card/events-correct-card.component';
+import { EventsSmotrIconComponent } from './widgets/workspace/components/events-smotr-icon/events-smotr-icon.component';
+import { EventsCommentWindowComponent } from './widgets/workspace/components/events-comment-window/events-comment-window.component';
+import { EventsListWindowComponent } from './widgets/workspace/components/events-list-window/events-list-window.component';
+import { FilterPopupComponent } from './widgets/petroleum-products-movement/components/filter-popup/filter-popup.component';
+import { NgxMaskModule } from 'ngx-mask';
+import { SystemPeriodDateComponent } from './widgets/report-server-configurator/popup-system-options/system-period-edit/system-period-date/system-period-date.component';
+import { TransferTableComponent } from './widgets/petroleum-products-movement/components/transfer-table/transfer-table.component';
+import { SystemPeriodDateYearComponent } from './widgets/report-server-configurator/popup-system-options/system-period-edit/system-period-date/system-period-date-year/system-period-date-year.component';
+import { SystemPeriodDateMonthComponent } from './widgets/report-server-configurator/popup-system-options/system-period-edit/system-period-date/system-period-date-month/system-period-date-month.component';
+import { SystemPeriodDateDayComponent } from './widgets/report-server-configurator/popup-system-options/system-period-edit/system-period-date/system-period-date-day/system-period-date-day.component';
 
 @NgModule({
     declarations: [
@@ -267,6 +316,44 @@ import { AddReportFileComponent } from './widgets/report-server-configurator/add
         AgAlertSubmitComponent,
         AdminAdImportComponent,
         AddReportFileComponent,
+        TankCalibrationTableComponent,
+        TankCalibrationTableFilesComponent,
+        UploadFormComponent,
+        UploadDropComponent,
+        TanksTableComponent,
+        SmotrEventComponent,
+        UsualEventComponent,
+        RetrievalWindowComponent,
+        EventDescriptionComponent,
+        ChatComponent,
+        CustomReportPropertiesReferenceComponent,
+        PopupUserOptionsComponent,
+        NecessaryParamComponent,
+        AdditionalParamComponent,
+        CustomReportOptionsComponent,
+        PopupSystemOptionsComponent,
+        SystemPeriodEditComponent,
+        SystemParameterValuesAutogenerationComponent,
+        SystemReportSheetsComponent,
+        SystemMacroEditComponent,
+        SystemPathEditComponent,
+        SystemAutogenerateComponent,
+        SystemPathUserComponent,
+        ParameterAutogenerationComponent,
+        EventsWorkspaceButtonComponent,
+        EventsResponsibleSelectComponent,
+        EventsReasonsComponent,
+        EventsCorrectComponent,
+        EventsCorrectCardComponent,
+        EventsSmotrIconComponent,
+        EventsCommentWindowComponent,
+        EventsListWindowComponent,
+        FilterPopupComponent,
+        SystemPeriodDateComponent,
+        TransferTableComponent,
+        SystemPeriodDateYearComponent,
+        SystemPeriodDateMonthComponent,
+        SystemPeriodDateDayComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -319,7 +406,12 @@ import { AddReportFileComponent } from './widgets/report-server-configurator/add
         ReferenceComponent,
         ReportServerConfiguratorComponent,
         ReportComponent,
-        ReportsComponent
+        ReportsComponent,
+        TankCalibrationTableComponent,
+        UploadFormComponent,
+        UploadDropComponent,
+        TanksTableComponent,
+        CustomReportPropertiesReferenceComponent,
     ],
     exports: [HomeComponent],
     imports: [
@@ -350,11 +442,20 @@ import { AddReportFileComponent } from './widgets/report-server-configurator/add
         NgxMatTimepickerModule,
         NgxMatNativeDateModule,
         NgxMatMomentModule,
-        OverlayModule
+        OverlayModule,
+        MatDialogModule,
+        MatChipsModule,
+        MatIconModule,
+        MatAutocompleteModule,
+        TreeModule,
+        NgxMaskModule.forChild(),
     ],
     bootstrap: [],
     providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' },
     { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
-   ],
+    { provide: MatDialogRef, useValue: {} },
+    { provide: MAT_DIALOG_DATA, useValue: [] },
+    ],
+
 })
 export class DashboardModule { }

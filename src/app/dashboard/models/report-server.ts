@@ -1,10 +1,10 @@
-export interface IFileTemplate{
+export interface IFileTemplate {
     name: string;
     description: string;
     fileId: string;
 }
 
-export interface IFileDetail{
+export interface IFileDetail {
     id: string;
     createdAt: Date;
     createdBy: number;
@@ -13,13 +13,94 @@ export interface IFileDetail{
     length: number;
 }
 
-export interface IReportTemplate{
+
+export interface IReportTemplate {
     id: number;
-    fileId: string;
-    fileDetail:  IFileDetail;
+    createdAt: Date;
+    createdBy: number;
     name: string;
     description: string;
-    createdAt: Date;
-    createBy: number;
+    fileId: string;
+    fileTemplate?: IReportFile;
+    systemOptions?: ISystemOptionsTemplate[];
+    customOptions?: ICustomOptionsTemplate[];
+    report?: any;
     isDeleted: boolean;
+    displayName: string;
+}
+
+export interface ITemplateFolder {
+    childFolders: IChildrenFolder[];
+    id: number;
+    name: string;
+    templates: ITemplate[];
+}
+
+export interface IFolder {
+    templates: ITemplate[];
+    folders: ITemplateFolder[];
+}
+
+export interface ITemplate {
+    createdAt: Date;
+    createdBy: number;
+    displayName: string;
+    folderId?: number;
+    id?: number;
+    isDeleted: boolean;
+    name: string;
+}
+
+export interface IChildrenFolder {
+    childFolders: IChildrenFolder[];
+    id: number;
+    name: string;
+    templates: ITemplate;
+}
+
+export interface ISystemOptionsTemplate {
+    id?: number;
+    templateId?: number;
+    templateSystemOption: ISystemOptions;
+    templateSystemOptionId?: number;
+    value?: string;
+}
+
+export interface ICustomOptionsTemplate {
+    description: string;
+    id: number;
+    isRequired: boolean;
+    name: string;
+    sortOrder: number;
+    source: string[];
+    type: string;
+    validationRule: string;
+}
+
+export interface ISystemOptions {
+    defaultValue: string;
+    id: number;
+    name: string;
+    systemOptionType: string;
+    type: string;
+    isActive?: boolean;
+}
+
+export interface ITreeFolderMap {
+    id: string;
+    idFolder?: number;
+    idTemplate?: number;
+    name: string;
+    children: ITreeFolderMap[];
+    type: string;
+}
+
+export interface IReportFile {
+    createdAt?: Date;
+    createdBy?: number;
+    description?: string;
+    fileId?: string;
+    id?: number;
+    isDeleted?: boolean;
+    name?: string;
 }

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.5 20.5">
+  <title>Подтвердить</title>
+  <circle cx="10.25" cy="10.25" r="10" style="fill:none;stroke:#8c99b2;stroke-miterlimit:10;stroke-width:0.5px"/>
+  <path d="M10,14.45,7,11.51a.43.43,0,0,1,0-.58l.06,0a.41.41,0,0,1,.58,0l2.93,2.93Z" style="fill:#8c99b2"/>
+  <rect x="11.86" y="5.05" width="0.89" height="10.02" rx="0.41" ry="0.41" transform="translate(5.77 -4.43) rotate(26.44)" style="fill:#8c99b2"/>
+</svg>

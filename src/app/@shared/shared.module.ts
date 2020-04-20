@@ -14,6 +14,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { UiBlockComponent } from './layout/ui-block/ui-block.component';
 import { LoadingShadeComponent } from './components/loading-shade/loading-shade.component';
 import { WidgetPreloaderComponent } from './components/widget-preloader/widget-preloader.component';
+import { AlertWindowComponent } from './components/alert-window/alert-window.component';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
     declarations: [
@@ -29,6 +31,7 @@ import { WidgetPreloaderComponent } from './components/widget-preloader/widget-p
         UiBlockComponent,
         LoadingShadeComponent,
         WidgetPreloaderComponent,
+        AlertWindowComponent,
     ],
     exports: [
         HeaderComponent,
@@ -43,7 +46,8 @@ import { WidgetPreloaderComponent } from './components/widget-preloader/widget-p
         UiBlockComponent,
         LoadingShadeComponent,
         WidgetPreloaderComponent,
+        AlertWindowComponent,
     ],
-    imports: [CommonModule, MatInputModule, MatIconModule],
+    imports: [CommonModule, MatInputModule, MatIconModule, NgxMaskModule.forChild()],
 })
-export class SharedModule {}
+export class SharedModule { }

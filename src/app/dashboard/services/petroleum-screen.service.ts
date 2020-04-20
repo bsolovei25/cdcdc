@@ -5,10 +5,12 @@ import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '../../services/appConfigService';
 import {
     IPetroleumObject, ITankAttribute, ITankInfo, ITankParam,
-    ITransfer,
-    ObjectDirection, TransfersFilter
+    ITransfer, ITransferFilter,
+    ObjectDirection, ObjectType, TransfersFilter
 } from '../models/petroleum-products-movement.model';
 import { SnackBarService } from './snack-bar.service';
+import { IDatesInterval, WidgetService } from './widget.service';
+import { IAlertWindowModel } from '@shared/models/alert-window.model';
 
 @Injectable({
     providedIn: 'root',
@@ -46,6 +48,8 @@ export class PetroleumScreenService {
         .asObservable()
         .pipe(filter((item) => item !== null));
 
+    public alertWindow$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
+
     public currentTransfersFilter$: BehaviorSubject<TransfersFilter> = new BehaviorSubject<TransfersFilter>('all');
 
     private emptyTransferGlobal: ITransfer = {
@@ -65,10 +69,16 @@ export class PetroleumScreenService {
         operationType: 'New',
     };
 
+    public currentFilter: ITransferFilter = {
+        textFilter: null,
+        sortFilter: null,
+    };
+
     constructor(
         private http: HttpClient,
         private configService: AppConfigService,
-        private materialController: SnackBarService
+        private widgetService: WidgetService,
+        private materialController: SnackBarService,
     ) {
         this.restUrl = configService.restUrl;
     }
@@ -78,54 +88,60 @@ export class PetroleumScreenService {
         console.log(screen);
     }
 
-    public async chooseTransfer(uid: string): Promise<void> {
+    public async chooseTransfer(uid: string, toFirst: boolean = false): Promise<void> {
         this.isLoad$.next(true);
-        if (this.localScreenState$.getValue() !== 'operation') {
-            this.openScreen('operation');
-        }
-        const chooseTransfer = this.transfers$.getValue().find((el) => el.uid === uid);
-        if (!chooseTransfer) {
-            this.isLoad$.next(false);
-            return;
-        }
-        console.log(uid);
-        console.log(chooseTransfer);
-        chooseTransfer.operationType = 'Exist';
-        const tempTransfers = this.transfers$.getValue();
-        tempTransfers.forEach((item) => (item.isActive = false));
-        tempTransfers.find((item) => item.uid === uid).isActive = true;
-        this.transfers$.next(tempTransfers);
-        const objectsReceiver = await this.getObjects(
-            this.client,
-            chooseTransfer.sourceName,
-            'enter'
-        );
-        const objectsSource = await this.getObjects(
-            this.client,
-            chooseTransfer.destinationName,
-            'exit'
-        );
-        objectsSource.forEach((item) => (item.isActive = false));
-        objectsReceiver.forEach((item) => (item.isActive = false));
-        if (
-            objectsSource.find((item) => item.objectName === chooseTransfer.sourceName) &&
-            objectsReceiver.find((item) => item.objectName === chooseTransfer.destinationName)
-        ) {
-            objectsSource.find(
-                (item) => item.objectName === chooseTransfer.sourceName
-            ).isActive = true;
-            objectsReceiver.find(
-                (item) => item.objectName === chooseTransfer.destinationName
-            ).isActive = true;
-        } else {
-            this.materialController.openSnackBar(
-                'Источник и приемник не совместимы!',
-                'snackbar-red'
+        try {
+            if (this.localScreenState$.getValue() !== 'operation') {
+                this.openScreen('operation');
+            }
+            const tempTransfers = this.transfers$.getValue();
+            const chooseTransfer = tempTransfers.find((el) => el.uid === uid);
+            if (!chooseTransfer) {
+                this.isLoad$.next(false);
+                return;
+            }
+            tempTransfers.forEach((item) => (item.isActive = false));
+            chooseTransfer.operationType = 'Exist';
+            chooseTransfer.isActive = true;
+            if (toFirst) {
+                const idx = tempTransfers.findIndex(item => item === chooseTransfer);
+                tempTransfers.unshift(...tempTransfers.splice(idx, 1));
+            }
+            this.transfers$.next(tempTransfers);
+            const objectsReceiver = await this.getObjects(
+                this.client,
+                chooseTransfer.sourceName,
+                'enter'
             );
+            const objectsSource = await this.getObjects(
+                this.client,
+                chooseTransfer.destinationName,
+                'exit'
+            );
+            objectsSource.forEach((item) => (item.isActive = false));
+            objectsReceiver.forEach((item) => (item.isActive = false));
+            if (
+                objectsSource.find((item) => item.objectName === chooseTransfer.sourceName) &&
+                objectsReceiver.find((item) => item.objectName === chooseTransfer.destinationName)
+            ) {
+                objectsSource.find(
+                    (item) => item.objectName === chooseTransfer.sourceName
+                ).isActive = true;
+                objectsReceiver.find(
+                    (item) => item.objectName === chooseTransfer.destinationName
+                ).isActive = true;
+            } else {
+                this.materialController.openSnackBar(
+                    'Источник и приемник не совместимы!',
+                    'snackbar-red'
+                );
+            }
+            this.objectsReceiver$.next(objectsReceiver);
+            this.objectsSource$.next(objectsSource);
+            this.currentTransfer$.next(chooseTransfer);
+        } catch (e) {
+            console.error(e);
         }
-        this.objectsReceiver$.next(objectsReceiver);
-        this.objectsSource$.next(objectsSource);
-        this.currentTransfer$.next(chooseTransfer);
         this.isLoad$.next(false);
     }
 
@@ -138,6 +154,7 @@ export class PetroleumScreenService {
         this.objectsSource$.next(objects);
         this.objectsReceiver$.next(objects);
         const emptyTransfer: ITransfer = { ...this.emptyTransferGlobal };
+        emptyTransfer.startTime = new Date();
         this.currentTransfer$.next(emptyTransfer);
     }
 
@@ -213,20 +230,18 @@ export class PetroleumScreenService {
         this.currentTransfer$.next(currentTransfer);
     }
 
-    public async setClient(): Promise<void> {
-        const clientArray: string[] = await this.getClientAsync();
-        this.client = clientArray[0];
-
+    public async setClient(widgetId: string): Promise<void> {
+        this.client = (await this.getClientAsync(widgetId))?.data ?? null;
         console.log(this.client);
     }
 
-    private async getClientAsync(): Promise<string[]> {
+    private async getClientAsync(widgetId: string): Promise<{ data: string }> {
         return this.http
-            .get<string[]>(`${this.restUrl}/api/petroleum-flow-clients/clients`)
+            .get<{ data: string }>(`${this.restUrl}/api/petroleum-flow-clients?guid=${widgetId}`)
             .toPromise();
     }
 
-    public async reGetTransfers(): Promise<void> {
+    public async reGetTransfers(dates: IDatesInterval): Promise<void> {
         let isOpen: boolean;
         switch (this.currentTransfersFilter$.getValue()) {
             case 'all':
@@ -236,18 +251,24 @@ export class PetroleumScreenService {
                 isOpen = true;
                 break;
         }
-        await this.getTransfers(null, null, isOpen, this.client);
+        await this.getTransfers(dates?.fromDateTime ?? this.getTodaysPeriod().fromDatetime, dates?.toDateTime ?? this.getTodaysPeriod().toDatetime, isOpen, this.client);
         const currentTransfer = this.currentTransfer$.getValue();
-        if (!currentTransfer?.uid) {
-            return;
-        }
         const transfers = this.transfers$.getValue();
-        const currentTransferTemp = transfers.find((item) => item?.uid === currentTransfer?.uid);
-        if (currentTransferTemp) {
-            currentTransferTemp.isActive = true;
-            this.currentTransfer$.next(currentTransferTemp);
-        }
         this.transfers$.next(transfers);
+        if (currentTransfer?.uid) {
+            const currentTransferTemp = transfers.find((item) => item?.uid === currentTransfer?.uid);
+            if (currentTransferTemp) {
+                currentTransferTemp.isActive = true;
+                this.currentTransfer$.next(currentTransferTemp);
+            }
+        }
+        this.filterTransfersByColumn(
+            this.currentFilter?.textFilter?.key,
+            this.currentFilter?.textFilter?.value);
+        this.sortTransfersByColumn(
+            this.currentFilter?.sortFilter?.key,
+            this.currentFilter?.sortFilter?.type,
+            this.currentFilter?.sortFilter?.isUp);
     }
 
     public async getTransfers(
@@ -258,10 +279,10 @@ export class PetroleumScreenService {
     ): Promise<void> {
         let requestUrl = `${this.restUrl}/api/petroleum-flow-transfers/transfer?`;
         if (startTme) {
-            requestUrl += `startTime=${startTme}`;
+            requestUrl += `startTime=${startTme.toISOString()}`;
         }
         if (endTime) {
-            requestUrl += `startTime=${endTime}`;
+            requestUrl += `&endTime=${endTime.toISOString()}`;
         }
         requestUrl += `&client=${client}`;
         requestUrl += `&isOpen=${isOpen}`;
@@ -288,11 +309,13 @@ export class PetroleumScreenService {
             } else {
                 uid = await this.createTransferAsync(currentTransfer);
             }
-            await this.reGetTransfers();
+            await this.reGetTransfers(this.widgetService.currentDates$.getValue());
             await this.chooseTransfer(uid);
             this.materialController.openSnackBar('Сохранено');
-        } catch {
-            this.materialController.openSnackBar('Ошибка валидации!', 'snackbar-red');
+        } catch (err) {
+            if (err.status !== 477 && err.status !== 403) {
+                this.materialController.openSnackBar('Ошибка валидации!', 'snackbar-red');
+            }
         }
     }
 
@@ -304,7 +327,13 @@ export class PetroleumScreenService {
         if (!object || !direction) {
             return await this.getObjectsAsync(client);
         }
-        return await this.getReferencesAsync(client, object, direction);
+        const allObjects = [
+            ...this.objectsAll$.getValue(),
+            ...this.objectsReceiver$.getValue(),
+            ...this.objectsSource$.getValue()
+        ];
+        const objectType = allObjects.find(el => el.objectName === object)?.objectType ?? null;
+        return await this.getReferencesAsync(client, object, objectType, direction);
     }
 
     public async getTankAttributes(objectName: string): Promise<ITankAttribute[]> {
@@ -312,16 +341,34 @@ export class PetroleumScreenService {
             let attributes: ITankAttribute[] = await this.http.get<ITankAttribute[]>(
                 `${this.restUrl}/api/petroleum-flow-clients/objects/${objectName}/attr`
             ).toPromise();
-            const regexp = /[A-Z]/;
-            attributes = attributes
-                .filter((el) =>
-                    (el.paramTitle.toUpperCase().search(regexp) === -1) &&
-                    (el.paramValue.toUpperCase().search(regexp) === -1)
-                );
+            attributes.forEach((item) => item.paramSaveDateTime = new Date(item.paramDateTime));
+            // const regexp = /[A-Z]/;
+            // attributes = attributes
+            //     .filter((el) =>
+            //         (el.paramTitle.toUpperCase().search(regexp) === -1) &&
+            //         (el.paramValue.toUpperCase().search(regexp) === -1)
+            //     );
             return attributes;
         } catch {
             return [];
         }
+    }
+
+    public async setTankAttributes(objectAttribute: ITankAttribute): Promise<void> {
+        this.isLoad$.next(true);
+        try {
+            const objectName = this.currentTankParam$.getValue().objectName;
+            await this.http.post(`${this.restUrl}/api/petroleum-flow-values/${objectName}`, objectAttribute).toPromise();
+            const attributes: ITankAttribute[] = await this.getTankAttributes(objectName);
+            const currentTankParam = this.currentTankParam$.getValue();
+            currentTankParam.objectAttributes = attributes;
+            this.currentTankParam$.next(currentTankParam);
+            const objects = await this.getObjects(this.client);
+            this.objectsAll$.next(objects);
+        } catch {
+            this.materialController.openSnackBar('Ошибка сохранения параметра!', 'snackbar-red');
+        }
+        this.isLoad$.next(false);
     }
 
     public async setTankParam(objectName: string): Promise<void> {
@@ -338,9 +385,14 @@ export class PetroleumScreenService {
     }
 
     private async getTankInfoAsync(objectName: string): Promise<ITankInfo> {
-        return await this.http.get<ITankInfo>(
-            `${this.restUrl}/api/petroleum-flow-clients/objects/${objectName}/tankInfo`
-        ).toPromise();
+        try {
+            return await this.http.get<ITankInfo>(
+                `${this.restUrl}/api/petroleum-flow-clients/objects/${objectName}/tankInfo`
+            ).toPromise();
+        } catch (e) {
+            console.error(e);
+            return null;
+        }
     }
 
     public async getAvailableProducts(objectName: string): Promise<string[]> {
@@ -384,8 +436,15 @@ export class PetroleumScreenService {
     }
 
     private async getTransfersAsync(requestUrl: string): Promise<ITransfer[]> {
-        console.log(requestUrl);
-        return this.http.get<ITransfer[]>(requestUrl).toPromise();
+        this.isLoad$.next(true);
+        let ans: ITransfer[] = [];
+        try {
+            ans = await this.http.get<ITransfer[]>(requestUrl).toPromise();
+        } catch (e) {
+            console.error(e);
+        }
+        this.isLoad$.next(false);
+        return ans;
     }
 
     private async getObjectsAsync(client: string): Promise<IPetroleumObject[]> {
@@ -399,17 +458,110 @@ export class PetroleumScreenService {
     private async getReferencesAsync(
         client: string,
         object: string,
+        type: ObjectType,
         direction: ObjectDirection
     ): Promise<IPetroleumObject[]> {
         return this.http
             .get<IPetroleumObject[]>(
-                `${this.restUrl}/api/petroleum-flow-clients/clients/${client}/objects/${object}/relations/${direction}`
+                `${this.restUrl}/api/petroleum-flow-clients/clients/${client}/objects/${type}/${object}/relations/${direction}`
             )
             .toPromise();
     }
+
+    public closeAlert(): void {
+        this.alertWindow$.next(null);
+    }
+
+    private getTodaysPeriod(): { fromDatetime: Date, toDatetime: Date } {
+        const currentDatetime: Date = new Date(Date.now());
+        const fromDatetime = new Date(
+            currentDatetime.getFullYear(),
+            currentDatetime.getMonth(),
+            currentDatetime.getDate(),
+            0,
+            0,
+            0
+        );
+        const toDatetime = new Date(
+            currentDatetime.getFullYear(),
+            currentDatetime.getMonth(),
+            currentDatetime.getDate(),
+            23,
+            59,
+            59
+        );
+        return {
+            fromDatetime,
+            toDatetime,
+        };
+    }
+
+    public filterTransfersByColumn(key: string, search: string): void {
+        const transfers = this.transfers$.getValue();
+        if (!key || key === '') {
+            transfers?.forEach((el) => el.isSearchFilter = true);
+            return;
+        }
+        transfers?.forEach(
+            (el) => el.isSearchFilter = el[key].toLowerCase().includes(search.toLowerCase()));
+        this.currentFilter.textFilter = {
+            key,
+            value: search,
+        };
+    }
+
+    // isUp - по возрастанию
+    public sortTransfersByColumn(key: string, type: string, isUp: boolean): void {
+        if (!key || !type || key === '' || type === '') {
+            return;
+        }
+        const sortOrder: number = isUp ? 1 : -1;
+        const transfers = this.transfers$.getValue();
+        switch (type) {
+            case 'number':
+                this.sortTransferNumber(key, sortOrder, transfers);
+                break;
+            case 'string':
+                this.sortTransferString(key, sortOrder, transfers);
+                break;
+            case 'date':
+                this.sortTransferDate(key, sortOrder, transfers);
+                break;
+            default:
+                return;
+        }
+        this.currentFilter.sortFilter = {
+            key, type, isUp
+        };
+    }
+
+    private sortTransferNumber(key: string, sortOrder: number, transfers: ITransfer[]): void {
+        transfers.sort((a, b) => {
+            if (a[key] > b[key]) {
+                return sortOrder;
+            } else if (a[key] < b[key]) {
+                return -sortOrder;
+            }
+            return 0;
+        });
+    }
+
+    private sortTransferString(key: string, sortOrder: number, transfers: ITransfer[]): void {
+        transfers.sort((a, b) => a[key].localeCompare(b[key]) * sortOrder);
+    }
+
+    private sortTransferDate(key: string, sortOrder: number, transfers: ITransfer[]): void {
+        transfers.sort((a, b) => {
+            if (a[key]?.getTime() > b[key]?.getTime() || !a[key]) {
+                return sortOrder;
+            } else if (a[key]?.getTime() < b[key]?.getTime() || !b[key]) {
+                return -sortOrder;
+            }
+            return 0;
+        });
+    }
 }
 
-//
 // public async chooseObject(objectName: string, isSource: boolean): Promise<void> {
 //     let currentTransfer = this.currentTransfer$.getValue();
 // if (currentTransfer.operationType === 'Exist') {

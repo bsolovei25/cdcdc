@@ -3,11 +3,13 @@ import { IUserGridItem, IScreenSettings } from '../models/user-settings.model';
 import { HttpClient } from '@angular/common/http';
 import { WIDGETS } from '../components/new-widgets-grid/widget-map';
 import { AppConfigService } from 'src/app/services/appConfigService';
-import { Observable, BehaviorSubject, throwError } from 'rxjs';
+import { Observable, BehaviorSubject, throwError, Subscription } from 'rxjs';
 import { filter, catchError } from 'rxjs/operators';
 import { IParamWidgetsGrid } from '../components/new-widgets-grid/new-widgets-grid.component';
 import { WidgetService } from './widget.service';
 import { ClaimService } from './claim.service';
+import { GridsterItem } from 'angular-gridster2';
+import { GridsterDraggable } from 'angular-gridster2/lib/gridsterDraggable.service';
 
 @Injectable({
     providedIn: 'root',
@@ -34,23 +36,7 @@ export class UserSettingsService {
         localStorage.getItem('screen');
     }
 
-    public addCellByPosition(idWidget: string, nameWidget: string, param: IParamWidgetsGrid): void {
-        const uniqId = this.create_UUID();
-        this.widgetService.dashboard.push({
-            x: param.x,
-            y: param.y,
-            cols: WIDGETS[nameWidget].itemCols,
-            rows: WIDGETS[nameWidget].itemRows,
-            minItemCols: WIDGETS[nameWidget]?.minItemCols ?? 5,
-            minItemRows: WIDGETS[nameWidget]?.minItemRows ?? 5,
-            id: idWidget,
-            uniqid: uniqId,
-            widgetType: nameWidget,
-        });
-        this.addWidgetApi(uniqId);
-    }
-
-    // TODO WTF?! - function ??? var ???
+    // TODO WTF?! - function ??? var ??? - answer: copypast google
     public create_UUID(): string {
         var dt = new Date().getTime();
         var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -59,6 +45,29 @@ export class UserSettingsService {
             return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16);
         });
         return uuid;
+    }
+
+    public addCellByPosition(idWidget: string, nameWidget: string, param: IParamWidgetsGrid): void {
+        const uniqId = this.create_UUID();
+        const minItemCols = WIDGETS[nameWidget]?.minItemCols ?? 6;
+        const minItemRows = WIDGETS[nameWidget]?.minItemRows ?? 6;
+        console.log(minItemCols, minItemRows);
+        this.widgetService.dashboard.push({
+            x: param.x,
+            y: param.y,
+            cols: WIDGETS[nameWidget].itemCols < minItemCols
+                ? minItemCols
+                : WIDGETS[nameWidget].itemCols,
+            rows: WIDGETS[nameWidget].itemRows < minItemRows
+                ? minItemRows
+                : WIDGETS[nameWidget].itemRows,
+            minItemCols,
+            minItemRows,
+            id: idWidget,
+            uniqid: uniqId,
+            widgetType: nameWidget,
+        });
+        this.addWidgetApi(uniqId);
     }
 
     private addWidgetApi(uniqId: string): void {
@@ -73,21 +82,18 @@ export class UserSettingsService {
     }
 
     private save(uniqId: string): void {
-        for (const item of this.widgetService.dashboard) {
-            if (item.uniqid === uniqId) {
-                const cellSetting: IUserGridItem = {
-                    widgetId: item.id,
-                    posX: item.x,
-                    posY: item.y,
-                    widgetType: item.widgetType,
-                    sizeX: item.cols,
-                    sizeY: item.rows,
-                    uniqueId: item.uniqid,
-                };
-                this.widgetInfo = cellSetting;
-            } else {
-            }
-        }
+        const item = this.widgetService.dashboard?.find((el) =>
+            el.uniqid === uniqId
+        );
+        this.widgetInfo = {
+            widgetId: item.id,
+            posX: item.x,
+            posY: item.y,
+            widgetType: item.widgetType,
+            sizeX: item.cols,
+            sizeY: item.rows,
+            uniqueId: item.uniqid,
+        };
     }
 
     private updateWidgetApi(uniqId: string): void {
@@ -101,22 +107,20 @@ export class UserSettingsService {
             );
     }
 
-    public updateByPosition(oldItem, newItem): void {
-        for (const item of this.widgetService.dashboard) {
-            if (item.uniqid === oldItem.uniqid) {
-                item.x = newItem.x;
-                item.y = newItem.y;
-                item.rows = newItem.rows;
-                item.cols = newItem.cols;
-                item.minItemCols = newItem.minItemCols;
-                item.maxItemRows = newItem.maxItemRows;
-            }
-        }
+    public updateByPosition(oldItem: GridsterItem, newItem: GridsterItem): void {
+        const item = this.widgetService.dashboard?.find(el => el.uniqId === oldItem.uniqId);
+        item.x = newItem.x;
+        item.y = newItem.y;
+        item.rows = newItem.rows;
+        item.cols = newItem.cols;
+        item.minItemCols = newItem.minItemCols;
+        item.maxItemRows = newItem.maxItemRows;
         this.updateWidgetApi(oldItem.uniqid);
     }
 
     public async removeItem(widgetId: string): Promise<any> {
-        return await this.http.delete(this.restUrl + '/api/user-management/widget/' + widgetId).toPromise();
+        return await this.http.delete(this.restUrl + '/api/user-management/widget/' + widgetId)
+            .toPromise();
     }
 
     public GetScreens(): void {
@@ -130,55 +134,57 @@ export class UserSettingsService {
                     }
                 });
         } catch (e) {
-            console.log('Error: couldn`t get screen!');
+            console.log('Error: could not get screen!');
         }
     }
 
     private LoadScreenAsync(id: number, loadDefault: boolean): Observable<any> {
-        return this.http.get(this.restUrl + '/api/user-management/screen/' + id).pipe(
-            catchError((err) => {
-                const dataScreen = this._screens$.getValue();
-                if (
-                    err.status === 404 &&
-                    loadDefault &&
-                    dataScreen &&
-                    dataScreen.length
-                ) {
-                    return this.LoadScreenAsync(dataScreen[0].id, false);
-                }
-                return throwError(err);
-            })
-        );
+        const dataScreen = this._screens$.getValue();
+        if (dataScreen?.length > 0) {
+            return this.http.get(this.restUrl + '/api/user-management/screen/' + id).pipe(
+                catchError((err) => {
+                    if (
+                        err.status === 404 &&
+                        loadDefault
+                    ) {
+                        return this.LoadScreenAsync(dataScreen[0].id, false);
+                    }
+                    return throwError(err);
+                })
+            );
+        } else {
+            return null;
+        }
     }
 
-    public LoadScreen(id: number) {
+    public LoadScreen(id: number): Subscription {
         localStorage.setItem('screenid', id.toString());
+        this.widgetService.dashboard = [];
+        this.claimService.setClaimsByScreen(null);
         return this.LoadScreenAsync(id, true).subscribe((item: IScreenSettings) => {
             this.claimService.setClaimsByScreen(item.claims);
             this.ScreenId = item.id;
             this.ScreenName = item.screenName;
             this.widgetService.dashboard = item.widgets.map((widget) => {
-                const _minItemCols = WIDGETS[widget.widgetType]?.minItemCols ?? 6;
-                const _minItemRows = WIDGETS[widget.widgetType]?.minItemRows ?? 6;
-                console.log(_minItemCols, _minItemRows);
-                const result = {
+                const minItemCols = WIDGETS[widget.widgetType]?.minItemCols ?? 6;
+                const minItemRows = WIDGETS[widget.widgetType]?.minItemRows ?? 6;
+                return {
                     x: widget.posX,
                     y: widget.posY,
-                    cols: widget.sizeX < _minItemCols ? _minItemCols : widget.sizeX,
-                    rows: widget.sizeY < _minItemRows ? _minItemRows : widget.sizeY,
-                    minItemCols: _minItemCols,
-                    minItemRows: _minItemRows,
+                    cols: widget.sizeX < minItemCols ? minItemCols : widget.sizeX,
+                    rows: widget.sizeY < minItemRows ? minItemRows : widget.sizeY,
+                    minItemCols,
+                    minItemRows,
                     id: widget.widgetId,
                     widgetType: widget.widgetType,
                     uniqid: widget.uniqueId,
                 };
-                return result;
             });
             console.log(this.widgetService.dashboard);
         });
     }
 
-    public PushScreen(nameWidget: string) {
+    public PushScreen(nameWidget: string): Subscription {
         const userScreen: IScreenSettings = {
             id: null,
             screenName: nameWidget,
@@ -194,7 +200,7 @@ export class UserSettingsService {
         );
     }
 
-    public deleteScreen(id: string) {
+    public deleteScreen(id: string): Subscription {
         return this.http.delete(this.restUrl + '/api/user-management/screen/' + id).subscribe(
             (ans) => {
                 if (this.ScreenId === Number(id)) {
@@ -207,7 +213,7 @@ export class UserSettingsService {
         );
     }
 
-    public updateScreen(id: number, name: string) {
+    public updateScreen(id: number, name: string): Subscription {
         const userScreen: IScreenSettings = {
             id,
             screenName: name,
@@ -223,5 +229,9 @@ export class UserSettingsService {
                 },
                 (error) => console.log(error)
             );
+    }
+
+    public clearScreens(): void {
+        this._screens$.next(null);
     }
 }

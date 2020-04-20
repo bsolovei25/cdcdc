@@ -1,7 +1,8 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { WidgetService } from '../../services/widget.service';
+import { IDatesInterval, WidgetService } from '../../services/widget.service';
 import { PetroleumScreenService } from '../../services/petroleum-screen.service';
 import { WidgetPlatform } from '../../models/widget-platform';
+import { IAlertWindowModel } from '@shared/models/alert-window.model';
 
 @Component({
     selector: 'evj-petroleum-products-movement',
@@ -42,7 +43,6 @@ export class PetroleumProductsMovementComponent extends WidgetPlatform
     }
 
     protected dataConnect(): void {
-        console.warn(this.widgetId + ' ' + this.isMock);
         super.dataConnect();
         this.initPetroleumMovement();
     }
@@ -51,15 +51,22 @@ export class PetroleumProductsMovementComponent extends WidgetPlatform
 
     private async initPetroleumMovement(): Promise<void> {
         this.petroleumService.isLoad$.next(true);
-        await this.petroleumService.setClient();
-        const objects = await this.petroleumService.getObjects(this.petroleumService.client);
-        this.petroleumService.objectsAll$.next(objects);
+        try {
+            await this.petroleumService.setClient(this.widgetId);
+            const objects = await this.petroleumService.getObjects(this.petroleumService.client);
+            this.petroleumService.objectsAll$.next(objects);
+        } catch (e) {
+            console.error(e);
+        }
         this.petroleumService.isLoad$.next(false);
-        setInterval(() => this.petroleumService.reGetTransfers(), this.refreshTimeoutSecs * 1000);
+        this.widgetService.currentDates$.subscribe(
+            (dates) => {
+                this.petroleumService.reGetTransfers(dates);
+            }
+        );
         this.petroleumService.currentTransfersFilter$.subscribe(
             (item) => {
-                this.petroleumService.isLoad$.next(false);
-                this.petroleumService.reGetTransfers();
+                this.petroleumService.reGetTransfers(this.widgetService.currentDates$.getValue());
             }
         );
     }

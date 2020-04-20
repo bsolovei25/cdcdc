@@ -18,8 +18,23 @@
         xlink:href="assets/icons/widgets/admin/worker-card.svg"
       />
 
-      <text x="33" y="9" text-anchor="start" class="svg__txt">
-        {{person.phone}}
+      <text
+        x="33"
+        y="9"
+        text-anchor="start"
+        class="svg__txt"
+        *ngIf="phoneRegExp.test(person.phone)"
+      >
+        +7 {{person.phone|mask:'(000) 000-00-00'}}
+      </text>
+      <text
+        x="33"
+        y="9"
+        text-anchor="start"
+        class="svg__txt"
+        *ngIf="!phoneRegExp.test(person.phone)"
+      >
+        Телефон не указан
       </text>
       <text x="33" y="20" text-anchor="start" class="svg__txt">
         {{person.email}}

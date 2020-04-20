@@ -259,7 +259,7 @@
     background: var(--color-bg-main);
   }
 
-  .disabled{
+  .disabled {
     display: none;
   }
 }
@@ -445,10 +445,10 @@
     cursor: pointer;
     display: flex;
     .title {
-    //  padding-left: 10px;
+      //  padding-left: 10px;
       position: relative;
       font-size: 0.875rem;
-      width: 130px;
+      width: 145px;
       text-align: center;
       line-height: 35px;
 
@@ -601,7 +601,17 @@
     background: var(--color-bg-main);
   }
 
-  .active{
+  .active {
     background-color: var(--color-border-active);
+  }
+}
+
+.icon {
+  &__add-button {
+    &::ng-deep {
+      .cls-1 {
+        fill: var(--color-text-sub);
+      }
+    }
   }
 }

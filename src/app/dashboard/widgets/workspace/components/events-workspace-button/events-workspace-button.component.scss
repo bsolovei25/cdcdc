@@ -1,0 +1,43 @@
+.button {
+  width: inherit;
+  height: inherit;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  &__text {
+    height: inherit;
+    width: calc(100% - 35px);
+
+    box-sizing: border-box;
+    padding-left: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+    color: var(--color-text-main);
+  }
+
+  &__icon {
+    height: inherit;
+    width: 35px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+
+    img {
+      width: 27px;
+      height: 27px;
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}

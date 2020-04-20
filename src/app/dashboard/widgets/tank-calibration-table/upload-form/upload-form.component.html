@@ -1,0 +1,88 @@
+<div
+  class="container"
+  (mousedown)="$event.stopPropagation()"
+  (touchstart)="$event.stopPropagation()"
+>
+  <section class="upload">
+    <div class="upload__header">
+      <span class="upload__header__close">
+        <svg-icon
+          mat-dialog-close
+          src="./assets/icons/widgets/calibration-table/close.svg"
+          [svgStyle]="{ 'width.px': 30, 'height.px': 30 }"
+        >
+        </svg-icon>
+      </span>
+      <h3 class="upload__header__title">Загрузка градуировки</h3>
+    </div>
+    <div class="upload__date">
+      <div class="upload__date__picker">
+        <span class="upload__date__picker__title">Начало</span>
+        <span class="upload__date__picker__date">
+          <evj-time-data-picker
+            [data]="date"
+            (dateTimePicker)="dateTimePickerInputStart($event)"
+          ></evj-time-data-picker>
+        </span>
+      </div>
+      <div class="upload__date__picker">
+        <span class="upload__date__picker__title">Окончание</span>
+        <span class="upload__date__picker__date">
+          <evj-time-data-picker
+            [data]="dateEnd"
+            (dateTimePicker)="dateTimePickerInputEnd($event)"
+          ></evj-time-data-picker>
+        </span>
+      </div>
+    </div>
+    <div class="upload__body">
+      <div class="upload__body__comment">
+        <h3 class="upload__body__comment__title">Комментарий</h3>
+        <div class="upload__body__comment__body">
+          <textarea
+            [formControl]="comment"
+            matInput
+            placeholder="Напишите свой комментарий"
+            style="max-height: 95px"
+          ></textarea>
+        </div>
+      </div>
+      <div class="upload__body__file">
+        <h3 class="upload__body__file__title">Файл</h3>
+        <div class="upload__body__file__body">
+          <svg-icon
+            *ngIf="!file"
+            (click)="openDialog()"
+            class="upload__body__file__body__icon"
+            src="./assets/icons/widgets/calibration-table/upload.svg"
+            [svgStyle]="{ 'width.px': 30, 'height.px': 30 }"
+          >
+          </svg-icon>
+          <svg-icon
+            *ngIf="file"
+            class="upload__body__file__body__icon-file"
+            [svgStyle]="{ 'width.px':37, 'height.px':42 }"
+            src="assets/icons/widgets/reports/xls.svg"
+          ></svg-icon>
+          <svg-icon
+            *ngIf="file"
+            (click)="deleteFile()"
+            class="upload__body__file__body__icon-trash"
+            src="./assets/icons/widgets/calibration-table/trash.svg"
+            [svgStyle]="{ 'width.px': 30, 'height.px': 30 }"
+          >
+          </svg-icon>
+        </div>
+      </div>
+    </div>
+    <div class="upload__footer">
+      <span
+        [style.opacity]="comment.invalid ? '0.4' : '1'"
+        class="upload__footer__icon"
+        (click)="comment.invalid ? null : submitForm() "
+        >Сохранить</span
+      >
+    </div>
+    <!-- <evj-upload-drop></evj-upload-drop> -->
+  </section>
+</div>

@@ -11,6 +11,7 @@ after_script:
 variables:
     GIT_SSL_NO_VERIFY: "1"
     DEPLOY_DOMAIN: deploy.funcoff.club
+    ROCKETCHAT_HOOKS: "/home/gitlab-runner/rocket.integrations"
     SCP_HOST: root@${DEPLOY_DOMAIN}
 
 stages:
@@ -53,7 +54,7 @@ testing website:
         - ./init-docker.sh
     only:
         - merge_requests
- 
+
 build artifact:
     <<: *init
     stage: build
@@ -107,11 +108,13 @@ staging:
     variables:
         CMD_REPLACE: sed -i -E "s/(<title>Evj)(<\/title>)/\1 | ${CI_COMMIT_SHORT_SHA} \2/g" /var/www/angular-staging.local/public/index.html
     script:
+        - env
         - ssh root@${DEPLOY_DOMAIN} rm -rf /var/www/angular-staging.local/public
         - scp -r ./public root@${DEPLOY_DOMAIN}:/var/www/angular-staging.local
         - ssh root@${DEPLOY_DOMAIN} $CMD_REPLACE
         - ssh root@${DEPLOY_DOMAIN} "sed -i  's/:5555/:6555/g' /var/www/angular-staging.local/public/assets/config.json || sleep 0.1"
         - ssh root@${DEPLOY_DOMAIN} nginx -s reload
+        - cd ${ROCKETCHAT_HOOKS} ; git pull origin master --no-edit ; python3 rockethooks.py
     only:
         - develop
 
@@ -151,7 +154,7 @@ release maker:
           # - export LANG=C.UTF-8
         - python3 release-notes.py
         - ls ./output
-        - bash upload_release.sh  
+        - bash upload_release.sh
     only:
         - master
     when:
@@ -161,5 +164,6 @@ clean on failure:
     <<: *init
     stage: clean-on-failure
     script:
-        - docker container stop ${CI_PROJECT_NAME}
+        - docker container stop ${CI_PROJECT_NAME} || sleep 0.1
+        - cd ${ROCKETCHAT_HOOKS} ; python3 rockethooks.py failed
     when: on_failure

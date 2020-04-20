@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PetroleumScreenService } from 'src/app/dashboard/services/petroleum-screen.service';
 import { ITransfer, TransfersFilter } from '../../../../models/petroleum-products-movement.model';
+import { IUdTableDict } from '../petroleum-reference.component';
 
 @Component({
     selector: 'evj-operation-screen',
@@ -10,16 +11,13 @@ import { ITransfer, TransfersFilter } from '../../../../models/petroleum-product
 export class OperationScreenComponent implements OnInit {
     @Input() title: string[];
     @Input() keys: string[];
+    @Input() dictionary: IUdTableDict[];
     public isOpen: boolean;
 
     constructor(public petroleumService: PetroleumScreenService) {}
 
     public ngOnInit(): void {
         this.filterHandler();
-    }
-
-    public returnMenu(): void {
-        this.petroleumService.openScreen('info');
     }
 
     public transferClick(uid: string): void {
@@ -43,7 +41,6 @@ export class OperationScreenComponent implements OnInit {
     }
 
     public filterClick(isOpen: boolean): void {
-        this.petroleumService.isLoad$.next(true);
         let filterType: TransfersFilter;
         if (isOpen) {
             filterType = 'open';
@@ -51,5 +48,13 @@ export class OperationScreenComponent implements OnInit {
             filterType = 'all';
         }
         this.petroleumService.currentTransfersFilter$.next(filterType);
+    }
+
+    public showFilter(item: IUdTableDict): void {
+        const itemFilterValue = item.filter.isActive;
+        this.dictionary.forEach((el) => {
+            el.filter.isActive = false;
+        });
+        item.filter.isActive = !itemFilterValue;
     }
 }

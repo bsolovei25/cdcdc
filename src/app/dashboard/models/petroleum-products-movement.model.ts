@@ -11,6 +11,7 @@ export interface ITransfer {
     sourceClient: string;
     destinationClient: string;
     deltaMass: number;
+    isSearchFilter?: boolean;
     isActive?: boolean;
     operationType?: OperationType;
 }
@@ -31,11 +32,16 @@ export interface IFacilityInfo {
 }
 
 export interface ITankAttribute {
+    paramName?: string;
     paramTitle: string;
     paramValue: string;
-    paramUnit: string;
-    priority?: number; // no back
-    active?: boolean; // no back
+    paramUnit?: string;
+    paramDateTime?: Date;
+    valueStates?: string[];
+    isActive?: boolean; // no back
+    isEdit?: boolean; // no back
+    paramSaveValue?: string; // no back
+    paramSaveDateTime?: Date; // no back
 }
 
 export interface ITankParam {
@@ -61,6 +67,18 @@ export interface IFacilityInfoParam {
     id: number;
     title: string;
     isActive?: boolean; // no back
+}
+
+export interface ITransferFilter {
+    sortFilter: {
+        key: string;
+        type: string;
+        isUp: boolean;
+    };
+    textFilter: {
+        key: string;
+        value: string;
+    };
 }
 
 export type ObjectStatus = 'in' | 'out' | 'repair' | 'hold' | 'inout' | 'work' | 'unknown';

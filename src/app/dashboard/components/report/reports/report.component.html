@@ -16,62 +16,55 @@
   </div>
   <div class="panel-body" *ngIf="active">
     <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
-    <ng-container *ngIf="template && template.options.length > 0">
-      <ng-container *ngFor="let option of template.options">
+    <ng-container *ngIf="template && template?.customOptions?.length > 0">
+      <ng-container *ngFor="let option of formGroup">
         <div class="form" *ngIf="option.type === 'dateTime'">
           <p class="form__title">{{ option.name }}</p>
           <div class="form__value">
-            01.08.2019
-            <svg-icon
-              [svgStyle]="{ 'width.px':15, 'height.px':15 }"
-              src="./assets/icons/widgets/reports/date.svg"
-              style="margin-left: 10px; margin-right: 20px;"
-              (click)="openDatePicker(1)"
-            ></svg-icon>
-            <div class="dates-selector__picker" [class.dates-selector__picker-open]="datePicker">
-              <evj-time-data-picker
-                (dateTimePicker)="dateTimePickerNew($event)"
-              ></evj-time-data-picker>
-            </div>
-            02:00
+            <evj-time-data-picker
+              (dateTimePicker)="dateTimePickerNew($event, option.id)"
+            ></evj-time-data-picker>
           </div>
         </div>
         <mat-form-field class="form" *ngIf="option.type === 'comboBox'">
           <mat-label class="form__title">{{ option.name }}</mat-label>
-          <mat-select>
-            <mat-option *ngFor="let food of [1]" [value]="food">
-              {{food}}
+          <mat-select [(ngModel)]="option.value">
+            <mat-option *ngFor="let source of option?.source" [value]="source">
+              {{ source }}
             </mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field class="form" *ngIf="option.type === 'textBox'">
           <mat-label class="form__title">{{ option.name }}</mat-label>
-          <input matInput value="" />
+          <input matInput [(ngModel)]="option.value" />
         </mat-form-field>
-        <mat-checkbox style="margin-top: 18px;" *ngIf="option.type === 'checkBox'"
+        <mat-checkbox
+          style="margin-top: 18px;"
+          [(ngModel)]="option.value"
+          *ngIf="option.type === 'checkBox'"
           >{{ option.name }}</mat-checkbox
         >
       </ng-container>
-      <div class="panel-body__footer">
-        <svg-icon
-          (click)="postItem(template)"
-          class="panel-body__footer__icon"
-          [svgStyle]="{ 'width.px':37, 'height.px':42 }"
-          src="assets/icons/widgets/reports/xls.svg"
-        ></svg-icon>
-        <svg-icon
-          class="panel-body__footer__icon"
-          style="opacity: 0.3;"
-          [svgStyle]="{ 'width.px':37, 'height.px':42 }"
-          src="assets/icons/widgets/reports/pdf.svg"
-        ></svg-icon>
-        <svg-icon
-          class="panel-body__footer__icon"
-          style="opacity: 0.3;"
-          [svgStyle]="{ 'width.px':37, 'height.px':42 }"
-          src="assets/icons/widgets/reports/html.svg"
-        ></svg-icon>
-      </div>
     </ng-container>
+    <div class="panel-body__footer">
+      <svg-icon
+        (click)="postItem(template)"
+        class="panel-body__footer__icon"
+        [svgStyle]="{ 'width.px':37, 'height.px':42 }"
+        src="assets/icons/widgets/reports/xls.svg"
+      ></svg-icon>
+      <svg-icon
+        class="panel-body__footer__icon"
+        style="opacity: 0.3;"
+        [svgStyle]="{ 'width.px':37, 'height.px':42 }"
+        src="assets/icons/widgets/reports/pdf.svg"
+      ></svg-icon>
+      <svg-icon
+        class="panel-body__footer__icon"
+        style="opacity: 0.3;"
+        [svgStyle]="{ 'width.px':37, 'height.px':42 }"
+        src="assets/icons/widgets/reports/html.svg"
+      ></svg-icon>
+    </div>
   </div>
 </div>

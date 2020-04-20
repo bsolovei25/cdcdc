@@ -2,7 +2,6 @@ import {
     Component,
     OnInit,
     Input,
-    Inject,
     Output,
     EventEmitter,
     OnChanges,
@@ -56,6 +55,10 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
         private claimService: ClaimService
     ) {}
 
+    public ngOnChanges(): void {
+        this.CreateIcon = this.isEventOpen;
+    }
+
     ngOnInit(): void {
         this.subscriptions.push(
             this.claimService.claimWidgets$.subscribe((data) => {
@@ -72,10 +75,6 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
         }
     }
 
-    public ngOnChanges(): void {
-        this.CreateIcon = this.isEventOpen;
-    }
-
     public async onRemoveButton(): Promise<void> {
         await this.userSettings.removeItem(this.uniqId);
         this.widgetService.removeItemService(this.uniqId);
@@ -83,6 +82,7 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
 
     public createEvent(event): void {
         this.CreateIcon = false;
+        this.blockWorkspaceButton = true;
         this.eventCreated.emit(event);
     }
 
@@ -92,7 +92,7 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
         }
     }
 
-    public reportSelected(event){
+    public reportSelected(event) {
         this.selected.emit(event);
         this.isReportButton = event;
     }

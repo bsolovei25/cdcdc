@@ -2,27 +2,26 @@
   <div class="reference-left">
     <div class="title-reference">Наименование файла</div>
     <div class="reference-container">
-      <div *ngFor="let item of data; let i = index">
-        <div class="reference-container__block" [class.block-active]="item.id === clickItemId"
-          (click)="getTemplate(item)">
-          <div *ngIf="!item.edit" class="reference-container__block-info">
-            <div>{{ item.name }}</div>
-            <div class="reference-container__button-edit" (click)="editNameReportFile(item)">
-              <svg-icon *ngIf="item.id === clickItemId" class="indicator-selector__collapse"
-                src="./assets/icons/widgets/reports/edit_white.svg"></svg-icon>
+      <div id="leftScrollAddReport" class="scroll-block">
+        <div *ngFor="let item of data; let i = index">
+          <div class="reference-container__block" [class.block-active]="item.id === clickItemId"
+            (click)="getTemplate(item)">
+            <div *ngIf="!item.edit" class="reference-container__block-info">
+              <div>{{ item.name }}</div>
+              <div class="reference-container__button-edit" (click)="editNameReportFile(item)">
+                <svg-icon *ngIf="item.id === clickItemId" class="indicator-selector__collapse"
+                  src="./assets/icons/widgets/reports/edit_white.svg"></svg-icon>
+              </div>
+              <div data-tooltip="Удалить файл" class="reference-container__button-remove"
+                (click)="deleteReportFile(item)" *ngIf="item.id === clickItemId"></div>
             </div>
-            <div class="reference-container__button-remove" (click)="deleteReportFile(item)">
-              <svg-icon class="indicator-selector__collapse" src="./assets/icons/widgets/reports/delete_red.svg"
-                *ngIf="item.id === clickItemId">
-              </svg-icon>
-            </div>
-          </div>
-          <div *ngIf="item.edit" class="reference-container__add-block">
-            <div class="reference-container__add-block-input">
-              <input type="text" [(ngModel)]="item.name" placeholder="Введите имя файла..." />
-            </div>
-            <div class="reference-container__add-block-icon" (click)="onEditName(item)">
-              <svg-icon src="./assets/icons/widgets/reports/accept.svg" class="add_button_icon"></svg-icon>
+            <div *ngIf="item.edit" class="reference-container__add-block">
+              <div class="reference-container__add-block-input">
+                <input type="text" [(ngModel)]="newName" placeholder="Введите имя файла..." />
+              </div>
+              <div class="reference-container__add-block-icon" (click)="onEditName(item)">
+                <svg-icon src="./assets/icons/widgets/reports/accept.svg" class="add_button_icon"></svg-icon>
+              </div>
             </div>
           </div>
         </div>
@@ -30,9 +29,8 @@
     </div>
     <div class="bottom-reference-left">
       <div class="bottom-reference-left__block">
-        <div class="bottom-reference-left__button-add" (click)="onOpenUpload()">
-          <svg-icon src="./assets/icons/widgets/references/add_white.svg" class="add_button_icon">
-          </svg-icon>
+        <div data-tooltip="Добавить новый файл" class="bottom-reference-left__button-add" (click)="onOpenUpload()">
+
         </div>
         <div class="bottom-reference-left__input-block">
           <div class="bottom-reference-left__button-search">
@@ -43,8 +41,7 @@
               src="./assets/icons/widgets/references/search_blue.svg"></svg-icon>
           </div>
           <div class="bottom-reference-left__input" [class.bottom-reference-left__input-active]="isRepInput">
-            <input type="text" (focus)="isRepInput = true" (blur)="isRepInput = false"
-              (keyup)="searchReport($event)" />
+            <input type="text" (focus)="isRepInput = true" (blur)="isRepInput = false" (keyup)="searchReport($event)" />
           </div>
         </div>
       </div>
@@ -59,7 +56,7 @@
       </div>
     </div>
     <div class="references-container-scroll-block">
-      <div class="reference-container-value">
+      <div id="rightScrollAddReport" class="reference-container-value" #test>
         <ng-container *ngFor="let item of this.dataTemplate">
           <div class="reference-container-value__block">
             <div class="reference-container-value__fio-block">
@@ -67,21 +64,28 @@
             </div>
           </div>
         </ng-container>
+        <ng-container *ngFor="let item of this.blockOut">
+          <div class="reference-container-value__block">
+            <div class="reference-container-value__fio-block">
+              <div class="reference-container-value__fio"></div>
+            </div>
+          </div>
+        </ng-container>
       </div>
     </div>
-    <div class="bottom-reference-right">
-
-    </div>
+    <div class="bottom-reference-right"></div>
   </div>
 </div>
 <div *ngIf="isUploadBlock" id="upload" class="upload" (click)="uploadClose()">
   <div class="upload-container" #area (click)="$event.stopPropagation()" (dragover)="dragOver($event)"
     (dragleave)="dragLeave($event)" (drop)="dropFile($event)">
-    <img *ngIf="!fileLoad" class="upload-image" src="./assets/icons/widgets/reports/upload-container.png">
+    <svg-icon *ngIf="!fileLoad" src="./assets/icons/widgets/reports/cloud.svg"
+      [svgStyle]="{ 'width.%':100, 'height.%':100 }"></svg-icon>
     <img *ngIf="fileLoad" class="upload-image" src="./assets/icons/widgets/reports/xls.svg">
     <label *ngIf="fileLoad">Файл {{ fileName }} загружен</label>
-    <div *ngIf="!fileLoad">
-      <input id="file-input" type="file" name="file" (change)="handleFileInput($event.target.files)" multiple>
+    <div *ngIf="!fileLoad" class="upload-label">
+      <input id="file-input" type="file" name="file" (change)="handleFileInput($event.target.files)"
+        accept=".xls,.xlsx, .xlsm" multiple />
       <label for="file-input">Выберите файл</label>
       <span> или перетащите его сюда</span>
     </div>
