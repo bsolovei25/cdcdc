@@ -231,13 +231,13 @@ export class PetroleumScreenService {
     }
 
     public async setClient(widgetId: string): Promise<void> {
-        this.client = await this.getClientAsync(widgetId);
+        this.client = (await this.getClientAsync(widgetId))?.data ?? null;
         console.log(this.client);
     }
 
-    private async getClientAsync(widgetId: string): Promise<string> {
+    private async getClientAsync(widgetId: string): Promise<{ data: string }> {
         return this.http
-            .get<string>(`${this.restUrl}/api/petroleum-flow-clients?guid=${widgetId}`)
+            .get<{ data: string }>(`${this.restUrl}/api/petroleum-flow-clients?guid=${widgetId}`)
             .toPromise();
     }
 
