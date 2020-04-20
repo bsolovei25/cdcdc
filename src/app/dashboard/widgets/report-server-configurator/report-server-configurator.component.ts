@@ -186,12 +186,15 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     }
 
     getReportTemplate(): Subscription {
+        this.isLoading = true;
         return this.reportService.getReportTemplate().subscribe((data) => {
             this.data = data;
             this.setStyleScroll();
+            this.isLoading = false;
         },
             (error) => {
                 this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+                this.isLoading = false;
             });
     }
 
@@ -224,20 +227,26 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     }
 
     getRecordFile(): Subscription {
+        this.isLoading = true;
         return this.reportService.getReportFileTemplate().subscribe(ans => {
             this.dataFile = ans;
+            this.isLoading = false;
         },
             (error) => {
                 this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+                this.isLoading = false;
             });
     }
 
     putReportTemplate(template): void {
+        this.isLoading = true;
         this.reportService.putReportTemplate(template).subscribe((ans) => {
             this.getReportTemplate();
+            this.isLoading = false;
         },
             (error) => {
                 this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+                this.isLoading = false;
             });
     }
 
@@ -369,29 +378,62 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     onEdit(item): void {
         item.openEdit = true;
+        this.newRecord = item.name;
     }
 
     editReference(item): void {
-        item.openEdit = false;
         const obj = {
             folderId: item.folderId,
             id: item.idTemplate,
-            name: item.name,
+            name: this.newRecord,
             createdAt: item.createdAt,
             createdBy: item.createdBy,
             displayName: '',
             isDeleted: item.isDeleted,
-        }
-        this.putReportTemplate(obj);
+        };
+        const windowsParam = {
+            isShow: true,
+            questionText: 'Применить внесенные изменения?',
+            acceptText: 'Да',
+            cancelText: 'Нет',
+            acceptFunction: () => {
+                this.putReportTemplate(obj);
+                item.name = this.newRecord;
+                item.openEdit = false;
+                this.newRecord = null;
+            },
+            cancelFunction: () => {
+                this.reportService.closeAlert();
+                item.openEdit = false;
+                this.newRecord = null;
+            }
+        };
+        this.reportService.alertWindow$.next(windowsParam);
     }
 
     editFolder(item): void {
-        item.openEdit = false;
         const obj = {
             id: item.idFolder,
-            name: item.name,
+            name: this.newRecord,
         };
-        this.putFolder(obj);
+        const windowsParam = {
+            isShow: true,
+            questionText: 'Применить внесенные изменения?',
+            acceptText: 'Да',
+            cancelText: 'Нет',
+            acceptFunction: () => {
+                this.putFolder(obj);
+                item.name = this.newRecord;
+                item.openEdit = false;
+                this.newRecord = null;
+            },
+            cancelFunction: () => {
+                this.reportService.closeAlert();
+                item.openEdit = false;
+                this.newRecord = null;
+            }
+        };
+        this.reportService.alertWindow$.next(windowsParam);
     }
 
     //OnClick Template
@@ -447,7 +489,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         const obj = {
             templateSystemOption: item,
             value: '',
-        }
+        };
         if (item.isActive) {
             this.optionsActive.push(obj);
         } else {
@@ -540,18 +582,28 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         const obj = {
             systemOptionValues: optionObject,
             fileTemplate: this.selectFile,
-        }
+        };
 
-        this.reportService.postSystemOptions(item, obj).subscribe((ans) => {
-            this.materialController.openSnackBar(
-                'Файл-шаблон сохранен'
-            );
-            this.getReporting(this.isIdReport);
-        }, (error) => {
-            this.materialController.openSnackBar(
-                'Выберите файл'
-            );
-        });
+        const windowsParam = {
+            isShow: true,
+            questionText: 'Применить внесенные изменения?',
+            acceptText: 'Да',
+            cancelText: 'Нет',
+            acceptFunction: () =>  this.reportService.postSystemOptions(item, obj).subscribe((ans) => {
+                this.materialController.openSnackBar(
+                    'Файл-шаблон сохранен'
+                );
+                this.getReporting(this.isIdReport);
+            }, (error) => {
+                this.materialController.openSnackBar(
+                    'Выберите файл'
+                );
+            }),
+            cancelFunction: () => {
+                this.reportService.closeAlert();
+            }
+        };
+        this.reportService.alertWindow$.next(windowsParam);
     }
 
     closeOptions(event): void {
@@ -577,6 +629,8 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
     randomInt(min, max): void {
         return min + Math.floor((max - min) * Math.random());
     }
+
+    // Click on Folder
 
     onFolder(event): void {
         if (event.type === "Folder") {

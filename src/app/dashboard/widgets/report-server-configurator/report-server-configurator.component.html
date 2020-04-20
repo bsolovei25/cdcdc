@@ -33,14 +33,14 @@
                         <svg-icon class="indicator-selector__collapse"
                           src="./assets/icons/widgets/reports/edit_white.svg" (click)="onEdit(node.data)"></svg-icon>
                       </div>
-                      <div *ngIf="this.isIdReport === node.data.idTemplate" class="reference-container__button-remove"
+                      <div *ngIf="this.isIdReport === node.data.idTemplate" data-tooltip="Удалить отчёт" class="reference-container__button-remove"
                         (click)="deleteReportTemplate(node.data)">
                       </div>
                     </div>
 
                     <div *ngIf="node.data.openEdit" class="reference-container__block-info">
                       <div class="reference-container__add-block-input" (click)="$event.stopPropagation()">
-                        <input type="text" [(ngModel)]="node.data.name" placeholder="Новое наименование..." />
+                        <input type="text" [(ngModel)]="newRecord" placeholder="Новое наименование..." />
                       </div>
                       <div class="reference-container__add-block-icon" (click)="editReference(node.data)">
                         <svg-icon src="./assets/icons/widgets/reports/accept.svg" class="add_button_icon"></svg-icon>
@@ -60,13 +60,13 @@
                       </div>
                       <div
                         *ngIf="folderActive === node.data.idFolder && folderActive !== 0 && folderActive !== undefined"
-                        class="reference-container__button-remove" (click)="deleteFolder(node.data)">
+                        class="reference-container__button-remove" data-tooltip="Удалить папку" (click)="deleteFolder(node.data)">
                       </div>
                     </div>
 
                     <div *ngIf="node.data.openEdit" class="reference-container__block-info">
                       <div class="reference-container__add-block-input" (click)="$event.stopPropagation()">
-                        <input type="text" [(ngModel)]="node.data.name" placeholder="Новое наименование..." />
+                        <input type="text" [(ngModel)]="newRecord" placeholder="Новое наименование..." />
                       </div>
                       <div class="reference-container__add-block-icon" (click)="editFolder(node.data)">
                         <svg-icon src="./assets/icons/widgets/reports/accept.svg" class="add_button_icon"></svg-icon>
@@ -199,7 +199,7 @@
             <div class="bottom-reference-right__block-edit" *ngIf="isAddOptionsButton">
               <div class="bottom-reference-right__block-add">
                 <div class="bottom-reference-right__button-add" (click)="openCheckBoxBlock()">
-                  <svg-icon *ngIf="!isOpenCheckBlock" src="./assets/icons/widgets/reports/edit.svg"
+                  <svg-icon data-tooltip="Редактировать параметры отчета" *ngIf="!isOpenCheckBlock" src="./assets/icons/widgets/reports/edit.svg"
                     class="add_button_icon">
                   </svg-icon>
                   <svg-icon *ngIf="isOpenCheckBlock" src="./assets/icons/widgets/reports/edit_blue.svg"
