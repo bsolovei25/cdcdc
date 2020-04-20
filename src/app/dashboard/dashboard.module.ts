@@ -193,6 +193,11 @@ import { TransferTableComponent } from './widgets/petroleum-products-movement/co
 import { SystemPeriodDateYearComponent } from './widgets/report-server-configurator/popup-system-options/system-period-edit/system-period-date/system-period-date-year/system-period-date-year.component';
 import { SystemPeriodDateMonthComponent } from './widgets/report-server-configurator/popup-system-options/system-period-edit/system-period-date/system-period-date-month/system-period-date-month.component';
 import { SystemPeriodDateDayComponent } from './widgets/report-server-configurator/popup-system-options/system-period-edit/system-period-date/system-period-date-day/system-period-date-day.component';
+import { TankInformationComponent } from './widgets/tank-information/tank-information.component';
+import { TankCardComponent } from './widgets/tank-information/components/tank-card/tank-card.component';
+import { TankLineComponent } from './widgets/tank-information/components/tank-line/tank-line.component';
+import { TankFillingComponent } from './widgets/tank-information/components/tank-filling/tank-filling.component';
+import { TankFilterComponent } from './widgets/tank-information/components/tank-filter/tank-filter.component';
 
 @NgModule({
     declarations: [
@@ -354,6 +359,11 @@ import { SystemPeriodDateDayComponent } from './widgets/report-server-configurat
         SystemPeriodDateYearComponent,
         SystemPeriodDateMonthComponent,
         SystemPeriodDateDayComponent,
+        TankInformationComponent,
+        TankCardComponent,
+        TankLineComponent,
+        TankFillingComponent,
+        TankFilterComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -412,6 +422,7 @@ import { SystemPeriodDateDayComponent } from './widgets/report-server-configurat
         UploadDropComponent,
         TanksTableComponent,
         CustomReportPropertiesReferenceComponent,
+        TankInformationComponent,
     ],
     exports: [HomeComponent],
     imports: [

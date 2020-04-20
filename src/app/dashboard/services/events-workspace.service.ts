@@ -15,6 +15,7 @@ import { EventService } from './event.service';
 import { fillDataShape } from '../../@shared/common-functions';
 import { SnackBarService } from './snack-bar.service';
 import { AppConfigService } from '../../services/appConfigService';
+import { AvatarConfiguratorService } from './avatar-configurator.service';
 
 @Injectable({
     providedIn: 'root',
@@ -64,15 +65,13 @@ export class EventsWorkspaceService {
     };
 
     private defaultEvent: EventsWidgetNotification = null;
-    private fsUrl: string = '';
 
     constructor(
         private eventService: EventService,
         private snackBarService: SnackBarService,
-        private configService: AppConfigService
+        private avatarConfiguratorService: AvatarConfiguratorService
     ) {
         this.loadItem();
-        this.fsUrl = this.configService.fsUrl;
     }
 
     public async loadItem(id?: number): Promise<void> {
@@ -285,8 +284,7 @@ export class EventsWorkspaceService {
     }
 
     public getUserAvatarUrl(user: IUser): string {
-        const avatar: string = 'assets/icons/widgets/admin/default_avatar2.svg';
-        return user?.photoId ? `${this.fsUrl}/${user.photoId}` : avatar;
+        return this.avatarConfiguratorService.getAvatarPath(user?.photoId);
     }
 
     public async escalateEvent(): Promise<void> {

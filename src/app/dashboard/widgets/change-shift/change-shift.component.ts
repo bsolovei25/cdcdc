@@ -19,6 +19,7 @@ import {
 import { WidgetPlatform } from '../../models/widget-platform';
 import { SnackBarService } from '../../services/snack-bar.service';
 import { AppConfigService } from '../../../services/appConfigService';
+import { AvatarConfiguratorService } from '../../services/avatar-configurator.service';
 
 @Component({
     selector: 'evj-change-shift',
@@ -58,20 +59,17 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
     public static itemRows: number = 30;
 
     public photoPathMain: string = 'assets/icons/widgets/admin/default_avatar2.svg';
-    private photoPathDefault: string = 'assets/icons/widgets/admin/default_avatar2.svg';
-    private fsUrl: string;
 
     constructor(
         protected widgetService: WidgetService,
         public shiftService: ShiftService,
         private materialController: SnackBarService,
-        private configService: AppConfigService,
+        private avatarConfiguratorService: AvatarConfiguratorService,
         @Inject('isMock') public isMock: boolean,
         @Inject('widgetId') public id: string,
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
-        this.fsUrl = this.configService.fsUrl;
         this.widgetIcon = 'peoples';
     }
 
@@ -165,11 +163,7 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
             const tempMember = this.currentShift.shiftMembers[0];
             this.currentShift.shiftMembers[0] = this.currentShift.shiftMembers[index];
             this.currentShift.shiftMembers[index] = tempMember;
-            if (this.currentShift?.shiftMembers[0]?.employee?.photoId) {
-                this.photoPathMain = `${this.fsUrl}/${this.currentShift?.shiftMembers[0].employee.photoId}`;
-            } else {
-                this.photoPathMain = this.photoPathDefault;
-            }
+            this.photoPathMain = this.avatarConfiguratorService.getAvatarPath(this.currentShift?.shiftMembers[0]?.employee?.photoId);
 
             this.comments = [];
             if (widgetType === 'shift-pass') {

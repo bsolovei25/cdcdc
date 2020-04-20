@@ -11,11 +11,9 @@ import { IAlertWindowModel } from '@shared/models/alert-window.model';
 })
 export class ReportServerConfiguratorService {
   private restUrl: string;
-  private restFileUrl: string = '';
 
   constructor(private http: HttpClient, configService: AppConfigService) {
     this.restUrl = configService.restUrl;
-  //  this.restFileUrl = configService.fsUrl; //OLD FILE STORAGE
   }
 
   public alertWindow$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
