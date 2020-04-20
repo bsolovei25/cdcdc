@@ -171,6 +171,30 @@ input {
       position: relative;
       padding-left: 15px;
       height: 40px;
+
+      //TOOLTIP
+
+      [data-tooltip]::after {
+        content: attr(data-tooltip);
+        position: absolute;
+        width: 100px;
+        left: 0;
+        top: 0;
+        background: var(--color-bg-main);
+        color: #fff;
+        padding: 0.5em;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        pointer-events: none;
+        opacity: 0;
+        height: 20px;
+        line-height: 20px;
+        transition: 1s;
+      }
+
+      [data-tooltip]:hover::after {
+        opacity: 1;
+        left: -8em;
+      }
     }
 
     &__block-contant {
@@ -833,4 +857,28 @@ input {
   cursor: pointer !important;
   outline: 2px dashed var(--color-border-active);
   background-color: var(--color-bg-main);
+}
+
+//TOOLTIP
+
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  width: 150px;
+  left: 0;
+  top: 0;
+  background: var(--color-bg-main);
+  color: #fff;
+  padding: 0.5em;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+  opacity: 0;
+  height: 20px;
+  line-height: 20px;
+  transition: 1s;
+}
+
+[data-tooltip]:hover::after {
+  opacity: 1;
+  top: -2.5em;
 }
