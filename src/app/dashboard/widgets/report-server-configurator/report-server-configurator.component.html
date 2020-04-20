@@ -199,7 +199,7 @@
             <div class="bottom-reference-right__block-edit" *ngIf="isAddOptionsButton">
               <div class="bottom-reference-right__block-add">
                 <div class="bottom-reference-right__button-add" (click)="openCheckBoxBlock()">
-                  <svg-icon *ngIf="!isOpenCheckBlock" src="./assets/icons/widgets/reports/edit.svg"
+                  <svg-icon data-tooltip="Редактировать параметры отчета" *ngIf="!isOpenCheckBlock" src="./assets/icons/widgets/reports/edit.svg"
                     class="add_button_icon">
                   </svg-icon>
                   <svg-icon *ngIf="isOpenCheckBlock" src="./assets/icons/widgets/reports/edit_blue.svg"

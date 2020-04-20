@@ -338,7 +338,7 @@ input {
         .node-content-wrapper-active:hover {
           background: none;
           box-shadow: none !important;
-         // color: white !important;
+          // color: white !important;
         }
 
         .node-content-wrapper:hover {
@@ -598,7 +598,6 @@ input {
       cursor: pointer;
       height: 30px;
       width: 30px;
-
       margin-top: 5px;
     }
 
@@ -1013,6 +1012,21 @@ input {
       height: 30px;
       width: 30px;
       margin-top: 5px;
+
+      //TOOLTIP
+
+      [data-tooltip]::after {
+        width: 220px;
+        left: 0;
+        top: 0px;
+        height: 20px;
+        line-height: 20px;
+      }
+
+      [data-tooltip]:hover::after {
+        opacity: 1;
+        top: -35px;
+      }
     }
 
     &__input {
@@ -1101,20 +1115,20 @@ input {
   display: none;
 }
 
-
 //TOOLTIP
 
 [data-tooltip]::after {
-  content: attr(data-tooltip); 
-  position: absolute; 
+  content: attr(data-tooltip);
+  position: absolute;
   width: 100px;
-  left: 0; top: 3px; 
+  left: 0;
+  top: 3px;
   background: var(--color-bg-main);
   color: #fff;
   padding: 0.5em;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
   pointer-events: none;
-  opacity: 0; 
+  opacity: 0;
   height: 20px;
   line-height: 20px;
   transition: 1s;
