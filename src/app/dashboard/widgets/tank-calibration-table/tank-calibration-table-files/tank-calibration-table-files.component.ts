@@ -33,13 +33,20 @@ export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
     static itemRows: number = 14;
 
     expandedElement: SelectionModel<any> = new SelectionModel(true);
+    chooseElement: SelectionModel<ICalibrationTable> = new SelectionModel(false);
 
     localeData: ICalibrationTable[] = [];
 
     dataSource: ICalibrationTable[] = [];
     dataSourceTanks: ICalibrationTable[] = [];
 
-    chooseTanks: any[];
+    chooseTanks: ITanksHistory[] = [
+        {
+            comment: 'last-row',
+            action: '', createdAt: new Date(),
+            createdBy: '', newValue: ''
+        }
+    ];
 
     isRefInput: boolean = false;
 
@@ -65,7 +72,11 @@ export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
     async loadItem(element: ICalibrationTable): Promise<void> {
         try {
             const el = await this.calibrationService.getHistoryTanks(element?.uid);
-            this.chooseTanks = el;
+            this.chooseTanks = [...el, {
+                comment: 'last-row',
+                action: '', createdAt: new Date(),
+                createdBy: '', newValue: ''
+            }];
         } catch (error) {
 
         }
