@@ -228,6 +228,7 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
     @Inject('uniqId') public uniqId: string
   ) {
     super(widgetService, isMock, id, uniqId);
+    this.isRealtimeData = false;
     this.widgetIcon = 'reference';
   }
 
