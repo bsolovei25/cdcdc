@@ -1,7 +1,7 @@
 {
-    "wsUrl": "wss://evj-platform.funcoff.club/ws",
-    "restUrl": "https://evj-platform.funcoff.club",
-    "fileStorage": "https://evj-platform.funcoff.club",
+    "wsUrl": "wss://deploy.funcoff.club/ws",
+    "restUrl": "https://deploy.funcoff.club",
+    "fileStorage": "https:/deploy.funcoff.club",
     "reconnectInterval": 5,
     "shiftFree": "not-all"
 }
