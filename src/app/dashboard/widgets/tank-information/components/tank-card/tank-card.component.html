@@ -1,0 +1,21 @@
+<div class="container-card">
+    <div class="container-card__title">
+        {{ data.name }}
+    </div>
+    <div class="container-card__content">
+        <div class="value">
+            <div> {{ data.valueLev }}</div>
+            <div> {{ data.valueGr }}</div>
+            <div> {{ data.valuePas }}</div>
+        </div>
+        <div class="tank">
+            <evj-tank-filling [data]="data.tankFilling"></evj-tank-filling>
+        </div>
+        <div class="status">
+            <svg-icon
+            src="./assets/icons/widgets/oil-control-all/tank-information/{{data.status}}.svg"
+            [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+          ></svg-icon>
+        </div>
+    </div>
+</div>

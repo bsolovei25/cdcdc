@@ -1,0 +1,18 @@
+.container-line{
+    display: flex;
+    flex-flow: wrap;
+
+    &__title{
+        margin-top: 10px;
+        margin-left: 20px;
+        height: 150px;
+        width: 200px;
+        text-align: center;
+        line-height: 150px;
+    }
+
+    &__content{
+        margin-top: 10px;
+        margin-left: 25px;
+    }
+}

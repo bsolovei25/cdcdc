@@ -1,0 +1,16 @@
+<evj-widget-preview [title]="widgetTitle" [code]="widgetCode" [previewTitle]="widgetType" *ngIf="isMock">
+</evj-widget-preview>
+
+<div class="container" *ngIf="!isMock">
+    <evj-widget-header [title]="widgetTitle" [units]="widgetUnits" [code]="widgetCode" [id]="id" [uniqId]="uniqId"
+        [widgetType]="widgetType" [icon]="widgetIcon" (selected)="openTable($event)"></evj-widget-header>
+
+    <evj-frame-top></evj-frame-top>
+
+    <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+        <div *ngFor="let item of data">
+            <evj-tank-line [data]="item"></evj-tank-line>
+        </div>
+    </div>
+    <evj-frame-bottom></evj-frame-bottom>
+</div>

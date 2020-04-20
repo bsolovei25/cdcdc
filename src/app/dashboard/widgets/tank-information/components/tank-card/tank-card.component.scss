@@ -1,0 +1,31 @@
+.container-card{
+    height: 150px;
+    width: 200px;
+    padding-left: 20px;
+    border-radius: 20px;
+    background-color: #1C2333;
+
+    &__title{
+        color: var(--color-text-sub);
+        font-size: 11px;
+        height: 20px;
+        padding-top: 15px;
+    }
+
+    &__content{
+        display: flex;
+        width: 100%;
+
+        .value{
+            width: 40%;
+        }
+
+        .tank{
+            width: 40%;
+        }
+
+        .status{
+            width: 20%;
+        }
+    }
+}

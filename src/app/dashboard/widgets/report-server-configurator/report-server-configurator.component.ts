@@ -1,12 +1,11 @@
-import { Component, OnInit, OnDestroy, Inject, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, ViewChild, HostListener } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
-import { moveItemInArray, transferArrayItem, CdkDragDrop } from '@angular/cdk/drag-drop';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { ReportServerConfiguratorService } from '../../services/report-server-configurator.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { SnackBarService } from '../../services/snack-bar.service';
 import { ITreeState, ITreeOptions, TreeDraggedElement, TreeComponent } from 'angular-tree-component';
-import { IReportTemplate, ITreeFolderMap, ITemplate, ISystemOptions, ITemplateFolder, IReportFile, ISystemOptionsTemplate, IFolder } from '../../models/report-server';
+import { IReportTemplate, ITreeFolderMap, ITemplate, ISystemOptions, IReportFile, ISystemOptionsTemplate, IFolder } from '../../models/report-server';
 import { Subscription } from 'rxjs';
 
 
