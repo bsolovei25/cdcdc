@@ -46,6 +46,7 @@ import { ReferenceComponent } from '../../widgets/reference/reference.component'
 import { TankCalibrationTableComponent } from '../../widgets/tank-calibration-table/tank-calibration-table.component';
 import { CustomReportPropertiesReferenceComponent } from '../../widgets/custom-report-properties-reference/custom-report-properties-reference.component';
 import { TankInformationComponent } from '../../widgets/tank-information/tank-information.component';
+import { ReasonsDeviationsComponent } from '../../widgets/reasons-deviations/reasons-deviations.component';
 
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
@@ -97,4 +98,5 @@ export const WIDGETS = {
     'tank-calibration-table': TankCalibrationTableComponent,
     'custom-report-properties-reference': CustomReportPropertiesReferenceComponent,
     'tank-information': TankInformationComponent,
+    'reasons-deviations': ReasonsDeviationsComponent,
 };

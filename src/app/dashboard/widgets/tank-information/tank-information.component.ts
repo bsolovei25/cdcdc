@@ -213,6 +213,7 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
   ) {
     super(widgetService, isMock, id, uniqId);
     this.isRealtimeData = false;
+    this.widgetIcon = 'reference';
   }
 
   ngOnInit(): void {

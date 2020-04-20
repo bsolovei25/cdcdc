@@ -1,0 +1,58 @@
+.container-info-content {
+    height: 100%;
+    padding: 25px;
+    margin-top: 15px;
+
+    &__content {
+        display: flex;
+        border-radius: 15px;
+        height: 100%;
+        width: 100%;
+        background-color: var(--color-oil-card);
+
+        .block {
+            margin-left: 40px;
+            width: 50%;
+            .time {
+                height: 33%;
+                align-items: center;
+                display: flex;
+
+                &__icon {
+                }
+
+                &__value {
+                    color: white;
+                }
+            }
+
+            .info {
+                height: 33%;
+                align-items: center;
+                display: flex;
+
+                &__name {
+                    color: var(--color-text-sub);
+                }
+
+                &__value {
+                }
+
+                &__percent {
+                }
+
+                .normal {
+                    color: white;
+                }
+
+                .active {
+                    color: var(--color-border-active);
+                }
+
+                .notActive {
+                    color: var(--color-text-sub);
+                }
+            }
+        }
+    }
+}
