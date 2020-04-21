@@ -8,6 +8,7 @@ import { ComponentPortal } from '@angular/cdk/portal';
 import { PasswordResetComponent } from '../../../@core/pages/reset-password/password-reset.component';
 import { AppConfigService } from '../../../services/appConfigService';
 import { OverlayService } from '../../services/overlay.service';
+import { AvatarConfiguratorService } from '../../services/avatar-configurator.service';
 
 @Component({
     selector: 'evj-user-info',
@@ -26,20 +27,21 @@ export class UserInfoComponent implements OnInit, OnDestroy {
     };
 
     public photoPath: string = 'assets/icons/widgets/admin/default_avatar2.svg';
-    private defaultAvatarPath: string = 'assets/icons/widgets/admin/default_avatar2.svg';
-    private fsUrl: string = '';
 
     private overlayRef: OverlayRef | null;
 
     isShowScreens: boolean = false;
     subscription: Subscription;
 
-    constructor(private authService: AuthService, private router: Router, public overlay: Overlay,
-        public viewContainerRef: ViewContainerRef, private configService: AppConfigService,
+    constructor(
+        private authService: AuthService,
+        private router: Router,
+        public overlay: Overlay,
+        public viewContainerRef: ViewContainerRef,
+        private configService: AppConfigService,
         public myOverlayService: OverlayService,
-    ) {
-        this.fsUrl = this.configService.fsUrl;
-    }
+        private avatarConfiguratorService: AvatarConfiguratorService,
+    ) { }
 
     ngOnInit(): void {
         this.loadData();
@@ -56,16 +58,12 @@ export class UserInfoComponent implements OnInit, OnDestroy {
         this.subscription = this.authService.user$.subscribe((data: IUser) => {
             if (data) {
                 this.data = data;
-                if (this.data.photoId) {
-                    this.photoPath = `${this.fsUrl}/${this.data.photoId}`;
-                } else {
-                    this.photoPath = this.defaultAvatarPath;
-                }
+                this.photoPath = this.avatarConfiguratorService.getAvatarPath(this.data.photoId);
             }
         });
     }
 
-    resetPassword() {
+    resetPassword(): void {
         let config = new OverlayConfig();
         config.positionStrategy = this.overlay.position()
             .global()
@@ -79,7 +77,7 @@ export class UserInfoComponent implements OnInit, OnDestroy {
         this.overlayRef.attach(new ComponentPortal(PasswordResetComponent, this.viewContainerRef));
     }
 
-    closeOverlay(value) {
+    closeOverlay(value): void {
         value ? this.overlayRef.dispose() : null;
     }
 

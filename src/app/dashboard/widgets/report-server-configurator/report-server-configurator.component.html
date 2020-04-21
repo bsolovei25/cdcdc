@@ -18,9 +18,10 @@
           <div class="reference-container">
             <div class="scroll-block" id="leftScrollReportConfig">
               <!---TREE--->
-              <tree-root #tree [state]="state" [options]="optionsTest" [focused]="true" [nodes]="this.dataFolder"
+              <tree-root #tree [state]="state" [options]="optionsTree" [focused]="true" [nodes]="this.dataFolder"
                 (dragover)="$event.stopPropagation()" (blur)="onEventTree($event)" (moveNode)="onMovedItem($event)">
                 <ng-template #treeNodeTemplate let-node let-index="index">
+                  <!--TEMPLATE-->
                   <div *ngIf="node.data.type === 'Template'" class="tree-template"
                     (click)="onClickReference(node.data, index)"
                     [class.activeFolder]="node.data.idTemplate === this.isIdReport">
@@ -32,26 +33,44 @@
                         <svg-icon class="indicator-selector__collapse"
                           src="./assets/icons/widgets/reports/edit_white.svg" (click)="onEdit(node.data)"></svg-icon>
                       </div>
-                      <div *ngIf="this.isIdReport === node.data.idTemplate" class="reference-container__button-remove"
+                      <div *ngIf="this.isIdReport === node.data.idTemplate" data-tooltip="Удалить отчёт" class="reference-container__button-remove"
                         (click)="deleteReportTemplate(node.data)">
                       </div>
                     </div>
+
                     <div *ngIf="node.data.openEdit" class="reference-container__block-info">
                       <div class="reference-container__add-block-input" (click)="$event.stopPropagation()">
-                        <input type="text" [(ngModel)]="node.data.name" placeholder="Новое наименование..." />
+                        <input type="text" [(ngModel)]="newRecord" placeholder="Новое наименование..." />
                       </div>
                       <div class="reference-container__add-block-icon" (click)="editReference(node.data)">
                         <svg-icon src="./assets/icons/widgets/reports/accept.svg" class="add_button_icon"></svg-icon>
                       </div>
                     </div>
                   </div>
+                  <!--FOLDER-->
                   <div *ngIf="node.data.type === 'Folder'" [class.activeFolder]="node.data.idFolder === folderActive"
                     (click)="onFolder(node.data)">
-                    <!-- <span [class]="node.data.className + 'Index'">Папка: </span> -->
-                    <div [class]="node.data.className" [class.title]="true">{{ node.data.name }}</div>
-                    <div
-                      *ngIf="folderActive === node.data.idFolder && folderActive !== 0 && folderActive !== undefined"
-                      class="reference-container__button-remove" (click)="deleteFolder(node.data)">
+                    <div  *ngIf="!node.data.openEdit" [class.displayOff] = "node.data.idFolder === 0">
+                      <div [class]="node.data.className" [class.title]="true">{{ node.data.name }}</div>
+                      <div
+                        *ngIf="folderActive === node.data.idFolder && folderActive !== 0 && folderActive !== undefined"
+                        class="reference-container__button-edit" (click)="$event.stopPropagation()">
+                        <svg-icon class="indicator-selector__collapse"
+                          src="./assets/icons/widgets/reports/edit_white.svg" (click)="onEdit(node.data)"></svg-icon>
+                      </div>
+                      <div
+                        *ngIf="folderActive === node.data.idFolder && folderActive !== 0 && folderActive !== undefined"
+                        class="reference-container__button-remove" data-tooltip="Удалить папку" (click)="deleteFolder(node.data)">
+                      </div>
+                    </div>
+
+                    <div *ngIf="node.data.openEdit" class="reference-container__block-info">
+                      <div class="reference-container__add-block-input" (click)="$event.stopPropagation()">
+                        <input type="text" [(ngModel)]="newRecord" placeholder="Новое наименование..." />
+                      </div>
+                      <div class="reference-container__add-block-icon" (click)="editFolder(node.data)">
+                        <svg-icon src="./assets/icons/widgets/reports/accept.svg" class="add_button_icon"></svg-icon>
+                      </div>
                     </div>
                   </div>
                   <div *ngIf="addItem && (folderIdActive === undefined) && (node.data.idFolder === 0)"
@@ -100,7 +119,8 @@
                 </div>
               </div>
               <div class="bottom-reference-left__add-menu"
-                [class.bottom-reference-left__add-menu-active]="addMenuClick">
+                [class.bottom-reference-left__add-menu-active]="addMenuClick"
+                (mouseleave)="leaveAddBlock($event)">
                 <div class="button" (click)="pushBlockInRef()">Добавить раздел</div>
                 <div class="button" (click)="pushBlockInRec()">Добавить отчет</div>
               </div>
@@ -152,7 +172,6 @@
                     </ng-container>
                     <ng-container *ngIf="item.templateSystemOption.systemOptionType === 'customOptions'">
                       <div class="reference-container-value__fio">{{item.value}}</div>
-                      <!--ЗАПОЛНЯТЬ VALUE-->
                     </ng-container>
                   </div>
                 </div>
@@ -180,7 +199,7 @@
             <div class="bottom-reference-right__block-edit" *ngIf="isAddOptionsButton">
               <div class="bottom-reference-right__block-add">
                 <div class="bottom-reference-right__button-add" (click)="openCheckBoxBlock()">
-                  <svg-icon *ngIf="!isOpenCheckBlock" src="./assets/icons/widgets/reports/edit.svg"
+                  <svg-icon data-tooltip="Редактировать параметры отчета" *ngIf="!isOpenCheckBlock" src="./assets/icons/widgets/reports/edit.svg"
                     class="add_button_icon">
                   </svg-icon>
                   <svg-icon *ngIf="isOpenCheckBlock" src="./assets/icons/widgets/reports/edit_blue.svg"

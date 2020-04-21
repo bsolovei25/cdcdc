@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, OnDestroy, HostListener, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -7,6 +7,7 @@ import { UploadFormComponent } from './upload-form/upload-form.component';
 import { MatDialog } from '@angular/material/dialog';
 import { TanksTableComponent } from './tanks-table/tanks-table.component';
 import { SnackBarService } from '../../services/snack-bar.service';
+import { FormControl, Validators } from '@angular/forms';
 
 export interface ICalibrationTable {
     uid: string;
@@ -17,12 +18,19 @@ export interface ICalibrationTable {
     parentUid?: string;
     parentName?: string;
     isGroup: boolean;
+    isVisible?: boolean;
 }
 
 export interface IOnlineTable {
     beltNumber: number;
     height: number;
     volume: number;
+    lastRow?: string;
+}
+
+interface IDataSource extends ICalibrationTable {
+    childredTanks?: ICalibrationTable[];
+    isVisible?: boolean;
 }
 
 @Component({
@@ -43,24 +51,40 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
     static itemRows: number = 14;
 
     expandedElement: SelectionModel<any> = new SelectionModel(true);
+    chooseElement: SelectionModel<ICalibrationTable> = new SelectionModel(false);
+    showComment: SelectionModel<any> = new SelectionModel(true);
 
     public toDate: Date;
     public fromDate: Date;
     public isCurrent: boolean;
     public dateNow: Date;
 
+    comment: FormControl = new FormControl('', Validators.required);
+
     data: ICalibrationTable[] = [];
-    dataSource: ICalibrationTable[] = [];
-    dataSourceTanks: ICalibrationTable[] = [];
+    dataSourceUI: IDataSource[] = [];
+    dataSourceTanks: ICalibrationTable[] = [
+        { name: '', isGroup: false, uid: 'last-row' }
+    ];
 
     tanksAvailable: ICalibrationTable[] = [];
+    onlineTable: IOnlineTable[] = [
+        { beltNumber: 0, height: 0, volume: 0, lastRow: 'last-row' }
+    ];
 
-    onlineTable: IOnlineTable[];
+    isComment: boolean = false;
+
+    postDate: {
+        id, newDate: Date, comment: string, newDateType: 'startDate' | 'endDate'
+    } | null;
 
     sort: { name: 'upStart' | 'bottomStart' | 'upEnd' | 'bottomEnd', value: boolean } | null = null;
 
     isReport: boolean = true;
     isRefInput: boolean = false;
+
+    deleteElement: boolean = false;
+    deleteItem: string;
 
     constructor(
         public widgetService: WidgetService,
@@ -99,10 +123,16 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
             this.calibrationService.getTanks()
                 .then((data) => {
                     this.data = data;
-                    this.dataSource = [...this.data
-                        .filter(val => val.isGroup)];
+                    this.dataSourceUI = this.data
+                        .filter(val => val.isGroup);
+                    this.dataSourceUI.map((value) => {
+                        value.childredTanks = this.getChildrenRows(value);
+                        this.undefinedSortStartDate(value.childredTanks);
+                    });
                     this.dataSourceTanks = [...this.data
-                        .filter(val => !val.parentUid && !val.isGroup)];
+                        .filter(val => !val.parentUid && !val.isGroup),
+                    { name: '', isGroup: false, uid: 'last-row' }];
+                    this.undefinedSortStartDate(this.dataSourceTanks);
                 })
         );
         if (!onlyTanks) {
@@ -122,7 +152,7 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         }
     }
 
-    getChildrenRows(element: ICalibrationTable): any {
+    getChildrenRows(element: ICalibrationTable): ICalibrationTable[] {
         return this.data.filter(val => element?.uid === val?.parentUid);
     }
 
@@ -130,26 +160,41 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         this.isReport = event;
     }
 
+
     sortStart(): void {
         if (!this.sort || this.sort.name === 'bottomStart' || this.sort.name === 'bottomEnd') {
             this.sort = { name: 'upStart', value: true };
-            this.dataSource.sort((a, b) => a?.startDate?.getTime() - b?.startDate?.getTime());
+            this.dataSourceUI.map(data => {
+                this.sortHighStartDate(data.childredTanks);
+            });
+            this.sortHighStartDate(this.dataSourceTanks);
         } else {
             if (this.sort.name === 'upStart') {
-                this.dataSource.sort((a, b) => b?.startDate?.getTime() - a?.startDate?.getTime());
+                this.dataSourceUI.map(data => {
+                    this.sortLowStartDate(data.childredTanks);
+                });
+                this.sortLowStartDate(this.dataSourceTanks);
                 this.sort = { name: 'upEnd', value: true };
             } else {
                 this.sort = null;
             }
         }
     }
+
     sortEnd(): void {
+        this.undefinedSortEndDate(this.dataSourceTanks);
         if (!this.sort || this.sort.name === 'upStart' || this.sort.name === 'upEnd') {
             this.sort = { name: 'bottomStart', value: true };
-            this.dataSource.sort((a, b) => a?.endDate?.getTime() - b?.endDate?.getTime());
+            this.dataSourceUI.map(data => {
+                this.sortHighEndDate(data.childredTanks);
+            });
+            this.sortHighEndDate(this.dataSourceTanks);
         } else {
             if (this.sort.name === 'bottomStart') {
-                this.dataSource.sort((a, b) => b?.endDate?.getTime() - a?.endDate?.getTime());
+                this.dataSourceUI.map(data => {
+                    this.sortLowEndDate(data.childredTanks);
+                });
+                this.sortLowEndDate(this.dataSourceTanks);
                 this.sort = { name: 'bottomEnd', value: true };
             } else {
                 this.sort = null;
@@ -157,30 +202,101 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         }
     }
 
+    sortLowStartDate<T extends ICalibrationTable>(array: T[]): T[] {
+        return array.sort((a, b) => new Date(a.startDate).getTime()
+            - new Date(b.startDate).getTime());
+    }
+
+    sortHighStartDate<T extends ICalibrationTable>(array: T[]): T[] {
+        return array.sort((a, b) => new Date(b?.startDate)?.getTime()
+            - new Date(a?.startDate)?.getTime());
+    }
+
+    sortLowEndDate<T extends ICalibrationTable>(array: T[]): T[] {
+        return array.sort((a, b) => new Date(a?.endDate)?.getTime()
+            - new Date(b?.endDate)?.getTime());
+    }
+
+    sortHighEndDate<T extends ICalibrationTable>(array: T[]): T[] {
+        return array.sort((a, b) => new Date(b?.endDate)?.getTime()
+            - new Date(a?.endDate)?.getTime());
+    }
+
+    undefinedSortStartDate<T extends ICalibrationTable>(array: T[]): T[] {
+        return array.sort((a, b) => +b.hasOwnProperty('startDate')
+            - +a.hasOwnProperty('startDate'));
+    }
+
+    undefinedSortEndDate<T extends ICalibrationTable>(array: T[]): T[] {
+        return array.sort((a, b) => +b.hasOwnProperty('endDate')
+            - +a.hasOwnProperty('endDate'));
+    }
+
     searchInput(event): void {
-        this.dataSource = this.data?.filter((val) => val.name.toLowerCase()
-            .includes(event?.target?.value.toLowerCase()) && val.isGroup);
+        this.dataSourceUI?.map((val) => {
+            let isLenChild: boolean = false;
+            val.childredTanks.map(element => {
+                if (element.name.toLowerCase()
+                    .includes(event?.target?.value.toLowerCase())) {
+                    element.isVisible = false; // показывать
+                    isLenChild = true;
+                } else {
+                    element.isVisible = true;  // скрыть
+                }
+            });
+            if (val.name.toLowerCase()
+                .includes(event?.target?.value.toLowerCase()) || isLenChild) {
+                val.isVisible = false;
+            } else {
+                val.isVisible = true;
+            }
+        });
         this.dataSourceTanks = this.data?.filter((val) => val.name.toLowerCase()
             .includes(event?.target?.value.toLowerCase()) && !val.parentUid && !val.isGroup);
+        this.dataSourceTanks.push({ name: '', isGroup: false, uid: 'last-row' });
     }
 
-    public dateTimePickerInput(date: Date, isStart: boolean): void {
-        if (this.isCurrent) {
-            return;
-        }
-        if (isStart) {
+    public dateTimePickerInput(date: Date, isStart: boolean, id: string): void {
+        this.isComment = true;
+        this.showComment.select(id);
+        if (!isStart) {
             this.fromDate = new Date(date);
+            this.postDate = {
+                id, newDate: this.fromDate,
+                comment: this.comment.value,
+                newDateType: 'startDate'
+            };
         } else {
             this.toDate = new Date(date);
+            this.postDate = {
+                id, newDate: this.toDate,
+                comment: this.comment.value,
+                newDateType: 'endDate'
+            };
         }
-        this.setDates();
     }
 
-    private setDates(): void {
-        const dates = {
-            fromDateTime: this.fromDate,
-            toDateTime: this.toDate,
-        };
+    closeComment(): void {
+        this.showComment.clear();
+        this.postDate = null;
+        this.comment.setValue('');
+    }
+
+    doneComment(): void {
+        this.postNewDate(this.postDate.id, this.postDate.newDate,
+            this.comment.value, this.postDate.newDateType);
+        this.showComment.clear();
+        this.postDate = null;
+        this.comment.setValue('');
+    }
+
+    async postNewDate(id: string, newDate: Date, comment: string,
+        newDateType: 'startDate' | 'endDate'): Promise<void> {
+        try {
+            await this.calibrationService
+                .postDataFile(id, newDate, comment, newDateType);
+            this.snackBar.openSnackBar('Дата успешно изменена');
+        } catch (error) { }
     }
 
     openDialog(element): void {
@@ -201,7 +317,6 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
             await this.calibrationService.postNewDate(id, result, result.file);
             this.snackBar.openSnackBar('Файл загружен успешно');
         } catch (error) {
-            this.snackBar.openSnackBar('Файл не загружен', 'snackbar-red');
             console.error(error);
         }
     }
@@ -229,26 +344,37 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         }
     }
 
-    async deleteTanks(uid: string): Promise<void> {
+    deleteUI(uid: string): void {
+        this.deleteElement = true;
+        this.deleteItem = uid;
+    }
+
+    closeDialog(): void {
+        this.deleteElement = false;
+        this.deleteItem = null;
+    }
+
+    async deleteTanks(): Promise<void> {
+        this.deleteElement = false;
         try {
-            await this.calibrationService.deleteTank(uid);
+            await this.calibrationService.deleteTank(this.deleteItem);
+            this.deleteElement = false;
             this.snackBar.openSnackBar('Резервуар удален');
             this.loadItem(true);
         } catch (error) {
+            this.deleteElement = false;
             console.error(error);
         }
     }
 
-    async clickItem(id: string): Promise<void> {
+    async clickItem(element: ICalibrationTable): Promise<void> {
+        this.chooseElement.select(element);
         try {
-            this.onlineTable = await this.calibrationService.getTankOnlineTable(id);
+            this.onlineTable = await this.calibrationService.getTankOnlineTable(element.uid);
+            this.onlineTable.push({ beltNumber: 0, height: 0, volume: 0, lastRow: 'last-row' })
         } catch (error) {
             console.error(error);
         }
-    }
-
-    downloadFile(id: string): void {
-        window.open(`http://deploy.funcoff.club:6555/api/graduation-table/graduation/tanks/${id}/table`);
     }
 
 }

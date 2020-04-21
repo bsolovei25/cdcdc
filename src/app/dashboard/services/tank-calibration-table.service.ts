@@ -15,7 +15,7 @@ export class TankCalibrationTableService {
 
     constructor(public http: HttpClient, configService: AppConfigService) {
         this.restUrl = configService.restUrl;
-        this.restFileUrl = configService.fsUrl;
+        this.restFileUrl = `${configService.restUrl}/api/file-storage/`;
     }
 
     async getTankAvailable(): Promise<any[]> {
@@ -61,15 +61,16 @@ export class TankCalibrationTableService {
             .toPromise();
     }
 
-    async postDataFile(id: number, newDate: string, comment: string): Promise<any> {
+    async postDataFile(id: string, newDate: Date,
+        comment: string, newDateType: 'startDate' | 'endDate'): Promise<void> {
         return this.http
-            .post(this.restUrl + `/api/graduation-table/Graduation/tanks/${id}/table/date`, {
+            .post<void>(this.restUrl + `/api/graduation-table/Graduation/tanks/${id}/table/date`, {
                 newDate,
                 comment,
+                newDateType
             })
             .toPromise();
     }
-
 
     async putTank(id: string): Promise<any> {
         try {

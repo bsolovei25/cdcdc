@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { UploadDropComponent } from './upload-drop/upload-drop.component';
 import { TankCalibrationTableService } from '../../../services/tank-calibration-table.service';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
     selector: 'evj-upload-form',
@@ -11,6 +12,7 @@ import { TankCalibrationTableService } from '../../../services/tank-calibration-
 export class UploadFormComponent implements OnInit, OnDestroy {
 
     date: Date = new Date();
+    dateEnd: Date = new Date(new Date().setFullYear(new Date().getFullYear() + 5));
 
     body: {
         startDate: Date;
@@ -18,12 +20,12 @@ export class UploadFormComponent implements OnInit, OnDestroy {
         file: FormData;
         comment: string;
     } = {
-            startDate: new Date(),
-            endDate: new Date(),
+            startDate: this.date,
+            endDate: this.dateEnd,
             file: new FormData(),
             comment: '',
         };
-    comment: string = '';
+    comment: FormControl = new FormControl('', Validators.required);
 
     file: boolean = false;
 
@@ -47,7 +49,7 @@ export class UploadFormComponent implements OnInit, OnDestroy {
     }
 
     submitForm(): void {
-        this.body.comment = this.comment;
+        this.body.comment = this.comment.value;
         this.dialogRef.close(this.body);
     }
 

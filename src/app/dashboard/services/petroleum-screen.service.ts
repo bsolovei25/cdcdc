@@ -230,16 +230,14 @@ export class PetroleumScreenService {
         this.currentTransfer$.next(currentTransfer);
     }
 
-    public async setClient(): Promise<void> {
-        const clientArray: string[] = await this.getClientAsync();
-        this.client = clientArray[0];
-
+    public async setClient(widgetId: string): Promise<void> {
+        this.client = (await this.getClientAsync(widgetId))?.data ?? null;
         console.log(this.client);
     }
 
-    private async getClientAsync(): Promise<string[]> {
+    private async getClientAsync(widgetId: string): Promise<{ data: string }> {
         return this.http
-            .get<string[]>(`${this.restUrl}/api/petroleum-flow-clients/clients`)
+            .get<{ data: string }>(`${this.restUrl}/api/petroleum-flow-clients?guid=${widgetId}`)
             .toPromise();
     }
 

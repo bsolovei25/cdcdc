@@ -80,10 +80,10 @@ export class ManualInputService {
         return newData;
     }
 
-    BtnSaveValues(data: IMachine_MI[]) {
+    public BtnSaveValues(data: IMachine_MI[]): void {
         this.saveBar('Сохранение', true);
         this.statusLoading = true;
-        let elsToSave: Param_MI[] = [];
+        const elsToSave: Param_MI[] = [];
         for (const i in data) {
             for (const j in data[i].groups) {
                 for (const k in data[i].groups[j].params) {

@@ -188,6 +188,7 @@ import { EventsCommentWindowComponent } from './widgets/workspace/components/eve
 import { EventsListWindowComponent } from './widgets/workspace/components/events-list-window/events-list-window.component';
 import { FilterPopupComponent } from './widgets/petroleum-products-movement/components/filter-popup/filter-popup.component';
 import { NgxMaskModule } from 'ngx-mask';
+import { SystemPeriodDateComponent } from './widgets/report-server-configurator/popup-system-options/system-period-edit/system-period-date/system-period-date.component';
 import { TransferTableComponent } from './widgets/petroleum-products-movement/components/transfer-table/transfer-table.component';
 import { ProductionTrendComponent } from './widgets/production-trend/production-trend.component';
 import { DevGraphComponent } from './pages/dev-graph/dev-graph.component';
@@ -196,6 +197,14 @@ import { ProductionTrendFacilitiesComponent } from './widgets/production-trend/c
 import { FacilityComponent } from './widgets/production-trend/components/facility/facility.component';
 import { ProductionTrendPanelComponent } from './widgets/production-trend/components/production-trend-panel/production-trend-panel.component';
 import { ProductionTrendCardInfoComponent } from './widgets/production-trend/components/production-trend-card-info/production-trend-card-info.component';
+import { SystemPeriodDateYearComponent } from './widgets/report-server-configurator/popup-system-options/system-period-edit/system-period-date/system-period-date-year/system-period-date-year.component';
+import { SystemPeriodDateMonthComponent } from './widgets/report-server-configurator/popup-system-options/system-period-edit/system-period-date/system-period-date-month/system-period-date-month.component';
+import { SystemPeriodDateDayComponent } from './widgets/report-server-configurator/popup-system-options/system-period-edit/system-period-date/system-period-date-day/system-period-date-day.component';
+import { TankInformationComponent } from './widgets/tank-information/tank-information.component';
+import { TankCardComponent } from './widgets/tank-information/components/tank-card/tank-card.component';
+import { TankLineComponent } from './widgets/tank-information/components/tank-line/tank-line.component';
+import { TankFillingComponent } from './widgets/tank-information/components/tank-filling/tank-filling.component';
+import { TankFilterComponent } from './widgets/tank-information/components/tank-filter/tank-filter.component';
 
 @NgModule({
     declarations: [
@@ -352,6 +361,7 @@ import { ProductionTrendCardInfoComponent } from './widgets/production-trend/com
         EventsCommentWindowComponent,
         EventsListWindowComponent,
         FilterPopupComponent,
+        SystemPeriodDateComponent,
         TransferTableComponent,
         ProductionTrendComponent,
         DevGraphComponent,
@@ -360,6 +370,14 @@ import { ProductionTrendCardInfoComponent } from './widgets/production-trend/com
         FacilityComponent,
         ProductionTrendPanelComponent,
         ProductionTrendCardInfoComponent,
+        SystemPeriodDateYearComponent,
+        SystemPeriodDateMonthComponent,
+        SystemPeriodDateDayComponent,
+        TankInformationComponent,
+        TankCardComponent,
+        TankLineComponent,
+        TankFillingComponent,
+        TankFilterComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -418,6 +436,7 @@ import { ProductionTrendCardInfoComponent } from './widgets/production-trend/com
         UploadDropComponent,
         TanksTableComponent,
         CustomReportPropertiesReferenceComponent,
+        TankInformationComponent,
     ],
     exports: [HomeComponent],
     imports: [

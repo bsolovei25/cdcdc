@@ -16,6 +16,7 @@ import { IUser, IUnitEvents } from '../../models/events-widget';
 import { IWidgets } from '../../models/widget.model';
 import { fillDataShape } from '../../../@shared/common-functions';
 import { AuthService } from '@core/service/auth.service';
+import { AvatarConfiguratorService } from '../avatar-configurator.service';
 
 @Injectable({
     providedIn: 'root',
@@ -75,11 +76,11 @@ export class AdminPanelService {
     constructor(
         private http: HttpClient,
         private configService: AppConfigService,
+        private avatarConfiguratorService: AvatarConfiguratorService,
         private authService: AuthService
     ) {
         this.restUrl = `${this.configService.restUrl}${this.restUrl}`;
         this.restUrlApi = `${this.configService.restUrl}${this.restUrlApi}`;
-        this.restFileUrl = this.configService.fsUrl;
         this.activeWorker$.subscribe((worker: IUser) => {
             this.activeWorker = worker;
         });
@@ -289,11 +290,7 @@ export class AdminPanelService {
     }
 
     public getPhotoLink(worker: IUser): string {
-        if (worker.photoId) {
-            return `${this.configService.fsUrl}/${worker.photoId}`;
-        } else {
-            return 'assets/icons/widgets/admin/default_avatar2.svg';
-        }
+        return this.avatarConfiguratorService.getAvatarPath(worker?.photoId);
     }
 
     public generateDisplayName(worker: IUser): string {
