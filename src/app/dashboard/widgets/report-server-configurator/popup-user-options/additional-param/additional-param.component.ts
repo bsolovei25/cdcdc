@@ -82,9 +82,6 @@ export class AdditionalParamComponent implements OnInit, OnChanges {
 
   saveReport() {
     this.reportService.postCustomOptions(this.templateId, this.optionsChoose).subscribe(ans => {
-      // this.reportService.putReportTemplate(obj).subscribe((ans) => {
-      //   this.getReportTemplate();
-      // });
       this.close.emit(true);
     },
     (error) => {

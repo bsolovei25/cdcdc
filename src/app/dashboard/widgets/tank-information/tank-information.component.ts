@@ -55,7 +55,7 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
           valueLev: 505.2,
           tankFilling: 100,
           status: "down",
-          operation: "Налив"
+          operation: "standart"
         },
         {
           id: 5,
@@ -65,7 +65,7 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
           valueLev: 505.2,
           tankFilling: 32,
           status: "down",
-          operation: "Налив"
+          operation: "standart"
         },
         {
           id: 6,
@@ -75,7 +75,7 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
           valueLev: 505.2,
           tankFilling: 32,
           status: "down",
-          operation: "Налив"
+          operation: "standart"
         },
         {
           id: 7,
@@ -85,7 +85,7 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
           valueLev: 505.2,
           tankFilling: 32,
           status: "down",
-          operation: "Налив"
+          operation: "standart"
         }
       ],
     },
@@ -131,7 +131,7 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
           valueLev: 505.2,
           tankFilling: 100,
           status: "down",
-          operation: "Налив"
+          operation: "shipment"
         },
         {
           id: 5,
@@ -141,7 +141,7 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
           valueLev: 505.2,
           tankFilling: 32,
           status: "down",
-          operation: "Налив"
+          operation: "shipment"
         }
       ],
     },
@@ -187,7 +187,7 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
           valueLev: 505.2,
           tankFilling: 100,
           status: "down",
-          operation: "Налив"
+          operation: "shipment"
         },
         {
           id: 5,
@@ -197,7 +197,7 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
           valueLev: 505.2,
           tankFilling: 32,
           status: "down",
-          operation: "Налив"
+          operation: "shipment"
         }
       ],
     },

@@ -205,6 +205,12 @@ import { TankCardComponent } from './widgets/tank-information/components/tank-ca
 import { TankLineComponent } from './widgets/tank-information/components/tank-line/tank-line.component';
 import { TankFillingComponent } from './widgets/tank-information/components/tank-filling/tank-filling.component';
 import { TankFilterComponent } from './widgets/tank-information/components/tank-filter/tank-filter.component';
+import { ReasonsDeviationsComponent } from './widgets/reasons-deviations/reasons-deviations.component';
+import { ReasonsDeviationsLineChartComponent } from './widgets/reasons-deviations/components/reasons-deviations-line-chart/reasons-deviations-line-chart.component';
+import { ReasonsDeviationsInfoContentComponent } from './widgets/reasons-deviations/components/reasons-deviations-info-content/reasons-deviations-info-content.component';
+import { ReasonsDeviationsInfoTankComponent } from './widgets/reasons-deviations/components/reasons-deviations-info-tank/reasons-deviations-info-tank.component';
+import { ReasonsDeviationsPicTankComponent } from './widgets/reasons-deviations/components/reasons-deviations-pic-tank/reasons-deviations-pic-tank.component';
+import { ReasonsDeviationsTankLevelComponent } from './widgets/reasons-deviations/components/reasons-deviations-tank-level/reasons-deviations-tank-level.component';
 import { ProductionTrendGraphComponent } from './widgets/production-trend/components/production-trend-graph/production-trend-graph.component';
 
 @NgModule({
@@ -379,6 +385,12 @@ import { ProductionTrendGraphComponent } from './widgets/production-trend/compon
         TankLineComponent,
         TankFillingComponent,
         TankFilterComponent,
+        ReasonsDeviationsComponent,
+        ReasonsDeviationsLineChartComponent,
+        ReasonsDeviationsInfoContentComponent,
+        ReasonsDeviationsInfoTankComponent,
+        ReasonsDeviationsPicTankComponent,
+        ReasonsDeviationsTankLevelComponent,
         ProductionTrendGraphComponent,
     ],
     entryComponents: [
@@ -439,6 +451,7 @@ import { ProductionTrendGraphComponent } from './widgets/production-trend/compon
         TanksTableComponent,
         CustomReportPropertiesReferenceComponent,
         TankInformationComponent,
+        ReasonsDeviationsComponent,
     ],
     exports: [HomeComponent],
     imports: [

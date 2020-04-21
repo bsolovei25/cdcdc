@@ -3,6 +3,7 @@
   (mousedown)="$event.stopPropagation()"
   (touchstart)="$event.stopPropagation()"
 >
+  <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
   <section class="tank">
     <div class="tank__header">
       <span class="tank__header__close">
@@ -41,6 +42,7 @@
                 (click)="selectedElement.isSelected(elementChildren) ? 
                          selectedElement.deselect(elementChildren)
                         : selectedElement.select(elementChildren)"
+                (dblclick)="doubleClick(elementChildren)"
                 [class.table__body__item__row__expanded--selected]="selectedElement.isSelected(elementChildren)"
                 class="table__body__item__row__expanded"
               >
@@ -55,6 +57,7 @@
               (click)="selectedElement.isSelected(element) ? 
                        selectedElement.deselect(element)
                        : selectedElement.select(element)"
+              (dblclick)="doubleClick(element)"
               [class.table__body__item__row__expanded--selected]="selectedElement.isSelected(element)"
               class="table__body__item__row__expanded"
             >

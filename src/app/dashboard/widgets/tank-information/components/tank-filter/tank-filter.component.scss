@@ -75,6 +75,11 @@
     &__name {
         font-size: 14px;
         width: 100%;
+        white-space: nowrap;
+        padding: 5px;
+        padding-top: 0;
+        text-overflow: ellipsis;
+        overflow: hidden;
         text-align: center;
     }
 }
