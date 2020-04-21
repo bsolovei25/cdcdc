@@ -120,22 +120,6 @@ export class PetroleumScreenService {
             );
             objectsSource.forEach((item) => (item.isActive = true));
             objectsReceiver.forEach((item) => (item.isActive = true));
-            // if (
-            //     objectsSource.find((item) => item.objectName === chooseTransfer.sourceName) &&
-            //     objectsReceiver.find((item) => item.objectName === chooseTransfer.destinationName)
-            // ) {
-            //     objectsSource.find(
-            //         (item) => item.objectName === chooseTransfer.sourceName
-            //     ).isActive = true;
-            //     objectsReceiver.find(
-            //         (item) => item.objectName === chooseTransfer.destinationName
-            //     ).isActive = true;
-            // } else {
-            //     this.materialController.openSnackBar(
-            //         'Источник и приемник не совместимы!',
-            //         'snackbar-red'
-            //     );
-            // }
             this.objectsReceiver$.next(objectsReceiver);
             this.objectsSource$.next(objectsSource);
         } catch (e) {
