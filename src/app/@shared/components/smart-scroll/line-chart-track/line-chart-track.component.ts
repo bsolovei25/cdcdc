@@ -42,7 +42,6 @@ export class LineChartTrackComponent implements OnChanges, AfterViewInit {
     }
 
     public ngAfterViewInit(): void {
-        this.svg = d3Selection.select(this.chart.nativeElement).append('svg');
         this.initGraph();
         this.transformData();
         this.drawGraph();
@@ -78,6 +77,12 @@ export class LineChartTrackComponent implements OnChanges, AfterViewInit {
     }
 
     private initGraph(): void {
+        if (this.svg) {
+            this.svg.remove();
+        }
+
+        this.svg = d3Selection.select(this.chart.nativeElement).append('svg');
+
         this.graphMaxX = +d3Selection
             .select('div.line-chart-track')
             .style('width')
