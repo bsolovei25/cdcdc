@@ -43,7 +43,7 @@ export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
 
     public widgets$: BehaviorSubject<IWidgets[]> = new BehaviorSubject<IWidgets[]>([]);
     private claimSettingsWidgets: EnumClaimWidgets[] = [];
-    private claimSettingsScreens: EnumClaimScreens[] = [];
+    public claimSettingsScreens: EnumClaimScreens[] = [];
     EnumClaimScreens = EnumClaimScreens;
 
     isWidgets: isChoosePanel;
