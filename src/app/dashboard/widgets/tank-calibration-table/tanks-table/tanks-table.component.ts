@@ -20,6 +20,7 @@ export class TanksTableComponent implements OnInit, OnDestroy {
 
     dataSource: ITanksTable[] = [];
     dataSourceTanks: ITanksTable[] = [];
+    data: ITanksTable[] = [];
 
     expandedElement: SelectionModel<ITanksTable[]> = new SelectionModel(true);
     selectedElement: SelectionModel<ITanksTable> = new SelectionModel();
@@ -32,7 +33,7 @@ export class TanksTableComponent implements OnInit, OnDestroy {
         public dialogRef: MatDialogRef<any>,
         private chDet: ChangeDetectorRef,
         private calibrationService: TankCalibrationTableService,
-        @Inject(MAT_DIALOG_DATA) public data: ITanksTable[]
+        @Inject(MAT_DIALOG_DATA) public dataRef: ITanksTable[]
     ) {
     }
 
@@ -72,6 +73,7 @@ export class TanksTableComponent implements OnInit, OnDestroy {
         const dataLoadQueue: Promise<void>[] = [];
         dataLoadQueue.push(
             this.calibrationService.getTankAvailable().then((data) => {
+                this.data = data;
                 this.dataSource = [...data
                     .filter(val => val.isGroup)];
                 this.dataSourceTanks = [...data
