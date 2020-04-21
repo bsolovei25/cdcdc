@@ -10,6 +10,7 @@ import {
 import { IChartMini, IChartD3 } from '../../../models/smart-scroll.model';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
+import { error } from 'protractor';
 
 @Component({
     selector: 'evj-line-chart-track',
@@ -84,11 +85,11 @@ export class LineChartTrackComponent implements OnChanges, AfterViewInit {
         this.svg = d3Selection.select(this.chart.nativeElement).append('svg');
 
         this.graphMaxX = +d3Selection
-            .select('div.line-chart-track')
+            .select(this.chart.nativeElement)
             .style('width')
             .slice(0, -2);
         this.graphMaxY = +d3Selection
-            .select('div.line-chart-track')
+            .select(this.chart.nativeElement)
             .style('height')
             .slice(0, -2);
 

@@ -10,6 +10,15 @@
 .graph {
   height: 100%;
   width: 100%;
+
+  box-sizing: border-box;
+  margin-bottom: 5px;
+
+  * {
+    fill: none;
+    stroke: var(--color-text-sub);
+    stroke-width: 2px;
+  }
 }
 .scroll {
   max-height: 50px;
