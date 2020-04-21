@@ -9,21 +9,21 @@
         width: 100%;
         padding-top: 20px;
         max-height: 240px;
-        padding-bottom: 20px;
+        padding-bottom: 0px;
 
         .info{
-            width: 25%;
+            width: 20%;
         }
 
         .arrow{
-            width: 5%;
+            width: 50px;
             padding-left: 10px;
-            padding-top: 20px;
+            line-height: 12;
 
             &__svg{
                 ::ng-deep svg{
                     width: 100%;
-                    height: calc(100% - 60px);
+                    height: 100%;
                 }
             }
         }
@@ -31,6 +31,24 @@
         .image{
             display: flex;
             width: 70%;
+            overflow: auto;
         }
     }
+}
+
+$scrollbar-color: #08314D;
+
+::-webkit-scrollbar {
+  width: 1px;
+  height: 14px;
+}
+::-webkit-scrollbar-track-piece {
+  background: var(--color-bg-main);
+}
+::-webkit-scrollbar-thumb {
+  background-color: $scrollbar-color;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  border: solid 4px var(--color-bg-main);
 }

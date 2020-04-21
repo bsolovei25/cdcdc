@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IReasonsTankerCard } from 'src/app/dashboard/models/reasons-deviations';
 
 @Component({
   selector: 'evj-reasons-deviations-tank-level',
@@ -7,18 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReasonsDeviationsTankLevelComponent implements OnInit {
 
-  data = {
+  public data: IReasonsTankerCard = {
     name: "Резервуар №514",
-    percent: 40,
+    percent: 20,
     shipped: 1400,
     capacity: 2720,
     valueLevel: 520,
     type: "Бензин АИ-92-К2",
   }
 
+  public textLevel: number;
+
   constructor() { }
 
   ngOnInit(): void {
+    (this.data.percent > 70) ? this.textLevel = 50 :
+    (this.data.percent < 20) ? this.textLevel = 20 :
+    this.textLevel = this.data.percent - 5;
   }
 
 }

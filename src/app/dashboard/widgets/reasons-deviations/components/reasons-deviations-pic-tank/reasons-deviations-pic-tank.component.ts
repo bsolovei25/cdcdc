@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { IReasonsTankers } from 'src/app/dashboard/models/reasons-deviations';
 
 declare var d3: any;
 
@@ -9,9 +10,9 @@ declare var d3: any;
 })
 export class ReasonsDeviationsPicTankComponent implements OnInit, AfterViewInit {
   @ViewChild('reasonsPic') oilIcon: ElementRef;
-  @Input() public data: any;
+  @Input() public data: IReasonsTankers;
 
-  public tankersPicture: any;
+  public tankersPicture: any; //d3
 
   constructor() { }
 

@@ -13,14 +13,13 @@
         </div>
         <div class="tank">
             <div class="first-circle">
-                <div class="first-circle__value">{{ data.valueLevel }}</div>
                 <div class="first-circle__level" [style.height.%]="data.percent">
 
                 </div>
             </div>
             <div class="second-circle">
-
             </div>
+            <div class="tank__value" [style.bottom.%]="textLevel">{{ data.valueLevel }}</div>
         </div>
     </div>
     <div class="container-tank-level__type-title">{{ data.type }}</div>
