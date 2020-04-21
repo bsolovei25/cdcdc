@@ -24,6 +24,7 @@ export interface IReportTemplate {
     fileTemplate?: IReportFile;
     systemOptions?: ISystemOptionsTemplate[];
     customOptions?: ICustomOptionsTemplate[];
+    periodType?: string;
     report?: any;
     isDeleted: boolean;
     displayName: string;
@@ -103,4 +104,10 @@ export interface IReportFile {
     id?: number;
     isDeleted?: boolean;
     name?: string;
+}
+
+export interface IPostSystemOptionsTemplate {
+    systemOptionValues: ISystemOptionsTemplate[];
+    fileTemplate: IReportFile;
+    periodType: string;
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'evj-system-autogenerate',
@@ -6,7 +6,6 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./system-autogenerate.component.scss']
 })
 export class SystemAutogenerateComponent implements OnInit {
-
   @Output() public result: EventEmitter<any> = new EventEmitter<any>();
 
   dateNow: Date = new Date();

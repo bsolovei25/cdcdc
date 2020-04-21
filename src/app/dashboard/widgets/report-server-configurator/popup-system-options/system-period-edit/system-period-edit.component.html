@@ -14,7 +14,7 @@
                     <div class="item">
                         <div class="check-item">
                             <div class="radio-button">
-                                <input type="radio" id="{{ item.name }}" name="title" value="{{ item.name }}"
+                                <input type="radio" id="{{ item.name }}" name="title" value="{{ item.name }}" [checked]="item.isActive"
                                 (click)="changeSwap(item)"/>
                               <label for="{{ item.name }}" class="cyan"></label>
                               </div>

@@ -47,9 +47,9 @@ export class SystemPeriodDateYearComponent implements OnInit {
 
   chosenYearHandler(normalizedYear: Moment, datepicker: MatDatepicker<Moment>) {
     const ctrlValue = this.date.value;
-    ctrlValue.year(normalizedYear.year());
+    const value = ctrlValue.year(normalizedYear.year());
     this.date.setValue(ctrlValue);
-    this.year.emit(ctrlValue);
+    this.year.emit(value.year());
     datepicker.close();
   }
 

@@ -31,15 +31,15 @@
                 <div class="arbitraryTime">
                     <mat-form-field>
                         <label>От</label>
-                        <input matInput [ngxMatDatetimePicker]="pickerT" [value]="dateNow">
-                        <mat-datepicker-toggle matSuffix [for]="pickerT">
+                        <input matInput [ngxMatDatetimePicker]="pickerD" [value]="dateNow">
+                        <mat-datepicker-toggle matSuffix [for]="pickerD">
                             <mat-icon matDatepickerToggleIcon>
                                 <svg-icon src="./assets/icons/widgets/reports/calend.svg"
                                     [svgStyle]="{ 'width.px':25, 'height.px':25}">
                                 </svg-icon>
                             </mat-icon>
                         </mat-datepicker-toggle>
-                        <ngx-mat-datetime-picker #pickerT>
+                        <ngx-mat-datetime-picker #pickerD>
                         </ngx-mat-datetime-picker>
                     </mat-form-field>
                 </div>
