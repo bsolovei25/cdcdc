@@ -8,8 +8,8 @@
                 class="arrow__svg"></svg-icon>
         </div>
         <div class="image">
-            <ng-container *ngFor="let item of data">
-                <evj-reasons-deviations-pic-tank></evj-reasons-deviations-pic-tank>
+            <ng-container *ngFor="let item of dataTankers">
+                <evj-reasons-deviations-pic-tank [data]="item"></evj-reasons-deviations-pic-tank>
             </ng-container>
         </div>
     </div>

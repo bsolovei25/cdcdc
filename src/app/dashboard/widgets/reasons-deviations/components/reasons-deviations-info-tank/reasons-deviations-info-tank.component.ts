@@ -7,7 +7,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReasonsDeviationsInfoTankComponent implements OnInit {
 
-  public data: any;
+  public dataTankers: any = [
+    {
+      id: 1,
+      type: "Tug",
+      value: 1532
+    },
+    {
+      id: 2,
+      type: "Tube",
+      value: 2342
+    },
+    {
+      id: 3,
+      type: "Cistern",
+      value: 212
+    },
+    {
+      id: 4,
+      type: "Cistern",
+      value: 147
+    },
+  ]
 
   constructor() { }
 
