@@ -68,7 +68,17 @@
         >
           <div class="values">
             <div class="value">
-              {{ item[dic.key] }}
+              <ng-container
+                *ngIf="
+                  (dic.key === 'sourceMass') ||
+                  (dic.key === 'destinationMass') ||
+                  (dic.key === 'deltaMass'); else text"
+              >
+                {{ item[dic.key] | number:'0.2-2' }}
+              </ng-container>
+              <ng-template #text>
+                {{ item[dic.key] }}
+              </ng-template>
             </div>
           </div>
         </ng-container>
