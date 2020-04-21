@@ -117,7 +117,7 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         }
     }
 
-    private async loadItem(onlyTanks: boolean = false): Promise<void> {
+    private async loadItem(): Promise<void> {
         const dataLoadQueue: Promise<void>[] = [];
         dataLoadQueue.push(
             this.calibrationService.getTanks()
@@ -135,13 +135,6 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
                     this.undefinedSortStartDate(this.dataSourceTanks);
                 })
         );
-        if (!onlyTanks) {
-            dataLoadQueue.push(
-                this.calibrationService.getTankAvailable().then((data) => {
-                    this.tanksAvailable = data;
-                })
-            );
-        }
         dataLoadQueue.push();
         if (dataLoadQueue.length > 0) {
             try {
@@ -329,16 +322,43 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
             });
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.putTanks(result?.[0]?.uid);
+                const el = this.data.find(val => val.uid === result);
+                if (!el) {
+                    this.putTanks(result);
+                } else {
+                    this.snackBar.openSnackBar('Резервуар уже существует');
+                }
+                this.chooseTanks(result);
             }
         });
+
+    }
+
+    chooseTanks(id: string): void {
+        let el;
+        this.dataSourceUI.every(val => {
+            el = val.childredTanks.find((val2) => val2.uid === id);
+            if (el) {
+                this.expandedElement.select(val);
+                this.clickItem(el);
+                return false;
+            }
+            return true;
+        });
+        if (!el) {
+            const el2 = this.dataSourceTanks.find((val) => val.uid === id);
+            if (el2) {
+                this.clickItem(el2);
+            }
+        }
     }
 
     async putTanks(uid: string): Promise<void> {
         try {
             await this.calibrationService.putTank(uid);
             this.snackBar.openSnackBar('Резервуар добавлен');
-            this.loadItem(true);
+            await this.loadItem();
+            this.chooseTanks(uid);
         } catch (error) {
             console.error(error);
         }
@@ -360,7 +380,7 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
             await this.calibrationService.deleteTank(this.deleteItem);
             this.deleteElement = false;
             this.snackBar.openSnackBar('Резервуар удален');
-            this.loadItem(true);
+            this.loadItem();
         } catch (error) {
             this.deleteElement = false;
             console.error(error);
