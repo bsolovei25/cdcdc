@@ -8,10 +8,11 @@
   justify-content: flex-start;
 }
 .graph {
-  height: 80%;
+  height: 100%;
   width: 100%;
 }
 .scroll {
-  height: 20%;
+  max-height: 50px;
+  height: 100%;
   width: 100%;
 }

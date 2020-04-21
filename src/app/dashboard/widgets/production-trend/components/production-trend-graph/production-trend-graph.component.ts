@@ -7,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductionTrendGraphComponent implements OnInit {
 
-    public width: number = 20;
-    public left: number = 0;
+    public sbWidth: number = 20;
+    public sbLeft: number = 6;
 
     constructor() { }
 
