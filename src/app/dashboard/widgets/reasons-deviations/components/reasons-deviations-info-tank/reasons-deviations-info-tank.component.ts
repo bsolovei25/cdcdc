@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReasonsDeviationsInfoTankComponent implements OnInit {
 
+  public data: any;
+
   constructor() { }
 
   ngOnInit(): void {

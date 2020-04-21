@@ -1,14 +1,16 @@
 .container-info-content {
     height: 100%;
     padding: 25px;
-    margin-top: 15px;
+    padding-top: 15px;
+    padding-bottom: 5px;
 
     &__content {
         display: flex;
         border-radius: 15px;
         height: 100%;
         width: 100%;
-        background-color: var(--color-oil-card);
+        background-color: var(--color-oil-table);
+        font-size: 14px;
 
         .block {
             margin-left: 40px;
@@ -30,8 +32,11 @@
                 height: 33%;
                 align-items: center;
                 display: flex;
+                justify-content: space-between;
+                padding-right: 30px;
 
                 &__name {
+                    width: 50%;
                     color: var(--color-text-sub);
                 }
 
