@@ -80,7 +80,7 @@
             <tbody class="table__body">
               <ng-container *ngFor="let element of dataSourceUI">
                 <tr
-                  *ngIf="!element.isVisible"
+                  *ngIf="!element.isVisible && element.childredTanks.length > 0"
                   class="table__tr"
                   (click)="expandedElement.isSelected(element) ?
                          expandedElement.deselect(element)
