@@ -1,0 +1,32 @@
+.container-info-tank{
+    height: 100%;
+    padding-left: 25px;
+    padding-right: 25px;
+
+    &__content{
+        display: flex;
+        height: 100%;
+        width: 100%;
+        padding-top: 20px;
+        padding-bottom: 20px;
+
+        .info{
+            width: 25%;
+        }
+
+        .arrow{
+            width: 5%;
+
+            &__svg{
+                ::ng-deep svg{
+                    width: 100%;
+                    height: calc(100% - 60px);
+                }
+            }
+        }
+
+        .image{
+            width: 70%;
+        }
+    }
+}
