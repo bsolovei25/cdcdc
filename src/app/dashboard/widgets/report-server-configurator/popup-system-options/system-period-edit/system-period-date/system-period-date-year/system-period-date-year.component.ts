@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import * as _moment from 'moment';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { FormControl } from '@angular/forms';
@@ -36,6 +36,8 @@ export const MY_FORMATS = {
 export class SystemPeriodDateYearComponent implements OnInit {
   @ViewChild('picker') public picker: any;
 
+  @Output() public year: EventEmitter<number> = new EventEmitter<number>();
+
   public date = new FormControl(moment());
 
   constructor() { }
@@ -47,6 +49,7 @@ export class SystemPeriodDateYearComponent implements OnInit {
     const ctrlValue = this.date.value;
     ctrlValue.year(normalizedYear.year());
     this.date.setValue(ctrlValue);
+    this.year.emit(ctrlValue);
     datepicker.close();
   }
 

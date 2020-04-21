@@ -70,4 +70,8 @@ export class SystemPeriodEditComponent implements OnInit {
     this.timeCheck = item.name;
   }
 
+  setValueTime(event){
+    
+  }
+
 }

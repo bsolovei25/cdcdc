@@ -1,7 +1,7 @@
 <div class="container">
     <div class="container__time">
         <!--Годичный-->
-        <evj-system-period-date-year *ngIf="timeCheck === 'Годичный'"></evj-system-period-date-year>
+        <evj-system-period-date-year *ngIf="timeCheck === 'Годичный'" (year)="setValue($event)"></evj-system-period-date-year>
         <!--Месячный-->
         <evj-system-period-date-month *ngIf="timeCheck === 'Месячный'"></evj-system-period-date-month>
         <!--Суточный-->

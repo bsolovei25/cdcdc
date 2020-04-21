@@ -25,7 +25,7 @@
             </div>
             <div class="content__title">Итоговый временной период</div>
             <div class="content__time">
-                <evj-system-period-date [timeCheck]="timeCheck"></evj-system-period-date>
+                <evj-system-period-date [timeCheck]="timeCheck" (timeChoose)="setValueTime($event)"></evj-system-period-date>
             </div>
         </div>
         <div class="bottom">
