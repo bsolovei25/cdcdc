@@ -30,10 +30,10 @@ $background-card-color: #0E2235;
     height: 100%;
     border-radius: inherit;
     &__danger {
-      background: transparentize($--color-danger, 0.9);
+      background: transparentize($--color-danger, 0.95);
     }
     &__good {
-      background: transparentize($--color-standard, 0.9);
+      background: transparentize($--color-standard, 0.95);
     }
   }
   &_row {
