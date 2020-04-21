@@ -49,7 +49,7 @@ export class TanksTableComponent implements OnInit, OnDestroy {
         this.dialogRef.close();
     }
 
-    addClick(event: MouseEvent): void {
+    addClick(): void {
         this.dialogRef.close(this.selectedElement.selected?.[0]?.uid);
     }
 
