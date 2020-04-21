@@ -143,7 +143,7 @@
           [messages]="ewService.event.facts"
           title="Установленные факты"
           placeholder="Укажите факты..."
-          [displayGraphImage]="!!ewService.event.graphValues.graphs[0]"
+          [displayGraphImage]="!!ewService.event.graphValues?.graphs[0]"
           [onClickItem]="openLineChart.bind(this)"
           (addingMessage)="onSendMessage($event,'facts')"
         ></evj-chat>
@@ -210,7 +210,7 @@
   (mousedown)="$event.stopPropagation()"
   (touchstart)="$event.stopPropagation()"
   id="overlay-chart"
-  *ngIf="ewService.isOverlayChartOpen && ewService.event.graphValues.graphs[0]"
+  *ngIf="ewService.isOverlayChartOpen && ewService.event.graphValues?.graphs[0]"
   (click)="overlayChartClose()"
 >
   <div
