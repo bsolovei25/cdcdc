@@ -1,4 +1,12 @@
-import { Component, AfterViewInit, OnChanges, HostListener, Input } from '@angular/core';
+import {
+    Component,
+    AfterViewInit,
+    OnChanges,
+    HostListener,
+    Input,
+    ViewChild,
+    ElementRef,
+} from '@angular/core';
 import { IChartMini, IChartD3 } from '../../../models/smart-scroll.model';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
@@ -10,6 +18,8 @@ import * as d3 from 'd3';
 })
 export class LineChartTrackComponent implements OnChanges, AfterViewInit {
     @Input() private data: IChartMini[] = [];
+
+    @ViewChild('chart') private chart: ElementRef;
 
     private chartData: IChartD3[] = [];
 
@@ -32,7 +42,6 @@ export class LineChartTrackComponent implements OnChanges, AfterViewInit {
     }
 
     public ngAfterViewInit(): void {
-        this.svg = d3Selection.select('div.line-chart-track').append('svg');
         this.initGraph();
         this.transformData();
         this.drawGraph();
@@ -68,6 +77,12 @@ export class LineChartTrackComponent implements OnChanges, AfterViewInit {
     }
 
     private initGraph(): void {
+        if (this.svg) {
+            this.svg.remove();
+        }
+
+        this.svg = d3Selection.select(this.chart.nativeElement).append('svg');
+
         this.graphMaxX = +d3Selection
             .select('div.line-chart-track')
             .style('width')
