@@ -45,6 +45,7 @@ import { ReportServerConfiguratorComponent } from '../../widgets/report-server-c
 import { ReferenceComponent } from '../../widgets/reference/reference.component';
 import { TankCalibrationTableComponent } from '../../widgets/tank-calibration-table/tank-calibration-table.component';
 import { CustomReportPropertiesReferenceComponent } from '../../widgets/custom-report-properties-reference/custom-report-properties-reference.component';
+import { ProductionTrendComponent } from '../../widgets/production-trend/production-trend.component';
 import { TankInformationComponent } from '../../widgets/tank-information/tank-information.component';
 
 export const WIDGETS = {
@@ -52,7 +53,7 @@ export const WIDGETS = {
     'line-chart': LineChartComponent,
     'line-diagram': LineDiagramComponent,
     'manual-input': ManualInputComponent,
-    events: EventsComponent,
+    'events': EventsComponent,
     'shift-pass': ChangeShiftComponent,
     'shift-accept': ChangeShiftComponent,
     'events-workspace': EventsWorkSpaceComponent,
@@ -70,7 +71,7 @@ export const WIDGETS = {
     'calendar-plan': CalendarPlanComponent,
     'ring-factory-diagram': RingSFactoryDiagramComponent,
     'chain-map': ChainMapComponent,
-    energetics: EnergeticsComponent,
+    'energetics': EnergeticsComponent,
     'dispatcher-screen': DispatcherScreenComponent,
     'table-data': SuspenseMachineComponent,
     'deviations-table': DeviationsTableComponent,
@@ -96,5 +97,6 @@ export const WIDGETS = {
     'report-server-configurator': ReportServerConfiguratorComponent,
     'tank-calibration-table': TankCalibrationTableComponent,
     'custom-report-properties-reference': CustomReportPropertiesReferenceComponent,
+    'production-trend': ProductionTrendComponent,
     'tank-information': TankInformationComponent,
 };

@@ -1,8 +1,10 @@
 <div class="header" *ngIf="widgetType !== 'events-workspace'
    && widgetType !== 'admin-shift-schedule'
    && widgetType !=='report-server-configurator'
-   && widgetType !=='tank-information'
-   && widgetType !== 'tank-calibration-table'">
+   && widgetType !== 'tank-calibration-table'
+   && widgetType !== 'production-trend'
+   && widgetType !=='tank-information'"
+>
   <div class="header__content drag handle">
     <div class="header__icon-wrapper">
       <img src="{{iconRoute}}{{icon}}.png" *ngIf="(!code && icon)" />
@@ -25,7 +27,8 @@
   </div>
 </div>
 
-<div class="header-schedule" *ngIf="widgetType === 'admin-shift-schedule'">
+<div class="header-schedule" *ngIf="widgetType === 'admin-shift-schedule' || widgetType === 'production-trend'">
+<!--<div class="header-schedule">-->
   <div class="header-schedule__content">
     <div class="header-schedule__icon-wrapper">
       <img src="{{iconRoute}}{{icon}}.png" *ngIf="(!code && icon)" />
