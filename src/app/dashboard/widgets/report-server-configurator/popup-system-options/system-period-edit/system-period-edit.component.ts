@@ -77,6 +77,7 @@ export class SystemPeriodEditComponent implements OnInit, OnChanges {
       this.data.forEach(el => {
         if (el.name === this.type[activePeriodTemplate]) {
           el.isActive = true;
+          this.timeCheck = el.name;
         }
       });
     }
