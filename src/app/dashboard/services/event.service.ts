@@ -73,7 +73,7 @@ export class EventService {
     async getEvent(id: number): Promise<EventsWidgetNotification> {
         try {
             return this.http
-                .get<EventsWidgetNotification>(this.restUrl + '/notifications/' + id)
+                .get<EventsWidgetNotification>(this.restUrl + '/api/notifications/' + id)
                 .toPromise();
         } catch (error) {
             console.error(error);
@@ -82,7 +82,7 @@ export class EventService {
 
     async postEvent(body: EventsWidgetNotification): Promise<any> {
         try {
-            return this.http.post(this.restUrl + '/notifications/', body).toPromise();
+            return this.http.post(this.restUrl + '/api/notifications/', body).toPromise();
         } catch (error) {
             console.error(error);
         }
@@ -90,7 +90,7 @@ export class EventService {
 
     async putEvent(body: EventsWidgetNotification): Promise<any> {
         try {
-            return this.http.put(this.restUrl + '/notifications/' + body.id, body).toPromise();
+            return this.http.put(this.restUrl + '/api/notifications/' + body.id, body).toPromise();
         } catch (error) {
             console.error(error);
         }
@@ -98,7 +98,7 @@ export class EventService {
 
     async deleteEvent(id: number): Promise<any> {
         try {
-            return this.http.delete(this.restUrl + '/notifications/' + id).toPromise();
+            return this.http.delete(this.restUrl + '/api/notifications/' + id).toPromise();
         } catch (error) {
             console.error(error);
         }
