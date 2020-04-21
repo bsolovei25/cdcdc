@@ -33,8 +33,6 @@ export class NewWidgetsGridComponent implements OnInit, OnDestroy {
 
     public fullscreen: boolean = false;
 
-    public isVisiblePanel: boolean = false;
-
     public options: GridsterConfig;
 
     public model: WidgetModel;
@@ -69,7 +67,6 @@ export class NewWidgetsGridComponent implements OnInit, OnDestroy {
                 console.log('widget-grid sub init');
                 if (value) {
                     this.claimSettings = value;
-                    this.isVisiblePanel = this.claimSettings.includes(EnumClaimWidgets.add);
                     this.options = null;
                     this.loaditem();
                 }
