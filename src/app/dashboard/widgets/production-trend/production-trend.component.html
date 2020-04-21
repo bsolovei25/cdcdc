@@ -1,54 +1,71 @@
-<!--<evj-widget-preview-->
-<!--  [title]="widgetTitle"-->
-<!--  [icon]="widgetIcon"-->
-<!--  [previewTitle]="widgetType"-->
-<!--  *ngIf="isMock"-->
-<!--&gt;</evj-widget-preview>-->
+<evj-widget-preview
+  [title]="widgetTitle"
+  [icon]="widgetIcon"
+  [previewTitle]="widgetType"
+  *ngIf="isMock"
+></evj-widget-preview>
 
-<!--<ng-container *ngIf="!isMock">-->
+<ng-container *ngIf="!isMock">
+  <div class="container">
+      <evj-widget-header
+      [title]="widgetTitle"
+      [units]="widgetUnits"
+      [code]="widgetCode"
+      [id]="widgetId"
+      [uniqId]="widgetUniqId"
+      [widgetType]="widgetType"
+      [select]="allUnits"
+    ></evj-widget-header>
+    <evj-frame-top></evj-frame-top>
+    <div
+      class="body-container"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+    >
+      <div class="block block_main-icon">
+        <evj-main-icon>
+        </evj-main-icon>
+      </div>
+      <div class="block block_factory-list">
+        <evj-production-trend-facilities>
+        </evj-production-trend-facilities>
+      </div>
+      <div class="block block_panel">
+        <evj-production-trend-panel>
+        </evj-production-trend-panel>
+      </div>
+      <div class="block block_graph"></div>
+    </div>
+    <evj-frame-bottom></evj-frame-bottom>
+  </div>
+</ng-container>
+
+
+<!--<ng-container *ngIf="true">-->
 <!--  <evj-widget-header-->
-<!--    [title]="widgetTitle"-->
-<!--    [units]="widgetUnits"-->
-<!--    [code]="widgetCode"-->
-<!--    [id]="widgetId"-->
-<!--    [uniqId]="widgetUniqId"-->
+<!--    [title]="'widgetTitle'"-->
+<!--    [units]="'widgetUnits'"-->
+<!--    [uniqId]="'widgetUniqId'"-->
+<!--    [select]="allUnits"-->
+<!--    (selected)="selectUnit($event)"-->
 <!--  ></evj-widget-header>-->
 <!--  <evj-frame-top></evj-frame-top>-->
 <!--  <div-->
 <!--    class="body-container"-->
-<!--    (mousedown)="$event.stopPropagation()"-->
-<!--    (touchstart)="$event.stopPropagation()"-->
 <!--  >-->
+<!--    <div class="block block_main-icon">-->
+<!--      <evj-main-icon>-->
+<!--      </evj-main-icon>-->
+<!--    </div>-->
+<!--    <div class="block block_factory-list">-->
+<!--      <evj-production-trend-facilities>-->
+<!--      </evj-production-trend-facilities>-->
+<!--    </div>-->
+<!--    <div class="block block_panel">-->
+<!--      <evj-production-trend-panel>-->
+<!--      </evj-production-trend-panel>-->
+<!--    </div>-->
+<!--    <div class="block block_graph"></div>-->
 <!--  </div>-->
 <!--  <evj-frame-bottom></evj-frame-bottom>-->
 <!--</ng-container>-->
-
-
-<ng-container *ngIf="true">
-  <evj-widget-header
-    [title]="'widgetTitle'"
-    [units]="'widgetUnits'"
-    [uniqId]="'widgetUniqId'"
-    [select]="allUnits"
-    (selected)="selectUnit($event)"
-  ></evj-widget-header>
-  <evj-frame-top></evj-frame-top>
-  <div
-    class="body-container"
-  >
-    <div class="block block_main-icon">
-      <evj-main-icon>
-      </evj-main-icon>
-    </div>
-    <div class="block block_factory-list">
-      <evj-production-trend-facilities>
-      </evj-production-trend-facilities>
-    </div>
-    <div class="block block_panel">
-      <evj-production-trend-panel>
-      </evj-production-trend-panel>
-    </div>
-    <div class="block block_graph"></div>
-  </div>
-  <evj-frame-bottom></evj-frame-bottom>
-</ng-container>

@@ -8,6 +8,13 @@
   width: 110px;
   height: 110px;
   margin: auto;
+  padding: 10px;
+  box-sizing: border-box;
+  transition: padding 0.1s ease-out;
+  &:hover {
+    padding: 0;
+    transition: padding 0.15s ease-out;
+  }
   &_block {
     box-sizing: border-box;
     &__title {

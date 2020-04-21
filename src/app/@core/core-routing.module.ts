@@ -24,13 +24,13 @@ const routes: Routes = [
                 component: LoginComponent,
                 data: { animation: 'login' },
             },
-            // { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
-            {
-                path: 'dev',
-                loadChildren: () =>
-                    import('../dashboard/dashboard.module').then((m) => m.DashboardModule),
-            },
-            { path: '**', redirectTo: 'dev', pathMatch: 'full' },
+            { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
+            // {
+            //     path: 'dev',
+            //     loadChildren: () =>
+            //         import('../dashboard/dashboard.module').then((m) => m.DashboardModule),
+            // },
+            // { path: '**', redirectTo: 'dev', pathMatch: 'full' },
         ],
     },
 ];
