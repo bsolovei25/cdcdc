@@ -1,21 +1,25 @@
 <div class="widgets-panel" [class.widgets-panel_active]="active">
-  <div class="widgets-panel__toggle" (click)="onToggleClick('widgets')">
-    <svg-icon
-      class="widgets-panel__icon"
-      src="./assets/icons/settings.svg"
-      [class.widgets-panel__icon--active]="active && isWidgets === 'widgets'"
-      [svgStyle]="{ 'width.px':20, 'height.px':20 }"
-    ></svg-icon>
-  </div>
+  <ng-container *ngIf="claimSettingsScreens.includes(EnumClaimScreens.add)">
+    <div class="widgets-panel__toggle" (click)="onToggleClick('widgets')">
+      <svg-icon
+        class="widgets-panel__icon"
+        src="./assets/icons/settings.svg"
+        [class.widgets-panel__icon--active]="active && isWidgets === 'widgets'"
+        [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+      ></svg-icon>
+    </div>
+  </ng-container>
 
-  <div class="widgets-panel__toggle__reports" (click)="onToggleClick('reports')">
-    <svg-icon
-      class="widgets-panel__icon__reports"
-      [class.widgets-panel__icon__reports--active]="active && isWidgets === 'reports'"
-      src="./assets/icons/widgets/widget-panel/reports.svg"
-      [svgStyle]="{ 'width.px':20, 'height.px':20 }"
-    ></svg-icon>
-  </div>
+  <ng-container *ngIf="claimSettingsScreens.includes(EnumClaimScreens.rep)">
+    <div class="widgets-panel__toggle__reports" (click)="onToggleClick('reports')">
+      <svg-icon
+        class="widgets-panel__icon__reports"
+        [class.widgets-panel__icon__reports--active]="active && isWidgets === 'reports'"
+        src="./assets/icons/widgets/widget-panel/reports.svg"
+        [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+      ></svg-icon>
+    </div>
+  </ng-container>
 
   <div @fadeAnimation *ngIf="isWidgets === 'widgets'" class="widget__new">
     <h4 class="widgets-panel__heading">

@@ -33,7 +33,6 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
     constructor(private userSettings: UserSettingsService, private claimService: ClaimService) {}
 
     ngOnInit(): void {
-        console.log('ind init');
         this.subscriptions.push(
             this.userSettings.screens$.subscribe((screens) => {
                 console.log(screens);

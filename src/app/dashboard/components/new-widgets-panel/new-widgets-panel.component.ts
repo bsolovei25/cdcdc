@@ -12,7 +12,7 @@ import { Subscription, BehaviorSubject } from 'rxjs';
 import { WIDGETS } from '../new-widgets-grid/widget-map';
 import { IWidgets } from '../../models/widget.model';
 import { UserSettingsService } from '../../services/user-settings.service';
-import { ClaimService, EnumClaimWidgets } from '../../services/claim.service';
+import { ClaimService, EnumClaimScreens, EnumClaimWidgets } from '../../services/claim.service';
 import { trigger, state, style, transition, animate, group } from '@angular/animations';
 
 type isChoosePanel = 'widgets' | 'reports';
@@ -43,6 +43,8 @@ export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
 
     public widgets$: BehaviorSubject<IWidgets[]> = new BehaviorSubject<IWidgets[]>([]);
     private claimSettingsWidgets: EnumClaimWidgets[] = [];
+    private claimSettingsScreens: EnumClaimScreens[] = [];
+    EnumClaimScreens = EnumClaimScreens;
 
     isWidgets: isChoosePanel;
 
@@ -68,37 +70,15 @@ export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
             }),
             this.claimService.claimWidgets$.subscribe((set) => {
                 this.claimSettingsWidgets = set;
+            }),
+            this.claimService.claimScreens$.subscribe((claims) => {
+                this.claimSettingsScreens = claims;
             })
         );
-        this.options = {
-            gridType: GridType.Fit,
-            displayGrid: 'none',
-            enableEmptyCellClick: false,
-            enableEmptyCellContextMenu: false,
-            enableEmptyCellDrop: true,
-            enableEmptyCellDrag: false,
-            enableOccupiedCellDrop: false,
-            // emptyCellClickCallback: this.emptyCellClick.bind(this),
-            // emptyCellContextMenuCallback: this.emptyCellMenuClick.bind(this),
-            // emptyCellDragCallback: this.emptyCellDragClick.bind(this),
-            // emptyCellDropCallback: this.emptyCellDropClick.bind(this),
-            emptyCellDragMaxCols: 5000,
-            emptyCellDragMaxRows: 1000,
-
-            pushItems: true,
-            draggable: {
-                enabled: true,
-            },
-            resizable: {
-                enabled: true,
-            },
-        };
     }
 
     @Output() swap: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() grid: EventEmitter<boolean> = new EventEmitter<boolean>();
-    // @Output() viewSise: EventEmitter<boolean> = new EventEmitter<boolean>();
-
 
     changeSwap(): void {
         const check = document.getElementById('checkBoxFix') as HTMLInputElement;
@@ -123,10 +103,8 @@ export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        if (this.subscriptions) {
-            for (const subscribe of this.subscriptions) {
-                subscribe.unsubscribe();
-            }
+        for (const subscribe of this.subscriptions) {
+            subscribe.unsubscribe();
         }
     }
 
@@ -141,20 +119,12 @@ export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
 
     dragStartHandler(event: DragEvent, item: string): void {
         event.dataTransfer.setData('text/plain', item);
-
         event.dataTransfer.dropEffect = 'copy';
-
         this.onToggleClick(this.isWidgets);
     }
 
     public dataById(item): string {
         return item.id;
-    }
-
-    changedOptions(): void {
-        if (this.options.api && this.options.api.optionsChanged) {
-            this.options.api.optionsChanged();
-        }
     }
 
     public getInjector = (idWidget: string): Injector => {
@@ -168,8 +138,4 @@ export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
             parent: this.injector,
         });
     };
-
-    // removeItem(widgetId: string): void {
-    //     this.userSettings.removeItem(widgetId);
-    // }
 }
