@@ -108,37 +108,36 @@ export class PetroleumScreenService {
                 tempTransfers.unshift(...tempTransfers.splice(idx, 1));
             }
             this.transfers$.next(tempTransfers);
+            this.currentTransfer$.next(chooseTransfer);
+
             const objectsReceiver = await this.getObjects(
                 this.client,
-                chooseTransfer.sourceName,
-                'enter'
+                chooseTransfer.destinationName
             );
             const objectsSource = await this.getObjects(
                 this.client,
-                chooseTransfer.destinationName,
-                'exit'
+                chooseTransfer.sourceName
             );
-            objectsSource.forEach((item) => (item.isActive = false));
-            objectsReceiver.forEach((item) => (item.isActive = false));
-            if (
-                objectsSource.find((item) => item.objectName === chooseTransfer.sourceName) &&
-                objectsReceiver.find((item) => item.objectName === chooseTransfer.destinationName)
-            ) {
-                objectsSource.find(
-                    (item) => item.objectName === chooseTransfer.sourceName
-                ).isActive = true;
-                objectsReceiver.find(
-                    (item) => item.objectName === chooseTransfer.destinationName
-                ).isActive = true;
-            } else {
-                this.materialController.openSnackBar(
-                    'Источник и приемник не совместимы!',
-                    'snackbar-red'
-                );
-            }
+            objectsSource.forEach((item) => (item.isActive = true));
+            objectsReceiver.forEach((item) => (item.isActive = true));
+            // if (
+            //     objectsSource.find((item) => item.objectName === chooseTransfer.sourceName) &&
+            //     objectsReceiver.find((item) => item.objectName === chooseTransfer.destinationName)
+            // ) {
+            //     objectsSource.find(
+            //         (item) => item.objectName === chooseTransfer.sourceName
+            //     ).isActive = true;
+            //     objectsReceiver.find(
+            //         (item) => item.objectName === chooseTransfer.destinationName
+            //     ).isActive = true;
+            // } else {
+            //     this.materialController.openSnackBar(
+            //         'Источник и приемник не совместимы!',
+            //         'snackbar-red'
+            //     );
+            // }
             this.objectsReceiver$.next(objectsReceiver);
             this.objectsSource$.next(objectsSource);
-            this.currentTransfer$.next(chooseTransfer);
         } catch (e) {
             console.error(e);
         }
@@ -324,32 +323,38 @@ export class PetroleumScreenService {
         object: string = null,
         direction: ObjectDirection = null
     ): Promise<IPetroleumObject[]> {
-        if (!object || !direction) {
-            return await this.getObjectsAsync(client);
+        try {
+            if (!object && !direction) {
+                return await this.getObjectsAsync(client);
+            } else if (!direction) {
+                console.log('getObject');
+                return [await this.getObjectAsync(client, object)];
+            }
+            const allObjects = [
+                ...this.objectsAll$.getValue(),
+                ...this.objectsReceiver$.getValue(),
+                ...this.objectsSource$.getValue()
+            ];
+            const objectType = allObjects.find(el => el.objectName === object)?.objectType ?? null;
+            return await this.getReferencesAsync(client, object, objectType, direction);
+        } catch (e) {
+            console.error(e);
+            return [];
         }
-        const allObjects = [
-            ...this.objectsAll$.getValue(),
-            ...this.objectsReceiver$.getValue(),
-            ...this.objectsSource$.getValue()
-        ];
-        const objectType = allObjects.find(el => el.objectName === object)?.objectType ?? null;
-        return await this.getReferencesAsync(client, object, objectType, direction);
     }
 
     public async getTankAttributes(objectName: string): Promise<ITankAttribute[]> {
+        if (!objectName || objectName === '') {
+            return [];
+        }
         try {
-            let attributes: ITankAttribute[] = await this.http.get<ITankAttribute[]>(
+            const attributes: ITankAttribute[] = await this.http.get<ITankAttribute[]>(
                 `${this.restUrl}/api/petroleum-flow-clients/objects/${objectName}/attr`
             ).toPromise();
             attributes.forEach((item) => item.paramSaveDateTime = new Date(item.paramDateTime));
-            // const regexp = /[A-Z]/;
-            // attributes = attributes
-            //     .filter((el) =>
-            //         (el.paramTitle.toUpperCase().search(regexp) === -1) &&
-            //         (el.paramValue.toUpperCase().search(regexp) === -1)
-            //     );
             return attributes;
-        } catch {
+        } catch (e) {
+            console.error(e);
             return [];
         }
     }
@@ -451,6 +456,14 @@ export class PetroleumScreenService {
         return this.http
             .get<IPetroleumObject[]>(
                 `${this.restUrl}/api/petroleum-flow-clients/clients/${client}/objects/`
+            )
+            .toPromise();
+    }
+
+    private async getObjectAsync(client: string, objectName: string): Promise<IPetroleumObject> {
+        return this.http
+            .get<IPetroleumObject>(
+                `${this.restUrl}/api/petroleum-flow-clients/clients/${client}/objects/${objectName}`
             )
             .toPromise();
     }
