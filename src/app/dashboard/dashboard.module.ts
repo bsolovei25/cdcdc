@@ -205,6 +205,7 @@ import { TankCardComponent } from './widgets/tank-information/components/tank-ca
 import { TankLineComponent } from './widgets/tank-information/components/tank-line/tank-line.component';
 import { TankFillingComponent } from './widgets/tank-information/components/tank-filling/tank-filling.component';
 import { TankFilterComponent } from './widgets/tank-information/components/tank-filter/tank-filter.component';
+import { ProductionTrendGraphComponent } from './widgets/production-trend/components/production-trend-graph/production-trend-graph.component';
 
 @NgModule({
     declarations: [
@@ -378,6 +379,7 @@ import { TankFilterComponent } from './widgets/tank-information/components/tank-
         TankLineComponent,
         TankFillingComponent,
         TankFilterComponent,
+        ProductionTrendGraphComponent,
     ],
     entryComponents: [
         LineChartComponent,

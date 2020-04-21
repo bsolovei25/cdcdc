@@ -78,8 +78,8 @@ export class SmartScrollComponent implements AfterViewInit, OnChanges, OnDestroy
 
     public ngOnChanges(): void {
         if (this.sbTrack?.nativeElement) {
-            this.setThumbWidth(this.sbThumbWidth);
-            this.setScrollbarLeftPosition(this.sbThumbLeft);
+            // this.setThumbWidth(this.sbThumbWidth);
+            // this.setScrollbarLeftPosition(this.sbThumbLeft);
         }
     }
 
