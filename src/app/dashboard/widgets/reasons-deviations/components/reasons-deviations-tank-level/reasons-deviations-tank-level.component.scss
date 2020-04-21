@@ -7,6 +7,8 @@
         height: 30px;
         text-align: center;
         font-size: 15px;
+        text-overflow: ellipsis;
+        overflow: hidden;
     }
 
     &__content {
@@ -54,7 +56,7 @@
                 height: calc(100% - 5px);
                 clip-path: circle(50%);
                 width: calc(100% - 0px);
-                right: -20px;
+                right: -15px;
                 background-color: #2a547a;
                 display: grid;
                 align-items: end;
@@ -67,7 +69,7 @@
 
             .second-circle {
                 height: calc(100% - 15px);
-                width: calc(100% - 5px);
+                width: calc(100% - 0px);
                 position: absolute;
                 border: 8px solid #203046;
                 right: -25px;
@@ -77,6 +79,8 @@
             &__value {
                 position: absolute;
                 right: 5px;
+                right: 10px;
+                font-size: 12px;
             }
         }
     }
@@ -85,5 +89,7 @@
         margin-top: 5px;
         height: 20px;
         text-align: center;
+        text-overflow: ellipsis;
+        overflow: hidden;
     }
 }
