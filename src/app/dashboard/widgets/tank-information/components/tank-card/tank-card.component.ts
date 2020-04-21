@@ -10,6 +10,12 @@ export class TankCardComponent implements OnInit, AfterViewInit {
   @Input() public data: ITankCard;
   @Input() public idLine: ITankCard;
 
+  operation = {
+    filling: "Заполнение",
+    shipment: "Отгрузка",
+    standart: "Без изменений",
+  };
+
   constructor() { }
 
   ngOnInit(): void {
@@ -21,7 +27,7 @@ export class TankCardComponent implements OnInit, AfterViewInit {
 
   changeTooltip(): void {
     const tlink = document.getElementById('tooltip' + this.data.id + this.idLine);
-    tlink.dataset.tooltip = this.data.operation;
+    tlink.dataset.tooltip = this.operation[this.data.operation];
   }
 
 }

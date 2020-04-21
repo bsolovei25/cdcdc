@@ -1,0 +1,29 @@
+.title-block {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 15%;
+  &_text {
+    margin: auto;
+    display: -webkit-box;
+    overflow: hidden;
+    font-size: 15px;
+    text-align: center;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+}
+
+.cards-block {
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  height: 85%;
+  &_card {
+    width: 100%;
+    height: calc(25% - 6px);
+    margin-top: auto;
+  }
+}

@@ -56,7 +56,7 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
         public widgetService: WidgetService,
         public userSettings: UserSettingsService,
         private claimService: ClaimService
-    ) {}
+    ) { }
 
     public ngOnChanges(): void {
         this.filterTankInfo = this.tankInfo;
@@ -96,7 +96,7 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
         }
     }
 
-    public reportSelected(event) {
+    public reportSelected(event: boolean): void {
         this.selected.emit(event);
         this.isReportButton = event;
     }
@@ -105,7 +105,7 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
         return o1.name === o2.name && o1.id === o2.id;
     }
 
-    public onFilterTankInfo(){
+    public onFilterTankInfo(): void {
         this.filterTankInfo = true;
         this.selected.emit(true);
     }
