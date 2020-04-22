@@ -55,7 +55,7 @@ export class SystemPeriodDateYearComponent implements OnInit {
     this.date.setValue(ctrlValue);
     this.dateTimePicker.emit(ctrlValue);
     datepicker.close();
-    this.dataPicker.classList.remove('day');
+    this.dataPicker.classList.remove('year');
   }
 
   clickYear(): void {
