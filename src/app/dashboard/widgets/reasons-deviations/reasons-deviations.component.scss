@@ -12,21 +12,26 @@
 
 .content {
     height: calc(100% - 60px);
-    border-left: dashed 0.5px var(--color-border-main);
-    border-right: dashed 0.5px var(--color-border-main);
+    border-left: dashed 1px var(--color-border-main);
+    border-right: dashed 1px var(--color-border-main);
     overflow: auto;
-    overflow-y: hidden;
 
     &__line {
-        height: 40%;
+      height: calc(45% - 10px);
+      min-width: 740px;
     }
 
     &__info{
-        height: 20%;
+      height: calc(25% - 20px);
+      min-width: 740px;
+      min-height: 90px;
     }
 
     &__tank{
-        height: 45%;
+      height: calc(35% - 20px);
+      min-width: 740px;
+      min-height: 130px;
+      max-height: 150px;
     }
 }
 
