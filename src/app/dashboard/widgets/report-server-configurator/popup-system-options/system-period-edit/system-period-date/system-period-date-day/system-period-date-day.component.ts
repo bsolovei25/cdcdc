@@ -13,7 +13,7 @@ export const MY_FORMATS = {
     dateInput: 'DD',
   },
   display: {
-    dateInput: 'DD',
+    dateInput: 'DD.MM.YYYY',
     monthYearLabel: 'DD',
     dateA11yLabel: 'LL',
     monthYearA11yLabel: 'DD',
@@ -51,6 +51,8 @@ export class SystemPeriodDateDayComponent implements OnInit {
 
   clickDay(): void {
     const dataPicker = this.picker._overlay._overlayContainer.getContainerElement();
+    dataPicker.classList.remove('month');
+    dataPicker.classList.remove('year');
   }
 
 }

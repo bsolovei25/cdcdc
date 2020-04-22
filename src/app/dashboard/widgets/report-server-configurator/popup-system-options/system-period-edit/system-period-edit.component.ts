@@ -145,7 +145,7 @@ export class SystemPeriodEditComponent implements OnInit, OnChanges {
   changeSwap(item): void {
     for (const i of this.data) {
       if (i === item) {
-        item.isActive = !item.isActive;
+        item.isActive = true;
       } else {
         i.isActive = false;
       }

@@ -42,6 +42,8 @@ export class SystemPeriodDateYearComponent implements OnInit {
 
   @Output() dateTimePicker: EventEmitter<Date> = new EventEmitter<Date>();
 
+  public dataPicker: any;
+
   constructor() { }
 
   ngOnInit(): void {
@@ -53,14 +55,13 @@ export class SystemPeriodDateYearComponent implements OnInit {
     this.date.setValue(ctrlValue);
     this.dateTimePicker.emit(ctrlValue);
     datepicker.close();
+    this.dataPicker.classList.remove('day');
   }
 
   clickYear(): void {
-    const dataPicker = this.picker._overlay._overlayContainer.getContainerElement();
-    dataPicker.classList.remove('day');
-    dataPicker.classList.remove('month');
-    dataPicker.classList.remove('year');
-    dataPicker.classList.add('year');
+   this.dataPicker = this.picker._overlay._overlayContainer.getContainerElement();
+    this.dataPicker.classList.remove('month');
+    this.dataPicker.classList.add('year');
   }
 
 }

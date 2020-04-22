@@ -67,7 +67,7 @@
             <div class="date">
                 <mat-form-field>
                     <mat-label>Выберите дату начала</mat-label>
-                    <input matInput [matDatepicker]="pickerFrom">
+                    <input matInput [matDatepicker]="pickerFrom" [value]="dateNow">
                     <mat-datepicker-toggle matSuffix [for]="pickerFrom">
                         <mat-icon matDatepickerToggleIcon >
                             <svg-icon src="./assets/icons/widgets/reports/calend.svg" [svgStyle]="{ 'width.px':25, 'height.px':25}">
@@ -80,7 +80,7 @@
             <div class="date">
                 <mat-form-field>
                     <mat-label>Выберите дату окончания</mat-label>
-                    <input matInput [matDatepicker]="pickerTo">
+                    <input matInput [matDatepicker]="pickerTo" [value]="dateNow">
                     <mat-datepicker-toggle matSuffix [for]="pickerTo">
                         <mat-icon matDatepickerToggleIcon >
                             <svg-icon src="./assets/icons/widgets/reports/calend.svg" [svgStyle]="{ 'width.px':25, 'height.px':25}">

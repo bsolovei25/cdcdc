@@ -216,6 +216,10 @@ import { DocumentsScansComponent } from './widgets/documents-scans/documents-sca
 import { DocumentsScansReportComponent } from './widgets/documents-scans/components/documents-scans-report/documents-scans-report.component';
 import { QualityDocsPanelComponent } from './widgets/quality-docs-panel/quality-docs-panel.component';
 import { QualityDocsRecordComponent } from './widgets/quality-docs-panel/components/quality-docs-record/quality-docs-record.component';
+import { DocumentCodingComponent } from './widgets/document-coding/document-coding.component';
+import { DocumentCodingTableComponent } from './widgets/document-coding/components/document-coding-table/document-coding-table.component';
+import { DocumentCodingTanksComponent } from './widgets/document-coding/components/document-coding-tanks/document-coding-tanks.component';
+import { DocumentCodingMenuComponent } from './widgets/document-coding/components/document-coding-menu/document-coding-menu.component';
 
 @NgModule({
     declarations: [
@@ -400,6 +404,10 @@ import { QualityDocsRecordComponent } from './widgets/quality-docs-panel/compone
         DocumentsScansReportComponent,
         QualityDocsPanelComponent,
         QualityDocsRecordComponent,
+        DocumentCodingComponent,
+        DocumentCodingTableComponent,
+        DocumentCodingTanksComponent,
+        DocumentCodingMenuComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -462,6 +470,7 @@ import { QualityDocsRecordComponent } from './widgets/quality-docs-panel/compone
         ReasonsDeviationsComponent,
         DocumentsScansComponent,
         QualityDocsPanelComponent,
+        DocumentCodingComponent,
     ],
     exports: [HomeComponent],
     imports: [
