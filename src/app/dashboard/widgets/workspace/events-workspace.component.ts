@@ -1,11 +1,11 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { EventService } from '../../services/event.service';
+import { EventService } from '../../services/widgets/event.service';
 import { EventsWidgetNotification, IUser, EventsWidgetData } from '../../models/events-widget';
 import { WidgetService } from '../../services/widget.service';
 import { DateAdapter } from '@angular/material/core';
 import { AuthService } from '@core/service/auth.service';
 import { WidgetPlatform } from '../../models/widget-platform';
-import { EventsWorkspaceService } from '../../services/events-workspace.service';
+import { EventsWorkspaceService } from '../../services/widgets/events-workspace.service';
 
 @Component({
     selector: 'evj-events-workspace',

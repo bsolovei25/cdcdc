@@ -5,7 +5,6 @@ import {
     EventsWidgetNotification,
     IStatus,
     ICategory,
-    EventsWidgetDataPreview,
     EventsWidgetOptions,
     EventsWidgetsStats,
     EventsWidgetNotificationPreview,
@@ -13,7 +12,7 @@ import {
     IUnitEvents,
     IUser,
     IPriority,
-} from '../models/events-widget';
+} from '../../models/events-widget';
 import { AppConfigService } from 'src/app/services/appConfigService';
 
 @Injectable({

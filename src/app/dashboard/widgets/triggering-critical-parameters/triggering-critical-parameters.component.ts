@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { EventService } from '../../services/event.service';
+import { EventService } from '../../services/widgets/event.service';
 import { WidgetService } from '../../services/widget.service';
 
 export interface ITriggeringCriticalParameters {

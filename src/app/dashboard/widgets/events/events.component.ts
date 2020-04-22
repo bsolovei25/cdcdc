@@ -13,7 +13,7 @@ import {
 } from '../../models/events-widget';
 import { WidgetService } from '../../services/widget.service';
 import { UserSettingsService } from '../../services/user-settings.service';
-import { EventService } from '../../services/event.service';
+import { EventService } from '../../services/widgets/event.service';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { throttle } from 'rxjs/operators';

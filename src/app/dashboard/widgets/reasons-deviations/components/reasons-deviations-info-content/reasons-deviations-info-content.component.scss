@@ -13,7 +13,7 @@
         font-size: 14px;
 
         .block {
-            margin-left: 40px;
+            margin-left: 20px;
             width: 50%;
             .time {
                 height: 33%;
@@ -21,9 +21,12 @@
                 display: flex;
 
                 &__icon {
+                    margin-top: 10px;
                 }
 
                 &__value {
+                    margin-top: 5px;
+                    margin-left: 10px;
                     color: white;
                 }
             }
@@ -36,14 +39,16 @@
                 padding-right: 30px;
 
                 &__name {
-                    width: 50%;
+                    width: 60%;
                     color: var(--color-text-sub);
                 }
 
                 &__value {
+                    width: 20%;
                 }
 
                 &__percent {
+                    width: 20%;
                 }
 
                 .normal {

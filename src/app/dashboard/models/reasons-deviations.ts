@@ -12,3 +12,18 @@ export interface IReasonsDeviationsInfoValue {
     value: number;
     percent: number;
 }
+
+export interface IReasonsTankers {
+    id: number;
+    type: string;
+    value: number;
+}
+
+export interface IReasonsTankerCard{
+    name: string;
+    percent: number;
+    shipped: number;
+    capacity: number;
+    valueLevel: number;
+    type: string;
+}
