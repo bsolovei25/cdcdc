@@ -1,0 +1,66 @@
+.docs-record-container {
+  background-color: var(--color-oil-table-ref);
+  border-bottom: 2px solid var(--color-bg-main);
+  width: calc(100% - 5px);
+
+  &__block-info {
+    display: flex;
+    width: 100%;
+    position: relative;
+    height: auto;
+    text-align: center;
+    font-size: 10px;
+    cursor: pointer;
+    .short {
+      width: 6%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .middle {
+      width: 10%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .big {
+      width: 22%;
+      line-height: 25px;
+    }
+
+    .pasport{
+      display: flex;
+
+      &__icon{
+        width: 50%;
+      }
+
+      &__name{
+        width: 50%;
+      }
+    }
+
+    .creator{
+      text-align: left;
+    }
+
+  }
+
+
+  &:hover {
+    background: var(--color-bg-active);
+    border-radius: 25px;
+    margin: 0 auto;
+    margin-left: 0;
+    transition: 0.8s;
+  }
+}
+
+.block-active {
+  background: var(--color-bg-active);
+  border-radius: 25px;
+  margin: 0 auto;
+  margin-left: 0;
+}
