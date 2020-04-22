@@ -7,7 +7,7 @@
                     </svg-icon>
                 </div>
                 <div class="time__value">
-                    02:03:20 - 04:08:38
+                    {{ data.timeFrom }} - {{ data.timeTo }}
                 </div>
             </div>
             <div class="info">
@@ -15,10 +15,10 @@
                     Отгружено по резервуару:
                 </div>
                 <div class="info__value active">
-                    1667 т.
+                    {{ data.shipped.value | toFix2 }} т.
                 </div>
                 <div class="info__percent notActive">
-                    98.7 %
+                    {{ data.shipped.percent | toFix2 }} %
                 </div>
             </div>
             <div class="info">
@@ -26,10 +26,10 @@
                     По данным отгрузки:
                 </div>
                 <div class="info__value">
-                    1667 т.
+                    {{ data.dataShipped.value | toFix2 }} т.
                 </div>
                 <div class="info__percent">
-                    98.7 %
+                    {{ data.dataShipped.percent | toFix2 }} %
                 </div>
             </div>
         </div>
@@ -39,10 +39,10 @@
                     Дебаланс:
                 </div>
                 <div class="info__value">
-                    1667 т.
+                    {{ data.unbalance.value | toFix2 }} т.
                 </div>
                 <div class="info__percent">
-                    98.7 %
+                    {{ data.unbalance.percent | toFix2 }} %
                 </div>
             </div>
             <div class="info">
@@ -50,10 +50,10 @@
                     Допустимый дебаланс:
                 </div>
                 <div class="info__value">
-                    1667 т.
+                    {{ data.allowUnbalance.value | toFix2 }} т.
                 </div>
                 <div class="info__percent">
-                    98.7 %
+                    {{ data.allowUnbalance.percent | toFix2 }} %
                 </div>
             </div>
             <div class="info">
@@ -61,10 +61,10 @@
                     Отклонение:
                 </div>
                 <div class="info__value">
-                    1667 т.
+                    {{ data.deviation.value | toFix2 }} т.
                 </div>
                 <div class="info__percent">
-                    98.7 %
+                    {{ data.deviation.percent | toFix2 }} %
                 </div>
             </div>
         </div>

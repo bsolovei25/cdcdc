@@ -18,6 +18,7 @@ import { AlertWindowComponent } from './components/alert-window/alert-window.com
 import { NgxMaskModule } from 'ngx-mask';
 import { SmartScrollComponent } from './components/smart-scroll/smart-scroll.component';
 import { LineChartTrackComponent } from './components/smart-scroll/line-chart-track/line-chart-track.component';
+import { ToFix2Pipe } from './pipes/format-values-toFix2';
 
 @NgModule({
     declarations: [
@@ -36,11 +37,13 @@ import { LineChartTrackComponent } from './components/smart-scroll/line-chart-tr
         AlertWindowComponent,
         SmartScrollComponent,
         LineChartTrackComponent,
+        ToFix2Pipe,
     ],
     exports: [
         HeaderComponent,
         ContentComponent,
         FnPipe,
+        ToFix2Pipe,
         PreLoaderComponent,
         ButtonComponent,
         InputComponent,

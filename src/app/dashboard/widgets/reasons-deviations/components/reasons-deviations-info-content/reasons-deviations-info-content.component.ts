@@ -13,15 +13,15 @@ export class ReasonsDeviationsInfoContentComponent implements OnInit {
     timeTo: "04:08:34",
     shipped: {
       value: 23,
-      percent: 20,
+      percent: 20.754645,
     },
     dataShipped: {
       value: 23,
-      percent: 20,
+      percent: 20.113,
     },
     unbalance: {
       value: 23,
-      percent: 20,
+      percent: 20.2,
     },
     allowUnbalance: {
       value: 23,
@@ -29,13 +29,14 @@ export class ReasonsDeviationsInfoContentComponent implements OnInit {
     },
     deviation: {
       value: 23,
-      percent: 20,
+      percent: 20.32523,
     }
-  }
+  };
 
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
 }
