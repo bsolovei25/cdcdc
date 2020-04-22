@@ -18,7 +18,7 @@
             <div class="documents-scans__container">
                 <div id="scrollDocumentsScans" class="scroll-block">
                     <div *ngFor="let item of data">
-                        <evj-documents-scans-report [dataItem]="item" [data]="data" (deleteItem)="delete($event)" ></evj-documents-scans-report>
+                        <evj-documents-scans-report [data]="item" (deleteItem)="delete($event)" (activeItem)="active($event)"></evj-documents-scans-report>
                     </div>
                 </div>
             </div>

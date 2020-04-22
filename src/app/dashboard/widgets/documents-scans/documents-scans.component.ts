@@ -101,6 +101,16 @@ export class DocumentsScansComponent extends WidgetPlatform implements OnInit, O
     }
   }
 
+  active(event: number): void {
+    this.data.forEach(e => {
+      if (e.id === event) {
+        e.isActive = !e.isActive;
+      } else {
+        e.isActive = false;
+      }
+    });
+  }
+
   delete(eventId: number): void {
     const indexItem = this.data.findIndex(e => e.id === eventId);
     if (indexItem !== -1) {

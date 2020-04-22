@@ -11,9 +11,8 @@ import { DocumentsScansService } from 'src/app/dashboard/services/oil-control-se
 })
 export class DocumentsScansReportComponent implements OnInit {
   @Output() private deleteItem: EventEmitter<number> = new EventEmitter<number>();
-  @Input() public dataItem: IDocumentsScans;
-  @Input() public data: IDocumentsScans[];
-
+  @Output() private activeItem: EventEmitter<number> = new EventEmitter<number>();
+  @Input() public data: IDocumentsScans;
 
   constructor(
     public oilDocumentService: DocumentsScansService,
@@ -24,13 +23,7 @@ export class DocumentsScansReportComponent implements OnInit {
   }
 
   active(): void {
-    this.data.forEach(e => {
-      if (e.id === this.dataItem.id) {
-        e.isActive = !e.isActive;
-      } else {
-        e.isActive = false;
-      }
-    });
+    this.activeItem.emit(this.data.id);
   }
 
   delete(): void {
@@ -39,7 +32,7 @@ export class DocumentsScansReportComponent implements OnInit {
       questionText: 'Вы уверены, что хотите удалить файл?',
       acceptText: 'Да',
       cancelText: 'Нет',
-      acceptFunction: () => this.deleteItem.emit(this.dataItem.id),
+      acceptFunction: () => this.deleteItem.emit(this.data.id),
       cancelFunction: () => {
         this.oilDocumentService.closeAlert();
       }
