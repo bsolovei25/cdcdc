@@ -17,8 +17,11 @@
       margin-bottom: 10px;
 
       &__tree {
-        height: calc(100vh - 780px);
+        max-height: 257px;
+        width: 460px;
         background-color: var(--color-bg-report);
+        position: fixed;
+        bottom: 4px;
         border-radius: 15px;
         display: flex;
 
