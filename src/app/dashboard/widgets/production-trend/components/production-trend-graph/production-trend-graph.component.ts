@@ -23,31 +23,31 @@ export class ProductionTrendGraphComponent implements OnChanges, AfterViewInit {
             graphType: 'fact',
             graph: [
                 {
-                    value: 1,
+                    value: 1000,
                     timestamp: new Date(2020, 2, 1),
                 },
                 {
-                    value: 6,
+                    value: 6000,
                     timestamp: new Date(2020, 2, 2),
                 },
                 {
-                    value: 4,
+                    value: 4500,
                     timestamp: new Date(2020, 2, 3),
                 },
                 {
-                    value: 9,
+                    value: 900,
                     timestamp: new Date(2020, 2, 4),
                 },
                 {
-                    value: -3,
+                    value: 1300,
                     timestamp: new Date(2020, 2, 5),
                 },
                 {
-                    value: 8,
+                    value: 5800,
                     timestamp: new Date(2020, 2, 6),
                 },
                 {
-                    value: 5,
+                    value: 4500,
                     timestamp: new Date(2020, 2, 7),
                 },
             ],
@@ -56,31 +56,31 @@ export class ProductionTrendGraphComponent implements OnChanges, AfterViewInit {
             graphType: 'plan',
             graph: [
                 {
-                    value: 16,
+                    value: 1600,
                     timestamp: new Date(2020, 2, 1),
                 },
                 {
-                    value: 15,
+                    value: 1500,
                     timestamp: new Date(2020, 2, 2),
                 },
                 {
-                    value: 1,
+                    value: 1000,
                     timestamp: new Date(2020, 2, 3),
                 },
                 {
-                    value: 6,
+                    value: 6000,
                     timestamp: new Date(2020, 2, 4),
                 },
                 {
-                    value: 5,
+                    value: 5000,
                     timestamp: new Date(2020, 2, 5),
                 },
                 {
-                    value: 10,
+                    value: 1000,
                     timestamp: new Date(2020, 2, 6),
                 },
                 {
-                    value: 3,
+                    value: 3000,
                     timestamp: new Date(2020, 2, 7),
                 },
             ],
@@ -89,15 +89,18 @@ export class ProductionTrendGraphComponent implements OnChanges, AfterViewInit {
 
     @ViewChild('chart', { static: true }) private chart: ElementRef;
 
+    private readonly MAX_COEF: number = 0.1;
+
     private readonly chartStroke: { [key: string]: string } = {
         plan: '#ffffff',
-        fact: '#1eccb4',
-        deviation: '#cc2d1f',
+        fact: '#3fa9f5',
     };
 
     private svg = null;
 
     private chartData: { graphType: ProductionTrendType; graph: IChartD3[] }[] = [];
+
+    private axis: { axisX: any; axisY: any } = { axisX: null, axisY: null };
 
     private graphMaxX: number = null;
     private graphMaxY: number = null;
@@ -105,8 +108,12 @@ export class ProductionTrendGraphComponent implements OnChanges, AfterViewInit {
     private dataMax: number = null;
     private dataMin: number = null;
 
-    private readonly paddingX: number = 0;
-    private readonly paddingY: number = 0;
+    private readonly padding: { [key: string]: number } = {
+        top: 20,
+        right: 20,
+        bottom: 20,
+        left: 50,
+    };
 
     public sbWidth: number = 20;
     public sbLeft: number = 6;
@@ -118,14 +125,18 @@ export class ProductionTrendGraphComponent implements OnChanges, AfterViewInit {
         if (this.svg) {
             this.initGraph();
             this.transformData();
+            this.drawAxis();
             this.drawGraph();
         }
     }
 
     public ngAfterViewInit(): void {
+        const date = this.dateFormatLocale();
+
         this.findMinMax();
         this.initGraph();
         this.transformData();
+        this.drawAxis();
         this.drawGraph();
     }
 
@@ -134,6 +145,7 @@ export class ProductionTrendGraphComponent implements OnChanges, AfterViewInit {
         if (this.svg) {
             this.initGraph();
             this.transformData();
+            this.drawAxis();
             this.drawGraph();
         }
     }
@@ -157,7 +169,7 @@ export class ProductionTrendGraphComponent implements OnChanges, AfterViewInit {
         this.svg
             .attr('width', '100%')
             .attr('height', '100%')
-            .attr('viewBox', `0 0 ${this.graphMaxX} ${this.graphMaxY + 5}`);
+            .attr('viewBox', `0 0 ${this.graphMaxX} ${this.graphMaxY - 5}`);
     }
 
     private findMinMax(): void {
@@ -169,32 +181,39 @@ export class ProductionTrendGraphComponent implements OnChanges, AfterViewInit {
             minValues.push(d3.min(graph.graph, (item: IChartMini) => item.value));
         });
 
-        this.dataMax = d3.max(maxValues);
-        this.dataMin = d3.min(minValues);
+        this.dataMax = d3.max(maxValues) * (1 + this.MAX_COEF);
+        this.dataMin = d3.min(minValues) * (1 - 0.3);
     }
 
     private transformData(): void {
         this.chartData = [];
         this.data.forEach((item) => this.transformOneChartData(item));
-
-        console.log('data: ', this.data);
-        console.log('chartData: ', this.chartData);
     }
 
     private transformOneChartData(chart: IProductionTrend): void {
         const domainDates = d3.extent(chart.graph, (item: IChartMini) => item.timestamp);
-        const rangeX = [this.paddingX, this.graphMaxX - this.paddingX];
+        const rangeX = [this.padding.left, this.graphMaxX - this.padding.right];
         const time = d3
             .scaleTime()
             .domain(domainDates)
             .rangeRound(rangeX);
 
-        const domainValues = [this.dataMin, this.dataMax];
-        const rangeY = [this.paddingY, this.graphMaxY - this.paddingY];
+        const domainValues = [this.dataMax, this.dataMin];
+        const rangeY = [this.padding.top, this.graphMaxY - this.padding.bottom];
         const val = d3
             .scaleLinear()
             .domain(domainValues)
             .range(rangeY);
+
+        this.axis.axisX = d3
+            .axisBottom(time)
+            .ticks(d3.timeDay.every(1))
+            .tickFormat(this.dateFormatLocale())
+            .tickSizeOuter(0);
+        this.axis.axisY = d3
+            .axisLeft(val)
+            .ticks(10)
+            .tickSize(0);
 
         const chartData: { graphType: ProductionTrendType; graph: IChartD3[] } = {
             graphType: chart.graphType,
@@ -220,34 +239,173 @@ export class ProductionTrendGraphComponent implements OnChanges, AfterViewInit {
                 .attr('d', line(chart.graph))
                 .style('fill', 'none')
                 .style('stroke', this.chartStroke[chart.graphType])
-                .style('stroke-width', 1);
-
-            if (chart.graphType === 'plan') {
-                const lineTop = d3
-                    .line()
-                    .x((item: IChartD3) => item.x)
-                    .y((item: IChartD3) => item.y + 10);
-                const lineBottom = d3
-                    .line()
-                    .x((item: IChartD3) => item.x)
-                    .y((item: IChartD3) => item.y - 10);
-
-                this.svg
-                    .append('path')
-                    .attr('d', lineTop(chart.graph))
-                    .style('fill', 'none')
-                    .style('stroke', this.chartStroke.deviation)
-                    .style('stroke-width', 1)
-                    .style('stroke-dasharray', '1 1');
-
-                this.svg
-                    .append('path')
-                    .attr('d', lineBottom(chart.graph))
-                    .style('fill', 'none')
-                    .style('stroke', this.chartStroke.deviation)
-                    .style('stroke-width', 1)
-                    .style('stroke-dasharray', '1 1');
-            }
+                .style('stroke-width', 2);
         });
+    }
+
+    private drawAxis(): void {
+        // отрисовка оси х
+        this.svg
+            .append('g')
+            .attr('transform', `translate(0,${this.graphMaxY - this.padding.bottom})`)
+            .attr('class', 'axis')
+            .call(this.axis.axisX)
+            .selectAll('text')
+            .style('font-size', '12px')
+            .style('fill', '#8c99b2');
+
+        // отрисовка оси у
+        this.svg
+            .append('g')
+            .attr('transform', `translate(${this.padding.left},0)`)
+            .attr('class', 'axis')
+            .call(this.axis.axisY)
+            .selectAll('text')
+            .style('font-size', '12px')
+            .style('fill', '#8c99b2');
+
+        // изменение цветов осей и удаление первых и последних засечек
+        let g = this.svg.selectAll('g.axis');
+        g.style('color', '#606580');
+        g.selectAll('.tick:first-of-type').remove();
+        g.selectAll('.tick:last-of-type').remove();
+
+        g = this.svg.select('g.axis:first-of-type').style('color', '#3fa9f5');
+        g.append('g')
+            .attr('opacity', 1)
+            .attr('transform', `translate(${this.padding.left},0)`)
+            .append('circle')
+            .attr('r', 5)
+            .style('fill', 'currentColor');
+
+        // изменение засечек с линий на круги
+        this.svg
+            .select('g.axis:first-of-type')
+            .selectAll('.tick line')
+            .remove();
+        this.svg
+            .select('g.axis')
+            .selectAll('.tick')
+            .append('circle')
+            .attr('r', 3)
+            .style('fill', '#3fa9f5');
+
+        this.drawAxisArrows('xAxis');
+        this.drawAxisArrows('yAxis');
+
+        this.drawGridLines();
+    }
+
+    // отрисовка стрелок на осях
+    private drawAxisArrows(axis: 'xAxis' | 'yAxis'): void {
+        const arrowMax: number = 10;
+        const arrowMin: number = 3;
+
+        let typeOfAxis: string = 'first-of-type';
+        let translate: string = `${this.graphMaxX - this.padding.right - arrowMax},0`;
+        let points: string = `0,-${arrowMin} ${arrowMax},0 0,${arrowMin}`;
+
+        if (axis === 'yAxis') {
+            typeOfAxis = 'last-of-type';
+            translate = `0,${this.padding.top}`;
+            points = `-${arrowMin},0 0,-${arrowMax} ${arrowMin},0`;
+        }
+
+        this.svg
+            .select(`g.axis:${typeOfAxis}`)
+            .append('g')
+            .attr('opacity', 1)
+            .attr('transform', `translate(${translate})`)
+            .append('polygon')
+            .attr('points', `${points}`)
+            .style('fill', 'currentColor');
+    }
+
+    // отрисовка сетки координат
+    private drawGridLines(): void {
+        this.svg.selectAll('g.axis:last-of-type g.tick:nth-child(2n+1)').remove();
+
+        this.svg
+            .selectAll('g.axis:last-of-type g.tick')
+            .append('line')
+            .attr('x1', 0)
+            .attr('y1', 0)
+            .attr('x2', this.graphMaxX - this.padding.right - this.padding.left)
+            .attr('y2', 0)
+            .style('opacity', '0.2')
+            .style('stroke', '#8c99b2');
+    }
+
+    private dateFormatLocale(): (date: Date) => string {
+        const locale = d3.timeFormatLocale({
+            dateTime: '%A, %e %B %Y г. %X',
+            date: '%d.%m.%Y',
+            time: '%H:%M:%S',
+            periods: ['', ''],
+            days: [
+                'воскресенье',
+                'понедельник',
+                'вторник',
+                'среда',
+                'четверг',
+                'пятница',
+                'суббота',
+            ],
+            shortDays: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+            months: [
+                'Январь',
+                'Февраль',
+                'Март',
+                'Апрель',
+                'Май',
+                'Июнь',
+                'Июль',
+                'Август',
+                'Сентябрь',
+                'Октябрь',
+                'Ноябрь',
+                'Декабрь',
+            ],
+            shortMonths: [
+                'Янв',
+                'Фев',
+                'Мар',
+                'Апр',
+                'Май',
+                'Июн',
+                'Июл',
+                'Авг',
+                'Сен',
+                'Окт',
+                'Ноя',
+                'Дек',
+            ],
+        });
+
+        const formatMillisecond = locale.format('.%L');
+        const formatSecond = locale.format(':%S');
+        const formatMinute = locale.format('%I:%M');
+        const formatHour = locale.format('%I %p');
+        const formatDay = locale.format('%d %b');
+        const formatWeek = locale.format('%b %d ');
+        const formatMonth = locale.format('%B');
+        const formatYear = locale.format('%Y');
+
+        return (date) =>
+            (d3.timeSecond(date) < date
+                ? formatMillisecond
+                : d3.timeMinute(date) < date
+                ? formatSecond
+                : d3.timeHour(date) < date
+                ? formatMinute
+                : d3.timeDay(date) < date
+                ? formatHour
+                : d3.timeMonth(date) < date
+                ? d3.timeWeek(date) < date
+                    ? formatDay
+                    : formatWeek
+                : d3.timeYear(date) < date
+                ? formatMonth
+                : formatYear)(date);
     }
 }

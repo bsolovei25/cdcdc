@@ -10,7 +10,6 @@ import {
 import { IChartMini, IChartD3 } from '../../../models/smart-scroll.model';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
-import { error } from 'protractor';
 
 @Component({
     selector: 'evj-line-chart-track',
