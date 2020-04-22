@@ -267,13 +267,14 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             questionText: 'Вы уверены, что хотите удалить файл-шаблон?',
             acceptText: 'Да',
             cancelText: 'Нет',
-            acceptFunction: () => this.reportService.deleteReportTemplate(item.idTemplate).subscribe(ans => {
-                this.isLoading = false;
-                this.getReportFolder();
-            }, (error) => {
-                this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
-                this.isLoading = false;
-            }),
+            acceptFunction: () => this.reportService
+                .deleteReportTemplate(item.idTemplate).subscribe(ans => {
+                    this.isLoading = false;
+                    this.getReportFolder();
+                }, (error) => {
+                    this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+                    this.isLoading = false;
+                }),
             cancelFunction: () => this.reportService.closeAlert(),
         };
         this.reportService.alertWindow$.next(windowsParam);
@@ -589,7 +590,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             questionText: 'Применить внесенные изменения?',
             acceptText: 'Да',
             cancelText: 'Нет',
-            acceptFunction: () =>  this.reportService.postSystemOptions(item, obj).subscribe((ans) => {
+            acceptFunction: () => this.reportService.postSystemOptions(item, obj).subscribe((ans) => {
                 this.materialController.openSnackBar(
                     'Файл-шаблон сохранен'
                 );

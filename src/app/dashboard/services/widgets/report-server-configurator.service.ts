@@ -15,7 +15,7 @@ export class ReportServerConfiguratorService {
 
   constructor(private http: HttpClient, configService: AppConfigService) {
     this.restUrl = configService.restUrl;
-  //  this.restFileUrl = configService.fsUrl; //OLD FILE STORAGE
+    //  this.restFileUrl = configService.fsUrl; //OLD FILE STORAGE
   }
 
   public alertWindow$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
