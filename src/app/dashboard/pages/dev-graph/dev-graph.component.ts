@@ -7,9 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DevGraphComponent implements OnInit {
 
-  constructor() { }
+    constructor() { }
 
-  ngOnInit(): void {
-  }
-
+    ngOnInit(): void {
+    }
 }

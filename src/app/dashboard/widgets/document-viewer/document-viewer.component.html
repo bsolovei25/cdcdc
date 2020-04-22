@@ -1,0 +1,7 @@
+<div class="document-viewer">
+  <pdf-viewer [src]="src"
+              [original-size]="false"
+              [(page)]="page"
+              (after-load-complete)="afterLoadComplete($event)"
+  ></pdf-viewer>
+</div>
