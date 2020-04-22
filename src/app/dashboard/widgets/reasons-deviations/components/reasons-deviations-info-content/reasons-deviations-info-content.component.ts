@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, LOCALE_ID } from '@angular/core';
 import { IReasonsDeviationsInfo } from 'src/app/dashboard/models/reasons-deviations';
 
 @Component({
   selector: 'evj-reasons-deviations-info-content',
   templateUrl: './reasons-deviations-info-content.component.html',
-  styleUrls: ['./reasons-deviations-info-content.component.scss']
+  styleUrls: ['./reasons-deviations-info-content.component.scss'],
+  providers: [{provide: LOCALE_ID, useValue: 'en-US' }]
 })
 export class ReasonsDeviationsInfoContentComponent implements OnInit {
 
