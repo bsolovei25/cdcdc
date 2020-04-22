@@ -38,7 +38,8 @@ export class AddReportFileComponent implements OnInit {
   constructor(
     private _renderer: Renderer2,
     public reportService: ReportServerConfiguratorService,
-    public snackBar: SnackBarService) { }
+    public snackBar: SnackBarService
+    ) { }
 
   ngOnInit(): void {
     this.getRecord();

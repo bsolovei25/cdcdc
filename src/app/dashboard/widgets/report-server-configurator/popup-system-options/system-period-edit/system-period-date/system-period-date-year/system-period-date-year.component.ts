@@ -36,6 +36,8 @@ export const MY_FORMATS = {
 export class SystemPeriodDateYearComponent implements OnInit {
   @ViewChild('picker') public picker: any;
 
+  @Output() public year: EventEmitter<number> = new EventEmitter<number>();
+
   public date = new FormControl(moment());
 
   @Output() dateTimePicker: EventEmitter<Date> = new EventEmitter<Date>();
@@ -47,7 +49,7 @@ export class SystemPeriodDateYearComponent implements OnInit {
 
   chosenYearHandler(normalizedYear: Moment, datepicker: MatDatepicker<Moment>) {
     const ctrlValue = this.date.value;
-    ctrlValue.year(normalizedYear.year());
+    const value = ctrlValue.year(normalizedYear.year());
     this.date.setValue(ctrlValue);
     this.dateTimePicker.emit(ctrlValue);
     datepicker.close();

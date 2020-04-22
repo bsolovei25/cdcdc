@@ -33,7 +33,6 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
     constructor(private userSettings: UserSettingsService, private claimService: ClaimService) {}
 
     ngOnInit(): void {
-        console.log('ind init');
         this.subscriptions.push(
             this.userSettings.screens$.subscribe((screens) => {
                 console.log(screens);
@@ -43,6 +42,7 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
                 this.nameScreen = this.getActiveScreen();
                 for (const item of this.dataScreen) {
                     item.updateScreen = false;
+                    item.isFilter = true;
                 }
             }),
             this.claimService.claimScreens$.subscribe((w) => {
@@ -70,6 +70,7 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
 
     ScreenDisable(e): void {
         this.timerOff = setTimeout(() => {
+            this.dataScreen.forEach((screen) => screen.isFilter = true);
             this.isShowScreens = false;
         }, 300);
     }
@@ -161,5 +162,11 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
         return !!(screen.claims.find((claim) => claim.claimType === 'screensEdit' ||
             claim.claimType === 'screenEdit' ||
             claim.claimType === 'screenAdmin'));
+    }
+
+    public screensFilter(filter: string): void {
+        this.dataScreen.forEach((screen) => {
+            screen.isFilter = screen.screenName.toLowerCase().includes(filter.toLowerCase());
+        });
     }
 }

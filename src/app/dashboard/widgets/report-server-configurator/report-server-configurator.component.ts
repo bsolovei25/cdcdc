@@ -1,11 +1,10 @@
-import { Component, OnInit, OnDestroy, Inject, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, ViewChild, HostListener } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
-import { moveItemInArray, transferArrayItem, CdkDragDrop } from '@angular/cdk/drag-drop';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { SnackBarService } from '../../services/snack-bar.service';
 import { ITreeState, ITreeOptions, TreeDraggedElement, TreeComponent } from 'angular-tree-component';
-import { IReportTemplate, ITreeFolderMap, ITemplate, ISystemOptions, ITemplateFolder, IReportFile, ISystemOptionsTemplate, IFolder } from '../../models/report-server';
+import { IReportTemplate, ITreeFolderMap, ITemplate, ISystemOptions, IReportFile, ISystemOptionsTemplate, IFolder, IPostSystemOptionsTemplate } from '../../models/report-server';
 import { Subscription } from 'rxjs';
 import { ReportServerConfiguratorService } from '../../services/widgets/report-server-configurator.service';
 
@@ -565,7 +564,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     //SAVE Template with system options
 
-    saveReport(item): void {
+    saveReport(itemId): void {
         const optionObject = [];
         let objItem;
 
@@ -580,9 +579,10 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             optionObject.push(objItem);
         }
 
-        const obj = {
+        const obj: IPostSystemOptionsTemplate = {
             systemOptionValues: optionObject,
             fileTemplate: this.selectFile,
+            periodType: this.reportTemplate.periodType,
         };
 
         const windowsParam = {
@@ -590,7 +590,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             questionText: 'Применить внесенные изменения?',
             acceptText: 'Да',
             cancelText: 'Нет',
-            acceptFunction: () => this.reportService.postSystemOptions(item, obj).subscribe((ans) => {
+            acceptFunction: () =>  this.reportService.postSystemOptions(itemId, obj).subscribe((ans) => {
                 this.materialController.openSnackBar(
                     'Файл-шаблон сохранен'
                 );
@@ -609,15 +609,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     closeOptions(event): void {
         if (event.close) {
-            const date: Date = new Date(Date.now());
-            const day = date.getDate();
-            const month = date.getMonth() + 1;
-            const year = date.getFullYear();
-            this.optionsActive.forEach(el => {
-                if (el.id === event.systemIdChange) {
-                    el.value = "Обновлено: " + day + '.' + month + '.' + year + 'г.';
-                }
-            });
+            this.putReportTemplate(this.reportTemplate);
         }
         this.popupUserCustomOptions = false;
         this.popupUserOptions = false;

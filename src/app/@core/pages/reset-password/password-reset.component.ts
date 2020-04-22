@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../service/auth.service';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -6,6 +6,7 @@ import { IUser } from '../../../dashboard/models/events-widget';
 import { AppConfigService } from '../../../services/appConfigService';
 import { OverlayService } from '../../../dashboard/services/overlay.service';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
+import { AvatarConfiguratorService } from '../../../dashboard/services/avatar-configurator.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -20,7 +21,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     styleUrls: ['./password-reset.component.scss'],
     templateUrl: './password-reset.component.html',
 })
-export class PasswordResetComponent {
+export class PasswordResetComponent implements OnInit, AfterViewInit{
 
     myForm: FormGroup;
 
@@ -32,21 +33,17 @@ export class PasswordResetComponent {
     user: IUser;
 
     swing: boolean = false;
+    matcher: MyErrorStateMatcher = new MyErrorStateMatcher();
 
-    matcher = new MyErrorStateMatcher();
-
-    private fsUrl: string = '';
     public photoPath: string = 'assets/icons/widgets/admin/default_avatar2.svg';
-    private defaultAvatarPath: string = 'assets/icons/widgets/admin/default_avatar2.svg';
 
-    constructor(private authService: AuthService,
+    constructor(
+        private authService: AuthService,
         private formBuilder: FormBuilder,
-        private configService: AppConfigService,
+        private avatarConfiguratorService: AvatarConfiguratorService,
         public myOverlayService: OverlayService,
         public snackBar: SnackBarService
-    ) {
-        this.fsUrl = this.configService.fsUrl;
-    }
+    ) { }
 
     ngOnInit(): void {
         this.isLoadingData = true;
@@ -57,11 +54,7 @@ export class PasswordResetComponent {
         }, { validator: this.checkPasswords });
 
         this.user = this.authService.user$.value;
-        if (this.user.photoId) {
-            this.photoPath = `${this.fsUrl}/${this.user.photoId}`;
-        } else {
-            this.photoPath = this.defaultAvatarPath;
-        }
+        this.photoPath = this.avatarConfiguratorService.getAvatarPath(this.user.photoId);
     }
 
     ngAfterViewInit(): void {
@@ -74,10 +67,10 @@ export class PasswordResetComponent {
         this.myOverlayService.closed$.next(true);
     }
 
-    checkPasswords(group: FormGroup) {
-        let password = group.get('password').value;
-        let confirmPassword = group.get('confirmPassword').value;
-        return password === confirmPassword ? null : { notSame: true }
+    checkPasswords(group: FormGroup): {notSame: boolean} | null {
+        const password = group.get('password').value;
+        const confirmPassword = group.get('confirmPassword').value;
+        return password === confirmPassword ? null : { notSame: true };
     }
 
     async onSubmit(): Promise<void> {

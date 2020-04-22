@@ -28,6 +28,7 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
     @Input() icon: string = 'shedule';
 
     @Input() isEventOpen: boolean;
+    @Input() tankInfo: boolean;
     @Input() blockWorkspaceButton: boolean;
     public localeSelect: { name: string; id: number }[];
     @Input() set select(data) {
@@ -49,13 +50,16 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
     public CreateIcon: boolean = true;
     public isReportButton: boolean = true;
 
+    public filterTankInfo: boolean = false;
+
     constructor(
         public widgetService: WidgetService,
         public userSettings: UserSettingsService,
         private claimService: ClaimService
-    ) {}
+    ) { }
 
     public ngOnChanges(): void {
+        this.filterTankInfo = this.tankInfo;
         this.CreateIcon = this.isEventOpen;
     }
 
@@ -92,12 +96,17 @@ export class WidgetHeaderComponent implements OnInit, OnChanges, OnDestroy {
         }
     }
 
-    public reportSelected(event) {
+    public reportSelected(event: boolean): void {
         this.selected.emit(event);
         this.isReportButton = event;
     }
 
     compareFn(o1: any, o2: any): boolean {
         return o1.name === o2.name && o1.id === o2.id;
+    }
+
+    public onFilterTankInfo(): void {
+        this.filterTankInfo = true;
+        this.selected.emit(true);
     }
 }

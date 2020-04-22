@@ -29,11 +29,11 @@
             <thead>
               <tr class="header__items">
                 <th class="header header__th header__name">
-                  <span class="header__name__text">Наименование</span>
+                  <span class="header__name__text">Резервуар</span>
                 </th>
                 <th class="header header__th header__date" (click)="sortStart()">
                   <span class="header__date-text">
-                    Дата начала калибровки
+                    Дата начала градуировки
                   </span>
                   <svg-icon
                     *ngIf="sort?.name === 'upStart' || !sort || sort?.name === 'bottomStart'
@@ -53,19 +53,19 @@
                 </th>
                 <th class="header header__th header__date" (click)="sortEnd()">
                   <span class="header__date-text">
-                    Дата окончания калибровки
+                    Дата окончания градуировки
                   </span>
                   <svg-icon
-                    *ngIf="sort?.name === 'bottomStart'"
+                    *ngIf="sort?.name === 'bottomStart' ||
+                    !sort || sort?.name === 'upStart'
+                    || sort?.name === 'upEnd'"
                     class="header__date-sort-up"
                     [class.header__date-sort-up--active]="sort?.name === 'bottomStart' && sort?.value"
                     src="assets/icons/widgets/calibration-table/sort-up.svg"
                     [svgStyle]="{ 'width.px':16, 'height.px':16 }"
                   ></svg-icon>
                   <svg-icon
-                    *ngIf="sort?.name === 'bottomEnd' ||
-                     !sort || sort?.name === 'upStart'
-                     || sort?.name === 'upEnd'"
+                    *ngIf="sort?.name === 'bottomEnd'"
                     class="header__date-sort-bottom"
                     [class.header__date-sort-bottom--active]="sort?.name === 'bottomEnd' && sort?.value"
                     src="assets/icons/widgets/calibration-table/sort-bottom.svg"
@@ -73,13 +73,14 @@
                   ></svg-icon>
                 </th>
                 <th class="header header__th header__action">
-                  Действия с калибровками
+                  Действия с градуировками
                 </th>
               </tr>
             </thead>
             <tbody class="table__body">
-              <ng-container *ngFor="let element of dataSource">
+              <ng-container *ngFor="let element of dataSourceUI">
                 <tr
+                  *ngIf="!element.isVisible && element.childredTanks.length > 0"
                   class="table__tr"
                   (click)="expandedElement.isSelected(element) ?
                          expandedElement.deselect(element)
@@ -100,7 +101,7 @@
                 </tr>
                 <ng-container *ngFor="let elementChildren of element?.childredTanks">
                   <tr
-                    *ngIf="expandedElement.isSelected(element)"
+                    *ngIf="expandedElement.isSelected(element) && !elementChildren.isVisible"
                     [class.expanded-row]="elementChildren"
                     [class.chooseElement]="chooseElement.isSelected(elementChildren)"
                     (click)="clickItem(elementChildren)"
@@ -134,7 +135,7 @@
                           matInput
                           type="text"
                           [formControl]="comment"
-                          style="height: 44px;"
+                          style="height: 44px; text-align: left;"
                         />
                         <svg-icon
                           (click)="closeComment()"
@@ -153,16 +154,20 @@
                     <td class="action expanded-column">
                       <svg-icon
                         (click)="openDialog(elementChildren)"
-                        class="item__action-icon"
+                        class="item__action-icon__upload"
                         src="assets/icons/widgets/calibration-table/upload.svg"
                         [svgStyle]="{ 'width.px':27, 'height.px':27 }"
                       ></svg-icon>
-                      <svg-icon
-                        (click)="downloadFile(elementChildren.uid)"
-                        class="item__action-icon"
-                        src="assets/icons/widgets/calibration-table/download.svg"
-                        [svgStyle]="{ 'width.px':27, 'height.px':27 }"
-                      ></svg-icon>
+                      <a
+                        href="http://deploy.funcoff.club:6555/api/graduation-table/graduation/tanks/{{elementChildren.uid}}/table"
+                        download
+                        ><svg-icon
+                          class="item__action-icon__upload"
+                          src="assets/icons/widgets/calibration-table/download.svg"
+                          [svgStyle]="{ 'width.px':27, 'height.px':27 }"
+                          style="padding-left: 23px;"
+                        ></svg-icon>
+                      </a>
                       <span class="item__action-trash" (click)="deleteUI(element.uid)">
                         <svg-icon
                           src="assets/icons/widgets/calibration-table/trash.svg"
@@ -209,7 +214,7 @@
                         matInput
                         type="text"
                         [formControl]="comment"
-                        style="height: 44px;"
+                        style="height: 44px; text-align: left;"
                       />
                       <svg-icon
                         (click)="closeComment()"
@@ -233,14 +238,17 @@
                       src="assets/icons/widgets/calibration-table/upload.svg"
                       [svgStyle]="{ 'width.px':27, 'height.px':27 }"
                     ></svg-icon>
-                    <svg-icon
+                    <a
                       *ngIf="element.uid !== 'last-row'"
-                      (click)="downloadFile(element.uid)"
-                      class="item__action-icon__upload"
-                      src="assets/icons/widgets/calibration-table/download.svg"
-                      [svgStyle]="{ 'width.px':27, 'height.px':27 }"
-                      style="padding-left: 23px;"
-                    ></svg-icon>
+                      href="http://deploy.funcoff.club:6555/api/graduation-table/graduation/tanks/{{element.uid}}/table"
+                      download
+                      ><svg-icon
+                        class="item__action-icon__upload"
+                        src="assets/icons/widgets/calibration-table/download.svg"
+                        [svgStyle]="{ 'width.px':27, 'height.px':27 }"
+                        style="padding-left: 23px;"
+                      ></svg-icon>
+                    </a>
                     <span class="item__action-trash" (click)="deleteUI(element.uid)">
                       <svg-icon
                         src="assets/icons/widgets/calibration-table/trash.svg"
@@ -383,7 +391,7 @@
       <evj-tank-calibration-table-files
         style="width: 100%;"
         [data]="data"
-        [dataS]="dataSource"
+        [dataS]="dataSourceUI"
         [dataSTanks]="dataSourceTanks"
       ></evj-tank-calibration-table-files
     ></ng-container>

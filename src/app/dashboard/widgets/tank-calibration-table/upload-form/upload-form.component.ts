@@ -20,8 +20,8 @@ export class UploadFormComponent implements OnInit, OnDestroy {
         file: FormData;
         comment: string;
     } = {
-            startDate: new Date(),
-            endDate: new Date(),
+            startDate: this.date,
+            endDate: this.dateEnd,
             file: new FormData(),
             comment: '',
         };

@@ -14,7 +14,7 @@ export class TankCalibrationTableService {
 
     constructor(public http: HttpClient, configService: AppConfigService) {
         this.restUrl = configService.restUrl;
-        this.restFileUrl = configService.fsUrl;
+        this.restFileUrl = `${configService.restUrl}/api/file-storage/`;
     }
 
     async getTankAvailable(): Promise<any[]> {

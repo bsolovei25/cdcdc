@@ -221,7 +221,7 @@
             <evj-popup-user-options [data]="optionsCustom" (close)="closeOptions($event)"></evj-popup-user-options>
           </ng-container>
           <ng-container *ngIf="!popupUserCustomOptions">
-            <evj-popup-system-options [optionsType]="popupOptionsActive" (close)="closeOptions($event)">
+            <evj-popup-system-options [optionsType]="popupOptionsActive" [templateData]="reportTemplate" (close)="closeOptions($event)">
             </evj-popup-system-options>
           </ng-container>
         </div>

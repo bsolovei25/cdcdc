@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { EventsWidgetNotification, IPriority, IStatus, IUser, ICategory, IUnitEvents, EventsWidgetNotificationStatus, EventsWidgetNotificationPriority, EventsWidgetCategoryCode, IRetrievalEvents } from '../../models/events-widget';
 import { EventService } from '../widgets/event.service';
 import { SnackBarService } from '../snack-bar.service';
-import { AppConfigService } from '../../../services/appConfigService';
 import { fillDataShape } from '../../../@shared/common-functions';
+import { AvatarConfiguratorService } from '../avatar-configurator.service';
 
 @Injectable({
     providedIn: 'root',
@@ -53,15 +53,13 @@ export class EventsWorkspaceService {
     };
 
     private defaultEvent: EventsWidgetNotification = null;
-    private fsUrl: string = '';
 
     constructor(
         private eventService: EventService,
         private snackBarService: SnackBarService,
-        private configService: AppConfigService
+        private avatarConfiguratorService: AvatarConfiguratorService
     ) {
         this.loadItem();
-        this.fsUrl = this.configService.fsUrl;
     }
 
     public async loadItem(id?: number): Promise<void> {
@@ -274,7 +272,6 @@ export class EventsWorkspaceService {
     }
 
     public getUserAvatarUrl(user: IUser): string {
-        const avatar: string = 'assets/icons/widgets/admin/default_avatar2.svg';
-        return user?.photoId ? `${this.fsUrl}/${user.photoId}` : avatar;
+        return this.avatarConfiguratorService.getAvatarPath(user?.photoId);
     }
 }

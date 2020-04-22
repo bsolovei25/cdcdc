@@ -56,7 +56,7 @@
   --color-active: #3fa9f5;
   --color-danger: #eb5757;
   --color-warning: #f4a321;
-  --color-standard: #6fcf97;
+  --color-standard: #00A99D;
   --color-circle: #00ffff;
   --color-aqua: #00ffff;
   --color-orange: #f28b4a;
@@ -65,11 +65,17 @@
   --color-warning-transparent: rgba(244, 163, 33, 0.2);
   --color-disable-transparent: rgba(91, 96, 125, 0.2);
   --color-active-transparent: rgba(63, 169, 245, 0.2);
+  --color-standard-transparent: rgba(111, 207, 151, 0.2);
 
   --color-bg-active-gradient: rgba(63, 169, 245, 0.2);
   --color-bg-active-gradient1: rgba(63, 169, 245, 0.6);
 
   --color-bg-human-disable: #2c2f38;
+
+  //Карточка резервуара нефтеконтроль
+  --color-oil-card: rgb(28, 35, 51);
+  --color-oil-table: rgb(18, 25, 40);
+  --color-oil-table-ref: rgb(27, 31, 44);
 
   // Цвета статусов передачи смены
   --color-shift-status-init: #6fcf97;
@@ -82,3 +88,11 @@
   --color-button-border: rgba(255, 255, 255, 0.5);
   --color-button-borderside: rgba(255, 255, 255, 1);
 }
+
+$--color-active: #3fa9f5;
+$--color-danger: #eb5757;
+$--color-warning: #f4a321;
+$--color-standard: #00A99D;
+$--color-circle: #00ffff;
+$--color-aqua: #00ffff;
+$--color-orange: #f28b4a;

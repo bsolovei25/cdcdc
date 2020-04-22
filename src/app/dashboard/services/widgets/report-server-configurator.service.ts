@@ -2,7 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from 'src/app/services/appConfigService';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { IFileTemplate, IReportTemplate, ITemplateFolder, ISystemOptions, IReportFile, IFolder } from '../../models/report-server';
+import {
+  IFileTemplate, IReportTemplate,
+  ITemplateFolder, ISystemOptions, IReportFile,
+  IFolder, IPostSystemOptionsTemplate
+} from '../../models/report-server';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 
 
@@ -11,11 +15,9 @@ import { IAlertWindowModel } from '@shared/models/alert-window.model';
 })
 export class ReportServerConfiguratorService {
   private restUrl: string;
-  private restFileUrl: string = '';
 
   constructor(private http: HttpClient, configService: AppConfigService) {
     this.restUrl = configService.restUrl;
-    //  this.restFileUrl = configService.fsUrl; //OLD FILE STORAGE
   }
 
   public alertWindow$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
@@ -58,8 +60,8 @@ export class ReportServerConfiguratorService {
     return this.http.post<IFileTemplate>(this.restUrl + '/api/report-filetemplate/loaded', body);
   }
 
-  public postSystemOptions(id, options): Observable<any> {
-    return this.http.post<any>(this.restUrl + '/api/report-template/' + id + '/system-options', options);
+  public postSystemOptions(id, options): Observable<IPostSystemOptionsTemplate> {
+    return this.http.post<IPostSystemOptionsTemplate>(this.restUrl + '/api/report-template/' + id + '/system-options', options);
   }
 
   public postCustomOptions(id, options): Observable<any> {

@@ -120,6 +120,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
 
     public ngOnDestroy(): void {
         this.subscriptions.forEach((subs: Subscription) => subs.unsubscribe());
+        this.adminService.setDefaultActiveWorker();
     }
 
     public createNewWorker(): void {

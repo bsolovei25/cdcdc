@@ -393,6 +393,9 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
     public filterShiftMembers(shiftMembers: IShiftMember[]): IShiftMember[] {
         this.brigadesSubstitution.users.forEach((user) => {
             shiftMembers = shiftMembers.filter((member) => member?.employee?.id !== user?.id);
+            const index: number = shiftMembers.findIndex((item) => item.position === 'responsible');
+            const mainWorker = shiftMembers.splice(index, 1)[0];
+            shiftMembers.unshift(mainWorker);
         });
         return shiftMembers;
     }
