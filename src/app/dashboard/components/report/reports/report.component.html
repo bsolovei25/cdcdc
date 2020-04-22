@@ -1,4 +1,4 @@
-<div class="panel" *ngIf="data">
+<div class="panel" @fadeAnimation *ngIf="data">
   <div class="panel-header" [class.panel-header--active]="active" (click)="toggle(data.id)">
     <p class="panel-header__text" [class.panel-header__text--active]="active">{{data.name}}</p>
     <svg-icon
@@ -14,7 +14,7 @@
       src="assets/icons/widgets/reports/arrow-bottom.svg"
     ></svg-icon>
   </div>
-  <div class="panel-body" *ngIf="active">
+  <div class="panel-body" @fadeAnimation *ngIf="active">
     <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
     <mat-form-field class="form" *ngIf="periodTime?.periodType === 'exactTime'">
       <mat-label class="form__title">Точное время</mat-label>
