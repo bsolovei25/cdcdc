@@ -7,23 +7,31 @@ import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter }
 })
 export class SystemPeriodDateComponent implements OnInit {
 
-  @ViewChild('picker') public picker: any;
+  @ViewChild('pickerD') public pickerD: any;
   @Input() public timeCheck: string;
   @Output() public timeChoose: EventEmitter<any> = new EventEmitter<any>();
 
   public dateNow: Date = new Date();
+
+  public timePicker: any
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  setValue(event){
+  setValue(event): void {
     const obj = {
       dateFormat: this.timeCheck,
       value: event,
     };
     this.timeChoose.emit(obj);
+  }
+
+  clickTimePicker(): void {
+    this.timePicker = this.pickerD._overlay._overlayContainer.getContainerElement();
+    this.timePicker.classList.remove('year');
+    this.timePicker.classList.remove('month');
   }
 
 }
