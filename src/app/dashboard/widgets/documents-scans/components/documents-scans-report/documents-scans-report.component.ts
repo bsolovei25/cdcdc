@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IDocumentsScans } from '../../documents-scans.component';
 import { SnackBarService } from 'src/app/dashboard/services/snack-bar.service';
-import { ReportServerConfiguratorService } from 'src/app/dashboard/services/report-server-configurator.service';
 import { DocumentsScansService } from 'src/app/dashboard/services/oil-control-services/documents-scans.service';
 
 @Component({
@@ -39,6 +38,5 @@ export class DocumentsScansReportComponent implements OnInit {
     };
     this.oilDocumentService.alertWindow$.next(windowsParam);
   }
-
 
 }
