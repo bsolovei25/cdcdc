@@ -212,6 +212,8 @@ import { ReasonsDeviationsInfoTankComponent } from './widgets/reasons-deviations
 import { ReasonsDeviationsPicTankComponent } from './widgets/reasons-deviations/components/reasons-deviations-pic-tank/reasons-deviations-pic-tank.component';
 import { ReasonsDeviationsTankLevelComponent } from './widgets/reasons-deviations/components/reasons-deviations-tank-level/reasons-deviations-tank-level.component';
 import { ProductionTrendGraphComponent } from './widgets/production-trend/components/production-trend-graph/production-trend-graph.component';
+import { DocumentsScansComponent } from './widgets/documents-scans/documents-scans.component';
+import { DocumentsScansReportComponent } from './widgets/documents-scans/components/documents-scans-report/documents-scans-report.component';
 
 @NgModule({
     declarations: [
@@ -392,6 +394,8 @@ import { ProductionTrendGraphComponent } from './widgets/production-trend/compon
         ReasonsDeviationsPicTankComponent,
         ReasonsDeviationsTankLevelComponent,
         ProductionTrendGraphComponent,
+        DocumentsScansComponent,
+        DocumentsScansReportComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -452,6 +456,7 @@ import { ProductionTrendGraphComponent } from './widgets/production-trend/compon
         CustomReportPropertiesReferenceComponent,
         TankInformationComponent,
         ReasonsDeviationsComponent,
+        DocumentsScansComponent,
     ],
     exports: [HomeComponent],
     imports: [

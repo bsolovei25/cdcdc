@@ -48,6 +48,7 @@ import { CustomReportPropertiesReferenceComponent } from '../../widgets/custom-r
 import { ProductionTrendComponent } from '../../widgets/production-trend/production-trend.component';
 import { TankInformationComponent } from '../../widgets/tank-information/tank-information.component';
 import { ReasonsDeviationsComponent } from '../../widgets/reasons-deviations/reasons-deviations.component';
+import { DocumentsScansComponent } from '../../widgets/documents-scans/documents-scans.component';
 
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
@@ -101,4 +102,5 @@ export const WIDGETS = {
     'production-trend': ProductionTrendComponent,
     'tank-information': TankInformationComponent,
     'reasons-deviations': ReasonsDeviationsComponent,
+    'documents-scans': DocumentsScansComponent,
 };
