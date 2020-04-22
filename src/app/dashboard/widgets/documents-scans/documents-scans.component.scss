@@ -34,15 +34,14 @@
     border-right: dashed 1px var(--color-border-main);
     overflow: auto;
     overflow-y: hidden;
-    min-width: 440px;
 }
 
 .documents-scans {
     width: 100%;
     height: 100%;
     padding: 10px;
-    min-width: 255px;
     padding-bottom: 0;
+    min-width: 440px;
 
     &__title {
         display: flex;
