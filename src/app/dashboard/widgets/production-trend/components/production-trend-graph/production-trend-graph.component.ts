@@ -111,7 +111,7 @@ export class ProductionTrendGraphComponent implements OnChanges, AfterViewInit {
     private readonly padding: { [key: string]: number } = {
         top: 20,
         right: 20,
-        bottom: 20,
+        bottom: 30,
         left: 50,
     };
 
@@ -244,16 +244,6 @@ export class ProductionTrendGraphComponent implements OnChanges, AfterViewInit {
     }
 
     private drawAxis(): void {
-        // отрисовка оси х
-        this.svg
-            .append('g')
-            .attr('transform', `translate(0,${this.graphMaxY - this.padding.bottom})`)
-            .attr('class', 'axis')
-            .call(this.axis.axisX)
-            .selectAll('text')
-            .style('font-size', '12px')
-            .style('fill', '#8c99b2');
-
         // отрисовка оси у
         this.svg
             .append('g')
@@ -264,27 +254,46 @@ export class ProductionTrendGraphComponent implements OnChanges, AfterViewInit {
             .style('font-size', '12px')
             .style('fill', '#8c99b2');
 
+        // отрисовка оси х
+        this.svg
+            .append('g')
+            .attr('transform', `translate(0,${this.graphMaxY - this.padding.bottom})`)
+            .attr('class', 'axis')
+            .call(this.axis.axisX)
+            .selectAll('text')
+            .style('font-size', '12px')
+            .style('fill', '#8c99b2');
+
         // изменение цветов осей и удаление первых и последних засечек
         let g = this.svg.selectAll('g.axis');
         g.style('color', '#606580');
         g.selectAll('.tick:first-of-type').remove();
         g.selectAll('.tick:last-of-type').remove();
 
-        g = this.svg.select('g.axis:first-of-type').style('color', '#3fa9f5');
+        // отрисовка центра начала координат
+        g = this.svg.select('g.axis:last-of-type').style('color', '#3fa9f5');
         g.append('g')
             .attr('opacity', 1)
             .attr('transform', `translate(${this.padding.left},0)`)
+            .attr('class', 'center-of-coords')
             .append('circle')
             .attr('r', 5)
             .style('fill', 'currentColor');
+        g.select('.center-of-coords')
+            .append('line')
+            .attr('x1', `-${this.padding.left}`)
+            .attr('y1', 0)
+            .attr('x2', 0)
+            .attr('y2', 0)
+            .style('stroke', 'currentColor');
 
         // изменение засечек с линий на круги
         this.svg
-            .select('g.axis:first-of-type')
+            .select('g.axis:last-of-type')
             .selectAll('.tick line')
             .remove();
         this.svg
-            .select('g.axis')
+            .select('g.axis:last-of-type')
             .selectAll('.tick')
             .append('circle')
             .attr('r', 3)
@@ -301,12 +310,12 @@ export class ProductionTrendGraphComponent implements OnChanges, AfterViewInit {
         const arrowMax: number = 10;
         const arrowMin: number = 3;
 
-        let typeOfAxis: string = 'first-of-type';
+        let typeOfAxis: string = 'last-of-type';
         let translate: string = `${this.graphMaxX - this.padding.right - arrowMax},0`;
         let points: string = `0,-${arrowMin} ${arrowMax},0 0,${arrowMin}`;
 
         if (axis === 'yAxis') {
-            typeOfAxis = 'last-of-type';
+            typeOfAxis = 'first-of-type';
             translate = `0,${this.padding.top}`;
             points = `-${arrowMin},0 0,-${arrowMax} ${arrowMin},0`;
         }
@@ -323,10 +332,10 @@ export class ProductionTrendGraphComponent implements OnChanges, AfterViewInit {
 
     // отрисовка сетки координат
     private drawGridLines(): void {
-        this.svg.selectAll('g.axis:last-of-type g.tick:nth-child(2n+1)').remove();
+        this.svg.selectAll('g.axis:first-of-type g.tick:nth-child(2n+1)').remove();
 
         this.svg
-            .selectAll('g.axis:last-of-type g.tick')
+            .selectAll('g.axis:first-of-type g.tick')
             .append('line')
             .attr('x1', 0)
             .attr('y1', 0)
