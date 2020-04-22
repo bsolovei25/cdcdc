@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Inject, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
-import { ReportsService } from '../../services/reports.service';
+import { ReportsService } from '../../services/widgets/reports.service';
 
 @Component({
   selector: 'evj-custom-report-properties-reference',

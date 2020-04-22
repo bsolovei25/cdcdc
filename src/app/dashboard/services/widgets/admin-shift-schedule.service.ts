@@ -1,12 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from 'src/app/services/appConfigService';
-import {
-    IScheduleShift,
-    IBrigadeWithUsersDto,
-    IScheduleShiftDay,
-    IUnits,
-} from '../models/admin-shift-schedule';
+import { IScheduleShiftDay, IScheduleShift, IBrigadeWithUsersDto, IUnits } from '../../models/admin-shift-schedule';
 
 @Injectable({
     providedIn: 'root',

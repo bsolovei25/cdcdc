@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { EventsWorkspaceService } from '../../../../services/events-workspace.service';
 import {
     EventsWidgetNotificationStatus,
     IRetrievalEvents,
     EventsWidgetNotification,
 } from '../../../../models/events-widget';
+import { EventsWorkspaceService } from '../../../../services/widgets/events-workspace.service';
 
 @Component({
     selector: 'evj-events-correct-card',

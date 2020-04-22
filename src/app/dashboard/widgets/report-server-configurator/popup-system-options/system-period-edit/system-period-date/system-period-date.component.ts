@@ -6,6 +6,7 @@ import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter }
   styleUrls: ['./system-period-date.component.scss']
 })
 export class SystemPeriodDateComponent implements OnInit {
+
   @ViewChild('picker') public picker: any;
   @Input() public timeCheck: string;
   @Output() public timeChoose: EventEmitter<any> = new EventEmitter<any>();

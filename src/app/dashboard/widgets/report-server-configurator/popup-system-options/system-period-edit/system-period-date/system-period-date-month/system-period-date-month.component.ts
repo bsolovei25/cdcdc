@@ -1,12 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
 import * as _moment from 'moment';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { FormControl } from '@angular/forms';
 import { MAT_DATE_FORMATS, DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
-import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
-import {  Moment } from 'moment';
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { Moment } from 'moment';
 
-const moment =  _moment;
+const moment = _moment;
 
 export const MY_FORMATS = {
   parse: {
@@ -38,24 +38,27 @@ export class SystemPeriodDateMonthComponent implements OnInit {
 
   public date = new FormControl(moment());
 
+  @Output() dateTimePicker: EventEmitter<Date> = new EventEmitter<Date>();
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  chosenMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
+  chosenMonthHandler(
+    normalizedMonth: Moment,
+    datepicker: MatDatepicker<Moment>
+  ): void {
     const ctrlValue = this.date.value;
     ctrlValue.month(normalizedMonth.month());
     this.date.setValue(ctrlValue);
+    this.dateTimePicker.emit(ctrlValue);
     datepicker.close();
   }
 
   clickMonth(): void {
     const dataPicker = this.picker._overlay._overlayContainer.getContainerElement();
     dataPicker.classList.remove('day');
-    dataPicker.classList.remove('month');
-    dataPicker.classList.remove('year');
-    dataPicker.classList.add('month');
   }
 
 }
