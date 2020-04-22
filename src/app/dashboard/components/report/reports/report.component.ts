@@ -7,6 +7,7 @@ import { MatDatepicker } from '@angular/material/datepicker';
 import { FormControl } from '@angular/forms';
 import { Moment } from 'moment';
 import * as _moment from 'moment';
+import { trigger, transition, style, animate } from '@angular/animations';
 const moment = _moment;
 
 export interface IReport extends IReportTemplate {
@@ -64,10 +65,22 @@ interface IReportPeriodType {
     endDateTime?: Date;
 }
 
+export const fadeAnimation = trigger('fadeAnimation', [
+    transition(':enter', [
+        style({ opacity: 0, height: 0 }),
+        animate('100ms', style({ opacity: 1, height: 145 }))
+    ]),
+    transition(':leave', [
+        style({ opacity: 1, height: 145 }),
+        animate('100ms', style({ opacity: 0, height: 0 }))
+    ])
+]);
+
 @Component({
     selector: 'evj-report',
     templateUrl: './report.component.html',
     styleUrls: ['./report.component.scss'],
+    animations: [fadeAnimation],
 })
 export class ReportComponent implements OnInit {
 
