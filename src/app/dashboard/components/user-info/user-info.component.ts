@@ -56,15 +56,16 @@ export class UserInfoComponent implements OnInit, OnDestroy {
 
     async loadData(): Promise<void> {
         this.subscription = this.authService.user$.subscribe((data: IUser) => {
-            if (data) {
-                this.data = data;
-                this.photoPath = this.avatarConfiguratorService.getAvatarPath(this.data.photoId);
+            if (!data) {
+                return;
             }
+            this.data = data;
+            this.photoPath = this.avatarConfiguratorService.getAvatarPath(this.data.photoId);
         });
     }
 
     resetPassword(): void {
-        let config = new OverlayConfig();
+        const config = new OverlayConfig();
         config.positionStrategy = this.overlay.position()
             .global()
             .centerHorizontally()
