@@ -50,7 +50,7 @@
         margin: 0 auto;
         margin-right: 0;
         width: calc(100% - 10px);
-        background-color: rgba(93, 96, 123, 0.2);
+        background-color: var(--color-oil-border);
         color: var(--color-text-sub);
         text-align: center;
         line-height: 40px;
@@ -95,7 +95,7 @@
         margin: 0 auto;
         margin-right: 0;
         width: calc(100% - 10px);
-        background-color: rgba(93, 96, 123, 0.2);
+        background-color: var(--color-oil-border);
         border-bottom-left-radius: 15px;
         border-bottom-right-radius: 15px;
 

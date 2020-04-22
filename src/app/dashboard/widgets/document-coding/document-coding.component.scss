@@ -1,3 +1,5 @@
+
+
 .container {
     position: relative;
     width: 100%;
@@ -10,21 +12,28 @@
     line-height: 24px;
 }
 
+.scrollON {
+    margin-right: -5px !important;
+    width: calc(100% - 5px) !important;
+}
+
+.scrollOFF {
+    margin-right: 0px !important;
+    width: calc(100% - 5px) !important;
+
+    ::ng-deep .report-container {
+        width: 100%;
+    }
+}
+
+
 .content {
+    display: flex;
     height: calc(100% - 60px);
     border-left: dashed 1px var(--color-border-main);
     border-right: dashed 1px var(--color-border-main);
     overflow: auto;
     overflow-y: hidden;
-}
-
-.scroll-container{
-  height: 100%;
-  direction: rtl;
-  width: calc(100% - 20px);
-  margin: 0 auto;
-  margin-right: 0;
-  overflow: auto;
 }
 
 
@@ -69,3 +78,4 @@
   ::-webkit-resizer {
     background-color: var(--color-border-active);
   }
+

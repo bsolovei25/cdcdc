@@ -50,6 +50,7 @@ import { TankInformationComponent } from '../../widgets/tank-information/tank-in
 import { ReasonsDeviationsComponent } from '../../widgets/reasons-deviations/reasons-deviations.component';
 import { DocumentsScansComponent } from '../../widgets/documents-scans/documents-scans.component';
 import { QualityDocsPanelComponent } from '../../widgets/quality-docs-panel/quality-docs-panel.component';
+import { DocumentCodingComponent } from '../../widgets/document-coding/document-coding.component';
 
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
@@ -105,4 +106,5 @@ export const WIDGETS = {
     'reasons-deviations': ReasonsDeviationsComponent,
     'documents-scans': DocumentsScansComponent,
     'quality-docs-panel': QualityDocsPanelComponent,
+    'document-coding': DocumentCodingComponent,
 };
