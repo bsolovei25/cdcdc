@@ -8,7 +8,6 @@ import {
     OnInit,
     AfterViewInit,
 } from '@angular/core';
-import { ManualInputService } from '../../services/manual-input.service';
 import { HttpClient } from '@angular/common/http';
 import { IMachine_MI, IGroup_MI } from '../../models/manual-input.model';
 import { WidgetService } from '../../services/widget.service';
@@ -16,6 +15,7 @@ import { AppConfigService } from 'src/app/services/appConfigService';
 import { WidgetSettingsService } from '../../services/widget-settings.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { trigger, style, state, transition, animate, group } from '@angular/animations';
+import { ManualInputService } from '../../services/widgets/manual-input.service';
 
 @Component({
     selector: 'evj-manual-input',
