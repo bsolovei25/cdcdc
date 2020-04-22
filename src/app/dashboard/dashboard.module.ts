@@ -214,6 +214,8 @@ import { ReasonsDeviationsTankLevelComponent } from './widgets/reasons-deviation
 import { ProductionTrendGraphComponent } from './widgets/production-trend/components/production-trend-graph/production-trend-graph.component';
 import { DocumentsScansComponent } from './widgets/documents-scans/documents-scans.component';
 import { DocumentsScansReportComponent } from './widgets/documents-scans/components/documents-scans-report/documents-scans-report.component';
+import { QualityDocsPanelComponent } from './widgets/quality-docs-panel/quality-docs-panel.component';
+import { QualityDocsRecordComponent } from './widgets/quality-docs-panel/components/quality-docs-record/quality-docs-record.component';
 
 @NgModule({
     declarations: [
@@ -396,6 +398,8 @@ import { DocumentsScansReportComponent } from './widgets/documents-scans/compone
         ProductionTrendGraphComponent,
         DocumentsScansComponent,
         DocumentsScansReportComponent,
+        QualityDocsPanelComponent,
+        QualityDocsRecordComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -457,6 +461,7 @@ import { DocumentsScansReportComponent } from './widgets/documents-scans/compone
         TankInformationComponent,
         ReasonsDeviationsComponent,
         DocumentsScansComponent,
+        QualityDocsPanelComponent,
     ],
     exports: [HomeComponent],
     imports: [
