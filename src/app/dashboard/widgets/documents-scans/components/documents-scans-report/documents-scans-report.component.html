@@ -1,0 +1,8 @@
+<div class="report-container" [class.block-active]="dataItem.isActive" (click)="active()">
+  <div class="report-container__block-info">
+    <div class="date">{{ dataItem.date }}</div>
+    <div class="name">{{ dataItem.name }}</div>
+    <div data-tooltip="Удалить файл" class="report-container__button-remove" (click)="delete()"
+      *ngIf="dataItem.isActive"></div>
+  </div>
+</div>
