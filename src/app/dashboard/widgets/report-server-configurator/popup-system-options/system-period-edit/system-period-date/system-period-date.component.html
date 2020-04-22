@@ -7,7 +7,7 @@
         <!--Суточный-->
         <evj-system-period-date-day *ngIf="timeCheck === 'Суточный'"></evj-system-period-date-day>
         <!--Точное время-->
-        <div class="exactlyTime" *ngIf="timeCheck === 'Точное время'">
+        <div class="time" *ngIf="timeCheck === 'Точное время'">
             <mat-form-field>
                 <label>Точное время</label>
                 <input matInput [ngxMatDatetimePicker]="pickerD" [value]="dateNow">
@@ -18,7 +18,7 @@
                         </svg-icon>
                     </mat-icon>
                 </mat-datepicker-toggle>
-                <ngx-mat-datetime-picker #pickerD  #picker startView="multi-year">
+                <ngx-mat-datetime-picker #pickerD  #picker>
                 </ngx-mat-datetime-picker>
             </mat-form-field>
         </div>
@@ -28,7 +28,7 @@
         <!--Произвольное время-->
         <div *ngIf="timeCheck === 'Произвольное время'">
             <div class="container__time">
-                <div class="arbitraryTime">
+                <div class="time">
                     <mat-form-field>
                         <label>От</label>
                         <input matInput [ngxMatDatetimePicker]="pickerD" [value]="dateNow">
@@ -45,7 +45,7 @@
                 </div>
             </div>
             <div class="container__time">
-                <div class="arbitraryTime">
+                <div class="time">
                     <mat-form-field>
                         <label>До</label>
                         <input matInput [ngxMatDatetimePicker]="pickerT" [value]="dateNow">

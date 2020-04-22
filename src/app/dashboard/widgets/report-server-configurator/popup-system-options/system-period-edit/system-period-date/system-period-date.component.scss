@@ -24,28 +24,19 @@
     }
   }
 
-  .arbitraryTime {
+  .time {
+    margin-top: -15px;
     ::ng-deep {
+      .mat-form-field {
+        line-height: 1.55;
+      }
       .mat-form-field-infix label {
         font-size: 10px;
         color: var(--color-text-sub);
       }
 
       mat-icon {
-        margin-top: 5px;
-      }
-    }
-  }
-
-  .exactlyTime {
-    ::ng-deep {
-      .mat-form-field-infix label {
-        font-size: 10px;
-        color: var(--color-text-sub);
-      }
-
-      mat-icon {
-        margin-top: 5px;
+        margin-top: 20px;
       }
     }
   }
@@ -66,10 +57,3 @@
   }
 }
 
-// ::ng-deep .pickerTop {
-//    ::ng-deep{
-//     .mat-datepicker-popup{
-//       margin-top: -165px !important;
-//     }
-//    }
-// }
