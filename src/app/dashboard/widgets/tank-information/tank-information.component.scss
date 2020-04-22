@@ -12,8 +12,8 @@
 
 .content {
     height: calc(100% - 60px);
-    border-left: dashed 0.5px var(--color-border-main);
-    border-right: dashed 0.5px var(--color-border-main);
+    border-left: dashed 1px var(--color-border-main);
+    border-right: dashed 1px var(--color-border-main);
     overflow: auto;
     overflow-y: hidden;
 }
