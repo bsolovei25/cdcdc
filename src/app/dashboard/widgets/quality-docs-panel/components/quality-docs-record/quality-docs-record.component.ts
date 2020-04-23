@@ -15,8 +15,22 @@ export class QualityDocsRecordComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngAfterViewInit(): void {
+    this.changeTooltip();
+  }
+
   blocked(): void {
     this.data.blocked = !this.data.blocked;
+    this.changeTooltip();
+  }
+
+  changeTooltip(): void {
+    const tlink = document.getElementById('tooltipDocsRecord' + this.data.id);
+    if (this.data.blocked) {
+      tlink.dataset.tooltip = 'Разблокировать';
+    } else {
+      tlink.dataset.tooltip = 'Заблокировать';
+    }
   }
 
 }
