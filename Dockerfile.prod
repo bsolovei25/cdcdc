@@ -1,6 +1,6 @@
 # base image
-#FROM gitlab.funcoff.club:4567/oaovd/osspu/evj/front/caches:17.03.2020
-FROM gitlab.funcoff.club:4567/oaovd/osspu/evj/front/caches:13.04.2020
+FROM gitlab.funcoff.club:4567/oaovd/osspu/evj/front/caches:17.03.2020
+#FROM gitlab.funcoff.club:4567/oaovd/osspu/evj/front/caches:13.04.2020
 
 # set working directory
 #WORKDIR /app

@@ -13,17 +13,25 @@ export class SystemPeriodDateComponent implements OnInit {
 
   public dateNow: Date = new Date();
 
+  public timePicker: any
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  setValue(event){
+  setValue(event): void {
     const obj = {
       dateFormat: this.timeCheck,
       value: event,
     };
     this.timeChoose.emit(obj);
+  }
+
+  clickTimePicker(): void {
+    this.timePicker = this.picker._overlay._overlayContainer.getContainerElement();
+    this.timePicker.classList.remove('year');
+    this.timePicker.classList.remove('month');
   }
 
 }

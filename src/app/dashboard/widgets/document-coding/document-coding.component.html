@@ -1,0 +1,27 @@
+<evj-widget-preview [title]="widgetTitle" [code]="widgetCode" [previewTitle]="" *ngIf="isMock">
+</evj-widget-preview>
+
+<div class="container" *ngIf="!isMock">
+    <evj-widget-header [title]="widgetTitle" [units]="widgetUnits" [code]="widgetCode" [id]="id" [uniqId]="uniqId"
+        [widgetType]="widgetType" [icon]="widgetIcon"></evj-widget-header>
+
+    <evj-frame-top></evj-frame-top>
+
+    <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+        <evj-alert-window [info]="oilService.alertWindow$ | async"></evj-alert-window>
+
+        <div class="top-side">
+            <div>
+                <evj-document-coding-table></evj-document-coding-table>
+            </div>
+            <div>
+                <evj-document-coding-tanks></evj-document-coding-tanks>
+            </div>
+        </div>
+        <div class="bottom-side">
+            <evj-document-coding-menu></evj-document-coding-menu>
+        </div>
+    </div>
+
+    <evj-frame-bottom></evj-frame-bottom>
+</div>
