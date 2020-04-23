@@ -37,6 +37,7 @@ export class SystemPeriodDateMonthComponent implements OnInit {
   @ViewChild('picker') public picker: any;
 
   public date = new FormControl(moment());
+  public dataPicker: any;
 
   @Output() dateTimePicker: EventEmitter<Date> = new EventEmitter<Date>();
 
@@ -54,11 +55,13 @@ export class SystemPeriodDateMonthComponent implements OnInit {
     this.date.setValue(ctrlValue);
     this.dateTimePicker.emit(ctrlValue);
     datepicker.close();
+    this.dataPicker.classList.remove('month');
   }
 
   clickMonth(): void {
-    const dataPicker = this.picker._overlay._overlayContainer.getContainerElement();
-    dataPicker.classList.remove('day');
+    this.dataPicker = this.picker._overlay._overlayContainer.getContainerElement();
+    this.dataPicker.classList.remove('year');
+    this.dataPicker.classList.add('month');
   }
 
 }

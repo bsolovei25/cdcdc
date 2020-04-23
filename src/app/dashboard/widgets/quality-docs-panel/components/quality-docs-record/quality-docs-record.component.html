@@ -1,0 +1,26 @@
+<div class="docs-record-container">
+  <div class="docs-record-container__block-info">
+    <div class="short">{{ data.numberR }}</div>
+    <div class="short">{{ data.rR }}</div>
+    <div class="middle pasport">
+      <div class="pasport__icon">
+        <svg-icon src="assets/icons/widgets/oil-control-all/quality-docs-panel/pdf.svg"
+          [svgStyle]="{ 'width.px':40, 'height.px':40, 'margin-top.px': 5 }"></svg-icon>
+      </div>
+      <div class="pasport__name">
+        {{ data.pasportId }}
+      </div>
+    </div>
+    <div class="middle">{{ data.date }}</div>
+    <div class="middle">{{ data.codeSAP }}</div>
+    <div class="big">
+      <div *ngFor="let i of data.product">
+        {{ i }}
+      </div>
+    </div>
+    <div class="short">{{ data.group }}</div>
+    <div class="middle">{{ data.park }}</div>
+    <div class="middle creator">{{ data.creator }}</div>
+    <div class="middle">{{ data.arm }}</div>
+  </div>
+</div>
