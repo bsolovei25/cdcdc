@@ -222,6 +222,8 @@ import { DocumentCodingComponent } from './widgets/document-coding/document-codi
 import { DocumentCodingTableComponent } from './widgets/document-coding/components/document-coding-table/document-coding-table.component';
 import { DocumentCodingTanksComponent } from './widgets/document-coding/components/document-coding-tanks/document-coding-tanks.component';
 import { DocumentCodingMenuComponent } from './widgets/document-coding/components/document-coding-menu/document-coding-menu.component';
+import { DocumentCodingTableRecordComponent } from './widgets/document-coding/components/document-coding-table-record/document-coding-table-record.component';
+import { DocumentCodingFilterComponent } from './widgets/document-coding/components/document-coding-filter/document-coding-filter.component';
 
 @NgModule({
     declarations: [
@@ -411,6 +413,8 @@ import { DocumentCodingMenuComponent } from './widgets/document-coding/component
         DocumentCodingTableComponent,
         DocumentCodingTanksComponent,
         DocumentCodingMenuComponent,
+        DocumentCodingTableRecordComponent,
+        DocumentCodingFilterComponent,
     ],
     entryComponents: [
         LineChartComponent,
