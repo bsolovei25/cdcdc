@@ -80,7 +80,7 @@
                 cursor: pointer;
                 position: absolute;
                 height: 30px;
-                right: 60px;
+                left: 15px;
                 width: 30px;
                 margin-top: 5px;
             }
@@ -115,8 +115,8 @@
 }
 
 .scrollON {
-    margin-right: -5px !important;
-    width: calc(100% - 5px) !important;
+    margin-right: 0px !important;
+    width: calc(100% - 10px) !important;
 }
 
 .scrollOFF {

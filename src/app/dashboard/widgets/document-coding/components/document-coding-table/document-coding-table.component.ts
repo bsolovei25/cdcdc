@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, Output, EventEmitter, Input } from '@angular/core';
 
 export interface IDocumentCodingTableRecord {
   id: number;
@@ -14,6 +14,8 @@ export interface IDocumentCodingTableRecord {
   styleUrls: ['./document-coding-table.component.scss']
 })
 export class DocumentCodingTableComponent implements OnInit {
+  @Output() public filter: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() public isFilter: boolean;
 
   public data: IDocumentCodingTableRecord[] = [
     {
@@ -85,6 +87,11 @@ export class DocumentCodingTableComponent implements OnInit {
     } else {
       this.activeRecordId = id;
     }
+  }
+
+  openFilter(): void {
+    this.isFilter = true;
+    this.filter.emit(true);
   }
 
 }

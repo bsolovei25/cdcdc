@@ -12,6 +12,8 @@ export class DocumentCodingComponent extends WidgetPlatform implements OnInit, O
   static itemCols = 18;
   static itemRows = 14;
 
+  public isFilter = false;
+
   constructor(
     public widgetService: WidgetService,
     public oilService: DocumentCodingService,
@@ -34,6 +36,14 @@ export class DocumentCodingComponent extends WidgetPlatform implements OnInit, O
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
+  }
+
+  openFilter(event){
+    this.isFilter = event;
+  }
+
+  closeFilter(event){
+    this.isFilter = event;
   }
 
 }

@@ -16,28 +16,30 @@ $container-padding: 5px;
   flex-wrap: wrap;
   padding: $container-padding;
   position: relative;
-  width: calc(100% - 1px - #{$container-padding * 2});
-  border-left: dashed 0.5px var(--color-border-main);
-  border-right: dashed 0.5px var(--color-border-main);
+  width: calc(100% - 2px - #{$container-padding * 2});
+  border-left: dashed 1px var(--color-border-main);
+  border-right: dashed 1px var(--color-border-main);
   overflow: auto;
 }
 
 .block {
   $block-margin: 5px;
-  $bottom-block-size: 120px;
+  $bottom-block-size: 75px;
   position: relative;
   margin: $block-margin;
+  min-width: 1040px;
+
   &_top {
     display: flex;
     width: calc(100% - #{$block-margin * 2});
-    height: calc(100% - #{$bottom-block-size} - #{$block-margin * 6});
+    height: calc(100% - #{$bottom-block-size} - #{$block-margin * 4});
 
-    .left-side{
+    .left-side {
       height: 100%;
       width: 75%;
     }
 
-    .right-side{
+    .right-side {
       height: 100%;
       width: 25%;
     }
@@ -48,17 +50,24 @@ $container-padding: 5px;
   }
 }
 
+.filter {
+  ::ng-deep .container {
+    left: 70px;
+    top: 10%;
+    height: 60%;
+  }
+}
 
 ::-webkit-scrollbar {
   width: 4px;
   height: 4px;
+  margin-left: 50px;
+  margin-right: 50px;
 }
 
 ::-webkit-scrollbar-track:vertical {
   width: 4px;
   height: 4px;
-  margin-top: 5px;
-  margin-bottom: 5px;
   border-radius: 25px;
 }
 
