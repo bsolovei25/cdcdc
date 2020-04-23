@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy, Inject, ViewChild, HostListener } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import { ReportServerConfiguratorService } from '../../services/report-server-configurator.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { SnackBarService } from '../../services/snack-bar.service';
 import { ITreeState, ITreeOptions, TreeDraggedElement, TreeComponent } from 'angular-tree-component';
 import { IReportTemplate, ITreeFolderMap, ITemplate, ISystemOptions, IReportFile, ISystemOptionsTemplate, IFolder, IPostSystemOptionsTemplate } from '../../models/report-server';
 import { Subscription } from 'rxjs';
+import { ReportServerConfiguratorService } from '../../services/widgets/report-server-configurator.service';
 
 
 @Component({
@@ -266,13 +266,14 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             questionText: 'Вы уверены, что хотите удалить файл-шаблон?',
             acceptText: 'Да',
             cancelText: 'Нет',
-            acceptFunction: () => this.reportService.deleteReportTemplate(item.idTemplate).subscribe(ans => {
-                this.isLoading = false;
-                this.getReportFolder();
-            }, (error) => {
-                this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
-                this.isLoading = false;
-            }),
+            acceptFunction: () => this.reportService
+                .deleteReportTemplate(item.idTemplate).subscribe(ans => {
+                    this.isLoading = false;
+                    this.getReportFolder();
+                }, (error) => {
+                    this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+                    this.isLoading = false;
+                }),
             cancelFunction: () => this.reportService.closeAlert(),
         };
         this.reportService.alertWindow$.next(windowsParam);

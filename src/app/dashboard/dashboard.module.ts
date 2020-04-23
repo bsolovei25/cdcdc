@@ -212,6 +212,14 @@ import { ReasonsDeviationsInfoTankComponent } from './widgets/reasons-deviations
 import { ReasonsDeviationsPicTankComponent } from './widgets/reasons-deviations/components/reasons-deviations-pic-tank/reasons-deviations-pic-tank.component';
 import { ReasonsDeviationsTankLevelComponent } from './widgets/reasons-deviations/components/reasons-deviations-tank-level/reasons-deviations-tank-level.component';
 import { ProductionTrendGraphComponent } from './widgets/production-trend/components/production-trend-graph/production-trend-graph.component';
+import { DocumentsScansComponent } from './widgets/documents-scans/documents-scans.component';
+import { DocumentsScansReportComponent } from './widgets/documents-scans/components/documents-scans-report/documents-scans-report.component';
+import { QualityDocsPanelComponent } from './widgets/quality-docs-panel/quality-docs-panel.component';
+import { QualityDocsRecordComponent } from './widgets/quality-docs-panel/components/quality-docs-record/quality-docs-record.component';
+import { DocumentCodingComponent } from './widgets/document-coding/document-coding.component';
+import { DocumentCodingTableComponent } from './widgets/document-coding/components/document-coding-table/document-coding-table.component';
+import { DocumentCodingTanksComponent } from './widgets/document-coding/components/document-coding-tanks/document-coding-tanks.component';
+import { DocumentCodingMenuComponent } from './widgets/document-coding/components/document-coding-menu/document-coding-menu.component';
 
 @NgModule({
     declarations: [
@@ -392,6 +400,14 @@ import { ProductionTrendGraphComponent } from './widgets/production-trend/compon
         ReasonsDeviationsPicTankComponent,
         ReasonsDeviationsTankLevelComponent,
         ProductionTrendGraphComponent,
+        DocumentsScansComponent,
+        DocumentsScansReportComponent,
+        QualityDocsPanelComponent,
+        QualityDocsRecordComponent,
+        DocumentCodingComponent,
+        DocumentCodingTableComponent,
+        DocumentCodingTanksComponent,
+        DocumentCodingMenuComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -452,6 +468,9 @@ import { ProductionTrendGraphComponent } from './widgets/production-trend/compon
         CustomReportPropertiesReferenceComponent,
         TankInformationComponent,
         ReasonsDeviationsComponent,
+        DocumentsScansComponent,
+        QualityDocsPanelComponent,
+        DocumentCodingComponent,
     ],
     exports: [HomeComponent],
     imports: [

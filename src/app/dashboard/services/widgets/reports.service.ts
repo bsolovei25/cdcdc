@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AppConfigService } from '../../services/appConfigService';
+import { AppConfigService } from '../../../services/appConfigService';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
+import { IFolder } from '../../models/report-server';
+import { IFolderReport } from '../../components/report/reports.component';
 
 @Injectable({
     providedIn: 'root',
@@ -15,7 +17,8 @@ export class ReportsService {
         this.restUrl = configService.restUrl;
     }
 
-    public alertWindow$: BehaviorSubject<IAlertWindowModel> = new BehaviorSubject<IAlertWindowModel>(null);
+    public alertWindow$: BehaviorSubject<IAlertWindowModel> =
+        new BehaviorSubject<IAlertWindowModel>(null);
 
     async getReportsTemplate(): Promise<any> {
         try {
@@ -35,6 +38,12 @@ export class ReportsService {
         } catch (error) {
             console.error(error);
         }
+    }
+
+    async getTemplateFolder(): Promise<IFolderReport> {
+        return await this.http
+            .get<IFolderReport>(this.restUrl + '/api/report-templateFolder/all')
+            .toPromise();
     }
 
     async postTemplate(id: number, body): Promise<any> {
@@ -62,7 +71,7 @@ export class ReportsService {
 
     public closeAlert(): void {
         this.alertWindow$.next(null);
-      }
+    }
 
 
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy, HostListener, ViewChild, ElementRef, Input } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { IUser } from '../../../models/events-widget';
-import { TankCalibrationTableService } from '../../../services/tank-calibration-table.service';
+import { TankCalibrationTableService } from '../../../services/widgets/tank-calibration-table.service';
 
 export interface ICalibrationTable {
     uid: string;

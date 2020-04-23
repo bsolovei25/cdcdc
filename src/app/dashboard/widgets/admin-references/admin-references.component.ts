@@ -1,10 +1,10 @@
 import { Component, OnInit, Inject, OnDestroy, ElementRef, ViewChild, HostListener } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { ReferencesService } from '../../services/references.service';
 import { IReferenceTypes, IReferenceColumnsType } from '../../models/references';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { Subscription } from 'rxjs';
+import { ReferencesService } from '../../services/widgets/references.service';
 
 @Component({
     selector: 'evj-admin-references',

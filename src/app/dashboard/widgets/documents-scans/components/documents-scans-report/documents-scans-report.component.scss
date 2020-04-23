@@ -1,0 +1,86 @@
+.report-container {
+  background-color: var(--color-oil-table-ref);
+  border-bottom: 2px solid var(--color-bg-main);
+  width: calc(100% - 5px);
+
+  &__block-info {
+    display: flex;
+    width: 100%;
+    position: relative;
+    height: 45px;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+    line-height: 45px;
+
+    .date {
+      width: 30%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .name {
+      width: calc(70% - 40px);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    //TOOLTIP
+
+    [data-tooltip]::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      width: 100px;
+      left: 0;
+      top: 0;
+      background: var(--color-bg-main);
+      color: #fff;
+      padding: 0.5em;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+      pointer-events: none;
+      opacity: 0;
+      height: 20px;
+      line-height: 20px;
+      transition: 1s;
+    }
+
+    [data-tooltip]:hover::after {
+      opacity: 1;
+      left: -8.5em;
+    }
+  }
+
+  &__button-remove {
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 0px;
+    width: 34px;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url(../../../../../../assets/icons/widgets/oil-control-all/documents-scans/delete_blue.svg);
+
+    &:hover {
+      transition: 1s;
+      background-image: url(../../../../../../assets/icons/widgets/oil-control-all/documents-scans/delete_red.svg);
+    }
+  }
+
+  &:hover {
+    background: var(--color-bg-active);
+    border-radius: 25px;
+    margin: 0 auto;
+    margin-left: 0;
+    transition: 0.8s;
+  }
+}
+
+.block-active {
+  background: var(--color-bg-active);
+  border-radius: 25px;
+  margin: 0 auto;
+  margin-left: 0;
+}
