@@ -53,6 +53,42 @@
   }
 
   &__button-remove {
+    position: absolute;
+    right: 10px;
+    top: 0px;
+  }
+
+  &:hover {
+    background: var(--color-bg-active);
+    border-radius: 25px;
+    margin: 0 auto;
+    margin-left: 0;
+    transition: 0.8s;
+
+    .report-container__button-remove {
+        transition: 0.2s;
+        cursor: pointer;
+        width: 34px;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-image: url(../../../../../../assets/icons/widgets/oil-control-all/documents-scans/delete_blue.svg);
+
+        &:hover {
+          transition: 1s;
+          background-image: url(../../../../../../assets/icons/widgets/oil-control-all/documents-scans/delete_red.svg);
+        }
+    }
+  }
+}
+
+.block-active {
+  background: var(--color-bg-active);
+  border-radius: 25px;
+  margin: 0 auto;
+  margin-left: 0;
+
+  .report-container__button-remove {
     cursor: pointer;
     position: absolute;
     right: 10px;
@@ -68,19 +104,4 @@
       background-image: url(../../../../../../assets/icons/widgets/oil-control-all/documents-scans/delete_red.svg);
     }
   }
-
-  &:hover {
-    background: var(--color-bg-active);
-    border-radius: 25px;
-    margin: 0 auto;
-    margin-left: 0;
-    transition: 0.8s;
-  }
-}
-
-.block-active {
-  background: var(--color-bg-active);
-  border-radius: 25px;
-  margin: 0 auto;
-  margin-left: 0;
 }

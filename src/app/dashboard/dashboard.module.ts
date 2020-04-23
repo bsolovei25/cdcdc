@@ -212,6 +212,8 @@ import { ReasonsDeviationsInfoTankComponent } from './widgets/reasons-deviations
 import { ReasonsDeviationsPicTankComponent } from './widgets/reasons-deviations/components/reasons-deviations-pic-tank/reasons-deviations-pic-tank.component';
 import { ReasonsDeviationsTankLevelComponent } from './widgets/reasons-deviations/components/reasons-deviations-tank-level/reasons-deviations-tank-level.component';
 import { ProductionTrendGraphComponent } from './widgets/production-trend/components/production-trend-graph/production-trend-graph.component';
+import { DocumentViewerComponent } from './widgets/document-viewer/document-viewer.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { DocumentsScansComponent } from './widgets/documents-scans/documents-scans.component';
 import { DocumentsScansReportComponent } from './widgets/documents-scans/components/documents-scans-report/documents-scans-report.component';
 import { QualityDocsPanelComponent } from './widgets/quality-docs-panel/quality-docs-panel.component';
@@ -220,6 +222,8 @@ import { DocumentCodingComponent } from './widgets/document-coding/document-codi
 import { DocumentCodingTableComponent } from './widgets/document-coding/components/document-coding-table/document-coding-table.component';
 import { DocumentCodingTanksComponent } from './widgets/document-coding/components/document-coding-tanks/document-coding-tanks.component';
 import { DocumentCodingMenuComponent } from './widgets/document-coding/components/document-coding-menu/document-coding-menu.component';
+import { DocumentCodingTableRecordComponent } from './widgets/document-coding/components/document-coding-table-record/document-coding-table-record.component';
+import { DocumentCodingFilterComponent } from './widgets/document-coding/components/document-coding-filter/document-coding-filter.component';
 
 @NgModule({
     declarations: [
@@ -400,6 +404,7 @@ import { DocumentCodingMenuComponent } from './widgets/document-coding/component
         ReasonsDeviationsPicTankComponent,
         ReasonsDeviationsTankLevelComponent,
         ProductionTrendGraphComponent,
+        DocumentViewerComponent,
         DocumentsScansComponent,
         DocumentsScansReportComponent,
         QualityDocsPanelComponent,
@@ -408,6 +413,8 @@ import { DocumentCodingMenuComponent } from './widgets/document-coding/component
         DocumentCodingTableComponent,
         DocumentCodingTanksComponent,
         DocumentCodingMenuComponent,
+        DocumentCodingTableRecordComponent,
+        DocumentCodingFilterComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -473,42 +480,43 @@ import { DocumentCodingMenuComponent } from './widgets/document-coding/component
         DocumentCodingComponent,
     ],
     exports: [HomeComponent],
-    imports: [
-        CommonModule,
-        SharedModule,
-        AngularSvgIconModule,
-        DndModule,
-        HttpClientModule,
-        FormsModule,
-        GridsterModule,
-        DashboardRoutingModule,
-        MatSnackBarModule,
-        MatDatepickerModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatNativeDateModule,
-        ScrollingModule,
-        MatSelectModule,
-        ScrollingModule,
-        OldScrollingModule,
-        ReactiveFormsModule,
-        MatCheckboxModule,
-        MatButtonModule,
-        MatExpansionModule,
-        ImageCropperModule,
-        DragDropModule,
-        NgxMatDatetimePickerModule,
-        NgxMatTimepickerModule,
-        NgxMatNativeDateModule,
-        NgxMatMomentModule,
-        OverlayModule,
-        MatDialogModule,
-        MatChipsModule,
-        MatIconModule,
-        MatAutocompleteModule,
-        TreeModule,
-        NgxMaskModule.forChild(),
-    ],
+  imports: [
+    CommonModule,
+    SharedModule,
+    AngularSvgIconModule,
+    DndModule,
+    HttpClientModule,
+    FormsModule,
+    GridsterModule,
+    DashboardRoutingModule,
+    MatSnackBarModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatNativeDateModule,
+    ScrollingModule,
+    MatSelectModule,
+    ScrollingModule,
+    OldScrollingModule,
+    ReactiveFormsModule,
+    MatCheckboxModule,
+    MatButtonModule,
+    MatExpansionModule,
+    ImageCropperModule,
+    DragDropModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule,
+    NgxMatMomentModule,
+    OverlayModule,
+    MatDialogModule,
+    MatChipsModule,
+    MatIconModule,
+    MatAutocompleteModule,
+    TreeModule,
+    NgxMaskModule.forChild(),
+    PdfViewerModule
+  ],
     bootstrap: [],
     providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' },
     { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },

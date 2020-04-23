@@ -12,6 +12,10 @@ export class DocumentCodingComponent extends WidgetPlatform implements OnInit, O
   static itemCols = 18;
   static itemRows = 14;
 
+  public isFilterGroup: boolean = false;
+  public isFilterProduct: boolean = false;
+  public isFilterTanks: boolean = false;
+
   constructor(
     public widgetService: WidgetService,
     public oilService: DocumentCodingService,
@@ -34,6 +38,35 @@ export class DocumentCodingComponent extends WidgetPlatform implements OnInit, O
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
+  }
+
+  openFilterGroup(event: boolean): void {
+    this.isFilterTanks = false;
+    this.isFilterProduct = false;
+    this.isFilterGroup = event;
+  }
+
+  openFilterProduct(event: boolean): void {
+    this.isFilterGroup = false;
+    this.isFilterTanks = false;
+    this.isFilterProduct = event;
+  }
+
+  openFilterTanks(event: boolean): void {
+    this.isFilterGroup = false;
+    this.isFilterProduct = false;
+    this.isFilterTanks = event;
+  }
+
+  closeFilterGroup(event: boolean): void {
+    this.isFilterGroup = event;
+  }
+  closeFilterProduct(event: boolean): void {
+    this.isFilterProduct = event;
+  }
+
+  closeFilterTanks(event: boolean): void {
+    this.isFilterTanks = event;
   }
 
 }
