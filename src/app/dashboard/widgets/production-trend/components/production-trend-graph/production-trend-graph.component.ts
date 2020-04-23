@@ -6,6 +6,8 @@ import {
     OnChanges,
     HostListener,
     Input,
+    Renderer2,
+    OnDestroy,
 } from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
@@ -17,7 +19,7 @@ import { IProductionTrend, ProductionTrendType } from '../../../../models/produc
     templateUrl: './production-trend-graph.component.html',
     styleUrls: ['./production-trend-graph.component.scss'],
 })
-export class ProductionTrendGraphComponent implements OnChanges, AfterViewInit {
+export class ProductionTrendGraphComponent implements OnChanges, AfterViewInit, OnDestroy {
     @Input() private data: IProductionTrend[] = [
         {
             graphType: 'fact',
@@ -96,6 +98,12 @@ export class ProductionTrendGraphComponent implements OnChanges, AfterViewInit {
         fact: '#3fa9f5',
     };
 
+    private readonly dataPickerColors: { [key: string]: string } = {
+        standard: '#00A99D',
+        warning: '#f4a321',
+        danger: '#eb5757',
+    };
+
     private svg = null;
 
     private chartData: { graphType: ProductionTrendType; graph: IChartD3[] }[] = [];
@@ -118,7 +126,9 @@ export class ProductionTrendGraphComponent implements OnChanges, AfterViewInit {
     public sbWidth: number = 20;
     public sbLeft: number = 6;
 
-    constructor() {}
+    private eventListenerFn: () => void = null;
+
+    constructor(private renderer: Renderer2) {}
 
     public ngOnChanges(): void {
         this.findMinMax();
@@ -127,6 +137,7 @@ export class ProductionTrendGraphComponent implements OnChanges, AfterViewInit {
             this.transformData();
             this.drawAxis();
             this.drawGraph();
+            this.drawMouseGroup();
         }
     }
 
@@ -138,6 +149,13 @@ export class ProductionTrendGraphComponent implements OnChanges, AfterViewInit {
         this.transformData();
         this.drawAxis();
         this.drawGraph();
+        this.drawMouseGroup();
+    }
+
+    public ngOnDestroy(): void {
+        if (this.eventListenerFn) {
+            this.eventListenerFn();
+        }
     }
 
     @HostListener('document:resize', ['$event'])
@@ -147,6 +165,7 @@ export class ProductionTrendGraphComponent implements OnChanges, AfterViewInit {
             this.transformData();
             this.drawAxis();
             this.drawGraph();
+            this.drawMouseGroup();
         }
     }
 
@@ -236,6 +255,7 @@ export class ProductionTrendGraphComponent implements OnChanges, AfterViewInit {
 
             this.svg
                 .append('path')
+                .attr('class', `graph-line-${chart.graphType}`)
                 .attr('d', line(chart.graph))
                 .style('fill', 'none')
                 .style('stroke', this.chartStroke[chart.graphType])
@@ -416,5 +436,173 @@ export class ProductionTrendGraphComponent implements OnChanges, AfterViewInit {
                 : d3.timeYear(date) < date
                 ? formatMonth
                 : formatYear)(date);
+    }
+
+    private drawMouseGroup(): void {
+        const height = this.graphMaxY - this.padding.top - this.padding.bottom;
+        const width = this.graphMaxX - this.padding.left - this.padding.right;
+
+        // группа событий мыши
+        const mouseG = this.svg
+            .append('g')
+            .attr('class', 'mouse-over')
+            .attr('transform', `translate(${this.padding.left},${this.padding.top})`)
+            .style('color', this.dataPickerColors.standard);
+
+        // линия курсора
+        mouseG
+            .append('line')
+            .attr('class', 'mouse-line')
+            .attr('y1', 0)
+            .attr('x1', 0)
+            .attr('y2', height)
+            .attr('x2', 0)
+            .style('stroke', 'currentColor')
+            .style('stroke-width', '1px');
+
+        // точка курсора на оси дат
+        mouseG
+            .append('circle')
+            .attr('class', 'mouse-line-circle')
+            .attr('r', '3')
+            .attr('cy', `${height}`)
+            .style('fill', 'currentColor');
+
+        // точки курсора на плашке
+        mouseG
+            .append('circle')
+            .attr('class', 'mouse-line-circle')
+            .attr('r', '4')
+            .attr('cy', 0)
+            .attr('opacity', 1)
+            .style('fill', 'currentColor');
+        mouseG
+            .append('circle')
+            .attr('class', 'mouse-line-circle')
+            .attr('r', '5')
+            .attr('cy', 0)
+            .attr('opacity', 0.6)
+            .style('fill', 'currentColor');
+        mouseG
+            .append('circle')
+            .attr('class', 'mouse-line-circle')
+            .attr('r', '8')
+            .attr('cy', 0)
+            .attr('opacity', 0.3)
+            .style('fill', 'currentColor');
+        mouseG
+            .append('circle')
+            .attr('class', 'mouse-line-circle')
+            .attr('r', '12')
+            .attr('cy', 0)
+            .attr('opacity', 0.1)
+            .style('fill', 'currentColor');
+
+        // точка курсора на линии плановых значений
+        mouseG
+            .append('circle')
+            .attr('class', 'mouse-per-line')
+            .attr('r', '4')
+            .style('fill', 'currentColor')
+            .style('stroke-width', '1px');
+
+        // область для прослушивания событий мыши
+        const [[mouseListenArea]] = mouseG
+            .append('svg:rect')
+            .attr('width', width)
+            .attr('height', height)
+            .attr('fill', 'none')
+            .attr('pointer-events', 'all')._groups;
+
+        this.eventListenerFn = this.listenMouseEvents(mouseListenArea);
+    }
+
+    private listenMouseEvents(element: HTMLElement): () => void {
+        const eventListeners: (() => void)[] = [];
+
+        eventListeners.push(
+            this.renderer.listen(element, 'mouseout', () => {
+                this.svg.select('.mouse-over').style('opacity', 0);
+            }),
+            this.renderer.listen(element, 'mouseover', () => {
+                this.svg.select('.mouse-over').style('opacity', 1);
+            }),
+            this.renderer.listen(element, 'mousemove', (event: MouseEvent) => {
+                const rect: DOMRect = element.getBoundingClientRect();
+                const x = event.clientX - rect.left;
+
+                let factLine: SVGGeometryElement = null;
+                [[factLine]] = this.svg.select('.graph-line-fact')._groups;
+
+                let beginFact: number = 0;
+                let endFact: number = factLine.getTotalLength();
+                let targetFact: number = null;
+                let posFact: SVGPoint = null;
+
+                while (true) {
+                    targetFact = Math.floor((beginFact + endFact) / 2);
+                    posFact = factLine.getPointAtLength(targetFact);
+                    if (
+                        (targetFact === endFact || targetFact === beginFact) &&
+                        posFact.x !== x + this.padding.left
+                    ) {
+                        break;
+                    }
+                    if (posFact.x > x + this.padding.left) {
+                        endFact = targetFact;
+                    } else if (posFact.x < x + this.padding.left) {
+                        beginFact = targetFact;
+                    } else {
+                        break;
+                    }
+                }
+
+                let planLine: SVGGeometryElement = null;
+                [[planLine]] = this.svg.select('.graph-line-plan')._groups;
+
+                let beginPlan: number = 0;
+                let endPlan: number = planLine.getTotalLength();
+                let targetPlan: number = null;
+                let posPlan: SVGPoint = null;
+
+                while (true) {
+                    targetPlan = Math.floor((beginPlan + endPlan) / 2);
+                    posPlan = planLine.getPointAtLength(targetPlan);
+                    if (
+                        (targetPlan === endPlan || targetPlan === beginPlan) &&
+                        posPlan.x !== x + this.padding.left
+                    ) {
+                        break;
+                    }
+                    if (posPlan.x > x + this.padding.left) {
+                        endPlan = targetPlan;
+                    } else if (posPlan.x < x + this.padding.left) {
+                        beginPlan = targetPlan;
+                    } else {
+                        break;
+                    }
+                }
+
+                this.svg
+                    .select('.mouse-line')
+                    .attr('x1', x)
+                    .attr('x2', x);
+
+                this.svg.selectAll('.mouse-line-circle').attr('cx', x);
+
+                this.svg
+                    .select('.mouse-per-line')
+                    .attr('cx', x)
+                    .attr('cy', posFact.y - this.padding.top);
+
+                if (posFact.y < posPlan.y) {
+                    this.svg.select('g.mouse-over').style('color', this.dataPickerColors.danger);
+                } else {
+                    this.svg.select('g.mouse-over').style('color', this.dataPickerColors.standard);
+                }
+            })
+        );
+
+        return () => eventListeners.forEach((item) => item());
     }
 }
