@@ -58,6 +58,10 @@
       width: 204px;
 
       padding-right: 10px;
+
+      &__icon {
+        margin-top: -10px;
+      }
       &__title {
         font-size: 12px;
         color: var(--color-text-sub);
@@ -85,6 +89,20 @@
         margin-right: 20px;
       }
     }
+  }
+}
+
+.day {
+  ::ng-deep {
+      .mat-form-field-infix {
+          width: 100px;
+      }
+      input {
+          border-bottom: 0;
+      }
+      .mat-icon {
+          margin-top: -10px;
+      }
   }
 }
 

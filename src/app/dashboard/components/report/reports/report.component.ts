@@ -144,7 +144,7 @@ export class ReportComponent implements OnInit {
         try {
             this.template = await this.reportsService.getTemplate(id);
             this.periodTime = {
-                periodType: this.template.periodType,
+                periodType: 'timePeriod',
                 startDateTime: new Date()
             };
             this.template.customOptions.forEach(option => {

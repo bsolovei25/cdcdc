@@ -2,19 +2,14 @@
     ::ng-deep {
         .mat-form-field-infix {
             width: 100px;
-            border-bottom: 1px solid white;
         }
-
         .mat-form-field-underline {
-            display: none;
+            background-color: var(--color-border-main-transparrent);
         }
-
-        input{
+        input {
             border-bottom: 0;
         }
-
-        
-        .mat-icon{
+        .mat-icon {
             margin-top: -10px;
         }
     }
