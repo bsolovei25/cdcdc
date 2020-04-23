@@ -1,1 +1,46 @@
-<p>document-coding-menu works!</p>
+<div class="coding-menu">
+    <div class="coding-menu__file">
+        <div class="title">Исходный файл</div>
+        <div class="file-block">
+            <div class="file-block__title">Название</div>
+            <div class="file-block__name"></div>
+        </div>
+    </div>
+    <div class="coding-menu__new-file">
+        <div class="title">Формирование нового имени файла</div>
+        <div class="new-file-block">
+            <div class="new-file-block__pasport">
+                <div class="left-side">
+                    <div class="left-side__title">Паспорт</div>
+                    <div class="left-side__value">34</div>
+                </div>
+                <div class="right-side">
+                    <div class="right-side__top-button"></div>
+                    <div class="right-side__bottom-button"></div>
+                </div>
+            </div>
+            <div class="new-file-block__product">3242143</div>
+            <div class="new-file-block__tank"> 546</div>
+            <div class="new-file-block__data">
+                <mat-form-field>
+                    <mat-label>Дата</mat-label>
+                    <input matInput [matDatepicker]="picker" [value]="dateNow">
+                    <mat-datepicker-toggle matSuffix [for]="picker">
+                        <mat-icon matDatepickerToggleIcon>
+                            <svg-icon src="./assets/icons/widgets/reports/calend.svg"
+                                [svgStyle]="{ 'width.px':25, 'height.px':25}">
+                            </svg-icon>
+                        </mat-icon>
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="coding-menu__save-button">
+        <div class="save-block">
+            <div class="save-block__name">СОХРАНИТЬ В БДДК</div>
+            <div class="save-block__button"></div>
+        </div>
+    </div>
+</div>
