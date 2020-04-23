@@ -17,9 +17,17 @@
     </div>
     <div class="coding-table__bottom">
         <div class="bottom-block">
-            <div class="edit-button" (click)="openFilter()">
-                <svg-icon *ngIf="isFilter" src="./assets/icons/widgets/oil-control-all/document-coding/filter-blue.svg"></svg-icon>
-                <svg-icon *ngIf="!isFilter" src="./assets/icons/widgets/oil-control-all/document-coding/filter.svg"></svg-icon>
+            <div class="edit-button" (click)="openFilter()" [class.active-filter]="isFilter">
+                <div class="edit-button__icon">
+                    <svg-icon *ngIf="isFilter" src="./assets/icons/widgets/oil-control-all/document-coding/filter-blue.svg"></svg-icon>
+                    <svg-icon *ngIf="!isFilter" src="./assets/icons/widgets/oil-control-all/document-coding/filter.svg"></svg-icon>
+                </div>
+                <div class="edit-button__text">
+                    <div class="name">Все группы</div>
+                    <div class="icon">
+                        <svg-icon src="./assets/icons/widgets/oil-control-all/document-coding/arrow.svg"></svg-icon>
+                    </div>
+                </div>
             </div>
             <div class="filter-button">
                 <svg-icon src="./assets/icons/widgets/oil-control-all/quality-docs-panel/filter.svg"></svg-icon>

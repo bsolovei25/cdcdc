@@ -129,7 +129,7 @@
             background: var(--color-oil-menu);
             border-radius: 60px;
             align-items: center;
-            font-size: 14px;
+            font-size: 12px;
 
             &__name {
                 margin-left: 20px;
@@ -163,13 +163,14 @@
             }
 
             &:hover {
-                background: rgb(26,69,109);
+                background: var(--color-oil-button-hover);
+                transition: 0.8ms;
     
                 .save-block__button {
                     .outer {
-                        background: rgb(21,72,119);
+                        background: var(--color-oil-button-hover-outer);
                         .inner {
-                            background: rgb(17,75,128);
+                            background:var(--color-oil-button-hover-inner);
                         }
                     }
                 }
