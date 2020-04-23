@@ -13,7 +13,6 @@ interface IUnit {
   styleUrls: ['./production-trend.component.scss']
 })
 export class ProductionTrendComponent extends WidgetPlatform implements OnInit, OnDestroy {
-// export class ProductionTrendComponent {
 
     public static itemCols: number = 20;
     public static itemRows: number = 16;
