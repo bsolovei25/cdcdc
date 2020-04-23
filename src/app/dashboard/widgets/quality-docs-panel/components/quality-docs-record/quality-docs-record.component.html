@@ -22,5 +22,6 @@
     <div class="middle">{{ data.park }}</div>
     <div class="middle creator">{{ data.creator }}</div>
     <div class="middle">{{ data.arm }}</div>
+    <div class="key" data-tooltip="Заблокировать" (click)="blocked()" [class.key-blocked]="data.blocked"></div>
   </div>
 </div>

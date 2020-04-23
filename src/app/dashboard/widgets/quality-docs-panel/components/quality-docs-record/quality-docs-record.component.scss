@@ -26,28 +26,65 @@
     }
 
     .big {
-      width: 22%;
+      width: 20%;
       line-height: 25px;
     }
 
-    .pasport{
+    .key {
+      width: 2%;
+      position: absolute;
+      right: 10px;
+      top: 0px;
+    }
+
+    .key-blocked{
+      width: 2%;
+      position: absolute;
+      right: 10px;
+      top: 0px;
+
+    }
+
+    .pasport {
       display: flex;
 
-      &__icon{
+      &__icon {
         width: 50%;
       }
 
-      &__name{
+      &__name {
         width: 50%;
       }
     }
 
-    .creator{
+    .creator {
       text-align: left;
     }
 
-  }
+    //TOOLTIP
 
+    [data-tooltip]::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      width: 100px;
+      left: 0;
+      top: 30%;
+      background: var(--color-bg-main);
+      color: #fff;
+      padding: 0.5em;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+      pointer-events: none;
+      opacity: 0;
+      height: 20px;
+      line-height: 20px;
+      transition: 0.5s;
+    }
+
+    [data-tooltip]:hover::after {
+      opacity: 1;
+      left: -11.5em;
+    }
+  }
 
   &:hover {
     background: var(--color-bg-active);
@@ -55,6 +92,41 @@
     margin: 0 auto;
     margin-left: 0;
     transition: 0.8s;
+
+    .docs-record-container__block-info {
+      .key {
+        cursor: pointer;
+        width: 15px;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-image: url(../../../../../../assets/icons/widgets/oil-control-all/quality-docs-panel/key-open.svg);
+  
+        &:hover {
+          width: 15px;
+          height: 100%;
+          transition: 1s;
+          background-image: url(../../../../../../assets/icons/widgets/oil-control-all/quality-docs-panel/key-open-blue.svg);
+        }
+      }
+
+      .key-blocked{
+        cursor: pointer;
+        width: 10px;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-image: url(../../../../../../assets/icons/widgets/oil-control-all/quality-docs-panel/key-close.svg);
+  
+        &:hover {
+          width: 10px;
+          height: 100%;
+          transition: 0.5s;
+          background-image: url(../../../../../../assets/icons/widgets/oil-control-all/quality-docs-panel/key-close-blue.svg);
+        }
+     
+      }
+    }
   }
 }
 

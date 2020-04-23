@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IQualityDocsRecord } from '../../quality-docs-panel.component';
+import { ItemSizeAverager } from '@angular/cdk-experimental/scrolling';
 
 @Component({
   selector: 'evj-quality-docs-record',
@@ -12,6 +13,10 @@ export class QualityDocsRecordComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  blocked(): void {
+    this.data.blocked = !this.data.blocked;
   }
 
 }
