@@ -148,10 +148,10 @@
                     position: absolute;
                     right: 0;
                     border-radius: 50%;
-                    background: rgb(3, 39, 77);
+                    background: var(--color-oil-button-outer);
                     .inner {
                         position: absolute;
-                        background: rgb(1, 44, 88);
+                        background: var(--color-oil-button-inner);
                         height: 80%;
                         width: 80%;
                         top: 5px;

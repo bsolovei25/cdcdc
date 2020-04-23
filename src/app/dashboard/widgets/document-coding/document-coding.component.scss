@@ -67,7 +67,6 @@ $container-padding: 5px;
 }
 
 
-
 ::-webkit-scrollbar {
   width: 4px;
   height: 4px;
@@ -86,10 +85,6 @@ $container-padding: 5px;
   border-radius: 25px;
 }
 
-:hover::-webkit-scrollbar-track-piece {
-  //  border: solid 1px var(--color-border-active);
-}
-
 ::-webkit-scrollbar-thumb {
   width: 10px;
   border-radius: 25px;
@@ -100,7 +95,6 @@ $container-padding: 5px;
   border-radius: 25px;
 }
 ::-webkit-scrollbar-track-piece {
-  //  border: solid 1px var(--color-border-main);
   border-radius: 25px;
 }
 
