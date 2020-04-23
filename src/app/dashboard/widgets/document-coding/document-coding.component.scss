@@ -50,13 +50,23 @@ $container-padding: 5px;
   }
 }
 
-.filter {
+.filterGroup {
   ::ng-deep .container {
     left: 70px;
     top: 10%;
     height: 60%;
   }
 }
+
+.filterProduct {
+  ::ng-deep .container {
+    left: 370px;
+    top: 10%;
+    height: 60%;
+  }
+}
+
+
 
 ::-webkit-scrollbar {
   width: 4px;

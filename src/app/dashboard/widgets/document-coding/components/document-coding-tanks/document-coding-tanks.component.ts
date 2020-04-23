@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, Output, Input, EventEmitter } from '@angular/core';
 
 export interface IDocumentCodingTanks {
   id: number;
@@ -11,6 +11,8 @@ export interface IDocumentCodingTanks {
   styleUrls: ['./document-coding-tanks.component.scss']
 })
 export class DocumentCodingTanksComponent implements OnInit {
+  @Output() public filterTanks: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() public isFilterTanks: boolean;
 
   public data: IDocumentCodingTanks[] = [
     {
@@ -75,6 +77,11 @@ export class DocumentCodingTanksComponent implements OnInit {
     } else {
       this.activeRecordId = id;
     }
+  }
+
+  openFilterTanks() {
+    this.isFilterTanks = true;
+    this.filterTanks.emit(true);
   }
 
 }

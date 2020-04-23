@@ -14,8 +14,10 @@ export interface IDocumentCodingTableRecord {
   styleUrls: ['./document-coding-table.component.scss']
 })
 export class DocumentCodingTableComponent implements OnInit {
-  @Output() public filter: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Input() public isFilter: boolean;
+  @Output() public filterGroup: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() public filterProduct: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() public isFilterGroup: boolean;
+  @Input() public isFilterProduct: boolean;
 
   public data: IDocumentCodingTableRecord[] = [
     {
@@ -89,9 +91,14 @@ export class DocumentCodingTableComponent implements OnInit {
     }
   }
 
-  openFilter(): void {
-    this.isFilter = true;
-    this.filter.emit(true);
+  openFilterGroup(): void {
+    this.isFilterGroup = true;
+    this.filterGroup.emit(true);
+  }
+
+  openFilterProduct(): void {
+    this.isFilterProduct = true;
+    this.filterProduct.emit(true);
   }
 
 }

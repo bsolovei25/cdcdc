@@ -125,7 +125,7 @@
             }
 
             .active-filter {
-                border: 1px solid;
+                border: 1px solid !important;
                 border-image: linear-gradient(
                     to left,
                     rgba(107, 166, 241, 0.7) 2%,
@@ -137,7 +137,35 @@
                     rgba(107, 166, 241, 0.05) 63%,
                     rgba(107, 166, 241, 0.01) 79%,
                     rgba(107, 166, 241, 0) 102%
-                );
+                ) !important;
+                border-image-slice: 1 !important;
+                border-right: none !important;
+
+                &:after {
+                    content: "";
+                    position: absolute;
+                    height: 30px;
+                    width: 14px;
+                    top: -1px;
+                    right: -15px;
+                    border: 1px solid var(--color-active) !important;
+                    border-left: none !important;
+                    border-top-right-radius: 25px;
+                    border-bottom-right-radius: 25px;
+                }
+            }
+
+            .filter-button {
+                cursor: pointer;
+                position: absolute;
+                height: 30px;
+                left: 200px;
+                width: 160px;
+                display: flex;
+                margin-top: 5px;
+
+                border: 1px solid;
+                border-image: linear-gradient(90deg, transparent 10%, var(--color-text-main) 100%);
                 border-image-slice: 1;
                 border-right: none;
 
@@ -148,20 +176,31 @@
                     width: 14px;
                     top: -1px;
                     right: -15px;
-                    border: 1px solid var(--color-active);
+                    border: 1px solid var(--color-text-main);
                     border-left: none;
                     border-top-right-radius: 25px;
                     border-bottom-right-radius: 25px;
                 }
-            }
 
-            .filter-button {
-                cursor: pointer;
-                position: absolute;
-                height: 30px;
-                right: 15px;
-                width: 30px;
-                margin-top: 5px;
+                &__icon {
+                    width: 30px;
+                }
+
+                &__text {
+                    display: flex;
+                    width: calc(100% - 35px);
+                    justify-content: space-between;
+                    align-items: center;
+                    font-size: 12px;
+
+                    .icon {
+                        width: 10px;
+                    }
+
+                    .name {
+                        margin-left: 10px;
+                    }
+                }
             }
         }
     }
