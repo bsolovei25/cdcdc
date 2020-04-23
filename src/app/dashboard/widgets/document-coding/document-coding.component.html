@@ -4,7 +4,7 @@
 <ng-container *ngIf="!isMock">
     <div class="container">
         <evj-widget-header [title]="widgetTitle" [units]="widgetUnits" [code]="widgetCode" [id]="widgetId"
-            [uniqId]="widgetUniqId" [widgetType]="widgetType" [select]="allUnits"></evj-widget-header>
+            [uniqId]="widgetUniqId" [widgetType]="widgetType"></evj-widget-header>
         <evj-frame-top></evj-frame-top>
         <div class="body-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
             <evj-alert-window [info]="oilService.alertWindow$ | async"></evj-alert-window>
