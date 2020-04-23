@@ -116,6 +116,8 @@ export class ProductionTrendGraphComponent implements OnChanges, AfterViewInit, 
     private dataMax: number = null;
     private dataMin: number = null;
 
+    private scaleFuncs: { x: any; y: any } = { x: null, y: null };
+
     private readonly padding: { [key: string]: number } = {
         top: 20,
         right: 20,
@@ -212,25 +214,25 @@ export class ProductionTrendGraphComponent implements OnChanges, AfterViewInit, 
     private transformOneChartData(chart: IProductionTrend): void {
         const domainDates = d3.extent(chart.graph, (item: IChartMini) => item.timestamp);
         const rangeX = [this.padding.left, this.graphMaxX - this.padding.right];
-        const time = d3
+        this.scaleFuncs.x = d3
             .scaleTime()
             .domain(domainDates)
             .rangeRound(rangeX);
 
         const domainValues = [this.dataMax, this.dataMin];
         const rangeY = [this.padding.top, this.graphMaxY - this.padding.bottom];
-        const val = d3
+        this.scaleFuncs.y = d3
             .scaleLinear()
             .domain(domainValues)
             .range(rangeY);
 
         this.axis.axisX = d3
-            .axisBottom(time)
+            .axisBottom(this.scaleFuncs.x)
             .ticks(d3.timeDay.every(1))
             .tickFormat(this.dateFormatLocale())
             .tickSizeOuter(0);
         this.axis.axisY = d3
-            .axisLeft(val)
+            .axisLeft(this.scaleFuncs.y)
             .ticks(10)
             .tickSize(0);
 
@@ -240,7 +242,10 @@ export class ProductionTrendGraphComponent implements OnChanges, AfterViewInit, 
         };
 
         chart.graph.forEach((item) => {
-            chartData.graph.push({ x: time(item.timestamp), y: val(item.value) });
+            chartData.graph.push({
+                x: this.scaleFuncs.x(item.timestamp),
+                y: this.scaleFuncs.y(item.value),
+            });
         });
 
         this.chartData.push(chartData);
@@ -447,6 +452,7 @@ export class ProductionTrendGraphComponent implements OnChanges, AfterViewInit, 
             .append('g')
             .attr('class', 'mouse-over')
             .attr('transform', `translate(${this.padding.left},${this.padding.top})`)
+            .attr('opacity', 0)
             .style('color', this.dataPickerColors.standard);
 
         // линия курсора
@@ -506,6 +512,8 @@ export class ProductionTrendGraphComponent implements OnChanges, AfterViewInit, 
             .style('fill', 'currentColor')
             .style('stroke-width', '1px');
 
+        this.drawMouseInfoGroup();
+
         // область для прослушивания событий мыши
         const [[mouseListenArea]] = mouseG
             .append('svg:rect')
@@ -515,6 +523,145 @@ export class ProductionTrendGraphComponent implements OnChanges, AfterViewInit, 
             .attr('pointer-events', 'all')._groups;
 
         this.eventListenerFn = this.listenMouseEvents(mouseListenArea);
+    }
+
+    private drawMouseInfoGroup(): void {
+        const infoG = this.svg
+            .select('g.mouse-over')
+            .append('g')
+            .attr('class', 'mouse-info');
+
+        // отрисовка левой части плашки
+        infoG
+            .append('line')
+            .attr('class', 'line-left-horizontal')
+            .attr('x1', 0)
+            .attr('y1', -10)
+            .attr('x2', 0)
+            .attr('y2', -10)
+            .attr('stroke-width', 1)
+            .attr('stroke', 'currentColor');
+
+        infoG
+            .append('line')
+            .attr('class', 'line-left-horizontal')
+            .attr('x1', 0)
+            .attr('y1', 10)
+            .attr('x2', 0)
+            .attr('y2', 10)
+            .attr('stroke-width', 1)
+            .attr('stroke', 'currentColor');
+
+        infoG
+            .append('line')
+            .attr('class', 'line-left-vertical')
+            .attr('x1', 0)
+            .attr('y1', -8)
+            .attr('x2', 0)
+            .attr('y2', 8)
+            .attr('stroke-width', 1)
+            .attr('stroke', 'currentColor');
+
+        infoG
+            .append('line')
+            .attr('class', 'line-left-incline')
+            .attr('x1', 0)
+            .attr('y1', 10)
+            .attr('x2', 0)
+            .attr('y2', 8)
+            .attr('stroke-width', 1)
+            .attr('stroke', 'currentColor');
+
+        infoG
+            .append('line')
+            .attr('class', 'line-left-incline')
+            .attr('x1', 0)
+            .attr('y1', -10)
+            .attr('x2', 0)
+            .attr('y2', -8)
+            .attr('stroke-width', 1)
+            .attr('stroke', 'currentColor');
+
+        // отрисовка правой части плашки
+        infoG
+            .append('line')
+            .attr('class', 'line-right-horizontal')
+            .attr('x1', 0)
+            .attr('y1', -10)
+            .attr('x2', 0)
+            .attr('y2', -10)
+            .attr('stroke-width', 1)
+            .attr('stroke', 'currentColor');
+
+        infoG
+            .append('line')
+            .attr('class', 'line-right-horizontal')
+            .attr('x1', 0)
+            .attr('y1', 10)
+            .attr('x2', 0)
+            .attr('y2', 10)
+            .attr('stroke-width', 1)
+            .attr('stroke', 'currentColor');
+
+        infoG
+            .append('line')
+            .attr('class', 'line-right-vertical')
+            .attr('x1', 0)
+            .attr('y1', -8)
+            .attr('x2', 0)
+            .attr('y2', 8)
+            .attr('stroke-width', 1)
+            .attr('stroke', 'currentColor');
+
+        infoG
+            .append('line')
+            .attr('class', 'line-right-incline')
+            .attr('x1', 0)
+            .attr('y1', 10)
+            .attr('x2', 0)
+            .attr('y2', 8)
+            .attr('stroke-width', 1)
+            .attr('stroke', 'currentColor');
+
+        infoG
+            .append('line')
+            .attr('class', 'line-right-incline')
+            .attr('x1', 0)
+            .attr('y1', -10)
+            .attr('x2', 0)
+            .attr('y2', -8)
+            .attr('stroke-width', 1)
+            .attr('stroke', 'currentColor');
+
+        // значение на кривой факт
+        infoG
+            .append('text')
+            .attr('text-anchor', 'end')
+            .attr('class', 'mouse-graph-value')
+            .attr('x', 0)
+            .attr('y', 5)
+            .style('font-size', '13')
+            .style('fill', 'white');
+
+        // отклонение от плана
+        infoG
+            .append('text')
+            .attr('text-anchor', 'start')
+            .attr('class', 'mouse-graph-deviation')
+            .attr('x', 0)
+            .attr('y', 5)
+            .style('font-size', '13')
+            .style('fill', 'currentColor');
+
+        // текущая дата
+        infoG
+            .append('text')
+            .attr('text-anchor', 'middle')
+            .attr('class', 'mouse-graph-date')
+            .attr('x', 0)
+            .attr('y', -14)
+            .style('font-size', '11')
+            .style('fill', 'white');
     }
 
     private listenMouseEvents(element: HTMLElement): () => void {
@@ -594,6 +741,60 @@ export class ProductionTrendGraphComponent implements OnChanges, AfterViewInit, 
                     .select('.mouse-per-line')
                     .attr('cx', x)
                     .attr('cy', posFact.y - this.padding.top);
+
+                const infoFramePaddings = {
+                    near: 20,
+                    nearText: 15,
+                    longerAngle: 58,
+                    longer: 60,
+                };
+
+                this.svg
+                    .selectAll('g.mouse-info .line-left-horizontal')
+                    .attr('x1', x - infoFramePaddings.longerAngle)
+                    .attr('x2', x - infoFramePaddings.near);
+                this.svg
+                    .selectAll('g.mouse-info .line-left-vertical')
+                    .attr('x1', x - infoFramePaddings.longer)
+                    .attr('x2', x - infoFramePaddings.longer);
+                this.svg
+                    .selectAll('g.mouse-info .line-right-horizontal')
+                    .attr('x1', x + infoFramePaddings.longerAngle)
+                    .attr('x2', x + infoFramePaddings.near);
+                this.svg
+                    .selectAll('g.mouse-info .line-right-vertical')
+                    .attr('x1', x + infoFramePaddings.longer)
+                    .attr('x2', x + infoFramePaddings.longer);
+                this.svg
+                    .selectAll('g.mouse-info .line-right-incline')
+                    .attr('x1', x + infoFramePaddings.longerAngle)
+                    .attr('x2', x + infoFramePaddings.longer);
+                this.svg
+                    .selectAll('g.mouse-info .line-left-incline')
+                    .attr('x1', x - infoFramePaddings.longerAngle)
+                    .attr('x2', x - infoFramePaddings.longer);
+
+                this.svg
+                    .select('g.mouse-info .mouse-graph-value')
+                    .attr('x', x - infoFramePaddings.nearText)
+                    .text(this.scaleFuncs.y.invert(posFact.y).toFixed(0));
+
+                this.svg
+                    .select('g.mouse-info .mouse-graph-deviation')
+                    .attr('x', x + infoFramePaddings.nearText)
+                    .text(
+                        (
+                            this.scaleFuncs.y.invert(posFact.y) -
+                            this.scaleFuncs.y.invert(posPlan.y)
+                        ).toFixed(0)
+                    );
+
+                const formatDate = d3.timeFormat('%d.%m.%Y | %H:%M:%S');
+
+                this.svg
+                    .select('g.mouse-info .mouse-graph-date')
+                    .attr('x', x)
+                    .text(formatDate(this.scaleFuncs.x.invert(posFact.x)));
 
                 if (posFact.y < posPlan.y) {
                     this.svg.select('g.mouse-over').style('color', this.dataPickerColors.danger);
