@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input, OnChanges, ChangeDetectorRef } from '@angular/core';
-import { ReportsService } from 'src/app/dashboard/services/reports.service';
+import { ReportsService } from '../../../../services/widgets/reports.service';
 
 @Component({
   selector: 'evj-necessary-param',

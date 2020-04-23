@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EventsWorkspaceService } from '../../../services/events-workspace.service';
+import { EventsWorkspaceService } from '../../../services/widgets/events-workspace.service';
 
 @Component({
     selector: 'evj-smotr-event',

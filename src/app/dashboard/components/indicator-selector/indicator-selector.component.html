@@ -12,9 +12,9 @@
   <div class="dropdown-container" [class.dropdown-container_active]="isShowScreens">
     <div class="dropdown-component create-screen">
       <div class="dropdown-component_search">
-        <evj-input
+<!--        ngIf для затирания строки и переоткрытия компонента-->
+        <evj-input *ngIf="isShowScreens"
           [placeholder]="'Поиск экрана'"
-          [value]=""
           [iconSrc]="'assets/icons/search-icon.svg'"
           (inputedValue)="screensFilter($event)"
         ></evj-input>
