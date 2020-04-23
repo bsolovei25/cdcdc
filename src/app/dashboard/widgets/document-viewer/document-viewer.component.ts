@@ -7,14 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DocumentViewerComponent implements OnInit {
 
-    // public readonly src: string = 'https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf';
-    public readonly src: string = 'https://cloud.mail.ru/public/NAzt/FJpjdhFpZ/3%20%D1%81%D0%B5%D0%BC%D0%B5%D1%81%D1%82%D1%80/%D0%9F%D0%BE%D0%BB%D0%B8%D1%82%D0%BE%D0%BB%D0%BE%D0%B3%D0%B8%D1%8F/Politologia_Albom_skhem_Makarenkov_E_V_Sushkov.pdf';
+    public src: string = 'https://vk.com/away.php?to=https%3A%2F%2Fcloud.mail.ru%2Fpublic%2FNAzt%2FFJpjdhFpZ%2F3%2520%25D1%2581%25D0%25B5%25D0%25BC%25D0%25B5%25D1%2581%25D1%2582%25D1%2580%2F%25D0%259F%25D0%25BE%25D0%25BB%25D0%25B8%25D1%2582%25D0%25BE%25D0%25BB%25D0%25BE%25D0%25B3%25D0%25B8%25D1%258F%2FPolitologia_Albom_skhem_Makarenkov_E_V_Sushkov.pdf&cc_key=';
     public page: number = 2;
     public totalPages: number;
 
     constructor() { }
 
     ngOnInit(): void {
+        setTimeout(() => this.src = 'https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf', 5000);
     }
 
     public afterLoadComplete(pdfData: any): void {
