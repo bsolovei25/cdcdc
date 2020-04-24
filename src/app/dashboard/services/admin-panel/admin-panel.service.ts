@@ -227,9 +227,15 @@ export class AdminPanelService {
     //#endregion
 
     //#region LDAP
-    public getAllLdapUsers(): Observable<IUserLdapDto[]> {
+    public getAllLdapUsers(
+        login: string,
+        skip: number = 0,
+        take: number = 50
+    ): Observable<IUserLdapDto[]> {
         const url: string = `${this.restUrl}/ldap/users`;
-        return this.http.get<IUserLdapDto[]>(url);
+        return this.http.get<IUserLdapDto[]>(url, {
+            params: { login, skip: skip.toString(), take: take.toString() },
+        });
     }
 
     public getLdapUser(worker: IUserLdap): Observable<IUserLdapDto> {
