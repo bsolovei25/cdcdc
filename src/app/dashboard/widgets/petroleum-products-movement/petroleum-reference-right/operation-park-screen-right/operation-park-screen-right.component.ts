@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { PetroleumScreenService } from 'src/app/dashboard/services/petroleum-screen.service';
+import { PetroleumScreenService } from 'src/app/dashboard/services/widgets/petroleum-screen.service';
 
 @Component({
     selector: 'evj-operation-park-screen-right',

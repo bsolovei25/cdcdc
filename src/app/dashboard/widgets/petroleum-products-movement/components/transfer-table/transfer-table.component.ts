@@ -2,7 +2,7 @@ import { Component, Input, OnInit, Output } from '@angular/core';
 import { IUdTableDict } from '../../petroleum-reference/petroleum-reference.component';
 import { ITransfer } from '../../../../models/petroleum-products-movement.model';
 import { IFilterSetting } from '../filter-popup/filter-popup.component';
-import { PetroleumScreenService } from '../../../../services/petroleum-screen.service';
+import { PetroleumScreenService } from '../../../../services/widgets/petroleum-screen.service';
 
 @Component({
   selector: 'evj-transfer-table',

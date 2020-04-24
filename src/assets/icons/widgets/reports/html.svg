@@ -1,1 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.18 42"><defs><style>.cls-1432423,.cls-3,.cls-4{fill:#383a46;}.cls-1432423{opacity:0.6;}.cls-2{fill:#323346;}.cls-3{opacity:0.8;}.cls-5{fill:#323946;}.cls-6{fill:#642a5c;}.cls-14323{fill:#642a81;}.cls-8{fill:#e9ffff;}</style></defs><title>html</title><g id="Слой_2" data-name="Слой 2"><g id="Слой_1-2" data-name="Слой 1"><path class="cls-1432423" d="M34.63,42H3.25V2.55H27.4l7.23,7.22Z"/><path class="cls-2" d="M34.63,12.65H24.53V2.55h2.88l7.22,7.22Z"/><path class="cls-3" d="M35.9,40.73H4.52V1.27H28.68L35.9,8.5Z"/><path class="cls-2" d="M35.9,11.37H25.8V1.27h2.88L35.9,8.49Z"/><path class="cls-4" d="M37.18,39.45H5.79V0H30l7.23,7.23Z"/><path class="cls-5" d="M37.18,10.1H27.08V0H30l7.22,7.22Z"/><polygon class="cls-6" points="0 21.13 3.25 28.82 3.25 19.69 0 19.61 0 21.13"/><rect class="cls-14323" y="12.12" width="25.45" height="10.82" rx="1.73"/><path class="cls-8" d="M6.45,20.77H5.59V17.59h-3v3.18H1.74V14.28H2.6v2.55h3V14.28h.86Z"/><path class="cls-8" d="M9.29,20.77V15.05H7.11v-.77h5.22v.77H10.15v5.72Z"/><path class="cls-8" d="M18.55,20.77h-.86V15.18L16,19h-.53l-1.68-3.81v5.59H13V14.28h1.18l1.62,3.62,1.56-3.62h1.2Z"/><path class="cls-8" d="M23.63,20.77H19.87V14.28h.86V20h2.9Z"/><rect class="cls-14323" x="18.22" y="25.45" width="2.52" height="12.73" rx="0.99"/><rect class="cls-14323" x="20.01" y="31.63" width="2.52" height="6.99" rx="0.99" transform="translate(31.06 -4.75) rotate(45)"/><rect class="cls-14323" x="16.39" y="31.63" width="2.52" height="6.99" rx="0.99" transform="translate(-19.66 22.77) rotate(-45)"/></g></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.18 42">
+  <defs>
+    <style>.cls-1432423,.cls-354352167,.cls-4231255{fill:#383a46;}.cls-1432423{opacity:0.6;}.cls-221321{fill:#323346;}.cls-354352167{opacity:0.8;}.cls-5574534542{fill:#323946;}.cls-6{fill:#642a5c;}.cls-14323{fill:#642a81;}.cls-8234234{fill:#e9ffff;}</style>
+  </defs>
+  <title>html</title>
+  <g id="Слой_2" data-name="Слой 2">
+    <g id="Слой_1-2" data-name="Слой 1">
+      <path class="cls-1432423" d="M34.63,42H3.25V2.55H27.4l7.23,7.22Z"/>
+      <path class="cls-221321" d="M34.63,12.65H24.53V2.55h2.88l7.22,7.22Z"/>
+      <path class="cls-354352167" d="M35.9,40.73H4.52V1.27H28.68L35.9,8.5Z"/>
+      <path class="cls-221321" d="M35.9,11.37H25.8V1.27h2.88L35.9,8.49Z"/>
+      <path class="cls-4231255" d="M37.18,39.45H5.79V0H30l7.23,7.23Z"/>
+      <path class="cls-5574534542" d="M37.18,10.1H27.08V0H30l7.22,7.22Z"/>
+      <polygon class="cls-6324234324" points="0 21.13 3.25 28.82 3.25 19.69 0 19.61 0 21.13"/>
+      <rect class="cls-14323" y="12.12" width="25.45" height="10.82" rx="1.73"/>
+      <path class="cls-8234234" d="M6.45,20.77H5.59V17.59h-3v3.18H1.74V14.28H2.6v2.55h3V14.28h.86Z"/>
+      <path class="cls-8234234" d="M9.29,20.77V15.05H7.11v-.77h5.22v.77H10.15v5.72Z"/>
+      <path class="cls-8234234" d="M18.55,20.77h-.86V15.18L16,19h-.53l-1.68-3.81v5.59H13V14.28h1.18l1.62,3.62,1.56-3.62h1.2Z"/>
+      <path class="cls-8234234" d="M23.63,20.77H19.87V14.28h.86V20h2.9Z"/>
+      <rect class="cls-14323" x="18.22" y="25.45" width="2.52" height="12.73" rx="0.99"/>
+      <rect class="cls-14323" x="20.01" y="31.63" width="2.52" height="6.99" rx="0.99" transform="translate(31.06 -4.75) rotate(45)"/>
+      <rect class="cls-14323" x="16.39" y="31.63" width="2.52" height="6.99" rx="0.99" transform="translate(-19.66 22.77) rotate(-45)"/>
+    </g>
+  </g>
+</svg>
