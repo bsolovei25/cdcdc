@@ -1,25 +1,15 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { ITime } from '../../../models/time-data-picker';
-import { ReportsService } from 'src/app/dashboard/services/reports.service';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { SnackBarService } from '../../../services/snack-bar.service';
 import { IReportTemplate } from 'src/app/dashboard/models/report-server';
 import { AppConfigService } from '../../../../services/appConfigService';
-
-export interface IReport extends IReportTemplate {
-    customOptions: IReportOption[];
-    reports: [];
-    systemOptions: [];
-    fileTemplate: {
-        id: number;
-        fileId: string;
-        name: string;
-        description: string;
-        createdAt: Date;
-        createdBy: number;
-        isDeleted: boolean;
-    };
-}
+import { ReportsService } from '../../../services/widgets/reports.service';
+import { MatDatepicker } from '@angular/material/datepicker';
+import { FormControl } from '@angular/forms';
+import { Moment } from 'moment';
+import * as _moment from 'moment';
+import { trigger, transition, style, animate } from '@angular/animations';
+import { NGX_MAT_DATE_FORMATS, NgxMatDateFormats } from '@angular-material-components/datetime-picker';
+const moment = _moment;
 
 export interface IReportOption {
     id: number;
@@ -31,11 +21,65 @@ export interface IReportOption {
     source: string[];
     sortOrder: number;
 }
+interface IReportFormGroup {
+    id: number;
+    name: string;
+    value: string | Date;
+    type: 'textBox' | 'comboBox' | 'dateTime' | 'checkBox';
+    source: string[];
+}
+
+interface IResponse {
+    type: 'xlsx' | 'pdf' | 'html';
+    reportOptions: { value: string | Date, baseOptionId: number }[];
+    period: {
+        periodType: 'year' | 'month'
+        | 'day' | 'timePeriod' |
+        'datePeriod' | 'exactTime' | 'none';
+        startDateTime: Date;
+        endDateTime?: Date;
+    };
+}
+
+interface IReportPeriodType {
+    periodType: 'year' | 'month'
+    | 'day' | 'timePeriod' |
+    'datePeriod' | 'exactTime' | 'none';
+    startDateTime?: Date;
+    endDateTime?: Date;
+}
+
+const CUSTOM_DATE_FORMATS: NgxMatDateFormats = {
+    parse: {
+        dateInput: 'L | LT'
+    },
+    display: {
+        dateInput: 'L | LT',
+        monthYearLabel: 'MMM YYYY',
+        dateA11yLabel: 'LL',
+        monthYearA11yLabel: 'MMMM YYYY'
+    }
+};
+
+export const fadeAnimation = trigger('fadeAnimation', [
+    transition(':enter', [
+        style({ opacity: 0, height: 0 }),
+        animate('100ms', style({ opacity: 1, height: 50 }))
+    ]),
+    transition(':leave', [
+        style({ opacity: 1, height: 50 }),
+        animate('100ms', style({ opacity: 0, height: 0 }))
+    ])
+]);
 
 @Component({
     selector: 'evj-report',
     templateUrl: './report.component.html',
     styleUrls: ['./report.component.scss'],
+    animations: [fadeAnimation],
+    providers: [
+        { provide: NGX_MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS },
+    ]
 })
 export class ReportComponent implements OnInit {
 
@@ -48,17 +92,21 @@ export class ReportComponent implements OnInit {
     public datePicker: boolean = false;
     public datePickerOpen: number;
 
-    formGroup: {
-        id: number,
-        name: string,
-        value: string | Date,
-        type: 'textBox' | 'comboBox' | 'dateTime' | 'checkBox',
-        source: string[];
-    }[] = [];
+    public timeCheck: string = 'Годичный';
+
+    formGroup: IReportFormGroup[] = [];
 
     @Input() data: IReportTemplate;
 
-    template: IReport;
+    @ViewChild('picker') public picker: any;
+
+    template: IReportTemplate;
+
+    periodTime: IReportPeriodType;
+
+    public dateNow: Date = new Date();
+
+    public date = new FormControl(moment());
 
     constructor(
         private reportsService: ReportsService,
@@ -94,13 +142,17 @@ export class ReportComponent implements OnInit {
         this.isLoading = true;
         try {
             this.template = await this.reportsService.getTemplate(id);
+            this.periodTime = {
+                periodType: this.template.periodType,
+                startDateTime: new Date()
+            };
             this.template.customOptions.forEach(option => {
                 this.formGroup.push({
                     id: option.id,
                     name: option.name,
                     value: '',
                     type: option.type,
-                    source: option.source
+                    source: option.source,
                 });
             });
             this.isLoading = false;
@@ -109,19 +161,46 @@ export class ReportComponent implements OnInit {
         }
     }
 
-    async postItem(template: IReport): Promise<void> {
+    async postItem(template: IReportTemplate, fileName: 'xlsx' | 'pdf' | 'html'): Promise<void> {
         this.isLoading = true;
-        const body: { value: string | Date, baseOptionId: number }[] = [];
+        let body: IResponse;
+        let reportOptions = [];
         this.formGroup.forEach((val) => {
-            body.push({ value: val?.value, baseOptionId: val?.id });
+            reportOptions.push({ value: val?.value, baseOptionId: val?.id });
         });
+        body = {
+            type: fileName,
+            reportOptions,
+            period: {
+                periodType: this.periodTime.periodType,
+                startDateTime: this.periodTime.startDateTime ? this.periodTime.startDateTime : null,
+                endDateTime: this.periodTime.endDateTime ? this.periodTime.endDateTime : null
+            }
+        };
         try {
-            const a: IReportTemplate = await this.reportsService.postTemplate(template.id, body);
-            window.open(`${this.restUrl}/api/file-storage/${a.fileId}`);
+            const a = await this.reportsService.postTemplate(template.id, body);
+            window.open(`${this.restUrl}/api/file-storage/${a.data.fileId}`);
             this.isLoading = false;
         } catch (error) {
             this.snackBar.openSnackBar('Файл не сформирован', 'snackbar-red');
             this.isLoading = false;
+        }
+    }
+
+
+    chosenDayHandler(normalizedDay: Moment, datepicker: MatDatepicker<Moment>) {
+        const ctrlValue = this.date.value;
+        ctrlValue.day(normalizedDay.day());
+        this.date.setValue(ctrlValue);
+        datepicker.close();
+    }
+
+
+    dateTimePicker(event: Moment, value: 'day' | 'month' | 'year') {
+        if (value === 'month') {
+            this.periodTime.startDateTime = moment(event).add(1, 'months').toDate();
+        } else {
+            this.periodTime.startDateTime = event.toDate();
         }
     }
 

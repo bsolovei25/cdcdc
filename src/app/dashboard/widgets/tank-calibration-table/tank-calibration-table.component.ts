@@ -2,13 +2,12 @@ import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { SelectionModel } from '@angular/cdk/collections';
-import { TankCalibrationTableService } from '../../services/tank-calibration-table.service';
+import { TankCalibrationTableService } from '../../services/widgets/tank-calibration-table.service';
 import { UploadFormComponent } from './upload-form/upload-form.component';
 import { MatDialog } from '@angular/material/dialog';
 import { TanksTableComponent } from './tanks-table/tanks-table.component';
 import { SnackBarService } from '../../services/snack-bar.service';
 import { FormControl, Validators } from '@angular/forms';
-import * as moment from 'moment';
 
 export interface ICalibrationTable {
     uid: string;
@@ -19,6 +18,7 @@ export interface ICalibrationTable {
     parentUid?: string;
     parentName?: string;
     isGroup: boolean;
+    isVisible?: boolean;
 }
 
 export interface IOnlineTable {
@@ -30,6 +30,7 @@ export interface IOnlineTable {
 
 interface IDataSource extends ICalibrationTable {
     childredTanks?: ICalibrationTable[];
+    isVisible?: boolean;
 }
 
 @Component({
@@ -46,8 +47,8 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         'Действия с калибровками'
     ];
 
-    static itemCols: number = 18;
-    static itemRows: number = 14;
+    static itemCols: number = 30;
+    static itemRows: number = 30;
 
     expandedElement: SelectionModel<any> = new SelectionModel(true);
     chooseElement: SelectionModel<ICalibrationTable> = new SelectionModel(false);
@@ -61,7 +62,7 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
     comment: FormControl = new FormControl('', Validators.required);
 
     data: ICalibrationTable[] = [];
-    dataSource: IDataSource[] = [];
+    dataSourceUI: IDataSource[] = [];
     dataSourceTanks: ICalibrationTable[] = [
         { name: '', isGroup: false, uid: 'last-row' }
     ];
@@ -116,15 +117,15 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         }
     }
 
-    private async loadItem(onlyTanks: boolean = false): Promise<void> {
+    private async loadItem(): Promise<void> {
         const dataLoadQueue: Promise<void>[] = [];
         dataLoadQueue.push(
             this.calibrationService.getTanks()
                 .then((data) => {
                     this.data = data;
-                    this.dataSource = this.data
+                    this.dataSourceUI = this.data
                         .filter(val => val.isGroup);
-                    this.dataSource.map((value) => {
+                    this.dataSourceUI.map((value) => {
                         value.childredTanks = this.getChildrenRows(value);
                         this.undefinedSortStartDate(value.childredTanks);
                     });
@@ -134,13 +135,6 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
                     this.undefinedSortStartDate(this.dataSourceTanks);
                 })
         );
-        if (!onlyTanks) {
-            dataLoadQueue.push(
-                this.calibrationService.getTankAvailable().then((data) => {
-                    this.tanksAvailable = data;
-                })
-            );
-        }
         dataLoadQueue.push();
         if (dataLoadQueue.length > 0) {
             try {
@@ -159,17 +153,16 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         this.isReport = event;
     }
 
-
     sortStart(): void {
         if (!this.sort || this.sort.name === 'bottomStart' || this.sort.name === 'bottomEnd') {
             this.sort = { name: 'upStart', value: true };
-            this.dataSource.map(data => {
+            this.dataSourceUI.map(data => {
                 this.sortHighStartDate(data.childredTanks);
             });
             this.sortHighStartDate(this.dataSourceTanks);
         } else {
             if (this.sort.name === 'upStart') {
-                this.dataSource.map(data => {
+                this.dataSourceUI.map(data => {
                     this.sortLowStartDate(data.childredTanks);
                 });
                 this.sortLowStartDate(this.dataSourceTanks);
@@ -184,13 +177,13 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         this.undefinedSortEndDate(this.dataSourceTanks);
         if (!this.sort || this.sort.name === 'upStart' || this.sort.name === 'upEnd') {
             this.sort = { name: 'bottomStart', value: true };
-            this.dataSource.map(data => {
+            this.dataSourceUI.map(data => {
                 this.sortHighEndDate(data.childredTanks);
             });
             this.sortHighEndDate(this.dataSourceTanks);
         } else {
             if (this.sort.name === 'bottomStart') {
-                this.dataSource.map(data => {
+                this.dataSourceUI.map(data => {
                     this.sortLowEndDate(data.childredTanks);
                 });
                 this.sortLowEndDate(this.dataSourceTanks);
@@ -232,10 +225,26 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
     }
 
     searchInput(event): void {
-        this.dataSource = this.data?.filter((val) => val.name.toLowerCase()
-            .includes(event?.target?.value.toLowerCase()) && val.isGroup);
+        this.dataSourceUI?.map((val) => {
+            let isLenChild: boolean = false;
+            val.childredTanks.map(element => {
+                if (element.name.toLowerCase()
+                    .includes(event?.target?.value.toLowerCase())) {
+                    element.isVisible = false; // показывать
+                    isLenChild = true;
+                } else {
+                    element.isVisible = true;  // скрыть
+                }
+            });
+            if (val.name.toLowerCase()
+                .includes(event?.target?.value.toLowerCase()) || isLenChild) {
+                val.isVisible = false;
+            } else {
+                val.isVisible = true;
+            }
+        });
         this.dataSourceTanks = this.data?.filter((val) => val.name.toLowerCase()
-            .includes(event?.target?.value.toLowerCase()) && !val.parentUid && !val.isGroup)
+            .includes(event?.target?.value.toLowerCase()) && !val.parentUid && !val.isGroup);
         this.dataSourceTanks.push({ name: '', isGroup: false, uid: 'last-row' });
     }
 
@@ -263,6 +272,7 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         this.showComment.clear();
         this.postDate = null;
         this.comment.setValue('');
+        this.loadItem();
     }
 
     doneComment(): void {
@@ -271,6 +281,7 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         this.showComment.clear();
         this.postDate = null;
         this.comment.setValue('');
+        this.loadItem();
     }
 
     async postNewDate(id: string, newDate: Date, comment: string,
@@ -299,8 +310,8 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         try {
             await this.calibrationService.postNewDate(id, result, result.file);
             this.snackBar.openSnackBar('Файл загружен успешно');
+            this.loadItem();
         } catch (error) {
-            this.snackBar.openSnackBar('Файл не загружен', 'snackbar-red');
             console.error(error);
         }
     }
@@ -313,16 +324,43 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
             });
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.putTanks(result?.[0]?.uid);
+                const el = this.data.find(val => val.uid === result);
+                if (!el) {
+                    this.putTanks(result);
+                } else {
+                    this.snackBar.openSnackBar('Резервуар уже существует');
+                }
+                this.chooseTanks(result);
             }
         });
+
+    }
+
+    chooseTanks(id: string): void {
+        let el;
+        this.dataSourceUI.every(val => {
+            el = val.childredTanks.find((val2) => val2.uid === id);
+            if (el) {
+                this.expandedElement.select(val);
+                this.clickItem(el);
+                return false;
+            }
+            return true;
+        });
+        if (!el) {
+            const el2 = this.dataSourceTanks.find((val) => val.uid === id);
+            if (el2) {
+                this.clickItem(el2);
+            }
+        }
     }
 
     async putTanks(uid: string): Promise<void> {
         try {
             await this.calibrationService.putTank(uid);
             this.snackBar.openSnackBar('Резервуар добавлен');
-            this.loadItem(true);
+            await this.loadItem();
+            this.chooseTanks(uid);
         } catch (error) {
             console.error(error);
         }
@@ -344,7 +382,10 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
             await this.calibrationService.deleteTank(this.deleteItem);
             this.deleteElement = false;
             this.snackBar.openSnackBar('Резервуар удален');
-            this.loadItem(true);
+            if (this.deleteItem === this.chooseElement?.selected?.[0]?.uid) {
+                this.chooseElement.clear();
+            }
+            this.loadItem();
         } catch (error) {
             this.deleteElement = false;
             console.error(error);
@@ -359,10 +400,6 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         } catch (error) {
             console.error(error);
         }
-    }
-
-    downloadFile(id: string): void {
-        window.open(`http://deploy.funcoff.club:6555/api/graduation-table/graduation/tanks/${id}/table`);
     }
 
 }

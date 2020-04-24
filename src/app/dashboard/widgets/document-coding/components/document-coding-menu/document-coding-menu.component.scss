@@ -1,0 +1,188 @@
+.coding-menu {
+    height: 100%;
+    display: flex;
+    padding-left: 20px;
+    padding-right: 10px;
+
+    &__file {
+        width: 35%;
+
+        .file-block {
+            height: 70%;
+            background: var(--color-oil-menu);
+            border-radius: 60px;
+
+            &__title {
+                height: 15px;
+                line-height: 15px;
+                margin-left: 35px;
+                font-size: 10px;
+                color: var(--color-text-sub);
+            }
+            &__name {
+                margin-left: 35px;
+                height: calc(100% - 30px);
+                display: flex;
+                align-items: center;
+                font-size: 14px;
+            }
+        }
+    }
+
+    &__new-file {
+        width: 40%;
+        padding: 20px;
+        padding-top: 0;
+        padding-bottom: 0;
+        .new-file-block {
+            height: 70%;
+            display: flex;
+            background: var(--color-oil-menu);
+            border-radius: 60px;
+            font-size: 14px;
+
+            &__pasport {
+                width: 20%;
+                border-right: 1px solid var(--color-bg-main);
+                display: flex;
+
+                .left-side {
+                    width: 80%;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                }
+
+                .right-side {
+                    margin-top: 5px;
+                    width: 20%;
+
+                    &__button {
+                        cursor: pointer;
+                    }
+                }
+            }
+            &__product {
+                width: 22%;
+                border-right: 1px solid var(--color-bg-main);
+            }
+            &__tank {
+                width: 22%;
+                border-right: 1px solid var(--color-bg-main);
+            }
+            &__data {
+                width: 36%;
+
+                ::ng-deep {
+                    .mat-form-field {
+                        width: calc(100% - 45px);
+                        margin: 0 auto;
+                        margin-left: 10px;
+                    }
+
+                    .mat-icon {
+                        margin-top: -15px;
+                    }
+
+                    .mat-form-field-infix {
+                        margin-top: 5px;
+                    }
+
+                    .mat-form-field-underline {
+                        display: none;
+                    }
+
+                    .mat-form-field-label {
+                        font-size: 12px;
+                        color: var(--color-text-sub);
+                    }
+                }
+            }
+
+            .title-info {
+                height: 15px;
+                line-height: 15px;
+                margin-left: 20px;
+                font-size: 10px;
+                color: var(--color-text-sub);
+                margin-top: 1px;
+            }
+            .value-info {
+                margin-left: 20px;
+                height: calc(100% - 25px);
+                margin-top: 5px;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+        }
+
+        .m-title {
+            margin-left: 20px !important;
+        }
+    }
+
+    &__save-button {
+        width: 25%;
+        .save-block {
+            cursor: pointer;
+            height: 70%;
+            display: flex;
+            background: var(--color-oil-menu);
+            border-radius: 60px;
+            align-items: center;
+            font-size: 12px;
+
+            &__name {
+                margin-left: 20px;
+                width: 80%;
+                text-align: center;
+            }
+
+            &__button {
+                width: 20%;
+                position: relative;
+                height: 100%;
+
+                .outer {
+                    height: 100%;
+                    width: 55px;
+                    position: absolute;
+                    right: 0;
+                    border-radius: 50%;
+                    background: var(--color-oil-button-outer);
+                    .inner {
+                        position: absolute;
+                        background: var(--color-oil-button-inner);
+                        height: 80%;
+                        width: 80%;
+                        top: 5px;
+                        right: 5px;
+                        border-radius: 50%;
+                        text-align: center;
+                    }
+                }
+            }
+
+            &:hover {
+                background: var(--color-oil-button-hover);
+                transition: 0.8s;
+    
+                .save-block__button {
+                    .outer {
+                        background: var(--color-oil-button-hover-outer);
+                        .inner {
+                            background:var(--color-oil-button-hover-inner);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .title {
+        font-weight: bold;
+        height: 30%;
+        margin-left: 35px;
+        font-size: 13px;
+        color: var(--color-text-sub);
+    }
+}

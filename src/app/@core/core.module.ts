@@ -28,11 +28,11 @@ import { OverlayModule } from '@angular/cdk/overlay';
         MatSnackBarModule,
         MatProgressSpinnerModule,
         AngularSvgIconModule,
-        OverlayModule
+        OverlayModule,
     ],
     declarations: [
         LoginComponent,
-        PasswordResetComponent
+        PasswordResetComponent,
     ],
     entryComponents: [
         PasswordResetComponent

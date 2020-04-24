@@ -3,6 +3,7 @@ import { IWorker } from '../../../dashboard/models/worker';
 import { IUser, IUnitEvents } from '../../../dashboard/models/events-widget';
 import { AdminPanelService } from '../../../dashboard/services/admin-panel/admin-panel.service';
 import { AppConfigService } from '../../../services/appConfigService';
+import { AvatarConfiguratorService } from '../../../dashboard/services/avatar-configurator.service';
 
 @Component({
     selector: 'evj-worker-card',
@@ -20,8 +21,6 @@ export class WorkerCardComponent implements OnInit, OnChanges {
 
     public photoPath: string = 'assets/icons/widgets/admin/default_avatar2.svg';
 
-    private defaultAvatarPath: string = 'assets/icons/widgets/admin/default_avatar2.svg';
-
     public srcCardNormal: string = 'assets/icons/widgets/admin/card-small.svg';
     public srcCardActive: string = 'assets/icons/widgets/admin/card-small-active.svg';
 
@@ -31,11 +30,10 @@ export class WorkerCardComponent implements OnInit, OnChanges {
 
     public personsUnit: IUnitEvents = null;
 
-    private fsUrl: string = '';
-
-    constructor(private adminService: AdminPanelService, private configService: AppConfigService) {
-        this.fsUrl = this.configService.fsUrl;
-    }
+    constructor(
+        private adminService: AdminPanelService,
+        private avatarConfiguratorService: AvatarConfiguratorService,
+    ) { }
 
     public ngOnInit(): void {
         if (!this.isSmallCard) {
@@ -44,11 +42,7 @@ export class WorkerCardComponent implements OnInit, OnChanges {
     }
 
     public ngOnChanges(): void {
-        if (this.person?.photoId) {
-            this.photoPath = `${this.fsUrl}/${this.person?.photoId}`;
-        } else {
-            this.photoPath = this.defaultAvatarPath;
-        }
+        this.photoPath = this.avatarConfiguratorService.getAvatarPath(this.person?.photoId);
     }
 
     public getPersonName(): string {

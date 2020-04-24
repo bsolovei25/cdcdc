@@ -39,12 +39,15 @@ export class AwsPasswordAlertComponent implements OnInit {
 
     public hide: boolean = true;
 
+    public readonly minLength: number = 6;
+    public readonly maxLength: number = 25;
+
     public formGroup: FormGroup;
     public matcher: MyErrorStateMatcher = new MyErrorStateMatcher();
 
     constructor(private formBuilder: FormBuilder) {
-        const regExpConditions = '(?=.*[0-9])(?=.*[?!._*#$-])(?=.*[a-zа-я])(?=.*[A-ZА-Я])';
-        const regExp = '[0-9a-zA-Zа-яА-Я?!._*#$-]{7,25}';
+        const regExpConditions = '(?=.*[0-9])(?=.*[?!._*#$@-])(?=.*[a-zа-я])(?=.*[A-ZА-Я])';
+        const regExp = `[0-9a-zA-Zа-яА-Я?!._*#$@-]{${this.minLength},${this.maxLength}}`;
 
         this.formGroup = this.formBuilder.group(
             {
@@ -52,8 +55,8 @@ export class AwsPasswordAlertComponent implements OnInit {
                     '',
                     [
                         Validators.required,
-                        Validators.minLength(7),
-                        Validators.maxLength(25),
+                        Validators.minLength(this.minLength),
+                        Validators.maxLength(this.maxLength),
                         Validators.pattern(`${regExpConditions}${regExp}`),
                     ],
                 ],

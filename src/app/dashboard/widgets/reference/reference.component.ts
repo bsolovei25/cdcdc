@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy, Inject, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { IReferenceTypes } from '../../models/references';
-import { ReferencesService } from '../../services/references.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { SnackBarService } from '../../services/snack-bar.service';
+import { ReferencesService } from '../../services/widgets/references.service';
 
 @Component({
     selector: 'evj-reference',

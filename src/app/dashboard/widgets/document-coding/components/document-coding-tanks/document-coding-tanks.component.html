@@ -1,0 +1,20 @@
+<div class="coding-tanks">
+    <div class="coding-tanks__title">
+        <div class="name">Резервуары</div>
+    </div>
+    <div class="coding-tanks__container">
+        <div id="scrollDocCodingTanks" class="scroll-block">
+            <div *ngFor="let item of data" class="name" (click)="activeRecord(item.id)" [class.active]="activeRecordId === item.id">
+                {{ item.name }}
+            </div>
+        </div>
+    </div>
+    <div class="coding-tanks__bottom">
+        <div class="bottom-block" (click)="openFilterTanks()">
+            <div class="filter-button">
+                <svg-icon *ngIf="isFilterTanks" src="./assets/icons/widgets/oil-control-all/document-coding/filter-blue.svg"></svg-icon>
+                <svg-icon *ngIf="!isFilterTanks" src="./assets/icons/widgets/oil-control-all/document-coding/filter.svg"></svg-icon>
+            </div>
+        </div>
+    </div>
+</div>

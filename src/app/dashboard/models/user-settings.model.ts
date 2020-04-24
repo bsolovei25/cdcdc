@@ -7,6 +7,7 @@ export interface IScreenSettings {
     updateScreen: boolean;
     widgets: IUserGridItem[];
     claims?: IClaim[];
+    isFilter?: boolean;
 }
 
 export interface IClaim {
@@ -40,5 +41,7 @@ export type ClaimType = 'screenView' |
     'screensWidgetEdit' |
     'screenWidgetDel' |
     'screensWidgetDel' |
-    string; // TODO ClaimType
+    'reportsView' |
+    string;
+
 export type ClaimCategory = 'allow' | 'deny';

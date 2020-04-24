@@ -7,12 +7,14 @@ before_script:
 
 after_script:
 - date
+  #- env
 
 variables:
     GIT_SSL_NO_VERIFY: "1"
     DEPLOY_DOMAIN: deploy.funcoff.club
-    ROCKETCHAT_HOOKS: "/home/gitlab-runner/rocket.integrations"
     SCP_HOST: root@${DEPLOY_DOMAIN}
+    ROCKETCHAT_HOOKS: "/home/gitlab-runner/rocket.integrations"
+    DYNAMIC_ENV: "/root/dynamic-environment-creator"
 
 stages:
     - prebuild
@@ -37,21 +39,31 @@ docker build:
         - echo "Prebuild checking... Getting docker container rdy."
         - docker container stop ${CI_PROJECT_NAME} || sleep 0.1
         - env
-        - docker build -t ${CI_PROJECT_NAME} .
+        - docker build . -t ${CI_PROJECT_NAME} -f Dockerfile.prod
+        - docker stop ${CI_PROJECT_NAME} || sleep 0.1
+        - docker container rm ${CI_PROJECT_NAME} || sleep 0.1
+        - docker run --rm --name ${CI_PROJECT_NAME} -d ${CI_PROJECT_NAME} ; docker exec ${CI_PROJECT_NAME} ng build
+        - docker cp ${CI_PROJECT_NAME}:/app/dist/evj ./public
+        - docker container stop ${CI_PROJECT_NAME} || sleep 0.1
+    artifacts:
+        paths:
+            - ./public
     only:
           #- master
           #- develop
         - merge_requests
 
-testing website:
+.testing website:
     <<: *init
     stage: test
     script:
         - echo "Doing some tests... Someone should add unit tests or whatever here"
           #- docker run -v $(pwd):/app -v /app/node_modules -d  --rm --name ${CI_PROJECT_NAME} -it ${CI_PROJECT_NAME}
 
-        - docker run --rm --name ${CI_PROJECT_NAME} -d ${CI_PROJECT_NAME}
-        - ./init-docker.sh
+          #- docker run --rm --name ${CI_PROJECT_NAME} -p 8004:4200 -d ${CI_PROJECT_NAME}
+          #- ./init-docker.sh
+        - ls
+        - ls public
     only:
         - merge_requests
 
@@ -76,14 +88,21 @@ build artifact:
 deploy review:
     <<: *init
     stage: deploy-review
+    script:
+        - sed -i -E "s/(<title>Evj)(<\/title>)/\1  |  ${CI_COMMIT_SHORT_SHA}\2/g" ./public/index.html
+        - scp -r ./public root@${DEPLOY_DOMAIN}:/root/dynamic-environment-creator
+        - ssh ${SCP_HOST} "cd /root/dynamic-environment-creator ; git pull origin master --no-edit ; python3 main.py -d create -e $CI_COMMIT_REF_SLUG"
+        - scp ${SCP_HOST}:/root/dynamic-environment-creator/deploy.env .
+        - ssh ${SCP_HOST} "nginx -s reload"
+    artifacts:
+        reports:
+            dotenv: deploy.env 
     only:
         - merge_requests
     environment:
-        name: review/${CI_COMMIT_REF_NAME}
-        url: http://build.funcoff.club:8000
+        name: review/${CI_COMMIT_REF_SLUG}
+        url: https://$DYNAMIC_ENVIRONMENT_URL
         on_stop: stop-review
-    script:
-        - sed -i -E "s/(<title>Evj)(<\/title>)/\1  |  ${CI_COMMIT_SHORT_SHA}\2/g" ./src/index.html
 
 stop-review:
     <<: *init
@@ -93,10 +112,10 @@ stop-review:
     only:
         - merge_requests
     script:
-        - docker container stop ${CI_PROJECT_NAME}
+        - ssh ${SCP_HOST} "cd /root/dynamic-environment-creator ; python3 main.py -d destroy -e $CI_COMMIT_REF_SLUG"
     when: manual
     environment:
-        name: review/${CI_COMMIT_REF_NAME}
+        name: review/${CI_COMMIT_REF_SLUG}
         action: stop
 
 staging:
@@ -165,5 +184,5 @@ clean on failure:
     stage: clean-on-failure
     script:
         - docker container stop ${CI_PROJECT_NAME} || sleep 0.1
-        - cd ${ROCKETCHAT_HOOKS} ; python3 rockethooks.py failed
+          #- cd ${ROCKETCHAT_HOOKS} ; python3 rockethooks.py failed
     when: on_failure

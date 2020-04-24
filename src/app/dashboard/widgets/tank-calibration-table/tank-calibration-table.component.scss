@@ -12,7 +12,7 @@
   position: absolute;
   display: flex;
   top: 45px;
-  left: 0;
+  left: -150px;
   min-width: 370px;
   min-height: 45px;
   border-radius: 25px;
@@ -286,6 +286,12 @@ input {
             min-width: 210px;
 
             &__icon {
+              display: inline-block;
+              transform: rotate(180deg);
+              &.arrow-rtl {
+                display: inline-block;
+                transform: rotate(0deg) !important;
+              }
             }
             &__text {
               padding-left: 15px;
@@ -490,11 +496,6 @@ input {
       // border-bottom: 2px solid var(--color-danger);
     }
   }
-}
-
-.arrow-rtl {
-  display: inline-block;
-  transform: rotate(180deg);
 }
 
 .table__right {

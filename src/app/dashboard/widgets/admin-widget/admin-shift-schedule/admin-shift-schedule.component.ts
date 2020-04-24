@@ -13,7 +13,6 @@ import * as moment from 'moment';
 import { DateAdapter } from '@angular/material/core';
 import { IUser } from '../../../models/events-widget';
 import { SelectionModel } from '@angular/cdk/collections';
-import { AdminShiftScheduleService } from '../../../services/admin-shift-schedule.service';
 import {
     IBrigadeWithUsersDto,
     IScheduleShiftDay,
@@ -25,6 +24,7 @@ import { fillDataShape } from '../../../../@shared/common-functions';
 import { MatCalendar } from '@angular/material/datepicker';
 import { WidgetPlatform } from '../../../models/widget-platform';
 import { SnackBarService } from '../../../services/snack-bar.service';
+import { AdminShiftScheduleService } from '../../../services/widgets/admin-shift-schedule.service';
 
 @Component({
     selector: 'evj-admin-shift-schedule',

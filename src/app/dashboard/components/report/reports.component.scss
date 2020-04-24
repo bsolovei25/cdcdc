@@ -11,8 +11,28 @@
     height: 100vh;
 
     .options-header {
+      overflow-x: hidden;
       overflow-y: scroll;
-      height: calc(100vh - 185px);
+      height: calc(100vh - 180px);
+      margin-bottom: 10px;
+
+      &__tree {
+        max-height: 257px;
+        width: 460px;
+        background-color: var(--color-bg-report);
+        position: fixed;
+        bottom: 4px;
+        border-radius: 15px;
+        display: flex;
+
+        &__container {
+          overflow-y: scroll;
+          margin: 10px;
+          margin-left: 20px;
+          width: 100%;
+          color: var(--color-text-sub);
+        }
+      }
     }
   }
 }

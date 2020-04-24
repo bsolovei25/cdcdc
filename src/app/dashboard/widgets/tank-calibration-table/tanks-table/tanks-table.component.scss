@@ -59,7 +59,7 @@ input {
     }
     &__title {
       font-size: 12px;
-      margin-left: 60px;
+      margin-left: 85px;
     }
   }
 
@@ -82,8 +82,10 @@ input {
                 &__name {
                   font-size: 12px;
                   margin-left: 20px;
+                  color: var(--color-text-sub);
                 }
                 &__icon {
+                  display: inline-block;
                   margin-left: 20px;
                   transform: rotate(180deg);
                   &-arrow-rtl {

@@ -3,6 +3,7 @@
   (mousedown)="$event.stopPropagation()"
   (touchstart)="$event.stopPropagation()"
 >
+  <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
   <section class="tank">
     <div class="tank__header">
       <span class="tank__header__close">
@@ -13,7 +14,7 @@
         >
         </svg-icon>
       </span>
-      <h3 class="tank__header__title">Загрузка градуирования таблицы</h3>
+      <h3 class="tank__header__title">Выбор резервуара</h3>
     </div>
     <div class="tank__body">
       <table class="table">
@@ -29,7 +30,7 @@
                 <svg-icon
                   class="col__icon"
                   src="assets/icons/widgets/calibration-table/arrow-name.svg"
-                  [svgStyle]="{ 'width.px':8, 'height.px':5 }"
+                  [svgStyle]="{ 'width.px': 13, 'height.px': 13 }"
                   [class.col__icon-arrow-rtl]="expandedElement.isSelected(element)"
                 ></svg-icon>
                 <span class="col__name">{{ element.name }}</span>
@@ -41,6 +42,7 @@
                 (click)="selectedElement.isSelected(elementChildren) ? 
                          selectedElement.deselect(elementChildren)
                         : selectedElement.select(elementChildren)"
+                (dblclick)="doubleClick(elementChildren)"
                 [class.table__body__item__row__expanded--selected]="selectedElement.isSelected(elementChildren)"
                 class="table__body__item__row__expanded"
               >
@@ -55,6 +57,7 @@
               (click)="selectedElement.isSelected(element) ? 
                        selectedElement.deselect(element)
                        : selectedElement.select(element)"
+              (dblclick)="doubleClick(element)"
               [class.table__body__item__row__expanded--selected]="selectedElement.isSelected(element)"
               class="table__body__item__row__expanded"
             >

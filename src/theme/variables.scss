@@ -28,6 +28,7 @@
 
   --color-table-hover: #0e2637;
   --color-table-header: #292b38;
+  --color-bg-report: #1f222b;
 
   // Переделать под прозрачность
   --color-border-active-hover: #1e2b3a;
@@ -55,7 +56,7 @@
   --color-active: #3fa9f5;
   --color-danger: #eb5757;
   --color-warning: #f4a321;
-  --color-standard: #6fcf97;
+  --color-standard: #00A99D;
   --color-circle: #00ffff;
   --color-aqua: #00ffff;
   --color-orange: #f28b4a;
@@ -64,11 +65,24 @@
   --color-warning-transparent: rgba(244, 163, 33, 0.2);
   --color-disable-transparent: rgba(91, 96, 125, 0.2);
   --color-active-transparent: rgba(63, 169, 245, 0.2);
+  --color-standard-transparent: rgba(111, 207, 151, 0.2);
 
   --color-bg-active-gradient: rgba(63, 169, 245, 0.2);
   --color-bg-active-gradient1: rgba(63, 169, 245, 0.6);
 
   --color-bg-human-disable: #2c2f38;
+
+  //Карточка резервуара нефтеконтроль
+  --color-oil-card: rgb(28, 35, 51);
+  --color-oil-table: rgb(27, 31, 44);
+  --color-oil-table-ref: rgb(27, 31, 44);
+  --color-oil-border: rgba(93, 96, 123, 0.2);
+  --color-oil-menu: rgb(6,33,62);
+  --color-oil-button-hover: rgb(26,69,109);
+  --color-oil-button-hover-inner: rgb(17,75,128);
+  --color-oil-button-hover-outer: rgb(21,72,119);
+  --color-oil-button-inner: rgb(1, 44, 88);
+  --color-oil-button-outer: rgb(3, 39, 77);
 
   // Цвета статусов передачи смены
   --color-shift-status-init: #6fcf97;
@@ -81,3 +95,11 @@
   --color-button-border: rgba(255, 255, 255, 0.5);
   --color-button-borderside: rgba(255, 255, 255, 1);
 }
+
+$--color-active: #3fa9f5;
+$--color-danger: #eb5757;
+$--color-warning: #f4a321;
+$--color-standard: #00A99D;
+$--color-circle: #00ffff;
+$--color-aqua: #00ffff;
+$--color-orange: #f28b4a;

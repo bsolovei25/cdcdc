@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Inject, Renderer2, ElementRef, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { TankCalibrationTableService } from '../../../../services/tank-calibration-table.service';
+import { TankCalibrationTableService } from '../../../../services/widgets/tank-calibration-table.service';
 import { SnackBarService } from '../../../../services/snack-bar.service';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { UploadDropComponent } from './upload-drop/upload-drop.component';
-import { TankCalibrationTableService } from '../../../services/tank-calibration-table.service';
+import { TankCalibrationTableService } from '../../../services/widgets/tank-calibration-table.service';
 import { FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -20,8 +20,8 @@ export class UploadFormComponent implements OnInit, OnDestroy {
         file: FormData;
         comment: string;
     } = {
-            startDate: new Date(),
-            endDate: new Date(),
+            startDate: this.date,
+            endDate: this.dateEnd,
             file: new FormData(),
             comment: '',
         };
