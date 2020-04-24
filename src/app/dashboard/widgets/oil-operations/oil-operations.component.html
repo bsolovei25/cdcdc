@@ -9,8 +9,8 @@
         <div class="body-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
             <div class="block block_top">
                 <div class='left-side'>
-                    <evj-table-grid [data]="data">
-                        <evj-column-grid key="name" name="Наименование"></evj-column-grid>
+                    <evj-table-grid scrollSide="left" [data]="data" [search]="true" [filter]="true">
+                        <evj-column-grid key="name" name="Наименование" className="big" ></evj-column-grid>
                     </evj-table-grid>
                 </div>
                 <div class='right-side'>
