@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { WidgetService } from '../../../services/widget.service';
 import { PlatformLocation } from '@angular/common';
 import { UnityLoader } from '../../dispatcher-screen/UnityLoader';
-import { PetroleumScreenService } from '../../../services/petroleum-screen.service';
+import { PetroleumScreenService } from '../../../services/widgets/petroleum-screen.service';
 import { ITankInfo } from '../../../models/petroleum-products-movement.model';
 
 @Component({

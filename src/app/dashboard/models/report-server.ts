@@ -24,7 +24,9 @@ export interface IReportTemplate {
     fileTemplate?: IReportFile;
     systemOptions?: ISystemOptionsTemplate[];
     customOptions?: ICustomOptionsTemplate[];
-    periodType?: string;
+    periodType?: 'year' | 'month'
+    | 'day' | 'timePeriod' |
+    'datePeriod' | 'exactTime' | 'none';
     report?: any;
     isDeleted: boolean;
     displayName: string;
@@ -74,8 +76,8 @@ export interface ICustomOptionsTemplate {
     name: string;
     sortOrder: number;
     source: string[];
-    type: string;
     validationRule: string;
+    type: 'textBox' | 'comboBox' | 'dateTime' | 'checkBox';
 }
 
 export interface ISystemOptions {

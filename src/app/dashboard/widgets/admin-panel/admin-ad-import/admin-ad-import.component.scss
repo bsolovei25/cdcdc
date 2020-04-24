@@ -176,6 +176,19 @@
             }
           }
         }
+
+        &__message {
+          height: 100%;
+          width: 100%;
+
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+
+          color: var(--color-text-sub);
+          font-size: 16px;
+        }
       }
     }
 
@@ -184,8 +197,8 @@
       height: 50px;
 
       display: flex;
-      flex-direction: column;
-      justify-content: center;
+      flex-direction: row;
+      justify-content: space-around;
       align-items: center;
 
       box-sizing: border-box;

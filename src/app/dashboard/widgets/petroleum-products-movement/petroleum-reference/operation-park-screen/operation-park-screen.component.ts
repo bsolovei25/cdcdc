@@ -3,7 +3,7 @@ import {
     OnInit,
     Input, OnDestroy
 } from '@angular/core';
-import { PetroleumScreenService } from 'src/app/dashboard/services/petroleum-screen.service';
+import { PetroleumScreenService } from 'src/app/dashboard/services/widgets/petroleum-screen.service';
 import { ITankAttribute } from '../../../../models/petroleum-products-movement.model';
 import { SnackBarService } from '../../../../services/snack-bar.service';
 import { Subscription } from 'rxjs';
@@ -123,6 +123,7 @@ export class OperationParkScreenComponent implements OnInit, OnDestroy {
         item.isActive = true;
         item.paramSaveValue = item.paramValue;
         item.paramSaveDateTime = new Date(item.paramDateTime);
+        item.paramDateTime = new Date(Date.now());
     }
 
     public closeEdit(item: ITankAttribute): void {

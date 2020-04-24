@@ -47,8 +47,8 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         'Действия с калибровками'
     ];
 
-    static itemCols: number = 18;
-    static itemRows: number = 14;
+    static itemCols: number = 30;
+    static itemRows: number = 30;
 
     expandedElement: SelectionModel<any> = new SelectionModel(true);
     chooseElement: SelectionModel<ICalibrationTable> = new SelectionModel(false);
@@ -152,7 +152,6 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
     selectTable(event: boolean): void {
         this.isReport = event;
     }
-
 
     sortStart(): void {
         if (!this.sort || this.sort.name === 'bottomStart' || this.sort.name === 'bottomEnd') {
@@ -273,6 +272,7 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         this.showComment.clear();
         this.postDate = null;
         this.comment.setValue('');
+        this.loadItem();
     }
 
     doneComment(): void {
@@ -281,6 +281,7 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         this.showComment.clear();
         this.postDate = null;
         this.comment.setValue('');
+        this.loadItem();
     }
 
     async postNewDate(id: string, newDate: Date, comment: string,
@@ -309,6 +310,7 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         try {
             await this.calibrationService.postNewDate(id, result, result.file);
             this.snackBar.openSnackBar('Файл загружен успешно');
+            this.loadItem();
         } catch (error) {
             console.error(error);
         }
@@ -380,6 +382,9 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
             await this.calibrationService.deleteTank(this.deleteItem);
             this.deleteElement = false;
             this.snackBar.openSnackBar('Резервуар удален');
+            if (this.deleteItem === this.chooseElement?.selected?.[0]?.uid) {
+                this.chooseElement.clear();
+            }
             this.loadItem();
         } catch (error) {
             this.deleteElement = false;
