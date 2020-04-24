@@ -42,12 +42,14 @@ export class AdminAdImportComponent implements OnInit, OnDestroy {
                 (data) => {
                     if (skip) {
                         if (data.length) {
-                            const isAlreadyInArray: boolean = !!this.workersLdap.find(
-                                (user) => user.ldapUser.sid === data[0].ldapUser.sid
+                            const filteredData = data.filter(
+                                (dataItem) =>
+                                    !this.workersLdap.find(
+                                        (user) => user.ldapUser.sid === dataItem.ldapUser.sid
+                                    )
                             );
-                            if (!isAlreadyInArray) {
-                                this.workersLdap = this.workersLdap.concat(data);
-                            }
+
+                            this.workersLdap = this.workersLdap.concat(filteredData);
                         }
                     } else {
                         this.workersLdap = data;
