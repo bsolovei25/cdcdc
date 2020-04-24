@@ -76,18 +76,7 @@
 
             .active-filter {
                 border: 1px solid !important;
-                border-image: linear-gradient(
-                    to left,
-                    rgba(107, 166, 241, 0.7) 2%,
-                    rgba(107, 166, 241, 0.63) 6%,
-                    rgba(107, 166, 241, 0.46) 16%,
-                    rgba(107, 166, 241, 0.32) 26%,
-                    rgba(107, 166, 241, 0.2) 38%,
-                    rgba(107, 166, 241, 0.11) 50%,
-                    rgba(107, 166, 241, 0.05) 63%,
-                    rgba(107, 166, 241, 0.01) 79%,
-                    rgba(107, 166, 241, 0) 102%
-                ) !important;
+                border-image: linear-gradient(to left, var(--color-active), transparent) !important;
                 border-image-slice: 1 !important;
                 border-right: none !important;
 
@@ -235,8 +224,6 @@
     }
 }
 
-
-
 .active {
     background: var(--color-bg-active) !important;
     border-radius: 25px;
@@ -275,7 +262,6 @@
 .scrollRightOFF {
     width: calc(100% - 10px) !important;
 }
-
 
 input {
     width: calc(100% - 20px);
