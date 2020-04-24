@@ -10,8 +10,8 @@
         <div id="scrollGridTable" class="scroll-block" #table [class.left-content]="scrollSide === 'left'">
             <ng-container *ngFor="let item of data">
                 <div class="item-inline">
-                    <div class="record-table" (click)="activeRecord(item.id)"
-                        [class.active]="activeRecordId === item.id">
+                    <div class="record-table" (click)="activeItem(item.id)"
+                        [class.active]="activeItemId === item.id">
                         <ng-container *ngFor="let cell of columns; trackBy: columnsById">
                             <div class="{{cell.className}}">{{ item[cell.key] }}</div>
                         </ng-container>
@@ -25,10 +25,10 @@
         <div class="bottom-block">
             <!--FILTER-->
             <ng-container *ngIf="filter">
-                <div class="filter-button" (click)="openFilterProduct()" [class.active-filter]="isFilterProduct">
+                <div class="filter-button" (click)="openFilter()" [class.active-filter]="isFilter">
                     <div class="filter-button__icon">
-                        <svg-icon *ngIf="isFilterProduct" src="./assets/icons/widgets/oil-control-all/document-coding/filter-blue.svg"></svg-icon>
-                        <svg-icon *ngIf="!isFilterProduct" src="./assets/icons/widgets/oil-control-all/document-coding/filter.svg"></svg-icon>
+                        <svg-icon *ngIf="isFilter" src="./assets/icons/widgets/oil-control-all/document-coding/filter-blue.svg"></svg-icon>
+                        <svg-icon *ngIf="!isFilter" src="./assets/icons/widgets/oil-control-all/document-coding/filter.svg"></svg-icon>
                     </div>
                     <div class="filter-button__text">
                         <div class="name">Все продукты</div>
