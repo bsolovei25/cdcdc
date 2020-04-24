@@ -5,6 +5,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { fillDataShape } from '../../../../@shared/common-functions';
 import { IUser } from '../../../models/events-widget';
 import { Subscription } from 'rxjs';
+import { SnackBarService } from '../../../services/snack-bar.service';
 
 @Component({
     selector: 'evj-admin-ad-import',
@@ -16,7 +17,7 @@ export class AdminAdImportComponent implements OnInit, OnDestroy {
 
     public isDataLoading: boolean = false;
 
-    public workersLdap: IUserLdapDto[] = null;
+    public workersLdap: IUserLdapDto[] = [];
 
     private searchedWorker: string = '';
 
@@ -26,41 +27,40 @@ export class AdminAdImportComponent implements OnInit, OnDestroy {
 
     private subscriptions: Subscription[] = [];
 
-    constructor(private adminService: AdminPanelService) {}
+    constructor(private adminService: AdminPanelService, private snackBar: SnackBarService) {}
 
-    public ngOnInit(): void {
+    public ngOnInit(): void {}
+
+    public ngOnDestroy(): void {
+        this.subscriptions.forEach((subs) => subs.unsubscribe());
+    }
+
+    private getLdapWorkersList(searchLogin: string, skip: number = 0, take: number = 50): void {
         this.isDataLoading = true;
         this.subscriptions.push(
-            this.adminService.getAllLdapUsers().subscribe(
-                (data) => (this.workersLdap = data),
+            this.adminService.getAllLdapUsers(searchLogin, skip, take).subscribe(
+                (data) => {
+                    if (skip) {
+                        if (data.length) {
+                            const isAlreadyInArray: boolean = !!this.workersLdap.find(
+                                (user) => user.ldapUser.sid === data[0].ldapUser.sid
+                            );
+                            if (!isAlreadyInArray) {
+                                this.workersLdap = this.workersLdap.concat(data);
+                            }
+                        }
+                    } else {
+                        this.workersLdap = data;
+                    }
+                },
                 console.log,
                 () => (this.isDataLoading = false)
             )
         );
     }
 
-    public ngOnDestroy(): void {
-        this.subscriptions.forEach((subs) => subs.unsubscribe());
-    }
-
     public onSearchWorker(inputedValue: string): void {
-        this.searchedWorker = inputedValue;
-    }
-
-    public findSearchedWorker(worker: IUserLdapDto): boolean {
-        const regexp: RegExp = /[a-z]/i;
-        const isSearhingLogin: boolean = this.searchedWorker
-            ? regexp.test(this.searchedWorker)
-            : false;
-        if (isSearhingLogin) {
-            return worker.ldapUser.samAccountName
-                .toLowerCase()
-                .includes(this.searchedWorker.toLowerCase());
-        }
-
-        return worker.ldapUser.displayName
-            .toLowerCase()
-            .includes(this.searchedWorker.toLowerCase());
+        this.searchedWorker = inputedValue.trim();
     }
 
     public onSelectWorker(worker: IUserLdapDto): void {
@@ -71,6 +71,25 @@ export class AdminAdImportComponent implements OnInit, OnDestroy {
 
     public onClose(): void {
         this.closeLdap.emit(false);
+    }
+
+    public onClickSearch(): void {
+        const regexp: RegExp = /^[a-zA-Z\.]{2,}$/;
+        if (regexp.test(this.searchedWorker)) {
+            this.getLdapWorkersList(this.searchedWorker);
+        } else {
+            this.snackBar.openSnackBar(
+                'Поисковый запрос должен содержать не менее двух латинских символов',
+                'snackbar-red'
+            );
+        }
+    }
+
+    public onScroll(event: Event): void {
+        const element: HTMLElement = event.target as HTMLElement;
+        if (element.offsetHeight + element.scrollTop >= element.scrollHeight) {
+            this.getLdapWorkersList(this.searchedWorker, this.workersLdap.length, 50);
+        }
     }
 
     public async onClickAdd(): Promise<void> {
