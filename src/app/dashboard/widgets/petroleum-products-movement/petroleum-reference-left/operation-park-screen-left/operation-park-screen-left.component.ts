@@ -4,7 +4,7 @@ import {
     IFacilityInfo,
     IPetroleumObject,
 } from 'src/app/dashboard/models/petroleum-products-movement.model';
-import { PetroleumScreenService } from '../../../../services/petroleum-screen.service';
+import { PetroleumScreenService } from '../../../../services/widgets/petroleum-screen.service';
 
 @Component({
     selector: 'evj-operation-park-screen-left',
