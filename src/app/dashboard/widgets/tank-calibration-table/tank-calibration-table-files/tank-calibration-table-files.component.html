@@ -9,7 +9,7 @@
         <thead>
           <tr class="header__items">
             <th class="header header__th header__name">
-              <span class="header__name__text">Наименование</span>
+              <span class="header__name__text">Резервуар</span>
             </th>
           </tr>
         </thead>
@@ -139,7 +139,16 @@
                   {{ element?.action }}
                 </td>
                 <td class="name">
-                  {{ element?.newValue }}
+                  <ng-container *ngIf="element?.action !== 'Таблица градуировки'">
+                    {{ element?.newValue }}
+                  </ng-container>
+                  <ng-container *ngIf="element?.action === 'Таблица градуировки'">
+                    <a
+                      style="color: white"
+                      href="http://deploy.funcoff.club:6555/api/graduation-table/graduation/tanks/{{selectId}}/table/{{element.tableId}}"
+                      >{{ element?.newValue }}</a
+                    >
+                  </ng-container>
                 </td>
                 <td class="name">
                   {{ element?.comment }}

@@ -168,7 +168,7 @@
                           style="padding-left: 23px;"
                         ></svg-icon>
                       </a>
-                      <span class="item__action-trash" (click)="deleteUI(element.uid)">
+                      <span class="item__action-trash" (click)="deleteUI(elementChildren.uid)">
                         <svg-icon
                           src="assets/icons/widgets/calibration-table/trash.svg"
                           [svgStyle]="{ 'width.px':27, 'height.px':27 }"
@@ -393,6 +393,7 @@
         [data]="data"
         [dataSourceUI]="dataSourceUI"
         [dataSourceTanksL]="dataSourceTanks"
+        [chooseEl]="chooseElement?.selected[0]"
       ></evj-tank-calibration-table-files
     ></ng-container>
   </div>

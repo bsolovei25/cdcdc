@@ -28,11 +28,22 @@ export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
 
     expandedElement: SelectionModel<any> = new SelectionModel(true);
     chooseElement: SelectionModel<ICalibrationTable> = new SelectionModel(false);
+    @Input() set chooseEl(data: ICalibrationTable) {
+        if (data) {
+            this.chooseElement.select(data);
+            const el = this.dataSourceUI.find(val => val.uid === data?.parentUid);
+            if (el) {
+                this.expandedElement.select(el);
+            }
+            this.loadItem(data);
+        }
+    }
 
     localeData: ICalibrationTable[] = [];
 
     dataSource: IDataSource[] = [];
     dataSourceTanks: ICalibrationTable[] = [];
+    selectId: string = '';
 
     chooseTanks: ITanksHistory[] = [
         {
@@ -82,6 +93,7 @@ export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
 
     chooseTank(element: ICalibrationTable): void {
         this.chooseElement.select(element);
+        this.selectId = element.uid;
         try {
             this.loadItem(element);
         } catch (error) {
