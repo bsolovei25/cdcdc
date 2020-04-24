@@ -1,5 +1,5 @@
 import { ChangeShiftComponent } from './widgets/change-shift/change-shift.component';
-import { NgModule, LOCALE_ID, APP_INITIALIZER } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './pages/home/home.component';
 import { SharedModule } from '../@shared/shared.module';
@@ -139,7 +139,6 @@ import {
   NgxMatDatetimePickerModule,
   NgxMatTimepickerModule,
   NgxMatNativeDateModule,
-  NGX_MAT_DATE_FORMATS,
 } from '@angular-material-components/datetime-picker';
 import { MatButtonModule } from '@angular/material/button';
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
@@ -225,6 +224,9 @@ import { DocumentCodingMenuComponent } from './widgets/document-coding/component
 import { ReportTreeComponent } from './components/report/report-tree/report-tree.component';
 import { DocumentCodingTableRecordComponent } from './widgets/document-coding/components/document-coding-table-record/document-coding-table-record.component';
 import { DocumentCodingFilterComponent } from './widgets/document-coding/components/document-coding-filter/document-coding-filter.component';
+import { TableGridComponent } from './components/table-grid/table-grid.component';
+import { ColumnGridComponent } from './components/table-grid/components/column-grid/column-grid.component';
+import { OilOperationsComponent } from './widgets/oil-operations/oil-operations.component';
 
 @NgModule({
   declarations: [
@@ -417,6 +419,10 @@ import { DocumentCodingFilterComponent } from './widgets/document-coding/compone
     ReportTreeComponent,
     DocumentCodingTableRecordComponent,
     DocumentCodingFilterComponent,
+    HomeComponent,
+    TableGridComponent,
+    ColumnGridComponent,
+    OilOperationsComponent
   ],
   entryComponents: [
     LineChartComponent,
@@ -480,7 +486,8 @@ import { DocumentCodingFilterComponent } from './widgets/document-coding/compone
     DocumentsScansComponent,
     QualityDocsPanelComponent,
     DocumentCodingComponent,
-    ReportTreeComponent
+    ReportTreeComponent,
+    OilOperationsComponent,
   ],
   exports: [HomeComponent],
   imports: [

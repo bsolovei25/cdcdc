@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { IDatesInterval, WidgetService } from '../../services/widget.service';
-import { PetroleumScreenService } from '../../services/petroleum-screen.service';
+import { PetroleumScreenService } from '../../services/widgets/petroleum-screen.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 

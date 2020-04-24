@@ -52,6 +52,7 @@ import { DocumentViewerComponent } from '../../widgets/document-viewer/document-
 import { DocumentsScansComponent } from '../../widgets/documents-scans/documents-scans.component';
 import { QualityDocsPanelComponent } from '../../widgets/quality-docs-panel/quality-docs-panel.component';
 import { DocumentCodingComponent } from '../../widgets/document-coding/document-coding.component';
+import { OilOperationsComponent } from '../../widgets/oil-operations/oil-operations.component';
 
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
@@ -109,4 +110,5 @@ export const WIDGETS = {
     'documents-scans': DocumentsScansComponent,
     'quality-docs-panel': QualityDocsPanelComponent,
     'document-coding': DocumentCodingComponent,
+    'oil-operations': OilOperationsComponent,
 };
