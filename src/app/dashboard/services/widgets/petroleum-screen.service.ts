@@ -308,6 +308,7 @@ export class PetroleumScreenService {
         direction: ObjectDirection = null
     ): Promise<IPetroleumObject[]> {
         try {
+            object = object?.replace(/\//g, '@') ?? null;
             if (!object && !direction) {
                 return await this.getObjectsAsync(client);
             } else if (!direction) {
@@ -328,6 +329,7 @@ export class PetroleumScreenService {
     }
 
     public async getTankAttributes(objectName: string): Promise<ITankAttribute[]> {
+        objectName = objectName?.replace(/\//g, '@') ?? null;
         if (!objectName || objectName === '') {
             return [];
         }
