@@ -4,8 +4,8 @@
 <div class="search_block">
   <evj-search [isReport]="isReport" (searchReport)="searchReports($event)"></evj-search>
 </div>
-<div class="reports-panel__list scroll-bar">
-  <div class="options-header">
+<div class="reports-panel__list">
+  <div class="options-header scroll-bar">
     <evj-report-tree *ngFor="let folder of folders" [data]="folder"></evj-report-tree>
     <div style="margin-top: 15px; margin-left: 10px;">
       <evj-report

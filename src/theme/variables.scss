@@ -24,6 +24,8 @@
   --color-border-search: rgba(142, 151, 175, 0.8);
   --color-border-search-line: rgba(142, 151, 175, 1);
 
+  --color-input: rgba(33, 36, 45, 0.1);
+
   --color-border-light: #9ed7f5;
 
   --color-table-hover: #0e2637;
@@ -56,7 +58,7 @@
   --color-active: #3fa9f5;
   --color-danger: #eb5757;
   --color-warning: #f4a321;
-  --color-standard: #00A99D;
+  --color-standard: #00a99d;
   --color-circle: #00ffff;
   --color-aqua: #00ffff;
   --color-orange: #f28b4a;
@@ -77,10 +79,10 @@
   --color-oil-table: rgb(27, 31, 44);
   --color-oil-table-ref: rgb(27, 31, 44);
   --color-oil-border: rgba(93, 96, 123, 0.2);
-  --color-oil-menu: rgb(6,33,62);
-  --color-oil-button-hover: rgb(26,69,109);
-  --color-oil-button-hover-inner: rgb(17,75,128);
-  --color-oil-button-hover-outer: rgb(21,72,119);
+  --color-oil-menu: rgb(6, 33, 62);
+  --color-oil-button-hover: rgb(26, 69, 109);
+  --color-oil-button-hover-inner: rgb(17, 75, 128);
+  --color-oil-button-hover-outer: rgb(21, 72, 119);
   --color-oil-button-inner: rgb(1, 44, 88);
   --color-oil-button-outer: rgb(3, 39, 77);
 
@@ -94,12 +96,15 @@
   // Цвета компонентов
   --color-button-border: rgba(255, 255, 255, 0.5);
   --color-button-borderside: rgba(255, 255, 255, 1);
+
+  // UI
+  --table-border-radius: 15px;
 }
 
 $--color-active: #3fa9f5;
 $--color-danger: #eb5757;
 $--color-warning: #f4a321;
-$--color-standard: #00A99D;
+$--color-standard: #00a99d;
 $--color-circle: #00ffff;
 $--color-aqua: #00ffff;
 $--color-orange: #f28b4a;
