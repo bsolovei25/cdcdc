@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { WidgetService } from '../../services/widget.service';
-import { IReportTemplate, IFolder, ITreeFolderMap, ITemplateFolder, ITemplate } from '../../models/report-server';
+import { IReportTemplate } from '../../models/report-server';
 import { ReportsService } from '../../services/widgets/reports.service';
 import { TreeDraggedElement } from 'angular-tree-component';
 
@@ -40,7 +39,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
     dataFolder: IFolderReport;
     filterData: IReportTemplate[] = [];
     templates: IReportTemplate[] = [];
-    folder: IUIChilrdenFolders[] = [];
+    folders: ITemplateFolderLocal[] = [];
 
     isReport: boolean = true;
 
@@ -55,7 +54,6 @@ export class ReportsComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-
     }
 
     toggle(): void {
@@ -78,7 +76,8 @@ export class ReportsComponent implements OnInit, OnDestroy {
     async loadItem(): Promise<void> {
         const a = await this.reportsService.getReportsTemplate();
         this.dataFolder = await this.reportsService.getTemplateFolder();
-        this.folder = this.mapData(this.dataFolder.folders);
+        // this.folder = this.mapData(this.dataFolder.folders);
+        this.folders = this.dataFolder.folders;
         this.templates = this.dataFolder.templates;
     }
 

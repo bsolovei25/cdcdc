@@ -1,0 +1,25 @@
+<evj-widget-preview [title]="widgetTitle" [icon]="widgetIcon" [previewTitle]="" *ngIf="isMock">
+</evj-widget-preview>
+
+<ng-container *ngIf="!isMock">
+    <div class="container">
+        <evj-widget-header [title]="widgetTitle" [units]="widgetUnits" [code]="widgetCode" [id]="widgetId"
+            [uniqId]="widgetUniqId" [widgetType]="widgetType"></evj-widget-header>
+        <evj-frame-top></evj-frame-top>
+        <div class="body-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+            <div class="block block_top">
+                <div class='left-side'>
+                    <evj-table-grid [data]="data">
+                        <evj-column-grid key="name" name="Наименование"></evj-column-grid>
+                    </evj-table-grid>
+                </div>
+                <div class='right-side'>
+                </div>
+            </div>
+            <div class="block block_bottom">
+
+            </div>
+        </div>
+        <evj-frame-bottom></evj-frame-bottom>
+    </div>
+</ng-container>
