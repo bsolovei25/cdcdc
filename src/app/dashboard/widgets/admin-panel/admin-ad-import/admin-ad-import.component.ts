@@ -76,12 +76,12 @@ export class AdminAdImportComponent implements OnInit, OnDestroy {
     }
 
     public onClickSearch(): void {
-        const regexp: RegExp = /^[a-zA-Z\.]{2,}$/;
+        const regexp: RegExp = /^[a-zA-Zа-яА-Я\.\s]{2,}/;
         if (regexp.test(this.searchedWorker)) {
             this.getLdapWorkersList(this.searchedWorker);
         } else {
             this.snackBar.openSnackBar(
-                'Поисковый запрос должен содержать не менее двух латинских символов',
+                'Поисковый запрос должен содержать не менее двух символов',
                 'snackbar-red'
             );
         }
