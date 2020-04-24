@@ -17,6 +17,21 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
       name: 'EVJ',
       tanks: 'JNDSFDSKDFD'
     },
+    {
+      id: 2,
+      name: 'EVJ',
+      tanks: 'JNDSFDSKDFD'
+    },
+    {
+      id: 3,
+      name: 'EVJ',
+      tanks: 'JNDSFDSKDFD'
+    },
+    {
+      id: 4,
+      name: 'EVJ',
+      tanks: 'JNDSFDSKDFD'
+    },
   ]
 
   constructor(

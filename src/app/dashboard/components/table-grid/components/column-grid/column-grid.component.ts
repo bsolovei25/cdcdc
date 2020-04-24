@@ -8,6 +8,9 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ColumnGridComponent implements OnInit {
   @Input() key: string;
   @Input() name: string;
+  @Input() width: number;
+  @Input() className: string;
+  @Input() template: string;
 
   constructor() { }
 
