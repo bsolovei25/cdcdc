@@ -34,12 +34,13 @@ export const MY_FORMATS = {
   ],
 })
 export class SystemPeriodDateMonthComponent implements OnInit {
+
   @ViewChild('picker') public picker: any;
 
-  public date = new FormControl(moment());
+  public date = moment();
   public dataPicker: any;
 
-  @Output() dateTimePicker: EventEmitter<Date> = new EventEmitter<Date>();
+  @Output() dateTimePicker: EventEmitter<Moment> = new EventEmitter<Moment>();
 
   constructor() { }
 
@@ -50,12 +51,14 @@ export class SystemPeriodDateMonthComponent implements OnInit {
     normalizedMonth: Moment,
     datepicker: MatDatepicker<Moment>
   ): void {
-    const ctrlValue = this.date.value;
-    ctrlValue.month(normalizedMonth.month());
-    this.date.setValue(ctrlValue);
-    this.dateTimePicker.emit(ctrlValue);
+    this.date = normalizedMonth;
+    this.dateTimePicker.emit(this.date);
     datepicker.close();
     this.dataPicker.classList.remove('month');
+  }
+
+  openDatePicker(dp) {
+    dp.open();
   }
 
   clickMonth(): void {

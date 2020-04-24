@@ -38,9 +38,9 @@ export class SystemPeriodDateYearComponent implements OnInit {
 
   @Output() public year: EventEmitter<number> = new EventEmitter<number>();
 
-  public date = new FormControl(moment());
+  public date = moment();
 
-  @Output() dateTimePicker: EventEmitter<Date> = new EventEmitter<Date>();
+  @Output() dateTimePicker: EventEmitter<Moment> = new EventEmitter<Moment>();
 
   public dataPicker: any;
 
@@ -50,16 +50,14 @@ export class SystemPeriodDateYearComponent implements OnInit {
   }
 
   chosenYearHandler(normalizedYear: Moment, datepicker: MatDatepicker<Moment>) {
-    const ctrlValue = this.date.value;
-    const value = ctrlValue.year(normalizedYear.year());
-    this.date.setValue(ctrlValue);
-    this.dateTimePicker.emit(ctrlValue);
+    this.date = normalizedYear;
+    this.dateTimePicker.emit(this.date);
     datepicker.close();
     this.dataPicker.classList.remove('year');
   }
 
   clickYear(): void {
-   this.dataPicker = this.picker._overlay._overlayContainer.getContainerElement();
+    this.dataPicker = this.picker._overlay._overlayContainer.getContainerElement();
     this.dataPicker.classList.remove('month');
     this.dataPicker.classList.add('year');
   }

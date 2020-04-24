@@ -14,11 +14,20 @@
       src="assets/icons/widgets/reports/arrow-bottom.svg"
     ></svg-icon>
   </div>
-  <div class="panel-body" @fadeAnimation *ngIf="active">
+  <div class="panel-body" *ngIf="active">
     <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
-    <mat-form-field class="form form__picker day" *ngIf="periodTime?.periodType === 'exactTime'">
+    <mat-form-field
+      class="form form__picker custom-picker"
+      *ngIf="periodTime?.periodType === 'exactTime'"
+    >
       <mat-label class="form__title">Точное время</mat-label>
-      <input autocomplete="off" matInput [ngxMatDatetimePicker]="pickerD" [value]="dateNow" />
+      <input
+        disabled
+        autocomplete="off"
+        matInput
+        [ngxMatDatetimePicker]="pickerD"
+        [value]="dateNow"
+      />
       <mat-datepicker-toggle matSuffix [for]="pickerD">
         <mat-icon matDatepickerToggleIcon>
           <svg-icon
@@ -29,11 +38,15 @@
           </svg-icon>
         </mat-icon>
       </mat-datepicker-toggle>
-      <ngx-mat-datetime-picker #pickerD> </ngx-mat-datetime-picker>
+      <ngx-mat-datetime-picker #pickerD disabled="false"> </ngx-mat-datetime-picker>
     </mat-form-field>
-    <mat-form-field class="form form__picker day" *ngIf="periodTime?.periodType === 'timePeriod'">
+    <mat-form-field
+      class="form form__picker custom-picker"
+      *ngIf="periodTime?.periodType === 'timePeriod'"
+    >
       <mat-label class="form__title">Выберите дату начала</mat-label>
       <input
+        disabled
         autocomplete="off"
         matInput
         [ngxMatDatetimePicker]="pickerT"
@@ -49,11 +62,15 @@
           </svg-icon>
         </mat-icon>
       </mat-datepicker-toggle>
-      <ngx-mat-datetime-picker #pickerT> </ngx-mat-datetime-picker>
+      <ngx-mat-datetime-picker #pickerT disabled="false"> </ngx-mat-datetime-picker>
     </mat-form-field>
-    <mat-form-field class="form form__picker day" *ngIf="periodTime?.periodType === 'timePeriod'">
+    <mat-form-field
+      class="form form__picker custom-picker"
+      *ngIf="periodTime?.periodType === 'timePeriod'"
+    >
       <mat-label class="form__title">Выберите дату окончания</mat-label>
       <input
+        disabled
         autocomplete="off"
         matInput
         [ngxMatDatetimePicker]="pickerTend"
@@ -69,11 +86,15 @@
           </svg-icon>
         </mat-icon>
       </mat-datepicker-toggle>
-      <ngx-mat-datetime-picker #pickerTend> </ngx-mat-datetime-picker>
+      <ngx-mat-datetime-picker #pickerTend disabled="false"> </ngx-mat-datetime-picker>
     </mat-form-field>
-    <mat-form-field class="form form__picker day" *ngIf="periodTime?.periodType === 'datePeriod'">
+    <mat-form-field
+      class="form form__picker custom-picker"
+      *ngIf="periodTime?.periodType === 'datePeriod'"
+    >
       <mat-label class="form__title">Выберите дату начала</mat-label>
       <input
+        disabled
         autocomplete="off"
         matInput
         [matDatepicker]="pickerFrom"
@@ -89,11 +110,15 @@
           </svg-icon>
         </mat-icon>
       </mat-datepicker-toggle>
-      <mat-datepicker #pickerFrom></mat-datepicker>
+      <mat-datepicker #pickerFrom disabled="false"></mat-datepicker>
     </mat-form-field>
-    <mat-form-field class="form form__picker day" *ngIf="periodTime?.periodType === 'datePeriod'">
+    <mat-form-field
+      class="form form__picker custom-picker"
+      *ngIf="periodTime?.periodType === 'datePeriod'"
+    >
       <mat-label class="form__title">Выберите дату окончания</mat-label>
       <input
+        disabled
         autocomplete="off"
         matInput
         [matDatepicker]="pickerTo"
@@ -109,11 +134,15 @@
           </svg-icon>
         </mat-icon>
       </mat-datepicker-toggle>
-      <mat-datepicker #pickerTo></mat-datepicker>
+      <mat-datepicker #pickerTo disabled="false"></mat-datepicker>
     </mat-form-field>
-    <mat-form-field class="form form__picker day" *ngIf="periodTime?.periodType === 'day'">
+    <mat-form-field
+      class="form form__picker custom-picker"
+      *ngIf="periodTime?.periodType === 'day'"
+    >
       <mat-label class="form__title">Выберите день</mat-label>
       <input
+        disabled
         autocomplete="off"
         matInput
         [matDatepicker]="pickerTo"
@@ -129,7 +158,7 @@
           </svg-icon>
         </mat-icon>
       </mat-datepicker-toggle>
-      <mat-datepicker #pickerTo></mat-datepicker>
+      <mat-datepicker #pickerTo disabled="false"></mat-datepicker>
     </mat-form-field>
     <evj-system-period-date-year
       *ngIf="periodTime?.periodType === 'year'"

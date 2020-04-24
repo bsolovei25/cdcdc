@@ -4,13 +4,17 @@
             width: 100px;
         }
         .mat-form-field-underline {
-            background-color: var(--color-border-main-transparrent);
+            display: none;
         }
         input {
             border-bottom: 0;
         }
         .mat-icon {
             margin-top: -10px;
+        }
+        .mat-input-element:disabled,
+        .mat-form-field-type-mat-native-select .mat-form-field-disabled .mat-form-field-infix::after {
+            color: var(--color-text-main);
         }
     }
 }

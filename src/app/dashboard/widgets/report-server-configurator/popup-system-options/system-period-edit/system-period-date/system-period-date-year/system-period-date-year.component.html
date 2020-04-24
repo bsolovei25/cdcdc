@@ -1,7 +1,12 @@
 <div class="year">
   <mat-form-field style="width: 100%;">
     <mat-label>Выберите год</mat-label>
-    <input autocomplete="off" matInput [matDatepicker]="picker" [formControl]="date" />
+    <input
+      matInput
+      [matDatepicker]="picker"
+      disabled
+      [value]="date"
+    />
     <mat-datepicker-toggle matSuffix [for]="picker">
       <mat-icon matDatepickerToggleIcon (click)="clickYear()">
         <svg-icon
@@ -15,6 +20,7 @@
       #picker
       startView="multi-year"
       (yearSelected)="chosenYearHandler($event, picker)"
+      disabled="false"
     ></mat-datepicker>
   </mat-form-field>
 </div>

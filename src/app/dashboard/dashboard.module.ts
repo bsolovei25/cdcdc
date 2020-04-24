@@ -220,6 +220,7 @@ import { DocumentCodingComponent } from './widgets/document-coding/document-codi
 import { DocumentCodingTableComponent } from './widgets/document-coding/components/document-coding-table/document-coding-table.component';
 import { DocumentCodingTanksComponent } from './widgets/document-coding/components/document-coding-tanks/document-coding-tanks.component';
 import { DocumentCodingMenuComponent } from './widgets/document-coding/components/document-coding-menu/document-coding-menu.component';
+import { ReportTreeComponent } from './components/report/report-tree/report-tree.component';
 
 @NgModule({
     declarations: [
@@ -408,6 +409,7 @@ import { DocumentCodingMenuComponent } from './widgets/document-coding/component
         DocumentCodingTableComponent,
         DocumentCodingTanksComponent,
         DocumentCodingMenuComponent,
+        ReportTreeComponent
     ],
     entryComponents: [
         LineChartComponent,
@@ -471,6 +473,7 @@ import { DocumentCodingMenuComponent } from './widgets/document-coding/component
         DocumentsScansComponent,
         QualityDocsPanelComponent,
         DocumentCodingComponent,
+        ReportTreeComponent
     ],
     exports: [HomeComponent],
     imports: [

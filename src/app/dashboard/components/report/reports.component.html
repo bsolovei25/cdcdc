@@ -6,20 +6,11 @@
 </div>
 <div class="reports-panel__list scroll-bar">
   <div class="options-header">
+    <evj-report-tree *ngFor="let folder of folders" [data]="folder"></evj-report-tree>
     <evj-report
       *ngFor="let i of templates"
       style="width: 100%; margin: 10px auto;"
       [data]="i"
     ></evj-report>
-    <evj-report
-      *ngFor="let i of filterData"
-      style="width: 100%; margin: 10px auto;"
-      [data]="i"
-    ></evj-report>
-  </div>
-  <div class="options-header__tree">
-    <div class="options-header__tree__container">
-      <tree-root (activate)="onEvent($event)" [nodes]="folder"></tree-root>
-    </div>
   </div>
 </div>

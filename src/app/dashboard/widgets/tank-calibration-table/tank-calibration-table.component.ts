@@ -47,8 +47,8 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         'Действия с калибровками'
     ];
 
-    static itemCols: number = 18;
-    static itemRows: number = 14;
+    static itemCols: number = 30;
+    static itemRows: number = 30;
 
     expandedElement: SelectionModel<any> = new SelectionModel(true);
     chooseElement: SelectionModel<ICalibrationTable> = new SelectionModel(false);
@@ -152,7 +152,6 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
     selectTable(event: boolean): void {
         this.isReport = event;
     }
-
 
     sortStart(): void {
         if (!this.sort || this.sort.name === 'bottomStart' || this.sort.name === 'bottomEnd') {

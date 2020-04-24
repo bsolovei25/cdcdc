@@ -8,25 +8,9 @@ import { FormControl } from '@angular/forms';
 import { Moment } from 'moment';
 import * as _moment from 'moment';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { NGX_MAT_DATE_FORMATS, NgxMatDateFormats } from '@angular-material-components/datetime-picker';
 const moment = _moment;
 
-export interface IReport extends IReportTemplate {
-    customOptions: IReportOption[];
-    reports: [];
-    systemOptions: [];
-    fileTemplate: {
-        id: number;
-        fileId: string;
-        name: string;
-        description: string;
-        createdAt: Date;
-        createdBy: number;
-        isDeleted: boolean;
-    };
-    periodType: 'year' | 'month'
-    | 'day' | 'timePeriod' |
-    'datePeriod' | 'exactTime' | 'none';
-}
 export interface IReportOption {
     id: number;
     name: string;
@@ -65,13 +49,25 @@ interface IReportPeriodType {
     endDateTime?: Date;
 }
 
+const CUSTOM_DATE_FORMATS: NgxMatDateFormats = {
+    parse: {
+        dateInput: 'L | LT'
+    },
+    display: {
+        dateInput: 'L | LT',
+        monthYearLabel: 'MMM YYYY',
+        dateA11yLabel: 'LL',
+        monthYearA11yLabel: 'MMMM YYYY'
+    }
+};
+
 export const fadeAnimation = trigger('fadeAnimation', [
     transition(':enter', [
         style({ opacity: 0, height: 0 }),
-        animate('100ms', style({ opacity: 1, height: 145 }))
+        animate('100ms', style({ opacity: 1, height: 50 }))
     ]),
     transition(':leave', [
-        style({ opacity: 1, height: 145 }),
+        style({ opacity: 1, height: 50 }),
         animate('100ms', style({ opacity: 0, height: 0 }))
     ])
 ]);
@@ -81,6 +77,9 @@ export const fadeAnimation = trigger('fadeAnimation', [
     templateUrl: './report.component.html',
     styleUrls: ['./report.component.scss'],
     animations: [fadeAnimation],
+    providers: [
+        { provide: NGX_MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS },
+    ]
 })
 export class ReportComponent implements OnInit {
 
@@ -101,7 +100,7 @@ export class ReportComponent implements OnInit {
 
     @ViewChild('picker') public picker: any;
 
-    template: IReport;
+    template: IReportTemplate;
 
     periodTime: IReportPeriodType;
 
@@ -144,7 +143,7 @@ export class ReportComponent implements OnInit {
         try {
             this.template = await this.reportsService.getTemplate(id);
             this.periodTime = {
-                periodType: 'timePeriod',
+                periodType: 'month',
                 startDateTime: new Date()
             };
             this.template.customOptions.forEach(option => {
@@ -162,7 +161,7 @@ export class ReportComponent implements OnInit {
         }
     }
 
-    async postItem(template: IReport, fileName: 'xlsx' | 'pdf' | 'html'): Promise<void> {
+    async postItem(template: IReportTemplate, fileName: 'xlsx' | 'pdf' | 'html'): Promise<void> {
         this.isLoading = true;
         let body: IResponse;
         let reportOptions = [];
@@ -198,7 +197,11 @@ export class ReportComponent implements OnInit {
 
 
     dateTimePicker(event: Moment, value: 'day' | 'month' | 'year') {
-        this.periodTime.startDateTime = event.toDate();
+        if (value === 'month') {
+            this.periodTime.startDateTime = moment(event).add(1, 'months').toDate();
+        } else {
+            this.periodTime.startDateTime = event.toDate();
+        }
     }
 
 }
