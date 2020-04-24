@@ -1,7 +1,58 @@
-<div>
-    <ng-container *ngFor="let item of data">
+<div class="grid-table">
+    <!--TITLE-->
+    <div class="grid-table__title" [class.left-title-footer]="scrollSide === 'left'">
         <ng-container *ngFor="let cell of columns">
-
+            <div class="{{cell.className}}"> {{ cell.name }} </div>
         </ng-container>
-    </ng-container>
+    </div>
+    <!--TABLE-->
+    <div class="grid-table__container" [class.left-container]="scrollSide === 'left'">
+        <div id="scrollGridTable" class="scroll-block" #table [class.left-content]="scrollSide === 'left'">
+            <ng-container *ngFor="let item of data">
+                <div class="item-inline">
+                    <div class="record-table" (click)="activeRecord(item.id)"
+                        [class.active]="activeRecordId === item.id">
+                        <ng-container *ngFor="let cell of columns; trackBy: columnsById">
+                            <div class="{{cell.className}}">{{ item[cell.key] }}</div>
+                        </ng-container>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+    <!--FOOTER-->
+    <div class="grid-table__bottom" [class.left-title-footer]="scrollSide === 'left'">
+        <div class="bottom-block">
+            <!--FILTER-->
+            <ng-container *ngIf="filter">
+                <div class="filter-button" (click)="openFilterProduct()" [class.active-filter]="isFilterProduct">
+                    <div class="filter-button__icon">
+                        <svg-icon *ngIf="isFilterProduct" src="./assets/icons/widgets/oil-control-all/document-coding/filter-blue.svg"></svg-icon>
+                        <svg-icon *ngIf="!isFilterProduct" src="./assets/icons/widgets/oil-control-all/document-coding/filter.svg"></svg-icon>
+                    </div>
+                    <div class="filter-button__text">
+                        <div class="name">Все продукты</div>
+                        <div class="icon">
+                            <svg-icon src="./assets/icons/widgets/oil-control-all/document-coding/arrow.svg"></svg-icon>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <!--INPUT-->
+            <ng-container *ngIf="search">
+                <div class="input-block">
+                    <div class="input-block__button-search">
+                        <svg-icon *ngIf="!isInput" class="button_filter_icon"
+                            src="./assets/icons/widgets/references/search_white.svg"></svg-icon>
+                        <svg-icon *ngIf="isInput" class="button_filter_icon"
+                            src="./assets/icons/widgets/references/search_blue.svg"></svg-icon>
+                    </div>
+                    <div class="input-block__input" [class.input-block__input-active]="isInput">
+                        <input type="text" (focus)="isInput = true" (blur)="isInput = false"
+                            placeholder="Поиск..." (keyup)="searchRecords($event)" />
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
 </div>
