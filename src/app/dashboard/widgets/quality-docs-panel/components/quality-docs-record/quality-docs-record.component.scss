@@ -26,28 +26,74 @@
     }
 
     .big {
-      width: 22%;
+      width: 20%;
       line-height: 25px;
     }
 
-    .pasport{
+    .key {
+      position: relative;
+      width: 2%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      svg-icon {
+        display: none;
+      }
+    }
+
+    .key-blocked {
+      position: relative;
+      width: 2%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      svg-icon {
+        display: none;
+      }
+    }
+
+    .pasport {
       display: flex;
 
-      &__icon{
+      &__icon {
         width: 50%;
       }
 
-      &__name{
+      &__name {
         width: 50%;
       }
     }
 
-    .creator{
+    .creator {
       text-align: left;
     }
 
-  }
+    //TOOLTIP
 
+    [data-tooltip]::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      width: 100px;
+      left: 0;
+      top: 30%;
+      background: var(--color-bg-main);
+      color: #fff;
+      padding: 0.5em;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+      pointer-events: none;
+      opacity: 0;
+      height: 20px;
+      line-height: 20px;
+      transition: 0.5s;
+    }
+
+    [data-tooltip]:hover::after {
+      opacity: 1;
+      left: -11.5em;
+    }
+  }
 
   &:hover {
     background: var(--color-bg-active);
@@ -55,6 +101,34 @@
     margin: 0 auto;
     margin-left: 0;
     transition: 0.8s;
+
+    .docs-record-container__block-info {
+      .key {
+        svg-icon {
+          display: block;
+        }
+
+        &:hover svg-icon {
+          ::ng-deep .a1c245c4-44cc-4568-94d9-b50e5870c9e2 {
+            fill: var(--color-active);
+          }
+        }
+        cursor: pointer;
+      }
+
+      .key-blocked {
+        cursor: pointer;
+        svg-icon {
+          display: block;
+        }
+
+        &:hover svg-icon {
+          ::ng-deep .be158748-3c36-4357-a57b-9d1074410248 {
+            fill: var(--color-active);
+          }
+        }
+      }
+    }
   }
 }
 
