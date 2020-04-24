@@ -77,9 +77,9 @@
     </div>
     <div class="upload__footer">
       <span
-        [style.opacity]="comment.invalid ? '0.4' : '1'"
+        [style.opacity]="comment.invalid ? '0.4' : file ? '1' : '0.4'"
         class="upload__footer__icon"
-        (click)="comment.invalid ? null : submitForm() "
+        (click)="comment.invalid ? null : file ? submitForm() : null"
         >Сохранить</span
       >
     </div>

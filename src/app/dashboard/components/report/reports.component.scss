@@ -36,3 +36,8 @@
     }
   }
 }
+
+.scroll-bar::-webkit-scrollbar-thumb {
+  background: var(--color-bg-sub);
+  border-radius: 5px;
+}
