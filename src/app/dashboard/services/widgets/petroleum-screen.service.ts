@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { AppConfigService } from '../../services/appConfigService';
+import { AppConfigService } from '../../../services/appConfigService';
 import {
     IPetroleumObject, ITankAttribute, ITankInfo, ITankParam,
     ITransfer, ITransferFilter,
     ObjectDirection, ObjectType, TransfersFilter
-} from '../models/petroleum-products-movement.model';
-import { SnackBarService } from './snack-bar.service';
-import { IDatesInterval, WidgetService } from './widget.service';
+} from '../../models/petroleum-products-movement.model';
+import { SnackBarService } from '../snack-bar.service';
+import { IDatesInterval, WidgetService } from '../widget.service';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 
 @Injectable({
@@ -447,7 +447,7 @@ export class PetroleumScreenService {
     private async getObjectAsync(client: string, objectName: string): Promise<IPetroleumObject> {
         return this.http
             .get<IPetroleumObject>(
-                `${this.restUrl}/api/petroleum-flow-clients/clients/${client}/objects/${objectName}`
+                `${this.restUrl}/api/petroleum-flow-clients/objects/${objectName}`
             )
             .toPromise();
     }
