@@ -1,1 +1,69 @@
-<p>document-coding-menu works!</p>
+<div class="coding-menu">
+    <div class="coding-menu__file">
+        <div class="title">Исходный файл</div>
+        <div class="file-block">
+            <div class="file-block__title">Название</div>
+            <div class="file-block__name">ggabgakfbbkja</div>
+        </div>
+    </div>
+    <div class="coding-menu__new-file">
+        <div class="title m-title">Формирование нового имени файла</div>
+        <div class="new-file-block">
+            <div class="new-file-block__pasport">
+                <div class="left-side">
+                    <div class="title-info">Паспорт</div>
+                    <div class="value-info">34</div>
+                </div>
+                <div class="right-side">
+                    <div class="right-side__button">
+                        <svg-icon [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+                            src="./assets/icons/widgets/oil-control-all/document-coding/top-arrow.svg">
+                        </svg-icon>
+                    </div>
+                    <div class="right-side__button">
+                        <svg-icon [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+                            src="./assets/icons/widgets/oil-control-all/document-coding/bottom-arrow.svg">
+                        </svg-icon>
+                    </div>
+                </div>
+            </div>
+            <div class="new-file-block__product">
+                <div class="title-info">Продукт</div>
+                <div class="value-info">342342122123234352532fd34</div>
+            </div>
+            <div class="new-file-block__tank">
+                <div class="title-info">Резервуар</div>
+                <div class="value-info">34</div>
+            </div>
+            <div class="new-file-block__data">
+                <mat-form-field>
+                    <mat-label>Дата</mat-label>
+                    <input matInput [matDatepicker]="picker" [value]="dateNow">
+                    <mat-datepicker-toggle matSuffix [for]="picker">
+                        <mat-icon matDatepickerToggleIcon>
+                            <svg-icon src="./assets/icons/widgets/reports/calend.svg"
+                                [svgStyle]="{ 'width.px':25, 'height.px':25}">
+                            </svg-icon>
+                        </mat-icon>
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="coding-menu__save-button">
+        <div class="title"></div>
+        <div class="save-block" (click)="saveFile()">
+            <div class="save-block__name">СОХРАНИТЬ В БДДК</div>
+            <div class="save-block__button">
+                <div class="outer">
+                    <div class="inner">
+                        <svg-icon [svgStyle]="{ 'width.px':20, 'height.px':20, 'margin-top.px': 10 }"
+                            src="./assets/icons/widgets/oil-control-all/document-coding/save-arrow.svg">
+                        </svg-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

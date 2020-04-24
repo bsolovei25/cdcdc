@@ -1,27 +1,34 @@
-<evj-widget-preview [title]="widgetTitle" [code]="widgetCode" [previewTitle]="" *ngIf="isMock">
+<evj-widget-preview [title]="widgetTitle" [icon]="widgetIcon" [previewTitle]="" *ngIf="isMock">
 </evj-widget-preview>
 
-<div class="container" *ngIf="!isMock">
-    <evj-widget-header [title]="widgetTitle" [units]="widgetUnits" [code]="widgetCode" [id]="id" [uniqId]="uniqId"
-        [widgetType]="widgetType" [icon]="widgetIcon"></evj-widget-header>
+<ng-container *ngIf="!isMock">
+    <div class="container">
+        <evj-widget-header [title]="widgetTitle" [units]="widgetUnits" [code]="widgetCode" [id]="widgetId"
+            [uniqId]="widgetUniqId" [widgetType]="widgetType"></evj-widget-header>
+        <evj-frame-top></evj-frame-top>
+        <div class="body-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+            <evj-alert-window [info]="oilService.alertWindow$ | async"></evj-alert-window>
 
-    <evj-frame-top></evj-frame-top>
-
-    <div class="content" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
-        <evj-alert-window [info]="oilService.alertWindow$ | async"></evj-alert-window>
-
-        <div class="top-side">
-            <div>
-                <evj-document-coding-table></evj-document-coding-table>
+            <div class="block block_top">
+                <div class='left-side'>  <evj-document-coding-table (filterGroup)="openFilterGroup($event)" (filterProduct)="openFilterProduct($event)" [isFilterProduct]="isFilterProduct" [isFilterGroup]="isFilterGroup"></evj-document-coding-table> </div>
+                <div class='right-side'>  <evj-document-coding-tanks (filterTanks)="openFilterTanks($event)" [isFilterTanks]="isFilterTanks" ></evj-document-coding-tanks> </div>
             </div>
-            <div>
-                <evj-document-coding-tanks></evj-document-coding-tanks>
+            <div class="block block_bottom">
+                <evj-document-coding-menu></evj-document-coding-menu>
+            </div>
+
+            <div *ngIf="isFilterGroup" class="filterGroup">
+                <evj-document-coding-filter (close)="closeFilterGroup($event)"></evj-document-coding-filter>
+            </div>
+
+            <div *ngIf="isFilterProduct" class="filterProduct">
+                <evj-document-coding-filter (close)="closeFilterProduct($event)"></evj-document-coding-filter>
+            </div>
+
+            <div *ngIf="isFilterTanks" class="filterTanks">
+                <evj-tank-filter (close)="closeFilterTanks($event)"></evj-tank-filter>
             </div>
         </div>
-        <div class="bottom-side">
-            <evj-document-coding-menu></evj-document-coding-menu>
-        </div>
+        <evj-frame-bottom></evj-frame-bottom>
     </div>
-
-    <evj-frame-bottom></evj-frame-bottom>
-</div>
+</ng-container>
