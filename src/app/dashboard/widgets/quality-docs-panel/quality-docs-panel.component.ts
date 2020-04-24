@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, HostListener, OnDestroy } from '@angular/cor
 import { WidgetPlatform } from '../../models/widget-platform';
 import { WidgetService } from '../../services/widget.service';
 
-export interface IQualityDocsRecord{
+export interface IQualityDocsRecord {
   id: number;
   numberR: number;
   rR: number;
@@ -14,6 +14,7 @@ export interface IQualityDocsRecord{
   park: string;
   creator: string;
   arm: number;
+  blocked?: boolean;
 }
 
 @Component({
@@ -94,6 +95,12 @@ export class QualityDocsPanelComponent extends WidgetPlatform implements OnInit,
 
   ];
 
+  public isFilter: boolean = false;
+
+  public isTanksInput: boolean = false;
+  public isPasportInput: boolean = false;
+  public isProductInput: boolean = false;
+
   constructor(
     public widgetService: WidgetService,
     @Inject('isMock') public isMock: boolean,
@@ -133,5 +140,17 @@ export class QualityDocsPanelComponent extends WidgetPlatform implements OnInit,
         scroll.classList.add('scrollON');
       }
     }
+  }
+
+  openFilter(): void {
+    this.isFilter = !this.isFilter;
+  }
+
+  searchRecords(event): void {
+
+  }
+
+  closeFilter(event){
+    this.isFilter = event;
   }
 }

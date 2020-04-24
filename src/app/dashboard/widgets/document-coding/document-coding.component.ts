@@ -3,6 +3,12 @@ import { WidgetPlatform } from '../../models/widget-platform';
 import { WidgetService } from '../../services/widget.service';
 import { DocumentCodingService } from '../../services/oil-control-services/document-coding.service';
 
+export interface IDocumentFilter {
+  isFilterGroup: boolean;
+  isFilterProduct: boolean;
+  isFilterTanks: boolean;
+}
+
 @Component({
   selector: 'evj-document-coding',
   templateUrl: './document-coding.component.html',
@@ -12,9 +18,11 @@ export class DocumentCodingComponent extends WidgetPlatform implements OnInit, O
   static itemCols = 18;
   static itemRows = 14;
 
-  public isFilterGroup: boolean = false;
-  public isFilterProduct: boolean = false;
-  public isFilterTanks: boolean = false;
+  filter: IDocumentFilter = {
+    isFilterGroup: false,
+    isFilterProduct: false,
+    isFilterTanks: false,
+  };
 
   constructor(
     public widgetService: WidgetService,
@@ -40,33 +48,27 @@ export class DocumentCodingComponent extends WidgetPlatform implements OnInit, O
     super.ngOnDestroy();
   }
 
-  openFilterGroup(event: boolean): void {
-    this.isFilterTanks = false;
-    this.isFilterProduct = false;
-    this.isFilterGroup = event;
+  openFilter(event: boolean, name: string): void {
+    this.active(name);
   }
 
-  openFilterProduct(event: boolean): void {
-    this.isFilterGroup = false;
-    this.isFilterTanks = false;
-    this.isFilterProduct = event;
+  closeFilter(event: boolean): void {
+    this.disabled();
   }
 
-  openFilterTanks(event: boolean): void {
-    this.isFilterGroup = false;
-    this.isFilterProduct = false;
-    this.isFilterTanks = event;
+  active(itemActive: string): void {
+    Object.keys(this.filter).forEach(key => {
+      if (key === itemActive) {
+        this.filter[key] = true;
+      } else {
+        this.filter[key] = false;
+      }
+    });
   }
 
-  closeFilterGroup(event: boolean): void {
-    this.isFilterGroup = event;
+  disabled(): void {
+    Object.keys(this.filter).forEach(item => {
+      this.filter[item] = false;
+    });
   }
-  closeFilterProduct(event: boolean): void {
-    this.isFilterProduct = event;
-  }
-
-  closeFilterTanks(event: boolean): void {
-    this.isFilterTanks = event;
-  }
-
 }

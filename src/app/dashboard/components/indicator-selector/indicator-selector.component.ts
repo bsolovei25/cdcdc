@@ -25,8 +25,6 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
     public idScreen: number;
     public nameScreen: string;
 
-    public localSaved: number;
-
     private timerOff: any = null;
 
     isShowScreens: boolean = false;
@@ -35,12 +33,14 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
                 private viewportScroller: ViewportScroller) {}
 
     ngOnInit(): void {
+        this.userSettings.ScreenId = Number(localStorage.getItem('screenid'));;
+        this.userSettings.GetScreens();
         this.subscriptions.push(
             this.userSettings.screens$.subscribe((screens) => {
                 console.log(screens);
                 this.dataScreen = screens;
-                this.localSaved = Number(localStorage.getItem('screenid'));
-                this.LoadScreen(this.localSaved);
+                this.idScreen = this.userSettings.ScreenId;
+                this.LoadScreen(this.idScreen);
                 this.nameScreen = this.getActiveScreen();
                 for (const item of this.dataScreen) {
                     item.updateScreen = false;
@@ -93,12 +93,6 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
                 return currentScreen.screenName;
             }
         }
-        if (this.localSaved) {
-            const found = this.dataScreen.find((x) => x.id === this.localSaved);
-            if (found) {
-                return found.screenName;
-            }
-        }
         if (this.dataScreen[0]) { return this.dataScreen[0].screenName; }
     };
 
@@ -141,11 +135,6 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
     }
 
     public addScreen(): void {
-        const newScreen = {
-            id: 0,
-            name: this.tempScreen,
-            isActive: false,
-        };
         this.userSettings.PushScreen(this.tempScreen);
         this.tempScreen = '';
     }
