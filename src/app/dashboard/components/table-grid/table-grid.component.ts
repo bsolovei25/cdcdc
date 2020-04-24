@@ -65,7 +65,7 @@ export class TableGridComponent implements OnInit, AfterViewInit {
     return item.id;
   }
 
-  searchRecords(): void {
+  searchRecord(event): void {
 
   }
 
