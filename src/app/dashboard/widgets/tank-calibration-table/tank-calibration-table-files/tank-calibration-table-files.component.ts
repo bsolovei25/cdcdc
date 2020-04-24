@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Input, EventEmitter, Output } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { TankCalibrationTableService } from '../../../services/widgets/tank-calibration-table.service';
 import { ICalibrationTable } from '../tank-calibration-table.component';
@@ -38,6 +38,8 @@ export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
             this.loadItem(data);
         }
     }
+
+    @Output() selectOut: EventEmitter<string> = new EventEmitter();
 
     localeData: ICalibrationTable[] = [];
 
@@ -93,6 +95,7 @@ export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
 
     chooseTank(element: ICalibrationTable): void {
         this.chooseElement.select(element);
+        this.selectOut.emit(element.uid);
         this.selectId = element.uid;
         try {
             this.loadItem(element);

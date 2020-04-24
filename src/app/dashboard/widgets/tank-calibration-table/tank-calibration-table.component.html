@@ -394,6 +394,7 @@
         [dataSourceUI]="dataSourceUI"
         [dataSourceTanksL]="dataSourceTanks"
         [chooseEl]="chooseElement?.selected[0]"
+        (selectOut)="chooseTanks($event)"
       ></evj-tank-calibration-table-files
     ></ng-container>
   </div>
