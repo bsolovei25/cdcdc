@@ -419,7 +419,6 @@ import { OilOperationsComponent } from './widgets/oil-operations/oil-operations.
     ReportTreeComponent,
     DocumentCodingTableRecordComponent,
     DocumentCodingFilterComponent,
-    HomeComponent,
     TableGridComponent,
     ColumnGridComponent,
     OilOperationsComponent
