@@ -65,6 +65,12 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
         if (this.timerOff) {
             clearTimeout(this.timerOff);
         }
+        if (this.idScreen) {
+            console.log('scroll');
+            console.log(this.idScreen);
+            const el = document.getElementById('screen_' + this.idScreen);
+            el.scrollIntoView({behavior: 'smooth'});
+        }
         this.isShowScreens = true;
     }
 
