@@ -152,18 +152,7 @@
 
                 &__input-active {
                     border: 1px solid;
-                    border-image: linear-gradient(
-                        to left,
-                        rgba(107, 166, 241, 0.7) 2%,
-                        rgba(107, 166, 241, 0.63) 6%,
-                        rgba(107, 166, 241, 0.46) 16%,
-                        rgba(107, 166, 241, 0.32) 26%,
-                        rgba(107, 166, 241, 0.2) 38%,
-                        rgba(107, 166, 241, 0.11) 50%,
-                        rgba(107, 166, 241, 0.05) 63%,
-                        rgba(107, 166, 241, 0.01) 79%,
-                        rgba(107, 166, 241, 0) 102%
-                    );
+                    border-image: linear-gradient(to left, var(--color-active), transparent);
                     border-image-slice: 1;
                     border-right: none;
 
@@ -196,18 +185,7 @@
 
             .active-filter {
                 border: 1px solid !important;
-                border-image: linear-gradient(
-                    to left,
-                    rgba(107, 166, 241, 0.7) 2%,
-                    rgba(107, 166, 241, 0.63) 6%,
-                    rgba(107, 166, 241, 0.46) 16%,
-                    rgba(107, 166, 241, 0.32) 26%,
-                    rgba(107, 166, 241, 0.2) 38%,
-                    rgba(107, 166, 241, 0.11) 50%,
-                    rgba(107, 166, 241, 0.05) 63%,
-                    rgba(107, 166, 241, 0.01) 79%,
-                    rgba(107, 166, 241, 0) 102%
-                ) !important;
+                border-image:linear-gradient(to left, var(--color-active), transparent) !important;
                 border-image-slice: 1 !important;
                 border-right: none !important;
 
@@ -284,8 +262,8 @@ input {
     background: rgb(33, 36, 45, 0.1);
     font-size: 12px;
     border: none;
-    color: rgb(255, 255, 255);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--color-text-main);
+    border-bottom: 1px solid var(--color-text-main-transparent);
 
     &:hover {
         border-bottom: 1px solid var(--color-border-active);

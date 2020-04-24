@@ -31,18 +31,27 @@
     }
 
     .key {
+      position: relative;
       width: 2%;
-      position: absolute;
-      right: 10px;
-      top: 0px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      svg-icon {
+        display: none;
+      }
     }
 
-    .key-blocked{
+    .key-blocked {
+      position: relative;
       width: 2%;
-      position: absolute;
-      right: 10px;
-      top: 0px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
+      svg-icon {
+        display: none;
+      }
     }
 
     .pasport {
@@ -95,36 +104,29 @@
 
     .docs-record-container__block-info {
       .key {
-        cursor: pointer;
-        width: 15px;
-        height: 100%;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-image: url(../../../../../../assets/icons/widgets/oil-control-all/quality-docs-panel/key-open.svg);
-  
-        &:hover {
-          width: 15px;
-          height: 100%;
-          transition: 1s;
-          background-image: url(../../../../../../assets/icons/widgets/oil-control-all/quality-docs-panel/key-open-blue.svg);
+        svg-icon {
+          display: block;
         }
+
+        &:hover svg-icon {
+          ::ng-deep .a1c245c4-44cc-4568-94d9-b50e5870c9e2 {
+            fill: var(--color-active);
+          }
+        }
+        cursor: pointer;
       }
 
-      .key-blocked{
+      .key-blocked {
         cursor: pointer;
-        width: 10px;
-        height: 100%;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-image: url(../../../../../../assets/icons/widgets/oil-control-all/quality-docs-panel/key-close.svg);
-  
-        &:hover {
-          width: 10px;
-          height: 100%;
-          transition: 0.5s;
-          background-image: url(../../../../../../assets/icons/widgets/oil-control-all/quality-docs-panel/key-close-blue.svg);
+        svg-icon {
+          display: block;
         }
-     
+
+        &:hover svg-icon {
+          ::ng-deep .be158748-3c36-4357-a57b-9d1074410248 {
+            fill: var(--color-active);
+          }
+        }
       }
     }
   }

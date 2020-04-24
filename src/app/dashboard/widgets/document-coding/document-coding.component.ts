@@ -18,8 +18,6 @@ export class DocumentCodingComponent extends WidgetPlatform implements OnInit, O
   static itemCols = 18;
   static itemRows = 14;
 
-  objectKeys = Object.keys;
-
   filter: IDocumentFilter = {
     isFilterGroup: false,
     isFilterProduct: false,
@@ -59,18 +57,18 @@ export class DocumentCodingComponent extends WidgetPlatform implements OnInit, O
   }
 
   active(itemActive: string): void {
-    for (const key of this.objectKeys(this.filter)) {
+    Object.keys(this.filter).forEach(key => {
       if (key === itemActive) {
         this.filter[key] = true;
       } else {
         this.filter[key] = false;
       }
-    }
+    });
   }
 
   disabled(): void {
-    for (const key of this.objectKeys(this.filter)) {
-      this.filter[key] = false;
-    }
+    Object.keys(this.filter).forEach(item => {
+      this.filter[item] = false;
+    });
   }
 }

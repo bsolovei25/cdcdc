@@ -22,6 +22,13 @@
     <div class="middle">{{ data.park }}</div>
     <div class="middle creator">{{ data.creator }}</div>
     <div class="middle">{{ data.arm }}</div>
-    <div class="key" id="tooltipDocsRecord{{data.id}}" (click)="blocked()" [class.key-blocked]="data.blocked"></div>
+    <div class="key" id="tooltipDocsRecord{{data.id}}" (click)="blocked()" [class.key-blocked]="data.blocked">
+      <svg-icon *ngIf="!data.blocked" src="assets/icons/widgets/oil-control-all/quality-docs-panel/key-open.svg"
+        [svgStyle]="{ 'width.px':20, 'height.px':20, 'margin-top.px': 5 }">
+      </svg-icon>
+      <svg-icon *ngIf="data.blocked" src="assets/icons/widgets/oil-control-all/quality-docs-panel/key-close.svg"
+      [svgStyle]="{ 'width.px':20, 'height.px':20, 'margin-top.px': 5 }">
+    </svg-icon>
+    </div>
   </div>
 </div>

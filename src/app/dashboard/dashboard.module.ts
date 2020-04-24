@@ -224,6 +224,9 @@ import { DocumentCodingTanksComponent } from './widgets/document-coding/componen
 import { DocumentCodingMenuComponent } from './widgets/document-coding/components/document-coding-menu/document-coding-menu.component';
 import { DocumentCodingTableRecordComponent } from './widgets/document-coding/components/document-coding-table-record/document-coding-table-record.component';
 import { DocumentCodingFilterComponent } from './widgets/document-coding/components/document-coding-filter/document-coding-filter.component';
+import { TableGridComponent } from './components/table-grid/table-grid.component';
+import { ColumnGridComponent } from './components/table-grid/components/column-grid/column-grid.component';
+import { OilOperationsComponent } from './widgets/oil-operations/oil-operations.component';
 
 @NgModule({
     declarations: [
@@ -415,6 +418,9 @@ import { DocumentCodingFilterComponent } from './widgets/document-coding/compone
         DocumentCodingMenuComponent,
         DocumentCodingTableRecordComponent,
         DocumentCodingFilterComponent,
+        TableGridComponent,
+        ColumnGridComponent,
+        OilOperationsComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -478,6 +484,7 @@ import { DocumentCodingFilterComponent } from './widgets/document-coding/compone
         DocumentsScansComponent,
         QualityDocsPanelComponent,
         DocumentCodingComponent,
+        OilOperationsComponent,
     ],
     exports: [HomeComponent],
   imports: [
