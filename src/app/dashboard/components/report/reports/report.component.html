@@ -2,111 +2,171 @@
   <div class="panel-header" [class.panel-header--active]="active" (click)="toggle(data.id)">
     <p class="panel-header__text" [class.panel-header__text--active]="active">{{data.name}}</p>
     <svg-icon
-      *ngIf="!active"
-      class="panel-header__icon"
+      *ngIf="active"
+      class="panel-header__icon panel-header__icon__active"
       [svgStyle]="{ 'width.px':20, 'height.px':20 }"
       src="assets/icons/widgets/reports/arrow-up.svg"
     ></svg-icon>
     <svg-icon
-      *ngIf="active"
-      class="panel-header__icon panel-header__icon__active"
+      *ngIf="!active"
+      class="panel-header__icon"
       [svgStyle]="{ 'width.px':20, 'height.px':20 }"
       src="assets/icons/widgets/reports/arrow-bottom.svg"
     ></svg-icon>
   </div>
-  <div class="panel-body" @fadeAnimation *ngIf="active">
+  <div class="panel-body" *ngIf="active">
     <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
-    <mat-form-field class="form" *ngIf="periodTime?.periodType === 'exactTime'">
+    <mat-form-field
+      class="form form__picker custom-picker"
+      *ngIf="periodTime?.periodType === 'exactTime'"
+    >
       <mat-label class="form__title">Точное время</mat-label>
-      <input matInput [ngxMatDatetimePicker]="pickerD" [value]="dateNow" />
+      <input
+        disabled
+        autocomplete="off"
+        matInput
+        [ngxMatDatetimePicker]="pickerD"
+        [value]="dateNow"
+      />
       <mat-datepicker-toggle matSuffix [for]="pickerD">
         <mat-icon matDatepickerToggleIcon>
           <svg-icon
+            class="form__icon"
             src="./assets/icons/widgets/reports/calend.svg"
             [svgStyle]="{ 'width.px':25, 'height.px':25}"
           >
           </svg-icon>
         </mat-icon>
       </mat-datepicker-toggle>
-      <ngx-mat-datetime-picker #pickerD startView="multi-year"> </ngx-mat-datetime-picker>
+      <ngx-mat-datetime-picker #pickerD disabled="false"> </ngx-mat-datetime-picker>
     </mat-form-field>
-    <mat-form-field class="form" *ngIf="periodTime?.periodType === 'timePeriod'">
+    <mat-form-field
+      class="form form__picker custom-picker"
+      *ngIf="periodTime?.periodType === 'timePeriod'"
+    >
       <mat-label class="form__title">Выберите дату начала</mat-label>
-      <input matInput [ngxMatDatetimePicker]="pickerT" [(ngModel)]="periodTime.startDateTime" />
+      <input
+        disabled
+        autocomplete="off"
+        matInput
+        [ngxMatDatetimePicker]="pickerT"
+        [(ngModel)]="periodTime.startDateTime"
+      />
       <mat-datepicker-toggle matSuffix [for]="pickerT">
         <mat-icon matDatepickerToggleIcon>
           <svg-icon
+            class="form__icon"
             src="./assets/icons/widgets/reports/calend.svg"
             [svgStyle]="{ 'width.px':25, 'height.px':25}"
           >
           </svg-icon>
         </mat-icon>
       </mat-datepicker-toggle>
-      <ngx-mat-datetime-picker #pickerT> </ngx-mat-datetime-picker>
+      <ngx-mat-datetime-picker #pickerT disabled="false"> </ngx-mat-datetime-picker>
     </mat-form-field>
-    <mat-form-field class="form" *ngIf="periodTime?.periodType === 'timePeriod'">
+    <mat-form-field
+      class="form form__picker custom-picker"
+      *ngIf="periodTime?.periodType === 'timePeriod'"
+    >
       <mat-label class="form__title">Выберите дату окончания</mat-label>
-      <input matInput [ngxMatDatetimePicker]="pickerTend" [(ngModel)]="periodTime.endDateTime" />
+      <input
+        disabled
+        autocomplete="off"
+        matInput
+        [ngxMatDatetimePicker]="pickerTend"
+        [(ngModel)]="periodTime.endDateTime"
+      />
       <mat-datepicker-toggle matSuffix [for]="pickerTend">
         <mat-icon matDatepickerToggleIcon>
           <svg-icon
+            class="form__icon"
             src="./assets/icons/widgets/reports/calend.svg"
             [svgStyle]="{ 'width.px':25, 'height.px':25}"
           >
           </svg-icon>
         </mat-icon>
       </mat-datepicker-toggle>
-      <ngx-mat-datetime-picker #pickerTend> </ngx-mat-datetime-picker>
+      <ngx-mat-datetime-picker #pickerTend disabled="false"> </ngx-mat-datetime-picker>
     </mat-form-field>
-    <mat-form-field class="form" *ngIf="periodTime?.periodType === 'datePeriod'">
+    <mat-form-field
+      class="form form__picker custom-picker"
+      *ngIf="periodTime?.periodType === 'datePeriod'"
+    >
       <mat-label class="form__title">Выберите дату начала</mat-label>
-      <input matInput [matDatepicker]="pickerFrom" [(ngModel)]="periodTime.startDateTime" />
+      <input
+        disabled
+        autocomplete="off"
+        matInput
+        [matDatepicker]="pickerFrom"
+        [(ngModel)]="periodTime.startDateTime"
+      />
       <mat-datepicker-toggle matSuffix [for]="pickerFrom">
         <mat-icon matDatepickerToggleIcon>
           <svg-icon
+            class="form__icon"
             src="./assets/icons/widgets/reports/calend.svg"
             [svgStyle]="{ 'width.px':25, 'height.px':25}"
           >
           </svg-icon>
         </mat-icon>
       </mat-datepicker-toggle>
-      <mat-datepicker #pickerFrom></mat-datepicker>
+      <mat-datepicker #pickerFrom disabled="false"></mat-datepicker>
     </mat-form-field>
-    <mat-form-field class="form" *ngIf="periodTime?.periodType === 'datePeriod'">
+    <mat-form-field
+      class="form form__picker custom-picker"
+      *ngIf="periodTime?.periodType === 'datePeriod'"
+    >
       <mat-label class="form__title">Выберите дату окончания</mat-label>
-      <input matInput [matDatepicker]="pickerTo" [(ngModel)]="periodTime.endDateTime" />
+      <input
+        disabled
+        autocomplete="off"
+        matInput
+        [matDatepicker]="pickerTo"
+        [(ngModel)]="periodTime.endDateTime"
+      />
       <mat-datepicker-toggle matSuffix [for]="pickerTo">
         <mat-icon matDatepickerToggleIcon>
           <svg-icon
+            class="form__icon"
             src="./assets/icons/widgets/reports/calend.svg"
             [svgStyle]="{ 'width.px':25, 'height.px':25}"
           >
           </svg-icon>
         </mat-icon>
       </mat-datepicker-toggle>
-      <mat-datepicker #pickerTo></mat-datepicker>
+      <mat-datepicker #pickerTo disabled="false"></mat-datepicker>
     </mat-form-field>
-    <mat-form-field class="form" *ngIf="periodTime?.periodType === 'day'">
+    <mat-form-field
+      class="form form__picker custom-picker"
+      *ngIf="periodTime?.periodType === 'day'"
+    >
       <mat-label class="form__title">Выберите день</mat-label>
-      <input matInput [matDatepicker]="pickerTo" [(ngModel)]="periodTime.endDateTime" />
+      <input
+        disabled
+        autocomplete="off"
+        matInput
+        [matDatepicker]="pickerTo"
+        [(ngModel)]="periodTime.endDateTime"
+      />
       <mat-datepicker-toggle matSuffix [for]="pickerTo">
         <mat-icon matDatepickerToggleIcon>
           <svg-icon
+            class="form__icon"
             src="./assets/icons/widgets/reports/calend.svg"
             [svgStyle]="{ 'width.px':25, 'height.px':25}"
           >
           </svg-icon>
         </mat-icon>
       </mat-datepicker-toggle>
-      <mat-datepicker #pickerTo></mat-datepicker>
+      <mat-datepicker #pickerTo disabled="false"></mat-datepicker>
     </mat-form-field>
     <evj-system-period-date-year
       *ngIf="periodTime?.periodType === 'year'"
       (dateTimePicker)="dateTimePicker($event, 'year')"
-      class="form"
+      class="form form__picker"
     ></evj-system-period-date-year>
     <evj-system-period-date-month
-      class="form"
+      class="form form__picker"
       (dateTimePicker)="dateTimePicker($event, 'month')"
       *ngIf="periodTime?.periodType === 'month'"
     ></evj-system-period-date-month>

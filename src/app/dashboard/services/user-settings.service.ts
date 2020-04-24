@@ -9,7 +9,6 @@ import { IParamWidgetsGrid } from '../components/new-widgets-grid/new-widgets-gr
 import { WidgetService } from './widget.service';
 import { ClaimService } from './claim.service';
 import { GridsterItem } from 'angular-gridster2';
-import { GridsterDraggable } from 'angular-gridster2/lib/gridsterDraggable.service';
 
 @Injectable({
     providedIn: 'root',
@@ -30,7 +29,7 @@ export class UserSettingsService {
         private widgetService: WidgetService,
         private http: HttpClient,
         private claimService: ClaimService,
-        configService: AppConfigService
+        private configService: AppConfigService,
     ) {
         this.restUrl = configService.restUrl;
         localStorage.getItem('screen');
@@ -128,10 +127,10 @@ export class UserSettingsService {
             this.http
                 .get<IScreenSettings[]>(this.restUrl + '/api/user-management/screens')
                 .subscribe((data) => {
-                    this._screens$.next(data);
                     if (!this.ScreenId && data[0]) {
                         this.ScreenId = data[0].id;
                     }
+                    this._screens$.next(data);
                 });
         } catch (e) {
             console.log('Error: could not get screen!');
@@ -193,7 +192,10 @@ export class UserSettingsService {
             widgets: null,
         };
         return this.http.post(this.restUrl + '/api/user-management/screen', userScreen).subscribe(
-            (ans) => {
+            (data: {id: number, name: string }) => {
+                console.log('screen id');
+                console.log(data);
+                this.ScreenId = data?.id ?? this.ScreenId;
                 this.GetScreens();
             },
             (error) => console.log(error)

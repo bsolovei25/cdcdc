@@ -3,8 +3,10 @@
   flex-direction: column;
   width: 100%;
   min-height: 40px;
-  margin-bottom: 10px;
   width: 450px;
+  margin: 5px 0;
+  font-size: 14px;
+  user-select: none;
 
   &-header {
     width: 100%;
@@ -21,13 +23,7 @@
     );
     &--active {
       // background: rgb(63, 169, 245);
-      background: linear-gradient(
-        90deg,
-        rgba(63, 169, 245, 1) 0%,
-        rgba(40, 92, 133, 1) 31%,
-        rgba(22, 32, 48, 1) 79%,
-        rgba(19, 23, 34, 1) 100%
-      );
+      background: linear-gradient(90deg, rgba(63, 169, 245, 1) 0%, rgba(40, 92, 133, 1) 31%, #192330 79%, #1b2330 100%);
     }
     &__text {
       margin-left: 20px;
@@ -39,8 +35,9 @@
     &__icon {
       margin: auto 0;
       margin-right: 20px;
+      fill: var(--color-text-sub);
       &__active {
-        fill: rgb(62, 170, 248);
+        fill: var(--color-text-main);
       }
     }
     &.mat-expanded:hover {
@@ -58,6 +55,10 @@
       width: 204px;
 
       padding-right: 10px;
+
+      &__icon {
+        margin-top: -10px;
+      }
       &__title {
         font-size: 12px;
         color: var(--color-text-sub);
@@ -70,16 +71,42 @@
         font-size: 14px;
         top: -18px;
       }
+      &__picker {
+        width: 196px;
+        margin-right: 15px;
+        box-sizing: border-box;
+      }
     }
     &__footer {
       width: 100%;
-      margin: 20px 0;
+      margin: 10px 0;
 
       &__icon {
         cursor: pointer;
         margin: auto 0;
         margin-right: 20px;
       }
+    }
+  }
+}
+
+.custom-picker {
+  ::ng-deep {
+    .mat-form-field-infix {
+      width: 100px;
+    }
+    .mat-form-field-underline {
+      display: none;
+    }
+    input {
+      border-bottom: 0;
+    }
+    .mat-icon {
+      margin-top: -10px;
+    }
+    .mat-input-element:disabled,
+    .mat-form-field-type-mat-native-select .mat-form-field-disabled .mat-form-field-infix::after {
+      color: var(--color-text-main);
     }
   }
 }

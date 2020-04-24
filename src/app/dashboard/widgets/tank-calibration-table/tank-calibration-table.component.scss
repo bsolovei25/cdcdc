@@ -12,7 +12,7 @@
   position: absolute;
   display: flex;
   top: 45px;
-  left: 0;
+  left: -150px;
   min-width: 370px;
   min-height: 45px;
   border-radius: 25px;
@@ -219,36 +219,10 @@ input {
         top: 0;
         z-index: 100;
         &:first-of-type {
-          &:before {
-            z-index: 101;
-            content: "";
-            position: absolute;
-            top: 1px;
-            left: -13px;
-            height: 11px;
-            width: 20px;
-            box-sizing: border-box;
-            transform-origin: 43% 0;
-            transform: rotate(-45deg);
-            border-bottom: 1px solid transparent;
-            background: var(--color-bg-main);
-          }
+          border-top-left-radius: var(--table-border-radius);
         }
         &:last-of-type {
-          &:after {
-            z-index: 999;
-            content: "";
-            position: absolute;
-            top: 6px;
-            right: -6px;
-            height: 8px;
-            width: 20px;
-            box-sizing: border-box;
-            transform-origin: 43% 0;
-            transform: rotate(-135deg);
-            border-top: 1px solid transparent;
-            background: var(--color-bg-main);
-          }
+          border-top-right-radius: var(--table-border-radius);
         }
       }
     }
@@ -259,7 +233,7 @@ input {
         font-size: 14px;
         height: 40px;
 
-        background-color: var(--color-bg-header-table);
+        background-color: var(--color-bЗg-header-table);
 
         td {
           height: 19px;
@@ -334,44 +308,10 @@ input {
         height: 40px;
         background-color: var(--color-table-header);
         &:first-of-type {
-          &:before {
-            z-index: 1;
-            content: "";
-            position: absolute;
-            bottom: 0px;
-            left: 0px;
-            height: 11px;
-            width: 18px;
-            /* box-sizing: border-box; */
-            /* transform-origin: 43% 0; */
-            /* transform: rotate(-135deg); */
-            border-bottom: 1px solid transparent;
-            /* background: var(--color-bg-main); */
-            width: 0;
-            height: 0;
-            border-bottom: 12px solid var(--color-bg-main);
-            border-right: 12px solid transparent;
-          }
+          border-bottom-left-radius: var(--table-border-radius);
         }
         &:last-of-type {
-          &:after {
-            z-index: 1;
-            content: "";
-            position: absolute;
-            bottom: 0px;
-            right: 0px;
-            height: 7px;
-            width: 17px;
-            /* box-sizing: border-box; */
-            /* transform-origin: 43% 0; */
-            /* transform: rotate(-45deg); */
-            border-top: 1px solid transparent;
-            /* background: var(--color-bg-main); */
-            width: 0;
-            height: 0;
-            border-bottom: 12px solid var(--color-bg-main);
-            border-left: 12px solid transparent;
-          }
+          border-bottom-right-radius: var(--table-border-radius);
         }
       }
     }
@@ -544,36 +484,10 @@ input {
         top: 0;
         z-index: 100;
         &:first-of-type {
-          &:before {
-            z-index: 101;
-            content: "";
-            position: absolute;
-            top: 1px;
-            left: -13px;
-            height: 11px;
-            width: 20px;
-            box-sizing: border-box;
-            transform-origin: 43% 0;
-            transform: rotate(-45deg);
-            border-bottom: 1px solid transparent;
-            background: var(--color-bg-main);
-          }
+          border-top-left-radius: var(--table-border-radius);
         }
         &:last-of-type {
-          &:after {
-            z-index: 999;
-            content: "";
-            position: absolute;
-            top: 6px;
-            right: -6px;
-            height: 8px;
-            width: 20px;
-            box-sizing: border-box;
-            transform-origin: 43% 0;
-            transform: rotate(-135deg);
-            border-top: 1px solid transparent;
-            background: var(--color-bg-main);
-          }
+          border-top-right-radius: var(--table-border-radius);
         }
       }
     }
@@ -643,44 +557,10 @@ input {
         height: 40px;
         background-color: var(--color-table-header);
         &:first-of-type {
-          &:before {
-            z-index: 1;
-            content: "";
-            position: absolute;
-            bottom: 0px;
-            left: 0px;
-            height: 11px;
-            width: 18px;
-            /* box-sizing: border-box; */
-            /* transform-origin: 43% 0; */
-            /* transform: rotate(-135deg); */
-            border-bottom: 1px solid transparent;
-            /* background: var(--color-bg-main); */
-            width: 0;
-            height: 0;
-            border-bottom: 12px solid var(--color-bg-main);
-            border-right: 12px solid transparent;
-          }
+          border-bottom-left-radius: var(--table-border-radius);
         }
         &:last-of-type {
-          &:after {
-            z-index: 1;
-            content: "";
-            position: absolute;
-            bottom: 0px;
-            right: 0px;
-            height: 7px;
-            width: 17px;
-            /* box-sizing: border-box; */
-            /* transform-origin: 43% 0; */
-            /* transform: rotate(-45deg); */
-            border-top: 1px solid transparent;
-            /* background: var(--color-bg-main); */
-            width: 0;
-            height: 0;
-            border-bottom: 12px solid var(--color-bg-main);
-            border-left: 12px solid transparent;
-          }
+          border-bottom-right-radius: var(--table-border-radius);
         }
       }
     }
@@ -752,6 +632,8 @@ input {
   height: 38px;
   width: 100%;
   background-color: var(--color-table-header);
+  border-bottom-left-radius: var(--table-border-radius);
+  border-bottom-right-radius: var(--table-border-radius);
 
   &__block {
     display: flex;
@@ -869,6 +751,8 @@ input {
   width: 100%;
   background-color: var(--color-table-header);
   font-weight: normal;
+  border-bottom-left-radius: var(--table-border-radius);
+  border-bottom-right-radius: var(--table-border-radius);
 
   &__block {
     display: flex;
