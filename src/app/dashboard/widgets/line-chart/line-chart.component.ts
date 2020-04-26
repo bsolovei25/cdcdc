@@ -192,7 +192,7 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
         return data;
     }
 
-    private fillToXMAx(values, xMax): string {
+    private fillToXMAx(values, xMax) {
         const latest = values.slice().reverse()[0];
         const xMaxDate = new Date(xMax);
         if (latest && new Date(latest.date).getTime() !== xMaxDate.getTime()) {
@@ -229,7 +229,7 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
         return found != null ? found.values : [];
     }
 
-    private refreshDeviations(): string {
+    private refreshDeviations() {
         const plan = this.extractByName(this.data.graphs, 'plan');
         const fact = this.extractByName(this.data.graphs, 'fact');
         const lowerLimit = this.extractByName(this.data.graphs, 'lowerLimit');
@@ -392,7 +392,7 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
     }
 
     private drawAxis(): void {
-        const locale = d3.timeFormatLocale({
+        let locale = d3.timeFormatLocale({
             dateTime: '%A, %e %B %Y г. %X',
             date: '%d.%m.%Y',
             time: '%H:%M:%S',
@@ -436,7 +436,7 @@ export class LineChartComponent extends WidgetPlatform implements AfterViewInit,
                 'Дек',
             ],
         });
-        const formatMillisecond = locale.format('.%L'),
+        let formatMillisecond = locale.format('.%L'),
             formatSecond = locale.format(':%S'),
             formatMinute = locale.format('%I:%M'),
             formatHour = locale.format('%I %p'),
