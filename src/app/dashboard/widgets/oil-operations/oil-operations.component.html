@@ -9,8 +9,7 @@
         <div class="body-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
             <div class="block">
                 <div class='left-side'>
-                    <evj-table-grid [scrollLeft]="true" [saveButton]="true" [data]="data" [search]="true" [filter]="true"
-                        [templateFooter]="test" >
+                    <evj-table-grid [scrollLeft]="true" [saveButton]="true" [data]="data" [search]="true" [filter]="true">
                         <evj-column-grid key="id" name="№" className="short" [width]="50"></evj-column-grid>
                         <evj-column-grid key="name" name="Наименование" className="middle"></evj-column-grid>
                         <evj-column-grid key="tanks" name="Резервуар" [template]="testTemplate" className="big">

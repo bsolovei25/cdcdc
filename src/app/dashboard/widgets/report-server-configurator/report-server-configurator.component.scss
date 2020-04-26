@@ -812,7 +812,8 @@ input {
         display: flex;
         width: 100%;
         height: auto;
-        line-height: 35px;
+        align-items: center;
+        min-height: 40px;
         text-align: center;
         direction: ltr;
         background-color: #1b1f2c;
@@ -821,6 +822,7 @@ input {
       &__fio-block {
         position: relative;
         display: flex;
+        align-items: center;
         border-bottom: 2px solid var(--color-bg-main);
         width: 50%;
         background-color: #1b1f2c;
@@ -831,9 +833,13 @@ input {
       }
 
       &__fio {
+        display: flex;
+        align-items: center;
+        height: 100%;
         width: 100%;
         text-align: left;
         padding-left: 15px;
+        min-height: 40px;
       }
 
       &__edit-button {
@@ -844,6 +850,8 @@ input {
       }
 
       &__type {
+        height: 100%;
+        min-height: 40px;
         cursor: pointer;
         position: relative;
         display: flex;
@@ -855,6 +863,8 @@ input {
         .mat-form-field {
           width: 90%;
           margin-left: 15px;
+          height: 40px;
+          line-height: 10px;
 
           ::ng-deep .mat-form-field-underline {
             display: none;

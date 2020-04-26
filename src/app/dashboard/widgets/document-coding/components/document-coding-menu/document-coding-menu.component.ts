@@ -22,7 +22,7 @@ export class DocumentCodingMenuComponent implements OnInit {
   saveFile(): void {
     const windowsParam = {
       isShow: true,
-      questionText: 'Вы уверены, что хотите удалить файл?',
+      questionText: 'Вы уверены, что хотите сохранить файл?',
       acceptText: 'Да',
       cancelText: 'Нет',
       acceptFunction: () => this.snackBar.openSnackBar(

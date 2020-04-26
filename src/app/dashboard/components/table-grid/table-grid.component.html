@@ -11,7 +11,7 @@
             <ng-container *ngFor="let item of data">
                 <div class="item-inline">
                     <div class="record-table" (click)="activeItem(item)" [class.active]="activeItemId === item.id">
-                        <ng-container *ngFor="let cell of columns; trackBy: columnsById">
+                        <ng-container *ngFor="let cell of columns; trackBy: columnsByKey">
                             <div class="{{cell.className}}" [style.width.%]="cell.width">
                                 <ng-container *ngTemplateOutlet="cell.template; context: { data: item }">
                                 </ng-container>
