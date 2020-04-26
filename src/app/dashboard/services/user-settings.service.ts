@@ -35,11 +35,10 @@ export class UserSettingsService {
         localStorage.getItem('screen');
     }
 
-    // TODO WTF?! - function ??? var ??? - answer: copypast google
     public create_UUID(): string {
-        var dt = new Date().getTime();
-        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            var r = (dt + Math.random() * 16) % 16 | 0;
+        let dt = new Date().getTime();
+        const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+            const r = (dt + Math.random() * 16) % 16 | 0;
             dt = Math.floor(dt / 16);
             return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16);
         });
@@ -75,7 +74,7 @@ export class UserSettingsService {
         this.http
             .post(this.restUrl + '/api/user-management/widget/' + this.ScreenId, updateWidget)
             .subscribe(
-                (ans) => {},
+                (ans) => { },
                 (error) => console.log(error)
             );
     }
@@ -101,7 +100,7 @@ export class UserSettingsService {
         this.http
             .put(this.restUrl + '/api/user-management/widget/' + uniqId, updateWidget)
             .subscribe(
-                (ans) => {},
+                (ans) => { },
                 (error) => console.log(error)
             );
     }
@@ -192,7 +191,7 @@ export class UserSettingsService {
             widgets: null,
         };
         return this.http.post(this.restUrl + '/api/user-management/screen', userScreen).subscribe(
-            (data: {id: number, name: string }) => {
+            (data: { id: number, name: string }) => {
                 console.log('screen id');
                 console.log(data);
                 this.ScreenId = data?.id ?? this.ScreenId;
