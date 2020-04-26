@@ -24,33 +24,22 @@ $container-padding: 5px;
 
 .block {
   $block-margin: 5px;
-  $bottom-block-size: 75px;
   position: relative;
   margin: $block-margin;
-  min-width: 1040px;
+  display: flex;
+  width: 100%;
+  height: calc(100% - #{$block-margin * 2});
 
-  &_top {
-    display: flex;
-    width: calc(100% - #{$block-margin * 2});
-    height: calc(100% - #{$bottom-block-size} - #{$block-margin * 4});
-
-    .left-side {
-      height: 100%;
-      width: 75%;
-    }
-
-    .right-side {
-      height: 100%;
-      width: 25%;
-    }
+  .left-side {
+    height: 100%;
+    width: 45%;
   }
-  &_bottom {
-    width: calc(100% - #{$block-margin * 2});
-    height: $bottom-block-size;
+
+  .right-side {
+    height: 100%;
+    width: 25%;
   }
 }
-
-
 
 ::-webkit-scrollbar {
   width: 4px;
