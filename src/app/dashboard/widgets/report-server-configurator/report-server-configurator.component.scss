@@ -861,6 +861,13 @@ input {
         width: 50%;
         background-color: #1b1f2c;
 
+        .typeCheck{
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          height: 100%;
+        }
+
         .mat-form-field {
           width: 90%;
           margin-left: 15px;

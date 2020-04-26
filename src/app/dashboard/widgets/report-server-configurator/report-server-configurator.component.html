@@ -173,13 +173,15 @@
                         </mat-form-field>
                       </ng-container>
                       <ng-container *ngIf="item.templateSystemOption.type === 'checkBox'">
-                        <label class="mycheckbox">
-                          <input type="checkbox" id="checkBoxValue" class="mycheckbox__default"
-                            [checked]="item.templateSystemOption.defaultValue === 'true'"
-                            (click)="changeSwapSystemOptions(item.templateSystemOption.defaultValue)" />
-                          <div class="mycheckbox__new"
-                            [class.mycheckbox__checked]="item.templateSystemOption.defaultValue === 'true'"></div>
-                        </label>
+                        <div class="typeCheck" >
+                          <label class="mycheckbox">
+                            <input type="checkbox" id="checkBoxValue" class="mycheckbox__default"
+                              [checked]="item.value === 'true'" (click)="changeSwapSystemOptions(item)"
+                               />
+                            <div class="mycheckbox__new"
+                              [class.mycheckbox__checked]="item.value === 'true'"></div>
+                          </label>
+                        </div>
                       </ng-container>
                       <ng-container *ngIf="item.templateSystemOption.type === 'comboBox'">
                       </ng-container>
@@ -189,6 +191,9 @@
                           <svg-icon *ngIf="item.open" class="indicator-selector__collapse"
                             src="./assets/icons/widgets/references/edit_white.svg"></svg-icon>
                         </div>
+                      </ng-container>
+                      <ng-container *ngIf="item.templateSystemOption.type === 'custom'">
+                        <div class="reference-container-value__fio">{{item.value}}</div>
                       </ng-container>
                     </ng-container>
                     <ng-container *ngIf="item.templateSystemOption.systemOptionType === 'customOptions'">

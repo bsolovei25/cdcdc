@@ -501,12 +501,6 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
                 this.popupOptionsActive = item;
                 this.popupUserOptions = true;
                 break;
-            case 'argumentsSheetName':
-                //    item.isSelectBoxType = true;
-                break;
-            case 'executeMacro':
-                // item.isSelectBoxType = true;
-                break;
             default: break;
         }
     }
@@ -537,8 +531,8 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         }
     }
 
-    changeSwapSystemOptions(item: string): void {
-        (item === 'false') ? item = 'true' : item = 'false';
+    changeSwapSystemOptions(item: any): void {
+        (item.value === 'true') ? item.value = 'false' : item.value = 'true';
     }
 
     //PUSH INPUT FOR FOLDER/TEMPLATE
