@@ -164,15 +164,26 @@
                   </div>
                   <div class="reference-container-value__type" (click)="onClickParamReference(item)">
                     <ng-container *ngIf="item.templateSystemOption.systemOptionType !== 'customOptions'">
-                      <ng-container *ngIf="item.isSelectBoxType">
+                      <ng-container *ngIf="item.templateSystemOption.type === 'selectBox'">
                         <mat-form-field class="categories_selectbox">
-                          <mat-select panelClass="mat-select-custom" [(ngModel)]="item.type">
+                          <mat-select panelClass="mat-select-custom" [(ngModel)]="item.value">
                             <mat-option *ngFor="let p of systemOptionType" [value]="p">{{ p }}
                             </mat-option>
                           </mat-select>
                         </mat-form-field>
                       </ng-container>
-                      <ng-container *ngIf="!item.isSelectBoxType">
+                      <ng-container *ngIf="item.templateSystemOption.type === 'checkBox'">
+                        <label class="mycheckbox">
+                          <input type="checkbox" id="checkBoxValue" class="mycheckbox__default"
+                            [checked]="item.templateSystemOption.defaultValue === 'true'"
+                            (click)="changeSwapSystemOptions(item.templateSystemOption.defaultValue)" />
+                          <div class="mycheckbox__new"
+                            [class.mycheckbox__checked]="item.templateSystemOption.defaultValue === 'true'"></div>
+                        </label>
+                      </ng-container>
+                      <ng-container *ngIf="item.templateSystemOption.type === 'comboBox'">
+                      </ng-container>
+                      <ng-container *ngIf="item.templateSystemOption.type === 'textBox'">
                         <div class="reference-container-value__fio">{{item.value}}</div>
                         <div class="reference-container-value__edit-button">
                           <svg-icon *ngIf="item.open" class="indicator-selector__collapse"

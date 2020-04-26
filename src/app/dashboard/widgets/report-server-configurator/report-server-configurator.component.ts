@@ -502,9 +502,11 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
                 this.popupUserOptions = true;
                 break;
             case 'argumentsSheetName':
-                item.isSelectBoxType = true;
+                //    item.isSelectBoxType = true;
+                break;
             case 'executeMacro':
-                item.isSelectBoxType = true;
+                // item.isSelectBoxType = true;
+                break;
             default: break;
         }
     }
@@ -533,6 +535,10 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             const index = this.optionsActive.findIndex(e => e.templateSystemOption.id === item.id);
             this.optionsActive.splice(index, 1);
         }
+    }
+
+    changeSwapSystemOptions(item: string): void {
+        (item === 'false') ? item = 'true' : item = 'false';
     }
 
     //PUSH INPUT FOR FOLDER/TEMPLATE
