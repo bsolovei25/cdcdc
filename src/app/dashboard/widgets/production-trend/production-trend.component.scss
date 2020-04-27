@@ -9,6 +9,10 @@ $container-padding: 5px;
   flex-direction: column;
   justify-content: flex-start;
   min-width: 430px;
+
+  *{
+    user-select: none;
+  }
 }
 
 .content {
