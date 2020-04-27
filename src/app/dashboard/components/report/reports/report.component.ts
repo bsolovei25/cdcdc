@@ -101,7 +101,7 @@ export class ReportComponent implements OnInit {
     formGroup: IReportFormGroup[] = [];
 
     @Input() data: IReportTemplate;
-    @Input() activeElements: SelectionModel<number> = new SelectionModel<number>(true, []);
+    @Input() activeElements: SelectionModel<number>;
 
     @ViewChild('picker') public picker: any;
 

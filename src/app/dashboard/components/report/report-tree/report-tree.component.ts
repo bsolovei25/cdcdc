@@ -34,13 +34,13 @@ export class ReportTreeComponent implements OnInit {
     count: number = 1;
 
     @Input() selectedFolders: SelectionModel<number>;
-    @Input() activeElements: SelectionModel<number> = new SelectionModel<number>(true, []);
+    @Input() activeElements: SelectionModel<number>;
+    @Input() data: IReportTree;
 
     @Input() set dataCount(count: number) {
         this.count = count + 6;
     }
 
-    @Input() data: IReportTree;
 
     constructor() { }
 

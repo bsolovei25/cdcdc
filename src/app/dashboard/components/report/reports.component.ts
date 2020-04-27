@@ -27,7 +27,6 @@ interface ITemplateFolderLocal {
     selector: 'evj-reports',
     templateUrl: './reports.component.html',
     styleUrls: ['./reports.component.scss'],
-    providers: [TreeDraggedElement]
 })
 export class ReportsComponent implements OnInit {
 
@@ -126,7 +125,6 @@ export class ReportsComponent implements OnInit {
                             this.activeElements.select(val.id);
                         }
                     });
-                    console.log(this.activeElements.selected, this.selectedFolders.selected);
                 }, 100);
             }
         }
