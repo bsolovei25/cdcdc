@@ -10,9 +10,14 @@
 .graph {
   height: 100%;
   width: 100%;
+
+  box-sizing: border-box;
+  margin-bottom: 5px;
 }
 .scroll {
-  max-height: 50px;
+  max-height: 30px;
   height: 100%;
   width: 100%;
+  box-sizing: border-box;
+  padding: 0px 45px;
 }
