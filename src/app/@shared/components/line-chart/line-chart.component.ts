@@ -26,16 +26,11 @@ export class LineChartComponent implements OnChanges, OnInit {
     @ViewChild('chart', { static: true }) private chart: ElementRef;
 
     private readonly MAX_COEF: number = 0.1;
+    private readonly MIN_COEF: number = 0.3;
 
     private readonly chartStroke: { [key: string]: string } = {
         plan: '#ffffff',
         fact: '#3fa9f5',
-    };
-
-    private readonly dataPickerColors: { [key: string]: string } = {
-        standard: '#00A99D',
-        warning: '#f4a321',
-        danger: '#eb5757',
     };
 
     private svg = null;
@@ -120,7 +115,7 @@ export class LineChartComponent implements OnChanges, OnInit {
         });
 
         this.dataMax = d3.max(maxValues) * (1 + this.MAX_COEF);
-        this.dataMin = d3.min(minValues) * (1 - 0.3);
+        this.dataMin = d3.min(minValues) * (1 - this.MIN_COEF);
     }
 
     private transformData(): void {
@@ -169,10 +164,6 @@ export class LineChartComponent implements OnChanges, OnInit {
     }
 
     private drawGraph(): void {
-        const transitionPath = d3
-            .transition()
-            .ease(d3.easeSin)
-            .duration(2500);
         this.chartData.forEach((chart) => {
             const line = d3
                 .line()
