@@ -15,7 +15,7 @@
         color: var(--color-text-sub);
         text-align: center;
         line-height: 40px;
-        font-size: 14px;
+        font-size: 12px;
         border-top-left-radius: 15px;
         border-top-right-radius: 15px;
         font-weight: bold;
@@ -74,7 +74,6 @@
             display: flex;
             padding-left: 20px;
             position: relative;
-            
 
             &__other-button {
                 display: flex;
@@ -92,12 +91,28 @@
         margin: 0 auto;
         margin-right: 0;
         direction: ltr;
+
+        ::ng-deep {
+            .record-table {
+                &:hover {
+                    background: var(--color-bg-active) !important;
+                    border-radius: 25px;
+                    margin: 0 auto;
+                    margin-left: 0;
+                    transition: 0.8s;
+                }
+            }
+        }
     }
 
     .left-title-footer {
         margin: 0 auto;
         margin-right: 0;
         width: calc(100% - 10px);
+        padding-left: 2px;
+        padding-right: 2px;
+        font-size: 12px; //test
+        word-break: break-all;
     }
 
     .left-container {
