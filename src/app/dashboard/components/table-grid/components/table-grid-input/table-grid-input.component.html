@@ -9,4 +9,7 @@
         <input type="text" (focus)="isInput = true" (blur)="isInput = false" placeholder="Поиск..."
             (keyup)="searchRecord($event)" />
     </div>
+    <div class="input-block__border" [class.input-block__border-active]="isInput">
+
+    </div>
 </div>

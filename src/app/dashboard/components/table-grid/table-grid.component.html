@@ -33,7 +33,9 @@
                     </ng-container>
                     <!--INPUT-->
                     <ng-container *ngIf="search">
-                        <evj-table-grid-input (search)="searchRecord($event)"></evj-table-grid-input>
+                        <div class="search__input">
+                            <evj-table-grid-input (search)="searchRecord($event)" style="height: 100%;"></evj-table-grid-input>
+                        </div>
                     </ng-container>
                 </div>
                 <div class="bottom-block__save-button">
