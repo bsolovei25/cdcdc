@@ -9,6 +9,8 @@ export class LineChartPickerDirective {
     @Input() private graphMaxX: number = null;
     @Input() private graphMaxY: number = null;
     @Input() private scaleFuncs: { x: any; y: any } = { x: null, y: null };
+    @Input() private deviationUp: number = 0;
+    @Input() private deviationDown: number = 0;
     @Input() private padding: { [key: string]: number } = {};
 
     private svg: any = null;
@@ -274,6 +276,9 @@ export class LineChartPickerDirective {
 
                 const posFact = this.findCursorPosition(x, 'fact');
                 const posPlan = this.findCursorPosition(x, 'plan');
+                const factY = this.scaleFuncs.y.invert(posFact.y);
+                const factX = this.scaleFuncs.y.invert(posFact.x);
+                const planY = this.scaleFuncs.y.invert(posPlan.y);
 
                 this.svg
                     .select('.mouse-line')
@@ -322,27 +327,27 @@ export class LineChartPickerDirective {
                 this.svg
                     .select('g.mouse-info .mouse-graph-value')
                     .attr('x', x - infoFramePaddings.nearText)
-                    .text(this.scaleFuncs.y.invert(posFact.y).toFixed(0));
+                    .text(factY.toFixed(0));
 
                 this.svg
                     .select('g.mouse-info .mouse-graph-deviation')
                     .attr('x', x + infoFramePaddings.nearText)
-                    .text(
-                        (
-                            this.scaleFuncs.y.invert(posFact.y) -
-                            this.scaleFuncs.y.invert(posPlan.y)
-                        ).toFixed(0)
-                    );
+                    .text((factY - planY).toFixed(0));
 
                 const formatDate = d3.timeFormat('%d.%m.%Y | %H:%M:%S');
 
                 this.svg
                     .select('g.mouse-info .mouse-graph-date')
                     .attr('x', x)
-                    .text(formatDate(this.scaleFuncs.x.invert(posFact.x)));
+                    .text(formatDate(factX));
 
-                if (posFact.y < posPlan.y) {
+                if (factY < planY - this.deviationDown) {
                     this.svg.select('g.mouse-over').style('color', this.dataPickerColors.danger);
+                } else if (
+                    factY >= planY - this.deviationDown &&
+                    factY <= planY - this.deviationUp
+                ) {
+                    this.svg.select('g.mouse-over').style('color', this.dataPickerColors.standard);
                 } else {
                     this.svg.select('g.mouse-over').style('color', this.dataPickerColors.standard);
                 }
