@@ -18,9 +18,13 @@ import { AlertWindowComponent } from './components/alert-window/alert-window.com
 import { NgxMaskModule } from 'ngx-mask';
 import { SmartScrollComponent } from './components/smart-scroll/smart-scroll.component';
 import { LineChartTrackComponent } from './components/smart-scroll/line-chart-track/line-chart-track.component';
+import { LineChartComponent } from './components/line-chart/line-chart.component';
+import { LineChartPickerDirective } from './directives/line-chart-picker.directive';
 import { EmailEditorComponent } from './components/email-editor/email-editor.component';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { FormsModule } from '@angular/forms';
+import { UploadDropZoneComponent } from './components/upload-drop-zone/upload-drop-zone.component';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 
 @NgModule({
     declarations: [
@@ -39,7 +43,10 @@ import { FormsModule } from '@angular/forms';
         AlertWindowComponent,
         SmartScrollComponent,
         LineChartTrackComponent,
+        LineChartComponent,
+        LineChartPickerDirective,
         EmailEditorComponent,
+        UploadDropZoneComponent
     ],
     exports: [
         HeaderComponent,
@@ -56,8 +63,19 @@ import { FormsModule } from '@angular/forms';
         WidgetPreloaderComponent,
         AlertWindowComponent,
         SmartScrollComponent,
+        EmailEditorComponent,
+        UploadDropZoneComponent,
+        LineChartComponent,
         EmailEditorComponent
     ],
-  imports: [CommonModule, MatInputModule, MatIconModule, NgxMaskModule.forChild(), CKEditorModule, FormsModule]
+    imports: [
+        CommonModule,
+        MatInputModule,
+        MatIconModule,
+        NgxMaskModule.forChild(),
+        CKEditorModule,
+        FormsModule,
+        AngularSvgIconModule
+    ]
 })
 export class SharedModule { }

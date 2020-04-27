@@ -133,7 +133,7 @@ export class ManualInputComponent extends WidgetPlatform
         if (!this.isSaveButton()) {
             return;
         }
-        this.manualInputService.BtnSaveValues(this.data);
+        this.manualInputService.BtnSaveValues(this.data, this.widgetId);
     }
 
     onChangeValue(id: string): void {
