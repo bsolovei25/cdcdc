@@ -56,11 +56,11 @@
                 <div class='right-side'>
                     <evj-table-grid [data]="data.tableRight">
                         <evj-column-grid key="direction" name="Направление" [width]="23" [template]="direction">
-                            <ng-template #status let-data="data">
+                            <ng-template #direction let-data="data">
                                 <div class="direction">
                                     <div class="direction__icon">
                                         <svg-icon src="assets/icons/widgets/oil-control-all/oil-operations/background-pic.svg"
-                                        [svgStyle]="{ 'width.px':30, 'height.px':30, 'margin-top.px': 5 }"></svg-icon>
+                                        [svgStyle]="{ 'width.px':65, 'height.px':40, 'margin-top.px': 5 }"></svg-icon>
                                     </div>
                                     <div class="direction__name"> {{ data.direction }} </div>
                                 </div>

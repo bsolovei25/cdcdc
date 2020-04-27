@@ -70,6 +70,19 @@ $container-padding: 5px;
   justify-content: space-evenly;
 }
 
+.direction{
+  display: flex;
+  align-items: center;
+
+  &__icon{
+    width: 50%;
+  }
+
+  &__name{
+    width: 50%;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 4px;
   height: 4px;
