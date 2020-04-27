@@ -136,7 +136,9 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
     public canShowSpecialClaim(claim: IGlobalClaim): boolean {
         const currentGroup = this.groupSelection.selected[0];
         return currentGroup
-            ? !!currentGroup.claims.find((item) => item.claimType === claim.claimType)
+            ? !!currentGroup.claims.find(
+                  (item) => item.claimType === claim.claimType && claim.claimValueType !== 'screen'
+              )
             : false;
     }
 
@@ -160,10 +162,10 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
         switch (claim.claimValueType) {
             case 'unit':
                 entity = this.adminService.units.find((item) => item.id === +claim.value);
-                return entity ? entity.name : '111';
+                return entity ? entity.name : '';
             case 'widget':
                 entity = this.adminService.allWidgets.find((item) => item.id === claim.value);
-                return entity ? entity.title : '111';
+                return entity ? entity.title : '';
         }
     }
 
