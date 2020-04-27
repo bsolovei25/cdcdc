@@ -92,7 +92,10 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     public popupUserOptions: boolean = false;
     public popupUserCustomOptions: boolean = false;
-    public popupOptionsActive: string;
+    public popupOptionsActive: ISystemOptionsTemplate;
+
+    systemOptionType: string[] = ['textBox', 'dateTime', 'comboBox', 'checkBox'];
+    systemOptionBoolean: string[] = ['true', 'false'];
 
     state: ITreeState = {
         expandedNodeIds: {
@@ -463,13 +466,43 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     //OnClick Template system-options
 
-    onClickParamReference(item): void {
+    onClickParamReference(item: ISystemOptionsTemplate): void {
         if (item.templateSystemOption.
             systemOptionType === 'customOptions') {
             this.popupUserCustomOptions = true;
+        } else {
+            this.switchSystemOptions(item);
         }
-        this.popupOptionsActive = item;
-        this.popupUserOptions = true;
+    }
+
+    switchSystemOptions(item: ISystemOptionsTemplate): void {
+        switch (item.templateSystemOption.systemOptionType) {
+            case 'autogenerate':
+                this.popupOptionsActive = item;
+                this.popupUserOptions = true;
+                break;
+            case 'pathEdit':
+                this.popupOptionsActive = item;
+                this.popupUserOptions = true;
+                break;
+            case 'macroEdit':
+                this.popupOptionsActive = item;
+                this.popupUserOptions = true;
+                break;
+            case 'reportSheets':
+                this.popupOptionsActive = item;
+                this.popupUserOptions = true;
+                break;
+            case 'parameterValuesAutogeneration':
+                this.popupOptionsActive = item;
+                this.popupUserOptions = true;
+                break;
+            case 'periodEdit':
+                this.popupOptionsActive = item;
+                this.popupUserOptions = true;
+                break;
+            default: break;
+        }
     }
 
     onShowItem(item): void {
@@ -496,6 +529,10 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             const index = this.optionsActive.findIndex(e => e.templateSystemOption.id === item.id);
             this.optionsActive.splice(index, 1);
         }
+    }
+
+    changeSwapSystemOptions(item: any): void {
+        (item.value === 'true') ? item.value = 'false' : item.value = 'true';
     }
 
     //PUSH INPUT FOR FOLDER/TEMPLATE
@@ -590,7 +627,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             questionText: 'Применить внесенные изменения?',
             acceptText: 'Да',
             cancelText: 'Нет',
-            acceptFunction: () =>  this.reportService.postSystemOptions(itemId, obj).subscribe((ans) => {
+            acceptFunction: () => this.reportService.postSystemOptions(itemId, obj).subscribe((ans) => {
                 this.materialController.openSnackBar(
                     'Файл-шаблон сохранен'
                 );

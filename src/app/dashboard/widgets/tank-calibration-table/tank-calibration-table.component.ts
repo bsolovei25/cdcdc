@@ -96,6 +96,7 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
+        this.widgetIcon = 'grad';
     }
 
     ngOnInit(): void {
@@ -310,7 +311,8 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         try {
             await this.calibrationService.postNewDate(id, result, result.file);
             this.snackBar.openSnackBar('Файл загружен успешно');
-            this.loadItem();
+            await this.loadItem();
+            this.chooseTanks(id);
         } catch (error) {
             console.error(error);
         }
