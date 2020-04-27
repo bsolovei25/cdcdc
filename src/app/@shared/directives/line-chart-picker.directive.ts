@@ -6,13 +6,13 @@ import * as d3 from 'd3';
     selector: '[evjLineChartPicker]',
 })
 export class LineChartPickerDirective {
-    @Input('evjLineChartPicker') private data: any = null;
+    @Input() private graphMaxX: number = null;
+    @Input() private graphMaxY: number = null;
+    @Input() private scaleFuncs: { x: any; y: any } = { x: null, y: null };
+    @Input() private padding: { [key: string]: number } = {};
+
     private svg: any = null;
 
-    private graphMaxX: number = null;
-    private graphMaxY: number = null;
-    private scaleFuncs: { x: any; y: any } = { x: null, y: null };
-    private padding: { [key: string]: number } = {};
     private readonly dataPickerColors: { [key: string]: string } = {
         standard: '#00A99D',
         warning: '#f4a321',
@@ -27,11 +27,6 @@ export class LineChartPickerDirective {
         this.svg = d3Selection.select(this.el.nativeElement).select('svg');
 
         if (this.svg._groups[0][0]) {
-            this.graphMaxX = this.data.graphMaxX;
-            this.graphMaxY = this.data.graphMaxY;
-            this.scaleFuncs = this.data.scaleFuncs;
-            this.padding = this.data.padding;
-
             this.drawMouseGroup();
         }
     }
@@ -277,57 +272,8 @@ export class LineChartPickerDirective {
                 const rect: DOMRect = element.getBoundingClientRect();
                 const x = event.clientX - rect.left;
 
-                let factLine: SVGGeometryElement = null;
-                [[factLine]] = this.svg.select('.graph-line-fact')._groups;
-
-                let beginFact: number = 0;
-                let endFact: number = factLine.getTotalLength();
-                let targetFact: number = null;
-                let posFact: SVGPoint = null;
-
-                while (true) {
-                    targetFact = Math.floor((beginFact + endFact) / 2);
-                    posFact = factLine.getPointAtLength(targetFact);
-                    if (
-                        (targetFact === endFact || targetFact === beginFact) &&
-                        posFact.x !== x + this.padding.left
-                    ) {
-                        break;
-                    }
-                    if (posFact.x > x + this.padding.left) {
-                        endFact = targetFact;
-                    } else if (posFact.x < x + this.padding.left) {
-                        beginFact = targetFact;
-                    } else {
-                        break;
-                    }
-                }
-
-                let planLine: SVGGeometryElement = null;
-                [[planLine]] = this.svg.select('.graph-line-plan')._groups;
-
-                let beginPlan: number = 0;
-                let endPlan: number = planLine.getTotalLength();
-                let targetPlan: number = null;
-                let posPlan: SVGPoint = null;
-
-                while (true) {
-                    targetPlan = Math.floor((beginPlan + endPlan) / 2);
-                    posPlan = planLine.getPointAtLength(targetPlan);
-                    if (
-                        (targetPlan === endPlan || targetPlan === beginPlan) &&
-                        posPlan.x !== x + this.padding.left
-                    ) {
-                        break;
-                    }
-                    if (posPlan.x > x + this.padding.left) {
-                        endPlan = targetPlan;
-                    } else if (posPlan.x < x + this.padding.left) {
-                        beginPlan = targetPlan;
-                    } else {
-                        break;
-                    }
-                }
+                const posFact = this.findCursorPosition(x, 'fact');
+                const posPlan = this.findCursorPosition(x, 'plan');
 
                 this.svg
                     .select('.mouse-line')
@@ -404,5 +350,32 @@ export class LineChartPickerDirective {
         );
 
         return () => eventListeners.forEach((item) => item());
+    }
+
+    private findCursorPosition(posX: number, curveType: 'plan' | 'fact'): SVGPoint {
+        let line: SVGGeometryElement = null;
+        [[line]] = this.svg.select(`.graph-line-${curveType}`)._groups;
+
+        let begin: number = 0;
+        let end: number = line.getTotalLength();
+        let target: number = null;
+        let pos: SVGPoint = null;
+
+        while (true) {
+            target = Math.floor((begin + end) / 2);
+            pos = line.getPointAtLength(target);
+            if ((target === end || target === begin) && pos.x !== posX + this.padding.left) {
+                break;
+            }
+            if (pos.x > posX + this.padding.left) {
+                end = target;
+            } else if (pos.x < posX + this.padding.left) {
+                begin = target;
+            } else {
+                break;
+            }
+        }
+
+        return pos;
     }
 }

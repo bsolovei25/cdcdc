@@ -312,17 +312,12 @@ export class ProductionTrendGraphComponent implements OnInit {
         ],
     ];
 
+    public sbWidth: number = 20;
+    public sbLeft: number = 6;
+
     constructor() {}
 
     public ngOnInit(): void {
-        // this.graphData = this.data[0];
-
-        let counter = 0;
-        setInterval(() => {
-            this.graphData = this.data[counter++];
-            if (counter === this.data.length) {
-                counter = 0;
-            }
-        }, 7000);
+        this.graphData = this.data[0];
     }
 }

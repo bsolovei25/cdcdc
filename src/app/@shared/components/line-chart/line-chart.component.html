@@ -1,1 +1,9 @@
-<div class="graph" #chart [evjLineChartPicker]="formatDataToDirective()"></div>
+<div
+  class="graph"
+  #chart
+  evjLineChartPicker
+  [graphMaxX]="graphMaxX"
+  [graphMaxY]="graphMaxY"
+  [padding]="padding"
+  [scaleFuncs]="scaleFuncs"
+></div>

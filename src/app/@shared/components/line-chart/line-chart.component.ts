@@ -22,6 +22,7 @@ import { IChartD3, IChartMini } from '../../models/smart-scroll.model';
 })
 export class LineChartComponent implements OnChanges, OnInit {
     @Input() private data: IProductionTrend[] = [];
+    @Input() public graphType: 'productionTrend' | 'deviationReasons' = null;
 
     @ViewChild('chart', { static: true }) private chart: ElementRef;
 
@@ -39,23 +40,20 @@ export class LineChartComponent implements OnChanges, OnInit {
 
     private axis: { axisX: any; axisY: any } = { axisX: null, axisY: null };
 
-    private graphMaxX: number = null;
-    private graphMaxY: number = null;
+    public graphMaxX: number = null;
+    public graphMaxY: number = null;
 
     private dataMax: number = null;
     private dataMin: number = null;
 
-    private scaleFuncs: { x: any; y: any } = { x: null, y: null };
+    public scaleFuncs: { x: any; y: any } = { x: null, y: null };
 
-    private readonly padding: { [key: string]: number } = {
+    public readonly padding: { [key: string]: number } = {
         top: 20,
         right: 65,
         bottom: 30,
         left: 65,
     };
-
-    public sbWidth: number = 20;
-    public sbLeft: number = 6;
 
     constructor() {}
 
@@ -353,14 +351,5 @@ export class LineChartComponent implements OnChanges, OnInit {
                 : d3.timeYear(date) < date
                 ? formatMonth
                 : formatYear)(date);
-    }
-
-    public formatDataToDirective(): any {
-        return {
-            graphMaxX: this.graphMaxX,
-            graphMaxY: this.graphMaxY,
-            padding: this.padding,
-            scaleFuncs: this.scaleFuncs,
-        };
     }
 }
