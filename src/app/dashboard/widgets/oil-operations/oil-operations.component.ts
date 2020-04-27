@@ -14,10 +14,25 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
   public data: any = [
     {
       id: 1,
-      name: 'EVJ',
+      name: 'EVJ1',
       tanks: 'JNDSFDSKDFD'
     },
-  ]
+    {
+      id: 2,
+      name: 'EVJ2',
+      tanks: 'JNDSFDSKDFD'
+    },
+    {
+      id: 3,
+      name: 'EVJ3',
+      tanks: 'JNDSFDSKDFD'
+    },
+    {
+      id: 4,
+      name: 'EVJ1',
+      tanks: 'JNDSFDSKDFD'
+    },
+  ];
 
   constructor(
     public widgetService: WidgetService,

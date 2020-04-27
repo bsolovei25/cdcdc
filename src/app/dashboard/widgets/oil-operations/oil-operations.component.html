@@ -7,17 +7,25 @@
             [uniqId]="widgetUniqId" [widgetType]="widgetType"></evj-widget-header>
         <evj-frame-top></evj-frame-top>
         <div class="body-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
-            <div class="block block_top">
+            <div class="block">
                 <div class='left-side'>
-                    <evj-table-grid [data]="data">
-                        <evj-column-grid key="name" name="Наименование"></evj-column-grid>
+                    <evj-table-grid [scrollLeft]="true" [saveButton]="true" [data]="data" [search]="true" [filter]="true">
+                        <evj-column-grid key="id" name="№" className="short" [width]="50"></evj-column-grid>
+                        <evj-column-grid key="name" name="Наименование" className="middle"></evj-column-grid>
+                        <evj-column-grid key="tanks" name="Резервуар" [template]="testTemplate" className="big">
+                            <ng-template #testTemplate let-data="data">
+                                <div class="big"> {{ data.tanks }} !0_0! </div>
+                            </ng-template>
+                        </evj-column-grid>
+
+                        <!-- <ng-template #test>
+                            <div>KEK</div>
+                        </ng-template> -->
+
                     </evj-table-grid>
                 </div>
                 <div class='right-side'>
                 </div>
-            </div>
-            <div class="block block_bottom">
-
             </div>
         </div>
         <evj-frame-bottom></evj-frame-bottom>

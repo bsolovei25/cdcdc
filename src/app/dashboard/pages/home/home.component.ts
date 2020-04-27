@@ -18,7 +18,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.claimService.getClaim();
-        this.userSettings.GetScreens();
         this.widgetService.getRest();
         this.widgetService.initWS();
         document.addEventListener('fullscreenchange', () => {

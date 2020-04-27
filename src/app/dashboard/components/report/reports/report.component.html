@@ -2,14 +2,14 @@
   <div class="panel-header" [class.panel-header--active]="active" (click)="toggle(data.id)">
     <p class="panel-header__text" [class.panel-header__text--active]="active">{{data.name}}</p>
     <svg-icon
-      *ngIf="!active"
-      class="panel-header__icon"
+      *ngIf="active"
+      class="panel-header__icon panel-header__icon__active"
       [svgStyle]="{ 'width.px':20, 'height.px':20 }"
       src="assets/icons/widgets/reports/arrow-up.svg"
     ></svg-icon>
     <svg-icon
-      *ngIf="active"
-      class="panel-header__icon panel-header__icon__active"
+      *ngIf="!active"
+      class="panel-header__icon"
       [svgStyle]="{ 'width.px':20, 'height.px':20 }"
       src="assets/icons/widgets/reports/arrow-bottom.svg"
     ></svg-icon>

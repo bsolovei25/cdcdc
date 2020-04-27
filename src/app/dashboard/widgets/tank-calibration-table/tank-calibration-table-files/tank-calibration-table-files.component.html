@@ -9,13 +9,14 @@
         <thead>
           <tr class="header__items">
             <th class="header header__th header__name">
-              <span class="header__name__text">Наименование</span>
+              <span class="header__name__text">Резервуар</span>
             </th>
           </tr>
         </thead>
         <tbody class="table__body">
           <ng-container *ngFor="let element of dataSource">
             <tr
+              *ngIf="!element.isVisible && element.childredTanks.length > 0"
               class="table__tr"
               (click)="expandedElement.isSelected(element) ?
                    expandedElement.deselect(element)
@@ -31,9 +32,9 @@
                 <span class="name__text">{{ element.name }}</span>
               </td>
             </tr>
-            <ng-container *ngFor="let elementChildren of  getChildrenRows(element)">
+            <ng-container *ngFor="let elementChildren of element?.childredTanks">
               <tr
-                *ngIf="expandedElement.isSelected(element)"
+                *ngIf="expandedElement.isSelected(element) && !elementChildren.isVisible"
                 [class.expanded-row]="elementChildren"
                 [class.chooseElement]="chooseElement.isSelected(elementChildren)"
                 (click)="chooseTank(elementChildren)"
@@ -50,6 +51,7 @@
               (click)=" element.uid !== 'last-row' ? chooseTank(element) : null"
               [class.last-row]="element.uid === 'last-row'"
               [class.chooseElement]="chooseElement.isSelected(element)"
+              (click)="chooseTank(element)"
             >
               <td class="name">
                 {{ element.name }}
@@ -137,7 +139,16 @@
                   {{ element?.action }}
                 </td>
                 <td class="name">
-                  {{ element?.newValue }}
+                  <ng-container *ngIf="element?.action !== 'Таблица градуировки'">
+                    {{ element?.newValue }}
+                  </ng-container>
+                  <ng-container *ngIf="element?.action === 'Таблица градуировки'">
+                    <a
+                      style="color: white"
+                      href="http://deploy.funcoff.club:6555/api/graduation-table/graduation/tanks/{{selectId}}/table/{{element.tableId}}"
+                      >{{ element?.newValue }}</a
+                    >
+                  </ng-container>
                 </td>
                 <td class="name">
                   {{ element?.comment }}

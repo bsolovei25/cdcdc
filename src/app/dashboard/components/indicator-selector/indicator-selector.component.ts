@@ -3,6 +3,7 @@ import { UserSettingsService } from '../../services/user-settings.service';
 import { Subscription } from 'rxjs';
 import { IScreenSettings } from '../../models/user-settings.model';
 import { ClaimService, EnumClaimScreens } from '../../services/claim.service';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
     selector: 'evj-indicator-selector',
@@ -24,26 +25,28 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
     public idScreen: number;
     public nameScreen: string;
 
-    public localSaved: number;
-
     private timerOff: any = null;
 
     isShowScreens: boolean = false;
 
-    constructor(private userSettings: UserSettingsService, private claimService: ClaimService) {}
+    constructor(private userSettings: UserSettingsService, private claimService: ClaimService,
+                private viewportScroller: ViewportScroller) {}
 
     ngOnInit(): void {
+        this.userSettings.ScreenId = Number(localStorage.getItem('screenid'));;
+        this.userSettings.GetScreens();
         this.subscriptions.push(
             this.userSettings.screens$.subscribe((screens) => {
                 console.log(screens);
                 this.dataScreen = screens;
-                this.localSaved = Number(localStorage.getItem('screenid'));
-                this.LoadScreen(this.localSaved);
+                this.idScreen = this.userSettings.ScreenId;
+                this.LoadScreen(this.idScreen);
                 this.nameScreen = this.getActiveScreen();
                 for (const item of this.dataScreen) {
                     item.updateScreen = false;
                     item.isFilter = true;
                 }
+                this.scrollToScreenById(this.idScreen);
             }),
             this.claimService.claimScreens$.subscribe((w) => {
                 this.claimScreens = w;
@@ -66,6 +69,7 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
             clearTimeout(this.timerOff);
         }
         this.isShowScreens = true;
+        this.scrollToScreenById(this.idScreen);
     }
 
     ScreenDisable(e): void {
@@ -80,12 +84,6 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
             const currentScreen = this.dataScreen.find((x) => x.id === this.idScreen);
             if (currentScreen) {
                 return currentScreen.screenName;
-            }
-        }
-        if (this.localSaved) {
-            const found = this.dataScreen.find((x) => x.id === this.localSaved);
-            if (found) {
-                return found.screenName;
             }
         }
         if (this.dataScreen[0]) { return this.dataScreen[0].screenName; }
@@ -130,11 +128,6 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
     }
 
     public addScreen(): void {
-        const newScreen = {
-            id: 0,
-            name: this.tempScreen,
-            isActive: false,
-        };
         this.userSettings.PushScreen(this.tempScreen);
         this.tempScreen = '';
     }
@@ -168,5 +161,17 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
         this.dataScreen.forEach((screen) => {
             screen.isFilter = screen.screenName.toLowerCase().includes(filter.toLowerCase());
         });
+    }
+
+    private scrollToScreenById(idScreen: number): void {
+        if (idScreen) {
+            setTimeout(() => {
+                console.log('scroll');
+                console.log(this.idScreen);
+                const el = document.getElementById('screen_' + this.idScreen);
+                el.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'end' });
+                // this.viewportScroller.scrollToAnchor('screen_' + this.idScreen);
+            }, 200);
+        }
     }
 }

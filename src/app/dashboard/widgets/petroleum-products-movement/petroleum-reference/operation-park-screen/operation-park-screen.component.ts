@@ -123,6 +123,7 @@ export class OperationParkScreenComponent implements OnInit, OnDestroy {
         item.isActive = true;
         item.paramSaveValue = item.paramValue;
         item.paramSaveDateTime = new Date(item.paramDateTime);
+        item.paramDateTime = new Date(Date.now());
     }
 
     public closeEdit(item: ITankAttribute): void {
