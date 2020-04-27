@@ -69,8 +69,6 @@ export class ReportsComponent implements OnInit {
             if (temp.name.toLowerCase().includes(search)) {
                 this.selectedFolders.select(data.id);
                 this.activeElements.deselect(data.id);
-            } else {
-                this.activeElements.select(data.id);
             }
         });
     }
