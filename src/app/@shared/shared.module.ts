@@ -19,6 +19,7 @@ import { NgxMaskModule } from 'ngx-mask';
 import { SmartScrollComponent } from './components/smart-scroll/smart-scroll.component';
 import { LineChartTrackComponent } from './components/smart-scroll/line-chart-track/line-chart-track.component';
 import { LineChartComponent } from './components/line-chart/line-chart.component';
+import { LineChartPickerDirective } from './directives/line-chart-picker.directive';
 
 @NgModule({
     declarations: [
@@ -38,6 +39,7 @@ import { LineChartComponent } from './components/line-chart/line-chart.component
         SmartScrollComponent,
         LineChartTrackComponent,
         LineChartComponent,
+        LineChartPickerDirective,
     ],
     exports: [
         HeaderComponent,
