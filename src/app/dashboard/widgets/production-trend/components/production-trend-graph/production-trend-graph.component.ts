@@ -1,372 +1,328 @@
-import {
-    Component,
-    ViewChild,
-    ElementRef,
-    OnChanges,
-    HostListener,
-    Input,
-    OnInit,
-} from '@angular/core';
-import * as d3Selection from 'd3-selection';
-import * as d3 from 'd3';
-import { IChartD3, IChartMini } from '../../../../../@shared/models/smart-scroll.model';
-import { IProductionTrend, ProductionTrendType } from '../../../../models/production-trends.model';
+import { Component, OnInit } from '@angular/core';
+import { IProductionTrend } from '../../../../models/production-trends.model';
 
 @Component({
     selector: 'evj-production-trend-graph',
     templateUrl: './production-trend-graph.component.html',
     styleUrls: ['./production-trend-graph.component.scss'],
 })
-export class ProductionTrendGraphComponent implements OnChanges, OnInit {
-    @Input() private data: IProductionTrend[] = [];
+export class ProductionTrendGraphComponent implements OnInit {
+    public graphData: IProductionTrend[] = [];
 
-    @ViewChild('chart', { static: true }) private chart: ElementRef;
-
-    private readonly MAX_COEF: number = 0.1;
-
-    private readonly chartStroke: { [key: string]: string } = {
-        plan: '#ffffff',
-        fact: '#3fa9f5',
-    };
-
-    private readonly dataPickerColors: { [key: string]: string } = {
-        standard: '#00A99D',
-        warning: '#f4a321',
-        danger: '#eb5757',
-    };
-
-    private svg = null;
-
-    private chartData: { graphType: ProductionTrendType; graph: IChartD3[] }[] = [];
-
-    private axis: { axisX: any; axisY: any } = { axisX: null, axisY: null };
-
-    private graphMaxX: number = null;
-    private graphMaxY: number = null;
-
-    private dataMax: number = null;
-    private dataMin: number = null;
-
-    private scaleFuncs: { x: any; y: any } = { x: null, y: null };
-
-    private readonly padding: { [key: string]: number } = {
-        top: 20,
-        right: 65,
-        bottom: 30,
-        left: 65,
-    };
-
-    public sbWidth: number = 20;
-    public sbLeft: number = 6;
+    private data: IProductionTrend[][] = [
+        [
+            {
+                graphType: 'fact',
+                graph: [
+                    {
+                        value: 1000,
+                        timestamp: new Date(2020, 2, 1),
+                    },
+                    {
+                        value: 6000,
+                        timestamp: new Date(2020, 2, 2),
+                    },
+                    {
+                        value: 4500,
+                        timestamp: new Date(2020, 2, 3),
+                    },
+                    {
+                        value: 900,
+                        timestamp: new Date(2020, 2, 4),
+                    },
+                    {
+                        value: 1300,
+                        timestamp: new Date(2020, 2, 5),
+                    },
+                    {
+                        value: 5800,
+                        timestamp: new Date(2020, 2, 6),
+                    },
+                    {
+                        value: 4500,
+                        timestamp: new Date(2020, 2, 7),
+                    },
+                ],
+            },
+            {
+                graphType: 'plan',
+                graph: [
+                    {
+                        value: 1600,
+                        timestamp: new Date(2020, 2, 1),
+                    },
+                    {
+                        value: 1500,
+                        timestamp: new Date(2020, 2, 2),
+                    },
+                    {
+                        value: 1000,
+                        timestamp: new Date(2020, 2, 3),
+                    },
+                    {
+                        value: 6000,
+                        timestamp: new Date(2020, 2, 4),
+                    },
+                    {
+                        value: 5000,
+                        timestamp: new Date(2020, 2, 5),
+                    },
+                    {
+                        value: 1000,
+                        timestamp: new Date(2020, 2, 6),
+                    },
+                    {
+                        value: 3000,
+                        timestamp: new Date(2020, 2, 7),
+                    },
+                ],
+            },
+        ],
+        [
+            {
+                graphType: 'fact',
+                graph: [
+                    {
+                        value: 10000,
+                        timestamp: new Date(2020, 0, 1),
+                    },
+                    {
+                        value: 60500,
+                        timestamp: new Date(2020, 1, 2),
+                    },
+                    {
+                        value: 42500,
+                        timestamp: new Date(2020, 2, 3),
+                    },
+                    {
+                        value: 94500,
+                        timestamp: new Date(2020, 3, 4),
+                    },
+                    {
+                        value: 13000,
+                        timestamp: new Date(2020, 4, 5),
+                    },
+                    {
+                        value: 58000,
+                        timestamp: new Date(2020, 5, 6),
+                    },
+                    {
+                        value: 45000,
+                        timestamp: new Date(2020, 6, 7),
+                    },
+                    {
+                        value: 10000,
+                        timestamp: new Date(2020, 7, 1),
+                    },
+                    {
+                        value: 60500,
+                        timestamp: new Date(2020, 8, 2),
+                    },
+                    {
+                        value: 42500,
+                        timestamp: new Date(2020, 9, 3),
+                    },
+                    {
+                        value: 94500,
+                        timestamp: new Date(2020, 10, 4),
+                    },
+                    {
+                        value: 13000,
+                        timestamp: new Date(2020, 11, 5),
+                    },
+                    {
+                        value: 58000,
+                        timestamp: new Date(2021, 0, 6),
+                    },
+                    {
+                        value: 45000,
+                        timestamp: new Date(2021, 1, 7),
+                    },
+                ],
+            },
+            {
+                graphType: 'plan',
+                graph: [
+                    {
+                        value: 37000,
+                        timestamp: new Date(2020, 0, 1),
+                    },
+                    {
+                        value: 37000,
+                        timestamp: new Date(2020, 1, 2),
+                    },
+                    {
+                        value: 37000,
+                        timestamp: new Date(2020, 2, 3),
+                    },
+                    {
+                        value: 37000,
+                        timestamp: new Date(2020, 3, 4),
+                    },
+                    {
+                        value: 60000,
+                        timestamp: new Date(2020, 4, 5),
+                    },
+                    {
+                        value: 60000,
+                        timestamp: new Date(2020, 5, 6),
+                    },
+                    {
+                        value: 60000,
+                        timestamp: new Date(2020, 6, 7),
+                    },
+                    {
+                        value: 60000,
+                        timestamp: new Date(2020, 7, 1),
+                    },
+                    {
+                        value: 42000,
+                        timestamp: new Date(2020, 8, 2),
+                    },
+                    {
+                        value: 42000,
+                        timestamp: new Date(2020, 9, 3),
+                    },
+                    {
+                        value: 42000,
+                        timestamp: new Date(2020, 10, 4),
+                    },
+                    {
+                        value: 42000,
+                        timestamp: new Date(2020, 11, 5),
+                    },
+                    {
+                        value: 34000,
+                        timestamp: new Date(2021, 0, 6),
+                    },
+                    {
+                        value: 34000,
+                        timestamp: new Date(2021, 1, 7),
+                    },
+                ],
+            },
+        ],
+        [
+            {
+                graphType: 'fact',
+                graph: [
+                    {
+                        value: 6000,
+                        timestamp: new Date(2020, 2, 1, 0),
+                    },
+                    {
+                        value: 4500,
+                        timestamp: new Date(2020, 2, 1, 0, 30),
+                    },
+                    {
+                        value: 900,
+                        timestamp: new Date(2020, 2, 1, 1),
+                    },
+                    {
+                        value: 1300,
+                        timestamp: new Date(2020, 2, 1, 1, 30),
+                    },
+                    {
+                        value: 5800,
+                        timestamp: new Date(2020, 2, 1, 2),
+                    },
+                    {
+                        value: 4500,
+                        timestamp: new Date(2020, 2, 1, 2, 30),
+                    },
+                    {
+                        value: 6000,
+                        timestamp: new Date(2020, 2, 1, 3),
+                    },
+                    {
+                        value: 4500,
+                        timestamp: new Date(2020, 2, 1, 3, 30),
+                    },
+                    {
+                        value: 900,
+                        timestamp: new Date(2020, 2, 1, 4),
+                    },
+                    {
+                        value: 1300,
+                        timestamp: new Date(2020, 2, 1, 4, 30),
+                    },
+                    {
+                        value: 5800,
+                        timestamp: new Date(2020, 2, 1, 5),
+                    },
+                    {
+                        value: 4500,
+                        timestamp: new Date(2020, 2, 1, 5, 30),
+                    },
+                ],
+            },
+            {
+                graphType: 'plan',
+                graph: [
+                    {
+                        value: 3000,
+                        timestamp: new Date(2020, 2, 1, 0),
+                    },
+                    {
+                        value: 3500,
+                        timestamp: new Date(2020, 2, 1, 0, 30),
+                    },
+                    {
+                        value: 900,
+                        timestamp: new Date(2020, 2, 1, 1),
+                    },
+                    {
+                        value: 1000,
+                        timestamp: new Date(2020, 2, 1, 1, 30),
+                    },
+                    {
+                        value: 1200,
+                        timestamp: new Date(2020, 2, 1, 2),
+                    },
+                    {
+                        value: 3000,
+                        timestamp: new Date(2020, 2, 1, 2, 30),
+                    },
+                    {
+                        value: 5000,
+                        timestamp: new Date(2020, 2, 1, 3),
+                    },
+                    {
+                        value: 4500,
+                        timestamp: new Date(2020, 2, 1, 3, 30),
+                    },
+                    {
+                        value: 6000,
+                        timestamp: new Date(2020, 2, 1, 4),
+                    },
+                    {
+                        value: 6800,
+                        timestamp: new Date(2020, 2, 1, 4, 30),
+                    },
+                    {
+                        value: 5800,
+                        timestamp: new Date(2020, 2, 1, 5),
+                    },
+                    {
+                        value: 4000,
+                        timestamp: new Date(2020, 2, 1, 5, 30),
+                    },
+                ],
+            },
+        ],
+    ];
 
     constructor() {}
 
-    public ngOnChanges(): void {
-        if (this.data.length) {
-            this.findMinMax();
-            this.initGraph();
-            this.transformData();
-            this.drawAxis();
-            this.drawGraph();
-        }
-    }
-
     public ngOnInit(): void {
-        this.dateFormatLocale();
-    }
+        // this.graphData = this.data[0];
 
-    @HostListener('document:resize', ['$event'])
-    public OnResize(): void {
-        if (this.svg) {
-            this.initGraph();
-            this.transformData();
-            this.drawAxis();
-            this.drawGraph();
-        }
-    }
-
-    private initGraph(): void {
-        if (this.svg) {
-            this.svg.remove();
-        }
-
-        this.svg = d3Selection.select(this.chart.nativeElement).append('svg');
-
-        this.graphMaxX = +d3Selection
-            .select(this.chart.nativeElement)
-            .style('width')
-            .slice(0, -2);
-        this.graphMaxY = +d3Selection
-            .select(this.chart.nativeElement)
-            .style('height')
-            .slice(0, -2);
-
-        this.svg
-            .attr('width', '100%')
-            .attr('height', '100%')
-            .attr('viewBox', `0 0 ${this.graphMaxX} ${this.graphMaxY - 5}`);
-    }
-
-    private findMinMax(): void {
-        const maxValues: number[] = [];
-        const minValues: number[] = [];
-
-        this.data.forEach((graph) => {
-            maxValues.push(d3.max(graph.graph, (item: IChartMini) => item.value));
-            minValues.push(d3.min(graph.graph, (item: IChartMini) => item.value));
-        });
-
-        this.dataMax = d3.max(maxValues) * (1 + this.MAX_COEF);
-        this.dataMin = d3.min(minValues) * (1 - 0.3);
-    }
-
-    private transformData(): void {
-        this.chartData = [];
-        this.data.forEach((item) => this.transformOneChartData(item));
-    }
-
-    private transformOneChartData(chart: IProductionTrend): void {
-        const domainDates = d3.extent(chart.graph, (item: IChartMini) => item.timestamp);
-        const rangeX = [this.padding.left, this.graphMaxX - this.padding.right];
-        this.scaleFuncs.x = d3
-            .scaleTime()
-            .domain(domainDates)
-            .rangeRound(rangeX);
-
-        const domainValues = [this.dataMax, this.dataMin];
-        const rangeY = [this.padding.top, this.graphMaxY - this.padding.bottom];
-        this.scaleFuncs.y = d3
-            .scaleLinear()
-            .domain(domainValues)
-            .range(rangeY);
-
-        this.axis.axisX = d3
-            .axisBottom(this.scaleFuncs.x)
-            .ticks(7)
-            .tickFormat(this.dateFormatLocale())
-            .tickSizeOuter(0);
-        this.axis.axisY = d3
-            .axisLeft(this.scaleFuncs.y)
-            .ticks(10)
-            .tickSize(0);
-
-        const chartData: { graphType: ProductionTrendType; graph: IChartD3[] } = {
-            graphType: chart.graphType,
-            graph: [],
-        };
-
-        chart.graph.forEach((item) => {
-            chartData.graph.push({
-                x: this.scaleFuncs.x(item.timestamp),
-                y: this.scaleFuncs.y(item.value),
-            });
-        });
-
-        this.chartData.push(chartData);
-    }
-
-    private drawGraph(): void {
-        const transitionPath = d3
-            .transition()
-            .ease(d3.easeSin)
-            .duration(2500);
-        this.chartData.forEach((chart) => {
-            const line = d3
-                .line()
-                .x((item: IChartD3) => item.x)
-                .y((item: IChartD3) => item.y);
-
-            const path = this.svg
-                .append('path')
-                .attr('class', `graph-line-${chart.graphType}`)
-                .attr('d', line(chart.graph))
-                .style('fill', 'none')
-                .style('stroke', this.chartStroke[chart.graphType])
-                .style('stroke-width', 2);
-        });
-    }
-
-    private drawAxis(): void {
-        // отрисовка оси у
-        this.svg
-            .append('g')
-            .attr('transform', `translate(${this.padding.left},0)`)
-            .attr('class', 'axis')
-            .call(this.axis.axisY)
-            .selectAll('text')
-            .style('font-size', '12px')
-            .style('fill', '#8c99b2');
-
-        // отрисовка оси х
-        this.svg
-            .append('g')
-            .attr('transform', `translate(0,${this.graphMaxY - this.padding.bottom})`)
-            .attr('class', 'axis')
-            .call(this.axis.axisX)
-            .selectAll('text')
-            .style('font-size', '12px')
-            .style('fill', '#8c99b2');
-
-        // изменение цветов осей и удаление первых и последних засечек
-        let g = this.svg.selectAll('g.axis');
-        g.style('color', '#606580');
-        g.selectAll('.tick:first-of-type').remove();
-        g.selectAll('.tick:last-of-type').remove();
-
-        // отрисовка центра начала координат
-        g = this.svg.select('g.axis:last-of-type').style('color', '#3fa9f5');
-        g.append('g')
-            .attr('opacity', 1)
-            .attr('transform', `translate(${this.padding.left},0)`)
-            .attr('class', 'center-of-coords')
-            .append('circle')
-            .attr('r', 5)
-            .style('fill', 'currentColor');
-        g.select('.center-of-coords')
-            .append('line')
-            .attr('x1', `-${this.padding.left}`)
-            .attr('y1', 0)
-            .attr('x2', 0)
-            .attr('y2', 0)
-            .style('stroke', 'currentColor');
-
-        // изменение засечек с линий на круги
-        this.svg
-            .select('g.axis:last-of-type')
-            .selectAll('.tick line')
-            .remove();
-        this.svg
-            .select('g.axis:last-of-type')
-            .selectAll('.tick')
-            .append('circle')
-            .attr('r', 3)
-            .style('fill', '#3fa9f5');
-
-        this.drawAxisArrows('xAxis');
-        this.drawAxisArrows('yAxis');
-
-        this.drawGridLines();
-    }
-
-    // отрисовка стрелок на осях
-    private drawAxisArrows(axis: 'xAxis' | 'yAxis'): void {
-        const arrowMax: number = 10;
-        const arrowMin: number = 3;
-
-        let typeOfAxis: string = 'last-of-type';
-        let translate: string = `${this.graphMaxX - this.padding.right - arrowMax},0`;
-        let points: string = `0,-${arrowMin} ${arrowMax},0 0,${arrowMin}`;
-
-        if (axis === 'yAxis') {
-            typeOfAxis = 'first-of-type';
-            translate = `0,${this.padding.top}`;
-            points = `-${arrowMin},0 0,-${arrowMax} ${arrowMin},0`;
-        }
-
-        this.svg
-            .select(`g.axis:${typeOfAxis}`)
-            .append('g')
-            .attr('opacity', 1)
-            .attr('transform', `translate(${translate})`)
-            .append('polygon')
-            .attr('points', `${points}`)
-            .style('fill', 'currentColor');
-    }
-
-    // отрисовка сетки координат
-    private drawGridLines(): void {
-        this.svg.selectAll('g.axis:first-of-type g.tick:nth-child(2n+1)').remove();
-
-        this.svg
-            .selectAll('g.axis:first-of-type g.tick')
-            .append('line')
-            .attr('x1', 0)
-            .attr('y1', 0)
-            .attr('x2', this.graphMaxX - this.padding.right - this.padding.left)
-            .attr('y2', 0)
-            .style('opacity', '0.2')
-            .style('stroke', '#8c99b2');
-    }
-
-    private dateFormatLocale(): (date: Date) => string {
-        const locale = d3.timeFormatLocale({
-            dateTime: '%A, %e %B %Y г. %X',
-            date: '%d.%m.%Y',
-            time: '%H:%M:%S',
-            periods: ['', ''],
-            days: [
-                'воскресенье',
-                'понедельник',
-                'вторник',
-                'среда',
-                'четверг',
-                'пятница',
-                'суббота',
-            ],
-            shortDays: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-            months: [
-                'Январь',
-                'Февраль',
-                'Март',
-                'Апрель',
-                'Май',
-                'Июнь',
-                'Июль',
-                'Август',
-                'Сентябрь',
-                'Октябрь',
-                'Ноябрь',
-                'Декабрь',
-            ],
-            shortMonths: [
-                'Янв',
-                'Фев',
-                'Мар',
-                'Апр',
-                'Май',
-                'Июн',
-                'Июл',
-                'Авг',
-                'Сен',
-                'Окт',
-                'Ноя',
-                'Дек',
-            ],
-        });
-
-        const formatMillisecond = locale.format('.%L');
-        const formatSecond = locale.format(':%S');
-        const formatMinute = locale.format('%H:%M');
-        const formatHour = locale.format('%H %p');
-        const formatDay = locale.format('%d %b');
-        const formatWeek = locale.format('%b %d ');
-        const formatMonth = locale.format('%B');
-        const formatYear = locale.format('%Y');
-
-        return (date) =>
-            (d3.timeSecond(date) < date
-                ? formatMillisecond
-                : d3.timeMinute(date) < date
-                ? formatSecond
-                : d3.timeHour(date) < date
-                ? formatMinute
-                : d3.timeDay(date) < date
-                ? formatHour
-                : d3.timeMonth(date) < date
-                ? d3.timeWeek(date) < date
-                    ? formatDay
-                    : formatWeek
-                : d3.timeYear(date) < date
-                ? formatMonth
-                : formatYear)(date);
-    }
-
-    public formatDataToDirective(): any {
-        return {
-            graphMaxX: this.graphMaxX,
-            graphMaxY: this.graphMaxY,
-            padding: this.padding,
-            scaleFuncs: this.scaleFuncs,
-        };
+        let counter = 0;
+        setInterval(() => {
+            this.graphData = this.data[counter++];
+            if (counter === this.data.length) {
+                counter = 0;
+            }
+        }, 7000);
     }
 }

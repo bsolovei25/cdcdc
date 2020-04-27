@@ -1,6 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { WidgetService } from '../../services/widget.service';
+import { IProductionTrend } from '../../models/production-trends.model';
 
 interface IUnit {
     id: number;
@@ -8,12 +9,11 @@ interface IUnit {
 }
 
 @Component({
-  selector: 'evj-production-trend',
-  templateUrl: './production-trend.component.html',
-  styleUrls: ['./production-trend.component.scss']
+    selector: 'evj-production-trend',
+    templateUrl: './production-trend.component.html',
+    styleUrls: ['./production-trend.component.scss'],
 })
 export class ProductionTrendComponent extends WidgetPlatform implements OnInit, OnDestroy {
-
     public static itemCols: number = 20;
     public static itemRows: number = 16;
 
@@ -50,8 +50,7 @@ export class ProductionTrendComponent extends WidgetPlatform implements OnInit, 
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: any): void {
-    }
+    protected dataHandler(ref: any): void {}
 
     public selectUnit(event: any): void {
         console.log(event);

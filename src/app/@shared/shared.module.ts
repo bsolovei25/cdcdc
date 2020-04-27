@@ -18,6 +18,7 @@ import { AlertWindowComponent } from './components/alert-window/alert-window.com
 import { NgxMaskModule } from 'ngx-mask';
 import { SmartScrollComponent } from './components/smart-scroll/smart-scroll.component';
 import { LineChartTrackComponent } from './components/smart-scroll/line-chart-track/line-chart-track.component';
+import { LineChartComponent } from './components/line-chart/line-chart.component';
 
 @NgModule({
     declarations: [
@@ -36,6 +37,7 @@ import { LineChartTrackComponent } from './components/smart-scroll/line-chart-tr
         AlertWindowComponent,
         SmartScrollComponent,
         LineChartTrackComponent,
+        LineChartComponent,
     ],
     exports: [
         HeaderComponent,
@@ -51,7 +53,8 @@ import { LineChartTrackComponent } from './components/smart-scroll/line-chart-tr
         LoadingShadeComponent,
         WidgetPreloaderComponent,
         AlertWindowComponent,
-        SmartScrollComponent
+        SmartScrollComponent,
+        LineChartComponent
     ],
     imports: [CommonModule, MatInputModule, MatIconModule, NgxMaskModule.forChild()],
 })

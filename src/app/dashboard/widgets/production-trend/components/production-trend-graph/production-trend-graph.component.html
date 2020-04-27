@@ -1,5 +1,7 @@
 <div class="container">
-  <div class="graph" #chart [evjLineChartPicker]="formatDataToDirective()"></div>
+  <div class="graph">
+    <evj-line-chart-shared [data]="graphData"></evj-line-chart-shared>
+  </div>
   <div class="scroll">
     <evj-smart-scroll [(sbThumbWidth)]="sbWidth" [(sbThumbLeft)]="sbLeft"> </evj-smart-scroll>
   </div>
