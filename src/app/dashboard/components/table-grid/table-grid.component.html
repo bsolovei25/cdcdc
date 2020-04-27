@@ -1,19 +1,21 @@
 <div class="grid-table">
     <!--TITLE-->
-    <div class="grid-table__title" [class.left-title-footer]="scrollSide === 'left'">
+    <div class="grid-table__title" [class.left-title-footer]="scrollLeft">
         <ng-container *ngFor="let cell of columns">
-            <div class="{{cell.className}}"> {{ cell.name }} </div>
+            <div class="{{cell.className}}" [style.width.%]="cell.width"> {{ cell.name }} </div>
         </ng-container>
     </div>
     <!--TABLE-->
-    <div class="grid-table__container" [class.left-container]="scrollSide === 'left'">
-        <div id="scrollGridTable" class="scroll-block" #table [class.left-content]="scrollSide === 'left'">
+    <div class="grid-table__container" [class.left-container]="scrollLeft">
+        <div id="scrollGridTable" class="scroll-block" #table [class.left-content]="scrollLeft">
             <ng-container *ngFor="let item of data">
                 <div class="item-inline">
-                    <div class="record-table" (click)="activeItem(item.id)"
-                        [class.active]="activeItemId === item.id">
-                        <ng-container *ngFor="let cell of columns; trackBy: columnsById">
-                            <div class="{{cell.className}}">{{ item[cell.key] }}</div>
+                    <div class="record-table" (click)="activeItem(item)" [class.active]="activeItemId === item.id">
+                        <ng-container *ngFor="let cell of columns; trackBy: columnsByKey">
+                            <div class="{{cell.className}}" [style.width.%]="cell.width">
+                                <ng-container *ngTemplateOutlet="cell.template; context: { data: item }">
+                                </ng-container>
+                            </div>
                         </ng-container>
                     </div>
                 </div>
@@ -21,37 +23,27 @@
         </div>
     </div>
     <!--FOOTER-->
-    <div class="grid-table__bottom" [class.left-title-footer]="scrollSide === 'left'">
+    <div class="grid-table__bottom" [class.left-title-footer]="scrollLeft">
         <div class="bottom-block">
-            <!--FILTER-->
-            <ng-container *ngIf="filter">
-                <div class="filter-button" (click)="openFilter()" [class.active-filter]="isFilter">
-                    <div class="filter-button__icon">
-                        <svg-icon *ngIf="isFilter" src="./assets/icons/widgets/oil-control-all/document-coding/filter-blue.svg"></svg-icon>
-                        <svg-icon *ngIf="!isFilter" src="./assets/icons/widgets/oil-control-all/document-coding/filter.svg"></svg-icon>
-                    </div>
-                    <div class="filter-button__text">
-                        <div class="name">Все продукты</div>
-                        <div class="icon">
-                            <svg-icon src="./assets/icons/widgets/oil-control-all/document-coding/arrow.svg"></svg-icon>
-                        </div>
-                    </div>
+            <ng-template #defaultFooter>
+                <div class="bottom-block__other-button">
+                    <!--FILTER-->
+                    <ng-container *ngIf="filter">
+                        <evj-table-grid-filter (clickFilter)="openFilter($event)"></evj-table-grid-filter>
+                    </ng-container>
+                    <!--INPUT-->
+                    <ng-container *ngIf="search">
+                        <evj-table-grid-input (search)="searchRecord($event)"></evj-table-grid-input>
+                    </ng-container>
                 </div>
-            </ng-container>
-            <!--INPUT-->
-            <ng-container *ngIf="search">
-                <div class="input-block">
-                    <div class="input-block__button-search">
-                        <svg-icon *ngIf="!isInput" class="button_filter_icon"
-                            src="./assets/icons/widgets/references/search_white.svg"></svg-icon>
-                        <svg-icon *ngIf="isInput" class="button_filter_icon"
-                            src="./assets/icons/widgets/references/search_blue.svg"></svg-icon>
-                    </div>
-                    <div class="input-block__input" [class.input-block__input-active]="isInput">
-                        <input type="text" (focus)="isInput = true" (blur)="isInput = false"
-                            placeholder="Поиск..." (keyup)="searchRecord($event)" />
-                    </div>
+                <div class="bottom-block__save-button">
+                    <ng-container *ngIf="saveButton">
+                        <evj-table-grid-save-button (clickSave)="save($event)">
+                        </evj-table-grid-save-button>
+                    </ng-container>
                 </div>
+            </ng-template>
+            <ng-container *ngTemplateOutlet="templateFooter ? templateFooter : defaultFooter">
             </ng-container>
         </div>
     </div>

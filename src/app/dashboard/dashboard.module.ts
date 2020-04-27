@@ -227,6 +227,9 @@ import { DocumentCodingFilterComponent } from './widgets/document-coding/compone
 import { TableGridComponent } from './components/table-grid/table-grid.component';
 import { ColumnGridComponent } from './components/table-grid/components/column-grid/column-grid.component';
 import { OilOperationsComponent } from './widgets/oil-operations/oil-operations.component';
+import { TableGridInputComponent } from './components/table-grid/components/table-grid-input/table-grid-input.component';
+import { TableGridFilterComponent } from './components/table-grid/components/table-grid-filter/table-grid-filter.component';
+import { TableGridSaveButtonComponent } from './components/table-grid/components/table-grid-save-button/table-grid-save-button.component';
 
 @NgModule({
   declarations: [
@@ -421,7 +424,10 @@ import { OilOperationsComponent } from './widgets/oil-operations/oil-operations.
     DocumentCodingFilterComponent,
     TableGridComponent,
     ColumnGridComponent,
-    OilOperationsComponent
+    OilOperationsComponent,
+    TableGridInputComponent,
+    TableGridFilterComponent,
+    TableGridSaveButtonComponent
   ],
   entryComponents: [
     LineChartComponent,
