@@ -36,7 +36,11 @@ export class LineChartComponent implements OnChanges, OnInit {
 
     private svg = null;
 
-    private chartData: { graphType: ProductionTrendType; graph: IChartD3[] }[] = [];
+    private chartData: {
+        graphType: ProductionTrendType;
+        graph: IChartD3[];
+        isAdditional?: boolean;
+    }[] = [];
 
     private axis: { axisX: any; axisY: any } = { axisX: null, axisY: null };
 
@@ -159,6 +163,35 @@ export class LineChartComponent implements OnChanges, OnInit {
         });
 
         this.chartData.push(chartData);
+
+        this.transformDeviationData(chart, 'deviationUp');
+        this.transformDeviationData(chart, 'deviationDown');
+    }
+
+    private transformDeviationData(
+        chart: IProductionTrend,
+        deviationType: 'deviationUp' | 'deviationDown'
+    ): void {
+        if (chart[deviationType]) {
+            const chartData: {
+                graphType: ProductionTrendType;
+                graph: IChartD3[];
+                isAdditional: true;
+            } = {
+                graphType: chart.graphType,
+                graph: [],
+                isAdditional: true,
+            };
+            const coef: 1 | -1 = deviationType === 'deviationUp' ? 1 : -1;
+            chart.graph.forEach((item) => {
+                chartData.graph.push({
+                    x: this.scaleFuncs.x(item.timestamp),
+                    y: this.scaleFuncs.y(item.value + coef * chart[deviationType]),
+                });
+            });
+
+            this.chartData.push(chartData);
+        }
     }
 
     private drawGraph(): void {
@@ -168,13 +201,19 @@ export class LineChartComponent implements OnChanges, OnInit {
                 .x((item: IChartD3) => item.x)
                 .y((item: IChartD3) => item.y);
 
+            const lineWidth: number = chart.graphType === 'fact' ? 2 : 0.5;
+
             const path = this.svg
                 .append('path')
                 .attr('class', `graph-line-${chart.graphType}`)
                 .attr('d', line(chart.graph))
                 .style('fill', 'none')
                 .style('stroke', this.chartStroke[chart.graphType])
-                .style('stroke-width', 2);
+                .style('stroke-width', lineWidth);
+
+            if (chart.isAdditional) {
+                path.style('stroke-dasharray', '2 5');
+            }
         });
     }
 
