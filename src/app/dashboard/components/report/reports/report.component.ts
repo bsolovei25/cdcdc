@@ -8,7 +8,11 @@ import { FormControl } from '@angular/forms';
 import { Moment } from 'moment';
 import * as _moment from 'moment';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { NGX_MAT_DATE_FORMATS, NgxMatDateFormats } from '@angular-material-components/datetime-picker';
+import {
+    NGX_MAT_DATE_FORMATS,
+    NgxMatDateFormats
+} from '@angular-material-components/datetime-picker';
+import { SelectionModel } from '@angular/cdk/collections';
 const moment = _moment;
 
 export interface IReportOption {
@@ -97,6 +101,7 @@ export class ReportComponent implements OnInit {
     formGroup: IReportFormGroup[] = [];
 
     @Input() data: IReportTemplate;
+    @Input() activeElements: SelectionModel<number> = new SelectionModel<number>(true, []);
 
     @ViewChild('picker') public picker: any;
 

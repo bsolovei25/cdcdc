@@ -6,12 +6,18 @@
 </div>
 <div class="reports-panel__list scroll-bar">
   <div class="options-header">
-    <evj-report-tree *ngFor="let folder of folders" [data]="folder"></evj-report-tree>
+    <evj-report-tree
+      [activeElements]="activeElements"
+      [selectedFolders]="selectedFolders"
+      *ngFor="let folder of folders"
+      [data]="folder"
+    ></evj-report-tree>
     <div style="margin-top: 15px; margin-left: 10px;">
       <evj-report
         *ngFor="let i of templates"
         style="width: 100%; margin: 10px auto;"
         [data]="i"
+        [activeElements]="activeElements"
       ></evj-report>
     </div>
   </div>
