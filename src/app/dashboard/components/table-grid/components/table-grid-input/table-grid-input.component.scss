@@ -59,7 +59,7 @@ input {
             height: calc(100% - 2px);
             margin: auto;
             border-radius: inherit;
-            background: #292B38;
+            background: var(--color-input-backgroud-table);
 
             input {
                 border-bottom: none !important;
