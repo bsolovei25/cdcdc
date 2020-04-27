@@ -20,6 +20,9 @@ import { SmartScrollComponent } from './components/smart-scroll/smart-scroll.com
 import { LineChartTrackComponent } from './components/smart-scroll/line-chart-track/line-chart-track.component';
 import { LineChartComponent } from './components/line-chart/line-chart.component';
 import { LineChartPickerDirective } from './directives/line-chart-picker.directive';
+import { EmailEditorComponent } from './components/email-editor/email-editor.component';
+import { CKEditorModule } from 'ng2-ckeditor';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -40,6 +43,7 @@ import { LineChartPickerDirective } from './directives/line-chart-picker.directi
         LineChartTrackComponent,
         LineChartComponent,
         LineChartPickerDirective,
+        EmailEditorComponent,
     ],
     exports: [
         HeaderComponent,
@@ -56,8 +60,9 @@ import { LineChartPickerDirective } from './directives/line-chart-picker.directi
         WidgetPreloaderComponent,
         AlertWindowComponent,
         SmartScrollComponent,
-        LineChartComponent
+        LineChartComponent,
+        EmailEditorComponent
     ],
-    imports: [CommonModule, MatInputModule, MatIconModule, NgxMaskModule.forChild()],
+  imports: [CommonModule, MatInputModule, MatIconModule, NgxMaskModule.forChild(), CKEditorModule, FormsModule]
 })
 export class SharedModule { }
