@@ -18,6 +18,9 @@ import { AlertWindowComponent } from './components/alert-window/alert-window.com
 import { NgxMaskModule } from 'ngx-mask';
 import { SmartScrollComponent } from './components/smart-scroll/smart-scroll.component';
 import { LineChartTrackComponent } from './components/smart-scroll/line-chart-track/line-chart-track.component';
+import { EmailEditorComponent } from './components/email-editor/email-editor.component';
+import { CKEditorModule } from 'ng2-ckeditor';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -36,6 +39,7 @@ import { LineChartTrackComponent } from './components/smart-scroll/line-chart-tr
         AlertWindowComponent,
         SmartScrollComponent,
         LineChartTrackComponent,
+        EmailEditorComponent,
     ],
     exports: [
         HeaderComponent,
@@ -51,8 +55,9 @@ import { LineChartTrackComponent } from './components/smart-scroll/line-chart-tr
         LoadingShadeComponent,
         WidgetPreloaderComponent,
         AlertWindowComponent,
-        SmartScrollComponent
+        SmartScrollComponent,
+        EmailEditorComponent
     ],
-    imports: [CommonModule, MatInputModule, MatIconModule, NgxMaskModule.forChild()],
+  imports: [CommonModule, MatInputModule, MatIconModule, NgxMaskModule.forChild(), CKEditorModule, FormsModule]
 })
 export class SharedModule { }
