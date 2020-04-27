@@ -21,6 +21,8 @@ import { LineChartTrackComponent } from './components/smart-scroll/line-chart-tr
 import { EmailEditorComponent } from './components/email-editor/email-editor.component';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { FormsModule } from '@angular/forms';
+import { UploadDropZoneComponent } from './components/upload-drop-zone/upload-drop-zone.component';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 
 @NgModule({
     declarations: [
@@ -40,6 +42,7 @@ import { FormsModule } from '@angular/forms';
         SmartScrollComponent,
         LineChartTrackComponent,
         EmailEditorComponent,
+        UploadDropZoneComponent
     ],
     exports: [
         HeaderComponent,
@@ -56,8 +59,17 @@ import { FormsModule } from '@angular/forms';
         WidgetPreloaderComponent,
         AlertWindowComponent,
         SmartScrollComponent,
-        EmailEditorComponent
+        EmailEditorComponent,
+        UploadDropZoneComponent
     ],
-  imports: [CommonModule, MatInputModule, MatIconModule, NgxMaskModule.forChild(), CKEditorModule, FormsModule]
+    imports: [
+        CommonModule,
+        MatInputModule,
+        MatIconModule,
+        NgxMaskModule.forChild(),
+        CKEditorModule,
+        FormsModule,
+        AngularSvgIconModule
+    ]
 })
 export class SharedModule { }

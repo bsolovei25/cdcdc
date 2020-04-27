@@ -69,4 +69,8 @@ export class UploadDropComponent implements OnInit, OnDestroy {
         }
     }
 
+    uploadFile(event): void {
+        this.dialogRef.close(event);
+    }
+
 }
