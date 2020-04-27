@@ -24,7 +24,7 @@ import { AvatarConfiguratorService } from '../avatar-configurator.service';
 export class AdminPanelService {
     private restUrl: string = `/api/user-management`;
     private restUrlApi: string = `/api`;
-    private restFileUrl: string = '';
+    private restFileUrl: string = '/api/file-storage';
 
     public defaultWorker: IUser = {
         id: undefined,
@@ -81,6 +81,7 @@ export class AdminPanelService {
     ) {
         this.restUrl = `${this.configService.restUrl}${this.restUrl}`;
         this.restUrlApi = `${this.configService.restUrl}${this.restUrlApi}`;
+        this.restFileUrl = `${configService.restUrl}${this.restFileUrl}`;
         this.activeWorker$.subscribe((worker: IUser) => {
             this.activeWorker = worker;
         });

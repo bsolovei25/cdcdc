@@ -18,6 +18,8 @@ import { AlertWindowComponent } from './components/alert-window/alert-window.com
 import { NgxMaskModule } from 'ngx-mask';
 import { SmartScrollComponent } from './components/smart-scroll/smart-scroll.component';
 import { LineChartTrackComponent } from './components/smart-scroll/line-chart-track/line-chart-track.component';
+import { LineChartComponent } from './components/line-chart/line-chart.component';
+import { LineChartPickerDirective } from './directives/line-chart-picker.directive';
 import { EmailEditorComponent } from './components/email-editor/email-editor.component';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { FormsModule } from '@angular/forms';
@@ -41,6 +43,8 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
         AlertWindowComponent,
         SmartScrollComponent,
         LineChartTrackComponent,
+        LineChartComponent,
+        LineChartPickerDirective,
         EmailEditorComponent,
         UploadDropZoneComponent
     ],
@@ -60,7 +64,9 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
         AlertWindowComponent,
         SmartScrollComponent,
         EmailEditorComponent,
-        UploadDropZoneComponent
+        UploadDropZoneComponent,
+        LineChartComponent,
+        EmailEditorComponent
     ],
     imports: [
         CommonModule,

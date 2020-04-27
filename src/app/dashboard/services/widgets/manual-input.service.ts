@@ -80,7 +80,7 @@ export class ManualInputService {
         return newData;
     }
 
-    public BtnSaveValues(data: IMachine_MI[]): void {
+    public BtnSaveValues(data: IMachine_MI[], widgetId: string): void {
         this.saveBar('Сохранение', true);
         this.statusLoading = true;
         const elsToSave: Param_MI[] = [];
@@ -94,38 +94,37 @@ export class ManualInputService {
                 }
             }
         }
-        this.SendData(elsToSave, data);
+        this.SendData(elsToSave, data, widgetId);
     }
 
-    SendData(elsToSave: Param_MI[], data: IMachine_MI[]) {
+    SendData(elsToSave: Param_MI[], data: IMachine_MI[], widgetId: string): void {
         const params: MI_ParamSend[] = [];
-        for (let i in elsToSave) {
-            let param = elsToSave[i];
-            let el: MI_ParamSend = new (class implements MI_ParamSend {
-                Id = param.id;
-                Value = param.curValue;
-                TimeCode = param.curTime;
-                Comment = param.comment;
-                isEdit = param.isEdit;
-            })();
+        for (const param of elsToSave) {
+            const el: MI_ParamSend = {
+                Id: param.id,
+                Value: param.curValue,
+                TimeCode: param.curTime,
+                Comment: param.comment,
+                isEdit: param.isEdit,
+            };
             params.push(el);
         }
-        let req = new (class implements MI_DataSend {
-            Id = '23912391203983884';
-            User = 'Username';
-            Params = params;
-        })();
+        const req: MI_DataSend = {
+            Id: widgetId,
+            User: 'Username',
+            Params: params,
+        };
         this.PostData(req, data);
     }
 
-    PostData(Params: MI_DataSend, data: IMachine_MI[]) {
+    PostData(Params: MI_DataSend, data: IMachine_MI[]): void {
         this.http.post(this.restUrl + '/api/manualinput/post', Params).subscribe((ans: MI_DataGet) => {
             this.saveBar('Пустой ввод', false);
             this.SaveValues(ans, data);
         });
     }
 
-    SaveValues(ids: MI_DataGet, data: IMachine_MI[]) {
+    SaveValues(ids: MI_DataGet, data: IMachine_MI[]): void {
         for (const i in ids.trueValues) {
             let el = this.GetElementById(ids.trueValues[i].id, data);
             el.isEdit = true;
@@ -136,7 +135,7 @@ export class ManualInputService {
             this.saveBar('Сохранено', false);
         }
         for (const i in ids.falseValues) {
-            let el = this.GetElementById(ids.falseValues[i].id, data);
+            const el = this.GetElementById(ids.falseValues[i].id, data);
             el.isError = true;
             this.saveBar('Сохранено с ошибкой', false);
         }
@@ -169,7 +168,7 @@ export class ManualInputService {
         return null;
     }
 
-    saveBar(text: string, statusLoad: boolean, durection: number = 2000) {
+    saveBar(text: string, statusLoad: boolean, durection: number = 2000): void {
         let snackBar = document.getElementById('saveBar');
         let snackBarBlock = document.getElementById('saveBarBlock');
         if (statusLoad) {
