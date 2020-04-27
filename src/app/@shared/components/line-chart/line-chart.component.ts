@@ -217,6 +217,26 @@ export class LineChartComponent implements OnChanges, OnInit {
         });
     }
 
+    private drawLegend(): void {
+        const legendG = this.svg.append('g').attr('class', 'graph-legend');
+        legendG
+            .append('text')
+            .text('Фактическое')
+            .attr('text-anchor', 'start')
+            .attr('x', 70)
+            .attr('y', 45)
+            .style('font-size', '12px')
+            .style('fill', this.chartStroke.fact);
+        legendG
+            .append('text')
+            .text('Плановое')
+            .attr('text-anchor', 'end')
+            .attr('x', this.graphMaxX - this.padding.left)
+            .attr('y', 45)
+            .style('font-size', '12px')
+            .style('fill', this.chartStroke.plan);
+    }
+
     private drawAxis(): void {
         // отрисовка оси у
         this.svg
@@ -277,6 +297,7 @@ export class LineChartComponent implements OnChanges, OnInit {
         this.drawAxisArrows('yAxis');
 
         this.drawGridLines();
+        this.drawLegend();
     }
 
     // отрисовка стрелок на осях

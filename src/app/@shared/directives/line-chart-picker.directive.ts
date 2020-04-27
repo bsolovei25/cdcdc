@@ -35,6 +35,7 @@ export class LineChartPickerDirective {
 
     @HostListener('mouseleave') onMouseLeave(): void {
         if (this.eventListenerFn) {
+            this.svg.select('g.mouse-over').remove();
             this.eventListenerFn();
         }
     }
