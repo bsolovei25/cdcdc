@@ -227,6 +227,7 @@ import { DocumentCodingFilterComponent } from './widgets/document-coding/compone
 import { TableGridComponent } from './components/table-grid/table-grid.component';
 import { ColumnGridComponent } from './components/table-grid/components/column-grid/column-grid.component';
 import { OilOperationsComponent } from './widgets/oil-operations/oil-operations.component';
+import { LineChartPickerDirective } from './widgets/production-trend/components/line-chart-picker.directive';
 
 @NgModule({
   declarations: [
@@ -421,7 +422,8 @@ import { OilOperationsComponent } from './widgets/oil-operations/oil-operations.
     DocumentCodingFilterComponent,
     TableGridComponent,
     ColumnGridComponent,
-    OilOperationsComponent
+    OilOperationsComponent,
+    LineChartPickerDirective
   ],
   entryComponents: [
     LineChartComponent,
