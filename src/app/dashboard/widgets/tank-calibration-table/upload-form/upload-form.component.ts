@@ -32,7 +32,6 @@ export class UploadFormComponent implements OnInit, OnDestroy {
     constructor(
         private dialog: MatDialog,
         public dialogRef: MatDialogRef<any>,
-        private calibrationService: TankCalibrationTableService,
         @Inject(MAT_DIALOG_DATA) public data: any
     ) {
     }
@@ -80,6 +79,11 @@ export class UploadFormComponent implements OnInit, OnDestroy {
     deleteFile(): void {
         this.file = false;
         this.body.file = null;
+    }
+
+    uploadFile(event): void {
+        this.body.file = event;
+        this.file = true;
     }
 
 }
