@@ -21,6 +21,7 @@ export class AlertWindowComponent implements OnInit {
     }
 
     public cancel(): void {
+        this.info.cancelFunction();
         this.info.closeFunction();
     }
 }

@@ -159,7 +159,7 @@ export class AddReportFileComponent implements OnInit {
         (error) => {
           this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
         }),
-      cancelFunction: () => {
+      closeFunction: () => {
         this.reportService.closeAlert();
       }
     };
@@ -203,7 +203,7 @@ export class AddReportFileComponent implements OnInit {
         item.name = this.newName;
         this.newName = null;
       },
-      cancelFunction: () => {
+      closeFunction: () => {
         this.reportService.closeAlert();
         this.newName = null;
       }

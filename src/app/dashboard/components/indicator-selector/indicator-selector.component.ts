@@ -6,6 +6,7 @@ import { ClaimService, EnumClaimScreens } from '../../services/claim.service';
 import { ViewportScroller } from '@angular/common';
 import { OverlayService } from '../../services/overlay.service';
 import { SnackBarService } from '../../services/snack-bar.service';
+import { IAlertWindowModel } from '@shared/models/alert-window.model';
 
 @Component({
     selector: 'evj-indicator-selector',
@@ -123,10 +124,8 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
             acceptText: 'Да',
             cancelText: 'Отменить',
             acceptFunction: () => this.deleteScreen(screen.id),
-            cancelFunction: () => {
-                this.overlayService.closeDashboardAlert();
-                this.snackBar.openSnackBar(`Экран "${screen.screenName}" не удален и доступен для работы`);
-            },
+            closeFunction: () => this.overlayService.closeDashboardAlert(),
+            cancelFunction: () => this.snackBar.openSnackBar(`Экран "${screen.screenName}" не удален и доступен для работы`)
         };
         this.overlayService.dashboardAlert$.next(windowsParam);
     }
@@ -146,16 +145,14 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
     }
 
     public updateScreenButton(screen: IScreenSettings, newName: string): void {
-        const windowsParam = {
+        const windowsParam: IAlertWindowModel = {
             isShow: true,
             questionText: `Вы уверены, что хотите изменить название экрана с "${screen.screenName}" на "${newName}"?`,
             acceptText: 'Да',
             cancelText: 'Отменить',
             acceptFunction: () => this.updateScreen(screen, newName),
-            cancelFunction: () => {
-                this.overlayService.closeDashboardAlert();
-                this.snackBar.openSnackBar(`Внесенные изменения для экрана "${screen.screenName}" не сохранены`);
-            },
+            closeFunction: () => this.overlayService.closeDashboardAlert(),
+            cancelFunction: () => this.snackBar.openSnackBar(`Внесенные изменения для экрана "${screen.screenName}" не сохранены`),
         };
         this.overlayService.dashboardAlert$.next(windowsParam);
     }
