@@ -1,0 +1,53 @@
+<div style="height: 100%;">
+    <div class="title">
+        <div class="title__name">Работа с графиком</div>
+    </div>
+    <div class="content">
+        <div class="content__date">
+            <mat-form-field>
+                <mat-label>Начало</mat-label>
+                <input matInput [matDatepicker]="picker1" [value]="dateNow">
+                <mat-datepicker-toggle matSuffix [for]="picker1">
+                    <mat-icon matDatepickerToggleIcon>
+                        <svg-icon src="./assets/icons/widgets/reports/calend.svg"
+                            [svgStyle]="{ 'width.px':25, 'height.px':25}">
+                        </svg-icon>
+                    </mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="content__date">
+            <mat-form-field>
+                <mat-label>Окончание</mat-label>
+                <input matInput [matDatepicker]="picker2" [value]="dateNow">
+                <mat-datepicker-toggle matSuffix [for]="picker2">
+                    <mat-icon matDatepickerToggleIcon>
+                        <svg-icon src="./assets/icons/widgets/reports/calend.svg"
+                            [svgStyle]="{ 'width.px':25, 'height.px':25}">
+                        </svg-icon>
+                    </mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="content__file">
+            <div class="title-file">Файл</div>
+            <div class="pdf">
+                <svg-icon src="assets/icons/widgets/oil-control-all/oil-operations/pdf.svg"
+                [svgStyle]="{ 'width.px':50, 'height.px':50, 'padding.px': 5 }"></svg-icon>
+            </div>
+            <div class="xls">
+                <svg-icon src="assets/icons/widgets/oil-control-all/oil-operations/xls.svg"
+                [svgStyle]="{ 'width.px':50, 'height.px':50, 'padding.px': 5 }"></svg-icon>
+            </div>
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="bottom__block">
+            <svg-icon src="./assets/icons/widgets/oil-control-all/oil-operations/full-screen.svg"
+                class="add_button_icon" [svgStyle]="{ 'width.px':20, 'height.px':20 }">
+            </svg-icon>
+        </div>
+    </div>
+</div>
