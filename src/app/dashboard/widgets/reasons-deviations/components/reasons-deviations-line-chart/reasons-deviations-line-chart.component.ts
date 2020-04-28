@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IProductionTrend } from '../../../../models/production-trends.model';
+import { IPointTank } from '../../../../../@shared/models/smart-scroll.model';
 
 @Component({
     selector: 'evj-reasons-deviations-line-chart',
@@ -41,6 +42,21 @@ export class ReasonsDeviationsLineChartComponent implements OnInit {
                     timestamp: new Date(2020, 2, 7),
                 },
             ],
+        },
+    ];
+
+    public points: IPointTank[] = [
+        {
+            value: 6000,
+            timestamp: new Date(2020, 2, 2),
+        },
+        {
+            value: 900,
+            timestamp: new Date(2020, 2, 4),
+        },
+        {
+            value: 5800,
+            timestamp: new Date(2020, 2, 6),
         },
     ];
 

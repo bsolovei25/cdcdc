@@ -13,7 +13,7 @@ import {
     IProductionTrend,
     ProductionTrendType,
 } from '../../../dashboard/models/production-trends.model';
-import { IChartD3, IChartMini } from '../../models/smart-scroll.model';
+import { IChartD3, IChartMini, IPointTank } from '../../models/smart-scroll.model';
 import { ChartStyleType, ChartStyle, IChartStyle } from '../../models/line-chart-style.model';
 
 @Component({
@@ -23,6 +23,7 @@ import { ChartStyleType, ChartStyle, IChartStyle } from '../../models/line-chart
 })
 export class LineChartComponent implements OnChanges, OnInit {
     @Input() private data: IProductionTrend[] = [];
+    @Input() public points: IPointTank[] = [];
     @Input() public isShowingLegend: boolean = false;
     @Input() public chartType: 'production-trend' | 'reasons-deviations' = 'production-trend';
 
