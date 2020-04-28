@@ -1,9 +1,17 @@
-<div
-  class="graph"
-  #chart
-  evjLineChartPicker
-  [graphMaxX]="graphMaxX"
-  [graphMaxY]="graphMaxY"
-  [padding]="padding"
-  [scaleFuncs]="scaleFuncs"
-></div>
+<ng-container *ngIf="chartType==='production-trend'">
+  <div
+    class="graph"
+    #chart
+    evjLineChartPicker
+    [graphMaxX]="graphMaxX"
+    [graphMaxY]="graphMaxY"
+    [padding]="padding"
+    [scaleFuncs]="scaleFuncs"
+  ></div>
+</ng-container>
+<ng-container *ngIf="chartType==='reasons-deviations'">
+  <div
+    class="graph"
+    #chart
+  ></div>
+</ng-container>

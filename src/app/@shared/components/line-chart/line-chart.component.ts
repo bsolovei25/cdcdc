@@ -23,9 +23,10 @@ import { ChartStyleType, ChartStyle, IChartStyle } from '../../models/line-chart
 })
 export class LineChartComponent implements OnChanges, OnInit {
     @Input() private data: IProductionTrend[] = [];
-    @Input() public graphType: 'productionTrend' | 'deviationReasons' = null;
+    @Input() public isShowingLegend: boolean = false;
+    @Input() public chartType: 'production-trend' | 'reasons-deviations' = 'production-trend';
 
-    @ViewChild('chart', { static: true }) private chart: ElementRef;
+    @ViewChild('chart') private chart: ElementRef;
 
     private readonly MAX_COEF: number = 0.1;
     private readonly MIN_COEF: number = 0.3;
@@ -63,7 +64,7 @@ export class LineChartComponent implements OnChanges, OnInit {
     constructor() {}
 
     public ngOnChanges(): void {
-        if (this.data.length) {
+        if (this.data.length && this.svg) {
             this.findMinMax();
             this.initGraph();
             this.transformData();
@@ -78,12 +79,13 @@ export class LineChartComponent implements OnChanges, OnInit {
 
     @HostListener('document:resize', ['$event'])
     public OnResize(): void {
-        if (this.svg) {
-            this.initGraph();
-            this.transformData();
-            this.drawAxis();
-            this.drawGraph();
-        }
+        // if (this.svg) {
+        this.findMinMax();
+        this.initGraph();
+        this.transformData();
+        this.drawAxis();
+        this.drawGraph();
+        // }
     }
 
     private initGraph(): void {
@@ -197,23 +199,25 @@ export class LineChartComponent implements OnChanges, OnInit {
     }
 
     private drawLegend(): void {
-        const legendG = this.svg.append('g').attr('class', 'graph-legend');
-        legendG
-            .append('text')
-            .text('Фактическое')
-            .attr('text-anchor', 'start')
-            .attr('x', 70)
-            .attr('y', 45)
-            .style('font-size', '12px')
-            .style('fill', this.chartStroke.fact);
-        legendG
-            .append('text')
-            .text('Плановое')
-            .attr('text-anchor', 'end')
-            .attr('x', this.graphMaxX - this.padding.left)
-            .attr('y', 45)
-            .style('font-size', '12px')
-            .style('fill', this.chartStroke.plan);
+        if (this.isShowingLegend) {
+            const legendG = this.svg.append('g').attr('class', 'graph-legend');
+            legendG
+                .append('text')
+                .text('Фактическое')
+                .attr('text-anchor', 'start')
+                .attr('x', 70)
+                .attr('y', 45)
+                .style('font-size', '12px')
+                .style('fill', this.chartStroke.fact);
+            legendG
+                .append('text')
+                .text('Плановое')
+                .attr('text-anchor', 'end')
+                .attr('x', this.graphMaxX - this.padding.left)
+                .attr('y', 45)
+                .style('font-size', '12px')
+                .style('fill', this.chartStroke.plan);
+        }
     }
 
     private drawAxis(): void {
