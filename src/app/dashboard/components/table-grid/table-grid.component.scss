@@ -74,12 +74,19 @@
             display: flex;
             padding-left: 20px;
             position: relative;
-            
+            height: 100%;
 
             &__other-button {
                 display: flex;
                 justify-content: start;
+                align-items: center;
                 width: 100%;
+
+                .search{
+                    &__input{
+                        height: 70%;
+                    }
+                }
             }
 
             &__save-button {
@@ -178,3 +185,4 @@
 ::-webkit-resizer {
     background-color: var(--color-border-active);
 }
+
