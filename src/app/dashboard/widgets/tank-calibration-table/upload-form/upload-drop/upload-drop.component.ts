@@ -14,6 +14,8 @@ export class UploadDropComponent implements OnInit, OnDestroy {
 
     public fileLoad: boolean = false;
 
+    extension: string[] = ['.xls', '.xlsx', '.xls'];
+
     @ViewChild('area') area: ElementRef;
 
     constructor(
@@ -67,6 +69,10 @@ export class UploadDropComponent implements OnInit, OnDestroy {
         } else {
             this.snackBar.openSnackBar('Не верный формат файла', 'snackbar-red');
         }
+    }
+
+    uploadFile(event): void {
+        this.dialogRef.close(event);
     }
 
 }
