@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         private widgetService: WidgetService,
         private userSettings: UserSettingsService,
         private claimService: ClaimService,
-        private overlayService: OverlayService,
+        public overlayService: OverlayService,
     ) {}
 
     ngOnInit(): void {
