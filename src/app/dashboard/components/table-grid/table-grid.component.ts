@@ -18,6 +18,7 @@ export class TableGridComponent implements OnInit, AfterViewInit {
   @Input() saveButton: boolean; //Save button in footer
   @Input() templateFooter: TemplateRef<any>; // Template footer
   @Input() deleteButton: boolean; // in progress...
+  @Input() activeFilter: boolean;
 
   @Output() clickSave: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() clickFilter: EventEmitter<boolean> = new EventEmitter<boolean>();

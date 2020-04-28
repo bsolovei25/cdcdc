@@ -13,6 +13,7 @@ export interface IDocumentCodingFilterSection {
 })
 export class DocumentCodingFilterComponent implements OnInit, OnChanges {
   @Output() public close: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() public title: string;
 
   public dataParam: IDocumentCodingFilterSection[] = [
     {
