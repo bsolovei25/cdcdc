@@ -8,7 +8,7 @@ import { filter, catchError } from 'rxjs/operators';
 import { IParamWidgetsGrid } from '../components/new-widgets-grid/new-widgets-grid.component';
 import { WidgetService } from './widget.service';
 import { ClaimService } from './claim.service';
-import { GridsterItem } from 'angular-gridster2';
+import { GridsterItem, GridsterItemComponentInterface } from 'angular-gridster2';
 import { SnackBarService } from './snack-bar.service';
 
 @Injectable({
