@@ -279,7 +279,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
                     this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
                     this.isLoading = false;
                 }),
-            cancelFunction: () => this.reportService.closeAlert(),
+            closeFunction: () => this.reportService.closeAlert(),
         };
         this.reportService.alertWindow$.next(windowsParam);
     }
@@ -299,7 +299,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
                 this.isLoading = false;
                 this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
             }),
-            cancelFunction: () => {
+            closeFunction: () => {
                 this.reportService.closeAlert();
                 this.isLoading = false;
             }
@@ -407,7 +407,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
                 item.openEdit = false;
                 this.newRecord = null;
             },
-            cancelFunction: () => {
+            closeFunction: () => {
                 this.reportService.closeAlert();
                 item.openEdit = false;
                 this.newRecord = null;
@@ -432,7 +432,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
                 item.openEdit = false;
                 this.newRecord = null;
             },
-            cancelFunction: () => {
+            closeFunction: () => {
                 this.reportService.closeAlert();
                 item.openEdit = false;
                 this.newRecord = null;
@@ -639,7 +639,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
                     'Выберите файл'
                 );
             }),
-            cancelFunction: () => {
+            closeFunction: () => {
                 this.reportService.closeAlert();
             }
         };
