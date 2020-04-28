@@ -14,6 +14,7 @@ import {
     ProductionTrendType,
 } from '../../../dashboard/models/production-trends.model';
 import { IChartD3, IChartMini } from '../../models/smart-scroll.model';
+import { ChartStyleType, ChartStyle, IChartStyle } from '../../models/line-chart-style.model';
 
 @Component({
     selector: 'evj-line-chart-shared',
@@ -38,8 +39,8 @@ export class LineChartComponent implements OnChanges, OnInit {
 
     private chartData: {
         graphType: ProductionTrendType;
+        graphStyle: ChartStyleType;
         graph: IChartD3[];
-        isAdditional?: boolean;
     }[] = [];
 
     private axis: { axisX: any; axisY: any } = { axisX: null, axisY: null };
@@ -150,8 +151,13 @@ export class LineChartComponent implements OnChanges, OnInit {
             .ticks(10)
             .tickSize(0);
 
-        const chartData: { graphType: ProductionTrendType; graph: IChartD3[] } = {
+        const chartData: {
+            graphType: ProductionTrendType;
+            graphStyle: ChartStyleType;
+            graph: IChartD3[];
+        } = {
             graphType: chart.graphType,
+            graphStyle: chart.graphStyle,
             graph: [],
         };
 
@@ -163,57 +169,30 @@ export class LineChartComponent implements OnChanges, OnInit {
         });
 
         this.chartData.push(chartData);
-
-        this.transformDeviationData(chart, 'deviationUp');
-        this.transformDeviationData(chart, 'deviationDown');
-    }
-
-    private transformDeviationData(
-        chart: IProductionTrend,
-        deviationType: 'deviationUp' | 'deviationDown'
-    ): void {
-        if (chart[deviationType]) {
-            const chartData: {
-                graphType: ProductionTrendType;
-                graph: IChartD3[];
-                isAdditional: true;
-            } = {
-                graphType: chart.graphType,
-                graph: [],
-                isAdditional: true,
-            };
-            const coef: 1 | -1 = deviationType === 'deviationUp' ? 1 : -1;
-            chart.graph.forEach((item) => {
-                chartData.graph.push({
-                    x: this.scaleFuncs.x(item.timestamp),
-                    y: this.scaleFuncs.y(item.value + coef * chart[deviationType]),
-                });
-            });
-
-            this.chartData.push(chartData);
-        }
     }
 
     private drawGraph(): void {
+        const chartStyle = new ChartStyle();
+
         this.chartData.forEach((chart) => {
             const line = d3
                 .line()
                 .x((item: IChartD3) => item.x)
                 .y((item: IChartD3) => item.y);
 
-            const lineWidth: number = chart.graphType === 'fact' ? 2 : 0.5;
+            const graphStyle: IChartStyle = chartStyle[chart.graphStyle];
 
-            const path = this.svg
+            const lineWidth: number = graphStyle.lineWidth;
+            const lineColor: string = graphStyle.lineColor;
+
+            this.svg
                 .append('path')
                 .attr('class', `graph-line-${chart.graphType}`)
                 .attr('d', line(chart.graph))
                 .style('fill', 'none')
-                .style('stroke', this.chartStroke[chart.graphType])
-                .style('stroke-width', lineWidth);
-
-            if (chart.isAdditional) {
-                path.style('stroke-dasharray', '2 5');
-            }
+                .style('stroke', lineColor)
+                .style('stroke-width', lineWidth)
+                .style('stroke-dasharray', chartStyle.drawLineType(graphStyle));
         });
     }
 

@@ -23,6 +23,8 @@ import { LineChartPickerDirective } from './directives/line-chart-picker.directi
 import { EmailEditorComponent } from './components/email-editor/email-editor.component';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { FormsModule } from '@angular/forms';
+import { UploadDropZoneComponent } from './components/upload-drop-zone/upload-drop-zone.component';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 import { CircleInputComponent } from './components/circle-input/circle-input.component';
 
 @NgModule({
@@ -45,6 +47,7 @@ import { CircleInputComponent } from './components/circle-input/circle-input.com
         LineChartComponent,
         LineChartPickerDirective,
         EmailEditorComponent,
+        UploadDropZoneComponent,
         CircleInputComponent,
     ],
     exports: [
@@ -62,10 +65,20 @@ import { CircleInputComponent } from './components/circle-input/circle-input.com
         WidgetPreloaderComponent,
         AlertWindowComponent,
         SmartScrollComponent,
+        EmailEditorComponent,
+        UploadDropZoneComponent,
         LineChartComponent,
         EmailEditorComponent,
         CircleInputComponent,
     ],
-  imports: [CommonModule, MatInputModule, MatIconModule, NgxMaskModule.forChild(), CKEditorModule, FormsModule]
+    imports: [
+        CommonModule,
+        MatInputModule,
+        MatIconModule,
+        NgxMaskModule.forChild(),
+        CKEditorModule,
+        FormsModule,
+        AngularSvgIconModule
+    ]
 })
 export class SharedModule { }
