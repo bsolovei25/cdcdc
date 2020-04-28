@@ -163,7 +163,7 @@ export class NewWidgetsGridComponent implements OnInit, OnDestroy {
 
     public itemChange(item: GridsterItem, itemComponent: GridsterItemComponentInterface): void {
         this.userSettings.updateByPosition(item, itemComponent.$item);
-        itemComponent.item = itemComponent.$item;
+        itemComponent.item = {...itemComponent.item, ...itemComponent.$item};
     }
 
     public onSwap(swap: boolean): void {
