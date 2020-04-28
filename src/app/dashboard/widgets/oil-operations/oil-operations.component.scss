@@ -29,31 +29,31 @@ $container-padding: 5px;
   display: flex;
   width: 100%;
   height: calc(100% - #{$block-margin * 2});
-  min-width: 1024px;
+  min-width: 1590px;
 
   .left-side {
     height: 100%;
     width: 42%;
 
     ::ng-deep {
-      .scroll-block{
+      .scroll-block {
         background-color: var(--color-oil-table-2);
       }
-      .record-table{
+      .record-table {
         background-color: var(--color-oil-table-2) !important;
       }
-    } 
+    }
   }
 
-  .middle-side{
+  .middle-side {
     height: 100%;
     width: 16%;
 
-    &__top{
+    &__top {
       height: 50%;
     }
 
-    &__bottom{
+    &__bottom {
       height: 50%;
     }
   }
@@ -64,21 +64,29 @@ $container-padding: 5px;
   }
 }
 
-.pasport{
+.pasport {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
 }
 
-.direction{
+.direction {
   display: flex;
   align-items: center;
 
-  &__icon{
+  &__icon {
     width: 50%;
+    position: relative;
+
+    .icon-cistern {
+      height: 100%;
+      width: 40px;
+      position: absolute;
+      left: 20px;
+    }
   }
 
-  &__name{
+  &__name {
     width: 50%;
   }
 }

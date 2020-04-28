@@ -10,6 +10,8 @@ export class OilOperationsTankFilterComponent implements OnInit {
   @Input() public data: IOilFilterTanks[];
   @Output() public closeFilterTank: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+  public activeItemId: number;
+
   constructor() { }
 
   ngOnInit(): void {
@@ -18,6 +20,10 @@ export class OilOperationsTankFilterComponent implements OnInit {
 
   itemOpen(item: IOilFilterTanks): void {
     item.open = !item.open;
+  }
+
+  active(item: IOilValuesTank): void {
+    this.activeItemId = item.id;
   }
 
   close(): void {

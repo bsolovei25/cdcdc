@@ -148,7 +148,7 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
             valueCap: 521,
           },
           {
-            id: 1,
+            id: 2,
             number: 1,
             work: true,
             limit: 60,
@@ -189,5 +189,6 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
   openFilterTank(event): void {
     this.isTankFilter = event;
   }
+
 
 }

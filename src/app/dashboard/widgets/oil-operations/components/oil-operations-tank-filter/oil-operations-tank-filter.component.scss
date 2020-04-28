@@ -243,11 +243,13 @@
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     display: flex;
+    align-items: center;
 
     &__save-block {
         margin: 0 auto;
-        width: 45%;
-        height: 80%;
+        margin-right: 20px;
+        width: 30%;
+        height: 60%;
         font-size: 15px;
         display: flex;
         border: 1px solid white;
@@ -268,6 +270,8 @@
     }
 
     &__search {
+        height: 60%;
+        margin-left: 20px;
     }
 }
 
@@ -283,4 +287,14 @@
     }
 
     //NG-DEEP ICON
+}
+
+.active-block {
+    background: var(--color-bg-active);
+
+    ::ng-deep {
+        .e4dfc319-7cf8-4b52-b52c-6c71849d7e16 {
+            fill: var(--color-active);
+        }
+    }
 }

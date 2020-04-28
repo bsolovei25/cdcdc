@@ -37,7 +37,7 @@
                 </div>
                 <div *ngIf="item.open" class="item__shadow-block">
                     <ng-container *ngFor="let i of item.valuesTank">
-                        <div class="item__i">
+                        <div class="item__i" [class.active-block]='activeItemId === i.id' (click)="active(i)">
                             <div class="name-param">
                                 {{ i.number }}
                             </div>

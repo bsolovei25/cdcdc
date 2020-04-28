@@ -1,5 +1,5 @@
-export interface IOilOperations {
-    tableLeft: ILeftOilTable[];
+export interface IOilOperations { /// ALL DATA
+    tableLeft: ILeftOilTable[]; 
     received: IOilReceived[];
     shipment: IOilShipment[];
     tableRight: IRightOilTable[];
