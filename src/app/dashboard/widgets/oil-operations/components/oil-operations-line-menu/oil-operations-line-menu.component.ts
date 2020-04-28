@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./oil-operations-line-menu.component.scss']
 })
 export class OilOperationsLineMenuComponent implements OnInit {
+  public dateNow: Date = new Date();
 
   constructor() { }
 
