@@ -59,6 +59,8 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     public isLongBlock: boolean = true;
 
+    public isSelectBox: boolean = false;
+
     public indexColumn: number = 0;
 
     public isOpenCheckBlock: boolean = false;
@@ -652,9 +654,9 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         this.popupUserOptions = false;
     }
 
-    onChangeFile(event): void {
-        this.selectFile = this.dataFile.find(e => e.fileId === event);
-    }
+    // onChangeFile(event): void {
+    //     this.selectFile = this.dataFile.find(e => e.fileId === event);
+    // }
 
     randomInt(min, max): void {
         return min + Math.floor((max - min) * Math.random());
@@ -718,6 +720,19 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         if (event) {
             this.getRecordFile();
         }
+    }
+
+    openSelectBox(): void {
+        this.isSelectBox = true;
+    }
+
+    selectBoxFile(event): void {
+        this.isSelectBox = false;
+        this.selectFile = this.dataFile.find(e => e.fileId === event.fileId);
+    }
+
+    closeSelectBox(): void {
+        this.isSelectBox = false;
     }
 
 }
