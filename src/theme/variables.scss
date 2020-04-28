@@ -25,6 +25,7 @@
   --color-border-search-line: rgba(142, 151, 175, 1);
 
   --color-input: rgba(33, 36, 45, 0.1);
+  --color-input-backgroud-table: rgb(41, 43, 56);
 
   --color-border-light: #9ed7f5;
 
@@ -75,16 +76,21 @@
   --color-bg-human-disable: #2c2f38;
 
   //Карточка резервуара нефтеконтроль
+  --color-oil-popup-shadow: rgba(0, 0, 0, 0.5);
   --color-oil-card: rgb(28, 35, 51);
   --color-oil-table: rgb(27, 31, 44);
+  --color-oil-table-2: rgb(18, 25, 40);
   --color-oil-table-ref: rgb(27, 31, 44);
   --color-oil-border: rgba(93, 96, 123, 0.2);
-  --color-oil-menu: rgb(6, 33, 62);
+  //--color-oil-menu: rgb(6, 33, 62);
+  --color-oil-menu: rgb(18,25,40);
   --color-oil-button-hover: rgb(26, 69, 109);
   --color-oil-button-hover-inner: rgb(17, 75, 128);
   --color-oil-button-hover-outer: rgb(21, 72, 119);
   --color-oil-button-inner: rgb(1, 44, 88);
   --color-oil-button-outer: rgb(3, 39, 77);
+  --color-oil-border-line: rgb(27,34,51);
+  --color-oil-full-screen: rgb(40,47,66);
 
   // Цвета статусов передачи смены
   --color-shift-status-init: #6fcf97;

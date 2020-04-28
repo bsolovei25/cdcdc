@@ -14,6 +14,8 @@ export class UploadDropComponent implements OnInit, OnDestroy {
 
     public fileLoad: boolean = false;
 
+    extension: string[] = ['.xls', '.xlsx', '.xls'];
+
     @ViewChild('area') area: ElementRef;
 
     constructor(

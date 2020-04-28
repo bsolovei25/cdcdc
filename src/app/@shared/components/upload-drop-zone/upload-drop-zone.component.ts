@@ -1,6 +1,6 @@
 import {
     Component, OnInit, Inject,
-    Renderer2, ElementRef, ViewChild, Output, EventEmitter
+    Renderer2, ElementRef, ViewChild, Output, EventEmitter, Input
 } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
@@ -20,6 +20,8 @@ export class UploadDropZoneComponent {
     public isUploadBlock: boolean = false;
 
     @ViewChild('area') area: ElementRef;
+
+    @Input() extension: string[] = [];
 
     @Output() public file: EventEmitter<File> = new EventEmitter<File>();
 
