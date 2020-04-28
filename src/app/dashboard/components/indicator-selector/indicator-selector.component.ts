@@ -35,7 +35,7 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
     constructor(
         private userSettings: UserSettingsService,
         private claimService: ClaimService,
-        private overlayService: OverlayService,
+        public overlayService: OverlayService,
         private snackBar: SnackBarService,
     ) {}
 
