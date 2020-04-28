@@ -23,6 +23,7 @@ import { LineChartPickerDirective } from './directives/line-chart-picker.directi
 import { EmailEditorComponent } from './components/email-editor/email-editor.component';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { FormsModule } from '@angular/forms';
+import { CircleInputComponent } from './components/circle-input/circle-input.component';
 
 @NgModule({
     declarations: [
@@ -44,6 +45,7 @@ import { FormsModule } from '@angular/forms';
         LineChartComponent,
         LineChartPickerDirective,
         EmailEditorComponent,
+        CircleInputComponent,
     ],
     exports: [
         HeaderComponent,
@@ -61,7 +63,8 @@ import { FormsModule } from '@angular/forms';
         AlertWindowComponent,
         SmartScrollComponent,
         LineChartComponent,
-        EmailEditorComponent
+        EmailEditorComponent,
+        CircleInputComponent,
     ],
   imports: [CommonModule, MatInputModule, MatIconModule, NgxMaskModule.forChild(), CKEditorModule, FormsModule]
 })
