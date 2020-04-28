@@ -17,10 +17,10 @@ export class AlertWindowComponent implements OnInit {
 
     public accept(): void {
         this.info.acceptFunction();
-        this.info.cancelFunction();
+        this.info.closeFunction();
     }
 
     public cancel(): void {
-        this.info.cancelFunction();
+        this.info.closeFunction();
     }
 }

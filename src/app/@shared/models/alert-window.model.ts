@@ -4,5 +4,5 @@ export interface IAlertWindowModel {
     acceptText: string;
     cancelText: string;
     acceptFunction?: () => void;
-    cancelFunction?: () => void;
+    closeFunction?: () => void;
 }
