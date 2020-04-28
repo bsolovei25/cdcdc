@@ -65,7 +65,6 @@ export class DocumentViewerComponent extends WidgetPlatform implements OnInit, O
 
     public afterLoadComplete(pdfData: any): void {
         this.isLoading = false;
-        console.log(pdfData);
         this.totalPages = pdfData.numPages;
         this.page = 1;
     }
@@ -86,7 +85,7 @@ export class DocumentViewerComponent extends WidgetPlatform implements OnInit, O
     }
 
     public resizePdfViewport(): void {
-        this.pdfViewport.onPageResize();
+        this.pdfViewport?.onPageResize();
     }
 
     protected dataHandler(ref: any): void {

@@ -1,4 +1,4 @@
-<div class="panel" @fadeAnimation *ngIf="data">
+<div class="panel" @fadeAnimation *ngIf="data && !activeElements?.isSelected(data?.id)">
   <div class="panel-header" [class.panel-header--active]="active" (click)="toggle(data.id)">
     <p class="panel-header__text" [class.panel-header__text--active]="active">{{data.name}}</p>
     <svg-icon

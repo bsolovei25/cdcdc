@@ -46,6 +46,7 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
                     item.updateScreen = false;
                     item.isFilter = true;
                 }
+                this.scrollToScreenById(this.idScreen);
             }),
             this.claimService.claimScreens$.subscribe((w) => {
                 this.claimScreens = w;
@@ -67,16 +68,8 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
         if (this.timerOff) {
             clearTimeout(this.timerOff);
         }
-        if (this.idScreen) {
-            setTimeout(() => {
-                console.log('scroll');
-                console.log(this.idScreen);
-                const el = document.getElementById('screen_' + this.idScreen);
-                el.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'end' });
-                // this.viewportScroller.scrollToAnchor('screen_' + this.idScreen);
-            }, 200);
-        }
         this.isShowScreens = true;
+        this.scrollToScreenById(this.idScreen);
     }
 
     ScreenDisable(e): void {
@@ -168,5 +161,17 @@ export class IndicatorSelectorComponent implements OnInit, OnDestroy {
         this.dataScreen.forEach((screen) => {
             screen.isFilter = screen.screenName.toLowerCase().includes(filter.toLowerCase());
         });
+    }
+
+    private scrollToScreenById(idScreen: number): void {
+        if (idScreen) {
+            setTimeout(() => {
+                console.log('scroll');
+                console.log(this.idScreen);
+                const el = document.getElementById('screen_' + this.idScreen);
+                el.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'end' });
+                // this.viewportScroller.scrollToAnchor('screen_' + this.idScreen);
+            }, 200);
+        }
     }
 }

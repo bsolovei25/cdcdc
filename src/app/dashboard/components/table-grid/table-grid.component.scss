@@ -81,6 +81,12 @@
                 justify-content: start;
                 align-items: center;
                 width: 100%;
+
+                .search{
+                    &__input{
+                        height: 70%;
+                    }
+                }
             }
 
             &__save-button {
@@ -195,3 +201,4 @@
 ::-webkit-resizer {
     background-color: var(--color-border-active);
 }
+
