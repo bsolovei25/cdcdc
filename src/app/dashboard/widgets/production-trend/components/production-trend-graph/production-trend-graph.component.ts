@@ -81,31 +81,31 @@ export class ProductionTrendGraphComponent implements OnInit {
             graphStyle: 'additional',
             graph: [
                 {
-                    value: 1700,
+                    value: 1800,
                     timestamp: new Date(2020, 2, 1),
                 },
                 {
-                    value: 1600,
+                    value: 1700,
                     timestamp: new Date(2020, 2, 2),
                 },
                 {
-                    value: 1100,
+                    value: 1200,
                     timestamp: new Date(2020, 2, 3),
                 },
                 {
-                    value: 6100,
+                    value: 6200,
                     timestamp: new Date(2020, 2, 4),
                 },
                 {
-                    value: 5100,
+                    value: 5200,
                     timestamp: new Date(2020, 2, 5),
                 },
                 {
-                    value: 1100,
+                    value: 1200,
                     timestamp: new Date(2020, 2, 6),
                 },
                 {
-                    value: 3100,
+                    value: 3200,
                     timestamp: new Date(2020, 2, 7),
                 },
             ],
@@ -115,31 +115,31 @@ export class ProductionTrendGraphComponent implements OnInit {
             graphStyle: 'additional',
             graph: [
                 {
-                    value: 1500,
+                    value: 1400,
                     timestamp: new Date(2020, 2, 1),
                 },
                 {
-                    value: 1400,
+                    value: 1300,
                     timestamp: new Date(2020, 2, 2),
                 },
                 {
-                    value: 900,
+                    value: 800,
                     timestamp: new Date(2020, 2, 3),
                 },
                 {
-                    value: 5900,
+                    value: 5800,
                     timestamp: new Date(2020, 2, 4),
                 },
                 {
-                    value: 4900,
+                    value: 4800,
                     timestamp: new Date(2020, 2, 5),
                 },
                 {
-                    value: 900,
+                    value: 800,
                     timestamp: new Date(2020, 2, 6),
                 },
                 {
-                    value: 2900,
+                    value: 2800,
                     timestamp: new Date(2020, 2, 7),
                 },
             ],
