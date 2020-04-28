@@ -230,6 +230,7 @@ import { OilOperationsComponent } from './widgets/oil-operations/oil-operations.
 import { TableGridInputComponent } from './components/table-grid/components/table-grid-input/table-grid-input.component';
 import { TableGridFilterComponent } from './components/table-grid/components/table-grid-filter/table-grid-filter.component';
 import { TableGridSaveButtonComponent } from './components/table-grid/components/table-grid-save-button/table-grid-save-button.component';
+import { WorkflowComponent } from './widgets/workflow/workflow.component';
 
 @NgModule({
   declarations: [
@@ -427,7 +428,8 @@ import { TableGridSaveButtonComponent } from './components/table-grid/components
     OilOperationsComponent,
     TableGridInputComponent,
     TableGridFilterComponent,
-    TableGridSaveButtonComponent
+    TableGridSaveButtonComponent,
+    WorkflowComponent
   ],
   entryComponents: [
     LineChartComponent,
@@ -493,6 +495,7 @@ import { TableGridSaveButtonComponent } from './components/table-grid/components
     DocumentCodingComponent,
     ReportTreeComponent,
     OilOperationsComponent,
+    WorkflowComponent
   ],
   exports: [HomeComponent],
   imports: [
