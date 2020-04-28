@@ -234,6 +234,9 @@ import { OilOperationsReceivedOperationsComponent } from './widgets/oil-operatio
 import { OilOperationsShipmentFormationComponent } from './widgets/oil-operations/components/oil-operations-shipment-formation/oil-operations-shipment-formation.component';
 import { OilOperationsFilterComponent } from './widgets/oil-operations/components/oil-operations-filter/oil-operations-filter.component';
 import { OilOperationsTankFilterComponent } from './widgets/oil-operations/components/oil-operations-tank-filter/oil-operations-tank-filter.component';
+import { OilOperationsLineChartComponent } from './widgets/oil-operations/components/oil-operations-line-chart/oil-operations-line-chart.component';
+import { OilOperationsLineMenuComponent } from './widgets/oil-operations/components/oil-operations-line-menu/oil-operations-line-menu.component';
+import { OilOperationsLineComponent } from './widgets/oil-operations/components/oil-operations-line/oil-operations-line.component';
 
 @NgModule({
   declarations: [
@@ -435,7 +438,10 @@ import { OilOperationsTankFilterComponent } from './widgets/oil-operations/compo
     OilOperationsReceivedOperationsComponent,
     OilOperationsShipmentFormationComponent,
     OilOperationsFilterComponent,
-    OilOperationsTankFilterComponent
+    OilOperationsTankFilterComponent,
+    OilOperationsLineChartComponent,
+    OilOperationsLineMenuComponent,
+    OilOperationsLineComponent
   ],
   entryComponents: [
     LineChartComponent,

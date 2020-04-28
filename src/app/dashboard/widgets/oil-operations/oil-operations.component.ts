@@ -15,7 +15,8 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
 
   public isFilter: boolean = false;
   public isTankFilter: boolean = false;
-
+  public isLineChart: boolean = false;
+  public isOpenReceived: boolean = false;
 
   public data: IOilOperations = {
     tableLeft: [
@@ -71,13 +72,13 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
     received: [
       {
         id: 1,
-        name: 'Открыть график 1',
+        name: 'Открыть график',
         type: 'line',
       },
       {
         id: 2,
-        name: 'Открыть график 2',
-        type: 'line',
+        name: 'Отредактировать ёмкости для отгрузки',
+        type: 'filter',
       }
     ],
     shipment: [
@@ -186,8 +187,25 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
     this.isFilter = event;
   }
 
-  openFilterTank(event): void {
+  openItemReceived(event: string): void {
+    this.isOpenReceived = false;
+    if (event === 'line') {
+      this.isLineChart = true;
+      this.isTankFilter = false;
+    } else if (event === 'filter') {
+      this.isLineChart = false;
+      this.isTankFilter = true;
+    }
+  }
+
+  closeFilterTank(event: boolean): void {
     this.isTankFilter = event;
+    this.isOpenReceived = true;
+  }
+
+  closeLineChart(event: boolean): void {
+    this.isLineChart = event;
+    this.isOpenReceived = true;
   }
 
 

@@ -8,8 +8,8 @@ import { IOilReceived } from 'src/app/dashboard/models/oil-operations';
 })
 export class OilOperationsReceivedOperationsComponent implements OnInit, OnChanges {
   @Input() public data: IOilReceived[];
-  @Input() public isFilterOpen: boolean;
-  @Output() public openFilterTank: EventEmitter<any> = new EventEmitter<any>();
+  @Input() public isOpen: boolean;
+  @Output() public openItem: EventEmitter<any> = new EventEmitter<any>();
 
   public activeItemId: number;
 
@@ -19,14 +19,14 @@ export class OilOperationsReceivedOperationsComponent implements OnInit, OnChang
   }
 
   ngOnChanges(): void {
-    if (!this.isFilterOpen) {
+    if (this.isOpen) {
       this.activeItemId = null;
     }
   }
 
   active(item: IOilReceived): void {
     this.activeItemId = item.id;
-    this.openFilterTank.emit(true);
+    this.openItem.emit(item.type);
   }
 
 }
