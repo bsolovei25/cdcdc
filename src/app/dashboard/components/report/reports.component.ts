@@ -45,6 +45,8 @@ export class ReportsComponent implements OnInit {
     templates: IReportTemplate[] = [];
     folders: ITemplateFolderLocal[] = [];
 
+    search: string = '';
+
     isReport: boolean = true;
 
     constructor(
@@ -108,8 +110,8 @@ export class ReportsComponent implements OnInit {
     }
 
     searchReports(event: KeyboardEvent): void {
-        const search = (event?.target as HTMLInputElement)?.value.toLowerCase();
-        if (search === '') {
+        this.search = (event?.target as HTMLInputElement)?.value.toLowerCase();
+        if (this.search === '') {
             this.activeElements.clear();
             this.selectedFolders.clear();
         } else {
@@ -119,9 +121,9 @@ export class ReportsComponent implements OnInit {
                     this.timerHwnd = 0;
                     this.activeElements.clear();
                     this.selectedFolders.clear();
-                    this.searchTree(this.folders, search);
+                    this.searchTree(this.folders, this.search);
                     this.templates.forEach(val => {
-                        if (!val.name.toLowerCase().includes(search)) {
+                        if (!val.name.toLowerCase().includes(this.search)) {
                             this.activeElements.select(val.id);
                         }
                     });
