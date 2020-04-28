@@ -105,7 +105,6 @@
     border-bottom: 2px solid var(--color-bg-main);
     width: 20%;
     background-color: var(--color-table-main);
-
     .mat-form-field {
       width: 90%;
 
@@ -861,7 +860,11 @@ input {
         width: 50%;
         background-color: var(--color-table-main);
 
-        .typeCheck{
+        .name-type {
+          padding-left: 15px;
+        }    
+
+        .typeCheck {
           width: 100%;
           display: flex;
           justify-content: center;
