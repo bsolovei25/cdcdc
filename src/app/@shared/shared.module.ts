@@ -25,6 +25,7 @@ import { CKEditorModule } from 'ng2-ckeditor';
 import { FormsModule } from '@angular/forms';
 import { UploadDropZoneComponent } from './components/upload-drop-zone/upload-drop-zone.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { CircleInputComponent } from './components/circle-input/circle-input.component';
 
 @NgModule({
     declarations: [
@@ -46,7 +47,8 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
         LineChartComponent,
         LineChartPickerDirective,
         EmailEditorComponent,
-        UploadDropZoneComponent
+        UploadDropZoneComponent,
+        CircleInputComponent,
     ],
     exports: [
         HeaderComponent,
@@ -66,7 +68,8 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
         EmailEditorComponent,
         UploadDropZoneComponent,
         LineChartComponent,
-        EmailEditorComponent
+        EmailEditorComponent,
+        CircleInputComponent,
     ],
     imports: [
         CommonModule,
