@@ -28,11 +28,11 @@
             </div>
 
             <div *ngIf="filter.isFilterGroup" class="filterGroup">
-                <evj-document-coding-filter (close)="closeFilter($event)"></evj-document-coding-filter>
+                <evj-document-coding-filter title="Лаборатория" (close)="closeFilter($event)"></evj-document-coding-filter>
             </div>
 
             <div *ngIf="filter.isFilterProduct" class="filterProduct">
-                <evj-document-coding-filter (close)="closeFilter($event)"></evj-document-coding-filter>
+                <evj-document-coding-filter title="Продукты" (close)="closeFilter($event)"></evj-document-coding-filter>
             </div>
 
             <div *ngIf="filter.isFilterTanks" class="filterTanks">

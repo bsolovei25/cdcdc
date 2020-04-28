@@ -10,18 +10,22 @@
         .file-block {
             height: 70%;
             background: var(--color-oil-menu);
-            border-radius: 60px;
+            border-top-left-radius: 100px;
+            border-bottom-left-radius: 100px;
+            display: flex;
+            align-items: center;
 
             &__title {
                 height: 15px;
                 line-height: 15px;
                 margin-left: 35px;
-                font-size: 10px;
+                font-size: 12px;
                 color: var(--color-text-sub);
             }
             &__name {
                 margin-left: 35px;
-                height: calc(100% - 30px);
+                height: calc(100% - 17px);
+                margin-top: 5px;
                 display: flex;
                 align-items: center;
                 font-size: 14px;
@@ -31,20 +35,17 @@
 
     &__new-file {
         width: 40%;
-        padding: 20px;
-        padding-top: 0;
-        padding-bottom: 0;
         .new-file-block {
             height: 70%;
             display: flex;
             background: var(--color-oil-menu);
-            border-radius: 60px;
             font-size: 14px;
 
             &__pasport {
                 width: 20%;
-                border-right: 1px solid var(--color-bg-main);
+
                 display: flex;
+                align-items: center;
 
                 .left-side {
                     width: 80%;
@@ -63,11 +64,13 @@
             }
             &__product {
                 width: 22%;
-                border-right: 1px solid var(--color-bg-main);
+                display: flex;
+                align-items: center;
             }
             &__tank {
                 width: 22%;
-                border-right: 1px solid var(--color-bg-main);
+                display: flex;
+                align-items: center;
             }
             &__data {
                 width: 36%;
@@ -80,11 +83,11 @@
                     }
 
                     .mat-icon {
-                        margin-top: -15px;
+                        margin-top: -25px;
                     }
 
                     .mat-form-field-infix {
-                        margin-top: 5px;
+                        margin-top: 3px;
                     }
 
                     .mat-form-field-underline {
@@ -92,8 +95,12 @@
                     }
 
                     .mat-form-field-label {
-                        font-size: 12px;
+                        font-size: 16px;
                         color: var(--color-text-sub);
+                    }
+
+                    .mat-form-field-flex{
+                        margin-top: 6px;
                     }
                 }
             }
@@ -101,77 +108,63 @@
             .title-info {
                 height: 15px;
                 line-height: 15px;
-                margin-left: 20px;
-                font-size: 10px;
+                margin-left: 15px;
+                font-size: 12px;
                 color: var(--color-text-sub);
                 margin-top: 1px;
             }
             .value-info {
-                margin-left: 20px;
+                margin-left: 15px;
                 height: calc(100% - 25px);
                 margin-top: 5px;
                 text-overflow: ellipsis;
                 overflow: hidden;
             }
+
+            .block-value{
+                width: 100%;
+            }
         }
 
         .m-title {
-            margin-left: 20px !important;
+            margin-left: 15px !important;
         }
     }
 
     &__save-button {
         width: 25%;
-        .save-block {
-            cursor: pointer;
+
+        .save {
             height: 70%;
+            width: 100%;
             display: flex;
-            background: var(--color-oil-menu);
-            border-radius: 60px;
+            justify-content: center;
             align-items: center;
-            font-size: 12px;
+            background: var(--color-oil-menu);
+            border-top-right-radius: 100px;
+            border-bottom-right-radius: 100px;
 
-            &__name {
-                margin-left: 20px;
-                width: 80%;
-                text-align: center;
-            }
-
-            &__button {
-                width: 20%;
-                position: relative;
+            .save-block {
+                cursor: pointer;
                 height: 100%;
+                display: flex;
+                width: 100%;
+                align-items: center;
+                justify-content: flex-end;
+                font-size: 12px;
 
-                .outer {
-                    height: 100%;
-                    width: 55px;
-                    position: absolute;
-                    right: 0;
-                    border-radius: 50%;
-                    background: var(--color-oil-button-outer);
-                    .inner {
-                        position: absolute;
-                        background: var(--color-oil-button-inner);
-                        height: 80%;
-                        width: 80%;
-                        top: 5px;
-                        right: 5px;
-                        border-radius: 50%;
-                        text-align: center;
-                    }
-                }
-            }
+                &__name {
+                    width: 50%;
+                    margin-right: 10px;
+                    height: 30px;
+                    line-height: 30px;
+                    text-align: center;
+                    border-radius: 25px;
+                    border: 1px solid var(--color-text-main);
 
-            &:hover {
-                background: var(--color-oil-button-hover);
-                transition: 0.8s;
-    
-                .save-block__button {
-                    .outer {
-                        background: var(--color-oil-button-hover-outer);
-                        .inner {
-                            background:var(--color-oil-button-hover-inner);
-                        }
+                    &:hover {
+                        border: 1px solid var(--color-active);
+                        color: var(--color-active);
                     }
                 }
             }
