@@ -24,6 +24,7 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
 
     private readonly arrowUpUrl: string = 'assets/icons/widgets/reasons-deviations/up-icon.svg';
     private readonly arrowDownUrl: string = 'assets/icons/widgets/reasons-deviations/down-icon.svg';
+    private readonly tankImageUrl: string = 'assets/icons/widgets/reasons-deviations/tank-img.svg';
 
     private svg: any = null;
 
@@ -81,17 +82,18 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
 
             const iconHeight: number = 24;
             const iconWidth: number = 24;
+            const iconUrl: string = this.arrowDownUrl;
 
             pointG
                 .append('image')
-                .attr('xlink:href', this.arrowUpUrl)
+                .attr('xlink:href', iconUrl)
                 .attr('width', iconHeight)
                 .attr('height', iconWidth)
                 .attr('x', point.x - iconWidth / 2)
                 .attr('y', point.y - (iconHeight + 5));
 
-            const cardWidth: number = 100;
-            const cardHeight: number = 120;
+            const cardWidth: number = 120;
+            const cardHeight: number = 140;
             const rx: number = 10;
 
             let cardPosX: number = point.x;
@@ -103,16 +105,57 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
                 cardPosX += 12;
             }
 
-            pointG
-                .append('rect')
+            const cardG = pointG
+                .append('g')
                 .attr('class', 'point-card')
+                .style('display', 'none');
+
+            cardG
+                .append('rect')
                 .attr('width', cardWidth)
                 .attr('height', cardHeight)
                 .attr('rx', rx)
                 .attr('fill', 'rgb(28, 35, 51)')
                 .attr('x', cardPosX)
-                .attr('y', cardPosY)
-                .style('display', 'none');
+                .attr('y', cardPosY);
+
+            const tankWidth: number = 60;
+            const tankHeight: number = 70;
+            const tankPosX: number = cardPosX + (cardWidth - tankWidth) / 2;
+            const tankPosY: number = cardPosY + (cardHeight - tankHeight) / 2;
+
+            const textPosX: number = cardPosX + cardWidth / 2;
+            const textSize: number = 14;
+            const textTypeColor: string = '#8c99b2';
+            const textTypePosY: number = cardPosY + textSize * 1.3;
+            const textTankColor: string = '#ffffff';
+            const textTankPosY: number = cardPosY + cardHeight - textSize;
+
+            cardG
+                .append('image')
+                .attr('xlink:href', this.tankImageUrl)
+                .attr('width', tankWidth)
+                .attr('height', tankHeight)
+                .attr('x', tankPosX)
+                .attr('y', tankPosY);
+
+            cardG
+                .append('text')
+                .attr('text-anchor', 'middle')
+                .attr('x', textPosX)
+                .attr('y', textTypePosY)
+                .text('Приемник')
+                .attr('fill', textTypeColor)
+                .style('font-size', 14);
+
+            cardG
+                .append('text')
+                .attr('text-anchor', 'middle')
+                .attr('x', textPosX)
+                .attr('y', textTankPosY)
+                .text('ЭЛОУ-АВТ-6')
+                .attr('fill', textTankColor)
+                .style('font-size', 14);
 
             const [[icon]] = pointG.select('image')._groups;
 
