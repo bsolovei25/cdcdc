@@ -158,6 +158,22 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
       {
         id: 1,
         name: 'Мазут'
+      },
+      {
+        id: 2,
+        name: 'Мазут'
+      },
+      {
+        id: 3,
+        name: 'Мазут'
+      },
+      {
+        id: 4,
+        name: 'Мазут'
+      },
+      {
+        id: 5,
+        name: 'Мазут'
       }
     ],
     filterTanks: [
