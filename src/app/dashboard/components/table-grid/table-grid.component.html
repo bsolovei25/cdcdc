@@ -34,7 +34,7 @@
                     <!--INPUT-->
                     <ng-container *ngIf="search">
                         <div class="search__input">
-                            <evj-circle-input (search)="searchRecord($event)" style="height: 100%;"></evj-circle-input>
+                            <evj-circle-input (searchChange)="searchRecord($event)" style="height: 100%;"></evj-circle-input>
                         </div>
                     </ng-container>
                 </div>
