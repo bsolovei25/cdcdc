@@ -1,4 +1,12 @@
-import { Directive, ElementRef, Renderer2, Input, HostListener } from '@angular/core';
+import {
+    Directive,
+    ElementRef,
+    Renderer2,
+    Input,
+    HostListener,
+    OnChanges,
+    SimpleChanges,
+} from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 import { IPointTank, IPointD3 } from '../models/smart-scroll.model';
@@ -6,7 +14,7 @@ import { IPointTank, IPointD3 } from '../models/smart-scroll.model';
 @Directive({
     selector: '[evjLineChartTanks]',
 })
-export class LineChartTanksDirective {
+export class LineChartTanksDirective implements OnChanges {
     @Input() private points: IPointTank[] = [];
     @Input() private graphMaxX: number = null;
     @Input() private graphMaxY: number = null;
@@ -20,14 +28,30 @@ export class LineChartTanksDirective {
 
     private chartPointsData: IPointD3[] = [];
 
+    private eventListenerFn: () => void = null;
+
     constructor(private el: ElementRef, private renderer: Renderer2) {}
 
+    public ngOnChanges(changes: SimpleChanges): void {
+        if (!changes.points?.firstChange || !changes.scaleFuncs?.firstChange) {
+            this.mainFunction();
+        }
+    }
+
     @HostListener('document:resize') onResize(): void {
+        this.mainFunction();
+    }
+
+    private mainFunction(): void {
         this.svg = d3Selection.select(this.el.nativeElement).select('svg');
+
         this.svg.select('g.chart-points').remove();
+        if (this.eventListenerFn) {
+            this.eventListenerFn();
+        }
 
         this.transformData();
-        this.drawPoints();
+        this.eventListenerFn = this.drawPoints();
     }
 
     private transformData(): void {
@@ -41,44 +65,65 @@ export class LineChartTanksDirective {
         });
     }
 
-    private drawPoints(): void {
-        const pointG = this.svg.append('g').attr('class', 'chart-points');
+    private drawPoints(): () => void {
+        const pointsG = this.svg.append('g').attr('class', 'chart-points');
+        const eventListeners: (() => void)[] = [];
 
         this.chartPointsData.forEach((point: IPointD3) => {
+            const pointG = pointsG.append('g').attr('class', 'chart-point');
+
+            const iconHeight: number = 24;
+            const iconWidth: number = 24;
+
             pointG
-                .append('g')
-                .attr('class', 'chart-point')
                 .append('image')
                 .attr('xlink:href', this.arrowUpUrl)
-                .attr('width', 24)
-                .attr('height', 24)
-                .attr('x', point.x - 12)
-                .attr('y', point.y - 30);
+                .attr('width', iconHeight)
+                .attr('height', iconWidth)
+                .attr('x', point.x - iconWidth / 2)
+                .attr('y', point.y - (iconHeight + 5));
 
             const cardWidth: number = 100;
             const cardHeight: number = 120;
             const rx: number = 10;
 
-            const cardPosX: number = point.x;
+            let cardPosX: number = point.x;
             let cardPosY: number = point.y;
 
-            console.log(cardPosY);
-            console.log(this.graphMaxY);
-            console.log(this.svg.style('height'));
-
-            // if (cardHeight + cardPosY > this.graphMaxY) {
-            //     cardPosY = cardPosY + (this.graphMaxY - (cardHeight + cardPosY));
-            //     console.log(cardPosY);
-            // }
+            if (this.graphMaxY && cardHeight + cardPosY > this.graphMaxY - this.padding.bottom) {
+                cardPosY =
+                    cardPosY + (this.graphMaxY - (cardHeight + cardPosY + this.padding.bottom));
+                cardPosX += 12;
+            }
 
             pointG
                 .append('rect')
+                .attr('class', 'point-card')
                 .attr('width', cardWidth)
                 .attr('height', cardHeight)
                 .attr('rx', rx)
-                .attr('fill', 'yellow')
+                .attr('fill', 'rgb(28, 35, 51)')
                 .attr('x', cardPosX)
-                .attr('y', cardPosY);
+                .attr('y', cardPosY)
+                .style('display', 'none');
+
+            const [[icon]] = pointG.select('image')._groups;
+
+            eventListeners.push(
+                this.renderer.listen(icon, 'mouseenter', (event: MouseEvent) => {
+                    const elem: HTMLElement = event.target as HTMLElement;
+                    const target: HTMLElement = elem.nextSibling as HTMLElement;
+                    target.style.display = 'inline';
+                }),
+
+                this.renderer.listen(icon, 'mouseleave', (event) => {
+                    const elem: HTMLElement = event.target as HTMLElement;
+                    const target: HTMLElement = elem.nextSibling as HTMLElement;
+                    target.style.display = 'none';
+                })
+            );
         });
+
+        return () => eventListeners.forEach((listener) => listener());
     }
 }
