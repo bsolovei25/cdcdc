@@ -49,7 +49,8 @@ export class LineChartPickerTankDirective implements OnDestroy {
 
         // группа событий мыши
         const mouseG = this.svg
-            .append('g')
+            .select('g.chart-points')
+            .insert('g', 'g.chart-point')
             .attr('class', 'mouse-over')
             .attr('transform', `translate(${this.padding.left},${this.padding.top})`)
             .attr('opacity', 0)

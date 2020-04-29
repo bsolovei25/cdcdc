@@ -177,12 +177,15 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
 
                 const [[icon]] = pointG.select('image')._groups;
 
+                const card: HTMLElement = icon.nextSibling as HTMLElement;
+
                 eventListeners.push(
-                    this.renderer.listen(icon, 'click', (event: MouseEvent) => {
-                        const elem: HTMLElement = event.target as HTMLElement;
-                        const target: HTMLElement = elem.nextSibling as HTMLElement;
-                        const display: string = target.style.display === 'none' ? 'inline' : 'none';
-                        target.style.display = display;
+                    this.renderer.listen(icon, 'click', () => {
+                        const display: string = card.style.display === 'none' ? 'inline' : 'none';
+                        card.style.display = display;
+                    }),
+                    this.renderer.listen(card, 'click', () => {
+                        card.style.display = 'none';
                     })
                 );
             }
