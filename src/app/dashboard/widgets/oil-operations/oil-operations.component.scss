@@ -42,6 +42,9 @@ $container-padding: 5px;
       .record-table {
         background-color: var(--color-oil-table-2) !important;
       }
+      .input-back{
+        background: var(--color-input-backgroud-table);
+      }
     }
   }
 
@@ -62,6 +65,11 @@ $container-padding: 5px;
   .right-side {
     height: 100%;
     width: calc(42% - 10px);
+  }
+
+  .line-side{
+    height: 100%;
+    width: 58%;
   }
 }
 

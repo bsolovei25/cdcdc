@@ -5,20 +5,34 @@
                 <svg-icon src="./assets/icons/widgets/reports/close.svg" class="add_button_icon">
                 </svg-icon>
             </div>
-            <div class="title__name">Ёмкости используемые в качестве отгрузки</div>
+            <div class="title__block-name">
+                <div class="shipment-title">
+                    <div class="shipment-title__title">
+                        {{ dataFree.titleInfo.name }}
+                    </div>
+                    <div class="shipment-title__date">
+                        c {{ dataFree.titleInfo.dateFrom }} по {{ dataFree.titleInfo.dateTo }}
+                    </div>
+                </div>
+                <div class="shipment-value">
+                    <div class="shipment-value__block">
+                        {{ dataFree.titleInfo.value }} шт.
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="title-content">
-            <div class="title-content__name">
-               Паспорт
+            <div class="title-content__name pasp">
+                Паспорт
             </div>
-            <div class="title-content__name">
+            <div class="title-content__name rr">
                 Р/р
             </div>
-            <div class="title-content__name">
+            <div class="title-content__name mass">
                 Масса
             </div>
-            <div class="title-content__name">
-               Точка отгрузки
+            <div class="title-content__name point">
+                Точка отгрузки
             </div>
         </div>
         <div class="content">
@@ -39,26 +53,17 @@
                     <ng-container *ngFor="let i of item.points">
                         <div class="item__i" [class.active-block]='activeItemId === i.id' (click)="active(i)">
                             <div class="name-param">
-                                {{ i.number }}
+                                {{ i.pasport }}
                             </div>
                             <div class="capacity-param">
-                                {{ i.valueCap }}
+                                {{ i.rR }}
                             </div>
                             <div class="check-param">
-                                <label class="mycheckbox">
-                                    <input type="checkbox" id="checkBoxValue" class="mycheckbox__default"
-                                        (click)="changeSwap(i)" [checked]="i.work" />
-                                    <div class="mycheckbox__new" [class.mycheckbox__checked]="i.work"></div>
-                                </label>
+                                {{ i.mass }}
                             </div>
                             <div class="limit-param">
                                 <div class="limit-param__value">
-                                    {{ i.limit }}
-                                </div>
-                                <div class="limit-param__icon">
-                                    <svg-icon src="./assets/icons/widgets/oil-control-all/oil-operations/update.svg"
-                                        [svgStyle]="{ 'width.px':30, 'height.px':30 }">
-                                    </svg-icon>
+                                    {{ i.point }}
                                 </div>
                             </div>
                         </div>
@@ -68,7 +73,7 @@
         </div>
         <div class="bottom">
             <div class="bottom__search">
-                <evj-table-grid-input></evj-table-grid-input>
+                <evj-circle-input></evj-circle-input>
             </div>
             <div class="bottom__save-block">
                 <div class="save-block" (click)="save()">

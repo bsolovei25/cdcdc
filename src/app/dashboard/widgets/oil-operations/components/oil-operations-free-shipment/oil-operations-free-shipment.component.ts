@@ -13,9 +13,9 @@ export class OilOperationsFreeShipmentComponent implements OnInit {
     {
       titleInfo: {
         name: "Количество свободных отгрузок",
-        fromDate: "20.03.2020",
-        toDate: "24.03.2020",
-        value: "2352"
+        dateFrom: "20.03.2020",
+        dateTo: "24.03.2020",
+        value: 2352
       },
       content: [
         {
