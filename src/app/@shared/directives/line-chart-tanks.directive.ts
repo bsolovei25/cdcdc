@@ -83,7 +83,9 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
             const iconHeight: number = 24;
             const iconWidth: number = 24;
             const iconUrl: string =
-                point.additional?.direction === 'Источник' ? this.arrowDownUrl : this.arrowUpUrl;
+                point.additional?.card?.direction === 'Источник'
+                    ? this.arrowDownUrl
+                    : this.arrowUpUrl;
 
             pointG
                 .append('image')
@@ -93,7 +95,7 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
                 .attr('x', point.x - iconWidth / 2)
                 .attr('y', point.y - (iconHeight + 5));
 
-            if (point.additional) {
+            if (point.additional?.card) {
                 const cardWidth: number = 120;
                 const cardHeight: number = 140;
                 const rx: number = 10;
@@ -155,7 +157,7 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
                     .attr('text-anchor', 'middle')
                     .attr('x', textPosX)
                     .attr('y', textTypePosY)
-                    .text(point.additional.direction)
+                    .text(point.additional.card.direction)
                     .attr('fill', textTypeColor)
                     .style('font-size', 14);
 
@@ -164,7 +166,7 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
                     .attr('text-anchor', 'middle')
                     .attr('x', textPosX)
                     .attr('y', textTankPosY)
-                    .text(point.additional.title)
+                    .text(point.additional.card.title)
                     .attr('fill', textTankColor)
                     .style('font-size', 14);
 

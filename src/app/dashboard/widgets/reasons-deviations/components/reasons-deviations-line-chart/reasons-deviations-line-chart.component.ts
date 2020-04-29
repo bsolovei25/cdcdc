@@ -50,36 +50,44 @@ export class ReasonsDeviationsLineChartComponent implements OnInit {
             value: 6000,
             timestamp: new Date(2020, 2, 2),
             additional: {
-                objectType: 'tank',
-                title: 'ЭЛОУ-АВТ-6',
-                direction: 'Приемник',
+                card: {
+                    objectType: 'tank',
+                    title: 'ЭЛОУ-АВТ-6',
+                    direction: 'Приемник',
+                },
             },
         },
         {
             value: 900,
             timestamp: new Date(2020, 2, 4),
             additional: {
-                objectType: 'tank',
-                title: 'АВТ-6',
-                direction: 'Приемник',
+                card: {
+                    objectType: 'tank',
+                    title: 'АВТ-6',
+                    direction: 'Приемник',
+                },
             },
         },
         {
             value: 5800,
             timestamp: new Date(2020, 2, 6),
             additional: {
-                objectType: 'tank',
-                title: 'ЭЛОУ-6',
-                direction: 'Источник',
+                card: {
+                    objectType: 'tank',
+                    title: 'ЭЛОУ-6',
+                    direction: 'Источник',
+                },
             },
         },
         {
             value: 900,
             timestamp: new Date(2020, 2, 7),
             additional: {
-                objectType: 'tank',
-                title: 'ЭЛОУ-АВТ-6',
-                direction: 'Источник',
+                card: {
+                    objectType: 'tank',
+                    title: 'ЭЛОУ-АВТ-6',
+                    direction: 'Источник',
+                },
             },
         },
     ];
