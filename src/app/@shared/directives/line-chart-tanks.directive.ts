@@ -82,7 +82,8 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
 
             const iconHeight: number = 24;
             const iconWidth: number = 24;
-            const iconUrl: string = this.arrowDownUrl;
+            const iconUrl: string =
+                point.additional.direction === 'Источник' ? this.arrowDownUrl : this.arrowUpUrl;
 
             pointG
                 .append('image')
@@ -98,11 +99,17 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
 
             let cardPosX: number = point.x;
             let cardPosY: number = point.y;
+            let offset: number = 12;
+
+            if (this.graphMaxX && cardWidth + cardPosX > this.graphMaxX - this.padding.left) {
+                cardPosX = point.x - cardWidth;
+                offset *= -1;
+            }
 
             if (this.graphMaxY && cardHeight + cardPosY > this.graphMaxY - this.padding.bottom) {
                 cardPosY =
                     cardPosY + (this.graphMaxY - (cardHeight + cardPosY + this.padding.bottom));
-                cardPosX += 12;
+                cardPosX += offset;
             }
 
             const cardG = pointG
@@ -144,7 +151,7 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
                 .attr('text-anchor', 'middle')
                 .attr('x', textPosX)
                 .attr('y', textTypePosY)
-                .text('Приемник')
+                .text(point.additional.direction)
                 .attr('fill', textTypeColor)
                 .style('font-size', 14);
 
@@ -153,7 +160,7 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
                 .attr('text-anchor', 'middle')
                 .attr('x', textPosX)
                 .attr('y', textTankPosY)
-                .text('ЭЛОУ-АВТ-6')
+                .text(point.additional.title)
                 .attr('fill', textTankColor)
                 .style('font-size', 14);
 
