@@ -50,6 +50,8 @@ $container-padding: 5px;
       right: 40px;
       bottom: 40px;
       z-index: 1;
+      font-size: 16px;
+      font-weight: bold;
     }
   }
   &_pager {
@@ -80,6 +82,11 @@ $container-padding: 5px;
   background-color: var(--color-bg-main-dark);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   cursor: pointer;
+  transition: 0.3s ease-in-out;
+  &:hover {
+    background-color: var(--color-bg-active-bright);
+    transition: 0.3s ease-in-out;
+  }
   &_fullscreen {
     margin-top: 25px;
   }

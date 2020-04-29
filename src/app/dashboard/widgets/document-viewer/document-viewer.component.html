@@ -36,7 +36,9 @@
           <div class="document-viewer_document__buttons-area">
             <div class="button" (click)="scaleDocument(true)"><span class="text-center">+</span></div>
             <div class="button" (click)="scaleDocument(false)"><span class="text-center">-</span></div>
-            <div class="button button_fullscreen" (click)="openFullScreen()"><span class="text-center"></span></div>
+            <div class="button button_fullscreen" (click)="openFullScreen()">
+              <svg-icon src="assets/icons/full-screen.svg" class="text-center" style="width:12px"></svg-icon>
+            </div>
           </div>
           <div class="document-viewer_document__sizing-area">
             <pdf-viewer *ngIf="src"
