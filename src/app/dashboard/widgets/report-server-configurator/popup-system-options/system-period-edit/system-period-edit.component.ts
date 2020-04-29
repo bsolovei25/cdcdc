@@ -135,7 +135,7 @@ export class SystemPeriodEditComponent implements OnInit, OnChanges {
           );
         })
       },
-      cancelFunction: () => {
+      closeFunction: () => {
         this.reportService.closeAlert();
       }
     };

@@ -237,6 +237,8 @@ import { OilOperationsTankFilterComponent } from './widgets/oil-operations/compo
 import { OilOperationsLineChartComponent } from './widgets/oil-operations/components/oil-operations-line-chart/oil-operations-line-chart.component';
 import { OilOperationsLineMenuComponent } from './widgets/oil-operations/components/oil-operations-line-menu/oil-operations-line-menu.component';
 import { OilOperationsLineComponent } from './widgets/oil-operations/components/oil-operations-line/oil-operations-line.component';
+import { ReportFileSelectBoxComponent } from './widgets/report-server-configurator/report-file-select-box/report-file-select-box.component';
+import { DocumentViewerFullscreenComponent } from './widgets/document-viewer/document-viewer-fullscreen/document-viewer-fullscreen.component';
 
 @NgModule({
   declarations: [
@@ -441,7 +443,9 @@ import { OilOperationsLineComponent } from './widgets/oil-operations/components/
     OilOperationsTankFilterComponent,
     OilOperationsLineChartComponent,
     OilOperationsLineMenuComponent,
-    OilOperationsLineComponent
+    OilOperationsLineComponent,
+    ReportFileSelectBoxComponent,
+    DocumentViewerFullscreenComponent
   ],
   entryComponents: [
     LineChartComponent,

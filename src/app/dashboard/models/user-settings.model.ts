@@ -8,6 +8,7 @@ export interface IScreenSettings {
     widgets: IUserGridItem[];
     claims?: IClaim[];
     isFilter?: boolean;
+    isActive?: boolean;
 }
 
 export interface IClaim {
