@@ -3,7 +3,7 @@
         <div *ngFor="let item of data" class="block" (click)="active(item)" [class.active]="activeItemId === item.id">
             <div class="block__icon">
                 <svg-icon
-                src="./assets/icons/widgets/oil-control-all/oil-operations/line-operation.svg"
+                src="./assets/icons/widgets/oil-control-all/oil-operations/{{item.type}}-operation.svg"
                 [svgStyle]="{ 'width.px':30, 'height.px':30 }"
               ></svg-icon>
             </div>

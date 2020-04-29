@@ -49,7 +49,7 @@
                         </evj-oil-operations-received-operations>
                     </div>
                     <div class='middle-side__bottom'>
-                        <evj-oil-operations-shipment-formation [data]="data.shipment">
+                        <evj-oil-operations-shipment-formation [data]="data.shipment" [isOpen]="isOpenShipment" (openItem)="openItemShipment($event)">
                         </evj-oil-operations-shipment-formation>
                     </div>
                 </div>
@@ -99,6 +99,14 @@
 
             <div *ngIf="isLineChart">
                 <evj-oil-operations-line (closeLineChart)="closeLineChart($event)"></evj-oil-operations-line>
+            </div>
+
+            <div *ngIf="isAdjust">
+                <evj-oil-operations-adjustment (closeAdjust)="closeAdjust($event)"></evj-oil-operations-adjustment>
+            </div>
+
+            <div *ngIf="isFreeShipment">
+                <evj-oil-operations-free-shipment (closeFree)="closeFreeShipment($event)"></evj-oil-operations-free-shipment>
             </div>
         </div>
         <evj-frame-bottom></evj-frame-bottom>

@@ -50,11 +50,12 @@ $container-padding: 5px;
     width: 16%;
 
     &__top {
-      height: 50%;
+      height: calc(55% - 5px);
+      margin-bottom: 5px;
     }
 
     &__bottom {
-      height: 50%;
+      height: 45%;
     }
   }
 
@@ -98,10 +99,12 @@ $container-padding: 5px;
   margin-right: 50px;
 }
 
-::-webkit-scrollbar-track:vertical {
+::-webkit-scrollbar-track:horizontal {
   width: 4px;
   height: 4px;
   border-radius: 25px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 :hover::-webkit-scrollbar-thumb {
