@@ -9,7 +9,7 @@
                     <label>Начало</label>
                     <input matInput [ngxMatDatetimePicker]="pickerD" [value]="dateNow">
                     <mat-datepicker-toggle matSuffix [for]="pickerD">
-                        <mat-icon matDatepickerToggleIcon (click)="clickTimePicker()">
+                        <mat-icon matDatepickerToggleIcon>
                             <svg-icon src="./assets/icons/widgets/reports/calend.svg"
                                 [svgStyle]="{ 'width.px':25, 'height.px':25}">
                             </svg-icon>
@@ -24,7 +24,7 @@
                     <label>Окончание</label>
                     <input matInput [ngxMatDatetimePicker]="pickerT" [value]="dateNow">
                     <mat-datepicker-toggle matSuffix [for]="pickerT">
-                        <mat-icon matDatepickerToggleIcon (click)="clickTimePicker()">
+                        <mat-icon matDatepickerToggleIcon >
                             <svg-icon src="./assets/icons/widgets/reports/calend.svg"
                                 [svgStyle]="{ 'width.px':25, 'height.px':25}">
                             </svg-icon>
