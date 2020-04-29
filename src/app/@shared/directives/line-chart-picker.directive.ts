@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, Renderer2, Input } from '@angular/core';
+import { Directive, ElementRef, HostListener, Renderer2, Input, OnDestroy } from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 import { ProductionTrendType } from '../../dashboard/models/production-trends.model';
@@ -6,7 +6,7 @@ import { ProductionTrendType } from '../../dashboard/models/production-trends.mo
 @Directive({
     selector: '[evjLineChartPicker]',
 })
-export class LineChartPickerDirective {
+export class LineChartPickerDirective implements OnDestroy {
     @Input() private graphMaxX: number = null;
     @Input() private graphMaxY: number = null;
     @Input() private scaleFuncs: { x: any; y: any } = { x: null, y: null };
@@ -23,6 +23,12 @@ export class LineChartPickerDirective {
     private eventListenerFn: () => void = null;
 
     constructor(private el: ElementRef, private renderer: Renderer2) {}
+
+    public ngOnDestroy(): void {
+        if (this.eventListenerFn) {
+            this.eventListenerFn();
+        }
+    }
 
     @HostListener('mouseenter') onMouseEnter(): void {
         this.svg = d3Selection.select(this.el.nativeElement).select('svg');

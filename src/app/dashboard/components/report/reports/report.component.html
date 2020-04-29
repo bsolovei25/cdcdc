@@ -175,14 +175,27 @@
 
     <ng-container *ngIf="template && template?.customOptions?.length > 0">
       <ng-container *ngFor="let option of formGroup">
-        <div class="form" *ngIf="option.type === 'dateTime'">
-          <p class="form__title">{{ option.name }}</p>
-          <div class="form__value">
-            <evj-time-data-picker
-              (dateTimePicker)="dateTimePickerNew($event, option.id)"
-            ></evj-time-data-picker>
-          </div>
-        </div>
+        <mat-form-field class="form form__picker custom-picker" *ngIf="option.type === 'dateTime'">
+          <mat-label class="form__title">{{ option.name }}</mat-label>
+          <input
+            disabled
+            autocomplete="off"
+            matInput
+            [ngxMatDatetimePicker]="pickerD"
+            [(ngModel)]="option.value"
+          />
+          <mat-datepicker-toggle matSuffix [for]="pickerD">
+            <mat-icon matDatepickerToggleIcon>
+              <svg-icon
+                class="form__icon"
+                src="./assets/icons/widgets/reports/calend.svg"
+                [svgStyle]="{ 'width.px':25, 'height.px':25}"
+              >
+              </svg-icon>
+            </mat-icon>
+          </mat-datepicker-toggle>
+          <ngx-mat-datetime-picker #pickerD disabled="false"> </ngx-mat-datetime-picker>
+        </mat-form-field>
         <mat-form-field class="form" *ngIf="option.type === 'comboBox'">
           <mat-label class="form__title">{{ option.name }}</mat-label>
           <mat-select [(ngModel)]="option.value">

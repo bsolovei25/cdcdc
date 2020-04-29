@@ -240,6 +240,7 @@ import { OilOperationsLineComponent } from './widgets/oil-operations/components/
 import { ReportFileSelectBoxComponent } from './widgets/report-server-configurator/report-file-select-box/report-file-select-box.component';
 import { OilOperationsAdjustmentComponent } from './widgets/oil-operations/components/oil-operations-adjustment/oil-operations-adjustment.component';
 import { OilOperationsFreeShipmentComponent } from './widgets/oil-operations/components/oil-operations-free-shipment/oil-operations-free-shipment.component';
+import { DocumentViewerFullscreenComponent } from './widgets/document-viewer/document-viewer-fullscreen/document-viewer-fullscreen.component';
 
 @NgModule({
   declarations: [
@@ -447,7 +448,8 @@ import { OilOperationsFreeShipmentComponent } from './widgets/oil-operations/com
     OilOperationsLineComponent,
     ReportFileSelectBoxComponent,
     OilOperationsAdjustmentComponent,
-    OilOperationsFreeShipmentComponent
+    OilOperationsFreeShipmentComponent,
+    DocumentViewerFullscreenComponent
   ],
   entryComponents: [
     LineChartComponent,

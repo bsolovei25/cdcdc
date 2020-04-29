@@ -1,22 +1,22 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'evj-circle-input',
   templateUrl: './circle-input.component.html',
   styleUrls: ['./circle-input.component.scss']
 })
-export class CircleInputComponent implements OnInit {
-
-  @Output() public search: EventEmitter<any> = new EventEmitter<any>();
-  public isInput: boolean = false;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-  searchRecord(event): void {
-    this.search.emit(event);
-  }
-
+export class CircleInputComponent {
+    // region: two way binding area
+    public searchValue: string;
+    @Output() searchChange: EventEmitter<string> = new EventEmitter<string>();
+    @Input()
+    get search(): string {
+        return this.searchValue;
+    }
+    set search(val: string) {
+        this.searchValue = val;
+        this.searchChange.emit(this.searchValue);
+    }
+    // end region: two way binding area
+    public isInput: boolean = false;
 }
