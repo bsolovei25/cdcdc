@@ -9,7 +9,6 @@ import {
     OnDestroy,
 } from '@angular/core';
 import * as d3Selection from 'd3-selection';
-import * as d3 from 'd3';
 import { IPointTank, IPointD3 } from '../models/smart-scroll.model';
 
 @Directive({
@@ -24,7 +23,8 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
 
     private readonly arrowUpUrl: string = 'assets/icons/widgets/reasons-deviations/up-icon.svg';
     private readonly arrowDownUrl: string = 'assets/icons/widgets/reasons-deviations/down-icon.svg';
-    private readonly tankImageUrl: string = 'assets/icons/widgets/reasons-deviations/tank-img.svg';
+    private readonly tankImageUrl: string = 'assets/icons/widgets/reasons-deviations/tank-icon.svg';
+    private readonly unitImageUrl: string = 'assets/icons/widgets/reasons-deviations/unit-icon.svg';
 
     private svg: any = null;
 
@@ -93,7 +93,8 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
                 .attr('width', iconHeight)
                 .attr('height', iconWidth)
                 .attr('x', point.x - iconWidth / 2)
-                .attr('y', point.y - (iconHeight + 5));
+                .attr('y', point.y - (iconHeight + 5))
+                .style('cursor', 'pointer');
 
             if (point.additional?.card) {
                 const cardWidth: number = 120;
@@ -136,6 +137,10 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
                 const tankHeight: number = 70;
                 const tankPosX: number = cardPosX + (cardWidth - tankWidth) / 2;
                 const tankPosY: number = cardPosY + (cardHeight - tankHeight) / 2;
+                const tankUrl: string =
+                    point.additional.card.objectType === 'tank'
+                        ? this.tankImageUrl
+                        : this.unitImageUrl;
 
                 const textPosX: number = cardPosX + cardWidth / 2;
                 const textSize: number = 14;
@@ -146,7 +151,7 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
 
                 cardG
                     .append('image')
-                    .attr('xlink:href', this.tankImageUrl)
+                    .attr('xlink:href', tankUrl)
                     .attr('width', tankWidth)
                     .attr('height', tankHeight)
                     .attr('x', tankPosX)
@@ -173,16 +178,11 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
                 const [[icon]] = pointG.select('image')._groups;
 
                 eventListeners.push(
-                    this.renderer.listen(icon, 'mouseenter', (event: MouseEvent) => {
+                    this.renderer.listen(icon, 'click', (event: MouseEvent) => {
                         const elem: HTMLElement = event.target as HTMLElement;
                         const target: HTMLElement = elem.nextSibling as HTMLElement;
-                        target.style.display = 'inline';
-                    }),
-
-                    this.renderer.listen(icon, 'mouseleave', (event) => {
-                        const elem: HTMLElement = event.target as HTMLElement;
-                        const target: HTMLElement = elem.nextSibling as HTMLElement;
-                        target.style.display = 'none';
+                        const display: string = target.style.display === 'none' ? 'inline' : 'none';
+                        target.style.display = display;
                     })
                 );
             }
