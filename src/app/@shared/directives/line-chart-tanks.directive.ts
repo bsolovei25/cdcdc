@@ -24,16 +24,14 @@ export class LineChartTanksDirective {
 
     @HostListener('document:resize') onResize(): void {
         this.svg = d3Selection.select(this.el.nativeElement).select('svg');
+        this.svg.select('g.chart-points').remove();
 
         this.transformData();
         this.drawPoints();
     }
 
-    @HostListener('mouseleave') onLeave(): void {
-        this.svg.select('g.chart-points').remove();
-    }
-
     private transformData(): void {
+        this.chartPointsData = [];
         this.points.forEach((point: IPointTank) => {
             this.chartPointsData.push({
                 x: this.scaleFuncs.x(point.timestamp),
