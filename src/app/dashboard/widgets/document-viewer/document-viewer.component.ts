@@ -94,7 +94,7 @@ export class DocumentViewerComponent extends WidgetPlatform implements OnInit, O
     }
 
     public searchInPDF(stringToSearch: string): void {
-        this.pdfViewport.pdfFindController.executeCommand('find', {
+        this.pdfViewport?.pdfFindController?.executeCommand('find', {
             caseSensitive: false,
             findPrevious: undefined,
             highlightAll: true,

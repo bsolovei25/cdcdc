@@ -72,7 +72,7 @@ export class DocumentViewerFullscreenComponent implements OnInit {
     }
 
     public searchInPdf(stringToSearch: string): void {
-        this.pdfViewport.pdfFindController.executeCommand('find', {
+        this.pdfViewport?.pdfFindController?.executeCommand('find', {
             caseSensitive: false,
             findPrevious: undefined,
             highlightAll: true,
