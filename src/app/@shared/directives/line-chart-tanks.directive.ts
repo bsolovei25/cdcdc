@@ -6,6 +6,7 @@ import {
     HostListener,
     OnChanges,
     SimpleChanges,
+    OnDestroy,
 } from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
@@ -14,7 +15,7 @@ import { IPointTank, IPointD3 } from '../models/smart-scroll.model';
 @Directive({
     selector: '[evjLineChartTanks]',
 })
-export class LineChartTanksDirective implements OnChanges {
+export class LineChartTanksDirective implements OnChanges, OnDestroy {
     @Input() private points: IPointTank[] = [];
     @Input() private graphMaxX: number = null;
     @Input() private graphMaxY: number = null;
@@ -35,6 +36,12 @@ export class LineChartTanksDirective implements OnChanges {
     public ngOnChanges(changes: SimpleChanges): void {
         if (!changes.points?.firstChange || !changes.scaleFuncs?.firstChange) {
             this.mainFunction();
+        }
+    }
+
+    public ngOnDestroy(): void {
+        if (this.eventListenerFn) {
+            this.eventListenerFn();
         }
     }
 
