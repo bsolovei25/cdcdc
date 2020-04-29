@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CircleInputComponent } from './circle-input.component';
+import { OilOperationsLineComponent } from './oil-operations-line.component';
 
-describe('CircleInputComponent', () => {
-  let component: CircleInputComponent;
-  let fixture: ComponentFixture<CircleInputComponent>;
+describe('OilOperationsLineComponent', () => {
+  let component: OilOperationsLineComponent;
+  let fixture: ComponentFixture<OilOperationsLineComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CircleInputComponent ]
+      declarations: [ OilOperationsLineComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CircleInputComponent);
+    fixture = TestBed.createComponent(OilOperationsLineComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

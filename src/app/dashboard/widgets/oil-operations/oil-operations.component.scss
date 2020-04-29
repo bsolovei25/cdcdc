@@ -29,15 +29,65 @@ $container-padding: 5px;
   display: flex;
   width: 100%;
   height: calc(100% - #{$block-margin * 2});
+  min-width: 1590px;
 
   .left-side {
     height: 100%;
-    width: 45%;
+    width: 42%;
+
+    ::ng-deep {
+      .scroll-block {
+        background-color: var(--color-oil-table-2);
+      }
+      .record-table {
+        background-color: var(--color-oil-table-2) !important;
+      }
+    }
+  }
+
+  .middle-side {
+    height: 100%;
+    width: 16%;
+
+    &__top {
+      height: 50%;
+    }
+
+    &__bottom {
+      height: 50%;
+    }
   }
 
   .right-side {
     height: 100%;
-    width: 25%;
+    width: calc(42% - 10px);
+  }
+}
+
+.pasport {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.direction {
+  display: flex;
+  align-items: center;
+
+  &__icon {
+    width: 50%;
+    position: relative;
+
+    .icon-cistern {
+      height: 100%;
+      width: 40px;
+      position: absolute;
+      left: 20px;
+    }
+  }
+
+  &__name {
+    width: 50%;
   }
 }
 

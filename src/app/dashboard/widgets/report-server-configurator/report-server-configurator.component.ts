@@ -59,6 +59,8 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     public isLongBlock: boolean = true;
 
+    public isSelectBox: boolean = false;
+
     public indexColumn: number = 0;
 
     public isOpenCheckBlock: boolean = false;
@@ -277,7 +279,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
                     this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
                     this.isLoading = false;
                 }),
-            cancelFunction: () => this.reportService.closeAlert(),
+            closeFunction: () => this.reportService.closeAlert(),
         };
         this.reportService.alertWindow$.next(windowsParam);
     }
@@ -297,7 +299,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
                 this.isLoading = false;
                 this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
             }),
-            cancelFunction: () => {
+            closeFunction: () => {
                 this.reportService.closeAlert();
                 this.isLoading = false;
             }
@@ -405,7 +407,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
                 item.openEdit = false;
                 this.newRecord = null;
             },
-            cancelFunction: () => {
+            closeFunction: () => {
                 this.reportService.closeAlert();
                 item.openEdit = false;
                 this.newRecord = null;
@@ -430,7 +432,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
                 item.openEdit = false;
                 this.newRecord = null;
             },
-            cancelFunction: () => {
+            closeFunction: () => {
                 this.reportService.closeAlert();
                 item.openEdit = false;
                 this.newRecord = null;
@@ -637,7 +639,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
                     'Выберите файл'
                 );
             }),
-            cancelFunction: () => {
+            closeFunction: () => {
                 this.reportService.closeAlert();
             }
         };
@@ -652,9 +654,9 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         this.popupUserOptions = false;
     }
 
-    onChangeFile(event): void {
-        this.selectFile = this.dataFile.find(e => e.fileId === event);
-    }
+    // onChangeFile(event): void {
+    //     this.selectFile = this.dataFile.find(e => e.fileId === event);
+    // }
 
     randomInt(min, max): void {
         return min + Math.floor((max - min) * Math.random());
@@ -718,6 +720,19 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         if (event) {
             this.getRecordFile();
         }
+    }
+
+    openSelectBox(): void {
+        this.isSelectBox = true;
+    }
+
+    selectBoxFile(event): void {
+        this.isSelectBox = false;
+        this.selectFile = this.dataFile.find(e => e.fileId === event.fileId);
+    }
+
+    closeSelectBox(): void {
+        this.isSelectBox = false;
     }
 
 }

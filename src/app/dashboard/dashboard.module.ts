@@ -231,6 +231,15 @@ import { TableGridInputComponent } from './components/table-grid/components/tabl
 import { TableGridFilterComponent } from './components/table-grid/components/table-grid-filter/table-grid-filter.component';
 import { TableGridSaveButtonComponent } from './components/table-grid/components/table-grid-save-button/table-grid-save-button.component';
 import { WorkflowComponent } from './widgets/workflow/workflow.component';
+import { OilOperationsReceivedOperationsComponent } from './widgets/oil-operations/components/oil-operations-received-operations/oil-operations-received-operations.component';
+import { OilOperationsShipmentFormationComponent } from './widgets/oil-operations/components/oil-operations-shipment-formation/oil-operations-shipment-formation.component';
+import { OilOperationsFilterComponent } from './widgets/oil-operations/components/oil-operations-filter/oil-operations-filter.component';
+import { OilOperationsTankFilterComponent } from './widgets/oil-operations/components/oil-operations-tank-filter/oil-operations-tank-filter.component';
+import { OilOperationsLineChartComponent } from './widgets/oil-operations/components/oil-operations-line-chart/oil-operations-line-chart.component';
+import { OilOperationsLineMenuComponent } from './widgets/oil-operations/components/oil-operations-line-menu/oil-operations-line-menu.component';
+import { OilOperationsLineComponent } from './widgets/oil-operations/components/oil-operations-line/oil-operations-line.component';
+import { ReportFileSelectBoxComponent } from './widgets/report-server-configurator/report-file-select-box/report-file-select-box.component';
+import { DocumentViewerFullscreenComponent } from './widgets/document-viewer/document-viewer-fullscreen/document-viewer-fullscreen.component';
 
 @NgModule({
   declarations: [
@@ -429,7 +438,16 @@ import { WorkflowComponent } from './widgets/workflow/workflow.component';
     TableGridInputComponent,
     TableGridFilterComponent,
     TableGridSaveButtonComponent,
-    WorkflowComponent
+    WorkflowComponent,
+    OilOperationsReceivedOperationsComponent,
+    OilOperationsShipmentFormationComponent,
+    OilOperationsFilterComponent,
+    OilOperationsTankFilterComponent,
+    OilOperationsLineChartComponent,
+    OilOperationsLineMenuComponent,
+    OilOperationsLineComponent,
+    ReportFileSelectBoxComponent,
+    DocumentViewerFullscreenComponent
   ],
   entryComponents: [
     LineChartComponent,

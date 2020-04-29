@@ -8,7 +8,8 @@ import { filter, catchError } from 'rxjs/operators';
 import { IParamWidgetsGrid } from '../components/new-widgets-grid/new-widgets-grid.component';
 import { WidgetService } from './widget.service';
 import { ClaimService } from './claim.service';
-import { GridsterItem } from 'angular-gridster2';
+import { GridsterItem, GridsterItemComponentInterface } from 'angular-gridster2';
+import { SnackBarService } from './snack-bar.service';
 
 @Injectable({
     providedIn: 'root',
@@ -30,6 +31,7 @@ export class UserSettingsService {
         private http: HttpClient,
         private claimService: ClaimService,
         private configService: AppConfigService,
+        private snackBar: SnackBarService,
     ) {
         this.restUrl = configService.restUrl;
         localStorage.getItem('screen');
@@ -201,13 +203,13 @@ export class UserSettingsService {
         );
     }
 
-    public deleteScreen(id: string): Subscription {
+    public deleteScreen(id: number): Subscription {
         return this.http.delete(this.restUrl + '/api/user-management/screen/' + id).subscribe(
             (ans) => {
                 if (this.ScreenId === Number(id)) {
                     this.ScreenId = undefined;
                 }
-
+                this.snackBar.openSnackBar('Экран успешно удален');
                 this.GetScreens();
             },
             (error) => console.log(error)
@@ -226,6 +228,7 @@ export class UserSettingsService {
             .put(this.restUrl + '/api/user-management/screen/' + id, userScreen)
             .subscribe(
                 (ans) => {
+                    this.snackBar.openSnackBar('Экран успешно изменен');
                     this.GetScreens();
                 },
                 (error) => console.log(error)

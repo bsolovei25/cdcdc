@@ -1,16 +1,15 @@
-import { Directive, ElementRef, HostListener, Renderer2, Input } from '@angular/core';
+import { Directive, ElementRef, HostListener, Renderer2, Input, OnDestroy } from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
+import { ProductionTrendType } from '../../dashboard/models/production-trends.model';
 
 @Directive({
     selector: '[evjLineChartPicker]',
 })
-export class LineChartPickerDirective {
+export class LineChartPickerDirective implements OnDestroy {
     @Input() private graphMaxX: number = null;
     @Input() private graphMaxY: number = null;
     @Input() private scaleFuncs: { x: any; y: any } = { x: null, y: null };
-    @Input() private deviationUp: number = 0;
-    @Input() private deviationDown: number = 0;
     @Input() private padding: { [key: string]: number } = {};
 
     private svg: any = null;
@@ -24,6 +23,12 @@ export class LineChartPickerDirective {
     private eventListenerFn: () => void = null;
 
     constructor(private el: ElementRef, private renderer: Renderer2) {}
+
+    public ngOnDestroy(): void {
+        if (this.eventListenerFn) {
+            this.eventListenerFn();
+        }
+    }
 
     @HostListener('mouseenter') onMouseEnter(): void {
         this.svg = d3Selection.select(this.el.nativeElement).select('svg');
@@ -277,9 +282,14 @@ export class LineChartPickerDirective {
 
                 const posFact = this.findCursorPosition(x, 'fact');
                 const posPlan = this.findCursorPosition(x, 'plan');
+                const borderTop = this.findCursorPosition(x, 'higherBorder');
+                const borderBottom = this.findCursorPosition(x, 'lowerBorder');
+
                 const factY = this.scaleFuncs.y.invert(posFact.y);
                 const factX = this.scaleFuncs.y.invert(posFact.x);
                 const planY = this.scaleFuncs.y.invert(posPlan.y);
+                const borderTopY = borderTop ? this.scaleFuncs.y.invert(borderTop.y) : null;
+                const borderBotY = borderBottom ? this.scaleFuncs.y.invert(borderBottom.y) : null;
 
                 this.svg
                     .select('.mouse-line')
@@ -342,25 +352,30 @@ export class LineChartPickerDirective {
                     .attr('x', x)
                     .text(formatDate(factX));
 
-                if (factY < planY - this.deviationDown) {
-                    this.svg.select('g.mouse-over').style('color', this.dataPickerColors.danger);
-                } else if (
-                    factY >= planY - this.deviationDown &&
-                    factY <= planY - this.deviationUp
-                ) {
-                    this.svg.select('g.mouse-over').style('color', this.dataPickerColors.standard);
-                } else {
-                    this.svg.select('g.mouse-over').style('color', this.dataPickerColors.standard);
+                let cursorColor: string = this.dataPickerColors.standard;
+
+                if (factY < planY && borderBotY && factY > borderBotY) {
+                    cursorColor = this.dataPickerColors.warning;
+                } else if (factY > planY && borderTopY && factY < borderTopY) {
+                    cursorColor = this.dataPickerColors.warning;
+                } else if (factY > planY) {
+                    cursorColor = this.dataPickerColors.danger;
                 }
+
+                this.svg.select('g.mouse-over').style('color', cursorColor);
             })
         );
 
         return () => eventListeners.forEach((item) => item());
     }
 
-    private findCursorPosition(posX: number, curveType: 'plan' | 'fact'): SVGPoint {
+    private findCursorPosition(posX: number, curveType: ProductionTrendType): SVGPoint {
         let line: SVGGeometryElement = null;
         [[line]] = this.svg.select(`.graph-line-${curveType}`)._groups;
+
+        if (!line) {
+            return null;
+        }
 
         let begin: number = 0;
         let end: number = line.getTotalLength();
