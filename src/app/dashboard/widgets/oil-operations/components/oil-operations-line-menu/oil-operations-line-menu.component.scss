@@ -26,10 +26,10 @@
 .content {
     overflow: auto;
     overflow-x: hidden;
-    height: calc(100% - 100px);
+    height: calc(100% - 98px);
     background-color: var(--color-oil-menu);
-    border-top: 7px solid var(--color-bg-main);
-    border-bottom: 7px solid var(--color-bg-main);
+    border-top: 1px solid var(--color-bg-main);
+    border-bottom: 1px solid var(--color-bg-main);
     font-size: 14px;
 
     &__date {

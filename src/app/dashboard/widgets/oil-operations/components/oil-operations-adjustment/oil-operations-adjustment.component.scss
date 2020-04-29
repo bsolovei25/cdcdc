@@ -1,0 +1,129 @@
+.container-operation-adjustment {
+    direction: ltr;
+    position: absolute;
+    left: 28%;
+    bottom: 15%;
+    height: 30%;
+    z-index: 999;
+    width: 15%;
+    box-shadow: 0 0 10px var(--color-oil-popup-shadow);
+    border-radius: 20px;
+}
+
+.title {
+    position: relative;
+    height: 40px;
+    width: 100%;
+    background-color: var(--color-oil-table);
+    color: var(--color-text-main);
+    text-align: center;
+    line-height: 40px;
+    font-size: 12px;
+    display: flex;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+
+    &__button-close {
+        cursor: pointer;
+        width: 30px;
+        margin-top: 7px;
+        margin-left: 20px;
+    }
+
+    &__name {
+        font-size: 14px;
+        width: 100%;
+        white-space: nowrap;
+        padding: 5px;
+        padding-top: 0;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        text-align: center;
+    }
+}
+
+.content {
+    overflow: auto;
+    overflow-x: hidden;
+    height: calc(100% - 80px);
+    background-color: #1b1f2c;
+    border-top: 7px solid var(--color-bg-main);
+    border-bottom: 7px solid var(--color-bg-main);
+    font-size: 14px;
+
+    &__block {
+        height: 40px;
+        display: flex;
+        align-items: center;
+        padding-left: 20px;
+
+        .icon{
+
+        }
+
+        .info{
+            margin-left: 15px;
+
+            &__title{
+                color: var(--color-text-sub);
+                font-size: 14px;
+            }
+            &__name{
+                font-size: 12px;
+            }
+        }
+
+        &:hover{
+            cursor: pointer;
+            background-color: var(--color-bg-active);
+        }
+    }
+}
+
+.bottom {
+    position: relative;
+    height: 30px;
+    padding-top: 10px;
+    width: 100%;
+    background-color: #1b1f2c;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+
+    &__block {
+        margin: 0 auto;
+        width: 45%;
+        height: 80%;
+        font-size: 15px;
+        display: flex;
+        border: 1px solid white;
+        border-radius: 20px;
+
+        &:hover {
+            cursor: pointer;
+            border: 1px solid var(--color-border-active);
+            color: var(--color-border-active);
+        }
+    }
+
+    &__save-block {
+        display: flex;
+        position: relative;
+        margin: 0 auto;
+        align-items: center;
+    }
+}
+
+.active {
+    background-color: var(--color-bg-active);
+    color: var(--color-text-main);
+
+    ::ng-deep {
+        .a57a99fa-3be3-4964-b0ab-1f3d8ea87c74{
+            fill: var(--color-active);
+        }
+
+        .ffe3af6c-eab6-467a-8278-3959a7f0b23d{
+            fill: var(--color-active);
+        }
+    }
+}

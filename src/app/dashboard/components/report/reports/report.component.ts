@@ -163,10 +163,11 @@ export class ReportComponent implements OnInit {
                 startDateTime: new Date()
             };
             this.template.customOptions.forEach(option => {
+                const value = option.type === 'dateTime' ? new Date() : '';
                 this.formGroup.push({
                     id: option.id,
                     name: option.name,
-                    value: '',
+                    value,
                     type: option.type,
                     source: option.source,
                 });
@@ -180,7 +181,7 @@ export class ReportComponent implements OnInit {
     async postItem(template: IReportTemplate, fileName: 'xlsx' | 'pdf' | 'html'): Promise<void> {
         this.isLoading = true;
         let body: IResponse;
-        let reportOptions = [];
+        const reportOptions = [];
         this.formGroup.forEach((val) => {
             reportOptions.push({ value: val?.value, baseOptionId: val?.id });
         });

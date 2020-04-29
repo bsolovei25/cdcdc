@@ -57,7 +57,7 @@
 }
 
 .active {
-    background-color: var(--color-bg-active);
+    border-right: 1px solid var(--color-active);
 
     .block__info {
         color: var(--color-text-main);

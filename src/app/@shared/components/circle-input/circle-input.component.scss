@@ -18,6 +18,10 @@ input {
     }
 }
 
+input:focus::-webkit-input-placeholder {
+    color: transparent;
+}
+
 ::-webkit-input-placeholder {
     color: var(--color-text-main);
     font-size: 12px;
