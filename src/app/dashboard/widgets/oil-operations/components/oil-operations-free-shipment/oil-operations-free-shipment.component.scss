@@ -49,7 +49,7 @@
     z-index: 999;
     width: 30%;
     box-shadow: 0 0 10px var(--color-oil-popup-shadow);
-    border-radius: 10px;
+    border-radius: 20px;
     min-width: 385px;
 }
 
@@ -60,7 +60,6 @@
     background-color: #1b1f2c;
     color: var(--color-text-main);
     text-align: center;
-    line-height: 40px;
     font-size: 12px;
     display: flex;
     border-top-left-radius: 20px;
@@ -73,15 +72,43 @@
         margin-left: 20px;
     }
 
-    &__name {
+    &__block-name {
         font-size: 14px;
         width: 100%;
-        white-space: nowrap;
-        padding: 5px;
-        padding-top: 0;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        text-align: center;
+        display: flex;
+
+        .shipment-title {
+            width: 75%;
+            text-align: left;
+            margin-top: 5px;
+            padding-left: 20px;
+
+            &__title {
+                font-size: 14px;
+            }
+
+            &__date {
+                font-size: 12px;
+                color: var(--color-text-sub);
+            }
+        }
+
+        .shipment-value {
+            width: 30%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &__block {
+                background: var(--color-active);
+                border-radius: 25px;
+                width: 60%;
+                height: 25px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
     }
 }
 
@@ -95,8 +122,23 @@
     line-height: 40px;
 
     &__name {
-        width: 25%;
         text-align: center;
+    }
+
+    .pasp {
+        width: 80%;
+    }
+
+    .rr {
+        width: 50%;
+    }
+
+    .mass {
+        width: 50%;
+    }
+
+    .point {
+        width: 100%;
     }
 }
 
@@ -140,88 +182,39 @@
             height: 40px;
             line-height: 40px;
             justify-content: space-evenly;
+            font-size: 12px;
+
             .name-param {
-                width: 25%;
+                width: 80%;
                 text-align: center;
                 border-right: 1px solid var(--color-table-main);
             }
 
             .capacity-param {
-                width: 25%;
+                width: 50%;
                 text-align: center;
                 border-right: 1px solid var(--color-table-main);
             }
 
             .check-param {
-                width: 25%;
+                width: 50%;
                 text-align: center;
                 border-right: 1px solid var(--color-table-main);
-
-                .mycheckbox {
-                    height: 100%;
-                    width: 100%;
-                    justify-content: center;
-                    margin-left: 5px;
-                    cursor: pointer;
-                    display: -webkit-box;
-                    display: -ms-flexbox;
-                    display: flex;
-                    -webkit-box-align: center;
-                    -ms-flex-align: center;
-                    align-items: center;
-                    -webkit-user-select: none;
-                    -moz-user-select: none;
-                    -ms-user-select: none;
-                    user-select: none;
-
-                    &__default {
-                        display: none;
-                    }
-
-                    &__descr {
-                        font-size: 14px;
-                    }
-
-                    &__default:checked + .mycheckbox__new::after {
-                        height: 8px;
-                        width: 8px;
-                        border-radius: 25px;
-                    }
-
-                    &__new {
-                        width: 16px;
-                        height: 16px;
-                        border-radius: 25px;
-                        border: 1px solid white;
-                        margin-right: 9px;
-                        position: relative;
-                    }
-
-                    &__checked {
-                        border: 1px solid var(--color-border-active);
-                    }
-
-                    &__new::after {
-                        content: "";
-                        display: block;
-                        width: 0;
-                        height: 0;
-                        background-color: var(--color-border-active);
-                        left: 50%;
-                        top: 50%;
-                        position: absolute;
-                        transform: translate(-50%, -50%);
-                        transition: 0.2s ease-in;
-                    }
-                }
             }
 
             .limit-param {
-                width: 25%;
+                width: 100%;
                 text-align: center;
                 display: flex;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+
                 &__value {
-                    width: 50%;
+                    width: 100%;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
                 }
 
                 &__icon {
@@ -272,6 +265,12 @@
     &__search {
         height: 60%;
         margin-left: 20px;
+
+        ::ng-deep {
+            .input-back {
+                background: var(--color-oil-table) !important;
+            }
+        }
     }
 }
 
