@@ -238,6 +238,7 @@ import { OilOperationsLineChartComponent } from './widgets/oil-operations/compon
 import { OilOperationsLineMenuComponent } from './widgets/oil-operations/components/oil-operations-line-menu/oil-operations-line-menu.component';
 import { OilOperationsLineComponent } from './widgets/oil-operations/components/oil-operations-line/oil-operations-line.component';
 import { ReportFileSelectBoxComponent } from './widgets/report-server-configurator/report-file-select-box/report-file-select-box.component';
+import { WidgetHeaderSmpComponent } from './components/widget-header-smp/widget-header-smp.component';
 import { DocumentViewerFullscreenComponent } from './widgets/document-viewer/document-viewer-fullscreen/document-viewer-fullscreen.component';
 
 @NgModule({
@@ -445,6 +446,7 @@ import { DocumentViewerFullscreenComponent } from './widgets/document-viewer/doc
     OilOperationsLineMenuComponent,
     OilOperationsLineComponent,
     ReportFileSelectBoxComponent,
+    WidgetHeaderSmpComponent
     DocumentViewerFullscreenComponent
   ],
   entryComponents: [

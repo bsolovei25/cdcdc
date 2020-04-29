@@ -152,8 +152,6 @@ export class NewWidgetsGridComponent implements OnInit, OnDestroy {
         this.options.fixedRowHeight = this.RowHeight;
 
         this.changedOptions();
-        console.log(heigthScreen + ' ' + widthScreen);
-        console.log(this.RowHeight + ' ' + this.ColWidth);
     }
 
     public resizeGridsterElement(): void {
