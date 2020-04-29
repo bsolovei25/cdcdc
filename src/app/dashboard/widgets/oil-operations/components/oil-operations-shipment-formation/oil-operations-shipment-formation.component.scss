@@ -58,6 +58,15 @@
 
 .active {
     background-color: var(--color-bg-active);
+
+    ::ng-deep{
+      .block__info{
+        color: var(--color-text-main) !important;
+      }
+      .e177173e-a422-42e9-b28f-5161cbe95ddf{
+        fill: var(--color-active);
+      }
+    }
 }
 
 

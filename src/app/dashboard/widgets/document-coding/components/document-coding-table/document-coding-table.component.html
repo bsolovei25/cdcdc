@@ -10,7 +10,7 @@
             <div *ngFor="let item of data" class="record-table" (click)="activeRecord(item.id)" [class.active]="activeRecordId === item.id">
                 <div class="short">{{ item.sap }}</div>
                 <div class="big">{{ item.product }}</div>
-                <div class="middle">{{ item.gost }}</div>
+                <div class="middle gost">{{ item.gost }}</div>
                 <div class="short">{{ item.codeOKPD }}</div>
             </div>
         </div>

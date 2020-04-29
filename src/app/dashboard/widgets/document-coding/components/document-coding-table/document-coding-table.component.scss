@@ -206,6 +206,12 @@
     }
 }
 
+.gost{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .active {
     background: var(--color-bg-active) !important;
     border-radius: 25px;

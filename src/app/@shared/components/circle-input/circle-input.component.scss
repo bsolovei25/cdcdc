@@ -18,6 +18,10 @@ input {
     }
 }
 
+input:focus::-webkit-input-placeholder {
+    color: transparent;
+}
+
 ::-webkit-input-placeholder {
     color: var(--color-text-main);
     font-size: 12px;
@@ -59,7 +63,7 @@ input {
             height: calc(100% - 2px);
             margin: auto;
             border-radius: inherit;
-            background: var(--color-input-backgroud-table);
+            background: var(--color-bg-main);
 
             input {
                 border-bottom: none !important;
