@@ -296,7 +296,7 @@ export class WidgetService {
             }
         );
         this.ws.asObservable().subscribe((data) => {
-            if (data.data && this.isMatchingPeriod(data.data.selectedPeriod)) {
+            if (data?.data && this.isMatchingPeriod(data?.data?.selectedPeriod)) {
                 this.widgetsSocketObservable.next(data);
                 console.log('data ws');
             }
