@@ -9,6 +9,7 @@
     <evj-report-tree
       [activeElements]="activeElements"
       [selectedFolders]="selectedFolders"
+      [search]="search"
       *ngFor="let folder of folders"
       [data]="folder"
     ></evj-report-tree>
@@ -16,6 +17,7 @@
       <evj-report
         *ngFor="let i of templates"
         [activeElements]="activeElements"
+        [search]="search"
         [data]="i"
         style="width: 100%; margin: 10px auto;"
       ></evj-report>

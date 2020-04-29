@@ -36,6 +36,7 @@ export class ReportTreeComponent implements OnInit {
     @Input() selectedFolders: SelectionModel<number>;
     @Input() activeElements: SelectionModel<number>;
     @Input() data: IReportTree;
+    @Input() search: string;
 
     @Input() set dataCount(count: number) {
         this.count = count + 6;

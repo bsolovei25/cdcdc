@@ -406,7 +406,7 @@ export class AdminReferencesComponent extends WidgetPlatform implements OnInit, 
                 const indexDelete = this.data[this.indexColumn].columns.indexOf(item);
                 this.data[this.indexColumn].columns.splice(indexDelete, 1);
             }),
-            cancelFunction: () => this.referencesService.closeAlert(),
+            closeFunction: () => this.referencesService.closeAlert(),
         };
         this.referencesService.alertWindow$.next(windowsParam);
     }

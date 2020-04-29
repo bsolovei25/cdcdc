@@ -92,6 +92,7 @@ export class ReportComponent implements OnInit {
     private readonly restUrl: string;
 
     public active: boolean = false;
+    public activeSearch: boolean = false;
 
     public datePicker: boolean = false;
     public datePickerOpen: number;
@@ -102,6 +103,16 @@ export class ReportComponent implements OnInit {
 
     @Input() data: IReportTemplate;
     @Input() activeElements: SelectionModel<number>;
+    @Input() set search(data: string) {
+
+        if (data && this.data?.name) {
+            console.log(data, this.data?.name);
+            this.activeSearch = this.data.name.toLowerCase().includes(data.toLowerCase());
+        }
+        if (data === '') {
+            this.activeSearch = false;
+        }
+    }
 
     @ViewChild('picker') public picker: any;
 

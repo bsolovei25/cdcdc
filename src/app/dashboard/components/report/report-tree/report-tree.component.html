@@ -37,6 +37,7 @@
       *ngFor="let template of data?.templates"
       [activeElements]="activeElements"
       [data]="template"
+      [search]="search"
     ></evj-report>
   </div>
   <div class="tree__footer">
@@ -46,6 +47,7 @@
         [selectedFolders]="selectedFolders"
         [dataCount]="count"
         [data]="folder"
+        [search]="search"
       ></evj-report-tree>
     </ng-container>
   </div>

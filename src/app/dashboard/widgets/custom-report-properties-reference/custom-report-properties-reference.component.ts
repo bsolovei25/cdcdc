@@ -115,7 +115,7 @@ export class CustomReportPropertiesReferenceComponent extends WidgetPlatform imp
 
     // this.reportService.getColumns(this.idReferenceClick).subscribe((datas) => {
     //   data.columns = datas;
-    //   
+    //
     // });
   }
 
@@ -173,7 +173,7 @@ export class CustomReportPropertiesReferenceComponent extends WidgetPlatform imp
       }, (error) => {
         this.isLoading = false;
       }),
-      cancelFunction: () => {
+      closeFunction: () => {
         this.reportService.closeAlert();
         this.isLoading = false;
       }
