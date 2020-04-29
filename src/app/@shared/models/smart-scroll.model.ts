@@ -6,7 +6,7 @@ export interface IChartMini {
 export interface IPointTank {
     value: number;
     timestamp: Date;
-    additional?: IPointObject;
+    additional?: IPointAdditional;
 }
 
 export interface IChartD3 {
@@ -17,10 +17,14 @@ export interface IChartD3 {
 export interface IPointD3 {
     x: number;
     y: number;
-    additional?: IPointObject;
+    additional?: IPointAdditional;
 }
 
-export interface IPointObject {
+export interface IPointAdditional {
+    card?: IPointCardObject;
+}
+
+export interface IPointCardObject {
     title: string;
     direction: 'Приемник' | 'Источник';
     objectType?: 'unit' | 'tank';
