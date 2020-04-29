@@ -25,7 +25,8 @@ export class LineChartComponent implements OnChanges, OnInit {
     @Input() private data: IProductionTrend[] = [];
     @Input() public points: IPointTank[] = [];
     @Input() public isShowingLegend: boolean = false;
-    @Input() public chartType: 'production-trend' | 'reasons-deviations' = 'production-trend';
+    @Input() public chartType: 'production-trend' | 'reasons-deviations' | 'oil-operations' =
+        'production-trend';
 
     @ViewChild('chart') private chart: ElementRef;
 

@@ -99,12 +99,14 @@ export class OilOperationsLineChartComponent implements OnInit, AfterViewInit {
 
     constructor() {}
 
-    public ngOnInit(): void {}
-
-    public ngAfterViewInit(): void {
-        const event = new CustomEvent('resize');
-        document.dispatchEvent(event);
+    public ngOnInit(): void {
+        setTimeout(() => {
+            const event = new CustomEvent('resize');
+            document.dispatchEvent(event);
+        }, 0);
     }
+
+    public ngAfterViewInit(): void {}
 
     close(): void {
         this.closeLineChart.emit(false);
