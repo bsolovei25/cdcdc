@@ -9,7 +9,7 @@
 
         .file-block {
             height: 70%;
-            background: var(--color-oil-border);
+            background: var(--color-oil-menu);
             border-top-left-radius: 100px;
             border-bottom-left-radius: 100px;
             display: flex;
@@ -38,7 +38,7 @@
         .new-file-block {
             height: 70%;
             display: flex;
-            background: var(--color-oil-border);
+            background: var(--color-oil-menu);
             font-size: 14px;
 
             &__pasport {
@@ -140,7 +140,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: var(--color-oil-border);
+            background: var(--color-oil-menu);
             border-top-right-radius: 100px;
             border-bottom-right-radius: 100px;
 
