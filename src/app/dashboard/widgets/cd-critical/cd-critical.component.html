@@ -1,0 +1,13 @@
+<evj-widget-preview
+  [title]="widgetTitle"
+  [icon]="widgetIcon"
+  [previewTitle]="widgetType"
+  *ngIf="isMock"
+></evj-widget-preview>
+<ng-container *ngIf="!isMock">
+  <div class="container">
+    <div class="img-container">
+      <img style="height: 100%; width: 100%" src="assets/pic/cd-critical.jpg" />
+    </div>
+  </div>
+</ng-container>
