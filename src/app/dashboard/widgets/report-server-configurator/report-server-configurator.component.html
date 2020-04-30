@@ -293,7 +293,7 @@
 
                   <div class="name-type">{{ selectFile.name }}</div>
                 </div>
-                <div *ngIf="isSelectBox" (mouseleave)="closeSelectBox()">
+                <div *ngIf="isSelectBox" >
                   <evj-report-file-select-box [data]="dataFile" (selectFile)="selectBoxFile($event)"></evj-report-file-select-box>
                 </div>
               </div>
