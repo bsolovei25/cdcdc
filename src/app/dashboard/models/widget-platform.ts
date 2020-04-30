@@ -17,7 +17,9 @@ export abstract class WidgetPlatform implements OnDestroy {
     public static minItemCols: number = 8;
     public static minItemRows: number = 6;
 
-    protected subscriptions: Subscription[] = [];
+    public isHover: boolean = false;
+    public subscriptions: Subscription[] = [];
+    protected hoverTimer: any;
 
     protected constructor(
         protected widgetService: WidgetService,
@@ -70,4 +72,15 @@ export abstract class WidgetPlatform implements OnDestroy {
     protected dataDisconnect(): void { }
 
     protected abstract dataHandler(ref: any): void;
+
+    public onMouseEnter(): void {
+        if (this.hoverTimer) {
+            clearInterval(this.hoverTimer);
+        }
+        this.isHover = true;
+    }
+
+    public onMouseExit(): void {
+        this.hoverTimer = setTimeout(() => (this.isHover = false), 200);
+    }
 }

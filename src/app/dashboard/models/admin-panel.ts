@@ -69,6 +69,7 @@ export interface IGlobalClaim {
     specification?: string;
     claimValueType?: string;
     value?: string;
+    additionalType?: string;
 }
 
 export interface IUserLdap {
@@ -79,6 +80,7 @@ export interface IUserLdap {
     userPrincipalName?: string;
     samAccountName?: string;
     sid: string;
+    department: string;
 }
 
 export interface IUserImported {

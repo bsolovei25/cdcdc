@@ -276,27 +276,22 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
         this.isCreateClaim = true;
     }
 
-    public onCreateSpecialClaim(claim: IGlobalClaim): void {
-        let isClaimExists: boolean = false;
-
-        if (claim) {
-            isClaimExists = !!this.groupSelection.selected[0].claims.find(
-                (item) => item.claimType === claim.claimType && item.value === claim.value
-            );
-        }
-
-        if (claim && !isClaimExists) {
+    public onCreateSpecialClaim(claims: IGlobalClaim[]): void {
+        if (claims) {
             const currentGroup = this.groupSelection.selected[0];
-            currentGroup.claims.push(claim);
-            this.onEditGroup();
-        }
 
-        if (isClaimExists) {
-            this.materialController.openSnackBar(
-                'Такое специальное право уже существует',
-                'snackbar-red'
-            );
-            return;
+            claims.forEach((claim) => {
+                const findClaim: boolean = !!currentGroup.claims.find(
+                    (item) => item.claimType === claim.claimType && item.value === claim.value
+                );
+
+                if (findClaim) {
+                    return;
+                }
+
+                currentGroup.claims.push(claim);
+                this.onEditGroup();
+            });
         }
 
         this.isCreateClaim = false;
