@@ -446,8 +446,8 @@ import { DocumentViewerFullscreenComponent } from './widgets/document-viewer/doc
     OilOperationsLineMenuComponent,
     OilOperationsLineComponent,
     ReportFileSelectBoxComponent,
-    WidgetHeaderSmpComponent
-    DocumentViewerFullscreenComponent
+    WidgetHeaderSmpComponent,
+    DocumentViewerFullscreenComponent,
   ],
   entryComponents: [
     LineChartComponent,

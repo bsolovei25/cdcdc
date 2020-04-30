@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { WidgetService } from '../../services/widget.service';
 
 @Component({
   selector: 'evj-widget-header-smp',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./widget-header-smp.component.scss']
 })
 export class WidgetHeaderSmpComponent implements OnInit {
+    @Input() uniqId: string;
+    constructor(
+        private widgetService: WidgetService
+    ) { }
 
-  constructor() { }
+    ngOnInit(): void { }
 
-  ngOnInit(): void {
-  }
+    public closeWidget(): void {
+        this.widgetService.removeItemService(this.uniqId);
+    }
 
 }
