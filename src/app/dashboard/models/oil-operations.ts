@@ -29,7 +29,8 @@ export interface IOilReceived {
 export interface IOilShipment {
     id: number;
     name: string;
-    value: number;
+    value?: number;
+    type: string;
 }
 
 export interface IRightOilTable {
