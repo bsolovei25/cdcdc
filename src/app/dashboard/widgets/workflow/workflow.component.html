@@ -20,7 +20,7 @@
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
   >
-    <div class="workflow">
+    <div class="workflow" >
       <div class="workflow__choose-scenario">
         <div class="choose-system">
           <div class="choose-system__title">Выбор системы</div>
@@ -93,11 +93,11 @@
         <div class="workflow__action__body">
           <div
             class="workflow__action__body__items"
+            (cdkDropListDropped)="onDrop($event)"
             cdkDropList
             #todoList="cdkDropList"
-            (cdkDropListDropped)="drop($event)"
           >
-            <div class="workflow__action__body__item">
+            <div class="workflow__action__body__item" id="error" draggable="true" #done>
               <svg-icon
                 class="workflow__action__body__item__icon"
                 src="./assets/icons/widgets/workflow/expired.svg"
@@ -106,7 +106,7 @@
               ></svg-icon>
               <span class="workflow__action__body__item__title">Просрочено</span>
             </div>
-            <div class="workflow__action__body__item" cdkDrag #done>
+            <div class="workflow__action__body__item" cdkDrag>
               <svg-icon
                 class="workflow__action__body__item__icon"
                 src="./assets/icons/widgets/workflow/done.svg"
@@ -115,7 +115,12 @@
               ></svg-icon>
               <span class="workflow__action__body__item__title">Выполнено</span>
             </div>
-            <div class="workflow__action__body__item">
+            <div
+              class="workflow__action__body__item"
+              id="draggableSpan"
+              draggable="true"
+              (dragstart)="onDragStart($event)"
+            >
               <svg-icon
                 class="workflow__action__body__item__icon"
                 src="./assets/icons/widgets/workflow/warning_bell.svg"
@@ -135,7 +140,7 @@
                 >Отправить сообщение ответственному</span
               >
             </div>
-            <div class="workflow__action__body__item">
+            <div (dragover)="drop($event)" draggable="true" #dragger class="workflow__action__body__item">
               <svg-icon
                 class="workflow__action__body__item__icon"
                 src="./assets/icons/widgets/workflow/users_w.svg"
@@ -155,12 +160,13 @@
           <div
             class="workflow__scenario__body__top"
             #splitTop
-            (cdkDropListDropped)="drop($event)"
-          >
-            <div>fsdfsdfdsfsd</div>
-          </div>
+            (cdkDropListDropped)="onDrop($event)"
+            cdkDropList
+          ></div>
           <div class="workflow__scenario__body__bar" #splitBar></div>
-          <div class="workflow__scenario__body__bottom">dddddddddddddddd</div>
+          <div class="workflow__scenario__body__bottom" #dropped (dragover)="drop($event)">
+            dddddddddddddddd
+          </div>
         </div>
       </div>
     </div>

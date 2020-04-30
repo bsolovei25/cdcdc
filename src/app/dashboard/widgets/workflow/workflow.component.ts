@@ -13,25 +13,28 @@ export class WorkflowComponent extends WidgetPlatform implements
 
     item = 'Таблицы';
 
-    todo = [
-        'Get to work',
-        'Pick up groceries',
-        'Go home',
-        'Fall asleep'
+    items = [
+        'Carrots',
+        'Tomatoes',
+        'Onions',
+        'Apples',
+        'Avocados'
     ];
 
-    done = [
-        'Get up',
-        'Brush teeth',
-        'Take a shower',
-        'Check e-mail',
-        'Walk dog'
+    basket = [
+        'Oranges',
+        'Bananas',
+        'Cucumbers'
     ];
 
     @ViewChild('splitBar') splitBar: ElementRef<HTMLElement>;
     @ViewChild('splitTop') splitTop: ElementRef<HTMLElement>;
 
+    @ViewChild('dragger') dragger: ElementRef<HTMLElement>;
+    @ViewChild('dropped') dropped: ElementRef<HTMLElement>;
+
     @ViewChild('done') doneEl: ElementRef<HTMLElement>;
+
 
     @ViewChild('containerWorkflow') containerWorkflow: ElementRef<HTMLElement>;
 
@@ -51,13 +54,28 @@ export class WorkflowComponent extends WidgetPlatform implements
 
     ngAfterViewInit(): void {
 
-        this.doneEl.nativeElement.addEventListener('start', (e) => {
+        this.doneEl.nativeElement.addEventListener('dragstart', (e) => {
+            console.log(e);
+        });
+        this.doneEl.nativeElement.addEventListener('dragstart', (e) => {
             console.log(e);
         });
 
-        this.splitTop.nativeElement.addEventListener('dragover', (e) => {
+        this.splitTop.nativeElement.addEventListener('drop', (e) => {
             console.log(e);
         });
+
+        this.dragger.nativeElement.addEventListener('dragstart', (ev) => {
+            console.log('dragstart');
+          
+        });
+        this.dropped.nativeElement.addEventListener('dragleave', (e) => {
+            // console.log(e);
+
+            // console.log('drop');
+        });
+
+        document.addEventListener('drop', this.dragend);
 
 
         let mouseIsDown = false;
@@ -89,7 +107,13 @@ export class WorkflowComponent extends WidgetPlatform implements
         document.addEventListener('mouseup', () => {
             mouseIsDown = false;
         });
+
+        this.dragGs();
     }
+    dragend() {
+        console.log('dropit');
+
+    };
 
     ngOnDestroy(): void {
         super.ngOnDestroy();
@@ -101,9 +125,7 @@ export class WorkflowComponent extends WidgetPlatform implements
         }
     }
 
-    chooseSystem(item): void {
-
-    }
+    chooseSystem(item): void { }
 
     drop(event: CdkDragDrop<string[]>): void {
         console.log(event);
@@ -115,6 +137,40 @@ export class WorkflowComponent extends WidgetPlatform implements
         //         event.previousIndex,
         //         event.currentIndex);
         // }
+    }
+
+    onDragOver(event) {
+        event.preventDefault();
+    }
+
+    onDrop(event) {
+        console.log('drop');
+        const svg = this.renderer.createElement('svg-icon');
+        this.renderer.setAttribute(svg, 'svgStyle', 'width: 32px');
+        this.renderer.setAttribute(svg, 'src', './assets/icons/widgets/workflow/expired.svg');
+        this.splitTop.nativeElement.appendChild(svg);
+        console.log();
+
+    }
+
+    onDragStart(event) {
+        console.log('srart');
+
+        event
+            .dataTransfer
+            .setData('text/plain', event.target.id);
+
+        event
+            .currentTarget
+            .style
+            .backgroundColor = 'green';
+    }
+
+
+
+    dragGs() {
+
+
     }
 
 }
