@@ -232,11 +232,12 @@ export class AdminPanelService {
     public getAllLdapUsers(
         login: string,
         skip: number = 0,
-        take: number = 50
+        take: number = 50,
+        lastSid: string = ''
     ): Observable<IUserLdapDto[]> {
         const url: string = `${this.restUrl}/ldap/users`;
         return this.http.get<IUserLdapDto[]>(url, {
-            params: { login, skip: skip.toString(), take: take.toString() },
+            params: { login, skip: skip.toString(), take: take.toString(), lastSid },
         });
     }
 
