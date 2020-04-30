@@ -9,7 +9,7 @@
 
         .file-block {
             height: 70%;
-            background: var(--color-oil-menu);
+            background: var(--color-oil-border);
             border-top-left-radius: 100px;
             border-bottom-left-radius: 100px;
             display: flex;
@@ -38,7 +38,7 @@
         .new-file-block {
             height: 70%;
             display: flex;
-            background: var(--color-oil-menu);
+            background: var(--color-oil-border);
             font-size: 14px;
 
             &__pasport {
@@ -77,7 +77,7 @@
 
                 ::ng-deep {
                     .mat-form-field {
-                        width: calc(100% - 45px);
+                        width: 100px;
                         margin: 0 auto;
                         margin-left: 10px;
                     }
@@ -140,7 +140,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: var(--color-oil-menu);
+            background: var(--color-oil-border);
             border-top-right-radius: 100px;
             border-bottom-right-radius: 100px;
 
