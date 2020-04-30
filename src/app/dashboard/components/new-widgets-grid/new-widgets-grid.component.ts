@@ -276,4 +276,13 @@ export class NewWidgetsGridComponent implements OnInit, OnDestroy {
         this.nameWidget = this.widgetService.getName(idWidget);
         this.userSettings.addCellByPosition(idWidget, this.nameWidget, param);
     }
+
+    // SMP widgets
+    public isSmpHeader(widgetType: string): boolean {
+        switch (widgetType) {
+            case 'cd-critical':
+                return true;
+        }
+        return false;
+    }
 }
