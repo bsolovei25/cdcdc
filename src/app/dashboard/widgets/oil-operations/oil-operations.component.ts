@@ -17,6 +17,9 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
   public isTankFilter: boolean = false;
   public isLineChart: boolean = false;
   public isOpenReceived: boolean = false;
+  public isOpenShipment: boolean = false;
+  public isAdjust: boolean = false;
+  public isFreeShipment: boolean = false;
 
   public data: IOilOperations = {
     tableLeft: [
@@ -79,6 +82,16 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
         id: 2,
         name: 'Отредактировать ёмкости для отгрузки',
         type: 'filter',
+      },
+      {
+        id: 3,
+        name: 'Список паспортов LIMS',
+        type: 'reference',
+      },
+      {
+        id: 4,
+        name: 'Публикации в БЛПС',
+        type: 'reference',
       }
     ],
     shipment: [
@@ -86,6 +99,17 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
         id: 1,
         name: 'Свободные отгрузки',
         value: 2352,
+        type: 'free',
+      },
+      {
+        id: 2,
+        name: 'Привязать отгрузки автоматически',
+        type: 'filter',
+      },
+      {
+        id: 3,
+        name: 'Создать корректировку',
+        type: 'adjust',
       }
     ],
     tableRight: [
@@ -133,6 +157,22 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
     filter: [
       {
         id: 1,
+        name: 'Мазут'
+      },
+      {
+        id: 2,
+        name: 'Мазут'
+      },
+      {
+        id: 3,
+        name: 'Мазут'
+      },
+      {
+        id: 4,
+        name: 'Мазут'
+      },
+      {
+        id: 5,
         name: 'Мазут'
       }
     ],
@@ -196,6 +236,27 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
       this.isLineChart = false;
       this.isTankFilter = true;
     }
+  }
+
+  openItemShipment(event: string): void {
+    this.isOpenShipment = false;
+    if (event === 'adjust') {
+      this.isAdjust = true;
+      this.isFreeShipment = false;
+    } else if (event === 'free') {
+      this.isAdjust = false;
+      this.isFreeShipment = true;
+    }
+  }
+
+  closeAdjust(event: boolean): void {
+    this.isAdjust = event;
+    this.isOpenShipment = true;
+  }
+
+  closeFreeShipment(event: boolean): void {
+    this.isFreeShipment = event;
+    this.isOpenShipment = true;
   }
 
   closeFilterTank(event: boolean): void {

@@ -1,14 +1,12 @@
 .container-line{
     direction: ltr;
-    position: absolute;
-    left: 30px;
-    top: 10%;
-    height: 80%;
-    z-index: 999;
-    width: 55%;
-    box-shadow: 0 0 10px var(--color-oil-popup-shadow);
-    border-radius: 10px;
+    border-radius: 20px;
     display: flex;
+    width: calc(100% - 10px);
+    height: 100%;
+    padding: 10px;
+    padding-bottom: 0;
+    min-width: 390px;
 
     &__menu{
         width: 25%;

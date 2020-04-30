@@ -3,56 +3,63 @@
 
 <ng-container *ngIf="!isMock">
     <div class="container">
-        <evj-widget-header [title]="widgetTitle" [units]="widgetUnits" [code]="widgetCode" [id]="widgetId"
+        <evj-widget-header [title]="widgetTitle" [units]="widgetUnits" [code]="widgetCode" [icon]="widgetIcon" [id]="widgetId"
             [uniqId]="widgetUniqId" [widgetType]="widgetType"></evj-widget-header>
         <evj-frame-top></evj-frame-top>
         <div class="body-container" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
             <div class="block">
-                <div class='left-side'>
-                    <evj-table-grid [scrollLeft]="true" [data]="data.tableLeft" [search]="true" [activeFilter]="isFilter" [filter]="true"
-                        (clickFilter)="openFilter($event)">
-                        <evj-column-grid key="number" name="№" [width]="7"></evj-column-grid>
-                        <evj-column-grid key="rR" name="Р-р" [width]="7"></evj-column-grid>
-                        <evj-column-grid key="product" name="Продукт" [width]="20">
-                        </evj-column-grid>
-                        <evj-column-grid key="pasport" name="Паспорт" [width]="13" [template]="pasport">
-                            <ng-template #pasport let-data="data">
-                                <div class="pasport">
-                                    <div class="pasport__icon">
-                                        <svg-icon src="assets/icons/widgets/oil-control-all/quality-docs-panel/pdf.svg"
-                                        [svgStyle]="{ 'width.px':40, 'height.px':40, 'padding.px': 5 }"></svg-icon>
+                <ng-container *ngIf="!isLineChart">
+                    <div class='left-side'>           
+                        <evj-table-grid [scrollLeft]="true" [data]="data.tableLeft" [search]="true" [activeFilter]="isFilter" [filter]="true"
+                            (clickFilter)="openFilter($event)">
+                            <evj-column-grid key="number" name="№" [width]="7"></evj-column-grid>
+                            <evj-column-grid key="rR" name="Р-р" [width]="7"></evj-column-grid>
+                            <evj-column-grid key="product" name="Продукт" [width]="20">
+                            </evj-column-grid>
+                            <evj-column-grid key="pasport" name="Паспорт" [width]="13" [template]="pasport">
+                                <ng-template #pasport let-data="data">
+                                    <div class="pasport">
+                                        <div class="pasport__icon">
+                                            <svg-icon src="assets/icons/widgets/oil-control-all/quality-docs-panel/pdf.svg"
+                                            [svgStyle]="{ 'width.px':40, 'height.px':40, 'padding.px': 5 }"></svg-icon>
+                                        </div>
+                                        <div class="pasport__name"> {{ data.pasport }} </div>
                                     </div>
-                                    <div class="pasport__name"> {{ data.pasport }} </div>
-                                </div>
-                            </ng-template>
-                        </evj-column-grid>
-                        <evj-column-grid key="dateFrom" name="Дата начала" [width]="13"></evj-column-grid>
-                        <evj-column-grid key="dateTo" name="Дата окончания" [width]="14"></evj-column-grid>
-                        <evj-column-grid key="mass" name="Масса" [width]="7"></evj-column-grid>
-                        <evj-column-grid key="deviation" name="Отклонение" [width]="11"></evj-column-grid>
-                        <evj-column-grid key="status" name="Статус" [width]="6" [template]="status">
-                            <ng-template #status let-data="data">
-                                <div class="status">
-                                    <div class="pasport__icon">
-                                        <svg-icon src="assets/icons/widgets/oil-control-all/oil-operations/libra-red.svg"
-                                        [svgStyle]="{ 'width.px':30, 'height.px':30, 'margin-top.px': 5 }"></svg-icon>
+                                </ng-template>
+                            </evj-column-grid>
+                            <evj-column-grid key="dateFrom" name="Дата начала" [width]="13"></evj-column-grid>
+                            <evj-column-grid key="dateTo" name="Дата окончания" [width]="14"></evj-column-grid>
+                            <evj-column-grid key="mass" name="Масса" [width]="7"></evj-column-grid>
+                            <evj-column-grid key="deviation" name="Отклонение" [width]="11"></evj-column-grid>
+                            <evj-column-grid key="status" name="Статус" [width]="6" [template]="status">
+                                <ng-template #status let-data="data">
+                                    <div class="status">
+                                        <div class="pasport__icon">
+                                            <svg-icon src="assets/icons/widgets/oil-control-all/oil-operations/libra-red.svg"
+                                            [svgStyle]="{ 'width.px':30, 'height.px':30, 'margin-top.px': 5 }"></svg-icon>
+                                        </div>
                                     </div>
-                                </div>
-                            </ng-template>
-                        </evj-column-grid>
-                    </evj-table-grid>
-                </div>
-                <div class='middle-side'>
-                    <div class='middle-side__top'>
-                        <evj-oil-operations-received-operations [data]="data.received" [isOpen]="isOpenReceived" 
-                            (openItem)="openItemReceived($event)">
-                        </evj-oil-operations-received-operations>
+                                </ng-template>
+                            </evj-column-grid>
+                        </evj-table-grid>
                     </div>
-                    <div class='middle-side__bottom'>
-                        <evj-oil-operations-shipment-formation [data]="data.shipment">
-                        </evj-oil-operations-shipment-formation>
+                    <div class='middle-side'>
+                        <div class='middle-side__top'>
+                            <evj-oil-operations-received-operations [data]="data.received" [isOpen]="isOpenReceived" 
+                                (openItem)="openItemReceived($event)">
+                            </evj-oil-operations-received-operations>
+                        </div>
+                        <div class='middle-side__bottom'>
+                            <evj-oil-operations-shipment-formation [data]="data.shipment" [isOpen]="isOpenShipment" (openItem)="openItemShipment($event)">
+                            </evj-oil-operations-shipment-formation>
+                        </div>
                     </div>
-                </div>
+                </ng-container>
+                <ng-container *ngIf="isLineChart">
+                    <div class="line-side">
+                        <evj-oil-operations-line (closeLineChart)="closeLineChart($event)"></evj-oil-operations-line>
+                    </div>
+                </ng-container>        
                 <div class='right-side'>
                     <evj-table-grid [data]="data.tableRight">
                         <evj-column-grid key="direction" name="Направление" [width]="23" [template]="direction">
@@ -97,8 +104,12 @@
                 </evj-oil-operations-tank-filter>
             </div>
 
-            <div *ngIf="isLineChart">
-                <evj-oil-operations-line (closeLineChart)="closeLineChart($event)"></evj-oil-operations-line>
+            <div *ngIf="isAdjust">
+                <evj-oil-operations-adjustment (closeAdjust)="closeAdjust($event)"></evj-oil-operations-adjustment>
+            </div>
+
+            <div *ngIf="isFreeShipment">
+                <evj-oil-operations-free-shipment (closeFree)="closeFreeShipment($event)"></evj-oil-operations-free-shipment>
             </div>
         </div>
         <evj-frame-bottom></evj-frame-bottom>
