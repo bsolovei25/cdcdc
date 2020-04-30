@@ -1,0 +1,28 @@
+<ng-container>
+  <div class="outer">
+    <div class="draggable-place draggable-place__right"></div>
+    <div class="draggable-place draggable-place__left"></div>
+    <div class="close-button close-button__right">
+      <div class="close-button__icon"></div>
+    </div>
+    <div
+      class="close-button close-button__left"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+      (click)="closeWidget()"
+    >
+      <div class="close-button__icon close-button__icon___left"></div>
+    </div>
+    <div
+      class="close-button close-button__right"
+      (mousedown)="$event.stopPropagation()"
+      (touchstart)="$event.stopPropagation()"
+      (click)="closeWidget()"
+    >
+      <div class="close-button__icon close-button__icon___right"></div>
+    </div>
+  </div>
+  <div class="no-visible no-visible__left"></div>
+  <div class="no-visible no-visible__right"></div>
+  <ng-content></ng-content>
+</ng-container>
