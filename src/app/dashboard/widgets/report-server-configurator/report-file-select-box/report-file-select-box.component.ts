@@ -26,7 +26,7 @@ export class ReportFileSelectBoxComponent implements OnInit {
   }
 
   search(event): void {
-    const record = event.currentTarget.value.toLowerCase();
+    const record = event.toLowerCase();
     if (event.key === "Backspace") {
       this.data = this.saveData;
     }
