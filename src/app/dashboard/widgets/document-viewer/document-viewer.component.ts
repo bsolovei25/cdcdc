@@ -29,7 +29,7 @@ export class DocumentViewerComponent extends WidgetPlatform implements OnInit, O
 
     private _scalePercent: number;
     public set scalePercent(value: number) {
-        const max = 1;
+        const max = 2;
         const min = 0.2;
         if (value > max) {
             this._scalePercent = max;
