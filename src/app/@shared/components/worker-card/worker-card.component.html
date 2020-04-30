@@ -37,13 +37,13 @@
         Телефон не указан
       </text>
       <text x="33" y="20" text-anchor="start" class="svg__txt">
-        {{person.email}}
+        {{wrapLongString(person.email)}}
       </text>
       <text x="33" y="32" text-anchor="start" class="svg__txt">
-        {{getPersonUnit()}}
+        {{wrapLongString(getPersonUnit())}}
       </text>
       <text x="33" y="43" text-anchor="start" class="svg__txt">
-        {{getPersonBrigade()}}
+        {{wrapLongString(getPersonBrigade())}}
       </text>
       <image
         x="-35"
@@ -82,7 +82,7 @@
         class="svg__txt-small"
         [ngClass]="{'svg__txt-small-active':isActiveCard}"
       >
-        {{getPersonName()}}
+        {{wrapLongString(getPersonName())}}
       </text>
       <text
         x="65"
@@ -91,7 +91,7 @@
         class="svg__txt-small"
         [ngClass]="{'svg__txt-small-active':isActiveCard}"
       >
-        {{getPersonPosition()}}
+        {{wrapLongString(getPersonPosition())}}
       </text>
       <image
         x="-40"

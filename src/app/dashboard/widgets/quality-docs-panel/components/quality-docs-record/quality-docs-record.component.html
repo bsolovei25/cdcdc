@@ -5,7 +5,7 @@
     <div class="middle pasport">
       <div class="pasport__icon">
         <svg-icon src="assets/icons/widgets/oil-control-all/quality-docs-panel/pdf.svg"
-          [svgStyle]="{ 'width.px':40, 'height.px':40, 'margin-top.px': 5 }"></svg-icon>
+          [svgStyle]="{ 'width.px':30, 'height.px':40, 'margin-top.px': 5 }"></svg-icon>
       </div>
       <div class="pasport__name">
         {{ data.pasportId }}
@@ -24,10 +24,10 @@
     <div class="middle">{{ data.arm }}</div>
     <div class="key" id="tooltipDocsRecord{{data.id}}" (click)="blocked()" [class.key-blocked]="data.blocked">
       <svg-icon *ngIf="!data.blocked" src="assets/icons/widgets/oil-control-all/quality-docs-panel/key-open.svg"
-        [svgStyle]="{ 'width.px':20, 'height.px':20, 'margin-top.px': 5 }">
+        [svgStyle]="{ 'width.px':15, 'height.px':15, 'margin-top.px': 5 }">
       </svg-icon>
       <svg-icon *ngIf="data.blocked" src="assets/icons/widgets/oil-control-all/quality-docs-panel/key-close.svg"
-      [svgStyle]="{ 'width.px':20, 'height.px':20, 'margin-top.px': 5 }">
+      [svgStyle]="{ 'width.px':15, 'height.px':15, 'margin-top.px': 5 }">
     </svg-icon>
     </div>
   </div>

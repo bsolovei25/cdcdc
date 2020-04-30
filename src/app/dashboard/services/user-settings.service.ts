@@ -8,7 +8,8 @@ import { filter, catchError } from 'rxjs/operators';
 import { IParamWidgetsGrid } from '../components/new-widgets-grid/new-widgets-grid.component';
 import { WidgetService } from './widget.service';
 import { ClaimService } from './claim.service';
-import { GridsterItem } from 'angular-gridster2';
+import { GridsterItem, GridsterItemComponentInterface } from 'angular-gridster2';
+import { SnackBarService } from './snack-bar.service';
 
 @Injectable({
     providedIn: 'root',
@@ -30,16 +31,16 @@ export class UserSettingsService {
         private http: HttpClient,
         private claimService: ClaimService,
         private configService: AppConfigService,
+        private snackBar: SnackBarService,
     ) {
         this.restUrl = configService.restUrl;
         localStorage.getItem('screen');
     }
 
-    // TODO WTF?! - function ??? var ??? - answer: copypast google
     public create_UUID(): string {
-        var dt = new Date().getTime();
-        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            var r = (dt + Math.random() * 16) % 16 | 0;
+        let dt = new Date().getTime();
+        const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+            const r = (dt + Math.random() * 16) % 16 | 0;
             dt = Math.floor(dt / 16);
             return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16);
         });
@@ -75,7 +76,7 @@ export class UserSettingsService {
         this.http
             .post(this.restUrl + '/api/user-management/widget/' + this.ScreenId, updateWidget)
             .subscribe(
-                (ans) => {},
+                (ans) => { },
                 (error) => console.log(error)
             );
     }
@@ -101,7 +102,7 @@ export class UserSettingsService {
         this.http
             .put(this.restUrl + '/api/user-management/widget/' + uniqId, updateWidget)
             .subscribe(
-                (ans) => {},
+                (ans) => { },
                 (error) => console.log(error)
             );
     }
@@ -192,7 +193,7 @@ export class UserSettingsService {
             widgets: null,
         };
         return this.http.post(this.restUrl + '/api/user-management/screen', userScreen).subscribe(
-            (data: {id: number, name: string }) => {
+            (data: { id: number, name: string }) => {
                 console.log('screen id');
                 console.log(data);
                 this.ScreenId = data?.id ?? this.ScreenId;
@@ -202,13 +203,13 @@ export class UserSettingsService {
         );
     }
 
-    public deleteScreen(id: string): Subscription {
+    public deleteScreen(id: number): Subscription {
         return this.http.delete(this.restUrl + '/api/user-management/screen/' + id).subscribe(
             (ans) => {
                 if (this.ScreenId === Number(id)) {
                     this.ScreenId = undefined;
                 }
-
+                this.snackBar.openSnackBar('Экран успешно удален');
                 this.GetScreens();
             },
             (error) => console.log(error)
@@ -227,6 +228,7 @@ export class UserSettingsService {
             .put(this.restUrl + '/api/user-management/screen/' + id, userScreen)
             .subscribe(
                 (ans) => {
+                    this.snackBar.openSnackBar('Экран успешно изменен');
                     this.GetScreens();
                 },
                 (error) => console.log(error)

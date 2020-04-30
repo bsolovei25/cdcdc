@@ -35,13 +35,21 @@ export class AdminAdImportComponent implements OnInit, OnDestroy {
         this.subscriptions.forEach((subs) => subs.unsubscribe());
     }
 
-    private getLdapWorkersList(searchLogin: string, skip: number = 0, take: number = 50): void {
+    private getLdapWorkersList(
+        searchLogin: string,
+        skip: number = 0,
+        take: number = 50,
+        lastSid: string = ''
+    ): void {
         this.isDataLoading = true;
         this.subscriptions.push(
-            this.adminService.getAllLdapUsers(searchLogin, skip, take).subscribe(
+            this.adminService.getAllLdapUsers(searchLogin, skip, take, lastSid).subscribe(
                 (data) => {
                     if (skip) {
                         if (data.length) {
+                            // TOFIX
+                            // заменить проверку на последнего пользователя на фронте на
+                            // this.workersLdap = this.workersLdap.concat(data);
                             const filteredData = data.filter(
                                 (dataItem) =>
                                     !this.workersLdap.find(
@@ -90,7 +98,8 @@ export class AdminAdImportComponent implements OnInit, OnDestroy {
     public onScroll(event: Event): void {
         const element: HTMLElement = event.target as HTMLElement;
         if (element.offsetHeight + element.scrollTop >= element.scrollHeight) {
-            this.getLdapWorkersList(this.searchedWorker, this.workersLdap.length, 50);
+            const lastSid: string = this.workersLdap.slice(-1)[0].user.sid;
+            this.getLdapWorkersList(this.searchedWorker, this.workersLdap.length, 50, lastSid);
         }
     }
 

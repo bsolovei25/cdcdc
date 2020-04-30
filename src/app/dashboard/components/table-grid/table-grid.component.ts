@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ContentChildren, QueryList, HostListener, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, ContentChildren, QueryList, HostListener, ViewChild, ElementRef, AfterViewInit, TemplateRef, EventEmitter, Output } from '@angular/core';
 import { ColumnGridComponent } from './components/column-grid/column-grid.component';
 
 @Component({
@@ -10,18 +10,25 @@ export class TableGridComponent implements OnInit, AfterViewInit {
   @ViewChild('table') public table: ElementRef;
   @ContentChildren(ColumnGridComponent) columns: QueryList<ColumnGridComponent>;
   @Input() data: any;
-  @Input() scrollSide: string; // side scroll for contant
+  @Input() scrollLeft: boolean; // side scroll for contant
   @Input() search: boolean; // search-input in footer
   @Input() filter: boolean; // filter-button in footer
   @Input() addButton: boolean; // add-button in footer
   @Input() itemFixed: boolean; // Do active item
+  @Input() saveButton: boolean; //Save button in footer
+  @Input() templateFooter: TemplateRef<any>; // Template footer
+  @Input() deleteButton: boolean; // in progress...
+  @Input() activeFilter: boolean;
+
+  @Output() clickSave: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() clickFilter: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() item: EventEmitter<any> = new EventEmitter<any>();
+  @Output() deleteItem: EventEmitter<any> = new EventEmitter<any>(); //in progress...
 
   objectKeys = Object.keys;
 
-  public isInput: boolean = false;
-  public isFilter: boolean = false;
-
   public activeItemId: number;
+  public dataSave: any;
 
   constructor() { }
 
@@ -30,6 +37,7 @@ export class TableGridComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    this.dataSave = this.data;
     this.setStyleScroll();
   }
 
@@ -42,7 +50,7 @@ export class TableGridComponent implements OnInit, AfterViewInit {
     const scroll = this.table.nativeElement;
     if (scroll) {
       if (scroll.scrollHeight !== scroll.clientHeight) {
-        if (this.scrollSide === 'left') {
+        if (this.scrollLeft) {
           scroll.classList.remove('scrollLeftON');
           scroll.classList.add('scrollLeftOFF');
         } else {
@@ -50,7 +58,7 @@ export class TableGridComponent implements OnInit, AfterViewInit {
           scroll.classList.add('scrollRightOFF');
         }
       } else {
-        if (this.scrollSide === 'left') {
+        if (this.scrollLeft) {
           scroll.classList.remove('scrollLeftON');
           scroll.classList.add('scrollLeftOFF');
         } else {
@@ -61,20 +69,43 @@ export class TableGridComponent implements OnInit, AfterViewInit {
     }
   }
 
-  columnsById(item): string {
-    return item.id;
+  columnsByKey(item): string {
+    return item.key;
   }
 
-  searchRecord(event): void {
-
+  searchRecord(event: any): void {
+    if (event.key === 'Backspace') {
+      this.data = this.dataSave;
+    }
+    const record = event.currentTarget.value.toLowerCase();
+    const filterData = this.data.filter(
+      (e) => {
+        for (const key of this.objectKeys(e)) {
+          if (e[key].toString().toLowerCase().indexOf(record.toLowerCase()) > -1) {
+            return true;
+          }
+        }
+      }
+    );
+    this.data = filterData;
+    if (!event.currentTarget.value) {
+      this.data = this.dataSave;
+    }
   }
 
-  openFilter(): void {
-    this.isFilter = !this.isFilter;
+  save(event: boolean): void {
+    this.clickSave.emit(event);
   }
 
-  activeItem(id: number): void {
-    this.activeItemId = id;
+  openFilter(event: boolean): void {
+    this.clickFilter.emit(event);
+  }
+
+  activeItem(item: any): void {
+    if (this.itemFixed) {
+      this.activeItemId = item.id;
+      this.item.emit(item);
+    }
   }
 
 }

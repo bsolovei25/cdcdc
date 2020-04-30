@@ -90,6 +90,7 @@
     //margin: auto;
     //display: flex;
     padding-top: 15px;
+    padding-bottom: 15px;
     ::ng-deep {
       & .mat-form-field-appearance-legacy {
         & .mat-form-field-underline {
@@ -187,9 +188,9 @@
 .delete_screen2 {
   display: inline-block;
   z-index: 999;
-  padding-left: 5px;
+  padding-left: 10px;
   padding-right: 10px;
-  width: 20px;
+  width: 11px;
   fill: white;
 }
 .update_screen {

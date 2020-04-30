@@ -84,11 +84,11 @@ export class LineChartTrackComponent implements OnChanges, AfterViewInit {
         this.svg = d3Selection.select(this.chart.nativeElement).append('svg');
 
         this.graphMaxX = +d3Selection
-            .select('div.line-chart-track')
+            .select(this.chart.nativeElement)
             .style('width')
             .slice(0, -2);
         this.graphMaxY = +d3Selection
-            .select('div.line-chart-track')
+            .select(this.chart.nativeElement)
             .style('height')
             .slice(0, -2);
 

@@ -40,27 +40,43 @@ export class ReasonsDeviationsPicTankComponent implements OnInit, AfterViewInit 
     const tug = './assets/pic/Icons3D/Tug.png';
     const tube = './assets/pic/Icons3D/Tube.png';
     const cis = './assets/pic/Icons3D/Cistern.png';
+    const work = './assets/pic/Icons3D/work.svg';
 
     const pictureContainer = this.tankersPicture
       .append('image')
       .attr('xlink:href', './assets/icons/widgets/oil-control-all/reasons-deviations/background-pic.svg')
-      .attr('height', '130px')
-      .attr('width', '105px')
+      .attr('height', '110px')
+      .attr('width', '95px')
       .attr('class', 'textProduct')
       .attr('x', x1 + y)
-      .attr('y', '20');
+      .attr('y', '15');
 
-    const pictureIcon = this.tankersPicture
-      .append('image')
-      .attr(
-        'xlink:href',
-        this.data.type === 'Tug' ? tug : this.data.type === 'Tube' ? tube : cis
-      )
-      .attr('height', '70px')
-      .attr('width', '70px')
-      .attr('class', 'textProduct')
-      .attr('x', '25')
-      .attr('y', '50');
+    if (this.data.type === 'Work') {
+      const pictureWork = this.tankersPicture
+        .append('image')
+        .attr(
+          'xlink:href',
+          work
+        )
+        .attr('height', '25px')
+        .attr('width', '60px')
+        .attr('class', 'textProduct')
+        .attr('x', '27')
+        .attr('y', '57');
+    } else {
+      const pictureIcon = this.tankersPicture
+        .append('image')
+        .attr(
+          'xlink:href',
+          this.data.type === 'Tug' ? tug : this.data.type === 'Tube' ? tube : cis
+        )
+        .attr('height', '50px')
+        .attr('width', '50px')
+        .attr('class', 'textProduct')
+        .attr('x', '33')
+        .attr('y', '42');
+    }
+
 
     const planText1 = this.tankersPicture
       .append('text')

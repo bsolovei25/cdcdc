@@ -10,7 +10,7 @@
             <div *ngFor="let item of data" class="record-table" (click)="activeRecord(item.id)" [class.active]="activeRecordId === item.id">
                 <div class="short">{{ item.sap }}</div>
                 <div class="big">{{ item.product }}</div>
-                <div class="middle">{{ item.gost }}</div>
+                <div class="middle gost">{{ item.gost }}</div>
                 <div class="short">{{ item.codeOKPD }}</div>
             </div>
         </div>
@@ -23,7 +23,7 @@
                     <svg-icon *ngIf="!isFilterGroup" src="./assets/icons/widgets/oil-control-all/document-coding/filter.svg"></svg-icon>
                 </div>
                 <div class="edit-button__text">
-                    <div class="name">Все группы</div>
+                    <div class="name">Лаборатория</div>
                     <div class="icon">
                         <svg-icon src="./assets/icons/widgets/oil-control-all/document-coding/arrow.svg"></svg-icon>
                     </div>
@@ -35,7 +35,7 @@
                     <svg-icon *ngIf="!isFilterProduct" src="./assets/icons/widgets/oil-control-all/document-coding/filter.svg"></svg-icon>
                 </div>
                 <div class="filter-button__text">
-                    <div class="name">Все продукты</div>
+                    <div class="name">Продукты</div>
                     <div class="icon">
                         <svg-icon src="./assets/icons/widgets/oil-control-all/document-coding/arrow.svg"></svg-icon>
                     </div>

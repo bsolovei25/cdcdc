@@ -1,0 +1,23 @@
+<ng-container *ngIf="chartType==='production-trend'">
+  <div
+    class="graph"
+    #chart
+    evjLineChartPicker
+    [graphMaxX]="graphMaxX"
+    [graphMaxY]="graphMaxY"
+    [padding]="padding"
+    [scaleFuncs]="scaleFuncs"
+  ></div>
+</ng-container>
+<ng-container *ngIf="chartType==='reasons-deviations'">
+  <div
+    class="graph"
+    #chart
+    evjLineChartTanks
+    [points]="points"
+    [graphMaxX]="graphMaxX"
+    [graphMaxY]="graphMaxY"
+    [padding]="padding"
+    [scaleFuncs]="scaleFuncs"
+  ></div>
+</ng-container>

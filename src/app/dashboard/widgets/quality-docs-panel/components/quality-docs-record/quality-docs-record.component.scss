@@ -10,7 +10,7 @@
     height: auto;
     text-align: center;
     align-items: center;
-    font-size: 10px;
+    font-size: 12px;
     cursor: pointer;
     .short {
       width: 6%;
@@ -37,6 +37,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      margin-left: -7px;
 
       svg-icon {
         display: none;
@@ -93,7 +94,7 @@
 
     [data-tooltip]:hover::after {
       opacity: 1;
-      left: -11.5em;
+      left: -10em;
     }
   }
 

@@ -67,6 +67,7 @@ export interface ISystemOptionsTemplate {
     templateSystemOption: ISystemOptions;
     templateSystemOptionId?: number;
     value?: string;
+    isSelectBoxType?: boolean;
 }
 
 export interface ICustomOptionsTemplate {

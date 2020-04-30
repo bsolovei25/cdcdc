@@ -1,0 +1,16 @@
+:host {
+  width: inherit;
+  height: inherit;
+  user-select: none;
+}
+
+.graph {
+  width: 100%;
+  height: 100%;
+
+  * {
+    fill: none;
+    stroke: var(--color-text-sub);
+    stroke-width: 2px;
+  }
+}

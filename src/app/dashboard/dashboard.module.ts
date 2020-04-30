@@ -227,6 +227,22 @@ import { DocumentCodingFilterComponent } from './widgets/document-coding/compone
 import { TableGridComponent } from './components/table-grid/table-grid.component';
 import { ColumnGridComponent } from './components/table-grid/components/column-grid/column-grid.component';
 import { OilOperationsComponent } from './widgets/oil-operations/oil-operations.component';
+import { TableGridInputComponent } from './components/table-grid/components/table-grid-input/table-grid-input.component';
+import { TableGridFilterComponent } from './components/table-grid/components/table-grid-filter/table-grid-filter.component';
+import { TableGridSaveButtonComponent } from './components/table-grid/components/table-grid-save-button/table-grid-save-button.component';
+import { OilOperationsReceivedOperationsComponent } from './widgets/oil-operations/components/oil-operations-received-operations/oil-operations-received-operations.component';
+import { OilOperationsShipmentFormationComponent } from './widgets/oil-operations/components/oil-operations-shipment-formation/oil-operations-shipment-formation.component';
+import { OilOperationsFilterComponent } from './widgets/oil-operations/components/oil-operations-filter/oil-operations-filter.component';
+import { OilOperationsTankFilterComponent } from './widgets/oil-operations/components/oil-operations-tank-filter/oil-operations-tank-filter.component';
+import { OilOperationsLineChartComponent } from './widgets/oil-operations/components/oil-operations-line-chart/oil-operations-line-chart.component';
+import { OilOperationsLineMenuComponent } from './widgets/oil-operations/components/oil-operations-line-menu/oil-operations-line-menu.component';
+import { OilOperationsLineComponent } from './widgets/oil-operations/components/oil-operations-line/oil-operations-line.component';
+import { ReportFileSelectBoxComponent } from './widgets/report-server-configurator/report-file-select-box/report-file-select-box.component';
+import { WidgetHeaderSmpComponent } from './components/widget-header-smp/widget-header-smp.component';
+import { OilOperationsAdjustmentComponent } from './widgets/oil-operations/components/oil-operations-adjustment/oil-operations-adjustment.component';
+import { OilOperationsFreeShipmentComponent } from './widgets/oil-operations/components/oil-operations-free-shipment/oil-operations-free-shipment.component';
+import { DocumentViewerFullscreenComponent } from './widgets/document-viewer/document-viewer-fullscreen/document-viewer-fullscreen.component';
+import { CdCriticalComponent } from './widgets/cd-critical/cd-critical.component';
 
 @NgModule({
   declarations: [
@@ -421,7 +437,24 @@ import { OilOperationsComponent } from './widgets/oil-operations/oil-operations.
     DocumentCodingFilterComponent,
     TableGridComponent,
     ColumnGridComponent,
-    OilOperationsComponent
+    OilOperationsComponent,
+    TableGridInputComponent,
+    TableGridFilterComponent,
+    TableGridSaveButtonComponent,
+    OilOperationsReceivedOperationsComponent,
+    OilOperationsShipmentFormationComponent,
+    OilOperationsFilterComponent,
+    OilOperationsTankFilterComponent,
+    OilOperationsLineChartComponent,
+    OilOperationsLineMenuComponent,
+    OilOperationsLineComponent,
+    ReportFileSelectBoxComponent,
+    WidgetHeaderSmpComponent,
+    DocumentViewerFullscreenComponent,
+    OilOperationsAdjustmentComponent,
+    OilOperationsFreeShipmentComponent,
+    DocumentViewerFullscreenComponent,
+    CdCriticalComponent,
   ],
   entryComponents: [
     LineChartComponent,

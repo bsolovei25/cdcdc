@@ -32,7 +32,7 @@ export class DocumentsScansReportComponent implements OnInit {
       acceptText: 'Да',
       cancelText: 'Нет',
       acceptFunction: () => this.deleteItem.emit(this.data.id),
-      cancelFunction: () => {
+      closeFunction: () => {
         this.oilDocumentService.closeAlert();
       }
     };

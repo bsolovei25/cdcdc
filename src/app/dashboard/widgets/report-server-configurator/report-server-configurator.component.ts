@@ -59,6 +59,8 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     public isLongBlock: boolean = true;
 
+    public isSelectBox: boolean = false;
+
     public indexColumn: number = 0;
 
     public isOpenCheckBlock: boolean = false;
@@ -92,7 +94,10 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     public popupUserOptions: boolean = false;
     public popupUserCustomOptions: boolean = false;
-    public popupOptionsActive: string;
+    public popupOptionsActive: ISystemOptionsTemplate;
+
+    systemOptionType: string[] = ['textBox', 'dateTime', 'comboBox', 'checkBox'];
+    systemOptionBoolean: string[] = ['true', 'false'];
 
     state: ITreeState = {
         expandedNodeIds: {
@@ -274,7 +279,8 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
                     this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
                     this.isLoading = false;
                 }),
-            cancelFunction: () => this.reportService.closeAlert(),
+            closeFunction: () => this.reportService.closeAlert(),
+            cancelFunction: () => {},
         };
         this.reportService.alertWindow$.next(windowsParam);
     }
@@ -294,10 +300,11 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
                 this.isLoading = false;
                 this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
             }),
-            cancelFunction: () => {
+            closeFunction: () => {
                 this.reportService.closeAlert();
                 this.isLoading = false;
-            }
+            },
+            cancelFunction: () => {},
         };
         this.reportService.alertWindow$.next(windowsParam);
     }
@@ -402,11 +409,12 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
                 item.openEdit = false;
                 this.newRecord = null;
             },
-            cancelFunction: () => {
+            closeFunction: () => {
                 this.reportService.closeAlert();
                 item.openEdit = false;
                 this.newRecord = null;
-            }
+            },
+            cancelFunction: () => {},
         };
         this.reportService.alertWindow$.next(windowsParam);
     }
@@ -427,11 +435,12 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
                 item.openEdit = false;
                 this.newRecord = null;
             },
-            cancelFunction: () => {
+            closeFunction: () => {
                 this.reportService.closeAlert();
                 item.openEdit = false;
                 this.newRecord = null;
-            }
+            },
+            cancelFunction: () => {},
         };
         this.reportService.alertWindow$.next(windowsParam);
     }
@@ -463,13 +472,43 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
 
     //OnClick Template system-options
 
-    onClickParamReference(item): void {
+    onClickParamReference(item: ISystemOptionsTemplate): void {
         if (item.templateSystemOption.
             systemOptionType === 'customOptions') {
             this.popupUserCustomOptions = true;
+        } else {
+            this.switchSystemOptions(item);
         }
-        this.popupOptionsActive = item;
-        this.popupUserOptions = true;
+    }
+
+    switchSystemOptions(item: ISystemOptionsTemplate): void {
+        switch (item.templateSystemOption.systemOptionType) {
+            case 'autogenerate':
+                this.popupOptionsActive = item;
+                this.popupUserOptions = true;
+                break;
+            case 'pathEdit':
+                this.popupOptionsActive = item;
+                this.popupUserOptions = true;
+                break;
+            case 'macroEdit':
+                this.popupOptionsActive = item;
+                this.popupUserOptions = true;
+                break;
+            case 'reportSheets':
+                this.popupOptionsActive = item;
+                this.popupUserOptions = true;
+                break;
+            case 'parameterValuesAutogeneration':
+                this.popupOptionsActive = item;
+                this.popupUserOptions = true;
+                break;
+            case 'periodEdit':
+                this.popupOptionsActive = item;
+                this.popupUserOptions = true;
+                break;
+            default: break;
+        }
     }
 
     onShowItem(item): void {
@@ -496,6 +535,10 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             const index = this.optionsActive.findIndex(e => e.templateSystemOption.id === item.id);
             this.optionsActive.splice(index, 1);
         }
+    }
+
+    changeSwapSystemOptions(item: any): void {
+        (item.value === 'true') ? item.value = 'false' : item.value = 'true';
     }
 
     //PUSH INPUT FOR FOLDER/TEMPLATE
@@ -590,7 +633,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             questionText: 'Применить внесенные изменения?',
             acceptText: 'Да',
             cancelText: 'Нет',
-            acceptFunction: () =>  this.reportService.postSystemOptions(itemId, obj).subscribe((ans) => {
+            acceptFunction: () => this.reportService.postSystemOptions(itemId, obj).subscribe((ans) => {
                 this.materialController.openSnackBar(
                     'Файл-шаблон сохранен'
                 );
@@ -600,9 +643,10 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
                     'Выберите файл'
                 );
             }),
-            cancelFunction: () => {
+            closeFunction: () => {
                 this.reportService.closeAlert();
-            }
+            },
+            cancelFunction: () => {},
         };
         this.reportService.alertWindow$.next(windowsParam);
     }
@@ -615,9 +659,9 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         this.popupUserOptions = false;
     }
 
-    onChangeFile(event): void {
-        this.selectFile = this.dataFile.find(e => e.fileId === event);
-    }
+    // onChangeFile(event): void {
+    //     this.selectFile = this.dataFile.find(e => e.fileId === event);
+    // }
 
     randomInt(min, max): void {
         return min + Math.floor((max - min) * Math.random());
@@ -681,6 +725,19 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         if (event) {
             this.getRecordFile();
         }
+    }
+
+    openSelectBox(): void {
+        this.isSelectBox = true;
+    }
+
+    selectBoxFile(event): void {
+        this.isSelectBox = false;
+        this.selectFile = this.dataFile.find(e => e.fileId === event.fileId);
+    }
+
+    closeSelectBox(): void {
+        this.isSelectBox = false;
     }
 
 }

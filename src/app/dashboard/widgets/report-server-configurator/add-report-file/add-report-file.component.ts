@@ -14,6 +14,8 @@ export class AddReportFileComponent implements OnInit {
 
   @Output() public fileUpload: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+  extension: string[] = ['.xls', '.xlsx', '.xls'];
+
   public data: any;
   public dataTemplate;
   public saveData;
@@ -26,7 +28,6 @@ export class AddReportFileComponent implements OnInit {
   public isOpenCheckBlock: boolean = false;
   public isUploadBlock: boolean = false;
 
-  public fileLoad: boolean = false;
   public fileName: string;
 
   public isRepInput: boolean = false;
@@ -39,7 +40,7 @@ export class AddReportFileComponent implements OnInit {
     private _renderer: Renderer2,
     public reportService: ReportServerConfiguratorService,
     public snackBar: SnackBarService
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.getRecord();
@@ -77,38 +78,25 @@ export class AddReportFileComponent implements OnInit {
     this.isUploadBlock = true;
   }
 
-  handleFileInput(event): void {
-    let file = event[0];
-    const type_file = file.name.split('.').pop();
-    if (type_file === "xls" || type_file === "xlsm" || type_file === "xlsx") {
-      let reader = new FileReader();
-      reader.readAsBinaryString(file);
-      this.reportService.pushReportFile(file).subscribe(ans => {
-        this.fileLoad = true;
-        this.fileName = event[0].name;
-        const body: IFileTemplate = {
-          name: this.fileName,
-          description: '',
-          fileId: ans,
-        };
-        this.reportService.postReportFileTemplate(body).subscribe(ans2 => {
-          this.getRecord();
-          this.fileUpload.emit(true);
-          setTimeout(() => {
-            this.isUploadBlock = false;
-            this.fileLoad = false;
-          }, 1500);
-        }, (error) => {
-          this.fileLoad = false;
-          this.snackBar.openSnackBar('Ошибка загрузки', 'snackbar-red');
-        });
-      },
-        (error) => {
-          this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
-        });
-    } else {
-      this.snackBar.openSnackBar('Не верный формат файла', 'snackbar-red');
-    }
+  uploadFile(event): void {
+    this.reportService.pushReportFile(event).subscribe(ans => {
+      this.fileName = event.name;
+      const body: IFileTemplate = {
+        name: this.fileName,
+        description: '',
+        fileId: ans,
+      };
+      this.reportService.postReportFileTemplate(body).subscribe(ans2 => {
+        this.isUploadBlock = false;
+        this.getRecord();
+        this.fileUpload.emit(true);
+      }, (error) => {
+        this.snackBar.openSnackBar('Ошибка загрузки', 'snackbar-red');
+      });
+    },
+      (error) => {
+        this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
+      });
   }
 
   uploadClose(): void {
@@ -159,7 +147,7 @@ export class AddReportFileComponent implements OnInit {
         (error) => {
           this.snackBar.openSnackBar('Сервер не отвечает', 'snackbar-red');
         }),
-      cancelFunction: () => {
+      closeFunction: () => {
         this.reportService.closeAlert();
       }
     };
@@ -203,7 +191,7 @@ export class AddReportFileComponent implements OnInit {
         item.name = this.newName;
         this.newName = null;
       },
-      cancelFunction: () => {
+      closeFunction: () => {
         this.reportService.closeAlert();
         this.newName = null;
       }
@@ -236,23 +224,6 @@ export class AddReportFileComponent implements OnInit {
     if (!event.currentTarget.value) {
       this.data = this.saveData;
     }
-  }
-
-  dragOver(event: DragEvent): void {
-    event.stopPropagation();
-    event.preventDefault();
-    this._renderer.addClass(this.area.nativeElement, 'hover');
-  }
-
-  dragLeave(event: DragEvent): void {
-    event.preventDefault();
-    this._renderer.removeClass(this.area.nativeElement, 'hover');
-  }
-
-  dropFile(event: DragEvent): void {
-    event.preventDefault();
-    this._renderer.removeClass(this.area.nativeElement, 'hover');
-    this.handleFileInput(event.dataTransfer.files);
   }
 
   blockNeed(): void {

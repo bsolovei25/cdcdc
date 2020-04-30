@@ -71,7 +71,7 @@ export class PetroleumUnityComponent implements OnInit, AfterViewInit, OnDestroy
             acceptText: 'Да',
             cancelText: 'Отменить',
             acceptFunction: () => this.petroleumService.deleteTransfer(param1),
-            cancelFunction: () => this.petroleumService.closeAlert(),
+            closeFunction: () => this.petroleumService.closeAlert(),
         };
         this.petroleumService.alertWindow$.next(windowsParam);
     }
@@ -85,7 +85,7 @@ export class PetroleumUnityComponent implements OnInit, AfterViewInit, OnDestroy
             acceptText: 'Да',
             cancelText: 'Отменить',
             acceptFunction: () => this.petroleumService.saveTransfer(),
-            cancelFunction: () => this.petroleumService.closeAlert(),
+            closeFunction: () => this.petroleumService.closeAlert(),
         };
         this.petroleumService.alertWindow$.next(windowsParam);
     }
@@ -105,7 +105,7 @@ export class PetroleumUnityComponent implements OnInit, AfterViewInit, OnDestroy
             acceptText: 'Да',
             cancelText: 'Отменить',
             acceptFunction: () => this.petroleumService.createTransfer(),
-            cancelFunction: () => this.petroleumService.closeAlert(),
+            closeFunction: () => this.petroleumService.closeAlert(),
         };
         this.petroleumService.alertWindow$.next(windowsParam);
     }

@@ -1,0 +1,121 @@
+.container-oil-shipment {
+  height: calc(100% - 20px);
+  padding: 10px;
+  padding-right: 0;
+  padding-top: 1px;
+
+  &__title {
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background-color: var(--color-oil-border);
+    color: var(--color-text-main);
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 13px;
+
+    .title-name {
+    }
+  }
+
+  &__content {
+    height: calc(100% - 30px);
+    background-color: var(--color-oil-table);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    margin-bottom: 2px;
+    overflow: auto;
+    font-size: 14px;
+
+    .block {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      height: 40px;
+
+      &:hover {
+        background-color: var(--color-bg-active);
+
+        .block__info {
+          color: var(--color-text-main);
+        }
+      }
+
+      &__icon {
+        margin-top: 5px;
+        width: 20%;
+        margin-left: 20px;
+        text-align: center;
+      }
+
+      &__info {
+        color: var(--color-text-sub);
+        width: 80%;
+
+        .value {
+          width: 25%;
+          background: var(--color-text-sub);
+          text-align: center;
+          border-radius: 25px;
+          color: var(--color-text-main);
+        }
+      }
+    }
+  }
+}
+
+.active {
+  border-right: 1px solid var(--color-active);
+
+  ::ng-deep {
+    .block__info {
+      color: var(--color-text-main) !important;
+    }
+    .e177173e-a422-42e9-b28f-5161cbe95ddf {
+      fill: var(--color-active);
+    }
+
+    .f7c57797-8983-4437-b6e1-af698f23a9b3 {
+      fill: var(--color-active);
+    }
+
+    .value{
+      background: var(--color-active) !important;
+    }
+  }
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+::-webkit-scrollbar-track:vertical {
+  width: 4px;
+  height: 4px;
+  border-radius: 25px;
+}
+
+:hover::-webkit-scrollbar-thumb {
+  background-color: var(--color-border-active);
+  border-radius: 25px;
+}
+
+::-webkit-scrollbar-thumb {
+  width: 10px;
+  border-radius: 25px;
+  background-color: var(--color-border-main);
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 25px;
+}
+::-webkit-scrollbar-track-piece {
+  border-radius: 25px;
+}
+
+::-webkit-resizer {
+  background-color: var(--color-border-active);
+}

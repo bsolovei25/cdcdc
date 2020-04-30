@@ -1,6 +1,8 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
+import { IOilOperations } from '../../models/oil-operations';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'evj-oil-operations',
@@ -11,28 +13,192 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
   static itemCols = 18;
   static itemRows = 14;
 
-  public data: any = [
-    {
-      id: 1,
-      name: 'EVJ',
-      tanks: 'JNDSFDSKDFD'
-    },
-    {
-      id: 2,
-      name: 'EVJ',
-      tanks: 'JNDSFDSKDFD'
-    },
-    {
-      id: 3,
-      name: 'EVJ',
-      tanks: 'JNDSFDSKDFD'
-    },
-    {
-      id: 4,
-      name: 'EVJ',
-      tanks: 'JNDSFDSKDFD'
-    },
-  ]
+  public isFilter: boolean = false;
+  public isTankFilter: boolean = false;
+  public isLineChart: boolean = false;
+  public isOpenReceived: boolean = false;
+  public isOpenShipment: boolean = false;
+  public isAdjust: boolean = false;
+  public isFreeShipment: boolean = false;
+
+  public data: IOilOperations = {
+    tableLeft: [
+      {
+        id: 1,
+        number: 4643,
+        rR: 442,
+        product: 'ДТ ЕВРО сорт F, вид III(ДТ-Е-К5)',
+        pasport: 168,
+        dateFrom: '25.02.2019 12:23',
+        dateTo: '25.02.2019 12:23',
+        mass: 4223.23,
+        deviation: 3.3,
+        status: 'open'
+      },
+      {
+        id: 2,
+        number: 4643,
+        rR: 442,
+        product: 'ДТ ЕВРО сорт F, вид III(ДТ-Е-К5)',
+        pasport: 168,
+        dateFrom: '25.02.2019 12:23',
+        dateTo: '25.02.2019 12:23',
+        mass: 4223.23,
+        deviation: 3.3,
+        status: 'close'
+      },
+      {
+        id: 3,
+        number: 4643,
+        rR: 442,
+        product: 'ДТ ЕВРО сорт F, вид III(ДТ-Е-К5)',
+        pasport: 168,
+        dateFrom: '25.02.2019 12:23',
+        dateTo: '25.02.2019 12:23',
+        mass: 4223.23,
+        deviation: 3.3,
+        status: 'close&norm'
+      },
+      {
+        id: 4,
+        number: 4643,
+        rR: 442,
+        product: 'ДТ ЕВРО сорт F, вид III(ДТ-Е-К5)',
+        pasport: 168,
+        dateFrom: '25.02.2019 12:23',
+        dateTo: '25.02.2019 12:23',
+        mass: 4223.23,
+        deviation: 3.3,
+        status: 'close&critical'
+      },
+    ],
+    received: [
+      {
+        id: 1,
+        name: 'Открыть график',
+        type: 'line',
+      },
+      {
+        id: 2,
+        name: 'Отредактировать ёмкости для отгрузки',
+        type: 'filter',
+      },
+      {
+        id: 3,
+        name: 'Список паспортов LIMS',
+        type: 'reference',
+      },
+      {
+        id: 4,
+        name: 'Публикации в БЛПС',
+        type: 'reference',
+      }
+    ],
+    shipment: [
+      {
+        id: 1,
+        name: 'Свободные отгрузки',
+        value: 2352,
+        type: 'free',
+      },
+      {
+        id: 2,
+        name: 'Привязать отгрузки автоматически',
+        type: 'filter',
+      },
+      {
+        id: 3,
+        name: 'Создать корректировку',
+        type: 'adjust',
+      }
+    ],
+    tableRight: [
+      {
+        id: 1,
+        direction: 'A-т ср.364',
+        rRRiser: 3432,
+        dok: 2334,
+        mass: 4223.32,
+        pasport: 168,
+        shipment: 3212,
+        note: 'Tруба',
+      },
+      {
+        id: 2,
+        direction: 'A-т ср.364',
+        rRRiser: 3432,
+        dok: 2334,
+        mass: 4223.32,
+        pasport: 168,
+        shipment: 3212,
+        note: '',
+      },
+      {
+        id: 3,
+        direction: 'A-т ср.364',
+        rRRiser: 3432,
+        dok: 2334,
+        mass: 4223.32,
+        pasport: 168,
+        shipment: 3212,
+        note: '',
+      },
+      {
+        id: 4,
+        direction: 'A-т ср.364',
+        rRRiser: 3432,
+        dok: 2334,
+        mass: 4223.32,
+        pasport: 168,
+        shipment: 3212,
+        note: 'Tруба',
+      },
+    ],
+    filter: [
+      {
+        id: 1,
+        name: 'Мазут'
+      },
+      {
+        id: 2,
+        name: 'Мазут'
+      },
+      {
+        id: 3,
+        name: 'Мазут'
+      },
+      {
+        id: 4,
+        name: 'Мазут'
+      },
+      {
+        id: 5,
+        name: 'Мазут'
+      }
+    ],
+    filterTanks: [
+      {
+        id: 1,
+        name: 'Керосины',
+        valuesTank: [
+          {
+            id: 1,
+            number: 1,
+            work: true,
+            limit: 60,
+            valueCap: 521,
+          },
+          {
+            id: 2,
+            number: 1,
+            work: true,
+            limit: 60,
+            valueCap: 521,
+          },
+        ]
+      },
+    ],
+  };
 
   constructor(
     public widgetService: WidgetService,
@@ -56,5 +222,52 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
   ngOnDestroy(): void {
     super.ngOnDestroy();
   }
+
+  openFilter(event): void {
+    this.isFilter = event;
+  }
+
+  openItemReceived(event: string): void {
+    this.isOpenReceived = false;
+    if (event === 'line') {
+      this.isLineChart = true;
+      this.isTankFilter = false;
+    } else if (event === 'filter') {
+      this.isLineChart = false;
+      this.isTankFilter = true;
+    }
+  }
+
+  openItemShipment(event: string): void {
+    this.isOpenShipment = false;
+    if (event === 'adjust') {
+      this.isAdjust = true;
+      this.isFreeShipment = false;
+    } else if (event === 'free') {
+      this.isAdjust = false;
+      this.isFreeShipment = true;
+    }
+  }
+
+  closeAdjust(event: boolean): void {
+    this.isAdjust = event;
+    this.isOpenShipment = true;
+  }
+
+  closeFreeShipment(event: boolean): void {
+    this.isFreeShipment = event;
+    this.isOpenShipment = true;
+  }
+
+  closeFilterTank(event: boolean): void {
+    this.isTankFilter = event;
+    this.isOpenReceived = true;
+  }
+
+  closeLineChart(event: boolean): void {
+    this.isLineChart = event;
+    this.isOpenReceived = true;
+  }
+
 
 }

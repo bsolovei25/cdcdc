@@ -12,27 +12,22 @@ export class ReasonsDeviationsInfoTankComponent implements OnInit {
     {
       id: 1,
       type: "Tug",
-      value: 1532
+      value: '1 532'
     },
     {
       id: 2,
       type: "Tube",
-      value: 2342
+      value: '2 342'
     },
     {
       id: 3,
       type: "Cistern",
-      value: 212
+      value: '212'
     },
     {
       id: 4,
-      type: "Cistern",
-      value: 147
-    },
-    {
-      id: 5,
-      type: "Cistern",
-      value: 147
+      type: "Work",
+      value: '147'
     },
   ]
 

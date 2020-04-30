@@ -24,7 +24,7 @@ import { AvatarConfiguratorService } from '../avatar-configurator.service';
 export class AdminPanelService {
     private restUrl: string = `/api/user-management`;
     private restUrlApi: string = `/api`;
-    private restFileUrl: string = '';
+    private restFileUrl: string = '/api/file-storage';
 
     public defaultWorker: IUser = {
         id: undefined,
@@ -37,6 +37,7 @@ export class AdminPanelService {
         position: 'common',
         positionDescription: '',
         displayName: '',
+        department: '',
     };
 
     public activeWorker: IUser = null;
@@ -81,6 +82,7 @@ export class AdminPanelService {
     ) {
         this.restUrl = `${this.configService.restUrl}${this.restUrl}`;
         this.restUrlApi = `${this.configService.restUrl}${this.restUrlApi}`;
+        this.restFileUrl = `${configService.restUrl}${this.restFileUrl}`;
         this.activeWorker$.subscribe((worker: IUser) => {
             this.activeWorker = worker;
         });
@@ -230,11 +232,12 @@ export class AdminPanelService {
     public getAllLdapUsers(
         login: string,
         skip: number = 0,
-        take: number = 50
+        take: number = 50,
+        lastSid: string = ''
     ): Observable<IUserLdapDto[]> {
         const url: string = `${this.restUrl}/ldap/users`;
         return this.http.get<IUserLdapDto[]>(url, {
-            params: { login, skip: skip.toString(), take: take.toString() },
+            params: { login, skip: skip.toString(), take: take.toString(), lastSid },
         });
     }
 
@@ -247,6 +250,12 @@ export class AdminPanelService {
         const url: string = `${this.restUrl}/ldap/user/${worker.login}/import`;
         return this.http.post<IUserImported>(url, worker);
     }
+
+    public async updateAllLdapUsers(): Promise<void> {
+        const url: string = `${this.restUrl}/ldap/update`;
+        return this.http.post<void>(url, null).toPromise();
+    }
+
     //#endregion
 
     //#endregion

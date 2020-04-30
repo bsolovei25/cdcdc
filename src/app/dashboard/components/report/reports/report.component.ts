@@ -8,7 +8,11 @@ import { FormControl } from '@angular/forms';
 import { Moment } from 'moment';
 import * as _moment from 'moment';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { NGX_MAT_DATE_FORMATS, NgxMatDateFormats } from '@angular-material-components/datetime-picker';
+import {
+    NGX_MAT_DATE_FORMATS,
+    NgxMatDateFormats
+} from '@angular-material-components/datetime-picker';
+import { SelectionModel } from '@angular/cdk/collections';
 const moment = _moment;
 
 export interface IReportOption {
@@ -88,6 +92,7 @@ export class ReportComponent implements OnInit {
     private readonly restUrl: string;
 
     public active: boolean = false;
+    public activeSearch: boolean = false;
 
     public datePicker: boolean = false;
     public datePickerOpen: number;
@@ -97,6 +102,17 @@ export class ReportComponent implements OnInit {
     formGroup: IReportFormGroup[] = [];
 
     @Input() data: IReportTemplate;
+    @Input() activeElements: SelectionModel<number>;
+    @Input() set search(data: string) {
+
+        if (data && this.data?.name) {
+            console.log(data, this.data?.name);
+            this.activeSearch = this.data.name.toLowerCase().includes(data.toLowerCase());
+        }
+        if (data === '') {
+            this.activeSearch = false;
+        }
+    }
 
     @ViewChild('picker') public picker: any;
 
@@ -147,10 +163,11 @@ export class ReportComponent implements OnInit {
                 startDateTime: new Date()
             };
             this.template.customOptions.forEach(option => {
+                const value = option.type === 'dateTime' ? new Date() : '';
                 this.formGroup.push({
                     id: option.id,
                     name: option.name,
-                    value: '',
+                    value,
                     type: option.type,
                     source: option.source,
                 });
@@ -164,7 +181,7 @@ export class ReportComponent implements OnInit {
     async postItem(template: IReportTemplate, fileName: 'xlsx' | 'pdf' | 'html'): Promise<void> {
         this.isLoading = true;
         let body: IResponse;
-        let reportOptions = [];
+        const reportOptions = [];
         this.formGroup.forEach((val) => {
             reportOptions.push({ value: val?.value, baseOptionId: val?.id });
         });

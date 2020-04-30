@@ -4,11 +4,11 @@
         <div class="values">
             <div class="values__block">
                 <div class="title">Вместимость</div>
-                <div class="value"> {{ data.capacity }} тонн</div>
+                <div class="value"> {{ data.capacity | spaceNumber }} тонн</div>
             </div>
             <div class="values__block">
                 <div class="title">Отгружено</div>
-                <div class="value"> {{ data.shipped }} тонн</div>
+                <div class="value"> {{ data.shipped | spaceNumber }} тонн</div>
             </div>
         </div>
         <div class="tank">

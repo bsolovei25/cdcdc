@@ -3,6 +3,7 @@ import { WidgetService } from '../../services/widget.service';
 import { IReportTemplate } from '../../models/report-server';
 import { ReportsService } from '../../services/widgets/reports.service';
 import { TreeDraggedElement } from 'angular-tree-component';
+import { SelectionModel } from '@angular/cdk/collections';
 
 export interface IFolderReport {
     templates: IReportTemplate[];
@@ -26,20 +27,25 @@ interface ITemplateFolderLocal {
     selector: 'evj-reports',
     templateUrl: './reports.component.html',
     styleUrls: ['./reports.component.scss'],
-    providers: [TreeDraggedElement]
 })
-export class ReportsComponent implements OnInit, OnDestroy {
+export class ReportsComponent implements OnInit {
 
     public active: boolean = false;
 
     public datePicker: boolean = false;
     public datePickerOpen: number;
+    private timerHwnd: number;
+
+    selectedFolders: SelectionModel<number> = new SelectionModel<number>(true, []);
+    activeElements: SelectionModel<number> = new SelectionModel<number>(true, []);
 
     data: IReportTemplate[] = [];
     dataFolder: IFolderReport;
     filterData: IReportTemplate[] = [];
     templates: IReportTemplate[] = [];
     folders: ITemplateFolderLocal[] = [];
+
+    search: string = '';
 
     isReport: boolean = true;
 
@@ -53,43 +59,77 @@ export class ReportsComponent implements OnInit, OnDestroy {
         this.loadItem();
     }
 
-    ngOnDestroy(): void {
-    }
-
-    toggle(): void {
-        this.active = !this.active;
-    }
-
-    mapData(data: ITemplateFolderLocal[]): IUIChilrdenFolders[] {
-        let newDate: IUIChilrdenFolders[] = [];
-        data.forEach(val => {
-            newDate.push({
-                id: val.id,
-                name: val.name,
-                templates: val.templates,
-                children: this.mapData(val.childFolders)
-            });
-        });
-        return newDate;
-    }
-
     async loadItem(): Promise<void> {
-        const a = await this.reportsService.getReportsTemplate();
         this.dataFolder = await this.reportsService.getTemplateFolder();
-        // this.folder = this.mapData(this.dataFolder.folders);
         this.folders = this.dataFolder.folders;
         this.templates = this.dataFolder.templates;
     }
 
-    searchReports(event: KeyboardEvent): void {
-        this.filterData = event ? this.data
-            .filter(value => value.name.toLowerCase()
-                .includes((event?.target as HTMLInputElement)?.value.toLowerCase())) : this.data;
+    searchTemplate(data: ITemplateFolderLocal, search: string): void {
+        data.templates.forEach(temp => {
+            if (temp.name.toLowerCase().includes(search)) {
+                this.selectedFolders.select(data.id);
+                this.activeElements.deselect(data.id);
+            }
+        });
     }
 
-    onEvent(event) {
-        console.log(event.node.data);
-        this.filterData = event.node.data.templates;
+    searchChildren(data: ITemplateFolderLocal, search: string): void {
+        if (data.name.toLowerCase().includes(search)) {
+            this.selectedFolders.select(data.id);
+            this.activeElements.deselect(data.id);
+        }
+        this.searchTemplate(data, search);
+
+        data.childFolders.forEach(childFolder => {
+            const count = this.selectedFolders.selected.length;
+            this.searchChildren(childFolder, search);
+            if (this.selectedFolders.selected.length > count) {
+                this.selectedFolders.select(childFolder.id);
+                this.activeElements.deselect(childFolder.id);
+            } else {
+                this.activeElements.select(data.id);
+            }
+        });
+    }
+
+    searchTree(data: ITemplateFolderLocal[], search: string): void {
+        data.forEach((item) => {
+            const count = this.selectedFolders.selected.length;
+            this.searchChildren(item, search);
+            if (this.selectedFolders.selected.length > count) {
+                this.selectedFolders.select(item.id);
+                this.activeElements.deselect(item.id);
+            } else {
+                this.activeElements.select(item.id);
+            }
+            this.searchTemplate(item, search);
+        });
+
+
+    }
+
+    searchReports(event: KeyboardEvent): void {
+        this.search = (event?.target as HTMLInputElement)?.value.toLowerCase();
+        if (this.search === '') {
+            this.activeElements.clear();
+            this.selectedFolders.clear();
+        } else {
+            if (!this.timerHwnd) {
+                // set timeout to resize chart
+                this.timerHwnd = window.setTimeout(() => {
+                    this.timerHwnd = 0;
+                    this.activeElements.clear();
+                    this.selectedFolders.clear();
+                    this.searchTree(this.folders, this.search);
+                    this.templates.forEach(val => {
+                        if (!val.name.toLowerCase().includes(this.search)) {
+                            this.activeElements.select(val.id);
+                        }
+                    });
+                }, 100);
+            }
+        }
     }
 
 }
