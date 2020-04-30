@@ -238,9 +238,11 @@ import { OilOperationsLineChartComponent } from './widgets/oil-operations/compon
 import { OilOperationsLineMenuComponent } from './widgets/oil-operations/components/oil-operations-line-menu/oil-operations-line-menu.component';
 import { OilOperationsLineComponent } from './widgets/oil-operations/components/oil-operations-line/oil-operations-line.component';
 import { ReportFileSelectBoxComponent } from './widgets/report-server-configurator/report-file-select-box/report-file-select-box.component';
+import { WidgetHeaderSmpComponent } from './components/widget-header-smp/widget-header-smp.component';
 import { OilOperationsAdjustmentComponent } from './widgets/oil-operations/components/oil-operations-adjustment/oil-operations-adjustment.component';
 import { OilOperationsFreeShipmentComponent } from './widgets/oil-operations/components/oil-operations-free-shipment/oil-operations-free-shipment.component';
 import { DocumentViewerFullscreenComponent } from './widgets/document-viewer/document-viewer-fullscreen/document-viewer-fullscreen.component';
+import { CdCriticalComponent } from './widgets/cd-critical/cd-critical.component';
 
 @NgModule({
   declarations: [
@@ -447,9 +449,12 @@ import { DocumentViewerFullscreenComponent } from './widgets/document-viewer/doc
     OilOperationsLineMenuComponent,
     OilOperationsLineComponent,
     ReportFileSelectBoxComponent,
+    WidgetHeaderSmpComponent,
+    DocumentViewerFullscreenComponent,
     OilOperationsAdjustmentComponent,
     OilOperationsFreeShipmentComponent,
-    DocumentViewerFullscreenComponent
+    DocumentViewerFullscreenComponent,
+    CdCriticalComponent,
   ],
   entryComponents: [
     LineChartComponent,
