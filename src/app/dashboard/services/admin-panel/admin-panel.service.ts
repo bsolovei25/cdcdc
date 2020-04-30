@@ -37,6 +37,7 @@ export class AdminPanelService {
         position: 'common',
         positionDescription: '',
         displayName: '',
+        department: '',
     };
 
     public activeWorker: IUser = null;
