@@ -32,6 +32,7 @@ $container-padding: 5px;
     display: flex;
     width: calc(100% - #{$block-margin * 2});
     height: calc(100% - #{$bottom-block-size} - #{$block-margin * 4});
+    min-height: 130px;
 
     .left-side {
       height: 100%;
