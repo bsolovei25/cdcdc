@@ -233,6 +233,8 @@ export class LineChartComponent implements OnChanges, OnInit {
             .style('font-size', '12px')
             .style('fill', '#8c99b2');
 
+        this.svg.select('g.axis path').remove();
+
         // отрисовка оси х
         this.svg
             .append('g')
@@ -243,28 +245,46 @@ export class LineChartComponent implements OnChanges, OnInit {
             .style('font-size', '12px')
             .style('fill', '#8c99b2');
 
-        // изменение цветов осей и удаление первых и последних засечек
+        // изменение цветов осей
         let g = this.svg.selectAll('g.axis');
         g.style('color', '#606580');
-        g.selectAll('.tick:first-of-type').remove();
-        g.selectAll('.tick:last-of-type').remove();
 
         // отрисовка центра начала координат
         g = this.svg.select('g.axis:last-of-type').style('color', '#3fa9f5');
-        g.append('g')
+        const linesG = g
+            .append('g')
             .attr('opacity', 1)
-            .attr('transform', `translate(${this.padding.left},0)`)
-            .attr('class', 'center-of-coords')
-            .append('circle')
-            .attr('r', 5)
-            .style('fill', 'currentColor');
-        g.select('.center-of-coords')
+            .attr('class', 'longer-line');
+
+        linesG
             .append('line')
-            .attr('x1', `-${this.padding.left}`)
+            .attr('x1', this.padding.left * 0.25)
             .attr('y1', 0)
-            .attr('x2', 0)
+            .attr('x2', this.padding.left)
             .attr('y2', 0)
             .style('stroke', 'currentColor');
+
+        linesG
+            .append('line')
+            .attr('x1', this.graphMaxX - this.padding.right)
+            .attr('y1', 0)
+            .attr('x2', this.graphMaxX - this.padding.right * 0.25)
+            .attr('y2', 0)
+            .style('stroke', 'currentColor');
+        // g.append('g')
+        //     .attr('opacity', 1)
+        //     .attr('transform', `translate(${this.padding.left},0)`)
+        //     .attr('class', 'center-of-coords')
+        //     .append('circle')
+        //     .attr('r', 5)
+        //     .style('fill', 'currentColor');
+        // g.select('.center-of-coords')
+        //     .append('line')
+        //     .attr('x1', `-${this.padding.left}`)
+        //     .attr('y1', 0)
+        //     .attr('x2', 0)
+        //     .attr('y2', 0)
+        //     .style('stroke', 'currentColor');
 
         // изменение засечек с линий на круги
         this.svg
@@ -279,7 +299,6 @@ export class LineChartComponent implements OnChanges, OnInit {
             .style('fill', '#3fa9f5');
 
         this.drawAxisArrows('xAxis');
-        this.drawAxisArrows('yAxis');
 
         this.drawGridLines();
         this.drawLegend();
@@ -291,7 +310,7 @@ export class LineChartComponent implements OnChanges, OnInit {
         const arrowMin: number = 3;
 
         let typeOfAxis: string = 'last-of-type';
-        let translate: string = `${this.graphMaxX - this.padding.right - arrowMax},0`;
+        let translate: string = `${this.graphMaxX - this.padding.right * 0.25 - arrowMax},0`;
         let points: string = `0,-${arrowMin} ${arrowMax},0 0,${arrowMin}`;
 
         if (axis === 'yAxis') {
