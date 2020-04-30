@@ -12,12 +12,14 @@
       *ngFor="let item of widgetService.dashboard; let i = index"
       (dragstart)="dragStart($event, item)"
       (dragstop)="dragStop($event, item)"
-      style="height: 1600px;"
+      style="height: 1600px; overflow: visible !important;"
     >
-      <ng-container
-        *ngComponentOutlet="WIDGETS[item.widgetType]; injector: (item.id | fn:getInjector : item.uniqid);"
-      >
-      </ng-container>
+      <div style="overflow: visible; width: 100%; height: 100%">
+        <ng-container
+          *ngComponentOutlet="WIDGETS[item.widgetType]; injector: (item.id | fn:getInjector : item.uniqid);"
+        >
+        </ng-container>
+      </div>
     </gridster-item>
   </ng-container>
 </gridster>
