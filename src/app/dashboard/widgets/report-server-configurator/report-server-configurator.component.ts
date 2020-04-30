@@ -280,6 +280,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
                     this.isLoading = false;
                 }),
             closeFunction: () => this.reportService.closeAlert(),
+            cancelFunction: () => {},
         };
         this.reportService.alertWindow$.next(windowsParam);
     }
@@ -302,7 +303,8 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             closeFunction: () => {
                 this.reportService.closeAlert();
                 this.isLoading = false;
-            }
+            },
+            cancelFunction: () => {},
         };
         this.reportService.alertWindow$.next(windowsParam);
     }
@@ -411,7 +413,8 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
                 this.reportService.closeAlert();
                 item.openEdit = false;
                 this.newRecord = null;
-            }
+            },
+            cancelFunction: () => {},
         };
         this.reportService.alertWindow$.next(windowsParam);
     }
@@ -436,7 +439,8 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
                 this.reportService.closeAlert();
                 item.openEdit = false;
                 this.newRecord = null;
-            }
+            },
+            cancelFunction: () => {},
         };
         this.reportService.alertWindow$.next(windowsParam);
     }
@@ -641,7 +645,8 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             }),
             closeFunction: () => {
                 this.reportService.closeAlert();
-            }
+            },
+            cancelFunction: () => {},
         };
         this.reportService.alertWindow$.next(windowsParam);
     }

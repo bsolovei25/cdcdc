@@ -13,6 +13,7 @@ $container-padding: 5px;
 .body-container {
   height: 100%;
   flex-wrap: wrap;
+  padding-top: 6px;
   padding: $container-padding;
   position: relative;
   width: calc(100% - 2px - #{$container-padding * 2});
@@ -26,6 +27,7 @@ $container-padding: 5px;
   $bottom-block-size: 75px;
   position: relative;
   margin: $block-margin;
+  margin-top: 6px;
   min-width: 1040px;
 
   &_top {
