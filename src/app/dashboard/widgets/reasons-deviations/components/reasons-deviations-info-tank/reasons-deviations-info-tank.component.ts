@@ -29,11 +29,6 @@ export class ReasonsDeviationsInfoTankComponent implements OnInit {
       type: "Cistern",
       value: 147
     },
-    {
-      id: 5,
-      type: "Cistern",
-      value: 147
-    },
   ]
 
   constructor() { }
