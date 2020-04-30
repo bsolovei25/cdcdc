@@ -168,4 +168,15 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     public onHideGroups(): void {
         this.isGroupsShowed = false;
     }
+
+    public async updateUsers(): Promise<void> {
+        this.isDataLoading = true;
+        try {
+            const a = await this.adminService.updateAllLdapUsers();
+        } catch (err) {
+            console.error(err);
+        } finally {
+            this.isDataLoading = false;
+        }
+    }
 }

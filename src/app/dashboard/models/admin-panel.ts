@@ -79,6 +79,7 @@ export interface IUserLdap {
     userPrincipalName?: string;
     samAccountName?: string;
     sid: string;
+    department: string;
 }
 
 export interface IUserImported {
