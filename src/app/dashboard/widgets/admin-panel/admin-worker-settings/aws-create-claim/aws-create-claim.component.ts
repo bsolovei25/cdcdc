@@ -12,15 +12,17 @@ import { IUnitEvents } from '../../../../models/events-widget';
     styleUrls: ['./aws-create-claim.component.scss'],
 })
 export class AwsCreateClaimComponent implements OnInit {
-    @Output() private createdClaim: EventEmitter<IGlobalClaim> = new EventEmitter<IGlobalClaim>();
+    @Output() private createdClaim: EventEmitter<IGlobalClaim[]> = new EventEmitter<
+        IGlobalClaim[]
+    >();
 
     public allClaims: IGlobalClaim[] = [];
     public allWidgets: IWidgets[] = [];
     public allUnits: IUnitEvents[] = [];
 
     public selectClaim: SelectionModel<IGlobalClaim> = new SelectionModel<IGlobalClaim>();
-    public selectWidget: SelectionModel<IWidgets> = new SelectionModel<IWidgets>();
-    public selectUnit: SelectionModel<IUnitEvents> = new SelectionModel<IUnitEvents>();
+    public selectWidget: SelectionModel<IWidgets> = new SelectionModel<IWidgets>(true);
+    public selectUnit: SelectionModel<IUnitEvents> = new SelectionModel<IUnitEvents>(true);
 
     constructor(private adminService: AdminPanelService) {}
 
@@ -58,16 +60,31 @@ export class AwsCreateClaimComponent implements OnInit {
     }
 
     public onSave(): void {
+        const selectedClaim: IGlobalClaim = this.selectClaim.selected[0];
         if (this.selectClaim.hasValue() && this.selectWidget.hasValue()) {
-            const claim: IGlobalClaim = fillDataShape(this.selectClaim.selected[0]);
-            claim.value = this.selectWidget.selected[0].id;
-            this.createdClaim.emit(claim);
+            const selectedWidgets: IWidgets[] = this.selectWidget.selected;
+            const claims: IGlobalClaim[] = [];
+
+            selectedWidgets.forEach((widget) => {
+                const claim: IGlobalClaim = fillDataShape(selectedClaim);
+                claim.value = widget.id;
+                claims.push(claim);
+            });
+
+            this.createdClaim.emit(claims);
         }
 
         if (this.selectClaim.hasValue() && this.selectUnit.hasValue()) {
-            const claim: IGlobalClaim = fillDataShape(this.selectClaim.selected[0]);
-            claim.value = this.selectUnit.selected[0].id.toString();
-            this.createdClaim.emit(claim);
+            const selectedUnits: IUnitEvents[] = this.selectUnit.selected;
+            const claims: IGlobalClaim[] = [];
+
+            selectedUnits.forEach((unit) => {
+                const claim: IGlobalClaim = fillDataShape(selectedClaim);
+                claim.value = unit.id.toString();
+                claims.push(claim);
+            });
+
+            this.createdClaim.emit(claims);
         }
     }
 }

@@ -211,24 +211,20 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         this.isCreateClaim = true;
     }
 
-    public onCreateSpecialClaim(claim: IGlobalClaim): void {
-        let isClaimExist: boolean = false;
-        if (claim) {
-            isClaimExist = !!this.workerSpecialClaims.find(
-                (item) => item.claimType === claim.claimType && item.value === claim.value
-            );
-        }
-        if (claim && !isClaimExist) {
-            this.workerSpecialClaims.push(claim);
-            this.showAlert();
-        }
+    public onCreateSpecialClaim(claims: IGlobalClaim[]): void {
+        if (claims) {
+            claims.forEach((claim) => {
+                const findClaim: boolean = !!this.workerSpecialClaims.find(
+                    (item) => item.claimType === claim.claimType && item.value === claim.value
+                );
 
-        if (isClaimExist) {
-            this.materialController.openSnackBar(
-                'Такое специальное право уже существует',
-                'snackbar-red'
-            );
-            return;
+                if (findClaim) {
+                    return;
+                }
+
+                this.workerSpecialClaims.push(claim);
+                this.showAlert();
+            });
         }
 
         this.isCreateClaim = false;
