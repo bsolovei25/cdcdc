@@ -14,12 +14,13 @@
         </ng-container>
       </div>
     </div>
+    <div class="list-button">{{!checkIsAllSelected()?'Выделить все':'Снять выделение'}}</div>
     <div class="items">
-      <div class="list">
-        <ng-container *ngIf="itemsFilter() && selectClaim.hasValue()">
+      <div class="list" *ngIf="selectClaim.hasValue()">
+        <ng-container *ngIf="itemsFilter()">
           <div
             class="card"
-            *ngFor="let widget of allWidgets"
+            *ngFor="let widget of formEntitiesList()"
             [ngClass]="{'card_active':selectWidget.isSelected(widget)}"
             (click)="selectWidget.select(widget)"
           >
@@ -27,7 +28,7 @@
           </div>
         </ng-container>
 
-        <ng-container *ngIf="!itemsFilter() && selectClaim.hasValue()">
+        <ng-container *ngIf="!itemsFilter()">
           <div
             class="card"
             *ngFor="let unit of allUnits"
@@ -44,15 +45,15 @@
         class="button"
         [isChangingState]="false"
         [isSmallButton]="false"
-        [textButton]="'Назад'"
-        (click)="onBack()"
+        [textButton]="'Подтвердить'"
+        (click)="onSave()"
       ></evj-button>
       <evj-button
         class="button"
         [isChangingState]="false"
         [isSmallButton]="false"
-        [textButton]="'Подтвердить'"
-        (click)="onSave()"
+        [textButton]="'Назад'"
+        (click)="onBack()"
       ></evj-button>
     </div>
   </div>

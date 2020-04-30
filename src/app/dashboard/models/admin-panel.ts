@@ -69,6 +69,7 @@ export interface IGlobalClaim {
     specification?: string;
     claimValueType?: string;
     value?: string;
+    additionalType?: string;
 }
 
 export interface IUserLdap {

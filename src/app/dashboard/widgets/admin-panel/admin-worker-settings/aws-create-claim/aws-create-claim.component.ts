@@ -41,6 +41,18 @@ export class AwsCreateClaimComponent implements OnInit {
         return true;
     }
 
+    public formEntitiesList(): IWidgets[] {
+        const additionalType = this.selectClaim?.selected[0]?.additionalType;
+        if (additionalType) {
+            return this.allWidgets.filter((widget) => widget.widgetType === additionalType);
+        }
+        return this.allWidgets;
+    }
+
+    public checkIsAllSelected(): boolean {
+        return this.selectClaim.selected.length === this.formEntitiesList().length;
+    }
+
     public onBack(): void {
         this.createdClaim.emit(null);
     }
