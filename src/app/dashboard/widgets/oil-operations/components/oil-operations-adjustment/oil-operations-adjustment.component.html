@@ -8,31 +8,33 @@
             <div class="title__name">Укажите параметры</div>
         </div>
         <div class="content">
-            <div class="content__block" (click)="active('idea')" [class.active]="isActive === 'idea'">
-                <div class="icon">
-                    <svg-icon src="./assets/icons/widgets/oil-control-all/oil-operations/idea.svg"
-                        [svgStyle]="{ 'width.px':30, 'height.px':30 }"></svg-icon>
-                </div>
-                <div class="info">
-                    <div class="info__title">
-                        Выберите причину
+            <div class="content__back">
+                <div class="content__block" (click)="active('idea')" [class.active]="isActive === 'idea'">
+                    <div class="icon">
+                        <svg-icon src="./assets/icons/widgets/oil-control-all/oil-operations/idea.svg"
+                            [svgStyle]="{ 'width.px':30, 'height.px':30 }"></svg-icon>
                     </div>
-                    <div class="info__name">  
-                        Прокачка на автотерминал
+                    <div class="info">
+                        <div class="info__title">
+                            Выберите причину
+                        </div>
+                        <div class="info__name">  
+                            Прокачка на автотерминал
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="content__block" (click)="active('filter')" [class.active]="isActive === 'filter'">
-                <div class="icon">
-                    <svg-icon src="./assets/icons/widgets/oil-control-all/oil-operations/filter-operation.svg"
-                        [svgStyle]="{ 'width.px':30, 'height.px':30 }"></svg-icon>
-                </div>
-                <div class="info">
-                    <div class="info__title">
-                        Выберите резервуар
+                <div class="content__block" (click)="active('filter')" [class.active]="isActive === 'filter'">
+                    <div class="icon">
+                        <svg-icon src="./assets/icons/widgets/oil-control-all/oil-operations/filter-operation.svg"
+                            [svgStyle]="{ 'width.px':30, 'height.px':30 }"></svg-icon>
                     </div>
-                    <div class="info__name">
-                        Резервуар №432
+                    <div class="info">
+                        <div class="info__title">
+                            Выберите резервуар
+                        </div>
+                        <div class="info__name">
+                            Резервуар №432
+                        </div>
                     </div>
                 </div>
             </div>

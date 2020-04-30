@@ -3,7 +3,7 @@
     position: absolute;
     left: 28%;
     bottom: 15%;
-    height: 30%;
+    height: 37%;
     z-index: 999;
     width: 15%;
     box-shadow: 0 0 10px var(--color-oil-popup-shadow);
@@ -43,10 +43,8 @@
 }
 
 .content {
-    overflow: auto;
-    overflow-x: hidden;
     height: calc(100% - 80px);
-    background-color: #1b1f2c;
+    background-color: var(--color-bg-header-table);
     border-top: 7px solid var(--color-bg-main);
     border-bottom: 7px solid var(--color-bg-main);
     font-size: 14px;
@@ -77,6 +75,14 @@
             cursor: pointer;
             background-color: var(--color-bg-active);
         }
+    }
+
+    &__back {
+        background-color: var(--color-bg-header-table);
+        overflow: auto;
+    overflow-x: hidden;
+    height: 100%;
+    width: calc(100% - 5px);
     }
 }
 
@@ -126,4 +132,39 @@
             fill: var(--color-active);
         }
     }
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+::-webkit-scrollbar-track:vertical {
+    width: 4px;
+    height: 4px;
+    border-radius: 25px;
+}
+
+:hover::-webkit-scrollbar-thumb {
+    background-color: var(--color-border-active);
+    border-radius: 25px;
+}
+
+::-webkit-scrollbar-thumb {
+    width: 10px;
+    border-radius: 25px;
+    background-color: var(--color-border-main);
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 25px;
+}
+::-webkit-scrollbar-track-piece {
+    border-radius: 25px;
+}
+
+::-webkit-resizer {
+    background-color: var(--color-border-active);
 }

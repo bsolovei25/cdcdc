@@ -4,7 +4,7 @@
             <div class="time">
                 <div class="time__icon">
                     <svg-icon src="./assets/icons/widgets/oil-control-all/reasons-deviations/clock.svg"
-                        [svgStyle]="{ 'width.px':20, 'height.px':20 }">
+                        [svgStyle]="{ 'width.px':17, 'height.px':17 }">
                     </svg-icon>
                 </div>
                 <div class="time__value">
@@ -15,10 +15,10 @@
                 <div class="info__name">
                     Отгружено по резервуару:
                 </div>
-                <div class="info__value active">
+                <div class="info__value">
                     {{ data.shipped.value | number : '0.0-2' }} т.
                 </div>
-                <div class="info__percent notActive">
+                <div class="info__percent">
                     {{ data.shipped.percent | number : '0.0-2' }} %
                 </div>
             </div>
@@ -50,10 +50,10 @@
                 <div class="info__name">
                     Допустимый дебаланс:
                 </div>
-                <div class="info__value">
+                <div class="info__value active">
                     {{ data.allowUnbalance.value | number : '0.0-2' }} т.
                 </div>
-                <div class="info__percent">
+                <div class="info__percent active">
                     {{ data.allowUnbalance.percent | number : '0.0-2' }} %
                 </div>
             </div>
@@ -61,10 +61,10 @@
                 <div class="info__name">
                     Отклонение:
                 </div>
-                <div class="info__value">
+                <div class="info__value notActive" >
                     {{ data.deviation.value | number : '0.0-2' }} т.
                 </div>
-                <div class="info__percent">
+                <div class="info__percent notActive">
                     {{ data.deviation.percent | number : '0.0-2' }} %
                 </div>
             </div>
