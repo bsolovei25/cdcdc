@@ -10,10 +10,10 @@ export class ReasonsDeviationsTankLevelComponent implements OnInit {
 
   public data: IReasonsTankerCard = {
     name: "Резервуар №514",
-    percent: 20,
+    percent: 45,
     shipped: 1400,
     capacity: 2720,
-    valueLevel: 520,
+    valueLevel: 720,
     type: "Бензин АИ-92-К2",
   }
 

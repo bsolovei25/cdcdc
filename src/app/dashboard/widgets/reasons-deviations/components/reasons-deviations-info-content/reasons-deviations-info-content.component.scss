@@ -11,9 +11,11 @@
         width: 100%;
         background-color: var(--color-oil-table);
         font-size: 14px;
+        padding-top: 3px;
+        padding-bottom: 3px;
 
         .block {
-            margin-left: 20px;
+            margin-left: 12px;
             width: 50%;
             .time {
                 height: 33%;
