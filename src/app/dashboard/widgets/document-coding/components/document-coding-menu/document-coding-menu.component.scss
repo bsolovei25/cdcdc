@@ -3,6 +3,7 @@
     display: flex;
     padding-left: 20px;
     padding-right: 10px;
+ 
 
     &__file {
         width: 35%;
@@ -77,7 +78,7 @@
 
                 ::ng-deep {
                     .mat-form-field {
-                        width: calc(100% - 45px);
+                        width: 100px;
                         margin: 0 auto;
                         margin-left: 10px;
                     }

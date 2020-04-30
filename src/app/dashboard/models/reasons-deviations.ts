@@ -16,10 +16,10 @@ export interface IReasonsDeviationsInfoValue {
 export interface IReasonsTankers {
     id: number;
     type: string;
-    value: number;
+    value: string;
 }
 
-export interface IReasonsTankerCard{
+export interface IReasonsTankerCard {
     name: string;
     percent: number;
     shipped: number;

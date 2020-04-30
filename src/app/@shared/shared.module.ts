@@ -28,6 +28,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { CircleInputComponent } from './components/circle-input/circle-input.component';
 import { LineChartTanksDirective } from './directives/line-chart-tanks.directive';
 import { LineChartPickerTankDirective } from './directives/line-chart-picker-tank.directive';
+import { SpaceNumber } from './pipes/number_space.pipe';
 
 @NgModule({
     declarations: [
@@ -53,6 +54,7 @@ import { LineChartPickerTankDirective } from './directives/line-chart-picker-tan
         CircleInputComponent,
         LineChartTanksDirective,
         LineChartPickerTankDirective,
+        SpaceNumber
     ],
     exports: [
         HeaderComponent,
@@ -74,6 +76,7 @@ import { LineChartPickerTankDirective } from './directives/line-chart-picker-tan
         LineChartComponent,
         EmailEditorComponent,
         CircleInputComponent,
+        SpaceNumber,
     ],
     imports: [
         CommonModule,

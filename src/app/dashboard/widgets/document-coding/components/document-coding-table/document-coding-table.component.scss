@@ -3,7 +3,7 @@
     height: 100%;
     padding: 10px;
     padding-bottom: 0;
-    //  min-width: 950px;
+    padding-top: 0px;
 
     &__title {
         display: flex;
@@ -23,7 +23,7 @@
     }
 
     &__container {
-        height: calc(100% - 100px);
+        height: calc(100% - 85px);
         width: 100%;
         overflow: auto;
         overflow-x: hidden;

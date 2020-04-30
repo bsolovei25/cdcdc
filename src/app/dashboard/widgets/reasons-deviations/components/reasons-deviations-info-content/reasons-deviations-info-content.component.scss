@@ -11,9 +11,11 @@
         width: 100%;
         background-color: var(--color-oil-table);
         font-size: 14px;
+        padding-top: 3px;
+        padding-bottom: 3px;
 
         .block {
-            margin-left: 20px;
+            margin-left: 12px;
             width: 50%;
             .time {
                 height: 33%;
@@ -39,6 +41,7 @@
                 padding-right: 30px;
 
                 &__name {
+                    font-size: 13px;
                     width: 60%;
                     color: var(--color-text-sub);
                 }

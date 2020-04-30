@@ -56,7 +56,7 @@
         </div>
       </section>
     </div>
-    <div class="block-bottom" *ngIf="selectedDay && yesterday">
+    <div class="block-bottom" *ngIf="selectedDay">
       <section class="duty-schedule">
         <div class="title">
           <p>График дежурств</p>
@@ -64,7 +64,8 @@
             (click)="resetBrigadesFromShifts()"
             class="title-button"
             mat-icon-button
-            *ngIf="dateNow.getDate() === selectedDay.date.getDate()"
+            *ngIf="dateNowIcon.getDate() === selectedDay.date.getDate()
+             && dateNowIcon.getMonth() === selectedDay.date.getMonth()"
           >
             <svg-icon
               class="icon-storage-title"
@@ -73,18 +74,19 @@
             ></svg-icon>
           </button>
         </div>
-
-        <div class="date-yesterday">
-          <p>
-            {{ yesterday.date | date:'d MMMM' }} - {{ selectedDay.date | date:'d MMMM yyyy' }}
-          </p>
-        </div>
-        <div class="shift-yesterday" *ngFor="let i of yesterday.items; let idx = index">
-          <p>3 смена</p>
-          <p>{{ i.start | date:'HH.mm' }} - {{ i.end | date:'HH.mm' }}</p>
-          <p *ngIf="i.brigadeName" class="shift-today-item">Бригада {{ i.brigadeName }}</p>
-          <p *ngIf="!i.brigadeName" class="shift-today-item">Не назначено</p>
-        </div>
+        <ng-container *ngIf="selectedDay && yesterday">
+          <div class="date-yesterday">
+            <p>
+              {{ yesterday?.date | date:'d MMMM' }} - {{ selectedDay.date | date:'d MMMM yyyy' }}
+            </p>
+          </div>
+          <div class="shift-yesterday" *ngFor="let i of yesterday.items; let idx = index">
+            <p>3 смена</p>
+            <p>{{ i.start | date:'HH.mm':'+0000' }} - {{ i.end | date:'HH.mm':'+0000' }}</p>
+            <p *ngIf="i.brigadeName" class="shift-today-item">Бригада {{ i.brigadeName }}</p>
+            <p *ngIf="!i.brigadeName" class="shift-today-item">Не назначено</p>
+          </div>
+        </ng-container>
         <div class="date-today"><p>{{ selectedDay.date | date:'d MMMM yyyy' }}</p></div>
         <div
           *ngFor="let shift of selectedDay.items; let idx = index"
@@ -93,7 +95,7 @@
           (click)="selectShift(shift)"
         >
           <p>{{ idx + 1 }} смена</p>
-          <p>{{ shift.start | date:'HH.mm' }} - {{ shift.end | date:'HH.mm' }}</p>
+          <p>{{ shift.start | date:'HH.mm':'+0000' }} - {{ shift.end | date:'HH.mm':'+0000' }}</p>
           <p
             *ngIf="!shift.brigadeId"
             class="btn shift-today-item"
