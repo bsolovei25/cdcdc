@@ -11,11 +11,10 @@ import { AvatarConfiguratorService } from '../../../dashboard/services/avatar-co
     styleUrls: ['./worker-card.component.scss'],
 })
 export class WorkerCardComponent implements OnInit, OnChanges {
-
     @Input() public person: IUser = null;
     @Input() public isSmallCard: boolean = false;
     @Input() public isActiveCard: boolean = false;
-    @Input() public position: 'responsible' | 'common';  // нужно в расписании смен
+    @Input() public position: 'responsible' | 'common'; // нужно в расписании смен
 
     public readonly phoneRegExp: RegExp = /[0-9]{10}/;
 
@@ -32,8 +31,8 @@ export class WorkerCardComponent implements OnInit, OnChanges {
 
     constructor(
         private adminService: AdminPanelService,
-        private avatarConfiguratorService: AvatarConfiguratorService,
-    ) { }
+        private avatarConfiguratorService: AvatarConfiguratorService
+    ) {}
 
     public ngOnInit(): void {
         if (!this.isSmallCard) {
@@ -77,5 +76,16 @@ export class WorkerCardComponent implements OnInit, OnChanges {
             return `${this.personsUnit.name}`;
         }
         return 'Установка не выбрана';
+    }
+
+    public wrapLongString(str: string): string {
+        let outputString: string = str;
+        const maxLength: number = 30;
+
+        if (str.length > maxLength) {
+            outputString = `${str.slice(0, maxLength)}...`;
+        }
+
+        return outputString;
     }
 }
