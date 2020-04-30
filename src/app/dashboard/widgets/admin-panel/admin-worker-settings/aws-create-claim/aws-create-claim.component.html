@@ -14,7 +14,7 @@
         </ng-container>
       </div>
     </div>
-    <div class="list-button" (click)="onClickListButton()">
+    <div class="list-button" *ngIf="selectClaim.hasValue()" (click)="onClickListButton()">
       {{!checkIsAllSelected()?'Выделить все':'Снять выделение'}}
     </div>
     <div class="items">
