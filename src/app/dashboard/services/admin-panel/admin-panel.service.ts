@@ -248,6 +248,12 @@ export class AdminPanelService {
         const url: string = `${this.restUrl}/ldap/user/${worker.login}/import`;
         return this.http.post<IUserImported>(url, worker);
     }
+
+    public async updateAllLdapUsers(): Promise<void> {
+        const url: string = `${this.restUrl}/ldap/update`;
+        return this.http.post<void>(url, null).toPromise();
+    }
+
     //#endregion
 
     //#endregion
