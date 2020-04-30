@@ -13,17 +13,20 @@ $container-padding: 5px;
 .body-container {
   height: 100%;
   flex-wrap: wrap;
-  padding: $container-padding;
+  padding-top: 0px;
+  padding: 5px;
+  padding-bottom: 0px;
   position: relative;
-  width: calc(100% - 2px - #{$container-padding * 2});
+  width: calc(100% - 2px - 10px);
   border-left: dashed 1px var(--color-border-main);
   border-right: dashed 1px var(--color-border-main);
   overflow: auto;
 }
 
+
 .block {
   $block-margin: 5px;
-  $bottom-block-size: 75px;
+  $bottom-block-size: 80px;
   position: relative;
   margin: $block-margin;
   min-width: 1040px;
@@ -47,6 +50,8 @@ $container-padding: 5px;
   &_bottom {
     width: calc(100% - #{$block-margin * 2});
     height: $bottom-block-size;
+    margin-top: 0px;
+    margin-bottom: 0;
   }
 }
 
