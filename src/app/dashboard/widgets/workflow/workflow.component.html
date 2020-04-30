@@ -91,20 +91,27 @@
       <div class="workflow__action">
         <div class="workflow__action__title">Доступные виджеты</div>
         <div class="workflow__action__body">
-          <div class="workflow__action__body__items">
+          <div
+            class="workflow__action__body__items"
+            cdkDropList
+            #todoList="cdkDropList"
+            (cdkDropListDropped)="drop($event)"
+          >
             <div class="workflow__action__body__item">
               <svg-icon
                 class="workflow__action__body__item__icon"
                 src="./assets/icons/widgets/workflow/expired.svg"
                 [svgStyle]="{ 'width.px':32, 'height.px':32 }"
+                id="done"
               ></svg-icon>
               <span class="workflow__action__body__item__title">Просрочено</span>
             </div>
-            <div class="workflow__action__body__item">
+            <div class="workflow__action__body__item" cdkDrag #done>
               <svg-icon
                 class="workflow__action__body__item__icon"
                 src="./assets/icons/widgets/workflow/done.svg"
                 [svgStyle]="{ 'width.px':32, 'height.px':32 }"
+                id="done"
               ></svg-icon>
               <span class="workflow__action__body__item__title">Выполнено</span>
             </div>
@@ -113,6 +120,7 @@
                 class="workflow__action__body__item__icon"
                 src="./assets/icons/widgets/workflow/warning_bell.svg"
                 [svgStyle]="{ 'width.px':32, 'height.px':32 }"
+                id="done"
               ></svg-icon>
               <span class="workflow__action__body__item__title">Подходит к концу</span>
             </div>
@@ -121,6 +129,7 @@
                 class="workflow__action__body__item__icon"
                 src="./assets/icons/widgets/workflow/message_w.svg"
                 [svgStyle]="{ 'width.px':32, 'height.px':32 }"
+                id="done"
               ></svg-icon>
               <span class="workflow__action__body__item__title"
                 >Отправить сообщение ответственному</span
@@ -131,6 +140,7 @@
                 class="workflow__action__body__item__icon"
                 src="./assets/icons/widgets/workflow/users_w.svg"
                 [svgStyle]="{ 'width.px':32, 'height.px':32 }"
+                id="done"
               ></svg-icon>
               <span class="workflow__action__body__item__title"
                 >Отправить сообщение пользователям</span
@@ -142,14 +152,15 @@
       <div class="workflow__scenario">
         <div class="workflow__scenario__title">Сценарий</div>
         <div class="workflow__scenario__body" #containerWorkflow>
-          <div class="container split">
-            <div class="split__left" #splitTop>
-              dddddddddddd
-              <div>fsdfsdfdsfsd</div>
-            </div>
-            <div class="split__bar" #splitBar></div>
-            <div class="split__right">dddddddddddddddd</div>
+          <div
+            class="workflow__scenario__body__top"
+            #splitTop
+            (cdkDropListDropped)="drop($event)"
+          >
+            <div>fsdfsdfdsfsd</div>
           </div>
+          <div class="workflow__scenario__body__bar" #splitBar></div>
+          <div class="workflow__scenario__body__bottom">dddddddddddddddd</div>
         </div>
       </div>
     </div>

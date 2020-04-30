@@ -551,7 +551,7 @@ import { DocumentViewerFullscreenComponent } from './widgets/document-viewer/doc
     MatAutocompleteModule,
     TreeModule,
     NgxMaskModule.forChild(),
-    PdfViewerModule
+    PdfViewerModule,
   ],
   bootstrap: [],
   providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' },

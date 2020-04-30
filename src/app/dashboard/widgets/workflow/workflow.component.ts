@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy, Renderer2, ViewChild, ElementRef, AfterViewChecked, AfterViewInit } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
     selector: 'evj-workflow',
@@ -12,8 +13,26 @@ export class WorkflowComponent extends WidgetPlatform implements
 
     item = 'Таблицы';
 
+    todo = [
+        'Get to work',
+        'Pick up groceries',
+        'Go home',
+        'Fall asleep'
+    ];
+
+    done = [
+        'Get up',
+        'Brush teeth',
+        'Take a shower',
+        'Check e-mail',
+        'Walk dog'
+    ];
+
     @ViewChild('splitBar') splitBar: ElementRef<HTMLElement>;
     @ViewChild('splitTop') splitTop: ElementRef<HTMLElement>;
+
+    @ViewChild('done') doneEl: ElementRef<HTMLElement>;
+
     @ViewChild('containerWorkflow') containerWorkflow: ElementRef<HTMLElement>;
 
     constructor(
@@ -31,6 +50,15 @@ export class WorkflowComponent extends WidgetPlatform implements
     }
 
     ngAfterViewInit(): void {
+
+        this.doneEl.nativeElement.addEventListener('start', (e) => {
+            console.log(e);
+        });
+
+        this.splitTop.nativeElement.addEventListener('dragover', (e) => {
+            console.log(e);
+        });
+
 
         let mouseIsDown = false;
         this.splitBar.nativeElement.addEventListener('mousedown', (e) => {
@@ -75,6 +103,18 @@ export class WorkflowComponent extends WidgetPlatform implements
 
     chooseSystem(item): void {
 
+    }
+
+    drop(event: CdkDragDrop<string[]>): void {
+        console.log(event);
+        // if (event?.previousContainer === event.container) {
+        //     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+        // } else {
+        //     transferArrayItem(event.previousContainer.data,
+        //         event.container.data,
+        //         event.previousIndex,
+        //         event.currentIndex);
+        // }
     }
 
 }
