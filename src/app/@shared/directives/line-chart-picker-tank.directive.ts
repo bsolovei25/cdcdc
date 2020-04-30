@@ -18,6 +18,11 @@ export class LineChartPickerTankDirective implements OnDestroy {
         standard: '#3fa9f5',
     };
 
+    private readonly card: {[key:string]:string} = {}
+
+    private readonly tankImageUrl: string = 'assets/icons/widgets/reasons-deviations/tank-icon.svg';
+    private readonly unitImageUrl: string = 'assets/icons/widgets/reasons-deviations/unit-icon.svg';
+
     private eventListenerFn: () => void = null;
 
     constructor(private el: ElementRef, private renderer: Renderer2) {}
@@ -50,7 +55,7 @@ export class LineChartPickerTankDirective implements OnDestroy {
         // группа событий мыши
         const mouseG = this.svg
             .select('g.chart-points')
-            .insert('g', 'g.chart-point')
+            .insert('g', 'g.chart-point-hidden')
             .attr('class', 'mouse-over')
             .attr('transform', `translate(${this.padding.left},${this.padding.top})`)
             .attr('opacity', 0)
@@ -131,6 +136,52 @@ export class LineChartPickerTankDirective implements OnDestroy {
             .select('g.mouse-over')
             .append('g')
             .attr('class', 'mouse-info');
+
+        const cardWidth: number = 120;
+        const cardHeight: number = 75;
+        const rx: number = 10;
+
+        infoG
+            .append('rect')
+            .attr('x', 0)
+            .attr('y', 5)
+            .attr('width', cardWidth)
+            .attr('height', cardHeight)
+            .attr('rx', rx)
+            .attr('fill', 'rgb(28, 35, 51)');
+
+        const tankWidth: number = 50;
+        const tankHeight: number = 50;
+
+        const tankUrl: string = true ? this.tankImageUrl : this.unitImageUrl;
+
+        const tankG = infoG.append('g').attr('class', 'mouse-info-tank');
+
+        tankG
+            .append('image')
+            .attr('xlink:href', tankUrl)
+            .attr('width', tankWidth)
+            .attr('height', tankHeight)
+            .attr('x', 5)
+            .attr('y', 10);
+
+        tankG
+            .append('text')
+            .attr('text-anchor', 'start')
+            .attr('x', 5)
+            .attr('y', 65)
+            .text('Резервуар')
+            .attr('fill', '#ffffff')
+            .style('font-size', 10);
+
+        tankG
+            .append('text')
+            .attr('text-anchor', 'start')
+            .attr('x', 5)
+            .attr('y', 80)
+            .text('№234')
+            .attr('fill', '#ffffff')
+            .style('font-size', 10);
     }
 
     private listenMouseEvents(element: HTMLElement): () => void {
@@ -162,6 +213,8 @@ export class LineChartPickerTankDirective implements OnDestroy {
                     .select('.mouse-per-line')
                     .attr('cx', x)
                     .attr('cy', posFact.y - this.padding.top);
+
+                // this.svg.select('g.mouse-over g.mouse-info rect').attr('x', x + 10);
             })
         );
 

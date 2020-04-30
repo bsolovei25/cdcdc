@@ -93,13 +93,28 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
                 .attr('width', iconHeight)
                 .attr('height', iconWidth)
                 .attr('x', point.x - iconWidth / 2)
+                .attr('y', point.y - (iconHeight + 5));
+        });
+
+        this.chartPointsData.forEach((point: IPointD3) => {
+            const pointG = pointsG.append('g').attr('class', 'chart-point-hidden');
+
+            const iconHeight: number = 24;
+            const iconWidth: number = 24;
+
+            pointG
+                .append('rect').attr('class','icon-hidden')
+                .attr('width', iconHeight)
+                .attr('height', iconWidth)
+                .attr('x', point.x - iconWidth / 2)
                 .attr('y', point.y - (iconHeight + 5))
+                .attr('fill', 'transparent')
                 .style('cursor', 'pointer');
 
             if (point.additional?.card) {
-                const cardWidth: number = 120;
-                const cardHeight: number = 140;
-                const rx: number = 10;
+                const cardWidth: number = 100;
+                const cardHeight: number = 100;
+                const rx: number = 7;
 
                 let cardPosX: number = point.x;
                 let cardPosY: number = point.y;
@@ -133,8 +148,8 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
                     .attr('x', cardPosX)
                     .attr('y', cardPosY);
 
-                const tankWidth: number = 60;
-                const tankHeight: number = 70;
+                const tankWidth: number = 50;
+                const tankHeight: number = 50;
                 const tankPosX: number = cardPosX + (cardWidth - tankWidth) / 2;
                 const tankPosY: number = cardPosY + (cardHeight - tankHeight) / 2;
                 const tankUrl: string =
@@ -143,9 +158,9 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
                         : this.unitImageUrl;
 
                 const textPosX: number = cardPosX + cardWidth / 2;
-                const textSize: number = 14;
+                const textSize: number = 12;
                 const textTypeColor: string = '#8c99b2';
-                const textTypePosY: number = cardPosY + textSize * 1.3;
+                const textTypePosY: number = cardPosY + textSize * 1.5;
                 const textTankColor: string = '#ffffff';
                 const textTankPosY: number = cardPosY + cardHeight - textSize;
 
@@ -175,7 +190,7 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
                     .attr('fill', textTankColor)
                     .style('font-size', 14);
 
-                const [[icon]] = pointG.select('image')._groups;
+                const [[icon]] = pointG.select('rect.icon-hidden')._groups;
 
                 const card: HTMLElement = icon.nextSibling as HTMLElement;
 
