@@ -52,7 +52,29 @@ export class AwsCreateClaimComponent implements OnInit {
     }
 
     public checkIsAllSelected(): boolean {
-        return this.selectClaim.selected.length === this.formEntitiesList().length;
+        if (this.itemsFilter()) {
+            return this.selectWidget.selected.length === this.formEntitiesList().length;
+        } else {
+            return this.selectUnit.selected.length === this.allUnits.length;
+        }
+    }
+
+    public onClickListButton(): void {
+        const isAllSelected: boolean = this.checkIsAllSelected();
+
+        if (this.itemsFilter()) {
+            if (isAllSelected) {
+                this.selectWidget.clear();
+            } else {
+                this.formEntitiesList().forEach((item) => this.selectWidget.select(item));
+            }
+        } else {
+            if (isAllSelected) {
+                this.selectUnit.clear();
+            } else {
+                this.allUnits.forEach((item) => this.selectUnit.select(item));
+            }
+        }
     }
 
     public onBack(): void {
