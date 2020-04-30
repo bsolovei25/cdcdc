@@ -27,6 +27,7 @@ import { UploadDropZoneComponent } from './components/upload-drop-zone/upload-dr
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { CircleInputComponent } from './components/circle-input/circle-input.component';
 import { LineChartTanksDirective } from './directives/line-chart-tanks.directive';
+import { SpaceNumber } from './pipes/number_space.pipe';
 
 @NgModule({
     declarations: [
@@ -51,6 +52,7 @@ import { LineChartTanksDirective } from './directives/line-chart-tanks.directive
         UploadDropZoneComponent,
         CircleInputComponent,
         LineChartTanksDirective,
+        SpaceNumber
     ],
     exports: [
         HeaderComponent,
@@ -72,6 +74,7 @@ import { LineChartTanksDirective } from './directives/line-chart-tanks.directive
         LineChartComponent,
         EmailEditorComponent,
         CircleInputComponent,
+        SpaceNumber,
     ],
     imports: [
         CommonModule,
