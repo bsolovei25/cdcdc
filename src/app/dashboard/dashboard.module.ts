@@ -242,6 +242,7 @@ import { WidgetHeaderSmpComponent } from './components/widget-header-smp/widget-
 import { OilOperationsAdjustmentComponent } from './widgets/oil-operations/components/oil-operations-adjustment/oil-operations-adjustment.component';
 import { OilOperationsFreeShipmentComponent } from './widgets/oil-operations/components/oil-operations-free-shipment/oil-operations-free-shipment.component';
 import { DocumentViewerFullscreenComponent } from './widgets/document-viewer/document-viewer-fullscreen/document-viewer-fullscreen.component';
+import { CdCriticalComponent } from './widgets/cd-critical/cd-critical.component';
 
 @NgModule({
   declarations: [
@@ -453,6 +454,7 @@ import { DocumentViewerFullscreenComponent } from './widgets/document-viewer/doc
     OilOperationsAdjustmentComponent,
     OilOperationsFreeShipmentComponent,
     DocumentViewerFullscreenComponent,
+    CdCriticalComponent,
   ],
   entryComponents: [
     LineChartComponent,
