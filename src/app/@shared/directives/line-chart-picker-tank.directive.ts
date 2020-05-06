@@ -18,7 +18,17 @@ export class LineChartPickerTankDirective implements OnDestroy {
         standard: '#3fa9f5',
     };
 
-    private readonly card: { [key: string]: string } = {};
+    private readonly card: { [key: string]: number } = {
+        width: 120,
+        height: 75,
+        rx: 10,
+        offsetY: 10,
+    };
+
+    private readonly tank: { [key: string]: number } = {
+        width: 50,
+        weight: 50,
+    };
 
     private readonly tankImageUrl: string = 'assets/icons/widgets/reasons-deviations/tank-icon.svg';
     private readonly unitImageUrl: string = 'assets/icons/widgets/reasons-deviations/unit-icon.svg';
@@ -137,40 +147,36 @@ export class LineChartPickerTankDirective implements OnDestroy {
             .append('g')
             .attr('class', 'mouse-info');
 
-        const cardWidth: number = 120;
-        const cardHeight: number = 75;
-        const rx: number = 10;
-
         infoG
             .append('clipPath')
             .attr('id', 'rect-clip')
             .append('rect')
+            .attr('class', 'card')
             .attr('x', 0)
-            .attr('y', 5)
-            .attr('width', cardWidth)
-            .attr('height', cardHeight)
-            .attr('rx', rx);
+            .attr('y', this.card.offsetY)
+            .attr('width', this.card.width)
+            .attr('height', this.card.height)
+            .attr('rx', this.card.rx);
 
         infoG
             .append('clipPath')
             .attr('id', 'value-clip')
             .append('rect')
+            .attr('class', 'card')
             .attr('x', 0)
-            .attr('y', cardHeight - 30)
-            .attr('width', cardWidth)
-            .attr('height', cardHeight);
+            .attr('y', this.card.height - 30)
+            .attr('width', this.card.width)
+            .attr('height', this.card.height);
 
         infoG
             .append('rect')
+            .attr('class', 'card')
             .attr('x', 0)
-            .attr('y', 5)
-            .attr('width', cardWidth)
-            .attr('height', cardHeight)
-            .attr('rx', rx)
+            .attr('y', this.card.offsetY)
+            .attr('width', this.card.width)
+            .attr('height', this.card.height)
+            .attr('rx', this.card.rx)
             .attr('fill', 'rgb(28, 35, 51)');
-
-        const tankWidth: number = 50;
-        const tankHeight: number = 50;
 
         const tankUrl: string = true ? this.tankImageUrl : this.unitImageUrl;
 
@@ -178,16 +184,18 @@ export class LineChartPickerTankDirective implements OnDestroy {
 
         tankG
             .append('image')
+            .attr('class', 'card-tank-image')
             .attr('xlink:href', tankUrl)
-            .attr('width', tankWidth)
-            .attr('height', tankHeight)
-            .attr('x', 5)
-            .attr('y', 10);
+            .attr('width', this.tank.width)
+            .attr('height', this.tank.height)
+            .attr('x', this.card.width * 0.05)
+            .attr('y', this.card.height * 0.2);
 
         tankG
             .append('text')
-            .attr('text-anchor', 'start')
-            .attr('x', 5)
+            .attr('class', 'card-tank-text')
+            .attr('text-anchor', 'middle')
+            .attr('x', this.card.width * 0.05 + this.tank.width / 2)
             .attr('y', 65)
             .text('Резервуар')
             .attr('fill', '#ffffff')
@@ -195,9 +203,10 @@ export class LineChartPickerTankDirective implements OnDestroy {
 
         tankG
             .append('text')
-            .attr('text-anchor', 'start')
-            .attr('x', 5)
-            .attr('y', 80)
+            .attr('class', 'card-tank-text')
+            .attr('text-anchor', 'middle')
+            .attr('x', this.card.width * 0.05 + this.tank.width / 2)
+            .attr('y', 77)
             .text('№234')
             .attr('fill', '#ffffff')
             .style('font-size', 10);
@@ -205,39 +214,42 @@ export class LineChartPickerTankDirective implements OnDestroy {
         tankG
             .append('circle')
             .attr('class', 'card-circle')
-            .attr('cx', (cardWidth / 4) * 3.3)
-            .attr('cy', cardHeight / 2 + 5)
-            .attr('r', cardHeight / 1.9)
-            .attr('fill', 'rgba(65,167,243,0.1)')
+            .attr('cx', (this.card.width / 4) * 3.3)
+            .attr('cy', this.card.height / 2 + this.card.offsetY)
+            .attr('r', this.card.height / 1.9)
+            .attr('fill', this.dataPickerColors.standard)
+            .attr('opacity', 0.1)
             .style('clip-path', 'url(#rect-clip)');
 
         tankG
             .append('circle')
             .attr('class', 'card-circle')
-            .attr('cx', (cardWidth / 4) * 3.3)
-            .attr('cy', cardHeight / 2 + 5)
-            .attr('r', cardHeight / 2.5)
-            .attr('fill', 'rgba(65,167,243,0.3)')
+            .attr('cx', (this.card.width / 4) * 3.3)
+            .attr('cy', this.card.height / 2 + this.card.offsetY)
+            .attr('r', this.card.height / 2.5)
+            .attr('fill', this.dataPickerColors.standard)
+            .attr('opacity', 0.3)
             .style('clip-path', 'url(#rect-clip)');
 
         tankG
             .append('circle')
             .attr('class', 'card-circle')
-            .attr('cx', (cardWidth / 4) * 3.3)
-            .attr('cy', cardHeight / 2 + 5)
-            .attr('r', cardHeight / 2.5)
-            .attr('fill', 'rgba(65,167,243,1)')
+            .attr('cx', (this.card.width / 4) * 3.3)
+            .attr('cy', this.card.height / 2 + this.card.offsetY)
+            .attr('r', this.card.height / 2.5)
+            .attr('fill', this.dataPickerColors.standard)
             .style('clip-path', 'url(#rect-clip)')
             .style('clip-path', 'url(#value-clip)');
 
         tankG
             .append('text')
+            .attr('class', 'card-circle-text')
             .attr('text-anchor', 'middle')
-            .attr('x', (cardWidth / 4) * 3.3)
-            .attr('y', (cardHeight / 4) * 3)
+            .attr('x', (this.card.width / 4) * 3.3)
+            .attr('y', (this.card.height / 4) * 3)
             .text('710т')
             .attr('fill', '#ffffff')
-            .style('font-size', 10);
+            .style('font-size', 12);
     }
 
     private listenMouseEvents(element: HTMLElement): () => void {
@@ -270,7 +282,7 @@ export class LineChartPickerTankDirective implements OnDestroy {
                     .attr('cx', x)
                     .attr('cy', posFact.y - this.padding.top);
 
-                // this.svg.select('g.mouse-over g.mouse-info rect').attr('x', x + 10);
+                this.moveCardCoords(x);
             })
         );
 
@@ -306,5 +318,29 @@ export class LineChartPickerTankDirective implements OnDestroy {
         }
 
         return pos;
+    }
+
+    private moveCardCoords(x: number): void {
+        const cardG = this.svg.select('g.mouse-over g.mouse-info');
+        let offsetX: number = 10;
+        let coordX: number = 0;
+
+        if (
+            this.graphMaxX - this.padding.right - this.padding.left <
+            x + offsetX + this.card.width
+        ) {
+            coordX -= this.card.width;
+            offsetX *= -1;
+        }
+
+        coordX += offsetX + x;
+
+        cardG.selectAll('.card').attr('x', coordX);
+        cardG.selectAll('.card-tank-image').attr('x', this.card.width * 0.05 + coordX);
+        cardG
+            .selectAll('.card-tank-text')
+            .attr('x', this.card.width * 0.05 + this.tank.width / 2 + coordX);
+        cardG.selectAll('.card-circle').attr('cx', (this.card.width / 4) * 3.3 + coordX);
+        cardG.selectAll('.card-circle-text').attr('x', (this.card.width / 4) * 3.3 + coordX);
     }
 }
