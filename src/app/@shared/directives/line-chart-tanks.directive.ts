@@ -113,7 +113,7 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
                 .attr('fill', 'transparent')
                 .style('cursor', 'pointer');
 
-            if (point.additional?.card) {
+            if (point.additional?.card && this.graphMaxY && this.graphMaxX) {
                 const cardWidth: number = 100;
                 let cardHeight: number = 100;
                 const rx: number = 7;
