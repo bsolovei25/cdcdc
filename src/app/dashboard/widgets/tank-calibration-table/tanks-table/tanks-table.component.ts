@@ -12,12 +12,12 @@ export interface ICalibrationTable {
     parentUid?: string;
     parentName?: string;
     isGroup: boolean;
-    isVisible?: boolean;
+    isInvisible?: boolean;
 }
 
 interface IDataSource extends ICalibrationTable {
     childredTanks?: ICalibrationTable[];
-    isVisible?: boolean;
+    isInvisible?: boolean;
 }
 
 @Component({
@@ -73,18 +73,18 @@ export class TanksTableComponent implements OnInit {
             val.childredTanks.map(element => {
                 if (element.name.toLowerCase()
                     .includes(event?.target?.value.toLowerCase())) {
-                    element.isVisible = false; // показывать
+                    element.isInvisible = false; // показывать
                     this.expandedElement.select(val);
                     isLenChild = true;
                 } else {
-                    element.isVisible = true;  // скрыть
+                    element.isInvisible = true;  // скрыть
                 }
             });
             if (val.name.toLowerCase()
                 .includes(event?.target?.value.toLowerCase()) || isLenChild) {
-                val.isVisible = false;
+                val.isInvisible = false;
             } else {
-                val.isVisible = true;
+                val.isInvisible = true;
                 this.expandedElement.deselect(val);
             }
         });

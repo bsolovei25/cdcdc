@@ -16,7 +16,7 @@
       <table class="table">
         <tbody class="table__body">
           <ng-container *ngFor="let element of dataSource">
-            <tr *ngIf="!element.isVisible && element.childredTanks.length > 0"
+            <tr *ngIf="!element.isInvisible && element.childredTanks.length > 0"
                 class="table__body__item__row"
                 (click)="expandedElement.isSelected(element) ?
                        expandedElement.deselect(element)
@@ -31,7 +31,7 @@
               </td>
             </tr>
             <ng-container *ngFor="let elementChildren of element?.childredTanks">
-              <tr *ngIf="expandedElement.isSelected(element) && !elementChildren.isVisible"
+              <tr *ngIf="expandedElement.isSelected(element) && !elementChildren.isInvisible"
                   (click)="selectedElement.isSelected(elementChildren) ?
                          selectedElement.deselect(elementChildren)
                         : selectedElement.select(elementChildren)"
