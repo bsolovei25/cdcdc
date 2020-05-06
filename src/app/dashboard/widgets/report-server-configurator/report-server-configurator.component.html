@@ -1,6 +1,7 @@
 <evj-widget-preview
   [title]="widgetTitle"
   [code]="widgetCode"
+  [icon]="widgetIcon"
   [previewTitle]="widgetType"
   *ngIf="isMock"
 >
@@ -278,18 +279,6 @@
                   </div>
                 </div>
                 <div class="reference-container-value__type" (click)="openSelectBox()">
-                  <!-- <mat-form-field class="categories_selectbox">
-                    <mat-select
-                      panelClass="mat-select-custom"
-                      [(ngModel)]="selectFile.fileId"
-                      (ngModelChange)="onChangeFile($event)"
-                    >
-                      <mat-option *ngFor="let p of dataFile" [value]="p.fileId"
-                        >{{ p.name }}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field> -->
-
                   <div class="name-type">{{ selectFile.name }}</div>
                 </div>
                 <div *ngIf="isSelectBox" (mouseleave)="closeSelectBox()">

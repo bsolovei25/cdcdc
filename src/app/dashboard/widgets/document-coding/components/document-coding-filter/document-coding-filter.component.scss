@@ -1,14 +1,14 @@
 ::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
+    width: 4px;
+    height: 4px;
     border-radius: 25px;
     margin-top: 90px;
     margin-bottom: 90px;
 }
 
 ::-webkit-scrollbar-track:vertical {
-    width: 5px;
-    height: 5px;
+    width: 4px;
+    height: 4;
     margin-top: 1px;
     margin-bottom: 1px;
     border-radius: 25px;
@@ -16,10 +16,7 @@
 
 :hover::-webkit-scrollbar-thumb {
     background-color: var(--color-border-active);
-}
-
-:hover::-webkit-scrollbar-track-piece {
-    border: solid 1px var(--color-border-active);
+    border-radius: 25px;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -32,7 +29,6 @@
     border-radius: 25px;
 }
 ::-webkit-scrollbar-track-piece {
-    border: solid 1px var(--color-border-main);
     border-radius: 25px;
 }
 
@@ -47,9 +43,9 @@
     top: 10%;
     height: 85%;
     z-index: 999;
-    width: 30%;
+    width: 20%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
+    border-radius: 20px;
 }
 
 .title {
@@ -85,13 +81,19 @@
 }
 
 .content {
-    overflow: auto;
-    overflow-x: hidden;
     height: calc(100% - 100px);
-    background-color: #1b1f2c;
+    background-color: var(--color-bg-main);
     border-top: 7px solid var(--color-bg-main);
     border-bottom: 7px solid var(--color-bg-main);
     font-size: 14px;
+    width: 100%;
+
+    .test {
+        overflow: auto;
+        overflow-x: hidden;
+        width: calc(100% - 6px);
+        height: 100%;
+    }
 
     .item {
         font-size: 14px;
@@ -113,9 +115,12 @@
             height: 40px;
             line-height: 40px;
             .name-param {
-                padding-left: 60px;
-                width: calc(70% - 60px);
+                padding-left: 25px;
+                width: calc(70% - 10px);
                 border-right: 1px solid var(--color-table-main);
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
             }
             .check-param {
                 width: 20%;
@@ -140,17 +145,17 @@
                     &__default {
                         display: none;
                     }
-    
+
                     &__descr {
                         font-size: 14px;
                     }
-    
+
                     &__default:checked + .mycheckbox__new::after {
                         height: 8px;
                         width: 8px;
                         border-radius: 25px;
                     }
-    
+
                     &__new {
                         width: 16px;
                         height: 16px;
@@ -159,11 +164,11 @@
                         margin-right: 9px;
                         position: relative;
                     }
-    
+
                     &__checked {
                         border: 1px solid var(--color-border-active);
                     }
-    
+
                     &__new::after {
                         content: "";
                         display: block;
@@ -193,12 +198,13 @@
 
     &__block {
         margin: 0 auto;
-        width: 45%;
+        width: 130px;
         height: 80%;
-        font-size: 15px;
+        font-size: 14px;
         display: flex;
         border: 1px solid white;
         border-radius: 20px;
+        min-width: 80px;
 
         &:hover {
             cursor: pointer;
@@ -213,9 +219,8 @@
         margin: 0 auto;
         align-items: center;
     }
-
 }
 
-.active{
+.active {
     color: var(--color-border-active);
 }

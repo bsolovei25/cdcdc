@@ -37,6 +37,7 @@ export class AdminPanelService {
         position: 'common',
         positionDescription: '',
         displayName: '',
+        department: '',
     };
 
     public activeWorker: IUser = null;
@@ -231,11 +232,12 @@ export class AdminPanelService {
     public getAllLdapUsers(
         login: string,
         skip: number = 0,
-        take: number = 50
+        take: number = 50,
+        lastSid: string = ''
     ): Observable<IUserLdapDto[]> {
         const url: string = `${this.restUrl}/ldap/users`;
         return this.http.get<IUserLdapDto[]>(url, {
-            params: { login, skip: skip.toString(), take: take.toString() },
+            params: { login, skip: skip.toString(), take: take.toString(), lastSid },
         });
     }
 
@@ -248,6 +250,12 @@ export class AdminPanelService {
         const url: string = `${this.restUrl}/ldap/user/${worker.login}/import`;
         return this.http.post<IUserImported>(url, worker);
     }
+
+    public async updateAllLdapUsers(): Promise<void> {
+        const url: string = `${this.restUrl}/ldap/update`;
+        return this.http.post<void>(url, null).toPromise();
+    }
+
     //#endregion
 
     //#endregion

@@ -1,0 +1,109 @@
+:host {
+  z-index: 99999;
+}
+
+.no-visible {
+  position: absolute;
+  top: 25px;
+  //background-color: red;
+  z-index: 9999999 !important;
+  display: block;
+  width: 10px;
+  height: 90px;
+  &__left {
+    left: 0;
+  }
+  &__right {
+    right: 0;
+  }
+}
+
+@mixin circle {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  z-index: 99999;
+  background-color: var(--color-border-main);
+  border-radius: 50%;
+}
+
+.outer {
+  position: absolute;
+  top: 25px;
+}
+
+.draggable-place {
+  position: fixed;
+  width: 9px;
+  height: 50px;
+  background-color: var(--color-bg-main);
+  z-index: 9999999 !important;
+  display: block;
+  border: solid 2px var(--color-border-main);
+  &__left {
+    left: -9px;
+    border-radius: 10px 0 0 10px;
+    border-right: none;
+    &::before {
+      @include circle;
+      top: 10px;
+      right: 0px;
+    }
+    &::after {
+      @include circle;
+      bottom: 10px;
+      right: 0px;
+    }
+  }
+  &__right {
+    left: calc(100% - 1px);
+    border-radius: 0 10px 10px 0;
+    border-left: none;
+    &::before {
+      @include circle;
+      top: 10px;
+      left: 0px;
+    }
+    &::after {
+      @include circle;
+      bottom: 10px;
+      left: 0px;
+    }
+  }
+}
+
+.close-button {
+  position: fixed;
+  top: 85px;
+  width: 9px;
+  height: 25px;
+  background-color: var(--color-bg-main);
+  z-index: 9999999 !important;
+  display: block;
+  border: solid 2px var(--color-border-main);
+  &__right {
+    left: calc(100% - 1px);
+    border-radius: 0 10px 10px 0;
+    border-left: none;
+  }
+  &__left {
+    left: -9px;
+    border-radius: 10px 0 0 10px;
+    border-right: none;
+  }
+  &__icon {
+    position: absolute;
+    top: 9.5px;
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-border-main);
+    mask: url("../../../../assets/icons/close_bad.svg") no-repeat center;
+    &___left {
+      right: 0;
+    }
+    &___right {
+      left: 0;
+    }
+  }
+}

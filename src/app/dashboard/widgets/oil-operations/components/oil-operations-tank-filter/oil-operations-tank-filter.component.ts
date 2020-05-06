@@ -15,7 +15,7 @@ export class OilOperationsTankFilterComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log('test');
+
   }
 
   itemOpen(item: IOilFilterTanks): void {

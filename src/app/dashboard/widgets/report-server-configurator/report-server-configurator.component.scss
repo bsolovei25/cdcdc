@@ -14,6 +14,15 @@
   border-radius: 25px;
 }
 
+
+::-webkit-scrollbar-track:horizontal {
+  width: 4px;
+  height: 4px;
+  border-radius: 25px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
 :hover::-webkit-scrollbar-thumb {
   background-color: var(--color-border-active);
 }
@@ -199,8 +208,8 @@
 .content {
   display: flex;
   height: calc(100% - 60px);
-  border-left: dashed 0.5px var(--color-border-main);
-  border-right: dashed 0.5px var(--color-border-main);
+  border-left: dashed 1px var(--color-border-main);
+  border-right: dashed 1px var(--color-border-main);
   overflow: auto;
   overflow-y: hidden;
 }

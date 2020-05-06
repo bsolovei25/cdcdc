@@ -5,18 +5,20 @@
                 <svg-icon src="./assets/icons/widgets/reports/close.svg" class="add_button_icon">
                 </svg-icon>
             </div>
-            <div class="title__name">Фильтр</div>
+            <div class="title__name">Продукт</div>
         </div>
         <div class="content">
-            <ng-container *ngFor="let item of data">
-                <div class="item__shadow-block">
-                        <div class="item__i" (click)="active(item)">
-                            <div class="name-param" [class.active]="activeItemId === item.id">
-                                {{ item.name }}
-                            </div>  
-                        </div>
-                </div>
-            </ng-container>
+            <div class="content-block">
+                <ng-container *ngFor="let item of data">
+                    <div class="item__shadow-block">
+                            <div class="item__i" (click)="active(item)">
+                                <div class="name-param" [class.active]="activeItemId === item.id">
+                                    {{ item.name }}
+                                </div>  
+                            </div>
+                    </div>
+                </ng-container>
+            </div>
         </div>
         <div class="bottom">
             <div class="bottom__block">

@@ -5,14 +5,14 @@
     padding-left: 0;
     padding-bottom: 0;
     padding-right: 5px;
-    //  min-width: 950px;
+    padding-top: 0px;
 
     &__title {
         display: flex;
         position: relative;
         height: 40px;
         margin: 0 auto;
-        width: calc(100% - 15px);
+        width: calc(100% - 17px);
         background-color: var(--color-oil-border);
         color: var(--color-text-sub);
         text-align: center;
@@ -28,7 +28,7 @@
     }
 
     &__container {
-        height: calc(100% - 100px);
+        height: calc(100% - 85px);
         width: 100%;
         overflow: auto;
         overflow-x: hidden;
@@ -68,7 +68,7 @@
         position: relative;
         height: 40px;
         margin: 0 auto;
-        width: calc(100% - 15px);
+        width: calc(100% - 17px);
         background-color: var(--color-oil-border);
         border-bottom-left-radius: 15px;
         border-bottom-right-radius: 15px;
@@ -96,13 +96,15 @@
 }
 
 .scrollON {
-    width: calc(100% - 12px) !important;
-    margin-left: 8px !important;
+    width: calc(100% - 13px) !important;
+    margin-left: 8.5px !important;
 }
 
+
+
 .scrollOFF {
-    margin-left: 8px !important;
-    width: calc(100% - 18px) !important;
+    margin-left: 9px !important;
+    width: calc(100% - 17.5px) !important;
 }
 
 ::-webkit-scrollbar {

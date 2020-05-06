@@ -28,9 +28,8 @@ export class DocumentCodingMenuComponent implements OnInit {
       acceptFunction: () => this.snackBar.openSnackBar(
         'Файл сохранен',
       ),
-      closeFunction: () => {
-        this.oilService.closeAlert();
-      }
+      closeFunction: () => this.oilService.closeAlert(),
+      cancelFunction: () => {},
     };
     this.oilService.alertWindow$.next(windowsParam);
   }

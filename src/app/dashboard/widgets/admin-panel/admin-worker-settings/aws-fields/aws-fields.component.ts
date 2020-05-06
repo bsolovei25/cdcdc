@@ -49,6 +49,11 @@ export class AwsFieldsComponent implements OnInit {
                     key: 'middleName',
                 },
                 {
+                    name: 'Отдел',
+                    value: this.worker.department,
+                    key: 'department',
+                },
+                {
                     name: 'Должность',
                     value: this.worker.positionDescription,
                     key: 'positionDescription',
@@ -95,6 +100,8 @@ export class AwsFieldsComponent implements OnInit {
                 case 'firstName':
                 case 'lastName':
                 case 'email':
+                case 'department':
+                case 'positionDescription':
                     return true;
             }
         } else if (!this.isCreateNewUser) {
