@@ -18,7 +18,7 @@ export interface ICalibrationTable {
     parentUid?: string;
     parentName?: string;
     isGroup: boolean;
-    isVisible?: boolean;
+    isInvisible?: boolean;
 }
 
 export interface IOnlineTable {
@@ -30,7 +30,7 @@ export interface IOnlineTable {
 
 interface IDataSource extends ICalibrationTable {
     childredTanks?: ICalibrationTable[];
-    isVisible?: boolean;
+    isInvisible?: boolean;
 }
 
 @Component({
@@ -231,17 +231,17 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
             val.childredTanks.map(element => {
                 if (element.name.toLowerCase()
                     .includes(event?.target?.value.toLowerCase())) {
-                    element.isVisible = false; // показывать
+                    element.isInvisible = false; // показывать
                     isLenChild = true;
                 } else {
-                    element.isVisible = true;  // скрыть
+                    element.isInvisible = true;  // скрыть
                 }
             });
             if (val.name.toLowerCase()
                 .includes(event?.target?.value.toLowerCase()) || isLenChild) {
-                val.isVisible = false;
+                val.isInvisible = false;
             } else {
-                val.isVisible = true;
+                val.isInvisible = true;
             }
         });
         this.dataSourceTanks = this.data?.filter((val) => val.name.toLowerCase()
