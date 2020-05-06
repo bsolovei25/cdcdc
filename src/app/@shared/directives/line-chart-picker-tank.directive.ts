@@ -18,7 +18,7 @@ export class LineChartPickerTankDirective implements OnDestroy {
         standard: '#3fa9f5',
     };
 
-    private readonly card: {[key:string]:string} = {}
+    private readonly card: { [key: string]: string } = {};
 
     private readonly tankImageUrl: string = 'assets/icons/widgets/reasons-deviations/tank-icon.svg';
     private readonly unitImageUrl: string = 'assets/icons/widgets/reasons-deviations/unit-icon.svg';
@@ -142,6 +142,25 @@ export class LineChartPickerTankDirective implements OnDestroy {
         const rx: number = 10;
 
         infoG
+            .append('clipPath')
+            .attr('id', 'rect-clip')
+            .append('rect')
+            .attr('x', 0)
+            .attr('y', 5)
+            .attr('width', cardWidth)
+            .attr('height', cardHeight)
+            .attr('rx', rx);
+
+        infoG
+            .append('clipPath')
+            .attr('id', 'value-clip')
+            .append('rect')
+            .attr('x', 0)
+            .attr('y', cardHeight - 30)
+            .attr('width', cardWidth)
+            .attr('height', cardHeight);
+
+        infoG
             .append('rect')
             .attr('x', 0)
             .attr('y', 5)
@@ -180,6 +199,43 @@ export class LineChartPickerTankDirective implements OnDestroy {
             .attr('x', 5)
             .attr('y', 80)
             .text('№234')
+            .attr('fill', '#ffffff')
+            .style('font-size', 10);
+
+        tankG
+            .append('circle')
+            .attr('class', 'card-circle')
+            .attr('cx', (cardWidth / 4) * 3.3)
+            .attr('cy', cardHeight / 2 + 5)
+            .attr('r', cardHeight / 1.9)
+            .attr('fill', 'rgba(65,167,243,0.1)')
+            .style('clip-path', 'url(#rect-clip)');
+
+        tankG
+            .append('circle')
+            .attr('class', 'card-circle')
+            .attr('cx', (cardWidth / 4) * 3.3)
+            .attr('cy', cardHeight / 2 + 5)
+            .attr('r', cardHeight / 2.5)
+            .attr('fill', 'rgba(65,167,243,0.3)')
+            .style('clip-path', 'url(#rect-clip)');
+
+        tankG
+            .append('circle')
+            .attr('class', 'card-circle')
+            .attr('cx', (cardWidth / 4) * 3.3)
+            .attr('cy', cardHeight / 2 + 5)
+            .attr('r', cardHeight / 2.5)
+            .attr('fill', 'rgba(65,167,243,1)')
+            .style('clip-path', 'url(#rect-clip)')
+            .style('clip-path', 'url(#value-clip)');
+
+        tankG
+            .append('text')
+            .attr('text-anchor', 'middle')
+            .attr('x', (cardWidth / 4) * 3.3)
+            .attr('y', (cardHeight / 4) * 3)
+            .text('710т')
             .attr('fill', '#ffffff')
             .style('font-size', 10);
     }
