@@ -3,12 +3,21 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SelectionModel } from '@angular/cdk/collections';
 import { TankCalibrationTableService } from '../../../services/widgets/tank-calibration-table.service';
 
-interface ITanksTable {
+export interface ICalibrationTable {
     uid: string;
     name: string;
+    startDate?: Date;
+    endDate?: Date;
+    warningLevel?: 'none' | 'warning' | 'expired';
     parentUid?: string;
     parentName?: string;
     isGroup: boolean;
+    isInvisible?: boolean;
+}
+
+interface IDataSource extends ICalibrationTable {
+    childredTanks?: ICalibrationTable[];
+    isInvisible?: boolean;
 }
 
 @Component({
@@ -16,14 +25,14 @@ interface ITanksTable {
     templateUrl: './tanks-table.component.html',
     styleUrls: ['./tanks-table.component.scss'],
 })
-export class TanksTableComponent implements OnInit, OnDestroy {
+export class TanksTableComponent implements OnInit {
 
-    dataSource: ITanksTable[] = [];
-    dataSourceTanks: ITanksTable[] = [];
-    data: ITanksTable[] = [];
+    dataSource: IDataSource[] = [];
+    dataSourceTanks: IDataSource[] = [];
+    data: IDataSource[] = [];
 
-    expandedElement: SelectionModel<ITanksTable[]> = new SelectionModel(true);
-    selectedElement: SelectionModel<ITanksTable> = new SelectionModel();
+    expandedElement: SelectionModel<IDataSource> = new SelectionModel(true);
+    selectedElement: SelectionModel<IDataSource> = new SelectionModel();
 
     isRefInput: boolean = false;
 
@@ -33,16 +42,12 @@ export class TanksTableComponent implements OnInit, OnDestroy {
         public dialogRef: MatDialogRef<any>,
         private chDet: ChangeDetectorRef,
         private calibrationService: TankCalibrationTableService,
-        @Inject(MAT_DIALOG_DATA) public dataRef: ITanksTable[]
+        @Inject(MAT_DIALOG_DATA) public dataRef: IDataSource[]
     ) {
     }
 
     ngOnInit(): void {
         this.loadItem();
-    }
-
-    ngOnDestroy(): void {
-
     }
 
     onNoClick(): void {
@@ -57,15 +62,37 @@ export class TanksTableComponent implements OnInit, OnDestroy {
         this.dialogRef.close(element.uid);
     }
 
-    getChildrenRows(element: ITanksTable): ITanksTable[] {
+    getChildrenRows(element: ICalibrationTable): ICalibrationTable[] {
         return this.data.filter(val => element?.uid === val?.parentUid);
     }
 
     searchInput(event): void {
-        this.dataSource = this.data?.filter((val) => val.name.toLowerCase()
-            .includes(event?.target?.value.toLowerCase()) && val.isGroup);
+
+        this.dataSource?.map((val) => {
+            let isLenChild: boolean = false;
+            val.childredTanks.map(element => {
+                if (element.name.toLowerCase()
+                    .includes(event?.target?.value.toLowerCase())) {
+                    element.isInvisible = false; // показывать
+                    this.expandedElement.select(val);
+                    isLenChild = true;
+                } else {
+                    element.isInvisible = true;  // скрыть
+                }
+            });
+            if (val.name.toLowerCase()
+                .includes(event?.target?.value.toLowerCase()) || isLenChild) {
+                val.isInvisible = false;
+            } else {
+                val.isInvisible = true;
+                this.expandedElement.deselect(val);
+            }
+        });
         this.dataSourceTanks = this.data?.filter((val) => val.name.toLowerCase()
             .includes(event?.target?.value.toLowerCase()) && !val.parentUid && !val.isGroup);
+        if (event?.target?.value.toLowerCase() === '') {
+            this.expandedElement.clear();
+        }
     }
 
     private async loadItem(): Promise<void> {
@@ -74,9 +101,12 @@ export class TanksTableComponent implements OnInit, OnDestroy {
         dataLoadQueue.push(
             this.calibrationService.getTankAvailable().then((data) => {
                 this.data = data;
-                this.dataSource = [...data
-                    .filter(val => val.isGroup)];
-                this.dataSourceTanks = [...data
+                this.dataSource = this.data
+                    .filter(val => val.isGroup);
+                this.dataSource.map((value) => {
+                    value.childredTanks = this.getChildrenRows(value);
+                });
+                this.dataSourceTanks = [...this.data
                     .filter(val => !val.parentUid && !val.isGroup)];
                 this.isLoading = false;
             })
