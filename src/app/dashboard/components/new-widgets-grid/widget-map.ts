@@ -54,6 +54,8 @@ import { QualityDocsPanelComponent } from '../../widgets/quality-docs-panel/qual
 import { DocumentCodingComponent } from '../../widgets/document-coding/document-coding.component';
 import { OilOperationsComponent } from '../../widgets/oil-operations/oil-operations.component';
 import { CdCriticalComponent } from '../../widgets/cd-critical/cd-critical.component';
+import { ImplementationPlanComponent } from '../../widgets/SMP/implementation-plan/implementation-plan.component';
+import { PerformanceProgressIndicatorsComponent } from '../../widgets/SMP/performance-progress-indicators/performance-progress-indicators.component';
 
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
@@ -113,4 +115,6 @@ export const WIDGETS = {
     'document-coding': DocumentCodingComponent,
     'oil-operations': OilOperationsComponent,
     'cd-critical': CdCriticalComponent,
+    'implementation-plan': ImplementationPlanComponent,
+    'performance-progress-indicators': PerformanceProgressIndicatorsComponent,
 };

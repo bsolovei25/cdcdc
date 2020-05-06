@@ -225,6 +225,9 @@ input {
     &__name {
       line-height: 40px;
       padding-left: 20px;
+      width: calc(100% - 55px);
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     &__block {

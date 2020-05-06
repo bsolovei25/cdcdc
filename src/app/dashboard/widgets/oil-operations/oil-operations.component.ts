@@ -2,7 +2,14 @@ import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { IOilOperations } from '../../models/oil-operations';
-import { filter } from 'rxjs/operators';
+
+export interface IOilOperationsButton {
+  isFilter: boolean;
+  filter: boolean;
+  line: boolean;
+  adjust: boolean;
+  free: boolean;
+}
 
 @Component({
   selector: 'evj-oil-operations',
@@ -13,13 +20,8 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
   static itemCols = 18;
   static itemRows = 14;
 
-  public isFilter: boolean = false;
-  public isTankFilter: boolean = false;
-  public isLineChart: boolean = false;
   public isOpenReceived: boolean = false;
   public isOpenShipment: boolean = false;
-  public isAdjust: boolean = false;
-  public isFreeShipment: boolean = false;
 
   public data: IOilOperations = {
     tableLeft: [
@@ -200,6 +202,14 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
     ],
   };
 
+  filter: IOilOperationsButton = {
+    isFilter: false,
+    filter: false,
+    line: false,
+    adjust: false,
+    free: false,
+  };
+
   constructor(
     public widgetService: WidgetService,
     @Inject('isMock') public isMock: boolean,
@@ -223,51 +233,45 @@ export class OilOperationsComponent extends WidgetPlatform implements OnInit, On
     super.ngOnDestroy();
   }
 
-  openFilter(event): void {
-    this.isFilter = event;
+  openFilter(open: boolean): void {
+    this.active('isFilter');
   }
 
-  openItemReceived(event: string): void {
-    this.isOpenReceived = false;
-    if (event === 'line') {
-      this.isLineChart = true;
-      this.isTankFilter = false;
-    } else if (event === 'filter') {
-      this.isLineChart = false;
-      this.isTankFilter = true;
-    }
-  }
-
-  openItemShipment(event: string): void {
+  openShipment(name: string): void {
     this.isOpenShipment = false;
-    if (event === 'adjust') {
-      this.isAdjust = true;
-      this.isFreeShipment = false;
-    } else if (event === 'free') {
-      this.isAdjust = false;
-      this.isFreeShipment = true;
-    }
+    this.isOpenReceived = true;
+    this.active(name);
   }
 
-  closeAdjust(event: boolean): void {
-    this.isAdjust = event;
+  openReceived(name: string): void {
+    this.isOpenReceived = false;
+    this.isOpenShipment = true;
+    this.active(name);
+  }
+
+  closeShipment(event: boolean): void {
+    this.disabled();
     this.isOpenShipment = true;
   }
 
-  closeFreeShipment(event: boolean): void {
-    this.isFreeShipment = event;
-    this.isOpenShipment = true;
-  }
-
-  closeFilterTank(event: boolean): void {
-    this.isTankFilter = event;
+  closeReceived(event: boolean): void {
+    this.disabled();
     this.isOpenReceived = true;
   }
 
-  closeLineChart(event: boolean): void {
-    this.isLineChart = event;
-    this.isOpenReceived = true;
+  active(itemActive: string): void {
+    Object.keys(this.filter).forEach(key => {
+      if (key === itemActive) {
+        this.filter[key] = true;
+      } else {
+        this.filter[key] = false;
+      }
+    });
   }
 
-
+  disabled(): void {
+    Object.keys(this.filter).forEach(item => {
+      this.filter[item] = false;
+    });
+  }
 }
