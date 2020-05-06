@@ -247,6 +247,9 @@ import { ImplementationPlanComponent } from './widgets/SMP/implementation-plan/i
 import { ImplementationPieComponent } from './widgets/SMP/implementation-plan/components/implementation-pie/implementation-pie.component';
 import { ImplementationTankComponent } from './widgets/SMP/implementation-plan/components/implementation-tank/implementation-tank.component';
 import { ImplementationsComponent } from './widgets/SMP/implementation-plan/components/implementations/implementations.component';
+import { PerformanceProgressIndicatorsComponent } from './widgets/SMP/performance-progress-indicators/performance-progress-indicators.component';
+import { PerformanceProgressParkComponent } from './widgets/SMP/performance-progress-indicators/components/performance-progress-park/performance-progress-park.component';
+import { PerformanceProgressShippedComponent } from './widgets/SMP/performance-progress-indicators/components/performance-progress-shipped/performance-progress-shipped.component';
 
 @NgModule({
   declarations: [
@@ -463,6 +466,9 @@ import { ImplementationsComponent } from './widgets/SMP/implementation-plan/comp
     ImplementationPieComponent,
     ImplementationTankComponent,
     ImplementationsComponent,
+    PerformanceProgressIndicatorsComponent,
+    PerformanceProgressParkComponent,
+    PerformanceProgressShippedComponent,
   ],
   entryComponents: [
     LineChartComponent,
@@ -529,6 +535,7 @@ import { ImplementationsComponent } from './widgets/SMP/implementation-plan/comp
     ReportTreeComponent,
     OilOperationsComponent,
     ImplementationPlanComponent,
+    PerformanceProgressIndicatorsComponent,
   ],
   exports: [HomeComponent],
   imports: [

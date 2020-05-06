@@ -65,7 +65,7 @@
 }
 
 .active {
-  border-right: 1px solid var(--color-active);
+  border-right: 2px solid var(--color-active);
 
   ::ng-deep {
     .block__info {

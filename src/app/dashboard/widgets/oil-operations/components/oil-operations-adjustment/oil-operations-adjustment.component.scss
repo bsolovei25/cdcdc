@@ -3,7 +3,7 @@
     position: absolute;
     left: 28%;
     bottom: 15%;
-    height: 160px;
+    height: 200px;
     z-index: 999;
     width: 230px;
     box-shadow: 0 0 10px var(--color-oil-popup-shadow);
@@ -43,7 +43,7 @@
 }
 
 .content {
-    height: calc(100% - 80px);
+    height: calc(100% - 95px);
     background-color: var(--color-bg-header-table);
     border-top: 7px solid var(--color-bg-main);
     border-bottom: 7px solid var(--color-bg-main);

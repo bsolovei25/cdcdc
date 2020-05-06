@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { IImplementationPlan } from '../../implementation-plan.component';
+import { SpaceNumber } from '@shared/pipes/number_space.pipe';
 import * as d3 from 'd3';
 
 @Component({
@@ -16,13 +17,16 @@ export class ImplementationPieComponent implements OnInit {
 
   public defaultPercent: number = 100;
 
-  constructor() { }
+  constructor(
+    private spacePipe: SpaceNumber,
+  ) { }
 
   ngOnInit(): void {
     this.d3Circle(this.data, this.myCircle.nativeElement);
   }
 
   public d3Circle(data, el): void {
+    const pipeValue: string = this.spacePipe.transform(data.value);
     // const summ = data.critical + data.nonCritical;
     const summ = this.defaultPercent - data.deviationPercent;
     const mass = [this.defaultPercent, data.deviationPercent];
@@ -72,7 +76,7 @@ export class ImplementationPieComponent implements OnInit {
       .attr('font-size', '12px')
       .attr('fill', 'var(--color-text-main)')
       .attr('dominant-baseline', 'middle')
-      .text(data.value);
+      .text(pipeValue);
 
     const text = canvas
       .append('text')

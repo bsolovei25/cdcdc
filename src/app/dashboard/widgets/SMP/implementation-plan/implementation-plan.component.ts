@@ -8,7 +8,8 @@ export interface IImplementationPlan {
   value: number;
   deviation: string;
   deviationPercent: number;
-  tankLevel: number;
+  factTankLevel: number;
+  planTankLevel: number;
 }
 
 @Component({
@@ -25,7 +26,8 @@ export class ImplementationPlanComponent extends WidgetPlatform implements OnIni
       value: 1232421,
       deviation: '+0,2',
       deviationPercent: 10,
-      tankLevel: 10
+      factTankLevel: 10,
+      planTankLevel: 40,
     },
     {
       id: 2,
@@ -33,7 +35,8 @@ export class ImplementationPlanComponent extends WidgetPlatform implements OnIni
       value: 1232421,
       deviation: '+0,2',
       deviationPercent: 10,
-      tankLevel: 30
+      factTankLevel: 10,
+      planTankLevel: 40,
     }
   ];
 
