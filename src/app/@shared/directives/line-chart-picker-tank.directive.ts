@@ -2,6 +2,7 @@ import { Directive, Input, ElementRef, Renderer2, HostListener, OnDestroy } from
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 import { ProductionTrendType } from '../../dashboard/models/production-trends.model';
+import { lineBreakTankName } from '../functions/line-break.function';
 
 @Directive({
     selector: '[evjLineChartPickerTank]',
@@ -12,6 +13,7 @@ export class LineChartPickerTankDirective implements OnDestroy {
     @Input() private scaleFuncs: { x: any; y: any } = { x: null, y: null };
     @Input() private padding: { [key: string]: number } = {};
     @Input() private maxValue: number = 7000;
+    @Input() private tankName: string = 'Резервуар 0';
 
     private svg: any = null;
 
@@ -192,25 +194,39 @@ export class LineChartPickerTankDirective implements OnDestroy {
             .attr('x', this.card.width * 0.05)
             .attr('y', this.card.height * 0.2);
 
-        tankG
-            .append('text')
-            .attr('class', 'card-tank-text')
-            .attr('text-anchor', 'middle')
-            .attr('x', this.card.width * 0.05 + this.tank.width / 2)
-            .attr('y', 65)
-            .text('Резервуар')
-            .attr('fill', '#ffffff')
-            .style('font-size', 10);
+        if (this.tankName.length > 9) {
+            const [firstStr, secondStr] = lineBreakTankName(this.tankName);
 
-        tankG
-            .append('text')
-            .attr('class', 'card-tank-text')
-            .attr('text-anchor', 'middle')
-            .attr('x', this.card.width * 0.05 + this.tank.width / 2)
-            .attr('y', 77)
-            .text('№234')
-            .attr('fill', '#ffffff')
-            .style('font-size', 10);
+            tankG
+                .append('text')
+                .attr('class', 'card-tank-text')
+                .attr('text-anchor', 'middle')
+                .attr('x', this.card.width * 0.05 + this.tank.width / 2)
+                .attr('y', 65)
+                .text(firstStr)
+                .attr('fill', '#ffffff')
+                .style('font-size', 10);
+
+            tankG
+                .append('text')
+                .attr('class', 'card-tank-text')
+                .attr('text-anchor', 'middle')
+                .attr('x', this.card.width * 0.05 + this.tank.width / 2)
+                .attr('y', 77)
+                .text(secondStr)
+                .attr('fill', '#ffffff')
+                .style('font-size', 10);
+        } else {
+            tankG
+                .append('text')
+                .attr('class', 'card-tank-text')
+                .attr('text-anchor', 'middle')
+                .attr('x', this.card.width * 0.05 + this.tank.width / 2)
+                .attr('y', 70)
+                .text(this.tankName)
+                .attr('fill', '#ffffff')
+                .style('font-size', 10);
+        }
 
         tankG
             .append('circle')
@@ -356,7 +372,7 @@ export class LineChartPickerTankDirective implements OnDestroy {
         const percent: number = factY / this.maxValue;
 
         const cardG = this.svg.select('g.mouse-over g.mouse-info');
-        cardG.select('.card-circle-text').text(`${(factY / 1000).toFixed(0)}т`);
+        cardG.select('.card-circle-text').text(`${factY.toFixed(0)}т`);
         cardG
             .select('#value-clip rect')
             .attr('y', this.card.offsetY + this.card.height * (1 - percent));

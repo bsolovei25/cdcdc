@@ -14,6 +14,10 @@ export class OilOperationsLineChartComponent implements OnInit, AfterViewInit {
         {
             graphType: 'fact',
             graphStyle: 'main',
+            additional: {
+                tankName: 'Резервуар 503',
+                maxValue: 7000,
+            },
             graph: [
                 {
                     value: 1000,

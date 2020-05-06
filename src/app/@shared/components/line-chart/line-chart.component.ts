@@ -22,7 +22,7 @@ import { ChartStyleType, ChartStyle, IChartStyle } from '../../models/line-chart
     styleUrls: ['./line-chart.component.scss'],
 })
 export class LineChartComponent implements OnChanges, OnInit {
-    @Input() private data: IProductionTrend[] = [];
+    @Input() public data: IProductionTrend[] = [];
     @Input() public points: IPointTank[] = [];
     @Input() public isShowingLegend: boolean = false;
     @Input() public chartType: 'production-trend' | 'reasons-deviations' | 'oil-operations' =

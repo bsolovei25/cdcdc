@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import { IPointTank, IPointD3 } from '../models/smart-scroll.model';
+import { lineBreakTankName } from '../functions/line-break.function';
 
 @Directive({
     selector: '[evjLineChartTanks]',
@@ -187,7 +188,7 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
                     .style('font-size', 12);
 
                 if (point.additional.card.title.length > 12) {
-                    const [firstStr, secondStr] = this.lineBreak(point.additional.card.title);
+                    const [firstStr, secondStr] = lineBreakTankName(point.additional.card.title);
 
                     cardG
                         .append('text')
@@ -225,7 +226,6 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
                     this.renderer.listen(icon, 'click', () => {
                         const display: string = card.style.display === 'none' ? 'inline' : 'none';
                         card.style.display = display;
-                        this.lineBreak(point.additional.card.title);
                     }),
                     this.renderer.listen(card, 'click', () => {
                         card.style.display = 'none';
@@ -235,28 +235,5 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
         });
 
         return () => eventListeners.forEach((listener) => listener());
-    }
-
-    private lineBreak(str: string): [string, string] {
-        const symbols: string[] = ['-', ' ', '/', ',', '.'];
-        const middleIndex: number = Math.round(str.length / 2) - 1;
-
-        let leftIndex: number = -1;
-        let rightIndex: number = str.length;
-
-        symbols.forEach((symbol) => {
-            const left = str.lastIndexOf(symbol, middleIndex);
-            const right = str.indexOf(symbol, middleIndex);
-
-            leftIndex = leftIndex < left ? left : leftIndex;
-            rightIndex = right !== -1 && rightIndex > right ? right : rightIndex;
-        });
-
-        const leftDiff = Math.abs(leftIndex - middleIndex);
-        const rightDiff = Math.abs(rightIndex - middleIndex);
-
-        const index: number = leftDiff < rightDiff ? leftIndex : rightIndex;
-
-        return [str.slice(0, index + 1), str.slice(index + 1)];
     }
 }
