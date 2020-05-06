@@ -2,6 +2,7 @@ import { Directive, Input, ElementRef, Renderer2, HostListener, OnDestroy } from
 import * as d3Selection from 'd3-selection';
 import { ProductionTrendType } from '../../dashboard/models/production-trends.model';
 import { lineBreakTankName } from '../functions/line-break.function';
+import { findCursorPosition } from '../functions/find-cursor-position.function';
 
 @Directive({
     selector: '[evjLineChartPickerTank]',
@@ -292,39 +293,8 @@ export class LineChartPickerTankDirective implements OnDestroy {
         return () => eventListeners.forEach((item) => item());
     }
 
-    private findCursorPosition(posX: number, curveType: ProductionTrendType): SVGPoint {
-        let line: SVGGeometryElement = null;
-        [[line]] = this.svg.select(`.graph-line-${curveType}`)._groups;
-
-        if (!line) {
-            return null;
-        }
-
-        let begin: number = 0;
-        let end: number = line.getTotalLength();
-        let target: number = null;
-        let pos: SVGPoint = null;
-
-        while (true) {
-            target = Math.floor((begin + end) / 2);
-            pos = line.getPointAtLength(target);
-            if ((target === end || target === begin) && pos.x !== posX + this.padding.left) {
-                break;
-            }
-            if (pos.x > posX + this.padding.left) {
-                end = target;
-            } else if (pos.x < posX + this.padding.left) {
-                begin = target;
-            } else {
-                break;
-            }
-        }
-
-        return pos;
-    }
-
     private moveLineCoords(x: number): void {
-        const posFact = this.findCursorPosition(x, 'fact');
+        const posFact = findCursorPosition(x, 'fact', this.svg, this.padding);
 
         this.svg
             .select('.mouse-line')
@@ -365,7 +335,7 @@ export class LineChartPickerTankDirective implements OnDestroy {
     }
 
     private drawCircleColumnDiagram(x: number): void {
-        const posFact = this.findCursorPosition(x, 'fact');
+        const posFact = findCursorPosition(x, 'fact', this.svg, this.padding);
         const factY = this.scaleFuncs.y.invert(posFact.y);
 
         const percent: number = factY / this.maxValue;
