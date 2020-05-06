@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { UploadDropComponent } from './upload-drop/upload-drop.component';
-import { TankCalibrationTableService } from '../../../services/widgets/tank-calibration-table.service';
 import { FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -37,7 +36,13 @@ export class UploadFormComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        console.log(this.data);
+        if (this.data?.startDate && this.data?.endDate) {
+            this.date = this.data?.startDate;
+            this.dateEnd = this.data?.endDate;
+
+            this.body.startDate = this.date;
+            this.body.endDate = this.dateEnd;
+        }
     }
 
     ngOnDestroy(): void {

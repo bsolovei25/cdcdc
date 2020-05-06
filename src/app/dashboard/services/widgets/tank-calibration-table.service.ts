@@ -41,6 +41,14 @@ export class TankCalibrationTableService {
             .toPromise();
     }
 
+    async getTanksHistory(): Promise<ICalibrationTable[]> {
+        return this.http
+            .get<ICalibrationTable[]>(
+                this.restUrl + `/api/graduation-table/Graduation/tanks/history`
+            )
+            .toPromise();
+    }
+
     async getHistoryTanks(id: string): Promise<any[]> {
         return this.http
             .get<any[]>(
