@@ -276,8 +276,8 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         this.loadItem();
     }
 
-    doneComment(): void {
-        this.postNewDate(this.postDate.id, this.postDate.newDate,
+    async doneComment(): Promise<void> {
+        await this.postNewDate(this.postDate.id, this.postDate.newDate,
             this.comment.value, this.postDate.newDateType);
         this.showComment.clear();
         this.postDate = null;
@@ -294,10 +294,13 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         } catch (error) { }
     }
 
-    openDialog(element): void {
+    openDialog(element: ICalibrationTable): void {
         const dialogRef = this.dialog
             .open(UploadFormComponent, {
-                data: {},
+                data: {
+                    startDate: element.startDate,
+                    endDate: element.endDate
+                },
                 autoFocus: true,
             });
         dialogRef.afterClosed().subscribe(result => {

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { TankCalibrationTableService } from '../../../services/widgets/tank-calibration-table.service';
 import { ICalibrationTable } from '../tank-calibration-table.component';
@@ -21,7 +21,7 @@ interface ITanksHistory {
     templateUrl: './tank-calibration-table-files.component.html',
     styleUrls: ['./tank-calibration-table-files.component.scss'],
 })
-export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
+export class TankCalibrationTableFilesComponent implements OnInit {
 
     static itemCols: number = 18;
     static itemRows: number = 14;
@@ -31,7 +31,8 @@ export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
     @Input() set chooseEl(data: ICalibrationTable) {
         if (data) {
             this.chooseElement.select(data);
-            const el = this.dataSourceUI.find(val => val.uid === data?.parentUid);
+            this.selectId = data.uid;
+            const el = this.localeData.find(val => val.uid === data?.parentUid);
             if (el) {
                 this.expandedElement.select(el);
             }
@@ -42,9 +43,8 @@ export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
     @Output() selectOut: EventEmitter<string> = new EventEmitter();
 
     localeData: ICalibrationTable[] = [];
-
     dataSource: IDataSource[] = [];
-    dataSourceTanks: ICalibrationTable[] = [];
+    dataSourceTanks: IDataSource[] = [{ name: '', isGroup: false, uid: 'last-row' }];
     selectId: string = '';
 
     chooseTanks: ITanksHistory[] = [
@@ -57,23 +57,32 @@ export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
 
     isRefInput: boolean = false;
 
-    @Input() data: ICalibrationTable[] = [];
-    @Input() dataSourceUI: IDataSource[] = [];
-    @Input() dataSourceTanksL: ICalibrationTable[] = [];
-
     @ViewChild('tableBody3') table3: ElementRef;
     @ViewChild('tableRight4') tableRight4: ElementRef;
 
     constructor(
         private calibrationService: TankCalibrationTableService,
+        private chDet: ChangeDetectorRef,
     ) { }
     ngOnInit(): void {
-        this.localeData = this.data;
-        this.dataSource = this.dataSourceUI;
-        this.dataSourceTanks = this.dataSourceTanksL;
+        this.loadHistory();
     }
 
-    ngOnDestroy(): void {
+    async loadHistory(): Promise<void> {
+        try {
+            const data = await this.calibrationService.getTanksHistory();
+            this.localeData = data;
+            this.dataSource = this.localeData
+                .filter(val => val.isGroup);
+            this.dataSource.map((value) => {
+                value.childredTanks = this.getChildrenRows(value);
+            });
+            this.dataSourceTanks = [...this.localeData
+                .filter(val => !val.parentUid && !val.isGroup),
+            { name: '', isGroup: false, uid: 'last-row' }];
+        } catch (error) {
+
+        }
     }
 
     async loadItem(element: ICalibrationTable): Promise<void> {
@@ -95,7 +104,6 @@ export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
 
     chooseTank(element: ICalibrationTable): void {
         this.chooseElement.select(element);
-        this.selectOut.emit(element.uid);
         this.selectId = element.uid;
         try {
             this.loadItem(element);
@@ -105,7 +113,7 @@ export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
     }
 
     searchInput(event): void {
-        this.dataSourceUI?.map((val) => {
+        this.dataSource?.map((val) => {
             let isLenChild: boolean = false;
             val.childredTanks.map(element => {
                 if (element.name.toLowerCase()
@@ -123,11 +131,9 @@ export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
                 val.isVisible = true;
             }
         });
-        this.dataSourceTanks = this.data?.filter((val) => val.name.toLowerCase()
+        this.dataSourceTanks = this.localeData?.filter((val) => val.name.toLowerCase()
             .includes(event?.target?.value.toLowerCase()) && !val.parentUid && !val.isGroup);
         this.dataSourceTanks.push({ name: '', isGroup: false, uid: 'last-row' });
-
     }
-
 
 }

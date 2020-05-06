@@ -16,7 +16,7 @@
         <tbody class="table__body">
           <ng-container *ngFor="let element of dataSource">
             <tr
-              *ngIf="!element.isVisible && element.childredTanks.length > 0"
+              *ngIf="!element.isVisible && element?.childredTanks?.length > 0"
               class="table__tr"
               (click)="expandedElement.isSelected(element) ?
                    expandedElement.deselect(element)
@@ -35,11 +35,10 @@
             <ng-container *ngFor="let elementChildren of element?.childredTanks">
               <tr
                 *ngIf="expandedElement.isSelected(element) && !elementChildren.isVisible"
-                [class.expanded-row]="elementChildren"
                 [class.chooseElement]="chooseElement.isSelected(elementChildren)"
                 (click)="chooseTank(elementChildren)"
               >
-                <td [class.expanded-column]="elementChildren" class="name">
+                <td class="name">
                   {{ elementChildren.name }}
                 </td>
               </tr>
@@ -48,10 +47,9 @@
           <ng-container *ngFor="let element of dataSourceTanks">
             <tr
               class="expanded-row"
-              (click)=" element.uid !== 'last-row' ? chooseTank(element) : null"
+              (click)="element.uid !== 'last-row' ? chooseTank(element) : null"
               [class.last-row]="element.uid === 'last-row'"
               [class.chooseElement]="chooseElement.isSelected(element)"
-              (click)="chooseTank(element)"
             >
               <td class="name">
                 {{ element.name }}
@@ -139,10 +137,10 @@
                   {{ element?.action }}
                 </td>
                 <td class="name">
-                  <ng-container *ngIf="element?.action !== 'Таблица градуировки'">
+                  <ng-container *ngIf="element?.action !== 'Таблица градуировки' || element.newValue === '-'">
                     {{ element?.newValue }}
                   </ng-container>
-                  <ng-container *ngIf="element?.action === 'Таблица градуировки'">
+                  <ng-container *ngIf="element?.action === 'Таблица градуировки' && element.newValue !== '-'">
                     <a
                       style="color: white"
                       href="http://deploy.funcoff.club:6555/api/graduation-table/graduation/tanks/{{selectId}}/table/{{element.tableId}}"
@@ -161,7 +159,7 @@
                 <td class="name"></td>
                 <td class="name"></td>
               </ng-template>
-              <span *ngIf="chooseTanks.length < 2" class="no-data-text">Данных нет</span>
+              <span *ngIf="chooseTanks?.length < 2" class="no-data-text">Данных нет</span>
             </tr>
           </ng-container>
         </tbody>
