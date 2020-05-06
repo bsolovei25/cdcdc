@@ -11,6 +11,7 @@ export class LineChartPickerTankDirective implements OnDestroy {
     @Input() private graphMaxY: number = null;
     @Input() private scaleFuncs: { x: any; y: any } = { x: null, y: null };
     @Input() private padding: { [key: string]: number } = {};
+    @Input() private maxValue: number = 7000;
 
     private svg: any = null;
 
@@ -266,23 +267,10 @@ export class LineChartPickerTankDirective implements OnDestroy {
                 const rect: DOMRect = element.getBoundingClientRect();
                 const x = event.clientX - rect.left;
 
-                const posFact = this.findCursorPosition(x, 'fact');
-
-                const factY = this.scaleFuncs.y.invert(posFact.y);
-
-                this.svg
-                    .select('.mouse-line')
-                    .attr('x1', x)
-                    .attr('x2', x);
-
-                this.svg.selectAll('.mouse-line-circle').attr('cx', x);
-
-                this.svg
-                    .select('.mouse-per-line')
-                    .attr('cx', x)
-                    .attr('cy', posFact.y - this.padding.top);
+                this.moveLineCoords(x);
 
                 this.moveCardCoords(x);
+                this.drawCircleColumnDiagram(x);
             })
         );
 
@@ -320,8 +308,25 @@ export class LineChartPickerTankDirective implements OnDestroy {
         return pos;
     }
 
+    private moveLineCoords(x: number): void {
+        const posFact = this.findCursorPosition(x, 'fact');
+
+        this.svg
+            .select('.mouse-line')
+            .attr('x1', x)
+            .attr('x2', x);
+
+        this.svg.selectAll('.mouse-line-circle').attr('cx', x);
+
+        this.svg
+            .select('.mouse-per-line')
+            .attr('cx', x)
+            .attr('cy', posFact.y - this.padding.top);
+    }
+
     private moveCardCoords(x: number): void {
         const cardG = this.svg.select('g.mouse-over g.mouse-info');
+
         let offsetX: number = 10;
         let coordX: number = 0;
 
@@ -342,5 +347,18 @@ export class LineChartPickerTankDirective implements OnDestroy {
             .attr('x', this.card.width * 0.05 + this.tank.width / 2 + coordX);
         cardG.selectAll('.card-circle').attr('cx', (this.card.width / 4) * 3.3 + coordX);
         cardG.selectAll('.card-circle-text').attr('x', (this.card.width / 4) * 3.3 + coordX);
+    }
+
+    private drawCircleColumnDiagram(x: number): void {
+        const posFact = this.findCursorPosition(x, 'fact');
+        const factY = this.scaleFuncs.y.invert(posFact.y);
+
+        const percent: number = factY / this.maxValue;
+
+        const cardG = this.svg.select('g.mouse-over g.mouse-info');
+        cardG.select('.card-circle-text').text(`${(factY / 1000).toFixed(0)}т`);
+        cardG
+            .select('#value-clip rect')
+            .attr('y', this.card.offsetY + this.card.height * (1 - percent));
     }
 }
