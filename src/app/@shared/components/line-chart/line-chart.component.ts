@@ -81,13 +81,11 @@ export class LineChartComponent implements OnChanges, OnInit {
 
     @HostListener('document:resize', ['$event'])
     public OnResize(): void {
-        // if (this.svg) {
         this.findMinMax();
         this.initGraph();
         this.transformData();
         this.drawAxis();
         this.drawGraph();
-        // }
     }
 
     private initGraph(): void {
@@ -271,20 +269,6 @@ export class LineChartComponent implements OnChanges, OnInit {
             .attr('x2', this.graphMaxX - this.padding.right * 0.25)
             .attr('y2', 0)
             .style('stroke', 'currentColor');
-        // g.append('g')
-        //     .attr('opacity', 1)
-        //     .attr('transform', `translate(${this.padding.left},0)`)
-        //     .attr('class', 'center-of-coords')
-        //     .append('circle')
-        //     .attr('r', 5)
-        //     .style('fill', 'currentColor');
-        // g.select('.center-of-coords')
-        //     .append('line')
-        //     .attr('x1', `-${this.padding.left}`)
-        //     .attr('y1', 0)
-        //     .attr('x2', 0)
-        //     .attr('y2', 0)
-        //     .style('stroke', 'currentColor');
 
         // изменение засечек с линий на круги
         this.svg

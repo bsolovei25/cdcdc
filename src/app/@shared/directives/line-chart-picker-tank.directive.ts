@@ -1,6 +1,5 @@
 import { Directive, Input, ElementRef, Renderer2, HostListener, OnDestroy } from '@angular/core';
 import * as d3Selection from 'd3-selection';
-import * as d3 from 'd3';
 import { ProductionTrendType } from '../../dashboard/models/production-trends.model';
 import { lineBreakTankName } from '../functions/line-break.function';
 
