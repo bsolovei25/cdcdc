@@ -103,7 +103,8 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
             const iconWidth: number = 24;
 
             pointG
-                .append('rect').attr('class','icon-hidden')
+                .append('rect')
+                .attr('class', 'icon-hidden')
                 .attr('width', iconHeight)
                 .attr('height', iconWidth)
                 .attr('x', point.x - iconWidth / 2)
@@ -113,8 +114,12 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
 
             if (point.additional?.card) {
                 const cardWidth: number = 100;
-                const cardHeight: number = 100;
+                let cardHeight: number = 100;
                 const rx: number = 7;
+
+                if (cardHeight > this.graphMaxY - this.padding.top - this.padding.bottom) {
+                    cardHeight = this.graphMaxY - this.padding.top - this.padding.bottom;
+                }
 
                 let cardPosX: number = point.x;
                 let cardPosY: number = point.y;
@@ -162,7 +167,7 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
                 const textTypeColor: string = '#8c99b2';
                 const textTypePosY: number = cardPosY + textSize * 1.5;
                 const textTankColor: string = '#ffffff';
-                const textTankPosY: number = cardPosY + cardHeight - textSize;
+                const textTankPosY: number = cardPosY + cardHeight - textSize * 1.5;
 
                 cardG
                     .append('image')
@@ -179,16 +184,38 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
                     .attr('y', textTypePosY)
                     .text(point.additional.card.direction)
                     .attr('fill', textTypeColor)
-                    .style('font-size', 14);
+                    .style('font-size', 12);
 
-                cardG
-                    .append('text')
-                    .attr('text-anchor', 'middle')
-                    .attr('x', textPosX)
-                    .attr('y', textTankPosY)
-                    .text(point.additional.card.title)
-                    .attr('fill', textTankColor)
-                    .style('font-size', 14);
+                if (point.additional.card.title.length > 12) {
+                    const [firstStr, secondStr] = this.lineBreak(point.additional.card.title);
+
+                    cardG
+                        .append('text')
+                        .attr('text-anchor', 'middle')
+                        .attr('x', textPosX)
+                        .attr('y', textTankPosY)
+                        .text(firstStr)
+                        .attr('fill', textTankColor)
+                        .style('font-size', 10);
+
+                    cardG
+                        .append('text')
+                        .attr('text-anchor', 'middle')
+                        .attr('x', textPosX)
+                        .attr('y', textTankPosY + 10)
+                        .text(secondStr)
+                        .attr('fill', textTankColor)
+                        .style('font-size', 10);
+                } else {
+                    cardG
+                        .append('text')
+                        .attr('text-anchor', 'middle')
+                        .attr('x', textPosX)
+                        .attr('y', textTankPosY)
+                        .text(point.additional.card.title)
+                        .attr('fill', textTankColor)
+                        .style('font-size', 10);
+                }
 
                 const [[icon]] = pointG.select('rect.icon-hidden')._groups;
 
@@ -198,6 +225,7 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
                     this.renderer.listen(icon, 'click', () => {
                         const display: string = card.style.display === 'none' ? 'inline' : 'none';
                         card.style.display = display;
+                        this.lineBreak(point.additional.card.title);
                     }),
                     this.renderer.listen(card, 'click', () => {
                         card.style.display = 'none';
@@ -207,5 +235,28 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
         });
 
         return () => eventListeners.forEach((listener) => listener());
+    }
+
+    private lineBreak(str: string): [string, string] {
+        const symbols: string[] = ['-', ' ', '/', ',', '.'];
+        const middleIndex: number = Math.round(str.length / 2) - 1;
+
+        let leftIndex: number = -1;
+        let rightIndex: number = str.length;
+
+        symbols.forEach((symbol) => {
+            const left = str.lastIndexOf(symbol, middleIndex);
+            const right = str.indexOf(symbol, middleIndex);
+
+            leftIndex = leftIndex < left ? left : leftIndex;
+            rightIndex = right !== -1 && rightIndex > right ? right : rightIndex;
+        });
+
+        const leftDiff = Math.abs(leftIndex - middleIndex);
+        const rightDiff = Math.abs(rightIndex - middleIndex);
+
+        const index: number = leftDiff < rightDiff ? leftIndex : rightIndex;
+
+        return [str.slice(0, index + 1), str.slice(index + 1)];
     }
 }

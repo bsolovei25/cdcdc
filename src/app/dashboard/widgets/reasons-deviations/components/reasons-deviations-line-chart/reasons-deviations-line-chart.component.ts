@@ -52,7 +52,7 @@ export class ReasonsDeviationsLineChartComponent implements OnInit {
             additional: {
                 card: {
                     objectType: 'tank',
-                    title: 'ЭЛОУ-АВТ-6',
+                    title: 'ЭЛОУАВТ6ЭОУАБВ6',
                     direction: 'Приемник',
                 },
             },
@@ -63,7 +63,7 @@ export class ReasonsDeviationsLineChartComponent implements OnInit {
             additional: {
                 card: {
                     objectType: 'tank',
-                    title: 'АВТ-6',
+                    title: 'АВТ-6.ЭЛО/У-А6ЭЛ ОУА',
                     direction: 'Приемник',
                 },
             },
