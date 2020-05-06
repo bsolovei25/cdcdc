@@ -14,6 +14,7 @@ interface ITanksHistory {
     action: string;
     newValue: string;
     comment: string;
+    tableId?: number;
 }
 
 @Component({

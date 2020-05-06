@@ -390,9 +390,6 @@
     <ng-container *ngIf="!isReport">
       <evj-tank-calibration-table-files
         style="width: 100%;"
-        [data]="data"
-        [dataSourceUI]="dataSourceUI"
-        [dataSourceTanksL]="dataSourceTanks"
         [chooseEl]="chooseElement?.selected[0]"
         (selectOut)="chooseTanks($event)"
       ></evj-tank-calibration-table-files

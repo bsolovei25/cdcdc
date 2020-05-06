@@ -137,7 +137,7 @@
                   {{ element?.action }}
                 </td>
                 <td class="name">
-                  <ng-container *ngIf="element?.action !== 'Таблица градуировки' || element.newValue === '-'">
+                  <ng-container *ngIf="element?.action !== 'Таблица градуировки' && element.newValue === '-'">
                     {{ element?.newValue }}
                   </ng-container>
                   <ng-container *ngIf="element?.action === 'Таблица градуировки' && element.newValue !== '-'">
