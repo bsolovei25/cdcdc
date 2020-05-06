@@ -243,6 +243,10 @@ import { OilOperationsAdjustmentComponent } from './widgets/oil-operations/compo
 import { OilOperationsFreeShipmentComponent } from './widgets/oil-operations/components/oil-operations-free-shipment/oil-operations-free-shipment.component';
 import { DocumentViewerFullscreenComponent } from './widgets/document-viewer/document-viewer-fullscreen/document-viewer-fullscreen.component';
 import { CdCriticalComponent } from './widgets/cd-critical/cd-critical.component';
+import { ImplementationPlanComponent } from './widgets/SMP/implementation-plan/implementation-plan.component';
+import { ImplementationPieComponent } from './widgets/SMP/implementation-plan/components/implementation-pie/implementation-pie.component';
+import { ImplementationTankComponent } from './widgets/SMP/implementation-plan/components/implementation-tank/implementation-tank.component';
+import { ImplementationsComponent } from './widgets/SMP/implementation-plan/components/implementations/implementations.component';
 
 @NgModule({
   declarations: [
@@ -455,6 +459,10 @@ import { CdCriticalComponent } from './widgets/cd-critical/cd-critical.component
     OilOperationsFreeShipmentComponent,
     DocumentViewerFullscreenComponent,
     CdCriticalComponent,
+    ImplementationPlanComponent,
+    ImplementationPieComponent,
+    ImplementationTankComponent,
+    ImplementationsComponent,
   ],
   entryComponents: [
     LineChartComponent,
@@ -520,6 +528,7 @@ import { CdCriticalComponent } from './widgets/cd-critical/cd-critical.component
     DocumentCodingComponent,
     ReportTreeComponent,
     OilOperationsComponent,
+    ImplementationPlanComponent,
   ],
   exports: [HomeComponent],
   imports: [
