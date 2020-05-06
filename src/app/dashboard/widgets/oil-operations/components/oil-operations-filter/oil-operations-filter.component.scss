@@ -38,7 +38,7 @@
     position: absolute;
     left: 30px;
     top: 10%;
-    height: 80%;
+    height: 75%;
     z-index: 999;
     width: 15%;
     box-shadow: 0 0 10px var(--color-oil-popup-shadow);
@@ -60,7 +60,7 @@
 
     &__button-close {
         cursor: pointer;
-        width: 30px;
+        width: 40px;
         margin-top: 7px;
         margin-left: 20px;
     }
@@ -70,6 +70,8 @@
         width: 100%;
         white-space: nowrap;
         padding: 5px;
+        padding-left: 0px;
+        padding-right: 28px;
         padding-top: 0;
         text-overflow: ellipsis;
         overflow: hidden;
@@ -80,7 +82,7 @@
 .content {
     overflow: auto;
     overflow-x: hidden;
-    height: calc(100% - 100px);
+    height: calc(100% - 105px);
     background-color: var(--color-bg-main);
     border-top: 7px solid var(--color-bg-main);
     border-bottom: 7px solid var(--color-bg-main);
@@ -98,7 +100,7 @@
             height: 40px;
             line-height: 40px;
             display: flex;
-            border-bottom: 2px solid var(--color-bg-main);
+            border-bottom: 2px solid var(--color-oil-popup-shadow);
 
             &__shadow-block {
                 cursor: pointer;
@@ -108,7 +110,7 @@
 
             &__i {
                 display: flex;
-                border-bottom: 1px solid var(--color-table-main);
+                border-bottom: 1px solid var(--color-oil-popup-shadow);
                 height: 40px;
                 line-height: 40px;
                 &:hover {
@@ -126,7 +128,7 @@
 
 .bottom {
     position: relative;
-    height: 50px;
+    height: 40px;
     padding-top: 10px;
     width: 100%;
     background-color: #1b1f2c;

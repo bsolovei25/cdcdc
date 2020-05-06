@@ -84,6 +84,7 @@ import { SpaceNumber } from './pipes/number_space.pipe';
         CKEditorModule,
         FormsModule,
         AngularSvgIconModule
-    ]
+    ],
+    providers: [SpaceNumber],
 })
 export class SharedModule { }

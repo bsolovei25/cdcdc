@@ -38,7 +38,7 @@ export class OilOperationsFreeShipmentComponent implements OnInit {
               point: 'Газовые весы для темных НП',
             },
             {
-              id: 2,
+              id: 3,
               pasport: 10,
               rR: null,
               mass: 1.52,
@@ -66,7 +66,7 @@ export class OilOperationsFreeShipmentComponent implements OnInit {
               point: 'Газовые весы для темных НП',
             },
             {
-              id: 2,
+              id: 3,
               pasport: 10,
               rR: null,
               mass: 1.52,
