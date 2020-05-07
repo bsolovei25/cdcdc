@@ -17,7 +17,11 @@
       <div class="title">Информация о сотруднике</div>
       <div class="line"></div>
     </div>
-    <div class="header__search">
+    <div class="header__buttons">
+      <evj-button class="button" textButton="Сохранить" (click)="onClickButton(true)"></evj-button>
+      <evj-button class="button" textButton="Вернуться" (click)="onClickButton(false)"></evj-button>
+    </div>
+    <!-- <div class="header__search">
       <div class="search">
         <evj-input
           class="insert-component"
@@ -27,7 +31,7 @@
           (inputedValue)="onSearchWorkspace($event)"
         ></evj-input>
       </div>
-    </div>
+    </div> -->
   </div>
   <div class="admin__worker">
     <div class="worker__column worker__info">
@@ -81,26 +85,6 @@
             (click)="isPopUpShowing=true"
           ></div>
         </div>
-        <div class="alert" [ngClass]="{'alert-hidden':!isAlertShowing}">
-          <div
-            class="checkbox"
-            [ngClass]="{'checkbox-active':isCheckBoxClicked}"
-            (click)="isCheckBoxClicked=!isCheckBoxClicked"
-          ></div>
-          <div class="message">
-            Подтверждаю внесенные изменения<br />
-            для данного сотрудника
-          </div>
-        </div>
-      </div>
-      <div class="buttons">
-        <evj-button class="button" [textButton]="'Вернуться'" (click)="onReturn()"></evj-button>
-        <evj-button
-          class="button"
-          [textButton]="'Сохранить'"
-          [ngClass]="{'button-disabled':!isCheckBoxClicked}"
-          (click)="onSave()"
-        ></evj-button>
       </div>
     </div>
     <evj-aws-workspaces
@@ -177,4 +161,6 @@
     *ngIf="isCreateClaim"
     (createdClaim)="onCreateSpecialClaim($event)"
   ></evj-aws-create-claim>
+
+  <evj-alert-window [info]="alert"></evj-alert-window>
 </div>

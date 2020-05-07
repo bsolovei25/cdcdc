@@ -8,6 +8,7 @@ import { base64ToFile } from 'ngx-image-cropper';
 import { IWidgets } from '../../../models/widget.model';
 import { SelectionModel } from '@angular/cdk/collections';
 import { SnackBarService } from '../../../services/snack-bar.service';
+import { IAlertWindowModel } from '../../../../@shared/models/alert-window.model';
 
 @Component({
     selector: 'evj-admin-worker-settings',
@@ -22,9 +23,17 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     public toggleClaim: boolean = false;
 
+    public alert: IAlertWindowModel = {
+        isShow: false,
+        questionText: '',
+        acceptText: '',
+        cancelText: 'Вернуться',
+        acceptFunction: () => null,
+        cancelFunction: () => null,
+        closeFunction: () => (this.alert.isShow = false),
+    };
+
     public isClaimsShowing: boolean = true;
-    public isAlertShowing: boolean = false;
-    public isCheckBoxClicked: boolean = false;
 
     public isPopUpShowing: boolean = false;
     public isAvatarButtonShowing: boolean = false;
@@ -75,9 +84,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         this.subscriptions.push(
             this.adminService.activeWorker$.subscribe((worker: IUser) => {
                 this.worker = fillDataShape(worker);
-                if (this.isImportNewWorker && !this.worker.id) {
-                    this.showAlert();
-                }
             }),
             this.adminService.activeWorkerWorkspaces$.subscribe((workerScreens) => {
                 this.workerScreens = workerScreens;
@@ -106,11 +112,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         this.subscriptions.forEach((subs: Subscription) => subs.unsubscribe());
     }
 
-    private showAlert(): void {
-        this.isCheckBoxClicked = false;
-        this.isAlertShowing = true;
-    }
-
     //#region SEARCH
 
     public onSearchField(searchedField: string): void {
@@ -124,12 +125,10 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     //#endregion
 
     public onChangeWorkerData(data: IUnitEvents): void {
-        this.showAlert();
         this.workerUnit = data;
     }
 
     public onSetResponsible(event: boolean): void {
-        this.showAlert();
         this.isBrigadeResponsibleAlertShowing = true;
         this.isSetResponsible = event;
     }
@@ -139,18 +138,14 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         if (!isResetPassword) {
             this.isPasswordAlertShowing = true;
         } else {
-            this.showAlert();
         }
     }
 
-    public onChangeWorkspacesData(): void {
-        this.showAlert();
-    }
+    public onChangeWorkspacesData(): void {}
 
     public onSetWorkerPassword(event: string): void {
         this.isPasswordAlertShowing = false;
         if (event && this.isCreateNewUser) {
-            this.showAlert();
             this.worker.password = event;
         }
     }
@@ -158,8 +153,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     public onClosePopUp(event: string): void {
         this.isPopUpShowing = false;
         if (event) {
-            this.showAlert();
-
             this.workerPhoto = event;
         }
     }
@@ -223,7 +216,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                 }
 
                 this.workerSpecialClaims.push(claim);
-                this.showAlert();
             });
         }
 
@@ -231,7 +223,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public onRemoveSpecialClaim(claim: IGlobalClaim): void {
-        this.showAlert();
         const index: number = this.workerSpecialClaims.findIndex(
             (item) => item.claimType === claim.claimType
         );
@@ -239,7 +230,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public onSelectGeneralClaim(claim: IGlobalClaim): void {
-        this.showAlert();
         const index: number = this.workerGeneralClaims.findIndex(
             (item) => item.claimType === claim.claimType
         );
@@ -251,7 +241,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public onChangeLockWorker(): void {
-        this.showAlert();
         console.log('CHANGE LOCK STATUS');
     }
 
@@ -271,6 +260,20 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     private async onImportWorker(): Promise<void> {
         const user = await this.adminService.importUserFromLdap(this.worker).toPromise();
         this.worker.id = user.id;
+    }
+
+    public onClickButton(isSaveClicked: boolean): void {
+        if (isSaveClicked) {
+            this.alert.questionText = 'Сохранить внесенные изменения?';
+            this.alert.acceptText = 'Сохранить';
+            this.alert.acceptFunction = this.onSave.bind(this);
+        } else {
+            this.alert.questionText = `Вы действительно хотите вернуться?
+                Все внесенные изменения будут утрачены!`;
+            this.alert.acceptText = 'Подтвердить';
+            this.alert.acceptFunction = this.onReturn.bind(this);
+        }
+        this.alert.isShow = true;
     }
 
     private checkForRequiredFields(): boolean {
@@ -316,7 +319,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public async onSave(): Promise<void> {
-        if (this.isCheckBoxClicked && this.checkForRequiredFields()) {
+        if (this.checkForRequiredFields()) {
             this.isDataLoading = true;
             try {
                 this.worker.displayName = this.adminService.generateDisplayName(this.worker);
@@ -364,8 +367,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                 console.log(error.error);
             } finally {
                 this.isDataLoading = false;
-                this.isAlertShowing = false;
-                this.isCheckBoxClicked = false;
             }
         }
     }
