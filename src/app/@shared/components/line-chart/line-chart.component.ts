@@ -22,10 +22,11 @@ import { ChartStyleType, ChartStyle, IChartStyle } from '../../models/line-chart
     styleUrls: ['./line-chart.component.scss'],
 })
 export class LineChartComponent implements OnChanges, OnInit {
-    @Input() private data: IProductionTrend[] = [];
+    @Input() public data: IProductionTrend[] = [];
     @Input() public points: IPointTank[] = [];
     @Input() public isShowingLegend: boolean = false;
-    @Input() public chartType: 'production-trend' | 'reasons-deviations' = 'production-trend';
+    @Input() public chartType: 'production-trend' | 'reasons-deviations' | 'oil-operations' =
+        'production-trend';
 
     @ViewChild('chart') private chart: ElementRef;
 
@@ -80,13 +81,11 @@ export class LineChartComponent implements OnChanges, OnInit {
 
     @HostListener('document:resize', ['$event'])
     public OnResize(): void {
-        // if (this.svg) {
         this.findMinMax();
         this.initGraph();
         this.transformData();
         this.drawAxis();
         this.drawGraph();
-        // }
     }
 
     private initGraph(): void {
@@ -232,6 +231,8 @@ export class LineChartComponent implements OnChanges, OnInit {
             .style('font-size', '12px')
             .style('fill', '#8c99b2');
 
+        this.svg.select('g.axis path').remove();
+
         // отрисовка оси х
         this.svg
             .append('g')
@@ -242,26 +243,30 @@ export class LineChartComponent implements OnChanges, OnInit {
             .style('font-size', '12px')
             .style('fill', '#8c99b2');
 
-        // изменение цветов осей и удаление первых и последних засечек
+        // изменение цветов осей
         let g = this.svg.selectAll('g.axis');
         g.style('color', '#606580');
-        g.selectAll('.tick:first-of-type').remove();
-        g.selectAll('.tick:last-of-type').remove();
 
         // отрисовка центра начала координат
         g = this.svg.select('g.axis:last-of-type').style('color', '#3fa9f5');
-        g.append('g')
+        const linesG = g
+            .append('g')
             .attr('opacity', 1)
-            .attr('transform', `translate(${this.padding.left},0)`)
-            .attr('class', 'center-of-coords')
-            .append('circle')
-            .attr('r', 5)
-            .style('fill', 'currentColor');
-        g.select('.center-of-coords')
+            .attr('class', 'longer-line');
+
+        linesG
             .append('line')
-            .attr('x1', `-${this.padding.left}`)
+            .attr('x1', this.padding.left * 0.25)
             .attr('y1', 0)
-            .attr('x2', 0)
+            .attr('x2', this.padding.left)
+            .attr('y2', 0)
+            .style('stroke', 'currentColor');
+
+        linesG
+            .append('line')
+            .attr('x1', this.graphMaxX - this.padding.right)
+            .attr('y1', 0)
+            .attr('x2', this.graphMaxX - this.padding.right * 0.25)
             .attr('y2', 0)
             .style('stroke', 'currentColor');
 
@@ -278,7 +283,6 @@ export class LineChartComponent implements OnChanges, OnInit {
             .style('fill', '#3fa9f5');
 
         this.drawAxisArrows('xAxis');
-        this.drawAxisArrows('yAxis');
 
         this.drawGridLines();
         this.drawLegend();
@@ -290,7 +294,7 @@ export class LineChartComponent implements OnChanges, OnInit {
         const arrowMin: number = 3;
 
         let typeOfAxis: string = 'last-of-type';
-        let translate: string = `${this.graphMaxX - this.padding.right - arrowMax},0`;
+        let translate: string = `${this.graphMaxX - this.padding.right * 0.25 - arrowMax},0`;
         let points: string = `0,-${arrowMin} ${arrowMax},0 0,${arrowMin}`;
 
         if (axis === 'yAxis') {

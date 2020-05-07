@@ -2,6 +2,7 @@ import { Directive, ElementRef, HostListener, Renderer2, Input, OnDestroy } from
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
 import { ProductionTrendType } from '../../dashboard/models/production-trends.model';
+import { findCursorPosition } from '../functions/find-cursor-position.function';
 
 @Directive({
     selector: '[evjLineChartPicker]',
@@ -280,10 +281,10 @@ export class LineChartPickerDirective implements OnDestroy {
                 const rect: DOMRect = element.getBoundingClientRect();
                 const x = event.clientX - rect.left;
 
-                const posFact = this.findCursorPosition(x, 'fact');
-                const posPlan = this.findCursorPosition(x, 'plan');
-                const borderTop = this.findCursorPosition(x, 'higherBorder');
-                const borderBottom = this.findCursorPosition(x, 'lowerBorder');
+                const posFact = findCursorPosition(x, 'fact', this.svg, this.padding);
+                const posPlan = findCursorPosition(x, 'plan', this.svg, this.padding);
+                const borderTop = findCursorPosition(x, 'higherBorder', this.svg, this.padding);
+                const borderBottom = findCursorPosition(x, 'lowerBorder', this.svg, this.padding);
 
                 const factY = this.scaleFuncs.y.invert(posFact.y);
                 const factX = this.scaleFuncs.y.invert(posFact.x);
@@ -367,36 +368,5 @@ export class LineChartPickerDirective implements OnDestroy {
         );
 
         return () => eventListeners.forEach((item) => item());
-    }
-
-    private findCursorPosition(posX: number, curveType: ProductionTrendType): SVGPoint {
-        let line: SVGGeometryElement = null;
-        [[line]] = this.svg.select(`.graph-line-${curveType}`)._groups;
-
-        if (!line) {
-            return null;
-        }
-
-        let begin: number = 0;
-        let end: number = line.getTotalLength();
-        let target: number = null;
-        let pos: SVGPoint = null;
-
-        while (true) {
-            target = Math.floor((begin + end) / 2);
-            pos = line.getPointAtLength(target);
-            if ((target === end || target === begin) && pos.x !== posX + this.padding.left) {
-                break;
-            }
-            if (pos.x > posX + this.padding.left) {
-                end = target;
-            } else if (pos.x < posX + this.padding.left) {
-                begin = target;
-            } else {
-                break;
-            }
-        }
-
-        return pos;
     }
 }
