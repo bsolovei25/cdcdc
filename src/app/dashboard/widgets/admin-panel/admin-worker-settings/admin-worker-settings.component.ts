@@ -137,7 +137,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
              ${respWorkerName}
              на ${this.worker.lastName} ${this.worker.firstName} ${this.worker.middleName}?`;
         } else {
-            this.alert.questionText = `Вы действительно убрать главного
+            this.alert.questionText = `Вы действительно хотите убрать главного
              в Бригаде ${this.worker.brigade.number}?`;
         }
         this.alert.acceptText = 'Подтвердить';
@@ -146,10 +146,14 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public onChangePassword(isResetPassword: boolean): void {
-        this.isResetPassword = isResetPassword;
         if (!isResetPassword) {
             this.isPasswordAlertShowing = true;
         } else {
+            this.alert.questionText = `Вы действительно хотите сбросить пароль для пользователя
+             ${this.worker.lastName} ${this.worker.firstName} ${this.worker.middleName}?`;
+            this.alert.acceptText = 'Подтвердить';
+            this.alert.acceptFunction = () => (this.isResetPassword = true);
+            this.alert.isShow = true;
         }
     }
 
