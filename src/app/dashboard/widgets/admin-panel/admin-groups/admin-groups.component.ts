@@ -5,7 +5,7 @@ import { AdminPanelService } from '../../../services/admin-panel/admin-panel.ser
 import { IUser, IUnitEvents } from '../../../models/events-widget';
 import { Subscription, combineLatest } from 'rxjs';
 import { IWidgets } from '../../../models/widget.model';
-import { SnackBarService } from '../../../services/snack-bar.service';
+import { IAlertWindowModel } from '../../../../@shared/models/alert-window.model';
 
 @Component({
     selector: 'evj-admin-groups',
@@ -28,8 +28,6 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
 
     public isCreateClaim: boolean = false;
     public isCreateNewGroup: boolean = false;
-    public isAlertShowing: boolean = false;
-    public isSaveClicked: boolean = false;
 
     public groups: IGroup[] = [];
     public newGroups: IGroup[] = [];
@@ -53,13 +51,20 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
 
     public groupWorkspaces: IWorkspace[] = [];
 
+    public alert: IAlertWindowModel = {
+        isShow: false,
+        questionText: '',
+        acceptText: '',
+        cancelText: 'Вернуться',
+        acceptFunction: () => null,
+        cancelFunction: () => null,
+        closeFunction: () => (this.alert.isShow = false),
+    };
+
     private subscriptions: Subscription[] = [];
     private subs: Subscription = null;
 
-    constructor(
-        private adminService: AdminPanelService,
-        private materialController: SnackBarService
-    ) {}
+    constructor(private adminService: AdminPanelService) {}
 
     public ngOnInit(): void {
         this.isDataLoading = true;
@@ -136,7 +141,9 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
     public canShowSpecialClaim(claim: IGlobalClaim): boolean {
         const currentGroup = this.groupSelection.selected[0];
         return currentGroup
-            ? !!currentGroup.claims.find((item) => item.claimType === claim.claimType)
+            ? !!currentGroup.claims.find(
+                  (item) => item.claimType === claim.claimType && claim.claimValueType !== 'screen'
+              )
             : false;
     }
 
@@ -160,10 +167,10 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
         switch (claim.claimValueType) {
             case 'unit':
                 entity = this.adminService.units.find((item) => item.id === +claim.value);
-                return entity ? entity.name : '111';
+                return entity ? entity.name : '';
             case 'widget':
                 entity = this.adminService.allWidgets.find((item) => item.id === claim.value);
-                return entity ? entity.title : '111';
+                return entity ? entity.title : '';
         }
     }
 
@@ -274,44 +281,39 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
         this.isCreateClaim = true;
     }
 
-    public onCreateSpecialClaim(claim: IGlobalClaim): void {
-        let isClaimExists: boolean = false;
-
-        if (claim) {
-            isClaimExists = !!this.groupSelection.selected[0].claims.find(
-                (item) => item.claimType === claim.claimType && item.value === claim.value
-            );
-        }
-
-        if (claim && !isClaimExists) {
+    public onCreateSpecialClaim(claims: IGlobalClaim[]): void {
+        if (claims) {
             const currentGroup = this.groupSelection.selected[0];
-            currentGroup.claims.push(claim);
-            this.onEditGroup();
-        }
 
-        if (isClaimExists) {
-            this.materialController.openSnackBar(
-                'Такое специальное право уже существует',
-                'snackbar-red'
-            );
-            return;
+            claims.forEach((claim) => {
+                const findClaim: boolean = !!currentGroup.claims.find(
+                    (item) => item.claimType === claim.claimType && item.value === claim.value
+                );
+
+                if (findClaim) {
+                    return;
+                }
+
+                currentGroup.claims.push(claim);
+                this.onEditGroup();
+            });
         }
 
         this.isCreateClaim = false;
     }
 
     public onClickButton(isSaveClicked: boolean = false): void {
-        this.isSaveClicked = isSaveClicked;
-        this.isAlertShowing = true;
-    }
-
-    public onClickAlert(event: boolean): void {
-        this.isAlertShowing = false;
-        if (event && this.isSaveClicked) {
-            this.onSave();
-        } else if (event && !this.isSaveClicked) {
-            this.onReturn();
+        if (isSaveClicked) {
+            this.alert.questionText = 'Сохранить внесенные изменения?';
+            this.alert.acceptText = 'Сохранить';
+            this.alert.acceptFunction = this.onSave.bind(this);
+        } else {
+            this.alert.questionText = `Вы действительно хотите вернуться?
+                Все внесенные изменения будут утрачены!`;
+            this.alert.acceptText = 'Подтвердить';
+            this.alert.acceptFunction = this.onReturn.bind(this);
         }
+        this.alert.isShow = true;
     }
 
     public onChangeWorkspaces(): void {

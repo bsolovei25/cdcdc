@@ -15,6 +15,7 @@ export enum EnumClaimScreens {
     add = 'add',
     edit = 'edit',
     delete = 'delete',
+    report = 'report',
 }
 
 export interface IClaimAll {
@@ -83,6 +84,9 @@ export class ClaimService {
                 case 'screensAdmin':
                 case 'screensAdd':
                     claimsScreen.push(EnumClaimScreens.add);
+                    break;
+                case 'reportsView':
+                    claimsScreen.push(EnumClaimScreens.report);
                     break;
             }
         });

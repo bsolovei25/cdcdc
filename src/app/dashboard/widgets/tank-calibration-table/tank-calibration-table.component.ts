@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { SelectionModel } from '@angular/cdk/collections';
-import { TankCalibrationTableService } from '../../services/tank-calibration-table.service';
+import { TankCalibrationTableService } from '../../services/widgets/tank-calibration-table.service';
 import { UploadFormComponent } from './upload-form/upload-form.component';
 import { MatDialog } from '@angular/material/dialog';
 import { TanksTableComponent } from './tanks-table/tanks-table.component';
@@ -18,7 +18,7 @@ export interface ICalibrationTable {
     parentUid?: string;
     parentName?: string;
     isGroup: boolean;
-    isVisible?: boolean;
+    isInvisible?: boolean;
 }
 
 export interface IOnlineTable {
@@ -30,7 +30,7 @@ export interface IOnlineTable {
 
 interface IDataSource extends ICalibrationTable {
     childredTanks?: ICalibrationTable[];
-    isVisible?: boolean;
+    isInvisible?: boolean;
 }
 
 @Component({
@@ -47,8 +47,8 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         'Действия с калибровками'
     ];
 
-    static itemCols: number = 18;
-    static itemRows: number = 14;
+    static itemCols: number = 30;
+    static itemRows: number = 30;
 
     expandedElement: SelectionModel<any> = new SelectionModel(true);
     chooseElement: SelectionModel<ICalibrationTable> = new SelectionModel(false);
@@ -96,6 +96,7 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
+        this.widgetIcon = 'grad';
     }
 
     ngOnInit(): void {
@@ -117,7 +118,7 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         }
     }
 
-    private async loadItem(onlyTanks: boolean = false): Promise<void> {
+    private async loadItem(): Promise<void> {
         const dataLoadQueue: Promise<void>[] = [];
         dataLoadQueue.push(
             this.calibrationService.getTanks()
@@ -135,13 +136,6 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
                     this.undefinedSortStartDate(this.dataSourceTanks);
                 })
         );
-        if (!onlyTanks) {
-            dataLoadQueue.push(
-                this.calibrationService.getTankAvailable().then((data) => {
-                    this.tanksAvailable = data;
-                })
-            );
-        }
         dataLoadQueue.push();
         if (dataLoadQueue.length > 0) {
             try {
@@ -159,7 +153,6 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
     selectTable(event: boolean): void {
         this.isReport = event;
     }
-
 
     sortStart(): void {
         if (!this.sort || this.sort.name === 'bottomStart' || this.sort.name === 'bottomEnd') {
@@ -238,17 +231,17 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
             val.childredTanks.map(element => {
                 if (element.name.toLowerCase()
                     .includes(event?.target?.value.toLowerCase())) {
-                    element.isVisible = false; // показывать
+                    element.isInvisible = false; // показывать
                     isLenChild = true;
                 } else {
-                    element.isVisible = true;  // скрыть
+                    element.isInvisible = true;  // скрыть
                 }
             });
             if (val.name.toLowerCase()
                 .includes(event?.target?.value.toLowerCase()) || isLenChild) {
-                val.isVisible = false;
+                val.isInvisible = false;
             } else {
-                val.isVisible = true;
+                val.isInvisible = true;
             }
         });
         this.dataSourceTanks = this.data?.filter((val) => val.name.toLowerCase()
@@ -280,14 +273,16 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         this.showComment.clear();
         this.postDate = null;
         this.comment.setValue('');
+        this.loadItem();
     }
 
-    doneComment(): void {
-        this.postNewDate(this.postDate.id, this.postDate.newDate,
+    async doneComment(): Promise<void> {
+        await this.postNewDate(this.postDate.id, this.postDate.newDate,
             this.comment.value, this.postDate.newDateType);
         this.showComment.clear();
         this.postDate = null;
         this.comment.setValue('');
+        this.loadItem();
     }
 
     async postNewDate(id: string, newDate: Date, comment: string,
@@ -299,10 +294,13 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         } catch (error) { }
     }
 
-    openDialog(element): void {
+    openDialog(element: ICalibrationTable): void {
         const dialogRef = this.dialog
             .open(UploadFormComponent, {
-                data: {},
+                data: {
+                    startDate: element.startDate,
+                    endDate: element.endDate
+                },
                 autoFocus: true,
             });
         dialogRef.afterClosed().subscribe(result => {
@@ -316,6 +314,8 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         try {
             await this.calibrationService.postNewDate(id, result, result.file);
             this.snackBar.openSnackBar('Файл загружен успешно');
+            await this.loadItem();
+            this.chooseTanks(id);
         } catch (error) {
             console.error(error);
         }
@@ -329,16 +329,43 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
             });
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.putTanks(result?.[0]?.uid);
+                const el = this.data.find(val => val.uid === result);
+                if (!el) {
+                    this.putTanks(result);
+                } else {
+                    this.snackBar.openSnackBar('Резервуар уже существует');
+                }
+                this.chooseTanks(result);
             }
         });
+
+    }
+
+    chooseTanks(id: string): void {
+        let el;
+        this.dataSourceUI.every(val => {
+            el = val.childredTanks.find((val2) => val2.uid === id);
+            if (el) {
+                this.expandedElement.select(val);
+                this.clickItem(el);
+                return false;
+            }
+            return true;
+        });
+        if (!el) {
+            const el2 = this.dataSourceTanks.find((val) => val.uid === id);
+            if (el2) {
+                this.clickItem(el2);
+            }
+        }
     }
 
     async putTanks(uid: string): Promise<void> {
         try {
             await this.calibrationService.putTank(uid);
             this.snackBar.openSnackBar('Резервуар добавлен');
-            this.loadItem(true);
+            await this.loadItem();
+            this.chooseTanks(uid);
         } catch (error) {
             console.error(error);
         }
@@ -360,7 +387,10 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
             await this.calibrationService.deleteTank(this.deleteItem);
             this.deleteElement = false;
             this.snackBar.openSnackBar('Резервуар удален');
-            this.loadItem(true);
+            if (this.deleteItem === this.chooseElement?.selected?.[0]?.uid) {
+                this.chooseElement.clear();
+            }
+            this.loadItem();
         } catch (error) {
             this.deleteElement = false;
             console.error(error);

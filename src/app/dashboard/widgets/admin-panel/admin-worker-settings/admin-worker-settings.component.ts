@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy, Input } from '@angular/core';
-import { IWorkspace, IScreen, IClaim, IGlobalClaim } from '../../../models/admin-panel';
-import { IUser, IUnitEvents } from '../../../models/events-widget';
+import { IWorkspace, IGlobalClaim } from '../../../models/admin-panel';
+import { IUser, IUnitEvents, WorkerPositionType } from '../../../models/events-widget';
 import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
 import { Subscription } from 'rxjs';
 import { fillDataShape } from '../../../../@shared/common-functions';
@@ -8,6 +8,7 @@ import { base64ToFile } from 'ngx-image-cropper';
 import { IWidgets } from '../../../models/widget.model';
 import { SelectionModel } from '@angular/cdk/collections';
 import { SnackBarService } from '../../../services/snack-bar.service';
+import { IAlertWindowModel } from '../../../../@shared/models/alert-window.model';
 
 @Component({
     selector: 'evj-admin-worker-settings',
@@ -22,22 +23,18 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     public toggleClaim: boolean = false;
 
+    public alert: IAlertWindowModel = null;
+
     public isClaimsShowing: boolean = true;
-    public isAlertShowing: boolean = false;
-    public isCheckBoxClicked: boolean = false;
 
     public isPopUpShowing: boolean = false;
     public isAvatarButtonShowing: boolean = false;
-
-    public isBrigadeResponsibleAlertShowing: boolean = false;
-    public isSetResponsible: boolean = false;
 
     public isPasswordAlertShowing: boolean = false;
     private isResetPassword: boolean = false;
 
     public isCreateClaim: boolean = false;
 
-    public searchingWorkspaceValue: string = '';
     public searchingFieldName: string = '';
 
     public searchIcon: string = 'assets/icons/search-icon.svg';
@@ -72,12 +69,11 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             this.adminService.setDefaultActiveWorker();
         }
 
+        this.alert = this.adminService.settingsAlert;
+
         this.subscriptions.push(
             this.adminService.activeWorker$.subscribe((worker: IUser) => {
                 this.worker = fillDataShape(worker);
-                if (this.isImportNewWorker && !this.worker.id) {
-                    this.showAlert();
-                }
             }),
             this.adminService.activeWorkerWorkspaces$.subscribe((workerScreens) => {
                 this.workerScreens = workerScreens;
@@ -106,51 +102,61 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         this.subscriptions.forEach((subs: Subscription) => subs.unsubscribe());
     }
 
-    private showAlert(): void {
-        this.isCheckBoxClicked = false;
-        this.isAlertShowing = true;
-    }
-
     //#region SEARCH
 
     public onSearchField(searchedField: string): void {
         this.searchingFieldName = searchedField.toLowerCase();
     }
 
-    public onSearchWorkspace(searchedWorkspace: string): void {
-        this.searchingWorkspaceValue = searchedWorkspace.toLowerCase();
-    }
-
     //#endregion
 
     public onChangeWorkerData(data: IUnitEvents): void {
-        this.showAlert();
         this.workerUnit = data;
     }
 
     public onSetResponsible(event: boolean): void {
-        this.showAlert();
-        this.isBrigadeResponsibleAlertShowing = true;
-        this.isSetResponsible = event;
+        const position: WorkerPositionType = event ? 'responsible' : 'common';
+
+        const brigade = this.adminService.brigades.find(
+            (brigadeItem) => this.worker.brigade.id === brigadeItem.brigadeId
+        );
+
+        const respWorker = brigade.users.find((worker) => worker.position === 'responsible');
+        const respWorkerName = !!respWorker
+            ? `с ${respWorker.lastName} ${respWorker.firstName} ${respWorker.middleName}`
+            : '';
+
+        if (event) {
+            this.alert.questionText = `Вы действительно хотите изменить главного
+            в Бригаде ${this.worker.brigade.number}
+             ${respWorkerName}
+             на ${this.worker.lastName} ${this.worker.firstName} ${this.worker.middleName}?`;
+        } else {
+            this.alert.questionText = `Вы действительно хотите убрать главного
+             в Бригаде ${this.worker.brigade.number}?`;
+        }
+        this.alert.acceptText = 'Подтвердить';
+        this.alert.acceptFunction = () => (this.worker.position = position);
+        this.alert.isShow = true;
     }
 
     public onChangePassword(isResetPassword: boolean): void {
-        this.isResetPassword = isResetPassword;
         if (!isResetPassword) {
             this.isPasswordAlertShowing = true;
         } else {
-            this.showAlert();
+            this.alert.questionText = `Вы действительно хотите сбросить пароль для пользователя
+             ${this.worker.lastName} ${this.worker.firstName} ${this.worker.middleName}?`;
+            this.alert.acceptText = 'Подтвердить';
+            this.alert.acceptFunction = () => (this.isResetPassword = true);
+            this.alert.isShow = true;
         }
     }
 
-    public onChangeWorkspacesData(): void {
-        this.showAlert();
-    }
+    public onChangeWorkspacesData(): void {}
 
     public onSetWorkerPassword(event: string): void {
         this.isPasswordAlertShowing = false;
         if (event && this.isCreateNewUser) {
-            this.showAlert();
             this.worker.password = event;
         }
     }
@@ -158,14 +164,8 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     public onClosePopUp(event: string): void {
         this.isPopUpShowing = false;
         if (event) {
-            this.showAlert();
-
             this.workerPhoto = event;
         }
-    }
-
-    public onCloseResponsibleAlert(): void {
-        this.isBrigadeResponsibleAlertShowing = false;
     }
 
     public checkForActiveClaim(claimType: string): boolean {
@@ -211,31 +211,25 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         this.isCreateClaim = true;
     }
 
-    public onCreateSpecialClaim(claim: IGlobalClaim): void {
-        let isClaimExist: boolean = false;
-        if (claim) {
-            isClaimExist = !!this.workerSpecialClaims.find(
-                (item) => item.claimType === claim.claimType && item.value === claim.value
-            );
-        }
-        if (claim && !isClaimExist) {
-            this.workerSpecialClaims.push(claim);
-            this.showAlert();
-        }
+    public onCreateSpecialClaim(claims: IGlobalClaim[]): void {
+        if (claims) {
+            claims.forEach((claim) => {
+                const findClaim: boolean = !!this.workerSpecialClaims.find(
+                    (item) => item.claimType === claim.claimType && item.value === claim.value
+                );
 
-        if (isClaimExist) {
-            this.materialController.openSnackBar(
-                'Такое специальное право уже существует',
-                'snackbar-red'
-            );
-            return;
+                if (findClaim) {
+                    return;
+                }
+
+                this.workerSpecialClaims.push(claim);
+            });
         }
 
         this.isCreateClaim = false;
     }
 
     public onRemoveSpecialClaim(claim: IGlobalClaim): void {
-        this.showAlert();
         const index: number = this.workerSpecialClaims.findIndex(
             (item) => item.claimType === claim.claimType
         );
@@ -243,7 +237,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public onSelectGeneralClaim(claim: IGlobalClaim): void {
-        this.showAlert();
         const index: number = this.workerGeneralClaims.findIndex(
             (item) => item.claimType === claim.claimType
         );
@@ -255,8 +248,16 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public onChangeLockWorker(): void {
-        this.showAlert();
         console.log('CHANGE LOCK STATUS');
+    }
+
+    public onRemoveWorker(): void {
+        this.alert.questionText = `Вы действительно хотите удалить пользователя
+        ${this.worker.lastName} ${this.worker.firstName} ${this.worker.middleName}`;
+        this.alert.acceptText = 'Подтвердить';
+        this.alert.cancelText = 'Вернуться';
+        this.alert.acceptFunction = () => (this.alert.isShow = false);
+        this.alert.isShow = true;
     }
 
     public returnPhotoPath(): string {
@@ -275,6 +276,20 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     private async onImportWorker(): Promise<void> {
         const user = await this.adminService.importUserFromLdap(this.worker).toPromise();
         this.worker.id = user.id;
+    }
+
+    public onClickButton(isSaveClicked: boolean): void {
+        if (isSaveClicked) {
+            this.alert.questionText = 'Сохранить внесенные изменения?';
+            this.alert.acceptText = 'Сохранить';
+            this.alert.acceptFunction = this.onSave.bind(this);
+        } else {
+            this.alert.questionText = `Вы действительно хотите вернуться?
+                Все внесенные изменения будут утрачены!`;
+            this.alert.acceptText = 'Подтвердить';
+            this.alert.acceptFunction = this.onReturn.bind(this);
+        }
+        this.alert.isShow = true;
     }
 
     private checkForRequiredFields(): boolean {
@@ -320,7 +335,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public async onSave(): Promise<void> {
-        if (this.isCheckBoxClicked && this.checkForRequiredFields()) {
+        if (this.checkForRequiredFields()) {
             this.isDataLoading = true;
             try {
                 this.worker.displayName = this.adminService.generateDisplayName(this.worker);
@@ -368,8 +383,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                 console.log(error.error);
             } finally {
                 this.isDataLoading = false;
-                this.isAlertShowing = false;
-                this.isCheckBoxClicked = false;
             }
         }
     }

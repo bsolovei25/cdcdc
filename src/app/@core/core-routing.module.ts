@@ -25,6 +25,12 @@ const routes: Routes = [
                 data: { animation: 'login' },
             },
             { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
+            // {
+            //     path: 'dev',
+            //     loadChildren: () =>
+            //         import('../dashboard/dashboard.module').then((m) => m.DashboardModule),
+            // },
+            // { path: '**', redirectTo: 'dev', pathMatch: 'full' },
         ],
     },
 ];

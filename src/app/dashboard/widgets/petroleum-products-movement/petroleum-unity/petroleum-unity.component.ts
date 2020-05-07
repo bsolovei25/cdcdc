@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { WidgetService } from '../../../services/widget.service';
 import { PlatformLocation } from '@angular/common';
 import { UnityLoader } from '../../dispatcher-screen/UnityLoader';
-import { PetroleumScreenService } from '../../../services/petroleum-screen.service';
+import { PetroleumScreenService } from '../../../services/widgets/petroleum-screen.service';
 import { ITransfer, ObjectType } from '../../../models/petroleum-products-movement.model';
 
 @Component({
@@ -71,7 +71,7 @@ export class PetroleumUnityComponent implements OnInit, AfterViewInit, OnDestroy
             acceptText: 'Да',
             cancelText: 'Отменить',
             acceptFunction: () => this.petroleumService.deleteTransfer(param1),
-            cancelFunction: () => this.petroleumService.closeAlert(),
+            closeFunction: () => this.petroleumService.closeAlert(),
         };
         this.petroleumService.alertWindow$.next(windowsParam);
     }
@@ -85,7 +85,7 @@ export class PetroleumUnityComponent implements OnInit, AfterViewInit, OnDestroy
             acceptText: 'Да',
             cancelText: 'Отменить',
             acceptFunction: () => this.petroleumService.saveTransfer(),
-            cancelFunction: () => this.petroleumService.closeAlert(),
+            closeFunction: () => this.petroleumService.closeAlert(),
         };
         this.petroleumService.alertWindow$.next(windowsParam);
     }
@@ -105,7 +105,7 @@ export class PetroleumUnityComponent implements OnInit, AfterViewInit, OnDestroy
             acceptText: 'Да',
             cancelText: 'Отменить',
             acceptFunction: () => this.petroleumService.createTransfer(),
-            cancelFunction: () => this.petroleumService.closeAlert(),
+            closeFunction: () => this.petroleumService.closeAlert(),
         };
         this.petroleumService.alertWindow$.next(windowsParam);
     }

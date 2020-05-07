@@ -13,7 +13,6 @@ import * as moment from 'moment';
 import { DateAdapter } from '@angular/material/core';
 import { IUser } from '../../../models/events-widget';
 import { SelectionModel } from '@angular/cdk/collections';
-import { AdminShiftScheduleService } from '../../../services/admin-shift-schedule.service';
 import {
     IBrigadeWithUsersDto,
     IScheduleShiftDay,
@@ -25,6 +24,7 @@ import { fillDataShape } from '../../../../@shared/common-functions';
 import { MatCalendar } from '@angular/material/datepicker';
 import { WidgetPlatform } from '../../../models/widget-platform';
 import { SnackBarService } from '../../../services/snack-bar.service';
+import { AdminShiftScheduleService } from '../../../services/widgets/admin-shift-schedule.service';
 
 @Component({
     selector: 'evj-admin-shift-schedule',
@@ -42,14 +42,12 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
 
     activeUsers: SelectionModel<IUser> = new SelectionModel(true);
 
+    dateNowIcon: Date = new Date(); // только для иконки
+
     dateNow: Date = new Date();
     yesterday: IScheduleShiftDay;
 
-    selectedDay: IScheduleShiftDay = {
-        date: new Date(),
-        isAllShiftsSet: true,
-        items: [],
-    };
+    selectedDay: IScheduleShiftDay;
     selectedShift: IScheduleShift;
     selectedBrigade: IBrigadeWithUsersDto;
     allUnits: IUnits[] = [];
@@ -82,11 +80,18 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
 
     ngOnInit(): void {
         super.widgetInit();
-        if (!this.isMock) {
-            this.setRus();
-            this.loadItem();
-            this.dateChanged(this.selectedDay.date);
-        }
+    }
+
+    protected async dataConnect(): Promise<void> {
+        super.dataConnect();
+        this.setRus();
+        this.loadItem();
+        this.selectedDay = {
+            date: new Date(),
+            isAllShiftsSet: true,
+            items: [],
+        };
+        this.dateChanged(this.selectedDay.date);
     }
 
     ngOnDestroy(): void {
@@ -94,10 +99,23 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
     }
 
     protected dataHandler(ref: any): void {
-        // this.data = ref.chartItems;
     }
 
     ngAfterContentChecked(): void {
+        this.listenBtn();
+    }
+
+    private resetComponent(factory: boolean = false): void {
+        this.yesterday = null;
+        this.selectedShift = null;
+        this.selectedBrigade = null;
+        this.activeUsers.clear();
+        if (factory) {
+            this.scheduleShiftMonth = [];
+        }
+    }
+
+    listenBtn(): void {
         this.buttons = document.querySelectorAll(
             '.mat-calendar-previous-button, .mat-calendar-next-button'
         );
@@ -114,16 +132,6 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                     });
                 }
             });
-        }
-    }
-
-    private resetComponent(factory: boolean = false): void {
-        this.yesterday = null;
-        this.selectedShift = null;
-        this.selectedBrigade = null;
-        this.activeUsers.clear();
-        if (factory) {
-            this.scheduleShiftMonth = [];
         }
     }
 
@@ -172,7 +180,8 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
             this.selectedUnit = event;
             this.resetComponent(true);
             await this.loadItem();
-            // await this.reLoadDataMonth();
+            this.nextAndPreviousMonthVar = null;
+            this.listenBtn();
         }
     }
 
@@ -333,7 +342,11 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
         this.resetComponent();
         this.openOverlay(null, null, false);
         const idx = this.scheduleShiftMonth.findIndex(
-            (val) => new Date(val.date).getDate() === new Date(event).getDate()
+            (val) => {
+                return new Date(val.date).getFullYear() === new Date(event).getFullYear()
+                    && new Date(val.date).getDate() === new Date(event).getDate()
+                    && new Date(val.date).getMonth() === new Date(event).getMonth();
+            }
         );
         if (idx !== -1) {
             const day = fillDataShape(this.scheduleShiftMonth[idx]);
@@ -345,7 +358,9 @@ export class AdminShiftScheduleComponent extends WidgetPlatform
                     .toDate()
             );
             const idxYesterday = this.scheduleShiftMonth.findIndex(
-                (val) => new Date(val.date).getDate() === new Date(yesterdayLocal).getDate()
+                (val) => new Date(val.date).getFullYear() === new Date(yesterdayLocal).getFullYear()
+                    && new Date(val.date).getDate() === new Date(yesterdayLocal).getDate()
+                    && new Date(val.date).getMonth() === new Date(yesterdayLocal).getMonth()
             );
             if (idxYesterday !== -1) {
                 const yesterdayLocals = fillDataShape(this.scheduleShiftMonth[idxYesterday]);

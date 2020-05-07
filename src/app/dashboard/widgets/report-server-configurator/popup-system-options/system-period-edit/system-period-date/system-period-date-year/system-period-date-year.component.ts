@@ -1,12 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import * as _moment from 'moment';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { FormControl } from '@angular/forms';
 import { MAT_DATE_FORMATS, DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
-import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
-import {  Moment } from 'moment';
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { Moment } from 'moment';
 
-const moment =  _moment;
+const moment = _moment;
 
 export const MY_FORMATS = {
   parse: {
@@ -36,7 +36,13 @@ export const MY_FORMATS = {
 export class SystemPeriodDateYearComponent implements OnInit {
   @ViewChild('picker') public picker: any;
 
-  public date = new FormControl(moment());
+  @Output() public year: EventEmitter<number> = new EventEmitter<number>();
+
+  public date = moment();
+
+  @Output() dateTimePicker: EventEmitter<Moment> = new EventEmitter<Moment>();
+
+  public dataPicker: any;
 
   constructor() { }
 
@@ -44,18 +50,16 @@ export class SystemPeriodDateYearComponent implements OnInit {
   }
 
   chosenYearHandler(normalizedYear: Moment, datepicker: MatDatepicker<Moment>) {
-    const ctrlValue = this.date.value;
-    ctrlValue.year(normalizedYear.year());
-    this.date.setValue(ctrlValue);
+    this.date = normalizedYear;
+    this.dateTimePicker.emit(this.date);
     datepicker.close();
+    this.dataPicker.classList.remove('year');
   }
 
   clickYear(): void {
-    const dataPicker = this.picker._overlay._overlayContainer.getContainerElement();
-    dataPicker.classList.remove('day');
-    dataPicker.classList.remove('month');
-    dataPicker.classList.remove('year');
-    dataPicker.classList.add('year');
+    this.dataPicker = this.picker._overlay._overlayContainer.getContainerElement();
+    this.dataPicker.classList.remove('month');
+    this.dataPicker.classList.add('year');
   }
 
 }

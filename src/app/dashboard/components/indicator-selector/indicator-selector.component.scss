@@ -86,6 +86,30 @@
   box-sizing: border-box;
   margin-left: -5px;
 
+  &_search {
+    //margin: auto;
+    //display: flex;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    ::ng-deep {
+      & .mat-form-field-appearance-legacy {
+        & .mat-form-field-underline {
+          background-color: var(--color-border-main) !important;
+        }
+      }
+      & .mat-form-field-label {
+        color: var(--color-border-main) !important;
+      }
+      & .mat-form-field-suffix img {
+        margin-bottom: -4px !important;
+      }
+      .mat-form-field-suffix * {
+        height: 14px !important;
+        width: 14px !important;
+      }
+    }
+  }
+
   &:hover {
     transition: all 0.3s ease;
     .screen-card {
@@ -143,6 +167,8 @@
   align-items: center;
 
   background: var(--color-bg-main);
+  z-index: 1;
+  box-shadow: 0px 3px 1px 0px rgba(0, 0, 0, 0.2);
 }
 
 .screen_name {
@@ -162,9 +188,9 @@
 .delete_screen2 {
   display: inline-block;
   z-index: 999;
-  padding-left: 5px;
+  padding-left: 10px;
   padding-right: 10px;
-  width: 20px;
+  width: 11px;
   fill: white;
 }
 .update_screen {

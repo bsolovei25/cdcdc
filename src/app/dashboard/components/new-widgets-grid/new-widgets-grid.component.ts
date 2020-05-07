@@ -1,4 +1,10 @@
-import { Component, OnInit, Injector, Inject, OnDestroy } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    Injector,
+    Inject,
+    OnDestroy,
+} from '@angular/core';
 import { WIDGETS } from '../new-widgets-grid/widget-map';
 import { WidgetModel } from '../../models/widget.model';
 import {
@@ -32,8 +38,6 @@ export class NewWidgetsGridComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
 
     public fullscreen: boolean = false;
-
-    public isVisiblePanel: boolean = false;
 
     public options: GridsterConfig;
 
@@ -69,7 +73,6 @@ export class NewWidgetsGridComponent implements OnInit, OnDestroy {
                 console.log('widget-grid sub init');
                 if (value) {
                     this.claimSettings = value;
-                    this.isVisiblePanel = this.claimSettings.includes(EnumClaimWidgets.add);
                     this.options = null;
                     this.loaditem();
                 }
@@ -155,8 +158,6 @@ export class NewWidgetsGridComponent implements OnInit, OnDestroy {
         this.options.fixedRowHeight = this.RowHeight;
 
         this.changedOptions();
-        console.log(heigthScreen + ' ' + widthScreen);
-        console.log(this.RowHeight + ' ' + this.ColWidth);
     }
 
     public resizeGridsterElement(): void {
@@ -165,8 +166,9 @@ export class NewWidgetsGridComponent implements OnInit, OnDestroy {
     }
 
     public itemChange(item: GridsterItem, itemComponent: GridsterItemComponentInterface): void {
-        this.userSettings.updateByPosition(item, itemComponent.$item);
-        itemComponent.item = itemComponent.$item;
+        const useItem = {...item};
+        this.userSettings.updateByPosition(useItem, itemComponent.item);
+        // itemComponent.item = {...itemComponent.item, ...itemComponent.$item};
     }
 
     public onSwap(swap: boolean): void {
@@ -192,6 +194,29 @@ export class NewWidgetsGridComponent implements OnInit, OnDestroy {
             parent: this.injector,
         });
     };
+
+    public myInjector(idWidget: string, uniqId: string): () => Injector {
+        return () => Injector.create({
+            providers: [
+                { provide: 'widgetId', useValue: idWidget },
+                { provide: 'uniqId', useValue: uniqId },
+                { provide: 'isMock', useValue: false },
+                { provide: 'resizeWidget', useValue: this.resizeWidget },
+            ],
+            parent: this.injector,
+        });
+    }
+    public myInjector2(idWidget: string, uniqId: string): Injector {
+        return Injector.create({
+            providers: [
+                { provide: 'widgetId', useValue: idWidget },
+                { provide: 'uniqId', useValue: uniqId },
+                { provide: 'isMock', useValue: false },
+                { provide: 'resizeWidget', useValue: this.resizeWidget },
+            ],
+            parent: this.injector,
+        });
+    }
 
     public eventStart(
         item: GridsterItem,
@@ -250,5 +275,14 @@ export class NewWidgetsGridComponent implements OnInit, OnDestroy {
         const idWidget: string = event.dataTransfer.getData('text');
         this.nameWidget = this.widgetService.getName(idWidget);
         this.userSettings.addCellByPosition(idWidget, this.nameWidget, param);
+    }
+
+    // SMP widgets
+    public isSmpHeader(widgetType: string): boolean {
+        switch (widgetType) {
+            case 'cd-critical':
+                return true;
+        }
+        return false;
     }
 }

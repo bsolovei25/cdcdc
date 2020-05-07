@@ -19,7 +19,7 @@
 
     box-sizing: border-box;
     border: 1px solid var(--color-border-main-transparrent);
-    padding: 20px 25px 70px;
+    padding: 40px 25px 70px;
     border-radius: 10px;
 
     background: var(--color-bg-main);
@@ -63,6 +63,27 @@
       flex-direction: column;
       justify-content: flex-start;
       align-items: center;
+    }
+
+    .list-button {
+      position: absolute;
+      z-index: 2;
+
+      width: max-content;
+      height: max-content;
+
+      right: 40px;
+      top: 15px;
+
+      color: var(--color-text-sub);
+      font-size: 14px;
+      line-height: 150%;
+
+      &:hover {
+        cursor: pointer;
+        color: var(--color-active);
+        text-decoration: underline;
+      }
     }
 
     .card {
@@ -126,6 +147,21 @@
         width: 120px;
         height: 50px;
       }
+    }
+  }
+}
+
+::-webkit-scrollbar {
+  &-thumb {
+    background-color: var(--color-axis);
+  }
+
+  &-track {
+    border-radius: 25px;
+    margin: 15px 0px;
+
+    &-piece {
+      background: var(--color-bg-sub);
     }
   }
 }

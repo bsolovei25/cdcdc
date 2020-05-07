@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { UserSettingsService } from '../../services/user-settings.service';
 import { ClaimService } from '../../services/claim.service';
+import { OverlayService } from '../../services/overlay.service';
 
 @Component({
     selector: 'evj-home',
@@ -14,11 +15,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     constructor(
         private widgetService: WidgetService,
         private userSettings: UserSettingsService,
-        private claimService: ClaimService) {}
+        private claimService: ClaimService,
+        public overlayService: OverlayService,
+    ) {}
 
     ngOnInit(): void {
         this.claimService.getClaim();
-        this.userSettings.GetScreens();
         this.widgetService.getRest();
         this.widgetService.initWS();
         document.addEventListener('fullscreenchange', () => {

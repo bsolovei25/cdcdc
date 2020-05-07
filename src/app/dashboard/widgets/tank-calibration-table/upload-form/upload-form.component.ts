@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { UploadDropComponent } from './upload-drop/upload-drop.component';
-import { TankCalibrationTableService } from '../../../services/tank-calibration-table.service';
 import { FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -32,13 +31,18 @@ export class UploadFormComponent implements OnInit, OnDestroy {
     constructor(
         private dialog: MatDialog,
         public dialogRef: MatDialogRef<any>,
-        private calibrationService: TankCalibrationTableService,
         @Inject(MAT_DIALOG_DATA) public data: any
     ) {
     }
 
     ngOnInit(): void {
-        console.log(this.data);
+        if (this.data?.startDate && this.data?.endDate) {
+            this.date = this.data?.startDate;
+            this.dateEnd = this.data?.endDate;
+
+            this.body.startDate = this.date;
+            this.body.endDate = this.dateEnd;
+        }
     }
 
     ngOnDestroy(): void {
@@ -80,6 +84,11 @@ export class UploadFormComponent implements OnInit, OnDestroy {
     deleteFile(): void {
         this.file = false;
         this.body.file = null;
+    }
+
+    uploadFile(event): void {
+        this.body.file = event;
+        this.file = true;
     }
 
 }

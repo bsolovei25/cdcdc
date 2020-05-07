@@ -1,0 +1,54 @@
+<div class="tree" *ngIf="!activeElements?.isSelected(data?.id)">
+  <div
+    class="tree__header"
+    [style.paddingLeft]="count + 'px'"
+    (click)="selectedFolders?.isSelected(data.id) ? 
+    selectedFolders?.deselect(data.id) : 
+    selectedFolders?.select(data.id)"
+  >
+    <div class="tree__header__icon">
+      <svg-icon
+        *ngIf="selectedFolders?.isSelected(data.id)"
+        class="form__icon"
+        src="./assets/icons/widgets/reports/open_folder.svg"
+        [svgStyle]="{ 'width.px':25, 'height.px':22}"
+      >
+      </svg-icon>
+      <svg-icon
+        *ngIf="!selectedFolders?.isSelected(data.id)"
+        class="form__icon"
+        src="./assets/icons/widgets/reports/close_folder.svg"
+        [svgStyle]="{ 'width.px':25, 'height.px':20}"
+      >
+      </svg-icon>
+    </div>
+    <div
+      class="tree__header__title"
+      [class.tree__header__title-selected]="selectedFolders?.isSelected(data.id)"
+    >
+      {{ data?.name }}
+    </div>
+  </div>
+  <div
+    class="tree__body"
+    *ngIf="selectedFolders?.isSelected(data.id) && data?.templates.length > 0"
+  >
+    <evj-report
+      *ngFor="let template of data?.templates"
+      [activeElements]="activeElements"
+      [data]="template"
+      [search]="search"
+    ></evj-report>
+  </div>
+  <div class="tree__footer">
+    <ng-container *ngFor="let folder of data?.childFolders">
+      <evj-report-tree
+        *ngIf="selectedFolders?.isSelected(data.id)"
+        [selectedFolders]="selectedFolders"
+        [dataCount]="count"
+        [data]="folder"
+        [search]="search"
+      ></evj-report-tree>
+    </ng-container>
+  </div>
+</div>

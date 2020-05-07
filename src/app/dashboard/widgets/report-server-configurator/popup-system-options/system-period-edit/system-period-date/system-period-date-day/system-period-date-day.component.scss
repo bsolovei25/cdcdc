@@ -8,6 +8,14 @@
         .mat-form-field-underline {
             display: none;
         }
+
+        input {
+            border-bottom: 0;
+        }
+
+        .mat-icon {
+            margin-top: -10px;
+        }
     }
 }
 

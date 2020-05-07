@@ -17,6 +17,7 @@ import { IWidgets } from '../../models/widget.model';
 import { fillDataShape } from '../../../@shared/common-functions';
 import { AuthService } from '@core/service/auth.service';
 import { AvatarConfiguratorService } from '../avatar-configurator.service';
+import { IAlertWindowModel } from '../../../@shared/models/alert-window.model';
 
 @Injectable({
     providedIn: 'root',
@@ -24,7 +25,7 @@ import { AvatarConfiguratorService } from '../avatar-configurator.service';
 export class AdminPanelService {
     private restUrl: string = `/api/user-management`;
     private restUrlApi: string = `/api`;
-    private restFileUrl: string = '';
+    private restFileUrl: string = '/api/file-storage';
 
     public defaultWorker: IUser = {
         id: undefined,
@@ -37,6 +38,7 @@ export class AdminPanelService {
         position: 'common',
         positionDescription: '',
         displayName: '',
+        department: '',
     };
 
     public activeWorker: IUser = null;
@@ -73,6 +75,16 @@ export class AdminPanelService {
     public allWidgets: IWidgets[] = [];
     public allScreens: IWorkspace[] = [];
 
+    public settingsAlert: IAlertWindowModel = {
+        isShow: false,
+        questionText: '',
+        acceptText: '',
+        cancelText: 'Вернуться',
+        acceptFunction: () => null,
+        cancelFunction: () => null,
+        closeFunction: () => (this.settingsAlert.isShow = false),
+    };
+
     constructor(
         private http: HttpClient,
         private configService: AppConfigService,
@@ -81,6 +93,7 @@ export class AdminPanelService {
     ) {
         this.restUrl = `${this.configService.restUrl}${this.restUrl}`;
         this.restUrlApi = `${this.configService.restUrl}${this.restUrlApi}`;
+        this.restFileUrl = `${configService.restUrl}${this.restFileUrl}`;
         this.activeWorker$.subscribe((worker: IUser) => {
             this.activeWorker = worker;
         });
@@ -227,9 +240,16 @@ export class AdminPanelService {
     //#endregion
 
     //#region LDAP
-    public getAllLdapUsers(): Observable<IUserLdapDto[]> {
+    public getAllLdapUsers(
+        login: string,
+        skip: number = 0,
+        take: number = 50,
+        lastSid: string = ''
+    ): Observable<IUserLdapDto[]> {
         const url: string = `${this.restUrl}/ldap/users`;
-        return this.http.get<IUserLdapDto[]>(url);
+        return this.http.get<IUserLdapDto[]>(url, {
+            params: { login, skip: skip.toString(), take: take.toString(), lastSid },
+        });
     }
 
     public getLdapUser(worker: IUserLdap): Observable<IUserLdapDto> {
@@ -241,6 +261,12 @@ export class AdminPanelService {
         const url: string = `${this.restUrl}/ldap/user/${worker.login}/import`;
         return this.http.post<IUserImported>(url, worker);
     }
+
+    public async updateAllLdapUsers(): Promise<void> {
+        const url: string = `${this.restUrl}/ldap/update`;
+        return this.http.post<void>(url, null).toPromise();
+    }
+
     //#endregion
 
     //#endregion

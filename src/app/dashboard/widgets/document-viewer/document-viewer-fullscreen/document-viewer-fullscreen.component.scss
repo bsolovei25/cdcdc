@@ -1,0 +1,84 @@
+.fullscreen-container {
+  display: flex;
+  width: calc(80vw - 48px);
+  height: 100vh;
+}
+
+.document-viewer {
+  display: flex;
+  width: 80%;
+  height: 95%;
+  margin: 0 auto;
+  padding: 0 10%;
+  flex-direction: column;
+  background: var(--color-bg-main-dark);
+  justify-content: flex-start;
+  border-radius: 30px;
+  &_tools {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    min-height: 50px;
+    width: 100%;
+  }
+  &_document {
+    position: relative;
+    display: flex;
+    height: calc(100% - 50px);
+    width: 100%;
+    &__sizing-area {
+      display: block;
+      margin: auto;
+      width: 100%;
+      height: 100%;
+    }
+    &__buttons-area {
+      position: absolute;
+      right: 40px;
+      bottom: 40px;
+      z-index: 1;
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
+  &_pager {
+    width: 200px;
+    height: 100%;
+  }
+  &_search-input {
+    max-width: 200px;
+    height: 25px;
+    margin: auto 5px;
+  }
+  &_paging-container {
+    display: flex;
+    font-size: 14px;
+    flex-flow: row-reverse;
+    height: 20px;
+    margin: auto 5px;
+    padding: 7px 0 0 0;
+  }
+
+}
+.button {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  border-radius: 100%;
+  background-color: var(--color-bg-main-dark);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  &:hover {
+    background-color: var(--color-bg-active-bright);
+    transition: 0.3s ease-in-out;
+  }
+  &_fullscreen {
+    margin-top: 25px;
+  }
+}
+.text-center {
+  margin: auto;
+  user-select: none;
+}

@@ -32,12 +32,16 @@ export class AuthenticationInterceptor implements HttpInterceptor {
             return next.handle(req);
         }
 
-        const authReq = req.clone({
+        req = req.clone({
             headers: req.headers.append(
                 'Authorization',
                 `Bearer ${this.authService.userSessionToken}`
             ),
         });
-        return next.handle(authReq);
+
+        req = req.clone({
+            url: encodeURI(req.url),
+        });
+        return next.handle(req);
     }
 }

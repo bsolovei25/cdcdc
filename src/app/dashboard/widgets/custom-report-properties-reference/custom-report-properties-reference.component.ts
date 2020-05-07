@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Inject, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
-import { ReportsService } from '../../services/reports.service';
+import { ReportsService } from '../../services/widgets/reports.service';
 
 @Component({
   selector: 'evj-custom-report-properties-reference',
@@ -115,7 +115,7 @@ export class CustomReportPropertiesReferenceComponent extends WidgetPlatform imp
 
     // this.reportService.getColumns(this.idReferenceClick).subscribe((datas) => {
     //   data.columns = datas;
-    //   
+    //
     // });
   }
 
@@ -173,7 +173,7 @@ export class CustomReportPropertiesReferenceComponent extends WidgetPlatform imp
       }, (error) => {
         this.isLoading = false;
       }),
-      cancelFunction: () => {
+      closeFunction: () => {
         this.reportService.closeAlert();
         this.isLoading = false;
       }

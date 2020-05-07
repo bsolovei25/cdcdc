@@ -115,6 +115,7 @@ export interface IUser {
     position?: WorkerPositionType;
     photoId?: string;
     claims?: IGlobalClaim[];
+    department?: string;
 }
 
 export type WorkerPositionType = 'common' | 'responsible';

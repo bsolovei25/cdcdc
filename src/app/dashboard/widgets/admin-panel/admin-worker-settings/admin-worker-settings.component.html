@@ -17,16 +17,9 @@
       <div class="title">Информация о сотруднике</div>
       <div class="line"></div>
     </div>
-    <div class="header__search">
-      <div class="search">
-        <evj-input
-          class="insert-component"
-          *ngIf="!isClaimsShowing"
-          [placeholder]="'Введите название рабочей области'"
-          [iconSrc]="searchIcon"
-          (inputedValue)="onSearchWorkspace($event)"
-        ></evj-input>
-      </div>
+    <div class="header__buttons">
+      <evj-button class="button" textButton="Сохранить" (click)="onClickButton(true)"></evj-button>
+      <evj-button class="button" textButton="Вернуться" (click)="onClickButton(false)"></evj-button>
     </div>
   </div>
   <div class="admin__worker">
@@ -60,9 +53,9 @@
       </div>
       <div class="block" *ngIf="!isCreateNewUser">
         <evj-aws-block
-          class="block__component"
           [isLockedUser]="false"
           (changeLockUser)="onChangeLockWorker()"
+          (removeUser)="onRemoveWorker()"
         ></evj-aws-block>
       </div>
     </div>
@@ -70,7 +63,6 @@
       <div class="avatar">
         <div
           class="frame"
-          [ngClass]="{'frame-moved':isAlertShowing}"
           (mouseenter)="isAvatarButtonShowing=true"
           (mouseleave)="isAvatarButtonShowing=false"
         >
@@ -81,26 +73,6 @@
             (click)="isPopUpShowing=true"
           ></div>
         </div>
-        <div class="alert" [ngClass]="{'alert-hidden':!isAlertShowing}">
-          <div
-            class="checkbox"
-            [ngClass]="{'checkbox-active':isCheckBoxClicked}"
-            (click)="isCheckBoxClicked=!isCheckBoxClicked"
-          ></div>
-          <div class="message">
-            Подтверждаю внесенные изменения<br />
-            для данного сотрудника
-          </div>
-        </div>
-      </div>
-      <div class="buttons">
-        <evj-button class="button" [textButton]="'Вернуться'" (click)="onReturn()"></evj-button>
-        <evj-button
-          class="button"
-          [textButton]="'Сохранить'"
-          [ngClass]="{'button-disabled':!isCheckBoxClicked}"
-          (click)="onSave()"
-        ></evj-button>
       </div>
     </div>
     <evj-aws-workspaces
@@ -108,7 +80,6 @@
       *ngIf="!isClaimsShowing"
       [workerScreens]="workerScreens"
       [workerSpecialClaims]="workerSpecialClaims"
-      [searchingWorkspaceValue]="searchingWorkspaceValue"
       (changeWorkspaces)="onChangeWorkspacesData()"
     ></evj-aws-workspaces>
     <div class="worker__column worker__claims" *ngIf="isClaimsShowing">
@@ -157,14 +128,6 @@
     *ngIf="isPopUpShowing"
     (closePopUp)="onClosePopUp($event)"
   ></evj-aws-avatar>
-  <evj-aws-responsible-alert
-    class="admin__popup"
-    [ngClass]="{'admin__popup_active':isBrigadeResponsibleAlertShowing}"
-    *ngIf="isBrigadeResponsibleAlertShowing"
-    [worker]="worker"
-    [isSetResponsible]="isSetResponsible"
-    (choose)="onCloseResponsibleAlert()"
-  ></evj-aws-responsible-alert>
   <evj-aws-password-alert
     class="admin__popup"
     [ngClass]="{'admin__popup_active':isPasswordAlertShowing}"
@@ -177,4 +140,6 @@
     *ngIf="isCreateClaim"
     (createdClaim)="onCreateSpecialClaim($event)"
   ></evj-aws-create-claim>
+
+  <evj-alert-window [info]="alert"></evj-alert-window>
 </div>

@@ -18,6 +18,17 @@ import { AlertWindowComponent } from './components/alert-window/alert-window.com
 import { NgxMaskModule } from 'ngx-mask';
 import { SmartScrollComponent } from './components/smart-scroll/smart-scroll.component';
 import { LineChartTrackComponent } from './components/smart-scroll/line-chart-track/line-chart-track.component';
+import { LineChartComponent } from './components/line-chart/line-chart.component';
+import { LineChartPickerDirective } from './directives/line-chart-picker.directive';
+import { EmailEditorComponent } from './components/email-editor/email-editor.component';
+import { CKEditorModule } from 'ng2-ckeditor';
+import { FormsModule } from '@angular/forms';
+import { UploadDropZoneComponent } from './components/upload-drop-zone/upload-drop-zone.component';
+import { AngularSvgIconModule } from 'angular-svg-icon';
+import { CircleInputComponent } from './components/circle-input/circle-input.component';
+import { LineChartTanksDirective } from './directives/line-chart-tanks.directive';
+import { LineChartPickerTankDirective } from './directives/line-chart-picker-tank.directive';
+import { SpaceNumber } from './pipes/number_space.pipe';
 
 @NgModule({
     declarations: [
@@ -36,6 +47,14 @@ import { LineChartTrackComponent } from './components/smart-scroll/line-chart-tr
         AlertWindowComponent,
         SmartScrollComponent,
         LineChartTrackComponent,
+        LineChartComponent,
+        LineChartPickerDirective,
+        EmailEditorComponent,
+        UploadDropZoneComponent,
+        CircleInputComponent,
+        LineChartTanksDirective,
+        LineChartPickerTankDirective,
+        SpaceNumber
     ],
     exports: [
         HeaderComponent,
@@ -51,8 +70,23 @@ import { LineChartTrackComponent } from './components/smart-scroll/line-chart-tr
         LoadingShadeComponent,
         WidgetPreloaderComponent,
         AlertWindowComponent,
-        SmartScrollComponent
+        SmartScrollComponent,
+        EmailEditorComponent,
+        UploadDropZoneComponent,
+        LineChartComponent,
+        EmailEditorComponent,
+        CircleInputComponent,
+        SpaceNumber,
     ],
-    imports: [CommonModule, MatInputModule, MatIconModule, NgxMaskModule.forChild()],
+    imports: [
+        CommonModule,
+        MatInputModule,
+        MatIconModule,
+        NgxMaskModule.forChild(),
+        CKEditorModule,
+        FormsModule,
+        AngularSvgIconModule
+    ],
+    providers: [SpaceNumber],
 })
 export class SharedModule { }

@@ -9,13 +9,14 @@
         <thead>
           <tr class="header__items">
             <th class="header header__th header__name">
-              <span class="header__name__text">Наименование</span>
+              <span class="header__name__text">Резервуар</span>
             </th>
           </tr>
         </thead>
         <tbody class="table__body">
           <ng-container *ngFor="let element of dataSource">
             <tr
+              *ngIf="!element.isInvisible && element?.childredTanks?.length > 0"
               class="table__tr"
               (click)="expandedElement.isSelected(element) ?
                    expandedElement.deselect(element)
@@ -31,14 +32,13 @@
                 <span class="name__text">{{ element.name }}</span>
               </td>
             </tr>
-            <ng-container *ngFor="let elementChildren of  getChildrenRows(element)">
+            <ng-container *ngFor="let elementChildren of element?.childredTanks">
               <tr
-                *ngIf="expandedElement.isSelected(element)"
-                [class.expanded-row]="elementChildren"
+                *ngIf="expandedElement.isSelected(element) && !elementChildren.isInvisible"
                 [class.chooseElement]="chooseElement.isSelected(elementChildren)"
                 (click)="chooseTank(elementChildren)"
               >
-                <td [class.expanded-column]="elementChildren" class="name">
+                <td class="name">
                   {{ elementChildren.name }}
                 </td>
               </tr>
@@ -47,7 +47,7 @@
           <ng-container *ngFor="let element of dataSourceTanks">
             <tr
               class="expanded-row"
-              (click)=" element.uid !== 'last-row' ? chooseTank(element) : null"
+              (click)="element.uid !== 'last-row' ? chooseTank(element) : null"
               [class.last-row]="element.uid === 'last-row'"
               [class.chooseElement]="chooseElement.isSelected(element)"
             >
@@ -106,19 +106,19 @@
       <table>
         <thead>
           <tr class="header__items">
-            <th class="header header__th header__name">
+            <th class="header header__th">
               <span class="header__name__text">Дата изменения</span>
             </th>
-            <th class="header header__th header__name">
+            <th class="header header__th">
               <span class="header__name__text">Пользователь</span>
             </th>
-            <th class="header header__th header__name">
-              <span class="header__name__text">Поле</span>
+            <th class="header header__th">
+              <span class="header__name__text">Изменение</span>
             </th>
-            <th class="header header__th header__date">
+            <th class="header header__th">
               <span class="header__name__text">Обновленное значение</span>
             </th>
-            <th class="header header__th header__name">
+            <th class="header header__th">
               <span class="header__name__text">Комментарий</span>
             </th>
           </tr>
@@ -137,7 +137,16 @@
                   {{ element?.action }}
                 </td>
                 <td class="name">
-                  {{ element?.newValue }}
+                  <ng-container *ngIf="element?.action !== 'Таблица градуировки' && element.newValue === '-'">
+                    {{ element?.newValue }}
+                  </ng-container>
+                  <ng-container *ngIf="element?.action === 'Таблица градуировки' && element.newValue !== '-'">
+                    <a
+                      style="color: white"
+                      href="http://deploy.funcoff.club:6555/api/graduation-table/graduation/tanks/{{selectId}}/table/{{element.tableId}}"
+                      >{{ element?.newValue }}</a
+                    >
+                  </ng-container>
                 </td>
                 <td class="name">
                   {{ element?.comment }}
@@ -150,7 +159,7 @@
                 <td class="name"></td>
                 <td class="name"></td>
               </ng-template>
-              <span *ngIf="chooseTanks.length < 2" class="no-data-text">Данных нет</span>
+              <span *ngIf="chooseTanks?.length < 2" class="no-data-text">Данных нет</span>
             </tr>
           </ng-container>
         </tbody>

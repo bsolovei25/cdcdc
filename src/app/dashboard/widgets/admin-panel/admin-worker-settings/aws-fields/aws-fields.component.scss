@@ -1,3 +1,8 @@
+:host {
+  height: 280px;
+  width: 100%;
+}
+
 .options {
   display: flex;
   flex-direction: column;
@@ -36,7 +41,17 @@
   }
 }
 
-:host {
-  height: 280px;
-  width: 100%;
+::-webkit-scrollbar {
+  &-thumb {
+    background-color: var(--color-axis);
+  }
+
+  &-track {
+    border-radius: 25px;
+    margin: 15px 0px;
+
+    &-piece {
+      background: var(--color-bg-sub);
+    }
+  }
 }
