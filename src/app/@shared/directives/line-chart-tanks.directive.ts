@@ -225,6 +225,7 @@ export class LineChartTanksDirective implements OnChanges, OnDestroy {
                 eventListeners.push(
                     this.renderer.listen(icon, 'click', () => {
                         const display: string = card.style.display === 'none' ? 'inline' : 'none';
+                        this.svg.selectAll('g.chart-points g.point-card').style('display', 'none');
                         card.style.display = display;
                     }),
                     this.renderer.listen(card, 'click', () => {
