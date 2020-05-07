@@ -5,6 +5,10 @@ export interface IProductionTrend {
     graphType: ProductionTrendType;
     graphStyle: ChartStyleType;
     graph: IChartMini[];
+    additional?: {
+        tankName: string;
+        maxValue: number;
+    };
 }
 
 export type ProductionTrendType = 'plan' | 'fact' | 'higherBorder' | 'lowerBorder';
