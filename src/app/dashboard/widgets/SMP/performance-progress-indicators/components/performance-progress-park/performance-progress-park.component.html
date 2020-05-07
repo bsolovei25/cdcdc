@@ -1,1 +1,22 @@
-<p>performance-progress-park works!</p>
+<div class="container-park">
+    <div class="container-park__title">Состояние парка</div>
+    <div class="container-park__content">
+        <div class="tank">
+            <evj-performance-progress-bar [data]='data'></evj-performance-progress-bar>
+        </div>
+        <div class="value">
+            <div class="value-block">
+                <div class="value-block__title">Вместимость всего</div>
+                <div class="value-block__value">{{ data.capacity | spaceNumber}}</div>
+            </div>
+            <div class="value-block">
+                <div class="value-block__title">Вместимость всего</div>
+                <div class="value-block__value">{{ data.capacity | spaceNumber}}</div>
+            </div>
+            <div class="value-block">
+                <div class="value-block__title">Вместимость всего</div>
+                <div class="value-block__value">{{ data.capacity | spaceNumber}}</div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -45,7 +45,7 @@ export class ImplementationTankComponent implements OnInit, AfterViewInit {
 
     const planLevel = this.tankPicture
       .append('rect')
-      .attr('fill', 'var(--color-oil-tank)')
+      .attr('fill', 'var(--color-smp-blue)')
       .attr('opacity', '0.9')
       .attr('height', this.data.planTankLevel * 2.2)
       .attr('width', '220px')

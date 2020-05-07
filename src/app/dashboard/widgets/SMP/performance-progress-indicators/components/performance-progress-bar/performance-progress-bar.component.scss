@@ -1,0 +1,45 @@
+.container-bar{
+    width: 60px;
+    height: 70%;
+    border: 1px solid var(--color-text-sub);
+    border-radius: 5px;
+    background-color: var(--color-bg-main);
+    position: relative;
+    margin-top: 25px;
+
+    &__top-line{
+        position: absolute;
+        width: 100%;
+        border-top: 0.5px dashed var(--color-text-sub);
+        top: 10px;
+        z-index: 999;
+    }
+
+    &__footer{
+        width: calc(100% - 2px);
+        position: absolute;
+        background-color: var(--color-smp-blue);
+        height: 5px;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        bottom: 2px;
+        left: 1px;
+    }
+
+    &__fact{
+        position: absolute;
+        width: calc(100% - 2px);
+        left: 1px;
+        bottom: 7px;
+        background-color: var(--color-active);
+        z-index: 100;
+    }
+
+    &__plan{
+        position: absolute;
+        width: calc(100% - 2px);
+        left: 1px;
+        background-color: var(--color-smp-blue);
+        bottom: 7px;
+    }
+}
