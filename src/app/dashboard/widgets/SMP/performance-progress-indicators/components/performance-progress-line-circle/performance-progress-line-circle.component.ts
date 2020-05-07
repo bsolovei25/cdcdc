@@ -42,7 +42,7 @@ export class PerformanceProgressLineCircleComponent implements OnInit {
       value: 2343234,
       icon: 'shipment',
       gaugePercent: 60,
-      piePercent: 50,
+      piePercent: 30,
       isCritical: false,
     },
   ];

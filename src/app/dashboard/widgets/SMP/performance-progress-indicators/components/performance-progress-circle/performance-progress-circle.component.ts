@@ -14,7 +14,7 @@ export class PerformanceProgressCircleComponent implements OnInit, AfterViewInit
 
   gaugemap: any = {};
 
-  public readonly RADIUS: number = 38; /// PieCircle Radius
+  public readonly RADIUS: number = 36.5; /// PieCircle Radius
   public defaultPercent: number = 100;
 
   public criticalValue: number = 64; /// временные константы
@@ -34,7 +34,7 @@ export class PerformanceProgressCircleComponent implements OnInit, AfterViewInit
 
   /// CONFIG GAUGE(!!!)
   public config = {
-    size: 210,
+    size: 190,
     clipWidth: 200,
     clipHeight: 110,
     ringInset: 20,
@@ -59,6 +59,8 @@ export class PerformanceProgressCircleComponent implements OnInit, AfterViewInit
     arcColorFn: d3.interpolateHslLong(d3.rgb('red'), d3.rgb('blue')),
   };
 
+  public pointId;
+
   constructor(private spacePipe: SpaceNumber) { }
 
   ngOnInit(): void {
@@ -76,7 +78,7 @@ export class PerformanceProgressCircleComponent implements OnInit, AfterViewInit
     const pipeValue: string = this.spacePipe.transform(data.value);
     // const summ = data.critical + data.nonCritical;
     const summ = this.defaultPercent - data.piePercent;
-    const mass = [this.defaultPercent, data.piePercent];
+    const mass = [data.piePercent, summ];
     let color: any;
 
     if (summ === 0) {
@@ -97,7 +99,7 @@ export class PerformanceProgressCircleComponent implements OnInit, AfterViewInit
 
     const arc = d3
       .arc()
-      .innerRadius(36)
+      .innerRadius(35)
       .outerRadius(this.RADIUS);
 
     const pie = d3
@@ -131,20 +133,20 @@ export class PerformanceProgressCircleComponent implements OnInit, AfterViewInit
     const title = svg
       .append('text')
       .attr('text-anchor', 'middle')
-      .attr('font-size', '6px')
+      .attr('font-size', '7px')
       .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr('y', '46')
       .attr('x', '52')
       .attr('fill', 'var(--color-text-main')
       .text(data.title);
 
-    // const icon = svg
-    //   .append('image')
-    //   .attr('xlink:href', './assets/icons/widgets/SMP/' + this.data.icon + '.svg')
-    //   .attr('height', '50px')
-    //   .attr('width', '50px')
-    //   .attr('x', '52')
-    //   .attr('y', '70');
+    const icon = svg
+      .append('image')
+      .attr('xlink:href', './assets/icons/widgets/SMP/' + this.data.icon + '.svg')
+      .attr('height', '13px')
+      .attr('width', '13px')
+      .attr('x', '45')
+      .attr('y', '63');
   }
 
   // GAUGE RENDERING
@@ -156,7 +158,7 @@ export class PerformanceProgressCircleComponent implements OnInit, AfterViewInit
 
   draw(data, el, gaugemap, indicator): void {
     this.gauge({
-      size: 300,
+      size: 295,
       clipWidth: 300,
       clipHeight: 300,
       ringWidth: 60,
@@ -198,11 +200,12 @@ export class PerformanceProgressCircleComponent implements OnInit, AfterViewInit
       .attr('class', 'gauge')
       .attr('viewBox', '0 0 290 290');
 
-    const centerTx = this.centerTranslation(this.r);
+    const centerTx = this.centerTranslation(this.r + 2);
 
     const arcs = this.svg
       .append('g')
       .attr('class', 'arc')
+      .attr('id', 'test')
       .attr('transform', centerTx);
 
     if (newValue < criticalPie) {
@@ -223,12 +226,17 @@ export class PerformanceProgressCircleComponent implements OnInit, AfterViewInit
         })
         .attr('d', this.arc);
     } else {
-      arcs.selectAll('path')
+      this.pointId = arcs.selectAll('path')
         .data(this.tickData)
         .enter()
         .append('path')
         .attr('stroke', 'var(--color-bg-main)')
         .attr('stroke-width', '4px')
+        .attr('id', (d, i) => {
+          if (i + 1 <= newValue + 1 && i + 1 > criticalPie) {
+            return 'point';
+          }
+        })
         .attr('fill', (d, i) => {
           if (i + 1 <= newValue + 1 && i + 1 > criticalPie) {
             return 'red';
@@ -243,13 +251,31 @@ export class PerformanceProgressCircleComponent implements OnInit, AfterViewInit
         .attr('d', this.arc);
     }
 
+    const pointid = this.pointId?.nodes()?.find(el => el?.id === 'point');
+    let pointidLength: number;
+    let coordsPoint;
+    if (pointid) {
+      pointidLength = pointid.getTotalLength();
+      coordsPoint = pointid.getPointAtLength(pointidLength);
+
+    }
+
     const aroundGauge = this.svg
       .append('image')
-      .attr('xlink:href', '/assets/pic/SolidGauge/aroundGauge.svg')
-      .attr('height', '420px')
-      .attr('width', '410px')
-      .attr('x', '-55')
-      .attr('y', '-105');
+      .attr('xlink:href', '/assets/icons/widgets/SMP/circle-back.svg')
+      .attr('height', '100%')
+      .attr('width', '100%')
+      .attr('x', '5')
+      .attr('y', '5');
+
+    if (coordsPoint) {
+      const point = this.svg
+        .append('circle')
+        .attr('cx', coordsPoint.x + 130)
+        .attr('cy', coordsPoint.y + 127)
+        .attr('r', '5px')
+        .attr('fill', 'var(--color-text-main');
+    }
   }
 
   update(newValue, newConfiguration?): void {
