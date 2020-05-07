@@ -127,8 +127,10 @@
           </div>
         </div>
         <div class="block__body claims">
-          <div class="title title__special">Специальные права</div>
-          <div class="create-special-claim" (click)="onClickCreateNewClaim()"></div>
+          <div class="title">
+            Специальные права
+            <div class="create-special-claim" (click)="onClickCreateNewClaim()"></div>
+          </div>
           <div class="list scroll scroll-bar">
             <ng-container *ngFor="let claim of specialClaims">
               <div
@@ -166,7 +168,6 @@
             class="workspaces workspaces__list scroll scroll-bar"
             [workerScreens]="groupWorkspaces"
             [workerSpecialClaims]="this.groupSelection.selected[0].claims"
-            [searchingWorkspaceValue]="''"
             (changeWorkspaces)="onChangeWorkspaces()"
           ></evj-aws-workspaces>
         </div>
