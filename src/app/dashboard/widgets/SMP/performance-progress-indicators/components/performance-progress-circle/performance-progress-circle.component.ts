@@ -52,7 +52,7 @@ export class PerformanceProgressCircleComponent implements OnInit, AfterViewInit
 
     transitionMs: 750,
 
-    majorTicks: 30, /// CHANGE VALUE PIE GAUGE
+    majorTicks: 30, /// CHANGE VALUE PIE GAUGE  (!!!! меняем значение в зависимости количества дней в месяце)
     labelFormat: d3.format('d'),
     labelInset: 10,
 
