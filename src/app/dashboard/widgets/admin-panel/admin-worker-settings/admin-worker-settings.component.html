@@ -21,17 +21,6 @@
       <evj-button class="button" textButton="Сохранить" (click)="onClickButton(true)"></evj-button>
       <evj-button class="button" textButton="Вернуться" (click)="onClickButton(false)"></evj-button>
     </div>
-    <!-- <div class="header__search">
-      <div class="search">
-        <evj-input
-          class="insert-component"
-          *ngIf="!isClaimsShowing"
-          [placeholder]="'Введите название рабочей области'"
-          [iconSrc]="searchIcon"
-          (inputedValue)="onSearchWorkspace($event)"
-        ></evj-input>
-      </div>
-    </div> -->
   </div>
   <div class="admin__worker">
     <div class="worker__column worker__info">
@@ -91,7 +80,6 @@
       *ngIf="!isClaimsShowing"
       [workerScreens]="workerScreens"
       [workerSpecialClaims]="workerSpecialClaims"
-      [searchingWorkspaceValue]="searchingWorkspaceValue"
       (changeWorkspaces)="onChangeWorkspacesData()"
     ></evj-aws-workspaces>
     <div class="worker__column worker__claims" *ngIf="isClaimsShowing">

@@ -35,7 +35,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     public isCreateClaim: boolean = false;
 
-    public searchingWorkspaceValue: string = '';
     public searchingFieldName: string = '';
 
     public searchIcon: string = 'assets/icons/search-icon.svg';
@@ -107,10 +106,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     public onSearchField(searchedField: string): void {
         this.searchingFieldName = searchedField.toLowerCase();
-    }
-
-    public onSearchWorkspace(searchedWorkspace: string): void {
-        this.searchingWorkspaceValue = searchedWorkspace.toLowerCase();
     }
 
     //#endregion
