@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy, Input } from '@angular/core';
-import { IWorkspace, IScreen, IClaim, IGlobalClaim } from '../../../models/admin-panel';
-import { IUser, IUnitEvents } from '../../../models/events-widget';
+import { IWorkspace, IGlobalClaim } from '../../../models/admin-panel';
+import { IUser, IUnitEvents, WorkerPositionType } from '../../../models/events-widget';
 import { AdminPanelService } from '../../../services/admin-panel/admin-panel.service';
 import { Subscription } from 'rxjs';
 import { fillDataShape } from '../../../../@shared/common-functions';
@@ -23,15 +23,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     public toggleClaim: boolean = false;
 
-    public alert: IAlertWindowModel = {
-        isShow: false,
-        questionText: '',
-        acceptText: '',
-        cancelText: 'Вернуться',
-        acceptFunction: () => null,
-        cancelFunction: () => null,
-        closeFunction: () => (this.alert.isShow = false),
-    };
+    public alert: IAlertWindowModel = null;
 
     public isClaimsShowing: boolean = true;
 
@@ -81,6 +73,8 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             this.adminService.setDefaultActiveWorker();
         }
 
+        this.alert = this.adminService.settingsAlert;
+
         this.subscriptions.push(
             this.adminService.activeWorker$.subscribe((worker: IUser) => {
                 this.worker = fillDataShape(worker);
@@ -129,8 +123,26 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public onSetResponsible(event: boolean): void {
-        this.isBrigadeResponsibleAlertShowing = true;
-        this.isSetResponsible = event;
+        const position: WorkerPositionType = event ? 'responsible' : 'common';
+
+        const brigade = this.adminService.brigades.find(
+            (brigadeItem) => this.worker.brigade.id === brigadeItem.brigadeId
+        );
+
+        const respWorker = brigade.users.find((worker) => worker.position === 'responsible');
+
+        if (event) {
+            this.alert.questionText = `Вы действительно хотите изменить главного
+            в Бригаде ${this.worker.brigade.number}
+             с ${respWorker.lastName} ${respWorker.firstName} ${respWorker.middleName}
+             на ${this.worker.lastName} ${this.worker.firstName} ${this.worker.middleName}?`;
+        } else {
+            this.alert.questionText = `Вы действительно убрать главного
+             в Бригаде ${this.worker.brigade.number}?`;
+        }
+        this.alert.acceptText = 'Подтвердить';
+        this.alert.acceptFunction = () => (this.worker.position = position);
+        this.alert.isShow = true;
     }
 
     public onChangePassword(isResetPassword: boolean): void {
