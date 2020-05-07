@@ -6,6 +6,7 @@ import { IUser, IUnitEvents } from '../../../models/events-widget';
 import { Subscription, combineLatest } from 'rxjs';
 import { IWidgets } from '../../../models/widget.model';
 import { SnackBarService } from '../../../services/snack-bar.service';
+import { IAlertWindowModel } from '../../../../@shared/models/alert-window.model';
 
 @Component({
     selector: 'evj-admin-groups',
@@ -28,8 +29,6 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
 
     public isCreateClaim: boolean = false;
     public isCreateNewGroup: boolean = false;
-    public isAlertShowing: boolean = false;
-    public isSaveClicked: boolean = false;
 
     public groups: IGroup[] = [];
     public newGroups: IGroup[] = [];
@@ -52,6 +51,16 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
     public claimsSelector: SelectionModel<IGlobalClaim> = new SelectionModel<IGlobalClaim>();
 
     public groupWorkspaces: IWorkspace[] = [];
+
+    public alert: IAlertWindowModel = {
+        isShow: false,
+        questionText: '',
+        acceptText: '',
+        cancelText: '',
+        acceptFunction: () => null,
+        cancelFunction: () => null,
+        closeFunction: () => (this.alert.isShow = false),
+    };
 
     private subscriptions: Subscription[] = [];
     private subs: Subscription = null;
@@ -298,17 +307,19 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
     }
 
     public onClickButton(isSaveClicked: boolean = false): void {
-        this.isSaveClicked = isSaveClicked;
-        this.isAlertShowing = true;
-    }
-
-    public onClickAlert(event: boolean): void {
-        this.isAlertShowing = false;
-        if (event && this.isSaveClicked) {
-            this.onSave();
-        } else if (event && !this.isSaveClicked) {
-            this.onReturn();
+        if (isSaveClicked) {
+            this.alert.questionText = 'Сохранить внесенные изменения?';
+            this.alert.acceptText = 'Сохранить';
+            this.alert.cancelText = 'Вернуться';
+            this.alert.acceptFunction = this.onSave.bind(this);
+        } else {
+            this.alert.questionText = `Вы действительно хотите вернуться?
+                Все внесенные изменения будут утрачены!`;
+            this.alert.acceptText = 'Подтвердить';
+            this.alert.cancelText = 'Назад';
+            this.alert.acceptFunction = this.onReturn.bind(this);
         }
+        this.alert.isShow = true;
     }
 
     public onChangeWorkspaces(): void {

@@ -189,10 +189,5 @@
     (createdClaim)="onCreateSpecialClaim($event)"
   ></evj-aws-create-claim>
 
-  <evj-ag-alert-submit
-    class="popup"
-    [ngClass]="{'popup_active':isAlertShowing}"
-    [isSaving]="isSaveClicked"
-    (clickedButton)="onClickAlert($event)"
-  ></evj-ag-alert-submit>
+  <evj-alert-window [info]="alert"></evj-alert-window>
 </div>
