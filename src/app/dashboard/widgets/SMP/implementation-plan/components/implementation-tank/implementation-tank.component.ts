@@ -45,22 +45,20 @@ export class ImplementationTankComponent implements OnInit, AfterViewInit {
 
     const planLevel = this.tankPicture
       .append('rect')
-      .attr('fill', 'var(--color-oil-tank)')
+      .attr('fill', 'var(--color-smp-tank-plan)')
       .attr('opacity', '0.9')
       .attr('height', this.data.planTankLevel * 2.2)
       .attr('width', '220px')
       .attr('x', '55')
-      .attr('class', 'textProduct')
       .attr('y', this.rectYHeight - this.data.planTankLevel * 2.2);
 
     const factLevel = this.tankPicture
       .append('rect')
-      .attr('fill', 'var(--color-active)')
+      .attr('fill', 'var(--color-smp-tank-fact)')
       .attr('opacity', '0.9')
       .attr('height', this.data.factTankLevel * 2.2)
       .attr('width', '220px')
       .attr('x', '55')
-      .attr('class', 'textProduct')
       .attr('y', this.rectYHeight - this.data.factTankLevel * 2.2);
 
     const title = this.tankPicture
@@ -72,6 +70,18 @@ export class ImplementationTankComponent implements OnInit, AfterViewInit {
       .attr('y', '110')
       .attr('x', '165')
       .text(this.data.title);
+
+    const border = this.tankPicture
+      .append('rect')
+      .attr('fill', 'none')
+      .attr('stroke', 'var(--color-text-sub)')
+      .attr('stroke-width', 3)
+      .attr('height', 181)
+      .attr('rx', '8')
+      .attr('ry', '8')
+      .attr('width', '220px')
+      .attr('x', '55')
+      .attr('y', 175);
   }
 
 }

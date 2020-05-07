@@ -248,6 +248,9 @@ import { ImplementationsComponent } from './widgets/SMP/implementation-plan/comp
 import { PerformanceProgressIndicatorsComponent } from './widgets/SMP/performance-progress-indicators/performance-progress-indicators.component';
 import { PerformanceProgressParkComponent } from './widgets/SMP/performance-progress-indicators/components/performance-progress-park/performance-progress-park.component';
 import { PerformanceProgressShippedComponent } from './widgets/SMP/performance-progress-indicators/components/performance-progress-shipped/performance-progress-shipped.component';
+import { PerformanceProgressBarComponent } from './widgets/SMP/performance-progress-indicators/components/performance-progress-bar/performance-progress-bar.component';
+import { PerformanceProgressCircleComponent } from './widgets/SMP/performance-progress-indicators/components/performance-progress-circle/performance-progress-circle.component';
+import { PerformanceProgressLineCircleComponent } from './widgets/SMP/performance-progress-indicators/components/performance-progress-line-circle/performance-progress-line-circle.component';
 
 @NgModule({
   declarations: [
@@ -465,6 +468,9 @@ import { PerformanceProgressShippedComponent } from './widgets/SMP/performance-p
     PerformanceProgressIndicatorsComponent,
     PerformanceProgressParkComponent,
     PerformanceProgressShippedComponent,
+    PerformanceProgressBarComponent,
+    PerformanceProgressCircleComponent,
+    PerformanceProgressLineCircleComponent,
   ],
   entryComponents: [
     LineChartComponent,

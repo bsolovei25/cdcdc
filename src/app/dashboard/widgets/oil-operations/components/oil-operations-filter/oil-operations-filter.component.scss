@@ -82,10 +82,10 @@
 .content {
     overflow: auto;
     overflow-x: hidden;
-    height: calc(100% - 105px);
+    height: calc(100% - 90px);
     background-color: var(--color-bg-main);
-    border-top: 7px solid var(--color-bg-main);
-    border-bottom: 7px solid var(--color-bg-main);
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
     font-size: 14px;
 
     .content-block {
@@ -128,7 +128,7 @@
 
 .bottom {
     position: relative;
-    height: 40px;
+    height: 35px;
     padding-top: 10px;
     width: 100%;
     background-color: #1b1f2c;
