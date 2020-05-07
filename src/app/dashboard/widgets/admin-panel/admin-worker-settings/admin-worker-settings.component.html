@@ -141,14 +141,6 @@
     *ngIf="isPopUpShowing"
     (closePopUp)="onClosePopUp($event)"
   ></evj-aws-avatar>
-  <evj-aws-responsible-alert
-    class="admin__popup"
-    [ngClass]="{'admin__popup_active':isBrigadeResponsibleAlertShowing}"
-    *ngIf="isBrigadeResponsibleAlertShowing"
-    [worker]="worker"
-    [isSetResponsible]="isSetResponsible"
-    (choose)="onCloseResponsibleAlert()"
-  ></evj-aws-responsible-alert>
   <evj-aws-password-alert
     class="admin__popup"
     [ngClass]="{'admin__popup_active':isPasswordAlertShowing}"

@@ -30,9 +30,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     public isPopUpShowing: boolean = false;
     public isAvatarButtonShowing: boolean = false;
 
-    public isBrigadeResponsibleAlertShowing: boolean = false;
-    public isSetResponsible: boolean = false;
-
     public isPasswordAlertShowing: boolean = false;
     private isResetPassword: boolean = false;
 
@@ -130,11 +127,14 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         );
 
         const respWorker = brigade.users.find((worker) => worker.position === 'responsible');
+        const respWorkerName = !!respWorker
+            ? `с ${respWorker.lastName} ${respWorker.firstName} ${respWorker.middleName}`
+            : '';
 
         if (event) {
             this.alert.questionText = `Вы действительно хотите изменить главного
             в Бригаде ${this.worker.brigade.number}
-             с ${respWorker.lastName} ${respWorker.firstName} ${respWorker.middleName}
+             ${respWorkerName}
              на ${this.worker.lastName} ${this.worker.firstName} ${this.worker.middleName}?`;
         } else {
             this.alert.questionText = `Вы действительно убрать главного
@@ -167,10 +167,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         if (event) {
             this.workerPhoto = event;
         }
-    }
-
-    public onCloseResponsibleAlert(): void {
-        this.isBrigadeResponsibleAlertShowing = false;
     }
 
     public checkForActiveClaim(claimType: string): boolean {
