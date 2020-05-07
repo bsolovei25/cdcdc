@@ -150,3 +150,18 @@
     }
   }
 }
+
+::-webkit-scrollbar {
+  &-thumb {
+    background-color: var(--color-axis);
+  }
+
+  &-track {
+    border-radius: 25px;
+    margin: 15px 0px;
+
+    &-piece {
+      background: var(--color-bg-sub);
+    }
+  }
+}
