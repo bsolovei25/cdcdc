@@ -1,11 +1,11 @@
 .container-bar{
     width: 60px;
-    height: 70%;
+    height: 80%;
     border: 1px solid var(--color-text-sub);
     border-radius: 5px;
     background-color: var(--color-bg-main);
     position: relative;
-    margin-top: 25px;
+    margin-top: 20px;
 
     &__top-line{
         position: absolute;
