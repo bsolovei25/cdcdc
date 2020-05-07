@@ -76,18 +76,18 @@
         <evj-button
           class="insert-component"
           [isSmallButton]="false"
-          [textButton]="'Назад'"
+          textButton="Сохранить"
           [isChangingState]="false"
-          (click)="onClickButton(false)"
+          (click)="onClickButton(true)"
         ></evj-button>
       </div>
       <div class="button__back">
         <evj-button
           class="insert-component"
           [isSmallButton]="false"
-          [textButton]="'Сохранить'"
+          textButton="Назад"
           [isChangingState]="false"
-          (click)="onClickButton(true)"
+          (click)="onClickButton(false)"
         ></evj-button>
       </div>
     </div>

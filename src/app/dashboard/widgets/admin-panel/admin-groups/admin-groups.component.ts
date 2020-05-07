@@ -5,7 +5,6 @@ import { AdminPanelService } from '../../../services/admin-panel/admin-panel.ser
 import { IUser, IUnitEvents } from '../../../models/events-widget';
 import { Subscription, combineLatest } from 'rxjs';
 import { IWidgets } from '../../../models/widget.model';
-import { SnackBarService } from '../../../services/snack-bar.service';
 import { IAlertWindowModel } from '../../../../@shared/models/alert-window.model';
 
 @Component({
@@ -56,7 +55,7 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
         isShow: false,
         questionText: '',
         acceptText: '',
-        cancelText: '',
+        cancelText: 'Вернуться',
         acceptFunction: () => null,
         cancelFunction: () => null,
         closeFunction: () => (this.alert.isShow = false),
@@ -65,10 +64,7 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
     private subs: Subscription = null;
 
-    constructor(
-        private adminService: AdminPanelService,
-        private materialController: SnackBarService
-    ) {}
+    constructor(private adminService: AdminPanelService) {}
 
     public ngOnInit(): void {
         this.isDataLoading = true;
@@ -310,13 +306,11 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
         if (isSaveClicked) {
             this.alert.questionText = 'Сохранить внесенные изменения?';
             this.alert.acceptText = 'Сохранить';
-            this.alert.cancelText = 'Вернуться';
             this.alert.acceptFunction = this.onSave.bind(this);
         } else {
             this.alert.questionText = `Вы действительно хотите вернуться?
                 Все внесенные изменения будут утрачены!`;
             this.alert.acceptText = 'Подтвердить';
-            this.alert.cancelText = 'Назад';
             this.alert.acceptFunction = this.onReturn.bind(this);
         }
         this.alert.isShow = true;
