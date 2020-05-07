@@ -4,7 +4,7 @@ import { ThemePalette } from '@angular/material/core';
 import { FormControl } from '@angular/forms';
 import { NGX_MAT_DATE_FORMATS, NgxMatDateFormats } from '@angular-material-components/datetime-picker';
 
-const CUSTOM_DATE_FORMATS: NgxMatDateFormats = {
+export const CUSTOM_DATE_FORMATS: NgxMatDateFormats = {
     parse: {
         dateInput: 'L | LTS'
     },
