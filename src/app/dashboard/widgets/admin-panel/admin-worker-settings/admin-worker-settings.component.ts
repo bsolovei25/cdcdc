@@ -251,6 +251,15 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         console.log('CHANGE LOCK STATUS');
     }
 
+    public onRemoveWorker(): void {
+        this.alert.questionText = `Вы действительно хотите удалить пользователя
+        ${this.worker.lastName} ${this.worker.firstName} ${this.worker.middleName}`;
+        this.alert.acceptText = 'Подтвердить';
+        this.alert.cancelText = 'Вернуться';
+        this.alert.acceptFunction = () => (this.alert.isShow = false);
+        this.alert.isShow = true;
+    }
+
     public returnPhotoPath(): string {
         return this.workerPhoto ? this.workerPhoto : this.adminService.getPhotoLink(this.worker);
     }

@@ -53,9 +53,9 @@
       </div>
       <div class="block" *ngIf="!isCreateNewUser">
         <evj-aws-block
-          class="block__component"
           [isLockedUser]="false"
           (changeLockUser)="onChangeLockWorker()"
+          (removeUser)="onRemoveWorker()"
         ></evj-aws-block>
       </div>
     </div>

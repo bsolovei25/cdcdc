@@ -1,11 +1,21 @@
-<div class="user-block" (click)="onClick()">
+<div class="user-block" (click)="onClick('lock')">
   <div
     class="icon"
     [ngClass]="{'icon-locked hover-locked':selected.hasValue(),'hover':selected.isEmpty()}"
-    (mouseenter)="onMouseEnter()"
-    (mouseleave)="onMouseLeave()"
+    (mouseenter)="onMouseEnter('lock')"
+    (mouseleave)="onMouseLeave('lock')"
   >
     <img [src]="getIconPath()" />
   </div>
-  <div class="message" [ngClass]="{'message-active':isMouseOnLogo}">{{getMessageText()}}</div>
+  <div class="message" [ngClass]="{'message-active':isMouseOnLockLogo}">{{getMessageText()}}</div>
+</div>
+<div class="user-block" (click)="onClick('remove')">
+  <div
+    class="icon icon-locked hover-locked"
+    (mouseenter)="onMouseEnter('remove')"
+    (mouseleave)="onMouseLeave('remove')"
+  >
+    <img [src]="removeIcon" />
+  </div>
+  <div class="message" [ngClass]="{'message-active':isMouseOnRemoveLogo}">{{msgRemoveUser}}</div>
 </div>
