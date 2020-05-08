@@ -42,14 +42,14 @@
 
 .container {
   position: absolute;
-  left: 45%;
+  left: 30%;
   top: 15%;
   height: 60%;
-  width: 30%;
+  width: 44%;
   z-index: 999;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  //box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
+  border-radius: 15px;
+  min-width: 375px;
 }
 
 .title {
@@ -75,6 +75,7 @@
   &__name {
     width: 100%;
     text-align: center;
+    font-size: 14px;
   }
 }
 
@@ -102,11 +103,11 @@
       left: 30px;
     }
 
-    &__shadow-block{
+    &__shadow-block {
       height: auto;
     }
 
-    &__info{
+    &__info {
       background-color: var(--color-bg-main);
       color: white;
       height: 40px;
@@ -114,7 +115,7 @@
       padding-left: 30px;
     }
 
-    &__name{
+    &__name {
       padding-left: 60px;
       color: var(--color-text-sub);
     }
