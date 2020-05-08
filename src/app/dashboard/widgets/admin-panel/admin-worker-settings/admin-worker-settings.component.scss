@@ -249,6 +249,8 @@
               box-sizing: border-box;
               border-radius: 50%;
 
+              object-fit: cover;
+
               &__add {
                 position: absolute;
                 z-index: 2;
