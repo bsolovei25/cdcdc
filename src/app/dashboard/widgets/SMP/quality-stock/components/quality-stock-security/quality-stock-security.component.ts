@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { IQualityStockSecurity } from '../../quality-stock.component';
 
 @Component({
   selector: 'evj-quality-stock-security',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./quality-stock-security.component.scss']
 })
 export class QualityStockSecurityComponent implements OnInit {
+  @Input() data: IQualityStockSecurity;
 
   constructor() { }
 
