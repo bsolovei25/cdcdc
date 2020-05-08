@@ -216,6 +216,7 @@ export class WidgetService {
             case 'shift-accept':
             case 'column-chart-stacked':
             case 'events-workspace':
+            case 'tank-information':
             case 'table-data':
                 return data;
         }
