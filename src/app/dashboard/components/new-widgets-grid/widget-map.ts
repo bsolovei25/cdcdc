@@ -56,6 +56,7 @@ import { OilOperationsComponent } from '../../widgets/oil-operations/oil-operati
 import { CdCriticalComponent } from '../../widgets/cd-critical/cd-critical.component';
 import { ImplementationPlanComponent } from '../../widgets/SMP/implementation-plan/implementation-plan.component';
 import { PerformanceProgressIndicatorsComponent } from '../../widgets/SMP/performance-progress-indicators/performance-progress-indicators.component';
+import { QualityStockComponent } from '../../widgets/SMP/quality-stock/quality-stock.component';
 
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
@@ -117,4 +118,5 @@ export const WIDGETS = {
     'cd-critical': CdCriticalComponent,
     'implementation-plan': ImplementationPlanComponent,
     'performance-progress-indicators': PerformanceProgressIndicatorsComponent,
+    'quality-stock': QualityStockComponent,
 };

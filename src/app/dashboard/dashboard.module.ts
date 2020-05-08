@@ -251,6 +251,9 @@ import { PerformanceProgressShippedComponent } from './widgets/SMP/performance-p
 import { PerformanceProgressBarComponent } from './widgets/SMP/performance-progress-indicators/components/performance-progress-bar/performance-progress-bar.component';
 import { PerformanceProgressCircleComponent } from './widgets/SMP/performance-progress-indicators/components/performance-progress-circle/performance-progress-circle.component';
 import { PerformanceProgressLineCircleComponent } from './widgets/SMP/performance-progress-indicators/components/performance-progress-line-circle/performance-progress-line-circle.component';
+import { QualityStockComponent } from './widgets/SMP/quality-stock/quality-stock.component';
+import { QualityStockSecurityComponent } from './widgets/SMP/quality-stock/components/quality-stock-security/quality-stock-security.component';
+import { QualityStockCircleComponent } from './widgets/SMP/quality-stock/components/quality-stock-circle/quality-stock-circle.component';
 
 @NgModule({
   declarations: [
@@ -471,6 +474,9 @@ import { PerformanceProgressLineCircleComponent } from './widgets/SMP/performanc
     PerformanceProgressBarComponent,
     PerformanceProgressCircleComponent,
     PerformanceProgressLineCircleComponent,
+    QualityStockComponent,
+    QualityStockSecurityComponent,
+    QualityStockCircleComponent,
   ],
   entryComponents: [
     LineChartComponent,
@@ -538,6 +544,7 @@ import { PerformanceProgressLineCircleComponent } from './widgets/SMP/performanc
     OilOperationsComponent,
     ImplementationPlanComponent,
     PerformanceProgressIndicatorsComponent,
+    QualityStockComponent,
   ],
   exports: [HomeComponent],
   imports: [
