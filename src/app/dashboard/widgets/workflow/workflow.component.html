@@ -1,38 +1,31 @@
-<evj-widget-preview
-  [title]="widgetTitle"
-  [previewTitle]="widgetType"
-  *ngIf="isMock"
-></evj-widget-preview>
+<evj-widget-preview [title]="widgetTitle"
+                    [previewTitle]="widgetType"
+                    *ngIf="isMock"></evj-widget-preview>
 
-<div class="container pointer-event" *ngIf="!isMock">
-  <evj-widget-header
-    [title]="widgetTitle"
-    [units]="widgetUnits"
-    [code]="widgetCode"
-    [id]="id"
-    [uniqId]="uniqId"
-    [icon]="widgetIcon"
-  ></evj-widget-header>
+<div class="container pointer-event"
+     *ngIf="!isMock">
+  <evj-widget-header [title]="widgetTitle"
+                     [units]="widgetUnits"
+                     [code]="widgetCode"
+                     [id]="id"
+                     [uniqId]="uniqId"
+                     [icon]="widgetIcon"></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
-  <div
-    class="content"
-    (mousedown)="$event.stopPropagation()"
-    (touchstart)="$event.stopPropagation()"
-  >
-    <div class="workflow" >
+  <div class="content"
+       (mousedown)="$event.stopPropagation()"
+       (touchstart)="$event.stopPropagation()">
+    <div class="workflow">
       <div class="workflow__choose-scenario">
         <div class="choose-system">
           <div class="choose-system__title">Выбор системы</div>
           <div class="choose-system__body">
             <div class="choose-system__body__select">
               <mat-form-field class="choose-system__body__select_selectbox">
-                <mat-select
-                  panelClass="mat-select-custom"
-                  [(ngModel)]="item"
-                  (selectionChange)="chooseSystem(item)"
-                >
-                  <mat-option *ngFor="let p of [1]" [value]="p.type">Таблицы</mat-option>
+                <mat-select panelClass="mat-select-custom"
+                            (selectionChange)="chooseSystem($event)">
+                  <mat-option *ngFor="let p of modules"
+                              [value]="p">{{p.name}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -40,47 +33,36 @@
         </div>
         <div class="available-scenario">
           <div class="available-scenario__title">Доступные сценарии</div>
-          <svg-icon
-            class="available-scenario__icon"
-            src="./assets/icons/widgets/workflow/add_btn.svg"
-            [svgStyle]="{ 'width.px': 30, 'height.px': 30 }"
-          ></svg-icon>
+          <svg-icon class="available-scenario__icon"
+                    src="./assets/icons/widgets/workflow/add_btn.svg"
+                    (click)="postScenarios()"
+                    [svgStyle]="{ 'width.px': 30, 'height.px': 30 }"></svg-icon>
           <div class="available-scenario__body">
             <div class="available-scenario__body__items">
-              <div class="available-scenario__body__item">
-                <span
-                  class="available-scenario__body__item__text"
-                  [class.available-scenario__body__item__text--active]="true"
-                  >новый сценарий</span
-                >
+              <div class="available-scenario__body__item"
+                   *ngFor="let scen of scenarios"
+                   (click)="chooseScen(scen)">
+                <span class="available-scenario__body__item__text"
+                      [class.available-scenario__body__item__text--active]="chooseScenarios === scen">{{scen.name}}</span>
                 <div class="available-scenario__body__item__container">
-                  <div
-                    class="available-scenario__body__item__container__edit-block"
-                    [class.available-scenario__body__item__container__edit-block--active]="true"
-                  >
-                    <svg-icon
-                      class="available-scenario__body__item__container__edit-block__edit"
-                      src="./assets/icons/widgets/workflow/edit_w.svg"
-                      [svgStyle]="{ 'width.px':30, 'height.px':30 }"
-                    ></svg-icon>
+                  <div class="available-scenario__body__item__container__edit-block"
+                       [class.available-scenario__body__item__container__edit-block--active]="chooseScenarios === scen">
+                    <svg-icon class="available-scenario__body__item__container__edit-block__edit"
+                              src="./assets/icons/widgets/workflow/edit_w.svg"
+                              [svgStyle]="{ 'width.px':30, 'height.px':30 }"></svg-icon>
                     <div
-                      class="available-scenario__body__item__container__edit-block__delete-block"
-                    >
+                         class="available-scenario__body__item__container__edit-block__delete-block">
                       <div
-                        class="available-scenario__body__item__container__edit-block__delete-block__delete"
-                      ></div>
+                           class="available-scenario__body__item__container__edit-block__delete-block__delete">
+                      </div>
                     </div>
                   </div>
                   <div class="available-scenario__body__item__container__icon">
-                    <svg-icon
-                      src="./assets/icons/widgets/workflow/play_w.svg"
-                      [svgStyle]="{ 'width.px':15, 'height.px':15 }"
-                    ></svg-icon>
-                    <svg-icon
-                      *ngIf="false"
-                      src="./assets/icons/widgets/workflow/stop_w.svg"
-                      [svgStyle]="{ 'width.px':15, 'height.px':15 }"
-                    ></svg-icon>
+                    <svg-icon src="./assets/icons/widgets/workflow/play_w.svg"
+                              [svgStyle]="{ 'width.px':15, 'height.px':15 }"></svg-icon>
+                    <svg-icon *ngIf="false"
+                              src="./assets/icons/widgets/workflow/stop_w.svg"
+                              [svgStyle]="{ 'width.px':15, 'height.px':15 }"></svg-icon>
                   </div>
                 </div>
               </div>
@@ -91,81 +73,108 @@
       <div class="workflow__action">
         <div class="workflow__action__title">Доступные виджеты</div>
         <div class="workflow__action__body">
-          <div
-            class="workflow__action__body__items"
-            (cdkDropListDropped)="onDrop($event)"
-            cdkDropList
-            #todoList="cdkDropList"
-          >
-            <div class="workflow__action__body__item" id="error" draggable="true" #done>
-              <svg-icon
-                class="workflow__action__body__item__icon"
-                src="./assets/icons/widgets/workflow/expired.svg"
-                [svgStyle]="{ 'width.px':32, 'height.px':32 }"
-                id="done"
-              ></svg-icon>
+          <div class="workflow__action__body__items">
+            <div class="workflow__action__body__item"
+                 draggable="true"
+                 (dragstart)="dragStartHandler($event, 'expired')"
+                 #done>
+              <svg-icon class="workflow__action__body__item__icon"
+                        src="./assets/icons/widgets/workflow/expired.svg"
+                        [svgStyle]="{ 'width.px':32, 'height.px':32 }"
+                        id="done"></svg-icon>
               <span class="workflow__action__body__item__title">Просрочено</span>
             </div>
-            <div class="workflow__action__body__item" cdkDrag>
-              <svg-icon
-                class="workflow__action__body__item__icon"
-                src="./assets/icons/widgets/workflow/done.svg"
-                [svgStyle]="{ 'width.px':32, 'height.px':32 }"
-                id="done"
-              ></svg-icon>
+            <div class="workflow__action__body__item"
+                 draggable="true"
+                 (dragstart)="dragStartHandler($event, 'available')">
+              <svg-icon class="workflow__action__body__item__icon"
+                        src="./assets/icons/widgets/workflow/done.svg"
+                        [svgStyle]="{ 'width.px':32, 'height.px':32 }"
+                        id="done"></svg-icon>
               <span class="workflow__action__body__item__title">Выполнено</span>
             </div>
-            <div
-              class="workflow__action__body__item"
-              id="draggableSpan"
-              draggable="true"
-              (dragstart)="onDragStart($event)"
-            >
-              <svg-icon
-                class="workflow__action__body__item__icon"
-                src="./assets/icons/widgets/workflow/warning_bell.svg"
-                [svgStyle]="{ 'width.px':32, 'height.px':32 }"
-                id="done"
-              ></svg-icon>
+            <div class="workflow__action__body__item"
+                 draggable="true"
+                 (dragstart)="dragStartHandler($event, 'CheckWarning')">
+              <svg-icon class="workflow__action__body__item__icon"
+                        src="./assets/icons/widgets/workflow/warning_bell.svg"
+                        [svgStyle]="{ 'width.px':32, 'height.px':32 }"
+                        id="done"></svg-icon>
               <span class="workflow__action__body__item__title">Подходит к концу</span>
             </div>
-            <div class="workflow__action__body__item">
-              <svg-icon
-                class="workflow__action__body__item__icon"
-                src="./assets/icons/widgets/workflow/message_w.svg"
-                [svgStyle]="{ 'width.px':32, 'height.px':32 }"
-                id="done"
-              ></svg-icon>
-              <span class="workflow__action__body__item__title"
-                >Отправить сообщение ответственному</span
-              >
+            <div class="workflow__action__body__item"
+                 (dragstart)="dragStartHandler($event, 'SendEmail')"
+                 draggable="true">
+              <svg-icon class="workflow__action__body__item__icon"
+                        src="./assets/icons/widgets/workflow/message_w.svg"
+                        [svgStyle]="{ 'width.px':32, 'height.px':32 }"
+                        id="done"></svg-icon>
+              <span class="workflow__action__body__item__title">Отправить сообщение
+                ответственному</span>
             </div>
-            <div (dragover)="drop($event)" draggable="true" #dragger class="workflow__action__body__item">
-              <svg-icon
-                class="workflow__action__body__item__icon"
-                src="./assets/icons/widgets/workflow/users_w.svg"
-                [svgStyle]="{ 'width.px':32, 'height.px':32 }"
-                id="done"
-              ></svg-icon>
-              <span class="workflow__action__body__item__title"
-                >Отправить сообщение пользователям</span
-              >
+            <div (dragstart)="dragStartHandler($event, 'SendEmail')"
+                 draggable="true"
+                 #dragger
+                 class="workflow__action__body__item">
+              <svg-icon class="workflow__action__body__item__icon"
+                        src="./assets/icons/widgets/workflow/users_w.svg"
+                        [svgStyle]="{ 'width.px':32, 'height.px':32 }"
+                        id="done"></svg-icon>
+              <span class="workflow__action__body__item__title">Отправить сообщение
+                пользователям</span>
             </div>
           </div>
         </div>
       </div>
       <div class="workflow__scenario">
         <div class="workflow__scenario__title">Сценарий</div>
-        <div class="workflow__scenario__body" #containerWorkflow>
-          <div
-            class="workflow__scenario__body__top"
-            #splitTop
-            (cdkDropListDropped)="onDrop($event)"
-            cdkDropList
-          ></div>
-          <div class="workflow__scenario__body__bar" #splitBar></div>
-          <div class="workflow__scenario__body__bottom" #dropped (dragover)="drop($event)">
-            dddddddddddddddd
+        <div class="workflow__scenario__body"
+             #containerWorkflow>
+          <div class="workflow__scenario__body__top"
+               #splitTop>
+            <gridster style="min-width: 100% !important; min-height: 100% !important;"
+                      class="workflow__scenario__body__top__gridster"
+                      id="gridSize"
+                      [options]="options"
+                      (window:resize)="onResize()">
+              <gridster-item *ngFor="let i of items"
+                             [item]="i"
+                             (dragstart)="dragStart($event, i)"
+                             (click)="chooseGridItem(i);"
+                             class="workflow__scenario__body__top__gridster__item"
+                             [class.workflow__scenario__body__top__gridster__item--active]="activeActions === i"
+                             [id]="i.type">
+                <ng-container [ngSwitch]="i.type">
+                  <svg-icon *ngSwitchCase="'expired'"
+                            class="workflow__action__body__item__icon"
+                            src="./assets/icons/widgets/workflow/expired.svg"
+                            [svgStyle]="{ 'width.px':43, 'height.px':43 }"
+                            id="expired"></svg-icon>
+                  <svg-icon *ngSwitchCase="'available'"
+                            class="workflow__action__body__item__icon"
+                            src="./assets/icons/widgets/workflow/done.svg"
+                            [svgStyle]="{ 'width.px':43, 'height.px':43 }"
+                            id="available"></svg-icon>
+                  <svg-icon *ngSwitchCase="'CheckWarning'"
+                            class="workflow__action__body__item__icon"
+                            src="./assets/icons/widgets/workflow/warning_bell.svg"
+                            [svgStyle]="{ 'width.px':43, 'height.px':43 }"></svg-icon>
+                  <svg-icon *ngSwitchCase="'SendEmail'"
+                            class="workflow__action__body__item__icon"
+                            src="./assets/icons/widgets/workflow/message_w.svg"
+                            [svgStyle]="{ 'width.px':43, 'height.px':43 }"></svg-icon>
+                  <svg-icon *ngSwitchCase="'SendEmail'"
+                            class="workflow__action__body__item__icon"
+                            src="./assets/icons/widgets/workflow/users_w.svg"
+                            [svgStyle]="{ 'width.px':43, 'height.px':43 }"></svg-icon>
+                </ng-container>
+              </gridster-item>
+            </gridster>
+          </div>
+          <div class="workflow__scenario__body__bar"
+               #splitBar></div>
+          <div class="workflow__scenario__body__bottom"
+               #dropped>
           </div>
         </div>
       </div>

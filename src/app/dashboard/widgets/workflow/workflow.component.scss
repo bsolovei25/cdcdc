@@ -42,7 +42,7 @@
 }
 
 .content {
-  height: 100%;
+  height: calc(100% - 56px);
   border-left: dashed 0.5px var(--color-border-main);
   border-right: dashed 0.5px var(--color-border-main);
 }
@@ -129,6 +129,7 @@
           align-items: center;
           align-items: stretch;
 
+          cursor: pointer;
           min-height: 37px;
           border-radius: 25px;
           background: linear-gradient(to left, #10141cc2 0%, transparent 13%), var(--color-bg-card-workflow);
@@ -268,10 +269,37 @@
         height: 50%;
         display: flex;
         flex-direction: column;
-        justify-content: space-evenly;
         border-radius: 15px;
         background-color: var(--color-bg-card-workflow);
         margin-bottom: 5px;
+
+        &__gridster {
+          &__item {
+            cursor: pointer;
+            &--active {
+              box-shadow: 0 0 10px rgba(36, 124, 224, 0.781);
+            }
+          }
+        }
+
+        gridster {
+          background: none;
+
+          gridster-item {
+            background: none;
+            border-radius: 20px;
+          }
+        }
+
+        .display-grid ::ng-deep .gridster-column {
+          border-left: none !important;
+          border-right: 1px solid var(--color-bg-sub) !important;
+        }
+
+        .display-grid ::ng-deep .gridster-row {
+          border-top: none !important;
+          border-bottom: 1px solid var(--color-bg-sub) !important;
+        }
       }
 
       &__bottom {
@@ -289,67 +317,4 @@
       }
     }
   }
-}
-
-* {
-  box-sizing: border-box;
-}
-
-[draggable="true"] {
-  cursor: -moz-grab;
-  cursor: -webkit-grab;
-  cursor: grab;
-}
-
-[draggable="true"]:active {
-  cursor: -moz-grabbing;
-  cursor: -webkit-grabbing;
-  cursor: grabbing;
-}
-
-// Font Awesome by Dave Gandy - http://fontawesome.io
-.o-btn--icon::before {
-  font-family: "FontAwesome";
-  margin: 0 10px 0 0;
-}
-
-.o-title {
-  text-align: center;
-  text-transform: uppercase;
-  font-weight: 300;
-  margin: 0 0 30px 0;
-}
-
-.c-type-container {
-  display: inline-block;
-  width: 20em;
-  padding: 1em;
-  background-color: #e2e2e2;
-}
-
-.c-type-container :last-child {
-  margin-bottom: 0;
-}
-.o-item-type::before {
-  font-family: "FontAwesome";
-  margin: 0 10px 0 0;
-}
-
-.o-item-type {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-  padding: 1em 1em 1em 1.5em;
-  margin: 0 0 1em 0;
-  background-color: #f2f2f2;
-  border-radius: 0.5rem;
-}
-
-.o-item-type::after {
-  position: absolute;
-  right: 1em;
-  font-family: "FontAwesome";
-  content: "\f0c9";
-  color: rgba(0, 0, 0, 0.4);
-  margin: 0 0 0 30px;
 }
