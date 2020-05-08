@@ -13,8 +13,8 @@
                     <div class="check-item">
                         <label class="mycheckbox">
                             <input type="checkbox" id="checkBoxValue" class="mycheckbox__default"
-                                (click)="changeSwap()" />
-                            <div class="mycheckbox__new"></div>
+                                (click)="changeSwap('auto')" />
+                            <div class="mycheckbox__new" [class.mycheckbox__checked]="isAutoGen"></div>
                         </label>
                     </div>
                     <div>Включить автогенерацию</div>
@@ -23,8 +23,8 @@
                     <div class="check-item">
                         <label class="mycheckbox">
                             <input type="checkbox" id="checkBoxValue" class="mycheckbox__default"
-                                (click)="changeSwap()" />
-                            <div class="mycheckbox__new"></div>
+                                (click)="changeSwap('interval')" />
+                            <div class="mycheckbox__new" [class.mycheckbox__checked]="isInterval"></div>
                         </label>
                     </div>
                     <div>Использовать интервал шаблона</div>

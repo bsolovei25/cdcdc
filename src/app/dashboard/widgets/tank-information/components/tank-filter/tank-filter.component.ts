@@ -7,76 +7,84 @@ import { ITankCard, ITankInformation, ITankFilter, ITankFilterTanks } from 'src/
   styleUrls: ['./tank-filter.component.scss']
 })
 export class TankFilterComponent implements OnInit, OnChanges {
-  @Input() public data: ITankInformation[];
-  @Output() public close: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() public data: any;
+  @Output() public close: EventEmitter<any> = new EventEmitter<any>();
+
+  objectKeys = Object.keys;
+
+  type = {
+    sug: 'СУГ',
+    tsb: 'ТСБ',
+    bitum: 'БИТУМЫ'
+  }
 
   public dataParam: ITankFilter[] = [
-    {
-      id: 1,
-      name: 'ТСБ',
-      tank: [
-        {
-          id: 1,
-          name: "Бензины",
-        },
-        {
-          id: 2,
-          name: "Дизель",
-        },
-        {
-          id: 3,
-          name: "Мазут",
-        },
-        {
-          id: 4,
-          name: "Бензины",
-        }
-      ]
-    },
-    {
-      id: 2,
-      name: 'СУГ',
-      tank: [
-        {
-          id: 1,
-          name: "Дизель",
-        },
-        {
-          id: 2,
-          name: "Дизель",
-        },
-        {
-          id: 3,
-          name: "Мазут",
-        },
-        {
-          id: 4,
-          name: "Бензины",
-        }
-      ]
-    },
-    {
-      id: 3,
-      name: 'БИТУМЫ',
-      tank: [
-        {
-          id: 1,
-          name: "Бензины",
-        },
-        {
-          id: 2,
-          name: "Бензины",
-        },
-        {
-          id: 3,
-          name: "Мазут",
-        },
-        {
-          id: 4,
-          name: "Бензины",
-        }
-      ]
-    }
+    // {
+    //   id: 1,
+    //   name: 'ТСБ',
+    //   tank: [
+    //     {
+    //       id: 1,
+    //       name: "Бензины",
+    //     },
+    //     {
+    //       id: 2,
+    //       name: "Дизель",
+    //     },
+    //     {
+    //       id: 3,
+    //       name: "Мазут",
+    //     },
+    //     {
+    //       id: 4,
+    //       name: "Бензины",
+    //     }
+    //   ]
+    // },
+    // {
+    //   id: 2,
+    //   name: 'СУГ',
+    //   tank: [
+    //     {
+    //       id: 1,
+    //       name: "Дизель",
+    //     },
+    //     {
+    //       id: 2,
+    //       name: "Дизель",
+    //     },
+    //     {
+    //       id: 3,
+    //       name: "Мазут",
+    //     },
+    //     {
+    //       id: 4,
+    //       name: "Бензины",
+    //     }
+    //   ]
+    // },
+    // {
+    //   id: 3,
+    //   name: 'БИТУМЫ',
+    //   tank: [
+    //     {
+    //       id: 1,
+    //       name: "Бензины",
+    //     },
+    //     {
+    //       id: 2,
+    //       name: "Бензины",
+    //     },
+    //     {
+    //       id: 3,
+    //       name: "Мазут",
+    //     },
+    //     {
+    //       id: 4,
+    //       name: "Бензины",
+    //     }
+    //   ]
+    // }
   ];
 
   constructor() { }
@@ -85,31 +93,39 @@ export class TankFilterComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    for (const item of this.dataParam) {
-      for (const i of item.tank) {
-        for (const j of this.data) {
-          if (i.name.toLocaleLowerCase() === j.name.toLocaleLowerCase()) {
-            i.isActive = true;
-          }
-        }
-      }
-    }
+    // for (const item of this.dataParam) {
+    //   for (const i of item.tank) {
+    //     for (const j of this.data) {
+    //       if (i.name.toLocaleLowerCase() === j.name.toLocaleLowerCase()) {
+    //         i.isActive = true;
+    //       }
+    //     }
+    //   }
+    // }
   }
 
   save(): void {
-    this.close.emit(false);
+    const obj = {
+      data: this.data,
+      close: false,
+    };
+    this.close.emit(obj);
   }
 
   exit(): void {
-    this.close.emit(false);
+    const obj = {
+      data: this.data,
+      close: false,
+    }
+    this.close.emit(obj);
   }
 
-  itemOpen(item: ITankFilterTanks): void {
-    item.open = !item.open;
+  itemOpen(item): void {
+    this.data[item].open = !this.data[item].open;
   }
 
-  changeSwap(i: ITankFilterTanks): void {
-    i.isActive = !i.isActive;
+  changeSwap(i): void {
+    i.active = !i.active;
   }
 
 }
