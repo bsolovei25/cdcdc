@@ -307,8 +307,7 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
                 data: {
                     startDate: element.startDate,
                     endDate: element.endDate
-                },
-                autoFocus: true,
+                }
             });
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
@@ -332,7 +331,7 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         const dialogRef = this.dialog
             .open(TanksTableComponent, {
                 data: this.tanksAvailable,
-                autoFocus: true,
+                autoFocus: false,
             });
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
@@ -398,6 +397,7 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
                 this.chooseElement.clear();
                 this.chooseEl = null;
             }
+            this.onlineTable = [{ beltNumber: 0, height: 0, volume: 0, lastRow: 'last-row' }];
             this.loadItem();
         } catch (error) {
             this.deleteElement = false;
