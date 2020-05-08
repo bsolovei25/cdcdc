@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AgAlertSubmitComponent } from './ag-alert-submit.component';
+import { QualityStockComponent } from './quality-stock.component';
 
-describe('AgAlertSubmitComponent', () => {
-  let component: AgAlertSubmitComponent;
-  let fixture: ComponentFixture<AgAlertSubmitComponent>;
+describe('QualityStockComponent', () => {
+  let component: QualityStockComponent;
+  let fixture: ComponentFixture<QualityStockComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AgAlertSubmitComponent ]
+      declarations: [ QualityStockComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AgAlertSubmitComponent);
+    fixture = TestBed.createComponent(QualityStockComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

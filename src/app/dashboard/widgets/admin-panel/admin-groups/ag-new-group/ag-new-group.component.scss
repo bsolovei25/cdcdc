@@ -14,13 +14,13 @@
   .alert {
     position: relative;
 
-    width: 600px;
+    width: 500px;
     height: 250px;
 
     box-sizing: border-box;
     border: 1px solid var(--color-border-main-transparrent);
     padding: 20px 25px 70px;
-    border-radius: 10px;
+    border-radius: 20px;
 
     background: var(--color-bg-main);
 
@@ -37,7 +37,7 @@
     }
 
     &__input {
-      width: 60%;
+      width: 75%;
       height: max-content;
       margin: 10px 0px;
     }

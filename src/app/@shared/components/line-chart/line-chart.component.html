@@ -21,3 +21,18 @@
     [scaleFuncs]="scaleFuncs"
   ></div>
 </ng-container>
+<ng-container *ngIf="chartType==='oil-operations'">
+  <div
+    class="graph"
+    #chart
+    evjLineChartTanks
+    evjLineChartPickerTank
+    [points]="points"
+    [graphMaxX]="graphMaxX"
+    [graphMaxY]="graphMaxY"
+    [padding]="padding"
+    [scaleFuncs]="scaleFuncs"
+    [maxValue]="data[0].additional.maxValue"
+    [tankName]="data[0].additional.tankName"
+  ></div>
+</ng-container>

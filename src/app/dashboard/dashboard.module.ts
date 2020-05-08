@@ -129,7 +129,6 @@ import { AwsWorkspacesComponent } from './widgets/admin-panel/admin-worker-setti
 import { AdminGroupsComponent } from './widgets/admin-panel/admin-groups/admin-groups.component';
 import { AgGroupCardComponent } from './widgets/admin-panel/admin-groups/ag-group-card/ag-group-card.component';
 import { AgGroupWorkerCardComponent } from './widgets/admin-panel/admin-groups/ag-group-worker-card/ag-group-worker-card.component';
-import { AwsResponsibleAlertComponent } from './widgets/admin-panel/admin-worker-settings/aws-responsible-alert/aws-responsible-alert.component';
 import { AwsPasswordAlertComponent } from './widgets/admin-panel/admin-worker-settings/aws-password-alert/aws-password-alert.component';
 import { ReferenceComponent } from './widgets/reference/reference.component';
 import { ReportServerConfiguratorComponent } from './widgets/report-server-configurator/report-server-configurator.component';
@@ -144,7 +143,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 
 import { AgNewGroupComponent } from './widgets/admin-panel/admin-groups/ag-new-group/ag-new-group.component';
-import { AgAlertSubmitComponent } from './widgets/admin-panel/admin-groups/ag-alert-submit/ag-alert-submit.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { AdminAdImportComponent } from './widgets/admin-panel/admin-ad-import/admin-ad-import.component';
 import { AddReportFileComponent } from './widgets/report-server-configurator/add-report-file/add-report-file.component';
@@ -243,6 +241,19 @@ import { OilOperationsAdjustmentComponent } from './widgets/oil-operations/compo
 import { OilOperationsFreeShipmentComponent } from './widgets/oil-operations/components/oil-operations-free-shipment/oil-operations-free-shipment.component';
 import { DocumentViewerFullscreenComponent } from './widgets/document-viewer/document-viewer-fullscreen/document-viewer-fullscreen.component';
 import { CdCriticalComponent } from './widgets/cd-critical/cd-critical.component';
+import { ImplementationPlanComponent } from './widgets/SMP/implementation-plan/implementation-plan.component';
+import { ImplementationPieComponent } from './widgets/SMP/implementation-plan/components/implementation-pie/implementation-pie.component';
+import { ImplementationTankComponent } from './widgets/SMP/implementation-plan/components/implementation-tank/implementation-tank.component';
+import { ImplementationsComponent } from './widgets/SMP/implementation-plan/components/implementations/implementations.component';
+import { PerformanceProgressIndicatorsComponent } from './widgets/SMP/performance-progress-indicators/performance-progress-indicators.component';
+import { PerformanceProgressParkComponent } from './widgets/SMP/performance-progress-indicators/components/performance-progress-park/performance-progress-park.component';
+import { PerformanceProgressShippedComponent } from './widgets/SMP/performance-progress-indicators/components/performance-progress-shipped/performance-progress-shipped.component';
+import { PerformanceProgressBarComponent } from './widgets/SMP/performance-progress-indicators/components/performance-progress-bar/performance-progress-bar.component';
+import { PerformanceProgressCircleComponent } from './widgets/SMP/performance-progress-indicators/components/performance-progress-circle/performance-progress-circle.component';
+import { PerformanceProgressLineCircleComponent } from './widgets/SMP/performance-progress-indicators/components/performance-progress-line-circle/performance-progress-line-circle.component';
+import { QualityStockComponent } from './widgets/SMP/quality-stock/quality-stock.component';
+import { QualityStockSecurityComponent } from './widgets/SMP/quality-stock/components/quality-stock-security/quality-stock-security.component';
+import { QualityStockCircleComponent } from './widgets/SMP/quality-stock/components/quality-stock-circle/quality-stock-circle.component';
 
 @NgModule({
   declarations: [
@@ -357,13 +368,11 @@ import { CdCriticalComponent } from './widgets/cd-critical/cd-critical.component
     AdminGroupsComponent,
     AgGroupCardComponent,
     AgGroupWorkerCardComponent,
-    AwsResponsibleAlertComponent,
     AwsPasswordAlertComponent,
     ReferenceComponent,
     ReportServerConfiguratorComponent,
     AwsCreateClaimComponent,
     AgNewGroupComponent,
-    AgAlertSubmitComponent,
     AdminAdImportComponent,
     AddReportFileComponent,
     TankCalibrationTableComponent,
@@ -455,6 +464,19 @@ import { CdCriticalComponent } from './widgets/cd-critical/cd-critical.component
     OilOperationsFreeShipmentComponent,
     DocumentViewerFullscreenComponent,
     CdCriticalComponent,
+    ImplementationPlanComponent,
+    ImplementationPieComponent,
+    ImplementationTankComponent,
+    ImplementationsComponent,
+    PerformanceProgressIndicatorsComponent,
+    PerformanceProgressParkComponent,
+    PerformanceProgressShippedComponent,
+    PerformanceProgressBarComponent,
+    PerformanceProgressCircleComponent,
+    PerformanceProgressLineCircleComponent,
+    QualityStockComponent,
+    QualityStockSecurityComponent,
+    QualityStockCircleComponent,
   ],
   entryComponents: [
     LineChartComponent,
@@ -520,6 +542,9 @@ import { CdCriticalComponent } from './widgets/cd-critical/cd-critical.component
     DocumentCodingComponent,
     ReportTreeComponent,
     OilOperationsComponent,
+    ImplementationPlanComponent,
+    PerformanceProgressIndicatorsComponent,
+    QualityStockComponent,
   ],
   exports: [HomeComponent],
   imports: [

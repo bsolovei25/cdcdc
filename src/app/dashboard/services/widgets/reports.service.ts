@@ -42,7 +42,7 @@ export class ReportsService {
 
     async getTemplateFolder(): Promise<IFolderReport> {
         return await this.http
-            .get<IFolderReport>(this.restUrl + '/api/report-templateFolder/all')
+            .get<IFolderReport>(this.restUrl + '/api/report-folders/all')
             .toPromise();
     }
 

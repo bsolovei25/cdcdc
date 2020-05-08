@@ -10,16 +10,23 @@ import { AdminPanelService } from '../../../../services/admin-panel/admin-panel.
 export class AwsWorkspacesComponent implements OnInit {
     @Input() public workerScreens: IWorkspace[] = [];
     @Input() public workerSpecialClaims: IGlobalClaim[] = [];
-    @Input() private searchingWorkspaceValue: string = '';
 
     @Output() private changeWorkspaces: EventEmitter<void> = new EventEmitter<void>();
 
     public allWorkspaces: IWorkspace[] = null;
 
+    public searchIcon: string = 'assets/icons/search-icon.svg';
+
+    private searchingWorkspaceValue: string = '';
+
     constructor(private adminService: AdminPanelService) {}
 
     public ngOnInit(): void {
         this.allWorkspaces = this.adminService.allScreens;
+    }
+
+    public onSearchWorkspace(searchedWorkspace: string): void {
+        this.searchingWorkspaceValue = searchedWorkspace.toLowerCase();
     }
 
     public isValidWorkspaceName(workspaceName: string): boolean {

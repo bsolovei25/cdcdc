@@ -22,16 +22,18 @@
         </div>
       </ng-container>
       <ng-template #ldapUsers>
-        <ng-container *ngFor="let worker of workersLdap">
-          <div
-            class="table__row"
-            [ngClass]="{'table__row_active':workerSelect.isSelected(worker),'table__row_disable': worker.isUserImported}"
-            (click)="onSelectWorker(worker)"
-          >
-            <div class="row__name">{{worker.ldapUser.displayName}}</div>
-            <div class="row__login">{{worker.ldapUser.samAccountName}}</div>
-          </div>
-        </ng-container>
+        <div class="table">
+          <ng-container *ngFor="let worker of workersLdap">
+            <div
+              class="table__row"
+              [ngClass]="{'table__row_active':workerSelect.isSelected(worker),'table__row_disable': worker.isUserImported}"
+              (click)="onSelectWorker(worker)"
+            >
+              <div class="row__name">{{worker.ldapUser.displayName}}</div>
+              <div class="row__login">{{worker.ldapUser.samAccountName}}</div>
+            </div>
+          </ng-container>
+        </div>
       </ng-template>
     </div>
     <div class="alert__button">

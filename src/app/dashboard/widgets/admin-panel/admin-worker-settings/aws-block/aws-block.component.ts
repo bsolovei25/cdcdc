@@ -9,6 +9,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 export class AwsBlockComponent implements OnInit {
     @Input() private isLockedUser: boolean = false;
     @Output() private changeLockUser: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() private removeUser: EventEmitter<null> = new EventEmitter<null>();
 
     public selected: SelectionModel<boolean> = new SelectionModel<boolean>();
 
@@ -18,7 +19,11 @@ export class AwsBlockComponent implements OnInit {
     private readonly msgLockUser: string = 'Заблокировать пользователя';
     private readonly msgUnlockUser: string = 'Разблокировать пользователя';
 
-    public isMouseOnLogo: boolean = false;
+    public readonly removeIcon: string = 'assets/icons/widgets/admin/admin-groups/delete-icon.svg';
+    public readonly msgRemoveUser: string = 'Удалить пользователя';
+
+    public isMouseOnLockLogo: boolean = false;
+    public isMouseOnRemoveLogo: boolean = false;
 
     constructor() {}
 
@@ -39,16 +44,28 @@ export class AwsBlockComponent implements OnInit {
         return this.selected.isEmpty() ? this.msgLockUser : this.msgUnlockUser;
     }
 
-    public onClick(): void {
-        this.selected.toggle(true);
-        this.changeLockUser.emit(this.selected.hasValue());
+    public onClick(action: 'lock' | 'remove'): void {
+        if (action === 'lock') {
+            this.selected.toggle(true);
+            this.changeLockUser.emit(this.selected.hasValue());
+        } else {
+            this.removeUser.emit();
+        }
     }
 
-    public onMouseEnter(): void {
-        this.isMouseOnLogo = true;
+    public onMouseEnter(action: 'lock' | 'remove'): void {
+        if (action === 'lock') {
+            this.isMouseOnLockLogo = true;
+        } else {
+            this.isMouseOnRemoveLogo = true;
+        }
     }
 
-    public onMouseLeave(): void {
-        this.isMouseOnLogo = false;
+    public onMouseLeave(action: 'lock' | 'remove'): void {
+        if (action === 'lock') {
+            this.isMouseOnLockLogo = false;
+        } else {
+            this.isMouseOnRemoveLogo = false;
+        }
     }
 }

@@ -76,18 +76,18 @@
         <evj-button
           class="insert-component"
           [isSmallButton]="false"
-          [textButton]="'Назад'"
+          textButton="Сохранить"
           [isChangingState]="false"
-          (click)="onClickButton(false)"
+          (click)="onClickButton(true)"
         ></evj-button>
       </div>
       <div class="button__back">
         <evj-button
           class="insert-component"
           [isSmallButton]="false"
-          [textButton]="'Сохранить'"
+          textButton="Вернуться"
           [isChangingState]="false"
-          (click)="onClickButton(true)"
+          (click)="onClickButton(false)"
         ></evj-button>
       </div>
     </div>
@@ -127,8 +127,10 @@
           </div>
         </div>
         <div class="block__body claims">
-          <div class="title title__special">Специальные права</div>
-          <div class="create-special-claim" (click)="onClickCreateNewClaim()"></div>
+          <div class="title">
+            Специальные права
+            <div class="create-special-claim" (click)="onClickCreateNewClaim()"></div>
+          </div>
           <div class="list scroll scroll-bar">
             <ng-container *ngFor="let claim of specialClaims">
               <div
@@ -161,12 +163,11 @@
         [ngClass]="{'block_active': blockSelection.hasValue()}"
         *ngIf="blockSelection.hasValue()"
       >
-        <div class="block__body">
+        <div class="block__body block__body_workspaces">
           <evj-aws-workspaces
             class="workspaces workspaces__list scroll scroll-bar"
             [workerScreens]="groupWorkspaces"
             [workerSpecialClaims]="this.groupSelection.selected[0].claims"
-            [searchingWorkspaceValue]="''"
             (changeWorkspaces)="onChangeWorkspaces()"
           ></evj-aws-workspaces>
         </div>
@@ -189,10 +190,5 @@
     (createdClaim)="onCreateSpecialClaim($event)"
   ></evj-aws-create-claim>
 
-  <evj-ag-alert-submit
-    class="popup"
-    [ngClass]="{'popup_active':isAlertShowing}"
-    [isSaving]="isSaveClicked"
-    (clickedButton)="onClickAlert($event)"
-  ></evj-ag-alert-submit>
+  <evj-alert-window [info]="alert"></evj-alert-window>
 </div>

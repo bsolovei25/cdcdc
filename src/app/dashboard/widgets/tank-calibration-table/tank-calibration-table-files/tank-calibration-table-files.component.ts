@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { TankCalibrationTableService } from '../../../services/widgets/tank-calibration-table.service';
 import { ICalibrationTable } from '../tank-calibration-table.component';
@@ -6,7 +6,7 @@ import { ICalibrationTable } from '../tank-calibration-table.component';
 
 interface IDataSource extends ICalibrationTable {
     childredTanks?: ICalibrationTable[];
-    isVisible?: boolean;
+    isInvisible?: boolean;
 }
 interface ITanksHistory {
     createdAt: Date;
@@ -14,6 +14,7 @@ interface ITanksHistory {
     action: string;
     newValue: string;
     comment: string;
+    tableId?: number;
 }
 
 @Component({
@@ -21,30 +22,24 @@ interface ITanksHistory {
     templateUrl: './tank-calibration-table-files.component.html',
     styleUrls: ['./tank-calibration-table-files.component.scss'],
 })
-export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
+export class TankCalibrationTableFilesComponent implements OnInit {
 
     static itemCols: number = 18;
     static itemRows: number = 14;
 
-    expandedElement: SelectionModel<any> = new SelectionModel(true);
-    chooseElement: SelectionModel<ICalibrationTable> = new SelectionModel(false);
+    expandedElement: SelectionModel<string> = new SelectionModel(true);
+    chooseElement: SelectionModel<string> = new SelectionModel(false);
     @Input() set chooseEl(data: ICalibrationTable) {
         if (data) {
-            this.chooseElement.select(data);
-            const el = this.dataSourceUI.find(val => val.uid === data?.parentUid);
-            if (el) {
-                this.expandedElement.select(el);
-            }
-            this.loadItem(data);
+            this.setData(data);
         }
     }
 
     @Output() selectOut: EventEmitter<string> = new EventEmitter();
 
     localeData: ICalibrationTable[] = [];
-
     dataSource: IDataSource[] = [];
-    dataSourceTanks: ICalibrationTable[] = [];
+    dataSourceTanks: IDataSource[] = [{ name: '', isGroup: false, uid: 'last-row' }];
     selectId: string = '';
 
     chooseTanks: ITanksHistory[] = [
@@ -57,10 +52,6 @@ export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
 
     isRefInput: boolean = false;
 
-    @Input() data: ICalibrationTable[] = [];
-    @Input() dataSourceUI: IDataSource[] = [];
-    @Input() dataSourceTanksL: ICalibrationTable[] = [];
-
     @ViewChild('tableBody3') table3: ElementRef;
     @ViewChild('tableRight4') tableRight4: ElementRef;
 
@@ -68,12 +59,42 @@ export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
         private calibrationService: TankCalibrationTableService,
     ) { }
     ngOnInit(): void {
-        this.localeData = this.data;
-        this.dataSource = this.dataSourceUI;
-        this.dataSourceTanks = this.dataSourceTanksL;
+        if (this.localeData.length === 0) {
+            this.loadHistory();
+        }
     }
 
-    ngOnDestroy(): void {
+    async setData(data: ICalibrationTable): Promise<void> {
+        if (this.localeData.length === 0) {
+            await this.loadHistory();
+        }
+        const el2 = this.localeData.find(val => val.uid === data.uid);
+        if (el2) {
+            this.chooseElement.select(el2.uid);
+            this.selectId = el2.uid;
+            const el = this.localeData.find(val => val.uid === data?.parentUid);
+            if (el) {
+                this.expandedElement.select(el.uid);
+            }
+            this.loadItem(data);
+        }
+    }
+
+    async loadHistory(): Promise<void> {
+        try {
+            const data = await this.calibrationService.getTanksHistory();
+            this.localeData = data;
+            this.dataSource = this.localeData
+                .filter(val => val.isGroup);
+            this.dataSource.map((value) => {
+                value.childredTanks = this.getChildrenRows(value);
+            });
+            this.dataSourceTanks = [...this.localeData
+                .filter(val => !val.parentUid && !val.isGroup),
+            { name: '', isGroup: false, uid: 'last-row' }];
+        } catch (error) {
+
+        }
     }
 
     async loadItem(element: ICalibrationTable): Promise<void> {
@@ -94,8 +115,7 @@ export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
     }
 
     chooseTank(element: ICalibrationTable): void {
-        this.chooseElement.select(element);
-        this.selectOut.emit(element.uid);
+        this.chooseElement.select(element.uid);
         this.selectId = element.uid;
         try {
             this.loadItem(element);
@@ -105,29 +125,32 @@ export class TankCalibrationTableFilesComponent implements OnInit, OnDestroy {
     }
 
     searchInput(event): void {
-        this.dataSourceUI?.map((val) => {
+        this.dataSource?.map((val) => {
             let isLenChild: boolean = false;
             val.childredTanks.map(element => {
                 if (element.name.toLowerCase()
                     .includes(event?.target?.value.toLowerCase())) {
-                    element.isVisible = false; // показывать
+                    element.isInvisible = false; // показывать
+                    this.expandedElement.select(val.uid);
                     isLenChild = true;
                 } else {
-                    element.isVisible = true;  // скрыть
+                    element.isInvisible = true;  // скрыть
                 }
             });
             if (val.name.toLowerCase()
                 .includes(event?.target?.value.toLowerCase()) || isLenChild) {
-                val.isVisible = false;
+                val.isInvisible = false;
             } else {
-                val.isVisible = true;
+                val.isInvisible = true;
+                this.expandedElement.deselect(val.uid);
             }
         });
-        this.dataSourceTanks = this.data?.filter((val) => val.name.toLowerCase()
+        this.dataSourceTanks = this.localeData?.filter((val) => val.name.toLowerCase()
             .includes(event?.target?.value.toLowerCase()) && !val.parentUid && !val.isGroup);
         this.dataSourceTanks.push({ name: '', isGroup: false, uid: 'last-row' });
-
+        if (event?.target?.value.trim().toLowerCase() === '') {
+            this.expandedElement.clear();
+        }
     }
-
 
 }

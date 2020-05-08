@@ -8,28 +8,28 @@
             <div class="title__name">Выберите нужные разделы</div>
         </div>
         <div class="content">
-            <ng-container *ngFor="let item of dataParam">
+            <ng-container *ngFor="let item of objectKeys(data)">
                 <div class="item" (click)="itemOpen(item)">
                     <div class="item__title-button">
-                        <svg-icon *ngIf="item.open" src="./assets/icons/widgets/oil-control-all/tank-information/arrow-up.svg"
+                        <svg-icon *ngIf="data[item].open" src="./assets/icons/widgets/oil-control-all/tank-information/arrow-up.svg"
                             [svgStyle]="{ 'width.px':14, 'height.px':10 }"></svg-icon>
 
-                        <svg-icon *ngIf="!item.open" src="./assets/icons/widgets/oil-control-all/tank-information/arrow-bottom.svg"
+                        <svg-icon *ngIf="!data[item].open" src="./assets/icons/widgets/oil-control-all/tank-information/arrow-bottom.svg"
                             [svgStyle]="{ 'width.px':14, 'height.px':10 }"></svg-icon>
                     </div>
-                    <div class="item__name"> {{ item.name }}</div>
+                    <div class="item__name"> {{ type[item] }}</div>
                 </div>
-                <div *ngIf="item.open" class="item__shadow-block">
-                    <ng-container *ngFor="let i of item.tank">
+                <div *ngIf="data[item].open" class="item__shadow-block">
+                    <ng-container *ngFor="let i of data[item].arr">
                         <div class="item__i">
                             <div class="name-param">
-                                {{ i.name }}
+                                {{ i.type }}
                             </div>  
                             <div class="check-param">
                                 <label class="mycheckbox">
-                                    <input type="checkbox" id="checkBoxValue" class="mycheckbox__default" (click)="changeSwap(i)" [checked]="i.isActive"
+                                    <input type="checkbox" id="checkBoxValue" class="mycheckbox__default" (click)="changeSwap(i)" [checked]="i.active"
                                          />
-                                    <div class="mycheckbox__new" [class.mycheckbox__checked]="i.isActive"></div>
+                                    <div class="mycheckbox__new" [class.mycheckbox__checked]="i.active"></div>
                                 </label>
                             </div>
                         </div>

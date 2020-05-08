@@ -88,6 +88,7 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
           operation: "standart"
         }
       ],
+      type: 'СУГ'
     },
     {
       id: 2,
@@ -144,6 +145,7 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
           operation: "shipment"
         }
       ],
+      type: 'ТСБ'
     },
     {
       id: 3,
@@ -200,8 +202,12 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
           operation: "shipment"
         }
       ],
+      type: 'БИТУМЫ'
     },
   ];
+
+  public dataSave: ITankInformation[];
+  public sendFilterData: any;
 
   public isFilterTable: boolean = false;
 
@@ -212,17 +218,83 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
     @Inject('uniqId') public uniqId: string
   ) {
     super(widgetService, isMock, id, uniqId);
-    this.isRealtimeData = false;
     this.widgetIcon = 'reference';
   }
 
   ngOnInit(): void {
     super.widgetInit();
+    this.mapFilter(this.data);
   }
 
   protected dataHandler(ref: any): void {
-    //this.data = ref;
+    // this.dataSave = ref.items;
+    //this.data = this.dataSave;
+    // this.mapFilter(this.dataSave);
   }
+
+  mapFilter(data: ITankInformation[]): void {
+    const object = {
+      sug: {
+        open: false,
+        arr: [],
+      },
+      tsb: {
+        open: false,
+        arr: [],
+      },
+      bitum: {
+        open: false,
+        arr: [],
+      },
+    };
+
+    data.forEach(e => {
+      if (e.type === 'СУГ') {
+        const result = object.sug.arr.find(i => i?.type === e.name);
+        if (!result) {
+          const obj = {
+            type: e.name,
+            active: true,
+          };
+          object.sug.arr.push(obj);
+        }
+      } else if (e.type === 'ТСБ') {
+        const result = object.tsb.arr.find(i => i?.type === e.name);
+        if (!result) {
+          const obj = {
+            type: e.name,
+            active: true,
+          };
+          object.tsb.arr.push(obj);
+        }
+      } else if (e.type === 'БИТУМЫ') {
+        const result = object.bitum.arr.find(i => i?.type === e.name);
+        if (!result) {
+          const obj = {
+            type: e.name,
+            active: true,
+          };
+          object.bitum.arr.push(obj);
+        }
+      }
+    });
+    this.sendFilterData = object;
+  }
+
+  // filterNameData(data): any {
+  //   const objectName = [];
+  //   data.forEach(el => {
+  //     const result = objectName.find(i => i?.type === el.name);
+  //     if (!result) {
+  //       const obj = {
+  //         type: el.name,
+  //         active: true,
+  //       }
+  //       objectName.push(obj);
+  //     }
+  //   });
+  //   return objectName;
+  // }
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
@@ -232,8 +304,17 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
     this.isFilterTable = event;
   }
 
-  closeFilter(event: boolean): void {
-    this.isFilterTable = event;
+  closeFilter(event: any): void {
+    this.isFilterTable = event.close;
+    this.mapData(event.data);
+  }
+
+  mapData(dataFilter) {
+    this.data.filter(e => {
+      if (e.type === 'СУГ') {
+
+      }
+    })
   }
 
 }
