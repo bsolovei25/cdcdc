@@ -27,17 +27,11 @@ export class TankCalibrationTableFilesComponent implements OnInit {
     static itemCols: number = 18;
     static itemRows: number = 14;
 
-    expandedElement: SelectionModel<any> = new SelectionModel(true);
-    chooseElement: SelectionModel<ICalibrationTable> = new SelectionModel(false);
+    expandedElement: SelectionModel<string> = new SelectionModel(true);
+    chooseElement: SelectionModel<string> = new SelectionModel(false);
     @Input() set chooseEl(data: ICalibrationTable) {
         if (data) {
-            this.chooseElement.select(data);
-            this.selectId = data.uid;
-            const el = this.localeData.find(val => val.uid === data?.parentUid);
-            if (el) {
-                this.expandedElement.select(el);
-            }
-            this.loadItem(data);
+            this.setData(data);
         }
     }
 
@@ -63,10 +57,27 @@ export class TankCalibrationTableFilesComponent implements OnInit {
 
     constructor(
         private calibrationService: TankCalibrationTableService,
-        private chDet: ChangeDetectorRef,
     ) { }
     ngOnInit(): void {
-        this.loadHistory();
+        if (this.localeData.length === 0) {
+            this.loadHistory();
+        }
+    }
+
+    async setData(data: ICalibrationTable): Promise<void> {
+        if (this.localeData.length === 0) {
+            await this.loadHistory();
+        }
+        const el2 = this.localeData.find(val => val.uid === data.uid);
+        if (el2) {
+            this.chooseElement.select(el2.uid);
+            this.selectId = el2.uid;
+            const el = this.localeData.find(val => val.uid === data?.parentUid);
+            if (el) {
+                this.expandedElement.select(el.uid);
+            }
+            this.loadItem(data);
+        }
     }
 
     async loadHistory(): Promise<void> {
@@ -104,7 +115,7 @@ export class TankCalibrationTableFilesComponent implements OnInit {
     }
 
     chooseTank(element: ICalibrationTable): void {
-        this.chooseElement.select(element);
+        this.chooseElement.select(element.uid);
         this.selectId = element.uid;
         try {
             this.loadItem(element);
@@ -120,6 +131,7 @@ export class TankCalibrationTableFilesComponent implements OnInit {
                 if (element.name.toLowerCase()
                     .includes(event?.target?.value.toLowerCase())) {
                     element.isInvisible = false; // показывать
+                    this.expandedElement.select(val.uid);
                     isLenChild = true;
                 } else {
                     element.isInvisible = true;  // скрыть
@@ -130,11 +142,15 @@ export class TankCalibrationTableFilesComponent implements OnInit {
                 val.isInvisible = false;
             } else {
                 val.isInvisible = true;
+                this.expandedElement.deselect(val.uid);
             }
         });
         this.dataSourceTanks = this.localeData?.filter((val) => val.name.toLowerCase()
             .includes(event?.target?.value.toLowerCase()) && !val.parentUid && !val.isGroup);
         this.dataSourceTanks.push({ name: '', isGroup: false, uid: 'last-row' });
+        if (event?.target?.value.trim().toLowerCase() === '') {
+            this.expandedElement.clear();
+        }
     }
 
 }
