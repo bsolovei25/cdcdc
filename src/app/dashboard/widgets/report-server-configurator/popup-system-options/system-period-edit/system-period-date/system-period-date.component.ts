@@ -1,9 +1,25 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
+import { NgxMatDateFormats, NGX_MAT_DATE_FORMATS } from '@angular-material-components/datetime-picker';
+
+export const CUSTOM_DATE_FORMATS: NgxMatDateFormats = {
+  parse: {
+    dateInput: 'L | LTS'
+  },
+  display: {
+    dateInput: 'L | LTS',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY'
+  }
+};
 
 @Component({
   selector: 'evj-system-period-date',
   templateUrl: './system-period-date.component.html',
-  styleUrls: ['./system-period-date.component.scss']
+  styleUrls: ['./system-period-date.component.scss'],
+  providers: [
+    { provide: NGX_MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS },
+  ]
 })
 export class SystemPeriodDateComponent implements OnInit {
 
