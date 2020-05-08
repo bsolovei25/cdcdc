@@ -57,6 +57,25 @@
         font-size: 14px;
         color: var(--color-text-sub-heading);
       }
+
+      &__buttons {
+        width: 390px;
+        height: 100%;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        .button {
+          height: 100%;
+          width: 45%;
+
+          &-disabled {
+            opacity: 0.3;
+          }
+        }
+      }
     }
   }
 
@@ -175,11 +194,6 @@
           flex-direction: column;
           justify-content: center;
           align-items: center;
-
-          &__component {
-            width: 100%;
-            height: 60px;
-          }
         }
       }
 
@@ -234,6 +248,8 @@
 
               box-sizing: border-box;
               border-radius: 50%;
+
+              object-fit: cover;
 
               &__add {
                 position: absolute;
@@ -290,10 +306,6 @@
                   opacity: 1;
                 }
               }
-            }
-
-            &-moved {
-              top: -150px;
             }
           }
 

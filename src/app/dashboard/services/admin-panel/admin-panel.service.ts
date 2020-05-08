@@ -17,6 +17,7 @@ import { IWidgets } from '../../models/widget.model';
 import { fillDataShape } from '../../../@shared/common-functions';
 import { AuthService } from '@core/service/auth.service';
 import { AvatarConfiguratorService } from '../avatar-configurator.service';
+import { IAlertWindowModel } from '../../../@shared/models/alert-window.model';
 
 @Injectable({
     providedIn: 'root',
@@ -73,6 +74,16 @@ export class AdminPanelService {
 
     public allWidgets: IWidgets[] = [];
     public allScreens: IWorkspace[] = [];
+
+    public settingsAlert: IAlertWindowModel = {
+        isShow: false,
+        questionText: '',
+        acceptText: '',
+        cancelText: 'Вернуться',
+        acceptFunction: () => null,
+        cancelFunction: () => null,
+        closeFunction: () => (this.settingsAlert.isShow = false),
+    };
 
     constructor(
         private http: HttpClient,
