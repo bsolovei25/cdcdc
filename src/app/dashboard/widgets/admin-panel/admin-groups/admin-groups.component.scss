@@ -162,6 +162,10 @@
         justify-content: flex-start;
         align-items: center;
 
+        &_workspaces{
+          height: 100%;
+        }
+
         .list {
           width: 100%;
           height: auto;
