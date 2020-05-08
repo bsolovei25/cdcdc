@@ -170,21 +170,25 @@ input {
     position: relative;
     line-height: 30px;
     margin-left: 30px;
+    width: calc(100% - 30px);
 
     .name-item {
       color: var(--color-text-sub);
-      width: 70%;
+      width: calc(100% - 125px);
+      overflow: hidden;
       padding-left: 45px;
+      text-overflow: ellipsis;
     }
 
     &__title-button {
       height: 100%;
       position: absolute;
       left: 20px;
+      width: 10px;
     }
 
     .check-item {
-      width: 30%;
+      width: 100px;
     }
   }
 
@@ -212,8 +216,8 @@ input {
     }
   }
 
-  .active{
-    background-color: #1F2D40;
+  .active {
+    background-color: #1f2d40;
   }
 }
 
@@ -341,6 +345,6 @@ input {
   }
 }
 
-.displayOff{
+.displayOff {
   display: none !important;
 }

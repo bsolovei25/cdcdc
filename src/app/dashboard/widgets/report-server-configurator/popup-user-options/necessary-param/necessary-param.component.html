@@ -22,7 +22,7 @@
         <div class="check-item">
           <label class="mycheckbox">
             <input type="checkbox" id="checkBoxValue" class="mycheckbox__default" (click)="changeSwap(item)"  [checked]="item.isActive"/>
-            <div class="mycheckbox__new"></div>
+            <div class="mycheckbox__new" [class.mycheckbox__checked]="item.isActive"></div>
           </label>
         </div>
       </div>

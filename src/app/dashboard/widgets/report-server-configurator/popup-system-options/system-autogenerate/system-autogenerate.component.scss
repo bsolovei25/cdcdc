@@ -42,14 +42,14 @@
   
   .container {
     position: absolute;
-    left: 30%;
+    left: 18%;
     top: 20%;
     height: 65%;
-    width: 40%;
+    width: 50%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    //box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
     z-index: 999;
+    min-width: 385px;
   }
   
   .title {
@@ -75,6 +75,7 @@
     &__name {
       width: 100%;
       text-align: center;
+      font-size: 14px;
     }
   }
   
@@ -167,11 +168,11 @@
 
         ::ng-deep{
           .mat-form-field-underline{
-            height: 0;
+            display: none;
           }
  
           .mat-form-field-infix{
-            width: 120px;
+            width: 145px;
           }
  
           input{

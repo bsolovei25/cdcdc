@@ -2,6 +2,7 @@ export interface ITankInformation {
     id: number;
     name: string;
     tank: ITankCard[];
+    type: string;
 }
 
 export interface ITankCard { // Карточка резервуара
