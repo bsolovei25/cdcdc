@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
-import { ITankCard, ITankInformation, ITankFilter, ITankFilterTanks } from 'src/app/dashboard/models/tank-information';
+import { ITankFilter, ITankFilterTanks, ITankResaultFilter } from 'src/app/dashboard/models/tank-information';
 
 @Component({
   selector: 'evj-tank-filter',
@@ -7,85 +7,17 @@ import { ITankCard, ITankInformation, ITankFilter, ITankFilterTanks } from 'src/
   styleUrls: ['./tank-filter.component.scss']
 })
 export class TankFilterComponent implements OnInit, OnChanges {
-  @Input() public data: any;
-  @Output() public close: EventEmitter<any> = new EventEmitter<any>();
-
-  objectKeys = Object.keys;
+  @Input() public data: ITankFilter[];
+  @Input() public filterData: ITankFilter[];
+  @Output() public closeFilter: EventEmitter<ITankResaultFilter> = new EventEmitter<ITankResaultFilter>();
 
   type = {
     sug: 'СУГ',
     tsb: 'ТСБ',
     bitum: 'БИТУМЫ'
-  }
+  };
 
-  public dataParam: ITankFilter[] = [
-    // {
-    //   id: 1,
-    //   name: 'ТСБ',
-    //   tank: [
-    //     {
-    //       id: 1,
-    //       name: "Бензины",
-    //     },
-    //     {
-    //       id: 2,
-    //       name: "Дизель",
-    //     },
-    //     {
-    //       id: 3,
-    //       name: "Мазут",
-    //     },
-    //     {
-    //       id: 4,
-    //       name: "Бензины",
-    //     }
-    //   ]
-    // },
-    // {
-    //   id: 2,
-    //   name: 'СУГ',
-    //   tank: [
-    //     {
-    //       id: 1,
-    //       name: "Дизель",
-    //     },
-    //     {
-    //       id: 2,
-    //       name: "Дизель",
-    //     },
-    //     {
-    //       id: 3,
-    //       name: "Мазут",
-    //     },
-    //     {
-    //       id: 4,
-    //       name: "Бензины",
-    //     }
-    //   ]
-    // },
-    // {
-    //   id: 3,
-    //   name: 'БИТУМЫ',
-    //   tank: [
-    //     {
-    //       id: 1,
-    //       name: "Бензины",
-    //     },
-    //     {
-    //       id: 2,
-    //       name: "Бензины",
-    //     },
-    //     {
-    //       id: 3,
-    //       name: "Мазут",
-    //     },
-    //     {
-    //       id: 4,
-    //       name: "Бензины",
-    //     }
-    //   ]
-    // }
-  ];
+  public dataParam: ITankFilter[] = [];
 
   constructor() { }
 
@@ -93,38 +25,71 @@ export class TankFilterComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    // for (const item of this.dataParam) {
-    //   for (const i of item.tank) {
-    //     for (const j of this.data) {
-    //       if (i.name.toLocaleLowerCase() === j.name.toLocaleLowerCase()) {
-    //         i.isActive = true;
-    //       }
-    //     }
-    //   }
-    // }
+    this.dataMap(this.data);
+  }
+
+  dataMap(data: ITankFilter[]): void {
+    this.dataParam = [];
+    for (const item of data) {
+      const arrayType = [];
+      for (const i of item.tanks) {
+        const obj = {
+          name: i,
+          active: true,
+        };
+        arrayType.push(obj);
+      }
+      const objType = {
+        type: item.type,
+        tanks: arrayType,
+      };
+      this.dataParam.push(objType);
+    }
+    if (this.filterData.length > 0) {
+      this.useFilter(this.dataParam);
+    }
+  }
+
+  useFilter(data: ITankFilter[]): void {
+    for (const item of this.filterData) {
+      for (const i of data) {
+        if (item.type === i.type) {
+          i.open = item.open;
+          for (const tankFilter of item.tanks) {
+            for (const tankData of i.tanks) {
+              if (tankData.name === tankFilter.name) {
+                tankData.active = tankFilter.active;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   save(): void {
-    const obj = {
-      data: this.data,
+    const obj: ITankResaultFilter = {
+      dataFilter: this.dataParam,
+      filter: true,
       close: false,
     };
-    this.close.emit(obj);
+    this.closeFilter.emit(obj);
   }
 
   exit(): void {
-    const obj = {
-      data: this.data,
+    const obj: ITankResaultFilter = {
+      dataFilter: this.dataParam,
+      filter: false,
       close: false,
-    }
-    this.close.emit(obj);
+    };
+    this.closeFilter.emit(obj);
   }
 
-  itemOpen(item): void {
-    this.data[item].open = !this.data[item].open;
+  itemOpen(item: ITankFilter): void {
+    item.open = !item.open;
   }
 
-  changeSwap(i): void {
+  changeSwap(i: ITankFilterTanks): void {
     i.active = !i.active;
   }
 
