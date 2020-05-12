@@ -29,10 +29,12 @@
 
     <!-- EVENT -->
     <div class="container-widget">
-      <ng-container *ngIf="ewService.event">
-        <evj-usual-event *ngIf="ewService.event.category.code!=='0'"></evj-usual-event>
+      <ng-container *ngIf="ewService.event" [ngSwitch]="ewService.event.category.code">
+        <!-- <evj-smotr-event *ngSwitchCase="0"></evj-smotr-event>
+        <evj-asus-event *ngSwitchCase="5"></evj-asus-event>
+        <evj-usual-event *ngSwitchDefault></evj-usual-event> -->
 
-        <evj-smotr-event *ngIf="ewService.event.category.code==='0'"></evj-smotr-event>
+        <evj-asus-event *ngSwitchDefault></evj-asus-event>
       </ng-container>
 
       <!-- NO-SELECTED EVENT -->
