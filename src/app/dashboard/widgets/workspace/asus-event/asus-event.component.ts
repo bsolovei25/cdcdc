@@ -16,6 +16,8 @@ export class AsusEventComponent implements OnInit {
         'Причина 6',
     ];
 
+    public isReasonsPopupOpen: boolean = false;
+
     constructor(public ewService: EventsWorkspaceService) {}
 
     ngOnInit(): void {}
@@ -30,5 +32,9 @@ export class AsusEventComponent implements OnInit {
 
     public onSendMessage(message: string, msgType: 'comments' | 'facts'): void {
         this.ewService.sendMessageToEvent(message, msgType, false);
+    }
+
+    public dateTimePicker(date: Date): void {
+        this.ewService.setDeadlineToEvent(date);
     }
 }
