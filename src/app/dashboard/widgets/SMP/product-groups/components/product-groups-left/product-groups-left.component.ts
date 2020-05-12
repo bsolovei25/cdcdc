@@ -136,11 +136,22 @@ export class ProductGroupsLeftComponent implements OnInit {
             const name = canvas
                 .append('text')
                 .attr('font-size', '18px')
-                .attr('x', '30')
+                .attr('x', '50')
                 .attr('y', '55')
                 .attr('fill', 'white')
                 .text(data.groupName);
         }
+
+        const point = canvas
+            .append('image')
+            .attr(
+                'xlink:href',
+                'assets/icons/widgets/SMP/product-group-planning/left-side/big-deviation-point.svg'
+            )
+            .attr('height', '19px')
+            .attr('width', '32px')
+            .attr('x', '20')
+            .attr('y', '40');
 
         const button_left_top = canvas
             .append('image')
@@ -194,10 +205,10 @@ export class ProductGroupsLeftComponent implements OnInit {
 
             const critical_value = canvas
                 .append('text')
-                .attr('font-size', '18px')
+                .attr('font-size', '20px')
                 .attr('x', '260')
                 .attr('y', '65')
-                .attr('fill', 'orange')
+                .attr('fill', 'white')
                 .text(critical_newValue);
         } else {
             const icon = canvas
@@ -217,7 +228,7 @@ export class ProductGroupsLeftComponent implements OnInit {
                 .text(newValue);
         }
 
-        if (data.groupDeviationFlag != 0) {
+        if (data.groupDeviationFlag !== 0) {
             const button = canvas
                 .append('image')
                 .attr(
