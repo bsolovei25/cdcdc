@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, Input, ViewChild } from '@angular/core';
 import * as d3 from 'd3';
+import { SpaceNumber } from '@shared/pipes/number_space.pipe';
+import { IProducts } from '../../product-groups.component';
 
 @Component({
   selector: 'evj-product-groups-right',

@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
 import * as d3 from 'd3';
+import { ITypeProduct } from '../../product-groups.component';
+import { SpaceNumber } from '@shared/pipes/number_space.pipe';
 
 @Component({
   selector: 'evj-product-groups-middle',
@@ -20,8 +22,8 @@ export class ProductGroupsMiddleComponent implements OnInit {
 
   constructor(
       private spacePipe: SpaceNumber,
-      private userSettings: NewUserSettingsService,
-      private dataService: GetDataService
+    //   private userSettings: NewUserSettingsService,
+    //   private dataService: GetDataService
   ) {}
 
   ngOnInit() {
@@ -288,11 +290,11 @@ export class ProductGroupsMiddleComponent implements OnInit {
   }
 
   public goToGant(): void {
-      this.userSettings.LoadScreen(1);
-      const currentState = this.dataService.states$.getValue();
-      currentState.chooseProduct = this.data.productName;
-      currentState.productGroup = this.groupName.toUpperCase();
-      this.dataService.states$.next(currentState);
+    //   this.userSettings.LoadScreen(1);
+    //   const currentState = this.dataService.states$.getValue();
+    //   currentState.chooseProduct = this.data.productName;
+    //   currentState.productGroup = this.groupName.toUpperCase();
+    //   this.dataService.states$.next(currentState);
   }
 
   perfermanceCount(value: number, performance: number) {
