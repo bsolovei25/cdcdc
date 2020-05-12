@@ -8,22 +8,22 @@
             <div class="title__name">Выберите нужные разделы</div>
         </div>
         <div class="content">
-            <ng-container *ngFor="let item of objectKeys(data)">
+            <ng-container *ngFor="let item of dataParam">
                 <div class="item" (click)="itemOpen(item)">
                     <div class="item__title-button">
-                        <svg-icon *ngIf="data[item].open" src="./assets/icons/widgets/oil-control-all/tank-information/arrow-up.svg"
+                        <svg-icon *ngIf="item.open" src="./assets/icons/widgets/oil-control-all/tank-information/arrow-up.svg"
                             [svgStyle]="{ 'width.px':14, 'height.px':10 }"></svg-icon>
 
-                        <svg-icon *ngIf="!data[item].open" src="./assets/icons/widgets/oil-control-all/tank-information/arrow-bottom.svg"
+                        <svg-icon *ngIf="!item.open" src="./assets/icons/widgets/oil-control-all/tank-information/arrow-bottom.svg"
                             [svgStyle]="{ 'width.px':14, 'height.px':10 }"></svg-icon>
                     </div>
-                    <div class="item__name"> {{ type[item] }}</div>
+                    <div class="item__name"> {{ item.type }}</div>
                 </div>
-                <div *ngIf="data[item].open" class="item__shadow-block">
-                    <ng-container *ngFor="let i of data[item].arr">
+                <div *ngIf="item.open" class="item__shadow-block">
+                    <ng-container *ngFor="let i of item.tanks">
                         <div class="item__i">
                             <div class="name-param">
-                                {{ i.type }}
+                                {{ i.name }}
                             </div>  
                             <div class="check-param">
                                 <label class="mycheckbox">

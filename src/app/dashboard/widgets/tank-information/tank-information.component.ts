@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
-import { ITankInformation } from '../../models/tank-information';
+import { ITankInformation, ITankInformationDtoFn, ITankFilter, ITankResaultFilter } from '../../models/tank-information';
 
 @Component({
   selector: 'evj-tank-information',
@@ -12,202 +12,15 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
   static itemCols = 18;
   static itemRows = 14;
 
-  public data: ITankInformation[] = [
-    {
-      id: 1,
-      name: 'БЕНЗИНЫ',
-      tank: [
-        {
-          id: 1,
-          name: "Резервуар №1.1",
-          valuePas: 617,
-          valueGr: 21,
-          valueLev: 505.2,
-          tankFilling: 32,
-          status: "repair",
-          operation: "filling"
-        },
-        {
-          id: 2,
-          name: "Резервуар №1.2",
-          valuePas: 617,
-          valueGr: 21,
-          valueLev: 505.2,
-          tankFilling: 32,
-          status: "down",
-          operation: "shipment"
-        },
-        {
-          id: 3,
-          name: "Резервуар №1.2",
-          valuePas: 617,
-          valueGr: 21,
-          valueLev: 505.2,
-          tankFilling: 74,
-          status: "down",
-          operation: "standart"
-        },
-        {
-          id: 4,
-          name: "Резервуар №1.2",
-          valuePas: 617,
-          valueGr: 21,
-          valueLev: 505.2,
-          tankFilling: 100,
-          status: "down",
-          operation: "standart"
-        },
-        {
-          id: 5,
-          name: "Резервуар №1.2",
-          valuePas: 617,
-          valueGr: 21,
-          valueLev: 505.2,
-          tankFilling: 32,
-          status: "down",
-          operation: "standart"
-        },
-        {
-          id: 6,
-          name: "Резервуар №1.2",
-          valuePas: 617,
-          valueGr: 21,
-          valueLev: 505.2,
-          tankFilling: 32,
-          status: "down",
-          operation: "standart"
-        },
-        {
-          id: 7,
-          name: "Резервуар №1.2",
-          valuePas: 617,
-          valueGr: 21,
-          valueLev: 505.2,
-          tankFilling: 32,
-          status: "down",
-          operation: "standart"
-        }
-      ],
-      type: 'СУГ'
-    },
-    {
-      id: 2,
-      name: 'МАЗУТ',
-      tank: [
-        {
-          id: 1,
-          name: "Резервуар №1.1",
-          valuePas: 617,
-          valueGr: 21,
-          valueLev: 505.2,
-          tankFilling: 32,
-          status: "repair",
-          operation: "filling"
-        },
-        {
-          id: 2,
-          name: "Резервуар №1.2",
-          valuePas: 617,
-          valueGr: 21,
-          valueLev: 505.2,
-          tankFilling: 32,
-          status: "down",
-          operation: "shipment"
-        },
-        {
-          id: 3,
-          name: "Резервуар №1.2",
-          valuePas: 617,
-          valueGr: 21,
-          valueLev: 505.2,
-          tankFilling: 74,
-          status: "down",
-          operation: "standart"
-        },
-        {
-          id: 4,
-          name: "Резервуар №1.2",
-          valuePas: 617,
-          valueGr: 21,
-          valueLev: 505.2,
-          tankFilling: 100,
-          status: "down",
-          operation: "shipment"
-        },
-        {
-          id: 5,
-          name: "Резервуар №1.2",
-          valuePas: 617,
-          valueGr: 21,
-          valueLev: 505.2,
-          tankFilling: 32,
-          status: "down",
-          operation: "shipment"
-        }
-      ],
-      type: 'ТСБ'
-    },
-    {
-      id: 3,
-      name: 'БЕНЗИНЫ',
-      tank: [
-        {
-          id: 1,
-          name: "Резервуар №1.1",
-          valuePas: 617,
-          valueGr: 21,
-          valueLev: 505.2,
-          tankFilling: 32,
-          status: "repair",
-          operation: "filling"
-        },
-        {
-          id: 2,
-          name: "Резервуар №1.2",
-          valuePas: 617,
-          valueGr: 21,
-          valueLev: 505.2,
-          tankFilling: 32,
-          status: "down",
-          operation: "shipment"
-        },
-        {
-          id: 3,
-          name: "Резервуар №1.2",
-          valuePas: 617,
-          valueGr: 21,
-          valueLev: 505.2,
-          tankFilling: 74,
-          status: "down",
-          operation: "standart"
-        },
-        {
-          id: 4,
-          name: "Резервуар №1.2",
-          valuePas: 617,
-          valueGr: 21,
-          valueLev: 505.2,
-          tankFilling: 100,
-          status: "down",
-          operation: "shipment"
-        },
-        {
-          id: 5,
-          name: "Резервуар №1.2",
-          valuePas: 617,
-          valueGr: 21,
-          valueLev: 505.2,
-          tankFilling: 32,
-          status: "down",
-          operation: "shipment"
-        }
-      ],
-      type: 'БИТУМЫ'
-    },
-  ];
+  public data: ITankInformation[];
 
   public dataSave: ITankInformation[];
-  public sendFilterData: any;
+  public sendFilterData: ITankFilter[] = [];
+  public filterData: ITankFilter[] = [];
+
+  isFilter: boolean;
+
+  type: string[] = [];
 
   public isFilterTable: boolean = false;
 
@@ -223,78 +36,71 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
 
   ngOnInit(): void {
     super.widgetInit();
-    this.mapFilter(this.data);
   }
 
   protected dataHandler(ref: any): void {
-    // this.dataSave = ref.items;
-    //this.data = this.dataSave;
-    // this.mapFilter(this.dataSave);
+    this.dataSave = ref.items.map(e => ITankInformationDtoFn(e));
+    this.mapData(this.dataSave);
   }
 
-  mapFilter(data: ITankInformation[]): void {
-    const object = {
-      sug: {
-        open: false,
-        arr: [],
-      },
-      tsb: {
-        open: false,
-        arr: [],
-      },
-      bitum: {
-        open: false,
-        arr: [],
-      },
-    };
+  mapData(data: ITankInformation[]): void {
+    if (this.isFilter) {
+      this.data = this.mapDataFilter(data);
+    } else {
+      this.data = data;
+    }
+    this.mapTypeData(this.dataSave);
+  }
 
-    data.forEach(e => {
-      if (e.type === 'СУГ') {
-        const result = object.sug.arr.find(i => i?.type === e.name);
-        if (!result) {
-          const obj = {
-            type: e.name,
-            active: true,
-          };
-          object.sug.arr.push(obj);
-        }
-      } else if (e.type === 'ТСБ') {
-        const result = object.tsb.arr.find(i => i?.type === e.name);
-        if (!result) {
-          const obj = {
-            type: e.name,
-            active: true,
-          };
-          object.tsb.arr.push(obj);
-        }
-      } else if (e.type === 'БИТУМЫ') {
-        const result = object.bitum.arr.find(i => i?.type === e.name);
-        if (!result) {
-          const obj = {
-            type: e.name,
-            active: true,
-          };
-          object.bitum.arr.push(obj);
-        }
+  mapTypeData(data: ITankInformation[]): void {
+    this.type = [];
+    for (const item of data) {
+      if (!this.type.includes(item.type)) {
+        this.type.push(item.type);
       }
-    });
-    this.sendFilterData = object;
+    }
+    if (this.type.length > 0) {
+      this.sendFilterData = this.mapNameData(data);
+    }
   }
 
-  // filterNameData(data): any {
-  //   const objectName = [];
-  //   data.forEach(el => {
-  //     const result = objectName.find(i => i?.type === el.name);
-  //     if (!result) {
-  //       const obj = {
-  //         type: el.name,
-  //         active: true,
-  //       }
-  //       objectName.push(obj);
-  //     }
-  //   });
-  //   return objectName;
-  // }
+  mapNameData(data: ITankInformation[]): ITankFilter[] {
+    const array = [];
+    this.type.forEach(sType => {
+      const arrayNameInType = [];
+      data.forEach(item => {
+        if (item.type === sType && !arrayNameInType.includes(item.name)) {
+          arrayNameInType.push(item.name);
+        }
+      });
+      const obj = {
+        type: sType,
+        tanks: arrayNameInType,
+      };
+      array.push(obj);
+    });
+    return array;
+  }
+
+  mapDataFilter(data: ITankInformation[]): ITankInformation[] {
+    const array = [];
+
+    for (const item of data) {
+      if (this.type.includes(item.type)) {
+        const resultFind = this.filterData.find(i => item.type === i.type);
+        if (!resultFind) continue;
+        for (const nameTank of resultFind.tanks) {
+          if (item.name === nameTank.name && nameTank.active) {
+            array.push(item);
+          }
+        }
+      } else {
+        array.push(item);
+      }
+    }
+
+    return array;
+  }
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
@@ -304,17 +110,13 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
     this.isFilterTable = event;
   }
 
-  closeFilter(event: any): void {
+  closeFilter(event: ITankResaultFilter): void {
+    this.isFilter = event.filter;
+    if (this.isFilter) {
+      this.filterData = event.dataFilter;
+      this.data = this.mapDataFilter(this.dataSave);
+    }
     this.isFilterTable = event.close;
-    this.mapData(event.data);
-  }
-
-  mapData(dataFilter) {
-    this.data.filter(e => {
-      if (e.type === 'СУГ') {
-
-      }
-    })
   }
 
 }
