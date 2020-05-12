@@ -52,18 +52,18 @@ export class TankFilterComponent implements OnInit, OnChanges {
 
   useFilter(data: ITankFilter[]): void {
     for (const item of this.filterData) {
-      for (const i of data) {
-        if (item.type === i.type) {
-          i.open = item.open;
+      data.find(el => {
+        if (item.type === el.type) {
+          el.open = item.open;
           for (const tankFilter of item.tanks) {
-            for (const tankData of i.tanks) {
+            for (const tankData of el.tanks) {
               if (tankData.name === tankFilter.name) {
                 tankData.active = tankFilter.active;
               }
             }
           }
         }
-      }
+      });
     }
   }
 

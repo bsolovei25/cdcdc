@@ -84,21 +84,23 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
 
   mapDataFilter(data: ITankInformation[]): ITankInformation[] {
     const array = [];
-    for (const item of data) {
-      if (this.type.includes(item.type)) {
+
+    data.find(el => {
+      if (this.type.includes(el.type)) {
         for (const i of this.filterData) {
-          if (item.type === i.type) {
+          if (el.type === i.type) {
             for (const nameTank of i.tanks) {
-              if (item.name === nameTank.name && nameTank.active) {
-                array.push(item);
+              if (el.name === nameTank.name && nameTank.active) {
+                array.push(el);
               }
             }
           }
         }
       } else {
-        array.push(item);
+        array.push(el);
       }
-    }
+    });
+
     return array;
   }
 
