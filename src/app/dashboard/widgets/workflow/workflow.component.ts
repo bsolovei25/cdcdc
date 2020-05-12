@@ -1,12 +1,10 @@
-import { Component, OnInit, Inject, OnDestroy, Renderer2, ViewChild, ElementRef, AfterViewChecked, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Renderer2, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
-import { WidgetPlatform } from '../../models/widget-platform';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { GridsterConfig, GridsterItem, GridType, DisplayGrid, GridsterItemComponentInterface } from 'angular-gridster2';
-import { IParamWidgetsGrid } from '../../components/new-widgets-grid/new-widgets-grid.component';
+import { GridsterConfig, GridsterItem, GridType, GridsterItemComponentInterface } from 'angular-gridster2';
 import { WorkflowService } from '../../services/widgets/workflow.service';
 import { MatSelectChange } from '@angular/material/select';
 import 'leader-line';
+import { IAlertWindowModel } from '../../../@shared/models/alert-window.model';
 declare let LeaderLine: any;
 
 export interface IModules {
@@ -31,14 +29,36 @@ export interface IActions {
     wfSystemUid: string;
 }
 
-interface IGridsterItemLocal extends GridsterItem {
-    id: string;
-    type: 'SendEmail' | 'CheckWarning';
+export interface IActionScenario {
+    action: string;
+    actionName: 'CheckWarning' | 'SendEmail' | 'CheckExpired';
+    scenarioAction: string;
+    previousScenarioAction: string;
+    nextScenarioAction: string;
 }
 
-export interface IAvailableActions {
-    action: string;
+export interface IActionsScenario {
+    data: {
+        sortedActionList: IActionScenario[];
+        withoutLinks: IActionScenario[];
+    };
 }
+
+interface IGridsterItemLocal extends GridsterItem, IActionScenario {
+    type: 'SendEmail' | 'CheckWarning' | 'CheckExpired';
+}
+
+interface ICreateConnection {
+    scenario: {
+        name: string;
+    };
+    actions: {
+        scenarioAction: string;
+        previousScenarioAction?: string;
+        nextScenarioAction?: string;
+    }[];
+}
+
 @Component({
     selector: 'evj-workflow',
     templateUrl: './workflow.component.html',
@@ -55,7 +75,14 @@ export class WorkflowComponent implements
     public ColWidth: number = 10;
     public RowHeight: number = 10;
 
+    private itemCol: number = 4;
+    private itemRow: number = 4;
+
     private sizeTimeout: any;
+
+    alert: IAlertWindowModel;
+
+    leaderLine = [];
 
     modules: IModules[];
     chooseModules: IModules;
@@ -65,9 +92,11 @@ export class WorkflowComponent implements
 
     actions: IActions[];
 
-    availbleActions: IAvailableActions[];
+    availbleActions: IActionsScenario;
 
     activeActions: IGridsterItemLocal;
+
+    isLoading: boolean = false;
 
     @ViewChild('splitBar') splitBar: ElementRef<HTMLElement>;
     @ViewChild('splitTop') splitTop: ElementRef<HTMLElement>;
@@ -111,7 +140,7 @@ export class WorkflowComponent implements
             fixedColWidth: this.ColWidth,
             fixedRowHeight: this.RowHeight,
             draggable: {
-                enabled: true
+                enabled: true,
             },
             swap: false,
         };
@@ -137,13 +166,25 @@ export class WorkflowComponent implements
     }
 
     async chooseSystem(item: MatSelectChange): Promise<void> {
+        this.isLoading = true;
         this.chooseModules = item.value;
         this.loadScenarios(this.chooseModules.uid);
     }
 
     chooseScen(scen: IScenarios): void {
         this.chooseScenarios = this.chooseScenarios === scen ? null : scen;
-        this.loadActions(this.chooseModules.uid);
+        if (this.chooseScenarios) {
+            this.isLoading = true;
+            this.loadActions(this.chooseModules.uid);
+        } else {
+            if (this.leaderLine.length > 0) {
+                this.leaderLine.forEach(value => {
+                    clearInterval(value.setInterval);
+                    value.remove();
+                });
+            }
+            // this.items = [];
+        }
     }
 
     // #region SLIDER
@@ -185,6 +226,7 @@ export class WorkflowComponent implements
     // #region LOAD
 
     private async loadItem(): Promise<void> {
+        this.isLoading = true;
         const dataLoadQueue: Promise<void>[] = [];
         dataLoadQueue.push(
             this.workflowService.getWorkfkowModules()
@@ -195,7 +237,9 @@ export class WorkflowComponent implements
         if (dataLoadQueue.length > 0) {
             try {
                 await Promise.all(dataLoadQueue);
+                this.isLoading = false;
             } catch (err) {
+                this.isLoading = false;
                 console.error(err);
             }
         }
@@ -204,63 +248,91 @@ export class WorkflowComponent implements
     private async loadScenarios(idModule: string): Promise<void> {
         try {
             this.scenarios = await this.workflowService.getWorkfkowScenarios(idModule);
+            this.isLoading = false;
         } catch (error) {
+            this.isLoading = false;
         }
     }
 
     private async loadActions(idModule: string): Promise<void> {
         try {
             this.actions = await this.workflowService.getWorkfkowActions(idModule);
-            this.loadWorkfkowAvailbleActions(idModule);
+            this.loadWorkfkowAvailbleActions();
         } catch (error) {
             console.error(error);
+            this.isLoading = false;
         }
     }
 
-    private async loadWorkfkowAvailbleActions(idModule: string): Promise<void> {
+    private async loadWorkfkowAvailbleActions(): Promise<void> {
         try {
             this.availbleActions = await this.workflowService
-                .getWorkfkowAvailbleActions(idModule, this.scenarios?.[0].uid);
-            await this.drawingActions();
-            setTimeout(() => {
-                const a = new LeaderLine(
-                    document.getElementById('SendEmail'),
-                    document.getElementById('CheckWarning'),
-                    {
-                        size: 2,
-                        color: 'white'
-                    }
-                );
-
-                setInterval(() => {
-                    a.position();
-                }, 100);
-            }, 1000);
-
+                .getWorkfkowAvailbleActions(this.chooseModules.uid, this.chooseScenarios.uid);
+            this.drawingActions();
+            this.isLoading = false;
         } catch (error) {
+            this.isLoading = false;
         }
     }
 
     drawingActions(): void {
+        this.items = [];
         let x = 2;
-        let name1;
-        let name2;
-        this.availbleActions.forEach(value => {
-            const action = this.actions.find(val => val.uid === value.action);
-            if (action) {
+        this.availbleActions.data.sortedActionList.forEach(sort => {
+            this.items.push({
+                x, y: 5,
+                cols: this.itemCol, rows: this.itemRow,
+                type: sort.actionName,
+                action: sort.action,
+                actionName: sort.actionName,
+                scenarioAction: sort.scenarioAction,
+                previousScenarioAction: sort.previousScenarioAction,
+                nextScenarioAction: sort.nextScenarioAction
+            });
+            x += 6;
+        });
+        this.availbleActions.data.withoutLinks.forEach(sort => {
+            this.items.push({
+                x, y: 5,
+                cols: this.itemCol, rows: this.itemRow,
+                type: sort.actionName,
+                action: sort.action,
+                actionName: sort.actionName,
+                scenarioAction: sort.scenarioAction,
+                previousScenarioAction: sort.previousScenarioAction,
+                nextScenarioAction: sort.nextScenarioAction
+            });
+            x += 6;
+        });
+        this.drawLeaderLine();
+    }
 
-                this.items.push({
-                    x, y: 5, cols: 4, rows: 4,
-                    type: action.name, id: value.action
-                });
-                x += 7;
-
-                if (name1) {
-                    name2 = action.name;
-                }
-                if (!name2) {
-                    name1 = action.name;
-                }
+    drawLeaderLine(): void {
+        // if (this.leaderLine.length > 0) {
+        //     this.leaderLine.forEach(value => {
+        //         clearInterval(value.setInterval);
+        //         value.remove();
+        //     });
+        // }
+        this.leaderLine = [];
+        this.items.forEach(item => {
+            if (item?.scenarioAction && item?.nextScenarioAction) {
+                setTimeout(() => {
+                    const a = new LeaderLine(
+                        document.getElementById(item.scenarioAction),
+                        document.getElementById(item.nextScenarioAction),
+                        {
+                            size: 2,
+                            color: 'white'
+                        }
+                    );
+                    this.leaderLine.push(a);
+                    this.leaderLine.forEach(value => {
+                        value.setInterval = setInterval(() => {
+                            value.position();
+                        }, 100);
+                    });
+                }, 100);
             }
         });
 
@@ -274,9 +346,33 @@ export class WorkflowComponent implements
         }
     }
 
+    startStopScenario(scenario: IScenarios): void {
+        if (scenario.status === 'stopped') {
+            this.startScenario(scenario.uid);
+        } else {
+            this.stopScenario(scenario.uid);
+        }
+    }
+
+    async startScenario(scenarioId: string): Promise<void> {
+        try {
+            this.workflowService.putScenarioStart(this.chooseModules.uid, scenarioId);
+        } catch (error) { }
+    }
+
+    async stopScenario(scenarioId: string): Promise<void> {
+        try {
+            this.workflowService.putScenarioStop(this.chooseModules.uid, scenarioId);
+        } catch (error) { }
+    }
+
     // //#endregion
 
     // #region GRIDSTER
+
+    private initGridster() {
+
+    }
 
     public sizeGrid(): void {
         const widthScreen = document.getElementById('gridSize').clientWidth;
@@ -323,64 +419,125 @@ export class WorkflowComponent implements
 
     async emptyCellClick(event: DragEvent, item: IGridsterItemLocal): Promise<void> {
         const name = event.dataTransfer.getData('text');
-        console.log('empty cell click', event, item, name);
-        item.cols = 3;
-        item.rows = 3;
-        item.type = name === 'SendEmail' || name === 'CheckWarning' ? name : null;
-        this.items.push(item);
-
 
         const el = this.actions.find(val => val.name === name);
-        await this.workflowService
-            .postAddActionsInScenario(this.chooseModules.uid,
-                this.scenarios?.[0].uid, el?.uid);
+        try {
+            const newAction = await this.workflowService
+                .postAddActionsInScenario(this.chooseModules.uid,
+                    this.chooseScenarios.uid, el?.uid);
+            item.cols = this.itemCol;
+            item.rows = this.itemRow;
+            item.type = name === 'SendEmail'
+                || name === 'CheckWarning'
+                || name === 'CheckExpired' ? name : null;
+            item.scenarioAction = newAction.uid;
+            this.items.push(item);
+        } catch (error) {
+        }
     }
 
     public itemChange(item: GridsterItem, itemComponent: GridsterItemComponentInterface): void {
         const useItem = { ...item };
-        console.log(useItem);
-        // itemComponent.item = {...itemComponent.item, ...itemComponent.$item};
     }
 
     // #endregion
 
-    async  putConnect(id1, id2): Promise<void> {
-        const body = {
-            scenario: { name: this.chooseScenarios.name },
+    putConnect(previousScenarioAction: string, id: string): void {
+        const body: ICreateConnection = {
+            scenario: {
+                name: this.chooseScenarios.name
+            },
             actions: [
                 {
-                    action: id1,
-                    nextAction: id2
-                }, {
-                    action: id2,
-                    previousAction: id1,
+                    scenarioAction: previousScenarioAction,
+                    nextScenarioAction: id
+                },
+                {
+                    scenarioAction: id,
+                    previousScenarioAction,
                 }
             ]
         };
+
+        const windowsParam: IAlertWindowModel = {
+            isShow: true,
+            questionText: 'Вы уверены, что хотите сделать связь?',
+            acceptText: 'Да',
+            cancelText: 'Нет',
+            acceptFunction: () => {
+                this.alert = null;
+                this.createСonnection(body);
+            },
+            closeFunction: () => { },
+            cancelFunction: () => {
+                this.alert = null;
+            }
+        };
+        this.alert = windowsParam;
+    }
+
+    async createСonnection(body: ICreateConnection): Promise<void> {
         try {
+            this.isLoading = true;
             await this.workflowService
                 .putActionsConnections(this.chooseModules.uid, this.chooseScenarios.uid, body);
+            await this.loadWorkfkowAvailbleActions();
+            this.isLoading = false;
         } catch (error) {
+            this.isLoading = false;
             console.error(error);
         }
     }
 
-
-    chooseGridItem(i: IGridsterItemLocal): void {
-        if (this.activeActions === i) {
+    chooseGridItem(event: MouseEvent, item: IGridsterItemLocal): void {
+        event.stopPropagation();
+        if (!item) {
+            this.activeActions = null;
+        }
+        if (this.activeActions === item) {
 
         } else {
             if (this.activeActions) {
-                const id1 = this.activeActions.id;
-                const id2 = i.id;
+                const previousScenarioAction: string = this.activeActions.scenarioAction;
+                const id: string = item.scenarioAction;
 
-                this.putConnect(id1, id2);
-                this.activeActions = i;
+                this.putConnect(previousScenarioAction, id);
+                this.activeActions = item;
             } else {
-                this.activeActions = i;
+                this.activeActions = item;
             }
         }
+    }
 
+    deleteAction(scenarioAction: string): void {
+        const windowsParam: IAlertWindowModel = {
+            isShow: true,
+            questionText: 'Вы уверены, что хотите удалить?',
+            acceptText: 'Удалить',
+            cancelText: 'Нет',
+            acceptFunction: async (): Promise<void> => {
+                this.alert = null;
+                this.isLoading = true;
+                try {
+                    await this.workflowService
+                        .deleteActionsScenario(this.chooseModules.uid,
+                            this.chooseScenarios.uid, scenarioAction);
+                    const idx = this.items.findIndex(val => val.scenarioAction === scenarioAction);
+                    if (idx >= 0) {
+                        this.items.splice(idx, 1);
+                    }
+                    this.isLoading = false;
+                } catch (error) {
+                    this.isLoading = false;
+                }
+            },
+            closeFunction: () => { },
+            cancelFunction: () => {
+                this.alert = null;
+            }
+        };
+        this.alert = windowsParam;
 
     }
+
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '../../../services/appConfigService';
 import { IFolderReport } from '../../components/report/reports.component';
-import { IModules, IScenarios, IActions, IAvailableActions } from '../../widgets/workflow/workflow.component';
+import { IModules, IScenarios, IActions, IActionsScenario } from '../../widgets/workflow/workflow.component';
 
 @Injectable({
     providedIn: 'root',
@@ -36,9 +36,9 @@ export class WorkflowService {
     }
 
     async getWorkfkowAvailbleActions(
-        moduleId: string, scenarioId: string): Promise<IAvailableActions[]> {
+        moduleId: string, scenarioId: string): Promise<IActionsScenario> {
         return await this.http
-            .get<IAvailableActions[]>(this.restUrl +
+            .get<IActionsScenario>(this.restUrl +
                 `/api/workflow-constructor/modules/${moduleId}/scenarios/${scenarioId}/actions`)
             .toPromise();
     }
@@ -58,22 +58,34 @@ export class WorkflowService {
     }
 
     async postAddActionsInScenario(
-        moduleId: string, scenarioId: string, actionId: string): Promise<void> {
+        moduleId: string, scenarioId: string, actionId: string): Promise<any> {
         return this.http
-            .post<void>(this.restUrl +
-                `/api/workflow-constructor/modules/${moduleId}
-                /scenarios/${scenarioId}/actions/${actionId}`, null)
+            .post<any>(this.restUrl +
+                `/api/workflow-constructor/modules/${moduleId}/scenarios/${scenarioId}/actions/${actionId}`, null)
             .toPromise();
     }
 
     public async putActionsConnections(moduleId: string, scenarioId: string, body): Promise<any> {
         return await this.http.put<any[]>(this.restUrl +
-            `/api/workflow-constructor/modules/${moduleId}
-        /scenarios/${scenarioId}`, body).toPromise();
+            `/api/workflow-constructor/modules/${moduleId}/scenarios/${scenarioId}`, body).toPromise();
     }
 
-    public async deleteCustomOptions(id: number): Promise<any> {
-        return await this.http.delete<any[]>(this.restUrl + '/api/report-options/custom/' + id);
+    public async putScenarioStart(moduleId: string, scenarioId: string): Promise<any> {
+        return await this.http.put<any[]>(this.restUrl +
+            `/api/workflow-constructor/modules/${moduleId}/scenarios/${scenarioId}/start`, null).toPromise();
+    }
+
+    public async putScenarioStop(moduleId: string, scenarioId: string): Promise<any> {
+        return await this.http.put<any[]>(this.restUrl +
+            `/api/workflow-constructor/modules/${moduleId}/scenarios/${scenarioId}/stop`, null).toPromise();
+    }
+
+    public async deleteActionsScenario(moduleId: string,
+        scenarioId: string, scenarioAction: string): Promise<any> {
+        return await this.http
+            .delete<any[]>(this.restUrl +
+                `/api/workflow-constructor/modules/${moduleId}/scenarios/${scenarioId}/actions/${scenarioAction}`)
+            .toPromise();
     }
 
 }

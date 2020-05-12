@@ -12,6 +12,8 @@
                      [icon]="widgetIcon"></evj-widget-header>
 
   <evj-frame-top></evj-frame-top>
+  <evj-alert-window [info]="alert"></evj-alert-window>
+  <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
   <div class="content"
        (mousedown)="$event.stopPropagation()"
        (touchstart)="$event.stopPropagation()">
@@ -57,10 +59,12 @@
                       </div>
                     </div>
                   </div>
-                  <div class="available-scenario__body__item__container__icon">
-                    <svg-icon src="./assets/icons/widgets/workflow/play_w.svg"
+                  <div class="available-scenario__body__item__container__icon"
+                       (click)="startStopScenario(scen)">
+                    <svg-icon *ngIf="scen.status === 'stopped'"
+                              src="./assets/icons/widgets/workflow/play_w.svg"
                               [svgStyle]="{ 'width.px':15, 'height.px':15 }"></svg-icon>
-                    <svg-icon *ngIf="false"
+                    <svg-icon *ngIf="scen.status === 'started'"
                               src="./assets/icons/widgets/workflow/stop_w.svg"
                               [svgStyle]="{ 'width.px':15, 'height.px':15 }"></svg-icon>
                   </div>
@@ -71,7 +75,7 @@
         </div>
       </div>
       <div class="workflow__action">
-        <div class="workflow__action__title">Доступные виджеты</div>
+        <div class="workflow__action__title">Доступные действия</div>
         <div class="workflow__action__body">
           <div class="workflow__action__body__items">
             <div class="workflow__action__body__item"
@@ -136,39 +140,44 @@
                       class="workflow__scenario__body__top__gridster"
                       id="gridSize"
                       [options]="options"
-                      (window:resize)="onResize()">
-              <gridster-item *ngFor="let i of items"
-                             [item]="i"
-                             (dragstart)="dragStart($event, i)"
-                             (click)="chooseGridItem(i);"
-                             class="workflow__scenario__body__top__gridster__item"
-                             [class.workflow__scenario__body__top__gridster__item--active]="activeActions === i"
-                             [id]="i.type">
-                <ng-container [ngSwitch]="i.type">
-                  <svg-icon *ngSwitchCase="'expired'"
-                            class="workflow__action__body__item__icon"
-                            src="./assets/icons/widgets/workflow/expired.svg"
-                            [svgStyle]="{ 'width.px':43, 'height.px':43 }"
-                            id="expired"></svg-icon>
-                  <svg-icon *ngSwitchCase="'available'"
-                            class="workflow__action__body__item__icon"
-                            src="./assets/icons/widgets/workflow/done.svg"
-                            [svgStyle]="{ 'width.px':43, 'height.px':43 }"
-                            id="available"></svg-icon>
-                  <svg-icon *ngSwitchCase="'CheckWarning'"
-                            class="workflow__action__body__item__icon"
-                            src="./assets/icons/widgets/workflow/warning_bell.svg"
-                            [svgStyle]="{ 'width.px':43, 'height.px':43 }"></svg-icon>
-                  <svg-icon *ngSwitchCase="'SendEmail'"
-                            class="workflow__action__body__item__icon"
-                            src="./assets/icons/widgets/workflow/message_w.svg"
-                            [svgStyle]="{ 'width.px':43, 'height.px':43 }"></svg-icon>
-                  <svg-icon *ngSwitchCase="'SendEmail'"
-                            class="workflow__action__body__item__icon"
-                            src="./assets/icons/widgets/workflow/users_w.svg"
-                            [svgStyle]="{ 'width.px':43, 'height.px':43 }"></svg-icon>
-                </ng-container>
-              </gridster-item>
+                      (click)="chooseGridItem($event)">
+              <div *ngFor="let i of items">
+                <gridster-item [item]="i"
+                               (dragstart)="dragStart($event, i)"
+                               (click)="chooseGridItem($event, i)"
+                               style="height: 1600px; overflow: visible !important;"
+                               class="workflow__scenario__body__top__gridster__item"
+                               [class.workflow__scenario__body__top__gridster__item--active]="activeActions === i"
+                               [id]="i.scenarioAction">
+                  <ng-container [ngSwitch]="i.type">
+                    <svg-icon *ngSwitchCase="'CheckExpired'"
+                              class="workflow__action__body__item__icon"
+                              src="./assets/icons/widgets/workflow/expired.svg"
+                              [svgStyle]="{ 'width.px':43, 'height.px':43 }"></svg-icon>
+                    <svg-icon *ngSwitchCase="'CheckAvailable'"
+                              class="workflow__action__body__item__icon"
+                              src="./assets/icons/widgets/workflow/done.svg"
+                              [svgStyle]="{ 'width.px':43, 'height.px':43 }"></svg-icon>
+                    <svg-icon *ngSwitchCase="'CheckWarning'"
+                              class="workflow__action__body__item__icon"
+                              src="./assets/icons/widgets/workflow/warning_bell.svg"
+                              [svgStyle]="{ 'width.px':43, 'height.px':43 }"></svg-icon>
+                    <svg-icon *ngSwitchCase="'SendEmail'"
+                              class="workflow__action__body__item__icon"
+                              src="./assets/icons/widgets/workflow/message_w.svg"
+                              [svgStyle]="{ 'width.px':43, 'height.px':43 }"></svg-icon>
+                    <svg-icon *ngSwitchCase="'SendEmail2'"
+                              class="workflow__action__body__item__icon"
+                              src="./assets/icons/widgets/workflow/users_w.svg"
+                              [svgStyle]="{ 'width.px':43, 'height.px':43 }"></svg-icon>
+                  </ng-container>
+                  <svg-icon *ngIf="activeActions === i"
+                            (click)="deleteAction(i.scenarioAction)"
+                            style="position: absolute; bottom: -10px; right: -4px;"
+                            src="./assets/icons/widgets/workflow/trash_w.svg"
+                            [svgStyle]="{ 'width.px':10, 'height.px':10 }"></svg-icon>
+                </gridster-item>
+              </div>
             </gridster>
           </div>
           <div class="workflow__scenario__body__bar"

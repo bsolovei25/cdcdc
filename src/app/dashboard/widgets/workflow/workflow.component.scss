@@ -175,6 +175,7 @@
               &__delete-block {
                 position: relative;
                 width: 30px;
+                height: 2px;
 
                 &__delete {
                   cursor: pointer;
@@ -312,8 +313,14 @@
       &__bar {
         cursor: row-resize;
         background-color: var(--color-bg-card-workflow);
-        width: 100%;
-        height: 10px;
+        width: 90%;
+        border-radius: 10px;
+        margin: 0 auto;
+        height: 8px;
+        background-image: url(./../../../../assets/icons/widgets/workflow/drag_w.svg);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 15px;
       }
     }
   }
