@@ -254,6 +254,9 @@ import { PerformanceProgressLineCircleComponent } from './widgets/SMP/performanc
 import { QualityStockComponent } from './widgets/SMP/quality-stock/quality-stock.component';
 import { QualityStockSecurityComponent } from './widgets/SMP/quality-stock/components/quality-stock-security/quality-stock-security.component';
 import { QualityStockCircleComponent } from './widgets/SMP/quality-stock/components/quality-stock-circle/quality-stock-circle.component';
+import { SmpEventsComponent } from './widgets/SMP/smp-events/smp-events.component';
+import { SmpEventsHeaderComponent } from './widgets/SMP/smp-events/components/smp-events-header/smp-events-header.component';
+import { SmpEventsCardComponent } from './widgets/SMP/smp-events/components/smp-events-card/smp-events-card.component';
 import { AsusEventComponent } from './widgets/workspace/asus-event/asus-event.component';
 import { ProductGroupsComponent } from './widgets/SMP/product-groups/product-groups.component';
 import { ProductGroupsLeftComponent } from './widgets/SMP/product-groups/components/product-groups-left/product-groups-left.component';
@@ -482,6 +485,9 @@ import { ProductGroupsRightComponent } from './widgets/SMP/product-groups/compon
     QualityStockComponent,
     QualityStockSecurityComponent,
     QualityStockCircleComponent,
+    SmpEventsComponent,
+    SmpEventsHeaderComponent,
+    SmpEventsCardComponent,
     AsusEventComponent,
     ProductGroupsComponent,
     ProductGroupsLeftComponent,
