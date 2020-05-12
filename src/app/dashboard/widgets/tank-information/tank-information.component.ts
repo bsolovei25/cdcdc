@@ -87,7 +87,7 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
 
     data.find(el => {
       if (this.type.includes(el.type)) {
-        for (const i of this.filterData) {
+        this.filterData.find(i => {
           if (el.type === i.type) {
             for (const nameTank of i.tanks) {
               if (el.name === nameTank.name && nameTank.active) {
@@ -95,7 +95,7 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
               }
             }
           }
-        }
+        });
       } else {
         array.push(el);
       }
