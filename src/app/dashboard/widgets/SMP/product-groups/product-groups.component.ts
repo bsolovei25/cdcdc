@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Inject, ChangeDetectorRef, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, ChangeDetectorRef} from '@angular/core';
 import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 
@@ -32,15 +32,9 @@ export interface ITypeProduct {
   styleUrls: ['./product-groups.component.scss']
 })
 export class ProductGroupsComponent extends WidgetPlatform implements OnInit, OnDestroy {
-  @ViewChild('lines') lines: ElementRef;
-
   datas: IProducts[] = [
     
   ];
-
-  scrollLine: boolean = false;
-
-  botScrollWidth: number = 0;
 
   constructor(
     private cdRef: ChangeDetectorRef,
@@ -67,35 +61,12 @@ export class ProductGroupsComponent extends WidgetPlatform implements OnInit, On
 
   ngAfterViewInit(): void { }
 
-  ngAfterViewChecked(): void {
-    try {
-      this.botScrollWidth = document.getElementById('botscroll').scrollWidth;
-      // this.cdRef.detectChanges();
-      if (!this.cdRef['destroyed']) {
-        this.cdRef.detectChanges();
-      }
-    } catch (error) { }
-  }
-
   protected dataHandler(ref: any): void {
   }
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
     this.cdRef.detach();
-  }
-
-  isClickedFunc(item): void {
-    const curIsActive = item.isActive;
-    this.datas.forEach((el) => (el.isActive = false));
-    item.isActive = !curIsActive;
-    // const curState = this.dataService.states$.getValue();
-    // if (!curIsActive) {
-    //   curState.productGroup = item.groupName.toUpperCase();
-    // } else {
-    //   curState.productGroup = this.dataService.defaultGroupState;
-    // }
-    // this.dataService.states$.next(curState);
   }
 
   map(data: IProducts[]): void {
@@ -156,20 +127,5 @@ export class ProductGroupsComponent extends WidgetPlatform implements OnInit, On
     });
 
     this.datas = data;
-  }
-
-  public isScroll(data): void {
-    for (const item of data) {
-      if (item.products.length > 5) {
-        this.scrollLine = true;
-      }
-    }
-  }
-
-  onTopScroll(event) {
-    document.getElementById('botscroll').scrollLeft = event.currentTarget.scrollLeft;
-  }
-  onBottomScroll(event) {
-    document.getElementById('topscroll').scrollLeft = event.currentTarget.scrollLeft;
   }
 }

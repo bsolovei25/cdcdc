@@ -1,0 +1,82 @@
+<div class="blocks">
+    <div style="height: 100%; position: relative;">
+      <div class="top_background">
+        <div class="left_table_top">
+          <div class="text_left_top_table">Группа продуктов</div>
+          <div class="border_left"></div>
+        </div>
+        <div class="middle_table_top">
+          <div class="middle_text_top">
+            <svg-icon src="assets/icons/widgets/product-group-planning/icon1.svg"
+              [svgStyle]="{ 'width.px':15, 'height.px':15, 'margin-right.px':5, 'margin-top.px':3}"></svg-icon>
+            Запасы
+          </div>
+          <div class="middle_text_top">
+            <svg-icon src="assets/icons/widgets/product-group-planning/icon2.svg"
+              [svgStyle]="{ 'width.px':15, 'height.px':15, 'margin-right.px':5, 'margin-top.px':3}"></svg-icon>
+            Отгрузка
+          </div>
+          <div class="middle_text_top">
+            <svg-icon src="assets/icons/widgets/product-group-planning/icon3.svg"
+              [svgStyle]="{ 'width.px':15, 'height.px':15, 'margin-right.px':5, 'margin-top.px':3}"></svg-icon>
+            Качество
+          </div>
+        </div>
+        <div class="right_table_top">
+          <div class="text_right_top_table">Выполнение ГО</div>
+          <div class="border_left"></div>
+        </div>
+      </div>
+      <div class="test">
+        <div id="botscroll" class="middle_table" (scroll)="onBottomScroll($event)">
+          <table>
+            <tbody>
+              <ng-container *ngFor="let items of datas">
+                <tr class="item-b">
+                  <td class="fix-left">
+                    <div class="group_product">
+                      <evj-product-planning-left [data]="items" (click)="isClickedFunc(items)"
+                        [isActive]="items.isActive">
+                      </evj-product-planning-left>
+                    </div>
+                  </td>
+                  <td class="move">
+                    <div class="product">
+                      <ng-container *ngFor="let item of items.products; let i = index; ">
+                        <evj-product-planning-middle [groupName]="items.groupName" [data]="item" [indexBlock]="i"
+                          [performance]="items.performance" [imageType]="items.TypeImage">
+                        </evj-product-planning-middle>
+                      </ng-container>
+                    </div>
+                  </td>
+                  <td class="fix-right">
+                    <div class="compleate">
+                      <evj-product-planning-right [data]="items"></evj-product-planning-right>
+                    </div>
+                  </td>
+                </tr>
+                <div class="line"></div>
+                <div class="point_right"></div>
+                <div class="point_left"></div>
+              </ng-container>
+            </tbody>
+          </table>
+          <div class="line__bottom_scroll" *ngIf="scrollLine"></div>
+        </div>
+        <div class="right_line_widget"></div>
+        <div class="right_line_widget2"></div>
+        <div class="right_line_widget3"></div>
+      </div>
+      <div id="topscroll" class="topscroll" (scroll)="onTopScroll($event)">
+        <div class="fake" [style.width.px]="botScrollWidth"></div>
+      </div>
+      <div class="right_left_line_widget"></div>
+      <div class="middle_line_left"></div>
+      <div class="middle_line_right"></div>
+      <div class="bottom_background">
+        <div class="left_table_bottom"></div>
+        <div class="middle_table_bottom"></div>
+        <div class="right_table_bottom"></div>
+      </div>
+    </div>
+  </div>

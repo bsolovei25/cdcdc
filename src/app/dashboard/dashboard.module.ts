@@ -258,6 +258,7 @@ import { ProductGroupsComponent } from './widgets/SMP/product-groups/product-gro
 import { ProductGroupsLeftComponent } from './widgets/SMP/product-groups/components/product-groups-left/product-groups-left.component';
 import { ProductGroupsMiddleComponent } from './widgets/SMP/product-groups/components/product-groups-middle/product-groups-middle.component';
 import { ProductGroupsRightComponent } from './widgets/SMP/product-groups/components/product-groups-right/product-groups-right.component';
+import { ProductGroupsTableComponent } from './widgets/SMP/product-groups/components/product-groups-table/product-groups-table.component';
 
 @NgModule({
   declarations: [
@@ -485,6 +486,7 @@ import { ProductGroupsRightComponent } from './widgets/SMP/product-groups/compon
     ProductGroupsLeftComponent,
     ProductGroupsMiddleComponent,
     ProductGroupsRightComponent,
+    ProductGroupsTableComponent,
   ],
   entryComponents: [
     LineChartComponent,
