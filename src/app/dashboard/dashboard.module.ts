@@ -254,6 +254,7 @@ import { PerformanceProgressLineCircleComponent } from './widgets/SMP/performanc
 import { QualityStockComponent } from './widgets/SMP/quality-stock/quality-stock.component';
 import { QualityStockSecurityComponent } from './widgets/SMP/quality-stock/components/quality-stock-security/quality-stock-security.component';
 import { QualityStockCircleComponent } from './widgets/SMP/quality-stock/components/quality-stock-circle/quality-stock-circle.component';
+import { AsusEventComponent } from './widgets/workspace/asus-event/asus-event.component';
 
 @NgModule({
   declarations: [
@@ -477,6 +478,7 @@ import { QualityStockCircleComponent } from './widgets/SMP/quality-stock/compone
     QualityStockComponent,
     QualityStockSecurityComponent,
     QualityStockCircleComponent,
+    AsusEventComponent,
   ],
   entryComponents: [
     LineChartComponent,
