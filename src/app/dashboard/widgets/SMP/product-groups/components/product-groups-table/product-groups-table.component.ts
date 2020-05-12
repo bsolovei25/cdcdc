@@ -10,7 +10,9 @@ export class ProductGroupsTableComponent implements OnInit {
   @ViewChild('lines') lines: ElementRef;
 
   @Input() widgetType: string;
-  @Input() data: IProducts;
+  @Input() data: IProducts[];
+
+  public datas: IProducts[] = [];
 
   scrollLine: boolean = false;
 
@@ -21,6 +23,7 @@ export class ProductGroupsTableComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.map(this.data);
   }
 
   ngAfterViewChecked(): void {
@@ -31,6 +34,58 @@ export class ProductGroupsTableComponent implements OnInit {
         this.cdRef.detectChanges();
       }
     } catch (error) { }
+  }
+
+  map(data: IProducts[]): void {
+    for (const item of data) {
+      // item.products.sort((prev, next) => {
+      //   return next.priority > prev.priority ? -1 : prev.priority > next.priority ? 1 : 0;
+      // });
+      switch (item.groupName.toLowerCase()) {
+        case 'бензины':
+          item.typeImage = 'benzin';
+          this.datas.push(item);
+          break;
+        case 'дт':
+          item.typeImage = 'benzin';
+          this.datas.push(item);
+          break;
+        case 'тс':
+          item.typeImage = 'plane';
+          this.datas.push(item);
+          break;
+        case 'судовое/мазут':
+          item.typeImage = 'ship';
+          this.datas.push(item);
+          break;
+        case 'битумы':
+          item.typeImage = 'car';
+          this.datas.push(item);
+          break;
+        case 'суг':
+          item.typeImage = 'fire';
+          this.datas.push(item);
+          break;
+        case 'ароматика':
+          item.typeImage = 'cube';
+          this.datas.push(item);
+          break;
+        default:
+          item.typeImage = 'water';
+          this.datas.push(item);
+      }
+    }
+
+    // data.forEach((el) => {
+    //   el.groupValue = Math.round(el.groupValue);
+    //   el.groupDeviationValue = Math.round(el.groupDeviationValue);
+    //   el.products.forEach((item) => {
+    //     item.productValue = Math.round(item.productValue);
+    //     item.productDeviation = Math.round(item.productDeviation);
+    //   });
+    // });
+
+   // this.data = data;
   }
 
   isClickedFunc(item): void {

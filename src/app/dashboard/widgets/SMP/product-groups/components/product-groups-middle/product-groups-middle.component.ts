@@ -41,9 +41,9 @@ export class ProductGroupsMiddleComponent implements OnInit {
       let button3 = data.deviationShip === 1 ? true : false;
 
       let imageActive =
-          'assets/icons/widgets/product-group-planning/icons_circle/' + this.imageType + '_a.svg';
+          'assets/icons/widgets/SMP/product-group-planning/icons_circle/' + this.imageType + '_a.svg';
       let image =
-          'assets/icons/widgets/product-group-planning/icons_circle/' + this.imageType + '.svg';
+          'assets/icons/widgets/SMP/product-group-planning/icons_circle/' + this.imageType + '.svg';
 
       //  this.perf = this.perfermanceCount(data.productValue, data.productDeviation);
 
@@ -83,7 +83,7 @@ export class ProductGroupsMiddleComponent implements OnInit {
 
       let background = canvas
           .append('image')
-          .attr('xlink:href', 'assets/icons/widgets/product-group-planning/background_circle.svg')
+          .attr('xlink:href', 'assets/icons/widgets/SMP/product-group-planning/background_circle.svg')
           .attr('height', '75px')
           .attr('width', '100%')
           .attr('x', '-20')
@@ -210,7 +210,7 @@ export class ProductGroupsMiddleComponent implements OnInit {
               .append('image')
               .attr(
                   'xlink:href',
-                  'assets/icons/widgets/product-group-planning/button_icon_1_a.svg'
+                  'assets/icons/widgets/SMP/product-group-planning/button_icon_1_a.svg'
               )
               .attr('height', '58px')
               .attr('width', '60px')
@@ -219,7 +219,7 @@ export class ProductGroupsMiddleComponent implements OnInit {
       } else {
           let button1 = canvas
               .append('image')
-              .attr('xlink:href', 'assets/icons/widgets/product-group-planning/button_icon_1.svg')
+              .attr('xlink:href', 'assets/icons/widgets/SMP/product-group-planning/button_icon_1.svg')
               .attr('height', '58px')
               .attr('width', '60px')
               .attr('x', '151')
@@ -251,7 +251,7 @@ export class ProductGroupsMiddleComponent implements OnInit {
               .append('image')
               .attr(
                   'xlink:href',
-                  'assets/icons/widgets/product-group-planning/button_icon_2_a.svg'
+                  'assets/icons/widgets/SMP/product-group-planning/button_icon_2_a.svg'
               )
               .attr('height', '39px')
               .attr('width', '39px')
@@ -260,7 +260,7 @@ export class ProductGroupsMiddleComponent implements OnInit {
       } else {
           let button2 = canvas
               .append('image')
-              .attr('xlink:href', 'assets/icons/widgets/product-group-planning/button_icon_2.svg')
+              .attr('xlink:href', 'assets/icons/widgets/SMP/product-group-planning/button_icon_2.svg')
               .attr('height', '39px')
               .attr('width', '39px')
               .attr('x', '195')
@@ -272,7 +272,7 @@ export class ProductGroupsMiddleComponent implements OnInit {
               .append('image')
               .attr(
                   'xlink:href',
-                  'assets/icons/widgets/product-group-planning/button_icon_3_a.svg'
+                  'assets/icons/widgets/SMP/product-group-planning/button_icon_3_a.svg'
               )
               .attr('height', '39px')
               .attr('width', '39px')
@@ -281,7 +281,7 @@ export class ProductGroupsMiddleComponent implements OnInit {
       } else {
           let button3 = canvas
               .append('image')
-              .attr('xlink:href', 'assets/icons/widgets/product-group-planning/button_icon_3.svg')
+              .attr('xlink:href', 'assets/icons/widgets/SMP/product-group-planning/button_icon_3.svg')
               .attr('height', '39px')
               .attr('width', '39px')
               .attr('x', '195')

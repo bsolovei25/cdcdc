@@ -61,7 +61,7 @@ export class ProductGroupsRightComponent implements OnInit {
           .append('image')
           .attr(
               'xlink:href',
-              'assets/icons/widgets/product-group-planning/background_right_circle.svg'
+              'assets/icons/widgets/SMP/product-group-planning/background_right_circle.svg'
           )
           .attr('height', '110px')
           .attr('width', '110px')
@@ -70,7 +70,7 @@ export class ProductGroupsRightComponent implements OnInit {
 
       let arrow = el
           .append('image')
-          .attr('xlink:href', 'assets/icons/widgets/product-group-planning/arrow_critical.svg')
+          .attr('xlink:href', 'assets/icons/widgets/SMP/product-group-planning/arrow_critical.svg')
           .attr('height', '35px')
           .attr('width', '35px')
           .attr('x', '140')

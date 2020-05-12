@@ -1,0 +1,45 @@
+.cb {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: stretch;
+    // margin: 40px auto;
+  }
+  
+  .item-b ::ng-deep svg {
+    height: 100%;
+  }
+  
+  .item-b {
+    height: 70px;
+    margin-left: 35px;
+    width: 212px;
+    z-index: 980;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  .point_right {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    margin-top: 36px;
+    border-radius: 15px;
+    margin-left: 231px;
+    background: #1b1e27;
+    border: 1px solid var(--color-border-main);
+    z-index: 999;
+  }
+  
+  .point_left {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    margin-top: 35px;
+    border-radius: 6px;
+    margin-left: 62px;
+    background: #1b1e27;
+    z-index: 999;
+    border: 1px solid var(--color-border-main);
+  }
+  

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Inject, ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, ChangeDetectorRef } from '@angular/core';
 import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 
@@ -11,7 +11,7 @@ export interface IProducts {
   groupDeviationShip: number;
   groupDeviationShipPerformance: number;
   products: ITypeProduct[];
-  TypeImage: string;
+  typeImage?: string;
   isActive?: boolean;
 }
 
@@ -32,8 +32,49 @@ export interface ITypeProduct {
   styleUrls: ['./product-groups.component.scss']
 })
 export class ProductGroupsComponent extends WidgetPlatform implements OnInit, OnDestroy {
-  datas: IProducts[] = [
-    
+  data: IProducts[] = [
+    {
+      groupName: 'Бензины',
+      performance: 3,
+      groupValue: 187863,
+      groupDeviationValue: 187863,
+      groupDeviationFlag: 1,
+      groupDeviationShip: 0,
+      groupDeviationShipPerformance: 0,
+      products: [
+        {
+          productName: '',
+          productValue: 1234,
+          productDeviation: 50,
+          peviationInventory: 0,
+          peviationShip: 1,
+          peviationQuality: 1,
+          performance: 50,
+          priority: 10,
+        }
+      ],
+    },
+    {
+      groupName: 'Бензины',
+      performance: 3,
+      groupValue: 187863,
+      groupDeviationValue: 187863,
+      groupDeviationFlag: 1,
+      groupDeviationShip: 0,
+      groupDeviationShipPerformance: 0,
+      products: [
+        {
+          productName: '',
+          productValue: 1234,
+          productDeviation: 50,
+          peviationInventory: 0,
+          peviationShip: 1,
+          peviationQuality: 1,
+          performance: 50,
+          priority: 10,
+        }
+      ],
+    },
   ];
 
   constructor(
@@ -69,63 +110,4 @@ export class ProductGroupsComponent extends WidgetPlatform implements OnInit, On
     this.cdRef.detach();
   }
 
-  map(data: IProducts[]): void {
-    for (const item of data) {
-      item.products.sort((prev, next) => {
-        return next.priority > prev.priority ? -1 : prev.priority > next.priority ? 1 : 0;
-      });
-      switch (item.groupName.toLowerCase()) {
-        case 'бензины':
-          item.TypeImage = 'benzin';
-          this.datas.push(item);
-          break;
-        case 'дт':
-          item.TypeImage = 'benzin';
-          this.datas.push(item);
-          break;
-        case 'тс':
-          item.TypeImage = 'plane';
-          this.datas.push(item);
-          break;
-        case 'судовое/мазут':
-          item.TypeImage = 'ship';
-          this.datas.push(item);
-          break;
-        case 'битумы':
-          item.TypeImage = 'car';
-          this.datas.push(item);
-          break;
-        case 'суг':
-          item.TypeImage = 'fire';
-          this.datas.push(item);
-          break;
-        case 'ароматика':
-          item.TypeImage = 'cube';
-          this.datas.push(item);
-          break;
-        default:
-          item.TypeImage = 'water';
-          this.datas.push(item);
-      }
-    }
-
-   // const curState = this.dataService.states$.getValue();
-    // const activeElement = data.find(
-    //   (el) => el.groupName.toLowerCase() === curState.productGroup.toLowerCase()
-    // );
-    // if (activeElement) {
-    //   activeElement.isActive = true;
-    // }
-
-    data.forEach((el) => {
-      el.groupValue = Math.round(el.groupValue);
-      el.groupDeviationValue = Math.round(el.groupDeviationValue);
-      el.products.forEach((item) => {
-        item.productValue = Math.round(item.productValue);
-        item.productDeviation = Math.round(item.productDeviation);
-      });
-    });
-
-    this.datas = data;
-  }
 }
