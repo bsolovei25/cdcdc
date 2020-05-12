@@ -254,6 +254,9 @@ import { PerformanceProgressLineCircleComponent } from './widgets/SMP/performanc
 import { QualityStockComponent } from './widgets/SMP/quality-stock/quality-stock.component';
 import { QualityStockSecurityComponent } from './widgets/SMP/quality-stock/components/quality-stock-security/quality-stock-security.component';
 import { QualityStockCircleComponent } from './widgets/SMP/quality-stock/components/quality-stock-circle/quality-stock-circle.component';
+import { SmpEventsComponent } from './widgets/SMP/smp-events/smp-events.component';
+import { SmpEventsHeaderComponent } from './widgets/SMP/smp-events/components/smp-events-header/smp-events-header.component';
+import { SmpEventsCardComponent } from './widgets/SMP/smp-events/components/smp-events-card/smp-events-card.component';
 
 @NgModule({
   declarations: [
@@ -477,6 +480,9 @@ import { QualityStockCircleComponent } from './widgets/SMP/quality-stock/compone
     QualityStockComponent,
     QualityStockSecurityComponent,
     QualityStockCircleComponent,
+    SmpEventsComponent,
+    SmpEventsHeaderComponent,
+    SmpEventsCardComponent,
   ],
   entryComponents: [
     LineChartComponent,
