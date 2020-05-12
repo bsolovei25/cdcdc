@@ -9,6 +9,9 @@ import { WidgetPlatform } from '../../../models/widget-platform';
 })
 export class SmpEventsComponent extends WidgetPlatform implements OnInit, OnDestroy {
 
+    static itemCols = 14;
+    static itemRows = 20;
+
     constructor(
         protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
