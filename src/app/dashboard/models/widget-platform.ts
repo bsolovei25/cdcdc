@@ -1,6 +1,7 @@
 import { Inject, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { WidgetService } from '../services/widget.service';
+import { ITankInformationDtoFn } from './tank-information';
 
 export abstract class WidgetPlatform implements OnDestroy {
     public widgetCode?: string;
