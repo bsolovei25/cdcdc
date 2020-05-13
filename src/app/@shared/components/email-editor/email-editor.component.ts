@@ -1,10 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { NgModel } from '@angular/forms';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-  selector: 'evj-email-editor',
-  templateUrl: './email-editor.component.html',
-  styleUrls: ['./email-editor.component.scss']
+    selector: 'evj-email-editor',
+    templateUrl: './email-editor.component.html',
+    styleUrls: ['./email-editor.component.scss']
 })
 export class EmailEditorComponent {
     // region: two way binding area

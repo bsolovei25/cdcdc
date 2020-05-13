@@ -244,6 +244,7 @@ import { OilOperationsAdjustmentComponent } from './widgets/oil-operations/compo
 import { OilOperationsFreeShipmentComponent } from './widgets/oil-operations/components/oil-operations-free-shipment/oil-operations-free-shipment.component';
 import { DocumentViewerFullscreenComponent } from './widgets/document-viewer/document-viewer-fullscreen/document-viewer-fullscreen.component';
 import { CdCriticalComponent } from './widgets/cd-critical/cd-critical.component';
+import { WorkflowTableComponent } from './widgets/workflow/workflow-table/workflow-table.component';
 
 @NgModule({
   declarations: [
@@ -457,6 +458,7 @@ import { CdCriticalComponent } from './widgets/cd-critical/cd-critical.component
     OilOperationsFreeShipmentComponent,
     DocumentViewerFullscreenComponent,
     CdCriticalComponent,
+    WorkflowTableComponent
   ],
   entryComponents: [
     LineChartComponent,
@@ -522,7 +524,7 @@ import { CdCriticalComponent } from './widgets/cd-critical/cd-critical.component
     DocumentCodingComponent,
     ReportTreeComponent,
     OilOperationsComponent,
-    WorkflowComponent
+    WorkflowComponent,
   ],
   exports: [HomeComponent],
   imports: [

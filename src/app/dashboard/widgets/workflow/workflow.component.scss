@@ -99,6 +99,15 @@
               .mat-form-field-underline {
                 display: none;
               }
+              .mat-form-field-infix {
+                padding-top: 0 !important;
+              }
+              .mat-form-field-flex {
+                padding-top: 4px !important;
+              }
+              .mat-select-arrow-wrapper {
+                transform: translateY(9%);
+              }
             }
           }
         }
@@ -107,6 +116,7 @@
 
     .available-scenario {
       position: relative;
+      height: calc(100% - 89px);
       &__title {
         font-size: 12px;
         color: var(--color-text-sub);
@@ -115,19 +125,24 @@
       }
 
       &__icon {
+        cursor: pointer;
         position: absolute;
         right: 4px;
         top: -15px;
       }
 
       &__body {
+        height: 100%;
         &__items {
+          height: 100%;
+          overflow-y: scroll;
         }
         &__item {
           display: flex;
           justify-content: space-between;
           align-items: center;
           align-items: stretch;
+          margin-bottom: 7px;
 
           cursor: pointer;
           min-height: 37px;
@@ -140,7 +155,10 @@
             border-top-left-radius: 25px;
             padding: 10px 10px 10px 25px;
             width: 100%;
+            color: var(--color-text-sub-workflow);
+
             &--active {
+              color: var(--color-text-main);
               background: linear-gradient(to left, #10141c6b 0%, transparent 5%), var(--color-bg-active-sub-workflow);
             }
           }
@@ -239,6 +257,7 @@
       }
 
       &__item {
+        cursor: all-scroll;
         display: flex;
         align-items: center;
         padding: 7px 15px;
@@ -260,11 +279,34 @@
       margin-left: 15px;
       margin-bottom: 10px;
     }
+
     &__body {
       display: flex;
       flex-direction: column;
       width: 100%;
       height: 100%;
+      position: relative;
+
+      &__alert {
+        position: absolute;
+        top: 0px;
+        z-index: 999;
+        background-color: #4f198a;
+        font-size: 12px;
+        width: 100%;
+        border-radius: 10px;
+        min-height: 40px;
+        display: flex;
+        padding: 4px 10px;
+
+        &__btn {
+          border-radius: 25px;
+          border: 2px solid aquamarine;
+          height: 19px;
+          padding: 4px 17px;
+          font-size: 12px;
+        }
+      }
 
       &__top {
         height: 50%;
@@ -305,9 +347,132 @@
 
       &__bottom {
         flex: 1;
+        overflow-y: scroll;
         border-radius: 15px;
         margin-top: 5px;
         background-color: var(--color-bg-card-workflow);
+        box-sizing: border-box;
+
+        input {
+          width: calc(100% - 20px);
+          height: 30px;
+          outline: none;
+          padding-left: 20px;
+          background: rgb(33, 36, 45, 0.1);
+          font-size: 14px;
+          border: none;
+          color: rgb(255, 255, 255);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+          &::placeholder {
+            color: var(--color-text-sub-workflow);
+          }
+
+          &:hover {
+            border-bottom: 1px solid var(--color-border-active);
+            color: white;
+            &::placeholder {
+              color: white;
+            }
+          }
+        }
+
+        .email {
+          height: 100%;
+          overflow-y: scroll;
+
+          &__subject {
+            padding: 8px 14px;
+
+            &__title {
+              color: var(--color-text-sub-workflow);
+            }
+            &__value {
+            }
+          }
+
+          &__recipient {
+            padding: 0 14px;
+
+            &__title {
+              position: relative;
+              height: 30px;
+              color: var(--color-text-sub-workflow);
+
+              &__icon {
+                cursor: pointer;
+                position: absolute;
+                left: 96px;
+                top: -5px;
+                width: 30px;
+                height: 30px;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-image: url(../../../../assets/icons/widgets/workflow/add-user_w.svg);
+                &:hover {
+                  background-image: url(../../../../assets/icons/widgets/workflow/add_user-active_w.svg);
+                }
+              }
+            }
+            &__value {
+            }
+          }
+
+          &__copy {
+            padding: 0 14px;
+
+            &__title {
+              position: relative;
+              height: 30px;
+              color: var(--color-text-sub-workflow);
+              &__icon {
+                cursor: pointer;
+                position: absolute;
+                left: 55px;
+                top: -5px;
+                width: 30px;
+                height: 30px;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-image: url(../../../../assets/icons/widgets/workflow/add-user_w.svg);
+                &:hover {
+                  background-image: url(../../../../assets/icons/widgets/workflow/add_user-active_w.svg);
+                }
+              }
+            }
+            &__value {
+            }
+          }
+
+          .mat-form-field {
+            width: 90%;
+
+            ::ng-deep .mat-form-field-underline {
+              display: none;
+            }
+          }
+
+          ::ng-deep .mat-chip-ripple {
+            border: 1px solid var(--color-border-active) !important;
+          }
+          ::ng-deep .mat-chip-remove {
+            opacity: 0.9 !important;
+          }
+
+          ::ng-deep .mat-form-field-wrapper {
+            padding-bottom: 0 !important;
+          }
+
+          ::ng-deep .mat-form-field-flex {
+            padding: 0 !important;
+          }
+          ::ng-deep .mat-form-field-infix {
+            border-top: 0 !important;
+          }
+          ::ng-deep .mat-input-placeholder {
+            color: white !important;
+          }
+        }
       }
 
       &__bar {

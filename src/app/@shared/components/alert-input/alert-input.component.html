@@ -1,11 +1,17 @@
 <div class="loading-shade loading-shade__blur"
-     *ngIf="info?.isShow"
+     *ngIf="info"
      (mousedown)="$event.stopPropagation()"
      (touchstart)="$event.stopPropagation()">
   <div class="alert-block">
+    <h3 class="block-title">{{info?.title}}</h3>
     <div class="block-top">
       <div class="block-text">
-        {{info?.questionText}}
+        <input [placeholder]="info?.placeholder"
+               matInput
+               type="text"
+               [(ngModel)]="info.value"
+               style="height: 44px; text-align: left;"
+               required />
       </div>
     </div>
     <div class="block-bottom">
@@ -13,7 +19,8 @@
         <evj-button [isSmallButton]="false"
                     [textButton]="info?.acceptText"
                     [isChangingState]="false"
-                    (click)="accept()"></evj-button>
+                    [style.opacity]="info?.value.length > 0 ? '1' : '0.4'"
+                    (click)="info?.value.length > 0 ? accept() : null"></evj-button>
       </div>
       <div class="block-button">
         <evj-button [isSmallButton]="false"

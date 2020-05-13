@@ -28,6 +28,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { CircleInputComponent } from './components/circle-input/circle-input.component';
 import { LineChartTanksDirective } from './directives/line-chart-tanks.directive';
 import { SpaceNumber } from './pipes/number_space.pipe';
+import { AlertInputComponent } from './components/alert-input/alert-input.component';
 
 @NgModule({
     declarations: [
@@ -52,7 +53,8 @@ import { SpaceNumber } from './pipes/number_space.pipe';
         UploadDropZoneComponent,
         CircleInputComponent,
         LineChartTanksDirective,
-        SpaceNumber
+        SpaceNumber,
+        AlertInputComponent
     ],
     exports: [
         HeaderComponent,
@@ -75,6 +77,7 @@ import { SpaceNumber } from './pipes/number_space.pipe';
         EmailEditorComponent,
         CircleInputComponent,
         SpaceNumber,
+        AlertInputComponent
     ],
     imports: [
         CommonModule,
