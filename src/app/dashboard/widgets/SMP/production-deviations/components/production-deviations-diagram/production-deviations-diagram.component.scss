@@ -1,0 +1,177 @@
+.diagram {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  &__frame {
+    position: absolute;
+    z-index: 5;
+
+    width: 100%;
+    height: 10px;
+
+    box-sizing: border-box;
+
+    .line {
+      position: absolute;
+
+      width: calc(100% - 180px);
+      height: 1px;
+
+      top: 3px;
+      left: 0;
+      right: 0;
+      margin: auto;
+
+      background: var(--color-axis);
+    }
+
+    &_top {
+      top: 0;
+      transform: scaleY(1);
+    }
+
+    &_bottom {
+      bottom: 0;
+      transform: scaleY(-1);
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      z-index: 9999;
+
+      width: 90px;
+      height: 15px;
+
+      top: 0;
+      left: 0;
+
+      background: url("../../../../../../../assets/icons/widgets/SMP/production-deviations/border-left-top.svg")
+        no-repeat;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      z-index: 9999;
+
+      width: 90px;
+      height: 15px;
+
+      top: 0;
+      right: 0;
+
+      background: url("../../../../../../../assets/icons/widgets/SMP/production-deviations/border-left-top.svg")
+        no-repeat;
+
+      transform: scaleX(-1);
+    }
+  }
+
+  &__body {
+    height: 100%;
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  &__sidebar {
+    position: relative;
+
+    height: 100%;
+    width: 60px;
+
+    margin-left: 5px;
+
+    background: var(--color-disable-transparent);
+  }
+
+  &__header {
+    width: 100%;
+    height: 30px;
+    margin-top: 4px;
+  }
+
+  &__graph {
+    width: 100%;
+    flex: 1;
+  }
+
+  .header {
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    background: linear-gradient(to bottom, var(--color-border-box-shadow) 0%, transparent 100%);
+
+    &__units {
+      width: 80px;
+      height: 25px;
+
+      margin-left: 4px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      font-size: 12px;
+      color: var(--color-text-main-transparent);
+
+      background: url("../../../../../../../assets/icons/widgets/SMP/production-deviations/units-label.svg")
+        no-repeat;
+    }
+
+    &__title {
+      flex: 1;
+      font-size: 12px;
+
+      box-sizing: border-box;
+      padding: 0px 10px;
+
+      color: var(--color-text-sub);
+    }
+
+    &__legend {
+      margin-left: auto;
+    }
+
+    .legend {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      justify-content: center;
+
+      &__item {
+        font-size: 12px;
+        margin: 0px 10px;
+
+        &:first-child {
+          color: var(--color-text-main);
+        }
+
+        &:last-child {
+          color: var(--color-active);
+        }
+      }
+    }
+  }
+
+  .graph {
+    margin-bottom: 4px;
+  }
+}

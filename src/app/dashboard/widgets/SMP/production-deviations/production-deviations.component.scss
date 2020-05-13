@@ -6,6 +6,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  background: var(--color-bg-header-table);
 }
 
 .content {
@@ -146,6 +147,7 @@
   height: 100%;
 
   box-sizing: border-box;
+  margin-right: 3px;
 
   display: flex;
   flex-direction: column;
@@ -169,8 +171,6 @@
   height: 100%;
 
   box-sizing: border-box;
-  border: 1px solid wheat;
-  border-radius: 15px;
 }
 
 ::-webkit-scrollbar-track {
