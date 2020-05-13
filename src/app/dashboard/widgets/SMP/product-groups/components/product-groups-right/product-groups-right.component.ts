@@ -59,16 +59,16 @@ export class ProductGroupsRightComponent implements OnInit {
 
         this.d3Grauge(data, el, this.gaugemap, indicatorRightPie, x, y);
 
-        const background = el
-            .append('image')
-            .attr(
-                'xlink:href',
-                'assets/icons/widgets/SMP/product-group-planning/background_right_circle.svg'
-            )
-            .attr('height', '110px')
-            .attr('width', '110px')
-            .attr('x', '-113')
-            .attr('y', '-25');
+        // const background = el
+        //     .append('image')
+        //     .attr(
+        //         'xlink:href',
+        //         'assets/icons/widgets/SMP/product-group-planning/background_right_circle.svg'
+        //     )
+        //     .attr('height', '110px')
+        //     .attr('width', '110px')
+        //     .attr('x', '-113')
+        //     .attr('y', '-25');
 
         const top_label = el
             .append('text')
@@ -185,26 +185,17 @@ export class ProductGroupsRightComponent implements OnInit {
             var range = undefined;
             var r = undefined;
             var pointerHeadLength = undefined;
-            var value = 0;
-
+            
             var svg = svgAll;
             var arc = undefined;
             var scale = undefined;
             var ticks = undefined;
             var tickData = undefined;
-            var pointer = undefined;
-
-            var donut = d3.pie();
 
             function deg2rad(deg) {
                 return (deg * Math.PI) / 180;
             }
 
-            function newAngle(d) {
-                var ratio = scale(d);
-                var newAngle = config.minAngle + ratio * range;
-                return newAngle;
-            }
 
             function configure(configuration) {
                 var prop = undefined;
@@ -262,7 +253,7 @@ export class ProductGroupsRightComponent implements OnInit {
                     .data(tickData)
                     .enter()
                     .append('path')
-                    .attr('stroke', 'black')
+                    .attr('stroke', 'var(--color-bg-main)')
                     .attr('fill', function (d, i) {
                         if (indicator === pie) {
                             return 'white';

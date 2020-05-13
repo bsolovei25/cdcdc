@@ -8,7 +8,7 @@
   height: 75px;
   width: 520px;
   margin-left: -1px;
-  border-right: 1px solid var(--color-border-main);
+  border-right: 1px solid var(--color-smp-border);
   position: relative;
 
   min-width: 338px;
@@ -71,8 +71,8 @@ table {
   min-width: 366px;
   max-width: 366px;
   margin-left: 10px;
-  border-top: 0.2px solid var(--color-border-main);
-  border-right: 0.2px solid var(--color-border-main);
+  border-top: 0.2px solid var(--color-smp-border);
+  border-right: 0.2px solid var(--color-smp-border);
   display: flex;
   background: linear-gradient(to bottom, rgba(93, 96, 123, 0.2) 9%, rgba(93, 96, 123, 0) 49%);
   position: relative;
@@ -87,7 +87,7 @@ table {
     transform: rotate(-40deg);
     top: 1px;
     background: var(--color-bg-main);
-    border-right: 0.2px solid var(--color-border-main);
+    border-right: 0.2px solid var(--color-smp-border);
   }
   &:after {
     content: "";
@@ -97,7 +97,7 @@ table {
     right: -5px;
     top: -5px;
     background: var(--color-bg-main);
-    border-right: 0.2px solid var(--color-border-main);
+    border-right: 0.2px solid var(--color-smp-border);
     transform: rotate(135deg);
   }
 
@@ -106,7 +106,7 @@ table {
     font-size: 10px;
     line-height: 25px;
     margin: 0 auto;
-    color: var(--color-border-main);
+    color: var(--color-smp-border);
   }
 
   .border_left {
@@ -114,7 +114,7 @@ table {
     width: 14px;
     height: 8px;
     background: var(--color-bg-main);
-    border-top: 0.2px solid var(--color-border-main);
+    border-top: 0.2px solid var(--color-smp-border);
     transform: rotate(-135deg);
     right: -5px;
     top: -2px;
@@ -123,11 +123,11 @@ table {
 
 .middle_table_top {
   display: flex;
-  margin-left: 5px;
+  margin-left: 6px;
   width: calc(100% - 732px);
-  border-top: 0.7px dashed var(--color-border-main);
-  border-right: 0.7px dashed var(--color-border-main);
-  border-left: 0.7px dashed var(--color-border-main);
+  border-top: 0.7px dashed var(--color-smp-border);
+  border-right: 0.7px dashed var(--color-smp-border);
+  border-left: 0.7px dashed var(--color-smp-border);
   background: linear-gradient(to bottom, rgba(93, 96, 123, 0.2) 9%, rgba(93, 96, 123, 0) 49%);
   position: relative;
   left: 0;
@@ -138,7 +138,7 @@ table {
     width: 14px;
     height: 8px;
     background: var(--color-bg-main);
-    border-top: 1px dashed var(--color-border-main);
+    border-top: 1px dashed var(--color-smp-border);
     transform: rotate(-225deg);
     left: -5px;
     top: -2px;
@@ -149,7 +149,7 @@ table {
     width: 14px;
     height: 8px;
     background: var(--color-bg-main);
-    border-top: 1px dashed var(--color-border-main);
+    border-top: 1px dashed var(--color-smp-border);
     transform: rotate(-135deg);
     right: -5px;
     top: -2px;
@@ -160,16 +160,16 @@ table {
     font-size: 10px;
     line-height: 25px;
     display: flex;
-    color: var(--color-border-main);
+    color: var(--color-smp-border);
   }
 }
 
 .left_table_top {
-  min-width: 366px;
-  max-width: 366px;
-  border-top: 0.2px solid var(--color-border-main);
-  border-right: 0.2px solid var(--color-border-main);
-  border-left: 0.2px solid var(--color-border-main);
+  min-width: 365px;
+  max-width: 365px;
+  border-top: 0.2px solid var(--color-smp-border);
+  border-right: 0.2px solid var(--color-smp-border);
+  border-left: 0.2px solid var(--color-smp-border);
   display: flex;
   background: linear-gradient(to bottom, rgba(93, 96, 123, 0.2) 9%, rgba(93, 96, 123, 0) 49%);
   position: relative;
@@ -182,7 +182,7 @@ table {
     width: 14px;
     height: 8px;
     background: var(--color-bg-main);
-    border-top: 1px solid var(--color-border-main);
+    border-top: 1px solid var(--color-smp-border);
     transform: rotate(-225deg);
     left: -5px;
     top: -2px;
@@ -193,7 +193,7 @@ table {
     width: 17px;
     height: 10px;
     background: var(--color-bg-main);
-    border-top: 1px solid var(--color-border-main);
+    border-top: 1px solid var(--color-smp-border);
     transform: rotate(-45deg);
     right: -5px;
     top: 4px;
@@ -204,8 +204,8 @@ table {
     width: 13px;
     height: 12.1px;
     background: var(--color-bg-main);
-    border-top: 0.2px solid var(--color-border-main);
-    border-left: 0.2px solid var(--color-border-main);
+    border-top: 0.2px solid var(--color-smp-border);
+    border-left: 0.2px solid var(--color-smp-border);
     right: 0px;
     bottom: 0;
   }
@@ -214,12 +214,12 @@ table {
     margin-left: 25px;
     font-size: 10px;
     line-height: 25px;
-    color: var(--color-border-main);
+    color: var(--color-smp-border);
   }
 }
 
 .test {
-  height: calc(100% - 20px);
+  height: calc(100% - 5px);
   overflow-y: scroll;
   overflow-x: hidden;
   position: relative;
@@ -229,26 +229,37 @@ table {
 }
 
 .left_table_bottom {
-  margin-left: 5px;
-  min-width: 352px;
-  max-width: 352px;
+  min-width: 360px;
+  max-width: 360px;
   height: 16px;
-  transform: skew(40deg);
+
   position: relative;
   background: var(--color-bg-main);
-  border-bottom: 0.5px solid var(--color-border-main);
-  border-left: 1px solid var(--color-border-main);
-  border-right: 1px solid var(--color-border-main);
+  border-bottom: 0.5px solid var(--color-smp-border);
+  border-left: 1px solid var(--color-smp-border);
+  border-right: 1px solid var(--color-smp-border);
   &:before {
     content: "";
     position: absolute;
     width: 20px;
     height: 15px;
     background: var(--color-bg-main);
-    border-top: 1px solid var(--color-border-main);
-    transform: rotate(73deg);
-    left: -17px;
-    top: 1px;
+    border-top: 1px solid var(--color-smp-border);
+    transform: rotate(45deg);
+    left: -10px;
+    top: 7px;
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    width: 17px;
+    height: 15px;
+    background: var(--color-bg-main);
+    border-bottom: 1px solid var(--color-smp-border);
+    transform: rotate(45deg);
+    right: -10px;
+    top: -3px;
   }
 }
 
@@ -259,9 +270,7 @@ table {
   position: relative;
   margin-left: 10px;
   width: calc(100% - 732px);
-  border-bottom: 0.7px dashed var(--color-border-main);
-  border-right: 0.7px dashed var(--color-border-main);
-  border-left: 0.7px dashed var(--color-border-main);
+  border-bottom: 0.7px dashed var(--color-smp-border);
   background: var(--color-bg-main);
   left: 0;
   height: 15px;
@@ -271,58 +280,57 @@ table {
     width: 20px;
     height: 10px;
     background: var(--color-bg-main);
-    border-top: 1px dashed var(--color-border-main);
-    transform: rotate(52deg);
-    left: -8px;
-    top: 4px;
+    border-top: 1px dashed var(--color-smp-border);
+    transform: rotate(45deg);
+    left: -7px;
+    top: 7px;
   }
   &:after {
     content: "";
     position: absolute;
-    width: 20px;
-    height: 10px;
+    width: 23px;
+    height: 13px;
     background: var(--color-bg-main);
-    border-top: 1px dashed var(--color-border-main);
-    transform: rotate(-50deg);
-    right: -8px;
-    top: 4px;
+    border-top: 1px dashed var(--color-smp-border);
+    transform: rotate(-45deg);
+    right: -16px;
+    top: 6px;
   }
 }
 
 .right_table_bottom {
   margin-left: 14px;
-  min-width: 356px;
-  max-width: 356px;
+  min-width: 366px;
+  max-width: 366px;
   height: 16px;
   position: relative;
-  transform: skew(-40deg);
   background: var(--color-bg-main);
-  border-bottom: 0.5px solid var(--color-border-main);
-  border-left: 1px solid var(--color-border-main);
-  border-right: 1px solid var(--color-border-main);
+  border-bottom: 0.5px solid var(--color-smp-border);
+  border-left: 1px solid var(--color-smp-border);
+  border-right: 1px solid var(--color-smp-border);
 
   &:before {
     content: "";
     position: absolute;
-    width: 13px;
-    height: 5px;
+    width: 17px;
+    height: 15px;
     background: var(--color-bg-main);
-    border-top: 1px solid var(--color-border-main);
-    transform: rotate(457deg);
+    border-bottom: 1px solid var(--color-smp-border);
+    transform: rotate(-45deg);
     left: -8px;
-    top: 6px;
+    top: -4px;
   }
 
   &:after {
     content: "";
     position: absolute;
-    width: 13px;
-    height: 12px;
+    width: 20px;
+    height: 15px;
     background: var(--color-bg-main);
-    border-top: 1px solid var(--color-border-main);
-    transform: rotate(90deg);
-    right: -2px;
-    top: 2px;
+    border-top: 1px solid var(--color-smp-border);
+    transform: rotate(-45deg);
+    right: -10px;
+    top: 6px;
   }
 }
 
@@ -333,7 +341,7 @@ table {
   margin-top: -30px;
   // margin-left: 353px;
   left: 0;
-  border-top: 1px dashed var(--color-border-main);
+  border-top: 1px dashed var(--color-smp-border);
 
   //new 1202
   margin-left: 338px;
@@ -347,7 +355,7 @@ table {
   border-radius: 6px;
   margin-left: -40px;
   background: var(--color-bg-main);
-  border: 1px solid var(--color-border-main);
+  border: 1px solid var(--color-smp-border);
   z-index: 999;
 }
 
@@ -359,13 +367,13 @@ table {
   border-radius: 4px;
   right: 316px;
   background: var(--color-bg-main);
-  border: 1px solid var(--color-border-main);
+  border: 1px solid var(--color-smp-border);
 }
 
 .left_line_widget {
   position: absolute;
   height: calc(100% - 11px);
-  border-left: 1px solid var(--color-border-main);
+  border-left: 1px solid var(--color-smp-border);
   width: 1px;
   top: 0;
   left: 353px;
@@ -376,7 +384,7 @@ table {
 .right_line_widget {
   position: absolute;
   height: calc(100% - 11px);
-  border-left: 1px solid var(--color-border-main);
+  border-left: 1px solid var(--color-smp-border);
   width: 1px;
   top: 0;
   z-index: 1;
@@ -386,7 +394,7 @@ table {
 .right_line_widget2 {
   position: absolute;
   height: calc(100% - 11px);
-  border-left: 1px solid var(--color-border-main);
+  border-left: 1px solid var(--color-smp-border);
   width: 1px;
   top: 0;
   z-index: 1;
@@ -396,7 +404,7 @@ table {
 .right_line_widget3 {
   position: absolute;
   height: calc(100% - 11px);
-  border-left: 1px solid var(--color-border-main);
+  border-left: 1px solid var(--color-smp-border);
   width: 1px;
   top: 0;
   z-index: 1;
@@ -404,12 +412,12 @@ table {
 }
 .right_left_line_widget {
   position: absolute;
-  border-left: 1px solid var(--color-border-main);
+  border-left: 1px solid var(--color-smp-border);
   width: 1px;
   left: 0;
   z-index: 1;
-  height: calc(100% - 35px);
-  top: 9px;
+  height: calc(100% - 33px);
+  top: 12px;
 }
 
 .left__right_line_widget {
@@ -426,7 +434,7 @@ table {
 .middle_left_line_widget {
   position: absolute;
   height: calc(100% - 11px);
-  border-left: 1px dashed var(--color-border-main);
+  border-left: 1px dashed var(--color-smp-border);
   width: 1px;
   top: 0;
   z-index: 1;
@@ -436,7 +444,7 @@ table {
 .middle_right_line_widget {
   position: absolute;
   height: calc(100% - 11px);
-  border-left: 1px dashed var(--color-border-main);
+  border-left: 1px dashed var(--color-smp-border);
   width: 1px;
   top: 0;
   z-index: 1;
@@ -446,12 +454,12 @@ table {
 .topscroll {
   z-index: 999;
   position: absolute;
-  width: calc(100% - 732px);
+  width: calc(100% - 760px);
   height: 20px;
   direction: ltr;
   overflow-x: scroll;
   left: 380px;
-  bottom: 15px;
+  bottom: 5px;
 }
 
 .fake {
@@ -460,21 +468,21 @@ table {
 
 .middle_line_right {
   position: absolute;
-  border-left: 1px dashed var(--color-border-main);
+  border-left: 1px dashed var(--color-smp-border);
   width: 1px;
   right: 374px;
   z-index: 20;
-  height: calc(100% - 35px);
+  height: calc(100% - 20px);
   top: 14px;
 }
 
 .middle_line_left {
   position: absolute;
-  border-left: 1px dashed var(--color-border-main);
+  border-left: 1px dashed var(--color-smp-border);
   width: 1px;
   left: 371px;
   z-index: 20;
-  height: calc(100% - 35px);
+  height: calc(100% - 20px);
   top: 14px;
 }
 
@@ -536,14 +544,14 @@ table {
 ::-webkit-scrollbar-thumb {
   width: 10px;
   border-radius: 25px;
-  background-color: var(--color-border-main);
+  background-color: var(--color-smp-border);
 }
 
 ::-webkit-scrollbar-track {
   border-radius: 25px;
 }
 ::-webkit-scrollbar-track-piece {
-  //  border: solid 1px var(--color-border-main);
+  //  border: solid 1px var(--color-smp-border);
   border-radius: 25px;
 }
 
