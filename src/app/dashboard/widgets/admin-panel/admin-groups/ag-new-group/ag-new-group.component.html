@@ -10,15 +10,15 @@
         class="button"
         [isChangingState]="false"
         [isSmallButton]="false"
-        [textButton]="'Назад'"
-        (click)="onBack()"
+        textButton="Подтвердить"
+        (click)="onSave()"
       ></evj-button>
       <evj-button
         class="button"
         [isChangingState]="false"
         [isSmallButton]="false"
-        [textButton]="'Подтвердить'"
-        (click)="onSave()"
+        textButton="Вернуться"
+        (click)="onBack()"
       ></evj-button>
     </div>
   </div>

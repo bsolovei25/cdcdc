@@ -1,0 +1,92 @@
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { IImplementationPlan } from '../../implementation-plan.component';
+import { SpaceNumber } from '@shared/pipes/number_space.pipe';
+import * as d3 from 'd3';
+
+@Component({
+  selector: 'evj-implementation-pie',
+  templateUrl: './implementation-pie.component.html',
+  styleUrls: ['./implementation-pie.component.scss']
+})
+export class ImplementationPieComponent implements OnInit {
+  @ViewChild('myCircle', { static: true }) myCircle: ElementRef;
+
+  @Input() data: IImplementationPlan;
+
+  public readonly RADIUS: number = 42;
+
+  public defaultPercent: number = 100;
+
+  constructor(
+    private spacePipe: SpaceNumber,
+  ) { }
+
+  ngOnInit(): void {
+    this.d3Circle(this.data, this.myCircle.nativeElement);
+  }
+
+  public d3Circle(data, el): void {
+    const pipeValue: string = this.spacePipe.transform(data.value);
+    // const summ = data.critical + data.nonCritical;
+    const summ = this.defaultPercent - data.deviationPercent;
+    const mass = [this.defaultPercent, data.deviationPercent];
+    let color: any;
+
+    if (summ === 0) {
+      color = d3.scaleOrdinal().range(['gray']);
+    } else {
+      color = d3.scaleOrdinal().range(['var(--color-text-main)', 'var(--color-active)']);
+    }
+
+    const canvas = d3
+      .select(el)
+      .append('svg')
+      .attr('min-width', '100px')
+      .attr('viewBox', '0 0 100 100');
+
+    let group = canvas.append('g').attr('transform', 'translate(50 ,50)');
+
+    const arc = d3
+      .arc()
+      .innerRadius(38.5)
+      .outerRadius(this.RADIUS);
+
+    const pie = d3
+      .pie()
+      .value((d) => {
+        return d;
+      })
+      .sort(() => null);
+
+    const arcs = group
+      .selectAll('.arc')
+      .data(pie(mass))
+      .enter()
+      .append('g')
+      .attr('class', 'arc');
+
+    arcs.append('path')
+      .attr('d', arc)
+      .attr('stroke', 'black')
+      .attr('fill', (d) => color(d.index));
+
+    group = group
+      .append('text')
+      .attr('text-anchor', 'middle')
+      .attr('font-size', '12px')
+      .attr('fill', 'var(--color-text-main)')
+      .attr('dominant-baseline', 'middle')
+      .text(pipeValue);
+
+    const text = canvas
+      .append('text')
+      .attr('fill', 'rgb(140,153,178)')
+      .attr('font-size', '10px')
+      .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+      .attr('y', '65')
+      .attr('x', '38')
+      .attr('fill', 'green')
+      .text(data.deviation);
+  }
+
+}

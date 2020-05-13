@@ -55,6 +55,11 @@ import { DocumentCodingComponent } from '../../widgets/document-coding/document-
 import { OilOperationsComponent } from '../../widgets/oil-operations/oil-operations.component';
 import { WorkflowComponent } from '../../widgets/workflow/workflow.component';
 import { CdCriticalComponent } from '../../widgets/cd-critical/cd-critical.component';
+import { ImplementationPlanComponent } from '../../widgets/SMP/implementation-plan/implementation-plan.component';
+import { PerformanceProgressIndicatorsComponent } from '../../widgets/SMP/performance-progress-indicators/performance-progress-indicators.component';
+import { QualityStockComponent } from '../../widgets/SMP/quality-stock/quality-stock.component';
+import { SmpEventsComponent } from '../../widgets/SMP/smp-events/smp-events.component';
+import { ProductGroupsComponent } from '../../widgets/SMP/product-groups/product-groups.component';
 
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
@@ -115,4 +120,9 @@ export const WIDGETS = {
     'oil-operations': OilOperationsComponent,
     'workflow': WorkflowComponent,
     'cd-critical': CdCriticalComponent,
+    'implementation-plan': ImplementationPlanComponent,
+    'performance-progress-indicators': PerformanceProgressIndicatorsComponent,
+    'quality-stock': QualityStockComponent,
+    'smp-events': SmpEventsComponent,
+    'product-groups': ProductGroupsComponent,
 };

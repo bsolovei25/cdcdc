@@ -27,8 +27,10 @@ import { UploadDropZoneComponent } from './components/upload-drop-zone/upload-dr
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { CircleInputComponent } from './components/circle-input/circle-input.component';
 import { LineChartTanksDirective } from './directives/line-chart-tanks.directive';
+import { LineChartPickerTankDirective } from './directives/line-chart-picker-tank.directive';
 import { SpaceNumber } from './pipes/number_space.pipe';
 import { AlertInputComponent } from './components/alert-input/alert-input.component';
+import { LineBreakPipe } from './pipes/line-break.pipe';
 
 @NgModule({
     declarations: [
@@ -54,7 +56,10 @@ import { AlertInputComponent } from './components/alert-input/alert-input.compon
         CircleInputComponent,
         LineChartTanksDirective,
         SpaceNumber,
-        AlertInputComponent
+        AlertInputComponent,
+        LineChartPickerTankDirective,
+        SpaceNumber,
+        LineBreakPipe,
     ],
     exports: [
         HeaderComponent,
@@ -77,7 +82,8 @@ import { AlertInputComponent } from './components/alert-input/alert-input.compon
         EmailEditorComponent,
         CircleInputComponent,
         SpaceNumber,
-        AlertInputComponent
+        AlertInputComponent,
+        LineBreakPipe,
     ],
     imports: [
         CommonModule,
@@ -87,6 +93,10 @@ import { AlertInputComponent } from './components/alert-input/alert-input.compon
         CKEditorModule,
         FormsModule,
         AngularSvgIconModule
-    ]
+    ],
+    providers: [
+        SpaceNumber,
+        LineBreakPipe,
+    ],
 })
 export class SharedModule { }

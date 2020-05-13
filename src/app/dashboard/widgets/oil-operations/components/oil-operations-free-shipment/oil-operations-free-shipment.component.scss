@@ -38,10 +38,10 @@
     position: absolute;
     left: 1000px;
     top: 10%;
-    height: 70%;
+    height: 75%;
     z-index: 999;
     width: 30%;
-    box-shadow: 0 0 10px var(--color-oil-popup-shadow);
+    box-shadow: 0 0 20px var(--color-oil-popup-shadow);
     border-radius: 20px;
     min-width: 385px;
 }
@@ -95,7 +95,7 @@
             &__block {
                 background: var(--color-active);
                 border-radius: 25px;
-                width: 60%;
+                width: 76px;
                 height: 25px;
                 display: flex;
                 justify-content: center;
@@ -138,7 +138,7 @@
 .content {
     overflow: auto;
     overflow-x: hidden;
-    height: calc(100% - 100px);
+    height: calc(100% - 144px);
     background-color: var(--color-oil-table);
     border-bottom: 7px solid var(--color-bg-main);
 
@@ -150,6 +150,7 @@
         position: relative;
         display: flex;
         border-bottom: 1px solid var(--color-bg-main);
+
 
         &__name {
             color: var(--color-text-sub);
@@ -167,32 +168,34 @@
         &__shadow-block {
             background-color: var(--color-bg-main);
             height: auto;
+            box-shadow: inset 0px 14px 19px -7px var(--color-oil-popup-shadow);
         }
 
         &__i {
             display: flex;
-            border-bottom: 1px solid var(--color-table-main);
+            border-bottom: 1px solid var(--color-oil-popup-shadow);
             height: 40px;
             line-height: 40px;
             justify-content: space-evenly;
             font-size: 12px;
+            cursor: pointer;
 
             .name-param {
                 width: 80%;
                 text-align: center;
-                border-right: 1px solid var(--color-table-main);
+                border-right: 1px solid var(--color-oil-popup-shadow);
             }
 
             .capacity-param {
                 width: 50%;
                 text-align: center;
-                border-right: 1px solid var(--color-table-main);
+                border-right: 1px solid var(--color-oil-popup-shadow);
             }
 
             .check-param {
                 width: 50%;
                 text-align: center;
-                border-right: 1px solid var(--color-table-main);
+                border-right: 1px solid var(--color-oil-popup-shadow);
             }
 
             .limit-param {
@@ -204,10 +207,11 @@
                 text-overflow: ellipsis;
 
                 &__value {
-                    width: 100%;
+                    width: calc(100% - 10px);
                     white-space: nowrap;
                     overflow: hidden;
                     text-overflow: ellipsis;
+                    padding-left: 5px;
                 }
 
                 &__icon {
@@ -235,7 +239,7 @@
         margin: 0 auto;
         margin-right: 20px;
         width: 30%;
-        height: 60%;
+        height: 27px;
         font-size: 15px;
         display: flex;
         border: 1px solid white;

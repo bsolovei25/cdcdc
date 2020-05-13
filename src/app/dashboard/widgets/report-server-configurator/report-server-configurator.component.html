@@ -105,6 +105,7 @@
                     *ngIf="node.data.type === 'Folder'"
                     [class.activeFolder]="node.data.idFolder === folderActive"
                     (click)="onFolder(node.data)"
+                    (click)="tree.treeModel.getFocusedNode().toggleExpanded()"
                   >
                     <div *ngIf="!node.data.openEdit" [class.displayOff]="node.data.idFolder === 0">
                       <div [class]="node.data.className" [class.title]="true">

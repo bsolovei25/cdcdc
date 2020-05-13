@@ -1,0 +1,21 @@
+<evj-widget-preview [title]="widgetTitle" [icon]="widgetIcon" [previewTitle]="" *ngIf="isMock"></evj-widget-preview>
+<ng-container *ngIf="!isMock">
+    <div class="container">
+        <evj-widget-header-smp [uniqId]="uniqId" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseExit()"
+            *ngIf="isHover">
+        </evj-widget-header-smp>
+        <div class="content" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseExit()"
+            (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+            <div class="content__left">
+                <div class="frame-top"></div>
+                <evj-quality-stock-security [data]="data.security"></evj-quality-stock-security>
+                <div class="frame-bottom"></div>
+            </div>
+            <div class="content__right">
+                <div class="frame-top"></div>
+                <evj-quality-stock-circle [data]="data.circle"></evj-quality-stock-circle>
+                <div class="frame-bottom"></div>
+            </div>
+        </div>
+    </div>
+</ng-container>

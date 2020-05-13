@@ -47,7 +47,7 @@ export class ReportServerConfiguratorService {
   }
 
   public getTemplateFolder(): Observable<IFolder> {
-    return this.http.get<IFolder>(this.restUrl + '/api/report-templateFolder/all');
+    return this.http.get<IFolder>(this.restUrl + '/api/report-folders/all');
   }
 
   public pushReportFile(file: any): Observable<any> {
@@ -73,7 +73,7 @@ export class ReportServerConfiguratorService {
   }
 
   public postTemplateFolder(folder): Observable<any> {
-    return this.http.post<any>(this.restUrl + '/api/report-templateFolder/', folder);
+    return this.http.post<any>(this.restUrl + '/api/report-folders/', folder);
   }
 
   public putReportFileTemplate(filetemplate): Observable<any> {
@@ -85,7 +85,7 @@ export class ReportServerConfiguratorService {
   }
 
   public putFolderTemplate(folder): Observable<any> {
-    return this.http.put<any>(this.restUrl + '/api/report-templateFolder/', folder);
+    return this.http.put<any>(this.restUrl + '/api/report-folders/', folder);
   }
 
   public deleteReportFileTemplate(id: number): Observable<any> {
@@ -97,7 +97,7 @@ export class ReportServerConfiguratorService {
   }
 
   public deleteFolder(id: number): Observable<any> {
-    return this.http.delete<any>(this.restUrl + '/api/report-templateFolder/' + id);
+    return this.http.delete<any>(this.restUrl + '/api/report-folders/' + id);
   }
 
   public closeAlert(): void {

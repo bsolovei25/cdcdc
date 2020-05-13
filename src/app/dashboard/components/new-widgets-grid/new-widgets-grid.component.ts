@@ -195,29 +195,6 @@ export class NewWidgetsGridComponent implements OnInit, OnDestroy {
         });
     };
 
-    public myInjector(idWidget: string, uniqId: string): () => Injector {
-        return () => Injector.create({
-            providers: [
-                { provide: 'widgetId', useValue: idWidget },
-                { provide: 'uniqId', useValue: uniqId },
-                { provide: 'isMock', useValue: false },
-                { provide: 'resizeWidget', useValue: this.resizeWidget },
-            ],
-            parent: this.injector,
-        });
-    }
-    public myInjector2(idWidget: string, uniqId: string): Injector {
-        return Injector.create({
-            providers: [
-                { provide: 'widgetId', useValue: idWidget },
-                { provide: 'uniqId', useValue: uniqId },
-                { provide: 'isMock', useValue: false },
-                { provide: 'resizeWidget', useValue: this.resizeWidget },
-            ],
-            parent: this.injector,
-        });
-    }
-
     public eventStart(
         item: GridsterItem,
         itemComponent: GridsterItemComponentInterface,

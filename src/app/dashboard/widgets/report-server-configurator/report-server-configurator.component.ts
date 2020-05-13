@@ -280,7 +280,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
                     this.isLoading = false;
                 }),
             closeFunction: () => this.reportService.closeAlert(),
-            cancelFunction: () => {},
+            cancelFunction: () => { },
         };
         this.reportService.alertWindow$.next(windowsParam);
     }
@@ -304,7 +304,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
                 this.reportService.closeAlert();
                 this.isLoading = false;
             },
-            cancelFunction: () => {},
+            cancelFunction: () => { },
         };
         this.reportService.alertWindow$.next(windowsParam);
     }
@@ -414,7 +414,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
                 item.openEdit = false;
                 this.newRecord = null;
             },
-            cancelFunction: () => {},
+            cancelFunction: () => { },
         };
         this.reportService.alertWindow$.next(windowsParam);
     }
@@ -440,7 +440,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
                 item.openEdit = false;
                 this.newRecord = null;
             },
-            cancelFunction: () => {},
+            cancelFunction: () => { },
         };
         this.reportService.alertWindow$.next(windowsParam);
     }
@@ -476,6 +476,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
         if (item.templateSystemOption.
             systemOptionType === 'customOptions') {
             this.popupUserCustomOptions = true;
+            this.popupUserOptions = true;
         } else {
             this.switchSystemOptions(item);
         }
@@ -646,7 +647,7 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
             closeFunction: () => {
                 this.reportService.closeAlert();
             },
-            cancelFunction: () => {},
+            cancelFunction: () => { },
         };
         this.reportService.alertWindow$.next(windowsParam);
     }
@@ -684,6 +685,9 @@ export class ReportServerConfiguratorComponent extends WidgetPlatform implements
                 this.optionsActive = [];
                 this.folderActive = event.idFolder;
                 this.folderIdActive = event.id;
+
+                // OpenTreeFolder
+                this.tree.treeModel.focusedNodeId = event.id;
             }
         }
     }

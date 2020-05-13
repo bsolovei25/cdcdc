@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EventsWorkspaceService } from '../../../services/widgets/events-workspace.service';
+import { EventService } from '../../../services/widgets/event.service';
 
 @Component({
     selector: 'evj-smotr-event',
@@ -20,9 +21,14 @@ export class SmotrEventComponent implements OnInit {
     public isClosePopupOpen: boolean = false;
     public isReasonsPopupOpen: boolean = false;
 
-    constructor(public ewService: EventsWorkspaceService) {}
+    constructor(public ewService: EventsWorkspaceService, private eventService: EventService) {}
 
-    public ngOnInit(): void {}
+    public ngOnInit(): void {
+        // this.eventService.getEvent(47147).then((res) => {
+        //     console.log('imported event: ', res);
+        //     this.ewService.event = res;
+        // });
+    }
 
     public compareFn(a, b): boolean {
         return a && b && a.id === b.id;
@@ -34,5 +40,19 @@ export class SmotrEventComponent implements OnInit {
 
     public onSendMessage(message: string, msgType: 'comments' | 'facts'): void {
         this.ewService.sendMessageToEvent(message, msgType, false);
+    }
+
+    public onEscalateEvent(event: boolean): void {
+        this.isEscalatePopupOpen = false;
+        if (event) {
+            this.ewService.escalateEvent();
+        }
+    }
+
+    public onCloseEvent(event: boolean): void {
+        this.isEscalatePopupOpen = false;
+        if (event) {
+            this.ewService.closeEvent();
+        }
     }
 }

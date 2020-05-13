@@ -1,5 +1,16 @@
 import { Injectable } from '@angular/core';
-import { EventsWidgetNotification, IPriority, IStatus, IUser, ICategory, IUnitEvents, EventsWidgetNotificationStatus, EventsWidgetNotificationPriority, EventsWidgetCategoryCode, IRetrievalEvents } from '../../models/events-widget';
+import {
+    EventsWidgetNotification,
+    IPriority,
+    IStatus,
+    IUser,
+    ICategory,
+    IUnitEvents,
+    EventsWidgetNotificationStatus,
+    EventsWidgetNotificationPriority,
+    EventsWidgetCategoryCode,
+    IRetrievalEvents,
+} from '../../models/events-widget';
 import { EventService } from '../widgets/event.service';
 import { SnackBarService } from '../snack-bar.service';
 import { fillDataShape } from '../../../@shared/common-functions';
@@ -50,6 +61,7 @@ export class EventsWorkspaceService {
         tasks: 'Производственные задания',
         equipmentStatus: 'Состояния оборудования',
         drops: 'Сбросы',
+        asus: 'АСУС',
     };
 
     private defaultEvent: EventsWidgetNotification = null;
@@ -273,5 +285,26 @@ export class EventsWorkspaceService {
 
     public getUserAvatarUrl(user: IUser): string {
         return this.avatarConfiguratorService.getAvatarPath(user?.photoId);
+    }
+
+    public async escalateEvent(): Promise<void> {
+        if (this.event.originalId) {
+            const a = this.eventService.escalateSmotrEvent(this.event.originalId);
+            console.log(a);
+        }
+    }
+
+    public async closeEvent(): Promise<void> {
+        if (this.event.originalId) {
+            const a = this.eventService.closeSmotrEvent(this.event.originalId);
+            console.log(a);
+        }
+    }
+
+    public async updateEvent(): Promise<void> {
+        if (this.event.originalId) {
+            const a = this.eventService.closeSmotrEvent(this.event.originalId);
+            console.log(a);
+        }
     }
 }

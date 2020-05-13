@@ -45,7 +45,7 @@
     position: absolute;
     left: 140px;
     top: 10%;
-    height: 70%;
+    height: 75%;
     z-index: 999;
     width: 35%;
     box-shadow: 0 0 10px var(--color-oil-popup-shadow);
@@ -103,7 +103,7 @@
 .content {
     overflow: auto;
     overflow-x: hidden;
-    height: calc(100% - 100px);
+    height: calc(100% - 147px);
     background-color: var(--color-oil-table);
     border-bottom: 7px solid var(--color-bg-main);
 
@@ -132,30 +132,31 @@
         &__shadow-block {
             background-color: var(--color-bg-main);
             height: auto;
+            box-shadow: inset 0px 14px 19px -7px var(--color-oil-popup-shadow);
         }
 
         &__i {
             display: flex;
-            border-bottom: 1px solid var(--color-table-main);
+            border-bottom: 1px solid var(--color-oil-popup-shadow);
             height: 40px;
             line-height: 40px;
             justify-content: space-evenly;
             .name-param {
                 width: 25%;
                 text-align: center;
-                border-right: 1px solid var(--color-table-main);
+                border-right: 1px solid var(--color-oil-popup-shadow);
             }
 
             .capacity-param {
                 width: 25%;
                 text-align: center;
-                border-right: 1px solid var(--color-table-main);
+                border-right: 1px solid var(--color-oil-popup-shadow);
             }
 
             .check-param {
                 width: 25%;
                 text-align: center;
-                border-right: 1px solid var(--color-table-main);
+                border-right: 1px solid var(--color-oil-popup-shadow);
 
                 .mycheckbox {
                     height: 100%;
@@ -272,6 +273,15 @@
     &__search {
         height: 60%;
         margin-left: 20px;
+        width: 40%;
+
+        ::ng-deep .input-back {
+            background: var(--color-oil-table) !important;
+        }
+
+        ::ng-deep ::-webkit-input-placeholder {
+            text-align: left !important;
+        }
     }
 }
 

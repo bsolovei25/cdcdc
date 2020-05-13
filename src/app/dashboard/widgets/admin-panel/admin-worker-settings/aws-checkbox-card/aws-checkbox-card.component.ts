@@ -30,7 +30,6 @@ export class AwsCheckboxCardComponent implements OnInit, OnChanges {
     }
 
     public onClick(): void {
-        this.isChecked = !this.isChecked;
-        this.checked.emit(this.isChecked);
+        this.checked.emit(!this.isChecked);
     }
 }

@@ -188,19 +188,23 @@
   }
 }
 
-::-webkit-scrollbar:horizontal {
-  height: 5px;
-}
+::-webkit-scrollbar {
+  &:horizontal {
+    height: 5px;
+  }
 
-::-webkit-scrollbar-thumb:horizontal {
-  background-color: var(--color-axis);
-}
+  &-thumb:horizontal {
+    background-color: var(--color-axis);
+  }
 
-::-webkit-scrollbar-track:horizontal {
-  border-radius: 25px;
-  margin: 0px 450px;
-}
+  &-track {
+    &:horizontal {
+      border-radius: 25px;
+      margin: 0px 450px;
+    }
 
-::-webkit-scrollbar-track-piece:horizontal {
-  background: var(--color-bg-sub);
+    &-piece:horizontal {
+      background: var(--color-bg-sub);
+    }
+  }
 }

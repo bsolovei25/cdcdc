@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
-import { ITankInformation } from '../../models/tank-information';
+import { ITankInformation, ITankInformationDtoFn, ITankFilter, ITankResaultFilter } from '../../models/tank-information';
 
 @Component({
   selector: 'evj-tank-information',
@@ -12,196 +12,15 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
   static itemCols = 18;
   static itemRows = 14;
 
-  public data: ITankInformation[] = [
-    {
-      id: 1,
-      name: 'БЕНЗИНЫ',
-      tank: [
-        {
-          id: 1,
-          name: "Резервуар №1.1",
-          valuePas: 617,
-          valueGr: 21,
-          valueLev: 505.2,
-          tankFilling: 32,
-          status: "repair",
-          operation: "filling"
-        },
-        {
-          id: 2,
-          name: "Резервуар №1.2",
-          valuePas: 617,
-          valueGr: 21,
-          valueLev: 505.2,
-          tankFilling: 32,
-          status: "down",
-          operation: "shipment"
-        },
-        {
-          id: 3,
-          name: "Резервуар №1.2",
-          valuePas: 617,
-          valueGr: 21,
-          valueLev: 505.2,
-          tankFilling: 74,
-          status: "down",
-          operation: "standart"
-        },
-        {
-          id: 4,
-          name: "Резервуар №1.2",
-          valuePas: 617,
-          valueGr: 21,
-          valueLev: 505.2,
-          tankFilling: 100,
-          status: "down",
-          operation: "standart"
-        },
-        {
-          id: 5,
-          name: "Резервуар №1.2",
-          valuePas: 617,
-          valueGr: 21,
-          valueLev: 505.2,
-          tankFilling: 32,
-          status: "down",
-          operation: "standart"
-        },
-        {
-          id: 6,
-          name: "Резервуар №1.2",
-          valuePas: 617,
-          valueGr: 21,
-          valueLev: 505.2,
-          tankFilling: 32,
-          status: "down",
-          operation: "standart"
-        },
-        {
-          id: 7,
-          name: "Резервуар №1.2",
-          valuePas: 617,
-          valueGr: 21,
-          valueLev: 505.2,
-          tankFilling: 32,
-          status: "down",
-          operation: "standart"
-        }
-      ],
-    },
-    {
-      id: 2,
-      name: 'МАЗУТ',
-      tank: [
-        {
-          id: 1,
-          name: "Резервуар №1.1",
-          valuePas: 617,
-          valueGr: 21,
-          valueLev: 505.2,
-          tankFilling: 32,
-          status: "repair",
-          operation: "filling"
-        },
-        {
-          id: 2,
-          name: "Резервуар №1.2",
-          valuePas: 617,
-          valueGr: 21,
-          valueLev: 505.2,
-          tankFilling: 32,
-          status: "down",
-          operation: "shipment"
-        },
-        {
-          id: 3,
-          name: "Резервуар №1.2",
-          valuePas: 617,
-          valueGr: 21,
-          valueLev: 505.2,
-          tankFilling: 74,
-          status: "down",
-          operation: "standart"
-        },
-        {
-          id: 4,
-          name: "Резервуар №1.2",
-          valuePas: 617,
-          valueGr: 21,
-          valueLev: 505.2,
-          tankFilling: 100,
-          status: "down",
-          operation: "shipment"
-        },
-        {
-          id: 5,
-          name: "Резервуар №1.2",
-          valuePas: 617,
-          valueGr: 21,
-          valueLev: 505.2,
-          tankFilling: 32,
-          status: "down",
-          operation: "shipment"
-        }
-      ],
-    },
-    {
-      id: 3,
-      name: 'БЕНЗИНЫ',
-      tank: [
-        {
-          id: 1,
-          name: "Резервуар №1.1",
-          valuePas: 617,
-          valueGr: 21,
-          valueLev: 505.2,
-          tankFilling: 32,
-          status: "repair",
-          operation: "filling"
-        },
-        {
-          id: 2,
-          name: "Резервуар №1.2",
-          valuePas: 617,
-          valueGr: 21,
-          valueLev: 505.2,
-          tankFilling: 32,
-          status: "down",
-          operation: "shipment"
-        },
-        {
-          id: 3,
-          name: "Резервуар №1.2",
-          valuePas: 617,
-          valueGr: 21,
-          valueLev: 505.2,
-          tankFilling: 74,
-          status: "down",
-          operation: "standart"
-        },
-        {
-          id: 4,
-          name: "Резервуар №1.2",
-          valuePas: 617,
-          valueGr: 21,
-          valueLev: 505.2,
-          tankFilling: 100,
-          status: "down",
-          operation: "shipment"
-        },
-        {
-          id: 5,
-          name: "Резервуар №1.2",
-          valuePas: 617,
-          valueGr: 21,
-          valueLev: 505.2,
-          tankFilling: 32,
-          status: "down",
-          operation: "shipment"
-        }
-      ],
-    },
-  ];
+  public data: ITankInformation[];
+
+  public dataSave: ITankInformation[];
+  public sendFilterData: ITankFilter[] = [];
+  public filterData: ITankFilter[] = [];
+
+  isFilter: boolean;
+
+  type: string[] = [];
 
   public isFilterTable: boolean = false;
 
@@ -212,7 +31,6 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
     @Inject('uniqId') public uniqId: string
   ) {
     super(widgetService, isMock, id, uniqId);
-    this.isRealtimeData = false;
     this.widgetIcon = 'reference';
   }
 
@@ -221,7 +39,67 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
   }
 
   protected dataHandler(ref: any): void {
-    //this.data = ref;
+    this.dataSave = ref.items.map(e => ITankInformationDtoFn(e));
+    this.mapData(this.dataSave);
+  }
+
+  mapData(data: ITankInformation[]): void {
+    if (this.isFilter) {
+      this.data = this.mapDataFilter(data);
+    } else {
+      this.data = data;
+    }
+    this.mapTypeData(this.dataSave);
+  }
+
+  mapTypeData(data: ITankInformation[]): void {
+    this.type = [];
+    for (const item of data) {
+      if (!this.type.includes(item.type)) {
+        this.type.push(item.type);
+      }
+    }
+    if (this.type.length > 0) {
+      this.sendFilterData = this.mapNameData(data);
+    }
+  }
+
+  mapNameData(data: ITankInformation[]): ITankFilter[] {
+    const array = [];
+    this.type.forEach(sType => {
+      const arrayNameInType = [];
+      data.forEach(item => {
+        if (item.type === sType && !arrayNameInType.includes(item.name)) {
+          arrayNameInType.push(item.name);
+        }
+      });
+      const obj = {
+        type: sType,
+        tanks: arrayNameInType,
+      };
+      array.push(obj);
+    });
+    return array;
+  }
+
+  mapDataFilter(data: ITankInformation[]): ITankInformation[] {
+    const array = [];
+
+    for (const item of data) {
+      if (this.type.includes(item.type)) {
+        const resultFind = this.filterData.find(i => item.type === i.type);
+        if (!resultFind) continue;
+        for (const nameTank of resultFind.tanks) {
+          if (item.name === nameTank.name && nameTank.active) {
+            array.push(item);
+          }
+        }
+      } else {
+        array.push(item);
+      }
+    }
+
+    return array;
   }
 
   ngOnDestroy(): void {
@@ -232,8 +110,13 @@ export class TankInformationComponent extends WidgetPlatform implements OnInit, 
     this.isFilterTable = event;
   }
 
-  closeFilter(event: boolean): void {
-    this.isFilterTable = event;
+  closeFilter(event: ITankResaultFilter): void {
+    this.isFilter = event.filter;
+    if (this.isFilter) {
+      this.filterData = event.dataFilter;
+      this.data = this.mapDataFilter(this.dataSave);
+    }
+    this.isFilterTable = event.close;
   }
 
 }
