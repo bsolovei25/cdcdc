@@ -104,11 +104,11 @@
       <div class="row__cell cell cell_left information">
         <div class="information__label label">
           <div class="label__title">Место</div>
-          <div class="label__text">ГФУ-2</div>
+          <div class="label__text">{{this.ewService.event.unitName}}</div>
         </div>
         <div class="information__label label">
           <div class="label__title">Автор</div>
-          <div class="label__text">Иванов И.И.</div>
+          <div class="label__text">{{this.ewService.event.fixedBy.displayName}}</div>
         </div>
       </div>
       <div class="row__cell cell cell_right">
@@ -134,7 +134,7 @@
     <evj-events-comment-window
       *ngIf="isEscalatePopupOpen"
       title="Эскалировать выше"
-      (closeWindow)="isEscalatePopupOpen=false"
+      (closeWindow)="onEscalateEvent($event)"
     ></evj-events-comment-window>
   </div>
 

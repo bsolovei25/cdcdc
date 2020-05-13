@@ -25,6 +25,7 @@ export interface EventsWidgetNotification {
     itemNumber: number;
     organization: string;
     branch: string;
+    originalId?: string;
     //place?: { id: number; name: string };
     responsibleOperator: IUser;
     fixedBy: IUser;
@@ -54,6 +55,35 @@ export interface EventsWidgetNotification {
     source?: any;
     unit?: IUnitEvents;
     unitName?: string;
+    deviationData?: IEventDeviationData;
+}
+
+export interface IEventDeviationData {
+    tag: string;
+    equipment: string;
+    workmode: string;
+    isNormMin: boolean;
+    isNormMax: boolean;
+    normMin: number;
+    normMax: number;
+    value: number;
+    isClosed: boolean;
+    cardDate: string;
+    actions: {
+        originalId?: string;
+        dateStart: string;
+        dateEnd: string;
+        typeId: string;
+        isCompleted: boolean;
+    }[];
+    availableActions: {
+        id: string;
+        name: string;
+    }[];
+    availableReasons: {
+        id: string;
+        name: string;
+    }[];
 }
 
 export interface IUnitEvents {
