@@ -264,6 +264,7 @@ import { ProductGroupsMiddleComponent } from './widgets/SMP/product-groups/compo
 import { ProductGroupsRightComponent } from './widgets/SMP/product-groups/components/product-groups-right/product-groups-right.component';
 import { ProductionDeviationsComponent } from './widgets/SMP/production-deviations/production-deviations.component';
 import { ProductionDeviationsDiagramComponent } from './widgets/SMP/production-deviations/components/production-deviations-diagram/production-deviations-diagram.component';
+import { ProductionDeviationsColumnComponent } from './widgets/SMP/production-deviations/components/production-deviations-column/production-deviations-column.component';
 
 @NgModule({
     declarations: [
@@ -497,6 +498,7 @@ import { ProductionDeviationsDiagramComponent } from './widgets/SMP/production-d
         ProductGroupsRightComponent,
         ProductionDeviationsComponent,
         ProductionDeviationsDiagramComponent,
+        ProductionDeviationsColumnComponent,
     ],
     entryComponents: [
         LineChartComponent,

@@ -173,5 +173,18 @@
 
   .graph {
     margin-bottom: 4px;
+
+    box-sizing: border-box;
+    padding-left: 30px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    &__col {
+      height: 100%;
+      width: 26px;
+    }
   }
 }
