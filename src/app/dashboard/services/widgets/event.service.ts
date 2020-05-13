@@ -11,7 +11,7 @@ import {
     IRetrievalEvents,
     IUnitEvents,
     IUser,
-    IPriority,
+    IPriority, IAsusService, IAsusEOService, IAsusCategories, IAsusWorkgroup
 } from '../../models/events-widget';
 import { AppConfigService } from 'src/app/services/appConfigService';
 
@@ -175,6 +175,46 @@ export class EventService {
         try {
             return this.http
                 .get<ICategory[]>(this.restUrl + '/api/notification-reference/equipmentcategory')
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async getAsusCategories(): Promise<IAsusCategories[]> {
+        try {
+            return this.http
+                .get<IAsusCategories[]>(this.restUrl + '/api/asus-events/category')
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async getAsusWorkgroup(): Promise<IAsusWorkgroup[]> {
+        try {
+            return this.http
+                .get<IAsusWorkgroup[]>(this.restUrl + '/api/asus-events//api/References/workgroup')
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async getAsusServices(): Promise<IAsusService[]> {
+        try {
+            return this.http
+                .get<IAsusService[]>(this.restUrl + '/api/asus-events//api/References/services')
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async getAsusEOServices(): Promise<IAsusEOService[]> {
+        try {
+            return this.http
+                .get<IAsusEOService[]>(this.restUrl + '/api/notification-reference/eoservice')
                 .toPromise();
         } catch (error) {
             console.error(error);

@@ -9,7 +9,7 @@ import {
     EventsWidgetNotificationStatus,
     EventsWidgetNotificationPriority,
     EventsWidgetCategoryCode,
-    IRetrievalEvents,
+    IRetrievalEvents, IAsusService, IAsusEOService, IAsusWorkgroup, IAsusCategories
 } from '../../models/events-widget';
 import { EventService } from '../widgets/event.service';
 import { SnackBarService } from '../snack-bar.service';
@@ -33,6 +33,7 @@ export class EventsWorkspaceService {
     public isOverlayConfirmOpen: boolean = false;
     //#endregion
 
+    //#region REFERENCES
     public priority: IPriority[];
     public status: IStatus[];
     public users: IUser[];
@@ -40,6 +41,11 @@ export class EventsWorkspaceService {
     public equipmentCategory: ICategory[];
     public eventTypes: ICategory[];
     public units: IUnitEvents[];
+    public asusCategories: IAsusCategories[];
+    public asusWorkgroup: IAsusWorkgroup[];
+    public asusServices: IAsusService[];
+    public asusEOServices: IAsusEOService[];
+    //#endregion
 
     public currentAuthUser: IUser = null;
 
@@ -86,6 +92,10 @@ export class EventsWorkspaceService {
             this.priority = await this.eventService.getPriority();
             this.equipmentCategory = await this.eventService.getEquipmentCategory();
             this.eventTypes = await this.eventService.getEventType();
+            // this.asusCategories = await this.eventService.getAsusCategories();
+            // this.asusWorkgroup = await this.eventService.getAsusWorkgroup();
+            // this.asusServices = await this.eventService.getAsusServices();
+            // this.asusEOServices = await this.eventService.getAsusEOServices();
             this.setDefaultEvent();
         } catch (err) {
             console.error(err);
