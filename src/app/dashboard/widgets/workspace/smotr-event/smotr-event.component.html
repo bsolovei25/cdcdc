@@ -79,9 +79,9 @@
   <div class="workspace__column column column_right">
     <div class="column__row row">
       <div class="row__cell cell cell_left events-icons">
-        <evj-events-smotr-icon [iconType]="'escalate'" counter="2"></evj-events-smotr-icon>
-        <evj-events-smotr-icon [iconType]="'critical'" [isCritical]="true"></evj-events-smotr-icon>
-        <evj-events-smotr-icon [iconType]="'repeat'" counter="13"></evj-events-smotr-icon>
+        <evj-events-smotr-icon [iconType]="'escalate'" [counter]="2"></evj-events-smotr-icon>
+        <evj-events-smotr-icon [iconType]="'critical'" [isCritical]="false"></evj-events-smotr-icon>
+        <evj-events-smotr-icon [iconType]="'repeat'" [counter]="13"></evj-events-smotr-icon>
       </div>
       <div class="row__cell cell cell_right">
         <evj-ui-block status="{{ewService.event.priority.name}}">
