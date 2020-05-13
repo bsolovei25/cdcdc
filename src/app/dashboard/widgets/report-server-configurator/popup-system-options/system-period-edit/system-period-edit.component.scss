@@ -49,7 +49,8 @@
   width: 50%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   //box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
+  border-radius: 15px;
+  min-width: 370px;
 }
 
 .title {
@@ -81,7 +82,7 @@
 .content {
   overflow: auto;
   overflow-x: hidden;
-  height: calc(100% - 80px);
+  height: calc(100% - 90px);
   background-color: #1b1f2c;
   border-top: 5px solid var(--color-bg-main);
   border-bottom: 5px solid var(--color-bg-main);

@@ -17,19 +17,19 @@
                         <svg-icon *ngIf="!item.open" src="./assets/icons/widgets/oil-control-all/tank-information/arrow-bottom.svg"
                             [svgStyle]="{ 'width.px':14, 'height.px':10 }"></svg-icon>
                     </div>
-                    <div class="item__name"> {{ item.name }}</div>
+                    <div class="item__name"> {{ item.type }}</div>
                 </div>
                 <div *ngIf="item.open" class="item__shadow-block">
-                    <ng-container *ngFor="let i of item.tank">
+                    <ng-container *ngFor="let i of item.tanks">
                         <div class="item__i">
                             <div class="name-param">
                                 {{ i.name }}
                             </div>  
                             <div class="check-param">
                                 <label class="mycheckbox">
-                                    <input type="checkbox" id="checkBoxValue" class="mycheckbox__default" (click)="changeSwap(i)" [checked]="i.isActive"
+                                    <input type="checkbox" id="checkBoxValue" class="mycheckbox__default" (click)="changeSwap(i)" [checked]="i.active"
                                          />
-                                    <div class="mycheckbox__new" [class.mycheckbox__checked]="i.isActive"></div>
+                                    <div class="mycheckbox__new" [class.mycheckbox__checked]="i.active"></div>
                                 </label>
                             </div>
                         </div>

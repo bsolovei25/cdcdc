@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
-import { ITankCard, ITankInformation, ITankFilter, ITankFilterTanks } from 'src/app/dashboard/models/tank-information';
+import { ITankFilter, ITankFilterTanks, ITankResaultFilter } from 'src/app/dashboard/models/tank-information';
 
 @Component({
   selector: 'evj-tank-filter',
@@ -7,77 +7,17 @@ import { ITankCard, ITankInformation, ITankFilter, ITankFilterTanks } from 'src/
   styleUrls: ['./tank-filter.component.scss']
 })
 export class TankFilterComponent implements OnInit, OnChanges {
-  @Input() public data: ITankInformation[];
-  @Output() public close: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() public data: ITankFilter[];
+  @Input() public filterData: ITankFilter[];
+  @Output() public closeFilter: EventEmitter<ITankResaultFilter> = new EventEmitter<ITankResaultFilter>();
 
-  public dataParam: ITankFilter[] = [
-    {
-      id: 1,
-      name: 'ТСБ',
-      tank: [
-        {
-          id: 1,
-          name: "Бензины",
-        },
-        {
-          id: 2,
-          name: "Дизель",
-        },
-        {
-          id: 3,
-          name: "Мазут",
-        },
-        {
-          id: 4,
-          name: "Бензины",
-        }
-      ]
-    },
-    {
-      id: 2,
-      name: 'СУГ',
-      tank: [
-        {
-          id: 1,
-          name: "Дизель",
-        },
-        {
-          id: 2,
-          name: "Дизель",
-        },
-        {
-          id: 3,
-          name: "Мазут",
-        },
-        {
-          id: 4,
-          name: "Бензины",
-        }
-      ]
-    },
-    {
-      id: 3,
-      name: 'БИТУМЫ',
-      tank: [
-        {
-          id: 1,
-          name: "Бензины",
-        },
-        {
-          id: 2,
-          name: "Бензины",
-        },
-        {
-          id: 3,
-          name: "Мазут",
-        },
-        {
-          id: 4,
-          name: "Бензины",
-        }
-      ]
-    }
-  ];
+  type = {
+    sug: 'СУГ',
+    tsb: 'ТСБ',
+    bitum: 'БИТУМЫ'
+  };
+
+  public dataParam: ITankFilter[] = [];
 
   constructor() { }
 
@@ -85,11 +25,40 @@ export class TankFilterComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    for (const item of this.dataParam) {
-      for (const i of item.tank) {
-        for (const j of this.data) {
-          if (i.name.toLocaleLowerCase() === j.name.toLocaleLowerCase()) {
-            i.isActive = true;
+    this.dataMap(this.data);
+  }
+
+  dataMap(data: ITankFilter[]): void {
+    this.dataParam = [];
+    for (const item of data) {
+      const arrayType = [];
+      for (const i of item.tanks) {
+        const obj = {
+          name: i,
+          active: true,
+        };
+        arrayType.push(obj);
+      }
+      const objType = {
+        type: item.type,
+        tanks: arrayType,
+      };
+      this.dataParam.push(objType);
+    }
+    if (this.filterData.length > 0) {
+      this.useFilter(this.dataParam);
+    }
+  }
+
+  useFilter(data: ITankFilter[]): void {
+    for (const item of this.filterData) {
+      const elem = data.find(el => item.type === el.type);
+      if (!elem) continue;
+      elem.open = item.open;
+      for (const tankFilter of item.tanks) {
+        for (const tankData of elem.tanks) {
+          if (tankData.name === tankFilter.name) {
+            tankData.active = tankFilter.active;
           }
         }
       }
@@ -97,19 +66,29 @@ export class TankFilterComponent implements OnInit, OnChanges {
   }
 
   save(): void {
-    this.close.emit(false);
+    const obj: ITankResaultFilter = {
+      dataFilter: this.dataParam,
+      filter: true,
+      close: false,
+    };
+    this.closeFilter.emit(obj);
   }
 
   exit(): void {
-    this.close.emit(false);
+    const obj: ITankResaultFilter = {
+      dataFilter: this.dataParam,
+      filter: false,
+      close: false,
+    };
+    this.closeFilter.emit(obj);
   }
 
-  itemOpen(item: ITankFilterTanks): void {
+  itemOpen(item: ITankFilter): void {
     item.open = !item.open;
   }
 
   changeSwap(i: ITankFilterTanks): void {
-    i.isActive = !i.isActive;
+    i.active = !i.active;
   }
 
 }

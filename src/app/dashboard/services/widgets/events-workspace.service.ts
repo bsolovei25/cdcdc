@@ -1,5 +1,16 @@
 import { Injectable } from '@angular/core';
-import { EventsWidgetNotification, IPriority, IStatus, IUser, ICategory, IUnitEvents, EventsWidgetNotificationStatus, EventsWidgetNotificationPriority, EventsWidgetCategoryCode, IRetrievalEvents } from '../../models/events-widget';
+import {
+    EventsWidgetNotification,
+    IPriority,
+    IStatus,
+    IUser,
+    ICategory,
+    IUnitEvents,
+    EventsWidgetNotificationStatus,
+    EventsWidgetNotificationPriority,
+    EventsWidgetCategoryCode,
+    IRetrievalEvents,
+} from '../../models/events-widget';
 import { EventService } from '../widgets/event.service';
 import { SnackBarService } from '../snack-bar.service';
 import { fillDataShape } from '../../../@shared/common-functions';
@@ -50,6 +61,7 @@ export class EventsWorkspaceService {
         tasks: 'Производственные задания',
         equipmentStatus: 'Состояния оборудования',
         drops: 'Сбросы',
+        asus: 'АСУС',
     };
 
     private defaultEvent: EventsWidgetNotification = null;

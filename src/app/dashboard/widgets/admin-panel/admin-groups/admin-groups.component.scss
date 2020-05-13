@@ -162,8 +162,8 @@
         justify-content: flex-start;
         align-items: center;
 
-        &:first-child {
-          margin-top: 15px;
+        &_workspaces{
+          height: 100%;
         }
 
         .list {
@@ -415,7 +415,7 @@
         height: 16px;
 
         box-sizing: border-box;
-        margin-bottom: 15px;
+        margin: 15px 0px;
 
         color: var(--color-text-main);
         font-size: 16px;

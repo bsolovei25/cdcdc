@@ -67,7 +67,6 @@ export class TanksTableComponent implements OnInit {
     }
 
     searchInput(event): void {
-
         this.dataSource?.map((val) => {
             let isLenChild: boolean = false;
             val.childredTanks.map(element => {
@@ -90,7 +89,7 @@ export class TanksTableComponent implements OnInit {
         });
         this.dataSourceTanks = this.data?.filter((val) => val.name.toLowerCase()
             .includes(event?.target?.value.toLowerCase()) && !val.parentUid && !val.isGroup);
-        if (event?.target?.value.toLowerCase() === '') {
+        if (event?.target?.value.trim().toLowerCase() === '') {
             this.expandedElement.clear();
         }
     }

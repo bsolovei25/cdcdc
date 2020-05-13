@@ -9,7 +9,7 @@
   </div>
   <div class="message" [ngClass]="{'message-active':isMouseOnLockLogo}">{{getMessageText()}}</div>
 </div>
-<div class="user-block" (click)="onClick('remove')">
+<div class="user-block user-block_sec" (click)="onClick('remove')">
   <div
     class="icon icon-locked hover-locked"
     (mouseenter)="onMouseEnter('remove')"
@@ -17,5 +17,5 @@
   >
     <img [src]="removeIcon" />
   </div>
-  <div class="message" [ngClass]="{'message-active':isMouseOnRemoveLogo}">{{msgRemoveUser}}</div>
+  <div class="message message__remove" [ngClass]="{'message-active':isMouseOnRemoveLogo}">{{msgRemoveUser}}</div>
 </div>

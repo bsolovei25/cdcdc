@@ -27,7 +27,7 @@ export class TankCardComponent implements OnInit, AfterViewInit {
 
   changeTooltip(): void {
     const tlink = document.getElementById('tooltip' + this.data.id + this.idLine);
-    tlink.dataset.tooltip = this.operation[this.data.operation];
+    // tlink.dataset.tooltip = this.operation[this.data.operation];
   }
 
 }

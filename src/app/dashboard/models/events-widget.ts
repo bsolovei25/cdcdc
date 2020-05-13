@@ -126,7 +126,13 @@ export type EventsWidgetNotificationStatus = 'new' | 'inWork' | 'closed';
 
 export type EventsWidgetFilterCode = 'all' | 'inWork' | 'closed';
 
-export type EventsWidgetCategoryCode = 'smotr' | 'safety' | 'tasks' | 'equipmentStatus' | 'drops';
+export type EventsWidgetCategoryCode =
+    | 'smotr'
+    | 'safety'
+    | 'tasks'
+    | 'equipmentStatus'
+    | 'drops'
+    | 'asus';
 
 export type EventAction = 'add' | 'edit' | 'delete';
 
