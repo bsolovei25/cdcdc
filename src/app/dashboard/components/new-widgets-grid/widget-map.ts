@@ -59,6 +59,7 @@ import { PerformanceProgressIndicatorsComponent } from '../../widgets/SMP/perfor
 import { QualityStockComponent } from '../../widgets/SMP/quality-stock/quality-stock.component';
 import { SmpEventsComponent } from '../../widgets/SMP/smp-events/smp-events.component';
 import { ProductGroupsComponent } from '../../widgets/SMP/product-groups/product-groups.component';
+import { ProductionDeviationsComponent } from '../../widgets/SMP/production-deviations/production-deviations.component';
 
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
@@ -123,4 +124,5 @@ export const WIDGETS = {
     'quality-stock': QualityStockComponent,
     'smp-events': SmpEventsComponent,
     'product-groups': ProductGroupsComponent,
+    'production-deviations': ProductionDeviationsComponent,
 };

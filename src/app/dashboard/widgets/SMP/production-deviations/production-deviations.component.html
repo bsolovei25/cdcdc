@@ -1,0 +1,9 @@
+<evj-widget-preview [title]="widgetTitle" [icon]="widgetIcon" [previewTitle]="" *ngIf="isMock; else noMock"></evj-widget-preview>
+<ng-template #noMock>
+  <div class="container">
+    <evj-widget-header-smp [uniqId]="uniqId" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseExit()" *ngIf="isHover">
+    </evj-widget-header-smp>
+    <div class="content" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseExit()"
+      (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+  </div>
+</ng-template>
