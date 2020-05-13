@@ -13,12 +13,16 @@ export class TooltipDirective {
   ) {
   }
 
-  @HostListener('mouseenter') onMouseEnter() {
-    this.openTooltip(this.textTooltip);
+  @HostListener('mouseenter', ['$event']) onMouseEnter(event: any): void {
+    if (event.fromElement?.className !== 'tooltip') {
+      this.openTooltip(this.textTooltip);
+    }
   }
 
-  @HostListener('mouseleave') onMouseLeave() {
-    this.closeTooltip();
+  @HostListener('mouseleave', ['$event']) onMouseLeave(event: any): void {
+    if (event.toElement?.className !== 'tooltip') {
+      this.closeTooltip();
+    }
   }
 
   private openTooltip(text: string): void {

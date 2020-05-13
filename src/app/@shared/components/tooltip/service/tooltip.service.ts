@@ -28,7 +28,9 @@ export class TooltipService {
   ) { }
 
   public close(): void {
-    this.ref.destroy();
+    if (this.ref) {
+      this.ref.destroy();
+    }
   }
 
   public openPopup(object: TooltipModel): void {

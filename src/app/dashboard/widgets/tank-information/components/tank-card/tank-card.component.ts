@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { ITankCardValue } from 'src/app/dashboard/models/tank-information';
 import { TooltipService } from '@shared/components/tooltip/service/tooltip.service';
 
@@ -24,9 +24,10 @@ export class TankCardComponent implements OnInit {
     work: 'В работе'
   };
 
-  constructor( private tooltipService: TooltipService) { }
+  constructor(private tooltipService: TooltipService) { }
 
   ngOnInit(): void {
     this.tooltipService.close();
   }
+
 }
