@@ -49,14 +49,15 @@ td {
 .move {
   //margin-top: 16px;
   margin-top: 3px;
-  min-width: 1140px;
-  width: 600px;
+  // min-width: 1140px;
+  // width: 600px;
+  width: calc(100% - 732px);
 }
 
 .middle_table {
   overflow-x: hidden;
   overflow-y: hidden;
-  width: 1158px;
+  width: calc(100% - 732px);
   direction: ltr;
   margin-right: 375px;
 }
@@ -123,8 +124,7 @@ table {
 .middle_table_top {
   display: flex;
   margin-left: 5px;
-  min-width: 1154px;
-  max-width: 1154px;
+  width: calc(100% - 732px);
   border-top: 0.7px dashed var(--color-border-main);
   border-right: 0.7px dashed var(--color-border-main);
   border-left: 0.7px dashed var(--color-border-main);
@@ -258,8 +258,7 @@ table {
   z-index: 20;
   position: relative;
   margin-left: 10px;
-  min-width: 1154px;
-  max-width: 1154px;
+  width: calc(100% - 732px);
   border-bottom: 0.7px dashed var(--color-border-main);
   border-right: 0.7px dashed var(--color-border-main);
   border-left: 0.7px dashed var(--color-border-main);
@@ -329,7 +328,7 @@ table {
 
 .line {
   position: absolute;
-  width: 1230px;
+  width: calc(100% - 660px);
   height: 1px;
   margin-top: -30px;
   // margin-left: 353px;
@@ -358,7 +357,7 @@ table {
   height: 4px;
   margin-top: -33px;
   border-radius: 4px;
-  margin-left: 1195px;
+  right: 316px;
   background: var(--color-bg-main);
   border: 1px solid var(--color-border-main);
 }
@@ -381,7 +380,7 @@ table {
   width: 1px;
   top: 0;
   z-index: 1;
-  left: 1888px;
+  right: -1px;
 }
 
 .right_line_widget2 {
@@ -401,7 +400,7 @@ table {
   width: 1px;
   top: 0;
   z-index: 1;
-  left: 1534px;
+  right: 354px;
 }
 .right_left_line_widget {
   position: absolute;
@@ -447,7 +446,7 @@ table {
 .topscroll {
   z-index: 999;
   position: absolute;
-  width: 1138px;
+  width: calc(100% - 732px);
   height: 20px;
   direction: ltr;
   overflow-x: scroll;
@@ -463,8 +462,8 @@ table {
   position: absolute;
   border-left: 1px dashed var(--color-border-main);
   width: 1px;
-  left: 1528px;
-  z-index: 1;
+  right: 374px;
+  z-index: 20;
   height: calc(100% - 35px);
   top: 14px;
 }
@@ -531,7 +530,7 @@ table {
 }
 
 :hover::-webkit-scrollbar-track-piece {
-//  border: solid 1px var(--color-border-active);
+  //  border: solid 1px var(--color-border-active);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -544,11 +543,10 @@ table {
   border-radius: 25px;
 }
 ::-webkit-scrollbar-track-piece {
-//  border: solid 1px var(--color-border-main);
+  //  border: solid 1px var(--color-border-main);
   border-radius: 25px;
 }
 
 ::-webkit-resizer {
   background-color: var(--color-border-active);
 }
-
