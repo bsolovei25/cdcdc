@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 
 @Component({
@@ -10,11 +10,6 @@ export class AlertWindowComponent implements OnInit {
 
     @Input()
     public info: IAlertWindowModel;
-
-    @HostListener('document:click')
-    public onBackdropClick(): void {
-        this.cancel();
-    }
 
     constructor() {
     }
