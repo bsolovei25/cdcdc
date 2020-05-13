@@ -8,6 +8,11 @@ import { WidgetService } from '../../../services/widget.service';
     styleUrls: ['./production-deviations.component.scss'],
 })
 export class ProductionDeviationsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+    public static itemCols: number = 50;
+    public static itemRows: number = 27;
+    public static minItemCols: number = 50;
+    public static minItemRows: number = 27;
+
     constructor(
         protected widgetService: WidgetService,
         @Inject('isMock') public isMock: boolean,
