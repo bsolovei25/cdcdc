@@ -1,18 +1,33 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
 
 @Component({
-  selector: 'evj-alert-window',
-  templateUrl: './alert-window.component.html',
-  styleUrls: ['./alert-window.component.scss']
+    selector: 'evj-alert-window',
+    templateUrl: './alert-window.component.html',
+    styleUrls: ['./alert-window.component.scss']
 })
 export class AlertWindowComponent implements OnInit {
 
-    @Input() public info: IAlertWindowModel;
+    @Input()
+    public info: IAlertWindowModel;
 
-    constructor() { }
+    @HostListener('document:click')
+    public onBackdropClick(): void {
+        this.cancel();
+    }
 
-    ngOnInit(): void {
+    constructor() {
+    }
+
+    public ngOnInit(): void {
+        if (!this.info) {
+            this.info = {
+                isShow: false,
+                questionText: '',
+                acceptText: 'Подтвердить',
+                cancelText: 'Вернуться',
+            } as IAlertWindowModel;
+        }
     }
 
     public accept(): void {
@@ -21,7 +36,12 @@ export class AlertWindowComponent implements OnInit {
     }
 
     public cancel(): void {
-        this.info.cancelFunction();
-        this.info.closeFunction();
+        try {
+            this.info.cancelFunction();
+        } catch (err) {
+            console.error(err);
+        } finally {
+            this.info.closeFunction();
+        }
     }
 }

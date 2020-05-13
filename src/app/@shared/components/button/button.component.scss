@@ -159,4 +159,38 @@
   &:focus {
     outline: none;
   }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.button-rounded {
+  height: 100%;
+  width: 100%;
+
+  border: 1px solid white;
+  color: white;
+  box-sizing: border-box;
+  border-radius: 33px;
+  background-color: transparent;
+  cursor: pointer;
+  outline: none;
+  transition: 0.2s;
+
+  font-size: 14px;
+
+  &:hover {
+    background-color: rgba(63, 169, 245, 0.1);
+    border-color: var(--color-btn-rounded-border);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: var(--color-btn-rounded-disabled-transparent);
+
+    &:hover {
+      border-color: white;
+    }
+  }
 }
