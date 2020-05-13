@@ -29,6 +29,8 @@ import { CircleInputComponent } from './components/circle-input/circle-input.com
 import { LineChartTanksDirective } from './directives/line-chart-tanks.directive';
 import { LineChartPickerTankDirective } from './directives/line-chart-picker-tank.directive';
 import { SpaceNumber } from './pipes/number_space.pipe';
+import { TooltipComponent } from './components/tooltip/tooltip.component';
+import { TooltipDirective } from './components/tooltip/directives/tooltip.directive';
 
 @NgModule({
     declarations: [
@@ -54,7 +56,9 @@ import { SpaceNumber } from './pipes/number_space.pipe';
         CircleInputComponent,
         LineChartTanksDirective,
         LineChartPickerTankDirective,
-        SpaceNumber
+        SpaceNumber,
+        TooltipComponent,
+        TooltipDirective,
     ],
     exports: [
         HeaderComponent,
@@ -77,6 +81,8 @@ import { SpaceNumber } from './pipes/number_space.pipe';
         EmailEditorComponent,
         CircleInputComponent,
         SpaceNumber,
+        TooltipComponent,
+        TooltipDirective,
     ],
     imports: [
         CommonModule,
@@ -85,7 +91,7 @@ import { SpaceNumber } from './pipes/number_space.pipe';
         NgxMaskModule.forChild(),
         CKEditorModule,
         FormsModule,
-        AngularSvgIconModule
+        AngularSvgIconModule,
     ],
     providers: [SpaceNumber],
 })
