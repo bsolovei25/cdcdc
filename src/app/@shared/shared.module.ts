@@ -31,6 +31,7 @@ import { LineChartPickerTankDirective } from './directives/line-chart-picker-tan
 import { SpaceNumber } from './pipes/number_space.pipe';
 import { TooltipComponent } from './components/tooltip/tooltip.component';
 import { TooltipDirective } from './components/tooltip/directives/tooltip.directive';
+import { LineBreakPipe } from './pipes/line-break.pipe';
 
 @NgModule({
     declarations: [
@@ -59,6 +60,7 @@ import { TooltipDirective } from './components/tooltip/directives/tooltip.direct
         SpaceNumber,
         TooltipComponent,
         TooltipDirective,
+        LineBreakPipe,
     ],
     exports: [
         HeaderComponent,
@@ -83,6 +85,7 @@ import { TooltipDirective } from './components/tooltip/directives/tooltip.direct
         SpaceNumber,
         TooltipComponent,
         TooltipDirective,
+        LineBreakPipe,
     ],
     imports: [
         CommonModule,
@@ -93,6 +96,9 @@ import { TooltipDirective } from './components/tooltip/directives/tooltip.direct
         FormsModule,
         AngularSvgIconModule,
     ],
-    providers: [SpaceNumber],
+    providers: [
+        SpaceNumber,
+        LineBreakPipe,
+    ],
 })
 export class SharedModule { }
