@@ -1,20 +1,20 @@
-<div id="tooltip{{data.id}}{{idLine}}" class="container-card">
+<div id="tooltip{{data.tankTitle}}{{idLine}}" class="container-card">
     <div class="container-card__title">
-        <!-- {{ data.name }} -->
+        {{ data.tankTitle }}
     </div>
     <div class="container-card__content">
         <div class="value">
-            <!-- <div> {{ data.valueLev }} СМ</div>
-            <div> {{ data.valueGr }} C</div>
-            <div> {{ data.valuePas }}</div> -->
+            <div> {{ data.measuredVolume }} СМ</div>
+            <div> {{ data.temperature }} C</div>
+            <div> {{ data.dieValue }}</div>
         </div>
         <div class="tank">
-            <!-- <evj-tank-filling [data]="data.tankFilling"></evj-tank-filling> -->
+            <evj-tank-filling [data]="data.fillLevelPercentage"></evj-tank-filling>
         </div>
         <div class="status">
-            <!-- <svg-icon src="./assets/icons/widgets/oil-control-all/tank-information/{{data.status}}.svg"
-                [svgStyle]="{ 'width.px':25, 'height.px':25 }"></svg-icon> -->
+            <svg-icon src="./assets/icons/widgets/oil-control-all/tank-information/{{data.objectStatus}}.svg"
+                [svgStyle]="{ 'width.px':25, 'height.px':25 }"></svg-icon>
         </div>
     </div>
-    <!-- <div class="container-card__status {{data.operation}}"></div> -->
+    <div class="container-card__status {{data.objectStatus}}"></div>
 </div>
