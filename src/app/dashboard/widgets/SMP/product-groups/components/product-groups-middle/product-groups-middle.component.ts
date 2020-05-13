@@ -4,303 +4,375 @@ import { ITypeProduct } from '../../product-groups.component';
 import { SpaceNumber } from '@shared/pipes/number_space.pipe';
 
 @Component({
-  selector: 'evj-product-groups-middle',
-  templateUrl: './product-groups-middle.component.html',
-  styleUrls: ['./product-groups-middle.component.scss']
+    selector: 'evj-product-groups-middle',
+    templateUrl: './product-groups-middle.component.html',
+    styleUrls: ['./product-groups-middle.component.scss']
 })
 export class ProductGroupsMiddleComponent implements OnInit {
-  public readonly RADIUS = 29;
+    @ViewChild('circle', { static: true }) circle: ElementRef;
+    @Input() data: ITypeProduct;
 
-  @Input() public data: ITypeProduct;
-  @Input() public indexBlock: number;
-  @Input() public imageType: string;
-  @Input() public groupName: string;
-  @Input() performance: number;
-  perf: number;
+    gaugemap: any = {};
 
-  @ViewChild('myCircle', { static: true }) myCircle: ElementRef;
+    public readonly RADIUS: number = 36.5; /// PieCircle Radius
+    public defaultPercent: number = 100;
 
-  constructor(
-      private spacePipe: SpaceNumber,
-    //   private userSettings: NewUserSettingsService,
-    //   private dataService: GetDataService
-  ) {}
+    public criticalValue: number = 64; /// временные константы
+    public criticalPie: number = 18; /// временные константы
+    public indicator: number;
 
-  ngOnInit() {
-      this.d3Circle(this.data, this.myCircle.nativeElement);
-  }
+    public svg;
+    public r;
+    public arc;
+    public tickData;
+    public pointerHeadLength;
+    public pointer;
+    public scale;
+    public range;
+    public ticks;
 
-  ngAfterViewInit() {}
 
-  public d3Circle(data, el): void {
-      let newValue: string = this.spacePipe.transform(data.productValue);
-      let critical_newValue: string = this.spacePipe.transform(data.productDeviation);
+    /// CONFIG GAUGE(!!!)
+    public config = {
+        size: 190,
+        clipWidth: 200,
+        clipHeight: 110,
+        ringInset: 20,
+        ringWidth: 10,
 
-      let button1 = data.deviationInventory === 1 ? true : false;
-      let button2 = data.deviationQuality === 1 ? true : false;
-      let button3 = data.deviationShip === 1 ? true : false;
+        pointerWidth: 10,
+        pointerTailLength: 5,
+        pointerHeadLengthPercent: 0.9,
 
-      let imageActive =
-          'assets/icons/widgets/SMP/product-group-planning/icons_circle/' + this.imageType + '_a.svg';
-      let image =
-          'assets/icons/widgets/SMP/product-group-planning/icons_circle/' + this.imageType + '.svg';
+        minValue: 0,
+        maxValue: 60,
 
-      //  this.perf = this.perfermanceCount(data.productValue, data.productDeviation);
+        minAngle: 0,
+        maxAngle: 360,
 
-      const mass = [data.performance, 100 - data.performance];
-      let color: any;
+        transitionMs: 750,
 
-      if (
-          data.productValue === 0 &&
-          (data.productDeviation > 0 || data.productDeviation < 0) &&
-          data.performance === 0
-      ) {
-          color = d3.scaleOrdinal().range(['orange']);
-      } else if (data.performance === 0) {
-          color = d3.scaleOrdinal().range(['var(--color-text-sub-heading)']);
-      } else if (data.performance === 100) {
-          color = d3.scaleOrdinal().range(['var(--color-border-active)']);
-      } else {
-          //   color = d3.scaleOrdinal().range(['var(--color-border-active)', 'orange']);
-          color = d3.scaleOrdinal().range(['var(--color-border-active)', 'orange']);
-      }
+        majorTicks: 30, /// CHANGE VALUE PIE GAUGE  (!!!! меняем значение в зависимости количества дней в месяце)
+        labelFormat: d3.format('d'),
+        labelInset: 10,
 
-      const canvas = d3
-          .select(el)
-          .append('svg')
-          .attr('min-width', '100px')
-          .attr('width', '100%')
-          .attr('viewBox', '0 0 200 100');
+        arcColorFn: d3.interpolateHslLong(d3.rgb('red'), d3.rgb('blue')),
+    };
 
-      let background_cube = canvas
-          .append('rect')
-          .attr('fill', 'rgb(25,30,43')
-          .attr('x', 110)
-          .attr('y', 20)
-          .attr('width', 100)
-          .attr('height', 70)
-          .attr('rx', 5);
+    public pointId;
 
-      let background = canvas
-          .append('image')
-          .attr('xlink:href', 'assets/icons/widgets/SMP/product-group-planning/background_circle.svg')
-          .attr('height', '75px')
-          .attr('width', '100%')
-          .attr('x', '-20')
-          .attr('y', '10');
+    constructor(private spacePipe: SpaceNumber) { }
 
-      let group = canvas.append('g').attr('transform', 'translate(31, 47)');
-      // .attr("viewBox", "0 20 280 200");
+    ngOnInit(): void {
+    }
 
-      const arc = d3
-          .arc()
-          .innerRadius(32)
-          .outerRadius(this.RADIUS);
+    ngAfterViewInit(): void {
+        this.indicator = this.indicatorGauge(this.data.gaugePercent);
+        this.draw(this.data, this.circle.nativeElement, this.gaugemap, this.indicator);
+        this.d3Circle(this.data, this.circle.nativeElement);
+    }
 
-      const pie = d3
-          .pie()
-          .value((d) => {
-              return d;
-          })
-          .sort(() => null);
+    // CirclePie RENDERING
 
-      const arcs = group
-          .selectAll('.arc')
-          .data(pie(mass))
-          .enter()
-          .append('g')
-          .attr('class', 'arc');
+    public d3Circle(data, el): void {
+        const summ = this.defaultPercent - data.piePercent;
+        const mass = [data.piePercent, summ];
+        let color: any;
 
-      arcs.append('path')
-          .attr('d', arc)
-          .attr('fill', (d) => color(d.index));
+        if (summ === 0) {
+            color = d3.scaleOrdinal().range(['var(--color-oil-circle-disable)']);
+        } else if (data.isCritical) {
+            color = d3.scaleOrdinal().range(['var(--color-oil-danger)', 'var(--color-oil-circle-disable)']);
+        } else {
+            color = d3.scaleOrdinal().range(['var(--color-text-main)', 'var(--color-oil-circle-disable)']);
+        }
 
-      if (data.productDeviation !== 0 && data.productValue !== 0) {
-          let value = canvas
-              .append('text')
-              .attr('fill', 'white')
-              .attr('font-size', '18px')
-              .attr('x', '85')
-              .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-              .attr('y', '50')
-              .text(newValue);
+        const svg = d3
+            .select(el)
+            .append('svg')
+            .attr('min-width', '100px')
+            .attr('viewBox', '0 0 100 100');
 
-          let criticalValue = canvas
-              .append('text')
-              .attr('fill', 'orange')
-              .attr('font-size', '18px')
-              .attr('x', '85')
-              .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-              .attr('y', '75')
-              .text(critical_newValue);
+        let group = svg.append('g').attr('transform', 'translate(52 ,52)');
 
-          let icon = group
-              .append('image')
-              .attr('xlink:href', imageActive)
-              .attr('height', '25px')
-              .attr('width', '25px')
-              .attr('x', '-11.5')
-              .attr('y', '-12');
-      } else if (data.productDeviation !== 0) {
-          let value = canvas
-              .append('text')
-              .attr('fill', 'white')
-              .attr('font-size', '18px')
-              .attr('x', '85')
-              .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-              .attr('y', '50')
-              .text(newValue);
+        const arc = d3
+            .arc()
+            .innerRadius(35)
+            .outerRadius(this.RADIUS);
 
-          let criticalValue = canvas
-              .append('text')
-              .attr('fill', 'orange')
-              .attr('font-size', '18px')
-              .attr('x', '85')
-              .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-              .attr('y', '75')
-              .text(critical_newValue);
+        const pie = d3
+            .pie()
+            .value((d) => {
+                return d;
+            })
+            .sort(() => null);
 
-          let icon = group
-              .append('image')
-              .attr('xlink:href', imageActive)
-              .attr('height', '25px')
-              .attr('width', '25px')
-              .attr('x', '-11.5')
-              .attr('y', '-12');
-      } else if (data.productValue !== 0) {
-          let icon = group
-              .append('image')
-              .attr('xlink:href', image)
-              .attr('height', '25px')
-              .attr('width', '25px')
-              .attr('x', '-11.5')
-              .attr('y', '-12');
+        const arcs = group
+            .selectAll('.arc')
+            .data(pie(mass))
+            .enter()
+            .append('g')
+            .attr('class', 'arc');
 
-          let value = canvas
-              .append('text')
-              .attr('fill', 'white')
-              .attr('font-size', '20px')
-              .attr('x', '78')
-              .attr('dominant-baseline', 'middle')
-              .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-              .attr('y', '56')
-              .text(newValue);
-      } else {
-          let icon = group
-              .append('image')
-              .attr('xlink:href', image)
-              .attr('height', '25px')
-              .attr('width', '25px')
-              .attr('x', '-11.5')
-              .attr('y', '-12');
+        arcs.append('path')
+            .attr('d', arc)
+            .attr('fill', (d) => color(d.index));
 
-          let value = canvas
-              .append('text')
-              .attr('fill', 'var(--color-text-sub-heading)')
-              .attr('font-size', '20px')
-              .attr('x', '85')
-              .attr('dominant-baseline', 'middle')
-              .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-              .attr('y', '57')
-              .text(critical_newValue);
-      }
+        const title = svg
+            .append('text')
+            .attr('text-anchor', 'middle')
+            .attr('font-size', '16px')
+            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+            .attr('y', '56')
+            .attr('x', '52')
+            .attr('fill', 'var(--color-text-main')
+            .text(data.title);
 
-      if (button1 === true) {
-          let button1 = canvas
-              .append('image')
-              .attr(
-                  'xlink:href',
-                  'assets/icons/widgets/SMP/product-group-planning/button_icon_1_a.svg'
-              )
-              .attr('height', '58px')
-              .attr('width', '60px')
-              .attr('x', '151')
-              .attr('y', '27');
-      } else {
-          let button1 = canvas
-              .append('image')
-              .attr('xlink:href', 'assets/icons/widgets/SMP/product-group-planning/button_icon_1.svg')
-              .attr('height', '58px')
-              .attr('width', '60px')
-              .attr('x', '151')
-              .attr('y', '27');
-      }
+        const leftTopButton = svg
+            .append('image')
+            .attr(
+                'xlink:href',
+                'assets/icons/widgets/SMP/product-group-planning/middle-side/middle-left-top-button.svg'
+            )
+            .attr('height', '25px')
+            .attr('width', '32px')
+            .attr('x', '-60')
+            .attr('y', '28');
 
-      if (data.ProductValue === 0) {
-          let text = canvas
-              .append('text')
-              .attr('fill', 'var(--color-text-sub-heading)')
-              .attr('font-size', '18px')
-              .attr('x', '70')
-              .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-              .attr('y', '15')
-              .text(data.productName);
-      } else {
-          let text = canvas
-              .append('text')
-              .attr('fill', 'white')
-              .attr('font-size', '18px')
-              .attr('x', '70')
-              .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-              .attr('y', '15')
-              .text(data.productName);
-      }
+        const leftButtonButton = svg
+            .append('image')
+            .attr(
+                'xlink:href',
+                'assets/icons/widgets/SMP/product-group-planning/middle-side/middle-left-bottom-button.svg'
+            )
+            .attr('height', '25px')
+            .attr('width', '32px')
+            .attr('x', '-60')
+            .attr('y', '57');
 
-      if (button2 === true) {
-          let button2 = canvas
-              .append('image')
-              .attr(
-                  'xlink:href',
-                  'assets/icons/widgets/SMP/product-group-planning/button_icon_2_a.svg'
-              )
-              .attr('height', '39px')
-              .attr('width', '39px')
-              .attr('x', '195')
-              .attr('y', '22');
-      } else {
-          let button2 = canvas
-              .append('image')
-              .attr('xlink:href', 'assets/icons/widgets/SMP/product-group-planning/button_icon_2.svg')
-              .attr('height', '39px')
-              .attr('width', '39px')
-              .attr('x', '195')
-              .attr('y', '22');
-      }
+        const leftButton = svg
+            .append('image')
+            .attr(
+                'xlink:href',
+                'assets/icons/widgets/SMP/product-group-planning/middle-side/middle-left-big-button.svg'
+            )
+            .attr('height', '60px')
+            .attr('width', '32px')
+            .attr('x', '-28')
+            .attr('y', '25');
 
-      if (button3 === true) {
-          let button3 = canvas
-              .append('image')
-              .attr(
-                  'xlink:href',
-                  'assets/icons/widgets/SMP/product-group-planning/button_icon_3_a.svg'
-              )
-              .attr('height', '39px')
-              .attr('width', '39px')
-              .attr('x', '195')
-              .attr('y', '52');
-      } else {
-          let button3 = canvas
-              .append('image')
-              .attr('xlink:href', 'assets/icons/widgets/SMP/product-group-planning/button_icon_3.svg')
-              .attr('height', '39px')
-              .attr('width', '39px')
-              .attr('x', '195')
-              .attr('y', '52');
-      }
-  }
 
-  public goToGant(): void {
-    //   this.userSettings.LoadScreen(1);
-    //   const currentState = this.dataService.states$.getValue();
-    //   currentState.chooseProduct = this.data.productName;
-    //   currentState.productGroup = this.groupName.toUpperCase();
-    //   this.dataService.states$.next(currentState);
-  }
 
-  perfermanceCount(value: number, performance: number) {
-      const plan: number = performance > 0 ? value : value - performance;
+        const rightTopButton = svg
+            .append('image')
+            .attr(
+                'xlink:href',
+                'assets/icons/widgets/SMP/product-group-planning/middle-side/middle-right-top-button.svg'
+            )
+            .attr('height', '25px')
+            .attr('width', '32px')
+            .attr('x', '130')
+            .attr('y', '28');
 
-      return plan === 0 ? 0 : (value / plan) * 100;
-  }
+        const rightButtonButton = svg
+            .append('image')
+            .attr(
+                'xlink:href',
+                'assets/icons/widgets/SMP/product-group-planning/middle-side/middle-right-bottom-button.svg'
+            )
+            .attr('height', '25px')
+            .attr('width', '32px')
+            .attr('x', '130')
+            .attr('y', '57');
+
+        const rightButton = svg
+            .append('image')
+            .attr(
+                'xlink:href',
+                'assets/icons/widgets/SMP/product-group-planning/middle-side/middle-right-big-button.svg'
+            )
+            .attr('height', '60px')
+            .attr('width', '32px')
+            .attr('x', '98')
+            .attr('y', '25');
+
+    }
+
+    // GAUGE RENDERING
+
+    indicatorGauge(valuePercent: number): number {
+        const percent = valuePercent > 100 ? 100 : valuePercent < 0 ? 0 : valuePercent;
+        return (this.config.majorTicks * percent) / 100;
+    }
+
+    draw(data, el, gaugemap, indicator): void {
+        this.gauge({
+            size: 295,
+            clipWidth: 300,
+            clipHeight: 300,
+            ringWidth: 60,
+            maxValue: 25,
+            transitionMs: 4000,
+        }, gaugemap);
+        this.render(el, indicator, this.criticalPie, data);
+    }
+
+    gauge(configuration, gaugemap): void {
+        gaugemap.configure = this.configure;
+
+        gaugemap.isRendered = this.isRendered(this.svg);
+
+        gaugemap.render = this.render;
+
+        gaugemap.update = this.update;
+
+        this.configure(configuration);
+        return gaugemap;
+    }
+
+    deg2rad(deg: number): number {
+        return (deg * Math.PI) / 180;
+    }
+
+    centerTranslation(r: number): string {
+        return 'translate(' + r + ',' + r + ')';
+    }
+
+    isRendered(svg): boolean {
+        return svg !== undefined;
+    }
+
+    render(container, newValue, criticalPie, data): void {
+        this.svg = d3
+            .select(container)
+            .append('svg:svg')
+            .attr('class', 'gauge')
+            .attr('viewBox', '0 0 290 290');
+
+        const centerTx = this.centerTranslation(this.r + 2);
+
+        const arcs = this.svg
+            .append('g')
+            .attr('class', 'arc')
+            .attr('id', 'test')
+            .attr('transform', centerTx);
+
+        if (newValue < criticalPie) {
+            arcs.selectAll('path')
+                .data(this.tickData)
+                .enter()
+                .append('path')
+                .attr('stroke', 'var(--color-bg-main)')
+                .attr('stroke-width', '4px')
+                .attr('fill', (d, i) => {
+                    if (i + 1 > criticalPie) {
+                        return 'var(--color-smp-blue)';
+                    } else if (i + 1 <= newValue + 1 && newValue !== 0) {
+                        return 'var(--color-active)';
+                    } else if (i + 1 >= newValue && i + 1 <= criticalPie) {
+                        return 'var(--color-smp-blue)';
+                    }
+                })
+                .attr('d', this.arc);
+        } else {
+            this.pointId = arcs.selectAll('path')
+                .data(this.tickData)
+                .enter()
+                .append('path')
+                .attr('stroke', 'var(--color-bg-main)')
+                .attr('stroke-width', '4px')
+                .attr('id', (d, i) => {
+                    if (i + 1 <= newValue + 1 && i + 1 > criticalPie) {
+                        return 'point';
+                    }
+                })
+                .attr('fill', (d, i) => {
+                    if (i + 1 <= newValue + 1 && i + 1 > criticalPie) {
+                        return 'var(--color-smp-blue)';
+                    } else if (i + 1 <= criticalPie) {
+                        return 'var(--color-active)';
+                    } else if (i + 1 >= newValue && i + 1 <= this.indicator) {
+                        return 'var(--color-smp-blue)';
+                    } else {
+                        return 'var(--color-smp-blue)';
+                    }
+                })
+                .attr('d', this.arc);
+        }
+
+        const pointid = this.pointId?.nodes()?.find(el => el?.id === 'point');
+        let pointidLength: number;
+        let coordsPoint;
+        if (pointid) {
+            pointidLength = pointid.getTotalLength();
+            coordsPoint = pointid.getPointAtLength(pointidLength);
+
+        }
+
+        const aroundGauge = this.svg
+            .append('image')
+            .attr('xlink:href', '/assets/icons/widgets/SMP/circle-back.svg')
+            .attr('height', '100%')
+            .attr('width', '100%')
+            .attr('x', '5')
+            .attr('y', '5');
+
+        if (coordsPoint) {
+            const point = this.svg
+                .append('circle')
+                .attr('cx', coordsPoint.x + 130)
+                .attr('cy', coordsPoint.y + 127)
+                .attr('r', '5px')
+                .attr('fill', 'var(--color-text-main');
+        }
+    }
+
+    update(newValue, newConfiguration?): void {
+        if (newConfiguration !== undefined) {
+            this.configure(newConfiguration);
+        }
+        const ratio = this.scale(newValue);
+        const newAngle = this.config.minAngle + ratio * this.range;
+        this.pointer
+            .transition()
+            .duration(this.config.transitionMs)
+            .ease(d3.easeElastic)
+            .attr('transform', 'rotate(' + newAngle + ')');
+    }
+
+    configure(configuration): void {
+        let prop;
+        for (prop in configuration) {
+            this.config[prop] = configuration[prop];
+        }
+
+        this.range = this.config.maxAngle - this.config.minAngle;
+        this.r = this.config.size / 2;
+        this.pointerHeadLength = Math.round(this.r * this.config.pointerHeadLengthPercent);
+
+        // a linear scale this.gaugemap maps domain values to a percent from 0..1
+        this.scale = d3
+            .scaleLinear()
+            .range([0, 1])
+            .domain([this.config.minValue, this.config.maxValue]);
+
+        this.ticks = this.scale.ticks(this.config.majorTicks);
+        this.tickData = d3.range(this.config.majorTicks).map(() => {
+            return 1 / this.config.majorTicks;
+        });
+
+        this.arc = d3
+            .arc()
+            .innerRadius(this.r + 50 - this.config.ringWidth - this.config.ringInset)
+            .outerRadius(this.r - this.config.ringInset)
+            .startAngle((d, i) => {
+                const ratio = d * i;
+                return this.deg2rad(this.config.minAngle + ratio * this.range);
+            })
+            .endAngle((d, i) => {
+                const ratio = d * (i + 1);
+                return this.deg2rad(this.config.minAngle + ratio * this.range);
+            });
+    }
 
 }

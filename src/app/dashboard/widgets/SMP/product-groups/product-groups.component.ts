@@ -9,6 +9,7 @@ export interface IProducts {
   groupDeviationValue: number;
   groupDeviationFlag: number;
   groupDeviationShip: number;
+  groupDeviationNotValue: number;
   groupDeviationShipPerformance: number;
   products: ITypeProduct[];
   typeImage?: string;
@@ -16,14 +17,15 @@ export interface IProducts {
 }
 
 export interface ITypeProduct {
-  productName: string;
-  productValue: number;
-  productDeviation: number;
-  peviationInventory: number;
-  peviationShip: number;
-  peviationQuality: number;
-  performance: number;
-  priority: number;
+  title: string;
+  piePercent: number;
+  gaugePercent: number;
+  leftTopButton: boolean; /// неизвестные свойства, пока кнопки мок
+  leftBottomButton: boolean;
+  leftButton: boolean;
+  rightTopButton: boolean;
+  rightBottomButton: boolean;
+  rightButton: boolean;
 }
 
 @Component({
@@ -38,20 +40,88 @@ export class ProductGroupsComponent extends WidgetPlatform implements OnInit, On
       performance: 3,
       groupValue: 187863,
       groupDeviationValue: 187863,
+      groupDeviationNotValue: 142543,
       groupDeviationFlag: 1,
-      groupDeviationShip: 0,
-      groupDeviationShipPerformance: 0,
+      groupDeviationShip: 321234,
+      groupDeviationShipPerformance: 60,
       products: [
         {
-          productName: '',
-          productValue: 1234,
-          productDeviation: 50,
-          peviationInventory: 0,
-          peviationShip: 1,
-          peviationQuality: 1,
-          performance: 50,
-          priority: 10,
-        }
+          title: 'АИ-92',
+          piePercent: 70,
+          gaugePercent: 70,
+          leftTopButton: true, /// неизвестные свойства, пока кнопки мок
+          leftBottomButton: false,
+          leftButton: false,
+          rightTopButton: false,
+          rightBottomButton: false,
+          rightButton: false,
+        },
+        {
+          title: 'АИ-92',
+          piePercent: 70,
+          gaugePercent: 70,
+          leftTopButton: true,
+          leftBottomButton: false,
+          leftButton: false,
+          rightTopButton: false,
+          rightBottomButton: false,
+          rightButton: false,
+        },
+        {
+          title: 'АИ-92',
+          piePercent: 70,
+          gaugePercent: 70,
+          leftTopButton: true,
+          leftBottomButton: false,
+          leftButton: false,
+          rightTopButton: false,
+          rightBottomButton: false,
+          rightButton: false,
+        },
+        {
+          title: 'АИ-92',
+          piePercent: 70,
+          gaugePercent: 70,
+          leftTopButton: true,
+          leftBottomButton: false,
+          leftButton: false,
+          rightTopButton: false,
+          rightBottomButton: false,
+          rightButton: false,
+        },
+        {
+          title: 'АИ-92',
+          piePercent: 70,
+          gaugePercent: 70,
+          leftTopButton: true,
+          leftBottomButton: false,
+          leftButton: false,
+          rightTopButton: false,
+          rightBottomButton: false,
+          rightButton: false,
+        },
+        {
+          title: 'АИ-92',
+          piePercent: 70,
+          gaugePercent: 70,
+          leftTopButton: true,
+          leftBottomButton: false,
+          leftButton: false,
+          rightTopButton: false,
+          rightBottomButton: false,
+          rightButton: false,
+        },
+        {
+          title: 'АИ-92',
+          piePercent: 70,
+          gaugePercent: 70,
+          leftTopButton: true,
+          leftBottomButton: false,
+          leftButton: false,
+          rightTopButton: false,
+          rightBottomButton: false,
+          rightButton: false,
+        },
       ],
     },
     {
@@ -62,16 +132,18 @@ export class ProductGroupsComponent extends WidgetPlatform implements OnInit, On
       groupDeviationFlag: 1,
       groupDeviationShip: 0,
       groupDeviationShipPerformance: 0,
+      groupDeviationNotValue: 142543,
       products: [
         {
-          productName: '',
-          productValue: 1234,
-          productDeviation: 50,
-          peviationInventory: 0,
-          peviationShip: 1,
-          peviationQuality: 1,
-          performance: 50,
-          priority: 10,
+          title: 'АИ-95',
+          piePercent: 70,
+          gaugePercent: 70,
+          leftTopButton: true, 
+          leftBottomButton: false,
+          leftButton: false,
+          rightTopButton: false,
+          rightBottomButton: false,
+          rightButton: false,
         }
       ],
     },
