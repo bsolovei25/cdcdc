@@ -184,6 +184,7 @@ $axis-padding-left: 20px;
     box-sizing: border-box;
 
     padding-left: 30px; // временно
+    padding-bottom: 30px;
 
     display: flex;
     flex-direction: row;
@@ -191,6 +192,8 @@ $axis-padding-left: 20px;
     align-items: center;
 
     &__col {
+      position: relative;
+      z-index: 2;
       height: 100%;
       width: $col-width;
     }
