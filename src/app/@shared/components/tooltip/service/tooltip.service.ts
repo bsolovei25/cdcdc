@@ -28,9 +28,7 @@ export class TooltipService {
   ) { }
 
   public close(): void {
-    if (this.ref) {
-      this.ref.destroy();
-    }
+      this.ref?.destroy();
   }
 
   public openPopup(object: TooltipModel): void {
@@ -49,7 +47,7 @@ export class TooltipService {
 
     const obj: TooltipModel = {
       title: object.title,
-      top: this.top + this.height - 25,
+      top: this.top + this.height - 30,
       left: this.left + this.width / 4,
     };
 
