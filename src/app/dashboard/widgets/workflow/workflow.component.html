@@ -176,11 +176,22 @@
         <div class="workflow__scenario__title">Сценарий</div>
 
         <div class="workflow__scenario__body" #containerWorkflow>
-          <!-- <div class="workflow__scenario__body__alert">
-            Оповещение сотрудников при выполнение действии
-            <div сlass="workflow__scenario__body__alert__btn">Сохранить
+          <div class="workflow__scenario__body__alert">
+            <div сlass="workflow__scenario__body__alert__text" style="">
+              Оповещение сотрудников при выполнение действии
             </div>
-          </div> -->
+            <div
+              сlass="workflow__scenario__body__alert__btn"
+              style=" border-radius: 25px;
+            border: 2px solid white;
+            height: 19px;
+            padding: 4px 17px;
+            font-size: 12px;
+            align-items: center; display: flex;margin-left: 10px;"
+            >
+              Сохранить
+            </div>
+          </div>
           <div class="workflow__scenario__body__top" #splitTop>
             <gridster
               style="min-width: 100% !important; min-height: 100% !important;"
@@ -349,7 +360,7 @@
                   </div>
                 </div>
                 <div class="email__text" *ngIf="email.name === 'EmailBody'">
-                  <evj-email-editor></evj-email-editor>
+                  <evj-email-editor (emailChange)="emailText($event)"></evj-email-editor>
                 </div>
               </ng-container>
             </div>

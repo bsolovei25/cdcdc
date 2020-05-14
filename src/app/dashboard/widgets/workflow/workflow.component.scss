@@ -294,17 +294,24 @@
         position: absolute;
         top: 0px;
         z-index: 999;
-        background-color: #4f198a;
+        background-color: var(--color-border-main);
         font-size: 12px;
         width: 100%;
         border-radius: 10px;
         min-height: 40px;
         display: flex;
         padding: 4px 10px;
+        box-sizing: border-box;
+        align-items: center;
+        justify-content: space-between;
+
+        &__text {
+          color: red;
+        }
 
         &__btn {
           border-radius: 25px;
-          border: 2px solid aquamarine;
+          // border: 2px solid aquamarine;
           height: 19px;
           padding: 4px 17px;
           font-size: 12px;

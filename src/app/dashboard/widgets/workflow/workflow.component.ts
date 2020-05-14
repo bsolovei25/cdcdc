@@ -747,4 +747,8 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         };
         this.alertWorkspaceTable = workspaceTable;
     }
+
+    emailText(event): void {
+        console.log(event);
+    }
 }
