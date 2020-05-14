@@ -115,12 +115,7 @@
               ></svg-icon>
               <span class="workflow__action__body__item__title">Просрочено</span>
             </div>
-            <div
-              style="opacity: 0.2;"
-              class="workflow__action__body__item"
-              draggable="true"
-              (dragstart)="dragStartHandler($event, 'available')"
-            >
+            <div style="opacity: 0.2;" class="workflow__action__body__item" draggable="true">
               <svg-icon
                 class="workflow__action__body__item__icon"
                 src="./assets/icons/widgets/workflow/done.svg"
@@ -199,7 +194,7 @@
               class="workflow__scenario__body__top__gridster"
               id="gridSize"
               [options]="options"
-              (click)="chooseGridItem($event)"
+              (click)="chooseGridItem($event, null)"
             >
               <div *ngFor="let i of items">
                 <gridster-item
@@ -322,7 +317,7 @@
                           [formControl]="emailPropActionUI?.emailTo"
                           [matChipInputFor]="chipList"
                           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                          (matChipInputTokenEnd)="add($event)"
+                          (matChipInputTokenEnd)="add($event, 'to')"
                         />
                       </mat-chip-list>
                     </mat-form-field>
@@ -357,7 +352,7 @@
                           [formControl]="emailPropActionUI?.emailCopy"
                           [matChipInputFor]="chipList"
                           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                          (matChipInputTokenEnd)="add($event)"
+                          (matChipInputTokenEnd)="add($event, 'copy')"
                         />
                       </mat-chip-list>
                     </mat-form-field>
