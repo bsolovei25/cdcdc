@@ -172,7 +172,10 @@
         <div class="workflow__scenario__title">Сценарий</div>
 
         <div class="workflow__scenario__body" #containerWorkflow>
-          <div class="workflow__scenario__body__alert">
+          <div
+            class="workflow__scenario__body__alert"
+            *ngIf="tableActionProp.length > 0 || emailAction.length > 0"
+          >
             <div сlass="workflow__scenario__body__alert__text">
               Оповещение сотрудников при выполнение действии
             </div>
@@ -183,7 +186,7 @@
             height: 19px;
             padding: 4px 17px;
             font-size: 12px;
-            align-items: center; display: flex;margin-left: 10px;"
+            align-items: center; display: flex;margin-left: 10px; cursor: pointer;"
               (click)="saveProperty()"
             >
               Сохранить
@@ -258,30 +261,15 @@
             <div>Сообщение</div>
           </div>
           <div class="workflow__scenario__body__bottom" #splitBottom>
-            <div class="table__title">
-              <ng-container *ngFor="let table of tableAction">
-                <div>
-                  {{ table.description }}
-                </div>
-              </ng-container>
-            </div>
             <!-- Table -->
-            <div class="table">
+            <div class="table" *ngIf="tableAction.length > 0">
               <table>
-                <thead>
-                  <tr>
-                    <ng-container *ngFor="let table of tableAction">
-                      <th>
-                        {{ table.description }}
-                      </th>
-                    </ng-container>
-                  </tr>
-                </thead>
                 <tbody>
-                  <ng-container *ngFor="let table of tableActionProp">
+                  <ng-container>
                     <tr>
-                      <td></td>
-                      <td></td>
+                      <td *ngFor="let table of tableActionProp">
+                        <input placeholder="" [(ngModel)]="table.value" />
+                      </td>
                     </tr>
                   </ng-container>
                 </tbody>

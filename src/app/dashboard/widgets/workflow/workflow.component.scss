@@ -410,6 +410,12 @@
           }
           table {
             width: 100%;
+            td {
+              input {
+                margin: 0px 10px;
+                box-sizing: border-box;
+              }
+            }
           }
         }
 

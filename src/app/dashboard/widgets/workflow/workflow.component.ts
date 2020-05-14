@@ -111,6 +111,12 @@ export interface IActionTable {
     uid: string;
 }
 
+export interface IActionTableProp {
+    propertyGuid: string;
+    propertyName: 'CheckWarningKey' | 'CheckWarningValue';
+    value: string;
+}
+
 @Component({
     selector: 'evj-workflow',
     templateUrl: './workflow.component.html',
@@ -130,7 +136,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     private sizeTimeout: any;
 
     tableAction: IActionTable[] = [];
-    tableActionProp: IActionTable[] = [];
+    tableActionProp: IActionTableProp[] = [];
     emailAction: IActionEmail[] = [];
     emailPropAction: IActionEmailProps[] = [];
     emailPropActionUI: IActionEmailPropsUI = {
@@ -254,8 +260,10 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
             emailBody: '',
         };
         this.tableAction = [];
+        this.tableActionProp = [];
         this.emailAction = [];
         this.emailPropAction = [];
+        this.activeActions = null;
     }
 
     async chooseSystem(item: MatSelectChange): Promise<void> {
@@ -700,8 +708,8 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                     this.getActionProp(item.action);
                     this.activeActions = item;
                 } else {
-                    this.getActionProp(item.action);
                     this.getScenarioActionProp(item.scenarioAction);
+                    this.getActionProp(item.action);
                     this.activeActions = item;
                 }
             }
@@ -720,7 +728,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                 this.chooseScenarios.uid,
                 scenarioActionId
             );
-            const el = ans.find((val) => val?.propertyName);
+            const el = ans.find((val) => val.propertyName === 'EmailSubject');
             if (el) {
                 this.propsAction(ans);
             } else {
@@ -767,6 +775,17 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                 this.emailAction = ans;
             } else {
                 this.tableAction = ans;
+                this.tableAction.forEach((val) => {
+                    const el = this.tableActionProp.find((value) => value.propertyGuid === val.uid);
+                    if (el) {
+                    } else {
+                        this.tableActionProp.push({
+                            value: '',
+                            propertyName: val.name,
+                            propertyGuid: val.uid,
+                        });
+                    }
+                });
             }
             this.isLoading = false;
         } catch (error) {
@@ -848,42 +867,61 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     }
 
     async saveProperty(): Promise<void> {
-        this.isLoading = true;
-        this.emailAction.forEach(async (value) => {
-            let body;
-            if (value.name === 'EmailBody') {
-                body = { value: this.emailText };
-            }
-            if (value.name === 'EmailTo') {
-                const array = this.emailPropActionUI.emailToArray.join(';');
-                body = { value: array };
-            }
+        if (this.emailAction.length > 0) {
+            this.isLoading = true;
+            this.emailAction.forEach(async (value) => {
+                let body;
+                if (value.name === 'EmailBody') {
+                    body = { value: this.emailText };
+                }
+                if (value.name === 'EmailTo') {
+                    const array = this.emailPropActionUI.emailToArray.join(';');
+                    body = { value: array };
+                }
 
-            if (value.name === 'EmailCopy') {
-                const array = this.emailPropActionUI.emailCopyArray.join(';');
-                body = { value: array };
-            }
-            if (value.name === 'EmailSubject') {
-                body = { value: this.emailPropActionUI.emailSubject };
-            }
-            try {
-                await this.workflowService.putProps(
-                    this.chooseScenarios.uid,
-                    this.activeActions.scenarioAction,
-                    value.uid,
-                    body
-                );
-                this.isLoading = false;
-                this.snackBar.openSnackBar('Параметры сохранены');
-            } catch (error) {
-                this.isLoading = false;
-            }
-        });
+                if (value.name === 'EmailCopy') {
+                    const array = this.emailPropActionUI.emailCopyArray.join(';');
+                    body = { value: array };
+                }
+                if (value.name === 'EmailSubject') {
+                    body = { value: this.emailPropActionUI.emailSubject };
+                }
+                try {
+                    await this.workflowService.putProps(
+                        this.chooseScenarios.uid,
+                        this.activeActions.scenarioAction,
+                        value.uid,
+                        body
+                    );
+                    this.isLoading = false;
+                    this.snackBar.openSnackBar('Параметры сохранены');
+                } catch (error) {
+                    this.isLoading = false;
+                }
+            });
+        }
+        if (this.tableAction.length > 0) {
+            this.isLoading = true;
+            this.tableActionProp.forEach(async (value) => {
+                const body = { value: value.value };
+                try {
+                    await this.workflowService.putProps(
+                        this.chooseScenarios.uid,
+                        this.activeActions.scenarioAction,
+                        value.propertyGuid,
+                        body
+                    );
+                    this.isLoading = false;
+                    this.snackBar.openSnackBar('Параметры сохранены');
+                } catch (error) {
+                    this.isLoading = false;
+                }
+            });
+        }
     }
 
     async editScenario(event: MouseEvent, scen: IScenarios): Promise<void> {
         event.stopPropagation();
-
         const inputParam: IAlertInputModel = {
             title: 'Изменение имени сценария',
             placeholder: 'Введите название',
