@@ -92,10 +92,14 @@ export class EventsWorkspaceService {
             this.priority = await this.eventService.getPriority();
             this.equipmentCategory = await this.eventService.getEquipmentCategory();
             this.eventTypes = await this.eventService.getEventType();
-            // this.asusCategories = await this.eventService.getAsusCategories();
-            // this.asusWorkgroup = await this.eventService.getAsusWorkgroup();
-            // this.asusServices = await this.eventService.getAsusServices();
-            // this.asusEOServices = await this.eventService.getAsusEOServices();
+            this.asusCategories = await this.eventService.getAsusCategories();
+            this.asusWorkgroup = await this.eventService.getAsusWorkgroup();
+            this.asusServices = await this.eventService.getAsusServices();
+            this.asusEOServices = await this.eventService.getAsusEOServices();
+            console.log(this.asusCategories);
+            console.log(this.asusWorkgroup);
+            console.log(this.asusServices);
+            console.log(this.asusEOServices);
             this.setDefaultEvent();
         } catch (err) {
             console.error(err);

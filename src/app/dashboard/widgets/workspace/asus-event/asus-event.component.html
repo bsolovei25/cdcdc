@@ -21,7 +21,11 @@
         <evj-ui-block status="normal">
           <mat-form-field class="status">
             <mat-label>АСУС категория</mat-label>
-            <mat-select panelClass="mat-select-custom"></mat-select>
+            <mat-select panelClass="mat-select-custom">
+              <mat-option *ngFor="let cat of ewService.asusCategories" [value]="cat.name">
+                {{ cat.name }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </evj-ui-block>
       </div>
@@ -126,7 +130,7 @@
     <div class="column__row row reasons">
       <evj-events-reasons-single
         title="Причины"
-        [reason]="'reasons'"
+        [reason]="ewService?.event?.directReasons"
         (addReason)="isReasonsPopupOpen=true"
       ></evj-events-reasons-single>
     </div>
@@ -145,7 +149,11 @@
         <evj-ui-block status="normal">
           <mat-form-field class="status">
             <mat-label>Услуга</mat-label>
-            <mat-select panelClass="mat-select-custom"> </mat-select>
+            <mat-select panelClass="mat-select-custom">
+              <mat-option *ngFor="let service of ewService.asusServices" [value]="service"
+              >{{ service.name }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </evj-ui-block>
       </div>
@@ -179,7 +187,11 @@
         <evj-ui-block status="normal">
           <mat-form-field class="status">
             <mat-label>Единица обслуживания</mat-label>
-            <mat-select panelClass="mat-select-custom"> </mat-select>
+            <mat-select panelClass="mat-select-custom">
+              <mat-option *ngFor="let eoService of ewService.asusEOServices" [value]="eoService"
+              >{{ eoService.name }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </evj-ui-block>
       </div>
@@ -195,7 +207,11 @@
         <evj-ui-block status="normal">
           <mat-form-field class="status">
             <mat-label>Рабочая группа</mat-label>
-            <mat-select panelClass="mat-select-custom"> </mat-select>
+            <mat-select panelClass="mat-select-custom">
+              <mat-option *ngFor="let workgroup of ewService.asusWorkgroup" [value]="workgroup"
+              >{{ workgroup.name }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </evj-ui-block>
       </div>

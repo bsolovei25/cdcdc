@@ -184,7 +184,8 @@ export class EventService {
     async getAsusCategories(): Promise<IAsusCategories[]> {
         try {
             return this.http
-                .get<IAsusCategories[]>(this.restUrl + '/api/asus-events/category')
+                .get<IAsusCategories[]>('assets/mock/AsusEventsMock/category.json')
+                // .get<IAsusCategories[]>(this.restUrl + '/api/asus-events/category')
                 .toPromise();
         } catch (error) {
             console.error(error);
@@ -194,7 +195,8 @@ export class EventService {
     async getAsusWorkgroup(): Promise<IAsusWorkgroup[]> {
         try {
             return this.http
-                .get<IAsusWorkgroup[]>(this.restUrl + '/api/asus-events//api/References/workgroup')
+                .get<IAsusWorkgroup[]>('assets/mock/AsusEventsMock/workgroup.json')
+                // .get<IAsusWorkgroup[]>(this.restUrl + '/api/asus-events//api/References/workgroup')
                 .toPromise();
         } catch (error) {
             console.error(error);
@@ -204,7 +206,8 @@ export class EventService {
     async getAsusServices(): Promise<IAsusService[]> {
         try {
             return this.http
-                .get<IAsusService[]>(this.restUrl + '/api/asus-events//api/References/services')
+                .get<IAsusService[]>('assets/mock/AsusEventsMock/services.json')
+                // .get<IAsusService[]>(this.restUrl + '/api/asus-events//api/References/services')
                 .toPromise();
         } catch (error) {
             console.error(error);
@@ -214,7 +217,8 @@ export class EventService {
     async getAsusEOServices(): Promise<IAsusEOService[]> {
         try {
             return this.http
-                .get<IAsusEOService[]>(this.restUrl + '/api/notification-reference/eoservice')
+                .get<IAsusEOService[]>('assets/mock/AsusEventsMock/eoservice.json')
+                // .get<IAsusEOService[]>(this.restUrl + '/api/notification-reference/eoservice')
                 .toPromise();
         } catch (error) {
             console.error(error);
