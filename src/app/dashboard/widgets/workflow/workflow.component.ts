@@ -1,6 +1,20 @@
-import { Component, OnInit, OnDestroy, Renderer2, ViewChild, ElementRef, AfterViewInit, Inject } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    OnDestroy,
+    Renderer2,
+    ViewChild,
+    ElementRef,
+    AfterViewInit,
+    Inject,
+} from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
-import { GridsterConfig, GridsterItem, GridType, GridsterItemComponentInterface } from 'angular-gridster2';
+import {
+    GridsterConfig,
+    GridsterItem,
+    GridType,
+    GridsterItemComponentInterface,
+} from 'angular-gridster2';
 import { WorkflowService } from '../../services/widgets/workflow.service';
 import { MatSelectChange } from '@angular/material/select';
 import 'leader-line';
@@ -86,14 +100,9 @@ export interface IActionTable {
     selector: 'evj-workflow',
     templateUrl: './workflow.component.html',
     styleUrls: ['./workflow.component.scss'],
-    providers: [
-        { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
-    ]
+    providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } }],
 })
-
-export class WorkflowComponent extends WidgetPlatform implements
-    OnInit, OnDestroy, AfterViewInit {
-
+export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestroy, AfterViewInit {
     public options: GridsterConfig;
     public items: IGridsterItemLocal[] = [];
 
@@ -128,7 +137,6 @@ export class WorkflowComponent extends WidgetPlatform implements
     activeActions: IGridsterItemLocal;
 
     isLoading: boolean = false;
-
 
     dragItem: 'SendEmail' | 'CheckWarning' | 'CheckExpired';
 
@@ -225,7 +233,7 @@ export class WorkflowComponent extends WidgetPlatform implements
             this.loadActions(this.chooseModules.uid);
         } else {
             if (this.leaderLine.length > 0) {
-                this.leaderLine.forEach(value => {
+                this.leaderLine.forEach((value) => {
                     value.setInterval = 0;
                     clearInterval(value.setInterval);
                     value.remove();
@@ -253,10 +261,9 @@ export class WorkflowComponent extends WidgetPlatform implements
             if (a < 50) {
                 this.renderer.setStyle(this.splitTop.nativeElement, 'height', `${50}px`);
             } else {
-                if (a > this.containerWorkflow.nativeElement
-                    .getBoundingClientRect().height - 65) {
-                    const height = this.containerWorkflow.nativeElement
-                        .getBoundingClientRect().height;
+                if (a > this.containerWorkflow.nativeElement.getBoundingClientRect().height - 65) {
+                    const height = this.containerWorkflow.nativeElement.getBoundingClientRect()
+                        .height;
                     const sum = height - 65;
                     this.renderer.setStyle(this.splitTop.nativeElement, 'height', `${sum}px`);
                 } else {
@@ -278,10 +285,9 @@ export class WorkflowComponent extends WidgetPlatform implements
         this.isLoading = true;
         const dataLoadQueue: Promise<void>[] = [];
         dataLoadQueue.push(
-            this.workflowService.getWorkfkowModules()
-                .then((data) => {
-                    this.modules = data;
-                })
+            this.workflowService.getWorkfkowModules().then((data) => {
+                this.modules = data;
+            })
         );
         if (dataLoadQueue.length > 0) {
             try {
@@ -315,8 +321,10 @@ export class WorkflowComponent extends WidgetPlatform implements
 
     private async loadWorkfkowAvailbleActions(): Promise<void> {
         try {
-            this.availbleActions = await this.workflowService
-                .getWorkfkowAvailbleActions(this.chooseModules.uid, this.chooseScenarios.uid);
+            this.availbleActions = await this.workflowService.getWorkfkowAvailbleActions(
+                this.chooseModules.uid,
+                this.chooseScenarios.uid
+            );
             this.drawingActions();
             this.isLoading = false;
         } catch (error) {
@@ -327,29 +335,33 @@ export class WorkflowComponent extends WidgetPlatform implements
     drawingActions(): void {
         this.items = [];
         let x = 2;
-        this.availbleActions.data.sortedActionList.forEach(sort => {
+        this.availbleActions.data.sortedActionList.forEach((sort) => {
             this.items.push({
-                x, y: 5,
-                cols: this.itemCol, rows: this.itemRow,
+                x,
+                y: 5,
+                cols: this.itemCol,
+                rows: this.itemRow,
                 type: sort.actionName,
                 action: sort.action,
                 actionName: sort.actionName,
                 scenarioAction: sort.scenarioAction,
                 previousScenarioAction: sort.previousScenarioAction,
-                nextScenarioAction: sort.nextScenarioAction
+                nextScenarioAction: sort.nextScenarioAction,
             });
             x += 6;
         });
-        this.availbleActions.data.withoutLinks.forEach(sort => {
+        this.availbleActions.data.withoutLinks.forEach((sort) => {
             this.items.push({
-                x, y: 5,
-                cols: this.itemCol, rows: this.itemRow,
+                x,
+                y: 5,
+                cols: this.itemCol,
+                rows: this.itemRow,
                 type: sort.actionName,
                 action: sort.action,
                 actionName: sort.actionName,
                 scenarioAction: sort.scenarioAction,
                 previousScenarioAction: sort.previousScenarioAction,
-                nextScenarioAction: sort.nextScenarioAction
+                nextScenarioAction: sort.nextScenarioAction,
             });
             x += 6;
         });
@@ -358,24 +370,26 @@ export class WorkflowComponent extends WidgetPlatform implements
 
     drawLeaderLine(): void {
         if (this.leaderLine.length > 0) {
-            this.leaderLine.forEach(value => {
+            this.leaderLine.forEach((value) => {
                 clearInterval(value.setInterval);
                 value.remove();
             });
         }
         this.leaderLine = [];
-        this.items.forEach(item => {
+        this.items.forEach((item) => {
             if (item?.scenarioAction && item?.nextScenarioAction) {
                 setTimeout(() => {
-                    this.leaderLine.push(new LeaderLine(
-                        document.getElementById(item.scenarioAction),
-                        document.getElementById(item.nextScenarioAction),
-                        {
-                            size: 2,
-                            color: 'white'
-                        }
-                    ));
-                    this.leaderLine.forEach(value => {
+                    this.leaderLine.push(
+                        new LeaderLine(
+                            document.getElementById(item.scenarioAction),
+                            document.getElementById(item.nextScenarioAction),
+                            {
+                                size: 2,
+                                color: 'white',
+                            }
+                        )
+                    );
+                    this.leaderLine.forEach((value) => {
                         value.setInterval = setInterval(() => {
                             if (value?.options) {
                                 value.position();
@@ -385,7 +399,6 @@ export class WorkflowComponent extends WidgetPlatform implements
                 }, 100);
             }
         });
-
     }
 
     startStopScenario(scenario: IScenarios): void {
@@ -399,13 +412,13 @@ export class WorkflowComponent extends WidgetPlatform implements
     async startScenario(scenarioId: string): Promise<void> {
         try {
             this.workflowService.putScenarioStart(this.chooseModules.uid, scenarioId);
-        } catch (error) { }
+        } catch (error) {}
     }
 
     async stopScenario(scenarioId: string): Promise<void> {
         try {
             this.workflowService.putScenarioStop(this.chooseModules.uid, scenarioId);
-        } catch (error) { }
+        } catch (error) {}
     }
 
     async postScenarios(): Promise<void> {
@@ -420,8 +433,9 @@ export class WorkflowComponent extends WidgetPlatform implements
                 this.isLoading = true;
                 try {
                     this.isLoading = true;
-                    const ans = await this.workflowService
-                        .postScenarios(this.chooseModules.uid, { name });
+                    const ans = await this.workflowService.postScenarios(this.chooseModules.uid, {
+                        name,
+                    });
                     this.scenarios.push(ans);
                     this.snackBar.openSnackBar(`Сценарий ${ans.name} добавлен`);
                     this.isLoading = false;
@@ -431,7 +445,7 @@ export class WorkflowComponent extends WidgetPlatform implements
             },
             cancelFunction: () => {
                 this.alertInput = null;
-            }
+            },
         };
         this.alertInput = inputParam;
     }
@@ -439,18 +453,18 @@ export class WorkflowComponent extends WidgetPlatform implements
     putConnect(previousScenarioAction: string, id: string): void {
         const body: ICreateConnection = {
             scenario: {
-                name: this.chooseScenarios.name
+                name: this.chooseScenarios.name,
             },
             actions: [
                 {
                     scenarioAction: previousScenarioAction,
-                    nextScenarioAction: id
+                    nextScenarioAction: id,
                 },
                 {
                     scenarioAction: id,
                     previousScenarioAction,
-                }
-            ]
+                },
+            ],
         };
 
         const windowsParam: IAlertWindowModel = {
@@ -462,10 +476,10 @@ export class WorkflowComponent extends WidgetPlatform implements
                 this.alertWindow = null;
                 this.createСonnection(body);
             },
-            closeFunction: () => { },
+            closeFunction: () => {},
             cancelFunction: () => {
                 this.alertWindow = null;
-            }
+            },
         };
         this.alertWindow = windowsParam;
     }
@@ -473,8 +487,11 @@ export class WorkflowComponent extends WidgetPlatform implements
     async createСonnection(body: ICreateConnection): Promise<void> {
         try {
             this.isLoading = true;
-            await this.workflowService
-                .putActionsConnections(this.chooseModules.uid, this.chooseScenarios.uid, body);
+            await this.workflowService.putActionsConnections(
+                this.chooseModules.uid,
+                this.chooseScenarios.uid,
+                body
+            );
             await this.loadWorkfkowAvailbleActions();
             this.isLoading = false;
         } catch (error) {
@@ -483,14 +500,11 @@ export class WorkflowComponent extends WidgetPlatform implements
         }
     }
 
-
     // #endregion
 
     // #region GRIDSTER
 
-    private initGridster() {
-
-    }
+    private initGridster() {}
 
     public sizeGrid(): void {
         const widthScreen = document.getElementById('gridSize').clientWidth;
@@ -532,22 +546,22 @@ export class WorkflowComponent extends WidgetPlatform implements
 
     async emptyCellClick(event: DragEvent, item: IGridsterItemLocal): Promise<void> {
         if (this.dragItem) {
-            const el = this.actions.find(val => val.name === this.dragItem);
+            const el = this.actions.find((val) => val.name === this.dragItem);
             try {
-                const newAction = await this.workflowService
-                    .postAddActionsInScenario(this.chooseModules.uid,
-                        this.chooseScenarios.uid, el?.uid);
+                const newAction = await this.workflowService.postAddActionsInScenario(
+                    this.chooseModules.uid,
+                    this.chooseScenarios.uid,
+                    el?.uid
+                );
                 item.cols = this.itemCol;
                 item.rows = this.itemRow;
                 item.type = this.dragItem;
                 item.scenarioAction = newAction.uid;
                 item.action = newAction.actionUid;
 
-
                 this.items.push(item);
                 this.snackBar.openSnackBar('Действие добавлено в сценарий');
-            } catch (error) {
-            }
+            } catch (error) {}
         }
         this.dragItem = null;
     }
@@ -570,10 +584,14 @@ export class WorkflowComponent extends WidgetPlatform implements
                 this.alertWindow = null;
                 this.isLoading = true;
                 try {
-                    await this.workflowService
-                        .deleteActionsScenario(this.chooseModules.uid,
-                            this.chooseScenarios.uid, scenarioAction);
-                    const idx = this.items.findIndex(val => val.scenarioAction === scenarioAction);
+                    await this.workflowService.deleteActionsScenario(
+                        this.chooseModules.uid,
+                        this.chooseScenarios.uid,
+                        scenarioAction
+                    );
+                    const idx = this.items.findIndex(
+                        (val) => val.scenarioAction === scenarioAction
+                    );
                     if (idx >= 0) {
                         this.items.splice(idx, 1);
                     }
@@ -583,10 +601,10 @@ export class WorkflowComponent extends WidgetPlatform implements
                     this.isLoading = false;
                 }
             },
-            closeFunction: () => { },
+            closeFunction: () => {},
             cancelFunction: () => {
                 this.alertWindow = null;
-            }
+            },
         };
         this.alertWindow = windowsParam;
     }
@@ -603,7 +621,7 @@ export class WorkflowComponent extends WidgetPlatform implements
                 try {
                     this.isLoading = true;
                     await this.workflowService.deleteScenario(this.chooseModules.uid, scenarioId);
-                    const idx = this.scenarios.findIndex(val => val.uid === scenarioId);
+                    const idx = this.scenarios.findIndex((val) => val.uid === scenarioId);
                     if (idx >= 0) {
                         this.scenarios.splice(idx, 1);
                     }
@@ -613,16 +631,15 @@ export class WorkflowComponent extends WidgetPlatform implements
                     this.isLoading = false;
                 }
             },
-            closeFunction: () => { },
+            closeFunction: () => {},
             cancelFunction: () => {
                 this.alertWindow = null;
-            }
+            },
         };
         this.alertWindow = windowsParam;
     }
 
     // #endregion
-
 
     chooseGridItem(event: MouseEvent, item: IGridsterItemLocal): void {
         event.stopPropagation();
@@ -649,8 +666,10 @@ export class WorkflowComponent extends WidgetPlatform implements
     async getScenarioActionProp(scenarioActionId: string): Promise<void> {
         try {
             this.isLoading = true;
-            await this.workflowService
-                .getScenarioActionProperties(this.chooseScenarios.uid, scenarioActionId);
+            await this.workflowService.getScenarioActionProperties(
+                this.chooseScenarios.uid,
+                scenarioActionId
+            );
             this.isLoading = false;
         } catch (error) {
             this.isLoading = false;
@@ -660,9 +679,11 @@ export class WorkflowComponent extends WidgetPlatform implements
     async getActionProp(actionId: string): Promise<void> {
         try {
             this.isLoading = true;
-            const ans = await this.workflowService
-                .getActionProperties(this.chooseModules.uid, actionId);
-            const el = ans.find(val => val.name === 'EmailSubject');
+            const ans = await this.workflowService.getActionProperties(
+                this.chooseModules.uid,
+                actionId
+            );
+            const el = ans.find((val) => val.name === 'EmailSubject');
             this.emailAction = [];
             this.tableAction = [];
             if (el) {
@@ -675,7 +696,6 @@ export class WorkflowComponent extends WidgetPlatform implements
             this.isLoading = false;
         }
     }
-
 
     // #region  Chips
 
@@ -713,7 +733,7 @@ export class WorkflowComponent extends WidgetPlatform implements
         const workspaceTable: IWorkspaceTable = {
             acceptFunction: (data) => {
                 this.alertWorkspaceTable = null;
-                data.forEach(val => {
+                data.forEach((val) => {
                     if (type === 'to') {
                         this.valuesInputChipsTo.push(val.email);
                     } else {
@@ -723,9 +743,8 @@ export class WorkflowComponent extends WidgetPlatform implements
             },
             cancelFunction: () => {
                 this.alertWorkspaceTable = null;
-            }
+            },
         };
         this.alertWorkspaceTable = workspaceTable;
     }
-
 }
