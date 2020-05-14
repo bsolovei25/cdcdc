@@ -1,6 +1,9 @@
 // VARIABLES
-$col-width: 30px;
-$axis-padding-left: 20px;
+:host {
+  --col-width: 30px;
+  --axis-padding-left: 20px;
+  --graph-padding-top: 5px;
+}
 // VARIABLES
 
 .diagram {
@@ -183,8 +186,7 @@ $axis-padding-left: 20px;
 
     box-sizing: border-box;
 
-    padding-left: 30px; // временно
-    padding-bottom: 30px;
+    padding: var(--graph-padding-top) 0 30px var(--axis-padding-left);
 
     display: flex;
     flex-direction: row;
@@ -195,7 +197,7 @@ $axis-padding-left: 20px;
       position: relative;
       z-index: 2;
       height: 100%;
-      width: $col-width;
+      width: var(--col-width);
     }
 
     &__axis {
@@ -213,11 +215,11 @@ $axis-padding-left: 20px;
       &-x {
         position: absolute;
 
-        width: calc(100% - 20px);
+        width: calc(100% - var(--axis-padding-left));
         height: 26px;
 
         bottom: 0;
-        left: $axis-padding-left;
+        left: var(--axis-padding-left);
 
         box-sizing: border-box;
         border-top: 1px solid var(--color-axis);
@@ -231,7 +233,7 @@ $axis-padding-left: 20px;
 
         &__item {
           height: max-content;
-          width: $col-width;
+          width: var(--col-width);
 
           display: flex;
           flex-direction: column;
@@ -246,7 +248,7 @@ $axis-padding-left: 20px;
       &-y {
         position: absolute;
 
-        width: $axis-padding-left;
+        width: var(--axis-padding-left);
         height: calc(100% - 10px);
 
         top: 0;
@@ -264,7 +266,7 @@ $axis-padding-left: 20px;
 
         &__item {
           height: max-content;
-          width: $col-width;
+          width: var(--col-width);
 
           display: flex;
           flex-direction: column;
