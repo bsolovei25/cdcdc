@@ -258,10 +258,12 @@ import { SmpEventsComponent } from './widgets/SMP/smp-events/smp-events.componen
 import { SmpEventsHeaderComponent } from './widgets/SMP/smp-events/components/smp-events-header/smp-events-header.component';
 import { SmpEventsCardComponent } from './widgets/SMP/smp-events/components/smp-events-card/smp-events-card.component';
 import { AsusEventComponent } from './widgets/workspace/asus-event/asus-event.component';
-import { ProductGroupsComponent } from './widgets/SMP/product-groups/product-groups.component';
 import { ProductGroupsLeftComponent } from './widgets/SMP/product-groups/components/product-groups-left/product-groups-left.component';
 import { ProductGroupsMiddleComponent } from './widgets/SMP/product-groups/components/product-groups-middle/product-groups-middle.component';
 import { ProductGroupsRightComponent } from './widgets/SMP/product-groups/components/product-groups-right/product-groups-right.component';
+import { ProductGroupsTableComponent } from './widgets/SMP/product-groups/components/product-groups-table/product-groups-table.component';
+import { ProductGroupsShortComponent } from './widgets/SMP/product-groups-short/product-groups-short.component';
+import { ProductGroupsComponent } from './widgets/SMP/product-groups/product-groups.component';
 
 @NgModule({
   declarations: [
@@ -493,6 +495,8 @@ import { ProductGroupsRightComponent } from './widgets/SMP/product-groups/compon
     ProductGroupsLeftComponent,
     ProductGroupsMiddleComponent,
     ProductGroupsRightComponent,
+    ProductGroupsTableComponent,
+    ProductGroupsShortComponent,
   ],
   entryComponents: [
     LineChartComponent,
@@ -562,6 +566,7 @@ import { ProductGroupsRightComponent } from './widgets/SMP/product-groups/compon
     PerformanceProgressIndicatorsComponent,
     QualityStockComponent,
     ProductGroupsComponent,
+    ProductGroupsShortComponent,
   ],
   exports: [HomeComponent],
   imports: [
