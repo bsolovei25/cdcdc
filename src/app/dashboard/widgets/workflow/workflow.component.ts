@@ -89,6 +89,21 @@ export interface IActionEmail {
     uid: string;
 }
 
+export interface IActionEmailProps {
+    propertyGuid: string;
+    propertyName: 'EmailSubject' | 'EmailTo' | 'EmailCopy' | 'EmailBody';
+    value: string;
+}
+
+export interface IActionEmailPropsUI {
+    emailSubject: string;
+    emailTo: FormControl;
+    emailToArray: string[];
+    emailCopy: FormControl;
+    emailCopyArray: string[];
+    emailBody: string;
+}
+
 export interface IActionTable {
     description: string;
     name: 'CheckWarningKey' | 'CheckWarningValue';
@@ -116,6 +131,15 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
 
     tableAction: IActionTable[] = [];
     emailAction: IActionEmail[] = [];
+    emailPropAction: IActionEmailProps[] = [];
+    emailPropActionUI: IActionEmailPropsUI = {
+        emailSubject: '',
+        emailTo: new FormControl(''),
+        emailToArray: [],
+        emailCopy: new FormControl(''),
+        emailCopyArray: [],
+        emailBody: '',
+    };
 
     alertWindow: IAlertWindowModel;
     alertInput: IAlertInputModel;
@@ -148,6 +172,8 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     selectable: boolean = true;
     removable: boolean = true;
     separatorKeysCodes: number[] = [ENTER, COMMA];
+
+    emailText: string;
 
     @ViewChild('splitBar') splitBar: ElementRef<HTMLElement>;
     @ViewChild('splitTop') splitTop: ElementRef<HTMLElement>;
@@ -666,14 +692,36 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     async getScenarioActionProp(scenarioActionId: string): Promise<void> {
         try {
             this.isLoading = true;
-            await this.workflowService.getScenarioActionProperties(
+            const ans: IActionEmailProps[] = await this.workflowService.getScenarioActionProperties(
                 this.chooseScenarios.uid,
                 scenarioActionId
             );
+            this.propsAction(ans);
             this.isLoading = false;
         } catch (error) {
             this.isLoading = false;
         }
+    }
+
+    propsAction(ans: IActionEmailProps[]): void {
+        ans.forEach((val) => {
+            switch (val.propertyName) {
+                case 'EmailSubject':
+                    this.emailPropActionUI.emailSubject = val.value;
+                    break;
+                case 'EmailTo':
+                    this.emailPropActionUI.emailToArray = val.value.split(';');
+                    break;
+                case 'EmailCopy':
+                    this.emailPropActionUI.emailCopyArray = val.value.split(';');
+                    break;
+                case 'EmailBody':
+                    this.emailPropActionUI.emailBody = val.value;
+                    break;
+                default:
+                    break;
+            }
+        });
     }
 
     async getActionProp(actionId: string): Promise<void> {
@@ -705,19 +753,26 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         this.valueCtrl.setValue(null);
     }
 
-    add(event: MatChipInputEvent): void {
+    add(event: MatChipInputEvent, type: 'to' | 'copy'): void {
         const input = event.input;
         const value = event.value;
 
         if ((value || '').trim()) {
-            this.valuesInputChipsTo.push(value.trim());
+            if ('to') {
+                this.emailPropActionUI.emailToArray.push(value.trim());
+            } else {
+                this.emailPropActionUI.emailCopyArray.push(value.trim());
+            }
         }
 
         if (input) {
             input.value = '';
         }
-
-        this.valueCtrl.setValue(null);
+        if ('to') {
+            this.emailPropActionUI.emailTo.setValue(null);
+        } else {
+            this.emailPropActionUI.emailCopy.setValue(null);
+        }
     }
 
     remove(fruit: string): void {
@@ -735,9 +790,9 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                 this.alertWorkspaceTable = null;
                 data.forEach((val) => {
                     if (type === 'to') {
-                        this.valuesInputChipsTo.push(val.email);
+                        this.emailPropActionUI.emailToArray.push(val.email);
                     } else {
-                        this.valuesInputChipsCopy.push(val.email);
+                        this.emailPropActionUI.emailCopyArray.push(val.email);
                     }
                 });
             },
@@ -748,7 +803,41 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         this.alertWorkspaceTable = workspaceTable;
     }
 
-    emailText(event): void {
-        console.log(event);
+    onEmailText(event): void {
+        this.emailText = event;
+    }
+
+    async saveProperty(): Promise<void> {
+        this.isLoading = true;
+        this.emailAction.forEach(async (value) => {
+            let body;
+            if (value.name === 'EmailBody') {
+                body = { value: this.emailText };
+            }
+            if (value.name === 'EmailTo') {
+                const array = this.emailPropActionUI.emailToArray.join(';');
+                body = { value: array };
+            }
+
+            if (value.name === 'EmailCopy') {
+                const array = this.emailPropActionUI.emailCopyArray.join(';');
+                body = { value: array };
+            }
+            if (value.name === 'EmailSubject') {
+                body = { value: this.emailPropActionUI.emailSubject };
+            }
+            try {
+                await this.workflowService.putProps(
+                    this.chooseScenarios.uid,
+                    this.activeActions.scenarioAction,
+                    value.uid,
+                    body
+                );
+                this.isLoading = false;
+                this.snackBar.openSnackBar('Параметры сохранены');
+            } catch (error) {
+                this.isLoading = false;
+            }
+        });
     }
 }

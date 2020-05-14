@@ -1,10 +1,14 @@
 <ng-container *ngIf="info?.isShow">
-  <div class="loading-shade loading-shade__blur">
+  <div
+    class="loading-shade loading-shade__blur"
+    (mousedown)="$event.stopPropagation()"
+    (touchstart)="$event.stopPropagation()"
+  >
     <div class="confirm-container">
       <div class="confirm-container__body confirm-container-body">
         <div class="confirm-container-body__header confirm-container-body-header">
           <div class="confirm-container-body-header__icon">
-            <img src="../../../assets/icons/widgets/alert-window/notice.svg">
+            <img src="../../../assets/icons/widgets/alert-window/notice.svg" />
           </div>
           <span>Обратите внимание</span>
         </div>

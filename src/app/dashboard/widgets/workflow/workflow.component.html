@@ -177,7 +177,7 @@
 
         <div class="workflow__scenario__body" #containerWorkflow>
           <div class="workflow__scenario__body__alert">
-            <div сlass="workflow__scenario__body__alert__text" style="">
+            <div сlass="workflow__scenario__body__alert__text">
               Оповещение сотрудников при выполнение действии
             </div>
             <div
@@ -188,6 +188,7 @@
             padding: 4px 17px;
             font-size: 12px;
             align-items: center; display: flex;margin-left: 10px;"
+              (click)="saveProperty()"
             >
               Сохранить
             </div>
@@ -286,7 +287,10 @@
                     {{ email.description }}
                   </div>
                   <div class="email__subject__value">
-                    <input placeholder="Введите тему..." />
+                    <input
+                      placeholder="Введите тему..."
+                      [(ngModel)]="emailPropActionUI.emailSubject"
+                    />
                   </div>
                 </div>
                 <div class="email__recipient" *ngIf="email.name === 'EmailTo'">
@@ -298,7 +302,7 @@
                     <mat-form-field class="example-chip-list">
                       <mat-chip-list #chipList aria-label="valueInput selection">
                         <mat-chip
-                          *ngFor="let value of valuesInputChipsTo"
+                          *ngFor="let value of emailPropActionUI.emailToArray"
                           [selectable]="selectable"
                           [removable]="removable"
                           (removed)="remove(value)"
@@ -315,7 +319,7 @@
                         <input
                           placeholder="Введите E-mail..."
                           #valueInputChips
-                          [formControl]="valueCtrl"
+                          [formControl]="emailPropActionUI?.emailTo"
                           [matChipInputFor]="chipList"
                           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                           (matChipInputTokenEnd)="add($event)"
@@ -333,7 +337,7 @@
                     <mat-form-field class="example-chip-list">
                       <mat-chip-list #chipList aria-label="valueInput selection">
                         <mat-chip
-                          *ngFor="let value of valuesInputChipsCopy"
+                          *ngFor="let value of emailPropActionUI.emailCopyArray"
                           [selectable]="selectable"
                           [removable]="removable"
                           (removed)="remove(value)"
@@ -350,7 +354,7 @@
                         <input
                           placeholder="Введите E-mail..."
                           #valueInputChips
-                          [formControl]="valueCtrl"
+                          [formControl]="emailPropActionUI?.emailCopy"
                           [matChipInputFor]="chipList"
                           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                           (matChipInputTokenEnd)="add($event)"
@@ -360,7 +364,10 @@
                   </div>
                 </div>
                 <div class="email__text" *ngIf="email.name === 'EmailBody'">
-                  <evj-email-editor (emailChange)="emailText($event)"></evj-email-editor>
+                  <evj-email-editor
+                    (emailChange)="onEmailText($event)"
+                    [email]="emailPropActionUI?.emailBody"
+                  ></evj-email-editor>
                 </div>
               </ng-container>
             </div>
