@@ -707,6 +707,11 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         }
     }
 
+    validateEmail(email: string): boolean {
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    }
+
     async getScenarioActionProp(scenarioActionId: string): Promise<void> {
         try {
             this.isLoading = true;
@@ -775,21 +780,25 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         const input = event.input;
         const value = event.value;
 
-        if ((value || '').trim()) {
-            if ('to') {
-                this.emailPropActionUI.emailToArray.push(value.trim());
-            } else {
-                this.emailPropActionUI.emailCopyArray.push(value.trim());
+        if (this.validateEmail(value)) {
+            if ((value || '').trim()) {
+                if (type === 'to') {
+                    this.emailPropActionUI.emailToArray.push(value.trim());
+                } else {
+                    this.emailPropActionUI.emailCopyArray.push(value.trim());
+                }
             }
-        }
 
-        if (input) {
-            input.value = '';
-        }
-        if ('to') {
-            this.emailPropActionUI.emailTo.setValue(null);
+            if (input) {
+                input.value = '';
+            }
+            if (type === 'to') {
+                this.emailPropActionUI.emailTo.setValue(null);
+            } else {
+                this.emailPropActionUI.emailCopy.setValue(null);
+            }
         } else {
-            this.emailPropActionUI.emailCopy.setValue(null);
+            this.snackBar.openSnackBar('Некорректно введен email', 'snackbar-red');
         }
     }
 
