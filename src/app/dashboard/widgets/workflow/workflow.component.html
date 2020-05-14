@@ -64,13 +64,14 @@
                     [class.available-scenario__body__item__container__edit-block--active]="chooseScenarios === scen"
                   >
                     <svg-icon
+                      (click)="editScenario($event, scen)"
                       class="available-scenario__body__item__container__edit-block__edit"
                       src="./assets/icons/widgets/workflow/edit_w.svg"
                       [svgStyle]="{ 'width.px':30, 'height.px':30 }"
                     ></svg-icon>
                     <div
                       class="available-scenario__body__item__container__edit-block__delete-block"
-                      (click)="deleteScenario(scen.uid)"
+                      (click)="deleteScenario($event, scen.uid)"
                     >
                       <div
                         class="available-scenario__body__item__container__edit-block__delete-block__delete"
@@ -272,13 +273,10 @@
               </table>
             </div>
             <!-- Email -->
-            <div class="email">
+            <div class="email" *ngIf="emailAction.length > 0">
               <ng-container *ngFor="let email of emailAction">
                 <div class="email__subject" *ngIf="email.name === 'EmailSubject'">
-                  <div
-                    class="
-                   email__subject__title"
-                  >
+                  <div class="email__subject__title">
                     {{ email.description }}
                   </div>
                   <div class="email__subject__value">
@@ -300,7 +298,7 @@
                           *ngFor="let value of emailPropActionUI.emailToArray"
                           [selectable]="selectable"
                           [removable]="removable"
-                          (removed)="remove(value)"
+                          (removed)="remove(value, 'to')"
                         >
                           {{ value }}
                           <mat-icon matChipRemove>
@@ -335,7 +333,7 @@
                           *ngFor="let value of emailPropActionUI.emailCopyArray"
                           [selectable]="selectable"
                           [removable]="removable"
-                          (removed)="remove(value)"
+                          (removed)="remove(value, 'copy')"
                         >
                           {{ value }}
                           <mat-icon matChipRemove>

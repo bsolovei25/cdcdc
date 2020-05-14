@@ -14,7 +14,6 @@ export class EmailEditorComponent {
         return this.emailValue;
     }
     set email(val: string) {
-        console.log(val);
         this.emailValue = val;
         this.emailChange.emit(this.emailValue);
     }

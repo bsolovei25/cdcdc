@@ -165,9 +165,6 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     dragItem: 'SendEmail' | 'CheckWarning' | 'CheckExpired';
 
     // Chips
-    valueCtrl: FormControl = new FormControl();
-    valuesInputChipsTo: string[] = [];
-    valuesInputChipsCopy: string[] = [];
     visible: boolean = true;
     selectable: boolean = true;
     removable: boolean = true;
@@ -246,6 +243,20 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         }
     }
 
+    resetScenario(): void {
+        this.emailPropActionUI = {
+            emailSubject: '',
+            emailTo: new FormControl(''),
+            emailToArray: [],
+            emailCopy: new FormControl(''),
+            emailCopyArray: [],
+            emailBody: '',
+        };
+        this.tableAction = [];
+        this.emailAction = [];
+        this.emailPropAction = [];
+    }
+
     async chooseSystem(item: MatSelectChange): Promise<void> {
         this.isLoading = true;
         this.chooseModules = item.value;
@@ -253,6 +264,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     }
 
     chooseScen(scen: IScenarios): void {
+        this.resetScenario();
         this.chooseScenarios = this.chooseScenarios === scen ? null : scen;
         if (this.chooseScenarios) {
             this.isLoading = true;
@@ -498,9 +510,13 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
             questionText: 'Вы уверены, что хотите сделать связь?',
             acceptText: 'Да',
             cancelText: 'Нет',
-            acceptFunction: () => {
+            acceptFunction: async () => {
                 this.alertWindow = null;
-                this.createСonnection(body);
+                try {
+                    await this.createСonnection(body);
+                    await this.loadWorkfkowAvailbleActions();
+                    this.resetScenario();
+                } catch (error) {}
             },
             closeFunction: () => {},
             cancelFunction: () => {
@@ -518,7 +534,6 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                 this.chooseScenarios.uid,
                 body
             );
-            await this.loadWorkfkowAvailbleActions();
             this.isLoading = false;
         } catch (error) {
             this.isLoading = false;
@@ -635,7 +650,8 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         this.alertWindow = windowsParam;
     }
 
-    async deleteScenario(scenarioId: string): Promise<void> {
+    async deleteScenario(event: MouseEvent, scenarioId: string): Promise<void> {
+        event.stopPropagation();
         const windowsParam: IAlertWindowModel = {
             isShow: true,
             questionText: 'Вы уверены, что хотите удалить?',
@@ -651,6 +667,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                     if (idx >= 0) {
                         this.scenarios.splice(idx, 1);
                     }
+                    this.chooseScenarios = null;
                     this.isLoading = false;
                     this.snackBar.openSnackBar('Сценарий удален');
                 } catch (error) {
@@ -671,6 +688,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         event.stopPropagation();
         if (!item) {
             this.activeActions = null;
+            this.resetScenario();
         } else {
             if (this.activeActions !== item) {
                 if (this.activeActions) {
@@ -748,9 +766,9 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     // #region  Chips
 
     selected(event: MatAutocompleteSelectedEvent): void {
-        this.valuesInputChipsTo.push(event.option.viewValue);
-        this.valueInputChips.nativeElement.value = '';
-        this.valueCtrl.setValue(null);
+        // this.valuesInputChipsTo.push(event.option.viewValue);
+        // this.valueInputChips.nativeElement.value = '';
+        // this.valueCtrl.setValue(null);
     }
 
     add(event: MatChipInputEvent, type: 'to' | 'copy'): void {
@@ -775,10 +793,17 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         }
     }
 
-    remove(fruit: string): void {
-        const index = this.valuesInputChipsTo.indexOf(fruit);
-        if (index >= 0) {
-            this.valuesInputChipsTo.splice(index, 1);
+    remove(value: string, type: 'to' | 'copy'): void {
+        if (type === 'to') {
+            const index = this.emailPropActionUI.emailToArray.indexOf(value);
+            if (index >= 0) {
+                this.emailPropActionUI.emailToArray.splice(index, 1);
+            }
+        } else {
+            const index = this.emailPropActionUI.emailCopyArray.indexOf(value);
+            if (index >= 0) {
+                this.emailPropActionUI.emailCopyArray.splice(index, 1);
+            }
         }
     }
 
@@ -839,5 +864,40 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                 this.isLoading = false;
             }
         });
+    }
+
+    async editScenario(event: MouseEvent, scen: IScenarios): Promise<void> {
+        event.stopPropagation();
+
+        const inputParam: IAlertInputModel = {
+            title: 'Изменение имени сценария',
+            placeholder: 'Введите название',
+            acceptText: 'Изменить',
+            cancelText: 'Отмена',
+            value: scen.name,
+            acceptFunction: async (name: string): Promise<void> => {
+                this.alertInput = null;
+                this.isLoading = true;
+                try {
+                    this.isLoading = true;
+                    const body: ICreateConnection = {
+                        scenario: {
+                            name: scen.name,
+                        },
+                        actions: [],
+                    };
+                    await this.createСonnection(body);
+                    scen.name = name;
+                    this.snackBar.openSnackBar(`Сценарий ${name} переименован`);
+                    this.isLoading = false;
+                } catch (error) {
+                    this.isLoading = false;
+                }
+            },
+            cancelFunction: () => {
+                this.alertInput = null;
+            },
+        };
+        this.alertInput = inputParam;
     }
 }
