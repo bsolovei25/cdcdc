@@ -16,7 +16,6 @@ import {
     GridsterItemComponentInterface,
 } from 'angular-gridster2';
 import { WorkflowService } from '../../services/widgets/workflow.service';
-import { MatSelectChange } from '@angular/material/select';
 import 'leader-line';
 import { IAlertWindowModel } from '../../../@shared/models/alert-window.model';
 import { SnackBarService } from '../../services/snack-bar.service';
@@ -28,21 +27,9 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { IWorkspaceTable } from './workflow-table/workflow-table.component';
+import { IModules, IScenarios } from './workflow-list/workflow-list.component';
+
 declare let LeaderLine: any;
-
-export interface IModules {
-    createdAt: Date;
-    name: string;
-    uid: string;
-}
-
-export interface IScenarios {
-    createdAt: Date;
-    name: string;
-    status: 'stopped';
-    uid: string;
-    wfSystemUid: string;
-}
 
 export interface IActions {
     actionUrl: string;
@@ -50,6 +37,16 @@ export interface IActions {
     name: 'CheckWarning' | 'SendEmail';
     uid: string;
     wfSystemUid: string;
+}
+export interface ICreateConnection {
+    scenario: {
+        name: string;
+    };
+    actions: {
+        scenarioAction: string;
+        previousScenarioAction?: string;
+        nextScenarioAction?: string;
+    }[];
 }
 
 export interface IActionScenario {
@@ -69,17 +66,6 @@ export interface IActionsScenario {
 
 interface IGridsterItemLocal extends GridsterItem, IActionScenario {
     type: 'SendEmail' | 'CheckWarning' | 'CheckExpired';
-}
-
-interface ICreateConnection {
-    scenario: {
-        name: string;
-    };
-    actions: {
-        scenarioAction: string;
-        previousScenarioAction?: string;
-        nextScenarioAction?: string;
-    }[];
 }
 
 export interface IActionEmail {
@@ -133,7 +119,8 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     private itemCol: number = 4;
     private itemRow: number = 4;
 
-    private sizeTimeout: any;
+    chooseModules: IModules;
+    chooseScenarios: IScenarios;
 
     tableAction: IActionTable[] = [];
     tableActionProp: IActionTableProp[] = [];
@@ -155,16 +142,9 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
 
     leaderLine = [];
 
-    modules: IModules[];
-    chooseModules: IModules;
-
-    scenarios: IScenarios[];
-    chooseScenarios: IScenarios;
-
     actions: IActions[];
 
     availbleActions: IActionsScenario;
-
     activeActions: IGridsterItemLocal;
 
     isLoading: boolean = false;
@@ -238,7 +218,27 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
 
     ngOnInit(): void {
         super.widgetInit();
-        this.loadItem();
+        this.workflowService.chooseModules$.subscribe((module) => {
+            this.chooseModules = module;
+        });
+        this.workflowService.chooseScenario$.subscribe((scenario) => {
+            this.resetScenario();
+            this.chooseScenarios = scenario;
+            if (this.chooseScenarios) {
+                this.isLoading = true;
+                this.loadActions(this.chooseModules.uid);
+            } else {
+                if (this.leaderLine.length > 0) {
+                    this.leaderLine.forEach((value) => {
+                        value.setInterval = 0;
+                        clearInterval(value.setInterval);
+                        value.remove();
+                    });
+                }
+                this.items = [];
+                this.leaderLine = [];
+            }
+        });
     }
 
     ngAfterViewInit(): void {
@@ -271,31 +271,6 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         this.activeActions = null;
     }
 
-    async chooseSystem(item: MatSelectChange): Promise<void> {
-        this.isLoading = true;
-        this.chooseModules = item.value;
-        this.loadScenarios(this.chooseModules.uid);
-    }
-
-    chooseScen(scen: IScenarios): void {
-        this.resetScenario();
-        this.chooseScenarios = this.chooseScenarios === scen ? null : scen;
-        if (this.chooseScenarios) {
-            this.isLoading = true;
-            this.loadActions(this.chooseModules.uid);
-        } else {
-            if (this.leaderLine.length > 0) {
-                this.leaderLine.forEach((value) => {
-                    value.setInterval = 0;
-                    clearInterval(value.setInterval);
-                    value.remove();
-                });
-            }
-            this.items = [];
-            this.leaderLine = [];
-        }
-    }
-
     // #region SLIDER
 
     slider(): void {
@@ -326,40 +301,13 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
 
         document.addEventListener('mouseup', () => {
             mouseIsDown = false;
+            this.resizeGridsterElement();
         });
     }
 
     // #endregion
 
     // #region LOAD
-
-    private async loadItem(): Promise<void> {
-        this.isLoading = true;
-        const dataLoadQueue: Promise<void>[] = [];
-        dataLoadQueue.push(
-            this.workflowService.getWorkfkowModules().then((data) => {
-                this.modules = data;
-            })
-        );
-        if (dataLoadQueue.length > 0) {
-            try {
-                await Promise.all(dataLoadQueue);
-                this.isLoading = false;
-            } catch (err) {
-                this.isLoading = false;
-                console.error(err);
-            }
-        }
-    }
-
-    private async loadScenarios(idModule: string): Promise<void> {
-        try {
-            this.scenarios = await this.workflowService.getWorkfkowScenarios(idModule);
-            this.isLoading = false;
-        } catch (error) {
-            this.isLoading = false;
-        }
-    }
 
     private async loadActions(idModule: string): Promise<void> {
         try {
@@ -454,55 +402,6 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         });
     }
 
-    startStopScenario(scenario: IScenarios): void {
-        if (scenario.status === 'stopped') {
-            this.startScenario(scenario.uid);
-        } else {
-            this.stopScenario(scenario.uid);
-        }
-    }
-
-    async startScenario(scenarioId: string): Promise<void> {
-        try {
-            this.workflowService.putScenarioStart(this.chooseModules.uid, scenarioId);
-        } catch (error) {}
-    }
-
-    async stopScenario(scenarioId: string): Promise<void> {
-        try {
-            this.workflowService.putScenarioStop(this.chooseModules.uid, scenarioId);
-        } catch (error) {}
-    }
-
-    async postScenarios(): Promise<void> {
-        const inputParam: IAlertInputModel = {
-            title: 'Создание нового сценария',
-            placeholder: 'Введите название',
-            acceptText: 'Добавить',
-            cancelText: 'Отмена',
-            value: '',
-            acceptFunction: async (name): Promise<void> => {
-                this.alertInput = null;
-                this.isLoading = true;
-                try {
-                    this.isLoading = true;
-                    const ans = await this.workflowService.postScenarios(this.chooseModules.uid, {
-                        name,
-                    });
-                    this.scenarios.push(ans);
-                    this.snackBar.openSnackBar(`Сценарий ${ans.name} добавлен`);
-                    this.isLoading = false;
-                } catch (error) {
-                    this.isLoading = false;
-                }
-            },
-            cancelFunction: () => {
-                this.alertInput = null;
-            },
-        };
-        this.alertInput = inputParam;
-    }
-
     putConnect(previousScenarioAction: string, id: string): void {
         const body: ICreateConnection = {
             scenario: {
@@ -580,7 +479,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     }
 
     public onResize(): void {
-        this.sizeGrid();
+        // this.sizeGrid();
         this.resizeGridsterElement();
     }
 
@@ -667,38 +566,6 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         this.alertWindow = windowsParam;
     }
 
-    async deleteScenario(event: MouseEvent, scenarioId: string): Promise<void> {
-        event.stopPropagation();
-        const windowsParam: IAlertWindowModel = {
-            isShow: true,
-            questionText: 'Вы уверены, что хотите удалить?',
-            acceptText: 'Удалить',
-            cancelText: 'Нет',
-            acceptFunction: async (): Promise<void> => {
-                this.alertWindow = null;
-                this.isLoading = true;
-                try {
-                    this.isLoading = true;
-                    await this.workflowService.deleteScenario(this.chooseModules.uid, scenarioId);
-                    const idx = this.scenarios.findIndex((val) => val.uid === scenarioId);
-                    if (idx >= 0) {
-                        this.scenarios.splice(idx, 1);
-                    }
-                    this.chooseScenarios = null;
-                    this.isLoading = false;
-                    this.snackBar.openSnackBar('Сценарий удален');
-                } catch (error) {
-                    this.isLoading = false;
-                }
-            },
-            closeFunction: () => {},
-            cancelFunction: () => {
-                this.alertWindow = null;
-            },
-        };
-        this.alertWindow = windowsParam;
-    }
-
     // #endregion
 
     chooseGridItem(event: MouseEvent, item: IGridsterItemLocal): void {
@@ -755,10 +622,14 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                     this.emailPropActionUI.emailSubject = val.value;
                     break;
                 case 'EmailTo':
-                    this.emailPropActionUI.emailToArray = val.value.split(';');
+                    if (val.value !== '') {
+                        this.emailPropActionUI.emailToArray = val.value.split(';');
+                    }
                     break;
                 case 'EmailCopy':
-                    this.emailPropActionUI.emailCopyArray = val.value.split(';');
+                    if (val.value !== '') {
+                        this.emailPropActionUI.emailCopyArray = val.value.split(';');
+                    }
                     break;
                 case 'EmailBody':
                     this.emailPropActionUI.emailBody = val.value;
@@ -926,39 +797,5 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                 }
             });
         }
-    }
-
-    async editScenario(event: MouseEvent, scen: IScenarios): Promise<void> {
-        event.stopPropagation();
-        const inputParam: IAlertInputModel = {
-            title: 'Изменение имени сценария',
-            placeholder: 'Введите название',
-            acceptText: 'Изменить',
-            cancelText: 'Отмена',
-            value: scen.name,
-            acceptFunction: async (name: string): Promise<void> => {
-                this.alertInput = null;
-                this.isLoading = true;
-                try {
-                    this.isLoading = true;
-                    const body: ICreateConnection = {
-                        scenario: {
-                            name: scen.name,
-                        },
-                        actions: [],
-                    };
-                    await this.createСonnection(body);
-                    scen.name = name;
-                    this.snackBar.openSnackBar(`Сценарий ${name} переименован`);
-                    this.isLoading = false;
-                } catch (error) {
-                    this.isLoading = false;
-                }
-            },
-            cancelFunction: () => {
-                this.alertInput = null;
-            },
-        };
-        this.alertInput = inputParam;
     }
 }

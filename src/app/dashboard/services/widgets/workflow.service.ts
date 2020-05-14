@@ -3,20 +3,23 @@ import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '../../../services/appConfigService';
 import { IFolderReport } from '../../components/report/reports.component';
 import {
-    IModules,
-    IScenarios,
     IActions,
     IActionsScenario,
     IActionEmail,
     IActionTable,
     IActionEmailProps,
 } from '../../widgets/workflow/workflow.component';
+import { BehaviorSubject } from 'rxjs';
+import { IModules, IScenarios } from '../../widgets/workflow/workflow-list/workflow-list.component';
 
 @Injectable({
     providedIn: 'root',
 })
 export class WorkflowService {
     private readonly restUrl: string;
+
+    chooseModules$: BehaviorSubject<IModules> = new BehaviorSubject<IModules>(null);
+    chooseScenario$: BehaviorSubject<IScenarios> = new BehaviorSubject<IScenarios>(null);
 
     constructor(public http: HttpClient, configService: AppConfigService) {
         this.restUrl = configService.restUrl;
