@@ -58,6 +58,7 @@ import { ImplementationPlanComponent } from '../../widgets/SMP/implementation-pl
 import { PerformanceProgressIndicatorsComponent } from '../../widgets/SMP/performance-progress-indicators/performance-progress-indicators.component';
 import { QualityStockComponent } from '../../widgets/SMP/quality-stock/quality-stock.component';
 import { ProductGroupsComponent } from '../../widgets/SMP/product-groups/product-groups.component';
+import { ProductGroupsShortComponent } from '../../widgets/smp/product-groups-short/product-groups-short.component';
 
 export const WIDGETS = {
     'pie-diagram': WidgetPiesComponent,
@@ -121,4 +122,5 @@ export const WIDGETS = {
     'performance-progress-indicators': PerformanceProgressIndicatorsComponent,
     'quality-stock': QualityStockComponent,
     'product-groups': ProductGroupsComponent,
+    'product-groups-short': ProductGroupsShortComponent,
 };

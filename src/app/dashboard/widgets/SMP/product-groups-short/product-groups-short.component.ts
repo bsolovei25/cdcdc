@@ -1,39 +1,15 @@
-import { Component, OnInit, OnDestroy, Inject, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, AfterViewInit } from '@angular/core';
+import { IProducts } from '../product-groups/product-groups.component';
 import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 
-export interface IProducts {
-  groupName: string;
-  performance: number;
-  groupValue: number;
-  groupDeviationValue: number;
-  groupDeviationFlag: number;
-  groupDeviationShip: number;
-  groupDeviationNotValue: number;
-  groupDeviationShipPerformance: number;
-  products: ITypeProduct[];
-  typeImage?: string;
-  isActive?: boolean;
-}
-
-export interface ITypeProduct {
-  title: string;
-  piePercent: number;
-  gaugePercent: number;
-  leftTopButton: boolean; /// неизвестные свойства, пока кнопки мок
-  leftBottomButton: boolean;
-  leftButton: boolean;
-  rightTopButton: boolean;
-  rightBottomButton: boolean;
-  rightButton: boolean;
-}
-
 @Component({
-  selector: 'evj-product-groups',
-  templateUrl: './product-groups.component.html',
-  styleUrls: ['./product-groups.component.scss']
+  selector: 'evj-product-groups-short',
+  templateUrl: './product-groups-short.component.html',
+  styleUrls: ['./product-groups-short.component.scss']
 })
-export class ProductGroupsComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class ProductGroupsShortComponent extends WidgetPlatform implements OnInit, OnDestroy {
+
   data: IProducts[] = [
     {
       groupName: 'Бензины',
@@ -127,7 +103,6 @@ export class ProductGroupsComponent extends WidgetPlatform implements OnInit, On
   ];
 
   constructor(
-    private cdRef: ChangeDetectorRef,
     protected widgetService: WidgetService,
     @Inject('isMock') public isMock: boolean,
     @Inject('widgetId') public id: string,
@@ -140,12 +115,12 @@ export class ProductGroupsComponent extends WidgetPlatform implements OnInit, On
     super.widgetInit();
   }
 
+
   protected dataHandler(ref: any): void {
   }
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
-    this.cdRef.detach();
   }
 
 }

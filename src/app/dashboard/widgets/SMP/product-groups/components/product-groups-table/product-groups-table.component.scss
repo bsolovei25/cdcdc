@@ -289,12 +289,12 @@ table {
     content: "";
     position: absolute;
     width: 23px;
-    height: 13px;
+    height: 9px;
     background: var(--color-bg-main);
     border-top: 1px dashed var(--color-smp-border);
     transform: rotate(-45deg);
-    right: -16px;
-    top: 6px;
+    right: -8px;
+    top: 3px;
   }
 }
 
@@ -557,4 +557,30 @@ table {
 
 ::-webkit-resizer {
   background-color: var(--color-border-active);
+}
+
+//// SHORT STYLE
+.displayOFF{
+  display: none !important;
+}
+
+.middle_header{
+  width: calc(100% - 375px) !important;
+}
+
+.middle_table{
+  width: calc(100% - 353px);
+  margin-right: 5px;
+}
+
+.middle_line{
+  border-left: 1px solid var(--color-smp-border);
+}
+
+.scroll{
+  width: calc(100% - 390px);
+}
+
+.line-short{
+  width: calc(100% - 340px);
 }
