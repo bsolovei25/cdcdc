@@ -262,6 +262,7 @@ import { ProductGroupsComponent } from './widgets/SMP/product-groups/product-gro
 import { ProductGroupsLeftComponent } from './widgets/SMP/product-groups/components/product-groups-left/product-groups-left.component';
 import { ProductGroupsMiddleComponent } from './widgets/SMP/product-groups/components/product-groups-middle/product-groups-middle.component';
 import { ProductGroupsRightComponent } from './widgets/SMP/product-groups/components/product-groups-right/product-groups-right.component';
+import { EventsReasonsSingleComponent } from './widgets/workspace/components/events-reasons-single/events-reasons-single.component';
 
 @NgModule({
   declarations: [
@@ -493,6 +494,7 @@ import { ProductGroupsRightComponent } from './widgets/SMP/product-groups/compon
     ProductGroupsLeftComponent,
     ProductGroupsMiddleComponent,
     ProductGroupsRightComponent,
+    EventsReasonsSingleComponent,
   ],
   entryComponents: [
     LineChartComponent,
