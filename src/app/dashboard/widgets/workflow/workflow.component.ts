@@ -179,6 +179,10 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
 
     emailText: string;
 
+    static itemResize(item: GridsterItem, itemComponent: GridsterItemComponentInterface) {
+        console.info('itemResized', item, itemComponent);
+    }
+
     @ViewChild('splitBar') splitBar: ElementRef<HTMLElement>;
     @ViewChild('splitTop') splitTop: ElementRef<HTMLElement>;
     @ViewChild('splitBottom') splitBottom: ElementRef<HTMLElement>;
@@ -214,6 +218,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
             emptyCellDragMaxCols: 100000,
             emptyCellDragMaxRows: 100000,
             itemResizeCallback: this.resizeGridsterElement.bind(this),
+            gridSizeChangedCallback: this.resizeGridsterElement.bind(this),
             pushItems: false,
             minCols: 20,
             maxCols: 50,
@@ -439,6 +444,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                     this.leaderLine.forEach((value) => {
                         value.setInterval = setInterval(() => {
                             if (value?.options) {
+                                console.log(value);
                                 value.position();
                             }
                         }, 100);
@@ -559,12 +565,13 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     public sizeGrid(): void {
         const widthScreen = document.getElementById('gridSize').clientWidth;
         const heigthScreen = document.getElementById('gridSize').clientHeight;
-        const widthScreenDefault = 1920;
-        const heigthScreenDefault = 909;
-        this.ColWidth = 20;
-        this.RowHeight = 20;
-        this.ColWidth *= (widthScreen - 660) / (widthScreenDefault - 660);
-        this.RowHeight *= (heigthScreen - 329) / (heigthScreenDefault - 329);
+        const widthScreen1 = document.getElementById('gridSize').getBoundingClientRect();
+        // console.log(widthScreen1);
+
+        const widthScreenDefault = 300;
+        const heigthScreenDefault = 300;
+        // this.ColWidth *= (widthScreen - 660) / (widthScreenDefault - 660);
+        // this.RowHeight *= (heigthScreen - 329) / (heigthScreenDefault - 329);
 
         this.options.fixedColWidth = this.ColWidth;
         this.options.fixedRowHeight = this.RowHeight;
@@ -573,12 +580,13 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     }
 
     public onResize(): void {
-        clearTimeout(this.sizeTimeout);
-        this.sizeTimeout = setTimeout(() => this.sizeGrid(), 1000);
+        this.sizeGrid();
         this.resizeGridsterElement();
     }
 
     public resizeGridsterElement(): void {
+        console.log('dsad');
+        // this.items.setSize();
         const event = new CustomEvent('resize');
         document.dispatchEvent(event);
     }
