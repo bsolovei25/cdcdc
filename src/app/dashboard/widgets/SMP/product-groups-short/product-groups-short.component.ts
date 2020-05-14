@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Inject, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { IProducts } from '../product-groups/product-groups.component';
 import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';

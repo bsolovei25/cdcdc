@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Inject, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 
@@ -127,7 +127,6 @@ export class ProductGroupsComponent extends WidgetPlatform implements OnInit, On
   };
 
   constructor(
-    private cdRef: ChangeDetectorRef,
     protected widgetService: WidgetService,
     @Inject('isMock') public isMock: boolean,
     @Inject('widgetId') public id: string,
@@ -150,7 +149,6 @@ export class ProductGroupsComponent extends WidgetPlatform implements OnInit, On
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
-    this.cdRef.detach();
   }
 
 }
