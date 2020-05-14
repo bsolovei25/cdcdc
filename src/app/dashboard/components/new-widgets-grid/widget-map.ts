@@ -57,6 +57,7 @@ import { CdCriticalComponent } from '../../widgets/cd-critical/cd-critical.compo
 import { ImplementationPlanComponent } from '../../widgets/SMP/implementation-plan/implementation-plan.component';
 import { PerformanceProgressIndicatorsComponent } from '../../widgets/SMP/performance-progress-indicators/performance-progress-indicators.component';
 import { QualityStockComponent } from '../../widgets/SMP/quality-stock/quality-stock.component';
+import { SmpEventsComponent } from '../../widgets/SMP/smp-events/smp-events.component';
 import { ProductGroupsComponent } from '../../widgets/SMP/product-groups/product-groups.component';
 import { ProductGroupsShortComponent } from '../../widgets/smp/product-groups-short/product-groups-short.component';
 
@@ -121,6 +122,7 @@ export const WIDGETS = {
     'implementation-plan': ImplementationPlanComponent,
     'performance-progress-indicators': PerformanceProgressIndicatorsComponent,
     'quality-stock': QualityStockComponent,
+    'smp-events': SmpEventsComponent,
     'product-groups': ProductGroupsComponent,
     'product-groups-short': ProductGroupsShortComponent,
 };
