@@ -19,7 +19,6 @@ interface IUserWorkspaceTable extends IUser {
     styleUrls: ['./workflow-table.component.scss'],
 })
 export class WorkflowTableComponent implements OnInit {
-
     private dataSourceLocal: IUserWorkspaceTable[] = [];
     dataSource: IUserWorkspaceTable[] = [];
 
@@ -28,52 +27,51 @@ export class WorkflowTableComponent implements OnInit {
     isRefInput: boolean = false;
     isLoading: boolean = true;
 
-    @Input() data: IWorkspaceTable;
+    localeData: IWorkspaceTable;
+
+    @Input() set data(event: IWorkspaceTable) {
+        this.localeData = event;
+        this.selectedElement.clear();
+        if (this.dataSource.length === 0) {
+            this.loadItem();
+        }
+    }
 
     constructor(
         private eventService: EventService,
-        private avatarConfiguratorService: AvatarConfiguratorService,
-    ) {
-    }
+        private avatarConfiguratorService: AvatarConfiguratorService
+    ) {}
 
-    ngOnInit(): void {
-        this.loadItem();
-    }
+    ngOnInit(): void {}
 
     public accept(): void {
-        this.data.acceptFunction(this.selectedElement.selected);
+        this.localeData.acceptFunction(this.selectedElement.selected);
     }
 
     public cancel(): void {
-        this.data.cancelFunction();
+        this.localeData.cancelFunction();
     }
 
-    onNoClick(): void {
-    }
+    onNoClick(): void {}
 
-    doubleClick(element): void {
-    }
+    doubleClick(element): void {}
 
     searchInput(event): void {
-        console.log(event);
-
-        this.dataSource = this.dataSourceLocal?.filter((val) =>
-            val?.firstName?.toLowerCase()
-                .includes(event?.target?.value.toLowerCase()) ||
-            val?.lastName?.toLowerCase()
-                .includes(event?.target?.value.toLowerCase()) ||
-            val?.middleName?.toLowerCase()
-                .includes(event?.target?.value.toLowerCase()) ||
-            val?.positionDescription?.toLowerCase()
-                .includes(event?.target?.value.toLowerCase()));
+        this.dataSource = this.dataSourceLocal?.filter(
+            (val) =>
+                val?.firstName?.toLowerCase().includes(event?.target?.value.toLowerCase()) ||
+                val?.lastName?.toLowerCase().includes(event?.target?.value.toLowerCase()) ||
+                val?.middleName?.toLowerCase().includes(event?.target?.value.toLowerCase()) ||
+                val?.positionDescription?.toLowerCase().includes(event?.target?.value.toLowerCase())
+        );
     }
 
     private async loadItem(): Promise<void> {
         this.isLoading = true;
         const dataLoadQueue: Promise<void>[] = [];
         dataLoadQueue.push(
-            this.eventService.getUser().then(val => {
-                val.forEach(value => {
+            this.eventService.getUser().then((val) => {
+                val.forEach((value) => {
                     const photoPath = this.avatarConfiguratorService.getAvatarPath(value.photoId);
                     const obj = { ...value, photoPath };
                     this.dataSource.push(obj);
@@ -91,5 +89,4 @@ export class WorkflowTableComponent implements OnInit {
             }
         }
     }
-
 }
