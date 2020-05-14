@@ -74,12 +74,9 @@ export class WorkflowService {
             .toPromise();
     }
 
-    async getScenarioActionProperties(
-        scenarioId: string,
-        actionId: string
-    ): Promise<IActionEmailProps[]> {
+    async getScenarioActionProperties(scenarioId: string, actionId: string): Promise<any> {
         return await this.http
-            .get<IActionEmailProps[]>(
+            .get<any>(
                 this.restUrl +
                     `/api/workflow-constructor/scenario/${scenarioId}/actions/${actionId}/properties`
             )

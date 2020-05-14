@@ -250,25 +250,40 @@
             </gridster>
           </div>
           <div class="workflow__scenario__body__bar" #splitBar></div>
+          <div class="table__title" *ngIf="tableAction.length > 0">
+            <div>Параметры</div>
+            <div>Значения</div>
+          </div>
+          <div class="email__title" *ngIf="emailAction.length > 0">
+            <div>Сообщение</div>
+          </div>
           <div class="workflow__scenario__body__bottom" #splitBottom>
+            <div class="table__title">
+              <ng-container *ngFor="let table of tableAction">
+                <div>
+                  {{ table.description }}
+                </div>
+              </ng-container>
+            </div>
             <!-- Table -->
-            <div class="table" *ngFor="let table of tableAction">
+            <div class="table">
               <table>
                 <thead>
                   <tr>
-                    <th *ngIf="table.name === 'CheckWarningKey'">
-                      {{ table.description }}
-                    </th>
-                    <th *ngIf="table.name === 'CheckWarningValue'">
-                      {{ table.description }}
-                    </th>
+                    <ng-container *ngFor="let table of tableAction">
+                      <th>
+                        {{ table.description }}
+                      </th>
+                    </ng-container>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                  </tr>
+                  <ng-container *ngFor="let table of tableActionProp">
+                    <tr>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </ng-container>
                 </tbody>
               </table>
             </div>

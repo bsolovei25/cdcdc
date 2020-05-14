@@ -355,6 +355,23 @@
         }
       }
 
+      .email__title {
+        font-size: 12px;
+        margin-top: 5px;
+        margin-left: 10px;
+        display: flex;
+        justify-content: flex-start;
+        color: var(--color-text-sub-workflow);
+      }
+
+      .table__title {
+        font-size: 12px;
+        margin-top: 5px;
+        display: flex;
+        justify-content: space-around;
+        color: var(--color-text-sub-workflow);
+      }
+
       &__bottom {
         flex: 1;
         overflow-y: scroll;
@@ -387,15 +404,26 @@
           }
         }
 
+        .table {
+          &__title {
+            display: flex;
+          }
+          table {
+            width: 100%;
+          }
+        }
+
         .email {
           height: 100%;
-          overflow-y: scroll;
 
           &__subject {
             padding: 8px 14px;
 
             &__title {
               color: var(--color-text-sub-workflow);
+              font-size: 12px;
+              display: flex;
+              align-items: center;
             }
             &__value {
             }
@@ -408,12 +436,15 @@
               position: relative;
               height: 30px;
               color: var(--color-text-sub-workflow);
+              font-size: 12px;
+              display: flex;
+              align-items: center;
 
               &__icon {
                 cursor: pointer;
                 position: absolute;
-                left: 96px;
-                top: -5px;
+                left: 74px;
+                top: 0px;
                 width: 30px;
                 height: 30px;
                 background-repeat: no-repeat;
@@ -435,11 +466,15 @@
               position: relative;
               height: 30px;
               color: var(--color-text-sub-workflow);
+              font-size: 12px;
+              display: flex;
+              align-items: center;
+
               &__icon {
                 cursor: pointer;
                 position: absolute;
-                left: 55px;
-                top: -5px;
+                left: 42px;
+                top: 0px;
                 width: 30px;
                 height: 30px;
                 background-repeat: no-repeat;

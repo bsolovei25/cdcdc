@@ -130,6 +130,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     private sizeTimeout: any;
 
     tableAction: IActionTable[] = [];
+    tableActionProp: IActionTable[] = [];
     emailAction: IActionEmail[] = [];
     emailPropAction: IActionEmailProps[] = [];
     emailPropActionUI: IActionEmailPropsUI = {
@@ -715,11 +716,16 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     async getScenarioActionProp(scenarioActionId: string): Promise<void> {
         try {
             this.isLoading = true;
-            const ans: IActionEmailProps[] = await this.workflowService.getScenarioActionProperties(
+            const ans = await this.workflowService.getScenarioActionProperties(
                 this.chooseScenarios.uid,
                 scenarioActionId
             );
-            this.propsAction(ans);
+            const el = ans.find((val) => val?.propertyName);
+            if (el) {
+                this.propsAction(ans);
+            } else {
+                this.tableActionProp = ans;
+            }
             this.isLoading = false;
         } catch (error) {
             this.isLoading = false;
