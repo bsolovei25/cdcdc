@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import * as d3 from 'd3';
 import { ITypeProduct } from '../../product-groups.component';
 import { SpaceNumber } from '@shared/pipes/number_space.pipe';
@@ -8,7 +8,7 @@ import { SpaceNumber } from '@shared/pipes/number_space.pipe';
     templateUrl: './product-groups-middle.component.html',
     styleUrls: ['./product-groups-middle.component.scss']
 })
-export class ProductGroupsMiddleComponent implements OnInit {
+export class ProductGroupsMiddleComponent implements OnInit, AfterViewInit {
     @ViewChild('circle', { static: true }) circle: ElementRef;
     @Input() data: ITypeProduct;
 
@@ -22,10 +22,10 @@ export class ProductGroupsMiddleComponent implements OnInit {
     public indicator: number;
 
     public svg;
-    public r;
+    public r: number;
     public arc;
     public tickData;
-    public pointerHeadLength;
+    public pointerHeadLength: number;
     public pointer;
     public scale;
     public range;
@@ -59,7 +59,7 @@ export class ProductGroupsMiddleComponent implements OnInit {
         arcColorFn: d3.interpolateHslLong(d3.rgb('red'), d3.rgb('blue')),
     };
 
-    public pointId;
+    public pointId: any;
 
     constructor(private spacePipe: SpaceNumber) { }
 
@@ -93,7 +93,7 @@ export class ProductGroupsMiddleComponent implements OnInit {
             .attr('min-width', '100px')
             .attr('viewBox', '0 0 100 100');
 
-        let group = svg.append('g').attr('transform', 'translate(52 ,52)');
+        const group = svg.append('g').attr('transform', 'translate(52 ,52)');
 
         const arc = d3
             .arc()

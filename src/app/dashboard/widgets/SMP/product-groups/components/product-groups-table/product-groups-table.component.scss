@@ -4,13 +4,18 @@
   height: calc(100%);
 }
 
+.container{
+  height: 100%;
+  position: relative;
+  min-width: 960px;
+}
+
 .group_product {
   height: 75px;
   width: 520px;
   margin-left: -1px;
   border-right: 1px solid var(--color-smp-border);
   position: relative;
-
   min-width: 338px;
   max-width: 338px;
 }
@@ -47,10 +52,7 @@ td {
 }
 
 .move {
-  //margin-top: 16px;
   margin-top: 3px;
-  // min-width: 1140px;
-  // width: 600px;
   width: calc(100% - 732px);
 }
 
@@ -289,12 +291,12 @@ table {
     content: "";
     position: absolute;
     width: 23px;
-    height: 9px;
+    height: 6px;
     background: var(--color-bg-main);
     border-top: 1px dashed var(--color-smp-border);
     transform: rotate(-45deg);
-    right: -8px;
-    top: 3px;
+    right: -18px;
+    top: 5px;
   }
 }
 
@@ -339,11 +341,8 @@ table {
   width: calc(100% - 660px);
   height: 1px;
   margin-top: -30px;
-  // margin-left: 353px;
   left: 0;
   border-top: 1px dashed var(--color-smp-border);
-
-  //new 1202
   margin-left: 338px;
 }
 
@@ -520,7 +519,7 @@ table {
   width: 4px;
   height: 4px;
   margin-top: 5px;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
   border-radius: 25px;
 }
 
@@ -538,7 +537,6 @@ table {
 }
 
 :hover::-webkit-scrollbar-track-piece {
-  //  border: solid 1px var(--color-border-active);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -551,7 +549,6 @@ table {
   border-radius: 25px;
 }
 ::-webkit-scrollbar-track-piece {
-  //  border: solid 1px var(--color-smp-border);
   border-radius: 25px;
 }
 
@@ -560,27 +557,51 @@ table {
 }
 
 //// SHORT STYLE
-.displayOFF{
+.displayOFF {
   display: none !important;
 }
 
-.middle_header{
+.container-short{
+  min-width: 590px !important;
+}
+
+.middle_header {
   width: calc(100% - 375px) !important;
 }
 
-.middle_table{
-  width: calc(100% - 353px);
+.middle_table-short {
+  width: calc(100% - 365px);
   margin-right: 5px;
 }
 
-.middle_line{
+.middle_line-left {
   border-left: 1px solid var(--color-smp-border);
 }
 
-.scroll{
+.middle_line-right {
+  border-left: 1px solid var(--color-smp-border);
+  right: 0px;
+}
+
+.middle_bottom-short {
+  width: calc(100% - 375px) !important;
+  &:after {
+    content: "";
+    position: absolute;
+    width: 23px;
+    height: 6px;
+    background: var(--color-bg-main);
+    border-top: 1px dashed var(--color-smp-border);
+    transform: rotate(-45deg);
+    right: -8px;
+    top: 4px;
+  }
+}
+
+.scroll {
   width: calc(100% - 390px);
 }
 
-.line-short{
+.line-short {
   width: calc(100% - 340px);
 }

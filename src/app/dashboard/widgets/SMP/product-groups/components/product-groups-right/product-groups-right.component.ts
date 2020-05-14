@@ -16,13 +16,47 @@ export class ProductGroupsRightComponent implements OnInit {
 
     gaugemap: any = {};
 
+    public config = {
+        size: 210,
+        clipWidth: 200,
+        clipHeight: 110,
+        ringInset: 20,
+        ringWidth: 10,
+
+        pointerWidth: 10,
+        pointerTailLength: 5,
+        pointerHeadLengthPercent: 0.9,
+
+        minValue: 0,
+        maxValue: 60,
+
+        minAngle: 0,
+        maxAngle: 360,
+
+        transitionMs: 750,
+
+        majorTicks: 60,
+        labelFormat: d3.format('d'),
+        labelInset: 10,
+
+        arcColorFn: d3.interpolateHslLong(d3.rgb('red'), d3.rgb('blue')),
+    };
+    public range;
+    public r;
+    public pointerHeadLength;
+    public arc;
+    public scale;
+    public ticks;
+    public tickData;
+    public svg;
+
     @Input() public data: IProducts;
 
     @ViewChild('myCircle', { static: true }) myCircle: ElementRef;
 
     constructor(private spacePipe: SpaceNumber) { }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.d3Block(this.data, this.myCircle.nativeElement);
     }
 
@@ -57,7 +91,7 @@ export class ProductGroupsRightComponent implements OnInit {
 
         const indicatorRightPie = this.indicatorGauge(data.groupDeviationShipPerformance);
 
-        this.d3Grauge(data, el, this.gaugemap, indicatorRightPie, x, y);
+        this.d3Grauge(el, this.gaugemap, indicatorRightPie, x, y);
 
         // const background = el
         //     .append('image')
@@ -70,7 +104,7 @@ export class ProductGroupsRightComponent implements OnInit {
         //     .attr('x', '-113')
         //     .attr('y', '-25');
 
-        const top_label = el
+        const topLabel = el
             .append('text')
             .attr('fill', 'white')
             .attr('font-size', '15px')
@@ -80,7 +114,7 @@ export class ProductGroupsRightComponent implements OnInit {
             .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
             .text('Оформлено');
 
-        const bottom_label = el
+        const bottomLabel = el
             .append('text')
             .attr('fill', 'white')
             .attr('font-size', '15px')
@@ -108,7 +142,7 @@ export class ProductGroupsRightComponent implements OnInit {
             .attr('x', '-67')
             .attr('y', '43');
 
-        const top_border = el
+        const topBorder = el
             .append('image')
             .attr('xlink:href', 'assets/icons/widgets/SMP/product-group-planning/right-side/right-top-border.svg')
             .attr('height', '40px')
@@ -116,7 +150,7 @@ export class ProductGroupsRightComponent implements OnInit {
             .attr('x', '140')
             .attr('y', '-13');
 
-        const bottom_border = el
+        const bottomBorder = el
             .append('image')
             .attr('xlink:href', 'assets/icons/widgets/SMP/product-group-planning/right-side/right-bottom-border.svg')
             .attr('height', '40px')
@@ -154,152 +188,111 @@ export class ProductGroupsRightComponent implements OnInit {
         return (this.pie * percent) / 100;
     }
 
-    d3Grauge(data, el, gaugemap, indicator, x, y): void {
-        let svgAll = el;
-        var gauge = function (container, configuration) {
-            var config = {
-                size: 210,
-                clipWidth: 200,
-                clipHeight: 110,
-                ringInset: 20,
-                ringWidth: 10,
+    deg2rad(deg: number): number {
+        return (deg * Math.PI) / 180;
+    }
 
-                pointerWidth: 10,
-                pointerTailLength: 5,
-                pointerHeadLengthPercent: 0.9,
+    centerTranslation(x: number, y: number): string {
+        return 'translate(' + x + ',' + y + ')';
+    }
 
-                minValue: 0,
-                maxValue: 60,
-
-                minAngle: 0,
-                maxAngle: 360,
-
-                transitionMs: 750,
-
-                majorTicks: 60,
-                labelFormat: d3.format('d'),
-                labelInset: 10,
-
-                arcColorFn: d3.interpolateHslLong(d3.rgb('red'), d3.rgb('blue')),
-            };
-            var range = undefined;
-            var r = undefined;
-            var pointerHeadLength = undefined;
-            
-            var svg = svgAll;
-            var arc = undefined;
-            var scale = undefined;
-            var ticks = undefined;
-            var tickData = undefined;
-
-            function deg2rad(deg) {
-                return (deg * Math.PI) / 180;
-            }
-
-
-            function configure(configuration) {
-                var prop = undefined;
-                for (prop in configuration) {
-                    config[prop] = configuration[prop];
-                }
-
-                range = config.maxAngle - config.minAngle;
-                r = config.size / 1.5;
-                pointerHeadLength = Math.round(r * config.pointerHeadLengthPercent);
-
-                scale = d3
-                    .scaleLinear()
-                    .range([0, 1])
-                    .domain([config.minValue, config.maxValue]);
-
-                ticks = scale.ticks(config.majorTicks);
-                tickData = d3.range(config.majorTicks).map(function () {
-                    return 1 / config.majorTicks;
-                });
-
-                arc = d3
-                    .arc()
-                    .innerRadius(r + 50 - config.ringWidth - config.ringInset)
-                    .outerRadius(r - config.ringInset)
-                    .startAngle(function (d, i) {
-                        var ratio = d * i;
-                        return deg2rad(config.minAngle + ratio * range);
-                    })
-                    .endAngle(function (d, i) {
-                        var ratio = d * (i + 1);
-                        return deg2rad(config.minAngle + ratio * range);
-                    });
-            }
-            gaugemap.configure = configure;
-
-            function centerTranslation() {
-                return 'translate(' + x + ',' + y + ')';
-            }
-
-            function isRendered() {
-                return svg !== undefined;
-            }
-            gaugemap.isRendered = isRendered;
-
-            function render(indicator, pie) {
-                var centerTx = centerTranslation();
-
-                var arcs = svg
-                    .append('g')
-                    .attr('class', 'arc')
-                    .attr('transform', centerTx);
-
-                arcs.selectAll('path')
-                    .data(tickData)
-                    .enter()
-                    .append('path')
-                    .attr('stroke', 'var(--color-bg-main)')
-                    .attr('fill', function (d, i) {
-                        if (indicator === pie) {
-                            return 'white';
-                        } else if (i + 1 <= indicator) {
-                            return 'var(--color-active)';
-                        } else if (i + 1 > indicator && i + 1 <= pie) {
-                            return '#272a38';
-                        }
-                    })
-                    .attr('d', arc);
-
-                update(indicator === undefined ? 0 : indicator);
-
-                let valueGauge = svg
-                    .append('text')
-                    .attr('fill', 'white')
-                    .attr('font-size', '23px')
-                    .attr('x', '148')
-                    .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                    .attr('y', '160')
-                    .attr('text-anchor', 'middle')
-                    .text(data.fact < 0 ? 0 : data.fact);
-            }
-            gaugemap.render = render;
-            function update(newValue, newConfiguration?) {
-                if (newConfiguration !== undefined) {
-                    configure(newConfiguration);
-                }
-                var ratio = scale(newValue);
-                var newAngle = config.minAngle + ratio * range;
-            }
-            gaugemap.update = update;
-
-            configure(configuration);
-            return gaugemap;
-        };
-
-        var powerGauge = gauge(el, {
+    d3Grauge(el, gaugemap, indicator, x, y): void {
+        this.gauge(el, {
             size: 100,
             clipWidth: 300,
             clipHeight: 300,
             ringWidth: 58,
             maxValue: 80,
             transitionMs: 4000,
+        }, gaugemap);
+
+        this.render(indicator, this.pie, x, y);
+    }
+
+    gauge(el, configuration, gaugemap): any {
+        this.svg = el;
+        gaugemap.configure = this.configure;
+
+        gaugemap.isRendered = this.isRendered();
+
+        gaugemap.render = this.render;
+
+        gaugemap.update = this.update;
+
+        this.configure(configuration);
+        return gaugemap;
+    }
+
+    configure(configuration): any {
+        for (const prop in configuration) {
+            this.config[prop] = configuration[prop];
+        }
+
+        this.range = this.config.maxAngle - this.config.minAngle;
+        this.r = this.config.size / 1.5;
+        this.pointerHeadLength = Math.round(this.r * this.config.pointerHeadLengthPercent);
+
+        this.scale = d3
+            .scaleLinear()
+            .range([0, 1])
+            .domain([this.config.minValue, this.config.maxValue]);
+
+        this.ticks = this.scale.ticks(this.config.majorTicks);
+        this.tickData = d3.range(this.config.majorTicks).map(() => {
+            return 1 / this.config.majorTicks;
         });
-        powerGauge.render(indicator, this.pie);
+
+        this.arc = d3
+            .arc()
+            .innerRadius(this.r + 50 - this.config.ringWidth - this.config.ringInset)
+            .outerRadius(this.r - this.config.ringInset)
+            .startAngle((d, i) => {
+                const ratio = d * i;
+                return this.deg2rad(this.config.minAngle + ratio * this.range);
+            })
+            .endAngle((d, i) => {
+                const ratio = d * (i + 1);
+                return this.deg2rad(this.config.minAngle + ratio * this.range);
+            });
+    }
+
+    isRendered(): boolean {
+        return this.svg !== undefined;
+    }
+
+    render(indicator, pie, x, y): void {
+        const centerTx = this.centerTranslation(x, y);
+
+        const arcs = this.svg
+            .append('g')
+            .attr('class', 'arc')
+            .attr('transform', centerTx);
+
+        arcs.selectAll('path')
+            .data(this.tickData)
+            .enter()
+            .append('path')
+            .attr('stroke', 'var(--color-bg-main)')
+            .attr('fill', (d, i) => {
+                if (indicator === pie) {
+                    return 'white';
+                } else if (i + 1 <= indicator) {
+                    return 'var(--color-active)';
+                } else if (i + 1 > indicator && i + 1 <= pie) {
+                    return '#272a38';
+                }
+            })
+            .attr('d', this.arc);
+
+        this.update(indicator === undefined ? 0 : indicator);
+    }
+
+    update(newValue, newConfiguration?): void {
+        if (newConfiguration !== undefined) {
+            this.configure(newConfiguration);
+        }
+        const ratio = this.scale(newValue);
+        const newAngle = this.config.minAngle + ratio * this.range;
     }
 
 }

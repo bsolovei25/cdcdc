@@ -9,98 +9,97 @@ import { WidgetService } from 'src/app/dashboard/services/widget.service';
   styleUrls: ['./product-groups-short.component.scss']
 })
 export class ProductGroupsShortComponent extends WidgetPlatform implements OnInit, OnDestroy {
+  data: IProducts[] = [];
 
-  data: IProducts[] = [
-    {
-      groupName: 'Бензины',
-      performance: 3,
-      groupValue: 187863,
-      groupDeviationValue: 187863,
-      groupDeviationNotValue: 142543,
-      groupDeviationFlag: 1,
-      groupDeviationShip: 321234,
-      groupDeviationShipPerformance: 60,
-      products: [
-        {
-          title: 'АИ-92',
-          piePercent: 70,
-          gaugePercent: 70,
-          leftTopButton: true, /// неизвестные свойства, пока кнопки мок
-          leftBottomButton: false,
-          leftButton: false,
-          rightTopButton: false,
-          rightBottomButton: false,
-          rightButton: false,
-        },
-        {
-          title: 'АИ-92',
-          piePercent: 70,
-          gaugePercent: 70,
-          leftTopButton: true,
-          leftBottomButton: false,
-          leftButton: false,
-          rightTopButton: false,
-          rightBottomButton: false,
-          rightButton: false,
-        },
-        {
-          title: 'АИ-92',
-          piePercent: 70,
-          gaugePercent: 70,
-          leftTopButton: true,
-          leftBottomButton: false,
-          leftButton: false,
-          rightTopButton: false,
-          rightBottomButton: false,
-          rightButton: false,
-        },
-        {
-          title: 'АИ-92',
-          piePercent: 70,
-          gaugePercent: 70,
-          leftTopButton: true,
-          leftBottomButton: false,
-          leftButton: false,
-          rightTopButton: false,
-          rightBottomButton: false,
-          rightButton: false,
-        },
-        {
-          title: 'АИ-92',
-          piePercent: 70,
-          gaugePercent: 70,
-          leftTopButton: true,
-          leftBottomButton: false,
-          leftButton: false,
-          rightTopButton: false,
-          rightBottomButton: false,
-          rightButton: false,
-        },
-        {
-          title: 'АИ-92',
-          piePercent: 70,
-          gaugePercent: 70,
-          leftTopButton: true,
-          leftBottomButton: false,
-          leftButton: false,
-          rightTopButton: false,
-          rightBottomButton: false,
-          rightButton: false,
-        },
-        {
-          title: 'АИ-92',
-          piePercent: 70,
-          gaugePercent: 70,
-          leftTopButton: true,
-          leftBottomButton: false,
-          leftButton: false,
-          rightTopButton: false,
-          rightBottomButton: false,
-          rightButton: false,
-        },
-      ],
-    },
-  ];
+  value: IProducts = {
+    groupName: 'Бензины',
+    performance: 3,
+    groupValue: 187863,
+    groupDeviationValue: 187863,
+    groupDeviationNotValue: 142543,
+    groupDeviationFlag: 1,
+    groupDeviationShip: 321234,
+    groupDeviationShipPerformance: 60,
+    products: [
+      {
+        title: 'АИ-92',
+        piePercent: 70,
+        gaugePercent: 70,
+        leftTopButton: true, /// неизвестные свойства, пока кнопки мок
+        leftBottomButton: false,
+        leftButton: false,
+        rightTopButton: false,
+        rightBottomButton: false,
+        rightButton: false,
+      },
+      {
+        title: 'АИ-92',
+        piePercent: 70,
+        gaugePercent: 70,
+        leftTopButton: true,
+        leftBottomButton: false,
+        leftButton: false,
+        rightTopButton: false,
+        rightBottomButton: false,
+        rightButton: false,
+      },
+      {
+        title: 'АИ-92',
+        piePercent: 70,
+        gaugePercent: 70,
+        leftTopButton: true,
+        leftBottomButton: false,
+        leftButton: false,
+        rightTopButton: false,
+        rightBottomButton: false,
+        rightButton: false,
+      },
+      {
+        title: 'АИ-92',
+        piePercent: 70,
+        gaugePercent: 70,
+        leftTopButton: true,
+        leftBottomButton: false,
+        leftButton: false,
+        rightTopButton: false,
+        rightBottomButton: false,
+        rightButton: false,
+      },
+      {
+        title: 'АИ-92',
+        piePercent: 70,
+        gaugePercent: 70,
+        leftTopButton: true,
+        leftBottomButton: false,
+        leftButton: false,
+        rightTopButton: false,
+        rightBottomButton: false,
+        rightButton: false,
+      },
+      {
+        title: 'АИ-92',
+        piePercent: 70,
+        gaugePercent: 70,
+        leftTopButton: true,
+        leftBottomButton: false,
+        leftButton: false,
+        rightTopButton: false,
+        rightBottomButton: false,
+        rightButton: false,
+      },
+      {
+        title: 'АИ-92',
+        piePercent: 70,
+        gaugePercent: 70,
+        leftTopButton: true,
+        leftBottomButton: false,
+        leftButton: false,
+        rightTopButton: false,
+        rightBottomButton: false,
+        rightButton: false,
+      },
+    ],
+  };
 
   constructor(
     protected widgetService: WidgetService,
@@ -109,10 +108,15 @@ export class ProductGroupsShortComponent extends WidgetPlatform implements OnIni
     @Inject('uniqId') public uniqId: string
   ) {
     super(widgetService, isMock, id, uniqId);
+    this.widgetIcon = 'graph';
+    this.isRealtimeData = false;
   }
 
   ngOnInit(): void {
     super.widgetInit();
+    for (let i = 0; i < 20; i++) {
+      this.data.push(this.value);
+    }
   }
 
 

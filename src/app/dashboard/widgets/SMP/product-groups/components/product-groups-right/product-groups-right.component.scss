@@ -3,9 +3,8 @@
     width: 100%;
     display: flex;
     align-items: stretch;
-    // margin: 40px auto;
-    border-right: 1px solid var(--color-border-main);
-    border-left: 1px solid var(--color-border-main);
+    border-right: 1px solid var(--color-smp-border);
+    border-left: 1px solid var(--color-smp-border);
   }
   
   .item-b ::ng-deep svg {
