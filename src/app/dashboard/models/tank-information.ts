@@ -1,14 +1,14 @@
 export interface ITankInformation {
     id: number;
     name: string;
-    tank: ITankCard[];
+    tank: ITankCardValue[];
     type: string;
 }
 
 export class ITankInformationRef {
     public id: number;
     public name: string;
-    public tank: ITankCard[];
+    public tank: ITankCardValue[];
     public type: string;
 
     constructor(data: ITankInformation) {
@@ -16,38 +16,34 @@ export class ITankInformationRef {
     }
 }
 
-export interface ITankCard {
-    id: number;
-    name: string;
-    values: ITankCardValue;
-}
-
-export class ITankCardRef {
-    public id: number;
-    public name: string;
-    public values: ITankCardValue;
-
-    constructor(data: ITankCard) {
-        Object.assign<ITankCardRef, ITankCard, Partial<ITankCardRef>>(this, data, {});
-    }
-}
-
 export interface ITankCardValue {
-    displayName: string;
-    stateTank: string;
-    temp: string;
-    maximumVolume: string;
-    measuredVolume: string;
+    absolutValue: number;
+    currentValue: number;
+    dieValue: number;
+    maxValue: number;
+    measuredVolume: number;
+    minValue: number;
+    objectStatus: string;
     passportState: string;
+    tankTitle: string;
+    tankType: string;
+    fillLevelPercentage: number;
+    temperature: number;
 }
 
 export class ITankCardValueRef {
-    public displayName: string;
-    public stateTank: string;
-    public temp: string;
-    public maximumVolume: string;
-    public measuredVolume: string;
+    public absolutValue: number;
+    public currentValue: number;
+    public dieValue: number;
+    public maxValue: number;
+    public measuredVolume: number;
+    public minValue: number;
+    public objectStatus: string;
     public passportState: string;
+    public tankTitle: string;
+    public tankType: string;
+    public temperature: number;
+    public fillLevelPercentage: number;
 
     constructor(data: ITankCardValue) {
         Object.assign<ITankCardValueRef, ITankCardValue, Partial<ITankCardValueRef>>(this, data, {});
@@ -56,28 +52,27 @@ export class ITankCardValueRef {
 
 export const ITankValueDtoFn = (data: any): any => {
     return new ITankCardValueRef({
-        displayName: data['AI_DisplayName'],
-        stateTank: data['Состояние резервуара'],
-        temp: data['Температура'],
-        maximumVolume: data.MaximumVolume,
-        measuredVolume: data.MeasuredVolume,
-        passportState: data.PassportState,
+        absolutValue: data.absolutValue,
+        currentValue: data.currentValue,
+        dieValue: data.dieValue,
+        maxValue: data.maxValue,
+        measuredVolume: data.measuredVolume,
+        minValue: data.minValue,
+        objectStatus: data.objectStatus,
+        passportState: data.passportState,
+        tankTitle: data.tankTitle,
+        tankType: data.tankType,
+        fillLevelPercentage: data.fillLevelPercentage,
+        temperature: data.temperature,
     });
 };
 
-export const ITankCardDtoFn = (data: any): ITankCardRef => {
-    return new ITankCardRef({
-        id: data.id,
-        name: data.name,
-        values: data.values ? ITankValueDtoFn(data.values) : null,
-    });
-};
 
 export const ITankInformationDtoFn = (data: any): ITankInformationRef => {
     return new ITankInformationRef({
         id: data.id,
         name: data.name,
-        tank: data.tank ? data.tank.map(el => ITankCardDtoFn(el)) : null,
+        tank: data.tank ? data.tank.map(el => ITankValueDtoFn(el)) : null,
         type: data.type,
     });
 };
