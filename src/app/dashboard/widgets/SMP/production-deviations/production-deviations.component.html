@@ -27,12 +27,16 @@
       <div class="diagrams scroll scroll-bar">
         <div class="diagrams__item">
           <div class="graph">
-            <evj-production-deviations-diagram></evj-production-deviations-diagram>
+            <evj-production-deviations-diagram
+              [isBaseline]="true"
+            ></evj-production-deviations-diagram>
           </div>
         </div>
         <div class="diagrams__item">
           <div class="graph">
-            <evj-production-deviations-diagram></evj-production-deviations-diagram>
+            <evj-production-deviations-diagram
+              [isBaseline]="false"
+            ></evj-production-deviations-diagram>
           </div>
         </div>
         <div class="diagrams__item">

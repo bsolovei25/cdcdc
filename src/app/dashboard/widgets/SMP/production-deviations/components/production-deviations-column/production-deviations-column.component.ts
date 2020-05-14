@@ -81,7 +81,7 @@ export class ProductionDeviationsColumnComponent implements OnInit {
             height: elem.clientHeight,
             width: elem.clientWidth,
         };
-        this.linesCounter = Math.floor(
+        this.linesCounter = Math.round(
             this.svgParams.height / (this.line.height + this.line.margin)
         );
     }

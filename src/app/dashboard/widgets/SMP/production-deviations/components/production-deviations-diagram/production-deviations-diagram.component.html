@@ -53,41 +53,123 @@
         </div>
         <div class="axis-y"></div>
       </div>
-      <div class="graph__col">
-        <evj-production-deviations-column></evj-production-deviations-column>
-      </div>
-      <div class="graph__col">
-        <evj-production-deviations-column></evj-production-deviations-column>
-      </div>
-      <div class="graph__col"></div>
-      <div class="graph__col"></div>
-      <div class="graph__col"></div>
-      <div class="graph__col"></div>
-      <div class="graph__col"></div>
-      <div class="graph__col"></div>
-      <div class="graph__col"></div>
-      <div class="graph__col"></div>
-      <div class="graph__col"></div>
-      <div class="graph__col"></div>
-      <div class="graph__col"></div>
-      <div class="graph__col"></div>
-      <div class="graph__col"></div>
-      <div class="graph__col"></div>
-      <div class="graph__col"></div>
-      <div class="graph__col"></div>
-      <div class="graph__col"></div>
-      <div class="graph__col"></div>
-      <div class="graph__col"></div>
-      <div class="graph__col"></div>
-      <div class="graph__col"></div>
-      <div class="graph__col"></div>
-      <div class="graph__col"></div>
-      <div class="graph__col"></div>
-      <div class="graph__col"></div>
-      <div class="graph__col"></div>
-      <div class="graph__col"></div>
-      <div class="graph__col"></div>
+
+      <ng-container *ngIf="isBaseline;else noBaseline">
+        <div class="graph__cols graph__cols_baseline">
+          <div class="graph__col">
+            <evj-production-deviations-column></evj-production-deviations-column>
+          </div>
+          <div class="graph__col">
+            <evj-production-deviations-column></evj-production-deviations-column>
+          </div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+        </div>
+        <div class="graph__baseline"></div>
+        <div class="graph__cols graph__cols_baseline">
+          <div class="graph__col">
+            <evj-production-deviations-column></evj-production-deviations-column>
+          </div>
+          <div class="graph__col">
+            <evj-production-deviations-column></evj-production-deviations-column>
+          </div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+        </div>
+      </ng-container>
+      <ng-template #noBaseline>
+        <div class="graph__cols">
+          <div class="graph__col">
+            <evj-production-deviations-column></evj-production-deviations-column>
+          </div>
+          <div class="graph__col">
+            <evj-production-deviations-column></evj-production-deviations-column>
+          </div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+          <div class="graph__col"></div>
+        </div>
+      </ng-template>
     </div>
   </div>
-  <div class="diagram__sidebar"></div>
+  <div class="diagram__sidebar">
+
+  </div>
 </div>
