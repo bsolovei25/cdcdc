@@ -30,6 +30,8 @@ import { LineChartTanksDirective } from './directives/line-chart-tanks.directive
 import { LineChartPickerTankDirective } from './directives/line-chart-picker-tank.directive';
 import { SpaceNumber } from './pipes/number_space.pipe';
 import { AlertInputComponent } from './components/alert-input/alert-input.component';
+import { TooltipComponent } from './components/tooltip/tooltip.component';
+import { TooltipDirective } from './components/tooltip/directives/tooltip.directive';
 import { LineBreakPipe } from './pipes/line-break.pipe';
 
 @NgModule({
@@ -59,6 +61,8 @@ import { LineBreakPipe } from './pipes/line-break.pipe';
         AlertInputComponent,
         LineChartPickerTankDirective,
         SpaceNumber,
+        TooltipComponent,
+        TooltipDirective,
         LineBreakPipe,
     ],
     exports: [
@@ -83,6 +87,8 @@ import { LineBreakPipe } from './pipes/line-break.pipe';
         CircleInputComponent,
         SpaceNumber,
         AlertInputComponent,
+        TooltipComponent,
+        TooltipDirective,
         LineBreakPipe,
     ],
     imports: [
@@ -92,11 +98,8 @@ import { LineBreakPipe } from './pipes/line-break.pipe';
         NgxMaskModule.forChild(),
         CKEditorModule,
         FormsModule,
-        AngularSvgIconModule
+        AngularSvgIconModule,
     ],
-    providers: [
-        SpaceNumber,
-        LineBreakPipe,
-    ],
+    providers: [SpaceNumber, LineBreakPipe],
 })
-export class SharedModule { }
+export class SharedModule {}

@@ -1,12 +1,13 @@
-import { Component, OnInit, Input, AfterViewInit, OnChanges, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { ITankCardValue } from 'src/app/dashboard/models/tank-information';
+import { TooltipService } from '@shared/components/tooltip/service/tooltip.service';
 
 @Component({
   selector: 'evj-tank-card',
   templateUrl: './tank-card.component.html',
   styleUrls: ['./tank-card.component.scss']
 })
-export class TankCardComponent implements OnInit, AfterViewInit {
+export class TankCardComponent implements OnInit {
   @Input() public data: ITankCardValue;
   @Input() public idLine: ITankCardValue;
 
@@ -23,19 +24,10 @@ export class TankCardComponent implements OnInit, AfterViewInit {
     work: 'В работе'
   };
 
-  constructor() { }
+  constructor(private tooltipService: TooltipService) { }
 
   ngOnInit(): void {
+    this.tooltipService.close();
   }
 
-  ngAfterViewInit(): void {
-    this.changeTooltip();
-  }
-
-  changeTooltip(): void {
-    const tlink = document.getElementById('tooltip' + this.data.tankTitle + this.idLine);
-    if (tlink) {
-      tlink.dataset.tooltip = this.operation[this.data?.objectStatus];
-    }
-  }
 }
