@@ -16,7 +16,7 @@
         (scroll)="onBottomScroll($event)">
         <table>
           <tbody>
-            <ng-container *ngFor="let items of datas">
+            <ng-container *ngFor="let items of datas; trackBy: rowsById">
               <tr class="item-b">
                 <td class="fix-left">
                   <div class="group_product">

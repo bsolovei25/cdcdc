@@ -12,6 +12,7 @@ export class ProductGroupsShortComponent extends WidgetPlatform implements OnIni
   data: IProducts[] = [];
 
   value: IProducts = {
+    id: 1,
     groupName: 'Бензины',
     performance: 3,
     groupValue: 187863,

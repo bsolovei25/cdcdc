@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { IPerfProgPark } from '../performance-progress-park/performance-progress-park.component';
+import { IPerfProgPark } from '../../performance-progress-indicators.component';
+
 
 @Component({
   selector: 'evj-performance-progress-bar',

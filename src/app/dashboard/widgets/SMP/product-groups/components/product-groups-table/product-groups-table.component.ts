@@ -85,7 +85,7 @@ export class ProductGroupsTableComponent implements OnInit {
     //   });
     // });
 
-   // this.data = data;
+    // this.data = data;
   }
 
   isClickedFunc(item): void {
@@ -105,6 +105,10 @@ export class ProductGroupsTableComponent implements OnInit {
   }
   onBottomScroll(event): void {
     document.getElementById('topscroll').scrollLeft = event.currentTarget.scrollLeft;
+  }
+
+  rowsById(item: IProducts): number {
+    return item.id;
   }
 
 }

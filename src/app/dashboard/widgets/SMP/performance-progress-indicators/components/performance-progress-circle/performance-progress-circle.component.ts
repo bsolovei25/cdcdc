@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { IPerfProgCircle } from '../performance-progress-line-circle/performance-progress-line-circle.component';
 import * as d3 from 'd3';
 import { SpaceNumber } from '@shared/pipes/number_space.pipe';
+import { IPerfProgCircle } from '../../performance-progress-indicators.component';
 
 @Component({
   selector: 'evj-performance-progress-circle',

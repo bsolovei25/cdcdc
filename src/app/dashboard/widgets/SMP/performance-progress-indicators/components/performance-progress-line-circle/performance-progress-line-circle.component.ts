@@ -1,14 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { IPerfProgCircle } from '../../performance-progress-indicators.component';
 
-export interface IPerfProgCircle {
-  id: number;
-  title: string;
-  value: number;
-  icon: string;
-  gaugePercent: number;
-  piePercent: number;
-  isCritical: boolean;
-}
 
 @Component({
   selector: 'evj-performance-progress-line-circle',
@@ -26,6 +18,12 @@ export class PerformanceProgressLineCircleComponent implements OnInit {
       gaugePercent: 60,
       piePercent: 50,
       isCritical: false,
+      days: [
+        {
+          day: 1,
+          state: 'normal',
+        }
+      ]
     },
     {
       id: 2,
@@ -35,6 +33,12 @@ export class PerformanceProgressLineCircleComponent implements OnInit {
       gaugePercent: 60,
       piePercent: 50,
       isCritical: true,
+      days: [
+        {
+          day: 1,
+          state: 'normal',
+        }
+      ]
     },
     {
       id: 3,
@@ -44,6 +48,12 @@ export class PerformanceProgressLineCircleComponent implements OnInit {
       gaugePercent: 60,
       piePercent: 30,
       isCritical: false,
+      days: [
+        {
+          day: 1,
+          state: 'normal',
+        }
+      ]
     },
   ];
 
