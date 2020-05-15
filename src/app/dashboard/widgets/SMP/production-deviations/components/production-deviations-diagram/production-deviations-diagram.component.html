@@ -20,7 +20,13 @@
     <div class="diagram__graph graph">
       <div class="graph__axis axis">
         <div class="axis-x">
-          <div class="axis-x__item" *ngFor="let col of data.columns">{{col.date|date:"dd"}}</div>
+          <div
+            class="axis-x__item"
+            *ngFor="let col of data.columns"
+            [ngClass]="{'graph__col_active':selection.isSelected(col)}"
+          >
+            {{col.date|date:"dd"}}
+          </div>
         </div>
         <div class="axis-y"></div>
       </div>
@@ -31,8 +37,20 @@
             class="graph__limit"
             style.--limit-color="var(--color-{{data.limits.upType}})"
             [style.bottom]="limits.up"
-          ></div>
-          <div class="graph__col" *ngFor="let col of data.columns">
+          >
+            <div
+              class="limit__label"
+              *ngIf="selection.selected[0].fact > selection.selected[0].limit.value && selection.selected[0].direction==='up'"
+            >
+              <svg-icon [src]="iconUrl" [svgStyle]="{ 'width.px':17, 'height.px':17 }"></svg-icon>
+              +{{(selection.selected[0].fact - selection.selected[0].limit.value).toFixed(0)}}
+            </div>
+          </div>
+          <div
+            class="graph__col"
+            *ngFor="let col of data.columns"
+            [ngClass]="{'graph__col_active':selection.isSelected(col)}"
+          >
             <evj-production-deviations-column
               *ngIf="col.direction==='up'"
               [data]="col"
@@ -45,8 +63,20 @@
             class="graph__limit"
             style.--limit-color="var(--color-{{data.limits.downType}})"
             [style.bottom]="limits.down"
-          ></div>
-          <div class="graph__col" *ngFor="let col of data.columns">
+          >
+            <div
+              class="limit__label"
+              *ngIf="selection.selected[0].fact > selection.selected[0].limit.value && selection.selected[0].direction==='down'"
+            >
+              <svg-icon [src]="iconUrl" [svgStyle]="{ 'width.px':17, 'height.px':17 }"></svg-icon>
+              -{{(selection.selected[0].fact - selection.selected[0].limit.value).toFixed(0)}}
+            </div>
+          </div>
+          <div
+            class="graph__col"
+            *ngFor="let col of data.columns"
+            [ngClass]="{'graph__col_active':selection.isSelected(col)}"
+          >
             <evj-production-deviations-column
               *ngIf="col.direction==='down'"
               [data]="col"
@@ -60,13 +90,35 @@
             class="graph__limit"
             style.--limit-color="var(--color-{{data.limits.upType}})"
             [style.bottom]="limits.up"
-          ></div>
-          <div class="graph__col" *ngFor="let col of data.columns">
+          >
+            <div
+              class="limit__label"
+              *ngIf="selection.selected[0].fact > selection.selected[0].limit.value"
+            >
+              <svg-icon [src]="iconUrl" [svgStyle]="{ 'width.px':17, 'height.px':17 }"></svg-icon>
+              +{{(selection.selected[0].fact - selection.selected[0].limit.value).toFixed(0)}}
+            </div>
+          </div>
+          <div
+            class="graph__col"
+            *ngFor="let col of data.columns"
+            [ngClass]="{'graph__col_active':selection.isSelected(col)}"
+          >
             <evj-production-deviations-column [data]="col"></evj-production-deviations-column>
           </div>
         </div>
       </ng-template>
     </div>
   </div>
-  <div class="diagram__sidebar"></div>
+  <div class="diagram__sidebar">
+    <div class="label" *ngIf="data.graphType==='baseline';else labelNoBaseline">
+      {{data.plan.toFixed(0)}}
+    </div>
+    <ng-template #labelNoBaseline>
+      <div class="label label_big">
+        <div class="label__item">{{selection.selected[0].plan.toFixed(0)}}</div>
+        <div class="label__item">{{selection.selected[0].fact.toFixed(0)}}</div>
+      </div>
+    </ng-template>
+  </div>
 </div>
