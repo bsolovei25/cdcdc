@@ -8,14 +8,7 @@ import { IPerfProgPark } from '../../performance-progress-indicators.component';
 })
 export class PerformanceProgressParkComponent implements OnInit {
   @Input() title: string;
-
-  public data: IPerfProgPark = {
-    capacity: 627920,
-    balance: 150000,
-    certified: 150000,
-    planLevel: 60,
-    factLevel: 20,
-  };
+  @Input() data: IPerfProgPark;
 
   constructor() { }
 

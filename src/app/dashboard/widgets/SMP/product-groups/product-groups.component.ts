@@ -8,6 +8,7 @@ export interface IProducts {
   performance: number; /// Отклонение в круге левой панели
   groupValue: number; /// Значение (оформелно) для левой и правой панели
   groupValueTwo: number; /// Второе значение в левом блоке
+  pointStatus: string; /// Статус продукта: enum - normal, danger, warning
   ///Left-side button
   /// enum - normal, danger, warning
   groupDeviationValue: string; /// Левая верхняя кнопка
@@ -31,6 +32,7 @@ export interface ITypeProduct {
   title: string;
   piePercent: number;
   gaugePercent: number;
+  pieStatus: string;  /// Статус внутреннего круга: enum - normal, danger, warning
   days: ITypeProductDay[]; /// массив дней
   ///Button
   /// enum - normal, danger, warning
@@ -58,90 +60,822 @@ export class ProductGroupsComponent extends WidgetPlatform implements OnInit, On
   value: IProducts = {
     id: 1,
     groupName: 'Бензины',
+    pointStatus: 'normal',
     performance: 3,
     groupValue: 187863,
-    groupDeviationValue: 187863,
+    groupValueTwo: 187863,
+    groupDeviationValue: 'normal',
+    groupDeviationFlag: 'normal',
+    groupDeviationShip: 'normal',
+    groupDeviationAkk: 'normal',
+    groupDeviationUpd: 'normal',
     groupDeviationNotValue: 142543,
-    groupDeviationFlag: 1,
-    groupDeviationShip: 321234,
-    groupDeviationShipPerformance: 60,
+    groupDeviationAllValue: 321234,
+    gaugePercent: 60,
     products: [
       {
         title: 'АИ-92',
         piePercent: 70,
         gaugePercent: 70,
-        leftTopButton: true, /// неизвестные свойства, пока кнопки мок
-        leftBottomButton: false,
-        leftButton: false,
-        rightTopButton: false,
-        rightBottomButton: false,
-        rightButton: false,
+        pieStatus: 'normal',
+        days: [
+          {
+            day: 1,
+            state: 'normal',
+          },
+          {
+            day: 2,
+            state: 'normal',
+          },
+          {
+            day: 3,
+            state: 'normal',
+          },
+          {
+            day: 4,
+            state: 'normal',
+          },
+          {
+            day: 5,
+            state: 'normal',
+          },
+          {
+            day: 6,
+            state: 'normal',
+          },
+          {
+            day: 7,
+            state: 'normal',
+          },
+          {
+            day: 8,
+            state: 'normal',
+          },
+          {
+            day: 9,
+            state: 'normal',
+          },
+          {
+            day: 10,
+            state: 'normal',
+          },
+          {
+            day: 11,
+            state: 'normal',
+          },
+          {
+            day: 12,
+            state: 'normal',
+          },
+          {
+            day: 13,
+            state: 'normal',
+          },
+          {
+            day: 14,
+            state: 'normal',
+          },
+          {
+            day: 15,
+            state: 'normal',
+          },
+          {
+            day: 16,
+            state: 'warning',
+          },
+          {
+            day: 17,
+            state: 'normal',
+          },
+          {
+            day: 18,
+            state: 'danger',
+          },
+          {
+            day: 19,
+            state: 'normal',
+          },
+          {
+            day: 20,
+            state: 'warning',
+          },
+          {
+            day: 21,
+            state: 'normal',
+          },
+          {
+            day: 22,
+            state: 'normal',
+          },
+          {
+            day: 23,
+            state: 'disabled',
+          },
+          {
+            day: 24,
+            state: 'disabled',
+          },
+          {
+            day: 25,
+            state: 'disabled',
+          },
+          {
+            day: 26,
+            state: 'disabled',
+          },
+          {
+            day: 27,
+            state: 'disabled',
+          },
+          {
+            day: 28,
+            state: 'disabled',
+          },
+          {
+            day: 29,
+            state: 'disabled',
+          },
+          {
+            day: 30,
+            state: 'disabled',
+          },
+        ],
+        productFiling: 'normal',
+        productUpdate: 'normal',
+        productCrowded: 'normal',
+        productFlask: 'normal',
+        productList: 'normal',
+        productBuild: 'normal',
       },
       {
         title: 'АИ-92',
         piePercent: 70,
         gaugePercent: 70,
-        leftTopButton: true,
-        leftBottomButton: false,
-        leftButton: false,
-        rightTopButton: false,
-        rightBottomButton: false,
-        rightButton: false,
+        pieStatus: 'normal',
+        days: [
+          {
+            day: 1,
+            state: 'normal',
+          },
+          {
+            day: 2,
+            state: 'normal',
+          },
+          {
+            day: 3,
+            state: 'normal',
+          },
+          {
+            day: 4,
+            state: 'normal',
+          },
+          {
+            day: 5,
+            state: 'normal',
+          },
+          {
+            day: 6,
+            state: 'normal',
+          },
+          {
+            day: 7,
+            state: 'normal',
+          },
+          {
+            day: 8,
+            state: 'normal',
+          },
+          {
+            day: 9,
+            state: 'normal',
+          },
+          {
+            day: 10,
+            state: 'normal',
+          },
+          {
+            day: 11,
+            state: 'normal',
+          },
+          {
+            day: 12,
+            state: 'normal',
+          },
+          {
+            day: 13,
+            state: 'normal',
+          },
+          {
+            day: 14,
+            state: 'normal',
+          },
+          {
+            day: 15,
+            state: 'normal',
+          },
+          {
+            day: 16,
+            state: 'warning',
+          },
+          {
+            day: 17,
+            state: 'normal',
+          },
+          {
+            day: 18,
+            state: 'danger',
+          },
+          {
+            day: 19,
+            state: 'normal',
+          },
+          {
+            day: 20,
+            state: 'warning',
+          },
+          {
+            day: 21,
+            state: 'normal',
+          },
+          {
+            day: 22,
+            state: 'normal',
+          },
+          {
+            day: 23,
+            state: 'disabled',
+          },
+          {
+            day: 24,
+            state: 'disabled',
+          },
+          {
+            day: 25,
+            state: 'disabled',
+          },
+          {
+            day: 26,
+            state: 'disabled',
+          },
+          {
+            day: 27,
+            state: 'disabled',
+          },
+          {
+            day: 28,
+            state: 'disabled',
+          },
+          {
+            day: 29,
+            state: 'disabled',
+          },
+          {
+            day: 30,
+            state: 'disabled',
+          },
+        ],
+        productFiling: 'normal',
+        productUpdate: 'normal',
+        productCrowded: 'normal',
+        productFlask: 'normal',
+        productList: 'normal',
+        productBuild: 'normal',
       },
       {
         title: 'АИ-92',
         piePercent: 70,
         gaugePercent: 70,
-        leftTopButton: true,
-        leftBottomButton: false,
-        leftButton: false,
-        rightTopButton: false,
-        rightBottomButton: false,
-        rightButton: false,
+        pieStatus: 'normal',
+        days: [
+          {
+            day: 1,
+            state: 'normal',
+          },
+          {
+            day: 2,
+            state: 'normal',
+          },
+          {
+            day: 3,
+            state: 'normal',
+          },
+          {
+            day: 4,
+            state: 'normal',
+          },
+          {
+            day: 5,
+            state: 'normal',
+          },
+          {
+            day: 6,
+            state: 'normal',
+          },
+          {
+            day: 7,
+            state: 'normal',
+          },
+          {
+            day: 8,
+            state: 'normal',
+          },
+          {
+            day: 9,
+            state: 'normal',
+          },
+          {
+            day: 10,
+            state: 'normal',
+          },
+          {
+            day: 11,
+            state: 'normal',
+          },
+          {
+            day: 12,
+            state: 'normal',
+          },
+          {
+            day: 13,
+            state: 'normal',
+          },
+          {
+            day: 14,
+            state: 'normal',
+          },
+          {
+            day: 15,
+            state: 'normal',
+          },
+          {
+            day: 16,
+            state: 'warning',
+          },
+          {
+            day: 17,
+            state: 'normal',
+          },
+          {
+            day: 18,
+            state: 'danger',
+          },
+          {
+            day: 19,
+            state: 'normal',
+          },
+          {
+            day: 20,
+            state: 'warning',
+          },
+          {
+            day: 21,
+            state: 'normal',
+          },
+          {
+            day: 22,
+            state: 'normal',
+          },
+          {
+            day: 23,
+            state: 'disabled',
+          },
+          {
+            day: 24,
+            state: 'disabled',
+          },
+          {
+            day: 25,
+            state: 'disabled',
+          },
+          {
+            day: 26,
+            state: 'disabled',
+          },
+          {
+            day: 27,
+            state: 'disabled',
+          },
+          {
+            day: 28,
+            state: 'disabled',
+          },
+          {
+            day: 29,
+            state: 'disabled',
+          },
+          {
+            day: 30,
+            state: 'disabled',
+          },
+        ],
+        productFiling: 'normal',
+        productUpdate: 'normal',
+        productCrowded: 'normal',
+        productFlask: 'normal',
+        productList: 'normal',
+        productBuild: 'normal',
       },
       {
         title: 'АИ-92',
         piePercent: 70,
         gaugePercent: 70,
-        leftTopButton: true,
-        leftBottomButton: false,
-        leftButton: false,
-        rightTopButton: false,
-        rightBottomButton: false,
-        rightButton: false,
+        pieStatus: 'normal',
+        days: [
+          {
+            day: 1,
+            state: 'normal',
+          },
+          {
+            day: 2,
+            state: 'normal',
+          },
+          {
+            day: 3,
+            state: 'normal',
+          },
+          {
+            day: 4,
+            state: 'normal',
+          },
+          {
+            day: 5,
+            state: 'normal',
+          },
+          {
+            day: 6,
+            state: 'normal',
+          },
+          {
+            day: 7,
+            state: 'normal',
+          },
+          {
+            day: 8,
+            state: 'normal',
+          },
+          {
+            day: 9,
+            state: 'normal',
+          },
+          {
+            day: 10,
+            state: 'normal',
+          },
+          {
+            day: 11,
+            state: 'normal',
+          },
+          {
+            day: 12,
+            state: 'normal',
+          },
+          {
+            day: 13,
+            state: 'normal',
+          },
+          {
+            day: 14,
+            state: 'normal',
+          },
+          {
+            day: 15,
+            state: 'normal',
+          },
+          {
+            day: 16,
+            state: 'warning',
+          },
+          {
+            day: 17,
+            state: 'normal',
+          },
+          {
+            day: 18,
+            state: 'danger',
+          },
+          {
+            day: 19,
+            state: 'normal',
+          },
+          {
+            day: 20,
+            state: 'warning',
+          },
+          {
+            day: 21,
+            state: 'normal',
+          },
+          {
+            day: 22,
+            state: 'normal',
+          },
+          {
+            day: 23,
+            state: 'disabled',
+          },
+          {
+            day: 24,
+            state: 'disabled',
+          },
+          {
+            day: 25,
+            state: 'disabled',
+          },
+          {
+            day: 26,
+            state: 'disabled',
+          },
+          {
+            day: 27,
+            state: 'disabled',
+          },
+          {
+            day: 28,
+            state: 'disabled',
+          },
+          {
+            day: 29,
+            state: 'disabled',
+          },
+          {
+            day: 30,
+            state: 'disabled',
+          },
+        ],
+        productFiling: 'normal',
+        productUpdate: 'normal',
+        productCrowded: 'normal',
+        productFlask: 'normal',
+        productList: 'normal',
+        productBuild: 'normal',
       },
       {
         title: 'АИ-92',
         piePercent: 70,
         gaugePercent: 70,
-        leftTopButton: true,
-        leftBottomButton: false,
-        leftButton: false,
-        rightTopButton: false,
-        rightBottomButton: false,
-        rightButton: false,
+        pieStatus: 'normal',
+        days: [
+          {
+            day: 1,
+            state: 'normal',
+          },
+          {
+            day: 2,
+            state: 'normal',
+          },
+          {
+            day: 3,
+            state: 'normal',
+          },
+          {
+            day: 4,
+            state: 'normal',
+          },
+          {
+            day: 5,
+            state: 'normal',
+          },
+          {
+            day: 6,
+            state: 'normal',
+          },
+          {
+            day: 7,
+            state: 'normal',
+          },
+          {
+            day: 8,
+            state: 'normal',
+          },
+          {
+            day: 9,
+            state: 'normal',
+          },
+          {
+            day: 10,
+            state: 'normal',
+          },
+          {
+            day: 11,
+            state: 'normal',
+          },
+          {
+            day: 12,
+            state: 'normal',
+          },
+          {
+            day: 13,
+            state: 'normal',
+          },
+          {
+            day: 14,
+            state: 'normal',
+          },
+          {
+            day: 15,
+            state: 'normal',
+          },
+          {
+            day: 16,
+            state: 'warning',
+          },
+          {
+            day: 17,
+            state: 'normal',
+          },
+          {
+            day: 18,
+            state: 'danger',
+          },
+          {
+            day: 19,
+            state: 'normal',
+          },
+          {
+            day: 20,
+            state: 'warning',
+          },
+          {
+            day: 21,
+            state: 'normal',
+          },
+          {
+            day: 22,
+            state: 'normal',
+          },
+          {
+            day: 23,
+            state: 'disabled',
+          },
+          {
+            day: 24,
+            state: 'disabled',
+          },
+          {
+            day: 25,
+            state: 'disabled',
+          },
+          {
+            day: 26,
+            state: 'disabled',
+          },
+          {
+            day: 27,
+            state: 'disabled',
+          },
+          {
+            day: 28,
+            state: 'disabled',
+          },
+          {
+            day: 29,
+            state: 'disabled',
+          },
+          {
+            day: 30,
+            state: 'disabled',
+          },
+        ],
+        productFiling: 'normal',
+        productUpdate: 'normal',
+        productCrowded: 'normal',
+        productFlask: 'normal',
+        productList: 'normal',
+        productBuild: 'normal',
       },
       {
         title: 'АИ-92',
         piePercent: 70,
         gaugePercent: 70,
-        leftTopButton: true,
-        leftBottomButton: false,
-        leftButton: false,
-        rightTopButton: false,
-        rightBottomButton: false,
-        rightButton: false,
-      },
-      {
-        title: 'АИ-92',
-        piePercent: 70,
-        gaugePercent: 70,
-        leftTopButton: true,
-        leftBottomButton: false,
-        leftButton: false,
-        rightTopButton: false,
-        rightBottomButton: false,
-        rightButton: false,
+        pieStatus: 'normal',
+        days: [
+          {
+            day: 1,
+            state: 'normal',
+          },
+          {
+            day: 2,
+            state: 'normal',
+          },
+          {
+            day: 3,
+            state: 'normal',
+          },
+          {
+            day: 4,
+            state: 'normal',
+          },
+          {
+            day: 5,
+            state: 'normal',
+          },
+          {
+            day: 6,
+            state: 'normal',
+          },
+          {
+            day: 7,
+            state: 'normal',
+          },
+          {
+            day: 8,
+            state: 'normal',
+          },
+          {
+            day: 9,
+            state: 'normal',
+          },
+          {
+            day: 10,
+            state: 'normal',
+          },
+          {
+            day: 11,
+            state: 'normal',
+          },
+          {
+            day: 12,
+            state: 'normal',
+          },
+          {
+            day: 13,
+            state: 'normal',
+          },
+          {
+            day: 14,
+            state: 'normal',
+          },
+          {
+            day: 15,
+            state: 'normal',
+          },
+          {
+            day: 16,
+            state: 'warning',
+          },
+          {
+            day: 17,
+            state: 'normal',
+          },
+          {
+            day: 18,
+            state: 'danger',
+          },
+          {
+            day: 19,
+            state: 'normal',
+          },
+          {
+            day: 20,
+            state: 'warning',
+          },
+          {
+            day: 21,
+            state: 'normal',
+          },
+          {
+            day: 22,
+            state: 'normal',
+          },
+          {
+            day: 23,
+            state: 'disabled',
+          },
+          {
+            day: 24,
+            state: 'disabled',
+          },
+          {
+            day: 25,
+            state: 'disabled',
+          },
+          {
+            day: 26,
+            state: 'disabled',
+          },
+          {
+            day: 27,
+            state: 'disabled',
+          },
+          {
+            day: 28,
+            state: 'disabled',
+          },
+          {
+            day: 29,
+            state: 'disabled',
+          },
+          {
+            day: 30,
+            state: 'disabled',
+          },
+        ],
+        productFiling: 'normal',
+        productUpdate: 'normal',
+        productCrowded: 'normal',
+        productFlask: 'normal',
+        productList: 'normal',
+        productBuild: 'normal',
       },
     ],
   };

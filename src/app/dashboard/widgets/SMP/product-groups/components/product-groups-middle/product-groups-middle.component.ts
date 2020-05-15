@@ -81,9 +81,9 @@ export class ProductGroupsMiddleComponent implements OnInit, AfterViewInit {
 
         if (summ === 0) {
             color = d3.scaleOrdinal().range(['var(--color-oil-circle-disable)']);
-        } else if (data.isCritical) {
+        } else if (data.pieStatus === 'warning') {
             color = d3.scaleOrdinal().range(['var(--color-oil-danger)', 'var(--color-oil-circle-disable)']);
-        } else {
+        } else if (data.pieStatus === 'normal') {
             color = d3.scaleOrdinal().range(['var(--color-text-main)', 'var(--color-oil-circle-disable)']);
         }
 
@@ -132,7 +132,16 @@ export class ProductGroupsMiddleComponent implements OnInit, AfterViewInit {
             .append('image')
             .attr(
                 'xlink:href',
-                'assets/icons/widgets/SMP/product-group-planning/middle-side/middle-left-top-button.svg'
+                () => {
+                    if (data.productFiling === 'critical') {
+
+                    } else if (data.productFiling === 'warning') {
+
+                    } else {
+                        return 'assets/icons/widgets/SMP/product-group-planning/middle-side/middle-left-top-button.svg'
+                    }
+                }
+
             )
             .attr('height', '25px')
             .attr('width', '32px')
@@ -143,7 +152,16 @@ export class ProductGroupsMiddleComponent implements OnInit, AfterViewInit {
             .append('image')
             .attr(
                 'xlink:href',
-                'assets/icons/widgets/SMP/product-group-planning/middle-side/middle-left-bottom-button.svg'
+                () => {
+                    if (data.productUpdate === 'critical') {
+
+                    } else if (data.productUpdate === 'warning') {
+
+                    } else {
+                        return 'assets/icons/widgets/SMP/product-group-planning/middle-side/middle-left-bottom-button.svg'
+                    }
+                }
+
             )
             .attr('height', '25px')
             .attr('width', '32px')
@@ -154,7 +172,16 @@ export class ProductGroupsMiddleComponent implements OnInit, AfterViewInit {
             .append('image')
             .attr(
                 'xlink:href',
-                'assets/icons/widgets/SMP/product-group-planning/middle-side/middle-left-big-button.svg'
+                () => {
+                    if (data.productCrowded === 'critical') {
+
+                    } else if (data.productCrowded === 'warning') {
+
+                    } else {
+                        return 'assets/icons/widgets/SMP/product-group-planning/middle-side/middle-left-big-button.svg'
+                    }
+                }
+
             )
             .attr('height', '60px')
             .attr('width', '32px')
@@ -167,7 +194,16 @@ export class ProductGroupsMiddleComponent implements OnInit, AfterViewInit {
             .append('image')
             .attr(
                 'xlink:href',
-                'assets/icons/widgets/SMP/product-group-planning/middle-side/middle-right-top-button.svg'
+                () => {
+                    if (data.productFlask === 'critical') {
+
+                    } else if (data.productFlask === 'warning') {
+
+                    } else {
+                        return 'assets/icons/widgets/SMP/product-group-planning/middle-side/middle-right-top-button.svg'
+                    }
+                }
+
             )
             .attr('height', '25px')
             .attr('width', '32px')
@@ -178,7 +214,16 @@ export class ProductGroupsMiddleComponent implements OnInit, AfterViewInit {
             .append('image')
             .attr(
                 'xlink:href',
-                'assets/icons/widgets/SMP/product-group-planning/middle-side/middle-right-bottom-button.svg'
+                () => {
+                    if (data.productList === 'critical') {
+
+                    } else if (data.productList === 'warning') {
+
+                    } else {
+                        return 'assets/icons/widgets/SMP/product-group-planning/middle-side/middle-right-bottom-button.svg'
+                    }
+                }
+
             )
             .attr('height', '25px')
             .attr('width', '32px')
@@ -189,7 +234,16 @@ export class ProductGroupsMiddleComponent implements OnInit, AfterViewInit {
             .append('image')
             .attr(
                 'xlink:href',
-                'assets/icons/widgets/SMP/product-group-planning/middle-side/middle-right-big-button.svg'
+                () => {
+                    if (data.productBuild === 'critical') {
+
+                    } else if (data.productBuild === 'warning') {
+
+                    } else {
+                        return 'assets/icons/widgets/SMP/product-group-planning/middle-side/middle-right-big-button.svg'
+                    }
+                }
+
             )
             .attr('height', '60px')
             .attr('width', '32px')
@@ -206,6 +260,7 @@ export class ProductGroupsMiddleComponent implements OnInit, AfterViewInit {
     }
 
     draw(data, el, gaugemap, indicator): void {
+        this.config.majorTicks = this.data.days.length;
         this.gauge({
             size: 295,
             clipWidth: 300,
@@ -257,48 +312,30 @@ export class ProductGroupsMiddleComponent implements OnInit, AfterViewInit {
             .attr('id', 'test')
             .attr('transform', centerTx);
 
-        if (newValue < criticalPie) {
-            arcs.selectAll('path')
-                .data(this.tickData)
-                .enter()
-                .append('path')
-                .attr('stroke', 'var(--color-bg-main)')
-                .attr('stroke-width', '4px')
-                .attr('fill', (d, i) => {
-                    if (i + 1 > criticalPie) {
-                        return 'var(--color-smp-blue)';
-                    } else if (i + 1 <= newValue + 1 && newValue !== 0) {
-                        return 'var(--color-active)';
-                    } else if (i + 1 >= newValue && i + 1 <= criticalPie) {
-                        return 'var(--color-smp-blue)';
-                    }
-                })
-                .attr('d', this.arc);
-        } else {
-            this.pointId = arcs.selectAll('path')
-                .data(this.tickData)
-                .enter()
-                .append('path')
-                .attr('stroke', 'var(--color-bg-main)')
-                .attr('stroke-width', '4px')
-                .attr('id', (d, i) => {
-                    if (i + 1 <= newValue + 1 && i + 1 > criticalPie) {
-                        return 'point';
-                    }
-                })
-                .attr('fill', (d, i) => {
-                    if (i + 1 <= newValue + 1 && i + 1 > criticalPie) {
-                        return 'var(--color-smp-blue)';
-                    } else if (i + 1 <= criticalPie) {
-                        return 'var(--color-active)';
-                    } else if (i + 1 >= newValue && i + 1 <= this.indicator) {
-                        return 'var(--color-smp-blue)';
-                    } else {
-                        return 'var(--color-smp-blue)';
-                    }
-                })
-                .attr('d', this.arc);
-        }
+        this.pointId = arcs.selectAll('path')
+            .data(this.tickData)
+            .enter()
+            .append('path')
+            .attr('stroke', 'var(--color-bg-main)')
+            .attr('stroke-width', '4px')
+            .attr('id', (d, i) => {
+                if (i + 1 <= newValue + 1 && i + 1 > criticalPie) {
+                    return 'point';
+                }
+            })
+            .attr('fill', (d, i) => {
+                const status = this.data.days.find(e => e.day - 1 === i).state;
+                if (status === 'normal') {
+                    return 'var(--color-active)';
+                } else if (status === 'warning') {
+                    return 'var(--color-warning)';
+                } else if (status === 'danger') {
+                    return 'var(--color-danger)';
+                } else {
+                    return 'var(--color-smp-blue)';
+                }
+            })
+            .attr('d', this.arc);
 
         const pointid = this.pointId?.nodes()?.find(el => el?.id === 'point');
         let pointidLength: number;

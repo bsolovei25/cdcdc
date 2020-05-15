@@ -11,7 +11,7 @@
 }
 
 .group_product {
-  height: 75px;
+  height: 100%;
   width: 520px;
   margin-left: -1px;
   border-right: 1px solid var(--color-smp-border);
@@ -31,7 +31,7 @@
 }
 
 .fix-left {
-  height: 60px;
+  height: 95px;
   color: white;
   position: absolute;
   left: 0;
@@ -47,12 +47,11 @@
 
 td {
   display: inline-flex;
-  height: 70px;
+  height: 95px;
   align-items: center;
 }
 
 .move {
-  margin-top: 3px;
   width: calc(100% - 732px);
 }
 
@@ -340,7 +339,7 @@ table {
   position: absolute;
   width: calc(100% - 660px);
   height: 1px;
-  margin-top: -30px;
+  margin-top: -44px;
   left: 0;
   border-top: 1px dashed var(--color-smp-border);
   margin-left: 338px;
@@ -350,7 +349,7 @@ table {
   position: absolute;
   width: 6px;
   height: 6px;
-  margin-top: -33px;
+  margin-top: -47px;
   border-radius: 6px;
   margin-left: -40px;
   background: var(--color-bg-main);
@@ -362,7 +361,7 @@ table {
   position: absolute;
   width: 4px;
   height: 4px;
-  margin-top: -33px;
+  margin-top: -47px;
   border-radius: 4px;
   right: 316px;
   background: var(--color-bg-main);

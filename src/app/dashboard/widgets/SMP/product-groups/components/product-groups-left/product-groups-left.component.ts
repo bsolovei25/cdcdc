@@ -40,7 +40,7 @@ export class ProductGroupsLeftComponent implements OnInit {
         this.percent = data.performance > 100 ? 100 : data.performance < 0 ? 0 : data.performance;
 
         const newValue = this.spacePipe.transform(data.groupValue);
-        const criticalNewValue = this.spacePipe.transform(data.groupDeviationValue);
+        const criticalNewValue = this.spacePipe.transform(data.groupValueTwo);
 
         color = d3.scaleOrdinal().range(['var(--color-border-active)', 'orange']);
 
@@ -146,7 +146,16 @@ export class ProductGroupsLeftComponent implements OnInit {
             .append('image')
             .attr(
                 'xlink:href',
-                'assets/icons/widgets/SMP/product-group-planning/left-side/big-deviation-point.svg'
+                () => {
+                    if (data.pointStatus === 'critical') {
+
+                    } else if (data.pointStatus === 'warning') {
+
+                    } else {
+                        return 'assets/icons/widgets/SMP/product-group-planning/left-side/big-deviation-point.svg'
+                    }
+                }
+
             )
             .attr('height', '19px')
             .attr('width', '32px')
@@ -157,7 +166,15 @@ export class ProductGroupsLeftComponent implements OnInit {
             .append('image')
             .attr(
                 'xlink:href',
-                'assets/icons/widgets/SMP/product-group-planning/left-side/left-pie-left-top-button.svg'
+                () => {
+                    if (data.groupDeviationValue === 'critical') {
+
+                    } else if (data.groupDeviationValue === 'warning') {
+
+                    } else {
+                        return 'assets/icons/widgets/SMP/product-group-planning/left-side/left-pie-left-top-button.svg'
+                    }
+                }
             )
             .attr('height', '19px')
             .attr('width', '32px')
@@ -168,7 +185,16 @@ export class ProductGroupsLeftComponent implements OnInit {
             .append('image')
             .attr(
                 'xlink:href',
-                'assets/icons/widgets/SMP/product-group-planning/left-side/left-pie-left-middle-button.svg'
+                () => {
+                    if (data.groupDeviationFlag === 'critical') {
+
+                    } else if (data.groupDeviationFlag === 'warning') {
+
+                    } else {
+                        return 'assets/icons/widgets/SMP/product-group-planning/left-side/left-pie-left-middle-button.svg'
+                    }
+                }
+
             )
             .attr('height', '15px')
             .attr('width', '26px')
@@ -179,81 +205,81 @@ export class ProductGroupsLeftComponent implements OnInit {
             .append('image')
             .attr(
                 'xlink:href',
-                'assets/icons/widgets/SMP/product-group-planning/left-side/left-pie-left-bottom-button.svg'
+                () => {
+                    if (data.groupDeviationShip === 'critical') {
+
+                    } else if (data.groupDeviationShip === 'warning') {
+
+                    } else {
+                        return 'assets/icons/widgets/SMP/product-group-planning/left-side/left-pie-left-bottom-button.svg'
+                    }
+                }
+
             )
             .attr('height', '19px')
             .attr('width', '32px')
             .attr('x', '218')
             .attr('y', '55');
 
-        if (data.groupDeviationValue !== 0) {
-            const icon = svg
-                .append('image')
-                .attr('xlink:href', imageActive)
-                .attr('height', '25px')
-                .attr('width', '25px')
-                .attr('x', '160')
-                .attr('y', '34');
+        const icon = svg
+            .append('image')
+            .attr('xlink:href', imageActive)
+            .attr('height', '25px')
+            .attr('width', '25px')
+            .attr('x', '160')
+            .attr('y', '34');
 
-            const value = svg
-                .append('text')
-                .attr('font-size', '20px')
-                .attr('x', '260')
-                .attr('y', '45')
-                .attr('fill', 'white')
-                .text(newValue);
+        const value = svg
+            .append('text')
+            .attr('font-size', '20px')
+            .attr('x', '260')
+            .attr('y', '45')
+            .attr('fill', 'white')
+            .text(newValue);
 
-            const criticalValue = svg
-                .append('text')
-                .attr('font-size', '20px')
-                .attr('x', '260')
-                .attr('y', '65')
-                .attr('fill', 'white')
-                .text(criticalNewValue);
-        } else {
-            const icon = svg
-                .append('image')
-                .attr('xlink:href', image)
-                .attr('height', '25px')
-                .attr('width', '25px')
-                .attr('x', '160')
-                .attr('y', '34');
+        const criticalValue = svg
+            .append('text')
+            .attr('font-size', '20px')
+            .attr('x', '260')
+            .attr('y', '65')
+            .attr('fill', 'white')
+            .text(criticalNewValue);
 
-            const value = svg
-                .append('text')
-                .attr('font-size', '20px')
-                .attr('x', '240')
-                .attr('y', '55')
-                .attr('fill', 'white')
-                .text(newValue);
-        }
-
-        if (data.groupDeviationFlag !== 0) {
-            const button = svg
-                .append('image')
-                .attr(
-                    'xlink:href',
-                    'assets/icons/widgets/SMP/product-group-planning/left-side/left-pie-right-top-button.svg'
-                )
-                .attr('height', '25px')
-                .attr('width', '60px')
-                .attr('x', '326')
-                .attr('y', '20');
-        } else {
-            const button = svg
-                .append('image')
-                .attr('xlink:href', 'assets/icons/widgets/SMP/product-group-planning/left-pie-right-top-button.svg')
-                .attr('height', '25px')
-                .attr('width', '60px')
-                .attr('x', '326')
-                .attr('y', '19');
-        }
-
-        const button2 = svg
+        const buttonRightTop = svg
             .append('image')
             .attr(
                 'xlink:href',
-                'assets/icons/widgets/SMP/product-group-planning/left-side/left-pie-right-bottom-button.svg'
+                () => {
+                    if (data.groupDeviationAkk === 'critical') {
+
+                    } else if (data.groupDeviationAkk === 'warning') {
+
+                    } else {
+                        return 'assets/icons/widgets/SMP/product-group-planning/left-side/left-pie-right-top-button.svg'
+                    }
+                }
+
+            )
+            .attr('height', '25px')
+            .attr('width', '60px')
+            .attr('x', '326')
+            .attr('y', '20');
+
+
+        const buttonRightBottom = svg
+            .append('image')
+            .attr(
+                'xlink:href',
+                () => {
+                    if (data.groupDeviationUpd === 'critical') {
+
+                    } else if (data.groupDeviationUpd === 'warning') {
+
+                    } else {
+                        return 'assets/icons/widgets/SMP/product-group-planning/left-side/left-pie-right-bottom-button.svg'
+                    }
+                }
+
             )
             .attr('height', '25px')
             .attr('width', '60px')

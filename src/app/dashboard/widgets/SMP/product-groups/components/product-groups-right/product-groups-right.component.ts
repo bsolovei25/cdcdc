@@ -82,14 +82,14 @@ export class ProductGroupsRightComponent implements OnInit {
     }
 
     d3Circle(data, el): void {
-        const newValue: string = this.spacePipe.transform(data.groupDeviationShip);
-        const deviationValue = this.spacePipe.transform(data.groupDeviationValue);
+        const newValue: string = this.spacePipe.transform(data.groupDeviationAllValue);
+        const deviationValue = this.spacePipe.transform(data.groupValue);
         const deviationNotValue = this.spacePipe.transform(data.groupDeviationNotValue);
 
         const x = -60;
         const y = 30;
 
-        const indicatorRightPie = this.indicatorGauge(data.groupDeviationShipPerformance);
+        const indicatorRightPie = this.indicatorGauge(data.gaugePercent);
 
         this.d3Grauge(el, this.gaugemap, indicatorRightPie, x, y);
 

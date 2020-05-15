@@ -18,7 +18,6 @@ export class PerformanceProgressCircleComponent implements OnInit, AfterViewInit
   public defaultPercent: number = 100;
 
   public criticalValue: number = 64; /// временные константы
-  public criticalPie: number = 18; /// временные константы
   public indicator: number;
 
   public svg;
@@ -157,6 +156,7 @@ export class PerformanceProgressCircleComponent implements OnInit, AfterViewInit
   }
 
   draw(data, el, gaugemap, indicator): void {
+    this.config.majorTicks = this.data.days.length;
     this.gauge({
       size: 295,
       clipWidth: 300,
@@ -165,7 +165,7 @@ export class PerformanceProgressCircleComponent implements OnInit, AfterViewInit
       maxValue: 25,
       transitionMs: 4000,
     }, gaugemap);
-    this.render(el, indicator, this.criticalPie, data);
+    this.render(el, indicator, data);
   }
 
   gauge(configuration, gaugemap): void {
@@ -193,7 +193,7 @@ export class PerformanceProgressCircleComponent implements OnInit, AfterViewInit
     return svg !== undefined;
   }
 
-  render(container, newValue, criticalPie, data): void {
+  render(container, newValue, data): void {
     this.svg = d3
       .select(container)
       .append('svg:svg')
@@ -208,48 +208,37 @@ export class PerformanceProgressCircleComponent implements OnInit, AfterViewInit
       .attr('id', 'test')
       .attr('transform', centerTx);
 
-    if (newValue < criticalPie) {
-      arcs.selectAll('path')
-        .data(this.tickData)
-        .enter()
-        .append('path')
-        .attr('stroke', 'var(--color-bg-main)')
-        .attr('stroke-width', '4px')
-        .attr('fill', (d, i) => {
-          if (i + 1 > criticalPie) {
-            return 'var(--color-smp-blue)';
-          } else if (i + 1 <= newValue + 1 && newValue !== 0) {
-            return 'var(--color-active)';
-          } else if (i + 1 >= newValue && i + 1 <= criticalPie) {
-            return 'var(--color-smp-blue)';
-          }
-        })
-        .attr('d', this.arc);
-    } else {
-      this.pointId = arcs.selectAll('path')
-        .data(this.tickData)
-        .enter()
-        .append('path')
-        .attr('stroke', 'var(--color-bg-main)')
-        .attr('stroke-width', '4px')
-        .attr('id', (d, i) => {
-          if (i + 1 <= newValue + 1 && i + 1 > criticalPie) {
-            return 'point';
-          }
-        })
-        .attr('fill', (d, i) => {
-          if (i + 1 <= newValue + 1 && i + 1 > criticalPie) {
-            return 'red';
-          } else if (i + 1 <= criticalPie) {
-            return 'var(--color-active)';
-          } else if (i + 1 >= newValue && i + 1 <= this.indicator) {
-            return 'var(--color-smp-blue)';
-          } else {
-            return 'var(--color-smp-blue)';
-          }
-        })
-        .attr('d', this.arc);
-    }
+    const reverseData = [].concat(data.days).reverse();
+    const pointPie = reverseData.find(e => e.state !== 'disabled').day;
+
+
+    this.pointId = arcs.selectAll('path')
+      .data(this.tickData)
+      .enter()
+      .append('path')
+      .attr('stroke', 'var(--color-bg-main)')
+      .attr('stroke-width', '4px')
+      .attr('id', (d, i) => {
+        // if (i === (pointPie - 1)) {
+        //   return 'point';
+        // }
+        if (i === 23) {
+          return 'point';
+        }
+      })
+      .attr('fill', (d, i) => {
+        const status = this.data.days.find(e => e.day - 1 === i).state;
+        if (status === 'normal') {
+          return 'var(--color-active)';
+        } else if (status === 'warning') {
+          return 'var(--color-warning)';
+        } else if (status === 'danger') {
+          return 'var(--color-danger)';
+        } else {
+          return 'var(--color-smp-blue)';
+        }
+      })
+      .attr('d', this.arc);
 
     const pointid = this.pointId?.nodes()?.find(el => el?.id === 'point');
     let pointidLength: number;
@@ -257,7 +246,6 @@ export class PerformanceProgressCircleComponent implements OnInit, AfterViewInit
     if (pointid) {
       pointidLength = pointid.getTotalLength();
       coordsPoint = pointid.getPointAtLength(pointidLength);
-
     }
 
     const aroundGauge = this.svg
@@ -271,7 +259,7 @@ export class PerformanceProgressCircleComponent implements OnInit, AfterViewInit
     if (coordsPoint) {
       const point = this.svg
         .append('circle')
-        .attr('cx', coordsPoint.x + 130)
+        .attr('cx', coordsPoint.x + 159)
         .attr('cy', coordsPoint.y + 127)
         .attr('r', '5px')
         .attr('fill', 'var(--color-text-main');
@@ -292,8 +280,7 @@ export class PerformanceProgressCircleComponent implements OnInit, AfterViewInit
   }
 
   configure(configuration): void {
-    let prop;
-    for (prop in configuration) {
+    for (let prop in configuration) {
       this.config[prop] = configuration[prop];
     }
 

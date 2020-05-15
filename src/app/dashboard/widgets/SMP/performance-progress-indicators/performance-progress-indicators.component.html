@@ -7,15 +7,15 @@
       (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
       <div class="content__left">
         <div class="frame-top"></div>
-        <evj-performance-progress-park title='Состояние парка'></evj-performance-progress-park>
+        <evj-performance-progress-park [data]='data.statePark' title='Состояние парка'></evj-performance-progress-park>
         <div class="frame-bottom"></div>
       </div>
       <div class="content__middle">
-        <evj-performance-progress-line-circle></evj-performance-progress-line-circle>
+        <evj-performance-progress-line-circle [data]='data.circle'></evj-performance-progress-line-circle>
       </div>
       <div class="content__right">
         <div class="frame-top"></div>
-        <evj-performance-progress-park title='Отгрузка'></evj-performance-progress-park>
+        <evj-performance-progress-park [data]='data.shipment' title='Отгрузка'></evj-performance-progress-park>
         <div class="frame-bottom"></div>
       </div>
     </div>
