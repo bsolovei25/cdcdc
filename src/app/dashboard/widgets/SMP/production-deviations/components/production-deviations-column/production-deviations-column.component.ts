@@ -5,7 +5,7 @@ import * as d3 from 'd3';
 interface IProductionDeviationsColumn {
     maxValue: number;
     fact: number;
-    plan?: number;
+    plan: number;
     limit?: {
         value: number;
         type: 'danger' | 'warning';
@@ -27,9 +27,13 @@ type LineType = 'danger' | 'warning' | 'plan' | 'fact';
 })
 export class ProductionDeviationsColumnComponent {
     private data: IProductionDeviationsColumn = {
-        maxValue: 100,
-        fact: 67,
+        maxValue: 200,
+        fact: 160,
         plan: 80,
+        limit: {
+            value: 120,
+            type: 'danger',
+        },
     };
 
     @ViewChild('col', { static: true }) private column: ElementRef;
@@ -88,6 +92,16 @@ export class ProductionDeviationsColumnComponent {
             const factLines: number = Math.floor((maxLines * this.data.fact) / this.data.maxValue);
             this.linesCounters.set('plan', allLines - factLines);
             this.linesCounters.set('fact', factLines);
+        } else if (this.data.fact < this.data.limit?.value) {
+            const factLines: number = Math.floor((maxLines * this.data.fact) / this.data.maxValue);
+            this.linesCounters.set('fact', factLines);
+        } else if (this.data.limit) {
+            const allLines: number = Math.floor((maxLines * this.data.fact) / this.data.maxValue);
+            const limitLines: number = Math.floor(
+                (maxLines * this.data.limit.value) / this.data.maxValue
+            );
+            this.linesCounters.set(this.data.limit.type, allLines - limitLines);
+            this.linesCounters.set('fact', limitLines);
         }
     }
 
