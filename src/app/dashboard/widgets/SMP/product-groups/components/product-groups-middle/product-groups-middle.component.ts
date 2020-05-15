@@ -1,14 +1,15 @@
-import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import * as d3 from 'd3';
 import { ITypeProduct } from '../../product-groups.component';
 import { SpaceNumber } from '@shared/pipes/number_space.pipe';
 
 @Component({
     selector: 'evj-product-groups-middle',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './product-groups-middle.component.html',
     styleUrls: ['./product-groups-middle.component.scss']
 })
-export class ProductGroupsMiddleComponent implements OnInit, AfterViewInit {
+export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
     @ViewChild('circle', { static: true }) circle: ElementRef;
     @Input() data: ITypeProduct;
 
@@ -62,14 +63,19 @@ export class ProductGroupsMiddleComponent implements OnInit, AfterViewInit {
     public pointId: any;
     public piePointNumber: number;
 
+    public svgCircle: any;
+
     constructor(private spacePipe: SpaceNumber) { }
 
     ngOnInit(): void {
     }
 
-    ngAfterViewInit(): void {
+    ngOnChanges(): void {
         this.indicator = this.indicatorGauge(this.data.gaugePercent);
         this.draw(this.data, this.circle.nativeElement, this.gaugemap, this.indicator);
+        if (this.svgCircle) {
+            this.svgCircle.remove();
+        }
         this.d3Circle(this.data, this.circle.nativeElement);
     }
 
@@ -88,13 +94,13 @@ export class ProductGroupsMiddleComponent implements OnInit, AfterViewInit {
             color = d3.scaleOrdinal().range(['var(--color-text-main)', 'var(--color-oil-circle-disable)']);
         }
 
-        const svg = d3
+        this.svgCircle = d3
             .select(el)
             .append('svg')
             .attr('min-width', '100px')
             .attr('viewBox', '0 0 100 100');
 
-        const group = svg.append('g').attr('transform', 'translate(52 ,52)');
+        const group = this.svgCircle.append('g').attr('transform', 'translate(52 ,52)');
 
         const arc = d3
             .arc()
@@ -119,14 +125,14 @@ export class ProductGroupsMiddleComponent implements OnInit, AfterViewInit {
             .attr('d', arc)
             .attr('fill', (d) => color(d.index));
 
-        const textBlock = svg
+        const textBlock = this.svgCircle
             .append('foreignObject')
             .attr('height', 62)
             .attr('width', 62)
             .attr('x', 20)
             .attr('y', 20);
 
-        const div = svg
+        const div = this.svgCircle
             .select('foreignObject')
             .append('xhtml:div')
             .attr('style', () => {
@@ -138,19 +144,7 @@ export class ProductGroupsMiddleComponent implements OnInit, AfterViewInit {
             })
             .html(data.title);
 
-        // const title = svg
-        //     .append('text')
-        //     .attr('text-anchor', 'middle')
-        //     .attr('font-size', '16px')
-        //     .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-        //     .attr('y', '56')
-        //     .attr('x', '52')
-        //     .attr('dx', 10)
-        //     .attr('dy', 20)
-        //     .attr('fill', 'var(--color-text-main')
-        //     .text(data.title);
-
-        const leftTopButton = svg
+        const leftTopButton = this.svgCircle
             .append('image')
             .attr(
                 'xlink:href',
@@ -170,7 +164,7 @@ export class ProductGroupsMiddleComponent implements OnInit, AfterViewInit {
             .attr('x', '-60')
             .attr('y', '28');
 
-        const leftButtonButton = svg
+        const leftButtonButton = this.svgCircle
             .append('image')
             .attr(
                 'xlink:href',
@@ -190,7 +184,7 @@ export class ProductGroupsMiddleComponent implements OnInit, AfterViewInit {
             .attr('x', '-60')
             .attr('y', '57');
 
-        const leftButton = svg
+        const leftButton = this.svgCircle
             .append('image')
             .attr(
                 'xlink:href',
@@ -212,7 +206,7 @@ export class ProductGroupsMiddleComponent implements OnInit, AfterViewInit {
 
 
 
-        const rightTopButton = svg
+        const rightTopButton = this.svgCircle
             .append('image')
             .attr(
                 'xlink:href',
@@ -232,7 +226,7 @@ export class ProductGroupsMiddleComponent implements OnInit, AfterViewInit {
             .attr('x', '130')
             .attr('y', '28');
 
-        const rightButtonButton = svg
+        const rightButtonButton = this.svgCircle
             .append('image')
             .attr(
                 'xlink:href',
@@ -252,7 +246,7 @@ export class ProductGroupsMiddleComponent implements OnInit, AfterViewInit {
             .attr('x', '130')
             .attr('y', '57');
 
-        const rightButton = svg
+        const rightButton = this.svgCircle
             .append('image')
             .attr(
                 'xlink:href',

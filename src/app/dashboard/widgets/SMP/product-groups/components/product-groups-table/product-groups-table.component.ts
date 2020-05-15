@@ -1,12 +1,13 @@
-import { Component, OnInit, Input, ChangeDetectorRef, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef, ElementRef, ViewChild, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { IProducts } from '../../product-groups.component';
 
 @Component({
   selector: 'evj-product-groups-table',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './product-groups-table.component.html',
   styleUrls: ['./product-groups-table.component.scss']
 })
-export class ProductGroupsTableComponent implements OnInit {
+export class ProductGroupsTableComponent implements OnInit, OnChanges {
   @ViewChild('lines') lines: ElementRef;
 
   @Input() widgetType: string;
@@ -23,7 +24,10 @@ export class ProductGroupsTableComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.map(this.data);
+  }
+
+  ngOnChanges(): void {
+    this.datas = this.map(this.data);
   }
 
   ngAfterViewChecked(): void {
@@ -36,11 +40,9 @@ export class ProductGroupsTableComponent implements OnInit {
     } catch (error) { }
   }
 
-  map(data: IProducts[]): void {
+  map(data: IProducts[]): IProducts[] {
+    this.datas = [];
     for (const item of data) {
-      // item.products.sort((prev, next) => {
-      //   return next.priority > prev.priority ? -1 : prev.priority > next.priority ? 1 : 0;
-      // });
       switch (item.groupName.toLowerCase()) {
         case 'бензины':
           item.typeImage = 'benzin';
@@ -76,16 +78,7 @@ export class ProductGroupsTableComponent implements OnInit {
       }
     }
 
-    // data.forEach((el) => {
-    //   el.groupValue = Math.round(el.groupValue);
-    //   el.groupDeviationValue = Math.round(el.groupDeviationValue);
-    //   el.products.forEach((item) => {
-    //     item.productValue = Math.round(item.productValue);
-    //     item.productDeviation = Math.round(item.productDeviation);
-    //   });
-    // });
-
-    // this.data = data;
+    return this.datas;
   }
 
   isClickedFunc(item): void {

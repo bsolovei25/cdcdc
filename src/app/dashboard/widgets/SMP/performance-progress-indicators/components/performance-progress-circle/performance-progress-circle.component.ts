@@ -1,14 +1,15 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import * as d3 from 'd3';
 import { SpaceNumber } from '@shared/pipes/number_space.pipe';
 import { IPerfProgCircle } from '../../performance-progress-indicators.component';
 
 @Component({
   selector: 'evj-performance-progress-circle',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './performance-progress-circle.component.html',
   styleUrls: ['./performance-progress-circle.component.scss']
 })
-export class PerformanceProgressCircleComponent implements OnInit, AfterViewInit {
+export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
   @ViewChild('circle', { static: true }) circle: ElementRef;
   @Input() data: IPerfProgCircle;
 
@@ -61,14 +62,19 @@ export class PerformanceProgressCircleComponent implements OnInit, AfterViewInit
   public pointId;
   public piePointNumber: number;
 
+  public svgCircle: any
+
   constructor(private spacePipe: SpaceNumber) { }
 
   ngOnInit(): void {
   }
 
-  ngAfterViewInit(): void {
+  ngOnChanges(): void {
     this.indicator = this.indicatorGauge(this.data.gaugePercent);
     this.draw(this.data, this.circle.nativeElement, this.gaugemap, this.indicator);
+    if (this.svgCircle) {
+      this.svgCircle.remove();
+    }
     this.d3Circle(this.data, this.circle.nativeElement);
   }
 
@@ -89,13 +95,13 @@ export class PerformanceProgressCircleComponent implements OnInit, AfterViewInit
       color = d3.scaleOrdinal().range(['var(--color-text-main)', 'var(--color-oil-circle-disable)']);
     }
 
-    const svg = d3
+    this.svgCircle = d3
       .select(el)
       .append('svg')
       .attr('min-width', '100px')
       .attr('viewBox', '0 0 100 100');
 
-    let group = svg.append('g').attr('transform', 'translate(52 ,52)');
+    let group = this.svgCircle.append('g').attr('transform', 'translate(52 ,52)');
 
     const arc = d3
       .arc()
@@ -120,7 +126,7 @@ export class PerformanceProgressCircleComponent implements OnInit, AfterViewInit
       .attr('d', arc)
       .attr('fill', (d) => color(d.index));
 
-    const value = svg
+    const value = this.svgCircle
       .append('text')
       .attr('text-anchor', 'middle')
       .attr('font-size', '9px')
@@ -130,7 +136,7 @@ export class PerformanceProgressCircleComponent implements OnInit, AfterViewInit
       .attr('x', '52')
       .text(pipeValue);
 
-    const title = svg
+    const title = this.svgCircle
       .append('text')
       .attr('text-anchor', 'middle')
       .attr('font-size', '7px')
@@ -140,7 +146,7 @@ export class PerformanceProgressCircleComponent implements OnInit, AfterViewInit
       .attr('fill', 'var(--color-text-main')
       .text(data.title);
 
-    const icon = svg
+    const icon = this.svgCircle
       .append('image')
       .attr('xlink:href', './assets/icons/widgets/SMP/' + this.data.icon + '.svg')
       .attr('height', '13px')
@@ -264,7 +270,7 @@ export class PerformanceProgressCircleComponent implements OnInit, AfterViewInit
         defaultY = defaultY - 22;
         defaultX = coordsPoint.x + 131 + 5 * (8 - (25 - this.piePointNumber));
       } else if (this.piePointNumber > 24 && this.piePointNumber <= 30) {
-        defaultY = defaultY - 5 * (29 - this.piePointNumber);
+        defaultY = defaultY - 3.5 * (29 - this.piePointNumber);
         defaultX = defaultX + 4 * (8 - (29 - this.piePointNumber));
       }
       const point = this.svg

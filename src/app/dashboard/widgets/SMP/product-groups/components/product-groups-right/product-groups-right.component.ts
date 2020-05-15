@@ -1,14 +1,15 @@
-import { Component, OnInit, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, Input, ViewChild, ChangeDetectionStrategy, OnChanges } from '@angular/core';
 import * as d3 from 'd3';
 import { SpaceNumber } from '@shared/pipes/number_space.pipe';
 import { IProducts } from '../../product-groups.component';
 
 @Component({
     selector: 'evj-product-groups-right',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './product-groups-right.component.html',
     styleUrls: ['./product-groups-right.component.scss']
 })
-export class ProductGroupsRightComponent implements OnInit {
+export class ProductGroupsRightComponent implements OnInit, OnChanges {
 
     public readonly RADIUS = 28;
 
@@ -50,6 +51,8 @@ export class ProductGroupsRightComponent implements OnInit {
     public tickData;
     public svg;
 
+    public svgBlock: any;
+
     @Input() public data: IProducts;
 
     @ViewChild('myCircle', { static: true }) myCircle: ElementRef;
@@ -57,6 +60,12 @@ export class ProductGroupsRightComponent implements OnInit {
     constructor(private spacePipe: SpaceNumber) { }
 
     ngOnInit(): void {
+    }
+
+    ngOnChanges(): void {
+        if (this.svgBlock) {
+            this.svgBlock.remove();
+        }
         this.d3Block(this.data, this.myCircle.nativeElement);
     }
 
@@ -71,14 +80,14 @@ export class ProductGroupsRightComponent implements OnInit {
             color = d3.scaleOrdinal().range(['orange', '#1b1e27']);
         }
 
-        const canvas = d3
+        this.svgBlock = d3
             .select(el)
             .append('svg')
             .attr('min-width', '100px')
             .attr('width', '100%')
             .attr('viewBox', '0 -24 150 115');
 
-        this.d3Circle(data, canvas);
+        this.d3Circle(data, this.svgBlock);
     }
 
     d3Circle(data, el): void {
@@ -92,17 +101,6 @@ export class ProductGroupsRightComponent implements OnInit {
         const indicatorRightPie = this.indicatorGauge(data.gaugePercent);
 
         this.d3Grauge(el, this.gaugemap, indicatorRightPie, x, y);
-
-        // const background = el
-        //     .append('image')
-        //     .attr(
-        //         'xlink:href',
-        //         'assets/icons/widgets/SMP/product-group-planning/background_right_circle.svg'
-        //     )
-        //     .attr('height', '110px')
-        //     .attr('width', '110px')
-        //     .attr('x', '-113')
-        //     .attr('y', '-25');
 
         const topLabel = el
             .append('text')

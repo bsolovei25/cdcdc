@@ -1,14 +1,15 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import * as d3 from 'd3';
 import { SpaceNumber } from '@shared/pipes/number_space.pipe';
 import { IProducts } from '../../product-groups.component';
 
 @Component({
     selector: 'evj-product-groups-left',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './product-groups-left.component.html',
     styleUrls: ['./product-groups-left.component.scss']
 })
-export class ProductGroupsLeftComponent implements OnInit {
+export class ProductGroupsLeftComponent implements OnInit, OnChanges {
     public readonly RADIUS = 29;
 
     @Input() public data: IProducts;
@@ -19,9 +20,17 @@ export class ProductGroupsLeftComponent implements OnInit {
 
     @ViewChild('myCircle', { static: true }) myCircle: ElementRef;
 
+    public svg: any;
+
     constructor(private spacePipe: SpaceNumber) { }
 
     ngOnInit(): void {
+    }
+
+    ngOnChanges(): void {
+        if (this.svg) {
+            this.svg.remove();
+        }
         this.d3Circle(this.data, this.myCircle.nativeElement);
     }
 
@@ -54,7 +63,7 @@ export class ProductGroupsLeftComponent implements OnInit {
 
         const filterName: string[] = this.textFilter(data.groupName);
 
-        const svg = d3
+        this.svg = d3
             .select(el)
             .append('svg')
             .attr('min-width', '200px')
@@ -62,7 +71,7 @@ export class ProductGroupsLeftComponent implements OnInit {
             .attr('width', '100%')
             .attr('viewBox', '80 0 300 95');
 
-        const background = svg
+        const background = this.svg
             .append('image')
             .attr(
                 'xlink:href',
@@ -73,7 +82,7 @@ export class ProductGroupsLeftComponent implements OnInit {
             .attr('x', '27')
             .attr('y', '10');
 
-        const group = svg.append('g').attr('transform', 'translate(171 ,48)');
+        const group = this.svg.append('g').attr('transform', 'translate(171 ,48)');
 
         const arc = d3
             .arc()
@@ -99,7 +108,7 @@ export class ProductGroupsLeftComponent implements OnInit {
 
             .attr('fill', (d) => color(d.index));
 
-        const pieBack = svg
+        const pieBack = this.svg
             .append('image')
             .attr('xlink:href', 'assets/icons/widgets/SMP/product-group-planning/onLeftCircle.svg')
             .attr('height', '112px')
@@ -107,7 +116,7 @@ export class ProductGroupsLeftComponent implements OnInit {
             .attr('x', '131')
             .attr('y', '-7');
 
-        const valueCircle = svg
+        const valueCircle = this.svg
             .append('text')
             .attr('font-size', '12px')
             .attr('x', '172')
@@ -117,7 +126,7 @@ export class ProductGroupsLeftComponent implements OnInit {
             .text(this.percent + '%');
 
         if (filterName.length !== 1) {
-            const name1 = svg
+            const name1 = this.svg
                 .append('text')
                 .attr('font-size', '18px')
                 .attr('x', '30')
@@ -125,7 +134,7 @@ export class ProductGroupsLeftComponent implements OnInit {
                 .attr('fill', 'white')
                 .text(filterName[0]);
 
-            const name2 = svg
+            const name2 = this.svg
                 .append('text')
                 .attr('font-size', '18px')
                 .attr('x', '30')
@@ -133,7 +142,7 @@ export class ProductGroupsLeftComponent implements OnInit {
                 .attr('fill', 'white')
                 .text('/' + filterName[1]);
         } else {
-            const name = svg
+            const name = this.svg
                 .append('text')
                 .attr('font-size', '18px')
                 .attr('x', '50')
@@ -142,7 +151,7 @@ export class ProductGroupsLeftComponent implements OnInit {
                 .text(data.groupName);
         }
 
-        const point = svg
+        const point = this.svg
             .append('image')
             .attr(
                 'xlink:href',
@@ -162,7 +171,7 @@ export class ProductGroupsLeftComponent implements OnInit {
             .attr('x', '20')
             .attr('y', '40');
 
-        const buttonLeftTop = svg
+        const buttonLeftTop = this.svg
             .append('image')
             .attr(
                 'xlink:href',
@@ -181,7 +190,7 @@ export class ProductGroupsLeftComponent implements OnInit {
             .attr('x', '218')
             .attr('y', '19');
 
-        const buttonLeftMiddle = svg
+        const buttonLeftMiddle = this.svg
             .append('image')
             .attr(
                 'xlink:href',
@@ -201,7 +210,7 @@ export class ProductGroupsLeftComponent implements OnInit {
             .attr('x', '224')
             .attr('y', '39');
 
-        const buttonLeftBottom = svg
+        const buttonLeftBottom = this.svg
             .append('image')
             .attr(
                 'xlink:href',
@@ -221,7 +230,7 @@ export class ProductGroupsLeftComponent implements OnInit {
             .attr('x', '218')
             .attr('y', '55');
 
-        const icon = svg
+        const icon = this.svg
             .append('image')
             .attr('xlink:href', imageActive)
             .attr('height', '25px')
@@ -229,7 +238,7 @@ export class ProductGroupsLeftComponent implements OnInit {
             .attr('x', '160')
             .attr('y', '34');
 
-        const value = svg
+        const value = this.svg
             .append('text')
             .attr('font-size', '20px')
             .attr('x', '260')
@@ -237,7 +246,7 @@ export class ProductGroupsLeftComponent implements OnInit {
             .attr('fill', 'white')
             .text(newValue);
 
-        const criticalValue = svg
+        const criticalValue = this.svg
             .append('text')
             .attr('font-size', '20px')
             .attr('x', '260')
@@ -245,7 +254,7 @@ export class ProductGroupsLeftComponent implements OnInit {
             .attr('fill', 'white')
             .text(criticalNewValue);
 
-        const buttonRightTop = svg
+        const buttonRightTop = this.svg
             .append('image')
             .attr(
                 'xlink:href',
@@ -266,7 +275,7 @@ export class ProductGroupsLeftComponent implements OnInit {
             .attr('y', '20');
 
 
-        const buttonRightBottom = svg
+        const buttonRightBottom = this.svg
             .append('image')
             .attr(
                 'xlink:href',
@@ -286,7 +295,7 @@ export class ProductGroupsLeftComponent implements OnInit {
             .attr('x', '326')
             .attr('y', '48');
 
-        const arrow = svg
+        const arrow = this.svg
             .append('image')
             .attr('xlink:href', 'assets/icons/widgets/SMP/product-group-planning/arrow.svg')
             .attr('height', '35px')
