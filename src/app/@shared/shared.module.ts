@@ -29,6 +29,12 @@ import { CircleInputComponent } from './components/circle-input/circle-input.com
 import { LineChartTanksDirective } from './directives/line-chart-tanks.directive';
 import { LineChartPickerTankDirective } from './directives/line-chart-picker-tank.directive';
 import { SpaceNumber } from './pipes/number_space.pipe';
+import { TooltipComponent } from './components/tooltip/tooltip.component';
+import { TooltipDirective } from './components/tooltip/directives/tooltip.directive';
+import { LineBreakPipe } from './pipes/line-break.pipe';
+import { SelectComponent } from './components/select/select.component';
+import { MatSelectModule } from '@angular/material/select';
+import { EventsChatComponent } from './components/events-chat/events-chat.component';
 
 @NgModule({
     declarations: [
@@ -54,7 +60,12 @@ import { SpaceNumber } from './pipes/number_space.pipe';
         CircleInputComponent,
         LineChartTanksDirective,
         LineChartPickerTankDirective,
-        SpaceNumber
+        SpaceNumber,
+        TooltipComponent,
+        TooltipDirective,
+        LineBreakPipe,
+        SelectComponent,
+        EventsChatComponent,
     ],
     exports: [
         HeaderComponent,
@@ -77,6 +88,11 @@ import { SpaceNumber } from './pipes/number_space.pipe';
         EmailEditorComponent,
         CircleInputComponent,
         SpaceNumber,
+        TooltipComponent,
+        TooltipDirective,
+        LineBreakPipe,
+        SelectComponent,
+        EventsChatComponent,
     ],
     imports: [
         CommonModule,
@@ -85,8 +101,13 @@ import { SpaceNumber } from './pipes/number_space.pipe';
         NgxMaskModule.forChild(),
         CKEditorModule,
         FormsModule,
-        AngularSvgIconModule
+        AngularSvgIconModule,
+        AngularSvgIconModule,
+        MatSelectModule,
     ],
-    providers: [SpaceNumber],
+    providers: [
+        SpaceNumber,
+        LineBreakPipe,
+    ],
 })
 export class SharedModule { }

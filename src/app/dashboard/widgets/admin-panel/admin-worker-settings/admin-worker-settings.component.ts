@@ -9,6 +9,7 @@ import { IWidgets } from '../../../models/widget.model';
 import { SelectionModel } from '@angular/cdk/collections';
 import { SnackBarService } from '../../../services/snack-bar.service';
 import { IAlertWindowModel } from '../../../../@shared/models/alert-window.model';
+import { async } from '@angular/core/testing';
 
 @Component({
     selector: 'evj-admin-worker-settings',
@@ -252,11 +253,25 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public onRemoveWorker(): void {
-        this.alert.questionText = `Вы действительно хотите удалить пользователя
-        ${this.worker.lastName} ${this.worker.firstName} ${this.worker.middleName}`;
+        this.alert.questionText = `Вы действительно хотите удалить профайл
+        пользователя ${this.worker.displayName} из Системы?`;
         this.alert.acceptText = 'Подтвердить';
         this.alert.cancelText = 'Вернуться';
-        this.alert.acceptFunction = () => (this.alert.isShow = false);
+        this.alert.acceptFunction = async () => {
+            try {
+                await this.adminService.deleteWorker(this.worker.id);
+                this.materialController.openSnackBar(
+                    `Пользователь ${this.worker.displayName} успешно удален из Системы`
+                );
+                this.adminService.setDefaultActiveWorker();
+                this.closeWorkerSettings.emit();
+            } catch (err) {
+                this.materialController.openSnackBar(
+                    `Запрос на удаление пользователя ${this.worker.displayName} не был обработан`,
+                    'snackbar-red'
+                );
+            }
+        };
         this.alert.isShow = true;
     }
 

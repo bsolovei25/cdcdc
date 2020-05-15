@@ -48,6 +48,13 @@ export class AppConfigService {
         return this.appConfig.fileStorage;
     }
 
+    get smotrUrl(): string {
+        if (!this.appConfig) {
+            throw Error('Config file not loaded!');
+        }
+        return this.appConfig.smotrUrl;
+    }
+
     get reconnectInterval(): number {
         if (!this.appConfig) {
             throw Error('Config file not loaded!');

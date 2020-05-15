@@ -159,4 +159,46 @@
   &:focus {
     outline: none;
   }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.button-rounded {
+  height: 100%;
+  width: 100%;
+
+  border: 1px solid white;
+  color: white;
+  box-sizing: border-box;
+  border-radius: 33px;
+  background-color: transparent;
+  cursor: pointer;
+  outline: none;
+  transition: 0.2s;
+
+  font-size: 14px;
+
+  &:disabled {
+    cursor: not-allowed;
+
+    &:hover {
+      border-color: white;
+    }
+  }
+}
+
+.default {
+  &:hover {
+    background-color: var(--color-btn-rounded-disabled-transparent);
+    border-color: white;
+  }
+}
+
+.primary {
+  &:hover {
+    background-color: rgba(63, 169, 245, 0.1);
+    border-color: var(--color-btn-rounded-border);
+  }
 }

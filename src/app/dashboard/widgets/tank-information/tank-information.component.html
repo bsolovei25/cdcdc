@@ -15,7 +15,7 @@
             </div>
             <!--FILTER-->
             <div *ngIf="isFilterTable">
-                <evj-tank-filter [data]="sendFilterData" (close)="closeFilter($event)"></evj-tank-filter>
+                <evj-tank-filter [data]="sendFilterData" [filterData]="filterData" (closeFilter)="closeFilter($event)"></evj-tank-filter>
             </div>
         </div>
     </div>
