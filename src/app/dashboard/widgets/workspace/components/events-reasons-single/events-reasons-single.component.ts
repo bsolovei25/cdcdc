@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class EventsReasonsSingleComponent implements OnInit {
     @Input() public title: string = '';
     @Input() public reason: string = '';
+    @Input() public isAdder: boolean = true;
     @Output() private addReason: EventEmitter<void> = new EventEmitter<void>();
 
     constructor() {}

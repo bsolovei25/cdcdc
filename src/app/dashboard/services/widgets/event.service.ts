@@ -11,7 +11,7 @@ import {
     IRetrievalEvents,
     IUnitEvents,
     IUser,
-    IPriority, IAsusService, IAsusEOService, IAsusCategories, IAsusWorkgroup
+    IPriority, IAsusService, IAsusEOService, IAsusCategories, IAsusWorkgroup, ISmotrReference
 } from '../../models/events-widget';
 import { AppConfigService } from 'src/app/services/appConfigService';
 
@@ -72,7 +72,8 @@ export class EventService {
     async getEvent(id: number): Promise<EventsWidgetNotification> {
         try {
             return this.http
-                .get<EventsWidgetNotification>(this.restUrl + '/api/notifications/' + id)
+                .get<EventsWidgetNotification>('assets/mock/SmotrEventsMock/event.json')
+                // .get<EventsWidgetNotification>(this.restUrl + '/api/notifications/' + id)
                 .toPromise();
         } catch (error) {
             console.error(error);
@@ -218,6 +219,17 @@ export class EventService {
         try {
             return this.http
                 .get<IAsusEOService[]>('assets/mock/AsusEventsMock/eoservice.json')
+                // .get<IAsusEOService[]>(this.restUrl + '/api/notification-reference/eoservice')
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async getSmotrReference(): Promise<ISmotrReference> {
+        try {
+            return this.http
+                .get<ISmotrReference>('assets/mock/SmotrEventsMock/reference.json')
                 // .get<IAsusEOService[]>(this.restUrl + '/api/notification-reference/eoservice')
                 .toPromise();
         } catch (error) {

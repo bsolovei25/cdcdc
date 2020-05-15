@@ -108,7 +108,7 @@
         </div>
         <div class="information__label label">
           <div class="label__title">Автор</div>
-          <div class="label__text">{{this.ewService.event.fixedBy.displayName}}</div>
+          <div class="label__text">{{this.ewService.event.fixedBy?.displayName}}</div>
         </div>
       </div>
       <div class="row__cell cell cell_right">
@@ -121,7 +121,7 @@
     <div class="column__row row reasons">
       <evj-events-reasons-single
         title="Причины"
-        [reason]="'reasons'"
+        [reason]="ewService.event.directReasons"
         (addReason)="isReasonsPopupOpen=true"
       ></evj-events-reasons-single>
     </div>
@@ -150,6 +150,7 @@
     <evj-events-list-window
       *ngIf="isReasonsPopupOpen"
       title="Выберите нужные причины"
+      [reasonsList]="this.ewService.event?.deviationData?.availableReasons"
       (closeWindow)="isReasonsPopupOpen=false"
     ></evj-events-list-window>
   </div>

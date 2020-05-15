@@ -9,7 +9,7 @@ import {
     EventsWidgetNotificationStatus,
     EventsWidgetNotificationPriority,
     EventsWidgetCategoryCode,
-    IRetrievalEvents, IAsusService, IAsusEOService, IAsusWorkgroup, IAsusCategories
+    IRetrievalEvents, IAsusService, IAsusEOService, IAsusWorkgroup, IAsusCategories, ISmotrReference
 } from '../../models/events-widget';
 import { EventService } from '../widgets/event.service';
 import { SnackBarService } from '../snack-bar.service';
@@ -34,17 +34,18 @@ export class EventsWorkspaceService {
     //#endregion
 
     //#region REFERENCES
-    public priority: IPriority[];
-    public status: IStatus[];
-    public users: IUser[];
-    public category: ICategory[];
-    public equipmentCategory: ICategory[];
-    public eventTypes: ICategory[];
-    public units: IUnitEvents[];
-    public asusCategories: IAsusCategories[];
-    public asusWorkgroup: IAsusWorkgroup[];
-    public asusServices: IAsusService[];
-    public asusEOServices: IAsusEOService[];
+    public priority: IPriority[] = [];
+    public status: IStatus[] = [];
+    public users: IUser[] = [];
+    public category: ICategory[] = [];
+    public equipmentCategory: ICategory[] = [];
+    public eventTypes: ICategory[] = [];
+    public units: IUnitEvents[] = [];
+    public asusCategories: IAsusCategories[] = [];
+    public asusWorkgroup: IAsusWorkgroup[] = [];
+    public asusServices: IAsusService[] = [];
+    public asusEOServices: IAsusEOService[] = [];
+    public smotrReference: ISmotrReference = null;
     //#endregion
 
     public currentAuthUser: IUser = null;
@@ -85,26 +86,51 @@ export class EventsWorkspaceService {
             if (id) {
                 this.event = await this.eventService.getEvent(id);
             }
-            this.category = await this.eventService.getCategory();
-            this.users = await this.eventService.getUser();
-            this.status = await this.eventService.getStatus();
-            this.units = await this.eventService.getUnits();
-            this.priority = await this.eventService.getPriority();
-            this.equipmentCategory = await this.eventService.getEquipmentCategory();
-            this.eventTypes = await this.eventService.getEventType();
-            this.asusCategories = await this.eventService.getAsusCategories();
-            this.asusWorkgroup = await this.eventService.getAsusWorkgroup();
-            this.asusServices = await this.eventService.getAsusServices();
-            this.asusEOServices = await this.eventService.getAsusEOServices();
-            console.log(this.asusCategories);
-            console.log(this.asusWorkgroup);
-            console.log(this.asusServices);
-            console.log(this.asusEOServices);
+            const dataLoadQueue: Promise<void>[] = [];
+            dataLoadQueue.push(
+                this.eventService.getCategory().then((data) => {
+                    this.category = data;
+                }),
+                this.eventService.getUser().then((data) => {
+                    this.users = data;
+                }),
+                this.eventService.getStatus().then((data) => {
+                    this.status = data;
+                }),
+                this.eventService.getUnits().then((data) => {
+                    this.units = data;
+                }),
+                this.eventService.getPriority().then((data) => {
+                    this.priority = data;
+                }),
+                this.eventService.getEquipmentCategory().then((data) => {
+                    this.equipmentCategory = data;
+                }),
+                this.eventService.getEventType().then((data) => {
+                    this.eventTypes = data;
+                }),
+                this.eventService.getAsusCategories().then((data) => {
+                    this.asusCategories = data;
+                }),
+                this.eventService.getAsusWorkgroup().then((data) => {
+                    this.asusWorkgroup = data;
+                }),
+                this.eventService.getAsusServices().then((data) => {
+                    this.asusServices = data;
+                }),
+                this.eventService.getAsusEOServices().then((data) => {
+                    this.asusEOServices = data;
+                }),
+                this.eventService.getSmotrReference().then((data) => {
+                   this.smotrReference = data;
+                }),
+            );
+            await Promise.all(dataLoadQueue);
             this.setDefaultEvent();
         } catch (err) {
             console.error(err);
         } finally {
-            setTimeout(() => (this.isLoading = false), 500);
+            setTimeout(() => (this.isLoading = false), 200);
         }
     }
 

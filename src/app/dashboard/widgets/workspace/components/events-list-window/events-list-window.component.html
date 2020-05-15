@@ -7,35 +7,19 @@
   </div>
   <div class="window__body list scroll scroll-bar">
     <div class="list__reasons">
-      <div class="row">
-        <div class="row__title">123</div>
-        <div class="row__radio">
-          <div class="radio"></div>
+      <ng-container *ngFor="let reason of reasonsList">
+        <div class="row" (click)="setReason(reason)" *ngIf="reason.isActive">
+          <div class="row__title">{{ reason.name }}</div>
+          <div class="row__radio">
+            <div class="radio" [class.radio_active]="isActiveCompare(reason)"></div>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="row__title">123</div>
-        <div class="row__radio">
-          <div class="radio radio_active"></div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="row__title">123</div>
-        <div class="row__radio">
-          <div class="radio radio_active"></div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="row__title">123</div>
-        <div class="row__radio">
-          <div class="radio"></div>
-        </div>
-      </div>
+      </ng-container>
     </div>
   </div>
   <div class="window__footer footer">
     <div class="search">
-      <input class="search__input" type="text" (input)="onSearchValue($event)" />
+      <input class="search__input" type="text" (keyup)="onSearchValue($event?.target?.value)" />
     </div>
     <div class="button" (click)="onSave()">{{buttonText}}</div>
   </div>
