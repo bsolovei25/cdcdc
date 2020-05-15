@@ -267,6 +267,7 @@ import { ProductionDeviationsColumnComponent } from './widgets/SMP/production-de
 import { ProductGroupsTableComponent } from './widgets/SMP/product-groups/components/product-groups-table/product-groups-table.component';
 import { ProductGroupsShortComponent } from './widgets/SMP/product-groups-short/product-groups-short.component';
 import { ProductGroupsComponent } from './widgets/SMP/product-groups/product-groups.component';
+import { SmpEventsWorkspaceComponent } from './widgets/SMP/smp-events-workspace/smp-events-workspace.component';
 
 @NgModule({
     declarations: [
@@ -503,6 +504,7 @@ import { ProductGroupsComponent } from './widgets/SMP/product-groups/product-gro
         ProductionDeviationsColumnComponent,
         ProductGroupsTableComponent,
         ProductGroupsShortComponent,
+        SmpEventsWorkspaceComponent,
     ],
     entryComponents: [
         LineChartComponent,
@@ -575,6 +577,7 @@ import { ProductGroupsComponent } from './widgets/SMP/product-groups/product-gro
         ProductionDeviationsComponent,
         ProductGroupsComponent,
         ProductGroupsShortComponent,
+        SmpEventsWorkspaceComponent,
     ],
     exports: [HomeComponent],
     imports: [
