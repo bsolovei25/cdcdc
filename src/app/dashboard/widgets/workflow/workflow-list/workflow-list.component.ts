@@ -186,7 +186,8 @@ export class WorkflowListComponent implements OnInit {
         this.alertWindow = windowsParam;
     }
 
-    startStopScenario(scenario: IScenarios): void {
+    startStopScenario(event: MouseEvent, scenario: IScenarios): void {
+        event.stopPropagation();
         if (scenario.status === 'stopped') {
             this.startScenario(scenario.uid);
         } else {
@@ -196,14 +197,22 @@ export class WorkflowListComponent implements OnInit {
 
     async startScenario(scenarioId: string): Promise<void> {
         try {
-            this.workflowService.putScenarioStart(this.chooseModules.uid, scenarioId);
-        } catch (error) {}
+            this.isLoading = true;
+            await this.workflowService.putScenarioStart(this.chooseModules.uid, scenarioId);
+            this.isLoading = false;
+        } catch (error) {
+            this.isLoading = false;
+        }
     }
 
     async stopScenario(scenarioId: string): Promise<void> {
         try {
-            this.workflowService.putScenarioStop(this.chooseModules.uid, scenarioId);
-        } catch (error) {}
+            this.isLoading = true;
+            await this.workflowService.putScenarioStop(this.chooseModules.uid, scenarioId);
+            this.isLoading = false;
+        } catch (error) {
+            this.isLoading = false;
+        }
     }
 
     async chooseSystem(item: MatSelectChange): Promise<void> {

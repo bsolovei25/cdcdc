@@ -40,7 +40,9 @@
 
 .available-scenario {
   position: relative;
-  height: calc(100% - 89px);
+  height: calc(100% - 115px);
+  // min-width: 200px;
+
   &__title {
     font-size: 12px;
     color: var(--color-text-sub);

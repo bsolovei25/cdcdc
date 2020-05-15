@@ -14,6 +14,8 @@ import {
     GridsterItem,
     GridType,
     GridsterItemComponentInterface,
+    GridsterItemComponent,
+    GridsterComponent,
 } from 'angular-gridster2';
 import { WorkflowService } from '../../services/widgets/workflow.service';
 import 'leader-line';
@@ -116,8 +118,11 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     public ColWidth: number = 10;
     public RowHeight: number = 10;
 
-    private itemCol: number = 4;
-    private itemRow: number = 4;
+    private itemCol: number = 3;
+    private itemRow: number = 3;
+
+    widthSvgIconGrid: 50;
+    heightSvgIconGrid: 50;
 
     chooseModules: IModules;
     chooseScenarios: IScenarios;
@@ -151,6 +156,8 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
 
     dragItem: 'SendEmail' | 'CheckWarning' | 'CheckExpired';
 
+    private timerHwnd: number;
+
     // Chips
     visible: boolean = true;
     selectable: boolean = true;
@@ -159,16 +166,18 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
 
     emailText: string;
 
-    static itemResize(item: GridsterItem, itemComponent: GridsterItemComponentInterface) {
-        console.info('itemResized', item, itemComponent);
-    }
+    @ViewChild('valueInputChips') valueInputChips: ElementRef<HTMLInputElement>;
 
+    // slider vertical
+    @ViewChild('splitVertivalBar') splitVertivalBar: ElementRef<HTMLElement>;
+    @ViewChild('splitLeft') splitLeft: ElementRef<HTMLElement>;
+    @ViewChild('containerWorkflowScenario') containerWorkflowScenario: ElementRef<HTMLElement>;
+
+    // slider horisontal
     @ViewChild('splitBar') splitBar: ElementRef<HTMLElement>;
     @ViewChild('splitTop') splitTop: ElementRef<HTMLElement>;
     @ViewChild('splitBottom') splitBottom: ElementRef<HTMLElement>;
     @ViewChild('containerWorkflow') containerWorkflow: ElementRef<HTMLElement>;
-
-    @ViewChild('valueInputChips') valueInputChips: ElementRef<HTMLInputElement>;
 
     constructor(
         public widgetService: WidgetService,
@@ -200,20 +209,69 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
             itemResizeCallback: this.resizeGridsterElement.bind(this),
             gridSizeChangedCallback: this.resizeGridsterElement.bind(this),
             pushItems: false,
-            minCols: 20,
-            maxCols: 50,
-            minRows: 20,
-            maxRows: 50,
-            margin: 1,
+            minCols: 10,
+            maxCols: 100,
+            minRows: 10,
+            maxRows: 100,
+            margin: 10,
             setGridSize: false,
             mobileBreakpoint: 0,
             fixedColWidth: this.ColWidth,
             fixedRowHeight: this.RowHeight,
             draggable: {
                 enabled: true,
+                // start: this.startDrag.bind(this),
+                stop: this.stopDrag.bind(this),
+                dropOverItems: false,
+                dropOverItemsCallback: this.stop1Drag.bind(this),
             },
             swap: false,
         };
+    }
+
+    stop1Drag(sourceItem, targetItem, grid) {
+        console.log(sourceItem, targetItem, grid);
+    }
+    stopDrag(item, gridsterItem: GridsterItemComponent, event) {
+        console.log(item);
+        console.log(gridsterItem.item);
+        console.log(item, gridsterItem, event);
+
+        let a = true;
+        this.items.forEach((val) => {
+            if (a) {
+                if (gridsterItem.item.x === val.x && gridsterItem.item.y === val.y) {
+                    if (val.scenarioAction !== item.scenarioAction) {
+                        console.log('regect');
+                        a = false;
+                    }
+                    // reject('cancel');
+                } else {
+                    a = true;
+                    console.log('resolve');
+                    // resolve('approve');
+                }
+            }
+        });
+        return new Promise(function(resolve, reject) {
+            // resolve('approve');
+            if (a) {
+                resolve('approve');
+            } else {
+                reject('cancel');
+            }
+
+            this.items.foreach((val) => {
+                if (gridsterItem.item.x === val.x) {
+                    console.log('regect');
+                    reject('cancel');
+                } else {
+                    console.log('resolve');
+                    resolve('approve');
+                }
+            });
+            /// do your stuff here
+        });
     }
 
     ngOnInit(): void {
@@ -243,6 +301,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
 
     ngAfterViewInit(): void {
         this.slider();
+        this.sliderLeftBar();
     }
 
     ngOnDestroy(): void {
@@ -305,6 +364,46 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         });
     }
 
+    sliderLeftBar(): void {
+        let mouseIsDown = false;
+        this.splitVertivalBar.nativeElement.addEventListener('mousedown', (e) => {
+            mouseIsDown = true;
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!mouseIsDown) {
+                return;
+            }
+
+            // const a = e.x;
+            // this.renderer.setStyle(this.splitLeft.nativeElement, 'min-width', `${a}px`);
+
+            const x = this.splitLeft.nativeElement.getBoundingClientRect().x;
+            console.log(x);
+
+            const sum = e.x - x;
+            if (sum < 150) {
+                this.renderer.setStyle(this.splitLeft.nativeElement, 'width', `${0}px`);
+                this.renderer.setStyle(this.splitLeft.nativeElement, 'min-width', `${0}px`);
+            } else {
+                this.renderer.setStyle(this.splitLeft.nativeElement, 'width', `${sum}px`);
+            }
+
+            // if (a > this.containerWorkflow.nativeElement.getBoundingClientRect().width - 65) {
+            //     const width = this.containerWorkflow.nativeElement.getBoundingClientRect()
+            //         .width;
+            //     const sum = width - 65;
+            // } else {
+            //     this.renderer.setStyle(this.splitLeft.nativeElement, 'width', `${a}px`);
+            // }
+        });
+
+        document.addEventListener('mouseup', () => {
+            mouseIsDown = false;
+            // this.resizeGridsterElement();
+        });
+    }
+
     // #endregion
 
     // #region LOAD
@@ -338,7 +437,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         this.availbleActions.data.sortedActionList.forEach((sort) => {
             this.items.push({
                 x,
-                y: 5,
+                y: 3,
                 cols: this.itemCol,
                 rows: this.itemRow,
                 type: sort.actionName,
@@ -348,12 +447,12 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                 previousScenarioAction: sort.previousScenarioAction,
                 nextScenarioAction: sort.nextScenarioAction,
             });
-            x += 6;
+            x += 4;
         });
         this.availbleActions.data.withoutLinks.forEach((sort) => {
             this.items.push({
                 x,
-                y: 5,
+                y: 3,
                 cols: this.itemCol,
                 rows: this.itemRow,
                 type: sort.actionName,
@@ -363,7 +462,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                 previousScenarioAction: sort.previousScenarioAction,
                 nextScenarioAction: sort.nextScenarioAction,
             });
-            x += 6;
+            x += 4;
         });
         this.drawLeaderLine();
     }
@@ -479,12 +578,12 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     }
 
     public onResize(): void {
-        // this.sizeGrid();
+        this.sizeGrid();
         this.resizeGridsterElement();
     }
 
     public resizeGridsterElement(): void {
-        console.log('dsad');
+        // this.changedOptions();
         // this.items.setSize();
         const event = new CustomEvent('resize');
         document.dispatchEvent(event);

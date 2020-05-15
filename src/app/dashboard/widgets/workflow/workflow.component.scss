@@ -64,15 +64,42 @@
   display: flex;
   justify-content: space-between;
   margin: 0px 20px;
-  height: calc(100% - 30px);
+  height: calc(100% - 10px);
 
   &__choose-scenario {
     display: flex;
     flex-direction: column;
 
-    width: 100%;
-    min-width: 300px;
-    margin-right: 10px;
+    width: 30%;
+    transition: width 200ms ease-in-out 0s;
+    min-width: 120px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    // height: calc(100% - 20px);
+    margin-right: 5px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  &__vertival-bar {
+    cursor: col-resize;
+    background-color: var(--color-bg-card-workflow);
+    min-width: 8px;
+    border-radius: 10px;
+    margin: 0 auto;
+    margin-right: 5px;
+    height: 100%;
+    background-image: url(./../../../../assets/icons/widgets/workflow/drag_w.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 15px;
+  }
+
+  &__right-block {
+    flex: 1;
+    display: flex;
+    height: calc(100% - 20px);
   }
 
   &__action {
@@ -162,6 +189,7 @@
         border-radius: 15px;
         background-color: var(--color-bg-card-workflow);
         margin-bottom: 5px;
+        transition: height 100ms ease-in-out 0s;
 
         &__gridster {
           &__item {
@@ -177,7 +205,7 @@
 
           gridster-item {
             background: none;
-            border-radius: 20px;
+            border-radius: 25px;
           }
         }
 
