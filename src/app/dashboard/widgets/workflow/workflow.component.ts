@@ -158,6 +158,8 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
 
     private timerHwnd: number;
 
+    moveGridsterItem: IGridsterItemLocal;
+
     // Chips
     visible: boolean = true;
     selectable: boolean = true;
@@ -208,6 +210,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
             emptyCellDragMaxRows: 100000,
             itemResizeCallback: this.resizeGridsterElement.bind(this),
             gridSizeChangedCallback: this.resizeGridsterElement.bind(this),
+            itemValidateCallback: this.valid.bind(this),
             pushItems: false,
             minCols: 10,
             maxCols: 100,
@@ -229,30 +232,47 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         };
     }
 
+    valid(gridsterItem): boolean {
+        this.moveGridsterItem = gridsterItem;
+        return true;
+    }
+
     stop1Drag(sourceItem, targetItem, grid) {
         console.log(sourceItem, targetItem, grid);
     }
     stopDrag(item, gridsterItem: GridsterItemComponent, event) {
-        console.log(item);
-        console.log(gridsterItem.item);
-        console.log(item, gridsterItem, event);
-
+        // console.log(item);
+        // console.log(gridsterItem.item);
+        // console.log(item, gridsterItem, event);
         let a = true;
-        this.items.forEach((val) => {
-            if (a) {
-                if (gridsterItem.item.x === val.x && gridsterItem.item.y === val.y) {
-                    if (val.scenarioAction !== item.scenarioAction) {
-                        console.log('regect');
-                        a = false;
+
+        if (this.moveGridsterItem) {
+            this.items.forEach((val) => {
+                if (a) {
+                    if (
+                        (this.moveGridsterItem.x === val.x && this.moveGridsterItem.y === val.y) ||
+                        this.moveGridsterItem.x + 1 === val.x + 1 ||
+                            this.moveGridsterItem.y + 1 === val.y + 1 ||
+                        this.moveGridsterItem.x + 2 === val.x + 2 ||
+                            this.moveGridsterItem.y + 2 === val.y + 2
+                    ) {
+                        console.log(this.moveGridsterItem.x, val.x);
+
+                        if (val.scenarioAction !== item.scenarioAction) {
+                            console.log('regect');
+                            a = false;
+                            this.moveGridsterItem = null;
+                        }
+                        // reject('cancel');
+                    } else {
+                        a = true;
+                        console.log('resolve');
+                        // resolve('approve');
                     }
-                    // reject('cancel');
-                } else {
-                    a = true;
-                    console.log('resolve');
-                    // resolve('approve');
                 }
-            }
-        });
+            });
+        }
+
         return new Promise(function(resolve, reject) {
             // resolve('approve');
             if (a) {
@@ -623,6 +643,8 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     }
 
     public itemChange(item: GridsterItem, itemComponent: GridsterItemComponentInterface): void {
+        console.log(item);
+
         const useItem = { ...item };
     }
 
