@@ -74,7 +74,7 @@ export class ProductGroupsComponent extends WidgetPlatform implements OnInit, On
     gaugePercent: 60,
     products: [
       {
-        title: 'АИ-92',
+        title: 'АИ-92 RERETESTST',
         piePercent: 70,
         gaugePercent: 70,
         pieStatus: 'normal',

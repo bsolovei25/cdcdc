@@ -60,6 +60,7 @@ export class ProductGroupsMiddleComponent implements OnInit, AfterViewInit {
     };
 
     public pointId: any;
+    public piePointNumber: number;
 
     constructor(private spacePipe: SpaceNumber) { }
 
@@ -118,15 +119,36 @@ export class ProductGroupsMiddleComponent implements OnInit, AfterViewInit {
             .attr('d', arc)
             .attr('fill', (d) => color(d.index));
 
-        const title = svg
-            .append('text')
-            .attr('text-anchor', 'middle')
-            .attr('font-size', '16px')
-            .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-            .attr('y', '56')
-            .attr('x', '52')
-            .attr('fill', 'var(--color-text-main')
-            .text(data.title);
+        const textBlock = svg
+            .append('foreignObject')
+            .attr('height', 62)
+            .attr('width', 62)
+            .attr('x', 20)
+            .attr('y', 20);
+
+        const div = svg
+            .select('foreignObject')
+            .append('xhtml:div')
+            .attr('style', () => {
+                if (data.title.length > 6) {
+                    return 'font-size: 11px; height: 100%;width: 100%; display: flex;align-items: center; justify-content: center; text-align: center;'
+                } else {
+                    return 'font-size: 14px; height: 100%;width: 100%; display: flex;align-items: center; justify-content: center;'
+                }
+            })
+            .html(data.title);
+
+        // const title = svg
+        //     .append('text')
+        //     .attr('text-anchor', 'middle')
+        //     .attr('font-size', '16px')
+        //     .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
+        //     .attr('y', '56')
+        //     .attr('x', '52')
+        //     .attr('dx', 10)
+        //     .attr('dy', 20)
+        //     .attr('fill', 'var(--color-text-main')
+        //     .text(data.title);
 
         const leftTopButton = svg
             .append('image')
@@ -312,6 +334,9 @@ export class ProductGroupsMiddleComponent implements OnInit, AfterViewInit {
             .attr('id', 'test')
             .attr('transform', centerTx);
 
+        const reverseData = [].concat(data.days).reverse();
+        const pointPie = reverseData.find(e => e.state !== 'disabled').day;
+
         this.pointId = arcs.selectAll('path')
             .data(this.tickData)
             .enter()
@@ -319,7 +344,8 @@ export class ProductGroupsMiddleComponent implements OnInit, AfterViewInit {
             .attr('stroke', 'var(--color-bg-main)')
             .attr('stroke-width', '4px')
             .attr('id', (d, i) => {
-                if (i + 1 <= newValue + 1 && i + 1 > criticalPie) {
+                if (i === (pointPie - 1)) {
+                    this.piePointNumber = i;
                     return 'point';
                 }
             })
@@ -355,10 +381,21 @@ export class ProductGroupsMiddleComponent implements OnInit, AfterViewInit {
             .attr('y', '5');
 
         if (coordsPoint) {
+            let defaultX = coordsPoint.x + 146;
+            let defaultY = coordsPoint.y + 151;
+            if (this.piePointNumber > 12 && this.piePointNumber < 18) {
+                defaultY = defaultY - 5;
+            } else if (this.piePointNumber > 17 && this.piePointNumber < 25) {
+                defaultY = defaultY - 22;
+                defaultX = coordsPoint.x + 131 + 5 * (8 - (25 - this.piePointNumber));
+            } else if (this.piePointNumber > 24 && this.piePointNumber <= 30) {
+                defaultY = defaultY - 5 * (29 - this.piePointNumber);
+                defaultX = defaultX + 4 * (8 - (29 - this.piePointNumber));
+            }
             const point = this.svg
                 .append('circle')
-                .attr('cx', coordsPoint.x + 130)
-                .attr('cy', coordsPoint.y + 127)
+                .attr('cx', defaultX)
+                .attr('cy', defaultY)
                 .attr('r', '5px')
                 .attr('fill', 'var(--color-text-main');
         }

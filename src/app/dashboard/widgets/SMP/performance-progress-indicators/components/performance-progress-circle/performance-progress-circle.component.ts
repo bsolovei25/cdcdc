@@ -59,6 +59,7 @@ export class PerformanceProgressCircleComponent implements OnInit, AfterViewInit
   };
 
   public pointId;
+  public piePointNumber: number;
 
   constructor(private spacePipe: SpaceNumber) { }
 
@@ -219,10 +220,8 @@ export class PerformanceProgressCircleComponent implements OnInit, AfterViewInit
       .attr('stroke', 'var(--color-bg-main)')
       .attr('stroke-width', '4px')
       .attr('id', (d, i) => {
-        // if (i === (pointPie - 1)) {
-        //   return 'point';
-        // }
-        if (i === 23) {
+        if (i === (pointPie - 1)) {
+          this.piePointNumber = i;
           return 'point';
         }
       })
@@ -257,10 +256,21 @@ export class PerformanceProgressCircleComponent implements OnInit, AfterViewInit
       .attr('y', '5');
 
     if (coordsPoint) {
+      let defaultX = coordsPoint.x + 146;
+      let defaultY = coordsPoint.y + 151;
+      if (this.piePointNumber > 12 && this.piePointNumber < 18) {
+        defaultY = defaultY - 5;
+      } else if (this.piePointNumber > 17 && this.piePointNumber < 25) {
+        defaultY = defaultY - 22;
+        defaultX = coordsPoint.x + 131 + 5 * (8 - (25 - this.piePointNumber));
+      } else if (this.piePointNumber > 24 && this.piePointNumber <= 30) {
+        defaultY = defaultY - 5 * (29 - this.piePointNumber);
+        defaultX = defaultX + 4 * (8 - (29 - this.piePointNumber));
+      }
       const point = this.svg
         .append('circle')
-        .attr('cx', coordsPoint.x + 159)
-        .attr('cy', coordsPoint.y + 127)
+        .attr('cx', defaultX)
+        .attr('cy', defaultY)
         .attr('r', '5px')
         .attr('fill', 'var(--color-text-main');
     }
