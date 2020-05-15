@@ -15,6 +15,15 @@ export class EventsCorrectComponent implements OnInit {
         if (this.ewService.event?.category?.code === '0') {
             this.isSmotr = true;
         }
+
+        switch (this.ewService.event?.category?.code) {
+            case '0':
+            case '5':
+                this.isSmotr = true;
+                break;
+            default:
+                this.isSmotr = false;
+        }
     }
 
     public overlayConfirmationOpen(): void {

@@ -19,11 +19,11 @@
       <div ngClass="info__status_{{statusesColors[event.innerNotification.status.name]}}">
         {{ewService.statuses[event.innerNotification.status.name]}}
       </div>
-      <div class="info__due-date">
+      <div class="info__due-date" *ngIf="event.innerNotification.deadline">
         <div class="info__title">Срок исполнения</div>
         <div class="info__text">{{event?.innerNotification?.deadline|date:'dd-MM-yyyy HH:mm'}}</div>
       </div>
-      <div class="info__responsible">
+      <div class="info__responsible" *ngIf="event.innerNotification.fixedBy">
         <div class="info__title">Ответственный</div>
         <div class="info__text">{{event.innerNotification.fixedBy.displayName}}</div>
       </div>

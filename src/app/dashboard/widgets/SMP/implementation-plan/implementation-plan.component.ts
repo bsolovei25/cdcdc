@@ -40,6 +40,27 @@ export class ImplementationPlanComponent extends WidgetPlatform implements OnIni
     }
   ];
 
+  public data2: IImplementationPlan[] = [
+    {
+      id: 1,
+      title: 'Нефть1',
+      value: 1232421,
+      deviation: '+0,2',
+      deviationPercent: 10,
+      factTankLevel: 10,
+      planTankLevel: 40,
+    },
+    {
+      id: 2,
+      title: 'КГС2',
+      value: 1232421,
+      deviation: '+0,2',
+      deviationPercent: 20,
+      factTankLevel: 10,
+      planTankLevel: 30,
+    }
+  ];
+
   constructor(
     protected widgetService: WidgetService,
     @Inject('isMock') public isMock: boolean,
@@ -52,6 +73,9 @@ export class ImplementationPlanComponent extends WidgetPlatform implements OnIni
 
   public ngOnInit(): void {
     super.widgetInit();
+    setTimeout(() => {
+      this.data = this.data2;
+    }, 3000);
   }
 
   public ngOnDestroy(): void {

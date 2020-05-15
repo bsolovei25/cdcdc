@@ -1,0 +1,218 @@
+<div class="asus" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
+  <div class="asus__column column column_left">
+    <div class="column__row row">
+      <div class="row__cell cell cell_left">
+        <evj-ui-block status="normal">
+          <mat-form-field class="categories_selectbox">
+            <mat-label>Категория</mat-label>
+            <mat-select
+              panelClass="mat-select-custom"
+              [(ngModel)]="ewService.event.category"
+              [compareWith]="compareFn"
+            >
+              <mat-option *ngFor="let cat of ewService.category" [value]="cat">
+                {{ ewService.categories[cat.name] }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </evj-ui-block>
+      </div>
+      <div class="row__cell cell cell_right">
+        <evj-ui-block status="normal">
+          <mat-form-field class="status">
+            <mat-label>АСУС категория</mat-label>
+            <mat-select panelClass="mat-select-custom"> </mat-select>
+          </mat-form-field>
+        </evj-ui-block>
+      </div>
+    </div>
+    <div class="column__row row">
+      <div class="row__cell cell cell_left">
+        <evj-ui-block status="normal">
+          <mat-form-field class="status">
+            <mat-label>Статус</mat-label>
+            <mat-select
+              panelClass="mat-select-custom"
+              [(ngModel)]="ewService.event.status"
+              [compareWith]="compareFn"
+            >
+              <mat-option *ngFor="let p of ewService.status" [value]="p"
+                >{{ ewService.statuses[p.name] }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </evj-ui-block>
+      </div>
+      <div class="row__cell cell cell_right">
+        <evj-ui-block status="normal">
+          <mat-form-field class="status">
+            <mat-label>Установка</mat-label>
+            <mat-select
+              panelClass="mat-select-custom"
+              [(ngModel)]="ewService.event.unit"
+              [compareWith]="compareFn"
+            >
+              <mat-option *ngFor="let p of ewService.units" [value]="p">{{ p.name }} </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </evj-ui-block>
+      </div>
+    </div>
+    <div class="column__row row description">
+      <evj-event-description
+        [description]="ewService.event.description"
+        [isRetrievalEvent]="false"
+        (changedDescription)="onChangeEventDescription($event)"
+      ></evj-event-description>
+    </div>
+    <div class="column__row row datepicker">
+      <div class="datepicker__title">SLA</div>
+      <div class="datepicker__body">
+        <div class="row__cell cell cell_left">
+          <evj-ui-block status="normal">
+            <div class="date">
+              <div class="date__name">Срок реализации</div>
+              <evj-time-data-picker
+                class="date__date"
+                [data]="ewService.event.deadline"
+                (dateTimePicker)="dateTimePicker($event)"
+              ></evj-time-data-picker>
+            </div>
+          </evj-ui-block>
+        </div>
+        <div class="row__cell cell cell_right">
+          <evj-ui-block status="normal">
+            <div class="date">
+              <div class="date__name">Крайний срок</div>
+              <evj-time-data-picker
+                class="date__date"
+                [data]="ewService.event.deadline"
+                (dateTimePicker)="dateTimePicker($event)"
+              ></evj-time-data-picker>
+            </div>
+          </evj-ui-block>
+        </div>
+      </div>
+    </div>
+    <div class="column__row row datepicker">
+      <div class="datepicker__title">Выполнение обращений</div>
+      <div class="datepicker__body">
+        <div class="row__cell cell cell_left">
+          <evj-ui-block status="normal">
+            <div class="date">
+              <div class="date__name">Дата начала работ</div>
+              <evj-time-data-picker
+                class="date__date"
+                [data]="ewService.event.deadline"
+                (dateTimePicker)="dateTimePicker($event)"
+              ></evj-time-data-picker>
+            </div>
+          </evj-ui-block>
+        </div>
+        <div class="row__cell cell cell_right">
+          <evj-ui-block status="normal">
+            <div class="date">
+              <div class="date__name">Дата завершения</div>
+              <evj-time-data-picker
+                class="date__date"
+                [data]="ewService.event.deadline"
+                (dateTimePicker)="dateTimePicker($event)"
+              ></evj-time-data-picker>
+            </div>
+          </evj-ui-block>
+        </div>
+      </div>
+    </div>
+    <div class="column__row row reasons">
+      <evj-events-reasons
+        title="Причины"
+        [reasons]="reasons"
+        (addReason)="isReasonsPopupOpen=true"
+      ></evj-events-reasons>
+    </div>
+    <div class="column__row row chat">
+      <evj-chat
+        [messages]="ewService.event.comments"
+        title="Комментарии"
+        placeholder="Напишите свой комментарий..."
+        (addingMessage)="onSendMessage($event,'comments')"
+      ></evj-chat>
+    </div>
+  </div>
+  <div class="asus__column column column_right">
+    <div class="column__row row">
+      <div class="row__cell cell cell_left">
+        <evj-ui-block status="normal">
+          <mat-form-field class="status">
+            <mat-label>Услуга</mat-label>
+            <mat-select panelClass="mat-select-custom"> </mat-select>
+          </mat-form-field>
+        </evj-ui-block>
+      </div>
+      <div class="row__cell cell cell_right">
+        <evj-ui-block status="{{ewService.event.priority.name}}">
+          <mat-form-field class="{{ewService.event.priority.name}}">
+            <mat-label>Приоритет</mat-label>
+            <mat-select
+              panelClass="mat-select-custom"
+              [(ngModel)]="ewService.event.priority"
+              [compareWith]="compareFn"
+            >
+              <mat-option *ngFor="let p of ewService.priority" [value]="p"
+                >{{ ewService.priorities[p.name] }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </evj-ui-block>
+      </div>
+    </div>
+    <div class="column__row row">
+      <div class="row__cell cell cell_left">
+        <evj-ui-block status="normal">
+          <mat-form-field class="status">
+            <mat-label>Оборудование</mat-label>
+            <mat-select panelClass="mat-select-custom"> </mat-select>
+          </mat-form-field>
+        </evj-ui-block>
+      </div>
+      <div class="row__cell cell cell_right">
+        <evj-ui-block status="normal">
+          <mat-form-field class="status">
+            <mat-label>Единица обслуживания</mat-label>
+            <mat-select panelClass="mat-select-custom"> </mat-select>
+          </mat-form-field>
+        </evj-ui-block>
+      </div>
+    </div>
+    <div class="column__row row">
+      <div class="row__cell cell cell_left information">
+        <div class="label">
+          <div class="label__title">Автор</div>
+          <div class="label__text">Иванов И.И.</div>
+        </div>
+      </div>
+      <div class="row__cell cell cell_right">
+        <evj-ui-block status="normal">
+          <mat-form-field class="status">
+            <mat-label>Рабочая группа</mat-label>
+            <mat-select panelClass="mat-select-custom"> </mat-select>
+          </mat-form-field>
+        </evj-ui-block>
+      </div>
+    </div>
+    <div class="column__row row responsible">
+      <evj-events-responsible-select></evj-events-responsible-select>
+    </div>
+    <div class="column__row row events-correct">
+      <evj-events-correct></evj-events-correct>
+    </div>
+  </div>
+
+  <div class="asus__popup" [ngClass]="{'asus__popup_active':isReasonsPopupOpen}">
+    <evj-events-list-window
+      *ngIf="isReasonsPopupOpen"
+      title="Выберите нужные причины"
+      (closeWindow)="isReasonsPopupOpen=false"
+    ></evj-events-list-window>
+  </div>
+</div>
