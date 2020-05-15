@@ -1,13 +1,14 @@
-import { Component, OnInit, ElementRef, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Input, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import * as d3 from 'd3';
 import { IQualityStockCircle } from '../../quality-stock.component';
 
 @Component({
   selector: 'evj-quality-stock-circle',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './quality-stock-circle.component.html',
   styleUrls: ['./quality-stock-circle.component.scss']
 })
-export class QualityStockCircleComponent implements OnInit {
+export class QualityStockCircleComponent implements OnInit, OnChanges {
   @ViewChild('circle', { static: true }) circle: ElementRef;
 
   @Input() data: IQualityStockCircle;
@@ -16,15 +17,22 @@ export class QualityStockCircleComponent implements OnInit {
 
   public defaultPercent: number = 100;
 
+  public svg: any;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  ngOnChanges(): void {
+    if (this.svg) {
+      this.svg.remove();
+    }
     this.d3Circle(this.data, this.circle.nativeElement);
   }
 
 
   public d3Circle(data, el): void {
-    // const summ = data.critical + data.nonCritical;
     const summ = this.defaultPercent - (data.factPercent - data.deviationPercent);
     const mass = [data.factPercent, data.deviationPercent, summ];
     let color: any;
@@ -35,13 +43,13 @@ export class QualityStockCircleComponent implements OnInit {
       color = d3.scaleOrdinal().range(['var(--color-text-main)', 'var(--color-deviation)', 'var(--color-bg-main)']);
     }
 
-    const svg = d3
+    this.svg = d3
       .select(el)
       .append('svg')
       .attr('min-width', '100px')
       .attr('viewBox', '0 0 100 100');
 
-    let group = svg.append('g').attr('transform', 'translate(50 ,43)');
+    let group = this.svg.append('g').attr('transform', 'translate(50 ,43)');
 
     const arc = d3
       .arc()
@@ -74,7 +82,7 @@ export class QualityStockCircleComponent implements OnInit {
       .attr('dominant-baseline', 'middle')
       .text(data.value + '%');
 
-    const line = svg
+    const line = this.svg
       .append('rect')
       .attr('fill', 'var(--color-plan)')
       .attr('height', '6px')
@@ -82,7 +90,7 @@ export class QualityStockCircleComponent implements OnInit {
       .attr('x', '50')
       .attr('y', '11');
 
-    const background = svg
+    const background = this.svg
       .append('image')
       .attr(
         'xlink:href',
@@ -93,7 +101,7 @@ export class QualityStockCircleComponent implements OnInit {
       .attr('x', '0')
       .attr('y', '8');
 
-    const title = svg
+    const title = this.svg
       .append('text')
       .attr('font-size', '8px')
       .attr('text-anchor', 'middle')
@@ -104,7 +112,7 @@ export class QualityStockCircleComponent implements OnInit {
       .text('Отклонение');
 
     if (this.data.deviationStatus) {
-      const value = svg
+      const value = this.svg
         .append('text')
         .attr('font-size', '8px')
         .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
@@ -113,7 +121,7 @@ export class QualityStockCircleComponent implements OnInit {
         .attr('fill', 'var(--color-text-main')
         .text('+ ' + this.data.deviation);
 
-      const arrow_up = svg
+      const arrow_up = this.svg
         .append('image')
         .attr(
           'xlink:href',
@@ -124,7 +132,7 @@ export class QualityStockCircleComponent implements OnInit {
         .attr('y', '90')
         .attr('x', '58');
     } else {
-      const value = svg
+      const value = this.svg
         .append('text')
         .attr('font-size', '8px')
         .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
@@ -133,7 +141,7 @@ export class QualityStockCircleComponent implements OnInit {
         .attr('fill', 'var(--color-text-main')
         .text('- ' + this.data.deviation);
 
-      const arrow_down = svg
+      const arrow_down = this.svg
         .append('image')
         .attr(
           'xlink:href',

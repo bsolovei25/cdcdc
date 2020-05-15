@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input, Host } from '@angular/core';
 import { TooltipService, TooltipModel } from '../service/tooltip.service';
 
 @Directive({
@@ -28,6 +28,11 @@ export class TooltipDirective {
       this.tooltipFlag = false;
       this.closeTooltip();
     }
+  }
+
+  @HostListener('wheel') onScroll(): void {
+    this.closeTooltip();
+    this.tooltipFlag = false;
   }
 
   private openTooltip(text: string): void {
