@@ -1,24 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, HostListener, Input } from '@angular/core';
 import * as d3Selection from 'd3-selection';
 import * as d3 from 'd3';
-
-interface IProductionDeviationsColumn {
-    maxValue: number;
-    fact: number;
-    plan: number;
-    limit?: {
-        value: number;
-        type: 'danger' | 'warning';
-    };
-}
-
-interface IGeometryParameters {
-    height: number;
-    width: number;
-    padding?: number;
-}
-
-type LineType = 'danger' | 'warning' | 'plan' | 'fact';
+import {
+    IProductionDeviationsColumn,
+    LineType,
+    IGeometryParameters,
+} from '../../../../../models/SMP/production-deviations.model';
 
 @Component({
     selector: 'evj-production-deviations-column',
@@ -26,24 +13,9 @@ type LineType = 'danger' | 'warning' | 'plan' | 'fact';
     styleUrls: ['./production-deviations-column.component.scss'],
 })
 export class ProductionDeviationsColumnComponent {
-    private data: IProductionDeviationsColumn = {
-        maxValue: 200,
-        fact: 160,
-        plan: 80,
-        limit: {
-            value: 120,
-            type: 'danger',
-        },
-    };
+    @Input() private data: IProductionDeviationsColumn = null;
 
     @ViewChild('col', { static: true }) private column: ElementRef;
-
-    private blocks: { [key in LineType]: any } = {
-        danger: null,
-        warning: null,
-        plan: null,
-        fact: null,
-    };
 
     private blockParams: IGeometryParameters = {
         height: 0,
@@ -66,8 +38,6 @@ export class ProductionDeviationsColumnComponent {
         warning: '#f4a321',
         danger: '#eb5757',
     };
-
-    private linesCounter: number = 0;
 
     constructor() {
         this.lineTypes.forEach((item) => this.linesCounters.set(item, 0));

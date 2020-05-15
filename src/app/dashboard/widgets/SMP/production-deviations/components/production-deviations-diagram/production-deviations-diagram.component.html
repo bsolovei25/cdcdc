@@ -13,163 +13,45 @@
       <div class="header__units">тыс. т.</div>
       <div class="header__title">Отклонения по выработке</div>
       <div class="header__legend legend">
-        <div class="legend__item">План</div>
         <div class="legend__item">Факт</div>
+        <div class="legend__item">План</div>
       </div>
     </div>
     <div class="diagram__graph graph">
       <div class="graph__axis axis">
         <div class="axis-x">
-          <div class="axis-x__item">1</div>
-          <div class="axis-x__item">2</div>
-          <div class="axis-x__item">3</div>
-          <div class="axis-x__item">4</div>
-          <div class="axis-x__item">5</div>
-          <div class="axis-x__item">6</div>
-          <div class="axis-x__item">7</div>
-          <div class="axis-x__item">8</div>
-          <div class="axis-x__item">9</div>
-          <div class="axis-x__item">10</div>
-          <div class="axis-x__item">11</div>
-          <div class="axis-x__item">12</div>
-          <div class="axis-x__item">13</div>
-          <div class="axis-x__item">14</div>
-          <div class="axis-x__item">15</div>
-          <div class="axis-x__item">16</div>
-          <div class="axis-x__item">17</div>
-          <div class="axis-x__item">18</div>
-          <div class="axis-x__item">19</div>
-          <div class="axis-x__item">20</div>
-          <div class="axis-x__item">21</div>
-          <div class="axis-x__item">22</div>
-          <div class="axis-x__item">23</div>
-          <div class="axis-x__item">24</div>
-          <div class="axis-x__item">25</div>
-          <div class="axis-x__item">26</div>
-          <div class="axis-x__item">27</div>
-          <div class="axis-x__item">28</div>
-          <div class="axis-x__item">29</div>
-          <div class="axis-x__item">30</div>
+          <div class="axis-x__item" *ngFor="let col of data.columns">{{col.date|date:"dd"}}</div>
         </div>
         <div class="axis-y"></div>
       </div>
 
-      <ng-container *ngIf="isBaseline;else noBaseline">
+      <ng-container *ngIf="data.graphType==='baseline';else noBaseline">
         <div class="graph__cols graph__cols_baseline">
-          <div class="graph__col">
-            <evj-production-deviations-column></evj-production-deviations-column>
+          <div class="graph__col" *ngFor="let col of data.columns">
+            <evj-production-deviations-column
+              *ngIf="col.direction==='up'"
+              [data]="col"
+            ></evj-production-deviations-column>
           </div>
-          <div class="graph__col">
-            <evj-production-deviations-column></evj-production-deviations-column>
-          </div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
         </div>
         <div class="graph__baseline"></div>
         <div class="graph__cols graph__cols_baseline">
-          <div class="graph__col">
-            <evj-production-deviations-column></evj-production-deviations-column>
+          <div class="graph__col graph__col_down" *ngFor="let col of data.columns">
+            <evj-production-deviations-column
+              *ngIf="col.direction==='down'"
+              [data]="col"
+            ></evj-production-deviations-column>
           </div>
-          <div class="graph__col">
-            <evj-production-deviations-column></evj-production-deviations-column>
-          </div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
         </div>
       </ng-container>
       <ng-template #noBaseline>
         <div class="graph__cols">
-          <div class="graph__col">
-            <evj-production-deviations-column></evj-production-deviations-column>
+          <div class="graph__col" *ngFor="let col of data.columns">
+            <evj-production-deviations-column [data]="col"></evj-production-deviations-column>
           </div>
-          <div class="graph__col">
-            <evj-production-deviations-column></evj-production-deviations-column>
-          </div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
-          <div class="graph__col"></div>
         </div>
       </ng-template>
     </div>
   </div>
-  <div class="diagram__sidebar">
-
-  </div>
+  <div class="diagram__sidebar"></div>
 </div>
