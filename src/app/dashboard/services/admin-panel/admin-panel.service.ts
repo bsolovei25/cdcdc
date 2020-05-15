@@ -135,6 +135,11 @@ export class AdminPanelService {
 
         return this.http.post<string>(this.restFileUrl, body).toPromise();
     }
+
+    public async deleteWorker(workerId: number): Promise<any> {
+        const url: string = `${this.restUrl}/user/${workerId}`;
+        return this.http.delete(url).toPromise();
+    }
     //#endregion
 
     //#region BRIGADES

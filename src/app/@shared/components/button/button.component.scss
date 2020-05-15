@@ -180,17 +180,25 @@
 
   font-size: 14px;
 
-  &:hover {
-    background-color: rgba(63, 169, 245, 0.1);
-    border-color: var(--color-btn-rounded-border);
-  }
-
   &:disabled {
     cursor: not-allowed;
-    background-color: var(--color-btn-rounded-disabled-transparent);
 
     &:hover {
       border-color: white;
     }
+  }
+}
+
+.default {
+  &:hover {
+    background-color: var(--color-btn-rounded-disabled-transparent);
+    border-color: white;
+  }
+}
+
+.primary {
+  &:hover {
+    background-color: rgba(63, 169, 245, 0.1);
+    border-color: var(--color-btn-rounded-border);
   }
 }
