@@ -172,6 +172,13 @@ export class EventsWorkspaceService {
             unitName: null,
             facts: [],
             comments: [],
+            asusEvent: {
+                category: '',
+                workGroup: '',
+                service: '',
+                eoService: '',
+                equipment: '',
+            }
         };
     }
 

@@ -21,9 +21,12 @@
         <evj-ui-block status="normal">
           <mat-form-field class="status">
             <mat-label>АСУС категория</mat-label>
-            <mat-select panelClass="mat-select-custom" [(ngModel)]="ewService.event.asusEvent.category">
-              <mat-option *ngFor="let category of ewService.asusCategories" [value]="category.name">
-                {{ category.name }}
+            <mat-select
+              panelClass="mat-select-custom"
+              [(ngModel)]="ewService.event.asusEvent.category"
+            >
+              <mat-option *ngFor="let category of ewService.asusCategories" [value]="category?.name">
+                {{ category?.name }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -150,7 +153,10 @@
         <evj-ui-block status="normal">
           <mat-form-field class="status">
             <mat-label>Услуга</mat-label>
-            <mat-select panelClass="mat-select-custom" [(ngModel)]="ewService.event.asusEvent.service">
+            <mat-select
+              panelClass="mat-select-custom"
+              [(ngModel)]="ewService.event.asusEvent.service"
+            >
               <mat-option *ngFor="let service of ewService.asusServices" [value]="service.name"
               >{{ service.name }}
               </mat-option>
@@ -188,7 +194,11 @@
         <evj-ui-block status="normal">
           <mat-form-field class="status">
             <mat-label>Единица обслуживания</mat-label>
-            <mat-select panelClass="mat-select-custom" [disabled]="true" [(ngModel)]="ewService.event.asusEvent.eoService">
+            <mat-select
+              panelClass="mat-select-custom"
+              [(ngModel)]="ewService.event.asusEvent.eoService"
+              [disabled]="true"
+            >
               <mat-option *ngFor="let eoService of ewService.asusEOServices" [value]="eoService.codeSap"
               >{{ eoService.name }}
               </mat-option>
@@ -208,7 +218,11 @@
         <evj-ui-block status="normal">
           <mat-form-field class="status">
             <mat-label>Рабочая группа</mat-label>
-            <mat-select panelClass="mat-select-custom" [(ngModel)]="ewService.event.asusEvent.workGroup">
+            <mat-select
+              panelClass="mat-select-custom"
+              [(ngModel)]="ewService.event.asusEvent.workGroup"
+              [disabled]="true"
+            >
               <mat-option *ngFor="let workgroup of ewService.asusWorkgroup" [value]="workgroup.name"
               >{{ workgroup.name }}
               </mat-option>

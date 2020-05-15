@@ -72,8 +72,8 @@ export class EventService {
     async getEvent(id: number): Promise<EventsWidgetNotification> {
         try {
             return this.http
-                .get<EventsWidgetNotification>('assets/mock/SmotrEventsMock/event.json')
-                // .get<EventsWidgetNotification>(this.restUrl + '/api/notifications/' + id)
+                // .get<EventsWidgetNotification>('assets/mock/SmotrEventsMock/event.json')
+                .get<EventsWidgetNotification>(this.restUrl + '/api/notifications/' + id)
                 .toPromise();
         } catch (error) {
             console.error(error);

@@ -56,16 +56,16 @@ export interface EventsWidgetNotification {
     unit?: IUnitEvents;
     unitName?: string;
     deviationData?: IEventDeviationData;
-    asusEvent?: IEventAsus;
+    asusEvent: IEventAsus;
 }
 
 export interface IEventAsus {
-    id: number;
-    notificationId: number;
-    codeAsus: string;
-    codeAsusGuid: string;
-    state: string;
-    consumer: string;
+    id?: number;
+    notificationId?: number;
+    codeAsus?: string;
+    codeAsusGuid?: string;
+    state?: string;
+    consumer?: string;
 
     category: string;
     workGroup: string;
@@ -73,10 +73,10 @@ export interface IEventAsus {
     eoService: string;
     equipment: string; // ? Оборудование
 
-    datetimeReaction: Date;
-    datetimeStart: Date;
-    datetimeEnd: Date;
-    datetimeDeadline: Date;
+    datetimeReaction?: Date;
+    datetimeStart?: Date;
+    datetimeEnd?: Date;
+    datetimeDeadline?: Date;
 }
 
 export interface IEventDeviationData {
