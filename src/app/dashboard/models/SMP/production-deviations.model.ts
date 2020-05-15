@@ -1,4 +1,5 @@
 export interface IProductionDeviationsGraph {
+    plan?: number;
     graphType: 'baseline' | 'normal';
     limits: {
         upValue: number;
@@ -13,7 +14,7 @@ export interface IProductionDeviationsColumn {
     date: Date;
     maxValue: number;
     fact: number;
-    plan: number;
+    plan?: number;
     direction?: 'up' | 'down';
     limit?: {
         value: number;

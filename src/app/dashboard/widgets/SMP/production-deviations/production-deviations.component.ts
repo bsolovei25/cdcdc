@@ -54,8 +54,8 @@ export class ProductionDeviationsComponent extends WidgetPlatform implements OnI
         {
             graphType: 'normal',
             limits: {
-                upValue: 120,
-                upType: 'danger',
+                upValue: 105,
+                upType: 'warning',
             },
             columns: [
                 {

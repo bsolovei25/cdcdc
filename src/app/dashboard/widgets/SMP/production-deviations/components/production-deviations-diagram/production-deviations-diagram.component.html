@@ -27,6 +27,11 @@
 
       <ng-container *ngIf="data.graphType==='baseline';else noBaseline">
         <div class="graph__cols graph__cols_baseline">
+          <div
+            class="graph__limit"
+            style.--limit-color="var(--color-{{data.limits.upType}})"
+            [style.bottom]="limits.up"
+          ></div>
           <div class="graph__col" *ngFor="let col of data.columns">
             <evj-production-deviations-column
               *ngIf="col.direction==='up'"
@@ -35,8 +40,13 @@
           </div>
         </div>
         <div class="graph__baseline"></div>
-        <div class="graph__cols graph__cols_baseline">
-          <div class="graph__col graph__col_down" *ngFor="let col of data.columns">
+        <div class="graph__cols graph__cols_baseline graph__cols_down">
+          <div
+            class="graph__limit"
+            style.--limit-color="var(--color-{{data.limits.downType}})"
+            [style.bottom]="limits.down"
+          ></div>
+          <div class="graph__col" *ngFor="let col of data.columns">
             <evj-production-deviations-column
               *ngIf="col.direction==='down'"
               [data]="col"
@@ -46,6 +56,11 @@
       </ng-container>
       <ng-template #noBaseline>
         <div class="graph__cols">
+          <div
+            class="graph__limit"
+            style.--limit-color="var(--color-{{data.limits.upType}})"
+            [style.bottom]="limits.up"
+          ></div>
           <div class="graph__col" *ngFor="let col of data.columns">
             <evj-production-deviations-column [data]="col"></evj-production-deviations-column>
           </div>
