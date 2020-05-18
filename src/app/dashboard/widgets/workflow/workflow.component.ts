@@ -30,6 +30,7 @@ import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { IWorkspaceTable } from './workflow-table/workflow-table.component';
 import { IModules, IScenarios } from './workflow-list/workflow-list.component';
+import { disableDebugTools } from '@angular/platform-browser';
 
 declare let LeaderLine: any;
 
@@ -115,8 +116,8 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     public options: GridsterConfig;
     public items: IGridsterItemLocal[] = [];
 
-    public ColWidth: number = 10;
-    public RowHeight: number = 10;
+    public ColWidth: number = 1;
+    public RowHeight: number = 1;
 
     private itemCol: number = 3;
     private itemRow: number = 3;
@@ -158,7 +159,11 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
 
     private timerHwnd: number;
 
-    moveGridsterItem: IGridsterItemLocal;
+    moveGridsterItem: any;
+    validItem: boolean = true;
+
+    startItemDrag: IGridsterItemLocal;
+    stopItemDrag: IGridsterItemLocal;
 
     // Chips
     visible: boolean = true;
@@ -167,6 +172,8 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     separatorKeysCodes: number[] = [ENTER, COMMA];
 
     emailText: string;
+
+    @ViewChild('content') content: ElementRef<HTMLInputElement>;
 
     @ViewChild('valueInputChips') valueInputChips: ElementRef<HTMLInputElement>;
 
@@ -210,13 +217,17 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
             emptyCellDragMaxRows: 100000,
             itemResizeCallback: this.resizeGridsterElement.bind(this),
             gridSizeChangedCallback: this.resizeGridsterElement.bind(this),
-            itemValidateCallback: this.valid.bind(this),
+            // itemValidateCallback: this.valid.bind(this),
             pushItems: false,
-            minCols: 10,
+            minCols: 15,
             maxCols: 100,
-            minRows: 10,
+            minRows: 15,
             maxRows: 100,
-            margin: 10,
+            margin: 20,
+            outerMarginTop: 10,
+            outerMarginLeft: 10,
+            outerMarginRight: 0,
+            outerMarginBottom: 0,
             setGridSize: false,
             mobileBreakpoint: 0,
             fixedColWidth: this.ColWidth,
@@ -224,74 +235,83 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
             draggable: {
                 enabled: true,
                 // start: this.startDrag.bind(this),
-                stop: this.stopDrag.bind(this),
-                dropOverItems: false,
+                // stop: this.stopDrag.bind(this),
+                dropOverItems: true,
                 dropOverItemsCallback: this.stop1Drag.bind(this),
             },
             swap: false,
         };
     }
 
-    valid(gridsterItem): boolean {
-        this.moveGridsterItem = gridsterItem;
-        return true;
-    }
-
-    stop1Drag(sourceItem, targetItem, grid) {
+    stop1Drag(sourceItem: IGridsterItemLocal, targetItem: IGridsterItemLocal, grid) {
         console.log(sourceItem, targetItem, grid);
-    }
-    stopDrag(item, gridsterItem: GridsterItemComponent, event) {
-        // console.log(item);
-        // console.log(gridsterItem.item);
-        // console.log(item, gridsterItem, event);
-        let a = true;
+        // this.isLoading = true;
+        if (targetItem.scenarioAction !== sourceItem?.nextScenarioAction) {
+            // const arr = this.items;
+            // const idxTarget = arr.findIndex(
+            //     (val) => val.scenarioAction === targetItem.scenarioAction
+            // );
+            // const idxSource = arr.findIndex(
+            //     (val) => sourceItem.scenarioAction === val.scenarioAction
+            // );
+            // if (!targetItem?.previousScenarioAction) {
+            //     console.log('1');
+            //     if (idxTarget >= 0) {
+            //         arr.splice(idxSource, 1);
+            //         const idTar = arr.findIndex(
+            //             (val) => val.scenarioAction === targetItem.scenarioAction
+            //         );
+            //         sourceItem.nextScenarioAction = targetItem.scenarioAction;
+            //         targetItem.previousScenarioAction = sourceItem.scenarioAction;
+            //         if (idTar === 0) {
+            //             arr.unshift(sourceItem);
+            //             console.log(arr);
+            //         } else {
+            //             arr.splice(idTar, 0, sourceItem);
+            //             console.log(arr);
+            //         }
+            //     }
+            // } else if (targetItem.previousScenarioAction) {
+            //     console.log('2');
 
-        if (this.moveGridsterItem) {
-            this.items.forEach((val) => {
-                if (a) {
-                    if (
-                        (this.moveGridsterItem.x === val.x && this.moveGridsterItem.y === val.y) ||
-                        this.moveGridsterItem.x + 1 === val.x + 1 ||
-                            this.moveGridsterItem.y + 1 === val.y + 1 ||
-                        this.moveGridsterItem.x + 2 === val.x + 2 ||
-                            this.moveGridsterItem.y + 2 === val.y + 2
-                    ) {
-                        console.log(this.moveGridsterItem.x, val.x);
+            //     arr.splice(idxSource, 1);
+            //     arr[idxTarget - 1].nextScenarioAction = sourceItem.scenarioAction;
+            //     sourceItem.nextScenarioAction = targetItem.scenarioAction;
+            //     targetItem['previousScenarioAction'] = sourceItem.scenarioAction;
+            //     arr.splice(idxTarget - 1, 0, sourceItem);
+            // } else if (sourceItem?.previousScenarioAction && !sourceItem?.nextScenarioAction) {
+            //     console.log('3');
+            //     arr.splice(idxTarget, 1);
+            //     sourceItem.nextScenarioAction = targetItem.scenarioAction;
+            //     targetItem.previousScenarioAction = sourceItem.scenarioAction;
+            //     arr.splice(idxSource, 0, targetItem);
+            // } else if (!targetItem?.previousScenarioAction && !targetItem?.nextScenarioAction) {
+            //     console.log('4');
+            //     arr.splice(idxTarget, 1);
+            //     targetItem.previousScenarioAction = sourceItem.scenarioAction;
+            //     sourceItem.nextScenarioAction = targetItem.scenarioAction;
+            //     arr.splice(idxSource, 0, targetItem);
+            // }
+            // this.putConnect(sourceItem.scenarioAction, targetItem.scenarioAction, arr);
+            this.putConnect(sourceItem.scenarioAction, targetItem.scenarioAction);
 
-                        if (val.scenarioAction !== item.scenarioAction) {
-                            console.log('regect');
-                            a = false;
-                            this.moveGridsterItem = null;
-                        }
-                        // reject('cancel');
-                    } else {
-                        a = true;
-                        console.log('resolve');
-                        // resolve('approve');
-                    }
-                }
-            });
+            // if (sourceItem.nextScenarioAction || targetItem.previousScenarioAction) {
+            //     console.log('Вы точно хотите разрушить связь');
+            //     const arr = this.items;
+            //     const idxSource = arr.findIndex(
+            //         (val) => val.scenarioAction === sourceItem.scenarioAction
+            //     );
+            //     const idxTarget = arr.findIndex(
+            //         (val) => val.scenarioAction === targetItem.scenarioAction
+            //     );
+            //     if (idxSource >= 0) {
+            //         if (arr[idxSource + 1].previousScenarioAction) {
+            //             arr[idxSource + 1].previousScenarioAction = targetItem.scenarioAction;
+            //         }
+            //         arr.splice(idxSource, 0, targetItem);
+            //     }
+            // }
         }
-
-        return new Promise(function(resolve, reject) {
-            // resolve('approve');
-            if (a) {
-                resolve('approve');
-            } else {
-                reject('cancel');
-            }
-
-            this.items.foreach((val) => {
-                if (gridsterItem.item.x === val.x) {
-                    console.log('regect');
-                    reject('cancel');
-                } else {
-                    console.log('resolve');
-                    resolve('approve');
-                }
-            });
-            /// do your stuff here
-        });
     }
 
     ngOnInit(): void {
@@ -363,7 +383,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                 return;
             }
             const y = this.containerWorkflow.nativeElement.getBoundingClientRect().y;
-            const a = e.screenY - y - 35;
+            const a = e.screenY - y - 125;
             if (a < 50) {
                 this.renderer.setStyle(this.splitTop.nativeElement, 'height', `${50}px`);
             } else {
@@ -408,14 +428,6 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
             } else {
                 this.renderer.setStyle(this.splitLeft.nativeElement, 'width', `${sum}px`);
             }
-
-            // if (a > this.containerWorkflow.nativeElement.getBoundingClientRect().width - 65) {
-            //     const width = this.containerWorkflow.nativeElement.getBoundingClientRect()
-            //         .width;
-            //     const sum = width - 65;
-            // } else {
-            //     this.renderer.setStyle(this.splitLeft.nativeElement, 'width', `${a}px`);
-            // }
         });
 
         document.addEventListener('mouseup', () => {
@@ -527,6 +539,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                 name: this.chooseScenarios.name,
             },
             actions: [
+                // ...arr,
                 {
                     scenarioAction: previousScenarioAction,
                     nextScenarioAction: id,
@@ -603,7 +616,9 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     }
 
     public resizeGridsterElement(): void {
-        // this.changedOptions();
+        setTimeout(() => {
+            this.changedOptions();
+        }, 1000);
         // this.items.setSize();
         const event = new CustomEvent('resize');
         document.dispatchEvent(event);
@@ -643,8 +658,6 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     }
 
     public itemChange(item: GridsterItem, itemComponent: GridsterItemComponentInterface): void {
-        console.log(item);
-
         const useItem = { ...item };
     }
 
@@ -676,6 +689,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                     this.snackBar.openSnackBar('Действие удалено');
                     this.isLoading = false;
                 } catch (error) {
+                    this.snackBar.openSnackBar('Ошибка', 'snackbar-red');
                     this.isLoading = false;
                 }
             },
@@ -689,7 +703,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
 
     // #endregion
 
-    chooseGridItem(event: MouseEvent, item: IGridsterItemLocal): void {
+    async chooseGridItem(event: MouseEvent, item: IGridsterItemLocal): Promise<void> {
         event.stopPropagation();
         if (!item) {
             this.activeActions = null;
@@ -699,12 +713,12 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                 if (this.activeActions) {
                     const previousScenarioAction: string = this.activeActions.scenarioAction;
                     const id: string = item.scenarioAction;
-                    this.putConnect(previousScenarioAction, id);
-                    this.getScenarioActionProp(id);
+                    // this.putConnect(previousScenarioAction, id);
+                    await this.getScenarioActionProp(id);
                     this.getActionProp(item.action);
                     this.activeActions = item;
                 } else {
-                    this.getScenarioActionProp(item.scenarioAction);
+                    await this.getScenarioActionProp(item.scenarioAction);
                     this.getActionProp(item.action);
                     this.activeActions = item;
                 }
@@ -777,13 +791,13 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                 this.tableAction = ans;
                 this.tableAction.forEach((val) => {
                     const el = this.tableActionProp.find((value) => value.propertyGuid === val.uid);
-                    if (el) {
-                    } else {
+                    if (!el) {
                         this.tableActionProp.push({
                             value: '',
                             propertyName: val.name,
                             propertyGuid: val.uid,
                         });
+                        console.log(this.tableActionProp);
                     }
                 });
             }
@@ -844,7 +858,10 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     // #endregion
 
     addUser(type: 'to' | 'copy'): void {
+        console.log(this.content?.nativeElement?.getBoundingClientRect());
+
         const workspaceTable: IWorkspaceTable = {
+            height: this.content?.nativeElement?.getBoundingClientRect()?.height,
             acceptFunction: (data) => {
                 this.alertWorkspaceTable = null;
                 data.forEach((val) => {

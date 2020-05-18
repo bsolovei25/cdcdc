@@ -16,13 +16,13 @@
 
   <evj-frame-top></evj-frame-top>
   <evj-alert-window [info]="alertWindow"></evj-alert-window>
-  <evj-alert-input [info]="alertInput"></evj-alert-input>
   <evj-workflow-table [data]="alertWorkspaceTable"> </evj-workflow-table>
   <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
   <div
     class="content"
     (mousedown)="$event.stopPropagation()"
     (touchstart)="$event.stopPropagation()"
+    #content
   >
     <div class="workflow">
       <div class="workflow__choose-scenario" #splitLeft>
@@ -197,13 +197,11 @@
               <div class="table" *ngIf="tableAction.length > 0">
                 <table>
                   <tbody>
-                    <ng-container>
-                      <tr>
-                        <td *ngFor="let table of tableActionProp">
-                          <input placeholder="" [(ngModel)]="table.value" />
-                        </td>
-                      </tr>
-                    </ng-container>
+                    <tr>
+                      <td *ngFor="let table of tableActionProp">
+                        <input [(ngModel)]="table.value" />
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
               </div>

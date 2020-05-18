@@ -1,3 +1,5 @@
+<evj-alert-input [info]="alertInput"></evj-alert-input>
+<evj-alert-window [info]="alertWindow"></evj-alert-window>
 <div class="choose-system">
   <div class="choose-system__title">Выбор системы</div>
   <div class="choose-system__body">
@@ -15,7 +17,7 @@
   <svg-icon
     class="available-scenario__icon"
     src="./assets/icons/widgets/workflow/add_btn.svg"
-    (click)="postScenarios()"
+    (click)="chooseModules ? postScenarios() : null"
     [svgStyle]="{ 'width.px': 30, 'height.px': 30 }"
   ></svg-icon>
   <div class="available-scenario__body">

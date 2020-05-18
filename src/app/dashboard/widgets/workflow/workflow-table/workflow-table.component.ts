@@ -1,10 +1,19 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    Input,
+    ViewChild,
+    ElementRef,
+    Renderer2,
+    AfterContentInit,
+} from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { IUser } from '../../../models/events-widget';
 import { EventService } from '../../../services/widgets/event.service';
 import { AvatarConfiguratorService } from '../../../services/avatar-configurator.service';
 
 export interface IWorkspaceTable {
+    height?: number;
     acceptFunction?: (value: IUser[]) => void;
     cancelFunction?: () => void;
 }
@@ -18,7 +27,7 @@ interface IUserWorkspaceTable extends IUser {
     templateUrl: './workflow-table.component.html',
     styleUrls: ['./workflow-table.component.scss'],
 })
-export class WorkflowTableComponent implements OnInit {
+export class WorkflowTableComponent implements OnInit, AfterContentInit {
     private dataSourceLocal: IUserWorkspaceTable[] = [];
     dataSource: IUserWorkspaceTable[] = [];
 
@@ -29,8 +38,19 @@ export class WorkflowTableComponent implements OnInit {
 
     localeData: IWorkspaceTable;
 
+    @ViewChild('tank') tank: ElementRef<HTMLElement>;
+
     @Input() set data(event: IWorkspaceTable) {
         this.localeData = event;
+        if (this.localeData?.height) {
+            setTimeout(() => {
+                this.renderer.setStyle(
+                    this.tank.nativeElement,
+                    'height',
+                    `${this.localeData.height - 30}px`
+                );
+            }, 200);
+        }
         this.selectedElement.clear();
         if (this.dataSource.length === 0) {
             this.loadItem();
@@ -39,10 +59,19 @@ export class WorkflowTableComponent implements OnInit {
 
     constructor(
         private eventService: EventService,
-        private avatarConfiguratorService: AvatarConfiguratorService
+        private avatarConfiguratorService: AvatarConfiguratorService,
+        private renderer: Renderer2
     ) {}
 
     ngOnInit(): void {}
+
+    ngAfterContentInit() {
+        console.log(this.tank?.nativeElement);
+
+        if (this.localeData?.height) {
+            this.renderer.setStyle(this.tank.nativeElement, 'height', this.localeData.height - 100);
+        }
+    }
 
     public accept(): void {
         this.localeData.acceptFunction(this.selectedElement.selected);
