@@ -6,14 +6,39 @@
   >
     <div class="confirm-container">
       <div class="confirm-container__body confirm-container-body">
-        <div class="confirm-container-body__header confirm-container-body-header">
+        <div
+          class="confirm-container-body__header confirm-container-body-header"
+          *ngIf="!info.input;else input"
+        >
           <div class="confirm-container-body-header__icon">
-            <img src="../../../assets/icons/widgets/alert-window/notice.svg" />
+            <img [src]="attentionIcon" />
           </div>
-          <span>Обратите внимание</span>
+          <span>{{attentionTitle}}</span>
         </div>
-        <div class="confirm-container-body__content">
+        <ng-template #input>
+          <div class="confirm-container-body__header confirm-container-body-header">
+            <div
+              class="confirm-container-body-header__icon confirm-container-body-header__icon_input"
+            >
+              <img [src]="editIcon" />
+            </div>
+            <span>{{editTitle}}</span>
+          </div>
+        </ng-template>
+
+        <div
+          class="confirm-container-body__content"
+          [ngClass]="{'confirm-container-body__content_prompt':!!info.input}"
+        >
           <p [innerHTML]="info?.questionText | replaceLineBreak"></p>
+          <input
+            type="text"
+            class="input"
+            [ngClass]="setInputStyle()"
+            [formControl]="info.input.formControl"
+            [placeholder]="info.input.placeholder"
+            *ngIf="!!info.input"
+          />
         </div>
       </div>
       <div class="confirm-container__footer">

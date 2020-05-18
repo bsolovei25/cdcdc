@@ -14,13 +14,17 @@ interface IUnit {
     styleUrls: ['./production-trend.component.scss'],
 })
 export class ProductionTrendComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    public static itemCols: number = 20;
-    public static itemRows: number = 16;
+    public static itemCols: number = 16;
+    public static itemRows: number = 14;
+
+    public static minItemCols: number = 16;
+    public static minItemRows: number = 14;
+
 
     public readonly allUnits: IUnit[] = [
         {
             id: 0,
-            name: 'Все производство',
+            name: 'Всё производство',
         },
         {
             id: 1,
@@ -40,6 +44,7 @@ export class ProductionTrendComponent extends WidgetPlatform implements OnInit, 
     ) {
         super(widgetService, isMock, id, uniqId);
         this.isRealtimeData = false;
+        this.widgetIcon = 'graph';
     }
 
     ngOnInit(): void {
@@ -50,7 +55,7 @@ export class ProductionTrendComponent extends WidgetPlatform implements OnInit, 
         super.ngOnDestroy();
     }
 
-    protected dataHandler(ref: any): void {}
+    protected dataHandler(ref: any): void { }
 
     public selectUnit(event: any): void {
         console.log(event);

@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { IGroup } from '../../../../models/admin-panel';
+import { IAlertWindowModel } from '../../../../../@shared/models/alert-window.model';
 
 @Component({
     selector: 'evj-ag-new-group',

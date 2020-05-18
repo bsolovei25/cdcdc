@@ -271,6 +271,7 @@ import { ProductGroupsTableComponent } from './widgets/SMP/product-groups/compon
 import { ProductGroupsShortComponent } from './widgets/SMP/product-groups-short/product-groups-short.component';
 import { ProductGroupsComponent } from './widgets/SMP/product-groups/product-groups.component';
 import { SmpEventsWorkspaceComponent } from './widgets/SMP/smp-events-workspace/smp-events-workspace.component';
+import { ProductionTrendInstallationsComponent } from './widgets/production-trend/components/production-trend-installations/production-trend-installations.component';
 
 @NgModule({
     declarations: [
@@ -511,6 +512,7 @@ import { SmpEventsWorkspaceComponent } from './widgets/SMP/smp-events-workspace/
         ProductGroupsTableComponent,
         ProductGroupsShortComponent,
         SmpEventsWorkspaceComponent,
+        ProductionTrendInstallationsComponent,
     ],
     entryComponents: [
         LineChartComponent,
