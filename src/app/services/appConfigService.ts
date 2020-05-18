@@ -38,6 +38,13 @@ export class AppConfigService {
         return this.appConfig.shiftFree;
     }
 
+    get isDomenAuth(): boolean {
+        if (!this.appConfig) {
+            throw Error('Config file not loaded!');
+        }
+        return this.appConfig.isDomenAuth;
+    }
+
     /**
      * @deprecated Use `${this.restUrl}/api/file-storage/${fileId}` to load files!
      */

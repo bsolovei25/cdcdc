@@ -79,9 +79,9 @@
   <div class="workspace__column column column_right">
     <div class="column__row row">
       <div class="row__cell cell cell_left events-icons">
-        <evj-events-smotr-icon [iconType]="'escalate'" counter="2"></evj-events-smotr-icon>
-        <evj-events-smotr-icon [iconType]="'critical'" [isCritical]="true"></evj-events-smotr-icon>
-        <evj-events-smotr-icon [iconType]="'repeat'" counter="13"></evj-events-smotr-icon>
+        <evj-events-smotr-icon [iconType]="'escalate'" [counter]="2"></evj-events-smotr-icon>
+        <evj-events-smotr-icon [iconType]="'critical'" [isCritical]="false"></evj-events-smotr-icon>
+        <evj-events-smotr-icon [iconType]="'repeat'" [counter]="13"></evj-events-smotr-icon>
       </div>
       <div class="row__cell cell cell_right">
         <evj-ui-block status="{{ewService.event.priority.name}}">
@@ -108,7 +108,7 @@
         </div>
         <div class="information__label label">
           <div class="label__title">Автор</div>
-          <div class="label__text">{{this.ewService.event.fixedBy.displayName}}</div>
+          <div class="label__text">{{this.ewService.event.fixedBy?.displayName}}</div>
         </div>
       </div>
       <div class="row__cell cell cell_right">
@@ -119,11 +119,11 @@
       <evj-events-responsible-select></evj-events-responsible-select>
     </div>
     <div class="column__row row reasons">
-      <evj-events-reasons
+      <evj-events-reasons-single
         title="Причины"
-        [reasons]="reasons"
+        [reason]="ewService.event.directReasons"
         (addReason)="isReasonsPopupOpen=true"
-      ></evj-events-reasons>
+      ></evj-events-reasons-single>
     </div>
     <div class="column__row row events-correct">
       <evj-events-correct></evj-events-correct>
@@ -150,6 +150,7 @@
     <evj-events-list-window
       *ngIf="isReasonsPopupOpen"
       title="Выберите нужные причины"
+      [reasonsList]="this.ewService.event?.deviationData?.availableReasons"
       (closeWindow)="isReasonsPopupOpen=false"
     ></evj-events-list-window>
   </div>
