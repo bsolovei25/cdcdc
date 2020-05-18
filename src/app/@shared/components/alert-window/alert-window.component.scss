@@ -143,5 +143,9 @@ $font-size: 14px;
     &_dirty {
       border-color: var(--color-border-active);
     }
+
+    &_invalid {
+      border-color: var(--color-danger);
+    }
   }
 }

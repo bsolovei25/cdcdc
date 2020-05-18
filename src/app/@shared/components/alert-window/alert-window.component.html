@@ -30,7 +30,7 @@
           <input
             type="text"
             class="input"
-            [ngClass]="{'input_dirty':info.input.formControl.dirty}"
+            [ngClass]="setInputStyle()"
             [formControl]="info.input.formControl"
             [placeholder]="info.input.placeholder"
             *ngIf="!!info.input"

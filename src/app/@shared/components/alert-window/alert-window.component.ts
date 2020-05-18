@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
+import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'evj-alert-window',
@@ -29,8 +30,10 @@ export class AlertWindowComponent implements OnInit {
     }
 
     public accept(): void {
-        this.info.acceptFunction();
-        this.info.closeFunction();
+        try {
+            this.info.acceptFunction();
+            this.info.closeFunction();
+        } catch (err) {}
     }
 
     public cancel(): void {
@@ -41,5 +44,10 @@ export class AlertWindowComponent implements OnInit {
         } finally {
             this.info.closeFunction();
         }
+    }
+
+    public setInputStyle(): string {
+        const ctrl: FormControl = this.info.input.formControl;
+        return ctrl.dirty ? 'input_dirty' : ctrl.invalid && ctrl.touched ? 'input_invalid' : '';
     }
 }
