@@ -53,6 +53,7 @@ import { DocumentsScansComponent } from '../../widgets/documents-scans/documents
 import { QualityDocsPanelComponent } from '../../widgets/quality-docs-panel/quality-docs-panel.component';
 import { DocumentCodingComponent } from '../../widgets/document-coding/document-coding.component';
 import { OilOperationsComponent } from '../../widgets/oil-operations/oil-operations.component';
+import { WorkflowComponent } from '../../widgets/workflow/workflow.component';
 import { CdCriticalComponent } from '../../widgets/cd-critical/cd-critical.component';
 import { ImplementationPlanComponent } from '../../widgets/SMP/implementation-plan/implementation-plan.component';
 import { PerformanceProgressIndicatorsComponent } from '../../widgets/SMP/performance-progress-indicators/performance-progress-indicators.component';
@@ -120,6 +121,7 @@ export const WIDGETS = {
     'quality-docs-panel': QualityDocsPanelComponent,
     'document-coding': DocumentCodingComponent,
     'oil-operations': OilOperationsComponent,
+    'workflow': WorkflowComponent,
     'cd-critical': CdCriticalComponent,
     'implementation-plan': ImplementationPlanComponent,
     'performance-progress-indicators': PerformanceProgressIndicatorsComponent,

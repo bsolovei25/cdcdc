@@ -1,0 +1,161 @@
+.choose-system {
+  min-width: 200px;
+  margin-bottom: 30px;
+  &__title {
+    font-size: 12px;
+    color: var(--color-text-sub);
+    margin-left: 15px;
+    margin-bottom: 10px;
+  }
+  &__body {
+    background-color: var(--color-bg-card-workflow);
+    border-radius: 25px;
+
+    &__select {
+      padding: 0px 15px;
+      &_selectbox {
+        width: 100%;
+        max-height: 36px;
+        ::ng-deep {
+          .mat-form-field-infix {
+            border-top: 5px solid transparent;
+          }
+          .mat-form-field-underline {
+            display: none;
+          }
+          .mat-form-field-infix {
+            padding-top: 0 !important;
+          }
+          .mat-form-field-flex {
+            padding-top: 4px !important;
+          }
+          .mat-select-arrow-wrapper {
+            transform: translateY(9%);
+          }
+        }
+      }
+    }
+  }
+}
+
+.available-scenario {
+  position: relative;
+  height: calc(100% - 115px);
+  // min-width: 200px;
+
+  &__title {
+    font-size: 12px;
+    color: var(--color-text-sub);
+    margin-left: 15px;
+    margin-bottom: 10px;
+  }
+
+  &__icon {
+    cursor: pointer;
+    position: absolute;
+    right: 4px;
+    top: -15px;
+  }
+
+  &__body {
+    height: 100%;
+    &__items {
+      height: 100%;
+      overflow-y: scroll;
+    }
+    &__item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      align-items: stretch;
+      margin-bottom: 7px;
+
+      cursor: pointer;
+      min-height: 37px;
+      border-radius: 25px;
+      background: linear-gradient(to left, #10141cc2 0%, transparent 13%),
+        var(--color-bg-card-workflow);
+      background-repeat: no-repeat;
+
+      &__text {
+        border-bottom-left-radius: 25px;
+        border-top-left-radius: 25px;
+        padding: 10px 10px 10px 25px;
+        width: 100%;
+        color: var(--color-text-sub-workflow);
+
+        &--active {
+          color: var(--color-text-main);
+          background: linear-gradient(to left, #10141c6b 0%, transparent 5%),
+            var(--color-bg-active-sub-workflow);
+        }
+      }
+
+      &__container {
+        display: flex;
+
+        &__edit-block {
+          display: none;
+
+          justify-content: space-evenly;
+          align-items: center;
+          padding-top: 3px;
+
+          min-width: 82px;
+          background: linear-gradient(to left, #10141cc2 0%, transparent 13%),
+            var(--color-bg-card-workflow);
+          border-left: 1px solid var(--color-bg-active-sub-workflow);
+
+          &--active {
+            display: flex;
+          }
+
+          &__edit {
+            cursor: pointer;
+            fill: var(--color-text-main);
+            stroke: var(--color-text-main);
+            &:hover {
+              fill: var(--color-active);
+              stroke: var(--color-active);
+            }
+          }
+          &__delete-block {
+            position: relative;
+            width: 30px;
+            height: 2px;
+
+            &__delete {
+              cursor: pointer;
+              position: absolute;
+              right: 0px;
+              top: -15px;
+              width: 30px;
+              height: 30px;
+              background-repeat: no-repeat;
+              background-position: center;
+              background-image: url(../../../../../assets/icons/widgets/references/delete_blue.svg);
+
+              &:hover {
+                background-image: url(../../../../../assets/icons/widgets/references/delete_red.svg);
+              }
+            }
+          }
+        }
+
+        &__icon {
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding-top: 3px;
+
+          min-width: 37px;
+          background-color: var(--color-bg-sub-workflow);
+
+          border-top-right-radius: 25px;
+          border-bottom-right-radius: 25px;
+        }
+      }
+    }
+  }
+}

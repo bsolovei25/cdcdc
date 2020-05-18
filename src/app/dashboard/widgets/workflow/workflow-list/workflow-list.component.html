@@ -1,0 +1,74 @@
+<evj-alert-input [info]="alertInput"></evj-alert-input>
+<evj-alert-window [info]="alertWindow"></evj-alert-window>
+<div class="choose-system">
+  <div class="choose-system__title">Выбор системы</div>
+  <div class="choose-system__body">
+    <div class="choose-system__body__select">
+      <mat-form-field class="choose-system__body__select_selectbox">
+        <mat-select panelClass="mat-select-custom" (selectionChange)="chooseSystem($event)">
+          <mat-option *ngFor="let p of modules" [value]="p">{{p.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+<div class="available-scenario">
+  <div class="available-scenario__title">Доступные сценарии</div>
+  <svg-icon
+    class="available-scenario__icon"
+    src="./assets/icons/widgets/workflow/add_btn.svg"
+    (click)="chooseModules ? postScenarios() : null"
+    [svgStyle]="{ 'width.px': 30, 'height.px': 30 }"
+  ></svg-icon>
+  <div class="available-scenario__body">
+    <div class="available-scenario__body__items">
+      <div
+        class="available-scenario__body__item"
+        *ngFor="let scen of scenarios"
+        (click)="chooseScen(scen)"
+      >
+        <span
+          class="available-scenario__body__item__text"
+          [class.available-scenario__body__item__text--active]="chooseScenarios === scen"
+          >{{scen.name}}</span
+        >
+        <div class="available-scenario__body__item__container">
+          <div
+            class="available-scenario__body__item__container__edit-block"
+            [class.available-scenario__body__item__container__edit-block--active]="chooseScenarios === scen"
+          >
+            <svg-icon
+              (click)="editScenario($event, scen)"
+              class="available-scenario__body__item__container__edit-block__edit"
+              src="./assets/icons/widgets/workflow/edit_w.svg"
+              [svgStyle]="{ 'width.px':30, 'height.px':30 }"
+            ></svg-icon>
+            <div
+              class="available-scenario__body__item__container__edit-block__delete-block"
+              (click)="deleteScenario($event, scen.uid)"
+            >
+              <div
+                class="available-scenario__body__item__container__edit-block__delete-block__delete"
+              ></div>
+            </div>
+          </div>
+          <div
+            class="available-scenario__body__item__container__icon"
+            (click)="startStopScenario($event, scen)"
+          >
+            <svg-icon
+              *ngIf="scen.status === 'stopped'"
+              src="./assets/icons/widgets/workflow/play_w.svg"
+              [svgStyle]="{ 'width.px':15, 'height.px':15 }"
+            ></svg-icon>
+            <svg-icon
+              *ngIf="scen.status === 'active'"
+              src="./assets/icons/widgets/workflow/stop_w.svg"
+              [svgStyle]="{ 'width.px':14, 'height.px':13 }"
+            ></svg-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
