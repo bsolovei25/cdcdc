@@ -10,6 +10,7 @@ import * as d3 from 'd3';
 export class ProductionTrendInstallationsComponent implements OnInit, OnChanges {
   @ViewChild('pic', { static: true }) picture: ElementRef;
   @Input() status: string;
+  @Input() fabricType: string;
 
   public svg: any;
 
@@ -22,10 +23,10 @@ export class ProductionTrendInstallationsComponent implements OnInit, OnChanges 
     if (this.svg) {
       this.svg.remove();
     }
-    this.draw(this.status, this.picture.nativeElement);
+    this.draw(this.fabricType, this.status, this.picture.nativeElement);
   }
 
-  draw(status, el): void {
+  draw(fabric, status, el): void {
     this.svg = d3
       .select(el)
       .append('svg')
@@ -38,15 +39,15 @@ export class ProductionTrendInstallationsComponent implements OnInit, OnChanges 
       .attr('height', '90px')
       .attr('width', '100px')
       .attr('x', '0')
-      .attr('y', '18');
+      .attr('y', '26');
 
     const installations = this.svg
       .append('image')
-      .attr('xlink:href', './assets/pic/Icons3D/1.png')
-      .attr('height', '100px')
-      .attr('width', '100px')
-      .attr('x', '0')
-      .attr('y', '-12');
+      .attr('xlink:href', './assets/icons/widgets/production-trend/fabric-' + fabric + '.svg')
+      .attr('height', '90px')
+      .attr('width', '90px')
+      .attr('x', '5')
+      .attr('y', '0');
 
   }
 
