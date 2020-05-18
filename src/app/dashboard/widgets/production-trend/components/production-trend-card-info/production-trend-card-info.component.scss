@@ -1,6 +1,6 @@
 @import "src/theme/variables.scss";
 
-$background-card-color: #0E2235;
+$background-card-color: #0e2235;
 
 .block {
   position: relative;
@@ -64,10 +64,14 @@ $background-card-color: #0E2235;
     border-radius: 50%;
     background-color: transparent;
     &__danger {
-      background-color: $--color-danger;
+      // background-color: $--color-danger;
+      background-image: url(../../../../../../assets/icons/widgets/production-trend/icon-danger.svg);
+      background-repeat: no-repeat;
     }
     &__good {
-      background-color: $--color-standard;
+      // background-color: $--color-standard;
+      background-image: url(../../../../../../assets/icons/widgets/production-trend/icon-good.svg);
+      background-repeat: no-repeat;
     }
   }
 }
