@@ -11,7 +11,7 @@ import {
     IRetrievalEvents,
     IUnitEvents,
     IUser,
-    IPriority,
+    IPriority, IAsusService, IAsusEOService, IAsusCategories, IAsusWorkgroup, ISmotrReference
 } from '../../models/events-widget';
 import { AppConfigService } from 'src/app/services/appConfigService';
 
@@ -21,6 +21,7 @@ import { AppConfigService } from 'src/app/services/appConfigService';
 export class EventService {
     private readonly restUrl: string;
     private readonly smotrUrl: string;
+    private readonly isDomenAuth: boolean;
     private readonly batchSize: number = 50;
 
     event$: BehaviorSubject<any | null> = new BehaviorSubject<any | null>(null);
@@ -29,6 +30,7 @@ export class EventService {
     constructor(public http: HttpClient, configService: AppConfigService) {
         this.restUrl = configService.restUrl;
         this.smotrUrl = configService.smotrUrl;
+        this.isDomenAuth = configService.isDomenAuth;
     }
 
     async getBatchData(
@@ -72,6 +74,7 @@ export class EventService {
     async getEvent(id: number): Promise<EventsWidgetNotification> {
         try {
             return this.http
+                // .get<EventsWidgetNotification>('assets/mock/AsusEventsMock/event.json')
                 .get<EventsWidgetNotification>(this.restUrl + '/api/notifications/' + id)
                 .toPromise();
         } catch (error) {
@@ -176,6 +179,80 @@ export class EventService {
             return this.http
                 .get<ICategory[]>(this.restUrl + '/api/notification-reference/equipmentcategory')
                 .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async getAsusCategories(): Promise<IAsusCategories[]> {
+        try {
+            if (!this.isDomenAuth) {
+                return this.http
+                    .get<IAsusCategories[]>('assets/mock/AsusEventsMock/category.json')
+                    .toPromise();
+            }
+            return this.http
+                .get<IAsusCategories[]>(this.restUrl + '/api/asus-events/category')
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async getAsusWorkgroup(): Promise<IAsusWorkgroup[]> {
+        try {
+            if (!this.isDomenAuth) {
+                return this.http
+                    .get<IAsusWorkgroup[]>('assets/mock/AsusEventsMock/workgroup.json')
+                    .toPromise();
+            }
+            return this.http
+                .get<IAsusWorkgroup[]>(this.restUrl + '/api/asus-events//api/References/workgroup')
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async getAsusServices(): Promise<IAsusService[]> {
+        try {
+            if (!this.isDomenAuth) {
+                return this.http
+                    .get<IAsusService[]>('assets/mock/AsusEventsMock/services.json')
+                    .toPromise();
+            }
+            return this.http
+                .get<IAsusService[]>(this.restUrl + '/api/asus-events//api/References/services')
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async getAsusEOServices(): Promise<IAsusEOService[]> {
+        try {
+            if (!this.isDomenAuth) {
+                return this.http
+                    .get<IAsusEOService[]>('assets/mock/AsusEventsMock/eoservice.json')
+                    .toPromise();
+            }
+            return this.http
+                .get<IAsusEOService[]>(this.restUrl + '/api/notification-reference/eoservice')
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    // TODO change route and add isDomenAuth
+    async getSmotrReference(): Promise<ISmotrReference> {
+        try {
+            if (!this.isDomenAuth) {
+                return this.http
+                    .get<ISmotrReference>('assets/mock/SmotrEventsMock/reference.json')
+                    // .get<IAsusEOService[]>(this.restUrl + '/api/notification-reference/eoservice')
+                    .toPromise();
+            }
         } catch (error) {
             console.error(error);
         }

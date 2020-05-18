@@ -40,7 +40,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
                 }
             })
         );
-
         this.widgetIcon = 'document';
         this.dateAdapter.setLocale('ru');
     }
@@ -70,7 +69,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
     private async setEventByInfo(value: EventsWidgetNotification | number): Promise<void> {
         this.ewService.setEventByInfo(value);
-
         // this.progressLine();
     }
 

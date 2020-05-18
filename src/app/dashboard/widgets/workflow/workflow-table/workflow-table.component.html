@@ -1,0 +1,78 @@
+<div
+  class="loading-shade loading-shade__blur"
+  *ngIf="localeData"
+  (mousedown)="$event.stopPropagation()"
+  (touchstart)="$event.stopPropagation()"
+>
+  <div class="container">
+    <evj-loading-shade [isLoading]="isLoading"></evj-loading-shade>
+    <section class="tank" #tank>
+      <div class="tank__header">
+        <span class="tank__header__close">
+          <svg-icon
+            (click)="cancel()"
+            src="./assets/icons/widgets/calibration-table/close.svg"
+            [svgStyle]="{ 'width.px': 30, 'height.px': 30 }"
+          >
+          </svg-icon>
+        </span>
+        <h3 class="tank__header__title">Выберите нужных пользователей</h3>
+      </div>
+      <div class="tank__body">
+        <table class="table">
+          <tbody class="table__body">
+            <ng-container *ngFor="let element of dataSource">
+              <tr
+                (click)="selectedElement.isSelected(element) ?
+                       selectedElement.deselect(element)
+                       : selectedElement.select(element)"
+                (dblclick)="doubleClick(element)"
+                [class.table__body__item__row__expanded--selected]="selectedElement.isSelected(element)"
+                class="table__body__item__row__expanded"
+              >
+                <td class="col__name">
+                  <div><img class="col__name__avatar" [src]="element.photoPath" /></div>
+                  <div class="col__name__body">
+                    <div style="margin-bottom: 5px;">
+                      {{ element.lastName }} {{ element.firstName }} {{ element.middleName }}
+                    </div>
+                    <div>{{ element.positionDescription }}</div>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+      <div class="tank__footer">
+        <div class="tank__footer__search__input-block">
+          <div class="tank__footer__search__button-search">
+            <svg-icon
+              *ngIf="!isRefInput"
+              class="button_filter_icon"
+              src="./assets/icons/widgets/references/search_white.svg"
+            ></svg-icon>
+
+            <svg-icon
+              *ngIf="isRefInput"
+              class="indicator-selector__collapse"
+              src="./assets/icons/widgets/references/search_blue.svg"
+            ></svg-icon>
+          </div>
+          <div
+            class="tank__footer__search__input"
+            [class.tank__footer__search__input-active]="isRefInput"
+          >
+            <input
+              type="text"
+              (focus)="isRefInput = true"
+              (blur)="isRefInput = false"
+              (keyup)="searchInput($event)"
+            />
+          </div>
+        </div>
+        <span class="tank__footer__btn" (click)="accept()">Добавить</span>
+      </div>
+    </section>
+  </div>
+</div>

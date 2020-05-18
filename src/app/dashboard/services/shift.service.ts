@@ -55,13 +55,11 @@ export class ShiftService {
                 return this.http
                     .get(`${this.restUrl}/api/shift/users/free-users/${idShift}`)
                     .toPromise();
-                break;
             default:
                 console.log('not all');
                 return this.http
                     .get(`${this.restUrl}/api/shift/users/free-brigade/${idShift}`)
                     .toPromise();
-                break;
         }
     }
 

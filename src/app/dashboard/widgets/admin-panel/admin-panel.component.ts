@@ -147,6 +147,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
         this.isCreateNewWorker = false;
         this.isWorkerSettingsShowed = false;
         this.isImportNewWorker = false;
+        this.searchedWorker = '';
     }
 
     public onCloseLdapList(event: boolean): void {
@@ -170,6 +171,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
 
     public onHideGroups(): void {
         this.isGroupsShowed = false;
+        this.searchedWorker = '';
     }
 
     public async updateUsers(): Promise<void> {

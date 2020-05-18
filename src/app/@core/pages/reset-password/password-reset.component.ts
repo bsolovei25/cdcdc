@@ -3,7 +3,6 @@ import { FormControl, FormGroup, FormGroupDirective, NgForm, FormBuilder, Valida
 import { AuthService } from '../../service/auth.service';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { IUser } from '../../../dashboard/models/events-widget';
-import { AppConfigService } from '../../../services/appConfigService';
 import { OverlayService } from '../../../dashboard/services/overlay.service';
 import { SnackBarService } from '../../../dashboard/services/snack-bar.service';
 import { AvatarConfiguratorService } from '../../../dashboard/services/avatar-configurator.service';

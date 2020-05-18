@@ -21,7 +21,7 @@
           [isSmallButton]="true"
           [imgSrc]="plusIcon"
           [isChangingState]="false"
-          (click)="isCreateNewGroup=true"
+          (click)="onChangeGroupName()"
         ></evj-button>
       </div>
     </div>
@@ -32,7 +32,7 @@
           [group]="group"
           [isCardActive]="groupSelection.isSelected(group)"
           (click)="onSelectGroup(group)"
-          (editGroup)="onEditGroupName(group)"
+          (editGroup)="onChangeGroupName(group)"
           (deleteGroup)="onDeleteGroup()"
         ></evj-ag-group-card>
       </ng-container>
@@ -42,7 +42,7 @@
           [group]="group"
           [isCardActive]="groupSelection.isSelected(group)"
           (click)="onSelectGroup(group)"
-          (editGroup)="onEditGroupName(group)"
+          (editGroup)="onChangeGroupName(group)"
           (deleteGroup)="onDeleteGroup()"
         ></evj-ag-group-card>
       </ng-container>
@@ -77,6 +77,7 @@
           class="insert-component"
           [isSmallButton]="false"
           textButton="Сохранить"
+          [disabled]="!isDataChanged"
           [isChangingState]="false"
           (click)="onClickButton(true)"
         ></evj-button>
@@ -174,14 +175,6 @@
       </div>
     </div>
   </div>
-
-  <evj-ag-new-group
-    class="popup"
-    [ngClass]="{'popup_active':isCreateNewGroup}"
-    *ngIf="isCreateNewGroup"
-    [editingGroup]="editingGroup"
-    (newGroup)="onCreateNewGroup($event)"
-  ></evj-ag-new-group>
 
   <evj-aws-create-claim
     class="popup"

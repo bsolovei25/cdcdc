@@ -1,7 +1,10 @@
 <div class="events-correct">
   <div class="events-correct__header">
-    Корректирующие мероприятия
-    <div class="button__add" *ngIf="isSmotr" (click)="addRetrieval()"></div>
+    <div [class.left-title]="!isSmotr">Корректирующие мероприятия</div>
+    <div class="button__add"
+         [class.button__add_bottom]="!isSmotr"
+         (click)="addRetrieval()">
+    </div>
     <div class="date" *ngIf="!isSmotr">
       <div class="date__title">Начало события</div>
       <div class="date__info">{{ewService.event.eventDateTime | date:'dd-MM-yyyy HH:mm' }}</div>
@@ -17,7 +20,7 @@
     </div>
   </div>
   <div class="events-correct__footer">
-    <div class="button__add button__add_bottom" *ngIf="!isSmotr" (click)="addRetrieval()"></div>
+<!--    <div class="button__add button__add_bottom" *ngIf="!isSmotr" (click)="addRetrieval()"></div>-->
     <div class="date" *ngIf="!isSmotr && ewService.event.eventEndDateTime">
       <div class="date__title">Завершение события</div>
       <div class="date__info">{{ewService.event.eventEndDateTime | date:'dd-MM-yyyy HH:mm'}}</div>

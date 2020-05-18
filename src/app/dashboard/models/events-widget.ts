@@ -56,6 +56,27 @@ export interface EventsWidgetNotification {
     unit?: IUnitEvents;
     unitName?: string;
     deviationData?: IEventDeviationData;
+    asusEvent: IEventAsus;
+}
+
+export interface IEventAsus {
+    id?: number;
+    notificationId?: number;
+    codeAsus?: string;
+    codeAsusGuid?: string;
+    state?: string;
+    consumer?: string;
+
+    category: string;
+    workGroup: string;
+    service: string;
+    eoService: string;
+    equipment: string; // ? Оборудование
+
+    datetimeReaction?: Date;
+    datetimeStart?: Date;
+    datetimeEnd?: Date;
+    datetimeDeadline?: Date;
 }
 
 export interface IEventDeviationData {
@@ -152,6 +173,50 @@ export interface IPriority {
     id: number;
     name: EventsWidgetNotificationPriority;
     code: string;
+}
+
+export interface ISmotrReference {
+    messages: {
+        type: string;
+        message: string;
+        httpCode: number;
+    }[];
+    data: {
+        reasons: {
+            id: string,
+            name: string;
+        }[];
+        actions: {
+            id: string,
+            name: string;
+        }[];
+    };
+}
+
+export interface IAsusService {
+    parent: string;
+    code: string;
+    name: string;
+    parentCod: string;
+}
+
+export interface IAsusEOService {
+    codeSap: string;
+    code: string;
+    name: string;
+    parentCod: string;
+}
+
+export interface IAsusWorkgroup {
+    name: string;
+    code: string;
+    organizationCode: string;
+    parent: string;
+    parentCode: string;
+}
+
+export interface IAsusCategories {
+    name: string;
 }
 
 export interface EventsWidgetFilter {

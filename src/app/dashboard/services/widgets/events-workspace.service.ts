@@ -9,7 +9,7 @@ import {
     EventsWidgetNotificationStatus,
     EventsWidgetNotificationPriority,
     EventsWidgetCategoryCode,
-    IRetrievalEvents,
+    IRetrievalEvents, IAsusService, IAsusEOService, IAsusWorkgroup, IAsusCategories, ISmotrReference
 } from '../../models/events-widget';
 import { EventService } from '../widgets/event.service';
 import { SnackBarService } from '../snack-bar.service';
@@ -33,13 +33,20 @@ export class EventsWorkspaceService {
     public isOverlayConfirmOpen: boolean = false;
     //#endregion
 
-    public priority: IPriority[];
-    public status: IStatus[];
-    public users: IUser[];
-    public category: ICategory[];
-    public equipmentCategory: ICategory[];
-    public eventTypes: ICategory[];
-    public units: IUnitEvents[];
+    //#region REFERENCES
+    public priority: IPriority[] = [];
+    public status: IStatus[] = [];
+    public users: IUser[] = [];
+    public category: ICategory[] = [];
+    public equipmentCategory: ICategory[] = [];
+    public eventTypes: ICategory[] = [];
+    public units: IUnitEvents[] = [];
+    public asusCategories: IAsusCategories[] = [];
+    public asusWorkgroup: IAsusWorkgroup[] = [];
+    public asusServices: IAsusService[] = [];
+    public asusEOServices: IAsusEOService[] = [];
+    public smotrReference: ISmotrReference = null;
+    //#endregion
 
     public currentAuthUser: IUser = null;
 
@@ -77,20 +84,56 @@ export class EventsWorkspaceService {
     public async loadItem(id?: number): Promise<void> {
         try {
             if (id) {
+                this.isCreateNewEvent = false;
+                this.isEditEvent = true;
                 this.event = await this.eventService.getEvent(id);
+                this.event = {...this.defaultEvent, ...this.event};
             }
-            this.category = await this.eventService.getCategory();
-            this.users = await this.eventService.getUser();
-            this.status = await this.eventService.getStatus();
-            this.units = await this.eventService.getUnits();
-            this.priority = await this.eventService.getPriority();
-            this.equipmentCategory = await this.eventService.getEquipmentCategory();
-            this.eventTypes = await this.eventService.getEventType();
+            const dataLoadQueue: Promise<void>[] = [];
+            dataLoadQueue.push(
+                this.eventService.getCategory().then((data) => {
+                    this.category = data;
+                }),
+                this.eventService.getUser().then((data) => {
+                    this.users = data;
+                }),
+                this.eventService.getStatus().then((data) => {
+                    this.status = data;
+                }),
+                this.eventService.getUnits().then((data) => {
+                    this.units = data;
+                }),
+                this.eventService.getPriority().then((data) => {
+                    this.priority = data;
+                }),
+                this.eventService.getEquipmentCategory().then((data) => {
+                    this.equipmentCategory = data;
+                }),
+                this.eventService.getEventType().then((data) => {
+                    this.eventTypes = data;
+                }),
+                this.eventService.getAsusCategories().then((data) => {
+                    this.asusCategories = data;
+                }),
+                this.eventService.getAsusWorkgroup().then((data) => {
+                    this.asusWorkgroup = data;
+                }),
+                this.eventService.getAsusServices().then((data) => {
+                    this.asusServices = data;
+                }),
+                this.eventService.getAsusEOServices().then((data) => {
+                    this.asusEOServices = data;
+                }),
+                this.eventService.getSmotrReference().then((data) => {
+                   this.smotrReference = data;
+                }),
+            );
+            await Promise.all(dataLoadQueue);
             this.setDefaultEvent();
         } catch (err) {
             console.error(err);
         } finally {
-            setTimeout(() => (this.isLoading = false), 500);
+            setTimeout(() => (this.isLoading = false), 200);
         }
     }
 
@@ -106,15 +149,7 @@ export class EventsWorkspaceService {
             establishedFacts: '',
             eventDateTime: new Date(),
             eventType: this.eventTypes ? this.eventTypes[0] : null,
-            fixedBy: {
-                email: '',
-                login: '',
-                firstName: '',
-                id: undefined,
-                lastName: '',
-                middleName: '',
-                phone: '',
-            },
+            fixedBy: this.currentAuthUser,
             organization: 'АО Газпромнефть',
             priority: this.priority
                 ? this.priority[2]
@@ -132,18 +167,22 @@ export class EventsWorkspaceService {
             unitName: null,
             facts: [],
             comments: [],
+            asusEvent: {
+                category: '',
+                workGroup: '',
+                service: '',
+                eoService: '',
+                equipment: '',
+            }
         };
     }
 
     public async setEventByInfo(value: EventsWidgetNotification | number): Promise<void> {
         this.isLoading = true;
         this.isCreateNewEvent = false;
-
         if (typeof value !== 'number') {
-            this.event = value;
-            console.log(value);
+            this.event = {...this.defaultEvent, ...value};
         }
-
         this.loadItem(typeof value === 'number' ? value : undefined);
     }
 
@@ -164,21 +203,26 @@ export class EventsWorkspaceService {
         this.isLoading = true;
         if (this.isCreateNewEvent) {
             try {
-                const event = await this.eventService.postEvent(this.event);
-                this.event = event;
+                // const event = await this.eventService.postEvent(this.event);
+                await this.eventService.postEvent(this.event);
+                // this.event = event;
                 this.isCreateNewEvent = false;
                 this.snackBarService.openSnackBar('Сохранено');
             } catch (err) {
                 console.error(err);
-                this.snackBarService.openSnackBar('Ошибка', 'snackbar-red');
+                // this.snackBarService.openSnackBar('Ошибка', 'snackbar-red');
             }
         } else {
-            try {
-                await this.eventService.putEvent(this.event);
-                this.snackBarService.openSnackBar('Изменения сохранены');
-            } catch (err) {
-                console.error(err);
-                this.snackBarService.openSnackBar('Ошибка', 'snackbar-red');
+            if (this.event.category.name === 'asus') {
+                this.snackBarService.openSnackBar('Данное действие не допустимо для данного события!', 'snackbar-red');
+            } else {
+                try {
+                    await this.eventService.putEvent(this.event);
+                    this.snackBarService.openSnackBar('Изменения сохранены');
+                } catch (err) {
+                    console.error(err);
+                    // this.snackBarService.openSnackBar('Ошибка', 'snackbar-red');
+                }
             }
         }
         this.eventService.updateEvent$.next(true);

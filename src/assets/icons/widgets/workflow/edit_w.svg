@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31 31">
+  <title>Редактировать</title>
+  <circle cx="15.5" cy="15.5" r="15" style="fill:none;stroke-miterlimit:10"/>
+  <circle cx="15.5" cy="15.5" r="13.37" style="opacity:0.1"/>
+  <circle cx="15.5" cy="15.5" r="11.88" style="opacity:0.1"/>
+  <circle cx="15.5" cy="15.5" r="10.4" style="opacity:0.1"/>
+  <circle cx="15.5" cy="15.5" r="8.91" style="fill:#6ba4ef;opacity:0.1"/>
+  <path d="M10.5,18.18V20.5h2.32l6.83-6.83-2.32-2.32Zm10.93-6.29a.6.6,0,0,0,0-.86L20,9.59a.6.6,0,0,0-.86,0L18,10.7,20.3,13Z" style="stroke: none"/>
+</svg>

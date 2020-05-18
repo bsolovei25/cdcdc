@@ -26,6 +26,7 @@ export const CUSTOM_DATE_FORMATS: NgxMatDateFormats = {
 })
 export class TimeDataPickerComponent implements OnInit, OnChanges {
     @Input() data: any;
+    @Input() public disabled: boolean = false;
     @Output() dateTimePicker: EventEmitter<Date> = new EventEmitter<Date>();
 
     public inputDate: any;
@@ -33,7 +34,6 @@ export class TimeDataPickerComponent implements OnInit, OnChanges {
 
     @ViewChild('picker') picker: any;
 
-    public disabled: boolean = false;
     public showSpinners: boolean = true;
     public showSeconds: boolean = true;
     public touchUi: boolean = false;
