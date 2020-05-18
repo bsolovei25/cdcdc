@@ -13,8 +13,11 @@ import { ReferencesService } from '../../services/widgets/references.service';
 export class ReferenceComponent extends WidgetPlatform implements OnInit, OnDestroy {
     @ViewChild('refereneTable') public testBlock: ElementRef;
 
-    static itemCols = 18;
-    static itemRows = 14;
+    public static itemCols: number = 32;
+    public static itemRows: number = 15;
+
+    public static minItemCols: number = 27;
+    public static minItemRows: number = 15;
 
     isLoading: boolean = false;
 

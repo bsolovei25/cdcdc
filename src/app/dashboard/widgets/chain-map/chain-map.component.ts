@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, Inject, ElementRef, ViewChild, OnDestroy } from '@angular/core';
+import { Component, Inject, ElementRef, ViewChild, OnDestroy, OnInit } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 declare var d3: any;
@@ -8,7 +8,7 @@ declare var d3: any;
     templateUrl: './chain-map.component.html',
     styleUrls: ['./chain-map.component.scss'],
 })
-export class ChainMapComponent extends WidgetPlatform implements AfterViewInit, OnDestroy {
+export class ChainMapComponent extends WidgetPlatform implements OnInit, OnDestroy {
     @ViewChild('chain') chain: ElementRef;
 
     public dataStyle = {
@@ -248,8 +248,12 @@ export class ChainMapComponent extends WidgetPlatform implements AfterViewInit, 
     public mass2;
     public check: boolean = true;
 
-    public static itemCols: number = 30;
+
+    public static itemCols: number = 32;
     public static itemRows: number = 20;
+
+    public static minItemCols: number = 32;
+    public static minItemRows: number = 20;
 
     constructor(
         public widgetService: WidgetService,
@@ -262,7 +266,7 @@ export class ChainMapComponent extends WidgetPlatform implements AfterViewInit, 
         this.isRealtimeData = false;
     }
 
-    ngAfterViewInit(): void {
+    ngOnInit(): void {
         super.widgetInit();
     }
 

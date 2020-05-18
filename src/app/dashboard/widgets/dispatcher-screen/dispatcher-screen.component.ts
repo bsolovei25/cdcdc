@@ -1,4 +1,4 @@
-import { Component, HostListener, Inject, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, HostListener, Inject, OnDestroy, OnInit } from '@angular/core';
 import { UnityLoader } from './UnityLoader.js';
 import { PlatformLocation } from '@angular/common';
 import { WidgetService } from '../../services/widget.service';
@@ -10,17 +10,17 @@ import { WidgetPlatform } from '../../models/widget-platform';
     templateUrl: './dispatcher-screen.component.html',
     styleUrls: ['./dispatcher-screen.component.scss'],
 })
-export class DispatcherScreenComponent extends WidgetPlatform implements AfterViewInit, OnDestroy {
+export class DispatcherScreenComponent extends WidgetPlatform implements OnInit, OnDestroy {
     private baseUrl: string;
     private unityInstance: any;
     isStart: boolean;
 
     private canvas: HTMLCanvasElement;
 
-    public static itemCols: number = 15;
-    public static itemRows: number = 10;
-    public static minItemCols: number = 10;
-    public static minItemRows: number = 10;
+    public static itemCols: number = 64;
+    public static itemRows: number = 30;
+    public static minItemCols: number = 50;
+    public static minItemRows: number = 30;
 
     constructor(
         public widgetService: WidgetService,
@@ -36,7 +36,7 @@ export class DispatcherScreenComponent extends WidgetPlatform implements AfterVi
         this.baseUrl = location.origin + location.pathname.replace('dashboard', '');
     }
 
-    ngAfterViewInit(): void {
+    ngOnInit(): void {
         super.widgetInit();
     }
 
@@ -52,7 +52,7 @@ export class DispatcherScreenComponent extends WidgetPlatform implements AfterVi
         this.InitUnity();
     }
 
-    protected dataHandler(ref: any): void {}
+    protected dataHandler(ref: any): void { }
 
     @HostListener('document:resize', ['$event'])
     public OnResize(event): void {

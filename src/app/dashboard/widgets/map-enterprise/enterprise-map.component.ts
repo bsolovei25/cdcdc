@@ -298,6 +298,8 @@ export class EnterpriseMapComponent extends WidgetPlatform
 
     public static itemCols: number = 30;
     public static itemRows: number = 21;
+    public static minItemCols: number = 25;
+    public static minItemRows: number = 18;
 
     constructor(
         protected widgetService: WidgetService,

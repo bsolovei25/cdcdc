@@ -23,8 +23,10 @@ export interface IQualityDocsRecord {
   styleUrls: ['./quality-docs-panel.component.scss']
 })
 export class QualityDocsPanelComponent extends WidgetPlatform implements OnInit, OnDestroy {
-  static itemCols = 18;
-  static itemRows = 14;
+  public static itemCols: number = 48;
+    public static itemRows: number = 15;
+    public static minItemCols: number = 36;
+    public static minItemRows: number = 12;
 
   public data: IQualityDocsRecord[] = [
     {
