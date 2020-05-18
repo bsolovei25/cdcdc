@@ -6,6 +6,7 @@ import { IUser, IUnitEvents } from '../../../models/events-widget';
 import { Subscription, combineLatest } from 'rxjs';
 import { IWidgets } from '../../../models/widget.model';
 import { IAlertWindowModel } from '../../../../@shared/models/alert-window.model';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
     selector: 'evj-admin-groups',
@@ -27,7 +28,6 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
     public allWorkspaces: IWorkspace[] = [];
 
     public isCreateClaim: boolean = false;
-    public isCreateNewGroup: boolean = false;
 
     public groups: IGroup[] = [];
     public newGroups: IGroup[] = [];
@@ -36,8 +36,6 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
 
     public currentGroupGeneralClaims: IGlobalClaim[] = [];
     public currentGroupSpecialClaims: IGlobalClaim[] = [];
-
-    public editingGroup: IGroup = null;
 
     public generalClaims: IGlobalClaim[] = [];
     public specialClaims: IGlobalClaim[] = [];
@@ -224,22 +222,6 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
         }
     }
 
-    public onCreateNewGroup(group: IGroup): void {
-        this.isCreateNewGroup = false;
-        this.editingGroup = null;
-        if (group) {
-            this.newGroups.push(group);
-            this.groupSelection.select(group);
-        }
-    }
-
-    public onEditGroupName(group: IGroup): void {
-        this.editingGroup = group;
-        this.isCreateNewGroup = true;
-
-        this.onEditGroup();
-    }
-
     public onEditGroup(): void {
         const editedGroup = this.groupSelection.selected[0];
         if (editedGroup.id && !this.editedGroupsIds.includes(editedGroup.id)) {
@@ -306,13 +288,60 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
         if (isSaveClicked) {
             this.alert.questionText = 'Сохранить внесенные изменения?';
             this.alert.acceptText = 'Сохранить';
+            this.alert.cancelText = 'Отменить';
             this.alert.acceptFunction = this.onSave.bind(this);
         } else {
             this.alert.questionText = `Вы действительно хотите вернуться?
                 Все внесенные изменения будут утрачены!`;
             this.alert.acceptText = 'Подтвердить';
+            this.alert.cancelText = 'Вернуться';
             this.alert.acceptFunction = this.onReturn.bind(this);
         }
+        delete this.alert.input;
+        this.alert.isShow = true;
+    }
+
+    public onChangeGroupName(group?: IGroup): void {
+        let questionText: string = '';
+        let inputValue: string = '';
+        let acceptFn: () => void = null;
+
+        if (group) {
+            questionText = 'Введите новое название группы';
+            inputValue = group.name;
+            acceptFn = () => {
+                group.name = this.alert.input.formControl.value;
+                this.onEditGroup();
+            };
+        } else {
+            questionText = 'Введите название новой группы пользователей';
+            acceptFn = () => {
+                const newGroup: IGroup = {
+                    id: null,
+                    name: this.alert.input.formControl.value,
+                    claims: [],
+                    users: [],
+                };
+                this.newGroups.push(newGroup);
+                this.groupSelection.select(newGroup);
+            };
+        }
+
+        this.alert.questionText = questionText;
+        this.alert.acceptText = 'Сохранить';
+        this.alert.cancelText = 'Отменить';
+        this.alert.input = {
+            formControl: new FormControl(inputValue, Validators.required),
+            placeholder: 'Введите информацию',
+        };
+        this.alert.acceptFunction = () => {
+            if (this.alert.input.formControl.value) {
+                acceptFn();
+            } else {
+                this.alert.input.formControl.markAsTouched();
+                throw new Error('Empty field');
+            }
+        };
         this.alert.isShow = true;
     }
 
