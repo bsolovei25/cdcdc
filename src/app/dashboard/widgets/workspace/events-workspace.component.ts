@@ -17,9 +17,9 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
     progressLineHeight: number; // хз
 
-    static itemCols: number = 27;
+    static itemCols: number = 32;
     static itemRows: number = 30;
-    public static minItemCols: number = 30;
+    public static minItemCols: number = 32;
     public static minItemRows: number = 30;
 
     constructor(

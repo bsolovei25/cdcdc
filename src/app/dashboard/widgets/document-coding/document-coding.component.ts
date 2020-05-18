@@ -15,8 +15,10 @@ export interface IDocumentFilter {
   styleUrls: ['./document-coding.component.scss']
 })
 export class DocumentCodingComponent extends WidgetPlatform implements OnInit, OnDestroy {
-  static itemCols = 18;
-  static itemRows = 14;
+  public static itemCols: number = 48;
+  public static itemRows: number = 15;
+  public static minItemCols: number = 36;
+  public static minItemRows: number = 12;
 
   filter: IDocumentFilter = {
     isFilterGroup: false,

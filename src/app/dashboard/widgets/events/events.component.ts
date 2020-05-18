@@ -150,8 +150,10 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
 
     private readonly defaultIconPath: string = './assets/icons/widgets/events/smotr.svg';
 
-    public static itemCols: number = 30;
-    public static itemRows: number = 20;
+    public static itemCols: number = 32;
+    public static itemRows: number = 30;
+    public static minItemCols: number = 32;
+    public static minItemRows: number = 30;
 
     constructor(
         private eventService: EventService,

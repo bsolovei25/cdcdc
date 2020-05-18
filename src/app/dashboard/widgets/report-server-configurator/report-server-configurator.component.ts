@@ -38,11 +38,13 @@ import { ReportServerConfiguratorService } from '../../services/widgets/report-s
     providers: [TreeDraggedElement]
 })
 export class ReportServerConfiguratorComponent extends WidgetPlatform implements OnInit, OnDestroy {
-
     @ViewChild(TreeComponent) private tree: TreeComponent;
 
-    static itemCols = 18;
-    static itemRows = 14;
+    public static itemCols: number = 32;
+    public static itemRows: number = 15;
+
+    public static minItemCols: number = 27;
+    public static minItemRows: number = 15;
 
     public isLoading: boolean = false;
 
