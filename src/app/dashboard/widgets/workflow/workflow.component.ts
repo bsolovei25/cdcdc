@@ -346,6 +346,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
 
     ngOnDestroy(): void {
         super.ngOnDestroy();
+        this.leaderLine = [];
     }
 
     protected dataHandler(ref: any): void {
@@ -689,7 +690,6 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                     this.snackBar.openSnackBar('Действие удалено');
                     this.isLoading = false;
                 } catch (error) {
-                    this.snackBar.openSnackBar('Ошибка', 'snackbar-red');
                     this.isLoading = false;
                 }
             },
