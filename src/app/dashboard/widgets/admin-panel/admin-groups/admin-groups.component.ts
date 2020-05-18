@@ -203,7 +203,7 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
             this.currentGroupGeneralClaims = group.claims.filter((claim) => !claim.value);
             this.currentGroupSpecialClaims = group.claims.filter((claim) => !!claim.value);
 
-            if (!group.workspaces) {
+            if (!group.workspaces && group.id) {
                 if (this.subs) {
                     this.subs.unsubscribe();
                 }
@@ -219,8 +219,10 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
                     () => (this.isDataLoading = false)
                 );
                 this.groupWorkspaces = [];
+            } else if (!group.workspaces) {
+                this.groupWorkspaces = [];
             } else {
-                this.groupWorkspaces = group.workspaces;
+                this.groupWorkspaces = group?.workspaces;
             }
         }
     }
@@ -233,7 +235,17 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
         }
     }
 
-    public onDeleteGroup(): void {
+    public onClickDeleteGroup(): void {
+        this.alert.questionText = `Вы действительно хотите удалить группу
+        ${this.groupSelection.selected[0].name}`;
+        this.alert.acceptText = 'Подтвердить';
+        this.alert.cancelText = 'Вернуться';
+        this.alert.acceptFunction = this.onDeleteGroup.bind(this);
+        delete this.alert.input;
+        this.alert.isShow = true;
+    }
+
+    private onDeleteGroup(): void {
         const deletedGroup = this.groupSelection.selected[0];
         let index: number = null;
         if (deletedGroup.id) {
