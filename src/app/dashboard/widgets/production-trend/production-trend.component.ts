@@ -24,7 +24,7 @@ export class ProductionTrendComponent extends WidgetPlatform implements OnInit, 
     public readonly allUnits: IUnit[] = [
         {
             id: 0,
-            name: 'Все производство',
+            name: 'Всё производство',
         },
         {
             id: 1,
