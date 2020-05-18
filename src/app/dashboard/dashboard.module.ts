@@ -228,6 +228,7 @@ import { OilOperationsComponent } from './widgets/oil-operations/oil-operations.
 import { TableGridInputComponent } from './components/table-grid/components/table-grid-input/table-grid-input.component';
 import { TableGridFilterComponent } from './components/table-grid/components/table-grid-filter/table-grid-filter.component';
 import { TableGridSaveButtonComponent } from './components/table-grid/components/table-grid-save-button/table-grid-save-button.component';
+import { WorkflowComponent } from './widgets/workflow/workflow.component';
 import { OilOperationsReceivedOperationsComponent } from './widgets/oil-operations/components/oil-operations-received-operations/oil-operations-received-operations.component';
 import { OilOperationsShipmentFormationComponent } from './widgets/oil-operations/components/oil-operations-shipment-formation/oil-operations-shipment-formation.component';
 import { OilOperationsFilterComponent } from './widgets/oil-operations/components/oil-operations-filter/oil-operations-filter.component';
@@ -241,6 +242,7 @@ import { OilOperationsAdjustmentComponent } from './widgets/oil-operations/compo
 import { OilOperationsFreeShipmentComponent } from './widgets/oil-operations/components/oil-operations-free-shipment/oil-operations-free-shipment.component';
 import { DocumentViewerFullscreenComponent } from './widgets/document-viewer/document-viewer-fullscreen/document-viewer-fullscreen.component';
 import { CdCriticalComponent } from './widgets/cd-critical/cd-critical.component';
+import { WorkflowTableComponent } from './widgets/workflow/workflow-table/workflow-table.component';
 import { ImplementationPlanComponent } from './widgets/SMP/implementation-plan/implementation-plan.component';
 import { ImplementationPieComponent } from './widgets/SMP/implementation-plan/components/implementation-pie/implementation-pie.component';
 import { ImplementationTankComponent } from './widgets/SMP/implementation-plan/components/implementation-tank/implementation-tank.component';
@@ -261,6 +263,7 @@ import { AsusEventComponent } from './widgets/workspace/asus-event/asus-event.co
 import { ProductGroupsLeftComponent } from './widgets/SMP/product-groups/components/product-groups-left/product-groups-left.component';
 import { ProductGroupsMiddleComponent } from './widgets/SMP/product-groups/components/product-groups-middle/product-groups-middle.component';
 import { ProductGroupsRightComponent } from './widgets/SMP/product-groups/components/product-groups-right/product-groups-right.component';
+import { WorkflowListComponent } from './widgets/workflow/workflow-list/workflow-list.component';
 import { ProductionDeviationsComponent } from './widgets/SMP/production-deviations/production-deviations.component';
 import { ProductionDeviationsDiagramComponent } from './widgets/SMP/production-deviations/components/production-deviations-diagram/production-deviations-diagram.component';
 import { ProductionDeviationsColumnComponent } from './widgets/SMP/production-deviations/components/production-deviations-column/production-deviations-column.component';
@@ -465,6 +468,7 @@ import { ProductionTrendInstallationsComponent } from './widgets/production-tren
         TableGridInputComponent,
         TableGridFilterComponent,
         TableGridSaveButtonComponent,
+        WorkflowComponent,
         OilOperationsReceivedOperationsComponent,
         OilOperationsShipmentFormationComponent,
         OilOperationsFilterComponent,
@@ -479,6 +483,7 @@ import { ProductionTrendInstallationsComponent } from './widgets/production-tren
         OilOperationsFreeShipmentComponent,
         DocumentViewerFullscreenComponent,
         CdCriticalComponent,
+        WorkflowTableComponent,
         ImplementationPlanComponent,
         ImplementationPieComponent,
         ImplementationTankComponent,
@@ -500,6 +505,7 @@ import { ProductionTrendInstallationsComponent } from './widgets/production-tren
         ProductGroupsLeftComponent,
         ProductGroupsMiddleComponent,
         ProductGroupsRightComponent,
+        WorkflowListComponent,
         ProductionDeviationsComponent,
         ProductionDeviationsDiagramComponent,
         ProductionDeviationsColumnComponent,
@@ -572,6 +578,7 @@ import { ProductionTrendInstallationsComponent } from './widgets/production-tren
         DocumentCodingComponent,
         ReportTreeComponent,
         OilOperationsComponent,
+        WorkflowComponent,
         ImplementationPlanComponent,
         PerformanceProgressIndicatorsComponent,
         QualityStockComponent,
@@ -619,7 +626,6 @@ import { ProductionTrendInstallationsComponent } from './widgets/production-tren
         NgxMaskModule.forChild(),
         PdfViewerModule,
     ],
-
     bootstrap: [],
     providers: [
         { provide: LOCALE_ID, useValue: 'ru-RU' },

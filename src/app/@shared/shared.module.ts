@@ -29,6 +29,7 @@ import { CircleInputComponent } from './components/circle-input/circle-input.com
 import { LineChartTanksDirective } from './directives/line-chart-tanks.directive';
 import { LineChartPickerTankDirective } from './directives/line-chart-picker-tank.directive';
 import { SpaceNumber } from './pipes/number_space.pipe';
+import { AlertInputComponent } from './components/alert-input/alert-input.component';
 import { TooltipComponent } from './components/tooltip/tooltip.component';
 import { TooltipDirective } from './components/tooltip/directives/tooltip.directive';
 import { LineBreakPipe } from './pipes/line-break.pipe';
@@ -59,6 +60,8 @@ import { EventsChatComponent } from './components/events-chat/events-chat.compon
         UploadDropZoneComponent,
         CircleInputComponent,
         LineChartTanksDirective,
+        SpaceNumber,
+        AlertInputComponent,
         LineChartPickerTankDirective,
         SpaceNumber,
         TooltipComponent,
@@ -88,6 +91,7 @@ import { EventsChatComponent } from './components/events-chat/events-chat.compon
         EmailEditorComponent,
         CircleInputComponent,
         SpaceNumber,
+        AlertInputComponent,
         TooltipComponent,
         TooltipDirective,
         LineBreakPipe,
@@ -106,9 +110,6 @@ import { EventsChatComponent } from './components/events-chat/events-chat.compon
         MatSelectModule,
         ReactiveFormsModule
     ],
-    providers: [
-        SpaceNumber,
-        LineBreakPipe,
-    ],
+    providers: [SpaceNumber, LineBreakPipe],
 })
-export class SharedModule { }
+export class SharedModule {}
