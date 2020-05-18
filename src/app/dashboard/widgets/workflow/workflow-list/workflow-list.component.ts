@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IAlertInputModel } from '../../../../@shared/models/alert-input.model';
 import { IAlertWindowModel } from '../../../../@shared/models/alert-window.model';
 import { WorkflowService } from '../../../services/widgets/workflow.service';
