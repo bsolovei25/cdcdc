@@ -84,7 +84,10 @@ export class EventsWorkspaceService {
     public async loadItem(id?: number): Promise<void> {
         try {
             if (id) {
+                this.isCreateNewEvent = false;
+                this.isEditEvent = true;
                 this.event = await this.eventService.getEvent(id);
+                this.event = {...this.defaultEvent, ...this.event};
             }
             const dataLoadQueue: Promise<void>[] = [];
             dataLoadQueue.push(
@@ -146,15 +149,7 @@ export class EventsWorkspaceService {
             establishedFacts: '',
             eventDateTime: new Date(),
             eventType: this.eventTypes ? this.eventTypes[0] : null,
-            fixedBy: {
-                email: '',
-                login: '',
-                firstName: '',
-                id: undefined,
-                lastName: '',
-                middleName: '',
-                phone: '',
-            },
+            fixedBy: this.currentAuthUser,
             organization: 'АО Газпромнефть',
             priority: this.priority
                 ? this.priority[2]
@@ -185,12 +180,9 @@ export class EventsWorkspaceService {
     public async setEventByInfo(value: EventsWidgetNotification | number): Promise<void> {
         this.isLoading = true;
         this.isCreateNewEvent = false;
-
         if (typeof value !== 'number') {
-            this.event = value;
-            console.log(value);
+            this.event = {...this.defaultEvent, ...value};
         }
-
         this.loadItem(typeof value === 'number' ? value : undefined);
     }
 
@@ -211,21 +203,26 @@ export class EventsWorkspaceService {
         this.isLoading = true;
         if (this.isCreateNewEvent) {
             try {
-                const event = await this.eventService.postEvent(this.event);
-                this.event = event;
+                // const event = await this.eventService.postEvent(this.event);
+                await this.eventService.postEvent(this.event);
+                // this.event = event;
                 this.isCreateNewEvent = false;
                 this.snackBarService.openSnackBar('Сохранено');
             } catch (err) {
                 console.error(err);
-                this.snackBarService.openSnackBar('Ошибка', 'snackbar-red');
+                // this.snackBarService.openSnackBar('Ошибка', 'snackbar-red');
             }
         } else {
-            try {
-                await this.eventService.putEvent(this.event);
-                this.snackBarService.openSnackBar('Изменения сохранены');
-            } catch (err) {
-                console.error(err);
-                this.snackBarService.openSnackBar('Ошибка', 'snackbar-red');
+            if (this.event.category.name === 'asus') {
+                this.snackBarService.openSnackBar('Данное действие не допустимо для данного события!', 'snackbar-red');
+            } else {
+                try {
+                    await this.eventService.putEvent(this.event);
+                    this.snackBarService.openSnackBar('Изменения сохранены');
+                } catch (err) {
+                    console.error(err);
+                    // this.snackBarService.openSnackBar('Ошибка', 'snackbar-red');
+                }
             }
         }
         this.eventService.updateEvent$.next(true);
