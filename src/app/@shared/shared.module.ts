@@ -33,6 +33,9 @@ import { AlertInputComponent } from './components/alert-input/alert-input.compon
 import { TooltipComponent } from './components/tooltip/tooltip.component';
 import { TooltipDirective } from './components/tooltip/directives/tooltip.directive';
 import { LineBreakPipe } from './pipes/line-break.pipe';
+import { SelectComponent } from './components/select/select.component';
+import { MatSelectModule } from '@angular/material/select';
+import { EventsChatComponent } from './components/events-chat/events-chat.component';
 
 @NgModule({
     declarations: [
@@ -64,6 +67,8 @@ import { LineBreakPipe } from './pipes/line-break.pipe';
         TooltipComponent,
         TooltipDirective,
         LineBreakPipe,
+        SelectComponent,
+        EventsChatComponent,
     ],
     exports: [
         HeaderComponent,
@@ -90,6 +95,8 @@ import { LineBreakPipe } from './pipes/line-break.pipe';
         TooltipComponent,
         TooltipDirective,
         LineBreakPipe,
+        SelectComponent,
+        EventsChatComponent,
     ],
     imports: [
         CommonModule,
@@ -99,6 +106,8 @@ import { LineBreakPipe } from './pipes/line-break.pipe';
         CKEditorModule,
         FormsModule,
         AngularSvgIconModule,
+        AngularSvgIconModule,
+        MatSelectModule,
     ],
     providers: [SpaceNumber, LineBreakPipe],
 })

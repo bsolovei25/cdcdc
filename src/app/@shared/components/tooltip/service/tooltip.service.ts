@@ -28,7 +28,7 @@ export class TooltipService {
   ) { }
 
   public close(): void {
-      this.ref?.destroy();
+    this.ref?.destroy();
   }
 
   public openPopup(object: TooltipModel): void {
@@ -47,13 +47,13 @@ export class TooltipService {
 
     const obj: TooltipModel = {
       title: object.title,
-      top: this.top + this.height - 30,
-      left: this.left + this.width / 4,
+      top: this.height - 25,
+      left: this.width / 4,
     };
 
     tooltipComponentRef.instance.value = obj;
 
-    document.body.firstElementChild.appendChild(tooltipComponentRef.location.nativeElement);
+    object.elem.nativeElement.firstElementChild.appendChild(tooltipComponentRef.location.nativeElement);
 
 
   }

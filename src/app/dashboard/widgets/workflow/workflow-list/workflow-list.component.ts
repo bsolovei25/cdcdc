@@ -5,6 +5,7 @@ import { WorkflowService } from '../../../services/widgets/workflow.service';
 import { SnackBarService } from '../../../services/snack-bar.service';
 import { MatSelectChange } from '@angular/material/select';
 import { ICreateConnection } from '../workflow.component';
+import { Subscription } from 'rxjs';
 
 export interface IModules {
     createdAt: Date;
@@ -25,8 +26,10 @@ export interface IScenarios {
     templateUrl: './workflow-list.component.html',
     styleUrls: ['./workflow-list.component.scss'],
 })
-export class WorkflowListComponent implements OnInit {
+export class WorkflowListComponent implements OnInit, OnDestroy {
     isLoading: boolean = true;
+
+    private subscriptions: Subscription[] = [];
 
     alertInput: IAlertInputModel;
     alertWindow: IAlertWindowModel;
@@ -41,15 +44,25 @@ export class WorkflowListComponent implements OnInit {
 
     ngOnInit(): void {
         this.loadItem();
-        this.workflowService.chooseModules$.subscribe((module) => {
-            this.chooseModules = module;
-            this.workflowService.chooseScenario$.next(null);
-            if (module) {
-                this.loadScenarios(this.chooseModules.uid);
-            }
-        });
-        this.workflowService.chooseScenario$.subscribe((scenario) => {
-            this.chooseScenarios = scenario;
+        this.subscriptions.push(
+            this.workflowService.chooseModules$.subscribe((module) => {
+                this.chooseModules = module;
+                this.workflowService.chooseScenario$.next(null);
+                if (module) {
+                    this.loadScenarios(this.chooseModules.uid);
+                }
+            })
+        );
+        this.subscriptions.push(
+            this.workflowService.chooseScenario$.subscribe((scenario) => {
+                this.chooseScenarios = scenario;
+            })
+        );
+    }
+
+    ngOnDestroy(): void {
+        this.subscriptions.forEach((subscription) => {
+            subscription.unsubscribe();
         });
     }
 

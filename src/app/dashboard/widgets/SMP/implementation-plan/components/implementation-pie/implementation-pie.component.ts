@@ -1,14 +1,15 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { IImplementationPlan } from '../../implementation-plan.component';
 import { SpaceNumber } from '@shared/pipes/number_space.pipe';
 import * as d3 from 'd3';
 
 @Component({
   selector: 'evj-implementation-pie',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './implementation-pie.component.html',
   styleUrls: ['./implementation-pie.component.scss']
 })
-export class ImplementationPieComponent implements OnInit {
+export class ImplementationPieComponent implements OnInit, OnChanges {
   @ViewChild('myCircle', { static: true }) myCircle: ElementRef;
 
   @Input() data: IImplementationPlan;
@@ -17,11 +18,18 @@ export class ImplementationPieComponent implements OnInit {
 
   public defaultPercent: number = 100;
 
+  public svg: any;
+
   constructor(
     private spacePipe: SpaceNumber,
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
+
+  ngOnChanges(): void {
+    if (this.svg) {
+      this.svg.remove();
+    }
     this.d3Circle(this.data, this.myCircle.nativeElement);
   }
 
@@ -38,13 +46,13 @@ export class ImplementationPieComponent implements OnInit {
       color = d3.scaleOrdinal().range(['var(--color-text-main)', 'var(--color-active)']);
     }
 
-    const canvas = d3
+    this.svg = d3
       .select(el)
       .append('svg')
       .attr('min-width', '100px')
       .attr('viewBox', '0 0 100 100');
 
-    let group = canvas.append('g').attr('transform', 'translate(50 ,50)');
+    let group = this.svg.append('g').attr('transform', 'translate(50 ,50)');
 
     const arc = d3
       .arc()
@@ -78,7 +86,7 @@ export class ImplementationPieComponent implements OnInit {
       .attr('dominant-baseline', 'middle')
       .text(pipeValue);
 
-    const text = canvas
+    const text = this.svg
       .append('text')
       .attr('fill', 'rgb(140,153,178)')
       .attr('font-size', '10px')
