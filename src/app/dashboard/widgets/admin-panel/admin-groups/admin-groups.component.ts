@@ -247,17 +247,19 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
 
     private onDeleteGroup(): void {
         const deletedGroup = this.groupSelection.selected[0];
-        let index: number = null;
         if (deletedGroup.id) {
             this.deletedGroupsIds.push(deletedGroup.id);
-            index = this.groups.findIndex((group) => group.id === deletedGroup.id);
+            const index = this.groups.findIndex((group) => group.id === deletedGroup.id);
+            if (index !== -1) {
+                this.groups.splice(index, 1);
+            }
         } else {
-            index = this.newGroups.findIndex((group) => group.name === deletedGroup.name);
+            const index = this.newGroups.findIndex((group) => group.name === deletedGroup.name);
+            if (index !== -1) {
+                this.newGroups.splice(index, 1);
+            }
         }
-        if (index !== -1) {
-            this.groups.splice(index, 1);
-            this.groupSelection.select(this.groups[0]);
-        }
+        this.groupSelection.select(this.groups[0]);
         this.isDataChanged = true;
     }
 
