@@ -6,6 +6,7 @@ import { IUser, IUnitEvents } from '../../../models/events-widget';
 import { Subscription, combineLatest } from 'rxjs';
 import { IWidgets } from '../../../models/widget.model';
 import { IAlertWindowModel } from '../../../../@shared/models/alert-window.model';
+import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'evj-admin-groups',
@@ -59,6 +60,19 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
         acceptFunction: () => null,
         cancelFunction: () => null,
         closeFunction: () => (this.alert.isShow = false),
+    };
+
+    public alertInput: IAlertWindowModel = {
+        isShow: false,
+        questionText: 'Введите название новой группы пользователей',
+        acceptText: 'Сохранить',
+        cancelText: 'Отменить',
+        input: {
+            formControl: new FormControl(),
+            placeholder: 'Введите информацию',
+        },
+        closeFunction: () => (this.alertInput.isShow = false),
+        acceptFunction: () => null,
     };
 
     private subscriptions: Subscription[] = [];

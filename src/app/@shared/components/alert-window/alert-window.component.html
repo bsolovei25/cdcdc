@@ -3,13 +3,27 @@
     <div class="confirm-container">
       <div class="confirm-container__body confirm-container-body">
         <div class="confirm-container-body__header confirm-container-body-header">
-          <div class="confirm-container-body-header__icon">
-            <img src="../../../assets/icons/widgets/alert-window/notice.svg">
+          <div
+            class="confirm-container-body-header__icon"
+            [ngClass]="{'confirm-container-body-header__icon_input':!!info.input}"
+          >
+            <img [src]="iconSrc" />
           </div>
-          <span>Обратите внимание</span>
+          <span>{{title}}</span>
         </div>
-        <div class="confirm-container-body__content">
+        <div
+          class="confirm-container-body__content"
+          [ngClass]="{'confirm-container-body__content_prompt':!!info.input}"
+        >
           <p [innerHTML]="info?.questionText | replaceLineBreak"></p>
+          <input
+            type="text"
+            class="input"
+            [ngClass]="{'input_dirty':info.input.formControl.dirty}"
+            [formControl]="info.input.formControl"
+            [placeholder]="info.input.placeholder"
+            *ngIf="!!info.input"
+          />
         </div>
       </div>
       <div class="confirm-container__footer">

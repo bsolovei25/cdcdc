@@ -21,7 +21,7 @@
           [isSmallButton]="true"
           [imgSrc]="plusIcon"
           [isChangingState]="false"
-          (click)="isCreateNewGroup=true"
+          (click)="alertInput.isShow=true"
         ></evj-button>
       </div>
     </div>
@@ -191,4 +191,5 @@
   ></evj-aws-create-claim>
 
   <evj-alert-window [info]="alert"></evj-alert-window>
+  <evj-alert-window [info]="alertInput"></evj-alert-window>
 </div>

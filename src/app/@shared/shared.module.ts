@@ -22,7 +22,7 @@ import { LineChartComponent } from './components/line-chart/line-chart.component
 import { LineChartPickerDirective } from './directives/line-chart-picker.directive';
 import { EmailEditorComponent } from './components/email-editor/email-editor.component';
 import { CKEditorModule } from 'ng2-ckeditor';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UploadDropZoneComponent } from './components/upload-drop-zone/upload-drop-zone.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { CircleInputComponent } from './components/circle-input/circle-input.component';
@@ -104,6 +104,7 @@ import { EventsChatComponent } from './components/events-chat/events-chat.compon
         AngularSvgIconModule,
         AngularSvgIconModule,
         MatSelectModule,
+        ReactiveFormsModule
     ],
     providers: [
         SpaceNumber,
