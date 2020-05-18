@@ -18,7 +18,12 @@
       <div class="line"></div>
     </div>
     <div class="header__buttons">
-      <evj-button class="button" textButton="Сохранить" (click)="onClickButton(true)"></evj-button>
+      <evj-button
+        class="button"
+        textButton="Сохранить"
+        [disabled]="!isDataChanged"
+        (click)="onClickButton(true)"
+      ></evj-button>
       <evj-button class="button" textButton="Вернуться" (click)="onClickButton(false)"></evj-button>
     </div>
   </div>

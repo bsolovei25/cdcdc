@@ -23,6 +23,7 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
     };
 
     public isDataLoading: boolean = false;
+    public isDataChanged: boolean = false;
 
     public allWorkers: IUser[] = [];
     public allWorkspaces: IWorkspace[] = [];
@@ -134,6 +135,7 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
             currentGroupClaims.splice(index, 1);
         }
         this.onEditGroup();
+        this.isDataChanged = true;
     }
 
     public canShowSpecialClaim(claim: IGlobalClaim): boolean {
@@ -179,6 +181,7 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
         );
         currentGroup.claims.splice(index, 1);
         this.onEditGroup();
+        this.isDataChanged = true;
     }
 
     public onWorkerScreens(): IWorkspace[] {
@@ -226,6 +229,7 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
         const editedGroup = this.groupSelection.selected[0];
         if (editedGroup.id && !this.editedGroupsIds.includes(editedGroup.id)) {
             this.editedGroupsIds.push(editedGroup.id);
+            this.isDataChanged = true;
         }
     }
 
@@ -242,6 +246,7 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
             this.groups.splice(index, 1);
             this.groupSelection.select(this.groups[0]);
         }
+        this.isDataChanged = true;
     }
 
     public editWorkerInGroup(addWorkerToGroup: boolean, worker: IUser): void {
@@ -257,6 +262,8 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
         if (currentGroup.id) {
             this.onEditGroup();
         }
+
+        this.isDataChanged = true;
     }
 
     public onClickCreateNewClaim(): void {
@@ -279,23 +286,26 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
                 currentGroup.claims.push(claim);
                 this.onEditGroup();
             });
+            this.isDataChanged = true;
         }
 
         this.isCreateClaim = false;
     }
 
     public onClickButton(isSaveClicked: boolean = false): void {
-        if (isSaveClicked) {
+        if (isSaveClicked && this.isDataChanged) {
             this.alert.questionText = 'Сохранить внесенные изменения?';
             this.alert.acceptText = 'Сохранить';
             this.alert.cancelText = 'Отменить';
             this.alert.acceptFunction = this.onSave.bind(this);
-        } else {
+        } else if (this.isDataChanged) {
             this.alert.questionText = `Вы действительно хотите вернуться?
                 Все внесенные изменения будут утрачены!`;
             this.alert.acceptText = 'Подтвердить';
             this.alert.cancelText = 'Вернуться';
             this.alert.acceptFunction = this.onReturn.bind(this);
+        } else {
+            this.onReturn();
         }
         delete this.alert.input;
         this.alert.isShow = true;
@@ -324,6 +334,7 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
                 };
                 this.newGroups.push(newGroup);
                 this.groupSelection.select(newGroup);
+                this.isDataChanged = true;
             };
         }
 
@@ -367,6 +378,7 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
                     await this.adminService.editGroup(group).toPromise();
                 }
             });
+            this.isDataChanged = false;
         } catch (error) {
             console.error(error);
         }
