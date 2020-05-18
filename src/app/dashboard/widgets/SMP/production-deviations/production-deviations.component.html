@@ -1,7 +1,7 @@
 <evj-widget-preview
   [title]="widgetTitle"
   [icon]="widgetIcon"
-  [previewTitle]=""
+  [previewTitle]="widgetType"
   *ngIf="isMock; else noMock"
 ></evj-widget-preview>
 <ng-template #noMock>

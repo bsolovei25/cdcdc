@@ -1,4 +1,4 @@
-<evj-widget-preview [title]="widgetTitle" [icon]="widgetIcon" [previewTitle]="" *ngIf="isMock"></evj-widget-preview>
+<evj-widget-preview [title]="widgetTitle" [icon]="widgetIcon" [previewTitle]="widgetType" *ngIf="isMock"></evj-widget-preview>
 <ng-container *ngIf="!isMock">
     <div class="container">
         <evj-widget-header-smp [uniqId]="uniqId" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseExit()"
