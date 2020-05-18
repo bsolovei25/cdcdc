@@ -71,7 +71,7 @@
     flex-direction: column;
 
     width: 30%;
-    transition: width 200ms ease-in-out 0s;
+    // transition: width 200ms ease-in-out 0s;
     min-width: 120px;
     overflow-x: scroll;
     overflow-y: hidden;
@@ -94,6 +94,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: 15px;
+    z-index: 999;
   }
 
   &__right-block {
@@ -189,7 +190,7 @@
         border-radius: 15px;
         background-color: var(--color-bg-card-workflow);
         margin-bottom: 5px;
-        transition: height 100ms ease-in-out 0s;
+        // transition: height 100ms ease-in-out 0s;
 
         &__gridster {
           &__item {
@@ -402,6 +403,7 @@
         background-position: center;
         background-repeat: no-repeat;
         background-size: 15px;
+        z-index: 999;
       }
     }
   }

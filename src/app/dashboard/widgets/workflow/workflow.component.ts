@@ -383,14 +383,14 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
             if (!mouseIsDown) {
                 return;
             }
-            const y = this.containerWorkflow.nativeElement.getBoundingClientRect().y;
+            const el = this.containerWorkflow.nativeElement.getBoundingClientRect();
+            const y = el.y;
             const a = e.screenY - y - 125;
             if (a < 50) {
                 this.renderer.setStyle(this.splitTop.nativeElement, 'height', `${50}px`);
             } else {
-                if (a > this.containerWorkflow.nativeElement.getBoundingClientRect().height - 65) {
-                    const height = this.containerWorkflow.nativeElement.getBoundingClientRect()
-                        .height;
+                if (a > el.height - 65) {
+                    const height = el.height;
                     const sum = height - 65;
                     this.renderer.setStyle(this.splitTop.nativeElement, 'height', `${sum}px`);
                 } else {
@@ -407,33 +407,30 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
 
     sliderLeftBar(): void {
         let mouseIsDown = false;
+        let x;
         this.splitVertivalBar.nativeElement.addEventListener('mousedown', (e) => {
             mouseIsDown = true;
+            x = this.splitLeft.nativeElement.getBoundingClientRect().x;
         });
 
         document.addEventListener('mousemove', (e) => {
             if (!mouseIsDown) {
                 return;
             }
-
-            // const a = e.x;
-            // this.renderer.setStyle(this.splitLeft.nativeElement, 'min-width', `${a}px`);
-
-            const x = this.splitLeft.nativeElement.getBoundingClientRect().x;
-            console.log(x);
-
-            const sum = e.x - x;
-            if (sum < 150) {
-                this.renderer.setStyle(this.splitLeft.nativeElement, 'width', `${0}px`);
-                this.renderer.setStyle(this.splitLeft.nativeElement, 'min-width', `${0}px`);
-            } else {
-                this.renderer.setStyle(this.splitLeft.nativeElement, 'width', `${sum}px`);
+            if (x) {
+                const sum = e.x - x;
+                if (sum < 150) {
+                    this.renderer.setStyle(this.splitLeft.nativeElement, 'width', `${0}px`);
+                    this.renderer.setStyle(this.splitLeft.nativeElement, 'min-width', `${0}px`);
+                } else {
+                    this.renderer.setStyle(this.splitLeft.nativeElement, 'width', `${sum}px`);
+                }
             }
         });
 
         document.addEventListener('mouseup', () => {
             mouseIsDown = false;
-            // this.resizeGridsterElement();
+            this.resizeGridsterElement();
         });
     }
 
@@ -595,9 +592,9 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     private initGridster() {}
 
     public sizeGrid(): void {
-        const widthScreen = document.getElementById('gridSize').clientWidth;
-        const heigthScreen = document.getElementById('gridSize').clientHeight;
-        const widthScreen1 = document.getElementById('gridSize').getBoundingClientRect();
+        // const widthScreen = document.getElementById('gridSize').clientWidth;
+        // const heigthScreen = document.getElementById('gridSize').clientHeight;
+        // const widthScreen1 = document.getElementById('gridSize').getBoundingClientRect();
         // console.log(widthScreen1);
 
         const widthScreenDefault = 300;
@@ -605,8 +602,8 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         // this.ColWidth *= (widthScreen - 660) / (widthScreenDefault - 660);
         // this.RowHeight *= (heigthScreen - 329) / (heigthScreenDefault - 329);
 
-        this.options.fixedColWidth = this.ColWidth;
-        this.options.fixedRowHeight = this.RowHeight;
+        // this.options.fixedColWidth = this.ColWidth;
+        // this.options.fixedRowHeight = this.RowHeight;
 
         this.changedOptions();
     }
@@ -858,8 +855,6 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     // #endregion
 
     addUser(type: 'to' | 'copy'): void {
-        console.log(this.content?.nativeElement?.getBoundingClientRect());
-
         const workspaceTable: IWorkspaceTable = {
             height: this.content?.nativeElement?.getBoundingClientRect()?.height,
             acceptFunction: (data) => {
