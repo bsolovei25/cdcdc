@@ -1,0 +1,33 @@
+.auto-width {
+  .mat-form-field,
+  .mat-select-value {
+    width: 100% !important;
+  }
+
+  .mat-select {
+    font-size: 11px !important;
+    margin-top: 10px;
+  }
+
+  ::ng-deep {
+    .mat-form-field-wrapper {
+      padding-bottom: 0 !important;
+    }
+
+    .mat-select-arrow {
+      color: white !important;
+      margin-top: -12px !important;
+      margin-right: 10px !important;
+    }
+  }
+
+  mat-label {
+    font-size: 15px !important;
+    color: var(--color-text-sub);
+  }
+}
+
+.container {
+  padding: 6px;
+}
+

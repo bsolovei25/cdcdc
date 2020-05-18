@@ -1,18 +1,22 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IAlertWindowModel } from '@shared/models/alert-window.model';
+import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'evj-alert-window',
     templateUrl: './alert-window.component.html',
-    styleUrls: ['./alert-window.component.scss']
+    styleUrls: ['./alert-window.component.scss'],
 })
 export class AlertWindowComponent implements OnInit {
+    @Input() public info: IAlertWindowModel;
 
-    @Input()
-    public info: IAlertWindowModel;
+    public readonly attentionTitle: string = 'Обратите внимание';
+    public readonly editTitle: string = 'Редактирование информации';
 
-    constructor() {
-    }
+    public readonly attentionIcon: string = 'assets/icons/widgets/alert-window/notice.svg';
+    public readonly editIcon: string = 'assets/icons/widgets/alert-window/edit-icon.svg';
+
+    constructor() {}
 
     public ngOnInit(): void {
         if (!this.info) {
@@ -26,8 +30,10 @@ export class AlertWindowComponent implements OnInit {
     }
 
     public accept(): void {
-        this.info.acceptFunction();
-        this.info.closeFunction();
+        try {
+            this.info.acceptFunction();
+            this.info.closeFunction();
+        } catch (err) {}
     }
 
     public cancel(): void {
@@ -38,5 +44,10 @@ export class AlertWindowComponent implements OnInit {
         } finally {
             this.info.closeFunction();
         }
+    }
+
+    public setInputStyle(): string {
+        const ctrl: FormControl = this.info.input.formControl;
+        return ctrl.dirty ? 'input_dirty' : ctrl.invalid && ctrl.touched ? 'input_invalid' : '';
     }
 }

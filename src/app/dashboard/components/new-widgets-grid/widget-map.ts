@@ -58,7 +58,9 @@ import { ImplementationPlanComponent } from '../../widgets/SMP/implementation-pl
 import { PerformanceProgressIndicatorsComponent } from '../../widgets/SMP/performance-progress-indicators/performance-progress-indicators.component';
 import { QualityStockComponent } from '../../widgets/SMP/quality-stock/quality-stock.component';
 import { SmpEventsComponent } from '../../widgets/SMP/smp-events/smp-events.component';
+import { SmpEventsWorkspaceComponent } from '../../widgets/SMP/smp-events-workspace/smp-events-workspace.component';
 import { ProductGroupsComponent } from '../../widgets/SMP/product-groups/product-groups.component';
+import { ProductionDeviationsComponent } from '../../widgets/SMP/production-deviations/production-deviations.component';
 import { ProductGroupsShortComponent } from '../../widgets/SMP/product-groups-short/product-groups-short.component';
 
 export const WIDGETS = {
@@ -123,6 +125,8 @@ export const WIDGETS = {
     'performance-progress-indicators': PerformanceProgressIndicatorsComponent,
     'quality-stock': QualityStockComponent,
     'smp-events': SmpEventsComponent,
+    'smp-events-workspace': SmpEventsWorkspaceComponent,
     'product-groups': ProductGroupsComponent,
+    'production-deviations': ProductionDeviationsComponent,
     'product-groups-short': ProductGroupsShortComponent,
 };

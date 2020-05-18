@@ -1,0 +1,64 @@
+<evj-widget-preview [title]="widgetTitle" [icon]="widgetIcon" [previewTitle]="widgetType" *ngIf="isMock"></evj-widget-preview>
+<ng-container *ngIf="!isMock">
+  <div class="container">
+    <evj-widget-header-smp [uniqId]="uniqId" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseExit()" *ngIf="isHover">
+    </evj-widget-header-smp>
+    <div class="frame-top"></div>
+    <div class="content"
+         (mouseenter)="onMouseEnter()"
+         (mouseleave)="onMouseExit()"
+         (mousedown)="$event.stopPropagation()"
+         (touchstart)="$event.stopPropagation()"
+    >
+      <div class="data-wrapper">
+        <div class="data-wrapper-header">
+          <svg-icon class="data-wrapper-header__icon"
+                    src="./assets/icons/widgets/smp-events-workspace/attention-triangle.svg"
+                    [svgStyle]="{ 'width.px':13, 'height.px':11 }">
+          </svg-icon>
+          <p class="data-wrapper-header__text">Дефицит полезной вместимости</p>
+        </div>
+
+        <div class="data-wrapper-row">
+          <div class="data-wrapper-row__card date-card">
+            <div class="data-wrapper-row__card--label">Дата</div>
+            <div class="data-wrapper-row__card--value">{{ data.date || 'Нет данных' }}</div>
+          </div>
+
+          <div class="data-wrapper-row__card company-card">
+            <div class="data-wrapper-row__card--label">Организация</div>
+            <div class="data-wrapper-row__card--value">{{ data.company || 'Нет данных' }}</div>
+          </div>
+
+          <div class="data-wrapper-row__card state-card">
+            <div class="data-wrapper-row__card--label">Статус</div>
+            <div class="data-wrapper-row__card--value state">{{ data.state || 'Нет данных' }}</div>
+          </div>
+        </div>
+
+        <div class="data-wrapper-row">
+          <div class="data-wrapper-row__card responsible-service-card">
+            <evj-select
+              [items]="selectItems"
+              [label]="'Ответственная служба'"
+            ></evj-select>
+          </div>
+        </div>
+        <br>
+        <evj-events-chat
+          [messages]="reasons"
+          title="Причины"
+          placeholder="Напишите свой комментарий..."
+        ></evj-events-chat>
+        <br>
+        <br>
+        <evj-events-chat
+          [messages]="events"
+          title="Корректирующие мероприятия"
+          placeholder="Напишите свой комментарий..."
+        ></evj-events-chat>
+      </div>
+    </div>
+    <div class="frame-bottom"></div>
+  </div>
+</ng-container>

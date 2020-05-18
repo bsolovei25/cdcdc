@@ -22,7 +22,7 @@ import { LineChartComponent } from './components/line-chart/line-chart.component
 import { LineChartPickerDirective } from './directives/line-chart-picker.directive';
 import { EmailEditorComponent } from './components/email-editor/email-editor.component';
 import { CKEditorModule } from 'ng2-ckeditor';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UploadDropZoneComponent } from './components/upload-drop-zone/upload-drop-zone.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { CircleInputComponent } from './components/circle-input/circle-input.component';
@@ -32,6 +32,9 @@ import { SpaceNumber } from './pipes/number_space.pipe';
 import { TooltipComponent } from './components/tooltip/tooltip.component';
 import { TooltipDirective } from './components/tooltip/directives/tooltip.directive';
 import { LineBreakPipe } from './pipes/line-break.pipe';
+import { SelectComponent } from './components/select/select.component';
+import { MatSelectModule } from '@angular/material/select';
+import { EventsChatComponent } from './components/events-chat/events-chat.component';
 
 @NgModule({
     declarations: [
@@ -61,6 +64,8 @@ import { LineBreakPipe } from './pipes/line-break.pipe';
         TooltipComponent,
         TooltipDirective,
         LineBreakPipe,
+        SelectComponent,
+        EventsChatComponent,
     ],
     exports: [
         HeaderComponent,
@@ -86,6 +91,8 @@ import { LineBreakPipe } from './pipes/line-break.pipe';
         TooltipComponent,
         TooltipDirective,
         LineBreakPipe,
+        SelectComponent,
+        EventsChatComponent,
     ],
     imports: [
         CommonModule,
@@ -95,6 +102,9 @@ import { LineBreakPipe } from './pipes/line-break.pipe';
         CKEditorModule,
         FormsModule,
         AngularSvgIconModule,
+        AngularSvgIconModule,
+        MatSelectModule,
+        ReactiveFormsModule
     ],
     providers: [
         SpaceNumber,
