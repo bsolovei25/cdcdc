@@ -198,49 +198,6 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
-
-        this.options = {
-            gridType: GridType.Fixed,
-            displayGrid: 'always',
-            disableWindowResize: true,
-            itemChangeCallback: this.itemChange.bind(this),
-            enableEmptyCellClick: false,
-            enableEmptyCellContextMenu: false,
-            enableEmptyCellDrag: false,
-            enableEmptyCellDrop: true,
-            enableOccupiedCellDrop: false,
-            emptyCellClickCallback: this.emptyCellClick.bind(this),
-            emptyCellContextMenuCallback: this.emptyCellClick.bind(this),
-            emptyCellDropCallback: this.emptyCellClick.bind(this),
-            emptyCellDragCallback: this.emptyCellClick.bind(this),
-            emptyCellDragMaxCols: 100000,
-            emptyCellDragMaxRows: 100000,
-            itemResizeCallback: this.resizeGridsterElement.bind(this),
-            gridSizeChangedCallback: this.resizeGridsterElement.bind(this),
-            // itemValidateCallback: this.valid.bind(this),
-            pushItems: false,
-            minCols: 15,
-            maxCols: 100,
-            minRows: 15,
-            maxRows: 100,
-            margin: 20,
-            outerMarginTop: 10,
-            outerMarginLeft: 10,
-            outerMarginRight: 0,
-            outerMarginBottom: 0,
-            setGridSize: false,
-            mobileBreakpoint: 0,
-            fixedColWidth: this.ColWidth,
-            fixedRowHeight: this.RowHeight,
-            draggable: {
-                enabled: true,
-                // start: this.startDrag.bind(this),
-                // stop: this.stopDrag.bind(this),
-                dropOverItems: true,
-                dropOverItemsCallback: this.stop1Drag.bind(this),
-            },
-            swap: false,
-        };
     }
 
     stop1Drag(sourceItem: IGridsterItemLocal, targetItem: IGridsterItemLocal, grid) {
@@ -316,6 +273,23 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
 
     ngOnInit(): void {
         super.widgetInit();
+    }
+
+    ngAfterViewInit(): void {
+        if (!this.isMock) {
+            this.slider();
+            this.sliderLeftBar();
+        }
+    }
+
+    ngOnDestroy(): void {
+        super.ngOnDestroy();
+        this.leaderLine = [];
+    }
+
+    protected async dataConnect(): Promise<void> {
+        super.dataConnect();
+
         this.workflowService.chooseModules$.subscribe((module) => {
             this.chooseModules = module;
         });
@@ -337,16 +311,49 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                 this.leaderLine = [];
             }
         });
-    }
 
-    ngAfterViewInit(): void {
-        this.slider();
-        this.sliderLeftBar();
-    }
-
-    ngOnDestroy(): void {
-        super.ngOnDestroy();
-        this.leaderLine = [];
+        this.options = {
+            gridType: GridType.Fixed,
+            displayGrid: 'always',
+            disableWindowResize: true,
+            itemChangeCallback: this.itemChange.bind(this),
+            enableEmptyCellClick: false,
+            enableEmptyCellContextMenu: false,
+            enableEmptyCellDrag: false,
+            enableEmptyCellDrop: true,
+            enableOccupiedCellDrop: false,
+            emptyCellClickCallback: this.emptyCellClick.bind(this),
+            emptyCellContextMenuCallback: this.emptyCellClick.bind(this),
+            emptyCellDropCallback: this.emptyCellClick.bind(this),
+            emptyCellDragCallback: this.emptyCellClick.bind(this),
+            emptyCellDragMaxCols: 100000,
+            emptyCellDragMaxRows: 100000,
+            itemResizeCallback: this.resizeGridsterElement.bind(this),
+            gridSizeChangedCallback: this.resizeGridsterElement.bind(this),
+            // itemValidateCallback: this.valid.bind(this),
+            pushItems: false,
+            minCols: 15,
+            maxCols: 100,
+            minRows: 15,
+            maxRows: 100,
+            margin: 20,
+            outerMarginTop: 10,
+            outerMarginLeft: 10,
+            outerMarginRight: 0,
+            outerMarginBottom: 0,
+            setGridSize: false,
+            mobileBreakpoint: 0,
+            fixedColWidth: this.ColWidth,
+            fixedRowHeight: this.RowHeight,
+            draggable: {
+                enabled: true,
+                // start: this.startDrag.bind(this),
+                // stop: this.stopDrag.bind(this),
+                dropOverItems: true,
+                dropOverItemsCallback: this.stop1Drag.bind(this),
+            },
+            swap: false,
+        };
     }
 
     protected dataHandler(ref: any): void {
@@ -375,7 +382,7 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
 
     slider(): void {
         let mouseIsDown = false;
-        this.splitBar.nativeElement.addEventListener('mousedown', (e) => {
+        this.splitBar?.nativeElement.addEventListener('mousedown', (e) => {
             mouseIsDown = true;
         });
 
@@ -383,18 +390,18 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
             if (!mouseIsDown) {
                 return;
             }
-            const el = this.containerWorkflow.nativeElement.getBoundingClientRect();
+            const el = this.containerWorkflow?.nativeElement.getBoundingClientRect();
             const y = el.y;
             const a = e.screenY - y - 125;
             if (a < 50) {
-                this.renderer.setStyle(this.splitTop.nativeElement, 'height', `${50}px`);
+                this.renderer.setStyle(this.splitTop?.nativeElement, 'height', `${50}px`);
             } else {
                 if (a > el.height - 65) {
                     const height = el.height;
                     const sum = height - 65;
-                    this.renderer.setStyle(this.splitTop.nativeElement, 'height', `${sum}px`);
+                    this.renderer.setStyle(this.splitTop?.nativeElement, 'height', `${sum}px`);
                 } else {
-                    this.renderer.setStyle(this.splitTop.nativeElement, 'height', `${a}px`);
+                    this.renderer.setStyle(this.splitTop?.nativeElement, 'height', `${a}px`);
                 }
             }
         });
@@ -408,9 +415,9 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     sliderLeftBar(): void {
         let mouseIsDown = false;
         let x;
-        this.splitVertivalBar.nativeElement.addEventListener('mousedown', (e) => {
+        this.splitVertivalBar?.nativeElement.addEventListener('mousedown', (e) => {
             mouseIsDown = true;
-            x = this.splitLeft.nativeElement.getBoundingClientRect().x;
+            x = this.splitLeft?.nativeElement.getBoundingClientRect().x;
         });
 
         document.addEventListener('mousemove', (e) => {
@@ -420,10 +427,10 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
             if (x) {
                 const sum = e.x - x;
                 if (sum < 150) {
-                    this.renderer.setStyle(this.splitLeft.nativeElement, 'width', `${0}px`);
-                    this.renderer.setStyle(this.splitLeft.nativeElement, 'min-width', `${0}px`);
+                    this.renderer.setStyle(this.splitLeft?.nativeElement, 'width', `${0}px`);
+                    this.renderer.setStyle(this.splitLeft?.nativeElement, 'min-width', `${0}px`);
                 } else {
-                    this.renderer.setStyle(this.splitLeft.nativeElement, 'width', `${sum}px`);
+                    this.renderer.setStyle(this.splitLeft?.nativeElement, 'width', `${sum}px`);
                 }
             }
         });
