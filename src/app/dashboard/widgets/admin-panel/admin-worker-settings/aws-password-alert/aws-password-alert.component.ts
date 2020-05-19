@@ -1,33 +1,5 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import {
-    FormControl,
-    Validators,
-    FormBuilder,
-    FormGroup,
-    FormGroupDirective,
-    NgForm,
-} from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
-
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-    isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-        const invalidCtrl = !!(
-            control &&
-            control.touched &&
-            control.invalid &&
-            control.parent.dirty
-        );
-        const invalidParent = !!(
-            control &&
-            control.touched &&
-            control.parent &&
-            control.parent.invalid &&
-            control.parent.dirty
-        );
-
-        return invalidCtrl || invalidParent;
-    }
-}
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Validators, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 
 @Component({
     selector: 'evj-aws-password-alert',
@@ -35,6 +7,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     styleUrls: ['./aws-password-alert.component.scss'],
 })
 export class AwsPasswordAlertComponent implements OnInit {
+    @Input() public isShow: boolean = false;
     @Output() private confirmed: EventEmitter<string> = new EventEmitter<string>();
 
     public hide: boolean = true;
@@ -43,7 +16,10 @@ export class AwsPasswordAlertComponent implements OnInit {
     public readonly maxLength: number = 25;
 
     public formGroup: FormGroup;
-    public matcher: MyErrorStateMatcher = new MyErrorStateMatcher();
+
+    public readonly visibleIcon: string = 'assets/icons/components/alert-password/visibility.svg';
+    public readonly invisibleIcon: string =
+        'assets/icons/components/alert-password/visibility_off.svg';
 
     constructor(private formBuilder: FormBuilder) {
         const regExpConditions = '(?=.*[0-9])(?=.*[?!._*#$@-])(?=.*[a-zа-я])(?=.*[A-ZА-Я])';
@@ -60,7 +36,7 @@ export class AwsPasswordAlertComponent implements OnInit {
                         Validators.pattern(`${regExpConditions}${regExp}`),
                     ],
                 ],
-                confirmPassword: [''],
+                confirmPassword: ['', Validators.required],
             },
             { validator: this.checkPasswords }
         );
@@ -68,11 +44,34 @@ export class AwsPasswordAlertComponent implements OnInit {
 
     public ngOnInit(): void {}
 
+    public setPasswordStyle(controlName: string): string {
+        const ctrl: AbstractControl = this.formGroup.controls[controlName];
+
+        if (
+            controlName === 'confirmPassword' &&
+            this.formGroup.controls.password.invalid &&
+            ctrl.touched
+        ) {
+            return 'input__block_invalid';
+        }
+
+        return ctrl.invalid && ctrl.touched
+            ? 'input__block_invalid'
+            : ctrl.dirty
+            ? 'input__block_dirty'
+            : '';
+    }
+
     public checkPasswords(group: FormGroup): { notSame: true } {
         const pass = group.controls.password.value;
         const confirmPass = group.controls.confirmPassword.value;
 
-        return pass === confirmPass ? null : { notSame: true };
+        if (pass === confirmPass) {
+            return null;
+        } else {
+            group.controls.confirmPassword.setErrors({ notSame: true });
+            return { notSame: true };
+        }
     }
 
     public onClickBack(): void {
