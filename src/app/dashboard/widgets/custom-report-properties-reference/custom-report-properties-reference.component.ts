@@ -11,6 +11,12 @@ import { ReportsService } from '../../services/widgets/reports.service';
 export class CustomReportPropertiesReferenceComponent extends WidgetPlatform implements OnInit, OnDestroy {
   @ViewChild('propertiesRefereneTable') public testBlock: ElementRef;
   @ViewChild('customOptions') public testBlock2: ElementRef;
+  
+  public static itemCols: number = 32;
+  public static itemRows: number = 15;
+
+  public static minItemCols: number = 27;
+  public static minItemRows: number = 15;
 
   indexColumn: number = null;
   idReferenceClick: number;

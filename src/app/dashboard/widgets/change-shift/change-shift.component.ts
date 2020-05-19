@@ -57,6 +57,8 @@ export class ChangeShiftComponent extends WidgetPlatform implements OnInit, OnDe
 
     public static itemCols: number = 16;
     public static itemRows: number = 30;
+    public static minItemCols: number = 16;
+    public static minItemRows: number = 30;
 
     public photoPathMain: string = 'assets/icons/widgets/admin/default_avatar2.svg';
 

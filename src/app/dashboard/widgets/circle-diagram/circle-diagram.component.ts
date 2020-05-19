@@ -1,4 +1,4 @@
-import { Component, OnDestroy, Inject, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnDestroy, Inject, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 
@@ -9,7 +9,7 @@ declare var d3: any;
     templateUrl: './circle-diagram.component.html',
     styleUrls: ['./circle-diagram.component.scss'],
 })
-export class CircleDiagramComponent extends WidgetPlatform implements OnDestroy, AfterViewInit {
+export class CircleDiagramComponent extends WidgetPlatform implements OnDestroy, OnInit {
     private x: number = 175;
     private y: number = 40;
 
@@ -24,8 +24,10 @@ export class CircleDiagramComponent extends WidgetPlatform implements OnDestroy,
 
     public readonly RADIUS: number = 40;
 
-    public static itemCols: number = 18;
-    public static itemRows: number = 14;
+    public static itemCols: number = 11;
+    public static itemRows: number = 9;
+    public static minItemCols: number = 8;
+    public static minItemRows: number = 7;
 
     @ViewChild('myCircle') myCircle: ElementRef;
 
@@ -39,7 +41,7 @@ export class CircleDiagramComponent extends WidgetPlatform implements OnDestroy,
         this.widgetIcon = 'tools';
     }
 
-    ngAfterViewInit(): void {
+    ngOnInit(): void {
         this.widgetInit();
     }
 

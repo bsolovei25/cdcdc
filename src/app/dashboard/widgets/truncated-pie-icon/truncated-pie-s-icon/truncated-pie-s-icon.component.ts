@@ -8,8 +8,10 @@ import { WidgetPlatform } from '../../../models/widget-platform';
     styleUrls: ['./truncated-pie-s-icon.component.scss'],
 })
 export class TruncatedPieSIconComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    public static itemCols: number = 26;
-    public static itemRows: number = 10;
+    public static itemCols: number = 29;
+    public static itemRows: number = 7;
+    public static minItemCols: number = 29;
+    public static minItemRows: number = 7;
 
     public datas: any;
     constructor(

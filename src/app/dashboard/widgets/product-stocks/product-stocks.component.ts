@@ -27,7 +27,7 @@ export interface IProductStocks {
 export class ProductStocksComponent extends WidgetPlatform
     implements OnInit, OnDestroy, AfterViewInit {
     public static itemCols: number = 17;
-    public static itemRows: number = 5;
+    public static itemRows: number = 7;
     public static minItemRows: number = 7;
     public static minItemCols: number = 7;
 

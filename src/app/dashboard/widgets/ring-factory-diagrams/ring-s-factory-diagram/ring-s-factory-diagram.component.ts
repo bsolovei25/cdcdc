@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { UserSettingsService } from 'src/app/dashboard/services/user-settings.service';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 import { RingFactoryWidget } from '../../../models/widget.model';
@@ -9,9 +9,11 @@ import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
     templateUrl: './ring-s-factory-diagram.component.html',
     styleUrls: ['./ring-s-factory-diagram.component.scss'],
 })
-export class RingSFactoryDiagramComponent extends WidgetPlatform implements OnInit {
-    static itemCols: number = 34;
-    static itemRows: number = 16;
+export class RingSFactoryDiagramComponent extends WidgetPlatform implements OnInit, OnDestroy {
+    public static itemCols: number = 35;
+    public static itemRows: number = 23;
+    public static minItemCols: number = 12;
+    public static minItemRows: number = 12;
 
     datas: RingFactoryWidget[] = [
         {

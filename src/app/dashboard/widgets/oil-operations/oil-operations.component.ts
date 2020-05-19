@@ -17,8 +17,10 @@ export interface IOilOperationsButton {
   styleUrls: ['./oil-operations.component.scss']
 })
 export class OilOperationsComponent extends WidgetPlatform implements OnInit, OnDestroy {
-  static itemCols = 18;
-  static itemRows = 14;
+  public static itemCols: number = 64;
+  public static itemRows: number = 16;
+  public static minItemCols: number = 54;
+  public static minItemRows: number = 16;
 
   public isOpenReceived: boolean = false;
   public isOpenShipment: boolean = false;

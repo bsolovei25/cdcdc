@@ -14,8 +14,11 @@ import { ReferencesService } from '../../services/widgets/references.service';
 export class AdminReferencesComponent extends WidgetPlatform implements OnInit, OnDestroy {
     @ViewChild('adminRefereneTable') public testBlock: ElementRef;
 
-    static itemCols = 18;
-    static itemRows = 14;
+    static itemCols = 32;
+    static itemRows = 15;
+
+    public static minItemCols: number = 29;
+    public static minItemRows: number = 13;
 
     isLoading: boolean = false;
 
