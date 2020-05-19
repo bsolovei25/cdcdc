@@ -7,6 +7,7 @@ import { Subscription, combineLatest } from 'rxjs';
 import { IWidgets } from '../../../models/widget.model';
 import { IAlertWindowModel } from '../../../../@shared/models/alert-window.model';
 import { FormControl, Validators } from '@angular/forms';
+import { SnackBarService } from '../../../services/snack-bar.service';
 
 @Component({
     selector: 'evj-admin-groups',
@@ -63,9 +64,24 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
     private subs: Subscription = null;
 
-    constructor(private adminService: AdminPanelService) {}
+    constructor(private adminService: AdminPanelService, private snackBar: SnackBarService) {}
 
     public ngOnInit(): void {
+        this.getData();
+        this.generalClaims = this.adminService.generalClaims;
+        this.specialClaims = this.adminService.specialClaims;
+    }
+
+    public ngOnDestroy(): void {
+        this.subscriptions.forEach((subs) => subs.unsubscribe());
+        if (this.subs) {
+            this.subs.unsubscribe();
+        }
+    }
+
+    private async getData(): Promise<void> {
+        this.subscriptions.forEach((subs) => subs.unsubscribe());
+
         this.isDataLoading = true;
         this.subscriptions.push(
             combineLatest([
@@ -85,15 +101,6 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
                 () => (this.isDataLoading = false)
             )
         );
-        this.generalClaims = this.adminService.generalClaims;
-        this.specialClaims = this.adminService.specialClaims;
-    }
-
-    public ngOnDestroy(): void {
-        this.subscriptions.forEach((subs) => subs.unsubscribe());
-        if (this.subs) {
-            this.subs.unsubscribe();
-        }
     }
 
     public onSearchGroup(event: string): void {
@@ -392,10 +399,11 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
                     await this.adminService.editGroup(group).toPromise();
                 }
             });
+            this.getData();
             this.isDataChanged = false;
+            this.snackBar.openSnackBar('Данные сохранены', 'blue');
         } catch (error) {
             console.error(error);
         }
-        this.hideGroups.emit();
     }
 }
