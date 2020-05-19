@@ -7,6 +7,7 @@ import { Subscription, combineLatest } from 'rxjs';
 import { IWidgets } from '../../../models/widget.model';
 import { IAlertWindowModel } from '../../../../@shared/models/alert-window.model';
 import { FormControl, Validators } from '@angular/forms';
+import { SnackBarService } from '../../../services/snack-bar.service';
 
 @Component({
     selector: 'evj-admin-groups',
@@ -63,7 +64,7 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
     private subs: Subscription = null;
 
-    constructor(private adminService: AdminPanelService) {}
+    constructor(private adminService: AdminPanelService, private snackBar: SnackBarService) {}
 
     public ngOnInit(): void {
         this.isDataLoading = true;
@@ -203,7 +204,7 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
             this.currentGroupGeneralClaims = group.claims.filter((claim) => !claim.value);
             this.currentGroupSpecialClaims = group.claims.filter((claim) => !!claim.value);
 
-            if (!group.workspaces) {
+            if (!group.workspaces && group.id) {
                 if (this.subs) {
                     this.subs.unsubscribe();
                 }
@@ -219,8 +220,10 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
                     () => (this.isDataLoading = false)
                 );
                 this.groupWorkspaces = [];
+            } else if (!group.workspaces) {
+                this.groupWorkspaces = [];
             } else {
-                this.groupWorkspaces = group.workspaces;
+                this.groupWorkspaces = group?.workspaces;
             }
         }
     }
@@ -233,19 +236,31 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
         }
     }
 
-    public onDeleteGroup(): void {
+    public onClickDeleteGroup(): void {
+        this.alert.questionText = `Вы действительно хотите удалить группу
+        ${this.groupSelection.selected[0].name}`;
+        this.alert.acceptText = 'Подтвердить';
+        this.alert.cancelText = 'Вернуться';
+        this.alert.acceptFunction = this.onDeleteGroup.bind(this);
+        delete this.alert.input;
+        this.alert.isShow = true;
+    }
+
+    private onDeleteGroup(): void {
         const deletedGroup = this.groupSelection.selected[0];
-        let index: number = null;
         if (deletedGroup.id) {
             this.deletedGroupsIds.push(deletedGroup.id);
-            index = this.groups.findIndex((group) => group.id === deletedGroup.id);
+            const index = this.groups.findIndex((group) => group.id === deletedGroup.id);
+            if (index !== -1) {
+                this.groups.splice(index, 1);
+            }
         } else {
-            index = this.newGroups.findIndex((group) => group.name === deletedGroup.name);
+            const index = this.newGroups.findIndex((group) => group.name === deletedGroup.name);
+            if (index !== -1) {
+                this.newGroups.splice(index, 1);
+            }
         }
-        if (index !== -1) {
-            this.groups.splice(index, 1);
-            this.groupSelection.select(this.groups[0]);
-        }
+        this.groupSelection.select(this.groups[0]);
         this.isDataChanged = true;
     }
 
@@ -366,22 +381,39 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
 
     public async onSave(): Promise<void> {
         try {
-            this.newGroups.forEach(
-                async (item) => await this.adminService.createNewGroup(item).toPromise()
+            this.isDataLoading = true;
+            const promises: Promise<void>[] = [];
+            this.newGroups.forEach((item) =>
+                promises.push(this.adminService.createNewGroup(item).toPromise())
             );
-            this.deletedGroupsIds.forEach(
-                async (id) => await this.adminService.deleteGroupById(id).toPromise()
+            this.deletedGroupsIds.forEach((id) =>
+                promises.push(this.adminService.deleteGroupById(id).toPromise())
             );
             this.editedGroupsIds.forEach(async (id) => {
                 const group = this.groups.find((item) => item.id === id);
                 if (group) {
-                    await this.adminService.editGroup(group).toPromise();
+                    promises.push(this.adminService.editGroup(group).toPromise());
                 }
             });
+            this.newGroups = [];
+            this.deletedGroupsIds = [];
+            this.editedGroupsIds = [];
+
+            await Promise.all(promises);
+
+            const groups = await this.adminService.getAllGroups().toPromise();
+            this.groups = groups;
+            this.onSelectGroup(this.groups[0]);
+
+            const screens = await this.adminService.getAllScreens().toPromise();
+            this.allWorkspaces = screens;
+
             this.isDataChanged = false;
+            this.snackBar.openSnackBar('Данные сохранены', 'blue');
         } catch (error) {
             console.error(error);
+        } finally {
+            this.isDataLoading = false;
         }
-        this.hideGroups.emit();
     }
 }
