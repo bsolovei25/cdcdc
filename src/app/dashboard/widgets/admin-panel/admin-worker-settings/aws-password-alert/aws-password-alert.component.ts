@@ -75,12 +75,14 @@ export class AwsPasswordAlertComponent implements OnInit {
     }
 
     public onClickBack(): void {
+        this.formGroup.reset();
         this.confirmed.emit(null);
     }
 
     public onClickConfirm(): void {
         if (this.formGroup.valid) {
             this.confirmed.emit(this.formGroup.controls.password.value);
+            this.formGroup.reset();
         } else {
             this.formGroup.markAllAsTouched();
             this.formGroup.markAsDirty();
