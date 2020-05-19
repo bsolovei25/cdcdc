@@ -67,21 +67,6 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
     constructor(private adminService: AdminPanelService, private snackBar: SnackBarService) {}
 
     public ngOnInit(): void {
-        this.getData();
-        this.generalClaims = this.adminService.generalClaims;
-        this.specialClaims = this.adminService.specialClaims;
-    }
-
-    public ngOnDestroy(): void {
-        this.subscriptions.forEach((subs) => subs.unsubscribe());
-        if (this.subs) {
-            this.subs.unsubscribe();
-        }
-    }
-
-    private async getData(): Promise<void> {
-        this.subscriptions.forEach((subs) => subs.unsubscribe());
-
         this.isDataLoading = true;
         this.subscriptions.push(
             combineLatest([
@@ -101,6 +86,15 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
                 () => (this.isDataLoading = false)
             )
         );
+        this.generalClaims = this.adminService.generalClaims;
+        this.specialClaims = this.adminService.specialClaims;
+    }
+
+    public ngOnDestroy(): void {
+        this.subscriptions.forEach((subs) => subs.unsubscribe());
+        if (this.subs) {
+            this.subs.unsubscribe();
+        }
     }
 
     public onSearchGroup(event: string): void {
@@ -387,23 +381,39 @@ export class AdminGroupsComponent implements OnInit, OnDestroy {
 
     public async onSave(): Promise<void> {
         try {
-            this.newGroups.forEach(
-                async (item) => await this.adminService.createNewGroup(item).toPromise()
+            this.isDataLoading = true;
+            const promises: Promise<void>[] = [];
+            this.newGroups.forEach((item) =>
+                promises.push(this.adminService.createNewGroup(item).toPromise())
             );
-            this.deletedGroupsIds.forEach(
-                async (id) => await this.adminService.deleteGroupById(id).toPromise()
+            this.deletedGroupsIds.forEach((id) =>
+                promises.push(this.adminService.deleteGroupById(id).toPromise())
             );
             this.editedGroupsIds.forEach(async (id) => {
                 const group = this.groups.find((item) => item.id === id);
                 if (group) {
-                    await this.adminService.editGroup(group).toPromise();
+                    promises.push(this.adminService.editGroup(group).toPromise());
                 }
             });
-            this.getData();
+            this.newGroups = [];
+            this.deletedGroupsIds = [];
+            this.editedGroupsIds = [];
+
+            await Promise.all(promises);
+
+            const groups = await this.adminService.getAllGroups().toPromise();
+            this.groups = groups;
+            this.onSelectGroup(this.groups[0]);
+
+            const screens = await this.adminService.getAllScreens().toPromise();
+            this.allWorkspaces = screens;
+
             this.isDataChanged = false;
             this.snackBar.openSnackBar('Данные сохранены', 'blue');
         } catch (error) {
             console.error(error);
+        } finally {
+            this.isDataLoading = false;
         }
     }
 }
