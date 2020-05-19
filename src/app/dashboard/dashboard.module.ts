@@ -142,7 +142,6 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 
-import { AgNewGroupComponent } from './widgets/admin-panel/admin-groups/ag-new-group/ag-new-group.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { AdminAdImportComponent } from './widgets/admin-panel/admin-ad-import/admin-ad-import.component';
 import { AddReportFileComponent } from './widgets/report-server-configurator/add-report-file/add-report-file.component';
@@ -391,7 +390,6 @@ import { ProductionTrendInstallationsComponent } from './widgets/production-tren
         ReferenceComponent,
         ReportServerConfiguratorComponent,
         AwsCreateClaimComponent,
-        AgNewGroupComponent,
         AdminAdImportComponent,
         AddReportFileComponent,
         TankCalibrationTableComponent,
