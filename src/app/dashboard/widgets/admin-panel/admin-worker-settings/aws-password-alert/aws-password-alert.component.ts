@@ -10,7 +10,8 @@ export class AwsPasswordAlertComponent implements OnInit {
     @Input() public isShow: boolean = false;
     @Output() private confirmed: EventEmitter<string> = new EventEmitter<string>();
 
-    public hide: boolean = true;
+    public hidePass: boolean = true;
+    public hideConf: boolean = true;
 
     public readonly minLength: number = 6;
     public readonly maxLength: number = 25;
