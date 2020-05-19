@@ -1,6 +1,8 @@
 export interface IProductionDeviationsGraph {
     plan?: number;
     graphType: 'baseline' | 'normal';
+    graphTitle: string;
+    graphUnits: string;
     limits: {
         upValue: number;
         upType: 'danger' | 'warning';
