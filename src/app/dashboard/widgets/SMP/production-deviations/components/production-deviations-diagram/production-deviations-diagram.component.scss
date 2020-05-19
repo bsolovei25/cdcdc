@@ -1,7 +1,7 @@
 // VARIABLES
 :host {
   --header-height: 30px;
-  --col-width: 30px;
+  --col-width: 32px;
   --axis-padding-left: 20px;
   --graph-padding-top: 5px;
   --baseline-height: 2px;
@@ -276,7 +276,7 @@
           width: max-content;
           height: max-content;
 
-          right: -50px;
+          left: calc(100% + 8px);
 
           display: flex;
           justify-content: space-between;
