@@ -57,24 +57,23 @@
     <div class="search_block">
       <evj-search></evj-search>
     </div>
-    <div class="widgets-panel__list scroll-bar">
-      <div class="options-header">
-        <ng-container *ngFor="let item of widgets$ | async; trackBy: dataById">
-          <div
-            *ngIf="WIDGETS[item.widgetType]"
-            draggable="true"
-            (dragstart)="dragStartHandler($event, item.id)"
-            class="widget"
+    <cdk-virtual-scroll-viewport
+      autosize
+      class="widgets-panel__list scroll-bar"
+      (scroll)="this.viewport.checkViewportSize();"
+    >
+        <div
+          *cdkVirtualFor="let item of filterWidgets$ | async; trackBy: dataById"
+          draggable="true"
+          (dragstart)="dragStartHandler($event, item.id)"
+          class="widget"
+        >
+          <ng-container
+            *ngComponentOutlet="WIDGETS[item.widgetType]; injector: (item.id | fn:getInjector);"
           >
-            <ng-container
-              *ngComponentOutlet="WIDGETS[item.widgetType]; injector: (item.id | fn:getInjector);"
-            >
-            </ng-container>
-          </div>
-        </ng-container>
-      </div>
-    </div>
+          </ng-container>
+        </div>
+    </cdk-virtual-scroll-viewport>
   </div>
-
   <evj-reports @fadeAnimation *ngIf="isWidgets === 'reports'"></evj-reports>
 </div>

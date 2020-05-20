@@ -51,7 +51,7 @@ export class WidgetService {
     public searchValue: string;
     public searchType;
     public searchWidget$: Subject<any> = new Subject<any>();
-    public searchWidgetT: Observable<any> = this.searchWidget$.pipe(
+    public searchWidgetT: Observable<IWidgets[]> = this.searchWidget$.pipe(
         tap((val) => {
             this._lastSearchValue = val;
         }),
