@@ -161,4 +161,8 @@ export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
             parent: this.injector,
         });
     };
+
+    public scrollHandler(): void {
+        this.viewport.checkViewportSize();
+    }
 }

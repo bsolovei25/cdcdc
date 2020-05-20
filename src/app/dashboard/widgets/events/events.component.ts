@@ -207,23 +207,6 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
         }
     }
 
-    // private async wsConnect(): Promise<void> {
-    //     this.placeNames = await this.eventService.getPlaces(this.id);
-    //     this.subscriptions.push(
-    //         this.widgetService
-    //             .getWidgetLiveDataFromWS(this.id, 'events')
-    //             .subscribe((ref: EventsWidgetDataPreview) => {
-    //                 this.wsHandler(ref);
-    //             })
-    //     );
-    //     this.subscriptions.push(
-    //         this.widgetService.currentDatesObservable.subscribe((ref) => {
-    //             this.getData();
-    //             this.getStats();
-    //         })
-    //     );
-    // }
-
     public onCategoryClick(category: EventsWidgetCategory): void {
         category.isActive = !category.isActive;
         this.getData();
@@ -250,8 +233,6 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
     private clearNotifications(): void {
         this.notifications = [];
     }
-
-    private wsHandler(data: EventsWidgetDataPreview): void {}
 
     private addWsElement(notification: EventsWidgetNotificationPreview): void {
         const idx = this.notifications.findIndex((n) => notification.sortIndex <= n.sortIndex);
