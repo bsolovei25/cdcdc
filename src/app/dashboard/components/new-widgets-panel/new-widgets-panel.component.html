@@ -58,9 +58,10 @@
       <evj-search></evj-search>
     </div>
     <cdk-virtual-scroll-viewport
-      autosize
+      itemSize="210"
+      minBufferPx="1000"
+      maxBufferPx="4000"
       class="widgets-panel__list scroll-bar"
-      (scroll)="this.viewport.checkViewportSize();"
     >
         <div
           *cdkVirtualFor="let item of filterWidgets$ | async; trackBy: dataById"
