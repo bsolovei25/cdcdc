@@ -1,5 +1,14 @@
 <div class="input-container" [ngClass]="{'input-container_icon':!!icon}">
-  <input class="input" [type]="type" [placeholder]="placeholder" />
+  <div class="placeholder" [ngClass]="{'placeholder_focus':isInput}" *ngIf="isMovingPlaceholder">
+    {{placeholder}}
+  </div>
+  <input
+    class="input"
+    [type]="type"
+    [placeholder]="placeholder"
+    (focus)="isInput=true"
+    (blur)="onBlur($event)"
+  />
   <svg-icon
     class="icon"
     [ngClass]="{'icon_clickable':icon.isClickable}"

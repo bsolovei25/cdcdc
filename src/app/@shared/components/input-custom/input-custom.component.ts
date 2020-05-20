@@ -16,6 +16,7 @@ interface IInputIcon {
 export class InputCustomComponent implements OnInit {
     public type: string = 'text';
     public placeholder: string = 'Введите текст';
+    public isMovingPlaceholder: boolean = false;
 
     public icon: IInputIcon = {
         src: 'assets/icons/login/visibility.svg',
@@ -27,6 +28,8 @@ export class InputCustomComponent implements OnInit {
         secState: 'assets/icons/login/visibility_off.svg',
     };
 
+    public isInput: boolean = false;
+
     constructor() {}
 
     public ngOnInit(): void {}
@@ -35,5 +38,10 @@ export class InputCustomComponent implements OnInit {
         if (this.icon.isClickable && !!this.icon.onClick) {
             this.icon.onClick();
         }
+    }
+
+    public onBlur(event: FocusEvent): void {
+        const elem: HTMLTextAreaElement = event.target as HTMLTextAreaElement;
+        this.isInput = !!elem.value;
     }
 }
