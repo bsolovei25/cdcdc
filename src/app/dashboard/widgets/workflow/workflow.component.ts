@@ -519,20 +519,17 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                         new LeaderLine(
                             document.getElementById(item.scenarioAction),
                             document.getElementById(item.nextScenarioAction),
-                            {
-                                size: 2,
-                                color: 'white',
-                            }
+                            'parent'
                         )
                     );
-                    this.leaderLine.forEach((value) => {
-                        value.setInterval = setInterval(() => {
-                            if (value?.options) {
-                                console.log(value);
-                                value.position();
-                            }
-                        }, 100);
-                    });
+                    // this.leaderLine.forEach((value) => {
+                    //     value.setInterval = setInterval(() => {
+                    //         if (value?.options) {
+                    //             console.log(value);
+                    //             value.position();
+                    //         }
+                    //     }, 100);
+                    // });
                 }, 100);
             }
         });

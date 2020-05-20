@@ -128,11 +128,11 @@
               <gridster
                 style="min-width: 100% !important; min-height: 100% !important;"
                 class="workflow__scenario__body__top__gridster"
-                id="gridSize"
                 [options]="options"
                 (click)="chooseGridItem($event, null)"
               >
-                <div *ngFor="let i of items">
+                <div id="parent"></div>
+                <ng-container *ngFor="let i of items">
                   <gridster-item
                     [item]="i"
                     (click)="chooseGridItem($event, i)"
@@ -181,7 +181,7 @@
                       [svgStyle]="{ 'width.px':10, 'height.px':10 }"
                     ></svg-icon>
                   </gridster-item>
-                </div>
+                </ng-container>
               </gridster>
             </div>
             <div class="workflow__scenario__body__bar" #splitBar></div>
