@@ -70,7 +70,7 @@
   --color-aqua: #00ffff;
   --color-orange: #f28b4a;
 
-  --color-smp-blue: rgb(0,59,100);
+  --color-smp-blue: rgb(0, 59, 100);
 
   --color-danger-transparent: rgba(234, 31, 31, 0.2);
   --color-warning-transparent: rgba(244, 163, 33, 0.2);
@@ -97,11 +97,11 @@
   --color-oil-button-hover-outer: rgb(21, 72, 119);
   --color-oil-button-inner: rgb(1, 44, 88);
   --color-oil-button-outer: rgb(3, 39, 77);
-  --color-oil-border-line: rgb(27,34,51);
-  --color-oil-full-screen: rgb(40,47,66);
+  --color-oil-border-line: rgb(27, 34, 51);
+  --color-oil-full-screen: rgb(40, 47, 66);
   --color-oil-tank: rgba(55, 53, 163, 0.7);
   --color-oil-danger: red;
-  --color-oil-circle-disable: rgb(33,36,45);
+  --color-oil-circle-disable: rgb(33, 36, 45);
 
   // Цвета статусов передачи смены
   --color-shift-status-init: #6fcf97;
@@ -117,12 +117,11 @@
   // UI
   --table-border-radius: 15px;
 
-
   // SMP
-  --color-smp-tank-fact: rgb(0,121,222);
-  --color-smp-tank-plan: rgb(0,75,134);
-  --color-smp-border: rgb(39,42,56);
-  --color-smp-text-sub: rgb(95,101,128);
+  --color-smp-tank-fact: rgb(0, 121, 222);
+  --color-smp-tank-plan: rgb(0, 75, 134);
+  --color-smp-border: #5b607d;
+  --color-smp-text-sub: rgb(95, 101, 128);
 
   --color-smp-ev-ws-grad1: #192330;
   --color-smp-ev-ws-grad2: rgba(40, 92, 133, 1);
@@ -136,7 +135,7 @@
   --color-aw-shade-bg-transparent: rgba(0, 0, 0, 0.15);
 
   // @shared/button (btn)
-  --color-btn-rounded-border: #3FA9F5;
+  --color-btn-rounded-border: #3fa9f5;
   --color-btn-rounded-disabled-transparent: rgba(255, 255, 255, 0.1);
 }
 

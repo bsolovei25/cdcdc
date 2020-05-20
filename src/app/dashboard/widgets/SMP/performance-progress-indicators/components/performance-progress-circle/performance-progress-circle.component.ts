@@ -129,7 +129,7 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
     const value = this.svgCircle
       .append('text')
       .attr('text-anchor', 'middle')
-      .attr('font-size', '9px')
+      .attr('font-size', '10px')
       .attr('fill', 'var(--color-text-main)')
       .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr('y', '57')
@@ -139,7 +139,7 @@ export class PerformanceProgressCircleComponent implements OnInit, OnChanges {
     const title = this.svgCircle
       .append('text')
       .attr('text-anchor', 'middle')
-      .attr('font-size', '7px')
+      .attr('font-size', '8px')
       .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
       .attr('y', '46')
       .attr('x', '52')
