@@ -33,7 +33,7 @@
             ],
             "scripts": [
               "./node_modules/d3/dist/d3.js",
-              "./node_modules/leader-line/leader-line.min.js"
+              "./src/assets/libs/leader-line/leader-line.min.js"
             ]
           },
           "configurations": {
