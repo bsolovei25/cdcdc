@@ -7,6 +7,38 @@
   * {
     box-sizing: border-box;
   }
+
+  &.ng-dirty {
+    .input-container {
+      border-color: var(--color-active);
+
+      .placeholder {
+        color: var(--color-active);
+      }
+
+      .input {
+        caret-color: var(--color-active);
+      }
+    }
+
+    &.ng-touched.ng-invalid {
+      .input-container {
+        border-color: var(--color-danger);
+
+        .placeholder {
+          color: var(--color-danger);
+        }
+
+        .input {
+          caret-color: var(--color-danger);
+
+          &::placeholder {
+            color: var(--color-danger);
+          }
+        }
+      }
+    }
+  }
 }
 
 .input-container {
@@ -21,6 +53,8 @@
 
   padding: 0px var(--padding-sides);
   border-bottom: 1px solid var(--color-text-sub);
+
+  transition: 0.3s;
 
   &_dirty {
     border-color: var(--color-active);
@@ -91,7 +125,7 @@
   font-size: inherit;
   color: var(--color-text-sub);
 
-  transition: 0.3s;
+  transition: inherit;
   transform-origin: left top;
 
   &_focus {
@@ -117,6 +151,8 @@
   margin: auto;
 
   color: inherit;
+
+  transition: inherit;
 
   &_clickable {
     &:hover {

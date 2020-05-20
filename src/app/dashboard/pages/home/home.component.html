@@ -1,4 +1,4 @@
-<evj-header *ngIf="!fullscreen"
+<!-- <evj-header *ngIf="!fullscreen"
             class="header">
   <div class="logo-gpn"></div>
   <evj-indicator-selector class="header__indicator-selector"></evj-indicator-selector>
@@ -10,7 +10,14 @@
 <evj-content class="content">
   <evj-alert-window [info]="overlayService.dashboardAlert$ | async"></evj-alert-window>
   <evj-new-widgets-grid></evj-new-widgets-grid>
-</evj-content>
+</evj-content> -->
 <!-- <div style="height: 700px; width: 1000px;">
   <evj-workflow></evj-workflow>
 </div> -->
+
+<div style="height: 200px; width: 500px; margin: 20px;">
+  <evj-input-custom
+    style="width: 250px; height: 30px;"
+    [formControl]="formControl"
+  ></evj-input-custom>
+</div>
