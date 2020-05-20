@@ -503,12 +503,12 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                         tankLevel: 10,
                         operations: [
                             {
-                                timeStart: '02:03:20',
+                                timeStart: '05:03:20',
                                 timeEnd: '04:08:38',
                                 tankValues: [
                                     {
                                         name: 'Отгружено по резервуару',
-                                        valueFirst: 1670,
+                                        valueFirst: 670,
                                         valueSecond: 98.73,
                                         status: 'normal',
                                     },
@@ -2366,10 +2366,10 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                 } else {
                     move = 'prev';
                     if (indexProduct === 1) {
-                        newIndexProduct = 1;
+                        newIndexProduct = 2;
                         this.shiftMassiv(newIndexProduct, move);
                     } else {
-                        newIndexProduct = 2;
+                        newIndexProduct = 1;
                         this.shiftMassiv(newIndexProduct, move);
                     }
                 }

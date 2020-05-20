@@ -29,8 +29,8 @@ export class OilControlTableComponent implements OnInit, OnChanges {
     }
   }
 
-  onNextOperation(event): void {
-
+  onNextOperation(event: number): void {
+    this.currentPage = event;
   }
 
 }
