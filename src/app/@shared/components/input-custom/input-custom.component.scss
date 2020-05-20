@@ -1,47 +1,32 @@
 :host {
-  --padding-sides: 5px;
-
   min-width: 100px;
-  min-height: 18px;
+  min-height: 16px;
 
   * {
     box-sizing: border-box;
   }
 
   &.ng-dirty {
-    .input-container {
-      border-color: var(--color-active);
-
-      .placeholder {
-        color: var(--color-active);
-      }
-
-      .input {
-        caret-color: var(--color-active);
-      }
+    .input-container:not(.input-container_warning):not(.input-container_danger) {
+      --input-text-color: var(--color-text-main);
+      --input-additional-color: var(--color-active);
     }
 
     &.ng-touched.ng-invalid {
-      .input-container {
-        border-color: var(--color-danger);
-
-        .placeholder {
-          color: var(--color-danger);
-        }
-
-        .input {
-          caret-color: var(--color-danger);
-
-          &::placeholder {
-            color: var(--color-danger);
-          }
-        }
+      .input-container:not(.input-container_warning):not(.input-container_danger) {
+        --input-text-color: var(--color-text-main);
+        --input-additional-color: var(--color-danger);
       }
     }
   }
 }
 
 .input-container {
+  // VARIABLES
+  --padding-sides: 5px;
+  --input-text-color: var(--color-text-main);
+  --input-additional-color: var(--color-text-sub);
+
   position: relative;
 
   width: inherit;
@@ -49,43 +34,55 @@
 
   font-size: inherit;
   text-align: inherit;
-  color: inherit;
+  color: var(--input-text-color);
 
   padding: 0px var(--padding-sides);
-  border-bottom: 1px solid var(--color-text-sub);
+  border-bottom: 1px solid var(--input-additional-color);
 
   transition: 0.3s;
 
-  &_dirty {
-    border-color: var(--color-active);
-
-    .placeholder {
-      color: var(--color-active);
-    }
-
-    .input {
-      caret-color: var(--color-active);
-    }
-  }
-
-  &_invalid {
-    border-color: var(--color-danger);
-
-    .placeholder {
-      color: var(--color-danger);
-    }
-
-    .input {
-      caret-color: var(--color-danger);
-
-      &::placeholder {
-        color: var(--color-danger);
-      }
-    }
-  }
-
   &_icon {
     padding-right: 30px;
+  }
+
+  // STATES
+  &_normal {
+    &.input-container {
+      --input-text-color: var(--color-text-main);
+      --input-additional-color: var(--color-text-sub);
+    }
+  }
+
+  &_warning {
+    &.input-container {
+      --input-text-color: var(--color-text-main);
+      --input-additional-color: var(--color-warning);
+    }
+  }
+
+  &_danger {
+    &.input-container {
+      --input-text-color: var(--color-text-main);
+      --input-additional-color: var(--color-danger);
+    }
+  }
+
+  &_rounded {
+    border: 1px solid var(--input-additional-color);
+    border-radius: 50px;
+    padding: 0px 5%;
+
+    &.input-container_icon {
+      padding-right: 10%;
+    }
+
+    .placeholder {
+      visibility: hidden;
+    }
+
+    .icon {
+      right: 5%;
+    }
   }
 }
 
@@ -100,13 +97,13 @@
 
   font-size: inherit;
   text-align: inherit;
-  color: inherit;
-  caret-color: var(--color-text-sub);
+  color: var(--input-text-color);
+  caret-color: var(--input-additional-color);
 
   background: transparent;
 
   &::placeholder {
-    color: var(--color-text-sub);
+    color: var(--input-additional-color);
   }
 }
 
@@ -123,7 +120,7 @@
   margin: auto;
 
   font-size: inherit;
-  color: var(--color-text-sub);
+  color: var(--input-additional-color);
 
   transition: inherit;
   transform-origin: left top;
@@ -150,7 +147,7 @@
   right: 5px;
   margin: auto;
 
-  color: inherit;
+  color: var(--input-additional-color);
 
   transition: inherit;
 

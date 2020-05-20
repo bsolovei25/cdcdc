@@ -11,6 +11,7 @@ interface IInputIcon {
 
 interface IInputOptions {
     type: string;
+    state: 'normal' | 'rounded' | 'warning' | 'danger';
     placeholder: string;
     isMovingPlaceholder: boolean;
     icon?: IInputIcon;
@@ -33,6 +34,7 @@ export class InputCustomComponent implements OnInit, ControlValueAccessor {
 
     public options: IInputOptions = {
         type: 'text',
+        state: 'rounded',
         placeholder: 'Введите текст',
         isMovingPlaceholder: true,
         icon: {
