@@ -36,36 +36,15 @@
             <div class="workflow__action__body__items">
               <div
                 class="workflow__action__body__item"
-                draggable="true"
-                (dragstart)="dragStartHandler($event, 'CheckExpired')"
-                #done
+                [draggable]="true"
+                (dragstart)="dragStartHandler($event, 'GraduationTableEvent')"
               >
                 <svg-icon
                   class="workflow__action__body__item__icon"
-                  src="./assets/icons/widgets/workflow/expired.svg"
+                  src="./assets/icons/widgets/workflow/action-other.svg"
                   [svgStyle]="{ 'width.px':32, 'height.px':32 }"
                 ></svg-icon>
-                <span class="workflow__action__body__item__title">Просрочено</span>
-              </div>
-              <div style="opacity: 0.2;" class="workflow__action__body__item" draggable="true">
-                <svg-icon
-                  class="workflow__action__body__item__icon"
-                  src="./assets/icons/widgets/workflow/done.svg"
-                  [svgStyle]="{ 'width.px':32, 'height.px':32 }"
-                ></svg-icon>
-                <span class="workflow__action__body__item__title">Выполнено</span>
-              </div>
-              <div
-                class="workflow__action__body__item"
-                draggable="true"
-                (dragstart)="dragStartHandler($event, 'CheckWarning')"
-              >
-                <svg-icon
-                  class="workflow__action__body__item__icon"
-                  src="./assets/icons/widgets/workflow/warning_bell.svg"
-                  [svgStyle]="{ 'width.px':32, 'height.px':32 }"
-                ></svg-icon>
-                <span class="workflow__action__body__item__title">Подходит к концу</span>
+                <span class="workflow__action__body__item__title">Выполнить действие</span>
               </div>
               <div
                 class="workflow__action__body__item"
@@ -77,24 +56,7 @@
                   src="./assets/icons/widgets/workflow/message_w.svg"
                   [svgStyle]="{ 'width.px':32, 'height.px':32 }"
                 ></svg-icon>
-                <span class="workflow__action__body__item__title"
-                  >Отправить сообщение ответственному</span
-                >
-              </div>
-              <div
-                style="opacity: 0.2;"
-                (dragstart)="dragStartHandler($event, 'SendEmail')"
-                draggable="true"
-                class="workflow__action__body__item"
-              >
-                <svg-icon
-                  class="workflow__action__body__item__icon"
-                  src="./assets/icons/widgets/workflow/users_w.svg"
-                  [svgStyle]="{ 'width.px':32, 'height.px':32 }"
-                ></svg-icon>
-                <span class="workflow__action__body__item__title"
-                  >Отправить сообщение пользователям</span
-                >
+                <span class="workflow__action__body__item__title">Отправить сообщение </span>
               </div>
             </div>
           </div>
@@ -106,7 +68,7 @@
           <div class="workflow__scenario__body" #containerWorkflow>
             <div
               class="workflow__scenario__body__alert"
-              *ngIf="tableActionProp.length > 0 || emailAction.length > 0"
+              *ngIf="comboAction || emailAction.length > 0"
             >
               <div сlass="workflow__scenario__body__alert__text">
                 Оповещение сотрудников при выполнение действии
@@ -124,7 +86,7 @@
                 Сохранить
               </div>
             </div>
-            <div class="workflow__scenario__body__top" #splitTop>
+            <div class="workflow__scenario__body__top" #splitTop id="gridContainer">
               <gridster
                 style="min-width: 100% !important; min-height: 100% !important;"
                 class="workflow__scenario__body__top__gridster"
@@ -132,7 +94,7 @@
                 [options]="options"
                 (click)="chooseGridItem($event, null)"
               >
-                <div *ngFor="let i of items">
+                <ng-container *ngFor="let i of items">
                   <gridster-item
                     [item]="i"
                     (click)="chooseGridItem($event, i)"
@@ -143,33 +105,15 @@
                   >
                     <ng-container [ngSwitch]="i.type">
                       <svg-icon
-                        *ngSwitchCase="'CheckExpired'"
+                        *ngSwitchCase="'GraduationTableEvent'"
                         class="workflow__action__body__item__icon"
-                        src="./assets/icons/widgets/workflow/expired.svg"
-                        [svgStyle]="{ 'width.px':widthSvgIconGrid, 'height.px':heightSvgIconGrid }"
-                      ></svg-icon>
-                      <svg-icon
-                        *ngSwitchCase="'CheckAvailable'"
-                        class="workflow__action__body__item__icon"
-                        src="./assets/icons/widgets/workflow/done.svg"
-                        [svgStyle]="{ 'width.px':widthSvgIconGrid, 'height.px':heightSvgIconGrid }"
-                      ></svg-icon>
-                      <svg-icon
-                        *ngSwitchCase="'CheckWarning'"
-                        class="workflow__action__body__item__icon"
-                        src="./assets/icons/widgets/workflow/warning_bell.svg"
+                        src="./assets/icons/widgets/workflow/action-other.svg"
                         [svgStyle]="{ 'width.px':widthSvgIconGrid, 'height.px':heightSvgIconGrid }"
                       ></svg-icon>
                       <svg-icon
                         *ngSwitchCase="'SendEmail'"
                         class="workflow__action__body__item__icon"
                         src="./assets/icons/widgets/workflow/message_w.svg"
-                        [svgStyle]="{ 'width.px':widthSvgIconGrid, 'height.px':heightSvgIconGrid }"
-                      ></svg-icon>
-                      <svg-icon
-                        *ngSwitchCase="'SendEmail2'"
-                        class="workflow__action__body__item__icon"
-                        src="./assets/icons/widgets/workflow/users_w.svg"
                         [svgStyle]="{ 'width.px':widthSvgIconGrid, 'height.px':heightSvgIconGrid }"
                       ></svg-icon>
                     </ng-container>
@@ -181,20 +125,31 @@
                       [svgStyle]="{ 'width.px':10, 'height.px':10 }"
                     ></svg-icon>
                   </gridster-item>
-                </div>
+                </ng-container>
+                <div id="leader-line-host"></div>
               </gridster>
             </div>
             <div class="workflow__scenario__body__bar" #splitBar></div>
-            <div class="table__title" *ngIf="tableAction.length > 0">
-              <div>Параметры</div>
-              <div>Значения</div>
+            <div class="email__title" *ngIf="comboAction">
+              <div>Выбор действия</div>
             </div>
             <div class="email__title" *ngIf="emailAction.length > 0">
               <div>Сообщение</div>
             </div>
             <div class="workflow__scenario__body__bottom" #splitBottom>
               <!-- Table -->
-              <div class="table" *ngIf="tableAction.length > 0">
+              <div class="combo-box" *ngIf="comboAction">
+                <mat-form-field class="combo-box_selectbox">
+                  <mat-select
+                    [(ngModel)]="comboAction.value"
+                    panelClass="combo-box_selectbox"
+                    (selectionChange)="chooseActionScenario($event)"
+                  >
+                    <mat-option *ngFor="let p of comboAction?.source" [value]="p">{{p}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <!-- <div class="table" *ngIf="tableAction.length > 0">
                 <table>
                   <tbody>
                     <tr>
@@ -204,7 +159,7 @@
                     </tr>
                   </tbody>
                 </table>
-              </div>
+              </div> -->
               <!-- Email -->
               <div class="email" *ngIf="emailAction.length > 0">
                 <ng-container *ngFor="let email of emailAction">

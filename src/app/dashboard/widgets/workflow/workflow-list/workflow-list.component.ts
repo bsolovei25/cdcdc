@@ -16,9 +16,10 @@ export interface IModules {
 export interface IScenarios {
     createdAt: Date;
     name: string;
-    status: 'stopped';
+    status: 'stopped' | 'active';
     uid: string;
     wfSystemUid: string;
+    errorMessage?: string;
 }
 
 @Component({
@@ -212,6 +213,11 @@ export class WorkflowListComponent implements OnInit, OnDestroy {
         try {
             this.isLoading = true;
             await this.workflowService.putScenarioStart(this.chooseModules.uid, scenarioId);
+            const el = this.scenarios.find((val) => val.uid === scenarioId);
+            if (el) {
+                el.status = 'active';
+                this.snackBar.openSnackBar('Сценарий запущен');
+            }
             this.isLoading = false;
         } catch (error) {
             this.isLoading = false;
@@ -222,6 +228,11 @@ export class WorkflowListComponent implements OnInit, OnDestroy {
         try {
             this.isLoading = true;
             await this.workflowService.putScenarioStop(this.chooseModules.uid, scenarioId);
+            const el = this.scenarios.find((val) => val.uid === scenarioId);
+            if (el) {
+                el.status = 'stopped';
+                this.snackBar.openSnackBar('Сценарий остановлен');
+            }
             this.isLoading = false;
         } catch (error) {
             this.isLoading = false;

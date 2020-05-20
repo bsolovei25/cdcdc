@@ -272,6 +272,7 @@ import { ProductGroupsShortComponent } from './widgets/SMP/product-groups-short/
 import { ProductGroupsComponent } from './widgets/SMP/product-groups/product-groups.component';
 import { SmpEventsWorkspaceComponent } from './widgets/SMP/smp-events-workspace/smp-events-workspace.component';
 import { ProductionTrendInstallationsComponent } from './widgets/production-trend/components/production-trend-installations/production-trend-installations.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
     declarations: [
@@ -625,6 +626,7 @@ import { ProductionTrendInstallationsComponent } from './widgets/production-tren
         TreeModule,
         NgxMaskModule.forChild(),
         PdfViewerModule,
+        MatTooltipModule,
     ],
     bootstrap: [],
     providers: [

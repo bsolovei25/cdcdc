@@ -26,6 +26,7 @@
         class="available-scenario__body__item"
         *ngFor="let scen of scenarios"
         (click)="chooseScen(scen)"
+        [matTooltip]="scen?.errorMessage"
       >
         <span
           class="available-scenario__body__item__text"
@@ -55,16 +56,19 @@
           <div
             class="available-scenario__body__item__container__icon"
             (click)="startStopScenario($event, scen)"
+            [class.available-scenario__body__item__container__error]="scen?.errorMessage"
           >
             <svg-icon
               *ngIf="scen.status === 'stopped'"
               src="./assets/icons/widgets/workflow/play_w.svg"
               [svgStyle]="{ 'width.px':15, 'height.px':15 }"
+              [class.available-scenario__body__item__container__icon__error]="scen?.errorMessage"
             ></svg-icon>
             <svg-icon
               *ngIf="scen.status === 'active'"
               src="./assets/icons/widgets/workflow/stop_w.svg"
               [svgStyle]="{ 'width.px':14, 'height.px':13 }"
+              [class.available-scenario__body__item__container__icon__error]="scen?.errorMessage"
             ></svg-icon>
           </div>
         </div>

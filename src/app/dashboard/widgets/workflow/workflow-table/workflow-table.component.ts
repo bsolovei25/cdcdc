@@ -66,8 +66,6 @@ export class WorkflowTableComponent implements OnInit, AfterContentInit {
     ngOnInit(): void {}
 
     ngAfterContentInit() {
-        console.log(this.tank?.nativeElement);
-
         if (this.localeData?.height) {
             this.renderer.setStyle(this.tank.nativeElement, 'height', this.localeData.height - 100);
         }
