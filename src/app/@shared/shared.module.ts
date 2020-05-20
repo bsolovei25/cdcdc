@@ -36,6 +36,7 @@ import { LineBreakPipe } from './pipes/line-break.pipe';
 import { SelectComponent } from './components/select/select.component';
 import { MatSelectModule } from '@angular/material/select';
 import { EventsChatComponent } from './components/events-chat/events-chat.component';
+import { InputCustomComponent } from './components/input-custom/input-custom.component';
 
 @NgModule({
     declarations: [
@@ -69,6 +70,7 @@ import { EventsChatComponent } from './components/events-chat/events-chat.compon
         LineBreakPipe,
         SelectComponent,
         EventsChatComponent,
+        InputCustomComponent,
     ],
     exports: [
         HeaderComponent,
@@ -97,6 +99,7 @@ import { EventsChatComponent } from './components/events-chat/events-chat.compon
         LineBreakPipe,
         SelectComponent,
         EventsChatComponent,
+        InputCustomComponent
     ],
     imports: [
         CommonModule,

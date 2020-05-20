@@ -1,0 +1,11 @@
+<div class="input-container" [ngClass]="{'input-container_icon':!!icon}">
+  <input class="input" [type]="type" [placeholder]="placeholder" />
+  <svg-icon
+    class="icon"
+    [ngClass]="{'icon_clickable':icon.isClickable}"
+    [src]="icon.src"
+    [svgStyle]="icon.svgStyle"
+    (click)="onClickIcon()"
+    *ngIf="!!icon"
+  ></svg-icon>
+</div>
