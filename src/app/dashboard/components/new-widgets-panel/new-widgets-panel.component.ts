@@ -72,10 +72,24 @@ export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.subscriptions.push(
             this.widgetService.widgets$.subscribe((dataW) => {
-                this.widgets$.next(dataW);
+                console.log('start filter');
+                const filterWidgets: IWidgets[] = [];
+                dataW.forEach((widget) => {
+                    if (WIDGETS[widget.widgetType]) {
+                        filterWidgets.push(widget);
+                    }
+                });
+                this.widgets$.next(filterWidgets);
             }),
             this.widgetService.searchWidgetT.subscribe((dataW) => {
-                this.widgets$.next(dataW);
+                console.log('start filter');
+                const filterWidgets: IWidgets[] = [];
+                dataW.forEach((widget) => {
+                    if (WIDGETS[widget.widgetType]) {
+                        filterWidgets.push(widget);
+                    }
+                });
+                this.widgets$.next(filterWidgets);
             }),
             this.claimService.claimWidgets$.subscribe((set) => {
                 this.claimSettingsWidgets = set;
