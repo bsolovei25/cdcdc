@@ -33,8 +33,8 @@ export class QualityStockCircleComponent implements OnInit, OnChanges {
 
 
   public d3Circle(data, el): void {
-    const summ = this.defaultPercent - (data.factPercent - data.deviationPercent);
-    const mass = [data.factPercent, data.deviationPercent, summ];
+    const summ = this.defaultPercent - (data?.factPercent - data?.deviationPercent);
+    const mass = [data?.factPercent, data?.deviationPercent, summ];
     let color: any;
 
     if (summ === 0) {
@@ -80,7 +80,7 @@ export class QualityStockCircleComponent implements OnInit, OnChanges {
       .attr('font-size', '10px')
       .attr('fill', 'var(--color-plan)')
       .attr('dominant-baseline', 'middle')
-      .text(data.value + '%');
+      .text(data?.value + '%');
 
     const line = this.svg
       .append('rect')
@@ -111,7 +111,7 @@ export class QualityStockCircleComponent implements OnInit, OnChanges {
       .attr('fill', 'var(--color-text-main')
       .text('Отклонение');
 
-    if (this.data.deviationStatus) {
+    if (this.data?.deviationStatus) {
       const value = this.svg
         .append('text')
         .attr('font-size', '8px')
@@ -119,7 +119,7 @@ export class QualityStockCircleComponent implements OnInit, OnChanges {
         .attr('y', '97')
         .attr('x', '32')
         .attr('fill', 'var(--color-text-main')
-        .text('+ ' + this.data.deviation);
+        .text('+ ' + this.data?.deviation);
 
       const arrow_up = this.svg
         .append('image')
@@ -139,7 +139,7 @@ export class QualityStockCircleComponent implements OnInit, OnChanges {
         .attr('y', '97')
         .attr('x', '32')
         .attr('fill', 'var(--color-text-main')
-        .text('- ' + this.data.deviation);
+        .text('- ' + this.data?.deviation);
 
       const arrow_down = this.svg
         .append('image')
@@ -147,10 +147,11 @@ export class QualityStockCircleComponent implements OnInit, OnChanges {
           'xlink:href',
           './assets/icons/widgets/SMP/double-arrow-top.svg'
         )
+        .attr('style', 'transform: scale(-1)')
         .attr('height', '7px')
         .attr('width', '7px')
-        .attr('y', '90')
-        .attr('x', '58');
+        .attr('y', '-98')
+        .attr('x', '-68');
     }
   }
 

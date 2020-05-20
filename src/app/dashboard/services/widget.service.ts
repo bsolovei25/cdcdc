@@ -84,7 +84,7 @@ export class WidgetService {
         return this.http
             .get(this.restUrl + `/api/user-management/Claim/user/GetAvailableWidgets`)
             .pipe(
-                map((ans: {data: IWidgets[]}) => {
+                map((ans: { data: IWidgets[] }) => {
                     return this.mapData(ans.data);
                 })
             );
@@ -216,6 +216,11 @@ export class WidgetService {
             case 'shift-accept':
             case 'column-chart-stacked':
             case 'events-workspace':
+            case 'implementation-plan':
+            case 'performance-progress-indicators':
+            case 'quality-stock':
+            case 'product-groups':
+            case 'product-groups-short':
             case 'tank-information':
             case 'table-data':
                 return data;
@@ -310,9 +315,9 @@ export class WidgetService {
         }
         return (
             new Date(incoming.fromDateTime).getTime() ===
-                new Date(this.currentDates.fromDateTime).getTime() &&
+            new Date(this.currentDates.fromDateTime).getTime() &&
             new Date(incoming.toDateTime).getTime() ===
-                new Date(this.currentDates.toDateTime).getTime()
+            new Date(this.currentDates.toDateTime).getTime()
         );
     }
 
