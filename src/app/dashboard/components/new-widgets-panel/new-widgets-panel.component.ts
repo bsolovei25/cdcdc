@@ -4,16 +4,18 @@ import {
     Injector,
     Output,
     EventEmitter,
-    OnDestroy,
+    OnDestroy, ViewChild
 } from '@angular/core';
 import { GridsterConfig, GridType } from 'angular-gridster2';
 import { WidgetService } from '../../services/widget.service';
-import { Subscription, BehaviorSubject } from 'rxjs';
+import { Subscription, BehaviorSubject, Observable } from 'rxjs';
 import { WIDGETS } from '../new-widgets-grid/widget-map';
 import { IWidgets } from '../../models/widget.model';
 import { UserSettingsService } from '../../services/user-settings.service';
 import { ClaimService, EnumClaimScreens, EnumClaimWidgets } from '../../services/claim.service';
 import { trigger, state, style, transition, animate, group } from '@angular/animations';
+import { filter, map } from 'rxjs/operators';
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 
 type isChoosePanel = 'widgets' | 'reports';
 
@@ -35,6 +37,8 @@ export const fadeAnimation = trigger('fadeAnimation', [
     animations: [fadeAnimation],
 })
 export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
+    @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
+
     public readonly WIDGETS = WIDGETS;
     private subscriptions: Subscription[] = [];
 
@@ -42,6 +46,11 @@ export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
     public options: GridsterConfig;
 
     public widgets$: BehaviorSubject<IWidgets[]> = new BehaviorSubject<IWidgets[]>([]);
+    public filterWidgets$: Observable<IWidgets[]> = this.widgets$
+        .asObservable()
+        .pipe(
+            map((widgets) => widgets.filter((widget) => WIDGETS[widget.widgetType]))
+        );
     private claimSettingsWidgets: EnumClaimWidgets[] = [];
     public claimSettingsScreens: EnumClaimScreens[] = [];
     EnumClaimScreens = EnumClaimScreens;
@@ -63,10 +72,24 @@ export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.subscriptions.push(
             this.widgetService.widgets$.subscribe((dataW) => {
-                this.widgets$.next(dataW);
+                console.log('start filter');
+                const filterWidgets: IWidgets[] = [];
+                dataW.forEach((widget) => {
+                    if (WIDGETS[widget.widgetType]) {
+                        filterWidgets.push(widget);
+                    }
+                });
+                this.widgets$.next(filterWidgets);
             }),
             this.widgetService.searchWidgetT.subscribe((dataW) => {
-                this.widgets$.next(dataW);
+                console.log('start filter');
+                const filterWidgets: IWidgets[] = [];
+                dataW.forEach((widget) => {
+                    if (WIDGETS[widget.widgetType]) {
+                        filterWidgets.push(widget);
+                    }
+                });
+                this.widgets$.next(filterWidgets);
             }),
             this.claimService.claimWidgets$.subscribe((set) => {
                 this.claimSettingsWidgets = set;
