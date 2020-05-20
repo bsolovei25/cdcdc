@@ -842,18 +842,15 @@ export class ProductGroupsShortComponent extends WidgetPlatform implements OnIni
   ) {
     super(widgetService, isMock, id, uniqId);
     this.widgetIcon = 'graph';
-    this.isRealtimeData = false;
   }
 
   ngOnInit(): void {
     super.widgetInit();
-    for (let i = 0; i < 20; i++) {
-      this.data.push(this.value);
-    }
   }
 
 
   protected dataHandler(ref: any): void {
+    this.data = ref.items;
   }
 
   ngOnDestroy(): void {
