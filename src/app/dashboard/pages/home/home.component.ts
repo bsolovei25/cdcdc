@@ -13,10 +13,11 @@ import { FormControl, Validators } from '@angular/forms';
 export class HomeComponent implements OnInit, OnDestroy {
     fullscreen: boolean = false;
 
-    public formControl: FormControl = new FormControl('123', [
-        Validators.required,
-        Validators.minLength(5),
-    ]);
+    formControl: FormControl = new FormControl(
+        { value: '123', disabled: true },
+        Validators.minLength(7)
+    );
+    formControl1: FormControl = new FormControl('123', Validators.minLength(7));
 
     constructor(
         private widgetService: WidgetService,
