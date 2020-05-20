@@ -17,9 +17,9 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
     progressLineHeight: number; // хз
 
-    static itemCols: number = 27;
+    static itemCols: number = 32;
     static itemRows: number = 30;
-    public static minItemCols: number = 30;
+    public static minItemCols: number = 32;
     public static minItemRows: number = 30;
 
     constructor(
@@ -40,7 +40,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
                 }
             })
         );
-
         this.widgetIcon = 'document';
         this.dateAdapter.setLocale('ru');
     }
@@ -70,7 +69,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
 
     private async setEventByInfo(value: EventsWidgetNotification | number): Promise<void> {
         this.ewService.setEventByInfo(value);
-
         // this.progressLine();
     }
 

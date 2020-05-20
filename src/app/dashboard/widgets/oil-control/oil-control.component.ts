@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { EventEmitter } from '@angular/core';
 import { OilControls } from '../../models/oil-control';
@@ -11,15 +11,17 @@ declare var d3: any;
     templateUrl: './oil-control.component.html',
     styleUrls: ['./oil-control.component.scss'],
 })
-export class OilControlComponent extends WidgetPlatform implements OnInit, AfterViewInit {
+export class OilControlComponent extends WidgetPlatform implements OnInit, OnDestroy {
     @ViewChild('oilIcon') oilIcon: ElementRef;
     @ViewChild('oilBak') oilBak: ElementRef;
     @ViewChild('oilCircle') oilCircle: ElementRef;
     @ViewChild('borders') borders: ElementRef;
     @ViewChild('line') line: ElementRef;
 
-    static itemCols: number = 32;
-    static itemRows: number = 12;
+    public static itemCols: number = 33;
+    public static itemRows: number = 12;
+    public static minItemCols: number = 33;
+    public static minItemRows: number = 12;
 
     public isVertical: boolean = false;
 
@@ -364,9 +366,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
         }
     }
 
-    ngOnInit(): void {}
-
-    ngAfterViewInit(): void {
+    ngOnInit(): void {
         super.widgetInit();
     }
 

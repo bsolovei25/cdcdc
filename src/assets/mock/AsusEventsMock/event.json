@@ -1,0 +1,47 @@
+{
+  "isUserCanEdit": true,
+  "id": 47895,
+  "originalId": "5cbbfab8-4ec5-43b7-9cd4-a8d6ed28eefb",
+  "itemNumber": 10,
+  "organization": "АО \"Газпромнефть-ОНПЗ\"",
+  "branch": "(КИП) Поддержка КИПиА",
+  "responsibleOperatorId": 0,
+  "fixedById": 4,
+  "eventDateTime": "2019-11-21T10:15:59Z",
+  "priority": {
+    "id": 2003,
+    "name": "standard",
+    "code": "2",
+    "sortOrder": 3
+  },
+  "category": {
+    "id": 1006,
+    "name": "asus",
+    "code": "5"
+  },
+  "severity": "nonCritical",
+  "eventType": {
+    "id": 9005,
+    "name": "Отклонение в работе оборудования",
+    "code": "4"
+  },
+  "directReasons": "",
+  "description": "Проведение регламентных работ согласно метрологического графика.\n",
+  "retrievalEvents": [],
+  "source": "asus",
+  "isAcknowledged": false,
+  "comments": [],
+  "facts": [],
+  "asusEvent": {
+    "id": 741,
+    "notificationId": 47895,
+    "codeAsus": "00-000113719",
+    "codeAsusGuid": "5cbbfab8-4ec5-43b7-9cd4-a8d6ed28eefb",
+    "state": "В ожидании",
+    "workGroup": "КИП / А-с / ТОиРАО / Омск",
+    "service": "(КИП) Поддержка КИПиА",
+    "equipment": "2012-04240-ZAGAZ-Q209_2_6",
+    "eoService": "000000007000088152",
+    "consumer": "Урусов Кирилл Анатольевич"
+  }
+}

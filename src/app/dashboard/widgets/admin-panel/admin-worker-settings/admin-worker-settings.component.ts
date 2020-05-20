@@ -25,6 +25,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     public toggleClaim: boolean = false;
 
     public alert: IAlertWindowModel = null;
+    public isDataChanged: boolean = false;
 
     public isClaimsShowing: boolean = true;
 
@@ -113,6 +114,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     public onChangeWorkerData(data: IUnitEvents): void {
         this.workerUnit = data;
+        this.isDataChanged = true;
     }
 
     public onSetResponsible(event: boolean): void {
@@ -137,7 +139,10 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
              в Бригаде ${this.worker.brigade.number}?`;
         }
         this.alert.acceptText = 'Подтвердить';
-        this.alert.acceptFunction = () => (this.worker.position = position);
+        this.alert.acceptFunction = () => {
+            this.worker.position = position;
+            this.isDataChanged = true;
+        };
         this.alert.isShow = true;
     }
 
@@ -148,7 +153,10 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             this.alert.questionText = `Вы действительно хотите сбросить пароль для пользователя
              ${this.worker.lastName} ${this.worker.firstName} ${this.worker.middleName}?`;
             this.alert.acceptText = 'Подтвердить';
-            this.alert.acceptFunction = () => (this.isResetPassword = true);
+            this.alert.acceptFunction = () => {
+                this.isResetPassword = true;
+                this.isDataChanged = true;
+            };
             this.alert.isShow = true;
         }
     }
@@ -159,6 +167,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         this.isPasswordAlertShowing = false;
         if (event && this.isCreateNewUser) {
             this.worker.password = event;
+            this.isDataChanged = true;
         }
     }
 
@@ -166,6 +175,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         this.isPopUpShowing = false;
         if (event) {
             this.workerPhoto = event;
+            this.isDataChanged = true;
         }
     }
 
@@ -228,6 +238,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         }
 
         this.isCreateClaim = false;
+        this.isDataChanged = true;
     }
 
     public onRemoveSpecialClaim(claim: IGlobalClaim): void {
@@ -235,6 +246,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
             (item) => item.claimType === claim.claimType
         );
         this.workerSpecialClaims.splice(index, 1);
+        this.isDataChanged = true;
     }
 
     public onSelectGeneralClaim(claim: IGlobalClaim): void {
@@ -246,10 +258,12 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
         } else {
             this.workerGeneralClaims.splice(index, 1);
         }
+        this.isDataChanged = true;
     }
 
     public onChangeLockWorker(): void {
         console.log('CHANGE LOCK STATUS');
+        this.isDataChanged = true;
     }
 
     public onRemoveWorker(): void {
@@ -294,17 +308,19 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     }
 
     public onClickButton(isSaveClicked: boolean): void {
-        if (isSaveClicked) {
+        if (isSaveClicked && this.isDataChanged) {
             this.alert.questionText = 'Сохранить внесенные изменения?';
             this.alert.acceptText = 'Сохранить';
             this.alert.acceptFunction = this.onSave.bind(this);
-        } else {
+        } else if (this.isDataChanged) {
             this.alert.questionText = `Вы действительно хотите вернуться?
                 Все внесенные изменения будут утрачены!`;
             this.alert.acceptText = 'Подтвердить';
             this.alert.acceptFunction = this.onReturn.bind(this);
+        } else {
+            this.onReturn();
         }
-        this.alert.isShow = true;
+        this.alert.isShow = this.isDataChanged;
     }
 
     private checkForRequiredFields(): boolean {
@@ -394,6 +410,7 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
                 this.adminService.activeWorkerUnit$.next(this.workerUnit);
 
                 this.materialController.openSnackBar('Данные сохранены');
+                this.isDataChanged = false;
             } catch (error) {
                 console.log(error.error);
             } finally {

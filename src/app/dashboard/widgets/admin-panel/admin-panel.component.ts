@@ -59,8 +59,11 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
         displayName: 'Петров П. П.',
     };
 
-    static itemCols: number = 45;
-    static itemRows: number = 25;
+    public static itemCols: number = 43;
+    public static itemRows: number = 28;
+
+    public static minItemCols: number = 43;
+    public static minItemRows: number = 28;
 
     private subscriptions: Subscription[] = [];
 
@@ -144,6 +147,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
         this.isCreateNewWorker = false;
         this.isWorkerSettingsShowed = false;
         this.isImportNewWorker = false;
+        this.searchedWorker = '';
     }
 
     public onCloseLdapList(event: boolean): void {
@@ -167,6 +171,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
 
     public onHideGroups(): void {
         this.isGroupsShowed = false;
+        this.searchedWorker = '';
     }
 
     public async updateUsers(): Promise<void> {

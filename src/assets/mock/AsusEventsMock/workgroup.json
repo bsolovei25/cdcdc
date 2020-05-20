@@ -1,0 +1,443 @@
+[
+  {
+    "name": "КИП / А-с / ТТП / Омск",
+    "code": "54db0eb6-694f-11e8-80e1-70106fb253ad",
+    "organizationCode": "00-000002",
+    "parent": "КИП",
+    "parentCode": "cd524711-990c-11e5-80e3-0050568d44d5"
+  },
+  {
+    "name": "КИП / А-с / РМУ / Омск",
+    "code": "d2b87701-7a7b-11e8-80ea-70106fb253ad",
+    "organizationCode": "00-000002",
+    "parent": "КИП",
+    "parentCode": "cd524711-990c-11e5-80e3-0050568d44d5"
+  },
+  {
+    "name": "КИП / А-с / УПН / Омск",
+    "code": "5fda6738-800f-11e8-80ee-70106fb253ad",
+    "organizationCode": "00-000002",
+    "parent": "КИП",
+    "parentCode": "cd524711-990c-11e5-80e3-0050568d44d5"
+  },
+  {
+    "name": "КИП / А-с / Производство 1  / Омск",
+    "code": "0e72bdf2-84db-11e8-80f2-70106fb253ad",
+    "organizationCode": "00-000002",
+    "parent": "КИП",
+    "parentCode": "cd524711-990c-11e5-80e3-0050568d44d5"
+  },
+  {
+    "name": "КИП / А-с / Производство 2 / Омск",
+    "code": "4078ecff-84dc-11e8-80f2-70106fb253ad",
+    "organizationCode": "00-000002",
+    "parent": "КИП",
+    "parentCode": "cd524711-990c-11e5-80e3-0050568d44d5"
+  },
+  {
+    "name": "КИП / А-с / Производство 3 / Омск",
+    "code": "7a052296-84dc-11e8-80f2-70106fb253ad",
+    "organizationCode": "00-000002",
+    "parent": "КИП",
+    "parentCode": "cd524711-990c-11e5-80e3-0050568d44d5"
+  },
+  {
+    "name": "КИП / А-с / Производство 4 / Омск",
+    "code": "238b0b09-84dd-11e8-80f2-70106fb253ad",
+    "organizationCode": "00-000002",
+    "parent": "КИП",
+    "parentCode": "cd524711-990c-11e5-80e3-0050568d44d5"
+  },
+  {
+    "name": "КИП / А-с / ОЗСМ / Омск",
+    "code": "19141574-84e6-11e8-80f2-70106fb253ad",
+    "organizationCode": "00-000002",
+    "parent": "КИП",
+    "parentCode": "cd524711-990c-11e5-80e3-0050568d44d5"
+  },
+  {
+    "name": "КИП / А-с / \"ГПН-Логистика\" Товарное производство / Омск",
+    "code": "c9bcc9d7-84f2-11e8-80f2-70106fb253ad",
+    "organizationCode": "00-000002",
+    "parent": "КИП",
+    "parentCode": "cd524711-990c-11e5-80e3-0050568d44d5"
+  },
+  {
+    "name": "КИП / А-с / \"ГПН ОНПЗ\" УГЭ / Омск",
+    "code": "d68b1080-8642-11e8-80f3-70106fb253ad",
+    "organizationCode": "00-000002",
+    "parent": "КИП",
+    "parentCode": "cd524711-990c-11e5-80e3-0050568d44d5"
+  },
+  {
+    "name": "КИП / А-с / \"ГПН-ОНПЗ\" ОЗХ водоснабжение / Омск",
+    "code": "0f589d6e-8643-11e8-80f3-70106fb253ad",
+    "organizationCode": "00-000002",
+    "parent": "КИП",
+    "parentCode": "cd524711-990c-11e5-80e3-0050568d44d5"
+  },
+  {
+    "name": "КИП / А-с / \"ГПН-ОНПЗ\" ОЗХ очистные сооружения / Омск",
+    "code": "a0186ca9-8646-11e8-80f3-70106fb253ad",
+    "organizationCode": "00-000002",
+    "parent": "КИП",
+    "parentCode": "cd524711-990c-11e5-80e3-0050568d44d5"
+  },
+  {
+    "name": "КИП / А-с / \"ГПН-ОНПЗ\" Товарное производство / Омск",
+    "code": "b3990c16-8646-11e8-80f3-70106fb253ad",
+    "organizationCode": "00-000002",
+    "parent": "КИП",
+    "parentCode": "cd524711-990c-11e5-80e3-0050568d44d5"
+  },
+  {
+    "name": "КИП / А-с / ОЗХ водоснабжение / Омск",
+    "code": "f55504d0-8647-11e8-80f3-70106fb253ad",
+    "organizationCode": "00-000002",
+    "parent": "КИП",
+    "parentCode": "cd524711-990c-11e5-80e3-0050568d44d5"
+  },
+  {
+    "name": "КИП / А-С / ИТО / Омск",
+    "code": "c450338d-9573-11e8-80f5-70106fb253ad",
+    "organizationCode": "00-000002",
+    "parent": "КИП",
+    "parentCode": "cd524711-990c-11e5-80e3-0050568d44d5"
+  },
+  {
+    "name": "Участок оперативного обслуживания средств КИПиА ",
+    "code": "12ebc820-e1b1-11e8-8114-70106fb253ad",
+    "organizationCode": "00-000002",
+    "parent": "КИП",
+    "parentCode": "cd524711-990c-11e5-80e3-0050568d44d5"
+  },
+  {
+    "name": "КИП / А-с / ТОиРАО / Омск",
+    "code": "0b0edb08-8d26-11e5-82ac-20689d7ac42c",
+    "organizationCode": "00-000002",
+    "parent": "КИП",
+    "parentCode": "cd524711-990c-11e5-80e3-0050568d44d5"
+  },
+  {
+    "name": "КИП / А-с / Дежурный / Омск",
+    "code": "d71ef26d-8d24-11e5-82ac-20689d7ac42c",
+    "organizationCode": "00-000002",
+    "parent": "КИП",
+    "parentCode": "cd524711-990c-11e5-80e3-0050568d44d5"
+  },
+  {
+    "name": "КИП / А-с / ТОУКУ / Омск",
+    "code": "ee7170f6-8d24-11e5-82ac-20689d7ac42c",
+    "organizationCode": "00-000002",
+    "parent": "КИП",
+    "parentCode": "cd524711-990c-11e5-80e3-0050568d44d5"
+  },
+  {
+    "name": "АСУП / А-с / АСПП / Омск",
+    "code": "b091d136-8d27-11e5-82ac-20689d7ac42c",
+    "organizationCode": "00-000002",
+    "parent": "АСУП",
+    "parentCode": "d509c857-990c-11e5-80e3-0050568d44d5"
+  },
+  {
+    "name": "АСУП / А-с / PI-System / Омск",
+    "code": "18ae9e9e-8d25-11e5-82ac-20689d7ac42c",
+    "organizationCode": "00-000002",
+    "parent": "АСУП",
+    "parentCode": "d509c857-990c-11e5-80e3-0050568d44d5"
+  },
+  {
+    "name": "АСУП / А-с / АСДУ / Омск",
+    "code": "21af80d3-8d25-11e5-82ac-20689d7ac42c",
+    "organizationCode": "00-000002",
+    "parent": "АСУП",
+    "parentCode": "d509c857-990c-11e5-80e3-0050568d44d5"
+  },
+  {
+    "name": "АСУП / А-с / Локальное ПО / Омск",
+    "code": "2c9f4ac8-8d25-11e5-82ac-20689d7ac42c",
+    "organizationCode": "00-000002",
+    "parent": "АСУП",
+    "parentCode": "d509c857-990c-11e5-80e3-0050568d44d5"
+  },
+  {
+    "name": "АСУП / А-с / ЛТК / Омск",
+    "code": "381ab3b6-8d25-11e5-82ac-20689d7ac42c",
+    "organizationCode": "00-000002",
+    "parent": "АСУП",
+    "parentCode": "d509c857-990c-11e5-80e3-0050568d44d5"
+  },
+  {
+    "name": "АСУП / А-с / Нефтепродукты / Омск",
+    "code": "442280e0-8d25-11e5-82ac-20689d7ac42c",
+    "organizationCode": "00-000002",
+    "parent": "АСУП",
+    "parentCode": "d509c857-990c-11e5-80e3-0050568d44d5"
+  },
+  {
+    "name": "АСУП / А-с / Отгрузка / Омск",
+    "code": "4f83ef23-8d25-11e5-82ac-20689d7ac42c",
+    "organizationCode": "00-000002",
+    "parent": "АСУП",
+    "parentCode": "d509c857-990c-11e5-80e3-0050568d44d5"
+  },
+  {
+    "name": "АСУП / А-с / Энергоресурсы / Омск",
+    "code": "5eedfb9a-8d25-11e5-82ac-20689d7ac42c",
+    "organizationCode": "00-000002",
+    "parent": "АСУП",
+    "parentCode": "d509c857-990c-11e5-80e3-0050568d44d5"
+  },
+  {
+    "name": "АСУП / А-с / ТовПр СДУ  и АСКП/ Омск",
+    "code": "e98c1b63-4120-11e8-80d5-70106fb253ad",
+    "organizationCode": "00-000002",
+    "parent": "АСУП",
+    "parentCode": "d509c857-990c-11e5-80e3-0050568d44d5"
+  },
+  {
+    "name": "АСУТП / А-с / Экспертиза ПД / Омск",
+    "code": "59eb4c50-84ef-11e8-80f2-70106fb253ad",
+    "organizationCode": "00-000002",
+    "parent": "АСУТП",
+    "parentCode": "d509c858-990c-11e5-80e3-0050568d44d5"
+  },
+  {
+    "name": "АСУТП / А-с / ОперативныйОтдел / Омск",
+    "code": "acdbee4a-8d24-11e5-82ac-20689d7ac42c",
+    "organizationCode": "00-000002",
+    "parent": "АСУТП",
+    "parentCode": "d509c858-990c-11e5-80e3-0050568d44d5"
+  },
+  {
+    "name": "АСУТП / А-с / Сопровождение / Омск",
+    "code": "c09646b7-8d24-11e5-82ac-20689d7ac42c",
+    "organizationCode": "00-000002",
+    "parent": "АСУТП",
+    "parentCode": "d509c858-990c-11e5-80e3-0050568d44d5"
+  },
+  {
+    "name": "СБ / А-с / СППА / Омск",
+    "code": "8f462e12-8f83-11e5-82ae-20689d7ac42c",
+    "organizationCode": "00-000002",
+    "parent": "СБО",
+    "parentCode": "dfa7d15c-990c-11e5-80e3-0050568d44d5"
+  },
+  {
+    "name": "СБ / А-с / ИТСО / Омск",
+    "code": "973720c9-a09a-11e5-80e4-0050568d44d5",
+    "organizationCode": "00-000002",
+    "parent": "СБО",
+    "parentCode": "dfa7d15c-990c-11e5-80e3-0050568d44d5"
+  },
+  {
+    "name": "1С / А-с / Омск",
+    "code": "e794e11d-baad-11e5-80e7-0050568d44d5",
+    "organizationCode": "00-000002",
+    "parent": "ИТ",
+    "parentCode": "dfa7d15d-990c-11e5-80e3-0050568d44d5"
+  },
+  {
+    "name": "АСУС / А-с / Администратор",
+    "code": "cc4c6fc0-a09c-11e5-80e4-0050568d44d5",
+    "organizationCode": "00-000002",
+    "parent": "Поддержка АС УС",
+    "parentCode": "c0972396-a09c-11e5-80e4-0050568d44d5"
+  },
+  {
+    "name": "АСУС / А-с / Разработка",
+    "code": "59fac77c-4973-11ea-a319-005056b267eb",
+    "organizationCode": "",
+    "parent": "Поддержка АС УС",
+    "parentCode": "c0972396-a09c-11e5-80e4-0050568d44d5"
+  },
+  {
+    "name": "АСУС / А-с / Моб.Сервис",
+    "code": "2143e2db-4977-11ea-a319-005056b267eb",
+    "organizationCode": "",
+    "parent": "Поддержка АС УС",
+    "parentCode": "c0972396-a09c-11e5-80e4-0050568d44d5"
+  },
+  {
+    "name": "Диспетчер / А-с / Москва",
+    "code": "13c6c768-076c-11e6-80ef-005056b2495e",
+    "organizationCode": "00-000002",
+    "parent": "Москва",
+    "parentCode": "ba85364b-4a37-11e6-80f6-005056b2495e"
+  },
+  {
+    "name": "АСУТП / А-с / ОперативныйОтдел / Москва",
+    "code": "91586d44-4a38-11e6-80f6-005056b2495e",
+    "organizationCode": "00-000002",
+    "parent": "АСУТП",
+    "parentCode": "625659da-4a38-11e6-80f6-005056b2495e"
+  },
+  {
+    "name": "АСУТП / А-с / Сопровождение / Москва",
+    "code": "bd2c34cf-4a3a-11e6-80f6-005056b2495e",
+    "organizationCode": "00-000002",
+    "parent": "АСУТП",
+    "parentCode": "625659da-4a38-11e6-80f6-005056b2495e"
+  },
+  {
+    "name": "АСУТП / А-с / СУУТП / Москва",
+    "code": "274fd831-6361-11e6-80f6-005056b2495e",
+    "organizationCode": "00-000002",
+    "parent": "АСУТП",
+    "parentCode": "625659da-4a38-11e6-80f6-005056b2495e"
+  },
+  {
+    "name": "АСУТП / А-с / КТК / Москва",
+    "code": "2eea0fc5-6361-11e6-80f6-005056b2495e",
+    "organizationCode": "00-000002",
+    "parent": "АСУТП",
+    "parentCode": "625659da-4a38-11e6-80f6-005056b2495e"
+  },
+  {
+    "name": "КИП / А-с / ТО1 / Москва",
+    "code": "e288b53d-4c93-11e6-80f6-005056b2495e",
+    "organizationCode": "00-000002",
+    "parent": "КИП",
+    "parentCode": "fd88d276-4c8f-11e6-80f6-005056b2495e"
+  },
+  {
+    "name": "КИП / А-с / ТО2 / Москва",
+    "code": "eccc45b3-4c93-11e6-80f6-005056b2495e",
+    "organizationCode": "00-000002",
+    "parent": "КИП",
+    "parentCode": "fd88d276-4c8f-11e6-80f6-005056b2495e"
+  },
+  {
+    "name": "КИП / А-с / ИТО/ Москва",
+    "code": "fe7dcbf6-4c93-11e6-80f6-005056b2495e",
+    "organizationCode": "00-000002",
+    "parent": "КИП",
+    "parentCode": "fd88d276-4c8f-11e6-80f6-005056b2495e"
+  },
+  {
+    "name": "КИП / А-с / ТОиРАО / Москва",
+    "code": "0ce94336-4c94-11e6-80f6-005056b2495e",
+    "organizationCode": "00-000002",
+    "parent": "КИП",
+    "parentCode": "fd88d276-4c8f-11e6-80f6-005056b2495e"
+  },
+  {
+    "name": "КИП / А-с / ТТП / Москва",
+    "code": "11ab8492-6361-11e6-80f6-005056b2495e",
+    "organizationCode": "00-000002",
+    "parent": "КИП",
+    "parentCode": "fd88d276-4c8f-11e6-80f6-005056b2495e"
+  },
+  {
+    "name": "КИП / А-с / РМУ / Москва",
+    "code": "184b530b-6361-11e6-80f6-005056b2495e",
+    "organizationCode": "00-000002",
+    "parent": "КИП",
+    "parentCode": "fd88d276-4c8f-11e6-80f6-005056b2495e"
+  },
+  {
+    "name": "КИП / А-с / Участок оперативного обслуживания / Москва",
+    "code": "2524e456-38b3-11e8-80d3-70106fb253ad",
+    "organizationCode": "00-000002",
+    "parent": "КИП",
+    "parentCode": "fd88d276-4c8f-11e6-80f6-005056b2495e"
+  },
+  {
+    "name": "СБО / А-с / ППЗ / Москва",
+    "code": "bb1784fa-4d61-11e6-80f6-005056b2495e",
+    "organizationCode": "00-000002",
+    "parent": "СБО",
+    "parentCode": "e012f14a-4cb1-11e6-80f6-005056b2495e"
+  },
+  {
+    "name": "СБО / А-с / СТВ / Москва",
+    "code": "1439e700-4d62-11e6-80f6-005056b2495e",
+    "organizationCode": "00-000002",
+    "parent": "СБО",
+    "parentCode": "e012f14a-4cb1-11e6-80f6-005056b2495e"
+  },
+  {
+    "name": "СБО / А-с / ИТСО / Москва",
+    "code": "7985de98-4d62-11e6-80f6-005056b2495e",
+    "organizationCode": "00-000002",
+    "parent": "СБО",
+    "parentCode": "e012f14a-4cb1-11e6-80f6-005056b2495e"
+  },
+  {
+    "name": "АСУП / А-с / МОПС / Москва",
+    "code": "8ec5bf24-4cd3-11e6-80f6-005056b2495e",
+    "organizationCode": "00-000002",
+    "parent": "АСУП",
+    "parentCode": "837bc26a-4cb3-11e6-80f6-005056b2495e"
+  },
+  {
+    "name": "КИП / А-с / МОПД / Москва",
+    "code": "38978009-96a5-11e6-80f9-005056b2495e",
+    "organizationCode": "00-000002",
+    "parent": "МОПД",
+    "parentCode": "e0ae1705-96a4-11e6-80f9-005056b2495e"
+  },
+  {
+    "name": "МД УПД  / А-с / Отдел управления проектами",
+    "code": "3e8c8587-81fe-11e9-812e-70106fb253ad",
+    "organizationCode": "00-000002",
+    "parent": "МД УПД",
+    "parentCode": "1e1776bd-81fe-11e9-812e-70106fb253ad"
+  },
+  {
+    "name": "МД УПД / А-с / Пусконаладочный участок",
+    "code": "7e810fa3-81fe-11e9-812e-70106fb253ad",
+    "organizationCode": "00-000002",
+    "parent": "МД УПД",
+    "parentCode": "1e1776bd-81fe-11e9-812e-70106fb253ad"
+  },
+  {
+    "name": "МД УПД / А-с / Участок по монтажу КИПиа и электрооборудования",
+    "code": "d64616b3-81fe-11e9-812e-70106fb253ad",
+    "organizationCode": "00-000002",
+    "parent": "МД УПД",
+    "parentCode": "1e1776bd-81fe-11e9-812e-70106fb253ad"
+  },
+  {
+    "name": "Сервис ИБ АСУ ТП",
+    "code": "b63aa186-de26-11e7-80c9-70106fb253ad",
+    "organizationCode": "00-000002",
+    "parent": "Пользователи ООО Автоматика-сервис",
+    "parentCode": "66303f7c-8c5c-11e5-82ac-20689d7ac42c"
+  },
+  {
+    "name": "Группа качества / А-с ",
+    "code": "74171cba-0d56-11e7-80ed-989096a227e7",
+    "organizationCode": "00-000002",
+    "parent": "Пользователи ООО Автоматика-сервис",
+    "parentCode": "66303f7c-8c5c-11e5-82ac-20689d7ac42c"
+  },
+  {
+    "name": "Метрология / А-с / Омск",
+    "code": "e1d82e58-ee82-11e6-80de-989096a227e7",
+    "organizationCode": "00-000002",
+    "parent": "Омск",
+    "parentCode": "b4bbda68-8c5c-11e5-82ac-20689d7ac42c"
+  },
+  {
+    "name": "ТОРО / А-с / Омск",
+    "code": "c25a19bd-0a25-11e7-80ed-989096a227e7",
+    "organizationCode": "00-000002",
+    "parent": "Омск",
+    "parentCode": "b4bbda68-8c5c-11e5-82ac-20689d7ac42c"
+  },
+  {
+    "name": "Диспетчер / А-с / Омск",
+    "code": "fa21ec30-8d24-11e5-82ac-20689d7ac42c",
+    "organizationCode": "00-000002",
+    "parent": "Омск",
+    "parentCode": "b4bbda68-8c5c-11e5-82ac-20689d7ac42c"
+  },
+  {
+    "name": "АХО / А-с",
+    "code": "6b178cff-1b2b-11ea-a311-005056b267eb",
+    "organizationCode": "00-000002",
+    "parent": "Омск",
+    "parentCode": "b4bbda68-8c5c-11e5-82ac-20689d7ac42c"
+  }
+]

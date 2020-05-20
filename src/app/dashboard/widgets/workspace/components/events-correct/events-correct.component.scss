@@ -3,6 +3,12 @@
   height: inherit;
 }
 
+.left-title {
+  position: absolute;
+  left: 30px;
+  top: 5px;
+}
+
 .events-correct {
   position: relative;
 
@@ -68,7 +74,7 @@
 
       top: 0px;
       bottom: 0px;
-      right: 10px;
+      right: 0px;
       margin: auto;
 
       &::before,
@@ -106,7 +112,8 @@
       }
 
       &_bottom {
-        left: 15px;
+        top: 5px;
+        left: 0px;
         right: auto;
       }
     }

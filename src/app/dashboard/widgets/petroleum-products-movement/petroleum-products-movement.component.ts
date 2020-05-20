@@ -11,8 +11,11 @@ import { IAlertWindowModel } from '@shared/models/alert-window.model';
 })
 export class PetroleumProductsMovementComponent extends WidgetPlatform
     implements OnInit, OnDestroy {
-    public static itemCols: number = 23;
-    public static itemRows: number = 16;
+
+    public static itemCols: number = 64;
+    public static itemRows: number = 30;
+    public static minItemCols: number = 64;
+    public static minItemRows: number = 30;
 
     public typeScreen: string = 'info';
     protected isRealtimeData: boolean = false;
@@ -47,7 +50,7 @@ export class PetroleumProductsMovementComponent extends WidgetPlatform
         this.initPetroleumMovement();
     }
 
-    protected dataHandler(ref: any): void {}
+    protected dataHandler(ref: any): void { }
 
     private async initPetroleumMovement(): Promise<void> {
         this.petroleumService.isLoad$.next(true);

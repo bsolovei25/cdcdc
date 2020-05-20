@@ -47,8 +47,10 @@ export class TankCalibrationTableComponent extends WidgetPlatform implements OnI
         'Действия с калибровками'
     ];
 
-    static itemCols: number = 30;
-    static itemRows: number = 30;
+    public static itemCols: number = 40;
+    public static itemRows: number = 20;
+    public static minItemCols: number = 40;
+    public static minItemRows: number = 10;
 
     expandedElement: SelectionModel<any> = new SelectionModel(true);
     chooseElement: SelectionModel<string> = new SelectionModel(false);

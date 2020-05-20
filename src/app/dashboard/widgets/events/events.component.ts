@@ -18,6 +18,7 @@ import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { WidgetPlatform } from '../../models/widget-platform';
 import { throttle } from 'rxjs/operators';
 import { SnackBarService } from '../../services/snack-bar.service';
+import { EventsWorkspaceService } from '../../services/widgets/events-workspace.service';
 
 @Component({
     selector: 'evj-events',
@@ -150,11 +151,14 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
 
     private readonly defaultIconPath: string = './assets/icons/widgets/events/smotr.svg';
 
-    public static itemCols: number = 30;
-    public static itemRows: number = 20;
+    public static itemCols: number = 32;
+    public static itemRows: number = 30;
+    public static minItemCols: number = 32;
+    public static minItemRows: number = 30;
 
     constructor(
         private eventService: EventService,
+        private ewService: EventsWorkspaceService,
         private materialService: SnackBarService,
         public userSettings: UserSettingsService,
         public widgetService: WidgetService,
@@ -342,8 +346,9 @@ export class EventsComponent extends WidgetPlatform implements OnInit, OnDestroy
             }
         } else {
             this.selectedId = eventId;
-            const eventGet = await this.eventService.getEvent(eventId);
-            this.eventService.event$.next(eventGet);
+            await this.ewService.loadItem(eventId);
+            // const eventGet = await this.eventService.getEvent(eventId);
+            // this.eventService.event$.next(eventGet);
         }
         this.eventOverlayId = undefined;
     }

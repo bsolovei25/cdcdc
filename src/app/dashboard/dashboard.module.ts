@@ -142,7 +142,6 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 
-import { AgNewGroupComponent } from './widgets/admin-panel/admin-groups/ag-new-group/ag-new-group.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { AdminAdImportComponent } from './widgets/admin-panel/admin-ad-import/admin-ad-import.component';
 import { AddReportFileComponent } from './widgets/report-server-configurator/add-report-file/add-report-file.component';
@@ -263,6 +262,7 @@ import { AsusEventComponent } from './widgets/workspace/asus-event/asus-event.co
 import { ProductGroupsLeftComponent } from './widgets/SMP/product-groups/components/product-groups-left/product-groups-left.component';
 import { ProductGroupsMiddleComponent } from './widgets/SMP/product-groups/components/product-groups-middle/product-groups-middle.component';
 import { ProductGroupsRightComponent } from './widgets/SMP/product-groups/components/product-groups-right/product-groups-right.component';
+import { EventsReasonsSingleComponent } from './widgets/workspace/components/events-reasons-single/events-reasons-single.component';
 import { WorkflowListComponent } from './widgets/workflow/workflow-list/workflow-list.component';
 import { ProductionDeviationsComponent } from './widgets/SMP/production-deviations/production-deviations.component';
 import { ProductionDeviationsDiagramComponent } from './widgets/SMP/production-deviations/components/production-deviations-diagram/production-deviations-diagram.component';
@@ -390,7 +390,6 @@ import { ProductionTrendInstallationsComponent } from './widgets/production-tren
         ReferenceComponent,
         ReportServerConfiguratorComponent,
         AwsCreateClaimComponent,
-        AgNewGroupComponent,
         AdminAdImportComponent,
         AddReportFileComponent,
         TankCalibrationTableComponent,
@@ -513,6 +512,7 @@ import { ProductionTrendInstallationsComponent } from './widgets/production-tren
         ProductGroupsShortComponent,
         SmpEventsWorkspaceComponent,
         ProductionTrendInstallationsComponent,
+        EventsReasonsSingleComponent,
     ],
     entryComponents: [
         LineChartComponent,

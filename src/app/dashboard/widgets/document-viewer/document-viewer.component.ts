@@ -46,8 +46,10 @@ export class DocumentViewerComponent extends WidgetPlatform implements OnInit, O
         return this._scalePercent;
     }
 
-    public static itemCols: number = 20;
-    public static itemRows: number = 16;
+    public static itemCols: number = 16;
+    public static itemRows: number = 15;
+    public static minItemCols: number = 16;
+    public static minItemRows: number = 12;
 
     constructor(
         private dialog: MatDialog,

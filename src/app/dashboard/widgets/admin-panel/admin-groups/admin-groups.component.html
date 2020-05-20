@@ -2,7 +2,7 @@
   class="container"
   (mousedown)="$event.stopPropagation()"
   (touchstart)="$event.stopPropagation()"
->
+  >
   <evj-loading-shade [isLoading]="isDataLoading"></evj-loading-shade>
 
   <div class="column" *ngIf="!isDataLoading">
@@ -33,7 +33,7 @@
           [isCardActive]="groupSelection.isSelected(group)"
           (click)="onSelectGroup(group)"
           (editGroup)="onChangeGroupName(group)"
-          (deleteGroup)="onDeleteGroup()"
+          (deleteGroup)="onClickDeleteGroup()"
         ></evj-ag-group-card>
       </ng-container>
       <ng-container *ngFor="let group of groups">
@@ -43,7 +43,7 @@
           [isCardActive]="groupSelection.isSelected(group)"
           (click)="onSelectGroup(group)"
           (editGroup)="onChangeGroupName(group)"
-          (deleteGroup)="onDeleteGroup()"
+          (deleteGroup)="onClickDeleteGroup()"
         ></evj-ag-group-card>
       </ng-container>
     </div>
@@ -77,6 +77,7 @@
           class="insert-component"
           [isSmallButton]="false"
           textButton="Сохранить"
+          [disabled]="!isDataChanged"
           [isChangingState]="false"
           (click)="onClickButton(true)"
         ></evj-button>
