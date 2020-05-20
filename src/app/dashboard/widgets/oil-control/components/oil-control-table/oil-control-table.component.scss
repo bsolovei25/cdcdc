@@ -31,7 +31,7 @@
   }
 
   &__data {
-    margin: 10px auto;
+    align-items: center;
     color: #8c99b2;
     font-size: 12px;
     width: 25%;
@@ -52,12 +52,11 @@
 
   &__value_oil {
     font-size: 12px;
-    margin: auto;
-    margin-top: 6px;
     justify-content: space-around;
     width: 25%;
     min-width: 50px;
     display: flex;
+    align-items: center;
   }
 
   &__value_oil_debalance {

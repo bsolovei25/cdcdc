@@ -490,6 +490,1038 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                     },
                 ],
             },
+            {
+                name: 'ДТ сорт D5',
+                value: 12132,
+                criticalValue: 23,
+                storages: [
+                    {
+                        id: 1,
+                        nameStorage: 'D-1',
+                        status: 'critical',
+                        valueStorage: 10253,
+                        tankLevel: 10,
+                        operations: [
+                            {
+                                timeStart: '02:03:20',
+                                timeEnd: '04:08:38',
+                                tankValues: [
+                                    {
+                                        name: 'Отгружено по резервуару',
+                                        valueFirst: 1670,
+                                        valueSecond: 98.73,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'По данным отгрузки',
+                                        valueFirst: 1700,
+                                        valueSecond: 103.23,
+                                        status: 'critical',
+                                    },
+                                    {
+                                        name: 'Дебаланс',
+                                        valueFirst: 30,
+                                        valueSecond: 1.27,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'Допустимый дебаланс',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'default',
+                                    },
+                                    {
+                                        name: 'Отклонение',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'normal',
+                                    },
+                                ],
+                                tankers: [
+                                    {
+                                        nameTanker: 'Tug',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Авто ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'Tube',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Ж/Д ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'Cistern',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Труба ( AУТН-2 )',
+                                    },
+                                ],
+                            },
+                            {
+                                timeStart: '02:03:20',
+                                timeEnd: '04:08:38',
+                                tankValues: [
+                                    {
+                                        name: 'Отгружено по резервуару',
+                                        valueFirst: 1670,
+                                        valueSecond: 98.73,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'По данным отгрузки',
+                                        valueFirst: 1700,
+                                        valueSecond: 103.23,
+                                        status: 'critical',
+                                    },
+                                    {
+                                        name: 'Дебаланс',
+                                        valueFirst: 30,
+                                        valueSecond: 1.27,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'Допустимый дебаланс',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'default',
+                                    },
+                                    {
+                                        name: 'Отклонение',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'normal',
+                                    },
+                                ],
+                                tankers: [
+                                    {
+                                        nameTanker: 'Tug',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Авто ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'Tube',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Ж/Д ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'Cistern',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Труба ( AУТН-2 )',
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                    {
+                        id: 2,
+                        nameStorage: 'E-2',
+                        valueStorage: 10253,
+                        status: 'normal',
+                        tankLevel: 10,
+                        operations: [
+                            {
+                                timeStart: '02:03:20',
+                                timeEnd: '04:08:38',
+                                tankValues: [
+                                    {
+                                        name: 'Отгружено по резервуару',
+                                        valueFirst: 1670,
+                                        valueSecond: 98.73,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'По данным отгрузки',
+                                        valueFirst: 1700,
+                                        valueSecond: 103.23,
+                                        status: 'critical',
+                                    },
+                                    {
+                                        name: 'Дебаланс',
+                                        valueFirst: 30,
+                                        valueSecond: 1.27,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'Допустимый дебаланс',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'default',
+                                    },
+                                    {
+                                        name: 'Отклонение',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'normal',
+                                    },
+                                ],
+                                tankers: [
+                                    {
+                                        nameTanker: 'Tug',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Авто ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'Tube',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Ж/Д ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'Cistern',
+                                        shipped: false,
+                                        value: 528,
+                                        title: 'Труба ( AУТН-2 )',
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                    {
+                        id: 3,
+                        nameStorage: 'E-3',
+                        valueStorage: 10253,
+                        status: 'normal',
+                        tankLevel: 10,
+                        operations: [
+                            {
+                                timeStart: '02:03:20',
+                                timeEnd: '04:08:38',
+                                tankValues: [
+                                    {
+                                        name: 'Отгружено по резервуару',
+                                        valueFirst: 1670,
+                                        valueSecond: 98.73,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'По данным отгрузки',
+                                        valueFirst: 1700,
+                                        valueSecond: 103.23,
+                                        status: 'critical',
+                                    },
+                                    {
+                                        name: 'Дебаланс',
+                                        valueFirst: 30,
+                                        valueSecond: 1.27,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'Допустимый дебаланс',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'default',
+                                    },
+                                    {
+                                        name: 'Отклонение',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'normal',
+                                    },
+                                ],
+                                tankers: [
+                                    {
+                                        nameTanker: 'bus',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Авто ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'pipe',
+                                        shipped: false,
+                                        value: 528,
+                                        title: 'Авто ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'train',
+                                        shipped: false,
+                                        value: 528,
+                                        title: 'Авто ( AУТН-2 )',
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
+                name: 'ДТ сорт D1',
+                value: 12132,
+                criticalValue: 23,
+                storages: [
+                    {
+                        id: 1,
+                        nameStorage: 'D-1',
+                        status: 'critical',
+                        valueStorage: 10253,
+                        tankLevel: 10,
+                        operations: [
+                            {
+                                timeStart: '02:03:20',
+                                timeEnd: '04:08:38',
+                                tankValues: [
+                                    {
+                                        name: 'Отгружено по резервуару',
+                                        valueFirst: 1670,
+                                        valueSecond: 98.73,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'По данным отгрузки',
+                                        valueFirst: 1700,
+                                        valueSecond: 103.23,
+                                        status: 'critical',
+                                    },
+                                    {
+                                        name: 'Дебаланс',
+                                        valueFirst: 30,
+                                        valueSecond: 1.27,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'Допустимый дебаланс',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'default',
+                                    },
+                                    {
+                                        name: 'Отклонение',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'normal',
+                                    },
+                                ],
+                                tankers: [
+                                    {
+                                        nameTanker: 'Tug',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Авто ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'Tube',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Ж/Д ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'Cistern',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Труба ( AУТН-2 )',
+                                    },
+                                ],
+                            },
+                            {
+                                timeStart: '02:03:20',
+                                timeEnd: '04:08:38',
+                                tankValues: [
+                                    {
+                                        name: 'Отгружено по резервуару',
+                                        valueFirst: 1670,
+                                        valueSecond: 98.73,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'По данным отгрузки',
+                                        valueFirst: 1700,
+                                        valueSecond: 103.23,
+                                        status: 'critical',
+                                    },
+                                    {
+                                        name: 'Дебаланс',
+                                        valueFirst: 30,
+                                        valueSecond: 1.27,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'Допустимый дебаланс',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'default',
+                                    },
+                                    {
+                                        name: 'Отклонение',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'normal',
+                                    },
+                                ],
+                                tankers: [
+                                    {
+                                        nameTanker: 'Tug',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Авто ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'Tube',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Ж/Д ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'Cistern',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Труба ( AУТН-2 )',
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                    {
+                        id: 2,
+                        nameStorage: 'E-2',
+                        valueStorage: 10253,
+                        status: 'normal',
+                        tankLevel: 10,
+                        operations: [
+                            {
+                                timeStart: '02:03:20',
+                                timeEnd: '04:08:38',
+                                tankValues: [
+                                    {
+                                        name: 'Отгружено по резервуару',
+                                        valueFirst: 1670,
+                                        valueSecond: 98.73,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'По данным отгрузки',
+                                        valueFirst: 1700,
+                                        valueSecond: 103.23,
+                                        status: 'critical',
+                                    },
+                                    {
+                                        name: 'Дебаланс',
+                                        valueFirst: 30,
+                                        valueSecond: 1.27,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'Допустимый дебаланс',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'default',
+                                    },
+                                    {
+                                        name: 'Отклонение',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'normal',
+                                    },
+                                ],
+                                tankers: [
+                                    {
+                                        nameTanker: 'Tug',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Авто ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'Tube',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Ж/Д ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'Cistern',
+                                        shipped: false,
+                                        value: 528,
+                                        title: 'Труба ( AУТН-2 )',
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                    {
+                        id: 3,
+                        nameStorage: 'E-3',
+                        valueStorage: 10253,
+                        status: 'normal',
+                        tankLevel: 10,
+                        operations: [
+                            {
+                                timeStart: '02:03:20',
+                                timeEnd: '04:08:38',
+                                tankValues: [
+                                    {
+                                        name: 'Отгружено по резервуару',
+                                        valueFirst: 1670,
+                                        valueSecond: 98.73,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'По данным отгрузки',
+                                        valueFirst: 1700,
+                                        valueSecond: 103.23,
+                                        status: 'critical',
+                                    },
+                                    {
+                                        name: 'Дебаланс',
+                                        valueFirst: 30,
+                                        valueSecond: 1.27,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'Допустимый дебаланс',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'default',
+                                    },
+                                    {
+                                        name: 'Отклонение',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'normal',
+                                    },
+                                ],
+                                tankers: [
+                                    {
+                                        nameTanker: 'bus',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Авто ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'pipe',
+                                        shipped: false,
+                                        value: 528,
+                                        title: 'Авто ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'train',
+                                        shipped: false,
+                                        value: 528,
+                                        title: 'Авто ( AУТН-2 )',
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
+                name: 'ДТ сорт D2',
+                value: 12132,
+                criticalValue: 23,
+                storages: [
+                    {
+                        id: 1,
+                        nameStorage: 'D-1',
+                        status: 'critical',
+                        valueStorage: 10253,
+                        tankLevel: 10,
+                        operations: [
+                            {
+                                timeStart: '02:03:20',
+                                timeEnd: '04:08:38',
+                                tankValues: [
+                                    {
+                                        name: 'Отгружено по резервуару',
+                                        valueFirst: 1670,
+                                        valueSecond: 98.73,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'По данным отгрузки',
+                                        valueFirst: 1700,
+                                        valueSecond: 103.23,
+                                        status: 'critical',
+                                    },
+                                    {
+                                        name: 'Дебаланс',
+                                        valueFirst: 30,
+                                        valueSecond: 1.27,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'Допустимый дебаланс',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'default',
+                                    },
+                                    {
+                                        name: 'Отклонение',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'normal',
+                                    },
+                                ],
+                                tankers: [
+                                    {
+                                        nameTanker: 'Tug',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Авто ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'Tube',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Ж/Д ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'Cistern',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Труба ( AУТН-2 )',
+                                    },
+                                ],
+                            },
+                            {
+                                timeStart: '02:03:20',
+                                timeEnd: '04:08:38',
+                                tankValues: [
+                                    {
+                                        name: 'Отгружено по резервуару',
+                                        valueFirst: 1670,
+                                        valueSecond: 98.73,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'По данным отгрузки',
+                                        valueFirst: 1700,
+                                        valueSecond: 103.23,
+                                        status: 'critical',
+                                    },
+                                    {
+                                        name: 'Дебаланс',
+                                        valueFirst: 30,
+                                        valueSecond: 1.27,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'Допустимый дебаланс',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'default',
+                                    },
+                                    {
+                                        name: 'Отклонение',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'normal',
+                                    },
+                                ],
+                                tankers: [
+                                    {
+                                        nameTanker: 'Tug',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Авто ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'Tube',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Ж/Д ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'Cistern',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Труба ( AУТН-2 )',
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                    {
+                        id: 2,
+                        nameStorage: 'E-2',
+                        valueStorage: 10253,
+                        status: 'normal',
+                        tankLevel: 10,
+                        operations: [
+                            {
+                                timeStart: '02:03:20',
+                                timeEnd: '04:08:38',
+                                tankValues: [
+                                    {
+                                        name: 'Отгружено по резервуару',
+                                        valueFirst: 1670,
+                                        valueSecond: 98.73,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'По данным отгрузки',
+                                        valueFirst: 1700,
+                                        valueSecond: 103.23,
+                                        status: 'critical',
+                                    },
+                                    {
+                                        name: 'Дебаланс',
+                                        valueFirst: 30,
+                                        valueSecond: 1.27,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'Допустимый дебаланс',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'default',
+                                    },
+                                    {
+                                        name: 'Отклонение',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'normal',
+                                    },
+                                ],
+                                tankers: [
+                                    {
+                                        nameTanker: 'Tug',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Авто ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'Tube',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Ж/Д ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'Cistern',
+                                        shipped: false,
+                                        value: 528,
+                                        title: 'Труба ( AУТН-2 )',
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                    {
+                        id: 3,
+                        nameStorage: 'E-3',
+                        valueStorage: 10253,
+                        status: 'normal',
+                        tankLevel: 10,
+                        operations: [
+                            {
+                                timeStart: '02:03:20',
+                                timeEnd: '04:08:38',
+                                tankValues: [
+                                    {
+                                        name: 'Отгружено по резервуару',
+                                        valueFirst: 1670,
+                                        valueSecond: 98.73,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'По данным отгрузки',
+                                        valueFirst: 1700,
+                                        valueSecond: 103.23,
+                                        status: 'critical',
+                                    },
+                                    {
+                                        name: 'Дебаланс',
+                                        valueFirst: 30,
+                                        valueSecond: 1.27,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'Допустимый дебаланс',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'default',
+                                    },
+                                    {
+                                        name: 'Отклонение',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'normal',
+                                    },
+                                ],
+                                tankers: [
+                                    {
+                                        nameTanker: 'bus',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Авто ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'pipe',
+                                        shipped: false,
+                                        value: 528,
+                                        title: 'Авто ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'train',
+                                        shipped: false,
+                                        value: 528,
+                                        title: 'Авто ( AУТН-2 )',
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
+                name: 'ДТ сорт D3',
+                value: 12132,
+                criticalValue: 23,
+                storages: [
+                    {
+                        id: 1,
+                        nameStorage: 'D-1',
+                        status: 'critical',
+                        valueStorage: 10253,
+                        tankLevel: 10,
+                        operations: [
+                            {
+                                timeStart: '02:03:20',
+                                timeEnd: '04:08:38',
+                                tankValues: [
+                                    {
+                                        name: 'Отгружено по резервуару',
+                                        valueFirst: 1670,
+                                        valueSecond: 98.73,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'По данным отгрузки',
+                                        valueFirst: 1700,
+                                        valueSecond: 103.23,
+                                        status: 'critical',
+                                    },
+                                    {
+                                        name: 'Дебаланс',
+                                        valueFirst: 30,
+                                        valueSecond: 1.27,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'Допустимый дебаланс',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'default',
+                                    },
+                                    {
+                                        name: 'Отклонение',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'normal',
+                                    },
+                                ],
+                                tankers: [
+                                    {
+                                        nameTanker: 'Tug',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Авто ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'Tube',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Ж/Д ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'Cistern',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Труба ( AУТН-2 )',
+                                    },
+                                ],
+                            },
+                            {
+                                timeStart: '02:03:20',
+                                timeEnd: '04:08:38',
+                                tankValues: [
+                                    {
+                                        name: 'Отгружено по резервуару',
+                                        valueFirst: 1670,
+                                        valueSecond: 98.73,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'По данным отгрузки',
+                                        valueFirst: 1700,
+                                        valueSecond: 103.23,
+                                        status: 'critical',
+                                    },
+                                    {
+                                        name: 'Дебаланс',
+                                        valueFirst: 30,
+                                        valueSecond: 1.27,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'Допустимый дебаланс',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'default',
+                                    },
+                                    {
+                                        name: 'Отклонение',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'normal',
+                                    },
+                                ],
+                                tankers: [
+                                    {
+                                        nameTanker: 'Tug',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Авто ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'Tube',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Ж/Д ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'Cistern',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Труба ( AУТН-2 )',
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                    {
+                        id: 2,
+                        nameStorage: 'E-2',
+                        valueStorage: 10253,
+                        status: 'normal',
+                        tankLevel: 10,
+                        operations: [
+                            {
+                                timeStart: '02:03:20',
+                                timeEnd: '04:08:38',
+                                tankValues: [
+                                    {
+                                        name: 'Отгружено по резервуару',
+                                        valueFirst: 1670,
+                                        valueSecond: 98.73,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'По данным отгрузки',
+                                        valueFirst: 1700,
+                                        valueSecond: 103.23,
+                                        status: 'critical',
+                                    },
+                                    {
+                                        name: 'Дебаланс',
+                                        valueFirst: 30,
+                                        valueSecond: 1.27,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'Допустимый дебаланс',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'default',
+                                    },
+                                    {
+                                        name: 'Отклонение',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'normal',
+                                    },
+                                ],
+                                tankers: [
+                                    {
+                                        nameTanker: 'Tug',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Авто ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'Tube',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Ж/Д ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'Cistern',
+                                        shipped: false,
+                                        value: 528,
+                                        title: 'Труба ( AУТН-2 )',
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                    {
+                        id: 3,
+                        nameStorage: 'E-3',
+                        valueStorage: 10253,
+                        status: 'normal',
+                        tankLevel: 10,
+                        operations: [
+                            {
+                                timeStart: '02:03:20',
+                                timeEnd: '04:08:38',
+                                tankValues: [
+                                    {
+                                        name: 'Отгружено по резервуару',
+                                        valueFirst: 1670,
+                                        valueSecond: 98.73,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'По данным отгрузки',
+                                        valueFirst: 1700,
+                                        valueSecond: 103.23,
+                                        status: 'critical',
+                                    },
+                                    {
+                                        name: 'Дебаланс',
+                                        valueFirst: 30,
+                                        valueSecond: 1.27,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'Допустимый дебаланс',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'default',
+                                    },
+                                    {
+                                        name: 'Отклонение',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'normal',
+                                    },
+                                ],
+                                tankers: [
+                                    {
+                                        nameTanker: 'bus',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Авто ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'pipe',
+                                        shipped: false,
+                                        value: 528,
+                                        title: 'Авто ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'train',
+                                        shipped: false,
+                                        value: 528,
+                                        title: 'Авто ( AУТН-2 )',
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                ],
+            },
         ],
     };
 
@@ -572,6 +1604,8 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
     public activeProduct: any = [];
 
     public indexProductActive: number = 0;
+
+    public isCriticalArrow: boolean = false;
 
     public htmlProduct: number;
     public htmlStorage: number;
@@ -1290,7 +2324,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
     public clearStorage(): void {
         const clears = this.oilCircle.nativeElement.querySelectorAll('.textValues');
         clears.forEach((el) => el.remove());
-        this.clearBak();
+        this.clearPicture();
         this.clearLine();
     }
 
@@ -1300,9 +2334,9 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
         clears.forEach((el) => el.remove());
     }
 
-    public clearBak(): void {
-        // const clears = this.oilBak.nativeElement.querySelectorAll('.textProduct');
-        // clears.forEach((el) => el.remove());
+    public clearPicture(): void {
+        const clears = this.oilIcon.nativeElement.querySelectorAll('.textProduct');
+        clears.forEach((el) => el.remove());
     }
 
     public clearLine(): void {
@@ -1460,7 +2494,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                 data,
                 data[2].storages
             );
-        } else if (data[el + 1] === undefined) {
+        } else if (data[el + 1] === undefined && el < 2) {
             this.pieStart = 1;
             this.pieEnd = 2;
             this.indexProductActive = 2;
