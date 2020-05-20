@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef, OnDestroy, AfterViewInit } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { EventEmitter } from '@angular/core';
 import { OilControls } from '../../models/oil-control';
@@ -11,9 +11,8 @@ declare var d3: any;
     templateUrl: './oil-control.component.html',
     styleUrls: ['./oil-control.component.scss'],
 })
-export class OilControlComponent extends WidgetPlatform implements OnInit, OnDestroy {
+export class OilControlComponent extends WidgetPlatform implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('oilIcon') oilIcon: ElementRef;
-    @ViewChild('oilBak') oilBak: ElementRef;
     @ViewChild('oilCircle') oilCircle: ElementRef;
     @ViewChild('borders') borders: ElementRef;
     @ViewChild('line') line: ElementRef;
@@ -41,61 +40,63 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                         nameStorage: 'E-1',
                         status: 'critical',
                         valueStorage: 10253,
-                        tank: {
-                            timeStart: '02:03:20',
-                            timeEnd: '04:08:38',
-                            tankLevel: 10,
-                            tankValues: [
-                                {
-                                    name: 'Отгружено по резервуару',
-                                    valueFirst: 1670,
-                                    valueSecond: 98.73,
-                                    status: 'normal',
-                                },
-                                {
-                                    name: 'По данным отгрузки',
-                                    valueFirst: 1700,
-                                    valueSecond: 103.23,
-                                    status: 'critical',
-                                },
-                                {
-                                    name: 'Дебаланс',
-                                    valueFirst: 30,
-                                    valueSecond: 1.27,
-                                    status: 'normal',
-                                },
-                                {
-                                    name: 'Допустимый дебаланс',
-                                    valueFirst: 15,
-                                    valueSecond: 103.23,
-                                    status: 'default',
-                                },
-                                {
-                                    name: 'Отклонение',
-                                    valueFirst: 15,
-                                    valueSecond: 103.23,
-                                    status: 'normal',
-                                },
-                            ],
-                        },
-                        tankers: [
+                        tankLevel: 10,
+                        operations: [
                             {
-                                nameTanker: 'Tug',
-                                shipped: true,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'Tube',
-                                shipped: true,
-                                value: 528,
-                                title: 'Ж/Д ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'Cistern',
-                                shipped: true,
-                                value: 528,
-                                title: 'Труба ( AУТН-2 )',
+                                timeStart: '02:03:20',
+                                timeEnd: '04:08:38',
+                                tankValues: [
+                                    {
+                                        name: 'Отгружено по резервуару',
+                                        valueFirst: 1670,
+                                        valueSecond: 98.73,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'По данным отгрузки',
+                                        valueFirst: 1700,
+                                        valueSecond: 103.23,
+                                        status: 'critical',
+                                    },
+                                    {
+                                        name: 'Дебаланс',
+                                        valueFirst: 30,
+                                        valueSecond: 1.27,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'Допустимый дебаланс',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'default',
+                                    },
+                                    {
+                                        name: 'Отклонение',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'normal',
+                                    },
+                                ],
+                                tankers: [
+                                    {
+                                        nameTanker: 'Tug',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Авто ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'Tube',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Ж/Д ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'Cistern',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Труба ( AУТН-2 )',
+                                    },
+                                ],
                             },
                         ],
                     },
@@ -104,61 +105,63 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                         nameStorage: 'E-2',
                         valueStorage: 10253,
                         status: 'normal',
-                        tank: {
-                            timeStart: '020320',
-                            timeEnd: '040838',
-                            tankLevel: 70,
-                            tankValues: [
-                                {
-                                    name: 'Отгружено по резервуару',
-                                    valueFirst: 1240,
-                                    valueSecond: 98.73,
-                                    status: 'normal',
-                                },
-                                {
-                                    name: 'По данным отгрузки',
-                                    valueFirst: 1700,
-                                    valueSecond: 103.23,
-                                    status: 'normal',
-                                },
-                                {
-                                    name: 'Дебаланс',
-                                    valueFirst: 30,
-                                    valueSecond: 1.27,
-                                    status: 'normal',
-                                },
-                                {
-                                    name: 'Допустимый дебаланс',
-                                    valueFirst: 15,
-                                    valueSecond: 103.23,
-                                    status: 'normal',
-                                },
-                                {
-                                    name: 'Отклонение',
-                                    valueFirst: 0,
-                                    valueSecond: 0,
-                                    status: 'normal',
-                                },
-                            ],
-                        },
-                        tankers: [
+                        tankLevel: 10,
+                        operations: [
                             {
-                                nameTanker: 'Tug',
-                                shipped: true,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'Tube',
-                                shipped: true,
-                                value: 528,
-                                title: 'Ж/Д ( AУТН-2 )',
-                            },
-                            {
-                                nameTanker: 'Cistern',
-                                shipped: false,
-                                value: 528,
-                                title: 'Труба ( AУТН-2 )',
+                                timeStart: '02:03:20',
+                                timeEnd: '04:08:38',
+                                tankValues: [
+                                    {
+                                        name: 'Отгружено по резервуару',
+                                        valueFirst: 1670,
+                                        valueSecond: 98.73,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'По данным отгрузки',
+                                        valueFirst: 1700,
+                                        valueSecond: 103.23,
+                                        status: 'critical',
+                                    },
+                                    {
+                                        name: 'Дебаланс',
+                                        valueFirst: 30,
+                                        valueSecond: 1.27,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'Допустимый дебаланс',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'default',
+                                    },
+                                    {
+                                        name: 'Отклонение',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'normal',
+                                    },
+                                ],
+                                tankers: [
+                                    {
+                                        nameTanker: 'Tug',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Авто ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'Tube',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Ж/Д ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'Cistern',
+                                        shipped: false,
+                                        value: 528,
+                                        title: 'Труба ( AУТН-2 )',
+                                    },
+                                ],
                             },
                         ],
                     },
@@ -167,61 +170,321 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                         nameStorage: 'E-3',
                         valueStorage: 10253,
                         status: 'normal',
-                        tank: {
-                            timeStart: '020320',
-                            timeEnd: '040838',
-                            tankLevel: 100,
-                            tankValues: [
-                                {
-                                    name: 'Отгружено по резервуару',
-                                    valueFirst: 1670,
-                                    valueSecond: 98.73,
-                                    status: 'normal',
-                                },
-                                {
-                                    name: 'По данным отгрузки',
-                                    valueFirst: 1700,
-                                    valueSecond: 103.23,
-                                    status: 'normal',
-                                },
-                                {
-                                    name: 'Дебаланс',
-                                    valueFirst: 30,
-                                    valueSecond: 1.27,
-                                    status: 'default',
-                                },
-                                {
-                                    name: 'Допустимый дебаланс',
-                                    valueFirst: 15,
-                                    valueSecond: 103.23,
-                                    status: 'normal',
-                                },
-                                {
-                                    name: 'Отклонение',
-                                    valueFirst: 0,
-                                    valueSecond: 0,
-                                    status: 'normal',
-                                },
-                            ],
-                        },
-                        tankers: [
+                        tankLevel: 10,
+                        operations: [
                             {
-                                nameTanker: 'bus',
-                                shipped: true,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
+                                timeStart: '02:03:20',
+                                timeEnd: '04:08:38',
+                                tankValues: [
+                                    {
+                                        name: 'Отгружено по резервуару',
+                                        valueFirst: 1670,
+                                        valueSecond: 98.73,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'По данным отгрузки',
+                                        valueFirst: 1700,
+                                        valueSecond: 103.23,
+                                        status: 'critical',
+                                    },
+                                    {
+                                        name: 'Дебаланс',
+                                        valueFirst: 30,
+                                        valueSecond: 1.27,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'Допустимый дебаланс',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'default',
+                                    },
+                                    {
+                                        name: 'Отклонение',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'normal',
+                                    },
+                                ],
+                                tankers: [
+                                    {
+                                        nameTanker: 'bus',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Авто ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'pipe',
+                                        shipped: false,
+                                        value: 528,
+                                        title: 'Авто ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'train',
+                                        shipped: false,
+                                        value: 528,
+                                        title: 'Авто ( AУТН-2 )',
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
+                name: 'ДТ сорт D',
+                value: 12132,
+                criticalValue: 23,
+                storages: [
+                    {
+                        id: 1,
+                        nameStorage: 'D-1',
+                        status: 'critical',
+                        valueStorage: 10253,
+                        tankLevel: 10,
+                        operations: [
+                            {
+                                timeStart: '02:03:20',
+                                timeEnd: '04:08:38',
+                                tankValues: [
+                                    {
+                                        name: 'Отгружено по резервуару',
+                                        valueFirst: 1670,
+                                        valueSecond: 98.73,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'По данным отгрузки',
+                                        valueFirst: 1700,
+                                        valueSecond: 103.23,
+                                        status: 'critical',
+                                    },
+                                    {
+                                        name: 'Дебаланс',
+                                        valueFirst: 30,
+                                        valueSecond: 1.27,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'Допустимый дебаланс',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'default',
+                                    },
+                                    {
+                                        name: 'Отклонение',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'normal',
+                                    },
+                                ],
+                                tankers: [
+                                    {
+                                        nameTanker: 'Tug',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Авто ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'Tube',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Ж/Д ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'Cistern',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Труба ( AУТН-2 )',
+                                    },
+                                ],
                             },
                             {
-                                nameTanker: 'pipe',
-                                shipped: false,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
+                                timeStart: '02:03:20',
+                                timeEnd: '04:08:38',
+                                tankValues: [
+                                    {
+                                        name: 'Отгружено по резервуару',
+                                        valueFirst: 1670,
+                                        valueSecond: 98.73,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'По данным отгрузки',
+                                        valueFirst: 1700,
+                                        valueSecond: 103.23,
+                                        status: 'critical',
+                                    },
+                                    {
+                                        name: 'Дебаланс',
+                                        valueFirst: 30,
+                                        valueSecond: 1.27,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'Допустимый дебаланс',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'default',
+                                    },
+                                    {
+                                        name: 'Отклонение',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'normal',
+                                    },
+                                ],
+                                tankers: [
+                                    {
+                                        nameTanker: 'Tug',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Авто ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'Tube',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Ж/Д ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'Cistern',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Труба ( AУТН-2 )',
+                                    },
+                                ],
                             },
+                        ],
+                    },
+                    {
+                        id: 2,
+                        nameStorage: 'E-2',
+                        valueStorage: 10253,
+                        status: 'normal',
+                        tankLevel: 10,
+                        operations: [
                             {
-                                nameTanker: 'train',
-                                shipped: false,
-                                value: 528,
-                                title: 'Авто ( AУТН-2 )',
+                                timeStart: '02:03:20',
+                                timeEnd: '04:08:38',
+                                tankValues: [
+                                    {
+                                        name: 'Отгружено по резервуару',
+                                        valueFirst: 1670,
+                                        valueSecond: 98.73,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'По данным отгрузки',
+                                        valueFirst: 1700,
+                                        valueSecond: 103.23,
+                                        status: 'critical',
+                                    },
+                                    {
+                                        name: 'Дебаланс',
+                                        valueFirst: 30,
+                                        valueSecond: 1.27,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'Допустимый дебаланс',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'default',
+                                    },
+                                    {
+                                        name: 'Отклонение',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'normal',
+                                    },
+                                ],
+                                tankers: [
+                                    {
+                                        nameTanker: 'Tug',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Авто ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'Tube',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Ж/Д ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'Cistern',
+                                        shipped: false,
+                                        value: 528,
+                                        title: 'Труба ( AУТН-2 )',
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                    {
+                        id: 3,
+                        nameStorage: 'E-3',
+                        valueStorage: 10253,
+                        status: 'normal',
+                        tankLevel: 10,
+                        operations: [
+                            {
+                                timeStart: '02:03:20',
+                                timeEnd: '04:08:38',
+                                tankValues: [
+                                    {
+                                        name: 'Отгружено по резервуару',
+                                        valueFirst: 1670,
+                                        valueSecond: 98.73,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'По данным отгрузки',
+                                        valueFirst: 1700,
+                                        valueSecond: 103.23,
+                                        status: 'critical',
+                                    },
+                                    {
+                                        name: 'Дебаланс',
+                                        valueFirst: 30,
+                                        valueSecond: 1.27,
+                                        status: 'normal',
+                                    },
+                                    {
+                                        name: 'Допустимый дебаланс',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'default',
+                                    },
+                                    {
+                                        name: 'Отклонение',
+                                        valueFirst: 15,
+                                        valueSecond: 103.23,
+                                        status: 'normal',
+                                    },
+                                ],
+                                tankers: [
+                                    {
+                                        nameTanker: 'bus',
+                                        shipped: true,
+                                        value: 528,
+                                        title: 'Авто ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'pipe',
+                                        shipped: false,
+                                        value: 528,
+                                        title: 'Авто ( AУТН-2 )',
+                                    },
+                                    {
+                                        nameTanker: 'train',
+                                        shipped: false,
+                                        value: 528,
+                                        title: 'Авто ( AУТН-2 )',
+                                    },
+                                ],
                             },
                         ],
                     },
@@ -294,8 +557,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
     public pieStartStorage: number = 3;
     public pieEndStorage: number = 3;
 
-    public rectYHeight: number = 370;
-
     public countClickChange: number = 0;
     public countClickChangeStorage: number = 0;
 
@@ -306,9 +567,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
     public indexTestStorage: number = 0;
 
     public indexData: number = 0;
-
-    public maxPage: number;
-    public currentPage: number;
 
     public activeStorage: any;
     public activeProduct: any = [];
@@ -322,17 +580,11 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
     public newWidth: number;
     public checkWidth: boolean = false;
 
-    public criticalPage: any = [];
-
-    public isCriticalArrow: boolean = false;
-
     public svgMenu: any;
     public tankersPicture: any;
-    public tankPicture: any;
     public svgLine: any;
 
     public checkRemove: boolean = false;
-    public checkCriticalTank: boolean = false;
 
     public savePosition: boolean = false;
     public savePositionProduct: number;
@@ -353,9 +605,8 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         @Inject('resizeWidget') public resizeWidget: EventEmitter<MouseEvent>
     ) {
         super(widgetService, isMock, id, uniqId);
+        this.isRealtimeData = false;
 
-        this.currentPage = 3;
-        this.maxPage = this.data.products[0].storages.length;
         this.activeProduct = this.data.products;
         if (this.activeProduct[0].storages.length < 3) {
             this.activeStorage = this.activeProduct[2].storages[1];
@@ -368,6 +619,10 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
 
     ngOnInit(): void {
         super.widgetInit();
+    }
+
+    ngAfterViewInit(): void {
+        this.drawOilControlSocket(this.data);
     }
 
     ngOnDestroy(): void {
@@ -387,7 +642,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
     }
 
     protected dataHandler(ref: any): void {
-        this.drawOilControlSocket(ref);
+        // this.drawOilControlSocket(ref);
     }
 
     drawOilControlSocket(ref): void {
@@ -396,7 +651,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         if (this.svgMenu) {
             this.clearProduct();
             this.tankersPicture.remove();
-            this.tankPicture.remove();
             this.svgLine.remove();
         }
         let count = 0;
@@ -405,13 +659,12 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         }
         this.indexTestProduct = count - 1;
         this.drawOilControl(this.data);
-        if (this.checkSocket === true && this.savePositionProduct !== undefined) {
-            this.onButtonChangeProduct(this.savePositionProduct);
-            if (this.saveDataStorage.length !== 0) {
-                this.onButtonChangeStorage(this.savePositionStorage, this.saveDataStorage);
-                this.currentPage = this.saveCurrentPage;
-            }
-        }
+        // if (this.checkSocket === true && this.savePositionProduct !== undefined) {
+        //     this.onButtonChangeProduct(this.savePositionProduct);
+        //     if (this.saveDataStorage.length !== 0) {
+        //         this.onButtonChangeStorage(this.savePositionStorage, this.saveDataStorage);
+        //     }
+        // }
 
         this.savePosition = true;
         this.checkSocket = false;
@@ -423,7 +676,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
 
     public drawOilControl(data): void {
         this.drawPicture(this.oilIcon.nativeElement);
-        this.drawBak(this.oilBak.nativeElement);
         this.FilterCircle(data.products, this.indexTestProduct);
     }
 
@@ -447,13 +699,13 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         let x4 = -48;
         let y = 110;
 
-        let tug = './assets/pic/Icons3D/Tug.png';
-        let tube = './assets/pic/Icons3D/Tube.png';
-        let cis = './assets/pic/Icons3D/Cistern.png';
+        const tug = './assets/pic/Icons3D/Tug.png';
+        const tube = './assets/pic/Icons3D/Tube.png';
+        const cis = './assets/pic/Icons3D/Cistern.png';
 
         let countPicture = 0;
 
-        for (let i of this.activeStorage.tankers) {
+        for (const i of this.activeStorage.operations[0].tankers) {
             if (i.shipped === true) {
                 countPicture++;
             }
@@ -477,7 +729,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
             x4 = -48;
         }
 
-        for (let item of this.activeStorage.tankers) {
+        for (const item of this.activeStorage.operations[0].tankers) {
             if (item.shipped === true) {
                 let pictureContainer = this.tankersPicture
                     .append('image')
@@ -586,7 +838,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         data,
         dataStorage
     ): void {
-        this.criticalPage = [];
         this.svgMenu = d3.select(el.firstElementChild);
 
         let svgMenu = this.svgMenu;
@@ -869,7 +1120,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                 if (indexPies1 === indexStorage) {
                     if (pie.point === 3) {
                         if (textStorage.status === 'critical') {
-                            this.criticalPage.push(textStorage.id);
                         }
                         let valueBadText = test
                             .append('text')
@@ -894,7 +1144,6 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                             .text(textStorage.valueStorage);
                     } else {
                         if (textStorage.status === 'critical') {
-                            this.criticalPage.push(textStorage.id);
                             let valueGoodText = test
                                 .append('text')
                                 .attr(
@@ -955,86 +1204,23 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
         }
     }
 
-    public drawBak(el): void {
-        this.isCriticalArrow = false;
-        this.tankPicture = d3
-            .select(el)
-            .append('svg')
-            .attr('min-width', '100px')
-            .attr('height', '100%')
-            .attr('width', '100%')
-            .attr('class', 'textProduct')
-            .attr('viewBox', '0 40 350 380');
-
-        let pictureContainer = this.tankPicture
-            .append('image')
-            .attr('xlink:href', './assets/pic/OilControl/Bak.png')
-            .attr('height', '450px')
-            .attr('width', '350px')
-            .attr('x', '0')
-            .attr('class', 'textProduct')
-            .attr('y', '0');
-        let rect = this.tankPicture
-            .append('rect')
-            .attr('fill', '#a2e2ff')
-            .attr('opacity', '0.9')
-            .attr('height', this.activeStorage.tank.tankLevel * 2.2)
-            .attr('width', '260px')
-            .attr('x', '63')
-            .attr('class', 'textProduct')
-            .attr('y', this.rectYHeight - this.activeStorage.tank.tankLevel * 2.2 + 10);
-
-        for (let item of this.activeStorage.tank.tankValues) {
-            if (item.status === 'critical') {
-                this.isCriticalArrow = true;
-                this.checkCriticalTank = true;
-                let bakValue = this.tankPicture
-                    .append('text')
-                    .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                    .attr('font-size', '38px')
-                    .attr('x', '190')
-                    .attr('y', '100')
-                    .attr('text-anchor', 'middle')
-                    .attr('class', 'textProduct')
-                    .attr('fill', 'orange')
-                    .text(item.valueFirst);
-                break;
-            }
-        }
-        if (this.checkCriticalTank === false) {
-            let bakValue = this.tankPicture
-                .append('text')
-                .attr('font-family', "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;")
-                .attr('font-size', '38px')
-                .attr('x', '190')
-                .attr('y', '100')
-                .attr('text-anchor', 'middle')
-                .attr('class', 'textProduct')
-                .attr('fill', 'white')
-                .text(this.activeStorage.tank.tankValues[0].valueFirst);
-        }
-        this.checkCriticalTank = false;
-    }
-
     public onButtonChangeProduct(index): void {
         this.clearProduct();
+        let newProduct: number;
         if (this.countClickChange === 0 && !this.checkSocket) {
             this.changeMassiv(index, this.data.products);
-            this.indexTestStorage = this.countStorage(this.newArrayProduct[2]);
-            this.FilterStorageCircle(this.newArrayProduct[2], this.indexTestStorage);
+            newProduct = this.findAndFilterProduct(this.newArrayProduct, index, this.indexTestStorage);
             this.countClickChange++;
         } else if (this.checkSocket && this.countClickChange === 0) {
             this.newArrayProduct = this.data.products;
-            this.indexTestStorage = this.countStorage(this.newArrayProduct[2]);
-            this.FilterStorageCircle(this.newArrayProduct[2], this.indexTestStorage);
+            newProduct = this.findAndFilterProduct(this.newArrayProduct, index, this.indexTestStorage);
         } else if (this.checkSocket) {
             this.changeMassiv(index, this.data.products);
-            this.indexTestStorage = this.countStorage(this.newArrayProduct[2]);
-            this.FilterStorageCircle(this.newArrayProduct[2], this.indexTestStorage);
+            newProduct = this.findAndFilterProduct(this.newArrayProduct, index, this.indexTestStorage);
+
         } else {
             this.changeMassiv(index, this.newArrayProduct);
-            this.indexTestStorage = this.countStorage(this.newArrayProduct[2]);
-            this.FilterStorageCircle(this.newArrayProduct[2], this.indexTestStorage);
+            newProduct = this.findAndFilterProduct(this.newArrayProduct, index, this.indexTestStorage);
         }
         this.drawOnCircle(
             this.oilCircle.nativeElement,
@@ -1043,36 +1229,20 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
             this.pieStartStorage,
             this.pieEndStorage,
             this.newArrayProduct,
-            this.newArrayProduct[2].storages
+            this.newArrayProduct[newProduct].storages
         );
-        this.drawBak(this.oilBak.nativeElement);
+        // this.drawBak(this.oilBak.nativeElement);
         this.drawPicture(this.oilIcon.nativeElement);
     }
 
-    public onNextStorage(event): void {
-        this.clickPaginator = true;
-        if (this.countClickChange === 0) {
-            for (let item of this.data.products[2].storages) {
-                if (item.id === event) {
-                    if (this.countClickChangeStorage === 0) {
-                        this.onButtonChangeStorage(item.id, this.data.products[2].storages);
-                    } else {
-                        this.onButtonChangeStorage(item.id, this.htmlDataStorage);
-                    }
-                }
-            }
-        } else {
-            for (let item of this.htmlDataStorage) {
-                if (item.id === event) {
-                    this.onButtonChangeStorage(item.id, this.htmlDataStorage);
-                }
-            }
-        }
+    findAndFilterProduct(arr, index, indexStorage): number {
+        const indexProductStorage = arr.findIndex(e => e.name === index);
+        this.indexTestStorage = this.countStorage(arr[indexProductStorage]);
+        this.FilterStorageCircle(arr[indexProductStorage], indexStorage);
+        return indexProductStorage;
     }
 
     public onButtonChangeStorage(index, data): void {
-        this.currentPage = index;
-        this.saveCurrentPage = this.currentPage;
         this.clearProduct();
 
         if (this.countClickChange === 0 && !this.checkSocket) {
@@ -1111,7 +1281,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                 this.newArrayStorage
             );
         }
-        this.drawBak(this.oilBak.nativeElement);
+        // this.drawBak(this.oilBak.nativeElement);
         this.drawPicture(this.oilIcon.nativeElement);
     }
 
@@ -1131,8 +1301,8 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
     }
 
     public clearBak(): void {
-        const clears = this.oilBak.nativeElement.querySelectorAll('.textProduct');
-        clears.forEach((el) => el.remove());
+        // const clears = this.oilBak.nativeElement.querySelectorAll('.textProduct');
+        // clears.forEach((el) => el.remove());
     }
 
     public clearLine(): void {
@@ -1161,7 +1331,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                     }
                 } else {
                     move = 'prev';
-                    if (indexProduct === 2) {
+                    if (indexProduct === 1) {
                         newIndexProduct = 1;
                         this.shiftMassiv(newIndexProduct, move);
                     } else {
@@ -1291,11 +1461,11 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                 data[2].storages
             );
         } else if (data[el + 1] === undefined) {
-            this.pieStart = 0;
-            this.pieEnd = 4;
+            this.pieStart = 1;
+            this.pieEnd = 2;
             this.indexProductActive = 2;
-            this.indexTestStorage = this.countStorage(data[2]);
-            this.FilterStorageCircle(data[2], this.indexTestStorage);
+            this.indexTestStorage = this.countStorage(data[el]);
+            this.FilterStorageCircle(data[el], this.indexTestStorage);
             return this.drawOnCircle(
                 this.oilCircle.nativeElement,
                 this.pieStart,
@@ -1303,7 +1473,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
                 this.pieStartStorage,
                 this.pieEndStorage,
                 data,
-                data[2].storages
+                data[el].storages
             );
         } else {
             this.pieStart = 0;
@@ -1332,33 +1502,26 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, OnDes
     }
 
     public FilterStorageCircle(data, el): void {
-        this.maxPage = el + 1;
         this.pieStartStorage = 2;
         if (data.storages[el + 1] === undefined && el === 0) {
             this.pieEndStorage = 2;
             this.pieStartStorage = 2;
-            this.currentPage = 1;
         } else if (data.storages[el + 1] !== undefined && el < 3) {
             this.pieStartStorage = this.pieStartStorage - 1;
             this.indexTestStorage++;
-            this.currentPage = 2;
             return this.FilterStorageCircle(data, this.indexTestStorage);
         } else if (data.storages[el + 1] === undefined && el === 1) {
             this.pieStartStorage = 1;
             this.pieEndStorage = 2;
-            this.currentPage = 3;
         } else if (data.storages[el + 1] === undefined && el === 3) {
             this.pieStartStorage = 0;
             this.pieEndStorage = 3;
-            this.currentPage = 3;
         } else if (data.storages[el + 1] === undefined && el === 4) {
             this.pieStartStorage = 0;
             this.pieEndStorage = 3;
-            this.currentPage = 3;
         } else {
             this.pieStartStorage = 0;
             this.pieEndStorage = 4;
-            this.currentPage = 3;
         }
     }
 }

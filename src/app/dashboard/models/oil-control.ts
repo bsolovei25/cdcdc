@@ -16,15 +16,15 @@ export interface OilStorages {
     nameStorage: string;
     status: string;
     valueStorage: number;
-    tank: OilTank;
-    tankers: OilTankers[];
+    tankLevel: number;
+    operations: OilTankOperation[];
 }
 
-export interface OilTank {
+export interface OilTankOperation {
     timeStart: string;
     timeEnd: string;
-    tankLevel: number;
     tankValues: OilTankValues[];
+    tankers: OilTankers[];
 }
 
 export interface OilTankValues {
