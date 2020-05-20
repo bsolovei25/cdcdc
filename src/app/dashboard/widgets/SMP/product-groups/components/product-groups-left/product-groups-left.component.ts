@@ -205,7 +205,7 @@ export class ProductGroupsLeftComponent implements OnInit, OnChanges {
             .attr('xlink:href', 'assets/icons/widgets/SMP/product-group-planning/arrow.svg')
             .attr('height', '35px')
             .attr('width', '35px')
-            .attr('x', '395')
+            .attr('x', '405')
             .attr('y', '32');
     }
 
