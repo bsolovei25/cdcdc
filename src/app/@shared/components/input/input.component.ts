@@ -21,7 +21,7 @@ export class InputComponent implements OnInit {
     @Input() public value: string = '';
     @Input() public isDisabled: boolean = false;
     @Input() public focused: boolean = false;
-    @Input() public appearance: formFieldAppearance = 'standard';
+    @Input() public appearance: formFieldAppearance = 'none';
     @Output() public inputedValue: EventEmitter<string> = new EventEmitter<string>();
     @Output() public unfocus: EventEmitter<string> = new EventEmitter<string>();
     @ViewChild('input') public input: ElementRef;
