@@ -27,7 +27,9 @@ export class ProductGroupsTableComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    this.datas = this.map(this.data);
+    if (this.data) {
+      this.datas = this.map(this.data);
+    }
   }
 
   ngAfterViewChecked(): void {

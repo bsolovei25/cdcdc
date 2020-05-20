@@ -89,7 +89,8 @@ app-widget-c {
 .widget {
   margin-top: 10px;
   height: 200px;
-  width: 490px;
+  width: 444px;
+  overflow: hidden;
 }
 
 gridster-item {
@@ -217,6 +218,7 @@ gridster-item {
   &__list {
     flex: 1;
     overflow-y: scroll;
+    margin-left: 5px;
   }
 }
 

@@ -33,6 +33,16 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
         @Inject('uniqId') public uniqId: string
     ) {
         super(widgetService, isMock, id, uniqId);
+        this.widgetIcon = 'document';
+        this.dateAdapter.setLocale('ru');
+    }
+
+    ngOnInit(): void {
+        super.widgetInit();
+    }
+
+    protected dataConnect(): void {
+        super.dataConnect();
         this.subscriptions.push(
             this.authService.user$.subscribe((data: IUser) => {
                 if (data) {
@@ -40,17 +50,6 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
                 }
             })
         );
-        this.widgetIcon = 'document';
-        this.dateAdapter.setLocale('ru');
-    }
-
-    ngOnInit(): void {
-        super.widgetInit();
-        this.ewService.loadItem();
-    }
-
-    protected dataConnect(): void {
-        super.dataConnect();
         this.subscriptions.push(
             this.eventService.event$.subscribe((value) => {
                 if (value) {
@@ -61,6 +60,7 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
                 }
             })
         );
+        this.ewService.loadItem();
     }
 
     protected dataHandler(ref: any): void {
