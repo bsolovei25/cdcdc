@@ -2,11 +2,6 @@ import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { WidgetPlatform } from 'src/app/dashboard/models/widget-platform';
 import { WidgetService } from 'src/app/dashboard/services/widget.service';
 
-export interface IQualityStock {
-  security: IQualityStockSecurity;
-  circle: IQualityStockCircle;
-}
-
 export interface IQualityStockSecurity {
   allValue: number;
   filed: number;
@@ -28,35 +23,9 @@ export interface IQualityStockCircle {
 })
 export class QualityStockComponent extends WidgetPlatform implements OnInit, OnDestroy {
 
-  public data: IQualityStock = {
-    security: {
-      allValue: 45321,
-      filed: 45321,
-      notFiled: 45321,
-    },
-    circle: {
-      factPercent: 85,
-      deviationPercent: 2,
-      value: 0.2,
-      deviation: 0.18,
-      deviationStatus: true,
-    }
-  };
 
-  public data2: IQualityStock = {
-    security: {
-      allValue: 45321,
-      filed: 45321,
-      notFiled: 45321,
-    },
-    circle: {
-      factPercent: 45,
-      deviationPercent: 2,
-      value: 0.2,
-      deviation: 0.18,
-      deviationStatus: true,
-    }
-  };
+  public dataSecurity: IQualityStockSecurity;
+  public dataCircle: IQualityStockCircle;
 
   constructor(
     protected widgetService: WidgetService,
@@ -65,14 +34,10 @@ export class QualityStockComponent extends WidgetPlatform implements OnInit, OnD
     @Inject('uniqId') public uniqId: string
   ) {
     super(widgetService, isMock, id, uniqId);
-    this.isRealtimeData = false;
   }
 
   public ngOnInit(): void {
     super.widgetInit();
-    setTimeout(() => {
-      this.data = this.data2;
-    }, 3000);
   }
 
   public ngOnDestroy(): void {
@@ -80,6 +45,8 @@ export class QualityStockComponent extends WidgetPlatform implements OnInit, OnD
   }
 
   protected dataHandler(ref: any): void {
+    this.dataSecurity = ref.security;
+    this.dataCircle = ref.circle;
   }
 
 }

@@ -1,1 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26.82 20.86"><defs><style>.bef079be-ce38-404e-a011-111b5eb8f7fc{fill:#f4a321;fill-opacity:0.2;}.bef079be-ce38-404e-a011-111b5eb8f7fc,.e78de1f4-3a41-48c5-ba79-88f3a7e79b9c{stroke:#f4a321;stroke-miterlimit:10;stroke-width:0.5px;}.e78de1f4-3a41-48c5-ba79-88f3a7e79b9c{fill:none;}</style></defs><title>left-pie-right-bottom-button</title><g id="ba71a725-dcd8-4f1d-be10-63a33a47a111" data-name="Слой 2"><g id="b09c95d8-0477-4fa6-b62a-21fcd0612bea" data-name="Layer 1"><polyline class="bef079be-ce38-404e-a011-111b5eb8f7fc" points="26.58 0.25 5.75 0.25 5.75 15.59 0.61 20.61 15.88 20.61 21.43 20.61 26.57 15.59 26.57 0.25"/><polyline class="e78de1f4-3a41-48c5-ba79-88f3a7e79b9c" points="14.36 12.62 10.38 12.62 10.38 5.13 20.24 5.13 20.24 8.05"/><polyline class="e78de1f4-3a41-48c5-ba79-88f3a7e79b9c" points="12.98 6.69 11.94 6.69 11.94 7.46"/><polyline class="e78de1f4-3a41-48c5-ba79-88f3a7e79b9c" points="18.68 7.46 18.68 6.69 17.64 6.69"/><path class="e78de1f4-3a41-48c5-ba79-88f3a7e79b9c" d="M20.37,13.21A6.13,6.13,0,0,0,18.3,9.6a6.07,6.07,0,0,0-2.07,3.61,1.79,1.79,0,0,0,0,.23,2.09,2.09,0,1,0,4.17,0A1.77,1.77,0,0,0,20.37,13.21Z"/></g></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26.82 20.86"><defs>
+<style>.bef079be-ce38-404e-a011-111b5eb8f7fc{fill:#1b1f2c;stroke:#5b607d;opacity:0.5;}.bef079be-ce38-404e-a011-111b5eb8f7fc,.e78de1f4-3a41-48c5-ba79-88f3a7e79b9c{stroke-miterlimit:10;stroke-width:0.5px;}.e78de1f4-3a41-48c5-ba79-88f3a7e79b9c{fill:none;stroke:#5f6580;}</style>
+</defs><title>left-pie-right-bottom-button</title>
+<g id="ba71a725-dcd8-4f1d-be10-63a33a47a111" data-name="Слой 2">
+<g id="b09c95d8-0477-4fa6-b62a-21fcd0612bea" data-name="Layer 1">
+<polyline class="bef079be-ce38-404e-a011-111b5eb8f7fc" points="26.58 0.25 5.75 0.25 5.75 15.59 0.61 20.61 15.88 20.61 21.43 20.61 26.57 15.59 26.57 0.25"/>
+<polyline class="e78de1f4-3a41-48c5-ba79-88f3a7e79b9c" points="14.36 12.62 10.38 12.62 10.38 5.13 20.24 5.13 20.24 8.05"/>
+<polyline class="e78de1f4-3a41-48c5-ba79-88f3a7e79b9c" points="12.98 6.69 11.94 6.69 11.94 7.46"/>
+<polyline class="e78de1f4-3a41-48c5-ba79-88f3a7e79b9c" points="18.68 7.46 18.68 6.69 17.64 6.69"/>
+<path class="e78de1f4-3a41-48c5-ba79-88f3a7e79b9c" d="M20.37,13.21A6.13,6.13,0,0,0,18.3,9.6a6.07,6.07,0,0,0-2.07,3.61,1.79,1.79,0,0,0,0,.23,2.09,2.09,0,1,0,4.17,0A1.77,1.77,0,0,0,20.37,13.21Z"/>
+</g></g></svg>

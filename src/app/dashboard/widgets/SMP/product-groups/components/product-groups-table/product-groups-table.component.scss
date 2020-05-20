@@ -4,7 +4,7 @@
   height: calc(100%);
 }
 
-.container{
+.container {
   height: 100%;
   position: relative;
   min-width: 960px;
@@ -290,7 +290,7 @@ table {
     content: "";
     position: absolute;
     width: 23px;
-    height: 6px;
+    height: 4px;
     background: var(--color-bg-main);
     border-top: 1px dashed var(--color-smp-border);
     transform: rotate(-45deg);
@@ -452,11 +452,11 @@ table {
 .topscroll {
   z-index: 999;
   position: absolute;
-  width: calc(100% - 760px);
+  width: calc(100% - 745px);
   height: 20px;
   direction: ltr;
   overflow-x: scroll;
-  left: 380px;
+  left: 371px;
   bottom: 5px;
 }
 
@@ -560,7 +560,7 @@ table {
   display: none !important;
 }
 
-.container-short{
+.container-short {
   min-width: 590px !important;
 }
 
@@ -598,7 +598,7 @@ table {
 }
 
 .scroll {
-  width: calc(100% - 390px);
+  width: calc(100% - 378px);
 }
 
 .line-short {

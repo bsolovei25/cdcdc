@@ -19,47 +19,7 @@ export interface IImplementationPlan {
 })
 export class ImplementationPlanComponent extends WidgetPlatform implements OnInit, OnDestroy {
 
-  public data: IImplementationPlan[] = [
-    {
-      id: 1,
-      title: 'Нефть',
-      value: 1232421,
-      deviation: '+0,2',
-      deviationPercent: 10,
-      factTankLevel: 10,
-      planTankLevel: 40,
-    },
-    {
-      id: 2,
-      title: 'КГС',
-      value: 1232421,
-      deviation: '+0,2',
-      deviationPercent: 10,
-      factTankLevel: 10,
-      planTankLevel: 40,
-    }
-  ];
-
-  public data2: IImplementationPlan[] = [
-    {
-      id: 1,
-      title: 'Нефть1',
-      value: 1232421,
-      deviation: '+0,2',
-      deviationPercent: 10,
-      factTankLevel: 10,
-      planTankLevel: 40,
-    },
-    {
-      id: 2,
-      title: 'КГС2',
-      value: 1232421,
-      deviation: '+0,2',
-      deviationPercent: 20,
-      factTankLevel: 10,
-      planTankLevel: 30,
-    }
-  ];
+  public data: IImplementationPlan[] = [];
 
   constructor(
     protected widgetService: WidgetService,
@@ -68,14 +28,10 @@ export class ImplementationPlanComponent extends WidgetPlatform implements OnIni
     @Inject('uniqId') public uniqId: string
   ) {
     super(widgetService, isMock, id, uniqId);
-    this.isRealtimeData = false;
   }
 
   public ngOnInit(): void {
     super.widgetInit();
-    setTimeout(() => {
-      this.data = this.data2;
-    }, 3000);
   }
 
   public ngOnDestroy(): void {
@@ -83,6 +39,7 @@ export class ImplementationPlanComponent extends WidgetPlatform implements OnIni
   }
 
   protected dataHandler(ref: any): void {
+    this.data = ref.items;
   }
 
 }
