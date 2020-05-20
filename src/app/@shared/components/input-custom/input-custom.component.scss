@@ -45,6 +45,10 @@
     padding-right: 30px;
   }
 
+  &_disabled {
+    opacity: 0.5;
+  }
+
   // STATES
   &_normal {
     &.input-container {

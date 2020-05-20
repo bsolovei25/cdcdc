@@ -1,21 +1,14 @@
-import { Component, OnInit, Renderer2, ViewChild, ElementRef, forwardRef } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    Renderer2,
+    ViewChild,
+    ElementRef,
+    forwardRef,
+    Input,
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-
-interface IInputIcon {
-    src: string;
-    svgStyle: { [key: string]: number | string };
-    isClickable: boolean;
-    onClick?: () => void;
-    secState?: string;
-}
-
-interface IInputOptions {
-    type: string;
-    state: 'normal' | 'rounded' | 'warning' | 'danger';
-    placeholder: string;
-    isMovingPlaceholder: boolean;
-    icon?: IInputIcon;
-}
+import { IInputOptions } from '../../models/input.model';
 
 @Component({
     selector: 'evj-input-custom',
@@ -30,11 +23,9 @@ interface IInputOptions {
     ],
 })
 export class InputCustomComponent implements OnInit, ControlValueAccessor {
-    @ViewChild('input', { static: true }) private input: ElementRef;
-
-    public options: IInputOptions = {
+    @Input() public options: IInputOptions = {
         type: 'text',
-        state: 'rounded',
+        state: 'normal',
         placeholder: 'Введите текст',
         isMovingPlaceholder: true,
         icon: {
@@ -50,8 +41,10 @@ export class InputCustomComponent implements OnInit, ControlValueAccessor {
             secState: 'assets/icons/login/visibility_off.svg',
         },
     };
+    @ViewChild('input', { static: true }) private input: ElementRef;
 
     public isInput: boolean = false;
+    public isDisabled: boolean = false;
 
     constructor(private renderer: Renderer2) {}
 
@@ -93,6 +86,7 @@ export class InputCustomComponent implements OnInit, ControlValueAccessor {
 
     public setDisabledState(isDisabled: boolean): void {
         this.renderer.setProperty(this.input.nativeElement, 'disabled', isDisabled);
+        this.isDisabled = isDisabled;
     }
     //#endregion ControlValueAccessor
 }
