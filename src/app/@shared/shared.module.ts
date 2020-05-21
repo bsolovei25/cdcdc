@@ -7,7 +7,6 @@ import { DateFormatPipe } from './pipes/data-format.pipe';
 import { PreLoaderComponent } from './preloader/preloader.component';
 import { UiElementsComponent } from './layout/ui-elements.component';
 import { ButtonComponent } from './components/button/button.component';
-import { InputComponent } from './components/input/input.component';
 import { WorkerCardComponent } from './components/worker-card/worker-card.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -47,7 +46,6 @@ import { InputCustomComponent } from './components/input-custom/input-custom.com
         PreLoaderComponent,
         UiElementsComponent,
         ButtonComponent,
-        InputComponent,
         WorkerCardComponent,
         UiBlockComponent,
         LoadingShadeComponent,
@@ -78,7 +76,6 @@ import { InputCustomComponent } from './components/input-custom/input-custom.com
         FnPipe,
         PreLoaderComponent,
         ButtonComponent,
-        InputComponent,
         WorkerCardComponent,
         DateFormatPipe,
         PreLoaderComponent,
