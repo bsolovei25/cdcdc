@@ -1,13 +1,12 @@
 <div class="container">
   <div class="workspace__header">
     <div class="workspace__search">
-      <evj-input
+      <evj-input-custom
         class="insert-component"
-        [placeholder]="'Введите название рабочей области'"
-        [iconSrc]="searchIcon"
-        (inputedValue)="onInput($event)"
+        [options]="inputOptions"
+        [(ngModel)]="searchValue"
         *ngIf="isWorkspaceActive && workspaces.length!==0"
-      ></evj-input>
+      ></evj-input-custom>
     </div>
     <div class="workspace__links">
       <a [ngClass]="{'active-link':isWorkspaceActive}" (click)="isWorkspaceActive=true"
