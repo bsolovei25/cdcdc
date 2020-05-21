@@ -23,7 +23,7 @@ export class AwsPasswordAlertComponent implements OnInit {
         'assets/icons/components/alert-password/visibility_off.svg';
 
     constructor(private formBuilder: FormBuilder) {
-        const regExpConditions = '(?=.*[0-9])(?=.*[?!._*#$@-])(?=.*[a-zа-я])(?=.*[A-ZА-Я])';
+        const regExpConditions = '(?=.*[0-9])(?=.*[?!._*#$@-])(?=.*[a-zа-яA-ZА-Я])';
         const regExp = `[0-9a-zA-Zа-яА-Я?!._*#$@-]{${this.minLength},${this.maxLength}}`;
 
         this.formGroup = this.formBuilder.group(
