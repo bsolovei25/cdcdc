@@ -10,7 +10,7 @@ export class SearchInputComponent {
     @Input() public data;
     @Input() isReport: boolean = false;
 
-    @Output() searchReport: EventEmitter<KeyboardEvent> = new EventEmitter<KeyboardEvent>();
+    @Output() search: EventEmitter<KeyboardEvent> = new EventEmitter<KeyboardEvent>();
 
     @Output() check: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -25,20 +25,8 @@ export class SearchInputComponent {
         }
     }
 
-    searchRecords(e: KeyboardEvent): void {
-        console.log((e?.target as HTMLInputElement)?.value.toLowerCase());
-        // this.check.emit(this.checkClick);
-        // let type = 'input';
-        // this.widgetService.searchItems(e.currentTarget.value, type);
-        // if (!e.currentTarget.value) {
-        //     this.widgetService.reEmitList();
-        // }
-
-        this.widgetService.inputWidgets$.next((e?.target as HTMLInputElement)?.value.toLowerCase());
-    }
-
-    searchReports(event: KeyboardEvent): void {
-        this.searchReport.emit(event);
+    searchInput(event: KeyboardEvent): void {
+        this.search.emit(event);
     }
 
     public openFilter(event: any): void {

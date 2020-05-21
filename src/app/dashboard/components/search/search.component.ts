@@ -13,15 +13,10 @@ export class SearchComponent implements OnInit, OnDestroy {
 
     private subscriptions: Subscription[] = [];
 
-    widgets: IWidgets[];
-
-    public newArrayType = [];
-    public newArrayClick = [];
+    public arrayType: string[] = [];
 
     @Output() search: EventEmitter<KeyboardEvent> = new EventEmitter<KeyboardEvent>();
-
     @Input() isReport: boolean = false;
-
     @Input() isWidgets: boolean = false;
 
     constructor(public widgetService: WidgetService) {}
@@ -29,8 +24,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.subscriptions.push(
             this.widgetService.widgets$.subscribe((dataW) => {
-                this.widgets = dataW;
-                this.newArrayType = this.filterData(dataW);
+                this.arrayType = this.filterData(dataW);
             })
         );
     }

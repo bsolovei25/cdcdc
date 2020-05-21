@@ -39,6 +39,7 @@ export class WidgetService {
 
     public draggingItem: GridsterItem;
     public dashboard: GridsterItem[] = [];
+
     private _widgets$: BehaviorSubject<IWidgets[]> = new BehaviorSubject(null);
     public widgets$: Observable<IWidgets[]> = this._widgets$
         .asObservable()
@@ -47,20 +48,12 @@ export class WidgetService {
     private reconnectWsTimer: any;
     private reconnectRestTimer: any;
 
-    public searchValue: string | string[];
-    public searchType;
-    public searchWidget$: Subject<any> = new Subject<any>();
-    public searchWidgetT: Observable<IWidgets[]> = this.searchWidget$.pipe(
-        switchMap(this.search.bind(this))
-    );
-
     private currentDates: IDatesInterval = null;
     public currentDates$: BehaviorSubject<IDatesInterval> = new BehaviorSubject<IDatesInterval>(
         null
     );
 
-    filterWidgets$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>(null);
-    inputWidgets$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+    filterWidgets$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
 
     constructor(
         public http: HttpClient,
@@ -332,56 +325,6 @@ export class WidgetService {
             this.initWS();
             this.dashboard.forEach((el) => this.wsConnect(el.id));
         }, this.reconnectInterval);
-    }
-
-    public searchItems(value, type): void {
-        this.searchType = type;
-        try {
-            this.searchWidget$.next(value);
-        } catch (error) {
-            return console.error('Поиск пуст');
-        }
-    }
-
-    public search(record: string | string[]): Observable<IWidgets[]> {
-        try {
-            const points = this._widgets$.getValue();
-
-            if (this.searchType === 'input' && typeof record === 'string') {
-                this.searchValue = record;
-                return of(
-                    points.filter(
-                        (point) =>
-                            point.title !== undefined &&
-                            point.title.toLowerCase().includes(record.trim().toLowerCase())
-                    )
-                );
-            } else {
-                const arrFilter: any[] = [];
-                const arrFilterButton: any = [];
-                const resultObject: any = [];
-                for (const i of record) {
-                    const filter = points.filter((point) => point.categories.indexOf(i) > -1);
-                    arrFilter.push(filter);
-                }
-                for (const i of arrFilter) {
-                    for (const j of i) {
-                        arrFilterButton.push(j);
-                    }
-                }
-                const newFilterArray: any = [...new Set(arrFilterButton)];
-                resultObject.push(newFilterArray);
-                this.searchValue = record;
-                return resultObject;
-            }
-        } catch (error) {
-            console.log('Ошбика', error);
-        }
-    }
-
-    public reEmitList(): void {
-        this._widgets$.next(this._widgets$.getValue());
-        this.searchValue = null;
     }
 
     public wsSetParams(Dates: IDatesInterval = null): void {

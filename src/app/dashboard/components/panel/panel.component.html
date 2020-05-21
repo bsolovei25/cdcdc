@@ -23,6 +23,7 @@
 
   <div @fadeAnimation *ngIf="isWidgets === 'widgets'" class="widget__new">
     <evj-widget-panel
+      class="widget__new"
       (swap)="onSwap($event)"
       (grid)="onGrid($event)"
       (toggleClick)="onToggleClick($event)"

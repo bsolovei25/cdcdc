@@ -1,15 +1,12 @@
 <div class="search">
   <evj-search-input
-    [data]="typeWidgetChoose"
-    [dataWidget]="widgets"
     (check)="onCheck($event)"
     [isReport]="isReport"
-    (searchWidgets)="searchInput($event)"
-    (searchReport)="searchInput($event)"
+    (search)="searchInput($event)"
   ></evj-search-input>
 </div>
 <ng-container *ngIf="checkClick">
   <div class="result_block">
-    <evj-search-filter [data]="newArrayType" [arrayClick]="newArrayClick"></evj-search-filter>
+    <evj-search-filter [data]="newArrayType"></evj-search-filter>
   </div>
 </ng-container>

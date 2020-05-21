@@ -4,11 +4,11 @@
     <div class="delete_result">x</div>
   </div>
   <ng-container *ngIf="isReport">
-    <input type="text" placeholder="Введите название отчета" (keyup)="searchReports($event)" />
+    <input type="text" placeholder="Введите название отчета" (keyup)="searchInput($event)" />
   </ng-container>
 
   <ng-container *ngIf="!isReport">
-    <input type="text" placeholder="Введите название виджета" (keyup)="searchRecords($event)" />
+    <input type="text" placeholder="Введите название виджета" (keyup)="searchInput($event)" />
   </ng-container>
 
   <div *ngIf="!isReport" class="button" (click)="openFilter($event)" [class.active]="checkClick">

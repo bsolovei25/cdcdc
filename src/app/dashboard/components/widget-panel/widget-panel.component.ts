@@ -1,16 +1,24 @@
-import { Component, OnInit, Output, EventEmitter, Injector } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Injector, Input } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { UserSettingsService } from '../../services/user-settings.service';
 import { ClaimService, EnumClaimWidgets, EnumClaimScreens } from '../../services/claim.service';
 import { Subscription, BehaviorSubject, Observable } from 'rxjs';
 import { WIDGETS } from '../widgets-grid/widget-map';
 import { IWidgets } from '../../models/widget.model';
-import { map } from 'rxjs/operators';
+import { trigger, transition, animate, style } from '@angular/animations';
 
 @Component({
     selector: 'evj-widget-panel',
     templateUrl: './widget-panel.component.html',
     styleUrls: ['./widget-panel.component.scss'],
+    animations: [
+        trigger('items', [
+            transition('void => *', [
+                style({ opacity: 0 }),
+                animate('1s cubic-bezier(.8, -0.6, 0.2, 1.5)', style({ opacity: 1 })),
+            ]),
+        ]),
+    ],
 })
 export class WidgetPanelComponent implements OnInit {
     public readonly WIDGETS = WIDGETS;
@@ -20,17 +28,18 @@ export class WidgetPanelComponent implements OnInit {
     private subscriptions: Subscription[] = [];
 
     public widgets$: BehaviorSubject<IWidgets[]> = new BehaviorSubject<IWidgets[]>([]);
-    public filterWidgets$: Observable<IWidgets[]> = this.widgets$
-        .asObservable()
-        .pipe(map((widgets) => widgets.filter((widget) => WIDGETS[widget.widgetType])));
+    public filterWidgets$: BehaviorSubject<IWidgets[]> = new BehaviorSubject<IWidgets[]>([]);
 
     private claimSettingsWidgets: EnumClaimWidgets[] = [];
     public claimSettingsScreens: EnumClaimScreens[] = [];
     EnumClaimScreens = EnumClaimScreens;
 
     search: string = '';
+    filters: string[] = [];
 
-    private timerHwnd: number;
+    @Input() set SearchInput(input: KeyboardEvent) {
+        this.searchWidgetsInput(input);
+    }
 
     @Output() toggleClick: EventEmitter<string> = new EventEmitter<string>();
 
@@ -47,7 +56,6 @@ export class WidgetPanelComponent implements OnInit {
     ngOnInit(): void {
         this.subscriptions.push(
             this.widgetService.widgets$.subscribe((dataW) => {
-                console.log('start filter');
                 const filterWidgets: IWidgets[] = [];
                 dataW.forEach((widget) => {
                     if (WIDGETS[widget.widgetType]) {
@@ -55,22 +63,17 @@ export class WidgetPanelComponent implements OnInit {
                     }
                 });
                 this.widgets$.next(filterWidgets);
-            }),
-            this.widgetService.searchWidgetT.subscribe((dataW) => {
-                console.log('start filter');
-                const filterWidgets: IWidgets[] = [];
-                dataW.forEach((widget) => {
-                    if (WIDGETS[widget.widgetType]) {
-                        filterWidgets.push(widget);
-                    }
-                });
-                // this.widgets$.next(filterWidgets);
+                this.filterWidgets$.next(filterWidgets);
             }),
             this.claimService.claimWidgets$.subscribe((set) => {
                 this.claimSettingsWidgets = set;
             }),
             this.claimService.claimScreens$.subscribe((claims) => {
                 this.claimSettingsScreens = claims;
+            }),
+            this.widgetService.filterWidgets$.subscribe((dataW) => {
+                this.filters = dataW;
+                this.searchWidgetsFilter();
             })
         );
     }
@@ -109,19 +112,73 @@ export class WidgetPanelComponent implements OnInit {
         }
     }
 
-    searchWidgetsInput(event: KeyboardEvent): void {
-        this.search = (event?.target as HTMLInputElement)?.value.toLowerCase();
-        if (this.search === '') {
+    searchWidgetsInput(event?: KeyboardEvent | string): void {
+        if (typeof event !== 'string') {
+            this.search = (event?.target as HTMLInputElement)?.value.toLowerCase();
         } else {
-            if (!this.timerHwnd) {
-                this.timerHwnd = window.setTimeout(() => {
-                    this.timerHwnd = 0;
-                }, 100);
+            this.search = event;
+        }
+        if (this.search === '') {
+            console.log('1');
+
+            if (this.filters.length > 0) {
+                console.log('2');
+                this.searchWidgetsFilter();
+            } else {
+                console.log('3');
+                this.filterWidgets$.next(this.widgets$.getValue());
+            }
+        } else {
+            if (this.filters.length > 0) {
+                console.log('34');
+                this.filterWidgets$.next(
+                    this.filterWidgets$
+                        .getValue()
+                        .filter((value) =>
+                            value.title.toLowerCase().includes(this.search.trim().toLowerCase())
+                        )
+                );
+            } else {
+                console.log('4');
+                this.filterWidgets$.next(
+                    this.widgets$
+                        .getValue()
+                        .filter((value) =>
+                            value.title.toLowerCase().includes(this.search.trim().toLowerCase())
+                        )
+                );
             }
         }
     }
 
-    searchWidgetsFilter(data: string[]): void {}
+    searchWidgetsFilter(): void {
+        if (this.filters?.length > 0) {
+            let widgets = this.widgets$.getValue();
+            if (this.search !== '') {
+                console.log('6');
+                this.filterWidgets$.next(
+                    this.filterWidgets$.getValue().filter((value) => {
+                        return this.filters.find((val) => value.categories.includes(val));
+                    })
+                );
+            } else {
+                console.log('7');
+                this.filterWidgets$.next(
+                    widgets.filter((value) => {
+                        return this.filters.find((val) => value.categories.includes(val));
+                    })
+                );
+            }
+        } else {
+            if (this.search === '') {
+                console.log('8');
+                this.filterWidgets$.next(this.widgets$.getValue());
+            } else {
+                console.log('9');
+                this.searchWidgetsInput(this.search);
+            }
+        }
+    }
 
     public getInjector = (idWidget: string): Injector => {
         return Injector.create({

@@ -5,18 +5,13 @@ import {
     Output,
     EventEmitter,
     OnDestroy,
-    ViewChild,
 } from '@angular/core';
-import { GridsterConfig } from 'angular-gridster2';
 import { WidgetService } from '../../services/widget.service';
-import { Subscription, BehaviorSubject, Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { WIDGETS } from '../widgets-grid/widget-map';
-import { IWidgets } from '../../models/widget.model';
 import { UserSettingsService } from '../../services/user-settings.service';
 import { ClaimService, EnumClaimScreens, EnumClaimWidgets } from '../../services/claim.service';
-import { trigger, style, transition, animate, query, stagger } from '@angular/animations';
-import { map } from 'rxjs/operators';
-import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import { trigger, style, transition, animate } from '@angular/animations';
 
 type isChoosePanel = 'widgets' | 'reports';
 
@@ -39,7 +34,6 @@ export class PanelComponent implements OnInit, OnDestroy {
 
     isWidgets: isChoosePanel;
 
-    private claimSettingsWidgets: EnumClaimWidgets[] = [];
     public claimSettingsScreens: EnumClaimScreens[] = [];
     EnumClaimScreens = EnumClaimScreens;
 
@@ -60,9 +54,6 @@ export class PanelComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.subscriptions.push(
-            this.claimService.claimWidgets$.subscribe((set) => {
-                this.claimSettingsWidgets = set;
-            }),
             this.claimService.claimScreens$.subscribe((claims) => {
                 this.claimSettingsScreens = claims;
             })
