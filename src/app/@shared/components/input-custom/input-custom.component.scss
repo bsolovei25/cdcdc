@@ -7,7 +7,7 @@
   }
 
   &.ng-dirty {
-    .input-container:not(.input-container_warning):not(.input-container_danger) {
+    .input-container_focus:not(.input-container_warning):not(.input-container_danger) {
       --input-text-color: var(--color-text-main);
       --input-additional-color: var(--color-active);
     }
@@ -47,6 +47,12 @@
 
   &_disabled {
     opacity: 0.5;
+  }
+
+  &_focus {
+    .placeholder {
+      transform: translateY(-100%) scale(0.8);
+    }
   }
 
   // STATES
@@ -128,10 +134,6 @@
 
   transition: inherit;
   transform-origin: left top;
-
-  &_focus {
-    transform: translateY(-100%) scale(0.8);
-  }
 
   & + .input {
     &::placeholder {
