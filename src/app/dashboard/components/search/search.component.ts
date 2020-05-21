@@ -9,7 +9,7 @@ import { WidgetService } from '../../services/widget.service';
     styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit, OnDestroy {
-    public checkClick: boolean = false;
+    public isVisibleFilter: boolean = false;
 
     private subscriptions: Subscription[] = [];
 
@@ -33,35 +33,18 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.subscriptions.forEach((subs: Subscription) => subs.unsubscribe());
     }
 
-    public onCheck(data: boolean): void {
-        if (data) {
-            this.checkClick = true;
-        } else {
-            this.checkClick = false;
-        }
+    public onVisibleFilter(data: boolean): void {
+        this.isVisibleFilter = data;
     }
 
-    public filterData(data) {
-        try {
-            let newArray = [];
-            let newCategoryArray = [];
-            for (let i of data) {
-                if (i.categories || i.categories.length !== 0) {
-                    newArray.push(i.categories);
-                }
+    public filterData(data: IWidgets[]): string[] {
+        let newCategoryArray = [];
+        data.forEach((value) => {
+            if (value?.categories?.length > 0) {
+                newCategoryArray = [...newCategoryArray, ...value?.categories];
             }
-            let newWidgetCategory = [...new Set(newArray)];
-            for (let i of newWidgetCategory) {
-                for (let j of i) {
-                    newCategoryArray.push(j);
-                }
-            }
-            let newFilterArray = [...new Set(newCategoryArray)];
-
-            return newFilterArray;
-        } catch (error) {
-            console.log('Ошибка:', error);
-        }
+        });
+        return [...new Set(newCategoryArray)];
     }
 
     searchInput(event: KeyboardEvent): void {

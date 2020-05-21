@@ -7,32 +7,24 @@ import { WidgetService } from '../../../services/widget.service';
     styleUrls: ['./search-input.component.scss'],
 })
 export class SearchInputComponent {
-    @Input() public data;
+    public isVisibleFilter: boolean = false;
+
     @Input() isReport: boolean = false;
 
     @Output() search: EventEmitter<KeyboardEvent> = new EventEmitter<KeyboardEvent>();
+    @Output() visibleFilter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    @Output() check: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-    public checkClick: boolean = false;
-
-    itemChoose: boolean = false;
-    valueInput: string = '';
-
-    constructor(public widgetService: WidgetService) {
-        if (this.data) {
-            this.itemChoose = true;
-        }
-    }
+    constructor(private widgetService: WidgetService) {}
 
     searchInput(event: KeyboardEvent): void {
         this.search.emit(event);
     }
 
-    public openFilter(event: any): void {
-        if (event) {
-            this.checkClick = !this.checkClick;
+    public openFilter(): void {
+        this.isVisibleFilter = !this.isVisibleFilter;
+        if (!this.isVisibleFilter) {
+            this.widgetService.filterWidgets$.next([]);
         }
-        this.check.emit(this.checkClick);
+        this.visibleFilter.emit(this.isVisibleFilter);
     }
 }

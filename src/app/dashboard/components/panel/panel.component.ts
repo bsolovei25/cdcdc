@@ -1,11 +1,4 @@
-import {
-    Component,
-    OnInit,
-    Injector,
-    Output,
-    EventEmitter,
-    OnDestroy,
-} from '@angular/core';
+import { Component, OnInit, Injector, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { Subscription } from 'rxjs';
 import { WIDGETS } from '../widgets-grid/widget-map';
@@ -27,7 +20,6 @@ export const fadeAnimation = trigger('fadeAnimation', [
     animations: [fadeAnimation],
 })
 export class PanelComponent implements OnInit, OnDestroy {
-
     public readonly WIDGETS = WIDGETS;
 
     public active: boolean = false;
@@ -39,15 +31,7 @@ export class PanelComponent implements OnInit, OnDestroy {
 
     private subscriptions: Subscription[] = [];
 
-    public gridWidget: boolean = true;
-    public fixWidget: boolean = true;
-
-    constructor(
-        public widgetService: WidgetService,
-        public injector: Injector,
-        public userSettings: UserSettingsService,
-        private claimService: ClaimService
-    ) {}
+    constructor(private claimService: ClaimService) {}
 
     @Output() swap: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() grid: EventEmitter<boolean> = new EventEmitter<boolean>();

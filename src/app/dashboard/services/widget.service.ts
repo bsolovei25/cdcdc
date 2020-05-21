@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, Subject, of } from 'rxjs';
-import { filter, map, tap, debounceTime, switchMap } from 'rxjs/operators';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { GridsterItem } from 'angular-gridster2';
 import { IWidgets } from '../models/widget.model';
@@ -40,7 +40,7 @@ export class WidgetService {
     public draggingItem: GridsterItem;
     public dashboard: GridsterItem[] = [];
 
-    private _widgets$: BehaviorSubject<IWidgets[]> = new BehaviorSubject(null);
+    private _widgets$: BehaviorSubject<IWidgets[]> = new BehaviorSubject([]);
     public widgets$: Observable<IWidgets[]> = this._widgets$
         .asObservable()
         .pipe(filter((item) => item !== null));

@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Injector, Input } from '@angul
 import { WidgetService } from '../../services/widget.service';
 import { UserSettingsService } from '../../services/user-settings.service';
 import { ClaimService, EnumClaimWidgets, EnumClaimScreens } from '../../services/claim.service';
-import { Subscription, BehaviorSubject, Observable } from 'rxjs';
+import { Subscription, BehaviorSubject } from 'rxjs';
 import { WIDGETS } from '../widgets-grid/widget-map';
 import { IWidgets } from '../../models/widget.model';
 import { trigger, transition, animate, style } from '@angular/animations';
@@ -119,27 +119,23 @@ export class WidgetPanelComponent implements OnInit {
             this.search = event;
         }
         if (this.search === '') {
-            console.log('1');
-
             if (this.filters.length > 0) {
-                console.log('2');
                 this.searchWidgetsFilter();
             } else {
-                console.log('3');
                 this.filterWidgets$.next(this.widgets$.getValue());
             }
         } else {
             if (this.filters.length > 0) {
-                console.log('34');
-                this.filterWidgets$.next(
-                    this.filterWidgets$
-                        .getValue()
-                        .filter((value) =>
-                            value.title.toLowerCase().includes(this.search.trim().toLowerCase())
-                        )
-                );
+                let widgets = this.widgets$
+                    .getValue()
+                    .filter((value) =>
+                        value.title.toLowerCase().includes(this.search.trim().toLowerCase())
+                    );
+                widgets = widgets.filter((value) => {
+                    return this.filters.find((val) => value.categories.includes(val));
+                });
+                this.filterWidgets$.next(widgets);
             } else {
-                console.log('4');
                 this.filterWidgets$.next(
                     this.widgets$
                         .getValue()
@@ -155,14 +151,15 @@ export class WidgetPanelComponent implements OnInit {
         if (this.filters?.length > 0) {
             let widgets = this.widgets$.getValue();
             if (this.search !== '') {
-                console.log('6');
+                widgets = widgets.filter((value) => {
+                    return this.filters.find((val) => value.categories.includes(val));
+                });
                 this.filterWidgets$.next(
-                    this.filterWidgets$.getValue().filter((value) => {
-                        return this.filters.find((val) => value.categories.includes(val));
-                    })
+                    widgets.filter((value) =>
+                        value.title.toLowerCase().includes(this.search.trim().toLowerCase())
+                    )
                 );
             } else {
-                console.log('7');
                 this.filterWidgets$.next(
                     widgets.filter((value) => {
                         return this.filters.find((val) => value.categories.includes(val));
@@ -171,10 +168,8 @@ export class WidgetPanelComponent implements OnInit {
             }
         } else {
             if (this.search === '') {
-                console.log('8');
                 this.filterWidgets$.next(this.widgets$.getValue());
             } else {
-                console.log('9');
                 this.searchWidgetsInput(this.search);
             }
         }

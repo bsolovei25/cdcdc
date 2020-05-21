@@ -1,12 +1,12 @@
 <div class="search">
   <evj-search-input
-    (check)="onCheck($event)"
+    (visibleFilter)="onVisibleFilter($event)"
     [isReport]="isReport"
     (search)="searchInput($event)"
   ></evj-search-input>
 </div>
-<ng-container *ngIf="checkClick">
+<ng-container *ngIf="isVisibleFilter">
   <div class="result_block">
-    <evj-search-filter [data]="newArrayType"></evj-search-filter>
+    <evj-search-filter [data]="arrayType"></evj-search-filter>
   </div>
 </ng-container>

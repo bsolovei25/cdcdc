@@ -8,8 +8,7 @@ import { SelectionModel } from '@angular/cdk/collections';
     styleUrls: ['./search-filter.component.scss'],
 })
 export class SearchFilterComponent {
-    @Input() public data;
-    @Input() public arrayClick;
+    @Input() public data: string;
 
     @Output() filter: EventEmitter<KeyboardEvent> = new EventEmitter<KeyboardEvent>();
 
