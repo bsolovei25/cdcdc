@@ -2,18 +2,17 @@
   class="container"
   (mousedown)="$event.stopPropagation()"
   (touchstart)="$event.stopPropagation()"
-  >
+>
   <evj-loading-shade [isLoading]="isDataLoading"></evj-loading-shade>
 
   <div class="column" *ngIf="!isDataLoading">
     <div class="column__header">
       <div class="search">
-        <evj-input
+        <evj-input-custom
           class="insert-component"
-          [placeholder]="'Введите наименование группы'"
-          [iconSrc]="searchIcon"
-          (inputedValue)="onSearchGroup($event)"
-        ></evj-input>
+          [options]="inputGroupOptions"
+          [(ngModel)]="searchingGroupString"
+        ></evj-input-custom>
       </div>
       <div class="button__small">
         <evj-button
@@ -51,12 +50,11 @@
   <div class="column column-center" *ngIf="!isDataLoading">
     <div class="column__header">
       <div class="search">
-        <evj-input
+        <evj-input-custom
           class="insert-component"
-          [placeholder]="'Введите ФИО'"
-          [iconSrc]="searchIcon"
-          (inputedValue)="onSearchUser($event)"
-        ></evj-input>
+          [options]="inputWorkerOptions"
+          [(ngModel)]="searchingWorkerString"
+        ></evj-input-custom>
       </div>
     </div>
     <div class="column__body scroll scroll-bar">
