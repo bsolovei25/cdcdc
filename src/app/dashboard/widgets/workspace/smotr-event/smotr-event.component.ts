@@ -39,7 +39,7 @@ export class SmotrEventComponent implements OnInit {
     }
 
     public onSendMessage(message: string, msgType: 'comments' | 'facts'): void {
-        this.ewService.sendMessageToEvent(message, msgType, false);
+        this.ewService.sendMessageToEvent(message, msgType);
     }
 
     public onEscalateEvent(event: boolean): void {

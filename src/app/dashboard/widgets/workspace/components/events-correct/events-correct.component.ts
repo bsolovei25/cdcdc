@@ -26,17 +26,7 @@ export class EventsCorrectComponent implements OnInit {
         }
     }
 
-    public overlayConfirmationOpen(): void {
-        this.ewService.isOverlayConfirmOpen = true;
-    }
-
-    public overlayConfirmationClose(): void {
-        this.ewService.isOverlayConfirmOpen = false;
-    }
-
     public addRetrieval(): void {
-        this.ewService.createNewEvent(true);
-
-        this.ewService.isOverlayRetrivealOpen = true;
+        this.ewService.createEvent(this.ewService.event.id);
     }
 }

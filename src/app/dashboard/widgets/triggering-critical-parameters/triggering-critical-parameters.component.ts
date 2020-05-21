@@ -380,12 +380,7 @@ export class TriggeringCriticalParametersComponent implements OnInit, OnDestroy 
     }
 
     ngOnInit() {
-        if (!this.isMock) {
-            this.subscription = this.eventService.event$.subscribe((value) => {
-                if (value) {
-                }
-            });
-        }
+
     }
 
     ngOnDestroy() {

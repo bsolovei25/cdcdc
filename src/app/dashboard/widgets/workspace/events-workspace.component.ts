@@ -13,11 +13,7 @@ import { EventsWorkspaceService } from '../../services/widgets/events-workspace.
     styleUrls: ['./events-workspace.component.scss'],
 })
 export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, OnDestroy {
-    isEditingDescription: boolean = false;
-
-    progressLineHeight: number; // хз
-
-    static itemCols: number = 32;
+    static itemCols: number = 27;
     static itemRows: number = 30;
     public static minItemCols: number = 32;
     public static minItemRows: number = 30;
@@ -50,26 +46,11 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
                 }
             })
         );
-        this.subscriptions.push(
-            this.eventService.event$.subscribe((value) => {
-                if (value) {
-                    this.ewService.isEditEvent = true;
-                    this.setEventByInfo(value);
-                } else {
-                    this.ewService.event = value;
-                }
-            })
-        );
         this.ewService.loadItem();
     }
 
     protected dataHandler(ref: any): void {
         this.wsHandler(ref);
-    }
-
-    private async setEventByInfo(value: EventsWidgetNotification | number): Promise<void> {
-        this.ewService.setEventByInfo(value);
-        // this.progressLine();
     }
 
     ngOnDestroy(): void {
@@ -91,48 +72,30 @@ export class EventsWorkSpaceComponent extends WidgetPlatform implements OnInit, 
     }
 
     private editWsElement(notification: EventsWidgetNotification): void {
-        this.setEventByInfo(notification);
+        this.ewService.editEvent(notification.id);
     }
 
     private deleteWsElement(): void {
-        this.ewService.createNewEvent();
+        this.ewService.event = null;
+        this.eventService.currentEventId$.next(null);
     }
 
     // нажатие на кнопку в хэдере
-    createdEvent(event: boolean): void {
-        if (event) {
-            this.ewService.isEditEvent = true;
-            this.createEvent();
-        } else {
-            this.saveItem();
+    createdEvent(isEdit: boolean): void {
+        if (isEdit) {
+            if (this.ewService.isCreateNewEvent) {
+                this.ewService.refreshEvent();
+                return;
+            }
+            this.ewService.createEvent();
+            return;
         }
-    }
-
-    async createEvent(): Promise<void> {
-        this.ewService.isCreateNewEvent = true;
-        this.ewService.createNewEvent();
-    }
-
-    // #region DATA API
-
-    async saveItem(): Promise<void> {
-        this.isEditingDescription = false;
         this.ewService.saveEvent();
     }
 
-    // #endregion
-
-    // #region Retrieval Event
-    addRetrieval(): void {
-        this.ewService.isOverlayRetrivealOpen = true;
-        this.ewService.createNewEvent(true);
+    public backEvent(): void {
+        this.ewService.goBackEvent();
     }
-
-    overlayClose(): void {
-        this.ewService.isOverlayRetrivealOpen = false;
-        this.ewService.createNewEvent(true);
-    }
-    // #endregion
 
     canShowSaveButton(): boolean {
         return this.ewService.event?.isUserCanEdit ?? false;

@@ -31,7 +31,7 @@ export class AsusEventComponent implements OnInit {
     }
 
     public onSendMessage(message: string, msgType: 'comments' | 'facts'): void {
-        this.ewService.sendMessageToEvent(message, msgType, false);
+        this.ewService.sendMessageToEvent(message, msgType);
     }
 
     public dateTimePicker(date: Date): void {
