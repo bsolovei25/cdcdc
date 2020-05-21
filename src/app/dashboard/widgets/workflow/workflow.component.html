@@ -64,28 +64,28 @@
 
         <div class="workflow__scenario">
           <div class="workflow__scenario__title">Сценарий</div>
-
-          <div class="workflow__scenario__body" #containerWorkflow>
-            <div
-              class="workflow__scenario__body__alert"
-              *ngIf="comboAction || emailAction.length > 0"
-            >
-              <div сlass="workflow__scenario__body__alert__text">
-                Оповещение сотрудников при выполнение действии
-              </div>
-              <div
-                сlass="workflow__scenario__body__alert__btn"
-                style=" border-radius: 25px;
-              border: 2px solid white;
-              height: 19px;
-              padding: 4px 17px;
-              font-size: 12px;
-              align-items: center; display: flex;margin-left: 10px; cursor: pointer;"
-                (click)="saveProperty()"
-              >
-                Сохранить
-              </div>
+          <div
+            @fadeAnimation
+            class="workflow__scenario__alert"
+            *ngIf="comboAction || emailAction.length > 0"
+          >
+            <div сlass="workflow__scenario__body__alert__text">
+              Оповещение сотрудников при выполнение действии
             </div>
+            <div
+              сlass="workflow__scenario__body__alert__btn"
+              style=" border-radius: 25px;
+          border: 2px solid white;
+          height: 19px;
+          padding: 4px 17px;
+          font-size: 12px;
+          align-items: center; display: flex;margin-left: 10px; cursor: pointer;"
+              (click)="saveProperty()"
+            >
+              Сохранить
+            </div>
+          </div>
+          <div class="workflow__scenario__body" #containerWorkflow>
             <div class="workflow__scenario__body__top" #splitTop id="gridContainer">
               <gridster
                 style="min-width: 100% !important; min-height: 100% !important;"

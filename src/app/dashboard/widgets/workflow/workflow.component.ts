@@ -30,6 +30,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { IWorkspaceTable } from './workflow-table/workflow-table.component';
 import { IModules, IScenarios } from './workflow-list/workflow-list.component';
 import { MatSelectChange } from '@angular/material/select';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 declare let LeaderLine: any;
 
@@ -114,10 +115,22 @@ export interface IActionCombobox {
     value: string;
 }
 
+const fadeAnimation = trigger('fadeAnimation', [
+    transition(':enter', [
+        style({ opacity: 0, height: 0 }),
+        animate('100ms', style({ opacity: 1, height: 10 })),
+    ]),
+    transition(':leave', [
+        style({ opacity: 1, height: 10 }),
+        animate('100ms', style({ opacity: 0, height: 0 })),
+    ]),
+]);
+
 @Component({
     selector: 'evj-workflow',
     templateUrl: './workflow.component.html',
     styleUrls: ['./workflow.component.scss'],
+    animations: [fadeAnimation],
     providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } }],
 })
 export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestroy, AfterViewInit {
@@ -254,7 +267,12 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         super.widgetInit();
     }
 
-    ngAfterViewInit(): void {}
+    ngAfterViewInit(): void {
+        if (!this.isMock) {
+            this.slider();
+            this.sliderLeftBar();
+        }
+    }
 
     ngOnDestroy(): void {
         super.ngOnDestroy();
@@ -285,14 +303,10 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                 this.leaderLine = [];
             }
         });
-
-        this.slider();
-        this.sliderLeftBar();
     }
 
     protected dataHandler(ref: any): void {
         if (ref) {
-            // this.data = ref;
         }
     }
 
