@@ -36,8 +36,6 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     public isPopupShowed: boolean = false;
     //#endregion
 
-    public searchedWorker: string = '';
-
     //#region SEARCH_INPUT_OPTIONS
     public inputOptions: IInputOptions = {
         type: 'text',
@@ -50,6 +48,8 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
             isClickable: false,
         },
     };
+
+    public searchedWorker: string = '';
     //#endregion
 
     public workers: IUser[] = null;
@@ -169,10 +169,6 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
             this.isImportNewWorker = true;
         }
         this.isPopupShowed = false;
-    }
-
-    public onSearchWorker(inputedValue: string): void {
-        this.searchedWorker = inputedValue;
     }
 
     public onShowBrigades(): void {

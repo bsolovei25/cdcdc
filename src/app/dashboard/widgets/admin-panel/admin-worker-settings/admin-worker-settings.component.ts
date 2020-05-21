@@ -10,6 +10,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { SnackBarService } from '../../../services/snack-bar.service';
 import { IAlertWindowModel } from '../../../../@shared/models/alert-window.model';
 import { async } from '@angular/core/testing';
+import { IInputOptions } from '../../../../@shared/models/input.model';
 
 @Component({
     selector: 'evj-admin-worker-settings',
@@ -37,9 +38,21 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
 
     public isCreateClaim: boolean = false;
 
-    public searchingFieldName: string = '';
+    //#region SEARCH_INPUT_OPTIONS
+    public inputOptions: IInputOptions = {
+        type: 'text',
+        state: 'normal',
+        placeholder: 'Введите название пункта',
+        isMovingPlaceholder: true,
+        icon: {
+            src: 'assets/icons/search-icon.svg',
+            svgStyle: { 'width.px': 17, 'height.px': 17 },
+            isClickable: false,
+        },
+    };
 
-    public searchIcon: string = 'assets/icons/search-icon.svg';
+    public searchingFieldName: string = '';
+    //#endregion
 
     public worker: IUser = null;
     public workerUnit: IUnitEvents = null;
@@ -103,14 +116,6 @@ export class AdminWorkerSettingsComponent implements OnInit, OnDestroy {
     public ngOnDestroy(): void {
         this.subscriptions.forEach((subs: Subscription) => subs.unsubscribe());
     }
-
-    //#region SEARCH
-
-    public onSearchField(searchedField: string): void {
-        this.searchingFieldName = searchedField.toLowerCase();
-    }
-
-    //#endregion
 
     public onChangeWorkerData(data: IUnitEvents): void {
         this.workerUnit = data;
