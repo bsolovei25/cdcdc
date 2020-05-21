@@ -5,6 +5,7 @@ import { AuthService } from '@core/service/auth.service';
 import { environment } from 'src/environments/environment';
 import { FormControl, Validators } from '@angular/forms';
 import { PreloaderService } from '../../service/preloader.service';
+import { IInputOptions } from '../../../@shared/models/input.model';
 // Angular material
 // Local modules
 
@@ -23,11 +24,39 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
     swing: boolean = false;
 
+    public loginOptions: IInputOptions = {
+        type: 'text',
+        state: 'normal',
+        placeholder: 'Логин',
+        isMovingPlaceholder: true,
+    };
+
+    public passwordOptions: IInputOptions = {
+        type: 'password',
+        state: 'normal',
+        placeholder: 'Пароль',
+        isMovingPlaceholder: true,
+        icon: {
+            src: 'assets/icons/login/visibility_off.svg',
+            svgStyle: { 'width.px': 20, 'height.px': 20 },
+            isClickable: true,
+            onClick: () => {
+                [this.passwordOptions.icon.src, this.passwordOptions.icon.secState] = [
+                    this.passwordOptions.icon.secState,
+                    this.passwordOptions.icon.src,
+                ];
+                this.passwordOptions.type =
+                    this.passwordOptions.type === 'text' ? 'password' : 'text';
+            },
+            secState: 'assets/icons/login/visibility.svg',
+        },
+    };
+
     constructor(
         public authService: AuthService,
         private router: Router,
         private preLoaderService: PreloaderService
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         this.isLoadingData = true;
@@ -54,7 +83,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
                 this.password.value
             );
             if (auth) {
-                this.router.routeReuseStrategy.shouldReuseRoute = () => { return false; };
+                this.router.routeReuseStrategy.shouldReuseRoute = () => {
+                    return false;
+                };
                 await this.router.navigate(['dashboard']);
                 this.isLoadingData = false;
                 // setTimeout(() => {
