@@ -1,9 +1,10 @@
 .container-security {
     height: calc(100% - 22px);
-    width: 100%;
+    width: calc(100% - 1px);
     border-left: 1px solid var(--color-smp-border);
     border-right: 1px solid var(--color-smp-border);
     position: relative;
+    background: var(--color-bg-header-table);
 
     &__title {
         font-size: 10px;
@@ -24,6 +25,7 @@
         .block {
             border-left: 2px solid var(--color-active);
             font-size: 11px;
+            height: 20%;
 
             &__title {
                 padding-left: 5px;

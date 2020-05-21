@@ -14,6 +14,7 @@
   display: flex;
   border-left: 1px solid var(--color-smp-border);
   border-right: 1px solid var(--color-smp-border);
+  background: var(--color-bg-header-table);
 }
 
 .frame-top {
@@ -22,6 +23,7 @@
   border-bottom: none;
   position: relative;
   box-shadow: inset 0px 10px 9px -10px var(--color-border-box-shadow);
+  background: var(--color-bg-header-table);
 
   &:before {
     content: "";
@@ -53,6 +55,7 @@
   border: 1px solid var(--color-smp-border);
   border-top: none;
   position: relative;
+  background: var(--color-bg-header-table);
 
   &:before {
     content: "";
