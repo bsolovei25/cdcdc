@@ -156,79 +156,25 @@ export class ProductGroupsLeftComponent implements OnInit, OnChanges {
             .attr(
                 'xlink:href',
                 () => {
-                    if (data.pointStatus === 'critical') {
-
+                    if (data.pointStatus === 'danger') {
+                        return 'assets/icons/widgets/SMP/product-group-planning/left-side/danger-point.svg'
                     } else if (data.pointStatus === 'warning') {
-
+                        return 'assets/icons/widgets/SMP/product-group-planning/left-side/warning-point.svg'
                     } else {
-                        return 'assets/icons/widgets/SMP/product-group-planning/left-side/big-deviation-point.svg'
+                        return 'assets/icons/widgets/SMP/product-group-planning/left-side/normal-point.svg'
                     }
                 }
-
             )
             .attr('height', '19px')
-            .attr('width', '32px')
+            .attr('width', () => {
+                if (data.pointStatus === 'normal') {
+                    return '12px';
+                } else {
+                    return '32px';
+                }
+            })
             .attr('x', '20')
             .attr('y', '40');
-
-        const buttonLeftTop = this.svg
-            .append('image')
-            .attr(
-                'xlink:href',
-                () => {
-                    if (data.groupDeviationValue === 'critical') {
-
-                    } else if (data.groupDeviationValue === 'warning') {
-
-                    } else {
-                        return 'assets/icons/widgets/SMP/product-group-planning/left-side/left-pie-left-top-button.svg'
-                    }
-                }
-            )
-            .attr('height', '19px')
-            .attr('width', '32px')
-            .attr('x', '218')
-            .attr('y', '19');
-
-        const buttonLeftMiddle = this.svg
-            .append('image')
-            .attr(
-                'xlink:href',
-                () => {
-                    if (data.groupDeviationFlag === 'critical') {
-
-                    } else if (data.groupDeviationFlag === 'warning') {
-
-                    } else {
-                        return 'assets/icons/widgets/SMP/product-group-planning/left-side/left-pie-left-middle-button.svg'
-                    }
-                }
-
-            )
-            .attr('height', '15px')
-            .attr('width', '26px')
-            .attr('x', '224')
-            .attr('y', '39');
-
-        const buttonLeftBottom = this.svg
-            .append('image')
-            .attr(
-                'xlink:href',
-                () => {
-                    if (data.groupDeviationShip === 'critical') {
-
-                    } else if (data.groupDeviationShip === 'warning') {
-
-                    } else {
-                        return 'assets/icons/widgets/SMP/product-group-planning/left-side/left-pie-left-bottom-button.svg'
-                    }
-                }
-
-            )
-            .attr('height', '19px')
-            .attr('width', '32px')
-            .attr('x', '218')
-            .attr('y', '55');
 
         const icon = this.svg
             .append('image')
@@ -253,47 +199,6 @@ export class ProductGroupsLeftComponent implements OnInit, OnChanges {
             .attr('y', '65')
             .attr('fill', 'white')
             .text(criticalNewValue);
-
-        const buttonRightTop = this.svg
-            .append('image')
-            .attr(
-                'xlink:href',
-                () => {
-                    if (data.groupDeviationAkk === 'critical') {
-
-                    } else if (data.groupDeviationAkk === 'warning') {
-
-                    } else {
-                        return 'assets/icons/widgets/SMP/product-group-planning/left-side/left-pie-right-top-button.svg'
-                    }
-                }
-
-            )
-            .attr('height', '25px')
-            .attr('width', '60px')
-            .attr('x', '326')
-            .attr('y', '20');
-
-
-        const buttonRightBottom = this.svg
-            .append('image')
-            .attr(
-                'xlink:href',
-                () => {
-                    if (data.groupDeviationUpd === 'critical') {
-
-                    } else if (data.groupDeviationUpd === 'warning') {
-
-                    } else {
-                        return 'assets/icons/widgets/SMP/product-group-planning/left-side/left-pie-right-bottom-button.svg'
-                    }
-                }
-
-            )
-            .attr('height', '25px')
-            .attr('width', '60px')
-            .attr('x', '326')
-            .attr('y', '48');
 
         const arrow = this.svg
             .append('image')

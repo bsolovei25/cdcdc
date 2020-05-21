@@ -148,8 +148,8 @@ export class NewWidgetsGridComponent implements OnInit, OnDestroy {
         const heigthScreen = document.getElementById('gridSize').clientHeight;
         const widthScreenDefault = 1920;
         const heigthScreenDefault = 909;
-        this.ColWidth = 20;
-        this.RowHeight = 20;
+        this.ColWidth = 19.85;
+        this.RowHeight = 19.9;
         this.ColWidth *= (widthScreen - 660) / (widthScreenDefault - 660);
         this.RowHeight *= (heigthScreen - 329) / (heigthScreenDefault - 329);
 

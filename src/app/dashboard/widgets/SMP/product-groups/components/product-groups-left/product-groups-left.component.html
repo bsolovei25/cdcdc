@@ -1,3 +1,25 @@
 <div class="cb">
     <div #myCircle class="item-b" [class.active]="isActive"></div>
+    <!--LEFT-BUTTON-->
+    <div class="left-top-button {{ data.groupDeviationValue}}">
+        <svg-icon src="./assets/icons/widgets/SMP/product-group-planning/left-side/left-pie-left-top-button.svg"
+            [svgStyle]="{ 'width.px':26, 'height.px':14 }"></svg-icon>
+    </div>
+    <div class="left-middle-button {{ data.groupDeviationFlag}}">
+        <svg-icon src="./assets/icons/widgets/SMP/product-group-planning/left-side/left-pie-left-middle-button.svg"
+            [svgStyle]="{ 'width.px':21, 'height.px':14 }"></svg-icon>
+    </div>
+    <div class="left-bottom-button {{ data.groupDeviationShip}}">
+        <svg-icon src="./assets/icons/widgets/SMP/product-group-planning/left-side/left-pie-left-bottom-button.svg"
+            [svgStyle]="{ 'width.px':26, 'height.px':14 }"></svg-icon>
+    </div>
+    <!--RIGHT-BUTTON-->
+    <div class="right-top-button {{ data.groupDeviationAkk}}">
+        <svg-icon src="./assets/icons/widgets/SMP/product-group-planning/left-side/left-pie-right-top-button.svg"
+            [svgStyle]="{ 'width.px':25, 'height.px':25 }"></svg-icon>
+    </div>
+    <div class="right-bottom-button {{ data.groupDeviationUpd}}">
+        <svg-icon src="./assets/icons/widgets/SMP/product-group-planning/left-side/left-pie-right-bottom-button.svg"
+            [svgStyle]="{ 'width.px':25, 'height.px':25 }"></svg-icon>
+    </div>
 </div>

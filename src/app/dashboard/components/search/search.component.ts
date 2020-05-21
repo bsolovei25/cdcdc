@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, OnDestroy } from '@angular/core';
 import { IWidgets } from '../../models/widget.model';
 import { Subscription } from 'rxjs';
 import { WidgetService } from '../../services/widget.service';
@@ -8,7 +8,7 @@ import { WidgetService } from '../../services/widget.service';
     templateUrl: './search.component.html',
     styleUrls: ['./search.component.scss'],
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
     public checkClick = true;
 
     public typeWidgetChoose = [];
@@ -31,7 +31,7 @@ export class SearchComponent implements OnInit {
         });
     }
 
-    ngOnInit() { }
+    ngOnInit(): void { }
 
     ngOnDestroy(): void {
         if (this.subscription) {
@@ -39,7 +39,7 @@ export class SearchComponent implements OnInit {
         }
     }
 
-    public onCheck(data: any) {
+    public onCheck(data: any): void {
         if (data === true) {
             this.checkClick = false;
         } else {
@@ -74,7 +74,7 @@ export class SearchComponent implements OnInit {
         }
     }
 
-    searchReports(event: KeyboardEvent) {
+    searchReports(event: KeyboardEvent): void {
         this.searchReport.emit(event);
     }
 }

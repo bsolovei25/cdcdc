@@ -1,0 +1,143 @@
+.oil_block_inter_info {
+  height: 100%;
+  background-size: 99% 85%;
+}
+
+.oil_block_inter_info_short {
+  background-image: none;
+}
+
+.row {
+  margin-top: 1px;
+  display: flex;
+  height: 34%;
+
+  &__page {
+    margin: auto;
+    justify-content: space-around;
+    font-size: 14px;
+    width: 25%;
+    min-width: 50px;
+    display: flex;
+    margin-left: 30px;
+  }
+
+  &__page_short {
+    margin: auto;
+    justify-content: space-around;
+    font-size: 14px;
+    min-width: 50px;
+    display: flex;
+  }
+
+  &__data {
+    align-items: center;
+    color: #8c99b2;
+    font-size: 12px;
+    width: 25%;
+    min-width: 50px;
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  &__data_short {
+    margin: auto;
+    color: #8c99b2;
+    font-size: 12px;
+    width: 25%;
+    min-width: 50px;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__value_oil {
+    font-size: 12px;
+    justify-content: space-around;
+    width: 25%;
+    min-width: 50px;
+    display: flex;
+    align-items: center;
+  }
+
+  &__value_oil_debalance {
+    font-size: 12px;
+    margin-top: 15px;
+    justify-content: space-around;
+    width: 25%;
+    min-width: 50px;
+    display: flex;
+  }
+
+  &__name_value {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: auto;
+    margin-left: 30px;
+    width: 25%;
+    min-width: 50px;
+    font-size: 13px;
+    color: #8c99b2;
+  }
+
+  &__name_value_debalance {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: auto;
+    margin-left: 30px;
+    width: 25%;
+    min-width: 50px;
+    font-size: 13px;
+    color: #8c99b2;
+  }
+
+  &__name_value_debalance_short {
+    margin-left: 15px;
+  }
+
+  &__name_value_short {
+    margin-left: 15px;
+    margin-top: 10px;
+  }
+
+  &__value_oils_short {
+    margin: auto;
+    justify-content: space-around;
+    width: 25%;
+    min-width: 50px;
+    display: flex;
+    font-size: 10px;
+    margin-top: 5px;
+  }
+
+  &__date_short {
+    margin: 0;
+    margin-top: 15px;
+  }
+}
+
+.row_short {
+  height: 70px;
+  flex-flow: wrap;
+  min-width: 315px;
+  width: 100%;
+  max-width: 475px;
+}
+
+.activePage {
+  color: var(--color-warning);
+}
+
+.default {
+  color: var(--color-active);
+}
+
+.critical {
+  color: var(--color-warning);
+}
+
+.cls-2 {
+  fill: #60647f;
+  fill-rule: evenodd;
+}

@@ -143,129 +143,6 @@ export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
                 }
             })
             .html(data.title);
-
-        const leftTopButton = this.svgCircle
-            .append('image')
-            .attr(
-                'xlink:href',
-                () => {
-                    if (data.productFiling === 'critical') {
-
-                    } else if (data.productFiling === 'warning') {
-
-                    } else {
-                        return 'assets/icons/widgets/SMP/product-group-planning/middle-side/middle-left-top-button.svg'
-                    }
-                }
-
-            )
-            .attr('height', '25px')
-            .attr('width', '32px')
-            .attr('x', '-60')
-            .attr('y', '28');
-
-        const leftButtonButton = this.svgCircle
-            .append('image')
-            .attr(
-                'xlink:href',
-                () => {
-                    if (data.productUpdate === 'critical') {
-
-                    } else if (data.productUpdate === 'warning') {
-
-                    } else {
-                        return 'assets/icons/widgets/SMP/product-group-planning/middle-side/middle-left-bottom-button.svg'
-                    }
-                }
-
-            )
-            .attr('height', '25px')
-            .attr('width', '32px')
-            .attr('x', '-60')
-            .attr('y', '57');
-
-        const leftButton = this.svgCircle
-            .append('image')
-            .attr(
-                'xlink:href',
-                () => {
-                    if (data.productCrowded === 'critical') {
-
-                    } else if (data.productCrowded === 'warning') {
-
-                    } else {
-                        return 'assets/icons/widgets/SMP/product-group-planning/middle-side/middle-left-big-button.svg'
-                    }
-                }
-
-            )
-            .attr('height', '60px')
-            .attr('width', '32px')
-            .attr('x', '-28')
-            .attr('y', '25');
-
-
-
-        const rightTopButton = this.svgCircle
-            .append('image')
-            .attr(
-                'xlink:href',
-                () => {
-                    if (data.productFlask === 'critical') {
-
-                    } else if (data.productFlask === 'warning') {
-
-                    } else {
-                        return 'assets/icons/widgets/SMP/product-group-planning/middle-side/middle-right-top-button.svg'
-                    }
-                }
-
-            )
-            .attr('height', '25px')
-            .attr('width', '32px')
-            .attr('x', '130')
-            .attr('y', '28');
-
-        const rightButtonButton = this.svgCircle
-            .append('image')
-            .attr(
-                'xlink:href',
-                () => {
-                    if (data.productList === 'critical') {
-
-                    } else if (data.productList === 'warning') {
-
-                    } else {
-                        return 'assets/icons/widgets/SMP/product-group-planning/middle-side/middle-right-bottom-button.svg'
-                    }
-                }
-
-            )
-            .attr('height', '25px')
-            .attr('width', '32px')
-            .attr('x', '130')
-            .attr('y', '57');
-
-        const rightButton = this.svgCircle
-            .append('image')
-            .attr(
-                'xlink:href',
-                () => {
-                    if (data.productBuild === 'critical') {
-
-                    } else if (data.productBuild === 'warning') {
-
-                    } else {
-                        return 'assets/icons/widgets/SMP/product-group-planning/middle-side/middle-right-big-button.svg'
-                    }
-                }
-
-            )
-            .attr('height', '60px')
-            .attr('width', '32px')
-            .attr('x', '98')
-            .attr('y', '25');
-
     }
 
     // GAUGE RENDERING
@@ -285,7 +162,7 @@ export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
             maxValue: 25,
             transitionMs: 4000,
         }, gaugemap);
-        this.render(el, indicator, this.criticalPie, data);
+        this.render(el, data);
     }
 
     gauge(configuration, gaugemap): void {
@@ -313,7 +190,7 @@ export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
         return svg !== undefined;
     }
 
-    render(container, newValue, criticalPie, data): void {
+    render(container, data): void {
         this.svg = d3
             .select(container)
             .append('svg:svg')
@@ -329,7 +206,7 @@ export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
             .attr('transform', centerTx);
 
         const reverseData = [].concat(data.days).reverse();
-        const pointPie = reverseData.find(e => e.state !== 'disabled').day;
+        const pointPie = reverseData.find(e => e.state !== 'disabled')?.day;
 
         this.pointId = arcs.selectAll('path')
             .data(this.tickData)
@@ -344,7 +221,7 @@ export class ProductGroupsMiddleComponent implements OnInit, OnChanges {
                 }
             })
             .attr('fill', (d, i) => {
-                const status = this.data.days.find(e => e.day - 1 === i).state;
+                const status = this.data.days.find(e => e.day - 1 === i)?.state;
                 if (status === 'normal') {
                     return 'var(--color-active)';
                 } else if (status === 'warning') {
