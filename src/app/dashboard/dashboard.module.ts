@@ -153,7 +153,6 @@ import { TanksTableComponent } from './widgets/tank-calibration-table/tanks-tabl
 import { UploadFormComponent } from './widgets/tank-calibration-table/upload-form/upload-form.component';
 import { SmotrEventComponent } from './widgets/workspace/smotr-event/smotr-event.component';
 import { UsualEventComponent } from './widgets/workspace/usual-event/usual-event.component';
-import { RetrievalWindowComponent } from './widgets/workspace/components/retrieval-window/retrieval-window.component';
 import { EventDescriptionComponent } from './widgets/workspace/components/event-description/event-description.component';
 import { ChatComponent } from './widgets/workspace/components/chat/chat.component';
 import { CustomReportPropertiesReferenceComponent } from './widgets/custom-report-properties-reference/custom-report-properties-reference.component';
@@ -401,7 +400,6 @@ import { OilControlTowerComponent } from './widgets/oil-control/components/oil-c
         TanksTableComponent,
         SmotrEventComponent,
         UsualEventComponent,
-        RetrievalWindowComponent,
         EventDescriptionComponent,
         ChatComponent,
         CustomReportPropertiesReferenceComponent,

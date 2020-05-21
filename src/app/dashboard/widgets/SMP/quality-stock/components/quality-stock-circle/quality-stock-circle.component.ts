@@ -33,7 +33,7 @@ export class QualityStockCircleComponent implements OnInit, OnChanges {
 
 
   public d3Circle(data, el): void {
-    const summ = this.defaultPercent - (data?.factPercent - data?.deviationPercent);
+    const summ = this.defaultPercent - (data?.factPercent ?? 0 - data?.deviationPercent ?? 0);
     const mass = [data?.factPercent, data?.deviationPercent, summ];
     let color: any;
 
