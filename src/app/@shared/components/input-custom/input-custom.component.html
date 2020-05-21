@@ -1,0 +1,29 @@
+<div
+  class="input-container input-container_{{options.state}}"
+  [ngClass]="{'input-container_icon':!!options.icon, 'input-container_disabled':isDisabled}"
+>
+  <div
+    class="placeholder"
+    [ngClass]="{'placeholder_focus':isInput}"
+    *ngIf="options.isMovingPlaceholder"
+  >
+    {{options.placeholder}}
+  </div>
+  <input
+    class="input"
+    [type]="options.type"
+    [placeholder]="options.placeholder"
+    (focus)="isInput=true"
+    (input)="onInput($event.target.value)"
+    (blur)="onBlur($event.target.value)"
+    #input
+  />
+  <svg-icon
+    class="icon"
+    [ngClass]="{'icon_clickable':options.icon.isClickable}"
+    [src]="options.icon.src"
+    [svgStyle]="options.icon.svgStyle"
+    (click)="onClickIcon()"
+    *ngIf="!!options.icon"
+  ></svg-icon>
+</div>
