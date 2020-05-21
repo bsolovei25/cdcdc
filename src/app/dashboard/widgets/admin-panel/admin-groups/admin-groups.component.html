@@ -8,11 +8,11 @@
   <div class="column" *ngIf="!isDataLoading">
     <div class="column__header">
       <div class="search">
-        <evj-input-custom
+        <evj-input
           class="insert-component"
           [options]="inputGroupOptions"
           [(ngModel)]="searchingGroupString"
-        ></evj-input-custom>
+        ></evj-input>
       </div>
       <div class="button__small">
         <evj-button
@@ -50,11 +50,11 @@
   <div class="column column-center" *ngIf="!isDataLoading">
     <div class="column__header">
       <div class="search">
-        <evj-input-custom
+        <evj-input
           class="insert-component"
           [options]="inputWorkerOptions"
           [(ngModel)]="searchingWorkerString"
-        ></evj-input-custom>
+        ></evj-input>
       </div>
     </div>
     <div class="column__body scroll scroll-bar">

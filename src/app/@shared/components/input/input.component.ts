@@ -13,18 +13,18 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { IInputOptions } from '../../models/input.model';
 
 @Component({
-    selector: 'evj-input-custom',
-    templateUrl: './input-custom.component.html',
-    styleUrls: ['./input-custom.component.scss'],
+    selector: 'evj-input',
+    templateUrl: './input.component.html',
+    styleUrls: ['./input.component.scss'],
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => InputCustomComponent),
+            useExisting: forwardRef(() => InputComponent),
             multi: true,
         },
     ],
 })
-export class InputCustomComponent implements OnInit, ControlValueAccessor {
+export class InputComponent implements OnInit, ControlValueAccessor {
     // tslint:disable-next-line: no-output-native
     @Output() blur: EventEmitter<void> = new EventEmitter<void>();
 

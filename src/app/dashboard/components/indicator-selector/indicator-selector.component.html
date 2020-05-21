@@ -8,11 +8,11 @@
   <div class="dropdown-container" [class.dropdown-container_active]="isShowScreens">
     <div class="dropdown-component create-screen">
       <div class="dropdown-component_search">
-        <evj-input-custom
+        <evj-input
           [options]="inputOptions"
           [ngModel]="searchScreen"
           (ngModelChange)="screensFilter($event)"
-        ></evj-input-custom>
+        ></evj-input>
       </div>
     </div>
     <div class="dropdown-content scroll scroll-bar">

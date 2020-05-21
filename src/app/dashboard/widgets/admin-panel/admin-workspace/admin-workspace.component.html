@@ -1,12 +1,12 @@
 <div class="container">
   <div class="workspace__header">
     <div class="workspace__search">
-      <evj-input-custom
+      <evj-input
         class="insert-component"
         [options]="inputOptions"
         [(ngModel)]="searchValue"
         *ngIf="isWorkspaceActive && workspaces.length!==0"
-      ></evj-input-custom>
+      ></evj-input>
     </div>
     <div class="workspace__links">
       <a [ngClass]="{'active-link':isWorkspaceActive}" (click)="isWorkspaceActive=true"
