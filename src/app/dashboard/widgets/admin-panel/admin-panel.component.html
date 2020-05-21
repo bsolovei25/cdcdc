@@ -27,12 +27,11 @@
         <div class="admin__header">
           <div class="header__search">
             <div class="search">
-              <evj-input
+              <evj-input-custom
                 class="insert-component"
-                [placeholder]="searchPlaceholder"
-                [iconSrc]="searchIcon"
-                (inputedValue)="onSearchWorker($event)"
-              ></evj-input>
+                [options]="inputOptions"
+                [(ngModel)]="this.searchedWorker"
+              ></evj-input-custom>
             </div>
             <div class="brigades__button">
               <evj-button

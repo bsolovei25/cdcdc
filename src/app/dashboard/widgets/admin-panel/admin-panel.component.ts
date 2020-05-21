@@ -4,6 +4,7 @@ import { AdminPanelService } from '../../services/admin-panel/admin-panel.servic
 import { IUser, IUnitEvents } from '../../models/events-widget';
 import { Subscription, combineLatest } from 'rxjs';
 import { WidgetService } from '../../services/widget.service';
+import { IInputOptions } from '../../../@shared/models/input.model';
 
 @Component({
     selector: 'evj-admin-panel',
@@ -21,7 +22,6 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     public groupsButtonIcon: IButtonImgSrc = {
         btnIconSrc: 'assets/icons/widgets/admin/icon_group-active.svg',
     };
-    public searchIcon: string = 'assets/icons/search-icon.svg';
     //#endregion
 
     //#region WIDGET_FLAGS
@@ -36,8 +36,21 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     public isPopupShowed: boolean = false;
     //#endregion
 
-    public searchPlaceholder: string = 'Введите ФИО сотрудника';
     public searchedWorker: string = '';
+
+    //#region SEARCH_INPUT_OPTIONS
+    public inputOptions: IInputOptions = {
+        type: 'text',
+        state: 'normal',
+        placeholder: 'Введите ФИО сотрудника',
+        isMovingPlaceholder: true,
+        icon: {
+            src: 'assets/icons/search-icon.svg',
+            svgStyle: { 'width.px': 17, 'height.px': 17 },
+            isClickable: false,
+        },
+    };
+    //#endregion
 
     public workers: IUser[] = null;
     public brigades: IBrigadeAdminPanel[] = null;
@@ -164,7 +177,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
 
     public onShowBrigades(): void {
         this.isBrigadesShowed = !this.isBrigadesShowed;
-        this.searchPlaceholder = this.isBrigadesShowed
+        this.inputOptions.placeholder = this.isBrigadesShowed
             ? 'Введите название бригады'
             : 'Введите ФИО сотрудника';
     }
