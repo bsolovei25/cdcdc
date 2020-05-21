@@ -340,8 +340,10 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     }
 
     ngAfterViewInit(): void {
-        this.slider();
-        this.sliderLeftBar();
+        if (!this.isMock) {
+            this.slider();
+            this.sliderLeftBar();
+        }
     }
 
     ngOnDestroy(): void {

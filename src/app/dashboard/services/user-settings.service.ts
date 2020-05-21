@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { IUserGridItem, IScreenSettings } from '../models/user-settings.model';
 import { HttpClient } from '@angular/common/http';
-import { WIDGETS } from '../components/new-widgets-grid/widget-map';
+import { WIDGETS } from '../components/widgets-grid/widget-map';
 import { AppConfigService } from 'src/app/services/appConfigService';
 import { Observable, BehaviorSubject, throwError, Subscription } from 'rxjs';
 import { filter, catchError } from 'rxjs/operators';
-import { IParamWidgetsGrid } from '../components/new-widgets-grid/new-widgets-grid.component';
+import { IParamWidgetsGrid } from '../components/widgets-grid/widgets-grid.component';
 import { WidgetService } from './widget.service';
 import { ClaimService } from './claim.service';
 import { GridsterItem, GridsterItemComponentInterface } from 'angular-gridster2';

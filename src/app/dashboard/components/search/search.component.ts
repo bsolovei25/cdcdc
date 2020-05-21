@@ -9,46 +9,42 @@ import { WidgetService } from '../../services/widget.service';
     styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit, OnDestroy {
-    public checkClick = true;
+    public checkClick: boolean = false;
 
-    public typeWidgetChoose = [];
-
-    private subscription: Subscription;
+    private subscriptions: Subscription[] = [];
 
     widgets: IWidgets[];
 
     public newArrayType = [];
     public newArrayClick = [];
 
-    @Output() searchReport = new EventEmitter<KeyboardEvent>();
+    @Output() search: EventEmitter<KeyboardEvent> = new EventEmitter<KeyboardEvent>();
 
     @Input() isReport: boolean = false;
 
-    constructor(public widgetService: WidgetService) {
-        this.subscription = this.widgetService.widgets$.subscribe((dataW) => {
-            this.widgets = dataW;
-            this.newArrayType = this.filterData(this.widgets);
-        });
-    }
+    @Input() isWidgets: boolean = false;
 
-    ngOnInit(): void { }
+    constructor(public widgetService: WidgetService) {}
+
+    ngOnInit(): void {
+        this.subscriptions.push(
+            this.widgetService.widgets$.subscribe((dataW) => {
+                this.widgets = dataW;
+                this.newArrayType = this.filterData(dataW);
+            })
+        );
+    }
 
     ngOnDestroy(): void {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
+        this.subscriptions.forEach((subs: Subscription) => subs.unsubscribe());
     }
 
-    public onCheck(data: any): void {
-        if (data === true) {
-            this.checkClick = false;
-        } else {
+    public onCheck(data: boolean): void {
+        if (data) {
             this.checkClick = true;
+        } else {
+            this.checkClick = false;
         }
-    }
-
-    public onFilterMass(data: any) {
-        this.newArrayClick = data;
     }
 
     public filterData(data) {
@@ -74,7 +70,7 @@ export class SearchComponent implements OnInit, OnDestroy {
         }
     }
 
-    searchReports(event: KeyboardEvent): void {
-        this.searchReport.emit(event);
+    searchInput(event: KeyboardEvent): void {
+        this.search.emit(event);
     }
 }

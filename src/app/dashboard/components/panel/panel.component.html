@@ -1,0 +1,32 @@
+<div class="widgets-panel" [class.widgets-panel_active]="active">
+  <ng-container *ngIf="claimSettingsScreens.includes(EnumClaimScreens.add)">
+    <div class="widgets-panel__toggle" (click)="onToggleClick('widgets')">
+      <svg-icon
+        class="widgets-panel__icon"
+        src="./assets/icons/settings.svg"
+        [class.widgets-panel__icon--active]="active && isWidgets === 'widgets'"
+        [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+      ></svg-icon>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="claimSettingsScreens.includes(EnumClaimScreens.report)">
+    <div class="widgets-panel__toggle__reports" (click)="onToggleClick('reports')">
+      <svg-icon
+        class="widgets-panel__icon__reports"
+        [class.widgets-panel__icon__reports--active]="active && isWidgets === 'reports'"
+        src="./assets/icons/widgets/widget-panel/reports.svg"
+        [svgStyle]="{ 'width.px':20, 'height.px':20 }"
+      ></svg-icon>
+    </div>
+  </ng-container>
+
+  <div @fadeAnimation *ngIf="isWidgets === 'widgets'" class="widget__new">
+    <evj-widget-panel
+      (swap)="onSwap($event)"
+      (grid)="onGrid($event)"
+      (toggleClick)="onToggleClick($event)"
+    ></evj-widget-panel>
+  </div>
+  <evj-reports @fadeAnimation *ngIf="isWidgets === 'reports'"></evj-reports>
+</div>

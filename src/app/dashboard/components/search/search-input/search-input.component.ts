@@ -6,14 +6,13 @@ import { WidgetService } from '../../../services/widget.service';
     templateUrl: './search-input.component.html',
     styleUrls: ['./search-input.component.scss'],
 })
-export class SearchInputComponent implements OnInit {
+export class SearchInputComponent {
     @Input() public data;
-    @Input() public dataWidget;
     @Input() isReport: boolean = false;
 
-    @Output() searchReport = new EventEmitter<KeyboardEvent>();
+    @Output() searchReport: EventEmitter<KeyboardEvent> = new EventEmitter<KeyboardEvent>();
 
-    @Output() onCheck = new EventEmitter<boolean>();
+    @Output() check: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     public checkClick: boolean = false;
 
@@ -26,25 +25,26 @@ export class SearchInputComponent implements OnInit {
         }
     }
 
-    ngOnInit() { }
+    searchRecords(e: KeyboardEvent): void {
+        console.log((e?.target as HTMLInputElement)?.value.toLowerCase());
+        // this.check.emit(this.checkClick);
+        // let type = 'input';
+        // this.widgetService.searchItems(e.currentTarget.value, type);
+        // if (!e.currentTarget.value) {
+        //     this.widgetService.reEmitList();
+        // }
 
-    searchRecords(e: any) {
-        this.onCheck.emit(this.checkClick);
-        let type = 'input';
-        this.widgetService.searchItems(e.currentTarget.value, type);
-        if (!e.currentTarget.value) {
-            this.widgetService.reEmitList();
-        }
+        this.widgetService.inputWidgets$.next((e?.target as HTMLInputElement)?.value.toLowerCase());
     }
 
-    searchReports(event: KeyboardEvent) {
+    searchReports(event: KeyboardEvent): void {
         this.searchReport.emit(event);
     }
 
-    public openFilter(event: any) {
+    public openFilter(event: any): void {
         if (event) {
             this.checkClick = !this.checkClick;
         }
-        this.onCheck.emit(this.checkClick);
+        this.check.emit(this.checkClick);
     }
 }

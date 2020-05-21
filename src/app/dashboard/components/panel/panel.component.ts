@@ -1,0 +1,92 @@
+import {
+    Component,
+    OnInit,
+    Injector,
+    Output,
+    EventEmitter,
+    OnDestroy,
+    ViewChild,
+} from '@angular/core';
+import { GridsterConfig } from 'angular-gridster2';
+import { WidgetService } from '../../services/widget.service';
+import { Subscription, BehaviorSubject, Observable } from 'rxjs';
+import { WIDGETS } from '../widgets-grid/widget-map';
+import { IWidgets } from '../../models/widget.model';
+import { UserSettingsService } from '../../services/user-settings.service';
+import { ClaimService, EnumClaimScreens, EnumClaimWidgets } from '../../services/claim.service';
+import { trigger, style, transition, animate, query, stagger } from '@angular/animations';
+import { map } from 'rxjs/operators';
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+
+type isChoosePanel = 'widgets' | 'reports';
+
+export const fadeAnimation = trigger('fadeAnimation', [
+    transition(':enter', [style({ opacity: 0 }), animate('300ms', style({ opacity: 1 }))]),
+    transition(':leave', [style({ opacity: 1 }), animate('100ms', style({ opacity: 0 }))]),
+]);
+
+@Component({
+    selector: 'evj-panel',
+    templateUrl: './panel.component.html',
+    styleUrls: ['./panel.component.scss'],
+    animations: [fadeAnimation],
+})
+export class PanelComponent implements OnInit, OnDestroy {
+
+    public readonly WIDGETS = WIDGETS;
+
+    public active: boolean = false;
+
+    isWidgets: isChoosePanel;
+
+    private claimSettingsWidgets: EnumClaimWidgets[] = [];
+    public claimSettingsScreens: EnumClaimScreens[] = [];
+    EnumClaimScreens = EnumClaimScreens;
+
+    private subscriptions: Subscription[] = [];
+
+    public gridWidget: boolean = true;
+    public fixWidget: boolean = true;
+
+    constructor(
+        public widgetService: WidgetService,
+        public injector: Injector,
+        public userSettings: UserSettingsService,
+        private claimService: ClaimService
+    ) {}
+
+    @Output() swap: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() grid: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+    ngOnInit(): void {
+        this.subscriptions.push(
+            this.claimService.claimWidgets$.subscribe((set) => {
+                this.claimSettingsWidgets = set;
+            }),
+            this.claimService.claimScreens$.subscribe((claims) => {
+                this.claimSettingsScreens = claims;
+            })
+        );
+    }
+
+    ngOnDestroy(): void {
+        this.subscriptions.forEach((subs: Subscription) => subs.unsubscribe());
+    }
+
+    onToggleClick(buttonName: isChoosePanel): void {
+        if (this.active && buttonName !== this.isWidgets) {
+            this.isWidgets = buttonName;
+        } else {
+            this.active = !this.active;
+            this.isWidgets = buttonName;
+        }
+    }
+
+    onSwap(event: boolean): void {
+        this.swap.emit(event);
+    }
+
+    onGrid(event: boolean): void {
+        this.grid.emit(event);
+    }
+}

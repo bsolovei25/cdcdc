@@ -47,21 +47,20 @@ export class WidgetService {
     private reconnectWsTimer: any;
     private reconnectRestTimer: any;
 
-    private _lastSearchValue: string;
-    public searchValue: string;
+    public searchValue: string | string[];
     public searchType;
     public searchWidget$: Subject<any> = new Subject<any>();
     public searchWidgetT: Observable<IWidgets[]> = this.searchWidget$.pipe(
-        tap((val) => {
-            this._lastSearchValue = val;
-        }),
-        switchMap(this.Search.bind(this))
+        switchMap(this.search.bind(this))
     );
 
     private currentDates: IDatesInterval = null;
-    public currentDates$: BehaviorSubject<IDatesInterval> = new BehaviorSubject<
-        IDatesInterval
-    >(null);
+    public currentDates$: BehaviorSubject<IDatesInterval> = new BehaviorSubject<IDatesInterval>(
+        null
+    );
+
+    filterWidgets$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>(null);
+    inputWidgets$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
     constructor(
         public http: HttpClient,
@@ -96,15 +95,17 @@ export class WidgetService {
         for (let i = 0; i < 10; i++) {
             const start = new Date().getTime();
             await this.http.get(this.restUrl + `/api/af-service/GetAvailableWidgets`).toPromise();
-            await this.http.get(this.restUrl + `/api/user-management/Claim/user/GetAvailableWidgets`).toPromise();
+            await this.http
+                .get(this.restUrl + `/api/user-management/Claim/user/GetAvailableWidgets`)
+                .toPromise();
             const end = new Date().getTime();
             arr.push(end - start);
         }
         let summ = 0;
-        arr.forEach(el => summ += el);
-        console.log('averageTime: ' + (summ / arr.length));
-        console.log('maxTime: ' + (Math.max.apply(null, arr)));
-        console.log('minTime: ' + (Math.min.apply(null, arr)));
+        arr.forEach((el) => (summ += el));
+        console.log('averageTime: ' + summ / arr.length);
+        console.log('maxTime: ' + Math.max.apply(null, arr));
+        console.log('minTime: ' + Math.min.apply(null, arr));
     }
 
     mapData(data: IWidgets[]): IWidgets[] {
@@ -283,7 +284,7 @@ export class WidgetService {
         this.ws.next({
             actionType: 'authenticate',
             channelId: null,
-            token: this.authService.userSessionToken
+            token: this.authService.userSessionToken,
         });
         this.ws.subscribe(
             (msg) => {
@@ -315,9 +316,9 @@ export class WidgetService {
         }
         return (
             new Date(incoming.fromDateTime).getTime() ===
-            new Date(this.currentDates.fromDateTime).getTime() &&
+                new Date(this.currentDates.fromDateTime).getTime() &&
             new Date(incoming.toDateTime).getTime() ===
-            new Date(this.currentDates.toDateTime).getTime()
+                new Date(this.currentDates.toDateTime).getTime()
         );
     }
 
@@ -342,26 +343,25 @@ export class WidgetService {
         }
     }
 
-    public Search(record: string): Observable<IWidgets[]> {
+    public search(record: string | string[]): Observable<IWidgets[]> {
         try {
-            const point = this._widgets$.getValue();
-            let pointFilter;
-            let arrFilter: any = [];
-            let arrFilterButton: any = [];
-            let resultObject: any = [];
-            if (this.searchType === 'input') {
-                let undefinedFilter = point.filter((point) => point.title !== undefined);
-                const filter = of(
-                    undefinedFilter.filter(
-                        (point) => point.title.toLowerCase().indexOf(record.toLowerCase()) > -1
+            const points = this._widgets$.getValue();
+
+            if (this.searchType === 'input' && typeof record === 'string') {
+                this.searchValue = record;
+                return of(
+                    points.filter(
+                        (point) =>
+                            point.title !== undefined &&
+                            point.title.toLowerCase().includes(record.trim().toLowerCase())
                     )
                 );
-                pointFilter = filter;
-                this.searchValue = record;
-                return pointFilter;
             } else {
+                const arrFilter: any[] = [];
+                const arrFilterButton: any = [];
+                const resultObject: any = [];
                 for (const i of record) {
-                    const filter = point.filter((point) => point.categories.indexOf(i) > -1);
+                    const filter = points.filter((point) => point.categories.indexOf(i) > -1);
                     arrFilter.push(filter);
                 }
                 for (const i of arrFilter) {

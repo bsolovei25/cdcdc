@@ -1,75 +1,50 @@
-import {
-    Component,
-    OnInit,
-    Injector,
-    Output,
-    EventEmitter,
-    OnDestroy, ViewChild
-} from '@angular/core';
-import { GridsterConfig, GridType } from 'angular-gridster2';
+import { Component, OnInit, Output, EventEmitter, Injector } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
-import { Subscription, BehaviorSubject, Observable } from 'rxjs';
-import { WIDGETS } from '../new-widgets-grid/widget-map';
-import { IWidgets } from '../../models/widget.model';
 import { UserSettingsService } from '../../services/user-settings.service';
-import { ClaimService, EnumClaimScreens, EnumClaimWidgets } from '../../services/claim.service';
-import { trigger, state, style, transition, animate, group } from '@angular/animations';
-import { filter, map } from 'rxjs/operators';
-import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-
-type isChoosePanel = 'widgets' | 'reports';
-
-export const fadeAnimation = trigger('fadeAnimation', [
-    transition(':enter', [
-        style({ opacity: 0 }),
-        animate('300ms', style({ opacity: 1 }))
-    ]),
-    transition(':leave', [
-        style({ opacity: 1 }),
-        animate('100ms', style({ opacity: 0 }))
-    ])
-]);
+import { ClaimService, EnumClaimWidgets, EnumClaimScreens } from '../../services/claim.service';
+import { Subscription, BehaviorSubject, Observable } from 'rxjs';
+import { WIDGETS } from '../widgets-grid/widget-map';
+import { IWidgets } from '../../models/widget.model';
+import { map } from 'rxjs/operators';
 
 @Component({
-    selector: 'evj-new-widgets-panel',
-    templateUrl: './new-widgets-panel.component.html',
-    styleUrls: ['./new-widgets-panel.component.scss'],
-    animations: [fadeAnimation],
+    selector: 'evj-widget-panel',
+    templateUrl: './widget-panel.component.html',
+    styleUrls: ['./widget-panel.component.scss'],
 })
-export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
-    @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
-
+export class WidgetPanelComponent implements OnInit {
     public readonly WIDGETS = WIDGETS;
-    private subscriptions: Subscription[] = [];
+    public gridWidget: boolean = true;
+    public fixWidget: boolean = true;
 
-    public active: boolean = false;
-    public options: GridsterConfig;
+    private subscriptions: Subscription[] = [];
 
     public widgets$: BehaviorSubject<IWidgets[]> = new BehaviorSubject<IWidgets[]>([]);
     public filterWidgets$: Observable<IWidgets[]> = this.widgets$
         .asObservable()
-        .pipe(
-            map((widgets) => widgets.filter((widget) => WIDGETS[widget.widgetType]))
-        );
+        .pipe(map((widgets) => widgets.filter((widget) => WIDGETS[widget.widgetType])));
+
     private claimSettingsWidgets: EnumClaimWidgets[] = [];
     public claimSettingsScreens: EnumClaimScreens[] = [];
     EnumClaimScreens = EnumClaimScreens;
 
-    isWidgets: isChoosePanel;
+    search: string = '';
 
-    _injector: Injector; // TOFIX   Если не нужно то удалить
+    private timerHwnd: number;
 
-    public gridWidget: boolean = true;
-    public fixWidget: boolean = true;
+    @Output() toggleClick: EventEmitter<string> = new EventEmitter<string>();
+
+    @Output() swap: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() grid: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     constructor(
         public widgetService: WidgetService,
         public injector: Injector,
         public userSettings: UserSettingsService,
         private claimService: ClaimService
-    ) { }
+    ) {}
 
-    public ngOnInit(): void {
+    ngOnInit(): void {
         this.subscriptions.push(
             this.widgetService.widgets$.subscribe((dataW) => {
                 console.log('start filter');
@@ -89,7 +64,7 @@ export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
                         filterWidgets.push(widget);
                     }
                 });
-                this.widgets$.next(filterWidgets);
+                // this.widgets$.next(filterWidgets);
             }),
             this.claimService.claimWidgets$.subscribe((set) => {
                 this.claimSettingsWidgets = set;
@@ -100,8 +75,17 @@ export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
         );
     }
 
-    @Output() swap: EventEmitter<boolean> = new EventEmitter<boolean>();
-    @Output() grid: EventEmitter<boolean> = new EventEmitter<boolean>();
+    async loadItem(): Promise<void> {}
+
+    dragStartHandler(event: DragEvent, item: string): void {
+        event.dataTransfer.setData('text/plain', item);
+        event.dataTransfer.dropEffect = 'copy';
+        this.toggleClick.emit('widgets');
+    }
+
+    public dataById(item: IWidgets): string {
+        return item.id;
+    }
 
     changeSwap(): void {
         const check = document.getElementById('checkBoxFix') as HTMLInputElement;
@@ -125,30 +109,19 @@ export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
         }
     }
 
-    ngOnDestroy(): void {
-        for (const subscribe of this.subscriptions) {
-            subscribe.unsubscribe();
-        }
-    }
-
-    onToggleClick(buttonName: isChoosePanel): void {
-        if (this.active && buttonName !== this.isWidgets) {
-            this.isWidgets = buttonName;
+    searchWidgetsInput(event: KeyboardEvent): void {
+        this.search = (event?.target as HTMLInputElement)?.value.toLowerCase();
+        if (this.search === '') {
         } else {
-            this.active = !this.active;
-            this.isWidgets = buttonName;
+            if (!this.timerHwnd) {
+                this.timerHwnd = window.setTimeout(() => {
+                    this.timerHwnd = 0;
+                }, 100);
+            }
         }
     }
 
-    dragStartHandler(event: DragEvent, item: string): void {
-        event.dataTransfer.setData('text/plain', item);
-        event.dataTransfer.dropEffect = 'copy';
-        this.onToggleClick(this.isWidgets);
-    }
-
-    public dataById(item): string {
-        return item.id;
-    }
+    searchWidgetsFilter(data: string[]): void {}
 
     public getInjector = (idWidget: string): Injector => {
         return Injector.create({
@@ -161,8 +134,4 @@ export class NewWidgetsPanelComponent implements OnInit, OnDestroy {
             parent: this.injector,
         });
     };
-
-    public scrollHandler(): void {
-        this.viewport.checkViewportSize();
-    }
 }
