@@ -45,40 +45,19 @@ export class InputCustomComponent implements OnInit, ControlValueAccessor {
             },
             secState: 'assets/icons/login/visibility_off.svg',
         },
-        mask: {
-            prefix: '+7',
-            mask: '(000) 000-00-00',
-            showMaskTyped: true,
-        },
     };
     @ViewChild('input', { static: true }) public input: ElementRef;
 
     public isInput: boolean = false;
     public isDisabled: boolean = false;
-    public mask: IInputMask = {
-        prefix: '',
-        mask: '',
-        showMaskTyped: false,
-    };
 
     constructor(private renderer: Renderer2) {}
 
-    public ngOnInit(): void {
-        this.maskSettings();
-    }
+    public ngOnInit(): void {}
 
     public onClickIcon(): void {
         if (this.options.icon.isClickable && !!this.options.icon.onClick) {
             this.options.icon.onClick();
-        }
-    }
-
-    private maskSettings(): void {
-        if (this.options.mask) {
-            this.mask = this.options.mask;
-            this.isInput = true;
-
-            console.log(this.mask);
         }
     }
 
@@ -87,7 +66,7 @@ export class InputCustomComponent implements OnInit, ControlValueAccessor {
     }
 
     public onBlur(value: string): void {
-        this.isInput = !!value || !!this.mask?.mask || !!this.mask?.prefix;
+        this.isInput = !!value;
         this.onTouched();
         this.blur.emit();
     }
@@ -98,8 +77,7 @@ export class InputCustomComponent implements OnInit, ControlValueAccessor {
     // #region ControlValueAccessor
     public writeValue(value: string): void {
         this.renderer.setProperty(this.input.nativeElement, 'value', value);
-        this.isInput = !!value || !!this.mask?.mask || !!this.mask?.prefix;
-
+        this.isInput = !!value;
         this.onChange(value);
     }
 
