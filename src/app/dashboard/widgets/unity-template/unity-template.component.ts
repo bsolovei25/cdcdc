@@ -43,7 +43,6 @@ export class UnityTemplateComponent implements OnInit {
     ngOnInit() {}
 
     ngOnDestroy() {
-        console.log('destroy_unity');
         if (this.subscriptions) {
             for (const i in this.subscriptions) {
                 this.subscriptions[i].unsubscribe();

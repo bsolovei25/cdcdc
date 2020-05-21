@@ -1656,7 +1656,9 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
     }
 
     ngAfterViewInit(): void {
-        this.drawOilControlSocket(this.data);
+        if(!this.isMock) {
+            this.drawOilControlSocket(this.data);
+        }
     }
 
     ngOnDestroy(): void {
@@ -1709,7 +1711,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
     }
 
     public drawOilControl(data): void {
-        this.drawPicture(this.oilIcon.nativeElement);
+        this.drawPicture(this.oilIcon?.nativeElement);
         this.FilterCircle(data.products, this.indexTestProduct);
     }
 
@@ -1815,7 +1817,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
             }
         }
 
-        this.drawLine(this.line.nativeElement, countPicture);
+        this.drawLine(this.line?.nativeElement, countPicture);
     }
 
     public drawLine(el, count): void {
@@ -1872,7 +1874,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
         data,
         dataStorage
     ): void {
-        this.svgMenu = d3.select(el.firstElementChild);
+        this.svgMenu = d3.select(el?.firstElementChild);
 
         let svgMenu = this.svgMenu;
         this.activeProduct = data;
@@ -2149,7 +2151,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
             let indexStorage = this.indexStorage;
             for (let textStorage of dataStorage) {
                 let test = d3.select(
-                    el.firstElementChild.getElementById((indexStorage + 1).toString())
+                    el?.firstElementChild.getElementById((indexStorage + 1).toString())
                 );
                 if (indexPies1 === indexStorage) {
                     if (pie.point === 3) {
@@ -2257,7 +2259,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
             newProduct = this.findAndFilterProduct(this.newArrayProduct, index, this.indexTestStorage);
         }
         this.drawOnCircle(
-            this.oilCircle.nativeElement,
+            this.oilCircle?.nativeElement,
             this.pieStart,
             this.pieEnd,
             this.pieStartStorage,
@@ -2266,7 +2268,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
             this.newArrayProduct[newProduct].storages
         );
         // this.drawBak(this.oilBak.nativeElement);
-        this.drawPicture(this.oilIcon.nativeElement);
+        this.drawPicture(this.oilIcon?.nativeElement);
     }
 
     findAndFilterProduct(arr, index, indexStorage): number {
@@ -2287,7 +2289,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                 this.changeMassivStorage(index, data);
             }
             this.drawOnCircle(
-                this.oilCircle.nativeElement,
+                this.oilCircle?.nativeElement,
                 this.pieStart,
                 this.pieEnd,
                 this.pieStartStorage,
@@ -2306,7 +2308,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
                 this.changeMassivStorage(index, data);
             }
             this.drawOnCircle(
-                this.oilCircle.nativeElement,
+                this.oilCircle?.nativeElement,
                 this.pieStart,
                 this.pieEnd,
                 this.pieStartStorage,
@@ -2316,13 +2318,13 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
             );
         }
         // this.drawBak(this.oilBak.nativeElement);
-        this.drawPicture(this.oilIcon.nativeElement);
+        this.drawPicture(this.oilIcon?.nativeElement);
     }
 
     ///Возможно зачищение всех нефтеконтролей
 
     public clearStorage(): void {
-        const clears = this.oilCircle.nativeElement.querySelectorAll('.textValues');
+        const clears = this.oilCircle?.nativeElement.querySelectorAll('.textValues');
         clears.forEach((el) => el.remove());
         this.clearPicture();
         this.clearLine();
@@ -2330,17 +2332,17 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
 
     public clearProduct(): void {
         this.clearStorage();
-        const clears = this.oilCircle.nativeElement.querySelectorAll('.textProduct');
+        const clears = this.oilCircle?.nativeElement.querySelectorAll('.textProduct');
         clears.forEach((el) => el.remove());
     }
 
     public clearPicture(): void {
-        const clears = this.oilIcon.nativeElement.querySelectorAll('.textProduct');
+        const clears = this.oilIcon?.nativeElement.querySelectorAll('.textProduct');
         clears.forEach((el) => el.remove());
     }
 
     public clearLine(): void {
-        const clears = this.line.nativeElement.querySelectorAll('.textProduct');
+        const clears = this.line?.nativeElement.querySelectorAll('.textProduct');
         clears.forEach((el) => el.remove());
     }
 
@@ -2467,7 +2469,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
             this.indexTestStorage = this.countStorage(data[0]);
             this.FilterStorageCircle(data[el], this.indexTestStorage);
             return this.drawOnCircle(
-                this.oilCircle.nativeElement,
+                this.oilCircle?.nativeElement,
                 this.pieStart,
                 this.pieEnd,
                 this.pieStartStorage,
@@ -2486,7 +2488,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
             this.indexProductActive = 2;
             this.FilterStorageCircle(data[el - 1], this.indexTestStorage);
             return this.drawOnCircle(
-                this.oilCircle.nativeElement,
+                this.oilCircle?.nativeElement,
                 this.pieStart,
                 this.pieEnd,
                 this.pieStartStorage,
@@ -2501,7 +2503,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
             this.indexTestStorage = this.countStorage(data[el]);
             this.FilterStorageCircle(data[el], this.indexTestStorage);
             return this.drawOnCircle(
-                this.oilCircle.nativeElement,
+                this.oilCircle?.nativeElement,
                 this.pieStart,
                 this.pieEnd,
                 this.pieStartStorage,
@@ -2516,7 +2518,7 @@ export class OilControlComponent extends WidgetPlatform implements OnInit, After
             this.indexTestStorage = this.countStorage(data[2]);
             this.FilterStorageCircle(data[2], this.indexTestStorage);
             return this.drawOnCircle(
-                this.oilCircle.nativeElement,
+                this.oilCircle?.nativeElement,
                 this.pieStart,
                 this.pieEnd,
                 this.pieStartStorage,

@@ -42,7 +42,6 @@ export class DispatcherScreenComponent extends WidgetPlatform implements OnInit,
 
     ngOnDestroy(): void {
         super.ngOnDestroy();
-        console.log('destroy_unity');
         if (this.unityInstance) {
             this.unityInstance.Quit(() => console.log('destroy'));
         }

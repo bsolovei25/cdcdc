@@ -9,7 +9,12 @@ import {
     EventsWidgetNotificationStatus,
     EventsWidgetNotificationPriority,
     EventsWidgetCategoryCode,
-    IRetrievalEvents, IAsusService, IAsusEOService, IAsusWorkgroup, IAsusCategories, ISmotrReference
+    IRetrievalEvents,
+    IAsusService,
+    IAsusEOService,
+    IAsusWorkgroup,
+    IAsusCategories,
+    ISmotrReference,
 } from '../../models/events-widget';
 import { EventService } from '../widgets/event.service';
 import { SnackBarService } from '../snack-bar.service';
@@ -77,9 +82,7 @@ export class EventsWorkspaceService {
         private eventService: EventService,
         private snackBarService: SnackBarService,
         private avatarConfiguratorService: AvatarConfiguratorService
-    ) {
-        this.loadItem();
-    }
+    ) {}
 
     public async loadItem(id?: number): Promise<void> {
         try {
@@ -87,7 +90,7 @@ export class EventsWorkspaceService {
                 this.isCreateNewEvent = false;
                 this.isEditEvent = true;
                 this.event = await this.eventService.getEvent(id);
-                this.event = {...this.defaultEvent, ...this.event};
+                this.event = { ...this.defaultEvent, ...this.event };
             }
             const dataLoadQueue: Promise<void>[] = [];
             dataLoadQueue.push(
@@ -125,8 +128,8 @@ export class EventsWorkspaceService {
                     this.asusEOServices = data;
                 }),
                 this.eventService.getSmotrReference().then((data) => {
-                   this.smotrReference = data;
-                }),
+                    this.smotrReference = data;
+                })
             );
             await Promise.all(dataLoadQueue);
             this.setDefaultEvent();
@@ -173,7 +176,7 @@ export class EventsWorkspaceService {
                 service: '',
                 eoService: '',
                 equipment: '',
-            }
+            },
         };
     }
 
@@ -181,7 +184,7 @@ export class EventsWorkspaceService {
         this.isLoading = true;
         this.isCreateNewEvent = false;
         if (typeof value !== 'number') {
-            this.event = {...this.defaultEvent, ...value};
+            this.event = { ...this.defaultEvent, ...value };
         }
         this.loadItem(typeof value === 'number' ? value : undefined);
     }
@@ -214,7 +217,10 @@ export class EventsWorkspaceService {
             }
         } else {
             if (this.event.category.name === 'asus') {
-                this.snackBarService.openSnackBar('Данное действие не допустимо для данного события!', 'snackbar-red');
+                this.snackBarService.openSnackBar(
+                    'Данное действие не допустимо для данного события!',
+                    'snackbar-red'
+                );
             } else {
                 try {
                     await this.eventService.putEvent(this.event);
