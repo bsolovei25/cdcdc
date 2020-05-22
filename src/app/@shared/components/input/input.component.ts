@@ -76,7 +76,8 @@ export class InputComponent implements OnInit, ControlValueAccessor {
 
     // #region ControlValueAccessor
     public writeValue(value: string): void {
-        this.renderer.setProperty(this.input.nativeElement, 'value', value);
+        const inputValue: string = typeof value === 'string' ? value : '';
+        this.renderer.setProperty(this.input.nativeElement, 'value', inputValue);
         this.isInput = !!value;
         this.onChange(value);
     }

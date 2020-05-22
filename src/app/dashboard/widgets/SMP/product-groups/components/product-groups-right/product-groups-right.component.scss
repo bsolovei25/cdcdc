@@ -1,19 +1,16 @@
 .cb {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: stretch;
-    border-right: 1px solid var(--color-smp-border);
-    border-left: 1px solid var(--color-smp-border);
-  }
-  
-  .item-b ::ng-deep svg {
-    height: 100%;
-  }
-  
-  .item-b {
-    height: 70px;
-    width: 100%;
-    margin-top: 14px;
-  }
-  
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+}
+
+.item-b ::ng-deep svg {
+  height: 100%;
+}
+
+.item-b {
+  height: 70px;
+  width: 100%;
+  margin-top: 14px;
+}

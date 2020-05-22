@@ -108,7 +108,12 @@
           <div class="number_position">
             <evj-ui-block class="workspace__header__block" status="normal">
               <div class="input_position">
-                <mat-form-field class="example-full-width">
+                <evj-input
+                  class="input"
+                  [options]="inputOptions"
+                  [(ngModel)]="ewService.event.positionNumber"
+                ></evj-input>
+                <!-- <mat-form-field class="example-full-width">
                   <mat-label>Номер позиции</mat-label>
                   <input
                     matInput
@@ -116,7 +121,7 @@
                     [value]="ewService.event.positionNumber"
                     [(ngModel)]="ewService.event.positionNumber"
                   />
-                </mat-form-field>
+                </mat-form-field> -->
               </div>
               <div class="position_icon">
                 <svg-icon

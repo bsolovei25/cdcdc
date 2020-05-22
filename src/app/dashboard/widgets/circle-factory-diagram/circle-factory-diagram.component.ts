@@ -1,4 +1,4 @@
-import { Component, Inject, ElementRef, ViewChild, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, ElementRef, ViewChild, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
 import { WidgetService } from '../../services/widget.service';
 import { WidgetPlatform } from '../../models/widget-platform';
 
@@ -10,8 +10,8 @@ declare var d3: any;
     styleUrls: ['./circle-factory-diagram.component.scss'],
 })
 export class CircleFactoryDiagramComponent extends WidgetPlatform
-    implements OnInit, OnDestroy {
-    @ViewChild('circleFactory') CircleFactory: ElementRef;
+    implements OnInit, AfterViewInit, OnDestroy {
+    @ViewChild('circleFactory') circleFactory: ElementRef;
 
     public readonly RADIUS: number = 42;
 
@@ -57,8 +57,11 @@ export class CircleFactoryDiagramComponent extends WidgetPlatform
         super.ngOnDestroy();
     }
 
+    ngAfterViewInit(): void {
+        this.d3Circle(this.data, this.circleFactory.nativeElement);
+    }
+
     protected dataConnect(): void {
-        this.d3Circle(this.data, this.CircleFactory.nativeElement);
     }
 
     protected dataHandler(ref: any): void { }
