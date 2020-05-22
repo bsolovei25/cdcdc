@@ -86,7 +86,11 @@
             </div>
           </div>
           <div class="workflow__scenario__body" #containerWorkflow>
-            <div class="workflow__scenario__body__top" #splitTop id="gridContainer">
+            <div
+              class="workflow__scenario__body__top"
+              #splitTop
+              [id]="LEADER_LINE_PARENT_CONTAINER"
+            >
               <gridster
                 style="min-width: 100% !important; min-height: 100% !important;"
                 class="workflow__scenario__body__top__gridster"
@@ -126,7 +130,18 @@
                     ></svg-icon>
                   </gridster-item>
                 </ng-container>
-                <div id="leader-line-host"></div>
+                <div [id]="LEADER_LINE_HOST_CONTAINER"></div>
+                <div [id]="LEADER_LINE_REMOVE_CONTAINER">
+                  <div style="display: none;">
+                    <svg-icon
+                      [id]="LEADER_LINE_REMOVE_TEMPLATE"
+                      style="height: 18px;"
+                      class="remove-line__icon"
+                      src="./assets/icons/widgets/admin-shift-schedule/close.svg"
+                      [svgStyle]="{ 'width.px':'10', 'height.px':'10' }"
+                    ></svg-icon>
+                  </div>
+                </div>
               </gridster>
             </div>
             <div class="workflow__scenario__body__bar" #splitBar></div>

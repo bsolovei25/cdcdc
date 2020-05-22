@@ -442,3 +442,9 @@
     }
   }
 }
+
+.remove-line__icon {
+  position: absolute;
+  z-index: 10;
+  cursor: pointer;
+}

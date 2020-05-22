@@ -141,6 +141,8 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     private itemCol: number = 3;
     private itemRow: number = 3;
 
+    private removableLeaderLineIds = new Map<string, any>();
+
     widthSvgIconGrid: 50;
     heightSvgIconGrid: 50;
 
@@ -167,6 +169,16 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
     alertWorkspaceTable: IWorkspaceTable;
 
     leaderLine = [];
+
+    public readonly LEADER_LINE_HOST_CONTAINER = 'leader-line-host';
+
+    public readonly LEADER_LINE_PARENT_CONTAINER = 'leader-line-parent';
+
+    public readonly LEADER_LINE_HEIGHT = 2;
+
+    public readonly LEADER_LINE_REMOVE_TEMPLATE = 'removeLineTemplate';
+
+    public readonly LEADER_LINE_REMOVE_CONTAINER = 'leader-line-remove';
 
     actions: IActions[];
 
@@ -462,18 +474,35 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
         this.items.forEach((item) => {
             if (item?.scenarioAction && item?.nextScenarioAction) {
                 setTimeout(() => {
-                    this.leaderLine.push(
-                        new LeaderLine(
-                            document.getElementById(item.scenarioAction),
-                            document.getElementById(item.nextScenarioAction),
-                            'leader-line-host',
-                            'gridContainer',
-                            {
-                                size: 2,
-                                color: 'white',
-                            }
-                        )
+                    const leaderLine = new LeaderLine(
+                        document.getElementById(item.scenarioAction),
+                        document.getElementById(item.nextScenarioAction),
+                        this.LEADER_LINE_HOST_CONTAINER,
+                        this.LEADER_LINE_PARENT_CONTAINER,
+                        {
+                            size: this.LEADER_LINE_HEIGHT,
+                            color: 'white',
+                        }
                     );
+                    const removable = true; // TODO заменить на реальзый флаг
+                    if (removable) {
+                        this.removableLeaderLineIds.set(
+                            item.scenarioAction + item.nextScenarioAction,
+                            leaderLine
+                        );
+                    }
+                    // this.leaderLine.push(
+                    //     new LeaderLine(
+                    //         document.getElementById(item.scenarioAction),
+                    //         document.getElementById(item.nextScenarioAction),
+                    //         'leader-line-host',
+                    //         'gridContainer',
+                    //         {
+                    //             size: 2,
+                    //             color: 'white',
+                    //         }
+                    //     )
+                    // );
                     // this.leaderLine.forEach((value) => {
                     //     value.setInterval = setInterval(() => {
                     //         if (value?.options) {
@@ -485,6 +514,56 @@ export class WorkflowComponent extends WidgetPlatform implements OnInit, OnDestr
                 }, 100);
             }
         });
+    }
+
+    private drawRemoveIcons(): void {
+        this.removableLeaderLineIds.forEach((value: any, key: string) => {
+            this.addRemoveIconToLine(key);
+        });
+    }
+
+    private addRemoveIconToLine(lineId: string): void {
+        // формируем id для будущего элемента с иконкой
+        const iconId = lineId + '-cross';
+
+        if (document.getElementById(iconId) || !document.getElementById(lineId)) {
+            return;
+        }
+
+        // клонируем макет верстки для отображения иконки и подставляем сформированный id
+        const clone = document.getElementById(this.LEADER_LINE_REMOVE_TEMPLATE).cloneNode(true);
+        clone['id'] = iconId;
+        document.getElementById(this.LEADER_LINE_HOST_CONTAINER).appendChild(clone);
+
+        // получаем элемент иконки, контейнера стрелки, svg dom стрелки
+        const iconNode = document.getElementById(iconId);
+        const lineNode = document.getElementById(lineId);
+        const arrowNode = document.querySelector('#' + lineId + ' g use');
+
+        // рассчитываем смещение позиции стрелки внутри viewBox svg
+        // вертикальное смещение так же зависит от высоты самиз элементов
+        const horizontalOffset =
+            arrowNode.getBoundingClientRect().x - lineNode.getBoundingClientRect().x;
+        const verticalOffset =
+            parseInt(iconNode.style.height.slice(0, -2), 10) / 2 -
+            lineNode.getBoundingClientRect().height / 2;
+
+        iconNode.style.left =
+            (parseInt(lineNode.style.left.slice(0, -2), 10) + horizontalOffset).toString() + 'px';
+        iconNode.style.top =
+            (
+                parseInt(lineNode.style.top.slice(0, -2), 10) -
+                verticalOffset -
+                this.LEADER_LINE_HEIGHT / 2
+            ).toString() + 'px';
+        iconNode.addEventListener('click', ($event: Event) => {
+            this.onRemoveIconClick(lineId, iconId);
+        });
+    }
+
+    private onRemoveIconClick(lineId: string, iconId: string): void {
+        document.getElementById(lineId).remove();
+        document.getElementById(iconId).remove();
     }
 
     putConnect(previousScenarioAction: string, id: string): void {
