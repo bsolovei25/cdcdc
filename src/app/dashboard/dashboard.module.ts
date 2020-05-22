@@ -141,7 +141,6 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 
-import { OverlayModule } from '@angular/cdk/overlay';
 import { AdminAdImportComponent } from './widgets/admin-panel/admin-ad-import/admin-ad-import.component';
 import { AddReportFileComponent } from './widgets/report-server-configurator/add-report-file/add-report-file.component';
 import { TankCalibrationTableComponent } from './widgets/tank-calibration-table/tank-calibration-table.component';
@@ -617,7 +616,6 @@ import { OilControlTowerComponent } from './widgets/oil-control/components/oil-c
         NgxMatTimepickerModule,
         NgxMatNativeDateModule,
         NgxMatMomentModule,
-        OverlayModule,
         MatDialogModule,
         MatChipsModule,
         MatIconModule,
