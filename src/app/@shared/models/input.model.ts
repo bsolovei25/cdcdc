@@ -6,12 +6,19 @@ export interface IInputIcon {
     secState?: string;
 }
 
+export interface IInputMask {
+    prefix: string;
+    mask: string;
+    showMaskTyped: boolean;
+}
+
 export interface IInputOptions {
     type: string;
     state: InputStatesType;
     placeholder: string;
     isMovingPlaceholder: boolean;
     icon?: IInputIcon;
+    mask?: IInputMask;
 }
 
 export type InputStatesType = 'normal' | 'rounded' | 'warning' | 'danger';
